@@ -1,0 +1,91 @@
+@import url("resetar.css");
+@import url("template.css");
+
+
+ul {
+    width: 100%;
+    max-width: 1000px;
+    min-height: calc(100vh - 200px);
+    margin-top: 40px;
+}
+ul li {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+}
+ul li.dado {
+    background-color: #FFF;
+    padding: 10px 0 10px 10px;
+    margin-top: 10px;
+}
+ul li.dado:hover {
+    background-color: #EEE;
+}
+ul li .texto {
+    font-size: 1.4rem;
+    line-height: 1.5em;
+}
+ul li .nome {
+    flex-grow: 1;
+    flex-basis: 0%;
+}
+ul li .cpf {
+    width: 150px;
+}
+ul li .email {
+    width: 200px;
+}
+ul li .data {
+    width: 100px;
+}
+ul li .status {
+    width: 80px;
+}
+ul li .editar,
+ul li .deletar {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.botao_add {
+    background-color: var(--cor);
+    color: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.4rem;
+    padding: 0 20px;
+    border-radius: 20px;
+    z-index: 100;
+}
+
+.pagina {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    align-items: center;
+}
+.pagina p {
+    max-width: 1000px;
+    font-size: 1.4rem;
+    color: #999;
+    margin-right: 20px;
+    padding-right: 20px;
+    border-right: 1px solid #CCC;
+}
+.pagina a {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    border-radius: 15px;
+    background-color: #EEE;
+    font-size: 1.4rem;
+    margin-right: 10px;
+}
