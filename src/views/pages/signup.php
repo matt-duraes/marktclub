@@ -52,27 +52,27 @@
             <div class="permissao">
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_login" name="permissao[]" value="login">
-                    <div class="check"><img src="images/check.svg"></div>
+                    <div class="check"><img src="<?=$base;?>/assets/images/check.svg"></div>
                     <label for="input_permissao_login">Login</label>
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_usuario_add" name="permissao[]" value="usuario_add">
-                    <div class="check"><img src="images/check.svg"></div>
+                    <div class="check"><img src="<?=$base;?>/assets/images/check.svg"></div>
                     <label for="input_permissao_usuario_add">Add usuário</label>
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_usuario_editar" name="permissao[]" value="usuario_editar">
-                    <div class="check"><img src="images/check.svg"></div>
+                    <div class="check"><img src="<?=$base;?>/assets/images/check.svg"></div>
                     <label for="input_permissao_usuario_editar">Editar usuário</label>
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_usuario_deletar" name="permissao[]" value="usuario_deletar">
-                    <div class="check"><img src="images/check.svg"></div>
+                    <div class="check"><img src="<?=$base;?>/assets/images/check.svg"></div>
                     <label for="input_permissao_usuario_deletar">Deletar usuário</label>
                 </div>
             </div>
-            
-            <input type="submit" value="CADASTRAR">
+            <button>Enviar</button>
+            <!-- <input type="submit" value="CADASTRAR"> -->
         </form>
     </div>
 </body>
