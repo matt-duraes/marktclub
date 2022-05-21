@@ -55,9 +55,19 @@ class LoginController extends Controller {
 
        if($name && $email && $password && $cpf){
 
-            
+                $status = $_POST['status'];
+                $permissao = isset($_POST['permissao']) ? $_POST['permissao'] : null;
+                $permissoes = $_POST['permissao'];
+                if($status == 'ativo'){
+                    $status = 1;  
+                } else {
+                    $status = 0;
+                }
+                $teste = implode("," , $permissao);
+                $permissao = $teste;
+
             if(LoginHandler::emailExists($email) === false){
-                $token = LoginHandler::addUser($name, $email, $password, $cpf);
+                $token = LoginHandler::addUser($name, $email, $password, $cpf, $status, $permissao);
                 $_SESSION['token'] = $token;
                 $this->redirect('/');
             } else {
@@ -67,7 +77,10 @@ class LoginController extends Controller {
        }else{   
            $this->redirect('/cadastro');
        }
+
+       
+
    }
    
-
+   
 }

@@ -40,42 +40,38 @@
                 <label for="input_senha">Senha:</label>
                 <input type="password" id="input_senha" name="password" placeholder="Digite uma senha">
             </div>
-
-            <!-- <div class="select">
+            <div>
                 <label for="input_status">Status</label>
                 <select name="status" id="input_status">
-                    <option value="">Escolha uma opção</option>
                     <option value="ativo">Ativo</option>
                     <option value="inativo">Inativo</option>
                 </select>
-                <div class="seta"><img src="base/assets/images/seta.svg" alt=""></div>
-            </div> -->
-<!-- 
-            <h2>Permissão</h2> -->
-            <!-- <div class="permissao">
+            </div>
+            </br> </br>
+            <h2>Permissão</h2>
+            <div class="permissao">
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_login" name="permissao[]" value="login">
-                    <div class="check"><img src="base/assets/images/check.svg"></div>
+                    <div class="check"><img src="images/check.svg"></div>
                     <label for="input_permissao_login">Login</label>
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_usuario_add" name="permissao[]" value="usuario_add">
-                    <div class="check"><img src="base>/assets/images/check.svg"></div>
+                    <div class="check"><img src="images/check.svg"></div>
                     <label for="input_permissao_usuario_add">Add usuário</label>
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_usuario_editar" name="permissao[]" value="usuario_editar">
-                    <div class="check"><img src="base/assets/images/check.svg"></div>
+                    <div class="check"><img src="images/check.svg"></div>
                     <label for="input_permissao_usuario_editar">Editar usuário</label>
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" id="input_permissao_usuario_deletar" name="permissao[]" value="usuario_deletar">
-                    <div class="check"><img src="<base>/assets/images/check.svg"></div>
+                    <div class="check"><img src="images/check.svg"></div>
                     <label for="input_permissao_usuario_deletar">Deletar usuário</label>
                 </div>
-            </div> -->
-
-            <!-- <button>SALVAR</button> -->
+            </div>
+            
             <input type="submit" value="CADASTRAR">
         </form>
     </div>

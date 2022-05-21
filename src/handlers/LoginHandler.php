@@ -22,7 +22,9 @@ class LoginHandler{
                 $loggedUser = new User();
                 $loggedUser->id = $data['id'];
                 $loggedUser->email = $data['email'];
-                $loggedUser->name = $data['name'];  
+                $loggedUser->name = $data['name']; 
+                $loggedUser->permissao = $data['permissao'];
+                $loggedUser->status = $data['status']; 
 
 
 
@@ -55,7 +57,7 @@ class LoginHandler{
         return $user ? true : false;
     }
 
-    public static function addUser($name, $email, $password, $cpf){
+    public static function addUser($name, $email, $password, $cpf, $status, $permissao){
         $hash = password_hash($password, PASSWORD_DEFAULT);
         //gera token de login
         $token = md5(time().rand(0,9999).time());
@@ -65,7 +67,10 @@ class LoginHandler{
             'password' => $hash,
             'name' => $name,
             'cpf' => $cpf,
-            'token' => $token
+            'token' => $token,
+            'status' => $status,
+            'permissao'=> $permissao
+            
         ])->execute();
         return $token;
     }
