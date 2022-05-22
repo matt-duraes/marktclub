@@ -70,4 +70,9 @@ class LoginHandler{
         return $token;
     }
 
+
+     
+    //EDIT  USUÁRIOS
+   
+
 }

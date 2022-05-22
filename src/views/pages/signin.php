@@ -28,7 +28,7 @@
             <div class="input">
                 <input placeholder="Digite sua senha" class="input" type="password" name="password" />
             </div>
-            <input class="button" type="submit" value="Acessar o sistema" />
+            <button>Acessar o sistema</button>
         </form>
     </div>
 </body>

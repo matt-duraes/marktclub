@@ -16,20 +16,19 @@ class HomeController extends Controller {
         }
     }
     public function index() {
-        $offset = 0;
+        // $offset =  $_GET['p'];
+        $offset= 0;
         $limit = 4;
         $user = User::select()->limit($offset, $limit)->execute();
         $total = User::select()->count();
         $pages = ceil(($total / $limit));
-        
-
         $this->render('home', [
             'loggedUser' => $this->loggedUser,
             'user' => $user,
             'total' => $total,
             'limit' => $limit,
             'pages' => $pages,
-            'offset' => $offset
+            'offset' => $offset,
         ]);
     }
   

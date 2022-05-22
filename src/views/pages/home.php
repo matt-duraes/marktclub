@@ -27,32 +27,28 @@
                 <div class="texto email"><?=$user['email'];?></div>
                 <div class="texto data">10/10/2021</div>
                 <div class="texto status"><?=$user['status'];?></div>
-                <div class="editar"><a href="form.php"><img src="<?=$base;?>/assets/images/editar.svg"></a></div>
+                <?php if(in_array('usuario_editar', $permissoes)):?>
+                <div class="editar"><a href="<?=$base;?>/usuario/<?=$user['id']?>/editar"><img src="<?=$base;?>/assets/images/editar.svg"></a></div>
+                <?php endif;?>
+                <?php if(in_array('usuario_deletar', $permissoes)):?>
                 <div class="deletar">
-                    <a href="">
-                        <img src="<?=$base;?>/assets/deletar.svg">
+                    <a href="<?=$base;?>/usuario/<?=$user['id']?>/excluir" onclick="return confirm('Deseja excluir?')">
+                        <img src="<?=$base;?>/assets/images/deletar.svg">
                     </a>
                 </div>
+                <?php endif;?>
             </li>
             <?php endforeach?>
         </ul>
         <div class="pagina">
-            
+                
                 <p class="resultado"> <?php echo $total?> resultados</p>
-                <form method="post"> 
-                       <a href=""><input type="submit" name="anterior" value="Anterior"/></a>
-                <a><input type="submit" name="proxima" value="Proxima"/></a>
-            </form>
-            <?php 
-                if(isset_($_POST['anterior'])){
-                    $offset = $offset - 5;
-                }
-                if(isset_($_POST['proxima'])){
-                    $offset = $offset + 5;
-                }
-
-            ?>
             
+             
+                <a href=""><input type="submit" name="anterior" value="Anterior"/></a>
+                <a><input type="submit" name="proxima" value="Proxima"/></a>
+                
+
             
         </div>
 

@@ -6,7 +6,7 @@ class Config{
 
     const DB_DRIVER = "mysql";
     const DB_HOST = 'localhost';
-    const DB_DATABASE = 'markt2';
+    const DB_DATABASE = 'marktclub2';
     const DB_USER = 'root';
     const DB_PASS = '';
 
