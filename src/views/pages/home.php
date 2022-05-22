@@ -1,6 +1,15 @@
 <?= $render('header', ['loggedUser'=>$loggedUser]);?>
     <?php echo $loggedUser->name;?>
     <?php echo $loggedUser->permissao; ?>
+
+       
+        <?php $permissoes = explode(',', $loggedUser->permissao);?>
+        <?php if(in_array('usuario_add', $permissoes)):?>
+            <a href="<?=$base;?>/cadastro" class='botao_add'>Adicionar novo</a>
+        
+        <?php endif;?>
+        
+
         <ul>
             <li class="titulo">
                 <div class="texto nome">Nome</div>
@@ -11,47 +20,43 @@
                 <div class="editar"></div>
                 <div class="deletar"></div>
             </li>
-
+            <?php foreach($user as $user):?>    
             <li class="dado">
-                <div class="texto nome">Nome do usuário</div>
-                <div class="texto cpf">000.000.000-00</div>
-                <div class="texto email">email@dominio.com.br</div>
+                <div class="texto nome"><?=$user['name'];?></div>
+                <div class="texto cpf"><?=$user['cpf'];?></div>
+                <div class="texto email"><?=$user['email'];?></div>
                 <div class="texto data">10/10/2021</div>
-                <div class="texto status">Ativo</div>
+                <div class="texto status"><?=$user['status'];?></div>
                 <div class="editar"><a href="form.php"><img src="<?=$base;?>/assets/images/editar.svg"></a></div>
-                <div class="deletar"><img src="<?=$base;?>/assets/deletar.svg"></div>
+                <div class="deletar">
+                    <a href="">
+                        <img src="<?=$base;?>/assets/deletar.svg">
+                    </a>
+                </div>
             </li>
-            <li class="dado">
-                <div class="texto nome">Nome do usuário</div>
-                <div class="texto cpf">000.000.000-00</div>
-                <div class="texto email">email@dominio.com.br</div>
-                <div class="texto data">10/10/2021</div>
-                <div class="texto status">Ativo</div>
-                <div class="editar"><a href="form.php"><img src="<?=$base;?>/assetsimages/editar.svg"></a></div>
-                <div class="deletar"><img src="<?=$base;?>/assets/images/deletar.svg"></div>
-            </li>
-            <li class="dado">
-                <div class="texto nome">Nome do usuário</div>
-                <div class="texto cpf">000.000.000-00</div>
-                <div class="texto email">email@dominio.com.br</div>
-                <div class="texto data">10/10/2021</div>
-                <div class="texto status">Ativo</div>
-                <div class="editar"><a href="form.php"><img src="<?=$base;?>/assets/images/editar.svg"></a></div>
-                <div class="deletar"><img src="<?=$base;?>/assets/images/deletar.svg"></div>
-            </li>
+            <?php endforeach?>
         </ul>
-        <?php 
-        $permissoes = explode(',', $loggedUser->permissao);
-        if(in_array('usuario_add', $permissoes)){
-            echo '<a href="<?=$base;?>/cadastro" class="botao_add">Adicionar novo</a>';
-        };
-        ?>
         <div class="pagina">
-            <p class="resultado">4 resultados</p>
-            <a href="">Anterior</a>
-            <a href="">Próxima</a>
+            
+                <p class="resultado"> <?php echo $total?> resultados</p>
+                <form method="post"> 
+                       <a href=""><input type="submit" name="anterior" value="Anterior"/></a>
+                <a><input type="submit" name="proxima" value="Proxima"/></a>
+            </form>
+            <?php 
+                if(isset_($_POST['anterior'])){
+                    $offset = $offset - 5;
+                }
+                if(isset_($_POST['proxima'])){
+                    $offset = $offset + 5;
+                }
+
+            ?>
+            
+            
         </div>
-       
+
+                
     </div>
 </body>
 

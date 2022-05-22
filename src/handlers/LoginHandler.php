@@ -2,10 +2,13 @@
 namespace src\handlers;
 use \src\models\User;
 
+
 class LoginHandler{
-    //ver se está logado
+
+
+    //VERIFICA SE O USUÁRIO ESTÁ LOGADO E GUARDA OS DADOS NA SESSION
     public static function checkLogin(){
-            //pegando o token e conferindo se ele existe
+        //pegando o token e conferindo se ele existe
         if(!empty($_SESSION['token'])){
             //guardando token de acesso numa variável se ele existe
             $token =  $_SESSION['token'];
@@ -13,34 +16,24 @@ class LoginHandler{
             $data = User::select()->where('token', $token)->one();//execute()
             //se achar os dados
             if(count($data) > 0){
-                //retorna a base do usuário
-                /*  com get e set
-                $loggedUser->setId($data['id']);s
-                $loggedUser->setEmail($data['email']);
-                $loggedUser->setName($data['name']);
-                */
                 $loggedUser = new User();
                 $loggedUser->id = $data['id'];
                 $loggedUser->email = $data['email'];
                 $loggedUser->name = $data['name']; 
                 $loggedUser->permissao = $data['permissao'];
                 $loggedUser->status = $data['status']; 
-
-
-
                 return $loggedUser;
             } 
         }
         return false;
     }
-    public static function verifyLogin($email, $password){ 
-        //verifica se email enviado é msm que consta no banco
-        $user = User::select()->where('email', $email)->one();
 
+    //VERIFICA SE OS DADOS PARA LOGAR ESTÃO CORRETOS
+    public static function verifyLogin($email, $password){ 
+        $user = User::select()->where('email', $email)->one();
         if($user){
             if(password_verify($password, $user['password'])){
                $token = md5(time().rand(0,9999).time());
-
                User::update()
                     ->set('token',$token)
                     ->where('email', $email)
@@ -51,12 +44,14 @@ class LoginHandler{
         return false;
         
     }
+    //VERIFICA SE O EMAIL JÁ EXISTE NO BANCO
     public static function emailExists($email){
-        //verifica se email enviado é msm que consta no banco
         $user = User::select()->where('email', $email)->one();
         return $user ? true : false;
     }
-
+    
+    
+    //ADICIONA NOVOS USUÁRIOS
     public static function addUser($name, $email, $password, $cpf, $status, $permissao){
         $hash = password_hash($password, PASSWORD_DEFAULT);
         //gera token de login
@@ -74,4 +69,5 @@ class LoginHandler{
         ])->execute();
         return $token;
     }
+
 }
