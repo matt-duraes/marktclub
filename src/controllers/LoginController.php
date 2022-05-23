@@ -6,6 +6,7 @@ use \src\handlers\LoginHandler;
 use \src\models\User;
 
 class LoginController extends Controller {
+  
     public function signin(){
         $flash = '';
         if(!empty($_SESSION['flash'])){

@@ -14,3 +14,5 @@ $router->get('/usuario/{id}/editar', 'LoginController@edit');
 $router->post('/usuario/{id}/editar', 'LoginController@editAction');
 
 $router->get('/usuario/{id}/excluir', 'LoginController@del');
+
+$router->get('/pesquisa', 'SearchController@index');

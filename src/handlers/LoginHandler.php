@@ -69,10 +69,20 @@ class LoginHandler{
         ])->execute();
         return $token;
     }
+    public static function searchUser($term){
+        $users=[];
+        $data = User::select()->where('name', 'like', '%'.$term.'%')->get();
 
-
-     
-    //EDIT  USUÁRIOS
-   
-
+        if($data){
+            foreach($data as $user){
+                $newUser = new User();
+                $newUser-> id = $user['id'];
+                $newUser-> name = $user['name'];
+                $newUser-> email = $user['email'];
+                
+                $users[] = $newUser;
+            }
+        }
+        return $users;
+    } 
 }

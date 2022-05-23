@@ -1,8 +1,5 @@
-<?= $render('header', ['loggedUser'=>$loggedUser]);?>
-    <?php echo $loggedUser->name;?>
-    <?php echo $loggedUser->permissao; ?>
 
-       
+<?= $render('header', ['loggedUser'=>$loggedUser]);?>
         <?php $permissoes = explode(',', $loggedUser->permissao);?>
         <?php if(in_array('usuario_add', $permissoes)):?>
             <a href="<?=$base;?>/cadastro" class='botao_add'>Adicionar novo</a>

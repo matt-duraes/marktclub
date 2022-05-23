@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -10,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=$base;?>/assets/css/index.css">
+   <link rel="stylesheet" href="<?=$base;?>/assets/css/pesquisa.css"> 
 </head>
 
 <body>
@@ -23,10 +24,25 @@
                 </label>
             <button><i><img src="<?=$base;?>/assets/images/lupa.svg"></i></button>    
             </form>
-            <?php echo $loggedUser->name;?>
-
             <a href="<?=$base;?>">
                 <figure></figure>
             </a>
-            <a class="sair" href="<?=$base;?>/login">sair</a>
+            <a class="sair" href="<?=$base;?>/login.php">sair</a>
         </header>
+    
+    <ul>
+            <li class="titulo">
+                <div class="texto nome">Nome</div>
+            </li>
+            <li class="titulo">Você pesquisou por:  <?php echo $searchTerm?></li>
+            <?php foreach($users as $user):?>     
+            <li class="dado">
+            <div class="texto nome"><?=$user->name;?></div>
+               
+            </li>
+            <?php endforeach?>
+        </ul>
+</body>
+
+</html>
+

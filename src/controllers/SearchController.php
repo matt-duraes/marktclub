@@ -5,7 +5,8 @@ use \core\Controller;
 use \src\handlers\LoginHandler;
 use \src\models\User;
 
-class HomeController extends Controller {
+
+class SearchController extends Controller {
     private $loggedUser;
      //conferir se está logado
      public function __construct(){
@@ -16,19 +17,20 @@ class HomeController extends Controller {
     }
    
     public function index() {
-        // $offset =  $_GET['p'];
-        $offset= 0;
-        $limit = 4;
-        $user = User::select()->limit($offset, $limit)->execute();
-        $total = User::select()->count();
-        $pages = ceil(($total / $limit));
-        $this->render('home', [
+        //$searchTerm = filter_input(INPUT_GET, 'search');
+        $searchTerm = filter_input(INPUT_GET, 'search');
+
+        if(empty($searchTerm)){
+            $this->redirect('/');
+        }
+        $users = LoginHandler::searchUser($searchTerm);
+        
+        
+
+        $this->render('search',[
             'loggedUser' => $this->loggedUser,
-            'user' => $user,
-            'total' => $total,
-            'limit' => $limit,
-            'pages' => $pages,
-            'offset' => $offset,
+            'searchTerm' => $searchTerm,
+            'users'=>$users
         ]);
     }
   
