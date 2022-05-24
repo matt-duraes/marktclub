@@ -27,7 +27,12 @@ class LoginHandler{
         }
         return false;
     }
+    public static function exit(){
+        $token = false;
 
+    }
+        
+    
     //VERIFICA SE OS DADOS PARA LOGAR ESTÃO CORRETOS
     public static function verifyLogin($email, $password){ 
         $user = User::select()->where('email', $email)->one();

@@ -17,12 +17,14 @@
 
     <div id="site">
         <header>
-            <a class="voltar" href="index.php">
-                <img src="assets/images/voltar.svg">
+            <a class="voltar" href="<?=$base?>">
+                <img src="<?=$base?>/assets/images/voltar.svg">
             </a>
             <h1 class="total">Salvar novo usuário</h1>
-            <figure></figure>
-            <a class="sair" href="login.php">sair</a>
+            <a href="<?=$base?>">
+                <figure></figure>
+            </a>
+            <a class="sair" href="<?=$base?>/sair">sair</a>
         </header>
         <form action="<?=$base;?>/cadastro" class="cadastro" method="POST">
             <div class="input">

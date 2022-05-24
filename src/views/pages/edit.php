@@ -16,8 +16,8 @@
 <body>
     <div id="site">
         <header>
-            <a class="voltar" href="index.php">
-                <img src="assets/images/voltar.svg">
+            <a class="voltar" href="<?=$base?>">
+                <img src="<?=$base?>/assets/images/voltar.svg">
             </a>
             <h1 class="total">Editar usuário</h1>
             <figure></figure>

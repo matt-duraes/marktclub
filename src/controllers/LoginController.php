@@ -40,6 +40,17 @@ class LoginController extends Controller {
     }
    public function signup(){
         $flash = '';
+        $this->loggedUser = LoginHandler::checkLogin();
+        if($this->loggedUser === false){
+            $this->redirect('/login');
+        } 
+
+        $permissoes = explode(',', $this->loggedUser->permissao);
+        if(!in_array('usuario_add', $permissoes)){
+            $this->redirect('/');
+        }
+        
+       
         if(!empty($_SESSION['flash'])){
             $flash = $_SESSION['flash'];
             $_SESSION['flash'] = '';
@@ -70,7 +81,7 @@ class LoginController extends Controller {
 
             if(LoginHandler::emailExists($email) === false){
                 $token = LoginHandler::addUser($name, $email, $password, $cpf, $status, $permissao);
-                $_SESSION['token'] = $token;
+                
                 $this->redirect('/');
             } else {
                 $_SESSION['flash'] = 'Email já cadastrado!';
@@ -80,13 +91,16 @@ class LoginController extends Controller {
             $this->redirect('/cadastro');
         }
     }
+
+    
     public function edit($args){
         $user= User::select()->where('id', $args['id'])->one();
-        print_r($user);
         $this->render('edit',[
             'user' => $user
         ]);
     }
+
+
     public function editAction($args){
        $email= filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
        $name = filter_input(INPUT_POST, 'name');
@@ -119,6 +133,14 @@ class LoginController extends Controller {
     public function del($args){
         User::delete()->where('id', $args['id'])->execute();  
         $this->redirect('/');
+    }
+    public function sair(){
+        $this->loggedUser = LoginHandler::exit();
+        if($this->loggedUser === false){
+            $this->redirect('/login');
+        }
+      
+    
     }
    
    

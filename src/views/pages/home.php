@@ -23,7 +23,17 @@
                 <div class="texto cpf"><?=$user['cpf'];?></div>
                 <div class="texto email"><?=$user['email'];?></div>
                 <div class="texto data">10/10/2021</div>
-                <div class="texto status"><?=$user['status'];?></div>
+                <div class="texto status">
+                 <?php if($user['status'] == 1):?>
+                    Ativo
+                    <?php else:?>
+                    Inativo
+                 <?php endif;?>
+                  
+                </div>
+            
+              
+                
                 <?php if(in_array('usuario_editar', $permissoes)):?>
                 <div class="editar"><a href="<?=$base;?>/usuario/<?=$user['id']?>/editar"><img src="<?=$base;?>/assets/images/editar.svg"></a></div>
                 <?php endif;?>

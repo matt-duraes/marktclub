@@ -28,5 +28,5 @@
             <a href="<?=$base;?>">
                 <figure></figure>
             </a>
-            <a class="sair" href="<?=$base;?>/login">sair</a>
+            <a class="sair" href="<?=$base;?>/sair">sair</a>
         </header>
