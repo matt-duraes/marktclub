@@ -17,11 +17,21 @@ class HomeController extends Controller {
    
     public function index() {
         // $offset =  $_GET['p'];
-        $offset= 0;
         $limit = 4;
-        $user = User::select()->limit($offset, $limit)->execute();
+        $offset =  0;
+      
+        
         $total = User::select()->count();
         $pages = ceil(($total / $limit));
+        
+         $atual = 1;
+         if(!empty($_GET['p'])){
+             $atual = intval($_GET['p']);
+         }
+        $offset = ($atual * $limit)-$limit;
+
+        $user = User::select()->limit($offset, $limit)->execute();
+
         $this->render('home', [
             'loggedUser' => $this->loggedUser,
             'user' => $user,

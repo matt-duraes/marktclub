@@ -54,7 +54,7 @@
             <h2>Permissão</h2>
             <div class="permissao">
                 <div class="checkbox">
-                    <input type="checkbox" id="input_permissao_login" name="permissao[]" value="login">
+                    <input type="checkbox" checked id="input_permissao_login" name="permissao[]" value="login">
                     <div class="check"><img src="<?=$base;?>/assets/images/check.svg"></div>
                     <label for="input_permissao_login">Login</label>
                 </div>

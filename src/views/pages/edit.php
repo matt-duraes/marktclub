@@ -21,7 +21,7 @@
             </a>
             <h1 class="total">Editar usuário</h1>
             <figure></figure>
-            <a class="sair" href="login.php">sair</a>
+            <a class="sair" href="<?=$base;?>/sair">sair</a>
         </header>
         <form action="<?=$base;?>/usuario/<?=$user['id'];?>/editar" class="cadastro" method="POST">
             <div class="input">
@@ -47,7 +47,7 @@
             <h2>Permissão</h2>
             <div class="permissao">
                 <div class="checkbox">
-                    <input type="checkbox" id="input_permissao_login" name="permissao[]" value="login">
+                    <input type="checkbox" checked id="input_permissao_login" name="permissao[]" value="login">
                     <div class="check"><img src="<?=$base;?>/assets/images/check.svg"></div>
                     <label for="input_permissao_login">Login</label>
                 </div>

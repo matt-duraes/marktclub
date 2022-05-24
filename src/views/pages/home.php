@@ -12,7 +12,6 @@
                 <div class="texto nome">Nome</div>
                 <div class="texto cpf">CPF</div>
                 <div class="texto email">E-MAIL</div>
-                <div class="texto data">DATA</div>
                 <div class="texto status">STATUS</div>
                 <div class="editar"></div>
                 <div class="deletar"></div>
@@ -22,18 +21,13 @@
                 <div class="texto nome"><?=$user['name'];?></div>
                 <div class="texto cpf"><?=$user['cpf'];?></div>
                 <div class="texto email"><?=$user['email'];?></div>
-                <div class="texto data">10/10/2021</div>
                 <div class="texto status">
                  <?php if($user['status'] == 1):?>
                     Ativo
                     <?php else:?>
                     Inativo
                  <?php endif;?>
-                  
-                </div>
-            
-              
-                
+                </div>    
                 <?php if(in_array('usuario_editar', $permissoes)):?>
                 <div class="editar"><a href="<?=$base;?>/usuario/<?=$user['id']?>/editar"><img src="<?=$base;?>/assets/images/editar.svg"></a></div>
                 <?php endif;?>
@@ -51,12 +45,11 @@
                 
                 <p class="resultado"> <?php echo $total?> resultados</p>
             
-             
-                <a href=""><input type="submit" name="anterior" value="Anterior"/></a>
-                <a><input type="submit" name="proxima" value="Proxima"/></a>
-                
-
-            
+                <?php for($q=1;$q<=$pages;$q++):?>
+                <a href="<?php $base;?>?p=<?php echo $q;?>">
+                    <?php echo $q;?>
+                </a>
+            <?php endfor;?>
         </div>
 
                 
