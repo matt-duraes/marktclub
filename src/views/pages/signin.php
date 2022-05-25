@@ -21,6 +21,7 @@
         </figure>
         <form action="<?=$base;?>/login" method="POST">
             <legend>FAÇA SEU LOGIN</legend>
+          
             <p>Digite seu Email no campo abaixo e clique em logar para fazer seu login.</p>
 
             <div class="input">

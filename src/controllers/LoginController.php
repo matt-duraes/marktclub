@@ -41,6 +41,7 @@ class LoginController extends Controller {
    public function signup(){
         $flash = '';
         $this->loggedUser = LoginHandler::checkLogin();
+        //daqui
         if($this->loggedUser === false){
             $this->redirect('/login');
         } 
@@ -49,6 +50,7 @@ class LoginController extends Controller {
         if(!in_array('usuario_add', $permissoes)){
             $this->redirect('/');
         }
+        //até aqui
         
        
         if(!empty($_SESSION['flash'])){

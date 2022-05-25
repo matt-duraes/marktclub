@@ -23,7 +23,7 @@ class LoginHandler{
                 $loggedUser->permissao = $data['permissao'];
                 $loggedUser->status = $data['status']; 
                 return $loggedUser;
-            } 
+            }   
         }
         return false;
     }

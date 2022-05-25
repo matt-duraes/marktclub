@@ -7,16 +7,15 @@ use \src\models\User;
 
 class HomeController extends Controller {
     private $loggedUser;
-     //conferir se está logado
-     public function __construct(){
-        $this->loggedUser = LoginHandler::checkLogin();
-        if($this->loggedUser === false){
-            $this->redirect('/login');
-        }
-    }
+    
    
     public function index() {
+        $this->loggedUser = LoginHandler::checkLogin();
+        if($this->loggedUser === false){
+           $this->redirect('/login');
+       }
         // $offset =  $_GET['p'];
+       
         $limit = 4;
         $offset =  0;
       
