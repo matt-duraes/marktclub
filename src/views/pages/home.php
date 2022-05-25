@@ -12,6 +12,7 @@
                 <div class="texto nome">Nome</div>
                 <div class="texto cpf">CPF</div>
                 <div class="texto email">E-MAIL</div>
+                <div class="texto status"></div>
                 <div class="texto status">STATUS</div>
                 <div class="editar"></div>
                 <div class="deletar"></div>
@@ -21,6 +22,7 @@
                 <div class="texto nome"><?=$user['name'];?></div>
                 <div class="texto cpf"><?=$user['cpf'];?></div>
                 <div class="texto email"><?=$user['email'];?></div>
+                <div class="texto data "></div>
                 <div class="texto status">
                  <?php if($user['status'] == 1):?>
                     Ativo
@@ -56,4 +58,3 @@
     </div>
 </body>
 
-</html>

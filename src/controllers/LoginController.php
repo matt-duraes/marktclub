@@ -135,12 +135,7 @@ class LoginController extends Controller {
         $this->redirect('/');
     }
     public function sair(){
-        $this->loggedUser = LoginHandler::exit();
-        if($this->loggedUser === false){
-            $this->redirect('/login');
-        }
-      
-    
+        $this->redirect('/login');
     }
    
    
