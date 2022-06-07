@@ -1,0 +1,62 @@
+/* MENU ESQUERDA */
+
+.menu_padrao_esquerdo {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, .7);
+    transition: opacity .3s ease-out, left .5s ease-out;
+    display: none;
+}
+.menu_padrao_esquerdo.menu_padrao_esquerdo_abrir {
+    opacity: 1;
+    left: 0;
+}
+.menu_padrao_esquerdo .conteudo {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    direction: rtl;
+    background-color: #FFF;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: left .3s ease-out;
+}
+.menu_padrao_esquerdo.menu_padrao_esquerdo_abrir .conteudo {
+    left: 0 !important;
+}
+
+/* MENU DIRETA */
+
+.menu_padrao_direito {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+.menu_padrao_direito.menu_padrao_direito_abrir {
+    opacity: 1;
+}
+.menu_padrao_direito .conteudo {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    background-color: #FFF;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: right .3s ease-out;
+}
+.menu_padrao_direito.menu_padrao_direito_abrir .conteudo {
+    right: 0 !important;
+}

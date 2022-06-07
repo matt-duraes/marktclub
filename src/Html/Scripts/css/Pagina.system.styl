@@ -1,0 +1,50 @@
+#bloco_fw_pagina
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    overflow: hidden
+    background-color: rgba(0,0,0,.7)
+    opacity: 0
+    display: none
+    z-index: 10000
+    transition: opacity .3s ease-out
+    &.fw_pagina_animacao
+        opacity: 1
+    &::after
+        content: " "
+        width: 0
+        height: 4px
+        position: absolute
+        top: 0
+        left: 0
+        background: #FFF
+        animation: fw_pagina_carregando 3s ease-in-out infinite
+        display: none
+    &.fw_pagina_carregando::after
+        display: block
+#bloco_fw_pagina .fw_pagina_conteudo
+    width: 100%
+    position: absolute
+    top: -300px
+    opacity: 0
+    transition: opacity .3s ease-out, top .3s ease-out
+    display: flex
+    flex-direction: column
+    align-items: center
+#bloco_fw_pagina.fw_pagina_animacao_conteudo .fw_pagina_conteudo
+    top: 0
+    opacity: 1
+.fw_pagina_body
+    overflow: hidden !important
+
+@keyframes fw_pagina_carregando
+    0%
+        width: 0
+        left: 0
+    50%
+        width: 100%
+        left: 0
+    100%
+        left: 100vw

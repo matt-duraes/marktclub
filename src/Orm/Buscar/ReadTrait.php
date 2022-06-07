@@ -1,0 +1,325 @@
+<?php
+
+namespace ORM\Buscar;
+
+use PDO;
+use stdClass;
+use Erro\Excecao;
+use PDOStatement;
+
+trait ReadTrait
+{
+    protected function paginacaoZero()
+    {
+        return (object)[
+            'lista' => [],
+            'registro' => (object) [
+                'inicio' => 0,
+                'final' => 0,
+                'atual' => 0,
+                'total' => 0
+            ],
+            'pagina' => (object) [
+                'total' => 0,
+                'atual' => 0,
+                'paginacao' => []
+            ],
+        ];
+    }
+    protected function contar(array $where = [])
+    {
+        if ($where) {
+            $this->where($where);
+        }
+
+        $whereDado = $this->ormConverterCondicaoParaString($this->_whereDado);
+        $where = !empty($whereDado) ? ' WHERE ' . $whereDado : '';
+
+        $query = $this->ormExecute('SELECT COUNT(*) FROM `' . $this->_tabelaAtual . '`' . $where, $this->_condicaoValue);
+        if (!$query instanceof PDOStatement) {
+            mensagemErro(
+                titulo: 'Erro na contagem!',
+                mensagem: 'Ocorreu um erro ao contar os registros.',
+                localhost: is_string($query) ? $query : 'Ocorreu um erro ao contar os registros.'
+            );
+        }
+        $this->ormResetarOrm();
+        return $query->fetchColumn();
+    }
+
+    /**
+     * Verifica se um registro existe
+     *
+     * @param array $where  Where com a condição para a busca
+     * @return bool
+     */
+    protected function existe(array $where): bool
+    {
+        $this->ormResetarOrm();
+        $this->campo(['id'])->where($where)->limit(0, 1);
+        $query = $this->ormExecute($this->ormMontarQueryString(), $this->_condicaoValue);
+        if (!$query instanceof PDOStatement) {
+            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($query) ? $query : 'Ocorreu um erro ao verificar se a busca existe.');
+        }
+        $existe = $query->fetch() ? true : false;
+        $this->ormResetarOrm();
+        return $existe;
+    }
+
+    /**
+     * Pega o primeiro registro da busca
+     *
+     * @param string        $campo          Campo que deseja pegar na requisição, caso não passe o indice, pegar o indice 0
+     * @param mixed         $padrao         Padrão caso não exista o campo
+     * @param string        $retorno        Tipo de retorno podendo ser object ou array
+     * @return mixed
+     */
+    protected function primeiro(string $campo = '', $padrao = null, string $retorno = 'object')
+    {
+        return $this->read(0, $campo, $padrao, $retorno);
+    }
+
+    /**
+     * Executa a busca no banco
+     *
+     * @param   null|int      $indice         Indice que quer pegar da requisição
+     * @param   string        $campo          Campo que deseja pegar na requisição, caso não passe o indice, pegar o indice 0
+     * @param   mixed         $padrao         Padrão caso não exista o campo
+     * @param   string        $retorno        Tipo de retorno podendo ser object ou array
+     * @return  mixed
+     */
+    protected function read(?int $indice = null, string $campo = '', $padrao = null, string $retorno = 'object')
+    {
+        if (!empty($campo) && is_null($indice)) {
+            $indice = 0;
+        }
+        if (is_numeric($indice)) {
+            $this->limit($indice, 1);
+        }
+
+        $busca = $this->ormExecute($this->ormMontarQueryString(), $this->_condicaoValue);
+        if (!$busca instanceof PDOStatement) {
+            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($busca) ? $busca : 'Ocorreu um erro na sua busca.');
+        }
+
+        $tipoRetorno = $retorno == 'array' ? PDO::FETCH_ASSOC : PDO::FETCH_OBJ;
+        $busca->setFetchMode($tipoRetorno);
+        $dado = $busca->fetchAll();
+
+        if ($this->_paginacao && !$indice) {
+            $dado = $this->ormRetornarPaginacao($dado);
+        }
+
+        $this->ormResetarOrm();
+
+        if (is_int($indice) && $indice >= 0 && empty($campo)) {
+            return $dado[$indice] ?? [];
+        } elseif (is_int($indice) && $indice >= 0 && !empty($campo)) {
+            $padrao = is_null($padrao) ? '' : $padrao;
+            return $dado[$indice]->$campo ?? $padrao;
+        } else {
+            return $dado;
+        }
+    }
+
+    /**
+     * Buscar no banco usando uma string para a busca
+     *
+     * @param string    $query      Query para a busca
+     * @param array     $valor      Valores para a query informada
+     * @param string    $retorno    Tipo de retorno podendo ser object ou array
+     * @return stdClass|array
+     */
+    protected function readTexto(string $query, array $valor = [], string $retorno = 'object'): stdClass | array
+    {
+        if (stristr($query, 'WHERE') && (!strstr($query, '?') && !strstr($query, ':'))) {
+            throw new Excecao(titulo: 'Where incorreta', mensagem: 'Você precisa enviar o where com "?" nos valores.');
+        } elseif (stristr($query, 'WHERE') && empty($valor)) {
+            throw new Excecao(titulo: 'Where incorreta', mensagem: 'Você precisa enviar os valores do where como array no parâmetro "$valor".');
+        }
+        $query = $this->ormQueryTextoMontarString(str_replace('{{TABELA}}', '`' . $this->_tabela . '`', $query));
+        $dado = $this->ormExecute($query, $valor);
+        if (!$dado instanceof PDOStatement) {
+            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($dado) ? $dado : 'Ocorreu um erro na sua busca.');
+        }
+
+        $tipoRetorno = $retorno == 'array' ? PDO::FETCH_ASSOC : PDO::FETCH_OBJ;
+
+        $dado->setFetchMode($tipoRetorno);
+        return $dado->fetchAll();
+    }
+
+    private function ormQueryTextoMontarString($query)
+    {
+        if (!strstr($query, '?')) {
+            return $query;
+        }
+        $lista = explode('?', $query);
+        $quantidade = count($lista);
+        $queryNova = '';
+        for ($i = 0; $i < $quantidade; $i++) {
+            if ($i < $quantidade - 1) {
+                $queryNova .= $lista[$i] . ':' . $i;
+                continue;
+            }
+            $queryNova .= $lista[$i];
+        }
+        return $queryNova;
+    }
+
+    /**
+     * Cria um select para a busca
+     *
+     * @param   string        $select         Select que deseja passar
+     * @return  self
+     */
+    protected function select(string $select = '')
+    {
+        $select = trim($select);
+        if (!empty($select) && stristr($select, 'FROM')) {
+            throw new Excecao(titulo: 'Campo incorreto!', mensagem: 'Você não pode passar um FROM no select.');
+        } elseif (!empty($select) && !preg_match('/^SELECT/', $select)) {
+            throw new Excecao(titulo: 'Campo incorreto!', mensagem: 'Você deve começar o select com "SELECT".');
+        }
+        $this->_select =
+            !empty($select) ?
+            str_replace(
+                'SELECT',
+                'SELECT {{PAGINACAO}} {{CAMPO}}',
+                $select . ' FROM `' . $this->_tabela . '`'
+            ) :
+            "SELECT {{PAGINACAO}} {{CAMPO}} FROM `{$this->_tabela}`";
+        return $this;
+    }
+    /**
+     * Cria um select em forma de texto, cuidado ao usá-lo
+     *
+     * @param   string  $select Select que deseja usar
+     * @return  self
+     */
+    protected function selectTexto(string $select)
+    {
+        $select = trim($select);
+        if (!empty($select) && !preg_match('/^SELECT/', $select)) {
+            throw new Excecao(titulo: 'Campo incorreto!', mensagem: 'Você deve começar o select com "SELECT".');
+        }
+        $this->_select = $select;
+        return $this;
+    }
+
+    /**
+     * Campos permitidos na busca
+     *
+     * @param string|array      $campo      Lista com os campos que devem ser buscados podendo ser uma lista simples ["campo_1", "campo_2"] ou um array composto onde o primeiro indice é o campo e o segundo é a alias [["campo_1", "nome_campo_1"], ["campo_2", "campo_nome_2"]]
+     * @param null|string       $as         Alias padrão para o as, por exemplo, $as = usuario: campo1 vira usuario_campo1, campo2 vira usuario_campo2, etc
+     * @return self
+     */
+    protected function campo(array $campo, ?string $as = null): self
+    {
+        if (!is_array($campo)) {
+            throw new Excecao(
+                titulo: 'Campo incorreto!',
+                mensagem: 'Lista de campos da busca com formato inválido.'
+            );
+        }
+        $lista = [];
+        foreach ($campo as $val) {
+            if (is_string($val)) {
+                $as_campo = $as != null ? ' AS `' . $as . '_' . $val . '`' : '';
+                $lista[] = '`' . $this->_tabelaAtual . '`.`' . $val . '`' . $as_campo;
+                continue;
+            } elseif (is_array($val) && count($val) == 2) {
+                $lista[] = "`{$this->_tabelaAtual}`.`{$val[0]}` AS `{$val[1]}`";
+                continue;
+            }
+            throw new Excecao(
+                titulo: 'Campo incorreto!',
+                mensagem: 'Lista de campos da busca com formato inválido.'
+            );
+        }
+        $this->_campo[] = implode(', ', $lista);
+        return $this;
+    }
+
+    /**
+     * Campos em texto simples, muito cuidado ao usá-lo
+     *
+     * @param   string   $campo  Campos no formato: campo_1, campo_2
+     * @return  self
+     */
+    protected function campoTexto(string $campo)
+    {
+        $this->_campo[] = $campo;
+        return $this;
+    }
+
+    private function ormMontarQueryString(): String
+    {
+        $select = !empty($this->_select) ? $this->_select : "SELECT {{PAGINACAO}} {{CAMPO}} FROM `{$this->_tabela}`";
+        $campo = !empty($this->_campo) ? implode(', ', $this->_campo) : '*';
+        $whereDado = $this->ormConverterCondicaoParaString($this->_whereDado);
+        $where = !empty($whereDado) ? 'WHERE ' . $whereDado : '';
+        $order = !empty($this->_order) ? 'ORDER BY ' . implode(', ', $this->_order) : '';
+        $group = !empty($this->_group) ? 'GROUP BY ' . $this->_group : '';
+        $limit = !empty($this->_limit) ? 'LIMIT ' . $this->_limit : '';
+        $havingDado = $this->ormConverterCondicaoParaString($this->_havingDado);
+        $having = !empty($havingDado) ? 'HAVING ' . $havingDado : '';
+        $pagina = true === $this->_paginacao ? 'SQL_CALC_FOUND_ROWS' : '';
+        $join = !empty($this->_join) ? implode(' ', $this->_join) : '';
+
+        $query = str_replace(
+            ['{{PAGINACAO}}', '{{CAMPO}}'],
+            [$pagina, $campo],
+            $select . ' ' . $join . ' ' . $where . ' ' . $having . ' ' . $group . ' ' . $order . ' ' . $limit
+        );
+        return $query;
+    }
+
+    private function ormRetornarPaginacao($lista)
+    {
+        $total = $this->_db->query('SELECT FOUND_ROWS() as `quantidade`');
+        $total->setFetchMode(PDO::FETCH_OBJ);
+        $total = $total->fetchAll()[0]->quantidade ?? 0;
+
+        $paginaTotal = $total == 0 ? 0 : ceil($total / $this->_limitQuantidade);
+        $paginaAtual = $total == 0 ? 0 : $this->_limitPagina;
+        $paginaQuantidade = $total == 0 ? 0 : $this->_limitQuantidade;
+
+        $paginacao = [];
+        if ($paginaTotal <= 7) {
+            for ($i = 1; $i <= $paginaTotal; ++$i) {
+                $paginacao[] = $i;
+            }
+        } else {
+            if ($paginaAtual + 3 > $paginaTotal) {
+                for ($i = 0; $i < 7; ++$i) {
+                    $paginacao[] = $paginaTotal - $i;
+                }
+                $paginacao = array_reverse($paginacao, false);
+            } else {
+                $comeco = $paginaAtual - 3 < 1 ? 1 : $paginaAtual - 3;
+                for ($i = 0; $i < 7; ++$i) {
+                    $paginacao[] = $comeco + $i;
+                }
+            }
+        }
+
+        $registroInicio = (($paginaAtual - 1) * $paginaQuantidade) + 1;
+        $registroAtual = count((array) $lista);
+
+        return (object)[
+            'lista' => $lista,
+            'registro' => (object) [
+                'inicio' => $total == 0 ? 0 : $registroInicio,
+                'final' => $total == 0 ? 0 : $registroInicio + $registroAtual - 1,
+                'atual' => $total == 0 ? 0 : $registroAtual,
+                'total' => (int) $total,
+            ],
+            'pagina' => (object) [
+                'total' => $paginaTotal,
+                'atual' => $paginaAtual,
+                'paginacao' => $paginacao,
+            ]
+        ];
+    }
+}

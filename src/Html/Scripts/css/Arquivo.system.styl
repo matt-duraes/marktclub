@@ -1,0 +1,1527 @@
+.fw_upload_body
+    overflow-y: hidden
+
+#fw_upload
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    background-color: rgba(0, 0, 0, .2)
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    z-index: 1
+    .fw_upload_conteudo
+        width: calc(100% - 40px)
+        max-height: calc(100vh - 40px)
+        position: relative
+        background-color: #FFF
+        overflow: hidden
+        margin: 20px
+        box-shadow: 0 5px 5px rgba(0, 0, 0, .3)
+    .fw_upload_grow
+        flex-grow: 1
+        flex-basis: 0%
+@media screen and (max-width:700px)
+    #fw_upload
+        background-color: #FFF
+    #fw_upload .fw_upload_conteudo
+        width: 100vw
+        height: 100vh
+        box-shadow: none
+        margin: 0
+// HEADER
+#fw_upload .fw_upload_header
+    width: 100%
+    height: 70px
+    position: relative
+    display: flex
+    flex-direction: row
+    align-items: center
+    padding: 0 20px
+    border-bottom: 1px solid #EEE
+    z-index: 3
+// HEADER > BOTAO
+#fw_upload .fw_upload_header .fw_upload_botao_upload
+    width: 160px
+    height: 40px
+    line-height: 40px
+    position: relative
+    border: 1px solid #23B9A9
+    border-radius: 3px
+    font-size: 1.2em
+    margin-right: 30px
+    display: flex
+    align-items: center
+    flex-direction: row
+    background-color: #23B9A9
+    color: #FFF
+    cursor: default
+    i
+        width: 40px
+        height: 40px
+        background-color: rgba(0,0,0,.1)
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-right: 15px
+    svg
+        width: 19px
+        height: 19px
+        position: relative
+        fill: #FFF
+        z-index: 1
+        cursor: default
+    input
+        width: 100%
+        height: 40px
+        z-index: 2
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        cursor: default
+@media screen and (max-width:700px)
+    #fw_upload .fw_upload_header .fw_upload_botao_upload
+        width: 50px
+        height: 50px
+        line-height: 50px
+        span
+            display: none
+        i
+            width: 50px
+            height: 50px
+            margin: 0
+            background: rgba(255,255,255,0)
+        i svg
+            width: 25px
+            height: 25px
+        input
+            height: 50px
+
+
+// HEADER > BUSCAR
+#fw_upload .fw_upload_header .fw_upload_buscar
+    height: 40px
+    position: relative
+    .fw_upload_buscar_input
+        width: 350px
+        max-width: 100%
+        height: 40px
+        border: 1px solid #DDD
+        border-radius: 20px
+        padding: 0 45px 0 15px
+        font-size: 1.4em
+    .fw_upload_buscar_botao
+        width: 30px
+        height: 30px
+        position: absolute
+        top: 5px
+        right: 7px
+        fill: #999
+    .fw_upload_buscar_botao svg
+        width: 15px
+        height: 15px
+        fill: #666
+        margin: 7.5px 0 0 7.5px
+@media screen and (max-width:900px)
+    #fw_upload .fw_upload_header .fw_upload_buscar
+        display: none
+
+// HEADER > CONFIG
+#fw_upload .fw_upload_config
+    display: flex
+    flex-direction: row
+    margin-right: 10px
+    .fw_upload_linha
+        width: 1px
+        height: 30px
+        background-color: #EEE
+        margin-right: 10px
+    .fw_upload_botao
+        width: 35px
+        height: 35px
+        display: flex
+        position: relative
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+        margin-right: 10px
+    .fw_upload_botao_hover
+        width: 35px
+        height: 35px
+        cursor: pointer
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+    .fw_upload_botao_hover:hover
+        background-color: #EEE
+    .fw_upload_botao>svg
+        fill: #999
+    .fw_upload_botao .fw_upload_botao_dropdown svg
+        fill: #999
+    .fw_upload_botao .conteudo
+        width: 200px
+        position: relative
+        padding-bottom: 10px
+        background-color: #FFF
+        border-radius: 3px
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .1)
+        position: absolute
+        top: 42px
+        left: calc((150 - 35px) / 2)
+        border: 1px solid #DDD
+        display: none
+    .fw_upload_botao .conteudo>span
+        width: 12px
+        height: 12px
+        position: absolute
+        top: -6px
+        border: 1px solid #DDD
+        border-right: none
+        border-bottom: none
+        margin: auto
+        left: 0
+        right: 0
+        background-color: #FFF
+        transform: rotate(45deg)
+    .fw_upload_botao .conteudo>p
+        width: 100%
+        font-size: 1.4em
+        color: #999
+        padding: 10px
+        margin-bottom: 10px
+        border-bottom: 1px solid #EEE
+        cursor: default
+    .fw_upload_botao .conteudo button
+        width: 100%
+        display: flex
+        align-items: center
+        padding: 8px 20px
+    .fw_upload_botao .conteudo button:hover
+        background-color: #EEE
+    .fw_upload_botao .conteudo button svg
+        fill: #666
+        margin-right: 10px
+    .fw_upload_botao .conteudo button span
+        font-size: 1.3em
+        color: #666
+    .fw_upload_option_show
+        display: none
+
+// HEADER > FECHAR
+#fw_upload .fw_upload_fechar
+    width: 25px
+    height: 25px
+    display: flex
+    margin-right: 10px
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    svg
+        width: 12px
+        height: 12px
+        fill: #666
+
+// LOADING
+#fw_upload .fw_upload_loading_bloco
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 20
+    cursor: progress
+
+#fw_upload .fw_upload_loading
+    width: 100%
+    height: 1px
+    position: absolute
+    top: 69px
+    left: 0
+    display: none
+    z-index: 4
+    span
+        width: 0%
+        height: 1px
+        position: absolute
+        top: 0
+        left: 0
+        background-color: #4AA9E9
+        animation: fw_upload_loading 2s linear 0s infinite
+
+#fw_upload .fw_upload_loading_geral
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 20
+    display: none
+    align-items: center
+    justify-content: center
+    cursor: progress
+
+// LISTA DE IMAGEM
+#fw_upload .fw_upload_lista_dado
+    width: 100%
+    height: calc(100vh - 130px)
+    position: relative
+    overflow-x: hidden
+    overflow-y: auto
+    display: block
+    z-index: 1
+    .fw_upload_lista_dado_conteudo
+        width: 100%
+        display: flex
+        flex-direction: column
+    .fw_upload_lista_arquivo
+        width: 100%
+        padding: 0 0 20px 20px
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+
+// LISTA DE ICONES
+#fw_upload .fw_upload_lista_dado_conteudo .fw_upload_lista_icone
+    width: 100%
+    align-items: center
+    flex-direction: column
+    text-align: center
+    margin: 80px 0 40px 0
+    svg
+        width: 80px
+        height: 80px
+        fill: #CCC
+        margin-bottom: 10px
+    p
+        font-size: 1.8em
+        color: #CCC
+
+#fw_upload .fw_upload_lista_dado_conteudo .fw_upload_carregar_mais
+    width: 100%
+    display: none
+    justify-content: center
+    margin: 20px 0 40px 0
+    button
+        height: 50px
+        line-height: 50px
+        border: 1px solid #DDD
+        border-radius: 3px
+        color: #AAA
+        font-size: 1.4em
+        padding: 0 20px
+
+// /* IMAGEM */
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//     width: calc((100% / 9) - 20px)
+//     height: 180px
+//     position: relative
+//     margin: 20px 20px 0 0
+//     position: relative
+//     overflow: hidden
+//     cursor: pointer
+//     display: flex
+//     flex-direction: column
+// }
+
+// @media screen and (max-width:1700px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//         width: calc((100% / 8) - 20px)
+//     }
+// }
+
+// @media screen and (max-width:1500px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//         width: calc((100% / 7) - 20px)
+//     }
+// }
+
+// @media screen and (max-width:1300px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//         width: calc((100% / 6) - 20px)
+//     }
+// }
+
+// @media screen and (max-width:1100px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//         width: calc((100% / 5) - 20px)
+//     }
+// }
+
+// @media screen and (max-width:900px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//         width: calc((100% / 4) - 20px)
+//     }
+// }
+
+// @media screen and (max-width:700px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//         width: calc((100% / 2) - 20px)
+//     }
+// }
+
+// @media screen and (max-width:400px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure {
+//         width: 100%
+//     }
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure .fw_upload_imagem {
+//     width: 100%
+//     height: 150px
+//     position: relative
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure .fw_upload_bg {
+//     width: 100%
+//     height: 100%
+//     background-position: center center
+//     background-size: cover
+//     position: absolute
+//     top: 0
+//     left: 0
+//     z-index: 1
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure.fw_upload_selecionado .fw_upload_bg {
+//     width: calc(100% - 16px)
+//     height: calc(100% - 16px)
+//     top: 8px
+//     left: 8px
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure .fw_upload_border {
+//     width: 100%
+//     height: 100%
+//     position: absolute
+//     top: 0
+//     left: 0
+//     border: 1px solid #4AA9E9
+//     display: none
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure.fw_upload_selecionado .fw_upload_border {
+//     display: block
+// }
+
+// .fw_upload_lista_imagem .fw_upload_figure .fw_upload_checked {
+//     width: 25px
+//     height: 25px
+//     position: absolute
+//     top: 15px
+//     left: 15px
+//     border: 2px solid #CCC
+//     border-radius: 50%
+//     z-index: 2
+//     display: flex
+//     align-items: center
+//     justify-content: center
+// }
+
+// .fw_upload_lista_imagem .fw_upload_figure:hover .fw_upload_checked {
+//     border-color: #FFF
+//     background-color: #FFF
+// }
+
+// .fw_upload_lista_imagem .fw_upload_figure.fw_upload_selecionado:hover .fw_upload_checked,
+// .fw_upload_lista_imagem .fw_upload_figure.fw_upload_selecionado .fw_upload_checked {
+//     border-color: #4AA9E9
+//     background-color: #4AA9E9
+// }
+
+// .fw_upload_lista_imagem .fw_upload_figure .fw_upload_checked svg {
+//     width: 12px
+//     height: 12px
+//     display: none
+// }
+
+// .fw_upload_lista_imagem .fw_upload_figure:hover .fw_upload_checked svg {
+//     fill: #999
+//     display: block
+// }
+
+// .fw_upload_lista_imagem .fw_upload_figure.fw_upload_selecionado .fw_upload_checked svg {
+//     fill: #FFF
+//     display: block
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure .fw_upload_nome {
+//     width: 100%
+//     height: 20px
+//     line-height: 20px
+//     margin-top: 5px
+//     text-align: center
+//     font-size: 1.2em
+//     overflow: hidden
+//     z-index: 1
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_quadro .fw_upload_figure .fw_upload_texto {
+//     display: none
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure {
+//     width: calc((100% / 3) - 20px)
+//     min-height: 200px
+//     position: relative
+//     margin: 20px 20px 0 0
+//     padding-left: 270px
+//     position: relative
+//     overflow: hidden
+//     cursor: pointer
+//     flex-direction: column
+//     display: flex
+// }
+
+// @media screen and (max-width:1600px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure {
+//         width: calc((100% / 2) - 20px)
+//     }
+// }
+
+// @media screen and (max-width:1100px) {
+//     .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure {
+//         width: 100%
+//     }
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure.fw_upload_selecionado {
+//     background-color: #F6F6F6
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure .fw_upload_imagem {
+//     width: 250px
+//     height: 100%
+//     position: absolute
+//     top: 0
+//     left: 0
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure .fw_upload_bg {
+//     width: 100%
+//     height: 100%
+//     background-position: center center
+//     background-size: cover
+//     position: absolute
+//     top: 0
+//     left: 0
+//     z-index: 1
+// }
+
+// .fw_upload_lista_imagem .fw_upload_figure.fw_upload_selecionado:hover .fw_upload_checked,
+// .fw_upload_lista_imagem .fw_upload_figure.fw_upload_selecionado .fw_upload_checked {
+//     border-color: #FFF
+//     background-color: #4AA9E9
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure .fw_upload_nome {
+//     width: 100%
+//     margin: 15px 0 20px 0
+//     font-size: 1.6em
+//     z-index: 1
+// }
+
+// .fw_upload_lista_imagem .fw_upload_lista_lista .fw_upload_figure .fw_upload_texto {
+//     width: 100%
+//     margin-bottom: 10px
+//     font-size: 1.2em
+//     color: #666
+//     z-index: 1
+// }
+
+
+
+
+// /* INICIO LISTA DE ARQUIVOS */
+
+// .fw_upload_file_file {
+//     width: calc((100% / 2) - 20px)
+//     position: relative
+//     margin: 20px 20px 0 0
+//     position: relative
+//     overflow: hidden
+//     display: flex
+//     flex-direction: row
+//     border: 1px solid #DDD
+//     border-radius: 3px
+//     padding: 20px
+// }
+
+// .fw_upload_file_file.fw_upload_file_selected {
+//     border-color: #4AA9E9
+// }
+
+// .fw_upload_file_file .fw_upload_file_checked {
+//     width: 25px
+//     height: 25px
+//     border: 2px solid #CCC
+//     border-radius: 50%
+//     margin-left: -8px
+//     display: flex
+//     align-items: center
+//     justify-content: center
+//     cursor: pointer
+// }
+
+// .fw_upload_file_file.fw_upload_file_selected .fw_upload_file_checked {
+//     background-color: #4AA9E9
+//     border-color: #4AA9E9
+// }
+
+// .fw_upload_file_file .fw_upload_file_checked svg {
+//     width: 12px
+//     height: 12px
+//     display: none
+// }
+
+// .fw_upload_file_file .fw_upload_file_checked:hover svg {
+//     fill: #999
+//     display: block
+// }
+
+// .fw_upload_file_file.fw_upload_file_selected .fw_upload_file_checked svg,
+// .fw_upload_file_file.fw_upload_file_selected .fw_upload_file_checked:hover svg {
+//     fill: #FFF
+//     display: block
+// }
+
+// .fw_upload_file_file .fw_upload_file_data {
+//     margin-left: 10px
+//     flex-grow: 1
+//     flex-basis: 0%
+// }
+
+// .fw_upload_file_file .fw_upload_file_data .fw_upload_file_name {
+//     width: 100%
+//     font-size: 1.6em
+//     z-index: 1
+// }
+
+// .fw_upload_file_file .fw_upload_file_data .fw_upload_file_text {
+//     width: 100%
+//     margin-top: 10px
+//     font-size: 1.2em
+//     color: #666
+//     z-index: 1
+// }
+
+// .fw_upload_file_file .fw_upload_file_option {
+//     width: 120px
+//     display: flex
+//     flex-direction: row
+//     flex-wrap: wrap
+//     justify-content: space-between
+//     align-items: center
+// }
+
+// .fw_upload_file_file .fw_upload_file_option .fw_upload_file_option_icon {
+//     width: 30px
+//     height: 30px
+//     border: 1px solid #DDD
+//     border-radius: 3px
+//     display: flex
+//     align-items: center
+//     justify-content: center
+//     background-color: #FFF
+// }
+
+// .fw_upload_file_file .fw_upload_file_option .fw_upload_file_option_icon svg {
+//     fill: #666
+// }
+
+// .fw_upload_file_file .fw_upload_file_option .fw_upload_file_option_line {
+//     width: 100%
+//     height: 1px
+//     background-color: #f0f0f0
+// }
+
+// .fw_upload_file_file .fw_upload_file_option .fw_upload_file_option_use_button {
+//     width: 100%
+//     height: 40px
+//     line-height: 40px
+//     background-color: #23B9A9
+//     border-color: #23B9A9
+//     color: #FFF
+//     border-radius: 3px
+// }
+
+
+// OPTION
+#fw_upload .fw_upload_option
+    width: 300px
+    max-width: 100%
+    height: calc(100vh - 40px)
+    top: 0
+    right: 0
+    position: absolute
+    z-index: 4
+    background-color: #FFF
+    border-left: 1px solid #EEE
+    overflow-x: hidden
+    overflow-y: auto
+    transition: right .3s ease-out
+    display: none
+    &.fw_upload_option_abrir
+        right: 0
+    .fw_upload_titulo
+        width: 100%
+        height: 50px
+        display: flex
+        flex-direction: row
+        align-items: center
+        color: #666
+        border-bottom: 1px solid #eee
+        padding: 0 10px 0 20px
+    .fw_upload_titulo span
+        flex-grow: 1
+        flex-basis: 0%
+        padding-right: 20px
+        font-size: 1.8em
+    .fw_upload_titulo button
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+    .fw_upload_titulo button:hover
+        background-color: #EEE
+    .fw_upload_titulo button svg
+        width: 10px
+        height: 10px
+        fill: #666
+    .fw_upload_preview
+        width: 100%
+        max-height: 200px
+        overflow: hidden
+    .fw_upload_preview img
+        width: 100%
+        max-width: 100%
+    .fw_upload_dado
+        width: 100%
+        padding: 20px
+    .fw_upload_acao_botao
+        width: 100%
+        height: 30px
+        margin-top: 10px
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+        border-radius: 3px
+        border: 1px solid #EEE
+    .fw_upload_acao_botao span
+        height: 20px
+        line-height: 22px
+        font-size: 1.2em
+        text-align: center
+    .fw_upload_acao_botao svg
+        width: 13px
+        height: 13px
+        margin-right: 10px
+        fill: #666
+    .fw_upload_acao_botao.fw_upload_acao_botao_deletar
+        background-color: #FF6C60
+        border-color: #FF6C60
+        color: #FFF
+    .fw_upload_acao_botao.fw_upload_acao_botao_deletar svg
+        fill: #FFF
+    .fw_upload_linha
+        width: 100%
+        height: 1px
+        background-color: #EEE
+        margin: 20px 0 20px 0
+    .margin_propriedade
+        width: 100%
+        margin-top: 30px
+    h2
+        font-weight: bold
+        font-size: 1.4em
+        margin: 0 0 20px 0
+    ul
+        width: 100%
+        margin-top: 20px
+    ul li
+        width: 100%
+        margin-top: 10px
+        display: flex
+        flex-direction: row
+    ul li span
+        font-size: 1.2em
+        color: #666
+    ul li span:nth-child(1)
+        width: 90px
+    ul li span:nth-child(2)
+        flex-grow: 1
+        flex-basis: 0%
+    .fw_upload_usar
+        width: 100%
+        height: 50px
+        line-height: 50px
+        color: #FFF
+        margin: 40px 0 20px 0
+        background-color: #23B9A9
+        border-radius: 3px
+        font-size: 1.4em
+
+
+// /* ABRIR IMAGEM */
+
+// .fw_upload_abrir_imagem {
+//     width: 100%
+//     height: 100%
+//     position: fixed
+//     top: 0
+//     left: 0
+//     background-color: rgba(0, 0, 0, .9)
+//     z-index: 2
+//     opacity: 0
+//     transition: opacity .3s ease-out
+//     display: none
+// }
+
+// .fw_upload_abrir_imagem.fw_upload_abrir_imagem_animar {
+//     opacity: 1
+// }
+
+// .fw_upload_abrir_imagem .fw_upload_fechar {
+//     width: 25px
+//     height: 25px
+//     position: absolute
+//     top: 20px
+//     right: 20px
+//     z-index: 2
+//     display: flex
+//     align-items: center
+//     justify-content: center
+//     cursor: pointer
+// }
+
+// .fw_upload_abrir_imagem .fw_upload_fechar svg {
+//     fill: #FFF
+// }
+
+// .fw_upload_abrir_imagem .fw_upload_imagem {
+//     width: 100%
+//     height: 100%
+//     position: absolute
+//     top: 0
+//     left: 0
+//     display: flex
+//     align-items: center
+//     justify-content: center
+//     z-index: 1
+// }
+
+// .fw_upload_abrir_imagem .fw_upload_imagem img {
+//     width: auto
+//     height: auto
+//     max-width: calc(100vw - 40px)
+//     max-height: calc(100vh - 40px)
+// }
+
+
+// /* RENOMEAR */
+
+// .fw_upload_renomear {
+//     width: 100%
+//     height: 100%
+//     position: fixed
+//     top: 0
+//     left: 0
+//     background-color: rgba(0, 0, 0, .9)
+//     z-index: 2
+//     opacity: 0
+//     align-items: flex-start
+//     justify-content: center
+//     transition: opacity .3s ease-out
+//     display: none
+// }
+
+// .fw_upload_renomear.fw_upload_renomear_animar,
+// .fw_upload_renomear.fw_upload_rename_open {
+//     opacity: 1
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo {
+//     width: calc(100% - 40px)
+//     max-width: 400px
+//     margin: 20px 0
+//     background-color: #FFF
+//     border-radius: 3px
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo .fw_upload_renomear_header {
+//     width: 100%
+//     height: 40px
+//     border-bottom: 1px solid #EEE
+//     display: flex
+//     flex-direction: row
+//     align-items: center
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo .fw_upload_renomear_header h1 {
+//     flex-grow: 1
+//     flex-basis: 0%
+//     padding: 0 10px
+//     font-size: 1.4em
+//     color: #666
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo .fw_upload_renomear_header .fw_upload_fechar {
+//     width: 20px
+//     height: 20px
+//     display: flex
+//     margin-right: 10px
+//     align-items: center
+//     justify-content: center
+//     cursor: pointer
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo .fw_upload_renomear_header .fw_upload_fechar svg {
+//     width: 10px
+//     height: 10px
+//     fill: #999
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo form {
+//     width: 100%
+//     display: flex
+//     flex-direction: row
+//     flex-wrap: wrap
+//     padding: 20px
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo form .erro {
+//     width: 100%
+//     font-size: 1.4em
+//     line-height: 1.5em
+//     margin-bottom: 5px
+//     color: #FF6C60
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo form input {
+//     flex-grow: 1
+//     flex-basis: 0%
+//     height: 40px
+//     font-size: 1.4em
+//     padding: 0 10px
+//     border: 1px solid #DDD
+//     border-radius: 3px 0 0 3px
+// }
+
+// .fw_upload_renomear .fw_upload_renomear_conteudo form button {
+//     height: 40px
+//     line-height: 40px
+//     background-color: #23B9A9
+//     color: #FFF
+//     border-radius: 0 3px 3px 0
+//     padding: 0 15px
+// }
+
+
+// /* AJUDA */
+
+// .fw_upload_ajuda_top {
+//     position: fixed
+//     z-index: 10
+//     display: none
+//     flex-direction: column
+//     align-items: center
+// }
+
+// .fw_upload_ajuda_top span {
+//     width: 10px
+//     height: 10px
+//     background-color: #333
+//     transform: rotate(45deg)
+// }
+
+// .fw_upload_ajuda_top p {
+//     background-color: #333
+//     padding: 5px
+//     color: #FFF
+//     font-size: 1.2em
+//     margin-top: -5px
+//     border-radius: 3px
+//     text-align: center
+// }
+
+
+// /* DELETAR */
+
+// .fw_upload_deletar {
+//     width: 100%
+//     height: 100%
+//     position: fixed
+//     top: 0
+//     left: 0
+//     background-color: rgba(0, 0, 0, .9)
+//     z-index: 2
+//     opacity: 0
+//     display: none
+//     align-items: flex-start
+//     justify-content: center
+//     transition: opacity .3s ease-out
+// }
+
+// .fw_upload_deletar.fw_upload_deletar_animar,
+// .fw_upload_deletar.fw_upload_delete_open {
+//     opacity: 1
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo {
+//     width: calc(100% - 40px)
+//     max-width: 400px
+//     margin: 20px 0
+//     background-color: #FFF
+//     border-radius: 3px
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_deletar_header {
+//     width: 100%
+//     height: 40px
+//     border-bottom: 1px solid #EEE
+//     display: flex
+//     flex-direction: row
+//     align-items: center
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_deletar_header h1 {
+//     flex-grow: 1
+//     flex-basis: 0%
+//     padding: 0 20px
+//     font-size: 1.4em
+//     color: #666
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_p {
+//     padding: 20px
+//     font-size: 1.4em
+//     line-height: 1.5em
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_p b {
+//     font-weight: bold
+//     color: #FF6C60
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_botao {
+//     display: flex
+//     flex-direction: row
+//     justify-content: space-between
+//     padding: 10px 20px
+//     border-top: 1px solid #EEE
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_botao button {
+//     height: 30px
+//     line-height: 30px
+//     border-radius: 3px
+//     padding: 0 10px
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_botao button.fw_upload_botao_deletar_cancelar {
+//     border: 1px solid #CCC
+//     color: #666
+// }
+
+// .fw_upload_deletar .fw_upload_deletar_conteudo .fw_upload_botao button.fw_upload_botao_deletar_confirmar {
+//     background-color: #FF6C60
+//     color: #FFF
+// }
+
+
+// /* EDITOR */
+
+// .fw_upload_editor {
+//     width: 100%
+//     height: 100%
+//     position: fixed
+//     top: 0
+//     left: 0
+//     background-color: rgba(50, 50, 50, .98)
+//     z-index: 9
+//     opacity: 0
+//     display: none
+//     align-items: flex-start
+//     justify-content: center
+//     transition: opacity .3s ease-out
+// }
+
+// .fw_upload_editor.fw_upload_editor_animar {
+//     opacity: 1
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu {
+//     width: 300px
+//     height: 100%
+//     background-color: #333
+//     z-index: 2
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_header {
+//     width: 100%
+//     height: 40px
+//     display: flex
+//     flex-direction: row
+//     border-bottom: 1px solid #222
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_header .fw_upload_editor_menu_h1 {
+//     width: 100%
+//     height: 40px
+//     line-height: 40px
+//     overflow: hidden
+//     padding: 0 10px
+//     font-size: 1.4em
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_header .fw_upload_editor_menu_fechar {
+//     width: 30px
+//     height: 30px
+//     margin: 5px 10px 0 0
+//     display: flex
+//     align-items: center
+//     justify-content: center
+//     cursor: pointer
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_header .fw_upload_editor_menu_fechar svg {
+//     fill: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo {
+//     height: calc(100vh - 101px)
+//     overflow-x: hidden
+//     overflow-y: auto
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item {
+//     width: 100%
+//     border-bottom: 1px solid #222
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item:last-child {
+//     border-bottom: none
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item>button {
+//     width: 100%
+//     height: 40px
+//     line-height: 40px
+//     display: flex
+//     flex-direction: row
+//     align-items: center
+//     padding: 0 10px
+//     font-size: 1.2em
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item>button:hover {
+//     background-color: #222
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item>button svg {
+//     margin-right: 10px
+//     fill: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco {
+//     width: calc(100% - 2px)
+//     display: none
+//     flex-direction: column
+//     padding: 0 20px
+//     margin: 10px 0
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_upload_editor_ou {
+//     width: 100%
+//     height: 30px
+//     position: relative
+//     display: flex
+//     justify-content: center
+//     align-items: center
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_upload_editor_ou span {
+//     width: 100%
+//     height: 1px
+//     background-color: #222
+//     position: absolute
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_upload_editor_ou p {
+//     position: absolute
+//     color: #FFF
+//     background-color: #333
+//     font-size: 1.3em
+//     padding: 0 10px
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .escolha {
+//     width: 100%
+//     margin: 15px 0 20px 0
+//     display: flex
+//     flex-direction: row
+//     justify-content: center
+//     align-items: center
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .escolha .fw_upload_flip {
+//     display: flex
+//     flex-direction: row
+//     justify-content: center
+//     align-items: center
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .escolha input {
+//     width: 70px
+//     height: 30px
+//     background-color: #FFF
+//     border-radius: 3px
+//     margin: 0 5px
+//     padding: 0 10px
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .escolha p {
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .escolha button {
+//     width: 40px
+//     height: 30px
+//     line-height: 30px
+//     border: 1px solid #4AA9E9
+//     margin: 0 5px
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .escolha button:hover {
+//     background-color: #222
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .escolha button.fw_upload_corte_selecionado {
+//     background-color: #4AA9E9
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_editor_crop_input {
+//     margin-bottom: 10px
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_editor_checkbox input {
+//     display: none
+//     margin-bottom: 20px
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_editor_checkbox label {
+//     font-size: 1.3em
+//     padding-left: 20px
+//     color: #FFF
+//     position: absolute
+//     display: flex
+//     align-items: center
+//     cursor: pointer
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_editor_checkbox label::before {
+//     content: " "
+//     width: 14px
+//     height: 14px
+//     line-height: 12px
+//     position: absolute
+//     background-color: #FFF
+//     border-radius: 3px
+//     left: 0
+//     text-align: center
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .fw_editor_checkbox input:checked+label::before {
+//     background: #23B9A9 url(../images/ckeditor/ok.png) no-repeat center center
+//     background-size: 8px auto
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .range {
+//     width: 100%
+//     display: flex
+//     flex-direction: row
+//     align-items: center
+//     margin: 10px 0
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .range p {
+//     width: 80px
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .range input[type=range] {
+//     width: 100%
+//     height: 5px
+//     margin: 0 10px
+//     background-color: #DDD
+//     border-radius: 3px
+//     background-color: rgba(74, 169, 233, .2)
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .range input::-webkit-slider-thumb {
+//     -webkit-appearance: none
+//     appearance: none
+//     width: 20px
+//     height: 20px
+//     background: #4AA9E9
+//     border-radius: 50%
+//     cursor: pointer
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .range input::-moz-range-thumb {
+//     width: 25px
+//     height: 25px
+//     background: #4AA9E9
+//     border-radius: 50%
+//     cursor: pointer
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .confirmar {
+//     padding: 5px 10px
+//     border-radius: 3px
+//     border: 1px solid #23B9A9
+//     margin: 10px 0
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .lista {
+//     width: 100%
+//     display: flex
+//     flex-direction: column
+//     padding-top: 10px
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .lista button {
+//     width: 100%
+//     height: 30px
+//     line-height: 30px
+//     border: 1px solid #DDD
+//     font-size: 1.2em
+//     text-align: center
+//     border-radius: 3px
+//     margin-bottom: 10px
+//     cursor: pointer
+//     color: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .lista button:hover {
+//     background-color: #222
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_conteudo .fw_upload_editor_menu_item .fw_upload_editor_menu_item_bloco .lista button.fw_upload_filtro_selecionado {
+//     background-color: #4AA9E9
+//     color: #FFF
+//     border-color: #4AA9E9
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_botao {
+//     width: 100%
+//     display: flex
+//     flex-direction: row
+//     padding: 10px
+//     border-top: 1px solid #222
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_botao button {
+//     height: 40px
+//     line-height: 40px
+//     background-color: #EEE
+//     padding: 0 10px
+//     display: flex
+//     align-items: center
+//     flex-direction: row
+//     border-radius: 3px
+//     font-size: 1.2em
+//     color: #FFF
+//     fill: #FFF
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_botao button.fw_upload_editor_resetar {
+//     background-color: #222
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_botao button.fw_upload_editor_salvar {
+//     background-color: #23B9A9
+// }
+
+// .fw_upload_editor .fw_upload_editor_menu_botao button svg {
+//     margin-right: 10px
+// }
+
+// .fw_upload_editor_menu_grow {
+//     flex-grow: 1
+//     flex-basis: 0%
+// }
+
+// .fw_upload_editor .fw_upload_editor_figure {
+//     width: calc(100vw - 300px)
+//     height: 100%
+//     overflow: auto
+//     background: url(../images/ckeditor/editor_background.png) repeat
+// }
+
+// .fw_upload_editor .fw_upload_editor_figure figure {
+//     position: relative
+//     /* outline: 2px dashed #666 */
+//     overflow: hidden
+// }
+
+// .fw_upload_editor .fw_upload_editor_figure figure img {
+//     cursor: move
+//     position: absolute
+//     top: 0
+//     left: 0
+// }
+
+// .fw_upload_editor .fw_upload_editor_figure figure .borda {
+//     width: 100%
+//     height: 100%
+//     position: absolute
+//     top: 0
+//     left: 0
+//     outline: 2px dashed #FFF
+//     z-index: 2
+//     background-attachment: #F00
+//     pointer-events: none
+//     box-shadow: 0 0 1px #000
+// }
+
+
+// /* SALVAR */
+
+// .fw_upload_salvar {
+//     width: 100%
+//     height: 100%
+//     position: fixed
+//     top: 0
+//     left: 0
+//     background-color: rgba(0, 0, 0, .7)
+//     z-index: 10
+//     opacity: 0
+//     display: none
+//     transition: opacity .3s ease-out
+//     justify-content: center
+//     align-items: flex-start
+// }
+
+// .fw_upload_salvar.fw_upload_salvar_abrir {
+//     opacity: 1
+// }
+
+// .fw_upload_salvar_conteudo {
+//     width: calc(100% - 40px)
+//     max-width: 500px
+//     background-color: #FFF
+//     border-radius: 3px
+//     margin: 20px 0
+// }
+
+// .fw_upload_salvar_conteudo header {
+//     width: 100%
+//     height: 30px
+//     display: flex
+//     flex-direction: row
+//     align-items: center
+//     padding: 0 10px
+//     border-bottom: 1px solid #EEE
+// }
+
+// .fw_upload_salvar_conteudo header h1 {
+//     flex-grow: 1
+//     flex-basis: 0%
+//     font-size: 1.4em
+// }
+
+// .fw_upload_salvar_conteudo header .fw_upload_salvar_fechar {
+//     width: 20px
+//     height: 20px
+//     cursor: pointer
+//     display: flex
+//     align-items: center
+//     justify-content: center
+// }
+
+// .fw_upload_salvar_conteudo header .fw_upload_salvar_fechar svg {
+//     fill: #666
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral {
+//     width: 100%
+//     display: none
+//     padding: 20px
+//     flex-direction: column
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_escolha {
+//     display: flex
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral p.erro {
+//     color: #FF6C60
+//     margin-bottom: 10px
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral p {
+//     font-size: 1.4em
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral input {
+//     width: 100%
+//     height: 40px
+//     border: 1px solid #CCC
+//     border-radius: 3px
+//     font-size: 1.4em
+//     padding: 0 10px
+//     margin-top: 5px
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral .botao {
+//     width: 100%
+//     margin-top: 20px
+//     display: flex
+//     flex-direction: row
+//     justify-content: space-between
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral .botao button {
+//     height: 40px
+//     line-height: 40px
+//     padding: 0 20px
+//     color: #FFF
+//     border-radius: 3px
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral .botao button.salvar {
+//     background-color: #23B9A9
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral .botao button.salvar_como {
+//     background-color: #4AA9E9
+// }
+
+// .fw_upload_salvar_conteudo .fw_upload_salvar_geral .botao button.voltar {
+//     background-color: #999
+// }
+
+@keyframes fw_upload_loading
+    0%
+        width: 0
+        left: 0
+    50%
+        width: 100%
+        left: 0
+    100%
+        left: 100%

@@ -1,0 +1,1114 @@
+body.fw_body_hidden
+    overflow: hidden !important
+.form_geral .hide
+    display: none !important
+.form_geral .bloco_input_footer
+    width: 100%
+    height: 15px
+    position: absolute
+    bottom: -7px
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    overflow: hidden
+    .input_mensagem
+        height: 15px
+        line-height: 15px
+        flex-grow: 1
+        position: absolute
+        display: flex
+        left: 10px
+        bottom: 0
+        font-size: 1.1rem
+        color: #FF6C60
+        padding: 0 5px
+        opacity: 0
+        background: #FFF
+        transition: top .3s ease-out, opacity .3s ease-out
+        overflow: hidden
+        &.ativo
+            opacity: 1
+    .bloco_input_contador
+        height: 15px
+        line-height: 15px
+        position: absolute
+        background-color: #FFF
+        padding: 0 5px
+        display: flex
+        flex-direction: row
+        color: #999
+        top: 0
+        right: 10px
+        opacity: 0
+        transition: opacity .3s ease-out
+        &.ativo
+            opacity: 1
+        .bloco_input_contador_numero
+        .bloco_input_contador_barra
+            font-size: 1.1rem
+
+
+
+/* INPUT, SELECT TEXTAREA */
+.form_geral
+    .bloco_input
+        width: 100%
+        position: relative
+        margin: 20px 0 10px 0
+    .bloco_input .input_bloqueado
+        width: 100%
+        height: 45px
+        position: absolute
+        top: 10px
+        left: 0
+        z-index: 10
+        border-radius: 3px
+        background-color: #FFFFFF50
+        cursor: no-drop
+    .bloco_input .input_icone
+        width: 45px
+        height: 45px
+        line-height: 45px
+        position: absolute
+        top: 0
+        left: 0
+        display: none
+        align-items: center
+        justify-content: center
+        border-radius: 3px 0 0 3px
+        z-index: 2
+    .bloco_input .input_http
+        height: 45px
+        line-height: 46px
+        position: absolute
+        top: 0
+        left: 15px
+        font-size: 1.4rem
+        color: #999
+        display: none
+    .bloco_input input
+    .bloco_input textarea
+        width: 100%
+        height: 45px
+        position: relative
+        padding: 0 15px
+        font-size: 1.4rem
+        overflow: hidden
+        z-index: 2
+    .input_select input
+        padding-right: 35px
+    .input_textarea textarea
+        line-height: 1.5em
+        padding: 12px
+    .bloco_input input::placeholder
+        color: #999
+    .bloco_input .borda
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        border: 1px solid #DDD
+        z-index: 0
+        border-radius: 3px
+    .input_textarea .borda
+        height: calc(100% - 2px)
+    .bloco_input input:focus ~ .borda
+    .bloco_input textarea:focus ~ .borda
+        border-color: #169e91
+        border-width: 2px
+    .input_select
+        background: url(/images/form/select.svg) no-repeat
+        background-position: calc(100% - 15px) center
+        background-size: 10px auto
+    .bloco_input label
+        height: 20px
+        line-height: 21px
+        padding: 0 5px
+        position: absolute
+        left: 10px
+        top: 2px
+        background-color: #FFF
+        color: #169e91
+        font-size: 1.2rem
+        transition: top .2s ease-out, opacity .2s ease-out
+        opacity: 0
+        z-index: 2
+    .bloco_input .input_geral.input_obrigatorio ~ label:after
+        position: absolute
+        top: 0
+        content: "*"
+        padding: 0 5px 0 3px
+        background: #FFF
+    .bloco_input .input_geral:not(:placeholder-shown) ~ label
+        top: -10px
+        opacity: 1
+    .bloco_input .input_geral:not(:placeholder-shown) ~ .input_http
+        display: flex
+    .bloco_input .input_geral.input_url:not(:placeholder-shown)
+        padding-left: 65px
+        &:focus
+            padding-left: 64px
+    .bloco_input .input_icone_erro
+        display: none
+    .bloco_input .input_geral.input_obrigatorio ~ .input_icone_erro
+        width: 25px
+        height: 25px
+        line-height: 30px
+        position: absolute
+        top: 10px
+        display: block
+        text-align: center
+        z-index: 9
+        &:after
+            font-size: 1.4rem
+            color: #FF6C60
+            content: "*"
+            opacity: 0
+            transition: opacity .3s ease-out
+    .bloco_input .input_geral.input_obrigatorio:placeholder-shown ~ .input_icone_erro
+        right: 7px
+        &:after
+            opacity: 1
+    .bloco_input .input_geral.input_obrigatorio:not(:placeholder-shown) ~ .input_icone_erro
+        display: none
+    .input_select .input_geral.input_obrigatorio:placeholder-shown ~ .input_icone_erro
+        right: 35px
+    .bloco_input.input_quantidade_erro .input_geral
+    .bloco_input .input_geral.input_erro
+    .bloco_input .input_geral.input_obrigatorio.input_obrigatorio_ativo:placeholder-shown
+        border-color: #FF6C60
+    .bloco_input .input_ajuda
+        width: 25px
+        height: 25px
+        line-height: 25px
+        position: absolute
+        top: 20px
+        right: 10px
+        font-size: 1.4rem
+        text-align: center
+        background-color: #169e91
+        color: #FFF
+        border-radius: 50%
+        cursor: default
+    .bloco_input.bloco_ajuda .input_icone_erro
+        right: 38px !important
+    .input_input.bloco_senha input
+    .input_input.bloco_ajuda input
+        padding-right: 40px
+    .bloco_input.bloco_senha .botao_olho
+        width: 30px
+        height: 100%
+        position: absolute
+        right: 5px
+        top: 0
+        z-index: 10
+        display: flex
+        align-items: center
+        justify-content: center
+    .bloco_input.bloco_senha .botao_olho .icone_olho
+        width: 25px
+        height: 25px
+        display: none
+        align-items: center
+        justify-content: center
+        cursor: pointer
+    .bloco_input.bloco_senha .botao_olho .icone_olho svg
+        width: 25px
+        height: 25px
+        margin: 3px 0 0 4px
+        fill: #666
+    .bloco_input.bloco_senha .botao_olho .icone_olho.olho_aberto
+        display: flex
+    .bloco_input.bloco_senha.mostrar_senha .botao_olho .icone_olho.olho_fechado
+        display: flex
+    .bloco_input.bloco_senha.mostrar_senha .botao_olho .icone_olho.olho_aberto
+        display: none
+    .bloco_input.bloco_senha .input_icone_erro
+        padding-right: 38px !important
+    .input_select ul
+        display: none
+
+.form_geral .bloco_input.bloco_input_icone
+    .input_icone
+        display: flex
+    input
+    textarea
+        padding-left: 40px
+    input:focus
+        padding-left: 39px
+    .input_http
+        left: 45px
+    input.input_url:not(:placeholder-shown)
+        padding-left: 95px
+        &:focus
+            padding-left: 94px
+.form_geral .bloco_input.bloco_input_icone_cor
+    label
+        left: 50px
+    input
+    textarea
+        padding-left: 56px
+    input:focus
+        padding-left: 55px
+    .input_http
+        left: 57px
+    input.input_url:not(:placeholder-shown)
+        padding-left: 106px
+        &:focus
+            padding-left: 105px
+
+.form_geral .bloco_input.bloco_separador
+    flex-direction: row
+    display: flex
+    align-items: center
+    .input_separador_1
+        padding-right: 10px
+        border-radius: 3px 0 0 3px
+        border-right: none
+    .input_separador_2
+        height: 45px
+        border-top: 1px solid #DDD
+        border-bottom: 1px solid #DDD
+        display: flex
+        align-items: center
+        justify-content: center
+    .input_separador_2 p
+        min-width: 10px
+        text-align: center
+        font-size: 1.4rem
+        font-weight: 100
+        color: #999
+    .input_separador_3
+        border-radius: 0 3px 3px 0
+        border-left: none
+.form_geral .bloco_input.bloco_separador.input_quantidade_erro
+    .input_separador_1
+    .input_separador_3
+        border-color: #FF6C60
+    .input_separador_2
+        border-top-color: #FF6C60
+        border-bottom-color: #FF6C60
+.form_geral .bloco_input.bloco_separador.bloco_ajuda
+    .input_separador_1
+        padding-right: 15px
+    .input_separador_3
+        padding-right: 40px
+
+.form_geral .form_bloco .bloco_input_select
+    width: 100%
+    position: relative
+    display: flex
+    flex-direction: column
+    .input_conteudo
+        width: 100%
+        position: relative
+        display: flex
+        flex-direction: row
+        &::after
+            content: ""
+            width: calc(100% - 2px)
+            height: 43px
+            position: absolute
+            top: 20px
+            left: 0
+            border: 1px solid #DDD
+            border-radius: 3px
+            z-index: 1
+    .input_conteudo .input_select_linha
+        width: 1px
+        height: 43px
+        background-color: #DDD
+        margin-top: 21px
+    .input_conteudo .bloco_input
+        width: 50%
+        z-index: 2
+    .input_conteudo .input_input input
+        border: none
+        border-radius: 0
+        padding-left: 15px
+    .input_conteudo .input_select .input_select_texto
+        border: none
+        border-radius: 0
+        padding-left: 15px
+.form_geral .form_bloco .bloco_input_select.input_focus
+    .input_conteudo::after
+        width: calc(100% - 4px)
+        height: 41px
+        border: 2px solid #169e91
+    .input_conteudo .input_select_linha
+        width: 2px
+        background-color: #169e91
+    .input_conteudo .input_select
+        margin-left: -1px
+.form_geral .form_bloco .bloco_input_select.input_quantidade_erro
+    .input_conteudo::after
+        border-color: #FF6C60
+    .input_conteudo .input_select_linha
+        background-color: #FF6C60
+
+#fw_form_select
+#bloco_geral_autocomplete
+    position: absolute
+    display: none
+    z-index: 10001
+    .option
+        width: 100%
+        max-height: calc(38px * 5)
+        position: absolute
+        background-color: #333
+        box-shadow: 0 3px 5px #FFF
+        border-radius: 3px
+        z-index: 10
+        overflow-x: hidden
+        overflow-y: auto
+        &.loading_geral::after
+            width: 100%
+            height: 2px
+            content: " "
+            background-color: #FFF
+            position: absolute
+            top: 0
+            left: 0
+            z-index: 10
+            animation: form_animacao_barra 2s ease-in-out 0s infinite
+    .option li
+        width: 100%
+        height: 38px
+        line-height: 38px
+        padding: 0 10px 0 30px
+        border: none
+        font-size: 1.2rem
+        color: #FFF
+        display: flex
+        flex-direction: row
+        align-items: center
+        cursor: pointer
+        overflow: hidden
+        align-items: flex-start
+        &.hover
+            background-color: #169e91
+        &.selected
+            background: url(/images/form/check.svg) no-repeat 9px center
+            background-size: 10px auto
+        &.selected.hover
+            background-color: #169e91
+        &.disabled
+            cursor: no-drop
+        &.loading
+            height: 80px
+            line-height: 80px
+            cursor: progress
+            text-align: center
+#bloco_geral_autocomplete
+    .option li
+        color: #CCC
+    .option li strong
+        font-weight: bold
+        font-size: 1.2rem
+        color: #FFF
+    .option li .flex_grow
+        flex-grow: 1
+        flex-basis: 0%
+    .option li p
+        font-size: 1.2rem
+    .option li i.novo
+        width: 20px
+        height: 20px
+        background-color: #FFFFFF50
+        color: #000000
+        margin-top: 8px
+        font-size: 1.6rem
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+
+/* CHECKBOX */
+.form_geral .input_checkbox
+    position: relative
+    display: flex
+    flex-direction: row
+    overflow: hidden
+    label
+        min-height: 18px
+        font-size: 1.4rem
+        line-height: 1.5em
+        color: #666
+        position: relative
+        padding-left: 25px
+        display: flex
+        align-items: center
+        cursor: pointer
+        word-break: break-word
+    label *
+        font-size: inherit
+    label strong
+        margin: 0 5px
+    label::after
+        width: 18px
+        height: 18px
+        position: absolute
+        left: 0
+        background-image: linear-gradient(to bottom, #CCC, #DDD)
+        border-radius: 3px
+        content: " "
+    label .input_ajuda
+        width: 25px
+        height: 25px
+        line-height: 25px
+        font-size: 1.6rem
+        font-weight: bold
+        text-align: center
+        background-color: #169e91
+        color: #FFF
+        margin-left: 10px
+        border-radius: 50%
+        cursor: default
+    input
+        width: 0
+        height: 0
+        opacity: 0
+    input:checked ~ label::after
+        background: #169e91 url(/images/form/check.svg) no-repeat center center
+        background-size: 10px auto
+
+/* RADIO */
+.form_geral .input_radio
+    position: relative
+    display: flex
+    flex-direction: row
+    overflow: hidden
+    label
+        min-height: 18px
+        font-size: 1.3rem
+        color: #666
+        position: relative
+        padding-left: 25px
+        display: flex
+        align-items: center
+        cursor: pointer
+    label::after
+        width: 18px
+        height: 18px
+        position: absolute
+        left: 0
+        background-image: linear-gradient(to bottom, #CCC, #DDD)
+        border-radius: 50%
+        content: " "
+        z-index: 1
+    label::before
+        width: 6px
+        height: 6px
+        position: absolute
+        left: 6px
+        background: #FFF
+        border-radius: 50%
+        content: " "
+        z-index: 2
+        display: none
+    input
+        display: none
+    input:checked ~ label::after
+        background: #169e91
+    input:checked ~ label::before
+        display: block
+
+/* BOTÃO SWTICH */
+.form_geral .bloco_switch
+    margin-top: 20px
+    position: relative
+    display: flex
+    user-select: none
+    input
+        width: 1px
+        height: 1px
+        position: absolute
+        left: 0
+        top: 10px
+        opacity: 0
+        z-index: 1
+    label
+        display: flex
+        color: #666
+        flex-direction: row
+        align-items: center
+        cursor: pointer
+        z-index: 2
+    label p
+        font-size: 1.4rem
+    label .input_ajuda
+        width: 25px
+        height: 25px
+        line-height: 25px
+        font-size: 1.6rem
+        font-weight: bold
+        text-align: center
+        background-color: #169e91
+        color: #FFF
+        margin-left: 10px
+        border-radius: 50%
+        cursor: default
+    label span
+        width: 40px
+        height: 24px
+        position: relative
+        margin-left: 10px
+        background: #CCC
+        border-radius: 12px
+        display: flex
+        transition: background-color .3s ease-out
+    label span::after
+        width: 20px
+        height: 20px
+        content: ""
+        position: absolute
+        background: #FFF
+        box-shadow: 0 0 5px #00000020
+        border-radius: 50%
+        top: 2px
+        left: 2px
+        transition: left .3s ease-out
+    input:focus ~ label span
+        background-color: #BBB
+    input:checked ~ label span
+        background-color: #169e91
+    input:checked ~ label span::after
+        left: 18px
+
+.form_geral .input_cor
+    height: 65px
+    position: relative
+    margin-top: 10px
+    display: flex
+    align-items: center
+    .input_cor_conteudo
+        height: 45px
+        position: relative
+        display: flex
+        flex-direction: row
+        border-radius: 3px
+        border: 1px solid #DDD
+        cursor: pointer
+        overflow: hidden
+    .input_cor_conteudo *
+        cursor: pointer
+    .input_cor_conteudo label
+        height: 45px
+        line-height: 44px
+        font-size: 1.4rem
+        font-weight: 300
+        color: #999
+        margin: 0 15px
+    .input_cor_conteudo .input_cor_bg
+        width: 50px
+        height: 45px
+        border-left: 1px solid #DDD
+        z-index: 2
+    .input_cor_conteudo .input_cor_icone
+        position: absolute
+        width: 50px
+        height: 45px
+        right: 0
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #CCC
+        z-index: 1
+
+.form_geral.form_esqueleto
+    .bloco_input
+        overflow: hidden
+    .bloco_input::after
+        width: 100%
+        height: 45px
+        position: absolute
+        top: 10px
+        left: 0
+        z-index: 10
+        content: " "
+        background-color: #EEE
+        border-radius: 3px
+    .bloco_input::before
+        width: 40px
+        height: 45px
+        content: " "
+        position: absolute
+        top: 10px
+        left: -20px
+        z-index: 11
+        animation: form_esqueleto_loading 2s ease-in-out 0s infinite
+        background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.6), rgba(255,255,255,0))
+    .bloco_input label
+        display: none
+
+/* ANIMAÇÃO */
+@keyframes form_esqueleto_loading
+    0%
+        left: -40px
+    100%
+        left: 100%
+@keyframes loading_form
+    0%
+        left: -100%
+    100%
+        left: 100%
+@keyframes form_animacao_barra
+    0%
+        left: -100%
+    100%
+        left: 100%
+
+.form_geral .form_botao
+    width: 100%
+    margin-top: 20px
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    a
+    button
+        height: 45px
+        line-height: 45px
+        padding: 0 20px
+        border-radius: 3px
+        font-size: 1.3rem
+        text-transform: uppercase
+    a
+        background-color: #CCC
+        color: #666
+    button
+        color: #FFF
+        background-color: #169e91
+
+.form_geral .input_margin
+    width: 20px
+    height: 1px
+
+.form_geral .form_bloco
+    margin-top: 20px
+    padding: 20px
+    boxBg()
+    display: flex
+    flex-direction: column
+    header
+        width: 100%
+        margin-bottom: 20px
+    header h1
+        width: 100%
+        font-size: 1.8rem
+        color: #169e91
+    header p
+        width: 100%
+        font-size: 1.3rem
+        color: #666
+        margin-top: 5px
+    header.centralizar h1
+    header.centralizar p
+        text-align: center
+    h2
+        margin-top: 20px
+        font-size: 1.3rem
+        color: #666
+    .row
+        width: 100%
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+    .row .row
+        width: calc(50% - 10px)
+    .row .resto
+        flex-grow: 1
+        flex-basis: 0%
+    .row .bloco_input
+    .row .bloco_input_select
+        width: calc(50% - 10px)
+    .form_linha
+        width: 100%
+        height: 1px
+        background-color: #EEE
+        margin: 20px 0 10px 0
+
+#fw_form_cor
+    width: 100%
+    height: 100%
+    position: fixed
+    z-index: 99999
+    top: 0
+    left: 0
+    background-color: rgba(0,0,0,.7)
+    opacity: 0
+    transition: opacity .3s ease-out
+    display: none
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    &.fw_form_cor_abrir
+        opacity: 1
+    .fw_form_cor_conteudo
+        width: calc(100% - 40px)
+        max-width: 460px
+        background-color: #FFF
+        box-shadow: 0 4px 5px rgba(0,0,0,2)
+        overflow: hidden
+        border-radius: 5px
+    .fw_form_cor_header
+        width: 100%
+        height: 50px
+        display: flex
+        flex-direction: row
+        align-items: center
+        box-shadow: 0 4px 5px rgba(0,0,0,.1)
+    .fw_form_cor_header .fw_form_cor_h1
+        flex-grow: 1
+        flex-basis: 0%
+        font-size: 1.6rem
+        color: #666
+    .fw_form_cor_header .fw_form_cor_fechar
+        width: 30px
+        height: 30px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #666
+        margin: 0 10px
+    .fw_form_cor_scroll
+        max-height: calc(100vh - 90px)
+        overflow-y: auto
+        padding-top: 10px
+    .fw_form_cor_h2
+        font-size: 1.4rem
+        padding: 10px 20px
+    .fw_form_cor_ul
+        width: 100%
+        padding: 0 20px
+        margin-bottom: 10px
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: center
+    .fw_form_cor_ul .fw_form_cor_li
+        width: 40px
+        height: 40px
+        background-color: attr(data-cor)
+        margin: 1px
+        cursor: pointer
+        border: 1px solid #CCC
+    .fw_form_cor_bloco_input
+        width: 100%
+        position: relative
+        padding: 0 20px
+        margin-bottom: 20px
+        display: flex
+        flex-direction: row
+        overflow: hidden
+    .fw_form_cor_bloco_input .fw_form_cor_hashtag
+        width: 30px
+        height: 40px
+        line-height: 40px
+        position: absolute
+        text-align: center
+        font-size: 1.4rem
+        color: #666
+        top: 0
+        left: 20px
+        height: 40px
+        line-height: 40px
+        z-index: 2
+        transition: left .3s ease-out
+    .fw_form_cor_bloco_input .fw_form_cor_input
+        width: 100px
+        height: 40px
+        padding-left: 30px
+        border-radius: 3px 0 0 3px
+        border: 1px solid #CCC
+        border-right: none
+        font-size: 1.4rem
+        transition: padding-left .3s ease-out
+    .fw_form_cor_bloco_input .fw_form_cor_botao_confirmar
+        height: 40px
+        line-height: 40px
+        padding: 0 20px
+        border-radius: 0 3px 3px 0
+        background-color: #169e91
+        color: #FFF
+        font-size: 1.4rem
+    .fw_form_cor_bloco_input .fw_form_cor_bloco_remover
+        display: flex
+        flex-direction: row
+        flex-grow: 1
+        flex-basis: 0%
+    .fw_form_cor_bloco_input .fw_form_cor_ou
+        height: 40px
+        line-height: 40px
+        font-size: 1.4rem
+        color: #999
+        margin: 0 20px
+    .fw_form_cor_bloco_input .fw_form_cor_botao_remover
+        height: 40px
+        line-height: 40px
+        background-color: #CCC
+        color: #666
+        padding: 0 20px
+        font-size: 1.2rem
+        border-radius: 3px
+
+
+.form_geral .bloco_ckeditor_balao
+    width: 100%
+    position: relative
+    margin: 35px 0 20px
+    padding-top: 10px
+    display: flex
+    flex-direction: column
+    align-items: center
+    border: 1px solid #DDD !important
+    padding: 0 15px !important
+    border-radius: 0 0 3px 3px !important
+    .centralizar
+        width: 100%
+        padding: 5px 0
+        display: flex
+        flex-direction: column
+        align-items: center
+        overflow: hidden
+    .ck-content
+        border: none !important
+        padding: 0 !important
+        border-radius: none !important
+    .editor_label
+        height: 20px
+        line-height: 20px
+        padding: 0 5px
+        border-bottom: none
+        color: $cor
+        background-color: #FFF
+        font-size: 1.4rem
+        position: absolute
+        left: 10px
+        top: -10px
+.form_geral .bloco_ckeditor_balao.bloco_ckeditor_sem_label
+    border-radius: 0 !important
+    border: none !important
+    margin: 0 !important
+.form_geral .bloco_ckeditor_clasico
+    margin-top: 20px
+    .editor_label
+        width: 100%
+        color: #666
+        background-color: #EEE
+        border: 1px solid #DDD
+        border-bottom: none
+        font-weight: 300
+        font-size: 1.4rem
+        padding:  10px 15px
+        display: flex
+    .ck-content
+        max-height: calc(100vh - 240px)
+        padding: 5px 20px 10px 20px
+        overflow-y: hidden !important
+        &.ck-focused
+            overflow-y: auto !important
+.bloco_editor > textarea
+    display: none
+
+.form_geral .bloco_ckeditor
+    display: flex
+    justify-content: center
+
+// IMAGEM
+.form_geral .fw_form_imagem
+    width: 100%
+    margin-top: 10px
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    .fw_imagem_conteudo
+        position: relative
+        background: #EEE
+        border: 10px solid #EEE
+        overflow: hidden
+    .fw_imagem_conteudo .fw_imagem_figure
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+        background-size: contain
+        background-position: center center
+        background-repeat: no-repeat
+    .fw_imagem_conteudo .fw_imagem_icone
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #CCC
+        z-index: 1
+    .fw_imagem_conteudo .fw_imagem_icone svg
+        max-width: calc(100% - 40px)
+        max-height: calc(100% - 40px)
+    .fw_imagem_controle
+        width: calc(100% - 20px)
+        position: absolute
+        left: 10px
+        bottom: 10px
+        display: flex
+        flex-direction: row
+        z-index: 2
+    .fw_imagem_controle .fw_imagem_linha
+        flex-grow: 1
+        flex-basis: 0%
+    .fw_imagem_controle .fw_imagem_icone
+        width: 35px
+        height: 35px
+        overflow: hidden
+        position: relative
+        fill: #FFF
+        background-color: #fff
+        box-shadow: 0 4px 5px rgba(0,0,0,.1)
+        border-radius: 3px
+        margin: 0 5px
+        display: flex
+        justify-content: center
+        align-items: center
+        cursor: pointer
+        &.fw_imagem_upload
+            background-color: #169e91
+        &.fw_imagem_visualizar
+            background-color: #00bcf2
+        &.fw_imagem_remover
+            background-color: #FF6C60
+    .fw_imagem_controle .fw_imagem_icone input
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        z-index: 10
+    .fw_imagem_hide
+        display: none !important
+
+.form_geral .fw_form_imagem.fw_form_tipo_redondo
+    .fw_imagem_conteudo
+        border-radius: 50%
+        border: none
+        box-shadow: 0 4px 5px rgba(0,0,0,.05)
+    .fw_imagem_conteudo .fw_imagem_figure
+        background-size: cover
+    .fw_imagem_controle
+        width: 100%
+        position: relative
+        left: 0
+        bottom: 0
+        margin-top: 20px
+        justify-content: center
+    .fw_imagem_controle .fw_imagem_linha
+        display: none
+
+#fw_imagem_bloco_visualizar
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 9999
+    background-color: rgba(0,0,0,.7)
+    overflow-y: auto
+    display: none
+    justify-content: center
+    align-items: flex-start
+    opacity: 0
+    transition: opacity .3s ease-out
+    user-select: none
+    &.fw_imagem_bloco_abrir
+        opacity: 1
+    .fw_imagem_icone
+        width: 30px
+        height: 30px
+        position: fixed
+        top: 20px
+        fill: #FFF
+        background-color: rgba(0,0,0,.7)
+        border: 1px solid #FFF
+        border-radius: 4px
+        z-index: 2
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        &.fw_imagem_fechar
+            right: 20px
+        &.fw_imagem_tamanho_real
+        &.fw_imagem_tamanho_reduzido
+            right: 65px
+        &.fw_imagem_tamanho_reduzido
+            display: none
+    .fw_imagem_figure
+        z-index: 1
+        margin: 20px 0
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTYgMTYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE2IDE2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHJlY3QgZmlsbCA9IiNDQ0NCQ0IiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiLz48cmVjdCB4PSI4IiBmaWxsID0iI0ZGRkZGRiIgd2lkdGg9IjgiIGhlaWdodD0iOCIvPjxyZWN0IHg9IjgiIHk9IjgiIGZpbGwgPSIjQ0NDQkNCIiB3aWR0aD0iOCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeT0iOCIgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9IjgiIGhlaWdodD0iOCIvPjwvc3ZnPgo=")
+        background-repeat: repeat
+    .fw_imagem_figure img
+        max-width: calc(100vw - 80px)
+        max-height: calc(100vh - 42px)
+        float: left
+        &.fw_imagem_img_tamanho_real
+            max-width: calc(100vw - 40px)
+            max-height: 1000000px
+
+.fw_form_tag
+    width: 100%
+    display: flex
+    flex-direction: column
+    .fw_form_tag_hide
+        display: none
+    .fw_form_tag_remover_todos
+        width: 120px
+        position: relative
+        margin-top: 10px
+        padding: 5px 0
+        font-size: 1.2rem
+        border-radius: 20px
+        color: #FFF
+        background-color: #FF6C60
+        text-align: center
+        cursor: pointer
+        margin-bottom: 10px
+
+.fw_form_tag .fw_form_tag_lista
+    width: 100%
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    .fw_form_tag_item
+        padding: 2px 0 2px 10px
+        border-radius: 30px
+        background-color: #DDD
+        margin: 0 7px 10px 0
+        display: flex
+        align-items: center
+        justify-content: center
+        overflow: hidden
+        cursor: default
+    .fw_form_tag_item span
+        font-size: 1.2rem
+    .fw_form_tag_item .fw_form_tag_remover
+        width: 15px
+        height: 15px
+        margin: 0 5px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+.fw_form_tag.fw_form_tag_url .fw_form_tag_lista
+    flex-direction: column
+    .fw_form_tag_item span
+        font-size: 1.2rem
+        flex-grow: 1
+        flex-basis: 0%

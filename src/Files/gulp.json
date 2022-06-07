@@ -1,0 +1,26 @@
+{
+    "titulo": "{{titulo}}",
+    "nome": "{{nome}}",
+    "public": "{{public}}",
+    "url": "{{url}}",
+    "docker": {
+        "https": "{{dockerHttps}}",
+        "http": "{{dockerHttp}}",
+        "db": "{{dockerDb}}",
+        "pma": "{{dockerPma}}"
+    },
+    "browserSync": {
+        "proxy": "https://{{url}}",
+        "open": "https://{{url}}",
+        "porta": "{{browserProxy}}"
+    },
+    "phpMussel": {
+        "virusTotalKey": "{{virus}}",
+        "googleKey": "{{google}}"
+    },
+    "banco": {
+        "nome": "{{dbNome}}",
+        "senha": "{{dbSenha}}"
+    },
+    "git": "{{git}}"
+}

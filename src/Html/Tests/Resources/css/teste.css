@@ -1,0 +1,239 @@
+.bloco_mensagem {
+    width: 100%;
+    padding: 80px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.bloco_mensagem i {
+    width: 100px;
+    height: 100px;
+    fill: #999;
+    border-radius: 50%;
+    border: 1px solid #BBB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bloco_mensagem h1 {
+    width: 100%;
+    font-size: 2rem;
+    color: #169e91;
+    text-align: center;
+    margin: 30px 0 10px;
+    font-weight: bold;
+}
+.bloco_mensagem p {
+    width: 100%;
+    max-width: 300px;
+    color: #666;
+    font-size: 1.4rem;
+    text-align: center;
+    line-height: 1.5em;
+}
+.bloco {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+.bloco#bloco_falhou {
+    display: flex;
+}
+article {
+    width: calc(100% - 40px);
+    max-width: 1000px;
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+}
+article > header {
+    margin-bottom: 20px;
+}
+article > header h1 {
+    font-size: 3rem;
+}
+article > header p {
+    font-size: 1.8rem;
+    margin-top: 10px;
+}
+
+article .teste {
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 5px;
+    padding: 40px 30px 30px;
+    border-bottom: 1px solid #DDD;
+}
+article .teste:last-child {
+    border-bottom: none;
+}
+article .teste header {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+article .teste header .metodo {
+    height: 30px;
+    line-height: 30px;
+    font-size: 1.2rem;
+}
+article .teste header .url {
+    height: 30px;
+    line-height: 30px;
+    font-size: 1.5rem;
+    margin-left: 10px;
+    color: #00aced;
+}
+article .teste header h2 {
+    font-size: 2rem;
+    flex-grow: 1;
+    flex-basis: 0%;
+}
+article .teste header .linha {
+    width: 100%;
+}
+article .teste header .status {
+    height: 25px;
+    line-height: 25px;
+    padding: 0 15px;
+    border-radius: 15px;
+    position: absolute;
+    right: 0;
+    background-color: #00aced;
+    color: #FFF;
+    font-size: 1.6rem;
+}
+article .teste ul li.linha_teste {
+    width: calc(100% - 10px);
+    border-left: 2px solid #169e91;
+    margin-left: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+article .teste ul li.linha_teste::after {
+    width: 70px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    content: "";
+    font-size: 1.4rem;
+    position: absolute;
+    left: 10px;
+    color: #FFF;
+    border-radius: 15px;
+}
+article .teste ul li.linha_teste.falhou::after {
+    content: "falhou";
+    background-color: #FF6C60;
+}
+article .teste ul li.linha_teste.passou::after {
+    content: "passou";
+    background-color: #169e91;
+}
+article .teste ul li.linha_teste p {
+    font-size: 1.6rem;
+    padding: 10px 0 10px 90px;
+    color: #666;
+}
+article .teste ul li.linha_teste p strong {
+    font-weight: bold;
+    font-size: inherit;
+    color: #169e91;
+}
+article .teste ul li.linha_resposta .botao_mostrar {
+    width: 130px;
+    font-size: 1.2rem;
+    margin: 20px 0 0 20px;
+    cursor: pointer;
+    background-color: #EEE;
+    border-radius: 20px;
+    padding: 5px 0;
+    text-align: center;
+}
+article .teste ul li.linha_resposta .botao_mostrar::after {
+    content: "Mostrar resquest";
+}
+article .teste ul li.linha_resposta .botao_mostrar.esconder::after {
+    content: "Esconder resquest";
+}
+article .teste ul li.linha_resposta ul {
+    margin: 10px 0;
+    display: none;
+    flex-direction: column;
+}
+article .teste ul li.linha_resposta ul.mostrar {
+    display: flex;
+}
+article .teste ul li.linha_resposta ul li {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+article .teste ul li.linha_resposta ul li span {
+    width: 100px;
+    font-size: 1.4rem;
+    color: #666;
+}
+article .teste ul li.linha_resposta ul li.pre span {
+    margin-top: 10px;
+}
+article .teste ul li.linha_resposta ul li pre {
+    line-height: 1.5em;
+    flex-grow: 1;
+    flex-basis: 0%;
+    background-color: #333;
+    color: #FFF;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    overflow: auto;
+}
+article .teste ul li.linha_erro {
+    display: flex;
+    flex-direction: column;
+}
+article .teste ul li.linha_erro .arquivo {
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 1.5em;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+article .teste ul li.linha_erro .arquivo .linha {
+    background-color: #DDD;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+article .teste ul li.linha_erro .mensagem {
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 1.5em;
+    color: #666;
+    margin-top: 20px;
+}
+article .teste ul li.linha_erro ul {
+    background-color: #F6F6F6;
+    padding: 20px;
+    margin-top: 20px;
+}
+article .teste ul li.linha_erro ul li {
+    width: 100%;
+    line-height: 1.5em;
+    font-size: 1.4rem;
+    color: #666;
+}
+

@@ -1,0 +1,221 @@
+const { src, dest } = require('gulp');
+const fs = require('fs');
+const replace = require('gulp-replace');
+const stylus = require('gulp-stylus');
+const concat = require('gulp-concat');
+const autoprefixer = require('gulp-autoprefixer');
+const cssMin = require('gulp-cssmin');
+const plumber = require('gulp-plumber');
+const { arquivoExiste } = require('./validacao.js');
+const { mensagemErro, mensagemSucesso } = require('./mensagem');
+const glob = require('glob');
+const { fsDeletarDiretorio } = require('./arquivo');
+
+let config;
+/*
+|--------------------------------------------------------------------------
+| BUILD
+|--------------------------------------------------------------------------
+*/
+exports.cssDeploy = async function () {
+    if (config == undefined) {
+        config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+    }
+    return src(config.public + '/css/*.css')
+        .pipe(plumber())
+        .pipe(autoprefixer())
+        .pipe(cssMin())
+        .pipe(dest(config.public + '/css'));
+};
+
+/*
+|--------------------------------------------------------------------------
+| HTML
+|--------------------------------------------------------------------------
+*/
+exports.cssUnico = function (path, browser) {
+    return new Promise(async resolve => {
+        if (config == undefined) {
+            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+        }
+
+        let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/layout.styl';
+        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/path.styl';
+
+        if (await arquivoExiste(pathReal, false)) {
+            const conteudo = fs.readFileSync(pathReal, 'utf-8');
+            pathAll = conteudo.replace(/^\/\/\ ?/, '').trim();
+        }
+
+        if (!(await arquivoExiste(pathAll))) {
+            resolve(false);
+        }
+
+        try {
+            await processarCss(pathAll, browser);
+            mensagemSucesso('Arquivo copiado com sucesso: ' + pathAll);
+        } catch (error) {
+            mensagemErro('Erro ao copiar arquivo: ' + pathAll);
+        }
+        resolve(true);
+    });
+};
+
+/*
+|--------------------------------------------------------------------------
+| TODOS
+|--------------------------------------------------------------------------
+*/
+exports.cssTodos = function () {
+    return new Promise(async resolve => {
+        if (config == undefined) {
+            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+        }
+
+        await fsDeletarDiretorio(config.public + '/css');
+
+        const listaArquivo = glob.sync('views/@(pages|templates)/**/layout.styl');
+        const quantidade = listaArquivo.length;
+        const ultimo = quantidade - 1;
+        let i, arquivo;
+        for (i = 0; i < quantidade; ++i) {
+            arquivo = listaArquivo[i];
+            try {
+                await processarCss(arquivo);
+                mensagemSucesso('Arquivo copiado com sucesso: ' + arquivo);
+            } catch (error) {
+                mensagemErro('Erro ao copiar arquivo: ' + arquivo);
+            }
+            if (i == ultimo) {
+                resolve(true);
+            }
+        }
+    });
+};
+
+/*
+|--------------------------------------------------------------------------
+| FUNÇÕES GERAIS
+|--------------------------------------------------------------------------
+*/
+function processarCss(path, browser) {
+    return new Promise(async (resolve, reject) => {
+        const dirBase = path.replace(/\/layout.styl$/, '') + '/';
+        const nome = path
+            .replace(/^views\/(pages\/)?/, '')
+            .replace(/\/css\/[a-zA-Z0-9\-\_\.]+\.styl/, '')
+            .replace(/\//g, '_');
+        const conteudo = fs.readFileSync(path, 'utf-8');
+
+        let listaImport = pegarListaImports(conteudo, dirBase);
+        if (listaImport) {
+            listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
+            listaImport.push(path);
+            listaImport.unshift('src/Html/Scripts/css/Variavel.system.styl');
+        } else {
+            listaImport = ['src/Html/Scripts/css/Variavel.system.styl', path];
+        }
+
+        if (!(await arquivoExiste(listaImport))) {
+            return;
+        }
+
+        if (browser != undefined) {
+            return src(listaImport)
+                .pipe(plumber())
+                .pipe(concat(nome + '.styl'))
+                .pipe(
+                    replace(
+                        /(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
+                        function handleReplace(match) {
+                            return '';
+                        }
+                    )
+                )
+                .pipe(
+                    stylus({
+                        'include css': true,
+                    })
+                )
+                .pipe(dest(config.public + '/css'))
+                .pipe(browser.stream())
+                .on('end', resolve)
+                .on('error', reject);
+        } else {
+            return src(listaImport)
+                .pipe(plumber())
+                .pipe(concat(nome + '.styl'))
+                .pipe(
+                    replace(
+                        /(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
+                        function handleReplace(match) {
+                            return '';
+                        }
+                    )
+                )
+                .pipe(
+                    stylus({
+                        'include css': true,
+                    })
+                )
+                .pipe(dest(config.public + '/css'))
+                .on('end', resolve)
+                .on('error', reject);
+        }
+    });
+}
+// Pegar lista de imports
+function pegarListaImports(conteudo, path) {
+    if (!/\@import|\@resource|\@template|\@system/.test(conteudo)) {
+        return false;
+    }
+    const lista = conteudo
+        .replace(/\"|\'|\(|\)/g, '')
+        .match(/(\@import|\@resource|\@template|\@system)\ [a-zA-Z0-9\_\-\.\/]+/g);
+
+    let retorno = [];
+    const quantidade = lista.length;
+    let i, arquivo;
+    for (i = 0; i < quantidade; ++i) {
+        arquivo = lista[i];
+        if (/\@import/.test(arquivo)) {
+            retorno.push(path + arquivo.replace('@import ', '') + '.styl');
+        } else if (/\@template/.test(arquivo)) {
+            retorno.push('views/templates/' + arquivo.replace('@template ', '') + '/css/layout.styl');
+        } else if (/\@resource/.test(arquivo)) {
+            retorno.push('resources/css/' + arquivo.replace('@resource ', '') + '.styl');
+        } else if (/\@system/.test(arquivo)) {
+            retorno.push(
+                'src/Html/Scripts/css/' +
+                    arquivo.replace('@system ', '').replace(/(\.system\.js|\.system|\.js)$/, '') +
+                    '.system.styl'
+            );
+        }
+    }
+    return pegarSubImports(retorno);
+}
+
+function pegarSubImports(lista) {
+    const retorno = [];
+    let path, tmp, conteudo;
+    [].forEach.call(lista, arquivo => {
+        if (
+            ((/^views\/templates/.test(arquivo) && /layout.styl$/.test(arquivo)) ||
+                (/^views\/pages/.test(arquivo) && /layout.styl$/.test(arquivo))) &&
+            fs.existsSync(arquivo)
+        ) {
+            path = arquivo.split('/');
+            path.pop();
+            path = path.join('/') + '/';
+            conteudo = fs.readFileSync(arquivo, 'utf-8');
+            tmp = pegarListaImports(conteudo, path);
+            if (false !== tmp) {
+                [].forEach.call(tmp, subArquivo => {
+                    retorno.push(subArquivo);
+                });
+            }
+        }
+        retorno.push(arquivo);
+    });
+    return retorno;
+}

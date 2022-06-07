@@ -1,0 +1,499 @@
+#fw_calendario {
+    width: 100vw;
+    max-width: 400px;
+    position: fixed;
+    top: 80px;
+    left: 700px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#fw_calendario .fw_calendario_conteudo {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    background-color: #fff;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+#fw_calendario .fw_calendario_header {
+    background: #23b9a9;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px 10px;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_prev, #fw_calendario .fw_calendario_header .fw_calendario_next {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    fill: #FFF;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_mes_ano {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_mes {
+    width: 140px;
+    height: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_mes .fw_calendario_mes_texto {
+    width: 100%;
+    font-size: 1.8rem;
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_mes .fw_calendario_mes_select {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    opacity: 0;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_ano {
+    width: 140px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_ano .fw_calendario_ano_texto {
+    width: 100%;
+    font-size: 4rem;
+    text-align: center;
+    z-index: 1;
+    color: #fff;
+    font-weight: bold;
+}
+#fw_calendario .fw_calendario_header .fw_calendario_ano .fw_calendario_ano_select {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    opacity: 0;
+}
+#fw_calendario .fw_calendario_tr {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#fw_calendario .fw_calendario_td {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+#fw_calendario .fw_calendario_td .fw_calendario_numero {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    overflow: hidden;
+}
+#fw_calendario .fw_calendario_semana {
+    width: 100%;
+    position: relative;
+    background: #23b9a9;
+    display: flex;
+    flex-direction: row;
+    padding: 0 20px;
+    color: #fff;
+}
+#fw_calendario .fw_calendario_semana .fw_calendario_semana_texto {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 1.2rem;
+    overflow: hidden;
+}
+#fw_calendario .fw_calendario_hora, #fw_calendario .fw_calendario_hora_valor {
+    display: none;
+}
+#fw_calendario .fw_calendario_main {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+#fw_calendario .fw_calendario_lista {
+    width: 100%;
+    height: calc(100vh - 210px);
+    max-height: 240px;
+    margin-top: 10px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#fw_calendario .fw_calendario_mes_numero {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+#fw_calendario .fw_calendario_mes_numero:nth-child(1) {
+    left: -100%;
+}
+#fw_calendario .fw_calendario_mes_numero:nth-child(2) {
+    left: 0;
+}
+#fw_calendario .fw_calendario_mes_numero:nth-child(3) {
+    left: 100%;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_tr {
+    margin: 5px 0;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero {
+    position: relative;
+    z-index: 2;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_numero_fim_semana {
+    color: #ff6c60;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_numero_hoje {
+    font-weight: 600;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero:hover {
+    background: rgba(35, 185, 169, 0.3);
+    color: #fff;
+    cursor: pointer;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_numero_marcado {
+    background: #23b9a9;
+    color: #fff;
+    cursor: pointer;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_outro_mes {
+    color: #bbb;
+    cursor: default;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_outro_mes:hover {
+    background: #fff;
+    color: #bbb;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_numero_bloqueado {
+    background: rgba(255, 255, 255, 0);
+    color: #bbb;
+    cursor: default;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero_bg_prev, #fw_calendario .fw_calendario_mes_numero .fw_calendario_numero_bg_next {
+    width: 50%;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero_bg_prev {
+    left: 0;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero_bg_next {
+    right: 0;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo .fw_calendario_numero_bg_prev, #fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo .fw_calendario_numero_bg_next {
+    background: #23b9a9;
+    color: #fff;
+    opacity: 0.2;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo.fw_calendario_numero_bg_de.fw_calendario_numero_bg_ate .fw_calendario_numero {
+    line-height: 26px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo.fw_calendario_numero_bg_de .fw_calendario_numero_bg_next {
+    background: #23b9a9;
+    opacity: 0.2;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo.fw_calendario_numero_bg_ate .fw_calendario_numero_bg_prev {
+    background: #23b9a9;
+    opacity: 0.2;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo.fw_calendario_numero_bg_de .fw_calendario_numero_bg_prev {
+    background-color: rgba(255, 255, 255, 0);
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo.fw_calendario_numero_bg_ate .fw_calendario_numero_bg_next {
+    background-color: rgba(255, 255, 255, 0);
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_td.fw_calendario_numero_bg_ativo .fw_calendario_numero.fw_calendario_numero_fim_semana {
+    color: #000;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero_hoje_texto {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+#fw_calendario .fw_calendario_mes_numero .fw_calendario_numero_bg_ativo .fw_calendario_numero_hoje_texto, #fw_calendario .fw_calendario_mes_numero .fw_calendario_numero:hover+.fw_calendario_numero_hoje_texto, #fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_numero_marcado+.fw_calendario_numero_hoje_texto {
+    display: none;
+}
+#fw_calendario .fw_calendario_lista.fw_calendario_animar_prev .fw_calendario_mes_numero:nth-child(1) {
+    transition: left ease-out 0.3s;
+    left: 0%;
+}
+#fw_calendario .fw_calendario_lista.fw_calendario_animar_prev .fw_calendario_mes_numero:nth-child(2) {
+    transition: left ease-out 0.3s;
+    left: 100%;
+}
+#fw_calendario .fw_calendario_lista.fw_calendario_animar_next .fw_calendario_mes_numero:nth-child(2) {
+    transition: left ease-out 0.3s;
+    left: -100%;
+}
+#fw_calendario .fw_calendario_lista.fw_calendario_animar_next .fw_calendario_mes_numero:nth-child(3) {
+    transition: left ease-out 0.3s;
+    left: 0;
+}
+#fw_calendario .fw_calendario_footer {
+    width: 100%;
+    padding: 20px 0;
+}
+#fw_calendario .fw_calendario_footer .fw_calendario_botao_lista {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 40px;
+}
+#fw_calendario .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #23b9a9;
+    cursor: pointer;
+    display: none;
+}
+#fw_calendario .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_hoje {
+    display: block;
+}
+#fw_calendario .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_cancelar {
+    color: #999;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_footer .fw_calendario_botao_lista {
+    justify-content: space-between;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_hoje {
+    display: none;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_agora, #fw_calendario.fw_calendario_data_hora .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_cancelar, #fw_calendario.fw_calendario_data_hora .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_ok {
+    display: block;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_semana .fw_calendario_tr {
+    width: calc(100% - 80px);
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_semana .fw_calendario_hora_valor {
+    width: 80px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_semana .fw_calendario_hora_valor .fw_calendario_hora_valor_input {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    font-size: 1.6rem;
+    text-align: center;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_semana .fw_calendario_hora_valor .fw_calendario_hora_valor_input::placeholder {
+    color: #fff;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_lista {
+    width: calc(100% - 80px);
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_hora {
+    width: 80px;
+    height: calc(100vh - 210px);
+    max-height: 240px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid #eee;
+    display: block;
+    z-index: 2;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_hora .fw_calendario_hora_minuto {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_hora .fw_calendario_hora_minuto:first-child {
+    width: 78px;
+    position: fixed;
+    background-color: #fff;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_hora .fw_calendario_hora_minuto:hover {
+    background-color: #f6f6f6;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_hora .fw_calendario_hora_minuto.fw_calendario_hora_minuto_marcado {
+    color: #fff;
+    background-color: #23b9a9;
+}
+#fw_calendario.fw_calendario_data_hora .fw_calendario_hora .fw_calendario_hora_minuto.fw_calendario_hora_minuto_manual_input.fw_calendario_hora_minuto_marcado {
+    background-color: #f6f6f6;
+    color: #000;
+}
+@media screen and (max-width: 1000px) {
+    #fw_calendario {
+        max-width: 100%;
+        height: 100vh;
+        top: 0 !important;
+        left: 0 !important;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    #fw_calendario .fw_calendario_conteudo {
+        width: calc(100% - 20px);
+        max-height: calc(100vh - 20px);
+        margin: 10px 0;
+    }
+    #fw_calendario.fw_calendario_data_hora .fw_calendario_hora .fw_calendario_hora_minuto:hover {
+        background-color: #23b9a9;
+    }
+    #fw_calendario .fw_calendario_mes_numero .fw_calendario_numero:hover {
+        background: rgba(255, 255, 255, 0);
+        color: #000;
+    }
+    #fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_numero_fim_semana:hover {
+        color: #ff6c60;
+    }
+    #fw_calendario .fw_calendario_mes_numero .fw_calendario_numero.fw_calendario_numero_marcado:hover {
+        background: #23b9a9;
+        color: #fff !important;
+    }
+    #fw_calendario .fw_calendario_footer .fw_calendario_botao_lista {
+        justify-content: space-between;
+    }
+    #fw_calendario .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_cancelar, #fw_calendario .fw_calendario_footer .fw_calendario_botao_lista .fw_calendario_botao_ok {
+        display: block;
+    }
+}
+@media screen and (max-width: 420px) {
+    #fw_calendario .fw_calendario_semana {
+        padding: 0 10px;
+    }
+    #fw_calendario .fw_calendario_mes_numero {
+        padding: 0 10px;
+    }
+    #fw_calendario .fw_calendario_footer .fw_calendario_botao_lista {
+        padding: 0 20px;
+    }
+}
+@media screen and (max-width: 300px) {
+    #fw_calendario .fw_calendario_footer .fw_calendario_botao_hoje, #fw_calendario .fw_calendario_footer .fw_calendario_botao_agora {
+        display: none;
+    }
+}
+@media screen and (max-height: 520px) {
+    #fw_calendario .fw_calendario_conteudo {
+        max-width: 640px;
+        padding-left: 200px;
+    }
+    #fw_calendario .fw_calendario_header {
+        width: 200px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 20px 20px 20px;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_prev, #fw_calendario .fw_calendario_header .fw_calendario_next {
+        position: absolute;
+        top: 120px;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_prev {
+        left: 10px;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_next {
+        left: 50px;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_mes_ano {
+        align-items: flex-start;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_mes {
+        width: 100%;
+        align-items: flex-start;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_mes .fw_calendario_mes_texto {
+        height: 24px;
+        line-height: 24px;
+        text-align: left;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_mes .fw_calendario_mes_select {
+        height: 24px;
+        line-height: 24px;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_ano {
+        width: 100%;
+        margin: -6px 0 0 -2px;
+        align-items: flex-start;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_ano .fw_calendario_ano_texto {
+        text-align: left;
+    }
+    #fw_calendario .fw_calendario_header .fw_calendario_ano .fw_calendario_ano_select {
+        height: 40px;
+        line-height: 40px;
+    }
+    #fw_calendario .fw_calendario_semana {
+        background: rgba(255, 255, 255, 0);
+        border-bottom: 1px solid #EEE;
+        color: #666;
+    }
+    #fw_calendario .fw_calendario_semana .fw_calendario_semana_texto {
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 1.2rem;
+        overflow: hidden;
+    }
+    #fw_calendario .fw_calendario_lista {
+        height: calc(100vh - 120px);
+    }
+    #fw_calendario.fw_calendario_data_hora .fw_calendario_hora {
+        height: calc(100vh - 120px);
+    }
+}
+@media screen and (max-width: 640px) and (orientation: landscape) {
+    #fw_calendario .fw_calendario_conteudo {
+        max-width: 600px;
+        padding-left: 150px;
+    }
+    #fw_calendario .fw_calendario_header {
+        width: 150px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 20px 20px 20px;
+    }
+    #fw_calendario .fw_calendario_mes_numero {
+        padding: 0 5px;
+    }
+    #fw_calendario .fw_calendario_semana {
+        padding: 0 5px;
+    }
+}

@@ -1,0 +1,46 @@
+version: '3'
+services:
+    apache:
+        image: andrerodrigue5/apache2-php8.1
+        container_name: web-{{nome}}
+        ports:
+            - "{{portaHttp}}:80"
+            - "{{portaHttps}}:443"
+        volumes:
+            - .:/var/www/html/
+            - ./src/Files/docker_host:/etc/apache2/sites-enabled/
+        networks:
+            - docker-rede
+        depends_on:
+            - "mariadb"
+        restart: always
+    mariadb:
+        image: mariadb:10.5.2
+        container_name: db-{{nome}}
+        ports:
+            - "{{portaDb}}:3306"
+        environment:
+            MYSQL_DATABASE: {{dbNome}}
+            MYSQL_ROOT_PASSWORD: {{dbSenha}}
+        networks:
+            - docker-rede
+        volumes:
+            - ./files/banco/mariadb/:/var/lib/mysql
+        restart: always
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: pma-{{nome}}
+        ports:
+            - "{{portaPma}}:80"
+        environment:
+            PMA_HOST: db-{{nome}}
+            PMA_PORT: 3306
+            UPLOAD_LIMIT: 500M
+        networks:
+            - docker-rede
+        depends_on:
+            - "mariadb"
+        restart: always
+networks:
+    docker-rede:
+        driver: bridge

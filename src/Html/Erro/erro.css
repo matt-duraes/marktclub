@@ -1,0 +1,589 @@
+body {
+    background-color: #F6F6F6;
+    font-family: 'Open Sans', sans-serif;
+}
+#site {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    padding: 20px 20px 40px;
+    flex-direction: column;
+    align-items: center;
+}
+header {
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    background-color: #FFF;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+header .tipo_erro {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #FF6C60;
+    padding: 20px;
+    color: #FFF
+}
+#site.erro_alerta header .tipo_erro {
+    background-color: #FF9900;
+}
+header .tipo_erro h2, header .tipo_erro h2 span, header .tipo_erro h2 strong {
+    font-size: 1.6rem;
+}
+header .tipo_erro h2 strong {
+    font-weight: bold;
+}
+header .tipo_erro p {
+    line-height: 1.5em;
+    font-size: 1.4rem;
+    margin-top: 5px;
+}
+header h1 {
+    width: 100%;
+    line-height: 1.5em;
+    margin-top: 30px;
+    padding: 10px 40px;
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #FF6C60;
+    border-left: 3px solid #FF6C60;
+}
+#site.erro_alerta header h1 {
+    color: #FF9900;
+    border-left-color: #FF9900;
+}
+header .titulo {
+    width: 100%;
+    padding: 30px 40px 40px;
+}
+header .titulo .bloco_titulo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+header .titulo .bloco_titulo h2 {
+    line-height: 1.5em;
+    font-size: 2.4rem;
+    color: #666;
+    word-break: break-all;
+}
+header .titulo .bloco_titulo .alerta {
+    font-size: 1.3rem;
+    color: #F00;
+    padding-top: 2px;
+    margin-left: 8px;
+}
+header .titulo .bloco_titulo .editor {
+    width: 25px;
+    height: 25px;
+    fill: #999;
+    margin: 2px 0 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header .titulo p {
+    width: 100%;
+    line-height: 1.5em;
+    color: #999;
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+header .titulo p.linha {
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+header .titulo p.linha span {
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    font-size: 1.4rem;
+}
+header .titulo p.linha strong {
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    background-color: #EEE;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    padding: 0 10px;
+    margin-left: 5px;
+    color: #000;
+}
+header .solucao {
+    width: 100%;
+    background-color: #64d8ff;
+    padding: 40px;
+    margin-bottom: 30px;
+}
+header .solucao h3 {
+    font-size: 1.8rem;
+    line-height: 1.5em;
+    font-weight: bold;
+    color: #000;
+}
+header .solucao p {
+    line-height: 1.5em;
+    font-size: 1.4rem;
+    color: #333;
+    margin-top: 5px;
+}
+header .solucao p strong {
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: bold;
+}
+header .solucao h4 {
+    width: 100%;
+    line-height: 1.5em;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}
+header .solucao ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    list-style: circle;
+}
+header .solucao ul li {
+    line-height: 1.5em;
+    font-size: 1.4rem;
+    margin-top: 5px;
+    color: #333;
+}
+header .solucao ul li strong {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+header .titulo_pilha {
+    font-size: 1.4rem;
+    color: #999;
+    padding: 20px 0 10px 40px
+}
+header .bloco_trace {
+    width: 100%;
+    position: relative;
+    overflow-y: auto;
+    padding: 0 40px;
+    margin-bottom: 30px;
+}
+header .bloco_trace li.lista {
+    font-size: 1.4rem;
+    line-height: 1.5em;
+    border-bottom: 1px solid #DDD;
+    padding: 5px 0;
+}
+header .bloco_trace li.lista:hover {
+    background-color: #F6F6F6;
+}
+header .bloco_trace li:last-child {
+    border-bottom: none;
+}
+header .trace_abrir {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 30px;
+    background-color: #FFF;
+    display: none;
+    justify-content: center;
+}
+header .trace_abrir button {
+    height: 40px;
+    line-height: 40px;
+    background-color: #EEE;
+    color: #000;
+    font-size: 1.4rem;
+    padding: 0 20px;
+    border-radius: 3px;
+}
+.bloco_codigo {
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .1);
+    background-color: #FFF;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.bloco_codigo .bloco_lista_arquivo {
+    width: 300px;
+    height: 480px;
+    position: relative;
+}
+.bloco_codigo .bloco_lista_arquivo .titulo_arquivo {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    background-color: #EEE;
+    padding: 0 20px;
+    color: #666;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+}
+.bloco_codigo .bloco_lista_arquivo .titulo_arquivo .menu_trace_fechar {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    padding-top: 3px;
+    fill: #666;
+    display: none;
+}
+.bloco_codigo .bloco_lista_arquivo ul {
+    width: 100%;
+    height: 440px;
+    overflow-y: auto;
+    padding: 20px 0;
+    background-color: #FFF;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid #FFF;
+    border-bottom: 1px solid #EEE;
+    cursor: pointer;
+    padding: 20px;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista:last-child {
+    border-bottom: none;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista.hover, .bloco_codigo .bloco_lista_arquivo li.lista:hover {
+    border-left-color: #64d8ff;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista .nome {
+    font-size: 1.4rem;
+    line-height: 1.5em;
+    font-weight: bold;
+    word-wrap: break-word;
+    color: #666;
+    margin-bottom: 10px;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista .nome .alerta {
+    width: 20px;
+    height: 20px;
+    color: #F00;
+    font-weight: bold;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista .classe {
+    font-size: 1.2rem;
+    color: #e36209;
+    margin-top: 5px;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista .funcao {
+    margin-top: 5px;
+    font-size: 1.2rem;
+    color: #6f42c1;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista .linha {
+    font-size: 1.4rem;
+    color: #999;
+    margin-top: 15px;
+}
+.bloco_codigo .bloco_lista_arquivo ul li.lista .linha span {
+    padding: 3px;
+    background-color: #EEE;
+    font-size: 1.4rem;
+    color: #999;
+    border-radius: 4px;
+}
+.bloco_codigo .codigo {
+    width: calc(100% - 300px);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 5px 5px 0;
+    display: none;
+}
+.bloco_codigo .codigo.codigo_ativo {
+    display: block;
+}
+.bloco_codigo .titulo {
+    position: relative;
+    background-color: #FFF;
+    border-left: 1px solid #DDD;
+    padding: 20px 20px 8px;
+}
+.bloco_codigo .titulo .menu_trace {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding-top: 1px;
+    display: none;
+}
+.bloco_codigo .titulo .funcao {
+    width: 100%;
+    margin-bottom: 5px;
+}
+.bloco_codigo .titulo .funcao span {
+    font-size: 1.8rem;
+    line-height: 1.5em;
+}
+.bloco_codigo .titulo .funcao .trace_classe {
+    color: #e36209;
+}
+.bloco_codigo .titulo .funcao .trace_ponto {
+    color: #999;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 0 4px 0 7px;
+}
+.bloco_codigo .titulo .funcao .trace_metodo {
+    color: #6f42c1;
+}
+.bloco_codigo .titulo .funcao .trace_parente {
+    color: #2c9770;
+}
+.bloco_codigo .titulo .nome {
+    width: 100%;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.bloco_codigo .titulo .nome p {
+    font-size: 1.4rem;
+    line-height: 1.3em;
+    font-weight: bold;
+    color: #999;
+    margin: 2px 0 8px;
+    word-break: break-all;
+}
+.bloco_codigo .titulo .nome p .alerta {
+    width: 20px;
+    height: 20px;
+    color: #F00;
+    font-weight: bold;
+}
+.bloco_codigo .titulo .nome a {
+    width: 28px;
+    fill: #999;
+    text-align: center;
+    margin-left: 8px;
+    transition: fill .3s ease-out;
+}
+.bloco_codigo .titulo .nome a:hover {
+    fill: #333;
+}
+.bloco_codigo .titulo .nome a svg {
+    margin-top: 3px;
+}
+.bloco_codigo .codigo .numero_lista {
+    height: 40000px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 15px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+.bloco_codigo .codigo .conteudo {
+    height: 506px;
+    background-color: #282a36;
+    padding: 15px 0;
+    overflow-x: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.bloco_codigo .codigo .conteudo::after {
+    width: 65px;
+    height: 506px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    background-color: #1b1e2c;
+}
+.bloco_codigo .codigo .conteudo .linha {
+    width: 100%;
+    height: 28px;
+    line-height: 28px;
+    position: relative;
+    display: flex;
+}
+.bloco_codigo .codigo .conteudo .linha:first-child:after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    width: 65px;
+    height: 15px;
+    background-color: #1b1e2c;
+}
+.bloco_codigo .codigo .conteudo .linha:last-child:before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    width: 65px;
+    height: 15px;
+    background-color: #1b1e2c;
+}
+.bloco_codigo .codigo .conteudo .linha .numero {
+    width: 65px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    position: absolute;
+    font-size: 1.3rem;
+    text-align: right;
+    color: #808394;
+    background-color: #1b1e2c;
+    z-index: 2;
+}
+.bloco_codigo .codigo .conteudo .linha p {
+    height: 28px;
+    line-height: 28px;
+    position: relative;
+    color: #FFF;
+    padding-left: 80px;
+    flex-grow: 1;
+    flex-basis: 0%;
+    font-size: 1.3rem;
+}
+.bloco_codigo .codigo .conteudo .linha.ativo p {
+    background-color: #1b1e2c;
+}
+.bloco_codigo .codigo .conteudo .linha.ativo .numero {
+    background-color: #0d0f18;
+}
+.bloco_info {
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .1);
+    background-color: #FFF;
+    border-radius: 5px;
+    margin-top: 40px;
+    overflow: hidden;
+}
+.bloco_info h1 {
+    width: 100%;
+    background-color: #EEE;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    font-size: 1.4rem;
+}
+.bloco_info .bloco {
+    width: calc(100% - 40px);
+    margin: 60px 20px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #DDD;
+}
+.bloco_info .bloco:nth-child(2) {
+    margin-top: 40px;
+}
+.bloco_info .bloco:last-child {
+    border-bottom: none;
+    padding-bottom: 10px;
+}
+.bloco_info .bloco h2 {
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    padding-left: 230px;
+}
+.bloco_info .bloco .dado {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
+.bloco_info .bloco .dado .nome {
+    width: 200px;
+    margin-right: 30px;
+    text-align: right;
+    font-size: 1.4rem;
+    line-height: 1.5em;
+}
+.bloco_info .bloco .dado .valor {
+    width: calc(100% - 230px);
+    line-height: 1.5em;
+    font-size: 1.4rem;
+}
+.bloco_info .bloco .dado pre.valor {
+    background-color: #282a36;
+    padding: 10px 20px;
+    color: #FFF;
+    border-radius: 3px;
+}
+.bloco_alerta {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+}
+.bloco_alerta li {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #999;
+}
+@media screen and (max-width: 1000px) {
+    .bloco_codigo .bloco_lista_arquivo {
+        position: absolute;
+        z-index: 2;
+        background-color: #FFF;
+        left: -100%;
+        transition: left .3s ease-out;
+    }
+    .bloco_codigo .bloco_lista_arquivo.menu_trace_ativo {
+        left: 0;
+    }
+    .bloco_codigo .bloco_lista_arquivo .titulo_arquivo .menu_trace_fechar {
+        display: block;
+    }
+    .bloco_codigo .codigo {
+        width: 100%;
+        z-index: 1;
+    }
+    .bloco_codigo .titulo {
+        padding-left: 60px;
+        padding-top: 18px;
+    }
+    .bloco_codigo .titulo .menu_trace {
+        display: block;
+    }
+    .bloco_info .bloco h2 {
+        padding-left: 0;
+    }
+    .bloco_info .bloco .dado {
+        flex-direction: column;
+    }
+    .bloco_info .bloco .dado::after {
+        content: " ";
+        width: 100px;
+        height: 1px;
+        background-color: #EEE;
+        margin-top: 20px;
+    }
+    .bloco_info .bloco .dado:last-child::after {
+        display: none;
+    }
+    .bloco_info .bloco .dado .nome {
+        width: 100%;
+        margin-right: 0;
+        text-align: left;
+        font-weight: bold;
+        color: #666;
+    }
+    .bloco_info .bloco .dado .valor {
+        width: 100%;
+    }
+}
