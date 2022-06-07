@@ -110,7 +110,6 @@ font-size: 100%;
 font-family: inherit;
 resize: none;
 border-radius: 0;
-background: none;
 -webkit-appearance: none;
 -moz-appearance: none;
 appearance: none;
@@ -198,5 +197,5 @@ input[type="search"]::-webkit-search-results-decoration {
 display: none;
 }
 [contenteditable]:focus {
-outline: 0px solid transparent;
+outline: none;
 }

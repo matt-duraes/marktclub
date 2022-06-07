@@ -58,7 +58,7 @@ body.fw_body_hidden {
   .form_geral .bloco_input {
     width: 100%;
     position: relative;
-    margin: 20px 0 10px 0;
+    margin: 20px 0 10px;
   }
   .form_geral .bloco_input .input_bloqueado {
     width: 100%;
@@ -452,7 +452,6 @@ body.fw_body_hidden {
     color: #fff;
     display: flex;
     flex-direction: row;
-    align-items: center;
     cursor: pointer;
     overflow: hidden;
     align-items: flex-start;
@@ -835,7 +834,7 @@ body.fw_body_hidden {
     width: 100%;
     height: 1px;
     background-color: #eee;
-    margin: 20px 0 10px 0;
+    margin: 20px 0 10px;
   }
   #fw_form_cor {
     width: 100%;
@@ -931,8 +930,6 @@ body.fw_body_hidden {
     color: #666;
     top: 0;
     left: 20px;
-    height: 40px;
-    line-height: 40px;
     z-index: 2;
     transition: left 0.3s ease-out;
   }
@@ -980,13 +977,12 @@ body.fw_body_hidden {
   .form_geral .bloco_ckeditor_balao {
     width: 100%;
     position: relative;
-    margin: 35px 0 20px 0;
-    padding-top: 10px;
+    margin: 35px 0 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 1px solid #ddd !important;
-    padding: 0 15px !important;
+    padding: 10px 0 15px !important;
     border-radius: 0 0 3px 3px !important;
   }
   .form_geral .bloco_ckeditor_balao .centralizar {
@@ -1035,7 +1031,7 @@ body.fw_body_hidden {
   }
   .form_geral .bloco_ckeditor_clasico .ck-content {
     max-height: calc(100vh - 240px);
-    padding: 5px 20px 10px 20px;
+    padding: 5px 20px 10px;
     overflow-y: hidden !important;
   }
   .form_geral .bloco_ckeditor_clasico .ck-content.ck-focused {

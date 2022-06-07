@@ -151,7 +151,6 @@ abstract class Entity extends ORM
         foreach ($lista as $ind => $val) {
             $this->ormSetarSet($ind, $val, true);
         }
-        return;
     }
 
     protected function prop(string $propriedade)
@@ -331,7 +330,6 @@ abstract class Entity extends ORM
             }
         }
         $this->_propriedadePublica = array_unique($lista);
-        return;
     }
 
     private function ormSetarDadoDaEntity(array $dado, string $acao): void

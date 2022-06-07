@@ -55,8 +55,6 @@ final class EstadoCivil implements ModuleInterface
 
         $this->numero = '';
         $this->estadoCivil = '';
-
-        return;
     }
 
     // doc

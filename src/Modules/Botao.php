@@ -50,7 +50,6 @@ final class Botao implements ModuleInterface
             $this->numero = '';
             return;
         }
-        return;
     }
 
     // doc

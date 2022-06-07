@@ -424,7 +424,6 @@ final class Request extends Psr7Request
         }
 
         $this->__dado = $lista;
-        return;
     }
 
     private function setarPropriedadesPublicas()

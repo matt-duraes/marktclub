@@ -80,7 +80,6 @@ trait SalvarTrait
             return;
         }
         $this->_acao = 'insert';
-        return;
     }
 
     private function ormMontarDadoOutroValor($linha)
@@ -225,6 +224,5 @@ trait SalvarTrait
         foreach ($lista as $arquivo) {
             unlink($arquivo);
         }
-        return;
     }
 }

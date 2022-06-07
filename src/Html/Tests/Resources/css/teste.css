@@ -1,6 +1,6 @@
 .bloco_mensagem {
     width: 100%;
-    padding: 80px 20px 20px 20px;
+    padding: 80px 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,7 @@
     font-size: 2rem;
     color: #169e91;
     text-align: center;
-    margin: 30px 0 10px 0;
+    margin: 30px 0 10px;
     font-weight: bold;
 }
 .bloco_mensagem p {
@@ -43,7 +43,7 @@
 article {
     width: calc(100% - 40px);
     max-width: 1000px;
-    margin: 40px 0 40px 0;
+    margin: 40px 0;
     display: flex;
     flex-direction: column;
 }
@@ -62,7 +62,7 @@ article .teste {
     width: 100%;
     background-color: #FFF;
     border-radius: 5px;
-    padding: 40px 30px 30px 30px;
+    padding: 40px 30px 30px;
     border-bottom: 1px solid #DDD;
 }
 article .teste:last-child {

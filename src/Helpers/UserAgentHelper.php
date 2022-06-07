@@ -90,7 +90,8 @@ final class UserAgentHelper
 
             $result['platform'] = array_unique($result['platform']);
             if (count($result['platform']) > 1) {
-                if ($keys = array_intersect($priority, $result['platform'])) {
+                $keys = array_intersect($priority, $result['platform']);
+                if ($keys) {
                     $platform = reset($keys);
                 } else {
                     $platform = $result['platform'][0];
@@ -147,6 +148,7 @@ final class UserAgentHelper
         };
 
         $key = 0;
+        $pKey = preg_grep('/playstation \d/i', $result['browser']);
         $val = '';
         if ($browser == 'Iceweasel' || strtolower($browser) == 'icecat') {
             $browser = 'Firefox';
@@ -156,7 +158,8 @@ final class UserAgentHelper
         } elseif ($find(['Kindle Fire', 'Silk'], $key, $val)) {
             $browser = $val == 'Silk' ? 'Silk' : 'Kindle';
             $platform = 'Kindle Fire';
-            if (!($version = $result['version'][$key]) || !is_numeric($version[0])) {
+            $version = $result['version'][$key];
+            if (!$version || !is_numeric($version[0])) {
                 $version = $result['version'][array_search('Version', $result['browser'])];
             }
         } elseif ($find('NintendoBrowser', $key) || $platform == 'Nintendo 3DS') {
@@ -215,7 +218,7 @@ final class UserAgentHelper
 
             $find('Version', $key);
             $version = $result['version'][$key];
-        } elseif ($pKey = preg_grep('/playstation \d/i', $result['browser'])) {
+        } elseif ($pKey) {
             $pKey = reset($pKey);
 
             $platform = 'PlayStation ' . preg_replace('/\D/', '', $pKey);

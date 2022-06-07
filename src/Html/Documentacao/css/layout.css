@@ -90,7 +90,6 @@ nav .conteudo .grupo {
 }
 nav .conteudo .grupo p {
     font-weight: 400;
-    color: #333;
     font-size: 1.8rem;
     color: var(--azul);
 }
@@ -164,13 +163,13 @@ nav .conteudo .grupo .menu a:hover {
     font-size: var(--titulo);
     font-weight: bold;
     color: var(--azul);
-    margin: 20px 0 10px 0;
+    margin: 20px 0 10px;
 }
 #main .conteudo article .subtitulo {
     width: 100%;
     font-size: var(--texto);
     font-weight: bold;
-    margin: 20px 0 10px 0;
+    margin: 20px 0 10px;
 }
 #main .conteudo article .bloco_tabela {
     width: 100%;
@@ -271,7 +270,7 @@ nav .conteudo .grupo .menu a:hover {
 #main .conteudo article .parametro {
     width: 100%;
     position: relative;
-    margin: 10px 0 20px 0;
+    margin: 10px 0 20px;
 }
 #main .conteudo article .parametro .subtitulo {
     color: #999;
@@ -313,7 +312,6 @@ nav .conteudo .grupo .menu a:hover {
     color: #666;
     line-height: 1.5em;
     font-size: var(--texto);
-    line-height: 1.5em;
 }
 #main .conteudo article .bloco_retorno {
     width: 100%;
@@ -347,7 +345,7 @@ nav .conteudo .grupo .menu a:hover {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px 0 40px 0;
+    padding: 20px 0 40px;
     border-top: 1px solid #DDD;
 }
 #main .conteudo article .bloco_codigo > .descricao {
@@ -368,7 +366,7 @@ nav .conteudo .grupo .menu a:hover {
     margin-top: 20px;
 }
 #main .conteudo article .bloco_codigo .exemplo_geral .item {
-    margin: 10px 0 20px 0;
+    margin: 10px 0 20px;
     border-left: 3px solid var(--azul);
     padding-left: 10px;
 }

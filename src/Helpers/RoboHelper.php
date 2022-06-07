@@ -444,6 +444,7 @@ class RoboHelper
         try {
             $this->ElementoAtual->addHtmlContent($html);
         } catch (Erro) {
+            return false;
         }
     }
 

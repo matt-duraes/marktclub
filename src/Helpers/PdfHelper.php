@@ -336,7 +336,6 @@ final class PdfHelper
     private function setarCss($css): void
     {
         $this->PDF->WriteHTML($css, HTMLParserMode::HEADER_CSS);
-        return;
     }
 
     /**

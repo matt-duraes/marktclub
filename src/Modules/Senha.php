@@ -115,7 +115,6 @@ final class Senha implements ModuleInterface
         $this->mudouSenha = true;
         $this->mesmaSenha = !empty($this->senha) ? password_verify($senha, $this->senha) : false;
         $this->senha = password_hash($senha, PASSWORD_DEFAULT, ['cost' => 11]);
-        return;
     }
 
     // doc

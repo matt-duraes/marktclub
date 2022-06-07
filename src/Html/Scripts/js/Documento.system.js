@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
         setTimeout(() => {
             const copiar = pre.querySelector('.bloco_copiar');
             if (copiar) {
-                copiar.addEventListener('click', e => {
+                copiar.addEventListener('click', () => {
                     navigator.clipboard.writeText(code.innerText);
                     Alerta.notificacao('Código copiado com sucesso!', true);
                 });

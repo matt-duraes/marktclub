@@ -55,8 +55,6 @@ final class Genero implements ModuleInterface
 
         $this->numero = '';
         $this->genero = '';
-
-        return;
     }
 
     // doc

@@ -94,8 +94,8 @@ final class TextoHelper
     /**
      * Remover todo o HTML da string exceto o especificado para ficar
      *
-     * @param null|string $tag  Lista de tags que não devem ser removidas. Ex: <a><p><i>
-     * @return Self
+     * @param null|string $tag  Lista de tags que não devem ser removidas. Ex. <a><p><i>
+     * @return self
      */
     public function removerHtml(?string $tag = null): self
     {

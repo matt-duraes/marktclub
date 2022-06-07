@@ -55,7 +55,6 @@ final class Response extends Psr7Response
         }
         $this->tipo = 'responseBody';
         $this->responseBody = new Psr7Response($this->body, $this->status, $this->header);
-        return;
     }
 
     public function __toString()

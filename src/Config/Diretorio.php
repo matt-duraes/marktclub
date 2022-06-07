@@ -14,7 +14,6 @@ if (!file_exists(__DIR__ . '/../../.git') && SISTEMA == 'LOCALHOST') {
             'git init'
         ]
     );
-    exit();
 } elseif (!file_exists(__DIR__ . '/../../.git/hooks/pre-commit') && SISTEMA == 'LOCALHOST') {
     throw new \Erro\Erro(
         mensagem: 'GIT não configurado',
@@ -24,7 +23,6 @@ if (!file_exists(__DIR__ . '/../../.git') && SISTEMA == 'LOCALHOST') {
             'cp files/git/pre-commit .git/hooks'
         ]
     );
-    exit();
 }
 
 /*
@@ -41,7 +39,6 @@ if (!is_dir(__DIR__ . '/../../vendor')) {
             'composer install'
         ]
     );
-    exit();
 }
 
 if (!is_writable(__DIR__ . '/../../vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer')) {
@@ -54,7 +51,6 @@ if (!is_writable(__DIR__ . '/../../vendor/ezyang/htmlpurifier/library/HTMLPurifi
             'chown -R www-data:root vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer'
         ]
     );
-    exit();
 }
 /*
 |--------------------------------------------------------------------------
@@ -70,7 +66,6 @@ if (!is_dir(__DIR__ . '/../../node_modules') && SISTEMA == 'LOCALHOST') {
             'npm install'
         ]
     );
-    exit();
 }
 if (!file_exists(__DIR__ . '/../Files/.config') && SISTEMA == 'LOCALHOST') {
     throw new \Erro\Erro(
@@ -81,7 +76,6 @@ if (!file_exists(__DIR__ . '/../Files/.config') && SISTEMA == 'LOCALHOST') {
             'gulp install --config'
         ]
     );
-    exit();
 }
 
 /*
@@ -98,7 +92,6 @@ if (!file_exists(__DIR__ . '/../../phpmussel.yml')) {
             'cp src/Files/phpmussel.yml phpmussel.yml'
         ]
     );
-    exit();
 }
 if (!is_dir(__DIR__ . '/../../files/phpmussel')) {
     throw new \Erro\Erro(
@@ -116,7 +109,6 @@ if (!is_dir(__DIR__ . '/../../files/phpmussel')) {
             'chown -R www-data:root files/phpmussel/quarentena'
         ]
     );
-    exit();
 }
 if (!is_dir(__DIR__ . '/../../files/phpmussel/assinatura')) {
     throw new \Erro\Erro(
@@ -129,7 +121,6 @@ if (!is_dir(__DIR__ . '/../../files/phpmussel/assinatura')) {
             'chown -R www-data:root files/phpmussel/assinatura'
         ]
     );
-    exit();
 }
 if (!is_dir(__DIR__ . '/../../files/phpmussel/cache')) {
     throw new \Erro\Erro(
@@ -142,7 +133,6 @@ if (!is_dir(__DIR__ . '/../../files/phpmussel/cache')) {
             'chown -R www-data:root files/phpmussel/cache'
         ]
     );
-    exit();
 }
 if (!is_writable(__DIR__ . '/../../files/phpmussel/cache')) {
     throw new \Erro\Erro(
@@ -154,7 +144,6 @@ if (!is_writable(__DIR__ . '/../../files/phpmussel/cache')) {
             'chown -R www-data:root files/phpmussel/cache'
         ]
     );
-    exit();
 }
 if (!is_dir(__DIR__ . '/../../files/phpmussel/quarentena')) {
     throw new \Erro\Erro(
@@ -167,7 +156,6 @@ if (!is_dir(__DIR__ . '/../../files/phpmussel/quarentena')) {
             'chown -R www-data:root files/phpmussel/quarentena'
         ]
     );
-    exit();
 }
 if (!is_writable(__DIR__ . '/../../files/phpmussel/quarentena')) {
     throw new \Erro\Erro(
@@ -179,5 +167,4 @@ if (!is_writable(__DIR__ . '/../../files/phpmussel/quarentena')) {
             'chown -R www-data:root files/phpmussel/quarentena'
         ]
     );
-    exit();
 }

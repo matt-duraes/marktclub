@@ -3,13 +3,14 @@
 namespace Tests;
 
 use Tests\Api;
-use Tests\Curl;
 use Random\Data;
 use Random\Outros;
 use Random\Contato;
 use Random\Usuario;
 use Random\Endereco;
 use Random\Documento;
+use Helpers\CurlHelper as Curl;
+use Helpers\RoboHelper as Robo;
 
 abstract class Tests
 {

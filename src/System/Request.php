@@ -169,7 +169,6 @@ final class Request
 
     private function validarHash(string $hash, bool | string $validacao = ''): bool
     {
-        return true;
         $hash = explode('.', $hash);
         if (count($hash) != 2 || $hash[0] != md5(ip()) || is_bool($validacao) || !empty($validacao)) {
             return false;
