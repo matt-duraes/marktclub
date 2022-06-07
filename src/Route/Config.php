@@ -39,7 +39,6 @@ final class Config
         }
 
         $this->explode = $explode;
-        return;
     }
 
     private function pegarControllerAction(): void

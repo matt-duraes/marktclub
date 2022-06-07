@@ -111,7 +111,6 @@ final class ExcelHelper
         }
 
         $this->style = $style->build();
-        return;
     }
 
     private function styleTitulo(): Style

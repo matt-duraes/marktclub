@@ -23,7 +23,6 @@ class Popup {
             botaoAbrir.addEventListener('click', () => {
                 this._popupAbrir(true);
             });
-        } else if (botaoAbrir.length > 0 && typeof botaoAbrir === 'object') {
         }
         if (bloco.classList.contains('abrir_popup')) {
             this._popupAbrir(false);
@@ -63,7 +62,7 @@ class Popup {
         const option = this._option;
         const regAbrir = new RegExp('^' + option.abrir.uri.replace(/\//g, '\\/') + '$');
         const regFechar = new RegExp('^' + option.fechar.uri.replace(/\//g, '\\/') + '$');
-        window.onpopstate = e => {
+        window.onpopstate = () => {
             if (regFechar.test(document.location.pathname)) {
                 this._popupFechar(false);
             } else if (regAbrir.test(document.location.pathname)) {
