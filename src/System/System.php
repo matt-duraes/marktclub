@@ -1,0 +1,102 @@
+<?php
+
+namespace System\System;
+
+use Erro\Erro;
+use Erro\Excecao;
+use Http\Response;
+use System\System\Request;
+use System\System\Controller;
+use System\System\Middleware;
+use Route\Config as RouteConfig;
+use Controller\ControllerInterface;
+
+final class System
+{
+    private RouteConfig $route;
+    private Middleware $middleware;
+    private Request $request;
+    private Controller $controller;
+    private Response $retorno;
+    private bool $middlewareErro = false;
+
+    public function __construct()
+    {
+        $this->route = new RouteConfig;
+        if (!$this->route->rotaUso()) {
+            throw new Excecao(status: 404);
+        }
+        $this->fazerIncludePadrao();
+        $this->middleware = new Middleware($this->route);
+        $this->request = new Request($this->route);
+        $this->controller = new Controller($this->route, $this->request->request());
+    }
+
+    private function fazerIncludePadrao()
+    {
+        $path = ROOT . '/resources/php/' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8');
+        if (!file_exists($path)) {
+            return;
+        }
+
+        $lista = listarArquivoDiretorio($path, ext: ['php']);
+        if (!$lista) {
+            return;
+        }
+
+        foreach ($lista as $arquivo) {
+            require_once $path . '/' . $arquivo;
+        }
+    }
+
+    public function init(): Response
+    {
+        $this->executarMiddlewarePre();
+        $this->executarController();
+        $this->executarMiddlewarePos();
+        return $this->retorno;
+    }
+
+    private function executarMiddlewarePre(): void
+    {
+        $retorno = $this->middleware->pre();
+        if (true !== $retorno) {
+            $this->middlewareErro = true;
+            $this->retorno = $retorno;
+        }
+    }
+
+    private function executarController(): void
+    {
+        if ($this->middlewareErro) {
+            return;
+        }
+        $classe = $this->controller->classe();
+        $metodo = $this->controller->metodo();
+        $parametro = $this->controller->parametro();
+        if (!$classe instanceof ControllerInterface) {
+            throw new Erro(
+                mensagem: 'Instância incorreta.',
+                titulo: 'Classe sem Interface.',
+                texto: 'A classe <strong>' . get_class($classe) . '</strong> não foi implementada ao contrato <strong>Controller\ControllerInterface</strong>.',
+                sugestao: [
+                    'Você deve extender a class abstrata <strong>Controller\controller</strong> em sua classe <strong>' . get_class($classe) . '</strong>.',
+                    'Você deve implementar a interface <strong>Controller\ControllerInterface</strong> a classe <strong>' . get_class($classe) . '</strong>.'
+                ]
+            );
+        }
+        $this->retorno = call_user_func_array([$classe, $metodo], $parametro);
+    }
+
+    private function executarMiddlewarePos(): void
+    {
+        if ($this->middlewareErro) {
+            return;
+        }
+        $retorno = $this->middleware->pos();
+        if (true !== $retorno) {
+            $this->middlewareErro = true;
+            $this->retorno = $retorno;
+        }
+    }
+}

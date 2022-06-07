@@ -1,0 +1,410 @@
+:root {
+    --verde: #169e91;
+    --azul: #00aced;
+    --vermelho: #FF6C60;
+    --rosa: #c44993;
+    --texto: 1.7rem;
+    --titulo: 2rem;
+    --titulo_grande: 3rem;
+}
+
+body {
+    font-size: 62.5%;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+#site {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+}
+
+#header {
+    width: 100%;
+    max-width: 450px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #f6f6f6;
+}
+#header h1 {
+    width: 100%;
+    max-width: 250px;
+    height: 49px;
+    line-height: 49px;
+    font-size: var(--titulo);
+    color: #999;
+}
+
+#botao_menu {
+    width: 40px;
+    height: 39px;
+    margin-right: 10px;
+    display: none;
+    justify-content: center;
+    position: relative;
+}
+#botao_menu span {
+    width: 20px;
+    height: 3px;
+    position: absolute;
+    background-color: var(--verde);
+    border-radius: 2px;
+}
+#botao_menu span.linha_1 {
+    top: 10px;
+}
+#botao_menu span.linha_2 {
+    top: 18px;
+}
+#botao_menu span.linha_3 {
+    top: 26px;
+}
+
+nav {
+    width: 100%;
+    max-width: 300px;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+    z-index: 10;
+    background-color: #F6F6F6;
+}
+nav .conteudo {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+nav .conteudo .grupo {
+    width: 100%;
+    max-width: 250px;
+    margin-bottom: 20px;
+}
+nav .conteudo .grupo p {
+    font-weight: 400;
+    color: #333;
+    font-size: 1.8rem;
+    color: var(--azul);
+}
+nav .conteudo .grupo .menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+nav .conteudo .grupo .menu a {
+    width: 100%;
+    line-height: 1.5rem;
+    padding-left: 10px;
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin: 5px 0;
+    color: #666;
+}
+nav .conteudo .grupo .menu a:hover {
+    color: var(--verde);
+    font-weight: bold;
+}
+
+#main {
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 50px;
+    padding-left: 300px;
+}
+#main .centralizar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main .conteudo {
+    width: calc(100% - 80px);
+    max-width: 700px;
+}
+#main .conteudo article {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 50px;
+}
+#main .conteudo article header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+#main .conteudo article header h1 {
+    position: relative;
+    font-size: var(--titulo_grande);
+    color: var(--verde);
+    margin-bottom: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+#main .conteudo article header p {
+    font-size: var(--texto);
+    line-height: 1.5em;
+}
+#main .conteudo article header p strong {
+    font-weight: bold;
+    font-size: var(--texto);
+}
+#main .conteudo article .titulo {
+    width: 100%;
+    font-size: var(--titulo);
+    font-weight: bold;
+    color: var(--azul);
+    margin: 20px 0 10px 0;
+}
+#main .conteudo article .subtitulo {
+    width: 100%;
+    font-size: var(--texto);
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+#main .conteudo article .bloco_tabela {
+    width: 100%;
+    border: 1px solid #CCC;
+    margin: 10px 0;
+}
+#main .conteudo article .bloco_tabela tr.tr_titulo {
+    background-color: #EEE;
+}
+#main .conteudo article .bloco_tabela tr {
+    width: 100%;
+    border-bottom: 1px solid #CCC;
+}
+#main .conteudo article .bloco_tabela tr td {
+    padding: 10px;
+    line-height: 1.5em;
+    font-size: var(--texto);
+    border-left: 1px solid #CCC;
+}
+#main .conteudo article .bloco_tabela tr td a.botao_abrir {
+    background-color: var(--azul);
+    color: #FFF;
+    font-size: var(--texto);
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+#main .conteudo article .link {
+    height: 40px;
+    line-height: 40px;
+    background-color: var(--azul);
+    font-size: var(--texto);
+    color: #FFF;
+    padding: 0 20px;
+    border-radius: 20px;
+    margin: 10px 0;
+}
+
+#main .conteudo article .paragrafo_geral {
+    width: 100%;
+    font-size: var(--texto);
+    color: #666;
+    margin: 10px 0;
+    line-height: 1.5em;
+}
+#main .conteudo article .codigo_geral {
+    width: 100%;
+    color: #FFF;
+    position: relative;
+    background-color: #0d1117;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+#main .conteudo article .codigo_geral .botao_copiar {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 20;
+    fill: #FFF;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+#main .conteudo article .codigo_geral .codigo_linha {
+    line-height: 1.5em;
+    font-size: var(--texto);
+    text-align: right;
+    background-color: #222;
+    padding: 20px 10px;
+}
+#main .conteudo article .codigo_geral code {
+    flex-grow: 1;
+    flex-basis: 0%;
+    line-height: 1.5em;
+    font-size: var(--texto);
+    padding: 20px 10px;
+    overflow: auto;
+}
+#main .conteudo article .codigo_geral code span {
+    font-size: var(--texto);
+}
+#main .conteudo article .codigo_geral span.escuro {
+    color: #999;
+}
+#main .conteudo article .texto_geral {
+    width: 100%;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+}
+#main .conteudo article .parametro {
+    width: 100%;
+    position: relative;
+    margin: 10px 0 20px 0;
+}
+#main .conteudo article .parametro .subtitulo {
+    color: #999;
+}
+#main .conteudo article .parametro .scroll {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+}
+#main .conteudo article .parametro table tr {
+    border-top: 5px solid #FFF;
+    border-bottom: 5px solid #FFF;
+}
+#main .conteudo article .parametro table td {
+    font-size: var(--texto);
+    margin-right: 20px;
+    padding: 3px 20px 3px 0;
+}
+#main .conteudo article .parametro table td.tipo {
+    border-left: 3px solid var(--verde);
+    padding-left: 10px;
+    color: #999;
+}
+#main .conteudo article .parametro table td span.rosa {
+    color: var(--rosa);
+}
+#main .conteudo article .parametro table td span.barra {
+    margin: 0 5px;
+}
+#main .conteudo article .parametro table td span {
+    font-size: var(--texto);
+}
+#main .conteudo article .parametro table td.var {
+    color: var(--verde);
+    font-size: var(--texto);
+    font-weight: bold;
+}
+#main .conteudo article .parametro table td.descricao {
+    color: #666;
+    line-height: 1.5em;
+    font-size: var(--texto);
+    line-height: 1.5em;
+}
+#main .conteudo article .bloco_retorno {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: var(--texto);
+    line-height: 1.5em;
+}
+#main .conteudo article .bloco_retorno .subtitulo {
+    color: #999;
+}
+#main .conteudo article .bloco_retorno .tipo {
+    color: var(--rosa);
+    font-size: var(--texto);
+}
+#main .conteudo article .bloco_retorno .barra {
+    margin: 0 5px;
+    font-size: var(--texto);
+}
+#main .conteudo article .bloco_retorno .descricao {
+    font-size: var(--texto);
+    line-height: 1.5em;
+    color: #999;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    flex-basis: 0%;
+}
+#main .conteudo article .bloco_codigo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0 40px 0;
+    border-top: 1px solid #DDD;
+}
+#main .conteudo article .bloco_codigo > .descricao {
+    margin-bottom: 20px;
+}
+#main .conteudo article .bloco_codigo .descricao {
+    font-size: var(--texto);
+    line-height: 1.5em;
+    color: #666;
+}
+#main .conteudo article .bloco_codigo .subtitulo {
+    width: 100%;
+    font-size: var(--texto);
+    color: #999;
+}
+#main .conteudo article .bloco_codigo .exemplo_geral {
+    width: 100%;
+    margin-top: 20px;
+}
+#main .conteudo article .bloco_codigo .exemplo_geral .item {
+    margin: 10px 0 20px 0;
+    border-left: 3px solid var(--azul);
+    padding-left: 10px;
+}
+#main .conteudo article .bloco_codigo .exemplo_geral .item:last-child {
+    margin-bottom: 0;
+}
+#main .conteudo article .bloco_codigo .exemplo_geral pre {
+    font-size: var(--texto);
+    line-height: 1.5em;
+    color: #666;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    overflow-x: auto;
+    padding: 10px;
+}
+#main .conteudo article .bloco_codigo .exemplo_php .resultado {
+    font-size: var(--texto);
+    margin-top: 15px;
+}
+#main .conteudo article .bloco_codigo .exemplo_php .resultado span {
+    font-size: var(--texto);
+    color: #999;
+    margin-right: 5px;
+}
+#main .conteudo article .bloco_codigo .exemplo_botao .descricao {
+    margin-bottom: 10px;
+}
+#main .conteudo article .bloco_codigo .exemplo_botao .botao {
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: var(--verde);
+    color: #FFF;
+    border-radius: 20px;
+    font-size: var(--texto);
+    margin-top: 10px;
+    cursor: pointer;
+}

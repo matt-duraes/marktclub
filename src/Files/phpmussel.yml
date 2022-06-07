@@ -1,0 +1,17 @@
+core:
+  delete_on_sight: true
+  lang: 'pt'
+files:
+  chameleon_to_img: true
+  chameleon_to_pdf: true
+  chameleon_to_doc: true
+  chameleon_to_archive: true
+  chameleon_from_exe: true
+  chameleon_from_php: true
+  block_macros: true
+quarantine:
+  quarantine_key: ''
+virustotal:
+  vt_public_api_key: '{{virus}}'
+urlscanner:
+  google_api_key: '{{google}}'
