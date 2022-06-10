@@ -205,8 +205,15 @@ exports.buildCopiandoUpdate = async () => {
         return Promise.reject();
     }
 
+    if (config == undefined) {
+        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+    const public = config.public;
+
     await fsDeletarDiretorio('./src');
-    await fsCopiar('./files/upgrade/src', './src');
+    await fsCopiar('./files/upgrade/src', './');
+    await fsCopiar('./files/upgrade/gulpfile.js', './');
+    await fsCopiar('./files/upgrade/' + public + '/index.php', './' + public);
     await fsDeletarDiretorio('./files/upgrade');
 
     return Promise.resolve();
@@ -224,5 +231,6 @@ exports.buildLimparFramework = async () => {
     await fsDeletarDiretorio('./tests');
     await fsDeletarDiretorio('./routes');
     await fsDeletarDiretorio('./views');
+    await fsDeletarDiretorio('./composer.json');
     await fsDeletarDiretorio('./' + public);
 };

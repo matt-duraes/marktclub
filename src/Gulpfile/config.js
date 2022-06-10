@@ -1,6 +1,7 @@
 const { src } = require('gulp');
 const prop = require('yargs').argv;
 const prompt = require('gulp-prompt');
+const { fsCriarDiretorio } = require('./arquivo.js');
 const fs = require('fs');
 
 exports.configVerificar = async function () {
@@ -174,6 +175,9 @@ exports.configVerificar = async function () {
         .replace(/\{\{virus\}\}/g, virus)
         .replace(/\{\{google\}\}/g, google)
         .replace(/\{\{git\}\}/g, git);
+
+    await fsCriarDiretorio('./files');
+    await fsCriarDiretorio('./files/config');
 
     const pathDest = './files/config/gulp.json';
     if (await fs.existsSync(pathDest)) {

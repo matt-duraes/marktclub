@@ -88,6 +88,7 @@ exports.htmlTodos = function () {
                 resolve(true);
             }
         }
+        resolve(true);
     });
 };
 

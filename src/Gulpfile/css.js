@@ -90,6 +90,7 @@ exports.cssTodos = function () {
                 resolve(true);
             }
         }
+        resolve(true);
     });
 };
 

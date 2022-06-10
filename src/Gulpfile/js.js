@@ -88,6 +88,7 @@ exports.jsTodos = function () {
                 resolve(true);
             }
         }
+        resolve(true);
     });
 };
 
