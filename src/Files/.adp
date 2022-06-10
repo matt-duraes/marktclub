@@ -1,0 +1,6 @@
+GIT=git
+
+DB_HOST=0.0.0.0:3306
+DB_BANCO=teste
+DB_USUARIO=root
+DB_SENHA=123

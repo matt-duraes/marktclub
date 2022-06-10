@@ -13,6 +13,7 @@ const {
     buildEnv,
     buildGit,
     buildArquivosRaiz,
+    buildArquivosPublico,
     buildDiretorios,
     buildDocker,
     buildPhpMussel,
@@ -159,6 +160,7 @@ exports.install = series(
     verificarSePrecisaConfigurar,
     copiandoArquivoParaGit,
     copiandoArquivosDaRaiz,
+    copiandoArquivosPublicos,
     parallel(
         executandoComposerInstall,
         copiandoArquivoParaDocker,
@@ -189,6 +191,9 @@ function criandoDiretorios() {
 }
 function copiandoArquivosDaRaiz() {
     return buildArquivosRaiz();
+}
+function copiandoArquivosPublicos() {
+    return buildArquivosPublico();
 }
 
 function copiandoArquivoParaEnv() {
