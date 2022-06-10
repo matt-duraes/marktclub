@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-exports.fsVerificarSeArquivoExiste = async function (arquivo) {
+exports.fsVerificarSeArquivoExiste = async arquivo => {
     return new Promise(async (resolve, reject) => {
         if (fs.existsSync(arquivo)) {
             resolve(true);
@@ -10,7 +10,7 @@ exports.fsVerificarSeArquivoExiste = async function (arquivo) {
     });
 };
 
-exports.fsCriarDiretorio = async function (diretorio) {
+exports.fsCriarDiretorio = async diretorio => {
     return new Promise(async resolve => {
         if (await !fs.existsSync(diretorio)) {
             await fs.mkdirSync(diretorio);
@@ -20,7 +20,7 @@ exports.fsCriarDiretorio = async function (diretorio) {
         }
     });
 };
-exports.fsDeletarDiretorio = async function (diretorio) {
+exports.fsDeletarDiretorio = async diretorio => {
     return new Promise(async resolve => {
         if (await fs.existsSync(diretorio)) {
             await fs.rmSync(diretorio, { recursive: true });
@@ -30,10 +30,10 @@ exports.fsDeletarDiretorio = async function (diretorio) {
         }
     });
 };
-exports.fsRemoverArquivoSeExistir = async function (arquivo) {
+exports.fsRemoverArquivoSeExistir = async arquivo => {
     return new Promise(async (resolve, reject) => {
         if (fs.existsSync(arquivo)) {
-            fs.unlink(arquivo, function (err) {
+            fs.unlink(arquivo, err => {
                 if (err) reject(err);
                 resolve(true);
             });
@@ -43,15 +43,15 @@ exports.fsRemoverArquivoSeExistir = async function (arquivo) {
     });
 };
 
-exports.fsPegarConteudo = async function (arquivo) {
+exports.fsPegarConteudo = async arquivo => {
     return new Promise(resolve => {
         resolve(fs.readFileSync(arquivo, 'utf-8'));
     });
 };
 
-exports.fsCriarArquivo = async function (nome, conteudo) {
+exports.fsCriarArquivo = async (nome, conteudo) => {
     return new Promise((resolve, reject) => {
-        fs.appendFile(nome, conteudo, function (err) {
+        fs.appendFile(nome, conteudo, err => {
             if (err) reject(err);
             resolve(true);
         });

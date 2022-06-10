@@ -6,7 +6,7 @@ const fs = require('fs');
 
 let config;
 
-exports.imagemTodos = async function () {
+exports.imagemTodos = async () => {
     if (config == undefined) {
         config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -16,7 +16,7 @@ exports.imagemTodos = async function () {
         .pipe(dest(config.public + '/images'));
 };
 
-exports.imagemDeploy = async function () {
+exports.imagemDeploy = async () => {
     if (config == undefined) {
         config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }

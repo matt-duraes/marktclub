@@ -4,7 +4,7 @@ const prompt = require('gulp-prompt');
 const fs = require('fs');
 const { fsCriarDiretorio } = require('./arquivo.js');
 
-exports.configVerificar = async function () {
+exports.configVerificar = async () => {
     if (prop.config == undefined) {
         return;
     }

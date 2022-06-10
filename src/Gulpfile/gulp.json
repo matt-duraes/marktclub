@@ -1,0 +1,26 @@
+{
+    "titulo": "Parlamentum",
+    "nome": "parlamentum",
+    "public": "public",
+    "url": "localhost.com",
+    "docker": {
+        "https": "4200",
+        "http": "8200",
+        "db": "3200",
+        "pma": "1200"
+    },
+    "browserSync": {
+        "proxy": "https://localhost.com",
+        "open": "https://localhost.com",
+        "porta": "5200"
+    },
+    "phpMussel": {
+        "virusTotalKey": "",
+        "googleKey": ""
+    },
+    "banco": {
+        "nome": "parlamentum",
+        "senha": "123456"
+    },
+    "git": "git@github.com:marktclub/parlamentum.git"
+}

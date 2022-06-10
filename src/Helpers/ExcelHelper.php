@@ -70,13 +70,14 @@ final class ExcelHelper
         if (empty($nome)) {
             $nome = md5(uniqid(time()));
         }
+        $nome = preg_match('/\.xlsx$/', $nome) ? $nome : $nome . '.xlsx';
 
         $writer = $this->Writer;
         $writer->openToBrowser($nome);
         $writer->addRows($this->dado);
 
         header('Content-type: application/ms-excel');
-        header('Content-Disposition: attachment; filename=' . $nome . '.xlsx');
+        header('Content-Disposition: attachment; filename=' . $nome);
 
         $writer->close();
         exit();

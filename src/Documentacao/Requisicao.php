@@ -6,6 +6,7 @@ final class Requisicao
 {
     private ?string $id = '';
     private ?array $erro = [];
+    private ?array $sucesso = [];
     private ?array $pre = [];
     private ?array $observacao = null;
     private ?array $header = null;
@@ -33,6 +34,7 @@ final class Requisicao
                     ' . $this->montarBody('Body', $this->body) . '
                     ' . $observacao . '
                     ' . $this->montarErro() . '
+                    ' . $this->montarSucesso() . '
                 </div>
                 ' . $this->montarPre() . '
             </article>
@@ -68,12 +70,32 @@ final class Requisicao
         $this->erro[] = [500, 'Erro interno por alguma falha ou instabilidade.'];
 
         $html = '
-            <div class="erro">
+            <div class="bloco_lista_geral">
                 <h3>Lista de erro:</h3>
                 <div class="lista">
         ';
         foreach ($this->erro as $valor) {
             $html .= '<div class="linha"><div class="numero">' . $valor[0] . '</div><p>' . $valor[1] . '</p></div>';
+        }
+        $html .= '
+                </div>
+            </div>
+        ';
+        return $html;
+    }
+    private function montarSucesso()
+    {
+        if (!$this->sucesso) {
+            return;
+        }
+
+        $html = '
+            <div class="bloco_lista_geral">
+                <h3>Campos em caso de sucesso:</h3>
+                <div class="lista">
+        ';
+        foreach ($this->sucesso as $valor) {
+            $html .= '<div class="linha"><div class="indice">' . $valor[0] . '</div><p>' . $valor[1] . '</p></div>';
         }
         $html .= '
                 </div>
@@ -88,7 +110,7 @@ final class Requisicao
         }
         $html = '<div class="curl">';
         foreach ($this->pre as $valor) {
-            $html .= '<h2>' . $valor[0] . ':</h2><pre>' . $valor[1] . '</pre>';
+            $html .= '<h2>' . $valor[0] . ':</h2><pre class="bloco_codigo_geral"><code>' . $valor[1] . '</code></pre>';
         }
         $html .= '</div>';
         return $html;
@@ -154,7 +176,7 @@ final class Requisicao
 
     public function headerToken()
     {
-        $this->blocoBody('header', 'Authorization', 'access_token_aqui', 'O access_token criado pela rota POST /token');
+        $this->blocoBody('header', 'Authorization', 'Bearer access_token_aqui', 'O access_token criado pela rota POST /token');
         return $this;
     }
     public function headerJson()
@@ -168,16 +190,16 @@ final class Requisicao
         $tipo = !empty($tipo) && !empty($tamanho) ? $tipo . ' <span class="texto">(' . $tamanho . ')</span>' : $tipo;
         $exemplo = !empty($exemplo) ? '<div class="exemplo texto"><span class="texto">Ex.:</span>' . $exemplo . '</div>' : '';
         $descricao = !empty($descricao) ? '<div class="descricao texto">' . $descricao . '</div>' : '';
-        $tipo = !empty($tipo) ? '<div class="tipo texto">' . $tipo . '</div>' : '<div class="tipo"></div>';
+        $tipo = !empty($tipo) ? '<div class="tipo texto"><div class="so_mobile">Tipo:</div>' . $tipo . '</div>' : '<div class="tipo"></div>';
         $obrigatorioHtml = '<div class="obrigatorio"></div>';
         if ($obrigatorio === true) {
-            $obrigatorioHtml = '<div class="obrigatorio texto">*</div>';
+            $obrigatorioHtml = '<div class="obrigatorio texto"><div class="so_mobile">Obrigatório</div><div class="so_desktop">*</div></div>';
         } else if ($obrigatorio == '-') {
-            $obrigatorioHtml = '<div class="obrigatorio azul texto">-</div>';
+            $obrigatorioHtml = '<div class="obrigatorio azul texto"><div class="so_mobile">Obrigatório -</div><div class="so_desktop">-</div></div>';
         }
         $this->$indice[] = '
             <div class="linha">
-                <div class="campo texto">' . $campo . '</div>
+                <div class="campo texto"><div class="so_mobile">Campo:</div>' . $campo . '</div>
                 <div class="exemplo_descricao">
                     ' . $exemplo . '
                     ' . $descricao . '
@@ -195,6 +217,11 @@ final class Requisicao
     public function erro(int $status, string $mensagem)
     {
         $this->erro[] = [$status, $mensagem];
+        return $this;
+    }
+    public function sucesso(string $campo, string $mensagem)
+    {
+        $this->sucesso[] = [$campo, $mensagem];
         return $this;
     }
     public function erro400()

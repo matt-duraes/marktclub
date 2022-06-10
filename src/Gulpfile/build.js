@@ -6,7 +6,7 @@ const replace = require('gulp-replace');
 const plumber = require('gulp-plumber');
 let config;
 
-exports.buildGit = function () {
+exports.buildGit = () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -25,7 +25,7 @@ exports.buildGit = function () {
         .pipe(exec('chmod 775 ./.git/hooks/pre-commit'));
 };
 
-exports.buildPhpMussel = function () {
+exports.buildPhpMussel = () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -38,11 +38,11 @@ exports.buildPhpMussel = function () {
         .pipe(dest('./'));
 };
 
-exports.buildComposer = function () {
-    return src('/').pipe(plumber()).pipe(exec('composer install'));
+exports.buildComposer = () => {
+    src(['./src/Files/composer.json']).pipe(plumber()).pipe(dest('./'));
 };
 
-exports.buildDocker = function () {
+exports.buildDocker = () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -67,7 +67,7 @@ exports.buildDocker = function () {
         .pipe(dest('./'));
 };
 
-exports.buildEnv = async function () {
+exports.buildEnv = async () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -111,7 +111,7 @@ exports.buildEnv = async function () {
         .pipe(dest('./'));
 };
 
-exports.buildArquivosRaiz = function () {
+exports.buildArquivosRaiz = () => {
     return src([
         './src/Files/.eslintignore',
         './src/Files/.prettierrc',
@@ -121,7 +121,11 @@ exports.buildArquivosRaiz = function () {
         .pipe(plumber())
         .pipe(dest('./'));
 };
-exports.buildDiretorios = async function () {
+exports.buildArquivosTeste = () => {
+    return src(['./src/Tests/selenium.jar']).pipe(plumber()).pipe(dest('./tests/server'));
+};
+
+exports.buildDiretorios = async () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -153,6 +157,11 @@ exports.buildDiretorios = async function () {
     await fsCriarDiretorio('./resources/js');
     await fsCriarDiretorio('./resources/php');
     await fsCriarDiretorio('./tests');
+    await fsCriarDiretorio('./tests/server');
+    await fsCriarDiretorio('./views');
+    await fsCriarDiretorio('./views/pages');
+    await fsCriarDiretorio('./views/templates');
+    await fsCriarDiretorio('./views/images');
 
     return src('./')
         .pipe(plumber())
@@ -160,18 +169,21 @@ exports.buildDiretorios = async function () {
         .pipe(exec('chmod 775 ./files/arquivo_privado'))
         .pipe(exec('chmod 775 ./files/arquivo_publico'))
         .pipe(exec('chmod 775 ./files/log'))
-        .pipe(exec('chmod 775 ./files/phpmussel/assinatura'))
         .pipe(exec('chmod 775 ./files/phpmussel/cache'))
         .pipe(exec('chmod 775 ./files/phpmussel/quarentena'));
 };
 
-exports.buildArquivosPublico = function () {
+exports.buildArquivosPublico = () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
     const public = config.public;
 
-    return src(['./src/Files/.htaccess', './src/Files/robots.txt'])
+    return src(['./src/Files/.htaccess', './src/Files/robots.txt', './src/Files/index.php'])
         .pipe(plumber())
         .pipe(dest('./' + public));
+};
+
+exports.buildUpdate = () => {
+    console.log(123);
 };

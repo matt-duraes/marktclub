@@ -13,10 +13,12 @@ const {
     buildEnv,
     buildGit,
     buildArquivosRaiz,
+    buildArquivosTeste,
     buildArquivosPublico,
     buildDiretorios,
     buildDocker,
     buildPhpMussel,
+    buildUpdate,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
@@ -31,6 +33,7 @@ const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.
 */
 exports.default = series(validandoArquivoDeConfiguracao, limpandoSessoes, subindoContainer, monitorarSistema);
 exports.down = parallel(matandoContainer, limpandoSessoes);
+exports.upgrade = parallel(fazerUpdateProjeto);
 
 function validandoArquivoDeConfiguracao() {
     if (!fs.existsSync('./src/Gulpfile/gulp.json')) {
@@ -41,6 +44,9 @@ function validandoArquivoDeConfiguracao() {
     return Promise.resolve();
 }
 
+function fazerUpdateProjeto() {
+    return buildUpdate();
+}
 function subindoContainer() {
     return dockerComposerUp();
 }
@@ -160,6 +166,7 @@ exports.install = series(
     verificarSePrecisaConfigurar,
     copiandoArquivoParaGit,
     copiandoArquivosDaRaiz,
+    copiandoArquivosDeteste,
     copiandoArquivosPublicos,
     parallel(
         executandoComposerInstall,
@@ -191,6 +198,9 @@ function criandoDiretorios() {
 }
 function copiandoArquivosDaRaiz() {
     return buildArquivosRaiz();
+}
+function copiandoArquivosDeteste() {
+    return buildArquivosTeste();
 }
 function copiandoArquivosPublicos() {
     return buildArquivosPublico();

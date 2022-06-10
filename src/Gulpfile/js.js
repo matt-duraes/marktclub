@@ -16,7 +16,7 @@ let config;
 | BUILD
 |--------------------------------------------------------------------------
 */
-exports.jsDeploy = async function () {
+exports.jsDeploy = async () => {
     if (config == undefined) {
         config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -31,7 +31,7 @@ exports.jsDeploy = async function () {
 | HTML
 |--------------------------------------------------------------------------
 */
-exports.jsUnico = function (path) {
+exports.jsUnico = path => {
     return new Promise(async resolve => {
         if (config == undefined) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
@@ -64,7 +64,7 @@ exports.jsUnico = function (path) {
 | TODOS
 |--------------------------------------------------------------------------
 */
-exports.jsTodos = function () {
+exports.jsTodos = () => {
     return new Promise(async resolve => {
         if (config == undefined) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));

@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-exports.arquivoExiste = function (lista, erro) {
+exports.arquivoExiste = (lista, erro) => {
     if (erro == undefined) {
         erro = true;
     }

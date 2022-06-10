@@ -87,9 +87,9 @@ final class Genero implements ModuleInterface
     /**
      * Pega o número do gênero
      *
-     * @return string Número do gênero
+     * @return int|string Número do gênero
      */
-    public function numero(): string
+    public function numero(): int|string
     {
         return $this->numero;
     }
