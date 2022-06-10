@@ -18,7 +18,7 @@ let config;
 */
 exports.jsDeploy = async function () {
     if (config == undefined) {
-        config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
     return src(config.public + '/js/**/*.js')
         .pipe(plumber())
@@ -34,7 +34,7 @@ exports.jsDeploy = async function () {
 exports.jsUnico = function (path) {
     return new Promise(async resolve => {
         if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
         let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
@@ -67,7 +67,7 @@ exports.jsUnico = function (path) {
 exports.jsTodos = function () {
     return new Promise(async resolve => {
         if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
         await fsDeletarDiretorio(config.public + '/js');

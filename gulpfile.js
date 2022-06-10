@@ -40,12 +40,20 @@ exports.update = series(fazerDownloadDoProjeto);
 exports.upgrade = series(instalandoDownloadDoProjeto);
 exports.clearFramework = series(limpandoFramework);
 
-function limpandoFramework() {
-    return buildLimparFramework();
-}
+exports.deploy = parallel(
+    series(copiandoArquivosCSS, preparandoCSSParaProducao),
+    series(copiandoArquivosJS, preparandoJSParaProducao),
+    series(copiandoArquivosHtml, preparandoHtmlParaProducao),
+    series(copiandoArquivosDeImagem, preparandoCSSParaProducao)
+);
 
+/*
+|--------------------------------------------------------------------------
+| FUNÇÕES DO GULP
+|--------------------------------------------------------------------------
+*/
 function validandoArquivoDeConfiguracao() {
-    if (!fs.existsSync('./src/Gulpfile/gulp.json')) {
+    if (!fs.existsSync('./files/config/gulp.json')) {
         console.log('Execute "\x1b[32m\x1b[1mgulp install --config\033[0m" para poder configurar o projeto.');
         console.log('');
         return;
@@ -67,6 +75,10 @@ function matandoContainer() {
     return dockerComposerDown();
 }
 
+function limpandoFramework() {
+    return buildLimparFramework();
+}
+
 function limpandoSessoes() {
     if (prop.clean == undefined) {
         return limparSessao();
@@ -75,7 +87,7 @@ function limpandoSessoes() {
 }
 
 async function monitorarSistema() {
-    const config = JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+    const config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
 
     // RELOAD
     const proxyPorta = config.browserSync.porta;
