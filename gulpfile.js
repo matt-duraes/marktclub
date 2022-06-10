@@ -227,21 +227,8 @@ function copiandoArquivoParaPhpMussel() {
 | de produção assim que um commit é iniciado
 |
 */
-exports.deploy = series(
-    limpandoArquivosDoMac,
-    parallel(
-        series(copiandoArquivosCSS, preparandoCSSParaProducao),
-        series(copiandoArquivosJS, preparandoJSParaProducao),
-        series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-        copiandoArquivosDeImagem
-    )
-);
-exports.build = parallel(
-    series(copiandoArquivosCSS, preparandoCSSParaProducao),
-    series(copiandoArquivosJS, preparandoJSParaProducao),
-    series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-    copiandoArquivosDeImagem
-);
+exports.commit = series(limpandoArquivosDoMac);
+exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem);
 
 function limpandoArquivosDoMac() {
     return limparArquivosDoMac();
