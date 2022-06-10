@@ -18,7 +18,9 @@ const {
     buildDiretorios,
     buildDocker,
     buildPhpMussel,
-    buildUpdate,
+    buildBaixandoUpdate,
+    buildCopiandoUpdate,
+    buildLimparFramework,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
@@ -33,7 +35,14 @@ const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.
 */
 exports.default = series(validandoArquivoDeConfiguracao, limpandoSessoes, subindoContainer, monitorarSistema);
 exports.down = parallel(matandoContainer, limpandoSessoes);
-exports.upgrade = parallel(fazerUpdateProjeto);
+
+exports.update = series(fazerDownloadDoProjeto);
+exports.upgrade = series(instalandoDownloadDoProjeto);
+exports.clearFramework = series(limpandoFramework);
+
+function limpandoFramework() {
+    return buildLimparFramework();
+}
 
 function validandoArquivoDeConfiguracao() {
     if (!fs.existsSync('./src/Gulpfile/gulp.json')) {
@@ -44,8 +53,11 @@ function validandoArquivoDeConfiguracao() {
     return Promise.resolve();
 }
 
-function fazerUpdateProjeto() {
-    return buildUpdate();
+async function fazerDownloadDoProjeto() {
+    return buildBaixandoUpdate();
+}
+function instalandoDownloadDoProjeto() {
+    return buildCopiandoUpdate();
 }
 function subindoContainer() {
     return dockerComposerUp();

@@ -57,7 +57,7 @@ if (!is_writable(__DIR__ . '/../../vendor/ezyang/htmlpurifier/library/HTMLPurifi
 | NODE
 |--------------------------------------------------------------------------
 */
-if (!is_dir(__DIR__ . '/../../node_modules')) {
+if (!is_dir(__DIR__ . '/../../node_modules') && SISTEMA == 'LOCALHOST') {
     throw new \Erro\Erro(
         mensagem: 'Node não iniciado',
         titulo: 'Erro na aplicação',
@@ -67,7 +67,7 @@ if (!is_dir(__DIR__ . '/../../node_modules')) {
         ]
     );
 }
-if (!file_exists(__DIR__ . '/files/.config')) {
+if (!file_exists(__DIR__ . '/../Files/.config') && SISTEMA == 'LOCALHOST') {
     throw new \Erro\Erro(
         mensagem: 'Framework não iniciado',
         titulo: 'Erro na aplicação',

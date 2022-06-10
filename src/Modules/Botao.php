@@ -56,9 +56,9 @@ final class Botao implements ModuleInterface
     /**
      * Pegar o numero do botão
      *
-     * @return int|string   Retorna 1 para sim e vazio para não
+     * @return string|int   Retorna 1 para sim e vazio para não
      */
-    public function numero(): int|string
+    public function numero(): string|int
     {
         return $this->numero;
     }

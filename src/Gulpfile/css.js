@@ -17,9 +17,9 @@ let config;
 | BUILD
 |--------------------------------------------------------------------------
 */
-exports.cssDeploy = async () => {
+exports.cssDeploy = async function () {
     if (config == undefined) {
-        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+        config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
     }
     return src(config.public + '/css/*.css')
         .pipe(plumber())
@@ -36,7 +36,7 @@ exports.cssDeploy = async () => {
 exports.cssUnico = function (path, browser) {
     return new Promise(async resolve => {
         if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
         }
 
         let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/layout.styl';
@@ -66,10 +66,10 @@ exports.cssUnico = function (path, browser) {
 | TODOS
 |--------------------------------------------------------------------------
 */
-exports.cssTodos = () => {
+exports.cssTodos = function () {
     return new Promise(async resolve => {
         if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
         }
 
         await fsDeletarDiretorio(config.public + '/css');
@@ -90,7 +90,6 @@ exports.cssTodos = () => {
                 resolve(true);
             }
         }
-        resolve(true);
     });
 };
 

@@ -81,7 +81,7 @@ final class Excecao extends \Exception
 
     public function retornoCodigo()
     {
-        $linha = file(ROOT . '/src/Erro/erro.txt');
+        $linha = file(ROOT . '/files/erro/lista.txt');
 
         $titulo = '';
         $mensagem = '';

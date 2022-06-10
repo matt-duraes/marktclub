@@ -1,9 +1,17 @@
 const { src, dest } = require('gulp');
 const fs = require('fs');
-const { fsRemoverArquivoSeExistir, fsCriarArquivo, fsCriarDiretorio } = require('./arquivo.js');
+const {
+    fsRemoverArquivoSeExistir,
+    fsVerificarSeArquivoExiste,
+    fsCriarArquivo,
+    fsCriarDiretorio,
+    fsDeletarDiretorio,
+    fsCopiar,
+} = require('./arquivo.js');
 const exec = require('gulp-exec');
 const replace = require('gulp-replace');
 const plumber = require('gulp-plumber');
+const { mensagemErro } = require('./mensagem.js');
 let config;
 
 exports.buildGit = () => {
@@ -14,6 +22,7 @@ exports.buildGit = () => {
         return src('./')
             .pipe(plumber())
             .pipe(exec('git init'))
+            .pipe(exec('git remote remove upstream'))
             .pipe(exec('git remote add upstream ' + config.git))
             .pipe(exec('cp ./src/Files/pre-commit ./.git/hooks/'))
             .pipe(exec('chmod 775 ./.git/hooks/pre-commit'));
@@ -156,6 +165,7 @@ exports.buildDiretorios = async () => {
     await fsCriarDiretorio('./resources/css');
     await fsCriarDiretorio('./resources/js');
     await fsCriarDiretorio('./resources/php');
+    await fsCriarDiretorio('./routes');
     await fsCriarDiretorio('./tests');
     await fsCriarDiretorio('./tests/server');
     await fsCriarDiretorio('./views');
@@ -184,6 +194,35 @@ exports.buildArquivosPublico = () => {
         .pipe(dest('./' + public));
 };
 
-exports.buildUpdate = () => {
-    console.log(123);
+exports.buildBaixandoUpdate = async () => {
+    await fsDeletarDiretorio('./files/upgrade');
+    return src(['./']).pipe(plumber()).pipe(exec('git clone git@github.com:marktclub/framework.git files/upgrade'));
+};
+exports.buildCopiandoUpdate = async () => {
+    if (!(await fsVerificarSeArquivoExiste('./files/upgrade/src'))) {
+        mensagemErro('Não foi encontrado o download para fazer upgrade.');
+        mensagemErro('Execute "gulp update" para baixar a atualização.');
+        return Promise.reject();
+    }
+
+    await fsDeletarDiretorio('./src');
+    await fsCopiar('./files/upgrade/src', './src');
+    await fsDeletarDiretorio('./files/upgrade');
+
+    return Promise.resolve();
+};
+
+exports.buildLimparFramework = async () => {
+    if (config == undefined) {
+        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+
+    const public = config.public;
+    await fsDeletarDiretorio('./app');
+    await fsDeletarDiretorio('./database');
+    await fsDeletarDiretorio('./resources');
+    await fsDeletarDiretorio('./tests');
+    await fsDeletarDiretorio('./routes');
+    await fsDeletarDiretorio('./views');
+    await fsDeletarDiretorio('./' + public);
 };

@@ -18,7 +18,7 @@ const {
 | BUILD
 |--------------------------------------------------------------------------
 */
-exports.htmlDeploy = () => {
+exports.htmlDeploy = function () {
     return src('files/build/views/**/*.view')
         .pipe(plumber())
         .pipe(htmlMin({ collapseWhitespace: true }))
@@ -57,7 +57,7 @@ exports.htmlUnico = function (path) {
 | RENDERIZA TODAS AS VIEWS
 |--------------------------------------------------------------------------
 */
-exports.htmlTodos = () => {
+exports.htmlTodos = function () {
     return new Promise(async resolve => {
         await fsCriarDiretorio('files/build');
         await fsDeletarDiretorio('files/build/views');
@@ -88,7 +88,6 @@ exports.htmlTodos = () => {
                 resolve(true);
             }
         }
-        resolve(true);
     });
 };
 

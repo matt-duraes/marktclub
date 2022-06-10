@@ -52,9 +52,9 @@ final class EnderecoCep implements ModuleInterface
     /**
      * Pega o CEP com apenas números
      *
-     * @return int|string CEP com apenas números
+     * @return string|int CEP com apenas números ou string vazio
      */
-    public function numero(): int|string
+    public function numero(): string|int
     {
         return $this->cep;
     }

@@ -52,9 +52,9 @@ final class Cpf implements ModuleInterface
     /**
      * Pega o valor do CPF sem os pontos
      *
-     * @return int|string CPF sem os pontos
+     * @return string CPF sem os pontos
      */
-    public function numero(): int|string
+    public function numero(): string
     {
         return $this->cpf;
     }
