@@ -14,15 +14,6 @@ if (!file_exists(__DIR__ . '/../../.git') && SISTEMA == 'LOCALHOST') {
             'git init'
         ]
     );
-} elseif (!file_exists(__DIR__ . '/../../.git/hooks/pre-commit') && SISTEMA == 'LOCALHOST') {
-    throw new \Erro\Erro(
-        mensagem: 'GIT não configurado',
-        titulo: 'Erro na aplicação',
-        texto: 'Copie o Hook do diretorio files/git/ para .git/hooks',
-        sugestao: [
-            'cp files/git/pre-commit .git/hooks'
-        ]
-    );
 }
 
 /*
