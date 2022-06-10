@@ -39,7 +39,7 @@ exports.buildPhpMussel = () => {
 };
 
 exports.buildComposer = () => {
-    src(['./src/Files/composer.json']).pipe(plumber()).pipe(dest('./'));
+    return src(['./src/Files/composer.json']).pipe(plumber()).pipe(dest('./'));
 };
 
 exports.buildDocker = () => {
