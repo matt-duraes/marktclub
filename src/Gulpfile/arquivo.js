@@ -13,7 +13,7 @@ exports.fsVerificarSeArquivoExiste = async function (arquivo) {
 
 exports.fsCriarDiretorio = async function (diretorio) {
     return new Promise(async resolve => {
-        if (await !fs.existsSync(diretorio)) {
+        if (!(await fs.existsSync(diretorio))) {
             await fs.mkdirSync(diretorio);
             resolve(true);
         } else {

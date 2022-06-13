@@ -203,6 +203,7 @@ exports.buildBaixandoUpdate = async () => {
     await fsDeletarDiretorio('./files/upgrade');
     return src(['./']).pipe(plumber()).pipe(exec('git clone git@github.com:marktclub/framework.git files/upgrade'));
 };
+
 exports.buildCopiandoUpdate = async () => {
     if (!(await fsVerificarSeArquivoExiste('./files/upgrade/src'))) {
         mensagemErro('Não foi encontrado o download para fazer upgrade.');
@@ -240,8 +241,29 @@ exports.buildLimparFramework = async () => {
     await fsDeletarDiretorio('./' + public);
 };
 
-exports.buildPaginaExemplo = () => {
-    // if (!fs.existsSync('./routes/SiteRoute.php')) {
-    //     return Promise.resolve(true);
-    // }
+exports.buildPaginaExemplo = async () => {
+    if (fs.existsSync('./routes/SiteRoute.php')) {
+        return Promise.resolve(true);
+    }
+
+    if (config == undefined) {
+        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+    const public = config.public;
+
+    await fsCriarDiretorio('./app/Controllers/Site');
+    await fsCriarDiretorio('./' + public + '/css');
+    await fsCriarDiretorio('./views/pages/site');
+    await fsCriarDiretorio('./views/pages/site/exemplo');
+
+    src(['src/Files/exemplo/pages/css/site_exemplo.css'])
+        .pipe(plumber())
+        .pipe(dest('./' + public + '/css'));
+    src(['src/Files/exemplo/pages/css/layout.styl']).pipe(plumber()).pipe(dest('./views/pages/site/exemplo/css'));
+    src(['src/Files/exemplo/pages/index.view']).pipe(plumber()).pipe(dest('./views/pages/site/exemplo'));
+    src(['src/Files/exemplo/ExemploController.php']).pipe(plumber()).pipe(dest('./app/Controllers/Site'));
+    src(['src/Files/exemplo/site_exemplo.php']).pipe(plumber()).pipe(dest('./files/build/views'));
+    src(['src/Files/exemplo/SiteRoute.php']).pipe(plumber()).pipe(dest('./routes'));
+
+    return Promise.resolve(true);
 };

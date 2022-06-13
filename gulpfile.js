@@ -274,5 +274,3 @@ function copiandoArquivosDeImagem() {
 function criandoPaginaExemplo() {
     return buildPaginaExemplo();
 }
-
-exports.teste = criandoPaginaExemplo();

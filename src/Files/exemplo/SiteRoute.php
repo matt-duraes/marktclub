@@ -2,8 +2,11 @@
 
 use Route\Route;
 
-Route::grupo(function () {
-    Route
-        ::controller(App\Controllers\Site\ExemploController::class)
-        ::view('/exemplo');
-});
+Route
+    ::nome('exemplo')
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::controller(App\Controllers\Site\ExemploController::class)
+            ::view('/');
+    });

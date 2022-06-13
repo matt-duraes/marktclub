@@ -8,6 +8,6 @@ final class ExemploController extends Controller
 {
     public function index()
     {
-        return view('!exemplo');
+        return view('exemplo');
     }
 }
