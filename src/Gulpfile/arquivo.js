@@ -64,7 +64,7 @@ exports.fsCopiar = async function (src, dest) {
         if (fs.existsSync(src)) {
             resolve(fs.renameSync(src, dest));
         } else {
-            mensagemErro('Diretório não existe para ser copiado');
+            mensagemErro(`Diretório ${src} não existe para ser copiado`);
             resolve(false);
         }
     });
