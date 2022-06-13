@@ -29,6 +29,7 @@ exports.buildGit = () => {
     }
     return src('./')
         .pipe(plumber())
+        .pipe(exec('git remote remove upstream'))
         .pipe(exec('git remote add upstream ' + config.git))
         .pipe(exec('cp ./src/Files/pre-commit ./.git/hooks/'))
         .pipe(exec('chmod 775 ./.git/hooks/pre-commit'));
