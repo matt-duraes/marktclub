@@ -212,8 +212,8 @@ exports.buildCopiandoUpdate = async () => {
     const public = config.public;
 
     await fsDeletarDiretorio('./src');
-    await fsCopiar('./files/upgrade/src', './');
-    await fsCopiar('./files/upgrade/gulpfile.js', './');
+    await fsCopiar('./files/upgrade/src', './src');
+    await fsCopiar('./files/upgrade/gulpfile.js', './gulpfile.js');
     await fsCopiar('./files/upgrade/' + public + '/index.php', './' + public);
     await fsDeletarDiretorio('./files/upgrade');
 
