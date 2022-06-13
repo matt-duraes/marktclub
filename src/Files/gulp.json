@@ -22,5 +22,6 @@
         "nome": "{{dbNome}}",
         "senha": "{{dbSenha}}"
     },
-    "git": "{{git}}"
+    "gitOrigin": "{{gitOrigin}}",
+    "gitUpstream": "{{gitUpstream}}"
 }
