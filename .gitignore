@@ -5,6 +5,7 @@
 /error_log
 /package-lock.json
 /docker-compose.yml
+/composer.json
 /composer.lock
 /phpmussel.yml
 /.env
