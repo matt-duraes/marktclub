@@ -110,7 +110,7 @@ exports.configVerificar = async function () {
                         {
                             type: 'input',
                             name: 'git',
-                            message: 'Digite a url do projeto no GIT:',
+                            message: 'Digite a url do Upstream do GIT:',
                             validate: git => {
                                 return git != '';
                             },
