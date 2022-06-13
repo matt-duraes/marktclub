@@ -3,20 +3,13 @@
 $Doc = new DocumentacaoConfig\Fw('CONFIGURAÇÕES', 'Agora que temos todas as depêndencias instaladas, vamos a configuração em sim.');
 
 $Doc
-    ->paragrafo('Para começar, precisamos fazer um FORK do projeto, acesse o reposótio, faça o fork e após isso, execute os comandos abaixo:')
-    ->codigo('git init
-git remote add origin LINK_DO_SEU_FORK
-git remote add upstream LINK_DO_REPOSITORIO REAL
-git pull origin master')
+    ->paragrafo('Para começar, precisamos fazer um FORK do projeto, acesse o reposótio, faça o fork e após isso faça o clone do projeto:')
+    ->codigo('git clone LINK_DO_SEU_FORK DIRETORIO')
     ->paragrafo('Isso irá clona o projeto para sua máquina.')
-    ->paragrafo('Depois disso, toda vez que você for fazer alguma alteração, certifique que seu projeto está atualizado com o upstrem.')
-    ->codigo('git fetch')
-    ->paragrafo('Isso irá baixar todos os branches do upstream e depois basta você fazer um merge, como por exemplo:')
-    ->codigo('git merge origin upstream/master')
-    ->paragrafo('Depois de fazer o clone do projeto, você deve instalar as depêndencias do NODE e Composer')
+    ->paragrafo('Depois de fazer o clone do projeto, você deve instalar as depêndencias do NODE.')
     ->codigo('npm install' . PHP_EOL . 'composer install')
     ->paragrafo('Agora que tem instalamos a depêndencias, vamos configurar o sistema executando:')
-    ->codigo('gulp install --config')
+    ->codigo('gulp install')
     ->paragrafo('Assim que executar o gulp install, o sistema irá te perguntar algumas informações:')
     ->tabela(function () use ($Doc) {
         $Doc
@@ -40,6 +33,10 @@ git pull origin master')
     ->codigo('gulp build')
     ->paragrafo('O sistema vai copiar os arquivos HTML, buildar os arquivos Stylus para CSS e os arquivos JS.')
     ->paragrafo('Depois de tudo configurado, basta sempre executar o gulp antes de editar alguma coisa, para isso, basta executar o gulp no terminal:')
-    ->codigo('gulp');
+    ->codigo('gulp')
+    ->paragrafo('Depois do sistema estiver configurado, toda vez que você for fazer alguma alteração, certifique que seu projeto está atualizado com o upstrem:')
+    ->codigo('git fetch')
+    ->paragrafo('Isso irá baixar todos os branches do upstream e depois basta você fazer um merge, como por exemplo:')
+    ->codigo('git merge origin upstream/master');
 
 echo $Doc;
