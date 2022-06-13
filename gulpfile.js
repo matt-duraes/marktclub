@@ -25,31 +25,54 @@ const {
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
 
-/*
-|--------------------------------------------------------------------------
-| TAREFAS DE DESENVOLVIMENTO
-|--------------------------------------------------------------------------
-|
-| Monitora as ações do desenvolvedor para otimizar seu trabalho
-|
-*/
+// Subir e parar desenvolvimento
 exports.default = series(validandoArquivoDeConfiguracao, limpandoSessoes, subindoContainer, monitorarSistema);
 exports.down = parallel(matandoContainer, limpandoSessoes);
 
+// Atualiza o framework
 exports.update = series(fazerDownloadDoProjeto);
 exports.upgrade = series(instalandoDownloadDoProjeto);
+
+// Limpa o framework
 exports.clearFramework = series(limpandoFramework);
 
+// Deploy em produção
 exports.deploy = parallel(
     series(copiandoArquivosCSS, preparandoCSSParaProducao),
     series(copiandoArquivosJS, preparandoJSParaProducao),
     series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-    series(copiandoArquivosDeImagem, preparandoCSSParaProducao)
+    series(copiandoArquivosDeImagem)
 );
+
+// Instalar o framework
+exports.install = series(
+    verificarSePrecisaConfigurar,
+    copiandoArquivoParaGit,
+    copiandoArquivosDaRaiz,
+    copiandoArquivosDeteste,
+    copiandoArquivosPublicos,
+    parallel(
+        executandoComposerInstall,
+        copiandoArquivoParaDocker,
+        criandoDiretorios,
+        copiandoArquivoParaEnv,
+        copiandoArquivoParaPhpMussel,
+        copiandoArquivosCSS,
+        copiandoArquivosJS,
+        copiandoArquivosHtml,
+        copiandoArquivosDeImagem
+    )
+);
+
+// Executa ao dar commit
+exports.commit = series(limpandoArquivosDoMac);
+
+// Build projeto em desenvolvimento
+exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem);
 
 /*
 |--------------------------------------------------------------------------
-| FUNÇÕES DO GULP
+| FUNÇÕES DO FULP
 |--------------------------------------------------------------------------
 */
 function validandoArquivoDeConfiguracao() {
@@ -178,33 +201,6 @@ function consoleFooter(time) {
     console.log('');
 }
 
-/*
-|--------------------------------------------------------------------------
-| BUILD INICIAL
-|--------------------------------------------------------------------------
-|
-| Deve ser executado ao fazer o pull/clone do projeto
-|
-*/
-exports.install = series(
-    verificarSePrecisaConfigurar,
-    copiandoArquivoParaGit,
-    copiandoArquivosDaRaiz,
-    copiandoArquivosDeteste,
-    copiandoArquivosPublicos,
-    parallel(
-        executandoComposerInstall,
-        copiandoArquivoParaDocker,
-        criandoDiretorios,
-        copiandoArquivoParaEnv,
-        copiandoArquivoParaPhpMussel,
-        copiandoArquivosCSS,
-        copiandoArquivosJS,
-        copiandoArquivosHtml,
-        copiandoArquivosDeImagem
-    )
-);
-
 function verificarSePrecisaConfigurar() {
     return configVerificar();
 }
@@ -241,18 +237,6 @@ function copiandoArquivoParaGit() {
 function copiandoArquivoParaPhpMussel() {
     return buildPhpMussel();
 }
-
-/*
-|--------------------------------------------------------------------------
-| DEPLOY AO COMMITAR
-|--------------------------------------------------------------------------
-|
-| Executa uma limpeza e converter os arquivos para a versão
-| de produção assim que um commit é iniciado
-|
-*/
-exports.commit = series(limpandoArquivosDoMac);
-exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem);
 
 function limpandoArquivosDoMac() {
     return limparArquivosDoMac();
