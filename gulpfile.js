@@ -9,7 +9,8 @@ const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
 const {
-    buildComposer,
+    buildCopiarComposerConfig,
+    buildComposerInstall,
     buildEnv,
     buildGit,
     buildArquivosRaiz,
@@ -52,7 +53,7 @@ exports.install = series(
     copiandoArquivosDeteste,
     copiandoArquivosPublicos,
     parallel(
-        executandoComposerInstall,
+        series(copiandoArquivoDoComposer, executandoComposerInstall),
         copiandoArquivoParaDocker,
         criandoDiretorios,
         copiandoArquivoParaEnv,
@@ -205,8 +206,11 @@ function verificarSePrecisaConfigurar() {
     return configVerificar();
 }
 
+function copiandoArquivoDoComposer() {
+    return buildCopiarComposerConfig();
+}
 function executandoComposerInstall() {
-    return buildComposer();
+    return buildComposerInstall();
 }
 
 function copiandoArquivoParaDocker() {

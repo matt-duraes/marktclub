@@ -48,8 +48,12 @@ exports.buildPhpMussel = () => {
         .pipe(dest('./'));
 };
 
-exports.buildComposer = () => {
+exports.buildCopiarComposerConfig = () => {
     return src(['./src/Files/composer.json']).pipe(plumber()).pipe(dest('./'));
+};
+
+exports.buildComposerInstall = () => {
+    return src(['./']).pipe(exec('composer install'));
 };
 
 exports.buildDocker = () => {
