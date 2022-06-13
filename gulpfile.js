@@ -77,7 +77,7 @@ exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquiv
 */
 function validandoArquivoDeConfiguracao() {
     if (!fs.existsSync('./files/config/gulp.json')) {
-        console.log('Execute "\x1b[32m\x1b[1mgulp install --config\033[0m" para poder configurar o projeto.');
+        console.log('Execute "\x1b[32m\x1b[1mgulp install\033[0m" para poder configurar o projeto.');
         console.log('');
         return;
     }

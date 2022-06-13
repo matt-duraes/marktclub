@@ -5,10 +5,6 @@ const { fsCriarDiretorio } = require('./arquivo.js');
 const fs = require('fs');
 
 exports.configVerificar = async function () {
-    if (prop.config == undefined) {
-        return;
-    }
-
     await new Promise(resolve => {
         src('./')
             .pipe(
