@@ -22,6 +22,7 @@ const {
     buildBaixandoUpdate,
     buildCopiandoUpdate,
     buildLimparFramework,
+    buildPaginaExemplo,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
@@ -57,12 +58,9 @@ exports.install = series(
         copiandoArquivoParaDocker,
         criandoDiretorios,
         copiandoArquivoParaEnv,
-        copiandoArquivoParaPhpMussel,
-        copiandoArquivosCSS,
-        copiandoArquivosJS,
-        copiandoArquivosHtml,
-        copiandoArquivosDeImagem
-    )
+        copiandoArquivoParaPhpMussel
+    ),
+    criandoPaginaExemplo
 );
 
 // Executa ao dar commit
@@ -273,3 +271,8 @@ function preparandoHtmlParaProducao() {
 function copiandoArquivosDeImagem() {
     return imagemTodos();
 }
+function criandoPaginaExemplo() {
+    return buildPaginaExemplo();
+}
+
+exports.teste = criandoPaginaExemplo();

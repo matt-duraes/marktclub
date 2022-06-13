@@ -24,14 +24,14 @@ exports.buildGit = () => {
             .pipe(exec('git init'))
             .pipe(exec('git remote remove upstream'))
             .pipe(exec('git remote add upstream ' + config.git))
-            .pipe(exec('cp ./src/Files/pre-commit ./.git/hooks/'))
+            .pipe(exec('cp ./src/Files/git/pre-commit ./.git/hooks/'))
             .pipe(exec('chmod 775 ./.git/hooks/pre-commit'));
     }
     return src('./')
         .pipe(plumber())
         .pipe(exec('git remote remove upstream'))
         .pipe(exec('git remote add upstream ' + config.git))
-        .pipe(exec('cp ./src/Files/pre-commit ./.git/hooks/'))
+        .pipe(exec('cp ./src/Files/git/pre-commit ./.git/hooks/'))
         .pipe(exec('chmod 775 ./.git/hooks/pre-commit'));
 };
 
@@ -41,7 +41,7 @@ exports.buildPhpMussel = () => {
     }
     const virus = config.phpMussel.virusTotalKey;
     const google = config.phpMussel.googleKey;
-    return src('./src/Files/phpmussel.yml')
+    return src('./src/Files/raiz/phpmussel.yml')
         .pipe(plumber())
         .pipe(replace('{{virus}}', virus))
         .pipe(replace('{{google}}', google))
@@ -49,7 +49,7 @@ exports.buildPhpMussel = () => {
 };
 
 exports.buildCopiarComposerConfig = () => {
-    return src(['./src/Files/composer.json']).pipe(plumber()).pipe(dest('./'));
+    return src(['./src/Files/raiz/composer.json']).pipe(plumber()).pipe(dest('./'));
 };
 
 exports.buildComposerInstall = () => {
@@ -69,7 +69,7 @@ exports.buildDocker = () => {
     const dbNome = config.banco.nome;
     const dbSenha = config.banco.senha;
 
-    return src('./src/Files/docker-compose.yml')
+    return src('./src/Files/raiz/raiz/docker-compose.yml')
         .pipe(plumber())
         .pipe(replace('{{nome}}', nome))
         .pipe(replace('{{portaHttps}}', portaHttps))
@@ -127,10 +127,10 @@ exports.buildEnv = async () => {
 
 exports.buildArquivosRaiz = () => {
     return src([
-        './src/Files/.eslintignore',
-        './src/Files/.prettierrc',
-        './src/Files/phpunit.xml',
-        './src/Files/adp.phar',
+        './src/Files/raiz/.eslintignore',
+        './src/Files/raiz/.prettierrc',
+        './src/Files/raiz/phpunit.xml',
+        './src/Files/raiz/adp.phar',
     ])
         .pipe(plumber())
         .pipe(dest('./'));
@@ -194,7 +194,7 @@ exports.buildArquivosPublico = () => {
     }
     const public = config.public;
 
-    return src(['./src/Files/.htaccess', './src/Files/robots.txt', './src/Files/index.php'])
+    return src(['./src/Files/public/.htaccess', './src/Files/public/robots.txt', './src/Files/public/index.php'])
         .pipe(plumber())
         .pipe(dest('./' + public));
 };
@@ -238,4 +238,10 @@ exports.buildLimparFramework = async () => {
     await fsDeletarDiretorio('./views');
     await fsDeletarDiretorio('./composer.json');
     await fsDeletarDiretorio('./' + public);
+};
+
+exports.buildPaginaExemplo = () => {
+    // if (!fs.existsSync('./routes/SiteRoute.php')) {
+    //     return Promise.resolve(true);
+    // }
 };
