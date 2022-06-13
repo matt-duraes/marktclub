@@ -23,7 +23,6 @@ exports.buildGit = () => {
             .pipe(plumber())
             .pipe(exec('git init'))
             .pipe(exec('git remote remove origin'))
-            .pipe(exec('git remote remove upstream'))
             .pipe(exec('git remote add origin ' + config.gitOrigin))
             .pipe(exec('git remote add upstream ' + config.gitUpstream))
             .pipe(exec('cp ./src/Files/git/pre-commit ./.git/hooks/'))
@@ -32,7 +31,6 @@ exports.buildGit = () => {
     return src('./')
         .pipe(plumber())
         .pipe(exec('git remote remove origin'))
-        .pipe(exec('git remote remove upstream'))
         .pipe(exec('git remote add origin ' + config.gitOrigin))
         .pipe(exec('git remote add upstream ' + config.gitUpstream))
         .pipe(exec('cp ./src/Files/git/pre-commit ./.git/hooks/'))
@@ -234,8 +232,11 @@ exports.buildCopiandoUpdate = async () => {
     await fsDeletarDiretorio('./src');
     await fsCopiar('./files/upgrade/src', './src');
     await fsCopiar('./files/upgrade/gulpfile.js', './gulpfile.js');
-    await fsCopiar('./files/upgrade/' + public + '/index.php', './' + public);
     await fsDeletarDiretorio('./files/upgrade');
+
+    src('./src/Files/public/index.php')
+        .pipe(plumber())
+        .pipe(dest('./' + public));
 
     return Promise.resolve();
 };
