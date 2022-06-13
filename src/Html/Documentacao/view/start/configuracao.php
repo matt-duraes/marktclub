@@ -26,7 +26,8 @@ $Doc
             ->tr(['Senha do Banco de Dados', 'Senha para o banco de dados'])
             ->tr(['Chave do virus total', 'Chave opcional caso queira usar o virustotal.com para validar os uploads de arquivos'])
             ->tr(['Chave do Google Safe Browsing', 'Chave opcional caso queira usar o Google Safe Browsing para validar os uploads de arquivos'])
-            ->tr(['Url do GIT', 'A Url do projeto no git']);
+            ->tr(['GIT origin', 'A Url do seu Fork no GIT'])
+            ->tr(['GIT upstream', 'A Url do projeto original (upstream) no GIT']);
     })
     ->paragrafo('Depois de responder todas as perguntas, basta digitar y pra aceitar ou N para recusar.')
     ->paragrafo('Quando a instalação terminar, basta executar o comando para buildar o sistema.')

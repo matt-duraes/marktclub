@@ -22,15 +22,19 @@ exports.buildGit = () => {
         return src('./')
             .pipe(plumber())
             .pipe(exec('git init'))
+            .pipe(exec('git remote remove origin'))
             .pipe(exec('git remote remove upstream'))
-            .pipe(exec('git remote add upstream ' + config.git))
+            .pipe(exec('git remote add origin ' + config.gitOrigin))
+            .pipe(exec('git remote add upstream ' + config.gitUpstream))
             .pipe(exec('cp ./src/Files/git/pre-commit ./.git/hooks/'))
             .pipe(exec('chmod 775 ./.git/hooks/pre-commit'));
     }
     return src('./')
         .pipe(plumber())
+        .pipe(exec('git remote remove origin'))
         .pipe(exec('git remote remove upstream'))
-        .pipe(exec('git remote add upstream ' + config.git))
+        .pipe(exec('git remote add origin ' + config.gitOrigin))
+        .pipe(exec('git remote add upstream ' + config.gitUpstream))
         .pipe(exec('cp ./src/Files/git/pre-commit ./.git/hooks/'))
         .pipe(exec('chmod 775 ./.git/hooks/pre-commit'));
 };

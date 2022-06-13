@@ -109,10 +109,18 @@ exports.configVerificar = async function () {
                         },
                         {
                             type: 'input',
-                            name: 'git',
+                            name: 'gitOrigin',
+                            message: 'Digite a url do Origin do GIT:',
+                            validate: gitOrigin => {
+                                return gitOrigin != '';
+                            },
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitUpstream',
                             message: 'Digite a url do Upstream do GIT:',
-                            validate: git => {
-                                return git != '';
+                            validate: gitUpstream => {
+                                return gitUpstream != '';
                             },
                         },
                     ],
@@ -132,7 +140,8 @@ exports.configVerificar = async function () {
                         console.log('Senha do Banco: \x1b[1m******\033[0m');
                         console.log('virustotal.com: \x1b[1m' + response.virus + '\033[0m');
                         console.log('Google: \x1b[1m' + response.google + '\033[0m');
-                        console.log('Git: \x1b[1m' + response.git + '\033[0m');
+                        console.log('Git Origin: \x1b[1m' + response.gitOrigin + '\033[0m');
+                        console.log('Git Upstream: \x1b[1m' + response.gitUpstream + '\033[0m');
                     }
                 )
             )
@@ -153,7 +162,8 @@ exports.configVerificar = async function () {
     const dbSenha = respostas.dbSenha;
     const virus = respostas.virus;
     const google = respostas.google;
-    const git = respostas.git;
+    const gitOrigin = respostas.gitOrigin;
+    const gitUpstream = respostas.gitUpstream;
 
     let configJson = fs
         .readFileSync('./src/Files/gulp.json', 'utf-8')
@@ -170,7 +180,8 @@ exports.configVerificar = async function () {
         .replace(/\{\{dbSenha\}\}/g, dbSenha)
         .replace(/\{\{virus\}\}/g, virus)
         .replace(/\{\{google\}\}/g, google)
-        .replace(/\{\{git\}\}/g, git);
+        .replace(/\{\{gitOrigin\}\}/g, gitOrigin)
+        .replace(/\{\{gitUpstream\}\}/g, gitUpstream);
 
     await fsCriarDiretorio('./files');
     await fsCriarDiretorio('./files/config');
