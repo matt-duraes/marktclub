@@ -4,11 +4,11 @@ $Doc = new DocumentacaoConfig\Fw('CONFIGURAÇÕES', 'Agora que temos todas as de
 
 $Doc
     ->paragrafo('Para começar, precisamos fazer um FORK do projeto, acesse o reposótio, faça o fork e após isso faça o clone do projeto:')
-    ->codigo('git clone LINK_DO_SEU_FORK DIRETORIO')
+    ->codigo('git clone LINK_DO_UPSTREAM DIRETORIO')
     ->paragrafo('Isso irá clona o projeto para sua máquina.')
-    ->paragrafo('Depois de fazer o clone do projeto, você deve instalar as depêndencias do NODE.')
-    ->codigo('npm install' . PHP_EOL . 'composer install')
-    ->paragrafo('Agora que tem instalamos a depêndencias, vamos configurar o sistema executando:')
+    ->paragrafo('Depois de fazer o clone do projeto, você deve instalar as depêndencias do NODE:')
+    ->codigo('npm install')
+    ->paragrafo('Agora que tem instalamos as depêndencias, vamos configurar o sistema executando:')
     ->codigo('gulp install')
     ->paragrafo('Assim que executar o gulp install, o sistema irá te perguntar algumas informações:')
     ->tabela(function () use ($Doc) {
