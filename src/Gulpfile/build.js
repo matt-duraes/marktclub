@@ -61,6 +61,7 @@ exports.buildDocker = () => {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
 
+    const public = config.public;
     const nome = config.nome;
     const portaHttps = config.docker.https;
     const portaHttp = config.docker.http;
@@ -69,7 +70,17 @@ exports.buildDocker = () => {
     const dbNome = config.banco.nome;
     const dbSenha = config.banco.senha;
 
-    return src('./src/Files/raiz/raiz/docker-compose.yml')
+    src('./src/Files/docker_host/000-default.conf')
+        .pipe(plumber())
+        .pipe(replace('{{public}}', public))
+        .pipe(dest('./files/docker_host'));
+
+    src('./src/Files/docker_host/default-ssl.conf')
+        .pipe(plumber())
+        .pipe(replace('{{public}}', public))
+        .pipe(dest('./files/docker_host'));
+
+    return src('./src/Files/raiz/docker-compose.yml')
         .pipe(plumber())
         .pipe(replace('{{nome}}', nome))
         .pipe(replace('{{portaHttps}}', portaHttps))
@@ -118,7 +129,7 @@ exports.buildEnv = async () => {
     await fsRemoverArquivoSeExistir('./files/config/.adp');
     await fsCriarArquivo('./files/config/.adp', conteudoAdp);
 
-    return src('./src/Files/.env')
+    return src('./src/Files/raiz/.env')
         .pipe(plumber())
         .pipe(replace('{{titulo}}', titulo))
         .pipe(replace('{{public}}', public.replace(/\//g, '')))
