@@ -9,43 +9,96 @@ const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
 const {
-    buildComposer,
+    buildCopiarComposerConfig,
+    buildComposerInstall,
     buildEnv,
     buildGit,
     buildArquivosRaiz,
+    buildArquivosTeste,
+    buildArquivosPublico,
     buildDiretorios,
     buildDocker,
     buildPhpMussel,
+    buildBaixandoUpdate,
+    buildCopiandoUpdate,
+    buildLimparFramework,
+    buildPaginaExemplo,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
 
-/*
-|--------------------------------------------------------------------------
-| TAREFAS DE DESENVOLVIMENTO
-|--------------------------------------------------------------------------
-|
-| Monitora as ações do desenvolvedor para otimizar seu trabalho
-|
-*/
+// Subir e parar desenvolvimento
 exports.default = series(validandoArquivoDeConfiguracao, limpandoSessoes, subindoContainer, monitorarSistema);
 exports.down = parallel(matandoContainer, limpandoSessoes);
 
+// Atualiza o framework
+exports.update = series(fazerDownloadDoProjeto);
+exports.upgrade = series(instalandoDownloadDoProjeto);
+
+// Limpa o framework
+exports.clearFramework = series(limpandoFramework);
+
+// Deploy em produção
+exports.deploy = parallel(
+    series(copiandoArquivosCSS, preparandoCSSParaProducao),
+    series(copiandoArquivosJS, preparandoJSParaProducao),
+    series(copiandoArquivosHtml, preparandoHtmlParaProducao),
+    series(copiandoArquivosDeImagem)
+);
+
+// Instalar o framework
+exports.install = series(
+    verificarSePrecisaConfigurar,
+    copiandoArquivoParaGit,
+    copiandoArquivosDaRaiz,
+    copiandoArquivosDeteste,
+    copiandoArquivosPublicos,
+    parallel(
+        series(copiandoArquivoDoComposer, executandoComposerInstall),
+        copiandoArquivoParaDocker,
+        criandoDiretorios,
+        copiandoArquivoParaEnv,
+        copiandoArquivoParaPhpMussel
+    ),
+    criandoPaginaExemplo
+);
+
+// Executa ao dar commit
+exports.commit = series(limpandoArquivosDoMac);
+
+// Build projeto em desenvolvimento
+exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem);
+
+/*
+|--------------------------------------------------------------------------
+| FUNÇÕES DO FULP
+|--------------------------------------------------------------------------
+*/
 function validandoArquivoDeConfiguracao() {
-    if (!fs.existsSync('./src/Gulpfile/gulp.json')) {
-        console.log('Execute "\x1b[32m\x1b[1mgulp install --config\033[0m" para poder configurar o projeto.');
+    if (!fs.existsSync('./files/config/gulp.json')) {
+        console.log('Execute "\x1b[32m\x1b[1mgulp install\033[0m" para poder configurar o projeto.');
         console.log('');
         return;
     }
     return Promise.resolve();
 }
 
+async function fazerDownloadDoProjeto() {
+    return buildBaixandoUpdate();
+}
+function instalandoDownloadDoProjeto() {
+    return buildCopiandoUpdate();
+}
 function subindoContainer() {
     return dockerComposerUp();
 }
 
 function matandoContainer() {
     return dockerComposerDown();
+}
+
+function limpandoFramework() {
+    return buildLimparFramework();
 }
 
 function limpandoSessoes() {
@@ -56,7 +109,7 @@ function limpandoSessoes() {
 }
 
 async function monitorarSistema() {
-    const config = JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+    const config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
 
     // RELOAD
     const proxyPorta = config.browserSync.porta;
@@ -147,37 +200,15 @@ function consoleFooter(time) {
     console.log('');
 }
 
-/*
-|--------------------------------------------------------------------------
-| BUILD INICIAL
-|--------------------------------------------------------------------------
-|
-| Deve ser executado ao fazer o pull/clone do projeto
-|
-*/
-exports.install = series(
-    verificarSePrecisaConfigurar,
-    copiandoArquivoParaGit,
-    copiandoArquivosDaRaiz,
-    parallel(
-        executandoComposerInstall,
-        copiandoArquivoParaDocker,
-        criandoDiretorios,
-        copiandoArquivoParaEnv,
-        copiandoArquivoParaPhpMussel,
-        copiandoArquivosCSS,
-        copiandoArquivosJS,
-        copiandoArquivosHtml,
-        copiandoArquivosDeImagem
-    )
-);
-
 function verificarSePrecisaConfigurar() {
     return configVerificar();
 }
 
+function copiandoArquivoDoComposer() {
+    return buildCopiarComposerConfig();
+}
 function executandoComposerInstall() {
-    return buildComposer();
+    return buildComposerInstall();
 }
 
 function copiandoArquivoParaDocker() {
@@ -189,6 +220,12 @@ function criandoDiretorios() {
 }
 function copiandoArquivosDaRaiz() {
     return buildArquivosRaiz();
+}
+function copiandoArquivosDeteste() {
+    return buildArquivosTeste();
+}
+function copiandoArquivosPublicos() {
+    return buildArquivosPublico();
 }
 
 function copiandoArquivoParaEnv() {
@@ -202,31 +239,6 @@ function copiandoArquivoParaGit() {
 function copiandoArquivoParaPhpMussel() {
     return buildPhpMussel();
 }
-
-/*
-|--------------------------------------------------------------------------
-| DEPLOY AO COMMITAR
-|--------------------------------------------------------------------------
-|
-| Executa uma limpeza e converter os arquivos para a versão
-| de produção assim que um commit é iniciado
-|
-*/
-exports.deploy = series(
-    limpandoArquivosDoMac,
-    parallel(
-        series(copiandoArquivosCSS, preparandoCSSParaProducao),
-        series(copiandoArquivosJS, preparandoJSParaProducao),
-        series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-        copiandoArquivosDeImagem
-    )
-);
-exports.build = parallel(
-    series(copiandoArquivosCSS, preparandoCSSParaProducao),
-    series(copiandoArquivosJS, preparandoJSParaProducao),
-    series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-    copiandoArquivosDeImagem
-);
 
 function limpandoArquivosDoMac() {
     return limparArquivosDoMac();
@@ -258,4 +270,7 @@ function preparandoHtmlParaProducao() {
 
 function copiandoArquivosDeImagem() {
     return imagemTodos();
+}
+function criandoPaginaExemplo() {
+    return buildPaginaExemplo();
 }

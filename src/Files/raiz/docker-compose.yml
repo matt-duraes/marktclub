@@ -8,7 +8,7 @@ services:
             - "{{portaHttps}}:443"
         volumes:
             - .:/var/www/html/
-            - ./src/Files/docker_host:/etc/apache2/sites-enabled/
+            - ./files/docker_host:/etc/apache2/sites-enabled/
         networks:
             - docker-rede
         depends_on:

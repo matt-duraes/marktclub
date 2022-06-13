@@ -19,7 +19,7 @@ let config;
 */
 exports.cssDeploy = async function () {
     if (config == undefined) {
-        config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
     return src(config.public + '/css/*.css')
         .pipe(plumber())
@@ -36,7 +36,7 @@ exports.cssDeploy = async function () {
 exports.cssUnico = function (path, browser) {
     return new Promise(async resolve => {
         if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
         let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/layout.styl';
@@ -69,7 +69,7 @@ exports.cssUnico = function (path, browser) {
 exports.cssTodos = function () {
     return new Promise(async resolve => {
         if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./src/Gulpfile/gulp.json'));
+            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
         await fsDeletarDiretorio(config.public + '/css');
@@ -90,6 +90,7 @@ exports.cssTodos = function () {
                 resolve(true);
             }
         }
+        resolve(true);
     });
 };
 

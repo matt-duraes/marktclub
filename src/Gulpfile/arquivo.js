@@ -1,18 +1,19 @@
 const fs = require('fs');
+const { mensagemErro } = require('./mensagem');
 
 exports.fsVerificarSeArquivoExiste = async function (arquivo) {
     return new Promise(async (resolve, reject) => {
         if (fs.existsSync(arquivo)) {
             resolve(true);
         } else {
-            reject(false);
+            resolve(false);
         }
     });
 };
 
 exports.fsCriarDiretorio = async function (diretorio) {
     return new Promise(async resolve => {
-        if (await !fs.existsSync(diretorio)) {
+        if (!(await fs.existsSync(diretorio))) {
             await fs.mkdirSync(diretorio);
             resolve(true);
         } else {
@@ -55,5 +56,16 @@ exports.fsCriarArquivo = async function (nome, conteudo) {
             if (err) reject(err);
             resolve(true);
         });
+    });
+};
+
+exports.fsCopiar = async function (src, dest) {
+    return new Promise(resolve => {
+        if (fs.existsSync(src)) {
+            resolve(fs.renameSync(src, dest));
+        } else {
+            mensagemErro('Diretório não existe para ser copiado');
+            resolve(false);
+        }
     });
 };

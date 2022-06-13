@@ -1,7 +1,7 @@
 {
     "name": "framework",
     "version": "1.0.0",
-    "description": "",
+    "description": "Base do Framework do Markt Club",
     "main": "index.js",
     "directories": {
         "test": "tests"
@@ -11,14 +11,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/marktclub/parlamentum.git"
+        "url": "git+https://github.com/marktclub/framework.git"
     },
-    "author": "",
+    "author": "André Rodrigues",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/marktclub/parlamentum/issues"
+        "url": "https://github.com/marktclub/framework/issues"
     },
-    "homepage": "https://github.com/marktclub/parlamentum#readme",
+    "homepage": "https://github.com/marktclub/framework#readme",
     "devDependencies": {
         "browser-sync": "^2.27.5",
         "glob": "^7.2.0",
@@ -39,5 +39,8 @@
         "gulp-uglify-es": "^3.0.0",
         "open": "^8.2.1",
         "yargs": "^17.2.1"
+    },
+    "dependencies": {
+        "gulp-git": "^2.10.1"
     }
 }

@@ -1,15 +1,12 @@
 const { src } = require('gulp');
 const prop = require('yargs').argv;
 const prompt = require('gulp-prompt');
+const { fsCriarDiretorio } = require('./arquivo.js');
 const fs = require('fs');
 
 exports.configVerificar = async function () {
-    if (prop.config == undefined) {
-        return;
-    }
-
     await new Promise(resolve => {
-        src('./src/Files/gulp.json')
+        src('./')
             .pipe(
                 prompt.prompt(
                     [
@@ -113,7 +110,7 @@ exports.configVerificar = async function () {
                         {
                             type: 'input',
                             name: 'git',
-                            message: 'Digite a url do projeto no GIT:',
+                            message: 'Digite a url do Upstream do GIT:',
                             validate: git => {
                                 return git != '';
                             },
@@ -175,7 +172,10 @@ exports.configVerificar = async function () {
         .replace(/\{\{google\}\}/g, google)
         .replace(/\{\{git\}\}/g, git);
 
-    const pathDest = './src/Gulpfile/gulp.json';
+    await fsCriarDiretorio('./files');
+    await fsCriarDiretorio('./files/config');
+
+    const pathDest = './files/config/gulp.json';
     if (await fs.existsSync(pathDest)) {
         await fs.unlink(pathDest, function (err) {});
     }
@@ -183,7 +183,7 @@ exports.configVerificar = async function () {
     await fs.appendFile(pathDest, configJson, function (err) {});
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    fs.writeFileSync('./src/Files/.config', '1');
+    fs.writeFileSync('./files/config/.config', '1');
 
     return Promise.resolve();
 };
