@@ -32,8 +32,8 @@ final class CryptHelper
     /**
      * Criptografa o dado enviado
      *
-     * @param mixed     $dado   Valor a ser criptografado
-     * @return string|bool
+     * @param   mixed       $dado   Valor a ser criptografado
+     * @return  string|bool
      */
     public function encode($dado): string|bool
     {
@@ -47,6 +47,10 @@ final class CryptHelper
     }
     private function encodeRsa($dado): string|bool
     {
+        if (is_array($dado) || is_object($dado)) {
+            $dado = json_encode($dado);
+        }
+
         try {
             $status = openssl_public_encrypt($dado, $hash, $this->chavePublica);
         } catch (\Throwable) {

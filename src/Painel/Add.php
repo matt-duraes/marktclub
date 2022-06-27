@@ -241,32 +241,332 @@ final class Add
     }
 
     public function telefone(
-        $name,
+        string | array $name,
         string $label = '',
-        string $placeholder = '',
-        bool $obrigatorio = false
+        string | array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        array $request = [],
+        bool $footer = true,
+        string $separador = ''
     ) {
-        $this->input(name: $name, label: $label, placeholder: $placeholder, obrigatorio: $obrigatorio, mascara: 'telefone', numero: 1, formatar: 'telefone');
+        $this->input(
+            $name,
+            $label,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            null,
+            'text',
+            $attr,
+            'telefone',
+            $ajuda,
+            true,
+            false,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            formatar: 'telefone'
+        );
         return $this;
     }
 
     public function email(
-        $name,
+        string | array $name,
         string $label = '',
-        string $placeholder = '',
-        bool $obrigatorio = false
+        string | array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        null | int | array $contador = null,
+        string | array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        array $request = [],
+        bool $footer = true,
+        string $separador = ''
     ) {
-        $this->input(name: $name, label: $label, obrigatorio: $obrigatorio, placeholder: $placeholder, type: 'email');
+        $this->input(
+            $name,
+            $label,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            $contador,
+            'email',
+            $attr,
+            '',
+            $ajuda,
+            false,
+            false,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            formatar: 'email'
+        );
         return $this;
     }
 
-    public function cpf(
-        $name,
+    public function imagem(
+        string $name,
+        string $diretorio,
+        ?string $value = null,
+        ?string $class = null,
+        ?string $id = null,
+        bool $obrigatorio = false,
+        string $tipo = 'quadrado',
+        int $height = 200
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao' => 'imagem',
+            'name' => $name,
+            'diretorio' => $diretorio,
+            'value' => $value,
+            'class' => $class,
+            'id' => $id,
+            'obrigatorio' => $obrigatorio,
+            'tipo' => $tipo,
+            'height' => $height
+        ]);
+    }
+    public function tag(
+        string $name,
         string $label = '',
         string $placeholder = '',
-        bool $obrigatorio = false
+        string $class = '',
+        string $id = '',
+        string $tipo = 'tag',
+        bool $focus = false,
+        bool $espaco = false
     ) {
-        $this->input(name: $name, label: $label, placeholder: $placeholder, obrigatorio: $obrigatorio, mascara: '000.000.000-00', numero: 1, formatar: 'cpf');
+        return $this->adicionarNovoInput([
+            'funcao' => 'tag',
+            'name' => $name,
+            'label' => $label,
+            'placeholder' => $placeholder,
+            'class' => $class,
+            'id' => $id,
+            'tipo' => $tipo,
+            'focus' => $focus,
+            'espaco' => $espaco,
+        ]);
+    }
+
+    public function editor(
+        string $name,
+        string $tipo = '',
+        string $label = '',
+        string $placeholder = '',
+        string $value = '',
+        string $diretorioImagem = '',
+        string $diretorioArquivo = '',
+        string $bar = '',
+        ?string $barBalao = null,
+        string $id = '',
+        string $class = '',
+        bool $obrigatorio = false,
+        bool $footer = true
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao' => 'editor',
+            'name' => $name,
+            'tipo' => in_array($tipo, ['balao', 'classico']) ? $tipo : 'balao',
+            'label' => $label,
+            'placeholder' => $placeholder,
+            'value' => $value,
+            'diretorioImagem' => $diretorioImagem,
+            'diretorioArquivo' => $diretorioArquivo,
+            'bar' => $bar,
+            'barBalao' => $barBalao,
+            'id' => $id,
+            'class' => $class,
+            'obrigatorio' => $obrigatorio,
+            'footer' => $footer
+        ]);
+    }
+    public function editorBalao(
+        string $name,
+        string $label = '',
+        string $placeholder = '',
+        string $value = '',
+        string $diretorioImagem = '',
+        string $diretorioArquivo = '',
+        string $bar = '',
+        ?string $barBalao = null,
+        string $id = '',
+        string $class = '',
+        bool $obrigatorio = false,
+        bool $footer = true
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao' => 'editor',
+            'name' => $name,
+            'tipo' => 'balao',
+            'label' => $label,
+            'placeholder' => $placeholder,
+            'value' => $value,
+            'diretorioImagem' => $diretorioImagem,
+            'diretorioArquivo' => $diretorioArquivo,
+            'bar' => $bar,
+            'barBalao' => $barBalao,
+            'id' => $id,
+            'class' => $class,
+            'obrigatorio' => $obrigatorio,
+            'footer' => $footer
+        ]);
+    }
+    public function editorClassico(
+        string $name,
+        string $label = '',
+        string $placeholder = '',
+        string $value = '',
+        string $diretorioImagem = '',
+        string $diretorioArquivo = '',
+        string $bar = '',
+        ?string $barBalao = null,
+        string $id = '',
+        string $class = '',
+        bool $obrigatorio = false,
+        bool $footer = true
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao' => 'editor',
+            'name' => $name,
+            'tipo' => 'classico',
+            'label' => $label,
+            'placeholder' => $placeholder,
+            'value' => $value,
+            'diretorioImagem' => $diretorioImagem,
+            'diretorioArquivo' => $diretorioArquivo,
+            'bar' => $bar,
+            'barBalao' => $barBalao,
+            'id' => $id,
+            'class' => $class,
+            'obrigatorio' => $obrigatorio,
+            'footer' => $footer
+        ]);
+    }
+
+    public function cpf(
+        string | array $name,
+        string $label = '',
+        string | array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        bool $footer = true,
+        array $request = [],
+        string $separador = '',
+        null|int|array $maximo = null,
+    ) {
+        $this->input(
+            name: $name,
+            label: $label,
+            placeholder: !empty($placeholder) ? $placeholder : '000.000.000-00',
+            class: $class,
+            id: $id,
+            html: $html,
+            icone: $icone,
+            iconeCor: $iconeCor,
+            obrigatorio: $obrigatorio,
+            focus: $focus,
+            attr: $attr,
+            mascara: '000.000.000-00',
+            ajuda: $ajuda,
+            numero: true,
+            autocomplete: $autocomplete,
+            action: $action,
+            footer: $footer,
+            request: $request,
+            separador: $separador,
+            maximo: $maximo,
+            formatar: 'cpf'
+        );
+        return $this;
+    }
+
+    public function cnpj(
+        string | array $name,
+        string $label = '',
+        $value = '',
+        string | array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        bool $footer = true,
+        array $request = [],
+        string $separador = '',
+        null|int|array $maximo = null,
+    ) {
+        $this->input(
+            name: $name,
+            label: $label,
+            placeholder: $placeholder,
+            class: $class,
+            id: $id,
+            html: $html,
+            icone: $icone,
+            iconeCor: $iconeCor,
+            obrigatorio: $obrigatorio,
+            focus: $focus,
+            attr: $attr,
+            ajuda: $ajuda,
+            autocomplete: $autocomplete,
+            action: $action,
+            footer: $footer,
+            request: $request,
+            separador: $separador,
+            maximo: $maximo,
+            formatar: 'cnpj'
+        );
         return $this;
     }
 
@@ -276,27 +576,108 @@ final class Add
         string $placeholder = '',
         bool $obrigatorio = false
     ) {
-        $this->input(name: $name, label: $label, placeholder: $placeholder, obrigatorio: $obrigatorio, mascara: '00000-000', numero: 1, formatar: 'cep');
+        $this->input(
+            name: $name,
+            label: $label,
+            placeholder: $placeholder,
+            obrigatorio: $obrigatorio,
+            mascara: '00000-000',
+            numero: 1,
+            formatar: 'cep'
+        );
         return $this;
     }
 
     public function numero(
-        $name,
+        string | array $name,
         string $label = '',
-        string $placeholder = '',
-        bool $obrigatorio = false
+        string | array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        null | int | array $contador = null,
+        array $attr = [],
+        string | array $mascara = '',
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        bool $footer = true,
+        array $request = [],
+        string $separador = '',
+        null|int|array $maximo = null,
     ) {
-        $this->input(name: $name, label: $label, obrigatorio: $obrigatorio, placeholder: $placeholder, numero: 1);
+        $this->input(
+            name: $name,
+            label: $label,
+            placeholder: $placeholder,
+            class: $class,
+            id: $id,
+            html: $html,
+            icone: $icone,
+            iconeCor: $iconeCor,
+            obrigatorio: $obrigatorio,
+            focus: $focus,
+            contador: $contador,
+            attr: $attr,
+            mascara: !empty($mascara) ? $mascara : 'numero',
+            ajuda: $ajuda,
+            numero: true,
+            autocomplete: $autocomplete,
+            action: $action,
+            footer: $footer,
+            request: $request,
+            separador: $separador,
+            maximo: $maximo,
+        );
         return $this;
     }
 
     public function data(
-        $name,
+        string | array $name,
         string $label = '',
-        string $placeholder = '',
-        bool $obrigatorio = false
+        string | array $placeholder = '00/00/0000',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        array $request = [],
+        bool $footer = true,
+        string $separador = ''
     ) {
-        $this->input(name: $name, label: $label, obrigatorio: $obrigatorio, placeholder: $placeholder, attr: ['data-calendario' => 'data'], mascara: '00/00/0000', numero: 1, data: 1, formatar: 'data');
+        $this->input($name, $label, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, '00/00/0000', $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador, formatar: 'data');
+        return $this;
+    }
+    public function dataHora(
+        string | array $name,
+        string $label = '',
+        string | array $placeholder = '00/00/0000 00:00:00',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        array $request = [],
+        bool $footer = true,
+        string $separador = ''
+    ) {
+        $this->input($name, $label, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, '00/00/0000 00:00:00', $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador, formatar: 'datahora');
         return $this;
     }
     public function senha(
@@ -439,7 +820,7 @@ final class Add
         $this->setarTitulo();
         $this->setarColuna();
 
-        if (!in_array($dado['funcao'], ['checkbox', 'switch'])) {
+        if (!in_array($dado['funcao'], ['checkbox', 'switch', 'tag'])) {
             $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
         }
 

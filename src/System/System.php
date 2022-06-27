@@ -26,27 +26,10 @@ final class System
         if (!$this->route->rotaUso()) {
             throw new Excecao(status: 404);
         }
-        $this->fazerIncludePadrao();
+
         $this->middleware = new Middleware($this->route);
         $this->request = new Request($this->route);
         $this->controller = new Controller($this->route, $this->request->request());
-    }
-
-    private function fazerIncludePadrao()
-    {
-        $path = ROOT . '/resources/php/' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8');
-        if (!file_exists($path)) {
-            return;
-        }
-
-        $lista = listarArquivoDiretorio($path, ext: ['php']);
-        if (!$lista) {
-            return;
-        }
-
-        foreach ($lista as $arquivo) {
-            require_once $path . '/' . $arquivo;
-        }
     }
 
     public function init(): Response

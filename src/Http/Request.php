@@ -66,7 +66,7 @@ final class Request extends Psr7Request
     public function chave(string $indice, $padrao = null)
     {
         if (!isset($this->__dado[$indice]) && null === $padrao) {
-            return throw new \Erro\Excecao(
+            throw new \Erro\Excecao(
                 titulo: 'Chave ' . $indice . ' não existe.',
                 mensagem: 'A Chave "' . $indice . '" não existe na request enviada.'
             );
@@ -233,10 +233,10 @@ final class Request extends Psr7Request
     /**
      * Pega o mesmo valor do $_POST
      *
-     * @param string    $indice         Indice que será acessado
-     * @param bool      $purifier       Se true, o retorno será purificado
-     * @param bool      $html           Se true, o retorno irá limpar qualquer tag HTML
-     * @return  array   Array com a lista de dados recebidos pela request ou o valor do indice
+     * @param   string          $indice         Indice que será acessado
+     * @param   bool            $purifier       Se true, o retorno será purificado
+     * @param   bool            $html           Se true, o retorno irá limpar qualquer tag HTML
+     * @return  array|string                    Array com a lista de dados recebidos pela request ou o valor do indice
      */
     public function _POST(string $indice = '', bool $purifier = true, bool $html = true): array | string
     {
@@ -485,6 +485,11 @@ final class Request extends Psr7Request
         $def->addAttribute('a', 'target', new \HTMLPurifier_AttrDef_Enum(['_blank']));
         $def->addAttribute('a', 'download', new \HTMLPurifier_AttrDef_Enum(['download', '']));
         $def->addElement('section', 'Block', 'Flow', 'Common');
+        $def->addElement('figcaption', 'Block', 'Flow', 'Common');
+        $def->addElement('figure', 'Block', 'Flow', 'Common');
+        $def->addElement('tbody', false, 'Required: tr', 'Common');
+        $def->addElement('thead', false, 'Required: tr', 'Common');
+        $def->addElement('code', false, 'Flow', 'Common');
         $Purifier = new \HTMLPurifier($config);
 
         if (!$lista) {
@@ -499,11 +504,13 @@ final class Request extends Psr7Request
             return $this->purifier(lista: $lista[$indice], purifier: $purifier, html: $html);
         } elseif (!empty($indice)) {
             $valor = $lista[$indice];
+            if (!$html) {
+                $valor = $this->converterCodigoNaTagCode($valor);
+            } else {
+                $valor = strip_tags($valor);
+            }
             if ($purifier) {
                 $valor = $Purifier->purify($valor);
-            }
-            if ($html) {
-                $valor = strip_tags($valor);
             }
             return $valor;
         }
@@ -514,14 +521,23 @@ final class Request extends Psr7Request
                 $dado[$ind] = $this->purifier(lista: $val, purifier: $purifier, html: $html);
                 continue;
             }
+            if (!$html) {
+                $val = $this->converterCodigoNaTagCode($val);
+            } else {
+                $val = strip_tags($val);
+            }
             if ($purifier) {
                 $val = $Purifier->purify($val);
-            }
-            if ($html) {
-                $val = strip_tags($val);
             }
             $dado[$ind] = $val;
         }
         return $dado;
+    }
+    private function converterCodigoNaTagCode($valor)
+    {
+        //
+        // $valor = preg_replace("/<\s*code(.*?)>(.+?)<\s*\/code\s*>/is", "$1", $valor);
+        // ppe($valor);
+        return $valor;
     }
 }

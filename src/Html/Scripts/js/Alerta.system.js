@@ -140,15 +140,15 @@ class Alerta {
                         <div class="fw_alerta_mensagem_conteudo">
                             <div class="fw_alerta_mensagem_header ${classeHeader}">
                                 <div class="fw_alerta_mensagem_icone fw_alerta_mensagem_icone_ok ${classeIconeOk}">
-                                    <lottie-player class="fw_alerta_player" src="/images/plugins/ok.json" background="transparent" speed="1" autoplay>
+                                    <lottie-player class="fw_alerta_player" src="/images/plugins/alerta/ok.json" background="transparent" speed="1" autoplay>
                                     </lottie-player>
                                 </div>
                                 <div class="fw_alerta_mensagem_icone fw_alerta_mensagem_icone_erro ${classeIconeErro}">
-                                    <lottie-player class="fw_alerta_player" src="/images/plugins/erro.json" background="transparent" speed="1" autoplay>
+                                    <lottie-player class="fw_alerta_player" src="/images/plugins/alerta/erro.json" background="transparent" speed="1" autoplay>
                                     </lottie-player>
                                 </div>
                                 <div class="fw_alerta_mensagem_icone fw_alerta_mensagem_icone_atencao ${classeIconeAtencao}">
-                                    <lottie-player class="fw_alerta_player" src="/images/plugins/atencao.json" background="transparent" speed="1" autoplay>
+                                    <lottie-player class="fw_alerta_player" src="/images/plugins/alerta/atencao.json" background="transparent" speed="1" autoplay>
                                     </lottie-player>
                                 </div>
 

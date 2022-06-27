@@ -2,8 +2,7 @@
 
 use Http\Response;
 
-$hash = explode('.', explode('?', $requestUri)[0])[1];
-$id = (new \Helpers\CryptHelper())->decode($hash);
+$id = arquivoPrivadoId($requestUri);
 
 require_once 'Model/Arquivo.php';
 require_once 'Model/Grupo.php';
@@ -18,17 +17,24 @@ try {
 $download = array_key_exists('download', $_GET) && $_GET['download'] == 1;
 
 $Grupo = new Grupo();
-$Grupo->id($Arquivo->id_upload_grupo);
+$Grupo->_id($Arquivo->id_upload_grupo);
 
 
 $equipe = array_key_exists('USUARIO_PAINEL', $_SESSION) && array_key_exists('id', $_SESSION['USUARIO_PAINEL']) ?
     $_SESSION['USUARIO_PAINEL']['id'] : '';
 
+$privado = '';
+if (!empty($Arquivo->privado)) {
+    $privado = $Arquivo->privado;
+} else if (!empty($Grupo->privado)) {
+    $privado = $Grupo->privado;
+}
+
 if (
-    (($Grupo->privado == 1 || $Arquivo->privado == 1) && !array_key_exists('USUARIO_' . $Grupo->local, $_SESSION)) ||
+    (!empty($privado) && !array_key_exists($privado, $_SESSION)) ||
     (!empty($Grupo->get('equipe')) && (empty($equipe) || !in_array($equipe, $Grupo->get('equipe'))))
 ) {
-    mensagemStatus(404, 'Esse arquivo é privado.');
+    mensagemStatus(401, 'Esse arquivo é privado.');
 }
 
 $arquivo = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->arquivo;

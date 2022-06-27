@@ -1,1 +1,17 @@
-<?php
+<?php 
+
+define("TABELA_AUTH_APP", "auth_app");
+define("TABELA_AUTH_BLACK_LIST", "auth_black_list");
+define("TABELA_AUTH_LOG", "auth_log");
+define("TABELA_AUTH_TOKEN", "auth_token");
+define("TABELA_AUTH_USUARIO", "auth_usuario");
+define("TABELA_LOG_ERRO", "log_erro");
+define("TABELA_NOTICIA_ARTIGO", "noticia_artigo");
+define("TABELA_PAINEL_AGENDA", "painel_agenda");
+define("TABELA_PAINEL_CONFIG", "painel_config");
+define("TABELA_PAINEL_HISTORICO", "painel_historico");
+define("TABELA_PAINEL_LOG_DOWNLOAD", "painel_log_download");
+define("TABELA_PAINEL_MENU", "painel_menu");
+define("TABELA_UPLOAD_ARQUIVO", "upload_arquivo");
+define("TABELA_UPLOAD_GRUPO", "upload_grupo");
+define("TABELA_USUARIO_EQUIPE", "usuario_equipe");

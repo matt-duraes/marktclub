@@ -391,7 +391,7 @@ final class Route
         $action = $explode[2] ?? '';
 
         if (!empty($controller)) {
-            $url .= preg_match("/^\{[a-zA-Z0-9_]+\}$/", $controller) ? '/' : '/' . $controller;
+            $url .= preg_match("/^\{[a-zA-Z0-9_]+\}$/", $controller) ? '/*' : '/' . $controller;
         }
         if (!empty($action)) {
             $url .= preg_match("/^\{[a-zA-Z0-9_]+\}$/", $action) ? '/*' : '/' . $action;

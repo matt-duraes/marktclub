@@ -13,14 +13,13 @@ $Doc
 return (new \DataBase\DataBase())
     ->id()
     ->uuid()
-    ->int("id_admin_empresa")->tamanho(9)->relacionado("admin_empresa", "id")
     ->varchar("id_facebook")->tamanho(170)->null()->unico()
     ->varchar("id_google")->tamanho(170)->null()->unico()
     ->nome("nome_completo")
     ->cpf("documento_cpf")->unico()
-    ->email("email_trabalho")->null()
+    ->email("email")->null()
     ->text("salt")->null()
-    ->telefone("telefone_celular")->null()
+    ->telefone("telefone")->null()
     ->int("genero")->tamanho(1)->null()
     ->date("data_nascimento")->null()
     ->char("hash_codigo")->tamanho(32)->null()
@@ -43,11 +42,10 @@ return (new \DataBase\DataBase())
 
 return [
     [
-        "id_admin_empresa" => 1,
         "nome_completo" => nomeAleatorio(),
         "documento_cpf" => cpfAleatorio(),
-        "email_trabalho" => emailAleatorio(),
-        "telefone_celular" => celularAleatorio(),
+        "email" => emailAleatorio(),
+        "telefone" => celularAleatorio(),
         "salt" => password("123456"),
         "data_criacao" => date("Y-m-d H:i:s"),
         "data_atualizacao" => date("Y-m-d H:i:s"),
@@ -57,11 +55,9 @@ return [
         "status" => 1,
     ],
     [
-        "id_admin_empresa" => 1,
         "nome_completo" => nomeAleatorio(),
         "documento_cpf" => cpfAleatorio(),
-        "email_trabalho" => emailAleatorio(),
-        "telefone_celular" => celularAleatorio(),
+        "telefone" => celularAleatorio(),
         "salt" => password("123456"),
         "data_criacao" => date("Y-m-d H:i:s"),
         "data_atualizacao" => date("Y-m-d H:i:s"),

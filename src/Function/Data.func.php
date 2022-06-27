@@ -240,11 +240,11 @@ if (!function_exists('dataSocial')) {
     /**
      * Converte a data enviada para o padrão de rede social
      *
-     * @param   string  $data   Data a ser convertida
-     * @param   bool    $curto  True para data com padrão curto ou false para padrão normal
-     * @return  string          Data com o formato social
+     * @param   null|string     $data   Data a ser convertida
+     * @param   bool            $curto  True para data com padrão curto ou false para padrão normal
+     * @return  string                  Data com o formato social
      */
-    function dataSocial(string $data, bool $curto = false): string
+    function dataSocial(?string $data, bool $curto = false): string
     {
         if (is_null($data)) {
             return '';
