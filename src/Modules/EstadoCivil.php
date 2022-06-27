@@ -87,9 +87,9 @@ final class EstadoCivil implements ModuleInterface
     /**
      * Pega o valor do número do estado cívil
      *
-     * @return int Número do estado cívil
+     * @return int|string Número do estado cívil
      */
-    public function numero(): int
+    public function numero(): int|string
     {
         return $this->numero;
     }

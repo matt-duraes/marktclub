@@ -18,7 +18,8 @@ final class AppEntity extends Entity
         'campo_permitido',
         'client_id',
         'audience',
-        'chave_privada'
+        'chave_privada',
+        'chave_publica',
     ];
 
     protected array $_update = ['chave_publica', 'chave_privada', 'client_id', 'secret_id'];
@@ -27,6 +28,7 @@ final class AppEntity extends Entity
     public array $campo_permitido;
     public array $redirect_uri;
     public string $chave_privada;
+    public string $chave_publica;
 
     public function getId()
     {

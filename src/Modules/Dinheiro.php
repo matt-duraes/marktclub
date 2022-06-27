@@ -50,9 +50,9 @@ final class Dinheiro implements ModuleInterface
     /**
      * Pega o valor em formato decimal
      *
-     * @return float Valor em formato float
+     * @return float|string Valor em formato float
      */
-    public function decimal(): float
+    public function decimal(): float|string
     {
         return $this->dinheiro;
     }

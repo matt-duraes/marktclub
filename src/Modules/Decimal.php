@@ -39,9 +39,9 @@ final class Decimal implements ModuleInterface
     /**
      * Pega o valor decimal
      *
-     * @return float Valor decinal
+     * @return float|string Valor decinal
      */
-    public function decimal(): float
+    public function decimal(): float|string
     {
         return $this->decimal;
     }

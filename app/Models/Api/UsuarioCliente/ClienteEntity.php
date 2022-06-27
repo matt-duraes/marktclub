@@ -25,6 +25,96 @@ final class ClienteEntity extends Entity
 {
     use CampoUnicoTrait;
 
+    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected array $_buscar = [
+        'cpf' => 'documento',
+        'rg' => 'documento_rg',
+        'email' => ['email_trabalho', 'email_pessoal'],
+        'telefone_pessoal' => 'telefone_celular',
+        'telefone_trabalho' => 'telefone_fixo',
+        'genero' => 'sexo',
+        'data_nascimento' => 'aniversario',
+        'id_admin_empresa' => 'empresa',
+        'endereco_estado' => 'uf',
+        'endereco_cidade' => 'cidade',
+        'trabalho_empresa' => 'trabalho_orgao',
+        'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
+        'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
+        'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
+        'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'salt'
+    ];
+    protected array $_salvar = [
+        'documento' => '->cpf',
+        'sexo' => '->genero',
+        'telefone_celular' => '->telefone_pessoal',
+        'telefone_fixo' => '->telefone_trabalho',
+        'salt' => '->senha',
+        'aniversario' => '->data_nascimento',
+        'uf' => '->endereco_estado',
+        'cidade' => '->endereco_cidade',
+        'trabalho_orgao' => '->trabalho_empresa',
+        'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
+        'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
+        'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
+        'tipo_pagamento', 'trabalho_data_inicio'
+    ];
+    protected array $_insert = [
+        'empresa' => '->idEmpresa',
+        'tipo' => 1,
+        'cod'
+    ];
+    protected string $_validarSalvar = '
+        documento|CPF|cpf
+        genero|Gênero|valido
+        data_nascimento|Data Nascimento|dataDate
+        email_trabalho|E-mail de trabalho|email
+        email_pessoal|E-mail pessoal|email
+        email_funcional|E-mail funcional|email
+        telefone_pessoal|Telefone pessoal|telefone
+        telefone_trabalho|Telefone de trabalho|telefone
+        trabalho_empresa|Empresa que trabalha|valido
+        trabalho_cargo|Cargo na empresa|valido
+        tipo_pagamento|Tipo de pagamento|valido
+        status|Status|vazio|valido
+    ';
+
+    public Cpf $cpf;
+    public Email $email;
+    public Email $email_trabalho;
+    public Email $email_pessoal;
+    public Email $email_funcional;
+    public Telefone $telefone_pessoal;
+    public Telefone $telefone_trabalho;
+    public Senha $senha;
+    public Data $data_nascimento;
+    public Data $trabalho_data_inicio;
+    public TrabalhoEmpresa $trabalho_empresa;
+    public TrabalhoCargo $trabalho_cargo;
+    public TipoPagamento $tipo_pagamento;
+    public Genero $genero;
+    public EstadoCivil $estado_civil;
+    public int $id_admin_empresa;
+    public Botao $primeiro_acesso;
+    public Botao $mudar_senha;
+    public Botao $mensagem;
+    public Situacao $situacao;
+    public Status $status;
+
+    public string $contrato_siape;
+    private int $idEmpresa;
+
+    public function __construct(
+        private ?Request $request = null,
+    ) {
+        parent::__construct();
+
+        if (!defined('TOKEN')) {
+            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioCliente\ClienteEntity');
+        }
+        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->_wherePadrao = ['empresa', $this->idEmpresa];
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RETORNO DOS DADOS
@@ -32,11 +122,6 @@ final class ClienteEntity extends Entity
     */
     public function retorno()
     {
-        $contratoSiape = '';
-        if (!$this->trabalho_empresa->vazio() && !empty($this->siape) && $this->idEmpresa == 19) {
-            $contratoSiape = $this->trabalho_empresa->numero() . $this->siape . '341201';
-        }
-
         return [
             'id' => $this->id,
             'nome' => strNull($this->nome),
@@ -64,7 +149,7 @@ final class ClienteEntity extends Entity
             'possui_senha' => !empty($this->prop('salt')) ? 'sim' : 'nao',
             'mudar_senha' => $this->mudar_senha->valor(),
             'situacao' => $this->situacao->indice(),
-            'contrato_siape' => $contratoSiape,
+            'contrato_siape' => $this->contrato_siape,
             'trabalho_empresa' => $this->trabalho_empresa->indice(),
             'trabalho_cargo' => $this->trabalho_cargo->indice(),
             'tipo_pagamento' => $this->tipo_pagamento->indice(),
@@ -183,142 +268,21 @@ final class ClienteEntity extends Entity
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | REGRA BUSCAR
+    |--------------------------------------------------------------------------
+    */
+    protected function regraPosBuscar()
+    {
+        $this->contratoSiape = '';
+        if (!$this->trabalho_empresa->vazio() && !empty($this->siape) && $this->idEmpresa == 19) {
+            $this->contratoSiape = $this->trabalho_empresa->numero() . $this->siape . '341201';
+        }
+    }
+
     public function getId()
     {
         return $this->prop('id');
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | CONSTRUTOR E PROPRIEDADES DA CLASSE
-    |--------------------------------------------------------------------------
-    |
-    | Construtor e propriedades para criação da Entity
-    |
-    */
-    protected string $_tabela = TABELA_USUARIO_NOVO;
-
-    protected array $_buscar = [
-        'nome',
-        'siape',
-        'cpf' => 'documento',
-        'rg' => 'documento_rg',
-        'email' => ['email_trabalho', 'email_pessoal'],
-        'email_trabalho',
-        'email_pessoal',
-        'email_funcional',
-        'telefone_pessoal' => 'telefone_celular',
-        'telefone_trabalho' => 'telefone_fixo',
-        'status',
-        'estado_civil',
-        'genero' => 'sexo',
-        'data_nascimento' => 'aniversario',
-        'matricula',
-        'primeiro_acesso',
-        'mudar_senha',
-        'data_criacao',
-        'data_atualizacao',
-        'id_admin_empresa' => 'empresa',
-        'endereco_estado' => 'uf',
-        'endereco_cidade' => 'cidade',
-        'endereco_cep',
-        'endereco_logradouro',
-        'endereco_numero',
-        'endereco_complemento',
-        'endereco_bairro',
-        'situacao',
-        'trabalho_empresa' => 'trabalho_orgao',
-        'trabalho_cargo',
-        'tipo_pagamento',
-        'trabalho_data_inicio',
-        'mensagem',
-        'salt'
-    ];
-    protected array $_salvar = [
-        'siape',
-        'nome',
-        'documento' => '->cpf',
-        'email_trabalho',
-        'email_pessoal',
-        'email_funcional',
-        'estado_civil',
-        'sexo' => '->genero',
-        'telefone_celular' => '->telefone_pessoal',
-        'telefone_fixo' => '->telefone_trabalho',
-        'salt' => '->senha',
-        'mensagem',
-        'status',
-        'aniversario' => '->data_nascimento',
-        'matricula',
-        'primeiro_acesso',
-        'mudar_senha',
-        'uf' => '->endereco_estado',
-        'cidade' => '->endereco_cidade',
-        'endereco_cep',
-        'endereco_logradouro',
-        'endereco_numero',
-        'endereco_complemento',
-        'endereco_bairro',
-        'situacao',
-        'trabalho_orgao' => '->trabalho_empresa',
-        'trabalho_cargo',
-        'tipo_pagamento',
-        'trabalho_data_inicio'
-    ];
-    protected array $_insert = [
-        'cod',
-        'empresa' => '->idEmpresa',
-        'titular' => 1,
-        'tipo' => 1
-    ];
-
-    protected string $_validarSalvar = '
-        documento|CPF|cpf
-        genero|Gênero|valido
-        data_nascimento|Data Nascimento|dataDate
-        email_trabalho|E-mail de trabalho|email
-        email_pessoal|E-mail pessoal|email
-        email_funcional|E-mail funcional|email
-        telefone_pessoal|Telefone pessoal|telefone
-        telefone_trabalho|Telefone de trabalho|telefone
-        trabalho_empresa|Empresa que trabalha|valido
-        trabalho_cargo|Cargo na empresa|valido
-        tipo_pagamento|Tipo de pagamento|valido
-        status|Status|vazio|valido
-    ';
-
-    public Cpf $cpf;
-    public Email $email;
-    protected Email $email_trabalho;
-    protected Email $email_pessoal;
-    protected Email $email_funcional;
-    protected Telefone $telefone_pessoal;
-    protected Telefone $telefone_trabalho;
-    protected Senha $senha;
-    protected Data $data_nascimento;
-    protected Data $trabalho_data_inicio;
-    protected TrabalhoEmpresa $trabalho_empresa;
-    protected TrabalhoCargo $trabalho_cargo;
-    protected TipoPagamento $tipo_pagamento;
-    protected Genero $genero;
-    protected EstadoCivil $estado_civil;
-    protected int $id_admin_empresa;
-    protected Botao $primeiro_acesso;
-    protected Botao $mudar_senha;
-    protected Botao $mensagem;
-    protected Situacao $situacao;
-    protected Status $status;
-
-    private int $idEmpresa;
-    public function __construct(
-        private ?Request $request = null,
-    ) {
-        parent::__construct();
-
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioCliente\ClienteEntity');
-        }
-        $this->idEmpresa = TOKEN['empresa']->get('id');
-        $this->_wherePadrao = ['empresa', $this->idEmpresa];
     }
 }

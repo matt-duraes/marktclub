@@ -31,7 +31,22 @@ final class UsuarioClienteController extends Controller implements
             ['status', 'in', [1, 2, 3, 5]]
         ]);
 
-        return mensagemSucesso($Usuario->retorno());
+        return $this->mensagemSucesso($Usuario);
+    }
+    private function mensagemSucesso(ClienteEntity $Usuario)
+    {
+        return mensagemSucesso(pegarPropriedadeDaEntity(
+            $Usuario,
+            lista: [
+                'id', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
+                'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
+                'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
+                'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
+                'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
+                'pagamento', 'trabalho_data_inicio', 'mensagem', 'status',
+            ],
+            chave: TOKEN['app']->chave_publica
+        ));
     }
 
     public function getListar(Request $request)
