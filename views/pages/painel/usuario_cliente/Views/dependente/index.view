@@ -1,0 +1,34 @@
+@ if( painelPermissao('usuario_dependente_index', erro: false) ):
+<div class="bloco_fieldset" id="bloco_dependente">
+    <h2>Dependentes</h2>
+    @ if( painelPermissao('usuario_dependente_add', erro: false) ):
+    <div class="lista_dado">
+        <div class="botao_link" id="botao_dependente_abrir">Adicionar Dependente</div>
+    </div>
+    @ endif;
+</div>
+@ endif;
+
+@ if( painelPermissao('usuario_dependente_add', erro: false) ):
+<div id="bloco_dependente_add">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>DEPENTENDE</h1>
+            <i class="fechar" id="botao_dependente_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <form action="/" class="form_geral">
+                <input type="text" id="input_permissao_deletar" value="{!! painelPermissao('usuario_dependente_deletar', erro: false) ? 'sim' : 'nao' !!}">
+                @hash('DEPENDENTE_HASH', 'dependente')
+                <p>Você pode cadastrar até 5 dependentes para esse usuário. Ao cadastrar um dependente, um e-mail será enviado para ele.</p>
+
+                @? formInput(name: 'dependente_nome', label: 'Nome', placeholder: 'Digite um nome', obrigatorio: true)
+                @? formInput(name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
+                @? formCpf(name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF', obrigatorio: true)
+
+                <div class="botao" id="botao_dependente_salvar">Salvar</div>
+            </form>
+        </div>
+    </div>
+</div>
+@ endif;

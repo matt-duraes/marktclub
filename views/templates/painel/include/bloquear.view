@@ -1,0 +1,25 @@
+<div id="bloco_bloquear">
+    <form class="conteudo form_geral">
+        <header>
+            <h1>CONTEUDO BLOQUEADO</h1>
+            <p>Digite sua senha para desbloquear o conteudo</p>
+        </header>
+        <figure style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+        @hash('desbloquearUsuario')
+        <input type="hidden" id="input_desbloquear_login" value="{!!USUARIO_CPF!!}">
+        @? formSenha(name: 'desbloquear_senha', label: 'Senha', placeholder: 'Digite sua senha', attr: ['autocomplete' => 'password']);
+
+        @?
+        formCheckbox(
+            name: 'desbloqueio_ficar_logado',
+            label: 'Manter logado no sistema',
+            check: array_key_exists(hashIpUser('PAINEL_auth'), $_COOKIE)
+        );
+        @end
+
+        @php botaoLoading('DESBLOQUEAR', 'botao_login_desbloquear')
+
+        <p>Caso não seja você, saia do sistema e faça login com sua conta.</p>
+        <a href="{!!route('login.sair')!!}">@iconeSair(12) SAIR DO SISTEMA</a>
+    </form>
+</div>

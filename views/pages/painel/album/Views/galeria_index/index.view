@@ -1,0 +1,48 @@
+@template "painel"
+
+<form id="bloco_galeria_index" action="@route(post.album.upload)" method="post">
+    <input type="hidden" id="permissao_add" value="{{$permissao->add}}">
+    <input type="hidden" id="permissao_editar" value="{{$permissao->editar}}">
+    <input type="hidden" id="permissao_deletar" value="{{$permissao->deletar}}">
+    <input type="hidden" id="permissao_ordem" value="{{$permissao->ordem}}">
+
+    <input type="hidden" id="input_id" value="{!!$id!!}">
+    @hash('GALERIA_UPLOAD', 'id_hash_upload')
+    @hash('GALERIA_LISTAR', 'id_hash_listar')
+    @hash('GALERIA_EDITAR', 'id_hash_editar')
+    @hash('GALERIA_DELETAR', 'id_hash_delelar')
+    @hash('GALERIA_ORDEM', 'id_hash_ordem')
+
+    @ if( $permissao->add ):
+    <header class="header">
+        <button class="add">
+            @iconeImagem FAZER UPLOAD
+            <input type="file" multiple accept=".png,.jpg,.gif" id="botao_galeria_upload">
+        </button>
+        <div class="bloco_arrastar" id="bloco_arrastar">
+            <div class="bloco_mensagem bloco_inicial">
+                <p>Ou arraste o arquivo nesse bloco</p>
+            </div>
+            <div class="bloco_mensagem bloco_drag">
+                <i>@iconeUpload</i>
+                <p>Solte a imagem para fazer upload</p>
+            </div>
+            <div class="drag" id="bloco_arrastar_arquivo"></div>
+        </div>
+    </header>
+    @ endif;
+
+    <div class="bloco_lista form_geral" id="bloco_arquivo_lista">
+        @laco(4)
+        <div class="article_fake article_fake_{{$i1}} loading_esqueleto"></div>
+        @endlaco
+        <div class="bloco_zero" id="bloco_zero">
+            <i>@iconeImagem(40)</i>
+            <p>Sem imagens no álbum</p>
+        </div>
+    </div>
+
+    <div id="botao_paginacao">CARREGAR MAIS</div>
+</form>
+
+@? botaoControle(app: $app, deletar: 'botao_deletar_foto')

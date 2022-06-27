@@ -1,0 +1,80 @@
+@template "documentacao"
+
+<div class="bloco_retorno">
+    <header class="header_principal">
+        <h1>Retornos</h1>
+        <p>Toda requisição realizada na API vai retornar 3 tipos de retornos podendo ser 2 de sucesso e 1 de falha, para ficar mais claro iremos explicar cada um.</p>
+    </header>
+
+    <div class="bloco">
+        <h2>Status</h2>
+        <p>Antes de começar a falar dos retornos, vamos falar dos status HTML de retorno, toda requisição vai te retornar um status, só de olhar o status já da para saber se falhou ou não, por exemplo, em requisição que obtiveram sucesso, os status serão: 200, 201 ou 204, já requisição que tiverem algum problema, será retornar nado um status de 400 a 599.</p>
+        <p>Geralmente tanto os status de sucesso como de erro seguem um padrão:</p>
+        <div class="tabela">
+            <div class="linha">
+                <div class="status">200</div>
+                <p>Status de sucesso para rotas que utilizão GET.</p>
+            </div>
+            <div class="linha">
+                <div class="status">201</div>
+                <p>Status de sucesso para rotas que fazem insert é que usam POST.</p>
+            </div>
+            <div class="linha">
+                <div class="status">204</div>
+                <p>Status de sucesso para rotas que fazer update ou delete e que retornam um corpo vazio.</p>
+            </div>
+            <div class="linha">
+                <div class="status">400</div>
+                <p>Status de erro geral, geralmente irá retornar uma mensagem de erro específicando o erro e pode conter um código de erro.</p>
+            </div>
+            <div class="linha">
+                <div class="status">401</div>
+                <p>Status de erro de permissão, geralmente ocorre porque você tentou acessar uma rota sem um token.</p>
+            </div>
+            <div class="linha">
+                <div class="status">403</div>
+                <p>Status de erro de permissão, geralmente ocorre quando você usa um token vencido ou que não existe.</p>
+            </div>
+            <div class="linha">
+                <div class="status">404</div>
+                <p>Status de erro de "Não encontrado", geralmente ocorre para rotas ou registros que não existem, por exemplo, ao buscar um registro com um ID inválido, ele não será encontrado e retornará 404.</p>
+            </div>
+            <div class="linha">
+                <div class="status">500</div>
+                <p>Status de erro interno, geralmente são erros de servidor e quase sempre temporários.</p>
+            </div>
+        </div>
+
+        <p>Agora que vimos como funcionam os status de retorno, vamos aos tipos de retorno.</p>
+
+        <h2>Body vazio</h2>
+        <p>Para rodas que retornar status 204 como vimos acima, o retorno vai ser vazio, nesses casos, sempre valide pelo status.</p>
+
+        <h2>Sucesso</h2>
+        <p>Sempre que você tiver sucesso na requisição, iremos retornar um json neste formato:</p>
+        <pre class="bloco_codigo_geral">
+<code>{
+    "status": "sucesso",
+    "dado": [
+        { ... },
+        { ... }
+    ]
+}</code>
+        </pre>
+        <p>Como pode ser visto, sempre que você tiver sucesso, iremos retorno o "status" como "sucesso" e os dados da rota em um json no campo "dado".</p>
+
+        <h2>Falha</h2>
+        <p>O retorno da falha é basicamente o mesmo do sucesso:</p>
+        <pre class="bloco_codigo_geral">
+<code>{
+    "status": "erro",
+    "erro": {
+        "titulo": "Erro aqui!",
+        "mensagem": "Mensagem aqui.",
+        "codigo": 403
+    }
+}</code>
+        </pre>
+        <p>Como visto, o campo "status" agora contêm o valor "erro" e ao invés do campo "dado" temos o campo "erro" que terá um título e uma mensagem, já o campo "codigo" dependerá do tipo de erro.</p>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+</head>
+
+<body>
+
+    <div class="bloco">
+        <div class="item">ITEM</div>
+        <div class="rolagem">
+            <span id="drop" draggable="true"></span>
+        </div>
+    </div>
+    @laco(10)
+    <p>TESTE {{$i}}</p>
+    @endlaco
+    <div id="bloco_scroll" style="width: 100px; height: 100px; background-color: #F00;"></div>
+    @laco(40)
+    <p>TESTE {{$i}}</p>
+    @endlaco
+    <script>
+        const drop = document.getElementById('drop');
+        const body = document.querySelector('body');
+        let isDown = false;
+        drop.addEventListener('mousedown', function(e) {
+            isDown = true;
+            offset = [
+                drop.offsetLeft - e.clientX,
+                drop.offsetTop - e.clientY
+            ];
+        }, true);
+
+        body.addEventListener('mouseup', function() {
+            isDown = false;
+        }, true);
+
+        body.addEventListener('mousemove', function(e) {
+            e.preventDefault();
+            if (isDown) {
+                let posicao = (event.clientX + offset[0]);
+                if(posicao < 2) {
+                    posicao = 2;
+                } else if(posicao > 358) {
+                    posicao = 358;
+                }
+                drop.style.left = posicao + 'px';
+            }
+        }, true);
+    </script>
+    <style>
+        body {
+            width: 100%;
+            min-height: 100vh;
+        }
+        .bloco {
+            width: 400px;
+            height: 200px;
+            position: relative;
+            border: 1px solid #000;
+        }
+        .item {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            background-color: green;
+            color: #FFF;
+            text-align: center;
+        }
+        .rolagem {
+            width: 100%;
+            height: 19px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-color: #CCC;
+        }
+        .rolagem span {
+            width: 40px;
+            height: 15px;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background-color: #F00;
+            cursor: pointer;
+        }
+    </style>
+</body>
+
+</html>

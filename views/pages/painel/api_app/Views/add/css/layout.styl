@@ -1,0 +1,102 @@
+@template "painel"
+@system "Form"
+@system "Galeria"
+@resource "painel/app_geral_estrutura"
+@resource "painel/app_geral_add"
+
+#bloco_scope
+    width: 100%
+    display: flex
+    flex-direction: column
+    .bloco_acao
+        width: 100%
+        display: flex
+        flex-direction: row
+        margin-top: 10px
+    .bloco_acao .botao_acao
+        height: 30px
+        line-height: 30px
+        padding: 0 10px
+        border-radius: 3px
+        border: 1px solid #CCC
+        font-size: 1.2rem
+        margin-right: 10px
+        color: #999
+        cursor: pointer
+    .bloco_grupo
+        width: 100%
+        display: flex
+        flex-direction: column
+        border: 1px solid #DDD
+        border-radius: 4px
+        margin-top: 20px
+    .bloco_grupo header
+        width: 100%
+        display: flex
+        flex-direction: row
+        cursor: pointer
+    .bloco_grupo header h2
+        height: 40px
+        line-height: 40px
+        font-size: 1.4rem
+        font-weight: bold
+        padding-left: 10px
+        color: #99
+        flex-grow: 1
+        flex-basis: 0%
+    .bloco_grupo header i
+        width: 40px
+        height: 40px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #999
+    .bloco_grupo header i.mais
+        display: flex
+    .bloco_grupo header i.menos
+        display: none
+    .bloco_grupo.aberto header i.mais
+        display: none
+    .bloco_grupo.aberto header i.menos
+        display: flex
+    .bloco_grupo .lista
+        width: 100%
+        display: none
+        flex-direction: row
+        flex-wrap: wrap
+        padding: 0 10px 10px 10px
+    .bloco_grupo.aberto .lista
+        display: flex
+    .bloco_grupo .lista .item
+        position: relative
+        margin: 10px 20px 10px 0
+        display: flex
+        flex-direction: column
+        &.item_campo
+            width: 100%
+            border-left: 3px solid $cor
+            padding-left: 10px
+            margin: 10px 0 20px 0
+        &.item_campo::before
+            content: ""
+            width: 100%
+            height: 1px
+            background-color: #DDD
+            position: absolute
+            bottom: -15px
+            left: -3px
+        &:last-child.item_campo::before
+            display: none
+    .bloco_grupo .lista .item .campo
+        width: 100%
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+    .bloco_grupo .lista .item .campo h3
+        width: 100%
+        font-size: 1.4rem
+        margin-top: 20px
+        color: #999
+    .bloco_grupo .lista .item .campo .input_checkbox
+        margin: 10px 20px 0 0
+

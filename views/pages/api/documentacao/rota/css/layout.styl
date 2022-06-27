@@ -1,0 +1,236 @@
+@template "documentacao"
+
+#site .requisicao
+    width: 100%
+    display: flex
+    flex-direction: row
+@media screen and (max-width:1200px)
+    #site .requisicao
+        flex-direction: column
+
+#site .requisicao .dado
+    width: calc(100% - 500px)
+    padding: 0 40px 40px 0
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    header
+        width: 100%
+        padding: 20px 20px 17px 20px
+        border: 1px solid #DDD
+        border-left: 5px solid $cor
+        border-radius: 0 4px 4px 0
+        margin-bottom: 30px
+    header h1
+        titulo()
+    header p
+        texto()
+        color: #666
+        margin-top: 10px
+    .status
+        margin-top: 10px
+        border-radius: 4px
+        display: flex
+        flex-direction: row
+        align-items: center
+        overflow: hidden
+    .status p
+        height: 30px
+        line-height: 30px
+        border: 1px solid #DDD
+        border-right: none
+        padding: 0 10px
+        textoFontSize()
+    .status strong
+        height: 30px
+        line-height: 30px
+        padding: 0 15px
+        background: $corLaranja
+        color: #FFF
+        textoFontSize()
+    .scope
+        margin-top: 10px
+        border-radius: 4px
+        display: flex
+        flex-direction: row
+        align-items: center
+        overflow: hidden
+    .scope p
+        height: 30px
+        line-height: 30px
+        border: 1px solid #DDD
+        border-right: none
+        padding: 0 10px
+        textoFontSize()
+    .scope strong
+        height: 30px
+        line-height: 30px
+        padding: 0 15px
+        background: $corAzul
+        color: #FFF
+        textoFontSize()
+    .bloco_metodo
+        width: 100%
+        display: flex
+        flex-direction: row
+        align-items: center
+    .bloco_metodo .metodo
+        height: 27px
+        line-height: 24px
+        color: $corLaranja
+        border: 1px solid $corLaranja
+        padding: 0 10px
+        border-radius: 5px
+        textoFontSize()
+        margin: 10px 10px 0 0
+    .bloco_metodo .uri
+        height: 27px
+        line-height: 27px
+        textoFontSize()
+        color: #4aa9e9
+        margin-top: 10px
+    .body
+        width: 100%
+        display: flex
+        flex-direction: column
+        margin-top: 40px
+    .body h3
+        textoFontSize()
+        margin-bottom: 5px
+    .body .lista
+        width: 100%
+        border: 1px solid #CCC
+    .body .linha
+        width: 100%
+        border-bottom: 1px solid #CCC
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 10px
+        &:last-child
+            border-bottom: none
+    .body .linha .so_mobile
+        texto()
+        padding-right: 10px
+        color: #999
+        display: none
+    .body .linha .texto
+        texto()
+    .body .linha .campo
+        width: 140px
+        color: #666
+    .body .linha .exemplo_descricao
+        flex-grow: 1
+        flex-basis: 0%
+        padding-right: 20px
+    .body .linha .exemplo_descricao .exemplo span
+        color: #999
+        texto()
+        margin-right: 6px
+    .body .linha .exemplo_descricao .descricao
+        color: #999
+    .body .linha .tipo
+        width: 140px
+        display: flex
+    .body .linha .tipo span
+        margin: 1px 0 0 5px
+        color: #999
+    .body .linha .obrigatorio
+        width: 20px
+        color: red
+    .body .linha .obrigatorio.azul
+        color: blue
+    .observacao
+        width: 100%
+        padding: 10px 10px 0 0
+        margin-top: 20px
+        background-color: lighten($corVermelha, 27)
+    .observacao p
+        texto()
+        border-left: 3px solid $corVermelha
+        padding-left: 10px
+        margin-bottom: 10px
+    .bloco_lista_geral
+        width: 100%
+        margin-top: 40px
+    .bloco_lista_geral h3
+        textoFontSize()
+        margin-bottom: 5px
+    .bloco_lista_geral .lista
+        border: 1px solid #CCC
+        overflow-x: auto
+    .bloco_lista_geral .linha
+        min-width: 700px
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 10px
+        border-bottom: 1px solid #CCC
+        &:last-child
+            border-bottom: none
+    .bloco_lista_geral .linha .indice
+        width: 150px
+        texto()
+        color: #666
+    .bloco_lista_geral .linha .numero
+        background: $corVermelha
+        padding: 5px
+        border-radius: 4px
+        color: #FFF
+        font-size: 1.4rem
+        padding-left: 10px
+    .bloco_lista_geral .linha p
+        flex-grow: 1
+        flex-basis: 0%
+        texto()
+        padding-left: 20px
+    .bloco_lista_geral .linha p span
+        color: #999
+        texto()
+@media screen and (max-width:1200px)
+    #site .requisicao .dado
+        width: 100%
+        padding-right: 0
+@media screen and (max-width:800px)
+    #site .requisicao .dado .body .linha
+        flex-direction: column
+        background-color: #FFF
+        &:nth-child(even)
+            background: #f6f6f6
+        .texto
+        .campo
+        .exemplo_descricao
+        .descricao
+        .tipo
+            width: 100%
+            margin: 0
+        .campo
+            display: flex
+            flex-direction: row
+        .exemplo_descricao
+            position: relative
+            margin-top: 20px
+        .exemplo_descricao .descricao
+            display: none
+        .so_mobile
+            display: flex
+        .so_desktop
+            display: none
+#site .requisicao .curl
+    width: 500px
+    height: 100%
+    background: #333
+    padding-top: 30px
+    h2
+        color: #FFF
+        font-size: 1.4rem
+        padding: 0 10px
+        margin: 10px 0
+    pre
+        margin-bottom: 40px
+@media screen and (max-width:1200px)
+    #site .requisicao .curl
+        width: 100%
+        padding-top: 10px
+        pre:last-child
+            margin-bottom: 20px

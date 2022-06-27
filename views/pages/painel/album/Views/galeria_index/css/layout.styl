@@ -1,0 +1,363 @@
+@template "painel"
+@system "Alerta"
+@system "Galeria"
+
+@import "editar"
+
+#bloco_galeria_index
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+
+#bloco_galeria_index header.header
+    width: calc(100% - 40px)
+    max-width: 1000px
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-between
+    background: #FFF
+    padding: 10px
+    margin-top: 20px
+    box-shadow: 0 4px 5px rgba(0,0,0,.05)
+    border-radius: 4px
+    button
+        height: 40px
+        position: relative
+        fill: #FFF
+        color: #fff
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+        padding: 0 10px
+        border-radius: 4px
+        &.add
+            background-color: $botaoAdd
+        &.deletar
+            background-color: $botaoDeletar
+    button svg
+        margin-right: 10px
+    button input
+        width: 100%
+        height: 100%
+        z-index: 2
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+    .bloco_arrastar
+        width: 100%
+        height: 150px
+        position: relative
+        margin-top: 10px
+        overflow: hidden
+    .bloco_arrastar .drag
+        width: 100%
+        height: 150px
+        line-height: 150px
+        position: absolute
+        top: 0
+        left: 0
+        font-size: 1.6rem
+        color: #999
+        text-align: center
+        border: 2px dashed #EEE
+        border-radius: 4px
+        transition: border-color .3s ease-out
+        z-index: 3
+    .bloco_arrastar.arquivo_drag .drag
+        border-color: #CCC
+        color: #333
+    .bloco_arrastar .bloco_mensagem
+        width: 100%
+        height: 150px
+        position: absolute
+        top: 0
+        left: 0
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        transition: top .3s ease-out
+    .bloco_arrastar .bloco_mensagem i
+        width: 50px
+        height: 50px
+        border: 1px solid #CCC
+        border-radius: 40px
+        fill: #CCC
+        margin-bottom: 20px
+        display: flex
+        align-items: center
+        justify-content: center
+    .bloco_arrastar .bloco_mensagem p
+        width: 100%
+        text-align: center
+        font-size: 1.5rem
+        color: #666
+    .bloco_arrastar .bloco_drag
+        top: -150px
+    .bloco_arrastar.arquivo_drag .bloco_drag
+        top: 0
+    .bloco_arrastar.arquivo_drag .bloco_inicial
+        top: 150px
+
+#bloco_galeria_index .bloco_lista
+    max-width: calc(275px * 4)
+    padding: 10px
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: flex-start
+    .imagem_fake
+        width: 250px
+        margin: 0 10px
+    article
+        width: 250px
+        margin: 10px
+        position: relative
+        display: flex
+        flex-direction: column
+        align-items: center
+        &.drag_drop_fantasma
+            opacity: .3
+    article .bg
+        width: 250px
+        height: 250px
+        position: absolute
+        top: 0
+        left: 0
+        background: #FFF
+        transition: background .2s ease-out
+        z-index: 1
+    article.arquivo_novo .bg
+        background-color: #DDD
+    article.arquivo_checked .bg
+        background-color: $cor
+    article .bg_grade
+        width: 250px
+        height: 250px
+        position: absolute
+        top: 0
+        left: 0
+        background-image: url("../images/painel/grade_photoshop.svg")
+        z-index: 2
+        background-position: center center
+        transition: width .2s ease-out, height .2s ease-out, top .2s ease-out, left .2s ease-out
+    article.arquivo_novo .bg_grade
+        display: none
+    article.arquivo_checked .bg_grade
+        width: 220px
+        height: 220px
+        top: 15px
+        left: 15px
+    article figure
+        width: 250px
+        height: 250px
+        position: relative
+        background-size: cover
+        background-position: center center
+        box-shadow: 0 4px 5px rgba(0,0,0,.05)
+        border-radius: 4px
+        cursor: move
+        z-index: 3
+        transition: width .2s ease-out, height .2s ease-out, margin .2s ease-out
+    article.arquivo_novo figure
+        filter: grayscale() blur(5px)
+        opacity: .4
+        overflow: hidden
+    article.arquivo_checked figure
+        width: 220px
+        height: 220px
+        margin: 15px
+    article .check
+        width: 45px
+        height: 45px
+        display: flex
+        align-items: center
+        justify-content: center
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        z-index: 4
+        cursor: pointer
+    article .check .icone
+        width: 25px
+        height: 25px
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+        background-color: #FFF
+        fill: #CCC
+        transition: opacity .3s ease-out
+        box-shadow: 0 2px 2px rgba(0,0,0,.3)
+    article:hover .check
+        opacity: 1
+    article .botao
+        width: 30px
+        height: 30px
+        position: absolute
+        bottom: 40px
+        z-index: 4
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+        background-color: #FFF
+        fill: #666
+        opacity: 0
+        transition: opacity .3s ease-out, width .3s ease-out, height .3s ease-out, bottom .3s ease-out, right .3s ease-out, left .3s ease-out
+        box-shadow: 0 2px 2px rgba(0,0,0,.3)
+        cursor: pointer
+    article .botao:hover
+        width: 40px
+        height: 40px
+        bottom: 35px
+        right: 10px
+    article:hover .botao
+        opacity: 1
+    article .botao.capa
+        left: 15px
+    article .botao.capa:hover
+        left: 10px
+    article .botao.editar
+        right: 105px
+    article .botao.editar:hover
+        right: 100px
+    article .botao.visualizar
+        right: 15px
+    article .botao.visualizar:hover
+        right: 10px
+    article .botao.download
+        right: 60px
+    article .botao.download:hover
+        right: 55px
+    article.arquivo_novo .botao
+        display: none
+    article.arquivo_checked .check
+        opacity: 1
+    article.arquivo_checked .check .icone
+        background-color: #FFF
+        fill: $cor
+    article.arquivo_novo .check
+        display: none
+    article p
+        width: 100%
+        height: 20px
+        line-height: 20px
+        font-size: 1.4rem
+        text-align: center
+        color: #666
+        margin-top: 10px
+        overflow: hidden
+    article.arquivo_novo p
+        max-width: 80px
+        background-color: #DDD
+    .article_fake
+        width: 250px
+        height: 250px
+        background: #DDD
+        margin: 10px
+    .bloco_zero
+        width: 100%
+        display: none
+        flex-direction: column
+        align-items: center
+        padding: 100px 0
+    .bloco_zero i
+        width: 100px
+        height: 100px
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        border: 1px solid #CCC
+        fill: #999
+    .bloco_zero p
+        margin-top: 10px
+        font-size: 1.4rem
+        color: #666
+@media screen and (max-width:1400px)
+    #bloco_galeria_index .bloco_lista
+        max-width: calc(277px * 3)
+        .article_fake.article_fake_3
+        .article_fake.article_fake_4
+            display: none
+
+@media screen and (max-width:1130px)
+    #bloco_galeria_index .bloco_lista
+        max-width: calc(280px * 2)
+        .article_fake.article_fake_3
+        .article_fake.article_fake_4
+            display: none
+@media screen and (max-width:1100px)
+    #bloco_galeria_index header.header
+        width: calc(100% - 40px)
+        background: none
+        padding: 0
+        box-shadow: none
+        border-radius: 0
+        padding-bottom: 20px
+        margin-bottom: 20px
+        border-bottom: 1px solid #CCC
+        .bloco_arrastar
+            display: none
+    #bloco_galeria_index .bloco_lista
+        max-width: calc(277px * 3)
+        .article_fake.article_fake_3
+            display: block
+@media screen and (max-width:830px)
+    #bloco_galeria_index .bloco_lista
+        max-width: calc(280px * 2)
+        article .botao
+            opacity: 1
+        article .check
+            opacity: 1
+        .article_fake.article_fake_2
+        .article_fake.article_fake_3
+        .article_fake.article_fake_4
+            display: none
+@media screen and (max-width:560px)
+    #bloco_galeria_index .bloco_lista
+        width: calc(100% - 40px)
+        max-width: 100%
+        flex-direction: column
+        padding: 0
+        .imagem_fake
+            width: 100%
+        article
+            width: 100%
+            margin: 0 0 20px 0
+        article .bg
+            width: 100%
+            height: 300px
+        article .bg_grade
+            width: 100%
+            height: 300px
+        article.arquivo_checked .bg_grade
+            width: calc(100% - 30px)
+            height: 270px
+        article figure
+            width: 100%
+            height: 300px
+        article.arquivo_checked figure
+            width: calc(100% - 30px)
+            height: 270px
+        .article_fake
+            width: 100%
+            height: 300px
+            margin: 0 0 20px 0
+
+#botao_paginacao
+    height: 50px
+    line-height: 50px
+    border: 1px solid #DDD
+    border-radius: 25px
+    color: #666
+    padding: 0 20px
+    margin-bottom: 20px
+    display: none
+    cursor: pointer

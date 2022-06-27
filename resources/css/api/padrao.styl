@@ -1,0 +1,23 @@
+@charset "UTF-8"
+
+@import "Resetar.system"
+@import "Alerta.system"
+
+body
+    font-size: 62.5%
+    font-family: 'Roboto', Arial, Sans-serif
+    margin: 0
+    padding: 0
+    background-color: #FAFAFA
+.input_hidden
+    width: 1px
+    height: 1px
+    position: absolute
+    top: -99999px
+    left: -99999px
+    opacity: 0
+.grecaptcha-badge
+    display: none !important
+
+input:-webkit-autofill
+    -webkit-box-shadow: 0 0 0px 1000px white inset

@@ -1,0 +1,84 @@
+@template "painel"
+
+#bloco_data_policy_contexto
+    width: 100%
+    padding: 20px
+    display: flex
+    flex-direction: column
+    align-items: center
+    header
+        margin: 20px 0 40px 0
+    header h1
+        width: 100%
+        text-align: center
+        font-size: 2.4rem
+        color: $cor
+        font-weight: bold
+    header p
+        line-height: 1.5em
+        font-size: 1.6rem
+        color: #666
+        margin-top: 10px
+    .lista
+        width: 100%
+        max-width: 1000px
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: center
+        background: #FFF
+        padding: 20px
+        border-radius: 20px
+        box-shadow: 0 4px 5px rgba(0,0,0,.1)
+    .lista article
+        width: calc((100% / 3) - 20px)
+        display: flex
+        margin: 10px
+    .lista article a
+        width: 100%
+        border: 1px solid #CCC
+        border-radius: 30px
+        padding: 15px 0
+        font-size: 1.6rem
+        text-align: center
+        &:hover
+            background-color: $cor
+            color: #fff
+            border-color: $cor
+    .lista .article_fake
+        width: calc((100% / 3) - 20px)
+        margin: 0 10px
+    .lista .zero
+        padding: 100px 0
+        display: flex
+        flex-direction: column
+        align-items: center
+    .lista .zero i
+        width: 100px
+        height: 100px
+        border: 1px solid #CCC
+        border-radius: 50px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #CCC
+        margin-bottom: 40px
+    .lista .zero h1
+        width: 100%
+        color: #666
+        font-size: 2.4rem
+        text-align: center
+    .lista .zero p
+        width: 100%
+        color: #666
+        font-size: 1.6rem
+        line-height: 1.5em
+        margin-top: 5px
+
+@media screen and (max-width:900px)
+    #bloco_data_policy_contexto .lista article
+        width: calc(50% - 20px)
+@media screen and (max-width:700px)
+    #bloco_data_policy_contexto .lista article
+        width: 100%
+        margin: 10px 0

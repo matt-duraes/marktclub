@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" type="image" href="{!!LINK_PADRAO!!}/images/favicon.png" />
+
+    <title>Documentação</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
+<div id="site">
+    <div class="bloco_menu_mobile">
+        <i id="menu_mobile">@iconeMenu</i>
+        <p>DOCUMENTAÇÃO V4</p>
+    </div>
+    <nav id="bloco_menu">
+        <div class="conteudo">
+            <h2><i>@iconeSetaDireita(10)</i> API</h2>
+            <a href="@route('documentacao.index')">Home</a>
+            <a href="@route('documentacao.fluxograma')">Fluxograma</a>
+            <a href="@route('documentacao.retorno')">Retornos</a>
+
+            @ if( in_array('token-credential-salvar', SCOPE) ):
+            <h2><i>@iconeSetaDireita(10)</i> Token</h2>
+            <a href="@route('documentacao.rota')/token-credential-salvar"><stron class="post">POST</stron> /token</a>
+            @ endif;
+
+            @ if( in_array('login-api', SCOPE) ):
+            <h2><i>@iconeSetaDireita(10)</i> Login</h2>
+            <a href="@route('documentacao.rota')/login-api"><stron class="post">POST</stron> /login/api</a>
+            @ endif;
+
+            @ if( in_array('usuario-cliente-salvar', SCOPE) || in_array('usuario-cliente-atualizar', SCOPE) || in_array('usuario-cliente-deletar', SCOPE)):
+            <h2><i>@iconeSetaDireita(10)</i> Usuário</h2>
+
+            @ if( in_array('usuario-cliente-salvar', SCOPE) ):
+            <a href="@route('documentacao.rota')/usuario-cliente-salvar"><stron class="post">POST</stron> /usuario-cliente</a>
+            @ endif;
+            @ if( in_array('usuario-cliente-atualizar', SCOPE) ):
+            <a href="@route('documentacao.rota')/usuario-cliente-atualizar"><stron class="put">PUT</stron> /usuario-cliente/:cpf</a>
+            @ endif;
+            @ if( in_array('usuario-cliente-deletar', SCOPE) ):
+            <a href="@route('documentacao.rota')/usuario-cliente-deletar"><stron class="get">DELETE</stron> /usuario-cliente/:cpf</a>
+            @ endif;
+
+            @ endif;
+
+            <div class="rodape">
+                <a href="@route('documentacao.app')" id="botao_config">
+                    <i>@iconeConfig(15)</i>
+                    Chaves da API
+                </a>
+                <a id="botao_mudar_senha"><i>@iconeSenha(13)</i> Alterar senha</a>
+                <div class="linha"></div>
+                <a href="@route('documentacao.sair')" class="sair">
+                    <i>@iconeSair(15)</i>
+                    Sair
+                </a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        [[VIEW]]
+    </main>
+</div>
+
+<div class="bloco_popup" id="bloco_mudar_senha">
+    <div class="conteudo">
+        <h1>ALTERAR SENHA</h1>
+        <p>Preencha os campos abaixo para resetar sua senha.</p>
+
+        <form action="@route('post.documentacao.senha')" id="form_mudar_senha" class="form_geral">
+            @hash('NOVA_SENHA', 'nova_senha')
+            @? formSenha(name: 'senha_atual', label: 'Senha atual', placeholder: 'Digite sua senha atual')
+            @? formSenha(name: ['senha_nova', 'senha_repetir'], label: 'Nova senha', placeholder: ['Digite sua nova senha', 'Repetir Senha'])
+        </form>
+        <div class="footer">
+            <div class="botao cancelar">CANCELAR</div>
+            <div class="botao confirmar" id="botao_salvar_senha">CONFIRMAR</div>
+        </div>
+    </div>
+</div>
+@JS
+</body>
+</html>

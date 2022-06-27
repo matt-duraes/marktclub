@@ -1,0 +1,136 @@
+@template "documentacao"
+
+#app .bloco_lista
+    width: 100%
+    display: flex
+    flex-direction: column
+    margin-top: 40px
+    .app
+        width: 100%
+        border: 1px solid #DDD
+        padding: 20px
+        border-radius: 5px
+        justify-content: space-between
+        display: flex
+        flex-direction: column
+    .app header
+        width: 100%
+        border-bottom: 1px solid #DDD
+        padding-bottom: 20px
+        margin-bottom: 20px
+        display: flex
+        flex-direction: column
+    .app header h1
+        width: 100%
+        texto()
+        color: $cor
+        text-transform: uppercase
+    .app header p
+        width: 100%
+        texto()
+        color: #666
+    .app h2
+        width: 100%
+        textoFontSize()
+        margin-top: 40px
+        &.sem_margin
+            margin-top: 0
+    .app > p
+        texto()
+        color: #666
+    .app .tabela
+        width: 100%
+        border: 1px solid #CCC
+        margin-top: 5px
+    .app .tabela .linha
+        width: 100%
+        display: flex
+        flex-direction: row
+        align-items: center
+        border-bottom: 1px solid #CCC
+        &:last-child
+            border-bottom: none
+    .app .tabela .linha .nome
+        texto()
+        width: 130px
+        color: #666
+        padding: 10px
+    .app .tabela .linha .valor
+        padding: 10px
+        max-height: 180px
+        texto()
+        flex-grow: 1
+        flex-basis: 0
+        overflow-y: auto
+    .app .tabela .linha .valor .lista
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+    .app .tabela .linha .valor span
+        texto()
+        padding: 5px 10px
+        border: 1px solid #DDD
+        margin: 5px 10px 5px 0
+        border-radius: 4px
+    .app .bloco_resetar
+        width: 100%
+        display: flex
+        flex-direction: row
+    .app .bloco_resetar .resetar
+        height: 30px
+        line-height: 30px
+        border: 1px solid #CCC
+        margin: 10px 20px 10px 0
+        textoFontSize()
+        padding: 0 20px
+        border-radius: 20px
+        cursor: pointer
+    .app .item
+        position: relative
+        background: #333
+        border-radius: 5px
+        margin-top: 10px
+        position: relative
+        overflow: hidden
+    .app .item p
+        texto()
+        color: #FFF
+        padding: 10px
+    .app .item i
+        width: 30px
+        height: 30px
+        position: absolute
+        top: 4px
+        right: 8px
+        z-index: 2
+        fill: #FFF
+        cursor: pointer
+        display: none
+        align-items: center
+        justify-content: center
+    .app .item.copiar i
+        display: flex
+    .app .item pre
+        color: #fff
+        texto()
+        padding: 0 10px
+        margin: 10px 0 20px 0
+        border-left: 5px solid $corAzul
+        white-space: pre-wrap
+        word-wrap: break-word
+    .app .item .botao
+        width: 150px
+        height: 25px
+        line-height: 25px
+        position: absolute
+        z-index: 2
+        bottom: 20px
+        left: 70px
+        color: #FFF
+        border: 1px solid #FFF
+        text-align: center
+        border-radius: 20px
+        font-size: 1.4rem
+        cursor: pointer
+    .app .item.copiar .botao
+        display: none

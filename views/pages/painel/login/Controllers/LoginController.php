@@ -1,0 +1,205 @@
+<?php
+
+namespace Painel\Login\Controllers;
+
+use Http\Request;
+use Http\Response;
+use Helpers\ApiHelper;
+use Helpers\JwtHelper;
+use Helpers\AuthHelper;
+use Controller\Controller;
+use Painel\Login\Models\MenuModel;
+use App\Models\Api\ApiUsuario\UsuarioEntity;
+
+final class LoginController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | INDEX
+    |--------------------------------------------------------------------------
+    */
+    public function index()
+    {
+        return view(arquivo: 'login.Views.index');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LOGAR COM FORMULÁRIO
+    |--------------------------------------------------------------------------
+    */
+    public function postLogin(Request $request): Response
+    {
+        $Api = new ApiHelper('login:painel');
+        $dado = $Api->body([
+            'login' => $request->login,
+            'senha' => $request->senha,
+            'scope' => '',
+            'audience' => env('API_AUDIENCE', ''),
+            'redirect_uri' => env('API_REDIRECT_URI', ''),
+            'state' => uuid()
+        ])->post('/login/painel')->object();
+
+        $this->autenticarUsuario($dado);
+        return new Response(json: [
+            'status' => 'sucesso',
+            'dado' => [
+                'link' => (new AuthHelper)->location()
+            ]
+        ], status: 201);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LOGIN SOCIAL
+    |--------------------------------------------------------------------------
+    */
+    public function postSocial(Request $request)
+    {
+        return new Response(json: []);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DESBLOQUEAR
+    |--------------------------------------------------------------------------
+    */
+    // public function bloquear(): Response
+    // {
+    //     (new AuthHelper)->deletar();
+    //     return new Response(status: 200);
+    // }
+    // public function postDesbloquear(Request $request): Response
+    // {
+    //     new LoginFormModel($request);
+    //     return new Response(status: 201);
+    // }
+
+    private function autenticarUsuario($dado): bool
+    {
+        if (!is_object($dado) || !object_key_exists('status', $dado)) {
+            mensagemErro(
+                'Erro no login!',
+                'Ocorreu um erro ao fazer seu login, por favor, tente novamente.',
+                status: 500,
+                localhost: 'Erro no retorno da API.'
+            );
+        } else if ($dado->status != 'sucesso') {
+            mensagemErro(
+                titulo: $dado->erro->titulo ?? 'Erro!',
+                mensagem: $dado->erro->mensagem ?? 'Retorno não tem status de sucesso.'
+            );
+        }
+
+        $token = $dado->dado;
+
+        $Jwt = new JwtHelper($token->id_token);
+        $body = $Jwt->body();
+
+        (new AuthHelper)->criar([
+            'id' => $body['sub'],
+            'nome' => $body['name'],
+            'email' => $body['email'],
+            'imagem' => $body['picture'],
+            'cpf' => $body['document'],
+            'permissao' => $body['permission'],
+            'dev' => in_array($body['document'], jsonDecode(env('DEV_DOCUMENTO', []), true, true))
+        ]);
+
+        sessao('TOKEN', $token->access_token);
+
+        if (object_key_exists('refresh_token', $token)) {
+            criarCookie('REFRESH_TOKEN', base64Encode($token->refresh_token, 'hash_refresh_token'));
+        }
+
+        $this->pegandoPermissaoDoPainel();
+        $this->pegandoCampoObrigatorio();
+        $this->pegandoConfiguracaoDoPainel();
+        $this->pegandoCampoPermitidos();
+        $this->pegandoListaMenu();
+        return true;
+    }
+
+    private function pegandoPermissaoDoPainel()
+    {
+        $Api = new ApiHelper(token: true);
+
+        $permissaoMontar = $Api->headerJson()->get('/admin/permissao')->array();
+        $permissaoMontar = array_key_exists('dado', $permissaoMontar) ? $permissaoMontar['dado'] : [];
+        $permissaoLista = [];
+        foreach ($permissaoMontar as $ind => $val) {
+            if (array_key_exists('acao', $val)) {
+                foreach ($val['acao'] as $acao) {
+                    $permissaoLista[] = $ind . '_' . $acao;
+                }
+            } else if (array_key_exists('permissao', $val)) {
+                foreach (array_keys($val['permissao']) as $acao) {
+                    $permissaoLista[] = $acao;
+                }
+            }
+        }
+
+        sessao('PAINEL.permissao.montar', $permissaoMontar);
+        sessao('PAINEL.permissao.lista', $permissaoLista);
+    }
+
+    private function pegandoCampoPermitidos()
+    {
+        $Api = new ApiHelper(token: true);
+        $campo = $Api->headerJson()->get('/admin/campo-permitido')->array();
+        $campo = array_key_exists('dado', $campo) ? $campo['dado'] : [
+            "usuario_cliente" => [
+                'nome', 'cpf', 'matricula', 'siape', 'genero', 'data_nascimento',
+                'email', 'telefone', 'endereco_estado',
+                'endereco_cidade', 'senha', 'status', 'primeiro_acesso', 'mudar_senha', 'estado_civil'
+            ]
+        ];
+
+        sessao('PAINEL.campo', $campo);
+    }
+
+    private function pegandoCampoObrigatorio()
+    {
+        $Api = new ApiHelper(token: true);
+        $obrigatorio = $Api->headerJson()->get('/admin/campo-obrigatorio')->array();
+        $obrigatorio = array_key_exists('dado', $obrigatorio) ? $obrigatorio['dado'] : [
+            "usuario_cliente" => [
+                "cpf",
+                "email",
+                "status"
+            ]
+        ];
+
+        sessao('PAINEL.obrigatorio', $obrigatorio);
+    }
+
+    private function pegandoConfiguracaoDoPainel()
+    {
+        $Api = new ApiHelper(token: true);
+        $configuracao = $Api->headerJson()->get('/admin/configuracao')->array();
+        $configuracao = array_key_exists('dado', $configuracao) ? $configuracao['dado'] : ["perfil", "bloquear"];
+
+        sessao('PAINEL.configuracao', $configuracao);
+    }
+
+    private function pegandoListaMenu()
+    {
+        $Api = new ApiHelper(token: true);
+        $menu = $Api->headerJson()->get('/admin/menu')->array();
+        $menu = array_key_exists('dado', $menu) ? $menu['dado'] : [];
+        sessao('PAINEL.menu', $menu);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAIR
+    |--------------------------------------------------------------------------
+    */
+    public function sair(): Response
+    {
+        (new AuthHelper)->deletar();
+        sessaoDeletar('relatorio');
+        sessaoDeletar('TOKEN');
+        return new Response(url: route('login.index'));
+    }
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link rel="icon" href="{!!LINK_PADRAO!!}/images/painel/favicon.png" type="image/png">
+
+    <title>PAINEL ADMINISTRATIVO</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+    @CSS
+
+</head>
+
+<body>
+
+    <div id="switch_menu_esquerdo"></div>
+    <div id="switch_menu_direito"></div>
+
+    <div id="site">
+
+        <header id="header_template">
+            <div class="bloco_logo">
+                <button class="menu_mobile" id="menu_principal">@iconeMenu</button>
+                <figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure>
+            </div>
+            <div class="bloco_app">
+                <h1>{!!$appTitulo!!}</h1>
+
+                @if($buscarStatus)
+                <form id="form_geral" action="{!!LINK!!}/app/filtrar/{!!$app!!}" method="POST">
+                    <input type="text" placeholder="Digite sua busca..." name="pesquisa" value="">
+                    @if($ordemStatus && isset($busca->ordem) && !empty($busca->ordem)):
+                    <input type="hidden" name="ordem" value="{!!$busca->ordem!!}">
+                    @endif;
+                    <button>@iconeBuscar</button>
+                    <div class="bg"></div>
+                </form>
+                <div class="resto resto_mobile"></div>
+                @else
+                <div class="resto"></div>
+                @endif
+
+                @if($filtrarStatus && $appAcao == 'index')
+                <button class="buscar" id="botao_filtrar_abrir" data-ajuda="Filtrar resultados">
+                    @iconeFiltrar
+                    <div class="bloco_animacao"></div>
+                </button>
+                @endif
+                @if($ordemStatus && $appAcao == 'index')
+                <button class="ordem" id="botao_ordem_abrir" data-ajuda="Ordernar resultados">
+                    @iconeOrdenar
+                    <div class="bloco_animacao"></div>
+                </button>
+                @endif
+
+                @if(($filtrarStatus || $ordemStatus) && $appAcao == 'index')
+                <div class="linha"></div>
+                @endif
+            </div>
+            <div class="bloco_config">
+                <dib class="bloco_notificacao" data-ajuda="Notificações">
+                    <i class="notificacao_ativa"></i>
+                    <i class="notificacao_inativa"></i>
+                </dib>
+                <figure class="menu_config" id="botao_menu_config" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+            </div>
+        </header>
+
+        <nav id="nav_template" class="esquerdo">
+            <div class="bg"></div>
+            <div class="conteudo">
+                @dir "include/menu_principal.view"
+            </div>
+        </nav>
+
+        <main id="main_template">
+            <div class="centralizar_main_template">
+                [[VIEW]]
+            </div>
+        </main>
+
+        <div id="bloco_config_template" class="menu_lateral_geral direito fechado">
+            <div class="bg"></div>
+            <div class="conteudo">
+                @dir "/include/menu_config.view"
+            </div>
+        </div>
+
+    </div>
+
+    @if(sessao('HISTORICO_ID', padrao: false)):
+    <div id="bloco_historico_pendente"></div>
+    @endif
+
+    @dir "/include/ordem.view"
+    @dir "/include/bloquear.view"
+    @dir "/include/agenda.view"
+
+    <div id="bloco_fw_pagina"></div>
+    <div id="bloco_fw_loading"></div>
+    <div id="bloco_fw_ajuda"></div>
+    <div id="bloco_fw_calendario"></div>
+
+    <form action="/" method="post">
+        <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
+        <input type="hidden" name="LINK_VOLTAR" id="LINK_VOLTAR" value="{!!LINK_VOLTAR!!}">
+        <input type="hidden" name="APP" id="APP" value="{!!$app!!}">
+        <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
+        <input type="hidden" name="FACEBOOK_APP_ID" id="FACEBOOK_APP_ID" value="{!!env('FACEBOOK_APP_ID')!!}">
+        <input type="hidden" name="USUARIO_NOME" id="USUARIO_NOME" value="{{sessao('USUARIO.nome')}}">
+        <input type="hidden" name="USUARIO_EMAIL" id="USUARIO_EMAIL" value="{{sessao('USUARIO.email')}}">
+        <input type="hidden" name="USUARIO_IMAGEM" id="USUARIO_IMAGEM" value="{{sessao('USUARIO.imagem')}}">
+    </form>
+
+    <script src="https://apis.google.com/js/api.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={!!env('GOOGLE_API_KEY')!!}"></script>
+    @JS
+
+</body>
+
+</html>

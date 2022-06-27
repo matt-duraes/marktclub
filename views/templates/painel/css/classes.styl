@@ -1,0 +1,57 @@
+.display_flex
+    display: flex !important
+.display_block
+    display: block !important
+.display_none
+    display: none !important
+
+.botao_loading_geral.button
+    height: 40px
+    position: relative
+    color: #FFF
+    bgDegradeVerde()
+    border-radius: 20px
+    font-size: 1.2rem
+    display: flex
+    align-items: center
+    justify-content: center
+    transition: width .3s ease-out, padding .3s ease-out
+    cursor: pointer
+    p
+        width: 100%
+        text-align: center
+        font-size: 1.4rem
+        opacity: 1
+        color: #FFF
+        text-transform: uppercase
+        transition: opacity .3s ease-out
+        white-space: nowrap
+    &.aguarde
+        width: 40px !important
+        padding: 0 !important
+    &.aguarde p
+        opacity: 0
+    span
+        width: 30px
+        height: 30px
+        position: absolute
+        border-radius: 50%
+        fill: #FFF
+        opacity: 0
+        transition: opacity .3s ease-out
+        animation: botao_loading_geral 2s linear 0s infinite
+    span svg
+        width: 30px
+        height: 30px
+    &.aguarde span
+        opacity: .8
+
+@keyframes botao_loading_geral
+    0%
+        transform: rotate(0deg)
+    50%
+        transform: rotate(180deg)
+    75%
+        transform: rotate(270deg)
+    100%
+        transform: rotate(360deg)

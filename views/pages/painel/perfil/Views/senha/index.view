@@ -1,0 +1,14 @@
+@php painelPopup(titulo: 'Alterar Senha', action: LINK . '/perfil/senha', method: 'POST', id: 'bloco_alterar_senha')
+
+<p class="mensagem">Preencha os dados abaixo para atualizar sua senha.</p>
+
+@? formHash()
+<input type="text" class="hidden" autocomplete="username" name="username" value="">
+@? formSenha(name: 'senha_atual', label: 'Senha atual', placeholder: 'Digite sua senha atual', attr: ['autocomplete' => 'current-password'], obrigatorio: 1);
+
+<div class="linha"></div>
+
+@? formSenha(name: 'senha_nova', label: 'Nova senha', placeholder: 'Digite sua senha nova', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
+@? formSenha(name: 'senha_repetir', label: 'Repetir senha', placeholder: 'Repitir a nova senha', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
+
+@php painelPopupEnd(botao: 'ATUALIZAR', id: 'botao_salvar_nova_senha', form: true)

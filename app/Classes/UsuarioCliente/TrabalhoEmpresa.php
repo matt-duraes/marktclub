@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Classes\UsuarioCliente;
+
+use Status\Status;
+
+final class TrabalhoEmpresa extends Status
+{
+    private array $listaPorEmpresa = [
+        0 => ['lista' => [], 'numero' => []],
+        1 => [
+            'lista' => ['marktclub' => 'Markt Club'],
+            'numero' => [1000]
+        ],
+        19 => [
+            'lista' => [
+                'anm' => 'ANM',
+                'ana' => 'ANA',
+                'anac' => 'ANAC',
+                'anatel' => 'ANATEL',
+                'ancine' => 'ANCINE',
+                'aneel' => 'ANEEL',
+                'anp' => 'ANP',
+                'ans' => 'ANS',
+                'antaq' => 'ANTAQ',
+                'antt' => 'ANTT',
+                'anvisa' => 'ANVISA',
+            ],
+            'numero' => [
+                32396, 44205, 52201, 41231, 20224, 32200, 32300, 36208, 39251, 39250, 36207
+            ]
+        ]
+    ];
+
+    public function __construct(
+        protected null|string|int $valor = null
+    ) {
+        $idEmpresa = 0;
+        if (defined('TOKEN')) {
+            $idEmpresa = TOKEN['empresa']->get('id');
+        }
+
+        parent::__construct(
+            lista: array_key_exists($idEmpresa, $this->listaPorEmpresa) ?
+                $this->listaPorEmpresa[$idEmpresa]['lista'] : [],
+            numero: array_key_exists($idEmpresa, $this->listaPorEmpresa) ?
+                $this->listaPorEmpresa[$idEmpresa]['numero'] : []
+        );
+    }
+}

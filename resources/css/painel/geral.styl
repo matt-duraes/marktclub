@@ -1,0 +1,160 @@
+.loading_esqueleto
+    position: relative
+    overflow: hidden
+    &::before
+        width: 40px
+        height: 1000px
+        position: absolute
+        top: 0
+        content: ""
+        background-image: linear-gradient(90deg, #FFFFFF00, #FFFFFF80, #FFFFFF00)
+        z-index: 2
+        animation: loading_esqueleto 1.5s linear infinite
+@keyframes loading_esqueleto
+    0%
+        left: -40px
+    100%
+        left: 100%
+
+#bloco_botao_salvar
+    position: fixed
+    z-index: 10
+    right: 20px
+    bottom: 20px
+    display: flex
+    flex-direction: row
+    .botao
+        width: 50px
+        height: 50px
+        position: relative
+        border-radius: 25px
+        margin-right: 10px
+        padding-left: 50px
+        display: flex
+        align-items: center
+        overflow: hidden
+        fill: #FFF
+        cursor: pointer
+        transition: width .3s ease-out
+        &:last-child
+            margin-right: 0
+        &.add
+            background-color: $botaoAdd
+        &.add:hover
+            width: 100px
+        &.deletar
+            background-color: $botaoDeletar
+            display: none
+        &.deletar:hover
+            width: 130px
+        &.editar
+            background-color: $botaoEditar
+        &.editar:hover
+            width: 110px
+        &.download
+            background-color: $botaoDownload
+        &.download:hover
+            width: 150px
+    .botao i
+        width: 50px
+        height: 50px
+        display: flex
+        align-items: center
+        justify-content: center
+        position: absolute
+        top: 0
+        left: 0
+    .botao p
+        font-size: 1.4rem
+        color: #fff
+        padding-right: 20px
+@media screen and (max-width:1000px)
+    #bloco_botao_salvar .botao
+        &.add:hover
+            width: 50px
+        &.deletar:hover
+            width: 50px
+        &.editar:hover
+            width: 50px
+        p
+            display: none
+.painel_botao_salvar
+    width: 95px
+    height: 50px
+    position: relative
+    border-radius: 25px
+    bgDegradeVerde()
+    cursor: pointer
+    transition: width .3s ease-out
+    display: flex
+    align-items: center
+    justify-content: center
+    z-index: 10
+    p
+        width: 100%
+        height: 50px
+        line-height: 50px
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 1
+        font-size: 1.4rem
+        color: #FFF
+        transition: opacity .3s ease-out
+        text-align: center
+        text-transform: uppercase
+    &.aguarde
+        width: 50px
+    &.aguarde p
+        opacity: 0
+    span
+        width: 34px
+        height: 34px
+        position: absolute
+        border-radius: 50%
+        fill: #FFF
+        opacity: 0
+        transition: opacity .3s ease-out
+        animation: painel_botao_salvar_loading 2s linear 0s infinite
+    &.aguarde span
+        opacity: .8
+
+@keyframes painel_botao_salvar_loading
+    0%
+        transform: rotate(0deg)
+    50%
+        transform: rotate(180deg)
+    75%
+        transform: rotate(270deg)
+    100%
+        transform: rotate(360deg)
+
+.bloco_zero_geral
+    width: 100%
+    padding: 100px 0
+    display: flex
+    flex-direction: column
+    align-items: center
+    i
+        width: 100px
+        height: 100px
+        border: 1px solid #CCC
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-bottom: 20px
+        fill: #999
+    h1
+        width: 100%
+        text-align: center
+        font-size: 2rem
+        color: #666
+    p
+        width: 100%
+        max-width: 300px
+        line-height: 1.5em
+        font-size: 1.6rem
+        text-align: center
+        margin-top: 5px
+        color: #999

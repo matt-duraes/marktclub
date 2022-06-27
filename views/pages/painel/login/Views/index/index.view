@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="icon" type="image/png" href="{!!LINK_PADRAO!!}/images/painel/favicon.png">
+    <title>LOGIN - PAINEL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    @CSS
+
+</head>
+
+<body>
+    <div id="site">
+        <div class="conteudo" id="bloco_conteudo">
+            <figure><img src="{!!LINK_PADRAO!!}/images/painel/logo_login.png" alt="" width="160"></figure>
+            <header>
+                <h1>Painel administrativo</h1>
+                <p>Digite seu CPF e senha ou escolha uma rede social para fazer login.</p>
+            </header>
+            <form class="form_geral" id="form_login" action="{!!LINK!!}/login" method="post">
+                @hash('painel_login')
+                @php
+                echo formInput(
+                    class: 'input_login',
+                    name: 'login',
+                    label: 'Digite seu CPF',
+                    placeholder: '000.000.000-00',
+                    mascara: '000.000.000-00',
+                    focus: true,
+                    numero: true,
+                    attr: ['autocomplete' => 'username']
+                );
+                echo formSenha(
+                    name: 'senha',
+                    label: 'Digite sua senha',
+                    placeholder: 'Senha',
+                    attr: ['autocomplete' => 'current-password']
+                );
+                @end
+                <div class="footer">
+                    @?
+                    formCheckbox(
+                        name: 'logado',
+                        label: 'Manter logado no sistema',
+                        check: false
+                    );
+                    @end
+                    <button type="button" id="botao_login">FAZER LOGIN</button>
+                </div>
+            </form>
+            <div class="login_social" id="bloco_login_social">
+                @hash('login_social')
+                <p>ou acesse por:</p>
+                <button id="botao_login_facebook" type="button" class="botao facebook">
+                    @iconeFacebook
+                    <p>FACEBOOK</p>
+                </button>
+                <button id="botao_login_google" type="button" class="botao google">
+                    @iconeGoogle
+                    <p>GOOGLE</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="bloco_fw_alerta"></div>
+    <div id="bloco_fw_loading"></div>
+
+    <form action="/" method="post">
+        <input type="hidden" name="RECAPTCHA" id="RECAPTCHA" value="{!!env('RECAPTCHA_PUBLIC', '')!!}">
+        <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
+        <input type="hidden" name="FACEBOOK_APP_ID" id="FACEBOOK_APP_ID" value="{!!env('FACEBOOK_APP_ID')!!}">
+        <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
+    </form>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={!!env('RECAPTCHA_PUBLIC')!!}"></script>
+    @JS
+
+</body>
+
+</html>

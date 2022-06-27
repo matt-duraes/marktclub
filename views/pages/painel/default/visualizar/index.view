@@ -1,0 +1,3 @@
+@template "painel"
+
+@php painelAppVisualizar($config, $dado ?? null, $app)

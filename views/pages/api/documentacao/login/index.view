@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="shortcut icon" type="image" href="{!!LINK_PADRAO!!}/images/favicon.png" />
+
+    <title>Documentação - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
+<div id="site">
+    <figure><img src="@LINK_PADRAO/images/logo_marktclub.png" alt="[Markt Club]" height="75"></figure>
+
+    <form id="form_login" class="form_geral" action="@route('post.documentacao.login')" method="post">
+        @hash('DOCUMENTACAO_LOGIN')
+        <header>
+            <h1>DOCUMENTAÇÃO V4</h1>
+            <p>Digite seu login e senha para acessar a nossa documentação</p>
+        </header>
+
+        <input type="text" class="input_login" autocomplete="username" name="login_real">
+        <input type="password" class="input_login" autocomplete="current-password" name="senha_real">
+
+        <fieldset>
+            @? formInput(name: 'login', label: 'Login', placeholder: 'Digite seu login', focus: true)
+            @? formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha')
+        </fieldset>
+
+        <div class="botao" id="botao_fazer_login">LOGIN</div>
+    </form>
+    <div class="observacao">
+        <p>Caso tenha perdido sua senha ou não tenha acesso a nossa documentação, entre em contato com o comercial para solicitar suas credenciais.</p>
+        <div class="contato">
+            <i>@iconeTelefone(20)</i>
+            <p>+55 (61) 3202-3003</p>
+        </div>
+        <div class="contato">
+            <i>@iconeEmail(12)</i>
+            <p>atendimento@marktclub.com.br</p>
+        </div>
+    </div>
+    <p class="copy">&copy; 2011/{{date('Y')}} - Todos os direitos reservados é de uso exclusivo marktclub.com.br</p>
+</div>
+<form action="/" method="post">
+    <input type="hidden" name="RECAPTCHA" id="RECAPTCHA" value="{!!env('RECAPTCHA_PUBLIC', '')!!}">
+    <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
+</form>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render={!!env('RECAPTCHA_PUBLIC')!!}"></script>
+@JS
+</body>
+</html>

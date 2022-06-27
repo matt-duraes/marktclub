@@ -1,0 +1,1 @@
+@php painelAppFiltro(app: $app, ordem: $ordem, config: $config->filtrar)

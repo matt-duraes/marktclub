@@ -1,0 +1,164 @@
+@template "documentacao"
+<header class="header_principal">
+    <h1>APP</h1>
+    <p>APPs são o conjunto de chaves que você deve usar para se comunicar com nossas rotas.</p>
+</header>
+
+<div id="app">
+    <div class="bloco_lista">
+        <div class="app_fake"></div>
+        <div class="app_fake"></div>
+        @ foreach(sessao('DOCUMENTACAO.app', padrao: [])->lista ?? [] as $r):
+        <div class="app" data-id="{{$r->id}}">
+            <header>
+                <h1>{{$r->nome}}</h1>
+                <p>{{$r->descricao}}</p>
+            </header>
+
+            <h2 class="sem_margin">Resetar chaves</h2>
+            <p>Caso você ache que suas chaves não são mais seguras, faça o resete delas nos botões abaixo:</p>
+            <div class="bloco_resetar">
+                <div class="resetar botao_resetar_secret_id">Resetar Cliente e Secret ID</div>
+                <div class="resetar botao_resetar_chave_publica">Resetar Chave Pública</div>
+            </div>
+
+            <h2>Dados do APP</h2>
+            <div class="tabela">
+                <div class="linha">
+                    <div class="nome">Vida do token:</div>
+                    <div class="valor">{{$r->vida}} segundos</div>
+                </div>
+                <div class="linha">
+                    <div class="nome">Scopes:</div>
+                    <div class="valor">
+                        <div class="lista">
+                            @ foreach( $r->scope as $valor ):
+                            <span>{{$valor}}</span>
+                            @ endforeach;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Chaves de Produção</h2>
+            <p>Chaves para serem utilizadas para criação de tokens e criptografia dos dados pessoais em produção</p>
+
+            <div class="item copiar">
+                <p>Client ID</p>
+                <pre>{{$r->client_id}}</pre>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+            </div>
+            <div class="item">
+                <p>Secret ID</p>
+                <pre>***</pre>
+                <div class="botao botao_mostrar_secret_id">Mostrar Chave</div>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+            </div>
+            <div class="item copiar">
+                <p>Audience</p>
+                <pre>{{$r->audience}}</pre>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+            </div>
+            <div class="item">
+                <p>Chave Pública</p>
+                <pre>***</pre>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+                <div class="botao botao_mostrar_chave_publica">Mostrar Chave</div>
+            </div>
+
+            <h2>Chaves de Homologação</h2>
+            <p>Chaves para serem utilizadas em ambiente de homologação</p>
+            <div class="item copiar">
+                <p>Client ID</p>
+                <pre>{{$r->client_id_fake}}</pre>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+            </div>
+            <div class="item">
+                <p>Secret ID</p>
+                <pre>***</pre>
+                <div class="botao botao_mostrar_secret_id homologacao">Mostrar Chave</div>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+            </div>
+            <div class="item">
+                <p>Chave Pública</p>
+                <pre>***</pre>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+                <div class="botao botao_mostrar_chave_publica homologacao">Mostrar Chave</div>
+            </div>
+        </div>
+        @ endforeach;
+    </div>
+
+</div>
+
+<div class="bloco_popup" id="bloco_resetar_secret_id">
+    <div class="conteudo">
+        <h1>RESETAR CLIENT E SECRET ID</h1>
+        <p>Tem certeza que deseja resetar o Client e Secret ID? Todas as suas aplicações irão para de funcionar até que o novo valor seja adicionado.</p>
+
+        <form action="/" class="form_geral">
+            @? formSenha(name: 'resetar_secret_id_senha', label: 'Senha', placeholder: 'Digite sua senha')
+        </form>
+        <div class="footer">
+            <div class="botao cancelar">CANCELAR</div>
+            <div class="botao confirmar" id="botao_resetar_secret_id">CONFIRMAR</div>
+        </div>
+    </div>
+</div>
+<div class="bloco_popup" id="bloco_resetar_chave_publica">
+    <div class="conteudo">
+        <h1>RESETAR CHAVE PÚBLICA</h1>
+        <p>Tem certeza que deseja resetar sua chave pública e privada? Todas as suas aplicações irão para de funcionar até que o novo valor seja adicionado.</p>
+
+        <form action="/" class="form_geral">
+            @? formSenha(name: 'resetar_chave_publica_senha', label: 'Senha', placeholder: 'Digite sua senha')
+        </form>
+        <div class="footer">
+            <div class="botao cancelar">CANCELAR</div>
+            <div class="botao confirmar" id="botao_resetar_chave_publica">CONFIRMAR</div>
+        </div>
+    </div>
+</div>
+<div class="bloco_popup" id="bloco_mostrar_secret_id">
+    <div class="conteudo">
+        <h1>MOSTRAR SECRET ID</h1>
+        <p>Digite sua senha para mostrar o secret id.</p>
+        <p class="alerta">Cuidado! Seu secret id não pode ser compartilhado, caso ache que ela vazou, crie um novo secret id e client_id no botão "Resetar Client e Secret ID".</p>
+
+        <form action="/" class="form_geral">
+            @? formSenha(name: 'secret_id_senha', label: 'Senha', placeholder: 'Digite sua senha')
+        </form>
+        <div class="footer">
+            <div class="botao cancelar">CANCELAR</div>
+            <div class="botao confirmar" id="botao_mostrar_secret_id">CONFIRMAR</div>
+        </div>
+    </div>
+</div>
+<div class="bloco_popup" id="bloco_mostrar_chave_publica">
+    <div class="conteudo">
+        <h1>MOSTRAR CHAVE PÚBLICA</h1>
+        <p>Digite sua senha para mostrar a chave pública.</p>
+        <p class="alerta">Cuidado! Sua chave pública não pode ser compartilhada, caso ache que ela vazou, crie uma nova chave no botão "Resetar Chave Pública".</p>
+
+        <form action="/" class="form_geral">
+            @? formSenha(name: 'chave_publica_senha', label: 'Senha', placeholder: 'Digite sua senha')
+        </form>
+        <div class="footer">
+            <div class="botao cancelar">CANCELAR</div>
+            <div class="botao confirmar" id="botao_mostrar_chave_publica">CONFIRMAR</div>
+        </div>
+    </div>
+</div>
+
+<form action="@route('post.documentacao.mostrarSecretId')" id="form_mostrar_secret_id">
+    @hash('MOSTRAR_SECRET_ID')
+</form>
+<form action="@route('post.documentacao.mostrarChavePublica')" id="form_mostrar_chave_publica">
+    @hash('MOSTRAR_CHAVE_PUBLICA')
+</form>
+<form action="@route('post.documentacao.resetarSecretId')" id="form_resetar_secret_id">
+    @hash('RESETAR_SECRET_ID')
+</form>
+<form action="@route('post.documentacao.resetarChavePublica')" id="form_resetar_chave_publica">
+    @hash('RESETAR_CHAVE_PUBLICA')
+</form>

@@ -1,0 +1,40 @@
+@template "documentacao"
+
+#site main header
+    width: 100%
+    h1
+        titulo()
+        color: $cor
+        margin-bottom: 20px
+#site main
+    h2
+        font-size: 2rem
+        font-weight: bold
+        color: #333
+        margin: 40px 0 10px
+    p
+        texto()
+        color: #666
+        margin-top: 5px
+    .bloco
+        width: 100%
+        display: flex
+        flex-direction: row
+        padding-top: 10px
+    .bloco a
+        background: $corAzul
+        color: #FFF
+        height: 50px
+        line-height: 50px
+        padding: 0 20px
+        border-radius: 25px
+        margin-right: 20px
+        textoFontSize()
+@media screen and (max-width: 800px)
+    #site main .bloco
+        flex-direction: column
+        a
+            margin-top: 20px
+            text-align: center
+            padding: 0
+            margin-right: 0

@@ -1,0 +1,78 @@
+@template "documentacao"
+
+<div class="bloco_fluxo">
+    <header class="header_principal">
+        <h1>Fluxograma</h1>
+        <p>Nossa API é feita para funcionar com a utilização de tokens, cada tipo de token deve ser gerado de uma forma diferente e pode acessar as informações de formas diferêntes, para ilustrar, iremos fazer um floxograma de como eles devem funcionar.</p>
+    </header>
+
+    <h2>Client Credentials</h2>
+    <p>Os tokens do tipo Client Credentials são token criados apartir do client_id e client_secret e não necessita de um usuário para fazer o login, na prática, são tokens criados 100% no backend onde as informações estão protegidas e sigilosas, por isso, muito cuidado com suas chavez e onde será usado esse tipo de token.</p>
+
+    <div class="fluxo_grafico">
+        <div class="linha">
+            <div class="servidor">
+                <p>Servidor de origem faz uma requisição usando a rota POST /token para o servidor da API</p>
+                <figure></figure>
+                <span>Origem</span>
+            </div>
+            <div class="seta_direita"><span></span></div>
+            <div class="servidor">
+                <p>Servidor da API verifica a requisição enviada.</p>
+                <figure></figure>
+                <span>API</span>
+            </div>
+        </div>
+        <div class="linha">
+            <div class="grow"></div>
+            <div class="seta_baixo"><span></span></div>
+        </div>
+        <div class="linha">
+            <div class="servidor">
+                <p>O servidor de origem pode salvar ou não os dados recebidos</p>
+                <figure></figure>
+                <span>Origem</span>
+            </div>
+            <div class="seta_esquerda"><span></span></div>
+            <div class="servidor">
+                <p>Em caso possitivo, o servidor retorna o access_token, scope, expires_in e o token_type</p>
+                <figure></figure>
+                <span>API</span>
+            </div>
+        </div>
+        <div class="linha">
+            <div class="seta_baixo"><span></span></div>
+            <div class="grow"></div>
+        </div>
+        <div class="linha">
+            <div class="servidor">
+                <p>Servidor de origem envia o access_token no header da requisição na rota que desejada usar</p>
+                <figure></figure>
+                <span>Origem</span>
+            </div>
+            <div class="seta_direita"><span></span></div>
+            <div class="servidor">
+                <p>O servidor da API valida o token para ver se ele tem permissão</p>
+                <figure></figure>
+                <span>API</span>
+            </div>
+        </div>
+        <div class="linha">
+            <div class="grow"></div>
+            <div class="seta_baixo"><span></span></div>
+        </div>
+        <div class="linha">
+            <div class="servidor">
+                <p>O servidor de origem trata as informações como desejar</p>
+                <figure></figure>
+                <span>Origem</span>
+            </div>
+            <div class="seta_esquerda"><span></span></div>
+            <div class="servidor">
+                <p>Em caso possitivo, o servidor da API retorna as informações da rota</p>
+                <figure></figure>
+                <span>API</span>
+            </div>
+        </div>
+    </div>
+</div>

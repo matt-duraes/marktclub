@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN API</title>
+    @CSS
+</head>
+<body>
+    <div id="site">
+        <h1>TUDO CERTO</h1>
+        <p>Sua integração foi realizada com sucesso em homologação e o usuário <strong>{{$nome}}</strong> conseguiu logar.</p>
+        <p>Na API de produção, esse link vai fazer o usuário cair no clube com seu login já realizado.</p>
+    </div>
+</body>
+</html>

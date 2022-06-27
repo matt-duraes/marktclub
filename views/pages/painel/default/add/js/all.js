@@ -1,0 +1,5 @@
+// @template "painel"
+// @system "Form"
+// @system "Galeria"
+// @system "Mascara"
+// @resource "painel/app_geral_add"

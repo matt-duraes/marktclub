@@ -1,0 +1,48 @@
+<div id="bloco_menu_config">
+    <header>
+        <div class="botao">
+            <button class="botao_menu_config_fechar mobile">@iconeVoltar</button>
+            <button class="botao_menu_config_fechar desktop">@iconeFechar</button>
+        </div>
+        <figure style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+        <h1>{{USUARIO_NOME}}</h1>
+        @ if( in_array('perfil', PAINEL_CONFIGURACAO) ):
+        <a href="{!!route('perfil.index')!!}">Perfil</a>
+        @ endif;
+    </header>
+
+    <div class="menu">
+        @ if( in_array('agenda', PAINEL_CONFIGURACAO) ):
+        <a href="{!!route('agenda.index')!!}">
+            <i>@iconeCalendario(12)</i>
+            <p>Agenda</p>
+        </a>
+        <div class="linha"></div>
+        @ endif;
+
+        @ if( in_array('perfil', PAINEL_CONFIGURACAO) ):
+        <a href="{!!route('perfil.dado')!!}">
+            <i>@iconeConfig(12)</i>
+            <p>Dados pessoais</p>
+        </a>
+        <a id="botao_config_alterar_senha">
+            <i>@iconeSenha</i>
+            <p>Senha</p>
+        </a>
+        <div class="linha"></div>
+        @ endif;
+        @ if( in_array('bloquear', PAINEL_CONFIGURACAO) ):
+        <a id="botao_config_bloquear_sessao">
+            <i>@iconeBloquear</i>
+            <p>Bloquear tela</p>
+        </a>
+        <div class="linha"></div>
+        @ endif;
+
+
+        <a href="{!!route('login.sair')!!}">
+            <i>@iconeSair</i>
+            <p>Sair</p>
+        </a>
+    </div>
+</div>

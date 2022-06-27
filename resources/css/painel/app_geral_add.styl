@@ -1,0 +1,62 @@
+#bloco_app_add
+    width: 100%
+    display: flex
+    flex-direction: column
+    padding-bottom: 95px
+
+#bloco_app_add .login
+    position: absolute
+    top: -100px
+#bloco_app_add .botao_salvar
+    width: 95px
+    height: 50px
+    border-radius: 25px
+    bgDegradeVerde()
+    position: fixed
+    right: 20px
+    bottom: 25px
+    cursor: pointer
+    transition: width .3s ease-out
+    display: flex
+    align-items: center
+    justify-content: center
+    z-index: 10
+    p
+        width: 100%
+        height: 50px
+        line-height: 50px
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 1
+        font-size: 1.4rem
+        color: #FFF
+        transition: opacity .3s ease-out
+        text-align: center
+        text-transform: uppercase
+    &.aguarde
+        width: 50px
+    &.aguarde p
+        opacity: 0
+    span
+        width: 34px
+        height: 34px
+        position: absolute
+        border-radius: 50%
+        fill: #FFF
+        opacity: 0
+        transition: opacity .3s ease-out
+        animation: botao_salvar_loading 2s linear 0s infinite
+    &.aguarde span
+        opacity: .8
+
+@keyframes botao_salvar_loading
+    0%
+        transform: rotate(0deg)
+    50%
+        transform: rotate(180deg)
+    75%
+        transform: rotate(270deg)
+    100%
+        transform: rotate(360deg)
+

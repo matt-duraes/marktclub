@@ -1,0 +1,72 @@
+@template "painel"
+
+<div class="bloco_app_relatorio">
+    <header>
+        <form action="/" class="form_geral">
+            <p id="bloco_relatorio_data">Últimos 7 dias</p>
+            <input type="text" id="input_relatorio_data_de" readonly value="{!!$de!!}">
+            <input type="text" id="input_relatorio_data_ate" readonly value="{!!$ate!!}">
+            <i class="show" id="icone_calendario">@iconeCalendario</i>
+            <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
+        </form>
+    </header>
+
+    <div class="lista">
+        <div id="grafico_acesso" class="fw_grafico fw_grafico_grande">
+            <div class="fw_grafico_titulo">Páginas acessadas</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+
+        <div id="lista_acesso_pagina" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Páginas mais acessadas</div>
+            <div class="fw_grafico_bloco_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+        <div id="lista_acesso_parceiro" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Parceiros mais acessados</div>
+            <div class="fw_grafico_bloco_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+        <div id="lista_acesso_usuario" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Usuários com mais acesso</div>
+            <div class="fw_grafico_bloco_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="grafico_dispositivo" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Acesso por dispositivo</div>
+            <div class="fw_grafico_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+        <div id="grafico_navegador" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Acesso por navegador</div>
+            <div class="fw_grafico_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+        <div id="grafico_os" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Acesso por Sistema Operacional</div>
+            <div class="fw_grafico_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

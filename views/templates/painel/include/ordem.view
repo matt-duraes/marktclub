@@ -1,0 +1,26 @@
+@php
+    $ordemPesquisa = isset($busca->pesquisa) && !empty($busca->pesquisa) ? 'pesquisa=' . $busca->pesquisa . '&' : '';
+    $ordemFiltro = isset($busca->filtro) && !empty($busca->filtro) ? 'filtro=' . $busca->filtro . '&' : '';
+@end
+@if($ordemStatus ?? false)
+<div id="bloco_ordem_template">
+    <div class="seta"></div>
+    <div class="conteudo">
+        <header>
+            <button class="mobile botao_ordem_fechar">@iconeVoltar</button>
+            <h1>Ordenar</h1>
+            <button class="desktop botao_ordem_fechar">@iconeFechar(10)</button>
+        </header>
+        @foreach($config->ordem->lista as $val)
+        <a href="{!!LINK!!}/app/{!!$app!!}?{!!$ordemPesquisa!!}{!!$ordemFiltro!!}ordem={!!$val->hash!!}">
+            <p>{{$val->titulo}}</p>
+            @if($val->icone == '>')
+            <i>@iconeAsc</i>
+            @elseif($val->icone == '<')
+            <i>@iconeDesc</i>
+            @endif;
+        </a>
+        @endforeach
+    </div>
+</div>
+@endif

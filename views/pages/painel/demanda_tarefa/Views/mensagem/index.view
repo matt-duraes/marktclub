@@ -1,0 +1,4 @@
+<div class="bloco {!!$classe!!}">
+    <figure style="background-image: url({!!$imagem!!})" data-ajuda="Enviado por {{$nome}} em {{$hora}}"></figure>
+    <p>{!!$texto!!}</p>
+</div>

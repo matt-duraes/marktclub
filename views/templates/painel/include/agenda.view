@@ -1,0 +1,95 @@
+@ifisset($agenda):
+<div id="bloco_agenda_detalhe">
+    <div class="conteudo">
+        <div class="controle">
+            <i class="editar">@iconeEditar(14)</i>
+            <i class="deletar">@iconeDeletar()</i>
+            <div class="linha"></div>
+            <i class="fechar">@iconeFechar()</i>
+        </div>
+        <div class="scroll">
+            <div class="lista_dado">
+                <header>
+                    <h1></h1>
+                    <p class="data"></p>
+                    <p class="texto"></p>
+                </header>
+                <div class="item video">
+                    <div class="imagem"><img src=""></div>
+                    <a href="" class="botao_bg" target="_blank" rel="noopener noreferrer"></a>
+                    <div class="copiar">@iconeCopiar(30)</div>
+                </div>
+                <div class="item local">
+                    <i>@iconeGps()</i>
+                    <p></p>
+                </div>
+
+                <div class="item arquivo">
+                    <i>@iconeAnexo()</i>
+                    <div class="lista"></div>
+                </div>
+
+                <div class="usuario convidado">
+                    <h2></h2>
+                    <div class="lista"></div>
+                </div>
+                <div class="usuario dono">
+                    <h2>Dono do evento</h2>
+                    <div class="linha">
+                        <figure></figure>
+                        <p></p>
+                    </div>
+                </div>
+
+                <a class="agenda" href="" target="_blank" rel="noopener noreferrer">Abrir agenda</a>
+            </div>
+            <div class="bloco_participar">
+                <p>Vai participar?</p>
+                <div class="botao_confirmar" id="botao_confirmar_sim">Sim</div>
+                <div class="botao_confirmar" id="botao_confirmar_nao">Não</div>
+                <div class="botao_confirmar" id="botao_confirmar_talvez">Talvez</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bloco_agenda_salvar">
+    <div class="conteudo">
+        <header>
+            <i class="voltar">@iconeVoltar</i>
+            <h1>Evento</h1>
+            <i class="fechar">@iconeFechar()</i>
+        </header>
+        <div class="scroll">
+            <form action="" class="form_geral">
+                <div class="atencao">As alterações feitas nesse evento só serão salvas na sua agenda</div>
+                @? formInput(name: 'agenda_titulo', label: 'Título', placeholder: 'Digite um título', obrigatorio: 1)
+                <div class="data">
+                    @? formInput(name: ['agenda_data_inicial', 'agenda_data_final'], label: 'Data do evento', placeholder: ['Início', 'Final'], id: 'bloco_data', mascara: ['00/00/0000', '00/00/0000'], obrigatorio: 1)
+                    @? formInput(name: ['agenda_hora_inicial', 'agenda_hora_final'], label: 'Hora do evento', placeholder: ['00:00', '00:00'], id: 'bloco_hora', mascara: ['00:00', '00:00'], separador: 'ate')
+                </div>
+
+                @? formTextarea(name: 'agenda_descricao', label: 'Descrição', placeholder: 'Descrição do evento')
+                @? formInput(name: 'agenda_local', label: 'Local', placeholder: 'Digite o local do evento')
+
+                <div class="video">
+                    @? formSwitch(name: 'agenda_video', label: 'Adicionar vídeo chamada?', check: false)
+                </div>
+
+                <div class="convidado">
+                    <h2>Convidados:</h2>
+                    @? formInput(name: 'agenda_convidado', placeholder: 'Adicionar convidado');
+                    <div class="lista" id="bloco_convidado_lista">
+                    </div>
+                </div>
+
+                <div class="botao">
+                    @? formSwitch(name: 'agenda_notificar', label: 'Notificar alteração?', check: false, id: 'bloco_agenda_notificar')
+                    @? painelBotao('botao_salvar_evento')
+                    @? painelBotao('botao_editar_evento', 'EDITAR')
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif

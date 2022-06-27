@@ -1,0 +1,26 @@
+@template "painel"
+
+<div id="bloco_data_policy_contexto">
+    <header>
+        <h1>TAG</h1>
+        <p>Escolha uma das tags pra continuar</p>
+    </header>
+    <div class="lista">
+        @ if($contexto):
+            @ foreach($contexto as $r):
+            <article>
+                <a href="{!!$r->link!!}">{{$r->nome}}</a>
+            </article>
+            @ endforeach;
+            <div class="article_fake"></div>
+            <div class="article_fake"></div>
+            <div class="article_fake"></div>
+        @ else:
+        <div class="zero">
+            <i>@iconeFechar(30)</i>
+            <h1>Sem tags</h1>
+            <p>Não existe tags cadastradas no momento</p>
+        </div>
+        @ endif;
+    </div>
+</div>

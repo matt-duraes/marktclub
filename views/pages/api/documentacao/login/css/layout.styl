@@ -1,0 +1,130 @@
+@system "Resetar"
+@system "Form"
+@system "Alerta"
+@system "Loading"
+
+$cor = #169e91
+$corClara = #23dbc9
+texto()
+    font-size: 1.6rem
+    line-height: 1.5em
+textoFontSize()
+    font-size: 1.6rem
+titulo()
+    font-size: 2.4rem
+
+body
+    background-color: #F6F6F6
+    font-family: 'Roboto', sans-serif
+
+.grecaptcha-badge
+    display: none !important
+
+#site
+    width: 100%
+    min-height: 100vh
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    padding-bottom: 100px
+    figure
+        width: 100%
+        text-align: center
+        margin: 40px 0 30px
+
+#site form
+    width: calc(100% - 40px)
+    max-width: 500px
+    background-color: #FFF
+    border-radius: 5px
+    padding: 50px 0
+    box-shadow: 0 4px 5px rgba(0,0,0,0.1)
+    overflow: hidden
+    display: flex
+    flex-direction: column
+    align-items: flex-end
+    .input_login
+        width: 1px
+        height: 1px
+        position: absolute
+        top: -9999px
+        left: -9999px
+    header
+        width: 100%
+        border-left: 5px solid $cor
+        margin-bottom: 20px
+        padding: 0 20px 0 35px
+    header h1
+        titulo()
+        color: $cor
+    header p
+        max-width: 350px
+        texto()
+        color: #666
+        margin-top: 10px
+    fieldset
+        width: 100%
+        padding: 0 40px
+    .botao
+        width: 140px
+        height: 50px
+        line-height: 50px
+        border-radius: 25px
+        color: #FFF
+        cursor: pointer
+        text-align: center
+        textoFontSize()
+        background-image: linear-gradient(45deg, $cor, $corClara)
+        margin: 10px 40px 0 0
+@media screen and (max-width:1200px)
+    #site form
+        padding: 30px 0
+        header
+            border-left: 3px solid $cor
+            padding-left: 17px
+        fieldset
+            padding: 0 20px
+        .botao
+            margin-right: 20px
+
+#site .observacao
+    width: 100%
+    max-width: 500px
+    margin-top: 60px
+    display: flex
+    align-items: center
+    flex-direction: column
+    > p
+        max-width: 370px
+        texto()
+        color: #999
+        text-align: center
+    .contato
+        display: flex
+        flex-direction: row
+        align-items: center
+        margin-top: 20px
+        border: 1px solid #CCC
+        border-radius: 40px
+        padding-right: 20px
+    .contato i
+        width: 40px
+        height: 40px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #666
+    .contato p
+        texto()
+        color: #666
+#site .copy
+    width: 100%
+    position: absolute
+    bottom: 0
+    padding: 20px 0 10px
+    text-align: center
+    font-size: 1.2rem
+    color: #999
+    background-image: linear-gradient(0deg, #FFF, #FFFFFF00)

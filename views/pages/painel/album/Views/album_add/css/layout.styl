@@ -1,0 +1,50 @@
+@template "painel"
+@system "Form"
+@system "Galeria"
+@resource "painel/app_geral_add"
+
+#bloco_publicacao
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    .bloco_input
+        width: calc(50% - 10px)
+
+#bloco_tamanho_fixo
+    width: 100%
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-between
+    #bloco_input_tipo
+        max-width: 250px
+    #bloco_linha_tipo
+        width: 100%
+    #bloco_input_width
+    #bloco_input_height
+        display: none
+#bloco_tamanho_fixo.tamanho_width_height
+    #bloco_input_width
+    #bloco_input_height
+        width: calc(50% - 10px)
+        display: flex
+#bloco_tamanho_fixo.tamanho_width
+    #bloco_linha_tipo
+        display: none
+    #bloco_input_width
+        max-width: calc(100% - 270px)
+        display: flex
+#bloco_tamanho_fixo.tamanho_height
+    #bloco_linha_tipo
+        display: none
+    #bloco_input_height
+        max-width: calc(100% - 270px)
+        display: flex
+
+#bloco_app_add .bloco_coluna_auto
+    .bloco_fieldset
+        max-width: 700px
+
+.bloco_checkbox_geral .input_checkbox
+    width: calc(25% - 10px)

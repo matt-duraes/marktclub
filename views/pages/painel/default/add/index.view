@@ -1,0 +1,3 @@
+@template "painel"
+
+@php painelAppAdd($config, $dado ?? null, $app)

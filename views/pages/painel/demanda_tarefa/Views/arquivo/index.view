@@ -1,0 +1,41 @@
+@ if(isset($lista) && $lista)
+    @ foreach ($lista as $r)
+    <div class="arquivo" id="arquivo_{!!$r->id!!}" data-id="{!!$r->id!!}">
+        @ if($r->tipo == 'imagem')
+        <figure style="background-image: url({!!$r->link!!})"></figure>
+        <div class="bloco_icone">
+            <a class="icone" href="{!!$r->link!!}" target="_blank" download="{{$r->nome}}">@iconeDownload(14)</a>
+            <div class="linha"></div>
+            <i class="icone deletar">@iconeDeletar</i>
+        </div>
+        @ elseif($r->tipo == 'arquivo')
+        <span>{{$r->extensao}}</span>
+        <p class="nome">{{$r->nome}}</p>
+        <div class="bloco_icone">
+            <i class="icone editar">@iconeEditar(12)</i>
+            <a class="icone" href="{!!$r->link!!}" target="_blank" download="{{$r->nome}}">@iconeDownload(14)</a>
+            <div class="linha"></div>
+            <i class="icone deletar">@iconeDeletar</i>
+        </div>
+        @ endif
+    </div>
+    @ endforeach
+@ elseif(isset($upload))
+    @ if($tipo == 'imagem')
+    <figure style="background-image: url({!!$link!!})"></figure>
+    <div class="bloco_icone">
+        <a class="icone" href="{!!$link!!}" target="_blank" download="{{$nome}}">@iconeDownload(14)</a>
+        <div class="linha"></div>
+        <i class="icone deletar">@iconeDeletar</i>
+    </div>
+    @ elseif($tipo == 'arquivo')
+    <span>{{$extensao}}</span>
+    <p class="nome">{{$nome}}</p>
+    <div class="bloco_icone">
+        <i class="icone editar">@iconeEditar(12)</i>
+        <a class="icone" href="{!!$link!!}" target="_blank" download="{{$nome}}">@iconeDownload(14)</a>
+        <div class="linha"></div>
+        <i class="icone deletar">@iconeDeletar</i>
+    </div>
+    @ endif
+@ endif

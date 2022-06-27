@@ -1,0 +1,173 @@
+#bloco_app_visualizar
+    width: 100%
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    padding: 20px 0
+    .bloco_coluna_geral
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+    .bloco_fieldset
+        width: calc(100% - 40px)
+        max-width: 700px
+        display: flex
+        flex-direction: column
+        background: #FFF
+        padding-bottom: 20px
+    .bloco_fieldset h2
+        margin: 20px 0 10px 0
+        padding-left: 20px
+        font-size: $tituloFontSize
+        border-left: 5px solid $cor
+    .bloco_fieldset .lista_dado
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+
+#bloco_app_visualizar
+    .imagem_redonda
+        width: 200px
+        height: 200px
+        border-radius: 50%
+        overflow: hidden
+        background-position: center center
+        background-size: cover
+        background-color: #FFF
+        margin-top: 20px
+    .texto_nome
+        width: 150px
+        margin-right: 10px
+        font-size: $textoFontSize
+        color: #999
+    .zero
+        width: 100%
+        line-height: 1.5em
+        font-size: $textoFontSize
+        color: #999
+        padding: 0 20px 20px 20px
+    .linha
+        width: 100%
+        line-height: 1.5em
+        font-size: $textoFontSize
+        color: #333
+        display: flex
+        flex-direction: row
+    .linha strong
+        font-size: inherit
+        font-weight: 300
+        color: #999
+    .linha span
+        font-size: inherit
+    .linha span.vazio
+        color: #CCC
+    .bloco_checked
+        width: 100%
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        padding: 0 0 20px 20px
+    .bloco_checked .item
+        width: calc(20% - 20px)
+        font-size: $pequenoFontSize
+        color: #666
+        line-height: 1.5em
+        margin: 20px 20px 0 0
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: $corVerde
+        border: 1px solid $corVerde
+        border-radius: 30px
+        padding: 3px 20px
+        text-align: center
+    .bloco_checked .item i
+        width: 20px
+        height: 20px
+        display: flex
+        align-items: center
+        justify-content: center
+    .checked
+        width: 100%
+        display: flex
+        align-items: center
+        line-height: 1.5em
+        font-size: $textoFontSize
+        color: #333
+    .checked i
+        width: 20px
+        height: 20px
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+        &.checked_sim
+            fill: $corVerde
+            border: 1px solid $corVerde
+        &.checked_nao
+            fill: $corVermelho
+            border: 1px solid $corVermelho
+    .bg_hover
+        padding: 6px 20px
+    .bg_hover:hover
+        background-color: #F6F6F6
+    .botao_link
+        font-size: 1.4rem
+        background-color: $cor
+        border-radius: 25px
+        color: #FFF
+        padding: 8px 30px
+        margin-left: 20px
+        margin-top: 10px
+        cursor: pointer
+    h2.titulo
+        font-size: $tituloFontSize
+        margin-top: 20px
+    p.sub_titulo
+        line-height: 1.5em
+        font-size: $textoFontSize
+        color: #666
+    .bloco_coluna_geral > h2.titulo
+    .bloco_coluna_geral > p.sub_titulo
+        width: 100%
+        text-align: center
+    .margin
+        width: 100%
+#bloco_app_visualizar .bloco_botao_status
+    width: 100%
+    height: 70px
+    .bloco_status_lista
+        width: calc(100% - 300px)
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+        position: fixed
+        bottom: 20px
+        right: 0
+    .bloco_status_lista .botao_status
+        height: 50px
+        line-height: 50px
+        margin: 0 10px
+        padding: 0 20px
+        border-radius: 25px
+        color: #999
+        border: 1px solid #DDD
+        font-size: $textoFontSize
+        cursor: pointer
+        background: #FFF
+        box-shadow: 0 4px 5px rgba(0,0,0,.05)
+        transition: border-color .3s ease-out, color .3s ease-out
+        &:hover
+            border-color: #999
+            color: #333
+        &.verde
+            bgDegradeVerde()
+            border: none
+            color: #FFF
+        &.vermelho
+            bgDegradeVermelho()
+            border: none
+            color: #FFF

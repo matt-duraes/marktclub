@@ -1,0 +1,246 @@
+#bloco_historico_view
+    width: calc(100% - 40px)
+    max-width: 700px
+    position: relative
+    background-color: #FFF
+    display: flex
+    align-items: center
+    flex-direction: column
+    box-shadow: 0 4px 5px rgba(0,0,0,.1)
+    border-radius: 5px
+    margin-bottom: 20px
+    header
+        width: 100%
+        border-bottom: 1px solid #DDD
+        display: flex
+        flex-direction: row
+        padding: 10px 20px
+        z-index: 3
+    header h1
+        height: 40px
+        line-height: 40px
+        font-size: $textoFontSize
+        color: #666
+        flex-grow: 1
+        flex-basis: 0%
+    header form
+        display: flex
+        flex-direction: row
+    header form input
+        width: 180px
+        height: 40px
+        line-height: 40px
+        padding: 0 20px
+        border-radius: 20px
+        border: 1px solid #DDD
+        font-size: 1.2rem
+        &.input_data
+            width: 90px
+            text-align: center
+        &.input_data_de
+            border-right: none
+            border-radius: 20px 0 0 20px
+            padding-right: 0
+            margin-left: 10px
+        &.input_data_ate
+            border-left: none
+            border-radius: 0 20px 20px 0
+            padding-left: 0
+            margin-right: 10px
+    header form p
+        height: 40px
+        line-height: 40px
+        color: #999
+        padding: 0 10px
+        border-top: 1px solid #DDD
+        border-bottom: 1px solid #DDD
+    header form .botao
+        bgDegradeVerde()
+        color: #FFF
+        height: 40px
+        line-height: 40px
+        padding: 0 20px
+        border-radius: 20px
+        font-size: 1.2rem
+        cursor: pointer
+    .add_fake
+        width: 100%
+        height: 110px
+    .add
+        width: 100%
+        max-width: 700px
+        min-height: 110px
+        position: absolute
+        display: flex
+        flex-direction: column
+        padding: 20px 20px 20px 70px
+        top: 60px
+        justify-content: flex-start
+        align-items: flex-start
+        background: #FFF
+        z-index: 2
+        &.fixo
+            position: fixed
+            top: 60px
+    .add figure
+        width: 40px
+        height: 40px
+        border-radius: 50%
+        position: absolute
+        top: 20px
+        left: 20px
+        border: 1px solid #DDD
+        background-position: center center
+        background-size: cover
+    .add .bloco_input
+        margin-top: 0
+        margin-bottom: 0
+    .add .bloco_input textarea
+        max-height: calc(50vh) !important
+        overflow-y: auto
+    .add .textarea .usuario_editando
+        color: #999
+    .add .textarea .usuario_marcado
+        color: #00aced
+        text-decoration: underline
+    .add p
+        width: 100%
+        text-align: right
+        font-size: 1.2rem
+        color: #666
+        margin-top: 10px
+    .lista
+        width: 100%
+        margin-top: 20px
+        display: flex
+        flex-direction: column
+    .lista .zero
+        width: 100%
+        text-align: center
+        color: #999
+        font-size: $textoFontSize
+        padding: 30px 0 60px 0
+    .lista .bloco_data
+        width: 100%
+        text-align: center
+        font-size: 1.8rem
+        color: #999
+        margin: 20px 0
+        cursor: default
+    .mais
+        height: 40px
+        line-height: 40px
+        border: 1px solid #CCC
+        border-radius: 20px
+        margin-bottom: 20px
+        padding: 0 20px
+        cursor: pointer
+        font-size: 1.2rem
+        display: none
+@media screen and (max-width:800px)
+    #bloco_historico_view
+        header form
+            display: none
+        .add
+            padding-left: 20px
+        .add figure
+            display: none
+        .add p
+            display: none
+#bloco_historico_view .lista .item
+    width: 100%
+    position: relative
+    display: flex
+    flex-direction: row
+    padding: 20px
+    &.minha_mensagem
+        flex-direction: row-reverse
+    figure
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        border: 1px solid #DDD
+        background-position: center center
+        background-size: cover
+    figure + .dado
+        min-width: 150px
+        display: flex
+        flex-direction: column
+        position: absolute
+        background: #FFF
+        top: 15px
+        border-radius: 40px
+        padding: 10px 20px
+        box-shadow: 0 4px 5px rgba(0,0,0,.2)
+        opacity: 0
+        transition: opacity .3s ease-out, left .3s ease-out, right .3s ease-out
+        z-index: 2
+    figure:hover + .dado
+        opacity: 1
+    &.outra_mensagem figure + .dado
+        left: 80px
+    &.outra_mensagem figure:hover + .dado
+        left: 60px
+    &.minha_mensagem figure + .dado
+        right: 80px
+    &.minha_mensagem figure:hover + .dado
+        right: 60px
+    .deletar
+        width: 30px
+        height: 30px
+        position: relative
+        position: absolute
+        top: 60px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: $corDeletar
+        cursor: pointer
+    .deletar .loading
+        width: 30px
+        height: 30px
+        border-top: 1px solid $corLoading
+        animation: botao_deletar_loading 2s linear 0s infinite
+        position: absolute
+        top: 0
+        left: 0
+        border-radius: 50%
+    .dado h2
+        font-size: $textoFontSize
+        color: #666
+    .dado .data
+        width: 100%
+        font-size: 1.2rem
+        color: #999
+        margin-top: 5px
+        text-align: right
+    &.outra_mensagem .dado .data
+        text-align: left
+    p.mensagem
+        max-width: 500px
+        flex-grow: 1
+        flex-basis: 0%
+        margin-left: 20px
+        line-height: 1.5em
+        position: relative
+        font-size: $textoFontSize
+        border: 1px solid #DDD
+        padding: 20px 30px
+    &.outra_mensagem p.mensagem
+        margin-left: 10px
+        border-radius: 0 40px 40px 40px
+        background-color: #DDD
+    &.minha_mensagem p.mensagem
+        margin-right: 10px
+        border-radius: 40px 0 40px 40px
+        background-color: $cor
+        color: #FFF
+@keyframes botao_deletar_loading
+    0%
+        transform: rotate(0deg)
+    50%
+        transform: rotate(180deg)
+    75%
+        transform: rotate(270deg)
+    100%
+        transform: rotate(360deg)

@@ -1,0 +1,3 @@
+@template "painel"
+
+@php painelAppLista(app: $app, dado: $dado, filtro: $filtro, busca: $busca, config: $config)

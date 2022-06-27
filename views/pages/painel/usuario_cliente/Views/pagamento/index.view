@@ -1,0 +1,35 @@
+<div id="bloco_pagamento_visualizar">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>PAGAMENTO</h1>
+            <i class="fechar" id="botao_pagamento_visualizar_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <div class="lista" id="bloco_pagamento_lista">
+                <h2>Pagamentos abertos</h2>
+                @ ifforeach($dado->pagamento as $r):
+                <div class="pagamento" data-id="{{$r->id}}">
+                    <div class="data">{{$r->data}}</div>
+                    <div class="linha"></div>
+                    <div class="valor">{{$r->valor}}</div>
+                    <div class="botao botao_pagamento_baixar">DAR BAIXA</div>
+                </div>
+                @ elseforeach:
+                <div class="zero">Sem pagamentos pendentes para esse usuário</div>
+                @ endif;
+            </div>
+
+            <form action="/" class="form_geral">
+                @hash('PAGAMENTO_HASH', 'pagamento')
+                <h2>Cadastrar novo debito</h2>
+                <p>Preencha os campos abaixo para salvar novo valor a esse usuário</p>
+
+                <input type="hidden" id="input_pagamento_usuario" value="{{$dado->id}}">
+                @? formData(name: 'pagamento_data', label: 'Data da cobrança', placeholder: 'Data da cobrança')
+                @? formInput(name: 'pagamento_valor', label: 'Valor', placeholder: 'Valor', mascara: 'dinheiro')
+
+                <div class="botao" id="botao_pagamento_salvar">Salvar</div>
+            </form>
+        </div>
+    </div>
+</div>

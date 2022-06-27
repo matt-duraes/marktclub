@@ -1,0 +1,23 @@
+@template "painel"
+
+<div id="bloco_agenda">
+    <div class="semana" id="bloco_agenda_semana">
+        <p>Dom</p>
+        <p>Seg</p>
+        <p>Ter</p>
+        <p>Qua</p>
+        <p>Qui</p>
+        <p>Sex</p>
+        <p>Sab</p>
+    </div>
+    <div class="agenda" id="bloco_agenda_conteudo">
+
+    </div>
+    <div class="conectar" id="bloco_conectar">
+        <i>@iconeCalendario(50)</i>
+        <h1>Sincronize sua agenda</h1>
+        <p>Para continuar, você precisa sincronizar seu Google Agenda com o painel, para isso, clique no botão abaixo:</p>
+        <div class="botao" id="botao_sincronizar_agenda"><i>@iconeGoogle</i> SINCRONIZAR</div>
+    </div>
+    <div id="botao_dessincronizar_agenda">DESCONECTAR</div>
+</div>

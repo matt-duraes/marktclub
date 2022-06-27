@@ -1,0 +1,78 @@
+@template "painel"
+
+<div class="bloco_app_relatorio">
+
+    <div class="lista">
+
+        <div class="bloco_quadro_colorido" id="bloco_status">
+            <div class="scroll bloco_2">
+                <div class="quadro verde" id="grafico_status_total">
+                    <div class="numero"><span class="loading">0</span></div>
+                    <p>Usuários</p>
+                </div>
+                <div class="quadro azul" id="grafico_status_ativo">
+                    <div class="numero"><span class="loading">0</span></div>
+                    <p>Usuários ativos</p>
+                    <div class="porcentagem"><span class="loading">0</span></div>
+                    <div class="barra"><span></span></div>
+                    <p class="porcentagem_texto">do total de usuários</p>
+                </div>
+                <div class="quadro vermelho" id="grafico_status_inativo">
+                    <div class="numero"><span class="loading">-</span></div>
+                    <p>Usuários inativos</p>
+                    <div class="porcentagem"><span class="loading">0</span></div>
+                    <div class="barra"><span></span></div>
+                    <p class="porcentagem_texto">do total de usuários</p>
+                </div>
+                <div class="quadro roxo" id="grafico_status_bloqueado">
+                    <div class="numero"><span class="loading">0</span></div>
+                    <p>Usuários bloqueados</p>
+                    <div class="porcentagem"><span class="loading">0</span></div>
+                    <div class="barra"><span></span></div>
+                    <p class="porcentagem_texto">do total de usuários</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="grafico_estado" class="fw_grafico fw_grafico_grande">
+            <div class="fw_grafico_titulo">Usuário por estado</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+
+        <div id="grafico_genero" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Gênero</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+        <div id="grafico_situacao" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Situação</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+
+        <div id="grafico_estado_civil" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Estado Civil</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+        <div id="grafico_atualizar_dado" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Sem atualizar dados</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+
+        <div id="grafico_faixa_etaria" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Faixa etária</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,17 @@
+@template "documentacao"
+
+<header>
+    <h1>DOCUMENTAÇÃO MARKT CLUB V4</h1>
+    <p>Você está na documentação da API do Markt Club, caso tenha alguma dúvida, entre em contato com o Markt Club.</p>
+</header>
+
+<h2>Links:</h2>
+<p>Para utilizar qualquer rota dessa documentação, utilize o ambiente de homologação para fazer seus teste usando a URL: {!!LINK_HOMOLOGACAO!!}.</p>
+<p>Assim que todos os testes tiverem terminado, mudar para produção usando a URL: {!!LINK_PRODUCAO!!}.</p>
+
+<h2>Menu Rápido:</h2>
+<div class="bloco">
+    <a href="@route(documentacao.fluxograma)">Como funciona a API</a>
+    <a href="@route(documentacao.app)">Pegando minhas credênciais</a>
+    <a href="@route(documentacao.rota)/post-token">Criando um TOKEN</a>
+</div>

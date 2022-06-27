@@ -1,0 +1,133 @@
+@template "painel"
+
+#bloco_album_index
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding: 10px 10px 80px 10px
+
+#bloco_album_index .bloco_lista
+    max-width: calc(270px * 4)
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: center
+    .article_fake
+        width: 250px
+        margin: 0 10px
+    article
+        width: 250px
+        margin: 10px
+        position: relative
+    article .imagem
+        width: 250px
+        height: 250px
+        position: relative
+    article .imagem .check
+        width: 45px
+        height: 45px
+        display: flex
+        align-items: center
+        justify-content: center
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        z-index: 5
+    article.arquivo_checked .imagem .check
+        opacity: 1
+        fill: $cor
+    article .imagem:hover .check
+        opacity: 1
+    article .imagem .check .icone
+        width: 25px
+        height: 25px
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+        background-color: #FFF
+        fill: #CCC
+        transition: opacity .3s ease-out
+        box-shadow: 0 2px 2px rgba(0,0,0,.3)
+        cursor: pointer
+    article .imagem a
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 4
+    article .imagem .bg
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        background-cor: #EEE
+    article.arquivo_checked .imagem .bg
+        background-color: $cor
+    article .imagem .grade
+        width: 250px
+        height: 250px
+        position: absolute
+        top: 0
+        left: 0
+        background-image: url("../images/painel/grade_photoshop.svg")
+        z-index: 2
+        background-position: center center
+        transition: width .2s ease-out, height .2s ease-out, top .2s ease-out, left .2s ease-out
+    article.arquivo_checked .imagem .grade
+        width: calc(100% - 30px)
+        height: calc(100% - 30px)
+        top: 15px
+        left: 15px
+    article .imagem figure
+        width: 250px
+        height: 250px
+        position: absolute
+        top: 0
+        left: 0
+        position: relative
+        background-size: cover
+        background-position: center center
+        box-shadow: 0 4px 5px rgba(0,0,0,.05)
+        transition: width .2s ease-out, height .2s ease-out, top .2s ease-out, left .2s ease-out
+        z-index: 3
+    article.arquivo_checked .imagem figure
+        width: 220px
+        height: 220px
+        top: 15px
+        left: 15px
+    article p
+        width: 100%
+        line-height: 1.5em
+        text-align: center
+        font-size: 1.4rem
+        margin-top: 10px
+        color: #666
+
+#bloco_album_index .bloco_lista .zero
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding: 80px 0
+    i
+        width: 170px
+        height: 170px
+        fill: #CCC
+        border: 1px solid #CCC
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+    h1
+        margin-top: 20px
+        font-size: 2.4rem
+        color: #666
+    p
+        font-size: 1.6rem
+        color: #999
+        margin-top: 10px

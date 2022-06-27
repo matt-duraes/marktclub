@@ -1,0 +1,43 @@
+@template "painel"
+
+<div id="bloco_perfil">
+    <div class="conteudo">
+        <div class="imagem">
+            <figure id="perfil_imagem_principal" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+        </div>
+        <div class="botao">
+            <a href="{!!route('perfil.dado')!!}">editar</a>
+        </div>
+
+        <article class="bloco esquerdo">
+            <h1>DADOS PESSOAIS</h1>
+            <p><strong>Nome:</strong> {!!$nome ? $nome : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>CPF:</strong> {!!$cpf ? $cpf : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Data Nascimento:</strong> {!!$data ? $data : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Gênero:</strong> {!!$genero ? $genero : '<span class="zero">não informado</span>'!!}</p>
+        </article>
+
+        <article class="bloco direito">
+            <h1>DADOS DE CONTATO</h1>
+            <p><strong>Telefone pessoal:</strong> {!!$telefone_pessoal ? $telefone_pessoal : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Telefone trabalho:</strong> {!!$telefone_trabalho ? $telefone_trabalho : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>E-mail pessoal:</strong> {!!$email_pessoal ? $email_pessoal : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>E-mail trabalho:</strong> {!!$email_trabalho ? $email_trabalho : '<span class="zero">não informado</span>'!!}</p>
+        </article>
+
+        <div class="social" id="bloco_vinculo_social">
+            @hash('social')
+            <h1>REDES SOCIAIS</h1>
+            <p>Vincule suas redes sociais para fazer login sem precisar de login e senha e para utilizar sua foto de perfil.</p>
+            <div class="linha"></div>
+            <button id="botao_vincular_facebook" class="facebook">
+                <i>@iconeFacebook()</i>
+                <p>Facebook</p>
+            </button>
+            <button id="botao_vincular_google" class="google">
+                <i>@iconeGoogle()</i>
+                <p>Google</p>
+            </button>
+        </div>
+    </div>
+</div>

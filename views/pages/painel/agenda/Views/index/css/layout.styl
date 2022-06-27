@@ -1,0 +1,678 @@
+@template "painel"
+@system "Variavel"
+
+.body_agenda
+    overflow-y: hidden
+#bloco_agenda
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+
+#bloco_agenda_header
+    display: flex
+    flex-direction: row
+    align-items: center
+    .botao_hoje
+        height: 40px
+        line-height: 40px
+        padding: 0 20px
+        margin-right: 20px
+        font-size: 1.4rem
+        border: 1px solid #CCC
+        border-radius: 3px
+        color: #666
+        cursor: pointer
+        &:hover
+            background: #F6F6F6
+            color: #333
+    .seta
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        margin-left: 5px
+        &:hover
+            background: #EEE
+    p
+        font-size: 2rem
+        margin-left: 20px
+        color: #666
+
+#bloco_agenda_semana
+    width: calc(100% - 340px)
+    padding-top: 10px
+    height: 50px
+    display: none
+    flex-direction: row
+    position: fixed
+    z-index: 2
+    right: 21px
+    &.show
+        display: flex
+    &::after
+        width: 100%
+        height: 10px
+        content: ""
+        width: 100%
+        position: absolute
+        top: 0
+        left: 0
+        background: $corBody
+        z-index: 1
+    &::before
+        width: 100%
+        height: 40px
+        content: ""
+        position: absolute
+        background-color: #FFF
+        border-radius: 5px 5px 0 0
+        border-bottom: 1px solid #DDD
+        top: 10px
+        left: 0
+        z-index: 1
+    p
+        width: calc(100% / 7)
+        height: 40px
+        line-height: 40px
+        position: relative
+        text-align: center
+        z-index: 2
+
+#bloco_agenda_conteudo
+    width: calc(100% - 40px)
+    position: relative
+    z-index: 1
+    display: none
+    flex-direction: row
+    flex-wrap: wrap
+    margin: 0 20px 20px 20px
+    padding-top: 50px
+    box-shadow: 0 4px 5px rgba(0,0,0,.05)
+    &.show
+        display: flex
+    .data
+        width: calc(100% / 7)
+        height: calc((100vh - 100px) / 5)
+        min-height: 110px
+        background: #FFF
+        border-right: 1px solid #DDD
+        border-bottom: 1px solid #DDD
+        &:nth-child(7n)
+            border-right: none
+        &.agenda_outro_mes
+            background: #FDFDFD
+    .data .conteudo
+        width: 100%
+        height: 100%
+        position: relative
+        padding-top: 25px
+        display: flex
+        flex-direction: column
+        align-items: center
+        overflow-y: auto
+    .data .conteudo .mais
+        width: 20px
+        height: 20px
+        position: absolute
+        top: 5px
+        left: 5px
+        z-index: 2
+        fill: #999
+        border: 1px solid #999
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+        cursor: pointer
+        display: none
+        &:hover
+            background-color: $cor
+            border-color: $cor
+            fill: #FFF
+    .data:hover .conteudo .mais
+        display: flex
+    .data .conteudo .numero
+        width: 19px
+        height: 19px
+        display: flex
+        top: 0
+        position: absolute
+        align-items: center
+        justify-content: center
+        margin-top: 5px
+        background-color: #FFF
+        border-radius: 50%
+        z-index: 2
+    .data:nth-child(7n) .conteudo .numero
+        background-color: rgba(255,0,0,.2)
+    .data:nth-child(7n + 1) .conteudo .numero
+        background-color: rgba(255,0,0,.2)
+    .data.agenda_outro_mes .conteudo .numero
+        background: #FDFDFD
+        color: #999
+    .data.data_hoje .conteudo .numero
+        background-color: $cor
+        color: #FFF
+    .data .conteudo .lista
+        width: 100%
+        height: 100%
+        overflow-y: auto
+        padding-bottom: 10px
+    .data .conteudo .lista .botao
+        width: 100%
+        margin-top: 5px
+        border-radius: 3px
+        padding: 4px 5px 4px 10px
+        cursor: pointer
+        display: flex
+        flex-direction: row
+        align-items: center
+        &:hover
+            background-color: #F9F9F9
+    .data .conteudo .lista .botao .status
+        width: 8px
+        height: 8px
+        margin-right: 5px
+        border: 1px solid #CCC
+        border-radius: 50%
+        &.sim
+            border-color: $cor
+            background-color: $cor
+        &.nao
+            border-color: $corVermelho
+            background-color: $corVermelho
+        &.talvez
+            border-color: $laranja
+            background-color: $laranja
+    .data .conteudo .lista .botao p
+        font-size: 1.2rem
+        line-height: 1.4em
+        flex-grow: 1
+        flex-basis: 0%
+
+#bloco_conectar
+    width: 100%
+    max-width: 500px
+    background-color: #FFF
+    padding: 40px 20px
+    margin: 20px
+    border-radius: 5px
+    box-shadow: 0 4px 5px rgba(0,0,0,.1)
+    display: none
+    flex-direction: column
+    align-items: center
+    &.show
+        display: flex
+    > i
+        fill: $cor
+    h1
+        width: 100%
+        font-size: $tituloFontSize
+        text-align: center
+        margin: 20px 0 10px 0
+    p
+        line-height: 1.5em
+        font-size: $textoFontSize
+        color: #666
+        max-width: 300px
+        text-align: center
+    .botao
+        height: 50px
+        line-height: 50px
+        background-color: $cor
+        color: #FFF
+        fill: #FFF
+        border-radius: 30px
+        font-size: $textoFontSize
+        padding: 0 20px
+        margin-top: 30px
+        cursor: pointer
+    .botao i
+        margin-right: 10px
+#botao_dessincronizar_agenda
+    height: 40px
+    line-height: 40px
+    padding: 0 20px
+    font-size: $textoFonteSize
+    border: 1px solid #CCC
+    color: #999
+    border-radius: 20px
+    margin-bottom: 20px
+    display: none
+    cursor: pointer
+    &.show
+        display: flex
+
+#bloco_agenda_detalhe
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    background-color: rgba(0,0,0,.7)
+    z-index: 1000
+    opacity: 0
+    transition: opacity .3s ease-out
+    display: none
+    align-items: center
+    justify-content: center
+    &.show
+        display: flex
+    &.animar
+        opacity: 1
+    .conteudo
+        width: calc(100% - 40px)
+        max-width: 440px
+        position: relative
+        background-color: #FFF
+        box-shadow: 0 5px 15px rgba(0,0,0,.3)
+        border-radius: 5px
+        display: flex
+        flex-direction: column
+        border-radius: 5px
+        overflow: hidden
+    .controle
+        height: 45px
+        display: flex
+        flex-direction: row
+        justify-content: flex-end
+        align-items: center
+        padding: 0 10px
+        background-color: #FFF
+    .controle i
+        width: 25px
+        height: 25px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        margin-left: 10px
+        fill: #666
+    .controle .linha
+        width: 1px
+        height: 20px
+        background: #CCC
+        margin: 0 5px 0 15px
+    .scroll
+        width: 100%
+        max-height: calc(100vh - 90px)
+        overflow-y: auto
+    .lista_dado
+        width: 100%
+        display: flex
+        flex-direction: column
+        padding: 0 20px 20px 20px
+    header
+        width: 100%
+        flex-grow: 1
+        flex-basis: 0%
+        display: flex
+        margin-bottom: 10px
+        flex-direction: column
+        padding-left: 50px
+    header h1
+        width: 100%
+        font-size: 2.4rem
+        padding-right: 30px
+    header p
+        width: 100%
+        line-height: 1.5em
+    header p.data
+        font-size: 1.4rem
+        margin-top: 5px
+        display: none
+        &.show
+            display: block
+    header p.texto
+        font-size: 1.6rem
+        margin-top: 15px
+        color: #666
+        display: none
+        &.show
+            display: block
+    .item
+        width: 100%
+        min-height: 30px
+        margin-top: 20px
+        position: relative
+        padding-right: 20px
+        display: none
+        flex-direction: row
+        flex-wrap: wrap
+        padding-left: 50px
+        &.show
+            display: flex
+    .item .imagem
+    .item i
+        width: 30px
+        position: absolute
+        top: 0
+        left: 0
+        display: flex
+        justify-content: center
+        fill: #666
+    .item.video
+        align-items: center
+    .item.video .imagem
+        height: 30px
+        align-items: center
+    .item.local i
+        margin-top: 3px
+    .item.convidado i
+        margin-top: 5px
+    .item .imagem img
+        height: 22px
+    .item figure
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        background-position: center center
+        background-size: cover
+        background-color: #F9F9F9
+    .item p
+        flex-grow: 1
+        flex-basis: 0%
+        line-height: 1.5em
+        font-size: 1.4rem
+    .usuario
+        width: 100%
+        margin-top: 20px
+        display: none
+        flex-direction: column
+        &.show
+            display: flex
+    .usuario h2
+        font-size: 1.4rem
+        color: #666
+        padding: 0 0 5px 50px
+    .usuario .linha
+        width: calc(100% - 15px)
+        display: flex
+        flex-direction: row
+        align-items: center
+        margin: 5px 0 5px 10px
+        border-radius: 40px
+        &:hover
+            background-color: #EEE
+    .usuario .linha figure
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        margin-right: 10px
+        background-position: center center
+        background-size: cover
+        background-color: #DDD
+    .usuario .linha p
+        height: 30px
+        line-height: 30px
+        font-size: 1.4rem
+    .usuario .linha .check
+        width: 16px
+        height: 16px
+        position: relative
+        border-radius: 50%
+        margin-left: 10px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #FFF
+        &.sim
+            background-color: $cor
+        &.nao
+            background-color: $corVermelho
+        &.talvez
+            background-color: $laranja
+    .item a.botao_bg
+        height: 30px
+        line-height: 30px
+        padding: 0 25px
+        border-radius: 20px
+        font-size: 1.4rem
+        background: $cor
+        color: #FFF
+    .item .lista
+        width: 100%
+        min-height: 30px
+        display: flex
+        flex-direction: column
+        align-items: center
+    .item a.arquivo
+        width: 100%
+        margin: 5px 0
+        display: flex
+        align-items: center
+        font-size: 1.2rem
+    .item a.arquivo img
+        margin-right: 10px
+    .item .copiar
+        margin-left: 10px
+        cursor: pointer
+        fill: #666
+    a.agenda
+        width: 130px
+        height: 30px
+        line-height: 30px
+        background-color: $corLink
+        color: #FFF
+        font-size: 1.4rem
+        margin-left: 30px
+        margin: 20px 0 20px 48px
+        border-radius: 20px
+        display: flex
+        justify-content: center
+    .bloco_participar
+        width: 100%
+        border-top: 1px solid #DDD
+        padding: 10px 20px
+        display: none
+        flex-direction: row
+        align-items: center
+        &.show
+            display: flex
+    .bloco_participar p
+        font-size: 1.4rem
+        flex-grow: 1
+        flex-basis: 0%
+    .bloco_participar .botao_confirmar
+        height: 30px
+        line-height: 28px
+        border: 1px solid #DDD
+        padding: 0 20px
+        border-radius: 20px
+        margin-left: 10px
+        font-size: 1.4rem
+        color: #999
+        cursor: pointer
+        &:hover
+            color: #666
+            border-color: #CCC
+        &#botao_confirmar_nao.hover
+            background: $corVermelho
+            color: #FFF
+            border-color: $corVermelho
+        &#botao_confirmar_sim.hover
+            background: $cor
+            color: #FFF
+            border-color: $cor
+        &#botao_confirmar_talvez.hover
+            background: $laranja
+            color: #FFF
+            border-color: $laranja
+
+#bloco_agenda_salvar
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 1000
+    background: rgba(0,0,0,.7)
+    display: none
+    opacity: 0
+    transition: opacity .3s ease-out
+    justify-content: center
+    align-items: center
+    &.show
+        display: flex
+    &.animar
+        opacity: 1
+    .conteudo
+        width: calc(100% - 40px)
+        max-width: 450px
+        background-color: #FFF
+        border-radius: 5px
+        overflow: hidden
+        margin: 20px 0
+    header
+        width: 100%
+        display: flex
+        flex-direction: row
+        align-items: center
+        border-bottom: 1px solid #DDD
+    header h1
+        height: 50px
+        line-height: 50px
+        flex-grow: 1
+        flex-basis: 0%
+        font-size: $textoFontSize
+        color: #999
+        padding-left: 20px
+    header .voltar
+    header .fechar
+        width: 30px
+        height: 30px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #666
+        cursor: pointer
+        margin-right: 10px
+    header .voltar
+        display: none
+        margin: 0 -10px 0 10px
+        &.show
+            display: flex
+    .scroll
+        max-height: calc(100vh - 90px)
+        overflow-y: auto
+    form
+        width: 100%
+        display: flex
+        flex-direction: column
+        padding: 0 20px 20px 20px
+    .atencao
+        background-color: rgba(255,0,0,.1)
+        padding: 10px
+        border-radius: 5px
+        margin-top: 20px
+        font-size: 1.2rem
+        text-align: center
+        display: none
+        &.show
+            display: block
+    .data
+        width: 100%
+        display: none
+        flex-direction: row
+        &.show
+            display: flex
+    .data #bloco_data
+        flex-grow: 1
+        flex-basis: 0%
+        margin-right: 20px
+    .data #bloco_hora
+        width: 160px
+    .video
+        width: 100%
+        display: none
+        flex-direction: column
+        &.show
+            display: flex
+    .convidado
+        width: 100%
+        position: relative
+        display: none
+        flex-direction: column
+        &.show
+            display: flex
+    .convidado h2
+        width: 100%
+        margin: 20px 0 5px 0
+        font-size: 1.4rem
+        color: #999
+    .convidado .bloco_input
+        margin-top: 0
+    .convidado .lista
+        width: 100%
+        display: flex
+        flex-direction: column
+        margin-top: 10px
+    .convidado .lista .item
+        width: 100%
+        height: 30px
+        display: flex
+        align-items: center
+        flex-direction: row
+        margin: 5px 0
+        cursor: default
+        border-radius: 30px
+        &:hover
+            background-color: #EEE
+    .convidado .lista .item figure
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        overflow: hidden
+        margin-right: 10px
+        background-position: center center
+        background-color: #DDD
+        background-size: cover
+    .convidado .lista .item p
+        height: 30px
+        line-height: 30px
+        flex-grow: 1
+        flex-basis: 0%
+        font-size: 1.4rem
+        padding-left: 3px
+        color: #666
+    .convidado .lista .item:hover p
+        color: #333
+    .convidado .lista .item i
+        width: 30px
+        height: 30px
+        fill: #999
+        display: flex
+        opacity: 0
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        border-radius: 50%
+        &:hover
+            background: #DDD
+    .convidado .lista .item:hover i
+        opacity: 1
+    .convidado .lista .item.sou_eu i
+        display: none
+    .botao
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        border-top: 1px solid #DDD
+        margin-top: 30px
+        padding-top: 20px
+    .botao .bloco_switch
+        margin-top: 0
+        display: none
+        flex-grow: 1
+        flex-basis: 0%
+        &.show
+            display: flex
+    .botao .painel_botao_salvar
+        display: none
+        &.show
+            display: flex

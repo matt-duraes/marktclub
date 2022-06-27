@@ -1,0 +1,118 @@
+.menu_lateral_geral
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    opacity: 0
+    transition: opacity .3s ease-out
+    z-index: 201
+    &.fechado
+        display: none
+    &.aberto
+        opacity: 1
+    .bg
+        width: 100%
+        height: 100%
+        position: absolute
+        left: 0
+        top: 0
+        background: rgba(0,0,0,.7)
+        z-index: 1
+    .conteudo
+        width: 100%
+        max-width: 300px
+        height: 100vh
+        position: absolute
+        top: 0
+        background: #FFF
+        z-index: 2
+        overflow-y: auto
+
+.menu_lateral_geral.esquerdo .conteudo
+    left: -300px
+.menu_lateral_geral.direito .conteudo
+    right: -300px
+    transition: right .3s ease-out
+.menu_lateral_geral.esquerdo.aberto .conteudo
+    left: 0
+.menu_lateral_geral.direito.aberto .conteudo
+    right: 0
+
+
+#bloco_menu_config
+    width: 100%
+    display: flex
+    flex-direction: column
+    padding-bottom: 20px
+    header
+        background: #F6F6F6
+        padding: 30px 20px
+        position: relative
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin-bottom: 20px
+    header .botao
+        width: 100%
+        position: absolute
+        top: 5px
+        left: 0
+        z-index: 2
+    header .botao button
+        width: 30px
+        height: 30px
+        position: absolute
+        flexCentro()
+        fill: #666
+    header .botao button.mobile
+        left: 5px
+    header .botao button.desktop
+        right: 5px
+    header figure
+        width: 120px
+        height: 120px
+        position: relative
+        border-radius: 50%
+        background-size: cover
+        background-position: center center
+        background-color: #FFF
+        z-index: 1
+    header h1
+        font-size: 1.6rem
+        margin-top: 15px
+        font-weight: 500
+        color: #666
+    header a
+        border: 1px solid #CCC
+        border-radius: 3px
+        margin-top: 10px
+        font-size: 1.2rem
+        padding: 3px 5px
+        color: #666
+        transition: color .3s ease-out, border-color .3s ease-out
+        &:hover
+            color: #000
+            border-color: #999
+    .menu
+        width: 100%
+    .menu .linha
+        width: 100%
+        height: 1px
+        background: #EEE
+        margin: 10px 0
+    .menu a
+        width: 100%
+        padding: 14px 20px
+        display: flex
+        flex-direction: row
+        align-items: center
+        cursor: pointer
+        &:hover
+            background: #F6F6F6
+    .menu a p
+        color: #666
+        padding-left: 10px
+        font-size: 1.2rem
+    .menu a i
+        fill: #666

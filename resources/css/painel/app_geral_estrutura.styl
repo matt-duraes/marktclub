@@ -1,0 +1,98 @@
+.bloco_app_estrutura
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    .bloco_coluna_geral
+        max-width: 1200px
+
+.bloco_app_estrutura .bloco_coluna_1
+    width: 100%
+    display: flex
+    flex-direction: column
+    padding: 0 20px
+.bloco_app_estrutura .bloco_coluna_2
+.bloco_app_estrutura .bloco_coluna_3
+.bloco_app_estrutura .bloco_coluna_4
+.bloco_app_estrutura .bloco_coluna_auto
+    width: 100%
+    display: flex
+    justify-content: space-between
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: center
+.bloco_app_estrutura .bloco_fieldset
+    background-color: #FFF
+    box-shadow: 0 4px 5px rgba(0,0,0,.05)
+    border-radius: 4px
+    margin-top: 20px
+    > h2
+        height: 40px
+        line-height: 40px
+        border-bottom: 1px solid #EEE
+        font-size: 1.4rem
+        color: #666
+        padding: 0 20px
+        text-transform: uppercase
+    .lista_dado
+        padding: 10px 20px 20px 20px
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        align-items: flex-start
+    .bloco_row
+        width: 100%
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+    .bloco_row > *
+        margin-right: 40px
+        margin-top: 20px
+        margin-bottom: 20px
+
+.bloco_app_estrutura .bloco_coluna_1 .bloco_fieldset
+    .bloco_checkbox_geral .input_checkbox
+        width: calc(20% - 10px)
+    .bloco_checkbox_geral .marcar_todas .input_checkbox
+        width: 100%
+.bloco_app_estrutura .bloco_coluna_1 .bloco_fieldset
+    width: 100%
+.bloco_app_estrutura .bloco_coluna_2
+    padding-left: 20px
+    .bloco_fieldset
+        width: calc(50% - 20px)
+        margin-right: 20px
+.bloco_app_estrutura .bloco_coluna_3
+    padding-left: 20px
+    .bloco_fieldset
+        width: calc((100% / 3) - 20px)
+        margin-right: 20px
+.bloco_app_estrutura .bloco_coluna_4
+    padding-left: 20px
+    .bloco_fieldset
+        width: calc((100% / 4) - 20px)
+        margin-right: 20px
+.bloco_app_estrutura .bloco_coluna_auto .bloco_fieldset
+    width: 100%
+    max-width: 500px
+    margin-left: 10px
+    margin-right: 10px
+.bloco_app_estrutura .bloco_coluna_centralizada
+    width: 100%
+    display: flex
+    justify-content: center
+
+@media screen and (max-width:1500px)
+    .bloco_app_estrutura .bloco_coluna_4 .bloco_fieldset
+        width: calc(50% - 20px)
+@media screen and (max-width:1000px)
+    .bloco_app_estrutura .bloco_coluna_1 .bloco_fieldset
+    .bloco_app_estrutura .bloco_coluna_2 .bloco_fieldset
+    .bloco_app_estrutura .bloco_coluna_3 .bloco_fieldset
+    .bloco_app_estrutura .bloco_coluna_4 .bloco_fieldset
+        width: 100%
+    .bloco_app_estrutura .bloco_coluna_1 .bloco_fieldset .bloco_checkbox_geral .input_checkbox
+        width: 50%
+@media screen and (max-width:600px)
+    .bloco_app_estrutura .bloco_coluna_1 .bloco_fieldset .bloco_checkbox_geral .input_checkbox
+        width: 100%
