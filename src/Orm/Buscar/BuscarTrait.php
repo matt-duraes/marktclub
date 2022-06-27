@@ -14,8 +14,16 @@ trait BuscarTrait
     public function id(string $id, bool $erro = true)
     {
         $this->ormVerificarSeEntityExiste();
-        if (preg_match('/^[1-9]{1}[0-9]{0,}$/', $id)) {
-            return mensagemStatus(404, localhost: 'Foi enviado um ID no lugar do UUID.');
+
+        if (empty($id) && $erro) {
+            mensagemStatus(404);
+        } else if (empty($id)) {
+            return [];
+        }
+
+        $quantidade = mb_strlen($id, 'UTF-8');
+        if (!in_array($quantidade, [32, 36])) {
+            return mensagemStatus(404, localhost: 'Você deve enviar um COD ou UUID para fazer a busca.');
         } else if (array_key_exists('uuid', $this->_campoBanco)) {
             $where = ['uuid', $id];
         } else if (array_key_exists('cod', $this->_campoBanco)) {
@@ -25,6 +33,12 @@ trait BuscarTrait
     }
     public function _id(int $id, bool $erro = true)
     {
+        if (empty($id) && $erro) {
+            mensagemStatus(404);
+        } else if (empty($id)) {
+            return [];
+        }
+
         return $this->buscar(['id', $id], $erro);
     }
 

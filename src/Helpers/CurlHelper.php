@@ -2,6 +2,8 @@
 
 namespace Helpers;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class CurlHelper
 {
     private $ssl = true;
@@ -176,7 +178,9 @@ class CurlHelper
     {
         $lista = [];
         foreach ($arquivo as $ind => $val) {
-            if (is_array($val) && isset($val['tmp_name']) && file_exists($val['tmp_name'])) {
+            if ($val instanceof UploadedFile) {
+                $lista[$ind] = curl_file_create($val->getPathname(), $val->getMimeType(), $val->getClientOriginalName());
+            } elseif (is_array($val) && isset($val['tmp_name']) && file_exists($val['tmp_name'])) {
                 $lista[$ind] = curl_file_create($val['tmp_name'], $val['type'] ?? mime_content_type($val['tmp_name']), $val['name'] ?? '');
             } elseif (is_string($val) && file_exists($val)) {
                 $lista[$ind] = curl_file_create($val, mime_content_type($val), basename($val));
@@ -235,6 +239,11 @@ class CurlHelper
      */
     public function put(string $url): self
     {
+        if (!empty($this->header)) {
+            $this->header['Content-Type'] = 'application/x-www-form-urlencoded';
+        } else {
+            $this->header = ['Content-Type' => 'application/x-www-form-urlencoded'];
+        }
         $this->curl('PUT', $url);
         return $this;
     }
@@ -407,12 +416,13 @@ class CurlHelper
 
         if (!empty($body)) {
             foreach ($body as $ind => $val) {
-                if (is_array($val) || is_object($val)) {
+                if (is_array($val)) {
                     $body[$ind] = json_encode($val);
                 }
             }
+
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $metodo == 'PUT' ? http_build_query($body) : $body);
         } elseif (!empty($json)) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json));

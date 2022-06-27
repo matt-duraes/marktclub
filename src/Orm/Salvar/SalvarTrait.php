@@ -14,15 +14,15 @@ trait SalvarTrait
     {
         $this->ormVerificarSeEntityExiste();
         $this->ormPegarAcaoAoSalvar();
-        if (method_exists($this, 'regraSalvar')) {
-            $this->regraSalvar();
-        }
-
         $acao = $this->_acao;
         if ($acao == 'insert' && method_exists($this, 'regraInsert')) {
             $this->regraInsert();
         } elseif ($acao == 'update' && method_exists($this, 'regraUpdate')) {
             $this->regraUpdate();
+        }
+
+        if (method_exists($this, 'regraSalvar')) {
+            $this->regraSalvar();
         }
 
         $dado = $this->ormMontarDado();
@@ -39,37 +39,13 @@ trait SalvarTrait
         }
 
         if (is_array($salvar) && array_key_exists('id', $salvar)) {
-            $this->_id($salvar['id']);
             $this->ormAcaoPosSalvar($acao);
             $this->ormDeletarArquivos($deletarArquivo);
+            $this->_id($salvar['id']);
             $this->_diff = $dado['salvar'];
             return $this;
         }
         throw new Excecao(titulo: 'Erro ao salvar!', mensagem: 'Ocorreu um erro ao salvar, por favor, tente novamente.');
-    }
-
-    private function ormPegarArquivoParaDeletar(array $dado): array
-    {
-        if (!$this->_deletarArquivo) {
-            return [];
-        }
-
-        $lista = [];
-        foreach ($this->_deletarArquivo as $campo => $diretorio) {
-            if (!array_key_exists($campo, $dado)) {
-                continue;
-            }
-            $valorAtual = $this->prop($campo);
-            $campoNovo = $dado[$campo];
-            if (
-                !empty($valorAtual) &&
-                $valorAtual != $campoNovo &&
-                file_exists(DIRETORIO_PRIVADO . '/' . $diretorio . '/' . $valorAtual)
-            ) {
-                $lista[] = DIRETORIO_PRIVADO . '/' . $diretorio . '/' . $valorAtual;
-            }
-        }
-        return $lista;
     }
 
     private function ormPegarAcaoAoSalvar(): void
@@ -214,15 +190,6 @@ trait SalvarTrait
         }
         if (method_exists($this, 'regraPosSalvar')) {
             $this->regraPosSalvar();
-        }
-    }
-    private function ormDeletarArquivos(array $lista): void
-    {
-        if (!$lista) {
-            return;
-        }
-        foreach ($lista as $arquivo) {
-            unlink($arquivo);
         }
     }
 }

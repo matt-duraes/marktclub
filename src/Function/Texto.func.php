@@ -281,7 +281,7 @@ if (!function_exists('strCortar')) {
      */
     function strCortar(string $string, int $tamanho, string $simbolo = '...', bool $forca = false)
     {
-        return (new \Helpers\TextoHelper($string))->cortar($tamanho, $simbolo, $forca);
+        return (new \Helpers\TextoHelper($string))->cortar($tamanho, $simbolo, $forca)->r();
     }
 }
 
@@ -349,6 +349,22 @@ if (!function_exists('strNull')) {
             return $padrao;
         }
         return $valor;
+    }
+}
+if (!function_exists('strInt')) {
+    // doc
+    // exemplo
+    // echo strInt 1
+    // echo strInt teste
+    /**
+     * Retorna o valor se for inteiro ou null se não for inteiro
+     *
+     * @param   mixed       $inteiro  Valor que deseja validar
+     * @return  null|int              Valor inteiro em caso positivo ou null em caso falso
+     */
+    function strInt($inteiro)
+    {
+        return preg_match('/^\-{0,1}[1-9]{1}[0-9]{0,}$/', $inteiro) ? $inteiro : null;
     }
 }
 if (!function_exists('strEmail')) {

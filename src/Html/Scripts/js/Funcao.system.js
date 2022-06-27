@@ -1,23 +1,23 @@
-link = () => {
+const link = () => {
     return window.location.href.replace('://', ':||').split('/')[0].replace(':||', '://');
 };
-url = () => {
+const url = () => {
     return window.location.href.split('#')[0];
 };
-uri = () => {
+const uri = () => {
     return window.location.href.replace(/http(s)\:\/\/[a-zà-úA-ZÀ-Ú0-9\-\_\.\:]+\//, '');
 };
-base64Encode = string => {
+const base64Encode = string => {
     return window.btoa(string);
 };
-base64Decode = string => {
+const base64Decode = string => {
     return window.atob(string);
 };
 // Get Elementos
-echo = function (dado) {
+const echo = dado => {
     console.log(dado);
 };
-el = function (nome, pai) {
+const el = function (nome, pai) {
     if (typeof pai == 'object') {
         return pai.querySelector(nome);
     } else if (typeof pai == 'string') {
@@ -30,10 +30,10 @@ el = function (nome, pai) {
         return document.querySelector(nome);
     }
 };
-getId = function (id) {
-    return document.getElementById(id);
+const pegarId = function (id) {
+    return document.getElementById(id.replace(/^\#/, ''));
 };
-getClass = function (classe, pai) {
+const pegarClasse = function (classe, pai) {
     if (typeof pai == 'object') {
         return pai.getElementsByClassName(classe);
     } else if (typeof pai == 'string') {
@@ -46,7 +46,7 @@ getClass = function (classe, pai) {
         return document.getElementsByClassName(classe);
     }
 };
-getTag = function (tag, pai) {
+const pegarTag = function (tag, pai) {
     if (typeof pai == 'object') {
         return pai.getElementsByTagName(tag);
     } else if (typeof pai == 'string') {
@@ -59,7 +59,7 @@ getTag = function (tag, pai) {
         return document.getElementsByTagName(tag);
     }
 };
-getAll = (elemento, pai) => {
+const pegarTodos = (elemento, pai) => {
     if (typeof pai == 'object') {
         return pai.querySelectorAll(elemento);
     } else if (typeof pai == 'string') {
@@ -72,12 +72,18 @@ getAll = (elemento, pai) => {
         return document.querySelectorAll(elemento);
     }
 };
-count = (elemento, pai) => {
+const attr = (elemento, attr, valor) => {
+    if (valor == undefined) {
+        return elemento.getAttribute(attr);
+    }
+    return elemento.setAttribute(attr, valor);
+};
+
+const contar = (elemento, pai) => {
     return getAll(elemento, pai).length;
 };
 
-// InArray
-arrayCompare = function (a1, a2) {
+const _arrayCompare = function (a1, a2) {
     if (a1.length != a2.length) return false;
     let tamanho = a2.length;
     let i;
@@ -86,269 +92,29 @@ arrayCompare = function (a1, a2) {
     }
     return true;
 };
-inArray = function (needle, haystack) {
-    console.log(needle);
-    console.log(haystack);
-    let tamanho = haystack.length;
+const inArray = function (valor, array) {
+    let tamanho = array.length;
     let i;
     for (i = 0; i < tamanho; i++) {
-        if (typeof haystack[i] == 'object') {
-            if (arrayCompare(haystack[i], needle)) return true;
+        if (typeof array[i] == 'object') {
+            if (_arrayCompare(array[i], valor)) return true;
         } else {
-            if (haystack[i] == needle) return true;
+            if (array[i] == valor) return true;
         }
     }
     return false;
 };
 
-// AJAX
-ajax = function (link, option) {
-    let dado = {};
-
-    dado.method = option.metodo;
-    if (typeof dado.method == 'undefined' || !inArray(dado.method, ['GET', 'POST', 'PUT', 'DELETE'])) {
-        echo('Informe um METHOD para a requisição');
-        return false;
-    }
-
-    if (typeof option.redirecionar == 'string') {
-        dado.redirect = option.redirecionar;
-    } else {
-        dado.redirect = 'follow';
-    }
-    if (typeof option.headers == 'object') {
-        dado.headers = option.headers;
-    }
-
-    if (typeof option.sucesso != 'function') {
-        echo('Informa um callback de sucesso.');
-        return false;
-    }
-    let returnoSucesso = option.sucesso;
-
-    if (typeof option.falha != 'function') {
-        echo('Informa um callback de falha.');
-        return false;
-    }
-    let retornoFalha = option.falha;
-
-    if (typeof option.erro != 'function') {
-        echo('Informa um callback de erro.');
-        return false;
-    }
-    let retornoErro = option.erro;
-
-    let retornoFim = () => {};
-    if (typeof option.fim == 'function') {
-        retornoFim = option.fim;
-    }
-
-    let retornoTipo = 'text';
-    if (typeof option.retorno == 'string' && inArray(option.retorno, ['arrayBuffer', 'blob', 'json', 'formData'])) {
-        retornoTipo = option.retorno;
-    }
-
-    if (typeof option.parametro != 'undefined') {
-        let parametro = [];
-        Object.entries(option.parametro).forEach(val => {
-            parametro.push(encodeURI(val[0]) + '=' + encodeURI(val[1]));
-        });
-
-        if (parametro.length > 0) {
-            parametro = parametro.join('&');
-        }
-
-        if (link.indexOf('?') === -1) {
-            link += '?' + parametro;
-        } else {
-            link += '&' + parametro;
-        }
-    }
-
-    if (typeof option.dataJson != 'undefined') {
-        dado.body = JSON.stringify(option.dataJson);
-    } else if (typeof option.dataForm == 'object') {
-        let formData = new FormData();
-        Object.entries(option.dataForm).forEach(val => {
-            formData.append(val[0], val[1]);
-        });
-        dado.body = formData;
-    } else if (typeof option.formData == 'object') {
-        let formData = new FormData();
-        Object.entries(option.formData).forEach(val => {
-            formData.append(val[0], val[1]);
-        });
-        dado.body = formData;
-    } else if (typeof option.body == 'object') {
-        let formData = new FormData();
-        Object.entries(option.body).forEach(val => {
-            formData.append(val[0], val[1]);
-        });
-        dado.body = formData;
-    } else if (typeof option.dataUrl == 'object') {
-        let urlEncoded = new URLSearchParams();
-        Object.entries(option.dataUrl).forEach(val => {
-            urlEncoded.append(val[0], val[1]);
-        });
-        dado.body = urlEncoded;
-    }
-
-    dado.mode = 'same-origin';
-    if (typeof option.modo == 'string' && inArray(option.modo, ['no-cors', 'cors', 'navigate'])) {
-        dado.mode = option.retorno;
-    }
-
-    dado.cache = 'default';
-    if (
-        typeof option.cache == 'string' &&
-        inArray(option.cacbe, ['no-store', 'reload', 'no-cache', 'force-cache', 'only-if-cached'])
-    ) {
-        dado.cache = option.retorno;
-    }
-
-    fetch(link, dado)
-        .then(response => {
-            let headers = {};
-            response.headers.forEach((val, ind) => {
-                if (typeof ind == 'string' && ind != '') {
-                    headers[ind] = val;
-                }
-            });
-
-            if (inArray(dado.method, ['PUT', 'DELETE']) && response.status == 204) {
-                retornoFim();
-                return returnoSucesso({
-                    dado: '',
-                    status: 204,
-                    header: headers,
-                    retorno: response,
-                });
-            }
-
-            let promiseValue;
-            if (retornoTipo == 'json') {
-                promiseValue = response.json();
-            } else if (retornoTipo == 'arrayBuffer') {
-                promiseValue = response.arrayBuffer();
-            } else if (retornoTipo == 'blob') {
-                promiseValue = response.blob();
-            } else if (retornoTipo == 'formData') {
-                promiseValue = response.formData();
-            } else {
-                promiseValue = response.text();
-            }
-
-            promiseValue
-                .then(value => {
-                    let dado = {
-                        dado: value,
-                        status: response.status,
-                        header: headers,
-                        retorno: response,
-                    };
-                    if (response.ok || response.status == 301 || response.status == 302) {
-                        retornoFim();
-                        return returnoSucesso(dado);
-                    } else {
-                        retornoFim();
-                        return retornoFalha(dado);
-                    }
-                })
-                .catch(error => {
-                    retornoFim();
-                    return retornoErro(error);
-                });
-        })
-        .catch(error => {
-            retornoFim();
-            return retornoErro(error);
-        });
-};
-
-ajaxGet = function (link, option) {
-    if (option == undefined) {
-        option = { metodo: 'GET' };
-    } else {
-        option.metodo = 'GET';
-    }
-
-    if (!('retorno' in option)) {
-        option.retorno = 'json';
-    }
-
-    ajax(link, option);
-};
-ajaxPost = function (link, option) {
-    if (option == undefined) {
-        option = { metodo: 'POST' };
-    } else {
-        option.metodo = 'POST';
-    }
-
-    if (!('retorno' in option)) {
-        option.retorno = 'json';
-    }
-
-    let contentTypePadrao = 'application/json';
-    if (typeof option.dataUrl == 'object') {
-        contentTypePadrao = 'application/x-www-form-urlencoded';
-    }
-
-    if (!('header' in option)) {
-        option.header = {
-            'Content-Type': contentTypePadrao,
-        };
-    }
-    let header = option.header;
-    if (!('Content-Type' in header)) {
-        option.header['Content-Type'] = contentTypePadrao;
-    }
-
-    ajax(link, option);
-};
-ajaxPut = function (link, option) {
-    if (option == undefined) {
-        option = { metodo: 'PUT' };
-    } else {
-        option.metodo = 'PUT';
-    }
-
-    if (!('retorno' in option)) {
-        option.retorno = 'json';
-    }
-
-    let contentTypePadrao = 'application/json';
-    if (typeof option.dataUrl == 'object') {
-        contentTypePadrao = 'application/x-www-form-urlencoded';
-    }
-
-    if (!('header' in option)) {
-        option.header = {
-            'Content-Type': contentTypePadrao,
-        };
-    }
-    let header = option.header;
-    if (!('Content-Type' in header)) {
-        option.header['Content-Type'] = contentTypePadrao;
-    }
-
-    ajax(link, option);
-};
-ajaxDelete = function (link, option) {
-    if (option == undefined) {
-        option = { metodo: 'DELETE' };
-    } else {
-        option.metodo = 'DELETE';
-    }
-
-    if (option.retorno == undefined) {
-        option.retorno = 'json';
-    }
-
-    ajax(link, option);
-};
-
-validarJson = function (json, campo) {
+/*
+|--------------------------------------------------------------------------
+| FUNÇÕES DE VALIDAÇÃO
+|--------------------------------------------------------------------------
+|
+| Funções para validar os dados padrões ainda no JS
+| não deixa de ser necessário a validação no backend
+|
+*/
+const validarJson = function (json) {
     if (typeof json == 'string') {
         try {
             JSON.parse(json);
@@ -356,12 +122,10 @@ validarJson = function (json, campo) {
         } catch (e) {
             return false;
         }
-    } else if (typeof json == 'object' && (campo == undefined || typeof json[campo] !== 'undefined')) {
-        return true;
     }
     return false;
 };
-jsonParse = json => {
+const jsonParse = json => {
     try {
         JSON.parse(json);
         return JSON.parse(json);
@@ -369,11 +133,11 @@ jsonParse = json => {
         return json;
     }
 };
-validarEmail = function (email) {
+const validarEmail = function (email) {
     let reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/;
     return reg.test(email);
 };
-validarTelefone = function (telefone, formato, retorno) {
+const validarTelefone = function (telefone, formato, retorno) {
     let telefoneNumero = telefone.replace(/[^\d]+/g, '');
     let tamanho = telefoneNumero.length;
 
@@ -412,11 +176,11 @@ validarTelefone = function (telefone, formato, retorno) {
     return false;
 };
 
-validarCpf = function (cpf, formato, retorno) {};
+const validarCpf = function (cpf) {};
 
-validarCnpj = function (cnpj, formato, retorno) {};
+const validarCnpj = function (cnpj) {};
 
-validarCep = function (cep) {
+const validarCep = function (cep) {
     cepNumero = cep.replace(/[^\d]+/g, '');
     if (cepNumero.length != 8) {
         return false;
@@ -429,7 +193,7 @@ validarCep = function (cep) {
 
     return true;
 };
-_validarData = function (data) {
+const _validarData = function (data) {
     data = data.split('/');
     let dia = data[0];
     let mes = data[1];
@@ -447,7 +211,7 @@ _validarData = function (data) {
     }
     return true;
 };
-_validarHora = function (horaCompleta) {
+const _validarHora = function (horaCompleta) {
     horaCompleta = horaCompleta.split(':');
 
     let hora = horaCompleta[0];
@@ -459,14 +223,14 @@ _validarHora = function (horaCompleta) {
     }
     return true;
 };
-validarData = function (data) {
+const validarData = function (data) {
     let reg = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
     if (!reg.test(data)) {
         return false;
     }
     return _validarData(data);
 };
-validarDataHora = function (data) {
+const validarDataHora = function (data) {
     let reg = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}\ [0-9]{2}\:[0-9]{2}\:[0-9]{2}$/;
     if (!reg.test(data)) {
         return false;
@@ -479,77 +243,57 @@ validarDataHora = function (data) {
     }
     return true;
 };
-validarDinheiro = function (valor) {
+const validarDinheiro = function (valor) {
     return /^(\d{1,3}(\.\d{3})*|\d+)(\,\d{2})?$/.test(valor);
 };
 
-// IS verificações
-isTypeOf = function (valor, tipo) {
-    return typeof valor === tipo;
-};
-isNumeric = function (valor, string) {
+const isNumeric = function (valor, string) {
     if (typeof valor == 'string' && string) {
         return /^(\+|\-|\+ |\- )?[0-9]+(\.[0-9]+)?$/.test(valor);
     }
     return isTypeOf(valor, 'number');
 };
-isFloat = function (valor, string) {
+const isFloat = function (valor, string) {
     if (!isNumeric(valor, string)) {
         return false;
     }
 
     return /^(\-|\+)?[0-9]+\.[0-9]+/.test(valor);
 };
-isInt = function (valor, string) {
+const isInt = function (valor, string) {
     if (string && /^(\-)?[0-9]+$/.test(valor)) {
         return true;
     }
     return Number.isInteger(valor);
 };
-isString = function (valor) {
+const isString = function (valor) {
     return isTypeOf(valor, 'string');
 };
-isBool = function (valor) {
+const isBool = function (valor) {
     return isTypeOf(valor, 'boolean');
 };
-isUndefined = function (valor) {
+const isUndefined = function (valor) {
     return isTypeOf(valor, 'undefined');
 };
-isObject = function (valor) {
+const isObject = function (valor) {
     return isTypeOf(valor, 'object');
 };
-isFunction = function (valor) {
+const isFunction = function (valor) {
     return isTypeOf(valor, 'function');
 };
-isArray = function (valor) {
+const isArray = function (valor) {
     return Array.isArray(valor);
 };
 
-setCookie = function (indice, valor, prazo) {
-    let d = new Date();
-    d.setTime(d.getTime() + prazo * 24 * 60 * 60 * 1000);
-    let expires = 'expires=' + d.toGMTString();
-    document.cookie = indice + '=' + valor + '; ' + expires;
-};
-
-getCookie = function (indice) {
-    let name = indice + '=';
-    let ca = document.cookie.split(';');
-    let tamanho = ca.length;
-    let i, c;
-    for (i = 0; i < tamanho; ++i) {
-        c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return '';
-};
-
-uuid = function () {
+/*
+|--------------------------------------------------------------------------
+| FUNÇÕES PARA CRIAÇÃO DE NÚMEROS ALEATÓRIOS
+|--------------------------------------------------------------------------
+|
+| Gerador de dados aleatórios
+|
+*/
+const uuid = function () {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         let r = (Math.random() * 16) | 0,
             v = c == 'x' ? r : (r & 0x3) | 0x8;
@@ -557,11 +301,11 @@ uuid = function () {
     });
 };
 
-random = function (max) {
+const aleatorioNumero = function (max) {
     return Math.floor(Math.random() * max + 1);
 };
 
-slug = function (string) {
+const slug = function (string) {
     return string
         .toString()
         .normalize('NFD')
@@ -573,59 +317,55 @@ slug = function (string) {
         .replace(/\-\-+/g, '-');
 };
 
-fetchNotificacaoErro = async (response, mensagem) => {
-    let json;
-    try {
-        json = await response.json();
-    } catch (error) {
-        json = {};
+const respostaJson = (resposta, mensagem) => {
+    return new Promise(async resolve => {
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (error) {
+            json = {};
+        }
+
+        const status = resposta.status();
+        if (status == 200 || status == 201 || status == 204) {
+            resolve(json);
+        }
+
+        Alerta.notificacao(
+            json.erro != undefined && json.erro.mensagem != undefined ? json.erro.mensagem : mensagem,
+            false
+        );
+        resolve(false);
+    });
+};
+
+const adicionarHtml = (elemento, valor, local = 'comeco') => {
+    if (local == 'comeco') {
+        return elemento.insertAdjacentHTML('afterbegin', valor);
     }
-    Alerta.notificacao(json.mensagem == undefined ? mensagem : json.mensagem, false);
-};
-
-fetchMensagemErro = (request, mensagem, titulo) => {
-    return request
-        .json()
-        .then(response => {
-            return {
-                titulo: response.titulo || titulo || 'Erro!',
-                mensagem: response.mensagem || mensagem || 'Ocorreu um erro, por favor, tente novamente.',
-            };
-        })
-        .catch(error => {
-            try {
-                const response = JSON.parse(error);
-                return {
-                    titulo: response.titulo || titulo || 'Erro!',
-                    mensagem: response.mensagem || mensagem || 'Ocorreu um erro, por favor, tente novamente.',
-                };
-            } catch (error) {
-                return {
-                    titulo: titulo || 'Erro!',
-                    mensagem: mensagem || 'Ocorreu um erro, por favor, tente novamente.',
-                };
-            }
-        });
-};
-
-appendHtml = (elemento, valor) => {
     return elemento.insertAdjacentHTML('beforeend', valor);
 };
 
-prependHtml = (elemento, valor) => {
-    return elemento.insertAdjacentHTML('afterbegin', valor);
-};
-
-removerElemento = elemento => {
+const removerElemento = elemento => {
     return elemento.parentNode.removeChild(elemento);
 };
 
-classAdd = (elemento, classe) => {
+/**
+ * Adiciona uma classe ao elemento
+ *
+ * @param   {Element}           elemento    Elemento que deseja adicionar a classe
+ * @param   {string}            classe      Classe que deseja adicionar
+ * @returns {(Element|null)}                Retorna um objeto de elemento ou null caso o elemento não exista
+ */
+const addClasse = (elemento, classe) => {
     return elemento.classList.add(classe);
 };
-classRemover = (elemento, classe) => {
+const alterarClasse = (elemento, classe) => {
+    return elemento.classList.toggle(classe);
+};
+const removerClasse = (elemento, classe) => {
     return elemento.classList.remove(classe);
 };
-classExiste = (elemento, classe) => {
+const classeExiste = (elemento, classe) => {
     return elemento.classList.contains(classe);
 };

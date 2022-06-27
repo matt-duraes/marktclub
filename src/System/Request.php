@@ -29,7 +29,6 @@ final class Request
         $post = $rota['request']['post'] ?? [];
         $files = $rota['request']['files'] ?? [];
         $put = $rota['request']['put'] ?? [];
-        $json = $rota['request']['json'] ?? [];
 
         $request = $this->request;
         $metodo = $request->metodo();

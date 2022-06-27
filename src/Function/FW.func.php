@@ -146,6 +146,22 @@ if (!function_exists('hashIpUser')) {
     }
 }
 
+
+if (!function_exists('cookie')) {
+    function cookie(
+        string $nome,
+        $padrao = null
+    ) {
+        if (array_key_exists($nome, $_COOKIE)) {
+            return $_COOKIE[$nome];
+        }
+        if (is_null($padrao)) {
+            mensagemErro('Erro!', 'Não foi possível encontrar o cookie desejado');
+        }
+        return $padrao;
+    }
+}
+
 /**
  * Seta um novo Cookie
  *
@@ -162,10 +178,10 @@ if (!function_exists('criarCookie')) {
     function criarCookie(
         string $nome,
         $valor,
-        int $dia = 0,
+        int $dia = 360,
         int $hora = 0,
         int $minuto = 0,
-        string $path = '',
+        string $path = '/',
         string $dominio = ''
     ): bool {
         $expirar = mktime(hour: $hora, minute: $minuto, day: $dia);
@@ -183,7 +199,7 @@ if (!function_exists('deletarCookie')) {
     {
         if (isset($_COOKIE[$nome])) {
             unset($_COOKIE[$nome]);
-            return setcookie($nome, null, -1);
+            return setcookie($nome, '', -1);
         }
         return true;
     }
@@ -515,11 +531,18 @@ if (!function_exists('limparNullDeArray')) {
 |
 /*/
 if (!function_exists('pegarPropriedadeDaEntity')) {
-    function pegarPropriedadeDaEntity($Entity, Request $request, array $lista = [], array $remover = [], $null = false, $empty = false): array
-    {
+    function pegarPropriedadeDaEntity(
+        $Entity,
+        ?Request $request = null,
+        array $lista = [],
+        array $remover = [],
+        $null = true,
+        $empty = true,
+        ?string $chave = null
+    ): array {
 
         $listaBusca = ['id'];
-        if ($request->dado()) {
+        if ($request && $request->dado()) {
             $listaBusca = array_merge($listaBusca, array_keys($request->dado()));
         }
         if ($lista) {
@@ -533,12 +556,14 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
                     unset($listaBusca[$item]);
                 }
             }
-            $listaBusca = array_keys($listaBusca);
+            $listaBusca = array_flip($listaBusca);
         }
 
+        $Crypt = !empty($chave) ? new CryptHelper(chavePublica: $chave) : null;
         $retorno = [];
-        foreach ($listaBusca as $nome) {
-
+        foreach ($listaBusca as $ind => $nome) {
+            $campo = $nome;
+            $nome = is_string($ind) ? $ind : $nome;
             if (!object_key_exists($nome, $Entity)) {
                 continue;
             }
@@ -574,6 +599,8 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
                 $valor = $valor->dinheiro();
             } elseif ($valor instanceof \Modules\Decimal) {
                 $valor = $valor->decimal();
+            } elseif ($valor instanceof \Modules\Botao) {
+                $valor = $valor->valor();
             }
             if (
                 (!$null && is_null($valor)) ||
@@ -581,7 +608,7 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             ) {
                 continue;
             }
-            $retorno[$nome] = $valor;
+            $retorno[$campo] = !empty($chave) && !empty($valor) ? $Crypt->encode($valor) : $valor;
         }
         return $retorno;
     }
@@ -867,7 +894,7 @@ if (!function_exists('pegarHtmlEmail')) {
             $acaoTexto
         );
 
-        $browser = LINK . '/email/browser/' . (new CryptHelper())->encode([
+        $browser = LINK . '/email/browser/' . (new CryptHelper(url: true))->encode([
             'tipo' => $tipo,
             'titulo' => $titulo,
             'assunto' => $assunto,
@@ -1356,7 +1383,8 @@ if (!function_exists('object')) {
      */
     function object(array $array): stdClass
     {
-        return json_decode(json_encode($array), false);
+        $object = json_decode(json_encode($array), false);
+        return is_object($object) ? $object : (object)[];
     }
 }
 if (!function_exists('caixaCodigo')) {
@@ -1386,14 +1414,37 @@ if (!function_exists('caixaCodigo')) {
     }
 }
 
+if (!function_exists('imagemUsuario')) {
+    /**
+     * Pega a imagem do usuário
+     *
+     * @param   null|string $tipo       Tipo de imagem
+     * @param   null|string $arquivo    Arquivo de imagem
+     * @param   null|string $facebook   URL da imagem do Facebook
+     * @param   null|string $google     URL da imagem do Google
+     * @return  string                  URL da imagem
+     */
+    function imagemUsuario(?string $tipo, ?string $arquivo, ?string $facebook, ?string $google): string
+    {
+        if ($tipo == 1 && !empty($facebook)) {
+            return $facebook;
+        } else if ($tipo == 2 && !empty($google)) {
+            return $google;
+        }
+        if (!empty($arquivo)) {
+            return arquivoPrivado($arquivo);
+        }
+        return arquivoPublico('usuario', 'padrao.png');
+    }
+}
 if (!function_exists('arquivoPublico')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param string    $diretorio      Diretório que o arquivo pertence
-     * @param string    $arquivo        Arquivo que deseja pegar
-     * @param array     $parametro      Parametro para inserir como GET na URL
-     * @return string                   Url do arquivo
+     * @param   string    $diretorio    Diretório que o arquivo pertence
+     * @param   string    $arquivo      Arquivo que deseja pegar
+     * @param   array     $parametro    Parametro para inserir como GET na URL
+     * @return  string                  Url do arquivo
      */
     function arquivoPublico(string $diretorio, string $arquivo, array $parametro = [])
     {
@@ -1403,21 +1454,46 @@ if (!function_exists('arquivoPublico')) {
         }
         $query = !empty($query) ? '?' . implode('&', $query) : '';
         $diretorio = preg_replace('/\/$/', '', $diretorio);
-        return LINK_ARQUIVO_PUBLICO . '/aqioulc.' . (new CryptHelper())->encode($diretorio . '/' . $arquivo) . $query;
+
+        if (!file_exists(DIRETORIO_PUBLICO . '/' . $diretorio . '/' . $arquivo)) {
+            return '';
+        }
+
+        $cifra = 'AES-256-CBC';
+        $iv = strCortar('d750d28036f7447ffe8e0d2ac2d2069b', openssl_cipher_iv_length($cifra), '', true);
+        $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
+        $hash = openssl_encrypt($diretorio . '/' . $arquivo, $cifra, $chave, 0, $iv);
+
+        return LINK_ARQUIVO_PUBLICO . '/aqioulc.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $query;
     }
 }
-if (!function_exists('imagemUsuario')) {
-    function imagemUsuario($tipo, $arquivo, $facebook, $google): string
+if (!function_exists('arquivoPublicoNome')) {
+    /**
+     * Pega o nome de um arquivo público
+     *
+     * @param   string    $link     Link do arquivo público
+     * @return  string              Diretório e nome do arquivo
+     */
+    function arquivoPublicoNome(string $link)
     {
-        if ($tipo == 1 && !empty($facebook)) {
-            return $facebook;
-        } else if ($tipo == 2 && !empty($google)) {
-            return $google;
+        $cifra = 'AES-256-CBC';
+        $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
+
+        $hash = explode('aqioulc.', $link)[1] ?? '';
+        $hash = str_replace(['-', '_', ':'], ['+', '/', '='], $hash);
+        $iv = strCortar('d750d28036f7447ffe8e0d2ac2d2069b', openssl_cipher_iv_length($cifra), '', true);
+
+        try {
+            return openssl_decrypt(
+                data: $hash,
+                cipher_algo: $cifra,
+                passphrase: $chave,
+                options: 0,
+                iv: $iv
+            );
+        } catch (\Throwable) {
+            return '';
         }
-        if (file_exists(DIRETORIO_PUBLICO . '/usuario/' . $arquivo)) {
-            return arquivoPublico('usuario', $arquivo);
-        }
-        return arquivoPublico('imagem', 'padrao.png');
     }
 }
 if (!function_exists('arquivoPrivado')) {
@@ -1435,7 +1511,42 @@ if (!function_exists('arquivoPrivado')) {
             $query[] = [$ind . '=' . $val];
         }
         $query = !empty($query) ? '?' . implode('&', $query) : '';
-        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . (new CryptHelper())->encode($id) . $query;
+
+        $cifra = 'AES-256-CBC';
+        $iv = strCortar('d750d28036f7447ffe8e0d2ac2d2069b', openssl_cipher_iv_length($cifra), '', true);
+        $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
+        $hash = openssl_encrypt($id, $cifra, $chave, 0, $iv);
+
+        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $query;
+    }
+}
+if (!function_exists('arquivoPrivadoId')) {
+    /**
+     * Pega o ID de um link de arquivo privado
+     *
+     * @param string    $link       Link do arquivo que deseja pegar o ID
+     * @return string               ID do arquivo
+     */
+    function arquivoPrivadoId(string $link)
+    {
+        $cifra = 'AES-256-CBC';
+        $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
+
+        $hash = explode('aqiorvd.', $link)[1] ?? '';
+        $hash = str_replace(['-', '_', ':'], ['+', '/', '='], $hash);
+        $iv = strCortar('d750d28036f7447ffe8e0d2ac2d2069b', openssl_cipher_iv_length($cifra), '', true);
+
+        try {
+            return openssl_decrypt(
+                data: $hash,
+                cipher_algo: $cifra,
+                passphrase: $chave,
+                options: 0,
+                iv: $iv
+            );
+        } catch (\Throwable) {
+            return '';
+        }
     }
 }
 

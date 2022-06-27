@@ -613,4 +613,38 @@ abstract class Entity extends ORM
             throw new Erro(mensagem: 'Essa entidade foi destruida e você não tem mais acesso a ela.');
         }
     }
+
+    private function ormPegarArquivoParaDeletar(array $dado, bool $todos = false): array
+    {
+        if (!$this->_deletarArquivo) {
+            return [];
+        }
+
+        $lista = [];
+        foreach ($this->_deletarArquivo as $campo => $diretorio) {
+            if (!array_key_exists($campo, $dado)) {
+                continue;
+            }
+            $diretorio = preg_replace('/\/$/', '', $diretorio);
+            $valorAtual = $this->prop($campo);
+            $campoNovo = $dado[$campo];
+            if (
+                !empty($valorAtual) &&
+                file_exists($diretorio . '/' . $valorAtual) &&
+                ($todos || $valorAtual != $campoNovo)
+            ) {
+                $lista[] = $diretorio . '/' . $valorAtual;
+            }
+        }
+        return $lista;
+    }
+    private function ormDeletarArquivos(array $lista): void
+    {
+        if (!$lista) {
+            return;
+        }
+        foreach ($lista as $arquivo) {
+            unlink($arquivo);
+        }
+    }
 }

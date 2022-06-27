@@ -9,6 +9,60 @@ final class SocialHelper
 {
     private $plataforma;
 
+    public function metaTag(string|array $titulo, string|array $descricao, null|string|array $imagem = null)
+    {
+
+        $titulo = $this->pegarMetaReal($titulo, TITULO);
+        $descricao = $this->pegarMetaReal($titulo, DESCRICAO);
+        $imagem = $this->pegarMetaImagem($imagem);
+        $link = LINK . '/' . URI;
+
+        $tituloTag = $titulo == TITULO ? TITULO : $titulo . ' | ' . TITULO;
+
+        return '
+            <meta property="twitter:description" content="' . $descricao . '">
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="' . $titulo . '">
+            ' . $imagem . '
+            <link rel="canonical" href="' . $link . '">
+            <meta property="og:type" content="article">
+            <meta property="og:description" content="' . $descricao . '">
+            <meta property="og:title" content="' . $titulo . '">
+            <meta property="og:locale" content="pt_BR">
+            <meta property="og:site_name" content="' . TITULO . '">
+            <meta property="og:url" content="' . $link . '">
+            <link rel="amphtml" href="' . $link . '">
+            <meta property="ia:markup_url" content="' . $link . '">
+
+            <meta name="title" content="' . $titulo . '">
+            <meta name="description" content="' . $descricao . '">
+
+            <title>' . $tituloTag . '</title>
+        ';
+    }
+    private function pegarMetaReal(string|array $lista, string $padrao)
+    {
+        $lista = !is_array($lista) ? [$lista] : $lista;
+        foreach ($lista as $valor) {
+            if (!empty($valor)) {
+                return $valor;
+            }
+        }
+        return $padrao;
+    }
+    private function pegarMetaImagem($imagem)
+    {
+        $imagem = $this->pegarMetaReal($imagem, env('IMAGEM_SOCIAL', ''));
+        if (!empty($imagem)) {
+            return '
+            <meta itemprop="image" content="' . $imagem . '">
+            <meta property="og:image" content="' . $imagem . '">
+            <meta property="twitter:image" content="' . $imagem . '">
+            ';
+        }
+        return  '';
+    }
+
     /*/
     |--------------------------------------------------------------------------
     | MÉTODO PARA COMPARTILHAMENTO
@@ -17,24 +71,25 @@ final class SocialHelper
     | Gera um link para compartilhar dependendo da plataforma
     |
     /*/
-    public function compartilhar(String $parametro1, String $parametro2, String $parametro3 = ''): String
+    public function compartilhar(?string $url = null, ?string $texto = null, ?string $by = null): string
     {
-        if ($this->plataforma == 'facebook' && !empty($parametro1)) {
-            return 'https://www.facebook.com/sharer/sharer.php?u=' . $parametro1;
-        } elseif ($this->plataforma == 'twitter' && !empty($parametro1) && !empty($parametro2)) {
-            $by = !empty($parametro3) ? '&via=' . $parametro3 : '';
-            return 'https://twitter.com/intent/tweet?text=' . $parametro1 . '&url=' . $parametro2 . $by;
-        } elseif ($this->plataforma == 'whatsapp' && !empty($parametro1) && !empty($parametro2)) {
-            return 'whatsapp://send?text=' . urlencode($parametro1 . ' - ' . $parametro2);
-        } elseif ($this->plataforma == 'reddit' && !empty($parametro1) && !empty($parametro2)) {
-            return 'http://reddit.com/submit?url=' . $parametro2 . '&amp;title=' . $parametro1;
-        } elseif ($this->plataforma == 'tumblr' && !empty($parametro1)) {
-            return 'http://www.tumblr.com/share/link?url=' . $parametro1;
-        } elseif ($this->plataforma == 'pinterest' && !empty($parametro1) && !empty($parametro2)) {
-            return 'https://pinterest.com/pin/create/button/?url=' . $parametro2 . '&media=&description=' . $parametro1;
-        } elseif ($this->plataforma == 'linkedin' && !empty($parametro1) && !empty($parametro2)) {
-            return 'https://www.linkedin.com/shareArticle?mini=true&url=' . $parametro2 . '&title=' . $parametro1;
+        if ($this->plataforma == 'facebook' && !empty($url)) {
+            return 'https://www.facebook.com/sharer/sharer.php?u=' . $url;
+        } elseif ($this->plataforma == 'twitter' && !empty($url) && !empty($texto)) {
+            $by = !empty($by) ? '&via=' . $by : '';
+            return 'https://twitter.com/intent/tweet?text=' . $texto . '&url=' . $url . $by;
+        } elseif ($this->plataforma == 'whatsapp' && !empty($texto) && !empty($by)) {
+            return 'whatsapp://send?text=' . urlencode($texto . ' - ' . $by);
+        } elseif ($this->plataforma == 'reddit' && !empty($texto) && !empty($url)) {
+            return 'http://reddit.com/submit?url=' . $url . '&amp;title=' . $texto;
+        } elseif ($this->plataforma == 'tumblr' && !empty($url)) {
+            return 'http://www.tumblr.com/share/link?url=' . $url;
+        } elseif ($this->plataforma == 'pinterest' && !empty($texto) && !empty($url)) {
+            return 'https://pinterest.com/pin/create/button/?url=' . $url . '&media=&description=' . $texto;
+        } elseif ($this->plataforma == 'linkedin' && !empty($texto) && !empty($url)) {
+            return 'https://www.linkedin.com/shareArticle?mini=true&url=' . $url . '&title=' . $texto;
         }
+        return '';
     }
 
     /*/

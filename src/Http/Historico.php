@@ -41,7 +41,7 @@ final class Historico
     public function lista(string $indice = ''): array
     {
         if (!empty($indice) && !in_array($indice, ['url', 'uri'])) {
-            return throw new Erro(
+            throw new Erro(
                 mensagem: 'Valor inválido para o parâmetro $indice.',
                 titulo: 'Parâmetro incorreto.',
                 texto: 'Você passou um valor incorreto para o parâmetro <strong>$indice</strong>.',
@@ -78,7 +78,7 @@ final class Historico
             return true;
         }
         if ($comeco < 0) {
-            return throw new Erro(
+            throw new Erro(
                 mensagem: 'Valor negativo no parâmetro $comeco invalido.',
                 titulo: 'Valor inválido para o parâmetro',
                 texto: 'O parâmetro <strong>$comeco</strong> deve ser um número inteiro e positivo.',
@@ -88,7 +88,7 @@ final class Historico
                 arquivo: 'trace:0'
             );
         } elseif ($quantidade < 1) {
-            return throw new Erro(
+            throw new Erro(
                 mensagem: 'Parâmetro $quantidade deve ser maior que zero.',
                 titulo: 'Valor inválido para o parâmetro',
                 texto: 'O parâmetro <strong>$quantidade</strong> deve ser um número inteiro e maior que zero.',
@@ -121,7 +121,7 @@ final class Historico
         $quantidade = count($_SESSION['FW_HISTORICO']);
 
         $ultimaUrl = end($_SESSION['FW_HISTORICO'])['url'] ?? '';
-        if (empty($link) || !Route::validar($uri)) {
+        if (empty($link)) {
             return false;
         } elseif (!empty($ultimaUrl) && $ultimaUrl == $link) {
             $_SESSION['FW_HISTORICO'][($quantidade - 1)]['data'] = date('Y-m-d H:i:s');

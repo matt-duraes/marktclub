@@ -372,7 +372,22 @@ if (!function_exists('iconeGoogle')) {
      */
     function iconeGoogle(int $tamanho = 14): string
     {
-        return '<svg height="' . $tamanho . '" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M20.4,17.1V24H32c-0.5,2.9-3.5,8.6-11.6,8.6c-7,0-12.7-5.7-12.7-12.6c0-7,5.7-12.6,12.7-12.6 c4,0,6.6,1.7,8.1,3.1l5.5-5.2C30.5,2,25.9,0,20.4,0C9.1,0,0,8.9,0,20c0,11.1,9.1,20,20.4,20C32.2,40,40,31.9,40,20.5 c0-1.3-0.1-2.3-0.3-3.3H20.4L20.4,17.1z"/></svg>';
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M20.4,17.1V24H32c-0.5,2.9-3.5,8.6-11.6,8.6c-7,0-12.7-5.7-12.7-12.6c0-7,5.7-12.6,12.7-12.6 c4,0,6.6,1.7,8.1,3.1l5.5-5.2C30.5,2,25.9,0,20.4,0C9.1,0,0,8.9,0,20c0,11.1,9.1,20,20.4,20C32.2,40,40,31.9,40,20.5 c0-1.3-0.1-2.3-0.3-3.3H20.4L20.4,17.1z"/></svg>';
+    }
+}
+if (!function_exists('iconeGithub')) {
+    // doc
+    // exemplo
+    // echo iconeGithub
+    /**
+     * Gera um icone do Github
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeGithub(int $tamanho = 15): string
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 32" style="enable-background:new 0 0 40 32;" xml:space="preserve"><path d="M20.5,32.1c-2.8,0-6.6-0.2-8.7-0.6c-8-1.7-11.9-6.6-11.9-15.1c0-2.9,1-5.6,2.7-7.7c-0.5-2.5-0.3-5,0.7-7.4c0.2-0.6,0.7-1,1.3-1.2l0.1,0c2.9-0.5,6.3,1.1,8.7,2.6c1.9-0.5,4.1-0.7,6.6-0.7c2.3,0,4.5,0.3,6.7,0.8c4.7-3,7.3-2.9,8.5-2.6c0.7,0.3,1.2,0.7,1.4,1.3c0.9,2.4,1.1,4.9,0.6,7.4c1.7,2.1,2.7,4.8,2.7,7.6c0,8.3-4,13.4-11.9,15.1C26.5,31.8,23.7,32.1,20.5,32.1z M6.6,3.9C6.3,5.3,6.3,6.8,6.8,8.3c0.3,0.8,0.1,1.7-0.5,2.3c-1.6,1.6-2.4,3.7-2.4,5.8c0,9.1,5.3,11,11.1,11.6c0.4,0.1,2.1,0.3,4.8,0.4c1-0.1,1.9-0.1,2.7-0.2c1.3-0.1,2.4-0.2,2.7-0.2l0,0c5.4-0.7,11-2.6,11.1-11.6c-0.1-2.3-0.9-4.3-2.5-6c-0.5-0.5-0.7-1.3-0.4-2.1C33.8,7,33.9,5.5,33.5,4c-1.8,0.5-3.4,1.3-4.8,2.4c-0.6,0.4-1.3,0.5-2,0.3c-2.1-0.7-4.3-1-6.5-0.9c-2.3-0.1-4.4,0.2-6.6,0.9c-0.6,0.2-1.4,0.1-2-0.3C10.2,5.3,8.5,4.4,6.6,3.9z"/></svg>';
     }
 }
 if (!function_exists('iconeFacebook')) {

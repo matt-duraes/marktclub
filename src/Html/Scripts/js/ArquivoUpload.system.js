@@ -62,8 +62,7 @@ class ArquivoUpload {
 
         const body = new FormData();
         body.append('nome', nome);
-        body.append('grupo_inicial', this._grupoInicial);
-        body.append('grupo_atual', this._grupoAtual);
+        body.append('grupo', this._grupoAtual);
 
         const response = await fetch(this._LINK + '/upload/criar-diretorio', {
             method: 'POST',
@@ -81,15 +80,16 @@ class ArquivoUpload {
 
         if (response.status != 201) {
             Alerta.notificacao(
-                json.mensagem != undefined ? json.mensagem : 'Ocorreu um erro ao criar o diretório.',
+                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorreu um erro ao criar o diretório.',
                 false
             );
             return;
         }
-        this._carregarEstruturaDiretorio();
+        await this._construtorPegarEstruturaDiretorio();
+        this._adicionarEstruturaMover();
         this._fecharBlocoEditar();
 
-        await this._adicionarNovoDiretorio(json.id, json.nome);
+        await this._adicionarNovoDiretorio(json.dado.id, json.dado.nome);
         const listaDiretorio = document.querySelectorAll('.fw_upload_arquivo_diretorio_pasta_novo');
         this._adicionarEventoAoDiretorio(listaDiretorio);
         this._mostrarBlocoBotao();
@@ -106,8 +106,7 @@ class ArquivoUpload {
 
         const body = new FormData();
         body.append('nome', nome);
-        body.append('grupo_inicial', this._grupoInicial);
-        body.append('grupo_atual', this._grupoAtual);
+        body.append('grupo', this._grupoAtual);
 
         const response = await fetch(this._LINK + '/upload/renomear-diretorio', {
             method: 'POST',
@@ -125,12 +124,16 @@ class ArquivoUpload {
 
         if (response.status != 204) {
             Alerta.notificacao(
-                json.mensagem != undefined ? json.mensagem : 'Ocorre um erro ao renomear o diretório.',
+                json.erro != undefined && json.erro.mensagem != undefined
+                    ? json.erro.mensagem
+                    : 'Ocorre um erro ao renomear o diretório.',
                 false
             );
             return;
         }
-        this._carregarEstruturaDiretorio();
+
+        await this._construtorPegarEstruturaDiretorio();
+        this._adicionarEstruturaMover();
         this._fecharBlocoEditar();
         const pasta = this._blocoConfigDiretorio.querySelector('.fw_upload_config_diretorio_nome');
         if (pasta) {
@@ -162,8 +165,6 @@ class ArquivoUpload {
         const body = new FormData();
         body.append('id', id);
         body.append('nome', nome);
-        body.append('grupo_inicial', this._grupoInicial);
-        body.append('grupo_atual', this._grupoAtual);
 
         const response = await fetch(this._LINK + '/upload/renomear', {
             method: 'POST',
@@ -181,7 +182,7 @@ class ArquivoUpload {
 
         if (response.status != 204) {
             Alerta.notificacao(
-                json.mensagem != undefined ? json.mensagem : 'Ocorre um erro ao renomear o arquivo.',
+                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorre um erro ao renomear o arquivo.',
                 false
             );
             return;
@@ -203,8 +204,6 @@ class ArquivoUpload {
         this._loadingShow();
 
         const body = new FormData();
-        body.append('grupo_atual', this._grupoAtual);
-        body.append('grupo_inicial', this._grupoInicial);
         itemMarcado.forEach(item => {
             body.append('id[]', item.getAttribute('data-id'));
         });
@@ -225,7 +224,7 @@ class ArquivoUpload {
 
         if (response.status != 204) {
             Alerta.notificacao(
-                json.mensagem != undefined ? json.mensagem : 'Ocorre um erro ao deletar os arquivos.',
+                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorre um erro ao deletar os arquivos.',
                 false
             );
             return;
@@ -285,11 +284,13 @@ class ArquivoUpload {
     | ABRIR E FECHAR BLOCO
     |--------------------------------------------------------------------------
     */
-    abrir() {
+    async abrir() {
         this._manipularClassesParaAbrir();
         this._inputPesquisa.value = '';
         this._pagina = 1;
-        this._carregarEstruturaDiretorio();
+
+        await this._construtorPegarEstruturaDiretorio();
+        this._adicionarEstruturaMover();
         this._carregarArquivo();
     }
     fechar() {
@@ -303,30 +304,14 @@ class ArquivoUpload {
             this._bloco.classList.add('fw_upload_abrir');
         }, 20);
     }
-    async _carregarEstruturaDiretorio() {
-        const body = new FormData();
-        body.append('grupo', this._grupoInicial);
-        const response = await fetch(this._LINK + '/upload/estrutura-diretorio', {
-            method: 'POST',
-            body,
-        });
-
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
-        if (response.status == 200 && json.diretorio && json.diretorio.length > 0) {
-            this._adicionarEstruturaMover(json.diretorio);
-        }
-    }
     _fecharUpload() {
         this._bloco.classList.remove('fw_upload_abrir');
         setTimeout(() => {
             document.querySelector('body').classList.remove('fw_upload_body');
             this._hide(this._bloco);
+            this._blocoListaDiretorio.innerHTML = '';
+            this._blocoConfigDiretorio.innerHTML = '';
+            this._blocoListaArquivo.innerHTML = '';
         }, 300);
     }
 
@@ -350,8 +335,7 @@ class ArquivoUpload {
         const body = new FormData();
         body.append('pesquisa', pesquisa);
         body.append('pagina', pagina);
-        body.append('grupo_inicial', this._grupoInicial);
-        body.append('grupo_atual', this._grupoAtual);
+        body.append('grupo', this._grupoAtual);
         if (this._body) {
             this._body.forEach((val, ind) => {
                 body.append(ind, val);
@@ -371,29 +355,29 @@ class ArquivoUpload {
 
         this._loadingHide();
 
-        if (json.pagina > pagina) {
+        if (json.dado.pagina > pagina) {
             this._show(this._botaoCarregarMais);
         }
 
-        const diretorioExiste = response.status == 200 && json.diretorio && json.diretorio.length > 0;
+        const diretorioExiste = response.status == 200 && json.dado.diretorio && json.dado.diretorio.length > 0;
         if (diretorioExiste && pagina == 1) {
-            this._adicionarDiretorio(json.diretorio);
+            this._adicionarDiretorio(json.dado.diretorio);
         }
 
-        const arquivoExiste = response.status == 200 && json.arquivo && json.arquivo.length > 0;
+        const headerExiste = response.status == 200 && json.dado.header && json.dado.header.length > 0;
+        if (headerExiste && pagina == 1) {
+            this._adicionarHeader(json.dado.header);
+        }
+
+        const arquivoExiste = response.status == 200 && json.dado.arquivo && json.dado.arquivo.length > 0;
         if (!arquivoExiste && !diretorioExiste && pesquisa == '' && pagina == 1) {
             this._show(this._blocoZero);
         } else if (!arquivoExiste && pesquisa != '' && pagina == 1) {
             this._show(this._blocoZeroBusca);
         }
 
-        const headerExiste = response.status == 200 && json.header && json.header.length > 0;
-        if (headerExiste && pagina == 1) {
-            this._adicionarHeader(json.header);
-        }
-
         if (arquivoExiste) {
-            await this._adicionarArquivo(json.arquivo);
+            await this._adicionarArquivo(json.dado.arquivo);
         }
         this._mostrarBlocoBotao();
     }
@@ -430,20 +414,18 @@ class ArquivoUpload {
             this._hide(this._blocoHeaderConfigLinha);
         }
     }
+
     _adicionarHeader(header) {
         let quantidade = header.length;
         if (quantidade == 0) {
             return;
         }
-
         this._show(this._blocoConfigDiretorio);
-
         if (quantidade > 1) {
             this._show(this._botaoConfigVoltar);
         } else {
             this._hide(this._botaoConfigVoltar);
         }
-
         let i, html;
         for (i = 0; i < quantidade; ++i) {
             if (i == quantidade - 1) {
@@ -523,8 +505,7 @@ class ArquivoUpload {
     }
     async _deletarDiretorio() {
         const body = new FormData();
-        body.append('grupo_atual', this._grupoAtual);
-        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo', this._grupoAtual);
 
         this._loadingShow();
 
@@ -544,12 +525,14 @@ class ArquivoUpload {
 
         if (response.status != 204) {
             Alerta.notificacao(
-                json.mensagem != undefined ? json.mensagem : 'Ocorreu um erro ao deletar diretório.',
+                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorreu um erro ao deletar diretório.',
                 false
             );
             return;
         }
-        this._carregarEstruturaDiretorio();
+
+        await this._construtorPegarEstruturaDiretorio();
+        this._adicionarEstruturaMover();
         this._voltarParaDiretorioAnterior();
         this._mostrarBlocoBotao();
     }
@@ -586,7 +569,8 @@ class ArquivoUpload {
             }
         }, 300);
     }
-    _adicionarEstruturaMover(diretorio) {
+    _adicionarEstruturaMover() {
+        const diretorio = this._estruturaDiretorio;
         const html = this._adicionarEstruturaMoverHtml(diretorio);
         this._show(this._blocoListaMoverLista);
         this._blocoListaMoverLista.innerHTML = html;
@@ -667,9 +651,7 @@ class ArquivoUpload {
         this._loadingShow();
 
         const body = new FormData();
-        body.append('grupo_inicial', this._grupoInicial);
-        body.append('grupo_atual', this._grupoAtual);
-        body.append('grupo_destino', grupo);
+        body.append('grupo', grupo);
         body.append('nome', nome);
         selecionado.forEach(item => {
             body.append('id[]', item.getAttribute('data-id'));
@@ -691,19 +673,20 @@ class ArquivoUpload {
 
         if (response.status != 201) {
             Alerta.notificacao(
-                json.mensagem == undefined ? 'Ocorreu um erro ao mover arquivos.' : json.mensagem,
+                json.erro.mensagem == undefined ? 'Ocorreu um erro ao mover arquivos.' : json.erro.mensagem,
                 false
             );
             return;
         }
 
-        if (grupo == this._grupoAtual && json.id != undefined) {
-            await this._adicionarNovoDiretorio(json.id, json.nome);
+        if (grupo == this._grupoAtual && json.dado.id != undefined) {
+            await this._adicionarNovoDiretorio(json.dado.id, json.dado.nome);
             const listaDiretorio = document.querySelectorAll('.fw_upload_arquivo_diretorio_pasta_novo');
             this._adicionarEventoAoDiretorio(listaDiretorio);
         }
-        if (json.id != undefined) {
-            this._carregarEstruturaDiretorio();
+        if (json.dado.id != undefined) {
+            await this._construtorPegarEstruturaDiretorio();
+            this._adicionarEstruturaMover();
         }
 
         this._removerArquivosSelecionado();
@@ -736,8 +719,7 @@ class ArquivoUpload {
         const input = this._botaoHeaderUpload;
         const body = new FormData();
         body.append('arquivo', arquivo);
-        body.append('grupo_inicial', this._grupoInicial);
-        body.append('grupo_atual', this._grupoAtual);
+        body.append('grupo', this._grupoAtual);
 
         const bloco = await this._htmlNovoArquivo(true);
         const response = await fetch(this._LINK + '/upload/salvar', {
@@ -754,7 +736,7 @@ class ArquivoUpload {
         }
         if (response.status != 201) {
             Alerta.notificacao(
-                json.mensagem != undefined ? json.mensagem : 'Ocorre um erro ao fazer o upload do arquivo.',
+                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorre um erro ao fazer o upload do arquivo.',
                 false
             );
             bloco.parentNode.removeChild(bloco);
@@ -771,16 +753,16 @@ class ArquivoUpload {
         }
 
         bloco.classList.remove('fw_upload_arquivo_loading');
-        if (json.id != undefined) {
+        if (json.dado.id != undefined) {
             this._show(this._botaoHeaderSelecionar);
             this._show(this._blocoHeaderConfigLinha);
-            this._adicinarEventoNovoArquivo(bloco, json);
+            this._adicinarEventoNovoArquivo(bloco, json.dado);
         }
         this._mostrarBlocoBotao();
     }
     _adicinarEventoNovoArquivo(bloco, data) {
         bloco.setAttribute('data-id', data.id);
-        bloco.setAttribute('data-equipe', data.equipe);
+        bloco.setAttribute('data-dono', data.dono);
         bloco.setAttribute('data-nome', data.nome);
         bloco.setAttribute('data-extensao', data.extensao);
         bloco.setAttribute('data-tamanho', data.tamanho);
@@ -892,7 +874,7 @@ class ArquivoUpload {
         }
         this._blocoDado.classList.add('fw_upload_dado_abrir');
 
-        const dono = item.getAttribute('data-equipe');
+        const dono = item.getAttribute('data-dono');
         const nome = item.getAttribute('data-nome');
         const extensao = item.getAttribute('data-extensao');
         const tamanho = item.getAttribute('data-tamanho');
@@ -977,9 +959,13 @@ class ArquivoUpload {
     */
     async _constructor(grupo, body) {
         await this._construtorPropriedadeInicial(grupo, body);
-        if (!(await this._construtorPegarExtensoes())) {
+        await this._construtorPegarEstruturaDiretorio();
+
+        const extensao = await this._construtorPegarExtensoes();
+        if (await !extensao) {
             return;
         }
+
         await this._contrutorMontarHtml();
         await this._construtorSetaBlocos();
         this._construtorSetarEventosIniciais();
@@ -1000,26 +986,46 @@ class ArquivoUpload {
         });
     }
     _construtorPegarExtensoes() {
-        const body = new FormData();
-        body.append('grupo', this._grupoInicial);
-        return fetch(this._LINK + '/upload/extensao', {
-            method: 'POST',
-            body,
-        })
-            .then(response => {
-                return response
-                    .json()
-                    .then(response => {
-                        if (response.extensao == undefined) {
-                            return false;
-                        }
-                        this._extensao = response.extensao;
-                        return true;
-                    })
-                    .catch(() => false);
-            })
-            .catch(() => false);
+        return new Promise(async resolve => {
+            const body = new FormData();
+            body.append('grupo', this._grupoInicial);
+            const resposta = await fetch(this._LINK + '/upload/extensao', {
+                method: 'POST',
+                body,
+            });
+            const json = await resposta.json();
+            if (json.dado == undefined) {
+                resolve(false);
+            }
+            this._extensao = json.dado;
+            resolve(true);
+        });
     }
+    _construtorPegarEstruturaDiretorio() {
+        return new Promise(async resolve => {
+            const body = new FormData();
+            body.append('grupo', this._grupoInicial);
+
+            const response = await fetch(this._LINK + '/upload/estrutura-diretorio', {
+                method: 'POST',
+                body,
+            });
+
+            let json;
+            try {
+                json = await response.json();
+            } catch (error) {
+                json = {};
+            }
+
+            if (response.status == 200) {
+                this._estruturaDiretorio = json.dado;
+                resolve(true);
+            }
+            resolve(false);
+        });
+    }
+
     _construtorSetaBlocos() {
         this._loadingGeral = this._bloco.querySelector('.fw_upload_loading_geral');
         this._loadingBarra = this._bloco.querySelector('.fw_upload_loading_barra');
@@ -1243,7 +1249,7 @@ class ArquivoUpload {
             this._selecionarTodosOsArquivo();
         });
     }
-    _contrutorMontarHtml(tipo) {
+    _contrutorMontarHtml() {
         return new Promise(resolve => {
             const nome = Math.floor(Date.now() * Math.random()).toString(36);
             const id = `fw_upload_${nome}`;

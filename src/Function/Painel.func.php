@@ -585,13 +585,16 @@ if (!function_exists('painelInputLista')) {
             }
             $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado) ? painelValor($dado, $name, formatar: $formatar) : '';
 
-            if ($funcao == 'switch') {
-                $input['check'] = $valor == 1;
+            if ($funcao == 'imagem' && validarUuid($valor, false)) {
+                $input['value'] = arquivoPrivado($valor);
+            } else if ($funcao == 'switch') {
+                $input['check'] = in_array($valor, [1, 'sim']);
             } else if ($funcao == 'checkbox') {
                 $input['check'] = is_array($valor) && !empty($valor) && !empty($input['value']) && in_array($input['value'], $valor);
             } else {
                 $input['value'] = $valor;
             }
+
 
             if (array_key_exists('placeholder', $input) && empty($input['placeholder'])) {
                 $input['placeholder'] = $input['label'];

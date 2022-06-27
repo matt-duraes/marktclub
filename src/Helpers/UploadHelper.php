@@ -16,8 +16,22 @@ final class UploadHelper
     private string $diretorioFinal;
     private ?Image $imagem = null;
 
+    /**
+     * Manipula arquivos de upload
+     *
+     * @param   null|UploadedFile       $arquivo        Arquivo do UploadedFile para manipular
+     * @param   string                  $diretorio      Diretório que deseja salvar o arquivo
+     * @param   array                   $ext            Extensões aceitas
+     * @param   array                   $mimeType       MimeTypes aceitos
+     * @param   null|string             $nome           Nome para o arquivo, caso não seja passado, pega o nome real do arquivo
+     * @param   null|int                $nomeMaximo     Número de caracteres máximo para o nome
+     * @param   bool                    $nomeForcar     Força salvar com o nome mesmo que já exista um arquivo com o mesmo nome
+     * @param   null|int                $mbMaximo       MB máximo do arquivo
+     * @param   array                   $mensagem       Mensagem personalidas de erro
+     * @param   string                  $path           Path do diretório raiz
+     */
     public function __construct(
-        private UploadedFile $arquivo,
+        private ?UploadedFile $arquivo,
         private string $diretorio,
         private array $ext = [],
         private array $mimeType = [],
@@ -172,10 +186,10 @@ final class UploadHelper
     }
 
     /**
-     * @param Mixed     $width      Tamanho que a imagem deve ficar
-     * @param Mixed     $height     Altura que a imagem deve ficar
+     * @param ?int     $width      Tamanho que a imagem deve ficar
+     * @param ?int     $height     Altura que a imagem deve ficar
      */
-    public function redimencionar($width = null, $height = null): self
+    public function redimencionar(?int $width = null, ?int $height = null): self
     {
         if (!$this->verificarSeArquivoEImagem()) {
             throw new Excecao(

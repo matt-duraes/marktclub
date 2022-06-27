@@ -8,8 +8,8 @@ final class Constantes
     {
         define('DIRETORIO_VIEW', env('DIRETORIO_VIEW', 'public'));
         define('ROOT', $this->root());
-        define('TITULO', env('TITULO', ''));
-        define('DESCRICAO', env('DESCRICAO', ''));
+        define('TITULO', env('APP_TITULO', ''));
+        define('DESCRICAO', env('APP_DESCRICAO', ''));
         define('CACHE', $this->cache());
         define(
             'DIRETORIO_PRIVADO',

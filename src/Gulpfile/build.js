@@ -148,6 +148,9 @@ exports.buildArquivosRaiz = () => {
         .pipe(plumber())
         .pipe(dest('./'));
 };
+exports.buildArquivoErro = () => {
+    return src('./src/Files/erro/lista.txt').pipe(plumber()).pipe(dest('./files/erro'));
+};
 exports.buildArquivosTeste = () => {
     return src(['./src/Tests/selenium.jar']).pipe(plumber()).pipe(dest('./tests/server'));
 };
@@ -170,6 +173,7 @@ exports.buildDiretorios = async () => {
     await fsCriarDiretorio('./files/banco');
     await fsCriarDiretorio('./files/build');
     await fsCriarDiretorio('./files/log');
+    await fsCriarDiretorio('./files/erro');
     await fsCriarDiretorio('./files/banco');
     await fsCriarDiretorio('./files/banco/mariadb');
     await fsCriarDiretorio('./files/phpmussel');

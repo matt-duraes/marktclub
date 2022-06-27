@@ -2,8 +2,7 @@
 
 use Http\Response;
 
-$hash = explode('.', explode('?', $requestUri)[0])[1];
-$nome = (new \Helpers\CryptHelper())->decode($hash);
+$nome = arquivoPublicoNome($requestUri);
 
 if (empty($nome)) {
     mensagemStatus(404, 'O arquivo está sem nome.');

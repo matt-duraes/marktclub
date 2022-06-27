@@ -252,7 +252,7 @@ class RoboHelper
     public function form(?array $dado = null, ?string $indice = null): string|array|bool|RoboHelper
     {
         if (!$this->ElementoAtual->matches('form')) {
-            return throw new \Exception('O elemento não é um formulário.');
+            throw new \Exception('O elemento não é um formulário.');
         }
 
         if (is_array($dado) && $dado) {

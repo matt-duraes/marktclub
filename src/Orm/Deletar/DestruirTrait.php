@@ -3,9 +3,6 @@
 namespace ORM\Deletar;
 
 use Erro\Excecao;
-use PDOStatement;
-use ReflectionObject;
-use ReflectionProperty;
 
 trait DestruirTrait
 {
@@ -20,7 +17,9 @@ trait DestruirTrait
             $this->regraDestruir();
         }
 
+        $deletarArquivo = $this->ormPegarArquivoParaDeletar($this->_entityRetorno, true);
         $this->where(['id', $id])->delete();
+        $this->ormDeletarArquivos($deletarArquivo);
 
         if (method_exists($this, 'regraPosDestruir')) {
             $this->regraPosDestruir();

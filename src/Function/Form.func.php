@@ -1470,7 +1470,7 @@ if (!function_exists('formEditor')) {
      * @param   string    $value                Valor inicial do editor
      * @param   string    $diretorioImagem      Diretório para as imagens
      * @param   string    $diretorioArquivo     Diretório para os arquivos
-     * @param   string    $bar                  Campos que terão na barra podendo ser: heading, bold, italic, underline, fontColor, fontBackgroundColor, alignment, link, removeFormat, fwimage, fwfile, mediaEmbed, insertTable, codeBlock, horizontalLine, blockQuote, indent, outdent, numberedList e bulletedList - Passar valores separador por espaço. Ex.: bold italic | fontColor
+     * @param   string    $bar                  Campos que terão na barra podendo ser: heading, bold, italic, underline, Strikethrough, fontColor, fontBackgroundColor, alignment, link, removeFormat, fwimage, fwfile, mediaEmbed, insertTable, codeBlock, horizontalLine, blockQuote, indent, outdent, numberedList e bulletedList - Passar valores separador por espaço. Ex.: bold italic | fontColor
      * @param   string    $barBalao             Campos que terão no balão podendo ser os mesmos do $bar
      * @param   string    $id                   ID para o bloco geral
      * @param   string    $class                Class para o bloco geral
@@ -1504,9 +1504,9 @@ if (!function_exists('formEditor')) {
             $footerHtml = formFooter(true);
         }
 
-        $bar = !empty($bar) ? str_replace(' ', ',', trim($bar)) : 'heading,|,bold,italic,underline,FwDestaque,|,fontColor,fontBackgroundColor,|,alignment,|,link,removeFormat,|,fwImagem,fwArquivo,mediaEmbed,|,insertTable,codeBlock,|,horizontalLine,blockQuote,FwObservacao,|,indent,outdent,numberedList,bulletedList';
+        $bar = !empty($bar) ? str_replace(' ', ',', trim($bar)) : 'heading,|,bold,italic,underline,Strikethrough,FwDestaque,|,fontColor,fontBackgroundColor,|,alignment,|,link,removeFormat,|,fwImagem,fwArquivo,mediaEmbed,|,insertTable,codeBlock,|,horizontalLine,blockQuote,FwObservacao,|,indent,outdent,numberedList,bulletedList';
         if (is_null($barBalao)) {
-            $barBalao = 'bold,italic,underline,FwDestaque,|,fontColor,fontBackgroundColor,|,link,removeFormat';
+            $barBalao = 'bold,italic,underline,Strikethrough,FwDestaque,|,fontColor,fontBackgroundColor,|,link,removeFormat';
         }
         $classeEditor = '';
         if ($tipo == 'classico') {
@@ -1582,6 +1582,7 @@ if (!function_exists('formImagem')) {
         $attrGaleria = '';
 
         if (!empty($value)) {
+            $value = arquivoPrivadoId($value);
             $imagem = arquivoPrivado($value);
             $imagemCss = 'style="background-image: url(' . $imagem . ')"';
             $botaoDisplay = '';

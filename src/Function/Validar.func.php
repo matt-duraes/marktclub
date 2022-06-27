@@ -377,8 +377,7 @@ if (!function_exists('validarUuid')) {
      */
     function validarUuid($uuid, bool $erro = true): bool
     {
-        $caracteres = mb_strlen($uuid, 'UTF-8');
-        $uuidValido = is_string($uuid) && !empty($uuid) && !is_numeric($uuid) && in_array($caracteres, [32, 36]);
+        $uuidValido = is_string($uuid) && preg_match('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $uuid);
 
         if (!$erro) {
             return $uuidValido;
@@ -387,5 +386,21 @@ if (!function_exists('validarUuid')) {
         }
 
         return true;
+    }
+}
+if (!function_exists('validarPagina')) {
+    // doc
+    // exemplo
+    // echo validarPagina 1
+    // echo validarPagina false
+    /**
+     * Valida se o valor é uma número de página válido
+     *
+     * @param   string|int $pagina Número da página que deseja validar
+     * @return  bool
+     */
+    function validarPagina(string|int $pagina): bool
+    {
+        return preg_match('/^[1-9]{1}[0-9]*$/', $pagina);
     }
 }

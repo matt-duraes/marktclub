@@ -23,6 +23,7 @@ const {
     buildCopiandoUpdate,
     buildLimparFramework,
     buildPaginaExemplo,
+    buildArquivoErro,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
@@ -60,6 +61,7 @@ exports.install = series(
         copiandoArquivoParaEnv,
         copiandoArquivoParaPhpMussel
     ),
+    copiandoArquivoDeErro,
     criandoPaginaExemplo
 );
 
@@ -226,6 +228,9 @@ function copiandoArquivosDeteste() {
 }
 function copiandoArquivosPublicos() {
     return buildArquivosPublico();
+}
+function copiandoArquivoDeErro() {
+    return buildArquivoErro();
 }
 
 function copiandoArquivoParaEnv() {
