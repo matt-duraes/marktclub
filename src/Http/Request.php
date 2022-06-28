@@ -178,7 +178,7 @@ final class Request extends Psr7Request
         foreach ($dado as $ind => $val) {
             $valorDecode = $Crypt->decode($val);
             if (!empty($val) && empty($valorDecode)) {
-                mensagemErro('Erro!', 'Não foi possível remover a criptografia do indice ' . $ind . '.');
+                mensagemErro('Erro!', 'Não foi possível remover a criptografia do indice ' . $ind . ' ou ele não está criptografado.');
             }
             $retorno[$ind] = $valorDecode;
         }

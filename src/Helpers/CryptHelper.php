@@ -51,6 +51,10 @@ final class CryptHelper
             $dado = json_encode($dado);
         }
 
+        if (empty($dado)) {
+            return '';
+        }
+
         try {
             $status = openssl_public_encrypt($dado, $hash, $this->chavePublica);
         } catch (\Throwable) {

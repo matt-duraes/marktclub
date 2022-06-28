@@ -14,11 +14,11 @@ use Modules\Telefone;
 use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\Situacao;
+use App\Classes\UsuarioCliente\Criptografia;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Models\Api\UsuarioPagamento\PagamentoModel;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 
 final class ClienteEntity extends Entity
@@ -77,6 +77,7 @@ final class ClienteEntity extends Entity
         tipo_pagamento|Tipo de pagamento|valido
         status|Status|vazio|valido
     ';
+    protected array $_criptografia = Criptografia::DADO_PESSOAL;
 
     public Cpf $cpf;
     public Email $email;
@@ -113,51 +114,6 @@ final class ClienteEntity extends Entity
         }
         $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->_wherePadrao = ['empresa', $this->idEmpresa];
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | RETORNO DOS DADOS
-    |--------------------------------------------------------------------------
-    */
-    public function retorno()
-    {
-        return [
-            'id' => $this->id,
-            'nome' => strNull($this->nome),
-            'siape' => strNull($this->siape),
-            'cpf' => $this->cpf->numero(),
-            'rg' => $this->rg,
-            'email_trabalho' => $this->email_trabalho->email(),
-            'email_pessoal' => $this->email_pessoal->email(),
-            'email_funcional' => $this->email_funcional->email(),
-            'telefone_trabalho' => $this->telefone_trabalho->numero(),
-            'telefone_pessoal' => $this->telefone_pessoal->numero(),
-            'estado_civil' => $this->estado_civil->estadoCivil(),
-            'genero' => $this->genero->genero(),
-            'imagem' => LINK_ARQUIVO . '/usuario/padrao.png',
-            'data_nascimento' => $this->data_nascimento->date(),
-            'matricula' => strNull($this->matricula),
-            'endereco_cep' => strNull($this->endereco_cep),
-            'endereco_logradouro' => strNull($this->endereco_logradouro),
-            'endereco_numero' => strNull($this->endereco_numero),
-            'endereco_complemento' => strNull($this->endereco_complemento),
-            'endereco_bairro' => strNull($this->endereco_bairro),
-            'endereco_cidade' => strNull($this->endereco_cidade),
-            'endereco_estado' => strCaixaAlta($this->endereco_estado),
-            'primeiro_acesso' => $this->primeiro_acesso->valor(),
-            'possui_senha' => !empty($this->prop('salt')) ? 'sim' : 'nao',
-            'mudar_senha' => $this->mudar_senha->valor(),
-            'situacao' => $this->situacao->indice(),
-            'contrato_siape' => $this->contrato_siape,
-            'trabalho_empresa' => $this->trabalho_empresa->indice(),
-            'trabalho_cargo' => $this->trabalho_cargo->indice(),
-            'tipo_pagamento' => $this->tipo_pagamento->indice(),
-            'pagamento' => (new PagamentoModel())->buscarPagamento($this->id),
-            'trabalho_data_inicio' => $this->trabalho_data_inicio->date(),
-            'mensagem' => $this->mensagem->valor(),
-            'status' => $this->status->indice()
-        ];
     }
 
     /*

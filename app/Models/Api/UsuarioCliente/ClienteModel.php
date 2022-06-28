@@ -96,12 +96,12 @@ final class ClienteModel extends ORM
                     $val = strNull($val);
                 } else if ($ind == 'telefone_fixo') {
                     $ind = 'telefone_trabalho';
-                    $val = (new Telefone($val))->telefone();
+                    $val = (new Telefone($val))->numero();
                 } else if ($ind == 'telefone_celular') {
                     $ind = 'telefone_pessoal';
-                    $val = (new Telefone($val))->telefone();
+                    $val = (new Telefone($val))->numero();
                 } else if (in_array($ind, ['data_criacao', 'data_atualizacao', 'data_acesso'])) {
-                    $val = (new DataHora($val))->data();
+                    $val = (new DataHora($val))->date();
                 } else if ($ind == 'tipo') {
                     $val = [1 => 'titular', 2 => 'dependente', 3 => 'admin'][$val] ?? '';
                 } else if ($ind == 'status') {
