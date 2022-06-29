@@ -47,6 +47,7 @@ final class AppController extends Controller
         if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
             mensagemStatus(500, localhost: 'Ocorreu um erro ao fazer a busca na API.');
         }
+        $dado->dado->lista = $this->tratarListaDeRetorno($dado->dado->lista, $config->api->criptografar);
 
         return view(
             arquivo: $config->index->app . '.index',
@@ -225,7 +226,7 @@ final class AppController extends Controller
         if (empty($lista)) {
             throw new Erro(mensagem: 'Não existe uma lista de indices para salvar ou ela está vazia.');
         }
-        $lista = $this->tratarListaParaSalvar($lista, $requestCampo, $config->api->criptografia);
+        $lista = $this->tratarListaParaSalvar($lista, $requestCampo, $config->api->criptografar);
 
         $uri = $config->api->uri;
         if ($acao == 'insert') {
@@ -273,6 +274,7 @@ final class AppController extends Controller
         if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
             mensagemStatus(500);
         }
+        ppe($dado);
 
         return view(
             arquivo: $config->add->app . '.add',
@@ -280,7 +282,7 @@ final class AppController extends Controller
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'editar',
-                'dado' => $config->api->criptografia ? $this->removerCriptografia($dado->dado) : $dado->dado,
+                'dado' => $config->api->criptografar ? descriptografarDado($dado->dado, lista: $config->api->criptografar) : $dado->dado,
                 'request' => $request,
                 'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : '',
                 'linkVoltar' => $config->add->link

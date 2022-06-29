@@ -14,7 +14,6 @@ use Modules\Telefone;
 use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\Situacao;
-use App\Classes\UsuarioCliente\Criptografia;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\Painel\ConfiguracaoEntity;
@@ -38,6 +37,7 @@ final class ClienteEntity extends Entity
         'endereco_estado' => 'uf',
         'endereco_cidade' => 'cidade',
         'trabalho_empresa' => 'trabalho_orgao',
+        'senha' => 'salt',
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
@@ -48,7 +48,6 @@ final class ClienteEntity extends Entity
         'sexo' => '->genero',
         'telefone_celular' => '->telefone_pessoal',
         'telefone_fixo' => '->telefone_trabalho',
-        'salt' => '->senha',
         'aniversario' => '->data_nascimento',
         'uf' => '->endereco_estado',
         'cidade' => '->endereco_cidade',
@@ -56,7 +55,7 @@ final class ClienteEntity extends Entity
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
-        'tipo_pagamento', 'trabalho_data_inicio'
+        'tipo_pagamento', 'trabalho_data_inicio', 'salt'
     ];
     protected array $_insert = [
         'empresa' => '->idEmpresa',
@@ -77,7 +76,6 @@ final class ClienteEntity extends Entity
         tipo_pagamento|Tipo de pagamento|valido
         status|Status|vazio|valido
     ';
-    protected array $_criptografia = Criptografia::DADO_PESSOAL;
 
     public Cpf $cpf;
     public Email $email;
@@ -132,6 +130,15 @@ final class ClienteEntity extends Entity
         $request = $this->request;
         if ($request->existe('nome')) {
             $this->nome = strCaixaAltaAlta($this->nome);
+        }
+
+        $senhaExiste = $this->propriedadeExiste('senha') && !$this->senha->vazio();
+        if ($senhaExiste && !$this->senha->valido()) {
+            mensagemErro('Senha inválida!', $this->senha->mensagem());
+        } else if ($senhaExiste && $this->senha->mesmaSenha()) {
+            mensagemErro('Senha inválida!', 'Você não pode salvar a mesma senha da senha atual.');
+        } else if ($senhaExiste) {
+            $this->salt = $this->senha;
         }
 
         if ($request->existe('endereco_cep')) {

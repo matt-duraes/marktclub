@@ -90,7 +90,7 @@ abstract class PadraoController extends Controller
             'ordem' => $Index->pegarOrdem(),
             'api' => (object)[
                 'uri' => $config['api']['uri'],
-                'criptografia' => $config['api']['criptografia'] ?? false
+                'criptografar' => $config['api']['criptografar'] ?? []
             ],
             'index' => (object)[
                 'app' => $appUso,
@@ -156,7 +156,7 @@ abstract class PadraoController extends Controller
             ],
             'api' => (object)[
                 'uri' => $config['api']['uri'],
-                'criptografia' => $config['api']['criptografia'] ?? false
+                'criptografar' => $config['api']['criptografar'] ?? []
             ],
         ];
     }
@@ -184,7 +184,7 @@ abstract class PadraoController extends Controller
             ],
             'api' => (object)[
                 'uri' => $config['api']['uri'],
-                'criptografia' => $config['api']['criptografia'] ?? false
+                'criptografar' => $config['api']['criptografar'] ?? []
             ],
         ];
     }
@@ -233,7 +233,7 @@ abstract class PadraoController extends Controller
             ],
             'api' => object([
                 'uri' => $config['api']['uri'],
-                'criptografia' => $config['api']['criptografia'] ?? false
+                'criptografar' => $config['api']['criptografar'] ?? []
             ])
         ];
     }
@@ -289,7 +289,7 @@ abstract class PadraoController extends Controller
             ],
             'api' => object([
                 'uri' => $config['api']['uri'],
-                'criptografia' => $config['api']['criptografia'] ?? false
+                'criptografar' => $config['api']['criptografar'] ?? []
             ])
         ];
     }
@@ -309,7 +309,7 @@ abstract class PadraoController extends Controller
             ],
             'api' => object([
                 'uri' => $config['api']['uri'],
-                'criptografia' => $config['api']['criptografia'] ?? false
+                'criptografar' => $config['api']['criptografar'] ?? []
             ])
         ];
     }
@@ -385,7 +385,7 @@ abstract class PadraoController extends Controller
         }
     }
 
-    protected function tratarListaParaSalvar($lista, $permitido, $criptografia = false)
+    protected function tratarListaParaSalvar($lista, array $permitido, array $criptografia = [])
     {
         $Crypt = $criptografia ? new CryptHelper(chavePublica: $this->pegarChavePublica($criptografia)) : null;
 
@@ -399,13 +399,15 @@ abstract class PadraoController extends Controller
             } else if (is_string($val) && validarDataHora($val)) {
                 $val = dataHoraBanco($val);
             }
-            $retorno[$ind] = $criptografia && !empty($val) ? $Crypt->encode($val) : $val;
+            $retorno[$ind] = $criptografia && !empty($val) && in_array($ind, $criptografia) ?
+                $Crypt->encode($val) :
+                $val;
         }
         return $retorno;
     }
-    private function pegarChavePublica(bool $criptografia)
+    private function pegarChavePublica(array $criptografia)
     {
-        if (!$criptografia) {
+        if (empty($criptografia)) {
             return '';
         }
         $Api = new ApiHelper(token: true);
@@ -419,15 +421,15 @@ abstract class PadraoController extends Controller
         return $chave->dado->chave ?? '';
     }
 
-    protected function removerCriptografia($dado)
+    protected function tratarListaDeRetorno($dado, $criptografia)
     {
-        $chave = $this->pegarChavePrivada();
-        $Crypt = new CryptHelper(chavePrivada: $chave);
-
-        $retorno = [];
-        foreach ($dado as $ind => $val) {
-            $retorno[$ind] = !empty($val) ? $Crypt->decode($val) : $val;
+        if (empty($criptografia)) {
+            return $dado;
         }
-        return object($retorno);
+        $chave = $this->pegarChavePrivada();
+        foreach ($dado as $ind => $val) {
+            $retorno[$ind] = object(descriptografarDado($val, $criptografia, $chave));
+        }
+        return $retorno;
     }
 }

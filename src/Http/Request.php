@@ -158,11 +158,12 @@ final class Request extends Psr7Request
     /**
      * Igual o dado() mas quando os dados estão criptografados
      *
-     * @param null|string   $chave          Caso queira usar uma chave simples para descriptografar
-     * @param null|string   $chavePrivada   Caso queira usar uma chave privada para uma criptografia criada por chave pública
-     * @return  array                       Array com a lista de dados recebidos pela request
+     * @param   null|string     $chave              Caso queira usar uma chave simples para descriptografar
+     * @param   null|string     $chavePrivada       Caso queira usar uma chave privada para uma criptografia criada por chave pública
+     * @param   array           $descriptografar    Lista de campos que deseja descriptografar
+     * @return  array                               Array com a lista de dados recebidos pela request
      */
-    public function dadoDecode(?string $chave = null, ?string $chavePrivada = null): array
+    public function dadoDecode(?string $chave = null, ?string $chavePrivada = null, array $descriptografar = []): array
     {
         if (empty($chave) && empty($chavePrivada)) {
             return [];
@@ -176,7 +177,7 @@ final class Request extends Psr7Request
         $dado = $this->dado();
         $retorno = [];
         foreach ($dado as $ind => $val) {
-            $valorDecode = $Crypt->decode($val);
+            $valorDecode = empty($descriptografar) || in_array($ind, $descriptografar) ? $Crypt->decode($val) : $val;
             if (!empty($val) && empty($valorDecode)) {
                 mensagemErro('Erro!', 'Não foi possível remover a criptografia do indice ' . $ind . ' ou ele não está criptografado.');
             }

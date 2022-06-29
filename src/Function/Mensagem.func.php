@@ -76,11 +76,16 @@ if (!function_exists('mensagemSucesso')) {
      * @return  Response        Retorna um ResponseInterface com um array no formato: ["status" => "sucesso", "dado" => $dado]
      * @throws  Erro\Excecao    Retorna uma exceção caso seja passa um status errado
      */
-    function mensagemSucesso(array|stdClass $dado, int $status = 200): Response
+    function mensagemSucesso(array|stdClass $dado, int $status = 200, array $criptografar = []): Response
     {
         if (!in_array($status, [200, 201])) {
             throw new Excecao(titulo: 'Campo inválido!', mensagem: 'Você passou um status inválido.');
         }
+
+        if ($criptografar) {
+            $dado = criptografarDado($dado, $criptografar);
+        }
+
         return new Response(json: [
             'status' => 'sucesso',
             'dado' => $dado

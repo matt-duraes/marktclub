@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioCliente\Helper;
+
 return [
     'titulo' => 'Usuários',
     'buscar' => true,
@@ -13,6 +15,7 @@ return [
     'historico' => true,
     'api' => [
         'scope' => 'usuario_cliente',
-        'uri' => '/usuario-cliente'
+        'uri' => '/usuario-cliente',
+        'criptografar' => Helper::DADO_PESSOAL
     ]
 ];

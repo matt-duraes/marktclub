@@ -6,7 +6,7 @@ final class CryptHelper
 {
     /**
      * @param null|string   $chave          Chave para criptografar, ENV('CRYPT_HASH') por padrão
-     * @param null|string   $cipher         Um método cipher válido, AES-256-GCM por padrão
+     * @param null|string   $cipher         Um método cipher válido, AES-256-CBC por padrão
      * @param null|string   $chavePublica   Chave pública caso queira usar RSA
      * @param null|string   $chavePrivada   Chave privada caso queira usar RSA
      * @param bool          $url            Se vai converter o encode em URL

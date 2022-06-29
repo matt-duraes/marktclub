@@ -460,6 +460,16 @@ Route
         Route
             ::nome('usuarioSituacao')
             ::get('/admin/usuario-situacao');
+
+        Route
+            ::nome('chavePublica')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:chave_publica'])
+            ::get('/admin/chave-publica');
+
+        Route
+            ::nome('chavePrivada')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:chave_privada'])
+            ::get('/admin/chave-privada');
     });
 
 Route

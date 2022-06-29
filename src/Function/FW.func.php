@@ -13,6 +13,7 @@ use Erro\Erro;
 use Erro\Excecao;
 use Http\Request;
 use Helpers\CryptHelper;
+use PHPUnit\Framework\Constraint\IsNull;
 
 /*/
 |--------------------------------------------------------------------------
@@ -537,8 +538,7 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
         array $lista = [],
         array $remover = [],
         $null = true,
-        $empty = true,
-        ?string $chave = null
+        $empty = true
     ): array {
 
         $listaBusca = ['id'];
@@ -559,7 +559,6 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             $listaBusca = array_flip($listaBusca);
         }
 
-        $Crypt = !empty($chave) ? new CryptHelper(chavePublica: $chave) : null;
         $retorno = [];
         foreach ($listaBusca as $ind => $nome) {
             $campo = $nome;
@@ -608,7 +607,7 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             ) {
                 continue;
             }
-            $retorno[$campo] = !empty($chave) && !empty($valor) ? $Crypt->encode($valor) : $valor;
+            $retorno[$campo] = $valor;
         }
         return $retorno;
     }
@@ -949,32 +948,47 @@ if (!function_exists('descriptografarDado')) {
      * @param   array           $lista  Lista de campos que devem ser criptografados quando o valor for um array
      * @return  string|array            String quando o valor for uma string ou um array quando o valor for um array
      */
-    function descriptografarDado(string|array $valor, array $lista, ?string $chave = null): array|string
+    function descriptografarDado(string|stdClass|array $valor, array $lista, ?string $chave = null): array|string
     {
         $chave =
             is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
             TOKEN['app']->chave_privada :
             $chave;
-
         $Crypt = new CryptHelper(chavePrivada: $chave);
 
-        if (!is_array($valor)) {
+        if ($valor instanceof stdClass) {
+            $valor = (array) $valor;
+        } else if (!is_array($valor)) {
             return !empty($valor) ? $Crypt->decode($valor) : $valor;
         }
 
         $retorno = [];
         foreach ($valor as $ind => $val) {
-            if (is_array($val)) {
+            if (is_array($val) || is_object($val)) {
                 foreach ($val as $ind2 => $val2) {
                     if (!empty($val2) && in_array($ind2, $lista)) {
-                        $val2 = $Crypt->decode($val2);
+                        $valorTemp = $Crypt->decode($val2);
+                        if (!empty($val2) && empty($valorTemp)) {
+                            mensagemErro(
+                                'Erro!',
+                                'Não foi possível remover a criptografia do indice ' . $ind2 . ' ou ele não está criptografado.'
+                            );
+                        }
+                        $val2 = $valorTemp;
                     }
                     $retorno[$ind2] = $val2;
                 }
                 continue;
             }
             if (!empty($val) && in_array($ind, $lista)) {
-                $val = $Crypt->decode($val);
+                $valorTemp = $Crypt->decode($val);
+                if (!empty($val) && empty($valorTemp)) {
+                    mensagemErro(
+                        'Erro!',
+                        'Não foi possível remover a criptografia do indice ' . $ind . ' ou ele não está criptografado.'
+                    );
+                }
+                $val = $valorTemp;
             }
             $retorno[$ind] = $val;
         }
@@ -1008,12 +1022,12 @@ if (!function_exists('criptografarDado')) {
 
         $retorno = [];
         foreach ($valor as $ind => $val) {
-            if (is_array($val)) {
+            if (is_array($val) || is_object($val)) {
                 foreach ($val as $ind2 => $val2) {
                     if (!empty($val2) && in_array($ind2, $lista)) {
                         $val2 = $Crypt->encode($val2);
                     }
-                    $retorno[$ind2] = !empty($val2) ? $val2 : '';
+                    $retorno[$ind][$ind2] = !empty($val2) ? $val2 : '';
                 }
                 continue;
             }
