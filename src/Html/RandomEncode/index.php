@@ -8,6 +8,8 @@ $Crypt = new CryptHelper(chavePublica: $chave);
 
 echo jsonEncode([
     'nome' => $Crypt->encode(nomeAleatorio()),
+    'sobreNome' => $Crypt->encode(sobreNomeAleatorio()),
+    'nomeCompleto' => $Crypt->encode(nomeCompletoAleatorio()),
     'telefone' => $Crypt->encode(telefoneAleatorio()),
     'telefone_pessoal' => $Crypt->encode(telefoneAleatorio()),
     'telefone_trabalho' => $Crypt->encode(telefoneAleatorio()),
@@ -19,4 +21,5 @@ echo jsonEncode([
     'cpf' => $Crypt->encode(cpfAleatorio()),
     'cnpj' => $Crypt->encode(cnpjAleatorio()),
     'rg' => $Crypt->encode(rgAleatorio()),
+    'senha' => $Crypt->encode('Teste@1324'),
 ]);

@@ -8,6 +8,7 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use App\Models\Painel\DownloadGeral;
+use App\Classes\UsuarioCliente\Helper;
 use App\Controllers\Painel\PadraoController as Controller;
 
 final class AppController extends Controller
@@ -137,7 +138,7 @@ final class AppController extends Controller
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'visualizar',
-                'dado' => $dado->dado
+                'dado' => object($this->tratarListaDeRetorno($dado->dado, Helper::DADO_PESSOAL))
             ],
             css: $config->visualizar->css,
             js: $config->visualizar->js,
@@ -274,7 +275,6 @@ final class AppController extends Controller
         if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
             mensagemStatus(500);
         }
-        ppe($dado);
 
         return view(
             arquivo: $config->add->app . '.add',
@@ -282,7 +282,7 @@ final class AppController extends Controller
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'editar',
-                'dado' => $config->api->criptografar ? descriptografarDado($dado->dado, lista: $config->api->criptografar) : $dado->dado,
+                'dado' => object($this->tratarListaDeRetorno($dado->dado, $config->api->criptografar)),
                 'request' => $request,
                 'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : '',
                 'linkVoltar' => $config->add->link

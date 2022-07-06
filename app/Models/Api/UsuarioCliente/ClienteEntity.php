@@ -51,6 +51,7 @@ final class ClienteEntity extends Entity
         'aniversario' => '->data_nascimento',
         'uf' => '->endereco_estado',
         'cidade' => '->endereco_cidade',
+        'salt' => '->senha',
         'trabalho_orgao' => '->trabalho_empresa',
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
@@ -74,7 +75,7 @@ final class ClienteEntity extends Entity
         trabalho_empresa|Empresa que trabalha|valido
         trabalho_cargo|Cargo na empresa|valido
         tipo_pagamento|Tipo de pagamento|valido
-        status|Status|vazio|valido
+        status|Status|valido
     ';
 
     public Cpf $cpf;
@@ -98,12 +99,15 @@ final class ClienteEntity extends Entity
     public Botao $mensagem;
     public Situacao $situacao;
     public Status $status;
+    public string $imagem;
+    public string $pagamento;
 
     public string $contrato_siape;
+    private array $campoObrigatorio;
     private int $idEmpresa;
 
     public function __construct(
-        private ?Request $request = null,
+        private ?Request $request = null
     ) {
         parent::__construct();
 
@@ -112,6 +116,13 @@ final class ClienteEntity extends Entity
         }
         $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->_wherePadrao = ['empresa', $this->idEmpresa];
+
+        try {
+            $Config = new ConfiguracaoEntity();
+            $this->campoObrigatorio = $Config->campo_obrigatorio['usuario_cliente'] ?? [];
+        } catch (\Throwable) {
+            $this->campoObrigatorio = ["cpf", "email", "status"];
+        }
     }
 
     /*
@@ -126,24 +137,6 @@ final class ClienteEntity extends Entity
         $this->emailPessoalExiste();
         $this->matriculaExiste();
         $this->siapeExiste();
-
-        $request = $this->request;
-        if ($request->existe('nome')) {
-            $this->nome = strCaixaAltaAlta($this->nome);
-        }
-
-        $senhaExiste = $this->propriedadeExiste('senha') && !$this->senha->vazio();
-        if ($senhaExiste && !$this->senha->valido()) {
-            mensagemErro('Senha inválida!', $this->senha->mensagem());
-        } else if ($senhaExiste && $this->senha->mesmaSenha()) {
-            mensagemErro('Senha inválida!', 'Você não pode salvar a mesma senha da senha atual.');
-        } else if ($senhaExiste) {
-            $this->salt = $this->senha;
-        }
-
-        if ($request->existe('endereco_cep')) {
-            $this->endereco_cep = preg_replace("/[^0-9]/", "", $this->endereco_cep);
-        }
     }
 
     /*
@@ -164,29 +157,39 @@ final class ClienteEntity extends Entity
     }
     private function validarCamposObrigatorioNoInsert()
     {
-        try {
-            $Config = new ConfiguracaoEntity();
-            $campoObrigatorio = $Config->campo_obrigatorio['usuario_cliente'] ?? [];
-        } catch (\Throwable) {
-            $campoObrigatorio = ["cpf", "email", "status"];
-        }
-
         $request = $this->request;
-
+        $campoObrigatorio = $this->campoObrigatorio;
         $emailPessoal = $request->existe('email_pessoal') ? $this->email_pessoal->email() : '';
         $emailTrabalho = $request->existe('email_trabalho') ? $this->email_trabalho->email() : '';
 
-        if (in_array('nome', $campoObrigatorio) && (!$request->existe('nome') || empty($this->nome))) {
+        if (
+            in_array('nome', $campoObrigatorio) &&
+            (!$request->existe('nome') || $this->nome->vazio())
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } else if (in_array('cpf', $campoObrigatorio) && (!$request->existe('cpf') || empty($this->cpf->numero()))) {
+        } else if (
+            in_array('cpf', $campoObrigatorio) &&
+            (!$request->existe('cpf') || $this->cpf->vazio())
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
-        } else if (in_array('email', $campoObrigatorio) && empty($emailPessoal) && empty($emailTrabalho)) {
+        } else if (
+            in_array('email', $campoObrigatorio) && empty($emailPessoal) && empty($emailTrabalho)
+        ) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail para salvar.');
-        } else if (in_array('status', $campoObrigatorio) && $request->existe('status') && !$this->status->valido()) {
+        } else if (
+            in_array('status', $campoObrigatorio) &&
+            (!$request->existe('status') || $this->status->vazio())
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo status é obrigatório.');
-        } else if (in_array('matricula', $campoObrigatorio) && (!$request->existe('matricula') || empty($this->matricula))) {
+        } else if (
+            in_array('matricula', $campoObrigatorio) &&
+            (!$request->existe('matricula') || empty($this->matricua))
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo matrícula é obrigatório.');
-        } else if (in_array('siape', $campoObrigatorio) && (!$request->existe('siape') || empty($this->siape))) {
+        } else if (
+            in_array('siape', $campoObrigatorio) &&
+            (!$request->existe('siape') || empty($this->siape))
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo siape é obrigatório.');
         }
     }
@@ -206,27 +209,36 @@ final class ClienteEntity extends Entity
     }
     private function validarCamposObrigatorioNoUpdate()
     {
-        $Config = new ConfiguracaoEntity();
-        $campoObrigatorio = $Config->campo_obrigatorio['usuario_cliente'] ?? [];
+        $campoObrigatorio = $this->campoObrigatorio;
         $request = $this->request;
-
         $emailExiste = $request->existe('email_pessoal') || $request->existe('email_trabalho');
-        if (in_array('nome', $campoObrigatorio) && $request->existe('nome') && empty($this->nome)) {
+
+        if (
+            in_array('nome', $campoObrigatorio) && $request->existe('nome') && $this->nome->vazio()
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } else if (in_array('cpf', $campoObrigatorio) && $request->existe('cpf') && empty($this->cpf->numero())) {
+        } else if (
+            in_array('cpf', $campoObrigatorio) && $request->existe('cpf') && $this->cpf->vazio()
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
         } else if (
             in_array('email', $campoObrigatorio) &&
             $emailExiste &&
-            empty($this->email_pessoal->email()) &&
-            empty($this->email_trabalho->email())
+            $this->email_pessoal->vazio() &&
+            $this->email_trabalho->vazio()
         ) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail para salvar.');
-        } else if (in_array('status', $campoObrigatorio) && $request->existe('status') && !$this->status->valido()) {
+        } else if (
+            in_array('status', $campoObrigatorio) && $request->existe('status') && !$this->status->valido()
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo status é obrigatório.');
-        } else if (in_array('matricula', $campoObrigatorio) && $request->existe('matricula') && empty($this->matricula)) {
+        } else if (
+            in_array('matricula', $campoObrigatorio) && $request->existe('matricula') && empty($this->matricula)
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo matrícula é obrigatório.');
-        } else if (in_array('siape', $campoObrigatorio) && $request->existe('siape') && empty($this->siape)) {
+        } else if (
+            in_array('siape', $campoObrigatorio) && $request->existe('siape') && empty($this->siape)
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo siape é obrigatório.');
         }
     }
@@ -242,6 +254,8 @@ final class ClienteEntity extends Entity
         if (!$this->trabalho_empresa->vazio() && !empty($this->siape) && $this->idEmpresa == 19) {
             $this->contratoSiape = $this->trabalho_empresa->numero() . $this->siape . '341201';
         }
+        $this->imagem = imagemUsuario();
+        $this->pagamento = '';
     }
 
     public function getId()

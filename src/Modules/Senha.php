@@ -37,6 +37,7 @@ final class Senha implements ModuleInterface
         } else if (array_key_exists('algoName', $algoritimo) && !empty($algoritimo['algoName']) && $algoritimo['algoName'] != 'unknown') {
             $this->senha = $senha;
             $this->vazio = false;
+            $this->valido = true;
             return;
         } else if (!preg_match($this->pegarExpressaoRegular(), $senha)) {
             $this->senha = '';
@@ -114,6 +115,8 @@ final class Senha implements ModuleInterface
         }
         $this->mudouSenha = true;
         $this->mesmaSenha = !empty($this->senha) ? password_verify($senha, $this->senha) : false;
+        $this->vazio = false;
+        $this->valido = true;
         $this->senha = password_hash($senha, PASSWORD_DEFAULT, ['cost' => 11]);
     }
 

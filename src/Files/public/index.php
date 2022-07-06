@@ -13,8 +13,8 @@ require_once __DIR__ . '/../src/Config/Ini.php';
 require_once __DIR__ . '/../src/Config/Error.php';
 require_once __DIR__ . '/../src/Config/Diretorio.php';
 
-if (file_exists(__DIR__ . '/../src/Database/tabela.php')) {
-    require_once __DIR__ . '/../src/Database/tabela.php';
+if (file_exists(__DIR__ . '/../files/banco/tabela.php')) {
+    require_once __DIR__ . '/../files/banco/tabela.php';
 }
 
 header('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
@@ -71,7 +71,9 @@ require_once __DIR__ . '/../src/Config/Autoload.php';
 */
 $requestUri = array_key_exists('REQUEST_URI', $_SERVER) ? explode('/', $_SERVER['REQUEST_URI']) : [];
 $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
+
 if ($requestUri == '__base' && SISTEMA == 'LOCALHOST') {
+    ppe(123);
     require_once __DIR__ . '/../src/Html/Database/index.php';
     exit();
 } else if ($requestUri == '__tests' && SISTEMA == 'LOCALHOST') {
@@ -82,6 +84,9 @@ if ($requestUri == '__base' && SISTEMA == 'LOCALHOST') {
     exit();
 } elseif ($requestUri == '__enviar-email-sistema' && METODO == 'POST') {
     require_once __DIR__ . '/../src/Html/Email/enviarEmail.php';
+    exit();
+} elseif ($requestUri == '__random-encode' && METODO == 'POST' && SISTEMA == 'LOCALHOST') {
+    require_once __DIR__ . '/../src/Html/RandomEncode/index.php';
     exit();
 } elseif (str_starts_with($requestUri, 'aqioulc.') && METODO == 'GET') {
     require_once __DIR__ . '/../src/Html/Arquivo/publico.php';

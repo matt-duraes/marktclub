@@ -13,7 +13,6 @@ use Erro\Erro;
 use Erro\Excecao;
 use Http\Request;
 use Helpers\CryptHelper;
-use PHPUnit\Framework\Constraint\IsNull;
 
 /*/
 |--------------------------------------------------------------------------
@@ -948,7 +947,7 @@ if (!function_exists('descriptografarDado')) {
      * @param   array           $lista  Lista de campos que devem ser criptografados quando o valor for um array
      * @return  string|array            String quando o valor for uma string ou um array quando o valor for um array
      */
-    function descriptografarDado(string|stdClass|array $valor, array $lista, ?string $chave = null): array|string
+    function descriptografarDado(string|stdClass|array $valor, array $lista = [], ?string $chave = null): array|string
     {
         $chave =
             is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
@@ -1522,7 +1521,7 @@ if (!function_exists('imagemUsuario')) {
      * @param   null|string $google     URL da imagem do Google
      * @return  string                  URL da imagem
      */
-    function imagemUsuario(?string $tipo, ?string $arquivo, ?string $facebook, ?string $google): string
+    function imagemUsuario(?string $tipo = null, ?string $arquivo = null, ?string $facebook = null, ?string $google = null): string
     {
         if ($tipo == 1 && !empty($facebook)) {
             return $facebook;
@@ -1539,13 +1538,17 @@ if (!function_exists('arquivoPublico')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param   string    $diretorio    Diretório que o arquivo pertence
-     * @param   string    $arquivo      Arquivo que deseja pegar
-     * @param   array     $parametro    Parametro para inserir como GET na URL
+     * @param   string      $diretorio  Diretório que o arquivo pertence
+     * @param   string      $arquivo    Arquivo que deseja pegar
+     * @param   array       $parametro  Parametro para inserir como GET na URL
+     * @param   string      $padrao     Imagem padrão caso não tenha arquivo
      * @return  string                  Url do arquivo
      */
-    function arquivoPublico(string $diretorio, string $arquivo, array $parametro = [])
+    function arquivoPublico(string $diretorio, string $arquivo, array $parametro = [], string $padrao = '')
     {
+        if (empty($arquivo)) {
+            return $padrao;
+        }
         $query = [];
         foreach ($parametro as $ind => $val) {
             $query[] = [$ind . '=' . $val];
@@ -1598,12 +1601,17 @@ if (!function_exists('arquivoPrivado')) {
     /**
      * Gera um link para um arquivo privado
      *
-     * @param string    $id         ID do arquivo no banco (uuid)
-     * @param array     $parametro  Parametro para inserir como GET na URL
-     * @return string               Url do arquivo
+     * @param   null|string     $id         ID do arquivo no banco (uuid)
+     * @param   array           $parametro  Parametro para inserir como GET na URL
+     * @param   string          $padrao     Arquivo padrão caso não tenha ID
+     * @return  string                      Url do arquivo
      */
-    function arquivoPrivado(string $id, array $parametro = [])
+    function arquivoPrivado(?string $id, array $parametro = [], string $padrao = '')
     {
+        if (empty($id)) {
+            return $padrao;
+        }
+
         $query = [];
         foreach ($parametro as $ind => $val) {
             $query[] = [$ind . '=' . $val];

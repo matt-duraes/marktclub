@@ -287,3 +287,8 @@ exports.buildPaginaExemplo = async () => {
 
     return Promise.resolve(true);
 };
+
+exports.buildCorrigindoComposer = () => {
+    src(['src/Files/vendor/Scanner.php']).pipe(plumber()).pipe(dest('./vendor/phpmussel/core/src'));
+    return Promise.resolve(true);
+};

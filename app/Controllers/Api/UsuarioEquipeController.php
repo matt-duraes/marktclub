@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\UsuarioEquipe\Helper;
 use App\Models\Api\UsuarioEquipe\EquipeModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Controllers\Api\Interface\BuscarInterface;
@@ -29,51 +30,56 @@ final class UsuarioEquipeController extends Controller implements
         $Usuario = new EquipeEntity();
         $Usuario->id($id);
 
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $Usuario->retorno()
-        ]);
+        return $this->retornoSucesso($Usuario);
     }
 
     public function getListar(Request $request)
     {
         $Usuario = new EquipeModel($request);
         $dado = $Usuario->listar();
-
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $dado
-        ]);
+        $dado->lista = criptografarDado($dado->lista, lista: helper::CRIPTOGRAFAR);
+        return mensagemSucesso($dado);
     }
 
     public function postSalvar(Request $request)
     {
-        $Usuario = new EquipeEntity($request);
-        $Usuario->set(lista: $request->dado());
+        $Usuario = new EquipeEntity();
+        $Usuario->set(
+            lista: $request->dadoDecode(
+                chavePrivada: TOKEN['app']->chave_privada,
+                descriptografar: Helper::CRIPTOGRAFAR
+            )
+        );
         $Usuario->salvar();
 
-        $dado = $request->dado();
-        $dado = array_merge(['id' => $Usuario->id], $dado);
-        if (array_key_exists('senha', $dado)) {
-            $dado['senha'] = true;
-        }
+        return $this->retornoSucesso($Usuario, 201);
+    }
 
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $dado
-        ], status: 201);
+    private function retornoSucesso(EquipeEntity $Usuario, int $status = 200)
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Usuario,
+                lista: [
+                    'id', 'nome', 'cpf', 'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal',
+                    'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'status', 'permissao'
+                ],
+            ),
+            status: $status,
+            criptografar: Helper::CRIPTOGRAFAR
+        );
     }
 
     public function putAtualizar(Request $request, string $id)
     {
-        if (empty($id)) {
-            mensagemStatus(404);
-        }
+        validarUuid($id);
 
-        $Usuario = new EquipeEntity($request);
+        $Usuario = new EquipeEntity();
         $Usuario->id($id);
-
-        $Usuario->set(lista: $request->dado());
+        $Usuario->set(lista: $request->dadoDecode(
+            chavePrivada: TOKEN['app']->chave_privada,
+            descriptografar: Helper::CRIPTOGRAFAR
+        ));
         $Usuario->salvar();
 
         return new Response(status: 204);
@@ -81,9 +87,7 @@ final class UsuarioEquipeController extends Controller implements
 
     public function deleteDeletar(string $id)
     {
-        if (empty($id)) {
-            mensagemStatus(404);
-        }
+        validarUuid($id);
 
         $Usuario = new EquipeEntity();
         $Usuario->id($id);
@@ -94,11 +98,12 @@ final class UsuarioEquipeController extends Controller implements
 
     public function postValidarSenha(Request $request)
     {
+        $id = TOKEN['usuario']->get('id');
+        $senha = descriptografarDado($request->senha);
+
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi definido.');
-        }
-        $id = TOKEN['usuario']->get('id');
-        if (empty($id)) {
+        } else if (empty($id)) {
             mensagemStatus(404);
         } else if (empty($request->senha)) {
             mensagemErro('Campo obrigatório!', 'O campo senha é obrigatório.');

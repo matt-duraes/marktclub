@@ -428,6 +428,10 @@ abstract class PadraoController extends Controller
         }
         $chave = $this->pegarChavePrivada();
         foreach ($dado as $ind => $val) {
+            if (is_string($ind)) {
+                $retorno[$ind] = in_array($ind, $criptografia) ? descriptografarDado($val, $criptografia, $chave) : $val;
+                continue;
+            }
             $retorno[$ind] = object(descriptografarDado($val, $criptografia, $chave));
         }
         return $retorno;

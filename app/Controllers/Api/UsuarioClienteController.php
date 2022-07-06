@@ -39,7 +39,7 @@ final class UsuarioClienteController extends Controller implements
     {
         $Usuario = new ClienteModel($request);
         $dado = $Usuario->listar();
-        $dado->lista = criptografarDado($dado->lista, Helper::DADO_PESSOAL);
+        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
 
         return mensagemSucesso($dado);
     }
@@ -49,7 +49,7 @@ final class UsuarioClienteController extends Controller implements
         $Usuario = new ClienteModel($request);
         $dado = $Usuario->download();
 
-        return mensagemSucesso($dado, status: 201, criptografar: Helper::DADO_PESSOAL);
+        return mensagemSucesso($dado, status: 201, criptografar: Helper::CRIPTOGRAFAR);
     }
 
     public function postSalvar(Request $request)
@@ -58,7 +58,7 @@ final class UsuarioClienteController extends Controller implements
         $Usuario->set(
             lista: $request->dadoDecode(
                 chavePrivada: TOKEN['app']->chave_privada,
-                descriptografar: Helper::DADO_PESSOAL
+                descriptografar: Helper::CRIPTOGRAFAR
             )
         );
         $Usuario->salvar();
@@ -84,7 +84,7 @@ final class UsuarioClienteController extends Controller implements
 
         $Usuario->set(lista: $request->dadoDecode(
             chavePrivada: TOKEN['app']->chave_privada,
-            descriptografar: Helper::DADO_PESSOAL
+            descriptografar: Helper::CRIPTOGRAFAR
         ));
         $Usuario->salvar();
 
@@ -113,11 +113,11 @@ final class UsuarioClienteController extends Controller implements
                     'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
                     'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
                     'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
-                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'status',
+                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'status', 'pagamento'
                 ],
             ),
             status: $status,
-            criptografar: Helper::DADO_PESSOAL
+            criptografar: Helper::CRIPTOGRAFAR
         );
     }
 }
