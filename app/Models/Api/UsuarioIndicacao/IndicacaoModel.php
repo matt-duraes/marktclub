@@ -52,7 +52,7 @@ final class IndicacaoModel extends ORM
                 'id' => $r->cod,
                 'nome' => strNull($r->nome),
                 'email' => strEmail($r->email),
-                'data_criacao' => dataBr($r->data_criacao),
+                'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status)
             ];
         }

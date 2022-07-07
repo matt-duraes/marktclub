@@ -4,11 +4,9 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
-use Modules\Email;
-use Modules\Telefone;
 use Controller\Controller;
+use App\Classes\UsuarioIndicacao\Helper;
 use App\Classes\UsuarioIndicacao\Status;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Controllers\Api\Interface\BuscarInterface;
 use App\Controllers\Api\Interface\ListarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
@@ -27,32 +25,25 @@ final class UsuarioIndicacaoController extends Controller implements
 
     public function postSalvar(Request $request)
     {
-        try {
-            $Cliente = new ClienteEntity();
-            $Cliente->id($request->usuario);
-        } catch (\Throwable $th) {
-            mensagemErro('Erro!', 'Usuário enviado não foi encontrado');
-        }
+        $dado = $request->dadoDecode(
+            chavePrivada: TOKEN['app']->chave_privada,
+            descriptografar: Helper::CRIPTOGRAFAR
+        );
 
-        $Indicacao = new IndicacaoEntity();
-        $Indicacao->id_usuario_cliente = $Cliente->get('id');
-        $Indicacao->nome = $request->nome;
-        $Indicacao->email = new Email($request->email);
-        $Indicacao->telefone = new Telefone($request->telefone);
+        $Indicacao = new IndicacaoEntity($request->usuario);
+        $Indicacao->set(lista: $dado);
         $Indicacao->salvar();
 
-        return mensagemSucesso(['id' => $Indicacao->id] + $request->dado(), 201);
+        return $this->retornoSucesso($Indicacao, 201);
     }
 
     public function getListar(Request $request)
     {
         $Indicacao = new IndicacaoModel($request);
         $dado = $Indicacao->listar();
+        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
 
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $dado
-        ]);
+        return mensagemSucesso($dado);
     }
 
     public function getBuscar(string $id)
@@ -64,17 +55,16 @@ final class UsuarioIndicacaoController extends Controller implements
         $Indicacao = new IndicacaoEntity();
         $Indicacao->id($id);
 
-        return mensagemSucesso([
-            'id' => $Indicacao->id,
-            'nome' => $Indicacao->nome,
-            'email' => $Indicacao->email->email(),
-            'telefone' => $Indicacao->telefone->numero(),
-            'quem_indicou' => $Indicacao->quem_indicou,
-            'usuario' => $Indicacao->usuario,
-            'data_criacao' => $Indicacao->data_criacao->date(),
-            'data_atualizacao' => $Indicacao->data_atualizacao->date(),
-            'status' => $Indicacao->status->indice()
+        return $this->retornoSucesso($Indicacao);
+    }
+
+    private function retornoSucesso(IndicacaoEntity $Indicacao, int $status = 200)
+    {
+        $dado = pegarPropriedadeDaEntity($Indicacao, lista: [
+            'id', 'nome', 'email', 'telefone', 'quem_indicou', 'usuario', 'data_criacao',
+            'data_atualizacao', 'status',
         ]);
+        return mensagemSucesso($dado, $status, Helper::CRIPTOGRAFAR);
     }
 
     public function putAtualizar(Request $request, string $id)

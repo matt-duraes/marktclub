@@ -24,6 +24,27 @@ final class IndicacaoEntity extends GeralEntity
     public Status $status;
     public int $id_usuario_cliente;
 
+    public function __construct(
+        ?string $usuario = null
+    ) {
+        $this->setarUsuarioQueIndicou($usuario);
+    }
+
+    private function setarUsuarioQueIndicou(?string $usuario): void
+    {
+        if (!$usuario) {
+            return;
+        }
+
+        try {
+            $Usuario = new ClienteEntity();
+            $Usuario->id($usuario);
+            $this->id_usuario_cliente = $Usuario->get('id');
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Usuário enviado não foi encontrado');
+        }
+    }
+
     protected function regraPosBuscar()
     {
         $this->setarQuemIndicou();

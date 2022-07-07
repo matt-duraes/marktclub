@@ -7,6 +7,7 @@ use Modules\Data;
 use Http\Response;
 use Modules\Dinheiro;
 use Controller\Controller;
+use App\Classes\UsuarioPagamento\Helper;
 use App\Classes\UsuarioPagamento\Status;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Controllers\Api\Interface\BuscarInterface;
@@ -24,8 +25,14 @@ final class UsuarioPagamentoController extends Controller implements
 {
     public function getListar(Request $request)
     {
-        $Pagamento = new PagamentoModel(request: $request);
+        $dado = (object)$request->dadoDecode(
+            chavePrivada: TOKEN['app']->chave_privada,
+            descriptografar: Helper::CRIPTOGRAFIA
+        );
+
+        $Pagamento = new PagamentoModel($dado);
         $dado = $Pagamento->listarDados();
+        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFIA);
 
         return mensagemSucesso($dado);
     }
@@ -40,16 +47,10 @@ final class UsuarioPagamentoController extends Controller implements
 
     public function postSalvar(Request $request)
     {
-        $Usuario = new ClienteEntity();
-        $Usuario->buscar(['cod', $request->usuario], false);
-        if (empty($Usuario->id)) {
-            mensagemErro('Usuário inválido!', 'Não foi encontrado um usuário para salvar esse pagamento.', 404);
-        }
-
         $Pagamento = new PagamentoEntity(
             data_cobranca: new Data($request->data),
             valor_debito: new Dinheiro($request->valor),
-            Usuario: $Usuario
+            usuario: $request->usuario
         );
         $Pagamento->salvar();
 

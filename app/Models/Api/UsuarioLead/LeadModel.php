@@ -53,7 +53,7 @@ final class LeadModel extends GeralModel
                 'nome' => strNull($r->nome_completo),
                 'cpf' => strCpf($r->documento_cpf),
                 'email' => strNull($email),
-                'data_criacao' => dataBr($r->data_criacao),
+                'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status)
             ]);
         }
