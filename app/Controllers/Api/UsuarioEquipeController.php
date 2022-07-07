@@ -62,7 +62,7 @@ final class UsuarioEquipeController extends Controller implements
                 $Usuario,
                 lista: [
                     'id', 'nome', 'cpf', 'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal',
-                    'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'status', 'permissao'
+                    'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'status', 'permissao', 'imagem'
                 ],
             ),
             status: $status,
@@ -105,7 +105,7 @@ final class UsuarioEquipeController extends Controller implements
             mensagemStatus(401, localhost: 'Token não foi definido.');
         } else if (empty($id)) {
             mensagemStatus(404);
-        } else if (empty($request->senha)) {
+        } else if (empty($senha)) {
             mensagemErro('Campo obrigatório!', 'O campo senha é obrigatório.');
         }
 
@@ -114,7 +114,7 @@ final class UsuarioEquipeController extends Controller implements
             ['id', $id]
         ]);
 
-        if ($Equipe->senha->validarSenha($request->senha)) {
+        if ($Equipe->senha->validarSenha($senha)) {
             return mensagemSucesso(['senha' => true]);
         }
         mensagemErro('Senha inválida!', 'Verifique a senha digitada e tente novamente.');

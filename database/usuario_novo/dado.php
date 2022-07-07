@@ -7,7 +7,7 @@ return [
         'tipo' => 1,
         'nome' => nomeAleatorio(),
         'documento' => cpfAleatorio(),
-        'senha' => password('Teste@1324'),
+        'salt' => password('Teste@1324'),
         'status' => 1
     ],
     [
@@ -16,7 +16,7 @@ return [
         'tipo' => 1,
         'nome' => nomeAleatorio(),
         'documento' => cpfAleatorio(),
-        'senha' => password('Teste@1324'),
+        'salt' => password('Teste@1324'),
         'status' => 1
     ],
     [
@@ -25,7 +25,7 @@ return [
         'tipo' => 1,
         'nome' => nomeAleatorio(),
         'documento' => cpfAleatorio(),
-        'senha' => password('Teste@1324'),
+        'salt' => password('Teste@1324'),
         'status' => 1
     ]
 ];

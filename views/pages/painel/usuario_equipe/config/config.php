@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioEquipe\Helper;
+
 return [
     'titulo' => 'Equipe',
     'buscar' => true,
@@ -10,6 +12,7 @@ return [
     'historico' => true,
     'api' => [
         'scope' => 'usuario_equipe',
-        'uri' => '/usuario-equipe'
+        'uri' => '/usuario-equipe',
+        'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];

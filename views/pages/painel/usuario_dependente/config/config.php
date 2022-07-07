@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioDependente\Helper;
+
 return [
     'titulo' => 'Dependente',
     'buscar' => false,
@@ -13,6 +15,7 @@ return [
     'historico' => false,
     'api' => [
         'scope' => 'usuario_dependente',
-        'uri' => '/usuario-dependente'
+        'uri' => '/usuario-dependente',
+        'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];

@@ -9,6 +9,6 @@ final class Helper
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
         'tipo', 'federacao', 'grupo', 'cpf', 'rg', 'telefone_pessoal', 'telefone_trabalho', 'situacao',
         'data_nascimento', 'genero', 'endereco_cidade', 'endereco_estado', 'trabalho_empresa', 'trabalho_cargo',
-        'tipo_pagamento', 'trabalho_data_inicio', 'senha'
+        'tipo_pagamento', 'trabalho_data_inicio', 'senha', 'imagem'
     ];
 }

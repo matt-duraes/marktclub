@@ -7,12 +7,24 @@ use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\JwtHelper;
 use Helpers\AuthHelper;
+use Helpers\CryptHelper;
 use Controller\Controller;
-use Painel\Login\Models\MenuModel;
-use App\Models\Api\ApiUsuario\UsuarioEntity;
 
 final class LoginController extends Controller
 {
+    private string $chavePublica;
+    private string $chavePrivada;
+
+    public function __construct()
+    {
+        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
+
+        $this->chavePublica = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $this->chavePrivada = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
+
+        parent::__construct();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | INDEX
@@ -31,22 +43,22 @@ final class LoginController extends Controller
     public function postLogin(Request $request): Response
     {
         $Api = new ApiHelper('login:painel');
-        $dado = $Api->body([
+
+        $body = criptografarDado([
             'login' => $request->login,
             'senha' => $request->senha,
             'scope' => '',
             'audience' => env('API_AUDIENCE', ''),
             'redirect_uri' => env('API_REDIRECT_URI', ''),
             'state' => uuid()
-        ])->post('/login/painel')->object();
+        ], lista: ['login', 'senha'], chave: $this->chavePublica);
+        $dado = $Api->body($body)->post('/login/painel')->object();
 
         $this->autenticarUsuario($dado);
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => [
-                'link' => (new AuthHelper)->location()
-            ]
-        ], status: 201);
+
+        return mensagemSucesso([
+            'link' => (new AuthHelper)->location()
+        ], 201);
     }
 
     /*
@@ -96,12 +108,13 @@ final class LoginController extends Controller
         $Jwt = new JwtHelper($token->id_token);
         $body = $Jwt->body();
 
+        $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
         (new AuthHelper)->criar([
             'id' => $body['sub'],
-            'nome' => $body['name'],
-            'email' => $body['email'],
-            'imagem' => $body['picture'],
-            'cpf' => $body['document'],
+            'nome' => $Crypt->decode($body['name']),
+            'email' => $Crypt->decode($body['email']),
+            'imagem' => $Crypt->decode($body['picture']),
+            'cpf' => $Crypt->decode($body['document']),
             'permissao' => $body['permission'],
             'dev' => in_array($body['document'], jsonDecode(env('DEV_DOCUMENTO', []), true, true))
         ]);

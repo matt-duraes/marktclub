@@ -16,6 +16,6 @@ return [
     'api' => [
         'scope' => 'usuario_cliente',
         'uri' => '/usuario-cliente',
-        'criptografar' => Helper::DADO_PESSOAL
+        'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];

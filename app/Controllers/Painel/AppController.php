@@ -138,7 +138,7 @@ final class AppController extends Controller
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'visualizar',
-                'dado' => object($this->tratarListaDeRetorno($dado->dado, Helper::DADO_PESSOAL))
+                'dado' => object($this->tratarListaDeRetorno($dado->dado, $config->api->criptografar))
             ],
             css: $config->visualizar->css,
             js: $config->visualizar->js,
@@ -323,14 +323,17 @@ final class AppController extends Controller
         if ($request->termo != 'sim') {
             mensagemStatus(403, localhost: 'Termo não foi marcado.');
         }
-        $ApiSenha = new ApiHelper(token: true);
-        $validarSenha = $ApiSenha->body(['senha' => $request->senha])->post('/usuario-equipe/validar-senha')->object();
-        if (existeErro($validarSenha, 'dado')) {
-            mensagemStatus(403, 'Senha não foi validada.');
-        }
 
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'download');
+
+        $ApiSenha = new ApiHelper(token: true);
+        $dadoSenha = $this->tratarListaParaSalvar(['senha' => $request->senha], ['senha'], $config->api->criptografar);
+
+        $validarSenha = $ApiSenha->body($dadoSenha)->post('/usuario-equipe/validar-senha')->object();
+        if (existeErro($validarSenha, 'dado')) {
+            mensagemStatus(403, 'Senha não foi validada.');
+        }
 
         if (!$config->permissao->index || !$config->permissao->download) {
             throw new Excecao(status: 403);
@@ -371,8 +374,9 @@ final class AppController extends Controller
             );
         }
 
+        $dado = $this->tratarListaDeRetorno($dado['dado'], $config->api->criptografar, 'array');
         new DownloadGeral(
-            $dado['dado'],
+            $dado,
             $config->download->replace,
             $app
         );

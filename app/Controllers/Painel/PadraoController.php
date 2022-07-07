@@ -421,19 +421,21 @@ abstract class PadraoController extends Controller
         return $chave->dado->chave ?? '';
     }
 
-    protected function tratarListaDeRetorno($dado, $criptografia)
+    protected function tratarListaDeRetorno($dado, $criptografia, $retorno = 'object')
     {
         if (empty($criptografia)) {
             return $dado;
         }
         $chave = $this->pegarChavePrivada();
+        $lista = [];
         foreach ($dado as $ind => $val) {
             if (is_string($ind)) {
-                $retorno[$ind] = in_array($ind, $criptografia) ? descriptografarDado($val, $criptografia, $chave) : $val;
+                $lista[$ind] = in_array($ind, $criptografia) ? descriptografarDado($val, $criptografia, $chave) : $val;
                 continue;
             }
-            $retorno[$ind] = object(descriptografarDado($val, $criptografia, $chave));
+            $dadoDescriptografado = descriptografarDado($val, $criptografia, $chave);
+            $lista[$ind] = $retorno == 'object' ? object($dadoDescriptografado) : $dadoDescriptografado;
         }
-        return $retorno;
+        return $lista;
     }
 }

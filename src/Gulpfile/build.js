@@ -289,6 +289,9 @@ exports.buildPaginaExemplo = async () => {
 };
 
 exports.buildCorrigindoComposer = () => {
-    src(['src/Files/vendor/Scanner.php']).pipe(plumber()).pipe(dest('./vendor/phpmussel/core/src'));
+    src('src/Files/vendor/Scanner.php').pipe(plumber()).pipe(dest('./vendor/phpmussel/core/src'));
+    src('src/Files/vendor/GlobalFunctionsHelper.php')
+        .pipe(plumber())
+        .pipe(dest('./vendor/box/spout/src/Spout/Common/Helper'));
     return Promise.resolve(true);
 };

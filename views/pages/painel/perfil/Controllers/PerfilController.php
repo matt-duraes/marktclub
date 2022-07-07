@@ -7,7 +7,6 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
-use Helpers\SocialHelper;
 use Controller\Controller;
 
 final class PerfilController extends Controller
@@ -65,8 +64,10 @@ final class PerfilController extends Controller
     public function postValidarSenha(Request $request)
     {
         $Api = new ApiHelper(token: true);
+        $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+
         $dado = $Api->body([
-            'senha' => $request->senha
+            'senha' => criptografarDado($request->senha, chave: $chave)
         ])->post('/usuario-equipe/validar-senha')->object();
 
         if (existeErro($dado, 'dado')) {
@@ -75,7 +76,7 @@ final class PerfilController extends Controller
                 $dado->erro->mensagem ?? 'Ocorreu um erro ao validar sua senha.'
             );
         }
-        return mensagemSucesso([]);
+        return mensagemSucesso(['senha' => $dado->dado->senha == 1]);
     }
 
     public function postDado(Request $request): Response
