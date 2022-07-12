@@ -8,7 +8,6 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use App\Models\Painel\DownloadGeral;
-use App\Classes\UsuarioCliente\Helper;
 use App\Controllers\Painel\PadraoController as Controller;
 
 final class AppController extends Controller
