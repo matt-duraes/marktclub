@@ -88,7 +88,11 @@ swIDAQAB
 
             'relatorio_acesso:index', 'relatorio_usuario:index',
 
-            'login:painel', 'login:api'
+            'login:painel', 'login:api',
+
+            'admin:chave_publica', 'admin:chave_privada',
+
+            'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado'
         ],
         'campo_permitido' => [
             'usuario:salvar' => ['nome', 'cpf', 'email_trabalho', 'senha', 'telefone_celular'],

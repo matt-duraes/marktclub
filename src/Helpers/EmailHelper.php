@@ -28,7 +28,7 @@ final class EmailHelper
         private string $senha = '',
         private array $emailEnvio = [],
         private array $emailResposta = [],
-        private bool $debug = false,
+        private ?bool $debug = null,
     ) {
         if (empty($this->host)) {
             $this->host = env('MAIL_HOST', '');
@@ -42,7 +42,7 @@ final class EmailHelper
         if (empty($this->porta)) {
             $this->porta = env('MAIL_PORTA', '');
         }
-        if (empty($this->debug)) {
+        if (is_null($debug)) {
             $this->debug = env('MAIL_DEBUG', false);
         }
         if (empty($this->emailEnvio)) {
@@ -197,7 +197,7 @@ final class EmailHelper
      * @param null|string   $deNome         Nome de quem está enviando o e-mail, se null, pegar do env
      * @param null|string   $deEmail        E-mai de quem está enviando o e-mail, se null, pegar do env
      */
-    public function sendGride(
+    public function sendGrid(
         string $titulo,
         string $nome,
         string $email,
@@ -265,7 +265,7 @@ final class EmailHelper
 
         $send = new \SendGrid(env('MAIL_SENDGRID', ''));
 
-        $debug = env('MAIL_DEBUG', false);
+        $debug = $this->debug;
         $log = '';
         try {
             $retorno = $send->send($Email);
@@ -280,7 +280,7 @@ final class EmailHelper
             }
         }
         if ($debug) {
-            $arquivoLog = fopen(ROOT . '/files/log/phpmailer.txt', 'w+');
+            $arquivoLog = fopen(ROOT . '/files/log/sendgrid.txt', 'w+');
             fwrite($arquivoLog, $log);
             fclose($arquivoLog);
         }

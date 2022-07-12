@@ -10,7 +10,6 @@ use Modules\Nome;
 use Modules\Email;
 use Modules\Genero;
 use Modules\Telefone;
-use Helpers\CryptHelper;
 use Helpers\ListaHelper;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
@@ -35,20 +34,7 @@ final class LoginModel extends Entity
         }
 
         parent::__construct();
-        //         $Crypt = new CryptHelper(chavePublica: '-----BEGIN PUBLIC KEY-----
-        // MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8renh9klCh/led4975Wq
-        // jxbtdQKe2ziMWiIztk1LbShp1YUV3CTp8p9k9uK4ZR3PPfWG0Yd2HGMt6Gv5HdCs
-        // DInx5FhZf2W6ztX7h+Ds7adAQxDOkvqCMLZXZeTjcCEYF708BcdWNtcYccBfe7Ka
-        // lj0VW5FOZ5pvEfR/A0zLuLw2kVvTjCl43QoCMiyjpgTo9JEzyq8v6xwfwhkA9ENb
-        // bwbhG2zGMD3dcaOn49pfU7ka2ZHX78VHJ2i8YF0BU0ODwnWSZKwOcD9S6t4DgJLB
-        // BgsxAcr+cPp6GPV+5DhXdSW+Iq88n4gbImnvjDVDhnZ3nHUDJQnanIAI7256Mh1u
-        // LQIDAQAB
-        // -----END PUBLIC KEY-----');
-        //         pp($Crypt->encode(nomeCompletoAleatorio()));
-        //         pp($Crypt->encode(emailAleatorio()));
-        //         pp($Crypt->encode(cpfAleatorio()));
-        //         pp($Crypt->encode(telefoneAleatorio()));
-        //         ppe($Crypt->encode(dataPassadaAleatorio()));
+
         $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->key = TOKEN['app']->chave_privada;
 

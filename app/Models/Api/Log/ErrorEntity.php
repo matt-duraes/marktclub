@@ -14,12 +14,12 @@ final class ErrorEntity extends Entity
     public string $hash;
 
     public function __construct(
-        private ?string $mensagem = null,
-        private ?string $codigo = null,
-        private ?string $status_http = null,
-        private ?string $arquivo = null,
-        private ?string $linha = null,
-        private ?string $trace = null,
+        protected ?string $mensagem = null,
+        protected ?string $codigo = null,
+        protected ?string $status_http = null,
+        protected ?string $arquivo = null,
+        protected ?string $linha = null,
+        protected ?string $trace = null,
     ) {
         parent::__construct();
     }

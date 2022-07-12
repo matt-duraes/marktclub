@@ -24,6 +24,7 @@ const {
     buildLimparFramework,
     buildPaginaExemplo,
     buildArquivoErro,
+    buildCorrigindoComposer,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
@@ -34,7 +35,12 @@ exports.down = parallel(matandoContainer, limpandoSessoes);
 
 // Atualiza o framework
 exports.update = series(fazerDownloadDoProjeto);
-exports.upgrade = series(instalandoDownloadDoProjeto);
+exports.upgrade = series(
+    instalandoDownloadDoProjeto,
+    copiandoArquivoDoComposer,
+    executandoComposerInstall,
+    parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste)
+);
 
 // Limpa o framework
 exports.clearFramework = series(limpandoFramework);
@@ -55,7 +61,7 @@ exports.install = series(
     copiandoArquivosDeteste,
     copiandoArquivosPublicos,
     parallel(
-        series(copiandoArquivoDoComposer, executandoComposerInstall),
+        series(copiandoArquivoDoComposer, executandoComposerInstall, corrigindoBugDoComposer),
         copiandoArquivoParaDocker,
         criandoDiretorios,
         copiandoArquivoParaEnv,
@@ -70,6 +76,7 @@ exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
 exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem);
+exports.composerBugfix = series(corrigindoBugDoComposer);
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +92,9 @@ function validandoArquivoDeConfiguracao() {
     return Promise.resolve();
 }
 
+function corrigindoBugDoComposer() {
+    return buildCorrigindoComposer();
+}
 async function fazerDownloadDoProjeto() {
     return buildBaixandoUpdate();
 }

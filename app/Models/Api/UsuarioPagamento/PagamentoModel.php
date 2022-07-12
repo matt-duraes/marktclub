@@ -3,7 +3,6 @@
 namespace App\Models\Api\UsuarioPagamento;
 
 use stdClass;
-use Http\Request;
 use App\Models\Api\GeralModel;
 use App\Classes\UsuarioPagamento\Status;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
@@ -15,7 +14,7 @@ final class PagamentoModel extends GeralModel
     protected Status $status;
 
     public function __construct(
-        protected ?Request $request = null
+        protected ?stdClass $request = null
     ) {
         parent::__construct();
     }
@@ -50,7 +49,7 @@ final class PagamentoModel extends GeralModel
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,
-                'data' => dataBr($r->data_cobranca),
+                'data' => $r->data_cobranca,
                 'valor' => number_format($r->valor_debito, 2, ',', '.')
             ];
         }
@@ -96,8 +95,8 @@ final class PagamentoModel extends GeralModel
             $retorno[] = [
                 'id' => $r->cod,
                 'nome' => $r->nome,
-                'cpf' => strCpf($r->documento),
-                'data' => dataBr($r->data_cobranca),
+                'cpf' => $r->documento,
+                'data' => $r->data_cobranca,
                 'status' => $Status->indice($r->status)
             ];
         }

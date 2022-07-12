@@ -8,6 +8,7 @@ use Modules\Data;
 use Modules\Nome;
 use Modules\Email;
 use Modules\Genero;
+use Modules\DataHora;
 use Modules\Telefone;
 use Modules\EnderecoCep;
 use Modules\EnderecoEstado;
@@ -74,6 +75,7 @@ final class LeadEntity extends Entity
     public Status $status;
     public TrabalhoEmpresa $trabalho_empresa;
     public TrabalhoCargo $trabalho_cargo;
+    public DataHora $data_criacao;
 
     private bool $cadastrar = false;
 

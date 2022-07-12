@@ -4,6 +4,7 @@ namespace ORM\Salvar;
 
 use Erro\Erro;
 use Erro\Excecao;
+use Modules\Senha;
 use Modules\Vazio;
 
 trait SalvarTrait
@@ -122,6 +123,8 @@ trait SalvarTrait
             $indice = preg_replace('/^\!/', '', $ind);
             $valor = preg_replace('/^\!/', '', $val);
 
+            $propriedadeReal = preg_replace('/^\-\>/', '', $val);
+
             if (is_numeric($indice)) {
                 $indice = $valor;
                 $valor = $this->ormPegarValorPropriedade(
@@ -130,6 +133,21 @@ trait SalvarTrait
                 );
             } else {
                 $valor = $this->ormMontarDadoOutroValor($valor);
+            }
+
+            try {
+                $propriedadeReal = $this->$propriedadeReal ?? null;
+            } catch (\Throwable) {
+                $propriedadeReal = null;
+            }
+            if (
+                $propriedadeReal instanceof Senha &&
+                (!$propriedadeReal->valido() ||
+                    !$propriedadeReal->mudouSenha() ||
+                    $propriedadeReal->mesmaSenha()
+                )
+            ) {
+                continue;
             }
 
             if (!$valor instanceof Vazio && !is_null($valor) && $this->ormVerificarSePodeSalvarCampo($indice, $valor, $dadoAtual)) {

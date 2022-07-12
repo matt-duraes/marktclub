@@ -39,7 +39,7 @@ final class Filtrar
 
     public function pegarNome()
     {
-        return $this->html['nome'];
+        return $this->html['nome'] ?? '';
     }
     public function pegarReplace()
     {

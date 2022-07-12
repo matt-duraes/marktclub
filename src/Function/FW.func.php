@@ -537,8 +537,7 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
         array $lista = [],
         array $remover = [],
         $null = true,
-        $empty = true,
-        ?string $chave = null
+        $empty = true
     ): array {
 
         $listaBusca = ['id'];
@@ -559,7 +558,6 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             $listaBusca = array_flip($listaBusca);
         }
 
-        $Crypt = !empty($chave) ? new CryptHelper(chavePublica: $chave) : null;
         $retorno = [];
         foreach ($listaBusca as $ind => $nome) {
             $campo = $nome;
@@ -608,7 +606,7 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             ) {
                 continue;
             }
-            $retorno[$campo] = !empty($chave) && !empty($valor) ? $Crypt->encode($valor) : $valor;
+            $retorno[$campo] = $valor;
         }
         return $retorno;
     }
@@ -939,6 +937,105 @@ if (!function_exists('object_key_exists')) {
     {
         $array = get_object_vars($objeto);
         return array_key_exists($chave, $array);
+    }
+}
+if (!function_exists('descriptografarDado')) {
+    /**
+     * Criptografa um array de dados ou uma string
+     *
+     * @param   string|array    $valor  String com valor a criptografar ou um array ou uma lista de array
+     * @param   array           $lista  Lista de campos que devem ser criptografados quando o valor for um array
+     * @return  string|array            String quando o valor for uma string ou um array quando o valor for um array
+     */
+    function descriptografarDado(string|stdClass|array $valor, array $lista = [], ?string $chave = null): array|string
+    {
+        $chave =
+            is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
+            TOKEN['app']->chave_privada :
+            $chave;
+        $Crypt = new CryptHelper(chavePrivada: $chave);
+
+        if ($valor instanceof stdClass) {
+            $valor = (array) $valor;
+        } else if (!is_array($valor)) {
+            return !empty($valor) ? $Crypt->decode($valor) : $valor;
+        }
+
+        $retorno = [];
+        foreach ($valor as $ind => $val) {
+            if (is_array($val) || is_object($val)) {
+                foreach ($val as $ind2 => $val2) {
+                    if (!empty($val2) && in_array($ind2, $lista)) {
+                        $valorTemp = $Crypt->decode($val2);
+                        if (!empty($val2) && empty($valorTemp)) {
+                            mensagemErro(
+                                'Erro!',
+                                'Não foi possível remover a criptografia do indice ' . $ind2 . ' ou ele não está criptografado.'
+                            );
+                        }
+                        $val2 = $valorTemp;
+                    }
+                    $retorno[$ind2] = $val2;
+                }
+                continue;
+            }
+            if (!empty($val) && in_array($ind, $lista)) {
+                $valorTemp = $Crypt->decode($val);
+                if (!empty($val) && empty($valorTemp)) {
+                    mensagemErro(
+                        'Erro!',
+                        'Não foi possível remover a criptografia do indice ' . $ind . ' ou ele não está criptografado.'
+                    );
+                }
+                $val = $valorTemp;
+            }
+            $retorno[$ind] = $val;
+        }
+        return $retorno;
+    }
+}
+if (!function_exists('criptografarDado')) {
+    /**
+     * Criptografa um array de dados ou uma string
+     *
+     * @param   string|array    $valor  String com valor a criptografar ou um array ou uma lista de array
+     * @param   array           $lista  Lista de campos que devem ser criptografados quando o valor for um array
+     * @return  string|array            String quando o valor for uma string ou um array quando o valor for um array
+     */
+    function criptografarDado(string|stdClass|array $valor, array $lista = [], ?string $chave = null): array|string
+    {
+        $chave =
+            is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
+            TOKEN['app']->chave_publica :
+            $chave;
+
+        $Crypt = new CryptHelper(chavePublica: $chave);
+
+        if ($valor instanceof stdClass) {
+            $valor = (array) $valor;
+        }
+
+        if (!is_array($valor)) {
+            return !empty($valor) ? $Crypt->encode($valor) : '';
+        }
+
+        $retorno = [];
+        foreach ($valor as $ind => $val) {
+            if (is_array($val) || is_object($val)) {
+                foreach ($val as $ind2 => $val2) {
+                    if (!empty($val2) && in_array($ind2, $lista)) {
+                        $val2 = $Crypt->encode($val2);
+                    }
+                    $retorno[$ind][$ind2] = !empty($val2) ? $val2 : '';
+                }
+                continue;
+            }
+            if (!empty($val) && in_array($ind, $lista)) {
+                $val = $Crypt->encode($val);
+            }
+            $retorno[$ind] = !empty($val) ? $val : '';
+        }
+        return $retorno;
     }
 }
 if (!function_exists('base64Encode')) {
@@ -1424,7 +1521,7 @@ if (!function_exists('imagemUsuario')) {
      * @param   null|string $google     URL da imagem do Google
      * @return  string                  URL da imagem
      */
-    function imagemUsuario(?string $tipo, ?string $arquivo, ?string $facebook, ?string $google): string
+    function imagemUsuario(?string $tipo = null, ?string $arquivo = null, ?string $facebook = null, ?string $google = null): string
     {
         if ($tipo == 1 && !empty($facebook)) {
             return $facebook;
@@ -1441,13 +1538,17 @@ if (!function_exists('arquivoPublico')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param   string    $diretorio    Diretório que o arquivo pertence
-     * @param   string    $arquivo      Arquivo que deseja pegar
-     * @param   array     $parametro    Parametro para inserir como GET na URL
+     * @param   string      $diretorio  Diretório que o arquivo pertence
+     * @param   string      $arquivo    Arquivo que deseja pegar
+     * @param   array       $parametro  Parametro para inserir como GET na URL
+     * @param   string      $padrao     Imagem padrão caso não tenha arquivo
      * @return  string                  Url do arquivo
      */
-    function arquivoPublico(string $diretorio, string $arquivo, array $parametro = [])
+    function arquivoPublico(string $diretorio, string $arquivo, array $parametro = [], string $padrao = '')
     {
+        if (empty($arquivo)) {
+            return $padrao;
+        }
         $query = [];
         foreach ($parametro as $ind => $val) {
             $query[] = [$ind . '=' . $val];
@@ -1500,12 +1601,17 @@ if (!function_exists('arquivoPrivado')) {
     /**
      * Gera um link para um arquivo privado
      *
-     * @param string    $id         ID do arquivo no banco (uuid)
-     * @param array     $parametro  Parametro para inserir como GET na URL
-     * @return string               Url do arquivo
+     * @param   null|string     $id         ID do arquivo no banco (uuid)
+     * @param   array           $parametro  Parametro para inserir como GET na URL
+     * @param   string          $padrao     Arquivo padrão caso não tenha ID
+     * @return  string                      Url do arquivo
      */
-    function arquivoPrivado(string $id, array $parametro = [])
+    function arquivoPrivado(?string $id, array $parametro = [], string $padrao = '')
     {
+        if (empty($id)) {
+            return $padrao;
+        }
+
         $query = [];
         foreach ($parametro as $ind => $val) {
             $query[] = [$ind . '=' . $val];

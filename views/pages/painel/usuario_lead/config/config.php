@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioLead\Helper;
+
 return [
     'titulo' => 'Lead',
     'buscar' => true,
@@ -11,6 +13,7 @@ return [
     'historico' => true,
     'api' => [
         'scope' => 'usuario_lead',
-        'uri' => '/usuario-lead'
+        'uri' => '/usuario-lead',
+        'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];

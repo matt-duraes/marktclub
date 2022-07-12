@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Data;
 use Modules\Dinheiro;
 use App\Classes\UsuarioPagamento\Status;
+use App\Models\Api\ApiUsuario\UsuarioEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class PagamentoEntity extends Entity
@@ -20,25 +21,40 @@ final class PagamentoEntity extends Entity
     protected array $_salvar = ['status'];
 
     public Data $data_pagamento;
-
     private int $idEquipe;
     private int $idEmpresa;
+    private ClienteEntity $Usuario;
 
     public Status $status;
 
     public function __construct(
         public ?Data $data_cobranca = null,
         public ?Dinheiro $valor_debito = null,
-        public ?ClienteEntity $Usuario = null
+        public ?string $usuario = null
     ) {
         parent::__construct();
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioPagamento\PagamentoEntity');
         }
+        $this->setarUsuarioDoPagamento($usuario);
 
         $this->idEquipe = is_object(TOKEN['usuario']) ? TOKEN['usuario']->get('id') : null;
         $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->_wherePadrao = ['id_admin_empresa', $this->idEmpresa];
+    }
+    private function setarUsuarioDoPagamento(?string $usuario): void
+    {
+        if (!$usuario) {
+            return;
+        }
+
+        try {
+            $Usuario = new ClienteEntity();
+            $Usuario->id($usuario);
+            $this->id_usuario_cliente = $Usuario->get('id');
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Usuário enviado não foi encontrado');
+        }
     }
 
     protected function regraPosBuscar()
@@ -49,7 +65,6 @@ final class PagamentoEntity extends Entity
 
     protected function regraInsert()
     {
-        $this->id_usuario_cliente = $this->Usuario->get('id');
         $this->id_usuario_equipe = $this->idEquipe;
         $this->id_admin_empresa = $this->idEmpresa;
         $this->status = new Status(1);

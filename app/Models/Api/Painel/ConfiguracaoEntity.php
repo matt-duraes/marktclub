@@ -25,7 +25,7 @@ final class ConfiguracaoEntity extends Entity
         try {
             $this->buscar(['id_admin_empresa', TOKEN['empresa']->get('id')]);
         } catch (\Throwable) {
-            $this->buscar(['id_admin_empresa', 1]);
+            $this->buscar(['id_admin_empresa', 0]);
         }
     }
 }

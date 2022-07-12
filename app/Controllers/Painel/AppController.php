@@ -47,6 +47,7 @@ final class AppController extends Controller
         if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
             mensagemStatus(500, localhost: 'Ocorreu um erro ao fazer a busca na API.');
         }
+        $dado->dado->lista = $this->tratarListaDeRetorno($dado->dado->lista, $config->api->criptografar);
 
         return view(
             arquivo: $config->index->app . '.index',
@@ -136,7 +137,7 @@ final class AppController extends Controller
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'visualizar',
-                'dado' => $dado->dado
+                'dado' => object($this->tratarListaDeRetorno($dado->dado, $config->api->criptografar))
             ],
             css: $config->visualizar->css,
             js: $config->visualizar->js,
@@ -225,7 +226,7 @@ final class AppController extends Controller
         if (empty($lista)) {
             throw new Erro(mensagem: 'Não existe uma lista de indices para salvar ou ela está vazia.');
         }
-        $lista = $this->tratarListaParaSalvar($lista, $requestCampo, $config->api->criptografia);
+        $lista = $this->tratarListaParaSalvar($lista, $requestCampo, $config->api->criptografar);
 
         $uri = $config->api->uri;
         if ($acao == 'insert') {
@@ -280,7 +281,7 @@ final class AppController extends Controller
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'editar',
-                'dado' => $config->api->criptografia ? $this->removerCriptografia($dado->dado) : $dado->dado,
+                'dado' => object($this->tratarListaDeRetorno($dado->dado, $config->api->criptografar)),
                 'request' => $request,
                 'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : '',
                 'linkVoltar' => $config->add->link
@@ -321,14 +322,17 @@ final class AppController extends Controller
         if ($request->termo != 'sim') {
             mensagemStatus(403, localhost: 'Termo não foi marcado.');
         }
-        $ApiSenha = new ApiHelper(token: true);
-        $validarSenha = $ApiSenha->body(['senha' => $request->senha])->post('/usuario-equipe/validar-senha')->object();
-        if (existeErro($validarSenha, 'dado')) {
-            mensagemStatus(403, 'Senha não foi validada.');
-        }
 
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'download');
+
+        $ApiSenha = new ApiHelper(token: true);
+        $dadoSenha = $this->tratarListaParaSalvar(['senha' => $request->senha], ['senha'], $config->api->criptografar);
+
+        $validarSenha = $ApiSenha->body($dadoSenha)->post('/usuario-equipe/validar-senha')->object();
+        if (existeErro($validarSenha, 'dado')) {
+            mensagemStatus(403, 'Senha não foi validada.');
+        }
 
         if (!$config->permissao->index || !$config->permissao->download) {
             throw new Excecao(status: 403);
@@ -369,8 +373,9 @@ final class AppController extends Controller
             );
         }
 
+        $dado = $this->tratarListaDeRetorno($dado['dado'], $config->api->criptografar, 'array');
         new DownloadGeral(
-            $dado['dado'],
+            $dado,
             $config->download->replace,
             $app
         );

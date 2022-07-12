@@ -510,6 +510,9 @@ abstract class Entity extends ORM
             $valor = new DataHora(data: $valor);
         } elseif ($nome == 'Modules\Nome') {
             $valor = new Nome(nome: $valor);
+        } elseif ($nome == 'Modules\Senha' && $this->propriedadeExiste($indice)) {
+            $this->$indice->mudarSenha($valor);
+            $valor = $this->$indice;
         } elseif ($nome == 'Modules\Senha') {
             $valor = new Senha(senha: $valor);
         } elseif ($nome == 'Modules\Telefone') {

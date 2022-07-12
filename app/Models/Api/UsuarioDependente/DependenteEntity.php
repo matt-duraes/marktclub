@@ -62,7 +62,7 @@ final class DependenteEntity extends Entity
             acao: 'Cadastro de dependente',
             cor: $Construtor->cor
         );
-        $Email->sendGride('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
+        $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
     }
 
     protected function regraInsert()

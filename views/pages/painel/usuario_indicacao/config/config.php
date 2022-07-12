@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioIndicacao\Helper;
+
 return [
     'titulo' => 'Indicação',
     'buscar' => true,
@@ -11,6 +13,8 @@ return [
     'deletar' => false,
     'historico' => true,
     'api' => [
-        'uri' => '/usuario-indicacao'
+        'scope' => 'usuario_indicacao',
+        'uri' => '/usuario-indicacao',
+        'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];

@@ -16,7 +16,7 @@ foreach ($listaDiretorio as $diretorio) {
     }
 }
 if ($listaDefine) {
-    file_put_contents(__DIR__ . '/../../../Database/tabela.php', '<?php ' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $listaDefine));
+    file_put_contents(ROOT . '/files/banco/tabela.php', '<?php ' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $listaDefine));
 }
 
 /*

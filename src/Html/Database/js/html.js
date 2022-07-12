@@ -1,32 +1,35 @@
-$(function () {
-    $('input[name=marcar]').change(function () {
-        if ($(this).is(':checked')) {
-            $('.conteudo input').prop('checked', true);
-        } else {
-            $('.conteudo input').prop('checked', false);
+window.addEventListener('load', () => {
+    const checkMarcarTodos = document.querySelector('input[name=marcar_todos]');
+    const checkTabela = document.querySelectorAll('.input_tabela');
+    checkTabela.forEach(input => {
+        input.addEventListener('change', () => {
+            const quantidade = document.querySelectorAll('.input_tabela:checked').length;
+            if (quantidade == checkTabela.length) {
+                checkMarcarTodos.checked = true;
+                return;
+            } else if (checkMarcarTodos) {
+                checkMarcarTodos.checked = false;
+            }
+        });
+    });
+
+    checkMarcarTodos.addEventListener('change', () => {
+        if (checkMarcarTodos.checked) {
+            checkTabela.forEach(input => {
+                input.checked = true;
+            });
         }
     });
 
-    $('.conteudo input').change(function () {
-        if ($('.conteudo input:checked').length == $('.conteudo input').length) {
-            $('input[name=marcar]').prop('checked', true);
-        } else {
-            $('input[name=marcar]').prop('checked', false);
-        }
-    });
-
-    $('button').click(function () {
-        if (!$('input[name=aceito]').is(':checked')) {
+    const checkAceito = document.querySelector('input[name=aceito]');
+    document.querySelector('button').addEventListener('click', () => {
+        if (!checkAceito.checked) {
             alert('Marque a caixa de alerta com os termos para continuar.');
             return false;
         }
 
-        let tabela = [];
-        $('.conteudo input:checked').each(function () {
-            tabela.push($(this).val());
-        });
-
-        if (tabela == '') {
+        const quantidadeMarcado = document.querySelectorAll('.input_tabela:checked').length;
+        if (quantidadeMarcado < 1) {
             alert('Marque pelo menos uma tabela para continuar.');
             return false;
         }

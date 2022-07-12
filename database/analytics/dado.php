@@ -1,0 +1,37 @@
+<?php
+
+$dado = [];
+$dataNumero = 10;
+$dataInicial = agora();
+
+for ($i = 0; $i <= 10; $i++) {
+    $total = rand(100, 200);
+    $data = dataRemover($dataInicial, $dataNumero, 'dias');
+    for ($i2 = 0; $i2 < $total; $i2++) {
+        $dado[] = [
+            'usuario' => rand(1, 3),
+            'empresa' => 1,
+            'vinculo' => rand(1, 3),
+            'usuario_tipo' => 1,
+            'hash' => md5(uniqid(time())),
+            'ip' => '127.0.0.1',
+            'agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36 RuxitSynthetic/1.0 v2832351274092595195 t6816603945225267545 ath259cea6f altpriv cvcv=2 smf=0',
+            'dispositivo' => ['Desktop', 'Mobile Phone'][rand(0, 1)],
+            'os' => ['Linux', 'Windows', 'MAC', 'Android', 'IOS'][rand(0, 4)],
+            'browser' => ['Chrome', 'Firefox', 'Safari'][rand(0, 2)],
+            'versao' => ['100.0', '101.2', '102.3'][rand(0, 2)],
+            'mobile' => '',
+            'tablet' => '',
+            'pais' => '',
+            'uf' => '',
+            'cidade' => '',
+            'latitude' => '',
+            'longitude' => '',
+            'url' => ['/convenios', '/convenios/fisk', '/convenios/salavip', '/convenios/kalunga'][rand(0, 3)],
+            'data_criacao' => $data
+        ];
+    }
+    $dataNumero--;
+}
+
+return $dado;

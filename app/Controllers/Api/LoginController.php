@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Helpers\CryptHelper;
 use Controller\Controller;
 use App\Models\Api\LoginApi\LoginModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
@@ -48,27 +49,34 @@ final class LoginController extends Controller
     */
     public function postLoginPainel(Request $request)
     {
-        if (!empty($request->facebook)) {
-            $Login = new LoginFacebookModel($request->facebook);
-        } else if (!empty($request->google)) {
-            $Login = new LoginGoogleModel($request->google);
+        $dado = (object)$request->dadoDecode(
+            chavePrivada: TOKEN['app']->chave_privada,
+            descriptografar: ['login', 'senha', 'facebook', 'google']
+        );
+
+        if (!empty($dado->facebook)) {
+            $Login = new LoginFacebookModel($dado->facebook);
+        } else if (!empty($dado->google)) {
+            $Login = new LoginGoogleModel($dado->google);
         } else {
-            $Login = new LoginFormModel($request->login, $request->senha);
+            $Login = new LoginFormModel($dado->login, $dado->senha);
         }
 
         $Usuario = $Login->pegarUsuario();
-        return $this->criarToken([
+        $dado = criptografarDado([
             'sub' => $Usuario->id,
-            'name' => $Usuario->nome,
-            'picture' => $Usuario->get('imagem'),
+            'name' => $Usuario->nome->nome(),
+            'picture' => $Usuario->imagem,
             'create_at' => $Usuario->data_criacao->date(),
             'updated_at' => $Usuario->data_atualizacao->date(),
             'document' => $Usuario->cpf->cpf(),
             'email' => $Usuario->email->email(),
             'email_verified' => false,
-            'new_access' => $Usuario->primeiro_acesso == 1,
+            'new_access' => $Usuario->primeiro_acesso->valor(),
             'permission' => $Usuario->permissao
-        ], $request);
+        ], lista: ['name', 'picture', 'document', 'email']);
+
+        return $this->criarToken($dado, $request);
     }
 
     private function criarToken(array $body, Request $request): Response

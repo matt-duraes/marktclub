@@ -80,4 +80,13 @@ final class PainelController extends Controller
 
         return mensagemSucesso($lista);
     }
+
+    public function getChavePublica()
+    {
+        return mensagemSucesso(['chave' => TOKEN['app']->chave_publica]);
+    }
+    public function getChavePrivada()
+    {
+        return mensagemSucesso(['chave' => TOKEN['app']->chave_privada]);
+    }
 }

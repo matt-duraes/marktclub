@@ -119,7 +119,7 @@ exports.buildEnv = async () => {
 
     const conteudoAdp =
         'GIT=' +
-        config.git +
+        config.gitOrigin +
         '\n\nDB_HOST=0.0.0.0:' +
         config.docker.db +
         '\nDB_BANCO=' +
@@ -285,5 +285,13 @@ exports.buildPaginaExemplo = async () => {
     src(['src/Files/exemplo/site_exemplo.php']).pipe(plumber()).pipe(dest('./files/build/views'));
     src(['src/Files/exemplo/SiteRoute.php']).pipe(plumber()).pipe(dest('./routes'));
 
+    return Promise.resolve(true);
+};
+
+exports.buildCorrigindoComposer = () => {
+    src('src/Files/vendor/Scanner.php').pipe(plumber()).pipe(dest('./vendor/phpmussel/core/src'));
+    src('src/Files/vendor/GlobalFunctionsHelper.php')
+        .pipe(plumber())
+        .pipe(dest('./vendor/box/spout/src/Spout/Common/Helper'));
     return Promise.resolve(true);
 };

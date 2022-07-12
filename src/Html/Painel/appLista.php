@@ -81,6 +81,7 @@ $appLink = str_replace('_', '-', $app);
 
         <?php if (isset($dado->lista) && !vazio($dado->lista)) : ?>
             <?php foreach ($dado->lista as $r) : ?>
+                <?php $r = is_array($r) ? (object)$r : $r; ?>
                 <div class="linha">
                     <div class="lista geral form_geral">
                         <input type="hidden" name="id" value="<?= $r->id ?>">

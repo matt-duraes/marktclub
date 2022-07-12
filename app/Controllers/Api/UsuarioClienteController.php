@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\UsuarioCliente\ClienteModel;
 use App\Models\Api\UsuarioCliente\DeletarModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
@@ -31,49 +32,35 @@ final class UsuarioClienteController extends Controller implements
             ['status', 'in', [1, 2, 3, 5]]
         ]);
 
-        return $this->mensagemSucesso($Usuario);
-    }
-    private function mensagemSucesso(ClienteEntity $Usuario)
-    {
-        return mensagemSucesso(pegarPropriedadeDaEntity(
-            $Usuario,
-            lista: [
-                'id', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
-                'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
-                'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
-                'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
-                'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
-                'pagamento', 'trabalho_data_inicio', 'mensagem', 'status',
-            ],
-            chave: TOKEN['app']->chave_publica
-        ));
+        return $this->retornoSucesso($Usuario);
     }
 
     public function getListar(Request $request)
     {
         $Usuario = new ClienteModel($request);
         $dado = $Usuario->listar();
+        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
 
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $dado
-        ]);
+        return mensagemSucesso($dado);
     }
+
     public function postDownload(Request $request)
     {
         $Usuario = new ClienteModel($request);
         $dado = $Usuario->download();
 
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $dado
-        ], status: 201);
+        return mensagemSucesso($dado, status: 201, criptografar: Helper::CRIPTOGRAFAR);
     }
 
     public function postSalvar(Request $request)
     {
         $Usuario = new ClienteEntity($request);
-        $Usuario->set(lista: $request->dado());
+        $Usuario->set(
+            lista: $request->dadoDecode(
+                chavePrivada: TOKEN['app']->chave_privada,
+                descriptografar: Helper::CRIPTOGRAFAR
+            )
+        );
         $Usuario->salvar();
 
         $dado = $request->dado();
@@ -82,10 +69,7 @@ final class UsuarioClienteController extends Controller implements
             $dado['senha'] = true;
         }
 
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $dado
-        ], status: 201);
+        return $this->retornoSucesso($Usuario, 201);
     }
 
     public function putAtualizar(Request $request, string $id)
@@ -98,7 +82,10 @@ final class UsuarioClienteController extends Controller implements
             ['status', 'in', [1, 2, 3, 5]]
         ]);
 
-        $Usuario->set(lista: $request->dado());
+        $Usuario->set(lista: $request->dadoDecode(
+            chavePrivada: TOKEN['app']->chave_privada,
+            descriptografar: Helper::CRIPTOGRAFAR
+        ));
         $Usuario->salvar();
 
         return new Response(status: 204);
@@ -113,5 +100,24 @@ final class UsuarioClienteController extends Controller implements
         $Usuario->deletar();
 
         return new Response(status: 204);
+    }
+
+    private function retornoSucesso(ClienteEntity $Usuario, int $status = 200)
+    {
+        return mensagemSucesso(
+            dado: pegarPropriedadeDaEntity(
+                $Usuario,
+                lista: [
+                    'id', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
+                    'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
+                    'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
+                    'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
+                    'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
+                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'status', 'pagamento'
+                ],
+            ),
+            status: $status,
+            criptografar: Helper::CRIPTOGRAFAR
+        );
     }
 }
