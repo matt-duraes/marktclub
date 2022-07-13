@@ -63,7 +63,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             inArray: ['Em andamento'],
             cor: 'vermelho',
             mensagem: 'Tem certeza que deseja dar baixa a esse Lead? Essa ação não poderá ser desfeita.',
-            status: 'sem_interesse'
+            status: 'sem-interesse'
         )
         ->status(
             campo: 'status',
@@ -71,7 +71,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             inArray: ['Em andamento'],
             cor: 'verde',
             mensagem: 'Tem certeza que deseja cadastrar esse Lead na base? Essa ação não poderá ser desfeita.',
-            status: 'cadastro_realizado'
+            status: 'cadastro-realizado'
         );
 });
 
