@@ -71,9 +71,9 @@ if (!file_exists(__DIR__ . '/../../files/config/.config')) {
     throw new \Erro\Erro(
         mensagem: 'Framework não iniciado',
         titulo: 'Erro na aplicação',
-        texto: 'Execute gulp install --config para configurar o framework',
+        texto: 'Execute gulp install para configurar o framework',
         sugestao: [
-            'gulp install --config'
+            'gulp install'
         ]
     );
 }
