@@ -377,7 +377,9 @@ if (!function_exists('validarUuid')) {
      */
     function validarUuid($uuid, bool $erro = true): bool
     {
-        $uuidValido = is_string($uuid) && preg_match('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $uuid);
+        $uuidValido = is_string($uuid) &&
+            (preg_match('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $uuid) ||
+                preg_match('/^[a-f0-9]{32}$/i', $uuid));
 
         if (!$erro) {
             return $uuidValido;
