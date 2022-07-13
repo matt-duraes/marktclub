@@ -64,7 +64,6 @@ final class UsuarioTabelaModel extends ORM
             'status' => 2,
             'mensagem' => 1,
             'empresa' => $this->idEmpresa,
-            'titular' => 1,
             'tipo' => 1,
             'data_atualizacao' => agora(),
             'data_upload_tabela' => hoje(),
