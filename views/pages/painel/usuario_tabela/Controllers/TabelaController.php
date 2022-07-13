@@ -15,7 +15,8 @@ final class TabelaController extends Controller
         return view(arquivo: 'painel.usuario_tabela.Views.index', var: [
             'appTitulo' => 'TABELA / SALVAR',
             'app' => 'tabela-salvar',
-            'tipo' => 'salvar'
+            'tipo' => 'salvar',
+            'arquivo' => arquivoPublico('tabela', 'layout_usuario.csv')
         ]);
     }
 
@@ -24,7 +25,8 @@ final class TabelaController extends Controller
         return view(arquivo: 'painel.usuario_tabela.Views.index', var: [
             'appTitulo' => 'TABELA / BLOQUEAR',
             'app' => 'tabela-bloquear',
-            'tipo' => 'bloquear'
+            'tipo' => 'bloquear',
+            'arquivo' => arquivoPublico('tabela', 'layout_bloqueio.csv')
         ]);
     }
 
