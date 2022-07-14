@@ -15,6 +15,7 @@ Route
 Route
     ::nome('documentacao')
     ::controller(App\Controllers\Api\DocumentacaoController::class)
+    ::middleware(App\Middlewares\SistemaMiddleware::class, 'tipo', ['producao'])
     ::grupo(function () {
         Route
             ::nome('login')
@@ -277,7 +278,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:salvar'])
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
-                '!email_pessoal', '!telefone_fixo', '!telefone_celular', '!permissao',
+                '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha'
             ])
             ::post('/usuario-equipe');
@@ -287,7 +288,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
-                '!email_pessoal', '!telefone_fixo', '!telefone_celular', '!permissao',
+                '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha'
             ])
             ::put('/usuario-equipe/{id}');

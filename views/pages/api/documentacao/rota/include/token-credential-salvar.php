@@ -11,7 +11,7 @@ $Doc
     ->body('secret_id', '1234567890', 'Código privado', 'string', 22, true)
     ->body('audience', 'web', 'Audiencia do token', 'string', obrigatorio: true)
     ->body('grant_type', 'client_credentials', 'Tipo do token que deseja criar', 'string', obrigatorio: true)
-    ->body('scope', 'login:api', 'Quais scopes esse token terá acesso, se for mais de um, separe por virgula.', 'string')
+    ->body('scope', 'login:api', 'Quais scopes esse token terá acesso, se for mais de um, separe por espaço.', 'string')
 
     ->observacao('Não deixe sua secret_id transitar em ambiente público, com ela, um terceiro pode manipular as informações da sua base.')
     ->observacao('Cada token criado tem uma duração determinada, por isso, você pode usar o mesmo token mais de uma vez nesse intervalo desde que ele tenha permissão para executar a ação desejada.')
@@ -21,13 +21,26 @@ $Doc
     ->erro400()
     ->erro(403, 'Você não teve permissão para criar o token, geralmente isso ocorre porque um ou mais parâmetros do body estão incorretos.')
 
-    ->sucesso('access_token', 'Token que deve ser usado nas demais rotas.')
-    ->sucesso('scope', 'Lista de scopes que esse token tem acesso.')
-    ->sucesso('expires_in', 'Quantidade de segundos que esse token tem de vida.')
-    ->sucesso('token_type', 'Tipo de token criado.')
+    // ->sucesso('access_token', 'Token que deve ser usado nas demais rotas.')
+    // ->sucesso('scope', 'Lista de scopes que esse token tem acesso.')
+    // ->sucesso('expires_in', 'Quantidade de segundos que esse token tem de vida.')
+    // ->sucesso('token_type', 'Tipo de token criado.')
 
-    ->preExemplo("")
-    ->preSucesso("")
-    ->preFalha("");
+    ->preExemplo("curl --location --request POST '{{LINK}}' \
+--form 'client_id=\"client_id_aqui\"' \
+--form 'secret_id=\"secret_id_aqui\"' \
+--form 'audience=\"web\"' \
+--form 'grant_type=\"client_credentials\"' \
+--form 'scope=\"scope:teste01 scope:teste02 scope:teste03\"'")
+    ->preSucesso("{
+    \"status\": \"sucesso\",
+    \"dado\": {
+        \"access_token\": \"token_que_deve_ser_usado\",
+        \"scope\": \"scopes\",
+        \"expires_in\": \"tempo_de_vida\",
+        \"token_type\": \"Bearer\"
+    }
+}")
+    ->preFalha();
 
 echo $Doc;

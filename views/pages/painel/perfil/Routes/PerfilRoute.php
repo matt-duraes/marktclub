@@ -23,8 +23,8 @@ Route
             ::nome('atualizar_dado')
             ::action('dado')
             ::request([
-                'hash_validacao', 'nome', 'data_nascimento', 'genero',
-                'email_pessoal', 'telefone_trabalho', 'telefone_pessoal'
+                'nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho',
+                'telefone_pessoal'
             ])
             ::post('/perfil/dado');
 

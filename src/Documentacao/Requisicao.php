@@ -7,6 +7,7 @@ final class Requisicao
     private ?string $id = '';
     private ?array $erro = [];
     private ?array $pre = [];
+    private array|bool $criptografar = false;
     private ?array $observacao = null;
     private ?array $header = null;
     private ?array $body = null;
@@ -68,7 +69,7 @@ final class Requisicao
         $this->erro[] = [500, 'Erro interno por alguma falha ou instabilidade.'];
 
         $html = '
-            <div class="erro">
+            <div class="erro bloco_lista_geral">
                 <h3>Lista de erro:</h3>
                 <div class="lista">
         ';
@@ -140,6 +141,11 @@ final class Requisicao
         return $this;
     }
 
+    public function criptografar(bool|array $campo = false)
+    {
+        $this->criptografar = $campo;
+        return $this;
+    }
     public function body($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
     {
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
@@ -175,12 +181,16 @@ final class Requisicao
         } else if ($obrigatorio == '-') {
             $obrigatorioHtml = '<div class="obrigatorio azul texto">-</div>';
         }
+
+        $criptografia = $this->criptografar === true || (is_array($this->criptografar) && in_array($campo, $this->criptografar)) ?
+            '<div class="criptografia">Campo deve ser criptografado</div>' : '';
         $this->$indice[] = '
             <div class="linha">
                 <div class="campo texto">' . $campo . '</div>
                 <div class="exemplo_descricao">
                     ' . $exemplo . '
                     ' . $descricao . '
+                    ' . $criptografia . '
                 </div>
                 ' . $tipo . '
                 ' . $obrigatorioHtml . '
@@ -219,7 +229,7 @@ final class Requisicao
     }
     public function preExemplo(string $pre)
     {
-        $this->pre[] = ['Exemplo', $pre];
+        $this->pre[] = ['Exemplo', str_replace('{{LINK}}', LINK_HOMOLOGACAO, $pre)];
         return $this;
     }
     public function preSucesso(string $pre)
@@ -227,8 +237,18 @@ final class Requisicao
         $this->pre[] = ['Sucesso', $pre];
         return $this;
     }
-    public function preFalha(string $pre)
+    public function preFalha(?string $pre = null)
     {
+        if (empty($pre)) {
+            $pre = "{
+    \"status\": \"erro\",
+    \"erro\": {
+        \"titulo\": \"Título do erro\",
+        \"mensagem\": \"Descrição do erro.\",
+        \"codigo\": \"Código do erro podendo ser opcional\"
+    }
+}";
+        }
         $this->pre[] = ['Falha', $pre];
         return $this;
     }
