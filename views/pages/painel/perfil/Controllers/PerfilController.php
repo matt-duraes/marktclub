@@ -6,8 +6,10 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
+use Helpers\CryptHelper;
 use Helpers\ListaHelper;
 use Controller\Controller;
+use App\Classes\UsuarioEquipe\Helper;
 
 final class PerfilController extends Controller
 {
@@ -19,23 +21,12 @@ final class PerfilController extends Controller
 
         $id = sessao('USUARIO.id');
         $Api = new ApiHelper(token: true);
-        $usuario = $Api->get('/usuario-equipe/' . $id)->object();
+        $usuario = $Api->get('/usuario-equipe/' . $id)->array();
         if (existeErro($usuario, 'dado')) {
             mensagemStatus(404, localhost: 'Não foi encontrado o usuário');
         }
 
-        $usuario = $usuario->dado;
-
-        return view(arquivo: 'perfil.Views.index', var: [
-            'nome' => $usuario->nome,
-            'cpf' => $usuario->cpf,
-            'data' => $usuario->data_nascimento,
-            'genero' => $usuario->genero,
-            'email_pessoal' => $usuario->email_pessoal,
-            'email_trabalho' => $usuario->email_trabalho,
-            'telefone_pessoal' => $usuario->telefone_pessoal,
-            'telefone_trabalho' => $usuario->telefone_trabalho
-        ]);
+        return view(arquivo: 'perfil.Views.index', var: $this->descriptografarUsuario($usuario['dado']));
     }
 
     public function dado(): Response
@@ -46,19 +37,33 @@ final class PerfilController extends Controller
 
         $id = sessao('USUARIO.id');
         $Api = new ApiHelper(token: true);
-        $usuario = $Api->get('/usuario-equipe/' . $id)->object();
+        $usuario = $Api->get('/usuario-equipe/' . $id)->array();
         if (existeErro($usuario, 'dado')) {
             mensagemStatus(404, localhost: 'Não foi encontrado o usuário');
         }
-
-        $usuario = $usuario->dado;
 
         return view(arquivo: 'perfil.Views.dado', var: [
             'appTitulo' => 'Atualizar Dados',
             'appVoltar' => [route('perfil.index'), 'Perfil'],
             'genero' => (new ListaHelper)->add('', 'Escolha uma opção')->genero()->r(),
-            'usuario' => $usuario
+            'usuario' => $this->descriptografarUsuario($usuario['dado'])
         ]);
+    }
+
+    private function descriptografarUsuario($dado): array
+    {
+
+        $Api = new ApiHelper(token: true);
+        $chave = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        $crypt = new CryptHelper(chavePrivada: $chave);
+        foreach ($dado as $ind => $val) {
+            if (empty($val) || !in_array($ind, Helper::CRIPTOGRAFAR)) {
+                continue;
+            }
+            $val = $crypt->decode($val);
+            $dado[$ind] = $val;
+        }
+        return $dado;
     }
 
     public function postValidarSenha(Request $request)
@@ -82,7 +87,34 @@ final class PerfilController extends Controller
     public function postDado(Request $request): Response
     {
         $this->verificarUsuarioLogadoAjax();
-        return new Response(status: 204);
+
+        $Api = new ApiHelper(token: true);
+        $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+
+        $id = sessao('USUARIO.id');
+        $dado = criptografarDado(
+            valor: [
+                'nome' => $request->nome,
+                'data_nascimento' => $request->data_nascimento,
+                'genero' => $request->genero,
+                'email_pessoal' => $request->email_pessoal,
+                'telefone_trabalho' => soNumero($request->telefone_trabalho),
+                'telefone_pessoal' => soNumero($request->telefone_pessoal),
+            ],
+            lista: ['nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal'],
+            chave: $chave
+        );
+
+        $salvar = $Api->body($dado)->put('/usuario-equipe/' . $id);
+        if ($salvar->status() == 204) {
+            return new Response(status: 204);
+        }
+
+        $salvar = $salvar->object();
+        return mensagemErro(
+            $salvar->erro->titulo ?? 'Erro!',
+            $salvar->erro->mensagem ?? 'Ocorreu um erro ao validar sua senha.'
+        );
     }
 
     public function senha(): Response

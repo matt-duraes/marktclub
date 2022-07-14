@@ -29,7 +29,7 @@
         <header id="header_template">
             <div class="bloco_logo">
                 <button class="menu_mobile" id="menu_principal">@iconeMenu</button>
-                <figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure>
+                <a href="@LINK"><figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure></a>
             </div>
             <div class="bloco_app">
                 <h1>{!!$appTitulo!!}</h1>

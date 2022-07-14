@@ -6,7 +6,10 @@ final class SistemaMiddleware
 {
     public function tipo(string $tipo)
     {
-        if (SISTEMA != $tipo) {
+        $tipo = strCaixaAlta($tipo);
+        if (SISTEMA == 'LOCALHOST') {
+            return true;
+        } else if (SISTEMA != $tipo) {
             mensagemStatus(404);
         }
         return true;

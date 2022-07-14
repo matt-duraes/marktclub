@@ -10,15 +10,15 @@
 
     @? painelColuna('auto');
         @php painelFieldset('Dados pessoais')
-            @? formInput(name:'nome', label: 'Nome', placeholder: 'Digite seu nome', value: $usuario->nome, obrigatorio: true)
-            @? formData(name: 'data', label: 'Data de nascimento', placeholder: 'Digite a sua data de nascimento', value: $usuario->data_nascimento)
-            @? formSelect(name: 'genero', label: 'Gênero', placeholder: 'Escolha seu gênero', value: $usuario->genero, lista: $genero)
+            @? formInput(name:'nome', label: 'Nome', placeholder: 'Digite seu nome', value: $usuario['nome'], obrigatorio: true)
+            @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Digite a sua data de nascimento', value: $usuario['data_nascimento'])
+            @? formSelect(name: 'genero', label: 'Gênero', placeholder: 'Escolha seu gênero', value: $usuario['genero'], lista: $genero)
         @php painelFieldsetEnd()
 
         @php painelFieldset('Dados contato')
-            @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', placeholder: 'Digite seu e-mail pessoal', value: $usuario->email_pessoal)
-            @? formTelefone(name: 'telefone_trabalho', label: 'Telefone de trabalho', placeholder: 'Digite seu telefone de trabalho', value: $usuario->telefone_trabalho)
-            @? formTelefone(name: 'telefone_pessoal', label: 'Telefone pessoal', placeholder: 'Digite seu telefone pessoal', value: $usuario->telefone_pessoal)
+            @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', placeholder: 'Digite seu e-mail pessoal', value: $usuario['email_pessoal'])
+            @? formTelefone(name: 'telefone_trabalho', label: 'Telefone de trabalho', placeholder: 'Digite seu telefone de trabalho', value: $usuario['telefone_trabalho'])
+            @? formTelefone(name: 'telefone_pessoal', label: 'Telefone pessoal', placeholder: 'Digite seu telefone pessoal', value: $usuario['telefone_pessoal'])
         @php painelFieldsetEnd()
     @? painelColunaEnd();
 @? painelAppAddEnd();

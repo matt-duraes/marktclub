@@ -168,10 +168,14 @@ if (!function_exists('formInput')) {
             $typePrincipal = $type;
         }
 
+        $mascaraPrincipal = '';
+        $mascaraSecundaria = '';
         if ($mascara) {
             $mascara = !is_array($mascara) ? [$mascara] : $mascara;
+            $mascaraPrincipal = $mascara[0];
             $attrInput[] = 'data-mascara="' . $mascara[0] . '"';
             if ($mascara[1] ?? false) {
+                $mascaraSecundaria = $mascara[1];
                 $attrInputSecundario[] = 'data-mascara="' . $mascara[1] . '"';
             }
         }
@@ -195,9 +199,36 @@ if (!function_exists('formInput')) {
         }
         if ($value) {
             $value = !is_array($value) ? [$value] : $value;
-            $attrInput[] = 'value="' . $value[0] . '"';
-            if (!empty($value[1] ?? false)) {
-                $attrInputSecundario[] = 'value="' . $value[1] . '"';
+            $valuePrincipal = $value[0];
+            $valueSecundario = $value[1] ?? '';
+
+            if ($mascaraPrincipal == '00/00/0000') {
+                $valuePrincipal = dataBr($valuePrincipal);
+            } else if ($mascaraPrincipal == '00/00/0000 00:00:00') {
+                $valuePrincipal = dataHoraBr($valuePrincipal);
+            } else if ($mascaraPrincipal == 'telefone') {
+                $valuePrincipal = strTelefone($valuePrincipal);
+            } else if ($mascaraPrincipal == '000.000.000-00') {
+                $valuePrincipal = strCpf($valuePrincipal);
+            } else if ($mascaraPrincipal == '00.000.000/0000-00') {
+                $valuePrincipal = strCnpj($valuePrincipal);
+            }
+
+            if ($mascaraSecundaria == '00/00/0000') {
+                $valueSecundario = dataBr($valueSecundario);
+            } else if ($mascaraSecundaria == '00/00/0000 00:00:00') {
+                $valueSecundario = dataHoraBr($valueSecundario);
+            } else if ($mascaraSecundaria == 'telefone') {
+                $valueSecundario = strTelefone($valueSecundario);
+            } else if ($mascaraSecundaria == '000.000.000-00') {
+                $valueSecundario = strCpf($valueSecundario);
+            } else if ($mascaraSecundaria == '00.000.000/0000-00') {
+                $valueSecundario = strCnpj($valueSecundario);
+            }
+
+            $attrInput[] = 'value="' . $valuePrincipal . '"';
+            if (!empty($valueSecundario)) {
+                $attrInputSecundario[] = 'value="' . $valueSecundario . '"';
             }
         }
 

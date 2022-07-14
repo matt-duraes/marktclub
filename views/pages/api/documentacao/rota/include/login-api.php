@@ -11,7 +11,7 @@ $Doc
 
     ->headerToken()
 
-    ->bodyCriptografado()
+    ->criptografar(true)
     ->body('nome', 'João Rodrigues', 'Nome e Sobre nome do usuário', 'string', obrigatorio: true)
     ->body('cpf', '01234567890', 'CPF do usuário contendo apenas numeros', 'int', 11, obrigatorio: true)
     ->body('email_trabalho', 'email@dominio.com.br', 'E-mail de trabalho.', 'string', obrigatorio: '-')
@@ -47,12 +47,6 @@ $Doc
         \"link\": \"https://link_do_clube.com.br/login/api/b6590c38-3ad3-43af-98d7-f514a1b73c85\"
     }
 }")
-    ->preFalha("{
-    \"status\": \"erro\",
-    \"erro\": {
-        \"titulo\": \"Campo obrigatório!\",
-        \"mensagem\": \"O campo nome é obrigatório.\"
-    }
-}");
+    ->preFalha();
 
 echo $Doc;

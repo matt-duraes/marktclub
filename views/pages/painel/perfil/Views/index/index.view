@@ -12,15 +12,15 @@
         <article class="bloco esquerdo">
             <h1>DADOS PESSOAIS</h1>
             <p><strong>Nome:</strong> {!!$nome ? $nome : '<span class="zero">não informado</span>'!!}</p>
-            <p><strong>CPF:</strong> {!!$cpf ? $cpf : '<span class="zero">não informado</span>'!!}</p>
-            <p><strong>Data Nascimento:</strong> {!!$data ? $data : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>CPF:</strong> {!!$cpf ? strCpf($cpf) : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Data Nascimento:</strong> {!!$data_nascimento ? dataBr($data_nascimento) : '<span class="zero">não informado</span>'!!}</p>
             <p><strong>Gênero:</strong> {!!$genero ? $genero : '<span class="zero">não informado</span>'!!}</p>
         </article>
 
         <article class="bloco direito">
             <h1>DADOS DE CONTATO</h1>
-            <p><strong>Telefone pessoal:</strong> {!!$telefone_pessoal ? $telefone_pessoal : '<span class="zero">não informado</span>'!!}</p>
-            <p><strong>Telefone trabalho:</strong> {!!$telefone_trabalho ? $telefone_trabalho : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Telefone pessoal:</strong> {!!$telefone_pessoal ? strTelefone($telefone_pessoal) : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Telefone trabalho:</strong> {!!$telefone_trabalho ? strTelefone($telefone_trabalho) : '<span class="zero">não informado</span>'!!}</p>
             <p><strong>E-mail pessoal:</strong> {!!$email_pessoal ? $email_pessoal : '<span class="zero">não informado</span>'!!}</p>
             <p><strong>E-mail trabalho:</strong> {!!$email_trabalho ? $email_trabalho : '<span class="zero">não informado</span>'!!}</p>
         </article>
