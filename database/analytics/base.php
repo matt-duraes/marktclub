@@ -2,10 +2,13 @@
 
 return (new \DataBase\DataBase())
     ->id()
+    ->uuid()
     ->int('usuario')->tamanho(9)
     ->int('empresa')->tamanho(9)
     ->int('vinculo')->tamanho(9)->null()
+    ->varchar('vinculo_nome')->tamanho(250)->null()
     ->int('usuario_tipo')->tamanho(9)
+    ->cpf('documento_cpf')
     ->char('hash')
     ->varchar('ip')->tamanho(15)
     ->text('agent')
