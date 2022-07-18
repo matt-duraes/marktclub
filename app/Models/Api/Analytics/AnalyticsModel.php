@@ -6,6 +6,7 @@ use ORM\ORM;
 use Http\Request;
 use Helpers\CryptHelper;
 use App\Models\Api\Analytics\Trait\WhereTrait;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class AnalyticsModel extends ORM
 {
@@ -64,6 +65,15 @@ final class AnalyticsModel extends ORM
         if (empty($usuario)) {
             return;
         }
+
+        $Cliente = new ClienteEntity();
+        $Cliente->id($usuario);
+
+        if (empty($Cliente->id)) {
+            return;
+        }
+
+        $this->idUsuario = $Cliente->get('id');
     }
 
     private function montarWhere()
