@@ -119,4 +119,12 @@ final class RelatorioController extends Controller
         $dado = $Relatorio->pegarRelatorio();
         return mensagemSucesso($dado);
     }
+    public function postAnalyticsDownload()
+    {
+        $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql';
+        if (!file_exists($arquivo)) {
+            mensagemStatus(404, localhost: 'O arquivo buscado não existe.');
+        }
+        return new Response(download: $arquivo);
+    }
 }
