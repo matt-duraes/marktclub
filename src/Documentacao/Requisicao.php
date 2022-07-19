@@ -10,7 +10,9 @@ final class Requisicao
     private array|bool $criptografar = false;
     private ?array $observacao = null;
     private ?array $header = null;
+    private string $bodyTitulo = '';
     private ?array $body = null;
+    private array $retorno = [];
 
     public function __toString()
     {
@@ -31,8 +33,9 @@ final class Requisicao
                     ' . $metodo . $uri . '
                     </div>
                     ' . $this->montarBody('Header', $this->header) . '
-                    ' . $this->montarBody('Body', $this->body) . '
+                    ' . $this->montarBody($this->bodyTitulo, $this->body) . '
                     ' . $observacao . '
+                    ' . $this->montarBody('Retorno', $this->retorno) . '
                     ' . $this->montarErro() . '
                 </div>
                 ' . $this->montarPre() . '
@@ -146,8 +149,26 @@ final class Requisicao
         $this->criptografar = $campo;
         return $this;
     }
+    public function retorno($campo, string $descricao)
+    {
+        $this->retorno[] = '
+            <div class="linha">
+                <div class="campo texto">' . $campo . '</div>
+                <div class="exemplo_descricao"><div class="exemplo texto">' . $descricao . '</div></div>
+            </div>
+        ';
+        return $this;
+    }
+
+    public function parametro($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
+    {
+        $this->bodyTitulo = 'Parametro';
+        $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
+        return $this;
+    }
     public function body($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
     {
+        $this->bodyTitulo = 'Body';
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }

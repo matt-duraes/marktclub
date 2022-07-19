@@ -4,14 +4,51 @@ $dado = [];
 $dataNumero = 10;
 $dataInicial = agora();
 
+$usuarioLista = [
+    [
+        'id' => 1,
+        'cpf' => cpfAleatorio(),
+        'nome' => nomeCompletoAleatorio()
+    ],
+    [
+        'id' => 2,
+        'cpf' => cpfAleatorio(),
+        'nome' => nomeCompletoAleatorio()
+    ],
+    [
+        'id' => 3,
+        'cpf' => cpfAleatorio(),
+        'nome' => nomeCompletoAleatorio()
+    ],
+];
+$vinculoLista = [
+    [
+        'id' => 1,
+        'nome' => 'Sala Vip'
+    ],
+    [
+        'id' => 2,
+        'nome' => 'Nome 02'
+    ],
+    [
+        'id' => 3,
+        'nome' => 'Nome 03'
+    ],
+];
+
 for ($i = 0; $i <= 10; $i++) {
     $total = rand(100, 200);
     $data = dataRemover($dataInicial, $dataNumero, 'dias');
     for ($i2 = 0; $i2 < $total; $i2++) {
+        $usuario = $usuarioLista[rand(0, 2)];
+        $vinculo = $vinculoLista[rand(0, 2)];
         $dado[] = [
-            'usuario' => rand(1, 3),
+            'usuario' => $usuario['id'],
+            'usuario_cpf' => $usuario['cpf'],
+            'usuario_nome' => $usuario['nome'],
             'empresa' => 1,
-            'vinculo' => rand(1, 3),
+            'vinculo' => $vinculo['id'],
+            'vinculo_nome' => $vinculo['nome'],
             'usuario_tipo' => 1,
             'hash' => md5(uniqid(time())),
             'ip' => '127.0.0.1',
@@ -28,7 +65,8 @@ for ($i = 0; $i <= 10; $i++) {
             'latitude' => '',
             'longitude' => '',
             'url' => ['/convenios', '/convenios/fisk', '/convenios/salavip', '/convenios/kalunga'][rand(0, 3)],
-            'data_criacao' => $data
+            'data_criacao' => $data,
+            'status' => 1
         ];
     }
     $dataNumero--;

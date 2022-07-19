@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\DispositivoModel;
 use App\Models\Api\Analytics\MaisAcessadoModel;
 use App\Models\Api\Analytics\UsuarioAcessoModel;
@@ -108,6 +109,13 @@ final class RelatorioController extends Controller
     public function getUsuarioAtualizarDado()
     {
         $Relatorio = new AtualizarDadoModel();
+        $dado = $Relatorio->pegarRelatorio();
+        return mensagemSucesso($dado);
+    }
+
+    public function getAnalytics(Request $request)
+    {
+        $Relatorio = new AnalyticsModel($request);
         $dado = $Relatorio->pegarRelatorio();
         return mensagemSucesso($dado);
     }

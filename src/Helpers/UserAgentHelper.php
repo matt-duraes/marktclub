@@ -4,11 +4,18 @@ namespace Helpers;
 
 final class UserAgentHelper
 {
-
+    private string $dispositivo;
     private string $os;
     private string $navegador;
     private string $versao;
+    private bool $mobile;
+    private bool $tablet;
 
+
+    public function dispositivo()
+    {
+        return $this->dispositivo;
+    }
     public function os()
     {
         return $this->os;
@@ -21,6 +28,14 @@ final class UserAgentHelper
     {
         return $this->versao;
     }
+    public function mobile()
+    {
+        return $this->mobile;
+    }
+    public function tablet()
+    {
+        return $this->tablet;
+    }
 
 
     /**
@@ -32,17 +47,31 @@ final class UserAgentHelper
         if (empty($userAgent)) {
             $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
         }
-        $browscap = !empty($userAgent) ? get_browser($userAgent) : '';
+
+        if (empty($userAgent)) {
+            return;
+        }
+
+        $browscap = get_browser($userAgent);
+        $browscap = !is_object($browscap) ? (object)[] : $browscap;
+
+        $os = $browscap->platform ?? '';
+        $navegador = $browscap->browser ?? '';
+        $versao = $browscap->version ?? 0;
+
         if (
             is_object($browscap) &&
-            isset($browscap->platform) && !empty($browscap->platform) && $browscap->platform != 'unknown' &&
-            isset($browscap->browser) && !empty($browscap->browser) && $browscap->browser != 'unknown' &&
-            isset($browscap->version) && $browscap->version > 0
+            !empty($os) && $os != 'unknown' &&
+            !empty($navegador) && $navegador != 'unknown' &&
+            $versao > 0
         ) {
             $this->tratar([
-                'os' => $browscap->platform,
-                'navegador' => $browscap->browser,
-                'versao' => $browscap->version,
+                'dispositivo' => $browscap->device_type,
+                'os' => $os,
+                'navegador' => $navegador,
+                'versao' => $versao,
+                'mobile' => $browscap->ismobiledevice ?? false,
+                'tablet' => $browscap->istablet ?? false,
             ]);
             return;
         }
@@ -51,13 +80,24 @@ final class UserAgentHelper
 
     private function tratar(array $dado)
     {
-        if (in_array($dado['os'], ['Win7', 'Win8', 'Win8.1', 'Win32', 'WinVista'])) {
-            $this->os = 'Windows';
-        } elseif (in_array($dado['os'], ['MacOSX'])) {
-            $this->os = 'Macintosh';
+        $os = $dado['os'] ?? '';
+        if (
+            is_string($os) && !empty($os) &&
+            (preg_match('/win[0-9]{1}/i', $os) ||
+                preg_match('/WinVista/i', $os)
+            )
+        ) {
+            $os = 'Windows';
+        } elseif (is_string($os) && !empty($os) && in_array($os, ['MacOSX', 'Macintosh'])) {
+            $os = 'Macintosh';
         }
-        $this->navegador = $dado['navegador'];
-        $this->versao = (float) $dado['versao'];
+
+        $this->os = $dado['os'] ?? '';
+        $this->mobile = $dado['mobile'] ?? '';
+        $this->tablet = $dado['tablet'] ?? '';
+        $this->dispositivo = $dado['dispositivo'] ?? '';
+        $this->navegador = $dado['navegador'] ?? '';
+        $this->versao = (float) $dado['versao'] ?? '';
     }
 
     private function geral(?string $userAgent = null)
@@ -225,6 +265,41 @@ final class UserAgentHelper
             $browser = 'NetFront';
         }
 
-        return ['os' => $platform ?: null, 'navegador' => $browser ?: null, 'versao' => $version ?: null];
+        $tablet = false;
+        $mobile = false;
+        $os = $platform ?: '';
+        $dispositivo = '';
+        if (
+            is_string($os) && !empty($os) &&
+            (preg_match('/android/i', $os) ||
+                preg_match('/ios/i', $os) ||
+                preg_match('/WinPhone/i', $os)
+            )
+        ) {
+            $dispositivo = 'Mobile Phone';
+            $mobile = true;
+        } else if (is_string($os) && !empty($os) && preg_match('/ipad/i', $os)) {
+            $dispositivo = 'Tablet';
+            $tablet = true;
+        } else if (
+            is_string($os) && !empty($os) &&
+            (preg_match('/Win[0-9]+/i', $os) ||
+                preg_match('/Linux/i', $os) ||
+                preg_match('/MacOSX/i', $os) ||
+                preg_match('/Macintosh/i', $os) ||
+                preg_match('/WinVista/i', $os)
+            )
+        ) {
+            $dispositivo = 'Desktop';
+        }
+
+        return [
+            'dispositivo' => $dispositivo,
+            'os' => $os,
+            'navegador' => $browser ?: null,
+            'versao' => $version ?: null,
+            'mobile' => $mobile,
+            'tablet' => $tablet
+        ];
     }
 }

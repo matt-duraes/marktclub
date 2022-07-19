@@ -52,6 +52,15 @@
 
             @ endif;
 
+            @ if( in_array('relatorio-analytics', SCOPE)):
+            <h2><i>@iconeSetaDireita(10)</i> Relatório</h2>
+
+            @ if( in_array('relatorio-analytics', SCOPE) ):
+            <a href="@route('documentacao.rota')/relatorio-analytics"><stron class="get">GET</stron> /relatorio/analytics</a>
+            @ endif;
+
+            @ endif;
+
             <div class="rodape">
                 <a href="@route('documentacao.app')" id="botao_config">
                     <i>@iconeConfig(15)</i>

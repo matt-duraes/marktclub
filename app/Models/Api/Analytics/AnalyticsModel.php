@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Models\Api\Analytics;
+
+use ORM\ORM;
+use Http\Request;
+use Helpers\CryptHelper;
+use App\Models\Api\Analytics\Trait\WhereTrait;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+
+final class AnalyticsModel extends ORM
+{
+    protected string $_tabela = TABELA_ANALYTICS;
+
+    use WhereTrait;
+
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
+
+    public function __construct(
+        private Request $request
+    ) {
+        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+        parent::__construct();
+        $this->setarUsuarioSeExistir($request->usuario);
+        $this->validarData($request->de, $request->ate, 7);
+    }
+
+    public function pegarRelatorio()
+    {
+        $dado = $this->campo([
+            'uuid', 'vinculo_nome', 'usuario_cpf', 'dispositivo', 'os', 'browser',
+            'versao', 'mobile', 'tablet', 'url', 'data_criacao', 'usuario_tipo'
+        ])->where($this->montarWhere())->read();
+        return $this->montarRetorno($dado);
+    }
+
+    private function montarRetorno($dado)
+    {
+        $retorno = [];
+        $chave = TOKEN['app']->chave_publica;
+        $Crypt = new CryptHelper(chavePublica: $chave);
+
+        $usuarioTipo = [
+            1 => 'titular',
+            2 => 'dependente'
+        ];
+
+        foreach ($dado as $r) {
+            $retorno[] = [
+                'id' => $r->uuid,
+                'usuario_tipo' => $usuarioTipo[$r->usuario_tipo] ?? '',
+                'cpf' => $Crypt->encode($r->usuario_cpf),
+                'dispositivo' => $r->dispositivo,
+                'os' => $r->os,
+                'browser' => $r->browser,
+                'versao' => $r->versao,
+                'mobile' => $r->mobile == 1,
+                'tablet' => $r->tablet == 1,
+                'data' => $r->data_criacao,
+                'url' => $r->url,
+            ];
+        }
+
+        return $retorno;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
+    private function setarUsuarioSeExistir(?string $usuario)
+    {
+        if (empty($usuario)) {
+            return;
+        }
+
+        $Cliente = new ClienteEntity();
+        $Cliente->id($usuario);
+        $this->idUsuario = $Cliente->get('id');
+    }
+
+    private function montarWhere()
+    {
+        $where = $this->pegarWherePadrao($this->request->de, $this->request->ate);
+        if (!empty($this->idUsuario)) {
+            $where[] = ['usuario', $this->idUsuario];
+        }
+        return $where;
+    }
+}

@@ -372,6 +372,12 @@ Route::nome('relatorio')
             ::nome('dispositivo')
             ::request(['tipo', 'de', 'ate'])
             ::get('/relatorio/dispositivo');
+
+        Route
+            ::nome('analytics')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio:analytics'])
+            ::request(['!usuario', 'de', 'ate'])
+            ::get('/relatorio/analytics');
     });
 
 Route

@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioCliente\Helper;
+
 $Doc = new \DocumentacaoConfig\Requisicao;
 $Doc
     ->titulo('SALVAR NOVO USUÁRIO')
@@ -11,7 +13,8 @@ $Doc
 
     ->headerToken()
 
-    ->bodyCriptografado()
+    ->criptografar(Helper::CRIPTOGRAFAR)
+
     ->body('nome', 'João Rodrigues', 'Nome e Sobre nome do usuário', 'string', obrigatorio: true)
     ->body('cpf', '01234567890', 'CPF do usuário contendo apenas numeros', 'int', 11, obrigatorio: true)
     ->body('email_trabalho', 'email@dominio.com.br', 'E-mail de trabalho.', 'string', obrigatorio: '-')
