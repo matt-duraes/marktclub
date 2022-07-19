@@ -2,10 +2,10 @@
 
 $Doc = new \DocumentacaoConfig\Requisicao;
 $Doc
-    ->titulo('ANALYTICS')
-    ->descricao('Requisição feita para listar a lista de acessos de uma determinada data')
+    ->titulo('ANALYTICS LISTAR')
+    ->descricao('Requisição feita para listar os acessos de um intervalo entre determinada datas')
     ->status(200)
-    ->scope('relatorio:analytics')
+    ->scope('relatorio_analytics:listar')
     ->metodo('get')
     ->uri('/relatorio/analytics')
 

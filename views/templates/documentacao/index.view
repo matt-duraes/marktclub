@@ -52,11 +52,14 @@
 
             @ endif;
 
-            @ if( in_array('relatorio-analytics', SCOPE)):
+            @ if( in_array('relatorio-analytics-listar', SCOPE) || in_array('relatorio-analytics-download', SCOPE) ):
             <h2><i>@iconeSetaDireita(10)</i> Relatório</h2>
 
-            @ if( in_array('relatorio-analytics', SCOPE) ):
-            <a href="@route('documentacao.rota')/relatorio-analytics"><stron class="get">GET</stron> /relatorio/analytics</a>
+            @ if( in_array('relatorio-analytics-listar', SCOPE) ):
+            <a href="@route('documentacao.rota')/relatorio-analytics-listar"><stron class="get">GET</stron> /relatorio/analytics</a>
+            @ endif;
+            @ if( in_array('relatorio-analytics-download', SCOPE) ):
+            <a href="@route('documentacao.rota')/relatorio-analytics-download"><stron class="get">POST</stron> /relatorio/analytics-download</a>
             @ endif;
 
             @ endif;
