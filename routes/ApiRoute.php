@@ -375,9 +375,13 @@ Route::nome('relatorio')
 
         Route
             ::nome('analytics')
-            ::middleware(TokenMiddleware::class, 'scope', ['relatorio:analytics'])
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:listar'])
             ::request(['!usuario', 'de', 'ate'])
             ::get('/relatorio/analytics');
+        Route
+            ::nome('analyticsDownload')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:download'])
+            ::post('/relatorio/analytics-download');
     });
 
 Route
