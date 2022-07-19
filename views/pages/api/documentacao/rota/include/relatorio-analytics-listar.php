@@ -24,7 +24,7 @@ $Doc
     ->retorno('tablet', 'Se o dispositivo é um tablet')
     ->retorno('url', 'URL acessada')
 
-    ->observacao('A data da busca deve ser de no máximo 7 dias')
+    ->observacao('A diferença entre as datas da busca deve ser de no máximo 7 dias')
 
     ->erro400()
     ->erro401()
@@ -44,17 +44,17 @@ $Doc
             \"os\": \"IOS\",
             \"browser\": \"Chrome\",
             \"versao\": \"100.0\",
-            \"mobile\": false,
+            \"mobile\": true,
             \"tablet\": false,
             \"data\": \"2022-07-11 00:00:00\",
             \"url\": \"/convenios/fisk\"
         },
         {
             \"id\": \"f654a7e0-aa26-43c8-b048-c9338521fde2\",
-            \"usuario_tipo\": \"titular\",
+            \"usuario_tipo\": \"dependente\",
             \"cpf\": \"U97jpqCknqRnNwlfz1hdiXENCAS+daGtg==\",
             \"dispositivo\": \"Desktop\",
-            \"os\": \"Android\",
+            \"os\": \"Linux\",
             \"browser\": \"Firefox\",
             \"versao\": \"102.3\",
             \"mobile\": false,

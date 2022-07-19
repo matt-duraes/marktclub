@@ -24,8 +24,6 @@ $Doc
     ->retorno('data_criacao', 'Data que o registro foi criado')
     ->retorno('url', 'URL acessada')
 
-    ->observacao('A data da busca deve ser de no máximo 7 dias')
-
     ->erro400()
     ->erro401()
     ->erro403()
