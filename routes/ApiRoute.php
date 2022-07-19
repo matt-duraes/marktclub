@@ -375,6 +375,7 @@ Route::nome('relatorio')
 
         Route
             ::nome('analytics')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio:analytics'])
             ::request(['!usuario', 'de', 'ate'])
             ::get('/relatorio/analytics');
     });

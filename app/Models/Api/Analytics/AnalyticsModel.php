@@ -29,7 +29,8 @@ final class AnalyticsModel extends ORM
     public function pegarRelatorio()
     {
         $dado = $this->campo([
-            'uuid', 'vinculo_nome', 'documento_cpf', 'dispositivo', 'os', 'browser', 'url', 'data_criacao'
+            'uuid', 'vinculo_nome', 'usuario_cpf', 'dispositivo', 'os', 'browser',
+            'versao', 'mobile', 'tablet', 'url', 'data_criacao', 'usuario_tipo'
         ])->where($this->montarWhere())->read();
         return $this->montarRetorno($dado);
     }
@@ -40,13 +41,22 @@ final class AnalyticsModel extends ORM
         $chave = TOKEN['app']->chave_publica;
         $Crypt = new CryptHelper(chavePublica: $chave);
 
+        $usuarioTipo = [
+            1 => 'titular',
+            2 => 'dependente'
+        ];
+
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,
-                'cpf' => $Crypt->encode($r->documento_cpf),
+                'usuario_tipo' => $usuarioTipo[$r->usuario_tipo] ?? '',
+                'cpf' => $Crypt->encode($r->usuario_cpf),
                 'dispositivo' => $r->dispositivo,
                 'os' => $r->os,
                 'browser' => $r->browser,
+                'versao' => $r->versao,
+                'mobile' => $r->mobile == 1,
+                'tablet' => $r->tablet == 1,
                 'data' => $r->data_criacao,
                 'url' => $r->url,
             ];
@@ -68,11 +78,6 @@ final class AnalyticsModel extends ORM
 
         $Cliente = new ClienteEntity();
         $Cliente->id($usuario);
-
-        if (empty($Cliente->id)) {
-            return;
-        }
-
         $this->idUsuario = $Cliente->get('id');
     }
 

@@ -7,15 +7,18 @@ $dataInicial = agora();
 $usuarioLista = [
     [
         'id' => 1,
-        'cpf' => cpfAleatorio()
+        'cpf' => cpfAleatorio(),
+        'nome' => nomeCompletoAleatorio()
     ],
     [
         'id' => 2,
-        'cpf' => cpfAleatorio()
+        'cpf' => cpfAleatorio(),
+        'nome' => nomeCompletoAleatorio()
     ],
     [
         'id' => 3,
-        'cpf' => cpfAleatorio()
+        'cpf' => cpfAleatorio(),
+        'nome' => nomeCompletoAleatorio()
     ],
 ];
 $vinculoLista = [
@@ -41,7 +44,8 @@ for ($i = 0; $i <= 10; $i++) {
         $vinculo = $vinculoLista[rand(0, 2)];
         $dado[] = [
             'usuario' => $usuario['id'],
-            'documento_cpf' => $usuario['cpf'],
+            'usuario_cpf' => $usuario['cpf'],
+            'usuario_nome' => $usuario['nome'],
             'empresa' => 1,
             'vinculo' => $vinculo['id'],
             'vinculo_nome' => $vinculo['nome'],
@@ -61,7 +65,8 @@ for ($i = 0; $i <= 10; $i++) {
             'latitude' => '',
             'longitude' => '',
             'url' => ['/convenios', '/convenios/fisk', '/convenios/salavip', '/convenios/kalunga'][rand(0, 3)],
-            'data_criacao' => $data
+            'data_criacao' => $data,
+            'status' => 1
         ];
     }
     $dataNumero--;

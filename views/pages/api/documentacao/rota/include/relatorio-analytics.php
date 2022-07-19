@@ -1,0 +1,59 @@
+<?php
+
+$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc
+    ->titulo('ANALYTICS')
+    ->descricao('Requisição feita para listar a lista de acessos de uma determinada data')
+    ->status(200)
+    ->scope('relatorio:analytics')
+    ->metodo('get')
+    ->uri('/relatorio/analytics')
+
+    ->headerToken()
+
+    ->parametro('de', date('Y-m-d'), 'Data de começo da busca', 'string', obrigatorio: true)
+    ->parametro('ate', date('Y-m-d'), 'Data final da busca', 'string', obrigatorio: true)
+
+    ->observacao('A data da busca deve ser de no máximo 7 dias')
+
+    ->erro400()
+    ->erro401()
+    ->erro403()
+
+    ->preExemplo("curl --location --request GET '{{LINK}}' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{TOKEN}}'")
+    ->preSucesso("{
+    \"status\": \"sucesso\",
+    \"dado\": [
+        {
+            \"id\": \"21e420a7-4570-4e11-bfd3-3d72d1670c0d\",
+            \"usuario_tipo\": \"titular\",
+            \"cpf\": \"KSTPtlCfv1AhBkLf6I4cPC0w==\",
+            \"dispositivo\": \"Mobile Phone\",
+            \"os\": \"IOS\",
+            \"browser\": \"Chrome\",
+            \"versao\": \"100.0\",
+            \"mobile\": false,
+            \"tablet\": false,
+            \"data\": \"2022-07-11 00:00:00\",
+            \"url\": \"/convenios/fisk\"
+        },
+        {
+            \"id\": \"f654a7e0-aa26-43c8-b048-c9338521fde2\",
+            \"usuario_tipo\": \"titular\",
+            \"cpf\": \"U97jpqCknqRnNwlfz1hdiXENCAS+daGtg==\",
+            \"dispositivo\": \"Desktop\",
+            \"os\": \"Android\",
+            \"browser\": \"Firefox\",
+            \"versao\": \"102.3\",
+            \"mobile\": false,
+            \"tablet\": false,
+            \"data\": \"2022-07-11 00:00:00\",
+            \"url\": \"/promocoes\"
+        }
+    ]
+}")
+    ->preFalha();
+
+echo $Doc;

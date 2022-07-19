@@ -10,6 +10,7 @@ final class Requisicao
     private array|bool $criptografar = false;
     private ?array $observacao = null;
     private ?array $header = null;
+    private string $bodyTitulo = '';
     private ?array $body = null;
 
     public function __toString()
@@ -31,7 +32,7 @@ final class Requisicao
                     ' . $metodo . $uri . '
                     </div>
                     ' . $this->montarBody('Header', $this->header) . '
-                    ' . $this->montarBody('Body', $this->body) . '
+                    ' . $this->montarBody($this->bodyTitulo, $this->body) . '
                     ' . $observacao . '
                     ' . $this->montarErro() . '
                 </div>
@@ -146,8 +147,15 @@ final class Requisicao
         $this->criptografar = $campo;
         return $this;
     }
+    public function parametro($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
+    {
+        $this->bodyTitulo = 'Parametro';
+        $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
+        return $this;
+    }
     public function body($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
     {
+        $this->bodyTitulo = 'Body';
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }

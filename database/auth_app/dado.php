@@ -86,7 +86,7 @@ swIDAQAB
             'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
             'solicitacao_salavip:listar', 'solicitacao_salavip:download',
 
-            'relatorio_acesso:index', 'relatorio_usuario:index',
+            'relatorio:analytics',
 
             'login:painel', 'login:api',
 
