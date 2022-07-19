@@ -114,7 +114,7 @@ swIDAQAB
             'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
             'solicitacao_salavip:listar', 'solicitacao_salavip:download',
 
-            'relatorio:analytics',
+            'relatorio_analytics:listar', 'relatorio_analytics:download',
 
             'login:painel', 'login:api',
 
