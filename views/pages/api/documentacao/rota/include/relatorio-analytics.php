@@ -14,13 +14,23 @@ $Doc
     ->parametro('de', date('Y-m-d'), 'Data de começo da busca', 'string', obrigatorio: true)
     ->parametro('ate', date('Y-m-d'), 'Data final da busca', 'string', obrigatorio: true)
 
+    ->retorno('usuario_tipo', 'Tipo do usuário podendo ser titular ou dependente')
+    ->retorno('cpf', 'CPF do usuário criptografado')
+    ->retorno('dispositivo', 'Tipo de dispositivo podendo ser Desktop, Mobile Phone ou APP')
+    ->retorno('os', 'Sistema operacional usado')
+    ->retorno('browser', 'Browser usado para acessar')
+    ->retorno('versao', 'Versão do navegador')
+    ->retorno('mobile', 'Se o dispositivo é um celular')
+    ->retorno('tablet', 'Se o dispositivo é um tablet')
+    ->retorno('url', 'URL acessada')
+
     ->observacao('A data da busca deve ser de no máximo 7 dias')
 
     ->erro400()
     ->erro401()
     ->erro403()
 
-    ->preExemplo("curl --location --request GET '{{LINK}}' \
+    ->preExemplo("curl --location --request GET '{{LINK}}/relatorio/analytics?de=2022-07-11&ate=2022-07-18' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{TOKEN}}'")
     ->preSucesso("{

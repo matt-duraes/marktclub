@@ -23,7 +23,7 @@ final class AnalyticsModel extends ORM
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
         parent::__construct();
         $this->setarUsuarioSeExistir($request->usuario);
-        $this->validarData($request->de, $request->ate);
+        $this->validarData($request->de, $request->ate, 7);
     }
 
     public function pegarRelatorio()

@@ -19,7 +19,7 @@ trait WhereTrait
         ];
     }
 
-    private function validarData($de, $ate)
+    private function validarData($de, $ate, int $diaMaximo = 366)
     {
         $diasDiferenca = dataDiferenca($de, $ate);
         if (empty($de)) {
@@ -30,8 +30,8 @@ trait WhereTrait
             mensagemErro('Data obrigatória!', 'A data final da busca é obrigatória.');
         } else if (!validarDate($ate)) {
             mensagemErro('Data inválida!', 'A data final da busca não está em um formato válido.');
-        } else if ($diasDiferenca > 366) {
-            mensagemErro('Datas inválidas!', 'Você deve fazer uma busca com no máximo um ano de diferênça.');
+        } else if ($diasDiferenca > $diaMaximo) {
+            mensagemErro('Datas inválidas!', 'Você deve fazer uma busca com no máximo ' . $diaMaximo . ' dia(s) de diferênça.');
         } else if ($ate < $de) {
             mensagemErro('Datas inválidas!', 'A data fianl da busca deve ser maior ou igual a data de começo.');
         }

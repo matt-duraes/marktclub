@@ -26,7 +26,7 @@ $Doc
     // ->sucesso('expires_in', 'Quantidade de segundos que esse token tem de vida.')
     // ->sucesso('token_type', 'Tipo de token criado.')
 
-    ->preExemplo("curl --location --request POST '{{LINK}}' \
+    ->preExemplo("curl --location --request POST '{{LINK}}/token' \
 --form 'client_id=\"client_id_aqui\"' \
 --form 'secret_id=\"secret_id_aqui\"' \
 --form 'audience=\"web\"' \
