@@ -16,7 +16,7 @@ $Doc
 
     ->retorno('usuario_tipo', 'Tipo do usuário podendo ser titular ou dependente')
     ->retorno('cpf', 'CPF do usuário criptografado')
-    ->retorno('dispositivo', 'Tipo de dispositivo podendo ser Desktop, Mobile Phone ou APP')
+    ->retorno('dispositivo', 'Tipo de dispositivo podendo ser Desktop, Mobile Phone, Tablet, TV Device, Kindle, ou APP. Caso um novo tipo de device seja usado para acessar, será adicionada a lista.')
     ->retorno('os', 'Sistema operacional usado')
     ->retorno('browser', 'Browser usado para acessar')
     ->retorno('versao', 'Versão do navegador')
