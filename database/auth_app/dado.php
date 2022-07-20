@@ -120,6 +120,8 @@ swIDAQAB
 
             'admin:chave_publica', 'admin:chave_privada',
 
+            'convenio_parceiro:destaque',
+
             'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado'
         ],
         'campo_permitido' => [

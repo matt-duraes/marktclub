@@ -572,6 +572,18 @@ Route
     });
 
 Route
+    ::nome('convenio_parceiro')
+    ::controller(App\Controllers\Api\ConvenioParceiroController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('destaque')
+            ::middleware(TokenMiddleware::class, 'scope', ['convenio_parceiro:destaque'])
+            ::request(['categoria'])
+            ::get('/convenio-parceiro/destaque');
+    });
+
+Route
     ::nome('solicitacao_salavip')
     ::controller(App\Controllers\Api\SolicitacaoSalavipController::class)
     ::middleware(TokenMiddleware::class, 'token')

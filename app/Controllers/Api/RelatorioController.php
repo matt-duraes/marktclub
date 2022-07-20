@@ -121,7 +121,7 @@ final class RelatorioController extends Controller
     }
     public function postAnalyticsDownload()
     {
-        $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql';
+        $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql.zip';
         if (!file_exists($arquivo)) {
             mensagemStatus(404, localhost: 'O arquivo buscado não existe.');
         }
