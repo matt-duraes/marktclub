@@ -107,6 +107,23 @@ final class DocumentacaoController extends Controller
             'Não foi encontrada uma chave pública para esse APP, ele pode ter sido deletado ou você não tem permissão para visualizar.'
         );
     }
+    public function postMostrarChavePrivada(Request $request)
+    {
+        $this->validarSenhaParaContinuar($request->senha);
+
+        foreach (sessao('DOCUMENTACAO.app')->lista as $r) {
+            if ($r->id == $request->id) {
+                return mensagemSucesso([
+                    'chave_privada' => $request->tipo == 'producao' ? $r->chave_privada : $r->chave_privada_fake
+                ]);
+            }
+        }
+
+        mensagemErro(
+            'Erro!',
+            'Não foi encontrada uma chave pública para esse APP, ele pode ter sido deletado ou você não tem permissão para visualizar.'
+        );
+    }
 
     public function postResetarChavePublica(Request $request)
     {

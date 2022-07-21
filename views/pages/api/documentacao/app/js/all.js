@@ -300,8 +300,93 @@ window.addEventListener('load', () => {
 
         if (json.status == 'sucesso') {
             popupFechar(blocoMostrarChavePublica);
+            inputChavePublicaSenha.value = '';
             ItemChavePublica.querySelector('pre').innerHTML = json.dado.chave_publica;
             ItemChavePublica.classList.add('copiar');
+            return;
+        }
+        Alerta.notificacao(
+            json.erro.mensagem != undefined ? json.erro.mensagem : 'Erro ao tentar pegar sua chave pública.',
+            false
+        );
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | MOSTRAR CHAVE PRIVADA
+    |--------------------------------------------------------------------------
+    */
+    const botaoMostrarChavePrivadaLista = document.querySelectorAll('.botao_mostrar_chave_privada');
+    const blocoMostrarChavePrivada = document.querySelector('#bloco_mostrar_chave_privada');
+    const botaoMostrarChavePrivada = document.querySelector('#botao_mostrar_chave_privada');
+    const inputChavePrivadaSenha = document.querySelector('#input_chave_privada_senha');
+
+    let ItemChavePrivada, idChavePrivada, tipoChavePrivada;
+    botaoMostrarChavePrivadaLista.forEach(botao => {
+        botao.addEventListener('click', () => {
+            ItemChavePrivada = botao.closest('.item');
+            idChavePrivada = botao.closest('.app').getAttribute('data-id');
+
+            tipoChavePrivada = 'producao';
+            if (botao.classList.contains('homologacao')) {
+                tipoChavePrivada = 'homologacao';
+            }
+
+            blocoMostrarChavePrivada.classList.add('display_flex');
+            setTimeout(() => {
+                blocoMostrarChavePrivada.classList.add('abrir');
+                inputChavePrivadaSenha.focus();
+            }, 20);
+        });
+    });
+
+    const linkMudarChavePrivada = document.querySelector('#form_mostrar_chave_privada').getAttribute('action');
+    const hashMudarChavePrivada = document.querySelector(
+        '#form_mostrar_chave_privada input[name=form_system_hash]'
+    ).value;
+
+    inputChavePrivadaSenha.addEventListener('keydown', e => {
+        if (e.key == 'Enter') {
+            e.preventDefault();
+            mostrarChavePrivada();
+        }
+    });
+    botaoMostrarChavePrivada.addEventListener('click', () => {
+        mostrarChavePrivada();
+    });
+    const mostrarChavePrivada = async () => {
+        if (inputChavePrivadaSenha.value == '') {
+            Alerta.notificacao('Digite sua senha atual para continuar.', false);
+            return;
+        }
+
+        Loading.show();
+        const body = new FormData();
+        body.append('senha', inputChavePrivadaSenha.value);
+        body.append('id', idChavePrivada);
+        body.append('tipo', tipoChavePrivada);
+        body.append('form_system_hash', hashMudarChavePrivada);
+        body.append('form_system_validacao', '');
+
+        const resposta = await fetch(linkMudarChavePrivada, {
+            method: 'POST',
+            body,
+        });
+
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (error) {
+            json = {};
+        }
+
+        Loading.hide();
+
+        if (json.status == 'sucesso') {
+            popupFechar(blocoMostrarChavePrivada);
+            inputChavePrivadaSenha.value = '';
+            ItemChavePrivada.querySelector('pre').innerHTML = json.dado.chave_privada;
+            ItemChavePrivada.classList.add('copiar');
             return;
         }
         Alerta.notificacao(

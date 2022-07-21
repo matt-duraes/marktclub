@@ -58,6 +58,11 @@ Route
             ::post('/documentacao/mostrar-chave-publica');
 
         Route
+            ::nome('mostrarChavePrivada')
+            ::request(['senha', 'id', 'tipo', 'hash_validacao'])
+            ::post('/documentacao/mostrar-chave-privada');
+
+        Route
             ::nome('resetarSecretId')
             ::request(['senha', 'id', 'hash_validacao'])
             ::post('/documentacao/resetar-secret-id');
