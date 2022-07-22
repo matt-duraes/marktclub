@@ -35,10 +35,11 @@ final class TokenCredentialEntity extends Entity
         $criado = time();
         $vencimento = time() + $app->tempo_vida;
 
+        $idApp = $app->get('id');
         try {
             $Usuario = new UsuarioEntity();
             $Usuario->buscar([
-                ['id_api_app', 'like', '%"' . $app->id_admin_empresa . '"%'],
+                ['id_api_app', 'like', '%"' . $idApp . '"%'],
                 ['status', 1]
             ]);
         } catch (\Throwable) {
