@@ -1,4 +1,5 @@
 @template "documentacao"
+
 <header class="header_principal">
     <h1>APP</h1>
     <p>APPs são o conjunto de chaves que você deve usar para se comunicar com nossas rotas.</p>
@@ -19,7 +20,7 @@
             <p>Caso você ache que suas chaves não são mais seguras, faça o resete delas nos botões abaixo:</p>
             <div class="bloco_resetar">
                 <div class="resetar botao_resetar_secret_id">Resetar Cliente e Secret ID</div>
-                <div class="resetar botao_resetar_chave_publica">Resetar Chave Pública</div>
+                <div class="resetar botao_resetar_chave_publica">Resetar Chave Pública e Privada</div>
             </div>
 
             <h2>Dados do APP</h2>
@@ -33,6 +34,16 @@
                     <div class="valor">
                         <div class="lista">
                             @ foreach( $r->scope as $valor ):
+                            <span>{{$valor}}</span>
+                            @ endforeach;
+                        </div>
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="nome">Redirect URI:</div>
+                    <div class="valor">
+                        <div class="lista">
+                            @ foreach( $r->redirect_uri as $valor ):
                             <span>{{$valor}}</span>
                             @ endforeach;
                         </div>
@@ -65,6 +76,14 @@
                 <i class="botao_copiar">@iconeCopiar(24)</i>
                 <div class="botao botao_mostrar_chave_publica">Mostrar Chave</div>
             </div>
+            @ if( !empty($r->chave_privada) ):
+            <div class="item">
+                <p>Chave Privada</p>
+                <pre>***</pre>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+                <div class="botao botao_mostrar_chave_privada">Mostrar Chave</div>
+            </div>
+            @ endif;
 
             <h2>Chaves de Homologação</h2>
             <p>Chaves para serem utilizadas em ambiente de homologação</p>
@@ -85,6 +104,14 @@
                 <i class="botao_copiar">@iconeCopiar(24)</i>
                 <div class="botao botao_mostrar_chave_publica homologacao">Mostrar Chave</div>
             </div>
+            @ if( !empty($r->chave_privada_fake) ):
+            <div class="item">
+                <p>Chave Privada</p>
+                <pre>***</pre>
+                <i class="botao_copiar">@iconeCopiar(24)</i>
+                <div class="botao botao_mostrar_chave_privada homologacao">Mostrar Chave</div>
+            </div>
+            @ endif;
         </div>
         @ endforeach;
     </div>
@@ -138,7 +165,7 @@
     <div class="conteudo">
         <h1>MOSTRAR CHAVE PÚBLICA</h1>
         <p>Digite sua senha para mostrar a chave pública.</p>
-        <p class="alerta">Cuidado! Sua chave pública não pode ser compartilhada, caso ache que ela vazou, crie uma nova chave no botão "Resetar Chave Pública".</p>
+        <p class="alerta">Cuidado! Sua chave pública não pode ser compartilhada, caso ache que ela vazou, crie uma nova chave no botão "Resetar Chave Pública e Privada".</p>
 
         <form action="/" class="form_geral">
             @? formSenha(name: 'chave_publica_senha', label: 'Senha', placeholder: 'Digite sua senha')
@@ -149,12 +176,30 @@
         </div>
     </div>
 </div>
+<div class="bloco_popup" id="bloco_mostrar_chave_privada">
+    <div class="conteudo">
+        <h1>MOSTRAR CHAVE PRIVADA</h1>
+        <p>Digite sua senha para mostrar a chave privada.</p>
+        <p class="alerta">Cuidado! Sua chave privada não pode ser compartilhada, caso ache que ela vazou, crie uma nova chave no botão "Resetar Chave Pública e Privada".</p>
+
+        <form action="/" class="form_geral">
+            @? formSenha(name: 'chave_privada_senha', label: 'Senha', placeholder: 'Digite sua senha')
+        </form>
+        <div class="footer">
+            <div class="botao cancelar">CANCELAR</div>
+            <div class="botao confirmar" id="botao_mostrar_chave_privada">CONFIRMAR</div>
+        </div>
+    </div>
+</div>
 
 <form action="@route('post.documentacao.mostrarSecretId')" id="form_mostrar_secret_id">
     @hash('MOSTRAR_SECRET_ID')
 </form>
 <form action="@route('post.documentacao.mostrarChavePublica')" id="form_mostrar_chave_publica">
     @hash('MOSTRAR_CHAVE_PUBLICA')
+</form>
+<form action="@route('post.documentacao.mostrarChavePrivada')" id="form_mostrar_chave_privada">
+    @hash('MOSTRAR_CHAVE_PRIVADA')
 </form>
 <form action="@route('post.documentacao.resetarSecretId')" id="form_resetar_secret_id">
     @hash('RESETAR_SECRET_ID')

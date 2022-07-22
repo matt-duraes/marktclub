@@ -62,8 +62,7 @@ final class UserAgentHelper
         if (
             is_object($browscap) &&
             !empty($os) && $os != 'unknown' &&
-            !empty($navegador) && $navegador != 'unknown' &&
-            $versao > 0
+            !empty($navegador) && $navegador != 'unknown'
         ) {
             $this->tratar([
                 'dispositivo' => $browscap->device_type,
@@ -80,22 +79,17 @@ final class UserAgentHelper
 
     private function tratar(array $dado)
     {
-        $os = $dado['os'] ?? '';
-        $dispositivo = $dado['dispositivo'] ?? '';
-        $navegador = $dado['navegador'] ?? '';
-        $versao = (float) $dado['versao'] ?? '';
-        $mobile = $dado['mobile'] ?? '';
-        $tablet = $dado['tablet'] ?? '';
+        $os = array_key_exists('os', $dado) && is_string($dado['os']) && !empty($dado['os']) && $dado['os'] != 'unknown' ? $dado['os'] : '';
+        $dispositivo = array_key_exists('dispositivo', $dado) && is_string($dado['dispositivo']) && !empty($dado['dispositivo']) && $dado['dispositivo'] != 'unknown' ? $dado['dispositivo'] : '';
+        $navegador = array_key_exists('navegador', $dado) && $dado['navegador'] != '' ? $dado['navegador'] : '';
+        $versao = array_key_exists('versao', $dado) && $dado['versao'] != '' ? $dado['versao'] : '';
+        $mobile = array_key_exists('mobile', $dado) && $dado['mobile'] != '' ? $dado['mobile'] : '';
+        $tablet = array_key_exists('tablet', $dado) && $dado['tablet'] != '' ? $dado['tablet'] : '';
 
-        $this->mobile = $mobile == 'unknown' ? '' : $mobile;
-        $this->tablet = $tablet == 'unknown' ? '' : $tablet;
-        $this->navegador = $navegador == 'unknown' ? '' : $navegador;
-        $this->versao = $versao == 'unknown' ? '' : $versao;
+        $this->navegador = $navegador;
+        $this->versao = $versao;
 
-        $osValido = is_string($os) && !empty($os);
-        if ($os == 'unknown' || !$osValido) {
-            $os = '';
-        } elseif (
+        if (
             preg_match('/win[0-9]{1}/i', $os) ||
             preg_match('/WinVista/i', $os)
         ) {
@@ -119,10 +113,17 @@ final class UserAgentHelper
             $os = 'Macintosh';
         }
 
-        $dispositivo = is_string($dispositivo) && !empty($dispositivo) ? $dispositivo : '';
-        if (empty($dispositivo) && in_array($os, ['Macintosh', 'Windows', 'Windows Phone', 'FreeBSD'])) {
+        if (empty($dispositivo) && in_array($os, ['Macintosh', 'Windows', 'Linux', 'FreeBSD'])) {
             $dispositivo = 'Desktop';
-        } elseif (empty($dispositivo) && in_array($os, ['iOS', 'iPadOs', 'Linux'])) {
+        } elseif (
+            empty($dispositivo) && ($os == 'iOS' || (in_array($os, ['Android', 'Windows Phone']) && $mobile))
+        ) {
+            $dispositivo = 'Mobile Phone';
+        } elseif (
+            empty($dispositivo) && ($os == 'iPadOs' || (in_array($os, ['Android', 'Windows Phone']) && $tablet))
+        ) {
+            $dispositivo = 'Tablet';
+        } elseif (empty($dispositivo) && in_array($os, ['Android', 'Windows Phone'])) {
             $dispositivo = 'Mobile Phone';
         } elseif (
             preg_match('/phone/i', $os) ||
@@ -135,10 +136,27 @@ final class UserAgentHelper
             $dispositivo = 'Desktop';
         } else if (empty($dispositivo) && preg_match('/Kindle/i', $os)) {
             $dispositivo = 'Kindle';
+        } else if (empty($dispositivo) && preg_match('/iPod/i', $os)) {
+            $dispositivo = 'iPod';
         }
 
-        $this->dispositivo = $dispositivo == 'unknown' ? '' : $dispositivo;
+        if ($tablet && $os == 'iOS') {
+            $os = 'iPadOs';
+        }
+
+        if ($dispositivo == 'Mobile Phone') {
+            $mobile = true;
+            $tablet = false;
+        }
+        if ($dispositivo == 'Tablet') {
+            $tablet = true;
+            $mobile = false;
+        }
+
+        $this->dispositivo = $dispositivo;
         $this->os = $os;
+        $this->mobile = $mobile;
+        $this->tablet = $tablet;
     }
 
     private function geral(?string $userAgent = null)

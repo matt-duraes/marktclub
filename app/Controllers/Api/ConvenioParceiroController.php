@@ -6,8 +6,7 @@ use Controller\Controller;
 
 final class ConvenioParceiroController extends Controller
 {
-    public function getDestaque()
+    public function destaque()
     {
-        ppe(12);
     }
 }

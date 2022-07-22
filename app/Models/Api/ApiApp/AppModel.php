@@ -12,9 +12,9 @@ final class AppModel extends Entity
     public function listarAppPeloId(array $id): stdClass
     {
         $lista = $this->campo([
-            'uuid', 'nome', 'descricao', 'chave_publica', 'client_id', 'secret_id', 'audience', 'chave_publica_fake',
-            'client_id_fake', 'secret_id_fake', 'authorization_code', 'client_credentials', 'refresh_token',
-            'redirect_uri', 'scope_permitido', 'tempo_vida'
+            'uuid', 'nome', 'descricao', 'chave_publica', 'chave_privada', 'client_id', 'secret_id', 'audience',
+            'chave_publica_fake', 'chave_privada_fake', 'client_id_fake', 'secret_id_fake', 'authorization_code',
+            'client_credentials', 'refresh_token', 'redirect_uri', 'scope_permitido', 'tempo_vida'
         ])->where([
             ['id', 'in', $id],
             ['status', 1]
@@ -35,13 +35,15 @@ final class AppModel extends Entity
                 'nome' => $r->nome,
                 'descricao' => $r->descricao,
                 'chave_publica' => $r->chave_publica,
+                'chave_privada' => $r->chave_privada,
                 'client_id' => $r->client_id,
                 'secret_id' => $r->secret_id,
                 'audience' => $r->audience,
                 'chave_publica_fake' => $r->chave_publica_fake,
+                'chave_privada_fake' => $r->chave_privada_fake,
                 'client_id_fake' => $r->client_id_fake,
                 'secret_id_fake' => $r->secret_id_fake,
-                'redirect_uri' => $r->redirect_uri,
+                'redirect_uri' => jsonDecode($r->redirect_uri, true, true),
                 'authorization_code' => $r->authorization_code == 1 ? 'sim' : 'nao',
                 'client_credentials' => $r->client_credentials == 1 ? 'sim' : 'nao',
                 'refresh_token' => $r->refresh_token == 1 ? 'sim' : 'nao',
