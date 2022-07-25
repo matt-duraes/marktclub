@@ -26,7 +26,7 @@ final class ParceiroDestaqueModel extends GeralModel
     {
         $dado = $this
             ->campo([
-                'cod', 'titulo', 'url', 'imagem', 'desconto'
+                'cod', 'titulo', 'url', 'imagem', 'desconto', 'categoria_principal'
             ])
             ->where($this->pegarWhere())
             ->order($this->Ordem)
@@ -45,6 +45,7 @@ final class ParceiroDestaqueModel extends GeralModel
                 'titulo' => $r->titulo,
                 'url' => $r->url,
                 'imagem' => LINK_ARQUIVO . '/convenios/' . $r->imagem,
+                'categoria' => (new Categoria($r->categoria_principal))->indice(),
                 'desconto' => $r->desconto
             ];
         }
