@@ -131,6 +131,11 @@ Route::nome('usuario_cliente')
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
             ::delete('/usuario-cliente/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar-cpf'])
+            ::request(['cpf'])
+            ::post('/usuario-cliente/deletar');
     });
 
 Route::nome('usuario_dependente')

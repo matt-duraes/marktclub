@@ -101,6 +101,19 @@ final class UsuarioClienteController extends Controller implements
 
         return new Response(status: 204);
     }
+    public function postDeletar(Request $request)
+    {
+        $cpf = $request->dadoDecode(chavePrivada: TOKEN['app']->chave_privada)['cpf'] ?? '';
+        if (!validarCpf($cpf)) {
+            mensagemErro('CPF inválido!', 'Envie um CPF válido para continuar.');
+        }
+
+        $Usuario = new DeletarModel();
+        $Usuario->cpf($cpf);
+        $Usuario->deletar();
+
+        return new Response(status: 204);
+    }
 
     private function retornoSucesso(ClienteEntity $Usuario, int $status = 200)
     {
