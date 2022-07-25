@@ -93,7 +93,7 @@ swIDAQAB
             'token_credential:salvar',
 
             'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
-            'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar-cpf',
+            'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
             'usuario_cliente:download',
 
             'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',

@@ -133,7 +133,7 @@ Route::nome('usuario_cliente')
             ::delete('/usuario-cliente/{id}');
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar-cpf'])
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar_cpf'])
             ::request(['cpf'])
             ::post('/usuario-cliente/deletar');
     });
