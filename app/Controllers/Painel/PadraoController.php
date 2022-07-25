@@ -48,7 +48,7 @@ abstract class PadraoController extends Controller
     private function configIndex($app): stdClass
     {
         $config = $this->includeConfig('config', $app);
-        $appUso = $this->pegarAppUsado($app, 'visualizar');
+        $appUso = $this->pegarAppUsado($app, 'index');
 
         $padrao = !str_starts_with($appUso, $app . '.');
 

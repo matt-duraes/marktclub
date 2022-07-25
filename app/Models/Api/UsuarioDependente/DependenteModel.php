@@ -29,7 +29,7 @@ final class DependenteModel extends ORM
     */
     public function listar()
     {
-        $this->validarUsuario();
+        validarUuid($this->request->usuario);
         $titular = $this->pegarTitular();
 
         $lista = $this->campo(['cod', 'nome', 'email_pessoal', 'email_trabalho'])->where([
@@ -41,13 +41,6 @@ final class DependenteModel extends ORM
         return $this->montarRetorno($lista);
     }
 
-    private function validarUsuario()
-    {
-        $tamanho = strlen($this->request->usuario);
-        if (!in_array($tamanho, [32, 36])) {
-            mensagemStatus(404);
-        }
-    }
     private function pegarTitular(): int|bool
     {
         $Cliente = new ClienteEntity();
