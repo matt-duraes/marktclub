@@ -92,7 +92,7 @@ final class AppController extends Controller
             }
         }
 
-        $Api = (new ApiHelper(scope: $config->scope))->headerJson();
+        $Api = (new ApiHelper(token: true))->headerJson();
         if ($dado && $metodo == 'get') {
             $Api->parametro($dado);
         } else if ($dado) {
