@@ -39,29 +39,32 @@
 
             @ if( in_array('usuario-cliente-salvar', SCOPE) || in_array('usuario-cliente-atualizar', SCOPE) || in_array('usuario-cliente-deletar', SCOPE)):
             <h2><i>@iconeSetaDireita(10)</i> Usuário</h2>
-
-            @ if( in_array('usuario-cliente-salvar', SCOPE) ):
-            <a href="@route('documentacao.rota')/usuario-cliente-salvar"><stron class="post">POST</stron> /usuario-cliente</a>
-            @ endif;
-            @ if( in_array('usuario-cliente-atualizar', SCOPE) ):
-            <a href="@route('documentacao.rota')/usuario-cliente-atualizar"><stron class="put">PUT</stron> /usuario-cliente/:cpf</a>
-            @ endif;
-            @ if( in_array('usuario-cliente-deletar', SCOPE) ):
-            <a href="@route('documentacao.rota')/usuario-cliente-deletar"><stron class="get">DELETE</stron> /usuario-cliente/:cpf</a>
-            @ endif;
-
+                @ if( in_array('usuario-cliente-salvar', SCOPE) ):
+                <a href="@route('documentacao.rota')/usuario-cliente-salvar"><stron class="post">POST</stron> /usuario-cliente</a>
+                @ endif;
+                @ if( in_array('usuario-cliente-atualizar', SCOPE) ):
+                <a href="@route('documentacao.rota')/usuario-cliente-atualizar"><stron class="put">PUT</stron> /usuario-cliente/:cpf</a>
+                @ endif;
+                @ if( in_array('usuario-cliente-deletar', SCOPE) ):
+                <a href="@route('documentacao.rota')/usuario-cliente-deletar"><stron class="get">DELETE</stron> /usuario-cliente/:cpf</a>
+                @ endif;
             @ endif;
 
             @ if( in_array('relatorio-analytics-listar', SCOPE) || in_array('relatorio-analytics-download', SCOPE) ):
             <h2><i>@iconeSetaDireita(10)</i> Relatório</h2>
-
-            @ if( in_array('relatorio-analytics-listar', SCOPE) ):
-            <a href="@route('documentacao.rota')/relatorio-analytics-listar"><stron class="get">GET</stron> /relatorio/analytics</a>
+                @ if( in_array('relatorio-analytics-listar', SCOPE) ):
+                <a href="@route('documentacao.rota')/relatorio-analytics-listar"><stron class="get">GET</stron> /relatorio/analytics</a>
+                @ endif;
+                @ if( in_array('relatorio-analytics-download', SCOPE) ):
+                <a href="@route('documentacao.rota')/relatorio-analytics-download"><stron class="get">POST</stron> /relatorio/analytics-download</a>
+                @ endif;
             @ endif;
-            @ if( in_array('relatorio-analytics-download', SCOPE) ):
-            <a href="@route('documentacao.rota')/relatorio-analytics-download"><stron class="get">POST</stron> /relatorio/analytics-download</a>
-            @ endif;
 
+            @ if( in_array('convenio-parceiro-destaque', SCOPE) ):
+            <h2><i>@iconeSetaDireita(10)</i> Parceiros</h2>
+                @ if( in_array('convenio-parceiro-destaque', SCOPE) ):
+                <a href="@route('documentacao.rota')/convenio-parceiro-destaque"><stron class="get">GET</stron> /convenio-parceiro/destaque</a>
+                @ endif;
             @ endif;
 
             <div class="rodape">

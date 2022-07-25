@@ -76,6 +76,23 @@ abstract class Order implements OrderInterface
 
     // doc
     /**
+     * Buscar randomicamente
+     *
+     * @return self
+     */
+    public function rand()
+    {
+        $this->lista['randomico'] = [
+            'order' => 'RAND()',
+            'indice' => 'randomico',
+            'nome' => 'Randômico',
+            'campo' => '',
+            'icone' => ''
+        ];
+    }
+
+    // doc
+    /**
      * Buscar pelo registro mais novo
      *
      * @return self

@@ -584,7 +584,7 @@ Route
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['convenio_parceiro:destaque'])
-            ::request(['categoria'])
+            ::request(['categoria', 'quantidade', 'ordem'])
             ::get('/convenio-parceiro/destaque');
     });
 

@@ -41,7 +41,7 @@ final class ClienteEntity extends Entity
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
-        'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'salt'
+        'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem'
     ];
     protected array $_salvar = [
         'documento' => '->cpf',
@@ -56,7 +56,7 @@ final class ClienteEntity extends Entity
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
-        'tipo_pagamento', 'trabalho_data_inicio', 'salt'
+        'tipo_pagamento', 'trabalho_data_inicio'
     ];
     protected array $_insert = [
         'empresa' => '->idEmpresa',
@@ -75,6 +75,7 @@ final class ClienteEntity extends Entity
         trabalho_empresa|Empresa que trabalha|valido
         trabalho_cargo|Cargo na empresa|valido
         tipo_pagamento|Tipo de pagamento|valido
+        senha|Senha|valido
         status|Status|valido
     ';
 
@@ -151,7 +152,7 @@ final class ClienteEntity extends Entity
 
         $this->validarCamposObrigatorioNoInsert();
 
-        if (!$this->request->existe('status') || empty($this->status)) {
+        if (!$this->request->existe('status') || empty($this->request->status)) {
             $this->status = new Status('inativo');
         }
     }

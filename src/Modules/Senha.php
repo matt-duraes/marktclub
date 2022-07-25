@@ -45,6 +45,7 @@ final class Senha implements ModuleInterface
             return;
         }
         $this->senha = password_hash($senha, PASSWORD_DEFAULT, ['cost' => 11]);
+        $this->mudouSenha = true;
     }
 
     private function pegarExpressaoRegular(): string
