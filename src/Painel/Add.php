@@ -342,7 +342,6 @@ final class Add
     public function imagem(
         string $name,
         string $diretorio,
-        ?string $value = null,
         ?string $class = null,
         ?string $id = null,
         bool $obrigatorio = false,
@@ -353,7 +352,6 @@ final class Add
             'funcao' => 'imagem',
             'name' => $name,
             'diretorio' => $diretorio,
-            'value' => $value,
             'class' => $class,
             'id' => $id,
             'obrigatorio' => $obrigatorio,

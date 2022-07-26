@@ -3,6 +3,7 @@
 namespace App\Models\Api\ApiApp;
 
 use ORM\Entity;
+use Modules\Botao;
 use Helpers\CryptHelper;
 
 final class AppEntity extends Entity
@@ -10,29 +11,45 @@ final class AppEntity extends Entity
     protected string $_tabela = TABELA_AUTH_APP;
 
     protected array $_buscar = [
-        'nome',
-        'id_admin_empresa',
-        'tempo_vida',
-        'redirect_uri',
-        'scope_permitido',
-        'campo_permitido',
-        'client_id',
-        'audience',
-        'chave_privada',
-        'chave_publica',
+        'nome', 'descricao', 'id_admin_empresa', 'tempo_vida', 'redirect_uri', 'scope_permitido',
+        'campo_permitido', 'client_id', 'secret_id', 'audience', 'chave_privada', 'chave_publica',
+        'authorization_code', 'client_credentials', 'refresh_token', 'chave_privada_fake', 'chave_publica_fake',
+        'imagem_app'
     ];
 
-    protected array $_update = ['chave_publica', 'chave_privada', 'client_id', 'secret_id'];
+    protected array $_salvar = [
+        'chave_publica', 'chave_privada', 'client_id', 'secret_id'
+    ];
 
+    public string $nome;
+    public string $descricao;
+    public int $id_admin_empresa;
+    public int $tempo_vida;
     public array $scope_permitido;
     public array $campo_permitido;
     public array $redirect_uri;
+    public Botao $authorization_code;
+    public Botao $client_credentials;
+    public Botao $refresh_token;
+    public string $client_id;
+    public string $secret_id;
+    public string $audience;
     public string $chave_privada;
     public string $chave_publica;
+    public Botao $chave_privada_publica;
+    public Botao $chave_publica_publica;
+    public string $imagem;
 
     public function getId()
     {
         return $this->prop('id');
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->chave_privada_publica = new Botao(!empty($this->chave_privada_fake) ? 'sim' : 'nao');
+        $this->chave_publica_publica = new Botao(!empty($this->chave_publica_fake) ? 'sim' : 'nao');
+        $this->imagem = arquivoPrivado($this->imagem_app);
     }
 
     public function criarChavePublica()

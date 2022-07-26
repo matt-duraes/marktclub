@@ -30,7 +30,12 @@ abstract class GeralModel extends ORM implements ListarInterface
     protected function pegarPagina(): int
     {
         $pagina = $this->request->pagina;
-        return preg_match('/^[1-9]{1}[0-9]*$/', $pagina) ? $pagina : 1;
+        return is_string($pagina) && preg_match('/^[1-9]{1}[0-9]*$/', $pagina) ? $pagina : 1;
+    }
+    protected function pegarQuantidade(): int
+    {
+        $quantidade = $this->request->quantidade;
+        return is_string($quantidade) && preg_match('/^[1-9]{1}[0-9]*$/', $quantidade) ? $quantidade : 50;
     }
 
     protected function pegarOrder(?string $ordem = null): string

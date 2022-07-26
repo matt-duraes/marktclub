@@ -13,6 +13,8 @@ return [
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Relatório de acesso', 'tabela_usuario_bloquear' => 'Relatório de usuário']],
             'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar']],
             'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
+            'api_app' => ['titulo' => 'API APP', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'api_usuario' => ['titulo' => 'API Usuário', 'acao' => ['index', 'add', 'editar', 'deletar']],
         ]),
         'configuracao' => ['agenda', 'perfil', 'bloquear'],
         'campo_permitido' => [
@@ -46,7 +48,7 @@ return [
             'relatorio' => ['titulo' => 'Relatório', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_usuario_index' => 'Relatório de usuário']],
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Relatório de acesso', 'tabela_usuario_bloquear' => 'Relatório de usuário']],
             'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar']],
-            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
+            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']]
         ]),
         'configuracao' => ['perfil', 'bloquear'],
         'campo_permitido' => [
