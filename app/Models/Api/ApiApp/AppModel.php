@@ -2,13 +2,13 @@
 
 namespace App\Models\Api\ApiApp;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
 use App\Classes\ApiApp\Ordem;
 use App\Classes\ApiApp\Status;
-use App\Models\Api\GeralModel;
 
-final class AppModel extends GeralModel
+final class AppModel extends ORM
 {
     protected string $_tabela = TABELA_AUTH_APP;
 
@@ -30,7 +30,7 @@ final class AppModel extends GeralModel
             ->campo(['uuid', 'nome', 'data_criacao', 'status'])
             ->where($this->pegarWhere())
             ->order(new Ordem($this->request->ordem))
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->pagina($this->request->pagina, $this->request->chave('quantidade', 50))
             ->tabela(TABELA_EMPRESA_NOVO)
             ->join('id', 'id_admin_empresa')
             ->campo(['nome_fantasia'])
@@ -52,6 +52,11 @@ final class AppModel extends GeralModel
             ];
         }
         return $retorno;
+    }
+
+    protected function pegarWhere()
+    {
+        return ['status', 1];
     }
 
     private function validarRequestDaApi()

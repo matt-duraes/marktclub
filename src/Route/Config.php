@@ -22,7 +22,8 @@ final class Config
 
     private function montarExplode(): void
     {
-        $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $uri = is_string($uri) ? urldecode($uri) : '';
 
         $explode = explode('/', $uri);
         if (current($explode) == null) {
