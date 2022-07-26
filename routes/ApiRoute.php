@@ -2,6 +2,7 @@
 
 use Route\Route;
 use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
 
 Route
     ::nome('robo')
@@ -131,6 +132,11 @@ Route::nome('usuario_cliente')
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
             ::delete('/usuario-cliente/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar_cpf'])
+            ::request(['cpf'])
+            ::post('/usuario-cliente/deletar');
     });
 
 Route::nome('usuario_dependente')
@@ -462,22 +468,6 @@ Route
             ::get('/admin/campo-permitido');
 
         Route
-            ::nome('trabalhoOrgao')
-            ::get('/admin/trabalho-orgao');
-
-        Route
-            ::nome('trabalhoCargo')
-            ::get('/admin/trabalho-cargo');
-
-        Route
-            ::nome('tipoPagamento')
-            ::get('/admin/tipo-pagamento');
-
-        Route
-            ::nome('usuarioSituacao')
-            ::get('/admin/usuario-situacao');
-
-        Route
             ::nome('chavePublica')
             ::middleware(TokenMiddleware::class, 'scope', ['admin:chave_publica'])
             ::get('/admin/chave-publica');
@@ -584,7 +574,7 @@ Route
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['convenio_parceiro:destaque'])
-            ::request(['categoria'])
+            ::request(['categoria', 'quantidade', 'ordem'])
             ::get('/convenio-parceiro/destaque');
     });
 
@@ -603,4 +593,42 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:download'])
             ::request(['campo', '!ordem', '!empresa', '!data_de', '!data_ate'])
             ::post('/solicitacao-salavip/download');
+    });
+
+Route::nome('api_app')
+    ::controller(App\Controllers\Api\ApiAppController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(MarktClubMiddleware::class, 'validar')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['app_api:listar'])
+            ::request(['pagina', '!pesquisa', '!nome', '!id_admin_empresa', '!status', '!ordem'])
+            ::get('/api-app');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['app_api:buscar'])
+            ::get('/api-app/{id}');
+    });
+
+Route::nome('api_app')
+    ::controller(App\Controllers\Api\ApiUsuarioController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(MarktClubMiddleware::class, 'validar')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['app_usuario:listar'])
+            ::get('/api-usuario/select');
+    });
+
+Route::nome('admin_empresa')
+    ::controller(App\Controllers\Api\AdminEmpresaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(MarktClubMiddleware::class, 'validar')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
+            ::get('/admin-empresa/select');
     });

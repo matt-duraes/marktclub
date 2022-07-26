@@ -26,6 +26,21 @@ final class DeletarModel extends ORM
             ['cod', $id]
         ])->primeiro();
 
+        $this->validarUsuarioPegarDependente($usuario);
+    }
+    public function cpf($cpf)
+    {
+        $usuario = $this->where([
+            ['empresa', $this->idEmpresa],
+            ['status', 'in', [1, 2, 3, 5]],
+            ['documento', soNumero($cpf)]
+        ])->primeiro();
+
+        $this->validarUsuarioPegarDependente($usuario);
+    }
+
+    private function validarUsuarioPegarDependente($usuario)
+    {
         if (existeErro($usuario, 'id')) {
             mensagemStatus(404);
         }

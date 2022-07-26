@@ -401,8 +401,8 @@ if (!function_exists('validarPagina')) {
      * @param   string|int $pagina Número da página que deseja validar
      * @return  bool
      */
-    function validarPagina(string|int $pagina): bool
+    function validarPagina(null|string|int $pagina): bool
     {
-        return preg_match('/^[1-9]{1}[0-9]*$/', $pagina);
+        return !is_null($pagina) && preg_match('/^[1-9]{1}[0-9]*$/', $pagina);
     }
 }

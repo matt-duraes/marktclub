@@ -3,12 +3,78 @@
 namespace App\Models\Api\ApiApp;
 
 use stdClass;
-use ORM\Entity;
+use Http\Request;
+use App\Classes\ApiApp\Ordem;
+use App\Classes\ApiApp\Status;
+use App\Models\Api\GeralModel;
 
-final class AppModel extends Entity
+final class AppModel extends GeralModel
 {
     protected string $_tabela = TABELA_AUTH_APP;
 
+    public function __construct(
+        protected ?Request $request = null
+    ) {
+        parent::__construct();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LISTAR PARA A API
+    |--------------------------------------------------------------------------
+    */
+    public function listarDados(): stdClass
+    {
+        $this->validarRequestDaApi();
+        $dado = $this
+            ->campo(['uuid', 'nome', 'data_criacao', 'status'])
+            ->where($this->pegarWhere())
+            ->order(new Ordem($this->request->ordem))
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->tabela(TABELA_EMPRESA_NOVO)
+            ->join('id', 'id_admin_empresa')
+            ->campo(['nome_fantasia'])
+            ->read();
+
+        $dado->lista = $this->montarRetorno($dado->lista);
+        return $dado;
+    }
+    protected function montarRetorno(array $dado): array
+    {
+        $retorno = [];
+        foreach ($dado as $r) {
+            $retorno[] = [
+                'id' => $r->uuid,
+                'nome' => $r->nome,
+                'dono' => $r->nome_fantasia,
+                'data_criacao' => $r->data_criacao,
+                'status' => (new Status($r->status))->indice()
+            ];
+        }
+        return $retorno;
+    }
+
+    private function validarRequestDaApi()
+    {
+        $status = new Status($this->request->status);
+        $ordem = new Ordem($this->request->ordem);
+
+        if (empty($this->request->pagina)) {
+            mensagemErro('Campo obrigatório!', 'O campo pagina é obrigatório.');
+        } else if (!empty($this->request->quantidade) && validarPagina($this->request->quantidade)) {
+            mensagemErro('Campo inválido!', 'O campo quantidade deve ser um valor válido.');
+        } else if (!$ordem->vazio() && !$ordem->valido()) {
+            mensagemErro('Campo inválido!', 'O campo ordem deve ser um valor válido.');
+        } else if (!$status->vazio() && !$ordem->valido()) {
+            mensagemErro('Campo inválido!', 'O campo status deve ser um valor válido.');
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LISTAR PARA A DOCUMENTAÇÃO
+    |--------------------------------------------------------------------------
+    */
     public function listarAppPeloId(array $id): stdClass
     {
         $lista = $this->campo([

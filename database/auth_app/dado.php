@@ -93,7 +93,8 @@ swIDAQAB
             'token_credential:salvar',
 
             'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
-            'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:download',
+            'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
+            'usuario_cliente:download',
 
             'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
 
@@ -122,7 +123,12 @@ swIDAQAB
 
             'convenio_parceiro:destaque',
 
-            'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado'
+            'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
+
+            'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',
+            'app_usuario:listar', 'app_usuario:buscar', 'app_usuario:salvar', 'app_usuario:atualizar', 'app_usuario:deletar',
+
+            'admin_empresa:listar'
         ],
         'campo_permitido' => [
             'usuario:salvar' => ['nome', 'cpf', 'email_trabalho', 'senha', 'telefone_celular'],

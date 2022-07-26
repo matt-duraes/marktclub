@@ -11,7 +11,7 @@ $Doc
     ->body('secret_id', '1234567890', 'Código privado', 'string', 22, true)
     ->body('audience', 'web', 'Audiencia do token', 'string', obrigatorio: true)
     ->body('grant_type', 'client_credentials', 'Tipo do token que deseja criar', 'string', obrigatorio: true)
-    ->body('scope', 'login:api', 'Quais scopes esse token terá acesso, se for mais de um, separe por espaço.', 'string')
+    ->body('scope', 'scope:teste01 scope:teste02', 'Quais scopes esse token terá acesso, se for mais de um, separe por espaço.', 'string')
 
     ->observacao('Não deixe sua secret_id transitar em ambiente público, com ela, um terceiro pode manipular as informações da sua base.')
     ->observacao('Cada token criado tem uma duração determinada, por isso, você pode usar o mesmo token mais de uma vez nesse intervalo desde que ele tenha permissão para executar a ação desejada.')
@@ -21,10 +21,10 @@ $Doc
     ->erro400()
     ->erro(403, 'Você não teve permissão para criar o token, geralmente isso ocorre porque um ou mais parâmetros do body estão incorretos.')
 
-    // ->sucesso('access_token', 'Token que deve ser usado nas demais rotas.')
-    // ->sucesso('scope', 'Lista de scopes que esse token tem acesso.')
-    // ->sucesso('expires_in', 'Quantidade de segundos que esse token tem de vida.')
-    // ->sucesso('token_type', 'Tipo de token criado.')
+    ->retorno('access_token', 'Token que deve ser usado nas demais rotas.')
+    ->retorno('scope', 'Lista de scopes que esse token tem acesso.')
+    ->retorno('expires_in', 'Quantidade de segundos que esse token tem de vida.')
+    ->retorno('token_type', 'Tipo de token criado.')
 
     ->preExemplo("curl --location --request POST '{{LINK}}/token' \
 --form 'client_id=\"client_id_aqui\"' \

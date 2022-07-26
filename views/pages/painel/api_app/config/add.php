@@ -1,62 +1,33 @@
 <?php
 
-$Empresa = new Painel\AdminEmpresa\Models\AdminEmpresaModel();
-$empresa = painelSelectConfig($Empresa->pegarEmpresaParaSelect('Escolha uma empresa'));
+use Helpers\ApiHelper;
 
-return [
-    'html' => [
-        [
-            [
-                'titulo' => 'Imagem',
-                'lista' => [
-                    'imagem, name:imagem_app, diretorio: e53ae4e0-7b33-4988-99ad-50433a29b544'
-                ]
-            ],
-            [
-                'titulo' => 'Dados do App',
-                'lista' => [
-                    'input, name:nome, label:Nome do app, obrigatorio:1',
-                    'select, name:audience, label: Qual Audiencia do App?, obrigatorio:1, lista: ' . painelSelectConfig([
-                        '' => 'Escolha uma opção',
-                        'app' => 'Aplicativo',
-                        'clube' => 'Clube',
-                        'site' => 'Site'
-                    ]),
-                    'select, name:tipo, label: Qual tipo do App?, obrigatorio:1, lista: ' . painelSelectConfig([
-                        '' => 'Escolha uma opção',
-                        1 => 'App para Login',
-                        2 => 'App para uso interno'
-                    ]),
-                    'switch, name:refresh_token, label: O Token pode ser atualizado?',
-                ]
-            ],
-            [
-                'titulo' => 'Dados de segurança',
-                'lista' => [
-                    'select, name:tempo_vida, label: Tempo de vida dos tokens, obrigatorio:1, lista: ' . painelSelectConfig([
-                        '' => 'Escolha uma opção',
-                        '5' => '5 minutos',
-                        '15' => '15 minutos',
-                        '30' => '30 minutos',
-                        '60' => '1 hora',
-                        '1440' => '1 dia',
-                        '43800' => '1 Mês',
-                        '131400' => '3 Meses',
-                        '262800' => '6 Meses',
-                        '525600' => '12 Meses',
-                    ]),
-                    'switch, name:status, label: Liberar App?',
-                    'tag, name:redirect_uri, label: URL liberadas, tipo: url'
-                ]
-            ]
-        ],
-        [
-            [
-                'titulo' => 'Scopos',
-                'lista' => [
-                    'include' => ROOT . '/views/pages/painel/api_app/Views/scope/index.php'
-                ]
-            ]
-        ]
-    ],
-];
+$Painel = new PainelConfig\Add('api_app');
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Imagem', function () use ($Painel) {
+        $Painel->imagem('imagem', 'uuid_aqui', height: 400);
+    });
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Dados do AP', function () use ($Painel) {
+        $Api = new ApiHelper(scope: 'admin_empresa:listar');
+        $empresa = $Api->get('/admin-empresa/select')->array()['dado'] ?? [];
+        $Painel
+            ->input(name: 'nome', label: 'Nome do APP', obrigatorio: 1)
+            ->textarea(name: 'descricao', label: 'Descrição para o APP')
+            ->select(name: 'id_admin_empresa', label: 'Empresa', placeholder: 'Escolha uma empresa', obrigatorio: true, lista: ['' => 'Escolha uma empresa'] + $empresa);
+    });
+    $Painel->fieldset('Segurança', function () use ($Painel) {
+        $Painel
+            ->numero(name: 'tempo_vida', label: 'Tem de vida', placeholder: 'Tempo de vida em segundos', obrigatorio: 1)
+            ->switch('authorization_code', 'Token será para login via oAuth 2.0?')
+            ->switch('client_credentials', 'Token será para enviar a um cliente?')
+            ->switch('refresh_token', 'O Token pode ser renovado?')
+            ->switch('chave_publica_publica', 'A chave pública deser ser mostradada na documentação?')
+            ->switch('chave_privada_publica', 'A chave privada deve ser mostradada na documentação?')
+            ->tag('redirect_uri', 'URL do projeto', tipo: 'url');
+    });
+});
+
+return $Painel;
