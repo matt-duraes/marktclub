@@ -13,5 +13,5 @@
 <div class="bloco">
     <a href="@route(documentacao.fluxograma)">Como funciona a API</a>
     <a href="@route(documentacao.app)">Pegando minhas credênciais</a>
-    <a href="@route(documentacao.rota)/post-token">Criando um TOKEN</a>
+    <a href="@route(documentacao.rota)/token-credential-salvar">Criando um TOKEN</a>
 </div>

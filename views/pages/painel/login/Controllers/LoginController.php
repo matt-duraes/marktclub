@@ -15,16 +15,6 @@ final class LoginController extends Controller
     private string $chavePublica;
     private string $chavePrivada;
 
-    public function __construct()
-    {
-        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
-
-        $this->chavePublica = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
-        $this->chavePrivada = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
-
-        parent::__construct();
-    }
-
     /*
     |--------------------------------------------------------------------------
     | INDEX
@@ -42,8 +32,9 @@ final class LoginController extends Controller
     */
     public function postLogin(Request $request): Response
     {
-        $Api = new ApiHelper('login:painel');
+        $this->setarChave();
 
+        $Api = new ApiHelper('login:painel');
         $body = criptografarDado([
             'login' => $request->login,
             'senha' => $request->senha,
@@ -108,6 +99,7 @@ final class LoginController extends Controller
         $Jwt = new JwtHelper($token->id_token);
         $body = $Jwt->body();
 
+        $this->setarChave();
         $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
         (new AuthHelper)->criar([
             'id' => $body['sub'],
@@ -214,5 +206,12 @@ final class LoginController extends Controller
         sessaoDeletar('relatorio');
         sessaoDeletar('TOKEN');
         return new Response(url: route('login.index'));
+    }
+
+    public function setarChave()
+    {
+        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
+        $this->chavePublica = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $this->chavePrivada = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
     }
 }
