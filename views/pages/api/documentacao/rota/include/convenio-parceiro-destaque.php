@@ -11,7 +11,7 @@ $Doc
 
     ->headerToken()
 
-    ->parametro('categoria', 'alimentacao', 'Indice da categoria podendo ser: alimentacao, beleza, educacao, eletroeletronico, outros, saude, veiculo, vestuario', 'string')
+    ->parametro('categoria', 'alimentacao', 'Indice da categoria podendo ser: alimentacao, beleza, educacao, eletroeletronico, outros, saude, veiculo ou vestuario', 'string')
     ->parametro('quantidade', '10', 'Quantidade de registros para a busca podendo ser no máximo 20', 'int', obrigatorio: true)
     ->parametro('ordem', 'randomico', 'Ordem em que os registros devem ser mostrados podendo ser: titulo-a-z, titulo-z-a, mais-novo, mais-velho ou randomico', 'string', obrigatorio: true)
 
