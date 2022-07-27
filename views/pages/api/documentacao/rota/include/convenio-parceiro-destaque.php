@@ -11,18 +11,18 @@ $Doc
 
     ->headerToken()
 
-    ->parametro('categoria', 'alimentacao', 'Indice da categoria podendo ser:', 'string')
+    ->parametro('categoria', 'alimentacao', 'Indice da categoria podendo ser: alimentacao, beleza, educacao, eletroeletronico, outros, saude, veiculo, vestuario', 'string')
     ->parametro('quantidade', '10', 'Quantidade de registros para a busca podendo ser no máximo 20', 'int', obrigatorio: true)
-    ->parametro('ordem', 'randomico', 'Ordem em que os registros devem ser mostrados podendo ser:', 'string', obrigatorio: true)
+    ->parametro('ordem', 'randomico', 'Ordem em que os registros devem ser mostrados podendo ser: titulo-a-z, titulo-z-a, mais-novo, mais-velho ou randomico', 'string', obrigatorio: true)
 
     ->erro400()
     ->erro401()
     ->erro403()
 
-    ->preSucesso("curl --location --request GET '{{LINK}}/convenio-parceiro/destaque?categoria=alimentacao&quantidade=20&ordem=titulo-z-a' \
+    ->preExemplo("curl --location --request GET '{{LINK}}/convenio-parceiro/destaque?categoria=alimentacao&quantidade=20&ordem=titulo-z-a' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{TOKEN}}'")
-    ->preExemplo("{
+    ->preSucesso("{
     \"status\": \"sucesso\",
     \"dado\": {
         \"lista\": [
