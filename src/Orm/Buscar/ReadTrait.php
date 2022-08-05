@@ -212,7 +212,6 @@ trait ReadTrait
      *
      * @param string|array      $campo      Lista com os campos que devem ser buscados podendo ser uma lista simples ["campo_1", "campo_2"] ou um array composto onde o primeiro indice é o campo e o segundo é a alias [["campo_1", "nome_campo_1"], ["campo_2", "campo_nome_2"]]
      * @param null|string       $as         Alias padrão para o as, por exemplo, $as = usuario: campo1 vira usuario_campo1, campo2 vira usuario_campo2, etc
-     * @return self
      */
     protected function campo(array $campo, ?string $as = null): self
     {

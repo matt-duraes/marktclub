@@ -21,6 +21,7 @@ return [
             'solicitacao_salavip_index', 'solicitacao_salavip_download',
             'api_app_index', 'api_app_add', 'api_app_editar', 'api_app_deletar',
             'api_usuario_index', 'api_usuario_add', 'api_usuario_editar', 'api_usuario_deletar',
+            'ponto_cvs_index', 'ponto_cvs_add', 'ponto_cvs_editar', 'ponto_cvs_visualizar',
         ]),
         'primeiro_acesso' => null,
         'mudar_senha' => null,

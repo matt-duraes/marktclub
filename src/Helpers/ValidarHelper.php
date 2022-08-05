@@ -142,9 +142,9 @@ final class ValidarHelper
     private function mensagemTamanhoPersonalizada($campo, $operador, $tamanho, $tipo = 'string')
     {
         $valor = $this->valor;
-        if (empty($tipo) && is_numeric($valor)) {
+        if (!empty($tipo) && is_numeric($valor)) {
             $tipo = 'numeric';
-        } elseif (empty($tipo) && is_array($valor)) {
+        } elseif (!empty($tipo) && is_array($valor)) {
             $tipo = 'array';
         }
         $caracterTexto = 'caracteres';

@@ -13,7 +13,7 @@ final class UsuarioClienteTest extends Tests
     public function __construct()
     {
         $this->api('login:painel');
-        $this->Curl->loginPainel('01495180131', '123456');
+        $this->Curl->loginPainel('01234567890', 'Teste@1324');
         $this->bodySalvar = $this->criarBodyUsuario();
         parent::__construct();
     }

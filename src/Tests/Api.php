@@ -3,6 +3,8 @@
 namespace Tests;
 
 use Helpers\ApiHelper;
+use Helpers\CurlHelper;
+use Helpers\CryptHelper;
 
 final class Api extends ApiHelper
 {
@@ -21,9 +23,13 @@ final class Api extends ApiHelper
             return $this;
         }
 
+        $Curl = new ApiHelper('admin:chave_publica');
+        $chave = $Curl->get('/admin/chave-publica')->object()->dado->chave ?? '';
+
+        $Crypt = new CryptHelper(chavePublica: $chave);
         $token = $this->body([
-            'login' => $login,
-            'senha' => $senha,
+            'login' => $Crypt->encode($login),
+            'senha' => $Crypt->encode($senha),
             'facebook' => '',
             'google' => '',
             'scope' => '',

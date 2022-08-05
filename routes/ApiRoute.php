@@ -595,6 +595,33 @@ Route
             ::post('/solicitacao-salavip/download');
     });
 
+Route
+    ::nome('ponto_cvs')
+    ::controller(App\Controllers\Api\PontoCvsController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
+            ::request(['pagina', '!ordem', '!usuario'])
+            ::get('/ponto-cvs');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:buscar'])
+            ::get('/ponto-cvs/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:salvar'])
+            ::request(['ponto_solicitado'])
+            ::post('/ponto-cvs');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:atualizar'])
+            ::put('/ponto-cvs/{id}');
+    });
+
 Route::nome('api_app')
     ::controller(App\Controllers\Api\ApiAppController::class)
     ::middleware(TokenMiddleware::class, 'token')
