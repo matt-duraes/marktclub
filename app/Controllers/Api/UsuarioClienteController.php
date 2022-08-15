@@ -29,7 +29,7 @@ final class UsuarioClienteController extends Controller implements
         $Usuario = new ClienteEntity();
         $Usuario->buscar([
             ['cod', $id],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
 
         return $this->retornoSucesso($Usuario);
@@ -79,7 +79,7 @@ final class UsuarioClienteController extends Controller implements
         $Usuario = new ClienteEntity($request);
         $Usuario->buscar([
             ['cod', $id],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
 
         $Usuario->set(lista: $request->dadoDecode(
@@ -126,7 +126,7 @@ final class UsuarioClienteController extends Controller implements
                     'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
                     'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
                     'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
-                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'status', 'pagamento'
+                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'status', 'pagamento', 'grupo'
                 ],
             ),
             status: $status,

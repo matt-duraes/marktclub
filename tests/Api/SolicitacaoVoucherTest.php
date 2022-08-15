@@ -8,13 +8,6 @@ use Tests\Tests;
 final class SolicitacaoVoucherTest extends Tests
 {
     private ?string $idVoucher;
-    public function __construct()
-    {
-        $this->api('login:painel');
-        $this->Curl->loginPainel('01495180131', '123456');
-
-        parent::__construct();
-    }
 
     public function listarTodosOsVouchersTest()
     {

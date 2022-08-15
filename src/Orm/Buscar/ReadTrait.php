@@ -6,6 +6,7 @@ use PDO;
 use stdClass;
 use Erro\Excecao;
 use PDOStatement;
+use Order\OrderInterface;
 
 trait ReadTrait
 {
@@ -26,7 +27,15 @@ trait ReadTrait
             ],
         ];
     }
-    protected function contar(array $where = [])
+
+    /**
+     * Conta a quantidade de registro
+     *
+     * @param   array $where    Where para a busca
+     * @return  int             Quantidade de registros encontrados
+     * @throws  Excecao         Exceção caso ocorra um erro de PDO
+     */
+    protected function contar(array $where = []): int
     {
         if ($where) {
             $this->where($where);
@@ -45,6 +54,26 @@ trait ReadTrait
         }
         $this->ormResetarOrm();
         return $query->fetchColumn();
+    }
+
+    /**
+     * Faz uma busca e monta um select da busca
+     *
+     * @param   string                              $indice     Indice que deve ser usado no retorno
+     * @param   string                              $valor      Valor que deve ser usado no retorno
+     * @param   array                               $where      Array com uma busca caso queira filtrar
+     * @param   null|string|array|OrderInterface    $order      Ordem caso não queira usar a ordem padrão que é $valor ASC
+     * @return  array                                           Array com a lista com o formato $indice => $valor
+     */
+    public function pegarSelect(string $indice, string $valor, array $where = [], null|string|array|OrderInterface $order = null): array
+    {
+        $order = $order == null ? [[$valor, 'ASC']] : $order;
+        $query = $this->campo([$indice, $valor])->order($order);
+        if (!empty($where)) {
+            $query->where($where);
+        }
+        $dado = $query->read();
+        return montarSelect($dado, indice: $indice, valor: $valor);
     }
 
     /**

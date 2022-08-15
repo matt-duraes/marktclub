@@ -2,6 +2,10 @@
 
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoPagamento;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 $Painel = new PainelConfig\Visualizar('usuario_cliente');
 
@@ -26,11 +30,12 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->linha('matricula', 'Matrícula')
             ->linha('siape', 'SIAPE')
-            ->linha('trabalho_orgao', 'Local de trabalho')
+            ->linha('trabalho_empresa', 'Local de trabalho')
             ->linha('trabalho_cargo', 'Cargo')
             ->linha('trabalho_data_inicio', 'Data exercício')
             ->linha('tipo_pagamento', 'Tipo de pagamento')
             ->linha('contrato_siape', 'Contrato')
+            ->linha('grupo', 'Grupo')
             ->contar('pagamento', 'Pagamento aberto?')
             ->botao(
                 'pagamento',
@@ -81,29 +86,18 @@ $Api = new ApiHelper(token: true);
 $Lista = new ListaHelper;
 
 // Lista de tipo de pagamento
-$Painel->replace(campo: 'tipo_pagamento', lista: $Lista->lista(
-    $Api->get('/admin/tipo-pagamento')->object()->dado ?? [],
-    'valor',
-    'nome'
-)->r());
+$Painel->replace(campo: 'tipo_pagamento', lista: (new TipoPagamento())->select());
+
 // Lista de orgão de trabalho
-$Painel->replace(campo: 'trabalho_orgao', lista: $Lista->lista(
-    $Api->get('/admin/trabalho-orgao')->object()->dado ?? [],
-    'valor',
-    'nome'
-)->r());
+$Painel->replace(campo: 'trabalho_empresa', lista: (new TrabalhoEmpresa())->select());
+
 // Lista de tipo de cargos
-$Painel->replace(campo: 'trabalho_cargo', lista: $Lista->lista(
-    $Api->get('/admin/trabalho-cargo')->object()->dado ?? [],
-    'valor',
-    'nome'
-)->r());
+$Painel->replace(campo: 'trabalho_cargo', lista: (new TrabalhoCargo())->select());
+
 // Lista de status
-$Painel->replace(campo: 'status', lista: [
-    'ativo' => 'Ativo',
-    'inativo' => 'Inativo',
-    'bloqueado' => 'Bloqueado',
-    'indicado' => 'Indicado'
-]);
+$Painel->replace(campo: 'status', lista: (new Status)->select());
+
+// Lista de grupos
+$Painel->replace(campo: 'grupo', lista: $Api->get('/usuario-grupo/select')->array()['dado'] ?? []);
 
 return $Painel;

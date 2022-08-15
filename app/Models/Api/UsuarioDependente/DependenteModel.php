@@ -4,6 +4,7 @@ namespace App\Models\Api\UsuarioDependente;
 
 use ORM\ORM;
 use Http\Request;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class DependenteModel extends ORM
@@ -35,7 +36,7 @@ final class DependenteModel extends ORM
         $lista = $this->campo(['cod', 'nome', 'email_pessoal', 'email_trabalho'])->where([
             ['empresa', $this->idEmpresa],
             ['titular', $titular],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ])->order('id', 'ASC')->limit(0, 5)->read();
 
         return $this->montarRetorno($lista);
@@ -46,7 +47,7 @@ final class DependenteModel extends ORM
         $Cliente = new ClienteEntity();
         $Cliente->buscar([
             ['cod', $this->request->usuario],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
         return $Cliente->get('id');
     }

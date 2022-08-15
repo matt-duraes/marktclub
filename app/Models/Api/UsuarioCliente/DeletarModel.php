@@ -3,6 +3,7 @@
 namespace App\Models\Api\UsuarioCliente;
 
 use ORM\ORM;
+use App\Classes\UsuarioCliente\Helper;
 
 final class DeletarModel extends ORM
 {
@@ -22,7 +23,7 @@ final class DeletarModel extends ORM
     {
         $usuario = $this->where([
             ['empresa', $this->idEmpresa],
-            ['status', 'in', [1, 2, 3, 5]],
+            ['status', 'in', Helper::STATUS_LIBERADO],
             ['cod', $id]
         ])->primeiro();
 
@@ -32,7 +33,7 @@ final class DeletarModel extends ORM
     {
         $usuario = $this->where([
             ['empresa', $this->idEmpresa],
-            ['status', 'in', [1, 2, 3, 5]],
+            ['status', 'in', Helper::STATUS_LIBERADO],
             ['documento', soNumero($cpf)]
         ])->primeiro();
 
@@ -55,7 +56,7 @@ final class DeletarModel extends ORM
     {
         $dependente = $this->where([
             ['empresa', $this->idEmpresa],
-            ['status', 'in', [1, 2, 3, 5]],
+            ['status', 'in', Helper::STATUS_LIBERADO],
             ['tipo', 2],
             ['titular', $titular]
         ])->read();

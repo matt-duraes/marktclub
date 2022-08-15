@@ -14,6 +14,7 @@ use Modules\Telefone;
 use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\Situacao;
+use App\Models\Api\UsuarioGrupo\GrupoEntity;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\Painel\ConfiguracaoEntity;
@@ -41,7 +42,7 @@ final class ClienteEntity extends Entity
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
-        'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem'
+        'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'grupo'
     ];
     protected array $_salvar = [
         'documento' => '->cpf',
@@ -56,7 +57,7 @@ final class ClienteEntity extends Entity
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
-        'tipo_pagamento', 'trabalho_data_inicio'
+        'tipo_pagamento', 'trabalho_data_inicio', 'grupo'
     ];
     protected array $_insert = [
         'empresa' => '->idEmpresa',
@@ -102,6 +103,7 @@ final class ClienteEntity extends Entity
     public Status $status;
     public string $imagem;
     public string $pagamento;
+    public string $grupo;
 
     public string $contrato_siape;
     private array $campoObrigatorio;
@@ -138,6 +140,21 @@ final class ClienteEntity extends Entity
         $this->emailPessoalExiste();
         $this->matriculaExiste();
         $this->siapeExiste();
+        $this->grupoValido();
+    }
+
+    private function grupoValido()
+    {
+        $Grupo = new GrupoEntity();
+        if (
+            !empty($this->request->grupo) &&
+            !$Grupo->existe([
+                ['indice', $this->grupo],
+                ['id_admin_empresa', $this->idEmpresa]
+            ])
+        ) {
+            mensagemErro('Campo inválido!', 'O grupo informado não é um valor válido.');
+        }
     }
 
     /*

@@ -10,14 +10,6 @@ final class PontoCvsTest extends Tests
 {
     private array $dadoSalvo;
 
-    public function __construct()
-    {
-        $this->api('login:painel');
-        $this->Curl->loginPainel('01234567890', 'Teste@1324');
-
-        parent::__construct();
-    }
-
     public function naoPodeResgatarValorMenorQuePontoMinimoTest()
     {
         $pontoMinimo = Helper::PONTO_MINIMO;

@@ -9,6 +9,8 @@ use Random\Contato;
 use Random\Usuario;
 use Random\Endereco;
 use Random\Documento;
+use Helpers\ApiHelper;
+use Helpers\CryptHelper;
 use Helpers\CurlHelper as Curl;
 use Helpers\RoboHelper as Robo;
 
@@ -28,10 +30,37 @@ abstract class Tests
     protected Robo $Robo;
     protected bool $checkRobo = true;
     protected bool $checkCurl = false;
+    private CryptHelper $Crypt;
 
     public function __construct()
     {
         $this->Robo = new Robo();
+
+        $Curl = new ApiHelper('admin:chave_publica admin:chave_privada');
+        $chavePublica = $Curl->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $chavePrivada = $Curl->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        $this->Crypt = new CryptHelper(chavePublica: $chavePublica, chavePrivada: $chavePrivada);
+    }
+
+    public function cryptEncode(string|array $dado, array $lista = [])
+    {
+        if (empty($dado)) {
+            return $dado;
+        } else if (is_string($dado)) {
+            return $this->Crypt->encode($dado);
+        }
+        foreach ($dado as $ind => $val) {
+            if (!empty($lista) && !in_array($ind, $lista)) {
+                continue;
+            }
+            $dado[$ind] = $this->Crypt->encode($val);
+        }
+        return $dado;
+    }
+
+    public function cryptDecode(string $dado)
+    {
+        return empty($dado) ? '' : $this->Crypt->decode($dado);
     }
 
     /*
@@ -165,7 +194,7 @@ abstract class Tests
      * @param array     $array  Array que deve ser comparado
      * @param bool      $igual  Se for false, só valida os dados que tem nos 2 arrais
      */
-    protected function checkRespostaDadoIgual(array $array, bool $igual = true)
+    protected function checkRespostaDadoIgual(array $array, bool $igual = true, array $crypt = [])
     {
         $resposta = $this->Curl->array();
         if (existeErro($resposta, 'dado')) {
@@ -174,7 +203,7 @@ abstract class Tests
         }
         $dado = $resposta['dado'];
         $erro = false;
-        foreach ($dado as $ind => $val) {
+        foreach ($dado as $ind => $valor) {
             $existe = array_key_exists($ind, $array);
             if (!$existe && $igual) {
                 $erro = true;
@@ -183,9 +212,12 @@ abstract class Tests
             } else if (!$existe) {
                 continue;
             }
-            if ($val != $array[$ind]) {
+
+            $valor = in_array($ind, $crypt) ? $this->cryptDecode($valor) : $valor;
+            $valorComparacao = in_array($ind, $crypt) ? $this->cryptDecode($array[$ind]) : $array[$ind];
+            if ($valor != $valorComparacao) {
                 $erro = true;
-                $this->setarRetorno(false, 'O valor do índice <strong>' . $ind . '</strong> deveria ser <strong>' . $array[$ind] . '</strong> mas foi <strong>' . $val . '</strong>.');
+                $this->setarRetorno(false, 'O valor do índice <strong>' . $ind . '</strong> deveria ser <strong>' . $valorComparacao . '</strong> mas foi <strong>' . $valor . '</strong>.');
                 continue;
             }
         }

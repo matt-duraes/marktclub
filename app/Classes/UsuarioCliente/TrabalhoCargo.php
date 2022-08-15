@@ -7,7 +7,12 @@ use Status\Status;
 final class TrabalhoCargo extends Status
 {
     private array $listaPorEmpresa = [
-        0 => ['lista' => [], 'numero' => []],
+        0 => [
+            'lista' => [
+                'cargo-teste-01' => 'Cargo de Teste 01'
+            ],
+            'numero' => [2000]
+        ],
         1 => [
             'lista' => [
                 'desenvolvedor' => 'Desenvolvedor'

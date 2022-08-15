@@ -15,6 +15,7 @@ return [
             'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_deletar',
             'usuario_lead_index', 'usuario_lead_visualizar', 'usuario_lead_status',
             'usuario_indicacao_index', 'usuario_indicacao_visualizar', 'usuario_indicacao_status',
+            'usuario_grupo_index', 'usuario_grupo_add', 'usuario_grupo_editar', 'usuario_grupo_deletar',
             'tabela_usuario_salvar', 'tabela_usuario_bloquear',
             'relatorio_usuario_index', 'relatorio_acesso_index',
             'solicitacao_voucher_index', 'solicitacao_voucher_visualizar',

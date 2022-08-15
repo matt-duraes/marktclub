@@ -12,7 +12,7 @@ final class LoginPainelTest extends Tests
         $this->api('login:painel');
         $this
             ->Curl
-            ->body($this->pegarBody('01495180131', '123456'))
+            ->body($this->pegarBody('01234567890', 'Teste@1324'))
             ->post('/login/painel');
 
         return $this
@@ -84,8 +84,8 @@ final class LoginPainelTest extends Tests
     private function pegarBody(string $login, string $senha)
     {
         return [
-            'login' => $login,
-            'senha' => $senha,
+            'login' => $this->cryptEncode($login),
+            'senha' => $this->cryptEncode($senha),
             'facebook' => '',
             'google' => '',
             'scope' => '',

@@ -11,6 +11,7 @@ use Modules\DataHora;
 use Modules\Telefone;
 use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Ordem;
+use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
 
@@ -351,7 +352,7 @@ final class ClienteModel extends ORM
         if ($status->valido() && $status->indice() != 'deletado') {
             $where[] = ['status', $status->numero()];
         } else {
-            $where[] = ['status', 'in', [1, 2, 3, 5]];
+            $where[] = ['status', 'in', Helper::STATUS_LIBERADO];
         }
 
         return $where;

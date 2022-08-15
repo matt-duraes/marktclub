@@ -580,17 +580,17 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             } elseif ($valor instanceof \Modules\Senha) {
                 $valor = !empty($valor->senha());
             } elseif ($valor instanceof \Modules\Telefone) {
-                $valor = $valor->telefone();
+                $valor = $valor->numero();
             } elseif ($valor instanceof \Modules\Cnpj) {
-                $valor = $valor->cnpj();
+                $valor = $valor->numero();
             } elseif ($valor instanceof \Modules\Cpf) {
-                $valor = $valor->cpf();
+                $valor = $valor->numero();
             } elseif ($valor instanceof \Modules\Genero) {
                 $valor = $valor->genero();
             } elseif ($valor instanceof \Modules\EstadoCivil) {
                 $valor = $valor->estadoCivil();
             } elseif ($valor instanceof \Modules\EnderecoCep) {
-                $valor = $valor->cep();
+                $valor = $valor->numero();
             } elseif ($valor instanceof \Modules\EnderecoEstado) {
                 $valor = $valor->estado();
             } elseif ($valor instanceof \Modules\Dinheiro) {

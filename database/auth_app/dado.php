@@ -110,6 +110,9 @@ swIDAQAB
             'usuario_indicacao:salvar', 'usuario_indicacao:atualizar', 'usuario_indicacao:listar',
             'usuario_indicacao:buscar', 'usuario_indicacao:deletar',
 
+            'usuario_grupo:salvar', 'usuario_grupo:atualizar', 'usuario_grupo:listar',
+            'usuario_grupo:buscar', 'usuario_grupo:deletar',
+
             'tabela_usuario:salvar', 'tabela_usuario:bloquear',
 
             'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
