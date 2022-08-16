@@ -245,11 +245,12 @@ final class UsuarioLeadTest extends Tests
 
     public function naoPodeMudarStatusAposSalvarComoSemInteresseTest()
     {
+        $this->api('usuario_lead:atualizar');
         $this
             ->Curl
             ->loginPainel()
             ->body([
-                'status' => 'andamento'
+                'status' => 'andamento',
             ])->put('/usuario-lead/' . $this->idLead);
 
         return $this
@@ -271,17 +272,20 @@ final class UsuarioLeadTest extends Tests
     public function salvarUsuarioNovoDepoisMudarStatusParaCadastradoTest()
     {
         $this->cpf = $this->cpf();
+
+        $dado = $this->cryptEncode([
+            'nome' => $this->nomeCompleto(),
+            'email_pessoal' => $this->email(),
+            'telefone_pessoal' => $this->telefone(),
+            'cpf' => $this->cpf,
+            'termo_aceitar' => $this->hoje(),
+            'termo_lgpd' => $this->hoje()
+        ], Helper::CRIPTOGRAFAR);
+
         $resposta = $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'nome' => $this->nomeCompleto(),
-                'email_pessoal' => $this->email(),
-                'telefone_pessoal' => $this->telefone(),
-                'cpf' => $this->cpf,
-                'termo_aceitar' => $this->hoje(),
-                'termo_lgpd' => $this->hoje()
-            ])
+            ->body($dado)
             ->post('/usuario-lead')->array();
 
         $this->idLead = array_key_exists('dado', $resposta) ? $resposta['dado']['id'] : '';
@@ -322,11 +326,12 @@ final class UsuarioLeadTest extends Tests
 
         return $this
             ->checkStatus(200)
-            ->checkIgual($this->cpf, $cpf);
+            ->checkIgual($this->cpf, $this->cryptDecode($cpf));
     }
 
     public function naoPodeMudarStatusAposSalvarComoCadastroRealizadoTest()
     {
+        $this->api('usuario_lead:atualizar');
         $this
             ->Curl
             ->loginPainel()

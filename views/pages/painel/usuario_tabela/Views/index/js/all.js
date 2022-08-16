@@ -244,23 +244,20 @@ window.addEventListener('load', () => {
         }
 
         const usuario = blocoSucesso.querySelectorAll('.linha.dado');
-        if (usuario.length == 0) {
+        const quantidadeUsuario = usuario.length;
+        if (quantidadeUsuario == 0) {
             return;
         }
 
         const body = new FormData();
-        let i = 0;
-        let hash;
-        usuario.forEach(item => {
-            hash = item.getAttribute('data-id');
+        const total = quantidadeUsuario > 100 ? 100 : quantidadeUsuario;
+        let i, item, hash;
+        for (i = 0; i < total; ++i) {
+            item = usuario[i];
             item.classList.add('loading');
-
+            hash = item.getAttribute('data-id');
             body.append('hash[]', hash);
-            i++;
-            if (i >= 100) {
-                return;
-            }
-        });
+        }
 
         const resposta = await fetch(LINK + '/tabela/' + acao, {
             body,
