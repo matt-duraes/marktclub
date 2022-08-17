@@ -2,7 +2,6 @@
 
 namespace ORM\Buscar;
 
-use Erro\Erro;
 use Erro\Excecao;
 
 trait BuscarTrait

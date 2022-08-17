@@ -299,6 +299,7 @@ trait ValidarTrait
         } elseif ($acao == 'update' && !empty($this->_validarUpdate)) {
             $validacao .= PHP_EOL . $this->_validarUpdate;
         }
+
         if (empty($validacao)) {
             return;
         }

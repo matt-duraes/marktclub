@@ -13,6 +13,7 @@ use Modules\Telefone;
 use Helpers\ListaHelper;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 
 final class LoginModel extends Entity
@@ -179,7 +180,7 @@ final class LoginModel extends Entity
         $usuario = $this->campo(['cod', 'status'])->where([
             ['empresa', $this->idEmpresa],
             ['documento', $this->dado['documento']],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ])->primeiro();
 
         if (existeErro($usuario, 'cod')) {

@@ -5,6 +5,7 @@ namespace App\Models\Api\UsuarioIndicacao;
 use Modules\Email;
 use Modules\Telefone;
 use App\Models\Api\GeralEntity;
+use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioIndicacao\Status;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
@@ -67,7 +68,7 @@ final class IndicacaoEntity extends GeralEntity
         $Usuario = new ClienteEntity();
         $Usuario->buscar([
             ['id_usuario_indicacao', $this->prop('id')],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ], false);
 
         if (empty($Usuario->id)) {
@@ -87,7 +88,7 @@ final class IndicacaoEntity extends GeralEntity
         $Usuario = new ClienteEntity();
         $Usuario->buscar([
             ['id', $this->id_usuario_cliente],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ], false);
 
         if (empty($Usuario->id)) {

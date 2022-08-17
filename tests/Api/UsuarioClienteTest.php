@@ -4,6 +4,7 @@
 namespace Tests\Api;
 
 use Tests\Tests;
+use App\Classes\UsuarioCliente\Helper;
 
 final class UsuarioClienteTest extends Tests
 {
@@ -12,10 +13,8 @@ final class UsuarioClienteTest extends Tests
 
     public function __construct()
     {
-        $this->api('login:painel');
-        $this->Curl->loginPainel('01495180131', '123456');
-        $this->bodySalvar = $this->criarBodyUsuario();
         parent::__construct();
+        $this->bodySalvar = $this->criarBodyUsuario();
     }
 
     public function verificarSeEstaSalvandoUsuarioTest()
@@ -45,7 +44,7 @@ final class UsuarioClienteTest extends Tests
         return $this
             ->checkStatus(200)
             ->checkIndiceExiste('dado.id')
-            ->checkRespostaDadoIgual($this->bodySalvar, false);
+            ->checkRespostaDadoIgual($this->bodySalvar, false, Helper::CRIPTOGRAFAR);
     }
     public function naoPodeAtualizarCpfDeUmUsuarioQueJaTemCpfTest()
     {
@@ -53,7 +52,9 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body(['cpf' => $this->cpf()])
+            ->body([
+                'cpf' => $this->cryptEncode($this->cpf())
+            ])
             ->put('/usuario-cliente/' . $this->idUsuario);
 
         return $this
@@ -63,32 +64,39 @@ final class UsuarioClienteTest extends Tests
     public function naoPodeSalvarUmUsuarioComCpfDuplicadoTest()
     {
         $this->api('usuario_cliente:salvar');
+
+        $body = $this->cryptEncode([
+            'nome' => $this->nomeCompleto(),
+            'cpf' => $this->bodySalvar['cpf'],
+            'email_pessoal' => $this->email(),
+            'status' => 'inativo',
+        ], lista: ['nome', 'email_pessoal', 'status']);
+
         $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'nome' => $this->nomeCompleto(),
-                'cpf' => $this->bodySalvar['cpf'],
-                'email_pessoal' => $this->email(),
-                'status' => 'inativo',
-            ])->post('/usuario-cliente');
+            ->body($body)->post('/usuario-cliente');
 
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'O CPF informado já está em uso por outro usuário.');
     }
+
     public function naoPodeSalvarUmUsuarioComEmailPessoalDuplicadoTest()
     {
         $this->api('usuario_cliente:salvar');
+
+        $body = $this->cryptEncode([
+            'nome' => $this->nomeCompleto(),
+            'cpf' => $this->cpf(),
+            'email_pessoal' => $this->bodySalvar['email_pessoal'],
+            'status' => 'inativo',
+        ], ['nome', 'cpf', 'status']);
+
         $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'nome' => $this->nomeCompleto(),
-                'cpf' => $this->cpf(),
-                'email_pessoal' => $this->bodySalvar['email_pessoal'],
-                'status' => 'inativo',
-            ])->post('/usuario-cliente');
+            ->body($body)->post('/usuario-cliente');
 
         return $this
             ->checkStatus(400)
@@ -97,15 +105,18 @@ final class UsuarioClienteTest extends Tests
     public function naoPodeSalvarUmUsuarioComEmailTrabalhoDuplicadoTest()
     {
         $this->api('usuario_cliente:salvar');
+
+        $body = $this->cryptEncode([
+            'nome' => $this->nomeCompleto(),
+            'cpf' => $this->cpf(),
+            'email_trabalho' => $this->bodySalvar['email_trabalho'],
+            'status' => 'inativo',
+        ], ['nome', 'cpf', 'status']);
+
         $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'nome' => $this->nomeCompleto(),
-                'cpf' => $this->cpf(),
-                'email_trabalho' => $this->bodySalvar['email_trabalho'],
-                'status' => 'inativo',
-            ])->post('/usuario-cliente');
+            ->body($body)->post('/usuario-cliente');
 
         return $this
             ->checkStatus(400)
@@ -117,11 +128,8 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'nome' => $this->nomeCompleto(),
-                'email_trabalho' => $this->email(),
-                'status' => 'inativo',
-            ])->post('/usuario-cliente');
+            ->body($this->criarBodyUsuario(['nome', 'email_trabalho', 'status']))
+            ->post('/usuario-cliente');
 
         return $this
             ->checkStatus(400)
@@ -133,16 +141,35 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'nome' => $this->nomeCompleto(),
-                'cpf' => $this->cpf(),
-                'status' => 'inativo',
-            ])->post('/usuario-cliente');
+            ->body($this->criarBodyUsuario(['nome', 'cpf', 'status']))->post('/usuario-cliente');
 
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar pelo menos um e-mail para salvar.');
     }
+    public function naoPodeSalvarUmUsuarioComGrupoInvalidoTest()
+    {
+        $this->api('usuario_cliente:salvar');
+
+        $body = $this->cryptEncode([
+            'nome' => $this->nomeCompleto(),
+            'cpf' => $this->cpf(),
+            'email_trabalho' => $this->email(),
+            'grupo' => 'grupo_invalido',
+            'status' => 'inativo',
+        ], Helper::CRIPTOGRAFAR);
+
+        $this
+            ->Curl
+            ->loginPainel()
+            ->body($body)
+            ->post('/usuario-cliente');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('erro.mensagem', 'O grupo informado não é um valor válido.');
+    }
+
     public function listarTodosOsUsuarioTest()
     {
         $this->api('usuario_cliente:listar');
@@ -397,15 +424,17 @@ final class UsuarioClienteTest extends Tests
             'trabalho_cargo' => 'desenvolvedor',
             'tipo_pagamento' => 'debito-conta',
             'trabalho_data_inicio' => $this->dataPassada(),
+            'grupo' => 'teste-01',
             'status' => $this->random(['ativo', 'inativo'])
         ];
+
         if (empty($campo)) {
-            return $completo;
+            return $this->cryptEncode($completo, Helper::CRIPTOGRAFAR);
         }
         $lista = [];
         foreach ($campo as $indice) {
             $lista[$indice] = $completo[$indice];
         }
-        return $lista;
+        return $this->cryptEncode($lista, Helper::CRIPTOGRAFAR);
     }
 }

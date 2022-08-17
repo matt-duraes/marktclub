@@ -2,6 +2,9 @@
 
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\TipoPagamento;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 $Painel = new PainelConfig\Add('usuario_cliente');
 
@@ -18,10 +21,10 @@ $Painel->coluna(callback: function () use ($Painel) {
 
         $Painel
             ->input(name: 'nome', label: 'Nome Completo')
-            ->cpf(name: 'cpf', label: 'CPF')
+            ->cpf(name: 'cpf', label: 'CPF', placeholder: 'CPF')
             ->select(name: 'genero', label: 'Gênero', lista: 'genero')
             ->select(name: 'estado_civil', label: 'Estado Civil', lista: 'estado_civil')
-            ->data(name: 'data_nascimento', label: 'Data de nascimento')
+            ->data(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de Nascimento')
             ->select(name: 'situacao', label: 'Situação', lista: $listaSituacao);
     });
     $Painel->fieldset('Contato', function () use ($Painel) {
@@ -33,32 +36,22 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 
     $Painel->fieldset('Dados do trabalho', callback: function () use ($Painel) {
+        $Lista = new ListaHelper;
         $Api = new ApiHelper(token: true);
 
-        $Lista = new ListaHelper;
-        $listaOrgao = $Lista->add('', 'Escolha uma opção')->lista(
-            $Api->get('/admin/trabalho-orgao')->object()->dado ?? [],
-            'valor',
-            'nome'
-        )->r();
-        $listaCargo = $Lista->add('', 'Escolha uma opção')->lista(
-            $Api->get('/admin/trabalho-cargo')->object()->dado ?? [],
-            'valor',
-            'nome'
-        )->r();
-        $listaTipoPagamento = $Lista->add('', 'Escolha uma opção')->lista(
-            $Api->get('/admin/tipo-pagamento')->object()->dado ?? [],
-            'valor',
-            'nome'
-        )->r();
+        $grupo = $Lista->add('', 'Escolha uma opção')->add(lista: $Api->get('/usuario-grupo/select')->array()['dado'] ?? [])->r();
+        $trabalhoEmpresa = $Lista->add('', 'Escolha uma opção')->add(lista: (new TrabalhoEmpresa())->select())->r();
+        $trabalhoCargo = $Lista->add('', 'Escolha uma opção')->add(lista: (new TrabalhoCargo())->select())->r();
+        $tipoPagamento = $Lista->add('', 'Escolha uma opção')->add(lista: (new TipoPagamento())->select())->r();
 
         $Painel
             ->numero(name: 'matricula', label: 'Matrícula')
             ->numero(name: 'siape', label: 'SIAPE')
-            ->select(name: 'trabalho_orgao', label: 'Órgão onde trabalha', lista: $listaOrgao)
-            ->select(name: 'trabalho_cargo', label: 'Cargo', lista: $listaCargo)
-            ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $listaTipoPagamento)
-            ->data(name: 'trabalho_data_inicio', label: 'Data do início do trabalho');
+            ->select(name: 'trabalho_empresa', label: 'Local onde trabalha', lista: $trabalhoEmpresa)
+            ->select(name: 'trabalho_cargo', label: 'Cargo', lista: $trabalhoCargo)
+            ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $tipoPagamento)
+            ->data(name: 'trabalho_data_inicio', label: 'Data do início do trabalho', placeholder: 'Data do início do trabalho')
+            ->select(name: 'grupo', label: 'Grupo', lista: $grupo);
     });
 });
 

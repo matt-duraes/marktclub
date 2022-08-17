@@ -110,6 +110,9 @@ swIDAQAB
             'usuario_indicacao:salvar', 'usuario_indicacao:atualizar', 'usuario_indicacao:listar',
             'usuario_indicacao:buscar', 'usuario_indicacao:deletar',
 
+            'usuario_grupo:salvar', 'usuario_grupo:atualizar', 'usuario_grupo:listar',
+            'usuario_grupo:buscar', 'usuario_grupo:deletar',
+
             'tabela_usuario:salvar', 'tabela_usuario:bloquear',
 
             'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
@@ -128,7 +131,9 @@ swIDAQAB
             'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',
             'app_usuario:listar', 'app_usuario:buscar', 'app_usuario:salvar', 'app_usuario:atualizar', 'app_usuario:deletar',
 
-            'admin_empresa:listar'
+            'admin_empresa:listar',
+
+            'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar'
         ],
         'campo_permitido' => [
             'usuario:salvar' => ['nome', 'cpf', 'email_trabalho', 'senha', 'telefone_celular'],

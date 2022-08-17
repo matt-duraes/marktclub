@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Helpers\ApiHelper;
+use Helpers\CryptHelper;
 
 final class Api extends ApiHelper
 {
@@ -14,16 +15,25 @@ final class Api extends ApiHelper
         parent::__construct($scope, $token);
     }
 
-    public function loginPainel(?string $login = null, ?string $senha = null)
+    public function loginPainel()
     {
-        if (empty($login) && empty($senha) && sessaoExiste('TOKEN_LOGIN_PAINEL_TEST')) {
+        if (sessaoExiste('TOKEN_LOGIN_PAINEL_TEST')) {
             $this->header(['Authorization' => 'Bearer ' . sessao('TOKEN_LOGIN_PAINEL_TEST')]);
             return $this;
         }
 
-        $token = $this->body([
-            'login' => $login,
-            'senha' => $senha,
+        $login = env('TESTS_PAINEL_LOGIN', '01234567890');
+        $senha = env('TESTS_PAINEL_SENHA', 'Teste@1324');
+
+        $Curl = new ApiHelper('admin:chave_publica');
+        $chave = $Curl->get('/admin/chave-publica')->object()->dado->chave ?? '';
+
+        $Crypt = new CryptHelper(chavePublica: $chave);
+
+        $CurlLogin = new ApiHelper('login:painel');
+        $token = $CurlLogin->body([
+            'login' => $Crypt->encode($login),
+            'senha' => $Crypt->encode($senha),
             'facebook' => '',
             'google' => '',
             'scope' => '',
@@ -31,7 +41,6 @@ final class Api extends ApiHelper
             'redirect_uri' => $this->redirectUri,
             'state' => uuid()
         ])->post('/login/painel')->array();
-        $this->resetar();
 
         if (array_key_exists('status', $token) && $token['status'] == 'sucesso') {
             sessao('TOKEN_LOGIN_PAINEL_TEST', $token['dado']['access_token']);

@@ -7,6 +7,7 @@ use Modules\Cpf;
 use Modules\Nome;
 use Modules\Email;
 use Helpers\EmailHelper;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 
@@ -85,7 +86,7 @@ final class DependenteEntity extends Entity
         $Cliente = new ClienteEntity();
         $Cliente->buscar([
             ['cod', $this->usuario],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ], false);
 
         if (empty($Cliente->id)) {
@@ -101,7 +102,7 @@ final class DependenteEntity extends Entity
             ['empresa', $this->idEmpresa],
             ['tipo', 2],
             ['titular', $this->titular],
-            ['status', 'in', [1, 2, 3, 5]]
+            ['status', 'in', Helper::STATUS_LIBERADO]
         ]) >= 5) {
             mensagemErro('Erro!', 'Cada usuário só pode ter 5 dependentes.');
         }

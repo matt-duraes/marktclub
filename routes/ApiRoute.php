@@ -111,7 +111,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio',
+                '!trabalho_data_inicio', '!grupo'
             ])
             ::post('/usuario-cliente');
 
@@ -124,7 +124,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio',
+                '!trabalho_data_inicio', '!grupo'
             ])
             ::put('/usuario-cliente/{id}');
 
@@ -137,6 +137,48 @@ Route::nome('usuario_cliente')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar_cpf'])
             ::request(['cpf'])
             ::post('/usuario-cliente/deletar');
+    });
+
+Route::nome('usuario_grupo')
+    ::controller(App\Controllers\Api\UsuarioGrupoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:listar'])
+            ::request(['pagina', '!quantidade', '!pesquisa', '!status'])
+            ::get('/usuario-grupo');
+
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:listar'])
+            ::get('/usuario-grupo/select');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:buscar'])
+            ::get('/usuario-grupo/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:salvar'])
+            ::request([
+                'indice', 'titulo', 'status'
+            ])
+            ::post('/usuario-grupo');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:atualizar'])
+            ::request([
+                'indice', 'titulo', 'status'
+            ])
+            ::put('/usuario-grupo/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:deletar'])
+            ::delete('/usuario-grupo/{id}');
     });
 
 Route::nome('usuario_dependente')
@@ -593,6 +635,33 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:download'])
             ::request(['campo', '!ordem', '!empresa', '!data_de', '!data_ate'])
             ::post('/solicitacao-salavip/download');
+    });
+
+Route
+    ::nome('ponto_cvs')
+    ::controller(App\Controllers\Api\PontoCvsController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
+            ::request(['pagina', '!ordem', '!usuario'])
+            ::get('/ponto-cvs');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:buscar'])
+            ::get('/ponto-cvs/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:salvar'])
+            ::request(['ponto_solicitado'])
+            ::post('/ponto-cvs');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:atualizar'])
+            ::put('/ponto-cvs/{id}');
     });
 
 Route::nome('api_app')

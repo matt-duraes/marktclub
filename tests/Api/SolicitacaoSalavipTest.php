@@ -7,14 +7,6 @@ use Tests\Tests;
 
 final class SolicitacaoSalavipTest extends Tests
 {
-    public function __construct()
-    {
-        $this->api('login:painel');
-        $this->Curl->loginPainel('01495180131', '123456');
-
-        parent::__construct();
-    }
-
     public function naoPodeSalvarSalavipTest()
     {
         $this->api('solicitacao_salavip:listar');
