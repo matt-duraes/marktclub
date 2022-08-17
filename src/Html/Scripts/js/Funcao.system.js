@@ -319,6 +319,11 @@ const slug = function (string) {
 
 const respostaJson = (resposta, mensagem) => {
     return new Promise(async resolve => {
+        const status = resposta.status();
+        if (status == 204) {
+            resolve(true);
+        }
+
         let json;
         try {
             json = await resposta.json();
@@ -326,8 +331,7 @@ const respostaJson = (resposta, mensagem) => {
             json = {};
         }
 
-        const status = resposta.status();
-        if (status == 200 || status == 201 || status == 204) {
+        if (status == 200 || status == 201) {
             resolve(json);
         }
 
