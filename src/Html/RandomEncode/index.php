@@ -21,5 +21,6 @@ echo jsonEncode([
     'cpf' => $Crypt->encode(cpfAleatorio()),
     'cnpj' => $Crypt->encode(cnpjAleatorio()),
     'rg' => $Crypt->encode(rgAleatorio()),
-    'senha' => $Crypt->encode('Teste@1324'),
+    // 'senha' => $Crypt->encode('Teste@1324'),
+    'senha' => $Crypt->encode('1111'),
 ]);

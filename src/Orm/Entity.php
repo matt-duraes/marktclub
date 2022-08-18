@@ -201,7 +201,7 @@ abstract class Entity extends ORM
         if (is_null($valorValidacao) && $existe) {
             return;
         } elseif ($existe) {
-            $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor);
+            $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor, 1);
             $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
             $this->_setReal[$propriedade] = $valor;
             if ($valor instanceof Senha && $valor->vazio()) {
@@ -481,7 +481,7 @@ abstract class Entity extends ORM
         return false;
     }
 
-    private function ormConverterValorSeForUmModule(string $indice, $valor)
+    private function ormConverterValorSeForUmModule(string $indice, $valor, bool $teste = false)
     {
         if ($valor instanceof ModuleInterface) {
             return $valor;

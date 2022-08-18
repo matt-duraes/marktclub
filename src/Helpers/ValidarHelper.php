@@ -7,6 +7,7 @@ use Erro\Excecao;
 use Modules\Cnpj;
 use Modules\Data;
 use Modules\Email;
+use Modules\Senha;
 use Modules\DataHora;
 use Modules\Telefone;
 use Status\StatusInterface;
@@ -667,6 +668,21 @@ final class ValidarHelper
     {
         return preg_match("/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $hora) ||
             preg_match("/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9])$/", $hora);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SENHA
+    |--------------------------------------------------------------------------
+    */
+    public function senha(): self
+    {
+        $senha = $this->valor instanceof Senha ? $this->valor : new Senha($this->valor);
+        if (!$senha->vazio() && !$senha->valido()) {
+            $this->mensagem = $senha->mensagem();
+            $this->setarErro(930);
+        }
+        return $this;
     }
 
     /*

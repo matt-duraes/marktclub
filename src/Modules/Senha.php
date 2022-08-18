@@ -111,6 +111,7 @@ final class Senha implements ModuleInterface
             return;
         } else if (!preg_match($this->pegarExpressaoRegular(), $senha)) {
             $this->senha = '';
+            $this->vazio = false;
             $this->valido = false;
             return;
         }
