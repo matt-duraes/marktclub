@@ -15,7 +15,11 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->telefone(name: 'telefone_pessoal', label: 'Telefone pessoal');
     });
     $Painel->fieldset('Dados de acesso', callback: function () use ($Painel) {
-        $Painel->senha(name: 'senha', label: 'Senha de acesso');
+        $Painel->senha(
+            name: 'senha',
+            label: 'Senha de acesso',
+            ajuda: 'A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número, 1 caracter especial e no mínimo 8 dígitos.'
+        );
         $Painel->switch(name: 'primeiro_acesso', label: 'Primeiro acesso?');
         $Painel->switch(name: 'mudar_senha', label: 'Mudar senha ao logar?');
         $Painel->select(name: 'status', label: 'Status', lista: [

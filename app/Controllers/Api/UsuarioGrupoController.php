@@ -24,7 +24,13 @@ final class UsuarioGrupoController extends Controller implements
     public function getSelect()
     {
         $Grupo = new GrupoModel();
-        $select = $Grupo->pegarSelect('indice', 'titulo', ['status', '1']);
+        $id = TOKEN['empresa']->get('id');
+
+        $select = $Grupo->pegarSelect('indice', 'titulo', [
+            ['status', '1'],
+            ['id_admin_empresa', $id]
+        ]);
+
         return mensagemSucesso($select);
     }
     public function getBuscar(string $id)

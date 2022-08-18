@@ -69,7 +69,11 @@ $Painel->coluna(coluna: 3, callback: function () use ($Painel) {
 
     $Painel->fieldset('Dados de acesso', function () use ($Painel) {
         $Painel
-            ->senha(name: 'senha', label: 'Senha de acesso')
+            ->senha(
+                name: 'senha',
+                label: 'Senha de acesso',
+                ajuda: 'A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número, 1 caracter especial e no mínimo 8 dígitos.'
+            )
             ->select(name: 'status', label: 'Status', lista: [
                 '' => 'Escolha uma opção',
                 'ativo' => 'Ativo',

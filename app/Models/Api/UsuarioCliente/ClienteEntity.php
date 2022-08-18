@@ -76,7 +76,7 @@ final class ClienteEntity extends Entity
         trabalho_empresa|Empresa que trabalha|valido
         trabalho_cargo|Cargo na empresa|valido
         tipo_pagamento|Tipo de pagamento|valido
-        senha|Senha|valido
+        senha|Senha|senha
         status|Status|valido
     ';
 
