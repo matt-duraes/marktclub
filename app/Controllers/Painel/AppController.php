@@ -139,7 +139,7 @@ final class AppController extends Controller
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'visualizar',
-                'dado' => is_array($retorno) ? object($retorno) : (object)[]
+                'dado' => is_array($retorno) ? object($retorno) : $retorno
             ],
             css: $config->visualizar->css,
             js: $config->visualizar->js,
