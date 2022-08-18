@@ -131,13 +131,15 @@ final class AppController extends Controller
             mensagemStatus(500);
         }
 
+        $retorno = $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar);
+
         return view(
             arquivo: $config->visualizar->app . '.visualizar',
             var: [
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'visualizar',
-                'dado' => object($this->tratarListaDeRetorno($dado->dado, $config->api->criptografar))
+                'dado' => is_array($retorno) ? object($retorno) : []
             ],
             css: $config->visualizar->css,
             js: $config->visualizar->js,
