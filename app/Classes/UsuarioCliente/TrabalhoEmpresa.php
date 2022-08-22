@@ -38,10 +38,10 @@ final class TrabalhoEmpresa extends Status
     public function __construct(
         protected null|string|int $valor = null
     ) {
-        $idEmpresa = 0;
-        if (defined('TOKEN')) {
-            $idEmpresa = TOKEN['empresa']->get('id');
-        }
+        $idEmpresa = defined('TOKEN') &&
+            is_array(TOKEN) &&
+            array_key_exists('empresa', TOKEN) &&
+            array_key_exists(TOKEN['empresa']->get('id'), $this->listaPorEmpresa) ? TOKEN['empresa']->get('id') : 0;
 
         parent::__construct(
             lista: array_key_exists($idEmpresa, $this->listaPorEmpresa) ?
