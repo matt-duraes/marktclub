@@ -108,6 +108,7 @@ final class LoginController extends Controller
             'imagem' => $Crypt->decode($body['picture']),
             'cpf' => $Crypt->decode($body['document']),
             'permissao' => $body['permission'],
+            'empresa' => $body['company_id'],
             'dev' => in_array($body['document'], jsonDecode(env('DEV_DOCUMENTO', []), true, true))
         ]);
 
