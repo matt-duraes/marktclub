@@ -246,10 +246,6 @@ final class AppController extends Controller
             mensagemErro('Erro ao salvar!', 'Ocorreu um erro ao salvar, por favor, tente novamente.', 500);
         }
 
-        // $retorno = ['id' => $Entity->id];
-        // if ($config->permissao->historico && $Entity->diff()) {
-        //     $retorno['historico'] = $this->salvarHistorico($appReal, $Entity->id, $acao, $Entity->diff());
-        // }
         return new Response(json: [
             'status' => 'sucesso',
             'dado' => [
@@ -329,7 +325,7 @@ final class AppController extends Controller
         $config = $this->config($appReal, 'download');
 
         $ApiSenha = new ApiHelper(token: true);
-        $dadoSenha = $this->tratarListaParaSalvar(['senha' => $request->senha], ['senha'], $config->api->criptografar);
+        $dadoSenha = $this->tratarListaParaSalvar(['senha' => $request->senha], ['senha'], ['senha']);
 
         $validarSenha = $ApiSenha->body($dadoSenha)->post('/usuario-equipe/validar-senha')->object();
         if (existeErro($validarSenha, 'dado')) {

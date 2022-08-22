@@ -25,14 +25,14 @@ return [
                     'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_estado', 'endereco_cidade', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
                     'data_criacao_ate', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
-                    'trabalho_data_inicio'
+                    'trabalho_data_inicio', 'grupo', 'origem'
                 ],
                 'download' => [
                     'status', 'tipo', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',
                     'endereco_cidade', 'endereco_bairro', 'endereco_complemento', 'endereco_numero',
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'federacao', 'grupo',
                     'matricula', 'data_nascimento', 'genero', 'estado_civil', 'cpf', 'telefone_pessoal',
-                    'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload'
+                    'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload', 'origem'
                 ]
             ]
         ],

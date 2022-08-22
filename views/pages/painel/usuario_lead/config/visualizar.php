@@ -4,6 +4,7 @@ use Modules\Genero;
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use App\Classes\UsuarioLead\Status;
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
@@ -16,8 +17,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->cpf('cpf', 'CPF')
             ->linha('rg', 'RG')
             ->linha('genero', 'Gênero')
-            ->linha('data_nascimento', 'Data de nascimento', formatar: 'data')
-            ->linha('status', 'Status');
+            ->linha('data_nascimento', 'Data de nascimento', formatar: 'data');
     });
 
     $Painel->bloco(titulo: 'Dados de trabalho', callback: function () use ($Painel) {
@@ -48,6 +48,11 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('endereco_estado', 'Estado')
             ->cep('endereco_cep', 'CEP');
     });
+    $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
+        $Painel
+            ->linha('origem', 'Origem')
+            ->linha('status', 'Status');
+    });
 
     $Painel
         ->status(
@@ -75,7 +80,6 @@ $Painel->coluna(callback: function () use ($Painel) {
         );
 });
 
-$Api = new ApiHelper(token: true);
 $Lista = new ListaHelper;
 
 $Painel->replace(campo: 'trabalho_empresa', lista: (new TrabalhoEmpresa())->select());
@@ -83,5 +87,6 @@ $Painel->replace(campo: 'trabalho_cargo', lista: (new TrabalhoCargo())->select()
 $Painel->replace(campo: 'status', lista: (new Status())->select());
 $Painel->replace(campo: 'endereco_estado', lista: $Lista->estado()->r());
 $Painel->replace(campo: 'genero', lista: (new Genero())->select());
+$Painel->replace(campo: 'origem', lista: (new Origem())->select());
 
 return $Painel;

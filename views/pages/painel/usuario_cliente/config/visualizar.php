@@ -2,6 +2,7 @@
 
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
@@ -67,7 +68,12 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Dados de acesso', callback: function () use ($Painel) {
         $Painel
             ->linha(['cpf', 'email_pessoal', 'email_trabalho'], 'Login')
-            ->checked('possui_senha', 'Possui senha?')
+            ->checked('possui_senha', 'Possui senha?');
+    });
+
+    $Painel->bloco(titulo: 'Outros dadods', callback: function () use ($Painel) {
+        $Painel
+            ->linha('origem', 'Origem')
             ->checked('primeiro_acesso', 'Primeiro acesso?')
             ->checked('mensagem', 'Aceita mensagem?')
             ->checked('mudar_senha', 'Mudar Senha?')
@@ -93,6 +99,9 @@ $Painel->replace(campo: 'trabalho_empresa', lista: (new TrabalhoEmpresa())->sele
 
 // Lista de tipo de cargos
 $Painel->replace(campo: 'trabalho_cargo', lista: (new TrabalhoCargo())->select());
+
+// Lista origem do lead
+$Painel->replace(campo: 'origem', lista: (new Origem())->select());
 
 // Lista de status
 $Painel->replace(campo: 'status', lista: (new Status)->select());

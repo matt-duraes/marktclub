@@ -11,6 +11,7 @@ echo jsonEncode([
     'sobreNome' => $Crypt->encode(sobreNomeAleatorio()),
     'nomeCompleto' => $Crypt->encode(nomeCompletoAleatorio()),
     'telefone' => $Crypt->encode(telefoneAleatorio()),
+    'numero' => $Crypt->encode(numeroAleatorio()),
     'telefone_pessoal' => $Crypt->encode(telefoneAleatorio()),
     'telefone_trabalho' => $Crypt->encode(telefoneAleatorio()),
     'email' => $Crypt->encode(emailAleatorio()),
@@ -21,6 +22,6 @@ echo jsonEncode([
     'cpf' => $Crypt->encode(cpfAleatorio()),
     'cnpj' => $Crypt->encode(cnpjAleatorio()),
     'rg' => $Crypt->encode(rgAleatorio()),
-    // 'senha' => $Crypt->encode('Teste@1324'),
-    'senha' => $Crypt->encode('1111'),
+    'login' => $Crypt->encode('01234567890'),
+    'senha' => $Crypt->encode('Teste@1324'),
 ]);
