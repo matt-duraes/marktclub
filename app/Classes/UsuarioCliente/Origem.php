@@ -33,10 +33,8 @@ final class Origem extends Status
     public function __construct(
         protected null|string|int $valor = null
     ) {
-        $idEmpresa = defined('TOKEN') &&
-            is_array(TOKEN) &&
-            array_key_exists('empresa', TOKEN) &&
-            array_key_exists(TOKEN['empresa']->get('id'), $this->listaPorEmpresa) ? TOKEN['empresa']->get('id') : 0;
+        $idEmpresa = sessao('USUARIO.empresa', padrao: 0);
+        $idEmpresa = array_key_exists($idEmpresa, $this->listaPorEmpresa) ? $idEmpresa : 0;
 
         parent::__construct(
             lista: array_key_exists($idEmpresa, $this->listaPorEmpresa) ?

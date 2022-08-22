@@ -31,10 +31,9 @@ final class TipoPagamento extends Status
     public function __construct(
         protected null|string|int $valor = null
     ) {
-        $idEmpresa = 0;
-        if (defined('TOKEN')) {
-            $idEmpresa = TOKEN['empresa']->get('id');
-        }
+        $idEmpresa = sessao('USUARIO.empresa', padrao: 0);
+        $idEmpresa = array_key_exists($idEmpresa, $this->listaPorEmpresa) ? $idEmpresa : 0;
+
         parent::__construct(
             lista: $this->listaPorEmpresa[$idEmpresa]['lista'] ?? $this->listaPorEmpresa[0]['lista'],
             numero: $this->listaPorEmpresa[$idEmpresa]['numero'] ?? $this->listaPorEmpresa[0]['numero'],

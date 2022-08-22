@@ -73,7 +73,8 @@ final class LoginController extends Controller
             'email' => $Usuario->email->email(),
             'email_verified' => false,
             'new_access' => $Usuario->primeiro_acesso->valor(),
-            'permission' => $Usuario->permissao
+            'permission' => $Usuario->permissao,
+            'company_id' => $Usuario->id_admin_empresa
         ], lista: ['name', 'picture', 'document', 'email']);
 
         return $this->criarToken($dado, $request);
