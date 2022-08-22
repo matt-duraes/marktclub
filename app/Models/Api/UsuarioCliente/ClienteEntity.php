@@ -12,6 +12,7 @@ use Modules\Senha;
 use Modules\Genero;
 use Modules\Telefone;
 use Modules\EstadoCivil;
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Models\Api\UsuarioGrupo\GrupoEntity;
@@ -39,6 +40,7 @@ final class ClienteEntity extends Entity
         'endereco_cidade' => 'cidade',
         'trabalho_empresa' => 'trabalho_orgao',
         'senha' => 'salt',
+        'origem' => 'lead_origem',
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
@@ -104,6 +106,7 @@ final class ClienteEntity extends Entity
     public string $imagem;
     public string $pagamento;
     public string $grupo;
+    public Origem $origem;
 
     public string $contrato_siape;
     private array $campoObrigatorio;

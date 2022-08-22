@@ -64,7 +64,7 @@ final class UsuarioLeadController extends Controller implements
                 'email_funcional', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep', 'endereco_logradouro',
                 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
                 'lista_dependente', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'trabalho_data_inicio',
-                'status', 'data_criacao'
+                'status', 'data_criacao', 'origem'
             ],
             null: $vazio,
             empty: $vazio

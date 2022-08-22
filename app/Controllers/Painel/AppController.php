@@ -238,7 +238,7 @@ final class AppController extends Controller
             $Api = new ApiHelper(token: true);
             $dado = $Api->body($lista)->put($uri . '/' . $request->id)->object();
         }
-        ppe($dado);
+
         $status = in_array($Api->status(), [201, 204]);
         if (!$status && object_key_exists('status', $dado) && $dado->status == 'erro') {
             return new Response(json: $dado, status: $Api->status());
@@ -325,7 +325,7 @@ final class AppController extends Controller
         $config = $this->config($appReal, 'download');
 
         $ApiSenha = new ApiHelper(token: true);
-        $dadoSenha = $this->tratarListaParaSalvar(['senha' => $request->senha], ['senha'], $config->api->criptografar);
+        $dadoSenha = $this->tratarListaParaSalvar(['senha' => $request->senha], ['senha'], ['senha']);
 
         $validarSenha = $ApiSenha->body($dadoSenha)->post('/usuario-equipe/validar-senha')->object();
         if (existeErro($validarSenha, 'dado')) {

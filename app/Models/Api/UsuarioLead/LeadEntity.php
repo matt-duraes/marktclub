@@ -13,6 +13,7 @@ use Modules\Telefone;
 use Modules\EnderecoCep;
 use Modules\EnderecoEstado;
 use App\Classes\UsuarioLead\Status;
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\UsuarioCliente\ClienteModel;
@@ -25,6 +26,7 @@ final class LeadEntity extends Entity
         'cpf' => 'documento_cpf',
         'rg' => 'documento_rg',
         'siape' => 'documento_siape',
+        'origem' => 'lead_origem',
         'email_trabalho', 'email_pessoal', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
         'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
         'endereco_cidade', 'endereco_estado', 'genero', 'data_nascimento', 'lista_dependente', 'trabalho_empresa',
@@ -35,6 +37,7 @@ final class LeadEntity extends Entity
         'documento_cpf' => '->cpf',
         'documento_rg' => '->rg',
         'documento_siape' => '->siape',
+        'lead_origem' => '->origem',
         'email_trabalho', 'email_pessoal', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
         'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
         'endereco_cidade', 'endereco_estado', 'genero', 'data_nascimento', 'lista_dependente', 'trabalho_empresa',
@@ -76,6 +79,7 @@ final class LeadEntity extends Entity
     public TrabalhoEmpresa $trabalho_empresa;
     public TrabalhoCargo $trabalho_cargo;
     public DataHora $data_criacao;
+    public Origem $origem;
 
     private bool $cadastrar = false;
 
@@ -159,7 +163,8 @@ final class LeadEntity extends Entity
             'aniversario' => $this->data_nascimento->date(),
             'trabalho_orgao' => $this->trabalho_empresa->numero(),
             'trabalho_cargo' => $this->trabalho_cargo->numero(),
-            'trabalho_data_inicio' => $this->trabalho_data_inicio->date()
+            'trabalho_data_inicio' => $this->trabalho_data_inicio->date(),
+            'lead_origem' => $this->origem->numero()
         ]);
     }
 }
