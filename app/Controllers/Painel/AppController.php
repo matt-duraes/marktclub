@@ -238,7 +238,7 @@ final class AppController extends Controller
             $Api = new ApiHelper(token: true);
             $dado = $Api->body($lista)->put($uri . '/' . $request->id)->object();
         }
-
+        ppe($dado);
         $status = in_array($Api->status(), [201, 204]);
         if (!$status && object_key_exists('status', $dado) && $dado->status == 'erro') {
             return new Response(json: $dado, status: $Api->status());
@@ -246,10 +246,6 @@ final class AppController extends Controller
             mensagemErro('Erro ao salvar!', 'Ocorreu um erro ao salvar, por favor, tente novamente.', 500);
         }
 
-        // $retorno = ['id' => $Entity->id];
-        // if ($config->permissao->historico && $Entity->diff()) {
-        //     $retorno['historico'] = $this->salvarHistorico($appReal, $Entity->id, $acao, $Entity->diff());
-        // }
         return new Response(json: [
             'status' => 'sucesso',
             'dado' => [

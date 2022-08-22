@@ -201,7 +201,7 @@ final class ClienteEntity extends Entity
             mensagemErro('Campo obrigatório!', 'O campo status é obrigatório.');
         } else if (
             in_array('matricula', $campoObrigatorio) &&
-            (!$request->existe('matricula') || empty($this->matricua))
+            (!$request->existe('matricula') || empty($this->matricula))
         ) {
             mensagemErro('Campo obrigatório!', 'O campo matrícula é obrigatório.');
         } else if (
