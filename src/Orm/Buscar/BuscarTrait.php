@@ -77,8 +77,9 @@ trait BuscarTrait
                     ->where($r->where, false);
             }
         }
+
         $busca = $busca->read(indice: 0, retorno: 'array');
-        if (!$busca && $erro) {
+        if (empty($busca) && $erro) {
             throw new Excecao(status: 404);
         } elseif (!$busca) {
             return;

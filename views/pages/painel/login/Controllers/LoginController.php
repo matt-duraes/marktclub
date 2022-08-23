@@ -96,8 +96,8 @@ final class LoginController extends Controller
 
         $token = $dado->dado;
 
-        $Jwt = new JwtHelper($token->id_token);
-        $body = $Jwt->body();
+        $Jwt = new JwtHelper();
+        $body = $Jwt->decode($token->id_token);
 
         $this->setarChave();
         $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
@@ -108,6 +108,7 @@ final class LoginController extends Controller
             'imagem' => $Crypt->decode($body['picture']),
             'cpf' => $Crypt->decode($body['document']),
             'permissao' => $body['permission'],
+            'empresa_id' => $body['company_id'],
             'dev' => in_array($body['document'], jsonDecode(env('DEV_DOCUMENTO', []), true, true))
         ]);
 

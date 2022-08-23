@@ -106,7 +106,7 @@ final class TokenAuthorizationEntity extends Entity
         $payload = array_merge($payload, $body);
 
         try {
-            return (new JwtHelper)->encode($payload, $app->id);
+            return (new JwtHelper())->encode($payload);
         } catch (\Throwable) {
             mensagemStatus(500, localhost: 'TokenAuthorizationEntity - Não foi possivel criar o JWT.');
         }

@@ -20,17 +20,32 @@ abstract class Status implements StatusInterface
     /**
      * Construtor para um Status
      *
-     * @param array         $lista  Lista de valores no padrao indice => Nome
-     * @param null|array    $cor    Lista de cores no padrão indice => Cor
-     * @param null|array    $numero Número que deve ser salvo no banco, caso não passe, será automatico
+     * @param null|array    $lista      Lista de valores no padrao indice => Nome
+     * @param null|array    $cor        Lista de cores no padrão indice => Cor
+     * @param null|array    $numero     Número que deve ser salvo no banco, caso não passe, será automatico
+     * @param null|array    $empresa    Quando o valor muda dependendo da empresa
      */
     public function __construct(
-        private array $lista,
+        private ?array $lista = null,
         private ?array $cor = null,
-        ?array $numero = null
+        ?array $numero = null,
+        private ?array $empresa = null
     ) {
-        $indice = array_key_exists(0, $lista) ? $this->criarSlug($lista) : $this->criarArray(array_keys($lista));
-        $nome = $this->criarArray(array_values($lista));
+        $idEmpresa = $this->pegarIdEmpresa();
+        if ($empresa && array_key_exists($idEmpresa, $empresa)) {
+            $this->lista = $empresa[$idEmpresa]['lista'] ?? [];
+            $this->cor = $empresa[$idEmpresa]['cor'] ?? null;
+            $numero = $empresa[$idEmpresa]['numero'] ?? null;
+        } else if ($empresa) {
+            $this->lista = [];
+            $this->cor = null;
+            $numero = null;
+        }
+
+        $indice = array_key_exists(0, $this->lista) ?
+            $this->criarSlug($this->lista) :
+            $this->criarArray(array_keys($this->lista));
+        $nome = $this->criarArray(array_values($this->lista));
         $numero = empty($numero) ? array_keys($indice) : $numero;
         if (count($indice) != count($nome) || count($indice) != count($numero)) {
             mensagemErro('Erro!', 'O número de valores das listas não batem.');
@@ -39,6 +54,16 @@ abstract class Status implements StatusInterface
         $this->indiceNumero = array_combine($indice, $numero);
         $this->indiceNome = array_combine($indice, $nome);
         $this->numeroNome = array_combine($numero, $nome);
+    }
+
+    private function pegarIdEmpresa()
+    {
+        if (sessaoExiste('USUARIO.empresa_id')) {
+            return base64decode(sessao('USUARIO.empresa_id'));
+        } else if (defined('TOKEN') && array_key_exists('empresa', TOKEN)) {
+            return TOKEN['empresa']->get('id');
+        }
+        return 0;
     }
 
     private function criarSlug(array $lista): array

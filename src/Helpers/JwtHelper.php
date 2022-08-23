@@ -3,61 +3,73 @@
 namespace Helpers;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 final class JwtHelper
 {
+
+    private string $algoritimo = 'HS256';
+    private string $chavePublica;
+    private string $chavePrivada;
+
     /**
-     * @param String    $jwt   JWT pra validar ou pegar informações
+     * @param null|string   $chave  Nome do arquivo da chave RSA
+     * @param null|string   $hash   Hash quando for usar RS256
      */
     public function __construct(
-        private string $jwt = ''
+        private ?string $chave = null,
+        private ?string $hash = null
     ) {
+        if (!empty($chave)) {
+            $this->algoritimo = 'RS256';
+            $this->pegarChave();
+            return;
+        }
+        $this->hash = !is_null($hash) ? $hash : ENV('JWT_HASH', '');
+    }
+
+    private function pegarChave()
+    {
+        $chave = $this->chave;
+        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave)) {
+            $this->chavePrivada = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave);
+        } else {
+            mensagemErro('Erro!', 'Chave privada não existe.', 500);
+        }
+        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub')) {
+            $this->chavePublica = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub');
+        } else {
+            mensagemErro('Erro!', 'Chave pública não existe.', 500);
+        }
     }
 
     /**
-     * @param Array     $payload    Array para a criação do payload
-     * @param String    $chave      Nome do arquivo da chave privada para criação do JWT
-     * @param String    $hash       Hash para criação do JWT caso não use chave privada
+     * Cria um token JWT
+     *
+     * @param   array   $payload    Array com os dados que deseja colocar no body do JWT
+     * @return  string              String com o JWT
+     * @throws  Excecao
      */
-    public function encode(array $payload, string $chave = '', string $hash = ''): String
+    public function encode(array $payload): string
     {
-        if (!empty($chave) && file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave)) {
-            $tipoCriptografia = 'RS256';
-            $key = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave);
-        } elseif (!empty($hash)) {
-            $tipoCriptografia = 'HS256';
-            $key = $hash;
-        } else {
-            mensagemErro('Erro!', 'Você precisa passar uma hash para o JWT.', 500);
-        }
-
+        $key = !empty($this->chavePrivada) ? $this->chavePrivada : $this->hash;
         try {
-            return JWT::encode($payload, $key, $tipoCriptografia, null, ['kid' => uuid()]);
+            return JWT::encode($payload, $key, $this->algoritimo, null, ['kid' => uuid()]);
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Ocorreu um erro ao criar o JWT.', 500);
         }
     }
 
     /**
-     * @param String    $chave      Nome do arquivo da chave pública para decodificar o JWT
-     * @param String    $hash       Hash para decodificar o JWT caso não tenha criado com chave privada
+     * Valida se um JWT é valido
+     *
+     * @param   string  $jwt    JWT que deseja validar
+     * @return  bool
      */
-    public function validar(string $chave = '', string $hash = ''): Bool
+    public function validar(string $jwt): Bool
     {
-        $jwt = $this->jwt;
-
-        if (!empty($chave) && file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub') && file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub')) {
-            $tipoCriptografia = 'RS256';
-            $key = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub');
-        } elseif (!empty($hash)) {
-            $tipoCriptografia = 'HS256';
-            $key = $hash;
-        } else {
-            return false;
-        }
-
         try {
-            JWT::decode($jwt, $key, [$tipoCriptografia]);
+            $this->decode($jwt);
             return true;
         } catch (\Throwable) {
             return false;
@@ -65,11 +77,13 @@ final class JwtHelper
     }
 
     /**
-     * @param String    $campo     Campo caso queira pegar apenas um parâmetro da header
+     * Pega o header do JWT
+     *
+     * @param   string  $jwt    JWT que deseja pegar o header
+     * @return  array           Array com o header
      */
-    public function header(String $campo = '')
+    public function header(string $jwt): array
     {
-        $jwt = $this->jwt;
         $explode = explode('.', $jwt);
 
         if (count($explode) != 3) {
@@ -77,36 +91,31 @@ final class JwtHelper
         }
 
         $dado = jsonDecode(\base64_decode($explode[0]), true);
-        $dado = is_array($dado) ? $dado : [];
-        if (!empty($campo)) {
-            return $dado[$campo] ?? '';
-        }
-        return $dado;
+        return is_array($dado) ? $dado : [];
     }
 
     /**
-     * @param String    $campo     Campo caso queira pegar apenas um parâmetro do body
+     * Pega o body do JWT
+     *
+     * @param   string    $jwt     JWT que deseja retornar
+     * @return  array              Array do body
+     * @throws  Excecao
      */
-    public function body(String $campo = '')
+    public function decode(string $jwt): array
     {
-        $jwt = $this->jwt;
-        $explode = explode('.', $jwt);
+        $key = !empty($this->chavePublica) ? $this->chavePublica : $this->hash;
 
-        if (count($explode) != 3) {
-            mensagemErro('Erro!', 'O Token não está em um formáto válido.', 401);
+        try {
+            $dado = JWT::decode($jwt, new Key($key, $this->algoritimo));
+        } catch (\Throwable $e) {
+            mensagemErro(
+                'Erro!',
+                'O Token enviado não tem um corpo válido.',
+                401,
+                localhost: 'Erro no decode do JWT: ' . $e->getMessage()
+            );
         }
 
-        $dado = jsonDecode(\base64_decode($explode[1]), true);
-        if (!is_array($dado)) {
-            mensagemErro('Erro!', 'O Token enviado não tem um corpo válido.', 401);
-        }
-
-        if (!empty($campo) && array_key_exists($campo, $dado)) {
-            return $dado[$campo];
-        } else if (!empty($campo)) {
-            mensagemErro('Erro!', 'O indice procurado não existe.', 400);
-        }
-
-        return $dado;
+        return (array)$dado;
     }
 }
