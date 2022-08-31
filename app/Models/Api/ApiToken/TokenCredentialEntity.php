@@ -58,7 +58,7 @@ final class TokenCredentialEntity extends Entity
         ];
 
         try {
-            return (new JwtHelper)->encode($payload, $app->id);
+            return (new JwtHelper())->encode($payload);
         } catch (\Throwable) {
             mensagemStatus(500);
         }

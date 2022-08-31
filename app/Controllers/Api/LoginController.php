@@ -65,6 +65,7 @@ final class LoginController extends Controller
         $Usuario = $Login->pegarUsuario();
         $dado = criptografarDado([
             'sub' => $Usuario->id,
+            'company_id' => base64Encode($Usuario->id_admin_empresa),
             'name' => $Usuario->nome->nome(),
             'picture' => $Usuario->imagem,
             'create_at' => $Usuario->data_criacao->date(),
@@ -73,7 +74,7 @@ final class LoginController extends Controller
             'email' => $Usuario->email->email(),
             'email_verified' => false,
             'new_access' => $Usuario->primeiro_acesso->valor(),
-            'permission' => $Usuario->permissao
+            'permission' => $Usuario->permissao,
         ], lista: ['name', 'picture', 'document', 'email']);
 
         return $this->criarToken($dado, $request);

@@ -13,8 +13,11 @@ final class ValidarTokenCredentialModel
 
     public function validar(string $token): bool
     {
-        $Jwt = new JwtHelper($token);
-        $dado = $Jwt->body();
+        $Jwt = new JwtHelper();
+        if (!$Jwt->validar($token)) {
+            $this->erro403('ValidarTokenCredential - Não foi possível validar JWT.');
+        }
+        $dado = $Jwt->decode($token);
         if (existeErro($dado, ['azp', 'aud', 'scope', 'gty'])) {
             $this->erro403('ValidarTokenCredential - O JWT não contem azp, aud, scope ou gty.');
         }
@@ -30,8 +33,8 @@ final class ValidarTokenCredentialModel
             $this->erro403('ValidarTokenCredential - Erro ao buscar o APP.');
         }
 
-        if (!$Jwt->validar($App->id) || $App->audience != $audience) {
-            $this->erro403('ValidarTokenCredential - Jwt não é válido ou Audience do APP é invalido.');
+        if ($App->audience != $audience) {
+            $this->erro403('ValidarTokenCredential - Audience do APP é invalido.');
         }
 
         // try {

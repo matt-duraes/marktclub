@@ -70,8 +70,8 @@ final class TokenMiddleware
             return;
         }
         try {
-            $Jwt = new JwtHelper($this->token);
-            $this->body = $Jwt->body();
+            $Jwt = new JwtHelper();
+            $this->body = $Jwt->decode($this->token);
         } catch (\Throwable) {
             $this->erroToken('Middleware Token - Erro ao pegar body do token.');
         }

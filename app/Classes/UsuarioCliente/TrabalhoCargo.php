@@ -6,7 +6,7 @@ use Status\Status;
 
 final class TrabalhoCargo extends Status
 {
-    private array $listaPorEmpresa = [
+    const EMPRESA = [
         0 => [
             'lista' => [
                 'cargo' => 'Cargo'
@@ -37,16 +37,6 @@ final class TrabalhoCargo extends Status
     public function __construct(
         protected null|string|int $valor = null
     ) {
-        $idEmpresa = defined('TOKEN') &&
-            is_array(TOKEN) &&
-            array_key_exists('empresa', TOKEN) &&
-            array_key_exists(TOKEN['empresa']->get('id'), $this->listaPorEmpresa) ? TOKEN['empresa']->get('id') : 0;
-
-        parent::__construct(
-            lista: array_key_exists($idEmpresa, $this->listaPorEmpresa) ?
-                $this->listaPorEmpresa[$idEmpresa]['lista'] : [],
-            numero: array_key_exists($idEmpresa, $this->listaPorEmpresa) ?
-                $this->listaPorEmpresa[$idEmpresa]['numero'] : [],
-        );
+        parent::__construct(empresa: self::EMPRESA);
     }
 }
