@@ -71,7 +71,7 @@ final class Request extends Psr7Request
                 mensagem: 'A Chave "' . $indice . '" não existe na request enviada.'
             );
         }
-        return $this->__dado[$indice] ?? $padrao;
+        return array_key_exists($indice, $this->__dado) ? $this->purifier(lista: $this->__dado, indice: $indice) : $padrao;
     }
 
     // doc
@@ -95,7 +95,7 @@ final class Request extends Psr7Request
         if (array_key_exists('form_system_validacao', $dado)) {
             unset($dado['form_system_validacao']);
         }
-        return $dado;
+        return $this->purifier($dado);
     }
 
     //doc
@@ -123,7 +123,7 @@ final class Request extends Psr7Request
                 throw new \Erro\Excecao(titulo: 'Indice não encontrado!', mensagem: 'O indice "' . $ind . '" não existe na requisição enviada.');
             }
         }
-        return $array;
+        return $this->purifier($array);
     }
 
     //doc
@@ -151,40 +151,25 @@ final class Request extends Psr7Request
                 throw new Erro(mensagem: 'A exeção "' . $ind . '" não existe na requisição enviada.');
             }
         }
-        return $dado;
+        return $this->purifier($dado);
     }
 
     // doc
     /**
      * Igual o dado() mas quando os dados estão criptografados
      *
-     * @param   null|string     $chave              Caso queira usar uma chave simples para descriptografar
-     * @param   null|string     $chavePrivada       Caso queira usar uma chave privada para uma criptografia criada por chave pública
-     * @param   array           $descriptografar    Lista de campos que deseja descriptografar
-     * @return  array                               Array com a lista de dados recebidos pela request
+     * @param   array           $lista      Lista de dados que devem ser descriptografados
+     * @param   null|string     $chave      Chave para descriptografar, se existir a constante TOKEN ele pega automatico
      */
-    public function dadoDecode(?string $chave = null, ?string $chavePrivada = null, array $descriptografar = []): array
+    public function descriptografar(array $lista = [], ?string $chave = null): void
     {
-        if (empty($chave) && empty($chavePrivada)) {
-            return [];
-        }
-        if (!empty($chave)) {
-            $Crypt = new CryptHelper(chave: $chave);
-        } else if (!empty($chavePrivada)) {
-            $Crypt = new CryptHelper(chavePrivada: $chavePrivada);
+        $chave = is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ? TOKEN['app']->chave_privada : '';
+        if (empty($chave)) {
+            mensagemStatus(403, localhost: 'Não foi passado uma chave para descriptografar.');
         }
 
-        $dado = $this->dado();
-        $retorno = [];
-        foreach ($dado as $ind => $val) {
-            $valorDecode = empty($descriptografar) || in_array($ind, $descriptografar) ? $Crypt->decode($val) : $val;
-            if (!empty($val) && empty($valorDecode)) {
-                mensagemErro('Erro!', 'Não foi possível remover a criptografia do indice ' . $ind . ' ou ele não está criptografado.');
-            }
-            $retorno[$ind] = $valorDecode;
-        }
-
-        return $this->purifier($retorno, purifier: true, html: true);
+        $this->setarDado($lista, $chave);
+        $this->setarPropriedadesPublicas(true);
     }
 
     // doc
@@ -195,7 +180,7 @@ final class Request extends Psr7Request
      */
     public function todos(): array
     {
-        return $this->__dado;
+        return $this->purifier($this->__dado);
     }
 
     // doc
@@ -207,7 +192,7 @@ final class Request extends Psr7Request
      * @param bool      $html           Se true, o retorno irá limpar qualquer tag HTML
      * @return  string|array   Array com a lista de dados recebidos pela request ou o valor do insice
      */
-    public function json(string $indice = '', bool $purifier = true, bool $html = true): array|string
+    public function _JSON(string $indice = '', bool $purifier = true, bool $html = true): array|string
     {
         $dado = jsonDecode($this->body(), true);
         if (is_array($dado)) {
@@ -405,18 +390,17 @@ final class Request extends Psr7Request
     | MÉTODOS PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function setarDado(): void
+    private function setarDado(array $descriptografar = [], ?string $chave = null): void
     {
         $metodo = $this->__metodo;
 
         $lista = [];
         if (in_array($metodo, ['GET', 'DELETE'])) {
-            $lista = $this->__requestInterno->query->all();
+            $lista = $this->_JSON() ? $this->__requestInterno->query->all() + $this->_JSON() : $this->__requestInterno->query->all();
         } elseif (in_array($metodo, ['POST', 'PUT'])) {
             $lista = $this->pegarRequestOuBody();
         }
 
-        $lista = $this->purifier(lista: $lista, purifier: true, html: true);
         if ($metodo == 'POST') {
             $file = $this->__requestInterno->files->all();
             if ($file) {
@@ -427,13 +411,14 @@ final class Request extends Psr7Request
         $this->__dado = $lista;
     }
 
-    private function setarPropriedadesPublicas()
+    private function setarPropriedadesPublicas($teste = false)
     {
         if (!$this->__dado) {
             return;
         }
-        foreach ($this->__dado as $ind => $val) {
-            $this->$ind = $val;
+
+        foreach (array_keys($this->__dado) as $ind) {
+            $this->$ind = $this->purifier(lista: $this->__dado, indice: $ind);
         }
     }
 

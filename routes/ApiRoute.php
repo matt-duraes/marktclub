@@ -89,7 +89,10 @@ Route::nome('usuario_cliente')
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:listar'])
-            ::request(['pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem'])
+            ::request([
+                'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
+                '!data_criacao_ate', '!matricula', '!status', '!ordem'
+            ])
             ::get('/usuario-cliente');
         Route
             ::nome('download')
@@ -132,11 +135,6 @@ Route::nome('usuario_cliente')
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
             ::delete('/usuario-cliente/{id}');
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar_cpf'])
-            ::request(['cpf'])
-            ::post('/usuario-cliente/deletar');
     });
 
 Route::nome('usuario_grupo')
