@@ -227,7 +227,7 @@ final class Request extends Psr7Request
     public function _POST(string $indice = '', bool $purifier = true, bool $html = true): array | string
     {
         if (!in_array($this->__metodo, ['POST', 'GET'])) {
-            throw new Erro(mensagem: 'Você está tentando pegar um POST em uma requisição com método ' . $this->__metodo . '.');
+            return !empty($indice) ? false : [];
         }
 
         $_POST = $this->__requestInterno->request->all();
@@ -256,8 +256,8 @@ final class Request extends Psr7Request
      */
     public function _PUT(string $indice = '', bool $purifier = true, bool $html = true): array | string
     {
-        if (!in_array($this->__metodo, ['PUT', 'GET'])) {
-            throw new Erro(mensagem: 'Você está tentando pegar um PUT em uma requisição com método ' . $this->__metodo . '.');
+        if ($this->__metodo != 'PUT') {
+            return !empty($indice) ? false : [];
         }
 
         $_PUT = $this->__requestInterno->request->all();
@@ -292,7 +292,7 @@ final class Request extends Psr7Request
     public function _FILES(string $indice = ''): null|array|\Symfony\Component\HttpFoundation\File\UploadedFile
     {
         if ($this->__metodo != 'POST') {
-            throw new \Erro\Excecao(titulo: 'Erro no método!', mensagem: 'FILES só podem ser pegos em uma requisição com método POST.');
+            return !empty($indice) ? false : [];
         } elseif (!empty($indice)) {
             return $this->__requestInterno->files->get($indice, null);
         }
@@ -406,6 +406,11 @@ final class Request extends Psr7Request
             if ($file) {
                 $lista = $lista + $file;
             }
+        }
+
+        $Crypt = !empty($chave) ? new CryptHelper(chavePrivada: $chave) : null;
+        foreach ($lista as $ind => $val) {
+            $lista[$ind] = !empty($chave) && (empty($descriptografar) || in_array($ind, $descriptografar)) ? $Crypt->decode($val) : $val;
         }
 
         $this->__dado = $lista;

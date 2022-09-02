@@ -92,12 +92,15 @@ Route::nome('usuario_cliente')
             ::request([
                 'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
                 '!data_criacao_ate', '!matricula', '!status', '!ordem'
-            ])
+            ], 'json')
             ::get('/usuario-cliente');
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
-            ::request(['campo', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem'])
+            ::request([
+                'campo', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
+                '!data_criacao_ate', '!matricula', '!status', '!ordem'
+            ])
             ::post('/usuario-cliente/download');
 
         Route

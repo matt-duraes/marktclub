@@ -58,6 +58,7 @@ final class UsuarioClienteController extends Controller implements
     public function postSalvar(Request $request)
     {
         $request->descriptografar(Helper::CRIPTOGRAFAR);
+
         $Usuario = new ClienteEntity($request);
         $Usuario->set(lista: $request->dado());
         $Usuario->salvar();

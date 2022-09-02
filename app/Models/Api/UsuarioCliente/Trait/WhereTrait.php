@@ -7,7 +7,7 @@ use App\Classes\UsuarioCliente\Status;
 
 trait WhereTrait
 {
-    private function pegarWhere(): array
+    protected function pegarWhere(): array
     {
         $request = $this->request;
 
@@ -15,7 +15,9 @@ trait WhereTrait
             [
                 'OR',
                 ['empresa', $this->idEmpresa],
-                ['tipo', 'in', [1, 3]],
+                [
+                    ['empresa', 1], ['tipo', 3]
+                ],
             ]
         ];
 

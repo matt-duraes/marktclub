@@ -17,7 +17,7 @@ final class ClienteModel extends GeralModel
     use BuscarUsuarioTrait;
 
     public function __construct(
-        private ?Request $request = null
+        protected ?Request $request = null
     ) {
         parent::__construct();
         $this->validarCampoDoRequest();
@@ -70,7 +70,7 @@ final class ClienteModel extends GeralModel
         $dataUpload = new Data($this->request->data_upload);
         $dataCriacaoDe = new Data($this->request->data_criacao_de);
         $dataCriacaoAte = new Data($this->request->data_criacao_ate);
-        $cpf = $this->request->cpf;
+        $status = new Status($this->request->status);
 
         if (!empty($this->request->pagina) && !preg_match('/^[1-9]{1}[0-9]*$/', $this->request->pagina)) {
             mensagemErro('Campo inválido!', 'A página deve ser um número inteiro.');
@@ -84,6 +84,8 @@ final class ClienteModel extends GeralModel
             mensagemErro('Campo inválido!', 'A data de criação do começo informado não é um valor válido.');
         } else if (!$dataCriacaoAte->vazio() && !validarDate($dataCriacaoAte)) {
             mensagemErro('Campo inválido!', 'A data de criação final informado não é um valor válido.');
+        } else if (!$status->vazio() && (!$status->valido() || $status->indice() == 'deletado')) {
+            mensagemErro('Campo inválido!', 'O Status não é um valor válido.');
         }
     }
 }

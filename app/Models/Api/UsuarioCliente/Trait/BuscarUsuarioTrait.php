@@ -7,6 +7,8 @@ use App\Classes\UsuarioCliente\Ordem;
 
 trait BuscarUsuarioTrait
 {
+    use WhereTrait;
+
     private function buscarUsuario(array $campo, bool $paginacao): stdClass|array
     {
         $request = $this->request;

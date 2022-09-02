@@ -115,7 +115,7 @@ final class Route
     {
         if (self::$eGrupo) {
             self::erroNaoPodeChamarNoGrupo('request');
-        } elseif (!empty($tipo) && !in_array($tipo, ['get', 'post', 'put', 'files'])) {
+        } elseif (!empty($tipo) && !in_array($tipo, ['get', 'post', 'put', 'json', 'files'])) {
             throw new Erro(
                 arquivo: 'trace:1',
                 mensagem: 'O tipo ' . $tipo . ' para o request não é um valor aceito.'
@@ -266,7 +266,6 @@ final class Route
         if (!in_array($metodo, ['GET', 'POST', 'PUT', 'DELETE'])) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Método enviado inválido.', status: 404);
         }
-
         $rota = self::$Route['rota'][$metodo] ?? '';
         if (empty($rota)) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Não existe rotas para esse método.', status: 404);
@@ -363,6 +362,10 @@ final class Route
             $lista['post'] = $request['post'];
         } elseif (array_key_exists('put', $request) && $metodo == 'PUT') {
             $lista['put'] = $request['put'];
+        }
+
+        if (array_key_exists('json', $request)) {
+            $lista['json'] = $request['json'];
         }
 
         return $lista;
