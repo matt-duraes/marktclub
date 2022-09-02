@@ -6,6 +6,7 @@ use stdClass;
 use Http\Request;
 use App\Models\Api\GeralModel;
 use App\Classes\PontoCvs\Ordem;
+use App\Classes\PontoCvs\Status;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
@@ -21,7 +22,7 @@ final class PontoModel extends GeralModel
     }
     public function listarDados(): stdClass
     {
-        $dado = $this->campo(['uuid', 'ponto_solicitado', 'data_solicitacao', 'data_voucher', 'voucher'])->where($this->pegarWhere(), obrigatorio: false)
+        $dado = $this->campo(['uuid', 'ponto_solicitado', 'data_solicitacao', 'data_voucher', 'voucher', 'status'])->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order(new Ordem($this->request->ordem))
             ->read();
@@ -33,10 +34,15 @@ final class PontoModel extends GeralModel
     protected function montarRetorno(array $dado): array
     {
         $retorno = [];
+        $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,
-                'voucher' => strNull($r->voucher)
+                'ponto_solicitado' => strNull($r->ponto_solicitado),
+                'voucher' => strNull($r->voucher),
+                'data_solicitacao' => $r->data_solicitacao,
+                'data_voucher' => $r->data_voucher,
+                'status' => $Status->indice($r->status)
             ];
         }
         return $retorno;
@@ -46,8 +52,14 @@ final class PontoModel extends GeralModel
     {
         $where = [];
 
-        if (!empty($this->request->usuario)) {
-            $where[] = ['id_usuario_cliente', $this->buscarIdUsuarioPeloCod()];
+        $usuario = $this->buscarIdUsuarioPeloCod($this->request->usuario);
+        if ($usuario) {
+            $where[] = ['id_usuario_cliente', $usuario];
+        }
+
+        $status = new Status($this->request->status);
+        if (!empty($status) && $status->valido()) {
+            $where[] = ['status', $status->numero()];
         }
 
         return $where;
@@ -60,22 +72,35 @@ final class PontoModel extends GeralModel
             ['cod', $this->request->usuario],
             ['empresa', $this->idEmpresa],
             ['status', 'in', Helper::STATUS_LIBERADO]
-        ]);
-        return $Usuario->get('id');
+        ], false);
+
+        if(!empty($Usuario->id))
+        {
+            return $Usuario->get('id');
+        }
+        return false;
     }
 
     private function validarRequest()
     {
         $pagina = $this->request->pagina;
+        $quantidade = $this->request->quantidade;
         $ordem = new Ordem($this->request->ordem);
         $usuario = $this->request->usuario;
+        $status = new Status($this->request->status);
 
         if (!validarPagina($pagina)) {
-            //
+            mensagemErro('Dado inválido!', 'O campo página não é um valor válido.');
+        } else if (!empty($quantidade) && !validarPagina($quantidade)) {
+            mensagemErro('Dado inválido!', 'O campo quantidade não é um valor válido.');
+        } else if (!empty($quantidade) && $quantidade > 50) {
+            mensagemErro('Dado inválido!', 'O campo quantidade deve ser menor ou igual a 50.');
         } else if (!$ordem->vazio() && !$ordem->valido()) {
-            //
-        } else if (validarUuid($usuario)) {
-            //
+            mensagemErro('Dado inválido!', 'O campo ordem não é um valor válido.');
+        } else if (!empty($usuario) && !validarUuid($usuario, false)) {
+            mensagemErro('Dado inválido!', 'O campo usuario não é um valor válido.');
+        } else if (!$status->vazio() && !$status->valido()) {
+            mensagemErro('Dado inválido!', 'O campo status não é um valor válido.');
         }
     }
 }

@@ -52,9 +52,9 @@ final class PontoEntity extends Entity
         $this->status = new Status('solicitado');
         $this->id_usuario_cliente = $this->idUsuario;
 
-        // $this->verificarSeJaExisteUmaSolicitacao();
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
+        $this->verificarSeJaExisteUmaSolicitacao();
     }
     private function verificarSeJaExisteUmaSolicitacao()
     {
@@ -102,14 +102,19 @@ final class PontoEntity extends Entity
 
         $this->validarSePodeMudarStatus();
     }
+    
     private function validarSePodeMudarStatus()
     {
-        $statusAtual = $this->prop('status');
-        $statusNovo = $this->status->indice();
+        if (!$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O campo status não está no formato correto.');
+        }
 
-        if ($statusAtual == 1 && in_array($statusNovo, [1, 2])) {
+        $statusAtual = $this->prop('status');
+        $statusNovo = $this->status->numero();
+
+        if ($statusAtual == 1 && in_array($statusNovo, [3, 4])) {
             mensagemErro('Erro!', 'Só é possível mudar o status de "Solicitado" para "Em andamento".');
-        } else if ($statusAtual == 2 && !in_array($statusNovo, [2, 3, 4])) {
+        } else if ($statusAtual == 2 && $statusNovo == 1) {
             mensagemErro('Erro!', 'Só é possível mudar o status de "Em andamento" para "Recusado" ou "Aprovado".');
         } else if (in_array($statusAtual, [3, 4]) && $statusAtual != $statusNovo) {
             mensagemErro('Erro!', 'Você não pode mudar o status de uma solicitação que foi recusada ou aprovada.');

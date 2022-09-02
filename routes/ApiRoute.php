@@ -645,7 +645,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
-            ::request(['pagina', '!ordem', '!usuario'])
+            ::request(['pagina', '!quantidade', '!ordem', '!usuario', '!status'])
             ::get('/ponto-cvs');
 
         Route
@@ -658,9 +658,11 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:salvar'])
             ::request(['ponto_solicitado'])
             ::post('/ponto-cvs');
+            
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:atualizar'])
+            ::request(['!voucher', '!mensagem', 'status'])
             ::put('/ponto-cvs/{id}');
     });
 
