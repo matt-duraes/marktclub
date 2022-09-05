@@ -24,7 +24,6 @@ final class LoginModel extends Entity
     private int $idEmpresa;
     private ?string $idUsuario = null;
     private ?int $statusUsuario = null;
-    private string $key;
     private string $hash;
 
     public function __construct(
@@ -37,9 +36,8 @@ final class LoginModel extends Entity
         parent::__construct();
 
         $this->idEmpresa = TOKEN['empresa']->get('id');
-        $this->key = TOKEN['app']->chave_privada;
 
-        $this->dado = $request->dadoDecode(chavePrivada: $this->key);
+        $this->dado = $request->dado();
         $this->hash = uuid();
 
         $Construtor = new ConstrutorEntity();

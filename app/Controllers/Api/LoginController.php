@@ -49,10 +49,7 @@ final class LoginController extends Controller
     */
     public function postLoginPainel(Request $request)
     {
-        $dado = (object)$request->dadoDecode(
-            chavePrivada: TOKEN['app']->chave_privada,
-            descriptografar: ['login', 'senha', 'facebook', 'google']
-        );
+        $dado = (object)$request->dado();
 
         if (!empty($dado->facebook)) {
             $Login = new LoginFacebookModel($dado->facebook);

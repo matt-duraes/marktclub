@@ -3,6 +3,7 @@
 namespace App\Models\Api\UsuarioPagamento;
 
 use stdClass;
+use Http\Request;
 use App\Models\Api\GeralModel;
 use App\Classes\UsuarioPagamento\Status;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
@@ -14,9 +15,14 @@ final class PagamentoModel extends GeralModel
     protected Status $status;
 
     public function __construct(
-        protected ?stdClass $request = null
+        protected ?Request $request = null
     ) {
         parent::__construct();
+        $this->validarRequest();
+    }
+    private function validarRequest()
+    {
+        $request = $this->request;
     }
 
     /*
@@ -26,15 +32,11 @@ final class PagamentoModel extends GeralModel
     */
     public function buscarPagamento($id)
     {
-        $Cliente = new ClienteEntity();
-        $Cliente->buscar(['cod', $id]);
-        $idUsuario = $Cliente->get('id');
-
         $dado = $this
             ->campo([
                 'uuid', 'data_cobranca', 'valor_debito',
             ])->where([
-                ['id_usuario_cliente', $idUsuario],
+                ['id_usuario_cliente', $id],
                 ['status', 1]
             ])
             ->order('id', 'ASC')

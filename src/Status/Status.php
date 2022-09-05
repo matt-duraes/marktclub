@@ -11,6 +11,8 @@ abstract class Status implements StatusInterface
     private array $indiceNome = [];
     private array $numeroNome = [];
 
+    protected bool $test = false;
+
     public function __toString()
     {
         return $this->indice();
@@ -26,16 +28,20 @@ abstract class Status implements StatusInterface
      * @param null|array    $empresa    Quando o valor muda dependendo da empresa
      */
     public function __construct(
-        private ?array $lista = null,
-        private ?array $cor = null,
+        protected ?array $lista = null,
+        protected ?array $cor = null,
         ?array $numero = null,
-        private ?array $empresa = null
+        protected ?array $empresa = null
     ) {
         $idEmpresa = $this->pegarIdEmpresa();
         if ($empresa && array_key_exists($idEmpresa, $empresa)) {
             $this->lista = $empresa[$idEmpresa]['lista'] ?? [];
             $this->cor = $empresa[$idEmpresa]['cor'] ?? null;
             $numero = $empresa[$idEmpresa]['numero'] ?? null;
+        } else if ($empresa && array_key_exists(0, $empresa)) {
+            $this->lista = $empresa[0]['lista'] ?? [];
+            $this->cor = $empresa[0]['cor'] ?? null;
+            $numero = $empresa[0]['numero'] ?? null;
         } else if ($empresa) {
             $this->lista = [];
             $this->cor = null;

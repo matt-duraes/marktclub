@@ -24,10 +24,7 @@ final class UsuarioLeadController extends Controller implements
 {
     public function postSalvar(Request $request)
     {
-        $dado = $request->dadoDecode(
-            chavePrivada: TOKEN['app']->chave_privada,
-            descriptografar: Helper::CRIPTOGRAFAR
-        );
+        $dado = $request->dado();
 
         $Lead = new LeadEntity();
         $Lead->set(lista: $dado);
@@ -64,7 +61,7 @@ final class UsuarioLeadController extends Controller implements
                 'email_funcional', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep', 'endereco_logradouro',
                 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
                 'lista_dependente', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'trabalho_data_inicio',
-                'status', 'data_criacao', 'origem'
+                'status', 'data_criacao', 'origem', 'cnpj_trabalho'
             ],
             null: $vazio,
             empty: $vazio

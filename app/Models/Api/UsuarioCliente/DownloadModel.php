@@ -2,17 +2,17 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
 use Http\Request;
-use Status\Status;
 use Modules\Genero;
 use Modules\DataHora;
 use Modules\Telefone;
 use Modules\EstadoCivil;
+use App\Models\Api\GeralModel;
+use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
-final class DownloadModel extends ORM
+final class DownloadModel extends GeralModel
 {
 
     protected string $_tabela = TABELA_USUARIO_NOVO;
@@ -23,9 +23,6 @@ final class DownloadModel extends ORM
         private ?Request $request = null
     ) {
         parent::__construct();
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioCliente\ClienteModel');
-        }
         $this->validarCamposAceito();
     }
 

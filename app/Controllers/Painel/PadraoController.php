@@ -385,13 +385,13 @@ abstract class PadraoController extends Controller
         }
     }
 
-    protected function tratarListaParaSalvar($lista, array $permitido, array $criptografia = [])
+    protected function criptografarListaDado(array $lista, array $permitido = [], array $criptografia = [])
     {
         $Crypt = $criptografia ? new CryptHelper(chavePublica: $this->pegarChavePublica($criptografia)) : null;
 
         $retorno = [];
         foreach ($lista as $ind => $val) {
-            if (!in_array($ind, $permitido)) {
+            if (!empty($permitido) && !in_array($ind, $permitido)) {
                 continue;
             }
             if (is_string($val) && validarData($val)) {

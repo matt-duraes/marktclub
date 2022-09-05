@@ -13,7 +13,11 @@ final class Request
     public function __construct(
         private RouteConfig $route,
     ) {
-        $this->request = new RequestPsr7;
+        $criptografia = $route->rotaUso()['criptografia'] ?? [];
+        $this->request = new RequestPsr7(
+            $criptografia['lista'] ?? [],
+            $criptografia['chave'] ?? null
+        );
         $this->validarRequest();
     }
 

@@ -38,7 +38,6 @@ final class UsuarioClienteController extends Controller implements
 
     public function getListar(Request $request)
     {
-        $request->descriptografar(lista: Helper::CRIPTOGRAFAR);
         $Usuario = new ClienteModel($request);
 
         $dado = $Usuario->listarDados();
@@ -57,17 +56,9 @@ final class UsuarioClienteController extends Controller implements
 
     public function postSalvar(Request $request)
     {
-        $request->descriptografar(Helper::CRIPTOGRAFAR);
-
         $Usuario = new ClienteEntity($request);
         $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
-
-        $dado = $request->dado();
-        $dado = array_merge(['id' => $Usuario->cod], $dado);
-        if (array_key_exists('senha', $dado)) {
-            $dado['senha'] = true;
-        }
 
         return $this->retornoSucesso($Usuario, 201);
     }
@@ -82,7 +73,6 @@ final class UsuarioClienteController extends Controller implements
             ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
 
-        $request->descriptografar(Helper::CRIPTOGRAFAR);
         $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
 
@@ -111,8 +101,8 @@ final class UsuarioClienteController extends Controller implements
                     'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
                     'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
                     'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
-                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'status', 'pagamento', 'grupo', 'origem'
-                ],
+                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'origem', 'status'
+                ]
             ),
             status: $status,
             criptografar: Helper::CRIPTOGRAFAR

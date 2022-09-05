@@ -10,6 +10,7 @@ final class TokenMiddleware
 {
     private string $token;
     private array $body = [];
+    private string $tipoToken;
 
     public function __construct()
     {
@@ -18,13 +19,15 @@ final class TokenMiddleware
             $header['authorization'] ??
             $_SERVER['HTTP_AUTHORIZATION'] ??
             false;
+
+        $this->validarTokenEnviado();
+        $this->pegarBody();
+        $this->tipoToken = $this->pegarTipoDeToken();
     }
 
     public function token()
     {
-        $this->validarTokenEnviado();
-        $this->pegarBody();
-        $tipo = $this->pegarTipoDeToken();
+        $tipo = $this->tipoToken;
         if ($tipo == 'client-credentials') {
             $Token = new ValidarTokenCredentialModel();
             return $Token->validar($this->token);
@@ -53,6 +56,14 @@ final class TokenMiddleware
         return true;
     }
 
+    public function login()
+    {
+        if ($this->tipoToken == 'authorization') {
+            return true;
+        }
+        $this->erroToken('Middleware Token - Não é um token authorization.');
+    }
+
     private function validarTokenEnviado()
     {
         $token = $this->token;
@@ -62,6 +73,9 @@ final class TokenMiddleware
             $this->erroToken('Middleware Token - Token não começa com Bearer.');
         }
         $this->token = preg_replace('/^Bearer /', '', $this->token);
+        if (mb_strlen($this->token) != 36 && !(new JwtHelper())->validar($this->token)) {
+            $this->erroToken('Middleware Token - Não foi possível validar token.');
+        }
     }
 
     private function pegarBody()
@@ -72,8 +86,8 @@ final class TokenMiddleware
         try {
             $Jwt = new JwtHelper();
             $this->body = $Jwt->decode($this->token);
-        } catch (\Throwable) {
-            $this->erroToken('Middleware Token - Erro ao pegar body do token.');
+        } catch (\Throwable $e) {
+            $this->erroToken('Middleware Token - Erro ao pegar body do token - ' . $e->getMessage() . '.');
         }
     }
 
@@ -89,6 +103,6 @@ final class TokenMiddleware
 
     private function erroToken($mensagem)
     {
-        mensagemErro('Token inválido!', 'Enviei um token válido para autenticação.', 401, localhost: $mensagem);
+        mensagemErro('Token inválido!', 'Envie um token válido para autenticação.', 401, localhost: $mensagem);
     }
 }

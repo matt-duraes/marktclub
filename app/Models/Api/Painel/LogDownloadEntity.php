@@ -25,6 +25,7 @@ final class LogDownloadEntity extends Entity
 
         $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->idUsuario = TOKEN['usuario']->get('id');
+
         $this->_wherePadrao = ['id_admin_empresa', $this->idEmpresa];
     }
 

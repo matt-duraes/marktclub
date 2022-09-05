@@ -2,10 +2,12 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
+use App\Models\Api\GeralModel;
 
-final class SalvarLeadModel extends ORM
+final class SalvarLeadModel extends GeralModel
 {
+    protected string $_tabela = TABELA_USUARIO_NOVO;
+
     public function salvarLead(array $dado)
     {
         $cpf = $dado['documento'];
@@ -27,6 +29,7 @@ final class SalvarLeadModel extends ORM
         }
 
         $dado += [
+            'usuario_lead' => 1,
             'cod' => uuid(),
             'empresa' => $this->idEmpresa,
             'titular' => null,

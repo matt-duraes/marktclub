@@ -17,7 +17,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->cpf('cpf', 'CPF')
             ->linha('rg', 'RG')
             ->linha('genero', 'Gênero')
-            ->linha('data_nascimento', 'Data de nascimento', formatar: 'data');
+            ->data('data_nascimento', 'Data de nascimento');
     });
 
     $Painel->bloco(titulo: 'Dados de trabalho', callback: function () use ($Painel) {
@@ -26,7 +26,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('trabalho_empresa', 'Local de trabalho')
             ->linha('trabalho_cargo', 'Cargo')
             ->linha('trabalho_data_inicio', 'Data exercício')
-            ->linha('contrato_siape', 'Contrato');
+            ->linha('contrato_siape', 'Contrato')
+            ->cnpj('cnpj_trabalho', 'CNPJ');
     });
 
     $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {

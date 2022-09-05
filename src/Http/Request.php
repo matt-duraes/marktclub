@@ -4,7 +4,6 @@ namespace Http;
 
 use Erro\Erro;
 use Helpers\CryptHelper;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request as Psr7Request;
 
 final class Request extends Psr7Request
@@ -13,11 +12,13 @@ final class Request extends Psr7Request
     private string $__metodo;
     private array $__dado = [];
 
-    public function __construct()
+    public function __construct(array $descriptografar = [], ?string $chave = null)
     {
         $this->__requestInterno = Psr7Request::createFromGlobals();
         $this->__metodo = $this->__requestInterno->getMethod();
-        $this->setarDado();
+
+        $chave = !empty($descriptografar) && empty($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ? TOKEN['app']->chave_privada : '';
+        $this->setarDado($descriptografar, $chave);
         $this->setarPropriedadesPublicas();
     }
 
@@ -152,24 +153,6 @@ final class Request extends Psr7Request
             }
         }
         return $this->purifier($dado);
-    }
-
-    // doc
-    /**
-     * Igual o dado() mas quando os dados estão criptografados
-     *
-     * @param   array           $lista      Lista de dados que devem ser descriptografados
-     * @param   null|string     $chave      Chave para descriptografar, se existir a constante TOKEN ele pega automatico
-     */
-    public function descriptografar(array $lista = [], ?string $chave = null): void
-    {
-        $chave = is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ? TOKEN['app']->chave_privada : '';
-        if (empty($chave)) {
-            mensagemStatus(403, localhost: 'Não foi passado uma chave para descriptografar.');
-        }
-
-        $this->setarDado($lista, $chave);
-        $this->setarPropriedadesPublicas(true);
     }
 
     // doc
@@ -408,9 +391,23 @@ final class Request extends Psr7Request
             }
         }
 
-        $Crypt = !empty($chave) ? new CryptHelper(chavePrivada: $chave) : null;
+        if (empty($chave)) {
+            $this->__dado = $lista;
+            return;
+        }
+
+        $Crypt = new CryptHelper(chavePrivada: $chave);
         foreach ($lista as $ind => $val) {
-            $lista[$ind] = !empty($chave) && (empty($descriptografar) || in_array($ind, $descriptografar)) ? $Crypt->decode($val) : $val;
+            if (!empty($descriptografar) && !in_array($ind, $descriptografar)) {
+                $lista[$ind] = $val;
+                continue;
+            }
+
+            $valorDescriptografado = $Crypt->decode($val);
+            if (!empty($val) && empty($valorDescriptografado)) {
+                mensagemErro('Erro!', 'O indice ' . $ind . ' não pode ser descriptografado.');
+            }
+            $lista[$ind] = $valorDescriptografado;
         }
 
         $this->__dado = $lista;
@@ -515,7 +512,7 @@ final class Request extends Psr7Request
             if (!$html) {
                 $val = $this->converterCodigoNaTagCode($val);
             } else {
-                $val = strip_tags($val);
+                $val = !empty($val) ? strip_tags($val) : '';
             }
             if ($purifier) {
                 $val = $Purifier->purify($val);

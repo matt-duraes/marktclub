@@ -16,6 +16,7 @@ final class Route
             'DELETE' => [],
         ]
     ];
+
     private static array $middleware = [
         'pre' => [],
         'pos' => []
@@ -24,6 +25,16 @@ final class Route
         'pre' => [],
         'pos' => []
     ];
+
+    private static array $criptografia = [
+        'lista' => [],
+        'chave' => null
+    ];
+    private static array $criptografiaGrupo = [
+        'lista' => [],
+        'chave' => null
+    ];
+
     private static string $nome;
     private static string $nomeGrupo;
     private static string $controller;
@@ -46,10 +57,19 @@ final class Route
             self::$middlewareGrupo = self::$middleware;
         }
 
+        if (empty(self::$criptografiaGrupo['lista']) && !empty(self::$criptografia['lista'])) {
+            self::$criptografiaGrupo = self::$criptografia;
+        }
+
         self::$nome = '';
         self::$middleware = [
             'pre' => [],
             'pos' => []
+        ];
+
+        self::$criptografia = [
+            'lista' => [],
+            'chave' => null
         ];
 
         self::$eGrupo = false;
@@ -64,6 +84,10 @@ final class Route
         self::$middlewareGrupo = [
             'pre' => [],
             'pos' => []
+        ];
+        self::$criptografiaGrupo = [
+            'lista' => [],
+            'chave' => null
         ];
     }
 
@@ -153,6 +177,22 @@ final class Route
             'action' => $action,
             'construtor' => !empty($construtor) ? $construtor : [],
             'parametro' => !empty($parametro) ? $parametro : []
+        ];
+        return __CLASS__;
+    }
+
+    /**
+     * Middleware para ser executada antes ou depois da rota
+     *
+     * @param   array           $lista      Classe com a constante que tem a lista de dados que são criptografados
+     * @param   null|string     $chave      Chave para descriptografar
+     * @return  Self
+     */
+    public static function criptografia(array $lista, ?string $chave = null)
+    {
+        self::$criptografia = [
+            'lista' => $lista,
+            'chave' => $chave
         ];
         return __CLASS__;
     }
@@ -299,6 +339,10 @@ final class Route
             'pre' => [],
             'pos' => []
         ];
+        self::$criptografia = [
+            'lista' => [],
+            'chave' => null
+        ];
         self::$action = '';
         self::$nome = '';
         if (self::$semGrupo) {
@@ -335,6 +379,7 @@ final class Route
             'uri' => $uri,
             'metodo' => $metodoReal,
             'middleware' => $middleware,
+            'criptografia' => !empty(self::$criptografia['lista']) ? self::$criptografia : self::$criptografiaGrupo,
             'request' => $request,
             'controller' => self::$controller,
             'action' => self::$action,
