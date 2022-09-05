@@ -28,13 +28,13 @@ final class System
         }
 
         $this->middleware = new Middleware($this->route);
+        $this->executarMiddlewarePre();
         $this->request = new Request($this->route);
         $this->controller = new Controller($this->route, $this->request->request());
     }
 
     public function init(): Response
     {
-        $this->executarMiddlewarePre();
         $this->executarController();
         $this->executarMiddlewarePos();
         return $this->retorno;

@@ -13,7 +13,11 @@ final class Request
     public function __construct(
         private RouteConfig $route,
     ) {
-        $this->request = new RequestPsr7;
+        $criptografia = $route->rotaUso()['criptografia'] ?? [];
+        $this->request = new RequestPsr7(
+            $criptografia['lista'] ?? [],
+            $criptografia['chave'] ?? null
+        );
         $this->validarRequest();
     }
 
@@ -29,22 +33,19 @@ final class Request
         $post = $rota['request']['post'] ?? [];
         $files = $rota['request']['files'] ?? [];
         $put = $rota['request']['put'] ?? [];
+        $json = $rota['request']['json'] ?? [];
 
         $request = $this->request;
-        $metodo = $request->metodo();
 
-        if (in_array($metodo, ['GET', 'POST', 'DELETE'])) {
+        if ($request->metodo() != 'PUT') {
             $this->verificaRequestEstaOk($request->_GET(), $get);
         }
 
-        if ($metodo == 'POST') {
-            $requestPost = $request->_POST();
-            if (empty($requestPost)) {
-                $requestPost = $request->json();
-            }
-            $this->verificaRequestEstaOk($request->_FILES(), $files);
-            $this->verificaRequestEstaOk($requestPost, $post);
-        } elseif ($metodo == 'PUT') {
+        $this->verificaRequestEstaOk($request->_JSON(), $json);
+        $this->verificaRequestEstaOk($request->_POST(), $post);
+        $this->verificaRequestEstaOk($request->_FILES(), $files);
+
+        if ($request->metodo() == 'PUT') {
             $this->verificaRequestEstaOk($request->_PUT(), $put);
         }
     }

@@ -61,5 +61,6 @@ return (new \DataBase\DataBase())
     ->int('diretor_status')->tamanho(1)->null()
     ->varchar('diretor_cargo')->tamanho(100)->null()
     ->int('lead_origem')->tamanho(3)->null()
+    ->int('usuario_lead')->tamanho(1)->null()
     ->int('relatorio')->tamanho(1)->null()
     ->status()->null();

@@ -43,7 +43,8 @@ final class AppController extends Controller
             $parametro = array_merge($parametro, $filtro);
         }
 
-        $dado = (new ApiHelper(token: true))->parametro($parametro)->get($config->api->uri)->object();
+        $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
+        $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri)->object();
         if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
             mensagemStatus(500, localhost: 'Ocorreu um erro ao fazer a busca na API.');
         }
@@ -94,7 +95,7 @@ final class AppController extends Controller
 
         $Api = (new ApiHelper(token: true))->headerJson();
         if ($dado && $metodo == 'get') {
-            $Api->parametro($dado);
+            $Api->json($dado);
         } else if ($dado) {
             $Api->body($dado);
         }
@@ -228,7 +229,7 @@ final class AppController extends Controller
         if (empty($lista)) {
             throw new Erro(mensagem: 'Não existe uma lista de indices para salvar ou ela está vazia.');
         }
-        $lista = $this->tratarListaParaSalvar($lista, $requestCampo, $config->api->criptografar);
+        $lista = $this->criptografarListaDado($lista, $requestCampo, $config->api->criptografar);
 
         $uri = $config->api->uri;
         if ($acao == 'insert') {
@@ -325,7 +326,7 @@ final class AppController extends Controller
         $config = $this->config($appReal, 'download');
 
         $ApiSenha = new ApiHelper(token: true);
-        $dadoSenha = $this->tratarListaParaSalvar(['senha' => $request->senha], ['senha'], ['senha']);
+        $dadoSenha = $this->criptografarListaDado(['senha' => $request->senha], ['senha'], ['senha']);
 
         $validarSenha = $ApiSenha->body($dadoSenha)->post('/usuario-equipe/validar-senha')->object();
         if (existeErro($validarSenha, 'dado')) {
@@ -360,6 +361,7 @@ final class AppController extends Controller
                 $body['ordem'] = $ordem;
             }
         }
+        $body = $this->criptografarListaDado($body, array_keys($body), $config->api->criptografar);
 
         $Api = new ApiHelper(token: true);
         $dado = $Api->body($body)->post($config->api->uri . '/download')->array();

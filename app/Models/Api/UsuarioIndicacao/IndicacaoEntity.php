@@ -15,36 +15,19 @@ final class IndicacaoEntity extends GeralEntity
     protected array $_buscar = [
         'id_usuario_cliente', 'nome', 'email', 'telefone', 'status', 'data_criacao', 'data_atualizacao'
     ];
-    protected array $_insert = ['id_usuario_cliente', 'id_admin_empresa', 'hash', 'nome', 'email', 'telefone', 'status'];
+    protected array $_insert = [
+        'id_usuario_cliente', 'id_admin_empresa', 'hash', 'nome', 'email', 'telefone', 'status'
+    ];
     protected array $_update = ['status'];
 
     public Email $email;
     public Telefone $telefone;
     public array $quem_indicou = [];
-    public array $usuario = [];
+    public array $usuario_ativo = [];
+    public string $usuario;
     public Status $status;
-    public int $id_usuario_cliente;
 
-    public function __construct(
-        ?string $usuario = null
-    ) {
-        $this->setarUsuarioQueIndicou($usuario);
-    }
-
-    private function setarUsuarioQueIndicou(?string $usuario): void
-    {
-        if (!$usuario) {
-            return;
-        }
-
-        try {
-            $Usuario = new ClienteEntity();
-            $Usuario->id($usuario);
-            $this->id_usuario_cliente = $Usuario->get('id');
-        } catch (\Throwable) {
-            mensagemErro('Erro!', 'Usuário enviado não foi encontrado');
-        }
-    }
+    protected int $id_usuario_cliente;
 
     protected function regraPosBuscar()
     {
@@ -57,6 +40,18 @@ final class IndicacaoEntity extends GeralEntity
         $this->id_admin_empresa = $this->idEmpresa;
         $this->hash = uuid();
         $this->status = new Status('indicado');
+        $this->setarUsuarioQueIndicou();
+    }
+
+    private function setarUsuarioQueIndicou(): void
+    {
+        try {
+            $Usuario = new ClienteEntity();
+            $Usuario->id($this->usuario);
+            $this->id_usuario_cliente = $Usuario->get('id');
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Usuário enviado não foi encontrado');
+        }
     }
 
     protected function setarUsuarioAtivado()
@@ -75,7 +70,7 @@ final class IndicacaoEntity extends GeralEntity
             return;
         }
 
-        $this->usuario = [
+        $this->usuario_ativo = [
             'id' => $Usuario->id,
             'nome' => $Usuario->nome,
             'cpf' => $Usuario->cpf->cpf(),

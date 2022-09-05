@@ -85,16 +85,24 @@ Route
 Route::nome('usuario_cliente')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\UsuarioCliente\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:listar'])
-            ::request(['pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem'])
+            ::request([
+                'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
+                '!data_criacao_ate', '!matricula', '!status', '!ordem'
+            ], 'json')
             ::get('/usuario-cliente');
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
-            ::request(['campo', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem'])
+            ::middleware(TokenMiddleware::class, 'login')
+            ::request([
+                'campo', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
+                '!data_criacao_ate', '!matricula', '!status', '!ordem'
+            ])
             ::post('/usuario-cliente/download');
 
         Route
@@ -132,11 +140,6 @@ Route::nome('usuario_cliente')
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
             ::delete('/usuario-cliente/{id}');
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar_cpf'])
-            ::request(['cpf'])
-            ::post('/usuario-cliente/deletar');
     });
 
 Route::nome('usuario_grupo')
@@ -146,7 +149,7 @@ Route::nome('usuario_grupo')
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:listar'])
-            ::request(['pagina', '!quantidade', '!pesquisa', '!status'])
+            ::request(['pagina', '!quantidade', '!pesquisa', '!status'], 'json')
             ::get('/usuario-grupo');
 
         Route
@@ -184,11 +187,12 @@ Route::nome('usuario_grupo')
 Route::nome('usuario_dependente')
     ::controller(App\Controllers\Api\UsuarioDependenteController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\UsuarioCliente\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:listar'])
-            ::request(['usuario'])
+            ::request(['usuario'], 'json')
             ::get('/usuario-dependente');
 
         Route
@@ -208,6 +212,7 @@ Route::nome('usuario_dependente')
 Route::nome('usuario_indicacao')
     ::controller(App\Controllers\Api\UsuarioIndicacaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\UsuarioIndicacao\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('salvar')
@@ -218,7 +223,7 @@ Route::nome('usuario_indicacao')
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!status', '!ordem'])
+            ::request(['pagina', '!pesquisa', '!nome', '!email', '!status', '!ordem'], 'json')
             ::get('/usuario-indicacao');
 
         Route
@@ -242,6 +247,7 @@ Route
     ::nome('usuario_lead')
     ::controller(App\Controllers\Api\UsuarioLeadController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\UsuarioLead\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('salvar')
@@ -251,14 +257,15 @@ Route
                 '!telefone_trabalho', '!cpf', '!rg', '!siape', '!genero', '!data_nascimento', '!trabalho_empresa',
                 '!trabalho_cargo', '!trabalho_data_inicio', '!endereco_cep', '!endereco_logradouro',
                 '!endereco_numero', '!endereco_complemento', '!endereco_bairro', '!endereco_cidade',
-                '!endereco_estado', '!termo_aceitar', '!termo_lgpd', '!lista_dependente', '!origem'
+                '!endereco_estado', '!termo_aceitar', '!termo_lgpd', '!lista_dependente', '!origem',
+                '!cnpj_trabalho'
             ])
             ::post('/usuario-lead');
 
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_lead:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'])
+            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
             ::get('/usuario-lead');
 
         Route
@@ -282,6 +289,7 @@ Route
     ::nome('usuario_pagamento')
     ::controller(App\Controllers\Api\UsuarioPagamentoController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\UsuarioPagamento\Helper::CRIPTOGRAFIA)
     ::grupo(function () {
         Route
             ::nome('listar')
@@ -289,7 +297,7 @@ Route
             ::request([
                 'pagina', '!pesquisa', '!nome', '!cpf', '!data_cobranca_de', '!data_cobranca_ate',
                 '!data_pagamento_de', '!data_pagamento_ate', '!status', '!ordem'
-            ])
+            ], 'json')
             ::get('/usuario-pagamento');
 
         Route
@@ -314,11 +322,12 @@ Route
     ::nome('usuario_equipe')
     ::controller(App\Controllers\Api\UsuarioEquipeController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\UsuarioEquipe\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'])
+            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
             ::get('/usuario-equipe');
 
         Route
@@ -389,7 +398,7 @@ Route::nome('relatorio')
 
         Route
             ::nome('usuarioAcesso')
-            ::request(['de', 'ate'])
+            ::request(['de', 'ate'], 'json')
             ::get('/relatorio/usuario-acesso');
 
         Route
@@ -418,18 +427,18 @@ Route::nome('relatorio')
 
         Route
             ::nome('maisAcessado')
-            ::request(['local', 'de', 'ate'])
+            ::request(['local', 'de', 'ate'], 'json')
             ::get('/relatorio/mais-acessado');
 
         Route
             ::nome('dispositivo')
-            ::request(['tipo', 'de', 'ate'])
+            ::request(['tipo', 'de', 'ate'], 'json')
             ::get('/relatorio/dispositivo');
 
         Route
             ::nome('analytics')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:listar'])
-            ::request(['!usuario', 'de', 'ate'])
+            ::request(['!usuario', 'de', 'ate'], 'json')
             ::get('/relatorio/analytics');
         Route
             ::nome('analyticsDownload')
@@ -456,6 +465,7 @@ Route
         Route
             ::nome('loginPainel')
             ::middleware(TokenMiddleware::class, 'scope', ['login:painel'])
+            ::criptografia(['login', 'senha'])
             ::request([
                 '!login', '!senha', '!facebook', '!google', 'scope', 'audience', 'redirect_uri', 'state'
             ])
@@ -464,6 +474,7 @@ Route
         Route
             ::nome('loginApi')
             ::middleware(TokenMiddleware::class, 'scope', ['login:api'])
+            ::criptografia(App\Classes\UsuarioCliente\Helper::CRIPTOGRAFAR)
             ::request([
                 'nome', 'cpf', '!matricula', '!siape', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!estado_civil',
@@ -501,12 +512,12 @@ Route
 
         Route
             ::nome('campoObrigatorio')
-            ::request(['!app'])
+            ::request(['!app'], 'json')
             ::get('/admin/campo-obrigatorio');
 
         Route
             ::nome('campoPermitido')
-            ::request(['!app'])
+            ::request(['!app'], 'json')
             ::get('/admin/campo-permitido');
 
         Route
@@ -536,7 +547,7 @@ Route
             ::nome('listar')
             ::request([
                 'pagina', 'app', 'relacionado', '!data_de', '!data_ate'
-            ])
+            ], 'json')
             ::get('/painel-historico');
 
         Route
@@ -562,7 +573,7 @@ Route
             ::get('/token/{id}');
         Route
             ::nome('listar')
-            ::request(['pagina', '!ordem'])
+            ::request(['pagina', '!ordem'], 'json')
             ::get('/token');
         Route
             ::nome('deletar')
@@ -599,7 +610,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
-            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'])
+            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
             ::get('/solicitacao-voucher');
 
         Route
@@ -616,7 +627,7 @@ Route
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['convenio_parceiro:destaque'])
-            ::request(['categoria', 'quantidade', 'ordem'])
+            ::request(['categoria', 'quantidade', 'ordem'], 'json')
             ::get('/convenio-parceiro/destaque');
     });
 
@@ -628,7 +639,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:listar'])
-            ::request(['pagina', '!ordem', '!empresa', '!data_de', '!data_ate'])
+            ::request(['pagina', '!ordem', '!empresa', '!data_de', '!data_ate'], 'json')
             ::get('/solicitacao-salavip');
         Route
             ::nome('download')
@@ -645,7 +656,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
-            ::request(['pagina', '!ordem', '!usuario'])
+            ::request(['pagina', '!ordem', '!usuario'], 'json')
             ::get('/ponto-cvs');
 
         Route
@@ -672,7 +683,7 @@ Route::nome('api_app')
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['app_api:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!id_admin_empresa', '!status', '!ordem'])
+            ::request(['pagina', '!pesquisa', '!nome', '!id_admin_empresa', '!status', '!ordem'], 'json')
             ::get('/api-app');
         Route
             ::nome('buscar')

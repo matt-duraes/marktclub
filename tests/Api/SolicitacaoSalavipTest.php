@@ -25,7 +25,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro(['pagina' => 1])
+            ->json(['pagina' => 1])
             ->get('/solicitacao-salavip');
 
         return $this
@@ -38,7 +38,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'empresa' => 'nao_existe'
             ])
@@ -54,7 +54,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_de' => '10/10/2000'
             ])
@@ -70,7 +70,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'ordem' => 'nao_existe'
             ])
@@ -86,7 +86,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_ate' => '10/10/2000'
             ])
@@ -102,7 +102,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'empresa' => 'anafe',
                 'data_de' => '2000-01-01',
@@ -123,7 +123,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'empresa' => 'anafe'
             ])
@@ -141,7 +141,7 @@ final class SolicitacaoSalavipTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'empresa' => 'anape'
             ])

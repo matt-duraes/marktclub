@@ -25,12 +25,8 @@ final class UsuarioPagamentoController extends Controller implements
 {
     public function getListar(Request $request)
     {
-        $dado = (object)$request->dadoDecode(
-            chavePrivada: TOKEN['app']->chave_privada,
-            descriptografar: Helper::CRIPTOGRAFIA
-        );
 
-        $Pagamento = new PagamentoModel($dado);
+        $Pagamento = new PagamentoModel($request);
         $dado = $Pagamento->listarDados();
         $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFIA);
 

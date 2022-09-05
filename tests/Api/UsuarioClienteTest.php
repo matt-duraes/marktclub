@@ -170,13 +170,13 @@ final class UsuarioClienteTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'O grupo informado não é um valor válido.');
     }
 
-    public function listarTodosOsUsuarioTest()
+    public function listarTodosOsUsuariosTest()
     {
         $this->api('usuario_cliente:listar');
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1
             ])
             ->get('/usuario-cliente');
@@ -192,7 +192,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'pesquisa' => $this->bodySalvar['cpf'],
                 'nome' => $this->bodySalvar['nome'],
@@ -218,7 +218,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_upload' => '10/10/2022',
             ])
@@ -235,7 +235,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_criacao_de' => '10/10/2022',
             ])
@@ -252,7 +252,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_criacao_ate' => '10/10/2022',
             ])
@@ -270,7 +270,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 'nao-existe'
             ])
             ->get('/usuario-cliente');
@@ -286,7 +286,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'ordem' => 'nao-existe'
             ])
@@ -303,7 +303,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'status' => 'nao_existe'
             ])
@@ -319,7 +319,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'ordem' => 'nao_existe'
             ])

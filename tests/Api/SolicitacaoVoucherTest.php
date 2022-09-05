@@ -15,7 +15,7 @@ final class SolicitacaoVoucherTest extends Tests
         $dado = $this
             ->Curl
             ->loginPainel()
-            ->parametro(['pagina' => 1])
+            ->json(['pagina' => 1])
             ->get('/solicitacao-voucher');
 
         $this->idVoucher = $dado->object()->dado->lista[0]->id ?? null;
@@ -30,7 +30,7 @@ final class SolicitacaoVoucherTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_criacao_de' => '01/01/2000',
             ])
@@ -47,7 +47,7 @@ final class SolicitacaoVoucherTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_criacao_ate' => '01/01/2000',
             ])
@@ -64,7 +64,7 @@ final class SolicitacaoVoucherTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'status' => 'nao_existe',
             ])
@@ -81,7 +81,7 @@ final class SolicitacaoVoucherTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'ordem' => 'nao_existe',
             ])
@@ -98,7 +98,7 @@ final class SolicitacaoVoucherTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'data_criacao_de' => '2000-01-01',
                 'data_criacao_ate' => hoje(),

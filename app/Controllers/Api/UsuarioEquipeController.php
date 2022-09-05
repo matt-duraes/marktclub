@@ -44,12 +44,7 @@ final class UsuarioEquipeController extends Controller implements
     public function postSalvar(Request $request)
     {
         $Usuario = new EquipeEntity();
-        $Usuario->set(
-            lista: $request->dadoDecode(
-                chavePrivada: TOKEN['app']->chave_privada,
-                descriptografar: Helper::CRIPTOGRAFAR
-            )
-        );
+        $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
 
         return $this->retornoSucesso($Usuario, 201);
@@ -76,10 +71,7 @@ final class UsuarioEquipeController extends Controller implements
 
         $Usuario = new EquipeEntity();
         $Usuario->id($id);
-        $Usuario->set(lista: $request->dadoDecode(
-            chavePrivada: TOKEN['app']->chave_privada,
-            descriptografar: Helper::CRIPTOGRAFAR
-        ));
+        $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
 
         return new Response(status: 204);
@@ -99,8 +91,8 @@ final class UsuarioEquipeController extends Controller implements
     public function postValidarSenha(Request $request)
     {
         $id = TOKEN['usuario']->get('id');
-        $senha = descriptografarDado($request->senha);
 
+        $senha = $request->senha;
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi definido.');
         } else if (empty($id)) {

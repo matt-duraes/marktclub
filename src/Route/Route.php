@@ -16,6 +16,7 @@ final class Route
             'DELETE' => [],
         ]
     ];
+
     private static array $middleware = [
         'pre' => [],
         'pos' => []
@@ -24,6 +25,16 @@ final class Route
         'pre' => [],
         'pos' => []
     ];
+
+    private static array $criptografia = [
+        'lista' => [],
+        'chave' => null
+    ];
+    private static array $criptografiaGrupo = [
+        'lista' => [],
+        'chave' => null
+    ];
+
     private static string $nome;
     private static string $nomeGrupo;
     private static string $controller;
@@ -46,10 +57,19 @@ final class Route
             self::$middlewareGrupo = self::$middleware;
         }
 
+        if (empty(self::$criptografiaGrupo['lista']) && !empty(self::$criptografia['lista'])) {
+            self::$criptografiaGrupo = self::$criptografia;
+        }
+
         self::$nome = '';
         self::$middleware = [
             'pre' => [],
             'pos' => []
+        ];
+
+        self::$criptografia = [
+            'lista' => [],
+            'chave' => null
         ];
 
         self::$eGrupo = false;
@@ -64,6 +84,10 @@ final class Route
         self::$middlewareGrupo = [
             'pre' => [],
             'pos' => []
+        ];
+        self::$criptografiaGrupo = [
+            'lista' => [],
+            'chave' => null
         ];
     }
 
@@ -115,7 +139,7 @@ final class Route
     {
         if (self::$eGrupo) {
             self::erroNaoPodeChamarNoGrupo('request');
-        } elseif (!empty($tipo) && !in_array($tipo, ['get', 'post', 'put', 'files'])) {
+        } elseif (!empty($tipo) && !in_array($tipo, ['get', 'post', 'put', 'json', 'files'])) {
             throw new Erro(
                 arquivo: 'trace:1',
                 mensagem: 'O tipo ' . $tipo . ' para o request não é um valor aceito.'
@@ -153,6 +177,22 @@ final class Route
             'action' => $action,
             'construtor' => !empty($construtor) ? $construtor : [],
             'parametro' => !empty($parametro) ? $parametro : []
+        ];
+        return __CLASS__;
+    }
+
+    /**
+     * Middleware para ser executada antes ou depois da rota
+     *
+     * @param   array           $lista      Classe com a constante que tem a lista de dados que são criptografados
+     * @param   null|string     $chave      Chave para descriptografar
+     * @return  Self
+     */
+    public static function criptografia(array $lista, ?string $chave = null)
+    {
+        self::$criptografia = [
+            'lista' => $lista,
+            'chave' => $chave
         ];
         return __CLASS__;
     }
@@ -266,7 +306,6 @@ final class Route
         if (!in_array($metodo, ['GET', 'POST', 'PUT', 'DELETE'])) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Método enviado inválido.', status: 404);
         }
-
         $rota = self::$Route['rota'][$metodo] ?? '';
         if (empty($rota)) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Não existe rotas para esse método.', status: 404);
@@ -299,6 +338,10 @@ final class Route
         self::$middleware = [
             'pre' => [],
             'pos' => []
+        ];
+        self::$criptografia = [
+            'lista' => [],
+            'chave' => null
         ];
         self::$action = '';
         self::$nome = '';
@@ -336,6 +379,7 @@ final class Route
             'uri' => $uri,
             'metodo' => $metodoReal,
             'middleware' => $middleware,
+            'criptografia' => !empty(self::$criptografia['lista']) ? self::$criptografia : self::$criptografiaGrupo,
             'request' => $request,
             'controller' => self::$controller,
             'action' => self::$action,
@@ -363,6 +407,10 @@ final class Route
             $lista['post'] = $request['post'];
         } elseif (array_key_exists('put', $request) && $metodo == 'PUT') {
             $lista['put'] = $request['put'];
+        }
+
+        if (array_key_exists('json', $request)) {
+            $lista['json'] = $request['json'];
         }
 
         return $lista;

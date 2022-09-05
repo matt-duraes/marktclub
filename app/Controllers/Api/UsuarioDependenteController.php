@@ -31,10 +31,7 @@ final class UsuarioDependenteController extends Controller implements
 
     public function postSalvar(Request $request)
     {
-        $dado = $request->dadoDecode(
-            chavePrivada: TOKEN['app']->chave_privada,
-            descriptografar: Helper::CRIPTOGRAFAR
-        );
+        $dado = $request->dado();
 
         $Usuario = new DependenteEntity($request);
         $Usuario->set(lista: $dado);

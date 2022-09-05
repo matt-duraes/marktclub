@@ -25,13 +25,8 @@ final class UsuarioIndicacaoController extends Controller implements
 
     public function postSalvar(Request $request)
     {
-        $dado = $request->dadoDecode(
-            chavePrivada: TOKEN['app']->chave_privada,
-            descriptografar: Helper::CRIPTOGRAFAR
-        );
-
-        $Indicacao = new IndicacaoEntity($request->usuario);
-        $Indicacao->set(lista: $dado);
+        $Indicacao = new IndicacaoEntity();
+        $Indicacao->set(lista: $request->dado());
         $Indicacao->salvar();
 
         return $this->retornoSucesso($Indicacao, 201);
@@ -61,7 +56,7 @@ final class UsuarioIndicacaoController extends Controller implements
     private function retornoSucesso(IndicacaoEntity $Indicacao, int $status = 200)
     {
         $dado = pegarPropriedadeDaEntity($Indicacao, lista: [
-            'id', 'nome', 'email', 'telefone', 'quem_indicou', 'usuario', 'data_criacao',
+            'id', 'nome', 'email', 'telefone', 'quem_indicou', 'usuario_ativo', 'data_criacao',
             'data_atualizacao', 'status',
         ]);
         return mensagemSucesso($dado, $status, Helper::CRIPTOGRAFAR);
