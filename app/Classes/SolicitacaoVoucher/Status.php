@@ -11,12 +11,12 @@ final class Status extends StatusStatus
     ) {
         parent::__construct(
             lista: [
+                'criado' => 'Criado',
                 'validado' => 'Validado',
-                'criado' => 'Criado'
             ],
             cor: [
-                'validado' => 'verde',
-                'criado' => 'azul'
+                'criado' => 'azul',
+                'validado' => 'verde'
             ]
         );
     }
