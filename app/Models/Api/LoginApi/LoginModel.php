@@ -66,7 +66,7 @@ final class LoginModel extends Entity
                 'hash' => $this->hash
             ], true);
         }
-        return $this->linkClube . '/login/api/' . $this->hash;
+        return 'https://' . $this->linkClube . '/login/api/' . $this->hash;
     }
 
     /*
