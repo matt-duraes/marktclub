@@ -235,6 +235,11 @@ final class Visualizar
         $this->linha($campo, $nome, 'cpf');
         return $this;
     }
+    public function cnpj(array|string $campo, string $nome): self
+    {
+        $this->linha($campo, $nome, 'cnpj');
+        return $this;
+    }
     public function data(array|string $campo, string $nome): self
     {
         $this->linha($campo, $nome, 'data');

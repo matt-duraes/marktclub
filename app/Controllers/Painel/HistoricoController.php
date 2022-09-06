@@ -62,7 +62,7 @@ final class HistoricoController extends Controller
     public function getListar(Request $request)
     {
         $Api = new ApiHelper(token: true);
-        $dado = $Api->parametro([
+        $dado = $Api->json([
             'data_de' => $request->data_de,
             'data_ate' => $request->data_ate,
             'pagina' => $request->pagina,

@@ -3,6 +3,7 @@
 namespace App\Models\Api;
 
 use ORM\ORM;
+use stdClass;
 use App\Models\Api\Interface\ListarInterface;
 
 abstract class GeralModel extends ORM implements ListarInterface
@@ -19,6 +20,11 @@ abstract class GeralModel extends ORM implements ListarInterface
         $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
             TOKEN['usuario']->get('id') : null;
+    }
+
+    public function listarDados(): stdClass
+    {
+        return object([]);
     }
 
     protected function montarRetorno(array $dado): array

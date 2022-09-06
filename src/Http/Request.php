@@ -4,7 +4,6 @@ namespace Http;
 
 use Erro\Erro;
 use Helpers\CryptHelper;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request as Psr7Request;
 
 final class Request extends Psr7Request
@@ -13,11 +12,13 @@ final class Request extends Psr7Request
     private string $__metodo;
     private array $__dado = [];
 
-    public function __construct()
+    public function __construct(array $descriptografar = [], ?string $chave = null)
     {
         $this->__requestInterno = Psr7Request::createFromGlobals();
         $this->__metodo = $this->__requestInterno->getMethod();
-        $this->setarDado();
+
+        $chave = !empty($descriptografar) && empty($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ? TOKEN['app']->chave_privada : '';
+        $this->setarDado($descriptografar, $chave);
         $this->setarPropriedadesPublicas();
     }
 
@@ -71,7 +72,7 @@ final class Request extends Psr7Request
                 mensagem: 'A Chave "' . $indice . '" não existe na request enviada.'
             );
         }
-        return $this->__dado[$indice] ?? $padrao;
+        return array_key_exists($indice, $this->__dado) ? $this->purifier(lista: $this->__dado, indice: $indice) : $padrao;
     }
 
     // doc
@@ -95,7 +96,7 @@ final class Request extends Psr7Request
         if (array_key_exists('form_system_validacao', $dado)) {
             unset($dado['form_system_validacao']);
         }
-        return $dado;
+        return $this->purifier($dado);
     }
 
     //doc
@@ -123,7 +124,7 @@ final class Request extends Psr7Request
                 throw new \Erro\Excecao(titulo: 'Indice não encontrado!', mensagem: 'O indice "' . $ind . '" não existe na requisição enviada.');
             }
         }
-        return $array;
+        return $this->purifier($array);
     }
 
     //doc
@@ -151,40 +152,7 @@ final class Request extends Psr7Request
                 throw new Erro(mensagem: 'A exeção "' . $ind . '" não existe na requisição enviada.');
             }
         }
-        return $dado;
-    }
-
-    // doc
-    /**
-     * Igual o dado() mas quando os dados estão criptografados
-     *
-     * @param   null|string     $chave              Caso queira usar uma chave simples para descriptografar
-     * @param   null|string     $chavePrivada       Caso queira usar uma chave privada para uma criptografia criada por chave pública
-     * @param   array           $descriptografar    Lista de campos que deseja descriptografar
-     * @return  array                               Array com a lista de dados recebidos pela request
-     */
-    public function dadoDecode(?string $chave = null, ?string $chavePrivada = null, array $descriptografar = []): array
-    {
-        if (empty($chave) && empty($chavePrivada)) {
-            return [];
-        }
-        if (!empty($chave)) {
-            $Crypt = new CryptHelper(chave: $chave);
-        } else if (!empty($chavePrivada)) {
-            $Crypt = new CryptHelper(chavePrivada: $chavePrivada);
-        }
-
-        $dado = $this->dado();
-        $retorno = [];
-        foreach ($dado as $ind => $val) {
-            $valorDecode = empty($descriptografar) || in_array($ind, $descriptografar) ? $Crypt->decode($val) : $val;
-            if (!empty($val) && empty($valorDecode)) {
-                mensagemErro('Erro!', 'Não foi possível remover a criptografia do indice ' . $ind . ' ou ele não está criptografado.');
-            }
-            $retorno[$ind] = $valorDecode;
-        }
-
-        return $this->purifier($retorno, purifier: true, html: true);
+        return $this->purifier($dado);
     }
 
     // doc
@@ -195,7 +163,7 @@ final class Request extends Psr7Request
      */
     public function todos(): array
     {
-        return $this->__dado;
+        return $this->purifier($this->__dado);
     }
 
     // doc
@@ -207,7 +175,7 @@ final class Request extends Psr7Request
      * @param bool      $html           Se true, o retorno irá limpar qualquer tag HTML
      * @return  string|array   Array com a lista de dados recebidos pela request ou o valor do insice
      */
-    public function json(string $indice = '', bool $purifier = true, bool $html = true): array|string
+    public function _JSON(string $indice = '', bool $purifier = true, bool $html = true): array|string
     {
         $dado = jsonDecode($this->body(), true);
         if (is_array($dado)) {
@@ -242,7 +210,7 @@ final class Request extends Psr7Request
     public function _POST(string $indice = '', bool $purifier = true, bool $html = true): array | string
     {
         if (!in_array($this->__metodo, ['POST', 'GET'])) {
-            throw new Erro(mensagem: 'Você está tentando pegar um POST em uma requisição com método ' . $this->__metodo . '.');
+            return !empty($indice) ? false : [];
         }
 
         $_POST = $this->__requestInterno->request->all();
@@ -271,8 +239,8 @@ final class Request extends Psr7Request
      */
     public function _PUT(string $indice = '', bool $purifier = true, bool $html = true): array | string
     {
-        if (!in_array($this->__metodo, ['PUT', 'GET'])) {
-            throw new Erro(mensagem: 'Você está tentando pegar um PUT em uma requisição com método ' . $this->__metodo . '.');
+        if ($this->__metodo != 'PUT') {
+            return !empty($indice) ? false : [];
         }
 
         $_PUT = $this->__requestInterno->request->all();
@@ -307,7 +275,7 @@ final class Request extends Psr7Request
     public function _FILES(string $indice = ''): null|array|\Symfony\Component\HttpFoundation\File\UploadedFile
     {
         if ($this->__metodo != 'POST') {
-            throw new \Erro\Excecao(titulo: 'Erro no método!', mensagem: 'FILES só podem ser pegos em uma requisição com método POST.');
+            return !empty($indice) ? false : [];
         } elseif (!empty($indice)) {
             return $this->__requestInterno->files->get($indice, null);
         }
@@ -405,18 +373,17 @@ final class Request extends Psr7Request
     | MÉTODOS PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function setarDado(): void
+    private function setarDado(array $descriptografar = [], ?string $chave = null): void
     {
         $metodo = $this->__metodo;
 
         $lista = [];
         if (in_array($metodo, ['GET', 'DELETE'])) {
-            $lista = $this->__requestInterno->query->all();
+            $lista = $this->_JSON() ? $this->__requestInterno->query->all() + $this->_JSON() : $this->__requestInterno->query->all();
         } elseif (in_array($metodo, ['POST', 'PUT'])) {
             $lista = $this->pegarRequestOuBody();
         }
 
-        $lista = $this->purifier(lista: $lista, purifier: true, html: true);
         if ($metodo == 'POST') {
             $file = $this->__requestInterno->files->all();
             if ($file) {
@@ -424,16 +391,36 @@ final class Request extends Psr7Request
             }
         }
 
+        if (empty($chave)) {
+            $this->__dado = $lista;
+            return;
+        }
+
+        $Crypt = new CryptHelper(chavePrivada: $chave);
+        foreach ($lista as $ind => $val) {
+            if (!empty($descriptografar) && !in_array($ind, $descriptografar)) {
+                $lista[$ind] = $val;
+                continue;
+            }
+
+            $valorDescriptografado = $Crypt->decode($val);
+            if (!empty($val) && empty($valorDescriptografado)) {
+                mensagemErro('Erro!', 'O indice ' . $ind . ' não pode ser descriptografado.');
+            }
+            $lista[$ind] = $valorDescriptografado;
+        }
+
         $this->__dado = $lista;
     }
 
-    private function setarPropriedadesPublicas()
+    private function setarPropriedadesPublicas($teste = false)
     {
         if (!$this->__dado) {
             return;
         }
-        foreach ($this->__dado as $ind => $val) {
-            $this->$ind = $val;
+
+        foreach (array_keys($this->__dado) as $ind) {
+            $this->$ind = $this->purifier(lista: $this->__dado, indice: $ind);
         }
     }
 
@@ -525,7 +512,7 @@ final class Request extends Psr7Request
             if (!$html) {
                 $val = $this->converterCodigoNaTagCode($val);
             } else {
-                $val = strip_tags($val);
+                $val = !empty($val) ? strip_tags($val) : '';
             }
             if ($purifier) {
                 $val = $Purifier->purify($val);

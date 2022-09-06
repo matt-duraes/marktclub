@@ -20,6 +20,7 @@ use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\UsuarioPagamento\PagamentoModel;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 
 final class ClienteEntity extends Entity
@@ -104,7 +105,7 @@ final class ClienteEntity extends Entity
     public Situacao $situacao;
     public Status $status;
     public string $imagem;
-    public string $pagamento;
+    public array $pagamento;
     public string $grupo;
     public Origem $origem;
 
@@ -276,7 +277,9 @@ final class ClienteEntity extends Entity
             $this->contratoSiape = $this->trabalho_empresa->numero() . $this->siape . '341201';
         }
         $this->imagem = imagemUsuario();
-        $this->pagamento = '';
+
+        $Pagamento = new PagamentoModel();
+        $this->pagamento = $Pagamento->buscarPagamento($this->get('id'));
     }
 
     public function getId()

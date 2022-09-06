@@ -4,6 +4,7 @@ namespace App\Models\Api\UsuarioLead;
 
 use ORM\Entity;
 use Modules\Cpf;
+use Modules\Cnpj;
 use Modules\Data;
 use Modules\Nome;
 use Modules\Email;
@@ -17,6 +18,7 @@ use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\UsuarioCliente\ClienteModel;
+use App\Models\Api\UsuarioCliente\SalvarLeadModel;
 
 final class LeadEntity extends Entity
 {
@@ -30,7 +32,7 @@ final class LeadEntity extends Entity
         'email_trabalho', 'email_pessoal', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
         'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
         'endereco_cidade', 'endereco_estado', 'genero', 'data_nascimento', 'lista_dependente', 'trabalho_empresa',
-        'trabalho_cargo', 'trabalho_data_inicio', 'status'
+        'trabalho_cargo', 'trabalho_data_inicio', 'cnpj_trabalho', 'status'
     ];
     protected array $_insert = [
         'nome_completo' => '->nome',
@@ -41,7 +43,8 @@ final class LeadEntity extends Entity
         'email_trabalho', 'email_pessoal', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
         'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
         'endereco_cidade', 'endereco_estado', 'genero', 'data_nascimento', 'lista_dependente', 'trabalho_empresa',
-        'trabalho_cargo', 'trabalho_data_inicio', 'termo_aceitar', 'termo_lgpd', 'status', 'id_admin_empresa'
+        'trabalho_cargo', 'trabalho_data_inicio', 'termo_aceitar', 'termo_lgpd', 'status', 'id_admin_empresa',
+        'cnpj_trabalho'
     ];
     protected array $_update = ['status'];
     protected string $_validarInsert = '
@@ -80,6 +83,7 @@ final class LeadEntity extends Entity
     public TrabalhoCargo $trabalho_cargo;
     public DataHora $data_criacao;
     public Origem $origem;
+    public Cnpj $cnpj_trabalho;
 
     private bool $cadastrar = false;
 
@@ -141,7 +145,7 @@ final class LeadEntity extends Entity
     }
     private function salvarLeedComoUsuario()
     {
-        $Cliente = new ClienteModel();
+        $Cliente = new SalvarLeadModel();
         $Cliente->salvarLead([
             'nome' => $this->nome->nome(),
             'documento' => (int)$this->cpf->numero(),

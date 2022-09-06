@@ -1021,7 +1021,7 @@ if (!function_exists('criptografarDado')) {
 
         $retorno = [];
         foreach ($valor as $ind => $val) {
-            if (is_array($val) || is_object($val)) {
+            if ((is_array($val) || is_object($val)) && !vazio($val)) {
                 foreach ($val as $ind2 => $val2) {
                     if (!empty($val2) && in_array($ind2, $lista)) {
                         $val2 = $Crypt->encode($val2);
@@ -1029,8 +1029,10 @@ if (!function_exists('criptografarDado')) {
                     $retorno[$ind][$ind2] = !empty($val2) ? $val2 : '';
                 }
                 continue;
-            }
-            if (!empty($val) && in_array($ind, $lista)) {
+            } else if (is_array($val) || is_object($val)) {
+                $retorno[$ind] = $val;
+                continue;
+            } else if (!empty($val) && in_array($ind, $lista)) {
                 $val = $Crypt->encode($val);
             }
             $retorno[$ind] = !empty($val) ? $val : '';

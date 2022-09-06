@@ -332,15 +332,15 @@ trait ReadTrait
             }
         }
 
-        $registroInicio = (($paginaAtual - 1) * $paginaQuantidade) + 1;
         $registroAtual = count((array) $lista);
+        $registroInicio = (($paginaAtual - 1) * $paginaQuantidade) + 1;
 
         return (object)[
             'lista' => $lista,
             'registro' => (object) [
-                'inicio' => $total == 0 ? 0 : $registroInicio,
-                'final' => $total == 0 ? 0 : $registroInicio + $registroAtual - 1,
-                'atual' => $total == 0 ? 0 : $registroAtual,
+                'inicio' => $registroAtual == 0 ? 0 : $registroInicio,
+                'final' => $registroAtual == 0 ? 0 : $registroInicio + $registroAtual - 1,
+                'atual' => $registroAtual == 0 ? 0 : $registroAtual,
                 'total' => (int) $total,
             ],
             'pagina' => (object) [

@@ -41,7 +41,7 @@ final class RelatorioController extends Controller
         $this->validarData($de, $ate);
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->parametro([
+        $dado = $Api->headerJson()->json([
             'de' => dataBanco($de),
             'ate' => dataBanco($ate)
         ])->get('/relatorio/usuario-acesso')->object();
@@ -68,7 +68,7 @@ final class RelatorioController extends Controller
         }
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->parametro([
+        $dado = $Api->headerJson()->json([
             'de' => dataBanco($de),
             'ate' => dataBanco($ate),
             'local' => $local
@@ -93,7 +93,7 @@ final class RelatorioController extends Controller
         }
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->parametro([
+        $dado = $Api->headerJson()->json([
             'de' => dataBanco($de),
             'ate' => dataBanco($ate),
             'tipo' => $tipo

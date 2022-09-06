@@ -104,7 +104,6 @@ final class JwtHelper
     public function decode(string $jwt): array
     {
         $key = !empty($this->chavePublica) ? $this->chavePublica : $this->hash;
-
         try {
             $dado = JWT::decode($jwt, new Key($key, $this->algoritimo));
         } catch (\Throwable $e) {

@@ -120,7 +120,7 @@ final class UsuarioLeadTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
             ])->get('/usuario-lead');
 
@@ -136,7 +136,7 @@ final class UsuarioLeadTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'pesquisa' => $this->bodySalvar['cpf'],
                 'nome' => $this->bodySalvar['nome'],
@@ -158,7 +158,7 @@ final class UsuarioLeadTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'status' => 'nao_existe'
             ])
@@ -174,7 +174,7 @@ final class UsuarioLeadTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'ordem' => 'nao_existe'
             ])
@@ -314,9 +314,9 @@ final class UsuarioLeadTest extends Tests
     {
         $dado = $this
             ->Curl
-            ->parametro([
+            ->json([
                 'pagina' => 1,
-                'cpf' => $this->cpf
+                'cpf' => $this->cryptEncode($this->cpf)
             ])
             ->get('/usuario-cliente')->array();
 
