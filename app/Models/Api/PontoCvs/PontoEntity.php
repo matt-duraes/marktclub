@@ -13,7 +13,8 @@ final class PontoEntity extends Entity
     protected string $_tabela = TABELA_PONTO_CVS;
 
     protected array $_buscar = [
-        'ponto_solicitado', 'voucher', 'status', 'data_solicitacao', 'data_voucher', 'mensagem'
+        'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao', 
+        'data_solicitacao', 'data_voucher', 'mensagem'
     ];
 
     protected array $_insert = ['id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao'];
@@ -29,16 +30,56 @@ final class PontoEntity extends Entity
     public DataHora $data_voucher;
     public string $voucher;
     public int $ponto_solicitado;
+    public string $cpf;
     public string $mensagem;
 
-    private int $idUsuario;
-    private int $cpfUsuario;
+    private string $cpfUsuario;
 
-    public function __construct()
+    public function __construct(string $cpf = 'null')
     {
         parent::__construct();
-        $this->idUsuario = TOKEN['usuario']->get('id');
-        $this->cpfUsuario = TOKEN['usuario']->cpf->numero();
+
+        $this->cpfUsuario = !empty(TOKEN['usuario']) ? $this->cpfUsuario = TOKEN['usuario']->cpf->numero() : $cpf;
+
+        $this->relacionarTabela(
+            tabela: 'usuario_novo',
+            campoAtual: 'documento',
+            campoOriginal: 'id_usuario_cliente',
+            campo: [
+                'cod', 'nome', 'documento', 'email_pessoal', 'email_trabalho',
+                'telefone_fixo', 'telefone_celular', 'status'
+            ],
+            alias: 'usuario'
+        );
+    }
+
+    public function retorno()
+    {
+        $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
+        $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
+
+        $usuario = [];
+        if ($this->usuario_status != 4) {
+            $usuario = [
+                'id' => $this->usuario_cod,
+                'nome' => $this->usuario_nome,
+                'cpf' => strCpf($this->usuario_documento),
+                'email' => strEmail($email),
+                'telefone' => strTelefone($telefone),
+            ];
+        }
+
+        return [
+            'id' => $this->id,
+            'usuario' => $usuario,
+            'ponto' => strNull($this->ponto_solicitado),
+            'voucher' => strNull($this->voucher),
+            'mensagem' => strNull($this->mensagem),
+            'data_solicitacao' => $this->data_solicitacao->data(),
+            'data_voucher' => $this->data_voucher->data(),
+            'data_atualizacao' => $this->data_atualizacao->data(),
+            'status' => $this->status->indice()
+        ];
     }
 
     /*
@@ -50,16 +91,26 @@ final class PontoEntity extends Entity
     {
         $this->data_solicitacao = new DataHora(agora());
         $this->status = new Status('solicitado');
-        $this->id_usuario_cliente = $this->idUsuario;
+        $this->id_usuario_cliente = $this->cpfUsuario;
 
+        $this->verificarSeUsuarioConstaNaBase();
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
         $this->verificarSeJaExisteUmaSolicitacao();
     }
+
+    private function verificarSeUsuarioConstaNaBase()
+    {
+        $PontoCvsHelper = new PontoCvsHelper;
+        if (!$PontoCvsHelper->validarUsuario($this->cpfUsuario)) {
+            mensagemErro('Erro!', 'O Usuario indicado não pode realizar uma solicitação!');
+        }
+    }
+
     private function verificarSeJaExisteUmaSolicitacao()
     {
         $quantidade = $this->contar([
-            ['id_usuario_cliente', $this->idUsuario],
+            ['id_usuario_cliente', $this->cpfUsuario],
             ['status', 'in', [1, 2]]
         ]);
 
@@ -70,6 +121,7 @@ final class PontoEntity extends Entity
             );
         }
     }
+
     private function verificarSeFoiPedidoNumeroMinimoPonto()
     {
         $ponto = $this->ponto_solicitado;
@@ -81,6 +133,7 @@ final class PontoEntity extends Entity
             );
         }
     }
+
     private function validarSeUsuarioTemPontoSuficiente()
     {
         $PontoCvsHelper = new PontoCvsHelper;
@@ -101,6 +154,18 @@ final class PontoEntity extends Entity
         }
 
         $this->validarSePodeMudarStatus();
+        $this->validarSePodeMudarVoucher();
+    }
+
+    private function validarSePodeMudarVoucher()
+    {
+        $status = $this->status->numero();
+
+        if (in_array($status, [1, 2, 4]) && !empty($this->prop('voucher'))) {
+            $this->voucher = '';
+        } else if (in_array($status, [1, 2, 4]) && !empty($this->voucher)) {
+            mensagemErro('Erro!', 'Só é possível preencher o voucher caso o mesmo tenha sido "Aprovado".');
+        }
     }
     
     private function validarSePodeMudarStatus()

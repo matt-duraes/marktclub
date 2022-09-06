@@ -645,7 +645,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
-            ::request(['pagina', '!quantidade', '!ordem', '!usuario', '!status'])
+            ::request(['pagina', '!quantidade', '!ordem', '!cpf', '!status'])
             ::get('/ponto-cvs');
 
         Route
@@ -656,7 +656,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:salvar'])
-            ::request(['ponto_solicitado'])
+            ::request(['ponto_solicitado', 'cpf'])
             ::post('/ponto-cvs');
             
         Route

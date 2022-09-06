@@ -17,20 +17,11 @@ final class PontoCvsController extends Controller implements
 {
     public function postSalvar(Request $request)
     {
-        $Ponto = new PontoEntity();
+        $Ponto = new PontoEntity($request->cpf);
         $Ponto->ponto_solicitado = $request->ponto_solicitado;
         $Ponto->salvar();
 
-        return $this->retornoPadrao($Ponto, 201);
-    }
-
-    private function retornoPadrao(PontoEntity $Ponto, int $status = 200)
-    {
-        $dado = pegarPropriedadeDaEntity(
-            $Ponto,
-            lista: ['id', 'ponto_solicitado', 'data_solicitacao', 'voucher', 'data_voucher', 'status'],
-        );
-        return mensagemSucesso($dado, status: $status);
+        return mensagemSucesso($Ponto->retorno());
     }
 
     public function getListar(Request $request)
@@ -48,7 +39,7 @@ final class PontoCvsController extends Controller implements
         $Ponto = new pontoEntity;
         $Ponto->id($id);
 
-        return $this->retornoPadrao($Ponto);
+        return mensagemSucesso($Ponto->retorno());
     }
 
     public function putAtualizar(Request $request, string $id)
@@ -57,11 +48,9 @@ final class PontoCvsController extends Controller implements
 
         $Ponto = new pontoEntity;
         $Ponto->id($id);
+        $Ponto->voucher = $request->voucher ?? '';
         $Ponto->mensagem = $request->mensagem ?? '';
         $Ponto->status = new Status($request->status);
-        if($Ponto->status->numero() == 3 && !empty( $request->voucher)){
-            $Ponto->voucher = $request->voucher;
-        }
         $Ponto->salvar();
 
         return new Response(status: 204);
