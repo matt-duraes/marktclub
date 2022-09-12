@@ -11,15 +11,7 @@ trait WhereTrait
     {
         $request = $this->request;
 
-        $where = [
-            [
-                'OR',
-                ['empresa', $this->idEmpresa],
-                [
-                    ['empresa', 1], ['tipo', 3]
-                ],
-            ]
-        ];
+        $where = [['empresa', $this->idEmpresa]];
 
         // Colocando para aparecer só quem tem data de ativação na FENAE
         if ($this->idEmpresa == 153) {
