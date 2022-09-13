@@ -11,8 +11,8 @@ $Doc
 
     ->headerToken()
 
-    ->parametro('de', date('Y-m-d'), 'Data de começo da busca', 'string', obrigatorio: true)
-    ->parametro('ate', date('Y-m-d'), 'Data final da busca', 'string', obrigatorio: true)
+    ->raw('de', date('Y-m-d'), 'Data de começo da busca', 'string', obrigatorio: true)
+    ->raw('ate', date('Y-m-d'), 'Data final da busca', 'string', obrigatorio: true)
 
     ->retorno('usuario_tipo', 'Tipo do usuário podendo ser titular ou dependente')
     ->retorno('cpf', 'CPF do usuário criptografado')

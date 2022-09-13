@@ -9,7 +9,7 @@ $Doc
     ->status(204)
     ->scope('usuario_cliente:atualizar')
     ->metodo('put')
-    ->uri('/usuario-cliente/:cpf')
+    ->uri('/usuario-cliente/:id')
 
     ->headerToken()
 
@@ -45,8 +45,9 @@ $Doc
     ->erro401()
     ->erro403()
 
-    ->preExemplo("")
-    ->preSucesso("")
+    ->preExemplo("curl --location --request PUT '{{LINK}}/usuario-cliente/:id' \
+--header 'Authorization: Bearer {{TOKEN}}' \
+--form 'nome=\"0uM+ghOw5m41Sc/rzuBAhFgu5lgd88QtypCFH+4edruhSqXqOkwnS8ALXuJMDyEyw==\"'")
     ->preFalha("");
 
 echo $Doc;

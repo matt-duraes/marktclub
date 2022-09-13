@@ -7,7 +7,7 @@ $Doc
     ->status(204)
     ->scope('usuario_cliente:deletar')
     ->metodo('delete')
-    ->uri('/usuario-cliente/:cpf')
+    ->uri('/usuario-cliente/:id')
 
     ->headerToken()
 
@@ -18,8 +18,8 @@ $Doc
     ->erro401()
     ->erro403()
 
-    ->preExemplo("")
-    ->preSucesso("")
+    ->preExemplo("curl --location --request DELETE '{{LINK}}/usuario-cliente/:id' \
+--header 'Authorization: Bearer {{TOKEN}}'")
     ->preFalha("");
 
 echo $Doc;
