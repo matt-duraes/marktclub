@@ -17,7 +17,7 @@ $Doc
     ->criptografar(Helper::CRIPTOGRAFAR)
 
     ->raw('pagina', '1', 'Número da página que deseja buscar', 'int', obrigatorio: true)
-    ->raw('ordem', 'nome-a-z', 'Ordem que deseja colocar os resultados. Valores padrões: nome-a-z, nome-a-z, mais-novo ou mais-velho', 'int', obrigatorio: true)
+    ->raw('ordem', 'nome-a-z', 'Ordem que deseja colocar os resultados. Valores padrões: nome-a-z, nome-a-z, mais-novo ou mais-velho', 'string')
     ->raw('nome', 'Nome do Usuário', 'Nome do usuário que deseja buscar', 'string')
     ->raw('email', 'email@dominio.com.br', 'E-mail do usuário que deseja buscar', 'string')
     ->raw('cpf', '01234567890', 'CPF do usuário que deseja buscar', 'int')
