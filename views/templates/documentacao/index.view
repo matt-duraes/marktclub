@@ -39,6 +39,9 @@
 
             @ if( in_array('usuario-cliente-salvar', SCOPE) || in_array('usuario-cliente-atualizar', SCOPE) || in_array('usuario-cliente-deletar', SCOPE) || in_array('usuario-cliente-deletar-cpf', SCOPE) ):
             <h2><i>@iconeSetaDireita(10)</i> Usuário</h2>
+                @ if( in_array('usuario-cliente-buscar', SCOPE) ):
+                <a href="@route('documentacao.rota')/usuario-cliente-listar">Listar clientes</a>
+                @ endif;
                 @ if( in_array('usuario-cliente-salvar', SCOPE) ):
                 <a href="@route('documentacao.rota')/usuario-cliente-salvar">Salvar cliente</a>
                 @ endif;
@@ -47,9 +50,6 @@
                 @ endif;
                 @ if( in_array('usuario-cliente-deletar', SCOPE) ):
                 <a href="@route('documentacao.rota')/usuario-cliente-deletar">Deletar cliente</a>
-                @ endif;
-                @ if( in_array('usuario-cliente-deletar-cpf', SCOPE) ):
-                <a href="@route('documentacao.rota')/usuario-cliente-deletar-cpf">Deletar cliente via CPF</a>
                 @ endif;
             @ endif;
 

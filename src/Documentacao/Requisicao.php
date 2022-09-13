@@ -172,6 +172,12 @@ final class Requisicao
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }
+    public function raw($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
+    {
+        $this->bodyTitulo = 'Raw - JSON';
+        $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
+        return $this;
+    }
 
     public function header($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
     {
