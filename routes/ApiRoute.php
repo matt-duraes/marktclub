@@ -92,7 +92,7 @@ Route::nome('usuario_cliente')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:listar'])
             ::request([
                 'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!ordem'
+                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem'
             ], 'json')
             ::get('/usuario-cliente');
         Route
@@ -630,6 +630,11 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['convenio_parceiro:destaque'])
             ::request(['categoria', 'quantidade', 'ordem'], 'json')
             ::get('/convenio-parceiro/destaque');
+
+        Route
+            ::nome('buscar')
+            ::request(['!email'], 'json')
+            ::get('/convenio-parceiro/{url}');
     });
 
 Route

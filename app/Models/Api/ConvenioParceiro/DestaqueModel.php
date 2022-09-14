@@ -8,7 +8,7 @@ use App\Models\Api\GeralModel;
 use App\Classes\ParceiroConvenio\Ordem;
 use App\Classes\ParceiroConvenio\Categoria;
 
-final class ParceiroDestaqueModel extends GeralModel
+final class DestaqueModel extends GeralModel
 {
     protected string $_tabela = TABELA_PARCEIRO_NOVO;
 

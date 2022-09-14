@@ -18,7 +18,7 @@
         </header>
         <div class="conteudo_pagina_popup">
             <form action="/" class="form_geral">
-                <input type="text" id="input_permissao_deletar" value="{!! painelPermissao('usuario_dependente_deletar', erro: false) ? 'sim' : 'nao' !!}">
+                <input type="hidden" id="input_permissao_deletar" value="{!! painelPermissao('usuario_dependente_deletar', erro: false) ? 'sim' : 'nao' !!}">
                 @hash('DEPENDENTE_HASH', 'dependente')
                 <p>Você pode cadastrar até 5 dependentes para esse usuário. Ao cadastrar um dependente, um e-mail será enviado para ele.</p>
 

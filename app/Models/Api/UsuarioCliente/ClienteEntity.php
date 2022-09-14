@@ -42,6 +42,7 @@ final class ClienteEntity extends Entity
         'trabalho_empresa' => 'trabalho_orgao',
         'senha' => 'salt',
         'origem' => 'lead_origem',
+        'lead' => 'usuario_lead',
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
@@ -101,6 +102,7 @@ final class ClienteEntity extends Entity
     public int $id_admin_empresa;
     public Botao $primeiro_acesso;
     public Botao $mudar_senha;
+    public Botao $lead;
     public Botao $mensagem;
     public Situacao $situacao;
     public Status $status;

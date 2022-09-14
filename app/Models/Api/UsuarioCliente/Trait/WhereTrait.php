@@ -84,6 +84,11 @@ trait WhereTrait
             $where[] = ['data_criacao', '<=', dataBanco($dataCriacaoAte) . ' 23:59:59'];
         }
 
+        // Lead
+        if ($request->lead == 'sim') {
+            $where[] = ['usuario_lead', 1];
+        }
+
         // status
         $status = new Status($request->status);
         if ($status->valido() && $status->indice() != 'deletado') {

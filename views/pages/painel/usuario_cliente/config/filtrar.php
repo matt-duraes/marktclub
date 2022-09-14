@@ -17,6 +17,7 @@ $Painel
     })
     ->data(name: 'data_upload', titulo: 'Data de upload', label: 'Data de upload', placeholder: 'Data de upload')
     ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select())
+    ->switch(name: 'lead', titulo: 'Usuários do lead', label: 'Apenas usuários do lead?')
     ->switch(name: 'pagamento', titulo: 'Pagamento em aberto', label: 'Apenas pagamento em aberto?');
 
 $Painel->replace('status', (new Status())->select());

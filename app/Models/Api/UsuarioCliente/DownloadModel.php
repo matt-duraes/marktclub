@@ -67,6 +67,9 @@ final class DownloadModel extends GeralModel
                 } else if ($ind == 'documento_rg') {
                     $ind = 'rg';
                     $val = strNull($val);
+                } else if ($ind == 'usuario_lead') {
+                    $ind = 'lead';
+                    $val = $val == 1 ? 'sim' : 'nao';
                 } else if ($ind == 'aniversario') {
                     $ind = 'data_nascimento';
                     $val = dataBr($val);
@@ -112,7 +115,7 @@ final class DownloadModel extends GeralModel
             'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
             'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
             'endereco_estado', 'data_criacao', 'data_atualizacao', 'data_acesso', 'tipo', 'federacao', 'grupo',
-            'status', 'data_upload'
+            'status', 'data_upload', 'lead'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);
@@ -171,6 +174,10 @@ final class DownloadModel extends GeralModel
         if (array_key_exists('data_upload', $campo)) {
             unset($campo['data_upload']);
             $campo['data_upload_tabela'] = true;
+        }
+        if (array_key_exists('lead', $campo)) {
+            unset($campo['lead']);
+            $campo['usuario_lead'] = true;
         }
         return array_keys($campo);
     }

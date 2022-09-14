@@ -26,7 +26,7 @@ final class ClienteModel extends GeralModel
     public function listarDados(): stdClass
     {
         $dado = $this->buscarUsuario([
-            'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal', 'status', 'data_criacao'
+            'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal', 'status', 'data_criacao', 'usuario_lead'
         ], true);
 
         $dado->lista = $this->montarRetornoLista($dado->lista);
