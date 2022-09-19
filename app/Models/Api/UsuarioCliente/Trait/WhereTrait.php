@@ -3,6 +3,7 @@
 namespace App\Models\Api\UsuarioCliente\Trait;
 
 use App\Classes\UsuarioCliente\Helper;
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 
 trait WhereTrait
@@ -87,6 +88,12 @@ trait WhereTrait
         // Lead
         if ($request->lead == 'sim') {
             $where[] = ['usuario_lead', 1];
+        }
+
+        // Origem
+        $origem = new Origem($request->origem);
+        if ($origem->valido()) {
+            $where[] = ['lead_origem', $origem->numero()];
         }
 
         // status

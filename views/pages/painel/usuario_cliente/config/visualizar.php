@@ -74,7 +74,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Outros dadods', callback: function () use ($Painel) {
         $Painel
             ->linha('origem', 'Origem')
-            ->checked('lead', 'Veio do lead?')
+            ->checked('lead', 'É um lead?')
             ->checked('primeiro_acesso', 'Primeiro acesso?')
             ->checked('mensagem', 'Aceita mensagem?')
             ->checked('mudar_senha', 'Mudar Senha?')

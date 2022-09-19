@@ -92,7 +92,7 @@ Route::nome('usuario_cliente')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:listar'])
             ::request([
                 'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem'
+                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem', '!origem'
             ], 'json')
             ::get('/usuario-cliente');
         Route
@@ -460,8 +460,8 @@ Route
 
 Route
     ::nome('login')
-    ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\LoginController::class)
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('loginPainel')
@@ -471,6 +471,14 @@ Route
                 '!login', '!senha', '!facebook', '!google', 'scope', 'audience', 'redirect_uri', 'state'
             ])
             ::post('/login/painel');
+
+        Route
+            ::nome('loginClube')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
+            ::request([
+                '!login', '!senha', '!facebook', '!google', 'scope', 'audience', 'redirect_uri', 'state', 'client_id'
+            ])
+            ::post('/login/clube');
 
         Route
             ::nome('loginApi')

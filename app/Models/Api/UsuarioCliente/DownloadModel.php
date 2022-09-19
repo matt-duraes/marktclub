@@ -8,6 +8,7 @@ use Modules\DataHora;
 use Modules\Telefone;
 use Modules\EstadoCivil;
 use App\Models\Api\GeralModel;
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
@@ -70,6 +71,9 @@ final class DownloadModel extends GeralModel
                 } else if ($ind == 'usuario_lead') {
                     $ind = 'lead';
                     $val = $val == 1 ? 'sim' : 'nao';
+                } else if ($ind == 'lead_origem') {
+                    $ind = 'origem';
+                    $val = (new Origem($val))->indice();
                 } else if ($ind == 'aniversario') {
                     $ind = 'data_nascimento';
                     $val = dataBr($val);
@@ -115,7 +119,7 @@ final class DownloadModel extends GeralModel
             'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
             'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
             'endereco_estado', 'data_criacao', 'data_atualizacao', 'data_acesso', 'tipo', 'federacao', 'grupo',
-            'status', 'data_upload', 'lead'
+            'status', 'data_upload', 'lead', 'origem'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);
@@ -178,6 +182,10 @@ final class DownloadModel extends GeralModel
         if (array_key_exists('lead', $campo)) {
             unset($campo['lead']);
             $campo['usuario_lead'] = true;
+        }
+        if (array_key_exists('origem', $campo)) {
+            unset($campo['origem']);
+            $campo['lead_origem'] = true;
         }
         return array_keys($campo);
     }

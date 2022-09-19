@@ -44,7 +44,8 @@ $Painel
             ->campo('tipo', 'Tipo de usuário')
             ->campo('federacao', 'Federação')
             ->campo('status', 'Status')
-            ->campo('lead', 'Veio do lead')
+            ->campo('lead', 'É um lead')
+            ->campo('origem', 'Origem')
             ->campo('grupo', 'Grupo');
     });
 
