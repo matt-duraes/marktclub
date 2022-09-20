@@ -101,7 +101,7 @@ final class UsuarioClienteController extends Controller implements
                     'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
                     'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
                     'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
-                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'origem', 'status'
+                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'lead', 'origem', 'status'
                 ]
             ),
             status: $status,

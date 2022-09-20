@@ -271,6 +271,9 @@ if (!function_exists('painelLinhaLista')) {
                 $acao = 'linha';
                 $valor = count($valor);
             }
+            if ($acao == 'checked' && in_array($valor, ['sim', 'nao'])) {
+                $valor = $valor == 'sim' ? true : false;
+            }
 
             if (!empty($formatar)) {
                 $valor = painelValorFormatar($valor, '', $formatar);

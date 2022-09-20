@@ -4,13 +4,13 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
-use Helpers\CryptHelper;
 use Controller\Controller;
-use App\Models\Api\LoginApi\LoginModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\LoginPainel\LoginFacebookModel;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
+use App\Models\Api\LoginClube\LoginModel as LoginClubeModel;
 
 final class LoginController extends Controller
 {
@@ -21,7 +21,7 @@ final class LoginController extends Controller
     */
     public function postLoginApi(Request $request)
     {
-        $Login = new LoginModel($request);
+        $Login = new LoginApiModel($request);
         return mensagemSucesso([
             'link' => $Login->link()
         ], status: 201);
@@ -94,5 +94,27 @@ final class LoginController extends Controller
             'status' => 'sucesso',
             'dado' => $token
         ], status: 201);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LOGIN CLUBE
+    |--------------------------------------------------------------------------
+    */
+    public function postLoginClube(Request $request)
+    {
+        $Login = new LoginClubeModel(
+            login: $request->login,
+            senha: $request->senha,
+            facebook: $request->facebook,
+            google: $request->google,
+            clientId: $request->client_id,
+            redirectUri: $request->redirect_uri,
+            state: $request->state,
+            scope: $request->scope,
+            audience: $request->audience
+        );
+
+        return mensagemSucesso($Login->token(), 201);
     }
 }

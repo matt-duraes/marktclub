@@ -369,7 +369,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body(['nome' => $this->nomeCompleto()])
+            ->body(['nome' => $this->cryptEncode($this->nomeCompleto())])
             ->put('/usuario-cliente/1');
 
         return $this
