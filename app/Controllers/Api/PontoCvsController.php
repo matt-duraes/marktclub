@@ -2,18 +2,22 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\PontoCvs\Status;
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
+use App\Classes\PontoCvs\Status;
 use App\Models\Api\PontoCvs\PontoModel;
 use App\Models\Api\PontoCvs\PontoEntity;
+use App\Controllers\Api\Interface\BuscarInterface;
 use App\Controllers\Api\Interface\ListarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
-use Http\Response;
+use App\Controllers\Api\Interface\AtualizarInterface;
 
 final class PontoCvsController extends Controller implements
     SalvarInterface,
-    ListarInterface
+    ListarInterface,
+    BuscarInterface,
+    AtualizarInterface
 {
     public function postSalvar(Request $request)
     {
@@ -21,7 +25,7 @@ final class PontoCvsController extends Controller implements
         $Ponto->ponto_solicitado = $request->ponto_solicitado;
         $Ponto->salvar();
 
-        return mensagemSucesso($Ponto->retorno());
+        return mensagemSucesso($Ponto->retorno(), 201);
     }
 
     public function getListar(Request $request)
@@ -52,17 +56,6 @@ final class PontoCvsController extends Controller implements
         $Ponto->mensagem = $request->mensagem ?? '';
         $Ponto->status = new Status($request->status);
         $Ponto->salvar();
-
-        return new Response(status: 204);
-    }
-
-    public function deleteDeletar(string $id)
-    {
-        validarUuid($id);
-
-        $Ponto = new pontoEntity;
-        $Ponto->id($id);
-        $Ponto->destruir();
 
         return new Response(status: 204);
     }

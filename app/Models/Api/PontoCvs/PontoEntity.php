@@ -7,17 +7,19 @@ use Modules\DataHora;
 use App\Helpers\PontoCvsHelper;
 use App\Classes\PontoCvs\Helper;
 use App\Classes\PontoCvs\Status;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use Helpers\EmailHelper;
 
 final class PontoEntity extends Entity
 {
     protected string $_tabela = TABELA_PONTO_CVS;
 
     protected array $_buscar = [
-        'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao', 
+        'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao', 
         'data_solicitacao', 'data_voucher', 'mensagem'
     ];
 
-    protected array $_insert = ['id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao'];
+    protected array $_insert = ['uuid', 'id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao'];
     protected array $_update = ['voucher', 'data_voucher', 'mensagem'];
     protected array $_salvar = ['status'];
 
@@ -35,18 +37,19 @@ final class PontoEntity extends Entity
 
     private string $cpfUsuario;
 
-    public function __construct(string $cpf = 'null')
+    public function __construct(string $cpf = '')
     {
         parent::__construct();
 
-        $this->cpfUsuario = !empty(TOKEN['usuario']) ? $this->cpfUsuario = TOKEN['usuario']->cpf->numero() : $cpf;
+        $this->cpfUsuario = !empty($cpf) ? $cpf : TOKEN['usuario']->cpf->numero();
+        $this->cpfUsuario = soNumero($this->cpfUsuario);
 
         $this->relacionarTabela(
             tabela: 'usuario_novo',
             campoAtual: 'documento',
             campoOriginal: 'id_usuario_cliente',
             campo: [
-                'cod', 'nome', 'documento', 'email_pessoal', 'email_trabalho',
+                'cod', 'matricula', 'nome', 'documento', 'email_pessoal', 'email_trabalho',
                 'telefone_fixo', 'telefone_celular', 'status'
             ],
             alias: 'usuario'
@@ -58,14 +61,21 @@ final class PontoEntity extends Entity
         $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
         $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
 
+        $PontoCvsHelper = new PontoCvsHelper;
+        $pontos = $PontoCvsHelper->buscarPontos($this->usuario_documento);
+
         $usuario = [];
         if ($this->usuario_status != 4) {
             $usuario = [
+                'matricula' => $this->usuario_matricula,
                 'id' => $this->usuario_cod,
                 'nome' => $this->usuario_nome,
                 'cpf' => strCpf($this->usuario_documento),
                 'email' => strEmail($email),
                 'telefone' => strTelefone($telefone),
+                'credito' => $pontos->credito,
+                'debito' => $pontos->debito,
+                'saldo' => $pontos->saldo
             ];
         }
 
@@ -97,6 +107,7 @@ final class PontoEntity extends Entity
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
         $this->verificarSeJaExisteUmaSolicitacao();
+        $this->validarSeSolicitacaoFoiEfetuadaAPI();
     }
 
     private function verificarSeUsuarioConstaNaBase()
@@ -116,7 +127,7 @@ final class PontoEntity extends Entity
 
         if ($quantidade > 0) {
             mensagemErro(
-                'Erro!',
+                'Por favor, aguarde!',
                 'Você só pode fazer uma solicitação por vez, aguarde a finalização da solicitação em aberto.'
             );
         }
@@ -138,8 +149,46 @@ final class PontoEntity extends Entity
     {
         $PontoCvsHelper = new PontoCvsHelper;
         if (!$PontoCvsHelper->validarQuantidadePonto($this->ponto_solicitado, $this->cpfUsuario)) {
-            mensagemErro('Erro!', 'Quantidade de pontos maior informado é maior que seu saldo atual.');
+            mensagemErro('Saldo Insuficiente!', 'Quantidade de pontos informada é maior que seu saldo atual.');
         }
+    }
+
+    private function validarSeSolicitacaoFoiEfetuadaAPI()
+    {
+        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper->enviarSolicitacaoPonto($this->cpfUsuario, $this->ponto_solicitado);
+    }
+
+    protected function regraPosInsert()
+    {
+        $email = 'fabiogomes@spbancarios.com.br';
+        if (eLocalhost() || eHomologacao() || SISTEMA == 'LOCALHOST') {
+            $email =  'brian@marktclub.com.br';
+        }
+
+        $PontoCvsHelper = new PontoCvsHelper;
+        $matricula = $PontoCvsHelper->buscarPontos($this->cpfUsuario)->matricula;
+
+        $Construtor = new ConstrutorEntity();
+        $Construtor->buscar(['id', 165]);
+
+        $logo = $Construtor->logo;
+        $titulo = $Construtor->titulo;
+
+        $Email = new EmailHelper();
+        $Email->mensagem(
+            'Voucher Solicitado!',
+            'Um voucher foi solicitado',
+            'Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel! Para analisar sua situação, 
+            clique no botão abaixo:',
+            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
+            botaoTexto: 'Verificar Voucher',
+            botaoLink: LINK_PADRAO . '/painel/app/visualizar/ponto-cvs',
+            logo: LINK_ARQUIVO . '/construtor/' . $logo,
+            acao: 'Voucher',
+            cor: $Construtor->cor
+        );
+        $Email->sendGrid("Voucher Solicitado - $matricula", 'Fabio Gomes', $email, deNome: $titulo);
     }
 
     /*

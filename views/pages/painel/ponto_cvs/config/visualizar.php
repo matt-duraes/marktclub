@@ -8,10 +8,14 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Usuário', callback: function () use ($Painel) {
         $Painel
             ->vazioBreak('usuario', 'Usuário foi deletado e não existe mais')
+            ->linha('usuario->matricula', 'Matricula')
             ->linha('usuario->nome', 'Nome')
             ->linha('usuario->cpf', 'CPF')
             ->linha('usuario->email', 'E-mail')
             ->linha('usuario->telefone', 'Telefone')
+            ->linha('usuario->credito', 'Total créditos')
+            ->linha('usuario->debito', 'Total débitos')
+            ->linha('usuario->saldo', 'Saldo')
             ->botao('usuario_link', 'Ver usuário', link: LINK . '/app/visualizar/usuario-cliente/->usuario->id');
     });
 

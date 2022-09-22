@@ -28,7 +28,7 @@ final class PontoCvsTest extends Tests
     public function naoPodeResgatarValorMaiorQuePontoExistenteTest()
     {
         $this->salvarResgate(999999999);
-        return $this->erroPadrao('Quantidade de pontos maior informado é maior que seu saldo atual.');
+        return $this->erroPadrao('Quantidade de pontos informada é maior que seu saldo atual.');
     }
 
     public function salvandoSolicitacaoSemErroTest()
@@ -38,7 +38,8 @@ final class PontoCvsTest extends Tests
             ->Curl
             ->loginPainel()
             ->body([
-                'ponto_solicitado' => 100
+                'cpf' => '67783406815',
+                'ponto_solicitado' => Helper::PONTO_MINIMO
             ])
             ->post('/ponto-cvs');
 
@@ -49,7 +50,7 @@ final class PontoCvsTest extends Tests
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceIgual('dado.ponto_solicitado', 100)
+            ->checkIndiceIgual('dado.ponto', Helper::PONTO_MINIMO)
             ->checkIndiceIgual('dado.status', 'solicitado')
             ->checkIndiceIgual('dado.voucher', '')
             ->checkIndiceIgual('dado.data_voucher', '');
@@ -82,9 +83,10 @@ final class PontoCvsTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'ordem' => 'mais-novo',
+                'cpf' => '677.834.068-15',
             ])->get('/ponto-cvs');
 
         return $this
@@ -99,11 +101,11 @@ final class PontoCvsTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'quantidade' => 30,
-                'usuario' => uuid(),
                 'status' => 'solicitado',
+                'cpf' => '677.834.068-15',
                 'ordem' => 'mais-novo'
             ])
             ->get('/ponto-cvs');
@@ -120,7 +122,7 @@ final class PontoCvsTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'status' => 'nao_existe'
             ])
@@ -137,7 +139,7 @@ final class PontoCvsTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
                 'ordem' => 'nao_existe'
             ])
@@ -148,21 +150,21 @@ final class PontoCvsTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'O campo ordem não é um valor válido.');
     }
 
-    public function naoPodeListarPontosComUmUsuarioInvalidoTest()
+    public function naoPodeListarPontosComUmCpfInvalidoTest()
     {
         $this->api('ponto_cvs:listar');
         $this
             ->Curl
             ->loginPainel()
-            ->parametro([
+            ->json([
                 'pagina' => 1,
-                'usuario' => 'nao_existe'
+                'cpf' => 'nao_existe'
             ])
             ->get('/ponto-cvs');
 
         return $this
             ->checkStatus(400)
-            ->checkIndiceIgual('erro.mensagem', 'O campo usuario não é um valor válido.');
+            ->checkIndiceIgual('erro.mensagem', 'O campo cpf não é um valor válido.');
     }
 
     public function PontoNovoNaoPodeMudarStatusParaAprovadoTest()
@@ -271,7 +273,8 @@ final class PontoCvsTest extends Tests
             ->Curl
             ->loginPainel()
             ->body([
-                'ponto_solicitado' => $ponto
+                'ponto_solicitado' => $ponto,
+                'cpf' => '677.834.068-15'
             ])
             ->post('/ponto-cvs');
     }
