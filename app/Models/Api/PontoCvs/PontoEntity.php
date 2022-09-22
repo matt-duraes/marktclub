@@ -163,7 +163,7 @@ final class PontoEntity extends Entity
     {
         $email = 'fabiogomes@spbancarios.com.br';
         if (eLocalhost() || eHomologacao() || SISTEMA == 'LOCALHOST') {
-            $email =  'brian@marktclub.com.br';
+            $email =  'ti@marktclub.com.br';
         }
 
         $PontoCvsHelper = new PontoCvsHelper;
