@@ -10,11 +10,11 @@ use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 $Painel = new PainelConfig\Visualizar('usuario_cliente');
 
-$Painel
-    ->imagemRedonda('imagem')
-    ->titulo('nome')
-    ->subTitulo(['!email_pessoal', '!email_trabalho'])
-    ->margin(40);
+// $Painel
+//     ->imagemRedonda('imagem')
+//     ->titulo('nome')
+//     ->subTitulo(['!email_pessoal', '!email_trabalho'])
+//     ->margin(40);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Dados pessoais', callback: function () use ($Painel) {
@@ -74,6 +74,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
         $Painel
             ->linha('origem', 'Origem')
+            ->checked('lead', 'É um lead?')
             ->checked('primeiro_acesso', 'Primeiro acesso?')
             ->checked('mensagem', 'Aceita mensagem?')
             ->checked('mudar_senha', 'Mudar Senha?')

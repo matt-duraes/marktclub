@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 
 $Painel = new PainelConfig\Filtrar('usuario_cliente');
@@ -8,15 +9,23 @@ $Painel
     ->input(name: 'nome', titulo: 'Nome', label: 'Nome', placeholder: 'Digite o nome')
     ->email(name: 'email', titulo: 'E-mail', label: 'E-mail', placeholder: 'Digite um e-mail')
     ->cpf(name: 'cpf', titulo: 'CPF', label: 'CPF', placeholder: 'Digite um CPF')
-    ->input(name: 'matricula', titulo: 'Matrícula', label: 'Matrícula', placeholder: 'Digite uma matrícula')
-    ->input(name: 'siape', titulo: 'SIAPE', label: 'SIAPE', placeholder: 'Digite um SIAPE')
     ->bloco(function () use ($Painel) {
         $Painel
-            ->data(name: 'data_criacao_de', titulo: 'Criado em', label: 'Data de criação de', placeholder: 'Data de criação de')
-            ->data(name: 'data_criacao_ate', titulo: 'Criado até', label: 'Data de criação ate', placeholder: 'Data de criação ate');
+            ->input(name: 'matricula', titulo: 'Matrícula', label: 'Matrícula', placeholder: 'Digite uma matrícula')
+            ->input(name: 'siape', titulo: 'SIAPE', label: 'SIAPE', placeholder: 'Digite um SIAPE');
     })
-    ->data(name: 'data_upload', titulo: 'Data de upload', label: 'Data de upload', placeholder: 'Data de upload')
-    ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select())
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->data(name: 'data_criacao_de', titulo: 'Criado em', label: 'Criado em', placeholder: 'Criado em')
+            ->data(name: 'data_criacao_ate', titulo: 'Criado até', label: 'Criado até', placeholder: 'Criado até')
+            ->data(name: 'data_upload', titulo: 'Data de upload', label: 'Data de upload', placeholder: 'Data de upload');
+    })
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->select(name: 'origem', titulo: 'Origem', label: 'Origem', lista: (new Origem())->select())
+            ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select());
+    })
+    ->switch(name: 'lead', titulo: 'Usuários do lead', label: 'Apenas usuários do lead?')
     ->switch(name: 'pagamento', titulo: 'Pagamento em aberto', label: 'Apenas pagamento em aberto?');
 
 $Painel->replace('status', (new Status())->select());

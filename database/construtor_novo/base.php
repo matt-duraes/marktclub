@@ -8,6 +8,7 @@ return (new \DataBase\DataBase())
     ->imagem('logo')
     ->char('cor')
     ->text('link_site')
+    ->int('classe_login')->null()
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();

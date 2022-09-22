@@ -10,6 +10,6 @@ final class ConstrutorEntity extends Entity
     protected array $_buscar = [
         'id_admin_empresa' => 'empresa',
         'link_clube' => 'link_site',
-        'logo', 'titulo', 'cor'
+        'logo', 'titulo', 'cor', 'classe_login'
     ];
 }

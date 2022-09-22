@@ -3,6 +3,7 @@
 namespace App\Models\Api\UsuarioCliente\Trait;
 
 use App\Classes\UsuarioCliente\Helper;
+use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 
 trait WhereTrait
@@ -11,15 +12,7 @@ trait WhereTrait
     {
         $request = $this->request;
 
-        $where = [
-            [
-                'OR',
-                ['empresa', $this->idEmpresa],
-                [
-                    ['empresa', 1], ['tipo', 3]
-                ],
-            ]
-        ];
+        $where = [['empresa', $this->idEmpresa]];
 
         // Colocando para aparecer só quem tem data de ativação na FENAE
         if ($this->idEmpresa == 153) {
@@ -90,6 +83,17 @@ trait WhereTrait
         $dataCriacaoAte = $request->data_criacao_ate;
         if (validarDate($dataCriacaoAte)) {
             $where[] = ['data_criacao', '<=', dataBanco($dataCriacaoAte) . ' 23:59:59'];
+        }
+
+        // Lead
+        if ($request->lead == 'sim') {
+            $where[] = ['usuario_lead', 1];
+        }
+
+        // Origem
+        $origem = new Origem($request->origem);
+        if ($origem->valido()) {
+            $where[] = ['lead_origem', $origem->numero()];
         }
 
         // status
