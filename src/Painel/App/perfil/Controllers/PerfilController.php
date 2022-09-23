@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\Perfil\Controllers;
+namespace PainelApp\perfil\Controllers;
 
 use Erro\Excecao;
 use Http\Request;
@@ -26,7 +26,7 @@ final class PerfilController extends Controller
             mensagemStatus(404, localhost: 'Não foi encontrado o usuário');
         }
 
-        return view(arquivo: 'perfil.Views.index', var: $this->descriptografarUsuario($usuario['dado']));
+        return view(arquivo: 'perfil.index', var: $this->descriptografarUsuario($usuario['dado']));
     }
 
     public function dado(): Response
@@ -42,7 +42,7 @@ final class PerfilController extends Controller
             mensagemStatus(404, localhost: 'Não foi encontrado o usuário');
         }
 
-        return view(arquivo: 'perfil.Views.dado', var: [
+        return view(arquivo: 'perfil.dado', var: [
             'appTitulo' => 'Atualizar Dados',
             'appVoltar' => [route('perfil.index'), 'Perfil'],
             'genero' => (new ListaHelper)->add('', 'Escolha uma opção')->genero()->r(),

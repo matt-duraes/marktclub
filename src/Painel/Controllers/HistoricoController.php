@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Painel;
+namespace PainelController;
 
 use Http\Request;
 use Http\Response;

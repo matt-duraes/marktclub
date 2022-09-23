@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Models\Painel;
+namespace PainelModel\Download;
 
-use stdClass;
 use Helpers\ExcelHelper;
 
-final class DownloadGeral
+final class DownloadModel
 {
 
     public string $arquivo;

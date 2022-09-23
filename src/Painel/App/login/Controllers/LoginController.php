@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\Login\Controllers;
+namespace PainelApp\login\Controllers;
 
 use Http\Request;
 use Http\Response;
@@ -22,7 +22,7 @@ final class LoginController extends Controller
     */
     public function index()
     {
-        return view(arquivo: 'login.Views.index');
+        return view(arquivo: 'login.index');
     }
 
     /*

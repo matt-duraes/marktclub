@@ -118,9 +118,9 @@ final class LoginModel extends Entity
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
         } else if (!$cpf->valido()) {
             mensagemErro('Campo inválido!', 'O campo CPF não é um documento válido.');
-        } else if (!empty($matricula) && preg_match('/^[0-9]{1,}$/', $matricula)) {
+        } else if (!empty($matricula) && !preg_match('/^[0-9]{1,}$/', $matricula)) {
             mensagemErro('Campo inválido', 'A matrícula deve ser um valor inteiro.');
-        } else if (!empty($siape) && preg_match('/^[0-9]{1,}$/', $siape)) {
+        } else if (!empty($siape) && !preg_match('/^[0-9]{1,}$/', $siape)) {
             mensagemErro('Campo inválido', 'O SIAPE deve ser um valor inteiro.');
             //EMAIL
         } else if ($emailPessoal->vazio() && $emailTrabalho->vazio()) {
@@ -147,7 +147,7 @@ final class LoginModel extends Entity
         } else if (!empty($federacao) && !in_array($federacao, $estadoLista)) {
             mensagemErro('Campo inválido!', 'O campo Federação não é um valor válida.');
             // OUTROS
-        } else if (!empty($salavip) && preg_match('/^[0-9]{1,}$/', $salavip)) {
+        } else if (!empty($salavip) && !preg_match('/^[0-9]{1,}$/', $salavip)) {
             mensagemErro('Campo inválido', 'A Salavip deve ser um valor inteiro.');
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Painel\Upload;
+namespace PainelModel\Upload;
 
 use ORM\Entity;
 use Helpers\UploadHelper;

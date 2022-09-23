@@ -353,7 +353,7 @@ final class Visualizar
 
         $this->html[]['lista'][] = [
             'funcao' => 'include',
-            'arquivo' => ROOT . '/files/build/views/painel_' . $this->app . '_Views_' . $view . '.php'
+            'arquivo' => ROOT . '/files/build/views/painel_' . $this->app . '_' . $view . '.php'
         ];
         return $this;
     }

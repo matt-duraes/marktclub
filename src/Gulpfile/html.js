@@ -63,7 +63,10 @@ exports.htmlTodos = function () {
         await fsDeletarDiretorio('files/build/views');
         await fsCriarDiretorio('files/build/views');
 
-        const listaArquivo = glob.sync('views/@(pages|templates)/**/*.view');
+        const listaArquivo = glob
+            .sync('views/@(pages|templates)/**/*.view')
+            .concat(glob.sync('src/Painel/App/**/*.view'));
+
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
         let i, arquivo;
@@ -71,11 +74,14 @@ exports.htmlTodos = function () {
             arquivo = listaArquivo[i];
             if (!(/^views\/templates/.test(arquivo) && /\/index\.view$/.test(arquivo))) {
                 let nome = arquivo
+                    .replace(/^src\/Painel\/App\//, 'painel_')
                     .replace(/^views\/pages\//, '')
                     .replace(/^views\/templates\//, 'templates/')
                     .replace(/\/index\.view$/, '.php')
                     .replace(/\.view$/, '.php')
-                    .replace(/\//g, '_');
+                    .replace(/\/Views/, '')
+                    .replace(/\//g, '_')
+                    .replace(/_{2,}/g, '_');
 
                 try {
                     const retorno = await processarHtml(arquivo, nome);

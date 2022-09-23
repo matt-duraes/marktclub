@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Painel;
+namespace PainelController;
 
 use Erro\Excecao;
 use Http\Request;

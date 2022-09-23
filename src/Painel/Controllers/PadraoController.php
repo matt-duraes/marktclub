@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Painel;
+namespace PainelController;
 
 use stdClass;
 use Erro\Erro;
@@ -347,7 +347,7 @@ abstract class PadraoController extends Controller
     private function pegarAppUsado($app, $tipo)
     {
         if (file_exists(ROOT . '/views/pages/painel/' . $app . '/Views/' . $tipo . '/index.view')) {
-            return $app . '.Views';
+            return $app . '';
         }
         return 'default';
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Painel\Upload;
+namespace PainelModel\Upload;
 
 use stdClass;
 use ORM\Entity;

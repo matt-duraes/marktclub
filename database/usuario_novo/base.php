@@ -63,4 +63,5 @@ return (new \DataBase\DataBase())
     ->int('lead_origem')->tamanho(3)->null()
     ->int('usuario_lead')->tamanho(1)->null()
     ->int('relatorio')->tamanho(1)->null()
+    ->int('salavip')->tamanho(2)->null()
     ->status()->null();

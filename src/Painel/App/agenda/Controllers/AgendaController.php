@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\Agenda\Controllers;
+namespace PainelApp\agenda\Controllers;
 
 use Http\Request;
 use Http\Response;
@@ -15,7 +15,7 @@ final class AgendaController extends Controller
 {
     public function index()
     {
-        return view('painel.agenda.Views.index', [
+        return view('painel.agenda.index', [
             'appTitulo' => '',
             'app' => 'agenda',
             'agenda' => true

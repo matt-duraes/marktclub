@@ -72,16 +72,18 @@ abstract class Tests
     /**
      * Verifica se o valor é igual do valor comparado
      *
-     * @param mixed $valor          Valor a comparar
-     * @param mixed $comparacao     Valor a ser comparado
+     * @param mixed     $valor          Valor a comparar
+     * @param mixed     $comparacao     Valor a ser comparado
+     * @param string    $mensagem       Caso queira passar uma mensagem personalizada no final
      */
-    protected function checkIgual($valor, $comparacao)
+    protected function checkIgual($valor, $comparacao, ?string $mensagem = null)
     {
+        $mensagem = !empty($mensagem) ? ' (' . $mensagem . ')' : '';
         if ($valor == $comparacao) {
-            $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> é igual ao valor comparado <strong>' . $comparacao . '</strong>.');
+            $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> é igual ao valor comparado <strong>' . $comparacao . '</strong>.' . $mensagem);
             return $this;
         }
-        $this->setarRetorno(false, 'O valor <strong>' . $valor . '</strong> é difrente do valor comparado <strong>' . $comparacao . '</strong>.');
+        $this->setarRetorno(false, 'O valor <strong>' . $valor . '</strong> é difrente do valor comparado <strong>' . $comparacao . '</strong>.' . $mensagem);
         return $this;
     }
 

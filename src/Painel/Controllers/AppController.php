@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Controllers\Painel;
+namespace PainelController;
 
 use Erro\Erro;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
-use App\Models\Painel\DownloadGeral;
-use App\Controllers\Painel\PadraoController as Controller;
+use PainelModel\Download\DownloadModel;
 
-final class AppController extends Controller
+final class AppController extends PadraoController
 {
     public function index(Request $request, string $app): Response
     {
@@ -374,7 +373,7 @@ final class AppController extends Controller
         }
 
         $dado = $this->tratarListaDeRetorno($dado['dado'], $config->api->criptografar, 'array');
-        new DownloadGeral(
+        new DownloadModel(
             $dado,
             $config->download->replace,
             $app

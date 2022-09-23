@@ -28,7 +28,7 @@ trait DeleteTrait
 
         $this->ormResetarOrm();
         if (!$retorno instanceof PDOStatement) {
-            throw new Excecao(titulo: 'Erro ao deletar!', mensagem: is_string($retorno) ? $retorno : 'Ocorre um erro ao deletar, por favor, tente novamente.');
+            throw new Excecao(titulo: 'Erro ao deletar!', mensagem: is_string($retorno) && SISTEMA != 'PRODUCAO' ? $retorno : 'Ocorre um erro ao deletar, por favor, tente novamente.');
         }
         return true;
     }
