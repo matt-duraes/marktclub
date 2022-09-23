@@ -3,6 +3,17 @@
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
 
+    const botaoAbrirMudarImagem = document.getElementById('botao_abrir_mudar_imagem');
+    const blocoMudarImagem = document.getElementById('bloco_perfil_imagem');
+    botaoAbrirMudarImagem.addEventListener('click', () => {
+        blocoMudarImagem.classList.add('display_flex');
+        setTimeout(() => {
+            blocoMudarImagem.classList.add('abrir');
+        }, 20);
+    });
+
+    return;
+
     const facebookAppId = document.getElementById('FACEBOOK_APP_ID').value;
     window.fbAsyncInit = function () {
         FB.init({

@@ -144,16 +144,18 @@ async function monitorarSistema() {
         await cssUnico(path, browserSync);
         consoleFooter(time);
     });
-    watch(['./views/templates/**/*.styl', './resources/css/**/*.styl', './src/Html/Scripts/css/*.styl']).on(
-        'change',
-        async () => {
-            const time = new Date().getTime();
-            consoleHeader();
-            await cssTodos();
-            browserSync.reload();
-            consoleFooter(time);
-        }
-    );
+    watch([
+        './src/Painel/App/**/*.styl',
+        './views/templates/**/*.styl',
+        './resources/css/**/*.styl',
+        './src/Html/Scripts/css/*.styl',
+    ]).on('change', async () => {
+        const time = new Date().getTime();
+        consoleHeader();
+        await cssTodos();
+        browserSync.reload();
+        consoleFooter(time);
+    });
 
     // JS
     watch('./views/pages/**/*.js').on('change', async path => {
@@ -163,16 +165,18 @@ async function monitorarSistema() {
         browserSync.reload();
         consoleFooter(time);
     });
-    watch(['./views/templates/**/*.js', './resources/js/**/*.js', './src/Html/Scripts/js/*.js']).on(
-        'change',
-        async () => {
-            const time = new Date().getTime();
-            consoleHeader();
-            await jsTodos();
-            browserSync.reload();
-            consoleFooter(time);
-        }
-    );
+    watch([
+        './src/Painel/App/**/*.js',
+        './views/templates/**/*.js',
+        './resources/js/**/*.js',
+        './src/Html/Scripts/js/*.js',
+    ]).on('change', async () => {
+        const time = new Date().getTime();
+        consoleHeader();
+        await jsTodos();
+        browserSync.reload();
+        consoleFooter(time);
+    });
 
     // HTML
     watch('./views/pages/**/*.view').on('change', async path => {
@@ -182,13 +186,16 @@ async function monitorarSistema() {
         browserSync.reload();
         consoleFooter(time);
     });
-    watch(['./views/templates/**/*.view', './resources/php/**/*.php']).on('change', async () => {
-        const time = new Date().getTime();
-        consoleHeader();
-        await htmlTodos();
-        browserSync.reload();
-        consoleFooter(time);
-    });
+    watch(['./src/Painel/App/**/*.view', './views/templates/**/*.view', './resources/php/**/*.php']).on(
+        'change',
+        async () => {
+            const time = new Date().getTime();
+            consoleHeader();
+            await htmlTodos();
+            browserSync.reload();
+            consoleFooter(time);
+        }
+    );
     watch(['./src/**/*.php', '!./src/Database/tabela.php']).on('change', () => {
         browserSync.reload();
     });

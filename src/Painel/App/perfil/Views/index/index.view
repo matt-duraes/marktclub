@@ -3,7 +3,7 @@
 <div id="bloco_perfil">
     <div class="conteudo">
         <div class="imagem">
-            <figure id="perfil_imagem_principal" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+            <figure id="perfil_imagem_principal" style="background-image: url({!!USUARIO_IMAGEM!!})"><button id="botao_abrir_mudar_imagem"><span>Mudar imagem</span></button></figure>
         </div>
         <div class="botao">
             <a href="{!!route('perfil.dado')!!}">editar</a>
@@ -38,6 +38,38 @@
                 <i>@iconeGoogle()</i>
                 <p>Google</p>
             </button>
+        </div>
+    </div>
+</div>
+
+
+<div id="bloco_perfil_imagem">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>MUDAR IMAGEM</h1>
+            <i class="fechar" id="botao_dependente_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <form action="/" class="form_geral">
+                <input type="hidden" id="input_permissao_deletar" value="{!! painelPermissao('usuario_dependente_deletar', erro: false) ? 'sim' : 'nao' !!}">
+                @hash('IMAGEM_HASH', 'imagem_hash')
+                <p>Faça upload de sua imagem ou use uma das redes sociais</p>
+
+                <div class="botao">
+                    <input type="file" accept="jpg,png">
+                    <i>@iconeUpload</i>
+                    <p>UPLOAD</p>
+                </div>
+
+                <div class="ou"><span>ou</span></div>
+
+                <div class="social">
+                    <button><i>@iconeFacebook</i>Facebook</button>
+                    <button><i>@iconeGoogle</i>Google</button>
+                </div>
+
+                <div class="botao" id="botao_dependente_salvar">Salvar</div>
+            </form>
         </div>
     </div>
 </div>

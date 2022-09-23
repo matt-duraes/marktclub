@@ -246,7 +246,7 @@ if (!function_exists('painelLinhaLista')) {
                             $valorTemporario = $replace[$val][$valorTemporario] ?? $valorTemporario;
                         }
                         if ($acao == 'contar') {
-                            $valor = array_merge($valor, $valorTemporario);
+                            $valor = array_merge(is_object($valor) ? (array) $valor : $valor, is_object($valorTemporario) ? (array)$valorTemporario : $valorTemporario);
                             continue;
                         }
                         $valor[] = $valorTemporario;

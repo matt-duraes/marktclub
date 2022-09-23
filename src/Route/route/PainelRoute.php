@@ -3,6 +3,8 @@
 use Route\Route;
 use App\Middlewares\AuthMiddleware;
 use PainelController\AppController;
+use PainelController\UploadController;
+use PainelController\HistoricoController;
 use PainelApp\login\Controllers\LoginController;
 use PainelApp\agenda\Controllers\AgendaController;
 use PainelApp\perfil\Controllers\PerfilController;
@@ -235,7 +237,7 @@ Route
     }, true)
 
     // UPLOAD
-    ::controller(App\Controllers\Painel\UploadController::class)
+    ::controller(UploadController::class)
     ::grupo(function () {
         Route
             ::action('extensao')
@@ -302,7 +304,7 @@ Route
     }, true)
 
     // HISTORICO
-    ::controller(App\Controllers\Painel\HistoricoController::class)
+    ::controller(HistoricoController::class)
     ::grupo(function () {
         Route
             ::nome('salvar')
