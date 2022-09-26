@@ -21,6 +21,7 @@ use ReflectionObject;
 use ReflectionProperty;
 use Modules\EnderecoCep;
 use Modules\EstadoCivil;
+use Helpers\UploadHelper;
 use ORM\Trait\MudouTrait;
 use Modules\EnderecoEstado;
 use ORM\Buscar\BuscarTrait;
@@ -29,6 +30,7 @@ use Status\StatusInterface;
 use Modules\ModuleInterface;
 use ORM\Join\RelacionarTrait;
 use ORM\Deletar\DestruirTrait;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class Entity extends ORM
 {
@@ -184,6 +186,15 @@ abstract class Entity extends ORM
         if (in_array($propriedade, ['id', 'uuid'])) {
             return;
         }
+
+        if (is_array($valor) && array_key_exists('name', $valor) && array_key_exists('postname', $valor)) {
+            $valor = new UploadedFile(
+                path: $valor['name'],
+                originalName: $valor['postname'],
+                mimeType: $valor['mime'] ?? ''
+            );
+        }
+
         $metodo = 'set' . str_replace(' ', '', ucwords(mb_strtolower(str_replace('_', ' ', $propriedade), 'UTF-8')));
         if (method_exists($this, $metodo)) {
             $this->_setReal[$propriedade] = $valor;

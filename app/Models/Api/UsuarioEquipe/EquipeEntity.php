@@ -11,8 +11,10 @@ use Modules\Email;
 use Modules\Senha;
 use Modules\Genero;
 use Modules\Telefone;
+use Helpers\UploadHelper;
 use App\Classes\UsuarioEquipe\Status;
 use App\Models\Api\UsuarioEquipe\Trait\CampoUnicoTrait;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class EquipeEntity extends Entity
 {
@@ -39,6 +41,9 @@ final class EquipeEntity extends Entity
     protected array $_insert = [
         'id_admin_empresa' => '->idEmpresa',
         'tipo' => 1
+    ];
+    protected array $_update = [
+        'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google', 'id_facebook', 'id_google'
     ];
 
     protected string $_validarSalvar = '
@@ -68,6 +73,7 @@ final class EquipeEntity extends Entity
     public Botao $mudar_senha;
     public Status $status;
     public string $imagem;
+    public UploadedFile|UploadHelper|string $imagem_arquivo;
 
     private int $idEmpresa;
     public function __construct(
@@ -138,6 +144,24 @@ final class EquipeEntity extends Entity
     {
         if (!$this->propriedadeExiste('status')) {
             $this->status = new Status('inativo');
+        }
+    }
+
+    protected function regraUpdate()
+    {
+        if (empty($this->prop('imagem_facebook')) && !empty($this->imagem_facebook)) {
+            $this->imagem_tipo = 3;
+        } else if (empty($this->prop('imagem_google')) && !empty($this->imagem_google)) {
+            $this->imagem_tipo = 2;
+        } else if ($this->imagem_arquivo instanceof UploadedFile) {
+            $this->imagem_tipo = 1;
+            $this->imagem_arquivo = (new UploadHelper(
+                $this->imagem_arquivo,
+                diretorio: 'equipe',
+                ext: ['png', 'jpg', 'jpeg'],
+                nome: md5(uniqid(time())),
+                mbMaximo: 5
+            ))->redimencionar(1000, 1000);
         }
     }
 }

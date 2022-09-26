@@ -112,8 +112,15 @@ Route
         Route
             ::nome('social')
             ::_rotaNaoUnica()
-            ::request(['hash_validacao', 'id', 'token', 'tipo'])
+            ::request(['hash_validacao', 'id', 'token', 'tipo', 'acao'])
             ::post('/perfil/social');
+
+        Route
+            ::nome('imagem')
+            ::_rotaNaoUnica()
+            ::request(['hash_validacao'])
+            ::request(['arquivo'], 'files')
+            ::post('/perfil/imagem');
     }, true)
 
     // AGENDA

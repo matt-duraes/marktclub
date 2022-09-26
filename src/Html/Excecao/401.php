@@ -1,6 +1,6 @@
 <?php
 
-$titulo = 'Sem premissão';
+$titulo = 'Sem permissão';
 $mensagem = 'Sem permissão para acessar essa página.';
 $codigo = '401';
 

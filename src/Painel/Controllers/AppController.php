@@ -215,9 +215,9 @@ final class AppController extends PadraoController
         }
 
         $requestCampo = $config->salvar->salvar ?? [];
-        if ($acao == 'insert' && inKey('salvar->insert', $config) && is_array($config->salvar->insert) && $config->salvar->insert) {
+        if ($acao == 'insert' && inKey('salvar.insert', $config) && is_array($config->salvar->insert) && $config->salvar->insert) {
             $requestCampo = array_merge($requestCampo, $config->salvar->insert);
-        } elseif ($acao == 'update' && inKey('salvar->update', $config) && is_array($config->salvar->update) && $config->salvar->update) {
+        } elseif ($acao == 'update' && inKey('salvar.update', $config) && is_array($config->salvar->update) && $config->salvar->update) {
             $requestCampo = array_merge($requestCampo, $config->salvar->update);
         }
 
