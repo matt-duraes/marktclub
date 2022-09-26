@@ -41,7 +41,7 @@ final class PontoEntity extends Entity
     {
         parent::__construct();
 
-        $this->cpfUsuario = !empty($cpf) ? $cpf : TOKEN['usuario']->cpf->numero();
+        $this->cpfUsuario = !empty($cpf) ? $cpf : (!empty(TOKEN['usuario']) ? TOKEN['usuario']->cpf->numero() : '');
         $this->cpfUsuario = soNumero($this->cpfUsuario);
 
         $this->relacionarTabela(
@@ -56,17 +56,17 @@ final class PontoEntity extends Entity
         );
     }
 
-    public function retorno()
+    protected function regraPosBuscar()
     {
-        $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
-        $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
-
         $PontoCvsHelper = new PontoCvsHelper;
         $pontos = $PontoCvsHelper->buscarPontos($this->usuario_documento);
 
+        $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
+        $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
+    
         $usuario = [];
         if ($this->usuario_status != 4) {
-            $usuario = [
+            $this->usuario = [
                 'matricula' => $this->usuario_matricula,
                 'id' => $this->usuario_cod,
                 'nome' => $this->usuario_nome,
@@ -78,18 +78,6 @@ final class PontoEntity extends Entity
                 'saldo' => $pontos->saldo
             ];
         }
-
-        return [
-            'id' => $this->id,
-            'usuario' => $usuario,
-            'ponto' => strNull($this->ponto_solicitado),
-            'voucher' => strNull($this->voucher),
-            'mensagem' => strNull($this->mensagem),
-            'data_solicitacao' => $this->data_solicitacao->data(),
-            'data_voucher' => $this->data_voucher->data(),
-            'data_atualizacao' => $this->data_atualizacao->data(),
-            'status' => $this->status->indice()
-        ];
     }
 
     /*

@@ -21,7 +21,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco(titulo: 'Dados do voucher', callback: function () use ($Painel) {
         $Painel
-            ->linha('ponto', 'Ponto solicitado')
+            ->linha('ponto_solicitado', 'Ponto solicitado')
             ->linha('voucher', 'Voucher')
             ->linha('mensagem', 'Mensagem')
             ->linha('data_solicitacao', 'Data de solicitação')

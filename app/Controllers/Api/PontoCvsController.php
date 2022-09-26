@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\PontoCvs\Helper;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
@@ -25,13 +26,15 @@ final class PontoCvsController extends Controller implements
         $Ponto->ponto_solicitado = $request->ponto_solicitado;
         $Ponto->salvar();
 
-        return mensagemSucesso($Ponto->retorno(), 201);
+        return $this->retornoSucesso($Ponto, 201);
     }
 
     public function getListar(Request $request)
     {
         $Ponto = new PontoModel($request);
+
         $dado = $Ponto->listarDados();
+        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
 
         return mensagemSucesso($dado);
     }
@@ -43,7 +46,7 @@ final class PontoCvsController extends Controller implements
         $Ponto = new pontoEntity;
         $Ponto->id($id);
 
-        return mensagemSucesso($Ponto->retorno());
+        return $this->retornoSucesso($Ponto);
     }
 
     public function putAtualizar(Request $request, string $id)
@@ -58,5 +61,20 @@ final class PontoCvsController extends Controller implements
         $Ponto->salvar();
 
         return new Response(status: 204);
+    }
+
+    private function retornoSucesso(PontoEntity $Ponto, int $status = 200)
+    {
+        return mensagemSucesso(
+            dado: pegarPropriedadeDaEntity(
+                $Ponto,
+                lista: [
+                    'id', 'usuario', 'ponto_solicitado', 'voucher', 'mensagem', 'data_solicitacao', 'data_voucher',
+                    'data_atualizacao', 'status'
+                ]
+            ),
+            status: $status,
+            criptografar: Helper::CRIPTOGRAFAR
+        );
     }
 }
