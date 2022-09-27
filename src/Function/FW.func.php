@@ -1531,7 +1531,7 @@ if (!function_exists('imagemUsuario')) {
             return $google;
         }
         if (!empty($arquivo)) {
-            return arquivoPrivado($arquivo);
+            return arquivoPublico('usuario', $arquivo);
         }
         return arquivoPublico('usuario', 'padrao.png');
     }

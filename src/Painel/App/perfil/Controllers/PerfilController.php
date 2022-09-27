@@ -216,7 +216,10 @@ final class PerfilController extends Controller
 
         $usuario = (new ApiHelper(token: true))->get('/usuario-equipe/' . sessao('USUARIO.id'))->object();
         $imagem = descriptografarDado($usuario->dado->imagem, chave: (new ApiHelper(token: true))->get('/admin/chave-privada')->object()->dado->chave ?? '');
-        return mensagemSucesso(['imagem' => $imagem], status: 201);
+
+        sessao('USUARIO.imagem', $imagem);
+
+        return mensagemSucesso(['imagem' => $imagem . '?cache=' . md5(uniqid(time()))], status: 201);
     }
 
     /*

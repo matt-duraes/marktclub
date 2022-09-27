@@ -157,9 +157,10 @@ final class EquipeEntity extends Entity
             $this->imagem_tipo = 1;
             $this->imagem_arquivo = (new UploadHelper(
                 $this->imagem_arquivo,
-                diretorio: 'equipe',
+                diretorio: 'usuario',
                 ext: ['png', 'jpg', 'jpeg'],
-                nome: md5(uniqid(time())),
+                nome: $this->id,
+                nomeForcar: true,
                 mbMaximo: 5
             ))->redimencionar(1000, 1000);
         }

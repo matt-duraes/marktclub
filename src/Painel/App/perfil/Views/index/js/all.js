@@ -38,6 +38,31 @@ window.addEventListener('load', () => {
             blocoMudarImagem.classList.add('abrir');
         }, 20);
     });
+    const fecharPopupMudarImagem = () => {
+        blocoMudarImagem.classList.remove('abrir');
+        setTimeout(() => {
+            blocoMudarImagem.classList.remove('display_flex');
+        }, 300);
+    };
+
+    const botaoPerfilImagemFecharDesktop = document.getElementById('botao_perfil_imagem_fechar_desktop');
+    const botaoPerfilImagemFecharMobile = document.getElementById('botao_perfil_imagem_fechar_mobile');
+    botaoPerfilImagemFecharDesktop.addEventListener('click', () => {
+        fecharPopupMudarImagem();
+    });
+    botaoPerfilImagemFecharMobile.addEventListener('click', () => {
+        fecharPopupMudarImagem();
+    });
+    blocoMudarImagem.addEventListener('click', e => {
+        if (e.target.getAttribute('id') == 'bloco_perfil_imagem') {
+            fecharPopupMudarImagem();
+        }
+    });
+
+    const botaoImagemFacebook = document.getElementById('botao_vincular_imagem_facebook');
+    botaoImagemFacebook.addEventListener('click', () => {
+        oauth2Facebook('imagem');
+    });
 
     /*
     |--------------------------------------------------------------------------
@@ -90,21 +115,25 @@ window.addEventListener('load', () => {
                 client_id: socialGoogleId,
                 cookiepolicy: 'single_host_origin',
             });
-            attachSignin(document.getElementById('botao_vincular_google'));
+            attachSignin(document.getElementById('botao_vincular_google'), 'vincular');
+            attachSignin(document.getElementById('botao_vincular_imagem_google'), 'imagem');
         });
     };
     document.getElementById('botao_vincular_google').addEventListener('click', () => {
         Loading.show();
     });
+    document.getElementById('botao_vincular_imagem_google').addEventListener('click', () => {
+        Loading.show();
+    });
 
-    const attachSignin = element => {
+    const attachSignin = (element, acao) => {
         auth2.attachClickHandler(
             element,
             {},
             googleUser => {
                 const id = googleUser.getBasicProfile().getId();
                 const token = googleUser.getAuthResponse().id_token;
-                vincularContaSocial(id, token, 'google');
+                vincularContaSocial(id, token, 'google', acao);
             },
             () => {
                 Loading.hide();
@@ -145,8 +174,7 @@ window.addEventListener('load', () => {
 
         Loading.hide();
         if (response.status == 201 && acao == 'imagem') {
-            menuConfig.style.backgroundImage = 'url(' + json.dado.imagem + ')';
-            perfilImagemPrincipal.style.backgroundImage = 'url(' + json.dado.imagem + ')';
+            setarNovaImagem(json.dado.imagem);
             return;
         } else if (response.status != 201) {
             Alerta.notificacao('Ocorreu um erro ao vincular sua conta, por favor, tente novamente.', false);
@@ -174,7 +202,6 @@ window.addEventListener('load', () => {
     const botaoArquivoUpload = document.querySelector('#botao_upload_imagem_arquivo');
     botaoArquivoUpload.addEventListener('dragover', e => {
         e.preventDefault();
-        // fazerUploadDoArquico(e.dataTransfer.items[i].getAsFile());
     });
 
     const hash = document.querySelector('#bloco_perfil_imagem input[name=form_system_hash]').value;
@@ -186,7 +213,18 @@ window.addEventListener('load', () => {
 
         fazerUploadDoArquivo(e.dataTransfer.files[0]);
     });
+    botaoArquivoUpload.addEventListener('change', () => {
+        const arquivo = botaoArquivoUpload.files[0];
+        if (!arquivo) {
+            return;
+        }
+        botaoArquivoUpload.value = '';
+        fazerUploadDoArquivo(arquivo);
+    });
+
     const fazerUploadDoArquivo = async arquivo => {
+        Loading.show();
+
         const body = new FormData();
         body.append('arquivo', arquivo);
         body.append('form_system_hash', hash);
@@ -196,5 +234,27 @@ window.addEventListener('load', () => {
             method: 'POST',
             body,
         });
+
+        let json;
+        try {
+            json = await response.json();
+        } catch (error) {
+            json = {};
+        }
+
+        Loading.hide();
+
+        if (response.status == 201) {
+            fecharPopupMudarImagem();
+            setarNovaImagem(json.dado.imagem);
+            return;
+        }
+
+        Alerta.notificacao(json.erro.mensagem, false);
+    };
+
+    const setarNovaImagem = imagem => {
+        menuConfig.style.backgroundImage = 'url(' + imagem + ')';
+        perfilImagemPrincipal.style.backgroundImage = 'url(' + imagem + ')';
     };
 });
