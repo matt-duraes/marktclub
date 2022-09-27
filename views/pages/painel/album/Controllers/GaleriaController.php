@@ -20,7 +20,7 @@ final class GaleriaController extends Controller
         $Album = new AlbumDadoEntity();
         $Album->id($uuid);
 
-        return view('painel.album.Views.galeria_index', [
+        return view('painel.album.galeria_index', [
             'id' => $uuid,
             'appTitulo' => $Album->titulo,
             'appVoltar' => [route('album.index'), 'ÁLBUM'],
@@ -93,7 +93,7 @@ final class GaleriaController extends Controller
         $Arquivo = new AlbumArquivoEntity();
         $Arquivo->id($request->id);
 
-        return view('painel.album.Views.galeria_editar', [
+        return view('painel.album.galeria_editar', [
             'id' => $request->id,
             'album' => $request->album,
             'titulo' => $Arquivo->titulo

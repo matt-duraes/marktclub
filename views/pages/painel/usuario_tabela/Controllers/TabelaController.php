@@ -12,7 +12,7 @@ final class TabelaController extends Controller
 {
     public function salvar()
     {
-        return view(arquivo: 'painel.usuario_tabela.Views.index', var: [
+        return view(arquivo: 'painel.usuario_tabela.index', var: [
             'appTitulo' => 'TABELA / SALVAR',
             'app' => 'tabela-salvar',
             'tipo' => 'salvar',
@@ -22,7 +22,7 @@ final class TabelaController extends Controller
 
     public function bloquear()
     {
-        return view(arquivo: 'painel.usuario_tabela.Views.index', var: [
+        return view(arquivo: 'painel.usuario_tabela.index', var: [
             'appTitulo' => 'TABELA / BLOQUEAR',
             'app' => 'tabela-bloquear',
             'tipo' => 'bloquear',

@@ -15,7 +15,7 @@ final class DataPolicyController extends Controller
         painelPermissao($dado->permissao);
         $DataPolicy = new DataPolicy;
 
-        return view('painel.data_policy.Views.contexto', [
+        return view('painel.data_policy.contexto', [
             'contexto' => $DataPolicy->contexto($dado->uri),
             'appTitulo' => $dado->titulo,
             'app' => $dado->menu,
@@ -33,7 +33,7 @@ final class DataPolicyController extends Controller
         $lista = $DataPolicy->listarDados($dado->tipo, $dado->uri, $hash, $pagina);
         $nomeTag = $DataPolicy->pegarNomeContexto($hash);
 
-        return view('painel.data_policy.Views.lista', [
+        return view('painel.data_policy.lista', [
             'appTitulo' => 'LISTAR',
             'app' => $dado->menu,
             'lista' => $lista,
@@ -66,7 +66,7 @@ final class DataPolicyController extends Controller
         $contexto = $DataPolicy->pegarHashContexto($hash);
         $pagina = $DataPolicy->pegarPaginaContexto($hash, true);
 
-        return view('painel.data_policy.Views.detalhe', [
+        return view('painel.data_policy.detalhe', [
             'r' => $r,
             'appTitulo' => $r->titulo,
             'appVoltar' => [

@@ -2,7 +2,8 @@
 
 use Http\Response;
 
-$nome = arquivoPublicoNome($requestUri);
+$explode = explode('?', $requestUri);
+$nome = arquivoPublicoNome($explode[0]);
 
 if (empty($nome)) {
     mensagemStatus(404, 'O arquivo está sem nome.');

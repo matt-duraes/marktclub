@@ -21,7 +21,7 @@ final class AlbumController extends Controller
         $Album = new AlbumDadoModel();
 
         $permissao = sessao('USUARIO.permissao');
-        return view('painel.album.Views.album_index', [
+        return view('painel.album.album_index', [
             'appTitulo' => 'ÁLBUM',
             'app' => 'album',
             'album' => $Album->listarAlbuns(),

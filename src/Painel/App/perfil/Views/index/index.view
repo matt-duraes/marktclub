@@ -1,0 +1,79 @@
+@template "painel"
+
+<div id="bloco_perfil">
+    <div class="conteudo">
+        <div class="imagem">
+            <figure id="perfil_imagem_principal" style="background-image: url({!!USUARIO_IMAGEM!!})"><button id="botao_abrir_mudar_imagem"><span>Mudar imagem</span></button></figure>
+        </div>
+        <div class="botao">
+            <a href="{!!route('perfil.dado')!!}">editar</a>
+        </div>
+
+        <article class="bloco esquerdo">
+            <h1>DADOS PESSOAIS</h1>
+            <p><strong>Nome:</strong> {!!$nome ? $nome : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>CPF:</strong> {!!$cpf ? strCpf($cpf) : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Data Nascimento:</strong> {!!$data_nascimento ? dataBr($data_nascimento) : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Gênero:</strong> {!!$genero ? $genero : '<span class="zero">não informado</span>'!!}</p>
+        </article>
+
+        <article class="bloco direito">
+            <h1>DADOS DE CONTATO</h1>
+            <p><strong>Telefone pessoal:</strong> {!!$telefone_pessoal ? strTelefone($telefone_pessoal) : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>Telefone trabalho:</strong> {!!$telefone_trabalho ? strTelefone($telefone_trabalho) : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>E-mail pessoal:</strong> {!!$email_pessoal ? $email_pessoal : '<span class="zero">não informado</span>'!!}</p>
+            <p><strong>E-mail trabalho:</strong> {!!$email_trabalho ? $email_trabalho : '<span class="zero">não informado</span>'!!}</p>
+        </article>
+
+        <div class="social" id="bloco_vinculo_social">
+            @hash('social')
+            <h1>REDES SOCIAIS</h1>
+            <p>Vincule suas redes sociais para fazer login sem precisar de login e senha e para utilizar sua foto de perfil.</p>
+            <div class="linha"></div>
+            <button id="botao_vincular_facebook" class="botao_social facebook">
+                <i>@iconeFacebook()</i>
+                <p>Facebook</p>
+            </button>
+            <button id="botao_vincular_google" class="botao_social google">
+                <i>@iconeGoogle()</i>
+                <p>Google</p>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div id="bloco_perfil_imagem">
+    <div class="bloco_pagina_popup bloco_geral">
+        <header class="header_pagina_popup">
+            <i class="fechar mobile" id="botao_perfil_imagem_fechar_mobile">@iconeVoltar</i>
+            <h1>MUDAR IMAGEM</h1>
+            <i class="fechar desktop" id="botao_perfil_imagem_fechar_desktop">@iconeFechar</i>
+        </header>
+        <form action="/" class="conteudo_pagina_popup conteudo form_geral">
+            @hash('IMAGEM_HASH', 'imagem_hash')
+            <div class="botao_upload">
+                <input type="file" accept="jpg,png" id="botao_upload_imagem_arquivo">
+                <i>@iconeUpload</i>
+                <p class="desktop">Clique ou arraste e solte sua imagem aqui</p>
+                <p class="mobile">Faça o upload de uma imagem para perfil</p>
+            </div>
+
+            <div class="ou">
+                <span></span>
+                <p>ou</p>
+            </div>
+
+            <div class="social">
+                <div class="botao_social facebook" id="botao_vincular_imagem_facebook">
+                    <i>@iconeFacebook</i>
+                    <p>Facebook</p>
+                </div>
+                <div class="botao_social google" id="botao_vincular_imagem_google">
+                    <i>@iconeGoogle</i>
+                    <p>Google</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

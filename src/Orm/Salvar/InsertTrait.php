@@ -64,7 +64,7 @@ trait InsertTrait
 
         $this->ormResetarOrm();
         if (!$retorno instanceof PDOStatement) {
-            throw new Excecao(titulo: 'Erro ao salvar!', mensagem: is_string($retorno) ? $retorno : 'Ocorre um erro ao salvar, por favor, tente novamente.');
+            throw new Excecao(titulo: 'Erro ao salvar!', mensagem: is_string($retorno) && SISTEMA != 'PRODUCAO' ? $retorno : 'Ocorre um erro ao salvar, por favor, tente novamente.');
         }
 
         if ($id) {
