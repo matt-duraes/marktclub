@@ -72,7 +72,9 @@ exports.jsTodos = function () {
 
         await fsDeletarDiretorio(config.public + '/js');
 
-        const listaArquivo = glob.sync('views/@(pages|templates)/**/all.js');
+        const listaArquivo = glob
+            .sync('views/@(pages|templates)/**/all.js')
+            .concat(glob.sync('src/Painel/App/**/all.js'));
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
         let i, arquivo;
@@ -101,9 +103,12 @@ function processarJs(path) {
     return new Promise(async (resolve, reject) => {
         const dirBase = path.replace(/\/all.js$/, '') + '/';
         const nome = path
+            .replace(/^src\/Painel\/App\//, 'painel_')
             .replace(/^views\/(pages\/)?/, '')
             .replace(/\/js\/[a-zA-Z0-9\-\_\.]+\.js/, '')
-            .replace(/\//g, '_');
+            .replace(/\/Views/, '')
+            .replace(/\//g, '_')
+            .replace(/_{2,}/g, '_');
         const conteudo = fs.readFileSync(path, 'utf-8');
 
         let listaImport = pegarListaImports(conteudo, dirBase);

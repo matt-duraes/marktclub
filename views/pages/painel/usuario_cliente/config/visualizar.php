@@ -10,11 +10,11 @@ use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 $Painel = new PainelConfig\Visualizar('usuario_cliente');
 
-// $Painel
-//     ->imagemRedonda('imagem')
-//     ->titulo('nome')
-//     ->subTitulo(['!email_pessoal', '!email_trabalho'])
-//     ->margin(40);
+$Painel
+    ->imagemRedonda('imagem')
+    ->titulo('nome')
+    ->subTitulo(['!email_pessoal', '!email_trabalho'])
+    ->margin(40);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Dados pessoais', callback: function () use ($Painel) {
@@ -85,8 +85,8 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->include('pagamento', campo: 'pagamento');
 $Painel->include('dependente', campo: 'dependente');
 
-$Painel->css('painel_usuario_cliente_Views__visualizar');
-$Painel->js('painel_usuario_cliente_Views__visualizar');
+$Painel->css('painel_usuario_cliente_visualizar');
+$Painel->js('painel_usuario_cliente_visualizar');
 
 
 $Api = new ApiHelper(token: true);

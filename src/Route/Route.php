@@ -43,6 +43,7 @@ final class Route
     private static array $link = [];
     private static bool $eGrupo = true;
     private static bool $semGrupo = false;
+    private static bool $rotaUnica = true;
 
     /**
      * Cria um grupo para as rotas
@@ -103,6 +104,15 @@ final class Route
     {
         self::$eGrupo = false;
         self::$semGrupo = true;
+        return __CLASS__;
+    }
+
+    /**
+     * NÃO USAR ESSE MÉTODO
+     */
+    public static function _rotaNaoUnica()
+    {
+        self::$rotaUnica = false;
         return __CLASS__;
     }
 
@@ -345,6 +355,7 @@ final class Route
         ];
         self::$action = '';
         self::$nome = '';
+        self::$rotaUnica = true;
         if (self::$semGrupo) {
             self::$eGrupo = true;
             self::$semGrupo = false;
@@ -357,7 +368,9 @@ final class Route
         $url = self::criarUrl($uri);
         self::adicionarLink($metodoReal, $url);
 
-        if (array_key_exists($url, self::$Route['rota'][$metodo])) {
+        if (array_key_exists($url, self::$Route['rota'][$metodo]) && !self::$rotaUnica) {
+            return;
+        } else if (array_key_exists($url, self::$Route['rota'][$metodo])) {
             throw new Erro(
                 arquivo: 'trace:1',
                 mensagem: 'A uri ' . $url . ' no método ' . $metodo . ' já foi declarada.'

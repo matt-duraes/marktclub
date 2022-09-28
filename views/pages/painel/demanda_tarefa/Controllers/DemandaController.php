@@ -20,7 +20,7 @@ final class DemandaController extends Controller
     public function index()
     {
         $Tarefa = new TarefaModel();
-        return view('painel.demanda.views.index', [
+        return view('painel.demanda.index', [
             'tarefa' => [
                 $Tarefa->backlog(),
                 $Tarefa->toDo(),
@@ -37,7 +37,7 @@ final class DemandaController extends Controller
         $Tarefa = new TarefaEntity();
         $Tarefa->buscar(['url', $url]);
 
-        return view('painel.demanda.views.detalhe', [
+        return view('painel.demanda.detalhe', [
             'id' => $Tarefa->id,
             'titulo' => $Tarefa->titulo,
             'texto' => $Tarefa->texto,
@@ -54,7 +54,7 @@ final class DemandaController extends Controller
                 'nome' => sessao('USUARIO.nome'),
                 'imagem' => sessao('USUARIO.imagem')
             ],
-            'arquivo' => html('painel.demanda.views.arquivo', ['lista' => $Tarefa->pegarArquivo()]),
+            'arquivo' => html('painel.demanda.arquivo', ['lista' => $Tarefa->pegarArquivo()]),
             'mensagem' => $Tarefa->pegarMensagem()
         ]);
     }
@@ -72,7 +72,7 @@ final class DemandaController extends Controller
         );
         $Arquivo->salvar();
 
-        $html = html('painel.demanda.views.arquivo', [
+        $html = html('painel.demanda.arquivo', [
             'upload' => true,
             'tipo' => $Arquivo->tipo,
             'nome' => $Arquivo->nome,
@@ -170,7 +170,7 @@ final class DemandaController extends Controller
     */
     public function salvar()
     {
-        return view('painel.demanda.views.salvar');
+        return view('painel.demanda.salvar');
     }
 
     public function editar(string $uuid)
@@ -178,7 +178,7 @@ final class DemandaController extends Controller
         $Tarefa = new TarefaEntity();
         $Tarefa->id($uuid);
 
-        return view('painel.demanda.views.salvar');
+        return view('painel.demanda.salvar');
     }
 
     public function postSalvar(Request $request, ?string $uuid = null)

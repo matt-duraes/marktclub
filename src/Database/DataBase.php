@@ -451,8 +451,8 @@ final class DataBase
      */
     public function imagem(String $nome)
     {
-        $this->setar_tipo($nome, 'CHAR');
-        $this->dado['tamanho'] = 36;
+        $this->setar_tipo($nome, 'VARCHAR');
+        $this->dado['tamanho'] = 41;
         return $this;
     }
 

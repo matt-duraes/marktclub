@@ -70,8 +70,9 @@ if (!function_exists('mensagemSucesso')) {
     /**
      * Gera uma mensagem de sucesso
      *
-     * @param array|stdClass    $dado   Array ou object com os dados da resposta
-     * @param int               $status Status da resposta podendo ser 200 ou 201
+     * @param array|stdClass    $dado               Array ou object com os dados da resposta
+     * @param int               $status             Status da resposta podendo ser 200 ou 201
+     * @param array             $criptografar       Lista de dados para criptografar
      *
      * @return  Response        Retorna um ResponseInterface com um array no formato: ["status" => "sucesso", "dado" => $dado]
      * @throws  Erro\Excecao    Retorna uma exceção caso seja passa um status errado

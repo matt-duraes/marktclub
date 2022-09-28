@@ -11,7 +11,7 @@ final class RelatorioController extends Controller
 {
     public function acesso()
     {
-        return view(arquivo: 'painel.relatorio.Views.acesso', var: [
+        return view(arquivo: 'painel.relatorio.acesso', var: [
             'appTitulo' => 'Relatório de acesso',
             'app' => 'relatorio-acesso',
             'de' => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
@@ -20,7 +20,7 @@ final class RelatorioController extends Controller
     }
     public function usuario()
     {
-        return view(arquivo: 'painel.relatorio.Views.usuario', var: [
+        return view(arquivo: 'painel.relatorio.usuario', var: [
             'appTitulo' => 'Relatório de usuário',
             'app' => 'relatorio-usuario',
             'de' => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),

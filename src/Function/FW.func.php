@@ -1116,14 +1116,14 @@ if (!function_exists('inKey')) {
         }
         foreach ($lista as $linha) {
             if (
-                !str_contains($linha, '->') &&
+                !str_contains($linha, '.') &&
                 (
                     (is_array($item) && !array_key_exists($linha, $item)) ||
                     (is_object($item) && !isset($item->$linha)))
             ) {
                 return false;
             }
-            $explode = explode('->', $linha);
+            $explode = explode('.', $linha);
             $quantidade = count($explode);
             $itemTemp = $item;
             for ($i = 0; $i < $quantidade; ++$i) {
@@ -1525,13 +1525,13 @@ if (!function_exists('imagemUsuario')) {
      */
     function imagemUsuario(?string $tipo = null, ?string $arquivo = null, ?string $facebook = null, ?string $google = null): string
     {
-        if ($tipo == 1 && !empty($facebook)) {
+        if ($tipo == 3 && !empty($facebook)) {
             return $facebook;
         } else if ($tipo == 2 && !empty($google)) {
             return $google;
         }
         if (!empty($arquivo)) {
-            return arquivoPrivado($arquivo);
+            return arquivoPublico('usuario', $arquivo);
         }
         return arquivoPublico('usuario', 'padrao.png');
     }
@@ -1685,7 +1685,7 @@ if (!function_exists('eLocalhost')) {
      */
     function eLocalhost(): bool
     {
-        return SISTEMA == 'LOCALHOT';
+        return SISTEMA == 'LOCALHOST';
     }
 }
 if (!function_exists('eHomologacao')) {

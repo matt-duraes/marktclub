@@ -60,7 +60,7 @@ trait UpdateTrait
         $this->ormResetarOrm();
 
         if (!$retorno instanceof PDOStatement) {
-            throw new Excecao(titulo: 'Erro ao atualizar!', mensagem: is_string($retorno) ? $retorno : 'Ocorre um erro ao atualizar, por favor, tente novamente.');
+            throw new Excecao(titulo: 'Erro ao atualizar!', mensagem: is_string($retorno) && SISTEMA != 'PRODUCAO' ? $retorno : 'Ocorre um erro ao atualizar, por favor, tente novamente.');
         }
 
         $idArray = ['id' => $existe[0]->id];

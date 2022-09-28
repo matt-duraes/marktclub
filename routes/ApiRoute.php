@@ -351,7 +351,8 @@ Route
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
-                '!senha', '!status', '!primeiro_acesso', '!mudar_senha'
+                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!imagem_facebook',
+                '!imagem_google', '!imagem_arquivo', '!id_facebook', '!id_google'
             ])
             ::put('/usuario-equipe/{id}');
 
@@ -487,7 +488,7 @@ Route
             ::request([
                 'nome', 'cpf', '!matricula', '!siape', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!estado_civil',
-                '!endereco_estado', '!endereco_cidade', 'federacao', 'salavip', 'grupo'
+                '!endereco_estado', '!endereco_cidade', '!federacao', '!salavip', '!grupo'
             ])
             ::post('/login/api');
     });

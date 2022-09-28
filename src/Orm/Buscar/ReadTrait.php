@@ -88,7 +88,7 @@ trait ReadTrait
         $this->campo(['id'])->where($where)->limit(0, 1);
         $query = $this->ormExecute($this->ormMontarQueryString(), $this->_condicaoValue);
         if (!$query instanceof PDOStatement) {
-            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($query) ? $query : 'Ocorreu um erro ao verificar se a busca existe.');
+            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($query) && SISTEMA != 'PRODUCAO' ? $query : 'Ocorreu um erro ao verificar se a busca existe.');
         }
         $existe = $query->fetch() ? true : false;
         $this->ormResetarOrm();
@@ -128,7 +128,7 @@ trait ReadTrait
 
         $busca = $this->ormExecute($this->ormMontarQueryString(), $this->_condicaoValue);
         if (!$busca instanceof PDOStatement) {
-            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($busca) ? $busca : 'Ocorreu um erro na sua busca.');
+            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($busca) && SISTEMA != 'PRODUCAO' ? $busca : 'Ocorreu um erro na sua busca.');
         }
 
         $tipoRetorno = $retorno == 'array' ? PDO::FETCH_ASSOC : PDO::FETCH_OBJ;
@@ -169,7 +169,7 @@ trait ReadTrait
         $query = $this->ormQueryTextoMontarString(str_replace('{{TABELA}}', '`' . $this->_tabela . '`', $query));
         $dado = $this->ormExecute($query, $valor);
         if (!$dado instanceof PDOStatement) {
-            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($dado) ? $dado : 'Ocorreu um erro na sua busca.');
+            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($dado) && SISTEMA != 'PRODUCAO' ? $dado : 'Ocorreu um erro na sua busca.');
         }
 
         $tipoRetorno = $retorno == 'array' ? PDO::FETCH_ASSOC : PDO::FETCH_OBJ;
