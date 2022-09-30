@@ -3,7 +3,7 @@
 <div id="bloco_perfil">
     <div class="conteudo">
         <div class="imagem">
-            <figure id="perfil_imagem_principal" style="background-image: url({!!USUARIO_IMAGEM!!})"><button id="botao_abrir_mudar_imagem"><span>Mudar imagem</span></button></figure>
+            <figure id="perfil_imagem_principal" style="background-image: url({!!USUARIO_IMAGEM!!})"><div class="botao_abrir" id="botao_abrir_mudar_imagem"><span>Mudar imagem</span></div></figure>
         </div>
         <div class="botao">
             <a href="{!!route('perfil.dado')!!}">editar</a>
