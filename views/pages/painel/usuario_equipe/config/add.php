@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioEquipe\Status;
+
 $Painel = new \PainelConfig\Add('usuario_equipe');
 
 $Painel->coluna(callback: function () use ($Painel) {
@@ -22,10 +24,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         );
         $Painel->switch(name: 'primeiro_acesso', label: 'Primeiro acesso?');
         $Painel->switch(name: 'mudar_senha', label: 'Mudar senha ao logar?');
-        $Painel->select(name: 'status', label: 'Status', lista: [
-            'ativo' => 'Ativo',
-            'inativo' => 'Inativo'
-        ]);
+        $Painel->select(name: 'status', label: 'Status', lista: (new Status)->select('Escolha um status'));
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
