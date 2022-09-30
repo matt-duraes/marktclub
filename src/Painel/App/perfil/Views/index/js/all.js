@@ -2,8 +2,9 @@
 
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
-
+    const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
     const facebookAppId = document.getElementById('FACEBOOK_APP_ID').value;
+
     window.fbAsyncInit = function () {
         FB.init({
             appId: facebookAppId,
@@ -59,28 +60,25 @@ window.addEventListener('load', () => {
         }
     });
 
-    const botaoImagemFacebook = document.getElementById('botao_vincular_imagem_facebook');
-    botaoImagemFacebook.addEventListener('click', () => {
-        oauth2Facebook('imagem');
-    });
-
     /*
     |--------------------------------------------------------------------------
     | VINCULAR CONTA DO FACEBOOK
     |--------------------------------------------------------------------------
     */
+    document.getElementById('botao_vincular_imagem_facebook').addEventListener('click', () => {
+        oauth2Facebook('imagem');
+    });
     document.getElementById('botao_vincular_facebook').addEventListener('click', () => {
         oauth2Facebook('vincular');
     });
 
     const oauth2Facebook = acao => {
-        Loading.show();
         FB.getLoginStatus(function (response) {
             let id, token;
             if (response.status === 'connected') {
                 id = response.authResponse.userID;
                 token = response.authResponse.accessToken;
-                vincularContaSocial(id, token, 'facebook', acao);
+                vincularContaSocial(id, token, '', 'facebook', acao);
                 return;
             }
             FB.login(
@@ -88,9 +86,8 @@ window.addEventListener('load', () => {
                     if (response.status === 'connected') {
                         id = response.authResponse.userID;
                         token = response.authResponse.accessToken;
-                        vincularContaSocial(id, token, 'facebook', acao);
+                        vincularContaSocial(id, token, '', 'facebook', acao);
                     } else {
-                        Loading.hide();
                         Alerta.notificacao(
                             'Não foi possível validar sua conta do Facebook, por favor, tente novamente.',
                             false
@@ -107,42 +104,28 @@ window.addEventListener('load', () => {
     | GOOGLE
     |--------------------------------------------------------------------------
     */
-    const socialGoogleId = document.getElementById('GOOGLE_CLIENT_ID').value;
-    const vincularGoogle = function () {
-        gapi.load('auth2', function () {
-            auth2 = gapi.auth2.init({
-                // eslint-disable-next-line camelcase
-                client_id: socialGoogleId,
-                cookiepolicy: 'single_host_origin',
-            });
-            attachSignin(document.getElementById('botao_vincular_google'), 'vincular');
-            attachSignin(document.getElementById('botao_vincular_imagem_google'), 'imagem');
-        });
-    };
-    document.getElementById('botao_vincular_google').addEventListener('click', () => {
-        Loading.show();
+    document.getElementById('botao_vincular_google').addEventListener('click', async () => {
+        oauth2Google('vincular');
     });
-    document.getElementById('botao_vincular_imagem_google').addEventListener('click', () => {
-        Loading.show();
+    document.getElementById('botao_vincular_imagem_google').addEventListener('click', async () => {
+        oauth2Google('imagem');
     });
 
-    const attachSignin = (element, acao) => {
-        auth2.attachClickHandler(
-            element,
-            {},
-            googleUser => {
-                const id = googleUser.getBasicProfile().getId();
-                const token = googleUser.getAuthResponse().id_token;
-                vincularContaSocial(id, token, 'google', acao);
+    const oauth2Google = acao => {
+        const client = google.accounts.oauth2.initCodeClient({
+            // eslint-disable-next-line camelcase
+            client_id: googleAppId,
+            scope: 'email profile',
+            // eslint-disable-next-line camelcase
+            auto_select: true,
+            // eslint-disable-next-line camelcase
+            ux_mode: 'popup',
+            callback: response => {
+                vincularContaSocial('', '', response.code, 'google', acao);
             },
-            () => {
-                Loading.hide();
-                Alerta.notificacao('Não foi possível vincular sua conta do Google, por favor, tente novamente.', false);
-            }
-        );
+        });
+        client.requestCode();
     };
-    vincularGoogle();
-
     /*
     |--------------------------------------------------------------------------
     | VINCULAR REDE SOCIAL
@@ -151,11 +134,15 @@ window.addEventListener('load', () => {
     const menuConfig = document.getElementById('botao_menu_config');
     const perfilImagemPrincipal = document.getElementById('perfil_imagem_principal');
     const inputHash = document.querySelector('#bloco_vinculo_social input[name=form_system_hash]').value;
-    const vincularContaSocial = async (id, token, tipo, acao) => {
+
+    const vincularContaSocial = async (id, token, code, rede, acao) => {
+        Loading.show();
+
         let body = new FormData();
         body.append('id', id);
         body.append('token', token);
-        body.append('tipo', tipo);
+        body.append('code', code);
+        body.append('rede', rede);
         body.append('acao', acao);
         body.append('form_system_hash', inputHash);
         body.append('form_system_validacao', '');
@@ -175,6 +162,7 @@ window.addEventListener('load', () => {
         Loading.hide();
         if (response.status == 201 && acao == 'imagem') {
             setarNovaImagem(json.dado.imagem);
+            fecharPopupMudarImagem();
             return;
         } else if (response.status != 201) {
             Alerta.notificacao('Ocorreu um erro ao vincular sua conta, por favor, tente novamente.', false);
@@ -189,8 +177,10 @@ window.addEventListener('load', () => {
             return;
         }
 
-        if (tipo == 'facebook') {
+        if (rede == 'facebook') {
             oauth2Facebook('imagem');
+        } else if (rede == 'google') {
+            oauth2Google('imagem');
         }
     };
 
@@ -200,13 +190,29 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const botaoArquivoUpload = document.querySelector('#botao_upload_imagem_arquivo');
+    const blocoArquivoPerfil = document.querySelector('#bloco_upload_imagem_perfil');
     botaoArquivoUpload.addEventListener('dragover', e => {
         e.preventDefault();
+    });
+    blocoMudarImagem.addEventListener('dragover', e => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+        blocoArquivoPerfil.classList.add('drag');
+    });
+    blocoMudarImagem.addEventListener('dragleave', e => {
+        e.preventDefault();
+        blocoArquivoPerfil.classList.remove('drag');
+    });
+    blocoMudarImagem.addEventListener('drop', e => {
+        e.preventDefault();
+        blocoArquivoPerfil.classList.remove('drag');
+        return;
     });
 
     const hash = document.querySelector('#bloco_perfil_imagem input[name=form_system_hash]').value;
     botaoArquivoUpload.addEventListener('drop', e => {
         e.preventDefault();
+        blocoArquivoPerfil.classList.remove('drag');
         if (e.dataTransfer.files.length == 0) {
             return;
         }

@@ -53,7 +53,6 @@ final class PerfilController extends Controller
 
     private function descriptografarUsuario($dado): array
     {
-
         $Api = new ApiHelper(token: true);
         $chave = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
         $crypt = new CryptHelper(chavePrivada: $chave);
@@ -138,38 +137,32 @@ final class PerfilController extends Controller
     {
         $this->verificarUsuarioLogadoAjax();
 
-        $tipo = $request->tipo;
-        $Social = new SocialHelper;
-        if (
-            ($tipo == 'google' && !$Social->google()->validarToken($request->token)) ||
-            ($tipo == 'facebook' && !$Social->facebook()->validarToken($request->token)) ||
-            !in_array($tipo, ['google', 'facebook'])
-        ) {
-            mensagemErro(
-                titulo: 'Erro ao vincular!',
-                mensagem: 'Não foi possível validar o token enviado, por favor, tente novamente.'
-            );
-        }
+        $Social = new SocialHelper(
+            rede: $request->rede,
+            id: $request->id,
+            token: $request->token,
+            code: $request->code
+        );
 
         if ($request->acao == 'imagem') {
-            return $this->vincularImagem($Social, $tipo, $request->id, $request->token);
+            return $this->vincularImagem($Social, $request->rede);
         }
 
-        $campo = $tipo == 'facebook' ? 'id_facebook' : 'id_google';
-        $this->atualizarDadoDaEquipe([
-            $campo => $request->id
-        ]);
+        $campo = $request->rede == 'google' ? 'id_google' : 'id_facebook';
+        $dado = ['id_facebook' => $Social->id()];
+
+        $this->atualizarDadoDaEquipe($dado);
 
         return mensagemSucesso([], status: 201);
     }
 
-    private function vincularImagem(SocialHelper $Social, $redeSocial, $id, $token)
+    private function vincularImagem(SocialHelper $Social, $rede)
     {
-        if ($redeSocial == 'google') {
-            $imagem = $Social->google()->imagem(id: $id, token: $token);
+        if ($rede == 'google') {
+            $imagem = $Social->imagem();
             $campo = 'imagem_google';
-        } else if ($redeSocial == 'facebook') {
-            $imagem = $Social->facebook()->imagem(id: $id, token: $token);
+        } else if ($rede == 'facebook') {
+            $imagem = $Social->imagem();
             $campo = 'imagem_facebook';
         }
 

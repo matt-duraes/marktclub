@@ -187,7 +187,8 @@
         flex-direction: column
         align-items: center
         justify-content: center
-        border: 2px dashed #DDD
+        border: 2px dashed #FFF
+        transition: border-color .3s ease-out, background-color .3s ease-out
     .conteudo .botao_upload input
         width: 100%
         height: 100%
@@ -204,6 +205,7 @@
         display: flex
         align-items: center
         justify-content: center
+        transition: border-color .3s ease-out
     .conteudo .botao_upload p
         width: 100%
         max-width: 200px
@@ -211,6 +213,11 @@
         line-height: 1.5em
         font-size: $textoFontSize
         margin-top: 10px
+    .conteudo .botao_upload.drag
+        border-color: #999
+        background-color: #EEE
+    .conteudo .botao_upload.drag i
+        border-color: #999
     .conteudo .ou
         width: 100%
         height: 21px
@@ -240,6 +247,7 @@
 .botao_social
     width: 160px
     height: 50px
+    position: relative
     display: flex
     flex-direction: row
     align-items: center

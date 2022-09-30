@@ -112,7 +112,7 @@ Route
         Route
             ::nome('social')
             ::_rotaNaoUnica()
-            ::request(['hash_validacao', 'id', 'token', 'tipo', 'acao'])
+            ::request(['hash_validacao', 'id', 'token', 'rede', 'code', 'acao'])
             ::post('/perfil/social');
 
         Route
