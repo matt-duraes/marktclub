@@ -149,7 +149,7 @@ final class PerfilController extends Controller
         }
 
         $campo = $request->rede == 'google' ? 'id_google' : 'id_facebook';
-        $dado = [$campo => criptografarDado($Social->id())];
+        $dado = [$campo => $Social->id()];
 
         $this->atualizarDadoDaEquipe($dado);
 
@@ -167,7 +167,7 @@ final class PerfilController extends Controller
         }
 
         $this->atualizarDadoDaEquipe([
-            $campo => criptografarDado($imagem)
+            $campo => $imagem
         ]);
 
         sessao('USUARIO.imagem', $imagem);

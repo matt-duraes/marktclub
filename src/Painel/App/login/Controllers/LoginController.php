@@ -124,6 +124,7 @@ final class LoginController extends Controller
 
         $this->setarChave();
         $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
+
         (new AuthHelper)->criar([
             'id' => $body['sub'],
             'nome' => $Crypt->decode($body['name']),
