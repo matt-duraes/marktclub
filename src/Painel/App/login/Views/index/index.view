@@ -60,11 +60,11 @@
                 @hash('login_social')
                 <p>ou acesse por:</p>
                 <button id="botao_login_facebook" type="button" class="botao facebook">
-                    @iconeFacebook
+                    <i>@iconeFacebook</i>
                     <p>FACEBOOK</p>
                 </button>
                 <button id="botao_login_google" type="button" class="botao google">
-                    @iconeGoogle
+                    <i>@iconeGoogle</i>
                     <p>GOOGLE</p>
                 </button>
             </div>
@@ -81,7 +81,7 @@
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
     </form>
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://www.google.com/recaptcha/api.js?render={!!env('RECAPTCHA_PUBLIC')!!}"></script>
     @JS
 

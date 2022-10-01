@@ -509,9 +509,7 @@ final class Request extends Psr7Request
                 $dado[$ind] = $this->purifier(lista: $val, purifier: $purifier, html: $html);
                 continue;
             }
-            if (!$html) {
-                $val = $this->converterCodigoNaTagCode($val);
-            } else {
+            if ($html) {
                 $val = !empty($val) ? strip_tags($val) : '';
             }
             if ($purifier) {
@@ -520,12 +518,5 @@ final class Request extends Psr7Request
             $dado[$ind] = $val;
         }
         return $dado;
-    }
-    private function converterCodigoNaTagCode($valor)
-    {
-        //
-        // $valor = preg_replace("/<\s*code(.*?)>(.+?)<\s*\/code\s*>/is", "$1", $valor);
-        // ppe($valor);
-        return $valor;
     }
 }

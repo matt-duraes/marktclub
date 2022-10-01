@@ -149,7 +149,7 @@ final class PerfilController extends Controller
         }
 
         $campo = $request->rede == 'google' ? 'id_google' : 'id_facebook';
-        $dado = ['id_facebook' => $Social->id()];
+        $dado = [$campo => criptografarDado($Social->id())];
 
         $this->atualizarDadoDaEquipe($dado);
 
@@ -167,7 +167,7 @@ final class PerfilController extends Controller
         }
 
         $this->atualizarDadoDaEquipe([
-            $campo => $imagem
+            $campo => criptografarDado($imagem)
         ]);
 
         sessao('USUARIO.imagem', $imagem);
@@ -180,6 +180,13 @@ final class PerfilController extends Controller
     private function atualizarDadoDaEquipe($dado)
     {
         $Api = new ApiHelper(token: true);
+        $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $dado = criptografarDado(
+            valor: $dado,
+            lista: ['imagem_google', 'imagem_facebook', 'id_google', 'id_facebook'],
+            chave: $chave
+        );
+
         $status = $Api->body($dado)->put('/usuario-equipe/' . sessao('USUARIO.id'))->status();
 
         if ($status == 204) {

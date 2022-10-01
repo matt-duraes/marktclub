@@ -117,8 +117,6 @@ window.addEventListener('load', () => {
             client_id: googleAppId,
             scope: 'email profile',
             // eslint-disable-next-line camelcase
-            auto_select: true,
-            // eslint-disable-next-line camelcase
             ux_mode: 'popup',
             callback: response => {
                 vincularContaSocial('', '', response.code, 'google', acao);
@@ -133,6 +131,7 @@ window.addEventListener('load', () => {
     */
     const menuConfig = document.getElementById('botao_menu_config');
     const perfilImagemPrincipal = document.getElementById('perfil_imagem_principal');
+    const perfilImagemMenuConfig = document.getElementById('menu_config_imagem_perfil');
     const inputHash = document.querySelector('#bloco_vinculo_social input[name=form_system_hash]').value;
 
     const vincularContaSocial = async (id, token, code, rede, acao) => {
@@ -260,7 +259,14 @@ window.addEventListener('load', () => {
     };
 
     const setarNovaImagem = imagem => {
-        menuConfig.style.backgroundImage = 'url(' + imagem + ')';
-        perfilImagemPrincipal.style.backgroundImage = 'url(' + imagem + ')';
+        if (menuConfig) {
+            menuConfig.style.backgroundImage = 'url(' + imagem + ')';
+        }
+        if (perfilImagemPrincipal) {
+            perfilImagemPrincipal.style.backgroundImage = 'url(' + imagem + ')';
+        }
+        if (perfilImagemMenuConfig) {
+            perfilImagemMenuConfig.style.backgroundImage = 'url(' + imagem + ')';
+        }
     };
 });

@@ -12,7 +12,9 @@ final class LoginGoogleModel
     public function __construct(
         private string $id
     ) {
-        $this->validarDadosDeLogin();
+        if (empty($id)) {
+            mensagemErro('Campo obrigatório!', 'Você deve enviar o id do usuário para fazer login.');
+        }
         $this->buscarUsuarioPeloGoogle();
     }
 
@@ -21,25 +23,21 @@ final class LoginGoogleModel
         return $this->Usuario;
     }
 
-    private function validarDadosDeLogin(): void
+    private function buscarUsuarioPeloGoogle()
     {
-        if (empty($this->id) || empty($this->token)) {
-            mensagemErro('Erro!', 'Não foi possível validar seus dados do Google.');
-        }
-    }
-
-    private function buscarUsuarioPeloGoogle(): void
-    {
-        $Usuario = new EquipeEntity();
+        $Equipe = new EquipeEntity(validarToken: false);
         try {
-            $Usuario->buscar(where: ['id_google', $this->id]);
+            $Equipe->buscar([
+                ['id_google', $this->id],
+                ['status', 1]
+            ]);
         } catch (\Throwable) {
             mensagemErro(
-                titulo: 'Dados inválidos',
-                mensagem: 'Não foi encontrado nenhum usuário pelo seu ID do.',
-                status: 401
+                titulo: 'Conta inválida!',
+                mensagem: 'Não existe usuário vinculado a sua conta do Google.',
+                status: 400
             );
         }
-        $this->Usuario = $Usuario;
+        $this->Usuario = $Equipe;
     }
 }

@@ -33,7 +33,7 @@ Route
         Route
             ::nome('social')
             ::_rotaNaoUnica()
-            ::request(['hash_validacao', 'id', 'token', 'tipo'])
+            ::request(['hash_validacao', 'id', 'token', 'code', 'rede'])
             ::post('/login/social');
 
         Route

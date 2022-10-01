@@ -467,7 +467,7 @@ Route
         Route
             ::nome('loginPainel')
             ::middleware(TokenMiddleware::class, 'scope', ['login:painel'])
-            ::criptografia(['login', 'senha'])
+            ::criptografia(['login', 'senha', 'google', 'facebook'])
             ::request([
                 '!login', '!senha', '!facebook', '!google', 'scope', 'audience', 'redirect_uri', 'state'
             ])

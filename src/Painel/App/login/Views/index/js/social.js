@@ -1,11 +1,13 @@
 window.addEventListener('load', () => {
+    const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
     const facebookAppId = document.getElementById('FACEBOOK_APP_ID').value;
+
     window.fbAsyncInit = function () {
         FB.init({
             appId: facebookAppId,
             cookie: true,
             xfbml: true,
-            version: 'v11.0',
+            version: 'v15.0',
         });
         FB.AppEvents.logPageView();
     };
@@ -21,55 +23,13 @@ window.addEventListener('load', () => {
         fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
 
-    /*
-    |--------------------------------------------------------------------------
-    | GOOGLE
-    |--------------------------------------------------------------------------
-    */
-    const socialGoogleId = document.getElementById('GOOGLE_CLIENT_ID').value;
-    const vincularGoogle = function () {
-        gapi.load('auth2', function () {
-            auth2 = gapi.auth2.init({
-                // eslint-disable-next-line camelcase
-                client_id: socialGoogleId,
-            });
-            attachSignin(document.getElementById('botao_login_google'));
-        });
-    };
-    document.getElementById('botao_login_google').addEventListener('click', () => {
-        Loading.show();
-    });
-
-    const attachSignin = element => {
-        auth2.attachClickHandler(
-            element,
-            {},
-            googleUser => {
-                const id = googleUser.getBasicProfile().getId();
-                const token = googleUser.getAuthResponse().id_token;
-                fazerLoginSocial(id, token, 'google');
-            },
-            () => {
-                Loading.hide();
-                Alerta.notificacao('Não foi possível validar sua conta do Google, por favor, tente novamente.', false);
-            }
-        );
-    };
-    vincularGoogle();
-
-    /*
-    |--------------------------------------------------------------------------
-    | FACEBOOK
-    |--------------------------------------------------------------------------
-    */
     document.getElementById('botao_login_facebook').addEventListener('click', () => {
-        Loading.show();
         FB.getLoginStatus(function (response) {
             let id, token;
             if (response.status === 'connected') {
                 id = response.authResponse.userID;
                 token = response.authResponse.accessToken;
-                fazerLoginSocial(id, token, 'facebook');
+                loginComRedeSocial(id, token, '', 'facebook');
                 return;
             }
             FB.login(
@@ -77,9 +37,8 @@ window.addEventListener('load', () => {
                     if (response.status === 'connected') {
                         id = response.authResponse.userID;
                         token = response.authResponse.accessToken;
-                        fazerLoginSocial(id, token, 'facebook');
+                        loginComRedeSocial(id, token, '', 'facebook');
                     } else {
-                        Loading.hide();
                         Alerta.notificacao(
                             'Não foi possível validar sua conta do Facebook, por favor, tente novamente.',
                             false
@@ -91,29 +50,56 @@ window.addEventListener('load', () => {
         });
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | LOGIN SOCIAL
-    |--------------------------------------------------------------------------
-    */
+    document.getElementById('botao_login_google').addEventListener('click', async () => {
+        const client = google.accounts.oauth2.initCodeClient({
+            // eslint-disable-next-line camelcase
+            client_id: googleAppId,
+            scope: 'profile',
+            // eslint-disable-next-line camelcase
+            ux_mode: 'popup',
+            callback: response => {
+                loginComRedeSocial('', '', response.code, 'google');
+            },
+        });
+        client.requestCode();
+    });
+
     const hashSocial = document.querySelector('#bloco_login_social input[name=form_system_hash]').value;
-    const fazerLoginSocial = async (id, token, tipo) => {
-        let body = new FormData();
-        body.append('id', base64Encode(id));
+    const loginComRedeSocial = async (id, token, code, rede) => {
+        Loading.show();
+
+        const body = new FormData;
+        body.append('id', id);
         body.append('token', token);
-        body.append('tipo', tipo);
+        body.append('code', code);
+        body.append('rede', rede);
         body.append('form_system_hash', hashSocial);
         body.append('form_system_validacao', '');
 
-        const response = await fetch(LINK + '/login/social', {
+        const resposta = await fetch(LINK + '/login/social', {
             method: 'POST',
-            body,
+            body
         });
-        if (response.status == 201 && json.link != undefined) {
-            window.location.assign(json.link);
+
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (error) {
+            json = {};
+        }
+
+        Loading.hide();
+
+        if (resposta.status == 201 && json.status == 'sucesso') {
+            window.location.assign(json.dado.link);
+            Alerta.notificacao('Login realizado com sucesso, aguarde redirecionamento.', true);
             return;
         }
-        Loading.hide();
-        fetchNotificacaoErro(response, 'Ocorreu um erro ao fazer login, por favor, tente novamente.');
+
+        Alerta.notificacao(
+            json.erro != undefined ?
+            json.erro.mensagem : 'Erro ao fazer seu login, por favor, tente novamente.',
+            false
+        );
     };
 });

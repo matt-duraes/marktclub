@@ -149,9 +149,9 @@ final class EquipeEntity extends Entity
 
     protected function regraUpdate()
     {
-        if (empty($this->prop('imagem_facebook')) && !empty($this->imagem_facebook)) {
+        if ($this->foiSetado('imagem_facebook')) {
             $this->imagem_tipo = 3;
-        } else if (empty($this->prop('imagem_google')) && !empty($this->imagem_google)) {
+        } else if ($this->foiSetado('imagem_google')) {
             $this->imagem_tipo = 2;
         } else if ($this->imagem_arquivo instanceof UploadedFile) {
             $this->imagem_tipo = 1;

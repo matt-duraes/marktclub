@@ -8,6 +8,7 @@ use Helpers\ApiHelper;
 use Helpers\JwtHelper;
 use Helpers\AuthHelper;
 use Helpers\CryptHelper;
+use Helpers\SocialHelper;
 use Controller\Controller;
 
 final class LoginController extends Controller
@@ -33,8 +34,6 @@ final class LoginController extends Controller
     public function postLogin(Request $request): Response
     {
         $this->setarChave();
-
-        $Api = new ApiHelper('login:painel');
         $body = criptografarDado([
             'login' => $request->login,
             'senha' => $request->senha,
@@ -43,6 +42,13 @@ final class LoginController extends Controller
             'redirect_uri' => env('API_REDIRECT_URI', ''),
             'state' => uuid()
         ], lista: ['login', 'senha'], chave: $this->chavePublica);
+
+        return $this->enviarDadosParaLogin($body);
+    }
+
+    private function enviarDadosParaLogin($body)
+    {
+        $Api = new ApiHelper('login:painel');
         $dado = $Api->body($body)->post('/login/painel')->object();
 
         $this->autenticarUsuario($dado);
@@ -59,7 +65,24 @@ final class LoginController extends Controller
     */
     public function postSocial(Request $request)
     {
-        return new Response(json: []);
+        $this->setarChave();
+
+        $Social = new SocialHelper(
+            rede: $request->rede,
+            id: $request->id,
+            token: $request->token,
+            code: $request->code
+        );
+
+        $body = criptografarDado([
+            $request->rede => $Social->id(),
+            'scope' => '',
+            'audience' => env('API_AUDIENCE', ''),
+            'redirect_uri' => env('API_REDIRECT_URI', ''),
+            'state' => uuid()
+        ], lista: ['facebook', 'google'], chave: $this->chavePublica);
+
+        return $this->enviarDadosParaLogin($body);
     }
 
     /*

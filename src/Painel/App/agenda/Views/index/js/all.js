@@ -5,6 +5,18 @@
 
 window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
+
+    const googleClientId = document.getElementById('GOOGLE_CLIENT_ID').value;
+    const client = google.accounts.oauth2.initTokenClient({
+        // eslint-disable-next-line camelcase
+        client_id: googleClientId,
+        scope: 'https://www.googleapis.com/auth/calendar.readonly',
+        callback: response => {
+            console.log(response);
+        },
+    });
+
+    return;
     const usuarioEmail = document.querySelector('#USUARIO_EMAIL').value;
     const usuarioImagem = document.querySelector('#USUARIO_IMAGEM').value;
     const blocoAgendaSemana = document.querySelector('#bloco_agenda_semana');

@@ -73,6 +73,7 @@ final class TokenMiddleware
             $this->erroToken('Middleware Token - Token não começa com Bearer.');
         }
         $this->token = preg_replace('/^Bearer /', '', $this->token);
+
         if (mb_strlen($this->token) != 36 && !(new JwtHelper())->validar($this->token)) {
             $this->erroToken('Middleware Token - Não foi possível validar token.');
         }

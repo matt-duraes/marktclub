@@ -37,7 +37,9 @@ exports.htmlUnico = function (path) {
             .replace(/views\/pages\//, '')
             .replace(/\/index\.view$/, '.php')
             .replace(/.view$/, '.php')
-            .replace(/\//g, '_');
+            .replace(/\/Views/, '')
+            .replace(/\//g, '_')
+            .replace(/_{2,}/g, '_');
 
         await fsCriarDiretorio('files/build');
         await fsCriarDiretorio('files/build/views');

@@ -70,6 +70,7 @@ abstract class Entity extends ORM
     private array $_listaSet = [];
     protected array $_setReal = [];
     private array $_listaAliasReal = [];
+    private array $_propriedadeSetada = [];
 
     protected bool $entityExiste = false;
 
@@ -130,6 +131,15 @@ abstract class Entity extends ORM
             $retorno[] = $this->ormPegarGet($ind, $val);
         }
         return $retorno;
+    }
+
+    public function foiSetado($propriedade): bool
+    {
+        try {
+            return in_array(strSlug($propriedade, '-'), $this->_propriedadeSetada);
+        } catch (\Throwable) {
+            return false;
+        }
     }
 
     /**
@@ -219,6 +229,7 @@ abstract class Entity extends ORM
                 return;
             }
             $this->$propriedade = $valor;
+            $this->_propriedadeSetada[] = strSlug($propriedade);
             return;
         }
         throw new Erro(mensagem: 'A propriedade ' . $propriedade . ' não existe ou você não tem acesso a ela.');
