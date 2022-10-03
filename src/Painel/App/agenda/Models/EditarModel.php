@@ -7,11 +7,11 @@ use Helpers\CurlHelper;
 
 final class EditarModel
 {
-    use trait\Salvar;
-    use trait\Cliente;
-    use trait\Retorno;
-    use trait\Id;
-    use trait\Evento;
+    use Trait\Salvar;
+    use Trait\Cliente;
+    use Trait\Retorno;
+    use Trait\Id;
+    use Trait\Evento;
 
     private CurlHelper $Cliente;
     private bool $temVideo;

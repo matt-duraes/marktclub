@@ -7,9 +7,9 @@ use Helpers\CurlHelper;
 
 final class SalvarModel
 {
-    use trait\Cliente;
-    use trait\Salvar;
-    use trait\Retorno;
+    use Trait\Cliente;
+    use Trait\Salvar;
+    use Trait\Retorno;
 
     private CurlHelper $Cliente;
     private bool $meuEvento = true;

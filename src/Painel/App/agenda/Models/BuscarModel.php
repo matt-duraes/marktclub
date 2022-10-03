@@ -7,9 +7,9 @@ use Helpers\CurlHelper;
 
 final class BuscarModel
 {
-    use trait\Id;
-    use trait\Cliente;
-    use trait\Retorno;
+    use Trait\Id;
+    use Trait\Cliente;
+    use Trait\Retorno;
 
     private CurlHelper $Cliente;
 
