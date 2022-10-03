@@ -33,7 +33,7 @@ Route
         Route
             ::nome('social')
             ::_rotaNaoUnica()
-            ::request(['hash_validacao', 'id', 'token', 'tipo'])
+            ::request(['hash_validacao', 'id', 'token', 'code', 'rede'])
             ::post('/login/social');
 
         Route
@@ -112,7 +112,7 @@ Route
         Route
             ::nome('social')
             ::_rotaNaoUnica()
-            ::request(['hash_validacao', 'id', 'token', 'tipo', 'acao'])
+            ::request(['hash_validacao', 'id', 'token', 'rede', 'code', 'acao'])
             ::post('/perfil/social');
 
         Route
@@ -131,6 +131,12 @@ Route
             ::nome('index')
             ::_rotaNaoUnica()
             ::view('/agenda');
+
+        Route
+            ::nome('login')
+            ::request(['hash_validacao', 'code'])
+            ::_rotaNaoUnica()
+            ::post('/agenda/login');
 
         Route
             ::nome('buscar')

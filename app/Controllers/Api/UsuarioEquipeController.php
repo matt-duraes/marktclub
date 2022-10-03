@@ -68,7 +68,6 @@ final class UsuarioEquipeController extends Controller implements
     public function putAtualizar(Request $request, string $id)
     {
         validarUuid($id);
-
         $Usuario = new EquipeEntity();
         $Usuario->id($id);
         $Usuario->set(lista: $request->dado());

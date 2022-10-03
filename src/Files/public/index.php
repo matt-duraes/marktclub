@@ -73,7 +73,6 @@ $requestUri = array_key_exists('REQUEST_URI', $_SERVER) ? explode('/', $_SERVER[
 $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
 
 if ($requestUri == '__base' && SISTEMA == 'LOCALHOST') {
-    ppe(123);
     require_once __DIR__ . '/../src/Html/Database/index.php';
     exit();
 } else if ($requestUri == '__tests' && SISTEMA == 'LOCALHOST') {

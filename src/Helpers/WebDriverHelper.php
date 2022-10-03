@@ -164,7 +164,7 @@ final class WebDriverHelper
      *                                  informa o indice
      * @return Self
      */
-    public function deletarCookie(?string $indice = ''): self
+    public function cookieDeletar(?string $indice = ''): self
     {
         if (!empty($indice)) {
             try {

@@ -34,14 +34,13 @@
                 <i>@iconeFacebook()</i>
                 <p>Facebook</p>
             </button>
-            <button id="botao_vincular_google" class="botao_social google">
+            <button class="botao_social google" id="botao_vincular_google">
                 <i>@iconeGoogle()</i>
                 <p>Google</p>
             </button>
         </div>
     </div>
 </div>
-
 
 <div id="bloco_perfil_imagem">
     <div class="bloco_pagina_popup bloco_geral">
@@ -52,7 +51,7 @@
         </header>
         <form action="/" class="conteudo_pagina_popup conteudo form_geral">
             @hash('IMAGEM_HASH', 'imagem_hash')
-            <div class="botao_upload">
+            <div class="botao_upload" id="bloco_upload_imagem_perfil">
                 <input type="file" accept="jpg,png" id="botao_upload_imagem_arquivo">
                 <i>@iconeUpload</i>
                 <p class="desktop">Clique ou arraste e solte sua imagem aqui</p>

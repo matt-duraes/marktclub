@@ -4,12 +4,14 @@ namespace PainelApp\agenda\Controllers;
 
 use Http\Request;
 use Http\Response;
+use Helpers\ApiHelper;
+use Helpers\SocialHelper;
 use Controller\Controller;
-use Painel\Agenda\Models\BuscarModel;
-use Painel\Agenda\Models\EditarModel;
-use Painel\Agenda\Models\SalvarModel;
-use Painel\Agenda\Models\DeletarModel;
-use Painel\Agenda\Models\RespostaModel;
+use PainelApp\agenda\Models\BuscarModel;
+use PainelApp\agenda\Models\EditarModel;
+use PainelApp\agenda\Models\SalvarModel;
+use PainelApp\agenda\Models\DeletarModel;
+use PainelApp\agenda\Models\RespostaModel;
 
 final class AgendaController extends Controller
 {
@@ -18,8 +20,37 @@ final class AgendaController extends Controller
         return view('painel.agenda.index', [
             'appTitulo' => '',
             'app' => 'agenda',
-            'agenda' => true
+            'agenda' => true,
+            'logado' => (new SocialHelper(rede: 'google'))->logado([
+                'https://www.googleapis.com/auth/calendar.events',
+                'https://www.googleapis.com/auth/calendar.readonly'
+            ])
         ]);
+    }
+
+    public function postLogin(Request $request)
+    {
+        $Social = new SocialHelper(rede: 'google', code: $request->code);
+        $this->atualizarIdGoogle($Social->id());
+        return mensagemSucesso(['logado' => true], status: 201);
+    }
+    private function atualizarIdGoogle($id)
+    {
+        $idUsuario = sessao('USUARIO.google');
+        if (!empty($idUsuario) && $id == $idUsuario) {
+            return;
+        }
+
+        $Api = new ApiHelper(token: true);
+        $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $status = $Api->body([
+            'id_google' => criptografarDado($id, chave: $chave)
+        ])->put('/usuario-equipe/' . sessao('USUARIO.id'))->status();
+
+        if ($status != 204) {
+            mensagemErro('Erro!', 'Ocorreu um erro ao vincular sua conta, por favor, tente novamente.');
+        }
+        sessao('USUARIO.google', $id);
     }
 
     public function postBuscar(Request $request)
@@ -67,10 +98,10 @@ final class AgendaController extends Controller
 
     private function token()
     {
-        $token = getallheaders()['Authorization'] ?? getallheaders()['authorization'] ?? '';
-        if (empty($token)) {
-            mensagemStatus(403);
+        $Social = new SocialHelper(rede: 'google');
+        if ($Social->logado()) {
+            return $Social->token();
         }
-        return $token;
+        return '';
     }
 }

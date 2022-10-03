@@ -50,7 +50,10 @@ final class LoginFormModel
         $documento = preg_replace('/[^0-9]/', '', $this->login);
         $Usuario = new EquipeEntity(validarToken: false);
         try {
-            $Usuario->buscar(where: ['documento_cpf', $documento]);
+            $Usuario->buscar(where: [
+                ['documento_cpf', $documento],
+                ['status', 1]
+            ]);
         } catch (\Throwable) {
             password_verify($this->senha, '$2y$11$gqvgsZOatns5gStLVwaz8uANvVsSvSvq4WS8OH5lz2tJaXcO1h23O');
             $this->UsuarioNaoEncontrado();

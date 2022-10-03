@@ -1,8 +1,8 @@
 <?php
 
-namespace Painel\Agenda\Models\Trait;
+namespace PainelApp\agenda\Models\Trait;
 
-use Painel\Agenda\Models\BuscarModel;
+use PainelApp\agenda\Models\BuscarModel;
 
 trait Evento
 {

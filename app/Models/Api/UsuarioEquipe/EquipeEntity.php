@@ -29,7 +29,8 @@ final class EquipeEntity extends Entity
         'senha' => 'salt',
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao',
-        'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google'
+        'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
+        'id_facebook', 'id_google'
     ];
     protected array $_salvar = [
         'nome_real' => '->nome',
@@ -149,9 +150,9 @@ final class EquipeEntity extends Entity
 
     protected function regraUpdate()
     {
-        if (empty($this->prop('imagem_facebook')) && !empty($this->imagem_facebook)) {
+        if ($this->foiSetado('imagem_facebook')) {
             $this->imagem_tipo = 3;
-        } else if (empty($this->prop('imagem_google')) && !empty($this->imagem_google)) {
+        } else if ($this->foiSetado('imagem_google')) {
             $this->imagem_tipo = 2;
         } else if ($this->imagem_arquivo instanceof UploadedFile) {
             $this->imagem_tipo = 1;

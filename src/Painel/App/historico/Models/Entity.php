@@ -2,7 +2,6 @@
 
 namespace Painel\Historico\Models;
 
-use stdClass;
 use Erro\Excecao;
 use App\Models\Painel\AppGeral\AppGeralEntity;
 

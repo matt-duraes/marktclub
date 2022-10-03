@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\Agenda\Models\Trait;
+namespace PainelApp\agenda\Models\Trait;
 
 trait Usuario
 {

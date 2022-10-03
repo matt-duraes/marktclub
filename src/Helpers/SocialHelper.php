@@ -2,12 +2,132 @@
 
 namespace Helpers;
 
+use Google;
 use Erro\Excecao;
-use Google_Client;
 
 final class SocialHelper
 {
-    private $plataforma;
+    private array $googleToken;
+
+    /**
+     * @param   string          $rede   Qual rede social vai usar podendo ser google, facebook, twitter, tumblr, whatsapp, reddit, pinterest ou pinterest
+     * @param   null|string     $id     ID do usuário para o Facebook
+     * @param   null|string     $token  Token do usuário para o Facebook
+     * @param   null|string     $code   Code para gerar o token para o Google
+     */
+    public function __construct(
+        private string $rede,
+        public ?string $id = null,
+        private ?string $token = null,
+        ?string $code = null
+    ) {
+        if ($rede == 'google' && !empty($code)) {
+            $this->googleCriarTokenComAuthorizationCode($code);
+        } else if ($rede == 'google') {
+            $this->googlePegarTokenDoCookie();
+        } else if ($rede == 'facebook' && !empty($id) && !empty($token)) {
+            $this->facebookValidarToken();
+        }
+    }
+
+    /**
+     * Verifica se o usuário está logado e se o usuário tem o scope que deseja
+     *
+     * @param   array   $scope  Lista de scope que o usuário tem que ter
+     * @return  bool
+     */
+    public function logado(array $scope = []): bool
+    {
+        if ($this->rede != 'google') {
+            mensagemErro('Erro!', 'Verifique a rede setada para continuar.');
+        }
+
+        if (!cookieExiste('GOOGLE_SOCIAL')) {
+            return false;
+        }
+
+        $token = base64Decode(cookie('GOOGLE_SOCIAL'));
+        if ($scope) {
+            $scopeToken = is_array($token) && array_key_exists('scope', $token) ? explode(' ', $token['scope']) : [];
+            foreach ($scope as $val) {
+                if (!in_array($val, $scopeToken)) {
+                    return false;
+                }
+            }
+        }
+
+        $cliente = new Google\Client();
+        try {
+            $cliente->setAccessToken($token);
+        } catch (\Throwable) {
+            return false;
+        }
+
+        if ($cliente->isAccessTokenExpired()) {
+            return $this->googleRelogar($token);
+        }
+
+        $usuarioId = sessao('USUARIO.google');
+        $googleId = $cliente->verifyIdToken($token['id_token'])['sub'] ?? '';
+        if (empty($googleId) || empty($usuarioId) || $usuarioId != $googleId) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function googleRelogar(array $token): bool
+    {
+        if (!array_key_exists('refresh_token', $token)) {
+            return false;
+        }
+
+        $client = new Google\Client([
+            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri' => env('GOOGLE_REDIRECT_URI')
+        ]);
+
+        try {
+            $token = $client->fetchAccessTokenWithRefreshToken($token['refresh_token']);
+        } catch (\Throwable) {
+            return false;
+        }
+
+        $usuarioId = sessao('USUARIO.google');
+        $googleId = $client->verifyIdToken($token['id_token'])['sub'] ?? '';
+        if (empty($googleId) || empty($usuarioId) || $usuarioId != $googleId) {
+            return false;
+        }
+
+        return $this->googleSetarToken($token);
+    }
+
+    /**
+     * Retorna o ID do usuário para o Google e Facebook
+     *
+     * @return string
+     */
+    public function id()
+    {
+        if ($this->rede == 'google') {
+            return $this->googlePegarId();
+        } else if ($this->rede == 'facebook') {
+            return $this->id;
+        }
+        throw new Excecao(
+            titulo: 'Erro ao pegar ID!',
+            mensagem: 'Verifique o tipo de integração para pegar o ID.'
+        );
+    }
+    public function token()
+    {
+        if ($this->rede == 'google') {
+            return $this->googleToken['access_token'];
+        } else if ($this->rede == 'facebook') {
+            return $this->token;
+        }
+    }
 
     public function metaTag(string|array $titulo, string|array $descricao, null|string|array $imagem = null)
     {
@@ -68,25 +188,25 @@ final class SocialHelper
     | MÉTODO PARA COMPARTILHAMENTO
     |--------------------------------------------------------------------------
     |
-    | Gera um link para compartilhar dependendo da plataforma
+    | Gera um link para compartilhar dependendo da rede
     |
     /*/
     public function compartilhar(?string $url = null, ?string $texto = null, ?string $by = null): string
     {
-        if ($this->plataforma == 'facebook' && !empty($url)) {
+        if ($this->rede == 'facebook' && !empty($url)) {
             return 'https://www.facebook.com/sharer/sharer.php?u=' . $url;
-        } elseif ($this->plataforma == 'twitter' && !empty($url) && !empty($texto)) {
+        } elseif ($this->rede == 'twitter' && !empty($url) && !empty($texto)) {
             $by = !empty($by) ? '&via=' . $by : '';
             return 'https://twitter.com/intent/tweet?text=' . $texto . '&url=' . $url . $by;
-        } elseif ($this->plataforma == 'whatsapp' && !empty($texto) && !empty($by)) {
+        } elseif ($this->rede == 'whatsapp' && !empty($texto) && !empty($by)) {
             return 'whatsapp://send?text=' . urlencode($texto . ' - ' . $by);
-        } elseif ($this->plataforma == 'reddit' && !empty($texto) && !empty($url)) {
+        } elseif ($this->rede == 'reddit' && !empty($texto) && !empty($url)) {
             return 'http://reddit.com/submit?url=' . $url . '&amp;title=' . $texto;
-        } elseif ($this->plataforma == 'tumblr' && !empty($url)) {
+        } elseif ($this->rede == 'tumblr' && !empty($url)) {
             return 'http://www.tumblr.com/share/link?url=' . $url;
-        } elseif ($this->plataforma == 'pinterest' && !empty($texto) && !empty($url)) {
+        } elseif ($this->rede == 'pinterest' && !empty($texto) && !empty($url)) {
             return 'https://pinterest.com/pin/create/button/?url=' . $url . '&media=&description=' . $texto;
-        } elseif ($this->plataforma == 'linkedin' && !empty($texto) && !empty($url)) {
+        } elseif ($this->rede == 'linkedin' && !empty($texto) && !empty($url)) {
             return 'https://www.linkedin.com/shareArticle?mini=true&url=' . $url . '&title=' . $texto;
         }
         return '';
@@ -112,7 +232,7 @@ final class SocialHelper
     /*/
     public function numeroComentario(String $url): Int
     {
-        if ($this->plataforma == 'facebook') {
+        if ($this->rede == 'facebook') {
             $ch = curl_init('https://graph.facebook.com/?ids=' . str_replace(' ', '+', $url));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
@@ -131,7 +251,7 @@ final class SocialHelper
     /*/
     public function numeroCompartilhamento($url): Int
     {
-        if ($this->plataforma == 'facebook') {
+        if ($this->rede == 'facebook') {
             $ch = curl_init('https://graph.facebook.com/?ids=' . str_replace(' ', '+', $url));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
@@ -143,105 +263,12 @@ final class SocialHelper
         return 0;
     }
 
-    /*/
-    |--------------------------------------------------------------------------
-    | SETA AS PLATAFORMAS
-    |--------------------------------------------------------------------------
-    /*/
-    public function facebook()
+    public function imagem()
     {
-        $this->plataforma = 'facebook';
-        return $this;
-    }
-
-    public function google()
-    {
-        $this->plataforma = 'google';
-        return $this;
-    }
-
-    public function twitter()
-    {
-        $this->plataforma = 'twitter';
-        return $this;
-    }
-
-    public function whatsapp()
-    {
-        $this->plataforma = 'whatsapp';
-        return $this;
-    }
-
-    public function reddit()
-    {
-        $this->plataforma = 'reddit';
-        return $this;
-    }
-
-    public function tumblr(String $url)
-    {
-        $this->plataforma = 'tumblr';
-        return $this;
-    }
-
-    public function pinterest(String $titulo, String $url)
-    {
-        $this->plataforma = 'pinterest';
-        return $this;
-    }
-
-    public function linkedin($titulo, $url)
-    {
-        $this->plataforma = 'linkedin';
-        return $this;
-    }
-
-    /**
-     * @param String $id    token_id, access_token ou similiar da plataforma
-     */
-    public function validarToken(string $token): bool
-    {
-        if ($this->plataforma == 'facebook') {
-            return $this->validarTokenFacebook($token);
-        } elseif ($this->plataforma == 'google') {
-            return $this->validarTokenGoogle($token);
-        }
-        throw new Excecao(
-            titulo: 'Erro ao validar token!',
-            mensagem: 'Verifique o tipo de integração para validar o token.'
-        );
-    }
-
-    private function validarTokenFacebook($token): bool
-    {
-        $appId = env('FACEBOOK_APP_ID');
-        $appSecret = env('FACEBOOK_APP_SECRET');
-        $url = 'https://graph.facebook.com/debug_token?input_token=' . $appId . '|' . $appSecret . '&access_token=' . $token;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $retorno = jsonDecode(curl_exec($ch), true);
-        curl_close($ch);
-        return inKey(['data.is_valid', 'data.app_id'], $retorno) &&
-            $retorno['data']['is_valid'] &&
-            $retorno['data']['app_id'] == $appId;
-    }
-
-    private function validarTokenGoogle($token): bool
-    {
-        $google = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
-        $payload = $google->verifyIdToken($token);
-        return inKey('sub', $payload) && !empty($payload['sub']);
-    }
-
-    public function imagem($id, string $token)
-    {
-        if ($this->plataforma == 'facebook') {
-            return $this->imagemFacebook($id, $token);
-        } elseif ($this->plataforma == 'google') {
-            return $this->imagemGoogle($id, $token);
+        if ($this->rede == 'facebook') {
+            return $this->imagemFacebook();
+        } elseif ($this->rede == 'google') {
+            return $this->imagemGoogle();
         }
         throw new Excecao(
             titulo: 'Erro ao pegar imagem!',
@@ -249,9 +276,9 @@ final class SocialHelper
         );
     }
 
-    private function imagemFacebook($id, $token)
+    private function imagemFacebook()
     {
-        $url = 'https://graph.facebook.com/v11.0/' . $id . '/picture?redirect=false&access_token=' . $token . '&width=300&height=300';
+        $url = 'https://graph.facebook.com/v11.0/' . $this->id . '/picture?redirect=false&access_token=' . $this->token . '&width=300&height=300';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
@@ -262,16 +289,79 @@ final class SocialHelper
         return inKey('data.url', $retorno) ? $retorno['data']['url'] : '';
     }
 
-    private function imagemGoogle($id, $token)
+    private function imagemGoogle()
     {
-        $google = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
-        $payload = $google->verifyIdToken($token);
-        if ($payload['sub'] != $id) {
-            throw new Excecao(
-                titulo: 'Erro ao validar imagem!',
-                mensagem: 'Não foi possível validar o proprietário da imagem.'
-            );
+        $google = new Google\Client();
+        $body = $google->verifyIdToken($this->googleToken['id_token']);
+
+        if (!array_key_exists('picture', $body)) {
+            mensagemErro('Erro!', 'Não foi possível pegar sua imagem do Google.');
         }
-        return str_replace('s96-c', 's384-c', $payload['picture']);
+
+        return str_replace('s96-c', 's384-c', $body['picture']);
+    }
+
+    private function googleCriarTokenComAuthorizationCode($code)
+    {
+        $client = new Google\Client([
+            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri' => env('GOOGLE_REDIRECT_URI')
+        ]);
+        $token = $client->fetchAccessTokenWithAuthCode($code);
+
+        return $this->googleSetarToken($token);
+    }
+
+    private function googleSetarToken($token): bool
+    {
+        if (!is_array($token) || !array_key_exists('refresh_token', $token)) {
+            return false;
+        }
+        cookie('GOOGLE_SOCIAL', base64Encode($token));
+        $this->googleToken = $token;
+        return true;
+    }
+
+    private function facebookValidarToken(): void
+    {
+        $appId = env('FACEBOOK_APP_ID');
+        $appSecret = env('FACEBOOK_APP_SECRET');
+        $url = 'https://graph.facebook.com/debug_token?input_token=' . $appId . '|' . $appSecret . '&access_token=' . $this->token;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $retorno = jsonDecode(curl_exec($ch), true);
+        curl_close($ch);
+        if (
+            !inKey(['data.is_valid', 'data.app_id'], $retorno) &&
+            $retorno['data']['is_valid'] &&
+            $retorno['data']['app_id'] == $appId
+        ) {
+            mensagemErro('Erro!', 'Não foi possível validar sua conta do Facebook.');
+        }
+    }
+
+    private function googlePegarId()
+    {
+        $google = new Google\Client();
+        $body = $google->verifyIdToken($this->googleToken['id_token']);
+
+        if (!array_key_exists('sub', $body)) {
+            mensagemErro('Erro!', 'Não foi possível pegar sua imagem do Google.');
+        }
+        return $body['sub'];
+    }
+
+    private function googlePegarTokenDoCookie()
+    {
+        if (!cookieExiste('GOOGLE_SOCIAL')) {
+            $this->googleToken = [];
+            return;
+        }
+        $token = base64Decode(cookie('GOOGLE_SOCIAL'));
+        $this->googleToken = is_array($token) ? $token : [];
     }
 }

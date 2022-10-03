@@ -4,7 +4,7 @@
             <button class="botao_menu_config_fechar mobile">@iconeVoltar</button>
             <button class="botao_menu_config_fechar desktop">@iconeFechar</button>
         </div>
-        <figure style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+        <figure id="menu_config_imagem_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
         <h1>{{USUARIO_NOME}}</h1>
         @ if( in_array('perfil', PAINEL_CONFIGURACAO) ):
         <a href="{!!route('perfil.index')!!}">Perfil</a>
