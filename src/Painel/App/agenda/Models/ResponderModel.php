@@ -6,9 +6,9 @@ use Http\Request;
 
 final class ResponderModel
 {
-    use trait\Cliente;
-    use trait\Id;
-    use trait\Retorno;
+    use Trait\Cliente;
+    use Trait\Id;
+    use Trait\Retorno;
 
     /**
      * @param string $token Token do google para fazer login

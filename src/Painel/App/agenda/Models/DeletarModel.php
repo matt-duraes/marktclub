@@ -7,9 +7,9 @@ use Helpers\CurlHelper;
 final class DeletarModel
 {
 
-    use trait\Cliente;
-    use trait\Id;
-    use trait\Evento;
+    use Trait\Cliente;
+    use Trait\Id;
+    use Trait\Evento;
 
     private CurlHelper $Cliente;
     private bool $meuEvento;
