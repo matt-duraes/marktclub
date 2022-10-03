@@ -316,6 +316,7 @@ final class SocialHelper
     private function googleSetarToken($token): bool
     {
         if (!is_array($token) || !array_key_exists('refresh_token', $token)) {
+            $this->googleToken = [];
             return false;
         }
         cookie('GOOGLE_SOCIAL', base64Encode($token));
