@@ -12,6 +12,7 @@ return [
             'usuario_equipe' => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'relatorio' => ['titulo' => 'Relatório', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_usuario_index' => 'Relatório de usuário']],
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Relatório de acesso', 'tabela_usuario_bloquear' => 'Relatório de usuário']],
+            'ponto_cvs' => ['titulo' => 'Ponto+Ação', 'acao' => ['index', 'visualizar', 'editar']],
             'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar']],
             'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
             'api_app' => ['titulo' => 'API APP', 'acao' => ['index', 'add', 'editar', 'deletar']],

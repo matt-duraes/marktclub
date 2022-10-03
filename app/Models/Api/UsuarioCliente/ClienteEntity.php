@@ -288,4 +288,9 @@ final class ClienteEntity extends Entity
     {
         return $this->prop('id');
     }
+
+    public function getCpf()
+    {
+        return $this->prop('documento');
+    }
 }

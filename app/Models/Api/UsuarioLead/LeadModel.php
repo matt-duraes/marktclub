@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\UsuarioLead;
 
+use App\Classes\UsuarioCliente\Origem;
 use stdClass;
 use Http\Request;
 use App\Models\Api\GeralModel;
@@ -24,7 +25,7 @@ final class LeadModel extends GeralModel
         $ordem = $this->pegarOrder($this->request->ordem);
         $dado = $this->campo([
             'uuid', 'nome_completo', 'email_pessoal', 'email_trabalho', 'email_funcional', 'documento_cpf',
-            'data_criacao', 'status'
+            'data_criacao', 'lead_origem', 'status'
         ])->where($this->pegarWhere())->orderTexto($ordem)->pagina($this->pegarPagina(), 50)->read();
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
@@ -37,6 +38,7 @@ final class LeadModel extends GeralModel
         }
 
         $Status = new Status();
+        $Origem = new Origem();
         $retorno = [];
         foreach ($dado as $r) {
             $email = '';
@@ -54,6 +56,7 @@ final class LeadModel extends GeralModel
                 'cpf' => strCpf($r->documento_cpf),
                 'email' => strNull($email),
                 'data_criacao' => $r->data_criacao,
+                'origem' => $Origem->indice($r->lead_origem),
                 'status' => $Status->indice($r->status)
             ]);
         }
@@ -95,6 +98,11 @@ final class LeadModel extends GeralModel
             $where[] = ['status', $status->numero()];
         }
 
+        $origem = new Origem($request->origem);
+        if (!empty($origem) && $origem->valido()) {
+            $where[] = ['lead_origem', $origem->numero()];
+        }
+
         $pesquisa = $request->pesquisa;
         if (!empty($pesquisa)) {
             $wherePesquisa = [
@@ -119,11 +127,14 @@ final class LeadModel extends GeralModel
     {
         $ordem = new Ordem($this->request->ordem);
         $status = new Status($this->request->status);
+        $origem = new Origem($this->request->origem);
 
         if (!$ordem->vazio() && !$ordem->valido()) {
             mensagemErro('Campo inválido!', 'A ordem informada não é um valor válido.');
         } else if (!$status->vazio() && !$status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é um valor válido.');
+        } else if (!$origem->vazio() && !$origem->valido()) {
+            mensagemErro('Campo inválido!', 'O Origem informado não é um valor válido.');
         }
     }
 }

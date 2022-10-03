@@ -71,7 +71,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->checked('possui_senha', 'Possui senha?');
     });
 
-    $Painel->bloco(titulo: 'Outros dadods', callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
         $Painel
             ->linha('origem', 'Origem')
             ->checked('lead', 'É um lead?')

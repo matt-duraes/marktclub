@@ -4,5 +4,8 @@ namespace App\Classes\PontoCvs;
 
 final class Helper
 {
-    const PONTO_MINIMO = 10;
+    const CRIPTOGRAFAR = [
+        'matricula', 'nome', 'cpf', 'email', 'telefone', 'credito', 'debito', 'saldo'
+    ];
+    const PONTO_MINIMO = 1;
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Classes\UsuarioCliente\Origem;
+use App\Classes\UsuarioLead\Status;
+
 $Painel = new PainelConfig\Filtrar('usuario_lead');
 
 $Painel
@@ -8,11 +11,12 @@ $Painel
     ->cpf(name: 'cpf', titulo: 'CPF', label: 'CPF', placeholder: 'Digite um CPF')
     ->numero(name: 'matricula', titulo: 'Matrícula', label: 'Matrícula', placeholder: 'Digite uma matrícula')
     ->numero(name: 'siape', titulo: 'SIAPE', label: 'SIAPE', placeholder: 'Digite um SIAPE')
-    ->select(name: 'status', titulo: 'Status', label: 'Status', lista: [
-        'novo' => 'Novo',
-        'andamento' => 'Em andamento',
-        'cadastro_realizado' => 'Cadastro realizado',
-        'sem_interesse' => 'Sem interesse'
-    ]);
+    ->bloco(function () use ($Painel) {
+    $Painel
+        ->select(name: 'origem', titulo: 'Origem', label: 'Origem', lista: (new Origem())->select())
+        ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select());
+    });
+
+    $Painel->replace('status', (new Status())->select());
 
 return $Painel;
