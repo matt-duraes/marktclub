@@ -146,24 +146,8 @@ if (!function_exists('hashIpUser')) {
     }
 }
 
-
-if (!function_exists('cookie')) {
-    function cookie(
-        string $nome,
-        $padrao = null
-    ) {
-        if (array_key_exists($nome, $_COOKIE)) {
-            return $_COOKIE[$nome];
-        }
-        if (is_null($padrao)) {
-            mensagemErro('Erro!', 'Não foi possível encontrar o cookie desejado');
-        }
-        return $padrao;
-    }
-}
-
 /**
- * Seta um novo Cookie
+ * Seta um novo Cookie ou pega um cookie
  *
  * @param string    $nome       Nome do cookie
  * @param mixed     $valor      Valor para o cookie
@@ -174,16 +158,21 @@ if (!function_exists('cookie')) {
  * @param string    $dominio    Domínio do token
  * @return String   Retorna true ou false
  */
-if (!function_exists('criarCookie')) {
-    function criarCookie(
+if (!function_exists('cookie')) {
+    function cookie(
         string $nome,
-        $valor,
+        $valor = null,
         int $dia = 360,
         int $hora = 0,
         int $minuto = 0,
         string $path = '/',
         string $dominio = ''
-    ): bool {
+    ) {
+        if (is_null($valor) && array_key_exists($nome, $_COOKIE)) {
+            return $_COOKIE[$nome];
+        } else if (is_null($valor)) {
+            mensagemErro('Cookie inválido!', 'O cookie que você deseja buscar não existe.');
+        }
         $expirar = mktime(hour: $hora, minute: $minuto, day: $dia);
         return setcookie($nome, $valor, $expirar, $path, $dominio, true, true);
     }
@@ -194,8 +183,20 @@ if (!function_exists('criarCookie')) {
  *
  * @param string $nome  Nome do cookie para deletar
  */
-if (!function_exists('deletarCookie')) {
-    function deletarCookie(string $nome): bool
+if (!function_exists('cookieExiste')) {
+    function cookieExiste(string $nome): bool
+    {
+        return array_key_exists($nome, $_COOKIE);
+    }
+}
+
+/**
+ * Deleta o cookie
+ *
+ * @param string $nome  Nome do cookie para deletar
+ */
+if (!function_exists('cookieDeletar')) {
+    function cookieDeletar(string $nome): bool
     {
         if (isset($_COOKIE[$nome])) {
             unset($_COOKIE[$nome]);

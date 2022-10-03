@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\Agenda\Models;
+namespace PainelApp\agenda\Models;
 
 use Http\Request;
 

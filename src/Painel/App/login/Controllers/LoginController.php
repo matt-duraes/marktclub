@@ -125,21 +125,24 @@ final class LoginController extends Controller
         $this->setarChave();
         $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
 
+        $cpf = $Crypt->decode($body['document']);
         (new AuthHelper)->criar([
             'id' => $body['sub'],
             'nome' => $Crypt->decode($body['name']),
             'email' => $Crypt->decode($body['email']),
             'imagem' => $Crypt->decode($body['picture']),
-            'cpf' => $Crypt->decode($body['document']),
+            'cpf' => $cpf,
+            'google' => $Crypt->decode($body['google']),
+            'facebook' => $Crypt->decode($body['facebook']),
             'permissao' => $body['permission'],
-            'empresa_id' => $body['company_id'],
-            'dev' => in_array($body['document'], jsonDecode(env('DEV_DOCUMENTO', []), true, true))
+            'empresa_id' => $Crypt->decode($body['company_id']),
+            'dev' => in_array($cpf, jsonDecode(env('DEV_DOCUMENTO', []), true, true))
         ]);
 
         sessao('TOKEN', $token->access_token);
 
         if (object_key_exists('refresh_token', $token)) {
-            criarCookie('REFRESH_TOKEN', base64Encode($token->refresh_token, 'hash_refresh_token'));
+            cookie('REFRESH_TOKEN', base64Encode($token->refresh_token, 'hash_refresh_token'));
         }
 
         $this->pegandoPermissaoDoPainel();

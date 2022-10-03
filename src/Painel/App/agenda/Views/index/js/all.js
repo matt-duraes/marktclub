@@ -3,20 +3,11 @@
 // @system "Form"
 // @system "Calendario"
 
+// @import "login"
+
 window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
 
-    const googleClientId = document.getElementById('GOOGLE_CLIENT_ID').value;
-    const client = google.accounts.oauth2.initTokenClient({
-        // eslint-disable-next-line camelcase
-        client_id: googleClientId,
-        scope: 'https://www.googleapis.com/auth/calendar.readonly',
-        callback: response => {
-            console.log(response);
-        },
-    });
-
-    return;
     const usuarioEmail = document.querySelector('#USUARIO_EMAIL').value;
     const usuarioImagem = document.querySelector('#USUARIO_IMAGEM').value;
     const blocoAgendaSemana = document.querySelector('#bloco_agenda_semana');
@@ -251,7 +242,7 @@ window.addEventListener('load', () => {
     const anoHojeGeral = dateHojeGeral.getFullYear();
     const mesHojeGeral =
         dateHojeGeral.getMonth() + 1 < 10 ? '0' + (dateHojeGeral.getMonth() + 1) : dateHojeGeral.getMonth() + 1;
-    const diaHojeGeral = dateHojeGeral.getDate();
+    const diaHojeGeral = dateHojeGeral.getDate() < 10 ? '0' + dateHojeGeral.getDate() : dateHojeGeral.getDate();
     const diaHoje = anoHojeGeral + '-' + mesHojeGeral + '-' + diaHojeGeral;
 
     const montarHtmlDaAgenda = (anoAtual, mesAtual) => {
@@ -393,108 +384,13 @@ window.addEventListener('load', () => {
         montarHtmlDaAgenda(ano, mes);
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | GOOGLE CALENDARIO
-    |--------------------------------------------------------------------------
-    */
-    const discovery = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
-    const scopes = 'https://www.googleapis.com/auth/calendar.events';
-    const clientId = '665762641381-8tl8n4qqeh0a14jhksiubhott1bqn2n2.apps.googleusercontent.com';
-    const apiKey = 'AIzaSyAEkKrTBAkEI5dxuG1yCVAYX8ZaTxchdjo';
-
-    const initClient = async () => {
-        await gapi.client.init({
-            apiKey: apiKey,
-            clientId: clientId,
-            discoveryDocs: discovery,
-            scope: scopes,
-        });
-        const logado = gapi.auth2.getAuthInstance().isSignedIn.get();
-        if (logado) {
-            montarHtmlDaAgenda();
-            blocoAgendaSemana.classList.add('show');
-            blocoAgendaConteudo.classList.add('show');
-            botaoDessincronizarAgenda.classList.add('show');
-        } else {
-            blocoConectar.classList.add('show');
-            botaoDessincronizarAgenda.classList.remove('show');
-        }
-    };
-    gapi.load('client:auth2', initClient);
-    const validarSeEstaLogado = () => {
-        const logado = gapi.auth2.getAuthInstance().isSignedIn.get();
-        if (!logado) {
-            Alerta.notificacao(
-                'Sua sessão com o Google Calendario foi finalizada, refaça seu o login para continuar.',
-                false
-            );
-            blocoConectar.classList.add('show');
-            blocoAgendaSemana.classList.remove('show');
-            blocoAgendaConteudo.classList.remove('show');
-            botaoDessincronizarAgenda.classList.remove('show');
-            return false;
-        }
-        return true;
-    };
-
-    botaoDessincronizarAgenda.addEventListener('click', async () => {
-        const resposta = await Alerta.confirmar(
-            'Desconectar',
-            `
-                Deseja desconectar sua agenda do painel? Você não conseguirá mais acompanhar
-                sua agenda pelo painel mas poderá reconectá-la novamente.
-            `,
-            '!'
-        );
-        if (resposta) {
-            gapi.auth2.getAuthInstance().signOut();
-            blocoAgendaSemana.classList.remove('show');
-            blocoAgendaConteudo.classList.remove('show');
-            blocoConectar.classList.add('show');
-            botaoDessincronizarAgenda.classList.remove('show');
-        }
-    });
-    botaoSincronizarAgenda.addEventListener('click', async () => {
-        const token = await gapi.auth2.getAuthInstance().signIn();
-        montarHtmlDaAgenda();
-        blocoAgendaSemana.classList.add('show');
-        blocoAgendaConteudo.classList.add('show');
-        blocoConectar.classList.remove('show');
-        botaoDessincronizarAgenda.classList.add('show');
-    });
-
-    const pegarAccessToken = async () => {
-        return new Promise(resolve => {
-            const lista = gapi.auth2.getAuthInstance().currentUser.get();
-            Object.keys(lista).forEach(item => {
-                if (item == 'access_token') {
-                    resolve(lista[item]);
-                }
-                if (typeof lista[item] == 'object') {
-                    Object.keys(lista[item]).forEach(item2 => {
-                        if (item2 == 'access_token') {
-                            resolve(lista[item][item2]);
-                        }
-                    });
-                }
-            });
-        });
-    };
-
     const buscarAgenda = async (de, ate) => {
-        if (!validarSeEstaLogado()) {
-            return;
-        }
         Loading.show();
 
         const body = new FormData();
         body.append('data_inicial', de);
         body.append('data_final', ate);
         const response = await fetch(LINK + '/agenda/buscar', {
-            headers: {
-                Authorization: await pegarAccessToken(),
-            },
             body,
             method: 'POST',
         });
@@ -508,8 +404,8 @@ window.addEventListener('load', () => {
 
         if (response.status != 201) {
             Alerta.notificacao(
-                json.mensagem != undefined
-                    ? json.mensagem
+                json.erro.mensagem != undefined
+                    ? json.erro.mensagem
                     : 'Ocorreu um erro ao sincronizar sua agenda, por favor, recarregue a página e tente novamente.',
                 false
             );
@@ -766,17 +662,11 @@ window.addEventListener('load', () => {
         }
     });
     const deletarEvento = async () => {
-        if (!validarSeEstaLogado()) {
-            return;
-        }
         Loading.show();
         const body = new FormData();
         body.append('id', eventoId);
 
         const resposta = await fetch(LINK + '/agenda/deletar', {
-            headers: {
-                Authorization: await pegarAccessToken(),
-            },
             body,
             method: 'POST',
         });
@@ -790,7 +680,10 @@ window.addEventListener('load', () => {
 
         Loading.hide();
         if (resposta.status != 204) {
-            Alerta.notificacao(json.mensagem != undefined ? json.mensagem : 'Erro ao deletar esse evento.', false);
+            Alerta.notificacao(
+                json.erro.mensagem != undefined ? json.erro.mensagem : 'Erro ao deletar esse evento.',
+                false
+            );
             return;
         }
 
@@ -1002,7 +895,7 @@ window.addEventListener('load', () => {
     });
 
     botaoSalvarEvento.addEventListener('click', async () => {
-        if (!validarSeEstaLogado() || botaoSalvarEvento.classList.contains('aguarde')) {
+        if (botaoSalvarEvento.classList.contains('aguarde')) {
             return;
         }
         botaoSalvarEvento.classList.add('aguarde');
@@ -1027,9 +920,6 @@ window.addEventListener('load', () => {
         }
 
         const resposta = await fetch(LINK + '/agenda/salvar', {
-            headers: {
-                Authorization: await pegarAccessToken(),
-            },
             method: 'POST',
             body,
         });
@@ -1044,8 +934,8 @@ window.addEventListener('load', () => {
         botaoSalvarEvento.classList.remove('aguarde');
         if (resposta.status != 201) {
             Alerta.notificacao(
-                json.mensagem != undefined
-                    ? json.mensagem
+                json.erro.mensagem != undefined
+                    ? json.erro.mensagem
                     : 'Ocorreu um erro ao salvar evento, por favor, tente novamente.',
                 false
             );
@@ -1082,12 +972,7 @@ window.addEventListener('load', () => {
         enviarEventoParaEditar();
     });
     const enviarEventoParaEditar = async () => {
-        if (
-            !validarSeEstaLogado() ||
-            eventoId == undefined ||
-            eventoId == '' ||
-            botaoEditarEvento.classList.contains('aguarde')
-        ) {
+        if (eventoId == undefined || eventoId == '' || botaoEditarEvento.classList.contains('aguarde')) {
             return;
         }
         botaoEditarEvento.classList.add('aguarde');
@@ -1114,9 +999,6 @@ window.addEventListener('load', () => {
         }
 
         const resposta = await fetch(LINK + '/agenda/editar', {
-            headers: {
-                Authorization: await pegarAccessToken(),
-            },
             method: 'POST',
             body,
         });
@@ -1131,8 +1013,8 @@ window.addEventListener('load', () => {
         botaoEditarEvento.classList.remove('aguarde');
         if (resposta.status != 201) {
             Alerta.notificacao(
-                json.mensagem != undefined
-                    ? json.mensagem
+                json.erro.mensagem != undefined
+                    ? json.erro.mensagem
                     : 'Ocorreu um erro ao editar evento, por favor, tente novamente.',
                 false
             );
@@ -1154,9 +1036,6 @@ window.addEventListener('load', () => {
         confirmarParticipacaoNoEvento('talvez');
     });
     const confirmarParticipacaoNoEvento = async valor => {
-        if (!validarSeEstaLogado()) {
-            return;
-        }
         Loading.show();
 
         const body = new FormData();
@@ -1164,9 +1043,6 @@ window.addEventListener('load', () => {
         body.append('confirmar', valor);
 
         const resposta = await fetch(LINK + '/agenda/confirmar', {
-            headers: {
-                Authorization: await pegarAccessToken(),
-            },
             method: 'POST',
             body,
         });
@@ -1181,7 +1057,9 @@ window.addEventListener('load', () => {
         Loading.hide();
         if (resposta.status != 201) {
             Alerta.notificacao(
-                json.mensagem != undefined ? json.mensagem : 'Ocorreu um erro ao enviar resposta de participação.',
+                json.erro.mensagem != undefined
+                    ? json.erro.mensagem
+                    : 'Ocorreu um erro ao enviar resposta de participação.',
                 false
             );
             return;
@@ -1216,4 +1094,6 @@ window.addEventListener('load', () => {
         bloco.classList.add(valor);
         bloco.innerHTML = icone;
     };
+
+    montarHtmlDaAgenda();
 });

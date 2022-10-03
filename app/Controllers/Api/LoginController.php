@@ -60,21 +60,23 @@ final class LoginController extends Controller
         }
 
         $Usuario = $Login->pegarUsuario();
-        $dado = criptografarDado([
+        $payload = criptografarDado([
             'sub' => $Usuario->id,
-            'company_id' => base64Encode($Usuario->id_admin_empresa),
+            'company_id' => $Usuario->id_admin_empresa,
             'name' => $Usuario->nome->nome(),
             'picture' => $Usuario->imagem,
             'create_at' => $Usuario->data_criacao->date(),
             'updated_at' => $Usuario->data_atualizacao->date(),
             'document' => $Usuario->cpf->cpf(),
+            'google' => $Usuario->id_google,
+            'facebook' => $Usuario->id_facebook,
             'email' => $Usuario->email->email(),
-            'email_verified' => false,
+            'email_verified' => 'nao',
             'new_access' => $Usuario->primeiro_acesso->valor(),
             'permission' => $Usuario->permissao,
-        ], lista: ['name', 'picture', 'document', 'email']);
+        ], lista: ['company_id', 'name', 'picture', 'document', 'email', 'google', 'facebook']);
 
-        return $this->criarToken($dado, $request);
+        return $this->criarToken($payload, $request);
     }
 
     private function criarToken(array $body, Request $request): Response

@@ -4,22 +4,34 @@ namespace PainelApp\agenda\Controllers;
 
 use Http\Request;
 use Http\Response;
+use Helpers\SocialHelper;
 use Controller\Controller;
-use Painel\Agenda\Models\BuscarModel;
-use Painel\Agenda\Models\EditarModel;
-use Painel\Agenda\Models\SalvarModel;
-use Painel\Agenda\Models\DeletarModel;
-use Painel\Agenda\Models\RespostaModel;
+use PainelApp\agenda\Models\BuscarModel;
+use PainelApp\agenda\Models\EditarModel;
+use PainelApp\agenda\Models\SalvarModel;
+use PainelApp\agenda\Models\DeletarModel;
+use PainelApp\agenda\Models\RespostaModel;
 
 final class AgendaController extends Controller
 {
     public function index()
     {
+        $Social = new SocialHelper(
+            rede: 'google'
+        );
+
         return view('painel.agenda.index', [
             'appTitulo' => '',
             'app' => 'agenda',
-            'agenda' => true
+            'agenda' => true,
+            'logado' => $Social->logado()
         ]);
+    }
+
+    public function postLogin(Request $request)
+    {
+        new SocialHelper(rede: 'google', code: $request->code);
+        return mensagemSucesso(['logado' => true], status: 201);
     }
 
     public function postBuscar(Request $request)
@@ -67,10 +79,10 @@ final class AgendaController extends Controller
 
     private function token()
     {
-        $token = getallheaders()['Authorization'] ?? getallheaders()['authorization'] ?? '';
-        if (empty($token)) {
-            mensagemStatus(403);
+        $Social = new SocialHelper(rede: 'google');
+        if ($Social->logado()) {
+            return $Social->token();
         }
-        return $token;
+        return '';
     }
 }

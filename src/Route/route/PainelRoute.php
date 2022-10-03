@@ -133,6 +133,12 @@ Route
             ::view('/agenda');
 
         Route
+            ::nome('login')
+            ::request(['hash_validacao', 'code'])
+            ::_rotaNaoUnica()
+            ::post('/agenda/login');
+
+        Route
             ::nome('buscar')
             ::_rotaNaoUnica()
             ::request(['data_inicial', 'data_final'])

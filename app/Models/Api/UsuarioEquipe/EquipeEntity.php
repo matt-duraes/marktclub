@@ -29,7 +29,8 @@ final class EquipeEntity extends Entity
         'senha' => 'salt',
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao',
-        'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google'
+        'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
+        'id_facebook', 'id_google'
     ];
     protected array $_salvar = [
         'nome_real' => '->nome',

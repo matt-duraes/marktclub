@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\Agenda\Models;
+namespace PainelApp\agenda\Models;
 
 use DateTime;
 use Helpers\CurlHelper;

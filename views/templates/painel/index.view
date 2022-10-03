@@ -119,6 +119,7 @@
         <input type="hidden" name="USUARIO_IMAGEM" id="USUARIO_IMAGEM" value="{{sessao('USUARIO.imagem')}}">
     </form>
 
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://www.google.com/recaptcha/api.js?render={!!env('GOOGLE_API_KEY')!!}"></script>
     @JS

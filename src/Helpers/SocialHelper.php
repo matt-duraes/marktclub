@@ -21,11 +21,71 @@ final class SocialHelper
         private ?string $token = null,
         ?string $code = null
     ) {
-        if ($rede == 'google') {
+        if ($rede == 'google' && !empty($code)) {
             $this->googleCriarTokenComAuthorizationCode($code);
-        } else if ($rede == 'facebook') {
+        } else if ($rede == 'google') {
+            $this->googlePegarTokenDoCookie();
+        } else if ($rede == 'facebook' && !empty($id) && !empty($token)) {
             $this->facebookValidarToken();
         }
+    }
+
+    public function logado(): bool
+    {
+        if ($this->rede != 'google') {
+            mensagemErro('Erro!', 'Verifique a rede setada para continuar.');
+        }
+
+        if (!cookieExiste('GOOGLE_SOCIAL')) {
+            return false;
+        }
+
+        $token = base64Decode(cookie('GOOGLE_SOCIAL'));
+        $cliente = new Google\Client();
+
+        try {
+            $cliente->setAccessToken($token);
+        } catch (\Throwable) {
+            return false;
+        }
+        if ($cliente->isAccessTokenExpired()) {
+            return $this->googleRelogar($token);
+        }
+
+        $usuarioId = sessao('USUARIO.google');
+        $googleId = $cliente->verifyIdToken($token['id_token'])['sub'] ?? '';
+        if (empty($googleId) || empty($usuarioId) || $usuarioId != $googleId) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function googleRelogar(array $token): bool
+    {
+        if (!array_key_exists('refresh_token', $token)) {
+            return false;
+        }
+
+        $client = new Google\Client([
+            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri' => env('GOOGLE_REDIRECT_URI')
+        ]);
+
+        try {
+            $token = $client->fetchAccessTokenWithRefreshToken($token['refresh_token']);
+        } catch (\Throwable) {
+            return false;
+        }
+
+        $usuarioId = sessao('USUARIO.google');
+        $googleId = $client->verifyIdToken($token['id_token'])['sub'] ?? '';
+        if (empty($googleId) || empty($usuarioId) || $usuarioId != $googleId) {
+            return false;
+        }
+
+        return $this->googleSetarToken($token);
     }
 
     /**
@@ -44,6 +104,14 @@ final class SocialHelper
             titulo: 'Erro ao pegar ID!',
             mensagem: 'Verifique o tipo de integração para pegar o ID.'
         );
+    }
+    public function token()
+    {
+        if ($this->rede == 'google') {
+            return $this->googleToken['access_token'];
+        } else if ($this->rede == 'facebook') {
+            return $this->token;
+        }
     }
 
     public function metaTag(string|array $titulo, string|array $descricao, null|string|array $imagem = null)
@@ -225,7 +293,19 @@ final class SocialHelper
             'client_secret' => env('GOOGLE_CLIENT_SECRET'),
             'redirect_uri' => env('GOOGLE_REDIRECT_URI')
         ]);
-        $this->googleToken = $client->fetchAccessTokenWithAuthCode($code);
+        $token = $client->fetchAccessTokenWithAuthCode($code);
+
+        return $this->googleSetarToken($token);
+    }
+
+    private function googleSetarToken($token): bool
+    {
+        if (!is_array($token) || !array_key_exists('refresh_token', $token)) {
+            return false;
+        }
+        cookie('GOOGLE_SOCIAL', base64Encode($token));
+        $this->googleToken = $token;
+        return true;
     }
 
     private function facebookValidarToken(): void
@@ -258,5 +338,10 @@ final class SocialHelper
             mensagemErro('Erro!', 'Não foi possível pegar sua imagem do Google.');
         }
         return $body['sub'];
+    }
+
+    private function googlePegarTokenDoCookie()
+    {
+        $this->googleToken = base64Decode(cookie('GOOGLE_SOCIAL'));
     }
 }

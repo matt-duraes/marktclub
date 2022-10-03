@@ -75,7 +75,7 @@ final class AuthHelper
     public function deletar(): bool
     {
         sessaoDestruir();
-        $this->deletarCookie();
+        $this->cookieDeletar();
 
         return true;
     }
@@ -86,12 +86,12 @@ final class AuthHelper
      * @param null|string   $local      Qual o local está, por exemplo: site, painel, etc
      * @return string Retona uma string com o hash criado ou false para falha
      */
-    public function criarCookie(?string $local = null): string | bool
+    public function cookie(?string $local = null): string | bool
     {
         $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
         $nome = hashIpUser($local . '_auth');
         $hash = hashUnico();
-        if (criarCookie($nome, $hash, dia: 365)) {
+        if (cookie($nome, $hash, dia: 365)) {
             return $hash;
         }
         return false;
@@ -103,10 +103,10 @@ final class AuthHelper
      * @param null|string   $local      Qual o local está, por exemplo: site, painel, etc
      * @return bool Retorna false para falha ou true para sucesso
      */
-    public function deletarCookie(?string $local = null): bool
+    public function cookieDeletar(?string $local = null): bool
     {
         $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
         $nome = hashIpUser($local . '_auth');
-        return deletarCookie($nome);
+        return cookieDeletar($nome);
     }
 }
