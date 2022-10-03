@@ -427,14 +427,26 @@ abstract class PadraoController extends Controller
             return $dado;
         }
         $chave = $this->pegarChavePrivada();
+        $dado = $this->tratarListaDeRetornoLaco($dado, $criptografia, $retorno, $chave);
+        return is_array($dado) && $retorno == 'object' ? object($dado) : $dado;
+    }
+    private function tratarListaDeRetornoLaco($dado, $criptografia, $retorno, $chave)
+    {
         $lista = [];
         foreach ($dado as $ind => $val) {
             if (!is_array($val) && !is_object($val)) {
+                if (!is_array($criptografia)) {
+                    ppe($criptografia);
+                }
                 $lista[$ind] = in_array($ind, $criptografia) ? descriptografarDado($val, $criptografia, $chave) : $val;
                 continue;
             }
-            $dadoDescriptografado = descriptografarDado($val, $criptografia, $chave);
-            $lista[$ind] = $retorno == 'object' ? object($dadoDescriptografado) : $dadoDescriptografado;
+            $lista[$ind] = $this->tratarListaDeRetornoLaco(
+                is_array($dado) ? $dado[$ind] : $dado->$ind,
+                is_string($ind) && array_key_exists($ind, $criptografia) ? $criptografia[$ind] : $criptografia,
+                $retorno,
+                $chave
+            );
         }
         return $lista;
     }

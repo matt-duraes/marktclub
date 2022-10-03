@@ -19,7 +19,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->vazioBreak('quem_indicou', 'Usuário foi deletado e não existe mais.')
             ->linha('quem_indicou->nome', 'Nome')
             ->linha('quem_indicou->cpf', 'CPF')
-            ->linha('quem_indicou->email', 'E-mail');
+            ->linha('quem_indicou->email', 'E-mail')
+            ->botao('usuario_link', 'Ver usuário', link: LINK . '/app/visualizar/usuario-cliente/->quem_indicou->id');
     });
     $Painel->bloco('Usuário após ativar', callback: function () use ($Painel) {
         $Painel

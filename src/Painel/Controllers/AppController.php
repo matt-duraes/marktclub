@@ -279,7 +279,7 @@ final class AppController extends PadraoController
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'editar',
-                'dado' => object($this->tratarListaDeRetorno($dado->dado, $config->api->criptografar)),
+                'dado' => $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar),
                 'request' => $request,
                 'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : '',
                 'linkVoltar' => $config->add->link

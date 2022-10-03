@@ -1481,10 +1481,10 @@ if (!function_exists('object')) {
      * @param array $array      Array que deseja converter
      * @return stdClass
      */
-    function object(array $array): stdClass
+    function object(array $array): stdClass|array
     {
-        $object = json_decode(json_encode($array), false);
-        return is_object($object) ? $object : (object)[];
+        $object = jsonDecode(jsonEncode($array), false);
+        return !vazio($object) ? $object : (object)[];
     }
 }
 if (!function_exists('caixaCodigo')) {
