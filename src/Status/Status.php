@@ -65,7 +65,7 @@ abstract class Status implements StatusInterface
     private function pegarIdEmpresa()
     {
         if (sessaoExiste('USUARIO.empresa_id')) {
-            return base64decode(sessao('USUARIO.empresa_id'));
+            return sessao('USUARIO.empresa_id');
         } else if (defined('TOKEN') && array_key_exists('empresa', TOKEN)) {
             return TOKEN['empresa']->get('id');
         }
