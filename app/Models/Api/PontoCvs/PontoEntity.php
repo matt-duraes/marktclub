@@ -7,16 +7,19 @@ use Modules\DataHora;
 use App\Helpers\PontoCvsHelper;
 use App\Classes\PontoCvs\Helper;
 use App\Classes\PontoCvs\Status;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use Helpers\EmailHelper;
 
 final class PontoEntity extends Entity
 {
     protected string $_tabela = TABELA_PONTO_CVS;
 
     protected array $_buscar = [
-        'ponto_solicitado', 'voucher', 'status', 'data_solicitacao', 'data_voucher', 'mensagem'
+        'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao', 
+        'data_solicitacao', 'data_voucher', 'mensagem'
     ];
 
-    protected array $_insert = ['id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao'];
+    protected array $_insert = ['uuid', 'id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao'];
     protected array $_update = ['voucher', 'data_voucher', 'mensagem'];
     protected array $_salvar = ['status'];
 
@@ -29,16 +32,51 @@ final class PontoEntity extends Entity
     public DataHora $data_voucher;
     public string $voucher;
     public int $ponto_solicitado;
+    public string $cpf;
     public string $mensagem;
 
-    private int $idUsuario;
-    private int $cpfUsuario;
+    private string $cpfUsuario;
 
-    public function __construct()
+    public function __construct(string $cpf = '')
     {
         parent::__construct();
-        $this->idUsuario = TOKEN['usuario']->get('id');
-        $this->cpfUsuario = TOKEN['usuario']->cpf->numero();
+
+        $this->cpfUsuario = !empty($cpf) ? $cpf : (!empty(TOKEN['usuario']) ? TOKEN['usuario']->cpf->numero() : '');
+        $this->cpfUsuario = soNumero($this->cpfUsuario);
+
+        $this->relacionarTabela(
+            tabela: 'usuario_novo',
+            campoAtual: 'documento',
+            campoOriginal: 'id_usuario_cliente',
+            campo: [
+                'cod', 'matricula', 'nome', 'documento', 'email_pessoal', 'email_trabalho',
+                'telefone_fixo', 'telefone_celular', 'status'
+            ],
+            alias: 'usuario'
+        );
+    }
+
+    protected function regraPosBuscar()
+    {
+        $PontoCvsHelper = new PontoCvsHelper;
+        $pontos = $PontoCvsHelper->buscarPontos($this->usuario_documento);
+
+        $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
+        $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
+    
+        if ($this->usuario_status != 4) {
+            $this->usuario = [
+                'matricula' => $this->usuario_matricula,
+                'id' => $this->usuario_cod,
+                'nome' => $this->usuario_nome,
+                'cpf' => strCpf($this->usuario_documento),
+                'email' => strEmail($email),
+                'telefone' => strTelefone($telefone),
+                'credito' => $pontos->credito,
+                'debito' => $pontos->debito,
+                'saldo' => $pontos->saldo
+            ];
+        }
     }
 
     /*
@@ -50,26 +88,38 @@ final class PontoEntity extends Entity
     {
         $this->data_solicitacao = new DataHora(agora());
         $this->status = new Status('solicitado');
-        $this->id_usuario_cliente = $this->idUsuario;
+        $this->id_usuario_cliente = $this->cpfUsuario;
 
-        // $this->verificarSeJaExisteUmaSolicitacao();
+        $this->verificarSeUsuarioConstaNaBase();
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
+        $this->verificarSeJaExisteUmaSolicitacao();
+        $this->validarSeSolicitacaoFoiEfetuadaAPI();
     }
+
+    private function verificarSeUsuarioConstaNaBase()
+    {
+        $PontoCvsHelper = new PontoCvsHelper;
+        if (!$PontoCvsHelper->validarUsuario($this->cpfUsuario)) {
+            mensagemErro('Erro!', 'O Usuario indicado não pode realizar uma solicitação!');
+        }
+    }
+
     private function verificarSeJaExisteUmaSolicitacao()
     {
         $quantidade = $this->contar([
-            ['id_usuario_cliente', $this->idUsuario],
+            ['id_usuario_cliente', $this->cpfUsuario],
             ['status', 'in', [1, 2]]
         ]);
 
         if ($quantidade > 0) {
             mensagemErro(
-                'Erro!',
+                'Por favor, aguarde!',
                 'Você só pode fazer uma solicitação por vez, aguarde a finalização da solicitação em aberto.'
             );
         }
     }
+
     private function verificarSeFoiPedidoNumeroMinimoPonto()
     {
         $ponto = $this->ponto_solicitado;
@@ -81,12 +131,51 @@ final class PontoEntity extends Entity
             );
         }
     }
+
     private function validarSeUsuarioTemPontoSuficiente()
     {
         $PontoCvsHelper = new PontoCvsHelper;
         if (!$PontoCvsHelper->validarQuantidadePonto($this->ponto_solicitado, $this->cpfUsuario)) {
-            mensagemErro('Erro!', 'Quantidade de pontos maior informado é maior que seu saldo atual.');
+            mensagemErro('Saldo Insuficiente!', 'Quantidade de pontos informada é maior que seu saldo atual.');
         }
+    }
+
+    private function validarSeSolicitacaoFoiEfetuadaAPI()
+    {
+        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper->enviarSolicitacaoPonto($this->cpfUsuario, $this->ponto_solicitado);
+    }
+
+    protected function regraPosInsert()
+    {
+        $email = 'fabiogomes@spbancarios.com.br';
+        if (eLocalhost() || eHomologacao() || SISTEMA == 'LOCALHOST') {
+            $email =  'ti@marktclub.com.br';
+        }
+
+        $PontoCvsHelper = new PontoCvsHelper;
+        $matricula = $PontoCvsHelper->buscarPontos($this->cpfUsuario)->matricula;
+
+        $Construtor = new ConstrutorEntity();
+        $Construtor->buscar(['id', 165]);
+
+        $logo = $Construtor->logo;
+        $titulo = $Construtor->titulo;
+
+        $Email = new EmailHelper();
+        $Email->mensagem(
+            'Voucher Solicitado!',
+            'Um voucher foi solicitado',
+            'Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel! Para analisar sua situação, 
+            clique no botão abaixo:',
+            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
+            botaoTexto: 'Verificar Voucher',
+            botaoLink: LINK_PADRAO . '/painel/app/visualizar/ponto-cvs',
+            logo: LINK_ARQUIVO . '/construtor/' . $logo,
+            acao: 'Voucher',
+            cor: $Construtor->cor
+        );
+        $Email->sendGrid("Voucher Solicitado - $matricula", 'Fabio Gomes', $email, deNome: $titulo);
     }
 
     /*
@@ -101,15 +190,32 @@ final class PontoEntity extends Entity
         }
 
         $this->validarSePodeMudarStatus();
+        $this->validarSePodeMudarVoucher();
     }
+
+    private function validarSePodeMudarVoucher()
+    {
+        $status = $this->status->numero();
+
+        if (in_array($status, [1, 2, 4]) && !empty($this->prop('voucher'))) {
+            $this->voucher = '';
+        } else if (in_array($status, [1, 2, 4]) && !empty($this->voucher)) {
+            mensagemErro('Erro!', 'Só é possível preencher o voucher caso o mesmo tenha sido "Aprovado".');
+        }
+    }
+    
     private function validarSePodeMudarStatus()
     {
-        $statusAtual = $this->prop('status');
-        $statusNovo = $this->status->indice();
+        if (!$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O campo status não está no formato correto.');
+        }
 
-        if ($statusAtual == 1 && in_array($statusNovo, [1, 2])) {
+        $statusAtual = $this->prop('status');
+        $statusNovo = $this->status->numero();
+
+        if ($statusAtual == 1 && in_array($statusNovo, [3, 4])) {
             mensagemErro('Erro!', 'Só é possível mudar o status de "Solicitado" para "Em andamento".');
-        } else if ($statusAtual == 2 && !in_array($statusNovo, [2, 3, 4])) {
+        } else if ($statusAtual == 2 && $statusNovo == 1) {
             mensagemErro('Erro!', 'Só é possível mudar o status de "Em andamento" para "Recusado" ou "Aprovado".');
         } else if (in_array($statusAtual, [3, 4]) && $statusAtual != $statusNovo) {
             mensagemErro('Erro!', 'Você não pode mudar o status de uma solicitação que foi recusada ou aprovada.');

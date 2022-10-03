@@ -13,14 +13,14 @@ final class Status extends StatusStatus
             lista: [
                 'solicitado' => 'Solicitado',
                 'andamento' => 'Em andamento',
-                'recusado' => 'Recusado',
-                'aprovado' => 'Aprovado'
+                'aprovado' => 'Aprovado',
+                'recusado' => 'Recusado'
             ],
             cor: [
                 'solicitado' => 'vermelho',
                 'andamento' => 'azul',
-                'recusado' => 'preto',
-                'aprovado' => 'verde'
+                'aprovado' => 'verde',
+                'recusado' => 'preto'
             ]
         );
     }
