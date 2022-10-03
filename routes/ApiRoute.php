@@ -265,7 +265,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_lead:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
+            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!origem', '!ordem'], 'json')
             ::get('/usuario-lead');
 
         Route

@@ -50,7 +50,7 @@ final class PontoCvsTest extends Tests
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceIgual('dado.ponto', Helper::PONTO_MINIMO)
+            ->checkIndiceIgual('dado.ponto_solicitado', Helper::PONTO_MINIMO)
             ->checkIndiceIgual('dado.status', 'solicitado')
             ->checkIndiceIgual('dado.voucher', '')
             ->checkIndiceIgual('dado.data_voucher', '');

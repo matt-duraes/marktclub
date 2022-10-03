@@ -64,7 +64,6 @@ final class PontoEntity extends Entity
         $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
         $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
     
-        $usuario = [];
         if ($this->usuario_status != 4) {
             $this->usuario = [
                 'matricula' => $this->usuario_matricula,
@@ -95,7 +94,7 @@ final class PontoEntity extends Entity
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
         $this->verificarSeJaExisteUmaSolicitacao();
-        $this->validarSeSolicitacaoFoiEfetuadaAPI();
+        // $this->validarSeSolicitacaoFoiEfetuadaAPI();
     }
 
     private function verificarSeUsuarioConstaNaBase()
