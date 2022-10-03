@@ -153,6 +153,7 @@ final class PerfilController extends Controller
 
         $this->atualizarDadoDaEquipe($dado);
 
+        sessao('USUARIO.' . $request->rede, $Social->id());
         return mensagemSucesso([], status: 201);
     }
 

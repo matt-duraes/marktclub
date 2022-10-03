@@ -6,15 +6,15 @@
 // @import "login"
 
 window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value;
+    const blocoAgendaSemana = document.querySelector('#bloco_agenda_semana');
+    if (!blocoAgendaSemana) {
+        return;
+    }
 
+    const LINK = document.querySelector('#LINK').value;
     const usuarioEmail = document.querySelector('#USUARIO_EMAIL').value;
     const usuarioImagem = document.querySelector('#USUARIO_IMAGEM').value;
-    const blocoAgendaSemana = document.querySelector('#bloco_agenda_semana');
     const blocoAgendaConteudo = document.querySelector('#bloco_agenda_conteudo');
-    const blocoConectar = document.querySelector('#bloco_conectar');
-    const botaoSincronizarAgenda = document.querySelector('#botao_sincronizar_agenda');
-    const botaoDessincronizarAgenda = document.querySelector('#botao_dessincronizar_agenda');
 
     let dadoAgenda = {};
     let eventoId = '';

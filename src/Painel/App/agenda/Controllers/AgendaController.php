@@ -4,6 +4,7 @@ namespace PainelApp\agenda\Controllers;
 
 use Http\Request;
 use Http\Response;
+use Helpers\ApiHelper;
 use Helpers\SocialHelper;
 use Controller\Controller;
 use PainelApp\agenda\Models\BuscarModel;
@@ -16,22 +17,40 @@ final class AgendaController extends Controller
 {
     public function index()
     {
-        $Social = new SocialHelper(
-            rede: 'google'
-        );
-
         return view('painel.agenda.index', [
             'appTitulo' => '',
             'app' => 'agenda',
             'agenda' => true,
-            'logado' => $Social->logado()
+            'logado' => (new SocialHelper(rede: 'google'))->logado([
+                'https://www.googleapis.com/auth/calendar.events',
+                'https://www.googleapis.com/auth/calendar.readonly'
+            ])
         ]);
     }
 
     public function postLogin(Request $request)
     {
-        new SocialHelper(rede: 'google', code: $request->code);
+        $Social = new SocialHelper(rede: 'google', code: $request->code);
+        $this->atualizarIdGoogle($Social->id());
         return mensagemSucesso(['logado' => true], status: 201);
+    }
+    private function atualizarIdGoogle($id)
+    {
+        $idUsuario = sessao('USUARIO.google');
+        if (!empty($idUsuario) && $id == $idUsuario) {
+            return;
+        }
+
+        $Api = new ApiHelper(token: true);
+        $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $status = $Api->body([
+            'id_google' => criptografarDado($id, chave: $chave)
+        ])->put('/usuario-equipe/' . sessao('USUARIO.id'))->status();
+
+        if ($status != 204) {
+            mensagemErro('Erro!', 'Ocorreu um erro ao vincular sua conta, por favor, tente novamente.');
+        }
+        sessao('USUARIO.google', $id);
     }
 
     public function postBuscar(Request $request)

@@ -30,7 +30,13 @@ final class SocialHelper
         }
     }
 
-    public function logado(): bool
+    /**
+     * Verifica se o usuário está logado e se o usuário tem o scope que deseja
+     *
+     * @param   array   $scope  Lista de scope que o usuário tem que ter
+     * @return  bool
+     */
+    public function logado(array $scope = []): bool
     {
         if ($this->rede != 'google') {
             mensagemErro('Erro!', 'Verifique a rede setada para continuar.');
@@ -41,13 +47,22 @@ final class SocialHelper
         }
 
         $token = base64Decode(cookie('GOOGLE_SOCIAL'));
-        $cliente = new Google\Client();
+        if ($scope) {
+            $scopeToken = is_array($token) && array_key_exists('scope', $token) ? explode(' ', $token['scope']) : [];
+            foreach ($scope as $val) {
+                if (!in_array($val, $scopeToken)) {
+                    return false;
+                }
+            }
+        }
 
+        $cliente = new Google\Client();
         try {
             $cliente->setAccessToken($token);
         } catch (\Throwable) {
             return false;
         }
+
         if ($cliente->isAccessTokenExpired()) {
             return $this->googleRelogar($token);
         }
@@ -342,6 +357,11 @@ final class SocialHelper
 
     private function googlePegarTokenDoCookie()
     {
-        $this->googleToken = base64Decode(cookie('GOOGLE_SOCIAL'));
+        if (!cookieExiste('GOOGLE_SOCIAL')) {
+            $this->googleToken = [];
+            return;
+        }
+        $token = base64Decode(cookie('GOOGLE_SOCIAL'));
+        $this->googleToken = is_array($token) ? $token : [];
     }
 }
