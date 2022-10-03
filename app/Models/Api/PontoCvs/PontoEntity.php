@@ -94,7 +94,7 @@ final class PontoEntity extends Entity
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
         $this->verificarSeJaExisteUmaSolicitacao();
-        // $this->validarSeSolicitacaoFoiEfetuadaAPI();
+        $this->validarSeSolicitacaoFoiEfetuadaAPI();
     }
 
     private function verificarSeUsuarioConstaNaBase()
