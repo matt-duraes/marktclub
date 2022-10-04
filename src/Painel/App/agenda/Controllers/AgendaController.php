@@ -22,8 +22,7 @@ final class AgendaController extends Controller
             'app' => 'agenda',
             'agenda' => true,
             'logado' => (new SocialHelper(rede: 'google'))->logado([
-                'https://www.googleapis.com/auth/calendar.events',
-                'https://www.googleapis.com/auth/calendar.readonly'
+                'https://www.googleapis.com/auth/calendar.events'
             ])
         ]);
     }
