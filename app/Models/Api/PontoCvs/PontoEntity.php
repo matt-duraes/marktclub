@@ -4,18 +4,20 @@ namespace App\Models\Api\PontoCvs;
 
 use ORM\Entity;
 use Modules\DataHora;
+use Helpers\EmailHelper;
 use App\Helpers\PontoCvsHelper;
 use App\Classes\PontoCvs\Helper;
 use App\Classes\PontoCvs\Status;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
-use Helpers\EmailHelper;
+use App\Classes\UsuarioCliente\Helper as ClienteHelper;
 
 final class PontoEntity extends Entity
 {
     protected string $_tabela = TABELA_PONTO_CVS;
 
     protected array $_buscar = [
-        'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao', 
+        'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao',
         'data_solicitacao', 'data_voucher', 'mensagem'
     ];
 
@@ -46,7 +48,7 @@ final class PontoEntity extends Entity
 
         $this->relacionarTabela(
             tabela: 'usuario_novo',
-            campoAtual: 'documento',
+            campoAtual: 'id',
             campoOriginal: 'id_usuario_cliente',
             campo: [
                 'cod', 'matricula', 'nome', 'documento', 'email_pessoal', 'email_trabalho',
@@ -63,8 +65,8 @@ final class PontoEntity extends Entity
 
         $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
         $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
-    
-        if ($this->usuario_status != 4) {
+
+        if (in_array($this->usuario_status, ClienteHelper::STATUS_LIBERADO)) {
             $this->usuario = [
                 'matricula' => $this->usuario_matricula,
                 'id' => $this->usuario_cod,
@@ -88,13 +90,36 @@ final class PontoEntity extends Entity
     {
         $this->data_solicitacao = new DataHora(agora());
         $this->status = new Status('solicitado');
-        $this->id_usuario_cliente = $this->cpfUsuario;
+        $this->id_usuario_cliente = $this->pegarIdUsuario();
 
         $this->verificarSeUsuarioConstaNaBase();
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
         $this->verificarSeJaExisteUmaSolicitacao();
         $this->validarSeSolicitacaoFoiEfetuadaAPI();
+    }
+
+    private function pegarIdUsuario(): int
+    {
+        $Usuario = new ClienteEntity();
+        try {
+            $Usuario->buscar([
+                ['documento', $this->cpfUsuario],
+                ['status', 'in', ClienteHelper::STATUS_LIBERADO],
+                [
+                    'OR',
+                    ['empresa', 198],
+                    [
+                        ['empresa', 1],
+                        ['tipo', 3]
+                    ]
+                ]
+            ]);
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Usuario não foi encontrado.', status: 404);
+        }
+
+        return $Usuario->get('id');
     }
 
     private function verificarSeUsuarioConstaNaBase()
@@ -166,7 +191,7 @@ final class PontoEntity extends Entity
         $Email->mensagem(
             'Voucher Solicitado!',
             'Um voucher foi solicitado',
-            'Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel! Para analisar sua situação, 
+            'Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel! Para analisar sua situação,
             clique no botão abaixo:',
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             botaoTexto: 'Verificar Voucher',
@@ -203,7 +228,7 @@ final class PontoEntity extends Entity
             mensagemErro('Erro!', 'Só é possível preencher o voucher caso o mesmo tenha sido "Aprovado".');
         }
     }
-    
+
     private function validarSePodeMudarStatus()
     {
         if (!$this->status->valido()) {
