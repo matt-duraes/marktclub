@@ -5,7 +5,7 @@ use App\Classes\PontoCvs\Status;
 $Painel = new PainelConfig\Add('ponto_cvs');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Dados pessoais', function () use ($Painel) {
+    $Painel->fieldset('Dados voucher', function () use ($Painel) {
         $Painel
         ->input(name: 'voucher', label: 'Voucher')
         ->textarea(name: 'mensagem', label: 'Mensagem para o Usuario')
