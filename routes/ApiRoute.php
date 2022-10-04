@@ -491,6 +491,12 @@ Route
                 '!endereco_estado', '!endereco_cidade', '!federacao', '!salavip', '!grupo'
             ])
             ::post('/login/api');
+
+        Route
+            ::nome('loginToken')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:token'])
+            ::request(['clube', 'usuario'])
+            ::post('/login/token');
     });
 
 Route
@@ -684,7 +690,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:salvar'])
             ::request(['ponto_solicitado', 'cpf'])
             ::post('/ponto-cvs');
-            
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:atualizar'])

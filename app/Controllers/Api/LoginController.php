@@ -5,9 +5,12 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\LoginPainel\LoginFacebookModel;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
 use App\Models\Api\LoginClube\LoginModel as LoginClubeModel;
@@ -118,5 +121,56 @@ final class LoginController extends Controller
         );
 
         return mensagemSucesso($Login->token(), 201);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LOGIN CLUBE TOKEN
+    |--------------------------------------------------------------------------
+    */
+    public function postLoginToken(Request $request)
+    {
+        $Construtor = new ConstrutorEntity();
+        $Construtor->id($request->clube);
+
+        $idEmpresa = $Construtor->id_admin_empresa;
+        $Usuario = new ClienteEntity(validarToken: false);
+
+        try {
+            $Usuario->buscar([
+                ['cod', $request->usuario],
+                ['status', 'in', Helper::STATUS_LIBERADO],
+                [
+                    'OR',
+                    ['empresa', $idEmpresa],
+                    [
+                        ['empresa', 1],
+                        ['tipo', 3]
+                    ]
+                ]
+            ]);
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Usuário não encontrado.', status: 404);
+        }
+
+        $body = [
+            'sub' => $Usuario->id
+        ];
+
+        $Token = new TokenAuthorizationEntity();
+        $token = $Token->criarToken(
+            TOKEN['app'],
+            $body,
+            [],
+            env('API_AUDIENCE', ''),
+            env('API_REDIRECT_URI', ''),
+            uuid(),
+            'sim'
+        );
+
+        return new Response(json: [
+            'status' => 'sucesso',
+            'dado' => $token
+        ], status: 201);
     }
 }
