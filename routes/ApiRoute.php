@@ -667,6 +667,7 @@ Route
     ::nome('ponto_cvs')
     ::controller(App\Controllers\Api\PontoCvsController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\PontoCvs\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('listar')
