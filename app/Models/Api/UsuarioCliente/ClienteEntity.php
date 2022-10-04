@@ -116,9 +116,13 @@ final class ClienteEntity extends Entity
     private int $idEmpresa;
 
     public function __construct(
-        private ?Request $request = null
+        private ?Request $request = null,
+        private bool $validarToken = true
     ) {
         parent::__construct();
+        if (!$validarToken) {
+            return;
+        }
 
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioCliente\ClienteEntity');
