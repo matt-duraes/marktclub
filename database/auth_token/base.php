@@ -21,4 +21,5 @@ return (new \DataBase\DataBase())
     ->datetime('data_ativacao')->null()
     ->datetime('data_revogacao')->null()
     ->datetime('data_vencimento')->null()
+    ->int('tipo')->tamanho(1)->null()
     ->status();

@@ -120,7 +120,7 @@ swIDAQAB
 
             'relatorio_analytics:listar', 'relatorio_analytics:download',
 
-            'login:painel', 'login:api', 'login:clube',
+            'login:painel', 'login:api', 'login:clube', 'login:token',
 
             'admin:chave_publica', 'admin:chave_privada',
 

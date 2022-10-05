@@ -5,9 +5,14 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\ApiToken\Tipo;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Classes\ApiToken\Helper as ApiTokenHelper;
 use App\Models\Api\LoginPainel\LoginFacebookModel;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
 use App\Models\Api\LoginClube\LoginModel as LoginClubeModel;
@@ -76,10 +81,10 @@ final class LoginController extends Controller
             'permission' => $Usuario->permissao,
         ], lista: ['company_id', 'name', 'picture', 'document', 'email', 'google', 'facebook']);
 
-        return $this->criarToken($payload, $request);
+        return $this->criarToken($payload, $request, new Tipo(ApiTokenHelper::TIPO_PAINEL));
     }
 
-    private function criarToken(array $body, Request $request): Response
+    private function criarToken(array $body, Request $request, Tipo $tipo): Response
     {
         $Token = new TokenAuthorizationEntity();
         $token = $Token->criarToken(
@@ -89,7 +94,8 @@ final class LoginController extends Controller
             $request->audience,
             $request->redirect_uri,
             $request->state,
-            'sim'
+            'sim',
+            $tipo
         );
 
         return new Response(json: [
@@ -118,5 +124,67 @@ final class LoginController extends Controller
         );
 
         return mensagemSucesso($Login->token(), 201);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LOGIN CLUBE TOKEN
+    |--------------------------------------------------------------------------
+    */
+    public function postLoginToken(Request $request)
+    {
+        if ($request->vazio('usuario')) {
+            mensagemErro('Campo obrigatório!', 'Você deve passar um usuário para continuar.');
+        } else if ($request->vazio('clube')) {
+            mensagemErro('Campo obrigatório!', 'Você deve passar um clube para continuar.');
+        }
+
+        try {
+            $Construtor = new ConstrutorEntity();
+            $Construtor->id($request->clube);
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Clube não encontrado.', status: 404);
+        }
+
+        $idEmpresa = $Construtor->id_admin_empresa;
+        $Usuario = new ClienteEntity(validarToken: false);
+
+        try {
+            $Usuario->buscar([
+                ['cod', $request->usuario],
+                ['status', 'in', Helper::STATUS_LIBERADO],
+                [
+                    'OR',
+                    ['empresa', $idEmpresa],
+                    [
+                        ['empresa', 1],
+                        ['tipo', 3]
+                    ]
+                ]
+            ]);
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Usuário não encontrado.', status: 404);
+        }
+
+        $body = [
+            'sub' => $Usuario->id
+        ];
+
+        $Token = new TokenAuthorizationEntity();
+        $token = $Token->criarToken(
+            TOKEN['app'],
+            $body,
+            [],
+            env('API_AUDIENCE', ''),
+            env('API_REDIRECT_URI', ''),
+            uuid(),
+            'sim',
+            new Tipo(ApiTokenHelper::TIPO_CLUBE)
+        );
+
+        return new Response(json: [
+            'status' => 'sucesso',
+            'dado' => $token
+        ], status: 201);
     }
 }
