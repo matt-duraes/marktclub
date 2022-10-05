@@ -2,7 +2,7 @@
 
 return [
     [
-        'cod' => uuid(),
+        'cod' => 'b7ecc8af-25c1-4981-a891-cc60c3464f6c',
         'empresa' => 1,
         'titulo' => 'Markt Club',
         'link_site' => 'https://localhost.com:4200',
