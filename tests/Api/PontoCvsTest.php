@@ -38,7 +38,7 @@ final class PontoCvsTest extends Tests
             ->Curl
             ->loginPainel()
             ->body([
-                'cpf' => '67783406815',
+                'cpf' => $this->cryptEncode('67783406815'),
                 'ponto_solicitado' => Helper::PONTO_MINIMO
             ])
             ->post('/ponto-cvs');
@@ -86,7 +86,7 @@ final class PontoCvsTest extends Tests
             ->json([
                 'pagina' => 1,
                 'ordem' => 'mais-novo',
-                'cpf' => '677.834.068-15',
+                'cpf' => $this->cryptEncode('67783406815'),
             ])->get('/ponto-cvs');
 
         return $this
@@ -105,7 +105,7 @@ final class PontoCvsTest extends Tests
                 'pagina' => 1,
                 'quantidade' => 30,
                 'status' => 'solicitado',
-                'cpf' => '677.834.068-15',
+                'cpf' => $this->cryptEncode('67783406815'),
                 'ordem' => 'mais-novo'
             ])
             ->get('/ponto-cvs');
@@ -158,7 +158,7 @@ final class PontoCvsTest extends Tests
             ->loginPainel()
             ->json([
                 'pagina' => 1,
-                'cpf' => 'nao_existe'
+                'cpf' => $this->cryptEncode('nao_existe')
             ])
             ->get('/ponto-cvs');
 
@@ -274,7 +274,7 @@ final class PontoCvsTest extends Tests
             ->loginPainel()
             ->body([
                 'ponto_solicitado' => $ponto,
-                'cpf' => '677.834.068-15'
+                'cpf' => $this->cryptEncode('67783406815')
             ])
             ->post('/ponto-cvs');
     }

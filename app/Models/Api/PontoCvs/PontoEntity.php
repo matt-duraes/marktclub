@@ -34,18 +34,15 @@ final class PontoEntity extends Entity
     public DataHora $data_voucher;
     public string $voucher;
     public int $ponto_solicitado;
-    public string $cpf;
     public string $mensagem;
 
-    private string $cpfUsuario;
-
-    public function __construct(string $cpf = '')
+    public function __construct(
+        public null|string $cpf = null
+    )
     {
         parent::__construct();
 
-        $this->cpfUsuario = !empty($cpf) ? $cpf : (!empty(TOKEN['usuario']) ? TOKEN['usuario']->cpf->numero() : '');
-        $this->cpfUsuario = soNumero($this->cpfUsuario);
-
+        $this->cpf = !is_null($cpf) ? soNumero($this->cpf) : null;
         $this->relacionarTabela(
             tabela: 'usuario_novo',
             campoAtual: 'id',
@@ -54,7 +51,8 @@ final class PontoEntity extends Entity
                 'cod', 'matricula', 'nome', 'documento', 'email_pessoal', 'email_trabalho',
                 'telefone_fixo', 'telefone_celular', 'status'
             ],
-            alias: 'usuario'
+            alias: 'usuario',
+            where: ['empresa', 198]
         );
     }
 
@@ -101,10 +99,10 @@ final class PontoEntity extends Entity
 
     private function pegarIdUsuario(): int
     {
-        $Usuario = new ClienteEntity();
+        $Usuario = new ClienteEntity(validarToken: false);
         try {
             $Usuario->buscar([
-                ['documento', $this->cpfUsuario],
+                ['documento', $this->cpf],
                 ['status', 'in', ClienteHelper::STATUS_LIBERADO],
                 [
                     'OR',
@@ -125,7 +123,7 @@ final class PontoEntity extends Entity
     private function verificarSeUsuarioConstaNaBase()
     {
         $PontoCvsHelper = new PontoCvsHelper;
-        if (!$PontoCvsHelper->validarUsuario($this->cpfUsuario)) {
+        if (!$PontoCvsHelper->validarUsuario($this->cpf)) {
             mensagemErro('Erro!', 'O Usuario indicado não pode realizar uma solicitação!');
         }
     }
@@ -133,7 +131,7 @@ final class PontoEntity extends Entity
     private function verificarSeJaExisteUmaSolicitacao()
     {
         $quantidade = $this->contar([
-            ['id_usuario_cliente', $this->cpfUsuario],
+            ['id_usuario_cliente', $this->pegarIdUsuario()],
             ['status', 'in', [1, 2]]
         ]);
 
@@ -160,7 +158,7 @@ final class PontoEntity extends Entity
     private function validarSeUsuarioTemPontoSuficiente()
     {
         $PontoCvsHelper = new PontoCvsHelper;
-        if (!$PontoCvsHelper->validarQuantidadePonto($this->ponto_solicitado, $this->cpfUsuario)) {
+        if (!$PontoCvsHelper->validarQuantidadePonto($this->ponto_solicitado, $this->cpf)) {
             mensagemErro('Saldo Insuficiente!', 'Quantidade de pontos informada é maior que seu saldo atual.');
         }
     }
@@ -168,7 +166,7 @@ final class PontoEntity extends Entity
     private function validarSeSolicitacaoFoiEfetuadaAPI()
     {
         $PontoCvsHelper = new PontoCvsHelper;
-        $PontoCvsHelper->enviarSolicitacaoPonto($this->cpfUsuario, $this->ponto_solicitado);
+        $PontoCvsHelper->enviarSolicitacaoPonto($this->cpf, $this->ponto_solicitado);
     }
 
     protected function regraPosInsert()
@@ -179,7 +177,7 @@ final class PontoEntity extends Entity
         }
 
         $PontoCvsHelper = new PontoCvsHelper;
-        $matricula = $PontoCvsHelper->buscarPontos($this->cpfUsuario)->matricula;
+        $matricula = $PontoCvsHelper->buscarPontos($this->cpf)->matricula;
 
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar(['id', 165]);
