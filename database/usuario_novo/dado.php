@@ -2,7 +2,7 @@
 
 return [
     [
-        'cod' => uuid(),
+        'cod' => '5595203c-f7b1-4211-9981-bf09eb236b35',
         'empresa' => 1,
         'tipo' => 1,
         'nome' => nomeAleatorio(),
