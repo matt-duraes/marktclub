@@ -5,10 +5,12 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\ApiToken\Tipo;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Classes\ApiToken\Helper as ApiTokenHelper;
 use App\Models\Api\LoginPainel\LoginFacebookModel;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
@@ -79,10 +81,10 @@ final class LoginController extends Controller
             'permission' => $Usuario->permissao,
         ], lista: ['company_id', 'name', 'picture', 'document', 'email', 'google', 'facebook']);
 
-        return $this->criarToken($payload, $request);
+        return $this->criarToken($payload, $request, new Tipo(ApiTokenHelper::TIPO_PAINEL));
     }
 
-    private function criarToken(array $body, Request $request): Response
+    private function criarToken(array $body, Request $request, Tipo $tipo): Response
     {
         $Token = new TokenAuthorizationEntity();
         $token = $Token->criarToken(
@@ -92,7 +94,8 @@ final class LoginController extends Controller
             $request->audience,
             $request->redirect_uri,
             $request->state,
-            'sim'
+            'sim',
+            $tipo
         );
 
         return new Response(json: [
@@ -130,8 +133,18 @@ final class LoginController extends Controller
     */
     public function postLoginToken(Request $request)
     {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->id($request->clube);
+        if ($request->vazio('usuario')) {
+            mensagemErro('Campo obrigatório!', 'Você deve passar um usuário para continuar.');
+        } else if ($request->vazio('clube')) {
+            mensagemErro('Campo obrigatório!', 'Você deve passar um clube para continuar.');
+        }
+
+        try {
+            $Construtor = new ConstrutorEntity();
+            $Construtor->id($request->clube);
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Clube não encontrado.', status: 404);
+        }
 
         $idEmpresa = $Construtor->id_admin_empresa;
         $Usuario = new ClienteEntity(validarToken: false);
@@ -165,7 +178,8 @@ final class LoginController extends Controller
             env('API_AUDIENCE', ''),
             env('API_REDIRECT_URI', ''),
             uuid(),
-            'sim'
+            'sim',
+            new Tipo(ApiTokenHelper::TIPO_CLUBE)
         );
 
         return new Response(json: [

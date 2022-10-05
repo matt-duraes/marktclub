@@ -284,8 +284,10 @@ final class ClienteEntity extends Entity
         }
         $this->imagem = imagemUsuario();
 
-        $Pagamento = new PagamentoModel();
-        $this->pagamento = $Pagamento->buscarPagamento($this->get('id'));
+        if ($this->validarToken) {
+            $Pagamento = new PagamentoModel();
+            $this->pagamento = $Pagamento->buscarPagamento($this->get('id'));
+        }
     }
 
     public function getId()

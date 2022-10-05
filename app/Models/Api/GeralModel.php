@@ -14,7 +14,7 @@ abstract class GeralModel extends ORM implements ListarInterface
     public function __construct()
     {
         if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no Model');
+            mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
         }
         parent::__construct();
         $this->idEmpresa = TOKEN['empresa']->get('id');

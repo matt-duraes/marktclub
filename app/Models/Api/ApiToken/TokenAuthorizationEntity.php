@@ -4,6 +4,7 @@ namespace App\Models\Api\ApiToken;
 
 use ORM\Entity;
 use Helpers\JwtHelper;
+use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiApp\AppEntity;
 
 final class TokenAuthorizationEntity extends Entity
@@ -17,8 +18,10 @@ final class TokenAuthorizationEntity extends Entity
     protected array $_insert = [
         'id_usuario', 'id_api_app', 'redirect_uri', 'scope_permitido', 'state_cliente', 'authorization_code',
         'access_token', 'grant_type', 'ip', 'sistema_operacional', 'navegador', 'data_ativacao', 'data_vencimento',
-        'status', 'refresh_token', 'hash'
+        'status', 'refresh_token', 'hash', 'tipo'
     ];
+
+    protected Tipo $tipo;
 
     public function criarToken(
         AppEntity $app,
@@ -27,7 +30,8 @@ final class TokenAuthorizationEntity extends Entity
         string $audience,
         string $redirectUri,
         string $state,
-        bool $logado = false
+        bool $logado = false,
+        ?Tipo $tipo = null
     ) {
         if (!in_array($redirectUri, $app->redirect_uri)) {
             mensagemErro('Erro!', 'Redirect Uri não está autorizado a criar token.', 403);
@@ -43,7 +47,7 @@ final class TokenAuthorizationEntity extends Entity
 
         $accessToken = uuid();
         $refreshToken = $logado ? uuid() : '';
-        $this->salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state);
+        $this->salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo);
 
         $token = [
             'access_token' => $accessToken,
@@ -59,7 +63,7 @@ final class TokenAuthorizationEntity extends Entity
         return $token;
     }
 
-    private function salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state)
+    private function salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo)
     {
 
         $this->id_usuario = $body['sub'];
@@ -77,6 +81,7 @@ final class TokenAuthorizationEntity extends Entity
         $this->data_vencimento = date('Y-m-d H:i:s', time() + 86400);
         $this->hash = uuid();
         $this->status = 1;
+        $this->tipo = $tipo;
         if (!empty($refreshToken)) {
             $this->refresh_token = $refreshToken;
         }

@@ -57,6 +57,19 @@ final class Request extends Psr7Request
 
     // doc
     /**
+     * Verifica que um parâmetro não foi enviado ou se ele está vazio
+     *
+     * @param   string $parametro   Parametro que deseja validar
+     * @return  bool                True caso não exista ou esteja vazio
+     */
+    public function vazio(string $parametro): bool
+    {
+        $dado = $this->dado();
+        return !array_key_exists($parametro, $dado) || empty($dado[$parametro]);
+    }
+
+    // doc
+    /**
      * Pega uma chave específica da request
      *
      * @param string        $indice         Indice do item que deseja retornar
@@ -492,9 +505,7 @@ final class Request extends Psr7Request
             return $this->purifier(lista: $lista[$indice], purifier: $purifier, html: $html);
         } elseif (!empty($indice)) {
             $valor = $lista[$indice];
-            if (!$html) {
-                $valor = $this->converterCodigoNaTagCode($valor);
-            } else {
+            if ($html) {
                 $valor = strip_tags($valor);
             }
             if ($purifier) {
