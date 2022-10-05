@@ -28,9 +28,11 @@ final class PontoModel extends GeralModel
         $dado = $this
             ->campo(['uuid', 'ponto_solicitado', 'mensagem', 'data_solicitacao', 'data_voucher', 'voucher', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order(new Ordem($this->request->ordem))
-            ->tabela('usuario_novo')->join('documento', 'id_usuario_cliente')->campo(['nome', 'documento'])
+            ->tabela(TABELA_USUARIO_NOVO)->join('id', 'id_usuario_cliente')
+            ->where(['empresa', 198])
+            ->campo(['nome', 'documento'])
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
         if(!empty($this->buscaCpf)){
@@ -70,10 +72,9 @@ final class PontoModel extends GeralModel
     {
         $where = [];
 
-        $usuario = $this->buscarIdUsuarioPeloCpf();
+        $usuario = !empty($this->request->cpf) ? $this->buscarIdUsuarioPeloCpf() : '';
         if (!empty($usuario)) {
             $where[] = ['id_usuario_cliente', $usuario];
-            $this->buscaCpf = $usuario;
         }
 
         $status = new Status($this->request->status);
@@ -86,18 +87,22 @@ final class PontoModel extends GeralModel
 
     private function buscarIdUsuarioPeloCpf()
     {
-        $Usuario = new ClienteEntity();
+        $Usuario = new ClienteEntity(validarToken: false);
+    
         $Usuario->buscar([
             ['documento', soNumero($this->request->cpf)],
-            ['empresa', $this->idEmpresa],
+            ['empresa', 198],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ], false);
 
-        if(!empty($Usuario->id))
+        if(empty($Usuario->id))
         {
-            return $Usuario->getCpf();
+            return $this->request->cpf;
         }
-        return soNumero($this->request->cpf);
+
+        $this->buscaCpf = $Usuario->getCpf();
+
+        return $Usuario->get('id');
     }
 
     private function validarRequest()

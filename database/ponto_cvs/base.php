@@ -3,7 +3,7 @@
 return (new \DataBase\DataBase())
     ->id()
     ->uuid()
-    ->int('id_usuario_cliente')->tamanho(11)->zero()
+    ->int('id_usuario_cliente')
     ->int('ponto_solicitado')->tamanho(9)
     ->varchar('voucher')->tamanho(50)->null()
     ->text('mensagem')->null()
