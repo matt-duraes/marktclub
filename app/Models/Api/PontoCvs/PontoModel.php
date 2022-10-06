@@ -3,14 +3,14 @@
 namespace App\Models\Api\PontoCvs;
 
 use stdClass;
+use Modules\Cpf;
 use Http\Request;
 use App\Models\Api\GeralModel;
 use App\Classes\PontoCvs\Ordem;
+use App\Helpers\PontoCvsHelper;
 use App\Classes\PontoCvs\Status;
 use App\Classes\UsuarioCliente\Helper;
-use App\Helpers\PontoCvsHelper;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use Modules\Cpf;
 
 final class PontoModel extends GeralModel
 {
@@ -30,12 +30,19 @@ final class PontoModel extends GeralModel
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order(new Ordem($this->request->ordem))
             ->tabela(TABELA_USUARIO_NOVO)->join('id', 'id_usuario_cliente')
-            ->where(['empresa', 198])
+            ->where([
+                'OR',
+                ['empresa', 198],
+                [
+                    ['empresa', 1],
+                    ['tipo', 3]
+                ]
+            ])
             ->campo(['nome', 'documento'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
-        if(!empty($this->buscaCpf)){
+        if (!empty($this->buscaCpf)) {
             $PontoCvsHelper = new PontoCvsHelper;
             $saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
             $extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
@@ -88,15 +95,14 @@ final class PontoModel extends GeralModel
     private function buscarIdUsuarioPeloCpf()
     {
         $Usuario = new ClienteEntity(validarToken: false);
-    
+
         $Usuario->buscar([
             ['documento', soNumero($this->request->cpf)],
             ['empresa', 198],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ], false);
 
-        if(empty($Usuario->id))
-        {
+        if (empty($Usuario->id)) {
             return $this->request->cpf;
         }
 

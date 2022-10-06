@@ -38,8 +38,7 @@ final class PontoEntity extends Entity
 
     public function __construct(
         public null|string $cpf = null
-    )
-    {
+    ) {
         parent::__construct();
 
         $this->cpf = !is_null($cpf) ? soNumero($this->cpf) : null;
@@ -52,7 +51,14 @@ final class PontoEntity extends Entity
                 'telefone_fixo', 'telefone_celular', 'status'
             ],
             alias: 'usuario',
-            where: ['empresa', 198]
+            where: [
+                'OR',
+                ['empresa', 198],
+                [
+                    ['empresa', 1],
+                    ['tipo', 3]
+                ]
+            ]
         );
     }
 
