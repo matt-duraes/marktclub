@@ -1,0 +1,103 @@
+.bloco_geral_logo
+    blocoShadow()
+    position: relative
+    a
+        width: 100%
+        flexCol()
+        position: relative
+    a figure
+        width: 100%
+        height: 200px
+        position: relative
+        flexCenter()
+    a figure img
+        max-width: 90%
+        max-height: 90%
+    a header
+        width: 100%
+        flexRow()
+    a header h1
+        width: 100%
+        tituloGrande()
+        flexGrow()
+    a header i
+        width: 30px
+        height: 30px
+        flexCenter()
+
+.bloco_geral_texto
+    blocoShadow()
+    header h1
+        titulo()
+
+.texto
+    width: 100%
+    texto()
+.texto p
+.texto b
+.texto strong
+.texto a
+.texto i
+.texto li
+    texto()
+
+.botao_geral_cor
+    height: 40px
+    line-height: 40px
+    border-radius: 5px
+    texto()
+
+.bloco_geral_ul
+    width: 100%
+    li
+        list-style: disc
+        texto()
+
+.bloco_geral_tabela
+    width: 100%
+    overflow-x: auto
+
+.bloco_geral_sub_menu
+    blocoShadow()
+    flexCol()
+    position: absolute
+    padding: 10px 0
+    a
+        height: 48px
+        line-height: 48px
+        texto()
+        flexRow()
+        align-items: center
+        padding: 0 20px
+        &:hover
+            background-color: #F8F9FA
+    a i
+        margin-right: 10px
+
+.bloco_geral_banner
+    width: 100%
+    max-width: 1130px
+    height: 430px
+    position: relative
+    boxShadow()
+    border-radius: 15px
+    background: #FFF
+    display: flex
+    align-items: center
+    .seta
+        width: 80px
+        height: 80px
+        position: absolute
+        fill: #FFF
+        border-radius: 50%
+        flexCenter()
+        background-color: rgba(0,0,0,.7)
+        cursor: pointer
+        z-index: 2
+    .seta.anterior
+        left: 40px
+    .seta.proximo
+        right: 40px
+
+.display_none
+    display: none !important

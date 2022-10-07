@@ -1,0 +1,17 @@
+@template "site"
+
+<div id="bloco_convenio_index">
+    @view site/loja/busca/index.view
+
+    @ if( $banner ):
+    <div class="bloco_geral_banner banner" id="bloco_banner">
+        <div class="seta anterior">@iconeSetaEsquerda(40)</div>
+        <div class="seta proximo">@iconeSetaDireita(40)</div>
+        <div class="imagem">
+            <figure></figure>
+            <figure></figure>
+        </div>
+    </div>
+    @ endif;
+
+</div>

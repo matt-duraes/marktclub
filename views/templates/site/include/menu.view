@@ -1,0 +1,102 @@
+<div class="categoria">PRINCIPAL</div>
+<a  class="{!!MENU_HOVER == 'home' ? 'cor_bg' : ''!!}" href="@route(index.index)">
+    <i>@iconeHome(35)</i>
+    Início
+</a>
+
+@ if( MENU_LOJA || MENU_LOJA_PROXIMA || MENU_CUPOM || MENU_CASHBACK || MENU_EXTENSAO):
+    <div class="categoria">DESCONTOS</div>
+
+    @ if( MENU_LOJA ):
+    <a class="{!!MENU_HOVER == 'loja' ? 'cor_bg' : ''!!}" href="@route(loja.index)">
+        <i>@iconeHome(35)</i>
+        Lojas
+    </a>
+    @ endif;
+
+    @ if( MENU_LOJA_PROXIMA ):
+    <a  class="{!!MENU_HOVER == 'loja-proxima' ? 'cor_bg' : ''!!}" href="@route(loja.proxima)">
+        <i>@iconeHome(35)</i>
+        Lojas próximas
+    </a>
+    @ endif;
+
+    @ if( MENU_CUPOM ):
+    <a  class="{!!MENU_HOVER == 'cupom' ? 'cor_bg' : ''!!}" href="@route(cupom.index)">
+        <i>@iconeHome(35)</i>
+        Cupons de desconto
+    </a>
+    @ endif;
+
+    @ if( MENU_CASHBACK ):
+    <a  class="{!!MENU_HOVER == 'cashback' ? 'cor_bg' : ''!!}" href="@route(cashback.index)">
+        <i>@iconeHome(35)</i>
+        Cashback Silium
+    </a>
+    @ endif;
+
+    @ if( MENU_EXTENSAO ):
+    <a  class="{!!MENU_HOVER == 'extensao' ? 'cor_bg' : ''!!}" href="@route(extensao.index)">
+        <i>@iconeHome(35)</i>
+        Extensão
+    </a>
+    @ endif;
+@ endif;
+
+@ if( MENU_CINEMA || MENU_TURISMO || MENU_SALAVIP ):
+    <div class="categoria">DIVERSÃO</div>
+
+    @ if( MENU_CINEMA ):
+    <a  class="{!!MENU_HOVER == 'cinema' ? 'cor_bg' : ''!!}" href="@route(cinema.index)">
+        <i>@iconeHome(35)</i>
+        Cinema
+    </a>
+    @ endif;
+
+    @ if( MENU_TURISMO ):
+    <a  class="{!!MENU_HOVER == 'turismo' ? 'cor_bg' : ''!!}" href="@route(turismo.index)">
+        <i>@iconeHome(35)</i>
+        Turismo
+    </a>
+    @ endif;
+
+    @ if( MENU_SALAVIP ):
+    <a  class="{!!MENU_HOVER == 'salavip' ? 'cor_bg' : ''!!}" href="@route(salavip.index)">
+        <i>@iconeHome(35)</i>
+        Sala Vip
+    </a>
+    @ endif;
+@ endif;
+
+@ if( MENU_CREDITO_SICOOB || MENU_CREDITO_CONSIGNADO || MENU_CREDITO_AUTOMOVEL ):
+    <div class="categoria">CRÉDITO</div>
+
+    @ if( MENU_CREDITO_SICOOB ):
+    <a  class="{!!MENU_HOVER == 'sicoob' ? 'cor_bg' : ''!!}" href="@route(cinema.index)">
+        <i>@iconeHome(35)</i>
+        Sicoob
+    </a>
+    @ endif;
+
+    @ if( MENU_CREDITO_CONSIGNADO ):
+    <a  class="{!!MENU_HOVER == 'consignado' ? 'cor_bg' : ''!!}" href="@route(turismo.index)">
+        <i>@iconeHome(35)</i>
+        Consignado
+    </a>
+    @ endif;
+
+    @ if( MENU_CREDITO_AUTOMOVEL ):
+    <a  class="{!!MENU_HOVER == 'automovel' ? 'cor_bg' : ''!!}" href="@route(salavip.index)">
+        <i>@iconeHome(35)</i>
+        Automóvel
+    </a>
+    @ endif;
+@ endif;
+
+<div class="linha"></div>
+
+<a class="footer" href="@route('pesquisa.satisfacao')">Pesquisa de satisfação</a>
+<a class="footer" href="@route('pesquisa.satisfacao')">Sala VIP</a>
+<a class="footer" href="@route('pesquisa.satisfacao')">SOS Mulher</a>
+
+<div class="resto"></div>

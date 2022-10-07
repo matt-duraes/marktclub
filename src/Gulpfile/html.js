@@ -408,8 +408,11 @@ function fazerReplaceNoConteudo(conteudo, path) {
                 html +=
                     linha
                         .replace(/\;{0,1}\ {0,}$/, '')
-                        .replace(/\(|\)|\'|\"|\.php/g, '')
-                        .replace(/\@\ ?view\ ?/, '<?php require ROOT . "/views/pages/') + '.php"; ?>\n';
+                        .replace(/\(|\)|\'|\"/g, '')
+                        .replace(/\/index\.view$/, '')
+                        .replace(/\.view$/, '')
+                        .replace(/\//g, '_')
+                        .replace(/\@\ ?view\ ?/, '<?php require ROOT . "/files/build/views/') + '.php"; ?>\n';
                 return;
             }
             // @dir

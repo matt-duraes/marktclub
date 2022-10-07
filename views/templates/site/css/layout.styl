@@ -1,0 +1,222 @@
+@system "resetar"
+@system "Form"
+
+@resource "site/mixim"
+@resource "site/geral"
+
+$menuWidth = 400px
+$hoverBranco = #F8F9FA
+
+body
+    font-family: 'Inter', sans-serif
+    color: #495057
+    background-color: #f8f9fa
+
+#switch_menu
+    width: 10px
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 50
+    display: none
+
+#site
+    width: 100%
+    min-height: 100vh
+
+#menu_principal
+    width: 100%
+    max-width: $menuWidth
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 10
+    flexCol()
+    .bg
+        width: 100%
+        max-width: $menuWidth
+        height: 100%
+        position: fixed
+        top: 0
+        left: 0
+        background-color: rgba(0,0,0,.7)
+        z-index: 1
+        box-shadow: 0 10px 15px rgba(0,0,0,.3)
+    .conteudo
+        width: 100%
+        max-width: $menuWidth
+        height: 100vh
+        position: relative
+        background: #FFF
+        overflow-y: auto
+        z-index: 2
+    .conteudo > figure
+        padding: 20px
+        margin-top: 10px
+    .conteudo > figure img
+        max-width: 100%
+        max-height: 100%
+    .conteudo .perfil
+        width: calc(100% - 30px)
+        min-height: 60px
+        position: relative
+        flexCol()
+        margin: 10px 15px
+        justify-content: center
+        padding: 10px 60px 10px 85px
+        border-radius: 5px
+        transition: background-color .3s ease-out
+    .conteudo .perfil.hover
+        background-color: $hoverBranco
+    .conteudo .perfil a
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+        border-radius: 5px
+    .conteudo .perfil figure
+        imagemRedonda()
+        width: 48px
+        height: 48px
+        position: absolute
+        left: 20px
+    .conteudo .perfil .nome
+        subTitulo()
+        font-weight: 500
+    .conteudo .perfil .email
+        texto()
+        textoCorClara()
+    .conteudo .perfil .nome
+    .conteudo .perfil .email
+        height: 30px
+        line-height: 30px
+        overflow: hidden
+        position: relative
+        &::after
+            content: ""
+            position: absolute
+            top: 0
+            right: 0
+            width: 30px
+            height: 100%
+            background-image: linear-gradient(to right, rgba(255,255,255,0), #FFF)
+    .conteudo .perfil.hover .nome::after
+    .conteudo .perfil.hover .email::after
+        background-image: linear-gradient(to right, rgba(255,255,255,0), $hoverBranco)
+    .conteudo .perfil i
+        width: 20px
+        height: 30px
+        flexCenter()
+        position: absolute
+        right: 25px
+        transition: .3s ease-out
+        cursor: pointer
+        border-radius: 4px
+        z-index: 3
+        &.abrir:hover
+            width: 26px
+            height: 36px
+            background: #DDD
+            right: 22px
+    .conteudo .bloco_geral_sub_menu
+        width: 100%
+        max-width: 250px
+        z-index: 10
+        right: 10px
+        margin-top: -35px
+        opacity: 0
+        transition: margin-top .3s ease-out, opacity .3s ease-out
+        &.abrir
+            opacity: 1
+            margin-top: -15px
+    .conteudo .menu
+        width: 100%
+        flexCol()
+    .conteudo .menu .categoria
+        width: 100%
+        padding: 30px 20px 0 20px
+        subTituloMaiusculo()
+        textoCorClara()
+        font-weight: 500
+    .conteudo .menu a
+        width: calc(100% - 40px)
+        margin: 10px 20px
+        padding: 10px
+        flexRow()
+        border-radius: 8px
+        texto()
+        align-items: center
+        &:hover
+            background-color: $hoverBranco
+    .conteudo .menu a i
+        width: 30px
+        height: 30px
+        flexCenter()
+        margin-right: 20px
+    .conteudo .menu a.footer
+        padding: 0 10px
+    .conteudo .menu .linha
+        width: calc(100% - 60px)
+        height: 1px
+        background-color: #DDD
+        margin: 40px 0 40px 30px
+    .conteudo .menu .resto
+        width: 100%
+        margin-bottom: 40px
+
+#conteudo_principal
+    width: calc(100% - $menuWidth)
+    min-height: calc(100vh - 150px)
+    margin-left: $menuWidth
+    flexCol()
+    padding: 40px 20px
+
+#rodape_principal
+    width: calc(100% - $menuWidth)
+    margin-left: $menuWidth
+    flexRow()
+    flex-wrap: wrap
+    justify-content: center
+    background-color: #FFF
+    padding: 60px 20px 40px
+    .bloco
+        width: calc((100% / 3) - 40px)
+        max-width: 350px
+        margin: 0 20px
+        flexCol()
+    .bloco header h1
+        titulo()
+    .bloco .dado
+        width: 100%
+        flexRow()
+        align-items: center
+        texto()
+        margin-top: 5px
+    .bloco .dado i
+        width: 40px
+        height: 40px
+        flexCenter()
+    .linha
+        width: 100%
+        position: relative
+        flexCenter()
+        margin: 40px 0
+        &::after
+            content: ""
+            width: 100%
+            max-width: 1130px
+            height: 1px
+            background-color: #DDD
+    p
+        text-align: center
+    .app
+        flexRow()
+        margin-top: 15px
+    .app a
+        border-radius: 10px
+        margin: 0 10px
+        overflow: hidden
+        display: flex

@@ -1,0 +1,16 @@
+<div class="busca_convenio">
+    <form action="/" class="form_geral">
+        <legend>Busque por um convênio</legend>
+        <fieldset>
+            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->uf()->r())
+            @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: ['' => 'Todas as categoria'])
+            @? formSelect(name: 'tag', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Todas as subcategorias'])
+            @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: ['' => 'Todas os tipos', 'fisico' => 'Fisico', 'online' => 'On-line'])
+        </fieldset>
+        <fieldset>
+            @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa')
+            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: ['entrega' => 'Entrega', 'novo' => 'Novos convênios'])
+            <button class="botao_geral_cor cor_bg">Buscar</button>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,7 @@
+<style>
+    .cor_bg_hover:hover, .cor_bg {
+        background-color: {{COR}} !important;
+        color: #FFF !important;
+        fill: #FFF !important;
+    }
+</style>
