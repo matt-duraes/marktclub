@@ -158,13 +158,14 @@ if (!function_exists('strSlug')) {
     /**
      * Converte uma string para um slug
      *
-     * @param   string $string  String a ser convertida
-     * @param   string $slug    Caracter que será usado no lugar do espaço, - por padrão
-     * @return  string          String convertida
+     * @param   string  $string     String a ser convertida
+     * @param   string  $slug       Caracter que será usado no lugar do espaço, - por padrão
+     * @param   bool    $espaco     Troca espaços por +
+     * @return  string              String convertida
      */
-    function strSlug(string $string, string $slug = '-'): string
+    function strSlug(string $string, string $slug = '-', bool $espaco = false): string
     {
-        return (new \Helpers\TextoHelper)->valor($string)->slug($slug)->r();
+        return (new \Helpers\TextoHelper)->valor($string)->slug($slug, $espaco)->r();
     }
 }
 

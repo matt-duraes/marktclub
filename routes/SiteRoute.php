@@ -18,7 +18,16 @@ Route
     ::grupo(function () {
         Route
             ::nome('index')
-            ::view('/convenio');
+            ::view('/convenios');
+
+        Route
+            ::nome('busca')
+            ::request(['!estado', '!categoria', '!tag', '!estabelecimento', '!pesquisa', '!ordem'])
+            ::view('/convenios/buscar/{!pesquisa}');
+
+        Route
+            ::nome('detalhe')
+            ::view('/convenios/{url}');
         Route
             ::nome('proxima')
             ::view('/convenios/mapa');

@@ -3,6 +3,7 @@
     max-width: 1130px
     blocoShadow()
     border-radius: 15px
+    margin-bottom: 20px
     form
         width: 100%
         flexCol()
@@ -11,24 +12,23 @@
     form fieldset
         width: 100%
         flexRow()
-        flex-wrap: wrap
     form fieldset .busca_estado
         max-width: 100px
         margin-right: 20px
     form fieldset .busca_categoria
-        width: calc(100% - 440px)
+        flexGrow()
         margin-right: 20px
     form fieldset .busca_tag
-        max-width: 140px
+        max-width: 220px
         margin-right: 20px
     form fieldset .busca_estabelecimento
-        max-width: 140px
+        max-width: 230px
     form fieldset .busca_pesquisa
-        max-width: calc(100% - 320px)
+        flexGrow()
         margin-right: 20px
     form fieldset .busca_ordem
-        max-width: 140px
+        max-width: 180px
         margin-right: 20px
     form fieldset button
-        width: 140px
+        width: 180px
         margin-top: 20px

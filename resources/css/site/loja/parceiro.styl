@@ -1,0 +1,53 @@
+.bloco_parceiro
+    width: 100%
+    flexRow()
+    flex-wrap: wrap
+    justify-content: space-between
+.bloco_parceiro .fake
+    width: calc(25% - 15px)
+.bloco_parceiro .parceiro
+    blocoShadow()
+    width: calc((100% / 3) - 15px)
+    flexCol()
+    position: relative
+    margin-bottom: 20px
+    a
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+    figure
+        width: 100%
+        height: 160px
+        position: relative
+        flexCenter()
+    figure img
+        max-width: 90%
+        max-height: 100px
+    header
+        width: 100%
+        flexRow()
+        align-items: center
+        padding-right: 60px
+    header h1
+        width: 100%
+        titulo()
+        flexGrow()
+    p
+        texto()
+        padding-right: 60px
+    .icone
+        width: 30px
+        position: absolute
+        top: 20px
+        right: 20px
+        flex-direction: row
+        z-index: 3
+    .icone i
+        width: 30px
+        height: 30px
+        flexCenter()
+        &.favorito
+            cursor: pointer

@@ -157,7 +157,7 @@ abstract class Status implements StatusInterface
 
     // doc
     /**
-     * Pega o valor do nome do valor selecionado
+     * Pega o nome do valor selecionado
      *
      * @param   null|string|int     Valor caso queira ignorar o valor geral do status
      * @return  null|int            Retorna null caso o valor seja inválido ou a string do nome
@@ -168,7 +168,10 @@ abstract class Status implements StatusInterface
         if (!$this->valido($valor)) {
             return null;
         }
-        return $this->numeroNome[$valor] ?? '';
+        if (is_numeric($valor)) {
+            return $this->numeroNome[$valor] ?? '';
+        }
+        return $this->indiceNome[$valor] ?? '';
     }
 
     // doc

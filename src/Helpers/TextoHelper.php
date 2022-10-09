@@ -71,7 +71,7 @@ final class TextoHelper
     /**
      * @param String $slug Caracter que será substituido por espaço
      */
-    public function slug($slug = '-')
+    public function slug(string $slug = '-', bool $espaco = false)
     {
         if (!$this->validar()) {
             return $this;
@@ -84,8 +84,18 @@ final class TextoHelper
         $valor = preg_replace('/[óòõôö]/ui', 'o', $valor);
         $valor = preg_replace('/[úùûü]/ui', 'u', $valor);
         $valor = preg_replace('/[ç]/ui', 'c', $valor);
-        $valor = trim(preg_replace('/[^a-z0-9]/i', ' ', $valor));
-        $valor = preg_replace('/[^a-z0-9]/i', $slug, $valor);
+
+        $regex = $espaco ? '/[^a-z0-9\ ]/i' : '/[^a-z0-9]/i';
+        $valor = preg_replace($regex, $slug, $valor);
+        if ($espaco) {
+            $valor = str_replace(' ', '+', $valor);
+        }
+        $regex = '/^' . $slug . '{1,}/';
+        $valor = preg_replace($regex, '', $valor);
+        $regex = '/' . $slug . '{1,}$/';
+        $valor = preg_replace($regex, '', $valor);
+        $regex = '/' . $slug . '{2,}/';
+        $valor = preg_replace($regex, '-', $valor);
 
         $this->valor = $valor;
         return $this;

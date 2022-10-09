@@ -24,6 +24,25 @@ abstract class Order implements OrderInterface
 
     // doc
     /**
+     * Pega um array com a lista de valores válidos no formato indice => nome
+     *
+     * @param   null|string     $titulo Título para ficar no primeiro valor do array tendo o indice vazio: "" => $titulo
+     * @return  array
+     */
+    public function select(?string $titulo = null): array
+    {
+        $retorno = [];
+        if (!empty($titulo)) {
+            $retorno[''] = $titulo;
+        }
+        foreach ($this->lista as $r) {
+            $retorno[$r['indice']] = $r['nome'];
+        }
+        return $retorno;
+    }
+
+    // doc
+    /**
      * Cria uma ordem passando os campos para a tabela atual
      *
      * @param   string      $indice     Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo

@@ -4,4 +4,7 @@
         color: #FFF !important;
         fill: #FFF !important;
     }
+    .cor_color_hover:hover, .cor_color {
+        color: {{COR}} !important;
+    }
 </style>

@@ -1,17 +1,12 @@
 @template "site"
 
-<div id="bloco_convenio_index">
-    @view site/loja/busca/index.view
+<div id="bloco_loja_index">
+    @view site/loja/geral/busca.view
 
     @ if( $banner ):
-    <div class="bloco_geral_banner banner" id="bloco_banner">
-        <div class="seta anterior">@iconeSetaEsquerda(40)</div>
-        <div class="seta proximo">@iconeSetaDireita(40)</div>
-        <div class="imagem">
-            <figure></figure>
-            <figure></figure>
-        </div>
-    </div>
+    @view site/loja/geral/banner.view
     @ endif;
+
+    @view site/loja/geral/parceiro.view
 
 </div>

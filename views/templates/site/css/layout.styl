@@ -4,6 +4,7 @@
 @resource "site/mixim"
 @resource "site/geral"
 
+$maxWidth = 1130px
 $menuWidth = 400px
 $hoverBranco = #F8F9FA
 
@@ -172,7 +173,8 @@ body
     min-height: calc(100vh - 150px)
     margin-left: $menuWidth
     flexCol()
-    padding: 40px 20px
+    align-items: center
+    padding: 40px 20px 150px
 
 #rodape_principal
     width: calc(100% - $menuWidth)
