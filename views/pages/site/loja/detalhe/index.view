@@ -1,5 +1,5 @@
 @template "site"
 
 <div id="bloco_loja_detalhe">
-    @view site/loja/busca/index.view
+    @view site/loja/geral/busca.view
 </div>

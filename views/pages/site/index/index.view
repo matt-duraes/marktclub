@@ -38,7 +38,7 @@
             <h1>LOJAS NOVAS</h1>
             <a class="cor_color" href="">Ver todas as lojas</a>
         </header>
-        @php $parceiro = [1,2,3]
+        @php $parceiro = [1,1,1]
         @view site/loja/geral/parceiro.view
     </div>
 
