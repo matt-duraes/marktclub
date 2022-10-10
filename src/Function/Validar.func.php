@@ -1,5 +1,7 @@
 <?php
 
+use Helpers\ListaHelper;
+
 if (!function_exists('exiteErro')) {
     // doc
     // exemplo
@@ -404,5 +406,26 @@ if (!function_exists('validarPagina')) {
     function validarPagina(null|string|int $pagina): bool
     {
         return !is_null($pagina) && preg_match('/^[1-9]{1}[0-9]*$/', $pagina);
+    }
+}
+if (!function_exists('validarUf')) {
+    // doc
+    // exemplo
+    // echo validarUf DF
+    // echo validarUf df
+    // echo validarUf erro
+    /**
+     * Valida se o valor é uma UF brasileiro
+     *
+     * @param   string|int $pagina Número da página que deseja validar
+     * @return  bool
+     */
+    function validarUf(?string $uf): bool
+    {
+        if (empty($uf)) {
+            return false;
+        }
+        $lista = (new ListaHelper)->uf()->r();
+        return in_array($uf, $lista);
     }
 }

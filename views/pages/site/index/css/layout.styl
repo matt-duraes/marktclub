@@ -1,0 +1,21 @@
+@template "site"
+@resource "site/banner"
+@resource "site/loja/parceiro"
+
+#bloco_index
+    width: 100%
+    max-width: $maxWidth
+    .bloco
+        width: 100%
+        margin-top: 40px
+.bloco_promocao
+    width: 100%
+    flexRow()
+    justify-content: space-between
+    .promocao
+        width: calc(50% - 10px)
+        height: 250px
+        boxShadow()
+        display: flex
+        background: #FFF
+        border-radius: 10px

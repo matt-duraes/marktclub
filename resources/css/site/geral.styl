@@ -1,0 +1,148 @@
+.bloco_geral_texto
+    blocoShadow()
+    header h1
+        titulo()
+
+.texto
+    width: 100%
+    texto()
+.texto p
+.texto b
+.texto strong
+.texto a
+.texto i
+.texto li
+    texto()
+
+.botao_geral_cor
+    height: 45px
+    line-height: 45px
+    border-radius: 5px
+    textoFontSize()
+    padding: 0 20px
+
+.bloco_geral_ul
+    width: 100%
+    li
+        list-style: disc
+        texto()
+
+.bloco_geral_tabela
+    width: 100%
+    overflow-x: auto
+
+.bloco_geral_sub_menu
+    blocoShadow()
+    flexCol()
+    position: absolute
+    padding: 10px 0
+    a
+        height: 48px
+        line-height: 48px
+        texto()
+        flexRow()
+        align-items: center
+        padding: 0 20px
+        &:hover
+            background-color: #F8F9FA
+    a i
+        margin-right: 10px
+
+.bloco_geral_sem_resultado
+    width: 100%
+    flexCol()
+    position: relative
+    align-items: center
+    i
+        fill: #DDD
+        margin-bottom: 15px
+    h1
+        titulo()
+        text-align: center
+        margin-top: 5px
+    p
+        max-width: 450px
+        texto()
+        text-align: center
+        margin-top: 5px
+    a
+        margin-top: 20px
+
+.bloco_geral_imagem_direita
+.bloco_geral_imagem_esquerda
+    width: 100%
+    height: 200px
+    flexRow()
+    boxShadow()
+    align-items: center
+    background-color: #FFF
+    border-radius: 10px
+    overflow: hidden
+    figure
+        width: 250px
+        height: 200px
+        margin-right: 40px
+    header
+        flexGrow()
+        padding-right: 40px
+        margin-right: 40px
+        border-right: 1px solid #DDD
+    header h1
+        titulo()
+    header p
+        texto()
+    .final
+        margin-right: 40px
+        flexCol()
+        align-items: flex-start
+    .valor
+        width: 100%
+        flexCol()
+        margin-bottom: 20px
+    .valor .apartir
+        width: 100%
+        margin-bottom: 2px
+        font-size: 1.2rem
+        color: #999
+    .valor .preco
+        flexRow()
+    .valor .preco .sifrao
+        font-size: 1.1rem
+        margin: 5px 5px 0 0
+    .valor .preco .real
+        font-weight: 500
+        font-size: 3rem
+    .valor .preco .asterisco
+        font-size: 1.2rem
+        margin-top: 2px
+        color: #999
+    .valor .observacao
+        font-size: 1.1rem
+        line-height: 1.5em
+        margin-top: 5px
+
+.bloco_geral_imagem_direita
+    flex-direction: row-reverse
+    figure
+        margin: 0
+    .final
+        margin-left: 40px
+        margin-right: 0
+    header
+        padding: 0 0 0 40px
+        margin: 0 40px
+        border-left: 1px solid #DDD
+        border-right: none
+
+.display_none
+    display: none !important
+
+.titulo_geral
+    width: 100%
+    flexRow()
+    margin-bottom: 10px
+    h1
+        titulo()
+        flexGrow()
+    a
+        texto()

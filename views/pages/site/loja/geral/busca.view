@@ -1,0 +1,16 @@
+<div class="busca_convenio">
+    <form action="@route(loja.busca)" method="get" class="form_geral">
+        <legend>Busque por um convênio</legend>
+        <fieldset>
+            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $Busca->valor('endereco_estado'))
+            @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: ['' => 'Todas as categoria'], value: $Busca->valor('categoria'))
+            @? formSelect(name: 'tag', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Escolha uma categoria'], value: $Busca->valor('tag'))
+            @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: ['' => 'Todas os tipos', 'fisico' => 'Fisico', 'online' => 'On-line'], value: $Busca->valor('estabelecimento'))
+        </fieldset>
+        <fieldset>
+            @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->valor('pesquisa'))
+            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\Loja\OrdemClube)->select(), value: $Busca->valor('ordem'))
+            <button class="botao_geral_cor cor_bg">Buscar</button>
+        </fieldset>
+    </form>
+</div>

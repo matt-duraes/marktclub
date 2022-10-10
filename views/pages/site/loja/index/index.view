@@ -1,0 +1,12 @@
+@template "site"
+
+<div id="bloco_loja_index">
+    @view site/loja/geral/busca.view
+
+    @ if( $banner ):
+    @view site/loja/geral/banner.view
+    @ endif;
+
+    @view site/loja/geral/parceiro.view
+
+</div>

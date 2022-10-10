@@ -1,0 +1,14 @@
+<div class="bloco_geral_sub_menu desktop display_none" id="bloco_menu_perfil">
+    <a href="">
+        <i>@iconeSenha</i>
+        Alterar Dados
+    </a>
+    <a href="">
+        <i>@iconeSenha</i>
+        Alterar Senha
+    </a>
+    <a href="">
+        <i>@iconeSenha</i>
+        Preferências
+    </a>
+</div>

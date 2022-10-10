@@ -1,0 +1,24 @@
+<div class="bloco_parceiro">
+@ if($parceiro):
+    @ foreach( $parceiro as $r ):
+    <article class="parceiro">
+        <a href="@route(loja.index)/nome-da-loja"></a>
+        <figure><img src="https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg" alt=""></figure>
+        <header>
+            <h1>Hyper Idiomas</h1>
+        </header>
+        <p>Desconto de até 10%</p>
+        <div class="icone">
+            <i class="favorito">@iconeGps</i>
+        </div>
+    </article>
+    @ endforeach:
+    <div class="fake"></div>
+    <div class="fake"></div>
+    <div class="fake"></div>
+@ elseif(isset($busca) && $busca)
+    <div class="sem_parceiro">
+        <i>@iconeImagem</i>
+    </div>
+@ endif;
+</div>

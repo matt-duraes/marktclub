@@ -1,0 +1,8 @@
+<div class="bloco_geral_banner banner" id="bloco_banner">
+    <div class="seta anterior">@iconeSetaEsquerda(40)</div>
+    <div class="seta proximo">@iconeSetaDireita(40)</div>
+    <div class="imagem">
+        <figure style="background-image: url(https://arquivo.marktclub.com.br/publicidade/05c6f12724c0f8d77a66a1879b5cbd5f.jpg)"><a href="@route(loja.index)/nome"></a></figure>
+        <figure style="background-image: url(https://arquivo.marktclub.com.br/publicidade/433f3b722fc6c0886656dce19de3e7e5.jpg)"><a href="@route(loja.index)/nome"></a></figure>
+    </div>
+</div>
