@@ -689,7 +689,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:salvar'])
-            ::request(['ponto_solicitado', 'cpf'])
+            ::request(['ponto_solicitado', 'cpf', 'email', '!nome'])
             ::post('/ponto-cvs');
 
         Route
