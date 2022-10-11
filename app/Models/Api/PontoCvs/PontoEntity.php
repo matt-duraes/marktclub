@@ -3,6 +3,7 @@
 namespace App\Models\Api\PontoCvs;
 
 use ORM\Entity;
+use Modules\Email;
 use Modules\DataHora;
 use Helpers\EmailHelper;
 use App\Helpers\PontoCvsHelper;
@@ -36,6 +37,8 @@ final class PontoEntity extends Entity
     public int $ponto_solicitado;
     public string $mensagem;
 
+    public Email $email;
+
     public function __construct(
         public null|string $cpf = null
     ) {
@@ -68,7 +71,6 @@ final class PontoEntity extends Entity
         $pontos = $PontoCvsHelper->buscarPontos($this->usuario_documento);
 
         $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
-        $email = !empty($this->usuario_email_pessoal) ? $this->usuario_email_pessoal : $this->usuario_email_trabalho;
 
         if (in_array($this->usuario_status, ClienteHelper::STATUS_LIBERADO)) {
             $this->usuario = [
@@ -76,7 +78,7 @@ final class PontoEntity extends Entity
                 'id' => $this->usuario_cod,
                 'nome' => $this->usuario_nome,
                 'cpf' => strCpf($this->usuario_documento),
-                'email' => strEmail($email),
+                'email' => strEmail($this->usuario_email_pessoal),
                 'telefone' => strTelefone($telefone),
                 'credito' => $pontos->credito,
                 'debito' => $pontos->debito,
@@ -176,12 +178,7 @@ final class PontoEntity extends Entity
     }
 
     protected function regraPosInsert()
-    {
-        $email = 'fabiogomes@spbancarios.com.br';
-        if (eLocalhost() || eHomologacao() || SISTEMA == 'LOCALHOST') {
-            $email =  'ti@marktclub.com.br';
-        }
-
+    {   
         $PontoCvsHelper = new PontoCvsHelper;
         $matricula = $PontoCvsHelper->buscarPontos($this->cpf)->matricula;
 
@@ -191,7 +188,16 @@ final class PontoEntity extends Entity
         $logo = $Construtor->logo;
         $titulo = $Construtor->titulo;
 
-        $Email = new EmailHelper();
+        $email = 'fabiogomes@spbancarios.com.br';
+        $assunto = "Voucher Solicitado - $matricula";
+
+        if (eLocalhost()) {
+            $email =  'ti@marktclub.com.br';
+        } else if (eHomologacao()) {
+            $assunto = "Mensagem de teste em Homologação: Ponto + Ação";
+        }
+
+        $Email = new EmailHelper;
         $Email->mensagem(
             'Voucher Solicitado!',
             'Um voucher foi solicitado',
@@ -204,7 +210,14 @@ final class PontoEntity extends Entity
             acao: 'Voucher',
             cor: $Construtor->cor
         );
-        $Email->sendGrid("Voucher Solicitado - $matricula", 'Fabio Gomes', $email, deNome: $titulo);
+        $Email->sendGrid($assunto, 'Fabio Gomes', $email, deNome: $titulo);
+
+        $Cliente = new AtualizarUsuarioModel;
+        $Cliente->atualizarUsuario([
+            'nome' => $this->nome,
+            'cpf' => $this->cpf,
+            'email_pessoal' => $this->email->email(),
+        ]);
     }
 
     /*

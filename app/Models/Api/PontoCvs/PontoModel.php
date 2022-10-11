@@ -38,7 +38,7 @@ final class PontoModel extends GeralModel
                     ['tipo', 3]
                 ]
             ])
-            ->campo(['nome', 'documento'])
+            ->campo(['nome', 'documento', 'email_pessoal'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
@@ -59,11 +59,13 @@ final class PontoModel extends GeralModel
     protected function montarRetorno(array $dado): array
     {
         $retorno = [];
+
         $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,
-                'usuario' => $r->nome,
+                'usuario_nome' => $r->nome,
+                'usuario_email' => $r->email_pessoal,
                 'ponto' => strNull($r->ponto_solicitado),
                 'mensagem' => strNull($r->mensagem),
                 'voucher' => strNull($r->voucher),
@@ -98,8 +100,15 @@ final class PontoModel extends GeralModel
 
         $Usuario->buscar([
             ['documento', soNumero($this->request->cpf)],
-            ['empresa', 198],
-            ['status', 'in', Helper::STATUS_LIBERADO]
+            ['status', 'in', Helper::STATUS_LIBERADO],
+            [
+                'OR',
+                ['empresa', 198],
+                [
+                    ['empresa', 1],
+                    ['tipo', 3]
+                ]
+            ]
         ], false);
 
         if (empty($Usuario->id)) {
