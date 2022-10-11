@@ -51,6 +51,8 @@ final class DownloadEntity extends Entity
         if ($codigo != $this->codigo_autorizacao) {
             mensagemStatus(404);
         }
+        $this->codigo_autorizacao = '';
+        $this->salvar();
     }
 
     /*
@@ -78,6 +80,7 @@ final class DownloadEntity extends Entity
     }
     private function salvarCodigoAutorizacao()
     {
+        $this->codigo_email = '';
         $this->codigo_autorizacao = uuid();
         $this->salvar();
     }

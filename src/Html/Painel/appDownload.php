@@ -15,4 +15,4 @@ foreach ($html as $bloco) {
     }
     echo '</div>';
 }
-painelAppDownloadEnd();
+painelAppDownloadEnd(2);
