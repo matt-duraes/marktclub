@@ -202,6 +202,7 @@ $appLink = str_replace('_', '-', $app);
     deletarPermissao: $config->permissao->deletar && $dado->registro->total > 0 && $dado->pagina->atual <= $dado->pagina->total,
     download: 'botao_download_geral',
     downloadPermissao: $config->permissao->download && $dado->registro->total > 0 && $dado->pagina->atual <= $dado->pagina->total,
+    downloadQuantidade: $dado->registro->total
 ) ?>
 
 </div>
