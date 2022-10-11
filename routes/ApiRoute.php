@@ -5,12 +5,23 @@ use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
 
 Route
-    ::nome('robo')
-    ::controller(App\Controllers\Api\RoboController::class)
+    ::nome('downloadRestrito')
+    ::controller(App\Controllers\Api\DownloadRestritoController::class)
     ::grupo(function () {
         Route
-            ::nome('emenda')
-            ::get('/robo/emenda');
+            ::nome('index')
+            ::view('/download-restrito/hash/{id}');
+        Route
+            ::nome('email')
+            ::request(['hash_validacao', 'id'])
+            ::post('/download-restrito/email');
+        Route
+            ::nome('validar')
+            ::request(['id', 'codigo'])
+            ::post('/download-restrito/validar');
+        Route
+            ::nome('download')
+            ::view('/download-restrito/download/{id}/{codigo}');
     });
 
 Route
