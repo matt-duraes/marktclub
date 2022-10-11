@@ -20,14 +20,14 @@
         </header>
 
         <main>
-            <div class="bloco enviar_codigo" id="bloco_enviar_codigo">
+            <div class="bloco enviar_codigo hide" id="bloco_enviar_codigo">
                 @hash('ENVIAR_EMAIL')
                 <input type="hidden" id="input_id" value="{!!$id!!}">
                 <p>Para continuar, clique no botão abaixo e envie o código de desbloqueio para seu e-mail:</p>
                 <button class="botao_geral" id="botao_enviar_codigo">ENVIAR</button>
             </div>
 
-            <div class="bloco validar_codigo hide" id="bloco_validar_codigo">
+            <div class="bloco validar_codigo" id="bloco_validar_codigo">
                 <p>Digite o código que foi enviado para seu e-mail:</p>
                 <input inputmode="numeric" id="input_codigo" type="number" placeholder="00000000">
                 <button class="botao_geral" id="botao_validar_codigo">VALIDAR</button>

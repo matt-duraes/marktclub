@@ -99,5 +99,14 @@ window.addEventListener('load', () => {
 
         blocoValidarCodigo.classList.add('hide');
         blocoDownload.classList.remove('hide');
+        inputCodigo.value = '';
     };
+
+    botaoDownload.addEventListener('click', () => {
+        setTimeout(() => {
+            botaoDownload.removeAttribute('href');
+            blocoEnviarCodigo.classList.remove('hide');
+            blocoDownload.classList.add('hide');
+        }, 100);
+    });
 });
