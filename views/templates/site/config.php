@@ -30,3 +30,5 @@ define('MENU_CREDITO_AUTOMOVEL', true);
 define('MENU_HOVER', isset($menu) ? $menu : '');
 
 define('COR', '#FF6F00');
+
+include ROOT . '/resources/php/site/icone.php';
