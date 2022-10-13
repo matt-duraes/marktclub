@@ -1,6 +1,7 @@
 @template "site"
 
 <div id="bloco_loja_index">
+
     @view site/loja/geral/busca.view
 
     @ if( $banner ):
