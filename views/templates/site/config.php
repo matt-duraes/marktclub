@@ -24,6 +24,7 @@ define('MENU_CINEMA', true);
 define('MENU_TURISMO', true);
 define('MENU_SALAVIP', true);
 
+
 define('MENU_CREDITO_SICOOB', true);
 define('MENU_CREDITO_CONSIGNADO', true);
 define('MENU_CREDITO_AUTOMOVEL', true);
