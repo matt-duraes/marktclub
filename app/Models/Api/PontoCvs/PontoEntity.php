@@ -188,7 +188,7 @@ final class PontoEntity extends Entity
         $logo = $Construtor->logo;
         $titulo = $Construtor->titulo;
 
-        $email = 'fabiogomes@spbancarios.com.br';
+        $email = 'arrecadacao@spbancarios.com.br';
         $assunto = "Voucher Solicitado - $matricula";
 
         if (eLocalhost()) {
