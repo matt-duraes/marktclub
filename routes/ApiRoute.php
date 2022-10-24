@@ -504,6 +504,12 @@ Route
             ::post('/login/api');
 
         Route
+            ::nome('loginDigio')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:digio'])
+            ::request(['usuario'])
+            ::post('/login/digio');
+
+        Route
             ::nome('loginToken')
             ::middleware(TokenMiddleware::class, 'scope', ['login:token'])
             ::request(['clube', 'usuario'])
