@@ -23,15 +23,24 @@ final class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
+    | LOGIN DIGIO
+    |--------------------------------------------------------------------------
+    */
+    public function postLoginDigio(Request $request)
+    {
+        $Digio = new DigioModel($request->usuario);
+        return $Digio->link();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | LOGIN CLUBE
     |--------------------------------------------------------------------------
     */
     public function postLoginApi(Request $request)
     {
         $Login = new LoginApiModel($request);
-        return mensagemSucesso([
-            'link' => $Login->link()
-        ], status: 201);
+        return $Login->link();
     }
     public function loginApiOk($hash)
     {
@@ -126,19 +135,6 @@ final class LoginController extends Controller
         );
 
         return mensagemSucesso($Login->token(), 201);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOGIN DIGIO
-    |--------------------------------------------------------------------------
-    */
-    public function postLoginDigio(Request $request)
-    {
-        $Digio = new DigioModel($request->usuario);
-        return mensagemSucesso([
-            'link' => $Digio->link()
-        ], status: 201);
     }
 
     /*

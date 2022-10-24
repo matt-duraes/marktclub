@@ -13,18 +13,24 @@ use Modules\Telefone;
 use Helpers\ListaHelper;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
-use App\Classes\UsuarioCliente\Helper;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\LoginApi\Trait\LinkTrait;
+use App\Models\Api\LoginApi\Trait\UsuarioTrait;
+use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class LoginModel extends Entity
 {
     protected string $_tabela = TABELA_USUARIO_NOVO;
 
-    private array $dado;
+    use ConstrutorTrait;
+    use UsuarioTrait;
+    use LinkTrait;
+
+    private string $linkClube;
     private int $idEmpresa;
+    private array $dadoUsuario;
     private ?string $idUsuario = null;
     private ?int $statusUsuario = null;
-    private string $hash;
+    private ?string $hash = null;
 
     public function __construct(
         private Request $request
@@ -36,37 +42,19 @@ final class LoginModel extends Entity
         parent::__construct();
 
         $this->idEmpresa = TOKEN['empresa']->get('id');
-
-        $this->dado = $request->dado();
+        $this->dadoUsuario = $request->dado();
         $this->hash = uuid();
 
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar([
-            ['empresa', $this->idEmpresa],
-            ['status', 'in', [1, 2]]
-        ]);
-        $this->linkClube = $Construtor->link_clube;
-
+        $this->buscarLinkClube();
         $this->verificarCamposObrigatorio();
         $this->validarRequest();
+
         $this->verificarSeUsuarioJaExiste();
-        if ($this->idUsuario) {
+        if (!empty($this->idUsuario)) {
             $this->atualizarUsuarioJaExistente();
             return;
         }
         $this->salvarNovoUsuario();
-    }
-
-    public function link()
-    {
-        if (SISTEMA == 'HOMOLOGACAO') {
-            return 'https://apiv4homologacao.marktclub.com.br/login/api-ok/' . base64Encode([
-                'nome' => $this->dado['nome'],
-                'data' => agora(),
-                'hash' => $this->hash
-            ], true);
-        }
-        return 'https://' . $this->linkClube . '/login/api/' . $this->hash;
     }
 
     /*
@@ -88,7 +76,7 @@ final class LoginModel extends Entity
     }
     private function validarRequest()
     {
-        $dado = $this->dado;
+        $dado = $this->dadoUsuario;
         $nome = new Nome($dado['nome'] ?? '');
         $cpf = new Cpf($dado['cpf'] ?? '');
         $matricula = $dado['matricula'] ?? '';
@@ -151,7 +139,7 @@ final class LoginModel extends Entity
             mensagemErro('Campo inválido', 'A Salavip deve ser um valor inteiro.');
         }
 
-        $this->dado = removerIndiceVazio([
+        $this->dadoUsuario = removerIndiceVazio([
             'nome' => $nome->nome(),
             'documento' => (int) $cpf->numero(),
             'matricula' => $matricula,
@@ -172,68 +160,5 @@ final class LoginModel extends Entity
             'hash_data' => agora(),
             'status' => 1
         ]);
-    }
-    private function verificarSeUsuarioJaExiste()
-    {
-        $usuario = $this->campo(['cod', 'status'])->where([
-            ['empresa', $this->idEmpresa],
-            ['documento', $this->dado['documento']],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ])->primeiro();
-
-        if (existeErro($usuario, 'cod')) {
-            return;
-        }
-        $this->idUsuario = $usuario->cod;
-        $this->statusUsuario = $usuario->status;
-    }
-
-    private function atualizarUsuarioJaExistente()
-    {
-        $agora = agora();
-        $hoje = hoje();
-
-        $dado = [
-            'tipo' => 1,
-            'data_atualizacao' => $agora,
-            'data_dado' => $hoje
-        ];
-
-        if (array_key_exists('email_pessoal', $this->dado) || array_key_exists('email_trabalho', $this->dado)) {
-            $dado['data_email'] = $hoje;
-        }
-        if ($this->statusUsuario != 1) {
-            $dado['primeiro_acesso'] = 1;
-        }
-
-        $salvar = $this->dado(array_merge($this->dado, $dado))->where(['cod', $this->idUsuario])->update();
-        if (existeErro($salvar, 'id') || empty($salvar['id'])) {
-            mensagemErro('Erro ao atualizar!', 'Ocorreu um erro ao atualizar o usuário.', status: 500);
-        }
-    }
-    private function salvarNovoUsuario()
-    {
-        $agora = agora();
-        $hoje = hoje();
-
-        $dado = [
-            'cod' => uuid(),
-            'tipo' => 1,
-            'data_atualizacao' => $agora,
-            'data_dado' => $hoje,
-            'empresa' => $this->idEmpresa,
-            'data_criacao' => $agora,
-            'primeiro_acesso' => 1
-        ];
-
-        if (array_key_exists('email_pessoal', $this->dado) || array_key_exists('email_trabalho', $this->dado)) {
-            $dado['data_email'] = $hoje;
-        }
-
-        $salvar = $this->dado(array_merge($this->dado, $dado))->insert();
-        if (existeErro($salvar, 'id') || empty($salvar['id'])) {
-            mensagemErro('Erro ao salvar!', 'Ocorreu um erro ao criar o usuário.', status: 500);
-        }
-        $this->idUsuario = $salvar['id'];
     }
 }

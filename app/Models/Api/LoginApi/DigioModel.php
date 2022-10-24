@@ -2,13 +2,13 @@
 
 namespace App\Models\Api\LoginApi;
 
-use ORM\ORM;
+use ORM\Entity;
 use App\Helpers\DigioHelper;
 use App\Models\Api\LoginApi\Trait\LinkTrait;
 use App\Models\Api\LoginApi\Trait\UsuarioTrait;
 use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
-final class DigioModel extends ORM
+final class DigioModel extends Entity
 {
     protected string $_tabela = TABELA_USUARIO_NOVO;
 
@@ -24,9 +24,11 @@ final class DigioModel extends ORM
     private ?string $hash = null;
 
     public function __construct(
-        private ?string $id
+        private ?string $usuario
     ) {
-        if (empty($id)) {
+        if (!defined('TOKEN')) {
+            mensagemStatus(401);
+        } else if (empty($usuario)) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um usuário para continuar.');
         }
 
@@ -48,7 +50,7 @@ final class DigioModel extends ORM
 
     private function buscarUsuarioNaApiDigio()
     {
-        $Digio = new DigioHelper($this->id);
+        $Digio = new DigioHelper($this->usuario);
         $this->dadoUsuario = $Digio->usuario();
     }
 }

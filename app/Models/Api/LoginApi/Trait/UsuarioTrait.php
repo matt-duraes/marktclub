@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\LoginApi\Trait;
 
+use Modules\Cpf;
 use App\Classes\UsuarioCliente\Helper;
 
 trait UsuarioTrait
@@ -39,6 +40,9 @@ trait UsuarioTrait
         if ($this->statusUsuario != 1) {
             $dado['primeiro_acesso'] = 1;
         }
+        if (array_key_exists('documento', $this->dadoUsuario)) {
+            unset($this->dadoUsuario['documento']);
+        }
 
         $salvar = $this->dado(array_merge($this->dadoUsuario, $dado))->where(['cod', $this->idUsuario])->update();
         if (existeErro($salvar, 'id') || empty($salvar['id'])) {
@@ -65,7 +69,7 @@ trait UsuarioTrait
             $dado['data_email'] = $hoje;
         }
         if (array_key_exists('documento', $this->dadoUsuario)) {
-            $this->dadoUsuario = (int)soNumero($this->dadoUsuario);
+            $this->dadoUsuario['documento'] = new Cpf($this->dadoUsuario['documento']);
         }
 
         $salvar = $this->dado(array_merge($this->dadoUsuario, $dado))->insert();

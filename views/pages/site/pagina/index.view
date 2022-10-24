@@ -1,0 +1,3 @@
+@ foreach( $pagina as $ind => $val ):
+
+@ endforeach;
