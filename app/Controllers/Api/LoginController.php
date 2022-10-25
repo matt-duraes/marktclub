@@ -5,8 +5,10 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Helpers\DigioHelper;
 use App\Classes\ApiToken\Tipo;
 use App\Classes\UsuarioCliente\Helper;
+use App\Models\Api\LoginApi\DigioModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
@@ -21,15 +23,24 @@ final class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
+    | LOGIN DIGIO
+    |--------------------------------------------------------------------------
+    */
+    public function postLoginDigio(Request $request)
+    {
+        $Digio = new DigioModel($request->usuario);
+        return $Digio->link();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | LOGIN CLUBE
     |--------------------------------------------------------------------------
     */
     public function postLoginApi(Request $request)
     {
         $Login = new LoginApiModel($request);
-        return mensagemSucesso([
-            'link' => $Login->link()
-        ], status: 201);
+        return $Login->link();
     }
     public function loginApiOk($hash)
     {

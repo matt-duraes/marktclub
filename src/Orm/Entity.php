@@ -235,7 +235,7 @@ abstract class Entity extends ORM
         throw new Erro(mensagem: 'A propriedade ' . $propriedade . ' não existe ou você não tem acesso a ela.');
     }
 
-    private function ormPegarValorModule(ModuleInterface $valor)
+    protected function ormPegarValorModule(ModuleInterface $valor)
     {
         if ($valor instanceof Email) {
             return $valor->email();

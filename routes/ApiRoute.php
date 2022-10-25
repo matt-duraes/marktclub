@@ -504,6 +504,12 @@ Route
             ::post('/login/api');
 
         Route
+            ::nome('loginDigio')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:digio'])
+            ::request(['usuario'])
+            ::post('/login/digio');
+
+        Route
             ::nome('loginToken')
             ::middleware(TokenMiddleware::class, 'scope', ['login:token'])
             ::request(['clube', 'usuario'])
@@ -644,6 +650,22 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
             ::get('/solicitacao-voucher/{id}');
+    });
+
+Route
+    ::nome('construtor')
+    ::controller(App\Controllers\Api\ConstrutorController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('clube')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:clube'])
+            ::get('/construtor/clube/{id}');
+
+        Route
+            ::nome('pagina')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:pagina'])
+            ::get('/construtor/pagina/{url}');
     });
 
 Route

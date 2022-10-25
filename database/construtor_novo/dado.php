@@ -2,6 +2,7 @@
 
 return [
     [
+        'id' => 1,
         'cod' => 'b7ecc8af-25c1-4981-a891-cc60c3464f6c',
         'empresa' => 1,
         'titulo' => 'Markt Club',
@@ -12,8 +13,18 @@ return [
     ],
     [
         'id' => 165,
-        'cod' => uuid(),
+        'cod' => '5cc28dab736cb7d4ef436ee2447a07ee',
         'empresa' => 198,
+        'titulo' => 'CVS MAIS',
+        'link_site' => 'https://localhost.com:4200',
+        'logo' => 'logo_cvsmais_tem_mais.png',
+        'cor' => '#f00068',
+        'status' => 1
+    ],
+    [
+        'id' => 212,
+        'cod' => '8986a24345f36de15e2a7f4a51f1c9e7',
+        'empresa' => 223,
         'titulo' => 'CVS MAIS',
         'link_site' => 'https://localhost.com:4200',
         'logo' => 'logo_cvsmais_tem_mais.png',
