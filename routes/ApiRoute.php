@@ -112,7 +112,7 @@ Route::nome('usuario_cliente')
             ::middleware(TokenMiddleware::class, 'login')
             ::request([
                 'campo', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!ordem'
+                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente'
             ])
             ::post('/usuario-cliente/download');
 

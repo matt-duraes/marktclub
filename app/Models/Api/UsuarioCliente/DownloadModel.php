@@ -30,14 +30,15 @@ final class DownloadModel extends GeralModel
     public function download()
     {
         $campo = $this->converterCampoParaDownload();
-        $dado = $this->buscarUsuario($campo, false);
+        $campoBusca = in_array('tipo', $campo) ? $campo : array_merge($campo, ['tipo']);
+        $dado = $this->buscarUsuario($campoBusca, false);
 
         if (!array_key_exists('0', $dado)) {
             $this->erroDownloadPadrao();
         }
 
         $this->salvarLogDownload($dado);
-        return $this->montarRetornoDownload($dado);
+        return $this->montarRetornoDownload($dado, $campo);
     }
     private function salvarLogDownload(array $dado)
     {
@@ -56,7 +57,7 @@ final class DownloadModel extends GeralModel
     {
         mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
     }
-    private function montarRetornoDownload(array $dado): array
+    private function montarRetornoDownload(array $dado, array $campo): array
     {
         $i = 0;
         $retorno = [];
@@ -102,6 +103,8 @@ final class DownloadModel extends GeralModel
                     $val = (new Telefone($val))->numero();
                 } else if (in_array($ind, ['data_criacao', 'data_atualizacao', 'data_acesso'])) {
                     $val = (new DataHora($val))->date();
+                } else if ($ind == 'tipo' && !in_array('tipo', $campo)) {
+                    continue;
                 } else if ($ind == 'tipo') {
                     $val = [1 => 'titular', 2 => 'dependente', 3 => 'admin'][$val] ?? '';
                 } else if ($ind == 'status') {
@@ -190,10 +193,6 @@ final class DownloadModel extends GeralModel
             unset($campo['origem']);
             $campo['lead_origem'] = true;
         }
-        $campo = array_keys($campo);
-        if (!in_array('tipo', $campo)) {
-            $campo[] = 'tipo';
-        }
-        return $campo;
+        return array_keys($campo);
     }
 }
