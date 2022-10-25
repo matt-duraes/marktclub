@@ -26,7 +26,8 @@ $Painel
             ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select());
     })
     ->switch(name: 'lead', titulo: 'Usuários do lead', label: 'Apenas usuários do lead?')
-    ->switch(name: 'pagamento', titulo: 'Pagamento em aberto', label: 'Apenas pagamento em aberto?');
+    ->switch(name: 'pagamento', titulo: 'Pagamento em aberto', label: 'Apenas pagamento em aberto?')
+    ->switch(name: 'dependente', titulo: 'Adicionar dependente', label: 'Adicionar dependente na busca?');
 
 $Painel->replace('status', (new Status())->select());
 

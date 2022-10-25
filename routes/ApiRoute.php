@@ -103,7 +103,7 @@ Route::nome('usuario_cliente')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:listar'])
             ::request([
                 'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem', '!origem'
+                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem', '!origem', '!dependente'
             ], 'json')
             ::get('/usuario-cliente');
         Route

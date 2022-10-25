@@ -31,6 +31,8 @@ trait UsuarioTrait
             'tipo' => 1,
             'data_atualizacao' => $agora,
             'data_dado' => $hoje,
+            'hash' => $this->hash,
+            'hash_data' => agora(),
             'status' => 1
         ];
 
@@ -62,6 +64,8 @@ trait UsuarioTrait
             'empresa' => $this->idEmpresa,
             'data_criacao' => $agora,
             'primeiro_acesso' => 1,
+            'hash' => $this->hash,
+            'hash_data' => agora(),
             'status' => 1
         ];
 

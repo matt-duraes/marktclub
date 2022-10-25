@@ -8,6 +8,7 @@ $Painel
     ->campo('nome', 'Nome', 'grande')
     ->campo('cpf', 'CPF', 'pequeno', formatar: 'cpf')
     ->campo('email', 'E-mail', 'normal')
+    ->campo('tipo', 'Tipo', 'pequeno')
     ->dataCriacao()
     ->status('status', 'Status', new Status());
 

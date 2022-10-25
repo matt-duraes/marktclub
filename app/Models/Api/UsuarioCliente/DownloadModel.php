@@ -61,6 +61,9 @@ final class DownloadModel extends GeralModel
         $i = 0;
         $retorno = [];
         foreach ($dado as $linha) {
+            if ($linha->tipo == 2) {
+                continue;
+            }
             foreach ($linha as $ind => $val) {
                 if ($ind == 'documento') {
                     $ind = 'cpf';
@@ -187,6 +190,10 @@ final class DownloadModel extends GeralModel
             unset($campo['origem']);
             $campo['lead_origem'] = true;
         }
-        return array_keys($campo);
+        $campo = array_keys($campo);
+        if (!in_array('tipo', $campo)) {
+            $campo[] = 'tipo';
+        }
+        return $campo;
     }
 }
