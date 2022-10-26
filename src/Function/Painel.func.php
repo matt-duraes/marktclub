@@ -114,20 +114,12 @@ if (!function_exists('painelAppDownload')) {
     }
 }
 if (!function_exists('painelAppDownloadEnd')) {
-    function painelAppDownloadEnd($pagina)
+    function painelAppDownloadEnd()
     {
-        $listaPagina = [];
-        for ($i = 1; $i <= $pagina; ++$i) {
-            $listaPagina[$i] = 'Pagina ' . $i;
-        }
-        $paginaHtml = formSelect(name: 'pagina', label: 'Página', placeholder: 'Página', lista: $listaPagina);
         echo '
                     <div class="footer" id="bloco_download_footer">
                         ' . formCheckbox(name: 'termo', value: 'sim', label: 'Confirmar que sou ' . sessao('USUARIO.nome') . ' e que tenho permissão para fazer esse download.', check: false, class: 'botao_termo_download') . '
                         ' . formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha') . '
-                        <div class="bloco_paginacao display_hide" data-pagina="' . $pagina . '">
-                            ' . $paginaHtml . '
-                        </div>
                         <button type="submit" class="botao_download_geral button botao_loading_geral">
                             <p>DOWNLOAD</p>
                             <span>' . iconeLoadingBola() . '</span>
