@@ -7,7 +7,7 @@
             <header>
                 <h1>Backlog</h1>
                 <div class="flex"></div>
-                <button id="botao_add" class="botao">Add</button>
+                <button id="botao_add_tarefa" class="botao">Add</button>
             </header>
             <div class="conteudo">
                 @laco(4)

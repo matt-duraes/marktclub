@@ -13,4 +13,7 @@ Route
         Route
             ::nome('tarefa')
             ::view('/demanda/tarefa');
+        Route
+            ::nome('novaTarefa')
+            ::view('/demanda/nova-tarefa');
     });

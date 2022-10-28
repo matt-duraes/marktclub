@@ -15,4 +15,9 @@ final class DemandaController extends Controller
     {
         return view('painel.demanda.index');
     }
+
+    public function novaTarefa()
+    {
+        return view('painel.demanda.nova');
+    }
 }
