@@ -44,7 +44,7 @@ final class DependenteEntity extends Entity
             return;
         }
         $Construtor = new ConstrutorEntity();
-        $Construtor->buscar(['id', $this->idEmpresa]);
+        $Construtor->buscar(['empresa', $this->idEmpresa]);
 
         $link = $Construtor->link_clube;
         $logo = $Construtor->logo;
