@@ -769,3 +769,12 @@ Route::nome('admin_empresa')
             ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
             ::get('/admin-empresa/select');
     });
+
+Route
+    ::nome('rotina')
+    ::controller(App\Controllers\Api\RotinaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('analytics')
+            ::view('/rotina/analytics');
+    });
