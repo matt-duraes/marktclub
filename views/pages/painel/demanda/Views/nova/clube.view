@@ -1,0 +1,44 @@
+<h3>Domínio</h3>
+<div class="bloco">
+    @? formSelect(name: 'dominio_tipo', label: 'Tipo de domínio', placeholder: 'Tipo de domínio', lista: ['' => 'Escolha uma opção', 'proprio' => 'Domínio próprio', 'temvantagens' => 'temvantagens.com.br', 'temmaisvantagens' => 'temmaisvantagens.com.br'], obrigatorio: true, class: 'tipo_dominio', change: 'mudarTipoDominio')
+
+    <div class="sub_dominio display_none" id="bloco_dominio_sub">
+        <p>https://</p>
+        @? formInput(name: 'dominio_sub', label: 'Subdomínio', placeholder: 'Qual subdomínio?', obrigatorio: true)
+        <p id="bloco_dominio_sub_texto">.temmaisvantagens.com.br</p>
+    </div>
+
+    @? formUrl(name: 'dominio_proprio', label: 'Domínio', placeholder: 'Qual domínio será usado?', obrigatorio: true, id: 'bloco_dominio_proprio', class: 'dominio_proprio display_none')
+    <div class="quebra"></div>
+    @? formSwitch(name: 'dominio_exclusivo', label: 'O domínio vai ser exclusivo?', check: false, ajuda: 'Nós iremos gerênciar o DNS do domínio, isso só ocorre quando o cliente não precisa usar o domínio para e-mail, subdomínio e etc', id: 'bloco_dominio_exclusivo', class: 'dominio_exclusivo display_none')
+
+    <div class="observacao observacao_dns display_none" id="bloco_dominio_dns">
+        <p>Você deve pedir para o cliente apontar o DNS para:</p>
+        <p>Em caso de subdomínio: <strong>dnsclube.marktclub.com.br</strong></p>
+        <p>Em caso de domínio e não iremos gerenciar o DNS (evitar): <strong>xxx.xxx.x.xx</strong></p>
+    </div>
+</div>
+
+<h3>Login</h3>
+@? formSwitch(name: 'login_api', label: 'Login será por API?', check: false)
+@? formUrl(name: 'dominio_login', label: 'Link de login', placeholder: 'Qual link de login do site do cliente?', obrigatorio: true, id: 'bloco_dominio_login', class: 'display_none')
+
+<h3>APP</h3>
+@? formSwitch(name: 'app', label: 'Será preciso criar APP?', check: false)
+<div class="observacao display_none" id="bloco_app">
+    <p>Você precisa pedir para o cliente nos enviar a documentação da API de login para implementar no APP</p>
+</div>
+
+<h3>Menus</h3>
+<p class="chamada">Quais menus irão ser disponibilizado para o cliente?</p>
+<div class="checkbox">
+    @? formCheckbox(name: 'menu_convenio', label: 'Convênio', value: 'Convênio')
+    @? formCheckbox(name: 'menu_turismo', label: 'Turismo', value: 'Turismo')
+    @? formCheckbox(name: 'menu_promocao', label: 'Promoção', value: 'Promoção')
+    @? formCheckbox(name: 'menu_credito_sicoob', label: 'Crédito Sicoob', value: 'Crédito Sicoob')
+    @? formCheckbox(name: 'menu_credito_alfa', label: 'Crédito Alfa', value: 'Crédito Alfa')
+    @? formCheckbox(name: 'menu_medicamento', label: 'Medicamento', value: 'Medicamento')
+</div>
+
+<h3>Logo</h3>
+@? formImagem(name: 'logo', diretorio: 'teste')
