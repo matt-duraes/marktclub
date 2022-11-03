@@ -35,7 +35,7 @@ final class DigioHelper
     private function pegarToken()
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->link . '/auth/realms/digio-apis/protocol/openid-connect/token');
+        curl_setopt($ch, CURLOPT_URL, $this->link . '/auth/realms/digio/protocol/openid-connect/token');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
