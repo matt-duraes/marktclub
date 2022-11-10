@@ -47,18 +47,27 @@ window.addEventListener('load', () => {
             return;
         }
         json.dado.forEach(item => {
-            adicionarNovoDependente(item.id, item.nome, item.email);
+            adicionarNovoDependente(item.id, item.nome, item.email, item.status);
         });
     };
     buscarDependente();
 
-    const adicionarNovoDependente = (id, nome, email, fechar) => {
+    const adicionarNovoDependente = (id, nome, email, status, fechar) => {
         if (fechar === true) {
             fecharBlocoDependente();
         }
         const blocoZero = blocoDependente.querySelector('.dependente_zero');
         if (blocoZero) {
             blocoZero.parentNode.removeChild(blocoZero);
+        }
+
+        let statusNome = status;
+        if (status == 'inativo') {
+            statusNome = 'Inativo';
+        } else if (status == 'ativo') {
+            statusNome = 'Ativo';
+        } else if (status == 'bloqueado') {
+            statusNome = 'Bloqueado';
         }
 
         let htmlDeletar = '';
@@ -68,16 +77,19 @@ window.addEventListener('load', () => {
         blocoDependente.insertAdjacentHTML(
             'beforeend',
             `
-            <div class="dependente lista_dado" data-id="${id}">
-                <div class="linha">
-                    <strong class="texto_nome">Nome:</strong> ${nome}
+                <div class="dependente lista_dado" data-id="${id}">
+                    <div class="linha">
+                        <strong class="texto_nome">Nome:</strong> ${nome}
+                    </div>
+                    <div class="linha">
+                        <strong class="texto_nome">E-mail:</strong> ${email}
+                    </div>
+                    <div class="linha">
+                        <strong class="texto_nome">Status:</strong> ${statusNome}
+                    </div>
+                    ${htmlDeletar}
                 </div>
-                <div class="linha">
-                    <strong class="texto_nome">E-mail:</strong> ${email}
-                </div>
-                ${htmlDeletar}
-            </div>
-        `
+            `
         );
     };
 
@@ -197,7 +209,7 @@ window.addEventListener('load', () => {
         Loading.hide();
 
         if (resposta.status == 201) {
-            adicionarNovoDependente(json.dado.id, inputNome.value, inputEmail.value, true);
+            adicionarNovoDependente(json.dado.id, inputNome.value, inputEmail.value, 'inativo', true);
             return;
         }
 

@@ -33,18 +33,18 @@ final class TokenMiddleware
             return $Token->validar($this->token);
         } else if ($tipo == 'authorization') {
             $Token = new ValidarTokenAuthorizationEntity();
-            // try {
-            $Token->buscar([
-                ['access_token', $this->token],
-                ['status', 1]
-            ]);
-            return true;
-            // } catch (\Throwable) {
-            //     mensagemStatus(
-            //         403,
-            //         localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1'
-            //     );
-            // }
+            try {
+                $Token->buscar([
+                    ['access_token', $this->token],
+                    ['status', 1]
+                ]);
+                return true;
+            } catch (\Throwable) {
+                mensagemStatus(
+                    403,
+                    localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1'
+                );
+            }
         }
 
         mensagemStatus(500, localhost: 'Middleware Token - Tipo de token inválido.');

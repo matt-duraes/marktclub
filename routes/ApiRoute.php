@@ -103,7 +103,7 @@ Route::nome('usuario_cliente')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:listar'])
             ::request([
                 'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem', '!origem'
+                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem', '!origem', '!dependente'
             ], 'json')
             ::get('/usuario-cliente');
         Route
@@ -112,7 +112,7 @@ Route::nome('usuario_cliente')
             ::middleware(TokenMiddleware::class, 'login')
             ::request([
                 'campo', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!ordem'
+                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente'
             ])
             ::post('/usuario-cliente/download');
 
@@ -504,6 +504,12 @@ Route
             ::post('/login/api');
 
         Route
+            ::nome('loginDigio')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:digio'])
+            ::request(['usuario'])
+            ::post('/login/digio');
+
+        Route
             ::nome('loginToken')
             ::middleware(TokenMiddleware::class, 'scope', ['login:token'])
             ::request(['clube', 'usuario'])
@@ -647,6 +653,22 @@ Route
     });
 
 Route
+    ::nome('construtor')
+    ::controller(App\Controllers\Api\ConstrutorController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('clube')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:clube'])
+            ::get('/construtor/clube/{id}');
+
+        Route
+            ::nome('pagina')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:pagina'])
+            ::get('/construtor/pagina/{url}');
+    });
+
+Route
     ::nome('convenio_parceiro')
     ::controller(App\Controllers\Api\ConvenioParceiroController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -746,4 +768,13 @@ Route::nome('admin_empresa')
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
             ::get('/admin-empresa/select');
+    });
+
+Route
+    ::nome('rotina')
+    ::controller(App\Controllers\Api\RotinaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('analytics')
+            ::view('/rotina/analytics');
     });
