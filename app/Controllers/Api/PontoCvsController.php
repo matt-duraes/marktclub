@@ -75,7 +75,7 @@ final class PontoCvsController extends Controller implements
                 $Ponto,
                 lista: [
                     'id', 'usuario', 'ponto_solicitado', 'voucher', 'mensagem', 'data_solicitacao', 'data_voucher',
-                    'data_atualizacao', 'status'
+                    'data_atualizacao', 'pedido_codigo', 'status'
                 ]
             ),
             status: $status,

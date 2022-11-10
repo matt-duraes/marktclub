@@ -22,7 +22,10 @@ final class PontoModel extends GeralModel
     ) {
         parent::__construct();
         $this->validarRequest();
+
+        (new AtualizarStatusModel)->AtualizarStatus();
     }
+
     public function listarDados(): stdClass
     {
         $dado = $this
