@@ -54,30 +54,30 @@ final class PontoCvsHelper
     /**
      * Busca a quantidade de pontos do usuário
      * @param   int     $cpf    CPF do usuário
-     * @return  stdClass|string      Classe de pontos ou "-" quando der erro
+     * @return  stdClass|null      Classe de pontos ou null quando der erro
      */
-    public function buscarPontos(int $cpf): stdClass|string
+    public function buscarPontos(int $cpf): stdClass|null
     {
         try {
             $dadoUsuario = $this->buscarUsuario($cpf);
             return $dadoUsuario->dados_socio[0];
         } catch (\Throwable) {
-            return '-';
+            return null;
         }
     }
 
     /**
      * Busca o extrato do usuário
      * @param   int     $cpf    CPF do usuário
-     * @return  array|string      Array com extratos ou "-" quando der erro
+     * @return  array|null      Array com extratos ou null quando der erro
      */
-    public function buscarExtrato(int $cpf): array|string
+    public function buscarExtrato(int $cpf): array|null
     {
         try {
             $dadoUsuario = $this->buscarUsuario($cpf);
             return $dadoUsuario->extrato;
         } catch (\Throwable) {
-            return '-';
+            return null;
         }
     }
 

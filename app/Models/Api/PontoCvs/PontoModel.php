@@ -49,7 +49,9 @@ final class PontoModel extends GeralModel
             $PontoCvsHelper = new PontoCvsHelper;
             $saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
             $extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
+        }
 
+        if (!empty($saldo) && !empty($extrato)) {
             $dado->saldo = $saldo;
             $dado->extrato = $extrato;
         }
@@ -104,14 +106,7 @@ final class PontoModel extends GeralModel
         $Usuario->buscar([
             ['documento', soNumero($this->request->cpf)],
             ['status', 'in', Helper::STATUS_LIBERADO],
-            [
-                'OR',
-                ['empresa', 198],
-                [
-                    ['empresa', 1],
-                    ['tipo', 3]
-                ]
-            ]
+            ['empresa', 198],
         ], false);
 
         if (empty($Usuario->id)) {
