@@ -777,4 +777,7 @@ Route
         Route
             ::nome('analytics')
             ::view('/rotina/analytics');
+        Route
+            ::nome('baseUsuario')
+            ::view('/rotina/base-usuario');
     });
