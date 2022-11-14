@@ -106,7 +106,14 @@ final class PontoModel extends GeralModel
         $Usuario->buscar([
             ['documento', soNumero($this->request->cpf)],
             ['status', 'in', Helper::STATUS_LIBERADO],
-            ['empresa', 198],
+            [
+                'OR',
+                ['empresa', 198],
+                [
+                    ['empresa', 1],
+                    ['tipo', 3]
+                ]
+            ]
         ], false);
 
         if (empty($Usuario->id)) {
