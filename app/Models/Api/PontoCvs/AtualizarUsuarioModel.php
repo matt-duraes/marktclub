@@ -13,12 +13,19 @@ final class AtualizarUsuarioModel extends GeralModel
         $cpf = $dado['cpf'];
         if (!$this->existe([
             ['documento', $cpf],
-            ['empresa', 198]
+            [
+                'OR',
+                ['empresa', 198],
+                [
+                    ['empresa', 1],
+                    ['tipo', 3]
+                ]
+            ]
         ])) {
             mensagemErro('Erro!', 'Seu Usuário não foi encontrado.');
         }
 
-        if(empty($dado["nome"])){
+        if (empty($dado["nome"])) {
             unset($dado['nome']);
         }
 
