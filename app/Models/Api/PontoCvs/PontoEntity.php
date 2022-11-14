@@ -167,7 +167,6 @@ final class PontoEntity extends Entity
     {
         $PontoCvsHelper = new PontoCvsHelper;
         $this->pedido_codigo = $PontoCvsHelper->enviarSolicitacaoPonto($this->cpf, $this->ponto_solicitado);
-        $this->status = new Status('andamento');
     }
 
     protected function regraPosInsert()
@@ -185,7 +184,7 @@ final class PontoEntity extends Entity
         $assunto = "Voucher Solicitado - $matricula";
 
         if (eLocalhost()) {
-            $email =  'ti@marktclub.com.br';
+            $email =  'ti@markt.club';
         } else if (eHomologacao()) {
             $assunto = "Mensagem de teste em Homologação: Ponto + Ação";
         }
