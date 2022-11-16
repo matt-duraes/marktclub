@@ -91,6 +91,8 @@ final class DependenteEntity extends Entity
 
         if (empty($Cliente->id)) {
             mensagemErro('Erro!', 'Não foi possível encontrar o usuário para vincular o dependente.');
+        } else if ($Cliente->tipo->indice() == 'dependente') {
+            mensagemErro('Erro!', 'Um dependente não pode adicionar outros dependentes.');
         }
 
         $this->titular = $Cliente->get('id');
