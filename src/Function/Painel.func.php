@@ -748,6 +748,7 @@ if (!function_exists('botaoControle')) {
         string $downloadTexto = 'DOWNLOAD',
         string $downloadLink = '',
         bool $downloadPermissao = true,
+        ?int $downloadQuantidade = null,
         string $deletar = '',
         string $deletarTexto = 'DELETAR',
         bool $deletarPermissao = true,
@@ -809,8 +810,9 @@ if (!function_exists('botaoControle')) {
                 </a>
             ';
         } else if (!empty($download) && $downloadPermissao && (in_array($app . '_download', $permissao) || $dev)) {
+            $downloadQuantidade = !is_null($downloadQuantidade) ? ' data-quantidade="' . $downloadQuantidade . '"' : '';
             $downloadHtml = '
-                <div class="botao download" id="' . $download . '">
+                <div class="botao download" id="' . $download . '" ' . $downloadQuantidade . '>
                     <i>' . iconeDownload(18) . '</i>
                     <p>' . $downloadTexto . '</p>
                 </div>

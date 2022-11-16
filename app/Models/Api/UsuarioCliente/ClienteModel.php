@@ -8,6 +8,7 @@ use Modules\Data;
 use App\Models\Api\GeralModel;
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends GeralModel
@@ -26,7 +27,8 @@ final class ClienteModel extends GeralModel
     public function listarDados(): stdClass
     {
         $dado = $this->buscarUsuario([
-            'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal', 'status', 'data_criacao', 'usuario_lead'
+            'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal',
+            'data_criacao', 'usuario_lead', 'tipo', 'titular', 'status'
         ], true);
 
         $dado->lista = $this->montarRetornoLista($dado->lista);
@@ -39,6 +41,7 @@ final class ClienteModel extends GeralModel
             return [];
         }
 
+        $TipoUsuario = new TipoUsuario();
         $lista = [];
         foreach ($dado as $r) {
             $email = null;
@@ -47,11 +50,18 @@ final class ClienteModel extends GeralModel
             } else if (!empty($r->email_trabalho)) {
                 $email = $r->email_trabalho;
             }
+            $tipo = $TipoUsuario->nome($r->tipo);
+            $uuid = $r->cod;
+            if ($r->tipo == 2) {
+                $uuid = $this->campo(['cod'])->where(['id', $r->titular])->read(indice: 0, campo: 'cod');
+            }
+
             $lista[] = [
-                'id' => $r->cod,
+                'id' => $uuid,
                 'nome' => $r->nome,
-                'cpf' => $r->documento,
+                'cpf' => $r->tipo == 2 ? '' : $r->documento,
                 'email' => $email,
+                'tipo' => $tipo,
                 'data_criacao' => $r->data_criacao,
                 'status' => (new Status($r->status))->indice(),
             ];

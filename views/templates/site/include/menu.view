@@ -1,6 +1,6 @@
 <div class="categoria">PRINCIPAL</div>
 <a  class="{!!MENU_HOVER == 'home' ? 'cor_bg' : ''!!}" href="@route(index.index)">
-    <i>@iconeHome(35)</i>
+    <i>@iconeSiteHome()</i>
     Início
 </a>
 
@@ -9,35 +9,35 @@
 
     @ if( MENU_LOJA ):
     <a class="{!!MENU_HOVER == 'loja' ? 'cor_bg' : ''!!}" href="@route(loja.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeLojaHome()</i>
         Lojas
     </a>
     @ endif;
 
     @ if( MENU_LOJA_PROXIMA ):
     <a  class="{!!MENU_HOVER == 'loja-proxima' ? 'cor_bg' : ''!!}" href="@route(loja.proxima)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeLojaProximaHome()</i>
         Lojas próximas
     </a>
     @ endif;
 
     @ if( MENU_CUPOM ):
     <a  class="{!!MENU_HOVER == 'cupom' ? 'cor_bg' : ''!!}" href="@route(cupom.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeCuponHome()</i>
         Cupons de desconto
     </a>
     @ endif;
 
     @ if( MENU_CASHBACK ):
     <a  class="{!!MENU_HOVER == 'cashback' ? 'cor_bg' : ''!!}" href="@route(cashback.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeCashbackHome()</i>
         Cashback Silium
     </a>
     @ endif;
 
     @ if( MENU_EXTENSAO ):
     <a  class="{!!MENU_HOVER == 'extensao' ? 'cor_bg' : ''!!}" href="@route(extensao.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeExtensaoHome()</i>
         Extensão
     </a>
     @ endif;
@@ -48,21 +48,23 @@
 
     @ if( MENU_CINEMA ):
     <a  class="{!!MENU_HOVER == 'cinema' ? 'cor_bg' : ''!!}" href="@route(cinema.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeCinemaHome()</i>
         Cinema
     </a>
     @ endif;
 
     @ if( MENU_TURISMO ):
     <a  class="{!!MENU_HOVER == 'turismo' ? 'cor_bg' : ''!!}" href="@route(turismo.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeTurismoHome()</i>
         Turismo
     </a>
     @ endif;
 
+      
+
     @ if( MENU_SALAVIP ):
     <a  class="{!!MENU_HOVER == 'salavip' ? 'cor_bg' : ''!!}" href="@route(salavip.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeSalaVipHome</i>
         Sala Vip
     </a>
     @ endif;
@@ -73,21 +75,21 @@
 
     @ if( MENU_CREDITO_SICOOB ):
     <a  class="{!!MENU_HOVER == 'sicoob' ? 'cor_bg' : ''!!}" href="@route(cinema.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeSicoobHome()</i>
         Sicoob
     </a>
     @ endif;
 
     @ if( MENU_CREDITO_CONSIGNADO ):
     <a  class="{!!MENU_HOVER == 'consignado' ? 'cor_bg' : ''!!}" href="@route(turismo.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeConsignadoHome()</i>
         Consignado
     </a>
     @ endif;
 
     @ if( MENU_CREDITO_AUTOMOVEL ):
     <a  class="{!!MENU_HOVER == 'automovel' ? 'cor_bg' : ''!!}" href="@route(salavip.index)">
-        <i>@iconeHome(35)</i>
+        <i>@iconeAutomovelHome()</i>
         Automóvel
     </a>
     @ endif;

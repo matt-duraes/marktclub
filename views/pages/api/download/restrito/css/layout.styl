@@ -1,0 +1,95 @@
+@system "Resetar"
+@system "Loading"
+@system "Alerta"
+
+$cor = #FF6F00
+
+boxShadow()
+    box-shadow: 0 0 10px rgba(0,0,0,.2)
+    padding: 20px
+    border-radius: 15px
+    background-color: #FFF
+textoFontSize()
+    font-size: 1.6rem
+
+body
+    font-family: 'Inter', sans-serif
+    background-color: #f6f6f6
+
+#site
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+
+h1
+    width: 100%
+    font-size: 3rem
+    font-weight: 500
+    color: #333
+    margin-bottom: 10px
+h2
+    width: 100%
+    font-size: 1.8rem
+    font-weight: 500
+    color: #333
+    margin-bottom: 10px
+p
+    width: 100%
+    textoFontSize()
+    line-height: 1.5em
+    color: #666
+    strong
+        textoFontSize()
+        font-weight: 500
+        color: #000
+
+.conteudo
+    max-width: 600px
+    boxShadow()
+    margin: 40px 0
+
+header
+    width: 100%
+    margin-bottom: 20px
+    padding-bottom: 20px
+    border-bottom: 1px solid #DDD
+
+a.botao_geral
+button.botao_geral
+    height: 50px
+    line-height: 50px
+    color: #FFF
+    background-color: $cor
+    textoFontSize()
+    padding: 0 20px
+    border-radius: 5px
+    cursor: pointer
+.botao_texto
+    height: 50px
+    line-height: 50px
+    textoFontSize()
+    cursor: pointer
+    color: #999
+
+.bloco
+    width: 100%
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    &.hide
+        display: none
+    p
+        margin-bottom: 10px
+    input
+        width: 130px
+        height: 50px
+        line-height: 50px
+        border-radius: 5px
+        border: 1px solid #CCC
+        textoFontSize()
+        padding: 0 10px
+        text-align: center
+        margin-right: 20px
+    button
+        margin-right: 20px

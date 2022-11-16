@@ -11,10 +11,11 @@ final class TipoUsuario extends Status
     ) {
         parent::__construct(
             lista: [
-                'titular' => 'Títular',
+                'titular' => 'Titular',
                 'dependente' => 'Dependente',
-                'admin' => 'Administrador'
-            ]
+                'super' => 'Super Usuário'
+            ],
+            numero: [1, 2, 3]
         );
     }
 }

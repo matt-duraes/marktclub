@@ -5,6 +5,7 @@ namespace App\Models\Api\UsuarioCliente\Trait;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 
 trait WhereTrait
 {
@@ -32,6 +33,15 @@ trait WhereTrait
                 $wherePesquisa[] = ['documento', 'like', $documento . '%'];
             }
             $where[] = [$wherePesquisa];
+        }
+
+        //tipo
+        $dependente = $request->dependente;
+        $tipo = new TipoUsuario($request->tipo_usuario);
+        if ($dependente != 'sim' && $tipo->vazio()) {
+            $where[] = ['tipo', 'in', [1, 3]];
+        } else if ($tipo->valido()) {
+            $where[] = ['tipo', $tipo->numero()];
         }
 
         // nome
@@ -103,6 +113,7 @@ trait WhereTrait
         } else {
             $where[] = ['status', 'in', Helper::STATUS_LIBERADO];
         }
+
         return $where;
     }
 }

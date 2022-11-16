@@ -1,0 +1,36 @@
+<div id="bloco_demanda_nova" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>NOVA TAREFA</h1>
+    </header>
+    <form class="form_geral conteudo_pagina_popup">
+        <div class="botao_lista">
+            <h2>Qual tipo de tarefa deseja criar?</h2>
+            <div class="botao">Novo Cliente</div>
+            <div class="botao">Bug no clube</div>
+            <div class="botao">Bug no APP</div>
+            <div class="botao">Bug no Painel</div>
+            <div class="botao">Site Associação</div>
+            <div class="botao">Outros</div>
+        </div>
+
+        <div class="geral" id="bloco_geral_header">
+            <h3>Título</h3>
+            @? formInput(name: 'titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
+
+            @? formSelect(name: 'empresa', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: ['' => 'Escolha um cliente', 1 => 'Markt Club'])
+        </div>
+
+        <div class="bloco_conjunto" id="bloco_associacao">
+            @view "painel/demanda/nova/associacao"
+        </div>
+
+        <div class="bloco_conjunto display_none" id="bloco_novo_clube">
+            @view "painel/demanda/nova/clube"
+        </div>
+
+        <div class="geral" id="bloco_geral_footer">
+            <h3>Outros dados</h3>
+            @? formEditor(name: 'texto', placeholder: 'Digite outras informacões')
+        </div>
+    </form>
+</div>

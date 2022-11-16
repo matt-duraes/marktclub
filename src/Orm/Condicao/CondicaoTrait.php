@@ -176,7 +176,7 @@ trait CondicaoTrait
                 $this->_condicaoValue[$numero1] = $valor[0];
                 $this->_condicaoValue[$numero2] = $valor[1];
                 if ($this->validarData($valor[0]) && $this->validarData($valor[1])) {
-                    return $this->ormMontaNomeCampo($campo) . ' BETWEEN DATE(:{$numero1}) AND DATE(:{$numero2})';
+                    return $this->ormMontaNomeCampo($campo) . ' BETWEEN DATE(:' . $numero1 . ') AND DATE(:' . $numero2 . ')';
                 } else {
                     return $this->ormMontaNomeCampo($campo) . ' BETWEEN :' . $numero1 . ' AND :' . $numero2;
                 }

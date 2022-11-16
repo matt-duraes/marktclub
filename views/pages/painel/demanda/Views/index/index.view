@@ -1,0 +1,34 @@
+@template "painel"
+
+<div id="bloco_demanda_index">
+    <div class="conteudo_geral">
+
+        <section class="bloco_coluna">
+            <header>
+                <h1>Backlog</h1>
+                <div class="flex"></div>
+                <button id="botao_add_tarefa" class="botao">Add</button>
+            </header>
+            <div class="conteudo">
+                @laco(4)
+                <article class="prioridade_" id="tarefa_" data-id="">
+                    <figure style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+                    <header>
+                        <h1 class="tarefa_titulo">Título</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, soluta officia debitis cum minima deserunt earum inventore perferendis ipsam laboriosam.</p>
+                    </header>
+                    <footer>
+                        <figure class="equipe" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+                        <figure class="dev" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+                        <div class="linha"></div>
+                        <figure class="cliente" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+                        <div class="linha"></div>
+                        <i class="tipo bug">@iconeBug</i>
+                    </footer>
+                </article>
+                @endlaco
+                <!-- <div class="tarefa_zero">Sem itens<br> no momento</div> -->
+            </div>
+        </section>
+    </div>
+</div>

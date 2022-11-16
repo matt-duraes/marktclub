@@ -26,7 +26,7 @@
     </div>
 
     <div class="bloco">
-        <div class="bloco_geral_sem_resultado">
+        <div class="bloco_geral_sem_resultado bloco_favorito">
             <i>@iconeGps(40)</i>
             <p>Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas?</p>
             <a class="botao_geral_cor cor_bg" href="">Salvar lojas favoritas</a>
@@ -38,7 +38,7 @@
             <h1>LOJAS NOVAS</h1>
             <a class="cor_color" href="">Ver todas as lojas</a>
         </header>
-        @php $parceiro = [1,2,3]
+        @php $parceiro = [1,1,1]
         @view site/loja/geral/parceiro.view
     </div>
 

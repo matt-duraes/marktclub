@@ -1,0 +1,26 @@
+<h3>Requisitos</h3>
+<div class="observacao">
+    <p>O cliente deve contratar o plano Deluxe ou superior da Godaddy ou similar em outro provedor</p>
+    <p>Se contratar em outro servidor ele tem que ter cpanel, php8.1 e poder colocar mais de 1 domínio</p>
+    <p>Se contratado na Godaddy, ele deve entrar em Configurações da conta > Delegar acesso e adicionar o e-mail andre@markt.club para nos dar permissão para configurar o servidor</p>
+    <p>Deve perguntar se o cliente quer que o Markt Club gerencie o DNS, se sim, adicionar o ID RONCA117 como Administrador Técnico no registro.br caso o domínio seja .br, se não, deve passar o login e senha do logal onde comprou ou outro tipo de acesso</p>
+</div>
+
+<h3>Domínio do site</h3>
+@? formUrl(name: 'dominio_site', label: 'Domínio', placeholder: 'Qual domínio será usado?', obrigatorio: true)
+
+<h3>Rede Social</h3>
+@? formUrl(name: 'social_facebook', label: 'Facebook', placeholder: 'Link do Facebook')
+@? formUrl(name: 'social_instagram', label: 'Instagram', placeholder: 'Link do Instagram')
+@? formUrl(name: 'social_twitter', label: 'Twitter', placeholder: 'Link do Twitter')
+<div class="observacao">
+    <p>Caso tenha outras redes sociais, adicionar nos outros dados no final da tarefa</p>
+</div>
+
+<h3>Contato</h3>
+@? formEmail(name: 'email', label: 'E-mail', placeholder: 'Digite um e-mail');
+@? formTelefone(name: 'telefone', label: 'Telefone', placeholder: 'Digite um telefone');
+@? formInput(name: 'endereco', label: 'Endereço', placeholder: 'Digite um endereço');
+<div class="observacao">
+    <p>Caso tenha outros dados de contato, adicionar nos outros dados no final da tarefa</p>
+</div>

@@ -54,41 +54,61 @@ final class PontoCvsHelper
     /**
      * Busca a quantidade de pontos do usuário
      * @param   int     $cpf    CPF do usuário
-     * @return  stdClass|string      Classe de pontos ou "-" quando der erro
+     * @return  stdClass|null      Classe de pontos ou null quando der erro
      */
-    public function buscarPontos(int $cpf): stdClass|string
+    public function buscarPontos(int $cpf): stdClass|null
     {
         try {
             $dadoUsuario = $this->buscarUsuario($cpf);
             return $dadoUsuario->dados_socio[0];
         } catch (\Throwable) {
-            return '-';
+            return null;
         }
     }
 
     /**
      * Busca o extrato do usuário
      * @param   int     $cpf    CPF do usuário
-     * @return  array|string      Array com extratos ou "-" quando der erro
+     * @return  array|null      Array com extratos ou null quando der erro
      */
-    public function buscarExtrato(int $cpf): array|string
+    public function buscarExtrato(int $cpf): array|null
     {
         try {
             $dadoUsuario = $this->buscarUsuario($cpf);
             return $dadoUsuario->extrato;
         } catch (\Throwable) {
-            return '-';
+            return null;
         }
     }
 
     /**
-     * Busca o extrato do usuário
+     * Envia a solicitação do usuário
      * @param   int     $cpf    CPF do usuário
-     * @return  bool
+     * @param   int     $ponto    Pontos solicitados
+     * @return  string     Numero da solicitacao
      */
-    public function enviarSolicitacaoPonto(int $cpf, int $ponto): bool
+    public function enviarSolicitacaoPonto(int $cpf, int $ponto): string
     {
-        return $this->salvarSolicitacao($cpf, $ponto);
+        try {
+            return $this->salvarSolicitacao($cpf, $ponto);
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Ocorreu um erro ao fazer a solicitação de pontos.', status: 500);
+        }
+    }
+
+    /**
+     * Busca a solicitação pelo codigo
+     * @param   int     $codigo    Codigo da solicitação
+     * 
+     * @return  stdClass|string      Classe de pontos ou mensagem de erro
+     */
+    public function buscarSolicitacao(int $codigo): stdClass|string
+    {
+        try {
+            return $this->verificarSolicitacao($codigo);
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Ocorreu um erro ao atualizar as solicitações pendentes .', status: 500);
+        }
     }
 
     /*
@@ -110,7 +130,7 @@ final class PontoCvsHelper
         if (
             !object_key_exists('dados_socio', $dado) ||
             !object_key_exists('extrato', $dado)
-            ) {
+        ) {
             mensagemStatus(500);
         }
 
@@ -130,28 +150,27 @@ final class PontoCvsHelper
 
         if (
             !object_key_exists('d', $dado)
-            ) {
+        ) {
             mensagemStatus(500);
         }
 
-        if($dado->d == '["retorno:1"]')
-        {
+        if ($dado->d == '["retorno:1"]') {
             return true;
         }
 
         return false;
     }
 
-    private function salvarSolicitacao(int $cpf, int $quantidade): bool
+    private function salvarSolicitacao(int $cpf, int $quantidade): string
     {
         $usuario = $this->buscarPontos($cpf);
 
         if (
             !object_key_exists('matricula', $usuario) ||
             !object_key_exists('tipo_socio', $usuario) ||
-            empty($usuario->matricula)||
+            empty($usuario->matricula) ||
             empty($usuario->tipo_socio)
-            ) {
+        ) {
             mensagemStatus(500);
         }
 
@@ -167,13 +186,34 @@ final class PontoCvsHelper
                 'premio' => $usuario->tipo_socio == "SOCIO" ? 34 : 35,
                 'quantidade' => $quantidade,
             ])->post('/bonus/solicita')->object();
-            
+
         if (object_key_exists('erro', $dado)) {
             mensagemErro('Erro!', $dado->erro, status: 500);
         } else if (!object_key_exists('sucesso', $dado) && !object_key_exists('erro', $dado)) {
             mensagemStatus(500);
         }
 
-        return true;
+        return $dado->sucesso;
+    }
+
+    private function verificarSolicitacao(int $codigo): stdClass
+    {
+        $Curl = new CurlHelper($this->link);
+        $dado = $Curl
+            ->header([
+                'Content-Type' => 'application/json; charset=utf-8;',
+                'Authorization' => 'Basic ' . base64_encode($this->login . ':' . $this->senha)
+            ])
+            ->parametro(['pedido_codigo' => $codigo])
+            ->get('/bonus/check_pedido')->object();
+
+        if (
+            !object_key_exists('pedido_codigo', $dado) ||
+            !object_key_exists('status', $dado)
+        ) {
+            mensagemStatus(500);
+        }
+
+        return $dado;
     }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOWNLOAD RESTRITO</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
+<div id="site">
+    <div class="conteudo">
+        <header>
+            <h1>ÁREA RESTRITA</h1>
+            <p>Esse download é exclusivo para o usuário <strong>{{$nome}}</strong>, caso não seja você, feche essa página.</p>
+        </header>
+
+        <main>
+            <div class="bloco enviar_codigo" id="bloco_enviar_codigo">
+                @hash('ENVIAR_EMAIL')
+                <input type="hidden" id="input_id" value="{!!$id!!}">
+                <p>Para continuar, clique no botão abaixo e envie o código de desbloqueio para seu e-mail:</p>
+                <button class="botao_geral" id="botao_enviar_codigo">ENVIAR</button>
+            </div>
+
+            <div class="bloco validar_codigo hide" id="bloco_validar_codigo">
+                <p>Digite o código que foi enviado para seu e-mail:</p>
+                <input inputmode="numeric" id="input_codigo" type="number" placeholder="00000000">
+                <button class="botao_geral" id="botao_validar_codigo">VALIDAR</button>
+
+                <button class="botao_texto" id="botao_reenviar_codigo">reenviar código</button>
+            </div>
+            <div class="bloco download hide" id="bloco_download">
+                <h2>Código validado com sucesso!</h2>
+                <p>Clique no botão abaixo para fazer o download do arquivo:</p>
+                <a href="" id="botao_download" class="botao_geral fazer_download" target="_blank" rel="noopener noreferrer">DOWNLOAD</a>
+            </div>
+        </main>
+    </div>
+</div>
+<form action="/">
+    <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
+</form>
+@JS
+</body>
+</html>

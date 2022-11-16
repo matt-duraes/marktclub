@@ -5,6 +5,7 @@ namespace App\Models\Api\UsuarioDependente;
 use ORM\ORM;
 use Http\Request;
 use App\Classes\UsuarioCliente\Helper;
+use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class DependenteModel extends ORM
@@ -33,7 +34,7 @@ final class DependenteModel extends ORM
         validarUuid($this->request->usuario);
         $titular = $this->pegarTitular();
 
-        $lista = $this->campo(['cod', 'nome', 'email_pessoal', 'email_trabalho'])->where([
+        $lista = $this->campo(['cod', 'nome', 'email_pessoal', 'email_trabalho', 'status'])->where([
             ['empresa', $this->idEmpresa],
             ['titular', $titular],
             ['status', 'in', Helper::STATUS_LIBERADO]
@@ -55,11 +56,13 @@ final class DependenteModel extends ORM
     private function montarRetorno(array $dado): array
     {
         $retorno = [];
+        $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->cod,
                 'nome' => $r->nome,
-                'email' => !empty($r->email_pessoal) ? $r->email_pessoal : $r->email_trabalho
+                'email' => !empty($r->email_pessoal) ? $r->email_pessoal : $r->email_trabalho,
+                'status' => $Status->indice($r->status)
             ];
         }
         return $retorno;

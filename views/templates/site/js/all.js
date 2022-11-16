@@ -1,5 +1,3 @@
-// @system "Form"
-
 window.addEventListener('load', () => {
     const body = document.querySelector('body');
 

@@ -13,6 +13,7 @@ use App\Controllers\Api\Interface\BuscarInterface;
 use App\Controllers\Api\Interface\ListarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
 use App\Controllers\Api\Interface\AtualizarInterface;
+use Modules\Email;
 
 final class PontoCvsController extends Controller implements
     SalvarInterface,
@@ -23,7 +24,11 @@ final class PontoCvsController extends Controller implements
     public function postSalvar(Request $request)
     {
         $Ponto = new PontoEntity($request->cpf);
+
         $Ponto->ponto_solicitado = $request->ponto_solicitado;
+        $Ponto->nome = $request->nome;
+        $Ponto->email = new Email($request->email);
+
         $Ponto->salvar();
 
         return $this->retornoSucesso($Ponto, 201);
@@ -70,7 +75,7 @@ final class PontoCvsController extends Controller implements
                 $Ponto,
                 lista: [
                     'id', 'usuario', 'ponto_solicitado', 'voucher', 'mensagem', 'data_solicitacao', 'data_voucher',
-                    'data_atualizacao', 'status'
+                    'data_atualizacao', 'pedido_codigo', 'status'
                 ]
             ),
             status: $status,
