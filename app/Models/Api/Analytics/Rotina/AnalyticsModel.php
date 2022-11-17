@@ -4,7 +4,7 @@ namespace App\Models\Api\Analytics\Rotina;
 
 use ORM\ORM;
 
-final class RotinaModel extends ORM
+final class AnalyticsModel extends ORM
 {
     protected string $_tabela = TABELA_ANALYTICS;
 
