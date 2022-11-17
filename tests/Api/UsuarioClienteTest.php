@@ -353,7 +353,7 @@ final class UsuarioClienteTest extends Tests
     }
     public function naoPodeBuscarUsuarioPeloIdTest()
     {
-        $this->api('usuario_cliente:listar');
+        $this->api('usuario_cliente:buscar');
         $this
             ->Curl
             ->loginPainel()

@@ -22,7 +22,10 @@ final class PontoModel extends GeralModel
     ) {
         parent::__construct();
         $this->validarRequest();
+
+        (new AtualizarStatusModel)->AtualizarStatus();
     }
+
     public function listarDados(): stdClass
     {
         $dado = $this
@@ -46,7 +49,9 @@ final class PontoModel extends GeralModel
             $PontoCvsHelper = new PontoCvsHelper;
             $saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
             $extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
+        }
 
+        if (!empty($saldo) && !empty($extrato)) {
             $dado->saldo = $saldo;
             $dado->extrato = $extrato;
         }

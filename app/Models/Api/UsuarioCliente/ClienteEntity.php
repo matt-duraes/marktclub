@@ -15,6 +15,7 @@ use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\Situacao;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\UsuarioGrupo\GrupoEntity;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
@@ -46,7 +47,7 @@ final class ClienteEntity extends Entity
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
-        'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'grupo'
+        'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'grupo', 'tipo'
     ];
     protected array $_salvar = [
         'documento' => '->cpf',
@@ -65,8 +66,7 @@ final class ClienteEntity extends Entity
     ];
     protected array $_insert = [
         'empresa' => '->idEmpresa',
-        'tipo' => 1,
-        'cod'
+        'cod', 'tipo'
     ];
     protected string $_validarSalvar = '
         documento|CPF|cpf
@@ -110,6 +110,7 @@ final class ClienteEntity extends Entity
     public array $pagamento;
     public string $grupo;
     public Origem $origem;
+    public TipoUsuario $tipo;
 
     public string $contrato_siape;
     private array $campoObrigatorio;
@@ -151,6 +152,7 @@ final class ClienteEntity extends Entity
         $this->matriculaExiste();
         $this->siapeExiste();
         $this->grupoValido();
+        $this->tipo = new TipoUsuario('titular');
     }
 
     private function grupoValido()

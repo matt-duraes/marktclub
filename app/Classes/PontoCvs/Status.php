@@ -12,13 +12,11 @@ final class Status extends StatusStatus
         parent::__construct(
             lista: [
                 'solicitado' => 'Solicitado',
-                'andamento' => 'Em andamento',
                 'aprovado' => 'Aprovado',
                 'recusado' => 'Recusado'
             ],
             cor: [
-                'solicitado' => 'vermelho',
-                'andamento' => 'azul',
+                'solicitado' => 'azul',
                 'aprovado' => 'verde',
                 'recusado' => 'preto'
             ]
