@@ -17,11 +17,14 @@ use App\Classes\UsuarioLead\Status;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Models\Api\UsuarioCliente\ClienteModel;
+use App\Models\Api\UsuarioLead\Trait\EmailTrait;
 use App\Models\Api\UsuarioCliente\SalvarLeadModel;
 
 final class LeadEntity extends Entity
 {
+
+    use EmailTrait;
+
     protected string $_tabela = TABELA_USUARIO_LEAD;
     protected array $_buscar = [
         'nome' => 'nome_completo',
@@ -85,7 +88,8 @@ final class LeadEntity extends Entity
     public Origem $origem;
     public Cnpj $cnpj_trabalho;
 
-    private bool $cadastrar = false;
+    private bool $usuarioAprovado = false;
+    private bool $usuarioRecusado = false;
 
     public function __construct()
     {
@@ -124,8 +128,12 @@ final class LeadEntity extends Entity
 
         $statusAtual = $this->prop('status');
         $statusNovo = $this->status->numero();
-        if ($statusAtual == 2 && $statusNovo == 3) {
-            $this->cadastrar = true;
+        if ($statusAtual == $statusNovo) {
+            return;
+        } else if ($statusAtual == 2 && $statusNovo == 3) {
+            $this->usuarioAprovado = true;
+        } else if ($statusAtual == 2 && $statusNovo == 4) {
+            $this->usuarioRecusado = true;
         } else if (
             ($statusAtual == 4 && $statusNovo != 4) ||
             ($statusAtual == 3 && $statusNovo != 3)
@@ -139,8 +147,11 @@ final class LeadEntity extends Entity
     }
     protected function regraPosUpdate()
     {
-        if ($this->cadastrar) {
+        if ($this->usuarioAprovado) {
+            $this->enviarEmailAprovado();
             $this->salvarLeedComoUsuario();
+        } else if ($this->usuarioRecusado) {
+            $this->enviarEmailRecusado();
         }
     }
     private function salvarLeedComoUsuario()

@@ -12,4 +12,14 @@ final class ConstrutorEntity extends Entity
         'link_clube' => 'link_site',
         'logo', 'titulo', 'cor', 'classe_login'
     ];
+
+    public string $titulo;
+    public string $link_clube;
+    public string $link_logo;
+    public string $cor;
+
+    protected function regraPosBuscar()
+    {
+        $this->link_logo = 'https://arquivo.marktclub.com.br/construtor/' . $this->logo;
+    }
 }
