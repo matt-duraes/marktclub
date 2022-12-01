@@ -177,7 +177,6 @@ final class PontoEntity extends Entity
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar(['id', 165]);
 
-        $logo = $Construtor->logo;
         $titulo = $Construtor->titulo;
 
         $email = 'arrecadacao@spbancarios.com.br';
@@ -198,7 +197,7 @@ final class PontoEntity extends Entity
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             botaoTexto: 'Verificar Voucher',
             botaoLink: LINK_PADRAO . '/painel/app/visualizar/ponto-cvs',
-            logo: LINK_ARQUIVO . '/construtor/' . $logo,
+            logo: $Construtor->logo,
             acao: 'Voucher',
             cor: $Construtor->cor
         );

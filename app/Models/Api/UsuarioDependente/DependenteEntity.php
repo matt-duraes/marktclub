@@ -47,7 +47,6 @@ final class DependenteEntity extends Entity
         $Construtor->buscar(['empresa', $this->idEmpresa]);
 
         $link = $Construtor->link_clube;
-        $logo = $Construtor->logo;
         $titulo = $Construtor->titulo;
 
         $Email = new EmailHelper();
@@ -59,7 +58,7 @@ final class DependenteEntity extends Entity
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             botaoTexto: 'Ativar cadastro',
             botaoLink: $link . '/login/ativar',
-            logo: LINK_ARQUIVO . '/construtor/' . $logo,
+            logo: $Construtor->logo,
             acao: 'Cadastro de dependente',
             cor: $Construtor->cor
         );

@@ -20,6 +20,6 @@ final class ConstrutorEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $this->link_logo = 'https://arquivo.marktclub.com.br/construtor/' . $this->logo;
+        $this->link_logo = LINK_ARQUIVO . '/construtor/' . $this->logo;
     }
 }
