@@ -90,7 +90,7 @@ final class EmailHelper
         $acao = !empty($acao) ? trim($acao) : '';
         $HOST = explode(':', $_SERVER['HTTP_HOST'] ?? '')[0] ?? '';
         ob_start();
-        require_once __DIR__ . '/../Html/Email/View/index.php';
+        require __DIR__ . '/../Html/Email/View/index.php';
         $this->mensagem = ob_get_clean();
         return $this;
     }
