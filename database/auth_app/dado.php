@@ -88,7 +88,7 @@ swIDAQAB
         'authorization_code' => 1,
         'client_credentials' => 1,
         'refresh_token' => 1,
-        'redirect_uri' => ['localhost.com:4000'],
+        'redirect_uri' => ['localhost.com:4000', 'localhost.com:8000'],
         'scope_permitido' => [
             'token_credential:salvar',
 
