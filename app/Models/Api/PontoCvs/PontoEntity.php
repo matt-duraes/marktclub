@@ -180,7 +180,7 @@ final class PontoEntity extends Entity
         $titulo = $Construtor->titulo;
 
         $email = 'arrecadacao@spbancarios.com.br';
-        $assunto = "Voucher Solicitado - $matricula";
+        $assunto = "Voucher Solicitado - Matrícula $matricula";
 
         if (eLocalhost()) {
             $email =  'ti@markt.club';
@@ -188,20 +188,31 @@ final class PontoEntity extends Entity
             $assunto = "Mensagem de teste em Homologação: Ponto + Ação";
         }
 
-        $Email = new EmailHelper;
-        $Email->mensagem(
+        $EmailCvs = new EmailHelper;
+        $EmailCvs->mensagem(
             'Voucher Solicitado!',
             'Um voucher foi solicitado',
-            'Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel! Para analisar sua situação,
-            clique no botão abaixo:',
+            "Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel!<br>
+            O Usuário de Matrícula: $matricula, solicitou a quantia de $this->ponto_solicitado pontos.",
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
-            botaoTexto: 'Verificar Voucher',
-            botaoLink: LINK_PADRAO . '/painel/app/visualizar/ponto-cvs',
             logo: $Construtor->logo,
             acao: 'Voucher',
             cor: $Construtor->cor
         );
-        $Email->sendGrid($assunto, 'Fabio Gomes', $email, deNome: $titulo);
+        $EmailCvs->sendGrid($assunto, 'Fabio Gomes', $email, deNome: $titulo);
+
+        $EmailUsuario = new EmailHelper;
+        $EmailUsuario->mensagem(
+            'Voucher Solicitado!',
+            'Você Solicitou um novo Voucher',
+            "Olá <strong>$this->nome</strong>, recebemos sua solicitação de um novo voucher!
+            Logo entraremos em contato com mais informações sobre a situação de seu pedido.",
+            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
+            logo: $Construtor->logo,
+            acao: 'Voucher',
+            cor: $Construtor->cor
+        );
+        $EmailUsuario->sendGrid("Voucher Solicitado", $this->nome, $this->email->email(), deNome: $titulo);
     }
 
     /*

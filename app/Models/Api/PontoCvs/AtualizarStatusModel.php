@@ -13,7 +13,7 @@ final class AtualizarStatusModel extends GeralModel
 
     public function AtualizarStatus()
     {
-        $pontosPendentes = $this->campo(['pedido_codigo'])->where(['status', 1])->read();
+        $pontosPendentes = $this->campo(['pedido_codigo'])->where([['status', 1], ['pedido_codigo', "!null"]])->read();
         $codigoPonto = array_column($pontosPendentes, 'pedido_codigo');
 
         $PontoCvsHelper = new PontoCvsHelper;
