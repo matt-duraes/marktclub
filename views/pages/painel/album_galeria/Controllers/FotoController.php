@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\Album\Controllers;
+namespace Painel\AlbumGaleria\Controllers;
 
 use Http\Request;
 use Http\Response;
@@ -9,7 +9,7 @@ use Painel\Album\Models\AlbumDadoEntity;
 use Painel\Album\Models\AlbumArquivoModel;
 use Painel\Album\Models\AlbumArquivoEntity;
 
-final class GaleriaController extends Controller
+final class FotoController extends Controller
 {
     /**
      * Index

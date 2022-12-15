@@ -1,9 +1,0 @@
-@? painelPopup(titulo: 'EDITAR IMAGEM', action: LINK . '/album/editar', id: 'bloco_editar_imagem')
-
-@hash('ARQUIVO_EDITAR_IMAGEM')
-<input type="hidden" name="id" value="{{$id}}">
-<input type="hidden" name="album" value="{{$album}}">
-@? formInput(name: 'titulo', label: 'Nome da imagem', placeholder: 'Digite um título', value: $titulo)
-@? formSwitch(name: 'capa', label: 'Colocar como capa?', check: false)
-
-@? painelPopupEnd('SALVAR', 'botao_editar_imagem')

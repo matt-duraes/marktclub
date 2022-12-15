@@ -6,7 +6,7 @@
         @ ifforeach($album as $r):
             <article data-id="{!!$r->id!!}">
                 <div class="imagem">
-                    @ if( $check ):
+                    @ if( $podeDeletar ):
                     <div class="check">
                         <div class="icone">@iconeCheck</div>
                     </div>
@@ -32,4 +32,4 @@
     </div>
 </div>
 
-@? botaoControle(app: $app, add: 'botao_adicionar_album', addLink: LINK . '/app/add/album', deletar: 'botao_deletar_album', editar: 'botao_editar_album')
+@? botaoControle(app: $app, add: 'botao_adicionar_album', addLink: LINK . '/app/add/album-galeria', deletar: 'botao_deletar_album')

@@ -2,9 +2,10 @@
 
 namespace App\Controllers\Api;
 
+use Http\Response;
 use Controller\Controller;
 use App\Models\Api\Analytics\Rotina\AnalyticsModel;
-use App\Models\Api\UsuarioCliente\Rotina\UsuarioModel;
+use App\Models\Api\EmailAutomatico\UltimoAcessoModel;
 
 final class RotinaController extends Controller
 {
@@ -15,9 +16,9 @@ final class RotinaController extends Controller
         return mensagemSucesso([]);
     }
 
-    public function baseUsuario()
+    public function ultimoAcesso()
     {
-        $Usuario = new UsuarioModel();
-        return mensagemSucesso([]);
+        new UltimoAcessoModel();
+        return (new Response)->status(201);
     }
 }
