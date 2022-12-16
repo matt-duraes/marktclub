@@ -96,12 +96,10 @@
                     <![endif]-->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 700px;">
                     <tr>
-                        <td align="center" valign="top" style="padding: 40px 24px 30px 24px;">
-                            <a href="<?= LINK ?>" target="_blank" style="display: inline-block;">
-                                <img src="<?= !empty($logo) ? $logo : LINK_PADRAO . '/images/email/logo.png' ?>" height="50" style="
-                                        display: block; height: 65px; max-height: 65px; min-height: 65px;
-                                    ">
-                            </a>
+                        <td align="center" valign="top" style="padding: 40px 24px 30px 24px">
+                            <img src="<?= !empty($logo) ? $logo : LINK_PADRAO . '/images/email/logo.png' ?>" height="50" style="
+                                    display: block; height: 65px; max-height: 65px; min-height: 65px;
+                                ">
                         </td>
                     </tr>
                 </table>
@@ -351,9 +349,9 @@
                             <?php endif; ?>
 
                             <?php if (!empty($linkRemover)) : ?>
-                                <p style="margin: 10px 0 0 0;">
+                                <p style="margin: 10px 0 0 0; color: #999">
                                     Para parar de receber esses e-mails, você pode
-                                    <a href="<?= $linkRemover ?>" target="_blank">cancelar</a>
+                                    <a style="color: #999;" href="<?= $linkRemover ?>" target="_blank">clicar aqui</a> e cancelar
                                     a inscrição a qualquer momento. (Você continuará recebendo e-mail solicitados por você
                                     como recuperação de senha, validações e etc).
                                 </p>

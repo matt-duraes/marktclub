@@ -94,6 +94,16 @@ final class EmailHelper
         $this->mensagem = ob_get_clean();
         return $this;
     }
+
+    /**
+     * Rendeniza a mensagem que será enviada para verificar se está tudo certo
+     */
+    public function mensagemRender()
+    {
+        echo $this->mensagem;
+        exit();
+    }
+
     /**
      * Mensagem de texto para quando o e-mail não suportar HTML
      *
