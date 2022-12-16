@@ -781,3 +781,12 @@ Route
             ::nome('ultimoAcesso')
             ::view('/rotina/ultimo-acesso');
     });
+
+Route
+    ::nome('emeilmarketing')
+    ::controller(App\Controllers\Api\EmailMarketing::class)
+    ::grupo(function () {
+        Route
+            ::nome('remover')
+            ::view('/emailmarketing/remover/{hash}');
+    });
