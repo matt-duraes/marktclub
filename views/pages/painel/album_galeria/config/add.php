@@ -11,7 +11,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             name: 'texto',
             label: 'Descrição do álbum',
             obrigatorio: 1,
-            bar: 'bold italic | link removeFormat | horizontalLine | numberedList bulletedList'
+            bar: '',
+            barBalao: 'bold italic underline | fontColor | link removeFormat'
         );
     });
 });

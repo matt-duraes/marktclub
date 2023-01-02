@@ -1517,7 +1517,7 @@ if (!function_exists('formEditor')) {
         string $value = '',
         string $diretorioImagem = '',
         string $diretorioArquivo = '',
-        string $bar = '',
+        string $bar = null,
         ?string $barBalao = null,
         string $id = '',
         string $class = '',
@@ -1535,10 +1535,9 @@ if (!function_exists('formEditor')) {
             $footerHtml = formFooter(true);
         }
 
-        $bar = !empty($bar) ? str_replace(' ', ',', trim($bar)) : 'heading,|,bold,italic,underline,Strikethrough,FwDestaque,|,fontColor,fontBackgroundColor,|,alignment,|,link,removeFormat,|,fwImagem,fwArquivo,mediaEmbed,|,insertTable,codeBlock,|,horizontalLine,blockQuote,FwObservacao,|,indent,outdent,numberedList,bulletedList';
-        if (is_null($barBalao)) {
-            $barBalao = 'bold,italic,underline,Strikethrough,FwDestaque,|,fontColor,fontBackgroundColor,|,link,removeFormat';
-        }
+        $bar = is_null($bar) ? 'heading,|,bold,italic,underline,Strikethrough,FwDestaque,|,fontColor,fontBackgroundColor,|,alignment,|,link,removeFormat,|,fwImagem,fwArquivo,mediaEmbed,|,insertTable,codeBlock,|,horizontalLine,blockQuote,FwObservacao,|,indent,outdent,numberedList,bulletedList' : str_replace(' ', ',', trim($bar));
+        $barBalao = is_null($barBalao) ? 'bold,italic,underline,Strikethrough,FwDestaque,|,fontColor,fontBackgroundColor,|,link,removeFormat' : str_replace(' ', ',', trim($barBalao));
+
         $classeEditor = '';
         if ($tipo == 'classico') {
             $tipo = 'classico';
