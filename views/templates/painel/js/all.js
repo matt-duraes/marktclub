@@ -6,7 +6,7 @@
 // @system "Mascara"
 // @system "Calendario"
 // @system "Funcao"
-// @system "Ckeditor"
+// @system "Editor"
 // @system "SwipeEvent"
 // @system "ArquivoUpload"
 // @system "Form"

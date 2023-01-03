@@ -5,7 +5,7 @@ const replace = require('gulp-replace');
 const eslint = require('gulp-eslint');
 const uglify = require('gulp-uglify-es').default;
 const plumber = require('gulp-plumber');
-const { arquivoExiste } = require('./validacao.js');
+const { arquivoExiste, inArray } = require('./Helper.js');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const glob = require('glob');
 const { fsDeletarDiretorio } = require('./arquivo');
@@ -178,7 +178,9 @@ function pegarListaImports(conteudo, path) {
                 item.replace('@system ', '').replace(/(\.system\.js|\.system|\.js)$/, '') +
                 '.system.js';
             if (arquivo == 'src/Html/Scripts/js/Form.system.js') {
-                retorno.push('src/Html/Scripts/js/ArquivoUpload.system.js');
+                if (!inArray('src/Html/Scripts/js/ArquivoUpload.system.js', retorno)) {
+                    retorno.push('src/Html/Scripts/js/ArquivoUpload.system.js');
+                }
                 retorno.push('src/Html/Scripts/js/Galeria.system.js');
                 retorno.push('src/Html/Scripts/js/Form.init.js');
                 retorno.push('src/Html/Scripts/js/Form.tag.js');
@@ -191,6 +193,13 @@ function pegarListaImports(conteudo, path) {
             } else if (arquivo == 'src/Html/Scripts/js/Grafico.system.js') {
                 retorno.push('src/Html/Scripts/js/Grafico.interno.js');
                 retorno.push('src/Html/Scripts/js/Grafico.realtime.js');
+            } else if (arquivo == 'src/Html/Scripts/js/Editor.system.js') {
+                if (!inArray('src/Html/Scripts/js/ArquivoUpload.system.js', retorno)) {
+                    retorno.push('src/Html/Scripts/js/ArquivoUpload.system.js');
+                }
+                retorno.push('src/Html/Scripts/js/Editor.init.js');
+                retorno.push('src/Html/Scripts/js/Ckeditor.system.js');
+                retorno.push('src/Html/Scripts/js/Editor.system.js');
             }
         }
         retorno.push(arquivo);

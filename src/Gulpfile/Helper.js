@@ -1,12 +1,13 @@
 const fs = require('fs');
+const { mensagemErro } = require('./mensagem');
 
-exports.arquivoExiste = function (lista, erro) {
+exports.arquivoExiste = (lista, erro) => {
     if (erro == undefined) {
         erro = true;
     }
     if (typeof lista === 'string' && !fs.existsSync(lista)) {
         if (erro) {
-            error('O arquivo ' + lista + ' não existe.');
+            mensagemErro('O arquivo ' + lista + ' não existe.');
         }
         return false;
     } else if (typeof lista === 'object') {
@@ -15,7 +16,7 @@ exports.arquivoExiste = function (lista, erro) {
             if (!fs.existsSync(arquivo)) {
                 retorno = false;
                 if (erro) {
-                    error('O arquivo ' + arquivo + ' não existe.');
+                    mensagemErro('O arquivo ' + arquivo + ' não existe.');
                 }
                 return;
             }
@@ -25,7 +26,10 @@ exports.arquivoExiste = function (lista, erro) {
     return true;
 };
 
-function error(mensagem) {
-    console.log('\x1b[31m\x1b[1m ERROR: ' + mensagem);
-    console.log('\033[0m ');
-}
+exports.inArray = (valor, lista) => {
+    var length = lista.length;
+    for (var i = 0; i < length; i++) {
+        if (lista[i] == valor) return true;
+    }
+    return false;
+};

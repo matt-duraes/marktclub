@@ -867,7 +867,7 @@ fwCalendarioMascaraHora = function (e) {
 };
 
 class Calendario {
-    constructor(option) {
+    constructor() {
         throw new Error('A class Calendario não pode ser instanciada.');
     }
 
