@@ -767,7 +767,36 @@ Route::nome('admin_empresa')
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
+            ::request(['!titulo'], 'json')
             ::get('/admin-empresa/select');
+    });
+
+Route::nome('demandaDado')
+    ::controller(App\Controllers\Api\DemandaDadoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
+            ::request(['status', 'ordem'], 'json')
+            ::get('/demanda-dado');
+
+        Route
+            ::nome('salvar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
+            ::request(['empresa', 'titulo', 'tipo'])
+            ::post('/demanda-dado');
+    });
+
+Route::nome('demandaTarefa')
+    ::controller(App\Controllers\Api\DemandaTarefaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
+            ::request(['demanda', 'titulo', 'texto', 'tipo', '!hora_producao_estimada', '!equipe'])
+            ::post('/demanda-tarefa');
     });
 
 Route

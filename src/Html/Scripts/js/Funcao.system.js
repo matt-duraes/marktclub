@@ -319,7 +319,7 @@ const slug = function (string) {
 
 const respostaJson = (resposta, mensagem) => {
     return new Promise(async resolve => {
-        const status = resposta.status();
+        const status = resposta.status;
         if (status == 204) {
             resolve(true);
         }

@@ -1,13 +1,33 @@
 // @template "painel"
-// @import "novo"
+// @import "detalhe_demanda"
+// @import "nova_demanda"
 
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
 
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR ADD NOVO
+    |--------------------------------------------------------------------------
+    */
     const botaoAdd = document.getElementById('botao_add_tarefa');
-    const PaginaAddTarefa = new Pagina('nova-tarefa', LINK + '/demanda/nova-tarefa', {}, true, true, demandaNovaLoad);
+    const PaginaAddTarefa = new Pagina('nova-tarefa', LINK + '/demanda/nova', {}, true, true, demandaNova);
 
     botaoAdd.addEventListener('click', () => {
         PaginaAddTarefa.abrir();
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR DETALHE DA DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    const tarefaLista = document.querySelectorAll('#bloco_demanda_index article');
+    tarefaLista.forEach(tarefa => {
+        tarefa.addEventListener('click', () => {
+            const id = tarefa.getAttribute('data-id');
+            const PaginaDetalhe = new Pagina('tarefa-' + id, LINK + '/demanda/tarefa/' + id, {}, true, true);
+            PaginaDetalhe.abrir();
+        });
     });
 });

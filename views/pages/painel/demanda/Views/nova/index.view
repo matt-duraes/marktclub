@@ -1,40 +1,47 @@
 <div id="bloco_demanda_nova" class="bloco_pagina_popup">
     <header class="header_pagina_popup">
-        <i class="mobile">@iconeVoltar</i>
         <h1>NOVA TAREFA</h1>
-        <i class="desktop">@iconeFechar</i>
     </header>
     <form class="form_geral conteudo_pagina_popup">
-        <div class="botao_lista">
+        <div class="botao_lista" id="bloco_tipo_demanda">
             <h2>Qual tipo de tarefa deseja criar?</h2>
-            <div class="botao">Novo Cliente</div>
-            <div class="botao">Bug no clube</div>
-            <div class="botao">Bug no APP</div>
-            <div class="botao">Bug no Painel</div>
-            <div class="botao">Site Associação</div>
-            <div class="botao">Outros</div>
+            <p>Para facilitar a vida de todos, tenha certeza de abrir a demanda na categoria correta!</p>
+
+            <div class="botao" data-tipo="cliente">Novo Cliente</div>
+            <div class="botao" data-tipo="bug">Bug</div>
+            <div class="botao" data-tipo="associacao">Site Associação</div>
+            <div class="botao" data-tipo="outro">Outros</div>
+
+            <input type="hidden" id="input_tipo">
         </div>
 
-        <div class="geral" id="bloco_geral_header">
-            <h3>Título</h3>
-            @? formData(name: 'Data', placeholder: 'Teste')
-
+        <div class="geral display_none" id="bloco_geral_header">
+            <h3>Dados principais</h3>
             @? formInput(name: 'titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
-
-            @? formSelect(name: 'empresa', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: ['' => 'Escolha um cliente', 1 => 'Markt Club'])
         </div>
 
-        <div class="bloco_conjunto" id="bloco_associacao">
+        <div class="bloco_conjunto display_none" id="bloco_tipo_associacao">
             @view "painel/demanda/nova/associacao"
         </div>
 
-        <div class="bloco_conjunto display_none" id="bloco_novo_clube">
-            @view "painel/demanda/nova/clube"
+        <div class="bloco_conjunto display_none" id="bloco_tipo_cliente">
+            @view "painel/demanda/nova/cliente"
         </div>
 
-        <div class="geral" id="bloco_geral_footer">
+        <div class="bloco_conjunto display_none" id="bloco_tipo_bug">
+            @view "painel/demanda/nova/bug"
+        </div>
+        <div class="bloco_conjunto display_none" id="bloco_tipo_outro">
+            @view "painel/demanda/nova/outro"
+        </div>
+
+        <div class="geral display_none" id="bloco_geral_footer">
             <h3>Outros dados</h3>
-            @? formEditor(name: 'texto', placeholder: 'Digite outras informacões', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
+            @? formEditor(name: 'texto', label: 'Descrição da demanda', placeholder: 'Digite outras informacões', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
         </div>
     </form>
+    <div class="footer_pagina_popup">
+        <div class="button voltar botao_fechar">CANCELAR</div>
+        <div class="button display_none salvar" id="botao_salvar_demanda">SALVAR</div>
+    </div>
 </div>

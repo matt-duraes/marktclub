@@ -1654,3 +1654,48 @@ if (!function_exists('formImagem')) {
         ';
     }
 }
+if (!function_exists('formArquivo')) {
+    /**
+     * Gera um bloco de imagem
+     *
+     * @param   string          $diretorio      Diretório da imagem
+     * @param   null|string     $value          Valor do input
+     * @param   null|string     $class          Class para o bloco geral
+     * @param   null|string     $id             ID para o bloco geral
+     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório
+     * @return  string                          HTML com o código do bloco
+     */
+    function formArquivo(
+        string $diretorio,
+        array $value = [],
+        ?string $class = null,
+        ?string $id = null,
+        bool $obrigatorio = false
+    ) {
+        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+        $blocoClass = empty($class) ? '' : $class;
+
+        if ($obrigatorio) {
+            $blocoClass .= ' fw_form_input_obrigatorio';
+        }
+
+        $listaArquivo = [];
+        foreach ($value as $arquivo) {
+            $listaArquivo .= '
+                <div class="fw_arquivo_item">
+                    <div class="fw_arquivo_item_icone fw_arquivo_item_baixar">' . iconeDownload() . '</div>
+                    <div class="fw_arquivo_item_icone fw_arquivo_item_deletar">' . iconeDeletar() . '</div>
+                    <div class="fw_arquivo_item_imagem"></div>
+                    <input type="text" class="fw_arquivo_item_nome" value="">
+                </div>
+            ';
+        }
+
+        return '
+            <div class="fw_form fw_form_arquivo' . $blocoClass . '" id="' . $blocoId . '" data-diretorio="' . $diretorio . '">
+                <div class="fw_arquivo_add">Adicionar Arquivo</div>
+                <div class="fw_arquivo_lista">' . $listaArquivo . '</div>
+            </div>
+        ';
+    }
+}

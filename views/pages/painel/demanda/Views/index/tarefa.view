@@ -1,0 +1,16 @@
+<article data-id="{!!$r->id!!}">
+    <header>
+        <h1 class="tarefa_titulo">{{$r->titulo}}</h1>
+        <p>{{$r->tarefa}} {{$r->tarefa > 1 ? 'tarefas' : 'tarefa'}}</p>
+    </header>
+    <footer>
+        <figure class="equipe" style="background-image: url({!!$r->dono->imagem!!})"></figure>
+        @foreach($r->equipe as $equipe):
+        <figure class="dev" style="background-image: url({!!$equipe->imagem!!})"></figure>
+        @endforeach;
+        <div class="linha"></div>
+        <figure class="cliente" style="background-image: url({!!$r->empresa->imagem!!})" data-ajuda="{{$r->empresa->nome}}"></figure>
+        <div class="linha"></div>
+        <i class="tipo bug">@iconeBug</i>
+    </footer>
+</article>

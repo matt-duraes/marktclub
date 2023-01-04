@@ -1560,7 +1560,7 @@ if (!function_exists('arquivoPublico')) {
         $diretorio = preg_replace('/\/$/', '', $diretorio);
 
         if (!file_exists(DIRETORIO_PUBLICO . '/' . $diretorio . '/' . $arquivo)) {
-            return '';
+            return $padrao;
         }
 
         $cifra = 'AES-256-CBC';
