@@ -9,6 +9,7 @@ return (new \DataBase\DataBase())
     ->int('tipo')
     ->dataCriacao()
     ->dataAtualizacao()
+    ->json('seguindo')->null()
     ->int('sem_data_entraga')->null()
     ->int('ordem')->null()
     ->status();

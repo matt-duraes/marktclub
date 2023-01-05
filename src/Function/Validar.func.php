@@ -1,5 +1,6 @@
 <?php
 
+use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 
 if (!function_exists('exiteErro')) {
@@ -427,5 +428,58 @@ if (!function_exists('validarUf')) {
         }
         $lista = (new ListaHelper)->uf()->r();
         return in_array($uf, $lista);
+    }
+}
+if (!function_exists('respostaJson')) {
+    // doc
+    /**
+     * Valida se o resposta contém erro
+     *
+     * @param   array|object|ApiHelper  $resposta   Resposta que será validada
+     * @param   string                  $mensagem   Mensagem que deseja usar no caso de erro e não ter a mensagem na resposta
+     * @param   null|string             $titulo     Título que deseja usar no caso de erro e não ter a mensagem na resposta
+     * @param   int                     $status     Status que deseja retornar no caso de erro
+     * @return  void
+     * @throws  Erro\Excecao                        Retonar um Erro\Exececao a resposta contenha um erro
+     */
+    function respostaJson(
+        array|stdClass|ApiHelper $resposta,
+        string $mensagem,
+        ?string $titulo = null,
+        int $status = 400
+    ): void {
+        if ($resposta instanceof ApiHelper && $resposta->status() == 204) {
+            return;
+        }
+
+        $resposta = $resposta instanceof ApiHelper ? $resposta->object() : $resposta;
+
+        if (
+            (!is_array($resposta) && !is_object($resposta)) ||
+            (is_array($resposta) &&
+                (!array_key_exists('status', $resposta) ||
+                    !array_key_exists('dado', $resposta) || $resposta['status'] != 'sucesso')
+            ) ||
+            (is_object($resposta) &&
+                (!object_key_exists('status', $resposta) ||
+                    !object_key_exists('dado', $resposta) || $resposta->status != 'sucesso')
+            )
+        ) {
+            if (
+                is_array($resposta) &&
+                array_key_exists('erro', $resposta) &&
+                array_key_exists('titulo', $resposta['erro'])
+            ) {
+                $titulo = $resposta['erro']['titulo'];
+            }
+            if (
+                is_array($resposta) &&
+                array_key_exists('erro', $resposta) &&
+                array_key_exists('mensagem', $resposta['erro'])
+            ) {
+                $mensagem = $resposta['erro']['mensagem'];
+            }
+            mensagemErro(empty($titulo) ? 'Erro!' : $titulo, mensagem: $mensagem, status: $status);
+        }
     }
 }

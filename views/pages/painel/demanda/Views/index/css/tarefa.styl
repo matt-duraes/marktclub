@@ -1,837 +1,152 @@
-#bloco_demanda_detalhe
-    width: 100vw
-    height: 100vh
-    position: fixed
-    top: 0
-    left: 0
+#bloco_demanda_tarefa
+    width: calc(100% - 40px)
+    max-width: 1100px
+    max-height: calc(100vh - 40px)
+    margin: 20px
     overflow-y: auto
-
-#bloco_demanda_detalhe .conteudo
-    width: calc(100% - 40px)
-    max-width: 1000px
-    position: relative
-    display: flex
-    flex-direction: column
-    background-color: #FFF
-    border-radius: 5px
-    margin: 20px auto
-    padding-top: 50px
-    box-shadow: 0 4px 5px rgba(0,0,0,1)
-    overflow: hidden
-    .topo
-        width: 100%
-        height: 50px
-        position: absolute
-        top: 0
-        left: 0
-        display: flex
-        flex-direction: row
-        align-items: center
-        padding: 0 20px
-        background: #FFF
-        z-index: 20
-    .topo .bg
-        width: 100%
-        height: 50px
-        position: absolute
-        top: 0
-        left: 0
-        box-shadow: 0 4px 5px rgba(0,0,0,.05)
-        opacity: 0
-        transition: opacity .3s ease-out
-        z-index: 1
-    .topo.fixo
-        width: calc(100% - 40px)
-        max-width: 1000px
-        position: fixed
-        left: 0
-        right: 0
-        margin: auto
-    .topo.sombra .bg
-        opacity: 1
-    .topo .icone
-        width: 30px
-        height: 30px
-        display: flex
-        align-items: center
-        justify-content: center
-        margin-left: 10px
-        z-index: 2
-        &:first-child
-            margin-left: 0
-        &.botao
-            cursor: pointer
-        &.vermelho
-            fill: #bb0000
-    .topo > p
-        height: 30px
-        line-height: 30px
-        flex-grow: 1
-        flex-basis: 0%
-        margin-left: 5px
-        font-size: 1.4rem
-        font-weight: bold
-        z-index: 2
-        &.vermelho
-            color: #bb0000
-    .topo .config
-        position: relative
-        z-index: 2
-    .topo .config .seta
-        width: 30px
-        height: 12px
-        position: absolute
-        top: 30px
-        right: 0
-        display: none
-        overflow: hidden
-        z-index: 2
-    .topo .config .seta span
-        width: 20px
-        height: 20px
-        position: absolute
-        top: 5px
-        left: 5px
-        transform: rotate(45deg)
-        background: #FFF
-        border: 1px solid #DDD
-    .topo .config .menu
-        width: 200px
-        position: absolute
-        top: 41px
-        right: -20px
-        padding: 10px 0
-        background: #FFF
-        box-shadow: 0 4px 5px rgba(0,0,0,.1)
-        border-radius: 3px
-        border: 1px solid #DDD
-        display: none
-        flex-direction: column
-        z-index: 1
-    .topo .config .menu .config_botao
-        width: 100%
-        height: 40px
-        line-height: 40px
-        border-bottom: 1px solid #eee
-        display: flex
-        flex-direction: row
-        align-items: center
-        cursor: pointer
-        &:last-child
-            border-bottom: none
-        &:hover
-            background-color: #EEE
-    .topo .config .menu .config_botao i
-        width: 40px
-        height: 40px
-        display: flex
-        align-items: center
-        justify-content: center
-    .topo .config .menu .config_botao p
-        font-size: 1.3rem
+    blocoShadow()
     header
-        width: calc(100% - 40px)
-        display: flex
-        flex-direction: row
-        margin: 10px 20px 0 20px
+        width: 100%
+        flexRow()
     header h1
-        line-height: 1.5em
-        font-size: 2.4rem
-        color: #333
-    // Status
-    .bloco_status
-        width: calc(100% - 40px)
-        display: flex
-        flex-direction: row
-        margin: 20px 20px 0 20px
-        padding: 20px 0
-        border-top: 1px solid #DDD
-        border-bottom: 1px solid #DDD
-    .bloco_status .grow
-        flex-grow: 1
-        flex-basis: 0%
-    .bloco_status .status
-        position: relative
-        display: flex
-        flex-direction: row
-        flex-wrap: wrap
-        padding-top: 17px
-    .bloco_status .status strong
-        font-size: 1.2rem
-        position: absolute
-        top: 0
-    .bloco_status .status i
-        height: 30px
-        display: flex
-        align-items: center
-        justify-content: center
-        margin-right: 10px
-    .bloco_status .status figure
+        flexGrow()
+        titulo()
+    header i
         width: 30px
         height: 30px
-        border-radius: 50%
-        background-color: #DDD
-        overflow: hidden
-        background-size: cover
-        background-position: center center
-        margin-right: 10px
-    .bloco_status .status p
-        height: 30px
-        line-height: 30px
-        font-size: 1.4rem
-        &.bg
-            background-color: #DDD
-            padding: 0 15px
-            border-radius: 20px
-    .bloco_status .status.verde p
-        color: #169e91
-        font-weight: bold
-    .bloco_status .status.verde i
-        fill: #169e91
-    .bloco_status .status.azul p
-        color: #20b9eb
-        font-weight: bold
-    .bloco_status .status.azul i
-        fill: #20b9eb
-    .bloco_status .status.vermelho p
-        color: #bb0000
-        font-weight: bold
-    .bloco_status .status.vermelho i
-        fill: #bb0000
-    .bloco_status .linha
-        width: 1px
-        height: 47px
-        background-color: #CCC
-        margin: 0 30px
-    .bloco_status .seguindo
-        min-width: 50px
-        display: flex
-        flex-direction: row
-    .bloco_status .seguindo .botao
-        border: 1px solid #CCC
-        width: 30px
-        height: 30px
-        line-height: 30px
-        text-align: center
-        border-radius: 50%
+        flexCenter()
         cursor: pointer
-        font-size: 1.5rem
-        color: #CCC
-        transition: margin-right .3s ease-out, color .3s ease-out, border-color .3s ease-out
-    .bloco_status .seguindo:hover .botao
-        margin-right: 2px
-        border-color: #999
-        color: #999
-    .bloco_status .seguindo figure
-        margin-right: -18px
-        border: 1px solid #FFF
-        transition: margin-right .3s ease-out
-    .bloco_status .seguindo:hover figure
-        margin-right: 3px
-    .bloco_status .seguir
-        height: 30px
-        line-height: 30px
-        position: relative
-        bgDegradeVerde()
-        color: #FFF
-        padding: 0 15px
-        border-radius: 4px
-        font-size: 1.4rem
-        margin: 15px 0 0 40px
-        cursor: pointer
-        &.sair
-            bgDegradeVermelho()
-        &::after
-            width: 1px
-            height: 30px
-            content: ""
-            position: absolute
-            left: -20px
-            background: #DDD
-            cursor: default
-    // Conteúdo
-    .bloco_conteudo
-        width: calc(100% - 40px)
-        margin-top: 30px
-        display: flex
-        flex-direction: column
-        margin-left: 20px
-    .bloco_conteudo p
-        width: 100%
-        line-height: 1.5em
-        font-size: 1.6rem
-        margin: 10px 0
-        color: #333
-    .bloco_conteudo strong
-        font-size: 1.6rem
-        font-weight: bold
-    .bloco_conteudo i
-        font-size: 1.6rem
-        font-style: italic
-        font-weight: 300
-    .bloco_conteudo blockquote
-        width: 100%
-        font-size: 2rem
-        margin: 15px 0
-        font-style: italic
-        display: flex
-        flex-direction: row
-        justify-content: flex-end
-        &::before
-            content: '"'
-            font-size: 10rem
-            margin: 5px 25px 0 0
-            color: #AAA
-    .bloco_conteudo blockquote p
-        max-width: 500px
-    .bloco_conteudo blockquote p
-    .bloco_conteudo blockquote strong
-    .bloco_conteudo blockquote i
-        font-size: 2rem
-    .bloco_conteudo ul
-        width: 100%
-        padding-left: 20px
-        margin: 5px 0
-    .bloco_conteudo ul li
-        width: 100%
-        line-height: 1.5em
-        list-style: decimal
-        font-weight: 300
-        font-size: 1.6rem
-        color: #333
-        margin: 5px 0
-    .bloco_conteudo hr
-        width: 100%
-        margin: 15px 0
-        border: none
-        border-top: 1px solid #AAA
-    // Arquivo
-    .bloco_arquivo
-        width: 100%
-        position: relative
-        display: flex
-        flex-direction: column
-        margin-top: 30px
-        padding: 0 20px
-        background: #f7f7f7
-        border-top: 1px solid #DDD
-        &.fechado
-            margin-bottom: 0
-    .bloco_arquivo .bloco_drag
-        width: calc(100% - 10px)
-        height: calc(100% - 10px)
-        background-color: rgba(255,255,255,.8)
-        position: absolute
-        top: 5px
-        left: 5px
-        z-index: 2
-        flex-direction: column
-        align-items: center
-        justify-content: center
-        border: 2px dashed #EEE
-        border-radius: 5px
-        transition: opacity .3s ease-out
-        display: none
-    .bloco_arquivo .bloco_drag.drag
-        display: flex
-    .bloco_arquivo .bloco_drag p
-        width: 100%
-        font-size: 3em
-        text-align: center
-        color: #CCC
-    .bloco_arquivo .bloco_drag .botao
-        height: 30px
-        line-height: 30px
-        padding: 0 20px
-        margin-top: 20px
-        font-size: 1.2rem
-        border: 1px solid #CCC
-        color: #999
-        border-radius: 4px
-        cursor: pointer
-    .bloco_arquivo .header
-        width: 100%
-        padding: 20px 0
-        display: flex
-        align-items: center
-    .bloco_arquivo .header h2
-        font-size: 1.4rem
-        font-weight: bold
-        color: #999
-        flex-grow: 1
-        flex-basis: 0%
-        padding: 0 20px 0 10px
-        margin-right: 20px
-        position: relative
-    .bloco_arquivo .header .add
-        height: 30px
-        line-height: 30px
-        position: relative
-        bgDegradeVerde()
-        display: flex
-        color: #FFF
-        border-radius: 20px
-        padding: 0 20px
-        cursor: pointer
-    .bloco_arquivo .header .add input
-        width: 100%
-        height: 100%
-        position: absolute
-        top: 0
-        left: 0
-        z-index: 2
-        opacity: 0
-    .bloco_arquivo .header .add p
-        height: 100%
-        font-size: 1.4rem
-    .bloco_arquivo .lista
-        width: 100%
-        display: flex
-        flex-direction: row
-        flex-wrap: wrap
-        padding-bottom: 20px
-        justify-content: space-between
-    .bloco_arquivo.fechado .lista
-        max-height: 300px
-        overflow: hidden
-    .bloco_arquivo .lista .arquivo_espaco
-        width: calc(25% - 10px)
-    .bloco_arquivo .lista .arquivo
-        width: calc(25% - 10px)
-        height: 200px
-        position: relative
-        margin-top: 10px
-        border: 1px solid #CCC
-        border-radius: 5px
-        background-color: #FFF
-        display: flex
-        flex-direction: column
-        align-items: center
-        justify-content: center
-        overflow: hidden
-        &.fake
-            border-color: #DDD
-            background-color: #DDD
-        &.fake::after
-            width: 40px
-            height: 100%
-            content: ""
-            position: absolute
-            left: -40px
-            top: 0
-            animation: arquivo_upload_esqueleto 1.5s ease-in-out 0s infinite
-            background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.6), rgba(255,255,255,0))
-    .bloco_arquivo .lista .arquivo figure
-        width: 100%
-        height: 100%
-        position: absolute
-        top: 0
-        left: 0
-        z-index: 1
-        background-size: cover
-        background-position: center center
-    .bloco_arquivo .lista .arquivo span
-        font-size: 3rem
-        font-weight: bold
-        color: #CCC
-        z-index: 2
-    .bloco_arquivo .lista .arquivo p
-        width: calc(100% - 40px)
-        line-height: 1.3em
-        margin-top: 15px
-        font-size: 1.6rem
-        text-align: center
-        padding: 0 10px
-        color: #666
-        z-index: 2
-    .bloco_arquivo .lista .arquivo .bloco_icone
-        width: 100%
-        position: absolute
-        right: 0
-        bottom: 0
-        padding: 30px 10px 10px 10px
-        display: flex
-        opacity: 0
-        background-image: linear-gradient(0deg, #FFF, #FFFFFF, #FFFFFF00)
-        transition: opacity .3s ease-out
-        flex-direction: row
-        justify-content: flex-end
-        z-index: 2
-    .bloco_arquivo .lista .arquivo:hover .bloco_icone
-        opacity: 1
-    .bloco_arquivo .lista .arquivo .bloco_icone .icone
-        width: 30px
-        height: 30px
-        display: flex
-        align-items: center
-        justify-content: center
-        border-radius: 3px
-        margin-left: 10px
-        background-color: #FFF
-        border: 1px solid #CCC
-        box-shadow: 0 4px 5px rgba(0,0,0,.1)
-        cursor: pointer
-        &.deletar:hover
-            background-color: $corDeletar
-            border-color: $corDeletar
-            fill: #FFF
-    .bloco_arquivo .lista .arquivo .bloco_icone .linha
-        width: 1px
-        height: 30px
-        background-color: #CCC
-        margin-left: 10px
-    .bloco_arquivo .botao
-        width: 180px
-        height: 30px
-        line-height: 30px
-        position: absolute
-        top: 320px
-        left: 0
-        right: 0
-        margin: auto
-        border-radius: 3px
-        z-index: 10
-        background-color: #FFF
-        box-shadow: 0 4px 5px rgba(0,0,0,.1)
-        font-size: 1.6rem
-        text-align: center
-        cursor: pointer
-        display: none
-    .bloco_arquivo.fechado .botao
-        display: block
-    .bloco_arquivo .zero
-        width: 100%
-        padding: 40px 0 80px 0
-        display: flex
-        flex-direction: column
-        align-items: center
-        &.hide
-            display: none
-    .bloco_arquivo .zero i
-        width: 50px
-        height: 50px
-        border-radius: 50%
-        border: 1px solid #ddd
-        margin-bottom: 20px
-        fill: #999
-        display: flex
-        align-items: center
-        justify-content: center
-    .bloco_arquivo .zero p
-        width: 100%
-        line-height: 1.5em
-        text-align: center
-        font-size: 1.4rem
-        color: #999
-    // Mensagem
-    .bloco_mensagem
-        width: 100%
-        position: relative
-        display: flex
-        flex-direction: column
-        padding: 0 20px 20px 20px
-        border-top: 1px solid #DDD
-    .bloco_mensagem form
-        width: 100%
-        position: absolute
-        padding: 20px
-        top: 0
-        left: 0
-        display: flex
-        flex-direction: row
-        background-color: #FFF
-        z-index: 10
-        &.fixo
-            width: calc(100% - 40px)
-            max-width: 1000px
-            position: fixed
-            top: 50px
-            margin: 0 auto
-            left: 0
-            right: 0
-    .bloco_mensagem form figure
-        width: 50px
-        height: 50px
-        border-radius: 50%
-        background-size: cover
-        background-position: center center
-        border: 1px solid #DDD
-        margin-right: 20px
-        z-index: 2
-    .bloco_mensagem form textarea
-        line-height: 1.5em
-        flex-grow: 1
-        flex-basis: 0%
-        border-radius: 25px
-        border: 1px solid #DDD
-        font-size: 1.4rem
-        padding: 15px 20px
-        overflow: hidden
-        z-index: 2
-    .bloco_mensagem form .bg
-        width: 100%
-        height: 100%
-        position: absolute
-        top: 0
-        left: 0
-        opacity: 0
-        transition: opacity .3s ease-out
-        box-shadow: 0 4px 5px rgba(0,0,0,.05)
-        z-index: 1
-    .bloco_mensagem form.sombra .bg
-    .bloco_mensagem form.sombra_digitando .bg
-        opacity: 1
-    .bloco_mensagem .form_fake
-        width: 100%
-    .bloco_mensagem .data
-        width: 100%
-        position: relative
-        text-align: center
-        font-size: 2rem
-        font-weight: bold
-        color: #CCC
-        margin: 40px 0 20px 0
-        padding-top: 20px
-        &::after
-            width: 100%
-            max-width: 200px
-            height: 1px
-            background: #DDD
-            content: " "
-            position: absolute
-            top: 0
-            left: 0
-            right: 0
-            margin: auto
-    .mensagem_lista_primeiro .data:first-child
-        margin-top: 20px
-        &::after
-            display: none
-    .bloco_mensagem .zero
-        width: 100%
-        text-align: center
-        font-size: 1.6rem
-        color: #999
-        padding: 40px 0
-        &.hide
-            display: none
-    .bloco_mensagem .mensagem_lista
-        width: 100%
-        display: flex
-        flex-direction: column
-        &.hide
-            display: none
-    .bloco_mensagem .mensagem_lista .mensagem
-        width: 100%
-        display: flex
-        flex-direction: row
-        margin-top: 20px
-        align-items: flex-end
-        &.minha_mensagem
-            flex-direction: row-reverse
-    .bloco_mensagem .mensagem_lista .mensagem figure
-        width: 40px
-        height: 40px
-        background-position: center center
-        background-size: cover
-        margin-right: 20px
-        border: 1px solid #DDD
-        border-radius: 50%
-    .bloco_mensagem .mensagem_lista .mensagem.minha_mensagem figure
-        margin-right: 0
-        margin-left: 20px
-    .bloco_mensagem .mensagem_lista .mensagem .dado
-        width: 100%
-        display: flex
-        flex-direction: column
-        align-items: flex-start
-    .bloco_mensagem .mensagem_lista .mensagem.minha_mensagem .dado
-        align-items: flex-end
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto
-        background-image: linear-gradient(45deg, darken($cor, 5), $cor)
-        padding: 5px 20px
-        margin-top: 2px
-        border-radius: 5px 30px 30px 5px
-        max-width: 600px
-        &:first-child
-            border-top-left-radius: 30px
-        &:last-child
-            border-bottom-left-radius: 30px
-    .bloco_mensagem .mensagem_lista .mensagem.minha_mensagem .dado .texto
-        background-image: linear-gradient(45deg, darken(#555, 5), #555)
-        border-radius: 30px 5px 5px 30px
-        &:first-child
-            border-top-right-radius: 30px
-        &:last-child
-            border-bottom-right-radius: 30px
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto h1
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto h2
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto p
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto strong
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto i
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto li
-        font-size: 1.6rem
-        color: #FFF
-        line-height: 1.5em
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto i
-        font-style: italic
-        font-weight: 300
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto li
-        font-weight: 300
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto h1
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto h2
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto ul
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto ol
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto hr
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto p
-        margin: 10px 0
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto h1
-        font-size: 2.4rem
-        font-weight: bold
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto h2
-        font-size: 2rem
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto ul
-        list-style: disc
-        list-style-position: inside
-    .bloco_mensagem .mensagem_lista .mensagem .dado .texto ol
-        list-style: decimal
-        list-style-position: inside
 
-@keyframes arquivo_upload_esqueleto
-    0%
-        left: -40px
-    100%
-        left: 100%
-
-.bloco_arquivo_popup
-    width: 100vw
-    height: 100vh
-    position: fixed
-    top: 0
-    left: 0
-    background-color: rgba(0,0,0,.7)
-    z-index: 2
-    display: none
-    align-items: flex-start
-    justify-content: center
-    opacity: 0
-    transition: opacity .3s ease-out
-    &.animar
-        opacity: 1
-
-.bloco_arquivo_popup .conteudo
-    width: calc(100% - 40px)
-    max-width: 500px
-    background: #FFF
-    margin: 40px 0
-    box-shadow: 0 4px 5px rgba(0,0,0,.1)
-    border-radius: 5px
-    header
-        height: 50px
-        line-height: 50px
-        border-bottom: 1px solid #DDD
-    header h1
-        padding: 0 20px
-        font-size: 2rem
-        color: #666
-    footer
-        width: 100%
-        padding: 20px
-        margin-top: 20px
-        border-top: 1px solid #CCC
-        display: flex
-        justify-content: space-between
-    footer .cancelar
-        height: 40px
-        line-height: 40px
-        padding: 0 20px
-        border-radius: 20px
-        font-size: 1.6rem
-        cursor: pointer
-        bgDegradeCinza()
-        color: #333
-    footer .botao
-        width: 110px
-
-#bloco_demanda_detalhe_renomar
-    > p
-        line-height: 1.5em
-        font-size: 1.6rem
-        padding: 20px 20px 10px 20px
-        color: #666
-    input
-        width: calc(100% - 40px)
-        height: 50px
-        line-height: 50px
-        margin-left: 20px
-        border: 1px solid #CCC
-        border-radius: 3px
-        padding: 0 10px
-        font-size: 1.4rem
-
-
-#bloco_demanda_detalhe_seguindo .conteudo .lista
+#bloco_demanda_tarefa .bloco_equipe
     width: 100%
-    display: flex
-    flex-direction: row
-    flex-wrap: wrap
-    padding: 0 20px
+    flexRow()
+    margin-top: 30px
+    align-items: center
+    figure
+        width: 44px
+        height: 44px
+        imagemRedonda()
+        border: 2px solid #FFF
+        background-color: #EEE
+        transition: margin-right .3s ease-out
+    .bloco_grupo
+        flexRow()
+    .bloco_grupo figure
+        margin-right: -25px
+    .bloco_grupo figure:last-child
+        margin-right: 0
+    .bloco_grupo:hover figure
+        margin-right: 5px
     .linha
-        width: 100%
-        height: 1px
-        margin-top: 15px
-        background-color: #DDD
-    .dono
-        width: calc(50% - 5px)
-        position: relative
-        display: flex
-        flex-direction: row
-        flex-wrap: wrap
-        align-items: center
-        margin-top: 20px
-        padding: 10px
-        background-color: #EEE
-        border-radius: 4px
-    .dono h2
-        width: 100%
-        font-size: 1.2rem
-        margin-bottom: 5px
-    .dono figure
-        width: 40px
-        height: 40px
-        background-size: cover
-        background-position: center center
-        background-color: #EEE
-        border: 1px solid #DDD
-        border-radius: 50%
-    .dono p
-        flex-grow: 1
-        flex-basis: 0%
-        font-size: 1.4rem
-        padding-left: 10px
+        width: 1px
+        height: 30px
+        background-color: #CCC
+        margin: 0 10px
+    .resto
+        flexGrow()
+    .botao
+        height: 30px
+        line-height: 28px
+        textoFontSize()
+        margin-left: 20px
+        border: 1px solid $cor
+        border-radius: 20px
+        padding: 0 14px
+        cursor: pointer
+        &.sim
+            background-color: $cor
+            color: #fff
+        &.nao
+            color: $cor
+
+#bloco_demanda_tarefa .bloco_tarefa
+    width: 100%
+    flexCol()
+    margin-top: 40px
+    h2
+        font-size: 1.6rem
+        font-weight: bold
         color: #666
-    .bloco
-        width: 50%
-        display: flex
-        align-items: center
-        margin-top: 20px
-    .bloco .check
+    .botao_add
+        width: 180px
+        height: 40px
+        line-height: 40px
+        background-color: $cor
+        color: #FFF
+        margin: 10px 0 20px
+        text-align: center
+        textoFontSize()
+        border-radius: 20px
+        cursor: pointer
+    article
         width: 100%
-        height: 40px
-        display: flex
+        position: relative
+        flexRow()
+        margin: 10px 0
+        blocoShadow()
         align-items: center
-    .bloco .check figure
-        width: 40px
-        height: 40px
+        &:hover
+            background-color: #F6F6F6
+    article .bloco_botao
         position: absolute
-        top: 0
-        left: 30px
-        background-size: cover
-        background-position: center center
-        background-color: #EEE
-        border: 1px solid #DDD
+        top: 10px
+        right: 10px
+        flexRow()
+        opacity: 0
+        transition: opacity .3s ease-out
+    article:hover .bloco_botao
+        opacity: 1
+    article .bloco_botao i
+        width: 30px
+        height: 30px
+        flexCenter()
+        margin: 0 5px
         border-radius: 50%
-    .bloco .check .input_checkbox
-        height: 40px
-    .bloco .check .input_checkbox label
-        padding-left: 80px
+        cursor: pointer
+        transition: background-color .3s ease-out
+        fill: #666
+        &:hover
+            background-color: #DDD
+    article figure
+        width: 50px
+        height: 50px
+        imagemRedonda()
+    article .conteudo
+        flexGrow()
+        flexCol()
+        padding: 0 20px
+    article .conteudo h1
+        font-size: 2rem
+    article .conteudo .dado
+        flexRow()
+        flex-wrap: wrap
+        margin-top: 10px
+    article .conteudo .dado .item
+        flexCol()
+        border: 1px solid #DDD
+        border-radius: 5px
+        padding: 5px 5px 0
+        margin-right: 10px
+    article .conteudo .dado .item span
+        font-size: 1.2rem
+    article .conteudo .dado .item p
+        texto()
+    article > .botao
+        fill: $corVermelho
+        cursor: pointer
+
+#bloco_demanda_tarefa .texto
+    margin-top: 20px
+
+.bloco_noticia_texto p
+.bloco_noticia_texto i
+.bloco_noticia_texto strong
+.bloco_noticia_texto b
+.bloco_noticia_texto ul li
+    texto()
+.bloco_noticia_texto p
+    margin: 10px 0
+.bloco_noticia_texto ul
+    list-style: circle
+    list-style-position: inside
+    margin: 10px 0

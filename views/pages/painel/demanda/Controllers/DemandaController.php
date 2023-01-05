@@ -3,9 +3,11 @@
 namespace Painel\Demanda\Controllers;
 
 use Http\Request;
+use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Tipo;
+use App\Classes\DemandaTarefa\Status;
 use Painel\Demanda\Models\CriarClienteModel;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
@@ -54,11 +56,49 @@ final class DemandaController extends Controller
                 $request->login_api,
                 $request->login_link,
                 $request->app,
-                $request->texto
+                $request->_POST('texto', html: false)
             );
         }
 
         return mensagemSucesso(['id' => $Demanda->id()], 201);
+    }
+
+    public function tarefaEditar(string $id, string $demanda)
+    {
+        $Api = new ApiHelper(token: true);
+        $tarefa = $Api->get('/demanda-tarefa/' . $id)->object();
+
+        if (!object_key_exists('dado', $tarefa)) {
+            mensagemStatus(404);
+        }
+
+        $Tipo = new DemandaTarefaTipo();
+
+        return view('painel.demanda.editar', [
+            'demanda' => $demanda,
+            'tipoLista' => $Tipo->select('Escolha uma opção'),
+            'r' => $tarefa->dado
+        ]);
+    }
+    public function postTarefaEditar(Request $request, string $id)
+    {
+        $Api = new ApiHelper(token: true);
+        $dado = $Api->body([
+            'titulo' => $request->titulo,
+            'texto' => $request->_POST('texto', html: false),
+            'tipo' => $request->tipo
+        ])->put('/demanda-tarefa/' . $id);
+
+        respostaJson(
+            resposta: $dado,
+            mensagem: 'Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.'
+        );
+
+        return new Response(status: 204);
+    }
+    public function deleteTarefa(string $id)
+    {
+        return new Response(status: 204);
     }
 
     public function tarefa(string $id)
@@ -70,6 +110,10 @@ final class DemandaController extends Controller
             mensagemStatus(404);
         }
 
-        return view('painel.demanda.tarefa');
+        return view('painel.demanda.tarefa', [
+            'r' => $tarefa->dado,
+            'Tipo' => new DemandaTarefaTipo(),
+            'Status' => new Status()
+        ]);
     }
 }

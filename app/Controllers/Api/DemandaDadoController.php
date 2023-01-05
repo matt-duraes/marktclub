@@ -23,7 +23,15 @@ final class DemandaDadoController extends Controller implements
         $Demanda = new DemandaEntity();
         $Demanda->id($id);
 
-        return mensagemSucesso([]);
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Demanda,
+                lista: [
+                    'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
+                    'sou_dono', 'sou_dev', 'tarefa'
+                ]
+            )
+        );
     }
 
     public function getListar(Request $request)

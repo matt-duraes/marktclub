@@ -13,9 +13,22 @@ Route
         Route
             ::nome('lista')
             ::view('/demanda');
+
         Route
             ::nome('tarefa')
             ::view('/demanda/tarefa/{id}');
+        Route
+            ::nome('tarefaEditar')
+            ::view('/demanda/tarefa-editar/{id}/{demanda}');
+        Route
+            ::nome('tarefaEditar')
+            ::request(['titulo', 'texto', 'tipo'])
+            ::post('/demanda/tarefa-editar/{id}');
+
+        Route
+            ::nome('tarefa')
+            ::delete('/demanda/tarefa/{id}');
+
         Route
             ::nome('add')
             ::view('/demanda/nova');

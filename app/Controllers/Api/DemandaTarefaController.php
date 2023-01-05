@@ -3,13 +3,18 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Models\Api\Demanda\TarefaEntity;
 use App\Controllers\Api\Interface\BuscarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
+use App\Controllers\Api\Interface\AtualizarInterface;
 
-final class DemandaTarefaController extends Controller implements SalvarInterface
+final class DemandaTarefaController extends Controller implements
+    SalvarInterface,
+    BuscarInterface,
+    AtualizarInterface
 {
     public function postSalvar(Request $request)
     {
@@ -32,5 +37,29 @@ final class DemandaTarefaController extends Controller implements SalvarInterfac
             ),
             201
         );
+    }
+
+    public function getBuscar(string $id)
+    {
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo'])
+        );
+    }
+
+    public function putAtualizar(Request $request, string $id)
+    {
+        $dado = $request->dado();
+        if (!$request->vazio('texto')) {
+            $dado['texto'] = $request->_PUT('texto', html: false);
+        }
+
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        $Tarefa->set(lista: $dado);
+        $Tarefa->salvar();
+
+        return new Response(status: 204);
     }
 }

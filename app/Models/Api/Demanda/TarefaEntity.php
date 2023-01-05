@@ -50,6 +50,11 @@ final class TarefaEntity extends Entity
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | INSERT
+    |--------------------------------------------------------------------------
+    */
     protected function regraInsert()
     {
         $this->id_demanda_dado = $this->pegarIdDemanda();

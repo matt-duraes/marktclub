@@ -1,6 +1,7 @@
 // @template "painel"
 // @import "detalhe_demanda"
 // @import "nova_demanda"
+// @import "editar_tarefa"
 
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
@@ -25,9 +26,26 @@ window.addEventListener('load', () => {
     const tarefaLista = document.querySelectorAll('#bloco_demanda_index article');
     tarefaLista.forEach(tarefa => {
         const id = tarefa.getAttribute('data-id');
-        const PaginaDetalhe = new Pagina('tarefa-' + id, LINK + '/demanda/tarefa/' + id, {}, true, true);
+        const PaginaDetalhe = new Pagina(
+            'tarefa-' + id,
+            LINK + '/demanda/tarefa/' + id,
+            {},
+            true,
+            true,
+            detalheDemanda
+        );
         tarefa.addEventListener('click', () => {
             PaginaDetalhe.abrir();
         });
     });
+
+    const Teste = new Pagina(
+        'editar',
+        LINK + '/demanda/tarefa-editar/f92d0c9f-dfe4-40fb-ac15-2a08af2cf748/c8282cfb-4873-42a7-bc37-36638ec33d5f',
+        {},
+        true,
+        false,
+        editarTarefa
+    );
+    Teste.abrir();
 });

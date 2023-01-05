@@ -783,6 +783,7 @@ Route::nome('demandaDado')
 
         Route
             ::nome('buscar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:buscar'])
             ::get('/demanda-dado/{id}');
 
         Route
@@ -798,9 +799,18 @@ Route::nome('demandaTarefa')
     ::grupo(function () {
         Route
             ::nome('salvar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request(['demanda', 'titulo', 'texto', 'tipo', '!hora_producao_estimada', '!equipe'])
             ::post('/demanda-tarefa');
+        Route
+            ::nome('buscar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
+            ::get('/demanda-tarefa/{id}');
+        Route
+            ::nome('atualizar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
+            ::request(['titulo', 'texto', 'tipo'])
+            ::put('/demanda-tarefa/{id}');
     });
 
 Route

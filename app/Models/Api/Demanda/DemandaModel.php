@@ -7,13 +7,15 @@ use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Classes\DemandaTarefa\Tipo as Area;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use App\Models\Api\Demanda\Trait\EquipeTrait;
+use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
 final class DemandaModel extends ORM
 {
+    use EquipeTrait;
+    use EmpresaTrait;
+
     protected string $_tabela = TABELA_DEMANDA_DADO;
-    private array $equipeLista = [];
 
     public function __construct(
         private Status $status,
@@ -112,40 +114,5 @@ final class DemandaModel extends ORM
         }
 
         return array_values($retorno);
-    }
-
-    private function pegarUsuarioEquipe($equipe)
-    {
-        if (!array_key_exists($equipe, $this->equipeLista)) {
-            try {
-                $Equipe = new EquipeEntity(validarToken: false);
-                $Equipe->_id($equipe);
-                $this->equipeLista[$equipe] = object([
-                    'id' => $Equipe->id,
-                    'nome' => $Equipe->nome->primeiroNome() . ' ' . $Equipe->nome->ultimoSobrenome(),
-                    'imagem' => $Equipe->imagem
-                ]);
-            } catch (\Throwable) {
-                $this->equipeLista[$equipe] = object([
-                    'id' => null,
-                    'nome' => 'Sem usuário',
-                    'imagem' => imagemUsuario()
-                ]);
-            }
-        }
-
-        return $this->equipeLista[$equipe];
-    }
-
-    private function pegarEmpresa($id)
-    {
-        $Empresa = new EmpresaEntity();
-        $Empresa->_id($id);
-
-        return [
-            'id' => $Empresa->id,
-            'nome' => $Empresa->nome_fantasia,
-            'imagem' => $Empresa->imagem
-        ];
     }
 }
