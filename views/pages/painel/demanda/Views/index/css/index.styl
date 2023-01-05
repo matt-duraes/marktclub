@@ -68,7 +68,6 @@
         border-radius: 4px
         margin-top: 20px
         cursor: pointer
-        border-left: 3px solid #FFF
         transition: opacity .3s ease-out
         overflow: hidden
         &:first-child
@@ -104,6 +103,20 @@
         color: #999
         margin-top: 5px
         overflow: hidden
+    .conteudo article .bloco_area
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        border-top: 1px solid #ddd
+        margin-top: 10px
+        padding: 10px 5px 0 10px
+    .conteudo article .bloco_area .area
+        border: 1px solid #CCC
+        border-radius: 15px
+        padding: 5px 10px
+        font-size: 1.2rem
+        color: #666
+        margin: 5px 5px 0 0
     .conteudo article footer
         width: 100%
         display: flex
@@ -111,7 +124,7 @@
         align-items: center
         border-top: 1px solid #DDD
         margin-top: 15px
-        padding: 15px 20px 20px 20px
+        padding: 10px 20px
     .conteudo article footer i
         width: 30px
         height: 30px
@@ -120,25 +133,40 @@
         align-items: center
         justify-content: center
         fill: #FFF
-        margin-right: 10px
-        &.tipo.bug
-            background-color: $corErro
+        &.tipo.bug-outro
+            background: $corErro url(../images/painel/demanda_bug.png) center center no-repeat
+            background-size: 25px 25px
+        &.tipo.novo-cliente
+            background: $corVerde url(../images/painel/demanda_cliente.png) center center no-repeat
+            background-size: 19px 19px
+        &.tipo.novo-associacao
+            background: $corAzul url(../images/painel/demanda_associacao.png) center center no-repeat
+            background-size: 24px 24px
+        &.tipo.outro
+            background: $marrom url(../images/painel/demanda_outro.png) center center no-repeat
+            background-size: 21px 21px
     .conteudo article footer figure
-        width: 30px
-        height: 30px
+        width: 34px
+        height: 34px
         border-radius: 50%
         background-size: cover
         background-position: center center
-        margin-right: 10px
+        border: 2px solid #FFF
+        &.dev
+            margin-right: -15px
+            transition: margin-right .3s ease-out
+    .conteudo article footer .bloco_dev
+        flex-grow: 1
+        flex-basis: 0%
+        display: flex
+        flex-direction: row
+    .conteudo article footer .bloco_dev:hover figure.dev
+        margin-right: 5px
+    .conteudo article footer .resto
+        flex-grow: 1
+        flex-basis: 0%
     .conteudo article footer .linha
         width: 1px
         height: 20px
         background: #CCC
-        margin-right: 10px
-#bloco_demanda_index .bloco_coluna.curto
-    .conteudo article > figure
-        display: none
-    .conteudo article header
-        padding-bottom: 20px
-    .conteudo article footer
-        display: none
+        margin: 0 10px

@@ -782,6 +782,10 @@ Route::nome('demandaDado')
             ::get('/demanda-dado');
 
         Route
+            ::nome('buscar')
+            ::get('/demanda-dado/{id}');
+
+        Route
             ::nome('salvar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request(['empresa', 'titulo', 'tipo'])

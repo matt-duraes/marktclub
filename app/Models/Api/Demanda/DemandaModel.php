@@ -6,7 +6,7 @@ use ORM\ORM;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
-use phpDocumentor\Reflection\Types\Parent_;
+use App\Classes\DemandaTarefa\Tipo as Area;
 use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
@@ -35,7 +35,7 @@ final class DemandaModel extends ORM
             ->order($this->ordem)
             ->tabela(TABELA_DEMANDA_TAREFA)
             ->join('id_demanda_dado', 'id')
-            ->campo(['id_usuario_equipe'], 'tarefa')
+            ->campo(['id_usuario_equipe', 'tipo'], 'tarefa')
             ->read();
 
         return $this->montarRetorno($lista);
@@ -70,27 +70,41 @@ final class DemandaModel extends ORM
     {
         $demandaJaExiste = [];
         $equipeJaExiste = [];
+        $areaJaExiste = [];
 
         $retorno = [];
         foreach ($lista as $r) {
+            $area = (new Area($r->tarefa_tipo))->indice();
+
             if (in_array($r->id, $demandaJaExiste)) {
                 $retorno[$r->id]['tarefa']++;
                 $equipe = $this->pegarUsuarioEquipe($r->tarefa_id_usuario_equipe);
-                if (!empty($equipe->id) && !in_array($r->id . $r->id_usuario_equipe, $equipeJaExiste)) {
+                if (!empty($equipe->id) && !in_array($r->id . $r->tarefa_id_usuario_equipe, $equipeJaExiste)) {
                     $retorno[$r->id]['equipe'][] = $equipe;
-                    $equipeJaExiste[] = $r->id . $r->id_usuario_equipe;
+                    $equipeJaExiste[] = $r->id . $r->tarefa_id_usuario_equipe;
+                }
+                if (!in_array($r->id . $area, $areaJaExiste)) {
+                    $retorno[$r->id]['area'][] = $area;
+                    $areaJaExiste[] = $r->id . $area;
                 }
                 continue;
             }
+            $areaJaExiste[] = $r->id . $area;
             $demandaJaExiste[] = $r->id;
 
-            $equipe = $this->pegarUsuarioEquipe($r->id_usuario_equipe);
+            $dono = $this->pegarUsuarioEquipe($r->id_usuario_equipe);
+            $equipe = $this->pegarUsuarioEquipe($r->tarefa_id_usuario_equipe);
+            if (!empty($equipe->id)) {
+                $equipeJaExiste[] = $r->id . $r->tarefa_id_usuario_equipe;
+            }
+
             $retorno[$r->id] = [
                 'id' => $r->uuid,
-                'dono' => $equipe,
+                'dono' => $dono,
                 'empresa' => $this->pegarEmpresa($r->id_admin_empresa),
-                'equipe' => [],
+                'equipe' => !empty($equipe->id) ? [$equipe] : [],
                 'tarefa' => 1,
+                'area' => [$area],
                 'titulo' => $r->titulo,
                 'tipo' => (new Tipo($r->tipo))->indice(),
                 'status' => (new Status($r->status))->indice()

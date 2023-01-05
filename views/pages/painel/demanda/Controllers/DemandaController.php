@@ -5,7 +5,9 @@ namespace Painel\Demanda\Controllers;
 use Http\Request;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use App\Classes\DemandaDado\Tipo;
 use Painel\Demanda\Models\CriarClienteModel;
+use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaController extends Controller
 {
@@ -16,6 +18,8 @@ final class DemandaController extends Controller
             'liberada' => $this->buscarDemanda('liberada', 'ordem'),
             'andamento' => $this->buscarDemanda('andamento', 'mais-novo'),
             'finalizada' => $this->buscarDemanda('finalizada', 'mais-novo'),
+            'Tipo' => new Tipo(),
+            'Area' => new DemandaTarefaTipo()
         ]);
     }
     private function buscarDemanda($status, $ordem)
@@ -57,8 +61,15 @@ final class DemandaController extends Controller
         return mensagemSucesso(['id' => $Demanda->id()], 201);
     }
 
-    public function detalhe(string $id)
+    public function tarefa(string $id)
     {
-        return view('painel.demanda.detalhe');
+        $Api = new ApiHelper(token: true);
+        $tarefa = $Api->get('/demanda-dado/' . $id)->object();
+
+        if (!object_key_exists('dado', $tarefa)) {
+            mensagemStatus(404);
+        }
+
+        return view('painel.demanda.tarefa');
     }
 }

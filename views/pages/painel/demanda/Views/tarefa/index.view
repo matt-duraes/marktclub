@@ -1,0 +1,65 @@
+<div id="bloco_demanda_php">
+    <header>
+        <i class="fechar mobile">@iconeVoltar</i>
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde explicabo quibusdam eius odit quod voluptatum, ullam sit eligendi facilis deleniti?</h1>
+        <i class="fechar desktop">@iconeFechar</i>
+    </header>
+    <div class="bloco_equipe">
+        <figure></figure>
+        <div class="linha"></div>
+        <figure></figure>
+        <div class="linha"></div>
+        <div class="bloco_dev">
+            <figure></figure>
+            <figure></figure>
+            <figure></figure>
+        </div>
+        <div class="bloco_seguir">
+            <figure></figure>
+            <figure></figure>
+        </div>
+        <div class="botao">Seguir</div>
+    </div>
+
+    <div class="bloco_tarefa">
+        <article class="tarefa">
+            <figure></figure>
+            <div class="conteudo">
+                <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, adipisci?</h1>
+                <div class="dado">
+                    <div class="item">
+                        <span>Tipo:</span>
+                        <p>Back-End</p>
+                    </div>
+                    <div class="item">
+                        <span>Tempo estimado</span>
+                        <p>4 horas</p>
+                    </div>
+                    <div class="item">
+                        <span>Tempo executado</span>
+                        <p>5 horas</p>
+                    </div>
+                    <div class="item">
+                        <span>Status</span>
+                        <p>Doing</p>
+                    </div>
+                    <div class="linha"></div>
+                    <div class="item">
+                        <span>Iniciado</span>
+                        <p>10/10/2010</p>
+                    </div>
+                    <div class="item">
+                        <span>Finalizado</span>
+                        <p>10/10/2010</p>
+                    </div>
+                </div>
+                <div class="texto">
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error, laudantium nisi illo non corrupti perspiciatis at aliquid modi necessitatibus assumenda?</p>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab, officiis.</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos corrupti exercitationem ipsa numquam. Mollitia quam architecto in eum, necessitatibus natus! Enim corrupti sit adipisci aspernatur voluptatum perferendis earum cumque id!</p>
+                </div>
+            </div>
+            <div class="play">@iconeSetaDireita</div>
+        </article>
+    </div>
+</div>

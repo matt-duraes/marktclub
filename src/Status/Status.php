@@ -15,7 +15,7 @@ abstract class Status implements StatusInterface
 
     public function __toString()
     {
-        return $this->indice();
+        return $this->nome();
     }
 
     //doc

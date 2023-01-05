@@ -1518,7 +1518,7 @@ if (!function_exists('imagemUsuario')) {
     /**
      * Pega a imagem do usuário
      *
-     * @param   null|string $tipo       Tipo de imagem
+     * @param   null|string $tipo       Tipo de imagem sendo 1 para arquivo, 2 para Google e 3 para Facebook
      * @param   null|string $arquivo    Arquivo de imagem
      * @param   null|string $facebook   URL da imagem do Facebook
      * @param   null|string $google     URL da imagem do Google

@@ -14,8 +14,8 @@ Route
             ::nome('lista')
             ::view('/demanda');
         Route
-            ::nome('detalhe')
-            ::view('/demanda/detalhe/{id}');
+            ::nome('tarefa')
+            ::view('/demanda/tarefa/{id}');
         Route
             ::nome('add')
             ::view('/demanda/nova');

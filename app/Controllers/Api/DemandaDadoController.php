@@ -9,13 +9,23 @@ use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\DemandaModel;
 use App\Models\Api\Demanda\DemandaEntity;
+use App\Controllers\Api\Interface\BuscarInterface;
 use App\Controllers\Api\Interface\ListarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
 
 final class DemandaDadoController extends Controller implements
     SalvarInterface,
-    ListarInterface
+    ListarInterface,
+    BuscarInterface
 {
+    public function getBuscar(string $id)
+    {
+        $Demanda = new DemandaEntity();
+        $Demanda->id($id);
+
+        return mensagemSucesso([]);
+    }
+
     public function getListar(Request $request)
     {
         $Demanda = new DemandaModel(

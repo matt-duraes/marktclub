@@ -24,9 +24,9 @@ window.addEventListener('load', () => {
     */
     const tarefaLista = document.querySelectorAll('#bloco_demanda_index article');
     tarefaLista.forEach(tarefa => {
+        const id = tarefa.getAttribute('data-id');
+        const PaginaDetalhe = new Pagina('tarefa-' + id, LINK + '/demanda/tarefa/' + id, {}, true, true);
         tarefa.addEventListener('click', () => {
-            const id = tarefa.getAttribute('data-id');
-            const PaginaDetalhe = new Pagina('tarefa-' + id, LINK + '/demanda/tarefa/' + id, {}, true, true);
             PaginaDetalhe.abrir();
         });
     });

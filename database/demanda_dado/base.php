@@ -9,5 +9,6 @@ return (new \DataBase\DataBase())
     ->int('tipo')
     ->dataCriacao()
     ->dataAtualizacao()
+    ->int('sem_data_entraga')->null()
     ->int('ordem')->null()
     ->status();

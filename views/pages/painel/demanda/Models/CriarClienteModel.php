@@ -24,6 +24,7 @@ final class CriarClienteModel
         $this->configurarDnsCdn();
         $this->criarDocumentacaoParaApi();
         $this->configurarConstrutor();
+        $this->rodarScriptSubirConvenio();
         $this->criarApp();
     }
 
@@ -68,7 +69,9 @@ final class CriarClienteModel
         $this->salvarTarefa(
             'back-end',
             'Configurar CDN',
-            '<p>Criar o domínio <strong>' . $this->dominioLink . '</strong> na CDN</p><p>DNS: <strong>' . DNS_CNAME . '</strong></p>'
+            '<p>Criar o domínio <strong>
+            ' . $this->dominioLink . '
+            </strong> na CDN</p><p>DNS: <strong>' . DNS_CNAME . '</strong></p>'
         );
     }
 
@@ -77,17 +80,38 @@ final class CriarClienteModel
         if (!$this->loginApi) {
             return;
         }
-        $this->salvarTarefa('banco', 'Criar documentação da API', '<p>Criar documentação para login via API do Cliente</p>');
+        $this->salvarTarefa(
+            'banco',
+            'Criar documentação da API',
+            '<p>Criar documentação para login via API do Cliente</p>'
+        );
     }
 
     private function configurarConstrutor()
     {
         $texto = '<p>Link do Clube: <strong>' . $this->dominioLink . '</strong></p>';
         if ($this->loginApi) {
-            $texto .= '<p>O cliente fara o Login via API e o link do login será: <strong>' . $this->loginLink . '</strong></p>';
+            $texto .= '
+                <p>O cliente fara o Login via API e o link do login será: <strong>
+                ' . $this->loginLink . '
+                </strong></p>
+            ';
         }
         $texto .= $this->texto;
         $this->salvarTarefa('criacao', 'Configurar Construtor', $texto);
+    }
+    private function rodarScriptSubirConvenio()
+    {
+        $this->salvarTarefa(
+            'infra',
+            'Rodar script para copiar parceiros',
+            '
+                <p>Rodar script para copiar convênios, chashback, promoções e etc para o novo Clube</p>
+                <p>Excutar via URL <strong>http://novoclube.mkc</strong> que deve ser apontada para
+                <strong>' . env('DNS_IP_API', '') . '</strong>
+                </p>
+            '
+        );
     }
 
     private function criarApp()
@@ -95,9 +119,21 @@ final class CriarClienteModel
         if (!$this->app) {
             return;
         }
-        $this->salvarTarefa('criacao', 'Criar peças para o APP', '<p>Criar as peças para a criação dos APP no IOS e Android</p>');
-        $this->salvarTarefa('app', 'Criar APP para Android', '<p>Criar APP para Andriod</p>');
-        $this->salvarTarefa('app', 'Criar APP para IOS', '<p>Criar APP para IOS</p>');
+        $this->salvarTarefa(
+            'criacao',
+            'Criar peças para o APP',
+            '<p>Criar as peças para a criação dos APP no IOS e Android</p>'
+        );
+        $this->salvarTarefa(
+            'app',
+            'Criar APP para Android',
+            '<p>Criar APP para Andriod</p>'
+        );
+        $this->salvarTarefa(
+            'app',
+            'Criar APP para IOS',
+            '<p>Criar APP para IOS</p>'
+        );
     }
 
     private function salvarTarefa($tipo, $titulo, $texto)
