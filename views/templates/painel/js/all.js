@@ -28,6 +28,7 @@ const blocoLink = document.getElementById('LINK');
 const LINK = blocoLink.value;
 
 window.addEventListener('load', () => {
+    historicoLoad();
     /*
     |--------------------------------------------------------------------------
     | AJUDA DO SISTEMA

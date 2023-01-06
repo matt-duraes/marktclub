@@ -6,9 +6,12 @@
     display: flex
     align-items: center
     flex-direction: column
-    box-shadow: 0 4px 5px rgba(0,0,0,.1)
+    boxShadow()
     border-radius: 5px
     margin-bottom: 20px
+    &.grande
+        width: 100%
+        max-width: 100%
     header
         width: 100%
         border-bottom: 1px solid #DDD
@@ -17,26 +20,24 @@
         padding: 10px 20px
         z-index: 3
     header h1
-        height: 40px
-        line-height: 40px
+        height: 30px
+        line-height: 30px
         font-size: $textoFontSize
         color: #666
-        flex-grow: 1
-        flex-basis: 0%
+        flexGrow()
     header form
         display: flex
         flex-direction: row
     header form input
         width: 180px
-        height: 40px
-        line-height: 40px
-        padding: 0 20px
+        height: 30px
+        line-height: 30px
+        padding: 0 10px
         border-radius: 20px
         border: 1px solid #DDD
         font-size: 1.2rem
         &.input_data
-            width: 90px
-            text-align: center
+            width: 80px
         &.input_data_de
             border-right: none
             border-radius: 20px 0 0 20px
@@ -48,8 +49,8 @@
             padding-left: 0
             margin-right: 10px
     header form p
-        height: 40px
-        line-height: 40px
+        height: 30px
+        line-height: 30px
         color: #999
         padding: 0 10px
         border-top: 1px solid #DDD
@@ -57,8 +58,8 @@
     header form .botao
         bgDegradeVerde()
         color: #FFF
-        height: 40px
-        line-height: 40px
+        height: 30px
+        line-height: 30px
         padding: 0 20px
         border-radius: 20px
         font-size: 1.2rem
@@ -68,7 +69,6 @@
         height: 110px
     .add
         width: 100%
-        max-width: 700px
         min-height: 110px
         position: absolute
         display: flex
@@ -244,3 +244,14 @@
         transform: rotate(270deg)
     100%
         transform: rotate(360deg)
+
+#bloco_historico_view.sem_box_shadow
+    box-shadow: none !important
+    header
+        padding: 10px 0
+    .lista .item
+        padding: 20px 0
+    .add
+        padding: 20px 0 20px 50px
+    .add figure
+        left: 0

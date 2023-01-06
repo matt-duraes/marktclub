@@ -327,7 +327,7 @@ Route
         Route
             ::nome('listar')
             ::_rotaNaoUnica()
-            ::request(['pagina', 'app', 'relacionado', '!data_de', '!data_ate'])
+            ::request(['pagina', 'app', 'relacionado', '!pesquisa', '!data_de', '!data_ate'])
             ::get('/historico');
         Route
             ::nome('deletar')

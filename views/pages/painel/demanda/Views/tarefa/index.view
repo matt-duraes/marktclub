@@ -108,4 +108,6 @@
             <div class="lista"></div>
         </div>
     </div>
+
+    @php painelHistorico($r->id, 'demanda_dado', boxShadow: false)
 </div>

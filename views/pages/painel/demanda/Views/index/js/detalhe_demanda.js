@@ -1,6 +1,8 @@
 const detalheDemanda = () => {
     const demandaId = document.getElementById('input_demanda_id').value;
 
+    historicoLoad();
+
     /*
     |--------------------------------------------------------------------------
     | HELPER DE AJUDA

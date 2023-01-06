@@ -579,7 +579,7 @@ Route
         Route
             ::nome('listar')
             ::request([
-                'pagina', 'app', 'relacionado', '!data_de', '!data_ate'
+                'pagina', 'app', 'relacionado', '!data_de', '!data_ate', '!pesquisa'
             ], 'json')
             ::get('/painel-historico');
 

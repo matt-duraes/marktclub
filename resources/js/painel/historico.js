@@ -1,4 +1,4 @@
-window.addEventListener('load', () => {
+const historicoLoad = () => {
     const inputHistorico = document.querySelector('#input_historico_mensagem textarea');
     if (!inputHistorico) {
         return;
@@ -7,6 +7,7 @@ window.addEventListener('load', () => {
     const app = document.querySelector('#input_historico_app').value;
     const relacionado = document.querySelector('#input_historico_relacionado').value;
 
+    const inputPesquisa = document.querySelector('#input_historico_pesquisa');
     const inputDataDe = document.querySelector('#input_historico_data_de');
     const inputDataAte = document.querySelector('#input_historico_data_ate');
 
@@ -48,6 +49,10 @@ window.addEventListener('load', () => {
         if (inputDataAte.value != '') {
             existeBusca = true;
             query += '&data_ate=' + inputDataAte.value;
+        }
+        if (inputPesquisa.value != '') {
+            existeBusca = true;
+            query += '&pesquisa=' + inputPesquisa.value;
         }
 
         const resposta = await fetch(LINK + '/historico' + query, {
@@ -283,4 +288,4 @@ window.addEventListener('load', () => {
             blocoAdd.classList.remove('fixo');
         }
     });
-});
+};
