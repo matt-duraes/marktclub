@@ -1217,7 +1217,6 @@ if (!function_exists('formTextarea')) {
      * @param   string  $name           Nome do input
      * @param   string  $label          Label do input
      * @param   mixed   $value          Valor do input
-     * @param   mixed   $enter          Função enter vira Alt/Command + Enter
      * @param   string  $placeholder    Placeholder do input
      * @param   string  $class          Class para o box do input
      * @param   string  $id             ID para o box do input
@@ -1230,13 +1229,13 @@ if (!function_exists('formTextarea')) {
         $name,
         string $label = '',
         $value = '',
-        bool $enter = true,
         string $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         bool $obrigatorio = false,
-        array $attr = []
+        array $attr = [],
+        ?int $numeroLinha = null
     ): string {
         $html = $option['html'] ?? '';
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
@@ -1250,13 +1249,14 @@ if (!function_exists('formTextarea')) {
             }
         }
 
+        $numeroLinha = is_numeric($numeroLinha) && $numeroLinha > 1 ? $numeroLinha : 9999;
+
         $label = !empty($label) ? '<label for="input_' . $name . '">' . $label . '</label>' : '';
-        $class = false === $enter ? $class . ' input_textarea_enter_false' : $class;
 
         return '
             <div class="bloco_input input_textarea ' . $class . '" id="' . $id . '">
                 ' . $html . '
-                <textarea speelcheck="true" ' . implode(' ', $attrInput) . ' class="input_geral resize textarea_resize ' . $obrigatorio . '" name="' . $name . '" placeholder="' . $placeholder . '" id="input_' . $name . '">' . $value . '</textarea>
+                <textarea data-numero-linha="' . $numeroLinha . '" speelcheck="true" ' . implode(' ', $attrInput) . ' class="input_geral resize textarea_resize ' . $obrigatorio . '" name="' . $name . '" placeholder="' . $placeholder . '" id="input_' . $name . '">' . $value . '</textarea>
                 <div class="borda"></div>
                 ' . $label . '
                 <div class="input_icone"></div>

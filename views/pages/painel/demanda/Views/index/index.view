@@ -2,7 +2,7 @@
 
 <div id="bloco_demanda_index">
     <div class="bloco" style="width: calc(100% - 20px);">
-        @php painelHistorico('123', 'teste')
+        @php painelHistorico('123222', 'teste')
     </div>
     <div class="conteudo_geral">
 

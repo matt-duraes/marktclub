@@ -14,8 +14,25 @@
         <input type="hidden" id="input_historico_relacionado" value="<?= $r->id ?>">
         <input type="hidden" id="input_historico_app" value="<?= $app ?>">
         <figure style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></figure>
-        <?= formTextarea(name: 'historico_novo', label: '', placeholder: 'Digite sua mensagem', enter: false, id: 'input_historico_mensagem') ?>
+        <?= formTextarea(name: 'historico_novo', label: '', numeroLinha: 4, placeholder: 'Digite sua mensagem', id: 'input_historico_mensagem') ?>
         <p>Aperte Shift+Enter para quebrar linha ou apenas Enter para salvar</p>
+        <ul class="bloco_marcar_equipe" id="bloco_historico_marcacao_equipe">
+            <li data-usuario="andre.rodrigues" class="">
+                <div class="imagem" style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></div>
+                <div class="usuario">andre.rodrigues</div>
+                <div class="nome">André Rodrigues</div>
+            </li>
+            <li data-usuario="mateus.cunha" class="">
+                <div class="imagem" style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></div>
+                <div class="usuario">mateus.cunha</div>
+                <div class="nome">Mateus Cunha</div>
+            </li>
+            <li data-usuario="mateus.duram" class="">
+                <div class="imagem" style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></div>
+                <div class="usuario">mateus.duram</div>
+                <div class="nome">Mateus Duram</div>
+            </li>
+        </ul>
     </form>
     <div class="lista" id="bloco_historico_lista">
     </div>
