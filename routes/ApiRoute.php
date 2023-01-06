@@ -338,7 +338,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
+            ::request(['pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
             ::get('/usuario-equipe');
 
         Route

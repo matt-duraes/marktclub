@@ -4,9 +4,12 @@
     max-height: calc(100vh - 40px)
     margin: 20px
     overflow-y: auto
-    blocoShadow()
+    boxShadow()
+    background-color: #FFF
+    border-radius: 5px
 #bloco_demanda_tarefa > header
     width: 100%
+    padding: 20px 20px 0
     flexRow()
     h1
         flexGrow()
@@ -20,8 +23,11 @@
 #bloco_demanda_tarefa .bloco_equipe
     width: 100%
     flexRow()
-    margin-top: 30px
+    padding: 13px 20px
+    margin: 20px 0 30px
     align-items: center
+    border-top: 1px solid #DDD
+    border-bottom: 1px solid #DDD
     figure
         width: 44px
         height: 44px
@@ -62,22 +68,7 @@
 #bloco_demanda_tarefa .bloco_tarefa
     width: 100%
     flexCol()
-    margin-top: 40px
-    h2
-        font-size: 1.6rem
-        font-weight: bold
-        color: #666
-    .botao_add
-        width: 180px
-        height: 40px
-        line-height: 40px
-        background-color: $cor
-        color: #FFF
-        margin: 10px 0 20px
-        text-align: center
-        textoFontSize()
-        border-radius: 20px
-        cursor: pointer
+    padding: 0 20px
     article
         width: 100%
         position: relative
@@ -135,5 +126,114 @@
         fill: $corVermelho
         cursor: pointer
 
-#bloco_demanda_tarefa .texto
-    margin-top: 20px
+#bloco_demanda_tarefa .bloco_arquivo
+    width: 100%
+    background-color: #F6F6F6
+    margin-top: 40px
+    padding: 20px
+    .lista
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        justify-content: space-between
+    .lista .zero
+        width: 100%
+        font-size: 1.8rem
+        padding: 30px 0 60px
+        text-align: center
+        color: #999
+    .lista .arquivo
+        width: calc((100% / 6) - 18px)
+        flexCol()
+        position: relative
+        margin-bottom: 20px
+        padding: 10px
+        boxShadow()
+        background: #FFF
+        border-radius: 5px
+    .lista .arquivo_fake
+        width: calc((100% / 6) - 18px)
+    .lista .arquivo figure
+        width: 100%
+        height: 150px
+        background-position: center center
+        background-size: 80px
+        background-repeat: no-repeat
+        &.zip
+            background-image: url(../images/ext/zip.png)
+        &.png
+            background-image: url(../images/ext/png.png)
+        &.xls
+        &.xlsx
+            background-image: url(../images/ext/xls.png)
+        &.txt
+            background-image: url(../images/ext/txt.png)
+        &.psd
+            background-image: url(../images/ext/psd.png)
+        &.pdf
+            background-image: url(../images/ext/pdf.png)
+        &.mp3
+            background-image: url(../images/ext/mp3.png)
+        &.jpg
+        &.jpeg
+            background-image: url(../images/ext/jpg.png)
+        &.gif
+            background-image: url(../images/ext/gif.png)
+        &.file
+            background-image: url(../images/ext/file.png)
+        &.doc
+        &.docx
+            background-image: url(../images/ext/doc.png)
+        &.ai
+            background-image: url(../images/ext/ai.png)
+    .lista .arquivo i
+        width: 30px
+        height: 30px
+        flexCenter()
+        top: 10px
+        right: 10px
+        position: absolute
+        opacity: 0
+        transition: opacity .3s ease-out
+        background-color: rgba(0,0,0,.1)
+        border-radius: 50%
+        cursor: pointer
+    .lista .arquivo:hover i
+        opacity: 1
+    .lista .arquivo p
+        width: 100%
+        texto()
+        text-align: center
+        color: #666
+
+#bloco_demanda_tarefa .bloco_historico
+    padding: 40px 20px 0
+
+#bloco_demanda_tarefa
+    h2
+        width: 100%
+        font-size: 1.6rem
+        font-weight: bold
+        color: #666
+    .botao_add
+        width: 180px
+        height: 40px
+        line-height: 40px
+        position: relative
+        background-color: $cor
+        color: #FFF
+        margin: 10px 0 20px
+        text-align: center
+        textoFontSize()
+        border-radius: 20px
+        cursor: pointer
+        overflow: hidden
+    .botao_add input
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+        opacity: 0
+        cursor: pointer

@@ -4,6 +4,7 @@ return [
     [
         'id_admin_empresa' => 1,
         'tipo' => 3,
+        'nome_perfil' => 'markt.club',
         'nome_real' => 'Markt Club',
         'email_trabalho' => 'app@marktclub.com.br',
         'telefone_pessoal' => '61900001234',

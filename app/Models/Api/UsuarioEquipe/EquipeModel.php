@@ -68,10 +68,17 @@ final class EquipeModel extends ORM
         } else {
             $where[] = ['status', 'in', [1, 2]];
         }
+        $quantidade = $request->quantidade;
+        $quantidade =
+            is_numeric($quantidade) && preg_match('/^[1-9]{1,}$/', $quantidade) && $quantidade <= 50 ?
+            $quantidade :
+            50;
 
         $dado = $this->campo([
-            'uuid', 'nome_real', 'documento_cpf', 'email_trabalho', 'email_pessoal', 'status', 'data_criacao'
-        ])->where($where)->pagina($pagina, 50)->order(new Ordem($request->ordem))->read();
+            'uuid', 'nome_perfil', 'nome_real', 'documento_cpf', 'email_trabalho',
+            'email_pessoal', 'status', 'data_criacao', 'imagem_tipo', 'imagem_arquivo',
+            'imagem_facebook', 'imagem_google'
+        ])->where($where)->pagina($pagina, $quantidade)->order(new Ordem($request->ordem))->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
@@ -95,8 +102,10 @@ final class EquipeModel extends ORM
             $lista[] = [
                 'id' => $r->uuid,
                 'nome' => $r->nome_real,
+                'perfil' => $r->nome_perfil,
                 'cpf' => $r->documento_cpf,
                 'email' => strEmail($email),
+                'imagem' => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google),
                 'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status),
             ];

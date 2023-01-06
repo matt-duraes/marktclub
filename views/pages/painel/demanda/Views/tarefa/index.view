@@ -103,11 +103,30 @@
 
     <div class="bloco_arquivo">
         <h2>Arquivo</h2>
-        <div class="botao">
+        <div class="botao_add">
             <input type="file" multiple>
-            <div class="lista"></div>
+            Enviar arquivo
+        </div>
+        <div class="lista">
+            <!-- <div class="zero">Sem arquivos no momento</div> -->
+            @ laco(10)
+            <div class="arquivo">
+                <figure class="png"></figure>
+                <a href=""></a>
+                <i>@iconeDeletar</i>
+                <p>Nome aqui vai</p>
+            </div>
+            @ endlaco;
+            <div class="arquivo_fake"></div>
+            <div class="arquivo_fake"></div>
+            <div class="arquivo_fake"></div>
+            <div class="arquivo_fake"></div>
+            <div class="arquivo_fake"></div>
+            <div class="arquivo_fake"></div>
         </div>
     </div>
 
-    @php painelHistorico($r->id, 'demanda_dado', boxShadow: false)
+    <div class="bloco_historico">
+        @php painelHistorico($r->id, 'demanda_dado')
+    </div>
 </div>
