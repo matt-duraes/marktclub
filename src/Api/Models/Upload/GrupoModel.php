@@ -1,6 +1,6 @@
 <?php
 
-namespace PainelModel\Upload;
+namespace ApiModel\Upload;
 
 use ORM\ORM;
 

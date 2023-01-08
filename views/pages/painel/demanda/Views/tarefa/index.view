@@ -127,6 +127,6 @@
     </div>
 
     <div class="bloco_historico">
-        @php painelHistorico($r->id, 'demanda_dado')
+        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false)
     </div>
 </div>

@@ -12,6 +12,9 @@ final class Equipe
     public function pegarListaEquipe()
     {
         $lista = $this->buscarEquipeApi();
+        if (!object_key_exists('dado', $lista)) {
+            return [];
+        }
         $this->montarDadoEquipe($lista);
 
         $paginaTotal = $lista->dado->pagina->total;

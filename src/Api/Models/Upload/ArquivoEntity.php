@@ -1,19 +1,31 @@
 <?php
 
-namespace PainelModel\Upload;
+namespace ApiModel\Upload;
 
 use ORM\Entity;
 use Helpers\UploadHelper;
+use App\Classes\UploadArquivo\Status;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ArquivoEntity extends Entity
 {
 
     protected string $_tabela = TABELA_UPLOAD_ARQUIVO;
-    protected array $_buscar = ['!id_upload_grupo', 'arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'data_criacao'];
+    protected array $_buscar = [
+        '!id_upload_grupo', 'arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'data_criacao'
+    ];
     protected array $_insert = ['id_upload_grupo', 'id_usuario_equipe'];
     protected array $_salvar = ['arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'status'];
     protected array $_update = ['privado'];
+
+    public int $id_upload_grupo;
+    public int $id_usuario_equipe;
+    public string $nome;
+    public Status $status;
+    public int $tamanho;
+    public array $extensao;
+    public int $altura;
+    public int $largura;
 
     public function __construct(
         protected string|UploadHelper|UploadedFile $arquivo = '',
@@ -33,7 +45,7 @@ final class ArquivoEntity extends Entity
         $this->subirImagem($Grupo, md5(uniqid(time())));
 
         $this->nome = $this->arquivo->nomeReal();
-        $this->status = 1;
+        $this->status = new Status(1);
     }
     protected function regraPosInsert()
     {

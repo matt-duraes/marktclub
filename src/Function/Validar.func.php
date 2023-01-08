@@ -479,6 +479,20 @@ if (!function_exists('respostaJson')) {
             ) {
                 $mensagem = $resposta['erro']['mensagem'];
             }
+            if (
+                is_object($resposta) &&
+                object_key_exists('erro', $resposta) &&
+                object_key_exists('titulo', $resposta->erro)
+            ) {
+                $titulo = $resposta->erro->titulo;
+            }
+            if (
+                is_object($resposta) &&
+                object_key_exists('erro', $resposta) &&
+                object_key_exists('mensagem', $resposta->erro)
+            ) {
+                $mensagem = $resposta->erro->mensagem;
+            }
             mensagemErro(empty($titulo) ? 'Erro!' : $titulo, mensagem: $mensagem, status: $status);
         }
     }

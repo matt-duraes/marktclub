@@ -41,7 +41,6 @@ final class DemandaController extends Controller
             ->json(['titulo' => 'Escolha um cliente'])
             ->get('/admin-empresa/select')
             ->array();
-
         return view('painel.demanda.nova', [
             'empresa' => $empresa['dado'] ?? []
         ]);

@@ -25,6 +25,7 @@ final class EquipeEntity extends Entity
     protected array $_buscar = [
         'nome' => 'nome_real',
         'cpf' => 'documento_cpf',
+        'perfil' => 'nome_perfil',
         'email' => ['email_trabalho', 'email_pessoal'],
         'senha' => 'salt',
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
@@ -59,6 +60,7 @@ final class EquipeEntity extends Entity
     ';
 
     public Nome $nome;
+    public string $perfil;
     public Cpf $cpf;
     public Senha $senha;
     public Email $email;
@@ -75,6 +77,9 @@ final class EquipeEntity extends Entity
     public Status $status;
     public string $imagem;
     public UploadedFile|UploadHelper|string $imagem_arquivo;
+    protected int $imagem_tipo;
+    protected string $imagem_facebook;
+    protected string $imagem_google;
 
     private int $idEmpresa;
     public function __construct(

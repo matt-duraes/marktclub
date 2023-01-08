@@ -335,10 +335,12 @@ const respostaJson = (resposta, mensagem) => {
             return resolve(json);
         }
 
-        Alerta.notificacao(
-            json.erro != undefined && json.erro.mensagem != undefined ? json.erro.mensagem : mensagem,
-            false
-        );
+        if (mensagem !== undefined) {
+            Alerta.notificacao(
+                json.erro != undefined && json.erro.mensagem != undefined ? json.erro.mensagem : mensagem,
+                false
+            );
+        }
         return resolve(false);
     });
 };

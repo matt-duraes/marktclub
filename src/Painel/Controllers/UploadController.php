@@ -2,18 +2,19 @@
 
 namespace PainelController;
 
-use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Helpers\ApiHelper;
 use Controller\Controller;
-use App\Models\Painel\Upload\GrupoModel;
-use App\Models\Painel\Upload\GrupoEntity;
-use App\Models\Painel\Upload\ArquivoModel;
-use App\Models\Painel\Upload\ArquivoEntity;
 
 final class UploadController extends Controller
 {
-
+    private ApiHelper $Api;
+    public function __construct()
+    {
+        $this->Api = new ApiHelper(token: true);
+        parent::__construct();
+    }
     /*
     |--------------------------------------------------------------------------
     | RETORNA A BUSCA DE IMAGENS
@@ -22,20 +23,30 @@ final class UploadController extends Controller
     public function postBuscar(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
+        $arquivo = $this
+            ->Api
+            ->validar('Erro ao buscar lista de arquivos')
+            ->json([
+                'pagina' => $request->pagina,
+                'pesquisa' => $request->pesquisa,
+                'grupo' => $request->grupo_atual
+            ])
+            ->get('/upload-arquivo')->object();
 
-        $pagina = $request->pagina;
-        $pesquisa = $request->pesquisa;
+        $header = $this
+            ->Api
+            ->validar('Erro ao buscar lista de headers')
+            ->get('/upload-grupo/pai/' . $request->grupo_atual)->object();
+        $diretorio = $this
+            ->Api
+            ->validar('Erro ao buscar lista de diretório')
+            ->get('/upload-grupo/filho/' . $request->grupo_atual)->object();
 
-        $Arquivo = new ArquivoModel();
-        $arquivo = $Arquivo->buscarArquivos($pagina, $pesquisa, $request->grupo_atual);
-
-        $Grupo = new GrupoModel();
-
-        return new Response(json: [
-            'header' => $pagina == 1 ? $Grupo->pegarGrupoPai($request->grupo_atual) : [],
-            'diretorio' => $pagina == 1 && empty($pesquisa) ? $Grupo->listarSubGrupo($request->grupo_atual) : [],
-            'arquivo' => $arquivo->lista,
-            'pagina' => $arquivo->pagina
+        return mensagemSucesso([
+            'header' => $header->dado ?? [],
+            'diretorio' => $diretorio->dado[0]->lista ?? [],
+            'arquivo' => $arquivo->dado->lista,
+            'pagina' => $arquivo->dado->pagina->total
         ]);
     }
 
@@ -46,10 +57,13 @@ final class UploadController extends Controller
     */
     public function postExtensao(Request $request)
     {
-        $Grupo = new GrupoEntity();
-        $Grupo->id($request->grupo);
+        $grupo = $this
+            ->Api
+            ->validar('Ocorreu um erro ao buscar grupo', status: 404)
+            ->get('/upload-grupo/' . $request->grupo)
+            ->object();
 
-        return new Response(json: ['extensao' => '.' . implode(',.', $Grupo->get('extensao'))]);
+        return mensagemSucesso(['extensao' => $grupo->dado->extensao]);
     }
 
     /*
@@ -59,9 +73,14 @@ final class UploadController extends Controller
     */
     public function postEstruturaDiretorio(Request $request)
     {
-        $Grupo = new GrupoModel();
-        return new Response(json: [
-            'diretorio' => $Grupo->listarTodaArvoreDiretorio($request->grupo)
+        $grupo = $this
+            ->Api
+            ->validar('Ocorre um erro ao buscar a estrutura de diretórios', status: 404)
+            ->get('/upload-grupo/filho/' . $request->grupo)
+            ->object();
+
+        return mensagemSucesso([
+            'diretorio' => $grupo->dado
         ]);
     }
     public function postMover(Request $request)
@@ -109,24 +128,32 @@ final class UploadController extends Controller
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
 
-        $Grupo = new GrupoEntity(
-            grupo: $request->grupo_atual,
-            nome: $request->nome
-        );
-        $Grupo->salvar();
+        $grupo = $this
+            ->Api
+            ->validar('Erro ao criar diretório')
+            ->body([
+                'grupo' => $request->grupo_atual,
+                'nome' => $request->nome
+            ])
+            ->post('/upload-grupo')
+            ->object();
 
-        return new Response(json: [
-            'id' => $Grupo->id,
-            'nome' => $Grupo->nome,
+        return mensagemSucesso([
+            'id' => $grupo->dado->id,
+            'nome' => $grupo->dado->nome,
         ], status: 201);
     }
     public function postRenomearDiretorio(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
-        $Grupo = new GrupoEntity();
-        $Grupo->id($request->grupo_atual);
-        $Grupo->nome = $request->nome;
-        $Grupo->salvar();
+
+        $this
+            ->Api
+            ->validar('Erro ao renomear o diretório.')
+            ->body([
+                'nome' => $request->nome
+            ])->put('/upload-grupo/' . $request->grupo_atual)
+            ->object();
 
         return new Response(status: 204);
     }
@@ -134,9 +161,10 @@ final class UploadController extends Controller
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
 
-        $Grupo = new GrupoEntity();
-        $Grupo->id($request->grupo_atual);
-        $Grupo->destruir();
+        $this
+            ->Api
+            ->validar('Erro ao deletar diretório.')
+            ->delete('/upload-grupo/' . $request->grupo_atual);
 
         return new Response(status: 204);
     }
@@ -150,23 +178,28 @@ final class UploadController extends Controller
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
 
-        $Arquivo = new ArquivoEntity(
-            arquivo: $request->arquivo,
-            grupo: $request->grupo_atual
-        );
-        $Arquivo->salvar();
+        $this
+            ->Api
+            ->body(['grupo' => $request->grupo_atual])
+            ->arquivo(['arquivo' => $request->arquivo])
+            ->post('/upload-arquivo')->object();
+        // $Arquivo = new ArquivoEntity(
+        //     arquivo: $request->arquivo,
+        //     grupo: $request->grupo_atual
+        // );
+        // $Arquivo->salvar();
 
-        return new Response(json: [
-            'id' => $Arquivo->id,
-            'equipe' => sessao('USUARIO.nome'),
-            'nome' => $Arquivo->nome,
-            'extensao' => $Arquivo->extensao,
-            'tamanho' => $Arquivo->tamanho,
-            'largura' => $Arquivo->largura,
-            'altura' => $Arquivo->altura,
-            'arquivo' => arquivoPrivado($Arquivo->id),
-            'data' => dataBr($Arquivo->data_criacao, 'd/m/Y H:i')
-        ], status: 201);
+        // return new Response(json: [
+        //     'id' => $Arquivo->id,
+        //     'equipe' => sessao('USUARIO.nome'),
+        //     'nome' => $Arquivo->nome,
+        //     'extensao' => $Arquivo->extensao,
+        //     'tamanho' => $Arquivo->tamanho,
+        //     'largura' => $Arquivo->largura,
+        //     'altura' => $Arquivo->altura,
+        //     'arquivo' => arquivoPrivado($Arquivo->id),
+        //     'data' => dataBr($Arquivo->data_criacao, 'd/m/Y H:i')
+        // ], status: 201);
     }
 
     /*
@@ -234,9 +267,13 @@ final class UploadController extends Controller
     */
     private function validarGrupoAtual($grupoInicial, $grupoAtual)
     {
-        $Grupo = new GrupoModel();
-        if (!$Grupo->validarGrupoAtual($grupoInicial, $grupoAtual)) {
-            throw new Excecao('Erro!', 'Não foi possível validar o grupo.');
+        $valido = $this->Api->json([
+            'raiz' => $grupoInicial,
+            'grupo' => $grupoAtual
+        ])->get('/upload-grupo/validar')->object()->dado->valido ?? 'nao';
+
+        if ('sim' !== $valido) {
+            mensagemErro('Erro!', 'Não foi possível validar o grupo.');
         }
     }
 }

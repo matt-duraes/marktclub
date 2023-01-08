@@ -1,6 +1,6 @@
 <?php
 
-namespace PainelModel\Upload;
+namespace ApiModel\Upload;
 
 use ORM\ORM;
 
@@ -36,10 +36,8 @@ final class ArquivoModel extends ORM
             ->pagina($pagina, 20)
             ->read();
 
-        return (object)[
-            'pagina' => $dado->pagina->total,
-            'lista' => $this->montarDado($dado->lista)
-        ];
+        $dado->lista = $this->montarDado($dado->lista);
+        return $dado;
     }
 
     private function montarDado($dado)

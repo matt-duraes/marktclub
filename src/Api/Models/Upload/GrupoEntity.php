@@ -1,24 +1,29 @@
 <?php
 
-namespace PainelModel\Upload;
+namespace ApiModel\Upload;
 
-use stdClass;
 use ORM\Entity;
+use Modules\Botao;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
 
 final class GrupoEntity extends Entity
 {
 
     protected string $_tabela = TABELA_UPLOAD_GRUPO;
-    protected array $_buscar = ['id_upload_grupo', 'nome', 'extensao', 'diretorio'];
+    protected array $_buscar = ['id_upload_grupo', 'id_usuario_equipe', 'nome', 'extensao', 'diretorio', 'privado'];
     protected array $_insert = ['id_upload_grupo', 'id_usuario_equipe', 'extensao', 'diretorio', 'local', 'privado'];
     protected array $_salvar = ['nome'];
 
+    public array $equipe = [];
     private array $raiz = [];
     private array $pai = [];
     private array $filho = [];
     private array $arquivo = [];
-
+    public string $diretorio;
+    public int $id_upload_grupo;
+    public int $id_usuario_equipe;
     public array $extensao;
+    public Botao $privado;
 
     /**
      * Busca ao setar o diretório e subdiretorio
@@ -40,14 +45,14 @@ final class GrupoEntity extends Entity
     */
     protected function regraSalvar()
     {
-        $this->pegarPai();
         $this->verificarSeNomeJaExiste();
     }
 
     protected function regraInsert()
     {
+        $this->pegarPai();
         $this->id_upload_grupo = $this->pai['id'];
-        $this->id_usuario_equipe = sessao('USUARIO.id');
+        $this->id_usuario_equipe = TOKEN['usuario']->get('id');
     }
 
     protected function regraUpdate()
@@ -66,6 +71,7 @@ final class GrupoEntity extends Entity
     {
         $this->pegarRaiz();
         $this->setarValorDaRaiz();
+        $this->equipe = (new PerfilModel)->pegarDado($this->id_usuario_equipe);
     }
 
     /*
@@ -137,7 +143,6 @@ final class GrupoEntity extends Entity
         } else {
             mensagemErro('Erro!', '100001 - Ocorreu um erro, por favor, tente novamente.', localhost: 'Não foi possível pegar o diretório pai.');
         }
-
         $this->pai = $this->campo(['id'])->where($where)->primeiro(retorno: 'array');
     }
 
@@ -169,7 +174,7 @@ final class GrupoEntity extends Entity
 
         $this->extensao = jsonDecode($raiz['extensao'], true, true);
         $this->diretorio = $raiz['diretorio'];
-        $this->privado = $raiz['privado'];
+        $this->privado = new Botao($raiz['privado']);
     }
 
     private function pegarFilhos(): void
@@ -184,7 +189,7 @@ final class GrupoEntity extends Entity
 
     private function verificarSeNomeJaExiste(): void
     {
-        $idPai = $this->pai['id'];
+        $idPai = $this->id_upload_grupo;
         if (empty($idPai)) {
             return;
         }
