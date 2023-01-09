@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use PainelModel\Upload\Helper;
 
 final class UploadController extends Controller
 {
@@ -85,43 +86,36 @@ final class UploadController extends Controller
     }
     public function postMover(Request $request)
     {
-        if (empty($request->grupo_destino)) {
-            mensagemErro('Erro!', 'Você deve escolher um diretório para mover ou criar uma nova pasta.');
-        } else if ($request->grupo_destino == $request->grupo_atual && empty($request->nome)) {
-            mensagemErro(
-                'Erro!',
-                '
-                    Você não pode mover os arquivos para o mesmo diretório que eles estão no momento,
-                    escolha um novo diretório ou crie uma nova pasta no diretório escolhido.
-                '
-            );
-        }
+
+        $Mover = new Helper($request);
 
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
         if (!empty($request->grupo_destino) && $request->grupo_destino != $request->grupo_atual) {
             $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_destino);
         }
 
-        if (!empty($request->nome)) {
-            $GrupoDestino = new GrupoEntity(
-                grupo: $request->grupo_destino,
-                nome: $request->nome
-            );
-            $GrupoDestino->salvar();
-            $retorno = [
-                'id' => $GrupoDestino->id,
-                'nome' => $GrupoDestino->nome
-            ];
-        } else {
-            $retorno = [];
-            $GrupoDestino = new GrupoEntity();
-            $GrupoDestino->id($request->grupo_destino);
-        }
 
-        $Arquivo = new ArquivoModel();
-        $Arquivo->moverArquivos($request->id, $GrupoDestino);
 
-        return new Response(json: $retorno, status: 201);
+        // if (!empty($request->nome)) {
+        //     $GrupoDestino = new GrupoEntity(
+        //         grupo: $request->grupo_destino,
+        //         nome: $request->nome
+        //     );
+        //     $GrupoDestino->salvar();
+        //     $retorno = [
+        //         'id' => $GrupoDestino->id,
+        //         'nome' => $GrupoDestino->nome
+        //     ];
+        // } else {
+        //     $retorno = [];
+        //     $GrupoDestino = new GrupoEntity();
+        //     $GrupoDestino->id($request->grupo_destino);
+        // }
+
+        // $Arquivo = new ArquivoModel();
+        // $Arquivo->moverArquivos($request->id, $GrupoDestino);
+
+        return new Response(json: [], status: 201);
     }
 
     public function postCriarDiretorio(Request $request)
@@ -178,28 +172,24 @@ final class UploadController extends Controller
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
 
-        $this
+        $arquivo = $this
             ->Api
+            ->validar('Erro ao fazer upload da imagem')
             ->body(['grupo' => $request->grupo_atual])
-            ->arquivo(['arquivo' => $request->arquivo])
-            ->post('/upload-arquivo')->object();
-        // $Arquivo = new ArquivoEntity(
-        //     arquivo: $request->arquivo,
-        //     grupo: $request->grupo_atual
-        // );
-        // $Arquivo->salvar();
+            ->arquivo(['arquivo' => $request->_FILES('arquivo')])
+            ->post('/upload-arquivo')->object()->dado;
 
-        // return new Response(json: [
-        //     'id' => $Arquivo->id,
-        //     'equipe' => sessao('USUARIO.nome'),
-        //     'nome' => $Arquivo->nome,
-        //     'extensao' => $Arquivo->extensao,
-        //     'tamanho' => $Arquivo->tamanho,
-        //     'largura' => $Arquivo->largura,
-        //     'altura' => $Arquivo->altura,
-        //     'arquivo' => arquivoPrivado($Arquivo->id),
-        //     'data' => dataBr($Arquivo->data_criacao, 'd/m/Y H:i')
-        // ], status: 201);
+        return mensagemSucesso([
+            'id' => $arquivo->id,
+            'equipe' => $arquivo->equipe,
+            'nome' => $arquivo->nome,
+            'extensao' => $arquivo->extensao,
+            'tamanho' => $arquivo->tamanho,
+            'largura' => $arquivo->largura,
+            'altura' => $arquivo->altura,
+            'arquivo' => $arquivo->arquivo,
+            'data' => dataBr($arquivo->data_criacao, 'd/m/Y H:i')
+        ], status: 201);
     }
 
     /*

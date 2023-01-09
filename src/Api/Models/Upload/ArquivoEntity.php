@@ -3,8 +3,11 @@
 namespace ApiModel\Upload;
 
 use ORM\Entity;
+use Modules\Botao;
+use Modules\DataHora;
 use Helpers\UploadHelper;
 use App\Classes\UploadArquivo\Status;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ArquivoEntity extends Entity
@@ -12,66 +15,68 @@ final class ArquivoEntity extends Entity
 
     protected string $_tabela = TABELA_UPLOAD_ARQUIVO;
     protected array $_buscar = [
-        '!id_upload_grupo', 'arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'data_criacao'
+        'id_upload_grupo', 'id_usuario_equipe', 'arquivo', 'nome', 'extensao', 'tamanho',
+        'largura', 'altura', 'data_criacao', 'privado'
     ];
     protected array $_insert = ['id_upload_grupo', 'id_usuario_equipe'];
     protected array $_salvar = ['arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'status'];
     protected array $_update = ['privado'];
 
+    public array $equipe;
     public int $id_upload_grupo;
     public int $id_usuario_equipe;
     public string $nome;
     public Status $status;
-    public int $tamanho;
-    public array $extensao;
+    public string $tamanho;
+    public string $extensao;
     public int $altura;
     public int $largura;
+    public DataHora $data_criacao;
+    public string $privado;
 
     public function __construct(
-        protected string|UploadHelper|UploadedFile $arquivo = '',
-        protected ?string $grupo = null,
+        public string|UploadHelper|UploadedFile $arquivo = '',
+        protected ?GrupoEntity $Grupo = null,
     ) {
         parent::__construct();
     }
 
+    protected function regraPosBuscar()
+    {
+        $this->equipe = (new PerfilModel)->pegarDado($this->id_usuario_equipe);
+        $this->arquivo = arquivoPrivado($this->id);
+    }
+
     protected function regraInsert()
     {
-        $Grupo = new GrupoEntity();
-        $Grupo->id($this->grupo);
+        $this->id_upload_grupo = $this->Grupo->get('id');
+        $this->id_usuario_equipe = TOKEN['usuario']->get('id');
 
-        $this->id_upload_grupo = $Grupo->get('id');
-        $this->id_usuario_equipe = sessao('USUARIO.id');
-
-        $this->subirImagem($Grupo, md5(uniqid(time())));
+        $this->subirImagem(md5(uniqid(time())));
 
         $this->nome = $this->arquivo->nomeReal();
         $this->status = new Status(1);
     }
     protected function regraPosInsert()
     {
-        $Grupo = new GrupoEntity();
-        $Grupo->id($this->id_upload_grupo);
-
-        $tamanho = arquivoTamanho(DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $this->arquivo);
-        $this->dado(['tamanho' => $tamanho])->where(['uuid', $this->id])->update();
+        $tamanho = arquivoTamanho(DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo->nome());
+        $this->dado(['tamanho' => $tamanho])->where(['arquivo', $this->arquivo->nome()])->update();
         $this->tamanho = $tamanho;
     }
 
     protected function regraPosDestruir()
     {
-        $Grupo = new GrupoEntity();
-        $Grupo->id($this->prop('id_upload_grupo'));
-        $path = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $this->arquivo;
+        $path = DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo;
 
         if (file_exists($path)) {
             unlink($path);
         }
     }
 
-    private function subirImagem($Grupo, $nome)
+    private function subirImagem($nome)
     {
-        $diretorio = $Grupo->diretorio;
-        $extensao = $Grupo->get('extensao');
+        $diretorio = $this->Grupo->diretorio;
+        $extensao = $this->Grupo->get('extensao');
 
         $this->arquivo = new UploadHelper(
             arquivo: $this->arquivo,
@@ -90,5 +95,10 @@ final class ArquivoEntity extends Entity
         }
         $this->extensao = $arquivoExtensao;
         $this->tamanho = $this->arquivo->tamanho();
+    }
+
+    protected function getArquivo()
+    {
+        return $this->prop('arquivo');
     }
 }

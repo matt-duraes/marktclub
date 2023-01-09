@@ -1,14 +1,13 @@
 <?php
 
 use Http\Response;
+use ApiModel\Upload\GrupoEntity;
+use ApiModel\Upload\ArquivoEntity;
 
 $id = arquivoPrivadoId($requestUri);
 
-require_once 'Model/Arquivo.php';
-require_once 'Model/Grupo.php';
-
 try {
-    $Arquivo = new Arquivo();
+    $Arquivo = new ArquivoEntity();
     $Arquivo->id($id);
 } catch (\Throwable) {
     mensagemStatus(404, 'Falhou ao tentar buscar arquivo.');
@@ -16,7 +15,7 @@ try {
 
 $download = array_key_exists('download', $_GET) && $_GET['download'] == 1;
 
-$Grupo = new Grupo();
+$Grupo = new GrupoEntity();
 $Grupo->_id($Arquivo->id_upload_grupo);
 
 
@@ -32,12 +31,12 @@ if (!empty($Arquivo->privado)) {
 
 if (
     (!empty($privado) && !array_key_exists($privado, $_SESSION)) ||
-    (!empty($Grupo->get('equipe')) && (empty($equipe) || !in_array($equipe, $Grupo->get('equipe'))))
+    (!empty($Grupo->equipe['id']) && (empty($equipe) || $equipe != $Grupo->equipe['id']))
 ) {
     mensagemStatus(401, 'Esse arquivo é privado.');
 }
 
-$arquivo = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->arquivo;
+$arquivo = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->get('arquivo');
 
 if (!file_exists($arquivo)) {
     mensagemStatus(404, 'Esse arquivo não existe.');

@@ -936,6 +936,9 @@ if (!function_exists('object_key_exists')) {
      */
     function object_key_exists(string $chave, $objeto)
     {
+        if (!is_object($objeto)) {
+            return false;
+        }
         $array = get_object_vars($objeto);
         return array_key_exists($chave, $array);
     }

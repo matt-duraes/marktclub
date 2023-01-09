@@ -34,7 +34,7 @@ Route
             ::get('/upload-grupo/filho/{id}');
     });
 Route
-    ::nome('upload_dado')
+    ::nome('upload_arquivo')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(\ApiController\UploadArquivoController::class)
     ::grupo(function () {
@@ -47,4 +47,8 @@ Route
             ::request(['grupo'])
             ::request(['arquivo'], 'files')
             ::post('/upload-arquivo');
+        Route
+            ::nome('atualizar')
+            ::request(['grupo'])
+            ::put('/upload-arquivo');
     });

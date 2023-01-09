@@ -616,31 +616,23 @@ class ArquivoUpload {
         this._loadingShow();
 
         const body = new FormData();
-        body.append('grupo', grupo);
+        body.append('grupo_destino', grupo);
+        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo_atual', this._grupoAtual);
         body.append('nome', nome);
         selecionado.forEach(item => {
             body.append('id[]', item.getAttribute('data-id'));
         });
 
-        const response = await fetch(this._LINK + '/upload/mover', {
+        const resposta = await fetch(this._LINK + '/upload/mover', {
             method: 'POST',
             body,
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        const json = await respostaJson(resposta, 'Ocorreu um erro ao mover arquivos.');
         this._loadingHide();
 
-        if (response.status != 201) {
-            Alerta.notificacao(
-                json.erro.mensagem == undefined ? 'Ocorreu um erro ao mover arquivos.' : json.erro.mensagem,
-                false
-            );
+        if (false === json) {
             return;
         }
 
@@ -688,23 +680,14 @@ class ArquivoUpload {
         body.append('grupo_inicial', this._grupoInicial);
 
         const bloco = await this._htmlNovoArquivo(true);
-        const response = await fetch(this._LINK + '/upload/salvar', {
+        const resposta = await fetch(this._LINK + '/upload/salvar', {
             method: 'POST',
             body,
         });
         input.value = '';
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-        if (response.status != 201) {
-            Alerta.notificacao(
-                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorre um erro ao fazer o upload do arquivo.',
-                false
-            );
+        const json = await respostaJson(resposta, 'Ocorre um erro ao fazer o upload do arquivo.');
+        if (false === json) {
             bloco.parentNode.removeChild(bloco);
 
             const zero =
@@ -728,7 +711,7 @@ class ArquivoUpload {
     }
     _adicinarEventoNovoArquivo(bloco, data) {
         bloco.setAttribute('data-id', data.id);
-        bloco.setAttribute('data-dono', data.dono);
+        bloco.setAttribute('data-dono', data.equipe.nome);
         bloco.setAttribute('data-nome', data.nome);
         bloco.setAttribute('data-extensao', data.extensao);
         bloco.setAttribute('data-tamanho', data.tamanho);
