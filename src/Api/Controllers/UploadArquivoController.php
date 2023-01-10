@@ -3,16 +3,19 @@
 namespace ApiController;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use ApiModel\Upload\GrupoEntity;
 use ApiModel\Upload\ArquivoModel;
 use ApiModel\Upload\ArquivoEntity;
 use App\Controllers\Api\Interface\ListarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
+use App\Controllers\Api\Interface\AtualizarInterface;
 
 final class UploadArquivoController extends Controller implements
     ListarInterface,
-    SalvarInterface
+    SalvarInterface,
+    AtualizarInterface
 {
     public function getListar(Request $request)
     {
@@ -35,9 +38,27 @@ final class UploadArquivoController extends Controller implements
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Arquivo, lista: [
-                'id', 'equipe', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'arquivo', 'data_criacao'
+                'id', 'equipe', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'link' => 'arquivo', 'data_criacao'
             ]),
             status: 201
         );
+    }
+    public function putAtualizar(Request $request, string $id)
+    {
+        $Arquivo = new ArquivoEntity();
+        $Arquivo->id($id);
+
+        if (!$request->vazio('grupo')) {
+            $Grupo = new GrupoEntity();
+            $Grupo->id($request->grupo);
+            $Arquivo->Grupo = $Grupo;
+        }
+
+        $Arquivo->set(lista: $request->lista([
+            'nome'
+        ], false));
+        $Arquivo->salvar();
+
+        return new Response(status: 204);
     }
 }

@@ -478,7 +478,7 @@ class CurlHelper
         curl_close($ch);
 
         if ($this->erroValidar) {
-            respostaJson($this->object(), $this->erroMensagem, $this->erroTitulo, $this->erroStatus);
+            respostaJson($this, $this->erroMensagem, $this->erroTitulo, $this->erroStatus);
         }
 
         $this->requisicao = [

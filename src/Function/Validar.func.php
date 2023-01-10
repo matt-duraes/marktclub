@@ -447,9 +447,9 @@ if (!function_exists('respostaJson')) {
         string $mensagem,
         ?string $titulo = null,
         int $status = 400
-    ): void {
+    ) {
         if ($resposta instanceof ApiHelper && $resposta->status() == 204) {
-            return;
+            return true;
         }
 
         $resposta = $resposta instanceof ApiHelper ? $resposta->object() : $resposta;
@@ -495,5 +495,6 @@ if (!function_exists('respostaJson')) {
             }
             mensagemErro(empty($titulo) ? 'Erro!' : $titulo, mensagem: $mensagem, status: $status);
         }
+        return true;
     }
 }

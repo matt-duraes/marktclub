@@ -86,51 +86,22 @@ final class UploadController extends Controller
     }
     public function postMover(Request $request)
     {
-
-        $Mover = new Helper($request);
-
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
         if (!empty($request->grupo_destino) && $request->grupo_destino != $request->grupo_atual) {
             $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_destino);
         }
 
+        $Mover = new Helper($request);
+        $Mover->moverArquivo();
 
-
-        // if (!empty($request->nome)) {
-        //     $GrupoDestino = new GrupoEntity(
-        //         grupo: $request->grupo_destino,
-        //         nome: $request->nome
-        //     );
-        //     $GrupoDestino->salvar();
-        //     $retorno = [
-        //         'id' => $GrupoDestino->id,
-        //         'nome' => $GrupoDestino->nome
-        //     ];
-        // } else {
-        //     $retorno = [];
-        //     $GrupoDestino = new GrupoEntity();
-        //     $GrupoDestino->id($request->grupo_destino);
-        // }
-
-        // $Arquivo = new ArquivoModel();
-        // $Arquivo->moverArquivos($request->id, $GrupoDestino);
-
-        return new Response(json: [], status: 201);
+        return mensagemSucesso($Mover->retornoMover, 201);
     }
 
     public function postCriarDiretorio(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
 
-        $grupo = $this
-            ->Api
-            ->validar('Erro ao criar diretório')
-            ->body([
-                'grupo' => $request->grupo_atual,
-                'nome' => $request->nome
-            ])
-            ->post('/upload-grupo')
-            ->object();
+        $grupo = (new Helper())->criarDiretorio($request->grupo, $request->nome);
 
         return mensagemSucesso([
             'id' => $grupo->dado->id,

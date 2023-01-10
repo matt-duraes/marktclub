@@ -50,5 +50,5 @@ Route
         Route
             ::nome('atualizar')
             ::request(['grupo'])
-            ::put('/upload-arquivo');
+            ::put('/upload-arquivo/{id}');
     });
