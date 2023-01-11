@@ -79,6 +79,13 @@ final class ArquivoEntity extends Entity
 
     protected function regraPosDestruir()
     {
+        try {
+            $this->Grupo = new GrupoEntity();
+            $this->Grupo->_id($this->id_upload_grupo);
+        } catch (\Throwable) {
+            return;
+        }
+
         $path = DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo;
 
         if (file_exists($path)) {

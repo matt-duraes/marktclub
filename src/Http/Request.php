@@ -46,26 +46,42 @@ final class Request extends Psr7Request
     /**
      * Verifica se um parâmetro foi enviado na request
      *
-     * @param   string $parametro   Parametro que deseja validar
-     * @return  bool                True caso o parâmetro exista
+     * @param   string          $parametro  Parametro que deseja validar
+     * @param   null|string     $titulo     Título caso deseja retornar um erro
+     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
+     * @return  bool                        True caso o parâmetro exista
+     * @throws  Erro\Excecao                Erro caso o campo parametro não exista e tenha passado uma mensagem de erro
      */
-    public function existe(string $parametro): bool
+    public function existe(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool
     {
         $dado = $this->dado();
-        return array_key_exists($parametro, $dado);
+        $existe = array_key_exists($parametro, $dado);
+        if (!$existe && !empty($mensagem)) {
+            $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
+            mensagemErro($titulo, $mensagem);
+        }
+        return $existe;
     }
 
     // doc
     /**
      * Verifica que um parâmetro não foi enviado ou se ele está vazio
      *
-     * @param   string $parametro   Parametro que deseja validar
-     * @return  bool                True caso não exista ou esteja vazio
+     * @param   string          $parametro  Parametro que deseja validar
+     * @param   null|string     $titulo     Título caso deseja retornar um erro
+     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
+     * @return  bool                        True caso não exista ou esteja vazio
+     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
      */
-    public function vazio(string $parametro): bool
+    public function vazio(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool
     {
         $dado = $this->dado();
-        return !array_key_exists($parametro, $dado) || empty($dado[$parametro]);
+        $vazio = !array_key_exists($parametro, $dado) || empty($dado[$parametro]);
+        if ($vazio && !empty($mensagem)) {
+            $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
+            mensagemErro($titulo, $mensagem);
+        }
+        return $vazio;
     }
 
     // doc

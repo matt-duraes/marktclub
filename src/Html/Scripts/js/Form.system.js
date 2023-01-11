@@ -57,7 +57,7 @@ fwFormJsonParse = json => {
 */
 const LINK_FORM = document.querySelector('#LINK') ? document.querySelector('#LINK').value : '';
 const GaleriaFormImagem = new Galeria(
-    document.querySelector('#bloco_app_add'),
+    document.querySelector('.form_geral'),
     '.fw_form_imagem_galeria',
     '.fw_form_imagem .fw_imagem_visualizar'
 );

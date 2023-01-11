@@ -66,6 +66,7 @@ final class UploadGrupoController extends Controller implements
         $Grupo = new GrupoEntity();
         $Grupo->id($id);
         $Grupo->destruir();
+        return new Response(status: 204);
     }
 
     public function getPai(string $id)

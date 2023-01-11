@@ -12,7 +12,6 @@ class Galeria {
         if (!this._bloco) {
             return;
         }
-
         this._figure = figure;
         this._botao = botao;
         this._download = download == undefined ? '' : download;

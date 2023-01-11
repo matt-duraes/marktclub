@@ -101,7 +101,7 @@ final class UploadController extends Controller
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
 
-        $grupo = (new Helper())->criarDiretorio($request->grupo, $request->nome);
+        $grupo = (new Helper())->criarDiretorio($request->grupo_atual, $request->nome);
 
         return mensagemSucesso([
             'id' => $grupo->dado->id,
@@ -122,6 +122,7 @@ final class UploadController extends Controller
 
         return new Response(status: 204);
     }
+
     public function postDeletarDiretorio(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
@@ -171,18 +172,14 @@ final class UploadController extends Controller
     public function postRenomear(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
+        $request->vazio('nome', mensagem: 'Digite um nome para o arquivo.');
 
-        $Grupo = new GrupoEntity();
-        $Grupo->id($request->grupo_atual);
-        $idGrupo = $Grupo->get('id');
-
-        $Arquivo = new ArquivoEntity();
-        $Arquivo->buscar([
-            ['uuid', $request->id],
-            ['id_upload_grupo', $idGrupo]
-        ]);
-        $Arquivo->nome = $request->nome;
-        $Arquivo->salvar();
+        $this
+            ->Api
+            ->validar('Erro ao renomear arquivo.')
+            ->body([
+                'nome' => $request->nome
+            ])->put('/upload-arquivo/' . $request->id);
 
         return new Response(status: 204);
     }
@@ -204,20 +201,12 @@ final class UploadController extends Controller
     public function postDeletar(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
-
-        $Grupo = new GrupoEntity();
-        $Grupo->id($request->grupo_atual);
-        $idGrupo = $Grupo->get('id');
-
-        foreach ($request->id as $arquivo) {
-            $Arquivo = new ArquivoEntity();
-            $Arquivo->buscar([
-                ['uuid', $arquivo],
-                ['id_upload_grupo', $idGrupo]
-            ]);
-            $Arquivo->destruir();
+        foreach ($request->id  as $id) {
+            $this
+                ->Api
+                ->validar('Ocorre um erro ao deletar um ou mais arquivos.')
+                ->delete('/upload-arquivo/' . $id);
         }
-
         return new Response(status: 204);
     }
 
@@ -226,8 +215,12 @@ final class UploadController extends Controller
     | MÉTODO PRIVADO
     |--------------------------------------------------------------------------
     */
-    private function validarGrupoAtual($grupoInicial, $grupoAtual)
+    private function validarGrupoAtual($grupoInicial, $grupoAtual): void
     {
+        if ($grupoAtual == $grupoInicial) {
+            return;
+        }
+
         $valido = $this->Api->json([
             'raiz' => $grupoInicial,
             'grupo' => $grupoAtual

@@ -49,6 +49,9 @@ Route
             ::post('/upload-arquivo');
         Route
             ::nome('atualizar')
-            ::request(['grupo'])
+            ::request(['!grupo', '!nome'])
             ::put('/upload-arquivo/{id}');
+        Route
+            ::nome('deletar')
+            ::delete('/upload-arquivo/{id}');
     });

@@ -65,25 +65,15 @@ class ArquivoUpload {
         body.append('grupo_inicial', this._grupoInicial);
         body.append('grupo_atual', this._grupoAtual);
 
-        const response = await fetch(this._LINK + '/upload/criar-diretorio', {
+        const resposta = await fetch(this._LINK + '/upload/criar-diretorio', {
             method: 'POST',
             body,
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        const json = await respostaJson(resposta, 'Ocorreu um erro ao criar o diretório.');
         this._loadingHide();
 
-        if (response.status != 201) {
-            Alerta.notificacao(
-                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorreu um erro ao criar o diretório.',
-                false
-            );
+        if (false === json) {
             return;
         }
         await this._construtorPegarEstruturaDiretorio();
@@ -155,26 +145,18 @@ class ArquivoUpload {
         const body = new FormData();
         body.append('id', id);
         body.append('nome', nome);
+        body.append('grupo_atual', this._grupoAtual);
+        body.append('grupo_inicial', this._grupoInicial);
 
-        const response = await fetch(this._LINK + '/upload/renomear', {
+        const resposta = await fetch(this._LINK + '/upload/renomear', {
             method: 'POST',
             body,
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        const json = await respostaJson(resposta, 'Ocorre um erro ao renomear o arquivo.');
         this._loadingHide();
 
-        if (response.status != 204) {
-            Alerta.notificacao(
-                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorre um erro ao renomear o arquivo.',
-                false
-            );
+        if (false === json) {
             return;
         }
 
@@ -197,6 +179,8 @@ class ArquivoUpload {
         itemMarcado.forEach(item => {
             body.append('id[]', item.getAttribute('data-id'));
         });
+        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo_atual', this._grupoAtual);
 
         const resposta = await fetch(this._LINK + '/upload/deletar', {
             method: 'POST',
