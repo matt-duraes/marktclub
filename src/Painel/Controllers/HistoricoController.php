@@ -68,6 +68,7 @@ final class HistoricoController extends Controller
             'pagina' => $request->pagina,
             'app' => $request->app,
             'relacionado' => $request->relacionado,
+            'pesquisa' => $request->pesquisa
         ])->get('/painel-historico')->object();
 
         if (existeErro($dado, 'dado')) {

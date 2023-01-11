@@ -4,7 +4,7 @@ use Route\Route;
 use App\Middlewares\AuthMiddleware;
 
 require_once ROOT . '/views/pages/painel/demanda/Routes/DemandaRoute.php';
-require_once ROOT . '/views/pages/painel/album/Routes/AlbumRoute.php';
+require_once ROOT . '/views/pages/painel/album_galeria/Routes/AlbumRoute.php';
 require_once ROOT . '/views/pages/painel/relatorio/Routes/RelatorioRoute.php';
 require_once ROOT . '/views/pages/painel/usuario_tabela/Routes/TabelaRoute.php';
 

@@ -9,7 +9,9 @@ const selectValue = (select, valor) => {
     const inputValue = bloco.querySelector('.input_select_value');
     const inputTexto = bloco.querySelector('.input_select_texto');
     const texto = bloco.querySelector('.option .lista[data-value="' + valor + '"]');
-    if (!texto) {
+    if (!texto || valor == '') {
+        inputTexto.value = '';
+        inputValue.value = '';
         return;
     }
     inputTexto.value = texto.innerText;

@@ -32,11 +32,11 @@ window.addEventListener('load', function () {
         'F12',
     ];
     fwMascaraKeyCtrl = ['a', 'x', 'c', 'v', 'z', 'A', 'X', 'C', 'V', 'Z'];
-    let fwMascaraLista = document.querySelectorAll('*[data-mascara]');
-    fwMascaraLoading(fwMascaraLista);
+    fwMascaraLoading(document);
 });
 
-fwMascaraLoading = listaInput => {
+fwMascaraLoading = bloco => {
+    const listaInput = bloco.querySelectorAll('*[data-mascara]');
     listaInput.forEach(input => {
         input.addEventListener('keydown', fwMascaraKeyDownEvento);
         input.addEventListener('keyup', fwMascaraKeyUpEvento);

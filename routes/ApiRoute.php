@@ -338,7 +338,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
+            ::request(['pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
             ::get('/usuario-equipe');
 
         Route
@@ -579,7 +579,7 @@ Route
         Route
             ::nome('listar')
             ::request([
-                'pagina', 'app', 'relacionado', '!data_de', '!data_ate'
+                'pagina', 'app', 'relacionado', '!data_de', '!data_ate', '!pesquisa'
             ], 'json')
             ::get('/painel-historico');
 
@@ -767,7 +767,50 @@ Route::nome('admin_empresa')
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
+            ::request(['!titulo'], 'json')
             ::get('/admin-empresa/select');
+    });
+
+Route::nome('demandaDado')
+    ::controller(App\Controllers\Api\DemandaDadoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
+            ::request(['status', 'ordem'], 'json')
+            ::get('/demanda-dado');
+
+        Route
+            ::nome('buscar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:buscar'])
+            ::get('/demanda-dado/{id}');
+
+        Route
+            ::nome('salvar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
+            ::request(['empresa', 'titulo', 'tipo'])
+            ::post('/demanda-dado');
+    });
+
+Route::nome('demandaTarefa')
+    ::controller(App\Controllers\Api\DemandaTarefaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
+            ::request(['demanda', 'titulo', 'texto', 'tipo', '!hora_producao_estimada', '!equipe'])
+            ::post('/demanda-tarefa');
+        Route
+            ::nome('buscar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
+            ::get('/demanda-tarefa/{id}');
+        Route
+            ::nome('atualizar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
+            ::request(['titulo', 'texto', 'tipo'])
+            ::put('/demanda-tarefa/{id}');
     });
 
 Route
@@ -778,6 +821,15 @@ Route
             ::nome('analytics')
             ::view('/rotina/analytics');
         Route
-            ::nome('baseUsuario')
-            ::view('/rotina/base-usuario');
+            ::nome('ultimoAcesso')
+            ::view('/rotina/ultimo-acesso');
+    });
+
+Route
+    ::nome('emeilmarketing')
+    ::controller(App\Controllers\Api\EmailMarketing::class)
+    ::grupo(function () {
+        Route
+            ::nome('remover')
+            ::view('/emailmarketing/remover/{hash}');
     });

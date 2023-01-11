@@ -70,6 +70,10 @@ final class HistoricoModel extends GeralModel
         if (!empty($dataAte) && validarData($dataAte)) {
             $where[] = ['data_criacao', '<=', dataBanco($dataAte) . ' 23:59:59'];
         }
+        $pesquisa = $request->pesquisa;
+        if (!empty($pesquisa)) {
+            $where[] = ['mensagem', 'like', '%' . $pesquisa . '%'];
+        }
         return $where;
     }
 }

@@ -1,0 +1,50 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_cliente', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<h3>Domínio</h3>
+<div class="bloco">
+    @? formSelect(name: 'dominio_tipo', label: 'Tipo de domínio', placeholder: 'Tipo de domínio', lista: ['' => 'Escolha uma opção', 'dominio' => 'Domínio próprio', 'subdominio' => 'Subdomínio próprio', 'temvantagens' => 'temvantagens.com.br', 'temmaisvantagens' => 'temmaisvantagens.com.br'], obrigatorio: true, class: 'tipo_dominio', change: 'mudarTipoDominio')
+
+    <div class="sub_dominio display_none" id="bloco_dominio_sub">
+        <p>https://</p>
+        @? formInput(name: 'dominio_sub', label: 'Subdomínio', placeholder: 'Qual subdomínio?', obrigatorio: true)
+        <p id="bloco_dominio_sub_texto">.temmaisvantagens.com.br</p>
+    </div>
+
+    @? formUrl(name: 'dominio_proprio', label: 'Domínio', placeholder: 'Qual domínio será usado?', obrigatorio: true, id: 'bloco_dominio_proprio', class: 'dominio_proprio display_none')
+    <div class="quebra"></div>
+
+    <div class="observacao display_none" id="bloco_observacao_sub_dominio_proprio">
+        <p>Pedir para o cliente criar o subdomínio no seu gerênciar de DNS com o tipo CNAME e apontar para: <strong>{{env('DNS_CNAME', '')}}</strong></p>
+    </div>
+    <div class="observacao display_none" id="bloco_observacao_dominio_proprio">
+        <p>Caso o Domínio sejá exclusivo do clube, tentar fazer o cliente deixar o Markt Club gerenciar o DNS adicionando o ID administrativo <strong>RONCA117</strong> no registro.br (Em casos de domínio .br).</p>
+        <p>Caso ele aceite deixar o DNS ser gerênciado pelo Markt Club mas o domínio não ser .br, verificar a melhor possibilidade com ele como por exemplo, nos passar o login e senha do local onde comprou o domínio, adicionar como administrador no sistema ou outro tipo de acesso.</p>
+        <p>Caso ele não queira colocar a gente como administrador, verificar a possibilidade dele apontar o DNS para nossa CDN, caso ele concorde, marque essa opção no botão abaixo para a TI criar o ambiente e te passar o DNS.</p>
+        <p>Caso ele não aceite ou vá usar o domínio para outros fins como criar outros subdomínios, criar e-mails e etc, passar nosso IP para ele apontar no seu gerênciador de DNS (isso deve ser o último caso): <strong>{{env('DNS_IP_CLUBE', '')}}</strong></p>
+    </div>
+
+    @? formSwitch(name: 'configurar_cdn', label: 'Configurar CDN para cliente?', check: false, id: 'bloco_configurar_cdn', class: 'display_none')
+</div>
+
+<h3>Login</h3>
+@? formSwitch(name: 'login_api', label: 'Login será por API?', check: false)
+@? formUrl(name: 'dominio_login', label: 'Link de login', placeholder: 'Qual link de login do site do cliente?', obrigatorio: true, id: 'bloco_dominio_login', class: 'display_none')
+
+<h3>APP</h3>
+@? formSwitch(name: 'app', label: 'Será preciso criar APP?', check: false)
+<div class="observacao display_none" id="bloco_app">
+    <p>Você precisa pedir para o cliente nos enviar a documentação da API de login para implementar no APP</p>
+</div>
+@? formSwitch(name: 'webview', label: 'O Clube será usado apenas no APP via WebView?', check: false)
+
+<h3>Menus</h3>
+<p class="chamada">Quais menus irão ser disponibilizado para o cliente?</p>
+<div class="checkbox" id="bloco_menu_clube">
+    @? formCheckbox(name: 'menu_convenio', label: 'Convênio', value: 'Convênio')
+    @? formCheckbox(name: 'menu_turismo', label: 'Turismo', value: 'Turismo')
+    @? formCheckbox(name: 'menu_promocao', label: 'Promoção', value: 'Promoção')
+    @? formCheckbox(name: 'menu_credito_sicoob', label: 'Crédito Sicoob', value: 'Crédito Sicoob')
+    @? formCheckbox(name: 'menu_credito_alfa', label: 'Crédito Alfa', value: 'Crédito Alfa')
+    @? formCheckbox(name: 'menu_medicamento', label: 'Medicamento', value: 'Medicamento')
+</div>

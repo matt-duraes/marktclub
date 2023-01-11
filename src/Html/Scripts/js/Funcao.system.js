@@ -319,9 +319,9 @@ const slug = function (string) {
 
 const respostaJson = (resposta, mensagem) => {
     return new Promise(async resolve => {
-        const status = resposta.status();
+        const status = resposta.status;
         if (status == 204) {
-            resolve(true);
+            return resolve(true);
         }
 
         let json;
@@ -332,14 +332,16 @@ const respostaJson = (resposta, mensagem) => {
         }
 
         if (status == 200 || status == 201) {
-            resolve(json);
+            return resolve(json);
         }
 
-        Alerta.notificacao(
-            json.erro != undefined && json.erro.mensagem != undefined ? json.erro.mensagem : mensagem,
-            false
-        );
-        resolve(false);
+        if (mensagem !== undefined) {
+            Alerta.notificacao(
+                json.erro != undefined && json.erro.mensagem != undefined ? json.erro.mensagem : mensagem,
+                false
+            );
+        }
+        return resolve(false);
     });
 };
 

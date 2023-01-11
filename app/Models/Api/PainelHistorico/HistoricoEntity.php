@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\PainelHistorico;
 
+use Modules\DataHora;
 use Helpers\DataHelper;
 use App\Models\Api\GeralEntity;
 use App\Classes\PainelHistorico\Acao;
@@ -31,6 +32,9 @@ final class HistoricoEntity extends GeralEntity
         status|Status|valido
     ';
 
+    public int $id_usuario_equipe;
+    public DataHora $data_criacao;
+    public string $mensagem;
     public array $relacionado;
     public array $app;
     public Acao $acao;

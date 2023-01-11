@@ -1,3 +1,6 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_associacao', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
 <h3>Requisitos</h3>
 <div class="observacao">
     <p>O cliente deve contratar o plano Deluxe ou superior da Godaddy ou similar em outro provedor</p>

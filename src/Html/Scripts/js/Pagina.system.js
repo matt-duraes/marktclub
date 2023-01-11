@@ -172,15 +172,18 @@ class Pagina {
 
     _carregarScriptSistema(bloco) {
         // MASCARA
-        let mascara = bloco.querySelectorAll('*[data-mascara]');
-        if (typeof fwMascaraLoading === 'function' && mascara.length > 0) {
-            fwMascaraLoading(mascara);
+        if (typeof fwMascaraLoading === 'function') {
+            fwMascaraLoading(bloco);
         }
+
+        // FORM
         if (typeof fwFormLoading === 'function') {
             fwFormLoading(bloco);
         }
-        if (typeof formGeralCheckboxLoading === 'function') {
-            formGeralCheckboxLoading(bloco);
+
+        // CKEDITOR;
+        if (typeof fwCkeditorLoading === 'function') {
+            fwCkeditorLoading(bloco);
         }
     }
 }

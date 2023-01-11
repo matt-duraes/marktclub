@@ -41,6 +41,8 @@
             "Api\\": "src/Http/",
             "Http\\": "src/Http/",
             "Erro\\": "src/Erro/",
+            "ApiController\\": "src/Api/Controllers",
+            "ApiModel\\": "src/Api/Models",
             "PainelConfig\\": "src/Painel/Config",
             "PainelApp\\": "src/Painel/App",
             "PainelController\\": "src/Painel/Controllers",

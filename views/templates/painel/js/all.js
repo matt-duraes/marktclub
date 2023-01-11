@@ -6,7 +6,7 @@
 // @system "Mascara"
 // @system "Calendario"
 // @system "Funcao"
-// @system "Ckeditor"
+// @system "Editor"
 // @system "SwipeEvent"
 // @system "ArquivoUpload"
 // @system "Form"
@@ -28,6 +28,7 @@ const blocoLink = document.getElementById('LINK');
 const LINK = blocoLink.value;
 
 window.addEventListener('load', () => {
+    historicoLoad();
     /*
     |--------------------------------------------------------------------------
     | AJUDA DO SISTEMA

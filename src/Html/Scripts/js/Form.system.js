@@ -780,41 +780,21 @@ fwFormLoading = bloco => {
     |--------------------------------------------------------------------------
     /*/
     if (textareaResizeLista.length > 0) {
-        const textareaHeightPadrao = 45;
         textareaResizeLista.forEach(textarea => {
             textareaFunction = textarea.oninput = function () {
-                textarea.style.height = 0;
-                textarea.style.height =
-                    textarea.scrollHeight < textareaHeightPadrao
-                        ? textareaHeightPadrao + 'px'
-                        : textarea.scrollHeight + 'px';
+                const quantidadeLinhaAtual = parseInt(textarea.value.split('\n').length);
+                const numeroLinhaMaxima = parseInt(textarea.getAttribute('data-numero-linha'));
+                const blocoCss = window.getComputedStyle(textarea);
+                const restoAltura =
+                    parseInt(blocoCss.paddingTop) +
+                    parseInt(blocoCss.paddingBottom) +
+                    parseInt(blocoCss.borderTopWidth) +
+                    parseInt(blocoCss.borderBottomWidth);
+                const linhaParaCalculo =
+                    quantidadeLinhaAtual > numeroLinhaMaxima ? numeroLinhaMaxima : quantidadeLinhaAtual;
+                textarea.style.height = `calc(${restoAltura}px + ${linhaParaCalculo * 1.5}em)`;
             };
             textareaFunction();
-        });
-    }
-
-    if (textareaResizeEnterFalseLista.length > 0) {
-        textareaResizeEnterFalseLista.forEach(textarea => {
-            textarea.addEventListener('keydown', e => {
-                if (e.key == 'Enter') {
-                    e.preventDefault();
-                }
-                if (e.shiftKey && e.key == 'Enter') {
-                    let valor = textarea.value;
-
-                    const posicaoCursorInicial = textarea.selectionStart;
-                    const posicaoCursorFinal = textarea.selectionEnd;
-                    const valorInicial = valor.substring(0, posicaoCursorInicial);
-                    const valorFinal = valor.substring(posicaoCursorFinal);
-                    const cursorFinal = posicaoCursorInicial + 1;
-
-                    textarea.value = valorInicial + '\n' + valorFinal;
-                    textarea.setSelectionRange(cursorFinal, cursorFinal);
-
-                    textarea.style.height = 0;
-                    textarea.style.height = textarea.scrollHeight < 45 ? 45 + 'px' : textarea.scrollHeight + 'px';
-                }
-            });
         });
     }
 

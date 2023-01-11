@@ -936,6 +936,9 @@ if (!function_exists('object_key_exists')) {
      */
     function object_key_exists(string $chave, $objeto)
     {
+        if (!is_object($objeto)) {
+            return false;
+        }
         $array = get_object_vars($objeto);
         return array_key_exists($chave, $array);
     }
@@ -1518,7 +1521,7 @@ if (!function_exists('imagemUsuario')) {
     /**
      * Pega a imagem do usuário
      *
-     * @param   null|string $tipo       Tipo de imagem
+     * @param   null|string $tipo       Tipo de imagem sendo 1 para arquivo, 2 para Google e 3 para Facebook
      * @param   null|string $arquivo    Arquivo de imagem
      * @param   null|string $facebook   URL da imagem do Facebook
      * @param   null|string $google     URL da imagem do Google
@@ -1560,7 +1563,7 @@ if (!function_exists('arquivoPublico')) {
         $diretorio = preg_replace('/\/$/', '', $diretorio);
 
         if (!file_exists(DIRETORIO_PUBLICO . '/' . $diretorio . '/' . $arquivo)) {
-            return '';
+            return $padrao;
         }
 
         $cifra = 'AES-256-CBC';

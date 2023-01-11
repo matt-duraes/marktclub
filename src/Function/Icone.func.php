@@ -1248,3 +1248,33 @@ if (!function_exists('iconeMenos')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 10" style="enable-background:new 0 0 40 10;" xml:space="preserve"><path d="M35,10H5c-2.7,0-5-2.2-5-5v0c0-2.7,2.2-5,5-5h30c2.8,0,5,2.2,5,5v0C40,7.8,37.8,10,35,10z"/></svg>';
     }
 }
+if (!function_exists('iconePlay')) {
+    // doc
+    // exemplo
+    // echo iconePlay
+    /**
+     * Gera um icone de play
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconePlay(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M20,0C8.95,0,0,8.95,0,20s8.95,20,20,20s20-8.95,20-20S31.05,0,20,0L20,0z M28.19,20.67l-12.66,9.21c-0.26,0.19-0.58,0.21-0.87,0.07s-0.46-0.42-0.46-0.74l0-18.43c0-0.32,0.17-0.6,0.46-0.74c0.29-0.15,0.61-0.12,0.87,0.07l12.66,9.21c0.22,0.16,0.34,0.4,0.34,0.67C28.54,20.28,28.42,20.51,28.19,20.67L28.19,20.67z"/></svg>';
+    }
+}
+if (!function_exists('iconePause')) {
+    // doc
+    // exemplo
+    // echo iconePause
+    /**
+     * Gera um icone de pause
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconePause(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M40,20c0,11.05-8.95,20-20,20S0,31.05,0,20S8.95,0,20,0S40,8.95,40,20L40,20z M10.42,9.83c0-1.06,0.86-1.92,1.92-1.92h4.15c1.06,0,1.92,0.86,1.92,1.92v20.35c0,1.06-0.86,1.92-1.92,1.92h-4.15c-1.06,0-1.92-0.86-1.92-1.92L10.42,9.83z M23.51,7.91c-1.06,0-1.92,0.86-1.92,1.92v20.35c0,1.06,0.86,1.92,1.92,1.92h4.15c1.06,0,1.92-0.86,1.92-1.92V9.83c0-1.06-0.86-1.92-1.92-1.92H23.51z"/></svg>';
+    }
+}

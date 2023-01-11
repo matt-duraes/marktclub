@@ -307,6 +307,7 @@ final class UploadHelper
         if (empty($extLista)) {
             return;
         }
+
         if (!in_array($this->extensao, $extLista)) {
             throw new Excecao(
                 titulo: $this->mensagem['ext']['titulo'] ?? 'Arquivo incorreto!',

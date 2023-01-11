@@ -62,7 +62,8 @@ class ArquivoUpload {
 
         const body = new FormData();
         body.append('nome', nome);
-        body.append('grupo', this._grupoAtual);
+        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo_atual', this._grupoAtual);
 
         const response = await fetch(this._LINK + '/upload/criar-diretorio', {
             method: 'POST',
@@ -106,29 +107,18 @@ class ArquivoUpload {
 
         const body = new FormData();
         body.append('nome', nome);
-        body.append('grupo', this._grupoAtual);
+        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo_atual', this._grupoAtual);
 
-        const response = await fetch(this._LINK + '/upload/renomear-diretorio', {
+        const resposta = await fetch(this._LINK + '/upload/renomear-diretorio', {
             method: 'POST',
             body,
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        const json = await respostaJson(resposta, 'Ocorreu um erro ao renomear o diretório.');
         this._loadingHide();
 
-        if (response.status != 204) {
-            Alerta.notificacao(
-                json.erro != undefined && json.erro.mensagem != undefined
-                    ? json.erro.mensagem
-                    : 'Ocorre um erro ao renomear o diretório.',
-                false
-            );
+        if (false === json) {
             return;
         }
 
@@ -208,25 +198,14 @@ class ArquivoUpload {
             body.append('id[]', item.getAttribute('data-id'));
         });
 
-        const response = await fetch(this._LINK + '/upload/deletar', {
+        const resposta = await fetch(this._LINK + '/upload/deletar', {
             method: 'POST',
             body,
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        const json = await respostaJson(resposta, 'Ocorre um erro ao deletar os arquivos.');
         this._loadingHide();
-
-        if (response.status != 204) {
-            Alerta.notificacao(
-                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorre um erro ao deletar os arquivos.',
-                false
-            );
+        if (false === json) {
             return;
         }
 
@@ -335,41 +314,36 @@ class ArquivoUpload {
         const body = new FormData();
         body.append('pesquisa', pesquisa);
         body.append('pagina', pagina);
-        body.append('grupo', this._grupoAtual);
+        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo_atual', this._grupoAtual);
         if (this._body) {
             this._body.forEach((val, ind) => {
                 body.append(ind, val);
             });
         }
-        const response = await fetch(this._LINK + '/upload/buscar', {
+        const resposta = await fetch(this._LINK + '/upload/buscar', {
             body,
             method: 'POST',
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        let json = await respostaJson(resposta);
         this._loadingHide();
 
         if (json.dado.pagina > pagina) {
             this._show(this._botaoCarregarMais);
         }
 
-        const diretorioExiste = response.status == 200 && json.dado.diretorio && json.dado.diretorio.length > 0;
+        const diretorioExiste = resposta.status == 200 && json.dado.diretorio && json.dado.diretorio.length > 0;
         if (diretorioExiste && pagina == 1) {
             this._adicionarDiretorio(json.dado.diretorio);
         }
 
-        const headerExiste = response.status == 200 && json.dado.header && json.dado.header.length > 0;
+        const headerExiste = resposta.status == 200 && json.dado.header && json.dado.header.length > 0;
         if (headerExiste && pagina == 1) {
             this._adicionarHeader(json.dado.header);
         }
 
-        const arquivoExiste = response.status == 200 && json.dado.arquivo && json.dado.arquivo.length > 0;
+        const arquivoExiste = resposta.status == 200 && json.dado.arquivo && json.dado.arquivo.length > 0;
         if (!arquivoExiste && !diretorioExiste && pesquisa == '' && pagina == 1) {
             this._show(this._blocoZero);
         } else if (!arquivoExiste && pesquisa != '' && pagina == 1) {
@@ -505,29 +479,20 @@ class ArquivoUpload {
     }
     async _deletarDiretorio() {
         const body = new FormData();
-        body.append('grupo', this._grupoAtual);
+        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo_atual', this._grupoAtual);
 
         this._loadingShow();
 
-        const response = await fetch(this._LINK + '/upload/deletar-diretorio', {
+        const resposta = await fetch(this._LINK + '/upload/deletar-diretorio', {
             body,
             method: 'POST',
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        const json = await respostaJson(resposta, 'Ocorreu um erro ao deletar diretório.');
         this._loadingHide();
 
-        if (response.status != 204) {
-            Alerta.notificacao(
-                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorreu um erro ao deletar diretório.',
-                false
-            );
+        if (false === json) {
             return;
         }
 
@@ -651,31 +616,23 @@ class ArquivoUpload {
         this._loadingShow();
 
         const body = new FormData();
-        body.append('grupo', grupo);
+        body.append('grupo_destino', grupo);
+        body.append('grupo_inicial', this._grupoInicial);
+        body.append('grupo_atual', this._grupoAtual);
         body.append('nome', nome);
         selecionado.forEach(item => {
             body.append('id[]', item.getAttribute('data-id'));
         });
 
-        const response = await fetch(this._LINK + '/upload/mover', {
+        const resposta = await fetch(this._LINK + '/upload/mover', {
             method: 'POST',
             body,
         });
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
+        const json = await respostaJson(resposta, 'Ocorreu um erro ao mover arquivos.');
         this._loadingHide();
 
-        if (response.status != 201) {
-            Alerta.notificacao(
-                json.erro.mensagem == undefined ? 'Ocorreu um erro ao mover arquivos.' : json.erro.mensagem,
-                false
-            );
+        if (false === json) {
             return;
         }
 
@@ -719,26 +676,18 @@ class ArquivoUpload {
         const input = this._botaoHeaderUpload;
         const body = new FormData();
         body.append('arquivo', arquivo);
-        body.append('grupo', this._grupoAtual);
+        body.append('grupo_atual', this._grupoAtual);
+        body.append('grupo_inicial', this._grupoInicial);
 
         const bloco = await this._htmlNovoArquivo(true);
-        const response = await fetch(this._LINK + '/upload/salvar', {
+        const resposta = await fetch(this._LINK + '/upload/salvar', {
             method: 'POST',
             body,
         });
         input.value = '';
 
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-        if (response.status != 201) {
-            Alerta.notificacao(
-                json.erro.mensagem != undefined ? json.erro.mensagem : 'Ocorre um erro ao fazer o upload do arquivo.',
-                false
-            );
+        const json = await respostaJson(resposta, 'Ocorre um erro ao fazer o upload do arquivo.');
+        if (false === json) {
             bloco.parentNode.removeChild(bloco);
 
             const zero =
@@ -762,7 +711,7 @@ class ArquivoUpload {
     }
     _adicinarEventoNovoArquivo(bloco, data) {
         bloco.setAttribute('data-id', data.id);
-        bloco.setAttribute('data-dono', data.dono);
+        bloco.setAttribute('data-dono', data.equipe.nome);
         bloco.setAttribute('data-nome', data.nome);
         bloco.setAttribute('data-extensao', data.extensao);
         bloco.setAttribute('data-tamanho', data.tamanho);
@@ -993,11 +942,11 @@ class ArquivoUpload {
                 method: 'POST',
                 body,
             });
-            const json = await resposta.json();
-            if (json.dado == undefined) {
+            const json = await respostaJson(resposta);
+            if (false === json) {
                 resolve(false);
             }
-            this._extensao = json.dado;
+            this._extensao = json.dado.extensao;
             resolve(true);
         });
     }
@@ -1006,23 +955,18 @@ class ArquivoUpload {
             const body = new FormData();
             body.append('grupo', this._grupoInicial);
 
-            const response = await fetch(this._LINK + '/upload/estrutura-diretorio', {
+            const resposta = await fetch(this._LINK + '/upload/estrutura-diretorio', {
                 method: 'POST',
                 body,
             });
 
-            let json;
-            try {
-                json = await response.json();
-            } catch (error) {
-                json = {};
+            let json = await respostaJson(resposta);
+            if (false === json) {
+                resolve(false);
+                return;
             }
-
-            if (response.status == 200) {
-                this._estruturaDiretorio = json.dado;
-                resolve(true);
-            }
-            resolve(false);
+            this._estruturaDiretorio = json.dado.diretorio;
+            resolve(true);
         });
     }
 
@@ -1326,7 +1270,9 @@ class ArquivoUpload {
                     <svg width="19" height="19" version="1.1" x="0px" y="0px" viewBox="0 0 80 80" style="enable-background:new 0 0 80 80;" xml:space="preserve"><g transform="translate(-1093 315)"><path d="M1133-295c0.7,0,1.4,0.3,1.9,0.8l12.5,15c0.3,0.3,0.4,0.8,0.4,1.2c0.1,1.3-1,2.8-2.4,2.8h-7.5v17.5c0,1.3-1.2,2.5-2.5,2.5 h-5c-0.2,0-0.3,0-0.4,0c-1.1-0.3-2.1-1.3-2-2.5v-17.5h-7.5c-1.8-0.1-3.1-2.6-1.9-4.1l12.5-15C1131.6-294.7,1132.3-295,1133-295 L1133-295z" /><path d="M1133-315c-22,0-40,17.9-40,40s17.9,40,40,40s40-17.9,40-40S1155-315,1133-315z M1133-307.6c18,0,32.6,14.6,32.6,32.6 s-14.6,32.6-32.6,32.6s-32.6-14.6-32.6-32.6S1115-307.6,1133-307.6z" /></g></svg>
 
                     <p class="fw_upload_upload_enviar_texto">Fazer Upload</p>
-                    <input type="file" class="fw_upload_upload_enviar_imagem" multiple accept="${this._extensao}">
+                    <input type="file" class="fw_upload_upload_enviar_imagem" multiple accept=".${this._extensao.join(
+                        ',.'
+                    )}">
                 </div>
 
                 <form action="/" method="get" class="fw_upload_header_form">

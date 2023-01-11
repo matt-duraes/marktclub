@@ -166,6 +166,24 @@ if (!function_exists('painelPopupEnd')) {
 
 /*
 |--------------------------------------------------------------------------
+| HTML DO HISTÓRICO
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('painelHistorico')) {
+    function painelHistorico(string $id, string $app, bool $boxShadow = true)
+    {
+        $r = (object)[
+            'id' => $id
+        ];
+        $classe = 'grande';
+        if (!$boxShadow) {
+            $classe .= ' sem_box_shadow';
+        }
+        require ROOT . '/src/Html/Painel/appHistorico.php';
+    }
+}
+/*
+|--------------------------------------------------------------------------
 | APP DE VISUALIZAR
 |--------------------------------------------------------------------------
 */
@@ -175,6 +193,7 @@ if (!function_exists('painelAppVisualizar')) {
         if (is_object($config) && isset($config->visualizar)) {
             require ROOT . '/src/Html/Painel/appVisualizar.php';
             if ($config->permissao->historico) {
+                $classe = '';
                 require ROOT . '/src/Html/Painel/appHistorico.php';
             }
             return;

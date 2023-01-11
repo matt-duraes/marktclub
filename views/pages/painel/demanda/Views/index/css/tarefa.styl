@@ -1,0 +1,239 @@
+#bloco_demanda_tarefa
+    width: calc(100% - 40px)
+    max-width: 1100px
+    max-height: calc(100vh - 40px)
+    margin: 20px
+    overflow-y: auto
+    boxShadow()
+    background-color: #FFF
+    border-radius: 5px
+#bloco_demanda_tarefa > header
+    width: 100%
+    padding: 20px 20px 0
+    flexRow()
+    h1
+        flexGrow()
+        titulo()
+    i
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+
+#bloco_demanda_tarefa .bloco_equipe
+    width: 100%
+    flexRow()
+    padding: 13px 20px
+    margin: 20px 0 30px
+    align-items: center
+    border-top: 1px solid #DDD
+    border-bottom: 1px solid #DDD
+    figure
+        width: 44px
+        height: 44px
+        imagemRedonda()
+        border: 2px solid #FFF
+        background-color: #EEE
+        transition: margin-right .3s ease-out
+    .bloco_grupo
+        flexRow()
+    .bloco_grupo figure
+        margin-right: -25px
+    .bloco_grupo figure:last-child
+        margin-right: 0
+    .bloco_grupo:hover figure
+        margin-right: 5px
+    .linha
+        width: 1px
+        height: 30px
+        background-color: #CCC
+        margin: 0 10px
+    .resto
+        flexGrow()
+    .botao
+        height: 30px
+        line-height: 28px
+        textoFontSize()
+        margin-left: 20px
+        border: 1px solid $cor
+        border-radius: 20px
+        padding: 0 14px
+        cursor: pointer
+        &.sim
+            background-color: $cor
+            color: #fff
+        &.nao
+            color: $cor
+
+#bloco_demanda_tarefa .bloco_tarefa
+    width: 100%
+    flexCol()
+    padding: 0 20px
+    article
+        width: 100%
+        position: relative
+        flexRow()
+        margin: 10px 0
+        blocoShadow()
+        align-items: center
+        &:hover
+            background-color: #F6F6F6
+    article .bloco_botao
+        position: absolute
+        top: 10px
+        right: 10px
+        flexRow()
+        opacity: 0
+        transition: opacity .3s ease-out
+    article:hover .bloco_botao
+        opacity: 1
+    article .bloco_botao i
+        width: 30px
+        height: 30px
+        flexCenter()
+        margin: 0 5px
+        border-radius: 50%
+        cursor: pointer
+        transition: background-color .3s ease-out
+        fill: #666
+        &:hover
+            background-color: #DDD
+    article figure
+        width: 50px
+        height: 50px
+        imagemRedonda()
+    article .conteudo
+        flexGrow()
+        flexCol()
+        padding: 0 20px
+    article .conteudo h1
+        font-size: 2rem
+    article .conteudo .dado
+        flexRow()
+        flex-wrap: wrap
+        margin-top: 10px
+    article .conteudo .dado .item
+        flexCol()
+        border: 1px solid #DDD
+        border-radius: 5px
+        padding: 5px 5px 0
+        margin-right: 10px
+    article .conteudo .dado .item span
+        font-size: 1.2rem
+    article .conteudo .dado .item p
+        texto()
+    article > .botao
+        fill: $corVermelho
+        cursor: pointer
+
+#bloco_demanda_tarefa .bloco_arquivo
+    width: 100%
+    background-color: #F6F6F6
+    margin-top: 40px
+    padding: 20px
+    .lista
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        justify-content: space-between
+    .lista .zero
+        width: 100%
+        font-size: 1.8rem
+        padding: 30px 0 60px
+        text-align: center
+        color: #999
+    .lista .arquivo
+        width: calc((100% / 6) - 18px)
+        flexCol()
+        position: relative
+        margin-bottom: 20px
+        padding: 10px
+        boxShadow()
+        background: #FFF
+        border-radius: 5px
+    .lista .arquivo_fake
+        width: calc((100% / 6) - 18px)
+    .lista .arquivo figure
+        width: 100%
+        height: 150px
+        background-position: center center
+        background-size: 80px
+        background-repeat: no-repeat
+        &.zip
+            background-image: url(../images/ext/zip.png)
+        &.png
+            background-image: url(../images/ext/png.png)
+        &.xls
+        &.xlsx
+            background-image: url(../images/ext/xls.png)
+        &.txt
+            background-image: url(../images/ext/txt.png)
+        &.psd
+            background-image: url(../images/ext/psd.png)
+        &.pdf
+            background-image: url(../images/ext/pdf.png)
+        &.mp3
+            background-image: url(../images/ext/mp3.png)
+        &.jpg
+        &.jpeg
+            background-image: url(../images/ext/jpg.png)
+        &.gif
+            background-image: url(../images/ext/gif.png)
+        &.file
+            background-image: url(../images/ext/file.png)
+        &.doc
+        &.docx
+            background-image: url(../images/ext/doc.png)
+        &.ai
+            background-image: url(../images/ext/ai.png)
+    .lista .arquivo i
+        width: 30px
+        height: 30px
+        flexCenter()
+        top: 10px
+        right: 10px
+        position: absolute
+        opacity: 0
+        transition: opacity .3s ease-out
+        background-color: rgba(0,0,0,.1)
+        border-radius: 50%
+        cursor: pointer
+    .lista .arquivo:hover i
+        opacity: 1
+    .lista .arquivo p
+        width: 100%
+        texto()
+        text-align: center
+        color: #666
+
+#bloco_demanda_tarefa .bloco_historico
+    padding: 40px 20px 0
+
+#bloco_demanda_tarefa
+    h2
+        width: 100%
+        font-size: 1.6rem
+        font-weight: bold
+        color: #666
+    .botao_add
+        width: 180px
+        height: 40px
+        line-height: 40px
+        position: relative
+        background-color: $cor
+        color: #FFF
+        margin: 10px 0 20px
+        text-align: center
+        textoFontSize()
+        border-radius: 20px
+        cursor: pointer
+        overflow: hidden
+    .botao_add input
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+        opacity: 0
+        cursor: pointer

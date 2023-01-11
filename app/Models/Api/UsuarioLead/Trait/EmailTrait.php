@@ -20,7 +20,7 @@ trait EmailTrait
         }
 
         $Construtor = new ConstrutorEntity();
-        $Construtor->_id($this->idEmpresa);
+        $Construtor->buscar(['empresa' => $this->idEmpresa]);
 
         $titulo = $Construtor->titulo . ' - Bem vindo!';
         $nome = $this->nome->nome();

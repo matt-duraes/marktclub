@@ -6,19 +6,32 @@ $chave = jsonDecode(file_get_contents("php://input"), retorno: true)['chave'] ??
 
 $Crypt = new CryptHelper(chavePublica: $chave);
 
+$nome = env('POSTMAN_NOME', '');
+$sobreNome = env('POSTMAN_SOBRENOME', '');
+$nomeCompleto = env('POSTMAN_NOME_COMPLETO', '');
+$numero = env('POSTMAN_NUMERO', '');
+$telefone = env('POSTMAN_TELEFONE', '');
+$email = env('POSTMAN_EMAIL', '');
+$data = env('POSTMAN_DATA', '');
+$cpf = env('POSTMAN_CPF', '');
+$cnpj = env('POSTMAN_CNPJ', '');
+$rg = env('POSTMAN_RG', '');
+$login = env('POSTMAN_LOGIN', '');
+$senha = env('POSTMAN_SENHA', '');
+
 echo jsonEncode([
-    'nome' => $Crypt->encode(env('POSTMAN_NOME', nomeAleatorio())),
-    'sobreNome' => $Crypt->encode(env('POSTMAN_SOBRENOME', sobreNomeAleatorio())),
-    'nomeCompleto' => $Crypt->encode(env('POSTMAN_NOME_COMPLETO', nomeCompletoAleatorio())),
-    'numero' => $Crypt->encode(env('POSTMAN_NUMERO', numeroAleatorio())),
-    'telefone' => $Crypt->encode(env('POSTMAN_TELEFONE', telefoneAleatorio())),
-    'email' => $Crypt->encode(env('POSTMAN_EMAIL', emailAleatorio())),
-    'data' => $Crypt->encode(env('POSTMAN_DATA', date('Y-m-d'))),
+    'nome' => $Crypt->encode(!empty($nome) ? $nome : nomeAleatorio()),
+    'sobreNome' => $Crypt->encode(!empty($sobreNome) ? $sobreNome : sobreNomeAleatorio()),
+    'nomeCompleto' => $Crypt->encode(!empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio()),
+    'numero' => $Crypt->encode(!empty($numero) ? $numero : numeroAleatorio()),
+    'telefone' => $Crypt->encode(!empty($telefone) ? $telefone : telefoneAleatorio()),
+    'email' => $Crypt->encode(!empty($email) ? $email : emailAleatorio()),
+    'data' => $Crypt->encode(!empty($data) ? $data : date('Y-m-d')),
     'data_passada' => $Crypt->encode(dataPassadaAleatorio()),
     'data_futura' => $Crypt->encode(dataFuturaAleatorio()),
-    'cpf' => $Crypt->encode(env('POSTMAN_CPF', cpfAleatorio())),
-    'cnpj' => $Crypt->encode(env('POSTMAN_CNPJ', cnpjAleatorio())),
-    'rg' => $Crypt->encode(env('POSTMAN_RG', rgAleatorio())),
-    'login' => $Crypt->encode(env('POSTMAN_LOGIN', '01234567890')),
-    'senha' => $Crypt->encode(env('POSTMAN_SENHA', 'Teste@1324')),
+    'cpf' => $Crypt->encode(!empty($cpf) ? $cpf : cpfAleatorio()),
+    'cnpj' => $Crypt->encode(!empty($cnpj) ? $cnpj : cnpjAleatorio()),
+    'rg' => $Crypt->encode(!empty($rg) ? $rg : rgAleatorio()),
+    'login' => $Crypt->encode(!empty($login) ? $login : '01234567890'),
+    'senha' => $Crypt->encode(!empty($senha) ? $senha : 'Teste@1324'),
 ]);
