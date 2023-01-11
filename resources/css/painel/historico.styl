@@ -253,3 +253,48 @@
         padding: 20px 0 20px 50px
     .add figure
         left: 0
+
+#bloco_historico_view .bloco_marcar_equipe
+    width: 100%
+    max-width: 400px
+    max-height: 180px
+    position: absolute
+    top: calc(100% - 45px)
+    boxShadow()
+    background: #FFF
+    padding: 5px 0
+    border-radius: 5px
+    border: 1px solid #CCC
+    overflow-y: auto
+    display: none
+    &.ativo
+        display: block
+    li
+        width: 100%
+        min-height: 54px
+        padding: 5px 20px 5px 64px
+        position: relative
+        justify-content: center
+        cursor: pointer
+        display: none
+        &:hover
+        &.hover
+            background-color: #EEE
+        &.ativo
+            flexCol()
+    li .imagem
+        width: 34px
+        height: 34px
+        imagemRedonda()
+        background-color: #EEE
+        position: absolute
+        left: 20px
+    li .usuario
+        width: 100%
+        font-size: 1.7rem
+        font-weight: bold
+        color: #666
+    li .nome
+        width: 100%
+        font-size: 1.3rem
+        color: #666
