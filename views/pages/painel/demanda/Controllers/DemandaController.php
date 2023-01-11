@@ -95,6 +95,19 @@ final class DemandaController extends Controller
 
         return new Response(status: 204);
     }
+    public function postTarefaArquivo(Request $request, string $id)
+    {
+        $Api = new ApiHelper(token: true);
+        $Api
+            ->validar('Ocorre um erro ao atualizar lista de arquivos, por favor, tente novamente.')
+            ->body([
+                'arquivo' => jsonEncode($request->arquivo)
+            ])
+            ->put('/demanda-dado/' . $id);
+
+        return new Response(status: 204);
+    }
+
     public function deleteTarefa(string $id)
     {
         return new Response(status: 204);

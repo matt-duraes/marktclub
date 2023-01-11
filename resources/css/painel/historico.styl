@@ -78,7 +78,7 @@
         justify-content: flex-start
         align-items: flex-start
         background: #FFF
-        z-index: 2
+        z-index: 4
         &.fixo
             position: fixed
             top: 60px
@@ -259,7 +259,6 @@
     max-width: 400px
     max-height: 180px
     position: absolute
-    top: calc(100% - 45px)
     boxShadow()
     background: #FFF
     padding: 5px 0
@@ -269,6 +268,10 @@
     display: none
     &.ativo
         display: block
+    &.top
+        top: calc(100% - 45px)
+    &.bottom
+        bottom: calc(100% - 20px)
     li
         width: 100%
         min-height: 54px

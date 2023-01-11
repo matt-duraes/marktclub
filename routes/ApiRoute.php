@@ -791,6 +791,11 @@ Route::nome('demandaDado')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request(['empresa', 'titulo', 'tipo'])
             ::post('/demanda-dado');
+        Route
+            ::nome('atualizar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
+            ::request(['!titulo', '!arquivo', '!empresa', '!dono'])
+            ::put('/demanda-dado/{id}');
     });
 
 Route::nome('demandaTarefa')

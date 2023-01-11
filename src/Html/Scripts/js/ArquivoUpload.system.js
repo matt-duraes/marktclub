@@ -4,8 +4,14 @@ class ArquivoUpload {
     | CONSTRUTOR
     |--------------------------------------------------------------------------
     */
-    constructor(grupo, body) {
-        this._constructor(grupo, body);
+    /**
+     *
+     * @param {string} grupo ID do grupo raiz que deseja usar
+     * @param {object} body Objeto com indice e valor para passar na requisição
+     * @param {bool} multiplo Se poderá escolher multiplos arquivos para usar
+     */
+    constructor(grupo, body, multiplo) {
+        this._constructor(grupo, body, multiplo);
     }
 
     /*
@@ -165,6 +171,10 @@ class ArquivoUpload {
         if (bloco) {
             bloco.innerText = nome;
         }
+        const nomeListaArquivo = document.querySelector('.fw_arquivo_nome_' + id);
+        if (nomeListaArquivo) {
+            nomeListaArquivo.innerText = nome;
+        }
         this._mostrarBlocoBotao();
     }
     async _deletarArquivo() {
@@ -194,6 +204,15 @@ class ArquivoUpload {
         }
 
         itemMarcado.forEach(item => {
+            const idRemovido = item.getAttribute('data-id');
+            const arquivoLista = document.querySelector('.fw_arquivo_' + idRemovido);
+            if (arquivoLista) {
+                arquivoLista.parentNode.removeChild(arquivoLista);
+            }
+            const arquivoUnico = document.querySelectorAll('.fw_form_imagem input[value="' + idRemovido + '"]');
+            if (arquivoUnico.length > 0) {
+                this._removerArquivoUnico(arquivoUnico);
+            }
             item.parentNode.removeChild(item);
         });
 
@@ -207,7 +226,37 @@ class ArquivoUpload {
             this._show(this._blocoZeroBusca);
         }
 
+        this._mostrarZeroItensSeExistirLista();
         this._mostrarBlocoBotao();
+    }
+    _mostrarZeroItensSeExistirLista() {
+        const lista = document.querySelectorAll('.fw_form_arquivo_lista_lista');
+        if (lista.length == 0) {
+            return;
+        }
+        lista.forEach(bloco => {
+            const arquivo = bloco.querySelectorAll('.fw_form_arquivo_lista_arquivo');
+            const blocoZero = bloco.querySelector('.fw_form_arquivo_lista_zero');
+            if (arquivo.length == 0 && blocoZero && blocoZero.classList.contains('fw_arquivo_lista_hide')) {
+                blocoZero.classList.remove('fw_arquivo_lista_hide');
+            }
+        });
+    }
+    _removerArquivoUnico(lista) {
+        lista.forEach(input => {
+            const figure = input.closest('.fw_form_imagem');
+            const blocoIcone = figure.querySelector('.fw_imagem_conteudo .fw_imagem_icone');
+            const blocoFigure = figure.querySelector('.fw_imagem_conteudo .fw_imagem_figure');
+            const botaoVisualizar = figure.querySelector('.fw_imagem_visualizar');
+            const botaoDeletar = figure.querySelector('.fw_imagem_remover');
+
+            input.value = '';
+            blocoIcone.classList.remove('fw_imagem_hide');
+            botaoDeletar.classList.add('fw_imagem_hide');
+            botaoVisualizar.classList.add('fw_imagem_hide');
+            blocoFigure.style.backgroundImage = '';
+            GaleriaFormImagem.remover(figure);
+        });
     }
 
     /*
@@ -229,17 +278,55 @@ class ArquivoUpload {
     }
     arquivo() {
         const bloco = this._blocoListaArquivo.querySelectorAll('.fw_upload_arquivo_checked');
-        if (bloco.length != 1) {
+        if (bloco.length == 1 && true !== this._multiplo) {
+            return bloco[0].getAttribute('data-arquivo') || '';
+        } else if (bloco.length == 0 || (bloco.length > 1 && true !== this._multiplo)) {
             return '';
         }
-        return bloco[0].getAttribute('data-arquivo') || '';
+        const lista = [];
+        bloco.forEach(item => {
+            lista.push(item.getAttribute('data-arquivo') || '');
+        });
+        return lista;
     }
     id() {
         const bloco = this._blocoListaArquivo.querySelectorAll('.fw_upload_arquivo_checked');
-        if (bloco.length != 1) {
+        if (bloco.length == 1 && true !== this._multiplo) {
+            return bloco[0].getAttribute('data-id') || '';
+        } else if (bloco.length == 0 || (bloco.length > 1 && true !== this._multiplo)) {
             return '';
         }
-        return bloco[0].getAttribute('data-id') || '';
+        const lista = [];
+        bloco.forEach(item => {
+            lista.push(item.getAttribute('data-id') || '');
+        });
+        return lista;
+    }
+    nome() {
+        const bloco = this._blocoListaArquivo.querySelectorAll('.fw_upload_arquivo_checked');
+        if (bloco.length == 1 && true !== this._multiplo) {
+            return bloco[0].getAttribute('data-nome') || '';
+        } else if (bloco.length == 0 || (bloco.length > 1 && true !== this._multiplo)) {
+            return '';
+        }
+        const lista = [];
+        bloco.forEach(item => {
+            lista.push(item.getAttribute('data-nome') || '');
+        });
+        return lista;
+    }
+    extensao() {
+        const bloco = this._blocoListaArquivo.querySelectorAll('.fw_upload_arquivo_checked');
+        if (bloco.length == 1 && true !== this._multiplo) {
+            return bloco[0].getAttribute('data-extensao') || '';
+        } else if (bloco.length == 0 || (bloco.length > 1 && true !== this._multiplo)) {
+            return '';
+        }
+        const lista = [];
+        bloco.forEach(item => {
+            lista.push(item.getAttribute('data-extensao') || '');
+        });
+        return lista;
     }
 
     /*
@@ -762,6 +849,9 @@ class ArquivoUpload {
             this._hide(this._botaoHeaderRenomear);
             this._hide(this._botaoUsarArquivo);
         }
+        if (quantidadeMarcado > 0 && true === this._multiplo) {
+            this._show(this._botaoUsarArquivo);
+        }
     }
     _abrirVisualizarImagem() {
         this._show(this._blocoVisualizar);
@@ -890,8 +980,8 @@ class ArquivoUpload {
     | HTML
     |--------------------------------------------------------------------------
     */
-    async _constructor(grupo, body) {
-        await this._construtorPropriedadeInicial(grupo, body);
+    async _constructor(grupo, body, multiplo) {
+        await this._construtorPropriedadeInicial(grupo, body, multiplo);
         await this._construtorPegarEstruturaDiretorio();
 
         const extensao = await this._construtorPegarExtensoes();
@@ -903,7 +993,7 @@ class ArquivoUpload {
         await this._construtorSetaBlocos();
         this._construtorSetarEventosIniciais();
     }
-    _construtorPropriedadeInicial(grupo, body) {
+    _construtorPropriedadeInicial(grupo, body, multiplo) {
         return new Promise(resolve => {
             this._grupoInicial = grupo;
             this._grupoAtual = grupo;
@@ -912,6 +1002,7 @@ class ArquivoUpload {
             this._imagemUso = '';
             this._idNumero = 1;
             this._botaoUsarArquivo = null;
+            this._multiplo = true === multiplo;
 
             this._body = body;
             this._LINK = document.querySelector('#LINK').value;

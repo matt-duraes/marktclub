@@ -8,10 +8,15 @@ class Galeria {
      * @param {string} download Link para download da imagem caso queira abilitar essa opção
      */
     constructor(bloco, figure, botao, download) {
+        this.recarregar(bloco, figure, botao, download);
+    }
+
+    recarregar(bloco, figure, botao, download) {
         this._bloco = this._pegarElemento(bloco);
         if (!this._bloco) {
             return;
         }
+
         this._figure = figure;
         this._botao = botao;
         this._download = download == undefined ? '' : download;
@@ -397,40 +402,27 @@ class Galeria {
     }
 
     async _pegarFigureNova(figureAtual, tipo) {
-        let figureNova = figureAtual;
-        if (tipo == 'anterior') {
-            figureNova = figureNova.previousSibling;
-            if (figureNova instanceof Object && !figureNova.getAttribute) {
-                figureNova = figureNova.previousElementSibling;
+        const lista = this._figureLista;
+        const quantidade = lista.length - 1;
+        let numeroAtual;
+        lista.forEach((figure, i) => {
+            if (figure == figureAtual) {
+                numeroAtual = i;
             }
+        });
+
+        let figureNova;
+        if (tipo == 'anterior' && numeroAtual == 0) {
+            figureNova = lista[quantidade];
+        } else if (tipo == 'anterior') {
+            figureNova = lista[numeroAtual - 1];
+        } else if (tipo == 'proximo' && numeroAtual == quantidade) {
+            figureNova = lista[0];
         } else if (tipo == 'proximo') {
-            figureNova = figureNova.nextSibling;
-            if (figureNova instanceof Object && !figureNova.getAttribute) {
-                figureNova = figureNova.nextElementSibling;
-            }
+            figureNova = lista[numeroAtual + 1];
         }
 
-        if (figureNova == null && tipo == 'anterior') {
-            figureNova = this._figureLista[this._figureLista.length - 1];
-        } else if (figureNova == null && tipo == 'proximo') {
-            figureNova = this._figureLista[0];
-        }
-        if (!figureNova instanceof Object || !figureNova.getAttribute) {
-            return false;
-        }
-
-        const validar = figureNova.getAttribute('data-galeria');
-        if (validar != 1 && tipo == 'anterior') {
-            figureNova = this._figureLista[this._figureLista.length - 1];
-        } else if (validar != 1 && tipo == 'proximo') {
-            figureNova = this._figureLista[0];
-        }
-
-        if (
-            !figureNova instanceof Object ||
-            !figureNova.getAttribute ||
-            figureNova.getAttribute('data-galeria-imagem') == ''
-        ) {
+        if (figureNova.getAttribute('data-galeria-imagem') == '') {
             return false;
         }
         return figureNova;

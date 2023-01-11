@@ -1,9 +1,9 @@
-<div id="bloco_demanda_tarefa">
+<div id="bloco_demanda_tarefa" class="form_geral">
     <input type="hidden" id="input_demanda_id" value="{{$r->id}}">
     <header>
-        <i class="fechar mobile">@iconeVoltar</i>
+        <i class="fechar mobile botao_fechar_demanda">@iconeVoltar</i>
         <h1>{{$r->titulo}}</h1>
-        <i class="fechar desktop">@iconeFechar</i>
+        <i class="fechar desktop botao_fechar_demanda">@iconeFechar</i>
     </header>
 
     <div class="bloco_equipe">
@@ -32,12 +32,11 @@
         @ if( !$r->sou_dev && !$r->sou_dono ):
         <div class="botao {!!$r->estou_seguindo ? 'sim' : 'nao'!!}">{!!$r->estou_seguindo ? 'seguindo' : 'seguir'!!}</div>
         @ endif;
-        <div class="botao {!!$r->estou_seguindo ? 'nao' : 'nao'!!}">{!!$r->estou_seguindo ? 'seguir' : 'seguir'!!}</div>
     </div>
 
     <div class="bloco_tarefa">
         <h2>Tarefas</h2>
-        <div class="botao_add">Nova Tarefa</div>
+        <div class="botao_add">Nova tarefa</div>
         @ foreach( $r->tarefa as $tarefa ):
         <article class="tarefa" data-id="{{$tarefa->id}}">
             <div class="bloco_botao">
@@ -101,29 +100,8 @@
         @ endforeach;
     </div>
 
-    <div class="bloco_arquivo">
-        <h2>Arquivo</h2>
-        <div class="botao_add">
-            <input type="file" multiple>
-            Enviar arquivo
-        </div>
-        <div class="lista">
-            <!-- <div class="zero">Sem arquivos no momento</div> -->
-            @ laco(10)
-            <div class="arquivo">
-                <figure class="png"></figure>
-                <a href=""></a>
-                <i>@iconeDeletar</i>
-                <p>Nome aqui vai</p>
-            </div>
-            @ endlaco;
-            <div class="arquivo_fake"></div>
-            <div class="arquivo_fake"></div>
-            <div class="arquivo_fake"></div>
-            <div class="arquivo_fake"></div>
-            <div class="arquivo_fake"></div>
-            <div class="arquivo_fake"></div>
-        </div>
+    <div class="bloco_arquivo fw_bloco_galeria">
+        @? formArquivoLista(name: 'arquivo', diretorio: '2d978fba-4bd2-4af7-80bf-ebb94d9ac991', id: 'bloco_tarefa_arquivo', value: $r->arquivo)
     </div>
 
     <div class="bloco_historico">

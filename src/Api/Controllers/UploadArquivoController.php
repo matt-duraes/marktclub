@@ -8,6 +8,7 @@ use Controller\Controller;
 use ApiModel\Upload\GrupoEntity;
 use ApiModel\Upload\ArquivoModel;
 use ApiModel\Upload\ArquivoEntity;
+use App\Controllers\Api\Interface\BuscarInterface;
 use App\Controllers\Api\Interface\ListarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
 use App\Controllers\Api\Interface\DeletarInterface;
@@ -17,7 +18,8 @@ final class UploadArquivoController extends Controller implements
     ListarInterface,
     SalvarInterface,
     AtualizarInterface,
-    DeletarInterface
+    DeletarInterface,
+    BuscarInterface
 {
     public function getListar(Request $request)
     {
@@ -25,6 +27,16 @@ final class UploadArquivoController extends Controller implements
         $lista = $Arquivo->buscarArquivos($request->pagina, $request->pesquisa, $request->grupo);
 
         return mensagemSucesso($lista);
+    }
+
+    public function getBuscar(string $id)
+    {
+        $Arquivo = new ArquivoEntity();
+        $Arquivo->id($id);
+
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($Arquivo, lista: ['id', 'nome', 'extensao', 'link'])
+        );
     }
 
     public function postSalvar(Request $request)

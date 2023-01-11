@@ -24,6 +24,10 @@ Route
             ::nome('tarefaEditar')
             ::request(['titulo', 'texto', 'tipo'])
             ::post('/demanda/tarefa-editar/{id}');
+        Route
+            ::nome('tarefaArquivo')
+            ::request(['arquivo'])
+            ::post('/demanda/tarefa-arquivo/{id}');
 
         Route
             ::nome('tarefa')

@@ -57,9 +57,9 @@ fwFormJsonParse = json => {
 */
 const LINK_FORM = document.querySelector('#LINK') ? document.querySelector('#LINK').value : '';
 const GaleriaFormImagem = new Galeria(
-    document.querySelector('.form_geral'),
+    document.querySelector('.fw_bloco_galeria'),
     '.fw_form_imagem_galeria',
-    '.fw_form_imagem .fw_imagem_visualizar'
+    '.fw_imagem_visualizar'
 );
 /**
  * Verifica se existe form de imagem
@@ -88,6 +88,11 @@ const fwFormImagemEscolherImagem = async (
         } else {
             GaleriaFormImagem.add(figure, { imagem: link });
         }
+
+        if (typeof fwFormArquivoChange === 'function') {
+            fwFormArquivoChange();
+        }
+
         Upload.fechar();
     });
 };
@@ -98,36 +103,168 @@ const fwFormImagemRemoverImagem = (figure, input, botaoDeletar, botaoVisualizar,
     botaoVisualizar.classList.add('fw_imagem_hide');
     blocoFigure.style.backgroundImage = '';
     GaleriaFormImagem.remover(figure);
+    if (typeof fwFormArquivoChange === 'function') {
+        fwFormArquivoChange();
+    }
 };
-const fwFormImagem = document.querySelectorAll('.form_geral .fw_form_imagem');
-if (fwFormImagem.length > 0) {
-    fwFormImagem.forEach(bloco => {
-        const input = bloco.querySelector('input');
-        const blocoIcone = bloco.querySelector('.fw_imagem_conteudo .fw_imagem_icone');
-        const blocoFigure = bloco.querySelector('.fw_imagem_conteudo .fw_imagem_figure');
-        const botaoUpload = bloco.querySelector('.fw_imagem_upload');
-        const botaoVisualizar = bloco.querySelector('.fw_imagem_visualizar');
-        const botaoDeletar = bloco.querySelector('.fw_imagem_remover');
-        const grupo = bloco.getAttribute('data-diretorio');
+fwFormArquivoLoading = bloco => {
+    const fwFormImagem = bloco.querySelectorAll('.form_geral .fw_form_imagem');
+    if (fwFormImagem.length > 0) {
+        fwFormImagem.forEach(bloco => {
+            const input = bloco.querySelector('input');
+            const blocoIcone = bloco.querySelector('.fw_imagem_conteudo .fw_imagem_icone');
+            const blocoFigure = bloco.querySelector('.fw_imagem_conteudo .fw_imagem_figure');
+            const botaoUpload = bloco.querySelector('.fw_imagem_upload');
+            const botaoVisualizar = bloco.querySelector('.fw_imagem_visualizar');
+            const botaoDeletar = bloco.querySelector('.fw_imagem_remover');
+            const grupo = bloco.getAttribute('data-diretorio');
 
-        const Upload = new ArquivoUpload(grupo);
-        fwFormImagemEscolherImagem(Upload, bloco, input, botaoDeletar, botaoVisualizar, blocoIcone, blocoFigure);
-        botaoUpload.addEventListener('click', () => {
-            Upload.abrir();
+            const Upload = new ArquivoUpload(grupo);
+            fwFormImagemEscolherImagem(Upload, bloco, input, botaoDeletar, botaoVisualizar, blocoIcone, blocoFigure);
+            botaoUpload.addEventListener('click', () => {
+                Upload.abrir();
+            });
+            botaoDeletar.addEventListener('click', async () => {
+                const mensagem = await Alerta.confirmar(
+                    'Remover imagem',
+                    'Tem certeza que deseja remover essa imagem?',
+                    '!'
+                );
+                if (mensagem) {
+                    fwFormImagemRemoverImagem(bloco, input, botaoDeletar, botaoVisualizar, blocoIcone, blocoFigure);
+                }
+            });
         });
-        botaoDeletar.addEventListener('click', async () => {
-            const mensagem = await Alerta.confirmar(
-                'Remover imagem',
-                'Tem certeza que deseja remover essa imagem?',
-                '!'
-            );
-            if (mensagem) {
-                fwFormImagemRemoverImagem(bloco, input, botaoDeletar, botaoVisualizar, blocoIcone, blocoFigure);
-            }
-        });
+    }
+    GaleriaFormImagem.recarregar(
+        document.querySelector('.fw_bloco_galeria'),
+        '.fw_form_imagem_galeria',
+        '.fw_imagem_visualizar'
+    );
+};
+
+/*
+|--------------------------------------------------------------------------
+| ARQUIVO LISTA
+|--------------------------------------------------------------------------
+*/
+const fwFormArquivoListaEscolherArquivo = async (Upload, blocoZero, lista, name) => {
+    const botao = await Upload.botao();
+    botao.addEventListener('click', () => {
+        const hash = Upload.id();
+        const link = Upload.arquivo();
+        const nome = Upload.nome();
+        const extensao = Upload.extensao();
+
+        const quantidade = hash.length;
+        let i;
+        for (i = 0; i < quantidade; ++i) {
+            fwFormArquivoListaMontarRetorno(hash[i], link[i], nome[i], extensao[i], blocoZero, lista, name);
+        }
+
+        if (typeof fwFormArquivoListaChange === 'function') {
+            fwFormArquivoListaChange();
+        }
+        Upload.fechar();
     });
-}
+};
+const fwFormArquivoListaMontarRetorno = (hash, link, nome, extensao, blocoZero, lista, name) => {
+    if (lista.querySelector('.fw_arquivo_' + hash)) {
+        return;
+    }
 
+    const eUmaImagem =
+        extensao == 'jpg' || extensao == 'jpeg' || extensao == 'png' || extensao == 'gif' || extensao == 'svg';
+
+    let arquivoDownloadHtml = '';
+    if (!eUmaImagem) {
+        arquivoDownloadHtml = `
+                <a class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_download" href="https://docs.google.com/viewer?url=${link}" target="_blank" rel="noopener noreferrer">
+                    <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" style="enable-background:new 0 0 40 29.3;" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
+                </a>
+            `;
+    } else {
+        arquivoDownloadHtml = `
+                <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_download fw_imagem_visualizar">
+                    <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" style="enable-background:new 0 0 40 29.3;" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
+                </i>
+            `;
+    }
+
+    const figureBg = eUmaImagem ? `style="background-image: url(${link})"` : '';
+    const figureExtensaoHtml = !eUmaImagem ? `<p>${extensao}</p>` : '';
+
+    if (!blocoZero.classList.contains('fw_arquivo_lista_hide')) {
+        blocoZero.classList.add('fw_arquivo_lista_hide');
+    }
+
+    lista.insertAdjacentHTML(
+        'afterbegin',
+        `
+            <div class="fw_form_arquivo_lista_arquivo fw_arquivo_${hash}">
+                <input type="hidden" name="${name}[]" value="${hash}">
+                <figure ${figureBg}>${figureExtensaoHtml}</figure>
+                ${arquivoDownloadHtml}
+                <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_remover">
+                    <svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg>
+                </i>
+                <p class="fw_form_arquivo_lista_arquivo_nome fw_arquivo_nome_${hash}">${nome}</p>
+            </div>
+        `
+    );
+
+    if (eUmaImagem) {
+        const figure = lista.querySelector('.fw_arquivo_' + hash);
+        if (figure.classList.contains('fw_form_imagem_galeria')) {
+            GaleriaFormImagem.atualizar(figure, { imagem: link });
+        } else {
+            GaleriaFormImagem.add(figure, { imagem: link });
+        }
+    }
+};
+
+fwFormArquivoListaLoading = bloco => {
+    const fwFormArquivoLista = bloco.querySelectorAll('.form_geral .fw_form_arquivo_lista');
+    if (fwFormArquivoLista.length > 0) {
+        fwFormArquivoLista.forEach(bloco => {
+            const botaoUpload = bloco.querySelector('.fw_form_arquivo_lista_upload');
+            const blocoLista = bloco.querySelector('.fw_form_arquivo_lista_lista');
+            const grupo = bloco.getAttribute('data-diretorio');
+            const name = bloco.getAttribute('data-name');
+            const blocoZero = bloco.querySelector('.fw_form_arquivo_lista_zero');
+
+            const Upload = new ArquivoUpload(grupo, null, true);
+            fwFormArquivoListaEscolherArquivo(Upload, blocoZero, blocoLista, name);
+            botaoUpload.addEventListener('click', () => {
+                Upload.abrir();
+            });
+            blocoLista.addEventListener('click', async e => {
+                if (
+                    !e.target.closest('.fw_form_arquivo_lista_remover') &&
+                    !e.target.classList.contains('fw_form_arquivo_lista_remover')
+                ) {
+                    return;
+                }
+                if (await Alerta.confirmar('Remover arquivo', 'Tem certeza que deseja remover essa arquivo?', '!')) {
+                    const blocoArquivo = e.target.closest('.fw_form_arquivo_lista_arquivo');
+                    blocoArquivo.parentNode.removeChild(blocoArquivo);
+                    if (blocoLista.querySelectorAll('.fw_form_arquivo_lista_arquivo').length == 0) {
+                        blocoZero.classList.remove('fw_arquivo_lista_hide');
+                    }
+                    if (typeof fwFormArquivoListaChange === 'function') {
+                        fwFormArquivoListaChange();
+                    }
+                }
+            });
+        });
+    }
+    GaleriaFormImagem.recarregar(
+        document.querySelector('.fw_bloco_galeria'),
+        '.fw_form_imagem_galeria',
+        '.fw_imagem_visualizar'
+    );
+};
+fwFormArquivoListaLoading(document);
 /*/
 |--------------------------------------------------------------------------
 | GERANDO O AUTOCOMPLETE PERSONALIZADO

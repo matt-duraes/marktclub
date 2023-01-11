@@ -1,7 +1,15 @@
+let demandaId;
 const detalheDemanda = () => {
-    const demandaId = document.getElementById('input_demanda_id').value;
+    demandaId = document.getElementById('input_demanda_id').value;
 
     historicoLoad();
+
+    const botaoFechar = document.querySelectorAll('.botao_fechar_demanda');
+    botaoFechar.forEach(botao => {
+        botao.addEventListener('click', () => {
+            Pagina.staticFechar();
+        });
+    });
 
     /*
     |--------------------------------------------------------------------------
@@ -60,4 +68,30 @@ const detalheDemanda = () => {
         tarefa.parentNode.removeChild(tarefa);
         Alerta.notificacao('Tarefa deletada com sucesso.', true);
     };
+};
+
+fwFormArquivoListaChange = async () => {
+    const bloco = document.querySelector('#bloco_tarefa_arquivo');
+    const arquivo = bloco.querySelectorAll('input');
+    if (arquivo.length == 0) {
+        return;
+    }
+
+    const body = new FormData();
+    arquivo.forEach(item => {
+        body.append('arquivo[]', item.value);
+    });
+
+    const resposta = await fetch(LINK + '/demanda/tarefa-arquivo/' + demandaId, {
+        method: 'POST',
+        body,
+    });
+
+    if (resposta.status == 204) {
+        return;
+    }
+    Alerta.notificacao(
+        'Ocorreu um erro ao atualizar lista de arquivos, por favor, recarregue a página e tente novamente.',
+        false
+    );
 };

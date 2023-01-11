@@ -16,10 +16,13 @@ final class DemandaEntity extends Entity
 
     protected string $_tabela = TABELA_DEMANDA_DADO;
     protected array $_buscar = [
-        'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo'
+        'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo', 'arquivo'
     ];
     protected array $_insert = [
-        'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status'
+        'tipo'
+    ];
+    protected array $_salvar = [
+        'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status'
     ];
     protected string $_validarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -27,6 +30,7 @@ final class DemandaEntity extends Entity
         status|Status|vazio|valido
     ';
 
+    public array $arquivo = [];
     public array $dono = [];
     public array $equipe = [];
     public array $seguindo = [];

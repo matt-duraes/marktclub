@@ -12,6 +12,7 @@
 use Erro\Erro;
 use Erro\Excecao;
 use Http\Request;
+use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 
 /*/
@@ -1659,6 +1660,28 @@ if (!function_exists('arquivoPrivadoId')) {
         } catch (\Throwable) {
             return '';
         }
+    }
+}
+if (!function_exists('arquivoPrivadoDado')) {
+    /**
+     * Pega os dados básicos de uma imagem privada pelo ID
+     *
+     * @param   string          $id     ID da imagem que deseja pegar seus dados
+     * @return  bool|stdClass           Array com os dados
+     */
+    function arquivoPrivadoDado(string $id)
+    {
+        try {
+            $Api = new ApiHelper(token: true);
+            $arquivo = $Api
+                ->get('/upload-arquivo/' . $id)->object();
+        } catch (\Throwable) {
+            return false;
+        }
+        if (!object_key_exists('dado', $arquivo)) {
+            return false;
+        }
+        return $arquivo->dado;
     }
 }
 

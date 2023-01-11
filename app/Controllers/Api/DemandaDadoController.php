@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
@@ -12,11 +13,13 @@ use App\Models\Api\Demanda\DemandaEntity;
 use App\Controllers\Api\Interface\BuscarInterface;
 use App\Controllers\Api\Interface\ListarInterface;
 use App\Controllers\Api\Interface\SalvarInterface;
+use App\Controllers\Api\Interface\AtualizarInterface;
 
 final class DemandaDadoController extends Controller implements
     SalvarInterface,
     ListarInterface,
-    BuscarInterface
+    BuscarInterface,
+    AtualizarInterface
 {
     public function getBuscar(string $id)
     {
@@ -28,7 +31,7 @@ final class DemandaDadoController extends Controller implements
                 $Demanda,
                 lista: [
                     'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
-                    'sou_dono', 'sou_dev', 'tarefa'
+                    'sou_dono', 'sou_dev', 'tarefa', 'arquivo'
                 ]
             )
         );
@@ -60,5 +63,15 @@ final class DemandaDadoController extends Controller implements
             ),
             201
         );
+    }
+
+    public function putAtualizar(Request $request, string $id)
+    {
+        $Demanda = new DemandaEntity();
+        $Demanda->id($id);
+        $Demanda->set(lista: $request->dado());
+        $Demanda->salvar();
+
+        return new Response(status: 204);
     }
 }

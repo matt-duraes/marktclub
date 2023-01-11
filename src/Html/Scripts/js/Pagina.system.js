@@ -185,6 +185,13 @@ class Pagina {
         if (typeof fwCkeditorLoading === 'function') {
             fwCkeditorLoading(bloco);
         }
+        // UPLOAD ARQUIVO;
+        if (typeof fwFormArquivoListaLoading === 'function') {
+            fwFormArquivoListaLoading(bloco);
+        }
+        if (typeof fwFormArquivoLoading === 'function') {
+            fwFormArquivoLoading(bloco);
+        }
     }
 }
 document.querySelector('body').insertAdjacentHTML('afterbegin', '<div id="bloco_fw_pagina"></div>');
