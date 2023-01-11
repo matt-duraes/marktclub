@@ -4,6 +4,35 @@ use Route\Route;
 use App\Middlewares\Api\TokenMiddleware;
 
 Route
+    ::nome('painel_historico')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(ApiController\PainelHistoricoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::request([
+                'relacionado', 'app', 'acao', '!dado', '!mensagem'
+            ])
+            ::post('/painel-historico');
+
+        Route
+            ::nome('listar')
+            ::request([
+                'pagina', 'app', 'relacionado', '!data_de', '!data_ate', '!pesquisa'
+            ], 'json')
+            ::get('/painel-historico');
+
+        Route
+            ::nome('atualizar')
+            ::request(['mensagem'])
+            ::put('/painel-historico/{id}');
+
+        Route
+            ::nome('deletar')
+            ::delete('/painel-historico/{id}');
+    });
+
+Route
     ::nome('upload_grupo')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(\ApiController\UploadGrupoController::class)

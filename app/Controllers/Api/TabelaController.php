@@ -4,11 +4,11 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Controller\Controller;
-use App\Controllers\Api\Interface\SalvarInterface;
+use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\UsuarioCliente\UsuarioTabelaModel;
 
 final class TabelaController extends Controller implements
-    SalvarInterface
+    ControllerSalvarInterface
 {
     public function postSalvar(Request $request)
     {

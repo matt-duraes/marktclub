@@ -5,11 +5,11 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Controllers\Api\Interface\ListarInterface;
+use System\Interface\ControllerListarInterface;
 use App\Models\Api\SolicitacaoSalavip\SalavipModel;
 
 final class SolicitacaoSalavipController extends Controller implements
-    ListarInterface
+    ControllerListarInterface
 {
     public function getListar(Request $request)
     {

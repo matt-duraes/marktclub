@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Api\PainelHistorico;
+namespace ApiModel\PainelHistorico;
 
 use Modules\DataHora;
 use Helpers\DataHelper;
 use App\Models\Api\GeralEntity;
-use App\Classes\PainelHistorico\Acao;
-use App\Classes\PainelHistorico\Status;
+use System\Classes\PainelHistorico\Acao;
+use System\Classes\PainelHistorico\Status;
 
 final class HistoricoEntity extends GeralEntity
 {

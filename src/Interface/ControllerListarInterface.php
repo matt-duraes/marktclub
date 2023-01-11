@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers\Api\Interface;
+namespace System\Interface;
 
 use Http\Request;
 
-interface ListarInterface
+interface ControllerListarInterface
 {
     public function getListar(Request $request);
 }

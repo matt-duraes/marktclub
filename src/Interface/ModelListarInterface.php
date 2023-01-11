@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Api\Interface;
+namespace System\Interface;
 
 use stdClass;
 
-interface ListarInterface
+interface ModelListarInterface
 {
     public function listarDados(): stdClass;
 }

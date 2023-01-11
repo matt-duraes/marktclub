@@ -5,9 +5,9 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Controller\Controller;
 use App\Models\Api\CampanhaSorteio\SorteioEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
+use System\Interface\ControllerBuscarInterface;
 
-final class CampanhaSorteioController extends Controller implements BuscarInterface
+final class CampanhaSorteioController extends Controller implements ControllerBuscarInterface
 {
 
     public function getBuscar(string $id)

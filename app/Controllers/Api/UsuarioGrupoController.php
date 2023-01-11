@@ -7,18 +7,18 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Api\UsuarioGrupo\GrupoModel;
 use App\Models\Api\UsuarioGrupo\GrupoEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\DeletarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioGrupoController extends Controller implements
-    SalvarInterface,
-    ListarInterface,
-    BuscarInterface,
-    AtualizarInterface,
-    DeletarInterface
+    ControllerSalvarInterface,
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
 
     public function getSelect()

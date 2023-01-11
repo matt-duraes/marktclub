@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\PainelHistorico;
+namespace System\Classes\PainelHistorico;
 
 use Status\Status;
 

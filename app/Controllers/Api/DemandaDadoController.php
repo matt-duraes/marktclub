@@ -10,16 +10,16 @@ use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\DemandaModel;
 use App\Models\Api\Demanda\DemandaEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class DemandaDadoController extends Controller implements
-    SalvarInterface,
-    ListarInterface,
-    BuscarInterface,
-    AtualizarInterface
+    ControllerSalvarInterface,
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface
 {
     public function getBuscar(string $id)
     {

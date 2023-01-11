@@ -565,35 +565,6 @@ Route
     });
 
 Route
-    ::nome('painel_historico')
-    ::middleware(TokenMiddleware::class, 'token')
-    ::controller(App\Controllers\Api\PainelHistoricoController::class)
-    ::grupo(function () {
-        Route
-            ::nome('salvar')
-            ::request([
-                'relacionado', 'app', 'acao', '!dado', '!mensagem'
-            ])
-            ::post('/painel-historico');
-
-        Route
-            ::nome('listar')
-            ::request([
-                'pagina', 'app', 'relacionado', '!data_de', '!data_ate', '!pesquisa'
-            ], 'json')
-            ::get('/painel-historico');
-
-        Route
-            ::nome('atualizar')
-            ::request(['mensagem'])
-            ::put('/painel-historico/{id}');
-
-        Route
-            ::nome('deletar')
-            ::delete('/painel-historico/{id}');
-    });
-
-Route
     ::nome('token')
     ::controller(App\Controllers\Api\TokenController::class)
     ::grupo(function () {

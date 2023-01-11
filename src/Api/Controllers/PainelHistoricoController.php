@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace ApiController;
 
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Models\Api\PainelHistorico\HistoricoModel;
-use App\Controllers\Api\Interface\DeletarInterface;
-use App\Models\Api\PainelHistorico\HistoricoEntity;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use ApiModel\PainelHistorico\HistoricoModel;
+use ApiModel\PainelHistorico\HistoricoEntity;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class PainelHistoricoController extends Controller implements
-    ListarInterface,
-    SalvarInterface,
-    AtualizarInterface,
-    DeletarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function postSalvar(Request $request)
     {

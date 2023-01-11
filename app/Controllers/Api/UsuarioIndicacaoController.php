@@ -7,20 +7,20 @@ use Http\Response;
 use Controller\Controller;
 use App\Classes\UsuarioIndicacao\Helper;
 use App\Classes\UsuarioIndicacao\Status;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\DeletarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\UsuarioIndicacao\IndicacaoModel;
 use App\Models\Api\UsuarioIndicacao\IndicacaoEntity;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioIndicacaoController extends Controller implements
-    SalvarInterface,
-    ListarInterface,
-    BuscarInterface,
-    AtualizarInterface,
-    DeletarInterface
+    ControllerSalvarInterface,
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
 
     public function postSalvar(Request $request)

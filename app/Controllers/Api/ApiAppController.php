@@ -6,12 +6,12 @@ use Http\Request;
 use Controller\Controller;
 use App\Models\Api\ApiApp\AppModel;
 use App\Models\Api\ApiApp\AppEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 
 final class ApiAppController extends Controller implements
-    ListarInterface,
-    BuscarInterface
+    ControllerListarInterface,
+    ControllerBuscarInterface
 {
     public function getListar(Request $request)
     {

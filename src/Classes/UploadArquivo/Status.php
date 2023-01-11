@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\UploadArquivo;
+namespace System\Classes\UploadArquivo;
 
 use Status\Status as StatusStatus;
 

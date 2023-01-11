@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Api\PainelHistorico;
+namespace ApiModel\PainelHistorico;
 
 use stdClass;
 use Http\Request;
 use App\Models\Api\GeralModel;
-use App\Classes\PainelHistorico\Acao;
+use System\Classes\PainelHistorico\Acao;
 
 final class HistoricoModel extends GeralModel
 {

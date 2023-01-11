@@ -7,14 +7,14 @@ use Http\Response;
 use Controller\Controller;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Models\Api\Demanda\TarefaEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class DemandaTarefaController extends Controller implements
-    SalvarInterface,
-    BuscarInterface,
-    AtualizarInterface
+    ControllerSalvarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface
 {
     public function postSalvar(Request $request)
     {

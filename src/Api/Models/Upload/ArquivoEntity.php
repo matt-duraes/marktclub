@@ -6,7 +6,7 @@ use ORM\Entity;
 use Modules\DataHora;
 use Helpers\UploadHelper;
 use ApiModel\Upload\GrupoEntity;
-use App\Classes\UploadArquivo\Status;
+use System\Classes\UploadArquivo\Status;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

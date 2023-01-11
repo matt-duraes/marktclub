@@ -9,18 +9,18 @@ use App\Classes\UsuarioLead\Helper;
 use App\Classes\UsuarioLead\Status;
 use App\Models\Api\UsuarioLead\LeadModel;
 use App\Models\Api\UsuarioLead\LeadEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\DeletarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioLeadController extends Controller implements
-    SalvarInterface,
-    ListarInterface,
-    BuscarInterface,
-    AtualizarInterface,
-    DeletarInterface
+    ControllerSalvarInterface,
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function postSalvar(Request $request)
     {

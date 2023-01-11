@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers\Api\Interface;
+namespace System\Interface;
 
 use Http\Request;
 
-interface AtualizarInterface
+interface ControllerAtualizarInterface
 {
     public function putAtualizar(Request $request, string $id);
 }

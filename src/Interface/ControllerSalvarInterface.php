@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers\Api\Interface;
+namespace System\Interface;
 
 use Http\Request;
 
-interface SalvarInterface
+interface ControllerSalvarInterface
 {
     public function postSalvar(Request $request);
 }

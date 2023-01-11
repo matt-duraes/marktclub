@@ -7,16 +7,16 @@ use Http\Response;
 use Controller\Controller;
 use App\Classes\UsuarioDependente\Helper;
 use App\Models\Api\UsuarioCliente\DeletarModel;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\DeletarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\UsuarioDependente\DependenteModel;
 use App\Models\Api\UsuarioDependente\DependenteEntity;
 
 final class UsuarioDependenteController extends Controller implements
-    SalvarInterface,
-    ListarInterface,
-    DeletarInterface
+    ControllerSalvarInterface,
+    ControllerListarInterface,
+    ControllerDeletarInterface
 {
     public function getListar(Request $request)
     {
