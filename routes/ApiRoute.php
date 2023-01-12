@@ -762,6 +762,7 @@ Route::nome('demandaDado')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request(['empresa', 'titulo', 'tipo'])
             ::post('/demanda-dado');
+
         Route
             ::nome('atualizar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
@@ -785,7 +786,7 @@ Route::nome('demandaTarefa')
         Route
             ::nome('atualizar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
-            ::request(['titulo', 'texto', 'tipo'])
+            ::request(['titulo', 'texto', 'tipo', 'hora_producao_estimada'])
             ::put('/demanda-tarefa/{id}');
     });
 

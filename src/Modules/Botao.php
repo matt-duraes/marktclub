@@ -71,7 +71,7 @@ final class Botao implements ModuleInterface
      */
     public function valor(): string
     {
-        return $this->valor;
+        return $this->valor == 'sim' ? 'sim' : 'nao';
     }
 
     private function validarNumero(): bool

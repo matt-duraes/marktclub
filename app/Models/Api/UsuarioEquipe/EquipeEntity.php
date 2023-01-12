@@ -31,7 +31,7 @@ final class EquipeEntity extends Entity
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao',
         'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
-        'id_facebook', 'id_google'
+        'id_facebook', 'id_google', 'gerente'
     ];
     protected array $_salvar = [
         'nome_real' => '->nome',
@@ -80,6 +80,7 @@ final class EquipeEntity extends Entity
     protected int $imagem_tipo;
     protected string $imagem_facebook;
     protected string $imagem_google;
+    public Botao $gerente;
 
     private int $idEmpresa;
     public function __construct(

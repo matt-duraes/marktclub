@@ -24,6 +24,63 @@ final class DemandaController extends Controller
             'Area' => new DemandaTarefaTipo()
         ]);
     }
+
+    public function demanda(string $id)
+    {
+        $Api = new ApiHelper(token: true);
+        $tarefa = $Api->get('/demanda-dado/' . $id)->object();
+
+        if (!object_key_exists('dado', $tarefa)) {
+            mensagemStatus(404);
+        }
+
+        return view('painel.demanda.demanda', [
+            'r' => $tarefa->dado,
+            'Tipo' => new DemandaTarefaTipo(),
+            'Status' => new Status()
+        ]);
+    }
+
+    public function demandaSalvar()
+    {
+        $Api = new ApiHelper(token: true);
+        $empresa = $Api
+            ->json(['titulo' => 'Escolha um cliente'])
+            ->get('/admin-empresa/select')
+            ->array();
+        return view('painel.demanda.demanda-salvar', [
+            'empresa' => $empresa['dado'] ?? []
+        ]);
+    }
+
+    public function demandaEditar(string $id)
+    {
+        $Api = new ApiHelper(token: true);
+        $demanda = $Api->get('/demanda-dado/' . $id)->object();
+
+        return view('painel.demanda.tarefa-editar', [
+            'r' => $demanda->dado
+        ]);
+    }
+
+    public function tarefaEditar(string $id, string $demanda)
+    {
+        $Api = new ApiHelper(token: true);
+        $tarefa = $Api->get('/demanda-tarefa/' . $id)->object();
+
+        if (!object_key_exists('dado', $tarefa)) {
+            mensagemStatus(404);
+        }
+
+        $Tipo = new DemandaTarefaTipo();
+
+        return view('painel.demanda.tarefa-editar', [
+            'demanda' => $demanda,
+            'tipoLista' => $Tipo->select('Escolha uma opção'),
+            'r' => $tarefa->dado
+        ]);
+    }
+
     private function buscarDemanda($status, $ordem)
     {
         $Api = new ApiHelper(token: true);
@@ -34,18 +91,7 @@ final class DemandaController extends Controller
         return $lista->dado ?? [];
     }
 
-    public function add()
-    {
-        $Api = new ApiHelper(token: true);
-        $empresa = $Api
-            ->json(['titulo' => 'Escolha um cliente'])
-            ->get('/admin-empresa/select')
-            ->array();
-        return view('painel.demanda.nova', [
-            'empresa' => $empresa['dado'] ?? []
-        ]);
-    }
-    public function postAdd(Request $request)
+    public function postDemandaSalvar(Request $request)
     {
         if ($request->tipo == 'cliente') {
             $Demanda = new CriarClienteModel(
@@ -62,30 +108,19 @@ final class DemandaController extends Controller
         return mensagemSucesso(['id' => $Demanda->id()], 201);
     }
 
-    public function tarefaEditar(string $id, string $demanda)
-    {
-        $Api = new ApiHelper(token: true);
-        $tarefa = $Api->get('/demanda-tarefa/' . $id)->object();
-
-        if (!object_key_exists('dado', $tarefa)) {
-            mensagemStatus(404);
-        }
-
-        $Tipo = new DemandaTarefaTipo();
-
-        return view('painel.demanda.editar', [
-            'demanda' => $demanda,
-            'tipoLista' => $Tipo->select('Escolha uma opção'),
-            'r' => $tarefa->dado
-        ]);
-    }
     public function postTarefaEditar(Request $request, string $id)
     {
+        $request
+            ->vazio('titulo', mensagem: 'Você precisa passar um título para a tarefa.')
+            ->vazio('texto', mensagem: 'Você precisa passar um texto para a tarefa.')
+            ->vazio('tipo', mensagem: 'Você precisa passar um tipo para a tarefa.');
+
         $Api = new ApiHelper(token: true);
         $dado = $Api->body([
             'titulo' => $request->titulo,
             'texto' => $request->_POST('texto', html: false),
-            'tipo' => $request->tipo
+            'tipo' => $request->tipo,
+            'hora_producao_estimada' => $request->hora
         ])->put('/demanda-tarefa/' . $id);
 
         respostaJson(
@@ -111,21 +146,5 @@ final class DemandaController extends Controller
     public function deleteTarefa(string $id)
     {
         return new Response(status: 204);
-    }
-
-    public function tarefa(string $id)
-    {
-        $Api = new ApiHelper(token: true);
-        $tarefa = $Api->get('/demanda-dado/' . $id)->object();
-
-        if (!object_key_exists('dado', $tarefa)) {
-            mensagemStatus(404);
-        }
-
-        return view('painel.demanda.tarefa', [
-            'r' => $tarefa->dado,
-            'Tipo' => new DemandaTarefaTipo(),
-            'Status' => new Status()
-        ]);
     }
 }

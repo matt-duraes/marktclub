@@ -89,6 +89,7 @@ final class LoginController extends Controller
             'email' => $Usuario->email->email(),
             'email_verified' => 'nao',
             'new_access' => $Usuario->primeiro_acesso->valor(),
+            'manager' => $Usuario->gerente->valor(),
             'permission' => $Usuario->permissao,
         ], lista: ['company_id', 'name', 'picture', 'document', 'email', 'google', 'facebook']);
 

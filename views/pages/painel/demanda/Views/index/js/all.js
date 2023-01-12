@@ -1,7 +1,8 @@
 // @template "painel"
-// @import "detalhe_demanda"
-// @import "nova_demanda"
-// @import "editar_tarefa"
+// @import "demanda_detalhe"
+// @import "demanda_salvar"
+// @import "demanda_editar"
+// @import "tarefa_editar"
 
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
@@ -12,7 +13,7 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const botaoAdd = document.getElementById('botao_add_tarefa');
-    const PaginaAddTarefa = new Pagina('nova-tarefa', LINK + '/demanda/nova', {}, true, true, demandaNova);
+    const PaginaAddTarefa = new Pagina('demanda-salvar', LINK + '/demanda/demanda-salvar', {}, true, true, demandaNova);
 
     botaoAdd.addEventListener('click', () => {
         PaginaAddTarefa.abrir();
@@ -28,7 +29,7 @@ window.addEventListener('load', () => {
         const id = tarefa.getAttribute('data-id');
         const PaginaDetalhe = new Pagina(
             'tarefa-' + id,
-            LINK + '/demanda/tarefa/' + id,
+            LINK + '/demanda/demanda/' + id,
             {},
             true,
             true,

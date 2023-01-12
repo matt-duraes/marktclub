@@ -1359,6 +1359,8 @@ if (!function_exists('formSwitch')) {
         $checkHtml = $check ? 'checked' : '';
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
 
+        $value = true === $value || 'sim' == $value || 1 == $value ? 'sim' : 'nao';
+
         $ajudaHtml = '';
         if ($ajuda) {
             $ajudaHtml = '<div class="input_ajuda" data-ajuda="' . $ajuda . '">?</div>';

@@ -68,6 +68,26 @@ const detalheDemanda = () => {
         tarefa.parentNode.removeChild(tarefa);
         Alerta.notificacao('Tarefa deletada com sucesso.', true);
     };
+
+    /*
+    |--------------------------------------------------------------------------
+    | EDITAR DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    const botaoEditar = document.querySelector('#botao_editar_demanda');
+    if (botaoEditar) {
+        const PaginaEditar = new Pagina(
+            'demanda-editar-' + demandaId,
+            LINK + '/demanda/demanda-editar/' + demandaId,
+            {},
+            true,
+            false,
+            editarDemanda
+        );
+        botaoEditar.addEventListener('click', () => {
+            PaginaEditar.abrir();
+        });
+    }
 };
 
 fwFormArquivoListaChange = async () => {

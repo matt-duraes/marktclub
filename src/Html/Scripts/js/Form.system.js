@@ -602,7 +602,6 @@ fwFormLoading = bloco => {
     const inputSwitchLista = bloco.querySelectorAll('.bloco_switch input[type=checkbox]');
     const inputSenhaLista = bloco.querySelectorAll('.bloco_senha');
     const inputUrlLista = bloco.querySelectorAll('.input_url');
-    const textareaResizeEnterFalseLista = bloco.querySelectorAll('.input_textarea_enter_false .textarea_resize');
     const textareaResizeLista = bloco.querySelectorAll('.textarea_resize');
     const inputContadorLista = bloco.querySelectorAll('.input_contador');
     const inputObrigatorioLista = bloco.querySelectorAll(`
@@ -946,7 +945,7 @@ fwFormLoading = bloco => {
                 if (input.checked) {
                     input.value = 'sim';
                 } else {
-                    input.value = '';
+                    input.value = 'nao';
                 }
             });
         });

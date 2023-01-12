@@ -49,7 +49,7 @@ final class Request extends Psr7Request
      * @param   string          $parametro  Parametro que deseja validar
      * @param   null|string     $titulo     Título caso deseja retornar um erro
      * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
-     * @return  bool                        True caso o parâmetro exista
+     * @return  bool|self                   True caso o parâmetro exista ou self se tive passado mensagem de erro
      * @throws  Erro\Excecao                Erro caso o campo parametro não exista e tenha passado uma mensagem de erro
      */
     public function existe(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool
@@ -59,6 +59,8 @@ final class Request extends Psr7Request
         if (!$existe && !empty($mensagem)) {
             $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
             mensagemErro($titulo, $mensagem);
+        } else if ($existe && !empty($mensagem)) {
+            return $this;
         }
         return $existe;
     }
@@ -70,16 +72,18 @@ final class Request extends Psr7Request
      * @param   string          $parametro  Parametro que deseja validar
      * @param   null|string     $titulo     Título caso deseja retornar um erro
      * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
-     * @return  bool                        True caso não exista ou esteja vazio
+     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
      * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
      */
-    public function vazio(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool
+    public function vazio(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
     {
         $dado = $this->dado();
         $vazio = !array_key_exists($parametro, $dado) || empty($dado[$parametro]);
         if ($vazio && !empty($mensagem)) {
             $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
             mensagemErro($titulo, $mensagem);
+        } else if (!$vazio && !empty($mensagem)) {
+            return $this;
         }
         return $vazio;
     }

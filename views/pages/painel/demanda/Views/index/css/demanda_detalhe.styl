@@ -11,9 +11,22 @@
     width: 100%
     padding: 20px 20px 0
     flexRow()
+    align-items: center
     h1
         flexGrow()
         titulo()
+    .botao_editar
+        position: relative
+        padding-right: 40px
+        flexRow()
+        align-items: center
+        &::after
+            content: ""
+            width: 1px
+            height: 24px
+            background-color: #CCC
+            position: absolute
+            right: 20px
     i
         width: 30px
         height: 30px
@@ -21,6 +34,7 @@
         cursor: pointer
         &.mobile
             margin-right: 10px
+
 #bloco_demanda_tarefa .bloco_equipe
     width: 100%
     flexRow()

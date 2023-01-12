@@ -15,32 +15,34 @@ Route
             ::view('/demanda');
 
         Route
-            ::nome('tarefa')
-            ::view('/demanda/tarefa/{id}');
+            ::nome('demanda')
+            ::view('/demanda/demanda/{id}');
         Route
             ::nome('tarefaEditar')
             ::view('/demanda/tarefa-editar/{id}/{demanda}');
         Route
+            ::nome('demandaSalvar')
+            ::view('/demanda/demanda-salvar');
+        Route
+            ::nome('demandaEditar')
+            ::view('/demanda/demanda-editar/{id}');
+
+        Route
             ::nome('tarefaEditar')
-            ::request(['titulo', 'texto', 'tipo'])
+            ::request(['titulo', 'texto', 'tipo', 'hora'])
             ::post('/demanda/tarefa-editar/{id}');
         Route
             ::nome('tarefaArquivo')
             ::request(['arquivo'])
             ::post('/demanda/tarefa-arquivo/{id}');
-
         Route
             ::nome('tarefa')
             ::delete('/demanda/tarefa/{id}');
-
         Route
-            ::nome('add')
-            ::view('/demanda/nova');
-        Route
-            ::nome('add')
+            ::nome('demandaSalvar')
             ::request([
                 'tipo', '!titulo', 'empresa', '!dominio_tipo', '!dominio_link', '!login_api',
                 '!login_link', '!app', '!texto',
             ])
-            ::post('/demanda/nova');
+            ::post('/demanda/demanda-salvar');
     });

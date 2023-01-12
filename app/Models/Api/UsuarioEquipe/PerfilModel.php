@@ -2,6 +2,8 @@
 
 namespace App\Models\Api\UsuarioEquipe;
 
+use Modules\Botao;
+
 final class PerfilModel
 {
     private array $usuarioVazio;
@@ -11,19 +13,23 @@ final class PerfilModel
             'id' => '',
             'perfil' => '',
             'nome' => 'Sem usuário',
-            'imagem' => imagemUsuario()
+            'imagem' => imagemUsuario(),
+            'gerente' => 'nao'
         ];
     }
 
     /**
      * Pegar um perfil da equipe
      *
-     * @param   int|string  $id     ID ou UUID do usuário
-     * @param   bool        $vazio  Se vai retornar um usuário vazio
-     * @return  array               Array vazio ou com um usuário
+     * @param   null|int|string     $id     ID ou UUID do usuário
+     * @param   bool                $vazio  Se vai retornar um usuário vazio
+     * @return  array                       Array vazio ou com um usuário
      */
-    public function pegarDado(int|string $id, bool $vazio = true): array
+    public function pegarDado(null|int|string $id, bool $vazio = true): array
     {
+        if (empty($id)) {
+            return $vazio ? $this->usuarioVazio : [];
+        }
         try {
             $Equipe = new EquipeEntity();
             if (is_int($id)) {
@@ -37,7 +43,8 @@ final class PerfilModel
                 'id' => $Equipe->id,
                 'perfil' => $Equipe->perfil,
                 'nome' => $Equipe->nome->nome(),
-                'imagem' => $Equipe->imagem
+                'imagem' => $Equipe->imagem,
+                'gerente' => $Equipe->gerente->valor()
             ];
         } catch (\Throwable) {
             return $vazio ? $this->usuarioVazio : [];
@@ -76,22 +83,25 @@ final class PerfilModel
      * @param   string      $imagem_facebook    Imagem do Facebook
      * @param   string      $imagem_google      Imagem do Google
      * @param   string      $imagem_arquivo     Arquivo de imagem
+     * @param   string      $gerente            Se o usuário é um gerente, passar sim ou nao
      * @return  array                           Array com perfil do usuário
      */
     public function montarUsuario(
-        $id,
-        $perfil,
-        $nome,
-        $imagem_tipo,
-        $imagem_facebook,
-        $imagem_google,
-        $imagem_arquivo
+        string $id,
+        string $perfil,
+        string $nome,
+        int $imagem_tipo,
+        string $imagem_facebook,
+        string $imagem_google,
+        string $imagem_arquivo,
+        string $gerente = 'nao'
     ) {
         return [
             'id' => $id,
             'perfil' => $perfil,
             'nome' => $nome,
-            'imagem' => imagemUsuario($imagem_tipo, $imagem_arquivo, $imagem_facebook, $imagem_google)
+            'imagem' => imagemUsuario($imagem_tipo, $imagem_arquivo, $imagem_facebook, $imagem_google),
+            'gerente' => (new Botao($gerente))->valor()
         ];
     }
 }

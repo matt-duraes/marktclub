@@ -3,6 +3,11 @@
     <header>
         <i class="fechar mobile botao_fechar_demanda">@iconeVoltar</i>
         <h1>{{$r->titulo}}</h1>
+        @ if( $r->sou_dono || sessao('USUARIO.gerente', padrao: 'nao') == 'sim' ):
+        <div class="botao_editar">
+            <i id="botao_editar_demanda" data-ajuda="Editar demanda">@iconeEditar(15)</i>
+        </div>
+        @ endif;
         <i class="fechar desktop botao_fechar_demanda">@iconeFechar</i>
     </header>
 

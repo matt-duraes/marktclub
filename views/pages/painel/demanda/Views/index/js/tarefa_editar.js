@@ -3,14 +3,15 @@ const editarTarefa = () => {
     const idTarefa = document.getElementById('input_id_tarefa').value;
     const inputTitulo = document.getElementById('input_titulo');
     const inputTexto = document.getElementById('input_texto');
-    const inputTipo = document.getElementById('input_texto');
+    const inputTipo = document.getElementById('input_tipo');
+    const inputHora = document.getElementById('input_hora');
 
     const botaoFechar = document.getElementById('botao_cancelar_edicao');
     const botaoSalvar = document.getElementById('botao_editar_tarefa');
 
     const PaginaDemanda = new Pagina(
         'tarefa-' + idDemanda,
-        LINK + '/demanda/tarefa/' + idDemanda,
+        LINK + '/demanda/demanda/' + idDemanda,
         {},
         true,
         false,
@@ -26,6 +27,7 @@ const editarTarefa = () => {
         body.append('titulo', inputTitulo.value);
         body.append('texto', inputTexto.value);
         body.append('tipo', inputTipo.value);
+        body.append('hora', inputHora.value);
 
         const resposta = await fetch(LINK + '/demanda/tarefa-editar/' + idTarefa, {
             method: 'POST',

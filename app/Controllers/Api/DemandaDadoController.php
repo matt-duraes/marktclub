@@ -65,6 +65,10 @@ final class DemandaDadoController extends Controller implements
         );
     }
 
+    public function atualizar(string $id)
+    {
+        ppe($id);
+    }
     public function putAtualizar(Request $request, string $id)
     {
         $Demanda = new DemandaEntity();

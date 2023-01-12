@@ -232,7 +232,7 @@ const demandaNova = () => {
             return;
         }
 
-        const resposta = await fetch(LINK + '/demanda/nova', {
+        const resposta = await fetch(LINK + '/demanda/demanda-salvar', {
             method: 'POST',
             body,
         });
@@ -246,7 +246,7 @@ const demandaNova = () => {
 
         const PaginaDetalheTarefa = new Pagina(
             'tarefa-' + json.dado.id,
-            LINK + '/demanda/tarefa/' + json.dado.id,
+            LINK + '/demanda/demanda/' + json.dado.id,
             {},
             true,
             true,

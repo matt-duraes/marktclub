@@ -1,7 +1,5 @@
 <?php
 
-use Helpers\ApiHelper;
-
 $appAcao = $acao ?? '';
 $appTitulo = $config->titulo ?? $appTitulo ?? '';
 $appVoltar = $appVoltar ?? '';
@@ -33,4 +31,5 @@ define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));
 define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));
+define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
 define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
