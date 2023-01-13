@@ -44,7 +44,7 @@ final class DemandaTarefaController extends Controller implements
         $Tarefa = new TarefaEntity();
         $Tarefa->id($id);
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo'])
+            pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo', 'hora_producao_estimada'])
         );
     }
 

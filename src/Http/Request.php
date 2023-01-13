@@ -90,6 +90,30 @@ final class Request extends Psr7Request
 
     // doc
     /**
+     * Verifica que um parâmetro é uma data valida
+     *
+     * @param   string          $parametro  Parametro que deseja validar
+     * @param   null|string     $titulo     Título caso deseja retornar um erro
+     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
+     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
+     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
+     */
+    public function validarData(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
+    {
+        $dado = $this->dado();
+        $eData = array_key_exists($parametro, $dado) && validarData($dado[$parametro]);
+
+        if (!$eData && !empty($mensagem)) {
+            $titulo = empty($titulo) ? 'Campo inválido!' : $titulo;
+            mensagemErro($titulo, $mensagem);
+        } else if ($eData && !empty($mensagem)) {
+            return $this;
+        }
+        return $eData;
+    }
+
+    // doc
+    /**
      * Pega uma chave específica da request
      *
      * @param string        $indice         Indice do item que deseja retornar

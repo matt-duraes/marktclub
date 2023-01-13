@@ -1,0 +1,21 @@
+<div id="bloco_demanda_nova" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>EDITAR DEMANDA</h1>
+    </header>
+    <form class="form_geral conteudo_pagina_popup">
+        <input type="hidden" id="input_id_demanda" value="{{$r->id}}">
+        @? formInput(name: 'titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true, value: $r->titulo)
+        <div class="row2">
+            @? formSelect(name: 'empresa', placeholder: 'Escolha um cliente', label: 'Empresa', lista: $empresa, value: $r->empresa->id)
+            @? formSelect(name: 'dono', placeholder: 'Escolha um dono para a demanda', label: 'Dono da demanda', lista: $equipe, value: $r->dono->id)
+        </div>
+        <div class="row_livre">
+            @? formSwitch(name: 'com_prazo', label: 'A demanda tem prazo?', check: false, value: $r->com_prazo)
+            @? formData(name: 'data_entrega', label: 'Data da entrega', value: $r->data_entrega, placeholder: 'Prazo de entrega', class: 'bloco_input_data_entrega ' . $dataEntregaClasse)
+        </div>
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="button voltar" id="botao_cancelar_edicao">CANCELAR</div>
+        <div class="button salvar" id="botao_editar_tarefa">SALVAR</div>
+    </div>
+</div>

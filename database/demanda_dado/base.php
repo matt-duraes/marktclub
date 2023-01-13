@@ -11,6 +11,7 @@ return (new \DataBase\DataBase())
     ->dataAtualizacao()
     ->json('arquivo')->null()
     ->json('seguindo')->null()
-    ->int('sem_data_entraga')->null()
+    ->int('com_prazo')->null()
+    ->date('data_entrega')->null()
     ->int('ordem')->null()
     ->status();

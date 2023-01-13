@@ -10,6 +10,8 @@ use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\DemandaModel;
 use App\Models\Api\Demanda\DemandaEntity;
+use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -31,7 +33,7 @@ final class DemandaDadoController extends Controller implements
                 $Demanda,
                 lista: [
                     'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
-                    'sou_dono', 'sou_dev', 'tarefa', 'arquivo'
+                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'arquivo'
                 ]
             )
         );
@@ -65,15 +67,23 @@ final class DemandaDadoController extends Controller implements
         );
     }
 
-    public function atualizar(string $id)
-    {
-        ppe($id);
-    }
     public function putAtualizar(Request $request, string $id)
     {
+        $dado = $request->dado();
+        if ($request->existe('id_admin_empresa')) {
+            $Empresa = new EmpresaEntity();
+            $Empresa->id($request->id_admin_empresa);
+            $dado['id_admin_empresa'] = $Empresa->get('id');
+        }
+        if ($request->existe('id_usuario_equipe')) {
+            $Equipe = new EquipeEntity(validarToken: false);
+            $Equipe->id($request->id_usuario_equipe);
+            $dado['id_usuario_equipe'] = $Equipe->get('id');
+        }
+
         $Demanda = new DemandaEntity();
         $Demanda->id($id);
-        $Demanda->set(lista: $request->dado());
+        $Demanda->set(lista: $dado);
         $Demanda->salvar();
 
         return new Response(status: 204);

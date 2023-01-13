@@ -3,6 +3,7 @@
 // @import "demanda_salvar"
 // @import "demanda_editar"
 // @import "tarefa_editar"
+// @import "tarefa_salvar"
 
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
@@ -13,7 +14,14 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const botaoAdd = document.getElementById('botao_add_tarefa');
-    const PaginaAddTarefa = new Pagina('demanda-salvar', LINK + '/demanda/demanda-salvar', {}, true, true, demandaNova);
+    const PaginaAddTarefa = new Pagina(
+        'demanda-salvar',
+        LINK + '/demanda/demanda-salvar',
+        {},
+        true,
+        true,
+        demandaSalvar
+    );
 
     botaoAdd.addEventListener('click', () => {
         PaginaAddTarefa.abrir();
@@ -28,12 +36,12 @@ window.addEventListener('load', () => {
     tarefaLista.forEach(tarefa => {
         const id = tarefa.getAttribute('data-id');
         const PaginaDetalhe = new Pagina(
-            'tarefa-' + id,
+            'demanda-' + id,
             LINK + '/demanda/demanda/' + id,
             {},
             true,
             true,
-            detalheDemanda
+            demandaDetalhe
         );
         tarefa.addEventListener('click', () => {
             PaginaDetalhe.abrir();

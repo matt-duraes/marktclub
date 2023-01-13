@@ -48,6 +48,7 @@ final class DemandaController extends Controller
             ->json(['titulo' => 'Escolha um cliente'])
             ->get('/admin-empresa/select')
             ->array();
+
         return view('painel.demanda.demanda-salvar', [
             'empresa' => $empresa['dado'] ?? []
         ]);
@@ -58,11 +59,54 @@ final class DemandaController extends Controller
         $Api = new ApiHelper(token: true);
         $demanda = $Api->get('/demanda-dado/' . $id)->object();
 
-        return view('painel.demanda.tarefa-editar', [
-            'r' => $demanda->dado
+        $empresa = $Api
+            ->json(['titulo' => 'Escolha um cliente'])
+            ->get('/admin-empresa/select')
+            ->array();
+        $equipe = $Api
+            ->json(['titulo' => 'Escolha um usuário'])
+            ->get('/usuario-equipe/select')
+            ->array();
+
+        return view('painel.demanda.demanda-editar', [
+            'r' => $demanda->dado,
+            'empresa' => $empresa['dado'] ?? [],
+            'equipe' => $equipe['dado'] ?? [],
+            'dataEntregaClasse' => $demanda->dado->com_prazo == 'sim' ? 'ativo' : ''
         ]);
     }
 
+    public function postDemandaEditar(Request $request, string $id)
+    {
+        $request
+            ->vazio('titulo', mensagem: 'Digite um título para continuar.')
+            ->vazio('empresa', mensagem: 'Escolha uma empresa para continuar.')
+            ->vazio('dono', mensagem: 'Escolha um dono da demanda para continuar.')
+            ->validarData('data_entrega', mensagem: 'Digite uma data de entrega válida para continuar.');
+
+        $Api = new ApiHelper(token: true);
+        $Api
+            ->validar('Ocorre um erro ao editar sua demanda, por favor, tente novamente.')
+            ->body([
+                'titulo' => $request->titulo,
+                'id_admin_empresa' => $request->empresa,
+                'id_usuario_equipe' => $request->dono,
+                'com_prazo' => $request->com_prazo,
+                'data_entrega' => !empty($request->data_entrega) ? dataBanco($request->data_entrega) : '',
+            ])
+            ->put('/demanda-dado/' . $id);
+
+        return new Response(status: 204);
+    }
+
+    public function tarefaSalvar(string $demanda)
+    {
+        $Tipo = new DemandaTarefaTipo();
+        return view('painel.demanda.tarefa-salvar', [
+            'tipoLista' => $Tipo->select('Escolha uma opção'),
+            'demanda' => $demanda
+        ]);
+    }
     public function tarefaEditar(string $id, string $demanda)
     {
         $Api = new ApiHelper(token: true);

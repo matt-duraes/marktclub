@@ -1348,7 +1348,7 @@ if (!function_exists('formSwitch')) {
     function formSwitch(
         string $name,
         string $label,
-        bool $check,
+        bool $check = false,
         ?string $value = '',
         string $class = '',
         string $id = '',
@@ -1356,10 +1356,9 @@ if (!function_exists('formSwitch')) {
         string $html = '',
         array $attr = []
     ): string {
-        $checkHtml = $check ? 'checked' : '';
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
-
         $value = true === $value || 'sim' == $value || 1 == $value ? 'sim' : 'nao';
+        $checkHtml = $value == 'sim' || $check ? 'checked' : '';
 
         $ajudaHtml = '';
         if ($ajuda) {

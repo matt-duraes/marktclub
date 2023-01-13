@@ -342,6 +342,12 @@ Route
             ::get('/usuario-equipe');
 
         Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
+            ::request(['!titulo'], 'json')
+            ::get('/usuario-equipe/select');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:buscar'])
             ::get('/usuario-equipe/{id}');
@@ -766,7 +772,7 @@ Route::nome('demandaDado')
         Route
             ::nome('atualizar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
-            ::request(['!titulo', '!arquivo', '!empresa', '!dono'])
+            ::request(['!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe', '!data_entrega', '!com_prazo'])
             ::put('/demanda-dado/{id}');
     });
 

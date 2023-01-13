@@ -1,5 +1,5 @@
 let demandaId;
-const detalheDemanda = () => {
+const demandaDetalhe = () => {
     demandaId = document.getElementById('input_demanda_id').value;
 
     historicoLoad();
@@ -82,12 +82,30 @@ const detalheDemanda = () => {
             {},
             true,
             false,
-            editarDemanda
+            demandaEditar
         );
         botaoEditar.addEventListener('click', () => {
             PaginaEditar.abrir();
         });
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR NOVA DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    const botaoSalvarTarefa = document.getElementById('botao_salvar_tarefa');
+    const PaginaSalvarTarefa = new Pagina(
+        'tarefa-salvar',
+        LINK + '/demanda/tarefa-salvar/' + demandaId,
+        {},
+        true,
+        false,
+        tarefaSalvar
+    );
+    botaoSalvarTarefa.addEventListener('click', () => {
+        PaginaSalvarTarefa.abrir();
+    });
 };
 
 fwFormArquivoListaChange = async () => {

@@ -110,4 +110,14 @@ final class UsuarioEquipeController extends Controller implements
         }
         mensagemErro('Senha inválida!', 'Verifique a senha digitada e tente novamente.');
     }
+
+    public function getSelect(Request $request)
+    {
+        $Equipe = new EquipeModel();
+        $select = $Equipe->pegarSelect('uuid', 'nome_real', [
+            ['status', 1]
+        ], titulo: $request->titulo);
+
+        return mensagemSucesso($select);
+    }
 }

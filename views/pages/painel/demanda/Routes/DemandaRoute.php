@@ -13,10 +13,12 @@ Route
         Route
             ::nome('lista')
             ::view('/demanda');
-
         Route
             ::nome('demanda')
             ::view('/demanda/demanda/{id}');
+        Route
+            ::nome('tarefaSalvar')
+            ::view('/demanda/tarefa-salvar/{demanda}');
         Route
             ::nome('tarefaEditar')
             ::view('/demanda/tarefa-editar/{id}/{demanda}');
@@ -26,6 +28,10 @@ Route
         Route
             ::nome('demandaEditar')
             ::view('/demanda/demanda-editar/{id}');
+        Route
+            ::nome('demandaEditar')
+            ::request(['titulo', 'dono', 'empresa', 'com_prazo', 'data_entrega'])
+            ::post('/demanda/demanda-editar/{id}');
 
         Route
             ::nome('tarefaEditar')

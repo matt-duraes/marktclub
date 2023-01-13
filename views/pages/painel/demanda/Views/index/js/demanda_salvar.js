@@ -1,4 +1,4 @@
-const demandaNova = () => {
+const demandaSalvar = () => {
     const inputTipo = document.getElementById('input_tipo');
     const inputTitulo = document.getElementById('input_titulo');
     const inputTexto = document.getElementById('input_texto');
@@ -245,12 +245,12 @@ const demandaNova = () => {
         }
 
         const PaginaDetalheTarefa = new Pagina(
-            'tarefa-' + json.dado.id,
+            'demanda-' + json.dado.id,
             LINK + '/demanda/demanda/' + json.dado.id,
             {},
             true,
             true,
-            detalheDemanda
+            demandaDetalhe
         );
         PaginaDetalheTarefa.abrir();
     });

@@ -10,12 +10,12 @@ const editarTarefa = () => {
     const botaoSalvar = document.getElementById('botao_editar_tarefa');
 
     const PaginaDemanda = new Pagina(
-        'tarefa-' + idDemanda,
+        'demanda-' + idDemanda,
         LINK + '/demanda/demanda/' + idDemanda,
         {},
         true,
         false,
-        detalheDemanda
+        demandaDetalhe
     );
 
     botaoFechar.addEventListener('click', () => {
