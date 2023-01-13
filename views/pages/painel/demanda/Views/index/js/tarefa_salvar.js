@@ -5,8 +5,8 @@ const tarefaSalvar = () => {
     const inputTipo = document.getElementById('input_tipo');
     const inputHora = document.getElementById('input_hora');
 
-    const botaoFechar = document.getElementById('botao_cancelar_edicao');
-    const botaoSalvar = document.getElementById('botao_editar_tarefa');
+    const botaoFechar = document.getElementById('botao_tarefa_salvar_cancelar');
+    const botaoSalvar = document.getElementById('botao_tarefa_salvar_salvar');
 
     const PaginaDemanda = new Pagina(
         'demanda-' + idDemanda,
@@ -28,15 +28,14 @@ const tarefaSalvar = () => {
         }
         const body = montarBody();
 
-        const resposta = await fetch(LINK + '/demanda/tarefa-salvar/' + idTarefa, {
+        const resposta = await fetch(LINK + '/demanda/tarefa-salvar', {
             method: 'POST',
             body,
         });
 
+        const json = await respostaJson(resposta, 'Ocorre um erro ao salvar sua tarefa, por favor, tente novamente.');
         Loading.hide();
-        if (
-            true !== (await respostaJson(resposta, 'Ocorre um erro ao salvar sua tarefa, por favor, tente novamente.'))
-        ) {
+        if (false === json) {
             return;
         }
 
@@ -45,7 +44,7 @@ const tarefaSalvar = () => {
     });
 
     const validarCampos = () => {
-        let mensagem;
+        let mensagem = '';
         if (inputTitulo.value == '') {
             mensagem = 'Digite um título para continuar.';
         } else if (inputTexto.value == '') {
@@ -55,9 +54,15 @@ const tarefaSalvar = () => {
         } else if (inputHora.value != '' && !/^[1-9]{1}[0-9]{0,}$/.test(inputHora.value)) {
             mensagem = 'Digite um tempo de produção valido.';
         }
+        if (mensagem != '') {
+            Alerta.notificacao(mensagem, false);
+            return false;
+        }
+        return true;
     };
     const montarBody = () => {
         const body = new FormData();
+        body.append('demanda', idDemanda);
         body.append('titulo', inputTitulo.value);
         body.append('texto', inputTexto.value);
         body.append('tipo', inputTipo.value);

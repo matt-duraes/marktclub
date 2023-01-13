@@ -87,3 +87,21 @@ Route
             ::nome('deletar')
             ::delete('/upload-arquivo/{id}');
     });
+
+Route
+    ::nome('painel_notificacao')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(\ApiController\PainelNotificacaoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::request(['titulo', 'mensagem', 'link', 'botao', 'equipe', 'dono'])
+            ::post('/painel-notificacao');
+        Route
+            ::nome('atualizar')
+            ::request(['status'])
+            ::put('/painel-notificacao/{id}');
+        Route
+            ::nome('listar')
+            ::get('/painel-notificacao');
+    });

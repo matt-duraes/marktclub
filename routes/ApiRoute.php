@@ -794,6 +794,10 @@ Route::nome('demandaTarefa')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request(['titulo', 'texto', 'tipo', 'hora_producao_estimada'])
             ::put('/demanda-tarefa/{id}');
+        Route
+            ::nome('deletar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::delete('/demanda-tarefa/{id}');
     });
 
 Route

@@ -190,9 +190,9 @@ final class PontoEntity extends Entity
 
         $EmailCvs = new EmailHelper;
         $EmailCvs->mensagem(
-            'Voucher Solicitado!',
-            'Um voucher foi solicitado',
-            "Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel!<br>
+            titulo: 'Voucher Solicitado!',
+            assunto: 'Um voucher foi solicitado',
+            mensagem: "Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel!<br>
             O Usuário de Matrícula: $matricula, solicitou a quantia de $this->ponto_solicitado pontos.",
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             logo: $Construtor->logo,
@@ -203,9 +203,9 @@ final class PontoEntity extends Entity
 
         $EmailUsuario = new EmailHelper;
         $EmailUsuario->mensagem(
-            'Voucher Solicitado!',
-            'Você Solicitou um novo Voucher',
-            "Olá <strong>$this->nome</strong>, recebemos sua solicitação de um novo voucher!
+            titulo: 'Voucher Solicitado!',
+            assunto: 'Você Solicitou um novo Voucher',
+            mensagem: "Olá <strong>$this->nome</strong>, recebemos sua solicitação de um novo voucher!
             Logo entraremos em contato com mais informações sobre a situação de seu pedido.",
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             logo: $Construtor->logo,

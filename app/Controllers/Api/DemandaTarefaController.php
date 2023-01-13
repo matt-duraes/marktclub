@@ -9,12 +9,14 @@ use App\Classes\DemandaTarefa\Tipo;
 use App\Models\Api\Demanda\TarefaEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
 
 final class DemandaTarefaController extends Controller implements
     ControllerSalvarInterface,
     ControllerBuscarInterface,
-    ControllerAtualizarInterface
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function postSalvar(Request $request)
     {
@@ -59,6 +61,15 @@ final class DemandaTarefaController extends Controller implements
         $Tarefa->id($id);
         $Tarefa->set(lista: $dado);
         $Tarefa->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id)
+    {
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        $Tarefa->destruir();
 
         return new Response(status: 204);
     }

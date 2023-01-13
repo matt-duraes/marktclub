@@ -51,9 +51,9 @@ final class DependenteEntity extends Entity
 
         $Email = new EmailHelper();
         $Email->mensagem(
-            'Cadastro realizado!',
-            'Cadastro realizado!',
-            'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, você foi cadastrado no ' . $titulo . '. Para ativar seu
+            titulo: 'Cadastro realizado!',
+            assunto: 'Cadastro realizado!',
+            mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, você foi cadastrado no ' . $titulo . '. Para ativar seu
             cadastro, clique no botão abaixo:',
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             botaoTexto: 'Ativar cadastro',

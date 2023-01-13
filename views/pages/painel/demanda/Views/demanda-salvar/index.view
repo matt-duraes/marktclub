@@ -21,18 +21,18 @@
         </div>
 
         <div class="bloco_conjunto display_none" id="bloco_tipo_associacao">
-            @view "painel/demanda/nova/associacao"
+            @view "painel/demanda/demanda-salvar/associacao"
         </div>
 
         <div class="bloco_conjunto display_none" id="bloco_tipo_cliente">
-            @view "painel/demanda/nova/cliente"
+            @view "painel/demanda/demanda-salvar/cliente"
         </div>
 
         <div class="bloco_conjunto display_none" id="bloco_tipo_bug">
-            @view "painel/demanda/nova/bug"
+            @view "painel/demanda/demanda-salvar/bug"
         </div>
         <div class="bloco_conjunto display_none" id="bloco_tipo_outro">
-            @view "painel/demanda/nova/outro"
+            @view "painel/demanda/demanda-salvar/outro"
         </div>
 
         <div class="geral display_none" id="bloco_geral_footer">

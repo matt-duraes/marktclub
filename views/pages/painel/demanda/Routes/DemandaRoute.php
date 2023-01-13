@@ -17,14 +17,22 @@ Route
             ::nome('demanda')
             ::view('/demanda/demanda/{id}');
         Route
+            ::nome('demandaSalvar')
+            ::view('/demanda/demanda-salvar');
+        Route
             ::nome('tarefaSalvar')
             ::view('/demanda/tarefa-salvar/{demanda}');
         Route
             ::nome('tarefaEditar')
             ::view('/demanda/tarefa-editar/{id}/{demanda}');
+
         Route
             ::nome('demandaSalvar')
-            ::view('/demanda/demanda-salvar');
+            ::request([
+                'tipo', '!titulo', 'empresa', '!dominio_tipo', '!dominio_link', '!login_api',
+                '!login_link', '!app', '!texto', '!cdn'
+            ])
+            ::post('/demanda/demanda-salvar');
         Route
             ::nome('demandaEditar')
             ::view('/demanda/demanda-editar/{id}');
@@ -38,17 +46,14 @@ Route
             ::request(['titulo', 'texto', 'tipo', 'hora'])
             ::post('/demanda/tarefa-editar/{id}');
         Route
+            ::nome('tarefaSalvar')
+            ::request(['demanda', 'titulo', 'texto', 'tipo', 'hora'])
+            ::post('/demanda/tarefa-salvar');
+        Route
             ::nome('tarefaArquivo')
             ::request(['arquivo'])
             ::post('/demanda/tarefa-arquivo/{id}');
         Route
             ::nome('tarefa')
             ::delete('/demanda/tarefa/{id}');
-        Route
-            ::nome('demandaSalvar')
-            ::request([
-                'tipo', '!titulo', 'empresa', '!dominio_tipo', '!dominio_link', '!login_api',
-                '!login_link', '!app', '!texto',
-            ])
-            ::post('/demanda/demanda-salvar');
     });

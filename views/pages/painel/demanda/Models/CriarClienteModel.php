@@ -3,20 +3,29 @@
 namespace Painel\Demanda\Models;
 
 use stdClass;
+use Modules\Botao;
 use Helpers\ApiHelper;
 
 final class CriarClienteModel
 {
     private stdClass $Demanda;
+    private array $listaNotificacao = [];
+
+    private string $usuarioInfra = '8fd85f9f7cc21d6e33399681d6e5fca7';
+    private string $usuarioDns = '8fd85f9f7cc21d6e33399681d6e5fca7';
+    private string $usuarioBancoDados = '8fd85f9f7cc21d6e33399681d6e5fca7';
+    private string $usuarioCriacao = '3df1a38ec0919bd14162beabb73e12b4';
+    private string $usuarioApp = '0f3a5572ba1343afca4c0b538354c59c';
 
     public function __construct(
         private string $empresa,
         private string $dominioTipo,
         private string $dominioLink,
-        private bool $loginApi,
+        private Botao $loginApi,
         private string $loginLink,
-        private bool $app,
-        private string $texto
+        private Botao $app,
+        private string $texto,
+        private Botao $cdn
     ) {
         $this->criarDemanda();
         $this->verificarSeSalvouDemanda();
@@ -24,8 +33,11 @@ final class CriarClienteModel
         $this->configurarDnsCdn();
         $this->criarDocumentacaoParaApi();
         $this->configurarConstrutor();
+        $this->criarAppParaApp();
+        $this->criarAppParaClube();
         $this->rodarScriptSubirConvenio();
         $this->criarApp();
+        $this->notificarUsuario();
     }
 
     private function criarDemanda()
@@ -63,7 +75,7 @@ final class CriarClienteModel
 
     private function configurarDnsCdn()
     {
-        if (!in_array($this->dominioTipo, ['temvantagens', 'temmaisvantagens'])) {
+        if ($this->cdn->valor() == 'nao' || $this->dominioTipo != 'dominio') {
             return;
         }
         $this->salvarTarefa(
@@ -71,34 +83,64 @@ final class CriarClienteModel
             'Configurar CDN',
             '<p>Criar o domínio <strong>
             ' . $this->dominioLink . '
-            </strong> na CDN</p><p>DNS: <strong>' . DNS_CNAME . '</strong></p>'
+            </strong> na CDN</p><p>DNS: <strong>' . DNS_CNAME . '</strong></p>',
+            $this->usuarioDns
+        );
+    }
+
+    private function criarAppParaClube()
+    {
+        $this->salvarTarefa(
+            'banco',
+            'Criar app para o clube',
+            '<p>Criar o APP para o clube no banco de dados</p>',
+            $this->usuarioBancoDados
+        );
+    }
+
+    private function criarAppParaApp()
+    {
+        if ($this->app->valor() == 'nao') {
+            return;
+        }
+        $this->salvarTarefa(
+            'banco',
+            'Criar app para o aplicativo',
+            '<p>Criar o APP para o aplicativo no banco de dados</p>',
+            $this->usuarioBancoDados
         );
     }
 
     private function criarDocumentacaoParaApi()
     {
-        if (!$this->loginApi) {
+        if ($this->loginApi->valor() == 'nao') {
             return;
         }
         $this->salvarTarefa(
             'banco',
             'Criar documentação da API',
-            '<p>Criar documentação para login via API do Cliente</p>'
+            '<p>Criar documentação para login via API do Cliente</p>',
+            $this->usuarioBancoDados
         );
     }
 
     private function configurarConstrutor()
     {
         $texto = '<p>Link do Clube: <strong>' . $this->dominioLink . '</strong></p>';
-        if ($this->loginApi) {
+        if ($this->loginApi->valor() == 'sim') {
             $texto .= '
                 <p>O cliente fara o Login via API e o link do login será: <strong>
-                ' . $this->loginLink . '
+                https://' . $this->loginLink . '
                 </strong></p>
             ';
         }
         $texto .= $this->texto;
-        $this->salvarTarefa('criacao', 'Configurar Construtor', $texto);
+        $this->salvarTarefa(
+            'criacao',
+            'Configurar Construtor',
+            $texto,
+            $this->usuarioCriacao
+        );
     }
     private function rodarScriptSubirConvenio()
     {
@@ -110,41 +152,57 @@ final class CriarClienteModel
                 <p>Excutar via URL <strong>http://novoclube.mkc</strong> que deve ser apontada para
                 <strong>' . env('DNS_IP_API', '') . '</strong>
                 </p>
-            '
+            ',
+            $this->usuarioInfra
         );
     }
 
     private function criarApp()
     {
-        if (!$this->app) {
+        if ($this->app->valor() == 'nao') {
             return;
         }
         $this->salvarTarefa(
             'criacao',
             'Criar peças para o APP',
-            '<p>Criar as peças para a criação dos APP no IOS e Android</p>'
+            '<p>Criar as peças para a criação dos APP no IOS e Android</p>',
+            $this->usuarioCriacao
         );
         $this->salvarTarefa(
             'app',
             'Criar APP para Android',
-            '<p>Criar APP para Andriod</p>'
+            '<p>Criar APP para Andriod</p>',
+            $this->usuarioApp
         );
         $this->salvarTarefa(
             'app',
             'Criar APP para IOS',
-            '<p>Criar APP para IOS</p>'
+            '<p>Criar APP para IOS</p>',
+            $this->usuarioApp
         );
     }
 
-    private function salvarTarefa($tipo, $titulo, $texto)
+    private function salvarTarefa(string $tipo, string $titulo, string $texto, string $equipe)
     {
         $Api = new ApiHelper(token: true);
-        $Api->body([
+        $dado = [
             'demanda' => $this->Demanda->dado->id,
             'tipo' => $tipo,
             'titulo' => $titulo,
             'texto' => $texto
-        ])->post('/demanda-tarefa');
+        ];
+        if (!empty($equipe)) {
+            $dado['equipe'] = $equipe;
+        }
+        $Api->body($dado)->post('/demanda-tarefa');
+        if (!empty($equipe) && !in_array($equipe, $this->listaNotificacao)) {
+            $this->listaNotificacao[] = $equipe;
+        }
+    }
+
+    private function notificarUsuario()
+    {
+        //
     }
 
     public function id()

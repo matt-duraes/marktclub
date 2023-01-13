@@ -314,9 +314,10 @@ const demandaSalvar = () => {
             body.append('empresa', inputEmpresaCliente.value);
             body.append('dominio_tipo', inputDominioTipo.value);
             body.append('dominio_link', dominioLink);
-            body.append('login_api', inputLoginApi.checked);
+            body.append('login_api', inputLoginApi.value);
             body.append('login_link', inputDominioLogin.value);
-            body.append('app', inputApp.checked);
+            body.append('app', inputApp.value);
+            body.append('cdn', inputConfigurarCdn.value);
             body.append('texto', texto);
 
             resolve(body);

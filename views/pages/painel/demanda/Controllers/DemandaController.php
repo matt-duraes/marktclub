@@ -4,6 +4,7 @@ namespace Painel\Demanda\Controllers;
 
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
 use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Tipo;
@@ -107,6 +108,29 @@ final class DemandaController extends Controller
             'demanda' => $demanda
         ]);
     }
+    public function postTarefaSalvar(Request $request)
+    {
+        $request
+            ->vazio('demanda', mensagem: 'Você deve passar a demanda da tarefa.')
+            ->vazio('titulo', mensagem: 'Digite o título da tarefa para continuar.')
+            ->vazio('texto', mensagem: 'Digite o texto da tarefa para continuar.')
+            ->vazio('tipo', mensagem: 'Escolha um tipo para a tarefa.');
+
+        $Api = new ApiHelper(token: true);
+        $tarefa = $Api
+            ->validar('Erro ao salvar nova tarefa, por favor, tente novamente.')
+            ->body([
+                'demanda' => $request->demanda,
+                'titulo' => $request->titulo,
+                'texto' => $request->_POST('texto', html: false),
+                'tipo' => $request->tipo,
+                'hora_producao_estimada' => $request->hora,
+            ])
+            ->post('/demanda-tarefa')->object();
+
+        return mensagemSucesso($tarefa, 201);
+    }
+
     public function tarefaEditar(string $id, string $demanda)
     {
         $Api = new ApiHelper(token: true);
@@ -142,10 +166,11 @@ final class DemandaController extends Controller
                 $request->empresa,
                 $request->dominio_tipo,
                 $request->dominio_link,
-                $request->login_api,
+                new Botao($request->login_api),
                 $request->login_link,
-                $request->app,
-                $request->_POST('texto', html: false)
+                new Botao($request->app),
+                $request->_POST('texto', html: false),
+                new Botao($request->cdn)
             );
         }
 
@@ -189,6 +214,11 @@ final class DemandaController extends Controller
 
     public function deleteTarefa(string $id)
     {
+        $Api = new ApiHelper(token: true);
+        $Api
+            ->validar('Erro ao deletar a tarefa, por favor, tente novamente.')
+            ->delete('/demanda-tarefa/' . $id);
+
         return new Response(status: 204);
     }
 }

@@ -162,7 +162,7 @@ final class DemandaEntity extends Entity
     */
     protected function regraInsert()
     {
-        $this->com_prazo = new Botao('sim');
+        $this->com_prazo = new Botao('nao');
         $this->status = new Status('nova');
         $this->id_usuario_equipe = TOKEN['usuario']->get('id');
         $this->pegarIdEmpresa();

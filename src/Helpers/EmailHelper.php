@@ -24,7 +24,7 @@ final class EmailHelper
     public function __construct(
         private string $host = '',
         private int $porta = 0,
-        private string $login = '',
+        private string $usuario = '',
         private string $senha = '',
         private array $emailEnvio = [],
         private array $emailResposta = [],
@@ -73,8 +73,8 @@ final class EmailHelper
      */
     public function mensagem(
         string $titulo,
-        string $assunto,
         string $mensagem,
+        ?string $assunto = null,
         ?int $codigo = null,
         ?string $botaoTexto = null,
         ?string $botaoLink = null,
@@ -85,10 +85,12 @@ final class EmailHelper
         ?string $linkBrowser = null,
         ?string $linkRemover = null,
         ?string $logo = null,
-        ?string $cor = null
+        ?string $cor = null,
+        ?string $host = null
     ) {
+        $assunto = is_null($assunto) ? $titulo : $assunto;
         $acao = !empty($acao) ? trim($acao) : '';
-        $HOST = explode(':', $_SERVER['HTTP_HOST'] ?? '')[0] ?? '';
+        $host = empty($host) ? explode(':', $_SERVER['HTTP_HOST'] ?? '')[0] ?? '' : $host;
         ob_start();
         require __DIR__ . '/../Html/Email/View/index.php';
         $this->mensagem = ob_get_clean();

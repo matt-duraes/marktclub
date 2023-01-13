@@ -140,7 +140,6 @@ final class UltimoAcessoModel extends ORM
             $Email = new EmailHelper();
             $Email->mensagem(
                 titulo: $assunto,
-                assunto: $assunto,
                 mensagem: 'Olá ' . $r->nome . '! Estamos sentido sua falta, que tal acessar seu Clube e ver as novidades que separamos para você?',
                 botaoTexto: 'Acessar Clube',
                 botaoLink: $linkLogin,

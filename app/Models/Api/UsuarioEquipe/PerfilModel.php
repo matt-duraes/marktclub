@@ -90,10 +90,10 @@ final class PerfilModel
         string $id,
         string $perfil,
         string $nome,
-        int $imagem_tipo,
-        string $imagem_facebook,
-        string $imagem_google,
-        string $imagem_arquivo,
+        ?int $imagem_tipo,
+        ?string $imagem_facebook,
+        ?string $imagem_google,
+        ?string $imagem_arquivo,
         string $gerente = 'nao'
     ) {
         return [

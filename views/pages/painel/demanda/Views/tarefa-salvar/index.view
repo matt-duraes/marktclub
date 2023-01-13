@@ -12,7 +12,7 @@
         </div>
     </form>
     <div class="footer_pagina_popup">
-        <div class="button voltar" id="botao_cancelar_edicao">CANCELAR</div>
-        <div class="button salvar" id="botao_editar_tarefa">SALVAR</div>
+        <div class="button voltar" id="botao_tarefa_salvar_cancelar">CANCELAR</div>
+        <div class="button salvar" id="botao_tarefa_salvar_salvar">SALVAR</div>
     </div>
 </div>

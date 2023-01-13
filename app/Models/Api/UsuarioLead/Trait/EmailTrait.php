@@ -30,9 +30,8 @@ trait EmailTrait
 
         $Email = new EmailHelper();
         $Email->mensagem(
-            $titulo,
-            $titulo,
-            $mensagem,
+            titulo: $titulo,
+            mensagem: $mensagem,
             posMensagem: '
                 Informe seus dados para finalizar seu cadastro e criar sua senha. <br>
                 Não perca tempo! Aproveite esta oportunidade e venha conhecer o maior clube de vantagens
@@ -63,9 +62,8 @@ trait EmailTrait
 
         $Email = new EmailHelper();
         $Email->mensagem(
-            $titulo,
-            $titulo,
-            $mensagem,
+            titulo: $titulo,
+            mensagem: $mensagem,
             logo: $Construtor->link_logo,
             cor: $Construtor->cor
         );
