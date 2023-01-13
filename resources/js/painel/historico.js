@@ -14,6 +14,9 @@ const historicoLoad = () => {
     const usuarioNome = document.querySelector('#USUARIO_NOME').value;
     const usuarioImagem = document.querySelector('#USUARIO_IMAGEM').value;
 
+    const historicoLink = document.getElementById('input_historico_link').value;
+    const historicoNotificar = document.getElementById('input_historico_notificar').value;
+
     const historicoLista = document.querySelector('#bloco_historico_lista');
     const botaoBuscar = document.querySelector('#botao_buscar_historico');
     const botaoCarregarMais = document.querySelector('#botao_historico_carregar_mais');
@@ -163,6 +166,8 @@ const historicoLoad = () => {
         body.append('app', app);
         body.append('relacionado', relacionado);
         body.append('mensagem', mensagem);
+        body.append('link', historicoLink);
+        body.append('notificar', historicoNotificar);
 
         const resposta = await fetch(LINK + '/historico', {
             method: 'POST',

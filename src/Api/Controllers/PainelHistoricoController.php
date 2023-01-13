@@ -25,7 +25,11 @@ final class PainelHistoricoController extends Controller implements
         $Historico->salvar();
 
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($Historico, request: $request, lista: ['id', 'relacionado', 'app', 'acao', 'dado', 'mensagem']),
+            pegarPropriedadeDaEntity(
+                $Historico,
+                request: $request,
+                lista: ['id', 'relacionado', 'app', 'acao', 'dado', 'mensagem']
+            ),
             status: 201
         );
     }

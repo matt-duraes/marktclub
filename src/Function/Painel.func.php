@@ -170,8 +170,13 @@ if (!function_exists('painelPopupEnd')) {
 |--------------------------------------------------------------------------
 */
 if (!function_exists('painelHistorico')) {
-    function painelHistorico(string $id, string $app, bool $boxShadow = true)
-    {
+    function painelHistorico(
+        string $id,
+        string $app,
+        bool $boxShadow = true,
+        string $link = '',
+        array $notificar = []
+    ) {
         $r = (object)[
             'id' => $id
         ];

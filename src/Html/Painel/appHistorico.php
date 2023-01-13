@@ -13,6 +13,8 @@
     <form action="" class="add form_geral" id="bloco_historico_add">
         <input type="hidden" id="input_historico_relacionado" value="<?= $r->id ?>">
         <input type="hidden" id="input_historico_app" value="<?= $app ?>">
+        <input type="hidden" id="input_historico_link" value="<?= base64Encode($link) ?>">
+        <input type="hidden" id="input_historico_notificar" value="<?= base64Encode($notificar) ?>">
         <figure style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></figure>
         <?= formTextarea(name: 'historico_novo', label: '', numeroLinha: 4, placeholder: 'Digite sua mensagem', id: 'input_historico_mensagem') ?>
         <p>Aperte Shift+Enter para quebrar linha ou apenas Enter para salvar</p>

@@ -37,6 +37,7 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
             ->campo(['uuid', 'id_usuario_dono', 'titulo', 'mensagem', 'link', 'botao', 'data_criacao', 'status'])
             ->where(['id_usuario_equipe', $this->idUsuario])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order('id', 'DESC')
             ->read();
 
         $lista->lista = $this->montarDado($lista->lista);

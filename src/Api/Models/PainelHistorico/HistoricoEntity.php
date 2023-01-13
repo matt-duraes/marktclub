@@ -7,6 +7,8 @@ use Helpers\DataHelper;
 use App\Models\Api\GeralEntity;
 use System\Classes\PainelHistorico\Acao;
 use System\Classes\PainelHistorico\Status;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use ApiModel\PainelNotificacao\NotificacaoEntity;
 
 final class HistoricoEntity extends GeralEntity
 {
@@ -40,6 +42,11 @@ final class HistoricoEntity extends GeralEntity
     public Acao $acao;
     public Status $status;
 
+    private array $usuarioNotificado = [];
+    public string $notificar_link = '';
+    public array $notificar_equipe = [];
+
+
     public function __construct()
     {
         parent::__construct();
@@ -50,6 +57,55 @@ final class HistoricoEntity extends GeralEntity
     {
         $this->id_usuario_equipe = $this->idUsuario;
         $this->status = new Status(empty($this->mensagem) ? 2 : 1);
+    }
+    protected function regraPosInsert()
+    {
+        if ($this->notificar_equipe) {
+            $this->enviarNotificacaoParaUsuario($this->notificar_equipe, 'uuid');
+        }
+
+        preg_match_all("/@[a-z0-9\.]{1,}/", $this->mensagem, $usuario);
+        if (array_key_exists(0, $usuario) && $usuario[0]) {
+            $this->enviarNotificacaoParaUsuario($usuario[0], 'nome_perfil');
+        }
+    }
+    private function enviarNotificacaoParaUsuario(array $usuario, string $campo)
+    {
+        try {
+            $Dono = new EquipeEntity(validarToken: false);
+            $Dono->_id($this->id_usuario_equipe);
+        } catch (\Throwable) {
+            return;
+        }
+        foreach ($usuario as $valor) {
+            $valor = str_replace('@', '', $valor);
+            try {
+                $Equipe = new EquipeEntity(validarToken: false);
+                $Equipe->buscar([$campo, $valor]);
+            } catch (\Throwable) {
+                continue;
+            }
+
+            $idEquipe = $Equipe->get('id');
+            if (in_array($idEquipe, $this->usuarioNotificado) || $idEquipe == $this->id_usuario_equipe) {
+                continue;
+            }
+            $this->usuarioNotificado[] = $idEquipe;
+
+            try {
+                $Notificacao = new NotificacaoEntity(
+                    titulo: 'Novo histórico',
+                    mensagem: nl2br($this->mensagem),
+                    link: $this->notificar_link,
+                    botao: 'Ver comentário',
+                    Equipe: $Equipe,
+                    Dono: $Dono,
+                );
+                $Notificacao->salvar();
+            } catch (\Throwable) {
+                continue;
+            }
+        }
     }
     protected function regraUpdate()
     {

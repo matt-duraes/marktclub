@@ -11,7 +11,7 @@ Route
         Route
             ::nome('salvar')
             ::request([
-                'relacionado', 'app', 'acao', '!dado', '!mensagem'
+                'relacionado', 'app', 'acao', '!dado', '!mensagem', '!notificar_link', '!notificar_equipe'
             ])
             ::post('/painel-historico');
 
