@@ -1,0 +1,6 @@
+<div id="bloco_notificacao">
+    <header>
+        <h1>Notificação</h1>
+        <i data-ajuda="Limpar notificações">@iconeNotificacaoLimpar</i>
+    </header>
+</div>

@@ -1,3 +1,28 @@
 @template "painel"
-@resource "painel/app_relatorio"
-@system "Grafico"
+
+#bloco_notificacao
+    width: 100%
+    max-width: 450px
+    position: fixed
+    top: 57px
+    right: 10px
+    box-shadow: 0 2px 8px rgba(0,0,0,.2)
+    background-color: #FFF
+    z-index: 111
+    border-radius: 10px
+    header
+        width: 100%
+        flexRow()
+        flexCenter()
+        padding: 0 20px
+    header h1
+        height: 50px
+        line-height: 50px
+        tituloFontSize()
+        flexGrow()
+    header i
+        width: 30px
+        height: 30px
+        cursor: pointer
+        flexCenter()
+

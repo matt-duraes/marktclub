@@ -20,6 +20,7 @@
 @import "ordem"
 @import "bloquear"
 @import "classes"
+@import "notificacao"
 
 body
 html
@@ -198,10 +199,35 @@ button
         align-items: center
         z-index: 1
     .bloco_config .bloco_notificacao
-        width: 30px
-        height: 30px
+        width: 40px
+        height: 40px
+        position: relative
         margin-right: 20px
+        flexRow()
+        border-radius: 50%
+        background-color: #DDD
+        cursor: pointer
+    .bloco_config .bloco_notificacao .notificacao
+        width: 100%
+        height: 100%
+        flexCenter()
+        fill: #666
+    .bloco_config .bloco_notificacao .numero
+        width: 25px
+        height: 25px
+        line-height: 25px
+        text-align: center
+        background-color: $corNotificacao
+        color: #FFF
+        border-radius: 50%
+        position: absolute
+        right: -7px
+        top: -5px
+        font-size: 1.4rem
+        box-shadow: 2px 2px 5px rgba(0,0,0,.1)
         display: none
+        &.ativo
+            display: block
     .bloco_config .menu_config
         width: 40px
         height: 40px

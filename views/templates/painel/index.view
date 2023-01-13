@@ -66,8 +66,8 @@
             </div>
             <div class="bloco_config">
                 <dib class="bloco_notificacao" data-ajuda="Notificações">
-                    <i class="notificacao_ativa"></i>
-                    <i class="notificacao_inativa"></i>
+                    <div class="numero">+9</div>
+                    <i class="notificacao">@iconeNotificacao(20)</i>
                 </dib>
                 <figure class="menu_config" id="botao_menu_config" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
             </div>
@@ -102,6 +102,7 @@
     @dir "/include/ordem.view"
     @dir "/include/bloquear.view"
     @dir "/include/agenda.view"
+    @dir "/include/notificacao.view"
 
     <div id="bloco_fw_pagina"></div>
     <div id="bloco_fw_loading"></div>
