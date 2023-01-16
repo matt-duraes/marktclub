@@ -322,7 +322,7 @@ Route
         Route
             ::nome('salvar')
             ::_rotaNaoUnica()
-            ::request(['app', 'relacionado', 'mensagem', '!link', '!notificar'])
+            ::request(['app', 'relacionado', 'mensagem', '!titulo', '!link', '!notificar'])
             ::post('/historico');
         Route
             ::nome('listar')

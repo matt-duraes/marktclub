@@ -11,7 +11,8 @@ Route
         Route
             ::nome('salvar')
             ::request([
-                'relacionado', 'app', 'acao', '!dado', '!mensagem', '!notificar_link', '!notificar_equipe'
+                'relacionado', 'app', 'acao', '!dado', '!mensagem', '!notificar_link',
+                '!notificar_equipe', '!notificar_titulo'
             ])
             ::post('/painel-historico');
 
@@ -103,5 +104,6 @@ Route
             ::put('/painel-notificacao/{id}');
         Route
             ::nome('listar')
+            ::request(['!novo'], 'json')
             ::get('/painel-notificacao');
     });

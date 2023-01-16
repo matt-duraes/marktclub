@@ -35,13 +35,24 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
     {
         $lista = $this
             ->campo(['uuid', 'id_usuario_dono', 'titulo', 'mensagem', 'link', 'botao', 'data_criacao', 'status'])
-            ->where(['id_usuario_equipe', $this->idUsuario])
+            ->where($this->pegarWhere())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('id', 'DESC')
             ->read();
 
         $lista->lista = $this->montarDado($lista->lista);
         return $lista;
+    }
+
+    private function pegarWhere()
+    {
+        $where = [['id_usuario_equipe', $this->idUsuario]];
+        if ($this->request->novo == 'sim') {
+            $where[] = ['status', 1];
+        } else if ($this->request->novo == 'nao') {
+            $where[] = ['status', 'in', [2, 3]];
+        }
+        return $where;
     }
 
     private function montarDado(array $lista): array

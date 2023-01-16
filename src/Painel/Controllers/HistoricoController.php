@@ -20,12 +20,14 @@ final class HistoricoController extends Controller
         if (empty($request->mensagem)) {
             mensagemErro('Campo obrigatório!', 'Digite uma mensagem para seu histórico.');
         }
+
         $Api = new ApiHelper(token: true);
         $dado = $Api->body([
             'relacionado' => [$request->relacionado],
             'app' => [$request->app],
             'acao' => 'mensagem',
             'mensagem' => $request->mensagem,
+            'notificar_titulo' => base64Decode($request->titulo),
             'notificar_link' => base64Decode($request->link),
             'notificar_equipe' => base64Decode($request->notificar)
         ])->post('/painel-historico')->object();

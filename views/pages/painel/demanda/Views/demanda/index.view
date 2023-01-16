@@ -110,6 +110,6 @@
     </div>
 
     <div class="bloco_historico">
-        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, link: LINK . '/demanda#demanda-' . $r->id, notificar: [$r->dono->id])
+        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Vez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda#demanda-' . $r->id, notificar: [$r->dono->id])
     </div>
 </div>

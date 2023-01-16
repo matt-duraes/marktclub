@@ -8,7 +8,7 @@ trait QuantidadeTrait
     {
         $request = $this->request;
         if (!$request->existe('quantidade')) {
-            return 1;
+            return 50;
         }
         $request->vazio('quantidade', 'O campo quantidade é obrigatório.');
         if (!preg_match('/^[1-9]{1}[0-9]{0,}$/', $request->quantidade)) {

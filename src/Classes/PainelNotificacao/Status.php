@@ -12,7 +12,8 @@ final class Status extends StatusStatus
         parent::__construct(
             lista: [
                 'novo' => 'Novo',
-                'visualizado' => 'Visualizado'
+                'visualizado' => 'Visualizado',
+                'clicado' => 'Clicado'
             ]
         );
     }

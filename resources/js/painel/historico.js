@@ -14,6 +14,7 @@ const historicoLoad = () => {
     const usuarioNome = document.querySelector('#USUARIO_NOME').value;
     const usuarioImagem = document.querySelector('#USUARIO_IMAGEM').value;
 
+    const historicoTitulo = document.getElementById('input_historico_titulo').value;
     const historicoLink = document.getElementById('input_historico_link').value;
     const historicoNotificar = document.getElementById('input_historico_notificar').value;
 
@@ -166,6 +167,7 @@ const historicoLoad = () => {
         body.append('app', app);
         body.append('relacionado', relacionado);
         body.append('mensagem', mensagem);
+        body.append('titulo', historicoTitulo);
         body.append('link', historicoLink);
         body.append('notificar', historicoNotificar);
 

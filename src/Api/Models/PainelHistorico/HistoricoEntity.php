@@ -43,6 +43,7 @@ final class HistoricoEntity extends GeralEntity
     public Status $status;
 
     private array $usuarioNotificado = [];
+    public string $notificar_titulo = '';
     public string $notificar_link = '';
     public array $notificar_equipe = [];
 
@@ -61,15 +62,19 @@ final class HistoricoEntity extends GeralEntity
     protected function regraPosInsert()
     {
         if ($this->notificar_equipe) {
-            $this->enviarNotificacaoParaUsuario($this->notificar_equipe, 'uuid');
+            $this->enviarNotificacaoParaUsuario(
+                !empty($this->notificar_titulo) ? $this->notificar_titulo : 'Fez um comentário',
+                $this->notificar_equipe,
+                'uuid'
+            );
         }
 
         preg_match_all("/@[a-z0-9\.]{1,}/", $this->mensagem, $usuario);
         if (array_key_exists(0, $usuario) && $usuario[0]) {
-            $this->enviarNotificacaoParaUsuario($usuario[0], 'nome_perfil');
+            $this->enviarNotificacaoParaUsuario('Marcou você em um comentário', $usuario[0], 'nome_perfil');
         }
     }
-    private function enviarNotificacaoParaUsuario(array $usuario, string $campo)
+    private function enviarNotificacaoParaUsuario(string $titulo, array $usuario, string $campo)
     {
         try {
             $Dono = new EquipeEntity(validarToken: false);
@@ -94,7 +99,7 @@ final class HistoricoEntity extends GeralEntity
 
             try {
                 $Notificacao = new NotificacaoEntity(
-                    titulo: 'Novo histórico',
+                    titulo: $titulo,
                     mensagem: nl2br($this->mensagem),
                     link: $this->notificar_link,
                     botao: 'Ver comentário',

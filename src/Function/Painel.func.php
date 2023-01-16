@@ -174,6 +174,7 @@ if (!function_exists('painelHistorico')) {
         string $id,
         string $app,
         bool $boxShadow = true,
+        string $titulo = '',
         string $link = '',
         array $notificar = []
     ) {

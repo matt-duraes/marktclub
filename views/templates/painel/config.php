@@ -33,3 +33,7 @@ define('USUARIO_CPF', sessao('USUARIO.cpf'));
 define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));
 define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
 define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
+
+$Api = new \Helpers\ApiHelper(token: true);
+$notificacaoNova = $Api->json(['novo' => 'sim'])->get('/painel-notificacao')->object()->dado ?? [];
+$notificacaoAntiga = $Api->json(['novo' => 'nao'])->get('/painel-notificacao')->object()->dado ?? [];

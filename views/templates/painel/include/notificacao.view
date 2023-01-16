@@ -1,6 +1,37 @@
-<div id="bloco_notificacao">
+<div id="bloco_notificacao" class="ativo">
     <header>
         <h1>Notificação</h1>
         <i data-ajuda="Limpar notificações">@iconeNotificacaoLimpar</i>
     </header>
+    <div class="conteudo">
+        @ if( is_object($notificacaoNova) && object_key_exists('lista', $notificacaoNova) && !empty($notificacaoNova->lista) ):
+        <h2>Novas</h2>
+        @ foreach($notificacaoNova->lista as $r):
+        <a class="item" href="{{LINK}}/notificacao/{!!$r->id!!}">
+            <figure style="background-image: url({{$r->dono->imagem}})"></figure>
+            <div class="dado">
+                <strong>{{$r->dono->nome}}</strong>
+                <p>{!!$r->titulo!!}</p>
+                <div class="data">{{dataSocial($r->data_criacao)}}</div>
+            </div>
+            <div class="bola {{$r->status}}"></div>
+        </a>
+        @ endforeach;
+        @ endif;
+
+        @ if( is_object($notificacaoAntiga) && object_key_exists('lista', $notificacaoAntiga) && !empty($notificacaoAntiga->lista) ):
+        <h2>Antigas</h2>
+        @ foreach($notificacaoAntiga->lista as $r):
+        <a class="item" href="{{LINK}}/painel-notificacao/{!!$r->id!!}">
+            <figure style="background-image: url({{$r->dono->imagem}})"></figure>
+            <div class="dado">
+                <strong>{{$r->dono->nome}}</strong>
+                <p>{!!$r->titulo!!}</p>
+                <div class="data">{{dataSocial($r->data_criacao)}}</div>
+            </div>
+            <div class="bola {{$r->status}}"></div>
+        </a>
+        @ endforeach;
+        @ endif;
+    </div>
 </div>
