@@ -1,37 +1,34 @@
-<div id="bloco_notificacao" class="ativo">
+<div id="bloco_notificacao" class="display_none">
     <header>
         <h1>Notificação</h1>
-        <i data-ajuda="Limpar notificações">@iconeNotificacaoLimpar</i>
+        <i class="{{$notificacaoNumeroNovaVisualizada > 0 ? '' : 'display_none'}}" id="botao_notificacao_limpar" data-ajuda="Limpar notificações">@iconeNotificacaoLimpar</i>
     </header>
     <div class="conteudo">
-        @ if( is_object($notificacaoNova) && object_key_exists('lista', $notificacaoNova) && !empty($notificacaoNova->lista) ):
-        <h2>Novas</h2>
-        @ foreach($notificacaoNova->lista as $r):
-        <a class="item" href="{{LINK}}/notificacao/{!!$r->id!!}">
-            <figure style="background-image: url({{$r->dono->imagem}})"></figure>
-            <div class="dado">
-                <strong>{{$r->dono->nome}}</strong>
-                <p>{!!$r->titulo!!}</p>
-                <div class="data">{{dataSocial($r->data_criacao)}}</div>
-            </div>
-            <div class="bola {{$r->status}}"></div>
-        </a>
-        @ endforeach;
-        @ endif;
+        <div id="bloco_notificacao_nova" class="bloco_nova display_none">
+            <h2>Novas</h2>
+            @ foreach( $notificacaoNova->lista as $notificacaoR):
+            <a class="item {{$notificacaoR->status}}" data-id="{{$notificacaoR->id}}" href="{{LINK}}/painel-notificacao/{{$notificacaoR->id}}">
+                <figure style="background-image: url({{$notificacaoR->dono->imagem}})"></figure>
+                <div class="dado">
+                    <strong>{{$notificacaoR->dono->nome}}</strong>
+                    <p>{{$notificacaoR->titulo}}</p>
+                    <div class="data" data-ajuda="{{dataHoraBr($notificacaoR->data_criacao)}}">{{dataSocial($notificacaoR->data_criacao)}}</div>
+                </div>
+                <div class="bola"></div>
+            </a>
+            @ endforeach;
+        </div>
 
-        @ if( is_object($notificacaoAntiga) && object_key_exists('lista', $notificacaoAntiga) && !empty($notificacaoAntiga->lista) ):
-        <h2>Antigas</h2>
-        @ foreach($notificacaoAntiga->lista as $r):
-        <a class="item" href="{{LINK}}/painel-notificacao/{!!$r->id!!}">
-            <figure style="background-image: url({{$r->dono->imagem}})"></figure>
-            <div class="dado">
-                <strong>{{$r->dono->nome}}</strong>
-                <p>{!!$r->titulo!!}</p>
-                <div class="data">{{dataSocial($r->data_criacao)}}</div>
-            </div>
-            <div class="bola {{$r->status}}"></div>
-        </a>
-        @ endforeach;
-        @ endif;
+        <div id="bloco_notificacao_antiga" class="bloco_antiga display_none">
+            <h2>Antigas</h2>
+        </div>
+        <div class="bloco_zero_geral display_none" id="bloco_notificacao_zero">
+            <i>@iconeEmail</i>
+            <h1>Sem notificações</h1>
+            <p>Você não tem notificações no momento</p>
+        </div>
+        <div class="bloco_zero_geral" id="bloco_notificacao_loading">
+            <p>Carregando notificações</p>
+        </div>
     </div>
 </div>

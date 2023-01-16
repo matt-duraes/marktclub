@@ -5,6 +5,7 @@ namespace ApiModel\PainelNotificacao;
 use ORM\Entity;
 use Helpers\EmailHelper;
 use System\Classes\PainelNotificacao\Status;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
 final class NotificacaoEntity extends Entity
@@ -14,20 +15,29 @@ final class NotificacaoEntity extends Entity
         'titulo', 'mensagem', 'link', 'botao', 'id_usuario_equipe', 'id_usuario_dono'
     ];
     protected array $_salvar = ['status'];
+    protected array $_buscar = [
+        'id_usuario_dono', 'titulo', 'mensagem', 'link', 'botao', 'status'
+    ];
 
     protected int $id_usuario_equipe;
     protected int $id_usuario_dono;
     public Status $status;
+    public array $dono;
 
     public function __construct(
         public ?string $titulo = null,
         public ?string $mensagem = null,
-        protected ?string $link = null,
-        protected ?string $botao = null,
+        public ?string $link = null,
+        public ?string $botao = null,
         protected ?EquipeEntity $Equipe = null,
         protected ?EquipeEntity $Dono = null,
     ) {
         parent::__construct();
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->dono = (new PerfilModel())->pegarDado($this->id_usuario_dono, true);
     }
 
     protected function regraInsert()

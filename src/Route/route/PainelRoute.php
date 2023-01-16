@@ -333,4 +333,27 @@ Route
             ::nome('deletar')
             ::_rotaNaoUnica()
             ::delete('/historico/{id}');
+    }, true)
+
+    // HISTORICO
+    ::controller(PainelController\NotificacaoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::_rotaNaoUnica()
+            ::request(['pagina'])
+            ::get('/notificacao');
+        Route
+            ::nome('atualizar')
+            ::_rotaNaoUnica()
+            ::request(['id'])
+            ::post('/notificacao/atualizar-visualizadas');
+        Route
+            ::nome('abrir')
+            ::_rotaNaoUnica()
+            ::view('/notificacao/{id}');
+        Route
+            ::nome('visualizarTodas')
+            ::_rotaNaoUnica()
+            ::get('/notificacao/visualizar-todas');
     });

@@ -95,6 +95,13 @@ Route
     ::controller(\ApiController\PainelNotificacaoController::class)
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::get('/painel-notificacao/{id}');
+        Route
+            ::nome('listar')
+            ::request(['!novo', '!clicado'], 'json')
+            ::get('/painel-notificacao');
+        Route
             ::nome('salvar')
             ::request(['titulo', 'mensagem', 'link', 'botao', 'equipe', 'dono'])
             ::post('/painel-notificacao');
@@ -103,7 +110,6 @@ Route
             ::request(['status'])
             ::put('/painel-notificacao/{id}');
         Route
-            ::nome('listar')
-            ::request(['!novo'], 'json')
-            ::get('/painel-notificacao');
+            ::nome('visualizarTodas')
+            ::put('/painel-notificacao/visualizar-todas');
     });

@@ -375,3 +375,10 @@ const removerClasse = (elemento, classe) => {
 const classeExiste = (elemento, classe) => {
     return elemento.classList.contains(classe);
 };
+
+const pp = erro => {
+    console.log(erro);
+};
+const ppe = erro => {
+    console.log(erro);
+};

@@ -7,17 +7,37 @@ use Http\Response;
 use Controller\Controller;
 use System\Classes\PainelNotificacao\Status;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use ApiModel\PainelNotificacao\NotificacaoModel;
 use ApiModel\PainelNotificacao\NotificacaoEntity;
 use System\Interface\ControllerAtualizarInterface;
+use ApiModel\PainelNotificacao\VisualizarTodasModel;
 
 final class PainelNotificacaoController extends Controller implements
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
-    ControllerListarInterface
+    ControllerListarInterface,
+    ControllerBuscarInterface
 {
+    /*
+    |--------------------------------------------------------------------------
+    | BUSCAR
+    |--------------------------------------------------------------------------
+    */
+    public function getBuscar(string $id)
+    {
+        $Notificacao = new NotificacaoEntity();
+        $Notificacao->id($id);
+
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Notificacao,
+                lista: ['id', 'dono', 'titulo', 'mensagem', 'link', 'botao', 'status']
+            )
+        );
+    }
     /*
     |--------------------------------------------------------------------------
     | LISTAR
@@ -88,6 +108,13 @@ final class PainelNotificacaoController extends Controller implements
         $Notificacao->status = $status;
         $Notificacao->salvar();
 
+        return new Response(status: 204);
+    }
+
+    public function putVisualizarTodas()
+    {
+        $Noficacao = new VisualizarTodasModel();
+        $Noficacao->visualizarTodas();
         return new Response(status: 204);
     }
 }

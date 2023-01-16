@@ -200,6 +200,9 @@ if (!function_exists('painelAppVisualizar')) {
             require ROOT . '/src/Html/Painel/appVisualizar.php';
             if ($config->permissao->historico) {
                 $classe = '';
+                $titulo = '';
+                $link = '';
+                $notificar = [];
                 require ROOT . '/src/Html/Painel/appHistorico.php';
             }
             return;

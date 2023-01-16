@@ -65,8 +65,8 @@
                 @endif
             </div>
             <div class="bloco_config">
-                <dib class="bloco_notificacao" data-ajuda="Notificações">
-                    <div class="numero">+9</div>
+                <dib class="bloco_notificacao" id="botao_notificacao_abrir" data-ajuda="Notificações">
+                    <div class="numero {{$notificacaoNumeroNova > 0 ? '' : 'display_none'}}" id="bloco_numero_notificao_novas">{{$notificacaoNumeroNova > 9 ? '+9' : $notificacaoNumeroNova}}</div>
                     <i class="notificacao">@iconeNotificacao(20)</i>
                 </dib>
                 <figure class="menu_config" id="botao_menu_config" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>

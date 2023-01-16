@@ -27,7 +27,7 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
         try {
             $this->idUsuario = TOKEN['usuario']->get('id');
         } catch (\Throwable) {
-            return;
+            mensagemStatus(404);
         }
     }
 
@@ -47,11 +47,16 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
     private function pegarWhere()
     {
         $where = [['id_usuario_equipe', $this->idUsuario]];
-        if ($this->request->novo == 'sim') {
+        if ($this->request->clicado == 'sim') {
+            $where[] = ['status', 3];
+        } else if ($this->request->clicado == 'nao') {
+            $where[] = ['status', 'in', [1, 2]];
+        } else if ($this->request->novo == 'sim') {
             $where[] = ['status', 1];
         } else if ($this->request->novo == 'nao') {
             $where[] = ['status', 'in', [2, 3]];
         }
+
         return $where;
     }
 

@@ -165,10 +165,8 @@ class Loading {
             if (typeof bloco == 'object') {
                 let loading = bloco.querySelector('.fw_loading_form');
                 if (typeof loading == 'object') {
-                    loading.classList.add('fw_loading_form_fim');
-                    setTimeout(() => {
-                        loading.parentNode.removeChild(loading);
-                    }, 1000);
+                    // loading.classList.add('fw_loading_form_fim');
+                    loading.parentNode.removeChild(loading);
                 }
             }
         }
