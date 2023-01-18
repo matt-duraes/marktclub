@@ -41,3 +41,11 @@ try {
     $notificacaoNumeroNovaVisualizada = $Api->json(['clicado' => 'nao'])->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
 } catch (\Throwable) {
 }
+
+define('TRABALHO_INICIADO', cookieExiste('TRABALHO_INICIADO') ? cookie('TRABALHO_INICIADO') : false);
+define('TRABALHO_MINIMIZADO', cookieExiste('TRABALHO_MINIMIZADO') ? cookie('TRABALHO_MINIMIZADO') : null);
+define('TRABALHO_ID', cookieExiste('TRABALHO_ID') ? cookie('TRABALHO_ID') : null);
+define('TRABALHO_TAREFA', cookieExiste('TRABALHO_TAREFA') ? cookie('TRABALHO_TAREFA') : null);
+define('TRABALHO_DATA', cookieExiste('TRABALHO_DATA') ? cookie('TRABALHO_DATA') : null);
+define('TRABALHO_TEMPO', cookieExiste('TRABALHO_TEMPO') ? cookie('TRABALHO_TEMPO') : '');
+define('TRABALHO_TOTAL', cookieExiste('TRABALHO_TOTAL') ? cookie('TRABALHO_TOTAL') : '');

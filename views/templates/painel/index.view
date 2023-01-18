@@ -65,7 +65,10 @@
                 @endif
             </div>
             <div class="bloco_config">
-                <dib class="bloco_notificacao" id="botao_notificacao_abrir" data-ajuda="Notificações">
+                <div class="bloco_trabalho {{TRABALHO_INICIADO && TRABALHO_MINIMIZADO ? 'ativo' : ''}}" id="bloco_trabalho_header">
+                    <div class="botao"></div>
+                </div>
+                <dib class="bloco_notificacao" id="botao_notificacao_abrir">
                     <div class="numero {{$notificacaoNumeroNova > 0 ? '' : 'display_none'}}" id="bloco_numero_notificao_novas">{{$notificacaoNumeroNova > 9 ? '+9' : $notificacaoNumeroNova}}</div>
                     <i class="notificacao">@iconeNotificacao(20)</i>
                 </dib>
@@ -103,6 +106,7 @@
     @dir "/include/bloquear.view"
     @dir "/include/agenda.view"
     @dir "/include/notificacao.view"
+    @dir "/include/trabalho.view"
 
     <div id="bloco_fw_pagina"></div>
     <div id="bloco_fw_loading"></div>
@@ -115,6 +119,7 @@
         <input type="hidden" name="APP" id="APP" value="{!!$app!!}">
         <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
         <input type="hidden" name="FACEBOOK_APP_ID" id="FACEBOOK_APP_ID" value="{!!env('FACEBOOK_APP_ID')!!}">
+        <input type="hidden" name="USUARIO_ID" id="USUARIO_ID" value="{{sessao('USUARIO.id')}}">
         <input type="hidden" name="USUARIO_NOME" id="USUARIO_NOME" value="{{sessao('USUARIO.nome')}}">
         <input type="hidden" name="USUARIO_EMAIL" id="USUARIO_EMAIL" value="{{sessao('USUARIO.email')}}">
         <input type="hidden" name="USUARIO_IMAGEM" id="USUARIO_IMAGEM" value="{{sessao('USUARIO.imagem')}}">

@@ -21,6 +21,7 @@
 @import "bloquear"
 @import "classes"
 @import "notificacao"
+@import "trabalho"
 
 body
 html
@@ -198,6 +199,38 @@ button
         justify-content: flex-end
         align-items: center
         z-index: 1
+    .bloco_config .bloco_trabalho
+        width: 40px
+        height: 40px
+        margin-right: 20px
+        position: relative
+        overflow: hidden
+        &.ativo .botao
+            top: 0
+            opacity: 1
+    .bloco_config .bloco_trabalho .botao
+        width: 40px
+        height: 40px
+        position: absolute
+        flexCenter()
+        background-color: $corVermelho
+        border-radius: 50%
+        cursor: pointer
+        top: -40px
+        opacity: 0
+        transition: top .2s ease-out, opacity .2s ease-out
+        &:after
+        &:before
+            width: 5px
+            height: 16px
+            position: absolute
+            background-color: #FFF
+            border-radius: 2px
+            content: ""
+        &:after
+            left: 12px
+        &:before
+            right: 12px
     .bloco_config .bloco_notificacao
         width: 40px
         height: 40px

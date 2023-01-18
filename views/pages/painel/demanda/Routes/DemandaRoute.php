@@ -56,4 +56,17 @@ Route
         Route
             ::nome('tarefa')
             ::delete('/demanda/tarefa/{id}');
+
+        Route
+            ::nome('trabalhoComecar')
+            ::get('/demanda/trabalho-comecar/{tarefa}');
+        Route
+            ::nome('trabalhoAtualizar')
+            ::get('/demanda/trabalho-atualizar/{id}');
+        Route
+            ::nome('trabalhoParar')
+            ::get('/demanda/trabalho-parar/{id}/{tarefa}');
+        Route
+            ::nome('trabalhoConcluir')
+            ::get('/demanda/trabalho-concluir/{id}/{tarefa}');
     });

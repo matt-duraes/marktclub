@@ -221,4 +221,35 @@ final class DemandaController extends Controller
 
         return new Response(status: 204);
     }
+
+    public function getTrabalhoComecar(string $tarefa)
+    {
+        cookie('TRABALHO_INICIADO', true);
+        cookie('TRABALHO_MINIMIZADO', false);
+        cookie('TRABALHO_ID', uuid());
+        cookie('TRABALHO_TAREFA', $tarefa);
+        cookie('TRABALHO_DATA', agora());
+        cookie('TRABALHO_TEMPO', 50);
+        cookie('TRABALHO_TOTAL', 90);
+
+        return mensagemSucesso([
+            'id' => uuid(),
+            'tarefa' => $tarefa,
+            'data_criacao' => agora(),
+            'tempo' => 50,
+            'total' => 90
+        ]);
+    }
+    public function getTrabalhoAtualizar(string $id)
+    {
+        return new Response(status: 204);
+    }
+    public function getTrabalhoParar(string $id, string $tarefa)
+    {
+        return new Response(status: 204);
+    }
+    public function getTrabalhoConcluir(string $id, string $tarefa)
+    {
+        return new Response(status: 204);
+    }
 }

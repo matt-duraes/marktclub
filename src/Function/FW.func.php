@@ -273,8 +273,11 @@ if (!function_exists('vd')) {
     /**
      * @param mixed $conteudo Conteudo a ser impresso
      */
-    function vd($conteudo)
+    function vd($conteudo, bool $view = false)
     {
+        if ($view) {
+            echo '-->';
+        }
         var_dump($conteudo);
     }
 }
@@ -291,8 +294,12 @@ if (!function_exists('vde')) {
     /**
      * @param mixed $conteudo Conteudo a ser impresso
      */
-    function vde($conteudo)
+    function vde($conteudo, bool $view = false)
     {
+        if ($view) {
+            echo '-->';
+        }
+
         $header = getallheaders();
         $contentType = array_key_exists('Content-Type', $header) ? explode(';', $header['Content-Type'])[0] : '';
         $metodo = $_SERVER['REQUEST_METHOD'] ?? '';

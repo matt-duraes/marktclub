@@ -30,6 +30,7 @@ const demandaDetalhe = () => {
     const listaTarefa = document.querySelectorAll('#bloco_demanda_tarefa .bloco_tarefa article');
     listaTarefa.forEach(tarefa => {
         const id = tarefa.getAttribute('data-id');
+        const idDev = tarefa.getAttribute('data-dev');
         const PaginaEditar = new Pagina(
             'tarefa-editar-' + id,
             LINK + '/demanda/tarefa-editar/' + id + '/' + demandaId,
@@ -40,6 +41,8 @@ const demandaDetalhe = () => {
         );
         const editar = tarefa.querySelector('.botao_editar');
         const deletar = tarefa.querySelector('.botao_deletar');
+        const play = tarefa.querySelector('.botao_play');
+        const pause = tarefa.querySelector('.botao_pause');
         editar.addEventListener('click', () => {
             PaginaEditar.abrir();
         });
@@ -54,6 +57,25 @@ const demandaDetalhe = () => {
                 deletarTarefa(id, tarefa);
             }
         });
+        play.addEventListener('click', async () => {
+            if (idDev == '' || idDev == document.querySelector('#USUARIO_ID').value) {
+                comecarTrabalhoTarefa(id);
+                return;
+            }
+            if (
+                await Alerta.confirmar(
+                    'Pegar tarefa',
+                    'Você está preste a pegar uma tarefa de outro usuário, tem certeza que deseja continuar?',
+                    '!'
+                )
+            ) {
+                comecarTrabalhoTarefa(id);
+            }
+        });
+        pause.addEventListener('click', () => {
+            pause.classList.add('display_none');
+            play.classList.remove('display_none');
+        });
     });
 
     const deletarTarefa = async (id, tarefa) => {
@@ -67,6 +89,24 @@ const demandaDetalhe = () => {
 
         tarefa.parentNode.removeChild(tarefa);
         Alerta.notificacao('Tarefa deletada com sucesso.', true);
+    };
+
+    const comecarTrabalhoTarefa = async id => {
+        Loading.show();
+        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id);
+        const json = await respostaJson(resposta, 'Erro ao começar a trabalhar na demanda.');
+        Loading.hide();
+        if (false === json) {
+            return;
+        }
+        trabalhoAbrirBlocoTrabalho(
+            json.dado.id,
+            json.dado.tarefa,
+            json.dado.data_criacao,
+            json.dado.tempo,
+            json.dado.total
+        );
+        Pagina.staticFechar();
     };
 
     /*

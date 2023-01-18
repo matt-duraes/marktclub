@@ -22,6 +22,8 @@
 // @import "body"
 // @import "senha"
 // @import "bloquear"
+// @import "notificacao"
+// @import "trabalho"
 // @import "menu"
 
 const blocoLink = document.getElementById('LINK');

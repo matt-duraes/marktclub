@@ -43,7 +43,7 @@
         <h2>Tarefas</h2>
         <div class="botao_add" id="botao_salvar_tarefa">Nova tarefa</div>
         @ foreach( $r->tarefa as $tarefa ):
-        <article class="tarefa" data-id="{{$tarefa->id}}">
+        <article class="tarefa" data-id="{{$tarefa->id}}" data-dev="{!!$tarefa->dev->id!!}">
             <div class="bloco_botao">
                 <i class="botao botao_editar">@iconeEditar(15)</i>
                 <i class="botao botao_deletar">@iconeDeletar</i>
@@ -98,9 +98,8 @@
                     {!!$tarefa->texto!!}
                 </div>
             </div>
-            <div class="botao play">@iconePlay(40)</div>
-            <div class="botao display_none pause">@iconePause</div>
-            <div class="botao display_none check">@iconeCheck</div>
+            <div class="botao play botao_play">@iconePlay(40)</div>
+            <div class="botao display_none pause botao_pause">@iconePause(40)</div>
         </article>
         @ endforeach;
     </div>

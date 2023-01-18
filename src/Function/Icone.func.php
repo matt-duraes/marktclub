@@ -1275,6 +1275,6 @@ if (!function_exists('iconePause')) {
      */
     function iconePause(int $tamanho = 20)
     {
-        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M40,20c0,11.05-8.95,20-20,20S0,31.05,0,20S8.95,0,20,0S40,8.95,40,20L40,20z M10.42,9.83c0-1.06,0.86-1.92,1.92-1.92h4.15c1.06,0,1.92,0.86,1.92,1.92v20.35c0,1.06-0.86,1.92-1.92,1.92h-4.15c-1.06,0-1.92-0.86-1.92-1.92L10.42,9.83z M23.51,7.91c-1.06,0-1.92,0.86-1.92,1.92v20.35c0,1.06,0.86,1.92,1.92,1.92h4.15c1.06,0,1.92-0.86,1.92-1.92V9.83c0-1.06-0.86-1.92-1.92-1.92H23.51z"/></svg>';
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path style="fill-rule:evenodd;clip-rule:evenodd;" d="M40,20c0,11-9,20-20,20S0,31,0,20S9,0,20,0S40,9,40,20L40,20z M10.4,9.8c0-1.1,0.9-1.9,1.9-1.9h4.2 c1.1,0,1.9,0.9,1.9,1.9v20.3c0,1.1-0.9,1.9-1.9,1.9h-4.2c-1.1,0-1.9-0.9-1.9-1.9L10.4,9.8z M23.5,7.9c-1.1,0-1.9,0.9-1.9,1.9v20.3 c0,1.1,0.9,1.9,1.9,1.9h4.2c1.1,0,1.9-0.9,1.9-1.9V9.8c0-1.1-0.9-1.9-1.9-1.9H23.5z"/></svg>';
     }
 }
