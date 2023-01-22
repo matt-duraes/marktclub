@@ -25,7 +25,7 @@ final class DemandaTarefaController extends Controller implements
             titulo: $request->titulo,
             texto: $request->_POST('texto', html: false),
             tipo: new Tipo($request->tipo),
-            hora_producao_estimada: $request->hora_producao_estimada,
+            minuto_producao_estimada: $request->minuto_producao_estimada,
             equipe: $request->equipe
         );
         $Tarefa->salvar();
@@ -34,7 +34,7 @@ final class DemandaTarefaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Tarefa,
                 lista: [
-                    'id', 'titulo', 'texto', 'tipo', 'data_criacao', 'hora_producao_estimada', 'status'
+                    'id', 'titulo', 'texto', 'tipo', 'data_criacao', 'minuto_producao_estimada', 'status'
                 ]
             ),
             201
@@ -46,7 +46,7 @@ final class DemandaTarefaController extends Controller implements
         $Tarefa = new TarefaEntity();
         $Tarefa->id($id);
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo', 'hora_producao_estimada'])
+            pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo', 'minuto_producao_estimada'])
         );
     }
 

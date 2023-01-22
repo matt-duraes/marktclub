@@ -6,5 +6,6 @@ return (new \DataBase\DataBase())
     ->int('id_demanda_tarefa')->relacionado(TABELA_DEMANDA_TAREFA, 'id')
     ->int('id_usuario_equipe')->relacionado(TABELA_USUARIO_EQUIPE, 'id')
     ->dataCriacao()
-    ->dataAtualizacao()
+    ->datetime('data_trabalho')
+    ->int('minuto_trabalhado')->null()
     ->status();

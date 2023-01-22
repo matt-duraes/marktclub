@@ -40,14 +40,17 @@ Route
             ::nome('demandaEditar')
             ::request(['titulo', 'dono', 'empresa', 'com_prazo', 'data_entrega'])
             ::post('/demanda/demanda-editar/{id}');
+        Route
+            ::nome('demandaLiberar')
+            ::post('/demanda/demanda-liberar/{id}');
 
         Route
             ::nome('tarefaEditar')
-            ::request(['titulo', 'texto', 'tipo', 'hora'])
+            ::request(['titulo', 'texto', 'tipo', 'minuto'])
             ::post('/demanda/tarefa-editar/{id}');
         Route
             ::nome('tarefaSalvar')
-            ::request(['demanda', 'titulo', 'texto', 'tipo', 'hora'])
+            ::request(['demanda', 'titulo', 'texto', 'tipo', 'minuto'])
             ::post('/demanda/tarefa-salvar');
         Route
             ::nome('tarefaArquivo')
@@ -59,14 +62,14 @@ Route
 
         Route
             ::nome('trabalhoComecar')
-            ::get('/demanda/trabalho-comecar/{tarefa}');
+            ::get('/demanda/trabalho-comecar/{tarefa}/{demanda}');
         Route
             ::nome('trabalhoAtualizar')
             ::get('/demanda/trabalho-atualizar/{id}');
         Route
             ::nome('trabalhoParar')
-            ::get('/demanda/trabalho-parar/{id}/{tarefa}');
+            ::get('/demanda/trabalho-parar/{id}');
         Route
             ::nome('trabalhoConcluir')
-            ::get('/demanda/trabalho-concluir/{id}/{tarefa}');
+            ::get('/demanda/trabalho-concluir/{id}');
     });

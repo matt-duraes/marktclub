@@ -25,7 +25,7 @@ final class TarefaModel extends ORM
         $lista = $this
             ->where([
                 ['id_demanda_dado', $this->Demanda->get('id')]
-            ])->read();
+            ])->order('status', 'ASC')->read();
 
         return $this->montarRetorno($lista);
     }
@@ -46,11 +46,27 @@ final class TarefaModel extends ORM
                 'data_atualizacao' => $r->data_atualizacao,
                 'data_producao_inicio' => $r->data_producao_inicio,
                 'data_producao_final' => $r->data_producao_final,
-                'hora_producao_estimada' => $r->hora_producao_estimada,
-                'hora_producao_real' => $r->hora_producao_real,
+                'minuto_producao_estimada' => $r->minuto_producao_estimada,
+                'minuto_producao_real' => $r->minuto_producao_real,
                 'status' => $Status->indice($r->status)
             ]);
         }
         return $retorno;
+    }
+
+    public function verificarSeTodasAsTarefasEstaoConcluidas(): bool
+    {
+        $dado = $this->campo(['status'])->where(['id_demanda_dado', $this->Demanda->get('id')])->read();
+        if (!$dado) {
+            return false;
+        }
+        $Status = new Status();
+        foreach ($dado as $r) {
+            if ($Status->indice($r->status) == 'concluida') {
+                continue;
+            }
+            return false;
+        }
+        return true;
     }
 }

@@ -12,6 +12,6 @@ return (new \DataBase\DataBase())
     ->dataAtualizacao()
     ->datetime('data_producao_inicio')->null()
     ->datetime('data_producao_final')->null()
-    ->int('hora_producao_estimada')->null()
-    ->int('hora_producao_real')->null()
+    ->int('minuto_producao_estimada')->null()
+    ->int('minuto_producao_real')->null()
     ->status();

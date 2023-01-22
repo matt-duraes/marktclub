@@ -21,7 +21,6 @@ use ReflectionObject;
 use ReflectionProperty;
 use Modules\EnderecoCep;
 use Modules\EstadoCivil;
-use Helpers\UploadHelper;
 use ORM\Trait\MudouTrait;
 use Modules\EnderecoEstado;
 use ORM\Buscar\BuscarTrait;
@@ -73,6 +72,9 @@ abstract class Entity extends ORM
     private array $_propriedadeSetada = [];
 
     protected bool $entityExiste = false;
+
+    public DataHora $data_criacao;
+    public DataHora $data_atualizacao;
 
     protected $_campoBanco = [];
 

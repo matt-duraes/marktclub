@@ -45,6 +45,19 @@
 
         <section class="bloco_coluna">
             <header>
+                <h1>Teste</h1>
+            </header>
+            <div class="conteudo">
+                @ifforeach($teste as $r):
+                @view painel/demanda/index/tarefa.view
+                @elseforeach;
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
+                @endif;
+            </div>
+        </section>
+
+        <section class="bloco_coluna">
+            <header>
                 <h1>Finalizada</h1>
             </header>
             <div class="conteudo">

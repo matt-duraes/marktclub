@@ -42,10 +42,11 @@ try {
 } catch (\Throwable) {
 }
 
-define('TRABALHO_INICIADO', cookieExiste('TRABALHO_INICIADO') ? cookie('TRABALHO_INICIADO') : false);
-define('TRABALHO_MINIMIZADO', cookieExiste('TRABALHO_MINIMIZADO') ? cookie('TRABALHO_MINIMIZADO') : null);
-define('TRABALHO_ID', cookieExiste('TRABALHO_ID') ? cookie('TRABALHO_ID') : null);
-define('TRABALHO_TAREFA', cookieExiste('TRABALHO_TAREFA') ? cookie('TRABALHO_TAREFA') : null);
-define('TRABALHO_DATA', cookieExiste('TRABALHO_DATA') ? cookie('TRABALHO_DATA') : null);
-define('TRABALHO_TEMPO', cookieExiste('TRABALHO_TEMPO') ? cookie('TRABALHO_TEMPO') : '');
-define('TRABALHO_TOTAL', cookieExiste('TRABALHO_TOTAL') ? cookie('TRABALHO_TOTAL') : '');
+define('TRABALHO_INICIADO', sessao('TRABALHO.iniciado', padrao: false));
+define('TRABALHO_MINIMIZADO', sessao('TRABALHO.minimizado', padrao: false));
+define('TRABALHO_ID', sessao('TRABALHO.id', padrao: ''));
+define('TRABALHO_TAREFA', sessao('TRABALHO.tarefa', padrao: ''));
+define('TRABALHO_DEMANDA', sessao('TRABALHO.demanda', padrao: ''));
+define('TRABALHO_DATA', sessao('TRABALHO.data', padrao: ''));
+define('TRABALHO_TEMPO', sessao('TRABALHO.tempo', padrao: 0));
+define('TRABALHO_TOTAL', sessao('TRABALHO.total', padrao: 0));

@@ -11,12 +11,9 @@ final class Status extends StatusStatus
     ) {
         parent::__construct(
             lista: [
-                'backlog' => 'Backlog',
-                'todo' => 'To Do',
-                'doing' => 'Doing',
-                'review' => 'Review',
-                'test' => 'Test',
-                'done' => 'Done'
+                'aguardando' => 'Aguardando',
+                'andamento' => 'Em andamento',
+                'concluida' => 'Concluida'
             ]
         );
     }

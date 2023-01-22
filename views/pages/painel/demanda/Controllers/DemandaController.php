@@ -14,12 +14,20 @@ use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaController extends Controller
 {
+    private ApiHelper $Api;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->Api = new ApiHelper(token: true);
+    }
+
     public function lista()
     {
         return view('painel.demanda.index', [
             'nova' => $this->buscarDemanda('nova', 'mais-novo'),
             'liberada' => $this->buscarDemanda('liberada', 'ordem'),
             'andamento' => $this->buscarDemanda('andamento', 'mais-novo'),
+            'teste' => $this->buscarDemanda('teste', 'mais-novo'),
             'finalizada' => $this->buscarDemanda('finalizada', 'mais-novo'),
             'Tipo' => new Tipo(),
             'Area' => new DemandaTarefaTipo()
@@ -28,15 +36,14 @@ final class DemandaController extends Controller
 
     public function demanda(string $id)
     {
-        $Api = new ApiHelper(token: true);
-        $tarefa = $Api->get('/demanda-dado/' . $id)->object();
-
-        if (!object_key_exists('dado', $tarefa)) {
-            mensagemStatus(404);
-        }
+        $demanda = $this
+            ->Api
+            ->validar('Página não encontrada!', status: 404)
+            ->get('/demanda-dado/' . $id)
+            ->object();
 
         return view('painel.demanda.demanda', [
-            'r' => $tarefa->dado,
+            'r' => $demanda->dado,
             'Tipo' => new DemandaTarefaTipo(),
             'Status' => new Status()
         ]);
@@ -44,8 +51,8 @@ final class DemandaController extends Controller
 
     public function demandaSalvar()
     {
-        $Api = new ApiHelper(token: true);
-        $empresa = $Api
+
+        $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
             ->get('/admin-empresa/select')
             ->array();
@@ -57,14 +64,14 @@ final class DemandaController extends Controller
 
     public function demandaEditar(string $id)
     {
-        $Api = new ApiHelper(token: true);
-        $demanda = $Api->get('/demanda-dado/' . $id)->object();
 
-        $empresa = $Api
+        $demanda = $this->Api->get('/demanda-dado/' . $id)->object();
+
+        $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
             ->get('/admin-empresa/select')
             ->array();
-        $equipe = $Api
+        $equipe = $this->Api
             ->json(['titulo' => 'Escolha um usuário'])
             ->get('/usuario-equipe/select')
             ->array();
@@ -85,8 +92,8 @@ final class DemandaController extends Controller
             ->vazio('dono', mensagem: 'Escolha um dono da demanda para continuar.')
             ->validarData('data_entrega', mensagem: 'Digite uma data de entrega válida para continuar.');
 
-        $Api = new ApiHelper(token: true);
-        $Api
+
+        $this->Api
             ->validar('Ocorre um erro ao editar sua demanda, por favor, tente novamente.')
             ->body([
                 'titulo' => $request->titulo,
@@ -98,6 +105,16 @@ final class DemandaController extends Controller
             ->put('/demanda-dado/' . $id);
 
         return new Response(status: 204);
+    }
+
+    public function postDemandaLiberar(string $id)
+    {
+        $this->Api
+            ->validar('Ocorreu um erro ao liberar demanda, por favor, tente novamente.')
+            ->body(['status' => 'liberada'])
+            ->put('/demanda-dado/' . $id);
+
+        return new response(status: 204);
     }
 
     public function tarefaSalvar(string $demanda)
@@ -116,15 +133,15 @@ final class DemandaController extends Controller
             ->vazio('texto', mensagem: 'Digite o texto da tarefa para continuar.')
             ->vazio('tipo', mensagem: 'Escolha um tipo para a tarefa.');
 
-        $Api = new ApiHelper(token: true);
-        $tarefa = $Api
+
+        $tarefa = $this->Api
             ->validar('Erro ao salvar nova tarefa, por favor, tente novamente.')
             ->body([
                 'demanda' => $request->demanda,
                 'titulo' => $request->titulo,
                 'texto' => $request->_POST('texto', html: false),
                 'tipo' => $request->tipo,
-                'hora_producao_estimada' => $request->hora,
+                'minuto_producao_estimada' => $request->minuto,
             ])
             ->post('/demanda-tarefa')->object();
 
@@ -133,8 +150,7 @@ final class DemandaController extends Controller
 
     public function tarefaEditar(string $id, string $demanda)
     {
-        $Api = new ApiHelper(token: true);
-        $tarefa = $Api->get('/demanda-tarefa/' . $id)->object();
+        $tarefa = $this->Api->get('/demanda-tarefa/' . $id)->object();
 
         if (!object_key_exists('dado', $tarefa)) {
             mensagemStatus(404);
@@ -151,8 +167,8 @@ final class DemandaController extends Controller
 
     private function buscarDemanda($status, $ordem)
     {
-        $Api = new ApiHelper(token: true);
-        $lista = $Api->json([
+
+        $lista = $this->Api->json([
             'status' => $status,
             'ordem' => $ordem
         ])->get('/demanda-dado')->object();
@@ -184,12 +200,12 @@ final class DemandaController extends Controller
             ->vazio('texto', mensagem: 'Você precisa passar um texto para a tarefa.')
             ->vazio('tipo', mensagem: 'Você precisa passar um tipo para a tarefa.');
 
-        $Api = new ApiHelper(token: true);
-        $dado = $Api->body([
+
+        $dado = $this->Api->body([
             'titulo' => $request->titulo,
             'texto' => $request->_POST('texto', html: false),
             'tipo' => $request->tipo,
-            'hora_producao_estimada' => $request->hora
+            'minuto_producao_estimada' => $request->minuto
         ])->put('/demanda-tarefa/' . $id);
 
         respostaJson(
@@ -201,8 +217,8 @@ final class DemandaController extends Controller
     }
     public function postTarefaArquivo(Request $request, string $id)
     {
-        $Api = new ApiHelper(token: true);
-        $Api
+
+        $this->Api
             ->validar('Ocorre um erro ao atualizar lista de arquivos, por favor, tente novamente.')
             ->body([
                 'arquivo' => jsonEncode($request->arquivo)
@@ -214,42 +230,70 @@ final class DemandaController extends Controller
 
     public function deleteTarefa(string $id)
     {
-        $Api = new ApiHelper(token: true);
-        $Api
+
+        $this->Api
             ->validar('Erro ao deletar a tarefa, por favor, tente novamente.')
             ->delete('/demanda-tarefa/' . $id);
 
         return new Response(status: 204);
     }
 
-    public function getTrabalhoComecar(string $tarefa)
+    public function getTrabalhoComecar(string $tarefa, string $demanda)
     {
-        cookie('TRABALHO_INICIADO', true);
-        cookie('TRABALHO_MINIMIZADO', false);
-        cookie('TRABALHO_ID', uuid());
-        cookie('TRABALHO_TAREFA', $tarefa);
-        cookie('TRABALHO_DATA', agora());
-        cookie('TRABALHO_TEMPO', 50);
-        cookie('TRABALHO_TOTAL', 90);
+        $dado = $this->Api
+            ->validar('Erro ao começar a demanda, por favor, tente novamente.')
+            ->body(['tarefa' => $tarefa])
+            ->post('/demanda-trabalho')
+            ->object()->dado;
+
+        sessao('TRABALHO', [
+            'id' => $dado->id,
+            'tarefa' => $tarefa,
+            'demanda' => $demanda,
+            'iniciado' => true,
+            'minimizado' => false,
+            'data' => $dado->data_criacao,
+            'tempo' => $dado->tempo_trabalho,
+            'total' => $dado->tempo_total
+        ]);
 
         return mensagemSucesso([
-            'id' => uuid(),
+            'id' => $dado->id,
             'tarefa' => $tarefa,
-            'data_criacao' => agora(),
-            'tempo' => 50,
-            'total' => 90
+            'data_criacao' => $dado->data_criacao,
+            'tempo' => $dado->tempo_trabalho,
+            'total' => $dado->tempo_total
         ]);
     }
     public function getTrabalhoAtualizar(string $id)
     {
+        $this->Api
+            ->validar('Erro ao atualizar trabalho, por favor, tente novamente.')
+            ->body(['acao' => 'atualizar'])
+            ->put('/demanda-trabalho/' . $id);
+
         return new Response(status: 204);
     }
-    public function getTrabalhoParar(string $id, string $tarefa)
+    public function getTrabalhoParar(string $id)
     {
+        $this->Api
+            ->validar('Erro ao parar trabalho, por favor, tente novamente.')
+            ->body(['acao' => 'parar'])
+            ->put('/demanda-trabalho/' . $id);
+
+        sessaoDeletar('TRABALHO');
+
         return new Response(status: 204);
     }
-    public function getTrabalhoConcluir(string $id, string $tarefa)
+
+    public function getTrabalhoConcluir(string $id)
     {
+        $this->Api
+            ->validar('Erro ao concluir trabalho, por favor, tente novamente.')
+            ->body(['acao' => 'concluir'])
+            ->put('/demanda-trabalho/' . $id);
+
+        sessaoDeletar('TRABALHO');
         return new Response(status: 204);
     }
 }

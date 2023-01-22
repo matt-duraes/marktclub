@@ -3,7 +3,7 @@ const tarefaSalvar = () => {
     const inputTitulo = document.getElementById('input_titulo');
     const inputTexto = document.getElementById('input_texto');
     const inputTipo = document.getElementById('input_tipo');
-    const inputHora = document.getElementById('input_hora');
+    const inputMinuto = document.getElementById('input_minuto');
 
     const botaoFechar = document.getElementById('botao_tarefa_salvar_cancelar');
     const botaoSalvar = document.getElementById('botao_tarefa_salvar_salvar');
@@ -51,7 +51,7 @@ const tarefaSalvar = () => {
             mensagem = 'Digite um texto para continuar.';
         } else if (inputTipo.value == '') {
             mensagem = 'Escolha um tipo de tarefa para continuar.';
-        } else if (inputHora.value != '' && !/^[1-9]{1}[0-9]{0,}$/.test(inputHora.value)) {
+        } else if (inputMinuto.value != '' && !/^[1-9]{1}[0-9]{0,}$/.test(inputMinuto.value)) {
             mensagem = 'Digite um tempo de produção valido.';
         }
         if (mensagem != '') {
@@ -66,7 +66,7 @@ const tarefaSalvar = () => {
         body.append('titulo', inputTitulo.value);
         body.append('texto', inputTexto.value);
         body.append('tipo', inputTipo.value);
-        body.append('hora', inputHora.value);
+        body.append('minuto', inputMinuto.value);
         return body;
     };
 };

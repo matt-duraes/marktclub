@@ -21,7 +21,7 @@ trait WhereTrait
 
     private function validarData($de, $ate, int $diaMaximo = 366)
     {
-        $diasDiferenca = dataDiferenca($de, $ate);
+        $diasDiferenca = dataDiferencaDia($de, $ate);
         if (empty($de)) {
             mensagemErro('Data obrigatória!', 'A data de começo da busca é obrigatória.');
         } else if (!validarDate($de)) {

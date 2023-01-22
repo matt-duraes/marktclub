@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\DemandaDado;
+namespace App\Classes\DemandaTrabalho;
 
 use Status\Status as StatusStatus;
 
@@ -11,11 +11,8 @@ final class Status extends StatusStatus
     ) {
         parent::__construct(
             lista: [
-                'nova' => 'Nova',
-                'liberada' => 'Liberada',
-                'andamento' => 'Em andamento',
-                'teste' => 'Em teste',
-                'finalizada' => 'Finalizada'
+                'trabalhando' => 'Trabalhando',
+                'finalizado' => 'Finalizado'
             ]
         );
     }

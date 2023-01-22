@@ -43,38 +43,49 @@ const demandaDetalhe = () => {
         const deletar = tarefa.querySelector('.botao_deletar');
         const play = tarefa.querySelector('.botao_play');
         const pause = tarefa.querySelector('.botao_pause');
-        editar.addEventListener('click', () => {
-            PaginaEditar.abrir();
-        });
-        deletar.addEventListener('click', async () => {
-            if (
-                await Alerta.confirmar(
-                    'Deletar tarefa',
-                    'Tem certeza que deseja deletar essa tarefa? Essa ação não poderá ser desfeita.',
-                    false
-                )
-            ) {
-                deletarTarefa(id, tarefa);
-            }
-        });
-        play.addEventListener('click', async () => {
-            if (idDev == '' || idDev == document.querySelector('#USUARIO_ID').value) {
-                comecarTrabalhoTarefa(id);
-                return;
-            }
-            if (
-                await Alerta.confirmar(
-                    'Pegar tarefa',
-                    'Você está preste a pegar uma tarefa de outro usuário, tem certeza que deseja continuar?',
-                    '!'
-                )
-            ) {
-                comecarTrabalhoTarefa(id);
-            }
-        });
-        pause.addEventListener('click', () => {
-            pause.classList.add('display_none');
-            play.classList.remove('display_none');
+        if (editar) {
+            editar.addEventListener('click', () => {
+                PaginaEditar.abrir();
+            });
+        }
+        if (deletar) {
+            deletar.addEventListener('click', async () => {
+                if (
+                    await Alerta.confirmar(
+                        'Deletar tarefa',
+                        'Tem certeza que deseja deletar essa tarefa? Essa ação não poderá ser desfeita.',
+                        false
+                    )
+                ) {
+                    deletarTarefa(id, tarefa);
+                }
+            });
+        }
+        if (play) {
+            play.addEventListener('click', async () => {
+                if (idDev == '' || idDev == document.querySelector('#USUARIO_ID').value) {
+                    comecarTrabalhoTarefa(id);
+                    return;
+                }
+                if (
+                    await Alerta.confirmar(
+                        'Pegar tarefa',
+                        'Você está preste a pegar uma tarefa de outro usuário, tem certeza que deseja continuar?',
+                        '!'
+                    )
+                ) {
+                    comecarTrabalhoTarefa(id);
+                }
+            });
+        }
+        if (pause) {
+            pause.addEventListener('click', () => {
+                pause.classList.add('display_none');
+                play.classList.remove('display_none');
+            });
+        }
+        tarefa.addEventListener('click', () => {
+            tarefa.classList.toggle('ativo');
         });
     });
 
@@ -93,20 +104,13 @@ const demandaDetalhe = () => {
 
     const comecarTrabalhoTarefa = async id => {
         Loading.show();
-        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id);
+        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id + '/' + demandaId);
         const json = await respostaJson(resposta, 'Erro ao começar a trabalhar na demanda.');
-        Loading.hide();
         if (false === json) {
+            Loading.hide();
             return;
         }
-        trabalhoAbrirBlocoTrabalho(
-            json.dado.id,
-            json.dado.tarefa,
-            json.dado.data_criacao,
-            json.dado.tempo,
-            json.dado.total
-        );
-        Pagina.staticFechar();
+        window.location.assign(LINK + '/demanda');
     };
 
     /*
@@ -146,6 +150,32 @@ const demandaDetalhe = () => {
     botaoSalvarTarefa.addEventListener('click', () => {
         PaginaSalvarTarefa.abrir();
     });
+
+    /*
+    |--------------------------------------------------------------------------
+    | LIBERAR DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    const botaoLiberarDemanda = document.getElementById('botao_liberar_demanda');
+    if (botaoLiberarDemanda) {
+        botaoLiberarDemanda.addEventListener('click', async () => {
+            if (await Alerta.confirmar('Liberar demanda', 'Tem certeza que deseja liberar essa demanda?', '!')) {
+                liberarDemandaParaDesenvolvimento();
+            }
+        });
+    }
+    const liberarDemandaParaDesenvolvimento = async () => {
+        Loading.show();
+        const resposta = await fetch(LINK + '/demanda/demanda-liberar/' + demandaId, {
+            method: 'POST',
+        });
+        const json = await respostaJson(resposta, 'Erro ao liberar demanda, por favor, tente novamente.');
+        if (false === json) {
+            Loading.hide();
+            return;
+        }
+        window.location.assign(LINK + '/demanda');
+    };
 };
 
 fwFormArquivoListaChange = async () => {

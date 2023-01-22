@@ -113,9 +113,12 @@ final class DataHelper
     }
 
     /**
-     * @param String $data Data que será usada para comparar
+     * Retorna a diferença de dias entre duas datas
+     *
+     * @param   string      $data       Data que será usada para comparar
+     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
      */
-    public function diferenca(string $data): bool | int
+    public function diferencaDia(string $data): bool | int
     {
         $comparar = $data;
         if (!$this->validar() || !$this->validarData($comparar)) {
@@ -124,6 +127,72 @@ final class DataHelper
 
         $valor = $this->retorno;
         return $valor->diff(new \DateTime(str_replace('/', '-', $comparar)))->format('%r%a');
+    }
+    /**
+     * Retorna a diferença de horas entre duas datas
+     *
+     * @param   string      $data       Data que será usada para comparar
+     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
+     */
+    public function diferencaHora(string $data): bool | int
+    {
+        $comparar = $data;
+        if (!$this->validar() || !$this->validarData($comparar)) {
+            return false;
+        }
+
+        $valor = $this->retorno;
+        $diff = $valor->diff(new \DateTime(str_replace('/', '-', $comparar)));
+        $dia = abs($diff->format('%R%a')) * 24;
+        $resultado = floor($diff->h + $dia);
+        return $this->retornarDiferenca($valor, $data, $resultado);
+    }
+    /**
+     * Retorna a diferença de minutos entre duas datas
+     *
+     * @param   string      $data       Data que será usada para comparar
+     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
+     */
+    public function diferencaMinuto(string $data): bool | int
+    {
+        $comparar = $data;
+        if (!$this->validar() || !$this->validarData($comparar)) {
+            return false;
+        }
+
+        $valor = $this->retorno;
+        $diff = $valor->diff(new \DateTime(str_replace('/', '-', $comparar)));
+        $dia = abs($diff->format('%r%a')) * 24 * 60;
+        $hora = $diff->h * 60;
+        $resultado = floor($diff->i + $dia + $hora);
+        return $this->retornarDiferenca($valor, $data, $resultado);
+    }
+    /**
+     * Retorna a diferença de segudoss entre duas datas
+     *
+     * @param   string      $data       Data que será usada para comparar
+     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
+     */
+    public function diferencaSegundo(string $data): bool | int
+    {
+        $comparar = $data;
+        if (!$this->validar() || !$this->validarData($comparar)) {
+            return false;
+        }
+
+        $valor = $this->retorno;
+        $diff = $valor->diff(new \DateTime(str_replace('/', '-', $comparar)));
+        $dia = abs($diff->format('%r%a')) * 24 * 60 * 60;
+        $hora = $diff->h * 60 * 60;
+        $minuto = $diff->i * 60;
+        $resultado = floor($diff->s + $dia + $hora + $minuto);
+        return $this->retornarDiferenca($valor, $data, $resultado);
+    }
+    private function retornarDiferenca($data, $comparacao, $valor)
+    {
+        $data = $data instanceof \DateTime ? $data : new \DateTime($data);
+        $comparacao = $comparacao instanceof \DateTime ? $comparacao : new \DateTime($comparacao);
+        return $data <= $comparacao ? $valor : -$valor;
     }
 
     /**

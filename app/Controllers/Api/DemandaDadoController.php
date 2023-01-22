@@ -33,7 +33,7 @@ final class DemandaDadoController extends Controller implements
                 $Demanda,
                 lista: [
                     'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
-                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'arquivo'
+                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'arquivo', 'status'
                 ]
             )
         );

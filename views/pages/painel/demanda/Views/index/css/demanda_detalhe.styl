@@ -90,9 +90,14 @@
         flexRow()
         margin: 10px 0
         blocoShadow()
+        border-left: 5px solid #FFF
         align-items: center
         &:hover
             background-color: #F6F6F6
+            border-color: #F6F6F6
+        &.concluida
+            border-color: $corVerde
+            background-color: #FFF
     article .bloco_botao
         position: absolute
         top: 10px
@@ -140,7 +145,18 @@
     article > .botao
         fill: $corVermelho
         cursor: pointer
-
+    article > .check
+        width: 40px
+        height: 40px
+        flexCenter()
+        fill: #FFF
+        background-color: $corVerde
+        border-radius: 50%
+#bloco_demanda_tarefa .bloco_tarefa
+    article.concluida .texto
+        display: none
+    article.concluida.ativo .texto
+        display: block
 #bloco_demanda_tarefa .bloco_arquivo
     background: #eee
     padding: 10px 0 20px

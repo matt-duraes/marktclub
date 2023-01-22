@@ -8,7 +8,7 @@
         @? formEditor(name: 'texto', label: 'Texto', obrigatorio: true, placeholder: 'Digite outras informacões', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
         <div class="row2">
             @? formSelect(name: 'tipo', label: 'Tipo de tarefa', obrigatorio: true, placeholder: 'Escolha uma opção', lista: $tipoLista)
-            @? formNumero(name: 'hora', label: 'Quantas horas?', placeholder: 'Quantas horas são preciso para a tarefa?')
+            @? formNumero(name: 'minuto', label: 'Quantos minutos?', placeholder: 'Quantos minutos são preciso para a tarefa?')
         </div>
     </form>
     <div class="footer_pagina_popup">

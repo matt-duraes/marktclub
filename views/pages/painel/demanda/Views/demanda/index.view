@@ -33,6 +33,9 @@
         @ endif;
 
         <div class="resto"></div>
+        @ if( $r->status == 'nova' ):
+        <div class="botao" id="botao_liberar_demanda">Liberar demanda</div>
+        @ endif;
 
         @ if( !$r->sou_dev && !$r->sou_dono ):
         <div class="botao {!!$r->estou_seguindo ? 'sim' : 'nao'!!}">{!!$r->estou_seguindo ? 'seguindo' : 'seguir'!!}</div>
@@ -43,11 +46,13 @@
         <h2>Tarefas</h2>
         <div class="botao_add" id="botao_salvar_tarefa">Nova tarefa</div>
         @ foreach( $r->tarefa as $tarefa ):
-        <article class="tarefa" data-id="{{$tarefa->id}}" data-dev="{!!$tarefa->dev->id!!}">
+        <article class="tarefa {{$tarefa->status}}" data-id="{{$tarefa->id}}" data-dev="{!!$tarefa->dev->id!!}">
+            @ if( $tarefa->status != 'concluida' ):
             <div class="bloco_botao">
                 <i class="botao botao_editar">@iconeEditar(15)</i>
                 <i class="botao botao_deletar">@iconeDeletar</i>
             </div>
+            @ endif;
             <figure style="background-image: url({!!$tarefa->dev->imagem!!});" data-ajuda="{{$tarefa->dev->nome}}"></figure>
             <div class="conteudo">
                 <h1>{{$tarefa->titulo}}</h1>
@@ -57,17 +62,17 @@
                         <p>{{$Tipo->nome($tarefa->tipo)}}</p>
                     </div>
 
-                    @ if( !empty($tarefa->hora_producao_estimada) ):
+                    @ if( !empty($tarefa->minuto_producao_estimada) ):
                     <div class="item">
                         <span>Tempo estimado:</span>
-                        <p>{{$tarefa->hora_producao_estimada}} {{$tarefa->hora_producao_estimada > 1 ? 'horas' : 'hora'}}</p>
+                        <p>{{$tarefa->minuto_producao_estimada}} {{$tarefa->minuto_producao_estimada > 1 ? 'minutos' : 'minuto'}}</p>
                     </div>
                     @ endif;
 
-                    @ if( !empty($tarefa->hora_producao_real) && $tarefa->status == 'done'):
+                    @ if( !empty($tarefa->minuto_producao_real) && $tarefa->status == 'concluida'):
                     <div class="item">
                         <span>Tempo executado:</span>
-                        <p>{{$tarefa->hora_producao_real}} {{$tarefa->hora_producao_real > 1 ? 'horas' : 'hora'}}</p>
+                        <p>{{$tarefa->minuto_producao_real}} {{$tarefa->minuto_producao_real > 1 ? 'minuros' : 'minuto'}}</p>
                     </div>
                     @ endif;
 
@@ -76,7 +81,7 @@
                         <p>{{$Status->nome($tarefa->status)}}</p>
                     </div>
 
-                    @ if(!empty($tarefa->data_producao_final) || ( $tarefa->status == 'done' && !empty($tarefa->data_producao_final ))):
+                    @ if(!empty($tarefa->data_producao_final) || ( $tarefa->status == 'concluida' && !empty($tarefa->data_producao_final ))):
                     <div class="linha"></div>
                     @ endif;
 
@@ -87,7 +92,7 @@
                     </div>
                     @ endif;
 
-                    @ if( $tarefa->status == 'done' && !empty($tarefa->data_producao_final) ):
+                    @ if( $tarefa->status == 'concluida' && !empty($tarefa->data_producao_final) ):
                     <div class="item">
                         <span>Finalizado:</span>
                         <p>10/10/2010</p>
@@ -98,8 +103,12 @@
                     {!!$tarefa->texto!!}
                 </div>
             </div>
+            @ if( $tarefa->status == 'concluida' ):
+            <div class="check">@iconeCheck(20)</div>
+            @ elseif( in_array($r->status, ['liberada', 'andamento']) && in_array($tarefa->status, ['aguardando', 'andamento']) && !empty($tarefa->minuto_producao_estimada) ):
             <div class="botao play botao_play">@iconePlay(40)</div>
             <div class="botao display_none pause botao_pause">@iconePause(40)</div>
+            @ endif;
         </article>
         @ endforeach;
     </div>

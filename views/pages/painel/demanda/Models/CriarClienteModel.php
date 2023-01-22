@@ -202,7 +202,19 @@ final class CriarClienteModel
 
     private function notificarUsuario()
     {
-        //
+        $Api = new ApiHelper(token: true);
+        foreach ($this->listaNotificacao as $equipe) {
+            $Api
+                ->body([
+                    'titulo' => 'Criou uma nova tarefa para você',
+                    'mensagem' => 'Foi criado uma nova tarefa para você, acesse a demanda e verifique o pedido.',
+                    'link' => LINK . '/demanda#demanda-' . $this->Demanda->dado->id,
+                    'botao' => 'Acessar painel',
+                    'dono' => sessao('USUARIO.id'),
+                    'equipe' => $equipe
+                ])
+                ->post('/painel-notificacao');
+        }
     }
 
     public function id()
