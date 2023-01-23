@@ -238,21 +238,13 @@ const demandaSalvar = () => {
         });
 
         const json = await respostaJson(resposta, 'Ocorreu um erro ao salvar, por favor, tente novamente!');
-
-        Loading.hide();
         if (false === json) {
+            Loading.hide();
             return;
         }
 
-        const PaginaDetalheTarefa = new Pagina(
-            'demanda-' + json.dado.id,
-            LINK + '/demanda/demanda/' + json.dado.id,
-            {},
-            true,
-            true,
-            demandaDetalhe
-        );
-        PaginaDetalheTarefa.abrir();
+        window.location.assign(LINK + '/demanda#demanda-' + json.dado.id);
+        window.location.reload();
     });
 
     /*

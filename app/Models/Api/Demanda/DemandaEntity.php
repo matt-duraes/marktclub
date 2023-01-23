@@ -5,6 +5,7 @@ namespace App\Models\Api\Demanda;
 use ORM\Entity;
 use Modules\Data;
 use Modules\Botao;
+use Modules\DataHora;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
@@ -25,7 +26,8 @@ final class DemandaEntity extends Entity
         'tipo'
     ];
     protected array $_salvar = [
-        'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega'
+        'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega',
+        'ordem', 'data_entrega_real'
     ];
     protected string $_validarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -44,6 +46,8 @@ final class DemandaEntity extends Entity
     public bool $sou_dev = false;
     public Botao $com_prazo;
     public Data $data_entrega;
+    public DataHora $data_entrega_real;
+    public int $ordem;
 
     public int $id_admin_empresa;
     public Status $status;
@@ -165,6 +169,7 @@ final class DemandaEntity extends Entity
         $this->com_prazo = new Botao('nao');
         $this->status = new Status(1);
         $this->id_usuario_equipe = TOKEN['usuario']->get('id');
+        $this->ordem = 999;
         $this->pegarIdEmpresa();
     }
 

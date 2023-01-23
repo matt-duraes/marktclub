@@ -21,7 +21,7 @@
             <header>
                 <h1>Liberada</h1>
             </header>
-            <div class="conteudo">
+            <div class="conteudo" id="bloco_coluna_liberado">
                 @ifforeach($liberada as $r):
                 @view painel/demanda/index/tarefa.view
                 @elseforeach;
@@ -58,10 +58,10 @@
 
         <section class="bloco_coluna">
             <header>
-                <h1>Finalizada</h1>
+                <h1>Concluida</h1>
             </header>
             <div class="conteudo">
-                @ifforeach($finalizada as $r):
+                @ifforeach($concluida as $r):
                 @view painel/demanda/index/tarefa.view
                 @elseforeach;
                 <div class="tarefa_zero">Sem itens<br> no momento</div>

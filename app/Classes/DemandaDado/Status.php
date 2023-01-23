@@ -15,7 +15,7 @@ final class Status extends StatusStatus
                 'liberada' => 'Liberada',
                 'andamento' => 'Em andamento',
                 'teste' => 'Em teste',
-                'finalizada' => 'Finalizada'
+                'concluida' => 'Concluida'
             ]
         );
     }

@@ -59,10 +59,10 @@ final class DemandaModel extends ORM
     private function montarWhere()
     {
         $status = $this->status;
-        if ($status->indice() == 'finalizada') {
+        if ($status->indice() == 'concluida') {
             return [
                 ['status', $status->numero()],
-                ['data_atualizacao', '<', dataRemover(agora(), 10, 'dias')]
+                ['data_atualizacao', '>=', dataRemover(agora(), 10, 'dias')]
             ];
         }
         return ['status', $status->numero()];

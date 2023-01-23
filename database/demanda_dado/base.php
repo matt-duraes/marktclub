@@ -13,5 +13,6 @@ return (new \DataBase\DataBase())
     ->json('seguindo')->null()
     ->int('com_prazo')->null()
     ->date('data_entrega')->null()
+    ->date('data_entrega_real')->null()
     ->int('ordem')->null()
     ->status();

@@ -1,5 +1,6 @@
 <div id="bloco_demanda_tarefa" class="form_geral">
     <input type="hidden" id="input_demanda_id" value="{{$r->id}}">
+    <input type="hidden" id="input_demanda_dono_id" value="{{$r->dono->id}}">
     <header>
         <i class="fechar mobile botao_fechar_demanda">@iconeVoltar</i>
         <h1>{{$r->titulo}}</h1>
@@ -102,7 +103,7 @@
                 <div class="texto bloco_noticia_texto">
                     {!!$tarefa->texto!!}
                 </div>
-                @ if( $tarefa->status == 'concluida' ):
+                @ if( $tarefa->status == 'concluida' && $r->status != 'concluida' ):
                 <div class="bloco_teste">
                     <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
                     <div class="bloco_imagem">
@@ -111,6 +112,15 @@
                         @ endforeach;
                     </div>
                     <i class="botao_deslike deslike" data-ajuda="Reprovar tarefa">@iconeDeslike</i>
+                </div>
+                @ elseif( $r->status == 'concluida' ):
+                <div class="bloco_testado">
+                    <p>Testado por:</p>
+                    <div class="bloco_imagem">
+                        @ foreach($tarefa->teste as $usuarioTeste):
+                        <figure data-ajuda="{{$usuarioTeste->nome}}" data-id="{{$usuarioTeste->id}}" style="background-image: url({!!$usuarioTeste->imagem!!});"></figure>
+                        @ endforeach;
+                    </div>
                 </div>
                 @ endif;
             </div>

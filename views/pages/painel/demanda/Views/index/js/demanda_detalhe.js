@@ -1,6 +1,7 @@
-let demandaId;
+let idDemanda, idDono;
 const demandaDetalhe = () => {
-    demandaId = document.getElementById('input_demanda_id').value;
+    idDemanda = document.getElementById('input_demanda_id').value;
+    idDono = document.getElementById('input_demanda_dono_id').value;
 
     historicoLoad();
 
@@ -33,7 +34,7 @@ const demandaDetalhe = () => {
         const idDev = tarefa.getAttribute('data-dev');
         const PaginaEditar = new Pagina(
             'tarefa-editar-' + id,
-            LINK + '/demanda/tarefa-editar/' + id + '/' + demandaId,
+            LINK + '/demanda/tarefa-editar/' + id + '/' + idDemanda,
             {},
             true,
             false,
@@ -107,9 +108,9 @@ const demandaDetalhe = () => {
             method: 'POST',
         });
         const json = await respostaJson(resposta, 'Erro ao dar like na tarefa, por favor, tente novamente.');
-        Loading.hide();
 
         if (false === json) {
+            Loading.hide();
             return;
         }
 
@@ -118,6 +119,25 @@ const demandaDetalhe = () => {
             'beforeend',
             `<figure data-id="${usuarioId}" style="background-image: url(${imagem})"></figure>`
         );
+
+        let concluir = true;
+        let quantidadeCurtida = listaTarefa.length;
+        let i = 0;
+        for (i; i < quantidadeCurtida; ++i) {
+            const figure = listaTarefa[i].querySelectorAll('.bloco_teste figure');
+            const dono = listaTarefa[i].querySelector('.bloco_teste figure[data-id="' + idDono + '"]');
+            if (!dono || figure.length < 2) {
+                concluir = false;
+                i = quantidadeCurtida;
+            }
+        }
+
+        if (concluir) {
+            window.location.reload();
+            return;
+        }
+
+        Loading.hide();
     };
 
     const blocoRecusarTarefa = document.getElementById('bloco_recusar_tarefa');
@@ -183,7 +203,7 @@ const demandaDetalhe = () => {
 
     const comecarTrabalhoTarefa = async id => {
         Loading.show();
-        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id + '/' + demandaId);
+        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id + '/' + idDemanda);
         const json = await respostaJson(resposta, 'Erro ao começar a trabalhar na demanda.');
         if (false === json) {
             Loading.hide();
@@ -200,8 +220,8 @@ const demandaDetalhe = () => {
     const botaoEditar = document.querySelector('#botao_editar_demanda');
     if (botaoEditar) {
         const PaginaEditar = new Pagina(
-            'demanda-editar-' + demandaId,
-            LINK + '/demanda/demanda-editar/' + demandaId,
+            'demanda-editar-' + idDemanda,
+            LINK + '/demanda/demanda-editar/' + idDemanda,
             {},
             true,
             false,
@@ -220,7 +240,7 @@ const demandaDetalhe = () => {
     const botaoSalvarTarefa = document.getElementById('botao_salvar_tarefa');
     const PaginaSalvarTarefa = new Pagina(
         'tarefa-salvar',
-        LINK + '/demanda/tarefa-salvar/' + demandaId,
+        LINK + '/demanda/tarefa-salvar/' + idDemanda,
         {},
         true,
         false,
@@ -245,7 +265,7 @@ const demandaDetalhe = () => {
     }
     const liberarDemandaParaDesenvolvimento = async () => {
         Loading.show();
-        const resposta = await fetch(LINK + '/demanda/demanda-liberar/' + demandaId, {
+        const resposta = await fetch(LINK + '/demanda/demanda-liberar/' + idDemanda, {
             method: 'POST',
         });
         const json = await respostaJson(resposta, 'Erro ao liberar demanda, por favor, tente novamente.');
@@ -269,7 +289,7 @@ fwFormArquivoListaChange = async () => {
         body.append('arquivo[]', item.value);
     });
 
-    const resposta = await fetch(LINK + '/demanda/tarefa-arquivo/' + demandaId, {
+    const resposta = await fetch(LINK + '/demanda/tarefa-arquivo/' + idDemanda, {
         method: 'POST',
         body,
     });

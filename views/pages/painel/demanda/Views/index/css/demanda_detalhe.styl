@@ -143,6 +143,25 @@
         font-size: 1.2rem
     article .conteudo .dado .item p
         texto()
+    article .conteudo .bloco_testado
+        flexCol()
+        flex-wrap: wrap
+        margin-top: 15px
+    article .conteudo .bloco_testado p
+        width: 100%
+        color: #333
+    article .conteudo .bloco_testado .bloco_imagem
+        flexRow()
+        background: #EEE
+        padding: 5px 0 5px 5px
+        margin-top: 3px
+        border-radius: 2px 20px 20px 20px
+    article .conteudo .bloco_testado .bloco_imagem figure
+        width: 30px
+        height: 30px
+        imagemRedonda()
+        margin-right: 5px
+        background-color: #FFF
     article .conteudo .bloco_teste
         height: 40px
         flexRow()
@@ -157,6 +176,7 @@
         height: 30px
         imagemRedonda()
         margin-right: 5px
+        background-color: #FFF
         &:last-child
             margin-right: 15px
     article .conteudo .bloco_teste i

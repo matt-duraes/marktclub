@@ -88,7 +88,7 @@ final class TarefaModel extends ORM
             }
         }
 
-        $this->Demanda->status = new DemandaDadoStatus('finalizada');
+        $this->Demanda->status = new DemandaDadoStatus('concluida');
         $this->Demanda->salvar();
     }
 }

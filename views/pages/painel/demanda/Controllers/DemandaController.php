@@ -28,7 +28,7 @@ final class DemandaController extends Controller
             'liberada' => $this->buscarDemanda('liberada', 'ordem'),
             'andamento' => $this->buscarDemanda('andamento', 'mais-novo'),
             'teste' => $this->buscarDemanda('teste', 'mais-novo'),
-            'finalizada' => $this->buscarDemanda('finalizada', 'mais-novo'),
+            'concluida' => $this->buscarDemanda('concluida', 'mais-novo'),
             'Tipo' => new Tipo(),
             'Area' => new DemandaTarefaTipo()
         ]);

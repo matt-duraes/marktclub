@@ -1,4 +1,5 @@
 // @template "painel"
+// @system "DragDrop"
 // @import "demanda_detalhe"
 // @import "demanda_salvar"
 // @import "demanda_editar"
@@ -43,8 +44,36 @@ window.addEventListener('load', () => {
             true,
             demandaDetalhe
         );
-        tarefa.addEventListener('click', () => {
+        tarefa.addEventListener('click', e => {
+            if (e.target.classList.contains('botao_mover') || e.target.closest('.botao_mover')) {
+                return;
+            }
             PaginaDetalhe.abrir();
         });
     });
+
+    const blocoTarefaLiberada = document.getElementById('bloco_coluna_liberado');
+    reordenarTarefaLiberada = async () => {
+        const body = new FormData();
+        blocoTarefaLiberada.querySelectorAll('.bloco_tarefa_item').forEach(tarefa => {
+            body.append('id[]', tarefa.getAttribute('data-id'));
+        });
+        const resposta = await fetch(LINK + '/demanda/tarefa-ordenar', {
+            method: 'POST',
+            body,
+        });
+        if (resposta.status == 204) {
+            return;
+        }
+        Alerta.notificacao('Erro ao ordenar tarefas, por favor, tente novamente.', false);
+    };
+
+    new DragDrop()
+        .bloco(blocoTarefaLiberada)
+        .item('.bloco_tarefa_item')
+        .botao('.botao_mover')
+        .eventoFim(e => {
+            reordenarTarefaLiberada();
+        })
+        .iniciar();
 });
