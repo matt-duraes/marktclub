@@ -14,4 +14,5 @@ return (new \DataBase\DataBase())
     ->datetime('data_producao_final')->null()
     ->int('minuto_producao_estimada')->null()
     ->int('minuto_producao_real')->null()
+    ->text('like')->null()
     ->status();

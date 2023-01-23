@@ -59,6 +59,13 @@ Route
         Route
             ::nome('tarefa')
             ::delete('/demanda/tarefa/{id}');
+        Route
+            ::nome('tarefaLike')
+            ::post('/demanda/tarefa-like/{id}');
+        Route
+            ::nome('tarefaDeslike')
+            ::request(['motivo'])
+            ::post('/demanda/tarefa-deslike/{id}');
 
         Route
             ::nome('trabalhoComecar')

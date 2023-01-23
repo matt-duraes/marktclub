@@ -1278,3 +1278,33 @@ if (!function_exists('iconePause')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path style="fill-rule:evenodd;clip-rule:evenodd;" d="M40,20c0,11-9,20-20,20S0,31,0,20S9,0,20,0S40,9,40,20L40,20z M10.4,9.8c0-1.1,0.9-1.9,1.9-1.9h4.2 c1.1,0,1.9,0.9,1.9,1.9v20.3c0,1.1-0.9,1.9-1.9,1.9h-4.2c-1.1,0-1.9-0.9-1.9-1.9L10.4,9.8z M23.5,7.9c-1.1,0-1.9,0.9-1.9,1.9v20.3 c0,1.1,0.9,1.9,1.9,1.9h4.2c1.1,0,1.9-0.9,1.9-1.9V9.8c0-1.1-0.9-1.9-1.9-1.9H23.5z"/></svg>';
     }
 }
+if (!function_exists('iconeLike')) {
+    // doc
+    // exemplo
+    // echo iconeLike
+    /**
+     * Gera um icone de like
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeLike(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M40,14v18c0,0.5-0.2,1-0.6,1.4l-6,6C33,39.8,32.5,40,32,40H12c-0.5,0-1-0.2-1.4-0.6L10,38.8V12.6l8.4-11.7h0 C18.7,0.3,19.4,0,20,0h2c0.5,0,1,0.2,1.4,0.6C23.8,1,24,1.5,24,2v10h14c0.5,0,1,0.2,1.4,0.6C39.8,13,40,13.5,40,14L40,14z M6,14H2 c-0.5,0-1,0.2-1.4,0.6C0.2,15,0,15.5,0,16v20c0,0.5,0.2,1,0.6,1.4C1,37.8,1.5,38,2,38h4V14z"/></svg>';
+    }
+}
+if (!function_exists('iconeDeslike')) {
+    // doc
+    // exemplo
+    // echo iconeDeslike
+    /**
+     * Gera um icone de deslike
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeDeslike(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M40,26c0,0.5-0.2,1-0.6,1.4C39,27.8,38.5,28,38,28H24v10c0,0.5-0.2,1-0.6,1.4C23,39.8,22.5,40,22,40h-2 c-0.6,0-1.3-0.3-1.6-0.8h0L10,27.4V1.2l0.6-0.6C11,0.2,11.5,0,12,0h20c0.5,0,1,0.2,1.4,0.6l6,6C39.8,7,40,7.5,40,8L40,26L40,26z M6,2H2C1.5,2,1,2.2,0.6,2.6C0.2,3,0,3.5,0,4v20c0,0.5,0.2,1,0.6,1.4C1,25.8,1.5,26,2,26h4V2z"/></svg>';
+    }
+}

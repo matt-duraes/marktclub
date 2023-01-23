@@ -84,9 +84,88 @@ const demandaDetalhe = () => {
                 play.classList.remove('display_none');
             });
         }
-        tarefa.addEventListener('click', () => {
+        tarefa.addEventListener('click', e => {
+            if (e.target.classList.contains('botao_like') || e.target.closest('.botao_like')) {
+                marcarTarefaComLike(tarefa.getAttribute('data-id'), tarefa.querySelector('.bloco_teste .bloco_imagem'));
+                return;
+            } else if (e.target.classList.contains('botao_deslike') || e.target.closest('.botao_deslike')) {
+                abrirBlocoRecusarTarefa(tarefa.getAttribute('data-id'));
+                return;
+            }
             tarefa.classList.toggle('ativo');
         });
+    });
+
+    const marcarTarefaComLike = async (id, bloco) => {
+        const usuarioId = document.querySelector('#USUARIO_ID').value;
+        if (bloco.querySelector('figure[data-id="' + usuarioId + '"]')) {
+            return;
+        }
+
+        Loading.show();
+        const resposta = await fetch(LINK + '/demanda/tarefa-like/' + id, {
+            method: 'POST',
+        });
+        const json = await respostaJson(resposta, 'Erro ao dar like na tarefa, por favor, tente novamente.');
+        Loading.hide();
+
+        if (false === json) {
+            return;
+        }
+
+        const imagem = document.querySelector('#USUARIO_IMAGEM').value;
+        bloco.insertAdjacentHTML(
+            'beforeend',
+            `<figure data-id="${usuarioId}" style="background-image: url(${imagem})"></figure>`
+        );
+    };
+
+    const blocoRecusarTarefa = document.getElementById('bloco_recusar_tarefa');
+    const inputIdDeslike = document.getElementById('input_id_deslike');
+    const inputTextoDeslike = document.getElementById('input_texto_deslike');
+
+    const botaoRecusarCancelar = document.getElementById('botao_recusar_cancelar');
+    const botaoRecusarSalvar = document.getElementById('botao_recusar_salvar');
+    const abrirBlocoRecusarTarefa = id => {
+        inputIdDeslike.value = id;
+
+        blocoRecusarTarefa.classList.remove('display_none');
+        setTimeout(() => {
+            blocoRecusarTarefa.classList.add('ativo');
+            inputTextoDeslike.focus();
+        }, 40);
+    };
+    botaoRecusarCancelar.addEventListener('click', () => {
+        blocoRecusarTarefa.classList.remove('ativo');
+        setTimeout(() => {
+            blocoRecusarTarefa.classList.add('display_none');
+            inputIdDeslike.value = '';
+            inputTextoDeslike.value = '';
+            inputTextoDeslike.style.height = '1.5em';
+        }, 300);
+    });
+    botaoRecusarSalvar.addEventListener('click', async () => {
+        if (inputTextoDeslike.value == '') {
+            Alerta.notificacao('Digite um motivo para o deslike na tarefa para continuar.', false);
+            return;
+        }
+
+        Loading.show();
+        const body = new FormData();
+        body.append('motivo', inputTextoDeslike.value);
+
+        const resposta = await fetch(LINK + '/demanda/tarefa-deslike/' + inputIdDeslike.value, {
+            method: 'POST',
+            body,
+        });
+
+        const json = await respostaJson(resposta, 'Erro ao dar deslike na tarefa, por favor, tente novamente.');
+        if (false === json) {
+            Loading.hide();
+            return;
+        }
+
+        window.location.reload();
     });
 
     const deletarTarefa = async (id, tarefa) => {

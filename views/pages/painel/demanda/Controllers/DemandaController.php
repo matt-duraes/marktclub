@@ -167,7 +167,6 @@ final class DemandaController extends Controller
 
     private function buscarDemanda($status, $ordem)
     {
-
         $lista = $this->Api->json([
             'status' => $status,
             'ordem' => $ordem
@@ -234,6 +233,28 @@ final class DemandaController extends Controller
         $this->Api
             ->validar('Erro ao deletar a tarefa, por favor, tente novamente.')
             ->delete('/demanda-tarefa/' . $id);
+
+        return new Response(status: 204);
+    }
+
+    public function postTarefaLike(string $id)
+    {
+        $this->Api
+            ->validar('Ocorreu um erro ao dar like na tarefa, por favor, tente novamente.')
+            ->post('/demanda-tarefa/like/' . $id);
+
+        return new Response(status: 204);
+    }
+    public function postTarefaDeslike(Request $request, string $id)
+    {
+        $request->vazio('motivo', mensagem: 'O campo motivo é obrigatório!');
+
+        $this->Api
+            ->validar('Ocorreu um erro ao dar like na tarefa, por favor, tente novamente.')
+            ->body([
+                'motivo' => $request->motivo
+            ])
+            ->post('/demanda-tarefa/deslike/' . $id);
 
         return new Response(status: 204);
     }

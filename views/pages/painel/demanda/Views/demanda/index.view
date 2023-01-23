@@ -102,7 +102,19 @@
                 <div class="texto bloco_noticia_texto">
                     {!!$tarefa->texto!!}
                 </div>
+                @ if( $tarefa->status == 'concluida' ):
+                <div class="bloco_teste">
+                    <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
+                    <div class="bloco_imagem">
+                        @ foreach($tarefa->teste as $usuarioTeste):
+                        <figure data-ajuda="{{$usuarioTeste->nome}}" data-id="{{$usuarioTeste->id}}" style="background-image: url({!!$usuarioTeste->imagem!!});"></figure>
+                        @ endforeach;
+                    </div>
+                    <i class="botao_deslike deslike" data-ajuda="Reprovar tarefa">@iconeDeslike</i>
+                </div>
+                @ endif;
             </div>
+
             @ if( $tarefa->status == 'concluida' ):
             <div class="check">@iconeCheck(20)</div>
             @ elseif( in_array($r->status, ['liberada', 'andamento']) && in_array($tarefa->status, ['aguardando', 'andamento']) && !empty($tarefa->minuto_producao_estimada) ):
@@ -119,5 +131,21 @@
 
     <div class="bloco_historico">
         @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Vez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda#demanda-' . $r->id, notificar: [$r->dono->id])
+    </div>
+
+    <div id="bloco_recusar_tarefa" class="display_none">
+        <div class="conteudo">
+            <header>
+                <h1>MOTIVO</h1>
+            </header>
+            <div class="bloco_texto">
+                <input type="hidden" id="input_id_deslike" value="">
+                @? formTextarea(name: 'texto_deslike', placeholder: 'Digite o motivo', label: 'Motivo')
+            </div>
+            <div class="bloco_botao">
+                <button class="cancelar" id="botao_recusar_cancelar">CANCELAR</button>
+                <button class="salvar" id="botao_recusar_salvar">SALVAR</button>
+            </div>
+        </div>
     </div>
 </div>

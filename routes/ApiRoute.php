@@ -801,6 +801,15 @@ Route::nome('demandaTarefa')
             ::nome('deletar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::delete('/demanda-tarefa/{id}');
+        Route
+            ::nome('like')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::post('/demanda-tarefa/like/{id}');
+        Route
+            ::nome('deslike')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::request(['motivo'])
+            ::post('/demanda-tarefa/deslike/{id}');
     });
 
 Route::nome('demandaTrabalho')

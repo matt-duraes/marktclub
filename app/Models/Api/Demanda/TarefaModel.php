@@ -3,10 +3,11 @@
 namespace App\Models\Api\Demanda;
 
 use ORM\ORM;
-use Modules\DataHora;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Classes\DemandaTarefa\Status;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
+use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 
 final class TarefaModel extends ORM
 {
@@ -35,6 +36,7 @@ final class TarefaModel extends ORM
         $retorno = [];
         $Tipo = new Tipo();
         $Status = new Status();
+        $Perfil = new PerfilModel;
         foreach ($lista as $r) {
             $retorno[] = object([
                 'id' => $r->uuid,
@@ -48,6 +50,7 @@ final class TarefaModel extends ORM
                 'data_producao_final' => $r->data_producao_final,
                 'minuto_producao_estimada' => $r->minuto_producao_estimada,
                 'minuto_producao_real' => $r->minuto_producao_real,
+                'teste' => $Perfil->pegarLista(jsonDecode($r->like, true, true)),
                 'status' => $Status->indice($r->status)
             ]);
         }
@@ -68,5 +71,24 @@ final class TarefaModel extends ORM
             return false;
         }
         return true;
+    }
+
+    public function verificarSePodeConcluirTarefa()
+    {
+        $dado = $this->campo(['like'])->where(['id_demanda_dado', $this->Demanda->get('id')])->read();
+
+        if (!$dado) {
+            return;
+        }
+        $dono = $this->Demanda->id_usuario_equipe;
+        foreach ($dado as $r) {
+            $like = jsonDecode($r->like, true, true);
+            if (count($like) < 2 || !in_array($dono, $like)) {
+                return;
+            }
+        }
+
+        $this->Demanda->status = new DemandaDadoStatus('finalizada');
+        $this->Demanda->salvar();
     }
 }

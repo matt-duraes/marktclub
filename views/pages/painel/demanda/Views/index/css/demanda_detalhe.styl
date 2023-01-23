@@ -118,7 +118,7 @@
         fill: #666
         &:hover
             background-color: #DDD
-    article figure
+    article > figure
         width: 50px
         height: 50px
         imagemRedonda()
@@ -126,6 +126,7 @@
         flexGrow()
         flexCol()
         padding: 0 20px
+        align-items: flex-start
     article .conteudo h1
         font-size: 2rem
     article .conteudo .dado
@@ -142,6 +143,33 @@
         font-size: 1.2rem
     article .conteudo .dado .item p
         texto()
+    article .conteudo .bloco_teste
+        height: 40px
+        flexRow()
+        margin-top: 20px
+        background: #EEE
+        padding: 5px 10px
+        border-radius: 20px
+    article .conteudo .bloco_teste .bloco_imagem
+        flexRow()
+    article .conteudo .bloco_teste .bloco_imagem figure
+        width: 30px
+        height: 30px
+        imagemRedonda()
+        margin-right: 5px
+        &:last-child
+            margin-right: 15px
+    article .conteudo .bloco_teste i
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        &.like
+            fill: $corVerde
+            margin-right: 15px
+        &.deslike
+            margin-top: 2px
+            fill: $corVermelho
     article > .botao
         fill: $corVermelho
         cursor: pointer
@@ -152,6 +180,7 @@
         fill: #FFF
         background-color: $corVerde
         border-radius: 50%
+
 #bloco_demanda_tarefa .bloco_tarefa
     article.concluida .texto
         display: none
@@ -206,3 +235,62 @@
         z-index: 2
         opacity: 0
         cursor: pointer
+
+#bloco_recusar_tarefa
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    background-color: rgba(0,0,0,.7)
+    z-index: 100
+    padding: 20px
+    display: flex
+    justify-content: center
+    align-items: flex-start
+    opacity: 0
+    transition: opacity .3s ease-out
+    &.ativo
+        opacity: 1
+    .conteudo
+        width: 100%
+        max-width: 700px
+        boxShadow()
+        background-color: #FFF
+        border-radius: 10px
+        flexCol()
+        align-items: flex-end
+        margin-top: -100px
+        transition: margin-top .3s ease-out
+    &.ativo .conteudo
+        margin-top: 0
+    .conteudo header
+        width: 100%
+        flexRow()
+        align-items: center
+        box-shadow: 0 4px 5px rgba(0,0,0,.1)
+        padding: 10px 20px
+    .conteudo header h1
+        titulo()
+        flexGrow()
+    .conteudo .bloco_texto
+        width: 100%
+        max-height: calc(100vh - 180px)
+        padding: 10px 20px 20px
+        overflow-y: auto
+    .conteudo .bloco_botao
+        width: 100%
+        flexRow()
+        justify-content: space-between
+        padding: 0 20px 20px
+    .conteudo .bloco_botao button
+        height: 40px
+        line-height: 40px
+        padding: 0 20px
+        border-radius: 20px
+        textoFontSize()
+        &.salvar
+            bgDegradeVerde()
+            color: #FFF
+        &.cancelar
+            bgDegradeCinza()

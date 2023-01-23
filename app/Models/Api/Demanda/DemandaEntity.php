@@ -47,7 +47,7 @@ final class DemandaEntity extends Entity
 
     public int $id_admin_empresa;
     public Status $status;
-    protected int $id_usuario_equipe;
+    public int $id_usuario_equipe;
 
     /**
      * @param   null|string         $titulo     Título da demanda que deseja salvar

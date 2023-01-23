@@ -73,4 +73,21 @@ final class DemandaTarefaController extends Controller implements
 
         return new Response(status: 204);
     }
+
+    public function postLike(string $id)
+    {
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        $Tarefa->like();
+
+        return mensagemSucesso([], 201);
+    }
+    public function postDeslike(Request $request, string $id)
+    {
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        $Tarefa->deslike($request->motivo);
+
+        return mensagemSucesso([], 201);
+    }
 }

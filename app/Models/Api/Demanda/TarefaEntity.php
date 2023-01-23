@@ -6,6 +6,9 @@ use ORM\Entity;
 use Modules\DataHora;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use System\Classes\PainelHistorico\Acao;
+use ApiModel\PainelHistorico\HistoricoEntity;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 
@@ -14,7 +17,7 @@ final class TarefaEntity extends Entity
     protected string $_tabela = TABELA_DEMANDA_TAREFA;
     protected array $_buscar = [
         'minuto_producao_estimada', 'titulo', 'texto', 'status', 'tipo', 'id_usuario_equipe', 'minuto_producao_real',
-        'data_producao_inicio', 'data_producao_final', 'id_demanda_dado'
+        'data_producao_inicio', 'data_producao_final', 'id_demanda_dado', 'like'
     ];
 
     protected array $_insert = [
@@ -22,7 +25,7 @@ final class TarefaEntity extends Entity
     ];
     protected array $_salvar = [
         'minuto_producao_estimada', 'id_usuario_equipe', 'status', 'titulo', 'texto', 'tipo',
-        'data_producao_inicio', 'data_producao_final', 'minuto_producao_real'
+        'data_producao_inicio', 'data_producao_final', 'minuto_producao_real', 'like'
     ];
     protected string $_validarInsert = '
         titulo|Titulo|obrigatorio|vazio
@@ -38,6 +41,8 @@ final class TarefaEntity extends Entity
     public DataHora $data_producao_final;
     public int $minuto_producao_real;
     private DemandaEntity $Demanda;
+    protected array $like;
+    public array $teste;
 
     public function __construct(
         private ?string $demanda = null,
@@ -55,6 +60,10 @@ final class TarefaEntity extends Entity
         $this->pegarDemanda($this->id_demanda_dado);
         if (!empty($this->id_usuario_equipe)) {
             $this->pegarUsuarioEquipe($this->id_usuario_equipe);
+        }
+        if (!empty($this->like)) {
+            $Perfil = new PerfilModel;
+            $this->teste[] = $Perfil->pegarLista($this->like);
         }
     }
 
@@ -110,7 +119,7 @@ final class TarefaEntity extends Entity
             $Equipe = new EquipeEntity(validarToken: false);
             is_int($id) ? $Equipe->_id($id) : $Equipe->id($id);
             $this->equipe = $Equipe;
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi encontrado nenhum usuário pelo id enviado.', status: 404);
         }
     }
@@ -118,5 +127,40 @@ final class TarefaEntity extends Entity
     public function getId()
     {
         return $this->prop('id');
+    }
+
+    public function like()
+    {
+        $id = TOKEN['usuario']->get('id');
+        if (in_array($id, $this->like)) {
+            return;
+        }
+        $this->like[] = $id;
+        $this->salvar();
+        $Tarefa = new TarefaModel($this->Demanda);
+        $Tarefa->verificarSePodeConcluirTarefa();
+    }
+
+    public function deslike(string $motivo)
+    {
+        $this->status = new Status('andamento');
+        $this->like = [];
+        $this->salvar();
+
+        $this->Demanda->status = new DemandaDadoStatus('andamento');
+        $this->Demanda->salvar();
+
+        $Perfil = new PerfilModel;
+        $usuario = $Perfil->pegarDado($this->id_usuario_equipe);
+
+        $Historico = new HistoricoEntity();
+        $Historico->mensagem = 'Tarefa recusada: ' . $this->titulo . '<br>' . $motivo;
+        $Historico->relacionado = [$this->Demanda->id];
+        $Historico->app = ['demanda_dado'];
+        $Historico->acao = new Acao('mensagem');
+        $Historico->notificar_equipe = [$usuario['id']];
+        $Historico->notificar_titulo = 'Recusou sua tarefa, acesse a demanda para verificar o motivo.';
+        $Historico->notificar_link = LINK_PAINEL . '/demanda#demanda-' . $this->Demanda->id;
+        $Historico->salvar();
     }
 }

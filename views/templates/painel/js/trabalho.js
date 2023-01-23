@@ -97,9 +97,9 @@ const trabalhoConcluirTarefa = async () => {
     Loading.show();
     const resposta = await fetch(LINK + '/demanda/trabalho-concluir/' + tarefaIdTrabalho);
     const json = respostaJson(resposta, 'Erro ao concluir tarefa, por favor, tente novamente.');
-    Loading.hide();
 
     if (false === json) {
+        Loading.hide();
         return;
     }
 
@@ -107,6 +107,7 @@ const trabalhoConcluirTarefa = async () => {
         window.location.reload();
         return;
     }
+    Loading.hide();
     trabalhoTarefaConcluida();
 };
 const trabalhoTarefaConcluida = () => {
