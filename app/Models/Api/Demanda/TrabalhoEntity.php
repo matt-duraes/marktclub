@@ -54,11 +54,8 @@ final class TrabalhoEntity extends Entity
     }
     protected function regraPosInsert()
     {
-        $this->Tarefa->status = new DemandaTarefaStatus(2);
+        $this->Tarefa->status = new DemandaTarefaStatus('andamento');
         $this->Tarefa->id_usuario_equipe = TOKEN['usuario']->get('id');
-        if ($this->Tarefa->data_producao_inicio->vazio()) {
-            $this->Tarefa->data_producao_inicio = new DataHora(agora());
-        }
         $this->Tarefa->salvar();
     }
 

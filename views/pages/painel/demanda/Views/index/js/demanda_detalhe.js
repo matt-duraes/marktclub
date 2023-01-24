@@ -238,17 +238,19 @@ const demandaDetalhe = () => {
     |--------------------------------------------------------------------------
     */
     const botaoSalvarTarefa = document.getElementById('botao_salvar_tarefa');
-    const PaginaSalvarTarefa = new Pagina(
-        'tarefa-salvar',
-        LINK + '/demanda/tarefa-salvar/' + idDemanda,
-        {},
-        true,
-        false,
-        tarefaSalvar
-    );
-    botaoSalvarTarefa.addEventListener('click', () => {
-        PaginaSalvarTarefa.abrir();
-    });
+    if (botaoSalvarTarefa) {
+        const PaginaSalvarTarefa = new Pagina(
+            'tarefa-salvar',
+            LINK + '/demanda/tarefa-salvar/' + idDemanda,
+            {},
+            true,
+            false,
+            tarefaSalvar
+        );
+        botaoSalvarTarefa.addEventListener('click', () => {
+            PaginaSalvarTarefa.abrir();
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

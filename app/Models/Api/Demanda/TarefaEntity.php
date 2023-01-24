@@ -85,6 +85,20 @@ final class TarefaEntity extends Entity
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | REGRA UPDATE
+    |--------------------------------------------------------------------------
+    */
+    protected function regraUpdate()
+    {
+        if ($this->status->indice() == 'andamento' && $this->data_producao_inicio->vazio()) {
+            $this->data_producao_inicio = new DataHora(agora());
+        }
+        if ($this->status->indice() == 'concluida' && $this->data_producao_final->vazio()) {
+            $this->data_producao_final = new DataHora(agora());
+        }
+    }
     protected function regraPosUpdate()
     {
         if ($this->status->indice() == 'andamento') {
@@ -99,6 +113,11 @@ final class TarefaEntity extends Entity
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | DEMAIS MÉTODOS
+    |--------------------------------------------------------------------------
+    */
     private function pegarDemanda($id)
     {
         try {

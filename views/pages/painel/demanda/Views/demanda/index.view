@@ -45,7 +45,10 @@
 
     <div class="bloco_tarefa">
         <h2>Tarefas</h2>
+        @ if( in_array($r->status, ['nova', 'liberada', 'andamento']) ):
         <div class="botao_add" id="botao_salvar_tarefa">Nova tarefa</div>
+        @ endif;
+
         @ foreach( $r->tarefa as $tarefa ):
         <article class="tarefa {{$tarefa->status}}" data-id="{{$tarefa->id}}" data-dev="{!!$tarefa->dev->id!!}">
             @ if( $tarefa->status != 'concluida' ):
