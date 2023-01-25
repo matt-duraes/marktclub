@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
         blocoTarefaLiberada.querySelectorAll('.bloco_tarefa_item').forEach(tarefa => {
             body.append('id[]', tarefa.getAttribute('data-id'));
         });
-        const resposta = await fetch(LINK + '/demanda/tarefa-ordenar', {
+        const resposta = await fetch(LINK + '/demanda/demanda-ordenar', {
             method: 'POST',
             body,
         });

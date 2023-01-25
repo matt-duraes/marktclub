@@ -116,6 +116,17 @@ final class DemandaController extends Controller
 
         return new response(status: 204);
     }
+    public function postDemandaOrdenar(Request $request)
+    {
+        $i = 1;
+        foreach ($request->id as $id) {
+            $this->Api
+                ->body(['ordem' => $i])
+                ->put('/demanda-dado/' . $id);
+            $i++;
+        }
+        return new Response(status: 204);
+    }
 
     public function tarefaSalvar(string $demanda)
     {

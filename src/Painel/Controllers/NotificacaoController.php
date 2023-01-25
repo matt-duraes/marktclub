@@ -17,12 +17,16 @@ final class NotificacaoController extends Controller
         parent::__construct();
     }
 
-    public function getListar()
+    public function getListar(Request $request)
     {
         $notificacao = $this
             ->Api
             ->validar('Erro ao buscar lista de notificações')
-            ->json(['novo' => 'nao'])
+            ->json([
+                'novo' => 'nao',
+                'pagina' => $request->pagina,
+                'quantidade' => 20
+            ])
             ->get('/painel-notificacao')->object();
 
         $notificacao->dado->lista = (new HelperModel)->tratarRetorno($notificacao->dado->lista);

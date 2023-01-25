@@ -774,7 +774,7 @@ Route::nome('demandaDado')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
             ::request([
                 '!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe', '!data_entrega',
-                '!com_prazo', '!status'
+                '!com_prazo', '!status', '!ordem'
             ])
             ::put('/demanda-dado/{id}');
     });

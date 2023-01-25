@@ -99,7 +99,7 @@ Route
             ::get('/painel-notificacao/{id}');
         Route
             ::nome('listar')
-            ::request(['!novo', '!clicado'], 'json')
+            ::request(['!novo', '!clicado', '!quantidade', '!pagina'], 'json')
             ::get('/painel-notificacao');
         Route
             ::nome('salvar')

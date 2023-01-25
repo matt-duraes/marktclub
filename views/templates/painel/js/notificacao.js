@@ -1,6 +1,7 @@
 window.addEventListener('load', () => {
     const blocoNotificacao = document.getElementById('bloco_notificacao');
     const blocoNumeroNotificaoNovas = document.getElementById('bloco_numero_notificao_novas');
+    const blocoNotificacaoScroll = document.getElementById('bloco_notificacao_scroll');
     const blocoNotificacaoNova = document.getElementById('bloco_notificacao_nova');
     const blocoNotificacaoAntiga = document.getElementById('bloco_notificacao_antiga');
     const blocoNotificacaoZero = document.getElementById('bloco_notificacao_zero');
@@ -24,6 +25,7 @@ window.addEventListener('load', () => {
     let paginaAtual, paginaTotal;
     const notificacaoAbrir = () => {
         blocoNotificacao.classList.remove('display_none');
+        blocoNotificacaoScroll.scrollTo(0, 0);
         if (blocoNotificacao.classList.contains('notificacao_carregada')) {
             return;
         }
@@ -33,6 +35,16 @@ window.addEventListener('load', () => {
         blocoNotificacao.classList.add('display_none');
     };
 
+    let carregarMaisAtivo = true;
+    blocoNotificacaoScroll.addEventListener('scroll', () => {
+        const blocoHeight = blocoNotificacaoScroll.getBoundingClientRect().height;
+        const limite = blocoNotificacaoScroll.scrollHeight - blocoHeight - 20;
+        if (blocoNotificacaoScroll.scrollTop >= limite && carregarMaisAtivo && paginaAtual < paginaTotal) {
+            carregarMaisAtivo = false;
+            buscarNotificacoes(paginaAtual + 1);
+        }
+    });
+
     const buscarNotificacoes = async pagina => {
         Loading.form('#bloco_notificacao .conteudo').show();
 
@@ -41,6 +53,7 @@ window.addEventListener('load', () => {
 
         Loading.form('#bloco_notificacao .conteudo').hide();
         blocoNotificacaoLoading.classList.add('display_none');
+        carregarMaisAtivo = true;
         if (false === json) {
             notificacaoFechar();
             return;
@@ -49,7 +62,7 @@ window.addEventListener('load', () => {
         blocoNumeroNotificaoNovas.classList.add('display_none');
 
         paginaAtual = pagina;
-        paginaTotal = json.dado.registro.total;
+        paginaTotal = json.dado.pagina.total;
 
         await carregarNotificacoes(json.dado.lista);
         if (pagina == 1 && blocoNotificacaoNova) {

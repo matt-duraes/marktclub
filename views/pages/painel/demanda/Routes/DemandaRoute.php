@@ -43,6 +43,10 @@ Route
         Route
             ::nome('demandaLiberar')
             ::post('/demanda/demanda-liberar/{id}');
+        Route
+            ::nome('demandaOrdenar')
+            ::request(['id'])
+            ::post('/demanda/demanda-ordenar');
 
         Route
             ::nome('tarefaEditar')
