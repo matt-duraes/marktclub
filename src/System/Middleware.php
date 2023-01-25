@@ -62,7 +62,8 @@ final class Middleware
             $app = new $classe($construtor);
             $retorno = call_user_func_array([$app, $action], $parametro);
             if (true !== $retorno) {
-                return $retorno;
+                echo $retorno;
+                exit();
             }
         }
         return true;
