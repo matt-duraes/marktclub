@@ -37,7 +37,7 @@ final class RelatorioController extends Controller
 
     public function getUsuarioAcesso(Request $request)
     {
-        $Relatorio = new UsuarioAcessoModel();
+        $Relatorio = new AnalyticsDiaModel();
         $dado = $Relatorio->acesso($request->de, $request->ate);
 
         return mensagemSucesso($dado);

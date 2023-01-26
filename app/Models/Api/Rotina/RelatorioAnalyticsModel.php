@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Models\Api\Analytics\Rotina;
+namespace App\Models\Api\Rotina;
 
 use ORM\ORM;
+use Modules\Data;
 
-final class AnalyticsModel extends ORM
+final class RelatorioAnalyticsModel extends ORM
 {
     protected string $_tabela = TABELA_ANALYTICS;
 
@@ -13,11 +14,11 @@ final class AnalyticsModel extends ORM
     private string $dataAcesso;
 
     public function __construct(
-        ?string $data = null
+        ?Data $data = null
     ) {
         parent::__construct();
 
-        $this->dataAcesso = is_null($data) ? dataRemover(date('Y-m-d'), 1, 'dia') : $data;
+        $this->dataAcesso = !$data->valido() ? dataRemover(hoje(), 1, 'dia') : $data->date();
         $this->buscarTodosRegistros();
         $this->montarDadoAnalytics();
     }

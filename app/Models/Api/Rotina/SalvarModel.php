@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\Analytics\Rotina;
+namespace App\Models\Api\Rotina;
 
 use ORM\ORM;
 
@@ -28,6 +28,11 @@ final class SalvarModel extends ORM
         if ($this->naoPodeSalvar($data, 'id_admin_empresa', $dado['id_admin_empresa'])) {
             return;
         }
+        $this->dado($dado)->insert();
+    }
+
+    public function salvarSemValidar($dado)
+    {
         $this->dado($dado)->insert();
     }
 

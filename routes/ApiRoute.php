@@ -833,11 +833,12 @@ Route
     ::controller(App\Controllers\Api\RotinaController::class)
     ::grupo(function () {
         Route
-            ::nome('analytics')
-            ::view('/rotina/analytics');
+            ::nome('relatorioAnalytics')
+            ::request(['!data'], 'json')
+            ::get('/rotina/relatorio-analytics');
         Route
-            ::nome('ultimoAcesso')
-            ::view('/rotina/ultimo-acesso');
+            ::nome('relatorioUsuario')
+            ::get('/rotina/relatorio-usuario');
     });
 
 Route
