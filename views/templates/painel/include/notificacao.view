@@ -6,7 +6,7 @@
     <div class="conteudo" id="bloco_notificacao_scroll">
         <div id="bloco_notificacao_nova" class="bloco_nova display_none">
             <h2>Novas</h2>
-            @ foreach( $notificacaoNova->lista as $notificacaoR):
+            @ foreach( $notificacaoNova->lista ?? [] as $notificacaoR):
             <a class="item {{$notificacaoR->status}}" data-id="{{$notificacaoR->id}}" href="{{LINK}}/notificacao/{{$notificacaoR->id}}">
                 <figure style="background-image: url({{$notificacaoR->dono->imagem}})"></figure>
                 <div class="dado">

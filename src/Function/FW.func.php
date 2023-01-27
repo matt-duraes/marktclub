@@ -1766,3 +1766,19 @@ if (!function_exists('naoLocalhost')) {
         return SISTEMA != 'LOCALHOST';
     }
 }
+if (!function_exists('porcentagem')) {
+    /**
+     * Calcula a porcentagem entre 2 número
+     *
+     * @param   mixed   $quantidade     valor que deseja calcular
+     * @param   mixed   $total          Valor total para tirar a porcentagem
+     * @return  string                  Valor do calculo com 2 casas decimais
+     */
+    function porcentagem($valor, $total): string
+    {
+        if (empty($valor) || empty($total) || !is_numeric($valor) || !is_numeric($total)) {
+            return '0.00';
+        }
+        return number_format(($valor * 100) / $total, 2, '.');
+    }
+}

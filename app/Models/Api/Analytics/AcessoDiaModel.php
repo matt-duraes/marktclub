@@ -3,25 +3,26 @@
 namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
+use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
 
-final class UsuarioAcessoModel extends ORM
+final class AcessoDiaModel extends ORM
 {
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_DIA;
+    protected string $_tabela = TABELA_ANALYTICS_ACESSO_DIA;
 
-    private int $idEmpresa;
-    public function __construct()
-    {
-        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+    public function __construct(
+        protected Data $de,
+        protected Data $ate,
+    ) {
         parent::__construct();
     }
 
-    public function acesso(string $de, string $ate)
+    public function listarDado()
     {
-        $where = $this->pegarWherePadrao($de, $ate);
-        $de = dataBr($de);
-        $ate = dataBr($ate);
+        $where = $this->pegarWherePadrao();
+        $de = $this->de->data();
+        $ate = $this->ate->data();
 
         $dado = [
             $de => [

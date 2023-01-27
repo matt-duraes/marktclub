@@ -407,18 +407,39 @@ Route::nome('relatorio')
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('usuario')
-            ::get('/relatorio/usuario');
+            ::nome('dadoUsuario')
+            ::get('/relatorio/dado-usuario');
 
         Route
-            ::nome('maisAcessado')
-            ::request(['local', 'de', 'ate'], 'json')
-            ::get('/relatorio/mais-acessado');
+            ::nome('acessoDia')
+            ::request(['de', 'ate'], 'json')
+            ::get('/relatorio/acesso-dia');
+
+        Route
+            ::nome('usuarioMaisAcesso')
+            ::request(['de', 'ate'], 'json')
+            ::get('/relatorio/usuario-mais-acesso');
+        Route
+            ::nome('paginaMaisAcessada')
+            ::request(['de', 'ate'], 'json')
+            ::get('/relatorio/pagina-mais-acessada');
+        Route
+            ::nome('lojaMaisAcessada')
+            ::request(['de', 'ate'], 'json')
+            ::get('/relatorio/loja-mais-acessada');
 
         Route
             ::nome('dispositivo')
-            ::request(['tipo', 'de', 'ate'], 'json')
+            ::request(['de', 'ate'], 'json')
             ::get('/relatorio/dispositivo');
+        Route
+            ::nome('os')
+            ::request(['de', 'ate'], 'json')
+            ::get('/relatorio/os');
+        Route
+            ::nome('navegador')
+            ::request(['de', 'ate'], 'json')
+            ::get('/relatorio/navegador');
 
         Route
             ::nome('analytics')

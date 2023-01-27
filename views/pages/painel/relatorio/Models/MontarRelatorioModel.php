@@ -3,6 +3,8 @@
 namespace Painel\Relatorio\Models;
 
 use stdClass;
+use Helpers\ApiHelper;
+use Helpers\CryptHelper;
 use PHPUnit\Framework\Constraint\IsInfinite;
 
 final class MontarRelatorioModel
@@ -175,7 +177,7 @@ final class MontarRelatorioModel
         $relatorio = $this->montarBarra(
             $lista,
             'uf',
-            ['total' => 'Total', 'ativo' => 'Ativo', 'inativo' => 'Inativo']
+            ['total' => 'Total', 'ativo' => 'Ativo', 'inativo' => 'Inativo', 'bloqueado' => 'Bloqueado']
         );
 
         $relatorio['header'] = [];
@@ -184,9 +186,26 @@ final class MontarRelatorioModel
                 ['Usuários sem Estado', $outro->total],
                 ['Ativos sem Estado', $outro->ativo],
                 ['Inativos sem Estado', $outro->inativo],
+                ['Bloqueados sem Estado', $outro->bloqueado],
             ];
         }
 
         return $relatorio;
+    }
+
+    public function montarUsuarioComMaisAcesso($dado)
+    {
+        if (!$dado) {
+            return [];
+        }
+
+        $chave = (new ApiHelper(token: true))->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        $Crypt = new CryptHelper(chavePrivada: $chave);
+        $retorno = [];
+        foreach ($dado as $r) {
+            $r->usuario = $Crypt->decode($r->usuario);
+            $retorno[] = $r;
+        }
+        return $retorno;
     }
 }

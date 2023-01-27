@@ -147,12 +147,12 @@ final class RelatorioAnalyticsModel extends ORM
     public function rodarRotina()
     {
         $Loja = new SalvarModel(TABELA_ANALYTICS_LOJA);
-        $Cliente = new SalvarModel(TABELA_ANALYTICS_CLIENTE);
+        $Cliente = new SalvarModel(TABELA_ANALYTICS_USUARIO);
         $Dispositivo = new SalvarModel(TABELA_ANALYTICS_DISPOSITIVO);
         $Navegador = new SalvarModel(TABELA_ANALYTICS_NAVEGADOR);
         $Os = new SalvarModel(TABELA_ANALYTICS_OS);
-        $Url = new SalvarModel(TABELA_ANALYTICS_URL);
-        $Dia = new SalvarModel(TABELA_ANALYTICS_DIA);
+        $Url = new SalvarModel(TABELA_ANALYTICS_PAGINA);
+        $Dia = new SalvarModel(TABELA_ANALYTICS_ACESSO_DIA);
 
         foreach ($this->analytics as $empresa) {
             $Loja->salvar($this->dataAcesso, 'id_parceiro_loja', $empresa['loja']);

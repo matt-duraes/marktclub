@@ -49,6 +49,7 @@ final class RelatorioUsuarioModel extends ORM
                 $status = 'inativo';
             } else if ($r->status == 3) {
                 $lista[$empresa]['status_bloqueado']++;
+                $status = 'bloqueado';
             }
 
             // Estado Civil
@@ -132,7 +133,7 @@ final class RelatorioUsuarioModel extends ORM
             ];
 
             $uf = !empty($r->uf) ? strCaixaBaixa($r->uf) : '';
-            if (in_array($uf, $estado) && in_array($r->status, [1, 2])) {
+            if (in_array($uf, $estado) && in_array($r->status, [1, 2, 3])) {
                 $lista[$empresa]['uf_' . $uf . '_total']++;
                 $lista[$empresa]['uf_' . $uf . '_' . $status]++;
             } else {
@@ -145,7 +146,7 @@ final class RelatorioUsuarioModel extends ORM
 
     public function rodarRotina()
     {
-        $Base = new SalvarModel(TABELA_ANALYTICS_BASE_USUARIO);
+        $Base = new SalvarModel(TABELA_ANALYTICS_DADO_USUARIO);
         foreach ($this->lista as $dado) {
             $Base->salvarSemValidar($dado);
         }
@@ -191,87 +192,115 @@ final class RelatorioUsuarioModel extends ORM
             'uf_outro_total' => 0,
             'uf_outro_ativo' => 0,
             'uf_outro_inativo' => 0,
+            'uf_outro_bloqueado' => 0,
             'uf_ac_total' => 0,
             'uf_ac_ativo' => 0,
             'uf_ac_inativo' => 0,
+            'uf_ac_bloqueado' => 0,
             'uf_al_total' => 0,
             'uf_al_ativo' => 0,
             'uf_al_inativo' => 0,
+            'uf_al_bloqueado' => 0,
             'uf_ap_total' => 0,
             'uf_ap_ativo' => 0,
             'uf_ap_inativo' => 0,
+            'uf_ap_bloqueado' => 0,
             'uf_am_total' => 0,
             'uf_am_ativo' => 0,
             'uf_am_inativo' => 0,
+            'uf_am_bloqueado' => 0,
             'uf_ba_total' => 0,
             'uf_ba_ativo' => 0,
             'uf_ba_inativo' => 0,
+            'uf_ba_bloqueado' => 0,
             'uf_ce_total' => 0,
             'uf_ce_ativo' => 0,
             'uf_ce_inativo' => 0,
+            'uf_ce_bloqueado' => 0,
             'uf_df_total' => 0,
             'uf_df_ativo' => 0,
             'uf_df_inativo' => 0,
+            'uf_df_bloqueado' => 0,
             'uf_es_total' => 0,
             'uf_es_ativo' => 0,
             'uf_es_inativo' => 0,
+            'uf_es_bloqueado' => 0,
             'uf_go_total' => 0,
             'uf_go_ativo' => 0,
             'uf_go_inativo' => 0,
+            'uf_go_bloqueado' => 0,
             'uf_ma_total' => 0,
             'uf_ma_ativo' => 0,
             'uf_ma_inativo' => 0,
+            'uf_ma_bloqueado' => 0,
             'uf_mt_total' => 0,
             'uf_mt_ativo' => 0,
             'uf_mt_inativo' => 0,
+            'uf_mt_bloqueado' => 0,
             'uf_ms_total' => 0,
             'uf_ms_ativo' => 0,
             'uf_ms_inativo' => 0,
+            'uf_ms_bloqueado' => 0,
             'uf_mg_total' => 0,
             'uf_mg_ativo' => 0,
             'uf_mg_inativo' => 0,
+            'uf_mg_bloqueado' => 0,
             'uf_pa_total' => 0,
             'uf_pa_ativo' => 0,
             'uf_pa_inativo' => 0,
+            'uf_pa_bloqueado' => 0,
             'uf_pb_total' => 0,
             'uf_pb_ativo' => 0,
             'uf_pb_inativo' => 0,
+            'uf_pb_bloqueado' => 0,
             'uf_pr_total' => 0,
             'uf_pr_ativo' => 0,
             'uf_pr_inativo' => 0,
+            'uf_pr_bloqueado' => 0,
             'uf_pe_total' => 0,
             'uf_pe_ativo' => 0,
             'uf_pe_inativo' => 0,
+            'uf_pe_bloqueado' => 0,
             'uf_pi_total' => 0,
             'uf_pi_ativo' => 0,
             'uf_pi_inativo' => 0,
+            'uf_pi_bloqueado' => 0,
             'uf_rj_total' => 0,
             'uf_rj_ativo' => 0,
             'uf_rj_inativo' => 0,
+            'uf_rj_bloqueado' => 0,
             'uf_rn_total' => 0,
             'uf_rn_ativo' => 0,
             'uf_rn_inativo' => 0,
+            'uf_rn_bloqueado' => 0,
             'uf_rs_total' => 0,
             'uf_rs_ativo' => 0,
             'uf_rs_inativo' => 0,
+            'uf_rs_bloqueado' => 0,
             'uf_ro_total' => 0,
             'uf_ro_ativo' => 0,
             'uf_ro_inativo' => 0,
+            'uf_ro_bloqueado' => 0,
             'uf_rr_total' => 0,
             'uf_rr_ativo' => 0,
             'uf_rr_inativo' => 0,
+            'uf_rr_bloqueado' => 0,
             'uf_sc_total' => 0,
             'uf_sc_ativo' => 0,
             'uf_sc_inativo' => 0,
+            'uf_sc_bloqueado' => 0,
             'uf_sp_total' => 0,
             'uf_sp_ativo' => 0,
             'uf_sp_inativo' => 0,
+            'uf_sp_bloqueado' => 0,
             'uf_se_total' => 0,
             'uf_se_ativo' => 0,
             'uf_se_inativo' => 0,
+            'uf_se_bloqueado' => 0,
             'uf_to_total' => 0,
             'uf_to_ativo' => 0,
             'uf_to_inativo' => 0,
+            'uf_to_bloqueado' => 0,
             'data_criacao' => agora(),
         ];
     }

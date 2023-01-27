@@ -51,7 +51,7 @@ window.addEventListener('load', () => {
         const ate = inputAte.value;
 
         graficoAcesso.classList.add('loading');
-        const resposta = await fetch(LINK + `/relatorio/usuario-acesso?de=${de}&ate=${ate}`, {
+        const resposta = await fetch(LINK + `/relatorio/acesso-dia?de=${de}&ate=${ate}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ window.addEventListener('load', () => {
         if (local == 'usuario') {
             bloco = listaAcessoUsuario;
             loading = document.querySelector('#lista_acesso_usuario');
-        } else if (local == 'parceiro') {
+        } else if (local == 'loja') {
             bloco = listaAcessoParceiro;
             loading = document.querySelector('#lista_acesso_parceiro');
         } else if (local == 'pagina') {
@@ -131,18 +131,18 @@ window.addEventListener('load', () => {
             return;
         }
 
-        carregarListaMaisAcesso(json.dado, bloco);
+        carregarListaMaisAcesso(json.dado, bloco, local);
     };
     buscarMaisAcessado('usuario');
-    buscarMaisAcessado('parceiro');
+    buscarMaisAcessado('loja');
     buscarMaisAcessado('pagina');
 
-    const carregarListaMaisAcesso = (data, bloco) => {
+    const carregarListaMaisAcesso = (data, bloco, local) => {
         let html = `<div class="scroll">`;
         data.forEach(item => {
             html += `
                 <div class="linha">
-                    <div class="item">${item.item}</div>
+                    <div class="item">${item[local]}</div>
                     <div class="porcentagem"><span style="width: ${item.porcentagem}%"></span></div>
                     <div class="valor"><span>(${item.porcentagem}%)</span>${item.total}</div>
                 </div>

@@ -3,70 +3,100 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Modules\Data;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Api\Analytics\UsuarioModel;
+use App\Models\Api\Analytics\OsModel;
+use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
+use App\Models\Api\Analytics\NavegadorModel;
+use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
-use App\Models\Api\Analytics\MaisAcessadoModel;
-use App\Models\Api\Analytics\UsuarioAcessoModel;
-use App\Models\Api\UsuarioCliente\Relatorio\GeneroModel;
-use App\Models\Api\UsuarioCliente\Relatorio\SemDadoModel;
-use App\Models\Api\UsuarioCliente\Relatorio\SituacaoModel;
-use App\Models\Api\UsuarioCliente\Relatorio\EstadoCivilModel;
-use App\Models\Api\UsuarioCliente\Relatorio\FaixaEtariaModel;
-use App\Models\Api\UsuarioCliente\Relatorio\AtualizarDadoModel;
-use App\Models\Api\UsuarioCliente\Relatorio\EstadoModel as UsuarioEstado;
-use App\Models\Api\UsuarioCliente\Relatorio\StatusModel as UsuarioStatus;
+use App\Models\Api\Analytics\LojaMaisAcessadaModel;
+use App\Models\Api\Analytics\UsuarioMaisAcessoModel;
+use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
 
 final class RelatorioController extends Controller
 {
-    public function getUsuario()
+    public function getDadoUsuario()
     {
-        $Relatorio = new UsuarioModel();
+        $Relatorio = new DadoUsuarioModel();
         $dado = $Relatorio->listarDados();
 
         return mensagemSucesso($dado);
     }
 
-    public function getUsuarioAcesso(Request $request)
+    public function getAcessoDia(Request $request)
     {
-        $Relatorio = new UsuarioAcessoModel();
-        $dado = $Relatorio->acesso($request->de, $request->ate);
+        $this->validarData($request);
+        $Relatorio = new AcessoDiaModel(
+            new Data($request->de),
+            new Data($request->ate)
+        );
+        $dado = $Relatorio->listarDado($request->de, $request->ate);
 
         return mensagemSucesso($dado);
     }
 
-    public function getMaisAcessado(Request $request)
+    public function getUsuarioMaisAcesso(Request $request)
     {
-        $Relatorio = new MaisAcessadoModel();
-        if ($request->local == 'pagina') {
-            $dado = $Relatorio->paginaMaisAcessada($request->de, $request->ate);
-        } else if ($request->local == 'parceiro') {
-            $dado = $Relatorio->parceiroMaisAcessada($request->de, $request->ate);
-        } else if ($request->local == 'usuario') {
-            $dado = $Relatorio->usuarioComMaisAcesso($request->de, $request->ate);
-        } else {
-            mensagemStatus(404);
-        }
-
-        return mensagemSucesso($dado);
+        $this->validarData($request);
+        $Relatorio = new UsuarioMaisAcessoModel(
+            new Data($request->de),
+            new Data($request->ate)
+        );
+        return mensagemSucesso(
+            criptografarDado($Relatorio->listarDado(), lista: ['usuario'])
+        );
+    }
+    public function getLojaMaisAcessada(Request $request)
+    {
+        $this->validarData($request);
+        $Relatorio = new LojaMaisAcessadaModel(
+            new Data($request->de),
+            new Data($request->ate)
+        );
+        return mensagemSucesso($Relatorio->listarDado());
+    }
+    public function getPaginaMaisAcessada(Request $request)
+    {
+        $this->validarData($request);
+        $Relatorio = new PaginaMaisAcessadaModel(
+            new Data($request->de),
+            new Data($request->ate)
+        );
+        return mensagemSucesso($Relatorio->listarDado());
     }
 
     public function getDispositivo(Request $request)
     {
-        $Relatorio = new DispositivoModel();
-        if ($request->tipo == 'dispositivo') {
-            $dado = $Relatorio->porDispositivo($request->de, $request->ate);
-        } else if ($request->tipo == 'navegador') {
-            $dado = $Relatorio->porNavegador($request->de, $request->ate);
-        } else if ($request->tipo == 'os') {
-            $dado = $Relatorio->porOS($request->de, $request->ate);
-        } else {
-            mensagemStatus(404);
-        }
+        $this->validarData($request);
+        $Relatorio = new DispositivoModel(
+            new Data($request->de),
+            new Data($request->ate)
+        );
 
-        return mensagemSucesso($dado);
+        return mensagemSucesso($Relatorio->listarDado());
+    }
+    public function getNavegador(Request $request)
+    {
+        $this->validarData($request);
+        $Relatorio = new NavegadorModel(
+            new Data($request->de),
+            new Data($request->ate)
+        );
+
+        return mensagemSucesso($Relatorio->listarDado());
+    }
+    public function getOs(Request $request)
+    {
+        $this->validarData($request);
+        $Relatorio = new OsModel(
+            new Data($request->de),
+            new Data($request->ate)
+        );
+
+        return mensagemSucesso($Relatorio->listarDado());
     }
 
     public function getAnalytics(Request $request)
@@ -82,5 +112,11 @@ final class RelatorioController extends Controller
             mensagemStatus(404, localhost: 'O arquivo buscado não existe.');
         }
         return new Response(download: $arquivo);
+    }
+
+    private function validarData(Request $request)
+    {
+        $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');
+        $request->vazio('ate', mensagem: 'A data de final da busca é obrigatória');
     }
 }

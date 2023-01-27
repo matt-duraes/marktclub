@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
 
     const buscarGrafico = async () => {
-        const resposta = await fetch(LINK + '/relatorio/usuario-buscar', {
+        const resposta = await fetch(LINK + '/relatorio/dado-usuario', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -15,6 +15,7 @@ window.addEventListener('load', () => {
             resposta,
             'Ocorreu um erro ao buscar gráficos, por favor, recarregue a página e tente novamente.'
         );
+
         if (false === json) {
             return;
         }

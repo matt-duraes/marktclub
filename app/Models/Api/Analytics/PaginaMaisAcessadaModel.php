@@ -6,10 +6,10 @@ use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
 
-final class DispositivoModel extends ORM
+final class PaginaMaisAcessadaModel extends ORM
 {
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_DISPOSITIVO;
+    protected string $_tabela = TABELA_ANALYTICS_PAGINA;
 
     public function __construct(
         protected Data $de,
@@ -21,7 +21,7 @@ final class DispositivoModel extends ORM
     public function listarDado(): array
     {
         $lista = $this
-            ->campo(['quantidade', 'dispositivo'])
+            ->campo(['quantidade', 'url'])
             ->where($this->pegarWherePadrao())
             ->order('quantidade', 'DESC')
             ->limit(0, 20)
@@ -32,24 +32,18 @@ final class DispositivoModel extends ORM
 
     private function montarDado($lista)
     {
+        $dado = [];
         $total = 0;
         foreach ($lista as $r) {
             $total += $r->quantidade;
         }
-
-        $dado = [];
         foreach ($lista as $r) {
-            if (array_key_exists($r->dispositivo, $dado)) {
-                $dado[$r->dispositivo]['total'] += $r->quantidade;
-                $dado[$r->dispositivo]['porcentagem'] = porcentagem($dado[$r->dispositivo]['total'], $total);
-                continue;
-            }
-            $dado[$r->dispositivo] = [
-                'dispositivo' => $r->dispositivo,
+            $dado[] = [
+                'pagina' => empty($r->url) ? '/' : $r->url,
                 'total' => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
         }
-        return array_values($dado);
+        return $dado;
     }
 }

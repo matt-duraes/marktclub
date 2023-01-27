@@ -21,9 +21,9 @@ Route
             ::view('/relatorio/acesso');
 
         Route
-            ::nome('usuarioAcesso')
+            ::nome('acessoDia')
             ::request(['de', 'ate'])
-            ::get('/relatorio/usuario-acesso');
+            ::get('/relatorio/acesso-dia');
 
         Route
             ::nome('maisAcessado')
@@ -55,6 +55,6 @@ Route
             ::view('/relatorio/usuario');
 
         Route
-            ::nome('usuarioBuscar')
-            ::get('/relatorio/usuario-buscar');
+            ::nome('dadoUsuario')
+            ::get('/relatorio/dado-usuario');
     });

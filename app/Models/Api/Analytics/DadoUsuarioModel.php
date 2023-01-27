@@ -4,9 +4,9 @@ namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
 
-final class UsuarioModel extends ORM
+final class DadoUsuarioModel extends ORM
 {
-    protected string $_tabela = TABELA_ANALYTICS_BASE_USUARIO;
+    protected string $_tabela = TABELA_ANALYTICS_DADO_USUARIO;
 
     private int $idEmpresa;
     public function __construct()
@@ -53,17 +53,17 @@ final class UsuarioModel extends ORM
                 [
                     'status' => 'Ativo',
                     'total' => $r->status_ativo,
-                    'porcentagem' => $this->porcentagem($r->status_ativo, $r->usuario)
+                    'porcentagem' => porcentagem($r->status_ativo, $r->usuario),
                 ],
                 [
                     'status' => 'Inativo',
                     'total' => $r->status_inativo,
-                    'porcentagem' => $this->porcentagem($r->status_inativo, $r->usuario)
+                    'porcentagem' => porcentagem($r->status_inativo, $r->usuario)
                 ],
                 [
                     'status' => 'Bloqueado',
                     'total' => $r->status_bloqueado,
-                    'porcentagem' => $this->porcentagem($r->status_bloqueado, $r->usuario)
+                    'porcentagem' => porcentagem($r->status_bloqueado, $r->usuario)
                 ],
             ]
         ];
@@ -83,13 +83,15 @@ final class UsuarioModel extends ORM
             $indiceTotal = 'uf_' . $uf . '_total';
             $indiceAtivo = 'uf_' . $uf . '_ativo';
             $indiceInativo = 'uf_' . $uf . '_inativo';
+            $indiceBloqueado = 'uf_' . $uf . '_bloqueado';
 
             $dado['total'] += $r->$indiceTotal;
             $dado['lista'][] = [
                 'uf' => strCaixaAlta($uf),
                 'total' => $r->$indiceTotal,
                 'ativo' => $r->$indiceAtivo,
-                'inativo' => $r->$indiceInativo
+                'inativo' => $r->$indiceInativo,
+                'bloqueado' => $r->$indiceBloqueado
             ];
         }
         return $dado;
@@ -103,27 +105,27 @@ final class UsuarioModel extends ORM
                 [
                     'genero' => 'Masculino',
                     'total' => $r->genero_masculino,
-                    'porcentagem' => $this->porcentagem($r->genero_masculino, $r->usuario)
+                    'porcentagem' => porcentagem($r->genero_masculino, $r->usuario)
                 ],
                 [
                     'genero' => 'Feminino',
                     'total' => $r->genero_feminino,
-                    'porcentagem' => $this->porcentagem($r->genero_feminino, $r->usuario)
+                    'porcentagem' => porcentagem($r->genero_feminino, $r->usuario)
                 ],
                 [
                     'genero' => 'Outro',
                     'total' => $r->genero_outro,
-                    'porcentagem' => $this->porcentagem($r->genero_outro, $r->usuario)
+                    'porcentagem' => porcentagem($r->genero_outro, $r->usuario)
                 ],
                 [
                     'genero' => 'Não informado',
                     'total' => $r->genero_nao_informado,
-                    'porcentagem' => $this->porcentagem($r->genero_nao_informado, $r->usuario)
+                    'porcentagem' => porcentagem($r->genero_nao_informado, $r->usuario)
                 ],
                 [
                     'genero' => 'Sem dado',
                     'total' => $r->genero_sem_dado,
-                    'porcentagem' => $this->porcentagem($r->genero_sem_dado, $r->usuario)
+                    'porcentagem' => porcentagem($r->genero_sem_dado, $r->usuario)
                 ],
             ]
         ];
@@ -137,32 +139,32 @@ final class UsuarioModel extends ORM
                 [
                     'situacao' => 'Ativo',
                     'total' => $r->situacao_ativo,
-                    'porcentagem' => $this->porcentagem($r->situacao_ativo, $r->usuario)
+                    'porcentagem' => porcentagem($r->situacao_ativo, $r->usuario)
                 ],
                 [
                     'situacao' => 'Aposentado',
                     'total' => $r->situacao_aposentado,
-                    'porcentagem' => $this->porcentagem($r->situacao_aposentado, $r->usuario)
+                    'porcentagem' => porcentagem($r->situacao_aposentado, $r->usuario)
                 ],
                 [
                     'situacao' => 'Pensionista',
                     'total' => $r->situacao_pensionista,
-                    'porcentagem' => $this->porcentagem($r->situacao_pensionista, $r->usuario)
+                    'porcentagem' => porcentagem($r->situacao_pensionista, $r->usuario)
                 ],
                 [
                     'situacao' => 'Cedido',
                     'total' => $r->situacao_cedido,
-                    'porcentagem' => $this->porcentagem($r->situacao_cedido, $r->usuario)
+                    'porcentagem' => porcentagem($r->situacao_cedido, $r->usuario)
                 ],
                 [
                     'situacao' => 'Excedente',
                     'total' => $r->situacao_excedente,
-                    'porcentagem' => $this->porcentagem($r->situacao_excedente, $r->usuario)
+                    'porcentagem' => porcentagem($r->situacao_excedente, $r->usuario)
                 ],
                 [
                     'situacao' => 'Sem dado',
                     'total' => $r->situacao_sem_dado,
-                    'porcentagem' => $this->porcentagem($r->situacao_sem_dado, $r->usuario)
+                    'porcentagem' => porcentagem($r->situacao_sem_dado, $r->usuario)
                 ],
             ]
         ];
@@ -176,32 +178,32 @@ final class UsuarioModel extends ORM
                 [
                     'estado_civil' => 'Solteiro(a)',
                     'total' => $r->estado_civil_solteiro,
-                    'porcentagem' => $this->porcentagem($r->estado_civil_solteiro, $r->usuario)
+                    'porcentagem' => porcentagem($r->estado_civil_solteiro, $r->usuario)
                 ],
                 [
                     'estado_civil' => 'Casado(a)',
                     'total' => $r->estado_civil_casado,
-                    'porcentagem' => $this->porcentagem($r->estado_civil_casado, $r->usuario)
+                    'porcentagem' => porcentagem($r->estado_civil_casado, $r->usuario)
                 ],
                 [
                     'estado_civil' => 'Divorciado(a)',
                     'total' => $r->estado_civil_divorciado,
-                    'porcentagem' => $this->porcentagem($r->estado_civil_divorciado, $r->usuario)
+                    'porcentagem' => porcentagem($r->estado_civil_divorciado, $r->usuario)
                 ],
                 [
                     'estado_civil' => 'Viuvo(a)',
                     'total' => $r->estado_civil_viuvo,
-                    'porcentagem' => $this->porcentagem($r->estado_civil_viuvo, $r->usuario)
+                    'porcentagem' => porcentagem($r->estado_civil_viuvo, $r->usuario)
                 ],
                 [
                     'estado_civil' => 'Separado(a)',
                     'total' => $r->estado_civil_separado,
-                    'porcentagem' => $this->porcentagem($r->estado_civil_separado, $r->usuario)
+                    'porcentagem' => porcentagem($r->estado_civil_separado, $r->usuario)
                 ],
                 [
                     'estado_civil' => 'Sem dado',
                     'total' => $r->estado_civil_sem_dado,
-                    'porcentagem' => $this->porcentagem($r->estado_civil_sem_dado, $r->usuario)
+                    'porcentagem' => porcentagem($r->estado_civil_sem_dado, $r->usuario)
                 ],
             ]
         ];
@@ -215,27 +217,27 @@ final class UsuarioModel extends ORM
                 [
                     'tempo' => 'Até 3 meses',
                     'total' => $r->dado_3_meses,
-                    'porcentagem' => $this->porcentagem($r->dado_3_meses, $r->usuario)
+                    'porcentagem' => porcentagem($r->dado_3_meses, $r->usuario)
                 ],
                 [
                     'tempo' => 'Até 6 meses',
                     'total' => $r->dado_6_meses,
-                    'porcentagem' => $this->porcentagem($r->dado_6_meses, $r->usuario)
+                    'porcentagem' => porcentagem($r->dado_6_meses, $r->usuario)
                 ],
                 [
                     'tempo' => 'Até 9 meses',
                     'total' => $r->dado_9_meses,
-                    'porcentagem' => $this->porcentagem($r->dado_9_meses, $r->usuario)
+                    'porcentagem' => porcentagem($r->dado_9_meses, $r->usuario)
                 ],
                 [
                     'tempo' => 'Até 12 meses',
                     'total' => $r->dado_12_meses,
-                    'porcentagem' => $this->porcentagem($r->dado_12_meses, $r->usuario)
+                    'porcentagem' => porcentagem($r->dado_12_meses, $r->usuario)
                 ],
                 [
                     'tempo' => 'Mais de 1 ano',
                     'total' => $r->dado_1_ano,
-                    'porcentagem' => $this->porcentagem($r->dado_1_ano, $r->usuario)
+                    'porcentagem' => porcentagem($r->dado_1_ano, $r->usuario)
                 ],
             ]
         ];
@@ -249,44 +251,39 @@ final class UsuarioModel extends ORM
                 [
                     'faixa_etaria' => 'Até 20 anos',
                     'total' => $r->idade_ate_20,
-                    'porcentagem' => $this->porcentagem($r->idade_ate_20, $r->usuario)
+                    'porcentagem' => porcentagem($r->idade_ate_20, $r->usuario)
                 ],
                 [
                     'faixa_etaria' => 'Até 30 anos',
                     'total' => $r->idade_ate_30,
-                    'porcentagem' => $this->porcentagem($r->idade_ate_30, $r->usuario)
+                    'porcentagem' => porcentagem($r->idade_ate_30, $r->usuario)
                 ],
                 [
                     'faixa_etaria' => 'Até 40 anos',
                     'total' => $r->idade_ate_40,
-                    'porcentagem' => $this->porcentagem($r->idade_ate_40, $r->usuario)
+                    'porcentagem' => porcentagem($r->idade_ate_40, $r->usuario)
                 ],
                 [
                     'faixa_etaria' => 'Até 50 anos',
                     'total' => $r->idade_ate_50,
-                    'porcentagem' => $this->porcentagem($r->idade_ate_50, $r->usuario)
+                    'porcentagem' => porcentagem($r->idade_ate_50, $r->usuario)
                 ],
                 [
                     'faixa_etaria' => 'Até 60 anos',
                     'total' => $r->idade_ate_60,
-                    'porcentagem' => $this->porcentagem($r->idade_ate_60, $r->usuario)
+                    'porcentagem' => porcentagem($r->idade_ate_60, $r->usuario)
                 ],
                 [
                     'faixa_etaria' => 'Mais de 60 anos',
                     'total' => $r->idade_mais_60,
-                    'porcentagem' => $this->porcentagem($r->idade_mais_60, $r->usuario)
+                    'porcentagem' => porcentagem($r->idade_mais_60, $r->usuario)
                 ],
                 [
                     'faixa_etaria' => 'Sem dado',
                     'total' => $r->idade_sem_dado,
-                    'porcentagem' => $this->porcentagem($r->idade_sem_dado, $r->usuario)
+                    'porcentagem' => porcentagem($r->idade_sem_dado, $r->usuario)
                 ],
             ]
         ];
-    }
-
-    private function porcentagem($quantidade, $total)
-    {
-        return empty($quantidade) ? 0 : number_format(($quantidade * 100) / $total, 2, '.');
     }
 }

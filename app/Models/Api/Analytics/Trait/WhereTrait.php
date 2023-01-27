@@ -5,17 +5,16 @@ namespace App\Models\Api\Analytics\Trait;
 
 trait WhereTrait
 {
-    private function pegarWherePadrao($de, $ate)
+    private function pegarWherePadrao()
     {
-        $de = dataBanco($de);
-        $ate = dataBanco($ate);
+        $de = $this->de->date();
+        $ate = $this->ate->date();
 
         $this->validarData($de, $ate);
 
         return [
-            ['data_acesso', '>=', $de],
-            ['data_acesso', '<=', $ate . ' 23:59:59'],
-            ['id_admin_empresa', $this->idEmpresa]
+            ['data_acesso', 'between', [$de, $ate]],
+            ['id_admin_empresa', TOKEN['empresa']->get('id')]
         ];
     }
 

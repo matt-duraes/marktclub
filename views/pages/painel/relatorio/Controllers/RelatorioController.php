@@ -14,8 +14,8 @@ final class RelatorioController extends Controller
         return view(arquivo: 'painel.relatorio.acesso', var: [
             'appTitulo' => 'Relatório de acesso',
             'app' => 'relatorio-acesso',
-            'de' => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
-            'ate' => date('d/m/Y'),
+            'de' => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
+            'ate' => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
         ]);
     }
     public function usuario()
@@ -33,7 +33,7 @@ final class RelatorioController extends Controller
     | GRAFICO DE ACESSO
     |--------------------------------------------------------------------------
     */
-    public function getUsuarioAcesso(Request $request)
+    public function getAcessoDia(Request $request)
     {
         $de = $request->de;
         $ate = $request->ate;
@@ -41,18 +41,18 @@ final class RelatorioController extends Controller
         $this->validarData($de, $ate);
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->json([
-            'de' => dataBanco($de),
-            'ate' => dataBanco($ate)
-        ])->get('/relatorio/usuario-acesso')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
+        $dado = $Api
+            ->validar('Erro ao buscar relatório, por favor, tente novamente.')
+            ->json([
+                'de' => dataBanco($de),
+                'ate' => dataBanco($ate)
+            ])->get('/relatorio/acesso-dia')
+            ->object();
 
         $Montar = new MontarRelatorioModel();
         $relatorio = $Montar->montarLinha($dado->dado, 'data', ['total' => 'Total', 'unico' => 'Unico']);
         $relatorio = $Montar->montarHeaderUsuarioAcesso($dado->dado, $relatorio);
+
         return mensagemSucesso($relatorio);
     }
 
@@ -63,22 +63,30 @@ final class RelatorioController extends Controller
         $local = $request->local;
 
         $this->validarData($de, $ate);
-        if (!in_array($local, ['usuario', 'pagina', 'parceiro'])) {
+        if (!in_array($local, ['usuario', 'pagina', 'loja'])) {
             $this->erroPadrao();
         }
+
+        $uri = [
+            'usuario' => 'usuario-mais-acesso',
+            'pagina' => 'pagina-mais-acessada',
+            'loja' => 'loja-mais-acessada'
+        ];
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->json([
-            'de' => dataBanco($de),
-            'ate' => dataBanco($ate),
-            'local' => $local
-        ])->get('/relatorio/mais-acessado')->object();
+        $dado = $Api
+            ->validar('Erro ao buscar relatório, por favor, tente novamente.')
+            ->json([
+                'de' => dataBanco($de),
+                'ate' => dataBanco($ate)
+            ])->get('/relatorio/' . $uri[$local])
+            ->object()->dado ?? [];
 
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
+        if ($local == 'usuario') {
+            $Montar = new MontarRelatorioModel();
+            $dado = $Montar->montarUsuarioComMaisAcesso($dado);
         }
-
-        return mensagemSucesso($dado->dado);
+        return mensagemSucesso($dado);
     }
 
     public function getDispositivo(Request $request)
@@ -93,18 +101,16 @@ final class RelatorioController extends Controller
         }
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->json([
-            'de' => dataBanco($de),
-            'ate' => dataBanco($ate),
-            'tipo' => $tipo
-        ])->get('/relatorio/dispositivo')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
+        $dado = $Api
+            ->validar('Erro ao buscar relatório, por favor, tente novamente.')
+            ->json([
+                'de' => dataBanco($de),
+                'ate' => dataBanco($ate)
+            ])->get('/relatorio/' . $tipo)
+            ->object();
 
         $Montar = new MontarRelatorioModel();
-        $dado = $Montar->montarPizza($dado->dado, 'item');
+        $dado = $Montar->montarPizza($dado->dado, $tipo);
 
         return mensagemSucesso($dado);
     }
@@ -133,12 +139,12 @@ final class RelatorioController extends Controller
     | GRÁFICO DE USUÁRIO
     |--------------------------------------------------------------------------
     */
-    public function getUsuarioBuscar()
+    public function getDadoUsuario()
     {
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar('Ocorreu um erro ao buscar os gráficos, por favor, recarregue a página e tente novamente.')
-            ->get('/relatorio/usuario')
+            ->get('/relatorio/dado-usuario')
             ->object();
 
         $Montar = new MontarRelatorioModel();
