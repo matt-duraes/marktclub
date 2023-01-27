@@ -8,7 +8,7 @@ use App\Models\Api\Analytics\Trait\WhereTrait;
 final class UsuarioAcessoModel extends ORM
 {
     use WhereTrait;
-    protected string $_tabela = 'analytics';
+    protected string $_tabela = TABELA_ANALYTICS_DIA;
 
     private int $idEmpresa;
     public function __construct()
@@ -20,25 +20,6 @@ final class UsuarioAcessoModel extends ORM
     public function acesso(string $de, string $ate)
     {
         $where = $this->pegarWherePadrao($de, $ate);
-        $buscaGeral = $this
-            ->campoTexto('DATE(`data_criacao`) as "data", COUNT(*) AS "quantidade"')
-            ->where($where)
-            ->groupTexto('DATE(`data_criacao`)')
-            ->orderTexto('`data` ASC')
-            ->read();
-
-        $buscaUnica = $this
-            ->selectTexto('
-                SELECT COUNT(`data_criacao`) as `quantidade`, `data_criacao` as `data`
-                FROM (
-                    SELECT DISTINCT `usuario`, DATE(`data_criacao`) as `data_criacao`, `empresa` FROM `analytics`
-                ) as analytics
-            ')
-            ->where($where)
-            ->group('data_criacao')
-            ->orderTexto('`data_criacao` ASC')
-            ->read();
-
         $de = dataBr($de);
         $ate = dataBr($ate);
 
@@ -61,13 +42,15 @@ final class UsuarioAcessoModel extends ORM
             }
         }
 
-        foreach ($buscaGeral as $r) {
-            $data = dataBr($r->data);
-            $dado[$data]['total'] = $r->quantidade;
-        }
-        foreach ($buscaUnica as $r) {
-            $data = dataBr($r->data);
-            $dado[$data]['unico'] = $r->quantidade;
+        $lista = $this
+            ->campo(['quantidade_total', 'quantidade_unico', 'data_acesso'])
+            ->where($where)
+            ->read();
+
+        foreach ($lista as $r) {
+            $data = dataBr($r->data_acesso);
+            $dado[$data]['unico'] = $r->quantidade_unico;
+            $dado[$data]['total'] = $r->quantidade_total;
         }
 
         return array_values($dado);

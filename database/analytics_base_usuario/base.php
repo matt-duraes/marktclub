@@ -125,5 +125,8 @@ return (new \DataBase\DataBase())
     ->int('uf_to_total')->tamanho(9)->null()
     ->int('uf_to_ativo')->tamanho(9)->null()
     ->int('uf_to_inativo')->tamanho(9)->null()
+    ->int('uf_outro_total')->tamanho(9)->null()
+    ->int('uf_outro_ativo')->tamanho(9)->null()
+    ->int('uf_outro_inativo')->tamanho(9)->null()
 
     ->datetime('data_criacao');

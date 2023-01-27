@@ -36,6 +36,7 @@ final class RelatorioAnalyticsModel extends ORM
 
         $analyticsUnico = [];
         $analytics = [];
+        // ppe($this->lista);
         foreach ($this->lista as $r) {
             // Extrutura inicial
             if (!array_key_exists($r->empresa, $analytics)) {
@@ -57,9 +58,10 @@ final class RelatorioAnalyticsModel extends ORM
 
             // Analytics
             $analytics[$r->empresa]['dia']['quantidade_total']++;
-            if (!array_key_exists($r->hash, $analyticsUnico)) {
+            $comparar = dataBanco($r->data_criacao) . '-' . $r->usuario;
+            if (!array_key_exists($comparar, $analyticsUnico)) {
                 $analytics[$r->empresa]['dia']['quantidade_unico']++;
-                $analyticsUnico[$r->hash] = true;
+                $analyticsUnico[$comparar] = true;
             }
 
             // Convenio

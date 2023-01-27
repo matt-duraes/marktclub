@@ -135,6 +135,9 @@ final class RelatorioUsuarioModel extends ORM
             if (in_array($uf, $estado) && in_array($r->status, [1, 2])) {
                 $lista[$empresa]['uf_' . $uf . '_total']++;
                 $lista[$empresa]['uf_' . $uf . '_' . $status]++;
+            } else {
+                $lista[$empresa]['uf_outro_total']++;
+                $lista[$empresa]['uf_outro_' . $status]++;
             }
         }
         $this->lista = $lista;
@@ -185,6 +188,9 @@ final class RelatorioUsuarioModel extends ORM
             'situacao_cedido' => 0,
             'situacao_excedente' => 0,
             'situacao_sem_dado' => 0,
+            'uf_outro_total' => 0,
+            'uf_outro_ativo' => 0,
+            'uf_outro_inativo' => 0,
             'uf_ac_total' => 0,
             'uf_ac_ativo' => 0,
             'uf_ac_inativo' => 0,

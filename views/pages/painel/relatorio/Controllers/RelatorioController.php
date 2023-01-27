@@ -133,130 +133,23 @@ final class RelatorioController extends Controller
     | GRÁFICO DE USUÁRIO
     |--------------------------------------------------------------------------
     */
-    public function getUsuarioStatus()
+    public function getUsuarioBuscar()
     {
         $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->get('/relatorio/usuario-status')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
-
-        $Montar = new MontarRelatorioModel();
-        $relatorio = $Montar->montarRelatorioStatus($dado->dado);
-
-        return mensagemSucesso($relatorio);
-    }
-
-    public function getUsuarioEstado()
-    {
-        $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->get('/relatorio/usuario-estado')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
-        $lista = $dado->dado->lista;
-
-        $outro = [];
-        if ($lista[0]->uf == 'outro') {
-            $outro = $lista[0];
-            unset($lista[0]);
-        }
+        $dado = $Api
+            ->validar('Ocorreu um erro ao buscar os gráficos, por favor, recarregue a página e tente novamente.')
+            ->get('/relatorio/usuario')
+            ->object();
 
         $Montar = new MontarRelatorioModel();
-        $relatorio = $Montar->montarBarra($lista, 'uf', ['total' => 'Total', 'ativo' => 'Ativo', 'inativo' => 'Inativo']);
-        $relatorio['header'] = [];
-
-        if ($outro) {
-            $relatorio['header'] = [
-                ['Usuários sem Estado', $outro->total],
-                ['Ativos sem Estado', $outro->ativo],
-                ['Inativos sem Estado', $outro->inativo],
-            ];
-        }
-
-        return mensagemSucesso($relatorio);
-    }
-
-    public function getUsuarioGenero()
-    {
-        $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->get('/relatorio/usuario-genero')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
-        $lista = $dado->dado->lista;
-
-        $Montar = new MontarRelatorioModel();
-        $dado = $Montar->montarPizza($lista, 'genero');
-
-        return mensagemSucesso($dado);
-    }
-
-    public function getUsuarioFaixaEtaria()
-    {
-        $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->get('/relatorio/usuario-faixa-etaria')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
-        $lista = $dado->dado->lista;
-
-        $Montar = new MontarRelatorioModel();
-        $dado = $Montar->montarPizza($lista, 'faixa');
-
-        return mensagemSucesso($dado);
-    }
-
-    public function getUsuarioSituacao()
-    {
-        $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->get('/relatorio/usuario-situacao')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
-        $lista = $dado->dado->lista;
-
-        $Montar = new MontarRelatorioModel();
-        $dado = $Montar->montarPizza($lista, 'situacao');
-
-        return mensagemSucesso($dado);
-    }
-
-    public function getUsuarioEstadoCivil()
-    {
-        $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->get('/relatorio/usuario-estado-civil')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
-        $lista = $dado->dado->lista;
-
-        $Montar = new MontarRelatorioModel();
-        $dado = $Montar->montarPizza($lista, 'estado');
-
-        return mensagemSucesso($dado);
-    }
-
-    public function getUsuarioAtualizarDado()
-    {
-        $Api = new ApiHelper(token: true);
-        $dado = $Api->headerJson()->get('/relatorio/usuario-atualizar-dado')->object();
-
-        if (!object_key_exists('dado', $dado)) {
-            $this->erroPadrao();
-        }
-
-        $lista = $dado->dado->lista;
-
-        $Montar = new MontarRelatorioModel();
-        $dado = $Montar->montarPizza($lista, 'tempo');
-
-        return mensagemSucesso($dado);
+        return mensagemSucesso([
+            'status' => $Montar->montarRelatorioStatus($dado->dado->status),
+            'estado' => $Montar->montarRelatorioEstado($dado->dado->estado),
+            'genero' => $Montar->montarPizza($dado->dado->genero->lista, 'genero'),
+            'faixa_etaria' => $Montar->montarPizza($dado->dado->faixa_etaria->lista, 'faixa_etaria'),
+            'atualizar_dado' => $Montar->montarPizza($dado->dado->atualizar_dado->lista, 'tempo'),
+            'estado_civil' => $Montar->montarPizza($dado->dado->estado_civil->lista, 'estado_civil'),
+            'situacao' => $Montar->montarPizza($dado->dado->situacao->lista, 'situacao'),
+        ]);
     }
 }

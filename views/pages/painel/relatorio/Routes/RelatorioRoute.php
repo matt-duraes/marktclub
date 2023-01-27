@@ -55,30 +55,6 @@ Route
             ::view('/relatorio/usuario');
 
         Route
-            ::nome('usuarioStatus')
-            ::get('/relatorio/usuario-status');
-
-        Route
-            ::nome('usuarioEstado')
-            ::get('/relatorio/usuario-estado');
-
-        Route
-            ::nome('usuarioGenero')
-            ::get('/relatorio/usuario-genero');
-
-        Route
-            ::nome('usuarioFaixaEtaria')
-            ::get('/relatorio/usuario-faixa-etaria');
-
-        Route
-            ::nome('usuarioSituacao')
-            ::get('/relatorio/usuario-situacao');
-
-        Route
-            ::nome('usuarioEstadoCivil')
-            ::get('/relatorio/usuario-estado-civil');
-
-        Route
-            ::nome('usuarioAtualizarDado')
-            ::get('/relatorio/usuario-atualizar-dado');
+            ::nome('usuarioBuscar')
+            ::get('/relatorio/usuario-buscar');
     });

@@ -132,25 +132,59 @@ final class MontarRelatorioModel
             'total' => [
                 'numero' => $dado->total
             ],
-            'ativo' => [
+            'Ativo' => [
                 'numero' => 0,
                 'porcentagem' => 0
             ],
-            'inativo' => [
+            'Inativo' => [
                 'numero' => 0,
                 'porcentagem' => 0
             ],
-            'bloquado' => [
+            'Bloqueado' => [
                 'numero' => 0,
                 'porcentagem' => 0
             ],
         ];
 
         foreach ($dado->lista as $r) {
-            if (in_array($r->status, ['ativo', 'inativo', 'bloqueado'])) {
-                $relatorio[$r->status]['numero'] = $r->total;
-                $relatorio[$r->status]['porcentagem'] = $r->porcentagem;
+            if ($r->status == 'Ativo') {
+                $relatorio['ativo']['numero'] = $r->total;
+                $relatorio['ativo']['porcentagem'] = $r->porcentagem;
+            } else if ($r->status == 'Inativo') {
+                $relatorio['inativo']['numero'] = $r->total;
+                $relatorio['inativo']['porcentagem'] = $r->porcentagem;
+            } else if ($r->status == 'Bloqueado') {
+                $relatorio['bloqueado']['numero'] = $r->total;
+                $relatorio['bloqueado']['porcentagem'] = $r->porcentagem;
             }
+        }
+
+        return $relatorio;
+    }
+
+    public function montarRelatorioEstado($dado)
+    {
+        $lista = $dado->lista;
+
+        $outro = [];
+        if ($lista[0]->uf == 'OUTRO') {
+            $outro = $lista[0];
+            unset($lista[0]);
+        }
+
+        $relatorio = $this->montarBarra(
+            $lista,
+            'uf',
+            ['total' => 'Total', 'ativo' => 'Ativo', 'inativo' => 'Inativo']
+        );
+
+        $relatorio['header'] = [];
+        if ($outro) {
+            $relatorio['header'] = [
+                ['Usuários sem Estado', $outro->total],
+                ['Ativos sem Estado', $outro->ativo],
+                ['Inativos sem Estado', $outro->inativo],
+            ];
         }
 
         return $relatorio;

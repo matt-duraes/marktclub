@@ -407,41 +407,8 @@ Route::nome('relatorio')
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('usuarioStatus')
-            ::get('/relatorio/usuario-status');
-
-        Route
-            ::nome('usuarioEstado')
-            ::get('/relatorio/usuario-estado');
-
-        Route
-            ::nome('usuarioAcesso')
-            ::request(['de', 'ate'], 'json')
-            ::get('/relatorio/usuario-acesso');
-
-        Route
-            ::nome('usuarioGenero')
-            ::get('/relatorio/usuario-genero');
-
-        Route
-            ::nome('usuarioSituacao')
-            ::get('/relatorio/usuario-situacao');
-
-        Route
-            ::nome('usuarioEstadoCivil')
-            ::get('/relatorio/usuario-estado-civil');
-
-        Route
-            ::nome('usuarioFaixaEtaria')
-            ::get('/relatorio/usuario-faixa-etaria');
-
-        Route
-            ::nome('usuarioSemDado')
-            ::get('/relatorio/usuario-sem-dado');
-
-        Route
-            ::nome('usuarioAtualizarDado')
-            ::get('/relatorio/usuario-atualizar-dado');
+            ::nome('usuario')
+            ::get('/relatorio/usuario');
 
         Route
             ::nome('maisAcessado')

@@ -13,9 +13,9 @@ trait WhereTrait
         $this->validarData($de, $ate);
 
         return [
-            ['data_criacao', '>=', $de],
-            ['data_criacao', '<=', $ate . ' 23:59:59'],
-            ['empresa', $this->idEmpresa]
+            ['data_acesso', '>=', $de],
+            ['data_acesso', '<=', $ate . ' 23:59:59'],
+            ['id_admin_empresa', $this->idEmpresa]
         ];
     }
 

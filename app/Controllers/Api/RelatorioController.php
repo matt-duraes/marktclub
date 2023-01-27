@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Models\Api\Analytics\UsuarioModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\DispositivoModel;
 use App\Models\Api\Analytics\MaisAcessadoModel;
@@ -20,24 +21,17 @@ use App\Models\Api\UsuarioCliente\Relatorio\StatusModel as UsuarioStatus;
 
 final class RelatorioController extends Controller
 {
-    public function getUsuarioStatus()
+    public function getUsuario()
     {
-        $Relatorio = new UsuarioStatus();
-        $dado = $Relatorio->status();
-
-        return mensagemSucesso($dado);
-    }
-    public function getUsuarioEstado()
-    {
-        $Relatorio = new UsuarioEstado();
-        $dado = $Relatorio->estado();
+        $Relatorio = new UsuarioModel();
+        $dado = $Relatorio->listarDados();
 
         return mensagemSucesso($dado);
     }
 
     public function getUsuarioAcesso(Request $request)
     {
-        $Relatorio = new AnalyticsDiaModel();
+        $Relatorio = new UsuarioAcessoModel();
         $dado = $Relatorio->acesso($request->de, $request->ate);
 
         return mensagemSucesso($dado);
@@ -72,44 +66,6 @@ final class RelatorioController extends Controller
             mensagemStatus(404);
         }
 
-        return mensagemSucesso($dado);
-    }
-
-    public function getUsuarioGenero()
-    {
-        $Relatorio = new GeneroModel();
-        $dado = $Relatorio->pegarRelatorio();
-        return mensagemSucesso($dado);
-    }
-
-    public function getUsuarioSituacao()
-    {
-        $Relatorio = new SituacaoModel();
-        $dado = $Relatorio->pegarRelatorio();
-        return mensagemSucesso($dado);
-    }
-    public function getUsuarioEstadoCivil()
-    {
-        $Relatorio = new EstadoCivilModel();
-        $dado = $Relatorio->pegarRelatorio();
-        return mensagemSucesso($dado);
-    }
-    public function getUsuarioFaixaEtaria()
-    {
-        $Relatorio = new FaixaEtariaModel();
-        $dado = $Relatorio->pegarRelatorio();
-        return mensagemSucesso($dado);
-    }
-    public function getUsuarioSemDado()
-    {
-        $Relatorio = new SemDadoModel();
-        $dado = $Relatorio->pegarRelatorio();
-        return mensagemSucesso($dado);
-    }
-    public function getUsuarioAtualizarDado()
-    {
-        $Relatorio = new AtualizarDadoModel();
-        $dado = $Relatorio->pegarRelatorio();
         return mensagemSucesso($dado);
     }
 
