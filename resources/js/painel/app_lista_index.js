@@ -87,36 +87,38 @@ window.addEventListener('load', () => {
 
             const body = new FormData();
             body.append('senha', senha);
-            const resposta = await fetch(LINK + '/perfil/validar-senha', {
+            body.append('termo', termo);
+            body.append('pesquisa', pesquisa);
+            body.append('filtro', filtro);
+            body.append('ordem', ordem);
+            lista.forEach(item => {
+                body.append('campo[]', item.value);
+            });
+
+            const resposta = await fetch(LINK + '/app/download/' + APP, {
                 method: 'POST',
                 body,
             });
 
-            let json;
-            try {
-                json = await resposta.json();
-            } catch (error) {
-                json = {};
-            }
+            const json = await respostaJson(
+                resposta,
+                'Ocorreu um erro ao salvar o pedido de download, por favor, tente novamente.'
+            );
 
             Loading.hide();
-
-            if (json.status != 'sucesso') {
-                Alerta.notificacao(
-                    json.erro.mensagem != undefined
-                        ? json.erro.mensagem
-                        : 'Ocorreu um erro ao validar sua senha, por favor, tente novamente.',
-                    false
-                );
+            if (false === json) {
                 return;
             }
 
-            document.querySelector('#bloco_app_download').submit();
-
-            setTimeout(() => {
-                blocoSenha.value = '';
-                blocoTermo.checked = false;
-            }, 200);
+            Alerta.notificacao(
+                `
+                    Pedido de download realizado com sucesso, assim que o arquivo estiver
+                    pronto para download, iremos notifica-lo.
+                `,
+                true
+            );
+            blocoSenha.value = '';
+            blocoTermo.checked = false;
         });
     };
 

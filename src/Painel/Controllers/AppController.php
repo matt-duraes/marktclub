@@ -7,6 +7,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
+use Helpers\CryptHelper;
 use PainelModel\Download\DownloadModel;
 
 final class AppController extends PadraoController
@@ -317,8 +318,14 @@ final class AppController extends PadraoController
     }
     public function postDownload(Request $request, string $app)
     {
+        $request->vazio('senha', mensagem: 'Digite sua senha para fazer o download.');
+        $request->vazio('campo', mensagem: 'Você tem que escolher pelo menos 1 item para continuar.');
+
         if ($request->termo != 'sim') {
-            mensagemStatus(403, localhost: 'Termo não foi marcado.');
+            mensagemErro(
+                'Campo obrigatório!',
+                'Você tem que marcar o box para confirmar que você tem permissão para fazer o download.'
+            );
         }
 
         $appReal = $this->converterNomeApp($app);
@@ -327,13 +334,13 @@ final class AppController extends PadraoController
         $ApiSenha = new ApiHelper(token: true);
         $dadoSenha = $this->criptografarListaDado(['senha' => $request->senha], ['senha'], ['senha']);
 
-        $validarSenha = $ApiSenha->body($dadoSenha)->post('/usuario-equipe/validar-senha')->object();
-        if (existeErro($validarSenha, 'dado')) {
-            mensagemStatus(403, 'Senha não foi validada.');
-        }
+        $ApiSenha
+            ->validar('Não foi possível validar sua senha, por favor, verifique a senha digitada e tente novamente.')
+            ->body($dadoSenha)
+            ->post('/usuario-equipe/validar-senha');
 
         if (!$config->permissao->index || !$config->permissao->download) {
-            throw new Excecao(status: 403);
+            mensagemStatus(403);
         }
 
         foreach ($request->campo as $valor) {
@@ -341,48 +348,31 @@ final class AppController extends PadraoController
                 mensagemErro('Campo inválido!', 'Você não tem permissão para enviar um ou mais campos.', 403);
             }
         }
-        $body = ['campo' => $request->campo];
-        if (!empty($request->pesquisa)) {
-            $pesquisa = base64Decode($request->pesquisa, 'pesquisa');
-            if (!empty($pesquisa)) {
-                $body['pesquisa'] = $pesquisa;
-            }
-        }
-        if (!empty($request->filtro)) {
-            $filtro = base64Decode($request->filtro, 'filtro');
-            if (is_array($filtro)) {
-                $body += $filtro;
-            }
-        }
-        if (!empty($request->ordem)) {
-            $ordem = base64Decode($request->ordem, 'ordem');
-            if (!empty($ordem)) {
-                $body['ordem'] = $ordem;
-            }
-        }
-        $body = $this->criptografarListaDado($body, array_keys($body), $config->api->criptografar);
+        $payload = [
+            'campo' => $request->campo,
+            'pesquisa' => !$request->vazio('pesquisa') ? base64Decode($request->pesquisa, 'pesquisa') : '',
+            'ordem' => !$request->vazio('ordem') ? base64Decode($request->pesquisa, 'ordem') : '',
+            'filtro' => !$request->vazio('filtro') ? base64Decode($request->pesquisa, 'filtro') : '',
+            'app' => $appReal,
+            'usuario' => sessao('USUARIO.id')
+        ];
+
+        $payload = (new CryptHelper(chavePublica: $this->pegarChavePublica([1])))->encode($payload);
+        ppe($payload);
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->body($body)->post($config->api->uri . '/download')->array();
+        $dado = $Api
+            ->body([
+                'payload' => $payload,
+                'tipo' => 'download.privado'
+            ])
+            ->post('/admin/mensageria')
+            ->object();
 
-        if (existeErro($dado, 'dado')) {
-            mensagemErro(
-                $dado->erro->titulo ?? 'Erro!',
-                $dado->erro->mensagem ?? 'Ocorreu um erro ao fazer o download, por favor, tente novamente.'
-            );
-        }
 
-        $dado = $this->tratarListaDeRetorno($dado['dado'], $config->api->criptografar, 'array');
-        new DownloadModel(
-            $dado,
-            $config->download->replace,
-            $app
-        );
-
-        mensagemErro(
-            $dado->erro->titulo ?? 'Erro!',
-            $dado->erro->mensagem ?? 'Ocorreu um erro ao fazer o download, por favor, tente novamente.'
-        );
+        return mensagemSucesso([
+            'id' => $dado->dado->id
+        ], status: 201);
     }
 
     /*

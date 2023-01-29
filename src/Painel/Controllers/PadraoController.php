@@ -405,7 +405,7 @@ abstract class PadraoController extends Controller
         }
         return $retorno;
     }
-    private function pegarChavePublica(array $criptografia)
+    protected function pegarChavePublica(array $criptografia)
     {
         if (empty($criptografia)) {
             return '';

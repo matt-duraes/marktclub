@@ -91,9 +91,8 @@ Route
             ::post('/perfil/dado');
 
         Route
-            ::nome('validar_senha')
+            ::nome('validarSenha')
             ::_rotaNaoUnica()
-            ::action('validarSenha')
             ::request(['senha'])
             ::post('/perfil/validar-senha');
 

@@ -521,6 +521,18 @@ Route
     });
 
 Route
+    ::nome('mensageria')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\MensageriaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::request(['payload', 'tipo'])
+            ::criptografia(['payload'])
+            ::post('/mensageria');
+    });
+
+Route
     ::nome('painel')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\PainelController::class)

@@ -103,7 +103,7 @@ if (!function_exists('painelAppDownload')) {
         }
 
         echo '
-            <form action="' . LINK . '/app/download/' . $app . '" target="_blank" method="post" id="bloco_app_download" class="form_geral bloco_pagina_popup">
+            <form action="/" method="post" id="bloco_app_download" class="form_geral bloco_pagina_popup">
                 <header class="header_pagina_popup">
                     <i class="mobile botao_fechar_download">' . iconeVoltar() . '</i>
                     <h1>DOWNLOAD</h1>
