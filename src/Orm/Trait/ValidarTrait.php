@@ -271,10 +271,13 @@ trait ValidarTrait
 
     private function validarData(string $data): Bool
     {
-        return (preg_replace('/[^0-9]/', '', $data) != '00000000' &&
-            preg_match('/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $data)) ||
-            (preg_replace('/[^0-9]/', '', $data) != '00000000000000' &&
-                preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $data));
+        return preg_replace('/[^0-9]/', '', $data) != '00000000' &&
+            preg_match('/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $data);
+    }
+    private function validarDataHora(string $data): Bool
+    {
+        return preg_replace('/[^0-9]/', '', $data) != '00000000000000' &&
+            preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $data);
     }
 
     protected function ormValidarViaHelper(string $acao)
