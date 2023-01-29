@@ -12,6 +12,7 @@
 use Erro\Erro;
 use Erro\Excecao;
 use Http\Request;
+use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 
 /*/
@@ -272,8 +273,11 @@ if (!function_exists('vd')) {
     /**
      * @param mixed $conteudo Conteudo a ser impresso
      */
-    function vd($conteudo)
+    function vd($conteudo, bool $view = false)
     {
+        if ($view) {
+            echo '-->';
+        }
         var_dump($conteudo);
     }
 }
@@ -290,8 +294,12 @@ if (!function_exists('vde')) {
     /**
      * @param mixed $conteudo Conteudo a ser impresso
      */
-    function vde($conteudo)
+    function vde($conteudo, bool $view = false)
     {
+        if ($view) {
+            echo '-->';
+        }
+
         $header = getallheaders();
         $contentType = array_key_exists('Content-Type', $header) ? explode(';', $header['Content-Type'])[0] : '';
         $metodo = $_SERVER['REQUEST_METHOD'] ?? '';
@@ -1661,6 +1669,28 @@ if (!function_exists('arquivoPrivadoId')) {
         }
     }
 }
+if (!function_exists('arquivoPrivadoDado')) {
+    /**
+     * Pega os dados básicos de uma imagem privada pelo ID
+     *
+     * @param   string          $id     ID da imagem que deseja pegar seus dados
+     * @return  bool|stdClass           Array com os dados
+     */
+    function arquivoPrivadoDado(string $id)
+    {
+        try {
+            $Api = new ApiHelper(token: true);
+            $arquivo = $Api
+                ->get('/upload-arquivo/' . $id)->object();
+        } catch (\Throwable) {
+            return false;
+        }
+        if (!object_key_exists('dado', $arquivo)) {
+            return false;
+        }
+        return $arquivo->dado;
+    }
+}
 
 if (!function_exists('removerIndiceVazio')) {
     /**
@@ -1734,5 +1764,21 @@ if (!function_exists('naoLocalhost')) {
     function naoLocalhost(): bool
     {
         return SISTEMA != 'LOCALHOST';
+    }
+}
+if (!function_exists('porcentagem')) {
+    /**
+     * Calcula a porcentagem entre 2 número
+     *
+     * @param   mixed   $quantidade     valor que deseja calcular
+     * @param   mixed   $total          Valor total para tirar a porcentagem
+     * @return  string                  Valor do calculo com 2 casas decimais
+     */
+    function porcentagem($valor, $total): string
+    {
+        if (empty($valor) || empty($total) || !is_numeric($valor) || !is_numeric($total)) {
+            return '0.00';
+        }
+        return number_format(($valor * 100) / $total, 2, '.');
     }
 }

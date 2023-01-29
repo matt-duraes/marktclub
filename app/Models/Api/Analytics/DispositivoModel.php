@@ -3,65 +3,53 @@
 namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
+use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
-use App\Models\Api\Analytics\Trait\MontarTrait;
 
 final class DispositivoModel extends ORM
 {
     use WhereTrait;
-    use MontarTrait;
+    protected string $_tabela = TABELA_ANALYTICS_DISPOSITIVO;
 
-    protected string $_tabela = 'analytics';
-
-    private int $idEmpresa;
-    public function __construct()
-    {
-        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+    public function __construct(
+        protected Data $de,
+        protected Data $ate,
+    ) {
         parent::__construct();
     }
 
-    public function porDispositivo($de, $ate)
+    public function listarDado(): array
     {
-        $where = $this->pegarWherePadrao($de, $ate);
-
-        $dado = $this
-            ->campoTexto('`dispositivo` as "item", COUNT(*) AS "quantidade"')
-            ->where($where)
-            ->group('dispositivo')
-            ->orderTexto('`quantidade` DESC')
+        $lista = $this
+            ->campo(['quantidade', 'dispositivo'])
+            ->where($this->pegarWherePadrao())
+            ->order('quantidade', 'DESC')
             ->limit(0, 20)
             ->read();
 
-        return $this->montarRelatorioLista($where, $dado);
+        return $this->montarDado($lista);
     }
 
-    public function porNavegador($de, $ate)
+    private function montarDado($lista)
     {
-        $where = $this->pegarWherePadrao($de, $ate);
+        $total = 0;
+        foreach ($lista as $r) {
+            $total += $r->quantidade;
+        }
 
-        $dado = $this
-            ->campoTexto('`browser` as "item", COUNT(*) AS "quantidade"')
-            ->where($where)
-            ->group('browser')
-            ->orderTexto('`quantidade` DESC')
-            ->limit(0, 20)
-            ->read();
-
-        return $this->montarRelatorioLista($where, $dado);
-    }
-
-    public function porOS($de, $ate)
-    {
-        $where = $this->pegarWherePadrao($de, $ate);
-
-        $dado = $this
-            ->campoTexto('`os` as "item", COUNT(*) AS "quantidade"')
-            ->where($where)
-            ->group('os')
-            ->orderTexto('`quantidade` DESC')
-            ->limit(0, 20)
-            ->read();
-
-        return $this->montarRelatorioLista($where, $dado);
+        $dado = [];
+        foreach ($lista as $r) {
+            if (array_key_exists($r->dispositivo, $dado)) {
+                $dado[$r->dispositivo]['total'] += $r->quantidade;
+                $dado[$r->dispositivo]['porcentagem'] = porcentagem($dado[$r->dispositivo]['total'], $total);
+                continue;
+            }
+            $dado[$r->dispositivo] = [
+                'dispositivo' => $r->dispositivo,
+                'total' => $r->quantidade,
+                'porcentagem' => porcentagem($r->quantidade, $total)
+            ];
+        }
+        return array_values($dado);
     }
 }

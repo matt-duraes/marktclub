@@ -8,20 +8,20 @@ use Controller\Controller;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\UsuarioCliente\ClienteModel;
 use App\Models\Api\UsuarioCliente\DeletarModel;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\UsuarioCliente\DownloadModel;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\DeletarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioClienteController extends Controller implements
-    SalvarInterface,
-    ListarInterface,
-    BuscarInterface,
-    AtualizarInterface,
-    DeletarInterface
+    ControllerSalvarInterface,
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function getBuscar(string $id)
     {

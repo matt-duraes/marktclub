@@ -21,6 +21,7 @@ class ApiHelper extends CurlHelper
         $this->clientId = env('API_CLIENT_ID');
         $this->secretId = env('API_SECRET_ID');
         $this->audience = env('API_AUDIENCE');
+        $this->apiHelper = true;
 
         parent::__construct(env('API_URL', LINK_API));
 
@@ -49,11 +50,5 @@ class ApiHelper extends CurlHelper
             return;
         }
         throw new Excecao(status: 401);
-    }
-
-    public function headerJson(): Self
-    {
-        $this->header(['Content-Type' => 'application/json']);
-        return $this;
     }
 }

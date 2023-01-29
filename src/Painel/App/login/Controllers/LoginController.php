@@ -136,6 +136,7 @@ final class LoginController extends Controller
             'facebook' => $Crypt->decode($body['facebook']),
             'permissao' => $body['permission'],
             'empresa_id' => $Crypt->decode($body['company_id']),
+            'gerente' => $body['manager'],
             'dev' => in_array($cpf, jsonDecode(env('DEV_DOCUMENTO', []), true, true))
         ]);
 

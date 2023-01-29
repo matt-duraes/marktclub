@@ -1,0 +1,69 @@
+#bloco_trabalho
+    padding: 15px 20px
+    background-color: $corVermelho
+    border-radius: 10px
+    boxShadow()
+    flexRow()
+    align-items: center
+    position: fixed
+    top: 65px
+    opacity: 0
+    right: -95px
+    z-index: 111
+    transition: opacity .3s ease-out, right .3s ease-out
+    &.ativo
+        right: 5px
+        opacity: 1
+    .dado
+        flexCol()
+        padding-right: 20px
+        margin-right: 20px
+        position: relative
+        justify-content: center
+        &::after
+            content: ""
+            width: 1px
+            height: 100%
+            max-height: 30px
+            background-color: #FFF
+            position: absolute
+            right: 0
+            opacity: .7
+    .dado p
+        color: #FFF
+        font-size: 1.2rem
+    .dado .tempo
+        texto()
+        font-weight: bold
+        color: #FFF
+    .dado .botao
+        margin-top: 5px
+        padding: 5px 10px
+        border: 1px solid #FFF
+        textoFontSize()
+        color: #FFF
+        border-radius: 5px
+        cursor: pointer
+    .dado .tempo span
+        texto()
+        font-weight: bold
+    i
+        cursor: pointer
+    i.pausar
+        fill: #FFF
+        margin: 0 10px
+    i.minimizar
+    i.concluir
+        width: 28px
+        height: 28px
+        position: relative
+        border-radius: 50%
+        background-color: #FFF
+        flexCenter()
+        fill: $corVermelho
+    i.minimizar:after
+        content: ""
+        width: 12px
+        height: 4px
+        background-color: $corVermelho
+        border-radius: 2px

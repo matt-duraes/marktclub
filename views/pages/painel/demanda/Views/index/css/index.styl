@@ -63,6 +63,7 @@
             display: none
     .conteudo article
         width: 100%
+        position: relative
         background: #FFF
         box-shadow: 0 4px 4px rgba(0,0,0,.1)
         border-radius: 4px
@@ -81,6 +82,23 @@
     .conteudo:hover article
         opacity: .5
     .conteudo:hover article:hover
+        opacity: 1
+    .conteudo article .botao_mover
+        width: 30px
+        height: 30px
+        border: 1px solid #DDD
+        background: rgba(255,255,255,.7)
+        cursor: move
+        border-radius: 3px
+        position: absolute
+        top: 5px
+        right: 5px
+        z-index: 10
+        flexCenter()
+        fill: #999
+        opacity: 0
+        transition: opacity .3s ease-out
+    .conteudo article:hover .botao_mover
         opacity: 1
     .conteudo article > figure
         width: 100%

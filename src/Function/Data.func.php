@@ -211,11 +211,11 @@ if (!function_exists('dataExtenso')) {
     }
 }
 
-if (!function_exists('dataDiferenca')) {
+if (!function_exists('dataDiferencaDia')) {
     // doc
     // exemplo
-    // echo dataDiferenca 01/10/2022,02/10/2022
-    // echo dataDiferenca 2022-10-02,2022-11-02
+    // echo dataDiferencaDia 01/10/2022,02/10/2022
+    // echo dataDiferencaDia 2022-10-02,2022-11-02
     /**
      * Retorna a diferença de dias entre duas datas
      *
@@ -223,12 +223,72 @@ if (!function_exists('dataDiferenca')) {
      * @param   string      $dataFinal   Segunda data a ser comparada
      * @return  int|bool                 Número de dias ou false em caso de erro
      */
-    function dataDiferenca(string $dataInicial, string $dataFinal): int|bool
+    function dataDiferencaDia(string $dataInicial, string $dataFinal): int|bool
     {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($dataInicial)->diferenca($dataFinal);
+        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaDia($dataFinal);
+    }
+}
+if (!function_exists('dataDiferencaHora')) {
+    // doc
+    // exemplo
+    // echo dataDiferencaHora 01/10/2022,02/10/2022
+    // echo dataDiferencaHora 2022-10-02,2022-11-02
+    /**
+     * Retorna a diferença de horas entre duas datas
+     *
+     * @param   string      $dataInicial Primeira data a ser comparada
+     * @param   string      $dataFinal   Segunda data a ser comparada
+     * @return  int|bool                 Número de dias ou false em caso de erro
+     */
+    function dataDiferencaHora(string $dataInicial, string $dataFinal): int|bool
+    {
+        if (is_null($dataInicial) || is_null($dataFinal)) {
+            return false;
+        }
+        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaHora($dataFinal);
+    }
+}
+if (!function_exists('dataDiferencaMinuto')) {
+    // doc
+    // exemplo
+    // echo dataDiferencaMinuto 01/10/2022,02/10/2022
+    // echo dataDiferencaMinuto 2022-10-02,2022-11-02
+    /**
+     * Retorna a diferença de minutos entre duas datas
+     *
+     * @param   string      $dataInicial Primeira data a ser comparada
+     * @param   string      $dataFinal   Segunda data a ser comparada
+     * @return  int|bool                 Número de dias ou false em caso de erro
+     */
+    function dataDiferencaMinuto(string $dataInicial, string $dataFinal): int|bool
+    {
+        if (is_null($dataInicial) || is_null($dataFinal)) {
+            return false;
+        }
+        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaMinuto($dataFinal);
+    }
+}
+if (!function_exists('dataDiferencaSegundo')) {
+    // doc
+    // exemplo
+    // echo dataDiferencaSegundo 01/10/2022,02/10/2022
+    // echo dataDiferencaSegundo 2022-10-02,2022-11-02
+    /**
+     * Retorna a diferença de dias entre duas datas
+     *
+     * @param   string      $dataInicial Primeira data a ser comparada
+     * @param   string      $dataFinal   Segunda data a ser comparada
+     * @return  int|bool                 Número de dias ou false em caso de erro
+     */
+    function dataDiferencaSegundo(string $dataInicial, string $dataFinal): int|bool
+    {
+        if (is_null($dataInicial) || is_null($dataFinal)) {
+            return false;
+        }
+        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaSegundo($dataFinal);
     }
 }
 

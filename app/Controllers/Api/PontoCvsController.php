@@ -9,17 +9,17 @@ use Controller\Controller;
 use App\Classes\PontoCvs\Status;
 use App\Models\Api\PontoCvs\PontoModel;
 use App\Models\Api\PontoCvs\PontoEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerAtualizarInterface;
 use Modules\Email;
 
 final class PontoCvsController extends Controller implements
-    SalvarInterface,
-    ListarInterface,
-    BuscarInterface,
-    AtualizarInterface
+    ControllerSalvarInterface,
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface
 {
     public function postSalvar(Request $request)
     {

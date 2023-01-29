@@ -275,7 +275,7 @@
                                 margin: 0 0 10px 0;
                             "></p>
                             <p style="margin: 0;">Att,</p>
-                            <p style="margin: 0;"><?= $HOST ?></p>
+                            <p style="margin: 0;"><?= $host ?></p>
                         </td>
                     </tr>
                     <!-- end att -->
@@ -373,7 +373,7 @@
                             <?php endif; ?>
 
                             <p style="margin: 40px 0 0 0;"></p>
-                            <p style="margin: 0; font-size: 12px;"><?= $HOST ?></p>
+                            <p style="margin: 0; font-size: 12px;"><?= $host ?></p>
                             <p style="margin: 0; font-size: 12px;">Em: <?= date('d/m/Y H:i:s') ?></p>
                             <p style="margin: 0; font-size: 12px;">IP: <?= ip() ?></p>
                         </td>

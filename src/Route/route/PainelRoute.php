@@ -91,9 +91,8 @@ Route
             ::post('/perfil/dado');
 
         Route
-            ::nome('validar_senha')
+            ::nome('validarSenha')
             ::_rotaNaoUnica()
-            ::action('validarSenha')
             ::request(['senha'])
             ::post('/perfil/validar-senha');
 
@@ -322,7 +321,7 @@ Route
         Route
             ::nome('salvar')
             ::_rotaNaoUnica()
-            ::request(['app', 'relacionado', 'mensagem'])
+            ::request(['app', 'relacionado', 'mensagem', '!titulo', '!link', '!notificar'])
             ::post('/historico');
         Route
             ::nome('listar')
@@ -333,4 +332,27 @@ Route
             ::nome('deletar')
             ::_rotaNaoUnica()
             ::delete('/historico/{id}');
+    }, true)
+
+    // HISTORICO
+    ::controller(PainelController\NotificacaoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::_rotaNaoUnica()
+            ::request(['pagina'])
+            ::get('/notificacao');
+        Route
+            ::nome('atualizar')
+            ::_rotaNaoUnica()
+            ::request(['id'])
+            ::post('/notificacao/atualizar-visualizadas');
+        Route
+            ::nome('abrir')
+            ::_rotaNaoUnica()
+            ::view('/notificacao/{id}');
+        Route
+            ::nome('visualizarTodas')
+            ::_rotaNaoUnica()
+            ::get('/notificacao/visualizar-todas');
     });

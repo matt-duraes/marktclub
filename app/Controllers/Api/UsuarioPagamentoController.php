@@ -10,18 +10,18 @@ use Controller\Controller;
 use App\Classes\UsuarioPagamento\Helper;
 use App\Classes\UsuarioPagamento\Status;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 use App\Models\Api\UsuarioPagamento\PagamentoEntity;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioPagamentoController extends Controller implements
-    ListarInterface,
-    BuscarInterface,
-    SalvarInterface,
-    AtualizarInterface
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface
 {
     public function getListar(Request $request)
     {

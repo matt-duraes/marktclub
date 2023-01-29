@@ -6,7 +6,7 @@ use ORM\Entity;
 use Modules\DataHora;
 use Helpers\UploadHelper;
 use ApiModel\Upload\GrupoEntity;
-use App\Classes\UploadArquivo\Status;
+use System\Classes\UploadArquivo\Status;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -79,6 +79,13 @@ final class ArquivoEntity extends Entity
 
     protected function regraPosDestruir()
     {
+        try {
+            $this->Grupo = new GrupoEntity();
+            $this->Grupo->_id($this->id_upload_grupo);
+        } catch (\Throwable) {
+            return;
+        }
+
         $path = DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo;
 
         if (file_exists($path)) {

@@ -405,7 +405,7 @@ abstract class PadraoController extends Controller
         }
         return $retorno;
     }
-    private function pegarChavePublica(array $criptografia)
+    protected function pegarChavePublica(array $criptografia)
     {
         if (empty($criptografia)) {
             return '';
@@ -435,9 +435,6 @@ abstract class PadraoController extends Controller
         $lista = [];
         foreach ($dado as $ind => $val) {
             if (!is_array($val) && !is_object($val)) {
-                if (!is_array($criptografia)) {
-                    ppe($criptografia);
-                }
                 $lista[$ind] = in_array($ind, $criptografia) ? descriptografarDado($val, $criptografia, $chave) : $val;
                 continue;
             }

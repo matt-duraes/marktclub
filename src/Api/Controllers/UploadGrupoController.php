@@ -7,16 +7,16 @@ use Http\Response;
 use Controller\Controller;
 use ApiModel\Upload\GrupoModel;
 use ApiModel\Upload\GrupoEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\DeletarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UploadGrupoController extends Controller implements
-    BuscarInterface,
-    SalvarInterface,
-    AtualizarInterface,
-    DeletarInterface
+    ControllerBuscarInterface,
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function getBuscar(string $id)
     {
@@ -66,6 +66,7 @@ final class UploadGrupoController extends Controller implements
         $Grupo = new GrupoEntity();
         $Grupo->id($id);
         $Grupo->destruir();
+        return new Response(status: 204);
     }
 
     public function getPai(string $id)

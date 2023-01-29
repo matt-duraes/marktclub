@@ -8,14 +8,18 @@ use Controller\Controller;
 use ApiModel\Upload\GrupoEntity;
 use ApiModel\Upload\ArquivoModel;
 use ApiModel\Upload\ArquivoEntity;
-use App\Controllers\Api\Interface\ListarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UploadArquivoController extends Controller implements
-    ListarInterface,
-    SalvarInterface,
-    AtualizarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface,
+    ControllerBuscarInterface
 {
     public function getListar(Request $request)
     {
@@ -23,6 +27,16 @@ final class UploadArquivoController extends Controller implements
         $lista = $Arquivo->buscarArquivos($request->pagina, $request->pesquisa, $request->grupo);
 
         return mensagemSucesso($lista);
+    }
+
+    public function getBuscar(string $id)
+    {
+        $Arquivo = new ArquivoEntity();
+        $Arquivo->id($id);
+
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($Arquivo, lista: ['id', 'nome', 'extensao', 'link'])
+        );
     }
 
     public function postSalvar(Request $request)
@@ -58,6 +72,15 @@ final class UploadArquivoController extends Controller implements
             'nome'
         ], false));
         $Arquivo->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id)
+    {
+        $Arquivo = new ArquivoEntity();
+        $Arquivo->id($id);
+        $Arquivo->destruir();
 
         return new Response(status: 204);
     }

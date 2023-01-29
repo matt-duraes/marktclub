@@ -331,7 +331,7 @@ const respostaJson = (resposta, mensagem) => {
             json = {};
         }
 
-        if (status == 200 || status == 201) {
+        if ((status == 200 || status == 201) && json.status == 'sucesso') {
             return resolve(json);
         }
 
@@ -374,4 +374,11 @@ const removerClasse = (elemento, classe) => {
 };
 const classeExiste = (elemento, classe) => {
     return elemento.classList.contains(classe);
+};
+
+const pp = erro => {
+    console.log(erro);
+};
+const ppe = erro => {
+    console.log(erro);
 };

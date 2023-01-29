@@ -24,6 +24,7 @@ class CurlHelper
     private string $erroTitulo = 'Erro!';
     private string $erroMensagem = '';
     private int $erroStatus = 400;
+    protected bool $apiHelper = false;
 
     public function __construct(
         private $url = null
@@ -252,6 +253,7 @@ class CurlHelper
      */
     public function get(string $url): self
     {
+        $this->headerJson();
         $this->curl('GET', $url);
         return $this;
     }
@@ -374,6 +376,15 @@ class CurlHelper
                 'info' => $this->retornoInfo,
             ],
         ];
+    }
+
+    public function headerJson(): Self
+    {
+        if (array_key_exists('Content-Type', $this->header)) {
+            return $this;
+        }
+        $this->header(['Content-Type' => 'application/json']);
+        return $this;
     }
 
     /*

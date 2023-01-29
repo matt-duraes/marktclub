@@ -1,0 +1,16 @@
+<div id="bloco_trabalho" class="{{!TRABALHO_INICIADO || TRABALHO_MINIMIZADO ? 'display_none' : 'ativo'}}"
+    data-id="{{TRABALHO_ID}}"
+    data-tarefa="{{TRABALHO_TAREFA}}"
+    data-data="{{TRABALHO_DATA}}"
+    data-tempo="{{TRABALHO_TEMPO}}"
+    data-total="{{TRABALHO_TOTAL}}"
+>
+    <div class="dado">
+        <p>Aberta há</p>
+        <div class="tempo"><span id="bloco_trabalho_minuto_trabalhado"></span>/<span id="bloco_trabalho_minuto_total">{{TRABALHO_TOTAL}}</span> minutos</div>
+        <a href="{!! !empty(TRABALHO_DEMANDA) ? LINK . '/demanda#demanda-' . TRABALHO_DEMANDA : '' !!}" class="botao" id="botao_Trabalho_ver_demanda">Ver demanda</a>
+    </div>
+    <i class="minimizar" id="botao_trabalho_minimizar"></i>
+    <i class="pausar" id="botao_trabalho_parar">@iconePause(30)</i>
+    <i class="concluir" id="botao_trabalho_concluir">@iconeCheck(20)</i>
+</div>

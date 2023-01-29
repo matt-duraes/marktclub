@@ -103,7 +103,7 @@ if (!function_exists('painelAppDownload')) {
         }
 
         echo '
-            <form action="' . LINK . '/app/download/' . $app . '" target="_blank" method="post" id="bloco_app_download" class="form_geral bloco_pagina_popup">
+            <form action="/" method="post" id="bloco_app_download" class="form_geral bloco_pagina_popup">
                 <header class="header_pagina_popup">
                     <i class="mobile botao_fechar_download">' . iconeVoltar() . '</i>
                     <h1>DOWNLOAD</h1>
@@ -170,8 +170,14 @@ if (!function_exists('painelPopupEnd')) {
 |--------------------------------------------------------------------------
 */
 if (!function_exists('painelHistorico')) {
-    function painelHistorico(string $id, string $app, bool $boxShadow = true)
-    {
+    function painelHistorico(
+        string $id,
+        string $app,
+        bool $boxShadow = true,
+        string $titulo = '',
+        string $link = '',
+        array $notificar = []
+    ) {
         $r = (object)[
             'id' => $id
         ];
@@ -194,6 +200,9 @@ if (!function_exists('painelAppVisualizar')) {
             require ROOT . '/src/Html/Painel/appVisualizar.php';
             if ($config->permissao->historico) {
                 $classe = '';
+                $titulo = '';
+                $link = '';
+                $notificar = [];
                 require ROOT . '/src/Html/Painel/appHistorico.php';
             }
             return;

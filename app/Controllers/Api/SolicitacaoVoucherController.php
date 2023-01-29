@@ -4,14 +4,14 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Controller\Controller;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\ListarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 use App\Models\Api\SolicitacaoVoucher\VoucherModel;
 use App\Models\Api\SolicitacaoVoucher\VoucherEntity;
 
 final class SolicitacaoVoucherController extends Controller implements
-    BuscarInterface,
-    ListarInterface
+    ControllerBuscarInterface,
+    ControllerListarInterface
 {
     public function getListar(Request $request)
     {

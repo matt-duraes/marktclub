@@ -7,14 +7,16 @@ use Http\Response;
 use Controller\Controller;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Models\Api\Demanda\TarefaEntity;
-use App\Controllers\Api\Interface\BuscarInterface;
-use App\Controllers\Api\Interface\SalvarInterface;
-use App\Controllers\Api\Interface\AtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class DemandaTarefaController extends Controller implements
-    SalvarInterface,
-    BuscarInterface,
-    AtualizarInterface
+    ControllerSalvarInterface,
+    ControllerBuscarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function postSalvar(Request $request)
     {
@@ -23,7 +25,7 @@ final class DemandaTarefaController extends Controller implements
             titulo: $request->titulo,
             texto: $request->_POST('texto', html: false),
             tipo: new Tipo($request->tipo),
-            hora_producao_estimada: $request->hora_producao_estimada,
+            minuto_producao_estimada: $request->minuto_producao_estimada,
             equipe: $request->equipe
         );
         $Tarefa->salvar();
@@ -32,7 +34,7 @@ final class DemandaTarefaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Tarefa,
                 lista: [
-                    'id', 'titulo', 'texto', 'tipo', 'data_criacao', 'hora_producao_estimada', 'status'
+                    'id', 'titulo', 'texto', 'tipo', 'data_criacao', 'minuto_producao_estimada', 'status'
                 ]
             ),
             201
@@ -44,7 +46,7 @@ final class DemandaTarefaController extends Controller implements
         $Tarefa = new TarefaEntity();
         $Tarefa->id($id);
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo'])
+            pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo', 'minuto_producao_estimada'])
         );
     }
 
@@ -61,5 +63,31 @@ final class DemandaTarefaController extends Controller implements
         $Tarefa->salvar();
 
         return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id)
+    {
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        $Tarefa->destruir();
+
+        return new Response(status: 204);
+    }
+
+    public function postLike(string $id)
+    {
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        $Tarefa->like();
+
+        return mensagemSucesso([], 201);
+    }
+    public function postDeslike(Request $request, string $id)
+    {
+        $Tarefa = new TarefaEntity();
+        $Tarefa->id($id);
+        $Tarefa->deslike($request->motivo);
+
+        return mensagemSucesso([], 201);
     }
 }

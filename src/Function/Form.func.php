@@ -1348,7 +1348,7 @@ if (!function_exists('formSwitch')) {
     function formSwitch(
         string $name,
         string $label,
-        bool $check,
+        bool $check = false,
         ?string $value = '',
         string $class = '',
         string $id = '',
@@ -1356,8 +1356,9 @@ if (!function_exists('formSwitch')) {
         string $html = '',
         array $attr = []
     ): string {
-        $checkHtml = $check ? 'checked' : '';
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
+        $value = true === $value || 'sim' == $value || 1 == $value ? 'sim' : 'nao';
+        $checkHtml = $value == 'sim' || $check ? 'checked' : '';
 
         $ajudaHtml = '';
         if ($ajuda) {
@@ -1612,7 +1613,7 @@ if (!function_exists('formImagem')) {
         $attrGaleria = '';
 
         if (!empty($value)) {
-            $value = arquivoPrivadoId($value);
+            $value = validarUrl($value) ? arquivoPrivadoId($value) : $value;
             $imagem = arquivoPrivado($value);
             $imagemCss = 'style="background-image: url(' . $imagem . ')"';
             $botaoDisplay = '';
@@ -1654,18 +1655,20 @@ if (!function_exists('formImagem')) {
         ';
     }
 }
-if (!function_exists('formArquivo')) {
+if (!function_exists('formArquivoLista')) {
     /**
-     * Gera um bloco de imagem
+     * Gera um bloco de arquivos em lista
      *
-     * @param   string          $diretorio      Diretório da imagem
-     * @param   null|string     $value          Valor do input
+     * @param   string|array    $name           Name do input
+     * @param   string          $diretorio      Diretório do arquivo
+     * @param   array           $value          Valor do input
      * @param   null|string     $class          Class para o bloco geral
      * @param   null|string     $id             ID para o bloco geral
      * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório
      * @return  string                          HTML com o código do bloco
      */
-    function formArquivo(
+    function formArquivoLista(
+        string $name,
         string $diretorio,
         array $value = [],
         ?string $class = null,
@@ -1674,27 +1677,65 @@ if (!function_exists('formArquivo')) {
     ) {
         $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
         $blocoClass = empty($class) ? '' : $class;
+        $arquivoListaHtml = '';
+        foreach ($value as $id) {
+            $arquivo = arquivoPrivadoDado($id);
+            if (!$arquivo) {
+                continue;
+            }
+            $eUmaImagem = in_array($arquivo->extensao, ['jpg', 'jpeg', 'png', 'gif', 'svg']);
+            $arquivoDownloadHtml = '';
+            if (!$eUmaImagem) {
+                $arquivoDownloadHtml = '
+                <a class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_download" href="https://docs.google.com/viewer?url=' . $arquivo->link . '" target="_blank" rel="noopener noreferrer">
+                    <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" style="enable-background:new 0 0 40 29.3;" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
+                </a>
+            ';
+            } else {
+                $arquivoDownloadHtml = '
+                    <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_download fw_imagem_visualizar">
+                        <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" style="enable-background:new 0 0 40 29.3;" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
+                    </i>
+                ';
+            }
+
+            $figureBg = $eUmaImagem ? 'style="background-image: url(' .  $arquivo->link . ')"' : '';
+            $figureExtensaoHtml = !$eUmaImagem ? '<p>' . $arquivo->extensao . '</p>' : '';
+
+            $attrGaleria = '';
+            $classGaleria = '';
+            if ($eUmaImagem) {
+                $classGaleria = 'fw_form_imagem_galeria';
+                $attrGaleria = 'data-galeria-imagem="' . $arquivo->link . '"';
+            }
+
+            $arquivoListaHtml .= '
+                <div class="fw_form_arquivo_lista_arquivo fw_arquivo_' . $id . ' ' . $classGaleria . '" ' . $attrGaleria . '>
+                    <input type="hidden" name="' . $name . '[]" value="' . $id . '">
+                    <figure ' . $figureBg . '>' . $figureExtensaoHtml . '</figure>
+                    ' . $arquivoDownloadHtml . '
+                    <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_remover">
+                        <svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg>
+                    </i>
+                    <p class="fw_form_arquivo_lista_arquivo_nome fw_arquivo_nome_' . $id . '">' . $arquivo->nome . '</p>
+                </div>
+            ';
+        }
+        $classZero = !empty($arquivoListaHtml) ? 'fw_arquivo_lista_hide' : '';
 
         if ($obrigatorio) {
             $blocoClass .= ' fw_form_input_obrigatorio';
         }
 
-        $listaArquivo = [];
-        foreach ($value as $arquivo) {
-            $listaArquivo .= '
-                <div class="fw_arquivo_item">
-                    <div class="fw_arquivo_item_icone fw_arquivo_item_baixar">' . iconeDownload() . '</div>
-                    <div class="fw_arquivo_item_icone fw_arquivo_item_deletar">' . iconeDeletar() . '</div>
-                    <div class="fw_arquivo_item_imagem"></div>
-                    <input type="text" class="fw_arquivo_item_nome" value="">
-                </div>
-            ';
-        }
-
         return '
-            <div class="fw_form fw_form_arquivo' . $blocoClass . '" id="' . $blocoId . '" data-diretorio="' . $diretorio . '">
-                <div class="fw_arquivo_add">Adicionar Arquivo</div>
-                <div class="fw_arquivo_lista">' . $listaArquivo . '</div>
+            <div class="fw_form fw_form_arquivo_lista ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '" data-diretorio="' . $diretorio . '">
+                <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_upload">
+                    <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
+                </i>
+                <div class="fw_form_arquivo_lista_lista">
+                    <div class="fw_form_arquivo_lista_zero ' . $classZero . '">Sem arquivos no momento</div>
+                    ' . $arquivoListaHtml . '
+                </div>
             </div>
         ';
     }

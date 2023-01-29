@@ -232,7 +232,7 @@ final class ClienteEntity extends Entity
     protected function regraUpdate()
     {
         $cpfAtual = $this->prop('documento');
-        if (!empty($cpfAtual) && $cpfAtual != $this->cpf->numero()) {
+        if (!empty($cpfAtual) && validarCpf($cpfAtual) && $cpfAtual != $this->cpf->numero()) {
             mensagemErro('Erro!', 'Você não pode mudar o CPF desse usuário.');
         }
         $this->validarCamposObrigatorioNoUpdate();

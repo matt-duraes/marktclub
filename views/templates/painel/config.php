@@ -1,7 +1,5 @@
 <?php
 
-use Helpers\ApiHelper;
-
 $appAcao = $acao ?? '';
 $appTitulo = $config->titulo ?? $appTitulo ?? '';
 $appVoltar = $appVoltar ?? '';
@@ -33,4 +31,22 @@ define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));
 define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));
+define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
 define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
+
+try {
+    $Api = new \Helpers\ApiHelper(token: true);
+    $notificacaoNova = $Api->json(['novo' => 'sim'])->get('/painel-notificacao')->object()->dado ?? [];
+    $notificacaoNumeroNova = $notificacaoNova->registro->total ?? 0;
+    $notificacaoNumeroNovaVisualizada = $Api->json(['clicado' => 'nao'])->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
+} catch (\Throwable) {
+}
+
+define('TRABALHO_INICIADO', sessao('TRABALHO.iniciado', padrao: false));
+define('TRABALHO_MINIMIZADO', sessao('TRABALHO.minimizado', padrao: false));
+define('TRABALHO_ID', sessao('TRABALHO.id', padrao: ''));
+define('TRABALHO_TAREFA', sessao('TRABALHO.tarefa', padrao: ''));
+define('TRABALHO_DEMANDA', sessao('TRABALHO.demanda', padrao: ''));
+define('TRABALHO_DATA', sessao('TRABALHO.data', padrao: ''));
+define('TRABALHO_TEMPO', sessao('TRABALHO.tempo', padrao: 0));
+define('TRABALHO_TOTAL', sessao('TRABALHO.total', padrao: 0));

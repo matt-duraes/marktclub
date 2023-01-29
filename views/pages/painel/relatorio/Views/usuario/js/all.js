@@ -4,6 +4,32 @@
 window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
 
+    const buscarGrafico = async () => {
+        const resposta = await fetch(LINK + '/relatorio/dado-usuario', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const json = await respostaJson(
+            resposta,
+            'Ocorreu um erro ao buscar gráficos, por favor, recarregue a página e tente novamente.'
+        );
+
+        if (false === json) {
+            return;
+        }
+        console.log(json);
+        carregarGraficoPorStatus(json.dado.status);
+        carregarGraficoPorEstado(json.dado.estado);
+        carregarGraficoRosca('Gênero', '#grafico_genero', json.dado.genero);
+        carregarGraficoRosca('Faixa etária', '#grafico_faixa_etaria', json.dado.faixa_etaria);
+        carregarGraficoRosca('Situação', '#grafico_situacao', json.dado.situacao);
+        carregarGraficoRosca('Estado Civil', '#grafico_estado_civil', json.dado.estado_civil);
+        carregarGraficoRosca('Sem atualizar dados', '#grafico_atualizar_dado', json.dado.atualizar_dado);
+    };
+    buscarGrafico();
+
     const blocoStatus = document.querySelector('#bloco_status');
     const blocoStatusScroll = document.querySelector('#bloco_status .scroll');
     let statusAtual = 1;
@@ -26,36 +52,13 @@ window.addEventListener('load', () => {
 
     /*
     |--------------------------------------------------------------------------
-    | CARREGAR GRÁFICO DE ESTADO
+    | GRAFICO POR STATUS
     |--------------------------------------------------------------------------
     */
     const graficoStatusTotal = document.querySelector('#grafico_status_total');
     const graficoStatusAtivo = document.querySelector('#grafico_status_ativo');
     const graficoStatusInativo = document.querySelector('#grafico_status_inativo');
     const graficoStatusBloqueado = document.querySelector('#grafico_status_bloqueado');
-
-    const buscarGraficoPorStatus = async () => {
-        const resposta = await fetch(LINK + `/relatorio/usuario-status`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
-
-        if (resposta.status != 200 || json.dado == undefined) {
-            return;
-        }
-
-        carregarGraficoPorStatus(json.dado);
-    };
-    buscarGraficoPorStatus();
     const carregarGraficoPorStatus = data => {
         graficoStatusTotal.querySelector('.numero').innerText = data.total.numero;
         graficoStatusAtivo.querySelector('.numero').innerText = data.ativo.numero;
@@ -75,31 +78,6 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const graficoEstado = document.querySelector('#grafico_estado');
-    const buscarGraficoPorEstado = async () => {
-        graficoEstado.classList.add('loading');
-        const resposta = await fetch(LINK + `/relatorio/usuario-estado`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
-
-        graficoEstado.classList.remove('loading');
-
-        if (resposta.status != 200 || json.dado == undefined) {
-            return;
-        }
-
-        carregarGraficoPorEstado(json.dado);
-    };
-    buscarGraficoPorEstado();
     const carregarGraficoPorEstado = data => {
         const loading = graficoEstado.querySelector('.loading_geral');
         if (loading) {
@@ -115,31 +93,6 @@ window.addEventListener('load', () => {
     | CARREGAR GRÁFICO DE ROSCA
     |--------------------------------------------------------------------------
     */
-    const buscarGraficoRosca = async (titulo, id, uri) => {
-        const bloco = document.querySelector(id);
-        bloco.classList.add('loading');
-
-        const resposta = await fetch(LINK + uri, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
-
-        bloco.classList.remove('loading');
-        if (resposta.status != 200 || json.dado == undefined) {
-            return;
-        }
-
-        carregarGraficoRosca(titulo, id, json.dado);
-    };
     const carregarGraficoRosca = (titulo, id, data) => {
         const loading = document.querySelector(id + ' .loading_geral');
         if (loading) {
@@ -149,10 +102,4 @@ window.addEventListener('load', () => {
         const Barra = new Grafico(id, 'porcentagem');
         Barra.titulo(titulo).dado(data.data).label(data.label).rosca();
     };
-
-    buscarGraficoRosca('Gênero', '#grafico_genero', '/relatorio/usuario-genero');
-    buscarGraficoRosca('Faixa etária', '#grafico_faixa_etaria', '/relatorio/usuario-faixa-etaria');
-    buscarGraficoRosca('Situação', '#grafico_situacao', '/relatorio/usuario-situacao');
-    buscarGraficoRosca('Estado Civil', '#grafico_estado_civil', '/relatorio/usuario-estado-civil');
-    buscarGraficoRosca('Sem atualizar dados', '#grafico_atualizar_dado', '/relatorio/usuario-atualizar-dado');
 });

@@ -26,7 +26,10 @@ final class HistoricoController extends Controller
             'relacionado' => [$request->relacionado],
             'app' => [$request->app],
             'acao' => 'mensagem',
-            'mensagem' => $request->mensagem
+            'mensagem' => $request->mensagem,
+            'notificar_titulo' => base64Decode($request->titulo),
+            'notificar_link' => base64Decode($request->link),
+            'notificar_equipe' => base64Decode($request->notificar)
         ])->post('/painel-historico')->object();
 
         if (existeErro($dado, 'dado')) {

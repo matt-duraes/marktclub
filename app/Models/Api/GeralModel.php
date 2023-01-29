@@ -4,9 +4,9 @@ namespace App\Models\Api;
 
 use ORM\ORM;
 use stdClass;
-use App\Models\Api\Interface\ListarInterface;
+use System\Interface\ModelListarInterface;
 
-abstract class GeralModel extends ORM implements ListarInterface
+abstract class GeralModel extends ORM implements ModelListarInterface
 {
     protected int $idEmpresa;
     protected ?int $idUsuario = null;

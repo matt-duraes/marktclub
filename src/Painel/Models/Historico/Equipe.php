@@ -29,8 +29,7 @@ final class Equipe
     {
         $Api = new \Helpers\ApiHelper(token: true);
         return $Api->json([
-            'pagina' => $pagina,
-            'quantidade' => 1
+            'pagina' => $pagina
         ])->get('/usuario-equipe')->object();
     }
 

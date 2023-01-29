@@ -71,7 +71,6 @@ final class DownloadEntity extends Entity
         $Email = new EmailHelper();
         $Email->mensagem(
             titulo: $titulo,
-            assunto: $titulo,
             mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, para desbloquear seu download, use o codigo abaixo:',
             codigo: $codigo,
             observacao: 'Esse é um e-mail privado, caso não tenha solicitado, delete-o e entre em contato com o Markt Club.'

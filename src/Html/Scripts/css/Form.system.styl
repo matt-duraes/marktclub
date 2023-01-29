@@ -735,6 +735,30 @@ body.fw_body_hidden
         background-color: #EEE
         margin: 20px 0 10px 0
 
+.form_geral
+    .row2
+    .row3
+    .row4
+        width: 100%
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+    .row2 .bloco_input
+    .row2 .bloco_input_select
+        width: calc(50% - 10px)
+    .row3 .bloco_input
+    .row3 .bloco_input_select
+        width: calc((100% / 3) - 10px)
+    .row4 .bloco_input
+    .row4 .bloco_input_select
+        width: calc(25% - 10px)
+    .row_livre
+        width: 100%
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        align-items: center
+
 #fw_form_cor
     width: 100%
     height: 100%
@@ -963,7 +987,6 @@ body.fw_body_hidden
         width: calc(100% - 20px)
         position: absolute
         left: 10px
-        bottom: 10px
         display: flex
         flex-direction: row
         z-index: 2
@@ -1001,6 +1024,9 @@ body.fw_body_hidden
     .fw_imagem_hide
         display: none !important
 
+.form_geral .fw_form_imagem.fw_form_tipo_quadrado
+    .fw_imagem_controle
+        top: 10px
 .form_geral .fw_form_imagem.fw_form_tipo_redondo
     .fw_imagem_conteudo
         border-radius: 50%
@@ -1013,10 +1039,92 @@ body.fw_body_hidden
         position: relative
         left: 0
         bottom: 0
-        margin-top: 20px
+        margin-top: 15px
         justify-content: center
     .fw_imagem_controle .fw_imagem_linha
         display: none
+
+// ARQUIVO LISTA
+.fw_form_arquivo_lista
+    width: 100%
+    background: #EEE
+    border: 20px solid #EEE
+    border-right: none
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    .fw_arquivo_lista_hide
+        display: none !important
+    .fw_form_arquivo_lista_icone
+        width: 35px
+        height: 35px
+        overflow: hidden
+        position: relative
+        fill: #FFF
+        background-color: #fff
+        box-shadow: 0 4px 5px rgba(0,0,0,.1)
+        border-radius: 3px
+        display: flex
+        justify-content: center
+        align-items: center
+        cursor: pointer
+        z-index: 2
+        &.fw_form_arquivo_lista_download
+            background-color: #00bcf2
+        &.fw_form_arquivo_lista_upload
+            background-color: #169e91
+        &.fw_form_arquivo_lista_remover
+            background-color: #FF6C60
+    .fw_form_arquivo_lista_lista
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+    .fw_form_arquivo_lista_lista .fw_form_arquivo_lista_zero
+        width: 100%
+        font-size: 1.8rem
+        padding: 60px 0 90px
+        text-align: center
+        color: #999
+    .fw_form_arquivo_lista_lista .fw_form_arquivo_lista_arquivo
+        width: 200px
+        flexCol()
+        position: relative
+        margin: 20px 20px 0 0
+        padding: 10px
+        boxShadow()
+        background: #FFF
+        border-radius: 5px
+    .fw_form_arquivo_lista_lista .fw_form_arquivo_lista_arquivo figure
+        width: 100%
+        height: 150px
+        position: relative
+        background-position: center center
+        background-size: cover
+        background-repeat: no-repeat
+        background-color: #DDD
+        display: flex
+        align-items: center
+        justify-content: center
+    .fw_form_arquivo_lista_lista .fw_form_arquivo_lista_arquivo figure p
+        font-size: 3rem
+        color: #999
+    .fw_form_arquivo_lista_lista .fw_form_arquivo_lista_arquivo .fw_form_arquivo_lista_icone
+        top: 10px
+        position: absolute
+        opacity: 0
+        transition: opacity .3s ease-out
+        &.fw_form_arquivo_lista_download
+            right: 60px
+        &.fw_form_arquivo_lista_remover
+            right: 10px
+    .fw_form_arquivo_lista_lista .fw_form_arquivo_lista_arquivo:hover .fw_form_arquivo_lista_icone
+        opacity: 1
+    .fw_form_arquivo_lista_lista .fw_form_arquivo_lista_arquivo .fw_form_arquivo_lista_arquivo_nome
+        width: 100%
+        texto()
+        text-align: center
+        color: #666
+        margin-top: 10px
 
 #fw_imagem_bloco_visualizar
     width: 100vw
