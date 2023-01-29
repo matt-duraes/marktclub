@@ -13,7 +13,7 @@ trait WhereTrait
         $this->validarData($de, $ate);
 
         return [
-            ['data_acesso', 'between', [$de, $ate]],
+            ['data_acesso', 'between', [$de . ' 00:00:00', $ate . ' 23:59:59']],
             ['id_admin_empresa', TOKEN['empresa']->get('id')]
         ];
     }
