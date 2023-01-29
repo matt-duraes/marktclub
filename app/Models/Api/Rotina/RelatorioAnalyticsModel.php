@@ -26,7 +26,7 @@ final class RelatorioAnalyticsModel extends ORM
     private function buscarTodosRegistros()
     {
         $this->lista = $this->where([
-            ['data_criacao', 'between', [$this->dataAcesso, $this->dataAcesso]]
+            ['data_criacao', 'between', [$this->dataAcesso . ' 00:00:00', $this->dataAcesso . ' 23:59:59']]
         ])->read();
     }
 
