@@ -2,13 +2,13 @@
 
 <div class="bloco_app_relatorio">
     <header>
-        <!-- <form action="/" class="form_geral">
+        <form style="height: 0 !important; overflow: hidden;" action="/" class="form_geral">
             <p id="bloco_relatorio_data">Últimos 7 dias</p>
             <input type="text" id="input_relatorio_data_de" readonly value="{!!$de!!}">
             <input type="text" id="input_relatorio_data_ate" readonly value="{!!$ate!!}">
             <i class="show" id="icone_calendario">@iconeCalendario</i>
             <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
-        </form> -->
+        </form>
     </header>
 
     <div class="lista">
