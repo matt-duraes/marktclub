@@ -37,7 +37,7 @@ final class UsuarioMaisAcessoModel extends ORM
             $total += $r->quantidade;
             if (!array_key_exists($r->id_usuario_cliente, $dado)) {
                 $dado[$r->id_usuario_cliente] = object([
-                    'parceiro_nome' => $r->parceiro_nome,
+                    'usuario_nome' => $r->usuario_nome,
                     'quantidade' => 0,
                 ]);
             }
