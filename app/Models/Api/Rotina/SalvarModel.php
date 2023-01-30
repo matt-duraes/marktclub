@@ -16,7 +16,7 @@ final class SalvarModel extends ORM
     public function salvar($data, $campo, $dado)
     {
         foreach ($dado as $indice) {
-            if ($this->naoPodeSalvar($data, $campo, $indice[$campo])) {
+            if ($this->naoPodeSalvar($data, $campo, $indice[$campo], $indice['id_admin_empresa'])) {
                 continue;
             }
             $this->dado($indice)->insert();
@@ -25,7 +25,7 @@ final class SalvarModel extends ORM
 
     public function salvarDia($data, $dado)
     {
-        if ($this->naoPodeSalvar($data, 'id_admin_empresa', $dado['id_admin_empresa'])) {
+        if ($this->naoPodeSalvar($data, 'id_admin_empresa', $dado['id_admin_empresa'], $dado['id_admin_empresa'])) {
             return;
         }
         $this->dado($dado)->insert();
@@ -36,11 +36,12 @@ final class SalvarModel extends ORM
         $this->dado($dado)->insert();
     }
 
-    private function naoPodeSalvar($data, $campo, $valor)
+    private function naoPodeSalvar($data, $campo, $valor, $idEmpresa)
     {
         return $this->existe([
             [$campo, $valor],
-            ['data_acesso', $data]
+            ['data_acesso', $data],
+            ['id_admin_empresa', $idEmpresa]
         ]);
     }
 }
