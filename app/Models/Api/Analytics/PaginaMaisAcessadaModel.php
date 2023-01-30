@@ -24,7 +24,6 @@ final class PaginaMaisAcessadaModel extends ORM
             ->campo(['quantidade', 'url'])
             ->where($this->pegarWherePadrao())
             ->order('quantidade', 'DESC')
-            ->limit(0, 20)
             ->read();
 
         return $this->montarDado($lista);
@@ -36,14 +35,37 @@ final class PaginaMaisAcessadaModel extends ORM
         $total = 0;
         foreach ($lista as $r) {
             $total += $r->quantidade;
+            if (!array_key_exists($r->url, $dado)) {
+                $dado[$r->url] = object([
+                    'url' => $r->url,
+                    'quantidade' => 0,
+                ]);
+            }
+            $dado[$r->url]->quantidade += $r->quantidade;
         }
-        foreach ($lista as $r) {
-            $dado[] = [
+
+        usort($dado, function ($a, $b) {
+            $a = $a->quantidade;
+            $b = $b->quantidade;
+            if ($a == $b) {
+                return 0;
+            }
+            return $a < $b ? 1 : -1;
+        });
+
+        $retorno = [];
+        $i = 1;
+        foreach ($dado as $r) {
+            $retorno[] = [
                 'pagina' => empty($r->url) ? '/' : $r->url,
                 'total' => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
+            if ($i >= 20) {
+                break;
+            }
+            $i++;
         }
-        return $dado;
+        return $retorno;
     }
 }
