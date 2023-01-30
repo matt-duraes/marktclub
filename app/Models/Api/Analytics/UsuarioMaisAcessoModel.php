@@ -21,10 +21,9 @@ final class UsuarioMaisAcessoModel extends ORM
     public function listarDado(): array
     {
         $lista = $this
-            ->campo(['quantidade', 'usuario_nome'])
+            ->campo(['quantidade', 'usuario_nome', 'id_usuario_cliente'])
             ->where($this->pegarWherePadrao())
             ->order('quantidade', 'DESC')
-            ->limit(0, 20)
             ->read();
 
         return $this->montarDado($lista);
@@ -36,14 +35,37 @@ final class UsuarioMaisAcessoModel extends ORM
         $total = 0;
         foreach ($lista as $r) {
             $total += $r->quantidade;
+            if (!array_key_exists($r->id_usuario_cliente, $dado)) {
+                $dado[$r->id_usuario_cliente] = object([
+                    'parceiro_nome' => $r->parceiro_nome,
+                    'quantidade' => 0,
+                ]);
+            }
+            $dado[$r->id_usuario_cliente]->quantidade += $r->quantidade;
         }
-        foreach ($lista as $r) {
-            $dado[] = [
+
+        usort($dado, function ($a, $b) {
+            $a = $a->quantidade;
+            $b = $b->quantidade;
+            if ($a == $b) {
+                return 0;
+            }
+            return $a < $b ? 1 : -1;
+        });
+
+        $retorno = [];
+        $i = 1;
+        foreach ($dado as $r) {
+            $retorno[] = [
                 'usuario' => $r->usuario_nome,
                 'total' => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
+            if ($i >= 20) {
+                break;
+            }
+            $i++;
         }
-        return $dado;
+        return $retorno;
     }
 }

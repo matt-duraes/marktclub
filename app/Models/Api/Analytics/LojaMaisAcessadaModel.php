@@ -21,10 +21,9 @@ final class LojaMaisAcessadaModel extends ORM
     public function listarDado(): array
     {
         $lista = $this
-            ->campo(['quantidade', 'parceiro_nome'])
+            ->campo(['quantidade', 'parceiro_nome', 'id_parceiro_loja'])
             ->where($this->pegarWherePadrao())
             ->order('quantidade', 'DESC')
-            ->limit(0, 20)
             ->read();
 
         return $this->montarDado($lista);
@@ -36,14 +35,37 @@ final class LojaMaisAcessadaModel extends ORM
         $total = 0;
         foreach ($lista as $r) {
             $total += $r->quantidade;
+            if (!array_key_exists($r->id_parceiro_loja, $dado)) {
+                $dado[$r->id_parceiro_loja] = object([
+                    'parceiro_nome' => $r->parceiro_nome,
+                    'quantidade' => 0,
+                ]);
+            }
+            $dado[$r->id_parceiro_loja]->quantidade += $r->quantidade;
         }
-        foreach ($lista as $r) {
-            $dado[] = [
+
+        usort($dado, function ($a, $b) {
+            $a = $a->quantidade;
+            $b = $b->quantidade;
+            if ($a == $b) {
+                return 0;
+            }
+            return $a < $b ? 1 : -1;
+        });
+
+        $retorno = [];
+        $i = 1;
+        foreach ($dado as $r) {
+            $retorno[] = [
                 'loja' => $r->parceiro_nome,
                 'total' => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
+            if ($i >= 20) {
+                break;
+            }
+            $i++;
         }
-        return $dado;
+        return $retorno;
     }
 }
