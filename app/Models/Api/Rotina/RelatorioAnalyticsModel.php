@@ -36,7 +36,6 @@ final class RelatorioAnalyticsModel extends ORM
 
         $analyticsUnico = [];
         $analytics = [];
-        // ppe($this->lista);
         foreach ($this->lista as $r) {
             // Extrutura inicial
             if (!array_key_exists($r->empresa, $analytics)) {
@@ -65,7 +64,7 @@ final class RelatorioAnalyticsModel extends ORM
             }
 
             // Convenio
-            $eConvenio = !empty($r->vinculo) && str_starts_with($r->url, '/convenios');
+            $eConvenio = !empty($r->vinculo) && (str_starts_with($r->url, '/convenios') || str_starts_with($r->url, '/parceiro'));
             if ($eConvenio && !array_key_exists($r->vinculo, $analytics[$r->empresa]['loja'])) {
                 $analytics[$r->empresa]['loja'][$r->vinculo] = [
                     'id_admin_empresa' => $r->empresa,
@@ -140,7 +139,6 @@ final class RelatorioAnalyticsModel extends ORM
                 $analytics[$r->empresa]['navegador'][$r->browser]['quantidade']++;
             }
         }
-
         $this->analytics = $analytics;
     }
 
