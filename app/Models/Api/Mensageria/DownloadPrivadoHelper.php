@@ -2,6 +2,8 @@
 
 namespace App\Models\Api\Mensageria;
 
+use Modules\Botao;
+
 final class DownloadPrivadoHelper implements MensageriaInterface
 {
     private string $app;
@@ -23,17 +25,18 @@ final class DownloadPrivadoHelper implements MensageriaInterface
     }
     public function pegarScopeEnvio(): string
     {
-        return LINK_API . $this->dado[$this->app]['scope'] ?? '';
+        return $this->dado[$this->app]['scope'] ?? '';
     }
-    public function tratarPayload(): array
+    public function pegarPayload(): array
     {
         $payload = $this->payload;
         unset($payload['app']);
         unset($payload['usuario']);
         return $payload;
     }
-    public function pegarUsuario(): string
+
+    public function vaiUsarApi(): Botao
     {
-        return $this->payload['usuario'] ?? '';
+        return new Botao('sim');
     }
 }

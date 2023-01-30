@@ -1,6 +1,7 @@
 <?php
 
 use Route\Route;
+use Painel\Relatorio\Controllers\RelatorioController;
 
 Route
     ::middleware(
@@ -13,7 +14,7 @@ Route
         action: 'validar',
         parametro: ['relatorio_acesso_index']
     )
-    ::controller(Painel\Relatorio\Controllers\RelatorioController::class)
+    ::controller(RelatorioController::class)
     ::nome('relatorio_acesso')
     ::grupo(function () {
         Route
@@ -47,7 +48,7 @@ Route
         action: 'validar',
         parametro: ['relatorio_usuario_index']
     )
-    ::controller(Painel\Relatorio\Controllers\RelatorioController::class)
+    ::controller(RelatorioController::class)
     ::nome('relatorio_usuario')
     ::grupo(function () {
         Route
@@ -57,4 +58,22 @@ Route
         Route
             ::nome('dadoUsuario')
             ::get('/relatorio/dado-usuario');
+    });
+
+Route
+    ::middleware(
+        classe: App\Middlewares\AuthMiddleware::class,
+        action: 'logado',
+        parametro: [Painel\Login\Models\RelogarUsuarioModel::class, 'fazerLogin']
+    )
+    ::controller(RelatorioController::class)
+    ::nome('relatorio_venda')
+    ::grupo(function () {
+        Route
+            ::nome('venda')
+            ::view('/relatorio/venda');
+
+        Route
+            ::nome('vendaBuscar')
+            ::get('/relatorio/venda-buscar');
     });

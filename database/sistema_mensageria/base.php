@@ -13,5 +13,5 @@ return (new \DataBase\DataBase())
     ->int('status_resposta')->tamanho(3)->null()
     ->text('envio_link')
     ->int('envio_api')->tamanho(1)->null()
-    ->varchar('envio_scope')->tamanho(50)->null()
+    ->varchar('envio_scope')->tamanho(100)->null()
     ->status()->null();

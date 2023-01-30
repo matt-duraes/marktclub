@@ -1,0 +1,8 @@
+@template "painel"
+
+<div class="bloco_app_relatorio">
+
+    <div class="lista">
+    </div>
+
+</div>
