@@ -113,7 +113,7 @@ window.addEventListener('load', () => {
             Alerta.notificacao(
                 `
                     Pedido de download realizado com sucesso, assim que o arquivo estiver
-                    pronto para download, iremos notifica-lo.
+                    pronto para download, iremos notificá-lo.
                 `,
                 true
             );

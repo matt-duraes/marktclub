@@ -358,7 +358,6 @@ final class AppController extends PadraoController
         ];
 
         $payload = (new CryptHelper(chavePublica: $this->pegarChavePublica([1])))->encode($payload);
-        ppe($payload);
 
         $Api = new ApiHelper(token: true);
         $dado = $Api
@@ -366,9 +365,8 @@ final class AppController extends PadraoController
                 'payload' => $payload,
                 'tipo' => 'download.privado'
             ])
-            ->post('/admin/mensageria')
+            ->post('/mensageria')
             ->object();
-
 
         return mensagemSucesso([
             'id' => $dado->dado->id
