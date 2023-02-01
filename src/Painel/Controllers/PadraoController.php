@@ -347,7 +347,7 @@ abstract class PadraoController extends Controller
     private function pegarAppUsado($app, $tipo)
     {
         if (file_exists(ROOT . '/views/pages/painel/' . $app . '/Views/' . $tipo . '/index.view')) {
-            return $app . '';
+            return $app;
         }
         return 'default';
     }

@@ -11,13 +11,14 @@ final class MensageriaEntity extends Entity
 {
     protected string $_tabela = TABELA_SISTEMA_MENSAGERIA;
 
-    protected array $_insert = ['tipo', 'payload', 'envio_link', 'envio_api', 'envio_scope', 'data_enviar_apos'];
+    protected array $_insert = ['tipo', 'payload', 'envio_uri', 'envio_metodo', 'envio_api', 'envio_scope', 'data_enviar_apos'];
     protected array $_update = ['data_envio', 'quantidade_envio', 'status_resposta'];
     protected array $_salvar = ['status'];
-    protected array $_buscar = ['envio_link', 'envio_api', 'envio_scope', 'data_enviar_apos'];
+    protected array $_buscar = ['envio_uri', 'envio_api', 'envio_scope', 'data_enviar_apos'];
 
     private MensageriaInterface $Mensageria;
-    public string $envio_link;
+    public string $envio_uri;
+    public string $envio_metodo;
     public Botao $envio_api;
     public string $envio_scope;
     public Status $status;
@@ -47,9 +48,10 @@ final class MensageriaEntity extends Entity
         if ($this->dataEnvio instanceof DataHora && $this->dataEnvio->valido()) {
             $this->data_enviar_apos = $this->dataEnvio;
         }
-        $this->envio_link = $this->Mensageria->pegarLinkEnvio();
+        $this->envio_uri = $this->Mensageria->pegarLinkEnvio();
         $this->envio_api = $this->Mensageria->vaiUsarApi();
         $this->envio_scope = $this->Mensageria->pegarScopeEnvio();
+        $this->envio_metodo = $this->Mensageria->pegarMetodoEnvio();
         $this->status = new Status(1);
     }
 }

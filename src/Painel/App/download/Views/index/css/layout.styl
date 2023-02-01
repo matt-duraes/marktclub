@@ -1,0 +1,81 @@
+@system "Form"
+@system "Resetar"
+@system "Loading"
+@system "Alerta"
+@resource "painel/mixin"
+@resource "painel/variavel"
+
+body
+    font-size: 62.5%
+    font-family: 'Roboto', sans-serif
+
+.display_none
+    display: none !important
+
+#site
+    width: 100%
+    flexCol()
+
+#site .bloco_geral
+    width: 100%
+    flexCol()
+    align-items: center
+    padding: 50px 20px
+    h1
+        font-size: 3rem
+    > i
+        width: 80px
+        height: 80px
+        border: 1px solid #CCC
+        border-radius: 50%
+        flexCenter()
+        margin: 20px 0
+    > p
+        max-width: 400px
+        line-height: 1.5em
+        color: #666
+        font-size: 1.7rem
+        text-align: center
+    form
+        flexCenter()
+        margin-top: 20px
+    form input
+        font-size: 1.7rem
+    form .botao
+        height: 43px
+        line-height: 43px
+        bgDegradeVerde()
+        border-radius: 4px
+        color: #FFF
+        margin: 9px 0 0 20px
+        padding: 0 20px
+        font-size: 1.4rem
+        cursor: pointer
+    a
+        height: 50px
+        line-height: 50px
+        bgDegradeVerde()
+        padding-right: 20px
+        margin-top: 50px
+        border-radius: 4px
+        flexRow()
+        flexCenter()
+    a i
+        width: 50px
+        height: 50px
+        flexCenter()
+        fill: #FFF
+        margin-left: 5px
+    a p
+        font-size: 1.7rem
+        color: #FFF
+
+#site .bloco_geral.bloqueado
+    > i
+        fill: $corVermelho
+        border-color: $corVermelho
+
+#site .bloco_geral.liberado
+    > i
+        fill: $corVerde
+        border-color: $corVerde

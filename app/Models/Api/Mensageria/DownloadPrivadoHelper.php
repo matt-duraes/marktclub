@@ -10,7 +10,8 @@ final class DownloadPrivadoHelper implements MensageriaInterface
     private array $dado = [
         'usuario_cliente' => [
             'uri' => '/usuario-cliente/download',
-            'scope' => 'usuario_cliente:download'
+            'scope' => 'usuario_cliente:download',
+            'metodo' => 'POST'
         ]
     ];
 
@@ -21,11 +22,15 @@ final class DownloadPrivadoHelper implements MensageriaInterface
     }
     public function pegarLinkEnvio(): string
     {
-        return LINK_API . $this->dado[$this->app]['uri'] ?? '';
+        return $this->dado[$this->app]['uri'] ?? '';
     }
     public function pegarScopeEnvio(): string
     {
         return $this->dado[$this->app]['scope'] ?? '';
+    }
+    public function pegarMetodoEnvio(): string
+    {
+        return $this->dado[$this->app]['metodo'] ?? '';
     }
     public function pegarPayload(): array
     {

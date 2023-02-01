@@ -7,12 +7,12 @@
         <div id="bloco_notificacao_nova" class="bloco_nova display_none">
             <h2>Novas</h2>
             @ foreach( $notificacaoNova->lista ?? [] as $notificacaoR):
-            <a class="item {{$notificacaoR->status}}" data-id="{{$notificacaoR->id}}" href="{{LINK}}/notificacao/{{$notificacaoR->id}}">
-                <figure style="background-image: url({{$notificacaoR->dono->imagem}})"></figure>
+            <a class="item {{$notificacaoR->status}}" target="{{$notificacaoR->target}}" {{$notificacaoR->rel}} data-id="{{$notificacaoR->id}}" href="{{LINK}}/notificacao/{{$notificacaoR->id}}">
+                <figure style="background-image: url({{$notificacaoR->imagem}})"></figure>
                 <div class="dado">
-                    <strong>{{$notificacaoR->dono->nome}}</strong>
-                    <p>{{$notificacaoR->titulo}}</p>
-                    <div class="data" data-ajuda="{{dataHoraBr($notificacaoR->data_criacao)}}">{{dataSocial($notificacaoR->data_criacao)}}</div>
+                    <strong>{{$notificacaoR->nome}}</strong>
+                    <p>{{$notificacaoR->mensagem}}</p>
+                    <div class="data" data-ajuda="{{$notificacaoR->data_real}}">{{$notificacaoR->data_social}}</div>
                 </div>
                 <div class="bola"></div>
             </a>

@@ -96,6 +96,8 @@ window.addEventListener('load', () => {
                         item.mensagem,
                         item.data_social,
                         item.data_real,
+                        item.target,
+                        item.rel,
                         item.status
                     )
                 );
@@ -104,9 +106,9 @@ window.addEventListener('load', () => {
         });
     };
 
-    const montarHtml = (id, nome, imagem, mensagem, dataSocial, dataReal, status) => {
+    const montarHtml = (id, nome, imagem, mensagem, dataSocial, dataReal, target, rel, status) => {
         return `
-            <a class="item item_novo ${status}" href="${LINK}/notificacao/${id}">
+            <a class="item item_novo ${status}" target="${target}" ${rel} href="${LINK}/notificacao/${id}">
                 <figure style="background-image: url(${imagem})"></figure>
                 <div class="dado">
                     <strong>${nome}</strong>

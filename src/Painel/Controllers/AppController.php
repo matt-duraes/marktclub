@@ -351,11 +351,15 @@ final class AppController extends PadraoController
         $payload = [
             'campo' => $request->campo,
             'pesquisa' => !$request->vazio('pesquisa') ? base64Decode($request->pesquisa, 'pesquisa') : '',
-            'ordem' => !$request->vazio('ordem') ? base64Decode($request->pesquisa, 'ordem') : '',
-            'filtro' => !$request->vazio('filtro') ? base64Decode($request->pesquisa, 'filtro') : '',
+            'ordem' => !$request->vazio('ordem') ? base64Decode($request->ordem, 'ordem') : '',
             'app' => $appReal,
             'usuario' => sessao('USUARIO.id')
         ];
+
+        $filtro = !$request->vazio('filtro') ? base64Decode($request->filtro, 'filtro') : [];
+        foreach ($filtro as $ind => $val) {
+            $payload[$ind] = $val;
+        }
 
         $payload = (new CryptHelper(chavePublica: $this->pegarChavePublica([1])))->encode($payload);
 

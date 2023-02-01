@@ -8,6 +8,7 @@ use PainelController\HistoricoController;
 use PainelApp\login\Controllers\LoginController;
 use PainelApp\agenda\Controllers\AgendaController;
 use PainelApp\perfil\Controllers\PerfilController;
+use PainelApp\download\Controllers\DownloadController;
 
 Route
     ::middleware(
@@ -334,7 +335,25 @@ Route
             ::delete('/historico/{id}');
     }, true)
 
-    // HISTORICO
+    // DOWNLOAD PRIVADO
+    ::controller(DownloadController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::_rotaNaoUnica()
+            ::view('/download-privado/{id}');
+        Route
+            ::nome('download')
+            ::_rotaNaoUnica()
+            ::view('/download-privado/download/{id}');
+        Route
+            ::nome('validar')
+            ::_rotaNaoUnica()
+            ::request(['senha'])
+            ::post('/download-privado/{id}');
+    }, true)
+
+    // NOTIFICACAO
     ::controller(PainelController\NotificacaoController::class)
     ::grupo(function () {
         Route

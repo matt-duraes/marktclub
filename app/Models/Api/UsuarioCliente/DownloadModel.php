@@ -45,7 +45,8 @@ final class DownloadModel extends GeralModel
         $Log = new LogDownloadEntity(
             app: 'usuario_cliente',
             request: $this->request->dado(),
-            quantidade: count($dado)
+            quantidade: count($dado),
+            usuario: $this->request->usuario
         );
         try {
             $Log->salvar();

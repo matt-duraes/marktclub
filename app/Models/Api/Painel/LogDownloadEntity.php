@@ -3,6 +3,7 @@
 namespace App\Models\Api\Painel;
 
 use ORM\Entity;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
 final class LogDownloadEntity extends Entity
 {
@@ -12,10 +13,14 @@ final class LogDownloadEntity extends Entity
     private int $idEmpresa;
     private int $idUsuario;
 
+    protected int $id_admin_empresa;
+    protected int $id_usuario_equipe;
+
     public function __construct(
         protected string $app,
         protected array $request,
-        protected int $quantidade
+        protected int $quantidade,
+        protected ?string $usuario = null
     ) {
         parent::__construct();
 
@@ -24,7 +29,7 @@ final class LogDownloadEntity extends Entity
         }
 
         $this->idEmpresa = TOKEN['empresa']->get('id');
-        $this->idUsuario = TOKEN['usuario']->get('id');
+        $this->idUsuario = $this->pegarIdUsuario($usuario);
 
         $this->_wherePadrao = ['id_admin_empresa', $this->idEmpresa];
     }
@@ -33,5 +38,17 @@ final class LogDownloadEntity extends Entity
     {
         $this->id_admin_empresa = $this->idEmpresa;
         $this->id_usuario_equipe = $this->idUsuario;
+    }
+
+    private function pegarIdUsuario(?string $usuario)
+    {
+        try {
+            $Equipe = new EquipeEntity(validarToken: false);
+            $Equipe->id($usuario);
+
+            return $Equipe->get('id');
+        } catch (\Throwable) {
+            mensagemErro('Erro!', 'Usuário não encontrado.', status: 404);
+        }
     }
 }

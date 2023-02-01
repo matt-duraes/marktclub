@@ -24,6 +24,15 @@ Route
             ::view('/download-restrito/download/{id}/{codigo}');
     });
 
+Route::nome('downloadSistema')
+    ::controller(App\Controllers\Api\DownloadSistemaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::get('/download-privado/{id}');
+    });
+
 Route
     ::nome('documentacao')
     ::controller(App\Controllers\Api\DocumentacaoController::class)
@@ -93,6 +102,20 @@ Route
             ::view('/documentacao/sair');
     });
 
+Route::nome('usuario_cliente_download')
+    ::controller(App\Controllers\Api\UsuarioClienteController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
+            ::request([
+                'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
+                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente'
+            ])
+            ::post('/usuario-cliente/download');
+    });
+
 Route::nome('usuario_cliente')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -106,15 +129,6 @@ Route::nome('usuario_cliente')
                 '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem', '!origem', '!dependente'
             ], 'json')
             ::get('/usuario-cliente');
-        Route
-            ::nome('download')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
-            ::middleware(TokenMiddleware::class, 'login')
-            ::request([
-                'campo', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente'
-            ])
-            ::post('/usuario-cliente/download');
 
         Route
             ::nome('buscar')

@@ -40,9 +40,9 @@ trait SalvarTrait
         }
 
         if (is_array($salvar) && array_key_exists('id', $salvar)) {
+            $this->_id($salvar['id']);
             $this->ormAcaoPosSalvar($acao);
             $this->ormDeletarArquivos($deletarArquivo);
-            $this->_id($salvar['id']);
             $this->_diff = $dado['salvar'];
             return $this;
         }

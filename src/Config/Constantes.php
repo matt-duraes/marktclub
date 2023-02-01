@@ -16,7 +16,7 @@ final class Constantes
             str_replace(
                 '{{ROOT}}',
                 ROOT,
-                env('DIRETORIO_PRIVADO', '/{{ROOT}}/files/diretorio/privado')
+                env('DIRETORIO_PRIVADO', '/{{ROOT}}/files/arquivo_privado')
             )
         );
         define(
@@ -24,7 +24,7 @@ final class Constantes
             str_replace(
                 '{{ROOT}}',
                 ROOT,
-                env('DIRETORIO_PUBLICO', '/{{ROOT}/files/diretorio/publico')
+                env('DIRETORIO_PUBLICO', '/{{ROOT}/files/arquivo_publico')
             )
         );
         define('CONTENT_TYPE', $this->contentType());

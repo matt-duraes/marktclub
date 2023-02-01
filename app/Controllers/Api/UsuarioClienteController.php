@@ -14,6 +14,7 @@ use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\UsuarioCliente\DownloadModel;
 use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioClienteController extends Controller implements
@@ -51,7 +52,15 @@ final class UsuarioClienteController extends Controller implements
         $Usuario = new DownloadModel($request);
         $dado = $Usuario->download();
 
-        return mensagemSucesso($dado, status: 201, criptografar: Helper::CRIPTOGRAFAR);
+        $Download = new ArquivoEntity(
+            $dado,
+            $request->usuario
+        );
+        $Download->salvar();
+
+        return mensagemSucesso([
+            'id' => $Download->id
+        ], status: 201);
     }
 
     public function postSalvar(Request $request)

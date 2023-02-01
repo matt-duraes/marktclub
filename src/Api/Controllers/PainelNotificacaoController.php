@@ -34,7 +34,9 @@ final class PainelNotificacaoController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Notificacao,
-                lista: ['id', 'dono', 'titulo', 'mensagem', 'link', 'botao', 'status']
+                lista: [
+                    'id', 'dono', 'titulo', 'mensagem', 'link', 'botao', 'target', 'status'
+                ]
             )
         );
     }
