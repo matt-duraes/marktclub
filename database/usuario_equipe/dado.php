@@ -8,12 +8,13 @@ $permissao = json_encode([
     'usuario_indicacao_index', 'usuario_indicacao_visualizar', 'usuario_indicacao_status',
     'usuario_grupo_index', 'usuario_grupo_add', 'usuario_grupo_editar', 'usuario_grupo_deletar',
     'tabela_usuario_salvar', 'tabela_usuario_bloquear',
-    'relatorio_usuario_index', 'relatorio_acesso_index',
+    'relatorio_usuario_index', 'relatorio_acesso_index', 'relatorio_loja_venda',
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar',
     'solicitacao_salavip_index', 'solicitacao_salavip_download',
     'api_app_index', 'api_app_add', 'api_app_editar', 'api_app_deletar',
     'api_usuario_index', 'api_usuario_add', 'api_usuario_editar', 'api_usuario_deletar',
-    'ponto_cvs_index', 'ponto_cvs_add', 'ponto_cvs_editar', 'ponto_cvs_visualizar'
+    'ponto_cvs_index', 'ponto_cvs_add', 'ponto_cvs_editar', 'ponto_cvs_visualizar',
+    'demanda_quadro'
 ]);
 
 return [

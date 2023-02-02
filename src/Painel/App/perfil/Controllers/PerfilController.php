@@ -38,10 +38,10 @@ final class PerfilController extends Controller
 
         $id = sessao('USUARIO.id');
         $Api = new ApiHelper(token: true);
-        $usuario = $Api->get('/usuario-equipe/' . $id)->array();
-        if (existeErro($usuario, 'dado')) {
-            mensagemStatus(404, localhost: 'Não foi encontrado o usuário');
-        }
+        $usuario = $Api
+            ->validar('Erro ao buscar dados do seu perfil.')
+            ->get('/usuario-equipe/' . $id)
+            ->array();
 
         return view(arquivo: 'perfil.dado', var: [
             'appTitulo' => 'Atualizar Dados',
@@ -100,21 +100,18 @@ final class PerfilController extends Controller
                 'email_pessoal' => $request->email_pessoal,
                 'telefone_trabalho' => soNumero($request->telefone_trabalho),
                 'telefone_pessoal' => soNumero($request->telefone_pessoal),
+                'perfil' => $request->perfil
             ],
-            lista: ['nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal'],
+            lista: ['nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'perfil'],
             chave: $chave
         );
 
-        $salvar = $Api->body($dado)->put('/usuario-equipe/' . $id);
-        if ($salvar->status() == 204) {
-            return new Response(status: 204);
-        }
+        $Api
+            ->validar('Ocorreu um erro ao atualizar seus dados, por favor, tente novamente.')
+            ->body($dado)
+            ->put('/usuario-equipe/' . $id);
 
-        $salvar = $salvar->object();
-        return mensagemErro(
-            $salvar->erro->titulo ?? 'Erro!',
-            $salvar->erro->mensagem ?? 'Ocorreu um erro ao validar sua senha.'
-        );
+        return new Response(status: 204);
     }
 
     public function senha(): Response

@@ -27,6 +27,13 @@ final class RelatorioController extends Controller
             'ate' => date('d/m/Y'),
         ]);
     }
+    public function lojaVenda()
+    {
+        return view(arquivo: 'painel.relatorio.venda', var: [
+            'appTitulo' => 'Relatório de venda',
+            'app' => 'relatorio-loja-venda'
+        ]);
+    }
 
     /*
     |--------------------------------------------------------------------------

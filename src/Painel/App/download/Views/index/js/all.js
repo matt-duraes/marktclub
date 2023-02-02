@@ -10,6 +10,8 @@ window.addEventListener('load', () => {
     const inputSenha = document.getElementById('input_senha');
     const botaoSenha = document.getElementById('botao_validar_senha');
 
+    inputSenha.value = '';
+
     botaoSenha.addEventListener('click', e => {
         enviarValidacao();
     });

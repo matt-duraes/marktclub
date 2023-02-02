@@ -1210,7 +1210,6 @@ if (!function_exists('formTextarea')) {
     // doc
     // exemplo
     // echo formTextarea name:textarea,label:Textarea,placeholder:Digite_uma_mensagem
-    // echo formTextarea name:textareaenter,label:Textarea_sem_enter,placeholder:Aperte_shift_enter_para_quebrar_linha,enter:false
     /**
      * Gera um textarea padrão
      *

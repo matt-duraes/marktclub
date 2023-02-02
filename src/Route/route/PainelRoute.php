@@ -87,7 +87,7 @@ Route
             ::action('dado')
             ::request([
                 'nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho',
-                'telefone_pessoal'
+                'telefone_pessoal', 'perfil'
             ])
             ::post('/perfil/dado');
 

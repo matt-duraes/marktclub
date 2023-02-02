@@ -383,7 +383,7 @@ Route
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!imagem_facebook',
-                '!imagem_google', '!imagem_arquivo', '!id_facebook', '!id_google'
+                '!imagem_google', '!imagem_arquivo', '!id_facebook', '!id_google', '!perfil'
             ])
             ::put('/usuario-equipe/{id}');
 

@@ -70,8 +70,8 @@ Route
     ::nome('relatorio_venda')
     ::grupo(function () {
         Route
-            ::nome('venda')
-            ::view('/relatorio/venda');
+            ::nome('lojaVenda')
+            ::view('/relatorio/loja-venda');
 
         Route
             ::nome('vendaBuscar')

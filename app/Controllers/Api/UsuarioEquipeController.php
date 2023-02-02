@@ -56,8 +56,9 @@ final class UsuarioEquipeController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Usuario,
                 lista: [
-                    'id', 'nome', 'cpf', 'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal',
-                    'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'status', 'permissao', 'imagem'
+                    'id', 'perfil', 'nome', 'cpf', 'email_trabalho', 'email_pessoal', 'telefone_trabalho',
+                    'telefone_pessoal', 'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'status',
+                    'permissao', 'imagem'
                 ],
             ),
             status: $status,
