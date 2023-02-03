@@ -2,8 +2,9 @@
 
 return [
     'titulo' => 'Relatório dos parceiros',
-    'buscar' => true,
+    'buscar' => false,
     'filtrar' => true,
+    'ordem' => true,
     'add' => true,
     'editar' => true,
     'deletar' => true,

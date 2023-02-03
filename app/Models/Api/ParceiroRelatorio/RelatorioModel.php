@@ -7,6 +7,7 @@ use stdClass;
 use Http\Request;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\ParceiroRelatorio\Ordem;
 
 final class RelatorioModel extends ORM
 {
@@ -29,6 +30,7 @@ final class RelatorioModel extends ORM
             ->campo(['uuid', 'data_relatorio'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order(new Ordem($this->request->ordem))
             ->tabela(TABELA_PARCEIRO_NOVO)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
@@ -67,8 +69,34 @@ final class RelatorioModel extends ORM
 
     private function pegarWhere(): array
     {
-        return [
+        $where = [
             ['id_admin_empresa', $this->idEmpresa]
         ];
+
+        $de = $this->converterData($this->request->data_relatorio_de);
+        $ate = $this->converterData($this->request->data_relatorio_ate);
+
+        if (validarDate($de) && validarDate($ate)) {
+            $where[] = ['data_relatorio', 'between', [$de, $ate . ' 23:59:59']];
+        } else if (validarDate($de)) {
+            $where[] = ['data_relatorio', '>=', $de];
+        } else if (validarDate($ate)) {
+            $where[] = ['data_relatorio', '<=', $ate];
+        }
+        return $where;
+    }
+
+    private function converterData($data)
+    {
+        if (empty($data)) {
+            return '';
+        }
+
+        $data = explode('-', $data);
+        if (count($data) != 3) {
+            return $data;
+        }
+
+        return $data[0] . '-' . $data[1] . '-01';
     }
 }

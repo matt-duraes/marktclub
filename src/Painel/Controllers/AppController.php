@@ -8,7 +8,6 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
-use PainelModel\Download\DownloadModel;
 
 final class AppController extends PadraoController
 {
