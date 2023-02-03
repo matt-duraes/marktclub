@@ -31,7 +31,9 @@ final class RelatorioController extends Controller
     {
         return view(arquivo: 'painel.relatorio.venda', var: [
             'appTitulo' => 'Relatório de venda',
-            'app' => 'relatorio-loja-venda'
+            'app' => 'relatorio-loja-venda',
+            'de' => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
+            'ate' => '01/' . date('m/Y'),
         ]);
     }
 

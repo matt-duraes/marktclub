@@ -421,6 +421,11 @@ Route::nome('relatorio')
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('lojaVenda')
+            ::request(['de', 'ate'], 'json')
+            ::get('/relatorio/loja-venda');
+
+        Route
             ::nome('dadoUsuario')
             ::get('/relatorio/dado-usuario');
 
