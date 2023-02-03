@@ -422,7 +422,7 @@ Route::nome('relatorio')
     ::grupo(function () {
         Route
             ::nome('lojaVenda')
-            ::request(['de', 'ate'], 'json')
+            ::request(['quantidade'], 'json')
             ::get('/relatorio/loja-venda');
 
         Route
@@ -646,6 +646,40 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
             ::get('/solicitacao-voucher/{id}');
+    });
+
+Route
+    ::nome('parceiro_relatorio')
+    ::controller(App\Controllers\Api\ParceiroRelatorioController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:listar'])
+            ::request(['pagina', '!ordem', '!data_relatorio_de', '!data_relatorio_ate'], 'json')
+            ::get('/parceiro-relatorio');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:buscar'])
+            ::get('/parceiro-relatorio/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:salvar'])
+            ::request(['empresa', 'parceiro', 'numero_transacao', 'valor_venda', 'data_relatorio'])
+            ::post('/parceiro-relatorio');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:atualizar'])
+            ::request(['!empresa', '!parceiro', '!numero_transacao', '!valor_venda', '!data_relatorio'])
+            ::put('/parceiro-relatorio/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:deletar'])
+            ::delete('/parceiro-relatorio/{id}');
     });
 
 Route

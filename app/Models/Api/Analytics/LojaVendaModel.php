@@ -11,22 +11,25 @@ final class LojaVendaModel extends ORM
     protected string $_tabela = TABELA_ANALYTICS_LOJA_VENDA;
 
     private int $idEmpresa;
+    private Data $de;
+    private Data $ate;
+
     public function __construct(
-        protected Data $de,
-        protected Data $ate
+        private int $quantidade
     ) {
-        $this->idEmpresa = TOKEN['empresa']->get('id');
         parent::__construct();
+
+        if ($quantidade == 1) {
+            mensagemErro('Campo inválido!', 'A quantidade de meses deve ser maior que 1.');
+        }
+        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->pegarDataBusca();
     }
 
     public function listarDados(): array
     {
         $de = $this->converterData($this->de->date());
         $ate = $this->converterData($this->ate->date());
-
-        if ($de == $ate) {
-            mensagemErro('Campos inválidos!', 'Você deve passar dois meses diferentes para o relatório.');
-        }
 
         $dado = $this
             ->campo(['id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'])
@@ -39,6 +42,7 @@ final class LojaVendaModel extends ORM
             ->campo(['titulo'], 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
+
         if (!$dado) {
             return [];
         }
@@ -55,6 +59,20 @@ final class LojaVendaModel extends ORM
         ];
     }
 
+    private function pegarDataBusca()
+    {
+        $mesInicial = date('Y-m') . '-01';
+        $inicio = 0;
+        $final = $this->quantidade;
+        if (!$this->existe(['data_relatorio', $mesInicial])) {
+            $inicio = 1;
+            $final++;
+        }
+
+        $this->de = new Data(dataRemover($mesInicial, $final, 'mes'));
+        $this->ate = new Data(dataRemover($mesInicial, $inicio, 'mes'));
+    }
+
     private function montarRelatorioPorMes($lista)
     {
         $de = $this->converterData($this->de->date());
@@ -63,7 +81,7 @@ final class LojaVendaModel extends ORM
         $Data = new DataHelper();
         $dado = [];
 
-        for ($i = 0; $i < 12; $i++) {
+        for ($i = 0; $i < 13; $i++) {
             $data = $Data->valor($de)->adicionar($i, 'mes')->formato('Y-m-d');
             $dado[$data] = object([
                 'data' => $Data->valor($data)->formato('m/Y'),
@@ -84,8 +102,7 @@ final class LojaVendaModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             if (!empty($r->valor) && !empty($r->venda)) {
-                $r->ticket = number_format($r->valor / $r->venda, 2, ',', '.');
-                $r->valor = number_format($r->valor, 2, ',', '.');
+                $r->ticket = number_format($r->valor / $r->venda, 2, '.', '');
             }
             $retorno[] = $r;
         }

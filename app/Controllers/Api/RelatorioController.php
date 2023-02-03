@@ -21,11 +21,7 @@ final class RelatorioController extends Controller
 {
     public function getLojaVenda(Request $request)
     {
-        $this->validarData($request);
-        $Relatorio = new LojaVendaModel(
-            new Data($request->de),
-            new Data($request->ate)
-        );
+        $Relatorio = new LojaVendaModel($request->quantidade);
         $dado = $Relatorio->listarDados();
 
         return mensagemSucesso($dado);

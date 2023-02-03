@@ -3,42 +3,11 @@
 
 window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
-    const inputDe = document.querySelector('#input_relatorio_data_de');
-    const inputAte = document.querySelector('#input_relatorio_data_ate');
-    const textoData = document.querySelector('#bloco_relatorio_data');
-    const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
-    const iconeCalendario = document.querySelector('#icone_calendario');
-    let dataInicial = inputDe.value;
-    let dataFinal = inputAte.value;
-
-    const listaMes = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-    const adicionarData = () => {
-        const de = inputDe.value.split('/');
-        const ate = inputAte.value.split('/');
-        if (de.length == 0 || ate.length == 0) {
-            textoData.innerText = 'Últimos 6 meses';
-        } else if (de.length != 3 || ate.length != 3) {
-            textoData.innerText = '';
-            return;
-        }
-
-        textoData.innerText = `${de[0]} ${listaMes[parseInt(de[1]) - 1]} ${de[2]} até ${ate[0]} ${
-            listaMes[parseInt(ate[1]) - 1]
-        } ${ate[2]}`;
-
-        if (dataInicial != inputDe.value || dataFinal != inputAte.value) {
-            botaoBuscar.classList.add('show');
-            iconeCalendario.classList.remove('show');
-            return;
-        }
-        botaoBuscar.classList.remove('show');
-        iconeCalendario.classList.add('show');
-    };
-    Calendario.init({
-        de: 'input_relatorio_data_de',
-        ate: 'input_relatorio_data_ate',
-        callback: adicionarData,
-    });
+    const inputQuantidade = document.getElementById('input_quantidade');
+    const botaoBuscar = document.getElementById('botao_buscar_relatorio');
+    const graficoMes = document.getElementById('grafico_mes');
+    const graficoLojaValor = document.querySelector('#lista_loja_valor .fw_grafico_bloco_lista');
+    const graficoLojaTicket = document.querySelector('#lista_loja_tiket .fw_grafico_bloco_lista');
 
     /*
     |--------------------------------------------------------------------------
@@ -46,10 +15,57 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     botaoBuscar.addEventListener('click', () => {
-        dataInicial = inputDe.value;
-        dataFinal = inputAte.value;
-
-        botaoBuscar.classList.remove('show');
-        iconeCalendario.classList.add('show');
+        buscarRelatorio();
     });
+    const buscarRelatorio = async () => {
+        graficoMes.classList.add('loading');
+        graficoLojaValor.classList.add('loading');
+        graficoLojaTicket.classList.add('loading');
+
+        const resposta = await fetch(LINK + `/relatorio/loja-venda-buscar?quantidade=${inputQuantidade.value}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        graficoMes.classList.remove('loading');
+        graficoLojaValor.classList.remove('loading');
+        graficoLojaTicket.classList.remove('loading');
+
+        const json = await respostaJson(resposta, 'Erro ao buscar relatório, por favor, tente novamente.');
+        if (false === json) {
+            return;
+        }
+
+        carregarAcessoPorMes(json.dado.mes);
+        carregarLista(json.dado.venda, graficoLojaValor, 'loja');
+        carregarLista(json.dado.ticket, graficoLojaTicket, 'loja');
+    };
+    buscarRelatorio();
+
+    const carregarAcessoPorMes = data => {
+        const loading = graficoMes.querySelector('.loading_geral');
+        if (loading) {
+            loading.parentNode.removeChild(loading);
+        }
+
+        const Linha = new Grafico('#grafico_mes');
+        Linha.titulo('Dados por mês').dado(data.data).label(data.label).linha();
+    };
+
+    const carregarLista = (data, bloco, local) => {
+        let html = `<div class="scroll">`;
+        data.forEach(item => {
+            html += `
+                <div class="linha">
+                    <div class="item">${item[local]}</div>
+                    <div class="porcentagem"><span style="width: ${item.porcentagem}%"></span></div>
+                    <div class="valor"><span>(${item.porcentagem}%)</span>${item.total}</div>
+                </div>
+            `;
+        });
+        html += `</div>`;
+        bloco.innerHTML = html;
+    };
 });

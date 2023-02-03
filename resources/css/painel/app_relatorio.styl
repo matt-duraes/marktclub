@@ -7,25 +7,19 @@
         display: flex
         flex-direction: row
         justify-content: flex-end
-        padding: 20px 30px 0 20px
+        padding: 20px 30px 0 0
     header form
         position: relative
         background: #FFF
         border-radius: 5px
         box-shadow: 0 4px 5px rgba(0,0,0,.1)
         display: flex
+        padding: 10px
         flex-direction: row
-    header form input
-        width: 290px
-        height: 50px
-        position: absolute
-        top: 0
-        left: 0
-        padding-left: 20px
-        border-radius: 5px 0 0 5px
-        font-size: 1.4rem
-        z-index: 4
-        opacity: 0
+    header form.form_geral .bloco_input
+        width: auto
+        margin-top: 0
+        margin-bottom: 0
     header form input#input_relatorio_data_ate
         z-index: 1
     header form p
@@ -40,12 +34,7 @@
     header form i
         width: 50px
         height: 50px
-        position: absolute
-        top: 0
-        right: 0
-        display: none
-        align-items: center
-        justify-content: center
+        flexCenter()
         fill: #333
         background-color: #CCC
         border-radius: 0 5px 5px 0

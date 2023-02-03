@@ -167,4 +167,27 @@ final class RelatorioController extends Controller
             'situacao' => $Montar->montarPizza($dado->dado->situacao->lista, 'situacao'),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | VENDA LOJA
+    |--------------------------------------------------------------------------
+    */
+    public function getLojaVendaBuscar(Request $request)
+    {
+        $dado = (new ApiHelper(token: true))
+            ->validar('Ocorre um erro ao buscar o relatório, por favor, tente novamente.')
+            ->json(['quantidade' => $request->quantidade])
+            ->get('/relatorio/loja-venda')
+            ->object();
+
+        $Montar = new MontarRelatorioModel();
+        $mes = $Montar->montarLinha($dado->dado->venda_mes, 'data', ['valor' => 'Valor total', 'ticket' => 'Ticket médio', 'venda' => 'Quantidade de vendas']);
+
+        return mensagemSucesso([
+            'mes' => $mes,
+            'venda' => $dado->dado->venda_loja,
+            'ticket' => $dado->dado->ticket_loja,
+        ]);
+    }
 }

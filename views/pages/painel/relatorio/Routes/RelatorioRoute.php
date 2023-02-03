@@ -74,6 +74,7 @@ Route
             ::view('/relatorio/loja-venda');
 
         Route
-            ::nome('vendaBuscar')
-            ::get('/relatorio/venda-buscar');
+            ::nome('lojaVendaBuscar')
+            ::request(['quantidade'])
+            ::get('/relatorio/loja-venda-buscar');
     });
