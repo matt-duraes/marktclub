@@ -69,9 +69,7 @@ final class RelatorioModel extends ORM
 
     private function pegarWhere(): array
     {
-        $where = [
-            ['id_admin_empresa', $this->idEmpresa]
-        ];
+        $where = [];
 
         $de = $this->converterData($this->request->data_relatorio_de);
         $ate = $this->converterData($this->request->data_relatorio_ate);

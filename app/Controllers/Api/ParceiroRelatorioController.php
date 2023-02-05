@@ -41,11 +41,8 @@ final class ParceiroRelatorioController extends Controller implements
 
     public function postSalvar(Request $request)
     {
-        $Empresa = new EmpresaEntity();
-        $Empresa->id($request->empresa, mensagem: 'Não foi encontrado uma empresa por esse código.');
-
-        $Parceiro = new ParceiroEntity();
-        $Parceiro->id($request->parceiro, mensagem: 'Não foi encontrado um parceiro por esse código.');
+        $Empresa = $this->pegarEmpresa($request->empresa);
+        $Parceiro = $this->pegarParceiro($request->parceiro);
 
         $Relatorio = new RelatorioEntity(
             Empresa: $Empresa,
@@ -54,6 +51,7 @@ final class ParceiroRelatorioController extends Controller implements
             valor_venda: new Dinheiro($request->valor_venda),
             data_relatorio: new Data($request->data_relatorio)
         );
+
         $Relatorio->salvar();
 
         return mensagemSucesso($this->pegarDadoRetorno($Relatorio), status: 201);
@@ -69,10 +67,34 @@ final class ParceiroRelatorioController extends Controller implements
     {
         $Relatorio = new RelatorioEntity();
         $Relatorio->id($id);
-        $Relatorio->set(lista: $request->dado());
+
+        $dado = $request->dado();
+        if (!$request->vazio('empresa')) {
+            $Relatorio->Empresa = $this->pegarEmpresa($request->empresa);
+            unset($dado['empresa']);
+        }
+        if (!$request->vazio('parceiro')) {
+            $Relatorio->Parceiro = $this->pegarParceiro($request->parceiro);
+            unset($dado['parceiro']);
+        }
+
+        $Relatorio->set(lista: $dado);
         $Relatorio->salvar();
 
         return new Response(status: 204);
+    }
+
+    private function pegarEmpresa(?string $empresa)
+    {
+        $Empresa = new EmpresaEntity();
+        $Empresa->id($empresa, mensagem: 'Não foi encontrado uma empresa por esse código.', titulo: 'teste');
+        return $Empresa;
+    }
+    private function pegarParceiro(?string $parceiro)
+    {
+        $Parceiro = new ParceiroEntity();
+        $Parceiro->id($parceiro, mensagem: 'Não foi encontrado um parceiro por esse código.');
+        return $Parceiro;
     }
 
     public function deleteDeletar(string $id)
