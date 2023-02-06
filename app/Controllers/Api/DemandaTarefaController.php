@@ -20,12 +20,13 @@ final class DemandaTarefaController extends Controller implements
 {
     public function postSalvar(Request $request)
     {
+        $minuto = $request->vazio('minuto_producao_estimada') ? null : $request->minuto_producao_estimada;
         $Tarefa = new TarefaEntity(
             demanda: $request->demanda,
             titulo: $request->titulo,
             texto: $request->_POST('texto', html: false),
             tipo: new Tipo($request->tipo),
-            minuto_producao_estimada: $request->minuto_producao_estimada,
+            minuto_producao_estimada: $minuto,
             equipe: $request->equipe
         );
         $Tarefa->salvar();

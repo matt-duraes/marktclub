@@ -36,8 +36,8 @@ final class DemandaModel extends ORM
             ->where($this->montarWhere())
             ->order($this->ordem)
             ->tabela(TABELA_DEMANDA_TAREFA)
-            ->join('id_demanda_dado', 'id')
-            ->campo(['id_usuario_equipe', 'tipo'], 'tarefa')
+            ->leftJoin('id_demanda_dado', 'id')
+            ->campo(['id', 'id_usuario_equipe', 'tipo'], 'tarefa')
             ->read();
 
         return $this->montarRetorno($lista);
@@ -79,19 +79,23 @@ final class DemandaModel extends ORM
             $area = (new Area($r->tarefa_tipo))->indice();
 
             if (in_array($r->id, $demandaJaExiste)) {
-                $retorno[$r->id]['tarefa']++;
+                if (!empty($r->tarefa_id)) {
+                    $retorno[$r->id]['tarefa']++;
+                }
                 $equipe = $this->pegarUsuarioEquipe($r->tarefa_id_usuario_equipe);
                 if (!empty($equipe->id) && !in_array($r->id . $r->tarefa_id_usuario_equipe, $equipeJaExiste)) {
                     $retorno[$r->id]['equipe'][] = $equipe;
                     $equipeJaExiste[] = $r->id . $r->tarefa_id_usuario_equipe;
                 }
-                if (!in_array($r->id . $area, $areaJaExiste)) {
+                if (!empty($area) && !in_array($r->id . $area, $areaJaExiste)) {
                     $retorno[$r->id]['area'][] = $area;
                     $areaJaExiste[] = $r->id . $area;
                 }
                 continue;
             }
-            $areaJaExiste[] = $r->id . $area;
+            if (!empty($area)) {
+                $areaJaExiste[] = $r->id . $area;
+            }
             $demandaJaExiste[] = $r->id;
 
             $dono = $this->pegarUsuarioEquipe($r->id_usuario_equipe);
@@ -105,8 +109,8 @@ final class DemandaModel extends ORM
                 'dono' => $dono,
                 'empresa' => $this->pegarEmpresa($r->id_admin_empresa),
                 'equipe' => !empty($equipe->id) ? [$equipe] : [],
-                'tarefa' => 1,
-                'area' => [$area],
+                'tarefa' => !empty($r->tarefa_id) ? 1 : 0,
+                'area' => !empty($area) ? [$area] : [],
                 'titulo' => $r->titulo,
                 'tipo' => (new Tipo($r->tipo))->indice(),
                 'status' => (new Status($r->status))->indice()
