@@ -1,12 +1,33 @@
 .bloco_noticia_texto p
 .bloco_noticia_texto i
-.bloco_noticia_texto strong
+.bloco_noticia_texto u
 .bloco_noticia_texto b
-.bloco_noticia_texto ul li
+.bloco_noticia_texto li
+.bloco_noticia_texto span
     texto()
+    font-weight: 300
+.bloco_noticia_texto a
+    texto()
+    color: $corAzul
+    font-weight: bold
+    text-decoration: underline
+.bloco_noticia_texto strong
+    texto()
+    font-weight: bold
 .bloco_noticia_texto p
     margin: 10px 0
 .bloco_noticia_texto ul
     list-style: circle
     list-style-position: inside
+    margin: 20px 0
+.bloco_noticia_texto ol
+    list-style: decimal
+    list-style-position: inside
+    margin: 20px 0
+.bloco_noticia_texto li
     margin: 10px 0
+.bloco_noticia_texto .bloco_observacao
+    margin: 20px 0
+    padding: 5px 20px
+    border-left: 4px solid #e2d44c
+    background-color: #eee
