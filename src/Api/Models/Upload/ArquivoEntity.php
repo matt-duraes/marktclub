@@ -39,7 +39,7 @@ final class ArquivoEntity extends Entity
     public string $extensao;
     public int $altura;
     public int $largura;
-    public string $privado;
+    public ?string $privado;
     public string $link;
 
     public function __construct(
