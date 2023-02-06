@@ -84,9 +84,17 @@ final class LeadEntity extends Entity
     public Status $status;
     public TrabalhoEmpresa $trabalho_empresa;
     public TrabalhoCargo $trabalho_cargo;
-    public DataHora $data_criacao;
     public Origem $origem;
     public Cnpj $cnpj_trabalho;
+    public string $contrato_siape;
+    public string $siape;
+    public string $rg;
+    public string $endereco_logradouro;
+    public string $endereco_complemento;
+    public string $endereco_bairro;
+    public string $endereco_cidade;
+    public int|string $endereco_numero;
+    public int $id_admin_empresa;
 
     private bool $usuarioAprovado = false;
     private bool $usuarioRecusado = false;

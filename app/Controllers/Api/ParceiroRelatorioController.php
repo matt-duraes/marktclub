@@ -41,6 +41,12 @@ final class ParceiroRelatorioController extends Controller implements
 
     public function postSalvar(Request $request)
     {
+        $request
+            ->vazio('empresa', mensagem: 'O campo empresa é obrigatório.')
+            ->vazio('parceiro', mensagem: 'O campo parceiro é obrigatório.')
+            ->vazio('data_relatorio', mensagem: 'O campo data do relatório é obrigatório.')
+            ->validarData('data_relatorio', mensagem: 'O campo data do relatório é inválida.');
+
         $Empresa = $this->pegarEmpresa($request->empresa);
         $Parceiro = $this->pegarParceiro($request->parceiro);
 
@@ -69,11 +75,11 @@ final class ParceiroRelatorioController extends Controller implements
         $Relatorio->id($id);
 
         $dado = $request->dado();
-        if (!$request->vazio('empresa')) {
+        if ($request->existe('empresa')) {
             $Relatorio->Empresa = $this->pegarEmpresa($request->empresa);
             unset($dado['empresa']);
         }
-        if (!$request->vazio('parceiro')) {
+        if ($request->existe('parceiro')) {
             $Relatorio->Parceiro = $this->pegarParceiro($request->parceiro);
             unset($dado['parceiro']);
         }
@@ -87,7 +93,7 @@ final class ParceiroRelatorioController extends Controller implements
     private function pegarEmpresa(?string $empresa)
     {
         $Empresa = new EmpresaEntity();
-        $Empresa->id($empresa, mensagem: 'Não foi encontrado uma empresa por esse código.', titulo: 'teste');
+        $Empresa->id($empresa, mensagem: 'Não foi encontrado uma empresa por esse código.');
         return $Empresa;
     }
     private function pegarParceiro(?string $parceiro)
