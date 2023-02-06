@@ -35,7 +35,6 @@ final class HistoricoEntity extends GeralEntity
     ';
 
     public int $id_usuario_equipe;
-    public DataHora $data_criacao;
     public string $mensagem;
     public array $relacionado;
     public array $app;
