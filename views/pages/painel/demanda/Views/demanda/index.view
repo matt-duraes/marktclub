@@ -99,7 +99,7 @@
                     @ if( $tarefa->status == 'concluida' && !empty($tarefa->data_producao_final) ):
                     <div class="item">
                         <span>Finalizado:</span>
-                        <p>10/10/2010</p>
+                        <p>{{dataBr($tarefa->data_producao_final)}}</p>
                     </div>
                     @ endif;
                 </div>
