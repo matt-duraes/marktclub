@@ -1,6 +1,8 @@
 window.addEventListener('load', () => {
-    inputLogin.value = '';
-    inputSenha.value = '';
+    setTimeout(() => {
+        inputLogin.value = '';
+        inputSenha.value = '';
+    }, 100);
 
     const pegarCaptchaParaLogin = () => {
         const textoBotao = botaoLogin.innerText;

@@ -7,10 +7,7 @@ $empresa = (new ApiHelper(token: true))
     ->get('/admin-empresa/select')
     ->array()['dado'] ?? [];
 
-$parceiro = [
-    '' => 'Escolha um parceiro',
-    '890713a200a9e45aa85e2ae67aa41e74' => 'Sala Vip Anafe'
-];
+$parceiro = require "parceiro.php";
 
 $Painel = new PainelConfig\Add('parceiro_relatorio');
 
