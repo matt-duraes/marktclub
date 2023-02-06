@@ -10,7 +10,9 @@ window.addEventListener('load', () => {
     const inputSenha = document.getElementById('input_senha');
     const botaoSenha = document.getElementById('botao_validar_senha');
 
-    inputSenha.value = '';
+    setTimeout(() => {
+        inputSenha.value = '';
+    }, 100);
 
     botaoSenha.addEventListener('click', e => {
         enviarValidacao();
