@@ -61,6 +61,8 @@ final class Config
             $action = isset($explode[2]) && !empty($explode[2]) ? $explode[2] : 'index';
         }
 
+        define('ROTA_USO', $rota);
+
         $this->rota = $rota;
         $this->controller = !empty($controller) ? $controller : 'index';
         $this->action = !empty($action) ? $action : 'index';
