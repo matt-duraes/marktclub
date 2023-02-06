@@ -1,0 +1,37 @@
+@template "painel"
+
+<div class="bloco_app_relatorio">
+    <header>
+        <form action="/" class="form_geral">
+            @? formSelect(name: 'quantidade', label: '', placeholder: 'Quantidade de meses', value: 6, lista: [3 => 'Últimos 3 meses', 6 => 'Últimos 6 meses', 9 => 'Últimos 9 meses', 12 => 'Últimos 12 meses'])
+            <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
+        </form>
+    </header>
+
+    <div class="lista">
+        <div id="grafico_mes" class="fw_grafico fw_grafico_grande">
+            <div class="fw_grafico_titulo">Dados por mês</div>
+            <div class="loading_geral">
+                <p>Carregando grafico</p>
+            </div>
+        </div>
+
+        <div id="lista_loja_valor" class="fw_grafico fw_grafico_medio">
+            <div class="fw_grafico_titulo">Valor por loja</div>
+            <div class="fw_grafico_bloco_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+        <div id="lista_loja_tiket" class="fw_grafico fw_grafico_medio">
+            <div class="fw_grafico_titulo">Ticket médio por loja</div>
+            <div class="fw_grafico_bloco_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

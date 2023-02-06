@@ -27,6 +27,15 @@ final class RelatorioController extends Controller
             'ate' => date('d/m/Y'),
         ]);
     }
+    public function lojaVenda()
+    {
+        return view(arquivo: 'painel.relatorio.venda', var: [
+            'appTitulo' => 'Relatório de venda',
+            'app' => 'relatorio-loja-venda',
+            'de' => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
+            'ate' => '01/' . date('m/Y'),
+        ]);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -156,6 +165,29 @@ final class RelatorioController extends Controller
             'atualizar_dado' => $Montar->montarPizza($dado->dado->atualizar_dado->lista, 'tempo'),
             'estado_civil' => $Montar->montarPizza($dado->dado->estado_civil->lista, 'estado_civil'),
             'situacao' => $Montar->montarPizza($dado->dado->situacao->lista, 'situacao'),
+        ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | VENDA LOJA
+    |--------------------------------------------------------------------------
+    */
+    public function getLojaVendaBuscar(Request $request)
+    {
+        $dado = (new ApiHelper(token: true))
+            ->validar('Ocorre um erro ao buscar o relatório, por favor, tente novamente.')
+            ->json(['quantidade' => $request->quantidade])
+            ->get('/relatorio/loja-venda')
+            ->object();
+
+        $Montar = new MontarRelatorioModel();
+        $mes = $Montar->montarLinha($dado->dado->venda_mes, 'data', ['valor' => 'Valor total', 'ticket' => 'Ticket médio', 'venda' => 'Quantidade de vendas']);
+
+        return mensagemSucesso([
+            'mes' => $mes,
+            'venda' => $dado->dado->venda_loja,
+            'ticket' => $dado->dado->ticket_loja,
         ]);
     }
 }

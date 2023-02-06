@@ -1,4 +1,7 @@
 window.addEventListener('load', () => {
+    inputLogin.value = '';
+    inputSenha.value = '';
+
     const pegarCaptchaParaLogin = () => {
         const textoBotao = botaoLogin.innerText;
         if (textoBotao == 'AGUARDE') {
@@ -57,8 +60,7 @@ window.addEventListener('load', () => {
 
         Loading.form(blocoLogin, botaoLogin).hide();
         Alerta.notificacao(
-            json.erro != undefined ?
-            json.erro.mensagem : 'Erro ao fazer seu login, por favor, tente novamente.',
+            json.erro != undefined ? json.erro.mensagem : 'Erro ao fazer seu login, por favor, tente novamente.',
             false
         );
     };

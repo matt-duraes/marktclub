@@ -10,6 +10,7 @@
 
     @? painelColuna('auto');
         @php painelFieldset('Dados pessoais')
+            @? formInput(name:'perfil', label: 'Perfil', placeholder: 'Nome de perfil', value: $usuario['perfil'], obrigatorio: true, class: 'bloco_input_perfil', ajuda: 'Apenas letras minúsculas (a-z), números (0-9) e ponto (.), ele também deve começar com uma letra (a-z) e não pode terminar com ponto (.).')
             @? formInput(name:'nome', label: 'Nome', placeholder: 'Digite seu nome', value: $usuario['nome'], obrigatorio: true)
             @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Digite a sua data de nascimento', value: $usuario['data_nascimento'])
             @? formSelect(name: 'genero', label: 'Gênero', placeholder: 'Escolha seu gênero', value: $usuario['genero'], lista: $genero)

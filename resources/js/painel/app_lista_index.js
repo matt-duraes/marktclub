@@ -113,12 +113,15 @@ window.addEventListener('load', () => {
             Alerta.notificacao(
                 `
                     Pedido de download realizado com sucesso, assim que o arquivo estiver
-                    pronto para download, iremos notifica-lo.
+                    pronto para download, iremos notificá-lo.
                 `,
                 true
             );
             blocoSenha.value = '';
             blocoTermo.checked = false;
+            lista.forEach(item => {
+                item.checked = false;
+            });
         });
     };
 
@@ -141,55 +144,6 @@ window.addEventListener('load', () => {
         });
     }
 
-    // const buscarDadosParaDownload = async botao => {
-    //     const lista = document.querySelectorAll('#bloco_app_download .input_download input:checked');
-    //     if (lista.length == 0) {
-    //         Alerta.notificacao('Você tem que escolher pelo menos 1 item para continuar.', false);
-    //         return;
-    //     }
-
-    //     botao.classList.add('aguarde');
-
-    //     const body = new FormData();
-    //     lista.forEach(input => {
-    //         body.append('campo[]', input.value);
-    //     });
-    //     body.append('pesquisa', pesquisaAtual);
-    //     body.append('filtro', filtroAtual);
-    //     body.append('ordem', ordemAtual);
-
-    //     const resposta = await fetch(LINK + '/app/download/' + APP, {
-    //         method: 'POST',
-    //         body,
-    //     });
-
-    //     let json;
-    //     try {
-    //         json = await resposta.json();
-    //     } catch (error) {
-    //         json = {};
-    //     }
-
-    //     botao.classList.remove('aguarde');
-
-    //     if (resposta.status == 201 && json.dado.link != undefined) {
-    //         montarDownload(json.dado);
-    //         return;
-    //     }
-    //     Alerta.notificacao(
-    //         json.erro.mensagem != undefined
-    //             ? json.erro.mensagem
-    //             : 'Erro ao fazer o download, por favor, tente novamente.',
-    //         false
-    //     );
-    // };
-    // const montarDownload = dado => {
-    //     document.querySelector('#bloco_download_resultado').classList.add('display_flex');
-    //     document.querySelector('#bloco_download_checkbox').classList.add('display_none');
-    //     document.querySelector('#bloco_download_footer').classList.add('display_none');
-    //     const botao = document.querySelector('#botao_download_final');
-    //     botao.setAttribute('href', dado.link);
-    // };
     const marcarDesmarcarTodosDownload = botaoTodos => {
         let valor = false;
         if (botaoTodos.checked) {

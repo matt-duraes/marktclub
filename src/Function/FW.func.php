@@ -575,10 +575,13 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
                 continue;
             }
             $valor = $Entity->$nome;
-            if ($valor instanceof \Status\StatusInterface) {
+
+            if ($valor instanceof \ORM\Entity) {
+                $campo = strCaixaBaixa($campo);
+                $valor = $valor->id;
+            } else if ($valor instanceof \Status\StatusInterface) {
                 $valor = $valor->indice();
-            }
-            if ($valor instanceof \Modules\Email) {
+            } else if ($valor instanceof \Modules\Email) {
                 $valor = $valor->email();
             } elseif ($valor instanceof \Modules\Data) {
                 $valor = $valor->date();

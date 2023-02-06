@@ -43,7 +43,6 @@ final class ExcelHelper
      */
     public function titulo(array $titulo): self
     {
-        $this->titulo = true;
         $this->dado[] = WriterEntityFactory::createRowFromArray($titulo, $this->styleTitulo());
         return $this;
     }
@@ -60,12 +59,25 @@ final class ExcelHelper
         return $this;
     }
 
+    public function salvar(?string $nome = null): void
+    {
+        if (empty($nome)) {
+            $nome = md5(uniqid(time()));
+        }
+
+        $nome = preg_replace(['/\.(xlsx|xls)$/', '/^\//'], ['', ''], $nome) . '.xlsx';
+        $writer = $this->Writer;
+        $writer->openToFile(preg_replace('/\/$/', '', $this->path) . '/' . $nome);
+        $writer->addRows($this->dado);
+        $writer->close();
+    }
+
     /**
      * Gera a planilha e força o download
      *
      * @param string $nome Nome do arquivo
      */
-    public function download(string $nome = ''): void
+    public function download(?string $nome = null): void
     {
         if (empty($nome)) {
             $nome = md5(uniqid(time()));

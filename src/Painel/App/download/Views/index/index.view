@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Privado</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
+
+<div id="site">
+    <section id="bloco_login" class="bloco_geral bloqueado">
+        <h1>DOWNLOAD PRIVADO</h1>
+        <i>@iconeBloquear(40)</i>
+        <p>
+            Esse é um download privado que foi solicitado por {{sessao('USUARIO.nome')}},
+            para continuar com o download, digite sua senha.
+        </p>
+
+        <form action="/" class="form_geral" id="form_senha">
+            <input type="hidden" id="input_download" value="{{$download}}">
+            @? formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha')
+            <div class="botao" id="botao_validar_senha">VALIDAR</div>
+        </form>
+    </section>
+</div>
+
+<form action="/">
+    <input type="hidden" id="LINK" value="{!!LINK!!}">
+</form>
+
+@JS
+
+</body>
+</html>

@@ -31,7 +31,7 @@ final class AcessoDiaModel extends ORM
             ]
         ];
 
-        for ($i = 0; $i < 366; $i++) {
+        for ($i = 0; $i < 367; $i++) {
             $data = dataAdicionar($de, $i, 'dia', 'd/m/Y');
             $dado[$data] = [
                 'data' => $data,

@@ -40,6 +40,8 @@ abstract class Entity extends ORM
     use MudouTrait;
 
     public string $id = '';
+    public ?DataHora $data_criacao = null;
+    public ?DataHora $data_atualizacao = null;
 
     private array $_relacionado = [];
 
@@ -72,9 +74,6 @@ abstract class Entity extends ORM
     private array $_propriedadeSetada = [];
 
     protected bool $entityExiste = false;
-
-    public DataHora $data_criacao;
-    public DataHora $data_atualizacao;
 
     protected $_campoBanco = [];
 

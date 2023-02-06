@@ -34,7 +34,10 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $lista = $this
-            ->campo(['uuid', 'id_usuario_dono', 'titulo', 'mensagem', 'link', 'botao', 'data_criacao', 'status'])
+            ->campo([
+                'uuid', 'id_usuario_dono', 'titulo', 'mensagem', 'link', 'botao',
+                'target', 'data_criacao', 'status'
+            ])
             ->where($this->pegarWhere())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('id', 'DESC')
@@ -73,6 +76,7 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
                 'mensagem' => $r->mensagem,
                 'link' => $r->link,
                 'botao' => $r->botao,
+                'target' => $r->target == '_blank' ? '_blank' : '_self',
                 'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status)
             ];

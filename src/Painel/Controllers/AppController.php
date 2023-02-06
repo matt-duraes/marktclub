@@ -8,7 +8,6 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
-use PainelModel\Download\DownloadModel;
 
 final class AppController extends PadraoController
 {
@@ -351,14 +350,17 @@ final class AppController extends PadraoController
         $payload = [
             'campo' => $request->campo,
             'pesquisa' => !$request->vazio('pesquisa') ? base64Decode($request->pesquisa, 'pesquisa') : '',
-            'ordem' => !$request->vazio('ordem') ? base64Decode($request->pesquisa, 'ordem') : '',
-            'filtro' => !$request->vazio('filtro') ? base64Decode($request->pesquisa, 'filtro') : '',
+            'ordem' => !$request->vazio('ordem') ? base64Decode($request->ordem, 'ordem') : '',
             'app' => $appReal,
             'usuario' => sessao('USUARIO.id')
         ];
 
+        $filtro = !$request->vazio('filtro') ? base64Decode($request->filtro, 'filtro') : [];
+        foreach ($filtro as $ind => $val) {
+            $payload[$ind] = $val;
+        }
+
         $payload = (new CryptHelper(chavePublica: $this->pegarChavePublica([1])))->encode($payload);
-        ppe($payload);
 
         $Api = new ApiHelper(token: true);
         $dado = $Api
@@ -366,9 +368,8 @@ final class AppController extends PadraoController
                 'payload' => $payload,
                 'tipo' => 'download.privado'
             ])
-            ->post('/admin/mensageria')
+            ->post('/mensageria')
             ->object();
-
 
         return mensagemSucesso([
             'id' => $dado->dado->id

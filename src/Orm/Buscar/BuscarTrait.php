@@ -7,11 +7,20 @@ use Erro\Excecao;
 trait BuscarTrait
 {
     /**
-     * @param String|Int    $id         ID ou UUID do usuário
-     * @param Bool      $erro       Caso não encontre o resulta, retorna erro 404
+     * Buscar um registro pelo UUID
+     *
+     * @param   string|int      $id         ID ou UUID do usuário
+     * @param   bool            $erro       Caso não encontre o resulta, retorna erro 404
+     * @param   null|string     $mensagem   Mensagem em caso de erro
+     * @param   null|string     $titulo     Título em caso de erro
+     * @throws  Erro\Excecao
      */
-    public function id(string $id, bool $erro = true)
-    {
+    public function id(
+        string $id,
+        bool $erro = true,
+        ?string $mensagem = null,
+        ?string $titulo = null
+    ) {
         $this->ormVerificarSeEntityExiste();
 
         if (empty($id) && $erro) {
@@ -28,24 +37,43 @@ trait BuscarTrait
         } else if (array_key_exists('cod', $this->_campoBanco)) {
             $where = ['cod', $id];
         }
-        return $this->buscar($where, $erro);
+        return $this->buscar($where, $erro, $mensagem, $titulo);
     }
-    public function _id(int $id, bool $erro = true)
-    {
+
+    /**
+     * Buscar um registro pelo ID
+     *
+     * @param   string|int      $id         ID ou UUID do usuário
+     * @param   bool            $erro       Caso não encontre o resulta, retorna erro 404
+     * @param   null|string     $mensagem   Mensagem em caso de erro
+     * @param   null|string     $titulo     Título em caso de erro
+     * @throws  Erro\Excecao
+     */
+    public function _id(
+        int $id,
+        bool $erro = true,
+        ?string $mensagem = null,
+        ?string $titulo = null
+    ) {
         if (empty($id) && $erro) {
             mensagemStatus(404);
         } else if (empty($id)) {
             return [];
         }
 
-        return $this->buscar(['id', $id], $erro);
+        return $this->buscar(['id', $id], $erro, $mensagem, $titulo);
     }
 
     /**
-     * @param Array     $where      Where para a busca
-     * @param Bool      $erro       Caso não encontre o resulta, retorna erro 404
+     * Faz uma busca pelo where passado
+     *
+     * @param array     $where      Where para a busca
+     * @param bool      $erro       Caso não encontre o resulta, retorna erro 404
+     * @param   null|string     $mensagem   Mensagem em caso de erro
+     * @param   null|string     $titulo     Título em caso de erro
+     * @throws  Erro\Excecao
      */
-    public function buscar(array $where, $erro = true)
+    public function buscar(array $where, $erro = true, ?string $mensagem = null, ?string $titulo = null)
     {
         if (!empty($this->_wherePadrao)) {
             $where = [$where, [$this->_wherePadrao]];
@@ -79,7 +107,10 @@ trait BuscarTrait
         }
 
         $busca = $busca->read(indice: 0, retorno: 'array');
-        if (empty($busca) && $erro) {
+        if (empty($busca) && !empty($mensagem)) {
+            $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
+            throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: 404);
+        } else if (empty($busca) && $erro) {
             throw new Excecao(status: 404);
         } elseif (!$busca) {
             return;

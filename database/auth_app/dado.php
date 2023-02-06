@@ -126,6 +126,9 @@ swIDAQAB
 
             'convenio_parceiro:destaque',
 
+            'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
+            'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
+
             'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
             'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',

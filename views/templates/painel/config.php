@@ -37,9 +37,13 @@ define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : 
 try {
     $Api = new \Helpers\ApiHelper(token: true);
     $notificacaoNova = $Api->json(['novo' => 'sim'])->get('/painel-notificacao')->object()->dado ?? [];
+    $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel)->tratarRetorno($notificacaoNova->lista ?? []);
     $notificacaoNumeroNova = $notificacaoNova->registro->total ?? 0;
     $notificacaoNumeroNovaVisualizada = $Api->json(['clicado' => 'nao'])->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
 } catch (\Throwable) {
+    $notificacaoNova = [];
+    $notificacaoNumeroNova = 0;
+    $notificacaoNumeroNovaVisualizada = 0;
 }
 
 define('TRABALHO_INICIADO', sessao('TRABALHO.iniciado', padrao: false));

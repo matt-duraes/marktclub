@@ -3,3 +3,15 @@
 @system "Galeria"
 @resource "painel/app_geral_estrutura"
 @resource "painel/app_geral_add"
+
+.form_geral .bloco_input.bloco_input_perfil
+    padding-left: 20px
+    &::after
+        content: "@"
+        font-size: 1.7rem
+        color: #999
+        z-index: 2
+        position: absolute
+        left: 12px
+        height: 45px
+        line-height: 45px

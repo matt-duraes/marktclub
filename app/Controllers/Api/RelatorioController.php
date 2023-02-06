@@ -9,6 +9,7 @@ use Controller\Controller;
 use App\Models\Api\Analytics\OsModel;
 use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
+use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
@@ -18,6 +19,14 @@ use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
 
 final class RelatorioController extends Controller
 {
+    public function getLojaVenda(Request $request)
+    {
+        $Relatorio = new LojaVendaModel($request->quantidade);
+        $dado = $Relatorio->listarDados();
+
+        return mensagemSucesso($dado);
+    }
+
     public function getDadoUsuario()
     {
         $Relatorio = new DadoUsuarioModel();
@@ -118,5 +127,10 @@ final class RelatorioController extends Controller
     {
         $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');
         $request->vazio('ate', mensagem: 'A data de final da busca é obrigatória');
+        if (!validarDate($request->de)) {
+            mensagemErro('Campo inválido!', 'A data de começo da busca não é válida.');
+        } else if (!validarDate($request->ate)) {
+            mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
+        }
     }
 }

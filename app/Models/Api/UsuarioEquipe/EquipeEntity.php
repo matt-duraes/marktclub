@@ -37,6 +37,7 @@ final class EquipeEntity extends Entity
         'nome_real' => '->nome',
         'documento_cpf' => '->cpf',
         'salt' => '->senha',
+        'nome_perfil' => '->perfil',
         'email_trabalho', 'email_pessoal', 'genero', 'telefone_pessoal', 'telefone_trabalho', 'status',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'permissao'
     ];
@@ -152,6 +153,22 @@ final class EquipeEntity extends Entity
         if (!$this->propriedadeExiste('status')) {
             $this->status = new Status('inativo');
         }
+
+        $perfil = $this->nome->primeiroNome();
+        $this->perfil = $this->criarPerfilValido(strSlug($perfil, '.'));
+    }
+    private function criarPerfilValido($perfil, int $numero = 0)
+    {
+        $perfilFinal = $perfil;
+        if ($numero > 0) {
+            $perfilFinal .= '.' . $numero;
+        }
+
+        if ($this->existe(['nome_perfil', $perfilFinal])) {
+            $numero++;
+            return $this->criarPerfilValido($perfil, $numero);
+        }
+        return $perfilFinal;
     }
 
     protected function regraUpdate()
@@ -170,6 +187,31 @@ final class EquipeEntity extends Entity
                 nomeForcar: true,
                 mbMaximo: 5
             ))->redimencionar(1000, 1000);
+        }
+
+        $this->atualizarPerfilUsuario();
+    }
+    private function atualizarPerfilUsuario()
+    {
+        $perfil = $this->perfil;
+        $perfilAtual = $this->prop('nome_perfil');
+        $id = $this->prop('id');
+
+        if (empty($this->perfil) || $perfilAtual == $perfil) {
+            return;
+        } else if (!preg_match('/^[a-z]{1,}[a-z0-9\.]{0,}[a-z0-9]{1,}$/', $perfil)) {
+            mensagemErro(
+                'Campo inválido!',
+                '
+                    O perfil deve conter apenas letras minúsculas (a-z), ponto (.) e não pode
+                    começar ou terminar com ponto (.) e ter dois pontos (..) seguidos.
+                '
+            );
+        } else if ($this->existe([
+            ['id', '!=', $id],
+            ['nome_perfil', $this->perfil]
+        ])) {
+            mensagemErro('Campo inválido!', 'O perfil informado já está em uso por outro usuário.');
         }
     }
 }

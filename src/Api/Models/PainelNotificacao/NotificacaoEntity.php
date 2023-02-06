@@ -12,11 +12,11 @@ final class NotificacaoEntity extends Entity
 {
     protected string $_tabela = TABELA_PAINEL_NOTIFICACAO;
     protected array $_insert = [
-        'titulo', 'mensagem', 'link', 'botao', 'id_usuario_equipe', 'id_usuario_dono'
+        'titulo', 'mensagem', 'link', 'botao', 'id_usuario_equipe', 'id_usuario_dono', 'target'
     ];
     protected array $_salvar = ['status'];
     protected array $_buscar = [
-        'id_usuario_dono', 'titulo', 'mensagem', 'link', 'botao', 'status'
+        'id_usuario_dono', 'titulo', 'mensagem', 'link', 'target', 'botao', 'target', 'status'
     ];
 
     protected int $id_usuario_equipe;
@@ -28,6 +28,7 @@ final class NotificacaoEntity extends Entity
         public ?string $titulo = null,
         public ?string $mensagem = null,
         public ?string $link = null,
+        public ?string $target = null,
         public ?string $botao = null,
         protected ?EquipeEntity $Equipe = null,
         protected ?EquipeEntity $Dono = null,
@@ -38,6 +39,7 @@ final class NotificacaoEntity extends Entity
     protected function regraPosBuscar()
     {
         $this->dono = (new PerfilModel())->pegarDado($this->id_usuario_dono, true);
+        $this->target = $this->target == '_blank' ? '_blank' : '_self';
     }
 
     protected function regraInsert()

@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
             return;
         }
 
-        textoData.innerText = `${de[0]} ${listaMes[parseInt(de[1]) - 1]} ${de[2]} ate ${ate[0]} ${
+        textoData.innerText = `${de[0]} ${listaMes[parseInt(de[1]) - 1]} ${de[2]} até ${ate[0]} ${
             listaMes[parseInt(ate[1]) - 1]
         } ${ate[2]}`;
 
