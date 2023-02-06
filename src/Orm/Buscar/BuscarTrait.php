@@ -23,7 +23,10 @@ trait BuscarTrait
     ) {
         $this->ormVerificarSeEntityExiste();
 
-        if (empty($id) && $erro) {
+        if (empty($id) && !empty($mensagem)) {
+            $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
+            mensagemErro($titulo, $mensagem);
+        } else if (empty($id) && $erro) {
             mensagemStatus(404);
         } else if (empty($id)) {
             return [];
@@ -55,7 +58,10 @@ trait BuscarTrait
         ?string $mensagem = null,
         ?string $titulo = null
     ) {
-        if (empty($id) && $erro) {
+        if (empty($id) && !empty($mensagem)) {
+            $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
+            mensagemErro($titulo, $mensagem);
+        } else if (empty($id) && $erro) {
             mensagemStatus(404);
         } else if (empty($id)) {
             return [];

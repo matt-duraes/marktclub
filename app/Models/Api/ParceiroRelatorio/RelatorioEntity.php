@@ -41,12 +41,6 @@ final class RelatorioEntity extends Entity
     {
         $this->id_admin_empresa = $this->Empresa->get('id');
         $this->id_parceiro_loja = $this->Parceiro->get('id');
-        $this->data_relatorio = $this->converterData();
-    }
-    private function converterData()
-    {
-        if(!$this->data_relatorio instanceof Data || $this->data_relatorio->)
-        $data = explode('-', $this->data_relatorio->date());
     }
 
     protected function regraPosBuscar()
