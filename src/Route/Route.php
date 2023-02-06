@@ -316,6 +316,7 @@ final class Route
         if (!in_array($metodo, ['GET', 'POST', 'PUT', 'DELETE'])) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Método enviado inválido.', status: 404);
         }
+
         $rota = self::$Route['rota'][$metodo] ?? '';
         if (empty($rota)) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Não existe rotas para esse método.', status: 404);
@@ -325,16 +326,24 @@ final class Route
         $action = $action == 'index' ? '' : $action;
 
         if (empty($controller) && empty($action)) {
-            return $rota['/'] ?? $rota['/*'] ?? [];
+            $rotaFinal = $rota['/'] ?? $rota['/*'] ?? [];
         } elseif (empty($action)) {
-            return $rota['/' . $controller] ?? $rota['/*'] ?? [];
+            $rotaFinal = $rota['/' . $controller] ?? $rota['/*'] ?? [];
+        } else {
+            $rotaFinal = $rota['/' . $controller . '/' . $action] ??
+                $rota['/' . $controller . '/*'] ??
+                $rota['/*/' . $action] ??
+                $rota['/*/*'] ??
+                [];
         }
 
-        return $rota['/' . $controller . '/' . $action] ??
-            $rota['/' . $controller . '/*'] ??
-            $rota['/*/' . $action] ??
-            $rota['/*/*'] ??
-            [];
+        $eView = false;
+        if (is_array($rotaFinal) && array_key_exists('metodo', $rotaFinal) && $rotaFinal['metodo'] == 'VIEW') {
+            $eView = true;
+        }
+        define('ROTA_VIEW', $eView);
+
+        return $rotaFinal;
     }
 
     /*

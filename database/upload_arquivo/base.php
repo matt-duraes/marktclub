@@ -13,5 +13,5 @@ return (new \DataBase\DataBase())
     ->varchar('altura')->tamanho(5)->null()
     ->dataCriacao()
     ->dataAtualizacao()
-    ->int('privado')->tamanho(1)->null()
+    ->varchar('privado')->tamanho(20)->null()
     ->status();

@@ -71,7 +71,7 @@ final class ArquivoEntity extends Entity
     }
     protected function regraPosInsert()
     {
-        $tamanho = arquivoTamanho(DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo->nome());
+        $tamanho = arquivoTamanho(DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo);
         $this->dado(['tamanho' => $tamanho])->where(['arquivo', $this->arquivo->nome()])->update();
         $this->tamanho = $tamanho;
     }
