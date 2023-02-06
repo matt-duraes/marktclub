@@ -14,8 +14,8 @@ abstract class ErrorGeral extends SolucaoGeral
     private int $alerta = 0;
     private array $alertaLista = [];
     private int $arquivoAlerta = 0;
-    private string $arquivoInicial = '';
-    private int $linhaInicial = 0;
+    protected string $arquivoInicial = '';
+    protected int $linhaInicial = 0;
     protected string $arquivo;
     protected int $linha;
     protected array $retorno = [];

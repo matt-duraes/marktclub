@@ -113,3 +113,13 @@ Route
             ::nome('visualizarTodas')
             ::put('/painel-notificacao/visualizar-todas');
     });
+
+Route
+    ::nome('log')
+    ::controller(\ApiController\LogController::class)
+    ::grupo(function () {
+        Route
+            ::nome('error')
+            ::request(['mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'status'])
+            ::post('/log/error');
+    });

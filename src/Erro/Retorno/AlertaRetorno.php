@@ -10,16 +10,6 @@ final class AlertaRetorno extends ErrorGeral
 
     public function __construct(Alerta $error)
     {
-        if (SISTEMA == 'PRODUCAO') {
-            $this->salvarLogErro(
-                $error->getMessage(),
-                $error->getCode(),
-                $error->getFile(),
-                $error->getLine(),
-                $error->getTrace()
-            );
-        }
-
         $this->retorno = $error->retorno();
         $this->tipoErro = 'alerta';
 

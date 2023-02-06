@@ -11,16 +11,6 @@ final class ErroRetorno extends ErrorGeral
 
     public function __construct(Erro $error)
     {
-        if (SISTEMA == 'PRODUCAO') {
-            $this->salvarLogErro(
-                $error->getMessage(),
-                $error->getCode(),
-                $error->getFile(),
-                $error->getLine(),
-                $error->getTrace()
-            );
-        }
-
         $this->retorno = $error->retorno();
         $this->tipoErro = 'fatal';
 

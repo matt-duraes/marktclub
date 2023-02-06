@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\Log;
+namespace ApiModel\Log;
 
 use ORM\Entity;
 
@@ -12,6 +12,7 @@ final class ErrorEntity extends Entity
     protected array $_buscar = ['hash'];
 
     public string $hash;
+    protected int $status;
 
     public function __construct(
         protected ?string $mensagem = null,

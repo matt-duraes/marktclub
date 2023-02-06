@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace ApiController;
 
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Api\Log\ErrorEntity;
+use ApiModel\Log\ErrorEntity;
 
 final class LogController extends Controller
 {
