@@ -174,7 +174,7 @@ final class GrupoEntity extends Entity
 
         $this->extensao = jsonDecode($raiz['extensao'], true, true);
         $this->diretorio = $raiz['diretorio'];
-        $this->privado = new Botao($raiz['privado']);
+        $this->privado = $raiz['privado'];
     }
 
     private function pegarFilhos(): void

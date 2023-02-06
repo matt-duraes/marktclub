@@ -29,10 +29,7 @@ if (!empty($Arquivo->privado)) {
     $privado = $Grupo->privado;
 }
 
-if (
-    (!empty($privado) && !array_key_exists($privado, $_SESSION)) ||
-    (!empty($Grupo->equipe['id']) && (empty($equipe) || $equipe != $Grupo->equipe['id']))
-) {
+if (!empty($privado) && !array_key_exists($privado, $_SESSION)) {
     mensagemStatus(401, 'Esse arquivo é privado.');
 }
 

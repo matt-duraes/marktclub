@@ -56,6 +56,21 @@ trait LogTrait
             ';
         }
 
+        if (
+            (defined('ROTA_VIEW') && true !== ROTA_VIEW) ||
+            (array_key_exists('REQUEST_METHOD', $_SERVER) && $_SERVER['REQUEST_METHOD'] != 'GET')
+        ) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 'erro',
+                'erro' => [
+                    'titulo' => 'Erro interno!',
+                    'mensagem' => 'Ocorreu um erro interno, por favor, tente novamente, se o erro persistir, contate o suporte.',
+                    'codigo' => 500
+                ]
+            ]);
+            exit();
+        }
         require_once ROOT . '/src/Html/Excecao/' . $status . '.php';
         exit();
     }

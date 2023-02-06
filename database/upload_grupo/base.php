@@ -9,4 +9,4 @@ return (new \DataBase\DataBase())
     ->text('extensao')->null()
     ->varchar('diretorio')->tamanho(100)->null()
     ->varchar('local')->tamanho(20)->null()
-    ->int('privado')->tamanho(1)->null();
+    ->varchar('privado')->tamanho(20)->null();
