@@ -12,13 +12,13 @@ trait LogTrait
         $status = in_array($codigo, [400, 401, 403, 404, 500]) ? $codigo : 500;
         http_response_code($status);
 
-        $log = [
+        $body = [
             'mensagem' => $mensagem,
             'codigo' => $codigo,
             'status' => $status,
             'arquivo' => $arquivo,
             'linha' => $linha,
-            'trace' => $trace
+            'trace' => json_encode($trace)
         ];
 
         $mensagem = '
@@ -29,8 +29,18 @@ trait LogTrait
         ';
 
         try {
-            $Api = new ApiHelper('error_log');
-            $Api->body($log)->post('/log/error')->object();
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, env('API_URL') . '/log/error');
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+
+            curl_exec($ch);
+            curl_close($ch);
         } catch (\Throwable) {
             $mensagem = '
                 Ocorreu um erro inesperado, clique em retornar para voltar a navegar.

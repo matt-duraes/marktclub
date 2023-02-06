@@ -4,6 +4,7 @@ namespace Erro;
 
 final class Alerta extends \Exception
 {
+    private array $retorno;
     /**
      * @param String        $mensagem           Mensagem de erro de retorno para o programador ou log
      * @param String        $titulo             Titulo da explicação do erro

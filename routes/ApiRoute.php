@@ -473,17 +473,6 @@ Route::nome('relatorio')
     });
 
 Route
-    ::nome('log')
-    ::middleware(TokenMiddleware::class, 'token')
-    ::controller(App\Controllers\Api\LogController::class)
-    ::grupo(function () {
-        Route
-            ::nome('error')
-            ::request(['mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'status'])
-            ::post('/log/error');
-    });
-
-Route
     ::nome('login')
     ::controller(App\Controllers\Api\LoginController::class)
     ::middleware(TokenMiddleware::class, 'token')
