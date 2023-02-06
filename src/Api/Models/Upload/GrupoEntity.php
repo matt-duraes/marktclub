@@ -23,7 +23,7 @@ final class GrupoEntity extends Entity
     public int $id_upload_grupo;
     public int $id_usuario_equipe;
     public array $extensao;
-    public string $privado;
+    public ?string $privado;
 
     /**
      * Busca ao setar o diretório e subdiretorio
