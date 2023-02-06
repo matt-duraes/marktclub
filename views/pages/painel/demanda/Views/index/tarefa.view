@@ -4,13 +4,17 @@
     @ endif;
     <header>
         <h1 class="tarefa_titulo">{{$r->titulo}}</h1>
+        @ if( !empty($r->tarefa) ) :
         <p>{{$r->tarefa}} {{$r->tarefa > 1 ? 'tarefas' : 'tarefa'}}</p>
+        @ endif;
     </header>
+    @ if( !empty($r->area) ):
     <div class="bloco_area">
         @ foreach($r->area as $area):
         <div class="area">{{$Area->nome($area)}}</div>
         @ endforeach;
     </div>
+    @ endif;
     <footer>
         <figure class="cliente" style="background-image: url({!!$r->empresa->imagem!!})" data-ajuda="{{$r->empresa->nome}}"></figure>
         <div class="linha"></div>
