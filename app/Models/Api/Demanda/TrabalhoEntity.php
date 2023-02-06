@@ -22,7 +22,6 @@ final class TrabalhoEntity extends Entity
     private TarefaEntity $Tarefa;
     public int $tempo_trabalho;
     public int $tempo_total;
-    public DataHora $data_criacao;
     public int $minuto_trabalhado;
 
     public function __construct(

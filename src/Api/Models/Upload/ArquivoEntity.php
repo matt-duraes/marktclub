@@ -39,7 +39,6 @@ final class ArquivoEntity extends Entity
     public string $extensao;
     public int $altura;
     public int $largura;
-    public DataHora $data_criacao;
     public string $privado;
     public string $link;
 
