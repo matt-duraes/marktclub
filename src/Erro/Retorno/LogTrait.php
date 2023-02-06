@@ -11,7 +11,7 @@ trait LogTrait
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = is_string($uri) ? urldecode($uri) : '';
-        if (ROTA_USO == 'Api' && $uri == '/log/erro') {
+        if (defined(ROTA_USO) && ROTA_USO == 'Api' && $uri == '/log/erro') {
             return;
         }
         $status = in_array($codigo, [400, 401, 403, 404, 500]) ? $codigo : 500;
