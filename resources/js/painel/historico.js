@@ -208,6 +208,12 @@ const historicoLoad = () => {
 
         contadorNovaMensagem++;
         const idMensagem = 'bloco_nova_mensagem_' + contadorNovaMensagem;
+        mensagem = mensagem
+            .replace(
+                /((https?:\/\/)[a-zA-Z\.\:0-9\/\-\_\?\=\&]{1,})/gm,
+                `<a href="${LINK}/app/redirecionar?url=$1" target="_blank" rel="noopener noreferrer">$1</a>`
+            )
+            .replace(/\n/g, '<br>');
         const html = `
             <div class="item minha_mensagem" id="${idMensagem}">
                 <figure style="background-image: url(${usuarioImagem});"></figure>
@@ -219,7 +225,7 @@ const historicoLoad = () => {
                     <div class="loading"></div>
                     ${Icone.deletar()}
                 </div>
-                <p class="mensagem">${mensagem.replace(/\n/g, '<br>')}</p>
+                <p class="mensagem">${mensagem}</p>
             </div>
         `;
 
@@ -265,7 +271,6 @@ const historicoLoad = () => {
             return;
         }
         const itemGeral = historicoLista.querySelectorAll('.item_geral');
-        console.log(itemGeral);
         if (itemGeral[0].classList.contains('bloco_data') && itemGeral[1].classList.contains('bloco_data')) {
             itemGeral[0].parentNode.removeChild(itemGeral[0]);
         }

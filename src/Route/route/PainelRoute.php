@@ -247,6 +247,11 @@ Route
             ::action('ordem')
             ::request(['id', 'pagina', 'hash_validacao'])
             ::post('/app/ordem/{app}');
+
+        Route
+            ::action('redirecionar')
+            ::request(['url'])
+            ::view('/app/redirecionar');
     }, true)
 
     // UPLOAD
