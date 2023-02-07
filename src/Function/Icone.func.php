@@ -1308,3 +1308,18 @@ if (!function_exists('iconeDeslike')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M40,26c0,0.5-0.2,1-0.6,1.4C39,27.8,38.5,28,38,28H24v10c0,0.5-0.2,1-0.6,1.4C23,39.8,22.5,40,22,40h-2 c-0.6,0-1.3-0.3-1.6-0.8h0L10,27.4V1.2l0.6-0.6C11,0.2,11.5,0,12,0h20c0.5,0,1,0.2,1.4,0.6l6,6C39.8,7,40,7.5,40,8L40,26L40,26z M6,2H2C1.5,2,1,2.2,0.6,2.6C0.2,3,0,3.5,0,4v20c0,0.5,0.2,1,0.6,1.4C1,25.8,1.5,26,2,26h4V2z"/></svg>';
     }
 }
+if (!function_exists('iconeFixar')) {
+    // doc
+    // exemplo
+    // echo iconeDeslike
+    /**
+     * Gera um icone de deslike
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeFixar(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg>';
+    }
+}
