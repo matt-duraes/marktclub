@@ -137,7 +137,7 @@ final class UploadController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | SALCAR IMAGEM
+    | SALVAR IMAGEM
     |--------------------------------------------------------------------------
     */
     public function postSalvar(Request $request)

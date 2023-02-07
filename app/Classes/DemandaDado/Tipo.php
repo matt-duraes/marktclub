@@ -19,6 +19,7 @@ final class Tipo extends Status
                 'bug-painel' => 'Bug no painel',
                 'bug-app' => 'Bug no APP',
                 'bug-outro' => 'Bug outros',
+                'feature' => 'Feature'
             ]
         );
     }

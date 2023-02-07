@@ -1,5 +1,5 @@
 <h3>Dados do BUG</h3>
 @? formSelect(name: 'bug_local', label: 'Local do bug', placeholder: 'Local do bug', lista: ['' => 'Escolha uma opção', 'clube' => 'Clube', 'associacao' => 'Site da associação', 'painel' => 'Painel', 'app' => 'Aplicativo', 'outro' => 'Outro lugar'])
-@? formSwitch(name: 'empresa_especifica', label: 'O BUG é em um cliente/clube específica?', check: false)
+@? formSwitch(name: 'empresa_especifica', label: 'O BUG é em um cliente/clube específico?', check: false)
 @? formSelect(name: 'empresa_bug', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa, id: 'bloco_empresa_especifica', class: 'display_none')
 @? formSwitch(name: 'bug_critico', label: 'O BUG está impedindo a utilização do sistema?', check: false)

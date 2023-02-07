@@ -10,6 +10,7 @@
             <div class="botao" data-tipo="cliente">Novo Cliente</div>
             <div class="botao" data-tipo="bug">Bug</div>
             <div class="botao" data-tipo="associacao">Site Associação</div>
+            <div class="botao" data-tipo="feature">Feature</div>
             <div class="botao" data-tipo="outro">Outros</div>
 
             <input type="hidden" id="input_tipo">
