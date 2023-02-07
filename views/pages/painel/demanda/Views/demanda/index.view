@@ -69,14 +69,14 @@
                     @ if( !empty($tarefa->minuto_producao_estimada) ):
                     <div class="item">
                         <span>Tempo estimado:</span>
-                        <p>{{$tarefa->minuto_producao_estimada}} {{$tarefa->minuto_producao_estimada > 1 ? 'minutos' : 'minuto'}}</p>
+                        <p>{{$tarefa->tempo_estimado}}</p>
                     </div>
                     @ endif;
 
                     @ if( !empty($tarefa->minuto_producao_real) && $tarefa->status == 'concluida'):
                     <div class="item">
                         <span>Tempo executado:</span>
-                        <p>{{$tarefa->minuto_producao_real}} {{$tarefa->minuto_producao_real > 1 ? 'minuros' : 'minuto'}}</p>
+                        <p>{{$tarefa->tempo_real}}</p>
                     </div>
                     @ endif;
 
@@ -106,7 +106,7 @@
                 <div class="texto bloco_noticia_texto">
                     {!!$tarefa->texto!!}
                 </div>
-                @ if( $tarefa->status == 'concluida' && $r->status != 'concluida' ):
+                @ if( $tarefa->status == 'concluida' && $r->status == 'teste' ):
                 <div class="bloco_teste">
                     <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
                     <div class="bloco_imagem">

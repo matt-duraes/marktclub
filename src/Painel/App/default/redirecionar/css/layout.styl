@@ -1,0 +1,58 @@
+@system "Resetar"
+@resource "painel/variavel"
+@resource "painel/mixin"
+
+body
+html
+    font-family: 'Roboto', sans-serif
+html
+    font-size: 62.5%
+
+#site
+    width: 100%
+    min-height: 100vh
+    flexCol()
+    align-items: center
+    padding: 20px
+    header
+        width: 100%
+        max-width: 600px
+        margin: 60px 0
+    header h1
+        width: 100%
+        color: #FF6C60
+        font-weight: bold
+        font-size: 4rem
+        flexCol()
+        text-align: center
+        margin-bottom: 20px
+    header p
+        width: 100%
+        text-align: center
+        texto()
+        color: #333
+        font-weight: 300
+        &.link
+            font-weight: bold
+    > p
+        texto()
+        color: #333
+        font-weight: 300
+    a
+        height: 50px
+        line-height: 50px
+        padding: 0 30px
+        border-radius: 25px
+        background-color: #00aced
+        color: #FFF
+        textoFontSize()
+        margin: 10px 0 40px
+    button
+        height: 40px
+        line-height: 40px
+        color: #333
+        background-color: #EEE
+        border-radius: 25px
+        margin-top: 10px
+        textoFontSize()
+        padding: 0 30px

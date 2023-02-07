@@ -518,4 +518,20 @@ final class AppController extends PadraoController
         // $Model->ordenarLista($id, $request->chave('pagina', 1));
         return new Response(status: 204);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | REDIRECIONAR
+    |--------------------------------------------------------------------------
+    */
+    public function redirecionar(Request $request)
+    {
+        $url = $request->url;
+        if (str_starts_with($url, LINK)) {
+            return new Response(url: $url);
+        }
+        return view('painel.default.redirecionar', var: [
+            'link' => $url
+        ]);
+    }
 }

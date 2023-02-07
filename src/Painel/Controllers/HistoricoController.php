@@ -65,18 +65,18 @@ final class HistoricoController extends Controller
     public function getListar(Request $request)
     {
         $Api = new ApiHelper(token: true);
-        $dado = $Api->json([
-            'data_de' => $request->data_de,
-            'data_ate' => $request->data_ate,
-            'pagina' => $request->pagina,
-            'app' => $request->app,
-            'relacionado' => $request->relacionado,
-            'pesquisa' => $request->pesquisa
-        ])->get('/painel-historico')->object();
-
-        if (existeErro($dado, 'dado')) {
-            return new Response(status: 500);
-        }
+        $dado = $Api
+            ->validar('Erro ao buscar lista de histórico')
+            ->json([
+                'data_de' => $request->data_de,
+                'data_ate' => $request->data_ate,
+                'pagina' => $request->pagina,
+                'app' => $request->app,
+                'relacionado' => $request->relacionado,
+                'pesquisa' => $request->pesquisa
+            ])
+            ->get('/painel-historico')
+            ->object();
 
         return mensagemSucesso([
             'lista' => $this->montarDado($dado->dado->lista),
@@ -102,13 +102,18 @@ final class HistoricoController extends Controller
                     'data' => $DataHelper->valor($r->data_criacao)->extenso()
                 ];
             }
+            $mensagem = preg_replace(
+                "/((https?:\/\/)[a-zA-Z\.\:0-9\/\-\_\?\=\&]{1,})/",
+                "<a href=\"" . LINK . "/app/redirecionar?url=$0\" target=\"_blank\" rel=\"noopener noreferrer\">$0</a>",
+                $r->mensagem
+            );
             $retorno[] = [
                 'id' => $r->id,
                 'tipo' => 'mensagem',
                 'nome' => $r->nome,
                 'imagem' => $r->imagem,
                 'minha_mensagem' => $r->minha_mensagem,
-                'mensagem' => nl2br($r->mensagem),
+                'mensagem' => nl2br($mensagem),
                 'hora' => $DataHelper->valor($r->data_criacao)->formato('H:i')
             ];
         }
