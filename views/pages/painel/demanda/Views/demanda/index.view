@@ -106,7 +106,7 @@
                 <div class="texto bloco_noticia_texto">
                     {!!$tarefa->texto!!}
                 </div>
-                @ if( $tarefa->status == 'concluida' && $r->status != 'concluida' ):
+                @ if( $tarefa->status == 'concluida' && $r->status == 'teste' ):
                 <div class="bloco_teste">
                     <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
                     <div class="bloco_imagem">
