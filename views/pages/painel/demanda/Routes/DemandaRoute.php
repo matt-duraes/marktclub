@@ -30,7 +30,7 @@ Route
             ::nome('demandaSalvar')
             ::request([
                 'tipo', '!titulo', 'empresa', '!dominio_tipo', '!dominio_link', '!login_api',
-                '!login_link', '!app', '!texto', '!cdn'
+                '!login_link', '!app', '!texto', '!cdn', '!local', '!critico'
             ])
             ::post('/demanda/demanda-salvar');
         Route

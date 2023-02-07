@@ -9,7 +9,10 @@ use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use Painel\Demanda\Models\CriarBugModel;
+use Painel\Demanda\Models\CriarOutroModel;
 use Painel\Demanda\Models\CriarClienteModel;
+use Painel\Demanda\Models\CriarAssociacaoModel;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaController extends Controller
@@ -197,6 +200,26 @@ final class DemandaController extends Controller
                 new Botao($request->app),
                 $request->_POST('texto', html: false),
                 new Botao($request->cdn)
+            );
+        } else if (in_array($request->tipo, ['outro', 'feature'])) {
+            $Demanda = new CriarOutroModel(
+                titulo: $request->titulo,
+                empresa: $request->empresa,
+                texto: $request->_POST('texto', html: false),
+                tipo: $request->tipo
+            );
+        } else if ($request->tipo == 'bug') {
+            $Demanda = new CriarBugModel(
+                titulo: $request->titulo,
+                empresa: $request->empresa,
+                texto: $request->_POST('texto', html: false),
+                critico: $request->critico,
+                local: $request->local,
+            );
+        } else if ($request->tipo == 'associacao') {
+            $Demanda = new CriarAssociacaoModel(
+                empresa: $request->empresa,
+                texto: $request->_POST('texto', html: false)
             );
         }
 

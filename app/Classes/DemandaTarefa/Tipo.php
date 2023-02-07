@@ -16,7 +16,8 @@ final class Tipo extends Status
                 'criacao' => 'Criação',
                 'app' => 'APP',
                 'banco' => 'Banco de dados',
-                'infra' => 'Infraestrutura'
+                'infra' => 'Infraestrutura',
+                'nao-definido' => 'Não definido'
             ]
         );
     }

@@ -22,7 +22,7 @@ const demandaSalvar = () => {
     const inputEmpresaOutro = document.getElementById('input_empresa_outro');
     // Associacao
     const inputEmpresaAssociacao = document.getElementById('input_empresa_associacao');
-    const inputdominioSite = document.getElementById('input_dominio_site');
+    const inputDominioSite = document.getElementById('input_dominio_site');
     const inputSocialFacebook = document.getElementById('input_social_facebook');
     const inputSocialInstagram = document.getElementById('input_social_instagram');
     const inputSocialTwitter = document.getElementById('input_social_twitter');
@@ -67,7 +67,7 @@ const demandaSalvar = () => {
         } else if (tipo == 'bug') {
             blocoHeader.classList.remove('display_none');
             blocoTipoBug.classList.remove('display_none');
-        } else if (tipo == 'outro') {
+        } else if (tipo == 'outro' || tipo == 'feature') {
             blocoHeader.classList.remove('display_none');
             blocoTipoOutro.classList.remove('display_none');
         }
@@ -217,13 +217,13 @@ const demandaSalvar = () => {
             valido = await validarDadoCliente();
             body = await montarDadoCliente();
         } else if (tipo == 'associacao') {
-            await validarDadoAssociacao();
+            valido = await validarDadoAssociacao();
             body = await montarDadoAssociacao();
         } else if (tipo == 'bug') {
-            await validarDadoBug();
+            valido = await validarDadoBug();
             body = await montarDadoBug();
-        } else if (tipo == 'outro') {
-            await validarDadoOutro();
+        } else if (tipo == 'outro' || tipo == 'feature') {
+            valido = await validarDadoOutro();
             body = await montarDadoOutro();
         }
 
@@ -311,6 +311,131 @@ const demandaSalvar = () => {
             body.append('app', inputApp.value);
             body.append('cdn', inputConfigurarCdn.value);
             body.append('texto', texto);
+
+            resolve(body);
+        });
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA ASSOCIACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoAssociacao = () => {
+        return new Promise(resolve => {
+            let mensagem = '';
+            if (inputEmpresaAssociacao.value == '') {
+                mensagem = 'Escolha uma empresa para continuar.';
+            } else if (inputDominioSite.value == '') {
+                mensagem = 'Digite a descrição da demanda.';
+            }
+            if (mensagem != '') {
+                Alerta.notificacao(mensagem, false);
+                resolve(false);
+            }
+            resolve(true);
+        });
+    };
+
+    const montarDadoAssociacao = () => {
+        return new Promise(resolve => {
+            let texto = `<p><strong>Domínio:</strong> ${inputDominioSite.value}</p>`;
+            if (inputSocialFacebook.value != '') {
+                texto += `<p><strong>Facebook:</strong> ${inputSocialFacebook.value}</p>`;
+            }
+            if (inputSocialInstagram.value != '') {
+                texto += `<p><strong>Instagram:</strong> ${inputSocialInstagram.value}</p>`;
+            }
+            if (inputSocialTwitter.value != '') {
+                texto += `<p><strong>Twitter:</strong> ${inputSocialTwitter.value}</p>`;
+            }
+            if (inputEmail.value != '') {
+                texto += `<p><strong>E-mail:</strong> ${inputEmail.value}</p>`;
+            }
+            if (inputTelefone.value != '') {
+                texto += `<p><strong>Telefone:</strong> ${inputTelefone.value}</p>`;
+            }
+            if (inputEndereco.value != '') {
+                texto += `<p><strong>Endereço:</strong> ${inputEndereco.value}</p>`;
+            }
+            texto += inputTexto.value;
+
+            const body = new FormData();
+            body.append('tipo', inputTipo.value);
+            body.append('empresa', inputEmpresaAssociacao.value);
+            body.append('texto', texto);
+
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA OUTRO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoOutro = () => {
+        return new Promise(resolve => {
+            let mensagem = '';
+            if (inputTitulo.value == '') {
+                mensagem = 'Digite um título para a demanda.';
+            } else if (inputEmpresaOutro.value == '') {
+                mensagem = 'Escolha uma empresa para continuar.';
+            } else if (inputTexto.value == '') {
+                mensagem = 'Digite a descrição da demanda.';
+            }
+            if (mensagem != '') {
+                Alerta.notificacao(mensagem, false);
+                resolve(false);
+            }
+            resolve(true);
+        });
+    };
+
+    const montarDadoOutro = () => {
+        return new Promise(resolve => {
+            const body = new FormData();
+            body.append('tipo', inputTipo.value);
+            body.append('titulo', inputTitulo.value);
+            body.append('empresa', inputEmpresaOutro.value);
+            body.append('texto', inputTexto.value);
+
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA BUG
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoBug = () => {
+        return new Promise(resolve => {
+            let mensagem = '';
+            if (inputTitulo.value == '') {
+                mensagem = 'Digite um título para a demanda.';
+            } else if (inputBugLocal.value == '') {
+                mensagem = 'Escolha o local que o BUG está acontecedo continuar.';
+            } else if (inputEmpresaEspecifica.checked && inputEmpresaBug.value == '') {
+                mensagem = 'Escolha uma empresa para continuar.';
+            } else if (inputTexto.value == '') {
+                mensagem = 'Digite a descrição da demanda.';
+            }
+            if (mensagem != '') {
+                Alerta.notificacao(mensagem, false);
+                resolve(false);
+            }
+            resolve(true);
+        });
+    };
+
+    const montarDadoBug = () => {
+        return new Promise(resolve => {
+            const body = new FormData();
+            body.append('tipo', inputTipo.value);
+            body.append('titulo', inputTitulo.value);
+            body.append('local', inputBugLocal.value);
+            body.append('empresa', inputEmpresaBug.value);
+            body.append('critico', inputBugCritico.value);
+            body.append('texto', inputTexto.value);
 
             resolve(body);
         });
