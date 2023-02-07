@@ -45,7 +45,7 @@ final class ParceiroRelatorioController extends Controller implements
             ->vazio('empresa', mensagem: 'O campo empresa é obrigatório.')
             ->vazio('parceiro', mensagem: 'O campo parceiro é obrigatório.')
             ->vazio('data_relatorio', mensagem: 'O campo data do relatório é obrigatório.')
-            ->validarData('data_relatorio', mensagem: 'O campo data do relatório é inválida.');
+            ->validarDate('data_relatorio', mensagem: 'O campo data do relatório é inválida.');
 
         $Empresa = $this->pegarEmpresa($request->empresa);
         $Parceiro = $this->pegarParceiro($request->parceiro);
