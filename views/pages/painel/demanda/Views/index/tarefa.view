@@ -9,7 +9,7 @@
         @ endif;
 
         @ if( !empty($r->tarefa_total) && in_array($r->status, ['nova', 'liberada', 'andamento']) ) :
-        <div class="porcentagem" data-ajuda="{{$r->tarefa_concluida}} de {{$r->tarefa_total}} {{$r->tarefa_total > 1 ? 'tarefas concluídas' : 'tarefa concluída'}}"><span style="width: {!!porcentagem($r->tarefa_concluida, $r->tarefa_total)!!}%;"></span></div>
+        <div class="porcentagem" data-ajuda="{{$r->tarefa_concluida}} de {{$r->tarefa_total}} {{$r->tarefa_total > 1 ? 'tarefas concluídas' : 'tarefa concluída'}} ({!!porcentagem($r->tarefa_concluida, $r->tarefa_total)!!}%)"><span style="width: {!!porcentagem($r->tarefa_concluida, $r->tarefa_total)!!}%;"></span></div>
         @ endif;
     </header>
     @ if( !empty($r->area) ):
