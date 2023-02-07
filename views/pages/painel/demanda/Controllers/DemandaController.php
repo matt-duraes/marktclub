@@ -9,6 +9,7 @@ use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use Painel\Demanda\Models\DetalheModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
 use Painel\Demanda\Models\CriarClienteModel;
@@ -46,7 +47,7 @@ final class DemandaController extends Controller
             ->object();
 
         return view('painel.demanda.demanda', [
-            'r' => $demanda->dado,
+            'r' => (new DetalheModel)->montarDado($demanda->dado),
             'Tipo' => new DemandaTarefaTipo(),
             'Status' => new Status()
         ]);
