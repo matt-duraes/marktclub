@@ -4,8 +4,12 @@
     @ endif;
     <header>
         <h1 class="tarefa_titulo">{{$r->titulo}}</h1>
-        @ if( !empty($r->tarefa) ) :
-        <p>{{$r->tarefa}} {{$r->tarefa > 1 ? 'tarefas' : 'tarefa'}}</p>
+        @ if( !empty($r->tarefa_total) ) :
+        <p>{{$r->tarefa_total}} {{$r->tarefa_total > 1 ? 'tarefas' : 'tarefa'}}</p>
+        @ endif;
+
+        @ if( !empty($r->tarefa_total) && in_array($r->status, ['nova', 'liberada', 'andamento']) ) :
+        <div class="porcentagem" data-ajuda="{{$r->tarefa_concluida}} de {{$r->tarefa_total}} {{$r->tarefa_total > 1 ? 'tarefas concluídas' : 'tarefa concluída'}}"><span style="width: {!!porcentagem($r->tarefa_concluida, $r->tarefa_total)!!}%;"></span></div>
         @ endif;
     </header>
     @ if( !empty($r->area) ):
