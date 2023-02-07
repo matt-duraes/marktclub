@@ -8,6 +8,9 @@ use Helpers\ApiHelper;
 
 final class CriarClienteModel
 {
+    use DemandaTrait;
+    use TarefaTrait;
+
     private stdClass $Demanda;
     private array $listaNotificacao = [];
 
@@ -27,7 +30,7 @@ final class CriarClienteModel
         private string $texto,
         private Botao $cdn
     ) {
-        $this->criarDemanda();
+        $this->criarDemanda('Novo clube de vantagens', 'novo-cliente');
         $this->verificarSeSalvouDemanda();
         $this->montarDominioLink();
         $this->configurarDnsCdn();
@@ -38,26 +41,6 @@ final class CriarClienteModel
         $this->rodarScriptSubirConvenio();
         $this->criarApp();
         $this->notificarUsuario();
-    }
-
-    private function criarDemanda()
-    {
-        $Api = new ApiHelper(token: true);
-        $this->Demanda = $Api->body([
-            'empresa' => $this->empresa,
-            'titulo' => 'Novo clube de vantagens',
-            'tipo' => 'novo-cliente'
-        ])->post('/demanda-dado')->object();
-    }
-
-    private function verificarSeSalvouDemanda()
-    {
-        $Demanda = $this->Demanda;
-        if (!is_object($Demanda) || !object_key_exists('status', $Demanda)) {
-            mensagemErro('Erro!', 'Ocorreu um erro ao salvar sua demanda, por favor, tente novamente.');
-        } else if ($this->Demanda->status != 'sucesso') {
-            mensagemErro($Demanda->erro->titulo, $Demanda->erro->mensagem);
-        }
     }
 
     private function montarDominioLink()
@@ -180,24 +163,6 @@ final class CriarClienteModel
             '<p>Criar APP para IOS</p>',
             $this->usuarioApp
         );
-    }
-
-    private function salvarTarefa(string $tipo, string $titulo, string $texto, string $equipe)
-    {
-        $Api = new ApiHelper(token: true);
-        $dado = [
-            'demanda' => $this->Demanda->dado->id,
-            'tipo' => $tipo,
-            'titulo' => $titulo,
-            'texto' => $texto
-        ];
-        if (!empty($equipe)) {
-            $dado['equipe'] = $equipe;
-        }
-        $Api->body($dado)->post('/demanda-tarefa');
-        if (!empty($equipe) && !in_array($equipe, $this->listaNotificacao)) {
-            $this->listaNotificacao[] = $equipe;
-        }
     }
 
     private function notificarUsuario()
