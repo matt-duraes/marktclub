@@ -182,12 +182,12 @@ final class RelatorioController extends Controller
             ->object();
 
         $Montar = new MontarRelatorioModel();
-        $mes = $Montar->montarLinha($dado->dado->venda_mes, 'data', ['valor' => 'Valor total', 'ticket' => 'Ticket médio', 'venda' => 'Quantidade de vendas']);
+        $mes = $Montar->montarLinha($dado->dado->venda_mes ?? [], 'data', ['valor' => 'Valor total', 'ticket' => 'Ticket médio', 'venda' => 'Quantidade de vendas']);
 
         return mensagemSucesso([
             'mes' => $mes,
-            'venda' => $dado->dado->venda_loja,
-            'ticket' => $dado->dado->ticket_loja,
+            'venda' => $dado->dado->venda_loja ?? [],
+            'ticket' => $dado->dado->ticket_loja ?? [],
         ]);
     }
 }
