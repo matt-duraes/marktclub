@@ -78,20 +78,13 @@ final class LoginController extends Controller
         $Usuario = $Login->pegarUsuario();
         $payload = criptografarDado([
             'sub' => $Usuario->id,
-            'company_id' => $Usuario->id_admin_empresa,
             'name' => $Usuario->nome->nome(),
             'picture' => $Usuario->imagem,
-            'create_at' => $Usuario->data_criacao->date(),
-            'updated_at' => $Usuario->data_atualizacao->date(),
-            'document' => $Usuario->cpf->cpf(),
-            'google' => $Usuario->id_google,
-            'facebook' => $Usuario->id_facebook,
             'email' => $Usuario->email->email(),
             'email_verified' => 'nao',
-            'new_access' => $Usuario->primeiro_acesso->valor(),
-            'manager' => $Usuario->gerente->valor(),
-            'permission' => $Usuario->permissao,
-        ], lista: ['company_id', 'name', 'picture', 'document', 'email', 'google', 'facebook']);
+            'create_at' => $Usuario->data_criacao->date(),
+            'updated_at' => $Usuario->data_atualizacao->date(),
+        ], lista: ['name', 'picture', 'email']);
 
         return $this->criarToken($payload, $request, new Tipo(ApiTokenHelper::TIPO_PAINEL));
     }
@@ -106,7 +99,6 @@ final class LoginController extends Controller
             $request->audience,
             $request->redirect_uri,
             $request->state,
-            'sim',
             $tipo
         );
 
@@ -190,7 +182,6 @@ final class LoginController extends Controller
             env('API_AUDIENCE', ''),
             env('API_REDIRECT_URI', ''),
             uuid(),
-            'sim',
             new Tipo(ApiTokenHelper::TIPO_CLUBE)
         );
 

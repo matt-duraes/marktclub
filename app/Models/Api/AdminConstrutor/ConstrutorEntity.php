@@ -17,6 +17,8 @@ final class ConstrutorEntity extends Entity
     public string $link_clube;
     public string $link_logo;
     public string $cor;
+    public int $id_admin_empresa;
+    public string $logo;
 
     protected function regraPosBuscar()
     {

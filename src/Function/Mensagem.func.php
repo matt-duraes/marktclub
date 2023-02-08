@@ -25,17 +25,22 @@ if (!function_exists('mensagemErro')) {
         $eLocalhost = defined('SISTEMA') && SISTEMA == 'LOCALHOST';
         if ($eLocalhost && !empty($localhost)) {
             $mensagem = $localhost;
-        } elseif ($eLocalhost && $error instanceof Throwable) {
+        }
+        if ($eLocalhost && $error instanceof Throwable) {
             $traducao = [
                 'Typed property' => 'A propriedade digitada',
                 'must not be accessed before initialization' => 'não deve ser acessado antes da inicialização'
             ];
-            $mensagem = '<strong style="font-weight: bold; color: red">Erro localhost: </strong>' .
-                str_replace(
-                    array_keys($traducao),
-                    array_values($traducao),
-                    $error->getMessage()
-                );
+            $errorMensagem = str_replace(
+                array_keys($traducao),
+                array_values($traducao),
+                $error->getMessage()
+            );
+            $mensagem = '<strong style="font-weight: bold; color: red">Erro localhost: </strong>'
+                . $mensagem . PHP_EOL
+                . $errorMensagem . PHP_EOL
+                . $error->getFile() . PHP_EOL
+                . $error->getLine();
         }
         $status = is_int($status) && in_array($status, [400, 401, 403, 404]) ? $status : 400;
 
