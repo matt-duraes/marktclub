@@ -57,11 +57,31 @@ if (!function_exists('mensagemStatus')) {
      * @param null|string   $localhost  Mensagem para ser exibida em localhost
      * @throws Excecao                  Gera uma excecao do sistema
      */
-    function mensagemStatus(int $status, ?string $localhost = null): void
-    {
-        $mensagem = defined('SISTEMA') && SISTEMA == 'LOCALHOST' && !empty($localhost) ?
-            '<strong style="font-weight: bold; color: red">Erro localhost: </strong>' . $localhost :
-            '';
+    function mensagemStatus(
+        int $status,
+        ?Throwable $error = null,
+        ?string $localhost = null
+    ): void {
+        $eLocalhost = defined('SISTEMA') && SISTEMA == 'LOCALHOST';
+        if ($eLocalhost && !empty($localhost)) {
+            $mensagem = $localhost;
+        }
+        if ($eLocalhost && $error instanceof Throwable) {
+            $traducao = [
+                'Typed property' => 'A propriedade digitada',
+                'must not be accessed before initialization' => 'não deve ser acessado antes da inicialização'
+            ];
+            $errorMensagem = str_replace(
+                array_keys($traducao),
+                array_values($traducao),
+                $error->getMessage()
+            );
+            $mensagem = '<strong style="font-weight: bold; color: red">Erro localhost: </strong>'
+                . $mensagem . PHP_EOL
+                . $errorMensagem . PHP_EOL
+                . $error->getFile() . PHP_EOL
+                . $error->getLine();
+        }
         $status = in_array($status, [400, 401, 403, 404, 500]) ? $status : 400;
         if (!empty($mensagem)) {
             throw new Excecao(mensagem: $mensagem, status: $status);

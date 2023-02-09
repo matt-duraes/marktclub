@@ -40,7 +40,7 @@ final class ValidarTokenAuthorizationEntity extends Entity
         $Empresa = new EmpresaEntity();
         $Empresa->_id($Usuario->id_admin_empresa);
 
-        $this->criarToken(
+        $this->criarDefinesDoToken(
             $this->access_token,
             $App,
             $Empresa,

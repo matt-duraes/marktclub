@@ -27,10 +27,6 @@ final class AuthMiddleware
 
     public function deslogado()
     {
-        // $logado = $this->verificarSeEstaLogado(location: false);
-        // if (true === $logado) {
-        //     return new Response(url: (new AuthHelper)->location());
-        // }
         return true;
     }
 

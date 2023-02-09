@@ -39,10 +39,11 @@ final class TokenMiddleware
                     ['status', 1]
                 ]);
                 return true;
-            } catch (\Throwable) {
+            } catch (\Throwable $e) {
                 mensagemStatus(
                     403,
-                    localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1'
+                    localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1',
+                    error: $e
                 );
             }
         }

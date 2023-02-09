@@ -1,7 +1,7 @@
 <?php
 
 use Route\Route;
-use App\Middlewares\AuthMiddleware;
+use App\Middlewares\Painel\AuthMiddleware;
 
 require_once ROOT . '/views/pages/painel/demanda/Routes/DemandaRoute.php';
 require_once ROOT . '/views/pages/painel/album_galeria/Routes/AlbumRoute.php';
@@ -15,10 +15,10 @@ require_once ROOT . '/views/pages/painel/usuario_tabela/Routes/TabelaRoute.php';
 */
 
 Route
-    ::middleware(
-        classe: AuthMiddleware::class,
-        action: 'logado',
-    )
+    // ::middleware(
+    //     classe: AuthMiddleware::class,
+    //     action: 'logado',
+    // )
 
     // INDEX
     ::nome('index')
@@ -30,6 +30,10 @@ Route
     // DASHBOARD
     ::nome('dashboard')
     ::controller(App\Controllers\Painel\DashboardController::class)
+    ::middleware(
+        classe: AuthMiddleware::class,
+        action: 'logado',
+    )
     ::grupo(function () {
         Route::nome('index')::view('/dashboard');
     }, true)

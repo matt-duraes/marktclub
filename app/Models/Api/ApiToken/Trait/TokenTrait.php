@@ -17,7 +17,7 @@ trait TokenTrait
      * @param AppEntity                     $App        App do token
      * @param EquipeEntity|ClienteEntity   $Usuario    Usuário dependendo do tipo do token
      */
-    public function criarTokenDefine(string $token, AppEntity $App, $Empresa, $Usuario, array $scope, string $tipo)
+    public function criarDefinesDoToken(string $token, AppEntity $App, $Empresa, $Usuario, array $scope, string $tipo)
     {
         define('TOKEN', [
             'token' => $token,
