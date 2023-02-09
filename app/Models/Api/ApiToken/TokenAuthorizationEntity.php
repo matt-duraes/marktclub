@@ -62,9 +62,9 @@ final class TokenAuthorizationEntity extends Entity
 
     private function salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo)
     {
-
+        $idApp = $app->get('id');
         $this->id_usuario = $body['sub'];
-        $this->id_api_app = $app->get('id');
+        $this->id_api_app = $idApp;
         $this->redirect_uri = $redirectUri;
         $this->scope_permitido = $scope;
         $this->state_cliente = $state;
@@ -84,6 +84,7 @@ final class TokenAuthorizationEntity extends Entity
             $this->salvar();
             $this->where([
                 ['uuid', '!=', $this->id],
+                ['id_api_app', $idApp],
                 ['id_usuario', $body['sub']]
             ])->delete();
         } catch (\Throwable $e) {

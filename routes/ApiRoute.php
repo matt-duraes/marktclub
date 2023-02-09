@@ -584,7 +584,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::request(['client_id', 'secret_id', 'audience', 'grant_type', 'scope'])
+            ::request(['client_id', '!secret_id', '!audience', 'grant_type', 'scope', '!refresh_token'])
             ::post('/token');
         Route
             ::nome('id')

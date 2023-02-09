@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Api\ApiApp\AppEntity;
+use App\Models\Api\ApiToken\RefreshTokenModel;
 use App\Models\Api\ApiToken\TokenCredentialEntity;
 
 final class TokenController extends Controller
@@ -13,8 +14,10 @@ final class TokenController extends Controller
     public function postSalvar(Request $request)
     {
         $grantType = $request->grant_type;
-        if ($grantType == 'client_credentials') {
+        if ('client_credentials' == $grantType) {
             return $this->criarCredentialToken($request);
+        } else if ('refresh_token' == $grantType) {
+            return $this->criarRefreshToken($request);
         }
         mensagemStatus(400);
     }
@@ -43,5 +46,31 @@ final class TokenController extends Controller
             ],
             status: 201
         );
+    }
+
+    private function criarRefreshToken($request): Response
+    {
+        try {
+            $App = new AppEntity();
+            $App->buscar([
+                ['client_id', $request->client_id],
+                ['secret_id', $request->secret_id],
+                ['client_credentials', 1],
+                ['status', 1]
+            ]);
+        } catch (\Throwable $e) {
+            (new RefreshTokenModel)->tokenVencido($e, 'Não foi possível encontrar o APP');
+        }
+
+        $Token = new RefreshTokenModel(
+            App: $App,
+            refreshToken: $request->refresh_token,
+            scope: $request->scope
+        );
+
+        return new Response(json: [
+            'status' => 'sucesso',
+            'dado' => $Token->pegarToken()
+        ], status: 201);
     }
 }

@@ -50,7 +50,7 @@ final class ValidarTokenCredentialModel
         $Usuario = [];
 
         $this->validarScope($scope, $App->scope_permitido);
-        $this->criarToken($token, $App, $Empresa, $Usuario, $scope, $dado['gty']);
+        $this->criarTokenDefine($token, $App, $Empresa, $Usuario, $scope, $dado['gty']);
 
         return true;
     }

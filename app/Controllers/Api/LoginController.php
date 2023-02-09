@@ -5,7 +5,6 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Helpers\DigioHelper;
 use App\Classes\ApiToken\Tipo;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginApi\DigioModel;
@@ -86,7 +85,7 @@ final class LoginController extends Controller
             'updated_at' => $Usuario->data_atualizacao->date(),
         ], lista: ['name', 'picture', 'email']);
 
-        return $this->criarToken($payload, $request, new Tipo(ApiTokenHelper::TIPO_PAINEL));
+        return $this->criarToken($payload, $request, new Tipo(Tipo::TIPO_PAINEL));
     }
 
     private function criarToken(array $body, Request $request, Tipo $tipo): Response
@@ -182,7 +181,7 @@ final class LoginController extends Controller
             env('API_AUDIENCE', ''),
             env('API_REDIRECT_URI', ''),
             uuid(),
-            new Tipo(ApiTokenHelper::TIPO_CLUBE)
+            new Tipo(TIPO::TIPO_CLUBE)
         );
 
         return new Response(json: [
