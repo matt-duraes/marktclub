@@ -134,7 +134,7 @@ swIDAQAB
             'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',
             'app_usuario:listar', 'app_usuario:buscar', 'app_usuario:salvar', 'app_usuario:atualizar', 'app_usuario:deletar',
 
-            'admin_empresa:listar',
+            'admin_empresa:listar', 'admin_empresa:buscar',
 
             'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar'
         ],

@@ -28,8 +28,13 @@ Route
         Route
             ::nome('login')
             ::_rotaNaoUnica()
-            ::request(['hash_validacao_captcha', 'login', 'senha', 'logado'])
+            ::request(['hash_validacao_captcha', 'login', 'senha'])
             ::post('/login');
+        Route
+            ::nome('relogar')
+            ::_rotaNaoUnica()
+            ::request(['hash_validacao', 'login', 'senha'])
+            ::post('/login/relogar');
 
         Route
             ::nome('social')
@@ -48,7 +53,7 @@ Route
 
     // MANDA PRA LOGIN SE ESTIVER DESLOGADO
     ::middleware(
-        classe: AuthMiddleware::class,
+        classe: App\Middlewares\Painel\AuthMiddleware::class,
         action: 'logado',
     )
 

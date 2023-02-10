@@ -4,8 +4,8 @@ use Route\Route;
 
 Route
     ::middleware(
-        classe: App\Middlewares\AuthMiddleware::class,
-        action: 'logado'
+        classe: App\Middlewares\Painel\AuthMiddleware::class,
+        action: 'logado',
     )
     ::nome('album')
     ::controller(Painel\AlbumGaleria\Controllers\AlbumController::class)

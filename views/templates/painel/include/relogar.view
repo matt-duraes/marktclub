@@ -1,0 +1,16 @@
+<form id="bloco_usuario_relogar" action="/" method="POST" class="display_none form_geral">
+    <div class="conteudo">
+        <figure style="background-image: url({!!USUARIO_IMAGEM!!});"></figure>
+        <p class="display_none" id="bloco_usuario_relogar_inativo">Olá {{USUARIO_NOME}}, sua sessão expirou, refaça seu login para continuar.</p>
+        <p class="display_none" id="bloco_usuario_relogar_bloqueado">Olá {{USUARIO_NOME}}, sua sessão expirou, refaça seu login para continuar.</p>
+
+        @hash('FORM_RELOGAR')
+
+        <input type="hidden" name="relogar_cpf" id="input_relogar_cpf" value="{{USUARIO_CPF}}">
+        @? formSenha(name: 'relogar_senha', placeholder: 'Digite sua senha', label: 'Senha')
+        <div class="botao_verde botao" id="botao_usuario_relogar">LOGIN</div>
+
+        <p>Caso queira sair do sistema, clique no botão abaixo:</p>
+        <a class="botao_cancelar" href="@route('login.sair')">sair</a>
+    </div>
+</form>

@@ -25,6 +25,7 @@
 // @import "notificacao"
 // @import "trabalho"
 // @import "menu"
+// @import "relogar"
 
 const blocoLink = document.getElementById('LINK');
 const LINK = blocoLink.value;

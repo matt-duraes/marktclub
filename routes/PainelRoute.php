@@ -15,10 +15,10 @@ require_once ROOT . '/views/pages/painel/usuario_tabela/Routes/TabelaRoute.php';
 */
 
 Route
-    // ::middleware(
-    //     classe: AuthMiddleware::class,
-    //     action: 'logado',
-    // )
+    ::middleware(
+        classe: AuthMiddleware::class,
+        action: 'logado',
+    )
 
     // INDEX
     ::nome('index')
@@ -30,10 +30,6 @@ Route
     // DASHBOARD
     ::nome('dashboard')
     ::controller(App\Controllers\Painel\DashboardController::class)
-    ::middleware(
-        classe: AuthMiddleware::class,
-        action: 'logado',
-    )
     ::grupo(function () {
         Route::nome('index')::view('/dashboard');
     }, true)

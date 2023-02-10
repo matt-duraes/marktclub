@@ -4,30 +4,38 @@ namespace App\Middlewares\Painel;
 
 use Http\Response;
 use Helpers\AuthHelper;
-use PainelApp\login\Models\PainelModel;
 use PainelApp\login\Models\LoginRefreshModel;
-use PainelApp\login\Models\BuscarUsuarioModel;
-use PainelApp\login\Models\AutenticarUsuarioModel;
+use PainelApp\login\Models\LoginAutorizadoModel;
 
 final class AuthMiddleware
 {
+    private array $token;
+    public function __construct()
+    {
+        $token = cookieExiste('FWT') ? base64Decode(cookie('FWT')) : [];
+        $this->token = is_array($token) ? $token : [];
+    }
     public function logado(): bool|Response
     {
         $retorno = $this->verificarSeEstaLogado();
-        if (!$retorno && cookieExiste('FWT')) {
+        if (!$retorno && !empty($this->token)) {
             return $this->fazerLoginUsuario();
+        } else if (!$retorno) {
+            return $this->usuarioNaoLogado();
         }
-        return $retorno;
+        return true;
     }
 
     private function verificarSeEstaLogado(): bool
     {
         $retorno = (new AuthHelper)->validar();
         if (
-            true === $retorno ||
+            false === $retorno ||
             !sessaoExiste('TOKEN') ||
             !sessaoExiste('TOKEN_EXPIRE') ||
-            agora() >= sessao('TOKEN_EXPIRE')
+            agora() >= sessao('TOKEN_EXPIRE') ||
+            empty($this->token) ||
+            dataBanco($this->token['data']) != hoje()
         ) {
             return false;
         }
@@ -38,13 +46,9 @@ final class AuthMiddleware
     {
         try {
             $Login = new LoginRefreshModel(
-                refreshToken: base64Decode(cookie('FWT'))
+                refreshToken: $this->token['token']
             );
-            new AutenticarUsuarioModel(
-                Login: $Login
-            );
-            new BuscarUsuarioModel();
-            new PainelModel();
+            new LoginAutorizadoModel(Login: $Login);
 
             return true;
         } catch (\Throwable) {

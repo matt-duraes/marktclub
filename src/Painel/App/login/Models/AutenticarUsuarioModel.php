@@ -43,6 +43,12 @@ final class AutenticarUsuarioModel
 
         sessao('TOKEN', $this->token->access_token);
         sessao('TOKEN_EXPIRE', date('Y-m-d H:i:s', time() + $this->token->expires_in - 60));
-        cookie('FWT', base64Encode($this->token->refresh_token, 'hash_refresh_token'));
+        cookie('FWT', base64Encode(
+            [
+                'token' => $this->token->refresh_token,
+                'data' => agora()
+            ],
+            'hash_refresh_token'
+        ));
     }
 }

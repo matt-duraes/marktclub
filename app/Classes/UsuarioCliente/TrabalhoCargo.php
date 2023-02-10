@@ -7,19 +7,19 @@ use Status\Status;
 final class TrabalhoCargo extends Status
 {
     const EMPRESA = [
-        0 => [
+        'geral' => [
             'lista' => [
                 'cargo' => 'Cargo'
             ],
             'numero' => [2000]
         ],
-        1 => [
+        'marktclub' => [
             'lista' => [
                 'desenvolvedor' => 'Desenvolvedor'
             ],
             'numero' => [1000]
         ],
-        19 => [
+        'unareg' => [
             'lista' => [
                 'analista-administrativo' => 'Analista Administrativo',
                 'especialista' => 'Especialista',

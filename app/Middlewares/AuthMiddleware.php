@@ -19,7 +19,6 @@ final class AuthMiddleware
                 !call_user_func_array([new $class, $action], [$retorno])
             )
         ) {
-            (new AuthHelper)->cookieDeletar();
             return $this->retornoUsuarioNaoLogado();
         }
         return true;

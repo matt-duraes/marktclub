@@ -7,6 +7,7 @@ use Status\StatusInterface;
 
 abstract class Status implements StatusInterface
 {
+    protected null|string|int $valor = null;
     private array $indiceNumero = [];
     private array $indiceNome = [];
     private array $numeroNome = [];
@@ -34,11 +35,11 @@ abstract class Status implements StatusInterface
         ?array $numero = null,
         protected ?array $empresa = null
     ) {
-        $idEmpresa = $this->pegarIdEmpresa();
-        if ($empresa && array_key_exists($idEmpresa, $empresa)) {
-            $this->lista = $empresa[$idEmpresa]['lista'] ?? [];
-            $this->cor = $empresa[$idEmpresa]['cor'] ?? null;
-            $numero = $empresa[$idEmpresa]['numero'] ?? null;
+        $slugEmpresa = $this->pegarSlugEmpresa();
+        if ($empresa && array_key_exists($slugEmpresa, $empresa)) {
+            $this->lista = $empresa[$slugEmpresa]['lista'] ?? [];
+            $this->cor = $empresa[$slugEmpresa]['cor'] ?? null;
+            $numero = $empresa[$slugEmpresa]['numero'] ?? null;
         } else if ($empresa && array_key_exists(0, $empresa)) {
             $this->lista = $empresa[0]['lista'] ?? [];
             $this->cor = $empresa[0]['cor'] ?? null;
@@ -63,14 +64,14 @@ abstract class Status implements StatusInterface
         $this->numeroNome = array_combine($numero, $nome);
     }
 
-    private function pegarIdEmpresa()
+    private function pegarSlugEmpresa()
     {
-        if (sessaoExiste('USUARIO.empresa_id')) {
-            return sessao('USUARIO.empresa_id');
+        if (sessaoExiste('EMPRESA')) {
+            return sessao('EMPRESA.slug');
         } else if (defined('TOKEN') && array_key_exists('empresa', TOKEN)) {
-            return TOKEN['empresa']->get('id');
+            return TOKEN['empresa']->slug;
         }
-        return 0;
+        return 'geral';
     }
 
     private function criarSlug(array $lista): array

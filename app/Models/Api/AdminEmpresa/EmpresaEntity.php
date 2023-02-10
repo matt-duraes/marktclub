@@ -4,21 +4,22 @@ namespace App\Models\Api\AdminEmpresa;
 
 use ORM\Entity;
 use Modules\Cnpj;
+use App\Classes\AdminEmpresa\Status;
 
 final class EmpresaEntity extends Entity
 {
     protected string $_tabela = TABELA_EMPRESA_NOVO;
     protected array $_buscar = [
-        'razao_social',
-        'nome_fantasia',
         'imagem' => 'imagem_arquivo',
-        '!cnpj' => 'cnpj',
+        'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'status'
     ];
 
     public Cnpj $cnpj;
     public string $razao_social;
     public string $nome_fantasia;
     public string $imagem;
+    public string $slug;
+    public Status $status;
 
     protected function regraPosBuscar()
     {

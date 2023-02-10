@@ -784,6 +784,11 @@ Route::nome('admin_empresa')
     ::middleware(MarktClubMiddleware::class, 'validar')
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:buscar'])
+            ::get('/admin-empresa/{id}');
+
+        Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
             ::request(['!titulo'], 'json')

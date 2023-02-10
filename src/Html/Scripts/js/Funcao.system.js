@@ -331,8 +331,17 @@ const respostaJson = (resposta, mensagem) => {
             json = {};
         }
 
+        const blocoLogin = document.querySelector('#bloco_usuario_relogar');
         if ((status == 200 || status == 201) && json.status == 'sucesso') {
             return resolve(json);
+        } else if (status == 401 && json.status == 'deslogado' && blocoLogin) {
+            blocoLogin.classList.remove('display_none');
+            document.getElementById('input_relogar_senha').value = '';
+            document.getElementById('bloco_usuario_relogar_inativo').classList.remove('display_none');
+            setTimeout(() => {
+                blocoLogin.classList.add('ativo');
+            }, 50);
+            return resolve(false);
         }
 
         if (mensagem !== undefined) {

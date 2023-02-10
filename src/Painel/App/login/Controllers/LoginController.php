@@ -13,6 +13,7 @@ use PainelApp\login\Models\LoginFormModel;
 use PainelApp\login\Models\LoginInterface;
 use PainelApp\login\Models\LoginSocialModel;
 use PainelApp\login\Models\BuscarUsuarioModel;
+use PainelApp\login\Models\LoginAutorizadoModel;
 use PainelApp\login\Models\AutenticarUsuarioModel;
 use PainelApp\login\Models\MontarPermissoesPainelModel;
 
@@ -41,10 +42,12 @@ final class LoginController extends Controller
         $request
             ->vazio('login', mensagem: 'O campo login é obrigatório.')
             ->vazio('senha', mensagem: 'O campo senha é obrigatório.');
+
         $Login = new LoginFormModel(
             login: $request->login,
             senha: $request->senha
         );
+
         return $this->loginRealizado($Login);
     }
 
@@ -72,14 +75,9 @@ final class LoginController extends Controller
         return $this->loginRealizado($Login);
     }
 
-    private function loginRealizado(LoginInterface $Login): Response
+    private function loginRealizado(LoginInterface $Login, int $status = 201): Response
     {
-        new AutenticarUsuarioModel(
-            Login: $Login
-        );
-        new BuscarUsuarioModel();
-        new PainelModel();
-
+        new LoginAutorizadoModel(Login: $Login);
         return mensagemSucesso([
             'link' => (new AuthHelper)->location()
         ], 201);
@@ -93,15 +91,7 @@ final class LoginController extends Controller
     public function sair(): Response
     {
         (new AuthHelper)->deletar();
-        sessaoDeletar('relatorio');
-        sessaoDeletar('TOKEN');
+        cookieDeletar('FWT');
         return new Response(url: route('login.index'));
-    }
-
-    public function setarChave()
-    {
-        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
-        $this->chavePublica = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
-        $this->chavePrivada = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
     }
 }

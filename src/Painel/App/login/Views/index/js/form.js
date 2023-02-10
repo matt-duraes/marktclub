@@ -1,9 +1,4 @@
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        inputLogin.value = '';
-        inputSenha.value = '';
-    }, 100);
-
     const pegarCaptchaParaLogin = () => {
         const textoBotao = botaoLogin.innerText;
         if (textoBotao == 'AGUARDE') {
@@ -40,7 +35,6 @@ window.addEventListener('load', () => {
         dado.append('form_system_captcha', token);
         dado.append('login', login);
         dado.append('senha', senha);
-        dado.append('logado', inputLogado.checked ? 1 : 0);
 
         const resposta = await fetch(LINK + '/login', {
             method: 'POST',

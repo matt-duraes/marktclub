@@ -75,38 +75,6 @@ final class AuthHelper
     public function deletar(): bool
     {
         sessaoDestruir();
-        $this->cookieDeletar();
-
         return true;
-    }
-
-    /**
-     * Cria um cookie de auth
-     *
-     * @param null|string   $local      Qual o local está, por exemplo: site, painel, etc
-     * @return string Retona uma string com o hash criado ou false para falha
-     */
-    public function cookie(?string $local = null): string | bool
-    {
-        $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
-        $nome = hashIpUser($local . '_auth');
-        $hash = hashUnico();
-        if (cookie($nome, $hash, dia: 365)) {
-            return $hash;
-        }
-        return false;
-    }
-
-    /**
-     * Deleta o cookie de auth
-     *
-     * @param null|string   $local      Qual o local está, por exemplo: site, painel, etc
-     * @return bool Retorna false para falha ou true para sucesso
-     */
-    public function cookieDeletar(?string $local = null): bool
-    {
-        $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
-        $nome = hashIpUser($local . '_auth');
-        return cookieDeletar($nome);
     }
 }
