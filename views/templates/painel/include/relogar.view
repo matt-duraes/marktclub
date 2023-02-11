@@ -2,7 +2,7 @@
     <div class="conteudo">
         <figure style="background-image: url({!!USUARIO_IMAGEM!!});"></figure>
         <p class="display_none" id="bloco_usuario_relogar_inativo">Olá {{USUARIO_NOME}}, sua sessão expirou, refaça seu login para continuar.</p>
-        <p class="display_none" id="bloco_usuario_relogar_bloqueado">Olá {{USUARIO_NOME}}, sua sessão expirou, refaça seu login para continuar.</p>
+        <p class="display_none" id="bloco_usuario_relogar_bloqueado">Olá {{USUARIO_NOME}}, para desbloquear sua conta, digite sua senha abaixo:</p>
 
         @hash('FORM_RELOGAR')
 

@@ -4,24 +4,15 @@ namespace PainelApp\login\Controllers;
 
 use Http\Request;
 use Http\Response;
-use Helpers\ApiHelper;
 use Helpers\AuthHelper;
-use Helpers\SocialHelper;
 use Controller\Controller;
-use PainelApp\login\Models\PainelModel;
 use PainelApp\login\Models\LoginFormModel;
 use PainelApp\login\Models\LoginInterface;
 use PainelApp\login\Models\LoginSocialModel;
-use PainelApp\login\Models\BuscarUsuarioModel;
 use PainelApp\login\Models\LoginAutorizadoModel;
-use PainelApp\login\Models\AutenticarUsuarioModel;
-use PainelApp\login\Models\MontarPermissoesPainelModel;
 
 final class LoginController extends Controller
 {
-    private string $chavePublica;
-    private string $chavePrivada;
-
     /*
     |--------------------------------------------------------------------------
     | INDEX
@@ -93,5 +84,11 @@ final class LoginController extends Controller
         (new AuthHelper)->deletar();
         cookieDeletar('FWT');
         return new Response(url: route('login.index'));
+    }
+    public function bloquear(): Response
+    {
+        (new AuthHelper)->deletar();
+        cookieDeletar('FWT');
+        return new Response(status: 200);
     }
 }

@@ -37,7 +37,6 @@
 #bloco_menu_principal
     width: 100%
     display: flex
-    padding-bottom: 20px
     flex-direction: column
     h2
         font-size: 1.3rem
@@ -135,7 +134,10 @@
     .pagina_atual::before
         background-color: $cor
         display: block
-
+    .footer
+        width: 100%
+        padding-top: 20px
+        flexCol()
 @media screen and (max-width:1100px)
     #nav_template
         width: 100vw

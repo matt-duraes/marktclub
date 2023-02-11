@@ -33,7 +33,7 @@ Route
         Route
             ::nome('relogar')
             ::_rotaNaoUnica()
-            ::request(['hash_validacao', 'login', 'senha'])
+            ::request(['hash_validacao_captcha', 'login', 'senha'])
             ::post('/login/relogar');
 
         Route

@@ -18,7 +18,6 @@
 @import "menu_config"
 @import "menu_principal"
 @import "ordem"
-@import "bloquear"
 @import "classes"
 @import "notificacao"
 @import "trabalho"
@@ -28,6 +27,28 @@ body
 html
     background-color: #F6F6F6
     font-family: 'Roboto', sans-serif
+
+.grecaptcha-badge
+    display: none !important
+
+// Firefox
+*
+    scrollbar-width: thin
+    scrollbar-color: rgba(255,255,255, 0) rgba(255,255,255, 0)
+    &:hover
+        scrollbar-color: #c0c0c0 rgba(255,255,255, 0)
+// Chrome
+*::-webkit-scrollbar
+    width: 10px
+*::-webkit-scrollbar-track
+    background: rgba(255,255,255, 0)
+*::-webkit-scrollbar-thumb
+    background-color: rgba(255,255,255,0)
+    border-radius: 20px
+    transition: opacity .3s ease-out
+*:hover::-webkit-scrollbar-thumb
+    background-color: #c0c0c0
+
 
 p
 a

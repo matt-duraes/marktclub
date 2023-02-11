@@ -37,4 +37,5 @@
         @ endif;
 
     @ endforeach;
+    <div class="footer"></div>
 </div>
