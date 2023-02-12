@@ -881,7 +881,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('relatorioAnalytics')
-            ::request(['!data'], 'json')
+            ::request(['!data'])
             ::get('/rotina/relatorio-analytics');
         Route
             ::nome('relatorioUsuario')

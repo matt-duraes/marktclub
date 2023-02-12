@@ -1,7 +1,6 @@
 <?php
 
 $data = hoje();
-
 return array(
     array('id' => '1', 'id_admin_empresa' => '1', 'id_parceiro_loja' => '1', 'parceiro_nome' => 'Sala Vip', 'quantidade' => '38', 'data_acesso' => dataRemover($data, 8, 'dia')),
     array('id' => '2', 'id_admin_empresa' => '1', 'id_parceiro_loja' => '2', 'parceiro_nome' => 'Nome 02', 'quantidade' => '42', 'data_acesso' => dataRemover($data, 8, 'dia')),
