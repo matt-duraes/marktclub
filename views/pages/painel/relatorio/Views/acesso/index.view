@@ -1,12 +1,13 @@
 @template "painel"
 
 <div class="bloco_app_relatorio">
-    <header style="height: 0 !important; overflow: hidden;">
+    <header>
         <form action="/" class="form_geral">
-            <p id="bloco_relatorio_data">Últimos 7 dias</p>
-            <input type="text" id="input_relatorio_data_de" readonly value="{!!$de!!}">
-            <input type="text" id="input_relatorio_data_ate" readonly value="{!!$ate!!}">
-            <i class="show" id="icone_calendario">@iconeCalendario</i>
+            <div class="bloco_linha">
+                @? formData(name: 'relatorio_data_de', label: '', value: $de);
+                <p>até</p>
+                @? formData(name: 'relatorio_data_ate', label: '', value: $ate);
+            </div>
             <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
         </form>
     </header>
