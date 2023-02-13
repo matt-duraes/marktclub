@@ -51,50 +51,23 @@ window.addEventListener('load', () => {
             body.append('form_system_hash', hashValidacao);
             body.append('form_system_validacao', '');
 
-            const response = await fetch(LINK + '/app/salvar/' + APP, {
+            const resposta = await fetch(LINK + '/app/salvar/' + APP, {
                 method: 'POST',
                 body,
             });
 
-            let json;
-            try {
-                json = await response.json();
-            } catch (error) {
-                json = {};
-            }
-
+            const json = await respostaJson(
+                resposta,
+                'Ocorreu um erro ao tentar deslogar o usuário, por favor, tente novamente.'
+            );
             botaoSalvar.classList.remove('aguarde');
-            if (response.status != 201 && response.status != 204) {
-                Alerta.notificacao(
-                    json.erro.mensagem != undefined
-                        ? json.erro.mensagem
-                        : 'Ocorreu um erro ao salvar seus dados, por favor, tente novamente.',
-                    false
-                );
+
+            if (false === json) {
                 return;
             }
 
             resetarCampoPassword();
 
-            // if (json.historico === true) {
-            //     const bodyHistorico = new FormData();
-            //     bodyHistorico.append('location', editar ? 0 : 1);
-            //     const Historico = new Pagina(
-            //         'Histórico',
-            //         LINK + '/historico',
-            //         { method: 'POST', body: bodyHistorico },
-            //         false,
-            //         false,
-            //         () => document.querySelector('#input_historico_atualizar_texto').focus()
-            //     );
-            //     Historico.abrir();
-            //     return;
-            // } else if (!editar) {
-            //     Alerta.mensagem('Dados salvos!', 'Seus dados foram salvos com sucesso!', {
-            //         icone: 'ok',
-            //     }).then(() => window.location.assign(linkVoltar));
-            //     return;
-            // }
             if (!editar) {
                 const resposta = await Alerta.mensagem('Dados salvos!', 'Seus dados foram salvos com sucesso!', 'ok');
                 if (resposta) {

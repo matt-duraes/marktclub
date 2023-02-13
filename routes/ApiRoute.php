@@ -584,7 +584,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::request(['client_id', 'secret_id', 'audience', 'grant_type', 'scope'])
+            ::request(['client_id', '!secret_id', '!audience', 'grant_type', 'scope', '!refresh_token'])
             ::post('/token');
         Route
             ::nome('id')
@@ -784,6 +784,11 @@ Route::nome('admin_empresa')
     ::middleware(MarktClubMiddleware::class, 'validar')
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:buscar'])
+            ::get('/admin-empresa/{id}');
+
+        Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
             ::request(['!titulo'], 'json')
@@ -876,7 +881,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('relatorioAnalytics')
-            ::request(['!data'], 'json')
+            ::request(['!data'])
             ::get('/rotina/relatorio-analytics');
         Route
             ::nome('relatorioUsuario')

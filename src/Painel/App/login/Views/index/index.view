@@ -27,6 +27,8 @@
             </header>
             <form class="form_geral" id="form_login" action="{!!LINK!!}/login" method="post">
                 @hash('painel_login')
+                <input class="autocomplete" type="text" name="login">
+                <input class="autocomplete" type="password" name="password">
                 @php
                 echo formInput(
                     class: 'input_login',
@@ -46,13 +48,6 @@
                 );
                 @end
                 <div class="footer">
-                    @?
-                    formCheckbox(
-                        name: 'logado',
-                        label: 'Manter logado no sistema',
-                        check: false
-                    );
-                    @end
                     <button type="button" id="botao_login">FAZER LOGIN</button>
                 </div>
             </form>

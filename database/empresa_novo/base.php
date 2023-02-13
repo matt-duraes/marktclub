@@ -21,6 +21,7 @@ return (new \DataBase\DataBase())
     ->varchar('endereco_referenncia')->tamanho(100)->null()
     ->varchar('endereco_bairro')->tamanho(50)->null()
     ->imagem('imagem_arquivo')->null()
+    ->varchar('slug')->tamanho(150)->null()
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();

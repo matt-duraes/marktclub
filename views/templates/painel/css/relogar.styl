@@ -1,0 +1,48 @@
+#bloco_usuario_relogar
+    width: 100vw
+    height: 100vh
+    background-color: rgba(0,0,0,.99)
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 1000
+    padding: 20px
+    overflow-y: auto
+    opacity: 0
+    transition: opacity .3s ease-out
+    &.ativo
+        opacity: 1
+
+#bloco_usuario_relogar.ativo .conteudo
+    margin-top: 0
+
+#bloco_usuario_relogar .conteudo
+    width: 100%
+    max-width: 500px
+    background: #FFF
+    box-shadow: 0 5px 5px rgba(0,0,0,.1)
+    border: 1px solid #EEE
+    border-radius: 20px
+    margin: -150px auto 0 auto
+    flexCol()
+    align-items: center
+    padding: 40px 20px 40px
+    transition: margin-top .3s ease-out
+    figure
+        width: 140px
+        height: 140px
+        imagemRedonda()
+        margin-bottom: 30px
+        background-color: #EEE
+    p
+        width: 100%
+        max-width: 350px
+        texto()
+        color: #666
+        text-align: center
+    .bloco_input
+        max-width: 250px
+    .botao
+        margin-bottom: 40px
+    a
+        margin-top: 20px

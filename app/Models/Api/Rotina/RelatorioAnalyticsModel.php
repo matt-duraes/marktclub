@@ -13,21 +13,35 @@ final class RelatorioAnalyticsModel extends ORM
     private array $analytics;
     private string $dataAcesso;
 
+    /**
+     * @param   null|Data   $data   Data que será processada
+     * @param   null|array  $lista  Lista caso já tenha a lista de dados no analytics, caso não tenha, será buscado pela data
+     */
     public function __construct(
-        ?Data $data = null
+        ?Data $data = null,
+        ?array $lista = null
     ) {
         parent::__construct();
 
         $this->dataAcesso = !$data->valido() ? dataRemover(hoje(), 1, 'dia') : $data->date();
-        $this->buscarTodosRegistros();
+        if (is_null($lista)) {
+            $this->buscarTodosRegistros();
+        } else {
+            $this->lista = $lista;
+        }
         $this->montarDadoAnalytics();
     }
 
     private function buscarTodosRegistros()
     {
-        $this->lista = $this->where([
-            ['data_criacao', 'between', [$this->dataAcesso . ' 00:00:00', $this->dataAcesso . ' 23:59:59']]
-        ])->read();
+        $this->lista = $this
+            ->campo([
+                'empresa', 'data_criacao', 'usuario', 'vinculo', 'vinculo_nome', 'url',
+                'usuario_nome', 'usuario_cpf', 'dispositivo', 'os', 'browser'
+            ])
+            ->where([
+                ['data_criacao', 'between', [$this->dataAcesso . ' 00:00:00', $this->dataAcesso . ' 23:59:59']]
+            ])->read();
     }
 
     private function montarDadoAnalytics()
@@ -53,6 +67,16 @@ final class RelatorioAnalyticsModel extends ORM
                     'navegador' => [],
                     'dispositivo' => [],
                 ];
+            }
+
+            if (empty($r->dispositivo)) {
+                $r->dispositivo = 'Não identificado';
+            }
+            if (empty($r->os)) {
+                $r->os = 'Não identificado';
+            }
+            if (empty($r->browser)) {
+                $r->browser = 'Não identificado';
             }
 
             // Analytics
@@ -144,22 +168,29 @@ final class RelatorioAnalyticsModel extends ORM
 
     public function rodarRotina()
     {
-        $Loja = new SalvarModel(TABELA_ANALYTICS_LOJA);
-        $Cliente = new SalvarModel(TABELA_ANALYTICS_USUARIO);
-        $Dispositivo = new SalvarModel(TABELA_ANALYTICS_DISPOSITIVO);
-        $Navegador = new SalvarModel(TABELA_ANALYTICS_NAVEGADOR);
-        $Os = new SalvarModel(TABELA_ANALYTICS_OS);
-        $Url = new SalvarModel(TABELA_ANALYTICS_PAGINA);
-        $Dia = new SalvarModel(TABELA_ANALYTICS_ACESSO_DIA);
+        // $Loja = new SalvarModel(TABELA_ANALYTICS_LOJA);
+        // $Cliente = new SalvarModel(TABELA_ANALYTICS_USUARIO);
+        // $Dispositivo = new SalvarModel(TABELA_ANALYTICS_DISPOSITIVO);
+        // $Navegador = new SalvarModel(TABELA_ANALYTICS_NAVEGADOR);
+        // $Os = new SalvarModel(TABELA_ANALYTICS_OS);
+        // $Url = new SalvarModel(TABELA_ANALYTICS_PAGINA);
+        // $Dia = new SalvarModel(TABELA_ANALYTICS_ACESSO_DIA);
 
-        foreach ($this->analytics as $empresa) {
-            $Loja->salvar($this->dataAcesso, 'id_parceiro_loja', $empresa['loja']);
-            $Cliente->salvar($this->dataAcesso, 'id_usuario_cliente', $empresa['cliente']);
-            $Dispositivo->salvar($this->dataAcesso, 'dispositivo', $empresa['dispositivo']);
-            $Navegador->salvar($this->dataAcesso, 'navegador', $empresa['navegador']);
-            $Os->salvar($this->dataAcesso, 'os', $empresa['os']);
-            $Url->salvar($this->dataAcesso, 'url', $empresa['url']);
-            $Dia->salvarDia($this->dataAcesso, $empresa['dia']);
-        }
+        // foreach ($this->analytics as $empresa) {
+        //     $Loja->salvar($this->dataAcesso, 'id_parceiro_loja', $empresa['loja']);
+        //     $Cliente->salvar($this->dataAcesso, 'id_usuario_cliente', $empresa['cliente']);
+        //     $Dispositivo->salvar($this->dataAcesso, 'dispositivo', $empresa['dispositivo']);
+        //     $Navegador->salvar($this->dataAcesso, 'navegador', $empresa['navegador']);
+        //     $Os->salvar($this->dataAcesso, 'os', $empresa['os']);
+        //     $Url->salvar($this->dataAcesso, 'url', $empresa['url']);
+
+        //     // Dia
+        //     if ($empresa['dia']['quantidade_total'] > 0 && empty($empresa['dia']['quantidade_unico'])) {
+        //         $empresa['dia']['quantidade_unico'] = 1;
+        //     }
+        //     if ($empresa['dia']['quantidade_total'] > 0) {
+        //         $Dia->salvarDia($this->dataAcesso, $empresa['dia']);
+        //     }
+        // }
     }
 }

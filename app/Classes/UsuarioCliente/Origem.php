@@ -7,7 +7,7 @@ use Status\Status;
 final class Origem extends Status
 {
     const EMPRESA = [
-        0 => [
+        'geral' => [
             'lista' => [
                 'facebook' => 'Facebook',
                 'google' => 'Google',
@@ -16,7 +16,7 @@ final class Origem extends Status
             ],
             'numero' => [10, 11, 12, 7]
         ],
-        197 => [
+        'alfa' => [
             'lista' => [
                 'banco-investimento' => 'Cliente banco de investimento',
                 'cliente-seguradora' => 'Cliente seguradora',

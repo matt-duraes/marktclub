@@ -5,9 +5,8 @@ use Painel\Relatorio\Controllers\RelatorioController;
 
 Route
     ::middleware(
-        classe: App\Middlewares\AuthMiddleware::class,
+        classe: App\Middlewares\Painel\AuthMiddleware::class,
         action: 'logado',
-        parametro: [Painel\Login\Models\RelogarUsuarioModel::class, 'fazerLogin']
     )
     ::middleware(
         classe: App\Middlewares\Painel\PermissaoMiddleware::class,

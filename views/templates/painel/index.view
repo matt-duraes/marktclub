@@ -103,10 +103,10 @@
     @endif
 
     @dir "/include/ordem.view"
-    @dir "/include/bloquear.view"
     @dir "/include/agenda.view"
     @dir "/include/notificacao.view"
     @dir "/include/trabalho.view"
+    @dir "/include/relogar.view"
 
     <div id="bloco_fw_pagina"></div>
     <div id="bloco_fw_loading"></div>
@@ -117,6 +117,7 @@
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
         <input type="hidden" name="LINK_VOLTAR" id="LINK_VOLTAR" value="{!!LINK_VOLTAR!!}">
         <input type="hidden" name="APP" id="APP" value="{!!$app!!}">
+        <input type="hidden" name="RECAPTCHA" id="RECAPTCHA" value="{!!env('RECAPTCHA_PUBLIC', '')!!}">
         <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
         <input type="hidden" name="FACEBOOK_APP_ID" id="FACEBOOK_APP_ID" value="{!!env('FACEBOOK_APP_ID')!!}">
         <input type="hidden" name="USUARIO_ID" id="USUARIO_ID" value="{{sessao('USUARIO.id')}}">
@@ -127,7 +128,7 @@
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://www.google.com/recaptcha/api.js?render={!!env('GOOGLE_API_KEY')!!}"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={!!env('RECAPTCHA_PUBLIC')!!}"></script>
     @JS
 
 </body>

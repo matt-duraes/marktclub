@@ -5,6 +5,7 @@ namespace PainelController;
 use stdClass;
 use Erro\Erro;
 use Erro\Excecao;
+use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\AuthHelper;
 use Helpers\CryptHelper;
@@ -375,16 +376,6 @@ abstract class PadraoController extends Controller
         }
     }
 
-    protected function validarSeEstaLogado()
-    {
-        if (!(new AuthHelper)->validar()) {
-            throw new Excecao(
-                titulo: 'Usuário deslogado!',
-                mensagem: 'Se login expirou, refaça o login para continuar.'
-            );
-        }
-    }
-
     protected function criptografarListaDado(array $lista, array $permitido = [], array $criptografia = [])
     {
         $Crypt = $criptografia ? new CryptHelper(chavePublica: $this->pegarChavePublica($criptografia)) : null;
@@ -446,5 +437,29 @@ abstract class PadraoController extends Controller
             );
         }
         return $lista;
+    }
+
+    protected function validarRetornoApi(ApiHelper $dado, $view = false): Response | stdClass
+    {
+        $status = $dado->status();
+        if (true === $view && 401 === $status) {
+            return new Response(url: LINK . '/login');
+        } else if (401 === $status) {
+            return new Response(json: ['status' => 'deslogado'], status: 401);
+        } else if (204 == $status) {
+            return new Response(status: 204);
+        }
+
+        $dado = $dado->object();
+        $erro = !object_key_exists('status', $dado) || 'sucesso' != $dado->status;
+        if ($erro && $view) {
+            mensagemStatus(500);
+        } else if ($erro && object_key_exists('erro', $dado)) {
+            mensagemErro(
+                $dado->erro->titulo ?? 'Erro!',
+                $dado->erro->mensagem ?? 'Ocorreu um erro, por favor, tente novamente.'
+            );
+        }
+        return $dado;
     }
 }

@@ -19,7 +19,6 @@ final class AuthMiddleware
                 !call_user_func_array([new $class, $action], [$retorno])
             )
         ) {
-            (new AuthHelper)->cookieDeletar();
             return $this->retornoUsuarioNaoLogado();
         }
         return true;
@@ -27,10 +26,6 @@ final class AuthMiddleware
 
     public function deslogado()
     {
-        // $logado = $this->verificarSeEstaLogado(location: false);
-        // if (true === $logado) {
-        //     return new Response(url: (new AuthHelper)->location());
-        // }
         return true;
     }
 

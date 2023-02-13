@@ -30,7 +30,6 @@ final class TokenAuthorizationEntity extends Entity
         string $audience,
         string $redirectUri,
         string $state,
-        bool $logado = false,
         ?Tipo $tipo = null
     ) {
         if (!in_array($redirectUri, $app->redirect_uri)) {
@@ -41,12 +40,12 @@ final class TokenAuthorizationEntity extends Entity
             mensagemErro('Campo incorreto!', 'Não foi enviado o state do usuário.');
         }
 
-        $tempoVida = 86400;
+        $tempoVida = 3600;
         $scope = $this->pegarScope($scope, $app->scope_permitido);
         $jwt = $this->criarJwt($body, $app, $audience, $scope, $tempoVida);
 
         $accessToken = uuid();
-        $refreshToken = $logado ? uuid() : '';
+        $refreshToken = uuid();
         $this->salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo);
 
         $token = [
@@ -55,19 +54,17 @@ final class TokenAuthorizationEntity extends Entity
             'scope' => implode(' ', $scope),
             'expires_in' => $tempoVida,
             'token_type' => 'Bearer',
+            'refresh_token' => $refreshToken
         ];
-        if ($logado) {
-            $token['refresh_token'] = $refreshToken;
-        }
 
         return $token;
     }
 
     private function salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo)
     {
-
+        $idApp = $app->get('id');
         $this->id_usuario = $body['sub'];
-        $this->id_api_app = $app->get('id');
+        $this->id_api_app = $idApp;
         $this->redirect_uri = $redirectUri;
         $this->scope_permitido = $scope;
         $this->state_cliente = $state;
@@ -82,16 +79,20 @@ final class TokenAuthorizationEntity extends Entity
         $this->hash = uuid();
         $this->status = 1;
         $this->tipo = $tipo;
-        if (!empty($refreshToken)) {
-            $this->refresh_token = $refreshToken;
-        }
+        $this->refresh_token = $refreshToken;
         try {
             $this->salvar();
-        } catch (\Throwable) {
+            $this->where([
+                ['uuid', '!=', $this->id],
+                ['id_api_app', $idApp],
+                ['id_usuario', $body['sub']]
+            ])->delete();
+        } catch (\Throwable $e) {
             mensagemErro(
                 'Erro!',
                 'Ocorreu um erro ao salvar seu token.',
-                localhost: 'Ocorreu um erro ao salvar seu token no TokenAuthorizationEntity.'
+                localhost: 'Ocorreu um erro ao salvar seu token no TokenAuthorizationEntity.',
+                error: $e
             );
         }
     }

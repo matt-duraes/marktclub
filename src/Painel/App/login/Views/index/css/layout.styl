@@ -52,6 +52,10 @@ body
     display: flex
     flex-direction: row
     flex-wrap: wrap
+    input.autocomplete
+        width: 0 !important
+        height: 0 !important
+        opacity: 0 !important
     .input_input
         width: calc(50% - 10px)
     .input_login
@@ -61,7 +65,7 @@ body
         display: flex
         flex-direction: row
         margin-top: 20px
-        justify-content: space-between
+        justify-content: flex-end
     .footer button
         width: 130px
         height: 40px
@@ -69,7 +73,6 @@ body
         color: #FFF
         background-color: $cor
         border-radius: 3px
-        margin-left: 20px
         font-size: 1.2rem
 
 #site .conteudo .login_social

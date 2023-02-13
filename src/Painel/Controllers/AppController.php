@@ -43,9 +43,11 @@ final class AppController extends PadraoController
         }
 
         $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
-        $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri)->object();
-        if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
-            mensagemStatus(500, localhost: 'Ocorreu um erro ao fazer a busca na API.');
+
+        $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
+        $dado = $this->validarRetornoApi($dado, true);
+        if ($dado instanceof Response) {
+            return $dado;
         }
         $dado->dado->lista = $this->tratarListaDeRetorno($dado->dado->lista, $config->api->criptografar);
 
@@ -98,7 +100,12 @@ final class AppController extends PadraoController
         } else if ($dado) {
             $Api->body($dado);
         }
-        $Api->$metodo($config->rota);
+        $dado = $Api->$metodo($config->rota);
+
+        $dado = $this->validarRetornoApi($dado);
+        if ($dado instanceof Response) {
+            return $dado;
+        }
 
         return new Response(json: $Api->object(), status: $Api->status());
     }
@@ -126,9 +133,9 @@ final class AppController extends PadraoController
             mensagemStatus(404);
         }
 
-        $dado = $dado->object();
-        if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
-            mensagemStatus(500);
+        $dado = $this->validarRetornoApi($dado);
+        if ($dado instanceof Response) {
+            return $dado;
         }
 
         $retorno = $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar);
@@ -154,7 +161,7 @@ final class AppController extends PadraoController
 
         $config = $this->config($appReal, 'visualizar');
         if (!$config->permissao->status) {
-            mensagemStatus(403, 'Você não tem permissão para mudar o status.');
+            mensagemStatus(403, localhost: 'Você não tem permissão para mudar o status.');
         } else if (!in_array($request->status, $config->visualizar->status)) {
             mensagemErro('Status inválido!', 'O valor do status não é um valor permitido.');
         }
@@ -164,11 +171,11 @@ final class AppController extends PadraoController
             'status' => $request->status
         ])->put($config->api->uri . '/' . $request->id);
 
-        if ($dado->status() == 204) {
-            return new Response(status: 204);
+        $dado = $this->validarRetornoApi($dado);
+        if ($dado instanceof Response) {
+            return $dado;
         }
 
-        $dado = $dado->object();
         return mensagemErro($dado->erro->titulo ?? 'Erro!', $dado->erro->mensagem ?? 'Ocorreu um erro ao mudar seu status.');
     }
 
@@ -201,8 +208,6 @@ final class AppController extends PadraoController
 
     public function postSalvar(request $request, $app)
     {
-        $this->validarSeEstaLogado();
-
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'salvar');
 
@@ -233,10 +238,15 @@ final class AppController extends PadraoController
         $uri = $config->api->uri;
         if ($acao == 'insert') {
             $Api = new ApiHelper(token: true);
-            $dado = $Api->body($lista)->post($uri)->object();
+            $dado = $Api->body($lista)->post($uri);
         } else {
             $Api = new ApiHelper(token: true);
-            $dado = $Api->body($lista)->put($uri . '/' . $request->id)->object();
+            $dado = $Api->body($lista)->put($uri . '/' . $request->id);
+        }
+
+        $dado = $this->validarRetornoApi($dado);
+        if ($dado instanceof Response) {
+            return $dado;
         }
 
         $status = in_array($Api->status(), [201, 204]);
@@ -268,9 +278,10 @@ final class AppController extends PadraoController
             throw new Excecao(status: 404);
         }
 
-        $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid)->object();
-        if (!object_key_exists('status', $dado) || $dado->status != 'sucesso') {
-            mensagemStatus(500);
+        $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
+        $dado = $this->validarRetornoApi($dado, true);
+        if ($dado instanceof Response) {
+            return $dado;
         }
 
         return view(
@@ -330,16 +341,20 @@ final class AppController extends PadraoController
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'download');
 
+        if (!$config->permissao->index || !$config->permissao->download) {
+            mensagemStatus(403);
+        }
+
         $ApiSenha = new ApiHelper(token: true);
         $dadoSenha = $this->criptografarListaDado(['senha' => $request->senha], ['senha'], ['senha']);
 
         $ApiSenha
-            ->validar('Não foi possível validar sua senha, por favor, verifique a senha digitada e tente novamente.')
             ->body($dadoSenha)
             ->post('/usuario-equipe/validar-senha');
 
-        if (!$config->permissao->index || !$config->permissao->download) {
-            mensagemStatus(403);
+        $ApiSenha = $this->validarRetornoApi($ApiSenha);
+        if ($ApiSenha instanceof Response) {
+            return $ApiSenha;
         }
 
         foreach ($request->campo as $valor) {
@@ -364,6 +379,7 @@ final class AppController extends PadraoController
 
         $Api = new ApiHelper(token: true);
         $dado = $Api
+            ->validar('Ocorreu um erro ao salvar o seu pedido, por favor, tente novamente.')
             ->body([
                 'payload' => $payload,
                 'tipo' => 'download.privado'
@@ -473,8 +489,6 @@ final class AppController extends PadraoController
     */
     public function postDeletar(Request $request, $app)
     {
-        $this->validarSeEstaLogado();
-
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'deletar');
         if (!$config->permissao->deletar) {
@@ -483,9 +497,10 @@ final class AppController extends PadraoController
 
         foreach ($request->id as $id) {
             $Api = new ApiHelper(token: true);
-            $Api->delete($config->api->uri . '/' . $id)->object();
-
-            if ($Api->status() == 204) {
+            $Api->delete($config->api->uri . '/' . $id);
+            if ($Api->status() == 401) {
+                return new Response(json: ['status' => 'deslogado'], status: 401);
+            } else if ($Api->status() == 204) {
                 continue;
             }
 
@@ -506,8 +521,6 @@ final class AppController extends PadraoController
     */
     public function postOrdem(Request $request, $app)
     {
-        $this->validarSeEstaLogado();
-
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'ordem');
         if (!$config->permissao) {

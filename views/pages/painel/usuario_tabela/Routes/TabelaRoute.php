@@ -4,9 +4,8 @@ use Route\Route;
 
 Route
     ::middleware(
-        classe: App\Middlewares\AuthMiddleware::class,
+        classe: App\Middlewares\Painel\AuthMiddleware::class,
         action: 'logado',
-        parametro: [Painel\Login\Models\RelogarUsuarioModel::class, 'fazerLogin']
     )
     ::middleware(
         App\Middlewares\Painel\PermissaoMiddleware::class,

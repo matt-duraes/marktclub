@@ -1,7 +1,7 @@
 <?php
 
 use Route\Route;
-use App\Middlewares\AuthMiddleware;
+use App\Middlewares\Painel\AuthMiddleware;
 
 require_once ROOT . '/views/pages/painel/demanda/Routes/DemandaRoute.php';
 require_once ROOT . '/views/pages/painel/album_galeria/Routes/AlbumRoute.php';

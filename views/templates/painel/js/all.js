@@ -21,10 +21,10 @@
 // @import "buscar"
 // @import "body"
 // @import "senha"
-// @import "bloquear"
 // @import "notificacao"
 // @import "trabalho"
 // @import "menu"
+// @import "relogar"
 
 const blocoLink = document.getElementById('LINK');
 const LINK = blocoLink.value;

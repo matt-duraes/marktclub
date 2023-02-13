@@ -29,34 +29,34 @@ final class ValidarTokenCredentialModel
         try {
             $App = new AppEntity();
             $App->buscar(['client_id', $clitenId]);
-        } catch (\Throwable) {
-            $this->erro403('ValidarTokenCredential - Erro ao buscar o APP.');
+        } catch (\Throwable $e) {
+            $this->erro403('ValidarTokenCredential - Erro ao buscar o APP.', $e);
         }
 
         if ($App->audience != $audience) {
             $this->erro403('ValidarTokenCredential - Audience do APP é invalido.');
         }
 
-        // try {
-        $Empresa = new EmpresaEntity();
-        $Empresa->buscar([
-            ['id', $App->id_admin_empresa],
-            ['status', 'in', [1, 2]]
-        ]);
-        // } catch (\Throwable) {
-        //     $this->erro403('ValidarTokenCredential - Não foi encontrado uma empresa.');
-        // }
+        try {
+            $Empresa = new EmpresaEntity();
+            $Empresa->buscar([
+                ['id', $App->id_admin_empresa],
+                ['status', 'in', [1, 2]]
+            ]);
+        } catch (\Throwable $e) {
+            $this->erro403('ValidarTokenCredential - Não foi encontrado uma empresa.', $e);
+        }
 
         $Usuario = [];
 
         $this->validarScope($scope, $App->scope_permitido);
-        $this->criarToken($token, $App, $Empresa, $Usuario, $scope, $dado['gty']);
+        $this->criarDefinesDoToken($token, $App, $Empresa, $Usuario, $scope, $dado['gty']);
 
         return true;
     }
 
-    private function erro403(string $mensagem = '')
+    private function erro403(string $mensagem = '', ?\Throwable $e = null)
     {
-        mensagemStatus(403, localhost: $mensagem);
+        mensagemStatus(403, localhost: $mensagem, error: $e);
     }
 }

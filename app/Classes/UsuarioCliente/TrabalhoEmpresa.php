@@ -7,15 +7,15 @@ use Status\Status;
 final class TrabalhoEmpresa extends Status
 {
     const EMPRESA = [
-        0 => [
+        'geral' => [
             'lista' => ['empresa-teste-01' => 'Empresa de Teste 01'],
             'numero' => [2000]
         ],
-        1 => [
+        'marktclub' => [
             'lista' => ['marktclub' => 'Markt Club'],
             'numero' => [1000]
         ],
-        19 => [
+        'unareg' => [
             'lista' => [
                 'anm' => 'ANM',
                 'ana' => 'ANA',

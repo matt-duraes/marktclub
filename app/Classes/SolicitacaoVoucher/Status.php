@@ -6,17 +6,20 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
+    const STATUS_CRIADO = 'criado';
+    const STATUS_VALIDADO = 'validado';
+
     public function __construct(
         protected null|string|int $valor = null
     ) {
         parent::__construct(
             lista: [
-                'criado' => 'Criado',
-                'validado' => 'Validado',
+                self::STATUS_CRIADO => 'Criado',
+                self::STATUS_VALIDADO => 'Validado',
             ],
             cor: [
-                'criado' => 'azul',
-                'validado' => 'verde'
+                self::STATUS_CRIADO => 'azul',
+                self::STATUS_VALIDADO => 'verde'
             ]
         );
     }

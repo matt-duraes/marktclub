@@ -7,7 +7,7 @@ use Status\Status;
 final class TipoPagamento extends Status
 {
     const EMPRESA = [
-        0 => [
+        'geral' => [
             'lista' => [
                 'cartao-credito' => 'Cartão de Crédito',
                 'cartao-debito' => 'Cartão de Débito',
@@ -16,7 +16,7 @@ final class TipoPagamento extends Status
             ],
             'numero' => [6, 7, 8, 9]
         ],
-        19 => [
+        'unareg' => [
             'lista' => [
                 'consignado-integral' => 'Consignado Integral',
                 'consignado-parcial' => 'Consignado Parcial',
