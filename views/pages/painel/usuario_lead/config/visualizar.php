@@ -11,49 +11,49 @@ use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 $Painel = new PainelConfig\Visualizar('usuario_leed');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    // $Painel->bloco(titulo: 'Dados pessoais', callback: function () use ($Painel) {
-    //     $Painel
-    //         ->linha('nome', 'Nome')
-    //         ->cpf('cpf', 'CPF')
-    //         ->linha('rg', 'RG')
-    //         ->linha('genero', 'Gênero')
-    //         ->data('data_nascimento', 'Data de nascimento');
-    // });
+    $Painel->bloco(titulo: 'Dados pessoais', callback: function () use ($Painel) {
+        $Painel
+            ->linha('nome', 'Nome')
+            ->cpf('cpf', 'CPF')
+            ->linha('rg', 'RG')
+            ->linha('genero', 'Gênero')
+            ->data('data_nascimento', 'Data de nascimento');
+    });
 
-    // $Painel->bloco(titulo: 'Dados de trabalho', callback: function () use ($Painel) {
-    //     $Painel
-    //         ->linha('siape', 'SIAPE')
-    //         ->linha('trabalho_empresa', 'Local de trabalho')
-    //         ->linha('trabalho_cargo', 'Cargo')
-    //         ->linha('trabalho_data_inicio', 'Data exercício')
-    //         ->linha('contrato_siape', 'Contrato')
-    //         ->cnpj('cnpj_trabalho', 'CNPJ');
-    // });
+    $Painel->bloco(titulo: 'Dados de trabalho', callback: function () use ($Painel) {
+        $Painel
+            ->linha('siape', 'SIAPE')
+            ->linha('trabalho_empresa', 'Local de trabalho')
+            ->linha('trabalho_cargo', 'Cargo')
+            ->linha('trabalho_data_inicio', 'Data exercício')
+            ->linha('contrato_siape', 'Contrato')
+            ->cnpj('cnpj_trabalho', 'CNPJ');
+    });
 
-    // $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {
-    //     $Painel
-    //         ->email('email_trabalho', 'E-mail de trabalho')
-    //         ->email('email_pessoal', 'E-mail pessoal')
-    //         ->email('email_funcional', 'E-mail funcional')
-    //         ->telefone('telefone_trabalho', 'Telefone de trabalho')
-    //         ->telefone('telefone_pessoal', 'Telefone pessoal');
-    // });
+    $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {
+        $Painel
+            ->email('email_trabalho', 'E-mail de trabalho')
+            ->email('email_pessoal', 'E-mail pessoal')
+            ->email('email_funcional', 'E-mail funcional')
+            ->telefone('telefone_trabalho', 'Telefone de trabalho')
+            ->telefone('telefone_pessoal', 'Telefone pessoal');
+    });
 
-    // $Painel->bloco(titulo: 'Endereço', callback: function () use ($Painel) {
-    //     $Painel
-    //         ->linha('endereco_logradouro', 'Logradouro')
-    //         ->linha('endereco_numero', 'Número')
-    //         ->linha('endereco_complemento', 'Complemento')
-    //         ->linha('endereco_bairro', 'Bairro')
-    //         ->linha('endereco_cidade', 'Cidade')
-    //         ->linha('endereco_estado', 'Estado')
-    //         ->cep('endereco_cep', 'CEP');
-    // });
-    // $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
-    //     $Painel
-    //         ->linha('origem', 'Origem')
-    //         ->linha('status', 'Status');
-    // });
+    $Painel->bloco(titulo: 'Endereço', callback: function () use ($Painel) {
+        $Painel
+            ->linha('endereco_logradouro', 'Logradouro')
+            ->linha('endereco_numero', 'Número')
+            ->linha('endereco_complemento', 'Complemento')
+            ->linha('endereco_bairro', 'Bairro')
+            ->linha('endereco_cidade', 'Cidade')
+            ->linha('endereco_estado', 'Estado')
+            ->cep('endereco_cep', 'CEP');
+    });
+    $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
+        $Painel
+            ->linha('origem', 'Origem')
+            ->linha('status', 'Status');
+    });
 
     $Painel
         ->status(
