@@ -136,6 +136,8 @@ swIDAQAB
 
             'admin_empresa:listar', 'admin_empresa:buscar',
 
+            'log_erro:listar', 'log_erro:buscar', 'log_erro:atualizar',
+
             'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar'
         ],
         'campo_permitido' => [

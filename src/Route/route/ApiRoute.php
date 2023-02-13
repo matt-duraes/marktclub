@@ -116,10 +116,20 @@ Route
 
 Route
     ::nome('log')
-    ::controller(\ApiController\LogController::class)
+    ::controller(\ApiController\LogErroController::class)
     ::grupo(function () {
         Route
-            ::nome('error')
+            ::nome('salvar')
             ::request(['mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'status'])
-            ::post('/log/error');
+            ::post('/log-erro');
+        Route
+            ::nome('listar')
+            ::get('/log-erro');
+        Route
+            ::nome('buscar')
+            ::get('/log-erro/{id}');
+        Route
+            ::nome('atualizar')
+            ::request(['status'])
+            ::put('/log-erro/{id}');
     });
