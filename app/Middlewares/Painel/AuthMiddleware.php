@@ -18,7 +18,7 @@ final class AuthMiddleware
     public function logado(): bool|Response
     {
         $retorno = $this->verificarSeEstaLogado();
-        if (!$retorno && !empty($this->token)) {
+        if (!$retorno && !empty($this->token) && dataBanco($this->token['data']) == hoje()) {
             return $this->fazerLoginUsuario();
         } else if (!$retorno) {
             return $this->usuarioNaoLogado();

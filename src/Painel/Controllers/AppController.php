@@ -208,7 +208,6 @@ final class AppController extends PadraoController
 
     public function postSalvar(request $request, $app)
     {
-        return new Response(json: ['status' => 'deslogado'], status: 401);
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'salvar');
 
