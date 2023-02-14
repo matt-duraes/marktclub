@@ -3,7 +3,9 @@
 namespace PainelApp\login\Models;
 
 use Helpers\ApiHelper;
+use PainelApp\login\Models\LoginInterface;
 use PainelApp\login\Models\Trait\TokenTrait;
+
 
 final class LoginRefreshModel implements LoginInterface
 {
