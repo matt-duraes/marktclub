@@ -56,11 +56,18 @@
         color: #333
         display: flex
         flex-direction: row
+        word-wrap: break-word
+        word-break: break-word
     .linha strong
         font-size: inherit
         font-weight: 300
         color: #999
         user-select: none
+    .linha p
+        font-size: $textoFontSize
+        word-wrap: break-word
+        word-break: break-word
+        flexGrow()
     .linha span
         font-size: inherit
     .linha span.vazio

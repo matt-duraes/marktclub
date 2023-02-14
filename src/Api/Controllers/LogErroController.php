@@ -5,6 +5,7 @@ namespace ApiController;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use ApiModel\Log\ErrorModel;
 use ApiModel\Log\ErrorEntity;
 use System\Classes\LogErro\Status;
 use System\Interface\ControllerBuscarInterface;
@@ -30,14 +31,14 @@ final class LogErroController extends Controller implements
                 $request->trace,
             );
             $Error->salvar();
-        } catch (\Throwable $erro) {
-            if ($erro->getMessage() != 'erro_duplicado') {
-                mensagemStatus(404);
+        } catch (\Throwable $e) {
+            if ($e->getMessage() != 'erro_duplicado') {
+                mensagemStatus(404, error: $e, localhost: 'Não foi possível salvar o log.');
             }
         }
 
-        return new Response(json: [
-            'id' => $Error->hash
+        return mensagemSucesso([
+            'id' => $Error->id
         ], status: 201);
     }
     public function getBuscar(string $id)
@@ -46,7 +47,13 @@ final class LogErroController extends Controller implements
         $Error->id($id);
 
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($Error)
+            pegarPropriedadeDaEntity(
+                $Error,
+                lista: [
+                    'id', 'mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'quantidade',
+                    'status_http', 'data_criacao', 'status'
+                ]
+            ),
         );
     }
     public function getListar(Request $request)
@@ -61,5 +68,8 @@ final class LogErroController extends Controller implements
         $Error = new ErrorEntity();
         $Error->id($id);
         $Error->status = new Status($request->status);
+        $Error->salvar();
+
+        return new Response(status: 204);
     }
 }

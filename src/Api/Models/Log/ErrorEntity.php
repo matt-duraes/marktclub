@@ -9,12 +9,18 @@ final class ErrorEntity extends Entity
 {
     protected string $_tabela = TABELA_LOG_ERRO;
 
-    protected array $_insert = ['hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace'];
+    protected array $_insert = [
+        'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace', 'quantidade'
+    ];
     protected array $_salvar = ['status'];
-    protected array $_buscar = ['hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace', 'status'];
+    protected array $_buscar = [
+        'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace',
+        'quantidade', 'data_criacao', 'status'
+    ];
 
     public string $hash;
     public Status $status;
+    public int $quantidade;
 
     public function __construct(
         public ?string $mensagem = null,
@@ -29,20 +35,22 @@ final class ErrorEntity extends Entity
 
     protected function regraInsert()
     {
+        $this->quantidade = 1;
         $hash = md5($this->mensagem . $this->arquivo . $this->linha);
-        $this->verificarSeJaExiste($hash);
         $this->hash = $hash;
+        $this->verificarSeJaExiste($hash);
         $this->status = new Status(Status::STATUS_NOVO);
     }
 
     private function verificarSeJaExiste(string $hash)
     {
-        $erro = $this->campo(['id', 'quantidade'])->where([
+        $erro = $this->campo(['id', 'uuid', 'quantidade'])->where([
             ['hash', $hash],
             ['status', 1]
         ])->primeiro();
 
         if ($erro) {
+            $this->id = $erro->uuid;
             $this->atualizarLogErro($erro->id, $erro->quantidade);
             mensagemErro('erro_duplicado', 'erro_duplicado');
         }

@@ -6,6 +6,7 @@ return [
     'filtrar' => false,
     'add' => false,
     'editar' => false,
+    'visualizar' => true,
     'deletar' => false,
     'historico' => true,
     'api' => [

@@ -124,6 +124,7 @@ Route
             ::post('/log-erro');
         Route
             ::nome('listar')
+            ::request(['pagina', '!quantidade'], 'json')
             ::get('/log-erro');
         Route
             ::nome('buscar')

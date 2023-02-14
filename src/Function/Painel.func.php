@@ -262,7 +262,7 @@ if (!function_exists('painelLinhaLista')) {
                     }
                     $campoInicial = explode('->', $val)[0];
                     if (!object_key_exists($campoInicial, $dado)) {
-                        mensagemStatus(500, 'Não foi encontrado o indice ' . $campoInicial);
+                        mensagemStatus(500, null, 'Não foi encontrado o indice ' . $campoInicial);
                     }
                     $valorTemporario = painelValor($dado, $val);
                     if (!empty($valorTemporario)) {
@@ -286,7 +286,7 @@ if (!function_exists('painelLinhaLista')) {
             } else if (!empty($campo)) {
                 $campoInicial = explode('->', $campo)[0];
                 if (!object_key_exists($campoInicial, $dado)) {
-                    mensagemStatus(500, 'Não foi encontrado o indice ' . $campoInicial);
+                    mensagemStatus(500, null, 'Não foi encontrado o indice ' . $campoInicial);
                 }
                 $valor = painelValor($dado, $campo);
                 if (array_key_exists($campo, $replace) && is_string($valor)) {
@@ -312,7 +312,7 @@ if (!function_exists('painelLinhaLista')) {
             } else if ($acao == 'linha') {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
-                echo '<div class="linha bg_hover"><strong class="texto_nome">' . $nome . '</strong> ' . $valor . '</div>';
+                echo '<div class="linha bg_hover"><strong class="texto_nome">' . $nome . '</strong> <p>' . $valor . '</p></div>';
             } else if ($acao == 'titulo') {
                 echo '<h2 class="titulo">' . $valor . '</h2>';
             } else if ($acao == 'sub_titulo') {
@@ -514,7 +514,7 @@ if (!function_exists('painelValor')) {
                 (is_array($valor) && !array_key_exists($val, $valor)) ||
                 (is_object($valor) && !object_key_exists($val, $valor))
             ) {
-                mensagemStatus(500, 'O campo "' . $campo . '" não existe na lista.');
+                mensagemStatus(500, null, 'O campo "' . $campo . '" não existe na lista.');
             }
             $valor = is_array($valor) ? $valor[$val] : $valor->$val;
         }

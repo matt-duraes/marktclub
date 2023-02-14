@@ -16,7 +16,7 @@ return [
             'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar']],
             'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
             'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_quadro' => 'Quadro de demanda']],
-            'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'editar']]
+            'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
         ]),
         'configuracao' => ['agenda', 'perfil', 'bloquear'],
         'campo_permitido' => [
