@@ -218,7 +218,7 @@ return [
         'titulo' => 'DEMANDA',
         'ordem' => '++',
         'status' =>  1,
-        'permissao' => '["demanda_quadro"]'
+        'permissao' => '["demanda_quadro","log_erro_index"]'
     ],
     [
         'id' => '++',
@@ -231,5 +231,17 @@ return [
         'menu' => ['demanda-quadro'],
         'status' =>  1,
         'permissao' => '["demanda_quadro"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Log de erro',
+        'url' => '/app/log-erro',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path d="M21.2,29.8c2.9-0.6,5-3.1,5-6.1V20c0-0.8-0.1-1.7-0.5-2.5H14.4c-0.4,0.8-0.5,1.7-0.5,2.5v3.7c0,3,2,5.5,5,6.1v-7.3h2.3V29.8z M12,27.1c-0.5-1.1-0.7-2.2-0.7-3.4H7.6v-2.5h3.7V20c0-0.8,0.1-1.6,0.4-2.3l-2.8-1.6l1.2-2.2l2.5,1.4c0.1-0.1,0.1-0.2,0.2-0.4h14.4c0.1,0.1,0.1,0.2,0.2,0.4l2.5-1.4l1.2,2.2l-2.8,1.6c0.2,0.7,0.4,1.6,0.4,2.3v1.2h3.7v2.5h-3.7c0,1.2-0.2,2.3-0.7,3.4l3.1,1.8L29.9,31l-3.1-1.8c-1.7,2-4.2,3.2-6.7,3.2c-2.6,0-5.1-1.2-6.7-3.2L10.3,31l-1.2-2.2L12,27.1L12,27.1z M15,12.6c0-2.8,2.3-5,5-5s5,2.3,5,5H15z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['log-erro'],
+        'status' =>  1,
+        'permissao' => '["log_erro_index"]'
     ]
 ];

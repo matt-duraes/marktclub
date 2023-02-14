@@ -202,21 +202,18 @@ final class PerfilController extends Controller
     public function postImagem(Request $request)
     {
         $arquivo = $request->_FILES('arquivo');
-        $dado = (new ApiHelper(token: true))->arquivo(['imagem_arquivo' => $arquivo])->put('/usuario-equipe/' . sessao('USUARIO.id'));
+        $dado = (new ApiHelper(token: true))
+            ->validar('Erro ao fazer o upload da imagem, por favor, tente novamente.')
+            ->body(['id' => sessao('USUARIO.id')])
+            ->arquivo(['imagem' => $arquivo])
+            ->post('/usuario-equipe/imagem')
+            ->object();
 
-        if ($dado->status() != 204) {
-            $dado = $dado->object();
-            mensagemErro(
-                $dado->erro->titulo ?? 'Erro!',
-                $dado->erro->mensagem ?? 'Erro ao fazer o upload da imagem, por favor, tente novamente.'
-            );
-        }
-
-        $usuario = (new ApiHelper(token: true))->get('/usuario-equipe/' . sessao('USUARIO.id'))->object();
-        $imagem = descriptografarDado($usuario->dado->imagem, chave: (new ApiHelper(token: true))->get('/admin/chave-privada')->object()->dado->chave ?? '');
+        $chave = (new ApiHelper(token: true))->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        $Crypt = new CryptHelper(chavePrivada: $chave);
+        $imagem = $Crypt->decode($dado->dado->imagem);
 
         sessao('USUARIO.imagem', $imagem);
-
         return mensagemSucesso(['imagem' => $imagem . '?cache=' . md5(uniqid(time()))], status: 201);
     }
 

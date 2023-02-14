@@ -464,11 +464,9 @@ final class Request extends Psr7Request
             $lista = $this->pegarRequestOuBody();
         }
 
-        if ($metodo == 'POST') {
-            $file = $this->__requestInterno->files->all();
-            if ($file) {
-                $lista = $lista + $file;
-            }
+        $file = $this->__requestInterno->files->all();
+        if ($metodo == 'POST' && $file) {
+            $lista = $lista + $file;
         }
 
         if (empty($chave)) {
@@ -478,7 +476,7 @@ final class Request extends Psr7Request
 
         $Crypt = new CryptHelper(chavePrivada: $chave);
         foreach ($lista as $ind => $val) {
-            if (!empty($descriptografar) && !in_array($ind, $descriptografar)) {
+            if (!empty($descriptografar) && (!in_array($ind, $descriptografar) || array_key_exists($ind, $file))) {
                 $lista[$ind] = $val;
                 continue;
             }

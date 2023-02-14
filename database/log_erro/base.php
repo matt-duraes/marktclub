@@ -2,6 +2,7 @@
 
 return (new \DataBase\DataBase())
     ->id()
+    ->uuid()
     ->char('hash')->tamanho(32)
     ->text('mensagem')->null()
     ->varchar('codigo')->null()

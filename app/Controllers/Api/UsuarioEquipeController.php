@@ -76,6 +76,20 @@ final class UsuarioEquipeController extends Controller implements
 
         return new Response(status: 204);
     }
+    public function postImagem(Request $request)
+    {
+        $id = $request->id;
+        validarUuid($id);
+        $Usuario = new EquipeEntity();
+        $Usuario->id($id);
+        $Usuario->imagem_arquivo = $request->_FILES('imagem');
+        $Usuario->salvar();
+
+        return mensagemSucesso([
+            'id' => $Usuario->id,
+            'imagem' => $Usuario->imagem
+        ], status: 201, criptografar: ['imagem']);
+    }
 
     public function deleteDeletar(string $id)
     {

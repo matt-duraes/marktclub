@@ -35,7 +35,7 @@ trait LogTrait
 
         try {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, env('API_URL') . '/log/error');
+            curl_setopt($ch, CURLOPT_URL, env('API_URL') . '/log-erro');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);

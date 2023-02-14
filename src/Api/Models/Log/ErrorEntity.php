@@ -3,39 +3,65 @@
 namespace ApiModel\Log;
 
 use ORM\Entity;
+use System\Classes\LogErro\Status;
 
 final class ErrorEntity extends Entity
 {
     protected string $_tabela = TABELA_LOG_ERRO;
 
-    protected array $_insert = ['hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace', 'status'];
-    protected array $_buscar = ['hash'];
+    protected array $_insert = [
+        'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace', 'quantidade'
+    ];
+    protected array $_salvar = ['status'];
+    protected array $_buscar = [
+        'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace',
+        'quantidade', 'data_criacao', 'status'
+    ];
 
     public string $hash;
-    protected int $status;
+    public Status $status;
+    public int $quantidade;
 
     public function __construct(
-        protected ?string $mensagem = null,
-        protected ?string $codigo = null,
-        protected ?string $status_http = null,
-        protected ?string $arquivo = null,
-        protected ?string $linha = null,
-        protected ?string $trace = null,
+        public ?string $mensagem = null,
+        public ?string $codigo = null,
+        public ?string $status_http = null,
+        public ?string $arquivo = null,
+        public ?string $linha = null,
+        public ?string $trace = null,
     ) {
         parent::__construct();
     }
 
     protected function regraInsert()
     {
+        $this->quantidade = 1;
         $hash = md5($this->mensagem . $this->arquivo . $this->linha);
-        if ($this->existe([
+        $this->hash = $hash;
+        $this->verificarSeJaExiste($hash);
+        $this->status = new Status(Status::STATUS_NOVO);
+    }
+
+    private function verificarSeJaExiste(string $hash)
+    {
+        $erro = $this->campo(['id', 'uuid', 'quantidade'])->where([
             ['hash', $hash],
             ['status', 1]
-        ])) {
-            $this->hash = $hash;
+        ])->primeiro();
+
+        if ($erro) {
+            $this->id = $erro->uuid;
+            $this->atualizarLogErro($erro->id, $erro->quantidade);
             mensagemErro('erro_duplicado', 'erro_duplicado');
         }
-        $this->hash = $hash;
-        $this->status = 1;
+    }
+    private function atualizarLogErro($id, $quantidade)
+    {
+        $this
+            ->dado([
+                'data_atualizacao' => agora(),
+                'quantidade' => $quantidade + 1
+            ])->where(['id', $id])
+            ->update();
     }
 }
