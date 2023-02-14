@@ -386,7 +386,6 @@ Route
                 '!imagem_google', '!id_facebook', '!id_google', '!perfil'
             ])
             ::put('/usuario-equipe/{id}');
-
         Route
             ::nome('imagem')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
