@@ -51,6 +51,8 @@ $Painel->coluna(callback: function () use ($Painel) {
                         $Painel->checkbox(name: 'permissao[]', label: 'Deletar', value: $ind . '_deletar');
                     } else if ($acao == 'status') {
                         $Painel->checkbox(name: 'permissao[]', label: 'Mudar status', value: $ind . '_status');
+                    } else if ($acao == 'empresa') {
+                        $Painel->checkbox(name: 'permissao[]', label: 'Todas as empresas', value: $ind . '_empresa');
                     }
                 }
             } else if (array_key_exists('permissao', $dado)) {

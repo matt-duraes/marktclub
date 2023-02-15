@@ -6,23 +6,23 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const STATUS_INDICADO = 'indicado';
-    const STATUS_ATIVADO = 'ativado';
-    const STATUS_BLOQUEADO = 'bloqueado';
+    const INDICADO = 'indicado';
+    const ATIVADO = 'ativado';
+    const BLOQUEADO = 'bloqueado';
 
     public function __construct(
         protected null|string|int $valor = null
     ) {
         parent::__construct(
             lista: [
-                self::STATUS_INDICADO => 'Indicado',
-                self::STATUS_ATIVADO => 'Ativado',
-                self::STATUS_BLOQUEADO => 'Bloqueado'
+                self::INDICADO => 'Indicado',
+                self::ATIVADO => 'Ativado',
+                self::BLOQUEADO => 'Bloqueado'
             ],
             cor: [
-                self::STATUS_INDICADO => 'azul',
-                self::STATUS_ATIVADO => 'verde',
-                self::STATUS_BLOQUEADO => 'vermelho'
+                self::INDICADO => 'azul',
+                self::ATIVADO => 'verde',
+                self::BLOQUEADO => 'vermelho'
             ],
         );
     }

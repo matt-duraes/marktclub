@@ -58,6 +58,7 @@ final class ClienteModel extends GeralModel
 
             $lista[] = [
                 'id' => $uuid,
+                'empresa' => $r->empresa_nome_fantasia,
                 'nome' => $r->nome,
                 'cpf' => $r->tipo == 2 ? '' : $r->documento,
                 'email' => $email,

@@ -26,9 +26,15 @@ trait BuscarUsuarioTrait
         $pagamento = $request->pagamento;
         if ($pagamento == 'sim') {
             $query
-                ->tabela(TABELA_USUARIO_PAGAMENTO)->join('id_usuario_cliente', 'id')
-                ->where(['status', 1])->group('id_usuario_cliente');
+                ->tabela(TABELA_USUARIO_PAGAMENTO)
+                ->join('id_usuario_cliente', 'id')
+                ->where(['status', 1])
+                ->group('id_usuario_cliente');
         }
+        $query
+            ->tabela(TABELA_EMPRESA_NOVO)
+            ->join('id', 'empresa')
+            ->campo(['nome_fantasia'], 'empresa');
 
         return $query->read();
     }

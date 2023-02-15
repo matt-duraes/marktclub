@@ -29,6 +29,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco(titulo: 'Dados de trabalho', callback: function () use ($Painel) {
         $Painel
+            ->linha('empresa', 'Empresa')
             ->linha('matricula', 'Matrícula')
             ->linha('siape', 'SIAPE')
             ->linha('trabalho_empresa', 'Local de trabalho')

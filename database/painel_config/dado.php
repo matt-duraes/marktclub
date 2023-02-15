@@ -4,17 +4,19 @@ return [
     [
         'id_admin_empresa' => 1,
         'permissao' => json_encode([
-            'usuario_cliente' => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download']],
+            'usuario_cliente' => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download', 'empresa']],
             'usuario_grupo' => ['titulo' => 'Grupo', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'usuario_dependente' => ['titulo' => 'Dependente', 'acao' => ['index', 'add', 'deletar']],
             'usuario_indicacao' => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_lead' => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
-            'usuario_equipe' => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'usuario_equipe' => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
             'parceiro_relatorio' => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'relatorio' => ['titulo' => 'Relatório', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_loja_venda_index' => 'Relatório de vendas']],
+            'relatorio_acesso' => ['titulo' => 'Relatório Acesso', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas']],
+            'relatorio_usuario' => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
+            'relatorio_loja_venda' => ['titulo' => 'Relatório de vendas', 'permissao' => ['relatorio_loja_venda_index' => 'Relatório de vendas', 'relatorio_loja_venda_empresa' => 'Todas as empresas']],
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Cadastrar usuário', 'tabela_usuario_bloquear' => 'Bloquear usuário']],
-            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar']],
-            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
+            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'empresa']],
+            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download', 'empresa']],
             'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_quadro' => 'Quadro de demanda']],
             'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
         ]),
@@ -26,14 +28,15 @@ return [
                     'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_estado', 'endereco_cidade', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
                     'data_criacao_ate', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
-                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo'
+                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa'
                 ],
                 'download' => [
                     'status', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',
                     'endereco_cidade', 'endereco_bairro', 'endereco_complemento', 'endereco_numero',
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'federacao', 'grupo',
                     'matricula', 'data_nascimento', 'genero', 'estado_civil', 'cpf', 'telefone_pessoal',
-                    'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload', 'lead', 'origem'
+                    'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload',
+                    'lead', 'origem', 'empresa'
                 ]
             ]
         ],
