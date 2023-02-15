@@ -514,7 +514,7 @@ Route
         Route
             ::nome('loginDigio')
             ::middleware(TokenMiddleware::class, 'scope', ['login:digio'])
-            ::request(['usuario'])
+            ::request(['usuario', '!clube'])
             ::post('/login/digio');
 
         Route

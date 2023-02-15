@@ -27,7 +27,10 @@ final class LoginController extends Controller
     */
     public function postLoginDigio(Request $request)
     {
-        $Digio = new DigioModel($request->usuario);
+        $Digio = new DigioModel(
+            usuario: $request->usuario,
+            clube: $request->clube
+        );
         return $Digio->link();
     }
 
