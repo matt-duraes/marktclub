@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
@@ -13,7 +14,7 @@ final class SolicitacaoVoucherController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface
 {
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Voucher = new VoucherModel($request);
         $dado = $Voucher->listarDados();
@@ -27,7 +28,7 @@ final class SolicitacaoVoucherController extends Controller implements
 
         return mensagemSucesso($dado);
     }
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         validarUuid($id);
 

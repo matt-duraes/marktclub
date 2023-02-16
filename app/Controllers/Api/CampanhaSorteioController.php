@@ -3,14 +3,16 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
-use App\Models\Api\CampanhaSorteio\SorteioEntity;
 use System\Interface\ControllerBuscarInterface;
+use App\Models\Api\CampanhaSorteio\SorteioEntity;
 
-final class CampanhaSorteioController extends Controller implements ControllerBuscarInterface
+final class CampanhaSorteioController extends Controller implements
+    ControllerBuscarInterface
 {
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         if (empty($id)) {
             mensagemStatus(404);

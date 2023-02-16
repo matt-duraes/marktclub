@@ -9,13 +9,13 @@ use Modules\Dinheiro;
 use Controller\Controller;
 use App\Classes\UsuarioPagamento\Helper;
 use App\Classes\UsuarioPagamento\Status;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 use App\Models\Api\UsuarioPagamento\PagamentoEntity;
-use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioPagamentoController extends Controller implements
     ControllerListarInterface,
@@ -23,7 +23,7 @@ final class UsuarioPagamentoController extends Controller implements
     ControllerSalvarInterface,
     ControllerAtualizarInterface
 {
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
 
         $Pagamento = new PagamentoModel($request);
@@ -33,7 +33,7 @@ final class UsuarioPagamentoController extends Controller implements
         return mensagemSucesso($dado);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Pagamento = new PagamentoModel();
         $dado = $Pagamento->buscarPagamento($id);
@@ -41,7 +41,7 @@ final class UsuarioPagamentoController extends Controller implements
         return mensagemSucesso($dado);
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Pagamento = new PagamentoEntity(
             data_cobranca: new Data($request->data),
@@ -57,7 +57,7 @@ final class UsuarioPagamentoController extends Controller implements
         ], status: 201);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Pagamento = new PagamentoEntity();
         $Pagamento->id($id);

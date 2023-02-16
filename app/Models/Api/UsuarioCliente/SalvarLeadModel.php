@@ -2,11 +2,21 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use App\Models\Api\GeralModel;
+use ORM\ORM;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class SalvarLeadModel extends GeralModel
+final class SalvarLeadModel extends ORM
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_NOVO;
+
+    private int $idEmpresa;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->validarEmpresa('empresa');
+    }
 
     public function salvarLead(array $dado)
     {

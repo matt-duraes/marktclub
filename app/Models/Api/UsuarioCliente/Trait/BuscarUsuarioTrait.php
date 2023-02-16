@@ -3,12 +3,23 @@
 namespace App\Models\Api\UsuarioCliente\Trait;
 
 use stdClass;
+use System\Trait\Model\PaginaTrait;
 use App\Classes\UsuarioCliente\Ordem;
+use System\Trait\Model\QuantidadeTrait;
 
 trait BuscarUsuarioTrait
 {
     use WhereTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
 
+    /**
+     * Buscar o usuário
+     *
+     * @param   array           $campo      Campo que deseja buscar do usuário
+     * @param   bool            $paginacao  Se vai ter paginação
+     * @return  stdClass|array              stdClass se tiver paginacao ou array quando não tiver paginacao
+     */
     private function buscarUsuario(array $campo, bool $paginacao): stdClass|array
     {
         $request = $this->request;
@@ -19,8 +30,7 @@ trait BuscarUsuarioTrait
         $query = $this->campo($campo)->where($where)->order($ordem);
 
         if ($paginacao) {
-            $pagina = $this->pegarPagina();
-            $query->pagina($pagina, 50);
+            $query->pagina($this->pegarPagina(), $this->pegarQuantidade());
         }
 
         $pagamento = $request->pagamento;

@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use App\Models\Api\ApiApp\AppModel;
 use App\Models\Api\ApiApp\AppEntity;
@@ -13,7 +14,7 @@ final class ApiAppController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface
 {
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $App = new AppModel($request);
         $dado = $App->listarDados();
@@ -21,7 +22,7 @@ final class ApiAppController extends Controller implements
         return mensagemSucesso($dado);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         validarUuid($id);
         $App = new AppEntity();

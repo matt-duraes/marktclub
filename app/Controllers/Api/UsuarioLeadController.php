@@ -22,7 +22,7 @@ final class UsuarioLeadController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $dado = $request->dado();
 
@@ -33,7 +33,7 @@ final class UsuarioLeadController extends Controller implements
         return $this->retornoSucesso($Lead, 201, false);
     }
 
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Lead = new LeadModel($request);
         $dado = $Lead->listarDados();
@@ -42,7 +42,7 @@ final class UsuarioLeadController extends Controller implements
         return mensagemSucesso($dado);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         validarUuid($id);
 
@@ -69,7 +69,7 @@ final class UsuarioLeadController extends Controller implements
         return mensagemSucesso($dado, status: $status, criptografar: Helper::CRIPTOGRAFAR);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         validarUuid($id);
 
@@ -81,7 +81,7 @@ final class UsuarioLeadController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         validarUuid($id);
 

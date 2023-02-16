@@ -24,14 +24,14 @@ final class ParceiroRelatorioController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Relatorio = new RelatorioModel($request);
         $dado = $Relatorio->listarDado();
         return mensagemSucesso($dado);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Relatorio = new RelatorioEntity();
         $Relatorio->id($id);
@@ -39,7 +39,7 @@ final class ParceiroRelatorioController extends Controller implements
         return mensagemSucesso($this->pegarDadoRetorno($Relatorio));
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $request
             ->vazio('empresa', mensagem: 'O campo empresa é obrigatório.')
@@ -69,7 +69,7 @@ final class ParceiroRelatorioController extends Controller implements
         ]);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Relatorio = new RelatorioEntity();
         $Relatorio->id($id);
@@ -103,7 +103,7 @@ final class ParceiroRelatorioController extends Controller implements
         return $Parceiro;
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         $Relatorio = new RelatorioEntity();
         $Relatorio->id($id);

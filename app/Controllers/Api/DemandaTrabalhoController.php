@@ -14,7 +14,7 @@ final class DemandaTrabalhoController extends Controller implements
     ControllerSalvarInterface,
     ControllerAtualizarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Trabalho = new TrabalhoEntity(
             tarefa: $request->tarefa
@@ -32,7 +32,7 @@ final class DemandaTrabalhoController extends Controller implements
         );
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Trabalho = new TrabalhoEntity();
         $Trabalho->id($id);

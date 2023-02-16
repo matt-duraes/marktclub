@@ -57,7 +57,6 @@ abstract class Entity extends ORM
 
     protected array $_deletarArquivo = [];
 
-    protected array $_wherePadrao = [];
     protected array $_set = [];
     protected array $_get = [];
     protected array $_entityRetorno = [];

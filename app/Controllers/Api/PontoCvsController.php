@@ -2,10 +2,11 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\PontoCvs\Helper;
 use Http\Request;
 use Http\Response;
+use Modules\Email;
 use Controller\Controller;
+use App\Classes\PontoCvs\Helper;
 use App\Classes\PontoCvs\Status;
 use App\Models\Api\PontoCvs\PontoModel;
 use App\Models\Api\PontoCvs\PontoEntity;
@@ -13,7 +14,6 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use Modules\Email;
 
 final class PontoCvsController extends Controller implements
     ControllerSalvarInterface,
@@ -21,7 +21,7 @@ final class PontoCvsController extends Controller implements
     ControllerBuscarInterface,
     ControllerAtualizarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Ponto = new PontoEntity($request->cpf);
 
@@ -34,7 +34,7 @@ final class PontoCvsController extends Controller implements
         return $this->retornoSucesso($Ponto, 201);
     }
 
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Ponto = new PontoModel($request);
 
@@ -44,7 +44,7 @@ final class PontoCvsController extends Controller implements
         return mensagemSucesso($dado);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         validarUuid($id);
 
@@ -54,7 +54,7 @@ final class PontoCvsController extends Controller implements
         return $this->retornoSucesso($Ponto);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         validarUuid($id);
 

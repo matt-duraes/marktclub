@@ -145,7 +145,7 @@ final class Response extends Psr7Response
     public function status(int $status): self
     {
         if ($status < 100 || $status > 399) {
-            mensagemStatus(400, 'Você deve passar um Status entre 100 e 399 para a resposta.');
+            mensagemStatus(400, localhost: 'Você deve passar um Status entre 100 e 399 para a resposta.');
         }
         $tipo = $this->tipo;
         $this->$tipo->setStatusCode($status);
@@ -211,7 +211,7 @@ final class Response extends Psr7Response
     {
         $this->tipo = 'responseLocation';
         if (!in_array($status, [301, 302, 307, 308])) {
-            mensagemStatus(400, 'O status para redirecionamento deve ser 301, 302, 307 ou 308.');
+            mensagemStatus(400, localhost: 'O status para redirecionamento deve ser 301, 302, 307 ou 308.');
         }
         $location = new RedirectResponse($url, $status, $header,);
         $this->responseLocation = $location;

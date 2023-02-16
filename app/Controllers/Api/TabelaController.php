@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\UsuarioCliente\UsuarioTabelaModel;
@@ -10,7 +11,7 @@ use App\Models\Api\UsuarioCliente\UsuarioTabelaModel;
 final class TabelaController extends Controller implements
     ControllerSalvarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Usuario = new UsuarioTabelaModel();
         $hash = jsonDecode($request->hash, true, true);

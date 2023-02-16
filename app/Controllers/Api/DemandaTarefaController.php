@@ -18,7 +18,7 @@ final class DemandaTarefaController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $minuto = $request->vazio('minuto_producao_estimada') ? null : $request->minuto_producao_estimada;
         $Tarefa = new TarefaEntity(
@@ -42,7 +42,7 @@ final class DemandaTarefaController extends Controller implements
         );
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Tarefa = new TarefaEntity();
         $Tarefa->id($id);
@@ -51,7 +51,7 @@ final class DemandaTarefaController extends Controller implements
         );
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
         if (!$request->vazio('texto')) {
@@ -66,7 +66,7 @@ final class DemandaTarefaController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         $Tarefa = new TarefaEntity();
         $Tarefa->id($id);
