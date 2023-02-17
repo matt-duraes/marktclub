@@ -6,10 +6,13 @@ use ORM\ORM;
 use Http\Request;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class DependenteModel extends ORM
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_NOVO;
 
     private int $idEmpresa;
@@ -18,10 +21,7 @@ final class DependenteModel extends ORM
         private ?Request $request = null
     ) {
         parent::__construct();
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioDependente\DependenteModel');
-        }
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->validarEmpresa('empresa');
     }
 
     /*

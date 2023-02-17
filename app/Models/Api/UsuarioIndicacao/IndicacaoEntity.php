@@ -2,15 +2,18 @@
 
 namespace App\Models\Api\UsuarioIndicacao;
 
+use ORM\Entity;
 use Modules\Email;
 use Modules\Telefone;
-use App\Models\Api\GeralEntity;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioIndicacao\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
-final class IndicacaoEntity extends GeralEntity
+final class IndicacaoEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_INDICACAO;
     protected array $_buscar = [
         'id_usuario_cliente', 'nome', 'email', 'telefone', 'status', 'data_criacao', 'data_atualizacao'
@@ -26,8 +29,17 @@ final class IndicacaoEntity extends GeralEntity
     public array $usuario_ativo = [];
     public string $usuario;
     public Status $status;
+    protected int $id_admin_empresa;
+    protected string $hash;
 
     protected int $id_usuario_cliente;
+    private int $idEmpresa;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setarIdEmpresa();
+    }
 
     protected function regraPosBuscar()
     {

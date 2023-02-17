@@ -15,6 +15,14 @@ final class Data implements ModuleInterface
         return $this->data;
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->data;
+    }
+
     // doc
     /**
      * Modulo para Data

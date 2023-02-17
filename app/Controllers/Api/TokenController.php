@@ -7,11 +7,13 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\RefreshTokenModel;
+use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\ApiToken\TokenCredentialEntity;
 
-final class TokenController extends Controller
+final class TokenController extends Controller implements
+    ControllerSalvarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $grantType = $request->grant_type;
         if ('client_credentials' == $grantType) {

@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 
 trait EntityBuscarTrait
@@ -18,5 +19,7 @@ trait EntityBuscarTrait
             $Pagamento = new PagamentoModel();
             $this->pagamento = $Pagamento->buscarPagamento($this->get('id'));
         }
+        $this->Empresa = new EmpresaEntity();
+        $this->Empresa->_id($this->id_admin_empresa);
     }
 }

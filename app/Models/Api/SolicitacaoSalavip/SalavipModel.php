@@ -8,10 +8,12 @@ use Http\Request;
 use Modules\Data;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\SolicitacaoVoucher\Ordem;
+use System\Interface\ModelListarInterface;
 use App\Classes\SolicitacaoSalavip\Empresa;
 use App\Models\Api\Painel\LogDownloadEntity;
 
-final class SalavipModel extends ORM
+final class SalavipModel extends ORM implements
+    ModelListarInterface
 {
     use PaginaTrait;
 

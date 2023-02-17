@@ -33,16 +33,19 @@ final class UsuarioClienteController extends Controller implements
             ['cod', $id],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
-
         return $this->retornoSucesso($Usuario);
     }
 
     public function getListar(Request $request): Response
     {
         $Usuario = new ClienteModel($request);
-
         $dado = $Usuario->listarDados();
-        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
+
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: Helper::CRIPTOGRAFAR,
+            lista: true
+        );
 
         return mensagemSucesso($dado);
     }
@@ -105,7 +108,8 @@ final class UsuarioClienteController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Usuario,
                 lista: [
-                    'id', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
+                    'Empresa' => ['id', 'nome_fantasia'],
+                    'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
                     'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
                     'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
                     'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',

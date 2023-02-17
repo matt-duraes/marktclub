@@ -36,7 +36,12 @@ final class UsuarioIndicacaoController extends Controller implements
     {
         $Indicacao = new IndicacaoModel($request);
         $dado = $Indicacao->listar();
-        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
+
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: Helper::CRIPTOGRAFAR,
+            lista: true
+        );
 
         return mensagemSucesso($dado);
     }

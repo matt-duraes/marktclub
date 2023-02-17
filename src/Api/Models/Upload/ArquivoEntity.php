@@ -3,10 +3,9 @@
 namespace ApiModel\Upload;
 
 use ORM\Entity;
-use Modules\DataHora;
 use Helpers\UploadHelper;
 use ApiModel\Upload\GrupoEntity;
-use System\Classes\UploadArquivo\Status;
+use App\Classes\StatusGeral\Status;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -67,7 +66,7 @@ final class ArquivoEntity extends Entity
         $this->id_usuario_equipe = TOKEN['usuario']->get('id');
         $this->subirImagem(md5(uniqid(time())));
         $this->nome = $this->arquivo->nomeReal();
-        $this->status = new Status(1);
+        $this->status = new Status(Status::ATIVO);
     }
     protected function regraPosInsert()
     {

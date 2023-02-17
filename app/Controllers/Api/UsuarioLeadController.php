@@ -37,7 +37,12 @@ final class UsuarioLeadController extends Controller implements
     {
         $Lead = new LeadModel($request);
         $dado = $Lead->listarDados();
-        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
+
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: Helper::CRIPTOGRAFAR,
+            lista: true
+        );
 
         return mensagemSucesso($dado);
     }

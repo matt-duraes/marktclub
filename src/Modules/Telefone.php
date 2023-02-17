@@ -12,6 +12,14 @@ final class Telefone implements ModuleInterface
         return $this->telefone();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->telefone();
+    }
+
     // doc
     /**
      * Modulo para telefone

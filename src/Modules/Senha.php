@@ -17,6 +17,14 @@ final class Senha implements ModuleInterface
         return '';
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return '';
+    }
+
     // doc
     /**
      * Modulo para senha

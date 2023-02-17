@@ -37,9 +37,13 @@ final class PontoCvsController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Ponto = new PontoModel($request);
-
         $dado = $Ponto->listarDados();
-        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
+
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: Helper::CRIPTOGRAFAR,
+            lista: true
+        );
 
         return mensagemSucesso($dado);
     }

@@ -17,6 +17,14 @@ final class EstadoCivil implements ModuleInterface
         return $this->estadoCivil();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->estadoCivil();
+    }
+
     // doc
     /**
      * Gera um modulo de estado civil

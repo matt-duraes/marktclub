@@ -13,12 +13,14 @@ use Modules\Genero;
 use Modules\Telefone;
 use Helpers\UploadHelper;
 use App\Classes\UsuarioEquipe\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioEquipe\Trait\CampoUnicoTrait;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class EquipeEntity extends Entity
 {
+    use ValidarEmpresaTrait;
     use CampoUnicoTrait;
 
     protected string $_tabela = TABELA_USUARIO_EQUIPE;
@@ -94,12 +96,10 @@ final class EquipeEntity extends Entity
     ) {
         parent::__construct();
 
-        if ($validarToken && !defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioEquipe\EquipeEntity');
-        } else if ($validarToken && defined('TOKEN')) {
-            $this->idEmpresa = TOKEN['empresa']->get('id');
-            $this->_wherePadrao = ['id_admin_empresa', $this->idEmpresa];
+        if (!$validarToken) {
+            return;
         }
+        $this->validarEmpresa();
     }
 
     protected function getId()

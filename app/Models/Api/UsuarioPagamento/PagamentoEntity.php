@@ -6,7 +6,6 @@ use ORM\Entity;
 use Modules\Data;
 use Modules\Dinheiro;
 use App\Classes\UsuarioPagamento\Status;
-use App\Models\Api\ApiUsuario\UsuarioEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 

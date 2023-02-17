@@ -13,6 +13,14 @@ final class EnderecoEstado implements ModuleInterface
         return $this->estado;
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->estado;
+    }
+
     // doc
     /**
      * Modulo para Estado

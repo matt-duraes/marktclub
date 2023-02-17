@@ -61,7 +61,10 @@ final class ClienteModel extends ORM
 
             $lista[] = [
                 'id' => $uuid,
-                'empresa' => $r->empresa_nome_fantasia,
+                'empresa' => [
+                    'id' => $r->empresa_cod,
+                    'nome_fantasia' => $r->empresa_nome_fantasia,
+                ],
                 'nome' => $r->nome,
                 'cpf' => $r->tipo == 2 ? '' : $r->documento,
                 'email' => $email,

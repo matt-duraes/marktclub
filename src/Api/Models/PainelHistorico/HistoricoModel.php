@@ -2,19 +2,24 @@
 
 namespace ApiModel\PainelHistorico;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
-use App\Models\Api\GeralModel;
+use System\Trait\Model\PaginaTrait;
 use System\Classes\PainelHistorico\Acao;
 
-final class HistoricoModel extends GeralModel
+final class HistoricoModel extends ORM
 {
+    use PaginaTrait;
+
     protected string $_tabela = TABELA_PAINEL_HISTORICO;
+    private int $idUsuario;
 
     public function __construct(
         protected Request $request
     ) {
         parent::__construct();
+        $this->idUsuario = TOKEN['usuario']->get('id');
     }
 
     public function listarDados(): stdClass

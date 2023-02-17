@@ -37,7 +37,11 @@ final class UsuarioEquipeController extends Controller implements
     {
         $Usuario = new EquipeModel($request);
         $dado = $Usuario->listar();
-        $dado->lista = criptografarDado($dado->lista, lista: helper::CRIPTOGRAFAR);
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: helper::CRIPTOGRAFAR,
+            lista: true
+        );
         return mensagemSucesso($dado);
     }
 

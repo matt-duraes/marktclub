@@ -28,7 +28,12 @@ final class UsuarioPagamentoController extends Controller implements
 
         $Pagamento = new PagamentoModel($request);
         $dado = $Pagamento->listarDados();
-        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFIA);
+
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: Helper::CRIPTOGRAFIA,
+            lista: true
+        );
 
         return mensagemSucesso($dado);
     }

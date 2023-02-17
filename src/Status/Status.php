@@ -40,6 +40,10 @@ abstract class Status implements StatusInterface
             $this->lista = $empresa[$slugEmpresa]['lista'] ?? [];
             $this->cor = $empresa[$slugEmpresa]['cor'] ?? null;
             $numero = $empresa[$slugEmpresa]['numero'] ?? null;
+        } else if ($empresa && array_key_exists('geral', $empresa)) {
+            $this->lista = $empresa['geral']['lista'] ?? [];
+            $this->cor = $empresa['geral']['cor'] ?? null;
+            $numero = $empresa['geral']['numero'] ?? null;
         } else if ($empresa && array_key_exists(0, $empresa)) {
             $this->lista = $empresa[0]['lista'] ?? [];
             $this->cor = $empresa[0]['cor'] ?? null;

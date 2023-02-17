@@ -6,14 +6,18 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
+    const NOVO = 'novo';
+    const VISUALIZADO = 'visualizado';
+    const CLICADO = 'clicado';
+
     public function __construct(
         protected null|string|int $valor = null
     ) {
         parent::__construct(
             lista: [
-                'novo' => 'Novo',
-                'visualizado' => 'Visualizado',
-                'clicado' => 'Clicado'
+                self::NOVO => 'Novo',
+                self::VISUALIZADO => 'Visualizado',
+                self::CLICADO => 'Clicado'
             ]
         );
     }

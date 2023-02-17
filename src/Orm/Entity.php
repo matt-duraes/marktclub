@@ -71,6 +71,7 @@ abstract class Entity extends ORM
     protected array $_setReal = [];
     private array $_listaAliasReal = [];
     private array $_propriedadeSetada = [];
+    protected array $_retornoPadrao = [];
 
     protected bool $entityExiste = false;
 
@@ -90,6 +91,29 @@ abstract class Entity extends ORM
         $this->ormPegarListaParaSet();
         $this->ormPegarListaDeAliasEReal();
         $this->_campoBanco = $this->ormPegarColunaBanco();
+    }
+
+    /**
+     * Pega o retorno padrão do entidade
+     */
+    public function retorno()
+    {
+        if (empty($this->_retornoPadrao)) {
+            return $this->id;
+        }
+        $retorno = [];
+        foreach ($this->_retornoPadrao as $indice => $valor) {
+            $indice = is_int($indice) ? $valor : $indice;
+            $valor = $this->$valor;
+            if ($valor instanceof ModuleInterface) {
+                $valor = $valor->valor();
+            } else if ($valor instanceof StatusInterface) {
+                $valor = $valor->indice();
+            }
+
+            $retorno[$indice] = $valor;
+        }
+        return $retorno;
     }
 
     /**

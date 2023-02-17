@@ -13,6 +13,14 @@ final class Email implements ModuleInterface
         return $this->email;
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->email;
+    }
+
     // doc
     /**
      * Modulo para e-mail

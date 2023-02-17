@@ -44,7 +44,7 @@ trait BuscarUsuarioTrait
         $query
             ->tabela(TABELA_EMPRESA_NOVO)
             ->join('id', 'empresa')
-            ->campo(['nome_fantasia'], 'empresa');
+            ->campo(['cod', 'nome_fantasia'], 'empresa');
 
         return $query->read();
     }

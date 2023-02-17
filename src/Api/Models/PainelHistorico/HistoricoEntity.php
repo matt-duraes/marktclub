@@ -2,16 +2,18 @@
 
 namespace ApiModel\PainelHistorico;
 
-use Modules\DataHora;
+use ORM\Entity;
 use Helpers\DataHelper;
-use App\Models\Api\GeralEntity;
 use System\Classes\PainelHistorico\Acao;
 use System\Classes\PainelHistorico\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use ApiModel\PainelNotificacao\NotificacaoEntity;
 
-final class HistoricoEntity extends GeralEntity
+final class HistoricoEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_PAINEL_HISTORICO;
     protected array $_insert = [
         'id_relacionado' => '->relacionado',
@@ -46,17 +48,18 @@ final class HistoricoEntity extends GeralEntity
     public string $notificar_link = '';
     public array $notificar_equipe = [];
 
+    private int $idUsuario;
 
     public function __construct()
     {
         parent::__construct();
-        $this->_wherePadrao = ['id_usuario_equipe', $this->idUsuario];
+        $this->validarEmpresa();
     }
 
     protected function regraInsert()
     {
         $this->id_usuario_equipe = $this->idUsuario;
-        $this->status = new Status(empty($this->mensagem) ? 2 : 1);
+        $this->status = new Status(empty($this->mensagem) ? Status::SEM_MENSAGEM : Status::COM_MENSAGEM);
     }
     protected function regraPosInsert()
     {

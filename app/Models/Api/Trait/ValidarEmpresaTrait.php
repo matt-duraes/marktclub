@@ -10,35 +10,47 @@ trait ValidarEmpresaTrait
     private string $_campoEmpresa;
 
     /**
+     * Verifica se existe token e seta a empresa
+     *
+     * @return void
+     * @throws Excecao  Retorna uma Excecao caso não exista token
+     */
+    private function setarIdEmpresa(): void
+    {
+        $this->_verificaSeExisteToken();
+        $this->idEmpresa = TOKEN['empresa']->get('id');
+    }
+    /**
      * Faz a validação para pegar apenas registros da empresa ou todas se for Markt Club e o usuário tenha permissão
      *
      * @param   string  $campoEmpresa   Se o campo da empresa é o id_admin_empresa ou empresa
+     * @return void
+     * @throws Excecao  Retorna uma Excecao caso não exista token
      */
-    private function validarEmpresa(string $campoEmpresa = 'id_admin_empresa')
+    private function validarEmpresa(string $campoEmpresa = 'id_admin_empresa'): void
     {
-        $this->verificaSeExisteToken();
-        $this->setaPropriedadeInicial($campoEmpresa);
-        $this->setaValoresReais();
-        $this->setarWherePadrao();
+        $this->setarIdEmpresa();
+        $this->_setaPropriedadeInicial($campoEmpresa);
+        $this->_setaValoresReais();
+        $this->_setarWherePadrao();
     }
 
-    private function verificaSeExisteToken()
+    private function _verificaSeExisteToken()
     {
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
         }
     }
-    private function setaPropriedadeInicial(string $campoEmpresa)
+    private function _setaPropriedadeInicial(string $campoEmpresa)
     {
         $this->_campoEmpresa = in_array($campoEmpresa, ['empresa', 'id_admin_empresa']) ? $campoEmpresa : 'id_admin_empresa';
-        $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->whereEmpresa = $this->idEmpresa;
         $this->_wherePadrao = [$campoEmpresa => $this->idEmpresa];
         $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
             TOKEN['usuario']->get('id') : null;
     }
 
-    private function setaValoresReais()
+    private function _setaValoresReais()
     {
         if ($this->idEmpresa != 1 || empty($this->idUsuario)) {
             return;
@@ -78,7 +90,7 @@ trait ValidarEmpresaTrait
      *
      * @param   array $where    Where que deseja colocar padrão
      */
-    private function setarWherePadrao(array $where = [])
+    private function _setarWherePadrao(array $where = [])
     {
         if (!empty($this->_wherePadrao)) {
             $where[] = [$this->_campoEmpresa, $this->whereEmpresa];

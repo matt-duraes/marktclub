@@ -6,10 +6,13 @@ use ORM\ORM;
 use Http\Request;
 use App\Classes\UsuarioIndicacao\Ordem;
 use App\Classes\UsuarioIndicacao\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class IndicacaoModel extends ORM
 {
-    protected string $_tabela = 'usuario_indicacao';
+    use ValidarEmpresaTrait;
+
+    protected string $_tabela = TABELA_USUARIO_INDICACAO;
 
     private int $idEmpresa;
 
@@ -17,10 +20,7 @@ final class IndicacaoModel extends ORM
         private Request $request
     ) {
         parent::__construct();
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioIndicacao\IndicacaoModel');
-        }
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->setarIdEmpresa();
     }
 
     public function listar()

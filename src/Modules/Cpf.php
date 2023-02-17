@@ -13,6 +13,14 @@ final class Cpf implements ModuleInterface
         return $this->cpf();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->cpf();
+    }
+
     // doc
     /**
      * Modulo para CPF

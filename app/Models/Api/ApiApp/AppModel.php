@@ -10,8 +10,10 @@ use System\Trait\Model\OrdemTrait;
 use App\Classes\StatusGeral\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 
-final class AppModel extends ORM
+final class AppModel extends ORM implements
+    ModelListarInterface
 {
     use OrdemTrait;
     use PaginaTrait;
