@@ -43,7 +43,7 @@ final class AgendaController extends Controller
         $Api = new ApiHelper(token: true);
         $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
         $status = $Api->body([
-            'id_google' => criptografarDado($id, chave: $chave)
+            'id_google' => criptografarDado(dado: $id, chave: $chave)
         ])->put('/usuario-equipe/' . sessao('USUARIO.id'))->status();
 
         if ($status != 204) {

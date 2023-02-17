@@ -55,7 +55,10 @@ final class RelatorioController extends Controller
             new Data($request->ate)
         );
         return mensagemSucesso(
-            criptografarDado($Relatorio->listarDado(), lista: ['usuario'])
+            criptografarDado(
+                dado: $Relatorio->listarDado(),
+                criptografia: ['usuario']
+            )
         );
     }
     public function getLojaMaisAcessada(Request $request)

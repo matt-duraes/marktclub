@@ -20,6 +20,7 @@ final class UsuarioEntity extends Entity
     public Nome $nome;
     public Senha $senha;
     protected array $id_api_app;
+    public string $login_usuario;
 
     public function pegarApp()
     {

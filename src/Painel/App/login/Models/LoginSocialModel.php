@@ -43,12 +43,16 @@ final class LoginSocialModel implements LoginInterface
     }
     private function montarBodyDaRequisicao()
     {
-        $this->body = criptografarDado([
-            $this->rede => $this->redeSocialId,
-            'scope' => '',
-            'audience' => env('API_AUDIENCE', ''),
-            'redirect_uri' => env('API_REDIRECT_URI', ''),
-            'state' => uuid()
-        ], lista: ['login', 'senha'], chave: $this->chavePublica);
+        $this->body = criptografarDado(
+            dado: [
+                $this->rede => $this->redeSocialId,
+                'scope' => '',
+                'audience' => env('API_AUDIENCE', ''),
+                'redirect_uri' => env('API_REDIRECT_URI', ''),
+                'state' => uuid()
+            ],
+            criptografia: ['login', 'senha'],
+            chave: $this->chavePublica
+        );
     }
 }

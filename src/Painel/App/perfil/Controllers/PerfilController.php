@@ -72,7 +72,7 @@ final class PerfilController extends Controller
         $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
 
         $dado = $Api->body([
-            'senha' => criptografarDado($request->senha, chave: $chave)
+            'senha' => criptografarDado(dado: $request->senha, chave: $chave)
         ])->post('/usuario-equipe/validar-senha')->object();
 
         if (existeErro($dado, 'dado')) {
@@ -93,7 +93,7 @@ final class PerfilController extends Controller
 
         $id = sessao('USUARIO.id');
         $dado = criptografarDado(
-            valor: [
+            dado: [
                 'nome' => $request->nome,
                 'data_nascimento' => $request->data_nascimento,
                 'genero' => $request->genero,
@@ -102,7 +102,7 @@ final class PerfilController extends Controller
                 'telefone_pessoal' => soNumero($request->telefone_pessoal),
                 'perfil' => $request->perfil
             ],
-            lista: ['nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'perfil'],
+            criptografia: ['nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'perfil'],
             chave: $chave
         );
 
@@ -180,8 +180,8 @@ final class PerfilController extends Controller
         $Api = new ApiHelper(token: true);
         $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
         $dado = criptografarDado(
-            valor: $dado,
-            lista: ['imagem_google', 'imagem_facebook', 'id_google', 'id_facebook'],
+            dado: $dado,
+            criptografia: ['imagem_google', 'imagem_facebook', 'id_google', 'id_facebook'],
             chave: $chave
         );
 

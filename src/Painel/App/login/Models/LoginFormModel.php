@@ -25,13 +25,17 @@ final class LoginFormModel implements LoginInterface
 
     private function montarBodyDaRequisicao()
     {
-        $this->body = criptografarDado([
-            'login' => $this->login,
-            'senha' => $this->senha,
-            'scope' => '',
-            'audience' => env('API_AUDIENCE', ''),
-            'redirect_uri' => env('API_REDIRECT_URI', ''),
-            'state' => uuid()
-        ], lista: ['login', 'senha'], chave: $this->chavePublica);
+        $this->body = criptografarDado(
+            dado: [
+                'login' => $this->login,
+                'senha' => $this->senha,
+                'scope' => '',
+                'audience' => env('API_AUDIENCE', ''),
+                'redirect_uri' => env('API_REDIRECT_URI', ''),
+                'state' => uuid()
+            ],
+            criptografia: ['login', 'senha'],
+            chave: $this->chavePublica
+        );
     }
 }

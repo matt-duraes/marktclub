@@ -77,7 +77,7 @@ final class BuscarUsuarioModel
     {
         try {
             $this->empresa = (new ApiHelper(token: true))
-                ->get('/admin-empresa/' . sessao('USUARIO.empresa'))
+                ->get('/admin-empresa/' . sessao('USUARIO.empresa')->id)
                 ->object()
                 ->dado ?? [];
         } catch (\Throwable $e) {
