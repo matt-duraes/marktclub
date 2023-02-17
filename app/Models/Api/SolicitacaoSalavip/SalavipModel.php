@@ -2,16 +2,19 @@
 
 namespace App\Models\Api\SolicitacaoSalavip;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Modules\Data;
-use App\Models\Api\GeralModel;
+use System\Trait\Model\PaginaTrait;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoSalavip\Empresa;
 use App\Models\Api\Painel\LogDownloadEntity;
 
-final class SalavipModel extends GeralModel
+final class SalavipModel extends ORM
 {
+    use PaginaTrait;
+
     protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
 
     public function __construct(

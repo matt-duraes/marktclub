@@ -16,22 +16,21 @@ trait PaginaTrait
      */
     protected function pegarPagina(bool $obrigatorio = true, bool $valido = true): int
     {
-        try {
-            $pagina = $this->request->pagina;
-        } catch (\Throwable) {
-            $pagina = '';
+        $valor = '';
+        if (property_exists($this, 'request')) {
+            $valor = $this->request->pagina;
         }
 
-        if (empty($pagina) && $obrigatorio) {
+        if (empty($valor) && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo pagina é obrigatório.');
-        } else if (empty($pagina)) {
+        } else if (empty($valor)) {
             return 1;
         }
 
-        $validar = preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina);
+        $validar = preg_match('/^[1-9]{1}[0-9]{0,}$/', $valor);
         if (!$validar && $valido) {
             mensagemErro('Campo inválido!', 'O campo pagina está inválido.');
         }
-        return !$validar ? 1 : $pagina;
+        return !$validar ? 1 : $valor;
     }
 }

@@ -2,18 +2,23 @@
 
 namespace App\Models\Api\PontoCvs;
 
+use ORM\ORM;
 use stdClass;
 use Modules\Cpf;
 use Http\Request;
-use App\Models\Api\GeralModel;
 use App\Classes\PontoCvs\Ordem;
 use App\Helpers\PontoCvsHelper;
 use App\Classes\PontoCvs\Status;
+use System\Trait\Model\PaginaTrait;
 use App\Classes\UsuarioCliente\Helper;
+use System\Trait\Model\QuantidadeTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
-final class PontoModel extends GeralModel
+final class PontoModel extends ORM
 {
+    use PaginaTrait;
+    use QuantidadeTrait;
+
     protected string $_tabela = TABELA_PONTO_CVS;
     protected string $buscaCpf = '';
 

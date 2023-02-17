@@ -8,6 +8,20 @@ abstract class Order implements OrderInterface
 {
     private string $tabela;
     private array $lista;
+    protected ?string $valor;
+
+    // doc
+    /**
+     * Pessa o valor manualmente a ordem
+     *
+     * @param   string $valor   Valor da ordem
+     * @return  self
+     */
+    public function valor(string $valor): self
+    {
+        $this->valor = $valor;
+        return $this;
+    }
 
     // doc
     /**

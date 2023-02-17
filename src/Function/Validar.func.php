@@ -374,7 +374,7 @@ if (!function_exists('validarUuid')) {
      * Valida se uma string é um uuid
      *
      * @param   mixed $uuid     Valor a ser validado
-     * @param   bool  $erro     Caso false, retorna uma excecao, true como padrão
+     * @param   bool  $erro     Caso true, retorna uma excecao, false retorna um bool
      * @return  bool            Retorna true caso o valor seja válido
      * @throws  Erro\Excecao    Retonar um Erro\Exececao caso $erro for true e a validação falhe
      */

@@ -6,10 +6,17 @@ use ORM\ORM;
 use stdClass;
 use Http\Request;
 use App\Classes\ApiApp\Ordem;
-use App\Classes\ApiApp\Status;
+use System\Trait\Model\OrdemTrait;
+use App\Classes\StatusGeral\Status;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 final class AppModel extends ORM
 {
+    use OrdemTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
+
     protected string $_tabela = TABELA_AUTH_APP;
 
     public function __construct(
@@ -29,8 +36,8 @@ final class AppModel extends ORM
         $dado = $this
             ->campo(['uuid', 'nome', 'data_criacao', 'status'])
             ->where($this->pegarWhere())
-            ->order(new Ordem($this->request->ordem))
-            ->pagina($this->request->pagina, $this->request->chave('quantidade', 50))
+            ->order($this->pegarOrdem(new Ordem()))
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->tabela(TABELA_EMPRESA_NOVO)
             ->join('id', 'id_admin_empresa')
             ->campo(['nome_fantasia'])

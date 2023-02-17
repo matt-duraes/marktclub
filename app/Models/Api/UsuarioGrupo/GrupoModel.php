@@ -2,14 +2,22 @@
 
 namespace App\Models\Api\UsuarioGrupo;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
-use App\Models\Api\GeralModel;
 use App\Classes\StatusGeral\Status;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class GrupoModel extends GeralModel
+final class GrupoModel extends ORM
 {
+    use ValidarEmpresaTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
+
     protected string $_tabela = TABELA_USUARIO_GRUPO;
+    private int $idEmpresa;
 
     public function __construct(
         protected ?Request $request = null
@@ -18,6 +26,7 @@ final class GrupoModel extends GeralModel
         if (!$request) {
             return;
         }
+        $this->validarEmpresa();
         $this->validarRequest();
     }
 

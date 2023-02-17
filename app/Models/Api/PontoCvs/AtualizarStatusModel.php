@@ -2,12 +2,12 @@
 
 namespace App\Models\Api\PontoCvs;
 
-use App\Classes\PontoCvs\Status;
-use App\Helpers\PontoCvsHelper;
-use App\Models\Api\GeralModel;
+use ORM\ORM;
 use stdClass;
+use App\Helpers\PontoCvsHelper;
+use App\Classes\PontoCvs\Status;
 
-final class AtualizarStatusModel extends GeralModel
+final class AtualizarStatusModel extends ORM
 {
     protected string $_tabela = TABELA_PONTO_CVS;
 

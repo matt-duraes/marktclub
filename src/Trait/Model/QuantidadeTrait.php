@@ -16,22 +16,21 @@ trait QuantidadeTrait
      */
     protected function pegarQuantidade(bool $obrigatorio = false, bool $valido = true): int
     {
-        try {
-            $quantidade = $this->request->quantidade;
-        } catch (\Throwable) {
-            $quantidade = '';
+        $valor = '';
+        if (property_exists($this, 'request')) {
+            $valor = $this->request->quantidade;
         }
 
-        if (empty($quantidade) && $obrigatorio) {
+        if (empty($valor) && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo quantidade é obrigatório.');
-        } else if (empty($quantidade)) {
+        } else if (empty($valor)) {
             return 50;
         }
 
-        $validar = preg_match('/^[1-9]{1}[0-9]{0,}$/', $quantidade);
+        $validar = preg_match('/^[1-9]{1}[0-9]{0,}$/', $valor);
         if (!$validar && $valido) {
             mensagemErro('Campo inválido!', 'O campo pagina está inválido.');
         }
-        return !$validar ? 50 : $quantidade;
+        return !$validar ? 50 : $valor;
     }
 }

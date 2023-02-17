@@ -2,31 +2,47 @@
 
 namespace App\Models\Api\UsuarioLead;
 
-use App\Classes\UsuarioCliente\Origem;
+use ORM\ORM;
 use stdClass;
 use Http\Request;
 use App\Models\Api\GeralModel;
 use App\Classes\UsuarioLead\Ordem;
+use System\Trait\Model\OrdemTrait;
 use App\Classes\UsuarioLead\Status;
+use System\Trait\Model\PaginaTrait;
+use App\Classes\UsuarioCliente\Origem;
+use System\Trait\Model\QuantidadeTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class LeadModel extends GeralModel
+final class LeadModel extends ORM
 {
+    use ValidarEmpresaTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
+    use OrdemTrait;
+
     protected string $_tabela = TABELA_USUARIO_LEAD;
+    private int $idEmpresa;
 
     public function __construct(
         protected Request $request
     ) {
         parent::__construct();
+        $this->validarEmpresa();
         $this->validarCampoDoRequest();
     }
 
     public function listarDados(): stdClass
     {
-        $ordem = $this->pegarOrder($this->request->ordem);
-        $dado = $this->campo([
-            'uuid', 'nome_completo', 'email_pessoal', 'email_trabalho', 'email_funcional', 'documento_cpf',
-            'data_criacao', 'lead_origem', 'status'
-        ])->where($this->pegarWhere())->orderTexto($ordem)->pagina($this->pegarPagina(), 50)->read();
+        $dado = $this
+            ->campo([
+                'uuid', 'nome_completo', 'email_pessoal', 'email_trabalho', 'email_funcional',
+                'documento_cpf', 'data_criacao', 'lead_origem', 'status'
+            ])
+            ->where($this->pegarWhere())
+            ->order($this->pegarOrdem(new Ordem))
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->read();
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
