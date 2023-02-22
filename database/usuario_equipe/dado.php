@@ -37,6 +37,7 @@ return [
         'imagem_google' => 'https://lh3.googleusercontent.com/a-/ACNPEu9u23_b1dR1oh-m6aMiCBeQsTPShZX3auQMmTyhhfs=s384-c',
         'imagem_tipo' => '2',
         'permissao' => $permissao,
+        'salt' => password('Teste@1324'),
         'desenvolvedor' => NULL,
         'gerente' => NULL,
         'admin' => NULL,

@@ -1,7 +1,5 @@
 <?php
 
-use Helpers\ApiHelper;
-use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;

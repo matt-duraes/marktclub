@@ -40,9 +40,10 @@ const formSelectLoading = select => {
  * Muda a lista de option do select
  *
  * @param {element} select O Select que deseja mudar o valor
- * @param {string} lista Objeto com a nova lista {"indice":"valor"}
+ * @param {object} lista Objeto com a nova lista {"indice":"valor"}
+ * @param {string} valor Valor padrão para setar no select
  */
-const formSelectOption = (select, lista) => {
+const formSelectOption = (select, lista, valor) => {
     const bloco = select.closest('.input_select');
     const blocoUl = bloco.querySelector('ul');
     const blocoTitulo = bloco.querySelector('.input_select_texto');
@@ -58,6 +59,9 @@ const formSelectOption = (select, lista) => {
     select.value = valorIndice;
     blocoTitulo.value = valorTitulo;
     blocoUl.innerHTML = html;
+    if (valor != undefined) {
+        formSelectValue(select, valor);
+    }
 };
 
 const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');

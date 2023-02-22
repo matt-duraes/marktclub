@@ -1,8 +1,10 @@
 // @template "painel"
+// @resource "painel/app_geral_add"
 
 window.addEventListener('load', () => {
     const selectEmpresa = document.querySelector('#input_empresa');
     const selectGrupo = document.querySelector('#input_grupo');
+    const grupoInicial = selectGrupo ? selectGrupo.value : '';
 
     formSelectChange = change => {
         if (change == 'buscarGrupoEmpresa' && selectGrupo) {
@@ -10,7 +12,7 @@ window.addEventListener('load', () => {
         }
     };
 
-    const buscarGrupoEmpresa = async empresa => {
+    const buscarGrupoEmpresa = async (empresa, valor) => {
         const body = new FormData();
         body.append('empresa', empresa);
         body.append('titulo', 'Escolha um grupo');
@@ -28,12 +30,12 @@ window.addEventListener('load', () => {
             return;
         }
 
-        formSelectOption(selectGrupo, json.dado);
+        formSelectOption(selectGrupo, json.dado, valor);
     };
 
-    if (selectEmpresa && selectGrupo) {
+    if (selectEmpresa && selectGrupo && grupoInicial == '') {
         formSelectOption(selectGrupo, { '': 'Escolha uma empresa' });
     } else if (selectGrupo) {
-        buscarGrupoEmpresa();
+        buscarGrupoEmpresa('', grupoInicial);
     }
 });
