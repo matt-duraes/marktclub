@@ -232,10 +232,10 @@ abstract class PadraoController extends Controller
                 'insert' => $campoInsert,
                 'update' => $campoUpdate,
             ],
-            'api' => object([
+            'api' => (object)[
                 'uri' => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
-            ])
+            ]
         ];
     }
 
@@ -288,10 +288,10 @@ abstract class PadraoController extends Controller
                 'campo' => $Download->pegarCampo(),
                 'replace' => $Download->pegarReplace()
             ],
-            'api' => object([
+            'api' => (object)[
                 'uri' => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
-            ])
+            ]
         ];
     }
 
@@ -308,10 +308,10 @@ abstract class PadraoController extends Controller
                 'status' => isset($deletar['status']) && is_numeric($deletar['status']) ? (int) $deletar['status'] : null,
                 'campo' => isset($deletar['campo']) && is_numeric($deletar['campo']) ? (int) $deletar['campo'] : null,
             ],
-            'api' => object([
+            'api' => (object)[
                 'uri' => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
-            ])
+            ]
         ];
     }
 
@@ -324,12 +324,12 @@ abstract class PadraoController extends Controller
         ];
     }
 
-    private function includeConfig($tipo, $app)
+    private function includeConfig($acao, $app)
     {
-        if (!file_exists(ROOT . '/views/pages/painel/' . $app . '/config/' . $tipo . '.php')) {
+        if (!file_exists(ROOT . '/views/pages/painel/' . $app . '/config/' . $acao . '.php')) {
             return false;
         }
-        return require ROOT . '/views/pages/painel/' . $app . '/config/' . $tipo . '.php';
+        return require ROOT . '/views/pages/painel/' . $app . '/config/' . $acao . '.php';
     }
 
     private function pegarPermissaoUsuario($acao, $app, $config)

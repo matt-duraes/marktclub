@@ -7,5 +7,6 @@ return [
         'endereco_cidade', 'senha', 'status', 'primeiro_acesso', 'mudar_senha', 'estado_civil',
         'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'grupo'
-    ]
+    ],
+    'insert' => ['empresa']
 ];

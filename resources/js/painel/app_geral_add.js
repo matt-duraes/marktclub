@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
 
             const json = await respostaJson(
                 resposta,
-                'Ocorreu um erro ao tentar deslogar o usuário, por favor, tente novamente.'
+                'Ocorreu um erro ao tentar salvar os dados, por favor, tente novamente.'
             );
             botaoSalvar.classList.remove('aguarde');
 

@@ -2,30 +2,22 @@
 
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
-$Painel = new PainelConfig\Add('usuario_cliente');
+$Painel = new PainelConfig\Add(app: 'usuario_cliente', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados pessoais', function () use ($Painel) {
-        $Api = new ApiHelper(token: true);
-
-        $Lista = new ListaHelper;
-        $listaSituacao = $Lista->add('', 'Escolha uma opção')->lista(
-            $Api->get('/admin/usuario-situacao')->object()->dado ?? [],
-            'valor',
-            'nome'
-        )->r();
-
         $Painel
             ->input(name: 'nome', label: 'Nome Completo')
             ->cpf(name: 'cpf', label: 'CPF', placeholder: 'CPF')
             ->select(name: 'genero', label: 'Gênero', lista: 'genero')
             ->select(name: 'estado_civil', label: 'Estado Civil', lista: 'estado_civil')
             ->data(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de Nascimento')
-            ->select(name: 'situacao', label: 'Situação', lista: $listaSituacao);
+            ->select(name: 'situacao', label: 'Situação', lista: (new Situacao())->select('Escolha uma opção'));
     });
     $Painel->fieldset('Contato', function () use ($Painel) {
         $Painel
@@ -36,22 +28,19 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 
     $Painel->fieldset('Dados do trabalho', callback: function () use ($Painel) {
-        $Lista = new ListaHelper;
-        $Api = new ApiHelper(token: true);
-
-        $grupo = $Lista->add('', 'Escolha uma opção')->add(lista: $Api->get('/usuario-grupo/select')->array()['dado'] ?? [])->r();
-        $trabalhoEmpresa = $Lista->add('', 'Escolha uma opção')->add(lista: (new TrabalhoEmpresa())->select())->r();
-        $trabalhoCargo = $Lista->add('', 'Escolha uma opção')->add(lista: (new TrabalhoCargo())->select())->r();
-        $tipoPagamento = $Lista->add('', 'Escolha uma opção')->add(lista: (new TipoPagamento())->select())->r();
+        $trabalhoEmpresa = (new TrabalhoEmpresa())->select('Escolha um local de trabalho');
+        $trabalhoCargo = (new TrabalhoCargo())->select('Escolha um cargo');
+        $tipoPagamento = (new TipoPagamento())->select('Escolha um pagamento');
 
         $Painel
+            ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', acao: 'add')
+            ->select(name: 'grupo', label: 'Grupo', lista: ['' => 'Carregando'])
             ->numero(name: 'matricula', label: 'Matrícula')
             ->numero(name: 'siape', label: 'SIAPE')
             ->select(name: 'trabalho_empresa', label: 'Local onde trabalha', lista: $trabalhoEmpresa)
             ->select(name: 'trabalho_cargo', label: 'Cargo', lista: $trabalhoCargo)
             ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $tipoPagamento)
-            ->data(name: 'trabalho_data_inicio', label: 'Data do início do trabalho', placeholder: 'Data do início do trabalho')
-            ->select(name: 'grupo', label: 'Grupo', lista: $grupo);
+            ->data(name: 'trabalho_data_inicio', label: 'Data do início do trabalho', placeholder: 'Data do início do trabalho');
     });
 });
 
@@ -84,5 +73,6 @@ $Painel->coluna(coluna: 3, callback: function () use ($Painel) {
             ->switch(name: 'mudar_senha', label: 'Mudar senha ao logar?');
     });
 });
+$Painel->js('painel_usuario_cliente_add');
 
 return $Painel;

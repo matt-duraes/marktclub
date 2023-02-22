@@ -31,8 +31,8 @@ trait ValidarEmpresaTrait
     {
         $this->setarIdEmpresa();
         $this->_setaPropriedadeInicial($campoEmpresa);
-        $this->_setaValoresReais();
-        $this->_setarWherePadrao();
+        $this->_setarValoresReais();
+        $this->setarWherePadrao();
     }
 
     private function _verificaSeExisteToken()
@@ -50,7 +50,7 @@ trait ValidarEmpresaTrait
             TOKEN['usuario']->get('id') : null;
     }
 
-    private function _setaValoresReais()
+    private function _setarValoresReais()
     {
         if ($this->idEmpresa != 1 || empty($this->idUsuario)) {
             return;
@@ -86,14 +86,17 @@ trait ValidarEmpresaTrait
     }
 
     /**
-     * Seta o Where padrão para as buscas concatenando com o where da empresa
+     * Pega o Where padrão para as buscas concatenando com o where da empresa
      *
      * @param   array $where    Where que deseja colocar padrão
      */
-    private function _setarWherePadrao(array $where = [])
+    private function setarWherePadrao(array $where = []): void
     {
-        if (!empty($this->_wherePadrao)) {
-            $where[] = [$this->_campoEmpresa, $this->whereEmpresa];
+        if (empty($where)) {
+            return;
+        } else if (!empty($this->_wherePadrao)) {
+            $this->_wherePadrao = array_merge([$where], [[$this->_campoEmpresa, $this->whereEmpresa]]);
+            return;
         }
         $this->_wherePadrao = $where;
     }

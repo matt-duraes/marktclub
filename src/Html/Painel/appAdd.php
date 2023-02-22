@@ -2,7 +2,7 @@
 
 echo formHash('painel_add', 'hash_id');
 painelAppAdd();
-if (!vazio($r) && isset($r->id)) {
+if (!vazio($r) && object_key_exists('id', $r)) {
     echo '<input type="hidden" name="id" value="' . $r->id . '">';
 }
 

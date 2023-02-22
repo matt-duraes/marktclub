@@ -181,6 +181,7 @@ Route::nome('usuario_grupo')
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:listar'])
+            ::request(['!titulo', '!empresa'], 'json')
             ::get('/usuario-grupo/select');
 
         Route

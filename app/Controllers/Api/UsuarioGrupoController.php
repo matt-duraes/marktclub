@@ -7,6 +7,7 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Api\UsuarioGrupo\GrupoModel;
 use App\Models\Api\UsuarioGrupo\GrupoEntity;
+use App\Models\Api\UsuarioGrupo\SelectModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -25,20 +26,8 @@ final class UsuarioGrupoController extends Controller implements
 
     public function getSelect(Request $request): Response
     {
-        $Grupo = new GrupoModel();
-        $id = TOKEN['empresa']->get('id');
-
-        $dado = $Grupo->pegarSelect(
-            indice: 'indice',
-            valor: 'titulo',
-            where: [
-                ['status', '1'],
-                ['id_admin_empresa', $id]
-            ],
-            titulo: $request->titulo
-        );
-
-        return mensagemSucesso($dado);
+        $Grupo = new SelectModel($request);
+        return mensagemSucesso($Grupo->listarDados());
     }
     public function getBuscar(string $id): Response
     {
