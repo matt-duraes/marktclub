@@ -199,7 +199,7 @@ const demandaSalvar = () => {
             return;
         }
         blocoEmpresaEspecifica.classList.add('display_none');
-        selectValue(inputEmpresaBug, '');
+        formSelectValue(inputEmpresaBug, '');
     });
 
     /*

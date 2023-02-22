@@ -45,7 +45,7 @@ trait ValidarEmpresaTrait
     {
         $this->_campoEmpresa = in_array($campoEmpresa, ['empresa', 'id_admin_empresa']) ? $campoEmpresa : 'id_admin_empresa';
         $this->whereEmpresa = $this->idEmpresa;
-        $this->_wherePadrao = [$campoEmpresa => $this->idEmpresa];
+        $this->_wherePadrao = [$campoEmpresa, $this->idEmpresa];
         $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
             TOKEN['usuario']->get('id') : null;
     }

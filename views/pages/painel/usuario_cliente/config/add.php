@@ -1,7 +1,5 @@
 <?php
 
-use Helpers\ApiHelper;
-use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
@@ -33,7 +31,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $tipoPagamento = (new TipoPagamento())->select('Escolha um pagamento');
 
         $Painel
-            ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', acao: 'add')
+            // ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', acao: 'add', change: 'buscarGrupoEmpresa')
             ->select(name: 'grupo', label: 'Grupo', lista: ['' => 'Carregando'])
             ->numero(name: 'matricula', label: 'Matrícula')
             ->numero(name: 'siape', label: 'SIAPE')

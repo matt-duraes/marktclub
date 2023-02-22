@@ -19,7 +19,7 @@ final class Status extends StatusStatus
                 self::NOVO => 'Novo',
                 self::ANDAMENTO => 'Em andamento',
                 self::CADASTRO_REALIZADO => 'Cadastro realizado',
-                self::ANDAMENTO => 'Sem interesse'
+                self::SEM_INTERESSE => 'Sem interesse'
             ],
             cor: [
                 self::NOVO => 'vermelho',

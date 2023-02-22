@@ -608,14 +608,15 @@ if (!function_exists('painelInputLista')) {
             }
 
             $name = preg_replace('/\[\]$/', '', $input['name']);
-            $value = $input['value'];
+            $indice = $input['indice'];
+            unset($input['indice']);
 
             $formatar = '';
             if (array_key_exists('formatar', $input)) {
                 $formatar = $input['formatar'];
                 unset($input['formatar']);
             }
-            $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado) ? painelValor($dado, $value, formatar: $formatar) : '';
+            $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado) ? painelValor($dado, $indice, formatar: $formatar) : '';
 
             if ($funcao == 'imagem' && validarUuid($valor, false)) {
                 $input['value'] = arquivoPrivado($valor);

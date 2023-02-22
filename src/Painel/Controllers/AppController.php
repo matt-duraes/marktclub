@@ -43,7 +43,6 @@ final class AppController extends PadraoController
         }
 
         $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
-
         $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
         $dado = $this->validarRetornoApi($dado, true);
         if ($dado instanceof Response) {
@@ -75,9 +74,10 @@ final class AppController extends PadraoController
             mensagemStatus(404, localhost: 'Esse APP tem um Route próprio.');
         }
 
-        $config = $this->config($appReal, 'ajax');
+        $config = $this->config($appReal, 'ajax', $request->indice);
+
         if (!$config->permissao) {
-            mensagemStatus(status: 403, localhost: 'O config do APP proibe o acesso a index.');
+            mensagemStatus(status: 403, localhost: 'O config do APP não tem a permissão para essa rota.');
         }
 
         $metodo = $config->metodo;
@@ -85,7 +85,7 @@ final class AppController extends PadraoController
             mensagemStatus(400);
         }
 
-        $dado = $request->dado();
+        $dado = $request->exeto(['indice']);
         if ($dado) {
             foreach (array_keys($dado) as $ind) {
                 if (!in_array($ind, $config->request)) {

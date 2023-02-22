@@ -198,7 +198,11 @@ abstract class Order implements OrderInterface
      */
     public function ordem(): string
     {
-        return $this->lista[$this->valor]['order'] ?? '`' . $this->tabela . '`.`id` DESC';
+        $padrao = '`' . $this->tabela . '`.`id` DESC';
+        if ($this->vazio() || !$this->valido()) {
+            return $padrao;
+        }
+        return $this->lista[$this->valor]['order'] ?? $padrao;
     }
 
     public function listaParaPainel(): stdClass

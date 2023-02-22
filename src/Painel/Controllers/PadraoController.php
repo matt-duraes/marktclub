@@ -19,7 +19,7 @@ abstract class PadraoController extends Controller
         return str_replace('-', '_', $app);
     }
 
-    protected function config(string $app, string $local): stdClass
+    protected function config(string $app, string $local, ?string $indice = null): stdClass
     {
         if (!file_exists(ROOT . '/views/pages/painel/' . $app)) {
             throw new Excecao(status: 404);
@@ -28,7 +28,7 @@ abstract class PadraoController extends Controller
         if ($local == 'index') {
             return $this->configIndex($app);
         } else if ($local == 'ajax') {
-            return $this->configAjax($app);
+            return $this->configAjax($app, $indice);
         } else if ($local == 'visualizar') {
             return $this->configVisualizar($app);
         } else if ($local == 'add') {
@@ -105,12 +105,14 @@ abstract class PadraoController extends Controller
         ];
     }
 
-    private function configAjax($app): stdClass
+    private function configAjax($app, $indice): stdClass
     {
         $Ajax = $this->includeConfig('ajax', $app);
         if (!($Ajax instanceof \PainelConfig\Ajax)) {
             mensagemStatus(500, localhost: 'Não foi encontrado um PainelConfig/Ajax para esse app.');
         }
+
+        $Ajax->indice($indice);
 
         return (object)[
             'permissao' => $Ajax->pegarPermissao(),

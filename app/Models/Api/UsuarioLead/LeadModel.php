@@ -5,7 +5,6 @@ namespace App\Models\Api\UsuarioLead;
 use ORM\ORM;
 use stdClass;
 use Http\Request;
-use App\Models\Api\GeralModel;
 use App\Classes\UsuarioLead\Ordem;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\UsuarioLead\Status;
