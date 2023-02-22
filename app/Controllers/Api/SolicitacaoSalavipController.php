@@ -11,7 +11,7 @@ use App\Models\Api\SolicitacaoSalavip\SalavipModel;
 final class SolicitacaoSalavipController extends Controller implements
     ControllerListarInterface
 {
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Voucher = new SalavipModel($request);
         $dado = $Voucher->listarDados();

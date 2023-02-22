@@ -18,6 +18,11 @@ final class ValidarTokenAuthorizationEntity extends Entity
     protected array $_buscar = ['id_api_app', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'];
 
     protected Tipo $tipo;
+    protected int $id_api_app;
+    protected string $id_usuario;
+    protected string $access_token;
+    protected array $scope_permitido;
+    protected string $grant_type;
 
     protected function regraPosBuscar()
     {
@@ -29,10 +34,10 @@ final class ValidarTokenAuthorizationEntity extends Entity
             mensagemStatus(404);
         }
 
-        if ($tipo == 'clube') {
+        if ($tipo == Tipo::CLUBE) {
             $Usuario = new ClienteEntity(validarToken: false);
             $Usuario->id($this->id_usuario);
-        } else if ($tipo == 'painel') {
+        } else if ($tipo == Tipo::PAINEL) {
             $Usuario = new EquipeEntity(validarToken: false);
             $Usuario->id($this->id_usuario);
         }

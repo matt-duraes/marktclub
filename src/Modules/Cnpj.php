@@ -13,6 +13,14 @@ final class Cnpj implements ModuleInterface
         return $this->cnpj();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->cnpj();
+    }
+
     // doc
     /**
      * Modulo para CNPJ

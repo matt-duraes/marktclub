@@ -2,18 +2,23 @@
 
 namespace App\Models\Api\ConvenioParceiro;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
-use App\Models\Api\GeralModel;
 use App\Classes\ParceiroConvenio\Ordem;
 use App\Classes\ParceiroConvenio\Categoria;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class DestaqueModel extends GeralModel
+final class DestaqueModel extends ORM
 {
+
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_PARCEIRO_NOVO;
 
     private Ordem $Ordem;
     private Categoria $Categoria;
+    private int $idEmpresa;
 
     public function __construct(
         private Request $request

@@ -111,7 +111,7 @@ Route::nome('usuario_cliente_download')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
             ::request([
                 'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente'
+                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente', '!empresa'
             ])
             ::post('/usuario-cliente/download');
     });
@@ -125,8 +125,9 @@ Route::nome('usuario_cliente')
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:listar'])
             ::request([
-                'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem', '!origem', '!dependente'
+                'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
+                '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
+                '!origem', '!dependente', '!empresa'
             ], 'json')
             ::get('/usuario-cliente');
 
@@ -180,6 +181,7 @@ Route::nome('usuario_grupo')
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:listar'])
+            ::request(['!titulo', '!empresa'], 'json')
             ::get('/usuario-grupo/select');
 
         Route
@@ -352,7 +354,10 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
-            ::request(['pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!ordem'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf',
+                '!status', '!ordem', '!empresa'
+            ], 'json')
             ::get('/usuario-equipe');
 
         Route
@@ -514,7 +519,7 @@ Route
         Route
             ::nome('loginDigio')
             ::middleware(TokenMiddleware::class, 'scope', ['login:digio'])
-            ::request(['usuario'])
+            ::request(['usuario', '!clube'])
             ::post('/login/digio');
 
         Route

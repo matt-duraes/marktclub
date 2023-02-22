@@ -39,7 +39,7 @@ final class ErrorEntity extends Entity
         $hash = md5($this->mensagem . $this->arquivo . $this->linha);
         $this->hash = $hash;
         $this->verificarSeJaExiste($hash);
-        $this->status = new Status(Status::STATUS_NOVO);
+        $this->status = new Status(Status::NOVO);
     }
 
     private function verificarSeJaExiste(string $hash)

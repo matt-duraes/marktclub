@@ -18,7 +18,7 @@ final class UsuarioDependenteController extends Controller implements
     ControllerListarInterface,
     ControllerDeletarInterface
 {
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Usuario = new DependenteModel($request);
         $dado = $Usuario->listar();
@@ -29,7 +29,7 @@ final class UsuarioDependenteController extends Controller implements
         ]);
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $dado = $request->dado();
 
@@ -44,7 +44,7 @@ final class UsuarioDependenteController extends Controller implements
         );
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         validarUuid($id);
 

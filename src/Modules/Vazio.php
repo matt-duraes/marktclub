@@ -8,4 +8,12 @@ final class Vazio implements ModuleInterface
     {
         return '';
     }
+
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return '';
+    }
 }

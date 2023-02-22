@@ -4,6 +4,7 @@ namespace App\Models\Api\AdminEmpresa;
 
 use ORM\ORM;
 use stdClass;
+use App\Classes\AdminEmpresa\Helper;
 
 final class EmpresaModel extends ORM
 {
@@ -13,7 +14,7 @@ final class EmpresaModel extends ORM
     {
         $dado = $this
             ->campo(['id'])
-            ->where(['status', 'in', [1, 2]])
+            ->where(['status', 'in', Helper::STATUS_LIBERADO])
             ->read();
 
         $id = [];

@@ -568,50 +568,33 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
         }
 
         $retorno = [];
-        foreach ($listaBusca as $ind => $nome) {
-            $campo = $nome;
-            $nome = is_string($ind) ? $ind : $nome;
-            if (!object_key_exists($nome, $Entity)) {
+        foreach ($listaBusca as $ind => $lista) {
+            $campo = is_int($ind) ? $lista : $ind;
+            if (!object_key_exists($campo, $Entity)) {
                 continue;
             }
-            $valor = $Entity->$nome;
 
+            $valor = $Entity->$campo;
             if ($valor instanceof \ORM\Entity) {
                 $campo = strCaixaBaixa($campo);
-                $valor = $valor->id;
+                $valor = $valor->retorno();
             } else if ($valor instanceof \Status\StatusInterface) {
                 $valor = $valor->indice();
-            } else if ($valor instanceof \Modules\Email) {
-                $valor = $valor->email();
-            } elseif ($valor instanceof \Modules\Data) {
-                $valor = $valor->date();
-            } elseif ($valor instanceof \Modules\DataHora) {
-                $valor = $valor->date();
-            } elseif ($valor instanceof \Modules\Nome) {
-                $valor = $valor->nome();
-            } elseif ($valor instanceof \Modules\Senha) {
-                $valor = !empty($valor->senha());
-            } elseif ($valor instanceof \Modules\Telefone) {
-                $valor = $valor->numero();
-            } elseif ($valor instanceof \Modules\Cnpj) {
-                $valor = $valor->numero();
-            } elseif ($valor instanceof \Modules\Cpf) {
-                $valor = $valor->numero();
-            } elseif ($valor instanceof \Modules\Genero) {
-                $valor = $valor->genero();
-            } elseif ($valor instanceof \Modules\EstadoCivil) {
-                $valor = $valor->estadoCivil();
-            } elseif ($valor instanceof \Modules\EnderecoCep) {
-                $valor = $valor->numero();
-            } elseif ($valor instanceof \Modules\EnderecoEstado) {
-                $valor = $valor->estado();
-            } elseif ($valor instanceof \Modules\Dinheiro) {
-                $valor = $valor->dinheiro();
-            } elseif ($valor instanceof \Modules\Decimal) {
-                $valor = $valor->decimal();
-            } elseif ($valor instanceof \Modules\Botao) {
+            } else if ($valor instanceof \Modules\ModuleInterface) {
                 $valor = $valor->valor();
             }
+
+            if (is_array($lista) && is_array($valor)) {
+                $novoValor = [];
+                foreach ($lista as $subCampo) {
+                    if (!array_key_exists($subCampo, $valor)) {
+                        continue;
+                    }
+                    $novoValor[$subCampo] = $valor[$subCampo];
+                }
+                $valor = $novoValor;
+            }
+
             if (
                 (!$null && is_null($valor)) ||
                 (!$empty && empty($valor))
@@ -1013,11 +996,12 @@ if (!function_exists('criptografarDado')) {
     /**
      * Criptografa um array de dados ou uma string
      *
-     * @param   string|array    $valor  String com valor a criptografar ou um array ou uma lista de array
-     * @param   array           $lista  Lista de campos que devem ser criptografados quando o valor for um array
-     * @return  string|array            String quando o valor for uma string ou um array quando o valor for um array
+     * @param   string|array    $valor          String com valor a criptografar ou um array ou uma lista de array
+     * @param   array           $criptografia   Lista de campos que devem ser criptografados quando o valor for um array
+     * @param   bool            $lista          Se o valor é uma lista
+     * @return  string|array                    String quando o valor for uma string ou um array quando o valor for um array
      */
-    function criptografarDado(string|stdClass|array $valor, array $lista = [], ?string $chave = null): array|string
+    function criptografarDado(string|stdClass|array $dado, array $criptografia = [], ?string $chave = null, bool $lista = false): array|string
     {
         $chave =
             is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
@@ -1026,26 +1010,30 @@ if (!function_exists('criptografarDado')) {
 
         $Crypt = new CryptHelper(chavePublica: $chave);
 
-        if ($valor instanceof stdClass) {
-            $valor = (array) $valor;
+        if ($dado instanceof stdClass) {
+            $dado = (array) $dado;
         }
 
-        if (!is_array($valor)) {
-            return !empty($valor) ? $Crypt->encode($valor) : '';
+        if (!is_array($dado)) {
+            return !empty($dado) ? $Crypt->encode($dado) : '';
         }
-
+        if (!$lista) {
+            return _criptografarDadoRodar($dado, $criptografia, $Crypt);
+        }
         $retorno = [];
-        foreach ($valor as $ind => $val) {
-            if ((is_array($val) || is_object($val)) && !vazio($val)) {
-                foreach ($val as $ind2 => $val2) {
-                    if (!empty($val2) && in_array($ind2, $lista)) {
-                        $val2 = $Crypt->encode($val2);
-                    }
-                    $retorno[$ind][$ind2] = !empty($val2) ? $val2 : '';
-                }
-                continue;
-            } else if (is_array($val) || is_object($val)) {
-                $retorno[$ind] = $val;
+        foreach ($dado as $registro) {
+            $retorno[] = _criptografarDadoRodar($registro, $criptografia, $Crypt);
+        }
+        return $retorno;
+    }
+}
+if (!function_exists('_criptografarDadoRodar')) {
+    function _criptografarDadoRodar($dado, $lista, $Crypt)
+    {
+        $retorno = [];
+        foreach ($dado as $ind => $val) {
+            if (is_array($val) && array_key_exists($ind, $lista)) {
+                $retorno[$ind] = _criptografarDadoRodar($val, $lista[$ind], $Crypt);
                 continue;
             } else if (!empty($val) && in_array($ind, $lista)) {
                 $val = $Crypt->encode($val);

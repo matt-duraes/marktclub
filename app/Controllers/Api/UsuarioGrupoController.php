@@ -7,9 +7,11 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Api\UsuarioGrupo\GrupoModel;
 use App\Models\Api\UsuarioGrupo\GrupoEntity;
+use App\Models\Api\UsuarioGrupo\SelectModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerSelectInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
 
@@ -18,22 +20,16 @@ final class UsuarioGrupoController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface,
     ControllerAtualizarInterface,
-    ControllerDeletarInterface
+    ControllerDeletarInterface,
+    ControllerSelectInterface
 {
 
-    public function getSelect()
+    public function getSelect(Request $request): Response
     {
-        $Grupo = new GrupoModel();
-        $id = TOKEN['empresa']->get('id');
-
-        $select = $Grupo->pegarSelect('indice', 'titulo', [
-            ['status', '1'],
-            ['id_admin_empresa', $id]
-        ]);
-
-        return mensagemSucesso($select);
+        $Grupo = new SelectModel($request);
+        return mensagemSucesso($Grupo->listarDados());
     }
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         validarUuid($id);
 
@@ -43,7 +39,7 @@ final class UsuarioGrupoController extends Controller implements
         return $this->retornoSucesso($Grupo);
     }
 
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Grupo = new GrupoModel($request);
         $dado = $Grupo->listarDados();
@@ -51,7 +47,7 @@ final class UsuarioGrupoController extends Controller implements
         return mensagemSucesso($dado);
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Grupo = new GrupoEntity();
         $Grupo->set(lista: $request->dado());
@@ -60,7 +56,7 @@ final class UsuarioGrupoController extends Controller implements
         return $this->retornoSucesso($Grupo, 201);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         validarUuid($id);
 
@@ -73,7 +69,7 @@ final class UsuarioGrupoController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         validarUuid($id);
 

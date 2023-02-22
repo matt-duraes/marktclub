@@ -2,13 +2,16 @@
 
 namespace App\Models\Api\SolicitacaoVoucher;
 
+use ORM\Entity;
 use Modules\DataHora;
-use App\Models\Api\GeralEntity;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class VoucherEntity extends GeralEntity
+final class VoucherEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
     protected array $_buscar = [
         'id_usuario_cliente' => 'usuario',
@@ -19,10 +22,22 @@ final class VoucherEntity extends GeralEntity
     public Tipo $tipo;
     public Status $status;
 
+    protected string $parceiro_cod;
+    protected string $parceiro_titulo;
+    protected string $usuario_cod;
+    protected string $usuario_nome;
+    protected int $usuario_documento;
+    protected int $usuario_telefone_fixo;
+    protected int $usuario_telefone_celular;
+    protected string $usuario_email_pessoal;
+    protected string $usuario_email_trabalho;
+    protected int $usuario_status;
+
     public function __construct()
     {
         parent::__construct();
-        $this->_wherePadrao = ['empresa', $this->idEmpresa];
+        $this->validarEmpresa('empresa');
+
         $this->relacionarTabela(
             tabela: 'parceiro_novo',
             campoAtual: 'cod',

@@ -30,13 +30,24 @@ final class PontoEntity extends Entity
         status|Status|obrigatorio|vazio|valido
     ';
 
+    public string $nome;
     public Status $status;
     public DataHora $data_solicitacao;
     public DataHora $data_voucher;
     public string $voucher;
     public int $ponto_solicitado;
     public string $mensagem;
+    public string $usuario_cod;
+    public string $usuario_nome;
+    public string $usuario_matricula;
     public string $pedido_codigo;
+    public string $usuario_documento;
+    public string $usuario_telefone_fixo;
+    public string $usuario_telefone_celular;
+    public string $usuario_email_pessoal;
+    public string $usuario_status;
+    public int $id_usuario_cliente;
+    public array $usuario;
 
     public Email $email;
 

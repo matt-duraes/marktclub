@@ -6,20 +6,20 @@ use Status\Status as StatusStatus;
 
 final class Tipo extends StatusStatus
 {
-    const TIPO_CLUBE = 1;
-    const TIPO_PAINEL = 2;
+    const CLUBE = 'clube';
+    const PAINEL = 'painel';
 
     public function __construct(
         protected null|string|int $valor = null
     ) {
         parent::__construct(
             lista: [
-                'Clube',
-                'Painel',
+                self::CLUBE => 'Clube',
+                self::PAINEL => 'Painel',
             ],
             cor: [
-                'clube' => 'verde',
-                'painel' => 'azul',
+                self::CLUBE => 'verde',
+                self::PAINEL => 'azul',
             ]
         );
     }

@@ -372,7 +372,7 @@ if (!function_exists('painelConverterLink')) {
 if (!function_exists('painelAppAdd')) {
     function painelAppAdd(?stdClass $config = null, ?stdClass $r = null, ?string $app = null)
     {
-        if (is_object($config) && isset($config->add)) {
+        if (is_object($config) && object_key_exists('add', $config)) {
             $html = $config->add->html;
             $linkVoltar = !empty($config->index->link) ? $config->index->link : LINK . '/app' . $app;
             require ROOT . '/src/Html/Painel/appAdd.php';
@@ -608,13 +608,14 @@ if (!function_exists('painelInputLista')) {
             }
 
             $name = preg_replace('/\[\]$/', '', $input['name']);
+            $value = $input['value'];
 
             $formatar = '';
             if (array_key_exists('formatar', $input)) {
                 $formatar = $input['formatar'];
                 unset($input['formatar']);
             }
-            $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado) ? painelValor($dado, $name, formatar: $formatar) : '';
+            $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado) ? painelValor($dado, $value, formatar: $formatar) : '';
 
             if ($funcao == 'imagem' && validarUuid($valor, false)) {
                 $input['value'] = arquivoPrivado($valor);

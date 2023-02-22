@@ -13,6 +13,14 @@ final class Dinheiro implements ModuleInterface
         return $this->dinheiro();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->dinheiro();
+    }
+
     // doc
     /**
      * Modulo para Dinheiro

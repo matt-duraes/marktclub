@@ -11,7 +11,6 @@ use App\Models\Api\LoginApi\DigioModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Classes\ApiToken\Helper as ApiTokenHelper;
 use App\Models\Api\LoginPainel\LoginFacebookModel;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
@@ -27,7 +26,10 @@ final class LoginController extends Controller
     */
     public function postLoginDigio(Request $request)
     {
-        $Digio = new DigioModel($request->usuario);
+        $Digio = new DigioModel(
+            usuario: $request->usuario,
+            clube: $request->clube
+        );
         return $Digio->link();
     }
 
@@ -75,17 +77,20 @@ final class LoginController extends Controller
         }
 
         $Usuario = $Login->pegarUsuario();
-        $payload = criptografarDado([
-            'sub' => $Usuario->id,
-            'name' => $Usuario->nome->nome(),
-            'picture' => $Usuario->imagem,
-            'email' => $Usuario->email->email(),
-            'email_verified' => 'nao',
-            'create_at' => $Usuario->data_criacao->date(),
-            'updated_at' => $Usuario->data_atualizacao->date(),
-        ], lista: ['name', 'picture', 'email']);
+        $payload = criptografarDado(
+            dado: [
+                'sub' => $Usuario->id,
+                'name' => $Usuario->nome->nome(),
+                'picture' => $Usuario->imagem,
+                'email' => $Usuario->email->email(),
+                'email_verified' => 'nao',
+                'create_at' => $Usuario->data_criacao->date(),
+                'updated_at' => $Usuario->data_atualizacao->date(),
+            ],
+            criptografia: ['name', 'picture', 'email']
+        );
 
-        return $this->criarToken($payload, $request, new Tipo(Tipo::TIPO_PAINEL));
+        return $this->criarToken($payload, $request, new Tipo(Tipo::PAINEL));
     }
 
     private function criarToken(array $body, Request $request, Tipo $tipo): Response
@@ -181,7 +186,7 @@ final class LoginController extends Controller
             env('API_AUDIENCE', ''),
             env('API_REDIRECT_URI', ''),
             uuid(),
-            new Tipo(TIPO::TIPO_CLUBE)
+            new Tipo(TIPO::CLUBE)
         );
 
         return new Response(json: [

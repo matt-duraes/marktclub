@@ -3,6 +3,7 @@
 namespace App\Controllers\Painel;
 
 use Controller\Controller;
+use App\Classes\UsuarioCliente\TipoPagamento;
 
 final class DashboardController extends Controller
 {

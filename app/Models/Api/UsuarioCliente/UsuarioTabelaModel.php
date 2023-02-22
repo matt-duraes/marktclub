@@ -4,6 +4,7 @@ namespace App\Models\Api\UsuarioCliente;
 
 use ORM\ORM;
 use Modules\Cpf;
+use Http\Request;
 use Modules\Data;
 use Modules\Nome;
 use Modules\Email;
@@ -12,23 +13,24 @@ use Modules\Telefone;
 use Helpers\CryptHelper;
 use Helpers\ListaHelper;
 use App\Models\Api\Painel\ConfiguracaoEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class UsuarioTabelaModel extends ORM
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_NOVO;
 
     private int $idEmpresa;
     private array $obrigatorio;
     private array $dado;
     private array $retorno = [];
+    private array $request;
 
     public function __construct()
     {
         parent::__construct();
-
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioCliente\UsuarioTabelaModel');
-        }
+        $this->validarEmpresa('empresa');
 
         $Configuracao = new ConfiguracaoEntity();
         $this->obrigatorio = $Configuracao->campo_obrigatorio['usuario_cliente'] ?? ['cpf'];

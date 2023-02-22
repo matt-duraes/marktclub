@@ -57,6 +57,7 @@ final class TokenMiddleware
         if (!in_array($scope, $scopePermitido)) {
             mensagemErro('Erro de permissão!', 'Você não tem permissão para acessar esse scope.', 403, localhost: 'Middleware Token - Seu token não tem o scope para essa ação.');
         }
+        define('TOKEN_SCOPE', $scope);
         return true;
     }
 

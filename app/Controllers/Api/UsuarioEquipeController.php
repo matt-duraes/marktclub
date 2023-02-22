@@ -21,7 +21,7 @@ final class UsuarioEquipeController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         if (empty($id)) {
             mensagemStatus(404);
@@ -33,15 +33,19 @@ final class UsuarioEquipeController extends Controller implements
         return $this->retornoSucesso($Usuario);
     }
 
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Usuario = new EquipeModel($request);
         $dado = $Usuario->listar();
-        $dado->lista = criptografarDado($dado->lista, lista: helper::CRIPTOGRAFAR);
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: helper::CRIPTOGRAFAR,
+            lista: true
+        );
         return mensagemSucesso($dado);
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Usuario = new EquipeEntity();
         $Usuario->set(lista: $request->dado());
@@ -66,7 +70,7 @@ final class UsuarioEquipeController extends Controller implements
         );
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         validarUuid($id);
         $Usuario = new EquipeEntity();
@@ -91,7 +95,7 @@ final class UsuarioEquipeController extends Controller implements
         ], status: 201, criptografar: ['imagem']);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         validarUuid($id);
 

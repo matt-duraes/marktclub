@@ -13,6 +13,7 @@ final class EmpresaEntity extends Entity
         'imagem' => 'imagem_arquivo',
         'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'status'
     ];
+    protected array $_retornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
 
     public Cnpj $cnpj;
     public string $razao_social;

@@ -4,15 +4,21 @@ namespace App\Models\Api\UsuarioDependente;
 
 use ORM\Entity;
 use Modules\Cpf;
+use Modules\Data;
 use Modules\Nome;
 use Modules\Email;
 use Helpers\EmailHelper;
 use App\Classes\UsuarioCliente\Helper;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 
 final class DependenteEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_NOVO;
     protected array $_insert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
@@ -26,6 +32,12 @@ final class DependenteEntity extends Entity
     public Email $email;
     public string $usuario;
     protected int $titular;
+    protected string $cod;
+    protected TipoUsuario $tipo;
+    protected Data $data_email;
+    protected Status $status;
+
+    private int $idEmpresa;
 
     public function __construct()
     {
@@ -34,8 +46,7 @@ final class DependenteEntity extends Entity
             mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioDependente\DependenteEntity.');
         }
 
-        $this->idEmpresa = TOKEN['empresa']->get('id');
-        $this->_wherePadrao = ['empresa', $this->idEmpresa];
+        $this->validarEmpresa('empresa');
     }
 
     protected function regraPosInsert()
@@ -75,9 +86,9 @@ final class DependenteEntity extends Entity
 
 
         $this->cod = uuid();
-        $this->tipo = 2;
-        $this->data_email = hoje();
-        $this->status = 2;
+        $this->tipo = new TipoUsuario(TipoUsuario::DEPENDENTE);
+        $this->data_email = new Data(hoje());
+        $this->status = new Status(Status::INATIVO);
     }
 
     private function pegarTitular()
@@ -90,7 +101,7 @@ final class DependenteEntity extends Entity
 
         if (empty($Cliente->id)) {
             mensagemErro('Erro!', 'Não foi possível encontrar o usuário para vincular o dependente.');
-        } else if ($Cliente->tipo->indice() == 'dependente') {
+        } else if ($Cliente->tipo->indice() == TipoUsuario::DEPENDENTE) {
             mensagemErro('Erro!', 'Um dependente não pode adicionar outros dependentes.');
         }
 

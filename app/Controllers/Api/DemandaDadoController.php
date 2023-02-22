@@ -23,7 +23,7 @@ final class DemandaDadoController extends Controller implements
     ControllerBuscarInterface,
     ControllerAtualizarInterface
 {
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Demanda = new DemandaEntity();
         $Demanda->id($id);
@@ -39,7 +39,7 @@ final class DemandaDadoController extends Controller implements
         );
     }
 
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Demanda = new DemandaModel(
             new Status($request->status),
@@ -49,7 +49,7 @@ final class DemandaDadoController extends Controller implements
         return mensagemSucesso($Demanda->listarDados());
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Demanda = new DemandaEntity(
             titulo: $request->titulo,
@@ -67,7 +67,7 @@ final class DemandaDadoController extends Controller implements
         );
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
         if ($request->existe('id_admin_empresa')) {

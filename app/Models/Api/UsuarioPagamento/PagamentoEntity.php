@@ -6,11 +6,13 @@ use ORM\Entity;
 use Modules\Data;
 use Modules\Dinheiro;
 use App\Classes\UsuarioPagamento\Status;
-use App\Models\Api\ApiUsuario\UsuarioEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class PagamentoEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_PAGAMENTO;
     protected array $_buscar = [
         'id_usuario_cliente', 'valor_debito', 'data_pagamento', 'data_cobranca', 'status'
@@ -24,6 +26,9 @@ final class PagamentoEntity extends Entity
     private int $idEquipe;
     private int $idEmpresa;
     private ClienteEntity $Usuario;
+    private int $id_usuario_cliente;
+    private int $id_usuario_equipe;
+    private int $id_admin_empresa;
 
     public Status $status;
 
@@ -37,10 +42,7 @@ final class PagamentoEntity extends Entity
             mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioPagamento\PagamentoEntity');
         }
         $this->setarUsuarioDoPagamento($usuario);
-
-        $this->idEquipe = is_object(TOKEN['usuario']) ? TOKEN['usuario']->get('id') : null;
-        $this->idEmpresa = TOKEN['empresa']->get('id');
-        $this->_wherePadrao = ['id_admin_empresa', $this->idEmpresa];
+        $this->validarEmpresa();
     }
     private function setarUsuarioDoPagamento(?string $usuario): void
     {
@@ -48,13 +50,9 @@ final class PagamentoEntity extends Entity
             return;
         }
 
-        try {
-            $Usuario = new ClienteEntity();
-            $Usuario->id($usuario);
-            $this->id_usuario_cliente = $Usuario->get('id');
-        } catch (\Throwable) {
-            mensagemErro('Erro!', 'Usuário enviado não foi encontrado');
-        }
+        $Usuario = new ClienteEntity();
+        $Usuario->id($usuario, mensagem: 'Usuário enviado não foi encontrado');
+        $this->id_usuario_cliente = $Usuario->get('id');
     }
 
     protected function regraPosBuscar()

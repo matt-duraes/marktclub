@@ -11,9 +11,9 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\UsuarioIndicacao\IndicacaoModel;
 use App\Models\Api\UsuarioIndicacao\IndicacaoEntity;
-use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioIndicacaoController extends Controller implements
     ControllerSalvarInterface,
@@ -23,7 +23,7 @@ final class UsuarioIndicacaoController extends Controller implements
     ControllerDeletarInterface
 {
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Indicacao = new IndicacaoEntity();
         $Indicacao->set(lista: $request->dado());
@@ -32,16 +32,21 @@ final class UsuarioIndicacaoController extends Controller implements
         return $this->retornoSucesso($Indicacao, 201);
     }
 
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Indicacao = new IndicacaoModel($request);
         $dado = $Indicacao->listar();
-        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR);
+
+        $dado->lista = criptografarDado(
+            dado: $dado->lista,
+            criptografia: Helper::CRIPTOGRAFAR,
+            lista: true
+        );
 
         return mensagemSucesso($dado);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         if (empty($id)) {
             mensagemStatus(404);
@@ -62,7 +67,7 @@ final class UsuarioIndicacaoController extends Controller implements
         return mensagemSucesso($dado, $status, Helper::CRIPTOGRAFAR);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Indicacao = new IndicacaoEntity();
         $Indicacao->id($id);
@@ -72,7 +77,7 @@ final class UsuarioIndicacaoController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         $Indicacao = new IndicacaoEntity();
         $Indicacao->id($id);

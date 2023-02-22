@@ -13,6 +13,8 @@ trait OrmPropriedadeTrait
     protected string $_tabela;
     private string $_tabelaAtual;
 
+    protected array $_wherePadrao = [];
+
     private int $_ultimoId = 0;
 
     private array $_dado;

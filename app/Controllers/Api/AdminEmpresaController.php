@@ -3,16 +3,19 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use App\Classes\AdminEmpresa\Helper;
 use App\Models\Api\AdminEmpresa\EmpresaModel;
 use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerSelectInterface;
 
-final class AdminEmpresaController extends Controller
-implements ControllerBuscarInterface
+final class AdminEmpresaController extends Controller implements
+    ControllerBuscarInterface,
+    ControllerSelectInterface
 {
-    public function getSelect(Request $request)
+    public function getSelect(Request $request): Response
     {
         $Empresa = new EmpresaModel();
         $dado = $Empresa->pegarSelect(
@@ -27,7 +30,7 @@ implements ControllerBuscarInterface
         return mensagemSucesso($dado);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Empresa = new EmpresaEntity();
         $Empresa->id($id);

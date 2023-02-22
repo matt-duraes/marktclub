@@ -12,7 +12,17 @@ final class Genero implements ModuleInterface
     private array $listaIndiceNome = ['masculino' => 'Masculino', 'feminino' => 'Feminino', 'outro' => 'Outro', 'nao-informar' => 'Não informado'];
 
     private string $valor = '';
+    private string|int $numero;
+
     public function __toString()
+    {
+        return $this->genero();
+    }
+
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
     {
         return $this->genero();
     }

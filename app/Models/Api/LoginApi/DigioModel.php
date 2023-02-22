@@ -24,7 +24,8 @@ final class DigioModel extends Entity
     private ?string $hash = null;
 
     public function __construct(
-        private ?string $usuario
+        private ?string $usuario,
+        private ?string $clube
     ) {
         if (!defined('TOKEN')) {
             mensagemStatus(401);
@@ -34,7 +35,7 @@ final class DigioModel extends Entity
 
         parent::__construct();
 
-        $this->idEmpresa = 223;
+        $this->idEmpresa = $clube == 'uber' ? 1982 : 223;
         $this->hash = uuid();
 
         $this->buscarLinkClube();

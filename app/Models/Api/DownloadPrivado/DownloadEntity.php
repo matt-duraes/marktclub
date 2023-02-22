@@ -17,6 +17,9 @@ final class DownloadEntity extends Entity
     public Nome $nome;
     public DataHora $data_vencimento;
     public Email $email;
+    public string $arquivo;
+    public string $codigo_autorizacao;
+    public string $codigo_email;
 
     protected function regraPosBuscar()
     {

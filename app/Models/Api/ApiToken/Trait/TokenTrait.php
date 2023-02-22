@@ -38,15 +38,18 @@ trait TokenTrait
         string $state,
         Tipo $tipo
     ) {
-        $payload = criptografarDado([
-            'sub' => $Usuario->id,
-            'name' => $Usuario->nome->nome(),
-            'picture' => $Usuario->imagem,
-            'email' => $Usuario->email->email(),
-            'email_verified' => 'nao',
-            'create_at' => $Usuario->data_criacao->date(),
-            'updated_at' => $Usuario->data_atualizacao->date(),
-        ], lista: ['name', 'picture', 'email']);
+        $payload = criptografarDado(
+            [
+                'sub' => $Usuario->id,
+                'name' => $Usuario->nome->nome(),
+                'picture' => $Usuario->imagem,
+                'email' => $Usuario->email->email(),
+                'email_verified' => 'nao',
+                'create_at' => $Usuario->data_criacao->date(),
+                'updated_at' => $Usuario->data_atualizacao->date(),
+            ],
+            criptografia: ['name', 'picture', 'email']
+        );
 
         $Token = new TokenAuthorizationEntity();
         return $Token->criarToken(

@@ -2,9 +2,9 @@
 
 namespace App\Models\Api\PontoCvs;
 
-use App\Models\Api\GeralModel;
+use ORM\ORM;
 
-final class AtualizarUsuarioModel extends GeralModel
+final class AtualizarUsuarioModel extends ORM
 {
     protected string $_tabela = TABELA_USUARIO_NOVO;
 

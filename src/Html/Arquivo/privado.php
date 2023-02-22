@@ -10,7 +10,7 @@ try {
     $Arquivo = new ArquivoEntity();
     $Arquivo->id($id);
 } catch (\Throwable) {
-    mensagemStatus(404, 'Falhou ao tentar buscar arquivo.');
+    mensagemStatus(404, localhost: 'Falhou ao tentar buscar arquivo.');
 }
 
 $download = array_key_exists('download', $_GET) && $_GET['download'] == 1;
@@ -30,13 +30,13 @@ if (!empty($Arquivo->privado)) {
 }
 
 if (!empty($privado) && !array_key_exists($privado, $_SESSION)) {
-    mensagemStatus(401, 'Esse arquivo é privado.');
+    mensagemStatus(401, localhost: 'Esse arquivo é privado.');
 }
 
 $arquivo = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->get('arquivo');
 
 if (!file_exists($arquivo)) {
-    mensagemStatus(404, 'Esse arquivo não existe.');
+    mensagemStatus(404, localhost: 'Esse arquivo não existe.');
 } else if (!$download) {
     $Response = new Response(arquivo: $arquivo);
     $Response->render();
@@ -46,4 +46,4 @@ if (!file_exists($arquivo)) {
     $Response->render();
     exit();
 }
-mensagemStatus(404, 'Passou por tudo e falhou.');
+mensagemStatus(404, localhost: 'Passou por tudo e falhou.');

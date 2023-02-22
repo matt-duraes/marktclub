@@ -6,9 +6,11 @@ use ORM\ORM;
 use Http\Request;
 use App\Classes\UsuarioEquipe\Ordem;
 use App\Classes\UsuarioEquipe\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class EquipeModel extends ORM
 {
+    use ValidarEmpresaTrait;
 
     protected string $_tabela = TABELA_USUARIO_EQUIPE;
 
@@ -18,11 +20,7 @@ final class EquipeModel extends ORM
         private ?Request $request = null
     ) {
         parent::__construct();
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioEquipe\EquipeModel');
-        }
-
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->validarEmpresa();
     }
     public function listar()
     {

@@ -3,7 +3,6 @@
 namespace PainelApp\login\Models;
 
 use stdClass;
-use Erro\Erro;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use PainelApp\login\Models\Trait\ChaveTrait;
@@ -43,7 +42,7 @@ final class BuscarUsuarioModel
     }
     private function validarSeUsuarioPodeLogar()
     {
-        if ($this->usuario->status != StatusEquipe::STATUS_ATIVO) {
+        if ($this->usuario->status != StatusEquipe::ATIVO) {
             $this->erroGeral('Usuário não está ativo.');
         }
     }
@@ -60,7 +59,7 @@ final class BuscarUsuarioModel
 
         sessao('USUARIO', [
             'id' => $body->id,
-            'empresa' => $Crypt->decode($body->empresa),
+            'empresa' => $body->empresa,
             'nome' => $Crypt->decode($body->nome),
             'email' => $email,
             'imagem' => $Crypt->decode($body->imagem),
@@ -78,7 +77,7 @@ final class BuscarUsuarioModel
     {
         try {
             $this->empresa = (new ApiHelper(token: true))
-                ->get('/admin-empresa/' . sessao('USUARIO.empresa'))
+                ->get('/admin-empresa/' . sessao('USUARIO.empresa')->id)
                 ->object()
                 ->dado ?? [];
         } catch (\Throwable $e) {
@@ -87,7 +86,7 @@ final class BuscarUsuarioModel
     }
     private function validarSeEmpresaPodeLogar()
     {
-        if (!in_array($this->empresa->status, [StatusEmpresa::STATUS_ATIVO, StatusEmpresa::STATUS_PROSPECCAO])) {
+        if (!in_array($this->empresa->status, [StatusEmpresa::ATIVO, StatusEmpresa::PROSPECCAO])) {
             $this->erroGeral('Empresa não está ativa.');
         }
     }

@@ -13,6 +13,14 @@ final class EnderecoCep implements ModuleInterface
         return $this->cep();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->cep();
+    }
+
     // doc
     /**
      * Modulo para CEP

@@ -2,25 +2,28 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Modules\Data;
-use App\Models\Api\GeralModel;
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
-final class ClienteModel extends GeralModel
+final class ClienteModel extends ORM
 {
     protected string $_tabela = TABELA_USUARIO_NOVO;
 
+    use ValidarEmpresaTrait;
     use BuscarUsuarioTrait;
 
     public function __construct(
         protected ?Request $request = null
     ) {
         parent::__construct();
+        $this->validarEmpresa('empresa');
         $this->validarCampoDoRequest();
     }
 
@@ -58,6 +61,10 @@ final class ClienteModel extends GeralModel
 
             $lista[] = [
                 'id' => $uuid,
+                'empresa' => [
+                    'id' => $r->empresa_cod,
+                    'nome_fantasia' => $r->empresa_nome_fantasia,
+                ],
                 'nome' => $r->nome,
                 'cpf' => $r->tipo == 2 ? '' : $r->documento,
                 'email' => $email,

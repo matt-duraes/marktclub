@@ -6,13 +6,16 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
+    const TRABALHANDO = 'trabalhando';
+    const FINALIZADO = 'finalizado';
+
     public function __construct(
         protected null|string|int $valor = null
     ) {
         parent::__construct(
             lista: [
-                'trabalhando' => 'Trabalhando',
-                'finalizado' => 'Finalizado'
+                self::TRABALHANDO => 'Trabalhando',
+                self::FINALIZADO => 'Finalizado'
             ]
         );
     }

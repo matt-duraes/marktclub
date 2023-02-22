@@ -109,7 +109,7 @@ if (!function_exists('mensagemSucesso')) {
         }
 
         if ($criptografar) {
-            $dado = criptografarDado($dado, $criptografar);
+            $dado = criptografarDado(dado: $dado, criptografia: $criptografar);
         }
 
         return new Response(json: [

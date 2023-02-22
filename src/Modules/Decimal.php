@@ -13,6 +13,14 @@ final class Decimal implements ModuleInterface
         return $this->decimal();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->decimal();
+    }
+
     // doc
     /**
      * Modulo para decimal [0-9]{1,}.[0-9]{2}

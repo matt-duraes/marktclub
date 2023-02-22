@@ -26,10 +26,6 @@ final class ConvenioParceiroController extends Controller
             ['status', 4]
         ]);
 
-        if ($request->email == 'sim') {
-            new BIParceiro($Parceiro);
-        }
-
         return mensagemSucesso([]);
     }
 }

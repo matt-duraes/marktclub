@@ -2,28 +2,30 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
+use ORM\ORM;
 use Http\Request;
 use Modules\Genero;
 use Modules\DataHora;
 use Modules\Telefone;
 use Modules\EstadoCivil;
-use App\Models\Api\GeralModel;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
-final class DownloadModel extends GeralModel
+final class DownloadModel extends ORM
 {
+    use BuscarUsuarioTrait;
+    use ValidarEmpresaTrait;
 
     protected string $_tabela = TABELA_USUARIO_NOVO;
-
-    use BuscarUsuarioTrait;
 
     public function __construct(
         private ?Request $request = null
     ) {
         parent::__construct();
+        $this->validarEmpresa('empresa');
         $this->validarCamposAceito();
     }
 

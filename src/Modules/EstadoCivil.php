@@ -17,6 +17,14 @@ final class EstadoCivil implements ModuleInterface
         return $this->estadoCivil();
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->estadoCivil();
+    }
+
     // doc
     /**
      * Gera um modulo de estado civil
@@ -24,7 +32,7 @@ final class EstadoCivil implements ModuleInterface
      * @param null|int|string   $estadoCivil    Valor do estado civil podendo ser string ou int quando vier do banco
      */
     public function __construct(
-        private null|int|string $estadoCivil
+        private null|int|string $estadoCivil = null
     ) {
         if (empty($this->estadoCivil())) {
             $this->vazio = true;

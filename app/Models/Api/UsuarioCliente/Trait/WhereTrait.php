@@ -12,8 +12,7 @@ trait WhereTrait
     protected function pegarWhere(): array
     {
         $request = $this->request;
-
-        $where = [['empresa', $this->idEmpresa]];
+        $where = $this->_wherePadrao;
 
         // Colocando para aparecer só quem tem data de ativação na FENAE
         if ($this->idEmpresa == 153) {
@@ -113,7 +112,6 @@ trait WhereTrait
         } else {
             $where[] = ['status', 'in', Helper::STATUS_LIBERADO];
         }
-
         return $where;
     }
 }

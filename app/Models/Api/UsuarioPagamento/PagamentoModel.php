@@ -2,27 +2,28 @@
 
 namespace App\Models\Api\UsuarioPagamento;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
-use App\Models\Api\GeralModel;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 use App\Classes\UsuarioPagamento\Status;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class PagamentoModel extends GeralModel
+final class PagamentoModel extends ORM
 {
+    use PaginaTrait;
+    use QuantidadeTrait;
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_PAGAMENTO;
 
     protected Status $status;
-
     public function __construct(
         protected ?Request $request = null
     ) {
         parent::__construct();
-        $this->validarRequest();
-    }
-    private function validarRequest()
-    {
-        $request = $this->request;
+        $this->validarEmpresa();
     }
 
     /*
@@ -82,7 +83,7 @@ final class PagamentoModel extends GeralModel
             ->read();
 
         if (existeErro($dado, 'lista')) {
-            mensagemStatus(500, 'Ocorreu um erro ao buscar lista.');
+            mensagemStatus(500, localhost: 'Ocorreu um erro ao buscar lista.');
         }
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -107,7 +108,7 @@ final class PagamentoModel extends GeralModel
 
     private function pegarWherePagamento(): array
     {
-        $where = [['id_admin_empresa', $this->idEmpresa]];
+        $where = $this->_wherePadrao;
 
         $status = new Status($this->request->status);
         if (!empty($status) && $status->valido()) {

@@ -6,19 +6,23 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
+    const SOLICITADO = 'solicitado';
+    const APROVADO = 'aprovado';
+    const RECUSADO = 'recusado';
+
     public function __construct(
         protected null|string|int $valor = null
     ) {
         parent::__construct(
             lista: [
-                'solicitado' => 'Solicitado',
-                'aprovado' => 'Aprovado',
-                'recusado' => 'Recusado'
+                self::SOLICITADO => 'Solicitado',
+                self::APROVADO => 'Aprovado',
+                self::RECUSADO => 'Recusado'
             ],
             cor: [
-                'solicitado' => 'azul',
-                'aprovado' => 'verde',
-                'recusado' => 'preto'
+                self::SOLICITADO => 'azul',
+                self::APROVADO => 'verde',
+                self::RECUSADO => 'preto'
             ]
         );
     }

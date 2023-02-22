@@ -17,6 +17,14 @@ final class Nome implements ModuleInterface
         return $this->nome;
     }
 
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     */
+    public function valor()
+    {
+        return $this->nome;
+    }
+
     // doc
     /**
      * Gera um modulo de nome

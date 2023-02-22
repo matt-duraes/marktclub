@@ -2,7 +2,10 @@
 
 namespace PainelConfig;
 
+use Modules\Genero;
+use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use Modules\EstadoCivil;
 
 final class Add
 {
@@ -16,11 +19,12 @@ final class Add
     private array $camposAceitos = [];
     private array $camposObrigatorio = [];
     private string $css = '';
-    private string $js = '';
+    private string|array $js = '';
     private string $link = '';
 
     public function __construct(
-        private string $app
+        private string $app,
+        private ?string $acao = null
     ) {
         $this->app = $app;
 
@@ -207,7 +211,8 @@ final class Add
         array $request = [],
         string $separador = '',
         null|int|array $maximo = null,
-        string $formatar = ''
+        string $formatar = '',
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'input',
@@ -237,7 +242,7 @@ final class Add
             'separador' => $separador,
             'maximo' => $maximo,
             'formatar' => $formatar
-        ]);
+        ], $acao);
     }
 
     public function telefone(
@@ -346,7 +351,8 @@ final class Add
         ?string $id = null,
         bool $obrigatorio = false,
         string $tipo = 'quadrado',
-        int $height = 200
+        int $height = 200,
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'imagem',
@@ -357,7 +363,7 @@ final class Add
             'obrigatorio' => $obrigatorio,
             'tipo' => $tipo,
             'height' => $height
-        ]);
+        ], $acao);
     }
     public function tag(
         string $name,
@@ -367,7 +373,8 @@ final class Add
         string $id = '',
         string $tipo = 'tag',
         bool $focus = false,
-        bool $espaco = false
+        bool $espaco = false,
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'tag',
@@ -379,7 +386,7 @@ final class Add
             'tipo' => $tipo,
             'focus' => $focus,
             'espaco' => $espaco,
-        ]);
+        ], $acao);
     }
 
     public function editor(
@@ -395,7 +402,8 @@ final class Add
         string $id = '',
         string $class = '',
         bool $obrigatorio = false,
-        bool $footer = true
+        bool $footer = true,
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'editor',
@@ -412,7 +420,7 @@ final class Add
             'class' => $class,
             'obrigatorio' => $obrigatorio,
             'footer' => $footer
-        ]);
+        ], $acao);
     }
     public function editorBalao(
         string $name,
@@ -426,7 +434,8 @@ final class Add
         string $id = '',
         string $class = '',
         bool $obrigatorio = false,
-        bool $footer = true
+        bool $footer = true,
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'editor',
@@ -443,7 +452,7 @@ final class Add
             'class' => $class,
             'obrigatorio' => $obrigatorio,
             'footer' => $footer
-        ]);
+        ], $acao);
     }
     public function editorClassico(
         string $name,
@@ -457,7 +466,8 @@ final class Add
         string $id = '',
         string $class = '',
         bool $obrigatorio = false,
-        bool $footer = true
+        bool $footer = true,
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'editor',
@@ -474,7 +484,7 @@ final class Add
             'class' => $class,
             'obrigatorio' => $obrigatorio,
             'footer' => $footer
-        ]);
+        ], $acao);
     }
 
     public function cpf(
@@ -707,17 +717,23 @@ final class Add
         string $class = '',
         bool $obrigatorio = false,
         bool $footer = true,
-        string $change = ''
+        string $change = '',
+        string $acao = null
     ) {
-        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado'])) {
+        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa'])) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {
-            $lista = (new ListaHelper)->add('', 'Escolha um gênero')->genero()->r();
+            $lista = (new Genero())->select('Escolha um gênero');
         } else if (is_string($lista) && $lista == 'estado_civil') {
-            $lista = (new ListaHelper)->add('', 'Escolha um Estado Civil')->estadoCivil()->r();
+            $lista = (new EstadoCivil())->select('Escolha um Estado Civil');
         } else if (is_string($lista) && $lista == 'estado') {
             $lista = (new ListaHelper)->add('', 'Escolha um estado')->estado()->r();
+        } else if (is_string($lista) && $lista == 'empresa') {
+            $lista = (new ApiHelper(token: true))
+                ->json(['titulo' => 'Escolha um cliente'])
+                ->get('/admin-empresa/select')
+                ->array()['dado'] ?? [];
         }
 
         return $this->adicionarNovoInput([
@@ -731,7 +747,7 @@ final class Add
             'obrigatorio' => $obrigatorio,
             'footer' => $footer,
             'change' => $change
-        ]);
+        ], $acao);
     }
 
     public function textarea(
@@ -743,7 +759,8 @@ final class Add
         string $id = '',
         string $html = '',
         bool $obrigatorio = false,
-        array $attr = []
+        array $attr = [],
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'textarea',
@@ -756,7 +773,7 @@ final class Add
             'html' => $html,
             'obrigatorio' => $obrigatorio,
             'attr' => $attr,
-        ]);
+        ], $acao);
     }
 
     public function switch(
@@ -766,7 +783,8 @@ final class Add
         string $id = '',
         string $ajuda = '',
         string $html = '',
-        array $attr = []
+        array $attr = [],
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'switch',
@@ -777,7 +795,7 @@ final class Add
             'ajuda' => $ajuda,
             'html' => $html,
             'attr' => $attr,
-        ]);
+        ], $acao);
     }
 
     public function checkbox(
@@ -789,7 +807,8 @@ final class Add
         string $id = '',
         string $ajuda = '',
         string $html = '',
-        array $attr = []
+        array $attr = [],
+        ?string $acao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'checkbox',
@@ -802,7 +821,7 @@ final class Add
             'ajuda' => $ajuda,
             'html' => $html,
             'attr' => $attr,
-        ]);
+        ], $acao);
     }
 
     /*
@@ -810,9 +829,11 @@ final class Add
     | MÉTODOS PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function adicionarNovoInput($dado)
+    private function adicionarNovoInput($dado, ?string $acao = null)
     {
-        if (!$this->campoAceito($dado['name'])) {
+        $dado['value'] = preg_replace('/\[\]$/', '', $dado['name']);
+        $dado['name'] = explode('->', $dado['name'])[0];
+        if (!$this->campoAceito($dado['name'], $acao)) {
             return $this;
         }
         $this->setarTitulo();
@@ -849,9 +870,12 @@ final class Add
         }
     }
 
-    private function campoAceito($name)
+    private function campoAceito($name, ?string $acao)
     {
-        if (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) {
+        if (
+            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) ||
+            (!empty($acao) && !empty($this->acao) && $acao != $this->acao)
+        ) {
             return false;
         }
         return true;

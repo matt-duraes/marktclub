@@ -4,40 +4,52 @@ namespace App\Models\Api\UsuarioCliente;
 
 use ORM\ORM;
 use App\Classes\UsuarioCliente\Helper;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class DeletarModel extends ORM
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_USUARIO_NOVO;
 
+    private int $idEmpresa;
     private array $usuario = [];
+
     public function __construct()
     {
         parent::__construct();
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioCliente\DeletarModel');
-        }
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->validarEmpresa('empresa');
     }
 
     public function id($id)
     {
-        $usuario = $this->where([
-            ['empresa', $this->idEmpresa],
-            ['status', 'in', Helper::STATUS_LIBERADO],
-            ['cod', $id]
-        ])->primeiro();
+        $usuario = $this
+            ->where($this->pegarWhereParaDeletar([
+                ['status', 'in', Helper::STATUS_LIBERADO],
+                ['cod', $id]
+            ]))
+            ->primeiro();
 
         $this->validarUsuarioPegarDependente($usuario);
     }
     public function cpf($cpf)
     {
-        $usuario = $this->where([
-            ['empresa', $this->idEmpresa],
-            ['status', 'in', Helper::STATUS_LIBERADO],
-            ['documento', soNumero($cpf)]
-        ])->primeiro();
+        $usuario = $this
+            ->where($this->pegarWhereParaDeletar([
+                ['status', 'in', Helper::STATUS_LIBERADO],
+                ['documento', soNumero($cpf)]
+            ]))
+            ->primeiro();
 
         $this->validarUsuarioPegarDependente($usuario);
+    }
+    private function pegarWhereParaDeletar(array $where)
+    {
+        if (!empty($this->_wherePadrao)) {
+            $where[] = $this->_wherePadrao;
+        }
+        return $where;
     }
 
     private function validarUsuarioPegarDependente($usuario)
@@ -46,7 +58,7 @@ final class DeletarModel extends ORM
             mensagemStatus(404);
         }
 
-        if ($usuario->tipo == 1) {
+        if ($usuario->tipo == TipoUsuario::TITULAR) {
             $this->pegarDependentes($usuario->id);
         }
 
@@ -57,7 +69,7 @@ final class DeletarModel extends ORM
         $dependente = $this->where([
             ['empresa', $this->idEmpresa],
             ['status', 'in', Helper::STATUS_LIBERADO],
-            ['tipo', 2],
+            ['tipo', new TipoUsuario(TipoUsuario::DEPENDENTE)],
             ['titular', $titular]
         ])->read();
 
@@ -114,10 +126,9 @@ final class DeletarModel extends ORM
         foreach ($this->usuario as $r) {
             $id = $r['id'];
             $dado = $r['dado'];
-            $deletar = $this->dado($dado)->where([
-                ['id', $id],
-                ['empresa', $this->idEmpresa]
-            ])->update();
+            $deletar = $this->dado($dado)->where($this->pegarWhereParaDeletar([
+                ['id', $id]
+            ]))->update();
 
             if (existeErro($deletar, 'id')) {
                 $this->erroPadrao();

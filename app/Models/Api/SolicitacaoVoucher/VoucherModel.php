@@ -2,22 +2,29 @@
 
 namespace App\Models\Api\SolicitacaoVoucher;
 
+use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Modules\Data;
-use App\Models\Api\GeralModel;
+use System\Trait\Model\PaginaTrait;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class VoucherModel extends GeralModel
+final class VoucherModel extends ORM
 {
+    use ValidarEmpresaTrait;
+    use PaginaTrait;
+
     protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
+    private int $idEmpresa;
 
     public function __construct(
         protected Request $request
     ) {
         parent::__construct();
+        $this->validarEmpresa('empresa');
     }
 
     public function listarDados(): stdClass
