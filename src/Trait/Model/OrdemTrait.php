@@ -24,24 +24,23 @@ trait OrdemTrait
         bool $valido = true
     ): string|OrderInterface {
         $valor = '';
-        if (property_exists($this, 'request')) {
+        if (property_exists($this, 'request') && !empty($this->request->ordem)) {
             $valor = $this->request->ordem;
         }
 
         $tabela = !empty($tabela) ? '`' . $tabela . '`.' : '';
-        $ordemPadrao = $tabela . '`id` DESC';
         $ordem->valor($valor);
 
         if ($ordem->vazio() && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo ordem é obrigatório.');
         } else if ($ordem->vazio()) {
-            return $ordemPadrao;
+            return $ordem;
         }
 
 
         if (!$ordem->valido() && $valido) {
             mensagemErro('Campo inválido!', 'O campo ordem está inválido.');
         }
-        return !$ordem->valido() ? $ordemPadrao : $ordem;
+        return $ordem;
     }
 }

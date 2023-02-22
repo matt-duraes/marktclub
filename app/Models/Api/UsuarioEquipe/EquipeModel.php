@@ -3,14 +3,20 @@
 namespace App\Models\Api\UsuarioEquipe;
 
 use ORM\ORM;
+use stdClass;
 use Http\Request;
+use System\Trait\Model\PaginaTrait;
 use App\Classes\UsuarioEquipe\Ordem;
 use App\Classes\UsuarioEquipe\Status;
+use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class EquipeModel extends ORM
+final class EquipeModel extends ORM implements ModelListarInterface
 {
     use ValidarEmpresaTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
 
     protected string $_tabela = TABELA_USUARIO_EQUIPE;
 
@@ -22,12 +28,9 @@ final class EquipeModel extends ORM
         parent::__construct();
         $this->validarEmpresa();
     }
-    public function listar()
+    public function listarDados(): stdClass
     {
         $request = $this->request;
-        $pagina = $request->chave('pagina', 1);
-        $pagina = preg_match('/[0-9]+/', $pagina) && $pagina > 0 ? $pagina : 1;
-
         $where = [['id_admin_empresa', $this->idEmpresa]];
 
         $pesquisa = $request->pesquisa;
@@ -66,17 +69,20 @@ final class EquipeModel extends ORM
         } else {
             $where[] = ['status', 'in', [1, 2]];
         }
-        $quantidade = $request->quantidade;
-        $quantidade =
-            is_numeric($quantidade) && preg_match('/^[1-9]{1,}$/', $quantidade) && $quantidade <= 50 ?
-            $quantidade :
-            50;
 
-        $dado = $this->campo([
-            'uuid', 'nome_perfil', 'nome_real', 'documento_cpf', 'email_trabalho',
-            'email_pessoal', 'status', 'data_criacao', 'imagem_tipo', 'imagem_arquivo',
-            'imagem_facebook', 'imagem_google'
-        ])->where($where)->pagina($pagina, $quantidade)->order(new Ordem($request->ordem))->read();
+        $dado = $this
+            ->campo([
+                'uuid', 'nome_perfil', 'nome_real', 'documento_cpf', 'email_trabalho',
+                'email_pessoal', 'status', 'data_criacao', 'imagem_tipo', 'imagem_arquivo',
+                'imagem_facebook', 'imagem_google'
+            ])
+            ->where($where)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order(new Ordem($request->ordem))
+            ->tabela(TABELA_EMPRESA_NOVO)
+            ->join('id', 'id_admin_empresa')
+            ->campo(['cod', 'nome_fantasia'], 'empresa')
+            ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
@@ -99,6 +105,10 @@ final class EquipeModel extends ORM
             }
             $lista[] = [
                 'id' => $r->uuid,
+                'empresa' => [
+                    'id' => $r->empresa_cod,
+                    'nome_fantasia' => $r->empresa_nome_fantasia,
+                ],
                 'nome' => $r->nome_real,
                 'perfil' => $r->nome_perfil,
                 'cpf' => $r->documento_cpf,

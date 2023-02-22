@@ -4,7 +4,13 @@ bodyFormSelect.insertAdjacentHTML('beforeend', `<div id="fw_form_select"></div>`
 let selectChange = {};
 let fwFormSelectAbertoAtual, fwFormSelectListaTexto, fwFormSelectValorAtual;
 
-const selectValue = (select, valor) => {
+/**
+ * Mudar o valor do select
+ *
+ * @param {element} select O Select que deseja mudar o valor
+ * @param {string} valor O valor novo para o select
+ */
+const formSelectValue = (select, valor) => {
     const bloco = select.closest('.input_select');
     const inputValue = bloco.querySelector('.input_select_value');
     const inputTexto = bloco.querySelector('.input_select_texto');
@@ -16,6 +22,42 @@ const selectValue = (select, valor) => {
     }
     inputTexto.value = texto.innerText;
     inputValue.value = valor;
+};
+/**
+ * Adiciona um loading no select
+ *
+ * @param {element} select O Select que deseja mudar o valor
+ */
+const formSelectLoading = select => {
+    const bloco = select.closest('.input_select');
+    const blocoUl = bloco.querySelector('ul');
+    const blocoTitulo = bloco.querySelector('.input_select_texto');
+    select.value = '';
+    blocoTitulo.value = '';
+    blocoUl.innerHTML = `<li class="lista " data-value>Carregando</li>`;
+};
+/**
+ * Muda a lista de option do select
+ *
+ * @param {element} select O Select que deseja mudar o valor
+ * @param {string} lista Objeto com a nova lista {"indice":"valor"}
+ */
+const formSelectOption = (select, lista) => {
+    const bloco = select.closest('.input_select');
+    const blocoUl = bloco.querySelector('ul');
+    const blocoTitulo = bloco.querySelector('.input_select_texto');
+    let html = '';
+    let indice, valorIndice, valorTitulo;
+    for (indice in lista) {
+        if (valorIndice == undefined) {
+            valorIndice = indice;
+            valorTitulo = indice == '' ? '' : lista[indice];
+        }
+        html += `<li class="lista " data-value="${indice}">${lista[indice]}</li>`;
+    }
+    select.value = valorIndice;
+    blocoTitulo.value = valorTitulo;
+    blocoUl.innerHTML = html;
 };
 
 const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');

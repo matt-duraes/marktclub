@@ -831,7 +831,7 @@ final class Add
     */
     private function adicionarNovoInput($dado, ?string $acao = null)
     {
-        $dado['value'] = preg_replace('/\[\]$/', '', $dado['name']);
+        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
         $dado['name'] = explode('->', $dado['name'])[0];
         if (!$this->campoAceito($dado['name'], $acao)) {
             return $this;

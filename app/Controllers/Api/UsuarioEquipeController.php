@@ -36,7 +36,7 @@ final class UsuarioEquipeController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Usuario = new EquipeModel($request);
-        $dado = $Usuario->listar();
+        $dado = $Usuario->listarDados();
         $dado->lista = criptografarDado(
             dado: $dado->lista,
             criptografia: helper::CRIPTOGRAFAR,
@@ -60,7 +60,8 @@ final class UsuarioEquipeController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Usuario,
                 lista: [
-                    'id', 'Empresa', 'perfil', 'nome', 'cpf', 'imagem', 'email_trabalho', 'email_pessoal', 'telefone_trabalho',
+                    'Empresa' => ['id', 'nome_fantasia'],
+                    'perfil', 'nome', 'cpf', 'imagem', 'email_trabalho', 'email_pessoal', 'telefone_trabalho',
                     'telefone_pessoal', 'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'id_google',
                     'id_facebook', 'gerente', 'admin', 'status', 'permissao'
                 ],
