@@ -229,6 +229,15 @@ final class Visualizar
         ]);
         return $this;
     }
+    public function array(array|string $campo, string $nome)
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'array',
+            'campo' => $campo,
+            'nome' => $nome
+        ]);
+        return $this;
+    }
     public function cpf(array|string $campo, string $nome): self
     {
         $this->linha($campo, $nome, 'cpf');

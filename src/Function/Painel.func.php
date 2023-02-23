@@ -307,6 +307,10 @@ if (!function_exists('painelLinhaLista')) {
                 $valor = painelValorFormatar($valor, '', $formatar);
             }
 
+            if ($acao == 'array' && is_string($valor)) {
+                $valor = jsonDecode($valor, true, true);
+            }
+
             if ($acao == 'imagem_redonda') {
                 echo '<figure class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
             } else if ($acao == 'linha') {
@@ -339,6 +343,30 @@ if (!function_exists('painelLinhaLista')) {
                 $mensagem = !empty($mensagem) ? 'data-mensagem="' . $mensagem . '"' : '';
                 $status = !empty($status) ? 'data-status="' . $status . '"' : '';
                 $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $mensagem . ' ' . $status . '>' . $texto . '</div>';
+            } else if ($acao == 'array' && is_array($valor) && $valor) {
+                $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
+                echo '<div class="array_item">';
+                echo '<div class="array_item_botao bg_hover">';
+                echo '<div class="array_nome">' . $nome . '</div>';
+                echo '<div class="botao_ver_lista">Ver lista</div>';
+                echo '</div>';
+                echo '<div class="lista_item display_none">';
+                foreach ($valor as $ind => $val) {
+                    if (!is_array($val) && !is_object($val)) {
+                        $ind = !is_int($ind) ? '<span class="texto_nome">' . preg_replace('/\:$/', '', $ind) . ':</span>' : '';
+                        echo '<div class="item bg_hover">' . $ind . ' <p>' . $val . '</p></div>';
+                        continue;
+                    }
+                    echo '<div class="array_subitem">';
+                    foreach ($val as $ind2 => $val2) {
+                        $ind2 = !is_int($ind2) ? '<span class="texto_nome">' . preg_replace('/\:$/', '', $ind2) . ':</span>' : '';
+                        $val2 = is_array($val2) || is_object($val2) ? jsonEncode($val2) : $val2;
+                        echo '<div class="item bg_hover">' . $ind2 . ' <p>' . $val2 . '</p></div>';
+                    }
+                    echo '</div>';
+                }
+                echo '</div>';
+                echo '</div>';
             }
         }
         if ($botaoStatus) {
