@@ -23,11 +23,11 @@ final class AppController extends PadraoController
             mensagemStatus(status: 403, localhost: 'O config do APP proibe o acesso a index.');
         }
 
-        $pesquisa = $request->existe('pesquisa') && !empty($request->pesquisa) ? base64Decode($request->pesquisa, 'pesquisa') : '';
-        $filtro = $request->existe('filtro')  && !empty($request->filtro) ? base64Decode($request->filtro, 'filtro') : [];
-        $ordem = $request->existe('ordem') && !empty($request->ordem) ? base64Decode($request->ordem, 'ordem') : '';
-        $pagina = $request->existe('pagina') && !empty($request->pagina) ? $request->pagina : 1;
-        $pagina = preg_match('/[0-9]+/', $pagina) && $pagina > 0 ? $pagina : 1;
+        $pesquisa = $request->existe('pesquisa') && !$request->vazio('pesquisa') ? base64Decode($request->pesquisa) : '';
+        $filtro = $request->existe('filtro')  && !$request->vazio('filtro') ? base64Decode($request->filtro) : [];
+        $ordem = $request->existe('ordem') && !$request->vazio('ordem') ? base64Decode($request->ordem) : '';
+        $pagina = $request->existe('pagina') && !$request->vazio('pagina') ? $request->pagina : 1;
+        $pagina = preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
 
         $parametro = [
             'pagina' => $pagina
@@ -61,7 +61,8 @@ final class AppController extends PadraoController
                 'busca' => (object)[
                     'filtro' => $request->chave('filtro', ''),
                     'pesquisa' => $request->chave('pesquisa', ''),
-                    'ordem' => $request->chave('ordem', '')
+                    'ordem' => $request->chave('ordem', ''),
+                    'ordem_titulo' => $config->ordem->lista->$ordem->titulo ?? ''
                 ]
             ]
         );
@@ -421,7 +422,7 @@ final class AppController extends PadraoController
     {
         $ordem = $request->existe('ordem') && !empty($request->ordem) ? '&ordem=' . $request->ordem : '';
         if ($request->existe('pesquisa') && !empty($request->pesquisa)) {
-            return new Response(url: LINK . '/app/' . $app . '?pesquisa=' . base64Encode($request->pesquisa, 'pesquisa') . $ordem);
+            return new Response(url: LINK . '/app/' . $app . '?pesquisa=' . base64Encode($request->pesquisa, true) . $ordem);
         }
         $dado = $request->exeto(['pagina', 'pesquisa', 'ordem'], false);
         $lista = [];
@@ -431,7 +432,7 @@ final class AppController extends PadraoController
             }
             $lista[$ind] = validarData($val) ? dataBanco($val) : $val;
         }
-        return new Response(url: LINK . '/app/' . $app . '?filtro=' . base64Encode($lista, 'filtro') . $ordem);
+        return new Response(url: LINK . '/app/' . $app . '?filtro=' . base64Encode($lista, true) . $ordem);
     }
 
     private function pegarFiltro(Request $request, $config)
@@ -478,7 +479,7 @@ final class AppController extends PadraoController
             $url = LINK . '/app/' . $app . '?' . $ordem;
         } elseif (!empty($filtro)) {
             $ordem = !empty($ordem) ? '&' . $ordem : '';
-            $url = LINK . '/app/' . $app . '?filtro=' . base64Encode($filtro, 'filtro') . $ordem;
+            $url = LINK . '/app/' . $app . '?filtro=' . base64Encode($filtro, true) . $ordem;
         }
         return new Response(url: $url);
     }

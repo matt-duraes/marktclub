@@ -22,22 +22,19 @@ final class HistoricoController extends Controller
         }
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->body([
-            'relacionado' => [$request->relacionado],
-            'app' => [$request->app],
-            'acao' => 'mensagem',
-            'mensagem' => $request->mensagem,
-            'notificar_titulo' => base64Decode($request->titulo),
-            'notificar_link' => base64Decode($request->link),
-            'notificar_equipe' => base64Decode($request->notificar)
-        ])->post('/painel-historico')->object();
-
-        if (existeErro($dado, 'dado')) {
-            mensagemErro(
-                $dado->erro->titulo ?? 'Erro!',
-                $dado->erro->mensagem ?? 'Ocorreu um erro ao salvar seu histórico.'
-            );
-        }
+        $dado = $Api
+            ->validar('Ocorreu um erro ao salvar seu histórico.')
+            ->body([
+                'relacionado' => [$request->relacionado],
+                'app' => [$request->app],
+                'acao' => 'mensagem',
+                'mensagem' => $request->mensagem,
+                'notificar_titulo' => base64Decode($request->titulo),
+                'notificar_link' => base64Decode($request->link),
+                'notificar_equipe' => base64Decode($request->notificar)
+            ])
+            ->post('/painel-historico')
+            ->object();
 
         return mensagemSucesso([
             'id' => $dado->dado->id,

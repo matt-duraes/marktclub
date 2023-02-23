@@ -212,10 +212,11 @@ abstract class Order implements OrderInterface
         $retorno = [];
         foreach ($lista as $r) {
             $retorno[] = (object)[
-                'hash' => base64Encode($r['indice'], 'ordem'),
+                'hash' => base64Encode($r['indice'], true),
                 'titulo' => $r['nome'],
                 'icone' => $r['icone'],
                 'campo' => $r['campo'],
+                'indice' => $r['indice']
             ];
         }
 

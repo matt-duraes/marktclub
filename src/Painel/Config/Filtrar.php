@@ -332,6 +332,8 @@ final class Filtrar
     */
     private function adicionarNovoInput($dado)
     {
+        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
+        $dado['name'] = explode('->', $dado['name'])[0];
         if (!$this->campoAceito($dado['name'])) {
             return $this;
         }

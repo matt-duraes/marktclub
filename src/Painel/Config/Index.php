@@ -145,8 +145,8 @@ final class Index
             if (empty($padrao)) {
                 $padrao = base64Decode($r->hash);
             }
-            $hash = $r->hash;
-            $retorno->$hash = $r;
+            $indice = $r->indice;
+            $retorno->$indice = $r;
         }
         return (object)[
             'padrao' => $padrao,

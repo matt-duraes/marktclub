@@ -18,7 +18,7 @@ final class PainelHistoricoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Historico = new HistoricoEntity();
         $Historico->set(lista: $request->dado());
@@ -34,14 +34,14 @@ final class PainelHistoricoController extends Controller implements
         );
     }
 
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Historico = new HistoricoModel($request);
         $dado = $Historico->listarDados();
         return mensagemSucesso($dado);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Historico = new HistoricoEntity;
         $Historico->id($id);
@@ -51,7 +51,7 @@ final class PainelHistoricoController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         $Historico = new HistoricoEntity;
         $Historico->id($id);

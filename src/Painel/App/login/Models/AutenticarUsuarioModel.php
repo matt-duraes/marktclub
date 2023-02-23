@@ -48,7 +48,7 @@ final class AutenticarUsuarioModel
                 'token' => $this->token->refresh_token,
                 'data' => agora()
             ],
-            'hash_refresh_token'
+            true
         ));
     }
 }
