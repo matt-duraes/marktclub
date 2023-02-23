@@ -24,6 +24,10 @@ const trabalhoSetarValorInicialTrabalho = (data, tempo) => {
     const dataInicial = new Date(data).getTime();
     const dataFinal = new Date().getTime();
     tempo = tempo != undefined ? tempo : 0;
+    pp(data);
+    pp(tempo);
+    pp(dataFinal);
+    pp(dataInicial);
     trabalhoMinutoTrabalhado = Math.ceil(tempo + (dataFinal - dataInicial) / 1000 / 60);
     blocoTrabalhoMinutoTrabalhado.innerText = trabalhoMinutoTrabalhado;
 };
