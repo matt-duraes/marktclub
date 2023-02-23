@@ -22,7 +22,6 @@ final class UsuarioModel extends ORM
     ) {
         parent::__construct();
 
-        $this->dataAcesso = is_null($data) ? dataRemover(date('Y-m-d'), 1, 'dia') : $data;
         $this->pegarEmpresasValidas();
         $this->montarDadoInicial();
         $this->buscarTodosRegistros();
@@ -68,10 +67,7 @@ final class UsuarioModel extends ORM
             } else {
                 $this->dado[$r->empresa]['estado_civil_sem_dado']++;
             }
-            ppe($r);
         }
-
-        ppe($this->dado);
     }
 
     private function montarDadoAnalytics()

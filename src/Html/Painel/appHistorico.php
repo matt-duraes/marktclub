@@ -14,7 +14,7 @@
         <input type="hidden" id="input_historico_relacionado" value="<?= $r->id ?>">
         <input type="hidden" id="input_historico_app" value="<?= $app ?>">
         <input type="hidden" id="input_historico_titulo" value="<?= base64Encode($titulo) ?>">
-        <input type="hidden" id="input_historico_link" value="<?= base64Encode($link) ?>">
+        <input type="hidden" id="input_historico_link" value="<?= base64Encode(!empty($link) ? $link : LINK . URI) ?>">
         <input type="hidden" id="input_historico_notificar" value="<?= base64Encode($notificar) ?>">
         <figure style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></figure>
         <?= formTextarea(name: 'historico_novo', label: '', numeroLinha: 4, placeholder: 'Digite sua mensagem', id: 'input_historico_mensagem') ?>

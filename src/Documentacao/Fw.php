@@ -404,10 +404,7 @@ final class Fw
                         if ($funcao[0] == 'echo') {
                             try {
                                 $resultado = call_user_func_array($funcao[1], $parametroConvertidoValor);
-                            } catch (\Throwable $th) {
-                                pp($funcao[1]);
-                                pp($parametroConvertidoValor);
-                                ppe($th);
+                            } catch (\Throwable) {
                             }
                             if (is_null($resultado)) {
                                 $resultado = 'null';
