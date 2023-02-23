@@ -21,7 +21,7 @@ final class UploadArquivoController extends Controller implements
     ControllerDeletarInterface,
     ControllerBuscarInterface
 {
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Arquivo = new ArquivoModel();
         $lista = $Arquivo->buscarArquivos($request->pagina, $request->pesquisa, $request->grupo);
@@ -29,7 +29,7 @@ final class UploadArquivoController extends Controller implements
         return mensagemSucesso($lista);
     }
 
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Arquivo = new ArquivoEntity();
         $Arquivo->id($id);
@@ -39,7 +39,7 @@ final class UploadArquivoController extends Controller implements
         );
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Grupo = new GrupoEntity();
         $Grupo->id($request->grupo);
@@ -57,7 +57,7 @@ final class UploadArquivoController extends Controller implements
             status: 201
         );
     }
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Arquivo = new ArquivoEntity();
         $Arquivo->id($id);
@@ -76,7 +76,7 @@ final class UploadArquivoController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         $Arquivo = new ArquivoEntity();
         $Arquivo->id($id);

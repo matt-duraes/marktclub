@@ -251,7 +251,7 @@ final class AnalisarModel
                 $listaOk[] = [
                     'linha' => $linha,
                     'titulo' => $titulo,
-                    'hash' => base64Encode($dado, 'hash_upload_tabela_salvar')
+                    'hash' => base64Encode($dado, true)
                 ];
             }
         }
@@ -356,7 +356,7 @@ final class AnalisarModel
             $listaOk[] = [
                 'linha' => $linha,
                 'titulo' => $titulo,
-                'hash' => base64Encode($dado, 'hash_upload_tabela_salvar')
+                'hash' => base64Encode($dado, true)
             ];
         }
 

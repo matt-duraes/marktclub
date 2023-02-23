@@ -26,7 +26,7 @@ final class PainelNotificacaoController extends Controller implements
     | BUSCAR
     |--------------------------------------------------------------------------
     */
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Notificacao = new NotificacaoEntity();
         $Notificacao->id($id);
@@ -45,7 +45,7 @@ final class PainelNotificacaoController extends Controller implements
     | LISTAR
     |--------------------------------------------------------------------------
     */
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Notificacao = new NotificacaoModel($request);
         return mensagemSucesso($Notificacao->listarDados());
@@ -55,7 +55,7 @@ final class PainelNotificacaoController extends Controller implements
     | SALVAR
     |--------------------------------------------------------------------------
     */
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $request
             ->vazio('titulo', mensagem: 'O campo título é obrigatório.')
@@ -98,7 +98,7 @@ final class PainelNotificacaoController extends Controller implements
     | ATUALIZAR
     |--------------------------------------------------------------------------
     */
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $status = new Status($request->status);
         if (!$status->valido()) {

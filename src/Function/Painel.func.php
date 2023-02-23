@@ -419,6 +419,17 @@ if (!function_exists('painelAppAddBotao')) {
     }
 }
 
+if (!function_exists('painelConverterFiltroParaUsuario')) {
+    function painelConverterFiltroParaUsuario($valor)
+    {
+        if (validarDate($valor)) {
+            return dataBr($valor);
+        } else if (validarDateTime($valor)) {
+            return dataHoraBr($valor);
+        }
+        return str_replace(['sim', 'nao'], ['Sim', 'Não'], $valor);
+    }
+}
 if (!function_exists('painelBotao')) {
     /**
      * Finaliza o bloco do APP ADD

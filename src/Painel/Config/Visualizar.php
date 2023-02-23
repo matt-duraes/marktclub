@@ -15,6 +15,7 @@ final class Visualizar
     private string $css = '';
     private string $js = '';
     private string $linkEditar = '';
+    private string $link;
 
     private array $replace = [];
     private array $status = [];
@@ -108,9 +109,7 @@ final class Visualizar
         $this->coluna++;
         $this->numeroColuna = $coluna;
         $this->fieldset = 0;
-        $this->colunaAberta = true;
         call_user_func($callback);
-        $this->colunaAberta = false;
         return $this;
     }
 

@@ -19,7 +19,7 @@ final class LogErroController extends Controller implements
     ControllerListarInterface,
     ControllerAtualizarInterface
 {
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         try {
             $Error = new ErrorEntity(
@@ -41,7 +41,7 @@ final class LogErroController extends Controller implements
             'id' => $Error->id
         ], status: 201);
     }
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Error = new ErrorEntity();
         $Error->id($id);
@@ -56,14 +56,14 @@ final class LogErroController extends Controller implements
             ),
         );
     }
-    public function getListar(Request $request)
+    public function getListar(Request $request): Response
     {
         $Error = new ErrorModel($request);
         $dado = $Error->listarDado();
 
         return mensagemSucesso($dado);
     }
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Error = new ErrorEntity();
         $Error->id($id);

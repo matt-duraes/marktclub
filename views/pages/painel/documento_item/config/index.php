@@ -4,10 +4,10 @@ return [
     'ordem' => [
         'padrao' => 'nome-a-z',
         'lista' => [
-            base64Encode('mais-novo', 'ordem') => ['Mais novos', 'id', 'DESC'],
-            base64Encode('mais-velho', 'ordem') => ['Mais antigos', 'id', 'ASC'],
-            base64Encode('titulo-a-z', 'ordem') => ['Título A-Z', 'titulo', 'ASC'],
-            base64Encode('titulo-z-a', 'ordem') => ['Título Z-A', 'titulo', 'DESC']
+            base64Encode('mais-novo', true) => ['Mais novos', 'id', 'DESC'],
+            base64Encode('mais-velho', true) => ['Mais antigos', 'id', 'ASC'],
+            base64Encode('titulo-a-z', true) => ['Título A-Z', 'titulo', 'ASC'],
+            base64Encode('titulo-z-a', true) => ['Título Z-A', 'titulo', 'DESC']
         ]
     ],
     'campo' => ['uuid', 'titulo', 'data_criacao', 'status'],

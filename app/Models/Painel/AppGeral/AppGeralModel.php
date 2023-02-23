@@ -69,7 +69,7 @@ abstract class AppGeralModel extends ORM implements PainelModelInterface
     protected function pegarOrdem(?string $ordem, string $padrao, array $lista)
     {
         $indice = $ordem ? $ordem : $padrao;
-        $indice = base64Encode($indice, 'ordem');
+        $indice = base64Encode($indice);
         if (isset($lista[$indice])) {
             return [$lista[$indice][1], $lista[$indice][2]];
         }

@@ -20,6 +20,12 @@ trait ValidarEmpresaTrait
         $this->_verificaSeExisteToken();
         $this->idEmpresa = TOKEN['empresa']->get('id');
     }
+    private function setarIdUsuario(): void
+    {
+        $this->_verificaSeExisteToken();
+        $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
+            TOKEN['usuario']->get('id') : null;
+    }
     /**
      * Faz a validação para pegar apenas registros da empresa ou todas se for Markt Club e o usuário tenha permissão
      *
@@ -30,6 +36,7 @@ trait ValidarEmpresaTrait
     private function validarEmpresa(string $campoEmpresa = 'id_admin_empresa'): void
     {
         $this->setarIdEmpresa();
+        $this->setarIdUsuario();
         $this->_setaPropriedadeInicial($campoEmpresa);
         $this->_setarValoresReais();
         $this->setarWherePadrao();
@@ -46,8 +53,6 @@ trait ValidarEmpresaTrait
         $this->_campoEmpresa = in_array($campoEmpresa, ['empresa', 'id_admin_empresa']) ? $campoEmpresa : 'id_admin_empresa';
         $this->whereEmpresa = $this->idEmpresa;
         $this->_wherePadrao = [$campoEmpresa, $this->idEmpresa];
-        $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
-            TOKEN['usuario']->get('id') : null;
     }
 
     private function _setarValoresReais()
@@ -56,7 +61,7 @@ trait ValidarEmpresaTrait
             return;
         }
 
-        $scope = explode(':', TOKEN_SCOPE)[0] ?? '';
+        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
         $usuarioPermissao = TOKEN['usuario']->permissao;
         if (
             empty($this->idUsuario) ||

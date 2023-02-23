@@ -18,7 +18,7 @@ final class UploadGrupoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function getBuscar(string $id)
+    public function getBuscar(string $id): Response
     {
         $Grupo = new GrupoEntity();
         $Grupo->id($id);
@@ -37,7 +37,7 @@ final class UploadGrupoController extends Controller implements
         return mensagemSucesso(['valido' => $valido ? 'sim' : 'nao']);
     }
 
-    public function postSalvar(Request $request)
+    public function postSalvar(Request $request): Response
     {
         $Grupo = new GrupoEntity(
             grupo: $request->grupo,
@@ -51,7 +51,7 @@ final class UploadGrupoController extends Controller implements
         ], status: 201);
     }
 
-    public function putAtualizar(Request $request, string $id)
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Grupo = new GrupoEntity();
         $Grupo->id($id);
@@ -61,7 +61,7 @@ final class UploadGrupoController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function deleteDeletar(string $id)
+    public function deleteDeletar(string $id): Response
     {
         $Grupo = new GrupoEntity();
         $Grupo->id($id);

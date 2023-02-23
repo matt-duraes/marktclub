@@ -10,11 +10,11 @@ $appLink = str_replace('_', '-', $app);
             <?php if ($filtro) : ?>
                 <div class="filtro">
                     <?php foreach ($filtro as $ind => $val) : ?>
-                        <div class="bloco"><?= $val[0] ?>:<span><?= $val[1] ?></span><button type="button" data-indice="<?= $ind ?>" class="botao_filtro_limpar"><?= iconeFechar(8) ?></button></div>
+                        <div class="bloco"><?= $val[0] ?>:<span><?= painelConverterFiltroParaUsuario($val[1]) ?></span><button type="button" data-indice="<?= $ind ?>" class="botao_filtro_limpar"><?= iconeFechar(8) ?></button></div>
                     <?php endforeach; ?>
                 </div>
                 <?php if (!empty($busca->ordem)) : ?>
-                    <a href="<?= LINK ?>/app/<?= $appLink ?>?ordem=<?= $busca->ordem ?>" class="limpar" data-ajuda="Limpar todos os filtros"><?= iconeFechar(8) ?></a>
+                    <a href="<?= LINK ?>/app/<?= $appLink ?>?ordem=<?= $busca->ordem ?? '' ?>" class="limpar" data-ajuda="Limpar todos os filtros"><?= iconeFechar(8) ?></a>
                 <?php else : ?>
                     <a href="<?= LINK ?>/app/<?= $appLink ?>" class="limpar" data-ajuda="Limpar todos os filtros"><?= iconeFechar(8) ?></a>
                 <?php endif; ?>
@@ -30,7 +30,7 @@ $appLink = str_replace('_', '-', $app);
             if (!empty($busca->ordem)) :
                 $valorOrder = $busca->ordem;
             ?>
-                <div class="bloco ordem">ordem:<span><?= $config->ordem->lista->$valorOrder->titulo ?? '' ?></span><button type="button" data-indice="ordem" class="botao_filtro_limpar"><?= iconeFechar(8) ?></button></div>
+                <div class="bloco ordem">ordem:<span><?= $busca->ordem_titulo ?></span><button type="button" data-indice="ordem" class="botao_filtro_limpar"><?= iconeFechar(8) ?></button></div>
             <?php
             endif;
             ?>

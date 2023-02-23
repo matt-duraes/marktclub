@@ -53,7 +53,7 @@ final class HistoricoEntity extends Entity
     public function __construct()
     {
         parent::__construct();
-        $this->validarEmpresa();
+        $this->setarIdUsuario();
     }
 
     protected function regraInsert()

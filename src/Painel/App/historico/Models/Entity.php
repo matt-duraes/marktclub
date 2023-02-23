@@ -48,7 +48,7 @@ final class Entity extends AppGeralEntity
         if (!empty($this->texto)) {
             $this->status = 2;
         }
-        $this->dado = base64Encode($this->dado, 'criptografia_salvar_historico');
+        $this->dado = base64Encode($this->dado);
     }
 
     protected function regraUpdate()
