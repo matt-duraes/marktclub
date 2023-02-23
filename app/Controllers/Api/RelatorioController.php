@@ -57,7 +57,8 @@ final class RelatorioController extends Controller
         return mensagemSucesso(
             criptografarDado(
                 dado: $Relatorio->listarDado(),
-                criptografia: ['usuario']
+                criptografia: ['usuario'],
+                lista: true
             )
         );
     }

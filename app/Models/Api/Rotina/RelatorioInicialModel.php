@@ -235,7 +235,6 @@ final class RelatorioInicialModel extends ORM
         $sqlUrl = [];
 
         foreach ($analitics as $empresa => $r) {
-            // ppe($r);
             // (`id`, `id_admin_empresa`, `quantidade_total`, `quantidade_unico`, `data_acesso`)
             $acessoTotal = $r['dia']['quantidade_total'];
             $acessoUnico = empty($r['dia']['quantidade_unico']) ? 1 : $r['dia']['quantidade_unico'];
