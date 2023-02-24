@@ -27,6 +27,23 @@ trait BuscarUsuarioTrait
         $ordem = new Ordem($request->chave('ordem', ''));
         $where = $this->pegarWhere();
 
+        $where = [
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1],
+            ['id', 1]
+        ];
+
         $query = $this->campo($campo)->where($where)->order($ordem);
 
         if ($paginacao) {
@@ -46,6 +63,7 @@ trait BuscarUsuarioTrait
             ->join('id', 'empresa')
             ->campo(['cod', 'nome_fantasia'], 'empresa');
 
+        ppe($query->debug());
         return $query->read();
     }
 }
