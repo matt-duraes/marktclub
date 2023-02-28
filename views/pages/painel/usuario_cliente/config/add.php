@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
@@ -10,6 +11,7 @@ $Painel = new PainelConfig\Add(app: 'usuario_cliente', acao: $acao);
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados pessoais', function () use ($Painel) {
         $Painel
+            ->hidden(name: 'empresa->id', acao: 'editar', permissao: 'usuario_cliente_empresa')
             ->input(name: 'nome', label: 'Nome Completo')
             ->cpf(name: 'cpf', label: 'CPF', placeholder: 'CPF')
             ->select(name: 'genero', label: 'Gênero', lista: 'genero')
@@ -31,7 +33,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         $tipoPagamento = (new TipoPagamento())->select('Escolha um pagamento');
 
         $Painel
-            // ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', acao: 'add', change: 'buscarGrupoEmpresa')
+            ->hidden(name: 'empresa->id', acao: 'editar', permissao: Helper::PERMISSAO_EMPRESA)
+            ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', acao: 'add', permissao: Helper::PERMISSAO_EMPRESA, change: 'buscarGrupoEmpresa')
             ->select(name: 'grupo', label: 'Grupo', lista: ['' => 'Carregando'])
             ->numero(name: 'matricula', label: 'Matrícula')
             ->numero(name: 'siape', label: 'SIAPE')

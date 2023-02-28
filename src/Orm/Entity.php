@@ -232,7 +232,7 @@ abstract class Entity extends ORM
         $metodo = 'set' . str_replace(' ', '', ucwords(mb_strtolower(str_replace('_', ' ', $propriedade), 'UTF-8')));
         if (method_exists($this, $metodo)) {
             $this->_setReal[$propriedade] = $valor;
-            $this->$metodo();
+            $this->$metodo($valor);
             return;
         }
 

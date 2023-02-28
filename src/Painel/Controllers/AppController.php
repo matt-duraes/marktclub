@@ -44,6 +44,7 @@ final class AppController extends PadraoController
 
         $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
         $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
+
         $dado = $this->validarRetornoApi($dado, true);
         if ($dado instanceof Response) {
             return $dado;
@@ -274,7 +275,7 @@ final class AppController extends PadraoController
     public function editar(Request $request, $app, $uuid)
     {
         $appReal = $this->converterNomeApp($app);
-        $config = $this->config($appReal, 'add');
+        $config = $this->config($appReal, 'editar');
 
         if (!$config->permissao->editar) {
             throw new Excecao(status: 404);
@@ -285,7 +286,6 @@ final class AppController extends PadraoController
         if ($dado instanceof Response) {
             return $dado;
         }
-
         return view(
             arquivo: $config->add->app . '.add',
             var: [

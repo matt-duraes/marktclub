@@ -3,9 +3,9 @@
 namespace App\Models\Api\UsuarioGrupo;
 
 use ORM\ORM;
-use stdClass;
 use Http\Request;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\AdminEmpresa\EmpresaEntity;
 
 final class SelectModel extends ORM
 {
@@ -18,8 +18,7 @@ final class SelectModel extends ORM
         protected Request $request
     ) {
         parent::__construct();
-        $this->validarEmpresa();
-        $this->setarWherePadrao(['status', 1]);
+        $this->setarIdEmpresa();
     }
 
     public function listarDados(): array
@@ -27,8 +26,31 @@ final class SelectModel extends ORM
         return $this->pegarSelect(
             indice: 'indice',
             valor: 'titulo',
-            where: $this->_wherePadrao,
+            where: $this->pegarWhere(),
             titulo: $this->request->titulo
         );
+    }
+
+    private function pegarWhere(): array
+    {
+        $idEmpresa = $this->pegarEmpresa();
+        return [
+            ['status', 1],
+            ['id_admin_empresa', $idEmpresa]
+        ];
+    }
+    private function pegarEmpresa()
+    {
+        if ($this->request->vazio('empresa')) {
+            return $this->idEmpresa;
+        }
+
+        try {
+            $Empresa = new EmpresaEntity();
+            $Empresa->id($this->request->empresa);
+            return $Empresa->get('id');
+        } catch (\Throwable) {
+            return $this->idEmpresa;
+        }
     }
 }

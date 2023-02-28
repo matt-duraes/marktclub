@@ -185,6 +185,22 @@ final class Add
     | INPUTS
     |--------------------------------------------------------------------------
     */
+    public function hidden(
+        string | array $name,
+        string $class = '',
+        string $id = '',
+        ?string $acao = null,
+        ?string $permissao = null
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao' => 'hidden',
+            'name' => $name,
+            'class' => $class,
+            'id' => $id,
+            'permissao' => $permissao
+        ], $acao);
+    }
+
     public function input(
         string | array $name,
         string $label = '',
@@ -212,7 +228,8 @@ final class Add
         string $separador = '',
         null|int|array $maximo = null,
         string $formatar = '',
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'input',
@@ -241,7 +258,8 @@ final class Add
             'request' => $request,
             'separador' => $separador,
             'maximo' => $maximo,
-            'formatar' => $formatar
+            'formatar' => $formatar,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -352,7 +370,8 @@ final class Add
         bool $obrigatorio = false,
         string $tipo = 'quadrado',
         int $height = 200,
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'imagem',
@@ -362,7 +381,8 @@ final class Add
             'id' => $id,
             'obrigatorio' => $obrigatorio,
             'tipo' => $tipo,
-            'height' => $height
+            'height' => $height,
+            'permissao' => $permissao
         ], $acao);
     }
     public function tag(
@@ -374,7 +394,8 @@ final class Add
         string $tipo = 'tag',
         bool $focus = false,
         bool $espaco = false,
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'tag',
@@ -386,6 +407,7 @@ final class Add
             'tipo' => $tipo,
             'focus' => $focus,
             'espaco' => $espaco,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -403,7 +425,8 @@ final class Add
         string $class = '',
         bool $obrigatorio = false,
         bool $footer = true,
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'editor',
@@ -419,7 +442,8 @@ final class Add
             'id' => $id,
             'class' => $class,
             'obrigatorio' => $obrigatorio,
-            'footer' => $footer
+            'footer' => $footer,
+            'permissao' => $permissao
         ], $acao);
     }
     public function editorBalao(
@@ -435,7 +459,8 @@ final class Add
         string $class = '',
         bool $obrigatorio = false,
         bool $footer = true,
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'editor',
@@ -451,7 +476,8 @@ final class Add
             'id' => $id,
             'class' => $class,
             'obrigatorio' => $obrigatorio,
-            'footer' => $footer
+            'footer' => $footer,
+            'permissao' => $permissao
         ], $acao);
     }
     public function editorClassico(
@@ -467,7 +493,8 @@ final class Add
         string $class = '',
         bool $obrigatorio = false,
         bool $footer = true,
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'editor',
@@ -483,7 +510,8 @@ final class Add
             'id' => $id,
             'class' => $class,
             'obrigatorio' => $obrigatorio,
-            'footer' => $footer
+            'footer' => $footer,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -718,7 +746,8 @@ final class Add
         bool $obrigatorio = false,
         bool $footer = true,
         string $change = '',
-        string $acao = null
+        string $acao = null,
+        ?string $permissao = null
     ) {
         if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa'])) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
@@ -746,7 +775,8 @@ final class Add
             'class' => $class,
             'obrigatorio' => $obrigatorio,
             'footer' => $footer,
-            'change' => $change
+            'change' => $change,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -760,7 +790,8 @@ final class Add
         string $html = '',
         bool $obrigatorio = false,
         array $attr = [],
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'textarea',
@@ -773,6 +804,7 @@ final class Add
             'html' => $html,
             'obrigatorio' => $obrigatorio,
             'attr' => $attr,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -784,7 +816,8 @@ final class Add
         string $ajuda = '',
         string $html = '',
         array $attr = [],
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'switch',
@@ -795,6 +828,7 @@ final class Add
             'ajuda' => $ajuda,
             'html' => $html,
             'attr' => $attr,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -808,7 +842,8 @@ final class Add
         string $ajuda = '',
         string $html = '',
         array $attr = [],
-        ?string $acao = null
+        ?string $acao = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'checkbox',
@@ -821,6 +856,7 @@ final class Add
             'ajuda' => $ajuda,
             'html' => $html,
             'attr' => $attr,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -829,17 +865,22 @@ final class Add
     | MÉTODOS PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function adicionarNovoInput($dado, ?string $acao = null)
+    private function adicionarNovoInput($dado, ?string $acao = null, ?string $permissao = null)
     {
         $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
         $dado['name'] = explode('->', $dado['name'])[0];
-        if (!$this->campoAceito($dado['name'], $acao)) {
+        $permissao = null;
+        if (array_key_exists('permissao', $dado)) {
+            $permissao = $dado['permissao'];
+            unset($dado['permissao']);
+        }
+        if (!$this->campoAceito($dado['name'], $acao, $permissao)) {
             return $this;
         }
         $this->setarTitulo();
         $this->setarColuna();
 
-        if (!in_array($dado['funcao'], ['checkbox', 'switch', 'tag'])) {
+        if (!in_array($dado['funcao'], ['checkbox', 'switch', 'tag', 'hidden'])) {
             $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
         }
 
@@ -870,9 +911,11 @@ final class Add
         }
     }
 
-    private function campoAceito($name, ?string $acao)
+    private function campoAceito($name, ?string $acao, ?string $permissao)
     {
+        $usuarioPermissao = sessao('USUARIO.permissao');
         if (
+            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
             (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) ||
             (!empty($acao) && !empty($this->acao) && $acao != $this->acao)
         ) {

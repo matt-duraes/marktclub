@@ -145,7 +145,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo'
+                '!trabalho_data_inicio', '!grupo', '!empresa'
             ])
             ::post('/usuario-cliente');
 

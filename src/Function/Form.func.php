@@ -24,6 +24,19 @@ if (!function_exists('formFooter')) {
         return $html;
     }
 }
+if (!function_exists('formHidden')) {
+    function formHidden(
+        string | array $name,
+        $value = '',
+        string $class = '',
+        string $id = ''
+    ) {
+        $id = !empty($id) ? $id : 'input_' . $name;
+        $class = !empty($class) ? 'class="' . $class . '"' : '';
+
+        echo '<input type="hidden" name="' . $name . '" id="' . $id . '" value="' . $value . '">';
+    }
+}
 if (!function_exists('formInput')) {
     // doc
     // exemplo

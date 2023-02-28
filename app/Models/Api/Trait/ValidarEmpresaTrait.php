@@ -10,6 +10,18 @@ trait ValidarEmpresaTrait
     private string $_campoEmpresa;
 
     /**
+     * Mudar o ID da empresa se tiver pemissão
+     *
+     * @param   int     $id     ID da empresa
+     */
+    public function setarIdEmpresaManual(int $id)
+    {
+        $this->whereEmpresa = $id;
+        $this->idEmpresa = $id;
+        $this->_wherePadrao = [$this->_campoEmpresa, $id];
+    }
+
+    /**
      * Verifica se existe token e seta a empresa
      *
      * @return void
@@ -52,7 +64,7 @@ trait ValidarEmpresaTrait
     {
         $this->_campoEmpresa = in_array($campoEmpresa, ['empresa', 'id_admin_empresa']) ? $campoEmpresa : 'id_admin_empresa';
         $this->whereEmpresa = $this->idEmpresa;
-        $this->_wherePadrao = [$campoEmpresa, $this->idEmpresa];
+        $this->_wherePadrao = [$this->_campoEmpresa, $this->idEmpresa];
     }
 
     private function _setarValoresReais()
@@ -61,15 +73,9 @@ trait ValidarEmpresaTrait
             return;
         }
 
-        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
-        $usuarioPermissao = TOKEN['usuario']->permissao;
-        if (
-            empty($this->idUsuario) ||
-            !in_array($scope . '_empresa', $usuarioPermissao)
-        ) {
+        if (!$this->verificarSePodeMudarEmpresa()) {
             return;
         }
-
         if (
             !property_exists($this, 'request') ||
             !($this->request instanceof Request) ||
@@ -88,6 +94,17 @@ trait ValidarEmpresaTrait
         } catch (\Throwable $e) {
             mensagemErro('Empresa inválida!', 'Não foi encontrado uma empresa pelo código enviado.', error: $e);
         }
+    }
+    private function verificarSePodeMudarEmpresa(): bool
+    {
+        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
+        $usuarioPermissao = TOKEN['usuario']->permissao ?? [];
+
+        return
+            !empty($this->idUsuario) &&
+            !empty($scope) &&
+            !empty($usuarioPermissao) &&
+            in_array($scope . '_empresa', $usuarioPermissao);
     }
 
     /**
