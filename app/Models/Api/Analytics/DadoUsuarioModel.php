@@ -3,16 +3,32 @@
 namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\AdminEmpresa\EmpresaEntity;
 
 final class DadoUsuarioModel extends ORM
 {
+    use ValidarEmpresaTrait;
     protected string $_tabela = TABELA_ANALYTICS_DADO_USUARIO;
-
     private int $idEmpresa;
-    public function __construct()
-    {
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+
+    public function __construct(
+        private ?EmpresaEntity $Empresa = null
+    ) {
         parent::__construct();
+
+        $this->setarEmpresaDaBusca();
+    }
+    private function setarEmpresaDaBusca()
+    {
+        $this->verificarSeExisteToken();
+        $this->setarIdUsuario();
+
+        if ($this->Empresa instanceof EmpresaEntity && $this->verificarSePodeMudarEmpresa()) {
+            $this->idEmpresa = $this->Empresa->get('id');
+            return;
+        }
+        $this->idEmpresa = TOKEN['empresa']->get('id');
     }
 
     public function listarDados(): array
@@ -26,10 +42,26 @@ final class DadoUsuarioModel extends ORM
             ->primeiro();
 
         if (!$dado) {
-            return [];
+            return $this->retornarListaZerada();
         }
 
         return $this->montarDado($dado);
+    }
+    private function retornarListaZerada()
+    {
+        $zero = [
+            'total' => 0,
+            'lista' => []
+        ];
+        return [
+            'status' => $zero,
+            'estado' => $zero,
+            'genero' => $zero,
+            'situacao' => $zero,
+            'estado_civil' => $zero,
+            'atualizar_dado' => $zero,
+            'faixa_etaria' => $zero,
+        ];
     }
 
     public function montarDado($r): array

@@ -433,42 +433,52 @@ Route::nome('relatorio')
     ::grupo(function () {
         Route
             ::nome('lojaVenda')
-            ::request(['quantidade'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_loja_venda:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/loja-venda');
 
         Route
             ::nome('dadoUsuario')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_usuario:listar'])
+            ::request(['!empresa'], 'json')
             ::get('/relatorio/dado-usuario');
 
         Route
             ::nome('acessoDia')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/acesso-dia');
 
         Route
             ::nome('usuarioMaisAcesso')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/usuario-mais-acesso');
         Route
             ::nome('paginaMaisAcessada')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/pagina-mais-acessada');
         Route
             ::nome('lojaMaisAcessada')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/loja-mais-acessada');
 
         Route
             ::nome('dispositivo')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/dispositivo');
         Route
             ::nome('os')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/os');
         Route
             ::nome('navegador')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/navegador');
 
         Route

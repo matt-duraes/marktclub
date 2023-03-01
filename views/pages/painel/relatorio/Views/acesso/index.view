@@ -4,7 +4,7 @@
     <header>
         <form action="/" class="form_geral">
             @ if ( temPermissaoEmpresa('relatorio_acesso') ):
-            @? formSelect(name: 'relatorio_empresa', label: '', placeholder: 'Empresa', lista: $empresa)
+            @? formSelect(name: 'relatorio_empresa', label: '', placeholder: 'Empresa', lista: $empresa, value: EMPRESA_ID)
             @ endif;
             <div class="bloco_linha">
                 @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');

@@ -32,12 +32,12 @@ trait ValidarEmpresaTrait
      */
     private function setarIdEmpresa(): void
     {
-        $this->_verificaSeExisteToken();
+        $this->verificarSeExisteToken();
         $this->idEmpresa = TOKEN['empresa']->get('id');
     }
     private function setarIdUsuario(): void
     {
-        $this->_verificaSeExisteToken();
+        $this->verificarSeExisteToken();
         $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
             TOKEN['usuario']->get('id') : null;
     }
@@ -57,7 +57,7 @@ trait ValidarEmpresaTrait
         $this->setarWherePadrao();
     }
 
-    private function _verificaSeExisteToken()
+    private function verificarSeExisteToken()
     {
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
@@ -103,7 +103,6 @@ trait ValidarEmpresaTrait
     {
         $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
         $usuarioPermissao = TOKEN['usuario']->permissao ?? [];
-
         return
             !empty($this->idUsuario) &&
             !empty($scope) &&

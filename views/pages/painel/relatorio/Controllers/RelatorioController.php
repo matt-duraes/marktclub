@@ -11,14 +11,12 @@ final class RelatorioController extends Controller
 {
     public function acesso()
     {
-        $empresa = $this->pegarSelectEmpresa();
-
         return view(arquivo: 'painel.relatorio.acesso', var: [
             'appTitulo' => 'Relatório de acesso',
             'app' => 'relatorio-acesso',
             'de' => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
             'ate' => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
-            'empresa' => $empresa
+            'empresa' => $this->pegarSelectEmpresa()
         ]);
     }
     public function usuario()
@@ -28,6 +26,7 @@ final class RelatorioController extends Controller
             'app' => 'relatorio-usuario',
             'de' => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
             'ate' => date('d/m/Y'),
+            'empresa' => $this->pegarSelectEmpresa()
         ]);
     }
     public function lojaVenda()
@@ -37,13 +36,13 @@ final class RelatorioController extends Controller
             'app' => 'relatorio-loja-venda',
             'de' => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
             'ate' => '01/' . date('m/Y'),
+            'empresa' => $this->pegarSelectEmpresa()
         ]);
     }
 
     private function pegarSelectEmpresa()
     {
         return (new ApiHelper(token: true))
-            ->json(['titulo' => 'Escolha uma empresa'])
             ->get('/admin-empresa/select')
             ->array()['dado'] ?? [];
     }
@@ -209,7 +208,14 @@ final class RelatorioController extends Controller
     */
     public function getLojaVendaBuscar(Request $request)
     {
-        $body = ['quantidade' => $request->quantidade];
+        $de = $request->de;
+        $ate = $request->ate;
+
+        $this->validarData($de, $ate);
+        $body = [
+            'de' => dataBanco($de),
+            'ate' => dataBanco($ate),
+        ];
         if ($request->empresa) {
             $body['empresa'] = $request->empresa;
         }

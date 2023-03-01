@@ -332,3 +332,44 @@ if (!function_exists('dataIdade')) {
         return (new \Helpers\DataHelper)->valor($data)->idade();
     }
 }
+
+if (!function_exists('dataUltimoDiaMes')) {
+    // doc
+    // exemplo
+    // echo dataUltimoDiaMes 01/10/2020
+    // echo dataUltimoDiaMes 2019-10-01
+    /**
+     * Pega o último dia do mês
+     *
+     * @param   string      $data       Data a ser usada
+     * @param   string      $formato    Formato de retorno da data
+     * @return  string|bool             Retorna o último dia do mês
+     */
+    function dataUltimoDiaMes(string $data, string $formato = 'Y-m-d'): string|bool
+    {
+        if (empty($data)) {
+            return false;
+        }
+        return (new \Helpers\DataHelper)->valor($data)->ultimoDiaMes()->r($formato);
+    }
+}
+if (!function_exists('dataPrimeiroDiaMes')) {
+    // doc
+    // exemplo
+    // echo dataPrimeiroDiaMes 01/10/2020
+    // echo dataPrimeiroDiaMes 2019-10-01
+    /**
+     * Pega o primeiro dia do mês
+     *
+     * @param   string      $data       Data a ser usada
+     * @param   string      $formato    Formato de retorno da data
+     * @return  string|bool             Retorna o primeiro dia do mês
+     */
+    function dataPrimeiroDiaMes(string $data, string $formato = 'Y-m-d'): string|bool
+    {
+        if (empty($data)) {
+            return false;
+        }
+        return (new \Helpers\DataHelper)->valor($data)->primeiroDiaMes()->r($formato);
+    }
+}

@@ -26,7 +26,7 @@ $filtrarStatus = $config->permissao->filtrar ?? false;
 $ordemStatus = $config->permissao->ordem ?? false;
 
 $app = $app ?? '';
-
+define('EMPRESA_ID', sessao('EMPRESA.id', padrao: ''));
 define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));

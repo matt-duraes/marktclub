@@ -4,8 +4,16 @@
 window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
 
+    const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
+    const inputEmpresa = document.querySelector('#input_relatorio_empresa');
+
     const buscarGrafico = async () => {
-        const resposta = await fetch(LINK + '/relatorio/dado-usuario', {
+        let parametro = '';
+        if (inputEmpresa) {
+            parametro = '?empresa=' + inputEmpresa.value;
+        }
+
+        const resposta = await fetch(LINK + '/relatorio/dado-usuario' + parametro, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,7 +27,6 @@ window.addEventListener('load', () => {
         if (false === json) {
             return;
         }
-        console.log(json);
         carregarGraficoPorStatus(json.dado.status);
         carregarGraficoPorEstado(json.dado.estado);
         carregarGraficoRosca('Gênero', '#grafico_genero', json.dado.genero);
@@ -29,6 +36,11 @@ window.addEventListener('load', () => {
         carregarGraficoRosca('Sem atualizar dados', '#grafico_atualizar_dado', json.dado.atualizar_dado);
     };
     buscarGrafico();
+    if (botaoBuscar) {
+        botaoBuscar.addEventListener('click', () => {
+            buscarGrafico();
+        });
+    }
 
     const blocoStatus = document.querySelector('#bloco_status');
     const blocoStatusScroll = document.querySelector('#bloco_status .scroll');

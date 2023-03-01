@@ -11,6 +11,7 @@ use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
+use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
 use App\Models\Api\Analytics\LojaMaisAcessadaModel;
@@ -21,15 +22,17 @@ final class RelatorioController extends Controller
 {
     public function getLojaVenda(Request $request)
     {
-        $Relatorio = new LojaVendaModel($request->quantidade);
+        $Relatorio = new LojaVendaModel($request);
         $dado = $Relatorio->listarDados();
 
         return mensagemSucesso($dado);
     }
 
-    public function getDadoUsuario()
+    public function getDadoUsuario(Request $request)
     {
-        $Relatorio = new DadoUsuarioModel();
+        $Relatorio = new DadoUsuarioModel(
+            Empresa: $this->pegarEmpresa($request->empresa)
+        );
         $dado = $Relatorio->listarDados();
 
         return mensagemSucesso($dado);
@@ -38,9 +41,11 @@ final class RelatorioController extends Controller
     public function getAcessoDia(Request $request)
     {
         $this->validarData($request);
+
         $Relatorio = new AcessoDiaModel(
-            new Data($request->de),
-            new Data($request->ate)
+            de: new Data($request->de),
+            ate: new Data($request->ate),
+            Empresa: $this->pegarEmpresa($request->empresa)
         );
         $dado = $Relatorio->listarDado($request->de, $request->ate);
 
@@ -52,7 +57,8 @@ final class RelatorioController extends Controller
         $this->validarData($request);
         $Relatorio = new UsuarioMaisAcessoModel(
             new Data($request->de),
-            new Data($request->ate)
+            new Data($request->ate),
+            Empresa: $this->pegarEmpresa($request->empresa)
         );
         return mensagemSucesso(
             criptografarDado(
@@ -67,7 +73,8 @@ final class RelatorioController extends Controller
         $this->validarData($request);
         $Relatorio = new LojaMaisAcessadaModel(
             new Data($request->de),
-            new Data($request->ate)
+            new Data($request->ate),
+            Empresa: $this->pegarEmpresa($request->empresa)
         );
         return mensagemSucesso($Relatorio->listarDado());
     }
@@ -76,7 +83,8 @@ final class RelatorioController extends Controller
         $this->validarData($request);
         $Relatorio = new PaginaMaisAcessadaModel(
             new Data($request->de),
-            new Data($request->ate)
+            new Data($request->ate),
+            Empresa: $this->pegarEmpresa($request->empresa)
         );
         return mensagemSucesso($Relatorio->listarDado());
     }
@@ -86,7 +94,8 @@ final class RelatorioController extends Controller
         $this->validarData($request);
         $Relatorio = new DispositivoModel(
             new Data($request->de),
-            new Data($request->ate)
+            new Data($request->ate),
+            Empresa: $this->pegarEmpresa($request->empresa)
         );
 
         return mensagemSucesso($Relatorio->listarDado());
@@ -96,7 +105,8 @@ final class RelatorioController extends Controller
         $this->validarData($request);
         $Relatorio = new NavegadorModel(
             new Data($request->de),
-            new Data($request->ate)
+            new Data($request->ate),
+            Empresa: $this->pegarEmpresa($request->empresa)
         );
 
         return mensagemSucesso($Relatorio->listarDado());
@@ -106,7 +116,8 @@ final class RelatorioController extends Controller
         $this->validarData($request);
         $Relatorio = new OsModel(
             new Data($request->de),
-            new Data($request->ate)
+            new Data($request->ate),
+            Empresa: $this->pegarEmpresa($request->empresa)
         );
 
         return mensagemSucesso($Relatorio->listarDado());
@@ -136,5 +147,15 @@ final class RelatorioController extends Controller
         } else if (!validarDate($request->ate)) {
             mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
         }
+    }
+
+    private function pegarEmpresa($empresa): null|EmpresaEntity
+    {
+        if (empty($empresa)) {
+            return null;
+        }
+        $Empresa = new EmpresaEntity();
+        $Empresa->id($empresa, mensagem: 'Não foi encontrado nenhum empresa pela busca.');
+        return $Empresa;
     }
 }
