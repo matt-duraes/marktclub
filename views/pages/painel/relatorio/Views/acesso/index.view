@@ -3,10 +3,11 @@
 <div class="bloco_app_relatorio">
     <header>
         <form action="/" class="form_geral">
+            @ if ( temPermissaoEmpresa('relatorio_acesso') ):
+            @? formSelect(name: 'relatorio_empresa', label: '', placeholder: 'Empresa', lista: $empresa)
+            @ endif;
             <div class="bloco_linha">
-                @? formData(name: 'relatorio_data_de', label: '', value: $de);
-                <p>até</p>
-                @? formData(name: 'relatorio_data_ate', label: '', value: $ate);
+                @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
             </div>
             <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
         </form>

@@ -2,6 +2,7 @@
 
 namespace PainelConfig;
 
+use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 
 final class Filtrar
@@ -88,7 +89,8 @@ final class Filtrar
         bool $footer = true,
         array $request = [],
         string $separador = '',
-        null|int|array $maximo = null
+        null|int|array $maximo = null,
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'input',
@@ -118,7 +120,7 @@ final class Filtrar
             'request' => $request,
             'separador' => $separador,
             'maximo' => $maximo
-        ]);
+        ], $permissao);
     }
 
     public function telefone(
@@ -245,9 +247,10 @@ final class Filtrar
         string $class = '',
         bool $obrigatorio = false,
         bool $footer = true,
-        string $change = ''
+        string $change = '',
+        ?string $permissao = null
     ) {
-        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado'])) {
+        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa'])) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {
@@ -256,6 +259,11 @@ final class Filtrar
             $lista = (new ListaHelper)->add('', 'Escolha um Estado Civil')->estadoCivil()->r();
         } else if (is_string($lista) && $lista == 'estado') {
             $lista = (new ListaHelper)->add('', 'Escolha um estado')->estado()->r();
+        } else if (is_string($lista) && $lista == 'empresa') {
+            $lista = (new ApiHelper(token: true))
+                ->json(['titulo' => 'Escolha um cliente'])
+                ->get('/admin-empresa/select')
+                ->array()['dado'] ?? [];
         }
 
         $this->replace($name, $lista);
@@ -272,7 +280,7 @@ final class Filtrar
             'obrigatorio' => $obrigatorio,
             'footer' => $footer,
             'change' => $change
-        ]);
+        ], $permissao);
     }
 
     public function switch(
@@ -283,7 +291,8 @@ final class Filtrar
         string $id = '',
         string $ajuda = '',
         string $html = '',
-        array $attr = []
+        array $attr = [],
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'switch',
@@ -295,7 +304,7 @@ final class Filtrar
             'ajuda' => $ajuda,
             'html' => $html,
             'attr' => $attr,
-        ]);
+        ], $permissao);
     }
 
     public function checkbox(
@@ -308,7 +317,8 @@ final class Filtrar
         string $id = '',
         string $ajuda = '',
         string $html = '',
-        array $attr = []
+        array $attr = [],
+        ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'checkbox',
@@ -322,7 +332,7 @@ final class Filtrar
             'ajuda' => $ajuda,
             'html' => $html,
             'attr' => $attr,
-        ]);
+        ], $permissao);
     }
 
     /*
@@ -330,11 +340,11 @@ final class Filtrar
     | MÉTODOS PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function adicionarNovoInput($dado)
+    private function adicionarNovoInput($dado, $permissao)
     {
         $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
         $dado['name'] = explode('->', $dado['name'])[0];
-        if (!$this->campoAceito($dado['name'])) {
+        if (!$this->campoAceito($dado['name'], $permissao)) {
             return $this;
         }
 
@@ -348,9 +358,13 @@ final class Filtrar
         return $this;
     }
 
-    private function campoAceito($name)
+    private function campoAceito($name, $permissao)
     {
-        if (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        if (
+            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
+            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos))
+        ) {
             return false;
         }
         return true;

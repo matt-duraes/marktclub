@@ -20,30 +20,24 @@
         width: auto
         margin-top: 0
         margin-bottom: 0
+        margin-right: 10px
     header form.form_geral .bloco_input input
         margin-top: 3px
-    header form p
-        height: 50px
-        line-height: 50px
-        padding: 0 10px
-        z-index: 2
-        font-size: 1.4rem
-        background-color: #FFF
-        border-top: 1px solid #DDD
-        border-bottom: 1px solid #DDD
-        margin: 0 -1px
-        z-index: 2
     header form .bloco_input_data
-        max-width: 120px
+        max-width: 250px
     header form .bloco_linha
         flexRow()
+    header form .bloco_linha .bloco_input
+        margin-right: 0
+        &:last-child
+            margin-right: 10px
     header form i
         width: 50px
         height: 50px
         flexCenter()
         fill: #333
         background-color: #CCC
-        border-radius: 0 5px 5px 0
+        border-radius: 5px
         z-index: 3
         cursor: pointer
         &.show

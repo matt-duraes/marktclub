@@ -16,6 +16,9 @@ trait ValidarEmpresaTrait
      */
     public function setarIdEmpresaManual(int $id)
     {
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            return;
+        }
         $this->whereEmpresa = $id;
         $this->idEmpresa = $id;
         $this->_wherePadrao = [$this->_campoEmpresa, $id];
@@ -76,6 +79,7 @@ trait ValidarEmpresaTrait
         if (!$this->verificarSePodeMudarEmpresa()) {
             return;
         }
+
         if (
             !property_exists($this, 'request') ||
             !($this->request instanceof Request) ||
@@ -114,12 +118,12 @@ trait ValidarEmpresaTrait
      */
     private function setarWherePadrao(array $where = []): void
     {
-        if (empty($where)) {
-            return;
-        } else if (!empty($this->_wherePadrao)) {
+        if (!empty($where) && !empty($this->_wherePadrao)) {
             $this->_wherePadrao = array_merge([$where], [[$this->_campoEmpresa, $this->whereEmpresa]]);
-            return;
+        } else if (!empty($where)) {
+            $this->_wherePadrao = $where;
+        } else if (!empty($this->whereEmpresa)) {
+            $this->_wherePadrao = [[$this->_campoEmpresa, $this->whereEmpresa]];
         }
-        $this->_wherePadrao = $where;
     }
 }

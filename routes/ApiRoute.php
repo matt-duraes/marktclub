@@ -377,7 +377,7 @@ Route
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
-                '!senha', '!status', '!primeiro_acesso', '!mudar_senha'
+                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa'
             ])
             ::post('/usuario-equipe');
 

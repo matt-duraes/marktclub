@@ -11,11 +11,14 @@ final class RelatorioController extends Controller
 {
     public function acesso()
     {
+        $empresa = $this->pegarSelectEmpresa();
+
         return view(arquivo: 'painel.relatorio.acesso', var: [
             'appTitulo' => 'Relatório de acesso',
             'app' => 'relatorio-acesso',
             'de' => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
             'ate' => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
+            'empresa' => $empresa
         ]);
     }
     public function usuario()
@@ -37,6 +40,14 @@ final class RelatorioController extends Controller
         ]);
     }
 
+    private function pegarSelectEmpresa()
+    {
+        return (new ApiHelper(token: true))
+            ->json(['titulo' => 'Escolha uma empresa'])
+            ->get('/admin-empresa/select')
+            ->array()['dado'] ?? [];
+    }
+
     /*
     |--------------------------------------------------------------------------
     | GRAFICO DE ACESSO
@@ -49,13 +60,18 @@ final class RelatorioController extends Controller
 
         $this->validarData($de, $ate);
 
+        $body = [
+            'de' => dataBanco($de),
+            'ate' => dataBanco($ate),
+        ];
+        if ($request->empresa) {
+            $body['empresa'] = $request->empresa;
+        }
+
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar('Erro ao buscar relatório, por favor, tente novamente.')
-            ->json([
-                'de' => dataBanco($de),
-                'ate' => dataBanco($ate)
-            ])->get('/relatorio/acesso-dia')
+            ->json($body)->get('/relatorio/acesso-dia')
             ->object();
 
         $Montar = new MontarRelatorioModel();
@@ -82,13 +98,19 @@ final class RelatorioController extends Controller
             'loja' => 'loja-mais-acessada'
         ];
 
+        $body = [
+            'de' => dataBanco($de),
+            'ate' => dataBanco($ate),
+        ];
+        if ($request->empresa) {
+            $body['empresa'] = $request->empresa;
+        }
+
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar('Erro ao buscar relatório, por favor, tente novamente.')
-            ->json([
-                'de' => dataBanco($de),
-                'ate' => dataBanco($ate)
-            ])->get('/relatorio/' . $uri[$local])
+            ->json($body)
+            ->get('/relatorio/' . $uri[$local])
             ->object()->dado ?? [];
 
         if ($local == 'usuario') {
@@ -109,13 +131,19 @@ final class RelatorioController extends Controller
             $this->erroPadrao();
         }
 
+        $body = [
+            'de' => dataBanco($de),
+            'ate' => dataBanco($ate),
+        ];
+        if ($request->empresa) {
+            $body['empresa'] = $request->empresa;
+        }
+
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar('Erro ao buscar relatório, por favor, tente novamente.')
-            ->json([
-                'de' => dataBanco($de),
-                'ate' => dataBanco($ate)
-            ])->get('/relatorio/' . $tipo)
+            ->json($body)
+            ->get('/relatorio/' . $tipo)
             ->object();
 
         $Montar = new MontarRelatorioModel();
@@ -148,11 +176,17 @@ final class RelatorioController extends Controller
     | GRÁFICO DE USUÁRIO
     |--------------------------------------------------------------------------
     */
-    public function getDadoUsuario()
+    public function getDadoUsuario(Request $request)
     {
+        $body = [];
+        if ($request->empresa) {
+            $body['empresa'] = $request->empresa;
+        }
+
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar('Ocorreu um erro ao buscar os gráficos, por favor, recarregue a página e tente novamente.')
+            ->json($body)
             ->get('/relatorio/dado-usuario')
             ->object();
 
@@ -175,9 +209,14 @@ final class RelatorioController extends Controller
     */
     public function getLojaVendaBuscar(Request $request)
     {
+        $body = ['quantidade' => $request->quantidade];
+        if ($request->empresa) {
+            $body['empresa'] = $request->empresa;
+        }
+
         $dado = (new ApiHelper(token: true))
             ->validar('Ocorre um erro ao buscar o relatório, por favor, tente novamente.')
-            ->json(['quantidade' => $request->quantidade])
+            ->json($body)
             ->get('/relatorio/loja-venda')
             ->object();
 

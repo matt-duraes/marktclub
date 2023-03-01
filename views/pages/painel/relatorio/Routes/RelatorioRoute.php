@@ -22,17 +22,17 @@ Route
 
         Route
             ::nome('acessoDia')
-            ::request(['de', 'ate'])
+            ::request(['de', 'ate', '!empresa'])
             ::get('/relatorio/acesso-dia');
 
         Route
             ::nome('maisAcessado')
-            ::request(['de', 'ate', 'local'])
+            ::request(['de', 'ate', 'local', '!empresa'])
             ::get('/relatorio/mais-acessado');
 
         Route
             ::nome('dispositivo')
-            ::request(['de', 'ate', 'tipo'])
+            ::request(['de', 'ate', 'tipo', '!empresa'])
             ::get('/relatorio/dispositivo');
     });
 
@@ -56,6 +56,7 @@ Route
 
         Route
             ::nome('dadoUsuario')
+            ::request(['!empresa'])
             ::get('/relatorio/dado-usuario');
     });
 
@@ -74,6 +75,6 @@ Route
 
         Route
             ::nome('lojaVendaBuscar')
-            ::request(['quantidade'])
+            ::request(['quantidade', '!empresa'])
             ::get('/relatorio/loja-venda-buscar');
     });
