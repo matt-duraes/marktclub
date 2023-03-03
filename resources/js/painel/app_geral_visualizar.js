@@ -4,6 +4,21 @@ window.addEventListener('load', () => {
         return;
     }
 
+    const botaoVerLista = document.querySelectorAll('.array_item_botao .botao_ver_lista');
+    if (botaoVerLista.length > 0) {
+        botaoVerLista.forEach(botao => {
+            botao.addEventListener('click', () => {
+                const bloco = botao.closest('.array_item');
+                const linha = bloco.querySelector('.array_item_botao');
+                const lista = bloco.querySelector('.lista_item');
+
+                linha.classList.toggle('bg_hover');
+                lista.classList.toggle('display_none');
+                botao.classList.toggle('fechar');
+            });
+        });
+    }
+
     botaoLista.forEach(botao => {
         const status = botao.getAttribute('data-status') || '';
         const mensagem = botao.getAttribute('data-mensagem') || '';

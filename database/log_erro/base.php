@@ -11,6 +11,7 @@ return (new \DataBase\DataBase())
     ->text('arquivo')->null()
     ->varchar('linha')->tamanho(10)->null()
     ->text('trace')->null()
+    ->int('quantidade')
     ->dataCriacao()
     ->dataAtualizacao()
     ->status('status');
