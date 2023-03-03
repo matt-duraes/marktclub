@@ -63,7 +63,7 @@ final class Cnpj implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return $this->cnpj;
+        return (int)$this->cnpj;
     }
 
     private function validarCnpj(): bool

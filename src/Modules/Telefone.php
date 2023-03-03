@@ -82,6 +82,6 @@ final class Telefone implements ModuleInterface
      */
     public function numero(): string|int
     {
-        return $this->telefone;
+        return (int)$this->telefone;
     }
 }

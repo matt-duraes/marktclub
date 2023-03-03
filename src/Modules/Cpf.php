@@ -64,7 +64,7 @@ final class Cpf implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return $this->cpf;
+        return (int)$this->cpf;
     }
 
     private function validarCpf(): bool
