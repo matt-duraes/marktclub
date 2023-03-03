@@ -83,7 +83,7 @@ final class AnalyticsModel extends ORM
 
     private function montarWhere()
     {
-        $where = $this->pegarWherePadrao($this->request->de, $this->request->ate);
+        $where = $this->pegarWherePadrao();
         if (!empty($this->idUsuario)) {
             $where[] = ['usuario', $this->idUsuario];
         }
