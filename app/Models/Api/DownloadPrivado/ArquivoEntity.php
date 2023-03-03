@@ -20,6 +20,7 @@ final class ArquivoEntity extends Entity
     protected int $id_admin_empresa;
     protected int $id_usuario_equipe;
     public string $arquivo;
+    public string $link;
     public Status $status;
 
     private EquipeEntity $Equipe;
@@ -39,6 +40,7 @@ final class ArquivoEntity extends Entity
         $this->dono = $Perfil->pegarDado($this->id_usuario_equipe);
         $vencido = dataBanco($this->data_criacao) == hoje() ? 'sim' : 'nao';
         $this->vencido = new Botao($vencido);
+        $this->link = arquivoPublico('download', $this->arquivo);
     }
 
     /*
@@ -67,7 +69,7 @@ final class ArquivoEntity extends Entity
         }
         $Excel = new ExcelHelper(
             border: true,
-            path: DIRETORIO_PRIVADO . '/download'
+            path: DIRETORIO_PUBLICO . '/download'
         );
 
         $Excel->titulo(array_keys($this->dado[0]));

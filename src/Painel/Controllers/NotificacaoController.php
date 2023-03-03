@@ -62,7 +62,7 @@ final class NotificacaoController extends Controller
             ])
             ->put('/painel-notificacao/' . $id);
 
-        return new Response(url: $dado->dado->link);
+        return new Response(url: str_replace('{{LINK}}', LINK, $dado->dado->link));
     }
 
     public function getVisualizarTodas()
