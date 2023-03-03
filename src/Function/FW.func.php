@@ -1556,7 +1556,7 @@ if (!function_exists('arquivoPublico')) {
         }
         $query = [];
         foreach ($parametro as $ind => $val) {
-            $query[] = [$ind . '=' . $val];
+            $query[] = $ind . '=' . $val;
         }
         $query = !empty($query) ? '?' . implode('&', $query) : '';
         $diretorio = preg_replace('/\/$/', '', $diretorio);

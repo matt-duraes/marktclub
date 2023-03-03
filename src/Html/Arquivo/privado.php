@@ -13,7 +13,7 @@ try {
     mensagemStatus(404, localhost: 'Falhou ao tentar buscar arquivo.');
 }
 
-$download = array_key_exists('download', $_GET) && $_GET['download'] == 1;
+$download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
 
 $Grupo = new GrupoEntity();
 $Grupo->_id($Arquivo->id_upload_grupo);
