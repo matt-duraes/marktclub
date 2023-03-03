@@ -25,10 +25,10 @@ final class DownloadController extends Controller
         if (!sessaoExiste('DOWNLOAD_PRIVADO_' . $id)) {
             mensagemStatus(404);
         }
+
         $link = sessao('DOWNLOAD_PRIVADO_' . $id);
         sessaoDeletar('DOWNLOAD_PRIVADO_' . $id);
-
-        return new Response(download: $link);
+        return new Response(url: $link);
     }
 
     public function postValidar(Request $request, string $id)

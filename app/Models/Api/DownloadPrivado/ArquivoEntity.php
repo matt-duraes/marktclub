@@ -40,7 +40,7 @@ final class ArquivoEntity extends Entity
         $this->dono = $Perfil->pegarDado($this->id_usuario_equipe);
         $vencido = dataBanco($this->data_criacao) == hoje() ? 'sim' : 'nao';
         $this->vencido = new Botao($vencido);
-        $this->link = arquivoPublico('download', $this->arquivo);
+        $this->link = arquivoPublico('download', $this->arquivo, parametro: ['download' => 'sim']);
     }
 
     /*

@@ -10,7 +10,7 @@ if (empty($nome)) {
 }
 
 $path = DIRETORIO_PUBLICO . '/' . preg_replace('/^\//', '', $nome);
-$download = array_key_exists('download', $_GET) && $_GET['download'] == 1;
+$download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
 
 if (!file_exists($path)) {
     mensagemStatus(404, localhost: 'O arquivo não existe.');
