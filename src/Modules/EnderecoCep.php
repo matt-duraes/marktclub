@@ -64,7 +64,7 @@ final class EnderecoCep implements ModuleInterface
      */
     public function numero(): string|int
     {
-        return $this->cep;
+        return (int)$this->cep;
     }
 
     private function validarCep(): bool
