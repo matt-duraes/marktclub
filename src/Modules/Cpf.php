@@ -30,6 +30,7 @@ final class Cpf implements ModuleInterface
     public function __construct(
         private ?string $cpf
     ) {
+        $this->colocarZero();
         if (empty($this->cpf)) {
             $this->vazio = true;
             $this->valido = false;
@@ -42,6 +43,14 @@ final class Cpf implements ModuleInterface
         }
 
         $this->cpf = preg_replace('/[^0-9]/', '', $this->cpf);
+    }
+    private function colocarZero()
+    {
+        $cpf = preg_replace("/[^0-9]/", "", $this->cpf);
+        if (empty($cpf) || $cpf < 1 || mb_strlen($cpf) >= 11) {
+            return;
+        }
+        $this->cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
     }
 
     // doc
