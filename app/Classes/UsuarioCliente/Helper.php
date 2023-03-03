@@ -15,4 +15,5 @@ final class Helper
         'empresa' => AdminEmpresaHelper::CRIPTOGRAFAR
     ];
     const STATUS_LIBERADO = [1, 2, 3, 5];
+    const PERMISSAO_EMPRESA = 'usuario_cliente_empresa';
 }

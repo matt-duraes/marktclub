@@ -3,7 +3,12 @@
 <div class="bloco_app_relatorio">
     <header>
         <form action="/" class="form_geral">
-            @? formSelect(name: 'quantidade', label: '', placeholder: 'Quantidade de meses', value: 6, lista: [3 => 'Últimos 3 meses', 6 => 'Últimos 6 meses', 9 => 'Últimos 9 meses', 12 => 'Últimos 12 meses'])
+            @ if ( temPermissaoEmpresa('relatorio_loja_venda') ):
+            @? formSelect(name: 'relatorio_empresa', label: '', placeholder: 'Empresa', lista: $empresa, value: EMPRESA_ID)
+            @ endif;
+            <div class="bloco_linha">
+                @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
+            </div>
             <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
         </form>
     </header>

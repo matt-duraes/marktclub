@@ -31,7 +31,10 @@ final class EquipeModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $request = $this->request;
-        $where = [['id_admin_empresa', $this->idEmpresa]];
+        $where = [];
+        if (!empty($this->_wherePadrao)) {
+            $where = $this->_wherePadrao;
+        }
 
         $pesquisa = $request->pesquisa;
         if (!empty($pesquisa)) {

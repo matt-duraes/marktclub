@@ -35,19 +35,20 @@ final class Index
     /**
      * Adiciona um campo a linha
      *
-     * @param string $campo     Nome do campo
-     * @param string $nome      Nome do item que irá aparecer para o usuário
-     * @param string $tipo      Tipo podendo ser grande, normal ou pequeno
-     * @param string $formatar  Tipo de valor que deve retorna podendo ser telefone, cep, cpf, cnpj, data e datahora
-     * @return Self
+     * @param   string          $campo          Nome do campo
+     * @param   string          $nome           Nome do item que irá aparecer para o usuário
+     * @param   string          $tipo           Tipo podendo ser grande, normal ou pequeno
+     * @param   string          $formatar       Tipo de valor que deve retorna podendo ser telefone, cep, cpf, cnpj, data e datahora
+     * @param   null|string     $permissao      Permissão que o usuário deve ter
+     * @return  self
      */
-    public function campo(string $campo, string $nome, string $tipo, string $formatar = '')
+    public function campo(string $campo, string $nome, string $tipo, string $formatar = '', ?string $permissao = null)
     {
         if (!in_array($tipo, ['grande', 'normal', 'pequeno'])) {
             mensagemErro('Erro!', 'Você deve passar um valor correto para o tipo.');
         }
-        $campoLimpo = str_contains($campo, '->') ? explode('->', $campo)[0] : $campo;
-        if (!empty($this->camposAceitos) && !in_array($campoLimpo, $this->camposAceitos)) {
+
+        if (!$this->campoAceito($campo, $permissao)) {
             return $this;
         }
 
@@ -60,14 +61,30 @@ final class Index
 
         return $this;
     }
+    private function campoAceito($campo, $permissao)
+    {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        $campoLimpo = str_contains($campo, '->') ? explode('->', $campo)[0] : $campo;
+
+        if (
+            (!empty($this->camposAceitos) && !in_array($campoLimpo, $this->camposAceitos)) ||
+            (!empty($permissao) && !in_array($permissao, $usuarioPermissao))
+        ) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Adiciona uma data de criação a linha
      *
      * @return Self
      */
-    public function dataCriacao()
+    public function dataCriacao(?string $permissao = null)
     {
+        if (!$this->campoAceito('data_criacao', $permissao)) {
+            return $this;
+        }
         $this->grade[] = [
             'nome' => 'Criado em',
             'tipo' => 'pequeno',
@@ -86,10 +103,9 @@ final class Index
      * @param StatusInterface   $status    Um StatusInterface para gerar os dados do status
      * @return Self
      */
-    public function status(string $campo, string $nome, StatusInterface $status)
+    public function status(string $campo, string $nome, StatusInterface $status, ?string $permissao = null)
     {
-        $campoLimpo = str_contains($campo, '->') ? explode('->', $campo)[0] : $campo;
-        if (!empty($this->camposAceitos) && !in_array($campoLimpo, $this->camposAceitos)) {
+        if (!$this->campoAceito('status', $permissao)) {
             return $this;
         }
 

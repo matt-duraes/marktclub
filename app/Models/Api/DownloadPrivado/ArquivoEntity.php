@@ -20,6 +20,7 @@ final class ArquivoEntity extends Entity
     protected int $id_admin_empresa;
     protected int $id_usuario_equipe;
     public string $arquivo;
+    public string $link;
     public Status $status;
 
     private EquipeEntity $Equipe;
@@ -39,6 +40,7 @@ final class ArquivoEntity extends Entity
         $this->dono = $Perfil->pegarDado($this->id_usuario_equipe);
         $vencido = dataBanco($this->data_criacao) == hoje() ? 'sim' : 'nao';
         $this->vencido = new Botao($vencido);
+        $this->link = arquivoPublico('download', $this->arquivo);
     }
 
     /*
@@ -67,7 +69,7 @@ final class ArquivoEntity extends Entity
         }
         $Excel = new ExcelHelper(
             border: true,
-            path: DIRETORIO_PRIVADO . '/download'
+            path: DIRETORIO_PUBLICO . '/download'
         );
 
         $Excel->titulo(array_keys($this->dado[0]));
@@ -91,7 +93,7 @@ final class ArquivoEntity extends Entity
         $Noticicacao = new NotificacaoEntity(
             titulo: 'Seu arquivo ficou pronto para download',
             mensagem: 'O download do seu arquivo ficou pronto, acesse o painel e verifique sua notificações para fazer o download',
-            link: LINK_PAINEL . '/download-privado/' . $this->id,
+            link: '{{LINK}}/download-privado/' . $this->id,
             target: '_blank',
             botao: 'Abrir Painel',
             Equipe: $this->Equipe,

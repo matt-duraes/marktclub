@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
     const selectEmpresa = document.querySelector('#input_empresa');
     const selectGrupo = document.querySelector('#input_grupo');
     const grupoInicial = selectGrupo ? selectGrupo.value : '';
+    const empresaInicial = selectEmpresa ? selectEmpresa.value : '';
 
     formSelectChange = change => {
         if (change == 'buscarGrupoEmpresa' && selectGrupo) {
@@ -33,7 +34,9 @@ window.addEventListener('load', () => {
         formSelectOption(selectGrupo, json.dado, valor);
     };
 
-    if (selectEmpresa && selectGrupo && grupoInicial == '') {
+    if (selectEmpresa && selectGrupo && empresaInicial != '') {
+        buscarGrupoEmpresa(empresaInicial, grupoInicial);
+    } else if (selectEmpresa && selectGrupo && grupoInicial == '') {
         formSelectOption(selectGrupo, { '': 'Escolha uma empresa' });
     } else if (selectGrupo) {
         buscarGrupoEmpresa('', grupoInicial);

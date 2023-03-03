@@ -15,7 +15,7 @@ final class MensageriaController extends Controller implements
     {
         $Mensageria = new MensageriaEntity(
             tipo: $request->tipo,
-            payload: $request->payload
+            payload: base64Decode($request->payload)
         );
         $Mensageria->salvar();
 

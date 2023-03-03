@@ -3,6 +3,7 @@
 
 window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
+    const inputEmpresa = document.querySelector('#input_relatorio_empresa');
     const inputDe = document.querySelector('#input_relatorio_data_de');
     const inputAte = document.querySelector('#input_relatorio_data_ate');
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
@@ -21,9 +22,10 @@ window.addEventListener('load', () => {
     const buscarAcessoPorPagina = async () => {
         const de = inputDe.value;
         const ate = inputAte.value;
+        const empresa = inputEmpresa ? inputEmpresa.value : '';
 
         graficoAcesso.classList.add('loading');
-        const resposta = await fetch(LINK + `/relatorio/acesso-dia?de=${de}&ate=${ate}`, {
+        const resposta = await fetch(LINK + `/relatorio/acesso-dia?de=${de}&ate=${ate}&empresa=${empresa}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,6 +70,7 @@ window.addEventListener('load', () => {
     const buscarMaisAcessado = async local => {
         const de = inputDe.value;
         const ate = inputAte.value;
+        const empresa = inputEmpresa ? inputEmpresa.value : '';
 
         let bloco, loading;
         if (local == 'usuario') {
@@ -83,12 +86,15 @@ window.addEventListener('load', () => {
 
         loading.classList.add('loading');
 
-        const resposta = await fetch(LINK + `/relatorio/mais-acessado?local=${local}&de=${de}&ate=${ate}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const resposta = await fetch(
+            LINK + `/relatorio/mais-acessado?local=${local}&de=${de}&ate=${ate}&empresa=${empresa}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
         let json;
         try {
@@ -136,6 +142,7 @@ window.addEventListener('load', () => {
     const buscarPorDispositivo = async tipo => {
         const de = inputDe.value;
         const ate = inputAte.value;
+        const empresa = inputEmpresa ? inputEmpresa.value : '';
 
         let bloco;
         if (tipo == 'dispositivo') {
@@ -147,12 +154,15 @@ window.addEventListener('load', () => {
         }
         bloco.classList.add('loading');
 
-        const resposta = await fetch(LINK + `/relatorio/dispositivo?tipo=${tipo}&de=${de}&ate=${ate}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const resposta = await fetch(
+            LINK + `/relatorio/dispositivo?tipo=${tipo}&de=${de}&ate=${ate}&empresa=${empresa}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
         let json;
         try {

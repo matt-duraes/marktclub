@@ -13,4 +13,5 @@ final class Helper
         'perfil',
         'empresa' => AdminEmpresaHelper::CRIPTOGRAFAR
     ];
+    const PERMISSAO_EMPRESA = 'usuario_equipe_empresa';
 }

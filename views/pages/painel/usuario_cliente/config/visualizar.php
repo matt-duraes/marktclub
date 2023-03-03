@@ -2,6 +2,7 @@
 
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoPagamento;
@@ -29,7 +30,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco(titulo: 'Dados de trabalho', callback: function () use ($Painel) {
         $Painel
-            ->linha('empresa->nome_fantasia', 'Empresa')
+            ->linha('empresa->nome_fantasia', 'Empresa', permissao: Helper::PERMISSAO_EMPRESA)
             ->linha('matricula', 'Matrícula')
             ->linha('siape', 'SIAPE')
             ->linha('trabalho_empresa', 'Local de trabalho')

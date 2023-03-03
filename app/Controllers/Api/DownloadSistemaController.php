@@ -18,7 +18,7 @@ final class DownloadSistemaController extends Controller implements
 
         $dado = pegarPropriedadeDaEntity(
             $Arquivo,
-            lista: ['id', 'dono', 'arquivo', 'vencido', 'status']
+            lista: ['id', 'dono', 'arquivo', 'link', 'vencido', 'status']
         );
 
         $Arquivo->status = new Status(2);

@@ -22,12 +22,13 @@ final class DownloadController extends Controller
 
     public function download(string $id)
     {
-        $path = DIRETORIO_PRIVADO . '/download/' . sessao('DOWNLOAD_PRIVADO_' . $id);
-        if (!file_exists($path)) {
+        if (!sessaoExiste('DOWNLOAD_PRIVADO_' . $id)) {
             mensagemStatus(404);
         }
+        $link = sessao('DOWNLOAD_PRIVADO_' . $id);
         sessaoDeletar('DOWNLOAD_PRIVADO_' . $id);
-        return new Response(download: $path);
+
+        return new Response(download: $link);
     }
 
     public function postValidar(Request $request, string $id)
@@ -44,6 +45,7 @@ final class DownloadController extends Controller
             ->post('/usuario-equipe/validar-senha');
 
         $mensagemErro = 'O arquivo procurado não foi encontrado, já foi baixado ou está vencido.';
+
         $arquivo = (new ApiHelper(token: true))
             ->validar($mensagemErro)
             ->get('/download-privado/' . $id)
@@ -54,7 +56,7 @@ final class DownloadController extends Controller
         }
 
         $hash = uuid();
-        sessao('DOWNLOAD_PRIVADO_' . $hash, $arquivo->arquivo);
+        sessao('DOWNLOAD_PRIVADO_' . $hash, $arquivo->link);
 
         return mensagemSucesso([
             'id' => $hash

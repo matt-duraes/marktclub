@@ -10,6 +10,21 @@ trait ValidarEmpresaTrait
     private string $_campoEmpresa;
 
     /**
+     * Mudar o ID da empresa se tiver pemissão
+     *
+     * @param   int     $id     ID da empresa
+     */
+    public function setarIdEmpresaManual(int $id)
+    {
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            return;
+        }
+        $this->whereEmpresa = $id;
+        $this->idEmpresa = $id;
+        $this->_wherePadrao = [$this->_campoEmpresa, $id];
+    }
+
+    /**
      * Verifica se existe token e seta a empresa
      *
      * @return void
@@ -17,12 +32,12 @@ trait ValidarEmpresaTrait
      */
     private function setarIdEmpresa(): void
     {
-        $this->_verificaSeExisteToken();
+        $this->verificarSeExisteToken();
         $this->idEmpresa = TOKEN['empresa']->get('id');
     }
     private function setarIdUsuario(): void
     {
-        $this->_verificaSeExisteToken();
+        $this->verificarSeExisteToken();
         $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
             TOKEN['usuario']->get('id') : null;
     }
@@ -42,7 +57,7 @@ trait ValidarEmpresaTrait
         $this->setarWherePadrao();
     }
 
-    private function _verificaSeExisteToken()
+    private function verificarSeExisteToken()
     {
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
@@ -52,7 +67,7 @@ trait ValidarEmpresaTrait
     {
         $this->_campoEmpresa = in_array($campoEmpresa, ['empresa', 'id_admin_empresa']) ? $campoEmpresa : 'id_admin_empresa';
         $this->whereEmpresa = $this->idEmpresa;
-        $this->_wherePadrao = [$campoEmpresa, $this->idEmpresa];
+        $this->_wherePadrao = [$this->_campoEmpresa, $this->idEmpresa];
     }
 
     private function _setarValoresReais()
@@ -61,12 +76,7 @@ trait ValidarEmpresaTrait
             return;
         }
 
-        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
-        $usuarioPermissao = TOKEN['usuario']->permissao;
-        if (
-            empty($this->idUsuario) ||
-            !in_array($scope . '_empresa', $usuarioPermissao)
-        ) {
+        if (!$this->verificarSePodeMudarEmpresa()) {
             return;
         }
 
@@ -89,6 +99,16 @@ trait ValidarEmpresaTrait
             mensagemErro('Empresa inválida!', 'Não foi encontrado uma empresa pelo código enviado.', error: $e);
         }
     }
+    private function verificarSePodeMudarEmpresa(): bool
+    {
+        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
+        $usuarioPermissao = TOKEN['usuario']->permissao ?? [];
+        return
+            !empty($this->idUsuario) &&
+            !empty($scope) &&
+            !empty($usuarioPermissao) &&
+            in_array($scope . '_empresa', $usuarioPermissao);
+    }
 
     /**
      * Pega o Where padrão para as buscas concatenando com o where da empresa
@@ -97,12 +117,12 @@ trait ValidarEmpresaTrait
      */
     private function setarWherePadrao(array $where = []): void
     {
-        if (empty($where)) {
-            return;
-        } else if (!empty($this->_wherePadrao)) {
+        if (!empty($where) && !empty($this->_wherePadrao)) {
             $this->_wherePadrao = array_merge([$where], [[$this->_campoEmpresa, $this->whereEmpresa]]);
-            return;
+        } else if (!empty($where)) {
+            $this->_wherePadrao = $where;
+        } else if (!empty($this->whereEmpresa)) {
+            $this->_wherePadrao = [[$this->_campoEmpresa, $this->whereEmpresa]];
         }
-        $this->_wherePadrao = $where;
     }
 }

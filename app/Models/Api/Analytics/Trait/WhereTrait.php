@@ -3,6 +3,8 @@
 
 namespace App\Models\Api\Analytics\Trait;
 
+use App\Models\Api\AdminEmpresa\EmpresaEntity;
+
 trait WhereTrait
 {
     private function pegarWherePadrao()
@@ -12,10 +14,17 @@ trait WhereTrait
 
         $this->validarData($de, $ate);
 
-        return [
-            ['data_acesso', 'between', [$de . ' 00:00:00', $ate . ' 23:59:59']],
-            ['id_admin_empresa', TOKEN['empresa']->get('id')]
+        $where = [
+            ['data_acesso', 'between', [$de . ' 00:00:00', $ate . ' 23:59:59']]
         ];
+
+        $podeMudarEmpresa = $this->verificarSePodeMudarEmpresa();
+        if ($this->Empresa instanceof EmpresaEntity && $podeMudarEmpresa) {
+            $where[] = ['id_admin_empresa', $this->Empresa->get('id')];
+        } else if (!$podeMudarEmpresa) {
+            $where[] = ['id_admin_empresa', TOKEN['empresa']->get('id')];
+        }
+        return $where;
     }
 
     private function validarData($de, $ate, int $diaMaximo = 366)

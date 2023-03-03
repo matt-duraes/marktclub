@@ -49,6 +49,58 @@
         font-size: $textoFontSize
         color: #999
         padding: 0 20px 20px 20px
+    .array_item
+        width: 100%
+        flexCol()
+    .array_item .array_item_botao
+        flexRow()
+        padding: 6px 20px
+    .array_item .array_item_botao .array_nome
+        width: 160px
+        height: 30px
+        line-height: 30px
+        color: #999
+        user-select: none
+        font-size: $textoFontSize
+    .array_item .array_item_botao .botao_ver_lista
+        height: 30px
+        line-height: 30px
+        border-radius: 15px
+        padding: 0 10px
+        bgDegradeVerde()
+        color: #FFF
+        font-size: $textoFontSize
+    .array_item .lista_item
+        width: calc(100% - 40px)
+        flexGrow()
+        flexCol()
+        border: 1px solid #DDD
+        margin: 0 0 10px 20px
+        padding-top: 10px
+    .array_item .lista_item .array_subitem
+        width: 100%
+        flexCol()
+        margin-bottom: 10px
+        padding-bottom: 10px
+        border-bottom: 1px solid #DDD
+        &:last-child
+            margin-bottom: 0
+            border-bottom: none
+    .array_item .lista_item .array_subitem .texto_nome
+        width: 135px
+    .array_item .item
+        width: 100%
+        flexRow()
+        padding-left: 15px
+    .array_item .item .texto_nome
+        line-height: 1.5em
+        font-size: $textoFontSize
+    .array_item .item p
+        flexGrow()
+        line-height: 1.5em
+        font-size: $textoFontSize
+        word-wrap: break-word
+        word-break: break-word
     .linha
         width: 100%
         line-height: 1.5em

@@ -145,7 +145,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo'
+                '!trabalho_data_inicio', '!grupo', '!empresa'
             ])
             ::post('/usuario-cliente');
 
@@ -377,7 +377,7 @@ Route
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
-                '!senha', '!status', '!primeiro_acesso', '!mudar_senha'
+                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa'
             ])
             ::post('/usuario-equipe');
 
@@ -433,42 +433,52 @@ Route::nome('relatorio')
     ::grupo(function () {
         Route
             ::nome('lojaVenda')
-            ::request(['quantidade'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_loja_venda:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/loja-venda');
 
         Route
             ::nome('dadoUsuario')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_usuario:listar'])
+            ::request(['!empresa'], 'json')
             ::get('/relatorio/dado-usuario');
 
         Route
             ::nome('acessoDia')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/acesso-dia');
 
         Route
             ::nome('usuarioMaisAcesso')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/usuario-mais-acesso');
         Route
             ::nome('paginaMaisAcessada')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/pagina-mais-acessada');
         Route
             ::nome('lojaMaisAcessada')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/loja-mais-acessada');
 
         Route
             ::nome('dispositivo')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/dispositivo');
         Route
             ::nome('os')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/os');
         Route
             ::nome('navegador')
-            ::request(['de', 'ate'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['de', 'ate', '!empresa'], 'json')
             ::get('/relatorio/navegador');
 
         Route
@@ -547,7 +557,6 @@ Route
         Route
             ::nome('salvar')
             ::request(['payload', 'tipo'])
-            ::criptografia(['payload'])
             ::post('/mensageria');
     });
 

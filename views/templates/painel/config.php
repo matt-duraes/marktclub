@@ -26,7 +26,7 @@ $filtrarStatus = $config->permissao->filtrar ?? false;
 $ordemStatus = $config->permissao->ordem ?? false;
 
 $app = $app ?? '';
-
+define('EMPRESA_ID', sessao('EMPRESA.id', padrao: ''));
 define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));
@@ -58,3 +58,9 @@ define('TRABALHO_DEMANDA', sessao('TRABALHO.demanda', padrao: ''));
 define('TRABALHO_DATA', dataHoraBanco(sessao('TRABALHO.data', padrao: '')));
 define('TRABALHO_TEMPO', sessao('TRABALHO.tempo', padrao: 0));
 define('TRABALHO_TOTAL', sessao('TRABALHO.total', padrao: 0));
+
+function temPermissaoEmpresa(string $app): bool
+{
+    $usuarioPermissao = sessao('USUARIO.permissao');
+    return in_array($app . '_empresa', $usuarioPermissao);
+}

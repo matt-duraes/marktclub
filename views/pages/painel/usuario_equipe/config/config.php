@@ -9,6 +9,7 @@ return [
     'add' => true,
     'editar' => true,
     'deletar' => true,
+    'ordem' => true,
     'historico' => true,
     'api' => [
         'scope' => 'usuario_equipe',

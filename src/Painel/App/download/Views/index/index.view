@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div id="site">
+<div id="site" class="display_none">
     <section id="bloco_login" class="bloco_geral bloqueado">
         <h1>DOWNLOAD PRIVADO</h1>
         <i>@iconeBloquear(40)</i>
@@ -23,6 +23,8 @@
         </p>
 
         <form action="/" class="form_geral" id="form_senha">
+            <input class="form_input_hidden" type="password" name="senha">
+            <input class="form_input_hidden" type="password" name="repetir_senha">
             <input type="hidden" id="input_download" value="{{$download}}">
             @? formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha')
             <div class="botao" id="botao_validar_senha">VALIDAR</div>

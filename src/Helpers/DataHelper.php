@@ -307,6 +307,38 @@ final class DataHelper
         return $this;
     }
 
+    /**
+     * Pega o último dia do mês
+     *
+     * @return  self
+     */
+    public function ultimoDiaMes(): self
+    {
+        if (!$this->validar()) {
+            return $this;
+        }
+
+        $data = explode('-', $this->retorno->format('Y-m-d'));
+        $this->valor($data[0] . '-' . $data[1] . '-' . cal_days_in_month(CAL_GREGORIAN, $data[1], $data[0]) . ' 23:59:59');
+
+        return $this;
+    }
+    /**
+     * Pega o primeiro dia do mês
+     *
+     * @return  self
+     */
+    public function primeiroDiaMes()
+    {
+        if (!$this->validar()) {
+            return $this;
+        }
+
+        $data = explode('-', $this->retorno->format('Y-m-d H:i:s'));
+        $this->valor($data[0] . '-' . $data[1] . '-01 00:00:00');
+
+        return $this;
+    }
     /*
     |--------------------------------------------------------------------------
     | BASE DA CLASSE
@@ -332,7 +364,8 @@ final class DataHelper
     }
 
     /**
-     * @param String $formato Formato que deseja retornar a data
+     * @param   string  $formato    Formato que deseja retornar a data
+     * @return  string              Data no formato definido
      */
     public function r(string $formato = 'd/m/Y'): string
     {

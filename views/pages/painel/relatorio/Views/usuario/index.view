@@ -1,6 +1,14 @@
 @template "painel"
 
 <div class="bloco_app_relatorio">
+    @ if ( temPermissaoEmpresa('relatorio_usuario') ):
+    <header>
+        <form action="/" class="form_geral">
+            @? formSelect(name: 'relatorio_empresa', label: '', placeholder: 'Empresa', lista: $empresa, value: EMPRESA_ID)
+            <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
+        </form>
+    </header>
+    @ endif;
 
     <div class="lista">
 

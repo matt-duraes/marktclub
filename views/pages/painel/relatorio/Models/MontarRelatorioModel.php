@@ -167,6 +167,9 @@ final class MontarRelatorioModel
     public function montarRelatorioEstado($dado)
     {
         $lista = $dado->lista;
+        if (!$lista) {
+            return [];
+        }
 
         $outro = [];
         if ($lista[0]->uf == 'OUTRO') {

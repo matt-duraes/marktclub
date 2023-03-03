@@ -1,8 +1,9 @@
 <?php
 
+use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
 
-$Painel = new \PainelConfig\Add('usuario_equipe');
+$Painel = new \PainelConfig\Add('usuario_equipe', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados pessoais', callback: function () use ($Painel) {
@@ -17,6 +18,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->telefone(name: 'telefone_pessoal', label: 'Telefone pessoal');
     });
     $Painel->fieldset('Dados de acesso', callback: function () use ($Painel) {
+        $Painel->select('empresa->id', label: 'Empresa', lista: 'empresa', acao: 'add', permissao: Helper::PERMISSAO_EMPRESA);
         $Painel->senha(
             name: 'senha',
             label: 'Senha de acesso',

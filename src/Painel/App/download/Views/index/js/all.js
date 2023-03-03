@@ -12,6 +12,11 @@ window.addEventListener('load', () => {
 
     setTimeout(() => {
         inputSenha.value = '';
+        document.querySelector('#site').classList.remove('display_none');
+    }, 1000);
+
+    setTimeout(() => {
+        inputSenha.value = '';
     }, 100);
 
     botaoSenha.addEventListener('click', e => {

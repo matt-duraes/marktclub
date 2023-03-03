@@ -106,6 +106,12 @@ final class EquipeEntity extends Entity
     {
         return $this->prop('id');
     }
+    protected function setEmpresa($valor)
+    {
+        $this->Empresa = new EmpresaEntity();
+        $this->Empresa->id($valor, mensagem: 'Não foi possível achar uma empresa pelo dado enviado.');
+        $this->setarIdEmpresaManual($this->Empresa->get('id'));
+    }
 
     /*
     |--------------------------------------------------------------------------

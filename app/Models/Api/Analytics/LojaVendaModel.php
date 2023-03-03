@@ -3,40 +3,36 @@
 namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
+use Http\Request;
 use Modules\Data;
 use Helpers\DataHelper;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class LojaVendaModel extends ORM
 {
+    use ValidarEmpresaTrait;
+
     protected string $_tabela = TABELA_ANALYTICS_LOJA_VENDA;
 
     private int $idEmpresa;
-    private Data $de;
-    private Data $ate;
+    private string $de;
+    private string $ate;
 
     public function __construct(
-        private int $quantidade
+        private Request $request
     ) {
         parent::__construct();
-
-        if ($quantidade == 1) {
-            mensagemErro('Campo inválido!', 'A quantidade de meses deve ser maior que 1.');
-        }
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->validarEmpresa();
         $this->pegarDataBusca();
     }
 
     public function listarDados(): array
     {
-        $de = $this->converterData($this->de->date());
-        $ate = $this->converterData($this->ate->date());
+        $this->setarWherePadrao(['data_relatorio', 'between', [$this->de, $this->ate]]);
 
         $dado = $this
             ->campo(['id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'])
-            ->where([
-                ['id_admin_empresa', $this->idEmpresa],
-                ['data_relatorio', 'between', [$de, $ate]]
-            ])
+            ->where($this->_wherePadrao)
             ->order('data_criacao', 'DESC')
             ->tabela(TABELA_PARCEIRO_NOVO)
             ->campo(['titulo'], 'parceiro')
@@ -61,22 +57,15 @@ final class LojaVendaModel extends ORM
 
     private function pegarDataBusca()
     {
-        $mesInicial = date('Y-m') . '-01';
-        $inicio = 0;
-        $final = $this->quantidade;
-        if (!$this->existe(['data_relatorio', $mesInicial])) {
-            $inicio = 1;
-            $final++;
-        }
-
-        $this->de = new Data(dataRemover($mesInicial, $final, 'mes'));
-        $this->ate = new Data(dataRemover($mesInicial, $inicio, 'mes'));
+        $this->de = dataPrimeiroDiaMes($this->request->de . ' 00:00:00', 'Y-m-d H:i:s');
+        $this->ate = dataUltimoDiaMes($this->request->ate . ' 23:59:59', 'Y-m-d H:i:s');
     }
 
     private function montarRelatorioPorMes($lista)
     {
-        $de = $this->converterData($this->de->date());
-        $ate = $this->converterData($this->ate->date());
+        $de = dataBanco($this->de);
+        $ateExplode = explode('-', dataBanco($this->ate));
+        $ate = $ateExplode[0] . '-' . $ateExplode[1] . '-01';
 
         $Data = new DataHelper();
         $dado = [];
@@ -89,11 +78,11 @@ final class LojaVendaModel extends ORM
                 'ticket' => 0,
                 'venda' => 0
             ]);
-
             if ($data == $ate) {
                 break;
             }
         }
+
         foreach ($lista as $r) {
             $dado[$r->data_relatorio]->valor += $r->valor_venda;
             $dado[$r->data_relatorio]->venda += $r->numero_transacao;
@@ -180,12 +169,5 @@ final class LojaVendaModel extends ORM
             ];
         }
         return $retorno;
-    }
-
-    private function converterData(string $data)
-    {
-        $separador = str_contains($data, '-') ? '-' : '/';
-        $data = explode($separador, $data);
-        return $separador == '-' ? $data[0] . '-' . $data[1] . '-01' : '01/' . $data[1] . '/' . $data[2];
     }
 }

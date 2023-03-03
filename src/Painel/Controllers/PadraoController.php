@@ -7,7 +7,6 @@ use Erro\Erro;
 use Erro\Excecao;
 use Http\Response;
 use Helpers\ApiHelper;
-use Helpers\AuthHelper;
 use Helpers\CryptHelper;
 use Controller\Controller;
 use Painel\Historico\Models\Entity as HistoricoEntity;
@@ -31,8 +30,8 @@ abstract class PadraoController extends Controller
             return $this->configAjax($app, $indice);
         } else if ($local == 'visualizar') {
             return $this->configVisualizar($app);
-        } else if ($local == 'add') {
-            return $this->configAdd($app);
+        } else if (in_array($local, ['add', 'editar'])) {
+            return $this->configAdd($app, $local);
         } else if ($local == 'salvar') {
             return $this->configSalvar($app);
         } else if ($local == 'filtrar') {
@@ -163,10 +162,10 @@ abstract class PadraoController extends Controller
             ],
         ];
     }
-    private function configAdd($app): stdClass
+    private function configAdd($app, $acao): stdClass
     {
         $config = $this->includeConfig('config', $app);
-        $Add = $this->includeConfig('add', $app);
+        $Add = $this->includeConfig($acao, $app);
         if (!($Add instanceof \PainelConfig\Add)) {
             mensagemStatus(500, localhost: 'Não foi encontrado um PainelConfig/Add para esse app.');
         }
@@ -328,10 +327,11 @@ abstract class PadraoController extends Controller
 
     private function includeConfig($acao, $app)
     {
-        if (!file_exists(ROOT . '/views/pages/painel/' . $app . '/config/' . $acao . '.php')) {
+        $arquivo = $acao == 'editar' ? 'add' : $acao;
+        if (!file_exists(ROOT . '/views/pages/painel/' . $app . '/config/' . $arquivo . '.php')) {
             return false;
         }
-        return require ROOT . '/views/pages/painel/' . $app . '/config/' . $acao . '.php';
+        return require ROOT . '/views/pages/painel/' . $app . '/config/' . $arquivo . '.php';
     }
 
     private function pegarPermissaoUsuario($acao, $app, $config)

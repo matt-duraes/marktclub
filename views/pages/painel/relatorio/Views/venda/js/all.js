@@ -3,7 +3,9 @@
 
 window.addEventListener('load', () => {
     const LINK = document.querySelector('#LINK').value;
-    const inputQuantidade = document.getElementById('input_quantidade');
+    const inputEmpresa = document.querySelector('#input_relatorio_empresa');
+    const inputDe = document.querySelector('#input_relatorio_data_de');
+    const inputAte = document.querySelector('#input_relatorio_data_ate');
     const botaoBuscar = document.getElementById('botao_buscar_relatorio');
     const graficoMes = document.getElementById('grafico_mes');
     const graficoLojaValor = document.querySelector('#lista_loja_valor .fw_grafico_bloco_lista');
@@ -22,7 +24,11 @@ window.addEventListener('load', () => {
         graficoLojaValor.classList.add('loading');
         graficoLojaTicket.classList.add('loading');
 
-        const resposta = await fetch(LINK + `/relatorio/loja-venda-buscar?quantidade=${inputQuantidade.value}`, {
+        const de = inputDe.value;
+        const ate = inputAte.value;
+        const empresa = inputEmpresa ? inputEmpresa.value : '';
+
+        const resposta = await fetch(LINK + `/relatorio/loja-venda-buscar?de=${de}&ate=${ate}&empresa=${empresa}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
