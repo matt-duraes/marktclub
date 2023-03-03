@@ -87,7 +87,7 @@ final class AppController extends PadraoController
             mensagemStatus(400);
         }
 
-        $dado = $request->exeto(['indice']);
+        $dado = $request->exeto(['indice'], erro: false);
         if ($dado) {
             foreach (array_keys($dado) as $ind) {
                 if (!in_array($ind, $config->request)) {
