@@ -30,6 +30,7 @@ final class Cnpj implements ModuleInterface
     public function __construct(
         private ?string $cnpj,
     ) {
+        $this->colocarZero();
         if (empty($this->cnpj)) {
             $this->vazio = true;
             $this->valido = false;
@@ -41,6 +42,14 @@ final class Cnpj implements ModuleInterface
             return;
         }
         $this->cnpj = preg_replace('/[^0-9]/', '', $this->cnpj);
+    }
+    private function colocarZero()
+    {
+        $cnpj = preg_replace("/[^0-9]/", "", $this->cnpj);
+        if (empty($cnpj) || $cnpj < 1 || mb_strlen($cnpj) >= 14) {
+            return;
+        }
+        $this->cnpj = str_pad($cnpj, 14, '0', STR_PAD_LEFT);
     }
 
     // doc
