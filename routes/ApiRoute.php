@@ -557,7 +557,6 @@ Route
         Route
             ::nome('salvar')
             ::request(['payload', 'tipo'])
-            ::criptografia(['payload'])
             ::post('/mensageria');
     });
 

@@ -366,8 +366,8 @@ final class AppController extends PadraoController
         }
         $payload = [
             'campo' => $request->campo,
-            'pesquisa' => !$request->vazio('pesquisa') ? base64Decode($request->pesquisa, 'pesquisa') : '',
-            'ordem' => !$request->vazio('ordem') ? base64Decode($request->ordem, 'ordem') : '',
+            'pesquisa' => !$request->vazio('pesquisa') ? base64Decode($request->pesquisa) : '',
+            'ordem' => !$request->vazio('ordem') ? base64Decode($request->ordem) : '',
             'app' => $appReal,
             'usuario' => sessao('USUARIO.id')
         ];
@@ -377,13 +377,11 @@ final class AppController extends PadraoController
             $payload[$ind] = $val;
         }
 
-        $payload = (new CryptHelper(chavePublica: $this->pegarChavePublica([1])))->encode($payload);
-
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar('Ocorreu um erro ao salvar o seu pedido, por favor, tente novamente.')
             ->body([
-                'payload' => $payload,
+                'payload' => base64Encode($payload),
                 'tipo' => 'download.privado'
             ])
             ->post('/mensageria')
@@ -438,12 +436,12 @@ final class AppController extends PadraoController
     private function pegarFiltro(Request $request, $config)
     {
         if ($request->existe('pesquisa') && !empty($request->pesquisa)) {
-            return ['pesquisa' => ['Pesquisa', base64Decode($request->pesquisa, 'pesquisa')]];
+            return ['pesquisa' => ['Pesquisa', base64Decode($request->pesquisa)]];
         }
         if (!$request->existe('filtro') && !empty($request->filtro)) {
             return [];
         }
-        $filtro = base64Decode($request->filtro, 'filtro');
+        $filtro = base64Decode($request->filtro);
         if (!is_array($filtro) || !$filtro) {
             return [];
         }
@@ -465,7 +463,7 @@ final class AppController extends PadraoController
     {
         $indice = $request->indice;
         $ordem = $request->existe('ordem') && !empty($request->ordem) && $indice != 'ordem' ? 'ordem=' . $request->ordem : '';
-        $filtro = $request->existe('filtro') && !empty($request->filtro) ? base64Decode($request->filtro, 'filtro') : '';
+        $filtro = $request->existe('filtro') && !empty($request->filtro) ? base64Decode($request->filtro) : '';
 
         $validar = is_array($filtro) && $filtro;
         if ($validar && $indice != 'ordem' && array_key_exists($indice, $filtro)) {
