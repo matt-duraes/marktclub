@@ -1,7 +1,9 @@
 <?php
 
+use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Situacao;
+use App\Classes\UsuarioCliente\Federacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
@@ -29,22 +31,29 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados do trabalho', callback: function () use ($Painel) {
         $trabalhoEmpresa = (new TrabalhoEmpresa())->select('Escolha um local de trabalho');
         $trabalhoCargo = (new TrabalhoCargo())->select('Escolha um cargo');
+
+        $Painel
+            ->numero(name: 'matricula', label: 'Matrícula')
+            ->numero(name: 'siape', label: 'SIAPE')
+            ->select(name: 'trabalho_empresa', label: 'Local onde trabalha', lista: $trabalhoEmpresa)
+            ->select(name: 'trabalho_cargo', label: 'Cargo', lista: $trabalhoCargo)
+            ->data(name: 'trabalho_data_inicio', label: 'Data do início do trabalho', placeholder: 'Data do início do trabalho');
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset(titulo: 'Dados da empresa', callback: function () use ($Painel) {
+        $federacao = (new Federacao())->select('Escolha uma federação');
         $tipoPagamento = (new TipoPagamento())->select('Escolha um pagamento');
 
         $Painel
             ->hidden(name: 'empresa->id', acao: 'editar', permissao: Helper::PERMISSAO_EMPRESA)
             ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', acao: 'add', permissao: Helper::PERMISSAO_EMPRESA, change: 'buscarGrupoEmpresa')
             ->select(name: 'grupo', label: 'Grupo', lista: ['' => 'Carregando'])
-            ->numero(name: 'matricula', label: 'Matrícula')
-            ->numero(name: 'siape', label: 'SIAPE')
-            ->select(name: 'trabalho_empresa', label: 'Local onde trabalha', lista: $trabalhoEmpresa)
-            ->select(name: 'trabalho_cargo', label: 'Cargo', lista: $trabalhoCargo)
             ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $tipoPagamento)
-            ->data(name: 'trabalho_data_inicio', label: 'Data do início do trabalho', placeholder: 'Data do início do trabalho');
+            ->select(name: 'federacao', label: 'Federação', lista: $federacao);
     });
-});
 
-$Painel->coluna(coluna: 3, callback: function () use ($Painel) {
     $Painel->fieldset(titulo: 'Endereço', callback: function () use ($Painel) {
         $Painel
             ->cep('endereco_cep', label: 'CEP')

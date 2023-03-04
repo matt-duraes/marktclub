@@ -58,4 +58,5 @@ trait PropriedadeEntityTrait
     public string $contrato_siape;
     private array $campoObrigatorio = [];
     private int $idEmpresa;
+    public string $federacao;
 }

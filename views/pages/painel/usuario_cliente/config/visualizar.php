@@ -5,6 +5,7 @@ use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\Federacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
@@ -31,6 +32,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Dados de trabalho', callback: function () use ($Painel) {
         $Painel
             ->linha('empresa->nome_fantasia', 'Empresa', permissao: Helper::PERMISSAO_EMPRESA)
+            ->linha('federacao', 'Federação')
             ->linha('matricula', 'Matrícula')
             ->linha('siape', 'SIAPE')
             ->linha('trabalho_empresa', 'Local de trabalho')
@@ -93,6 +95,9 @@ $Painel->js('painel_usuario_cliente_visualizar');
 
 $Api = new ApiHelper(token: true);
 $Lista = new ListaHelper;
+
+// Lista de federação
+$Painel->replace(campo: 'federacao', lista: (new Federacao())->select());
 
 // Lista de tipo de pagamento
 $Painel->replace(campo: 'tipo_pagamento', lista: (new TipoPagamento())->select());
