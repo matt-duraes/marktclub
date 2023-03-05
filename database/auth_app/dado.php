@@ -133,6 +133,9 @@ swIDAQAB
             'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
             'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
 
+            'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
+            'publicacao_noticia:buscar', 'publicacao_noticia:deletar',
+
             'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
             'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',

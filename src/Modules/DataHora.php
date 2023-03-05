@@ -21,7 +21,7 @@ final class DataHora implements ModuleInterface
      */
     public function valor()
     {
-        return $this->data;
+        return $this->date;
     }
 
     // doc
