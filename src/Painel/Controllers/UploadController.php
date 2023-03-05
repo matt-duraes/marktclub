@@ -159,7 +159,7 @@ final class UploadController extends Controller
             'tamanho' => $arquivo->tamanho,
             'largura' => $arquivo->largura,
             'altura' => $arquivo->altura,
-            'arquivo' => $arquivo->arquivo,
+            'arquivo' => $arquivo->link,
             'data' => dataBr($arquivo->data_criacao, 'd/m/Y H:i')
         ], status: 201);
     }

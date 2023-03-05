@@ -10,6 +10,7 @@ return [
             'usuario_indicacao' => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_lead' => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_equipe' => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
+            'publicacao_noticia' => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_relatorio' => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'relatorio_acesso' => ['titulo' => 'Relatório Acesso', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas']],
             'relatorio_usuario' => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
@@ -42,6 +43,10 @@ return [
         ],
         'campo_obrigatorio' => [
             'usuario_cliente' => ['cpf', 'email', 'status']
+        ],
+        'upload_grupo' => [
+            'imagem' => 'e53ae4e0-7b33-4988-99ad-50433a29b544',
+            'arquivo' => '2d978fba-4bd2-4af7-80bf-ebb94d9ac991'
         ]
     ],
     [

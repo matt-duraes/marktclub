@@ -136,9 +136,9 @@ Route::nome('publicacao_noticia')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:salvar'])
             ::request([
                 'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
-                'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
+                'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
                 'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
-                'data_publicacao_final', 'data_publicacao_atualizada', 'permissao_restrita',
+                'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
                 'permissao_site', 'permissao_banner', 'status'
             ])
             ::post('/publicacao-noticia');
@@ -149,7 +149,7 @@ Route::nome('publicacao_noticia')
                 '!titulo_grande', '!titulo_pequeno', '!subtitulo', '!texto_grande', '!texto_pequeno',
                 '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
                 '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_publicacao_inicio',
-                '!data_publicacao_final', '!data_publicacao_atualizada', '!permissao_restrita',
+                '!data_publicacao_final', '!data_publicacao_atualizacao', '!permissao_restrita',
                 '!permissao_site', '!permissao_banner', '!status'
             ])
             ::put('/publicacao-noticia/{id}');
@@ -615,6 +615,9 @@ Route
         Route
             ::nome('configuracao')
             ::get('/admin/configuracao');
+        Route
+            ::nome('uploadGrupo')
+            ::get('/admin/upload-grupo');
 
         Route
             ::nome('menu')

@@ -1,6 +1,5 @@
 <?php
 
-use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\Federacao;

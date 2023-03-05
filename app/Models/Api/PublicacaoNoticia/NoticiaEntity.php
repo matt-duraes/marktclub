@@ -23,14 +23,14 @@ final class NoticiaEntity extends Entity
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
-        'data_publicacao_final', 'data_publicacao_atualizada', 'permissao_restrita',
+        'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
         'permissao_site', 'permissao_banner', 'status'
     ];
     protected array $_buscar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
-        'data_publicacao_final', 'data_publicacao_atualizada', 'permissao_restrita',
+        'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
         'permissao_site', 'permissao_banner', 'url', 'status'
     ];
 
@@ -50,7 +50,7 @@ final class NoticiaEntity extends Entity
     public string $url;
     public DataHora $data_publicacao_inicio;
     public DataHora $data_publicacao_final;
-    public DataHora $data_publicacao_atualizada;
+    public DataHora $data_publicacao_atualizacao;
     public Botao $permissao_restrita;
     public Botao $permissao_site;
     public Botao $permissao_banner;

@@ -8,5 +8,6 @@ return (new \DataBase\DataBase())
     ->text('configuracao')->null()
     ->longtext('campo_obrigatorio')->null()
     ->longtext('campo_permitido')->null()
+    ->json('upload_grupo')->null()
     ->dataCriacao()
     ->dataAtualizacao();

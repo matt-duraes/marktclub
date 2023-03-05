@@ -4,6 +4,7 @@ $permissao = json_encode([
     'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_visualizar', 'usuario_cliente_download', 'usuario_cliente_editar', 'usuario_cliente_deletar',
     'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar',
     'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_deletar',
+    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
     'usuario_lead_index', 'usuario_lead_visualizar', 'usuario_lead_status',
     'usuario_indicacao_index', 'usuario_indicacao_visualizar', 'usuario_indicacao_status',
     'usuario_grupo_index', 'usuario_grupo_add', 'usuario_grupo_editar', 'usuario_grupo_deletar',

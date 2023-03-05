@@ -104,6 +104,27 @@ return [
         'id' => '++',
         'id_admin_empresa' => 1,
         'tipo' => 1,
+        'titulo' => 'PUBLICAÇÕES',
+        'ordem' => '++',
+        'status' =>  1,
+        'permissao' => '["publicacao_noticia_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Notícias',
+        'url' => '/app/publicacao-noticia',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M21.5,23.1h-13c-0.4,0-0.8-0.4-0.8-0.8V7.7c0-0.4,0.4-0.8,0.8-0.8h13c0.4,0,0.8,0.4,0.8,0.8v14.6 C22.3,22.7,21.9,23.1,21.5,23.1z M20.7,21.5v-13H9.3v13H20.7z M11,10.1h3.2v3.2H11V10.1z M11,15H19v1.6H11V15z M11,18.2H19v1.6H11 V18.2z M15.8,11H19v1.6h-3.2V11z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['publicacao-noticia'],
+        'status' =>  1,
+        'permissao' => '["publicacao_noticia_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 1,
         'titulo' => 'RELATÓRIO',
         'ordem' => '++',
         'status' =>  1,

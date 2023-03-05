@@ -11,6 +11,7 @@ final class PainelModel
         $this->pegandoPermissaoDoPainel();
         $this->pegandoCampoObrigatorio();
         $this->pegandoConfiguracaoDoPainel();
+        $this->pegandoUploadGrupoDoPainel();
         $this->pegandoCampoPermitidos();
         $this->pegandoListaMenu();
     }
@@ -75,6 +76,14 @@ final class PainelModel
         $configuracao = array_key_exists('dado', $configuracao) ? $configuracao['dado'] : ["perfil", "bloquear"];
 
         sessao('PAINEL.configuracao', $configuracao);
+    }
+    private function pegandoUploadGrupoDoPainel()
+    {
+        $Api = new ApiHelper(token: true);
+        $grupo = $Api->headerJson()->get('/admin/upload-grupo')->array();
+        $grupo = array_key_exists('dado', $grupo) ? $grupo['dado'] : [];
+
+        sessao('PAINEL.upload_grupo', $grupo);
     }
 
     private function pegandoListaMenu()

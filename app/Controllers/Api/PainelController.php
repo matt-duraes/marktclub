@@ -22,6 +22,11 @@ final class PainelController extends Controller
         $Configuracao = new ConfiguracaoEntity();
         return mensagemSucesso($Configuracao->configuracao);
     }
+    public function getUploadGrupo(): Response
+    {
+        $Configuracao = new ConfiguracaoEntity();
+        return mensagemSucesso($Configuracao->upload_grupo);
+    }
 
     public function getMenu(): Response
     {
