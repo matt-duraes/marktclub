@@ -5,6 +5,8 @@
         <p class="display_none" id="bloco_usuario_relogar_bloqueado">Olá {{USUARIO_NOME}}, para desbloquear sua conta, digite sua senha abaixo:</p>
 
         @hash('FORM_RELOGAR')
+        <input class="autocomplete" autocomplete="username" type="text" name="login">
+        <input class="autocomplete" autocomplete="current-password" type="password" name="password">
 
         <input type="hidden" name="relogar_cpf" id="input_relogar_cpf" value="{{USUARIO_CPF}}">
         @? formSenha(name: 'relogar_senha', placeholder: 'Digite sua senha', label: 'Senha')

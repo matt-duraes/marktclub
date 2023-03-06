@@ -6,18 +6,6 @@ $Painel = new PainelConfig\Add(app: 'publicidade_noticia', acao: $acao);
 $diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
 $diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
 
-$Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
-    $Painel->fieldset('Imagem principais', function () use ($Painel, $diretorioImagem) {
-        $Painel->imagem(name: 'imagem_grande', diretorio: $diretorioImagem);
-    });
-    $Painel->fieldset('Imagem secundária', function () use ($Painel, $diretorioImagem) {
-        $Painel->imagem(name: 'imagem_pequena', diretorio: $diretorioImagem);
-    });
-    $Painel->fieldset('Imagem social', function () use ($Painel, $diretorioImagem) {
-        $Painel->imagem(name: 'imagem_social', diretorio: $diretorioImagem);
-    });
-});
-
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados principais', function () use ($Painel) {
         $Painel
@@ -89,6 +77,18 @@ $Painel->coluna(callback: function () use ($Painel) {
                 placeholder: 'Escolha uma opção',
                 lista: (new Status())->select('Escolha uma opção')
             );
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
+    $Painel->fieldset('Imagem principais', function () use ($Painel, $diretorioImagem) {
+        $Painel->imagem(name: 'imagem_grande', diretorio: $diretorioImagem);
+    });
+    $Painel->fieldset('Imagem secundária', function () use ($Painel, $diretorioImagem) {
+        $Painel->imagem(name: 'imagem_pequena', diretorio: $diretorioImagem);
+    });
+    $Painel->fieldset('Imagem social', function () use ($Painel, $diretorioImagem) {
+        $Painel->imagem(name: 'imagem_social', diretorio: $diretorioImagem);
     });
 });
 

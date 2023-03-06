@@ -118,8 +118,9 @@ if (!function_exists('painelAppDownloadEnd')) {
     {
         echo '
                     <div class="footer" id="bloco_download_footer">
+                        <input class="autocomplete" autocomplete="current-password" type="password" name="password">
                         ' . formCheckbox(name: 'termo', value: 'sim', label: 'Confirmar que sou ' . sessao('USUARIO.nome') . ' e que tenho permissão para fazer esse download.', check: false, class: 'botao_termo_download') . '
-                        ' . formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha') . '
+                        ' . formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha', attr: ['autocomplete' => 'new-password']) . '
                         <button type="submit" class="botao_download_geral button botao_loading_geral">
                             <p>DOWNLOAD</p>
                             <span>' . iconeLoadingBola() . '</span>
