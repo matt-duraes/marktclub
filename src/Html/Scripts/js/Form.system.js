@@ -142,6 +142,7 @@ fwFormArquivoLoading = bloco => {
         '.fw_imagem_visualizar'
     );
 };
+fwFormArquivoLoading(document);
 
 /*
 |--------------------------------------------------------------------------

@@ -116,6 +116,49 @@ Route::nome('usuario_cliente_download')
             ::post('/usuario-cliente/download');
     });
 
+Route::nome('publicacao_noticia')
+    ::controller(App\Controllers\Api\PublicacaoNoticiaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
+            ::request([
+                'pagina', '!ordem', '!pesquisa', '!data_publicacao_de', '!data_publicacao_ate', '!status'
+            ], 'json')
+            ::get('/publicacao-noticia');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:buscar'])
+            ::get('/publicacao-noticia/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:salvar'])
+            ::request([
+                'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
+                'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
+                'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
+                'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
+                'permissao_site', 'permissao_banner', 'status'
+            ])
+            ::post('/publicacao-noticia');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:atualizar'])
+            ::request([
+                '!titulo_grande', '!titulo_pequeno', '!subtitulo', '!texto_grande', '!texto_pequeno',
+                '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
+                '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_publicacao_inicio',
+                '!data_publicacao_final', '!data_publicacao_atualizacao', '!permissao_restrita',
+                '!permissao_site', '!permissao_banner', '!status'
+            ])
+            ::put('/publicacao-noticia/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:deletar'])
+            ::delete('/publicacao-noticia/{id}');
+    });
+
 Route::nome('usuario_cliente')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -145,7 +188,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!empresa'
+                '!trabalho_data_inicio', '!grupo', '!empresa', '!federacao'
             ])
             ::post('/usuario-cliente');
 
@@ -158,7 +201,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo'
+                '!trabalho_data_inicio', '!grupo', '!federacao'
             ])
             ::put('/usuario-cliente/{id}');
 
@@ -572,6 +615,9 @@ Route
         Route
             ::nome('configuracao')
             ::get('/admin/configuracao');
+        Route
+            ::nome('uploadGrupo')
+            ::get('/admin/upload-grupo');
 
         Route
             ::nome('menu')

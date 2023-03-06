@@ -51,6 +51,7 @@ window.addEventListener('load', () => {
             return;
         }
 
+        inputSenha.value = '';
         window.location.assign(LINK + '/download-privado/download/' + json.dado.id);
     };
 });

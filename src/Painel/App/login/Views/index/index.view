@@ -27,12 +27,12 @@
             </header>
             <form class="form_geral" id="form_login" action="{!!LINK!!}/login" method="post">
                 @hash('painel_login')
-                <input class="autocomplete" type="text" name="login">
-                <input class="autocomplete" type="password" name="password">
+                <input class="autocomplete" autocomplete="username" type="text" name="login">
+                <input class="autocomplete" autocomplete="current-password" type="password" name="password">
                 @php
                 echo formInput(
                     class: 'input_login',
-                    name: 'login',
+                    name: 'cpf',
                     label: 'Digite seu CPF',
                     placeholder: '000.000.000-00',
                     mascara: '000.000.000-00',
@@ -41,7 +41,7 @@
                     attr: ['autocomplete' => 'username']
                 );
                 echo formSenha(
-                    name: 'senha',
+                    name: 'passe',
                     label: 'Digite sua senha',
                     placeholder: 'Senha',
                     attr: ['autocomplete' => 'current-password']

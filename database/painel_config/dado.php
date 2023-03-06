@@ -10,6 +10,7 @@ return [
             'usuario_indicacao' => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_lead' => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_equipe' => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
+            'publicacao_noticia' => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_relatorio' => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'relatorio_acesso' => ['titulo' => 'Relatório Acesso', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas']],
             'relatorio_usuario' => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
@@ -28,7 +29,7 @@ return [
                     'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_estado', 'endereco_cidade', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
                     'data_criacao_ate', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
-                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa'
+                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao'
                 ],
                 'download' => [
                     'status', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',
@@ -36,12 +37,16 @@ return [
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'federacao', 'grupo',
                     'matricula', 'data_nascimento', 'genero', 'estado_civil', 'cpf', 'telefone_pessoal',
                     'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload',
-                    'lead', 'origem', 'empresa'
+                    'lead', 'origem', 'empresa', 'federacao'
                 ]
             ]
         ],
         'campo_obrigatorio' => [
             'usuario_cliente' => ['cpf', 'email', 'status']
+        ],
+        'upload_grupo' => [
+            'imagem' => 'e53ae4e0-7b33-4988-99ad-50433a29b544',
+            'arquivo' => '2d978fba-4bd2-4af7-80bf-ebb94d9ac991'
         ]
     ],
     [

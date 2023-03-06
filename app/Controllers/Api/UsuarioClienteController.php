@@ -111,10 +111,11 @@ final class UsuarioClienteController extends Controller implements
                     'Empresa' => ['id', 'nome_fantasia'],
                     'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
                     'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
-                    'matricula', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
-                    'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'primeiro_acesso', 'possui_senha',
-                    'mudar_senha', 'situacao', 'contrato_siape', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento',
-                    'pagamento', 'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'lead', 'origem', 'status'
+                    'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
+                    'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
+                    'primeiro_acesso', 'possui_senha', 'mudar_senha', 'situacao', 'contrato_siape',
+                    'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'pagamento',
+                    'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'lead', 'origem', 'status'
                 ]
             ),
             status: $status,

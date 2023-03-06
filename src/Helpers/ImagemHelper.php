@@ -162,8 +162,8 @@ final class ImagemHelper
         $validar = (new AntiVirusHelper($arquivo))->validar();
         if (true !== $validar) {
             throw new Excecao(
-                titulo: $this->mensagem['virus']['titulo'] ?? 'Erro ao validar arquivo!',
-                mensagem: $this->mensagem['virus']['mensagem'] ?? 'O arquivo enviado não é um arquivo válido ou não foi possível validar sua segurança.'
+                titulo: 'Erro ao validar arquivo!',
+                mensagem: 'O arquivo enviado não é um arquivo válido ou não foi possível validar sua segurança.'
             );
         }
     }
