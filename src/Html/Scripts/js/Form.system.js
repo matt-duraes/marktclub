@@ -56,11 +56,7 @@ fwFormJsonParse = json => {
 |--------------------------------------------------------------------------
 */
 const LINK_FORM = document.querySelector('#LINK') ? document.querySelector('#LINK').value : '';
-const GaleriaFormImagem = new Galeria(
-    document.querySelector('.fw_bloco_galeria'),
-    '.fw_form_imagem_galeria',
-    '.fw_imagem_visualizar'
-);
+let GaleriaFormImagem;
 /**
  * Verifica se existe form de imagem
  */
@@ -110,6 +106,13 @@ const fwFormImagemRemoverImagem = (figure, input, botaoDeletar, botaoVisualizar,
 fwFormArquivoLoading = bloco => {
     const fwFormImagem = bloco.querySelectorAll('.form_geral .fw_form_imagem');
     if (fwFormImagem.length > 0) {
+        if (GaleriaFormImagem == undefined) {
+            GaleriaFormImagem = new Galeria(
+                document.querySelector('.form_geral'),
+                '.fw_form_imagem_galeria',
+                '.fw_imagem_visualizar'
+            );
+        }
         fwFormImagem.forEach(bloco => {
             const input = bloco.querySelector('input');
             const blocoIcone = bloco.querySelector('.fw_imagem_conteudo .fw_imagem_icone');
@@ -135,12 +138,12 @@ fwFormArquivoLoading = bloco => {
                 }
             });
         });
+        GaleriaFormImagem.recarregar(
+            document.querySelector('.form_geral'),
+            '.fw_form_imagem_galeria',
+            '.fw_imagem_visualizar'
+        );
     }
-    GaleriaFormImagem.recarregar(
-        document.querySelector('.fw_bloco_galeria'),
-        '.fw_form_imagem_galeria',
-        '.fw_imagem_visualizar'
-    );
 };
 fwFormArquivoLoading(document);
 
@@ -227,6 +230,13 @@ const fwFormArquivoListaMontarRetorno = (hash, link, nome, extensao, blocoZero, 
 fwFormArquivoListaLoading = bloco => {
     const fwFormArquivoLista = bloco.querySelectorAll('.form_geral .fw_form_arquivo_lista');
     if (fwFormArquivoLista.length > 0) {
+        if (GaleriaFormImagem == undefined) {
+            GaleriaFormImagem = new Galeria(
+                document.querySelector('.form_geral'),
+                '.fw_form_imagem_galeria',
+                '.fw_imagem_visualizar'
+            );
+        }
         fwFormArquivoLista.forEach(bloco => {
             const botaoUpload = bloco.querySelector('.fw_form_arquivo_lista_upload');
             const blocoLista = bloco.querySelector('.fw_form_arquivo_lista_lista');
@@ -258,12 +268,12 @@ fwFormArquivoListaLoading = bloco => {
                 }
             });
         });
+        GaleriaFormImagem.recarregar(
+            document.querySelector('.form_geral'),
+            '.fw_form_imagem_galeria',
+            '.fw_imagem_visualizar'
+        );
     }
-    GaleriaFormImagem.recarregar(
-        document.querySelector('.fw_bloco_galeria'),
-        '.fw_form_imagem_galeria',
-        '.fw_imagem_visualizar'
-    );
 };
 fwFormArquivoListaLoading(document);
 /*/
