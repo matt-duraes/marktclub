@@ -50,6 +50,9 @@ final class PontoModel extends ORM
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
+        $saldo = [];
+        $extrato = [];
+
         if (!empty($this->buscaCpf)) {
             $PontoCvsHelper = new PontoCvsHelper;
             $saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
