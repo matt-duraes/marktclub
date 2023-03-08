@@ -63,6 +63,9 @@ final class NoticiaEntity extends Entity
     public Botao $permissao_banner;
     public Status $status;
 
+    private int $idEmpresa;
+    private int $idUsuario;
+
     public function __construct()
     {
         parent::__construct();
