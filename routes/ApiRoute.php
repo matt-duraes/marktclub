@@ -124,7 +124,7 @@ Route::nome('publicacao_noticia')
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
-                'pagina', '!ordem', '!pesquisa', '!data_publicacao_de', '!data_publicacao_ate', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!data_publicacao_de', '!data_publicacao_ate', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
         Route
