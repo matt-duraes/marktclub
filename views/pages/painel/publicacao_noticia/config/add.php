@@ -101,11 +101,10 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorio
             diretorioImagem: $diretorioImagem,
             diretorioArquivo: $diretorioArquivo,
             obrigatorio: true,
-            bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList',
-            barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat'
+            bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList',
+            barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat'
         );
     });
 });
-
 
 return $Painel;

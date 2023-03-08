@@ -18,7 +18,6 @@ final class NoticiaEntity extends Entity
         'id_admin_empresa' => '->idEmpresa',
         'id_usuario_equipe' => '->idUsuario'
     ];
-
     protected array $_salvar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
@@ -33,6 +32,14 @@ final class NoticiaEntity extends Entity
         'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
         'permissao_site', 'permissao_banner', 'url', 'status'
     ];
+    protected string $_validarSalvar = '
+        titulo_grande|Título grande|obrigatorio|vazio
+        data_publicacao_inicio|Data de início da publicação|obrigatorio|vazio|valido
+        data_publicacao_final|Data final da publicação|valido
+        data_publicacao_atualizacao|Data de atualização da publicação|valido
+        texto_grande|Texto grande|obrigatorio|vazio
+        status|Status|obrigatorio|vazio|valido
+    ';
 
     public string $titulo_grande;
     public string $titulo_pequeno;
@@ -55,6 +62,9 @@ final class NoticiaEntity extends Entity
     public Botao $permissao_site;
     public Botao $permissao_banner;
     public Status $status;
+
+    private int $idEmpresa;
+    private int $idUsuario;
 
     public function __construct()
     {
