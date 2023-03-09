@@ -54,7 +54,7 @@ final class ArquivoEntity extends Entity
         $this->pegarUsuario();
         $this->id_admin_empresa = TOKEN['empresa']->get('id');
         $this->id_usuario_equipe = $this->Equipe->get('id');
-        $this->status = new Status(1);
+        $this->status = new Status(Status::NOVO);
     }
 
     protected function regraPosInsert()
