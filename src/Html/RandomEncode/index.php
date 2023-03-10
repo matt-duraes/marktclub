@@ -34,4 +34,8 @@ echo jsonEncode([
     'rg' => $Crypt->encode(!empty($rg) ? $rg : rgAleatorio()),
     'login' => $Crypt->encode(!empty($login) ? $login : '01234567890'),
     'senha' => $Crypt->encode(!empty($senha) ? $senha : 'Teste@1324'),
+    'api_link' => env('POSTMAN_API_LINK', ''),
+    'api_client_id' => env('POSTMAN_API_CLIENT_ID', ''),
+    'api_secret_id' => env('POSTMAN_API_SECRET_ID', ''),
+    'api_audience' => env('POSTMAN_API_AUDIENCE', ''),
 ]);
