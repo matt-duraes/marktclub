@@ -102,20 +102,6 @@ Route
             ::view('/documentacao/sair');
     });
 
-Route::nome('usuario_cliente_download')
-    ::controller(App\Controllers\Api\UsuarioClienteController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('download')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
-            ::request([
-                'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente', '!empresa'
-            ])
-            ::post('/usuario-cliente/download');
-    });
-
 Route::nome('publicacao_noticia')
     ::controller(App\Controllers\Api\PublicacaoNoticiaController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -159,6 +145,20 @@ Route::nome('publicacao_noticia')
             ::delete('/publicacao-noticia/{id}');
     });
 
+Route::nome('usuario_cliente_download')
+    ::controller(App\Controllers\Api\UsuarioClienteController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
+            ::request([
+                'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
+                '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente',
+                '!empresa', '!trabalho_empresa', '!trabalho_cargo'
+            ])
+            ::post('/usuario-cliente/download');
+    });
 Route::nome('usuario_cliente')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -170,7 +170,7 @@ Route::nome('usuario_cliente')
             ::request([
                 'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
-                '!origem', '!dependente', '!empresa'
+                '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo'
             ], 'json')
             ::get('/usuario-cliente');
 

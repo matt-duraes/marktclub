@@ -11,7 +11,9 @@ use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class DownloadModel extends ORM
@@ -112,6 +114,11 @@ final class DownloadModel extends ORM
                     $val = [1 => 'titular', 2 => 'dependente', 3 => 'admin'][$val] ?? '';
                 } else if ($ind == 'status') {
                     $val = (new Status($val))->indice();
+                } else if ($ind == 'trabalho_orgao') {
+                    $ind = 'trabalho_empresa';
+                    $val = (new TrabalhoEmpresa($val))->indice();
+                } else if ($ind == 'trabalho_cargo') {
+                    $val = (new TrabalhoCargo($val))->indice();
                 } else {
                     $val = strNull($val);
                 }
@@ -128,7 +135,7 @@ final class DownloadModel extends ORM
             'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
             'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
             'endereco_estado', 'data_criacao', 'data_atualizacao', 'data_acesso', 'tipo', 'federacao', 'grupo',
-            'status', 'data_upload', 'lead', 'origem'
+            'status', 'data_upload', 'lead', 'origem', 'trabalho_empresa', 'trabalho_cargo'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);
@@ -195,6 +202,10 @@ final class DownloadModel extends ORM
         if (array_key_exists('origem', $campo)) {
             unset($campo['origem']);
             $campo['lead_origem'] = true;
+        }
+        if (array_key_exists('trabalho_empresa', $campo)) {
+            unset($campo['trabalho_empresa']);
+            $campo['trabalho_orgao'] = true;
         }
         return array_keys($campo);
     }
