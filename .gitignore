@@ -18,3 +18,5 @@
 ._*
 .ftp*
 .vscode
+.chave_privada
+.chave_publica

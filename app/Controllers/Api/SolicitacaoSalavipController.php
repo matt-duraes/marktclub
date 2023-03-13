@@ -6,7 +6,9 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use System\Interface\ControllerListarInterface;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\SolicitacaoSalavip\SalavipModel;
+use App\Models\Api\SolicitacaoSalavip\DownloadModel;
 
 final class SolicitacaoSalavipController extends Controller implements
     ControllerListarInterface
@@ -28,12 +30,17 @@ final class SolicitacaoSalavipController extends Controller implements
 
     public function postDownload(Request $request)
     {
-        $Voucher = new SalavipModel($request);
+        $Voucher = new DownloadModel($request);
         $dado = $Voucher->download();
+        ppe($dado);
+        $Download = new ArquivoEntity(
+            $dado,
+            $request->usuario
+        );
+        $Download->salvar();
 
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado' => $dado
+        return mensagemSucesso([
+            'id' => $Download->id
         ], status: 201);
     }
 }

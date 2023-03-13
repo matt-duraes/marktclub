@@ -9,3 +9,5 @@ return $Painel
             ->campo('codigo', 'Código')
             ->campo('data', 'Data de validação');
     });
+
+return $Painel;

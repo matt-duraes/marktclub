@@ -783,7 +783,7 @@ Route
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:download'])
-            ::request(['campo', '!ordem', '!empresa', '!data_de', '!data_ate'])
+            ::request(['campo', 'usuario', '!ordem', '!empresa', '!data_de', '!data_ate'])
             ::post('/solicitacao-salavip/download');
     });
 

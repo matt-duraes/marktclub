@@ -2,8 +2,7 @@
 
 use Helpers\CryptHelper;
 
-$chave = jsonDecode(file_get_contents("php://input"), retorno: true)['chave'] ?? '';
-
+$chave = file_get_contents(ROOT . "/.chave_publica");
 $Crypt = new CryptHelper(chavePublica: $chave);
 
 $nome = env('POSTMAN_NOME', '');
@@ -38,4 +37,5 @@ echo jsonEncode([
     'api_client_id' => env('POSTMAN_API_CLIENT_ID', ''),
     'api_secret_id' => env('POSTMAN_API_SECRET_ID', ''),
     'api_audience' => env('POSTMAN_API_AUDIENCE', ''),
+    'api_redirect_uri' => env('POSTMAN_API_REDIRECT_URI', ''),
 ]);
