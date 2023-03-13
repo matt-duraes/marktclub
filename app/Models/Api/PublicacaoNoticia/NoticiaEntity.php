@@ -64,7 +64,7 @@ final class NoticiaEntity extends Entity
     public Status $status;
 
     private int $idEmpresa;
-    private int $idUsuario;
+    private ?int $idUsuario;
 
     public function __construct()
     {

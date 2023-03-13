@@ -163,7 +163,8 @@ final class SolicitacaoSalavipTest extends Tests
             ->loginPainel()
             ->body([
                 'campo' => ['empresa', 'codigo', 'data'],
-                'ordem' => 'mais-novo'
+                'ordem' => 'mais-novo',
+                'usuario' => '8fd85f9f7cc21d6e33399681d6e5fca7'
             ])
             ->post('/solicitacao-salavip/download');
 

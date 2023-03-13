@@ -32,9 +32,15 @@ trait BuscarTrait
             return [];
         }
 
+        $eId = is_string($id) &&
+            (preg_match('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $id) ||
+                preg_match('/^[a-f0-9]{32}$/i', $id));
         $quantidade = mb_strlen($id, 'UTF-8');
-        if (!in_array($quantidade, [32, 36])) {
-            return mensagemStatus(404, localhost: 'Você deve enviar um COD ou UUID para fazer a busca.');
+
+        if (!$eId || !in_array($quantidade, [32, 36])) {
+            mensagemStatus(404, localhost: 'Você deve enviar um COD ou UUID para fazer a busca.');
+        } else if (!array_key_exists('uuid', $this->_campoBanco) && !array_key_exists('cod', $this->_campoBanco)) {
+            mensagemStatus(404, localhost: 'A tabela informada não contem um ID.');
         } else if (array_key_exists('uuid', $this->_campoBanco)) {
             $where = ['uuid', $id];
         } else if (array_key_exists('cod', $this->_campoBanco)) {
@@ -58,6 +64,8 @@ trait BuscarTrait
         ?string $mensagem = null,
         ?string $titulo = null
     ) {
+        $id = preg_match('/^[1-9]{1}[0-9]{0,}$/', $id) ? $id : '';
+
         if (empty($id) && !empty($mensagem)) {
             $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
             mensagemErro($titulo, $mensagem);
@@ -68,6 +76,47 @@ trait BuscarTrait
         }
 
         return $this->buscar(['id', $id], $erro, $mensagem, $titulo);
+    }
+
+    /**
+     * Buscar um registro pelo UUID ou um slug
+     *
+     * @param   int|string      $idSlug     UUID ou slug para a busca
+     * @param   string          $campo      Campo que será usado para a busca no caso do slug
+     * @param   bool            $erro       Caso não encontre o resulta, retorna erro 404
+     * @param   null|string     $mensagem   Mensagem em caso de erro
+     * @param   null|string     $titulo     Título em caso de erro
+     * @throws  Erro\Excecao
+     */
+    public function idSlug(
+        int|string $idSlug,
+        string $campo = 'url',
+        bool $erro = true,
+        ?string $mensagem = null,
+        ?string $titulo = null
+    ) {
+        if (empty($idSlug) && !empty($mensagem)) {
+            $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
+            mensagemErro($titulo, $mensagem);
+        } else if (empty($idSlug) && $erro) {
+            mensagemStatus(404);
+        } else if (empty($idSlug)) {
+            return [];
+        }
+
+        $eId = is_string($idSlug) &&
+            (preg_match('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $idSlug) ||
+                preg_match('/^[a-f0-9]{32}$/i', $idSlug));
+        $quantidade = mb_strlen($idSlug, 'UTF-8');
+
+        $where = [$campo, $idSlug];
+        if ($eId && $quantidade == 32) {
+            $where = ['cod', $idSlug];
+        } else if ($eId && $quantidade == 36) {
+            $where = ['uuid', $idSlug];
+        }
+
+        return $this->buscar($where, $erro, $mensagem, $titulo);
     }
 
     /**

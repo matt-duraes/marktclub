@@ -3,157 +3,162 @@
 return [
     [
         'uuid' => '1e01bddf-6ba5-437c-9dba-003f31988f71',
-        'id_admin_empresa' => 1,
+        'id_admin_empresa' => '1',
         'nome' => 'App de teste',
         'descricao' => 'App para integração',
+        'imagem_app' => NULL,
         'chave_privada' => '-----BEGIN PRIVATE KEY-----
-MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCt4zJRKWJ8sFn6
-VsB65M9/XqLMcdQopukQSc0dlv0Bpiv+bPGDtXWjyTmBcnhKOLDSVGACd+LgypKv
-SVlCcM7sRjd9/fQ43Yykuq1nHP/pL1nX9M2qyDx55xfPGCOjxbdOu5eWrzlQnxlW
-VfEcpMNhiNpVzh1DqRwVStoC5gV0UVdkV8H8e86+FGxbeh1g2aU6ws8ws5e2u24/
-3U8uJRPZRwBDeVrtXC3IKOdsggHNk8gyyes5xqzFsVoGIp5knNPxghzQGmfWjfEz
-5vlTmQm3vGmvfbSd2F98fn7sS4jU36HyjrDmFKyOWisCkphpOmi29NLL7UtxnA+o
-e3Q4tb+zAgMBAAECggEATtg5tHtjYM5FvjEfzZl6THKIttLWNCiafPw5uTUBO4Ix
-aIfVarcYxE81d/CDgoP6CSSg8/2QLgUsRbaodmvYJ2IfP02rMy2h2/+ZKKwJjZ4e
-ysEBkHKCmXOjZA+5+URpPZXpwjVpc5jwUClfznEW9l6rQUTYGBnR1gW+nJnX10lb
-Nej45AJGBzO5whgIEOSBeLTVC3XFUcbG87feBerwyOchcN8e4kvtiow6PX6sD8Lu
-uUirFemu0Y0AYZBty/HieD216sQE7G+e6w6ZeieTRtwvtZE7oyGT0EnOT+6h5Alb
-LkUkNnmhddi+uc09NQtid4HVimDp599gRl1zyvDt4QKBgQDaqLgODCMWqTkDQwO2
-CQqmyXUA7ea5ORHkG6VqJhLQUertHLDzp6nx7c8JXcteSGC7Z9qzZoupFLe+4GXM
-XE0w0JZrbx1DRv+PTjnmJoKMXDUJ6ocMv+oNEJUZoAqLRaYjGkJqJQC8s6a9omFN
-PHNY+7sHNdKC8nxmEE6ApOpxZQKBgQDLlSpYD61wA4sTuTxAdvSAAAP6b4EnnjD1
-mWzps+DcJsUw0jbZLu2/MQBnVFkryXAgFpQRwnEttEAPJo7A5yEYlThYx31EHy3M
-QDAwW1ujPfeWM0t8GaONx33BkMkorgm08xrON89CdVYbGU8/Xr0kLOe88G+5OWal
-25kZ9j0nNwKBgBL3sceeK+kKUuTCim7fB+qB7UFgYbRNjAzCjS3REa66fGuHIp5w
-O+C9pUkFtt993c5D6wfG7HSFVI8dPhdlJlkGrxWwtNQiM4cF3SXmz0pHsV4j1wU3
-HKF3f8eSR3ffWdMPsxUsEo1L9Dnc/R3LEaJ1a7rrY1ByonHkFjs4kxG1AoGBAIEw
-IzLGoBTY6sSVY3q1AerIF74wTBFL/V2dAtQ65ZJOuAuHGm8vrIcLHWp0yDFVHuX9
-7fBnJ1MNcykqGqSnBwWGi78quH8mGfXnNa06DCjHBfo2iswxqOwrj83phv1dk6NU
-Mcpy9/8AXqfLo9Je2D/Ajz4ChaNQnabad4lWDPB5AoGBAJg73P/TMMwq1e7tEdnI
-0fE82F5DjB/MFRWAGGpGhF8Pqz2BDG/UTmoQ9WUCJOlEfvMHR9qfxbgvt+RuCISI
-lfDxJwlx0+g729lJR0WXtC8xlr5bNo8zPIBaMfzYc2bzVSb6u8bVKCfAn8KGAj2R
-hqGqRnn96wKX0AM8Q2ewLZ/h
+MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC1sakflQqRcKs8
+ssPuJZUlRacksw+VnXhCcEwYa3GN2RmeWOccJEGObrR5umITk3Uy/cExUj/o+AiE
+Fqmtq9/IpbCi3w0qgbs8ALilciWoEpQ07e/s8DOaj5Ywt5YbSPqvqq570iUWZ+hi
+C1j8usIYoQVcvBgDJW9rJ5goJ66/y7rDHesiFRcUy1+YhPx9DnhuLM8r7W1CDr75
+JXqm7TJ07B1azGnXuh77vBJKbe7hhpLimS+m4uSjv35uWNQQr3d93M6/UmbGOV2Q
+ySiT0W7ktsDTw6nKkMyV0tWZkJZvuOAT8b3pElBIVh0E1j4fBpzzFP23H9vB+Rvx
+Pm5PqogTAgMBAAECggEAO99bd8jJPrv98XaHEgbYavvU5EcNL6RAaMRQjwt40+Fi
+i8eIAMIByEm6txIwF3tT94WfD/2micKSK9S7/TrR93CCEGmoEQXHCTLDpeFDf2r/
+46E0msNcfeYq+8rDcCJQWWrJLIxHJGcBMK3EmSOBqlQFTFW/I+pGGO1nOnQ5JYIS
+AQpVBtOlFVY+5jU3ZEAWp24JPG7MNh65yVoks68FsJiaY68CNqJNmnkHomHg1UDy
+moY8a5vmIkmHUl+YvbWAjswsSyfQVaH4C0f2bbu4391wIvrgrDkSjz9upbdqerzl
+aWJvrDTrIThzmEMa18TTg0QGDdgRXUdRqtgG6c8wQQKBgQDwgnpQy207ukyqQQmJ
+5JKT7c7XSsBxLuNetBQANbg9/z6vbgqJabFtFVa74szU2yFIFQ9SdgpiaSmgV+M9
+XHoafcu+PMBX79Q/Hl2X7N6BpNxJjWJhZtEpWMniQZ0Bz4H6n1qwxinLOwoiAFwq
+iyAO0oMRKS31iRSwuqq0XCKa2QKBgQDBZW4XyboQ08sj9VRPcV8r3lZ3+AepFe6j
+FApvtFn4fpyn9XcgU86DL5NCQogriCcVd0dN4JD8A98C+otEtLQUcy87Ydoi+OL9
+MYHgt824t5lpL/a+Inu0ZjdNFrrSMaW0x4XTovjvAHO0pLYp1Euz0m8ClLNFm46n
+yRKvo+TuywKBgQDh79D0IYZmO6dVsW9CiOVh7l8HRQPvz7ps9wJrCAwiwaujpd5k
+JFQ3Q3qNWoxN0eU8D/yq3JT4yg3+wVGKDVvvkwlZlzyh330mJmKKHE0SwUroFde7
+5JjNHMnasQTL9KIITLcnpaEReE8WjfwHQ1dEVWInNuYj6Tj0pQdEE+G2UQKBgQCQ
+RZR9lnWBvB3c81Uz9oVi+nhTAurkDoJ5kae/cTF1GS7QdWOq8Bos7z7RvURMBUPy
+1YqR5CcEefbSCAoA9TUp1Eu15ueOE1FyRI55D2UemYiOWcOeT6ctCtvSXFR+HZ9a
+X0XMfdVqplGqvv1N8xuOSDucF0YtdUBUlsGj2YYdRQKBgQDjsfyFMmyVSiP26k5J
+m/ln7Q3lMYjyLgOCZha4hQnYssoic5lRnyRei/b49wTOkn5WijG4W3OkBCuwfcy0
+4njHoKowgcU7I/cEOKiACi/JbvEeS+NNoMwPCdrbxFno6zy4MjW/4601XeqHtac5
+4PovwtLk7HihV7eDcofrLDqnLw==
 -----END PRIVATE KEY-----',
         'chave_publica' => '-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAreMyUSlifLBZ+lbAeuTP
-f16izHHUKKbpEEnNHZb9AaYr/mzxg7V1o8k5gXJ4Sjiw0lRgAnfi4MqSr0lZQnDO
-7EY3ff30ON2MpLqtZxz/6S9Z1/TNqsg8eecXzxgjo8W3TruXlq85UJ8ZVlXxHKTD
-YYjaVc4dQ6kcFUraAuYFdFFXZFfB/HvOvhRsW3odYNmlOsLPMLOXtrtuP91PLiUT
-2UcAQ3la7VwtyCjnbIIBzZPIMsnrOcasxbFaBiKeZJzT8YIc0Bpn1o3xM+b5U5kJ
-t7xpr320ndhffH5+7EuI1N+h8o6w5hSsjlorApKYaTpotvTSy+1LcZwPqHt0OLW/
-swIDAQAB
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtbGpH5UKkXCrPLLD7iWV
+JUWnJLMPlZ14QnBMGGtxjdkZnljnHCRBjm60ebpiE5N1Mv3BMVI/6PgIhBapravf
+yKWwot8NKoG7PAC4pXIlqBKUNO3v7PAzmo+WMLeWG0j6r6que9IlFmfoYgtY/LrC
+GKEFXLwYAyVvayeYKCeuv8u6wx3rIhUXFMtfmIT8fQ54bizPK+1tQg6++SV6pu0y
+dOwdWsxp17oe+7wSSm3u4YaS4pkvpuLko79+bljUEK93fdzOv1JmxjldkMkok9Fu
+5LbA08OpypDMldLVmZCWb7jgE/G96RJQSFYdBNY+Hwac8xT9tx/bwfkb8T5uT6qI
+EwIDAQAB
 -----END PUBLIC KEY-----',
-        'secret_id' => 'kqvFj6176PDRwk2biMUsJtJKtPZEmjzt5kGcdkDgjZHtPqror7qLQeB5s7Cx7COCHpXUWuR8dX83jNQU',
-        'client_id' => '9844092636-LH7YDe6K8wMf4aYwfLSce0aAcbIklFCcaVPbbSYC58nKx4W8yEzY8CyOIsb1OImi0CWRTEm.marktclub.com.br',
+        'secret_id' => '76631-L78AuvFlyaQef6keC9%!iIt3Mk*NRSRbFrVeG$H2XwrH5!vboob%hILjidXC4v12tyj!jO4MWR',
+        'client_id' => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
         'audience' => 'web',
         'chave_privada_fake' => '-----BEGIN PRIVATE KEY-----
-MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCt4zJRKWJ8sFn6
-VsB65M9/XqLMcdQopukQSc0dlv0Bpiv+bPGDtXWjyTmBcnhKOLDSVGACd+LgypKv
-SVlCcM7sRjd9/fQ43Yykuq1nHP/pL1nX9M2qyDx55xfPGCOjxbdOu5eWrzlQnxlW
-VfEcpMNhiNpVzh1DqRwVStoC5gV0UVdkV8H8e86+FGxbeh1g2aU6ws8ws5e2u24/
-3U8uJRPZRwBDeVrtXC3IKOdsggHNk8gyyes5xqzFsVoGIp5knNPxghzQGmfWjfEz
-5vlTmQm3vGmvfbSd2F98fn7sS4jU36HyjrDmFKyOWisCkphpOmi29NLL7UtxnA+o
-e3Q4tb+zAgMBAAECggEATtg5tHtjYM5FvjEfzZl6THKIttLWNCiafPw5uTUBO4Ix
-aIfVarcYxE81d/CDgoP6CSSg8/2QLgUsRbaodmvYJ2IfP02rMy2h2/+ZKKwJjZ4e
-ysEBkHKCmXOjZA+5+URpPZXpwjVpc5jwUClfznEW9l6rQUTYGBnR1gW+nJnX10lb
-Nej45AJGBzO5whgIEOSBeLTVC3XFUcbG87feBerwyOchcN8e4kvtiow6PX6sD8Lu
-uUirFemu0Y0AYZBty/HieD216sQE7G+e6w6ZeieTRtwvtZE7oyGT0EnOT+6h5Alb
-LkUkNnmhddi+uc09NQtid4HVimDp599gRl1zyvDt4QKBgQDaqLgODCMWqTkDQwO2
-CQqmyXUA7ea5ORHkG6VqJhLQUertHLDzp6nx7c8JXcteSGC7Z9qzZoupFLe+4GXM
-XE0w0JZrbx1DRv+PTjnmJoKMXDUJ6ocMv+oNEJUZoAqLRaYjGkJqJQC8s6a9omFN
-PHNY+7sHNdKC8nxmEE6ApOpxZQKBgQDLlSpYD61wA4sTuTxAdvSAAAP6b4EnnjD1
-mWzps+DcJsUw0jbZLu2/MQBnVFkryXAgFpQRwnEttEAPJo7A5yEYlThYx31EHy3M
-QDAwW1ujPfeWM0t8GaONx33BkMkorgm08xrON89CdVYbGU8/Xr0kLOe88G+5OWal
-25kZ9j0nNwKBgBL3sceeK+kKUuTCim7fB+qB7UFgYbRNjAzCjS3REa66fGuHIp5w
-O+C9pUkFtt993c5D6wfG7HSFVI8dPhdlJlkGrxWwtNQiM4cF3SXmz0pHsV4j1wU3
-HKF3f8eSR3ffWdMPsxUsEo1L9Dnc/R3LEaJ1a7rrY1ByonHkFjs4kxG1AoGBAIEw
-IzLGoBTY6sSVY3q1AerIF74wTBFL/V2dAtQ65ZJOuAuHGm8vrIcLHWp0yDFVHuX9
-7fBnJ1MNcykqGqSnBwWGi78quH8mGfXnNa06DCjHBfo2iswxqOwrj83phv1dk6NU
-Mcpy9/8AXqfLo9Je2D/Ajz4ChaNQnabad4lWDPB5AoGBAJg73P/TMMwq1e7tEdnI
-0fE82F5DjB/MFRWAGGpGhF8Pqz2BDG/UTmoQ9WUCJOlEfvMHR9qfxbgvt+RuCISI
-lfDxJwlx0+g729lJR0WXtC8xlr5bNo8zPIBaMfzYc2bzVSb6u8bVKCfAn8KGAj2R
-hqGqRnn96wKX0AM8Q2ewLZ/h
+MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC1sakflQqRcKs8
+ssPuJZUlRacksw+VnXhCcEwYa3GN2RmeWOccJEGObrR5umITk3Uy/cExUj/o+AiE
+Fqmtq9/IpbCi3w0qgbs8ALilciWoEpQ07e/s8DOaj5Ywt5YbSPqvqq570iUWZ+hi
+C1j8usIYoQVcvBgDJW9rJ5goJ66/y7rDHesiFRcUy1+YhPx9DnhuLM8r7W1CDr75
+JXqm7TJ07B1azGnXuh77vBJKbe7hhpLimS+m4uSjv35uWNQQr3d93M6/UmbGOV2Q
+ySiT0W7ktsDTw6nKkMyV0tWZkJZvuOAT8b3pElBIVh0E1j4fBpzzFP23H9vB+Rvx
+Pm5PqogTAgMBAAECggEAO99bd8jJPrv98XaHEgbYavvU5EcNL6RAaMRQjwt40+Fi
+i8eIAMIByEm6txIwF3tT94WfD/2micKSK9S7/TrR93CCEGmoEQXHCTLDpeFDf2r/
+46E0msNcfeYq+8rDcCJQWWrJLIxHJGcBMK3EmSOBqlQFTFW/I+pGGO1nOnQ5JYIS
+AQpVBtOlFVY+5jU3ZEAWp24JPG7MNh65yVoks68FsJiaY68CNqJNmnkHomHg1UDy
+moY8a5vmIkmHUl+YvbWAjswsSyfQVaH4C0f2bbu4391wIvrgrDkSjz9upbdqerzl
+aWJvrDTrIThzmEMa18TTg0QGDdgRXUdRqtgG6c8wQQKBgQDwgnpQy207ukyqQQmJ
+5JKT7c7XSsBxLuNetBQANbg9/z6vbgqJabFtFVa74szU2yFIFQ9SdgpiaSmgV+M9
+XHoafcu+PMBX79Q/Hl2X7N6BpNxJjWJhZtEpWMniQZ0Bz4H6n1qwxinLOwoiAFwq
+iyAO0oMRKS31iRSwuqq0XCKa2QKBgQDBZW4XyboQ08sj9VRPcV8r3lZ3+AepFe6j
+FApvtFn4fpyn9XcgU86DL5NCQogriCcVd0dN4JD8A98C+otEtLQUcy87Ydoi+OL9
+MYHgt824t5lpL/a+Inu0ZjdNFrrSMaW0x4XTovjvAHO0pLYp1Euz0m8ClLNFm46n
+yRKvo+TuywKBgQDh79D0IYZmO6dVsW9CiOVh7l8HRQPvz7ps9wJrCAwiwaujpd5k
+JFQ3Q3qNWoxN0eU8D/yq3JT4yg3+wVGKDVvvkwlZlzyh330mJmKKHE0SwUroFde7
+5JjNHMnasQTL9KIITLcnpaEReE8WjfwHQ1dEVWInNuYj6Tj0pQdEE+G2UQKBgQCQ
+RZR9lnWBvB3c81Uz9oVi+nhTAurkDoJ5kae/cTF1GS7QdWOq8Bos7z7RvURMBUPy
+1YqR5CcEefbSCAoA9TUp1Eu15ueOE1FyRI55D2UemYiOWcOeT6ctCtvSXFR+HZ9a
+X0XMfdVqplGqvv1N8xuOSDucF0YtdUBUlsGj2YYdRQKBgQDjsfyFMmyVSiP26k5J
+m/ln7Q3lMYjyLgOCZha4hQnYssoic5lRnyRei/b49wTOkn5WijG4W3OkBCuwfcy0
+4njHoKowgcU7I/cEOKiACi/JbvEeS+NNoMwPCdrbxFno6zy4MjW/4601XeqHtac5
+4PovwtLk7HihV7eDcofrLDqnLw==
 -----END PRIVATE KEY-----',
         'chave_publica_fake' => '-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAreMyUSlifLBZ+lbAeuTP
-f16izHHUKKbpEEnNHZb9AaYr/mzxg7V1o8k5gXJ4Sjiw0lRgAnfi4MqSr0lZQnDO
-7EY3ff30ON2MpLqtZxz/6S9Z1/TNqsg8eecXzxgjo8W3TruXlq85UJ8ZVlXxHKTD
-YYjaVc4dQ6kcFUraAuYFdFFXZFfB/HvOvhRsW3odYNmlOsLPMLOXtrtuP91PLiUT
-2UcAQ3la7VwtyCjnbIIBzZPIMsnrOcasxbFaBiKeZJzT8YIc0Bpn1o3xM+b5U5kJ
-t7xpr320ndhffH5+7EuI1N+h8o6w5hSsjlorApKYaTpotvTSy+1LcZwPqHt0OLW/
-swIDAQAB
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtbGpH5UKkXCrPLLD7iWV
+JUWnJLMPlZ14QnBMGGtxjdkZnljnHCRBjm60ebpiE5N1Mv3BMVI/6PgIhBapravf
+yKWwot8NKoG7PAC4pXIlqBKUNO3v7PAzmo+WMLeWG0j6r6que9IlFmfoYgtY/LrC
+GKEFXLwYAyVvayeYKCeuv8u6wx3rIhUXFMtfmIT8fQ54bizPK+1tQg6++SV6pu0y
+dOwdWsxp17oe+7wSSm3u4YaS4pkvpuLko79+bljUEK93fdzOv1JmxjldkMkok9Fu
+5LbA08OpypDMldLVmZCWb7jgE/G96RJQSFYdBNY+Hwac8xT9tx/bwfkb8T5uT6qI
+EwIDAQAB
 -----END PUBLIC KEY-----',
-        'secret_id_fake' => 'kqvFj6176PDRwk2biMUsJtJKtPZEmjzt5kGcdkDgjZHtPqror7qLQeB5s7Cx7COCHpXUWuR8dX83jNQU',
-        'client_id_fake' => '9844092636-LH7YDe6K8wMf4aYwfLSce0aAcbIklFCcaVPbbSYC58nKx4W8yEzY8CyOIsb1OImi0CWRTEm.marktclub.com.br',
-        'authorization_code' => 1,
-        'client_credentials' => 1,
-        'refresh_token' => 1,
-        'redirect_uri' => ['localhost.com:4000', 'localhost.com:8000'],
+        'secret_id_fake' => '76631-L78AuvFlyaQef6keC9%!iIt3Mk*NRSRbFrVeG$H2XwrH5!vboob%hILjidXC4v12tyj!jO4MWR',
+        'client_id_fake' => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
+        'authorization_code' => '1',
+        'client_credentials' => '1',
+        'refresh_token' => '1',
+        'redirect_uri' => ["localhost.com:4000", "localhost.com:8000"],
         'scope_permitido' => [
-            'token_credential:salvar',
+            "token_credential:salvar",
 
-            'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
-            'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
-            'usuario_cliente:download',
+            "usuario_cliente:salvar", "usuario_cliente:atualizar", "usuario_cliente:listar",
+            "usuario_cliente:buscar", "usuario_cliente:deletar", "usuario_cliente:deletar_cpf",
+            "usuario_cliente:download",
 
-            'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
+            "usuario_dependente:salvar", "usuario_dependente:listar", "usuario_dependente:deletar",
 
-            'usuario_equipe:salvar', 'usuario_equipe:atualizar', 'usuario_equipe:listar',
-            'usuario_equipe:buscar', 'usuario_equipe:deletar', 'usuario_equipe:validar_senha',
+            "usuario_equipe:salvar", "usuario_equipe:atualizar", "usuario_equipe:listar",
+            "usuario_equipe:buscar", "usuario_equipe:deletar", "usuario_equipe:validar_senha",
 
-            'usuario_lead:salvar', 'usuario_lead:atualizar', 'usuario_lead:listar',
-            'usuario_lead:buscar', 'usuario_lead:deletar',
+            "usuario_lead:salvar", "usuario_lead:atualizar", "usuario_lead:listar", "usuario_lead:buscar",
+            "usuario_lead:deletar",
 
-            'usuario_pagamento:listar', 'usuario_pagamento:buscar', 'usuario_pagamento:salvar',
-            'usuario_pagamento:atualizar',
+            "usuario_pagamento:listar", "usuario_pagamento:buscar", "usuario_pagamento:salvar",
+            "usuario_pagamento:atualizar",
 
-            'usuario_indicacao:salvar', 'usuario_indicacao:atualizar', 'usuario_indicacao:listar',
-            'usuario_indicacao:buscar', 'usuario_indicacao:deletar',
+            "usuario_indicacao:salvar", "usuario_indicacao:atualizar", "usuario_indicacao:listar",
+            "usuario_indicacao:buscar", "usuario_indicacao:deletar",
 
-            'usuario_grupo:salvar', 'usuario_grupo:atualizar', 'usuario_grupo:listar',
-            'usuario_grupo:buscar', 'usuario_grupo:deletar',
+            "usuario_grupo:salvar", "usuario_grupo:atualizar", "usuario_grupo:listar", "usuario_grupo:buscar",
+            "usuario_grupo:deletar",
 
-            'tabela_usuario:salvar', 'tabela_usuario:bloquear',
+            "tabela_usuario:salvar", "tabela_usuario:bloquear",
 
-            'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
-            'solicitacao_salavip:listar', 'solicitacao_salavip:download',
+            "solicitacao_voucher:listar", "solicitacao_voucher:buscar", "solicitacao_salavip:listar",
+            "solicitacao_salavip:download",
 
-            'relatorio_analytics:listar', 'relatorio_analytics:download',
+            "relatorio_analytics:listar", "relatorio_analytics:download",
 
-            'relatorio_acesso:listar',
-            'relatorio_usuario:listar',
-            'relatorio_loja_venda:listar',
+            "relatorio_acesso:listar",
 
-            'login:painel', 'login:api', 'login:clube', 'login:token', 'login:digio',
+            "relatorio_usuario:listar",
 
-            'admin:chave_publica', 'admin:chave_privada',
+            "relatorio_loja_venda:listar",
 
-            'convenio_parceiro:destaque',
+            "login:painel", "login:api", "login:clube", "login:token", "login:digio",
 
-            'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
-            'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
+            "admin:chave_publica", "admin:chave_privada",
 
-            'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
-            'publicacao_noticia:buscar', 'publicacao_noticia:deletar',
+            "convenio_parceiro:destaque",
 
-            'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
+            "parceiro_relatorio:salvar", "parceiro_relatorio:atualizar", "parceiro_relatorio:listar",
+            "parceiro_relatorio:buscar", "parceiro_relatorio:deletar",
 
-            'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',
-            'app_usuario:listar', 'app_usuario:buscar', 'app_usuario:salvar', 'app_usuario:atualizar', 'app_usuario:deletar',
+            "publicacao_noticia:salvar", "publicacao_noticia:atualizar", "publicacao_noticia:listar",
+            "publicacao_noticia:buscar", "publicacao_noticia:deletar",
 
-            'admin_empresa:listar', 'admin_empresa:buscar',
+            "campanha_sorteio:buscar", "campanha_sorteio:sortear", "campanha_sorteio:resultado",
 
-            'log_erro:listar', 'log_erro:buscar', 'log_erro:atualizar',
+            "app_api:listar", "app_api:buscar", "app_api:salvar", "app_api:atualizar", "app_api:deletar",
 
-            'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar'
+            "app_usuario:listar", "app_usuario:buscar", "app_usuario:salvar", "app_usuario:atualizar",
+            "app_usuario:deletar",
+
+            "admin_empresa:listar", "admin_empresa:buscar",
+
+            "log_erro:listar", "log_erro:buscar", "log_erro:atualizar",
+
+            "ponto_cvs:listar", "ponto_cvs:buscar", "ponto_cvs:salvar", "ponto_cvs:atualizar"
         ],
         'campo_permitido' => [
-            'usuario:salvar' => ['nome', 'cpf', 'email_trabalho', 'senha', 'telefone_celular'],
-            'usuario:atualizar' => ['nome', 'cpf', 'email_trabalho', 'senha', 'telefone_celular'],
-            'usuario:buscar' => ['uuid', 'nome', 'cpf'],
-            'usuario:listar' => ['uuid', 'nome', 'cpf'],
+            "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
+            "usuario:atualizar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
+            "usuario:buscar" => ["uuid", "nome", "cpf"],
+            "usuario:listar" => ["uuid", "nome", "cpf"]
         ],
-        'tempo_vida' => 50000,
-        'status' => 1
+        'tempo_vida' => '50000',
+        'status' => '1'
     ]
 ];

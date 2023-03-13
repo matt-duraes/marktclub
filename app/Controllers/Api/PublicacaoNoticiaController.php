@@ -23,7 +23,7 @@ final class PublicacaoNoticiaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Noticia = new NoticiaEntity;
-        $Noticia->id($id);
+        $Noticia->idSlug($id);
 
         return $this->retornoSucesso($Noticia);
     }

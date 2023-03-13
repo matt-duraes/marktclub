@@ -1037,8 +1037,12 @@ if (!function_exists('_criptografarDadoRodar')) {
                 continue;
             } else if (!empty($val) && in_array($ind, $lista)) {
                 $val = $Crypt->encode($val);
+            } else if (is_array($val) && empty($val)) {
+                $val = [];
+            } else if (empty($val)) {
+                $val = '';
             }
-            $retorno[$ind] = !empty($val) ? $val : '';
+            $retorno[$ind] = $val;
         }
         return $retorno;
     }

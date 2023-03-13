@@ -124,7 +124,7 @@ Route::nome('publicacao_noticia')
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
-                'pagina', '!ordem', '!pesquisa', '!data_publicacao_de', '!data_publicacao_ate', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!data_publicacao_de', '!data_publicacao_ate', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
         Route
@@ -783,7 +783,7 @@ Route
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:download'])
-            ::request(['campo', '!ordem', '!empresa', '!data_de', '!data_ate'])
+            ::request(['campo', 'usuario', '!ordem', '!empresa', '!data_de', '!data_ate'])
             ::post('/solicitacao-salavip/download');
     });
 
