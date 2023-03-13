@@ -43,7 +43,7 @@ try {
         ])->get('/painel-notificacao')->object()->dado ?? [];
     $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel)->tratarRetorno($notificacaoNova->lista ?? []);
     $notificacaoNumeroNova = $notificacaoNova->registro->total ?? 0;
-    $notificacaoNumeroNovaVisualizada = $Api->json(['clicado' => 'nao'])->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
+    $notificacaoNumeroNovaVisualizada = $Api->json(['pagina' => 1, 'clicado' => 'nao'])->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
 } catch (\Throwable) {
     $notificacaoNova = [];
     $notificacaoNumeroNova = 0;
