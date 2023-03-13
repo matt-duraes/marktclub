@@ -11,6 +11,7 @@ use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
+use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
@@ -119,6 +120,8 @@ final class DownloadModel extends ORM
                     $val = (new TrabalhoEmpresa($val))->indice();
                 } else if ($ind == 'trabalho_cargo') {
                     $val = (new TrabalhoCargo($val))->indice();
+                } else if ($ind == 'tipo_pagamento') {
+                    $val = (new TipoPagamento($val))->indice();
                 } else {
                     $val = strNull($val);
                 }
@@ -135,7 +138,7 @@ final class DownloadModel extends ORM
             'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
             'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
             'endereco_estado', 'data_criacao', 'data_atualizacao', 'data_acesso', 'tipo', 'federacao', 'grupo',
-            'status', 'data_upload', 'lead', 'origem', 'trabalho_empresa', 'trabalho_cargo'
+            'status', 'data_upload', 'lead', 'origem', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);

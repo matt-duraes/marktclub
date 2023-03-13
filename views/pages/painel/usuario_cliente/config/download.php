@@ -41,6 +41,7 @@ $Painel
     })
     ->bloco('Dados de trabalho', function () use ($Painel) {
         $Painel
+            ->campo('tipo_pagamento', 'Tipo pagamento')
             ->campo('trabalho_empresa', 'Local de trabalho')
             ->campo('trabalho_cargo', 'Cargo');
     })

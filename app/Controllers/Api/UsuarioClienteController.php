@@ -54,7 +54,7 @@ final class UsuarioClienteController extends Controller implements
     {
         $Usuario = new DownloadModel($request);
         $dado = $Usuario->download();
-
+        ppe($dado);
         $Download = new ArquivoEntity(
             $dado,
             $request->usuario

@@ -37,7 +37,7 @@ return [
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'federacao', 'grupo',
                     'matricula', 'data_nascimento', 'genero', 'estado_civil', 'cpf', 'telefone_pessoal',
                     'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload',
-                    'lead', 'origem', 'empresa', 'federacao', 'trabalho_empresa', 'trabalho_cargo'
+                    'lead', 'origem', 'empresa', 'federacao', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
                 ]
             ]
         ],
