@@ -218,8 +218,13 @@ abstract class Tests
             $valor = in_array($ind, $crypt) ? $this->cryptDecode($valor) : $valor;
             $valorComparacao = in_array($ind, $crypt) ? $this->cryptDecode($array[$ind]) : $array[$ind];
             if ($valor != $valorComparacao) {
+                $valor = is_array($valor) ? jsonEncode($valor) : $valor;
+                $valorComparacao = is_array($valorComparacao) ? jsonEncode($valorComparacao) : $valorComparacao;
                 $erro = true;
-                $this->setarRetorno(false, 'O valor do índice <strong>' . $ind . '</strong> deveria ser <strong>' . $valorComparacao . '</strong> mas foi <strong>' . $valor . '</strong>.');
+                $this->setarRetorno(
+                    false,
+                    'O valor do índice <strong>' . $ind . '</strong> deveria ser <strong>' . $valorComparacao . '</strong> mas foi <strong>' . $valor . '</strong>.'
+                );
                 continue;
             }
         }

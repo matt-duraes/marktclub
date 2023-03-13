@@ -32,7 +32,6 @@ final class SolicitacaoSalavipController extends Controller implements
     {
         $Voucher = new DownloadModel($request);
         $dado = $Voucher->download();
-        ppe($dado);
         $Download = new ArquivoEntity(
             $dado,
             $request->usuario

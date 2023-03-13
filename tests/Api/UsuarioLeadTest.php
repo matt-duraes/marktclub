@@ -9,6 +9,7 @@ final class UsuarioLeadTest extends Tests
 {
     private string $idLead;
     private string $cpf;
+    private array $bodySalvar;
 
     public function __construct()
     {
@@ -411,17 +412,17 @@ final class UsuarioLeadTest extends Tests
             'email_trabalho' => $this->email(),
             'email_pessoal' => $this->email(),
             'email_funcional' => $this->email(),
-            'telefone_pessoal' => $this->telefone(),
-            'telefone_trabalho' => $this->telefone(),
-            'cpf' => $this->cpf(),
+            'telefone_pessoal' => strTelefone($this->telefone()),
+            'telefone_trabalho' => strTelefone($this->telefone()),
+            'cpf' => strCpf($this->cpf()),
             'rg' => $this->rg(),
             'siape' => $this->numero(100000, 999999),
             'genero' => $this->genero(),
             'data_nascimento' => $this->dataPassada(),
-            'trabalho_empresa' => 'marktclub',
-            'trabalho_cargo' => 'desenvolvedor',
+            'trabalho_empresa' => 'empresa-teste-01',
+            'trabalho_cargo' => 'cargo',
             'trabalho_data_inicio' => $this->dataPassada(),
-            'endereco_cep' => $this->cep(),
+            'endereco_cep' => strCep($this->cep()),
             'endereco_logradouro' => $this->logradouro(),
             'endereco_numero' => $this->numero(),
             'endereco_complemento' => $this->complemento(),
