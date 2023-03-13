@@ -295,7 +295,8 @@ if (!function_exists('painelLinhaLista')) {
                 }
             }
 
-            $valor = !in_array($acao, ['checked', 'botao', 'contar']) && is_array($valor) ? implode(' ou ', $valor) : $valor;
+            $valor = !in_array($acao, ['checked', 'botao', 'contar', 'array']) && is_array($valor) ? implode(' ou ', $valor) : $valor;
+
             if ($acao == 'contar' && is_array($valor)) {
                 $acao = 'linha';
                 $valor = count($valor);
@@ -345,6 +346,7 @@ if (!function_exists('painelLinhaLista')) {
                 $status = !empty($status) ? 'data-status="' . $status . '"' : '';
                 $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $mensagem . ' ' . $status . '>' . $texto . '</div>';
             } else if ($acao == 'array' && is_array($valor) && $valor) {
+                $valor = array_key_exists(0, $valor) && count($valor) == 1 ? $valor[0] : $valor;
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
                 echo '<div class="array_item">';
                 echo '<div class="array_item_botao bg_hover">';
