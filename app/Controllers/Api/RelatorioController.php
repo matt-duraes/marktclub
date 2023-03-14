@@ -20,6 +20,11 @@ use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
 
 final class RelatorioController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | ANALYTICS DO PAINEL
+    |--------------------------------------------------------------------------
+    */
     public function getLojaVenda(Request $request)
     {
         $Relatorio = new LojaVendaModel($request);
@@ -123,6 +128,11 @@ final class RelatorioController extends Controller
         return mensagemSucesso($Relatorio->listarDado());
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ANALYTICS EXTERNO
+    |--------------------------------------------------------------------------
+    */
     public function getAnalytics(Request $request)
     {
         $Relatorio = new AnalyticsModel($request);
@@ -138,6 +148,11 @@ final class RelatorioController extends Controller
         return new Response(download: $arquivo);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
     private function validarData(Request $request)
     {
         $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');

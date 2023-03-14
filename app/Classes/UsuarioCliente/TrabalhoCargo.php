@@ -9,7 +9,7 @@ final class TrabalhoCargo extends Status
     const EMPRESA = [
         'geral' => [
             'lista' => [
-                'cargo' => 'Cargo'
+                'geral' => 'Geral'
             ],
             'numero' => [2000]
         ],

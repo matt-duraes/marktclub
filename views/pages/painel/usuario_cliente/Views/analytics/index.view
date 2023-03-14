@@ -1,4 +1,4 @@
-@ if( painelPermissao('usuario_dependente_index', erro: false) ):
+@ if( painelPermissao('usuario_cliente_analytics', erro: false) ):
 <div class="bloco_fieldset" id="bloco_analytics">
     <h2>Analytics</h2>
     <div class="loading zero">Buscando dados</div>
