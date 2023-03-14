@@ -28,6 +28,7 @@ final class DemandaController extends Controller
     public function lista()
     {
         return view('painel.demanda.index', [
+            'app' => 'demanda',
             'nova' => $this->buscarDemanda('nova', 'mais-novo'),
             'liberada' => $this->buscarDemanda('liberada', 'ordem'),
             'andamento' => $this->buscarDemanda('andamento', 'mais-novo'),

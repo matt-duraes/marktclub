@@ -119,6 +119,8 @@ EwIDAQAB
             "solicitacao_voucher:listar", "solicitacao_voucher:buscar", "solicitacao_salavip:listar",
             "solicitacao_salavip:download",
 
+            "voucher:salvar", "voucher:verificar", "voucher:validar",
+
             "relatorio_analytics:listar", "relatorio_analytics:download",
 
             "relatorio_acesso:listar",
