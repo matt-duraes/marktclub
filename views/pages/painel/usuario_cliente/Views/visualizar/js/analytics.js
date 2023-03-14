@@ -140,7 +140,16 @@ window.addEventListener('load', () => {
     | BUSCAR TODOS OS DADOS
     |--------------------------------------------------------------------------
     */
+    let paginaAtual = 1;
+    let deAtual, ateAtual;
+
     botaoAnalyticsAbrir.addEventListener('click', () => {
+        deAtual = undefined;
+        ateAtual = undefined;
+        paginaAtual = 1;
+
+        botaoCarregarMais.classList.add('display_none');
+        blocoListaGeral.innerHTML = '';
         buscarAnalytics(blocoListaGeral, 1, 50);
     });
     const abrirBlocoVisualizarAnalytics = () => {
@@ -167,8 +176,6 @@ window.addEventListener('load', () => {
         }, 300);
     };
 
-    let paginaAtual = 1;
-    let deAtual, ateAtual;
     botaoCarregarMais.addEventListener('click', () => {
         paginaAtual++;
         botaoCarregarMais.classList.add('display_none');
