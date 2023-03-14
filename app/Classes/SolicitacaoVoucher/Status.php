@@ -8,6 +8,7 @@ final class Status extends StatusStatus
 {
     const CRIADO = 'criado';
     const VALIDADO = 'validado';
+    const VENCIDO = 'vencido';
 
     public function __construct(
         protected null|string|int $valor = null
@@ -16,10 +17,12 @@ final class Status extends StatusStatus
             lista: [
                 self::CRIADO => 'Criado',
                 self::VALIDADO => 'Validado',
+                self::VENCIDO => 'vencido',
             ],
             cor: [
                 self::CRIADO => 'azul',
-                self::VALIDADO => 'verde'
+                self::VALIDADO => 'verde',
+                self::VENCIDO => 'vermelho'
             ]
         );
     }
