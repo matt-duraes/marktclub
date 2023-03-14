@@ -4,7 +4,7 @@ return [
     [
         'id_admin_empresa' => 1,
         'permissao' => json_encode([
-            'usuario_cliente' => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download', 'empresa']],
+            'usuario_cliente' => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download', 'empresa', 'analytics']],
             'usuario_grupo' => ['titulo' => 'Grupo', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'usuario_dependente' => ['titulo' => 'Dependente', 'acao' => ['index', 'add', 'deletar']],
             'usuario_indicacao' => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
@@ -29,7 +29,7 @@ return [
                     'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_estado', 'endereco_cidade', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
                     'data_criacao_ate', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
-                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao'
+                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao', 'analytics'
                 ],
                 'download' => [
                     'status', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',
