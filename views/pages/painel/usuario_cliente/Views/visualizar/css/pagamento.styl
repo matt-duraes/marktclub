@@ -1,6 +1,3 @@
-@template "painel"
-@resource "painel/app_geral_visualizar"
-
 #bloco_pagamento_visualizar
     width: 100%
     height: 100%
@@ -83,77 +80,6 @@
         height: 45px
         line-height: 45px
         margin-top: 20px
-        bgDegradeVerde()
-        border-radius: 30px
-        color: #fff
-        font-size: $textoFontSize
-        cursor: pointer
-        text-align: center
-
-#bloco_dependente
-    .botao_link
-        margin-bottom: 20px
-    .dependente.lista_dado
-        width: calc(100% - 40px)
-        position: relative
-        padding-bottom: 10px
-        margin-left: 20px
-        margin-bottom: 10px
-        border-bottom: 1px solid #DDD
-        padding-right: 40px
-        justify-content: center
-        &:last-child
-            border-bottom: none
-            padding-bottom: 0
-            margin-bottom: 0
-    .dependente.lista_dado .botao_deletar
-        width: 30px
-        height: 30px
-        display: flex
-        align-items: center
-        justify-content: center
-        position: absolute
-        right: 10px
-        fill: #CCC
-        cursor: pointer
-        border-radius: 50%
-        &:hover
-            background: #EEE
-            fill: #666
-
-#bloco_dependente_add
-    width: 100%
-    height: 100%
-    position: fixed
-    top: 0
-    left: 0
-    z-index: 10000
-    background: rgba(0,0,0,.7)
-    display: none
-    align-items: center
-    justify-content: center
-    opacity: 0
-    transition: opacity .3s ease-out
-    &.abrir
-        opacity: 1
-
-#bloco_dependente_add .conteudo
-    max-width: 500px
-    p
-        width: 100%
-        texto()
-        margin-bottom: 20px
-    form
-        display: flex
-        flex-direction: column
-        align-items: flex-end
-    form.form_geral .bloco_input
-        margin-top: 10px
-    form .botao
-        width: 100px
-        height: 45px
-        line-height: 45px
-        margin-top: 10px
         bgDegradeVerde()
         border-radius: 30px
         color: #fff

@@ -1,0 +1,9 @@
+@ if( painelPermissao('usuario_dependente_index', erro: false) ):
+<div class="bloco_fieldset" id="bloco_analytics">
+    <h2>Analytics</h2>
+    <div class="loading zero">Buscando dados</div>
+    <div class="lista_dado">
+        <div class="botao_link display_none" id="botao_analytics_abrir">Ver mais</div>
+    </div>
+</div>
+@ endif;
