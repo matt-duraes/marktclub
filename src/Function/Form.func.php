@@ -503,7 +503,7 @@ if (!function_exists('formInput')) {
             $nameSecundario = $name[1];
             $name = $name[0];
 
-            $inputSecundario = '<input class="input_separador_3 input_geral' . implode(' ', $classInputSecundario) . '" type="' . $typeSecundario . '" name="' . $nameSecundario . '" id="input_' . $nameSecundario . '" ' . implode(' ', $attrInputSecundario) . ' >';
+            $inputSecundario = '<input class="input_separador_3 input_geral ' . implode(' ', $classInputSecundario) . '" type="' . $typeSecundario . '" name="' . $nameSecundario . '" id="input_' . $nameSecundario . '" ' . implode(' ', $attrInputSecundario) . ' >';
 
             $classInput[] = 'input_separador_1';
 
@@ -1148,7 +1148,7 @@ if (!function_exists('formData')) {
         string | array $name,
         string $label = '',
         $value = '',
-        string | array $placeholder = '00/00/0000',
+        null| string | array $placeholder = null,
         string $class = '',
         string $id = '',
         string $html = '',
@@ -1165,7 +1165,13 @@ if (!function_exists('formData')) {
         string $separador = ''
     ): string {
         $attr = array_merge(['data-calendario' => 'data'], $attr);
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, '00/00/0000', $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador);
+
+        $mascara = is_array($name) ? ['00/00/0000', '00/00/0000'] : '00/00/0000';
+        if (is_null($placeholder)) {
+            $placeholder = is_array($name) ? ['00/00/0000', '00/00/0000'] : '00/00/0000';
+        }
+
+        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, $mascara, $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador);
     }
 }
 if (!function_exists('formDataHora')) {
