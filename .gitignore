@@ -20,3 +20,5 @@
 .vscode
 .chave_privada
 .chave_publica
+/.idea
+composer.phar
