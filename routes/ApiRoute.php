@@ -703,27 +703,6 @@ Route
             ::get('/solicitacao-voucher/{id}');
     });
 
-Route::nome('voucher')
-    ::controller(App\Controllers\Api\VoucherController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['voucher:salvar'])
-            ::request(['url', 'tipo', 'usuario'])
-            ::post('/voucher');
-        Route
-            ::nome('verificar')
-            ::middleware(TokenMiddleware::class, 'scope', ['voucher:verificar'])
-            ::request(['codigo'])
-            ::post('/voucher/verificar');
-        Route
-            ::nome('validar')
-            ::middleware(TokenMiddleware::class, 'scope', ['voucher:validar'])
-            ::request(['codigo'])
-            ::post('/voucher/validar');
-    });
-
 Route
     ::nome('parceiro_relatorio')
     ::controller(App\Controllers\Api\ParceiroRelatorioController::class)

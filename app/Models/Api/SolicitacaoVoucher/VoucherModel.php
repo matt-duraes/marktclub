@@ -6,7 +6,9 @@ use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Modules\Data;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
@@ -16,6 +18,9 @@ final class VoucherModel extends ORM
 {
     use ValidarEmpresaTrait;
     use PaginaTrait;
+    use QuantidadeTrait;
+    use OrdemTrait;
+
 
     protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
     private int $idEmpresa;
@@ -25,17 +30,18 @@ final class VoucherModel extends ORM
     ) {
         parent::__construct();
         $this->validarEmpresa('empresa');
+        $this->validarRequest();
     }
 
     public function listarDados(): stdClass
     {
-        $this->validarRequest();
         $dado = $this
             ->campo(['cod', 'tipo', 'data_criacao', 'status'])
-            ->pagina($this->pegarPagina(), 50)
-            ->where($this->pegarWhere())
-            ->order(new Ordem($this->request->ordem))
-            ->tabela('parceiro_novo')->join('cod', 'vinculo')->campo(['titulo'])
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->where($this->pegarWhere(), obrigatorio: false)
+            ->order($this->pegarOrdem(new Ordem))
+            ->tabela(TABELA_PARCEIRO_NOVO)->join('cod', 'vinculo')->campo(['titulo'])
+            ->tabela(TABELA_EMPRESA_NOVO)->join('id', 'empresa')->campo(['nome_fantasia', 'cod'], 'empresa')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -73,6 +79,10 @@ final class VoucherModel extends ORM
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->cod,
+                'empresa' => [
+                    'id' => $r->empresa_cod,
+                    'nome_fantasia' => $r->empresa_nome_fantasia
+                ],
                 'parceiro' => $r->titulo,
                 'tipo' => $Tipo->indice($r->tipo),
                 'data_criacao' => dataHoraBr($r->data_criacao),
@@ -84,9 +94,7 @@ final class VoucherModel extends ORM
 
     protected function pegarWhere(): array
     {
-        $where = [
-            ['empresa', $this->idEmpresa]
-        ];
+        $where = $this->_wherePadrao;
 
         $Status = new Status($this->request->status);
         if ($Status->valido()) {

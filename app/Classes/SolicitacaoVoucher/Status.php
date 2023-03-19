@@ -17,7 +17,7 @@ final class Status extends StatusStatus
             lista: [
                 self::CRIADO => 'Criado',
                 self::VALIDADO => 'Validado',
-                self::VENCIDO => 'vencido',
+                self::VENCIDO => 'Vencido',
             ],
             cor: [
                 self::CRIADO => 'azul',

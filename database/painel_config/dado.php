@@ -16,8 +16,8 @@ return [
             'relatorio_usuario' => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
             'relatorio_loja_venda' => ['titulo' => 'Relatório de vendas', 'permissao' => ['relatorio_loja_venda_index' => 'Relatório de vendas', 'relatorio_loja_venda_empresa' => 'Todas as empresas']],
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Cadastrar usuário', 'tabela_usuario_bloquear' => 'Bloquear usuário']],
-            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'empresa']],
-            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download', 'empresa']],
+            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'download', 'empresa']],
+            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
             'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_quadro' => 'Quadro de demanda']],
             'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
         ]),

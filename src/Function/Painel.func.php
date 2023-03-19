@@ -257,6 +257,7 @@ if (!function_exists('painelLinhaLista')) {
             if (is_array($campo) && $campo) {
                 $apenasUm = false;
                 foreach ($campo as $val) {
+                    $val = str_replace('.', '->', $val);
                     if (str_starts_with($val, '!')) {
                         $val = preg_replace('/^\!/', '', $val);
                         $apenasUm = true;
@@ -285,7 +286,7 @@ if (!function_exists('painelLinhaLista')) {
                     }
                 }
             } else if (!empty($campo)) {
-                $campoInicial = explode('->', $campo)[0];
+                $campoInicial = explode('->', str_replace('.', '->', $campo))[0];
                 if (!object_key_exists($campoInicial, $dado)) {
                     mensagemStatus(500, null, 'Não foi encontrado o indice ' . $campoInicial);
                 }
@@ -538,6 +539,7 @@ if (!function_exists('painelValor')) {
         if (vazio($lista)) {
             return '';
         }
+        $campo = str_replace('.', '->', $campo);
         if (!str_starts_with($campo, '->')) {
             $campo = '->' . $campo;
         }
