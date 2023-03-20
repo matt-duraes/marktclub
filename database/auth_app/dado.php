@@ -117,6 +117,8 @@ EwIDAQAB
             "tabela_usuario:salvar", "tabela_usuario:bloquear",
 
             "solicitacao_voucher:listar", "solicitacao_voucher:buscar", "solicitacao_salavip:listar",
+            "solicitacao_voucher:download",
+
             "solicitacao_salavip:download",
 
             "voucher:salvar", "voucher:verificar", "voucher:validar",

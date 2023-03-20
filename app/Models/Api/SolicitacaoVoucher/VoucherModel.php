@@ -13,6 +13,8 @@ use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\SolicitacaoVoucher\Trait\WhereTrait;
+use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
 
 final class VoucherModel extends ORM
 {
@@ -20,6 +22,8 @@ final class VoucherModel extends ORM
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarRequestTrait;
+    use WhereTrait;
 
 
     protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
@@ -47,25 +51,6 @@ final class VoucherModel extends ORM
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
-    private function validarRequest()
-    {
-        $dataCriacaoDe = new Data($this->request->data_criacao_de);
-        if (!$dataCriacaoDe->vazio() && (!$dataCriacaoDe->valido() || !$dataCriacaoDe->eDate())) {
-            mensagemErro('Campo inválido!', 'A data de criação de início não está no formato válido.');
-        }
-        $dataCriacaoAte = new Data($this->request->data_criacao_ate);
-        if (!$dataCriacaoAte->vazio() && (!$dataCriacaoAte->valido() || !$dataCriacaoAte->eDate())) {
-            mensagemErro('Campo inválido!', 'A data de criação final não está no formato válido.');
-        }
-        $Status = new Status($this->request->status);
-        if (!$Status->vazio() && !$Status->valido()) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
-        $Ordem = new Ordem($this->request->ordem);
-        if (!$Ordem->vazio() && !$Ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A ordem informada não é válida.');
-        }
-    }
 
     protected function montarRetorno(array $dado): array
     {
@@ -90,31 +75,5 @@ final class VoucherModel extends ORM
             ];
         }
         return $retorno;
-    }
-
-    protected function pegarWhere(): array
-    {
-        $where = $this->_wherePadrao;
-
-        $Status = new Status($this->request->status);
-        if ($Status->valido()) {
-            $where[] = ['status', $Status->numero()];
-        }
-
-        $Tipo = new Tipo($this->request->tipo);
-        if ($Tipo->valido()) {
-            $where[] = ['tipo', $Tipo->numero()];
-        }
-
-        $dataCriacaoDe = $this->request->data_criacao_de;
-        if (validarDataDate($dataCriacaoDe)) {
-            $where[] = ['data_criacao', '>=', dataBanco($dataCriacaoDe)];
-        }
-
-        $dataCriacaoAte = $this->request->data_criacao_ate;
-        if (validarDataDate($dataCriacaoAte)) {
-            $where[] = ['data_criacao', '<=', dataBanco($dataCriacaoAte) . ' 23:59:59'];
-        }
-        return $where;
     }
 }

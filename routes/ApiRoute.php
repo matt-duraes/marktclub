@@ -687,23 +687,6 @@ Route
     });
 
 Route
-    ::nome('solicitacao_voucher')
-    ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
-            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
-            ::get('/solicitacao-voucher');
-
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
-            ::get('/solicitacao-voucher/{id}');
-    });
-
-Route
     ::nome('parceiro_relatorio')
     ::controller(App\Controllers\Api\ParceiroRelatorioController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -768,6 +751,33 @@ Route
             ::nome('buscar')
             ::request(['!email'], 'json')
             ::get('/convenio-parceiro/{url}');
+    });
+
+Route
+    ::nome('solicitacao_voucher')
+    ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
+            ::get('/solicitacao-voucher/{id}');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
+            ::request([
+                'pagina', '!ordem', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
+                '!data_validacao_de', '!data_validacao_ate'
+            ], 'json')
+            ::get('/solicitacao-voucher');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:download'])
+            ::request([
+                'campo', 'usuario', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
+                '!data_validacao_de', '!data_validacao_ate'
+            ])
+            ::post('/solicitacao-voucher/download');
     });
 
 Route

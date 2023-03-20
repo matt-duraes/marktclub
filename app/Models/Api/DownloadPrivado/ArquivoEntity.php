@@ -14,7 +14,7 @@ final class ArquivoEntity extends Entity
 {
     protected string $_tabela = TABELA_SISTEMA_DOWNLOAD;
     protected array $_insert = ['id_admin_empresa', 'id_usuario_equipe', 'arquivo'];
-    protected array $_update = ['status'];
+    protected array $_salvar = ['status'];
     protected array $_buscar = ['id_usuario_equipe', 'arquivo', 'status'];
 
     protected int $id_admin_empresa;
