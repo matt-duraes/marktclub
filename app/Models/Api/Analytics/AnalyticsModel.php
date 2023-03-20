@@ -88,7 +88,7 @@ final class AnalyticsModel extends ORM
             return;
         }
 
-        $Cliente = new ClienteEntity();
+        $Cliente = new ClienteEntity(validarToken: false);
         $Cliente->id($usuario, mensagem: 'Usuario buscado não foi encontrado.');
         $this->idUsuario = $Cliente->get('id');
     }
