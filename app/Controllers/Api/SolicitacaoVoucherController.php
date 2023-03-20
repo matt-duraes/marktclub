@@ -18,17 +18,19 @@ final class SolicitacaoVoucherController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-        $Voucher = new VoucherModel($request);
-        $dado = $Voucher->listarDados();
+        return mensagemSucesso([]);
 
-        if (existeErro($dado, 'lista')) {
-            mensagemErro(
-                $dado->erro->titulo ?? 'Erro!',
-                $dado->erro->mensagem ?? 'Ocorreu um erro ao listar os vouchers.',
-            );
-        }
+        // $Voucher = new VoucherModel($request);
+        // $dado = $Voucher->listarDados();
 
-        return mensagemSucesso($dado);
+        // if (existeErro($dado, 'lista')) {
+        //     mensagemErro(
+        //         $dado->erro->titulo ?? 'Erro!',
+        //         $dado->erro->mensagem ?? 'Ocorreu um erro ao listar os vouchers.',
+        //     );
+        // }
+
+        // return mensagemSucesso($dado);
     }
 
     public function postDownload(Request $request)
