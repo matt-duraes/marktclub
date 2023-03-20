@@ -58,7 +58,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de criação final não está no formato válido.');
     }
-    public function naoPodeBuscarComUmaDataVencimentoDeInvalidaTest()
+    public function naoPodeBuscarComUmaDataValidacaoDeInvalidaTest()
     {
         $this->api('solicitacao_voucher:listar');
         $this
@@ -66,16 +66,16 @@ final class SolicitacaoVoucherTest extends Tests
             ->loginPainel()
             ->json([
                 'pagina' => 1,
-                'data_vencimento_de' => '01/01/2000',
+                'data_validacao_de' => '01/01/2000',
             ])
             ->get('/solicitacao-voucher');
 
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'A data de criação de início não está no formato válido.');
+            ->checkIndiceIgual('erro.mensagem', 'A data de validação de início não está no formato válido.');
     }
-    public function naoPodeBuscarComUmaDataVencimentoAteInvalidaTest()
+    public function naoPodeBuscarComUmaDataValidacaoAteInvalidaTest()
     {
         $this->api('solicitacao_voucher:listar');
         $this
@@ -83,14 +83,14 @@ final class SolicitacaoVoucherTest extends Tests
             ->loginPainel()
             ->json([
                 'pagina' => 1,
-                'data_vencimento_ate' => '01/01/2000',
+                'data_validacao_ate' => '01/01/2000',
             ])
             ->get('/solicitacao-voucher');
 
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'A data de criação final não está no formato válido.');
+            ->checkIndiceIgual('erro.mensagem', 'A data de validação final não está no formato válido.');
     }
     public function naoPodeBuscarStatusInvalidoTest()
     {
