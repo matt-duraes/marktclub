@@ -42,7 +42,10 @@ final class AnalyticsModel extends ORM
         ])->where($this->montarWhere());
 
         if ($this->request->existe('pagina')) {
-            $dado = $dado->pagina($this->pegarPagina(), $this->pegarQuantidade())->read();
+            $dado = $dado
+                ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+                ->order('id', 'DESC')
+                ->read();
             $dado->lista = $this->montarRetorno($dado->lista ?? []);
             return $dado;
         }
