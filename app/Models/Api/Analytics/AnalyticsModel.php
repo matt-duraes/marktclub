@@ -117,7 +117,7 @@ final class AnalyticsModel extends ORM
 
     private function montarWhere()
     {
-        $where = $this->idEmpresa != 1 ? [] : $this->_wherePadrao;
+        $where = $this->idEmpresa == 1 ? [] : $this->_wherePadrao;
         if (!empty($this->idUsuario)) {
             $where[] = ['usuario', $this->idUsuario];
         }

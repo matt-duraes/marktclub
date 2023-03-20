@@ -6,22 +6,16 @@ use ORM\ORM;
 use Http\Request;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class DependenteModel extends ORM
 {
-    use ValidarEmpresaTrait;
-
     protected string $_tabela = TABELA_USUARIO_NOVO;
-
-    private int $idEmpresa;
 
     public function __construct(
         private ?Request $request = null
     ) {
         parent::__construct();
-        $this->validarEmpresa('empresa');
     }
 
     /*
@@ -44,7 +38,7 @@ final class DependenteModel extends ORM
 
     private function pegarTitular(): int|bool
     {
-        $Cliente = new ClienteEntity();
+        $Cliente = new ClienteEntity(validarToken: false);
         $Cliente->buscar([
             ['cod', $this->request->usuario],
             ['status', 'in', Helper::STATUS_LIBERADO]
