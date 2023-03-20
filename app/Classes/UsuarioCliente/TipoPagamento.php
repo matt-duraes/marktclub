@@ -23,6 +23,7 @@ final class TipoPagamento extends Status
                 'boleto' => 'Boleto',
                 'debito-conta' => 'Débito em conta',
                 'desfiliado' => 'Desfiliado',
+                'deposito-bancario' => 'Depósito Bancário'
             ],
             'numero' => [1, 2, 3, 4, 5]
         ]

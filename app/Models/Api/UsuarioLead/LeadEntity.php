@@ -120,6 +120,22 @@ final class LeadEntity extends Entity
         ) {
             $this->contrato_siape = $this->trabalho_empresa->numero() . $this->siape . '341201';
         }
+        $this->montarDependente();
+    }
+    private function montarDependente()
+    {
+        if (empty($this->lista_dependente)) {
+            return;
+        }
+        foreach (array_keys($this->lista_dependente) as $ind) {
+            if (
+                !array_key_exists($ind, $this->lista_dependente) ||
+                !array_key_exists('genero', $this->lista_dependente[$ind])
+            ) {
+                continue;
+            }
+            $this->lista_dependente[$ind]['genero'] = (new Genero($this->lista_dependente[$ind]['genero']))->valor();
+        }
     }
 
     protected function regraInsert()

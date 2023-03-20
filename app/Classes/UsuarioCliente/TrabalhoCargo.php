@@ -9,7 +9,7 @@ final class TrabalhoCargo extends Status
     const EMPRESA = [
         'geral' => [
             'lista' => [
-                'cargo' => 'Cargo'
+                'geral' => 'Geral'
             ],
             'numero' => [2000]
         ],
@@ -29,8 +29,9 @@ final class TrabalhoCargo extends Status
                 'tecnico-regulacao' => 'Técnico em Regulação',
                 'especialista-recuros-minerais' => 'Especialista em Recursos Minerais',
                 'tecnico-atividades-mineracao' => 'Técnico em Atividades de Mineração',
+                'colaborador' => 'Colaborador UNAREG',
             ],
-            'numero' => [1, 2, 3, 4, 5, 6, 7, 8]
+            'numero' => [1, 2, 3, 4, 5, 6, 7, 8, 9]
         ]
     ];
 

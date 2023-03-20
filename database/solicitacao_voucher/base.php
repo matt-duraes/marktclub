@@ -13,5 +13,6 @@ return (new \DataBase\DataBase())
     ->cpf('documento_dependente')->null()
     ->dataCriacao()
     ->dataAtualizacao()
+    ->date('data_vencimento')->null()
     ->datetime('data_validacao')->null()
     ->status();

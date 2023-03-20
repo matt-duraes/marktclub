@@ -28,9 +28,14 @@ final class ErrorEntity extends Entity
         public ?string $status_http = null,
         public ?string $arquivo = null,
         public ?string $linha = null,
-        public ?string $trace = null,
+        public null|string|array $trace = null,
     ) {
         parent::__construct();
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->trace = jsonDecode($this->trace, true, true);
     }
 
     protected function regraInsert()

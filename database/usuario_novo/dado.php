@@ -5,7 +5,7 @@ return [
         'cod' => '5595203c-f7b1-4211-9981-bf09eb236b35',
         'empresa' => 1,
         'tipo' => 1,
-        'nome' => nomeAleatorio(),
+        'nome' => nomeCompletoAleatorio(),
         'documento' => cpfAleatorio(),
         'salt' => password('Teste@1324'),
         'status' => 1
@@ -14,7 +14,7 @@ return [
         'cod' => uuid(),
         'empresa' => 1,
         'tipo' => 1,
-        'nome' => nomeAleatorio(),
+        'nome' => nomeCompletoAleatorio(),
         'documento' => cpfAleatorio(),
         'salt' => password('Teste@1324'),
         'status' => 1
@@ -23,7 +23,7 @@ return [
         'cod' => uuid(),
         'empresa' => 1,
         'tipo' => 1,
-        'nome' => nomeAleatorio(),
+        'nome' => nomeCompletoAleatorio(),
         'documento' => cpfAleatorio(),
         'salt' => password('Teste@1324'),
         'status' => 1
@@ -33,7 +33,7 @@ return [
         'cod' => uuid(),
         'empresa' => 198,
         'tipo' => 1,
-        'nome' => nomeAleatorio(),
+        'nome' => nomeCompletoAleatorio(),
         'email_trabalho' => emailAleatorio(),
         'telefone_fixo' => telefoneAleatorio(),
         'documento' => 67783406815,

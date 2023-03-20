@@ -25,9 +25,14 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('siape', 'SIAPE')
             ->linha('trabalho_empresa', 'Local de trabalho')
             ->linha('trabalho_cargo', 'Cargo')
-            ->linha('trabalho_data_inicio', 'Data exercício')
+            ->data('trabalho_data_inicio', 'Data exercício')
             ->linha('contrato_siape', 'Contrato')
             ->cnpj('cnpj_trabalho', 'CNPJ');
+    });
+
+    $Painel->bloco(titulo: 'Dependente', callback: function () use ($Painel) {
+        $Painel
+            ->array('lista_dependente', 'Dependentes');
     });
 
     $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {

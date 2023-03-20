@@ -102,20 +102,6 @@ Route
             ::view('/documentacao/sair');
     });
 
-Route::nome('usuario_cliente_download')
-    ::controller(App\Controllers\Api\UsuarioClienteController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('download')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
-            ::request([
-                'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload', '!data_criacao_de',
-                '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente', '!empresa'
-            ])
-            ::post('/usuario-cliente/download');
-    });
-
 Route::nome('publicacao_noticia')
     ::controller(App\Controllers\Api\PublicacaoNoticiaController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -159,6 +145,20 @@ Route::nome('publicacao_noticia')
             ::delete('/publicacao-noticia/{id}');
     });
 
+Route::nome('usuario_cliente_download')
+    ::controller(App\Controllers\Api\UsuarioClienteController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
+            ::request([
+                'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
+                '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente',
+                '!empresa', '!trabalho_empresa', '!trabalho_cargo'
+            ])
+            ::post('/usuario-cliente/download');
+    });
 Route::nome('usuario_cliente')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -170,7 +170,7 @@ Route::nome('usuario_cliente')
             ::request([
                 'pagina', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
-                '!origem', '!dependente', '!empresa'
+                '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo'
             ], 'json')
             ::get('/usuario-cliente');
 
@@ -527,7 +527,7 @@ Route::nome('relatorio')
         Route
             ::nome('analytics')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:listar'])
-            ::request(['!usuario', '!de', '!ate'], 'json')
+            ::request(['!pagina', '!quantidade', '!usuario', '!de', '!ate'], 'json')
             ::request(['!de', '!ate'], 'get')
             ::get('/relatorio/analytics');
         Route
@@ -687,23 +687,6 @@ Route
     });
 
 Route
-    ::nome('solicitacao_voucher')
-    ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
-            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
-            ::get('/solicitacao-voucher');
-
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
-            ::get('/solicitacao-voucher/{id}');
-    });
-
-Route
     ::nome('parceiro_relatorio')
     ::controller(App\Controllers\Api\ParceiroRelatorioController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -768,6 +751,33 @@ Route
             ::nome('buscar')
             ::request(['!email'], 'json')
             ::get('/convenio-parceiro/{url}');
+    });
+
+Route
+    ::nome('solicitacao_voucher')
+    ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
+            ::get('/solicitacao-voucher/{id}');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
+            ::request([
+                'pagina', '!ordem', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
+                '!data_validacao_de', '!data_validacao_ate'
+            ], 'json')
+            ::get('/solicitacao-voucher');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:download'])
+            ::request([
+                'campo', 'usuario', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
+                '!data_validacao_de', '!data_validacao_ate'
+            ])
+            ::post('/solicitacao-voucher/download');
     });
 
 Route

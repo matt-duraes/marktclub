@@ -29,14 +29,15 @@ window.addEventListener('load', () => {
             body,
         });
 
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
+        const loading = blocoDependente.querySelector('.loading');
+        loading.parentNode.removeChild(loading);
 
-        if (json.status == undefined || json.status != 'sucesso') {
+        const json = await respostaJson(resposta, 'Erro ao buscar dependentes.', false);
+        if (false === json) {
+            blocoDependente.insertAdjacentHTML(
+                'beforeend',
+                `<div class="zero dependente_zero">Erro ao buscar dependentes</div>`
+            );
             return;
         }
         if (json.dado.length == 0) {

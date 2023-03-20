@@ -11,6 +11,7 @@ final class LoginApiTest extends Tests
 {
     private string $cpf;
     private array $usuario;
+    private array $bodySalvar;
     public function __construct()
     {
         parent::__construct();

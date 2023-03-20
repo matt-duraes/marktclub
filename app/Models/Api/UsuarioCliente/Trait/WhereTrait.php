@@ -6,6 +6,8 @@ use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 trait WhereTrait
 {
@@ -114,6 +116,18 @@ trait WhereTrait
         } else {
             $where[] = ['status', 'in', Helper::STATUS_LIBERADO];
         }
+
+        // Trabalho Empresa
+        $TrabalhoEmpresa = new TrabalhoEmpresa($request->trabalho_empresa);
+        if (!$TrabalhoEmpresa->vazio() && $TrabalhoEmpresa->valido()) {
+            $where[] = ['trabalho_orgao', $TrabalhoEmpresa->numero()];
+        }
+        // Trabalho Cargo
+        $TrabalhoCargo = new TrabalhoCargo($request->trabalho_cargo);
+        if (!$TrabalhoCargo->vazio() && $TrabalhoCargo->valido()) {
+            $where[] = ['trabalho_cargo', $TrabalhoCargo->numero()];
+        }
+
         return $where;
     }
 }

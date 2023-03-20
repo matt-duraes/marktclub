@@ -13,6 +13,7 @@ return [
         'responsavel_telefone' => 61981777773,
         'item_contratado' => [1],
         'tag' => [1, 2],
+        'slug' => 'marktclub',
         'endereco_estado' => 'TO',
         'endereco_cidade' => 'Porto Nacional',
         'status' => 1

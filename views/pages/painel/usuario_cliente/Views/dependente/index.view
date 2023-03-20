@@ -6,6 +6,7 @@
         <div class="botao_link" id="botao_dependente_abrir">Adicionar Dependente</div>
     </div>
     @ endif;
+    <div class="loading zero">Buscando dados</div>
 </div>
 @ endif;
 

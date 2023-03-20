@@ -13,4 +13,6 @@ return (new \DataBase\DataBase())
     ->varchar('desconto')
     ->dataCriacao()
     ->dataAtualizacao()
+    ->int('limite_voucher')->tamanho(5)->null()
+    ->int('prazo_voucher')->tamanho(5)->null()
     ->status()->null();

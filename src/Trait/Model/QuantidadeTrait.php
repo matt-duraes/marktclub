@@ -29,7 +29,7 @@ trait QuantidadeTrait
 
         $validar = preg_match('/^[1-9]{1}[0-9]{0,}$/', $valor);
         if (!$validar && $valido) {
-            mensagemErro('Campo inválido!', 'O campo pagina está inválido.');
+            mensagemErro('Campo inválido!', 'O campo quantidade está inválido.');
         }
         return !$validar ? 50 : $valor;
     }
