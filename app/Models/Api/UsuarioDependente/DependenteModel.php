@@ -35,7 +35,6 @@ final class DependenteModel extends ORM
         $titular = $this->pegarTitular();
 
         $lista = $this->campo(['cod', 'nome', 'email_pessoal', 'email_trabalho', 'status'])->where([
-            ['empresa', $this->idEmpresa],
             ['titular', $titular],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ])->order('id', 'ASC')->limit(0, 5)->read();
