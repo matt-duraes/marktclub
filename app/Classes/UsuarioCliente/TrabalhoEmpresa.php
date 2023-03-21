@@ -8,7 +8,7 @@ final class TrabalhoEmpresa extends Status
 {
     const EMPRESA = [
         'geral' => [
-            'lista' => ['empresa-teste-01' => 'Empresa de Teste 01'],
+            'lista' => ['geral' => 'Geral'],
             'numero' => [2000]
         ],
         'marktclub' => [

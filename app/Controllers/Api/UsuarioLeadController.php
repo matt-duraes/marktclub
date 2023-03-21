@@ -71,6 +71,13 @@ final class UsuarioLeadController extends Controller implements
             null: $vazio,
             empty: $vazio
         );
+        if (array_key_exists('lista_dependente', $dado)) {
+            $dado['lista_dependente'] = criptografarDado(
+                $dado['lista_dependente'],
+                criptografia: ['nome', 'documento_cpf', 'data_nascimento', 'genero'],
+                lista: true
+            );
+        }
         return mensagemSucesso($dado, status: $status, criptografar: Helper::CRIPTOGRAFAR);
     }
 

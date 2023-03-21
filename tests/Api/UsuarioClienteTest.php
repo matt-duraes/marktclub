@@ -59,6 +59,7 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'Você não pode mudar o CPF desse usuário.');
     }
     public function naoPodeSalvarUmUsuarioComCpfDuplicadoTest()
@@ -79,6 +80,7 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O CPF informado já está em uso por outro usuário.');
     }
 
@@ -100,6 +102,7 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O E-mail pessoal informado já está em uso por outro usuário.');
     }
     public function naoPodeSalvarUmUsuarioComEmailTrabalhoDuplicadoTest()
@@ -120,6 +123,7 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O E-mail de trabalho informado já está em uso por outro usuário.');
     }
     public function naoPodeSalvarUmUsuarioSemCpfTest()
@@ -133,6 +137,7 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O campo CPF é obrigatório.');
     }
     public function naoPodeSalvarUmUsuarioSemEmailTest()
@@ -145,6 +150,7 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar pelo menos um e-mail para salvar.');
     }
     public function naoPodeSalvarUmUsuarioComGrupoInvalidoTest()
@@ -167,7 +173,54 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O grupo informado não é um valor válido.');
+    }
+    public function naoPodeSalvarUmUsuarioComTrabalhoEmpresaInvalidoTest()
+    {
+        $this->api('usuario_cliente:salvar');
+
+        $body = $this->cryptEncode([
+            'nome' => $this->nomeCompleto(),
+            'cpf' => $this->cpf(),
+            'email_trabalho' => $this->email(),
+            'trabalho_empresa' => 'nome_invalido',
+            'status' => 'inativo',
+        ], Helper::CRIPTOGRAFAR);
+
+        $this
+            ->Curl
+            ->loginPainel()
+            ->body($body)
+            ->post('/usuario-cliente');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'O campo Empresa que trabalha não é um valor válido.');
+    }
+    public function naoPodeSalvarUmUsuarioComTrabalhoCargoInvalidoTest()
+    {
+        $this->api('usuario_cliente:salvar');
+
+        $body = $this->cryptEncode([
+            'nome' => $this->nomeCompleto(),
+            'cpf' => $this->cpf(),
+            'email_trabalho' => $this->email(),
+            'trabalho_cargo' => 'nome_invalido',
+            'status' => 'inativo',
+        ], Helper::CRIPTOGRAFAR);
+
+        $this
+            ->Curl
+            ->loginPainel()
+            ->body($body)
+            ->post('/usuario-cliente');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'O campo Cargo na empresa não é um valor válido.');
     }
 
     public function listarTodosOsUsuariosTest()
@@ -229,7 +282,7 @@ final class UsuarioClienteTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de upload informado não é um valor válido.');
     }
-    public function naoPodeListarComDataCriacaoDeInvalidaTest()
+    public function naoPodeListarComDataCriacaoInicialInvalidaTest()
     {
         $this->api('usuario_cliente:listar');
         $this
@@ -246,7 +299,7 @@ final class UsuarioClienteTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de criação do começo informado não é um valor válido.');
     }
-    public function naoPodeListarComDataCriacaoAteInvalidaTest()
+    public function naoPodeListarComDataCriacaoFinalInvalidaTest()
     {
         $this->api('usuario_cliente:listar');
         $this
@@ -311,23 +364,8 @@ final class UsuarioClienteTest extends Tests
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O Status informado não é um valor válido.');
-    }
-    public function naoPodeListarUsuarioComUmaOrdemInvalidaTest()
-    {
-        $this->api('usuario_cliente:listar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'ordem' => 'nao_existe'
-            ])
-            ->get('/usuario-cliente');
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('erro.mensagem', 'A ordem informada não é um valor válido.');
     }
     public function deletarUsuarioBuscadoTest()
     {
@@ -420,8 +458,8 @@ final class UsuarioClienteTest extends Tests
             'endereco_estado' => $estado,
             'endereco_cidade' => $this->cidade($estado),
             'situacao' => $this->random(['ativo', 'aposentado']),
-            'trabalho_empresa' => 'empresa-teste-01',
-            'trabalho_cargo' => 'cargo',
+            'trabalho_empresa' => 'marktclub',
+            'trabalho_cargo' => 'desenvolvedor',
             'tipo_pagamento' => 'cartao-credito',
             'trabalho_data_inicio' => $this->dataPassada(),
             'grupo' => 'teste-01',

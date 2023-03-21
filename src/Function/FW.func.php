@@ -1028,12 +1028,12 @@ if (!function_exists('criptografarDado')) {
     }
 }
 if (!function_exists('_criptografarDadoRodar')) {
-    function _criptografarDadoRodar($dado, $lista, $Crypt)
+    function _criptografarDadoRodar($dado, $lista, $Crypt, $teste = false)
     {
         $retorno = [];
         foreach ($dado as $ind => $val) {
             if (is_array($val) && array_key_exists($ind, $lista)) {
-                $retorno[$ind] = _criptografarDadoRodar($val, $lista[$ind], $Crypt);
+                $retorno[$ind] = _criptografarDadoRodar($val, $lista[$ind], $Crypt, true);
                 continue;
             } else if (!empty($val) && in_array($ind, $lista)) {
                 $val = $Crypt->encode($val);

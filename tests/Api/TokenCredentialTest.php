@@ -7,6 +7,7 @@ use Tests\Tests;
 
 final class TokenCredentialTest extends Tests
 {
+    private string $linkApi;
     public function __construct()
     {
         $this->linkApi = env('API_URL', LINK_API);

@@ -9,7 +9,9 @@ use Modules\Data;
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends ORM
@@ -88,6 +90,8 @@ final class ClienteModel extends ORM
         $dataCriacaoDe = new Data($this->request->data_criacao_de);
         $dataCriacaoAte = new Data($this->request->data_criacao_ate);
         $status = new Status($this->request->status);
+        $TrabalhoEmpresa = new TrabalhoEmpresa($this->request->trabalho_empresa);
+        $TrabalhoCargo = new TrabalhoCargo($this->request->trabalho_cargo);
 
         if (!empty($this->request->pagina) && !preg_match('/^[1-9]{1}[0-9]*$/', $this->request->pagina)) {
             mensagemErro('Campo inválido!', 'A página deve ser um número inteiro.');
@@ -103,6 +107,10 @@ final class ClienteModel extends ORM
             mensagemErro('Campo inválido!', 'A data de criação final informado não é um valor válido.');
         } else if (!$status->vazio() && (!$status->valido() || $status->indice() == 'deletado')) {
             mensagemErro('Campo inválido!', 'O Status não é um valor válido.');
+        } else if (!$TrabalhoEmpresa->vazio() && !$TrabalhoEmpresa->valido()) {
+            mensagemErro('Campo inválido!', 'O local de trabalho não é um valor válido.');
+        } else if (!$TrabalhoCargo->vazio() && !$TrabalhoCargo->valido()) {
+            mensagemErro('Campo inválido!', 'O cargo não é um valor válido.');
         }
     }
 }

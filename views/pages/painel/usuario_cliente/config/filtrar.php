@@ -3,6 +3,8 @@
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 $Painel = new PainelConfig\Filtrar('usuario_cliente');
 
@@ -24,8 +26,33 @@ $Painel
     })
     ->bloco(function () use ($Painel) {
         $Painel
-            ->select(name: 'origem', titulo: 'Origem', label: 'Origem', lista: (new Origem())->select())
-            ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select());
+            ->select(
+                name: 'trabalho_empresa',
+                titulo: 'Local onde trabalha',
+                label: 'Trabalho',
+                lista: (new TrabalhoEmpresa())->select('Escolha uma opção')
+            )
+            ->select(
+                name: 'trabalho_cargo',
+                titulo: 'Cargo',
+                label: 'Cargo',
+                lista: (new TrabalhoCargo())->select('Escolha uma opção')
+            );
+    })
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->select(
+                name: 'origem',
+                titulo: 'Origem',
+                label: 'Origem',
+                lista: (new Origem())->select('Escolha uma opção')
+            )
+            ->select(
+                name: 'status',
+                titulo: 'Status',
+                label: 'Status',
+                lista: (new Status())->select('Escolha uma opção')
+            );
     })
     ->switch(name: 'lead', titulo: 'Usuários do lead', label: 'Apenas usuários do lead?')
     ->switch(name: 'pagamento', titulo: 'Pagamento em aberto', label: 'Apenas pagamento em aberto?')

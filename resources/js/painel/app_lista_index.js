@@ -119,6 +119,7 @@ window.addEventListener('load', () => {
             );
             blocoSenha.value = '';
             blocoTermo.checked = false;
+            botaoMarcarTodos.checked = false;
             lista.forEach(item => {
                 item.checked = false;
             });

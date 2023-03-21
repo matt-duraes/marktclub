@@ -4,7 +4,7 @@ return [
     [
         'id_admin_empresa' => 1,
         'permissao' => json_encode([
-            'usuario_cliente' => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download', 'empresa']],
+            'usuario_cliente' => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download', 'empresa', 'analytics']],
             'usuario_grupo' => ['titulo' => 'Grupo', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'usuario_dependente' => ['titulo' => 'Dependente', 'acao' => ['index', 'add', 'deletar']],
             'usuario_indicacao' => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
@@ -16,8 +16,8 @@ return [
             'relatorio_usuario' => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
             'relatorio_loja_venda' => ['titulo' => 'Relatório de vendas', 'permissao' => ['relatorio_loja_venda_index' => 'Relatório de vendas', 'relatorio_loja_venda_empresa' => 'Todas as empresas']],
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Cadastrar usuário', 'tabela_usuario_bloquear' => 'Bloquear usuário']],
-            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'empresa']],
-            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download', 'empresa']],
+            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'download', 'empresa']],
+            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
             'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_quadro' => 'Quadro de demanda']],
             'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
         ]),
@@ -29,7 +29,7 @@ return [
                     'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_estado', 'endereco_cidade', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
                     'data_criacao_ate', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
-                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao'
+                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao', 'analytics'
                 ],
                 'download' => [
                     'status', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',
@@ -37,7 +37,7 @@ return [
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'federacao', 'grupo',
                     'matricula', 'data_nascimento', 'genero', 'estado_civil', 'cpf', 'telefone_pessoal',
                     'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload',
-                    'lead', 'origem', 'empresa', 'federacao'
+                    'lead', 'origem', 'empresa', 'federacao', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
                 ]
             ]
         ],
