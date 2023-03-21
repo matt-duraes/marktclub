@@ -56,9 +56,10 @@ abstract class ORM
         $banco = $conn['banco'] ?? env('DB_BANCO', '');
         $usuario = $conn['usuario'] ?? env('DB_USUARIO', '');
         $senha = $conn['senha'] ?? env('DB_SENHA', '');
-
+        $porta = $conn['porta'] ?? env('DB_PORT', '');
+        $porta = !empty($porta) && preg_match('/^[0-9]+$/', $porta) ? ';port=' . $porta : '';
         $this->_db = new PDO(
-            'mysql:host=' . $host . ';dbname=' . $banco,
+            'mysql:host=' . $host . ';dbname=' . $banco . $porta,
             $usuario,
             $senha,
             $option

@@ -105,13 +105,14 @@ window.addEventListener('load', () => {
                     '<svg height="17" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24.1 24" style="enable-background:new 0 0 24.1 24;" xml:space="preserve"><path d="M16.1,4.8h6.7c0.7,0,1.2,0.5,1.2,1.2v16.8c0,0.7-0.5,1.2-1.2,1.2H1.2C0.5,24,0,23.5,0,22.8c0,0,0,0,0,0V6c0-0.7,0.5-1.2,1.2-1.2h6.7L4.9,1.7L6.6,0l4.8,4.8h1.4L17.5,0l1.7,1.7L16.1,4.8z M2.4,7.2v14.4h19.2V7.2H2.4z"/></svg>';
             }
 
+            const data = converterDataBr(item.data);
             bloco.insertAdjacentHTML(
                 'beforeend',
                 `
                 <div class="linha">
                     <div class="icone item_data_ajuda" data-ajuda="${item.dispositivo}">${icone}</div>
                     <div class="pagina">${item.url}</div>
-                    <div class="data">${item.data}</div>
+                    <div class="data">${data}</div>
                 </div>
                 `
             );
@@ -206,8 +207,8 @@ window.addEventListener('load', () => {
             return;
         }
 
-        const de = converterData(inputDe.value);
-        const ate = converterData(inputAte.value);
+        const de = converterDataBanco(inputDe.value);
+        const ate = converterDataBanco(inputAte.value);
         const reg = new RegExp('^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
         if (!reg.test(de)) {
             Alerta.notificacao('A data de início da busca deve ser uma data válida.', false);
@@ -227,8 +228,13 @@ window.addEventListener('load', () => {
         blocoListaGeral.innerHTML = '';
         buscarAnalytics(blocoListaGeral, 1, 50, de, ate);
     };
-    const converterData = data => {
+    const converterDataBanco = data => {
         const e = data.split('/');
         return e[2] + '-' + e[1] + '-' + e[0];
+    };
+    const converterDataBr = data => {
+        const h = data.split(' ')[1];
+        const e = dataHora.split(' ')[0].split('-');
+        return e[2] + '/' + e[1] + '/' + e[0] + ' ' + h;
     };
 });
