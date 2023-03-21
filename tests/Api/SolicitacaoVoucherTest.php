@@ -24,7 +24,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
     }
-    public function naoPodeBuscarComUmaDataDeInvalidaTest()
+    public function naoPodeBuscarComUmaDataCriacaoDeInvalidaTest()
     {
         $this->api('solicitacao_voucher:listar');
         $this
@@ -41,7 +41,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de criação de início não está no formato válido.');
     }
-    public function naoPodeBuscarComUmaDataAteInvalidaTest()
+    public function naoPodeBuscarComUmaDataCriacaoAteInvalidaTest()
     {
         $this->api('solicitacao_voucher:listar');
         $this
@@ -57,6 +57,40 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de criação final não está no formato válido.');
+    }
+    public function naoPodeBuscarComUmaDataValidacaoDeInvalidaTest()
+    {
+        $this->api('solicitacao_voucher:listar');
+        $this
+            ->Curl
+            ->loginPainel()
+            ->json([
+                'pagina' => 1,
+                'data_validacao_de' => '01/01/2000',
+            ])
+            ->get('/solicitacao-voucher');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'A data de validação de início não está no formato válido.');
+    }
+    public function naoPodeBuscarComUmaDataValidacaoAteInvalidaTest()
+    {
+        $this->api('solicitacao_voucher:listar');
+        $this
+            ->Curl
+            ->loginPainel()
+            ->json([
+                'pagina' => 1,
+                'data_validacao_ate' => '01/01/2000',
+            ])
+            ->get('/solicitacao-voucher');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'A data de validação final não está no formato válido.');
     }
     public function naoPodeBuscarStatusInvalidoTest()
     {
@@ -102,6 +136,8 @@ final class SolicitacaoVoucherTest extends Tests
                 'pagina' => 1,
                 'data_criacao_de' => '2000-01-01',
                 'data_criacao_ate' => hoje(),
+                'data_validacao_de' => '2000-01-01',
+                'data_validacao_ate' => hoje(),
                 'ordem' => 'mais-velho',
                 'status' => 'criado'
             ])

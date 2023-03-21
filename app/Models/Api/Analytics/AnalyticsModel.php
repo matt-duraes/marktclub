@@ -42,7 +42,10 @@ final class AnalyticsModel extends ORM
         ])->where($this->montarWhere());
 
         if ($this->request->existe('pagina')) {
-            $dado = $dado->pagina($this->pegarPagina(), $this->pegarQuantidade())->read();
+            $dado = $dado
+                ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+                ->order('id', 'DESC')
+                ->read();
             $dado->lista = $this->montarRetorno($dado->lista ?? []);
             return $dado;
         }
@@ -88,7 +91,7 @@ final class AnalyticsModel extends ORM
             return;
         }
 
-        $Cliente = new ClienteEntity();
+        $Cliente = new ClienteEntity(validarToken: false);
         $Cliente->id($usuario, mensagem: 'Usuario buscado não foi encontrado.');
         $this->idUsuario = $Cliente->get('id');
     }
@@ -117,7 +120,7 @@ final class AnalyticsModel extends ORM
 
     private function montarWhere()
     {
-        $where = $this->idEmpresa != 1 ? [] : $this->_wherePadrao;
+        $where = $this->idEmpresa == 1 ? [] : $this->_wherePadrao;
         if (!empty($this->idUsuario)) {
             $where[] = ['usuario', $this->idUsuario];
         }

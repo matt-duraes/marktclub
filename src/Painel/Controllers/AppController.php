@@ -366,11 +366,16 @@ final class AppController extends PadraoController
         }
         $payload = [
             'campo' => $request->campo,
-            'pesquisa' => !$request->vazio('pesquisa') ? base64Decode($request->pesquisa) : '',
-            'ordem' => !$request->vazio('ordem') ? base64Decode($request->ordem) : '',
             'app' => $appReal,
             'usuario' => sessao('USUARIO.id')
         ];
+
+        if (!$request->vazio('pesquisa')) {
+            $payload['pesquisa'] = base64Decode($request->pesquisa);
+        }
+        if (!$request->vazio('ordem')) {
+            $payload['ordem'] = base64Decode($request->ordem);
+        }
 
         $filtro = !$request->vazio('filtro') ? base64Decode($request->filtro, 'filtro') : [];
         foreach ($filtro as $ind => $val) {

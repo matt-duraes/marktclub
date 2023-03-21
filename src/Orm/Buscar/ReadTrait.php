@@ -219,10 +219,10 @@ trait ReadTrait
             !empty($select) ?
             str_replace(
                 'SELECT',
-                'SELECT {{PAGINACAO}} {{CAMPO}}',
+                'SELECT {{CAMPO}}',
                 $select . ' FROM `' . $this->_tabela . '`'
             ) :
-            "SELECT {{PAGINACAO}} {{CAMPO}} FROM `{$this->_tabela}`";
+            "SELECT {{CAMPO}} FROM `{$this->_tabela}`";
         return $this;
     }
     /**
@@ -286,9 +286,9 @@ trait ReadTrait
         return $this;
     }
 
-    private function ormMontarQueryString(): String
+    private function ormMontarQueryString(bool $paginacao = false): String
     {
-        $select = !empty($this->_select) ? $this->_select : "SELECT {{PAGINACAO}} {{CAMPO}} FROM `{$this->_tabela}`";
+        $select = !empty($this->_select) ? $this->_select : "SELECT {{CAMPO}} FROM `{$this->_tabela}`";
         $campo = !empty($this->_campo) ? implode(', ', $this->_campo) : '*';
         $whereDado = $this->ormConverterCondicaoParaString($this->_whereDado);
         $where = !empty($whereDado) ? 'WHERE ' . $whereDado : '';
@@ -297,22 +297,31 @@ trait ReadTrait
         $limit = !empty($this->_limit) ? 'LIMIT ' . $this->_limit : '';
         $havingDado = $this->ormConverterCondicaoParaString($this->_havingDado);
         $having = !empty($havingDado) ? 'HAVING ' . $havingDado : '';
-        $pagina = true === $this->_paginacao ? 'SQL_CALC_FOUND_ROWS' : '';
         $join = !empty($this->_join) ? implode(' ', $this->_join) : '';
 
+        if ($paginacao) {
+            $campo = 'count(*)';
+            $limit = '';
+            $order = '';
+            $group = '';
+            $having = '';
+        }
+
         $query = str_replace(
-            ['{{PAGINACAO}}', '{{CAMPO}}'],
-            [$pagina, $campo],
+            ['{{CAMPO}}'],
+            [$campo],
             $select . ' ' . $join . ' ' . $where . ' ' . $having . ' ' . $group . ' ' . $order . ' ' . $limit
         );
         return $query;
     }
 
-    private function ormRetornarPaginacao($lista)
+    private function ormRetornarPaginacao(array $lista)
     {
-        $total = $this->_db->query('SELECT FOUND_ROWS() as `quantidade`');
-        $total->setFetchMode(PDO::FETCH_OBJ);
-        $total = $total->fetchAll()[0]->quantidade ?? 0;
+        $busca = $this->ormExecute($this->ormMontarQueryString(true), $this->_condicaoValue);
+        if (!$busca instanceof PDOStatement) {
+            throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($busca) && SISTEMA != 'PRODUCAO' ? $busca : 'Ocorreu um erro na sua busca.');
+        }
+        $total = $busca->fetchColumn();
 
         $paginaTotal = $total == 0 ? 0 : ceil($total / $this->_limitQuantidade);
         $paginaAtual = $total == 0 ? 0 : $this->_limitPagina;
