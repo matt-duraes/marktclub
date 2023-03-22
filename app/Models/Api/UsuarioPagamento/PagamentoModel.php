@@ -79,7 +79,7 @@ final class PagamentoModel extends ORM
                 'cod', 'nome', 'documento'
             ])
             ->where($this->pegarWhereUsuario(), false)
-            ->pagina($this->pegarPagina(), 50)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
         if (existeErro($dado, 'lista')) {
