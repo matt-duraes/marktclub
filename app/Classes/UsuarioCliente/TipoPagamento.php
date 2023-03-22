@@ -25,7 +25,7 @@ final class TipoPagamento extends Status
                 'desfiliado' => 'Desfiliado',
                 'deposito-bancario' => 'Depósito Bancário'
             ],
-            'numero' => [1, 2, 3, 4, 5]
+            'numero' => [1, 2, 3, 4, 5, 10]
         ]
     ];
 
