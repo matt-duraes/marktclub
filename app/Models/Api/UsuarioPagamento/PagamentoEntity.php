@@ -23,12 +23,12 @@ final class PagamentoEntity extends Entity
     protected array $_salvar = ['status'];
 
     public Data $data_pagamento;
-    private int $idEquipe;
+    private int $idUsuario;
     private int $idEmpresa;
     private ClienteEntity $Usuario;
-    private int $id_usuario_cliente;
-    private int $id_usuario_equipe;
-    private int $id_admin_empresa;
+    protected int $id_usuario_cliente;
+    protected int $id_usuario_equipe;
+    protected int $id_admin_empresa;
 
     public Status $status;
 
@@ -63,7 +63,7 @@ final class PagamentoEntity extends Entity
 
     protected function regraInsert()
     {
-        $this->id_usuario_equipe = $this->idEquipe;
+        $this->id_usuario_equipe = $this->idUsuario;
         $this->id_admin_empresa = $this->idEmpresa;
         $this->status = new Status(1);
     }

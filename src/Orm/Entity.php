@@ -599,6 +599,11 @@ abstract class Entity extends ORM
             return $valor;
         }
 
+        if ($indice == 'tipo_pagamento') {
+            $nome = (new ReflectionProperty($this, $indice))->getType()->getName();
+            $valorTemp = new $nome($valor);
+        }
+
         try {
             $nome = (new ReflectionProperty($this, $indice))->getType()->getName();
             $valorTemp = new $nome($valor);
@@ -606,7 +611,7 @@ abstract class Entity extends ORM
             $valorTemp = '';
         }
 
-        if (!empty($valorTemp) && $valorTemp instanceof StatusInterface) {
+        if ($valorTemp instanceof StatusInterface) {
             return $valorTemp;
         }
         return $valor;

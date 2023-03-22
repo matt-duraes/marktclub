@@ -18,7 +18,20 @@ final class SolicitacaoVoucherController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-        return mensagemSucesso([]);
+        return mensagemSucesso([
+            'lista' => [],
+            'registro' => [
+                'inicio' => 0,
+                'final' => 0,
+                'atual' => 0,
+                'total' => 0
+            ],
+            'pagina' => [
+                'total' => 0,
+                'atual' => 1,
+                'paginacao' => [1]
+            ]
+        ]);
 
         // $Voucher = new VoucherModel($request);
         // $dado = $Voucher->listarDados();
