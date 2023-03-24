@@ -2,20 +2,53 @@
 
 namespace App\Controllers\Api;
 
+use ORM\Entity;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Controllers\Api\Trait\ClienteTrait;
+use App\Controllers\Api\Trait\ParceiroTrait;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\SolicitacaoVoucher\VoucherModel;
+use App\Models\Api\SolicitacaoVoucher\BlueFitEntity;
 use App\Models\Api\SolicitacaoVoucher\DownloadModel;
 use App\Models\Api\SolicitacaoVoucher\VoucherEntity;
 
 final class SolicitacaoVoucherController extends Controller implements
     ControllerBuscarInterface,
-    ControllerListarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface
 {
+    use ClienteTrait;
+    use ParceiroTrait;
+
+    public function postSalvar(Request $request): Response
+    {
+        $Voucher = $this->setarEntidadeDoVoucher($request->id, $request->usuario);
+        $Voucher->salvar();
+
+        return mensagemSucesso([]);
+    }
+
+    private function setarEntidadeDoVoucher(string $id, string $usuario): Entity
+    {
+        $Parceiro = $this->pegarParceiro(id: $id, obrigatorio: true);
+        $Usuario = $this->pegarCliente(id: $usuario);
+
+        if ($Parceiro->id == '') {
+            return new BlueFitEntity(
+                Parceiro: $Parceiro,
+                Usuario: $Usuario
+            );
+        }
+        return new VoucherEntity(
+            Parceiro: $Parceiro,
+            Usuario: $Usuario
+        );
+    }
+
     public function getListar(Request $request): Response
     {
         return mensagemSucesso([

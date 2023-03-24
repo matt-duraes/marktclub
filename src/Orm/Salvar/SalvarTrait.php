@@ -15,6 +15,7 @@ trait SalvarTrait
     {
         $this->ormVerificarSeEntityExiste();
         $this->ormPegarAcaoAoSalvar();
+
         $acao = $this->_acao;
         if ($acao == 'insert' && method_exists($this, 'regraInsert')) {
             $this->regraInsert();
@@ -22,8 +23,18 @@ trait SalvarTrait
             $this->regraUpdate();
         }
 
+        if ($this->cancelarSalvar) {
+            $this->cancelarSalvar = false;
+            return;
+        }
+
         if (method_exists($this, 'regraSalvar')) {
             $this->regraSalvar();
+        }
+
+        if ($this->cancelarSalvar) {
+            $this->cancelarSalvar = false;
+            return;
         }
 
         $dado = $this->ormMontarDado();

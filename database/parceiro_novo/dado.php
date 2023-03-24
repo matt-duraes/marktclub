@@ -38,6 +38,8 @@ return [
         'desconto' => '10% de desconto',
         'destaque' => ["1", "2", "66"],
         'empresa' => ["1", "2", "66"],
+        'limite_voucher' => 10,
+        'prazo_voucher' => 5,
         'status' => 4
     ],
     [

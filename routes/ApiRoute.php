@@ -759,6 +759,11 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:salvar'])
+            ::request(['id', '!usuario'])
+            ::post('/solicitacao-voucher');
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
             ::get('/solicitacao-voucher/{id}');
