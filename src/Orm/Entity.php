@@ -51,6 +51,8 @@ abstract class Entity extends ORM
     protected array $_update = [];
     protected ?array $_diff = null;
 
+    private bool $cancelarSalvar = false;
+
     protected string $_validarSalvar = '';
     protected string $_validarInsert = '';
     protected string $_validarUpdate = '';
@@ -114,6 +116,14 @@ abstract class Entity extends ORM
             $retorno[$indice] = $valor;
         }
         return $retorno;
+    }
+
+    /**
+     * Cancela um salvar na entidade
+     */
+    protected function cancelarSalvar()
+    {
+        $this->cancelarSalvar = true;
     }
 
     /**

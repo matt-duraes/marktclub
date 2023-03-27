@@ -7,13 +7,13 @@ use Modules\Data;
 use Http\Response;
 use Modules\Dinheiro;
 use Controller\Controller;
+use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\ConvenioParceiro\ParceiroEntity;
 use App\Models\Api\ParceiroRelatorio\RelatorioModel;
 use App\Models\Api\ParceiroRelatorio\RelatorioEntity;
 
@@ -98,7 +98,7 @@ final class ParceiroRelatorioController extends Controller implements
     }
     private function pegarParceiro(?string $parceiro)
     {
-        $Parceiro = new ParceiroEntity();
+        $Parceiro = new LojaEntity();
         $Parceiro->id($parceiro, mensagem: 'Não foi encontrado um parceiro por esse código.');
         return $Parceiro;
     }

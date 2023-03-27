@@ -78,6 +78,7 @@ final class ClienteEntity extends Entity
         senha|Senha|senha
         status|Status|valido
     ';
+    protected array $_retornoPadrao = ['id', 'nome', 'cpf'];
 
     protected string $_tabela = TABELA_USUARIO_NOVO;
 

@@ -107,12 +107,11 @@ trait BuscarTrait
         $eId = is_string($idSlug) &&
             (preg_match('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $idSlug) ||
                 preg_match('/^[a-f0-9]{32}$/i', $idSlug));
-        $quantidade = mb_strlen($idSlug, 'UTF-8');
 
         $where = [$campo, $idSlug];
-        if ($eId && $quantidade == 32) {
+        if ($eId && array_key_exists('cod', $this->_campoBanco)) {
             $where = ['cod', $idSlug];
-        } else if ($eId && $quantidade == 36) {
+        } else if ($eId && array_key_exists('uuid', $this->_campoBanco)) {
             $where = ['uuid', $idSlug];
         }
 
@@ -133,6 +132,7 @@ trait BuscarTrait
         if (!empty($this->_wherePadrao)) {
             $where = [$where, [$this->_wherePadrao]];
         }
+
         $this->ormVerificarSeEntityExiste();
         if (method_exists($this, 'regraBuscar')) {
             $this->regraBuscar();
@@ -204,5 +204,20 @@ trait BuscarTrait
             }
         }
         return array_unique($campo);
+    }
+
+    /**
+     * Recria um entidade usando um ID ou UUID e cancela o salvar
+     *
+     * @param   int|string      $id     ID ou uuid para recriar a entidade
+     */
+    protected function recriarEntity(int|string $id)
+    {
+        if (is_int($id)) {
+            $this->_id($id);
+        } else {
+            $this->id($id);
+        }
+        $this->cancelarSalvar();
     }
 }

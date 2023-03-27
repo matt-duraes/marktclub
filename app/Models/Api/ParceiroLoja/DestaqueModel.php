@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\ConvenioParceiro;
+namespace App\Models\Api\ParceiroLoja;
 
 use ORM\ORM;
 use stdClass;
