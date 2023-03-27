@@ -5,13 +5,13 @@ namespace App\Models\Api\SolicitacaoVoucher;
 use ORM\Entity;
 use Modules\Data;
 use Modules\DataHora;
-use ORM\Buscar\BuscarTrait;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\ConvenioParceiro\ParceiroEntity;
-use App\Models\Api\SolicitacaoVoucher\Trait\CodigoTrait;
+use App\Models\Api\SolicitacaoVoucher\Trait\VoucherBuscarTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\VoucherInsertTrait;
 use App\Models\Api\SolicitacaoVoucher\Interface\VoucherInterface;
 
@@ -19,12 +19,13 @@ final class VoucherEntity extends Entity implements VoucherInterface
 {
     use ValidarEmpresaTrait;
     use VoucherInsertTrait;
-    use BuscarTrait;
+    use VoucherBuscarTrait;
 
     protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
 
     protected array $_buscar = [
         'id_usuario_cliente' => 'usuario',
+        'id_admin_empresa' => 'empresa',
         'id_vinculo' => 'vinculo',
         'tipo', 'codigo', 'data_criacao', 'data_atualizacao', 'data_validacao', 'data_vencimento', 'status'
     ];
@@ -42,6 +43,8 @@ final class VoucherEntity extends Entity implements VoucherInterface
 
     protected string $id_vinculo;
     protected int $id_usuario_cliente;
+    protected int $id_admin_empresa;
+    public EmpresaEntity $Empresa;
 
     private int $idEmpresa;
 

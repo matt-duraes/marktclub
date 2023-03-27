@@ -17,20 +17,25 @@ trait ParceiroTrait
     private function pegarParceiro(
         ?string $id,
         bool $obrigatorio = false,
-        ?string $titulo = null,
-        ?string $mensagem = null
+        ?string $tituloVazio = null,
+        ?string $mensagemVazio = null,
+        ?string $tituloErro = null,
+        ?string $mensagemErro = null
     ): null|ParceiroEntity {
         if (empty($id) && $obrigatorio) {
-            mensagemErro('Campo obrigatório!', 'O campo parceiro é obrigatório.');
+            mensagemErro(
+                empty($tituloVazio) ? 'Campo obrigatório!' : $tituloVazio,
+                empty($mensagemVazio) ? 'O campo parceiro é obrigatório.' : $mensagemVazio,
+            );
         } else if (empty($id)) {
             return null;
         }
 
-        $titulo = empty($titulo) ? 'Parceiro não encontrado!' : $titulo;
-        $mensagem = empty($mensagem) ? 'Não foi encontrado nenhum parceiro pelo código enviado.' : $mensagem;
+        $tituloErro = empty($tituloErro) ? 'Parceiro não encontrado!' : $tituloErro;
+        $mensagemErro = empty($mensagemErro) ? 'Não foi encontrado nenhum parceiro pelo código enviado.' : $mensagemErro;
 
         $Parceiro = new ParceiroEntity;
-        $Parceiro->idSlug($id, titulo: $titulo, mensagem: $mensagem);
+        $Parceiro->idSlug($id, titulo: $tituloErro, mensagem: $mensagemErro);
 
         return $Parceiro;
     }

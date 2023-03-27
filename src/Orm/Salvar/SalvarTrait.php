@@ -16,10 +16,9 @@ trait SalvarTrait
         $this->ormVerificarSeEntityExiste();
         $this->ormPegarAcaoAoSalvar();
 
-        $acao = $this->_acao;
-        if ($acao == 'insert' && method_exists($this, 'regraInsert')) {
+        if ($this->_acao == 'insert' && method_exists($this, 'regraInsert')) {
             $this->regraInsert();
-        } elseif ($acao == 'update' && method_exists($this, 'regraUpdate')) {
+        } elseif ($this->_acao == 'update' && method_exists($this, 'regraUpdate')) {
             $this->regraUpdate();
         }
 
@@ -37,22 +36,24 @@ trait SalvarTrait
             return;
         }
 
+        $this->ormPegarAcaoAoSalvar();
+
         $dado = $this->ormMontarDado();
-        $this->ormValidarViaHelper($acao);
+        $this->ormValidarViaHelper($this->_acao);
 
         $deletarArquivo = [];
-        if ($acao == 'insert') {
+        if ($this->_acao == 'insert') {
             $salvar = $this->dado($dado['salvar'])->insert();
-        } elseif ($acao == 'update' && empty($dado['salvar'])) {
+        } elseif ($this->_acao == 'update' && empty($dado['salvar'])) {
             $salvar = ['id' => $this->prop('id')];
-        } elseif ($acao == 'update') {
+        } elseif ($this->_acao == 'update') {
             $deletarArquivo = $this->ormPegarArquivoParaDeletar($dado['salvar']);
             $salvar = $this->dado($dado['salvar'])->where(['id', $this->_entityId])->update();
         }
 
         if (is_array($salvar) && array_key_exists('id', $salvar)) {
             $this->_id($salvar['id']);
-            $this->ormAcaoPosSalvar($acao);
+            $this->ormAcaoPosSalvar($this->_acao);
             $this->ormDeletarArquivos($deletarArquivo);
             $this->_diff = $dado['salvar'];
             return $this;

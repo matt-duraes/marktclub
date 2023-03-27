@@ -9,6 +9,7 @@ use Random\Contato;
 use Random\Usuario;
 use Random\Endereco;
 use Random\Documento;
+use Database\DataBase;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use Helpers\CurlHelper as Curl;
@@ -42,7 +43,7 @@ abstract class Tests
         $this->Crypt = new CryptHelper(chavePublica: $chavePublica, chavePrivada: $chavePrivada);
     }
 
-    public function cryptEncode(string|array $dado, array $lista = [])
+    protected function cryptEncode(string|array $dado, array $lista = [])
     {
         if (empty($dado)) {
             return $dado;
@@ -58,7 +59,7 @@ abstract class Tests
         return $dado;
     }
 
-    public function cryptDecode(string $dado)
+    protected function cryptDecode(string $dado)
     {
         return empty($dado) ? '' : $this->Crypt->decode($dado);
     }
@@ -95,13 +96,42 @@ abstract class Tests
      */
     protected function checkDiferente($valor, $comparacao)
     {
-        if ($valor == $comparacao) {
+        if ($valor != $comparacao) {
             $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> é difrente do valor comparado <strong>' . $comparacao . '</strong>.');
             return $this;
         }
         $this->setarRetorno(false, 'O valor <strong>' . $valor . '</strong> é igual ao valor comparado <strong>' . $comparacao . '</strong>.');
         return $this;
     }
+    /**
+     * Verifica se o valor é vazio
+     *
+     * @param mixed $valor          Valor a validar
+     */
+    protected function checkVazio($valor)
+    {
+        if (!vazio($valor)) {
+            $this->setarRetorno(false, 'O valor <strong>' . $valor . '</strong> não está vazio.');
+            return $this;
+        }
+        $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> é vazio.');
+        return $this;
+    }
+    /**
+     * Verifica se o valor não é vazio
+     *
+     * @param mixed $valor          Valor a validar
+     */
+    protected function checkNaoVazio($valor)
+    {
+        if (!vazio($valor)) {
+            $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> não está vazio.');
+            return $this;
+        }
+        $this->setarRetorno(false, 'O valor <strong>' . $valor . '</strong> é vazio.');
+        return $this;
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -430,5 +460,22 @@ abstract class Tests
 
         $this->Curl = new Api($scope);
         return $this;
+    }
+
+    /**
+     * Reseta a tabela
+     *
+     * @param   string  $tabela     Nome da tabela que dese ser resetada
+     */
+    protected function resetarTabela(string $tabela)
+    {
+        if (!file_exists(ROOT . '/database/' . $tabela . '/base.php')) {
+            return;
+        }
+        $Database = include ROOT . '/database/' . $tabela . '/base.php';
+        $Database->tabela = $tabela;
+        $Database->sistemaDeletar();
+        $Database->sistemaCriar();
+        $Database->sistemaRelacionar();
     }
 }

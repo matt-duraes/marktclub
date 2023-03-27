@@ -42,7 +42,9 @@ final class SolicitacaoVoucherController extends Controller implements
                 $Voucher,
                 lista: [
                     'id', 'codigo', 'data_criacao', 'data_vencimento', 'status',
-                    'Usuario' => ['id', 'nome']
+                    'Usuario' => ['id', 'nome'],
+                    'Parceiro' => ['id', 'titulo'],
+                    'Empresa' => ['id', 'nome_fantasia']
                 ],
             ),
             status: $status
@@ -51,10 +53,16 @@ final class SolicitacaoVoucherController extends Controller implements
 
     private function pegarEntidadeDoVoucher(string $id, string $usuario): VoucherInterface
     {
-        $Parceiro = $this->pegarParceiro(id: $id, obrigatorio: true);
+        $Parceiro = $this->pegarParceiro(
+            id: $id,
+            obrigatorio: true,
+            tituloVazio: 'Campo obrigatório!',
+            mensagemVazio: 'O campo ID é obrigatório.',
+            mensagemErro: 'Não foi encontrado um parceiro pelo ID enviado.'
+        );
         $Usuario = $this->pegarCliente(id: $usuario);
 
-        if (in_array($Parceiro->id, [''])) {
+        if (in_array($Parceiro->get('id'), ['4207'])) {
             return new CodigoEntity(
                 Parceiro: $Parceiro,
                 Usuario: $Usuario

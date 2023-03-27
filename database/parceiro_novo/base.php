@@ -15,4 +15,5 @@ return (new \DataBase\DataBase())
     ->dataAtualizacao()
     ->int('limite_voucher')->tamanho(5)->null()
     ->int('prazo_voucher')->tamanho(5)->null()
+    ->date('prazo_voucher_fixo')->null()
     ->status()->null();

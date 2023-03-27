@@ -3,14 +3,16 @@
 namespace App\Models\Api\ConvenioParceiro;
 
 use ORM\Entity;
+use Modules\Data;
 
 final class ParceiroEntity extends Entity
 {
     protected string $_tabela = TABELA_PARCEIRO_NOVO;
-    protected array $_buscar = ['limite_voucher', 'prazo_voucher'];
+    protected array $_buscar = ['limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo'];
 
     public ?int $limite_voucher;
     public ?int $prazo_voucher;
+    public Data $prazo_voucher_fixo;
 
     protected function regraPosBuscar()
     {

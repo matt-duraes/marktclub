@@ -8,7 +8,7 @@ use App\Classes\SolicitacaoVoucher\Status;
 
 trait VoucherInsertTrait
 {
-    public function regraInsert()
+    protected function regraInsert()
     {
         if ($this->verificarSeJaExisteVoucher()) {
             return;
@@ -23,8 +23,15 @@ trait VoucherInsertTrait
         $this->id_vinculo = $this->Parceiro->id;
         $this->tipo = new Tipo(Tipo::VOUCHER);
         $this->codigo = $this->gerarCodigoUnico();
-        $this->data_vencimento = new Data(dataAdicionar(hoje(), $this->Parceiro->prazo_voucher, 'dias'));
+        $this->data_vencimento = new Data($this->pegarVencimentoVoucher());
         $this->status = new Status(Status::CRIADO);
+    }
+    private function pegarVencimentoVoucher()
+    {
+        if ($this->Parceiro->prazo_voucher_fixo->valido()) {
+            return $this->Parceiro->prazo_voucher_fixo->date();
+        }
+        return dataAdicionar(hoje(), $this->Parceiro->prazo_voucher, 'dias');
     }
 
     private function verificarSeJaExisteVoucher(): bool
@@ -50,22 +57,21 @@ trait VoucherInsertTrait
             mensagemErro('Sem saldo!', 'Você já utilizou o voucher mensal desta parceria.');
         }
 
-        $this->_id($voucher->id);
-        $this->cancelarSalvar();
-
+        $this->recriarEntity($voucher->id);
         return true;
     }
 
     private function verificarLimiteVoucher()
     {
-        if ($this->validarSeParceiroTemLimiteMaximo()) {
+        if (!$this->validarSeParceiroTemLimiteMaximo()) {
             return;
         }
 
         $quantidade = $this->contar([
             ['data_criacao', 'between', [dataPrimeiroDiaMes(hoje()), dataUltimoDiaMes(hoje(), 'Y-m-d H:i:s')]],
             ['status', 'in', [1, 2]],
-            ['empresa', $this->Usuario->id_admin_empresa]
+            ['empresa', $this->Usuario->id_admin_empresa],
+            ['vinculo', $this->Parceiro->id]
         ]);
 
         if ($this->Parceiro->limite_voucher > $quantidade) {

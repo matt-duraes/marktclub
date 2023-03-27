@@ -2,6 +2,7 @@
 
 return [
     [
+        'id' => 1,
         'cod' => '5595203c-f7b1-4211-9981-bf09eb236b35',
         'empresa' => 1,
         'tipo' => 1,
@@ -11,7 +12,8 @@ return [
         'status' => 1
     ],
     [
-        'cod' => uuid(),
+        'id' => 2,
+        'cod' => '87cd8f94-601e-4e8e-b800-7f42a75fc0e1',
         'empresa' => 1,
         'tipo' => 1,
         'nome' => nomeCompletoAleatorio(),
@@ -20,7 +22,8 @@ return [
         'status' => 1
     ],
     [
-        'cod' => uuid(),
+        'id' => 3,
+        'cod' => 'c91d0f54-d166-456e-9f21-e072722faa34',
         'empresa' => 1,
         'tipo' => 1,
         'nome' => nomeCompletoAleatorio(),
