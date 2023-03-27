@@ -2,9 +2,9 @@
 
 namespace App\Models\Api\SolicitacaoVoucher\Trait;
 
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\ConvenioParceiro\ParceiroEntity;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 
 trait CodigoBuscarTrait
 {
@@ -16,10 +16,12 @@ trait CodigoBuscarTrait
         $this->Usuario = new ClienteEntity(validarToken: false);
         $this->Usuario->_id($this->id_usuario_cliente);
 
-        $this->Parceiro = new ParceiroEntity;
+        $this->Parceiro = new LojaEntity();
         $this->Parceiro->_id($this->id_parceiro_loja);
 
-        $this->Empresa = new EmpresaEntity();
-        $this->Empresa->_id($this->id_admin_empresa);
+        $this->Construtor = new ConstrutorEntity();
+        $this->Construtor->_id($this->id_admin_empresa);
+
+        $this->montarTexto();
     }
 }

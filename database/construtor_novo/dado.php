@@ -9,6 +9,9 @@ return [
         'link_site' => 'https://localhost.com:4200',
         'logo' => 'logo_marktclub_tem_mais.png',
         'cor' => '#FF6F00',
+        'contato_telefone' => '6132023003',
+        'contato_whatsapp' => '61912345678',
+        'contato_email' => 'atendimento@markt.club',
         'status' => 1
     ],
     [

@@ -4,11 +4,10 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Controller\Controller;
-use App\Models\Api\ConvenioParceiro\DestaqueModel;
-use App\Models\Api\ConvenioParceiro\ParceiroEntity;
-use App\Models\Api\EmailAutomatico\ParceiroModel as BIParceiro;
+use App\Models\Api\ParceiroLoja\LojaEntity;
+use App\Models\Api\ParceiroLoja\DestaqueModel;
 
-final class ConvenioParceiroController extends Controller
+final class ParceiroLojaController extends Controller
 {
     public function getDestaque(Request $request)
     {
@@ -20,7 +19,7 @@ final class ConvenioParceiroController extends Controller
 
     public function getBuscar(Request $request, string $url)
     {
-        $Parceiro = new ParceiroEntity();
+        $Parceiro = new LojaEntity();
         $Parceiro->buscar([
             ['url', $url],
             ['status', 4]

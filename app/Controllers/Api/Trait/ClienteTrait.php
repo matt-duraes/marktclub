@@ -9,30 +9,37 @@ trait ClienteTrait
     /**
      * Pega uma entidade do cliente
      *
-     * @param   null|string         $id             Uuid ou url do parceiro
-     * @param   bool                $obrigatorio    Se o id deve ser obrigatório
-     * @param   null|string         $titulo         Título de erro personalizado
-     * @param   null|string         $mensagem       Mensagem de erro personalizada
-     * @return  null|ClienteEntity                  Retorna null para se o ID for vazio e obrigatorio false ou um ClienteEntity
-     * @throws  Excessao                            Erro caso o ID seja vazio e obrigatorio true ou se não achar o cliente
+     * @param   null|string             $id             Uuid ou url do parceiro
+     * @param   bool                    $obrigatorio    Se o id deve ser obrigatório
+     * @param   null|string             $tituloVazio    Título para o erro caso esteja vazio
+     * @param   null|string             $MensagemVazio  Mensagem para o erro caso esteja vazio
+     * @param   null|string             $tituloErro     Título para o erro caso de algum problema
+     * @param   null|string             $mensagemErro   Mensagem para o erro caso de algum problema
+     * @return  null|ClienteEntity                      Retorna null para se o ID for vazio e obrigatorio false ou um ClienteEntity
+     * @throws  Excessao                                Erro caso o ID seja vazio e obrigatorio true ou se não achar o cliente
      */
     private function pegarCliente(
         ?string $id,
         bool $obrigatorio = false,
-        ?string $titulo = null,
-        ?string $mensagem = null
+        ?string $tituloVazio = null,
+        ?string $mensagemVazio = null,
+        ?string $tituloErro = null,
+        ?string $mensagemErro = null
     ): null|ClienteEntity {
         if (empty($id) && $obrigatorio) {
-            mensagemErro('Campo obrigatório!', 'O campo usuario é obrigatório.');
+            mensagemErro(
+                empty($tituloVazio) ? 'Campo obrigatório!' : $tituloVazio,
+                empty($mensagemVazio) ? 'O campo usuario é obrigatório.' : $mensagemVazio
+            );
         } else if (empty($id)) {
             return null;
         }
 
-        $titulo = empty($titulo) ? 'Usuário não encontrado!' : $titulo;
-        $mensagem = empty($mensagem) ? 'Não foi encontrado nenhum usuário pelo código enviado.' : $mensagem;
+        $tituloErro = empty($tituloErro) ? 'Usuário não encontrado!' : $tituloErro;
+        $mensagemErro = empty($mensagemErro) ? 'Não foi encontrado nenhum usuário pelo código enviado.' : $mensagemErro;
 
         $Cliente = new ClienteEntity(validarToken: false);
-        $Cliente->id($id, titulo: $titulo, mensagem: $mensagem);
+        $Cliente->id($id, titulo: $tituloErro, mensagem: $mensagemErro);
 
         return $Cliente;
     }

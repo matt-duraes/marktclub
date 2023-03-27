@@ -41,10 +41,12 @@ final class SolicitacaoVoucherController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Voucher,
                 lista: [
-                    'id', 'codigo', 'data_criacao', 'data_vencimento', 'status',
-                    'Usuario' => ['id', 'nome'],
-                    'Parceiro' => ['id', 'titulo'],
-                    'Empresa' => ['id', 'nome_fantasia']
+                    'id',
+                    'Usuario' => ['id', 'nome', 'cpf'],
+                    'Parceiro' => ['id', 'titulo', 'link_logo'],
+                    'Construtor' => ['id', 'link_logo', 'link_logo_marktclub'],
+                    'codigo', 'data_criacao', 'data_vencimento', 'qr_code', 'texto_desconto',
+                    'texto_voucher', 'texto_juridico', 'texto_validar', 'status'
                 ],
             ),
             status: $status

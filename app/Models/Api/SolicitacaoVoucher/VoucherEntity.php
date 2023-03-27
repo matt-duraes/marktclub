@@ -7,10 +7,11 @@ use Modules\Data;
 use Modules\DataHora;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
+use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\ConvenioParceiro\ParceiroEntity;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\SolicitacaoVoucher\Trait\TextoTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\VoucherBuscarTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\VoucherInsertTrait;
 use App\Models\Api\SolicitacaoVoucher\Interface\VoucherInterface;
@@ -20,6 +21,7 @@ final class VoucherEntity extends Entity implements VoucherInterface
     use ValidarEmpresaTrait;
     use VoucherInsertTrait;
     use VoucherBuscarTrait;
+    use TextoTrait;
 
     protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
 
@@ -44,12 +46,18 @@ final class VoucherEntity extends Entity implements VoucherInterface
     protected string $id_vinculo;
     protected int $id_usuario_cliente;
     protected int $id_admin_empresa;
-    public EmpresaEntity $Empresa;
+
+    public string $texto_desconto = '';
+    public string $texto_voucher = '';
+    public string $texto_juridico = '';
+    public string $texto_validar = '';
+
+    public ConstrutorEntity $Construtor;
 
     private int $idEmpresa;
 
     public function __construct(
-        public ?ParceiroEntity $Parceiro = null,
+        public ?LojaEntity $Parceiro = null,
         public ?ClienteEntity $Usuario = null
     ) {
         parent::__construct();

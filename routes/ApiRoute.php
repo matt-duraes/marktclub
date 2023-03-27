@@ -737,8 +737,8 @@ Route
     });
 
 Route
-    ::nome('convenio_parceiro')
-    ::controller(App\Controllers\Api\ConvenioParceiroController::class)
+    ::nome('parceiro_loja')
+    ::controller(App\Controllers\Api\ParceiroLojaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
