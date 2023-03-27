@@ -39,7 +39,7 @@ final class AnalyticsModel extends ORM
         $dado = $this->campo([
             'uuid', 'vinculo_nome', 'usuario_cpf', 'dispositivo', 'os', 'browser',
             'versao', 'mobile', 'tablet', 'url', 'data_criacao', 'usuario_tipo'
-        ])->where($this->montarWhere());
+        ])->where($this->montarWhere(), obrigatorio: false);
 
         if ($this->request->existe('pagina')) {
             $dado = $dado
