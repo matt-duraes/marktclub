@@ -2,9 +2,8 @@
 <div class="bloco_fieldset" id="bloco_analytics">
     <h2>Analytics</h2>
     <div class="lista_dado lista_dado_analytics" id="bloco_analytics_lista_index">
-        <div class="loading zero">Buscando dados</div>
     </div>
-    <div class="botao_link display_none botao_analytics_abrir">Ver mais</div>
+    <div class="botao_link botao_analytics_abrir">Abrir</div>
 </div>
 
 <div id="bloco_analytics_visualizar" class="display_none">
