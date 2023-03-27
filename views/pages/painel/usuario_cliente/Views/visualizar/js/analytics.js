@@ -61,8 +61,8 @@ window.addEventListener('load', () => {
             return;
         }
 
-        if (json.dado.lista == 0) {
-            blocoLista.insertAdjacentHTML('beforeend', `<div class="zero">Sem dados no momento</div>`);
+        if (json.dado.lista == 0 && pagina == 1) {
+            Alerta.notificacao('Usuário não possui dados no analytics até o momento.', true);
             return;
         }
 

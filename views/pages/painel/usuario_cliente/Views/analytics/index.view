@@ -3,7 +3,7 @@
     <h2>Analytics</h2>
     <div class="lista_dado lista_dado_analytics" id="bloco_analytics_lista_index">
     </div>
-    <div class="botao_link botao_analytics_abrir">Abrir</div>
+    <div class="botao_link botao_analytics_abrir">Abrir Analytics</div>
 </div>
 
 <div id="bloco_analytics_visualizar" class="display_none">
