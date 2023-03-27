@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\SolicitacaoVoucher\Trait;
 
+use Modules\Data;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
 
@@ -22,7 +23,7 @@ trait VoucherInsertTrait
         $this->id_vinculo = $this->Parceiro->id;
         $this->tipo = new Tipo(Tipo::VOUCHER);
         $this->codigo = $this->gerarCodigoUnico();
-        $this->data_vencimento = dataAdicionar(hoje(), $this->Parceiro->prazo_voucher, 'dias');
+        $this->data_vencimento = new Data(dataAdicionar(hoje(), $this->Parceiro->prazo_voucher, 'dias'));
         $this->status = new Status(Status::CRIADO);
     }
 
@@ -39,6 +40,7 @@ trait VoucherInsertTrait
                 ['data_vencimento', '>=', hoje()],
                 ['usuario', $this->Usuario->get('id')],
                 ['empresa', $this->Usuario->id_admin_empresa],
+                ['vinculo', $this->Parceiro->id],
                 ['status', 'in', [1, 2]]
             ])->primeiro();
 
@@ -80,5 +82,14 @@ trait VoucherInsertTrait
     {
         $limite = $this->Parceiro->limite_voucher;
         return is_int($limite) && !empty($limite);
+    }
+
+    private function gerarCodigoUnico()
+    {
+        $codigo = strCodigo();
+        if ($this->existe(['codigo', $codigo])) {
+            return $this->gerarCodigoUnico();
+        }
+        return $codigo;
     }
 }

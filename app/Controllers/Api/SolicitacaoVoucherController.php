@@ -12,9 +12,10 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\SolicitacaoVoucher\BlueFitEntity;
+use App\Models\Api\SolicitacaoVoucher\CodigoEntity;
 use App\Models\Api\SolicitacaoVoucher\DownloadModel;
 use App\Models\Api\SolicitacaoVoucher\VoucherEntity;
+use App\Models\Api\SolicitacaoVoucher\Interface\VoucherInterface;
 
 final class SolicitacaoVoucherController extends Controller implements
     ControllerBuscarInterface,
@@ -26,19 +27,35 @@ final class SolicitacaoVoucherController extends Controller implements
 
     public function postSalvar(Request $request): Response
     {
-        $Voucher = $this->setarEntidadeDoVoucher($request->id, $request->usuario);
+        $Voucher = $this->pegarEntidadeDoVoucher(
+            id: $request->id,
+            usuario: $request->usuario
+        );
         $Voucher->salvar();
 
-        return mensagemSucesso([]);
+        return $this->retornoSucesso($Voucher, 201);
+    }
+    private function retornoSucesso(VoucherInterface $Voucher, int $status = 200)
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Voucher,
+                lista: [
+                    'id', 'codigo', 'data_criacao', 'data_vencimento', 'status',
+                    'Usuario' => ['id', 'nome']
+                ],
+            ),
+            status: $status
+        );
     }
 
-    private function setarEntidadeDoVoucher(string $id, string $usuario): Entity
+    private function pegarEntidadeDoVoucher(string $id, string $usuario): VoucherInterface
     {
         $Parceiro = $this->pegarParceiro(id: $id, obrigatorio: true);
         $Usuario = $this->pegarCliente(id: $usuario);
 
-        if ($Parceiro->id == '') {
-            return new BlueFitEntity(
+        if (in_array($Parceiro->id, [''])) {
+            return new CodigoEntity(
                 Parceiro: $Parceiro,
                 Usuario: $Usuario
             );
