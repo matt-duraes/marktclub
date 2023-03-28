@@ -18,7 +18,7 @@ trait CodigoInsertTrait
     }
     private function setarValoresParaInsert()
     {
-        $this->id_admin_empresa = $this->idEmpresa;
+        $this->id_admin_empresa = $this->Usuario->id_admin_empresa;
         $this->id_usuario_cliente = $this->Usuario->get('id');
         $this->id_parceiro_loja = $this->Parceiro->get('id');
         $this->data_vencimento = new Data($this->pegarVencimentoVoucher());
