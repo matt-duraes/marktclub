@@ -40,7 +40,7 @@ final class AppModel extends ORM implements
             ->where($this->pegarWhere())
             ->order($this->pegarOrdem(new Ordem()))
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->tabela(TABELA_EMPRESA_NOVO)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['nome_fantasia'])
             ->read();

@@ -8,7 +8,7 @@ use App\Classes\AdminEmpresa\Helper;
 
 final class EmpresaModel extends ORM
 {
-    protected string $_tabela = TABELA_EMPRESA_NOVO;
+    protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
 
     public function listaIdEmpresasValidas(): array
     {

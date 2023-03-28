@@ -7,6 +7,7 @@ use \PDO;
 final class DataBase
 {
     public string $tabela;
+    public string $diretorio;
     private PDO $db;
     private string $banco;
     private array $dado = [];
@@ -165,8 +166,8 @@ final class DataBase
             exit();
         }
 
-        if (file_exists(__DIR__ . '/../../database/' . $this->tabela . '/dado.php') && $acao == 'criar') {
-            $lista = require __DIR__ . '/../../database/' . $this->tabela . '/dado.php';
+        if (file_exists(__DIR__ . '/../../database/' . $this->diretorio . '/dado.php') && $acao == 'criar') {
+            $lista = require __DIR__ . '/../../database/' . $this->diretorio . '/dado.php';
             foreach ($lista as $linha) {
                 $this->insert($linha);
             }

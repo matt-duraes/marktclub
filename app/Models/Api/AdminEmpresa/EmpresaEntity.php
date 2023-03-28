@@ -8,7 +8,7 @@ use App\Classes\AdminEmpresa\Status;
 
 final class EmpresaEntity extends Entity
 {
-    protected string $_tabela = TABELA_EMPRESA_NOVO;
+    protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
     protected array $_buscar = [
         'imagem' => 'imagem_arquivo',
         'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'status'
