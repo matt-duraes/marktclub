@@ -469,10 +469,14 @@ abstract class Tests
      */
     protected function resetarTabela(string $tabela)
     {
-        if (!file_exists(ROOT . '/database/' . $tabela . '/base.php')) {
+        $path = ROOT . '/database/' . $tabela;
+        if (!file_exists($path . '/base.php')) {
             return;
         }
-        $Database = include ROOT . '/database/' . $tabela . '/base.php';
+        $arquivo = listarArquivoDiretorio($path, inicio: 'tabela:');
+        $diretorio = array_key_exists(0, $arquivo) ? str_replace('tabela:', '', $arquivo[0]) : $tabela;
+        $Database = include $path . '/base.php';
+        $Database->diretorio = $diretorio;
         $Database->tabela = $tabela;
         $Database->sistemaDeletar();
         $Database->sistemaCriar();

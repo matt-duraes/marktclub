@@ -14,7 +14,7 @@ use App\Models\Painel\AppGeral\AppGeralEntity;
 
 final class AdminEmpresaEntity extends AppGeralEntity
 {
-    protected string $_tabela = TABELA_ADMIN_EMPRESA;
+    protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
 
     protected array $_salvar = [
         'razao_social',
