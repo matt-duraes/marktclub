@@ -25,9 +25,12 @@ const {
     buildPaginaExemplo,
     buildArquivoErro,
     buildCorrigindoComposer,
+    buildDefineTabela,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
+
+exports.teste = parallel(criandoDefineTabela);
 
 // Subir e parar desenvolvimento
 exports.default = series(validandoArquivoDeConfiguracao, limpandoSessoes, subindoContainer, monitorarSistema);
@@ -50,7 +53,8 @@ exports.deploy = parallel(
     series(copiandoArquivosCSS, preparandoCSSParaProducao),
     series(copiandoArquivosJS, preparandoJSParaProducao),
     series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-    series(copiandoArquivosDeImagem)
+    copiandoArquivosDeImagem,
+    criandoDefineTabela
 );
 
 // Instalar o framework
@@ -292,6 +296,9 @@ function preparandoHtmlParaProducao() {
 
 function copiandoArquivosDeImagem() {
     return imagemTodos();
+}
+function criandoDefineTabela() {
+    return buildDefineTabela();
 }
 function criandoPaginaExemplo() {
     return buildPaginaExemplo();
