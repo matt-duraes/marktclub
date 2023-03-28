@@ -33,7 +33,7 @@ final class UltimoAcessoModel extends ORM
     private function pegarEmpresasAtivas()
     {
         $tabelaConstrutor = '`' . TABELA_CONSTRUTOR_NOVO . '`';
-        $tabelaEmpresa = '`' . TABELA_EMPRESA_NOVO . '`';
+        $tabelaEmpresa = '`' . TABELA_COMERCIAL_EMPRESA . '`';
 
         $empresa = $this->readTexto(
             "

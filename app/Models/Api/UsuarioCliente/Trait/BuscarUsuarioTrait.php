@@ -42,7 +42,7 @@ trait BuscarUsuarioTrait
                 ->group('id_usuario_cliente');
         }
         $query
-            ->tabela(TABELA_EMPRESA_NOVO)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'empresa')
             ->campo(['cod', 'nome_fantasia'], 'empresa');
 
