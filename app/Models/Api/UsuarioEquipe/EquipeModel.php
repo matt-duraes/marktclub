@@ -82,7 +82,7 @@ final class EquipeModel extends ORM implements ModelListarInterface
             ->where($where)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order(new Ordem($request->ordem))
-            ->tabela(TABELA_EMPRESA_NOVO)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['cod', 'nome_fantasia'], 'empresa')
             ->read();

@@ -11,6 +11,17 @@ exports.fsVerificarSeArquivoExiste = async function (arquivo) {
     });
 };
 
+exports.fsListarDiretorio = async diretorio => {
+    return new Promise(async resolve => {
+        if (await fs.existsSync(diretorio)) {
+            resolve(await fs.readdirSync(diretorio));
+        } else {
+            mensagemErro(diretorio + ' não existe.');
+            resolve(false);
+        }
+    });
+};
+
 exports.fsCriarDiretorio = async function (diretorio) {
     return new Promise(async resolve => {
         if (!(await fs.existsSync(diretorio))) {

@@ -34,7 +34,7 @@ final class RelatorioModel extends ORM
             ->tabela(TABELA_PARCEIRO_NOVO)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
-            ->tabela(TABELA_EMPRESA_NOVO)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['nome_fantasia'], 'empresa')
             ->read();
