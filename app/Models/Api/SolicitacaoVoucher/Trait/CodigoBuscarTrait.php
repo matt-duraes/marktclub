@@ -20,7 +20,10 @@ trait CodigoBuscarTrait
         $this->Parceiro->_id($this->id_parceiro_loja);
 
         $this->Construtor = new ConstrutorEntity();
-        $this->Construtor->_id($this->id_admin_empresa);
+        $this->Construtor->buscar([
+            ['empresa', $this->id_admin_empresa],
+            ['status', 'in', [1, 2]]
+        ]);
 
         $this->montarTexto();
     }

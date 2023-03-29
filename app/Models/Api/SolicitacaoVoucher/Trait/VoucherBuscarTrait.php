@@ -17,7 +17,10 @@ trait VoucherBuscarTrait
         $this->Parceiro->id($this->id_vinculo);
 
         $this->Construtor = new ConstrutorEntity();
-        $this->Construtor->_id($this->id_admin_empresa);
+        $this->Construtor->buscar([
+            ['empresa', $this->id_admin_empresa],
+            ['status', 'in', [1, 2]]
+        ]);
 
         $this->qr_code = 'https://chart.apis.google.com/chart?cht=qr&chl=http://voucher.marktclub.com.br/validar/' . $this->codigo . '&chs=300x300';
         $this->montarTexto();
