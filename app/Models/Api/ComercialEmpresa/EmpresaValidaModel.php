@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Models\Api\AdminEmpresa;
+namespace App\Models\Api\ComercialEmpresa;
 
 use ORM\ORM;
-use stdClass;
-use App\Classes\AdminEmpresa\Helper;
+use App\Classes\ComercialEmpresa\Helper;
 
-final class EmpresaModel extends ORM
+final class EmpresaValidaModel extends ORM
 {
     protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
 
-    public function listaIdEmpresasValidas(): array
+    public function listarDados(): array
     {
         $dado = $this
             ->campo(['id'])

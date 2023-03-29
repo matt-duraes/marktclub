@@ -5,16 +5,28 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Classes\AdminEmpresa\Helper;
-use App\Models\Api\AdminEmpresa\EmpresaModel;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Classes\ComercialEmpresa\Helper;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSelectInterface;
+use App\Models\Api\ComercialEmpresa\EmpresaModel;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
-final class AdminEmpresaController extends Controller implements
+final class ComercialEmpresaController extends Controller implements
     ControllerBuscarInterface,
-    ControllerSelectInterface
+    ControllerSelectInterface,
+    ControllerListarInterface
 {
+    public function getListar(Request $request): Response
+    {
+        $Empresa = new EmpresaModel($request);
+
+        return mensagemSucesso(
+            dado: $Empresa->listarDados(),
+            criptografar: Helper::CRIPTOGRAFAR,
+        );
+    }
+
     public function getSelect(Request $request): Response
     {
         $Empresa = new EmpresaModel();
@@ -38,7 +50,11 @@ final class AdminEmpresaController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Empresa,
-                lista: ['nome_fantasia', 'cnpj', 'slug', 'imagem', 'status']
+                lista: [
+                    'titulo', 'nome_fantasia', 'razao_social', 'cnpj', 'slug', 'imagem',
+                    'responsavel_nome', 'responsavel_cpf', 'responsavel_email', 'responsavel_telefone',
+                    'status'
+                ]
             ),
             criptografar: Helper::CRIPTOGRAFAR
         );

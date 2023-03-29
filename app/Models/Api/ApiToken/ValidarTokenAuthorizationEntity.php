@@ -6,9 +6,9 @@ use ORM\Entity;
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class ValidarTokenAuthorizationEntity extends Entity
 {

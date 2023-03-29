@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\AdminEmpresa;
+namespace App\Classes\ComercialEmpresa;
 
 use Status\Status as StatusStatus;
 
@@ -18,6 +18,11 @@ final class Status extends StatusStatus
                 self::ATIVO => 'Ativo',
                 self::INATIVO => 'Inativo',
                 self::PROSPECCAO => 'Em prospecção'
+            ],
+            cor: [
+                self::ATIVO => 'verde',
+                self::INATIVO => 'vermelho',
+                self::PROSPECCAO => 'azul',
             ]
         );
     }

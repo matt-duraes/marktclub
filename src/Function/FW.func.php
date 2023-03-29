@@ -1003,6 +1003,10 @@ if (!function_exists('criptografarDado')) {
      */
     function criptografarDado(string|stdClass|array $dado, array $criptografia = [], ?string $chave = null, bool $lista = false): array|string
     {
+        if (vazio($dado)) {
+            return $dado;
+        }
+
         $chave =
             is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
             TOKEN['app']->chave_publica :

@@ -4,7 +4,7 @@ namespace App\Models\Api\UsuarioCliente\Rotina;
 
 use ORM\ORM;
 use App\Classes\UsuarioCliente\Helper;
-use App\Models\Api\AdminEmpresa\EmpresaModel;
+use App\Models\Api\ComercialEmpresa\EmpresaValidaModel;
 use App\Models\Api\UsuarioCliente\Trait\DadoInicialRotina;
 
 final class UsuarioModel extends ORM
@@ -17,9 +17,8 @@ final class UsuarioModel extends ORM
     private array $empresaValida;
     private array $dado;
 
-    public function __construct(
-        ?string $data = null
-    ) {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->pegarEmpresasValidas();
@@ -30,8 +29,8 @@ final class UsuarioModel extends ORM
 
     private function pegarEmpresasValidas()
     {
-        $Empresa = new EmpresaModel();
-        $this->empresaValida = $Empresa->listaIdEmpresasValidas();
+        $Empresa = new EmpresaValidaModel();
+        $this->empresaValida = $Empresa->listarDados();
     }
 
     private function buscarTodosRegistros()

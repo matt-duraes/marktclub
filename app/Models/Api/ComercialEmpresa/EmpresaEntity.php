@@ -1,26 +1,36 @@
 <?php
 
-namespace App\Models\Api\AdminEmpresa;
+namespace App\Models\Api\ComercialEmpresa;
 
 use ORM\Entity;
+use Modules\Cpf;
 use Modules\Cnpj;
-use App\Classes\AdminEmpresa\Status;
+use Modules\Email;
+use Modules\Telefone;
+use App\Classes\ComercialEmpresa\Status;
 
 final class EmpresaEntity extends Entity
 {
     protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
     protected array $_buscar = [
         'imagem' => 'imagem_arquivo',
-        'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'status'
+        'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
+        'responsavel_email', 'responsavel_telefone', 'status'
     ];
     protected array $_retornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
 
+    public string $titulo;
     public Cnpj $cnpj;
     public string $razao_social;
     public string $nome_fantasia;
     public string $imagem;
     public string $slug;
     public Status $status;
+    public string $responsavel_nome;
+    public Cpf $responsavel_cpf;
+    public Email $responsavel_email;
+    public Telefone $responsavel_telefone;
+
 
     protected function regraPosBuscar()
     {

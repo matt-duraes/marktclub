@@ -4,7 +4,7 @@ namespace App\Models\Api\ApiToken;
 
 use Helpers\JwtHelper;
 use App\Models\Api\ApiApp\AppEntity;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class ValidarTokenCredentialModel
 {

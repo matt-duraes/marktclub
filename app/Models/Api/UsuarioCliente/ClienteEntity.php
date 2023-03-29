@@ -6,7 +6,7 @@ use ORM\Entity;
 use Http\Request;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityBuscarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityInsertTrait;

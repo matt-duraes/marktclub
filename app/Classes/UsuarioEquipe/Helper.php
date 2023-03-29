@@ -2,7 +2,7 @@
 
 namespace App\Classes\UsuarioEquipe;
 
-use App\Classes\AdminEmpresa\Helper as AdminEmpresaHelper;
+use App\Classes\ComercialEmpresa\Helper as EmpresaHelper;
 
 final class Helper
 {
@@ -11,7 +11,7 @@ final class Helper
         'telefone_trabalho', 'telefone_pessoal', 'genero', 'data_nascimento', 'senha',
         'imagem', 'imagem_facebook', 'imagem_google', 'id_facebook', 'id_google',
         'perfil',
-        'empresa' => AdminEmpresaHelper::CRIPTOGRAFAR
+        'empresa' => EmpresaHelper::CRIPTOGRAFAR
     ];
     const PERMISSAO_EMPRESA = 'usuario_equipe_empresa';
 }

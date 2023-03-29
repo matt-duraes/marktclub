@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\Demanda\Trait;
 
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait EmpresaTrait
 {

@@ -43,7 +43,7 @@ final class RelatorioController extends Controller
     private function pegarSelectEmpresa()
     {
         return (new ApiHelper(token: true))
-            ->get('/admin-empresa/select')
+            ->get('/comercial-empresa/select')
             ->array()['dado'] ?? [];
     }
 

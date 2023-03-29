@@ -59,7 +59,7 @@ final class DemandaController extends Controller
 
         $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
-            ->get('/admin-empresa/select')
+            ->get('/comercial-empresa/select')
             ->array();
 
         return view('painel.demanda.demanda-salvar', [
@@ -74,7 +74,7 @@ final class DemandaController extends Controller
 
         $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
-            ->get('/admin-empresa/select')
+            ->get('/comercial-empresa/select')
             ->array();
         $equipe = $this->Api
             ->json(['titulo' => 'Escolha um usuário'])

@@ -5,8 +5,8 @@ namespace App\Models\Api\Analytics;
 use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\Analytics\Trait\WhereTrait;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class OsModel extends ORM
 {

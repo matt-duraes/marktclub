@@ -859,21 +859,27 @@ Route::nome('api_app')
             ::get('/api-usuario/select');
     });
 
-Route::nome('admin_empresa')
-    ::controller(App\Controllers\Api\AdminEmpresaController::class)
+Route::nome('comercial_empresa')
+    ::controller(App\Controllers\Api\ComercialEmpresaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::middleware(MarktClubMiddleware::class, 'validar')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
+            ::request(['pagina', '!quantidade'], 'json')
+            ::get('/comercial-empresa');
+
+        Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:buscar'])
-            ::get('/admin-empresa/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
+            ::get('/comercial-empresa/{id}');
 
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request(['!titulo'], 'json')
-            ::get('/admin-empresa/select');
+            ::get('/comercial-empresa/select');
     });
 
 Route::nome('demandaDado')

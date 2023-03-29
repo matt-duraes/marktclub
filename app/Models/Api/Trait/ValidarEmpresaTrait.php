@@ -3,7 +3,7 @@
 namespace App\Models\Api\Trait;
 
 use Http\Request;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait ValidarEmpresaTrait
 {

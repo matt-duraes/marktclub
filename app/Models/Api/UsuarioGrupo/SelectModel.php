@@ -5,7 +5,7 @@ namespace App\Models\Api\UsuarioGrupo;
 use ORM\ORM;
 use Http\Request;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class SelectModel extends ORM
 {

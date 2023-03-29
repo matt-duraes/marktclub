@@ -6,7 +6,7 @@ use ORM\Entity;
 use Modules\Data;
 use Modules\Dinheiro;
 use App\Models\Api\ParceiroLoja\LojaEntity;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class RelatorioEntity extends Entity
 {

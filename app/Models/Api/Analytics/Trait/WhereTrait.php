@@ -3,7 +3,7 @@
 
 namespace App\Models\Api\Analytics\Trait;
 
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait WhereTrait
 {

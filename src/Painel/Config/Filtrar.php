@@ -262,7 +262,7 @@ final class Filtrar
         } else if (is_string($lista) && $lista == 'empresa') {
             $lista = (new ApiHelper(token: true))
                 ->json(['titulo' => 'Escolha um cliente'])
-                ->get('/admin-empresa/select')
+                ->get('/comercial-empresa/select')
                 ->array()['dado'] ?? [];
         }
 

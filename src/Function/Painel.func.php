@@ -228,6 +228,12 @@ if (!function_exists('painelLinhaLista')) {
             if ($acao == 'include') {
                 require_once $item['arquivo'];
                 continue;
+            } else if ($acao == 'endereco') {
+                include ROOT . '/src/Html/Painel/endereco.php';
+                continue;
+            } else if ($acao == 'contato') {
+                include ROOT . '/src/Html/Painel/contato.php';
+                continue;
             } else if ($acao == 'html') {
                 echo $item['html'];
                 continue;

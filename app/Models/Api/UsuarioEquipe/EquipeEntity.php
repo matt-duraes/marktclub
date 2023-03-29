@@ -14,7 +14,7 @@ use Modules\Telefone;
 use Helpers\UploadHelper;
 use App\Classes\UsuarioEquipe\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioEquipe\Trait\CampoUnicoTrait;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

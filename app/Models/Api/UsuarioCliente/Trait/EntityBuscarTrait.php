@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 
 trait EntityBuscarTrait
