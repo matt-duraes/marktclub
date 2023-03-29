@@ -50,6 +50,8 @@ final class VoucherEntity extends Entity implements VoucherInterface
     public string $texto_juridico = '';
     public string $texto_validar = '';
 
+    public string $qr_code;
+
     public ConstrutorEntity $Construtor;
 
     public function __construct(
