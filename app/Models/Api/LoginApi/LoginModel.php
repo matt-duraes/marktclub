@@ -19,7 +19,7 @@ use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class LoginModel extends Entity
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     use ConstrutorTrait;
     use UsuarioTrait;

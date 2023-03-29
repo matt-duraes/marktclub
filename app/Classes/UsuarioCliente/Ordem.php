@@ -10,7 +10,7 @@ final class Ordem extends Order
     public function __construct(
         protected null|string $valor = null
     ) {
-        $this->tabela(TABELA_USUARIO_NOVO);
+        $this->tabela(TABELA_USUARIO_CLIENTE);
         $this->status();
         $this->maisNovo();
         $this->maisVelho();

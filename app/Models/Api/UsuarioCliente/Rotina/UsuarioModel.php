@@ -12,7 +12,7 @@ final class UsuarioModel extends ORM
 
     use DadoInicialRotina;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     private array $empresaValida;
     private array $dado;

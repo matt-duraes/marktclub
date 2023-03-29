@@ -14,7 +14,7 @@ final class DestaqueModel extends ORM
 
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_PARCEIRO_NOVO;
+    protected string $_tabela = TABELA_PARCEIRO_LOJA;
 
     private Ordem $Ordem;
     private Categoria $Categoria;

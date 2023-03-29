@@ -22,7 +22,7 @@ final class DownloadModel extends ORM
     use BuscarUsuarioTrait;
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     public function __construct(
         private ?Request $request = null

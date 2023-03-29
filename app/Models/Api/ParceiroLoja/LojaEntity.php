@@ -7,7 +7,7 @@ use Modules\Data;
 
 final class LojaEntity extends Entity
 {
-    protected string $_tabela = TABELA_PARCEIRO_NOVO;
+    protected string $_tabela = TABELA_PARCEIRO_LOJA;
     protected array $_buscar = [
         'texto_desconto' => 'desconto_texto',
         'texto_voucher' => 'voucher_texto',

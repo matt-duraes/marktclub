@@ -80,7 +80,7 @@ final class ClienteEntity extends Entity
     ';
     protected array $_retornoPadrao = ['id', 'nome', 'cpf'];
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     /**
      * @param   null|Request    $request        Request para salvar um novo usuário

@@ -31,7 +31,7 @@ final class RelatorioModel extends ORM
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order(new Ordem($this->request->ordem))
-            ->tabela(TABELA_PARCEIRO_NOVO)
+            ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
             ->tabela(TABELA_COMERCIAL_EMPRESA)

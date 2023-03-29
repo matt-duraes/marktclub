@@ -11,7 +11,7 @@ final class DeletarModel extends ORM
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     private int $idEmpresa;
     private array $usuario = [];

@@ -10,7 +10,7 @@ use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class DependenteModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     public function __construct(
         private ?Request $request = null

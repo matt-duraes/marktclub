@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class AtualizarUsuarioModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     public function atualizarUsuario(array $dado)
     {

@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class AtualizarDadoModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
 
     private int $idEmpresa;
     public function __construct()

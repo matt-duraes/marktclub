@@ -74,7 +74,7 @@ final class PagamentoModel extends ORM
             ->group('id_usuario_cliente')
             ->order('id', 'ASC')
             // Usuario
-            ->tabela(TABELA_USUARIO_NOVO)->join('id', 'id_usuario_cliente')
+            ->tabela(TABELA_USUARIO_CLIENTE)->join('id', 'id_usuario_cliente')
             ->campo([
                 'cod', 'nome', 'documento'
             ])

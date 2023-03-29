@@ -37,7 +37,7 @@ final class PontoModel extends ORM
             ->campo(['uuid', 'ponto_solicitado', 'mensagem', 'data_solicitacao', 'data_voucher', 'voucher', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order(new Ordem($this->request->ordem))
-            ->tabela(TABELA_USUARIO_NOVO)->join('id', 'id_usuario_cliente')
+            ->tabela(TABELA_USUARIO_CLIENTE)->join('id', 'id_usuario_cliente')
             ->where([
                 'OR',
                 ['empresa', 198],

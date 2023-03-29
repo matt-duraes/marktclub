@@ -44,7 +44,7 @@ final class VoucherModel extends ORM
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem(new Ordem))
-            ->tabela(TABELA_PARCEIRO_NOVO)->join('cod', 'vinculo')->campo(['titulo'])
+            ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'vinculo')->campo(['titulo'])
             ->tabela(TABELA_COMERCIAL_EMPRESA)->join('id', 'empresa')->campo(['nome_fantasia', 'cod'], 'empresa')
             ->read();
 

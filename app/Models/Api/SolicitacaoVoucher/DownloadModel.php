@@ -51,7 +51,7 @@ final class DownloadModel extends ORM
         }
         if (in_array('parceiro', $this->campoInicial)) {
             $query
-                ->tabela(TABELA_PARCEIRO_NOVO)
+                ->tabela(TABELA_PARCEIRO_LOJA)
                 ->campo(['titulo'], 'parceiro')
                 ->leftJoin('cod', 'vinculo');
         }
@@ -65,7 +65,7 @@ final class DownloadModel extends ORM
         }
         if ($campoUsuario) {
             $query
-                ->tabela(TABELA_USUARIO_NOVO)
+                ->tabela(TABELA_USUARIO_CLIENTE)
                 ->campo($campoUsuario, 'usuario')
                 ->leftJoin('id', 'usuario');
         }

@@ -19,7 +19,7 @@ final class DependenteEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $_tabela = TABELA_USUARIO_CLIENTE;
     protected array $_insert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
         'documento' => '->cpf',

@@ -34,7 +34,7 @@ final class LojaVendaModel extends ORM
             ->campo(['id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'])
             ->where($this->_wherePadrao)
             ->order('data_criacao', 'DESC')
-            ->tabela(TABELA_PARCEIRO_NOVO)
+            ->tabela(TABELA_PARCEIRO_LOJA)
             ->campo(['titulo'], 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
