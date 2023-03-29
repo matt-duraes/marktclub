@@ -7,7 +7,6 @@ use Modules\Data;
 use Modules\DataHora;
 use App\Classes\SolicitacaoCodigo\Status;
 use App\Models\Api\ParceiroLoja\LojaEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\SolicitacaoVoucher\Trait\TextoTrait;
@@ -17,7 +16,6 @@ use App\Models\Api\SolicitacaoVoucher\Interface\VoucherInterface;
 
 final class CodigoEntity extends Entity implements VoucherInterface
 {
-    use ValidarEmpresaTrait;
     use CodigoInsertTrait;
     use CodigoBuscarTrait;
     use TextoTrait;
@@ -31,8 +29,6 @@ final class CodigoEntity extends Entity implements VoucherInterface
         'data_criacao', 'data_vencimento', 'status',
         'codigo'
     ];
-
-    private int $idEmpresa;
 
     public string $codigo;
     public DataHora $data_emissao;
@@ -51,6 +47,5 @@ final class CodigoEntity extends Entity implements VoucherInterface
         public ?ClienteEntity $Usuario = null
     ) {
         parent::__construct();
-        $this->setarIdEmpresa();
     }
 }

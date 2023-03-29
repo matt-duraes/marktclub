@@ -8,7 +8,6 @@ use Modules\DataHora;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\ParceiroLoja\LojaEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\SolicitacaoVoucher\Trait\TextoTrait;
@@ -18,7 +17,6 @@ use App\Models\Api\SolicitacaoVoucher\Interface\VoucherInterface;
 
 final class VoucherEntity extends Entity implements VoucherInterface
 {
-    use ValidarEmpresaTrait;
     use VoucherInsertTrait;
     use VoucherBuscarTrait;
     use TextoTrait;
@@ -54,13 +52,10 @@ final class VoucherEntity extends Entity implements VoucherInterface
 
     public ConstrutorEntity $Construtor;
 
-    private int $idEmpresa;
-
     public function __construct(
         public ?LojaEntity $Parceiro = null,
         public ?ClienteEntity $Usuario = null
     ) {
         parent::__construct();
-        $this->validarEmpresa('empresa');
     }
 }
