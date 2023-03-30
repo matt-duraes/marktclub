@@ -1,7 +1,7 @@
 @template "painel"
 @resource "painel/app_geral_visualizar"
 
-#bloco_endereco_add
+.bloco_endereco_add
     width: 100VW
     height: 100vh
     position: fixed
@@ -16,7 +16,7 @@
     .conteudo
         max-width: 800px
 
-#bloco_endereco_add .conteudo
+.bloco_endereco_add .conteudo
     h2
         width: 100%
     .bloco
@@ -56,6 +56,9 @@
         max-height: calc(100vh - 100px)
         margin-top: 20px
         border-top: 2px solid $cor
+        position: relative
+        flexCol()
+        align-items: center
     .bloco_mapa h2
         width: calc(100% - 40px)
         margin-left: 20px
@@ -85,6 +88,12 @@
         width: 100%
         height: 400px
         background-color: #EEE
+    .bloco_mapa .botao_controle
+        position: absolute
+        bottom: 10px
+        flexRow()
+    .bloco_mapa .botao_controle .botao
+        font-size: 1.2rem
     .footer
         width: 100%
         flexRow()

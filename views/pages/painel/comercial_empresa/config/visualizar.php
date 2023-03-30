@@ -24,6 +24,10 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->endereco('comercial_empresa', EnderecoLocal::PRINCIPAL);
     });
+    $Painel->bloco(titulo: 'Endereço Secundario', callback: function () use ($Painel) {
+        $Painel
+            ->endereco('comercial_empresa', 'secundario');
+    });
 });
 
 $Painel->css('painel_comercial_empresa_visualizar');
