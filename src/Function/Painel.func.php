@@ -229,6 +229,8 @@ if (!function_exists('painelLinhaLista')) {
                 require_once $item['arquivo'];
                 continue;
             } else if ($acao == 'endereco') {
+                $enderecoTabela = $item['tabela'] ?? '';
+                $enderecoLocal = $item['local'] ?? '';
                 include ROOT . '/src/Html/Painel/endereco.php';
                 continue;
             } else if ($acao == 'contato') {

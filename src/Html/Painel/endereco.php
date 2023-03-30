@@ -3,14 +3,16 @@
 use Helpers\ListaHelper;
 ?>
 <div class="bloco_endereco_geral">
+    <input type="hidden" name="tabela" value="<?= $enderecoTabela ?>">
+    <input type="hidden" name="local" value="<?= $enderecoLocal ?>">
     <div class="bloco_endereco">
-        <div class="botao_pequeno_geral">Adicionar endereço</div>
-        <div class="lista_endereco">
-
+        <div class="botao_pequeno_geral botao_adicionar_endereco">Adicionar endereço</div>
+        <div class="lista_endereco bloco_lista_endereco_previa">
         </div>
+        <div class="botao_pequeno_geral botao_ver_todos display_none">Ver todos</div>
     </div>
 
-    <div class="bloco_endereco_add">
+    <div class="bloco_endereco_add display_none">
         <div class="bloco_pagina_popup conteudo">
             <header class="header_pagina_popup">
                 <h1>CADASTRAR ENDEREÇO</h1>
@@ -33,7 +35,7 @@ use Helpers\ListaHelper;
                         placeholder: 'Telefone'
                     ) ?>
                 </div>
-                <div class="bloco display_none">
+                <div class="bloco">
                     <h2>Endereço</h2>
                     <?= formSelect(
                         class: 'bloco_endereco_pais',
@@ -42,18 +44,26 @@ use Helpers\ListaHelper;
                         placeholder: 'Escolha um país',
                         lista: (new ListaHelper)->add('', 'Escolha um país')->pais()->r(),
                         value: 'BR',
-                        obrigatorio: true
+                        obrigatorio: true,
+                        change: 'mudarPais'
                     ) ?>
                     <?= formInput(
-                        class: 'bloco_endereco_cep',
-                        name: 'endereco_cep_' . uuid(),
+                        class: 'bloco_endereco_cep_brasil',
+                        name: 'endereco_cep_brasil_' . uuid(),
                         label: 'CEP',
                         placeholder: 'CEP do endereço',
-                        mascara: '00000-000',
-                        obrigatorio: true
+                        mascara: '00000-000'
+                    ) ?>
+                    <div class="buscar_endereco botao_buscar_endereco" data-ajuda="Buscar endereço"><?= iconeBuscar() ?></div>
+                    <?= formInput(
+                        class: 'bloco_endereco_cep_estrangeiro display_none',
+                        name: 'endereco_cep_estrangeiro_' . uuid(),
+                        label: 'CEP',
+                        placeholder: 'CEP do endereço',
+                        mascara: 'numero'
                     ) ?>
                 </div>
-                <div class="bloco display_none">
+                <div class="bloco">
                     <?= formInput(
                         class: 'bloco_endereco_logradouro',
                         name: 'endereco_logradouro_' . uuid(),
@@ -68,13 +78,19 @@ use Helpers\ListaHelper;
                         placeholder: 'Número'
                     ) ?>
                     <?= formInput(
+                        class: 'bloco_endereco_complemento',
+                        name: 'endereco_complemento_' . uuid(),
+                        label: 'Complemento',
+                        placeholder: 'Complemento do endereço'
+                    ) ?>
+                    <?= formInput(
                         class: 'bloco_endereco_referencia',
                         name: 'endereco_referencia_' . uuid(),
                         label: 'Referência',
                         placeholder: 'Referência do endereço'
                     ) ?>
                 </div>
-                <div class="bloco display_none">
+                <div class="bloco">
                     <?= formInput(
                         class: 'bloco_endereco_bairro',
                         name: 'endereco_bairro_' . uuid(),
@@ -83,12 +99,19 @@ use Helpers\ListaHelper;
                         obrigatorio: true
                     ) ?>
                     <?= formSelect(
-                        class: 'bloco_endereco_estado',
+                        class: 'bloco_endereco_estado_brasil',
                         name: 'endereco_estado_' . uuid(),
                         label: 'Estado',
                         placeholder: 'Escolha um estado',
                         lista: (new ListaHelper)->add('', 'Escolha um estado')->estado()->r(),
-                        obrigatorio: true
+                        obrigatorio: true,
+                        change: 'buscarCidade'
+                    ) ?>
+                    <?= formInput(
+                        class: 'bloco_endereco_estado_estrangeiro display_none',
+                        name: 'endereco_estado_estrangeiro_' . uuid(),
+                        label: 'Estado',
+                        placeholder: 'Estado do endereço',
                     ) ?>
                     <?= formSelect(
                         class: 'bloco_endereco_cidade_brasil',
@@ -124,14 +147,19 @@ use Helpers\ListaHelper;
                         <div class="botao inativo">Como chegar</div>
                         <a class="botao ativo display_none" href="" target="_blank" rel="noopener noreferrer">Como chegar</a>
                     </div>
-                    <div class="mapa"></div>
-                    <div class="botao_controle">
-                        <div class="botao_pequeno_geral botao_colocar_marcado botao">Localizar endereço</div>
-                        <div class="botao_pequeno_geral botao_buscar_geolocalizacao botao">Colocar ponto aqui</div>
+                    <div class="bloco_renderizar">
+                        <div class="mapa"></div>
+                        <div class="buscar_titulo">
+                            <input type="text" class="input_geolocalizacao_titulo" placeholder="Buscar por título...">
+                        </div>
+                        <div class="botao_controle">
+                            <div class="botao_pequeno_geral botao_buscar_geolocalizacao_endereco botao">Localizar endereço</div>
+                            <div class="botao_pequeno_geral botao_colocar_marcado botao">Colocar ponto aqui</div>
+                        </div>
                     </div>
                 </div>
                 <div class="footer">
-                    <div class="botao botao_verde">Salvar</div>
+                    <div class="botao botao_verde botao_salvar_endereco">Salvar</div>
                 </div>
             </form>
         </div>

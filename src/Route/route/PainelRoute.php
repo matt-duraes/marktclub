@@ -4,6 +4,7 @@ use Route\Route;
 use App\Middlewares\AuthMiddleware;
 use PainelController\AppController;
 use PainelController\UploadController;
+use PainelController\EnderecoController;
 use PainelController\HistoricoController;
 use PainelApp\login\Controllers\LoginController;
 use PainelApp\agenda\Controllers\AgendaController;
@@ -343,6 +344,26 @@ Route
             ::nome('deletar')
             ::_rotaNaoUnica()
             ::delete('/historico/{id}');
+    }, true)
+
+    // ENDERECO
+    ::controller(EnderecoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscarGeolocalizacao')
+            ::_rotaNaoUnica()
+            ::request(['pais', '!titulo', '!cep', '!logradouro', '!numero', '!bairro', '!cidade', '!estado'])
+            ::post('/sistema-endereco/buscar-geolocalizacao');
+        Route
+            ::nome('buscarEnderecoPeloCep')
+            ::_rotaNaoUnica()
+            ::request(['cep'])
+            ::post('/sistema-endereco/buscar-endereco-pelo-cep');
+        Route
+            ::nome('buscarCidade')
+            ::_rotaNaoUnica()
+            ::request(['estado'])
+            ::post('/sistema-endereco/buscar-cidade');
     }, true)
 
     // DOWNLOAD PRIVADO

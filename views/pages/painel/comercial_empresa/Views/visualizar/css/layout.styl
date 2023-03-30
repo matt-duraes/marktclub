@@ -1,5 +1,17 @@
 @template "painel"
 @resource "painel/app_geral_visualizar"
+.bloco_endereco_geral
+    width: 100%
+.bloco_endereco
+    width: 100%
+    flexCol()
+    align-items: flex-start
+    .botao_pequeno_geral
+        margin-left: 20px
+    .lista_endereco
+        width: 100%
+        flexCol()
+        margin-top: 20px
 
 .bloco_endereco_add
     width: 100VW
@@ -13,6 +25,10 @@
     justify-content: center
     align-items: flex-start
     overflow-y: auto
+    opacity: 0
+    transition: opacity .3s ease-out
+    &.ativo
+        opacity: 1
     .conteudo
         max-width: 800px
 
@@ -24,6 +40,13 @@
         flexRow()
         flex-wrap: wrap
         padding: 0 20px
+    .buscar_endereco
+        width: 30px
+        height: 30px
+        flexCenter()
+        margin: 27px 0 0 10px
+        cursor: pointer
+        fill: #666
     .bloco_endereco_titulo
         flexGrow()
         margin-right: 20px
@@ -32,7 +55,8 @@
     .bloco_endereco_pais
         max-width: 200px
         margin-right: 20px
-    .bloco_endereco_cep
+    .bloco_endereco_cep_brasil
+    .bloco_endereco_cep_estrangeiro
         max-width: 160px
     .bloco_endereco_logradouro
         max-width: 300px
@@ -40,12 +64,16 @@
     .bloco_endereco_numero
         max-width: 100px
         margin-right: 20px
+    .bloco_endereco_complemento
+        width: calc(50% - 10px)
+        margin-right: 20px
     .bloco_endereco_referencia
-        flexGrow()
+        width: calc(50% - 10px)
     .bloco_endereco_bairro
         max-width: 200px
         margin-right: 20px
-    .bloco_endereco_estado
+    .bloco_endereco_estado_brasil
+    .bloco_endereco_estado_estrangeiro
         max-width: 180px
         margin-right: 20px
     .bloco_endereco_cidade_brasil
@@ -56,9 +84,6 @@
         max-height: calc(100vh - 100px)
         margin-top: 20px
         border-top: 2px solid $cor
-        position: relative
-        flexCol()
-        align-items: center
     .bloco_mapa h2
         width: calc(100% - 40px)
         margin-left: 20px
@@ -84,16 +109,37 @@
         bgDegradeVerde()
         color: #FFF
         cursor: pointer
-    .bloco_mapa .mapa
+    .bloco_mapa .bloco_renderizar
         width: 100%
-        height: 400px
+        position: relative
+        flexCol()
+        align-items: center
+    .bloco_mapa .bloco_renderizar .mapa
+        width: 100%
+        height: 500px
         background-color: #EEE
-    .bloco_mapa .botao_controle
+    .bloco_mapa .bloco_renderizar .buscar_titulo
+        width: calc(100% - 270px)
+        position: absolute
+        top: 10px
+        right: 70px
+        flexRow()
+        align-items: center
+    .bloco_mapa .bloco_renderizar .buscar_titulo input
+        width: 100%
+        height: 42px
+        background: #FFF
+        box-shadow: 0 2px 2px rgba(0,0,0,.1)
+        border: 1px solid #EEE
+        font-size: 1.6rem
+        padding: 0 10px
+    .bloco_mapa .bloco_renderizar .botao_controle
         position: absolute
         bottom: 10px
         flexRow()
-    .bloco_mapa .botao_controle .botao
+    .bloco_mapa .bloco_renderizar .botao_controle .botao
         font-size: 1.2rem
+        margin: 0 10px
     .footer
         width: 100%
         flexRow()
