@@ -2,13 +2,30 @@
 
 namespace System\Config;
 
+use Exception;
+
 final class EnvConfig
 {
+    /**
+     * @var string
+     */
     private string $root = __DIR__ . '/../..';
+    /**
+     * @var array
+     */
     private array $envProducao = [];
+    /**
+     * @var array
+     */
     private array $envUso = [];
+    /**
+     * @var string
+     */
     private string $host = '';
 
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
         $this->host = explode(':', $_SERVER['HTTP_HOST'] ?? '')[0];
@@ -21,12 +38,15 @@ final class EnvConfig
         define('SISTEMA', $this->tipoApp);
     }
 
+    /**
+     * @throws Exception
+     */
     private function pegarEnvProducao(): void
     {
         $arquivo = __DIR__ . '/../../.env';
 
         if (!file_exists($arquivo)) {
-            throw new \Exception(message: 'Você precisa criar um arquivo de configuração .env na raiz do seu projeto.');
+            throw new Exception(message: 'Você precisa criar um arquivo de configuração .env na raiz do seu projeto.');
         }
         $env = $this->montarEnv($arquivo);
 
@@ -35,6 +55,55 @@ final class EnvConfig
         $this->setTipoArquivo($env['APP_TIPO'] ?? 'producao');
     }
 
+    /**
+     * @throws Exception
+     */
+    private function montarEnv(string $arquivo): array
+    {
+        $dado = file($arquivo) ?? [];
+        if (!$dado) {
+            throw new Exception(
+                message: 'Ocorreu um erro ao pegar o arquivo ' . $arquivo . ', verifique as permissões do arquivo e tente novamente.'
+            );
+        }
+
+        $lista = [];
+        foreach ($dado as $linha) {
+            if (empty(trim($linha))) {
+                continue;
+            }
+            $explode = explode('=', $linha);
+            $indice = $explode[0];
+            unset($explode[0]);
+            $valor = '';
+            if ($explode) {
+                $valor = trim(implode('=', $explode));
+            }
+            if (!empty($valor) && is_string($valor) && is_array(jsonDecode($valor, true))) {
+                $valor = jsonDecode($valor, true);
+            }
+            $lista[$indice] = $valor;
+        }
+        return $lista;
+    }
+
+    /**
+     * @param  string  $arquivo
+     * @return void
+     */
+    private function setTipoArquivo(string $arquivo): void
+    {
+        $arquivo = mb_strtoupper($arquivo, 'UTF-8');
+        if (in_array($arquivo, ['LOCALHOST', 'PRODUCAO', 'HOMOLOGACAO'])) {
+            $this->tipoApp = $arquivo;
+            return;
+        }
+        $this->tipoApp = 'LOCALHOST';
+    }
+
+    /**
+     * @throws Exception
+     */
     private function pegarEnvLocal(): void
     {
         $listaEnv = array_diff(scandir($this->root), ['.', '..']);
@@ -60,42 +129,5 @@ final class EnvConfig
                 break;
             }
         }
-    }
-
-    private function montarEnv(String $arquivo): array
-    {
-        $dado = file($arquivo) ?? [];
-        if (!$dado) {
-            throw new \Exception(message: 'Ocorreu um erro ao pegar o arquivo ' . $arquivo . ', verifique as permissões do arquivo e tente novamente.');
-        }
-
-        $lista = [];
-        foreach ($dado as $linha) {
-            if (empty(trim($linha))) {
-                continue;
-            }
-            $explode = explode('=', $linha);
-            $indice = $explode[0];
-            unset($explode[0]);
-            $valor = '';
-            if ($explode) {
-                $valor = trim(implode('=', $explode));
-            }
-            if (!empty($valor) && is_string($valor) && is_array(jsonDecode($valor, true))) {
-                $valor = jsonDecode($valor, true);
-            }
-            $lista[$indice] = $valor;
-        }
-        return $lista;
-    }
-
-    private function setTipoArquivo(string $arquivo): void
-    {
-        $arquivo = mb_strtoupper($arquivo, 'UTF-8');
-        if (in_array($arquivo, ['LOCALHOST', 'PRODUCAO', 'HOMOLOGACAO'])) {
-            $this->tipoApp = $arquivo;
-            return;
-        }
-        $this->tipoApp = 'LOCALHOST';
     }
 }

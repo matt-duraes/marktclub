@@ -4,6 +4,9 @@ namespace System\Config;
 
 final class Constantes
 {
+    /**
+     *
+     */
     public function __construct()
     {
         define('DIRETORIO_VIEW', env('DIRETORIO_VIEW', 'public'));
@@ -31,11 +34,17 @@ final class Constantes
         define('METODO', $_SERVER['REQUEST_METHOD'] ?? '');
     }
 
+    /**
+     * @return string
+     */
     private function root(): string
     {
         return str_replace(['/' . DIRETORIO_VIEW . '/index.php', '/index.php'], '', $_SERVER['SCRIPT_FILENAME']);
     }
 
+    /**
+     * @return string
+     */
     private function cache(): string
     {
         if (SISTEMA == 'PRODUCAO') {
@@ -44,7 +53,10 @@ final class Constantes
         return md5(uniqid(time()));
     }
 
-    private function contentType()
+    /**
+     * @return string
+     */
+    private function contentType(): string
     {
         $header = getallheaders();
         return array_key_exists('Content-Type', $header) ? explode(';', $header['Content-Type'])[0] : '';

@@ -2,14 +2,16 @@
 
 namespace ApiModel\PainelNotificacao;
 
+use App\Models\Api\UsuarioEquipe\PerfilModel;
+use Erro\Excecao;
+use Http\Request;
 use ORM\ORM;
 use stdClass;
-use Http\Request;
+use System\Classes\PainelNotificacao\Status;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use System\Classes\PainelNotificacao\Status;
-use App\Models\Api\UsuarioEquipe\PerfilModel;
+use Throwable;
 
 final class NotificacaoModel extends ORM implements ModelListarInterface
 {
@@ -26,17 +28,27 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
         parent::__construct();
         try {
             $this->idUsuario = TOKEN['usuario']->get('id');
-        } catch (\Throwable) {
+        } catch (Throwable) {
             mensagemStatus(404);
         }
     }
 
+    /**
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $lista = $this
             ->campo([
-                'uuid', 'id_usuario_dono', 'titulo', 'mensagem', 'link', 'botao',
-                'target', 'data_criacao', 'status'
+                'uuid',
+                'id_usuario_dono',
+                'titulo',
+                'mensagem',
+                'link',
+                'botao',
+                'target',
+                'data_criacao',
+                'status'
             ])
             ->where($this->pegarWhere())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -47,7 +59,7 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
         return $lista;
     }
 
-    private function pegarWhere()
+    private function pegarWhere(): array
     {
         $where = [['id_usuario_equipe', $this->idUsuario]];
         if ($this->request->clicado == 'sim') {
