@@ -2,28 +2,44 @@
 
 namespace ApiModel\PainelHistorico;
 
-use ORM\Entity;
-use Helpers\DataHelper;
-use System\Classes\PainelHistorico\Acao;
-use System\Classes\PainelHistorico\Status;
+use ApiModel\PainelNotificacao\NotificacaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
-use ApiModel\PainelNotificacao\NotificacaoEntity;
+use Erro\Erro;
+use Erro\Excecao;
+use Helpers\DataHelper;
+use ORM\Entity;
+use System\Classes\PainelHistorico\Acao;
+use System\Classes\PainelHistorico\Status;
+use Throwable;
 
 final class HistoricoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public int $id_usuario_equipe;
+    public string $mensagem;
+    public array $relacionado;
+    public array $app;
+    public Acao $acao;
+    public Status $status;
+    public string $notificar_titulo = '';
+    public string $notificar_link = '';
+    public array $notificar_equipe = [];
     protected string $ormTabela = TABELA_PAINEL_HISTORICO;
     protected array $ormInsert = [
         'id_relacionado' => '->relacionado',
-        'id_usuario_equipe', 'app', 'acao', 'dado'
+        'id_usuario_equipe',
+        'app',
+        'acao',
+        'dado'
     ];
     protected array $ormSalvar = ['mensagem', 'status'];
     protected array $ormBuscar = [
-        'mensagem', 'status', 'data_criacao'
+        'mensagem',
+        'status',
+        'data_criacao'
     ];
-
     protected string $ormValidarInsert = '
         relacionado|Relacionado|obrigatorio|vazio|isArray
         app|App|obrigatorio|vazio|isArray
@@ -35,19 +51,7 @@ final class HistoricoEntity extends Entity
         mensagem|Mensagem|obrigatorio|vazio
         status|Status|valido
     ';
-
-    public int $id_usuario_equipe;
-    public string $mensagem;
-    public array $relacionado;
-    public array $app;
-    public Acao $acao;
-    public Status $status;
-
     private array $usuarioNotificado = [];
-    public string $notificar_titulo = '';
-    public string $notificar_link = '';
-    public array $notificar_equipe = [];
-
     private int $idUsuario;
 
     public function __construct()
@@ -61,6 +65,7 @@ final class HistoricoEntity extends Entity
         $this->id_usuario_equipe = $this->idUsuario;
         $this->status = new Status(empty($this->mensagem) ? Status::SEM_MENSAGEM : Status::COM_MENSAGEM);
     }
+
     protected function regraPosInsert()
     {
         if ($this->notificar_equipe) {
@@ -76,12 +81,16 @@ final class HistoricoEntity extends Entity
             $this->enviarNotificacaoParaUsuario('Marcou você em um comentário', $usuario[0], 'nome_perfil');
         }
     }
+
+    /**
+     * @throws Excecao
+     */
     private function enviarNotificacaoParaUsuario(string $titulo, array $usuario, string $campo)
     {
         try {
             $Dono = new EquipeEntity(validarToken: false);
             $Dono->id($this->id_usuario_equipe);
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return;
         }
         foreach ($usuario as $valor) {
@@ -89,7 +98,7 @@ final class HistoricoEntity extends Entity
             try {
                 $Equipe = new EquipeEntity(validarToken: false);
                 $Equipe->buscar([$campo, $valor]);
-            } catch (\Throwable) {
+            } catch (Throwable) {
                 continue;
             }
 
@@ -109,11 +118,16 @@ final class HistoricoEntity extends Entity
                     Dono: $Dono,
                 );
                 $Notificacao->salvar();
-            } catch (\Throwable) {
+            } catch (Throwable) {
                 continue;
             }
         }
     }
+
+    /**
+     * @throws Excecao
+     * @throws Erro
+     */
     protected function regraUpdate()
     {
         if (!empty($this->prop('mensagem'))) {
@@ -128,6 +142,9 @@ final class HistoricoEntity extends Entity
         $this->status = new Status(1);
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraDestruir()
     {
         $data = (new DataHelper(agora()))->remover(1, 'minuto')->formato('Y-m-d H:i:s');

@@ -2,11 +2,12 @@
 
 namespace ApiModel\PainelHistorico;
 
+use Erro\Excecao;
+use Http\Request;
 use ORM\ORM;
 use stdClass;
-use Http\Request;
-use System\Trait\Model\PaginaTrait;
 use System\Classes\PainelHistorico\Acao;
+use System\Trait\Model\PaginaTrait;
 
 final class HistoricoModel extends ORM
 {
@@ -22,6 +23,9 @@ final class HistoricoModel extends ORM
         $this->idUsuario = TOKEN['usuario']->get('id');
     }
 
+    /**
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $dado = $this
@@ -35,27 +39,6 @@ final class HistoricoModel extends ORM
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
-    }
-
-    protected function montarRetorno(array $dado): array
-    {
-        if (!$dado) {
-            return [];
-        }
-
-        $returno = [];
-        foreach ($dado as $r) {
-            $returno[] = [
-                'id' => $r->uuid,
-                'nome' => $r->nome_real,
-                'imagem' => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google),
-                'minha_mensagem' => $this->idUsuario == $r->id,
-                'acao' => (new Acao($r->acao))->indice(),
-                'mensagem' => $r->mensagem,
-                'data_criacao' => $r->data_criacao
-            ];
-        }
-        return $returno;
     }
 
     protected function pegarWhere(): array
@@ -80,5 +63,26 @@ final class HistoricoModel extends ORM
             $where[] = ['mensagem', 'like', '%' . $pesquisa . '%'];
         }
         return $where;
+    }
+
+    protected function montarRetorno(array $dado): array
+    {
+        if (!$dado) {
+            return [];
+        }
+
+        $returno = [];
+        foreach ($dado as $r) {
+            $returno[] = [
+                'id' => $r->uuid,
+                'nome' => $r->nome_real,
+                'imagem' => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google),
+                'minha_mensagem' => $this->idUsuario == $r->id,
+                'acao' => (new Acao($r->acao))->indice(),
+                'mensagem' => $r->mensagem,
+                'data_criacao' => $r->data_criacao
+            ];
+        }
+        return $returno;
     }
 }

@@ -1,19 +1,30 @@
 <?php
 
-use Erro\Retorno\ErroRetorno;
+use Erro\Alerta;
+use Erro\Erro;
+use Erro\Excecao;
 use Erro\Retorno\AlertaRetorno;
+use Erro\Retorno\ErroLegadoRetorno;
+use Erro\Retorno\ErroRetorno;
 use Erro\Retorno\ExcecaoRetorno;
 use Erro\Retorno\ThrowableRetorno;
-use Erro\Retorno\ErroLegadoRetorno;
+use JetBrains\PhpStorm\NoReturn;
 
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
 
-function imprimirErro($retorno)
+/**
+ * @param $retorno
+ * @return void
+ */
+#[NoReturn] function imprimirErro($retorno): void
 {
     if (is_array($retorno)) {
         echo json_encode($retorno, JSON_PARTIAL_OUTPUT_ON_ERROR);
-    } elseif (is_object($retorno) && defined('SISTEMA') && SISTEMA != 'producao' && method_exists($retorno, '__toString')) {
+    } elseif (is_object($retorno) && defined('SISTEMA') && SISTEMA != 'producao' && method_exists(
+            $retorno,
+            '__toString'
+        )) {
         echo $retorno;
     } elseif (is_object($retorno) && defined('SISTEMA') && SISTEMA != 'producao') {
         echo '<pre>';
@@ -25,13 +36,18 @@ function imprimirErro($retorno)
     }
     exit();
 }
-function exceptionHandler($error)
+
+/**
+ * @param $error
+ * @return void
+ */
+#[NoReturn] function exceptionHandler($error): void
 {
-    if ($error instanceof \Erro\Excecao) {
+    if ($error instanceof Excecao) {
         $retorno = (new ExcecaoRetorno($error))->html();
-    } elseif ($error instanceof \Erro\Alerta) {
+    } elseif ($error instanceof Alerta) {
         $retorno = (new AlertaRetorno($error))->html();
-    } elseif ($error instanceof \Erro\Erro) {
+    } elseif ($error instanceof Erro) {
         $retorno = (new ErroRetorno($error))->html();
     } else {
         $retorno = (new ThrowableRetorno($error))->html();
@@ -39,11 +55,18 @@ function exceptionHandler($error)
     imprimirErro($retorno);
 }
 
-function errorHandler(int $tipo, string $mensagem, string $arquivo, int $linha)
+/**
+ * @param  int     $tipo
+ * @param  string  $mensagem
+ * @param  string  $arquivo
+ * @param  int     $linha
+ * @return void
+ */
+#[NoReturn] function errorHandler(int $tipo, string $mensagem, string $arquivo, int $linha): void
 {
     ob_start();
     debug_print_backtrace();
     $traceString = ob_get_contents();
     ob_end_clean();
     imprimirErro((new ErroLegadoRetorno($tipo, $mensagem, $arquivo, $linha, debug_backtrace(), $traceString))->html());
-};
+}

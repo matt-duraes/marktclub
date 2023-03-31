@@ -2,9 +2,10 @@
 
 namespace ApiModel\Log;
 
+use Erro\Excecao;
+use Http\Request;
 use ORM\ORM;
 use stdClass;
-use Http\Request;
 use System\Classes\LogErro\Status;
 
 final class ErrorModel extends ORM
@@ -17,6 +18,9 @@ final class ErrorModel extends ORM
         parent::__construct();
     }
 
+    /**
+     * @throws Excecao
+     */
     public function listarDado(): stdClass
     {
         $dado = $this
@@ -30,7 +34,25 @@ final class ErrorModel extends ORM
         return $dado;
     }
 
-    private function montarDado($dado)
+    private function pegarPagina(): int
+    {
+        $pagina = $this->request->pagina;
+        if (empty($pagina)) {
+            return 1;
+        }
+        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
+    }
+
+    private function pegarQuantidade(): int
+    {
+        $quantidade = $this->request->quantidade;
+        if (empty($quantidade)) {
+            return 50;
+        }
+        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $quantidade) ? $quantidade : 50;
+    }
+
+    private function montarDado($dado): array
     {
         $retorno = [];
         $Status = new Status();
@@ -45,22 +67,5 @@ final class ErrorModel extends ORM
             ];
         }
         return $retorno;
-    }
-
-    private function pegarPagina(): int
-    {
-        $pagina = $this->request->pagina;
-        if (empty($pagina)) {
-            return 1;
-        }
-        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
-    }
-    private function pegarQuantidade(): int
-    {
-        $quantidade = $this->request->quantidade;
-        if (empty($quantidade)) {
-            return 50;
-        }
-        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $quantidade) ? $quantidade : 50;
     }
 }
