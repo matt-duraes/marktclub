@@ -2,15 +2,16 @@
 
 namespace ApiController;
 
+use ApiModel\PainelHistorico\HistoricoEntity;
+use ApiModel\PainelHistorico\HistoricoModel;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use ApiModel\PainelHistorico\HistoricoModel;
-use ApiModel\PainelHistorico\HistoricoEntity;
+use System\Interface\ControllerAtualizarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use System\Interface\ControllerAtualizarInterface;
 
 final class PainelHistoricoController extends Controller implements
     ControllerListarInterface,
@@ -18,6 +19,11 @@ final class PainelHistoricoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    /**
+     * @param  Request  $request
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
         $Historico = new HistoricoEntity();
@@ -27,13 +33,18 @@ final class PainelHistoricoController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Historico,
-                request: $request,
-                lista: ['id', 'relacionado', 'app', 'acao', 'dado', 'mensagem']
+                $request,
+                ['id', 'relacionado', 'app', 'acao', 'dado', 'mensagem']
             ),
-            status: 201
+            201
         );
     }
 
+    /**
+     * @param  Request  $request
+     * @return Response
+     * @throws Excecao
+     */
     public function getListar(Request $request): Response
     {
         $Historico = new HistoricoModel($request);
@@ -41,6 +52,12 @@ final class PainelHistoricoController extends Controller implements
         return mensagemSucesso($dado);
     }
 
+    /**
+     * @param  Request  $request
+     * @param  string   $id
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $Historico = new HistoricoEntity();
@@ -51,6 +68,11 @@ final class PainelHistoricoController extends Controller implements
         return new Response(status: 204);
     }
 
+    /**
+     * @param  string  $id
+     * @return Response
+     * @throws Excecao
+     */
     public function deleteDeletar(string $id): Response
     {
         $Historico = new HistoricoEntity();

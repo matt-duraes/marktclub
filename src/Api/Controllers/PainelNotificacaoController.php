@@ -2,18 +2,20 @@
 
 namespace ApiController;
 
+use ApiModel\PainelNotificacao\NotificacaoEntity;
+use ApiModel\PainelNotificacao\NotificacaoModel;
+use ApiModel\PainelNotificacao\VisualizarTodasModel;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
 use System\Classes\PainelNotificacao\Status;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use ApiModel\PainelNotificacao\NotificacaoModel;
-use ApiModel\PainelNotificacao\NotificacaoEntity;
-use System\Interface\ControllerAtualizarInterface;
-use ApiModel\PainelNotificacao\VisualizarTodasModel;
+use Throwable;
 
 final class PainelNotificacaoController extends Controller implements
     ControllerSalvarInterface,
@@ -21,11 +23,11 @@ final class PainelNotificacaoController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface
 {
-    /*
-    |--------------------------------------------------------------------------
-    | BUSCAR
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * @param  string  $id
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
         $Notificacao = new NotificacaoEntity();
@@ -35,26 +37,35 @@ final class PainelNotificacaoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Notificacao,
                 lista: [
-                    'id', 'dono', 'titulo', 'mensagem', 'link', 'botao', 'target', 'status'
+                    'id',
+                    'dono',
+                    'titulo',
+                    'mensagem',
+                    'link',
+                    'botao',
+                    'target',
+                    'status'
                 ]
             )
         );
     }
-    /*
-    |--------------------------------------------------------------------------
-    | LISTAR
-    |--------------------------------------------------------------------------
-    */
+
+    /**
+     * @param  Request  $request
+     * @return Response
+     * @throws Excecao
+     */
     public function getListar(Request $request): Response
     {
         $Notificacao = new NotificacaoModel($request);
         return mensagemSucesso($Notificacao->listarDados());
     }
-    /*
-    |--------------------------------------------------------------------------
-    | SALVAR
-    |--------------------------------------------------------------------------
-    */
+
+    /**
+     * @param  Request  $request
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
         $request
@@ -77,27 +88,37 @@ final class PainelNotificacaoController extends Controller implements
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Notificacao, lista: [
-                'id', 'titulo', 'mensagem'
+                'id',
+                'titulo',
+                'mensagem'
             ]),
             201
         );
     }
+
+    /**
+     * @param  string  $id
+     * @param  string  $mensagem
+     * @return EquipeEntity
+     * @throws Excecao
+     */
     private function pegarUsuario(string $id, string $mensagem): EquipeEntity
     {
         try {
             $Dono = new EquipeEntity();
             $Dono->uuid($id);
-        } catch (\Throwable) {
+        } catch (Throwable) {
             mensagemErro('Erro!', $mensagem);
         }
         return $Dono;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | ATUALIZAR
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * @param  Request  $request
+     * @param  string   $id
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $status = new Status($request->status);
@@ -113,7 +134,10 @@ final class PainelNotificacaoController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function putVisualizarTodas()
+    /**
+     * @return Response
+     */
+    public function putVisualizarTodas(): Response
     {
         $Noficacao = new VisualizarTodasModel();
         $Noficacao->visualizarTodas();

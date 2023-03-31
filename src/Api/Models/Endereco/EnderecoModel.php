@@ -2,12 +2,13 @@
 
 namespace ApiModel\Endereco;
 
+use Erro\Excecao;
+use Http\Request;
 use ORM\ORM;
 use stdClass;
-use Http\Request;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
 
 final class EnderecoModel extends ORM implements ModelListarInterface
 {
@@ -15,12 +16,11 @@ final class EnderecoModel extends ORM implements ModelListarInterface
     use QuantidadeTrait;
 
     protected string $ormTabela = TABELA_SISTEMA_ENDERECO;
-    private int $idUsuario;
-
     protected array $ormReplace = [
         'nome' => 'titulo',
         'cod' => 'id_vinculo'
     ];
+    private int $idUsuario;
 
     public function __construct(
         protected Request $request
@@ -29,12 +29,32 @@ final class EnderecoModel extends ORM implements ModelListarInterface
         $this->validarRequest();
     }
 
+    private function validarRequest()
+    {
+        $request = $this->request;
+    }
+
+    /**
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $dado = $this
             ->campo([
-                'uuid', 'titulo', 'telefone', 'cep', 'logradouro', 'complemento', 'referencia', 'numero',
-                'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude'
+                'uuid',
+                'titulo',
+                'telefone',
+                'cep',
+                'logradouro',
+                'complemento',
+                'referencia',
+                'numero',
+                'bairro',
+                'cidade',
+                'estado',
+                'pais',
+                'latitude',
+                'longitude'
             ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false)
@@ -45,18 +65,6 @@ final class EnderecoModel extends ORM implements ModelListarInterface
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
-    }
-
-    private function montarRetorno(array $dado): array
-    {
-        if (!$dado) {
-            return [];
-        }
-
-        $returno = [];
-        foreach ($dado as $r) {
-        }
-        return $returno;
     }
 
     private function pegarWhere(): array
@@ -70,8 +78,16 @@ final class EnderecoModel extends ORM implements ModelListarInterface
         }
         return $where;
     }
-    private function validarRequest()
+
+    private function montarRetorno(array $dado): array
     {
-        $request = $this->request;
+        if (!$dado) {
+            return [];
+        }
+
+        $returno = [];
+        foreach ($dado as $r) {
+        }
+        return $returno;
     }
 }
