@@ -21,7 +21,7 @@ final class UploadGrupoController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Grupo, lista: [
@@ -54,7 +54,7 @@ final class UploadGrupoController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
         $Grupo->nome = $request->nome;
         $Grupo->salvar();
 
@@ -64,7 +64,7 @@ final class UploadGrupoController extends Controller implements
     public function deleteDeletar(string $id): Response
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
         $Grupo->destruir();
         return new Response(status: 204);
     }

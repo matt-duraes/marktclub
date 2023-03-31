@@ -126,8 +126,8 @@ final class SolicitacaoVoucherController extends Controller implements
     {
         validarUuid($id);
 
-        $Voucher = new VoucherEntity;
-        $Voucher->id($id);
+        $Voucher = new VoucherEntity();
+        $Voucher->uuid($id);
 
         return mensagemSucesso($Voucher->retorno());
     }

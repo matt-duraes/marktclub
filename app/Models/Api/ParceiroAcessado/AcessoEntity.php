@@ -6,9 +6,9 @@ use App\Models\Api\GeralEntity;
 
 final class AcessoEntity extends GeralEntity
 {
-    protected string $_tabela = TABELA_PARCEIRO_ACESSADO;
-    protected array $_buscar = ['id_parceiro'];
-    protected array $_insert = ['id_admin_empresa', 'id_parceiro', 'status'];
+    protected string $ormTabela = TABELA_PARCEIRO_ACESSADO;
+    protected array $ormBuscar = ['id_parceiro'];
+    protected array $ormInsert = ['id_admin_empresa', 'id_parceiro', 'status'];
 
     public function __construct(
         protected ?array $id_parceiro = null

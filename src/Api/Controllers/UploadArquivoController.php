@@ -32,7 +32,7 @@ final class UploadArquivoController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Arquivo = new ArquivoEntity();
-        $Arquivo->id($id);
+        $Arquivo->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Arquivo, lista: ['id', 'nome', 'extensao', 'link'])
@@ -42,7 +42,7 @@ final class UploadArquivoController extends Controller implements
     public function postSalvar(Request $request): Response
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($request->grupo);
+        $Grupo->uuid($request->grupo);
 
         $Arquivo = new ArquivoEntity(
             arquivo: $request->_FILES('arquivo'),
@@ -60,11 +60,11 @@ final class UploadArquivoController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $Arquivo = new ArquivoEntity();
-        $Arquivo->id($id);
+        $Arquivo->uuid($id);
 
         if (!$request->vazio('grupo')) {
             $Grupo = new GrupoEntity();
-            $Grupo->id($request->grupo);
+            $Grupo->uuid($request->grupo);
             $Arquivo->Grupo = $Grupo;
         }
 
@@ -79,7 +79,7 @@ final class UploadArquivoController extends Controller implements
     public function deleteDeletar(string $id): Response
     {
         $Arquivo = new ArquivoEntity();
-        $Arquivo->id($id);
+        $Arquivo->uuid($id);
         $Arquivo->destruir();
 
         return new Response(status: 204);

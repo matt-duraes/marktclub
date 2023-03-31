@@ -6,7 +6,6 @@ use Helpers\ValidarHelper;
 
 trait Salvar
 {
-
     use Usuario;
 
     /**
@@ -107,7 +106,7 @@ trait Salvar
                     'requestId' => uuid()
                 ]
             ];
-        } else if (!$request->video && $this->temVideo) {
+        } elseif (!$request->video && $this->temVideo) {
             $dado['conferenceData'] = 'None';
         }
 
@@ -122,7 +121,7 @@ trait Salvar
                 if (array_key_exists($email, $convidadosAtuais)) {
                     $dado['attendees'][] = $convidadosAtuais[$email];
                     continue;
-                } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     continue;
                 }
 

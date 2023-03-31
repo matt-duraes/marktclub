@@ -6,11 +6,11 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const NOVA = 'nova';
-    const LIBERADA = 'liberada';
-    const ANDAMENTO = 'andamento';
-    const TESTE = 'teste';
-    const CONCLUIDA = 'concluida';
+    public const NOVA = 'nova';
+    public const LIBERADA = 'liberada';
+    public const ANDAMENTO = 'andamento';
+    public const TESTE = 'teste';
+    public const CONCLUIDA = 'concluida';
 
     public function __construct(
         protected null|string|int $valor = null

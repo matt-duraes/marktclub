@@ -7,10 +7,10 @@ use App\Models\Painel\AppGeral\AppGeralEntity;
 
 final class Entity extends AppGeralEntity
 {
-    protected string $_tabela = TABELA_PAINEL_HISTORICO;
+    protected string $ormTabela = TABELA_PAINEL_HISTORICO;
 
-    protected array $_buscar = ['id'];
-    protected array $_insert = [
+    protected array $ormBuscar = ['id'];
+    protected array $ormInsert = [
         'id_usuario_equipe',
         'app',
         'relacionamento',
@@ -19,7 +19,7 @@ final class Entity extends AppGeralEntity
         'texto',
         'status',
     ];
-    protected array $_update = [
+    protected array $ormUpdate = [
         'texto',
         'status' => 2
     ];

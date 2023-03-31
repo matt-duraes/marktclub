@@ -83,6 +83,27 @@ return [
         'id' => '++',
         'id_admin_empresa' => 1,
         'tipo' => 1,
+        'titulo' => 'COMERCIAL',
+        'ordem' => '++',
+        'status' =>  1,
+        'permissao' => '["comercial_empresa_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Empresa',
+        'url' => '/app/comercial-empresa',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M10.7,9.9V7.3c0-0.5,0.3-0.9,0.9-0.9h6.8c0.5,0,0.9,0.3,0.9,0.9v2.6h3.4c0.5,0,0.9,0.3,0.9,0.9v11.9c0,0.5-0.3,0.9-0.9,0.9H7.3c-0.5,0-0.9-0.3-0.9-0.9V10.7c0-0.5,0.3-0.9,0.9-0.9H10.7z M8.2,19.3v2.6h13.6v-2.6H8.2z M8.2,17.6h13.6v-6H8.2V17.6z M12.4,8.2v1.7h5.1V8.2H12.4z M14.1,15h1.7v1.7h-1.7V15z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['comercial-empresa'],
+        'status' =>  1,
+        'permissao' => '["comercial_empresa_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 1,
         'titulo' => 'PARCEIROS',
         'ordem' => '++',
         'status' =>  1,

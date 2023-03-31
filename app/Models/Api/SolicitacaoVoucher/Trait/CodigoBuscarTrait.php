@@ -14,10 +14,10 @@ trait CodigoBuscarTrait
             return;
         }
         $this->Usuario = new ClienteEntity(validarToken: false);
-        $this->Usuario->_id($this->id_usuario_cliente);
+        $this->Usuario->id($this->id_usuario_cliente);
 
         $this->Parceiro = new LojaEntity();
-        $this->Parceiro->_id($this->id_parceiro_loja);
+        $this->Parceiro->id($this->id_parceiro_loja);
 
         $this->Construtor = new ConstrutorEntity();
         $this->Construtor->buscar([
@@ -25,6 +25,7 @@ trait CodigoBuscarTrait
             ['status', 'in', [1, 2]]
         ]);
 
+        $this->qr_code = 'https://chart.apis.google.com/chart?cht=qr&chl=http://voucher.marktclub.com.br/validar/' . $this->codigo . '&chs=300x300';
         $this->montarTexto();
     }
 }

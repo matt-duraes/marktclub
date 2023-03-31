@@ -75,10 +75,10 @@ $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
 if ($requestUri == '__base' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../src/Html/Database/index.php';
     exit();
-} else if ($requestUri == '__tests' && SISTEMA == 'LOCALHOST') {
+} elseif ($requestUri == '__tests' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../src/Html/Tests/index.php';
     exit();
-} else if ($requestUri == '__documentacao' && SISTEMA == 'LOCALHOST') {
+} elseif ($requestUri == '__documentacao' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../src/Html/Documentacao/index.php';
     exit();
 } elseif ($requestUri == '__enviar-email-sistema' && METODO == 'POST') {
@@ -105,7 +105,7 @@ unset($requestUri);
 |
 |--------------------------------------------------------------------------
 */
-$App = (new \System\Config\App)->run();
+$App = (new \System\Config\App())->run();
 if (method_exists($App, 'render')) {
     $App->render();
 } else {

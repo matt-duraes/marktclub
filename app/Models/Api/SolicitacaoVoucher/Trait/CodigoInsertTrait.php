@@ -66,6 +66,6 @@ trait CodigoInsertTrait
             mensagemErro('Sem voucher!', 'Os vouchers esgotaram no momento, estamos providenciando mais vouchers.');
         }
 
-        $this->_id($id);
+        $this->id($id);
     }
 }

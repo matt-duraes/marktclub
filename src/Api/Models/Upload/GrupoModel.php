@@ -6,12 +6,12 @@ use ORM\ORM;
 
 final class GrupoModel extends ORM
 {
-    protected string $_tabela = TABELA_UPLOAD_GRUPO;
+    protected string $ormTabela = TABELA_UPLOAD_GRUPO;
 
     public function listarSubGrupo($grupo)
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($grupo);
+        $Grupo->uuid($grupo);
 
         $dado = $this
             ->campo(['uuid', 'nome'])
@@ -77,7 +77,7 @@ final class GrupoModel extends ORM
 
         try {
             $Grupo = new GrupoEntity();
-            $Grupo->id($grupo);
+            $Grupo->uuid($grupo);
             return $Grupo->get('id');
         } catch (\Throwable) {
             return '';

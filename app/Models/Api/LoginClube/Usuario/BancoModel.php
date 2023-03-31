@@ -84,7 +84,7 @@ final class BancoModel implements LoginClubeInterface
         $status = $this->Usuario->status->indice();
         if (in_array($status, ['indicacao', 'ativo'])) {
             return;
-        } else if ($status == 'inativo') {
+        } elseif ($status == 'inativo') {
             throw new Excecao(
                 titulo: 'Usuário inativo!',
                 mensagem: 'Seu usuário está inativo, para continuar, ative seu usuário.',
@@ -93,7 +93,7 @@ final class BancoModel implements LoginClubeInterface
                 ],
                 codigo: 1000
             );
-        } else if ($status == 'bloqueado') {
+        } elseif ($status == 'bloqueado') {
             mensagemErro(
                 'Usuário bloqueado!',
                 'Seu usuário está bloqueado, para desbloqueá-lo, entre em contato com o atendimento.'

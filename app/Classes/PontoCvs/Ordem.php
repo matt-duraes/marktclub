@@ -4,7 +4,6 @@ namespace App\Classes\PontoCvs;
 
 use Order\Order;
 
-
 final class Ordem extends Order
 {
     public function __construct(

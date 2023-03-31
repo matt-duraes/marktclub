@@ -4,7 +4,7 @@ namespace App\Classes\UsuarioPagamento;
 
 final class Helper
 {
-    const CRIPTOGRAFIA = [
+    public const CRIPTOGRAFIA = [
         'nome', 'cpf', 'pesquisa'
     ];
 }

@@ -30,7 +30,7 @@ final class AgendaController extends Controller
     public function postLogin(Request $request)
     {
         $Social = new SocialHelper(rede: 'google', code: $request->code);
-        $this->atualizarIdGoogle($Social->id());
+        $this->atualizarIdGoogle($Social->uuid());
         return mensagemSucesso(['logado' => true], status: 201);
     }
     private function atualizarIdGoogle($id)

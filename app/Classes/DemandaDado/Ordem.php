@@ -4,7 +4,6 @@ namespace App\Classes\DemandaDado;
 
 use Order\Order;
 
-
 final class Ordem extends Order
 {
     public function __construct(

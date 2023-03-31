@@ -7,7 +7,7 @@ use App\Models\Painel\AppGeral\AppGeralModel;
 
 final class DocumentoNoticiaModel extends AppGeralModel
 {
-    protected string $_tabela = TABELA_DOCUMENTO_NOTICIA;
+    protected string $ormTabela = TABELA_DOCUMENTO_NOTICIA;
 
     /*
     |--------------------------------------------------------------------------

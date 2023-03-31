@@ -6,8 +6,8 @@ use Status\Status as StatusStatus;
 
 final class Tipo extends StatusStatus
 {
-    const CLUBE = 'clube';
-    const PAINEL = 'painel';
+    public const CLUBE = 'clube';
+    public const PAINEL = 'painel';
 
     public function __construct(
         protected null|string|int $valor = null

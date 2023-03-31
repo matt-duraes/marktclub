@@ -19,7 +19,7 @@ use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class LoginModel extends Entity
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     use ConstrutorTrait;
     use UsuarioTrait;
@@ -67,9 +67,9 @@ final class LoginModel extends Entity
         $request = $this->request;
         if (!$request->existe('nome')) {
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } else if (!$request->existe('cpf')) {
+        } elseif (!$request->existe('cpf')) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
-        } else if (!$request->existe('email_pessoal') && !$request->existe('email_trabalho')) {
+        } elseif (!$request->existe('email_pessoal') && !$request->existe('email_trabalho')) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail.');
         }
         return;
@@ -99,43 +99,43 @@ final class LoginModel extends Entity
         // NOME
         if ($nome->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } else if (!$nome->valido()) {
+        } elseif (!$nome->valido()) {
             mensagemErro('Campo inválido!', 'O campo nome deve ter pelo menos um sobrenome.');
             // DOCUMENTO
-        } else if ($cpf->vazio()) {
+        } elseif ($cpf->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
-        } else if (!$cpf->valido()) {
+        } elseif (!$cpf->valido()) {
             mensagemErro('Campo inválido!', 'O campo CPF não é um documento válido.');
-        } else if (!empty($matricula) && !preg_match('/^[0-9]{1,}$/', $matricula)) {
+        } elseif (!empty($matricula) && !preg_match('/^[0-9]{1,}$/', $matricula)) {
             mensagemErro('Campo inválido', 'A matrícula deve ser um valor inteiro.');
-        } else if (!empty($siape) && !preg_match('/^[0-9]{1,}$/', $siape)) {
+        } elseif (!empty($siape) && !preg_match('/^[0-9]{1,}$/', $siape)) {
             mensagemErro('Campo inválido', 'O SIAPE deve ser um valor inteiro.');
             //EMAIL
-        } else if ($emailPessoal->vazio() && $emailTrabalho->vazio()) {
+        } elseif ($emailPessoal->vazio() && $emailTrabalho->vazio()) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail.');
-        } else if (!$emailPessoal->vazio() && !$emailPessoal->valido()) {
+        } elseif (!$emailPessoal->vazio() && !$emailPessoal->valido()) {
             mensagemErro('Campo inválido!', 'O campo E-mail pessoal não é um e-mail válido.');
-        } else if (!$emailTrabalho->vazio() && !$emailTrabalho->valido()) {
+        } elseif (!$emailTrabalho->vazio() && !$emailTrabalho->valido()) {
             mensagemErro('Campo inválido!', 'O campo E-mail de trabalho não é um e-mail válido.');
             // TELEFONE
-        } else if (!$telefonePessoal->vazio() && !$telefonePessoal->valido()) {
+        } elseif (!$telefonePessoal->vazio() && !$telefonePessoal->valido()) {
             mensagemErro('Campo inválido!', 'O campo Telefone pessoal não é um telefone válido.');
-        } else if (!$telefoneTrabalho->vazio() && !$telefoneTrabalho->valido()) {
+        } elseif (!$telefoneTrabalho->vazio() && !$telefoneTrabalho->valido()) {
             mensagemErro('Campo inválido!', 'O campo Telefone de trabalho não é um telefone válido.');
             // DADOS PESSOAIS
-        } else if (!$genero->vazio() && !$genero->valido()) {
+        } elseif (!$genero->vazio() && !$genero->valido()) {
             mensagemErro('Campo inválido!', 'O campo Gênero não é um valor válido.');
-        } else if (!$estadoCivil->vazio() && !$estadoCivil->valido()) {
+        } elseif (!$estadoCivil->vazio() && !$estadoCivil->valido()) {
             mensagemErro('Campo inválido!', 'O campo Estado Civil não é um valor válido.');
-        } else if (!$dataNascimento->vazio() && (!$dataNascimento->valido() || !$dataNascimento->eDate())) {
+        } elseif (!$dataNascimento->vazio() && (!$dataNascimento->valido() || !$dataNascimento->eDate())) {
             mensagemErro('Campo inválido!', 'O campo Data de nascimento não é uma data válida.');
             // ENDEREÇO
-        } else if (!$enderecoEstado->vazio() && !$enderecoEstado->valido()) {
+        } elseif (!$enderecoEstado->vazio() && !$enderecoEstado->valido()) {
             mensagemErro('Campo inválido!', 'O campo Estado do endereço não é uma UF válida.');
-        } else if (!empty($federacao) && !in_array($federacao, $estadoLista)) {
+        } elseif (!empty($federacao) && !in_array($federacao, $estadoLista)) {
             mensagemErro('Campo inválido!', 'O campo Federação não é um valor válida.');
             // OUTROS
-        } else if (!empty($salavip) && !preg_match('/^[0-9]{1,}$/', $salavip)) {
+        } elseif (!empty($salavip) && !preg_match('/^[0-9]{1,}$/', $salavip)) {
             mensagemErro('Campo inválido', 'A Salavip deve ser um valor inteiro.');
         }
 

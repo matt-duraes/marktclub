@@ -7,7 +7,7 @@ use Modules\Data;
 
 final class RelatorioAnalyticsModel extends ORM
 {
-    protected string $_tabela = TABELA_ANALYTICS;
+    protected string $ormTabela = TABELA_ANALYTICS;
 
     private array $lista;
     private array $analytics;
@@ -92,7 +92,7 @@ final class RelatorioAnalyticsModel extends ORM
                     'quantidade' => 1,
                     'data_acesso' => $data
                 ];
-            } else if ($eConvenio) {
+            } elseif ($eConvenio) {
                 $analytics[$r->empresa]['loja'][$r->vinculo]['quantidade']++;
             }
 

@@ -43,8 +43,8 @@ final class PainelHistoricoController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Historico = new HistoricoEntity;
-        $Historico->id($id);
+        $Historico = new HistoricoEntity();
+        $Historico->uuid($id);
         $Historico->mensagem = $request->mensagem;
         $Historico->salvar();
 
@@ -53,8 +53,8 @@ final class PainelHistoricoController extends Controller implements
 
     public function deleteDeletar(string $id): Response
     {
-        $Historico = new HistoricoEntity;
-        $Historico->id($id);
+        $Historico = new HistoricoEntity();
+        $Historico->uuid($id);
         $Historico->destruir();
 
         return new Response(status: 204);

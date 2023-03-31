@@ -59,7 +59,7 @@ final class Request extends Psr7Request
         if (!$existe && !empty($mensagem)) {
             $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
             mensagemErro($titulo, $mensagem);
-        } else if ($existe && !empty($mensagem)) {
+        } elseif ($existe && !empty($mensagem)) {
             return $this;
         }
         return $existe;
@@ -82,7 +82,7 @@ final class Request extends Psr7Request
         if ($vazio && !empty($mensagem)) {
             $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
             mensagemErro($titulo, $mensagem);
-        } else if (!$vazio && !empty($mensagem)) {
+        } elseif (!$vazio && !empty($mensagem)) {
             return $this;
         }
         return $vazio;
@@ -106,7 +106,7 @@ final class Request extends Psr7Request
         if (!$eData && !empty($mensagem)) {
             $titulo = empty($titulo) ? 'Campo inválido!' : $titulo;
             mensagemErro($titulo, $mensagem);
-        } else if ($eData && !empty($mensagem)) {
+        } elseif ($eData && !empty($mensagem)) {
             return $this;
         }
         return $eData;
@@ -129,7 +129,7 @@ final class Request extends Psr7Request
         if (!$eData && !empty($mensagem)) {
             $titulo = empty($titulo) ? 'Campo inválido!' : $titulo;
             mensagemErro($titulo, $mensagem);
-        } else if ($eData && !empty($mensagem)) {
+        } elseif ($eData && !empty($mensagem)) {
             return $this;
         }
         return $eData;

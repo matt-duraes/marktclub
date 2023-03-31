@@ -27,9 +27,9 @@ class ApiHelper extends CurlHelper
 
         if (!empty($scope)) {
             $this->autenticar($scope);
-        } else if (is_bool($token) && $token) {
+        } elseif (is_bool($token) && $token) {
             $this->header(['Authorization' => 'Bearer ' . sessao('TOKEN')]);
-        } else if (!empty($token)) {
+        } elseif (!empty($token)) {
             $this->header(['Authorization' => 'Bearer ' . $token]);
         }
     }

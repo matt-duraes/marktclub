@@ -9,14 +9,14 @@ use App\Models\Painel\AppGeral\AppGeralEntity;
 
 final class AlbumDadoEntity extends AppGeralEntity
 {
-    protected string $_tabela = TABELA_ALBUM_DADO;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_ALBUM_DADO;
+    protected array $ormBuscar = [
         'tipo', 'titulo', 'texto', 'width', 'height', 'extensao', 'data_publicacao', 'data_remocao', 'status', 'imagem'
     ];
-    protected array $_salvar = [
+    protected array $ormSalvar = [
         'tipo', 'titulo', 'texto', 'width', 'height', 'extensao', 'data_publicacao', 'data_remocao', 'status'
     ];
-    protected array $_update = ['imagem'];
+    protected array $ormUpdate = ['imagem'];
 
     protected Data $data_publicacao;
     protected Data $data_remocao;
@@ -36,19 +36,19 @@ final class AlbumDadoEntity extends AppGeralEntity
 
         if (empty($this->titulo)) {
             mensagemErro('Campo obrigatório!', 'Você deve passar o título do álbum.');
-        } else if (empty($dataPublicacao)) {
+        } elseif (empty($dataPublicacao)) {
             mensagemErro('Campo obrigatório!', 'Você deve passar a data de publicação do álbum.');
-        } else if (!empty($dataRemocao) && $dataPublicacao > $dataRemocao) {
+        } elseif (!empty($dataRemocao) && $dataPublicacao > $dataRemocao) {
             mensagemErro('Campo inválido!', 'A data de remoção não pode ser menor que a data de publicação.');
-        } else if (empty($this->tipo)) {
+        } elseif (empty($this->tipo)) {
             mensagemErro('Campo obrigatório!', 'Você deve escolher o tipo do álbum.');
-        } else if (!in_array($this->tipo, [1, 2, 3, 4])) {
+        } elseif (!in_array($this->tipo, [1, 2, 3, 4])) {
             mensagemErro('Campo inválido!', 'Você deve passar um valor válido para o tipo do álbum.');
-        } else if (in_array($this->tipo, [2, 3]) && empty($this->width)) {
+        } elseif (in_array($this->tipo, [2, 3]) && empty($this->width)) {
             mensagemErro('Campo obrigatório!', 'Você deve passar a largura da imagem.');
-        } else if (in_array($this->tipo, [2, 4]) && empty($this->height)) {
+        } elseif (in_array($this->tipo, [2, 4]) && empty($this->height)) {
             mensagemErro('Campo obrigatório!', 'Você deve passar a altura da imagem.');
-        } else if (empty($extensao)) {
+        } elseif (empty($extensao)) {
             mensagemErro('Campo obrigatório!', 'Você deve escolher pelo menos uma extensão para as imagens.');
         }
         foreach ($extensao as $valor) {

@@ -57,7 +57,7 @@ if (!function_exists('view')) {
         $listaCss = '';
         if (!empty($css)) {
             $listaCss = LINK_PADRAO . '/css/' . preg_replace('/\.css$/', '', $css) . '.css' . $cache;
-        } else if (file_exists(ROOT . '/' . $public . '/css/' . $jsCssNome . '.css')) {
+        } elseif (file_exists(ROOT . '/' . $public . '/css/' . $jsCssNome . '.css')) {
             $listaCss = LINK_PADRAO . '/css/' . $jsCssNome . '.css' . $cache;
         } else {
             $listaCss = verificarSeExisteScriptDoTemplate($arquivo, 'css');
@@ -65,7 +65,7 @@ if (!function_exists('view')) {
         $listaJs = '';
         if (!empty($js)) {
             $listaJs = LINK_PADRAO . '/js/' . preg_replace('/\.js$/', '', $js) . '.js' . $cache;
-        } else if (file_exists(ROOT . '/' . $public . '/js/' . $jsCssNome . '.js')) {
+        } elseif (file_exists(ROOT . '/' . $public . '/js/' . $jsCssNome . '.js')) {
             $listaJs = LINK_PADRAO . '/js/' . $jsCssNome . '.js' . $cache;
         } else {
             $listaJs = verificarSeExisteScriptDoTemplate($arquivo, 'js');

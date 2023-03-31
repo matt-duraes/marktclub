@@ -6,10 +6,10 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const NOVO = 'novo';
-    const ANDAMENTO = 'andamento';
-    const CADASTRO_REALIZADO = 'cadastro-realizado';
-    const SEM_INTERESSE = 'sem-interesse';
+    public const NOVO = 'novo';
+    public const ANDAMENTO = 'andamento';
+    public const CADASTRO_REALIZADO = 'cadastro-realizado';
+    public const SEM_INTERESSE = 'sem-interesse';
 
     public function __construct(
         protected null|string|int $valor = null

@@ -6,14 +6,14 @@ use Status\Status;
 
 final class Acao extends Status
 {
-    const TELEFONE = 'telefone';
-    const EMAIL = 'email';
-    const WHATSAPP = 'whatsapp';
-    const OUTRO = 'outro';
-    const SALVAR = 'salvar';
-    const EDITAR = 'editar';
-    const DELETAR = 'deletar';
-    const MENSAGEM = 'mensagem';
+    public const TELEFONE = 'telefone';
+    public const EMAIL = 'email';
+    public const WHATSAPP = 'whatsapp';
+    public const OUTRO = 'outro';
+    public const SALVAR = 'salvar';
+    public const EDITAR = 'editar';
+    public const DELETAR = 'deletar';
+    public const MENSAGEM = 'mensagem';
     public function __construct(
         protected null|string|int $valor = null
     ) {

@@ -11,21 +11,22 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ArquivoEntity extends Entity
 {
-
-    protected string $_tabela = TABELA_UPLOAD_ARQUIVO;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_UPLOAD_ARQUIVO;
+    protected array $ormBuscar = [
         'id_upload_grupo', 'id_usuario_equipe', 'arquivo', 'nome', 'extensao', 'tamanho',
         'largura', 'altura', 'data_criacao', 'privado'
     ];
-    protected array $_insert = ['id_usuario_equipe'];
-    protected array $_salvar = ['id_upload_grupo', 'arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'status'];
-    protected array $_update = ['privado'];
-    protected string $_validarInsert = '
+    protected array $ormInsert = ['id_usuario_equipe'];
+    protected array $ormSalvar = [
+        'id_upload_grupo', 'arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'status'
+    ];
+    protected array $ormUpdate = ['privado'];
+    protected string $ormValidarInsert = '
         id_upload_grupo|Grupo|obrigatorio|vazio|int
         id_usuario_equipe|Equipe|obrigatorio|vazio|int
         nome|Nome|obrigatorio|vazio
     ';
-    protected string $_validarSalvar = '
+    protected string $ormValidarSalvar = '
         status|Status|valido
     ';
 
@@ -50,7 +51,7 @@ final class ArquivoEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $this->equipe = (new PerfilModel)->pegarDado($this->id_usuario_equipe);
+        $this->equipe = (new PerfilModel())->pegarDado($this->id_usuario_equipe);
         $this->link = arquivoPrivado($this->id);
     }
 
@@ -79,7 +80,7 @@ final class ArquivoEntity extends Entity
     {
         try {
             $this->Grupo = new GrupoEntity();
-            $this->Grupo->_id($this->id_upload_grupo);
+            $this->Grupo->id($this->id_upload_grupo);
         } catch (\Throwable) {
             return;
         }

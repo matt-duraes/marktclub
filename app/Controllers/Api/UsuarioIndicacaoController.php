@@ -22,7 +22,6 @@ final class UsuarioIndicacaoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-
     public function postSalvar(Request $request): Response
     {
         $Indicacao = new IndicacaoEntity();
@@ -53,7 +52,7 @@ final class UsuarioIndicacaoController extends Controller implements
         }
 
         $Indicacao = new IndicacaoEntity();
-        $Indicacao->id($id);
+        $Indicacao->uuid($id);
 
         return $this->retornoSucesso($Indicacao);
     }
@@ -70,7 +69,7 @@ final class UsuarioIndicacaoController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $Indicacao = new IndicacaoEntity();
-        $Indicacao->id($id);
+        $Indicacao->uuid($id);
         $Indicacao->status = new Status($request->status);
         $Indicacao->salvar();
 
@@ -80,7 +79,7 @@ final class UsuarioIndicacaoController extends Controller implements
     public function deleteDeletar(string $id): Response
     {
         $Indicacao = new IndicacaoEntity();
-        $Indicacao->id($id);
+        $Indicacao->uuid($id);
         $Indicacao->destruir();
 
         return new Response(status: 204);

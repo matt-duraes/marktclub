@@ -11,7 +11,6 @@ use App\Models\Api\CampanhaSorteio\SorteioEntity;
 final class CampanhaSorteioController extends Controller implements
     ControllerBuscarInterface
 {
-
     public function getBuscar(string $id): Response
     {
         if (empty($id)) {
@@ -76,7 +75,7 @@ final class CampanhaSorteioController extends Controller implements
     private function pegarSorteio($registro): SorteioEntity
     {
         $Sorteio = new SorteioEntity();
-        $Sorteio->id($registro);
+        $Sorteio->uuid($registro);
 
         return $Sorteio;
     }

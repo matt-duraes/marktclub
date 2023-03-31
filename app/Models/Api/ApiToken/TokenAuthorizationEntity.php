@@ -12,10 +12,10 @@ final class TokenAuthorizationEntity extends Entity
     use Trait\ScopeTrait;
     use Trait\RedirectUriTrait;
 
-    protected string $_tabela = TABELA_AUTH_TOKEN;
+    protected string $ormTabela = TABELA_AUTH_TOKEN;
 
-    // protected array $_buscar = [];
-    protected array $_insert = [
+    // protected array $ormBuscar = [];
+    protected array $ormInsert = [
         'id_usuario', 'id_api_app', 'redirect_uri', 'scope_permitido', 'state_cliente', 'authorization_code',
         'access_token', 'grant_type', 'ip', 'sistema_operacional', 'navegador', 'data_ativacao', 'data_vencimento',
         'status', 'refresh_token', 'hash', 'tipo'
@@ -34,9 +34,9 @@ final class TokenAuthorizationEntity extends Entity
     ) {
         if (!in_array($redirectUri, $app->redirect_uri)) {
             mensagemErro('Erro!', 'Redirect Uri não está autorizado a criar token.', 403);
-        } else if (empty($audience)) {
+        } elseif (empty($audience)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o audience do app.');
-        } else if (empty($state)) {
+        } elseif (empty($state)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o state do usuário.');
         }
 

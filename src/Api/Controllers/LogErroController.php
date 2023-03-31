@@ -44,7 +44,7 @@ final class LogErroController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Error = new ErrorEntity();
-        $Error->id($id);
+        $Error->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
@@ -66,7 +66,7 @@ final class LogErroController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $Error = new ErrorEntity();
-        $Error->id($id);
+        $Error->uuid($id);
         $Error->status = new Status($request->status);
         $Error->salvar();
 

@@ -12,27 +12,27 @@ final class NoticiaEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_PUBLICACAO_NOTICIA;
+    protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
 
-    protected array $_insert = [
+    protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
         'id_usuario_equipe' => '->idUsuario'
     ];
-    protected array $_salvar = [
+    protected array $ormSalvar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
         'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
         'permissao_site', 'permissao_banner', 'status'
     ];
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
         'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
         'permissao_site', 'permissao_banner', 'url', 'status'
     ];
-    protected string $_validarSalvar = '
+    protected string $ormValidarSalvar = '
         titulo_grande|Título grande|obrigatorio|vazio
         data_publicacao_inicio|Data de início da publicação|obrigatorio|vazio|valido
         data_publicacao_final|Data final da publicação|valido

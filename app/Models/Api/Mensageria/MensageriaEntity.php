@@ -9,12 +9,12 @@ use App\Classes\Mensageria\Status;
 
 final class MensageriaEntity extends Entity
 {
-    protected string $_tabela = TABELA_SISTEMA_MENSAGERIA;
+    protected string $ormTabela = TABELA_SISTEMA_MENSAGERIA;
 
-    protected array $_insert = ['tipo', 'payload', 'envio_uri', 'envio_metodo', 'envio_api', 'envio_scope', 'data_enviar_apos'];
-    protected array $_update = ['data_envio', 'quantidade_envio', 'status_resposta'];
-    protected array $_salvar = ['status'];
-    protected array $_buscar = ['envio_uri', 'envio_api', 'envio_scope', 'data_enviar_apos'];
+    protected array $ormInsert = ['tipo', 'payload', 'envio_uri', 'envio_metodo', 'envio_api', 'envio_scope', 'data_enviar_apos'];
+    protected array $ormUpdate = ['data_envio', 'quantidade_envio', 'status_resposta'];
+    protected array $ormSalvar = ['status'];
+    protected array $ormBuscar = ['envio_uri', 'envio_api', 'envio_scope', 'data_enviar_apos'];
 
     private MensageriaInterface $Mensageria;
     public string $envio_uri;

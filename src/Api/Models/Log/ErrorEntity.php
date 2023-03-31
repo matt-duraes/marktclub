@@ -7,13 +7,13 @@ use System\Classes\LogErro\Status;
 
 final class ErrorEntity extends Entity
 {
-    protected string $_tabela = TABELA_LOG_ERRO;
+    protected string $ormTabela = TABELA_LOG_ERRO;
 
-    protected array $_insert = [
+    protected array $ormInsert = [
         'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace', 'quantidade'
     ];
-    protected array $_salvar = ['status'];
-    protected array $_buscar = [
+    protected array $ormSalvar = ['status'];
+    protected array $ormBuscar = [
         'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace',
         'quantidade', 'data_criacao', 'status'
     ];

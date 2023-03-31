@@ -17,12 +17,15 @@ trait ValidarTrait
     {
         foreach ($dado as $ind => $valor) {
             if (!array_key_exists($ind, $coluna)) {
-                throw new Excecao(titulo: 'Erro no banco!', mensagem: 'A coluna ' . $ind . ' não existe no banco de dado.');
+                throw new Excecao(
+                    titulo: 'Erro no banco!',
+                    mensagem: 'A coluna ' . $ind . ' não existe no banco de dado.'
+                );
             }
 
             $titulo = !empty($coluna[$ind]->titulo) ? $coluna[$ind]->titulo : $ind;
             if ($valor instanceof UploadHelper) {
-                $this->_arquivoSalvar[] = $valor;
+                $this->ormArquivoSalvar[] = $valor;
                 $valor = $valor->nome();
             } elseif ($valor instanceof Senha && empty($valor->senha())) {
                 continue;
@@ -32,7 +35,9 @@ trait ValidarTrait
                 $valor = $valor->numero();
             }
 
-            if (!empty($valor) && in_array($coluna[$ind]->tipo, ['bigint', 'int', 'mediumint', 'smallint', 'tinyint'])) {
+            if (
+                !empty($valor) && in_array($coluna[$ind]->tipo, ['bigint', 'int', 'mediumint', 'smallint', 'tinyint'])
+            ) {
                 $valor = (int) preg_replace('/[^0-9]/', '', $valor);
             } elseif (!empty($valor) && $coluna[$ind]->tipo == 'date') {
                 $valor = date('Y-m-d', strtotime(str_replace('/', '-', $valor)));
@@ -180,8 +185,12 @@ trait ValidarTrait
                 !empty($valor) &&
                 preg_replace('/[^0-9]/', '', $valor) != '00000000000000' &&
                 $coluna[$ind]->tipo == 'datetime' &&
-                (!preg_match("/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $valor) &&
-                    !preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/([0-9]{4})\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $valor))
+                (
+                    // @codingStandardsIgnoreStart
+                    !preg_match("/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $valor) &&
+                    !preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/([0-9]{4})\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $valor)
+                    // @codingStandardsIgnoreEnd
+                )
             ) {
                 throw new Excecao(
                     titulo: 'Campo incorreto!',
@@ -265,11 +274,14 @@ trait ValidarTrait
         $quantidade = is_string($telefone) ? mb_strlen($telefone, 'UTF-8') : 0;
         return (
             ($quantidade == 8 && in_array(substr($telefone, 0, 4), ['4004', '4003', '3003'])) ||
-            ($quantidade == 11 && (in_array(substr($telefone, 0, 4), ['0800', '0300']) || substr($telefone, 2, 1) == 9)) ||
+            (
+                $quantidade == 11 &&
+                (in_array(substr($telefone, 0, 4), ['0800', '0300']) || substr($telefone, 2, 1) == 9)
+            ) ||
             ($quantidade == 10 && substr($telefone, 2, 1) != 9));
     }
 
-    private function validarData(string $data): Bool
+    private function validarData(string $data): bool
     {
         return preg_replace('/[^0-9]/', '', $data) != '00000000' &&
             preg_match('/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $data);
@@ -277,7 +289,7 @@ trait ValidarTrait
 
     protected function ormValidarViaHelper(string $acao)
     {
-        $dado = $this->_setReal;
+        $dado = $this->ormSetReal;
         $reflect = new ReflectionObject($this);
         $propriedadePublica = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
         $chaves = array_merge(['id', 'uuid', 'cod'], array_keys($dado));
@@ -291,11 +303,11 @@ trait ValidarTrait
             }
         }
 
-        $validacao = $this->_validarSalvar;
-        if ($acao == 'insert' && !empty($this->_validarInsert)) {
-            $validacao .= PHP_EOL . $this->_validarInsert;
-        } elseif ($acao == 'update' && !empty($this->_validarUpdate)) {
-            $validacao .= PHP_EOL . $this->_validarUpdate;
+        $validacao = $this->ormValidarSalvar;
+        if ($acao == 'insert' && !empty($this->ormValidarInsert)) {
+            $validacao .= PHP_EOL . $this->ormValidarInsert;
+        } elseif ($acao == 'update' && !empty($this->ormValidarUpdate)) {
+            $validacao .= PHP_EOL . $this->ormValidarUpdate;
         }
 
         if (empty($validacao)) {

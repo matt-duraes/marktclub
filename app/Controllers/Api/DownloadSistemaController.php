@@ -14,7 +14,7 @@ final class DownloadSistemaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Arquivo = new ArquivoEntity();
-        $Arquivo->id($id);
+        $Arquivo->uuid($id);
 
         $dado = pegarPropriedadeDaEntity(
             $Arquivo,

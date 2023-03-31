@@ -14,24 +14,24 @@ final class HistoricoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_PAINEL_HISTORICO;
-    protected array $_insert = [
+    protected string $ormTabela = TABELA_PAINEL_HISTORICO;
+    protected array $ormInsert = [
         'id_relacionado' => '->relacionado',
         'id_usuario_equipe', 'app', 'acao', 'dado'
     ];
-    protected array $_salvar = ['mensagem', 'status'];
-    protected array $_buscar = [
+    protected array $ormSalvar = ['mensagem', 'status'];
+    protected array $ormBuscar = [
         'mensagem', 'status', 'data_criacao'
     ];
 
-    protected string $_validarInsert = '
+    protected string $ormValidarInsert = '
         relacionado|Relacionado|obrigatorio|vazio|isArray
         app|App|obrigatorio|vazio|isArray
         acao|Ação|obrigatorio|vazio
         dado|Dados|array
         status|Status|valido
     ';
-    protected string $_validarUpdate = '
+    protected string $ormValidarUpdate = '
         mensagem|Mensagem|obrigatorio|vazio
         status|Status|valido
     ';
@@ -80,7 +80,7 @@ final class HistoricoEntity extends Entity
     {
         try {
             $Dono = new EquipeEntity(validarToken: false);
-            $Dono->_id($this->id_usuario_equipe);
+            $Dono->id($this->id_usuario_equipe);
         } catch (\Throwable) {
             return;
         }
@@ -118,7 +118,7 @@ final class HistoricoEntity extends Entity
     {
         if (!empty($this->prop('mensagem'))) {
             mensagemErro('Erro!', 'Já existe uma mensagem para esse histórico.');
-        } else if ($this->prop('status') == 1) {
+        } elseif ($this->prop('status') == 1) {
             mensagemErro(
                 'Erro!',
                 'Não é mais possível atualizar esse histórico.',

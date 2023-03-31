@@ -6,8 +6,8 @@ use Modules\Trait\ValidarTrait;
 
 final class Cpf implements ModuleInterface
 {
-
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->cpf();
@@ -36,7 +36,7 @@ final class Cpf implements ModuleInterface
             $this->valido = false;
             $this->cpf = '';
             return;
-        } else if (!$this->validarCpf()) {
+        } elseif (!$this->validarCpf()) {
             $this->valido = false;
             $this->cpf = '';
             return;

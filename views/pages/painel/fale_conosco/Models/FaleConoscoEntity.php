@@ -7,13 +7,13 @@ use App\Models\Painel\AppGeral\AppGeralEntity;
 
 final class FaleConoscoEntity extends AppGeralEntity
 {
-    protected string $_tabela = TABELA_FALE_CONOSCO;
+    protected string $ormTabela = TABELA_FALE_CONOSCO;
 
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'nome', 'email', 'telefone', 'mensagem', 'ip', 'endereco_pais', 'endereco_estado', 'endereco_cidade',
         'sistema_operacional', 'browser', 'data_criacao', 'data_atualizacao', 'status'
     ];
-    protected array $_update = ['status'];
+    protected array $ormUpdate = ['status'];
 
     public function setarStatus(string|int $status): void
     {

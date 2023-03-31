@@ -33,9 +33,9 @@ final class PerfilModel
         try {
             $Equipe = new EquipeEntity();
             if (is_int($id)) {
-                $Equipe->_id($id);
-            } else if (in_array(strlen($id), [32, 36])) {
                 $Equipe->id($id);
+            } elseif (in_array(strlen($id), [32, 36])) {
+                $Equipe->uuid($id);
             } else {
                 return $vazio ? $this->usuarioVazio : [];
             }

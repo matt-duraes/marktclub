@@ -14,8 +14,8 @@ trait WhereTrait
     protected function pegarWhere(): array
     {
         $request = $this->request;
-        if ($this->_wherePadrao) {
-            $where = [$this->_wherePadrao];
+        if ($this->ormWherePadrao) {
+            $where = [$this->ormWherePadrao];
         }
 
         // Colocando para aparecer só quem tem data de ativação na FENAE
@@ -43,7 +43,7 @@ trait WhereTrait
         $tipo = new TipoUsuario($request->tipo_usuario);
         if ($dependente != 'sim' && $tipo->vazio()) {
             $where[] = ['tipo', 'in', [1, 3]];
-        } else if ($tipo->valido()) {
+        } elseif ($tipo->valido()) {
             $where[] = ['tipo', $tipo->numero()];
         }
 

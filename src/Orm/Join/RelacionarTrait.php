@@ -31,11 +31,11 @@ trait RelacionarTrait
             mensagemErro(titulo: 'Campo incorreto!', mensagem: 'O tipo de JOIN (' . $tipo . ') não é um valor padrão.');
         }
 
-        $this->_relacionado[] = [
+        $this->ormRelacionado[] = [
             'tabela' => $tabela,
             'campo_atual' => $campoAtual,
             'campo_original' => $campoOriginal,
-            'tabela_original' => !empty($tabelaOriginal) ? $tabelaOriginal : $this->_tabela,
+            'tabela_original' => !empty($tabelaOriginal) ? $tabelaOriginal : $this->ormTabela,
             'condicao' => $condicao,
             'campo' => $campo,
             'alias' => $alias,

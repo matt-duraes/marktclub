@@ -15,7 +15,7 @@ use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class AnalyticsModel extends ORM
 {
-    protected string $_tabela = TABELA_ANALYTICS;
+    protected string $ormTabela = TABELA_ANALYTICS;
 
     use WhereTrait;
     use ValidarEmpresaTrait;
@@ -92,7 +92,7 @@ final class AnalyticsModel extends ORM
         }
 
         $Cliente = new ClienteEntity(validarToken: false);
-        $Cliente->id($usuario, mensagem: 'Usuario buscado não foi encontrado.');
+        $Cliente->uuid($usuario, mensagem: 'Usuario buscado não foi encontrado.');
         $this->idUsuario = $Cliente->get('id');
     }
 
@@ -105,22 +105,22 @@ final class AnalyticsModel extends ORM
 
         if ($de->vazio() && (!$ate->vazio() || empty($pagina))) {
             mensagemErro('Data obrigatória!', 'A data de começo da busca é obrigatória.');
-        } else if (!$de->vazio() && !$de->valido()) {
+        } elseif (!$de->vazio() && !$de->valido()) {
             mensagemErro('Data inválida!', 'A data de começo da busca não está em um formato válido.');
-        } else if ($ate->vazio() && (!$de->vazio() || empty($pagina))) {
+        } elseif ($ate->vazio() && (!$de->vazio() || empty($pagina))) {
             mensagemErro('Data obrigatória!', 'A data final da busca é obrigatória.');
-        } else if (!$ate->vazio() && !$ate->valido()) {
+        } elseif (!$ate->vazio() && !$ate->valido()) {
             mensagemErro('Data inválida!', 'A data final da busca não está em um formato válido.');
-        } else if (!$de->vazio() && $diasDiferenca > 7) {
+        } elseif (!$de->vazio() && $diasDiferenca > 7) {
             mensagemErro('Datas inválidas!', 'Você deve fazer uma busca com no máximo 7 dias de diferênça.');
-        } else if ($ate->date() < $de->date()) {
+        } elseif ($ate->date() < $de->date()) {
             mensagemErro('Datas inválidas!', 'A data final da busca deve ser maior ou igual a data de começo.');
         }
     }
 
     private function montarWhere()
     {
-        $where = $this->idEmpresa == 1 ? [] : $this->_wherePadrao;
+        $where = $this->idEmpresa == 1 ? [] : $this->ormWherePadrao;
         if (!empty($this->idUsuario)) {
             $where[] = ['usuario', $this->idUsuario];
         }

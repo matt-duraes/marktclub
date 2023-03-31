@@ -6,7 +6,7 @@ use App\Models\Painel\AppGeral\AppGeralModel;
 
 final class FaleConoscoModel extends AppGeralModel
 {
-    protected string $_tabela = TABELA_FALE_CONOSCO;
+    protected string $ormTabela = TABELA_FALE_CONOSCO;
 
     /*
     |--------------------------------------------------------------------------

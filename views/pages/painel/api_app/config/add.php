@@ -11,8 +11,8 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados do AP', function () use ($Painel) {
-        $Api = new ApiHelper(scope: 'admin_empresa:listar');
-        $empresa = $Api->get('/admin-empresa/select')->array()['dado'] ?? [];
+        $Api = new ApiHelper(scope: 'comercial_empresa:listar');
+        $empresa = $Api->get('/comercial-empresa/select')->array()['dado'] ?? [];
         $Painel
             ->input(name: 'nome', label: 'Nome do APP', obrigatorio: 1)
             ->textarea(name: 'descricao', label: 'Descrição para o APP')

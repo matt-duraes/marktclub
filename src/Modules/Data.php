@@ -47,7 +47,7 @@ final class Data implements ModuleInterface
             $this->vazio = true;
             $this->valido = false;
             return;
-        } else if (!$eDate && !$eData) {
+        } elseif (!$eDate && !$eData) {
             $this->data = '';
             $this->date = '';
             $this->valido = false;
@@ -56,7 +56,7 @@ final class Data implements ModuleInterface
 
         if ($eData) {
             list($diaTemp, $mesTemp, $anoTemp) = explode('/', $data);
-        } else if ($eDate) {
+        } elseif ($eDate) {
             list($anoTemp, $mesTemp, $diaTemp) = explode('-', $data);
         }
         if (!checkdate((int)$mesTemp, (int)$diaTemp, (int)$anoTemp)) {

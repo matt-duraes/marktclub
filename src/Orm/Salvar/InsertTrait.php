@@ -11,11 +11,11 @@ trait InsertTrait
     /**
      * insere um registro
      *
-     * @return array Array com os dados que foram atualizados mais o id e uuid quando existir
+     * @return array Array com os dados que foram salvos mais o id e uuid quando existir
      */
-    protected function insert()
+    protected function insert(): array
     {
-        $dado = $this->_dado;
+        $dado = $this->ormDado;
         if (empty($dado) || $dado instanceof Vazio) {
             throw new Excecao(titulo: 'Campo obrigatório!', mensagem: 'Você precisa passar algum dado para salvar.');
         }
@@ -24,7 +24,7 @@ trait InsertTrait
 
         if (array_key_exists('uuid', $coluna) && (!array_key_exists('uuid', $dado) || empty($dado['uuid']))) {
             $dado = array_merge(['uuid' => $this->ormUuid()], $dado);
-        } else if (array_key_exists('cod', $coluna) && (!array_key_exists('cod', $dado) || empty($dado['cod']))) {
+        } elseif (array_key_exists('cod', $coluna) && (!array_key_exists('cod', $dado) || empty($dado['cod']))) {
             $dado = array_merge(['cod' => $this->ormUuid()], $dado);
         }
 
@@ -57,10 +57,10 @@ trait InsertTrait
 
         $campos = '`' . implode('`, `', $campoIndice) . '`';
         $valores = ':' . implode(', :', $campoIndice);
-        $query = "INSERT INTO `{$this->_tabela}` ({$campos}) VALUES ({$valores})";
+        $query = "INSERT INTO `{$this->ormTabela}` ({$campos}) VALUES ({$valores})";
         $retorno = $this->ormExecute($query, $dado);
 
-        $id = $this->_ultimoId;
+        $id = $this->ormUltimoId;
 
         $this->ormResetarOrm();
         if (!$retorno instanceof PDOStatement) {

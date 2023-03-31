@@ -58,7 +58,7 @@ trait Retorno
                 $nome = '';
                 if (object_key_exists('displayName', $item)) {
                     $nome = $item->displayName;
-                } else if (object_key_exists('email', $item)) {
+                } elseif (object_key_exists('email', $item)) {
                     $nome = $this->pegarNomePeloEmail($item->email);
                 }
                 $souEu = object_key_exists('self', $item) && $item->self == 1;
@@ -103,7 +103,7 @@ trait Retorno
             $dono = '';
             if (object_key_exists('displayName', $r->creator)) {
                 $dono = $r->creator->displayName;
-            } else if (object_key_exists('email', $r->creator)) {
+            } elseif (object_key_exists('email', $r->creator)) {
                 $dono = $r->creator->email;
             }
 

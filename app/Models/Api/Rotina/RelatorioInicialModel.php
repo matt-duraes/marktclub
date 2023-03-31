@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class RelatorioInicialModel extends ORM
 {
-    protected string $_tabela = TABELA_ANALYTICS;
+    protected string $ormTabela = TABELA_ANALYTICS;
     // Acesso Dia
     private string $sqlAcessoDiaInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_acesso_dia` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `quantidade_total` int(9) NOT NULL, `quantidade_unico` int(9) NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlAcessoDiaFinal = 'ALTER TABLE `analytics_acesso_dia` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_acesso_dia` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT; COMMIT;';
@@ -78,7 +78,7 @@ final class RelatorioInicialModel extends ORM
     {
         if ($cortar == 1) {
             return ['data_criacao', 'between', [$ano . '-01-01', $ano . '-06-30 23:59:59']];
-        } else if ($cortar == 2) {
+        } elseif ($cortar == 2) {
             return ['data_criacao', 'between', [$ano . '-07-01', $ano . '-12-31 23:59:59']];
         }
         return ['data_criacao', 'between', [$ano . '-01-01', $ano . '-12-31 23:59:59']];
@@ -156,7 +156,7 @@ final class RelatorioInicialModel extends ORM
                     'quantidade' => 1,
                     'data_acesso' => $data
                 ];
-            } else if ($eConvenio) {
+            } elseif ($eConvenio) {
                 $analytics[$r->empresa]['loja'][$r->vinculo]['quantidade']++;
             }
 

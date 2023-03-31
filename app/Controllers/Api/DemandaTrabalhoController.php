@@ -34,7 +34,7 @@ final class DemandaTrabalhoController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $Trabalho = new TrabalhoEntity();
-        $Trabalho->id($id);
+        $Trabalho->uuid($id);
         $Trabalho->set(lista: $request->dado());
         $Trabalho->salvar();
 

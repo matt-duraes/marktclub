@@ -9,10 +9,9 @@ use App\Models\Api\EmailAutomatico\Trait\EmailTrait;
 
 final class UltimoAcessoModel extends ORM
 {
-
     use EmailTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private array $idEmpresa;
     private array $dadoParaEnvio;
@@ -179,7 +178,7 @@ final class UltimoAcessoModel extends ORM
             "
                 SELECT
                     `titulo`, `imagem`, `url`, `desconto`
-                FROM " . TABELA_PARCEIRO_NOVO . "
+                FROM " . TABELA_PARCEIRO_LOJA . "
                 WHERE `empresa` LIKE ? AND `status` = ?
                 ORDER BY `data_publicacao` DESC
                 LIMIT 0, 6

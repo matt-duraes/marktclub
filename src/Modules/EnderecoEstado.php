@@ -6,8 +6,8 @@ use Modules\Trait\ValidarTrait;
 
 final class EnderecoEstado implements ModuleInterface
 {
-
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->estado;
@@ -35,7 +35,7 @@ final class EnderecoEstado implements ModuleInterface
             $this->valido = false;
             $this->estado = '';
             return;
-        } else if (!$this->validarEstado()) {
+        } elseif (!$this->validarEstado()) {
             $this->valido = false;
             $this->estado = '';
             return;

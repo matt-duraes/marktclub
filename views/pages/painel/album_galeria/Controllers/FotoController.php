@@ -18,7 +18,7 @@ final class FotoController extends Controller
     {
         painelPermissao('album_index');
         $Album = new AlbumDadoEntity();
-        $Album->id($uuid);
+        $Album->uuid($uuid);
 
         return view('painel.album.galeria_index', [
             'id' => $uuid,
@@ -41,7 +41,7 @@ final class FotoController extends Controller
     {
         painelPermissao('album_index');
         $Album = new AlbumDadoEntity();
-        $Album->id($request->id);
+        $Album->uuid($request->id);
 
         $Galeria = new AlbumArquivoModel();
         $dado = $Galeria->listarImagens($Album->get('id'), $request->pagina);
@@ -79,7 +79,7 @@ final class FotoController extends Controller
     {
         painelPermissao('album_index');
         $Arquivo = new AlbumArquivoEntity();
-        $Arquivo->id($id);
+        $Arquivo->uuid($id);
 
         return new Response(download: DIRETORIO_PRIVADO . '/album/' . $Arquivo->imagem);
     }
@@ -91,7 +91,7 @@ final class FotoController extends Controller
     {
         painelPermissao('foto_editar');
         $Arquivo = new AlbumArquivoEntity();
-        $Arquivo->id($request->id);
+        $Arquivo->uuid($request->id);
 
         return view('painel.album.galeria_editar', [
             'id' => $request->id,
@@ -112,7 +112,7 @@ final class FotoController extends Controller
 
         try {
             $Album = new AlbumDadoEntity();
-            $Album->id($request->album);
+            $Album->uuid($request->album);
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi possível encontrar o álbum dessa imagem.');
         }
@@ -144,7 +144,7 @@ final class FotoController extends Controller
 
         try {
             $Album = new AlbumDadoEntity();
-            $Album->id($request->album);
+            $Album->uuid($request->album);
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi possível encontrar o álbum.');
         }
@@ -167,7 +167,7 @@ final class FotoController extends Controller
         painelPermissao('foto_ordem');
         try {
             $Album = new AlbumDadoEntity();
-            $Album->id($request->album);
+            $Album->uuid($request->album);
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi possível encontrar o álbum.');
         }

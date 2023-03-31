@@ -138,16 +138,16 @@ class RoboHelper
         foreach ($dado as $ind => $val) {
             if (is_string($val) || is_object($val)) {
                 $val = json_encode($val);
-            } else if (!is_string($val)) {
+            } elseif (!is_string($val)) {
                 $val = (string) $val;
             }
             $query[] = $ind . '=' . urlencode($val);
         }
         if ($query && str_contains($link, '?') && preg_match('/\?$/', $link)) {
             $link .= implode('&', $query);
-        } else if ($query && str_contains($link, '?')) {
+        } elseif ($query && str_contains($link, '?')) {
             $link .= '&' . implode('&', $query);
-        } else if ($query) {
+        } elseif ($query) {
             $link .= '?' . implode('&', $query);
         }
 

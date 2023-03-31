@@ -40,15 +40,15 @@ abstract class Status implements StatusInterface
             $this->lista = $empresa[$slugEmpresa]['lista'] ?? [];
             $this->cor = $empresa[$slugEmpresa]['cor'] ?? null;
             $numero = $empresa[$slugEmpresa]['numero'] ?? null;
-        } else if ($empresa && array_key_exists('geral', $empresa)) {
+        } elseif ($empresa && array_key_exists('geral', $empresa)) {
             $this->lista = $empresa['geral']['lista'] ?? [];
             $this->cor = $empresa['geral']['cor'] ?? null;
             $numero = $empresa['geral']['numero'] ?? null;
-        } else if ($empresa && array_key_exists(0, $empresa)) {
+        } elseif ($empresa && array_key_exists(0, $empresa)) {
             $this->lista = $empresa[0]['lista'] ?? [];
             $this->cor = $empresa[0]['cor'] ?? null;
             $numero = $empresa[0]['numero'] ?? null;
-        } else if ($empresa) {
+        } elseif ($empresa) {
             $this->lista = [];
             $this->cor = null;
             $numero = null;
@@ -72,7 +72,7 @@ abstract class Status implements StatusInterface
     {
         if (sessaoExiste('EMPRESA')) {
             return sessao('EMPRESA.slug');
-        } else if (defined('TOKEN') && array_key_exists('empresa', TOKEN)) {
+        } elseif (defined('TOKEN') && array_key_exists('empresa', TOKEN)) {
             return TOKEN['empresa']->slug;
         }
         return 'geral';
@@ -155,7 +155,7 @@ abstract class Status implements StatusInterface
         $valor = !empty($valor) ? $valor : $this->valor;
         if (!$this->valido($valor)) {
             return null;
-        } else if (is_numeric($valor)) {
+        } elseif (is_numeric($valor)) {
             return $valor;
         }
         return $this->indiceNumero[$valor];
@@ -192,7 +192,7 @@ abstract class Status implements StatusInterface
         $valor = !empty($valor) ? $valor : $this->valor;
         if (!$this->valido($valor)) {
             return '';
-        } else if (!is_numeric($valor)) {
+        } elseif (!is_numeric($valor)) {
             return $valor;
         }
         return array_flip($this->indiceNumero)[$valor];

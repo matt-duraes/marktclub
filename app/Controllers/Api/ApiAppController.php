@@ -26,7 +26,7 @@ final class ApiAppController extends Controller implements
     {
         validarUuid($id);
         $App = new AppEntity();
-        $App->id($id);
+        $App->uuid($id);
 
         return $this->retornoPadrao($App);
     }

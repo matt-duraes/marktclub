@@ -10,12 +10,12 @@ use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
 final class NotificacaoEntity extends Entity
 {
-    protected string $_tabela = TABELA_PAINEL_NOTIFICACAO;
-    protected array $_insert = [
+    protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
+    protected array $ormInsert = [
         'titulo', 'mensagem', 'link', 'botao', 'id_usuario_equipe', 'id_usuario_dono', 'target'
     ];
-    protected array $_salvar = ['status'];
-    protected array $_buscar = [
+    protected array $ormSalvar = ['status'];
+    protected array $ormBuscar = [
         'id_usuario_dono', 'titulo', 'mensagem', 'link', 'target', 'botao', 'target', 'status'
     ];
 

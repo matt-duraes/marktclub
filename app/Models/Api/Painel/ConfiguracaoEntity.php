@@ -6,8 +6,8 @@ use ORM\Entity;
 
 final class ConfiguracaoEntity extends Entity
 {
-    protected string $_tabela = TABELA_PAINEL_CONFIG;
-    protected array $_buscar = ['permissao', 'configuracao', 'campo_obrigatorio', 'upload_grupo', 'campo_permitido'];
+    protected string $ormTabela = TABELA_PAINEL_CONFIG;
+    protected array $ormBuscar = ['permissao', 'configuracao', 'campo_obrigatorio', 'upload_grupo', 'campo_permitido'];
 
     public array $permissao;
     public array $configuracao;

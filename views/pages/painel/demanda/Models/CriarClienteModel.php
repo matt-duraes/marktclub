@@ -49,9 +49,9 @@ final class CriarClienteModel
 
         if ($dominioTipo == 'temvantagens') {
             $this->dominioLink = 'https://' . $this->dominioLink . '.temvantagens.com.br';
-        } else if ($dominioTipo == 'temmaisvantagens') {
+        } elseif ($dominioTipo == 'temmaisvantagens') {
             $this->dominioLink = 'https://' . $this->dominioLink . '.temmaisvantagens.com.br';
-        } else if (in_array($dominioTipo, ['dominio', 'subdominio'])) {
+        } elseif (in_array($dominioTipo, ['dominio', 'subdominio'])) {
             $this->dominioLink = 'https://' . str_replace(['https://', 'http://'], '', $this->dominioLink);
         }
     }

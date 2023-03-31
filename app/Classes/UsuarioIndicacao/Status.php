@@ -6,9 +6,9 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const INDICADO = 'indicado';
-    const ATIVADO = 'ativado';
-    const BLOQUEADO = 'bloqueado';
+    public const INDICADO = 'indicado';
+    public const ATIVADO = 'ativado';
+    public const BLOQUEADO = 'bloqueado';
 
     public function __construct(
         protected null|string|int $valor = null

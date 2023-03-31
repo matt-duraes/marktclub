@@ -17,8 +17,8 @@ use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait PropriedadeEntityTrait
 {

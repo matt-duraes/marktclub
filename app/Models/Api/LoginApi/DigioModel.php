@@ -10,7 +10,7 @@ use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class DigioModel extends Entity
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     use ConstrutorTrait;
     use UsuarioTrait;
@@ -29,7 +29,7 @@ final class DigioModel extends Entity
     ) {
         if (!defined('TOKEN')) {
             mensagemStatus(401);
-        } else if (empty($usuario)) {
+        } elseif (empty($usuario)) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um usuário para continuar.');
         }
 

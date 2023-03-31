@@ -6,7 +6,7 @@ use App\Models\Painel\AppGeral\AppGeralModel;
 
 final class DocumentoItemModel extends AppGeralModel
 {
-    protected string $_tabela = TABELA_DOCUMENTO_ITEM;
+    protected string $ormTabela = TABELA_DOCUMENTO_ITEM;
 
     /**
      * Pega a lista de itens e retorna como um array id => titulo

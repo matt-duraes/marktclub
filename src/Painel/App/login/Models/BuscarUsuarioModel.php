@@ -6,8 +6,8 @@ use stdClass;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use PainelApp\login\Models\Trait\ChaveTrait;
-use App\Classes\AdminEmpresa\Status as StatusEmpresa;
 use App\Classes\UsuarioEquipe\Status as StatusEquipe;
+use App\Classes\ComercialEmpresa\Status as StatusEmpresa;
 
 final class BuscarUsuarioModel
 {
@@ -77,7 +77,7 @@ final class BuscarUsuarioModel
     {
         try {
             $this->empresa = (new ApiHelper(token: true))
-                ->get('/admin-empresa/' . sessao('USUARIO.empresa')->id)
+                ->get('/comercial-empresa/' . sessao('USUARIO.empresa')->id)
                 ->object()
                 ->dado ?? [];
         } catch (\Throwable $e) {

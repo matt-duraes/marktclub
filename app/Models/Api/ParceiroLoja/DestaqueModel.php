@@ -11,10 +11,9 @@ use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class DestaqueModel extends ORM
 {
-
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_PARCEIRO_NOVO;
+    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
 
     private Ordem $Ordem;
     private Categoria $Categoria;
@@ -64,13 +63,13 @@ final class DestaqueModel extends ORM
 
         if (!$this->Categoria->vazio() && !$this->Categoria->valido()) {
             mensagemErro('Campo inválido!', 'Você deve enviar uma categoria válida.');
-        } else if ($this->Ordem->vazio()) {
+        } elseif ($this->Ordem->vazio()) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar uma ordem para a busca.');
-        } else if (!$this->Ordem->valido()) {
+        } elseif (!$this->Ordem->valido()) {
             mensagemErro('Campo inválido!', 'Você deve enviar uma ordem válida.');
-        } else if (!validarPagina($this->request->quantidade)) {
+        } elseif (!validarPagina($this->request->quantidade)) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar a quantidade de parceiros que deseja buscar.');
-        } else if ($this->request->quantidade > 20) {
+        } elseif ($this->request->quantidade > 20) {
             mensagemErro('Campo inválido!', 'O campo quantidade deve ser de no máximo 20.');
         }
     }

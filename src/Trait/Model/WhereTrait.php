@@ -49,7 +49,7 @@ trait WhereTrait
         $campoVazio = $this->request->vazio($campo);
         if (!$campoExite && $obrigatorio) {
             mensagemErro('Campo obrigatório', 'O campo ' . $campo . ' é obrigatório.');
-        } else if ($campoVazio && !$vazio) {
+        } elseif ($campoVazio && !$vazio) {
             mensagemErro('Campo obrigatório', 'O campo ' . $campo . ' é obrigatório.');
         }
 
@@ -84,7 +84,7 @@ trait WhereTrait
         $where = [$campo, $condicao, $this->request->$campo];
         if (in_array($condicao, ['null', 'isnull', '!null', 'notnull'])) {
             $where = [$campo, $condicao];
-        } else if (in_array($condicao, ['in', '!in', 'notin', 'between', '!between', 'notbetween'])) {
+        } elseif (in_array($condicao, ['in', '!in', 'notin', 'between', '!between', 'notbetween'])) {
             $valor = !is_array($valor) ? jsonDecode($valor, true, true) : [];
             $where = !empty($valor) ? [$campo, $condicao, $valor] : '';
         }
@@ -100,9 +100,9 @@ trait WhereTrait
 
         if (in_array($tipo, ['cpf', 'telefone', 'cnpj'])) {
             return preg_replace("/[^0-9]/", "", $valor);
-        } else if (in_array($tipo, ['data', 'date'])) {
+        } elseif (in_array($tipo, ['data', 'date'])) {
             return dataBanco($valor);
-        } else if (in_array($tipo, ['dataHora', 'dateTime'])) {
+        } elseif (in_array($tipo, ['dataHora', 'dateTime'])) {
             return dataHoraBanco($valor);
         }
 

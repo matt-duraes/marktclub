@@ -7,8 +7,7 @@ use App\Models\Api\UsuarioEquipe\PerfilModel;
 
 final class ArquivoModel extends ORM
 {
-
-    protected string $_tabela = TABELA_UPLOAD_ARQUIVO;
+    protected string $ormTabela = TABELA_UPLOAD_ARQUIVO;
 
     /*
     |--------------------------------------------------------------------------
@@ -18,7 +17,7 @@ final class ArquivoModel extends ORM
     public function buscarArquivos(int $pagina, string $pesquisa, string $grupo)
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($grupo);
+        $Grupo->uuid($grupo);
 
         $grupoId = $Grupo->get('id');
         $where = [['id_upload_grupo', $grupoId]];

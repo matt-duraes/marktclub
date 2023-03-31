@@ -97,9 +97,9 @@ final class Fw
         $resultado = call_user_func_array($funcao, $parametro);
         if (is_null($resultado)) {
             $resultado = 'null';
-        } else if (true === $resultado) {
+        } elseif (true === $resultado) {
             $resultado = 'true';
-        } else if (false === $resultado) {
+        } elseif (false === $resultado) {
             $resultado = 'false';
         }
         $this->html[] = '
@@ -267,20 +267,20 @@ final class Fw
 
             if (empty($linha) || $limpo == '*/') {
                 continue;
-            } else if ($limpo == '/**') {
+            } elseif ($limpo == '/**') {
                 $exemplo = false;
                 continue;
-            } else if ($limpo == '//doc') {
+            } elseif ($limpo == '//doc') {
                 $doc = true;
                 continue;
-            } else if ($limpo == '//exemplo') {
+            } elseif ($limpo == '//exemplo') {
                 $exemplo = true;
                 continue;
             }
 
             if (!$doc) {
                 continue;
-            } else if ($exemplo && !str_contains($linha, 'function')) {
+            } elseif ($exemplo && !str_contains($linha, 'function')) {
                 $linha = explode(' ', preg_replace('/\/\/\ ?/', '', $linha));
                 $funcaoParametro = array_key_exists(2, $linha) && !empty($linha[2]) ? str_replace('_', ' ', $linha[2]) : '';
                 $funcaoParametroTexto = '';
@@ -299,13 +299,13 @@ final class Fw
                         if ($val == 'null') {
                             $funcaoParametroValor[$ind] = null;
                             continue;
-                        } else if ($val == 'true') {
+                        } elseif ($val == 'true') {
                             $funcaoParametroValor[$ind] = true;
                             continue;
-                        } else if ($val == 'false') {
+                        } elseif ($val == 'false') {
                             $funcaoParametroValor[$ind] = false;
                             continue;
-                        } else if (str_contains($val, '|')) {
+                        } elseif (str_contains($val, '|')) {
                             $val = explode('|', $val);
                         }
                         $funcaoParametroValor[$ind] = is_string($val) && preg_match('/^[1-9]{1}[0-9]*$/', $val) ? (int) $val : $val;
@@ -321,21 +321,21 @@ final class Fw
                 $codigoHtml = '<pre class="codigo_geral"><div class="codigo_linha">1</div><div class="botao_copiar">' . iconeCopiar(20) . '</div><code>' . $funcao;
                 $tituloHtml = explode('(', $linha)[0] ?? '';
                 $codigoContinuar = true;
-            } else if ($codigoContinuar && !str_contains($linha, ')')) {
+            } elseif ($codigoContinuar && !str_contains($linha, ')')) {
                 $codigoPropriedadeHtml[] = trim(str_replace(['private ', 'protected ', 'public ', ','], '', $linha));
-            } else if ($codigoContinuar && str_contains($linha, ')')) {
+            } elseif ($codigoContinuar && str_contains($linha, ')')) {
                 if (str_contains($linha, '$')) {
                     $codigoPropriedadeHtml[] = trim(str_replace([')', ','], '', $linha));
                     $linha = preg_replace('/^\( |,)*\$[a-zA-Z0-9\_]+(\ |,)*/', '', $linha);
                 }
                 $codigoHtml .= implode(', ', $codigoPropriedadeHtml) . str_replace('{', '', $linha) . '</code></pre>';
                 $codigoContinuar = false;
-            } else if (preg_match('/^(public\ )?function\ /', $linha)) {
+            } elseif (preg_match('/^(public\ )?function\ /', $linha)) {
                 $linha = preg_replace('/^(public\ )?function\ /', '', $linha);
                 $tituloHtml = explode('(', $linha)[0] ?? '';
                 $funcao = $linha == '__construct' && !empty($class) ? str_replace('__construct', $class, $linha) : $linha;
                 $codigoHtml = '<pre class="codigo_geral"><div class="codigo_linha">1</div><div class="botao_copiar">' . iconeCopiar(20) . '</div><code>' . str_replace(['private ', 'protected ', 'public '], '', $funcao) . '</code></pre>';
-            } else if (str_starts_with($limpo, '*@return')) {
+            } elseif (str_starts_with($limpo, '*@return')) {
                 $retorno = preg_replace('/^\*\ ?\@return\ */', '', $linha);
                 preg_match('/^[a-zA-Z0-9\\\|\{\}\,]+/', $retorno, $tipo);
                 $tipo = explode('|', $tipo[0] ?? '');
@@ -347,7 +347,7 @@ final class Fw
                 $retornoHtml .= '<div class="tipo">' . implode('</div><span class="barra">|</span><div class="tipo">', $tipo) . '</div>';
                 $retornoHtml .= '<div class="descricao">' . $descricao . '</div>';
                 $retornoHtml .= '</div>';
-            } else if (str_starts_with($limpo, '*@throws')) {
+            } elseif (str_starts_with($limpo, '*@throws')) {
                 $throws = preg_replace('/^\*\ ?\@throws\ */', '', $linha);
                 preg_match('/^[a-zA-Z0-9\\\|]+/', $throws, $tipo);
                 $tipo = explode('|', $tipo[0] ?? '');
@@ -359,7 +359,7 @@ final class Fw
                 $throwsHtml .= '<div class="tipo">' . implode('</div><span class="barra">|</span><div class="tipo">', $tipo) . '</div>';
                 $throwsHtml .= '<div class="descricao">' . $descricao . '</div>';
                 $throwsHtml .= '</div>';
-            } else if (preg_match('/\*\ ?\@/', $linha)) {
+            } elseif (preg_match('/\*\ ?\@/', $linha)) {
                 $parametro = preg_replace('/^\*\ +\@param\ +/', '', $linha);
                 preg_match('/^[a-zA-Z0-9\|]+/', $parametro, $tipo);
                 $tipo = !empty($tipo[0] ?? '') ? '<span class="rosa">' . implode('</span><span class="barra">|</span><span class="rosa">', explode('|', $tipo[0])) . '</span>' : '';
@@ -368,10 +368,10 @@ final class Fw
                 $descricao = preg_replace('/^[a-zA-Z0-9\|]+\ {1,}\$[a-zA-Z0-9\_]+\ {1,}/', '', $parametro);
                 $descricao = !empty($descricao) ? $descricao : '';
                 $parametroHtml[] = '<tr><td class="tipo">(' . $tipo . ')</td><td class="var">' . $var . '</td><td class="descricao">' . $descricao . '</td></tr>';
-            } else if (preg_match('/\*\ [a-zA-Z0-9]+?/', $linha)) {
+            } elseif (preg_match('/\*\ [a-zA-Z0-9]+?/', $linha)) {
                 $funcaoAberta = true;
                 $descricaoHtml = preg_replace('/^\*\ ?/', '', $linha);
-            } else if ($limpo == '}' && $funcaoAberta) {
+            } elseif ($limpo == '}' && $funcaoAberta) {
                 $parametroFinal = '';
                 if (!empty($parametroHtml)) {
                     $parametroFinal = '
@@ -408,9 +408,9 @@ final class Fw
                             }
                             if (is_null($resultado)) {
                                 $resultado = 'null';
-                            } else if (true === $resultado) {
+                            } elseif (true === $resultado) {
                                 $resultado = 'true';
-                            } else if (false === $resultado) {
+                            } elseif (false === $resultado) {
                                 $resultado = 'false';
                             }
                             $exemploFinal .= '<div class="resultado"><span>Resultado: </span> ' . $resultado . '</div>';
@@ -460,10 +460,10 @@ final class Fw
             if (str_contains($valor, '|')) {
                 $retorno[] = $name . '["' . implode('", "', explode('|', str_replace(['_', '=>'], [' ', '" => "'], $valor))) . '"]';
                 continue;
-            } else if (empty($valor)) {
+            } elseif (empty($valor)) {
                 $retorno[] = $name . '""';
                 continue;
-            } else if (preg_match('/^[1-9]{1}[0-9]*$/', $valor) || in_array($valor, ['null', 'true', 'false'])) {
+            } elseif (preg_match('/^[1-9]{1}[0-9]*$/', $valor) || in_array($valor, ['null', 'true', 'false'])) {
                 $retorno[] = $name . $valor;
                 continue;
             }
@@ -502,11 +502,11 @@ final class Fw
             }
             if ($valor == 'null') {
                 $valor = null;
-            } else if ($valor == 'true') {
+            } elseif ($valor == 'true') {
                 $valor = true;
-            } else if ($valor == 'false') {
+            } elseif ($valor == 'false') {
                 $valor = false;
-            } else if (is_string($valor) && preg_match('/^[1-9]{1}[0-9]*$/', $valor)) {
+            } elseif (is_string($valor) && preg_match('/^[1-9]{1}[0-9]*$/', $valor)) {
                 $valor = (int)$valor;
             }
             $retorno[$name] = $valor;
