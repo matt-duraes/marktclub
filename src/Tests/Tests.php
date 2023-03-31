@@ -47,7 +47,7 @@ abstract class Tests
     {
         if (empty($dado)) {
             return $dado;
-        } else if (is_string($dado)) {
+        } elseif (is_string($dado)) {
             return $this->Crypt->encode($dado);
         }
         foreach ($dado as $ind => $val) {
@@ -156,17 +156,17 @@ abstract class Tests
                     mas foi retornado <strong>' . $checkStatus . '</strong>.
                 '
             );
-        } else if ($checkStatus == $status && !$igual) {
+        } elseif ($checkStatus == $status && !$igual) {
             $this->setarRetorno(
                 false,
                 'Status <strong>' . $texto . '</strong> não poderia ser igual a <strong>' . $status . '</strong>.'
             );
-        } else if ($checkStatus == $status && $igual) {
+        } elseif ($checkStatus == $status && $igual) {
             $this->setarRetorno(
                 true,
                 'Status <strong>' . $texto . '</strong> é igual a <strong>' . $status . '</strong>.'
             );
-        } else if ($checkStatus != $status && !$igual) {
+        } elseif ($checkStatus != $status && !$igual) {
             $this->setarRetorno(
                 true,
                 'Status <strong>' . $texto . '</strong> é diferente de <strong>' . $status . '</strong>.'
@@ -241,7 +241,7 @@ abstract class Tests
                 $erro = true;
                 $this->setarRetorno(false, 'Não existe o índice <strong>' . $ind . '</strong> na resposta.');
                 continue;
-            } else if (!$existe) {
+            } elseif (!$existe) {
                 continue;
             }
 
@@ -378,11 +378,11 @@ abstract class Tests
         $roboUrl = $this->Robo->url();
         if ($roboUrl != $link && $igual) {
             $this->setarRetorno(false, 'A URL do Robo deveria ser ' . $link . ' mas foi retornado ' . $roboUrl . '.');
-        } else if ($roboUrl == $link && !$igual) {
+        } elseif ($roboUrl == $link && !$igual) {
             $this->setarRetorno(false, 'A URL do Robo não poderia ser igual a ' . $link . '.');
-        } else if ($roboUrl == $link && $igual) {
+        } elseif ($roboUrl == $link && $igual) {
             $this->setarRetorno(true, 'A URL do Robo é igual a ' . $link . '.');
-        } else if ($roboUrl != $link && !$igual) {
+        } elseif ($roboUrl != $link && !$igual) {
             $this->setarRetorno(true, 'A URL do Robo é diferente de ' . $link . '.');
         }
         return $this;

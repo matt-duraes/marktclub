@@ -29,7 +29,7 @@ final class PainelNotificacaoController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Notificacao = new NotificacaoEntity();
-        $Notificacao->id($id);
+        $Notificacao->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
@@ -86,7 +86,7 @@ final class PainelNotificacaoController extends Controller implements
     {
         try {
             $Dono = new EquipeEntity();
-            $Dono->id($id);
+            $Dono->uuid($id);
         } catch (\Throwable) {
             mensagemErro('Erro!', $mensagem);
         }
@@ -106,7 +106,7 @@ final class PainelNotificacaoController extends Controller implements
         }
 
         $Notificacao = new NotificacaoEntity();
-        $Notificacao->id($id);
+        $Notificacao->uuid($id);
         $Notificacao->status = $status;
         $Notificacao->salvar();
 

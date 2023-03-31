@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class FaixaEtariaModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_CLIENTE;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private int $idEmpresa;
     public function __construct()
@@ -47,15 +47,15 @@ final class FaixaEtariaModel extends ORM
             $idade = dataIdade($r->aniversario);
             if ($idade <= 20) {
                 $ate20++;
-            } else if ($idade <= 30) {
+            } elseif ($idade <= 30) {
                 $ate30++;
-            } else if ($idade <= 40) {
+            } elseif ($idade <= 40) {
                 $ate40++;
-            } else if ($idade <= 50) {
+            } elseif ($idade <= 50) {
                 $ate50++;
-            } else if ($idade <= 60) {
+            } elseif ($idade <= 60) {
                 $ate60++;
-            } else if ($idade > 60) {
+            } elseif ($idade > 60) {
                 $mais60++;
             }
         }

@@ -805,11 +805,11 @@ final class Add
         }
         if (is_string($lista) && $lista == 'genero') {
             $lista = (new Genero())->select('Escolha um gênero');
-        } else if (is_string($lista) && $lista == 'estado_civil') {
+        } elseif (is_string($lista) && $lista == 'estado_civil') {
             $lista = (new EstadoCivil())->select('Escolha um Estado Civil');
-        } else if (is_string($lista) && $lista == 'estado') {
-            $lista = (new ListaHelper)->add('', 'Escolha um estado')->estado()->r();
-        } else if (is_string($lista) && $lista == 'empresa') {
+        } elseif (is_string($lista) && $lista == 'estado') {
+            $lista = (new ListaHelper())->add('', 'Escolha um estado')->estado()->r();
+        } elseif (is_string($lista) && $lista == 'empresa') {
             $lista = (new ApiHelper(token: true))
                 ->json(['titulo' => 'Escolha um cliente'])
                 ->get('/comercial-empresa/select')

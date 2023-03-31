@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Classes\ParceiroConvenio;
+namespace App\Classes\ParceiroLoja;
 
 use Order\Order;
-
 
 final class Ordem extends Order
 {

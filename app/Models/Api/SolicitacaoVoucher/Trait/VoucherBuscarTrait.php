@@ -11,10 +11,10 @@ trait VoucherBuscarTrait
     protected function regraPosBuscar()
     {
         $this->Usuario = new ClienteEntity(validarToken: false);
-        $this->Usuario->_id($this->id_usuario_cliente);
+        $this->Usuario->id($this->id_usuario_cliente);
 
         $this->Parceiro = new LojaEntity();
-        $this->Parceiro->id($this->id_vinculo);
+        $this->Parceiro->uuid($this->id_vinculo);
 
         $this->Construtor = new ConstrutorEntity();
         $this->Construtor->buscar([

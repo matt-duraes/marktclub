@@ -31,7 +31,7 @@ trait ClienteTrait
                 empty($tituloVazio) ? 'Campo obrigatório!' : $tituloVazio,
                 empty($mensagemVazio) ? 'O campo usuario é obrigatório.' : $mensagemVazio
             );
-        } else if (empty($id)) {
+        } elseif (empty($id)) {
             return null;
         }
 
@@ -39,7 +39,7 @@ trait ClienteTrait
         $mensagemErro = empty($mensagemErro) ? 'Não foi encontrado nenhum usuário pelo código enviado.' : $mensagemErro;
 
         $Cliente = new ClienteEntity(validarToken: false);
-        $Cliente->id($id, titulo: $tituloErro, mensagem: $mensagemErro);
+        $Cliente->uuid($id, titulo: $tituloErro, mensagem: $mensagemErro);
 
         return $Cliente;
     }

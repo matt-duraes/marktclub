@@ -23,9 +23,9 @@ final class SocialHelper
     ) {
         if ($rede == 'google' && !empty($code)) {
             $this->googleCriarTokenComAuthorizationCode($code);
-        } else if ($rede == 'google') {
+        } elseif ($rede == 'google') {
             $this->googlePegarTokenDoCookie();
-        } else if ($rede == 'facebook' && !empty($id) && !empty($token)) {
+        } elseif ($rede == 'facebook' && !empty($id) && !empty($token)) {
             $this->facebookValidarToken();
         }
     }
@@ -112,7 +112,7 @@ final class SocialHelper
     {
         if ($this->rede == 'google') {
             return $this->googlePegarId();
-        } else if ($this->rede == 'facebook') {
+        } elseif ($this->rede == 'facebook') {
             return $this->id;
         }
         throw new Excecao(
@@ -124,7 +124,7 @@ final class SocialHelper
     {
         if ($this->rede == 'google') {
             return $this->googleToken['access_token'];
-        } else if ($this->rede == 'facebook') {
+        } elseif ($this->rede == 'facebook') {
             return $this->token;
         }
     }
@@ -220,7 +220,7 @@ final class SocialHelper
     | Gera o bloco de comentário do Facebook
     |
     /*/
-    public function comentario(String $link, $numero = 5)
+    public function comentario(string $link, $numero = 5)
     {
         return '<div class="fb-comments" data-href="' . $link . '" data-width="100%" data-numposts="' . $numero . '"></div>';
     }
@@ -230,7 +230,7 @@ final class SocialHelper
     | BUSCA O NÚMERO DE COMENTÁRIO
     |--------------------------------------------------------------------------
     /*/
-    public function numeroComentario(String $url): Int
+    public function numeroComentario(string $url): int
     {
         if ($this->rede == 'facebook') {
             $ch = curl_init('https://graph.facebook.com/?ids=' . str_replace(' ', '+', $url));
@@ -249,7 +249,7 @@ final class SocialHelper
     | BUSCA O NÚMERO DE COMPARTILHAMENTO
     |--------------------------------------------------------------------------
     /*/
-    public function numeroCompartilhamento($url): Int
+    public function numeroCompartilhamento($url): int
     {
         if ($this->rede == 'facebook') {
             $ch = curl_init('https://graph.facebook.com/?ids=' . str_replace(' ', '+', $url));

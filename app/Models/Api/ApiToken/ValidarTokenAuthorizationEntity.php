@@ -14,8 +14,8 @@ final class ValidarTokenAuthorizationEntity extends Entity
 {
     use TokenTrait;
 
-    protected string $_tabela = TABELA_AUTH_TOKEN;
-    protected array $_buscar = ['id_api_app', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'];
+    protected string $ormTabela = TABELA_AUTH_TOKEN;
+    protected array $ormBuscar = ['id_api_app', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'];
 
     protected Tipo $tipo;
     protected int $id_api_app;
@@ -27,23 +27,23 @@ final class ValidarTokenAuthorizationEntity extends Entity
     protected function regraPosBuscar()
     {
         $App = new AppEntity();
-        $App->_id($this->id_api_app);
+        $App->id($this->id_api_app);
 
         $tipo = $this->tipo->indice();
-        if (!array_key_exists($tipo, (new Tipo)->select())) {
+        if (!array_key_exists($tipo, (new Tipo())->select())) {
             mensagemStatus(404);
         }
 
         if ($tipo == Tipo::CLUBE) {
             $Usuario = new ClienteEntity(validarToken: false);
-            $Usuario->id($this->id_usuario);
-        } else if ($tipo == Tipo::PAINEL) {
+            $Usuario->uuid($this->id_usuario);
+        } elseif ($tipo == Tipo::PAINEL) {
             $Usuario = new EquipeEntity(validarToken: false);
-            $Usuario->id($this->id_usuario);
+            $Usuario->uuid($this->id_usuario);
         }
 
         $Empresa = new EmpresaEntity();
-        $Empresa->_id($Usuario->id_admin_empresa);
+        $Empresa->id($Usuario->id_admin_empresa);
 
         $this->criarDefinesDoToken(
             $this->access_token,

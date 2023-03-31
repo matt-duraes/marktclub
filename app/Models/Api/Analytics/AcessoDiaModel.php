@@ -13,7 +13,7 @@ final class AcessoDiaModel extends ORM
     use ValidarEmpresaTrait;
     use WhereTrait;
 
-    protected string $_tabela = TABELA_ANALYTICS_ACESSO_DIA;
+    protected string $ormTabela = TABELA_ANALYTICS_ACESSO_DIA;
 
     public function __construct(
         protected Data $de,

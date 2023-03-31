@@ -29,7 +29,7 @@ final class Botao implements ModuleInterface
             $this->valor = '';
             $this->numero = '';
             return;
-        } else if (!$this->validarNumero()) {
+        } elseif (!$this->validarNumero()) {
             $this->valido = false;
             $this->valor = '';
             $this->numero = '';
@@ -45,7 +45,7 @@ final class Botao implements ModuleInterface
             $this->valor = 'sim';
             $this->numero = 1;
             return;
-        } else if ($this->valor == 'nao') {
+        } elseif ($this->valor == 'nao') {
             $this->valor = 'nao';
             $this->numero = '';
             return;

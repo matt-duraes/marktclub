@@ -2,7 +2,6 @@
 
 namespace Helpers;
 
-
 use Mpdf\Mpdf;
 use Erro\Excecao;
 use Mpdf\HTMLParserMode;
@@ -218,9 +217,9 @@ final class PdfHelper
         $this->PDF->defaultheaderfontsize = $fonte;
         if ($bold && $italic) {
             $this->PDF->defaultheaderfontstyle = 'BI';
-        } else if ($bold) {
+        } elseif ($bold) {
             $this->PDF->defaultheaderfontstyle = 'B';
-        } else if ($italic) {
+        } elseif ($italic) {
             $this->PDF->defaultheaderfontstyle = 'I';
         }
         return $this;
@@ -266,9 +265,9 @@ final class PdfHelper
         $this->PDF->defaultfooterfontsize = $fonte;
         if ($bold && $italic) {
             $this->PDF->defaultfooterfontstyle = 'BI';
-        } else if ($bold) {
+        } elseif ($bold) {
             $this->PDF->defaultfooterfontstyle = 'B';
-        } else if ($italic) {
+        } elseif ($italic) {
             $this->PDF->defaultfooterfontstyle = 'I';
         }
 

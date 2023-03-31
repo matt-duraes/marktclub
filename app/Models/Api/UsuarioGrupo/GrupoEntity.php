@@ -6,5 +6,5 @@ use ORM\Entity;
 
 final class GrupoEntity extends Entity
 {
-    protected string $_tabela = TABELA_USUARIO_GRUPO;
+    protected string $ormTabela = TABELA_USUARIO_GRUPO;
 }

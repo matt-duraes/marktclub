@@ -6,8 +6,8 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const NOVA = 'nova';
-    const ERRO = 'erro';
+    public const NOVA = 'nova';
+    public const ERRO = 'erro';
 
     public function __construct(
         protected null|string|int $valor = null

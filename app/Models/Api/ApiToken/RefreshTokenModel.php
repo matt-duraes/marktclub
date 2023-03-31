@@ -14,7 +14,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
 {
     use TokenTrait;
 
-    protected string $_tabela = TABELA_AUTH_TOKEN;
+    protected string $ormTabela = TABELA_AUTH_TOKEN;
 
     private stdClass $tokenAtual;
     private EquipeEntity $Usuario;
@@ -81,7 +81,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
             $Usuario = new EquipeEntity(validarToken: false);
         }
         try {
-            $Usuario->id($this->tokenAtual->id_usuario);
+            $Usuario->uuid($this->tokenAtual->id_usuario);
         } catch (\Throwable $e) {
             $this->tokenVencido($e, mensagem: 'Erro ao pegar usuário.');
         }

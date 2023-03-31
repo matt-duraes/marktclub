@@ -12,7 +12,8 @@ final class OsModel extends ORM
 {
     use ValidarEmpresaTrait;
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_OS;
+
+    protected string $ormTabela = TABELA_ANALYTICS_OS;
 
     public function __construct(
         protected Data $de,

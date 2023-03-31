@@ -20,7 +20,7 @@ final class AuthMiddleware
         $retorno = $this->verificarSeEstaLogado();
         if (!$retorno && !empty($this->token) && dataBanco($this->token['data']) == hoje()) {
             return $this->fazerLoginUsuario();
-        } else if (!$retorno) {
+        } elseif (!$retorno) {
             return $this->usuarioNaoLogado();
         }
         return true;
@@ -28,7 +28,7 @@ final class AuthMiddleware
 
     private function verificarSeEstaLogado(): bool
     {
-        $retorno = (new AuthHelper)->validar();
+        $retorno = (new AuthHelper())->validar();
         if (
             false === $retorno ||
             !sessaoExiste('TOKEN') ||

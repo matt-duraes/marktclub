@@ -8,11 +8,10 @@ use App\Models\Api\UsuarioEquipe\PerfilModel;
 
 final class GrupoEntity extends Entity
 {
-
-    protected string $_tabela = TABELA_UPLOAD_GRUPO;
-    protected array $_buscar = ['id_upload_grupo', 'id_usuario_equipe', 'nome', 'extensao', 'diretorio', 'privado'];
-    protected array $_insert = ['id_upload_grupo', 'id_usuario_equipe', 'extensao', 'diretorio', 'local', 'privado'];
-    protected array $_salvar = ['nome'];
+    protected string $ormTabela = TABELA_UPLOAD_GRUPO;
+    protected array $ormBuscar = ['id_upload_grupo', 'id_usuario_equipe', 'nome', 'extensao', 'diretorio', 'privado'];
+    protected array $ormInsert = ['id_upload_grupo', 'id_usuario_equipe', 'extensao', 'diretorio', 'local', 'privado'];
+    protected array $ormSalvar = ['nome'];
 
     public array $equipe = [];
     private array $raiz = [];
@@ -71,7 +70,7 @@ final class GrupoEntity extends Entity
     {
         $this->pegarRaiz();
         $this->setarValorDaRaiz();
-        $this->equipe = (new PerfilModel)->pegarDado($this->id_usuario_equipe);
+        $this->equipe = (new PerfilModel())->pegarDado($this->id_usuario_equipe);
     }
 
     /*
@@ -138,7 +137,7 @@ final class GrupoEntity extends Entity
     {
         if (!empty($this->grupo)) {
             $where = ['uuid', $this->grupo];
-        } else if (!empty($this->id_upload_grupo)) {
+        } elseif (!empty($this->id_upload_grupo)) {
             $where = ['id', $this->id_upload_grupo];
         } else {
             mensagemErro('Erro!', '100001 - Ocorreu um erro, por favor, tente novamente.', localhost: 'Não foi possível pegar o diretório pai.');
@@ -157,7 +156,7 @@ final class GrupoEntity extends Entity
             $dado = $this->campo(['id_upload_grupo', 'extensao', 'diretorio', 'privado'])->where(['id', $id])->primeiro(retorno: 'array');
             if (!array_key_exists('id_upload_grupo', $dado)) {
                 return;
-            } else if (empty($dado['id_upload_grupo'])) {
+            } elseif (empty($dado['id_upload_grupo'])) {
                 $this->raiz = $dado;
                 return;
             }

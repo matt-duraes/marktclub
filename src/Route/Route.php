@@ -379,7 +379,7 @@ final class Route
 
         if (array_key_exists($url, self::$Route['rota'][$metodo]) && !self::$rotaUnica) {
             return;
-        } else if (array_key_exists($url, self::$Route['rota'][$metodo])) {
+        } elseif (array_key_exists($url, self::$Route['rota'][$metodo])) {
             throw new Erro(
                 arquivo: 'trace:1',
                 mensagem: 'A uri ' . $url . ' no método ' . $metodo . ' já foi declarada.'

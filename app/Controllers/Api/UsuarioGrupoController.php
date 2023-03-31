@@ -23,7 +23,6 @@ final class UsuarioGrupoController extends Controller implements
     ControllerDeletarInterface,
     ControllerSelectInterface
 {
-
     public function getSelect(Request $request): Response
     {
         $Grupo = new SelectModel($request);
@@ -34,7 +33,7 @@ final class UsuarioGrupoController extends Controller implements
         validarUuid($id);
 
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
 
         return $this->retornoSucesso($Grupo);
     }
@@ -61,7 +60,7 @@ final class UsuarioGrupoController extends Controller implements
         validarUuid($id);
 
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
 
         $Grupo->set(lista: $request->dado());
         $Grupo->salvar();
@@ -74,7 +73,7 @@ final class UsuarioGrupoController extends Controller implements
         validarUuid($id);
 
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
         $Grupo->destruir();
 
         return new Response(status: 204);

@@ -6,7 +6,7 @@ use Status\Status as StatusStatus;
 
 final class EnderecoLocal extends StatusStatus
 {
-    const PRINCIPAL = 'principal';
+    public const PRINCIPAL = 'principal';
 
     public function __construct(
         protected null|string|int $valor = null

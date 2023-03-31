@@ -22,7 +22,7 @@ final class PublicacaoNoticiaController extends Controller implements
 {
     public function getBuscar(string $id): Response
     {
-        $Noticia = new NoticiaEntity;
+        $Noticia = new NoticiaEntity();
         $Noticia->idSlug($id);
 
         return $this->retornoSucesso($Noticia);
@@ -73,7 +73,7 @@ final class PublicacaoNoticiaController extends Controller implements
         }
 
         $Noticia = new NoticiaEntity();
-        $Noticia->id($id);
+        $Noticia->uuid($id);
         $Noticia->set(lista: $dado);
         $Noticia->salvar();
 
@@ -83,7 +83,7 @@ final class PublicacaoNoticiaController extends Controller implements
     public function deleteDeletar(string $id): Response
     {
         $Noticia = new NoticiaEntity();
-        $Noticia->id($id);
+        $Noticia->uuid($id);
         $Noticia->destruir();
 
         return new Response(status: 204);

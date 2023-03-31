@@ -16,7 +16,7 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $_tabela = TABELA_PAINEL_NOTIFICACAO;
+    protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
 
     private int $idUsuario;
 
@@ -52,11 +52,11 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
         $where = [['id_usuario_equipe', $this->idUsuario]];
         if ($this->request->clicado == 'sim') {
             $where[] = ['status', 3];
-        } else if ($this->request->clicado == 'nao') {
+        } elseif ($this->request->clicado == 'nao') {
             $where[] = ['status', 'in', [1, 2]];
-        } else if ($this->request->novo == 'sim') {
+        } elseif ($this->request->novo == 'sim') {
             $where[] = ['status', 1];
-        } else if ($this->request->novo == 'nao') {
+        } elseif ($this->request->novo == 'nao') {
             $where[] = ['status', 'in', [2, 3]];
         }
 

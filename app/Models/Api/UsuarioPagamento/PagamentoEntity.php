@@ -13,14 +13,14 @@ final class PagamentoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_PAGAMENTO;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_USUARIO_PAGAMENTO;
+    protected array $ormBuscar = [
         'id_usuario_cliente', 'valor_debito', 'data_pagamento', 'data_cobranca', 'status'
     ];
-    protected array $_insert = [
+    protected array $ormInsert = [
         'id_admin_empresa', 'id_usuario_equipe', 'id_usuario_cliente', 'valor_debito', 'data_cobranca'
     ];
-    protected array $_salvar = ['status'];
+    protected array $ormSalvar = ['status'];
 
     public Data $data_pagamento;
     private int $idUsuario;
@@ -51,7 +51,7 @@ final class PagamentoEntity extends Entity
         }
 
         $Usuario = new ClienteEntity();
-        $Usuario->id($usuario, mensagem: 'Usuário enviado não foi encontrado');
+        $Usuario->uuid($usuario, mensagem: 'Usuário enviado não foi encontrado');
         $this->id_usuario_cliente = $Usuario->get('id');
     }
 

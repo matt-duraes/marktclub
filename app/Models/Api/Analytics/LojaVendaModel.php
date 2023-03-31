@@ -12,7 +12,7 @@ final class LojaVendaModel extends ORM
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_ANALYTICS_LOJA_VENDA;
+    protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
 
     private int $idEmpresa;
     private string $de;
@@ -32,7 +32,7 @@ final class LojaVendaModel extends ORM
 
         $dado = $this
             ->campo(['id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'])
-            ->where($this->_wherePadrao)
+            ->where($this->ormWherePadrao)
             ->order('data_criacao', 'DESC')
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->campo(['titulo'], 'parceiro')

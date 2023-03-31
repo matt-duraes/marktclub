@@ -9,7 +9,7 @@ trait EmailTrait
         foreach ($listaEmail as $email) {
             if (empty($email)) {
                 continue;
-            } else if (
+            } elseif (
                 str_ends_with($email, '@gmail.com') ||
                 str_ends_with($email, '@outlook.com') ||
                 str_ends_with($email, '@outlook.com.br') ||

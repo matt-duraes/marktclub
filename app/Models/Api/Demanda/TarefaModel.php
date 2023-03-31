@@ -13,7 +13,7 @@ final class TarefaModel extends ORM
 {
     use EquipeTrait;
 
-    protected string $_tabela = TABELA_DEMANDA_TAREFA;
+    protected string $ormTabela = TABELA_DEMANDA_TAREFA;
 
     public function __construct(
         private DemandaEntity $Demanda
@@ -36,7 +36,7 @@ final class TarefaModel extends ORM
         $retorno = [];
         $Tipo = new Tipo();
         $Status = new Status();
-        $Perfil = new PerfilModel;
+        $Perfil = new PerfilModel();
         foreach ($lista as $r) {
             $retorno[] = object([
                 'id' => $r->uuid,

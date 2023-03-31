@@ -23,7 +23,7 @@ trait QuantidadeTrait
 
         if (empty($valor) && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo quantidade é obrigatório.');
-        } else if (empty($valor)) {
+        } elseif (empty($valor)) {
             return 50;
         }
 

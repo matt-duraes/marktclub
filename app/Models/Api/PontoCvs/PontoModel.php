@@ -19,7 +19,7 @@ final class PontoModel extends ORM
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $_tabela = TABELA_PONTO_CVS;
+    protected string $ormTabela = TABELA_PONTO_CVS;
     protected string $buscaCpf = '';
 
     public function __construct(
@@ -28,7 +28,7 @@ final class PontoModel extends ORM
         parent::__construct();
         $this->validarRequest();
 
-        (new AtualizarStatusModel)->AtualizarStatus();
+        (new AtualizarStatusModel())->AtualizarStatus();
     }
 
     public function listarDados(): stdClass
@@ -54,7 +54,7 @@ final class PontoModel extends ORM
         $extrato = [];
 
         if (!empty($this->buscaCpf)) {
-            $PontoCvsHelper = new PontoCvsHelper;
+            $PontoCvsHelper = new PontoCvsHelper();
             $saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
             $extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
         }
@@ -143,15 +143,15 @@ final class PontoModel extends ORM
 
         if (!validarPagina($pagina)) {
             mensagemErro('Dado inválido!', 'O campo página não é um valor válido.');
-        } else if (!empty($quantidade) && !validarPagina($quantidade)) {
+        } elseif (!empty($quantidade) && !validarPagina($quantidade)) {
             mensagemErro('Dado inválido!', 'O campo quantidade não é um valor válido.');
-        } else if (!empty($quantidade) && $quantidade > 50) {
+        } elseif (!empty($quantidade) && $quantidade > 50) {
             mensagemErro('Dado inválido!', 'O campo quantidade deve ser menor ou igual a 50.');
-        } else if (!$cpf->vazio() && !$cpf->valido()) {
+        } elseif (!$cpf->vazio() && !$cpf->valido()) {
             mensagemErro('Dado inválido!', 'O campo cpf não é um valor válido.');
-        } else if (!$ordem->vazio() && !$ordem->valido()) {
+        } elseif (!$ordem->vazio() && !$ordem->valido()) {
             mensagemErro('Dado inválido!', 'O campo ordem não é um valor válido.');
-        } else if (!$status->vazio() && !$status->valido()) {
+        } elseif (!$status->vazio() && !$status->valido()) {
             mensagemErro('Dado inválido!', 'O campo status não é um valor válido.');
         }
     }

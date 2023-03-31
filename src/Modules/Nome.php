@@ -43,7 +43,7 @@ final class Nome implements ModuleInterface
             $this->vazio = true;
             $this->valido = false;
             return;
-        } else if (count(explode(' ', $this->nome)) < 2) {
+        } elseif (count(explode(' ', $this->nome)) < 2) {
             $this->nome = '';
             $this->primeiro_nome = '';
             $this->ultimo_sobrenome = '';

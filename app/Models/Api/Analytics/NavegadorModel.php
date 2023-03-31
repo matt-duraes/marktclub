@@ -12,7 +12,8 @@ final class NavegadorModel extends ORM
 {
     use ValidarEmpresaTrait;
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_NAVEGADOR;
+
+    protected string $ormTabela = TABELA_ANALYTICS_NAVEGADOR;
 
     public function __construct(
         protected Data $de,

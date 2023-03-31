@@ -70,7 +70,7 @@ final class LoginController extends Controller
 
         if (!empty($dado->facebook)) {
             $Login = new LoginFacebookModel($dado->facebook);
-        } else if (!empty($dado->google)) {
+        } elseif (!empty($dado->google)) {
             $Login = new LoginGoogleModel($dado->google);
         } else {
             $Login = new LoginFormModel($dado->login, $dado->senha);
@@ -143,13 +143,13 @@ final class LoginController extends Controller
     {
         if ($request->vazio('usuario')) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um usuário para continuar.');
-        } else if ($request->vazio('clube')) {
+        } elseif ($request->vazio('clube')) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um clube para continuar.');
         }
 
         try {
             $Construtor = new ConstrutorEntity();
-            $Construtor->id($request->clube);
+            $Construtor->uuid($request->clube);
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Clube não encontrado.', status: 404);
         }

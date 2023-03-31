@@ -12,7 +12,8 @@ final class UsuarioMaisAcessoModel extends ORM
 {
     use ValidarEmpresaTrait;
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_USUARIO;
+
+    protected string $ormTabela = TABELA_ANALYTICS_USUARIO;
 
     public function __construct(
         protected Data $de,

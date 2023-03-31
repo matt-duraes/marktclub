@@ -45,7 +45,7 @@ trait TextoTrait
     {
         if (!empty($this->Parceiro->texto_voucher)) {
             $this->texto_voucher = $this->Parceiro->texto_voucher;
-        } else if (!empty($this->Parceiro->texto_procedimento)) {
+        } elseif (!empty($this->Parceiro->texto_procedimento)) {
             $this->texto_voucher = $this->Parceiro->texto_procedimento;
         }
     }

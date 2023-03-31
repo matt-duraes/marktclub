@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class MenuModel extends ORM
 {
-    protected string $_tabela = TABELA_PAINEL_MENU;
+    protected string $ormTabela = TABELA_PAINEL_MENU;
 
     private int $idEmpresa;
 

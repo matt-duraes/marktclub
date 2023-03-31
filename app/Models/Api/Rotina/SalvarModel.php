@@ -9,7 +9,7 @@ final class SalvarModel extends ORM
 
     public function __construct(string $tabela)
     {
-        $this->_tabela = $tabela;
+        $this->ormTabela = $tabela;
         parent::__construct();
     }
 

@@ -12,7 +12,7 @@ final class HistoricoModel extends ORM
 {
     use PaginaTrait;
 
-    protected string $_tabela = TABELA_PAINEL_HISTORICO;
+    protected string $ormTabela = TABELA_PAINEL_HISTORICO;
     private int $idUsuario;
 
     public function __construct(

@@ -19,7 +19,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
+    protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
 
     public function __construct(
         private ?Request $request = null
@@ -34,7 +34,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
             ->campo(['cod', 'titulo', 'razao_social', 'cnpj', 'data_criacao', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new Ordem))
+            ->order($this->pegarOrdem(new Ordem()))
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista ?? []);

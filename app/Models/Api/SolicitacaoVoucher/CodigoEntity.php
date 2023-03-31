@@ -20,11 +20,11 @@ final class CodigoEntity extends Entity implements VoucherInterface
     use CodigoBuscarTrait;
     use TextoTrait;
 
-    protected string $_tabela = TABELA_SOLICITACAO_CODIGO;
-    protected array $_update = [
+    protected string $ormTabela = TABELA_SOLICITACAO_CODIGO;
+    protected array $ormUpdate = [
         'id_admin_empresa', 'id_usuario_cliente', 'id_parceiro_loja', 'data_emissao', 'data_vencimento', 'status'
     ];
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_cliente', 'id_parceiro_loja', 'data_emissao',
         'data_criacao', 'data_vencimento', 'status',
         'codigo'

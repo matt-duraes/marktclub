@@ -16,7 +16,7 @@ trait OrderTrait
     protected function order(string|array|OrderInterface $campo, string $direcao = 'ASC'): self
     {
         if ($campo instanceof OrderInterface) {
-            $this->_order = [$campo->ordem()];
+            $this->ormOrder = [$campo->ordem()];
             return $this;
         }
         $verificar = is_string($campo) ? mb_strtolower($campo, 'UTF-8') : '';
@@ -25,18 +25,18 @@ trait OrderTrait
         if (in_array($verificar, ['rand', 'rand()'])) {
             $order[] = 'RAND()';
         } elseif (is_string($campo)) {
-            $order[] = '`' . $this->_tabelaAtual . '`.`' . $campo . '` ' . $direcao;
+            $order[] = '`' . $this->ormTabelaAtual . '`.`' . $campo . '` ' . $direcao;
         } elseif (is_array($campo) && is_string($campo[0])) {
             foreach ($campo as $r) {
-                $order[] = '`' . $this->_tabelaAtual . '`.`' . $r . '` ' . $direcao;
+                $order[] = '`' . $this->ormTabelaAtual . '`.`' . $r . '` ' . $direcao;
             }
         } elseif (is_array($campo) && is_array($campo[0])) {
             foreach ($campo as $r) {
                 $direcaoTemporaria = $r[1] ?? $direcao;
-                $order[] = '`' . $this->_tabelaAtual . '`.`' . $r[0] . '` ' . $direcaoTemporaria;
+                $order[] = '`' . $this->ormTabelaAtual . '`.`' . $r[0] . '` ' . $direcaoTemporaria;
             }
         }
-        $this->_order = $order;
+        $this->ormOrder = $order;
         return $this;
     }
 
@@ -48,12 +48,12 @@ trait OrderTrait
      */
     protected function orderTexto(string $order): self
     {
-        $this->_order = [$order];
+        $this->ormOrder = [$order];
         return $this;
     }
 
     private function ormMontarOrderFinal()
     {
-        return implode(', ', $this->_order);
+        return implode(', ', $this->ormOrder);
     }
 }

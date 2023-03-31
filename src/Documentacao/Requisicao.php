@@ -205,7 +205,7 @@ final class Requisicao
         $obrigatorioHtml = '<div class="obrigatorio"></div>';
         if ($obrigatorio === true) {
             $obrigatorioHtml = '<div class="obrigatorio texto">*</div>';
-        } else if ($obrigatorio == '-') {
+        } elseif ($obrigatorio == '-') {
             $obrigatorioHtml = '<div class="obrigatorio azul texto">-</div>';
         }
 

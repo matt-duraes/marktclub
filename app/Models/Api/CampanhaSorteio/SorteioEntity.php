@@ -8,10 +8,9 @@ use App\Classes\CampanhaSorteio\Status;
 
 final class SorteioEntity extends Entity
 {
-
-    protected string $_tabela = TABELA_CAMPANHA_SORTEIO;
-    protected array $_buscar = ['titulo', 'texto', 'imagem', 'status', 'lista_usuario', 'numero_sorteado', 'data_sorteio', 'usuario_sorteado', 'hash'];
-    protected array $_update = ['data_sorteio', 'hash', 'usuario_sorteado', 'status'];
+    protected string $ormTabela = TABELA_CAMPANHA_SORTEIO;
+    protected array $ormBuscar = ['titulo', 'texto', 'imagem', 'status', 'lista_usuario', 'numero_sorteado', 'data_sorteio', 'usuario_sorteado', 'hash'];
+    protected array $ormUpdate = ['data_sorteio', 'hash', 'usuario_sorteado', 'status'];
 
     public array $usuario_sorteado;
     public string $hash;
@@ -45,7 +44,7 @@ final class SorteioEntity extends Entity
                 localhost: 'Status do sorteio era esperado ativo e esta ' . $this->status->indice(),
                 status: 403
             );
-        } else if (count($this->lista_usuario) < $this->numero_sorteado) {
+        } elseif (count($this->lista_usuario) < $this->numero_sorteado) {
             mensagemErro(
                 'Erro no sorteio!',
                 'Não existem usuários suficiente para serem sorteados.'

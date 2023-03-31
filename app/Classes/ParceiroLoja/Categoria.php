@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Classes\ParceiroConvenio;
+namespace App\Classes\ParceiroLoja;
 
 use Status\Status;
 
 final class Categoria extends Status
 {
-    const ALIMENTACAO = 'alimentacao';
-    const BELEZA = 'beleza';
-    const EDUCACAO = 'educacao';
-    const ELETROELETRONICO = 'eletroeletronico';
-    const OUTROS = 'outros';
-    const SAUDE = 'saude';
-    const VEICULO = 'veiculo';
-    const VESTUARIO = 'vestuario';
+    public const ALIMENTACAO = 'alimentacao';
+    public const BELEZA = 'beleza';
+    public const EDUCACAO = 'educacao';
+    public const ELETROELETRONICO = 'eletroeletronico';
+    public const OUTROS = 'outros';
+    public const SAUDE = 'saude';
+    public const VEICULO = 'veiculo';
+    public const VESTUARIO = 'vestuario';
 
     public function __construct(
         protected null|string|int $valor = null

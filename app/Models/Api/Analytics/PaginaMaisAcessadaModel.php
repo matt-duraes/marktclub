@@ -12,7 +12,8 @@ final class PaginaMaisAcessadaModel extends ORM
 {
     use ValidarEmpresaTrait;
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_PAGINA;
+
+    protected string $ormTabela = TABELA_ANALYTICS_PAGINA;
 
     public function __construct(
         protected Data $de,

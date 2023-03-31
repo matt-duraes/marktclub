@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class TrabalhoModel extends ORM
 {
-    protected string $_tabela = TABELA_DEMANDA_TRABALHO;
+    protected string $ormTabela = TABELA_DEMANDA_TRABALHO;
 
     public function darBaixaTrabalhoAntigos(int $id)
     {
@@ -49,7 +49,7 @@ final class TrabalhoModel extends ORM
         }
 
         $Tarefa = new TarefaEntity();
-        $Tarefa->_id($id);
+        $Tarefa->id($id);
         $Tarefa->minuto_producao_real = $total;
         $Tarefa->salvar();
     }

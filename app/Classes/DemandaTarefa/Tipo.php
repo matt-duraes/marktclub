@@ -6,13 +6,13 @@ use Status\Status;
 
 final class Tipo extends Status
 {
-    const BACKEND = 'back-end';
-    const FRONTEND = 'front-end';
-    const CRIACAO = 'criacao';
-    const APP = 'app';
-    const BANCO = 'banco';
-    const INFRA = 'infra';
-    const NAO_DEFINIDO = 'nao-definido';
+    public const BACKEND = 'back-end';
+    public const FRONTEND = 'front-end';
+    public const CRIACAO = 'criacao';
+    public const APP = 'app';
+    public const BANCO = 'banco';
+    public const INFRA = 'infra';
+    public const NAO_DEFINIDO = 'nao-definido';
 
     public function __construct(
         protected null|string|int $valor = null

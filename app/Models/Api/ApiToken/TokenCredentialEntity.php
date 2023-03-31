@@ -9,9 +9,9 @@ use App\Models\Api\ApiUsuario\UsuarioEntity;
 
 final class TokenCredentialEntity extends Entity
 {
-
     use Trait\ScopeTrait;
-    protected string $_tabela = TABELA_AUTH_TOKEN;
+
+    protected string $ormTabela = TABELA_AUTH_TOKEN;
 
     public function criarToken(
         AppEntity $app,

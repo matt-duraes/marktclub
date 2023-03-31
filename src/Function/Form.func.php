@@ -217,25 +217,25 @@ if (!function_exists('formInput')) {
 
             if ($mascaraPrincipal == '00/00/0000') {
                 $valuePrincipal = dataBr($valuePrincipal);
-            } else if ($mascaraPrincipal == '00/00/0000 00:00:00') {
+            } elseif ($mascaraPrincipal == '00/00/0000 00:00:00') {
                 $valuePrincipal = dataHoraBr($valuePrincipal);
-            } else if ($mascaraPrincipal == 'telefone') {
+            } elseif ($mascaraPrincipal == 'telefone') {
                 $valuePrincipal = strTelefone($valuePrincipal);
-            } else if ($mascaraPrincipal == '000.000.000-00') {
+            } elseif ($mascaraPrincipal == '000.000.000-00') {
                 $valuePrincipal = strCpf($valuePrincipal);
-            } else if ($mascaraPrincipal == '00.000.000/0000-00') {
+            } elseif ($mascaraPrincipal == '00.000.000/0000-00') {
                 $valuePrincipal = strCnpj($valuePrincipal);
             }
 
             if ($mascaraSecundaria == '00/00/0000') {
                 $valueSecundario = dataBr($valueSecundario);
-            } else if ($mascaraSecundaria == '00/00/0000 00:00:00') {
+            } elseif ($mascaraSecundaria == '00/00/0000 00:00:00') {
                 $valueSecundario = dataHoraBr($valueSecundario);
-            } else if ($mascaraSecundaria == 'telefone') {
+            } elseif ($mascaraSecundaria == 'telefone') {
                 $valueSecundario = strTelefone($valueSecundario);
-            } else if ($mascaraSecundaria == '000.000.000-00') {
+            } elseif ($mascaraSecundaria == '000.000.000-00') {
                 $valueSecundario = strCpf($valueSecundario);
-            } else if ($mascaraSecundaria == '00.000.000/0000-00') {
+            } elseif ($mascaraSecundaria == '00.000.000/0000-00') {
                 $valueSecundario = strCnpj($valueSecundario);
             }
 
@@ -273,7 +273,7 @@ if (!function_exists('formInput')) {
 
         if (is_numeric($maximo) && $maximo > 0) {
             $attrInput[] = 'maxlength=' . $maximo;
-        } else if (
+        } elseif (
             is_array($maximo) && count($maximo) == 2 &&
             is_numeric($maximo[0]) && $maximo[0] > 0 &&
             is_numeric($maximo[1] && $maximo[1] > 0)

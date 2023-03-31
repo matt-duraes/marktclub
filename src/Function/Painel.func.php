@@ -228,15 +228,15 @@ if (!function_exists('painelLinhaLista')) {
             if ($acao == 'include') {
                 require_once $item['arquivo'];
                 continue;
-            } else if ($acao == 'endereco') {
+            } elseif ($acao == 'endereco') {
                 $enderecoTabela = $item['tabela'] ?? '';
                 $enderecoLocal = $item['local'] ?? '';
                 include ROOT . '/src/Html/Painel/endereco.php';
                 continue;
-            } else if ($acao == 'contato') {
+            } elseif ($acao == 'contato') {
                 include ROOT . '/src/Html/Painel/contato.php';
                 continue;
-            } else if ($acao == 'html') {
+            } elseif ($acao == 'html') {
                 echo $item['html'];
                 continue;
             }
@@ -246,7 +246,7 @@ if (!function_exists('painelLinhaLista')) {
 
             if ($acao == 'vazio_break' && object_key_exists($campo, $dado) && !empty(painelValor($dado, $campo))) {
                 continue;
-            } else if ($acao == 'vazio_break') {
+            } elseif ($acao == 'vazio_break') {
                 echo '<div class="zero">' . $item['titulo'] . '</div>';
                 break;
             }
@@ -293,7 +293,7 @@ if (!function_exists('painelLinhaLista')) {
                         break;
                     }
                 }
-            } else if (!empty($campo)) {
+            } elseif (!empty($campo)) {
                 $campoInicial = explode('->', str_replace('.', '->', $campo))[0];
                 if (!object_key_exists($campoInicial, $dado)) {
                     mensagemStatus(500, null, 'Não foi encontrado o indice ' . $campoInicial);
@@ -324,37 +324,37 @@ if (!function_exists('painelLinhaLista')) {
 
             if ($acao == 'imagem_redonda') {
                 echo '<figure class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
-            } else if ($acao == 'linha') {
+            } elseif ($acao == 'linha') {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
                 echo '<div class="linha bg_hover"><strong class="texto_nome">' . $nome . '</strong> <p>' . $valor . '</p></div>';
-            } else if ($acao == 'titulo') {
+            } elseif ($acao == 'titulo') {
                 echo '<h2 class="titulo">' . $valor . '</h2>';
-            } else if ($acao == 'sub_titulo') {
+            } elseif ($acao == 'sub_titulo') {
                 echo '<p class="sub_titulo">' . $valor . '</p>';
-            } else if ($acao == 'checked' && is_array($valor)) {
+            } elseif ($acao == 'checked' && is_array($valor)) {
                 echo '<div class="bloco_checked">';
                 foreach ($valor as $ind) {
                     echo '<div class="item"><span class="texto_nome">' . $ind . '</span> <i>' . iconeCheck() . '</i></div>';
                 }
                 echo '</div>';
-            } else if ($acao == 'checked' && is_bool($valor)) {
+            } elseif ($acao == 'checked' && is_bool($valor)) {
                 $icone = $valor ? iconeCheck(10) : iconeFechar(8);
                 $classe = $valor ? 'checked_sim' : 'checked_nao';
                 echo '<div class="checked bg_hover"><span class="texto_nome">' . $nome . '</span> <i class="' . $classe . '">' . $icone . '</i></div>';
-            } else if ($acao == 'botao' && !empty($link)) {
+            } elseif ($acao == 'botao' && !empty($link)) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 echo '<a class="botao_link" ' . $id . ' href="' . painelConverterLink($link, $dado) . '">' . $texto . '</a>';
-            } else if ($acao == 'botao') {
+            } elseif ($acao == 'botao') {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 echo '<div class="botao_link" ' . $id . '>' . $texto . '</div>';
-            } else if ($acao == 'status' && is_string($valor) && !empty($valor) && is_array($inArray) && $inArray && in_array($valor, $inArray)) {
+            } elseif ($acao == 'status' && is_string($valor) && !empty($valor) && is_array($inArray) && $inArray && in_array($valor, $inArray)) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 $cor = !empty($cor) ? $cor : '';
                 $mensagem = !empty($mensagem) ? 'data-mensagem="' . $mensagem . '"' : '';
                 $status = !empty($status) ? 'data-status="' . $status . '"' : '';
                 $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $mensagem . ' ' . $status . '>' . $texto . '</div>';
-            } else if ($acao == 'array' && is_array($valor) && $valor) {
+            } elseif ($acao == 'array' && is_array($valor) && $valor) {
                 $valor = array_key_exists(0, $valor) && count($valor) == 1 ? $valor[0] : $valor;
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
                 echo '<div class="array_item">';
@@ -464,7 +464,7 @@ if (!function_exists('painelConverterFiltroParaUsuario')) {
     {
         if (validarDate($valor)) {
             return dataBr($valor);
-        } else if (validarDateTime($valor)) {
+        } elseif (validarDateTime($valor)) {
             return dataHoraBr($valor);
         }
         return str_replace(['sim', 'nao'], ['Sim', 'Não'], $valor);
@@ -578,23 +578,23 @@ if (!function_exists('painelValorFormatar')) {
     {
         if (empty($valor)) {
             return $vazio;
-        } else if (
+        } elseif (
             (!is_string($valor) && !is_numeric($valor)) || empty($formatar)
         ) {
             return $valor;
         } elseif ($formatar == 'telefone') {
             $valor = strTelefone($valor);
-        } else if ($formatar == 'cep') {
+        } elseif ($formatar == 'cep') {
             $valor = strCep($valor);
-        } else if ($formatar == 'cpf') {
+        } elseif ($formatar == 'cpf') {
             $valor = strCpf($valor);
-        } else if ($formatar == 'cnpj') {
+        } elseif ($formatar == 'cnpj') {
             $valor = strCnpj($valor);
-        } else if ($formatar == 'data') {
+        } elseif ($formatar == 'data') {
             $valor = dataBr($valor);
-        } else if ($formatar == 'email') {
+        } elseif ($formatar == 'email') {
             $valor = strEmail($valor);
-        } else if ($formatar == 'datahora') {
+        } elseif ($formatar == 'datahora') {
             $valor = dataHoraBr($valor);
         }
         return $valor;
@@ -672,9 +672,9 @@ if (!function_exists('painelInputLista')) {
 
             if ($funcao == 'imagem' && validarUuid($valor, false)) {
                 $input['value'] = arquivoPrivado($valor);
-            } else if ($funcao == 'switch') {
+            } elseif ($funcao == 'switch') {
                 $input['check'] = in_array($valor, [1, 'sim']);
-            } else if ($funcao == 'checkbox') {
+            } elseif ($funcao == 'checkbox') {
                 $input['check'] = is_array($valor) && !empty($valor) && !empty($input['value']) && in_array($input['value'], $valor);
             } else {
                 $input['value'] = $valor;
@@ -847,7 +847,7 @@ if (!function_exists('botaoControle')) {
                     <p>' . $addTexto . '</p>
                 </a>
             ';
-        } else if (!empty($add) && $addPermissao && (in_array($app . '_add', $permissao) || $dev)) {
+        } elseif (!empty($add) && $addPermissao && (in_array($app . '_add', $permissao) || $dev)) {
             $addHtml = '
                 <button class="botao add" id="' . $add . '">
                     <i>' . iconeAdd(13) . '</i>
@@ -864,7 +864,7 @@ if (!function_exists('botaoControle')) {
                     <p>' . $editarTexto . '</p>
                 </a>
             ';
-        } else if (!empty($editar) && $editarPermissao && (in_array($app . '_editar', $permissao) || $dev)) {
+        } elseif (!empty($editar) && $editarPermissao && (in_array($app . '_editar', $permissao) || $dev)) {
             $editarHtml = '
                 <div class="botao editar" id="' . $editar . '">
                     <i>' . iconeEditar(15) . '</i>
@@ -891,7 +891,7 @@ if (!function_exists('botaoControle')) {
                     <p>' . $downloadTexto . '</p>
                 </a>
             ';
-        } else if (!empty($download) && $downloadPermissao && (in_array($app . '_download', $permissao) || $dev)) {
+        } elseif (!empty($download) && $downloadPermissao && (in_array($app . '_download', $permissao) || $dev)) {
             $downloadQuantidade = !is_null($downloadQuantidade) ? ' data-quantidade="' . $downloadQuantidade . '"' : '';
             $downloadHtml = '
                 <div class="botao download" id="' . $download . '" ' . $downloadQuantidade . '>

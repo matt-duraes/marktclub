@@ -8,10 +8,10 @@ use App\Models\Painel\AppGeral\AppGeralEntity;
 
 final class DocumentoItemEntity extends AppGeralEntity
 {
-    protected string $_tabela = TABELA_DOCUMENTO_ITEM;
+    protected string $ormTabela = TABELA_DOCUMENTO_ITEM;
 
-    protected array $_buscar = ['uuid', 'titulo', 'texto', 'status'];
-    protected array $_salvar = ['titulo', 'texto', 'status'];
+    protected array $ormBuscar = ['uuid', 'titulo', 'texto', 'status'];
+    protected array $ormSalvar = ['titulo', 'texto', 'status'];
 
     public function dadoEditar(): stdClass
     {

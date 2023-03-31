@@ -65,7 +65,7 @@ final class UsuarioPagamentoController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $Pagamento = new PagamentoEntity();
-        $Pagamento->id($id);
+        $Pagamento->uuid($id);
         $Pagamento->status = new Status($request->status);
         $Pagamento->salvar();
 

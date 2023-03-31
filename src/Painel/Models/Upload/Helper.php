@@ -36,7 +36,7 @@ final class Helper
         $request = $this->request;
         if (empty($request->grupo_destino)) {
             mensagemErro('Erro!', 'Você deve escolher um diretório para mover ou criar uma nova pasta.');
-        } else if ($request->grupo_destino == $request->grupo_atual && empty($request->nome)) {
+        } elseif ($request->grupo_destino == $request->grupo_atual && empty($request->nome)) {
             mensagemErro(
                 'Erro!',
                 '
@@ -51,7 +51,7 @@ final class Helper
     {
         if (empty($nome) && $erro) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um nome para o diretório.');
-        } else if (empty($nome)) {
+        } elseif (empty($nome)) {
             return false;
         }
 

@@ -254,12 +254,12 @@ final class Filtrar
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {
-            $lista = (new ListaHelper)->add('', 'Escolha um gênero')->genero()->r();
-        } else if (is_string($lista) && $lista == 'estado_civil') {
-            $lista = (new ListaHelper)->add('', 'Escolha um Estado Civil')->estadoCivil()->r();
-        } else if (is_string($lista) && $lista == 'estado') {
-            $lista = (new ListaHelper)->add('', 'Escolha um estado')->estado()->r();
-        } else if (is_string($lista) && $lista == 'empresa') {
+            $lista = (new ListaHelper())->add('', 'Escolha um gênero')->genero()->r();
+        } elseif (is_string($lista) && $lista == 'estado_civil') {
+            $lista = (new ListaHelper())->add('', 'Escolha um Estado Civil')->estadoCivil()->r();
+        } elseif (is_string($lista) && $lista == 'estado') {
+            $lista = (new ListaHelper())->add('', 'Escolha um estado')->estado()->r();
+        } elseif (is_string($lista) && $lista == 'empresa') {
             $lista = (new ApiHelper(token: true))
                 ->json(['titulo' => 'Escolha um cliente'])
                 ->get('/comercial-empresa/select')

@@ -15,18 +15,18 @@ use App\Classes\UsuarioCliente\Helper as ClienteHelper;
 
 final class PontoEntity extends Entity
 {
-    protected string $_tabela = TABELA_PONTO_CVS;
+    protected string $ormTabela = TABELA_PONTO_CVS;
 
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao',
         'data_solicitacao', 'data_voucher', 'mensagem', 'pedido_codigo'
     ];
 
-    protected array $_insert = ['uuid', 'id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao', 'pedido_codigo'];
-    protected array $_update = ['voucher', 'data_voucher', 'mensagem'];
-    protected array $_salvar = ['status'];
+    protected array $ormInsert = ['uuid', 'id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao', 'pedido_codigo'];
+    protected array $ormUpdate = ['voucher', 'data_voucher', 'mensagem'];
+    protected array $ormSalvar = ['status'];
 
-    protected string $_validarSalvar = '
+    protected string $ormValidarSalvar = '
         status|Status|obrigatorio|vazio|valido
     ';
 
@@ -79,7 +79,7 @@ final class PontoEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper = new PontoCvsHelper();
         $pontos = $PontoCvsHelper->buscarPontos($this->usuario_documento);
 
         $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
@@ -110,7 +110,7 @@ final class PontoEntity extends Entity
         $this->status = new Status('solicitado');
         $this->id_usuario_cliente = $this->pegarIdUsuario();
 
-        $Cliente = new AtualizarUsuarioModel;
+        $Cliente = new AtualizarUsuarioModel();
         $Cliente->atualizarUsuario([
             'nome' => $this->nome,
             'cpf' => $this->cpf,
@@ -148,7 +148,7 @@ final class PontoEntity extends Entity
 
     private function verificarSeUsuarioConstaNaBase()
     {
-        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper = new PontoCvsHelper();
         if (!$PontoCvsHelper->validarUsuario($this->cpf)) {
             mensagemErro('Erro!', 'O Usuario indicado não pode realizar uma solicitação!');
         }
@@ -168,7 +168,7 @@ final class PontoEntity extends Entity
 
     private function validarSeUsuarioTemPontoSuficiente()
     {
-        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper = new PontoCvsHelper();
         if (!$PontoCvsHelper->validarQuantidadePonto($this->ponto_solicitado, $this->cpf)) {
             mensagemErro('Saldo Insuficiente!', 'Quantidade de pontos informada é maior que seu saldo atual.');
         }
@@ -176,13 +176,13 @@ final class PontoEntity extends Entity
 
     private function validarSeSolicitacaoFoiEfetuadaAPI()
     {
-        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper = new PontoCvsHelper();
         $this->pedido_codigo = $PontoCvsHelper->enviarSolicitacaoPonto($this->cpf, $this->ponto_solicitado);
     }
 
     protected function regraPosInsert()
     {
-        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper = new PontoCvsHelper();
         $matricula = $PontoCvsHelper->buscarPontos($this->cpf)->matricula;
 
         $Construtor = new ConstrutorEntity();
@@ -195,11 +195,11 @@ final class PontoEntity extends Entity
 
         if (eLocalhost()) {
             $email =  'ti@markt.club';
-        } else if (eHomologacao()) {
+        } elseif (eHomologacao()) {
             $assunto = "Mensagem de teste em Homologação: Ponto + Ação";
         }
 
-        $EmailCvs = new EmailHelper;
+        $EmailCvs = new EmailHelper();
         $EmailCvs->mensagem(
             titulo: 'Voucher Solicitado!',
             assunto: 'Um voucher foi solicitado',
@@ -212,7 +212,7 @@ final class PontoEntity extends Entity
         );
         $EmailCvs->sendGrid($assunto, 'Fabio Gomes', $email, deNome: $titulo);
 
-        $EmailUsuario = new EmailHelper;
+        $EmailUsuario = new EmailHelper();
         $EmailUsuario->mensagem(
             titulo: 'Voucher Solicitado!',
             assunto: 'Você Solicitou um novo Voucher',
@@ -247,7 +247,7 @@ final class PontoEntity extends Entity
 
         if (in_array($status, [1, 3]) && !empty($this->prop('voucher'))) {
             $this->voucher = '';
-        } else if (in_array($status, [1, 3]) && !empty($this->voucher)) {
+        } elseif (in_array($status, [1, 3]) && !empty($this->voucher)) {
             mensagemErro('Erro!', 'Só é possível preencher o voucher caso o mesmo tenha sido "Aprovado".');
         }
     }

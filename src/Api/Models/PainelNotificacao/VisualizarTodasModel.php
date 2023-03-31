@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class VisualizarTodasModel extends ORM
 {
-    protected string $_tabela = TABELA_PAINEL_NOTIFICACAO;
+    protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
 
     private int $idUsuario;
     private array $lista;

@@ -9,7 +9,7 @@ trait EmpresaTrait
     private function pegarEmpresa($id)
     {
         $Empresa = new EmpresaEntity();
-        $Empresa->_id($id);
+        $Empresa->id($id);
 
         return [
             'id' => $Empresa->id,
@@ -22,7 +22,7 @@ trait EmpresaTrait
     {
         try {
             $Empresa = new EmpresaEntity();
-            $Empresa->id($this->empresa);
+            $Empresa->uuid($this->empresa);
             $this->id_admin_empresa = $Empresa->get('id');
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi encontrado nenhuma empresa pelo id enviado.', status: 404);

@@ -14,14 +14,14 @@ final class IndicacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_INDICACAO;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_USUARIO_INDICACAO;
+    protected array $ormBuscar = [
         'id_usuario_cliente', 'nome', 'email', 'telefone', 'status', 'data_criacao', 'data_atualizacao'
     ];
-    protected array $_insert = [
+    protected array $ormInsert = [
         'id_usuario_cliente', 'id_admin_empresa', 'hash', 'nome', 'email', 'telefone', 'status'
     ];
-    protected array $_update = ['status'];
+    protected array $ormUpdate = ['status'];
 
     public Email $email;
     public Telefone $telefone;
@@ -59,7 +59,7 @@ final class IndicacaoEntity extends Entity
     {
         try {
             $Usuario = new ClienteEntity();
-            $Usuario->id($this->usuario);
+            $Usuario->uuid($this->usuario);
             $this->id_usuario_cliente = $Usuario->get('id');
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Usuário enviado não foi encontrado');

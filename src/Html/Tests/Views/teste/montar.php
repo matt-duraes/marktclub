@@ -33,7 +33,7 @@
                             include 'linha_teste.php';
                         }
                         include 'resposta.php';
-                    } else if ($linha->tipo == 'erro') {
+                    } elseif ($linha->tipo == 'erro') {
                         include 'linha_erro.php';
                     }
                     ?>

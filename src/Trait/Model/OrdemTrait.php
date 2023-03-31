@@ -33,7 +33,7 @@ trait OrdemTrait
 
         if ($ordem->vazio() && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo ordem é obrigatório.');
-        } else if ($ordem->vazio()) {
+        } elseif ($ordem->vazio()) {
             return $ordem;
         }
 

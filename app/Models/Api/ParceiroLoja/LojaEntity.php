@@ -7,14 +7,14 @@ use Modules\Data;
 
 final class LojaEntity extends Entity
 {
-    protected string $_tabela = TABELA_PARCEIRO_LOJA;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
+    protected array $ormBuscar = [
         'texto_desconto' => 'desconto_texto',
         'texto_voucher' => 'voucher_texto',
         'texto_procedimento' => 'procedimento_texto',
         'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo', 'data_contrato_inicio', 'imagem'
     ];
-    protected array $_retornoPadrao = ['id', 'titulo', 'link_logo'];
+    protected array $ormRetornoPadrao = ['id', 'titulo', 'link_logo'];
 
     public ?int $limite_voucher;
     public ?int $prazo_voucher;

@@ -24,7 +24,7 @@ final class ClienteEntity extends Entity
     use EntitySalvarTrait;
     use EntityUpdateTrait;
 
-    protected array $_salvar = [
+    protected array $ormSalvar = [
         'documento' => '->cpf',
         'sexo' => '->genero',
         'telefone_celular' => '->telefone_pessoal',
@@ -39,11 +39,11 @@ final class ClienteEntity extends Entity
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
         'tipo_pagamento', 'trabalho_data_inicio', 'grupo', 'federacao'
     ];
-    protected array $_insert = [
+    protected array $ormInsert = [
         'empresa' => '->idEmpresa',
         'cod', 'tipo'
     ];
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'cpf' => 'documento',
         'rg' => 'documento_rg',
         'email' => ['email_trabalho', 'email_pessoal'],
@@ -63,7 +63,7 @@ final class ClienteEntity extends Entity
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
         'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'grupo', 'tipo', 'federacao'
     ];
-    protected string $_validarSalvar = '
+    protected string $ormValidarSalvar = '
         documento|CPF|cpf
         genero|Gênero|valido
         data_nascimento|Data Nascimento|dataDate
@@ -78,9 +78,9 @@ final class ClienteEntity extends Entity
         senha|Senha|senha
         status|Status|valido
     ';
-    protected array $_retornoPadrao = ['id', 'nome', 'cpf'];
+    protected array $ormRetornoPadrao = ['id', 'nome', 'cpf'];
 
-    protected string $_tabela = TABELA_USUARIO_CLIENTE;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     /**
      * @param   null|Request    $request        Request para salvar um novo usuário
@@ -121,7 +121,7 @@ final class ClienteEntity extends Entity
     public function setEmpresa($valor)
     {
         $this->Empresa = new EmpresaEntity();
-        $this->Empresa->id($valor, mensagem: 'Empresa enviada não foi encontrada.');
+        $this->Empresa->uuid($valor, mensagem: 'Empresa enviada não foi encontrada.');
         $this->setarIdEmpresaManual($this->Empresa->get('id'));
     }
 }

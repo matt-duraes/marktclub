@@ -16,7 +16,7 @@ use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_CLIENTE;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     use ValidarEmpresaTrait;
     use BuscarUsuarioTrait;
@@ -52,7 +52,7 @@ final class ClienteModel extends ORM
             $email = null;
             if (!empty($r->email_pessoal)) {
                 $email = $r->email_pessoal;
-            } else if (!empty($r->email_trabalho)) {
+            } elseif (!empty($r->email_trabalho)) {
                 $email = $r->email_trabalho;
             }
             $tipo = $TipoUsuario->nome($r->tipo);
@@ -95,21 +95,21 @@ final class ClienteModel extends ORM
 
         if (!empty($this->request->pagina) && !preg_match('/^[1-9]{1}[0-9]*$/', $this->request->pagina)) {
             mensagemErro('Campo inválido!', 'A página deve ser um número inteiro.');
-        } else if (!$ordem->vazio() && !$ordem->valido()) {
+        } elseif (!$ordem->vazio() && !$ordem->valido()) {
             mensagemErro('Campo inválido!', 'A ordem informada não é um valor válido.');
-        } else if (!$status->vazio() && !$status->valido()) {
+        } elseif (!$status->vazio() && !$status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é um valor válido.');
-        } else if (!$dataUpload->vazio() && !validarDate($dataUpload)) {
+        } elseif (!$dataUpload->vazio() && !validarDate($dataUpload)) {
             mensagemErro('Campo inválido!', 'A data de upload informado não é um valor válido.');
-        } else if (!$dataCriacaoDe->vazio() && !validarDate($dataCriacaoDe)) {
+        } elseif (!$dataCriacaoDe->vazio() && !validarDate($dataCriacaoDe)) {
             mensagemErro('Campo inválido!', 'A data de criação do começo informado não é um valor válido.');
-        } else if (!$dataCriacaoAte->vazio() && !validarDate($dataCriacaoAte)) {
+        } elseif (!$dataCriacaoAte->vazio() && !validarDate($dataCriacaoAte)) {
             mensagemErro('Campo inválido!', 'A data de criação final informado não é um valor válido.');
-        } else if (!$status->vazio() && (!$status->valido() || $status->indice() == 'deletado')) {
+        } elseif (!$status->vazio() && (!$status->valido() || $status->indice() == 'deletado')) {
             mensagemErro('Campo inválido!', 'O Status não é um valor válido.');
-        } else if (!$TrabalhoEmpresa->vazio() && !$TrabalhoEmpresa->valido()) {
+        } elseif (!$TrabalhoEmpresa->vazio() && !$TrabalhoEmpresa->valido()) {
             mensagemErro('Campo inválido!', 'O local de trabalho não é um valor válido.');
-        } else if (!$TrabalhoCargo->vazio() && !$TrabalhoCargo->valido()) {
+        } elseif (!$TrabalhoCargo->vazio() && !$TrabalhoCargo->valido()) {
             mensagemErro('Campo inválido!', 'O cargo não é um valor válido.');
         }
     }

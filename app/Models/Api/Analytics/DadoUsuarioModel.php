@@ -9,7 +9,8 @@ use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 final class DadoUsuarioModel extends ORM
 {
     use ValidarEmpresaTrait;
-    protected string $_tabela = TABELA_ANALYTICS_DADO_USUARIO;
+
+    protected string $ormTabela = TABELA_ANALYTICS_DADO_USUARIO;
     private int $idEmpresa;
 
     public function __construct(

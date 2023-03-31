@@ -16,14 +16,14 @@ trait DeleteTrait
      */
     protected function delete(): bool
     {
-        $where = $this->ormConverterCondicaoParaString($this->_whereDado);
-        $dado = $this->_condicaoValue;
+        $where = $this->ormConverterCondicaoParaString($this->ormWhereDado);
+        $dado = $this->ormCondicaoValue;
 
         if (empty($where) || empty($dado)) {
             throw new Erro(mensagem: 'Não foi passado nenhuma condição para deletar.');
         }
 
-        $query = "DELETE FROM `{$this->_tabela}` WHERE " . $where;
+        $query = "DELETE FROM `{$this->ormTabela}` WHERE " . $where;
         $retorno = $this->ormExecute($query, $dado);
 
         $this->ormResetarOrm();

@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class StatusModel extends ORM
 {
-    protected string $_tabela = TABELA_PAINEL_STATUS;
+    protected string $ormTabela = TABELA_PAINEL_STATUS;
 
     private int $idEmpresa;
     public function __construct()

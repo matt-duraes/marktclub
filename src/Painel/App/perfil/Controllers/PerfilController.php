@@ -46,7 +46,7 @@ final class PerfilController extends Controller
         return view(arquivo: 'perfil.dado', var: [
             'appTitulo' => 'Atualizar Dados',
             'appVoltar' => [route('perfil.index'), 'Perfil'],
-            'genero' => (new ListaHelper)->add('', 'Escolha uma opção')->genero()->r(),
+            'genero' => (new ListaHelper())->add('', 'Escolha uma opção')->genero()->r(),
             'usuario' => $this->descriptografarUsuario($usuario['dado'])
         ]);
     }
@@ -146,11 +146,11 @@ final class PerfilController extends Controller
         }
 
         $campo = $request->rede == 'google' ? 'id_google' : 'id_facebook';
-        $dado = [$campo => $Social->id()];
+        $dado = [$campo => $Social->uuid()];
 
         $this->atualizarDadoDaEquipe($dado);
 
-        sessao('USUARIO.' . $request->rede, $Social->id());
+        sessao('USUARIO.' . $request->rede, $Social->uuid());
         return mensagemSucesso([], status: 201);
     }
 
@@ -159,7 +159,7 @@ final class PerfilController extends Controller
         if ($rede == 'google') {
             $imagem = $Social->imagem();
             $campo = 'imagem_google';
-        } else if ($rede == 'facebook') {
+        } elseif ($rede == 'facebook') {
             $imagem = $Social->imagem();
             $campo = 'imagem_facebook';
         }

@@ -9,12 +9,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class AlbumArquivoEntity extends Entity
 {
-
-    protected string $_tabela = TABELA_ALBUM_ARQUIVO;
-    protected array $_buscar = ['id_album_dado', 'titulo', 'imagem', 'status'];
-    protected array $_insert = ['id_album_dado', 'imagem'];
-    protected array $_salvar = ['titulo', 'status'];
-    protected array $_update = ['ordem'];
+    protected string $ormTabela = TABELA_ALBUM_ARQUIVO;
+    protected array $ormBuscar = ['id_album_dado', 'titulo', 'imagem', 'status'];
+    protected array $ormInsert = ['id_album_dado', 'imagem'];
+    protected array $ormSalvar = ['titulo', 'status'];
+    protected array $ormUpdate = ['ordem'];
 
     private AlbumDadoEntity $Album;
     public int $id_album_dado;
@@ -42,7 +41,7 @@ final class AlbumArquivoEntity extends Entity
     {
         $Album = new AlbumDadoEntity();
         try {
-            $Album->id($this->album);
+            $Album->uuid($this->album);
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi possível encotrar o álbum dessa imagem.');
         }
@@ -64,9 +63,9 @@ final class AlbumArquivoEntity extends Entity
         );
         if ($tipo == 2) {
             $Imagem->validarTamanho($width, $height);
-        } else if ($tipo == 3) {
+        } elseif ($tipo == 3) {
             $Imagem->redimencionar($width);
-        } else if ($tipo == 4) {
+        } elseif ($tipo == 4) {
             $Imagem->redimencionar(height: $height);
         }
         return $Imagem;

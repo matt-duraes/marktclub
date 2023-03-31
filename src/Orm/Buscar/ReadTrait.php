@@ -41,10 +41,10 @@ trait ReadTrait
             $this->where($where);
         }
 
-        $whereDado = $this->ormConverterCondicaoParaString($this->_whereDado);
+        $whereDado = $this->ormConverterCondicaoParaString($this->ormWhereDado);
         $where = !empty($whereDado) ? ' WHERE ' . $whereDado : '';
 
-        $query = $this->ormExecute('SELECT COUNT(*) FROM `' . $this->_tabelaAtual . '`' . $where, $this->_condicaoValue);
+        $query = $this->ormExecute('SELECT COUNT(*) FROM `' . $this->ormTabelaAtual . '`' . $where, $this->ormCondicaoValue);
         if (!$query instanceof PDOStatement) {
             mensagemErro(
                 titulo: 'Erro na contagem!',
@@ -91,7 +91,7 @@ trait ReadTrait
     {
         $this->ormResetarOrm();
         $this->campo(['id'])->where($where)->limit(0, 1);
-        $query = $this->ormExecute($this->ormMontarQueryString(), $this->_condicaoValue);
+        $query = $this->ormExecute($this->ormMontarQueryString(), $this->ormCondicaoValue);
         if (!$query instanceof PDOStatement) {
             throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($query) && SISTEMA != 'PRODUCAO' ? $query : 'Ocorreu um erro ao verificar se a busca existe.');
         }
@@ -131,7 +131,7 @@ trait ReadTrait
             $this->limit($indice, 1);
         }
 
-        $busca = $this->ormExecute($this->ormMontarQueryString(), $this->_condicaoValue);
+        $busca = $this->ormExecute($this->ormMontarQueryString(), $this->ormCondicaoValue);
         if (!$busca instanceof PDOStatement) {
             throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($busca) && SISTEMA != 'PRODUCAO' ? $busca : 'Ocorreu um erro na sua busca.');
         }
@@ -140,7 +140,7 @@ trait ReadTrait
         $busca->setFetchMode($tipoRetorno);
         $dado = $busca->fetchAll();
 
-        if ($this->_paginacao && !$indice) {
+        if ($this->ormPaginacao && !$indice) {
             $dado = $this->ormRetornarPaginacao($dado);
         }
 
@@ -171,7 +171,7 @@ trait ReadTrait
         } elseif (stristr($query, 'WHERE') && empty($valor)) {
             throw new Excecao(titulo: 'Where incorreta', mensagem: 'Você precisa enviar os valores do where como array no parâmetro "$valor".');
         }
-        $query = $this->ormQueryTextoMontarString(str_replace('{{TABELA}}', '`' . $this->_tabela . '`', $query));
+        $query = $this->ormQueryTextoMontarString(str_replace('{{TABELA}}', '`' . $this->ormTabela . '`', $query));
         $dado = $this->ormExecute($query, $valor);
         if (!$dado instanceof PDOStatement) {
             throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($dado) && SISTEMA != 'PRODUCAO' ? $dado : 'Ocorreu um erro na sua busca.');
@@ -215,14 +215,14 @@ trait ReadTrait
         } elseif (!empty($select) && !preg_match('/^SELECT/', $select)) {
             throw new Excecao(titulo: 'Campo incorreto!', mensagem: 'Você deve começar o select com "SELECT".');
         }
-        $this->_select =
+        $this->ormSelect =
             !empty($select) ?
             str_replace(
                 'SELECT',
                 'SELECT {{CAMPO}}',
-                $select . ' FROM `' . $this->_tabela . '`'
+                $select . ' FROM `' . $this->ormTabela . '`'
             ) :
-            "SELECT {{CAMPO}} FROM `{$this->_tabela}`";
+            "SELECT {{CAMPO}} FROM `{$this->ormTabela}`";
         return $this;
     }
     /**
@@ -237,17 +237,19 @@ trait ReadTrait
         if (!empty($select) && !preg_match('/^SELECT/', $select)) {
             throw new Excecao(titulo: 'Campo incorreto!', mensagem: 'Você deve começar o select com "SELECT".');
         }
-        $this->_select = $select;
+        $this->ormSelect = $select;
         return $this;
     }
 
     /**
      * Campos permitidos na busca
      *
-     * @param string|array      $campo      Lista com os campos que devem ser buscados podendo ser uma lista simples ["campo_1", "campo_2"] ou um array composto onde o primeiro indice é o campo e o segundo é a alias [["campo_1", "nome_campo_1"], ["campo_2", "campo_nome_2"]]
-     * @param null|string       $as         Alias padrão para o as, por exemplo, $as = usuario: campo1 vira usuario_campo1, campo2 vira usuario_campo2, etc
+     * @param   string|array    $campo      Lista com os campos que devem ser buscados podendo ser uma lista simples ["campo_1", "campo_2"] ou um array composto onde o primeiro indice é o campo e o segundo é a alias [["campo_1", "nome_campo_1"], ["campo_2", "campo_nome_2"]]
+     * @param   null|string     $as         Alias padrão para o as, por exemplo, $as = usuario: campo1 vira usuario_campo1, campo2 vira usuario_campo2, etc
+     * @param   null|array      $replace    Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
+     * @return  Self
      */
-    protected function campo(array $campo, ?string $as = null): self
+    protected function campo(array $campo, ?string $as = null, ?array $replace = null): Self
     {
         if (!is_array($campo)) {
             throw new Excecao(
@@ -255,14 +257,21 @@ trait ReadTrait
                 mensagem: 'Lista de campos da busca com formato inválido.'
             );
         }
+
+        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->ormReplace);
+
         $lista = [];
         foreach ($campo as $val) {
             if (is_string($val)) {
                 $as_campo = $as != null ? ' AS `' . $as . '_' . $val . '`' : '';
-                $lista[] = '`' . $this->_tabelaAtual . '`.`' . $val . '`' . $as_campo;
+                if ($replace && array_key_exists($val, $replace)) {
+                    $as_campo = $as != null ? ' AS `' . $as . '_' . $val . '`' : ' AS `' . $val . '`';
+                    $val = $replace[$val];
+                }
+                $lista[] = '`' . $this->ormTabelaAtual . '`.`' . $val . '`' . $as_campo;
                 continue;
             } elseif (is_array($val) && count($val) == 2) {
-                $lista[] = "`{$this->_tabelaAtual}`.`{$val[0]}` AS `{$val[1]}`";
+                $lista[] = "`{$this->ormTabelaAtual}`.`{$val[0]}` AS `{$val[1]}`";
                 continue;
             }
             throw new Excecao(
@@ -270,7 +279,7 @@ trait ReadTrait
                 mensagem: 'Lista de campos da busca com formato inválido.'
             );
         }
-        $this->_campo[] = implode(', ', $lista);
+        $this->ormCampo[] = implode(', ', $lista);
         return $this;
     }
 
@@ -282,22 +291,22 @@ trait ReadTrait
      */
     protected function campoTexto(string $campo)
     {
-        $this->_campo[] = $campo;
+        $this->ormCampo[] = $campo;
         return $this;
     }
 
     private function ormMontarQueryString(bool $paginacao = false): String
     {
-        $select = !empty($this->_select) ? $this->_select : "SELECT {{CAMPO}} FROM `{$this->_tabela}`";
-        $campo = !empty($this->_campo) ? implode(', ', $this->_campo) : '*';
-        $whereDado = $this->ormConverterCondicaoParaString($this->_whereDado);
+        $select = !empty($this->ormSelect) ? $this->ormSelect : "SELECT {{CAMPO}} FROM `{$this->ormTabela}`";
+        $campo = !empty($this->ormCampo) ? implode(', ', $this->ormCampo) : '*';
+        $whereDado = $this->ormConverterCondicaoParaString($this->ormWhereDado);
         $where = !empty($whereDado) ? 'WHERE ' . $whereDado : '';
-        $order = !empty($this->_order) ? 'ORDER BY ' . implode(', ', $this->_order) : '';
-        $group = !empty($this->_group) ? 'GROUP BY ' . $this->_group : '';
-        $limit = !empty($this->_limit) ? 'LIMIT ' . $this->_limit : '';
-        $havingDado = $this->ormConverterCondicaoParaString($this->_havingDado);
+        $order = !empty($this->ormOrder) ? 'ORDER BY ' . implode(', ', $this->ormOrder) : '';
+        $group = !empty($this->ormGroup) ? 'GROUP BY ' . $this->ormGroup : '';
+        $limit = !empty($this->ormLimit) ? 'LIMIT ' . $this->ormLimit : '';
+        $havingDado = $this->ormConverterCondicaoParaString($this->ormHavingDado);
         $having = !empty($havingDado) ? 'HAVING ' . $havingDado : '';
-        $join = !empty($this->_join) ? implode(' ', $this->_join) : '';
+        $join = !empty($this->ormJoin) ? implode(' ', $this->ormJoin) : '';
 
         if ($paginacao) {
             $campo = 'count(*)';
@@ -317,15 +326,15 @@ trait ReadTrait
 
     private function ormRetornarPaginacao(array $lista)
     {
-        $busca = $this->ormExecute($this->ormMontarQueryString(true), $this->_condicaoValue);
+        $busca = $this->ormExecute($this->ormMontarQueryString(true), $this->ormCondicaoValue);
         if (!$busca instanceof PDOStatement) {
             throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($busca) && SISTEMA != 'PRODUCAO' ? $busca : 'Ocorreu um erro na sua busca.');
         }
         $total = $busca->fetchColumn();
 
-        $paginaTotal = $total == 0 ? 0 : ceil($total / $this->_limitQuantidade);
-        $paginaAtual = $total == 0 ? 0 : $this->_limitPagina;
-        $paginaQuantidade = $total == 0 ? 0 : $this->_limitQuantidade;
+        $paginaTotal = $total == 0 ? 0 : ceil($total / $this->ormLimitQuantidade);
+        $paginaAtual = $total == 0 ? 0 : $this->ormLimitPagina;
+        $paginaQuantidade = $total == 0 ? 0 : $this->ormLimitQuantidade;
 
         $paginacao = [];
         if ($paginaTotal <= 7) {

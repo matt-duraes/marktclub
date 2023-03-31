@@ -12,7 +12,8 @@ final class LojaMaisAcessadaModel extends ORM
 {
     use ValidarEmpresaTrait;
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_LOJA;
+
+    protected string $ormTabela = TABELA_ANALYTICS_LOJA;
 
     public function __construct(
         protected Data $de,

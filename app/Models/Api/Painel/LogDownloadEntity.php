@@ -7,8 +7,8 @@ use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
 final class LogDownloadEntity extends Entity
 {
-    protected string $_tabela = TABELA_PAINEL_LOG_DOWNLOAD;
-    protected array $_insert = ['id_admin_empresa', 'id_usuario_equipe', 'app', 'request', 'quantidade'];
+    protected string $ormTabela = TABELA_PAINEL_LOG_DOWNLOAD;
+    protected array $ormInsert = ['id_admin_empresa', 'id_usuario_equipe', 'app', 'request', 'quantidade'];
 
     private int $idEmpresa;
     private int $idUsuario;
@@ -31,7 +31,7 @@ final class LogDownloadEntity extends Entity
         $this->idEmpresa = TOKEN['empresa']->get('id');
         $this->idUsuario = $this->pegarIdUsuario($usuario);
 
-        $this->_wherePadrao = ['id_admin_empresa', $this->idEmpresa];
+        $this->ormWherePadrao = ['id_admin_empresa', $this->idEmpresa];
     }
 
     protected function regraInsert()
@@ -44,7 +44,7 @@ final class LogDownloadEntity extends Entity
     {
         try {
             $Equipe = new EquipeEntity(validarToken: false);
-            $Equipe->id($usuario);
+            $Equipe->uuid($usuario);
 
             return $Equipe->get('id');
         } catch (\Throwable) {

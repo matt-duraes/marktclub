@@ -9,10 +9,9 @@ use App\Models\Api\UsuarioCliente\Trait\DadoInicialRotina;
 
 final class UsuarioModel extends ORM
 {
-
     use DadoInicialRotina;
 
-    protected string $_tabela = TABELA_USUARIO_CLIENTE;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private array $empresaValida;
     private array $dado;
@@ -47,21 +46,21 @@ final class UsuarioModel extends ORM
             $this->dado[$r->empresa]['usuario']++;
             if ($r->status == 1) {
                 $this->dado[$r->empresa]['status_ativo']++;
-            } else if ($r->status == 2) {
+            } elseif ($r->status == 2) {
                 $this->dado[$r->empresa]['status_inativo']++;
-            } else if ($r->status == 3) {
+            } elseif ($r->status == 3) {
                 $this->dado[$r->empresa]['status_bloqueado']++;
             }
 
             if ($r->estado_civil == 1) {
                 $this->dado[$r->empresa]['estado_civil_solteiro']++;
-            } else if ($r->estado_civil == 2) {
+            } elseif ($r->estado_civil == 2) {
                 $this->dado[$r->empresa]['estado_civil_casado']++;
-            } else if ($r->estado_civil == 3) {
+            } elseif ($r->estado_civil == 3) {
                 $this->dado[$r->empresa]['estado_civil_divorciado']++;
-            } else if ($r->estado_civil == 4) {
+            } elseif ($r->estado_civil == 4) {
                 $this->dado[$r->empresa]['estado_civil_viuvo']++;
-            } else if ($r->estado_civil == 5) {
+            } elseif ($r->estado_civil == 5) {
                 $this->dado[$r->empresa]['estado_civil_separado']++;
             } else {
                 $this->dado[$r->empresa]['estado_civil_sem_dado']++;

@@ -6,8 +6,8 @@ use Status\Status;
 
 final class Empresa extends Status
 {
-    const ANAFE = 'anafe';
-    const ANAPE = 'anape';
+    public const ANAFE = 'anafe';
+    public const ANAPE = 'anape';
 
     public function __construct(
         protected null|string|int $valor = null

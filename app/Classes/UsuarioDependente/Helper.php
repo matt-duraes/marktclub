@@ -4,7 +4,7 @@ namespace App\Classes\UsuarioDependente;
 
 final class Helper
 {
-    const CRIPTOGRAFAR = [
+    public const CRIPTOGRAFAR = [
         'nome', 'cpf', 'email'
     ];
 }

@@ -23,7 +23,7 @@ trait PaginaTrait
 
         if (empty($valor) && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo pagina é obrigatório.');
-        } else if (empty($valor)) {
+        } elseif (empty($valor)) {
             return 1;
         }
 

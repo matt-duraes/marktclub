@@ -9,13 +9,13 @@ use App\Models\Api\ApiApp\AppModel;
 
 final class UsuarioEntity extends Entity
 {
-    protected string $_tabela = TABELA_AUTH_USUARIO;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_AUTH_USUARIO;
+    protected array $ormBuscar = [
         'nome' => 'nome_usuario',
         'senha' => 'salt',
         'id_api_app', 'login_usuario'
     ];
-    protected array $_update = ['salt' => '->senha'];
+    protected array $ormUpdate = ['salt' => '->senha'];
 
     public Nome $nome;
     public Senha $senha;
@@ -24,16 +24,16 @@ final class UsuarioEntity extends Entity
 
     public function pegarApp()
     {
-        return (new AppModel)->listarAppPeloId($this->id_api_app);
+        return (new AppModel())->listarAppPeloId($this->id_api_app);
     }
 
     protected function regraUpdate()
     {
         if ($this->senha->vazio()) {
             mensagemErro('Senha obrigatória!', 'Você precisa enviar uma senha para salvar.');
-        } else if (!$this->senha->valido()) {
+        } elseif (!$this->senha->valido()) {
             mensagemErro('Senha inválida!', $this->senha->mensagem());
-        } else if ($this->senha->mesmaSenha()) {
+        } elseif ($this->senha->mesmaSenha()) {
             mensagemErro('Senha inválida!', 'Você não pode salvar a mesma senha novamente.');
         }
     }

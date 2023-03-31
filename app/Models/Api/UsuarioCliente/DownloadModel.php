@@ -22,7 +22,7 @@ final class DownloadModel extends ORM
     use BuscarUsuarioTrait;
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_CLIENTE;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     public function __construct(
         private ?Request $request = null
@@ -75,52 +75,52 @@ final class DownloadModel extends ORM
                 if ($ind == 'documento') {
                     $ind = 'cpf';
                     $val = strCpf($val);
-                } else if ($ind == 'documento_rg') {
+                } elseif ($ind == 'documento_rg') {
                     $ind = 'rg';
                     $val = strNull($val);
-                } else if ($ind == 'usuario_lead') {
+                } elseif ($ind == 'usuario_lead') {
                     $ind = 'lead';
                     $val = $val == 1 ? 'sim' : 'nao';
-                } else if ($ind == 'lead_origem') {
+                } elseif ($ind == 'lead_origem') {
                     $ind = 'origem';
                     $val = (new Origem($val))->indice();
-                } else if ($ind == 'aniversario') {
+                } elseif ($ind == 'aniversario') {
                     $ind = 'data_nascimento';
                     $val = dataBr($val);
-                } else if ($ind == 'data_upload_tabela') {
+                } elseif ($ind == 'data_upload_tabela') {
                     $ind = 'data_upload';
                     $val = dataBr($val);
-                } else if ($ind == 'sexo') {
+                } elseif ($ind == 'sexo') {
                     $ind = 'genero';
                     $val = (new Genero($val))->genero();
-                } else if ($ind == 'estado_civil') {
+                } elseif ($ind == 'estado_civil') {
                     $val = (new EstadoCivil($val))->estadoCivil();
-                } else if ($ind == 'cidade') {
+                } elseif ($ind == 'cidade') {
                     $ind = 'endereco_cidade';
                     $val = strNull($val);
-                } else if ($ind == 'uf') {
+                } elseif ($ind == 'uf') {
                     $ind = 'endereco_estado';
                     $val = strNull($val);
-                } else if ($ind == 'telefone_fixo') {
+                } elseif ($ind == 'telefone_fixo') {
                     $ind = 'telefone_trabalho';
                     $val = (new Telefone($val))->numero();
-                } else if ($ind == 'telefone_celular') {
+                } elseif ($ind == 'telefone_celular') {
                     $ind = 'telefone_pessoal';
                     $val = (new Telefone($val))->numero();
-                } else if (in_array($ind, ['data_criacao', 'data_atualizacao', 'data_acesso'])) {
+                } elseif (in_array($ind, ['data_criacao', 'data_atualizacao', 'data_acesso'])) {
                     $val = (new DataHora($val))->date();
-                } else if ($ind == 'tipo' && !in_array('tipo', $campo)) {
+                } elseif ($ind == 'tipo' && !in_array('tipo', $campo)) {
                     continue;
-                } else if ($ind == 'tipo') {
+                } elseif ($ind == 'tipo') {
                     $val = [1 => 'titular', 2 => 'dependente', 3 => 'admin'][$val] ?? '';
-                } else if ($ind == 'status') {
+                } elseif ($ind == 'status') {
                     $val = (new Status($val))->indice();
-                } else if ($ind == 'trabalho_orgao') {
+                } elseif ($ind == 'trabalho_orgao') {
                     $ind = 'trabalho_empresa';
                     $val = (new TrabalhoEmpresa($val))->indice();
-                } else if ($ind == 'trabalho_cargo') {
+                } elseif ($ind == 'trabalho_cargo') {
                     $val = (new TrabalhoCargo($val))->indice();
-                } else if ($ind == 'tipo_pagamento') {
+                } elseif ($ind == 'tipo_pagamento') {
                     $val = (new TipoPagamento($val))->indice();
                 } else {
                     $val = strNull($val);

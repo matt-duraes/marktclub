@@ -6,8 +6,7 @@ use ORM\ORM;
 
 final class AlbumDadoModel extends ORM
 {
-
-    protected string $_tabela = TABELA_ALBUM_DADO;
+    protected string $ormTabela = TABELA_ALBUM_DADO;
 
     public function listarAlbuns()
     {

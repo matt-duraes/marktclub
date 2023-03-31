@@ -9,7 +9,7 @@ use System\Classes\LogErro\Status;
 
 final class ErrorModel extends ORM
 {
-    protected string $_tabela = TABELA_LOG_ERRO;
+    protected string $ormTabela = TABELA_LOG_ERRO;
 
     public function __construct(
         private Request $request
@@ -33,7 +33,7 @@ final class ErrorModel extends ORM
     private function montarDado($dado)
     {
         $retorno = [];
-        $Status = new Status;
+        $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,

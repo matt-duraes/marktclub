@@ -16,7 +16,7 @@ final class PagamentoModel extends ORM
     use QuantidadeTrait;
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_PAGAMENTO;
+    protected string $ormTabela = TABELA_USUARIO_PAGAMENTO;
 
     protected Status $status;
     public function __construct(
@@ -108,7 +108,7 @@ final class PagamentoModel extends ORM
 
     private function pegarWherePagamento(): array
     {
-        $where = $this->_wherePadrao;
+        $where = $this->ormWherePadrao;
 
         $status = new Status($this->request->status);
         if (!empty($status) && $status->valido()) {

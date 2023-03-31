@@ -10,9 +10,9 @@ use Helpers\EmailHelper;
 
 final class DownloadEntity extends Entity
 {
-    protected string $_tabela = TABELA_DOWNLOAD_PRIVADO;
-    protected array $_buscar = ['nome', 'email', 'arquivo', 'codigo_email', 'codigo_autorizacao', 'data_vencimento'];
-    protected array $_update = ['codigo_email', 'codigo_autorizacao'];
+    protected string $ormTabela = TABELA_DOWNLOAD_PRIVADO;
+    protected array $ormBuscar = ['nome', 'email', 'arquivo', 'codigo_email', 'codigo_autorizacao', 'data_vencimento'];
+    protected array $ormUpdate = ['codigo_email', 'codigo_autorizacao'];
 
     public Nome $nome;
     public DataHora $data_vencimento;

@@ -43,41 +43,38 @@ abstract class Entity extends ORM
     public ?DataHora $data_criacao = null;
     public ?DataHora $data_atualizacao = null;
 
-    private array $_relacionado = [];
+    private array $ormRelacionado = [];
 
-    protected array $_buscar = ['id'];
-    protected array $_salvar = [];
-    protected array $_insert = [];
-    protected array $_update = [];
-    protected ?array $_diff = null;
+    protected array $ormBuscar = ['id'];
+    protected array $ormSalvar = [];
+    protected array $ormInsert = [];
+    protected array $ormUpdate = [];
+    protected ?array $ormDiff = null;
 
     private bool $cancelarSalvar = false;
 
-    protected string $_validarSalvar = '';
-    protected string $_validarInsert = '';
-    protected string $_validarUpdate = '';
+    protected string $ormValidarSalvar = '';
+    protected string $ormValidarInsert = '';
+    protected string $ormValidarUpdate = '';
 
-    protected array $_deletarArquivo = [];
+    protected array $ormDeletarArquivo = [];
 
-    protected array $_set = [];
-    protected array $_get = [];
-    protected array $_entityRetorno = [];
-    private bool $_entityDeletada = false;
+    protected array $ormSet = [];
+    protected array $ormEntityRetorno = [];
+    private bool $ormEntityDeletada = false;
 
-    private ?int $_entityId = 0;
-    private string $_entityAcao = '';
-    private string $_entityUuid = '';
-    private array $_propriedadePublica = [];
-    private array $_propriedadePrivada = [];
-    private array $_listaSet = [];
-    protected array $_setReal = [];
-    private array $_listaAliasReal = [];
-    private array $_propriedadeSetada = [];
-    protected array $_retornoPadrao = [];
+    private ?int $ormEntityId = 0;
+    private string $ormEntityUuid = '';
+    private array $ormPropriedadePublica = [];
+    private array $ormPropriedadePrivada = [];
+    private array $ormListaSet = [];
+    private array $ormListaAliasReal = [];
+    private array $ormPropriedadeSetada = [];
+    protected array $ormRetornoPadrao = [];
 
     protected bool $entityExiste = false;
 
-    protected $_campoBanco = [];
+    protected $ormCampoBanco = [];
 
     /**
      * @param Array         $option         Option aceitos pelo PDO
@@ -88,11 +85,11 @@ abstract class Entity extends ORM
     public function __construct(array $option = [], array $conn = [])
     {
         parent::__construct($option, $conn);
-        $this->_ormTipo = 'entity';
+        $this->ormTipo = 'entity';
         $this->ormMontarPropriedadePublica();
         $this->ormPegarListaParaSet();
         $this->ormPegarListaDeAliasEReal();
-        $this->_campoBanco = $this->ormPegarColunaBanco();
+        $this->ormCampoBanco = $this->ormPegarColunaBanco();
     }
 
     /**
@@ -100,16 +97,16 @@ abstract class Entity extends ORM
      */
     public function retorno()
     {
-        if (empty($this->_retornoPadrao)) {
+        if (empty($this->ormRetornoPadrao)) {
             return $this->id;
         }
         $retorno = [];
-        foreach ($this->_retornoPadrao as $indice => $valor) {
+        foreach ($this->ormRetornoPadrao as $indice => $valor) {
             $indice = is_int($indice) ? $valor : $indice;
             $valor = $this->$valor;
             if ($valor instanceof ModuleInterface) {
                 $valor = $valor->valor();
-            } else if ($valor instanceof StatusInterface) {
+            } elseif ($valor instanceof StatusInterface) {
                 $valor = $valor->indice();
             }
 
@@ -131,10 +128,10 @@ abstract class Entity extends ORM
      */
     public function diff()
     {
-        if (is_null($this->_diff)) {
+        if (is_null($this->ormDiff)) {
             throw new Excecao('Erro!', 'Você só pode usar o diff apois um insert, update ou delete', 403);
         }
-        return $this->_diff;
+        return $this->ormDiff;
     }
 
     public function propriedadeExiste($propriedade)
@@ -153,7 +150,7 @@ abstract class Entity extends ORM
      */
     public function get(?string $propriedade = null, ?array $lista = null)
     {
-        if ($this->_entityDeletada) {
+        if ($this->ormEntityDeletada) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Esse Entity foi destruido.');
         }
         $this->ormVerificarSeEntityExiste();
@@ -170,7 +167,7 @@ abstract class Entity extends ORM
     public function foiSetado($propriedade): bool
     {
         try {
-            return in_array(strSlug($propriedade, '-'), $this->_propriedadeSetada);
+            return in_array(strSlug($propriedade, '-'), $this->ormPropriedadeSetada);
         } catch (\Throwable) {
             return false;
         }
@@ -183,7 +180,7 @@ abstract class Entity extends ORM
      */
     public function set(string $propriedade = '', $valor = '', ?array $lista = null): void
     {
-        if ($this->_entityDeletada) {
+        if ($this->ormEntityDeletada) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Esse Entity foi destruido.');
         }
         $this->ormVerificarSeEntityExiste();
@@ -201,10 +198,10 @@ abstract class Entity extends ORM
 
     protected function prop(string $propriedade)
     {
-        if ($this->_entityDeletada) {
+        if ($this->ormEntityDeletada) {
             throw new Excecao(titulo: 'Erro!', mensagem: 'Esse Entity foi destruido.');
         }
-        $retorno = $this->_entityRetorno;
+        $retorno = $this->ormEntityRetorno;
         if (array_key_exists($propriedade, $retorno)) {
             return $retorno[$propriedade];
         }
@@ -218,7 +215,7 @@ abstract class Entity extends ORM
             return $this->$metodo();
         } elseif (
             (property_exists($this, $propriedade) && !is_null($this->$propriedade)) &&
-            in_array($propriedade, $this->_propriedadePublica)
+            in_array($propriedade, $this->ormPropriedadePublica)
         ) {
             return $this->$propriedade;
         }
@@ -241,7 +238,7 @@ abstract class Entity extends ORM
 
         $metodo = 'set' . str_replace(' ', '', ucwords(mb_strtolower(str_replace('_', ' ', $propriedade), 'UTF-8')));
         if (method_exists($this, $metodo)) {
-            $this->_setReal[$propriedade] = $valor;
+            $this->ormSetReal[$propriedade] = $valor;
             $this->$metodo($valor);
             return;
         }
@@ -249,21 +246,21 @@ abstract class Entity extends ORM
         $valorValidacao = $valor;
         if ($valorValidacao instanceof ModuleInterface) {
             $valorValidacao = $this->ormPegarValorModule($valor);
-        } else if ($valorValidacao instanceof StatusInterface) {
+        } elseif ($valorValidacao instanceof StatusInterface) {
             $valorValidacao = $valorValidacao->numero();
         }
-        $existe = in_array($propriedade, $this->_listaSet);
+        $existe = in_array($propriedade, $this->ormListaSet);
         if (is_null($valorValidacao) && $existe) {
             return;
         } elseif ($existe) {
             $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor, 1);
             $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
-            $this->_setReal[$propriedade] = $valor;
+            $this->ormSetReal[$propriedade] = $valor;
             if ($valor instanceof Senha && $valor->vazio()) {
                 return;
             }
             $this->$propriedade = $valor;
-            $this->_propriedadeSetada[] = strSlug($propriedade);
+            $this->ormPropriedadeSetada[] = strSlug($propriedade);
             return;
         }
         throw new Erro(mensagem: 'A propriedade ' . $propriedade . ' não existe ou você não tem acesso a ela.');
@@ -307,15 +304,15 @@ abstract class Entity extends ORM
 
     private function ormPegarListaDeSalvarInsertUpdate()
     {
-        $acao = empty($this->_entityId) ? 'insert' : 'update';
+        $acao = empty($this->ormEntityId) ? 'insert' : 'update';
         $lista = [];
-        if (property_exists($this, '_salvar') && is_array($this->_salvar) && $this->_salvar) {
-            $lista = array_merge($lista, $this->_salvar);
+        if (property_exists($this, 'ormSalvar') && is_array($this->ormSalvar) && $this->ormSalvar) {
+            $lista = array_merge($lista, $this->ormSalvar);
         }
-        if ($acao == 'insert' && property_exists($this, '_insert') && is_array($this->_insert) && $this->_insert) {
-            $lista = array_merge($lista, $this->_insert);
-        } elseif ($acao == 'update' && property_exists($this, '_update') && is_array($this->_update) && $this->_update) {
-            $lista = array_merge($lista, $this->_update);
+        if ($acao == 'insert' && property_exists($this, 'ormInsert') && is_array($this->ormInsert) && $this->ormInsert) {
+            $lista = array_merge($lista, $this->ormInsert);
+        } elseif ($acao == 'update' && property_exists($this, 'ormUpdate') && is_array($this->ormUpdate) && $this->ormUpdate) {
+            $lista = array_merge($lista, $this->ormUpdate);
         }
         return $lista;
     }
@@ -337,7 +334,7 @@ abstract class Entity extends ORM
             }
             $retorno[] = $indice;
         }
-        $this->_listaSet = array_merge($retorno, $this->_propriedadePublica);
+        $this->ormListaSet = array_merge($retorno, $this->ormPropriedadePublica);
     }
 
     private function ormPegarListaDeAliasEReal()
@@ -359,7 +356,7 @@ abstract class Entity extends ORM
             }
             $retorno[$indice] = $valor;
         }
-        $this->_listaAliasReal = $retorno;
+        $this->ormListaAliasReal = $retorno;
     }
 
     private function ormMontarPropriedadePublica(): void
@@ -373,9 +370,9 @@ abstract class Entity extends ORM
         foreach ($propriedade as $r) {
             $lista[] = $r->name;
         }
-        $buscar = property_exists($this, '_buscar') && is_array($this->_buscar) && $this->_buscar ? $this->_buscar : [];
+        $buscar = property_exists($this, 'ormBuscar') && is_array($this->ormBuscar) && $this->ormBuscar ? $this->ormBuscar : [];
         if (!$buscar) {
-            $this->_propriedadePublica = $lista;
+            $this->ormPropriedadePublica = $lista;
             return;
         }
 
@@ -385,7 +382,7 @@ abstract class Entity extends ORM
                 $lista[] = $indice;
             }
         }
-        $this->_propriedadePublica = array_unique($lista);
+        $this->ormPropriedadePublica = array_unique($lista);
     }
 
     private function ormSetarDadoDaEntity(array $dado, string $acao): void
@@ -396,7 +393,7 @@ abstract class Entity extends ORM
         }
         if (!array_key_exists('uuid', $lista) && array_key_exists('uuid', $dado)) {
             $lista['uuid'] = 'uuid';
-        } else if (!array_key_exists('uuid', $lista) && array_key_exists('cod', $dado)) {
+        } elseif (!array_key_exists('uuid', $lista) && array_key_exists('cod', $dado)) {
             $lista['uuid'] = 'cod';
         }
 
@@ -426,11 +423,11 @@ abstract class Entity extends ORM
             }
 
             if ($prop == 'id') {
-                $this->_entityId = $valor;
+                $this->ormEntityId = $valor;
                 continue;
             } elseif ($prop == 'uuid') {
                 $this->id = $valor;
-                $this->_entityUuid = $valor;
+                $this->ormEntityUuid = $valor;
                 continue;
             }
 
@@ -442,7 +439,7 @@ abstract class Entity extends ORM
             $valor = $this->ormConverterValorSeForUmStatus($prop, $valor);
 
             if ($privado) {
-                $this->_propriedadePrivada[$prop] = $valor;
+                $this->ormPropriedadePrivada[$prop] = $valor;
                 continue;
             }
 
@@ -473,8 +470,8 @@ abstract class Entity extends ORM
 
     private function ormListaParaMontarEntity(): array
     {
-        $lista = $this->_buscar ?? [];
-        $listaJoin = $this->_relacionado;
+        $lista = $this->ormBuscar ?? [];
+        $listaJoin = $this->ormRelacionado;
         foreach ($listaJoin as $r) {
             if (!array_key_exists('campo', $r)) {
                 continue;
@@ -665,7 +662,7 @@ abstract class Entity extends ORM
         $valor = $prop->getValue($classe);
         if ($module && $valor instanceof ModuleInterface) {
             return $this->ormPegarValorModule($valor);
-        } else if ($module && $valor instanceof StatusInterface) {
+        } elseif ($module && $valor instanceof StatusInterface) {
             return $valor->numero();
         }
         return $valor;
@@ -673,19 +670,19 @@ abstract class Entity extends ORM
 
     private function ormVerificarSeEntityExiste()
     {
-        if ($this->_entityDeletada) {
+        if ($this->ormEntityDeletada) {
             throw new Erro(mensagem: 'Essa entidade foi destruida e você não tem mais acesso a ela.');
         }
     }
 
     private function ormPegarArquivoParaDeletar(array $dado, bool $todos = false): array
     {
-        if (!$this->_deletarArquivo) {
+        if (!$this->ormDeletarArquivo) {
             return [];
         }
 
         $lista = [];
-        foreach ($this->_deletarArquivo as $campo => $diretorio) {
+        foreach ($this->ormDeletarArquivo as $campo => $diretorio) {
             if (!array_key_exists($campo, $dado)) {
                 continue;
             }

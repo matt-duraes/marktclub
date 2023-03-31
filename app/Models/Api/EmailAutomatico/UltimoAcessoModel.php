@@ -9,10 +9,9 @@ use App\Models\Api\EmailAutomatico\Trait\EmailTrait;
 
 final class UltimoAcessoModel extends ORM
 {
-
     use EmailTrait;
 
-    protected string $_tabela = TABELA_USUARIO_CLIENTE;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private array $idEmpresa;
     private array $dadoParaEnvio;

@@ -84,15 +84,15 @@ final class LocalizacaoHelper
                 foreach ($r['address_components'] as $campo) {
                     if (!array_key_exists('types', $campo) || !array_key_exists('short_name', $campo)) {
                         continue;
-                    } else if (in_array('administrative_area_level_4', $campo['types'])) {
+                    } elseif (in_array('administrative_area_level_4', $campo['types'])) {
                         $endereco['bairro'] = $campo['short_name'];
-                    } else if (in_array('administrative_area_level_2', $campo['types'])) {
+                    } elseif (in_array('administrative_area_level_2', $campo['types'])) {
                         $endereco['cidade'] = $campo['short_name'];
-                    } else if (in_array('administrative_area_level_1', $campo['types'])) {
+                    } elseif (in_array('administrative_area_level_1', $campo['types'])) {
                         $endereco['estado'] = $campo['short_name'];
-                    } else if (in_array('country', $campo['types'])) {
+                    } elseif (in_array('country', $campo['types'])) {
                         $endereco['pais'] = $campo['short_name'];
-                    } else if (in_array('postal_code', $campo['types'])) {
+                    } elseif (in_array('postal_code', $campo['types'])) {
                         $endereco['cep'] = soNumero($campo['short_name']);
                     }
                 }
@@ -200,7 +200,7 @@ final class LocalizacaoHelper
         }
         if (!empty($cidade) && !empty($estado)) {
             $endereco .= '/' . $estado;
-        } else if (!empty($estado)) {
+        } elseif (!empty($estado)) {
             $endereco .= !empty($endereco) ? ' - ' . $estado : $estado;
         }
         if (!empty($cep)) {

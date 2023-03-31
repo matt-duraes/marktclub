@@ -11,13 +11,13 @@ use App\Classes\ComercialEmpresa\Status;
 
 final class EmpresaEntity extends Entity
 {
-    protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
+    protected array $ormBuscar = [
         'imagem' => 'imagem_arquivo',
         'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
         'responsavel_email', 'responsavel_telefone', 'status'
     ];
-    protected array $_retornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
+    protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
 
     public string $titulo;
     public Cnpj $cnpj;

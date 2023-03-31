@@ -11,7 +11,7 @@ final class SelectModel extends ORM
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_GRUPO;
+    protected string $ormTabela = TABELA_USUARIO_GRUPO;
     private int $idEmpresa;
 
     public function __construct(
@@ -47,7 +47,7 @@ final class SelectModel extends ORM
 
         try {
             $Empresa = new EmpresaEntity();
-            $Empresa->id($this->request->empresa);
+            $Empresa->uuid($this->request->empresa);
             return $Empresa->get('id');
         } catch (\Throwable) {
             return $this->idEmpresa;

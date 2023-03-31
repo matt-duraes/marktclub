@@ -26,7 +26,7 @@ final class DemandaDadoController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Demanda = new DemandaEntity();
-        $Demanda->id($id);
+        $Demanda->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
@@ -72,17 +72,17 @@ final class DemandaDadoController extends Controller implements
         $dado = $request->dado();
         if ($request->existe('id_admin_empresa')) {
             $Empresa = new EmpresaEntity();
-            $Empresa->id($request->id_admin_empresa);
+            $Empresa->uuid($request->id_admin_empresa);
             $dado['id_admin_empresa'] = $Empresa->get('id');
         }
         if ($request->existe('id_usuario_equipe')) {
             $Equipe = new EquipeEntity(validarToken: false);
-            $Equipe->id($request->id_usuario_equipe);
+            $Equipe->uuid($request->id_usuario_equipe);
             $dado['id_usuario_equipe'] = $Equipe->get('id');
         }
 
         $Demanda = new DemandaEntity();
-        $Demanda->id($id);
+        $Demanda->uuid($id);
         $Demanda->set(lista: $dado);
         $Demanda->salvar();
 

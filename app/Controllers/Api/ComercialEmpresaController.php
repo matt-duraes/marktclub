@@ -45,7 +45,7 @@ final class ComercialEmpresaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Empresa = new EmpresaEntity();
-        $Empresa->id($id);
+        $Empresa->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity(

@@ -71,7 +71,7 @@ final class BuscaModel
     }
     private function converterDadoEmPesquisa()
     {
-        $estado = (new ListaHelper)->estado()->r();
+        $estado = (new ListaHelper())->estado()->r();
 
         $uri = '';
         foreach ($this->request->dado() as $ind => $val) {
@@ -81,15 +81,15 @@ final class BuscaModel
 
             if ($ind == 'estado' && validarUf($val)) {
                 $uri .= '-no-estado-' . strSlug($estado[$val]);
-            } else if ($ind == 'categoria') {
+            } elseif ($ind == 'categoria') {
                 $uri .= '-na-categoria-' . strSlug($val);
-            } else if ($ind == 'tag') {
+            } elseif ($ind == 'tag') {
                 $uri .= '-pela-tag-' . strSlug($val);
-            } else if ($ind == 'pesquisa') {
+            } elseif ($ind == 'pesquisa') {
                 $uri .= '-pela-pesquisa-' . urlencode($val);
-            } else if ($ind == 'estabelecimento' && $this->Estabelecimento->valido()) {
+            } elseif ($ind == 'estabelecimento' && $this->Estabelecimento->valido()) {
                 $uri .= '-em-estabelecimento-' . strSlug($val);
-            } else if ($ind == 'ordem' && $this->Ordem->valido()) {
+            } elseif ($ind == 'ordem' && $this->Ordem->valido()) {
                 $uri .= '-pela-ordem-' . strSlug($val);
             }
         }
@@ -107,7 +107,7 @@ final class BuscaModel
         $busca = $this->montarWhereFiltro('no estado', $busca, 'endereco_estado');
     }
 
-    private function  montarWhereFiltro($regex, $busca, $indice)
+    private function montarWhereFiltro($regex, $busca, $indice)
     {
         if (!preg_match('/' . $regex . '/', $busca)) {
             return $busca;
@@ -119,7 +119,7 @@ final class BuscaModel
         $valorReal = $valor;
         if ($indice == 'endereco_estado' && !array_key_exists($valor, $this->estadoIndiceNome)) {
             return $busca;
-        } else if ($indice == 'endereco_estado') {
+        } elseif ($indice == 'endereco_estado') {
             $valorReal = $this->estadoIndiceUF[$valor];
             $valor = $this->estadoIndiceNome[$valor];
         }

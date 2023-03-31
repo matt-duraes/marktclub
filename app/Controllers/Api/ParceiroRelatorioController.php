@@ -34,7 +34,7 @@ final class ParceiroRelatorioController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Relatorio = new RelatorioEntity();
-        $Relatorio->id($id);
+        $Relatorio->uuid($id);
 
         return mensagemSucesso($this->pegarDadoRetorno($Relatorio));
     }
@@ -72,7 +72,7 @@ final class ParceiroRelatorioController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $Relatorio = new RelatorioEntity();
-        $Relatorio->id($id);
+        $Relatorio->uuid($id);
 
         $dado = $request->dado();
         if ($request->existe('empresa')) {
@@ -93,20 +93,20 @@ final class ParceiroRelatorioController extends Controller implements
     private function pegarEmpresa(?string $empresa)
     {
         $Empresa = new EmpresaEntity();
-        $Empresa->id($empresa, mensagem: 'Não foi encontrado uma empresa por esse código.');
+        $Empresa->uuid($empresa, mensagem: 'Não foi encontrado uma empresa por esse código.');
         return $Empresa;
     }
     private function pegarParceiro(?string $parceiro)
     {
         $Parceiro = new LojaEntity();
-        $Parceiro->id($parceiro, mensagem: 'Não foi encontrado um parceiro por esse código.');
+        $Parceiro->uuid($parceiro, mensagem: 'Não foi encontrado um parceiro por esse código.');
         return $Parceiro;
     }
 
     public function deleteDeletar(string $id): Response
     {
         $Relatorio = new RelatorioEntity();
-        $Relatorio->id($id);
+        $Relatorio->uuid($id);
         $Relatorio->destruir();
 
         return new Response(status: 204);

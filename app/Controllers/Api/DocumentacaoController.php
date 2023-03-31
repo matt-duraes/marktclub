@@ -130,7 +130,7 @@ final class DocumentacaoController extends Controller
         $Usuario = $this->validarSenhaParaContinuar($request->senha);
 
         $App = new AppEntity();
-        $App->id($request->id, false);
+        $App->uuid($request->id, false);
 
         if (empty($App->id)) {
             mensagemErro('Erro!', 'O App não foi encontrado, ele pode ter sido deletado ou você não tem permissão para visualizar.', status: 404);
@@ -171,7 +171,7 @@ final class DocumentacaoController extends Controller
         $Usuario = $this->validarSenhaParaContinuar($request->senha);
 
         $App = new AppEntity();
-        $App->id($request->id, false);
+        $App->uuid($request->id, false);
 
         if (empty($App->id)) {
             mensagemErro('Erro!', 'O App não foi encontrado, ele pode ter sido deletado ou você não tem permissão para visualizar.', status: 404);
@@ -198,12 +198,12 @@ final class DocumentacaoController extends Controller
     {
         if (!sessaoExiste('DOCUMENTACAO')) {
             $this->mensagemSemSessao();
-        } else if (empty($senha)) {
+        } elseif (empty($senha)) {
             mensagemErro('Campo obrigatório!', 'Você precisa enviar a sua senha atual para continuar.');
         }
 
-        $Usuario = new UsuarioEntity;
-        $Usuario->id(sessao('DOCUMENTACAO.usuario')->id);
+        $Usuario = new UsuarioEntity();
+        $Usuario->uuid(sessao('DOCUMENTACAO.usuario')->id);
 
         if (!$Usuario->senha->validarSenha($senha)) {
             mensagemErro('Senha inválida!', 'A senha digitada não está correta.');
@@ -215,16 +215,16 @@ final class DocumentacaoController extends Controller
     {
         if (!sessaoExiste('DOCUMENTACAO')) {
             return $this->mensagemSemSessao();
-        } else if (empty($request->senha_atual)) {
+        } elseif (empty($request->senha_atual)) {
             mensagemErro('Campo obrigatório!', 'Você precisa enviar a sua senha atual para continuar.');
-        } else if (empty($request->senha_nova)) {
+        } elseif (empty($request->senha_nova)) {
             mensagemErro('Campo obrigatório!', 'Você precisa enviar a sua nova senha para continuar.');
-        } else if ($request->senha_nova != $request->senha_repetir) {
+        } elseif ($request->senha_nova != $request->senha_repetir) {
             mensagemErro('Campo obrigatório!', 'O campo nova senha e repetir senha não estão iguais.');
         }
 
-        $Usuario = new UsuarioEntity;
-        $Usuario->id(sessao('DOCUMENTACAO.usuario')->id);
+        $Usuario = new UsuarioEntity();
+        $Usuario->uuid(sessao('DOCUMENTACAO.usuario')->id);
 
         if (!$Usuario->senha->validarSenha($request->senha_atual)) {
             mensagemErro('Senha inválida!', 'A senha atual digitada não está correta.');
@@ -257,18 +257,18 @@ final class DocumentacaoController extends Controller
     {
         if (sessaoExiste('DOCUMENTACAO')) {
             return mensagemSucesso([], status: 201);
-        } else if (empty($request->login)) {
+        } elseif (empty($request->login)) {
             mensagemErro('Campo obrigatório!', 'Você deve digitar seu login para continuar.');
-        } else if (empty($request->senha)) {
+        } elseif (empty($request->senha)) {
             mensagemErro('Campo obrigatório!', 'Você deve digitar sua senha para continuar.');
         }
 
-        $Usuario = new UsuarioEntity;
+        $Usuario = new UsuarioEntity();
         $Usuario->buscar(['login_usuario', $request->login], false);
         if (empty($Usuario->id)) {
             usleep(rand(500000, 1000000));
             mensagemErro('Erro!', 'Seu login e/ou senha estão inválidos');
-        } else if (!$Usuario->senha->validarSenha($request->senha)) {
+        } elseif (!$Usuario->senha->validarSenha($request->senha)) {
             usleep(rand(300000, 800000));
             mensagemErro('Erro!', 'Seu login e/ou senha estão inválidos');
         }

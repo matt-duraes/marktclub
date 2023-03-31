@@ -18,8 +18,8 @@ final class MarkdownHelper
         $reg = [
             "/^\#\ (.*)/" => "<h1>$1</h1>",
             "/^\#{2}\ (.*)/" => "<h2>$1</h2>",
-            "/\*{2}([" . $this->regTudo . "]+)\*{2}/" => "<strong>$1</strong>",
-            "/\*{1}([" . $this->regTudo . "]+)\*{1}/" => "<i>$1</i>",
+            "/\*{2} elseif ([" . $this->regTudo . "]+)\*{2}/" => "<strong>$1</strong>",
+            "/\*{1} elseif ([" . $this->regTudo . "]+)\*{1}/" => "<i>$1</i>",
             "/^[0-9]+\.\ (.*)/" => '<li>$1</li>',
             "/^\*\ (.*)/" => '<li>$1</li>',
             "/^\"\ (.*)/" => '<blockquote><p>$1</p></blockquote>',

@@ -6,9 +6,9 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const ATIVO = 'ativo';
-    const INATIVO = 'inativo';
-    const PROSPECCAO = 'prospeccao';
+    public const ATIVO = 'ativo';
+    public const INATIVO = 'inativo';
+    public const PROSPECCAO = 'prospeccao';
 
     public function __construct(
         protected null|string|int $valor = null

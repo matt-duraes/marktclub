@@ -14,20 +14,20 @@ use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 
 final class TarefaEntity extends Entity
 {
-    protected string $_tabela = TABELA_DEMANDA_TAREFA;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_DEMANDA_TAREFA;
+    protected array $ormBuscar = [
         'minuto_producao_estimada', 'titulo', 'texto', 'status', 'tipo', 'id_usuario_equipe', 'minuto_producao_real',
         'data_producao_inicio', 'data_producao_final', 'id_demanda_dado', 'like'
     ];
 
-    protected array $_insert = [
+    protected array $ormInsert = [
         'id_demanda_dado'
     ];
-    protected array $_salvar = [
+    protected array $ormSalvar = [
         'minuto_producao_estimada', 'id_usuario_equipe', 'status', 'titulo', 'texto', 'tipo',
         'data_producao_inicio', 'data_producao_final', 'minuto_producao_real', 'like'
     ];
-    protected string $_validarInsert = '
+    protected string $ormValidarInsert = '
         titulo|Titulo|obrigatorio|vazio
         texto|Texto|obrigatorio|vazio
         tipo|Tipo|valido
@@ -62,7 +62,7 @@ final class TarefaEntity extends Entity
             $this->pegarUsuarioEquipe($this->id_usuario_equipe);
         }
         if (!empty($this->like)) {
-            $Perfil = new PerfilModel;
+            $Perfil = new PerfilModel();
             $this->teste[] = $Perfil->pegarLista($this->like);
         }
     }
@@ -104,7 +104,7 @@ final class TarefaEntity extends Entity
         if ($this->status->indice() == 'andamento') {
             $this->Demanda->status = new DemandaDadoStatus('andamento');
             $this->Demanda->salvar();
-        } else if (
+        } elseif (
             $this->status->indice() == 'concluida' &&
             (new TarefaModel($this->Demanda))->verificarSeTodasAsTarefasEstaoConcluidas()
         ) {
@@ -123,9 +123,9 @@ final class TarefaEntity extends Entity
         try {
             $Demanda = new DemandaEntity();
             if (is_int($id)) {
-                $Demanda->_id($id);
-            } else {
                 $Demanda->id($id);
+            } else {
+                $Demanda->uuid($id);
             }
             $this->Demanda = $Demanda;
         } catch (\Throwable) {
@@ -136,7 +136,7 @@ final class TarefaEntity extends Entity
     {
         try {
             $Equipe = new EquipeEntity(validarToken: false);
-            is_int($id) ? $Equipe->_id($id) : $Equipe->id($id);
+            is_int($id) ? $Equipe->id($id) : $Equipe->uuid($id);
             $this->equipe = $Equipe;
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi encontrado nenhum usuário pelo id enviado.', status: 404);
@@ -169,7 +169,7 @@ final class TarefaEntity extends Entity
         $this->Demanda->status = new DemandaDadoStatus('andamento');
         $this->Demanda->salvar();
 
-        $Perfil = new PerfilModel;
+        $Perfil = new PerfilModel();
         $usuario = $Perfil->pegarDado($this->id_usuario_equipe);
 
         $Historico = new HistoricoEntity();

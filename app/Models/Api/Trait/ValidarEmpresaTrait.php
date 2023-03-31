@@ -7,7 +7,7 @@ use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait ValidarEmpresaTrait
 {
-    private string $_campoEmpresa;
+    private string $nomeCampoEmpresa;
 
     /**
      * Mudar o ID da empresa se tiver pemissão
@@ -21,7 +21,7 @@ trait ValidarEmpresaTrait
         }
         $this->whereEmpresa = $id;
         $this->idEmpresa = $id;
-        $this->_wherePadrao = [$this->_campoEmpresa, $id];
+        $this->ormWherePadrao = [$this->nomeCampoEmpresa, $id];
     }
 
     /**
@@ -52,8 +52,8 @@ trait ValidarEmpresaTrait
     {
         $this->setarIdEmpresa();
         $this->setarIdUsuario();
-        $this->_setaPropriedadeInicial($campoEmpresa);
-        $this->_setarValoresReais();
+        $this->setaPropriedadeInicial($campoEmpresa);
+        $this->setarValoresReais();
         $this->setarWherePadrao();
     }
 
@@ -63,14 +63,18 @@ trait ValidarEmpresaTrait
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
         }
     }
-    private function _setaPropriedadeInicial(string $campoEmpresa)
+    private function setaPropriedadeInicial(string $campoEmpresa)
     {
-        $this->_campoEmpresa = in_array($campoEmpresa, ['empresa', 'id_admin_empresa']) ? $campoEmpresa : 'id_admin_empresa';
+        $this->nomeCampoEmpresa = in_array(
+            $campoEmpresa,
+            ['empresa', 'id_admin_empresa']
+        ) ? $campoEmpresa : 'id_admin_empresa';
+
         $this->whereEmpresa = $this->idEmpresa;
-        $this->_wherePadrao = [$this->_campoEmpresa, $this->idEmpresa];
+        $this->ormWherePadrao = [$this->nomeCampoEmpresa, $this->idEmpresa];
     }
 
-    private function _setarValoresReais()
+    private function setarValoresReais()
     {
         if ($this->idEmpresa != 1 || empty($this->idUsuario)) {
             return;
@@ -87,13 +91,13 @@ trait ValidarEmpresaTrait
             $this->request->vazio('empresa')
         ) {
             $this->whereEmpresa = null;
-            $this->_wherePadrao = [];
+            $this->ormWherePadrao = [];
             return;
         }
 
         try {
             $Empresa = new EmpresaEntity();
-            $Empresa->id($this->request->empresa);
+            $Empresa->uuid($this->request->empresa);
             $this->whereEmpresa = $Empresa->get('id');
         } catch (\Throwable $e) {
             mensagemErro('Empresa inválida!', 'Não foi encontrado uma empresa pelo código enviado.', error: $e);
@@ -117,12 +121,12 @@ trait ValidarEmpresaTrait
      */
     private function setarWherePadrao(array $where = []): void
     {
-        if (!empty($where) && !empty($this->_wherePadrao)) {
-            $this->_wherePadrao = array_merge([$where], [[$this->_campoEmpresa, $this->whereEmpresa]]);
-        } else if (!empty($where)) {
-            $this->_wherePadrao = $where;
-        } else if (!empty($this->whereEmpresa)) {
-            $this->_wherePadrao = [[$this->_campoEmpresa, $this->whereEmpresa]];
+        if (!empty($where) && !empty($this->ormWherePadrao)) {
+            $this->ormWherePadrao = array_merge([$where], [[$this->nomeCampoEmpresa, $this->whereEmpresa]]);
+        } elseif (!empty($where)) {
+            $this->ormWherePadrao = $where;
+        } elseif (!empty($this->whereEmpresa)) {
+            $this->ormWherePadrao = [[$this->nomeCampoEmpresa, $this->whereEmpresa]];
         }
     }
 }

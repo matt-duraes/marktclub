@@ -364,6 +364,11 @@ Route
             ::_rotaNaoUnica()
             ::request(['estado'])
             ::post('/sistema-endereco/buscar-cidade');
+        Route
+            ::nome('listarEndereco')
+            ::_rotaNaoUnica()
+            ::request(['tabela', 'local', 'id', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'])
+            ::post('/sistema-endereco/buscar-lista');
     }, true)
 
     // DOWNLOAD PRIVADO

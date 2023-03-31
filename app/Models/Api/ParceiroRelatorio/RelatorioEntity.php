@@ -10,15 +10,15 @@ use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class RelatorioEntity extends Entity
 {
-    protected string $_tabela = TABELA_ANALYTICS_LOJA_VENDA;
-    protected array $_salvar = [
+    protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
+    protected array $ormSalvar = [
         'id_admin_empresa', 'id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'
     ];
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'id_admin_empresa', 'id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'
     ];
 
-    protected string $_validarSalvar = '
+    protected string $ormValidarSalvar = '
         numero_transacao|Número de transação|obrigatorio|vazio|inteiro
         valor_venda|Valor de venda|obrigatorio|vazio|valido
         data_relatorio|Data do relatório|obrigatorio|vazio|valido
@@ -46,8 +46,8 @@ final class RelatorioEntity extends Entity
     protected function regraPosBuscar()
     {
         $this->Empresa = new EmpresaEntity();
-        $this->Empresa->_id($this->id_admin_empresa);
+        $this->Empresa->id($this->id_admin_empresa);
         $this->Parceiro = new LojaEntity();
-        $this->Parceiro->_id($this->id_parceiro_loja);
+        $this->Parceiro->id($this->id_parceiro_loja);
     }
 }

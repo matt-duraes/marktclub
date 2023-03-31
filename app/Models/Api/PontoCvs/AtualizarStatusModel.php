@@ -9,14 +9,14 @@ use App\Classes\PontoCvs\Status;
 
 final class AtualizarStatusModel extends ORM
 {
-    protected string $_tabela = TABELA_PONTO_CVS;
+    protected string $ormTabela = TABELA_PONTO_CVS;
 
     public function AtualizarStatus()
     {
         $pontosPendentes = $this->campo(['pedido_codigo'])->where([['status', 1], ['pedido_codigo', "!null"]])->read();
         $codigoPonto = array_column($pontosPendentes, 'pedido_codigo');
 
-        $PontoCvsHelper = new PontoCvsHelper;
+        $PontoCvsHelper = new PontoCvsHelper();
         foreach ($codigoPonto as $codigo) {
             $solicitacao = $PontoCvsHelper->buscarSolicitacao($codigo);
             $dado = $this->montarDadoSolicitacao($solicitacao);

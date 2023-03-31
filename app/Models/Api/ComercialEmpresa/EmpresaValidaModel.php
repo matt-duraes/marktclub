@@ -7,7 +7,7 @@ use App\Classes\ComercialEmpresa\Helper;
 
 final class EmpresaValidaModel extends ORM
 {
-    protected string $_tabela = TABELA_COMERCIAL_EMPRESA;
+    protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
 
     public function listarDados(): array
     {

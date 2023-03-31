@@ -12,7 +12,7 @@ final class IndicacaoModel extends ORM
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_INDICACAO;
+    protected string $ormTabela = TABELA_USUARIO_INDICACAO;
 
     private int $idEmpresa;
 

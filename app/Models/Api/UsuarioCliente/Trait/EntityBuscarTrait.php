@@ -20,6 +20,6 @@ trait EntityBuscarTrait
             $this->pagamento = $Pagamento->buscarPagamento($this->get('id'));
         }
         $this->Empresa = new EmpresaEntity();
-        $this->Empresa->_id($this->id_admin_empresa);
+        $this->Empresa->id($this->id_admin_empresa);
     }
 }

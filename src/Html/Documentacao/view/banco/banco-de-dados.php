@@ -11,7 +11,7 @@ $Doc
 <?php
 
 return (new \DataBase\DataBase())
-    ->id()
+    ->uuid()
     ->uuid()
     ->varchar("id_facebook")->tamanho(170)->null()->unico()
     ->varchar("id_google")->tamanho(170)->null()->unico()

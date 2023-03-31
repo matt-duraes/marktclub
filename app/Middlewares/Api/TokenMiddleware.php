@@ -31,12 +31,12 @@ final class TokenMiddleware
         if ($tipo == 'client-credentials') {
             $Token = new ValidarTokenCredentialModel();
             return $Token->validar($this->token);
-        } else if ($tipo == 'authorization') {
+        } elseif ($tipo == 'authorization') {
             $Token = new ValidarTokenAuthorizationEntity();
             try {
                 $Token->buscar([
-                    ['access_token', $this->token],
-                    ['status', 1]
+                ['access_token', $this->token],
+                ['status', 1]
                 ]);
                 return true;
             } catch (\Throwable $e) {
@@ -74,7 +74,7 @@ final class TokenMiddleware
         $token = $this->token;
         if (empty($token)) {
             $this->erroToken('Middleware Token - Token vazio.');
-        } else if (!str_starts_with($token, 'Bearer ')) {
+        } elseif (!str_starts_with($token, 'Bearer ')) {
             $this->erroToken('Middleware Token - Token não começa com Bearer.');
         }
         $this->token = preg_replace('/^Bearer /', '', $this->token);
@@ -101,7 +101,7 @@ final class TokenMiddleware
     {
         if (mb_strlen($this->token) == 36) {
             return 'authorization';
-        } else if (array_key_exists('gty', $this->body) && $this->body['gty'] == 'client-credentials') {
+        } elseif (array_key_exists('gty', $this->body) && $this->body['gty'] == 'client-credentials') {
             return 'client-credentials';
         }
         $this->erroToken('Middleware Token - Token não tem 36 caracteres ou é um JWT.');

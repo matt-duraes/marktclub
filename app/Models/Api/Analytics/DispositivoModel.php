@@ -12,7 +12,8 @@ final class DispositivoModel extends ORM
 {
     use ValidarEmpresaTrait;
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_DISPOSITIVO;
+
+    protected string $ormTabela = TABELA_ANALYTICS_DISPOSITIVO;
 
     public function __construct(
         protected Data $de,

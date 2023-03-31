@@ -10,12 +10,12 @@ use App\Models\Painel\AppGeral\AppGeralEntity;
 
 final class DocumentoNoticiaEntity extends AppGeralEntity
 {
-    protected string $_tabela = TABELA_DOCUMENTO_NOTICIA;
+    protected string $ormTabela = TABELA_DOCUMENTO_NOTICIA;
 
-    protected array $_buscar = ['titulo', 'texto', 'data_publicacao', 'fonte_nome', 'fonte_link', 'tag', 'status'];
-    protected array $_insert = ['url'];
-    protected array $_salvar = ['titulo', 'texto', 'data_publicacao', 'fonte_nome', 'fonte_link', 'tag', 'status'];
-    protected string $_validarSalvar = '
+    protected array $ormBuscar = ['titulo', 'texto', 'data_publicacao', 'fonte_nome', 'fonte_link', 'tag', 'status'];
+    protected array $ormInsert = ['url'];
+    protected array $ormSalvar = ['titulo', 'texto', 'data_publicacao', 'fonte_nome', 'fonte_link', 'tag', 'status'];
+    protected string $ormValidarSalvar = '
         titulo|Titulo|obrigatorio|vazio
         texto|Texto|obrigatorio|vazio
         data_publicacao|Data de publicação|vazio

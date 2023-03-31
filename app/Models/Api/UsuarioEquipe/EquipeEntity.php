@@ -23,9 +23,9 @@ final class EquipeEntity extends Entity
     use ValidarEmpresaTrait;
     use CampoUnicoTrait;
 
-    protected string $_tabela = TABELA_USUARIO_EQUIPE;
+    protected string $ormTabela = TABELA_USUARIO_EQUIPE;
 
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'nome' => 'nome_real',
         'cpf' => 'documento_cpf',
         'perfil' => 'nome_perfil',
@@ -36,7 +36,7 @@ final class EquipeEntity extends Entity
         'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
         'id_facebook', 'id_google', 'gerente', 'admin'
     ];
-    protected array $_salvar = [
+    protected array $ormSalvar = [
         'nome_real' => '->nome',
         'documento_cpf' => '->cpf',
         'salt' => '->senha',
@@ -44,15 +44,15 @@ final class EquipeEntity extends Entity
         'email_trabalho', 'email_pessoal', 'genero', 'telefone_pessoal', 'telefone_trabalho', 'status',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'permissao', 'admin'
     ];
-    protected array $_insert = [
+    protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
         'tipo' => 1
     ];
-    protected array $_update = [
+    protected array $ormUpdate = [
         'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google', 'id_facebook', 'id_google'
     ];
 
-    protected string $_validarSalvar = '
+    protected string $ormValidarSalvar = '
         documento_cpf|CPF|cpf
         genero|Gênero|valido
         data_nascimento|Data Nascimento|dataDate
@@ -109,7 +109,7 @@ final class EquipeEntity extends Entity
     protected function setEmpresa($valor)
     {
         $this->Empresa = new EmpresaEntity();
-        $this->Empresa->id($valor, mensagem: 'Não foi possível achar uma empresa pelo dado enviado.');
+        $this->Empresa->uuid($valor, mensagem: 'Não foi possível achar uma empresa pelo dado enviado.');
         $this->setarIdEmpresaManual($this->Empresa->get('id'));
     }
 
@@ -121,7 +121,7 @@ final class EquipeEntity extends Entity
     public function regraPosBuscar()
     {
         $Empresa = new EmpresaEntity();
-        $Empresa->_id($this->id_admin_empresa, erro: false);
+        $Empresa->id($this->id_admin_empresa, erro: false);
         $this->Empresa = $Empresa;
 
         $this->imagem = imagemUsuario(
@@ -145,15 +145,15 @@ final class EquipeEntity extends Entity
 
         if ($this->propriedadeExiste('nome') && $this->nome->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } else if ($this->propriedadeExiste('nome') && !$this->nome->valido()) {
+        } elseif ($this->propriedadeExiste('nome') && !$this->nome->valido()) {
             mensagemErro('Campo obrigatório!', 'O campo nome deve conter pelo menos um sobrenome.');
-        } else if ($this->propriedadeExiste('cpf') && empty($this->cpf->cpf())) {
+        } elseif ($this->propriedadeExiste('cpf') && empty($this->cpf->cpf())) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
-        } else if ($this->propriedadeExiste('email_trabalho') && empty($this->email_trabalho->email())) {
+        } elseif ($this->propriedadeExiste('email_trabalho') && empty($this->email_trabalho->email())) {
             mensagemErro('Campo obrigatório!', 'O campo e-mail de trabalho é obrigatório.');
-        } else if ($this->propriedadeExiste('permissao') && empty($this->permissao)) {
+        } elseif ($this->propriedadeExiste('permissao') && empty($this->permissao)) {
             mensagemErro("Campo obrigatório!", "Você deve marcar as permissões do usuário.");
-        } else if ($this->propriedadeExiste('senha') && !$this->senha->vazio() && !$this->senha->valido()) {
+        } elseif ($this->propriedadeExiste('senha') && !$this->senha->vazio() && !$this->senha->valido()) {
             mensagemErro('Senha inválida!', $this->senha->mensagem());
         }
     }
@@ -190,9 +190,9 @@ final class EquipeEntity extends Entity
     {
         if ($this->foiSetado('imagem_facebook')) {
             $this->imagem_tipo = 3;
-        } else if ($this->foiSetado('imagem_google')) {
+        } elseif ($this->foiSetado('imagem_google')) {
             $this->imagem_tipo = 2;
-        } else if ($this->imagem_arquivo instanceof UploadedFile) {
+        } elseif ($this->imagem_arquivo instanceof UploadedFile) {
             $this->imagem_tipo = 1;
             $this->imagem_arquivo = (new UploadHelper(
                 $this->imagem_arquivo,
@@ -214,7 +214,7 @@ final class EquipeEntity extends Entity
 
         if (empty($this->perfil) || $perfilAtual == $perfil) {
             return;
-        } else if (!preg_match('/^[a-z]{1,}[a-z0-9\.]{0,}[a-z0-9]{1,}$/', $perfil)) {
+        } elseif (!preg_match('/^[a-z]{1,}[a-z0-9\.]{0,}[a-z0-9]{1,}$/', $perfil)) {
             mensagemErro(
                 'Campo inválido!',
                 '
@@ -222,10 +222,12 @@ final class EquipeEntity extends Entity
                     começar ou terminar com ponto (.) e ter dois pontos (..) seguidos.
                 '
             );
-        } else if ($this->existe([
+        } elseif (
+            $this->existe([
             ['id', '!=', $id],
             ['nome_perfil', $this->perfil]
-        ])) {
+            ])
+        ) {
             mensagemErro('Campo inválido!', 'O perfil informado já está em uso por outro usuário.');
         }
     }

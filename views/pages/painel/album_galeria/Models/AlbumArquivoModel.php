@@ -6,8 +6,7 @@ use ORM\ORM;
 
 final class AlbumArquivoModel extends ORM
 {
-
-    protected string $_tabela = TABELA_ALBUM_ARQUIVO;
+    protected string $ormTabela = TABELA_ALBUM_ARQUIVO;
 
     public function listarImagens($id, int $pagina = 1)
     {

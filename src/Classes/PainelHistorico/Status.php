@@ -6,8 +6,8 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const COM_MENSAGEM = 'com-mensagem';
-    const SEM_MENSAGEM = 'sem-mensagem';
+    public const COM_MENSAGEM = 'com-mensagem';
+    public const SEM_MENSAGEM = 'sem-mensagem';
 
     public function __construct(
         protected null|string|int $valor = null
