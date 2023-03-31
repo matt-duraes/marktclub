@@ -11,7 +11,9 @@ use Helpers\EmailHelper;
 final class DownloadEntity extends Entity
 {
     protected string $ormTabela = TABELA_DOWNLOAD_PRIVADO;
-    protected array $ormBuscar = ['nome', 'email', 'arquivo', 'codigo_email', 'codigo_autorizacao', 'data_vencimento'];
+    protected array $ormBuscar = [
+        'nome', 'email', 'arquivo', 'codigo_email', 'codigo_autorizacao', 'data_vencimento'
+    ];
     protected array $ormUpdate = ['codigo_email', 'codigo_autorizacao'];
 
     public Nome $nome;
@@ -74,9 +76,13 @@ final class DownloadEntity extends Entity
         $Email = new EmailHelper();
         $Email->mensagem(
             titulo: $titulo,
+            // @codingStandardsIgnoreStart
             mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, para desbloquear seu download, use o codigo abaixo:',
+            // @codingStandardsIgnoreEnd
             codigo: $codigo,
+            // @codingStandardsIgnoreStart
             observacao: 'Esse é um e-mail privado, caso não tenha solicitado, delete-o e entre em contato com o Markt Club.'
+            // @codingStandardsIgnoreEnd
         );
         $Email->sendGrid($titulo, $this->nome->nome(), $this->email->email());
     }

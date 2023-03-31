@@ -15,12 +15,12 @@ use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class AnalyticsModel extends ORM
 {
-    protected string $ormTabela = TABELA_ANALYTICS;
-
     use WhereTrait;
     use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
+
+    protected string $ormTabela = TABELA_ANALYTICS;
 
     private int $idEmpresa;
     private ?int $idUsuario = null;

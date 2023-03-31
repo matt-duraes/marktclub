@@ -29,6 +29,6 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 // Lista de status
-$Painel->replace(campo: 'status', lista: (new Status)->select());
+$Painel->replace(campo: 'status', lista: (new Status())->select());
 
 return $Painel;

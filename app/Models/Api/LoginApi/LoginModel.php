@@ -19,11 +19,11 @@ use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class LoginModel extends Entity
 {
-    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     use ConstrutorTrait;
     use UsuarioTrait;
     use LinkTrait;
+
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private string $linkClube;
     private int $idEmpresa;

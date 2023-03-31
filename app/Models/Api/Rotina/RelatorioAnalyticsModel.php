@@ -14,8 +14,9 @@ final class RelatorioAnalyticsModel extends ORM
     private string $dataAcesso;
 
     /**
-     * @param   null|Data   $data   Data que será processada
-     * @param   null|array  $lista  Lista caso já tenha a lista de dados no analytics, caso não tenha, será buscado pela data
+     * @param  null|Data   $data   Data que será processada
+     * @param  null|array  $lista  Lista caso já tenha a lista de dados no analytics,
+     *                     caso não tenha, será buscado pela data
      */
     public function __construct(
         ?Data $data = null
@@ -83,7 +84,10 @@ final class RelatorioAnalyticsModel extends ORM
             }
 
             // Convenio
-            $eConvenio = !empty($r->vinculo) && (str_starts_with($r->url, '/convenios') || str_starts_with($r->url, '/parceiro'));
+            $eConvenio =
+                !empty($r->vinculo) &&
+                (str_starts_with($r->url, '/convenios') || str_starts_with($r->url, '/parceiro'));
+
             if ($eConvenio && !array_key_exists($r->vinculo, $analytics[$r->empresa]['loja'])) {
                 $analytics[$r->empresa]['loja'][$r->vinculo] = [
                     'id_admin_empresa' => $r->empresa,

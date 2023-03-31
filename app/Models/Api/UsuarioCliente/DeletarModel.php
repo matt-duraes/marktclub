@@ -22,7 +22,7 @@ final class DeletarModel extends ORM
         $this->validarEmpresa('empresa');
     }
 
-    public function id($id)
+    public function uuid($id)
     {
         $usuario = $this
             ->where($this->pegarWhereParaDeletar([

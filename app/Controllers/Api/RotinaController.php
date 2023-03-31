@@ -30,6 +30,6 @@ final class RotinaController extends Controller
     public function ultimoAcesso()
     {
         new UltimoAcessoModel();
-        return (new Response)->status(201);
+        return (new Response())->status(201);
     }
 }

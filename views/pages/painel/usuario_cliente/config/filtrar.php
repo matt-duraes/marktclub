@@ -22,7 +22,12 @@ $Painel
         $Painel
             ->data(name: 'data_criacao_de', titulo: 'Criado em', label: 'Criado em', placeholder: 'Criado em')
             ->data(name: 'data_criacao_ate', titulo: 'Criado até', label: 'Criado até', placeholder: 'Criado até')
-            ->data(name: 'data_upload', titulo: 'Data de upload', label: 'Data de upload', placeholder: 'Data de upload');
+            ->data(
+                name: 'data_upload',
+                titulo: 'Data de upload',
+                label: 'Data de upload',
+                placeholder: 'Data de upload'
+            );
     })
     ->bloco(function () use ($Painel) {
         $Painel

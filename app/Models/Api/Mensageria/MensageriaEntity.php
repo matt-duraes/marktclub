@@ -11,7 +11,9 @@ final class MensageriaEntity extends Entity
 {
     protected string $ormTabela = TABELA_SISTEMA_MENSAGERIA;
 
-    protected array $ormInsert = ['tipo', 'payload', 'envio_uri', 'envio_metodo', 'envio_api', 'envio_scope', 'data_enviar_apos'];
+    protected array $ormInsert = [
+        'tipo', 'payload', 'envio_uri', 'envio_metodo', 'envio_api', 'envio_scope', 'data_enviar_apos'
+    ];
     protected array $ormUpdate = ['data_envio', 'quantidade_envio', 'status_resposta'];
     protected array $ormSalvar = ['status'];
     protected array $ormBuscar = ['envio_uri', 'envio_api', 'envio_scope', 'data_enviar_apos'];

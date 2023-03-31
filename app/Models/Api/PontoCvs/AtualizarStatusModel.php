@@ -11,7 +11,7 @@ final class AtualizarStatusModel extends ORM
 {
     protected string $ormTabela = TABELA_PONTO_CVS;
 
-    public function AtualizarStatus()
+    public function atualizarStatus()
     {
         $pontosPendentes = $this->campo(['pedido_codigo'])->where([['status', 1], ['pedido_codigo', "!null"]])->read();
         $codigoPonto = array_column($pontosPendentes, 'pedido_codigo');

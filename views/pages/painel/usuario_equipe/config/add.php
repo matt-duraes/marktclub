@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Senha;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
 
@@ -18,11 +19,17 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->telefone(name: 'telefone_pessoal', label: 'Telefone pessoal');
     });
     $Painel->fieldset('Dados de acesso', callback: function () use ($Painel) {
-        $Painel->select('empresa->id', label: 'Empresa', lista: 'empresa', acao: 'add', permissao: Helper::PERMISSAO_EMPRESA);
+        $Painel->select(
+            'empresa->id',
+            label: 'Empresa',
+            lista: 'empresa',
+            acao: 'add',
+            permissao: Helper::PERMISSAO_EMPRESA
+        );
         $Painel->senha(
             name: 'senha',
             label: 'Senha de acesso',
-            ajuda: 'A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número, 1 caracter especial e no mínimo 8 dígitos.'
+            ajuda: Senha::MENSAGEM_FORCA_4
         );
         $Painel->switch(name: 'primeiro_acesso', label: 'Primeiro acesso?');
         $Painel->switch(name: 'mudar_senha', label: 'Mudar senha ao logar?');
@@ -30,42 +37,51 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldsetCheckbox(titulo: 'Permissões', todos: 'Marcar todas as permissões', mais: 1, callback: function () use ($Painel) {
-        $permissao = sessao('PAINEL.permissao.montar');
-        foreach ($permissao as $ind => $dado) {
-            $titulo = $dado['titulo'] ?? '';
-            if (!empty($titulo)) {
-                $Painel->html('<h4>' . $titulo . '</h4>');
-            }
-            if (array_key_exists('acao', $dado)) {
-                foreach ($dado['acao'] as $acao) {
-                    if ($acao == 'index') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Listar', value: $ind . '_index');
-                    } elseif ($acao == 'visualizar') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Visualizar', value: $ind . '_visualizar');
-                    } elseif ($acao == 'download') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Download', value: $ind . '_download');
-                    } elseif ($acao == 'add') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Salvar', value: $ind . '_add');
-                    } elseif ($acao == 'editar') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Editar', value: $ind . '_editar');
-                    } elseif ($acao == 'deletar') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Deletar', value: $ind . '_deletar');
-                    } elseif ($acao == 'status') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Mudar status', value: $ind . '_status');
-                    } elseif ($acao == 'empresa') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Todas as empresas', value: $ind . '_empresa');
-                    } elseif ($acao == 'analytics') {
-                        $Painel->checkbox(name: 'permissao[]', label: 'Analytics', value: $ind . '_analytics');
-                    }
+    $Painel->fieldsetCheckbox(
+        titulo: 'Permissões',
+        todos: 'Marcar todas as permissões',
+        mais: 1,
+        callback: function () use ($Painel) {
+            $permissao = sessao('PAINEL.permissao.montar');
+            foreach ($permissao as $ind => $dado) {
+                $titulo = $dado['titulo'] ?? '';
+                if (!empty($titulo)) {
+                    $Painel->html('<h4>' . $titulo . '</h4>');
                 }
-            } elseif (array_key_exists('permissao', $dado)) {
-                foreach ($dado['permissao'] as $permissaoFinal => $nomePermissao) {
-                    $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissaoFinal);
+                if (array_key_exists('acao', $dado)) {
+                    foreach ($dado['acao'] as $acao) {
+                        if ($acao == 'index') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Listar', value: $ind . '_index');
+                        } elseif ($acao == 'visualizar') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Visualizar', value: $ind . '_visualizar');
+                        } elseif ($acao == 'download') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Download', value: $ind . '_download');
+                        } elseif ($acao == 'add') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Salvar', value: $ind . '_add');
+                        } elseif ($acao == 'editar') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Editar', value: $ind . '_editar');
+                        } elseif ($acao == 'deletar') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Deletar', value: $ind . '_deletar');
+                        } elseif ($acao == 'status') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Mudar status', value: $ind . '_status');
+                        } elseif ($acao == 'empresa') {
+                            $Painel->checkbox(
+                                name: 'permissao[]',
+                                label: 'Todas as empresas',
+                                value: $ind . '_empresa'
+                            );
+                        } elseif ($acao == 'analytics') {
+                            $Painel->checkbox(name: 'permissao[]', label: 'Analytics', value: $ind . '_analytics');
+                        }
+                    }
+                } elseif (array_key_exists('permissao', $dado)) {
+                    foreach ($dado['permissao'] as $permissaoFinal => $nomePermissao) {
+                        $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissaoFinal);
+                    }
                 }
             }
         }
-    });
+    );
 });
 
 return $Painel;

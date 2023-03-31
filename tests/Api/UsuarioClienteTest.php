@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Api;
 
 use Tests\Tests;

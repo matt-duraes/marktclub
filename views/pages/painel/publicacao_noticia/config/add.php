@@ -39,7 +39,12 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->div(class: 'bloco_row', callback: function () use ($Painel) {
             $Painel
                 ->input(name: 'autor_noticia', label: 'Autor da notícia', placeholder: 'Digite um autor', contador: 100)
-                ->input(name: 'fonte_noticia', label: 'Fonte da notícia', placeholder: 'Digite uma fonte', contador: 100)
+                ->input(
+                    name: 'fonte_noticia',
+                    label: 'Fonte da notícia',
+                    placeholder: 'Digite uma fonte',
+                    contador: 100
+                )
                 ->url(name: 'fonte_link', label: 'Link da fonte', placeholder: 'Digite um link');
         });
     });
@@ -101,7 +106,9 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorio
             diretorioImagem: $diretorioImagem,
             diretorioArquivo: $diretorioArquivo,
             obrigatorio: true,
+            // @codingStandardsIgnoreStart
             bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList',
+            // @codingStandardsIgnoreEnd
             barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat'
         );
     });

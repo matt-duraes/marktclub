@@ -4,8 +4,8 @@ namespace App\Models\Site\Loja;
 
 use Http\Request;
 use Helpers\ListaHelper;
-use App\Classes\Loja\OrdemClube;
-use App\Classes\Loja\Estabelecimento;
+use App\Classes\ParceiroLoja\OrdemClube;
+use App\Classes\ParceiroLoja\Estabelecimento;
 
 final class BuscaModel
 {

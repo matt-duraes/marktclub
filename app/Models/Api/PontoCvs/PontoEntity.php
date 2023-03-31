@@ -22,7 +22,9 @@ final class PontoEntity extends Entity
         'data_solicitacao', 'data_voucher', 'mensagem', 'pedido_codigo'
     ];
 
-    protected array $ormInsert = ['uuid', 'id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao', 'pedido_codigo'];
+    protected array $ormInsert = [
+        'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao', 'pedido_codigo'
+    ];
     protected array $ormUpdate = ['voucher', 'data_voucher', 'mensagem'];
     protected array $ormSalvar = ['status'];
 
@@ -82,7 +84,8 @@ final class PontoEntity extends Entity
         $PontoCvsHelper = new PontoCvsHelper();
         $pontos = $PontoCvsHelper->buscarPontos($this->usuario_documento);
 
-        $telefone = !empty($this->usuario_telefone_fixo) ? $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
+        $telefone = !empty($this->usuario_telefone_fixo) ?
+            $this->usuario_telefone_fixo : $this->usuario_telefone_celular;
 
         if (in_array($this->usuario_status, ClienteHelper::STATUS_LIBERADO)) {
             $this->usuario = [

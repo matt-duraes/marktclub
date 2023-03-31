@@ -7,6 +7,7 @@ use ORM\ORM;
 final class RelatorioInicialModel extends ORM
 {
     protected string $ormTabela = TABELA_ANALYTICS;
+    // @codingStandardsIgnoreStart
     // Acesso Dia
     private string $sqlAcessoDiaInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_acesso_dia` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `quantidade_total` int(9) NOT NULL, `quantidade_unico` int(9) NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlAcessoDiaFinal = 'ALTER TABLE `analytics_acesso_dia` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_acesso_dia` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT; COMMIT;';
@@ -49,6 +50,7 @@ final class RelatorioInicialModel extends ORM
     private string $sqlUsuarioQuery = 'INSERT INTO `analytics_usuario` (`id`, `id_admin_empresa`, `id_usuario_cliente`, `usuario_cpf`, `usuario_nome`, `quantidade`, `data_acesso`) VALUES ';
     private string $sqlUsuario = '';
     private int $sqlUsuarioId = 1;
+    // @codingStandardsIgnoreEnd
 
     public function criarArquivoDoAno(int $ano, ?int $cortar = null)
     {
@@ -147,7 +149,10 @@ final class RelatorioInicialModel extends ORM
             }
 
             // Convenio
-            $eConvenio = !empty($r->vinculo) && (str_starts_with($r->url, '/convenios') || str_starts_with($r->url, '/parceiro'));
+            $eConvenio =
+                !empty($r->vinculo) &&
+                (str_starts_with($r->url, '/convenios') || str_starts_with($r->url, '/parceiro'));
+
             if ($eConvenio && !array_key_exists($r->vinculo, $analytics[$r->empresa]['loja'])) {
                 $analytics[$r->empresa]['loja'][$r->vinculo] = [
                     'id_admin_empresa' => $r->empresa,
@@ -238,7 +243,10 @@ final class RelatorioInicialModel extends ORM
             // (`id`, `id_admin_empresa`, `quantidade_total`, `quantidade_unico`, `data_acesso`)
             $acessoTotal = $r['dia']['quantidade_total'];
             $acessoUnico = empty($r['dia']['quantidade_unico']) ? 1 : $r['dia']['quantidade_unico'];
-            $sqlAcessoDia[] = "(" . $this->sqlAcessoDiaId . "," . $empresa . "," . $acessoTotal . "," . $acessoUnico . ",'" . $r['dia']['data_acesso'] . "')";
+            $sqlAcessoDia[] =
+                "(" . $this->sqlAcessoDiaId . "," . $empresa . "," . $acessoTotal . "," .
+                $acessoUnico . ",'" . $r['dia']['data_acesso'] . "')";
+
             $this->sqlAcessoDiaId++;
 
             // (`id`, `id_admin_empresa`, `id_parceiro_loja`, `parceiro_nome`, `quantidade`, `data_acesso`)
@@ -246,16 +254,23 @@ final class RelatorioInicialModel extends ORM
                 if (empty($loja['parceiro_nome'])) {
                     $loja['parceiro_nome'] = 'Não identificado';
                 }
-                $sqlLoja[] = "(" . $this->sqlLojaId . "," . $empresa . "," . $loja['id_parceiro_loja'] . ",'" . addslashes($loja['parceiro_nome']) . "'," . $loja['quantidade'] . ",'" . $loja['data_acesso'] . "')";
+                $sqlLoja[] =
+                    "(" . $this->sqlLojaId . "," . $empresa . "," . $loja['id_parceiro_loja'] . ",'" .
+                    addslashes($loja['parceiro_nome']) . "'," . $loja['quantidade'] . ",'" .
+                    $loja['data_acesso'] . "')";
+
                 $this->sqlLojaId++;
             }
 
-            // (`id`, `id_admin_empresa`, `id_usuario_cliente`, `usuario_cpf`, `usuario_nome`, `quantidade`, `data_acesso`)
             foreach ($r['cliente'] as $cliente) {
                 if (empty($cliente['usuario_nome'])) {
                     $cliente['usuario_nome'] = 'Não identificado';
                 }
-                $sqlCliente[] = "(" . $this->sqlUsuarioId . "," . $empresa . "," . $cliente['id_usuario_cliente'] . ",'" . $cliente['usuario_cpf'] . "','" . addslashes($cliente['usuario_nome']) . "'," . $cliente['quantidade'] . ",'" . $cliente['data_acesso'] . "')";
+                $sqlCliente[] =
+                    "(" . $this->sqlUsuarioId . "," . $empresa . "," . $cliente['id_usuario_cliente'] . ",'" .
+                    $cliente['usuario_cpf'] . "','" . addslashes($cliente['usuario_nome']) . "'," .
+                    $cliente['quantidade'] . ",'" . $cliente['data_acesso'] . "')";
+
                 $this->sqlUsuarioId++;
             }
 
@@ -264,7 +279,10 @@ final class RelatorioInicialModel extends ORM
                 if (empty($dispositivo['dispositivo'])) {
                     $dispositivo['dispositivo'] = 'Não identificado';
                 }
-                $sqlDispositivo[] = "(" . $this->sqlDispositivoId . "," . $empresa . "," . $dispositivo['quantidade'] . ",'" . addslashes($dispositivo['dispositivo']) . "','" .  $dispositivo['data_acesso'] . "')";
+                $sqlDispositivo[] =
+                    "(" . $this->sqlDispositivoId . "," . $empresa . "," . $dispositivo['quantidade'] . ",'" .
+                    addslashes($dispositivo['dispositivo']) . "','" .  $dispositivo['data_acesso'] . "')";
+
                 $this->sqlDispositivoId++;
             }
             // (`id`, `id_admin_empresa`, `quantidade`, `navegador`, `data_acesso`)
@@ -272,21 +290,29 @@ final class RelatorioInicialModel extends ORM
                 if (empty($navegador['navegador'])) {
                     $navegador['navegador'] = 'Não identificado';
                 }
-                $sqlNavegador[] = "(" . $this->sqlNavegadorId . "," . $empresa . "," . $navegador['quantidade'] . ",'" . addslashes($navegador['navegador']) . "','" .  $navegador['data_acesso'] . "')";
+                $sqlNavegador[] =
+                    "(" . $this->sqlNavegadorId . "," . $empresa . "," . $navegador['quantidade'] .
+                    ",'" . addslashes($navegador['navegador']) . "','" .  $navegador['data_acesso'] . "')";
+
                 $this->sqlNavegadorId++;
             }
             foreach ($r['os'] as $os) {
                 if (empty($os['os'])) {
                     $os['os'] = 'Não identificado';
                 }
-                $sqlOs[] = "(" . $this->sqlOsId . "," . $empresa . "," . $os['quantidade'] . ",'" . addslashes($os['os']) . "','" .  $os['data_acesso'] . "')";
+                $sqlOs[] =
+                    "(" . $this->sqlOsId . "," . $empresa . "," . $os['quantidade'] .
+                    ",'" . addslashes($os['os']) . "','" .  $os['data_acesso'] . "')";
+
                 $this->sqlOsId++;
             }
             foreach ($r['url'] as $url) {
                 if (empty($url['url'])) {
                     $os['url'] = 'Não identificado';
                 }
-                $sqlUrl[] = "(" . $this->sqlUrlId . "," . $empresa . "," . $url['quantidade'] . ",'" . addslashes($url['url']) . "','" .  $url['data_acesso'] . "')";
+                $sqlUrl[] = "(" . $this->sqlUrlId . "," . $empresa . "," . $url['quantidade'] . ",'" .
+                addslashes($url['url']) . "','" .  $url['data_acesso'] . "')";
+
                 $this->sqlUrlId++;
             }
         }
