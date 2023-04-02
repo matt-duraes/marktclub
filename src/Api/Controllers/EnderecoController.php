@@ -2,21 +2,16 @@
 
 namespace ApiController;
 
-use ApiModel\Endereco\EnderecoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use ApiModel\Endereco\EnderecoModel;
 use System\Interface\ControllerListarInterface;
 
 final class EnderecoController extends Controller implements
     ControllerListarInterface
 {
-    /**
-     * @param  Request  $request
-     * @return Response
-     * @throws Excecao
-     */
     public function getListar(Request $request): Response
     {
         $Endereco = new EnderecoModel($request);

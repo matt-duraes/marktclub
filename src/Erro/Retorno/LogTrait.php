@@ -6,7 +6,6 @@ use Helpers\ApiHelper;
 
 trait LogTrait
 {
-
     private function salvarLogErro($mensagem, $codigo, $arquivo, $linha, $trace)
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -65,7 +64,9 @@ trait LogTrait
                 'status' => 'erro',
                 'erro' => [
                     'titulo' => 'Erro interno!',
-                    'mensagem' => 'Ocorreu um erro interno, por favor, tente novamente, se o erro persistir, contate o suporte.',
+                    'mensagem' => '
+                        Ocorreu um erro interno, por favor, tente novamente, se o erro persistir, contate o suporte.
+                    ',
                     'codigo' => 500
                 ]
             ]);

@@ -19,10 +19,11 @@ final class Session
         }
 
         $__SESSION_CACHE = env('SESSION_CACHE', '');
-        if (session_cache_limiter() != 'nocache' && preg_match(
-                "/^[0-9]+$/",
-                $__SESSION_CACHE
-            ) && $__SESSION_CACHE > 0) {
+        if (
+            session_cache_limiter() != 'nocache' &&
+            preg_match("/^[0-9]+$/", $__SESSION_CACHE) &&
+            $__SESSION_CACHE > 0
+        ) {
             session_cache_expire($__SESSION_CACHE);
         }
 

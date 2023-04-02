@@ -11,15 +11,17 @@ if (!function_exists('strCaixa')) {
      * Converte a string para a Caixa selecionada
      *
      * @param   null|string $string     String a ser convertida
-     * @param   string      $tipo       Seta o tipo de caixa: "A": Caixa alta; "a": caixa baixa; "Aa": Caixa alta na primeira letra; "Aa Aa": Caixa alta na primeira letra de cada palavra
-     * @return  string String convertida
+     * @param   string      $tipo       Seta o tipo de caixa: "A": Caixa alta; "a": caixa baixa;
+     *                                  "Aa": Caixa alta na primeira letra; "Aa Aa": Caixa alta na primeira
+     *                                  letra de cada palavra
+     * @return  string                  String convertida
      */
     function strCaixa(?string $string, string $tipo): string
     {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->caixa($tipo)->r();
+        return (new \Helpers\TextoHelper())->valor($string)->caixa($tipo)->r();
     }
 }
 
@@ -38,7 +40,7 @@ if (!function_exists('strCaixaAlta')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->caixa('A')->r();
+        return (new \Helpers\TextoHelper())->valor($string)->caixa('A')->r();
     }
 }
 if (!function_exists('strCaixaAltaAlta')) {
@@ -56,7 +58,7 @@ if (!function_exists('strCaixaAltaAlta')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->caixa('Aa Aa')->r();
+        return (new \Helpers\TextoHelper())->valor($string)->caixa('Aa Aa')->r();
     }
 }
 /*
@@ -81,7 +83,7 @@ if (!function_exists('strCaixaBaixa')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->caixa('a')->r();
+        return (new \Helpers\TextoHelper())->valor($string)->caixa('a')->r();
     }
 }
 
@@ -101,7 +103,7 @@ if (!function_exists('strDocumento')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->documento()->r();
+        return (new \Helpers\TextoHelper())->valor($string)->documento()->r();
     }
 }
 
@@ -128,7 +130,7 @@ if (!function_exists('strCpf')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->cpf()->r();
+        return (new \Helpers\TextoHelper())->valor($string)->cpf()->r();
     }
 }
 
@@ -147,7 +149,7 @@ if (!function_exists('strCnpj')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->cnpj()->r();
+        return (new \Helpers\TextoHelper())->valor($string)->cnpj()->r();
     }
 }
 
@@ -165,7 +167,7 @@ if (!function_exists('strSlug')) {
      */
     function strSlug(string $string, string $slug = '-', bool $espaco = false): string
     {
-        return (new \Helpers\TextoHelper)->valor($string)->slug($slug, $espaco)->r();
+        return (new \Helpers\TextoHelper())->valor($string)->slug($slug, $espaco)->r();
     }
 }
 
@@ -190,7 +192,7 @@ if (!function_exists('strTelefone')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->telefone($padrao)->r();
+        return (new \Helpers\TextoHelper())->valor($string)->telefone($padrao)->r();
     }
 }
 
@@ -202,16 +204,17 @@ if (!function_exists('strDinheiro')) {
     /**
      * Converte a string para o padrão de dinheiro
      *
-     * @param null|string $string String a ser convertida
-     * @param string $moeda Tipo de moeda será convertido podendo ser: "R$": Real (1.000,00); "$": Dolar (1000.00); R$ por padrão
-     * @return  string String convertida
+     * @param  null|string  $string  String a ser convertida
+     * @param  string       $moeda   Tipo de moeda será convertido podendo ser: "R$": Real (1.000,00);
+     *                               "$": Dolar (1000.00); R$ por padrão
+     * @return string                String convertida
      */
-    function strDinheiro(?string $string, String $moeda = 'R$'): string
+    function strDinheiro(?string $string, string $moeda = 'R$'): string
     {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->dinheiro($moeda)->r();
+        return (new \Helpers\TextoHelper())->valor($string)->dinheiro($moeda)->r();
     }
 }
 
@@ -238,7 +241,7 @@ if (!function_exists('strCep')) {
         if (is_null($string)) {
             return '';
         }
-        return (new \Helpers\TextoHelper)->valor($string)->cep()->r();
+        return (new \Helpers\TextoHelper())->valor($string)->cep()->r();
     }
 }
 
@@ -263,7 +266,7 @@ if (!function_exists('strJson')) {
         if (is_null($string)) {
             return [];
         }
-        return (new \Helpers\TextoHelper)->valor($string)->json()->r();
+        return (new \Helpers\TextoHelper())->valor($string)->json()->r();
     }
 }
 

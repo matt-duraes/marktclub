@@ -13,6 +13,12 @@ final class Requisicao
     private string $bodyTitulo = '';
     private ?array $body = null;
     private array $retorno = [];
+    private string $titulo;
+    private string $descricao;
+    private string $status;
+    private string $scope;
+    private string $metodo;
+    private string $uri;
 
     public function __toString()
     {
@@ -160,27 +166,51 @@ final class Requisicao
         return $this;
     }
 
-    public function parametro($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
-    {
+    public function parametro(
+        $campo,
+        ?string $exemplo = null,
+        ?string $descricao = null,
+        ?string $tipo = null,
+        ?int $tamanho = null,
+        string|bool $obrigatorio = false
+    ) {
         $this->bodyTitulo = 'Parametro';
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }
-    public function body($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
-    {
+    public function body(
+        $campo,
+        ?string $exemplo = null,
+        ?string $descricao = null,
+        ?string $tipo = null,
+        ?int $tamanho = null,
+        string|bool $obrigatorio = false
+    ) {
         $this->bodyTitulo = 'Body';
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }
-    public function raw($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
-    {
+    public function raw(
+        $campo,
+        ?string $exemplo = null,
+        ?string $descricao = null,
+        ?string $tipo = null,
+        ?int $tamanho = null,
+        string|bool $obrigatorio = false
+    ) {
         $this->bodyTitulo = 'Raw - JSON';
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }
 
-    public function header($campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
-    {
+    public function header(
+        $campo,
+        ?string $exemplo = null,
+        ?string $descricao = null,
+        ?string $tipo = null,
+        ?int $tamanho = null,
+        string|bool $obrigatorio = false
+    ) {
         $this->blocoBody('header', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }
@@ -196,10 +226,18 @@ final class Requisicao
         return $this;
     }
 
-    private function blocoBody($indice, $campo, ?string $exemplo = null, ?string $descricao = null, ?string $tipo = null, ?int $tamanho = null, string|bool $obrigatorio = false)
-    {
+    private function blocoBody(
+        $indice,
+        $campo,
+        ?string $exemplo = null,
+        ?string $descricao = null,
+        ?string $tipo = null,
+        ?int $tamanho = null,
+        string|bool $obrigatorio = false
+    ) {
         $tipo = !empty($tipo) && !empty($tamanho) ? $tipo . ' <span class="texto">(' . $tamanho . ')</span>' : $tipo;
-        $exemplo = !empty($exemplo) ? '<div class="exemplo texto"><span class="texto">Ex.:</span>' . $exemplo . '</div>' : '';
+        $exemplo = !empty($exemplo)
+            ? '<div class="exemplo texto"><span class="texto">Ex.:</span>' . $exemplo . '</div>' : '';
         $descricao = !empty($descricao) ? '<div class="descricao texto">' . $descricao . '</div>' : '';
         $tipo = !empty($tipo) ? '<div class="tipo texto">' . $tipo . '</div>' : '<div class="tipo"></div>';
         $obrigatorioHtml = '<div class="obrigatorio"></div>';
@@ -209,8 +247,9 @@ final class Requisicao
             $obrigatorioHtml = '<div class="obrigatorio azul texto">-</div>';
         }
 
-        $criptografia = $this->criptografar === true || (is_array($this->criptografar) && in_array($campo, $this->criptografar)) ?
-            '<div class="criptografia">Campo deve ser criptografado</div>' : '';
+        $criptografia = $this->criptografar === true ||
+            (is_array($this->criptografar) && in_array($campo, $this->criptografar))
+            ? '<div class="criptografia">Campo deve ser criptografado</div>' : '';
         $this->$indice[] = '
             <div class="linha">
                 <div class="campo texto">' . $campo . '</div>
@@ -236,7 +275,12 @@ final class Requisicao
     }
     public function erro400()
     {
-        $this->erro[] = [400, 'Geralmente o erro vem descrito na resposta, em casos especiais de segurança, vem uma mensagem genêrica que normalmente é a falta ou envio de um parâmetro a mais no corpo.'];
+        $this->erro[] = [
+            400,
+            '
+                Geralmente o erro vem descrito na resposta, em casos especiais de segurança, vem uma mensagem
+                genêrica que normalmente é a falta ou envio de um parâmetro a mais no corpo.'
+        ];
         return $this;
     }
     public function erro401()
@@ -246,7 +290,10 @@ final class Requisicao
     }
     public function erro403()
     {
-        $this->erro[] = [403, 'O Token enviado para essa requisição é inválido, não tem permissão para esse scope ou venceu.'];
+        $this->erro[] = [
+            403,
+            'O Token enviado para essa requisição é inválido, não tem permissão para esse scope ou venceu.'
+        ];
         return $this;
     }
     public function pre(string $titulo, string $pre)

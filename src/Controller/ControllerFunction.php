@@ -139,7 +139,8 @@ if (!function_exists('converterHtml')) {
 
         $conteudoHtml = file_get_contents($target);
 
-        $comentario = !preg_match('/ppe\(/', $conteudoHtml) && !preg_match('/vde\(/', $conteudoHtml) && !preg_match(
+        $comentario = !preg_match('/ppe\(/', $conteudoHtml) &&
+            !preg_match('/vde\(/', $conteudoHtml) && !preg_match(
                 '/exit\(/',
                 $conteudoHtml
             );
@@ -216,10 +217,12 @@ if (!function_exists('html')) {
         $conteudoHtml = file_get_contents($target);
 
         ob_start();
-        if (!preg_match('/ppe\(/', $conteudoHtml) && !preg_match('/vde\(/', $conteudoHtml) && !preg_match(
+        if (
+            !preg_match('/ppe\(/', $conteudoHtml) && !preg_match('/vde\(/', $conteudoHtml) && !preg_match(
                 '/exit\(/',
                 $conteudoHtml
-            )) {
+            )
+        ) {
             echo '<!--LIMPAR_AO_RENDERIZAR';
         }
         if (is_array($var) && count($var) > 0) {

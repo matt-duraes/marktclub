@@ -22,7 +22,7 @@ final class System
 
     public function __construct()
     {
-        $this->route = new RouteConfig;
+        $this->route = new RouteConfig();
         if (!$this->route->rotaUso()) {
             throw new Excecao(status: 404);
         }
@@ -61,10 +61,13 @@ final class System
             throw new Erro(
                 mensagem: 'Instância incorreta.',
                 titulo: 'Classe sem Interface.',
-                texto: 'A classe <strong>' . get_class($classe) . '</strong> não foi implementada ao contrato <strong>Controller\ControllerInterface</strong>.',
+                texto: 'A classe <strong>' . get_class($classe)
+                    . '</strong> não foi implementada ao contrato <strong>Controller\ControllerInterface</strong>.',
                 sugestao: [
-                    'Você deve extender a class abstrata <strong>Controller\controller</strong> em sua classe <strong>' . get_class($classe) . '</strong>.',
-                    'Você deve implementar a interface <strong>Controller\ControllerInterface</strong> a classe <strong>' . get_class($classe) . '</strong>.'
+                    'Você deve extender a class abstrata <strong>Controller\controller</strong> em
+                        sua classe <strong>' . get_class($classe) . '</strong>.',
+                    'Você deve implementar a interface <strong>Controller\ControllerInterface</strong> a
+                        classe <strong>' . get_class($classe) . '</strong>.'
                 ]
             );
         }

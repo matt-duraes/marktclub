@@ -14,7 +14,7 @@ if (!function_exists('socialMetaTag')) {
      */
     function socialMetaTag(string|array $titulo, string|array $descricao, null|string|array $imagem)
     {
-        return (new \Helpers\SocialHelper)->metaTag($titulo, $descricao, $imagem);
+        return (new \Helpers\SocialHelper())->metaTag($titulo, $descricao, $imagem);
     }
 }
 
@@ -22,14 +22,14 @@ if (!function_exists('socialLinkFacebook')) {
     function socialLinkFacebook(?string $url = null)
     {
         $url = empty($url) ? LINK . '/' . URI : $url;
-        return (new \Helpers\SocialHelper)->facebook()->compartilhar($url);
+        return (new \Helpers\SocialHelper(rede: 'facebook'))->compartilhar($url);
     }
 }
 if (!function_exists('socialLinkTwitter')) {
     function socialLinkTwitter(string $texto, ?string $url = null, ?string $by = null)
     {
         $url = empty($url) ? LINK . '/' . URI : $url;
-        return (new \Helpers\SocialHelper)->twitter()->compartilhar($url, $texto, $by);
+        return (new \Helpers\SocialHelper('twitter'))->compartilhar($url, $texto, $by);
     }
 }
 if (!function_exists('socialLinkWhatsapp')) {
@@ -37,6 +37,6 @@ if (!function_exists('socialLinkWhatsapp')) {
     {
         $url = empty($url) ? LINK . '/' . URI : $url;
         $by = is_null($by) ? TITULO : $by;
-        return (new \Helpers\SocialHelper)->whatsapp()->compartilhar(texto: $url, by: $by);
+        return (new \Helpers\SocialHelper('whatsapp'))->compartilhar(texto: $url, by: $by);
     }
 }

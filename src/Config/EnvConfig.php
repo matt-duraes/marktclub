@@ -11,10 +11,14 @@ final class EnvConfig
      */
     private string $root = __DIR__ . '/../..';
     /**
+     * Env principal do projeto
+     *
      * @var array
      */
     private array $envProducao = [];
     /**
+     * Env que está vinculado ao domínio do APP
+     *
      * @var array
      */
     private array $envUso = [];
@@ -22,6 +26,12 @@ final class EnvConfig
      * @var string
      */
     private string $host = '';
+    /**
+     * Tipo do APP que está rodando podendo ser PRODUCAO, HOMOLOGACAO E LOCALHOST
+     *
+     * @var string
+     */
+    private string $tipoApp = '';
 
     /**
      * @throws Exception
@@ -63,7 +73,8 @@ final class EnvConfig
         $dado = file($arquivo) ?? [];
         if (!$dado) {
             throw new Exception(
-                message: 'Ocorreu um erro ao pegar o arquivo ' . $arquivo . ', verifique as permissões do arquivo e tente novamente.'
+                message: 'Ocorreu um erro ao pegar o arquivo '
+                    . $arquivo . ', verifique as permissões do arquivo e tente novamente.'
             );
         }
 

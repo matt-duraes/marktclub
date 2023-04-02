@@ -12,6 +12,7 @@ final class Controller
     private ControllerInterface $classe;
     private string $metodo;
     private array $uri;
+    protected array $parametro;
 
     public function __construct(
         private RouteConfig $route,
@@ -30,7 +31,7 @@ final class Controller
         if (empty($classe) || !class_exists($classe)) {
             throw new Excecao(status: 404);
         }
-        $this->classe = new $classe;
+        $this->classe = new $classe();
     }
 
     private function validarMetodoExiste(): void
@@ -117,7 +118,7 @@ final class Controller
         $uriFinal = [];
         if ($requestUri) {
             $i = 0;
-            $Purifier = new \HTMLPurifier;
+            $Purifier = new \HTMLPurifier();
             foreach ($requestUri as $val) {
                 $uriFinal[$rotaUri[$i]] = $Purifier->purify(strip_tags(urldecode($val)));
                 $i++;

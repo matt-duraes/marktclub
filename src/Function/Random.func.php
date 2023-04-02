@@ -11,7 +11,7 @@ if (!function_exists('cpfAleatorio')) {
      */
     function cpfAleatorio(): string
     {
-        return (new \Random\Random)->cpf();
+        return (new \Random\Random())->cpf();
     }
 }
 if (!function_exists('cnpjAleatorio')) {
@@ -25,7 +25,7 @@ if (!function_exists('cnpjAleatorio')) {
      */
     function cnpjAleatorio(): string
     {
-        return (new \Random\Random)->cnpj();
+        return (new \Random\Random())->cnpj();
     }
 }
 if (!function_exists('rgAleatorio')) {
@@ -39,7 +39,7 @@ if (!function_exists('rgAleatorio')) {
      */
     function rgAleatorio(): string
     {
-        return (new \Random\Random)->rg();
+        return (new \Random\Random())->rg();
     }
 }
 if (!function_exists('emailAleatorio')) {
@@ -53,7 +53,7 @@ if (!function_exists('emailAleatorio')) {
      */
     function emailAleatorio(): string
     {
-        return (new \Random\Random)->email();
+        return (new \Random\Random())->email();
     }
 }
 if (!function_exists('telefoneAleatorio')) {
@@ -67,7 +67,7 @@ if (!function_exists('telefoneAleatorio')) {
      */
     function telefoneAleatorio(): int
     {
-        return (new \Random\Random)->telefone();
+        return (new \Random\Random())->telefone();
     }
 }
 if (!function_exists('telefoneCelularAleatorio')) {
@@ -81,7 +81,7 @@ if (!function_exists('telefoneCelularAleatorio')) {
      */
     function telefoneCelularAleatorio(): int
     {
-        return (new \Random\Random)->telefoneCelular();
+        return (new \Random\Random())->telefoneCelular();
     }
 }
 if (!function_exists('telefoneFixoAleatorio')) {
@@ -95,7 +95,7 @@ if (!function_exists('telefoneFixoAleatorio')) {
      */
     function telefoneFixoAleatorio(): int
     {
-        return (new \Random\Random)->telefoneFixo();
+        return (new \Random\Random())->telefoneFixo();
     }
 }
 if (!function_exists('dddAleatorio')) {
@@ -109,7 +109,7 @@ if (!function_exists('dddAleatorio')) {
      */
     function dddAleatorio(): int
     {
-        return (new \Random\Random)->ddd();
+        return (new \Random\Random())->ddd();
     }
 }
 if (!function_exists('ddiAleatorio')) {
@@ -123,7 +123,7 @@ if (!function_exists('ddiAleatorio')) {
      */
     function ddiAleatorio(): int
     {
-        return (new \Random\Random)->ddi();
+        return (new \Random\Random())->ddi();
     }
 }
 if (!function_exists('dataPassadaAleatorio')) {
@@ -137,7 +137,7 @@ if (!function_exists('dataPassadaAleatorio')) {
      */
     function dataPassadaAleatorio(): string
     {
-        return (new \Random\Random)->dataPassada();
+        return (new \Random\Random())->dataPassada();
     }
 }
 if (!function_exists('dataFuturaAleatorio')) {
@@ -151,7 +151,7 @@ if (!function_exists('dataFuturaAleatorio')) {
      */
     function dataFuturaAleatorio(): string
     {
-        return (new \Random\Random)->dataFutura();
+        return (new \Random\Random())->dataFutura();
     }
 }
 if (!function_exists('cepAleatorio')) {
@@ -165,7 +165,7 @@ if (!function_exists('cepAleatorio')) {
      */
     function cepAleatorio(): int
     {
-        return (new \Random\Random)->cep();
+        return (new \Random\Random())->cep();
     }
 }
 if (!function_exists('logradouroAleatorio')) {
@@ -179,7 +179,7 @@ if (!function_exists('logradouroAleatorio')) {
      */
     function logradouroAleatorio(): string
     {
-        return (new \Random\Random)->logradouro();
+        return (new \Random\Random())->logradouro();
     }
 }
 if (!function_exists('numeroAleatorio')) {
@@ -196,7 +196,7 @@ if (!function_exists('numeroAleatorio')) {
      */
     function numeroAleatorio(int $de = 1, int $ate = 999): int
     {
-        return (new \Random\Random)->numero($de, $ate);
+        return (new \Random\Random())->numero($de, $ate);
     }
 }
 if (!function_exists('complementoAleatorio')) {
@@ -210,7 +210,7 @@ if (!function_exists('complementoAleatorio')) {
      */
     function complementoAleatorio(): string
     {
-        return (new \Random\Random)->complemento();
+        return (new \Random\Random())->complemento();
     }
 }
 if (!function_exists('bairroAleatorio')) {
@@ -224,7 +224,7 @@ if (!function_exists('bairroAleatorio')) {
      */
     function bairroAleatorio(): string
     {
-        return (new \Random\Random)->bairro();
+        return (new \Random\Random())->bairro();
     }
 }
 if (!function_exists('cidadeAleatorio')) {
@@ -240,7 +240,7 @@ if (!function_exists('cidadeAleatorio')) {
      */
     function cidadeAleatorio(string $estado = 'SP'): string
     {
-        return (new \Random\Random)->cidade($estado);
+        return (new \Random\Random())->cidade($estado);
     }
 }
 if (!function_exists('estadoAleatorio')) {
@@ -254,7 +254,7 @@ if (!function_exists('estadoAleatorio')) {
      */
     function estadoAleatorio(): string
     {
-        return (new \Random\Random)->estado();
+        return (new \Random\Random())->estado();
     }
 }
 if (!function_exists('simNaoAleatorio')) {
@@ -268,7 +268,7 @@ if (!function_exists('simNaoAleatorio')) {
      */
     function simNaoAleatorio(): string
     {
-        return (new \Random\Random)->simNao();
+        return (new \Random\Random())->simNao();
     }
 }
 if (!function_exists('valorAleatorio')) {
@@ -283,7 +283,7 @@ if (!function_exists('valorAleatorio')) {
      */
     function valorAleatorio(array $array): string
     {
-        return (new \Random\Random)->random($array);
+        return (new \Random\Random())->random($array);
     }
 }
 if (!function_exists('nomeAleatorio')) {
@@ -297,7 +297,7 @@ if (!function_exists('nomeAleatorio')) {
      */
     function nomeAleatorio(): string
     {
-        return (new \Random\Random)->nome();
+        return (new \Random\Random())->nome();
     }
 }
 if (!function_exists('sobreNomeAleatorio')) {
@@ -311,7 +311,7 @@ if (!function_exists('sobreNomeAleatorio')) {
      */
     function sobreNomeAleatorio(): string
     {
-        return (new \Random\Random)->sobreNome();
+        return (new \Random\Random())->sobreNome();
     }
 }
 if (!function_exists('nomeCompletoAleatorio')) {
@@ -325,7 +325,7 @@ if (!function_exists('nomeCompletoAleatorio')) {
      */
     function nomeCompletoAleatorio(): string
     {
-        return (new \Random\Random)->nomeCompleto();
+        return (new \Random\Random())->nomeCompleto();
     }
 }
 if (!function_exists('generoAleatorio')) {
@@ -339,7 +339,7 @@ if (!function_exists('generoAleatorio')) {
      */
     function generoAleatorio(): string
     {
-        return (new \Random\Random)->genero();
+        return (new \Random\Random())->genero();
     }
 }
 if (!function_exists('estadoCivilAleatorio')) {
@@ -353,7 +353,7 @@ if (!function_exists('estadoCivilAleatorio')) {
      */
     function estadoCivilAleatorio(): string
     {
-        return (new \Random\Random)->estadoCivil();
+        return (new \Random\Random())->estadoCivil();
     }
 }
 if (!function_exists('situacaoAleatorio')) {
@@ -367,7 +367,7 @@ if (!function_exists('situacaoAleatorio')) {
      */
     function situacaoAleatorio(): string
     {
-        return (new \Random\Random)->situacao();
+        return (new \Random\Random())->situacao();
     }
 }
 if (!function_exists('senhaAleatorio')) {
@@ -381,6 +381,6 @@ if (!function_exists('senhaAleatorio')) {
      */
     function senhaAleatorio(): string
     {
-        return (new \Random\Random)->senha();
+        return (new \Random\Random())->senha();
     }
 }

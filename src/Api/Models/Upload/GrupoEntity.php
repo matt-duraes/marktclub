@@ -2,10 +2,10 @@
 
 namespace ApiModel\Upload;
 
-use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Erro\Erro;
-use Erro\Excecao;
 use ORM\Entity;
+use Erro\Excecao;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
 
 final class GrupoEntity extends Entity
 {
@@ -86,7 +86,7 @@ final class GrupoEntity extends Entity
     {
         try {
             $this->verificarSeNomeJaExiste();
-        } catch (Erro|Excecao) {
+        } catch (Erro | Excecao) {
         }
     }
 

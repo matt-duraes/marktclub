@@ -12,6 +12,6 @@ final class App
      */
     public function run(): Response
     {
-        return (new System)->init();
+        return (new System())->init();
     }
 }
