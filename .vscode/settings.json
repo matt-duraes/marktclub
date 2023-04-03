@@ -19,7 +19,8 @@
         "**/files/*/**": true
     },
     "files.exclude": {
-        "**/node_modules": true
+        "**/node_modules": true,
+        "**/.idea": true
     },
 
     "php.suggest.basic": false,

@@ -53,7 +53,8 @@ final class ComercialEmpresaController extends Controller implements
                 lista: [
                     'titulo', 'nome_fantasia', 'razao_social', 'cnpj', 'slug', 'imagem',
                     'responsavel_nome', 'responsavel_cpf', 'responsavel_email', 'responsavel_telefone',
-                    'status'
+                    'estado_principal', 'valor_pago', 'valor_pib', 'renda_media', 'valor_usuario', 'produto_clube',
+                    'produto_ios', 'produto_android', 'produto_site', 'tipo_pagamento', 'status'
                 ]
             ),
             criptografar: Helper::CRIPTOGRAFAR
