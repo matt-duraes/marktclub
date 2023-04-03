@@ -34,6 +34,32 @@ final class LoginController extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | LOGIN CLUBE
+    |--------------------------------------------------------------------------
+    */
+    public function postLoginApi(Request $request)
+    {
+        $Login = new LoginApiModel($request);
+        return $Login->link();
+    }
+    public function loginApiOk($hash)
+    {
+        $dado = base64Decode($hash);
+        if (
+            !is_array($dado) ||
+            !array_key_exists('nome', $dado) ||
+            sessaoExiste('LOGIN_API_' . $dado['hash']) ||
+            $dado['data'] < dataRemover(date('Y-m-d H:i:s'), 2, 'minutos', 'Y-m-d H:i:s')
+        ) {
+            mensagemStatus(404);
+        }
+
+        sessao('LOGIN_API_' . $dado['hash'], true);
+        return view('login.homologacao', ['nome' => $dado['nome']]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | LOGIN PAINEL
     |--------------------------------------------------------------------------
     */
