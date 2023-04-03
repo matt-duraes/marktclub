@@ -165,7 +165,10 @@ final class LeadEntity extends Entity
         } elseif ($statusAtual == 1 && !in_array($statusNovo, [1, 2])) {
             mensagemErro('Campo inválido!', 'Um Lead novo só pode mudar de status para "andamento".');
         } elseif ($statusAtual == 2 && !in_array($statusNovo, [2, 3, 4])) {
-            mensagemErro('Campo inválido!', 'Um Lead em andamento só pode mudar de status para "sem-interesse" ou "cadastro-realizado".');
+            mensagemErro(
+                'Campo inválido!',
+                'Um Lead em andamento só pode mudar de status para "sem-interesse" ou "cadastro-realizado".'
+            );
         }
     }
     protected function regraPosUpdate()

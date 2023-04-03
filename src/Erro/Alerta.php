@@ -4,16 +4,17 @@ namespace Erro;
 
 final class Alerta extends \Exception
 {
-    private array $retorno;
+    protected array $retorno;
     /**
-     * @param String        $mensagem           Mensagem de erro de retorno para o programador ou log
-     * @param String        $titulo             Titulo da explicação do erro
-     * @param String        $texto              Texto da explicação do erro
-     * @param Array         $sugestao           Array com sugestões de como corrigir o problema
-     * @param Int           $codigo             Código do erro
-     * @param String        $arquivo            Força um nome de arquivo caso ele exista no trace
-     * @param Exceptcion    $previous           Próxima Excecão que será lançada
-     * @param Bool | Int    $traceRemover       Se true, vai remover o primeiro arquivo do trace, se int, vai remover  a quantidade informada
+     * @param string      $mensagem      Mensagem de erro de retorno para o programador ou log
+     * @param string      $titulo        Titulo da explicação do erro
+     * @param string      $texto         Texto da explicação do erro
+     * @param array       $sugestao      Array com sugestões de como corrigir o problema
+     * @param int         $codigo        Código do erro
+     * @param string      $arquivo       Força um nome de arquivo caso ele exista no trace
+     * @param Exceptcion  $previous      Próxima Excecão que será lançada
+     * @param bool|int    $traceRemover  Se true, vai remover o primeiro arquivo do trace, se int,
+     *                                   vai remover  a quantidade informada
      */
     public function __construct(
         private string $mensagem,

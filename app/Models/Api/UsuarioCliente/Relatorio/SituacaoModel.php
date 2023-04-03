@@ -55,14 +55,16 @@ final class SituacaoModel extends ORM
             $lista[] = [
                 'situacao' => 'Aposentado',
                 'total' => $dado->aposentado,
-                'porcentagem' => $dado->aposentado == 0 ? 0 : number_format(($dado->aposentado * 100) / $dado->total, 2, '.'),
+                'porcentagem' => $dado->aposentado == 0 ? 0
+                    : number_format(($dado->aposentado * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->pensionista > 0) {
             $lista[] = [
                 'situacao' => 'Pensionista',
                 'total' => $dado->pensionista,
-                'porcentagem' => $dado->pensionista == 0 ? 0 : number_format(($dado->pensionista * 100) / $dado->total, 2, '.'),
+                'porcentagem' => $dado->pensionista == 0 ? 0
+                    : number_format(($dado->pensionista * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->cedido > 0) {
@@ -76,14 +78,16 @@ final class SituacaoModel extends ORM
             $lista[] = [
                 'situacao' => 'Excedente',
                 'total' => $dado->excedente,
-                'porcentagem' => $dado->excedente == 0 ? 0 : number_format(($dado->excedente * 100) / $dado->total, 2, '.'),
+                'porcentagem' => $dado->excedente == 0 ? 0
+                    : number_format(($dado->excedente * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->sem_dado > 0) {
             $lista[] = [
                 'situacao' => 'Sem dado',
                 'total' => $dado->sem_dado,
-                'porcentagem' => $dado->sem_dado == 0 ? 0 : number_format(($dado->sem_dado * 100) / $dado->total, 2, '.'),
+                'porcentagem' => $dado->sem_dado == 0 ? 0
+                    : number_format(($dado->sem_dado * 100) / $dado->total, 2, '.'),
             ];
         }
 

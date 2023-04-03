@@ -6,7 +6,6 @@ use ORM\ORM;
 
 final class SalvarModel extends ORM
 {
-
     public function __construct(string $tabela)
     {
         $this->ormTabela = $tabela;

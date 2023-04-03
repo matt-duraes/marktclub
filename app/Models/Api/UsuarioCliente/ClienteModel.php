@@ -16,10 +16,10 @@ use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends ORM
 {
-    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     use ValidarEmpresaTrait;
     use BuscarUsuarioTrait;
+
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     public function __construct(
         protected ?Request $request = null

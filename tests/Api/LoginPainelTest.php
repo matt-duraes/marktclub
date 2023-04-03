@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Api;
 
 use Tests\Tests;
@@ -58,7 +57,10 @@ final class LoginPainelTest extends Tests
 
         return $this
             ->checkStatus(400)
-            ->checkIndiceIgual('erro.mensagem', 'O seu login e/ou senha estão incorretos, verifique os dados informados e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'O seu login e/ou senha estão incorretos, verifique os dados informados e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
 
@@ -72,7 +74,10 @@ final class LoginPainelTest extends Tests
 
         return $this
             ->checkStatus(400)
-            ->checkIndiceIgual('erro.mensagem', 'O seu login e/ou senha estão incorretos, verifique os dados informados e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'O seu login e/ou senha estão incorretos, verifique os dados informados e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
 

@@ -10,15 +10,16 @@ final class Excecao extends \Exception
     private string $tipo;
 
     /**
-     * @param String            $titulo         Título para o erro
-     * @param String            $mensagem       Texto para a mensagem de erro
-     * @param Int               $status         Status Html para o erro
-     * @param Int               $codigo         Código para o erro
-     * @param String            $campo          Campo de erro para quando usar código
-     * @param Array             $lista          Lista para o retorno
-     * @param Array             $dado           Array de dado com retorno, exemplo: ['titulo'=> '...', 'mensagem' => '...', ...]
-     * @param Array             $header         Header a ser informado na exceção
-     * @param Null|Throwable    $previous       Próximo erro
+     * @param string          $titulo    Título para o erro
+     * @param string          $mensagem  Texto para a mensagem de erro
+     * @param int             $status    Status Html para o erro
+     * @param int             $codigo    Código para o erro
+     * @param string          $campo     Campo de erro para quando usar código
+     * @param array           $lista     Lista para o retorno
+     * @param array           $dado      Array de dado com retorno, exemplo:
+     *                                   ['titulo'=> '...', 'mensagem' => '...', ...]
+     * @param array           $header    Header a ser informado na exceção
+     * @param null|Throwable  $previous  Próximo erro
      */
     public function __construct(
         private string $titulo = '',
@@ -95,7 +96,11 @@ final class Excecao extends \Exception
             $explode = explode(':', $l);
             if ($explode[0] == $codigo) {
                 $titulo = $explode[1];
-                $mensagem = str_replace(['{CAMPO}', '  '], [$this->campo, ' '], trim(preg_replace('/\s\s+/', ' ', $explode[2])));
+                $mensagem = str_replace(
+                    ['{CAMPO}', '  '],
+                    [$this->campo, ' '],
+                    trim(preg_replace('/\s\s+/', ' ', $explode[2]))
+                );
                 break;
             }
         }
@@ -183,7 +188,11 @@ final class Excecao extends \Exception
         }
 
         $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
-        if (file_exists(ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/' . $status . '.php')) {
+        if (
+            file_exists(
+                ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/' . $status . '.php'
+            )
+        ) {
             ob_start();
             require_once ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/' . $status . '.php';
             return ob_get_clean();

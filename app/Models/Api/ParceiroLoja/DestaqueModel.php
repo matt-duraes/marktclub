@@ -5,8 +5,8 @@ namespace App\Models\Api\ParceiroLoja;
 use ORM\ORM;
 use stdClass;
 use Http\Request;
-use App\Classes\ParceiroConvenio\Ordem;
-use App\Classes\ParceiroConvenio\Categoria;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class DestaqueModel extends ORM

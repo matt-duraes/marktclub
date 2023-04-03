@@ -2,7 +2,7 @@
 
 namespace ORM;
 
-use \PDO;
+use PDO;
 use Erro\Excecao;
 use ORM\Join\JoinTrait;
 use ORM\Buscar\ReadTrait;
@@ -108,7 +108,10 @@ abstract class ORM
     protected function dado(array $dado)
     {
         if (empty($dado)) {
-            throw new Excecao(titulo: 'Campo dado incorreto!', mensagem: 'Você precisa enviar um array no método dado.');
+            throw new Excecao(
+                titulo: 'Campo dado incorreto!',
+                mensagem: 'Você precisa enviar um array no método dado.'
+            );
         }
         $this->ormDado = $dado;
         return $this;
@@ -223,7 +226,7 @@ abstract class ORM
         return str_replace($de, $por, $query);
     }
 
-    private function ormUuid(): String
+    private function ormUuid(): string
     {
         return sprintf(
             '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -247,7 +250,7 @@ abstract class ORM
         $array = [];
         foreach ($lista as $r) {
             if (mb_detect_encoding($r->Comment, 'UTF-8, ISO-8859-1')) {
-                $comment = utf8_encode($r->Comment);
+                $comment = mb_convert_encoding($r->Comment, 'UTF-8', 'ISO-8859-1');
             } else {
                 $comment = $r->Comment;
             }

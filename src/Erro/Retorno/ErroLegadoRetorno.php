@@ -4,7 +4,6 @@ namespace Erro\Retorno;
 
 final class ErroLegadoRetorno extends ErrorGeral
 {
-
     use LogTrait;
 
     public function __construct(int $tipo, string $mensagem, string $arquivo, int $linha, $trace, $traceString)
@@ -62,7 +61,12 @@ final class ErroLegadoRetorno extends ErrorGeral
         }
         $lista = [];
         foreach ($trace as $r) {
-            if (isset($r['file'], $r['line'], $r['function']) && $r['file'] == $arquivo && $r['line'] == $linha && $r['function'] == 'error_handler') {
+            if (
+                isset($r['file'], $r['line'], $r['function']) &&
+                $r['file'] == $arquivo &&
+                $r['line'] == $linha &&
+                $r['function'] == 'error_handler'
+            ) {
                 continue;
             }
             $lista[] = $r;

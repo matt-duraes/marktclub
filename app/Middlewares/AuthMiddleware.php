@@ -16,7 +16,7 @@ final class AuthMiddleware
             (!is_bool($retorno) &&
                 !empty($class) &&
                 !empty($action) &&
-                !call_user_func_array([new $class, $action], [$retorno])
+                !call_user_func_array([new $class(), $action], [$retorno])
             )
         ) {
             return $this->retornoUsuarioNaoLogado();
@@ -31,7 +31,7 @@ final class AuthMiddleware
 
     private function verificarSeEstaLogado(bool $location = true)
     {
-        $logado = (new AuthHelper)->validar(location: $location);
+        $logado = (new AuthHelper())->validar(location: $location);
         if (true === $logado) {
             return true;
         }

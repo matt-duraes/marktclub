@@ -38,7 +38,8 @@ trait ParceiroTrait
         }
 
         $tituloErro = empty($tituloErro) ? 'Parceiro não encontrado!' : $tituloErro;
-        $mensagemErro = empty($mensagemErro) ? 'Não foi encontrado nenhum parceiro pelo código enviado.' : $mensagemErro;
+        $mensagemErro = empty($mensagemErro) ?
+            'Não foi encontrado nenhum parceiro pelo código enviado.' : $mensagemErro;
 
         $Parceiro = new LojaEntity();
         $Parceiro->idSlug($id, titulo: $tituloErro, mensagem: $mensagemErro);

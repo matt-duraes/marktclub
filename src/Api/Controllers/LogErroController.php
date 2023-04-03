@@ -2,18 +2,18 @@
 
 namespace ApiController;
 
-use ApiModel\Log\ErrorEntity;
-use ApiModel\Log\ErrorModel;
-use Controller\Controller;
+use Throwable;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use ApiModel\Log\ErrorModel;
+use ApiModel\Log\ErrorEntity;
 use System\Classes\LogErro\Status;
-use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use Throwable;
+use System\Interface\ControllerAtualizarInterface;
 
 final class LogErroController extends Controller implements
     ControllerSalvarInterface,
@@ -21,11 +21,6 @@ final class LogErroController extends Controller implements
     ControllerListarInterface,
     ControllerAtualizarInterface
 {
-    /**
-     * @param  Request  $request
-     * @return Response
-     * @throws Excecao
-     */
     public function postSalvar(Request $request): Response
     {
         try {

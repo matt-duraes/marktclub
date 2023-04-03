@@ -86,7 +86,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         );
 });
 
-$Lista = new ListaHelper;
+$Lista = new ListaHelper();
 
 $Painel->replace(campo: 'trabalho_empresa', lista: (new TrabalhoEmpresa())->select());
 $Painel->replace(campo: 'trabalho_cargo', lista: (new TrabalhoCargo())->select());

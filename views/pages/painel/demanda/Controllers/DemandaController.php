@@ -225,7 +225,7 @@ final class DemandaController extends Controller
             );
         }
 
-        return mensagemSucesso(['id' => $Demanda->uuid()], 201);
+        return mensagemSucesso(['id' => $Demanda->id()], 201);
     }
 
     public function postTarefaEditar(Request $request, string $id)

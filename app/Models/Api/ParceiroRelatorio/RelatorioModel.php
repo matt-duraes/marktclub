@@ -11,10 +11,10 @@ use App\Classes\ParceiroRelatorio\Ordem;
 
 final class RelatorioModel extends ORM
 {
-    protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
-
     use PaginaTrait;
     use QuantidadeTrait;
+
+    protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
 
     private int $idEmpresa;
     public function __construct(

@@ -6,7 +6,6 @@ use Erro\Erro;
 
 final class ErroRetorno extends ErrorGeral
 {
-
     use LogTrait;
 
     public function __construct(Erro $error)

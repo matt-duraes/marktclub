@@ -19,7 +19,7 @@ if (!function_exists('dataAdicionar')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->adicionar($numero, $tempo)->formato($formato);
+        return (new \Helpers\DataHelper())->valor($data)->adicionar($numero, $tempo)->formato($formato);
     }
 }
 if (!function_exists('dataRemover')) {
@@ -41,7 +41,7 @@ if (!function_exists('dataRemover')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->remover($numero, $tempo)->formato($formato);
+        return (new \Helpers\DataHelper())->valor($data)->remover($numero, $tempo)->formato($formato);
     }
 }
 
@@ -60,7 +60,7 @@ if (!function_exists('dataBr')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->formato('d/m/Y');
+        return (new \Helpers\DataHelper())->valor($data)->formato('d/m/Y');
     }
 }
 if (!function_exists('dataHoraBr')) {
@@ -78,7 +78,7 @@ if (!function_exists('dataHoraBr')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->formato('d/m/Y H:i:s');
+        return (new \Helpers\DataHelper())->valor($data)->formato('d/m/Y H:i:s');
     }
 }
 if (!function_exists('dataBanco')) {
@@ -96,7 +96,7 @@ if (!function_exists('dataBanco')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->formato('Y-m-d');
+        return (new \Helpers\DataHelper())->valor($data)->formato('Y-m-d');
     }
 }
 if (!function_exists('dataHoraBanco')) {
@@ -114,7 +114,7 @@ if (!function_exists('dataHoraBanco')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->formato('Y-m-d H:i:s');
+        return (new \Helpers\DataHelper())->valor($data)->formato('Y-m-d H:i:s');
     }
 }
 
@@ -131,7 +131,7 @@ if (!function_exists('dataMesAno')) {
      */
     function dataMesAno(string $data): string
     {
-        return (new \Helpers\DataHelper)->valor($data)->formato('m/Y');
+        return (new \Helpers\DataHelper())->valor($data)->formato('m/Y');
     }
 }
 if (!function_exists('dataAnoMes')) {
@@ -147,7 +147,7 @@ if (!function_exists('dataAnoMes')) {
      */
     function dataAnoMes(string $data): string
     {
-        return (new \Helpers\DataHelper)->valor($data)->formato('Y-m');
+        return (new \Helpers\DataHelper())->valor($data)->formato('Y-m');
     }
 }
 
@@ -167,7 +167,7 @@ if (!function_exists('dataNomeMes')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->nomeMes();
+        return (new \Helpers\DataHelper())->valor($data)->nomeMes();
     }
 }
 
@@ -187,7 +187,7 @@ if (!function_exists('dataNomeSemana')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->nomeSemana();
+        return (new \Helpers\DataHelper())->valor($data)->nomeSemana();
     }
 }
 
@@ -207,7 +207,7 @@ if (!function_exists('dataExtenso')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->extenso();
+        return (new \Helpers\DataHelper())->valor($data)->extenso();
     }
 }
 
@@ -228,7 +228,7 @@ if (!function_exists('dataDiferencaDia')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaDia($dataFinal);
+        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaDia($dataFinal);
     }
 }
 if (!function_exists('dataDiferencaHora')) {
@@ -248,7 +248,7 @@ if (!function_exists('dataDiferencaHora')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaHora($dataFinal);
+        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaHora($dataFinal);
     }
 }
 if (!function_exists('dataDiferencaMinuto')) {
@@ -268,7 +268,7 @@ if (!function_exists('dataDiferencaMinuto')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaMinuto($dataFinal);
+        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaMinuto($dataFinal);
     }
 }
 if (!function_exists('dataDiferencaSegundo')) {
@@ -288,7 +288,7 @@ if (!function_exists('dataDiferencaSegundo')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($dataInicial)->diferencaSegundo($dataFinal);
+        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaSegundo($dataFinal);
     }
 }
 
@@ -309,7 +309,7 @@ if (!function_exists('dataSocial')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper)->valor($data)->social($curto);
+        return (new \Helpers\DataHelper())->valor($data)->social($curto);
     }
 }
 
@@ -329,7 +329,7 @@ if (!function_exists('dataIdade')) {
         if (is_null($data)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($data)->idade();
+        return (new \Helpers\DataHelper())->valor($data)->idade();
     }
 }
 
@@ -350,7 +350,7 @@ if (!function_exists('dataUltimoDiaMes')) {
         if (empty($data)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($data)->ultimoDiaMes()->r($formato);
+        return (new \Helpers\DataHelper())->valor($data)->ultimoDiaMes()->r($formato);
     }
 }
 if (!function_exists('dataPrimeiroDiaMes')) {
@@ -370,6 +370,6 @@ if (!function_exists('dataPrimeiroDiaMes')) {
         if (empty($data)) {
             return false;
         }
-        return (new \Helpers\DataHelper)->valor($data)->primeiroDiaMes()->r($formato);
+        return (new \Helpers\DataHelper())->valor($data)->primeiroDiaMes()->r($formato);
     }
 }

@@ -46,9 +46,14 @@ if (!is_dir(__DIR__ . '/../../vendor')) {
 
 if (!is_writable(__DIR__ . '/../../vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer')) {
     throw new Erro(
-        mensagem: 'Sem permissão no diretório vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer',
+        mensagem: '
+            Sem permissão no diretório vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
+        ',
         titulo: 'Erro de permissão',
-        texto: 'Você deve dar permissão de escrita no diretório vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer',
+        texto: '
+            Você deve dar permissão de escrita no diretório
+            vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
+        ',
         sugestao: [
             'chmod -R 775 vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer',
             'chown -R www-data:root vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer'

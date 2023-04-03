@@ -60,6 +60,7 @@ abstract class Entity extends ORM
     protected array $ormDeletarArquivo = [];
 
     protected array $ormSet = [];
+    protected array $ormSetReal = [];
     protected array $ormEntityRetorno = [];
     private bool $ormEntityDeletada = false;
 
@@ -77,10 +78,10 @@ abstract class Entity extends ORM
     protected $ormCampoBanco = [];
 
     /**
-     * @param Array         $option         Option aceitos pelo PDO
-     * @param Array         $conn           Option para a conexao podendo ser:
-     *                                          host, banco, usuario e senha.
-     *                                          Caso não informa, será usado o ENV
+     * @param  array  $option  Option aceitos pelo PDO
+     * @param  array  $conn    Option para a conexao podendo ser:
+     *                         host, banco, usuario, porta e senha.
+     *                         Caso não informa, será usado o ENV
      */
     public function __construct(array $option = [], array $conn = [])
     {
@@ -309,9 +310,13 @@ abstract class Entity extends ORM
         if (property_exists($this, 'ormSalvar') && is_array($this->ormSalvar) && $this->ormSalvar) {
             $lista = array_merge($lista, $this->ormSalvar);
         }
-        if ($acao == 'insert' && property_exists($this, 'ormInsert') && is_array($this->ormInsert) && $this->ormInsert) {
+        if (
+            $acao == 'insert' && property_exists($this, 'ormInsert') && is_array($this->ormInsert) && $this->ormInsert
+        ) {
             $lista = array_merge($lista, $this->ormInsert);
-        } elseif ($acao == 'update' && property_exists($this, 'ormUpdate') && is_array($this->ormUpdate) && $this->ormUpdate) {
+        } elseif (
+            $acao == 'update' && property_exists($this, 'ormUpdate') && is_array($this->ormUpdate) && $this->ormUpdate
+        ) {
             $lista = array_merge($lista, $this->ormUpdate);
         }
         return $lista;
@@ -370,7 +375,8 @@ abstract class Entity extends ORM
         foreach ($propriedade as $r) {
             $lista[] = $r->name;
         }
-        $buscar = property_exists($this, 'ormBuscar') && is_array($this->ormBuscar) && $this->ormBuscar ? $this->ormBuscar : [];
+        $buscar = property_exists($this, 'ormBuscar')
+            && is_array($this->ormBuscar) && $this->ormBuscar ? $this->ormBuscar : [];
         if (!$buscar) {
             $this->ormPropriedadePublica = $lista;
             return;
@@ -402,7 +408,12 @@ abstract class Entity extends ORM
                 $valor = '';
                 foreach ($campo as $subCampo) {
                     if (!array_key_exists($subCampo, $dado)) {
-                        mensagemErro('Erro!', 'Ocorre um erro ao buscar registro', status: 500, localhost: 'Não existe o campo ' . $subCampo . ' no banco.');
+                        mensagemErro(
+                            'Erro!',
+                            'Ocorre um erro ao buscar registro',
+                            status: 500,
+                            localhost: 'Não existe o campo ' . $subCampo . ' no banco.'
+                        );
                     }
                     if (!empty($dado[$subCampo])) {
                         $valor = $dado[$subCampo];
@@ -411,7 +422,12 @@ abstract class Entity extends ORM
                 }
             } else {
                 if (!array_key_exists($campo, $dado)) {
-                    mensagemErro('Erro!', 'Ocorre um erro ao buscar registro', status: 500, localhost: 'Não existe o campo ' . $campo . ' no banco.');
+                    mensagemErro(
+                        'Erro!',
+                        'Ocorre um erro ao buscar registro',
+                        status: 500,
+                        localhost: 'Não existe o campo ' . $campo . ' no banco.'
+                    );
                 }
                 $valor = is_null($dado[$campo]) ? '' : $dado[$campo];
             }

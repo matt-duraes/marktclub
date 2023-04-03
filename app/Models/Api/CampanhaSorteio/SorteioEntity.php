@@ -9,7 +9,10 @@ use App\Classes\CampanhaSorteio\Status;
 final class SorteioEntity extends Entity
 {
     protected string $ormTabela = TABELA_CAMPANHA_SORTEIO;
-    protected array $ormBuscar = ['titulo', 'texto', 'imagem', 'status', 'lista_usuario', 'numero_sorteado', 'data_sorteio', 'usuario_sorteado', 'hash'];
+    protected array $ormBuscar = [
+        'titulo', 'texto', 'imagem', 'status', 'lista_usuario', 'numero_sorteado',
+        'data_sorteio', 'usuario_sorteado', 'hash'
+    ];
     protected array $ormUpdate = ['data_sorteio', 'hash', 'usuario_sorteado', 'status'];
 
     public array $usuario_sorteado;
@@ -18,6 +21,9 @@ final class SorteioEntity extends Entity
     protected int $numero_sorteado;
     public DataHora $data_sorteio;
     public Status $status;
+    public string $titulo;
+    public string $texto;
+    public string $imagem;
 
     protected function regraPosBuscar()
     {

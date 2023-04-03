@@ -31,7 +31,8 @@ final class Middleware
             if (!class_exists($namespace) || !method_exists($namespace, $action)) {
                 mensagemErro(
                     titulo: 'Middleware não encontrado!',
-                    mensagem: 'Não foi possível encontrar o midleware ' . $namespace . ' ou seu action ' . $action . '.',
+                    mensagem: 'Não foi possível encontrar o midleware '
+                        . $namespace . ' ou seu action ' . $action . '.',
                     status: 500
                 );
             }

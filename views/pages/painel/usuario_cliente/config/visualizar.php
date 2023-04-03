@@ -95,7 +95,7 @@ $Painel->js('painel_usuario_cliente_visualizar');
 
 
 $Api = new ApiHelper(token: true);
-$Lista = new ListaHelper;
+$Lista = new ListaHelper();
 
 // Lista de federação
 $Painel->replace(campo: 'federacao', lista: (new Federacao())->select());
@@ -113,7 +113,7 @@ $Painel->replace(campo: 'trabalho_cargo', lista: (new TrabalhoCargo())->select()
 $Painel->replace(campo: 'origem', lista: (new Origem())->select());
 
 // Lista de status
-$Painel->replace(campo: 'status', lista: (new Status)->select());
+$Painel->replace(campo: 'status', lista: (new Status())->select());
 
 // Lista de grupos
 $Painel->replace(campo: 'grupo', lista: $Api->get('/usuario-grupo/select')->array()['dado'] ?? []);

@@ -4,7 +4,6 @@ namespace Tests\Api;
 
 use stdClass;
 use Tests\Tests;
-use App\Classes\SolicitacaoVoucher\Status;
 
 final class SolicitacaoVoucherTest extends Tests
 {
@@ -72,7 +71,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'usuario' => $this->usuario1
             ])
             ->post('/solicitacao-voucher')
-            ->object()->dado->codigo;
+            ->object()->dado->codigo ?? '';
 
         $codigo2 = $this
             ->Curl
@@ -81,7 +80,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'usuario' => $this->usuario1
             ])
             ->post('/solicitacao-voucher')
-            ->object()->dado->codigo;
+            ->object()->dado->codigo ?? '';
 
         return $this
             ->checkNaoVazio($codigo1)
@@ -188,7 +187,10 @@ final class SolicitacaoVoucherTest extends Tests
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'O saldo deste mês para esse parceiro expirou, abriremos um novo lote de vouchers no próximo mês.');
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'O saldo deste mês para esse parceiro expirou, abriremos um novo lote de vouchers no próximo mês.'
+            );
     }
 
     public function parceiroComPrazoFixoDeveUsarEleNoVencimentoTest()

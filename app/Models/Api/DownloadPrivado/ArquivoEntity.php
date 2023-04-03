@@ -92,7 +92,9 @@ final class ArquivoEntity extends Entity
     {
         $Noticicacao = new NotificacaoEntity(
             titulo: 'Seu arquivo ficou pronto para download',
+            // @codingStandardsIgnoreStart
             mensagem: 'O download do seu arquivo ficou pronto, acesse o painel e verifique sua notificações para fazer o download',
+            // @codingStandardsIgnoreEnd
             link: '{{LINK}}/download-privado/' . $this->id,
             target: '_blank',
             botao: 'Abrir Painel',

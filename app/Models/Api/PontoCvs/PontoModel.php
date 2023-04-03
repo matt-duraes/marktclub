@@ -28,7 +28,7 @@ final class PontoModel extends ORM
         parent::__construct();
         $this->validarRequest();
 
-        (new AtualizarStatusModel())->AtualizarStatus();
+        (new AtualizarStatusModel())->atualizarStatus();
     }
 
     public function listarDados(): stdClass

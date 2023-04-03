@@ -46,7 +46,11 @@ final class DocumentacaoController extends Controller
         }
 
         $scope = sessao('DOCUMENTACAO.scope');
-        if (empty($rota) || !in_array($rota, $scope) || !file_exists(ROOT . '/views/pages/api/documentacao/rota/include/' . $rota . '.php')) {
+        if (
+            empty($rota) ||
+            !in_array($rota, $scope) ||
+            !file_exists(ROOT . '/views/pages/api/documentacao/rota/include/' . $rota . '.php')
+        ) {
             mensagemStatus(404);
         }
 
@@ -87,7 +91,9 @@ final class DocumentacaoController extends Controller
 
         mensagemErro(
             'Erro!',
+            // @codingStandardsIgnoreStart
             'Não foi encontrado um secret_id para esse APP, ele pode ter sido deletado ou você não tem permissão para visualizar.'
+            // @codingStandardsIgnoreEnd
         );
     }
     public function postMostrarChavePublica(Request $request)
@@ -104,7 +110,9 @@ final class DocumentacaoController extends Controller
 
         mensagemErro(
             'Erro!',
+            // @codingStandardsIgnoreStart
             'Não foi encontrada uma chave pública para esse APP, ele pode ter sido deletado ou você não tem permissão para visualizar.'
+            // @codingStandardsIgnoreEnd
         );
     }
     public function postMostrarChavePrivada(Request $request)
@@ -121,7 +129,9 @@ final class DocumentacaoController extends Controller
 
         mensagemErro(
             'Erro!',
+            // @codingStandardsIgnoreStart
             'Não foi encontrada uma chave pública para esse APP, ele pode ter sido deletado ou você não tem permissão para visualizar.'
+            // @codingStandardsIgnoreEnd
         );
     }
 
@@ -133,7 +143,11 @@ final class DocumentacaoController extends Controller
         $App->uuid($request->id, false);
 
         if (empty($App->id)) {
-            mensagemErro('Erro!', 'O App não foi encontrado, ele pode ter sido deletado ou você não tem permissão para visualizar.', status: 404);
+            mensagemErro(
+                'Erro!',
+                'O App não foi encontrado, ele pode ter sido deletado ou você não tem permissão para visualizar.',
+                status: 404
+            );
         }
 
         $App->criarChavePublica();
@@ -174,7 +188,11 @@ final class DocumentacaoController extends Controller
         $App->uuid($request->id, false);
 
         if (empty($App->id)) {
-            mensagemErro('Erro!', 'O App não foi encontrado, ele pode ter sido deletado ou você não tem permissão para visualizar.', status: 404);
+            mensagemErro(
+                'Erro!',
+                'O App não foi encontrado, ele pode ter sido deletado ou você não tem permissão para visualizar.',
+                status: 404
+            );
         }
 
         $App->criarSecretId();

@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 final class DigioHelper
 {
-
     private string $link;
     private string $clientId;
     private string $secredId;
@@ -40,7 +39,11 @@ final class DigioHelper
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials&client_id=' . $this->clientId . '&client_secret=' . $this->secredId);
+        curl_setopt(
+            $ch,
+            CURLOPT_POSTFIELDS,
+            'grant_type=client_credentials&client_id=' . $this->clientId . '&client_secret=' . $this->secredId
+        );
 
         $retorno = json_decode(curl_exec($ch), true);
         // $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -59,7 +62,11 @@ final class DigioHelper
     private function buscarUsuarioViaCurl()
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->link . '/partners/marktclub/customers/info?partner=MARKTCLUB&client-id=' . $this->id);
+        curl_setopt(
+            $ch,
+            CURLOPT_URL,
+            $this->link . '/partners/marktclub/customers/info?partner=MARKTCLUB&client-id=' . $this->id
+        );
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -72,8 +79,13 @@ final class DigioHelper
     {
         $usuario = $this->usuario;
         if (!array_key_exists('document', $usuario)) {
-            $erro = array_key_exists('error', $usuario) && array_key_exists('message', $usuario['error']) ? ' - ' . $usuario['error']['message'] : '';
-            mensagemErro('Erro!', 'Não foi possível achar seu usuário, por favor, tente novamente.', localhost: 'Erro na busca do usuário no DIGIO' . $erro . '.');
+            $erro = array_key_exists('error', $usuario) &&
+                array_key_exists('message', $usuario['error']) ? ' - ' . $usuario['error']['message'] : '';
+            mensagemErro(
+                'Erro!',
+                'Não foi possível achar seu usuário, por favor, tente novamente.',
+                localhost: 'Erro na busca do usuário no DIGIO' . $erro . '.'
+            );
         }
     }
     private function montarUsuario()

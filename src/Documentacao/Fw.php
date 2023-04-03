@@ -58,7 +58,9 @@ final class Fw
         }
         $numeroHtml .= '</div>';
 
-        $this->html[] = '<pre class="codigo_geral">' . $numeroHtml . '<div class="botao_copiar">' . iconeCopiar(20) . '</div><code>' . $codigoFinal . '</code></pre>';
+        $this->html[] = '
+            <pre class="codigo_geral">' . $numeroHtml . '<div class="botao_copiar">'
+            . iconeCopiar(20) . '</div><code>' . $codigoFinal . '</code></pre>';
         return $this;
     }
 
@@ -138,8 +140,10 @@ final class Fw
         if (is_array($plugin)) {
             $ultimo = array_pop($plugin);
             $nome = implode(', ', $plugin) . ' e ' . $ultimo;
-            $css = '@system "' . implode('"' . PHP_EOL . '@system "', $plugin) . '"' . PHP_EOL . '@system "' . $ultimo . '"' .  PHP_EOL;
-            $js = '// @system "' . implode('"' . PHP_EOL . '// @system "', $plugin) . '"' . PHP_EOL . '// @system "' . $ultimo . '"' . PHP_EOL;
+            $css = '@system "' . implode('"' . PHP_EOL . '@system "', $plugin) . '"' .
+                PHP_EOL . '@system "' . $ultimo . '"' .  PHP_EOL;
+            $js = '// @system "' . implode('"' . PHP_EOL . '// @system "', $plugin) . '"' .
+                PHP_EOL . '// @system "' . $ultimo . '"' . PHP_EOL;
             $doPlugin = 'dos plugins';
             $oScript = 'os scripts';
         } else {
@@ -151,7 +155,8 @@ final class Fw
         }
 
         $this
-            ->paragrafo('Para usar os dados abaixo, você precisa incorporar os scripts CSS e JS ' . $doPlugin . ' ' . $nome . '.')
+            ->paragrafo('Para usar os dados abaixo, você precisa incorporar os scripts CSS e JS '
+                . $doPlugin . ' ' . $nome . '.')
             ->paragrafo('Para adicionar ' . $oScript . ' CSS basta importar no seu arquivo styl assim:')
             ->codigo($css, 'body' . PHP_EOL . '// ... Código CSS</span>')
             ->paragrafo('Para incorporar ' . $oScript . ' script JS basta importar no seu arquivo assim:')
@@ -213,7 +218,8 @@ final class Fw
         $this->html[] = '
             <div class="bloco_retorno">
                 <div class="subtitulo">Retorno:</div>
-                <div class="tipo">' . implode('</div><span class="barra">|</span><div class="tipo">', explode('|', $tipo)) . '</div>
+                <div class="tipo">'
+                    . implode('</div><span class="barra">|</span><div class="tipo">', explode('|', $tipo)) . '</div>
                 <div class="descricao">' . $descricao . '</div>
             </div>
         ';
@@ -224,7 +230,8 @@ final class Fw
         $this->html[] = '
             <div class="bloco_retorno bloco_erro">
                 <div class="subtitulo">Erros:</div>
-                <div class="tipo">' . implode('</div><span class="barra">|</span><div class="tipo">', explode('|', $tipo)) . '</div>
+                <div class="tipo">' .
+                    implode('</div><span class="barra">|</span><div class="tipo">', explode('|', $tipo)) . '</div>
                 <div class="descricao">' . $descricao . '</div>
             </div>
         ';
@@ -235,9 +242,11 @@ final class Fw
         $tipoHtml = '';
         if (!empty($tipo)) {
             $tipo = explode('|', str_replace(' ', '', $tipo));
-            $tipoHtml = '<td class="tipo">(<span class="rosa">' . implode('</span><span class="barra">|</span><span class="rosa">', $tipo) . ')</span></td>';
+            $tipoHtml = '<td class="tipo">(<span class="rosa">'
+                . implode('</span><span class="barra">|</span><span class="rosa">', $tipo) . ')</span></td>';
         }
-        $this->html[] = '<tr>' . $tipoHtml . '<td class="var">' . $campo . '</td><td class="descricao">' . $descricao . '</td></tr>';
+        $this->html[] = '<tr>' . $tipoHtml . '<td class="var">'
+            . $campo . '</td><td class="descricao">' . $descricao . '</td></tr>';
         return $this;
     }
 
@@ -282,7 +291,8 @@ final class Fw
                 continue;
             } elseif ($exemplo && !str_contains($linha, 'function')) {
                 $linha = explode(' ', preg_replace('/\/\/\ ?/', '', $linha));
-                $funcaoParametro = array_key_exists(2, $linha) && !empty($linha[2]) ? str_replace('_', ' ', $linha[2]) : '';
+                $funcaoParametro = array_key_exists(2, $linha) && !empty($linha[2]) ?
+                    str_replace('_', ' ', $linha[2]) : '';
                 $funcaoParametroTexto = '';
                 $funcaoParametroValor = [];
                 if (!empty($funcaoParametro)) {
@@ -308,7 +318,8 @@ final class Fw
                         } elseif (str_contains($val, '|')) {
                             $val = explode('|', $val);
                         }
-                        $funcaoParametroValor[$ind] = is_string($val) && preg_match('/^[1-9]{1}[0-9]*$/', $val) ? (int) $val : $val;
+                        $funcaoParametroValor[$ind] = is_string($val) && preg_match('/^[1-9]{1}[0-9]*$/', $val)
+                            ? (int) $val : $val;
                     }
                 }
                 $exemploHtml[] = [$linha[0], $linha[1] ?? '', $funcaoParametroTexto, $funcaoParametroValor];
@@ -317,8 +328,10 @@ final class Fw
 
             if (preg_match('/^(public\ )?function\ [a-zA-Z0-9\_]+\($/', $linha)) {
                 $linha = preg_replace('/^(public\ )?function\ /', '', $linha);
-                $funcao = $linha == '__construct(' && !empty($class) ? str_replace('__construct', 'new ' . $class, $linha) : $linha;
-                $codigoHtml = '<pre class="codigo_geral"><div class="codigo_linha">1</div><div class="botao_copiar">' . iconeCopiar(20) . '</div><code>' . $funcao;
+                $funcao = $linha == '__construct(' && !empty($class) ?
+                    str_replace('__construct', 'new ' . $class, $linha) : $linha;
+                $codigoHtml = '<pre class="codigo_geral"><div class="codigo_linha">1</div><div class="botao_copiar">'
+                    . iconeCopiar(20) . '</div><code>' . $funcao;
                 $tituloHtml = explode('(', $linha)[0] ?? '';
                 $codigoContinuar = true;
             } elseif ($codigoContinuar && !str_contains($linha, ')')) {
@@ -333,8 +346,11 @@ final class Fw
             } elseif (preg_match('/^(public\ )?function\ /', $linha)) {
                 $linha = preg_replace('/^(public\ )?function\ /', '', $linha);
                 $tituloHtml = explode('(', $linha)[0] ?? '';
-                $funcao = $linha == '__construct' && !empty($class) ? str_replace('__construct', $class, $linha) : $linha;
-                $codigoHtml = '<pre class="codigo_geral"><div class="codigo_linha">1</div><div class="botao_copiar">' . iconeCopiar(20) . '</div><code>' . str_replace(['private ', 'protected ', 'public '], '', $funcao) . '</code></pre>';
+                $funcao = $linha == '__construct' && !empty($class)
+                    ? str_replace('__construct', $class, $linha) : $linha;
+                $codigoHtml = '<pre class="codigo_geral"><div class="codigo_linha">1</div><div class="botao_copiar">'
+                    . iconeCopiar(20) . '</div><code>'
+                    . str_replace(['private ', 'protected ', 'public '], '', $funcao) . '</code></pre>';
             } elseif (str_starts_with($limpo, '*@return')) {
                 $retorno = preg_replace('/^\*\ ?\@return\ */', '', $linha);
                 preg_match('/^[a-zA-Z0-9\\\|\{\}\,]+/', $retorno, $tipo);
@@ -344,7 +360,8 @@ final class Fw
                     continue;
                 }
                 $retornoHtml = '<div class="bloco_retorno"><div class="subtitulo">Retorno:</div>';
-                $retornoHtml .= '<div class="tipo">' . implode('</div><span class="barra">|</span><div class="tipo">', $tipo) . '</div>';
+                $retornoHtml .= '<div class="tipo">' .
+                    implode('</div><span class="barra">|</span><div class="tipo">', $tipo) . '</div>';
                 $retornoHtml .= '<div class="descricao">' . $descricao . '</div>';
                 $retornoHtml .= '</div>';
             } elseif (str_starts_with($limpo, '*@throws')) {
@@ -356,18 +373,24 @@ final class Fw
                     continue;
                 }
                 $throwsHtml = '<div class="bloco_retorno bloco_erro"><div class="subtitulo">Erros:</div>';
-                $throwsHtml .= '<div class="tipo">' . implode('</div><span class="barra">|</span><div class="tipo">', $tipo) . '</div>';
+                $throwsHtml .= '<div class="tipo">'
+                    . implode('</div><span class="barra">|</span><div class="tipo">', $tipo) . '</div>';
                 $throwsHtml .= '<div class="descricao">' . $descricao . '</div>';
                 $throwsHtml .= '</div>';
             } elseif (preg_match('/\*\ ?\@/', $linha)) {
                 $parametro = preg_replace('/^\*\ +\@param\ +/', '', $linha);
                 preg_match('/^[a-zA-Z0-9\|]+/', $parametro, $tipo);
-                $tipo = !empty($tipo[0] ?? '') ? '<span class="rosa">' . implode('</span><span class="barra">|</span><span class="rosa">', explode('|', $tipo[0])) . '</span>' : '';
+                $tipo = !empty($tipo[0] ?? '') ? '<span class="rosa">'
+                    . implode(
+                        '</span><span class="barra">|</span><span class="rosa">',
+                        explode('|', $tipo[0])
+                    ) . '</span>' : '';
                 preg_match('/\$[a-zA-Z0-9\_]+/', $parametro, $var);
                 $var = !empty($var[0] ?? '') ? $var[0] : '';
                 $descricao = preg_replace('/^[a-zA-Z0-9\|]+\ {1,}\$[a-zA-Z0-9\_]+\ {1,}/', '', $parametro);
                 $descricao = !empty($descricao) ? $descricao : '';
-                $parametroHtml[] = '<tr><td class="tipo">(' . $tipo . ')</td><td class="var">' . $var . '</td><td class="descricao">' . $descricao . '</td></tr>';
+                $parametroHtml[] = '<tr><td class="tipo">(' . $tipo . ')</td><td class="var">'
+                    . $var . '</td><td class="descricao">' . $descricao . '</td></tr>';
             } elseif (preg_match('/\*\ [a-zA-Z0-9]+?/', $linha)) {
                 $funcaoAberta = true;
                 $descricaoHtml = preg_replace('/^\*\ ?/', '', $linha);
@@ -458,7 +481,8 @@ final class Fw
             }
 
             if (str_contains($valor, '|')) {
-                $retorno[] = $name . '["' . implode('", "', explode('|', str_replace(['_', '=>'], [' ', '" => "'], $valor))) . '"]';
+                $retorno[] = $name . '["'
+                    . implode('", "', explode('|', str_replace(['_', '=>'], [' ', '" => "'], $valor))) . '"]';
                 continue;
             } elseif (empty($valor)) {
                 $retorno[] = $name . '""';

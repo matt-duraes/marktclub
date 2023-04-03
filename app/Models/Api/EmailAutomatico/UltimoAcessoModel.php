@@ -129,7 +129,15 @@ final class UltimoAcessoModel extends ORM
             }
 
             $loja = $this->pegarUltimosSeisLojas($id);
-            $this->mandarEmailParaCadaEmpresa($r->titulo, $r->cor, $r->link_site, $r->link_login, $r->link_logo, $r->usuario, $loja);
+            $this->mandarEmailParaCadaEmpresa(
+                $r->titulo,
+                $r->cor,
+                $r->link_site,
+                $r->link_login,
+                $r->link_logo,
+                $r->usuario,
+                $loja
+            );
         }
     }
     private function mandarEmailParaCadaEmpresa($tituloClube, $cor, $linkSite, $linkLogin, $linkLogo, $usuario, $loja)
@@ -139,7 +147,9 @@ final class UltimoAcessoModel extends ORM
             $Email = new EmailHelper();
             $Email->mensagem(
                 titulo: $assunto,
+                // @codingStandardsIgnoreStart
                 mensagem: 'Olá ' . $r->nome . '! Estamos sentido sua falta, que tal acessar seu Clube e ver as novidades que separamos para você?',
+                // @codingStandardsIgnoreEnd
                 botaoTexto: 'Acessar Clube',
                 botaoLink: $linkLogin,
                 cor: $cor,
@@ -161,7 +171,9 @@ final class UltimoAcessoModel extends ORM
             <strong>Veja algumas das novas lojas que separamos para você:</strong><br><br>
         ';
         foreach ($loja as $r) {
+            // @codingStandardsIgnoreStart
             $mensagem .= '<a style="padding-top: 5px; text-decoration: none" href="' . $linkSite . '/convenios/' . $r->url . '" target="_blank" rel="noopener noreferrer">' . $r->titulo . ' - ' . $r->desconto . '</a><br>';
+            // @codingStandardsIgnoreEnd
         }
         $mensagem .= '<br>Não perca tempo e venha conferir todas as novidades!';
         return $mensagem;

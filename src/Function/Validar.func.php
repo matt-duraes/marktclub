@@ -11,9 +11,10 @@ if (!function_exists('exiteErro')) {
     /**
      * Verifica se o valor não contem os campos indicados ou se o status é de erro
      *
-     * @param stdClass|array    $valor  Valor a ser conferido
-     * @param array|string      $Campo  Campo para validar se existe, pode ser uma string "campo" ou uma lista em um array ["campo_1", "campo_2"]
-     * @return  bool        Retorna true caso o valor seja válido                     Caso tenha algum erro retorna true
+     * @param   stdClass|array  $valor  Valor a ser conferido
+     * @param   array|string    $Campo  Campo para validar se existe, pode ser uma string "campo"
+     *                                  ou uma lista em um array ["campo_1", "campo_2"]
+     * @return  bool                    Retorna true caso o valor seja válido, Caso tenha algum erro retorna true
      */
     function existeErro(stdClass|array $valor, string|array $campo = ''): bool
     {
@@ -435,12 +436,14 @@ if (!function_exists('respostaJson')) {
     /**
      * Valida se o resposta contém erro
      *
-     * @param   array|object|ApiHelper  $resposta   Resposta que será validada
-     * @param   string                  $mensagem   Mensagem que deseja usar no caso de erro e não ter a mensagem na resposta
-     * @param   null|string             $titulo     Título que deseja usar no caso de erro e não ter a mensagem na resposta
-     * @param   int                     $status     Status que deseja retornar no caso de erro
+     * @param   array|object|ApiHelper  $resposta  Resposta que será validada
+     * @param   string                  $mensagem  Mensagem que deseja usar no caso de erro e não
+     *                                             ter a mensagem na resposta
+     * @param   null|string             $titulo    Título que deseja usar no caso de erro e não
+     *                                             ter a mensagem na resposta
+     * @param   int                     $status    Status que deseja retornar no caso de erro
      * @return  void
-     * @throws  Erro\Excecao                        Retonar um Erro\Exececao a resposta contenha um erro
+     * @throws  Erro\Excecao                       Retonar um Erro\Exececao a resposta contenha um erro
      */
     function respostaJson(
         array|stdClass|ApiHelper $resposta,

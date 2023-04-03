@@ -110,7 +110,7 @@ final class Route
     /**
      * NÃO USAR ESSE MÉTODO
      */
-    public static function _rotaNaoUnica()
+    public static function rotaNaoUnica()
     {
         self::$rotaUnica = false;
         return __CLASS__;
@@ -142,8 +142,10 @@ final class Route
     /**
      * Lista de requestes desejados
      *
-     * @param string|array  $request    Lista de request podendo ser "*" para qualquer parâmetro ou uma lista em um array
-     * @param null|string   $tipo       Tipo de request podendo ser get, post, put, json ou files, caso null, pega padrão da rota
+     * @param  string|array  $request  Lista de request podendo ser "*" para qualquer parâmetro
+     *                                 ou uma lista em um array
+     * @param  null|string   $tipo     Tipo de request podendo ser get, post, put, json
+     *                                 ou files, caso null, pega padrão da rota
      */
     public static function request(string|array $request, ?string $tipo = null)
     {

@@ -135,10 +135,11 @@ final class DownloadModel extends ORM
     {
         $camposAceito = [
             'nome', 'cpf', 'rg', 'siape', 'matricula', 'data_nascimento', 'genero', 'estado_civil',
-            'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
-            'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
-            'endereco_estado', 'data_criacao', 'data_atualizacao', 'data_acesso', 'tipo', 'federacao', 'grupo',
-            'status', 'data_upload', 'lead', 'origem', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
+            'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
+            'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
+            'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'data_criacao', 'data_atualizacao',
+            'data_acesso', 'tipo', 'federacao', 'grupo', 'status', 'data_upload', 'lead', 'origem',
+            'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);

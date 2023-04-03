@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Senha;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\Federacao;
@@ -36,7 +37,11 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->numero(name: 'siape', label: 'SIAPE')
             ->select(name: 'trabalho_empresa', label: 'Local onde trabalha', lista: $trabalhoEmpresa)
             ->select(name: 'trabalho_cargo', label: 'Cargo', lista: $trabalhoCargo)
-            ->data(name: 'trabalho_data_inicio', label: 'Data do início do trabalho', placeholder: 'Data do início do trabalho');
+            ->data(
+                name: 'trabalho_data_inicio',
+                label: 'Data do início do trabalho',
+                placeholder: 'Data do início do trabalho'
+            );
     });
 });
 
@@ -47,7 +52,14 @@ $Painel->coluna(callback: function () use ($Painel) {
 
         $Painel
             ->hidden(name: 'empresa->id', acao: 'editar', permissao: Helper::PERMISSAO_EMPRESA)
-            ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', acao: 'add', permissao: Helper::PERMISSAO_EMPRESA, change: 'buscarGrupoEmpresa')
+            ->select(
+                name: 'empresa',
+                label: 'Empresa',
+                lista: 'empresa',
+                acao: 'add',
+                permissao: Helper::PERMISSAO_EMPRESA,
+                change: 'buscarGrupoEmpresa'
+            )
             ->select(name: 'grupo', label: 'Grupo', lista: ['' => 'Carregando'])
             ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $tipoPagamento)
             ->select(name: 'federacao', label: 'Federação', lista: $federacao);
@@ -69,7 +81,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->senha(
                 name: 'senha',
                 label: 'Senha de acesso',
-                ajuda: 'A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número, 1 caracter especial e no mínimo 8 dígitos.'
+                ajuda: Senha::MENSAGEM_FORCA_4
             )
             ->select(name: 'status', label: 'Status', lista: [
                 '' => 'Escolha uma opção',

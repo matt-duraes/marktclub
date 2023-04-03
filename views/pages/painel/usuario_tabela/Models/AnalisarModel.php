@@ -319,7 +319,8 @@ final class AnalisarModel
                 continue;
             }
 
-                $chave = in_array('cpf', $obrigatorio) ? str_pad(soNumero($chave), 11, 0, STR_PAD_LEFT) : soNumero($chave);
+                $chave =
+                    in_array('cpf', $obrigatorio) ? str_pad(soNumero($chave), 11, 0, STR_PAD_LEFT) : soNumero($chave);
 
             if (in_array('cpf', $obrigatorio) && !validarCpf($chave)) {
                 $listaErro[] = [

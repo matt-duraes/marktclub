@@ -30,7 +30,7 @@ final class PainelController extends Controller
 
     public function getMenu(): Response
     {
-        $Menu = new MenuModel;
+        $Menu = new MenuModel();
         return mensagemSucesso($Menu->listarDados());
     }
     public function getCampoObrigatorio(Request $request): Response
@@ -56,7 +56,7 @@ final class PainelController extends Controller
 
     public function getTrabalhoOrgao(): Response
     {
-        $Status = new StatusModel;
+        $Status = new StatusModel();
         $lista = $Status->listar('usuario_cliente', 'trabalho_orgao');
 
         return mensagemSucesso($lista);
@@ -64,7 +64,7 @@ final class PainelController extends Controller
 
     public function getTrabalhoCargo(): Response
     {
-        $Status = new StatusModel;
+        $Status = new StatusModel();
         $lista = $Status->listar('usuario_cliente', 'trabalho_cargo');
 
         return mensagemSucesso($lista);
@@ -72,7 +72,7 @@ final class PainelController extends Controller
 
     public function getTipoPagamento(): Response
     {
-        $Status = new StatusModel;
+        $Status = new StatusModel();
         $lista = $Status->listar('usuario_cliente', 'tipo_pagamento');
 
         return mensagemSucesso($lista);
@@ -80,7 +80,7 @@ final class PainelController extends Controller
 
     public function getUsuarioSituacao(): Response
     {
-        $Status = new StatusModel;
+        $Status = new StatusModel();
         $lista = $Status->listar('usuario_cliente', 'situacao');
 
         return mensagemSucesso($lista);

@@ -1,14 +1,14 @@
 <?php
 
-use Erro\Alerta;
 use Erro\Erro;
+use Erro\Alerta;
 use Erro\Excecao;
-use Erro\Retorno\AlertaRetorno;
-use Erro\Retorno\ErroLegadoRetorno;
 use Erro\Retorno\ErroRetorno;
+use Erro\Retorno\AlertaRetorno;
 use Erro\Retorno\ExcecaoRetorno;
-use Erro\Retorno\ThrowableRetorno;
 use JetBrains\PhpStorm\NoReturn;
+use Erro\Retorno\ThrowableRetorno;
+use Erro\Retorno\ErroLegadoRetorno;
 
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
@@ -21,10 +21,15 @@ set_error_handler('errorHandler');
 {
     if (is_array($retorno)) {
         echo json_encode($retorno, JSON_PARTIAL_OUTPUT_ON_ERROR);
-    } elseif (is_object($retorno) && defined('SISTEMA') && SISTEMA != 'producao' && method_exists(
+    } elseif (
+        is_object($retorno) &&
+        defined('SISTEMA') &&
+        SISTEMA != 'producao' &&
+        method_exists(
             $retorno,
             '__toString'
-        )) {
+        )
+    ) {
         echo $retorno;
     } elseif (is_object($retorno) && defined('SISTEMA') && SISTEMA != 'producao') {
         echo '<pre>';

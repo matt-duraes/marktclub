@@ -8,9 +8,7 @@ final class MenuModel extends ORM
 {
     protected string $ormTabela = TABELA_PAINEL_MENU;
 
-    private int $idEmpresa;
-
-    const TIPO = [
+    public const TIPO = [
         1 => 'titulo',
         2 => 'dropdown',
         3 => 'menu'
@@ -23,7 +21,6 @@ final class MenuModel extends ORM
         }
 
         parent::__construct();
-        $this->idEmpresa = TOKEN['empresa']->get('id');
     }
     public function listarDados(): array
     {
@@ -32,7 +29,6 @@ final class MenuModel extends ORM
             ->where([
                 ['status', 1],
                 ['id_admin_empresa', 1]
-                // ['id_admin_empresa', $this->idEmpresa]
             ])
             ->order('ordem', 'ASC')
             ->read();

@@ -551,14 +551,6 @@ Route
             ::post('/login/painel');
 
         Route
-            ::nome('loginClube')
-            ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
-            ::request([
-                '!login', '!senha', '!facebook', '!google', 'scope', 'audience', 'redirect_uri', 'state', 'client_id'
-            ])
-            ::post('/login/clube');
-
-        Route
             ::nome('loginApi')
             ::middleware(TokenMiddleware::class, 'scope', ['login:api'])
             ::criptografia(App\Classes\UsuarioCliente\Helper::CRIPTOGRAFAR)

@@ -87,7 +87,7 @@ trait ReadTrait
      * @param array $where  Where com a condição para a busca
      * @return bool
      */
-    protected function existe(array $where): bool
+    public function existe(array $where): bool
     {
         $this->ormResetarOrm();
         $this->campo(['id'])->where($where)->limit(0, 1);
@@ -249,7 +249,7 @@ trait ReadTrait
      * @param   null|array      $replace    Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
      * @return  Self
      */
-    protected function campo(array $campo, ?string $as = null, ?array $replace = null): Self
+    protected function campo(array $campo, ?string $as = null, ?array $replace = null): self
     {
         if (!is_array($campo)) {
             throw new Excecao(
@@ -295,7 +295,7 @@ trait ReadTrait
         return $this;
     }
 
-    private function ormMontarQueryString(bool $paginacao = false): String
+    private function ormMontarQueryString(bool $paginacao = false): string
     {
         $select = !empty($this->ormSelect) ? $this->ormSelect : "SELECT {{CAMPO}} FROM `{$this->ormTabela}`";
         $campo = !empty($this->ormCampo) ? implode(', ', $this->ormCampo) : '*';

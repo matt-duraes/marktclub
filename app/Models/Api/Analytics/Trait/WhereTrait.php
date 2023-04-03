@@ -38,7 +38,10 @@ trait WhereTrait
         } elseif (!validarDate($ate)) {
             mensagemErro('Data inválida!', 'A data final da busca não está em um formato válido.');
         } elseif ($diasDiferenca > $diaMaximo) {
-            mensagemErro('Datas inválidas!', 'Você deve fazer uma busca com no máximo ' . $diaMaximo . ' dia(s) de diferênça.');
+            mensagemErro(
+                'Datas inválidas!',
+                'Você deve fazer uma busca com no máximo ' . $diaMaximo . ' dia(s) de diferênça.'
+            );
         } elseif ($ate < $de) {
             mensagemErro('Datas inválidas!', 'A data fianl da busca deve ser maior ou igual a data de começo.');
         }

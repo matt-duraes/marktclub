@@ -23,29 +23,29 @@ Route
     ::grupo(function () {
         Route
             ::nome('index')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/login');
 
         Route
             ::nome('login')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['hash_validacao_captcha', 'login', 'senha'])
             ::post('/login');
         Route
             ::nome('relogar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['hash_validacao_captcha', 'login', 'senha'])
             ::post('/login/relogar');
 
         Route
             ::nome('social')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['hash_validacao', 'id', 'token', 'code', 'rede'])
             ::post('/login/social');
 
         Route
             ::nome('desbloquear')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['hash_validacao', 'login', 'senha', 'logado'])
             ::post('/login/desbloquear');
     });
@@ -63,12 +63,12 @@ Route
     ::nome('login')
     ::grupo(function () {
         Route
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::action('bloquear')
             ::view('/bloquear');
 
         Route
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::nome('sair')
             ::view('/sair');
     }, true)
@@ -79,17 +79,17 @@ Route
     ::grupo(function () {
         Route
             ::nome('index')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/perfil');
 
         Route
             ::nome('dado')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/perfil/dado');
 
         Route
             ::nome('atualizar_dado')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::action('dado')
             ::request([
                 'nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho',
@@ -99,31 +99,31 @@ Route
 
         Route
             ::nome('validarSenha')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['senha'])
             ::post('/perfil/validar-senha');
 
         Route
             ::nome('senha')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/perfil/senha');
 
         Route
             ::nome('atualizar_senha')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::action('senha')
             ::request(['hash_validacao', 'senha_atual', 'senha_nova', 'senha_repetir'])
             ::post('/perfil/senha');
 
         Route
             ::nome('social')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['hash_validacao', 'id', 'token', 'rede', 'code', 'acao'])
             ::post('/perfil/social');
 
         Route
             ::nome('imagem')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['hash_validacao'])
             ::request(['arquivo'], 'files')
             ::post('/perfil/imagem');
@@ -135,24 +135,24 @@ Route
     ::grupo(function () {
         Route
             ::nome('index')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/agenda');
 
         Route
             ::nome('login')
             ::request(['hash_validacao', 'code'])
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::post('/agenda/login');
 
         Route
             ::nome('buscar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['data_inicial', 'data_final'])
             ::post('/agenda/buscar');
 
         Route
             ::nome('salvar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request([
                 'titulo', 'data_inicial', 'data_final', 'hora_inicial', 'hora_final',
                 'descricao', 'local', 'video', 'convidado'
@@ -161,7 +161,7 @@ Route
 
         Route
             ::nome('editar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request([
                 'id', 'titulo', 'data_inicial', 'data_final', 'hora_inicial', 'hora_final',
                 'descricao', 'local', 'video', 'convidado', 'notificar'
@@ -170,13 +170,13 @@ Route
 
         Route
             ::nome('confirmar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['id', 'confirmar'])
             ::post('/agenda/confirmar');
 
         Route
             ::nome('deletar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['id'])
             ::post('/agenda/deletar');
     }, true)
@@ -265,64 +265,64 @@ Route
     ::grupo(function () {
         Route
             ::action('extensao')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo'])
             ::post('/upload/extensao');
         Route
             ::action('estruturaDiretorio')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo'])
             ::post('/upload/estrutura-diretorio');
         Route
             ::action('criarDiretorio')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo_inicial', 'grupo_atual', 'nome'])
             ::post('/upload/criar-diretorio');
         Route
             ::action('renomearDiretorio')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo_inicial', 'grupo_atual', 'nome'])
             ::post('/upload/renomear-diretorio');
         Route
             ::action('deletarDiretorio')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo_inicial', 'grupo_atual'])
             ::post('/upload/deletar-diretorio');
 
         Route
             ::action('buscar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['pagina', 'pesquisa', 'grupo_inicial', 'grupo_atual'])
             ::post('/upload/buscar');
 
         Route
             ::action('salvar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo_inicial', 'grupo_atual'])
             ::request(['arquivo'], 'files')
             ::post('/upload/salvar');
 
         Route
             ::action('mover')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['id', 'nome', 'grupo_inicial', 'grupo_atual', 'grupo_destino'])
             ::post('/upload/mover');
 
         Route
             ::action('renomear')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo_atual', 'grupo_inicial', 'id', 'nome'])
             ::post('/upload/renomear');
 
         Route
             ::action('editar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['id', 'tipo', 'nome', 'largura', 'altura', 'corte_largura', 'corte_altura', 'x', 'y'])
             ::post('/upload/editar');
 
         Route
             ::action('deletar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['grupo_atual', 'grupo_inicial', 'id'])
             ::post('/upload/deletar');
     }, true)
@@ -332,17 +332,17 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['app', 'relacionado', 'mensagem', '!titulo', '!link', '!notificar'])
             ::post('/historico');
         Route
             ::nome('listar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['pagina', 'app', 'relacionado', '!pesquisa', '!data_de', '!data_ate'])
             ::get('/historico');
         Route
             ::nome('deletar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::delete('/historico/{id}');
     }, true)
 
@@ -351,22 +351,22 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscarGeolocalizacao')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['pais', '!titulo', '!cep', '!logradouro', '!numero', '!bairro', '!cidade', '!estado'])
             ::post('/sistema-endereco/buscar-geolocalizacao');
         Route
             ::nome('buscarEnderecoPeloCep')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['cep'])
             ::post('/sistema-endereco/buscar-endereco-pelo-cep');
         Route
             ::nome('buscarCidade')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['estado'])
             ::post('/sistema-endereco/buscar-cidade');
         Route
             ::nome('listarEndereco')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['tabela', 'local', 'id', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'])
             ::post('/sistema-endereco/buscar-lista');
     }, true)
@@ -376,15 +376,15 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/download-privado/{id}');
         Route
             ::nome('download')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/download-privado/download/{id}');
         Route
             ::nome('validar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['senha'])
             ::post('/download-privado/{id}');
     }, true)
@@ -394,20 +394,20 @@ Route
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['pagina'])
             ::get('/notificacao');
         Route
             ::nome('atualizar')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::request(['id'])
             ::post('/notificacao/atualizar-visualizadas');
         Route
             ::nome('abrir')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::view('/notificacao/{id}');
         Route
             ::nome('visualizarTodas')
-            ::_rotaNaoUnica()
+            ::rotaNaoUnica()
             ::get('/notificacao/visualizar-todas');
     });

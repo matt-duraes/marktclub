@@ -17,10 +17,9 @@ final class Status extends StatusStatus
         protected null|string|int $valor = null
     ) {
         parent::__construct([
-                self::NOVO => 'Novo',
-                self::VISUALIZADO => 'Visualizado',
-                self::CLICADO => 'Clicado'
-            ]
-        );
+            self::NOVO => 'Novo',
+            self::VISUALIZADO => 'Visualizado',
+            self::CLICADO => 'Clicado'
+        ]);
     }
 }
