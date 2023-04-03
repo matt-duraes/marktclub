@@ -4,7 +4,6 @@ namespace Tests\Api;
 
 use stdClass;
 use Tests\Tests;
-use App\Classes\SolicitacaoVoucher\Status;
 
 final class SolicitacaoVoucherTest extends Tests
 {
@@ -19,7 +18,6 @@ final class SolicitacaoVoucherTest extends Tests
     private string $parceiroLimite = '4502e7e8-9359-470e-9588-0a1501449675';
     private string $parceiroPrazoFixo = 'f9cbb6ae-b847-43cf-b9b8-6f72b67789df';
     private string $parceiroBlueFit = 'ca0bde20602db3ec777acbbcfb5a4c61';
-    private string $parceiroSalaVip = '890713a200a9e45aa85e2ae67aa41e74';
 
     public function __construct()
     {
@@ -27,8 +25,8 @@ final class SolicitacaoVoucherTest extends Tests
 
         $this->resetarTabela(TABELA_SOLICITACAO_VOUCHER);
         $this->resetarTabela(TABELA_SOLICITACAO_CODIGO);
-        $this->resetarTabela(TABELA_PARCEIRO_NOVO);
-        $this->resetarTabela(TABELA_USUARIO_NOVO);
+        $this->resetarTabela(TABELA_PARCEIRO_LOJA);
+        $this->resetarTabela(TABELA_USUARIO_CLIENTE);
     }
 
     public function salvarParceiroNormalPeloIdTest()
@@ -73,7 +71,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'usuario' => $this->usuario1
             ])
             ->post('/solicitacao-voucher')
-            ->object()->dado->codigo;
+            ->object()->dado->codigo ?? '';
 
         $codigo2 = $this
             ->Curl
@@ -82,7 +80,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'usuario' => $this->usuario1
             ])
             ->post('/solicitacao-voucher')
-            ->object()->dado->codigo;
+            ->object()->dado->codigo ?? '';
 
         return $this
             ->checkNaoVazio($codigo1)
@@ -189,7 +187,10 @@ final class SolicitacaoVoucherTest extends Tests
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'O saldo deste mês para esse parceiro expirou, abriremos um novo lote de vouchers no próximo mês.');
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'O saldo deste mês para esse parceiro expirou, abriremos um novo lote de vouchers no próximo mês.'
+            );
     }
 
     public function parceiroComPrazoFixoDeveUsarEleNoVencimentoTest()

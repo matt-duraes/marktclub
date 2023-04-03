@@ -7,7 +7,6 @@ use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
 final class LoginFormModel
 {
-
     private EquipeEntity $Usuario;
 
     /**

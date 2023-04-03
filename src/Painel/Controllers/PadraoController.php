@@ -26,21 +26,21 @@ abstract class PadraoController extends Controller
 
         if ($local == 'index') {
             return $this->configIndex($app);
-        } else if ($local == 'ajax') {
+        } elseif ($local == 'ajax') {
             return $this->configAjax($app, $indice);
-        } else if ($local == 'visualizar') {
+        } elseif ($local == 'visualizar') {
             return $this->configVisualizar($app);
-        } else if (in_array($local, ['add', 'editar'])) {
+        } elseif (in_array($local, ['add', 'editar'])) {
             return $this->configAdd($app, $local);
-        } else if ($local == 'salvar') {
+        } elseif ($local == 'salvar') {
             return $this->configSalvar($app);
-        } else if ($local == 'filtrar') {
+        } elseif ($local == 'filtrar') {
             return $this->configFiltrar($app);
-        } else if ($local == 'download') {
+        } elseif ($local == 'download') {
             return $this->configDownload($app);
-        } else if ($local == 'deletar') {
+        } elseif ($local == 'deletar') {
             return $this->configDeletar($app);
-        } else if ($local == 'ordem') {
+        } elseif ($local == 'ordem') {
             return $this->configOrdem($app);
         }
     }
@@ -68,7 +68,7 @@ abstract class PadraoController extends Controller
         $linkAbrir = '';
         if ($permissaoVisualizar) {
             $linkAbrir = $Index->pegarLinkVisualizar();
-        } else if ($permissaoEditar) {
+        } elseif ($permissaoEditar) {
             $linkAbrir = $Index->pegarLinkEditar();
         }
 
@@ -338,7 +338,7 @@ abstract class PadraoController extends Controller
     {
         if (!$config) {
             return false;
-        } else if (sessao('USUARIO.dev')) {
+        } elseif (sessao('USUARIO.dev')) {
             return true;
         }
 
@@ -389,7 +389,7 @@ abstract class PadraoController extends Controller
             }
             if (is_string($val) && validarData($val)) {
                 $val = dataBanco($val);
-            } else if (is_string($val) && validarDataHora($val)) {
+            } elseif (is_string($val) && validarDataHora($val)) {
                 $val = dataHoraBanco($val);
             }
             $retorno[$ind] = $criptografia && !empty($val) && in_array($ind, $criptografia) ?
@@ -446,9 +446,9 @@ abstract class PadraoController extends Controller
         $status = $dado->status();
         if (true === $view && 401 === $status) {
             return new Response(url: LINK . '/login');
-        } else if (401 === $status) {
+        } elseif (401 === $status) {
             return new Response(json: ['status' => 'deslogado'], status: 401);
-        } else if (204 == $status) {
+        } elseif (204 == $status) {
             return new Response(status: 204);
         }
 
@@ -456,7 +456,7 @@ abstract class PadraoController extends Controller
         $erro = !object_key_exists('status', $dado) || 'sucesso' != $dado->status;
         if ($erro && $view) {
             mensagemStatus(500);
-        } else if ($erro && object_key_exists('erro', $dado)) {
+        } elseif ($erro && object_key_exists('erro', $dado)) {
             mensagemErro(
                 $dado->erro->titulo ?? 'Erro!',
                 $dado->erro->mensagem ?? 'Ocorreu um erro, por favor, tente novamente.'

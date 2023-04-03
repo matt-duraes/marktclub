@@ -13,7 +13,7 @@ use ORM\ORM;
 
 final class ExemploModel extends ORM
 {
-    protected string $_tabela = TABELA_EXEMPLO;
+    protected string $ormTabela = TABELA_EXEMPLO;
 }
     ')
     ->paragrafo('Como um bom CRUD, nosso ORM conta com várias vacilidades para você poder fazer suas querys no banco de dados e vamos listar elas abaixo:');
@@ -31,7 +31,7 @@ INSERT INTO `NOME_DA_TABELA` (`campo_1`, `campo_2`) VALUES ("valor 01", "valor 0
             ->codigo('
 <?php
 ...
-protected string $_tabela = TABELA_USUARIO_CLIENTE;
+protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 ...
 public function salvarNovoUsuario(string $nome, string $email)
 {
@@ -90,7 +90,7 @@ $Doc
             ->codigo('
 <?php
 ...
-protected string $_tabela = TABELA_USUARIO_CLIENTE;
+protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 ...
 public function atualizarUsuarioExistente(string $nome, string $email, int $id)
 {
@@ -431,7 +431,7 @@ fullJoin(string $campo, string $relacao = "", string $condicao = "=", string $ta
             })
             ->paragrafo('Agora que temos todos o métodos listados, vamos a alguns exemplos:')
             ->codigo('
-protected string $_tabela = TABELA_EXEMPLO;
+protected string $ormTabela = TABELA_EXEMPLO;
 ...
 $this
     ->where(["status", 1])
@@ -442,7 +442,7 @@ $this
             ')
             ->paragrafo('Agora, vamos criar uma busca com ordem e limite:')
             ->codigo('
-protected string $_tabela = TABELA_EXEMPLO;
+protected string $ormTabela = TABELA_EXEMPLO;
 ...
 $this
     ->where(["status", 1])
@@ -455,7 +455,7 @@ $this
             ')
             ->paragrafo('A próxima, será feita com paginação, para isso, deixa-se de usar limit() e usa pagina()')
             ->codigo('
-protected string $_tabela = TABELA_EXEMPLO;
+protected string $ormTabela = TABELA_EXEMPLO;
 ...
 $this
     ->where(["status", 1])
@@ -485,7 +485,7 @@ $this
             ')
             ->paragrafo('Agora vamos para as partes mais difíceis de entender, vamos fazer alguns exemplos de JOIN')
             ->codigo('
-protected string $_tabela = TABELA_UM;
+protected string $ormTabela = TABELA_UM;
 ...
 $this
     ->campo(["campo_1", "campo_2"])
@@ -517,7 +517,7 @@ DELETE FROM `NOME_DA_TABELA` WHERE `id` = 1;
             ->codigo('
 <?php
 ...
-protected string $_tabela = TABELA_USUARIO_CLIENTE;
+protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 ...
 public function deletarUsuario(int $id)
 {

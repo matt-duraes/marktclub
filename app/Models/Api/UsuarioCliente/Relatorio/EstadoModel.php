@@ -7,7 +7,7 @@ use Helpers\ListaHelper;
 
 final class EstadoModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private int $idEmpresa;
     public function __construct()
@@ -37,7 +37,7 @@ final class EstadoModel extends ORM
             ->order('uf', 'ASC')
             ->read();
 
-        $listaUf = (new ListaHelper)->uf()->r();
+        $listaUf = (new ListaHelper())->uf()->r();
 
         $relatorio = [];
         $relatorio['outro'] = [
@@ -66,7 +66,7 @@ final class EstadoModel extends ORM
                 ];
                 $total += $r->ativo + $r->inativo;
                 continue;
-            } else if (!in_array($r->uf, $listaUf)) {
+            } elseif (!in_array($r->uf, $listaUf)) {
                 continue;
             }
             $total += $r->total;

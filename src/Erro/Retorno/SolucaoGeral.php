@@ -4,10 +4,15 @@ namespace Erro\Retorno;
 
 abstract class SolucaoGeral
 {
+    protected array $retorno;
     protected function pegarSolucaoGeral($mensagem): array
     {
         $retorno = $this->retorno;
-        if (is_array($retorno) && isset($retorno['sugestao'], $retorno['sugestao']['titulo']) && !empty($retorno['sugestao']['titulo'])) {
+        if (
+            is_array($retorno) &&
+            isset($retorno['sugestao'], $retorno['sugestao']['titulo']) &&
+            !empty($retorno['sugestao']['titulo'])
+        ) {
             $sugestao = $retorno['sugestao'];
             return [
                 'titulo' => $sugestao['titulo'],
@@ -22,11 +27,14 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'A propriedade ' . $propriedade . ' não foi definida.',
-                'texto' => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>' . $classe . '</strong> ou foi definida com erro de digitação.',
+                'texto' => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>'
+                    . $classe . '</strong> ou foi definida com erro de digitação.',
                 'lista' => [
                     'O nome <strong>' . $propriedade . '</strong> está digitado de maneira incorreta.',
-                    'A propriedade <strong>' . $propriedade . '</strong> está digitada de maneira incorreta na classe <strong>' . $classe . '</strong>.',
-                    'Você não definiu a propriedade <strong>' . $propriedade . '</strong> na classe <strong>' . $classe . '</strong>.'
+                    'A propriedade <strong>' . $propriedade
+                        . '</strong> está digitada de maneira incorreta na classe <strong>' . $classe . '</strong>.',
+                    'Você não definiu a propriedade <strong>' . $propriedade
+                        . '</strong> na classe <strong>' . $classe . '</strong>.'
                 ]
             ];
         } elseif (preg_match('/^Undefined variable \$/', $mensagem)) {
@@ -54,11 +62,14 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'A propriedade ' . $propriedade . ' não foi definida.',
-                'texto' => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>' . $classe . '</strong> ou foi definida com erro de digitação.',
+                'texto' => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>'
+                    . $classe . '</strong> ou foi definida com erro de digitação.',
                 'lista' => [
                     'O nome <strong>' . $propriedade . '</strong> está digitado de maneira incorreta.',
-                    'A propriedade <strong>' . $propriedade . '</strong> está digitada de maneira incorreta na classe <strong>' . $classe . '</strong>.',
-                    'Você não definiu a propriedade <strong>' . $propriedade . '</strong> na classe <strong>' . $classe . '</strong>.'
+                    'A propriedade <strong>' . $propriedade
+                        . '</strong> está digitada de maneira incorreta na classe <strong>' . $classe . '</strong>.',
+                    'Você não definiu a propriedade <strong>' . $propriedade . '</strong> na classe <strong>'
+                        . $classe . '</strong>.'
                 ]
             ];
         } elseif (preg_match('/^preg_match\(\)\: Compilation failed\: /', $mensagem)) {
@@ -66,7 +77,12 @@ abstract class SolucaoGeral
                 'titulo' => 'Falha na função preg_match.',
                 'texto' => 'Existe um erro na expressão regular da sua função preg_match.'
             ];
-        } elseif (preg_match('/^Call to undefined function [a-zA-Z0-9\_\\\]\\\view\(\)$/', $mensagem) || $mensagem == 'Call to undefined function view()') {
+        } elseif (
+            preg_match(
+                '/^Call to undefined function [a-zA-Z0-9\_\\\]\\\view\(\)$/',
+                $mensagem
+            ) || $mensagem == 'Call to undefined function view()'
+        ) {
             return [
                 'titulo' => 'Função view não encontrada.',
                 'texto' => 'Você tentou chamar a função view mas ela não foi encontrada.',
@@ -75,7 +91,12 @@ abstract class SolucaoGeral
                     'Verifique se você estendeu o <strong>\Controller\Controller</strong> a sua controller.',
                 ]
             ];
-        } elseif (preg_match('/^Call to undefined function [a-zA-Z0-9\_\\\]\\\html\(\)$/', $mensagem) || $mensagem == 'Call to undefined function html()') {
+        } elseif (
+            preg_match(
+                '/^Call to undefined function [a-zA-Z0-9\_\\\]\\\html\(\)$/',
+                $mensagem
+            ) || $mensagem == 'Call to undefined function html()'
+        ) {
             return [
                 'titulo' => 'Função html não encontrada.',
                 'texto' => 'Você tentou chamar a função html mas ela não foi encontrada.',
@@ -109,14 +130,21 @@ abstract class SolucaoGeral
                 'titulo' => 'A classe ' . $classe . ' não foi encontrada.',
                 'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
                 'lista' => [
-                    'Você não colocou ou colocou errado o "<strong>use</strong>" da classe <strong>' . $classe . '</strong>.',
-                    'Você não colocou ou colocou errado o "<strong>namespace</strong>" da classe <strong>' . $classe . '</strong>.',
+                    'Você não colocou ou colocou errado o "<strong>use</strong>" da classe <strong>'
+                        . $classe . '</strong>.',
+                    'Você não colocou ou colocou errado o "<strong>namespace</strong>" da classe <strong>'
+                        . $classe . '</strong>.',
                     'Você digitou errado o nome da classe <strong>' . $classe . '</strong>.',
                     'Você mudou a classe de diretório e esqueceu de mudar seu "<strong>namespace</strong>".',
                     'Você não criou a classe <strong>' . $classe . '</strong>.'
                 ]
             ];
-        } elseif (preg_match('/^Call to undefined method /', $mensagem) && preg_match('/[a-zA-Z0-9\_]+::[a-zA-Z0-9\_]+/', $mensagem)) {
+        } elseif (
+            preg_match(
+                '/^Call to undefined method /',
+                $mensagem
+            ) && preg_match('/[a-zA-Z0-9\_]+::[a-zA-Z0-9\_]+/', $mensagem)
+        ) {
             $explode = explode(' ', $mensagem);
             $explode = explode('::', end($explode));
             $classe = $explode[0];
@@ -128,7 +156,8 @@ abstract class SolucaoGeral
                 'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
                 'lista' => [
                     'Você digitou o nome errado do método.',
-                    'Você não criou o método "<strong>' . $metodo . '</strong>" na classe "<strong>' . $classe . '</strong>".'
+                    'Você não criou o método "<strong>' . $metodo . '</strong>" na classe "<strong>'
+                        . $classe . '</strong>".'
                 ]
             ];
         } elseif (preg_match('/^Call to private method /', $mensagem)) {
@@ -143,7 +172,8 @@ abstract class SolucaoGeral
                 'texto' => 'Métodos privados não podem ser acessador de outro local a não ser a própria classe "<strong>' . $classe . '</strong>".',
                 'lista' => [
                     'Tente mudar a visibilidade do método.',
-                    'Mude a sua regra de negócios para chamar o conteúdo do método "<strong>' . $metodo . '</strong>" de outra forma.'
+                    'Mude a sua regra de negócios para chamar o conteúdo do método "<strong>'
+                        . $metodo . '</strong>" de outra forma.'
                 ]
             ];
         } elseif (preg_match('/^Call to protected method /', $mensagem)) {
@@ -155,10 +185,12 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Sem permissão para acessar o método ' . $metodo . ' na classe ' . $classe . '.',
-                'texto' => 'Métodos protegidos não podem ser acessador de outro local a não ser a própria classe ou de classes herdadas.',
+                'texto' => 'Métodos protegidos não podem ser acessador de outro local a não
+                    ser a própria classe ou de classes herdadas.',
                 'lista' => [
                     'Tente mudar a visibilidade do método.',
-                    'Mude a sua regra de negócios para chamar o conteúdo do método "<strong>' . $metodo . '</strong>" de outra forma.'
+                    'Mude a sua regra de negócios para chamar o conteúdo do método "<strong>'
+                        . $metodo . '</strong>" de outra forma.'
                 ]
             ];
         } elseif (preg_match('/^Cannot access private property /', $mensagem)) {
@@ -172,7 +204,8 @@ abstract class SolucaoGeral
                 'texto' => 'Propriedades privadas não podem ser acessador de outro local a não ser a própria classe.',
                 'lista' => [
                     'Tente mudar a visibilidade da propriedade.',
-                    'Mude a sua regra de negócios para chamar o conteúdo da propriedade "<strong>' . $propriedade . '</strong>" de outra forma.'
+                    'Mude a sua regra de negócios para chamar o conteúdo da propriedade "<strong>'
+                        . $propriedade . '</strong>" de outra forma.'
                 ]
             ];
         } elseif (preg_match('/^Cannot access protected property /', $mensagem)) {
@@ -186,17 +219,14 @@ abstract class SolucaoGeral
                 'texto' => 'Propriedades protegidas não podem ser acessador de outro local a não ser a própria classe ou de classes herdadas.',
                 'lista' => [
                     'Tente mudar a visibilidade da propriedade.',
-                    'Mude a sua regra de negócios para chamar o conteúdo da propriedade "<strong>' . $propriedade . '</strong>" de outra forma.'
+                    'Mude a sua regra de negócios para chamar o conteúdo da propriedade "<strong>'
+                        . $propriedade . '</strong>" de outra forma.'
                 ]
             ];
         } elseif (preg_match('/^syntax error, unexpected token/', $mensagem)) {
             return [
                 'titulo' => 'Erro de sintaxe.',
-                'texto' => 'Existe um erro de sintaxe no código, as vezes, esse erro
-                acontece em <strong>linhas anteriores</strong> a informada pelo sistema,
-                procure por erros como falta de ";" (ponto e virgula), string, funções ou métodos
-                aberto mas não fechados entre outros erros de digitação tanto na linha informada
-                como nas anteriores.',
+                'texto' => 'Existe um erro de sintaxe no código, as vezes, esse erro acontece em <strong>linhas anteriores</strong> a informada pelo sistema, procure por erros como falta de ";" (ponto e virgula), string, funções ou métodos aberto mas não fechados entre outros erros de digitação tanto na linha informada como nas anteriores.',
             ];
         } elseif (preg_match('/^Too few arguments to function/', $mensagem)) {
             return [

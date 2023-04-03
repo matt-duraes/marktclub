@@ -8,13 +8,13 @@ use Modules\Telefone;
 
 final class ConstrutorEntity extends Entity
 {
-    protected string $_tabela = TABELA_CONSTRUTOR_NOVO;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_CONSTRUTOR_NOVO;
+    protected array $ormBuscar = [
         'id_admin_empresa' => 'empresa',
         'link_clube' => 'link_site',
         'logo', 'titulo', 'cor', 'classe_login', 'contato_telefone', 'contato_email', 'contato_whatsapp'
     ];
-    protected array $_retornoPadrao = ['id', 'link_logo', 'link_logo_marktclub'];
+    protected array $ormRetornoPadrao = ['id', 'link_logo', 'link_logo_marktclub'];
 
     public string $titulo;
     public string $link_clube;

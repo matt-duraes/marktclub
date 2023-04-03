@@ -74,9 +74,9 @@ trait EmailTrait
     {
         if ($this->email_pessoal->valido()) {
             return $this->email_pessoal->email();
-        } else if ($this->email_trabalho->valido()) {
+        } elseif ($this->email_trabalho->valido()) {
             return $this->email_trabalho->email();
-        } else if ($this->email_funcional->valido()) {
+        } elseif ($this->email_funcional->valido()) {
             return $this->email_funcional->email();
         }
     }

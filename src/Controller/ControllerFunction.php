@@ -8,13 +8,19 @@
 | Retorna uma view do sistema
 |
 */
+
+use Erro\Excecao;
+use Http\Response;
+
 if (!function_exists('view')) {
     /**
-     * @param string    $arquivo        Arquivo Html
-     * @param array     $var            Lista de variáveis a ser passada para a view
-     * @param string    $header         Lista de header para ser incorporado
-     * @param string    $css            Arquivo CSS para incorporar
-     * @param string    $js             Arquivo JS para incorporar
+     * @param  string       $arquivo  Arquivo Html
+     * @param  array        $var      Lista de variáveis a ser passada para a view
+     * @param  array        $header   Lista de header para ser incorporado
+     * @param  string|null  $css      Arquivo CSS para incorporar
+     * @param  string|null  $js       Arquivo JS para incorporar
+     * @return Response
+     * @throws Excecao
      */
     function view(
         string $arquivo,
@@ -22,7 +28,7 @@ if (!function_exists('view')) {
         array $header = [],
         ?string $css = null,
         ?string $js = null
-    ): \Http\Response {
+    ): Response {
         $DIR_VIEW = ROOT . '/files/build/views/';
 
         $listaController = [];
@@ -46,7 +52,7 @@ if (!function_exists('view')) {
         }
         $target = $DIR_VIEW . $view . '.php';
         if (!file_exists($target)) {
-            throw new \Erro\Excecao(status: 404);
+            throw new Excecao(status: 404);
         }
 
         $jsCssNome = str_replace('/', '_', $view);
@@ -57,7 +63,7 @@ if (!function_exists('view')) {
         $listaCss = '';
         if (!empty($css)) {
             $listaCss = LINK_PADRAO . '/css/' . preg_replace('/\.css$/', '', $css) . '.css' . $cache;
-        } else if (file_exists(ROOT . '/' . $public . '/css/' . $jsCssNome . '.css')) {
+        } elseif (file_exists(ROOT . '/' . $public . '/css/' . $jsCssNome . '.css')) {
             $listaCss = LINK_PADRAO . '/css/' . $jsCssNome . '.css' . $cache;
         } else {
             $listaCss = verificarSeExisteScriptDoTemplate($arquivo, 'css');
@@ -65,7 +71,7 @@ if (!function_exists('view')) {
         $listaJs = '';
         if (!empty($js)) {
             $listaJs = LINK_PADRAO . '/js/' . preg_replace('/\.js$/', '', $js) . '.js' . $cache;
-        } else if (file_exists(ROOT . '/' . $public . '/js/' . $jsCssNome . '.js')) {
+        } elseif (file_exists(ROOT . '/' . $public . '/js/' . $jsCssNome . '.js')) {
             $listaJs = LINK_PADRAO . '/js/' . $jsCssNome . '.js' . $cache;
         } else {
             $listaJs = verificarSeExisteScriptDoTemplate($arquivo, 'js');
@@ -75,7 +81,12 @@ if (!function_exists('view')) {
 }
 
 if (!function_exists('verificarSeExisteScriptDoTemplate')) {
-    function verificarSeExisteScriptDoTemplate($target, $tipo)
+    /**
+     * @param $target
+     * @param $tipo
+     * @return string
+     */
+    function verificarSeExisteScriptDoTemplate($target, $tipo): string
     {
         $cache = defined('CACHE') && !empty(CACHE) ? '?cache=' . CACHE : '';
 
@@ -106,7 +117,15 @@ if (!function_exists('verificarSeExisteScriptDoTemplate')) {
 }
 
 if (!function_exists('converterHtml')) {
-    function converterHtml($target, $css, $js, $var, $header): \Http\Response
+    /**
+     * @param $target
+     * @param $css
+     * @param $js
+     * @param $var
+     * @param $header
+     * @return Response
+     */
+    function converterHtml($target, $css, $js, $var, $header): Response
     {
         $listaCss = '';
         if ($css) {
@@ -120,7 +139,11 @@ if (!function_exists('converterHtml')) {
 
         $conteudoHtml = file_get_contents($target);
 
-        $comentario = !preg_match('/ppe\(/', $conteudoHtml) && !preg_match('/vde\(/', $conteudoHtml) && !preg_match('/exit\(/', $conteudoHtml);
+        $comentario = !preg_match('/ppe\(/', $conteudoHtml) &&
+            !preg_match('/vde\(/', $conteudoHtml) && !preg_match(
+                '/exit\(/',
+                $conteudoHtml
+            );
         try {
             ob_start();
             if ($comentario) {
@@ -134,14 +157,14 @@ if (!function_exists('converterHtml')) {
             if (preg_match('/^\<\!\-\-LIMPAR\_AO\_RENDERIZAR/', $html)) {
                 $html = preg_replace('/^\<\!\-\-LIMPAR\_AO\_RENDERIZAR/', '', $html);
             }
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             if ($comentario) {
                 echo '-->';
             }
             exceptionHandler($th);
         }
 
-        return new \Http\Response(body: trim($html), header: $header);
+        return new Response(body: trim($html), header: $header);
     }
 }
 /*
@@ -156,10 +179,11 @@ if (!function_exists('converterHtml')) {
 */
 if (!function_exists('html')) {
     /**
-     * @param String    $arquivo        Arquivo Html
-     * @param Array     $var            Lista de variáveis a ser passada para a view
+     * @param  string  $arquivo  Arquivo Html
+     * @param  array   $var      Lista de variáveis a ser passada para a view
+     * @throws Excecao
      */
-    function html($arquivo, $var = [])
+    function html(string $arquivo, array $var = []): mixed
     {
         $DIR_VIEW = ROOT . '/files/build/views/';
 
@@ -184,7 +208,7 @@ if (!function_exists('html')) {
         }
         $target = $DIR_VIEW . $view . '.php';
         if (!file_exists($target)) {
-            throw new \Erro\Excecao(status: 404);
+            throw new Excecao(status: 404);
         }
 
         $listaCss = '';
@@ -193,7 +217,12 @@ if (!function_exists('html')) {
         $conteudoHtml = file_get_contents($target);
 
         ob_start();
-        if (!preg_match('/ppe\(/', $conteudoHtml) && !preg_match('/vde\(/', $conteudoHtml) && !preg_match('/exit\(/', $conteudoHtml)) {
+        if (
+            !preg_match('/ppe\(/', $conteudoHtml) && !preg_match('/vde\(/', $conteudoHtml) && !preg_match(
+                '/exit\(/',
+                $conteudoHtml
+            )
+        ) {
             echo '<!--LIMPAR_AO_RENDERIZAR';
         }
         if (is_array($var) && count($var) > 0) {

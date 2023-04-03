@@ -36,7 +36,10 @@ trait UsuarioTrait
             'status' => 1
         ];
 
-        if (array_key_exists('email_pessoal', $this->dadoUsuario) || array_key_exists('email_trabalho', $this->dadoUsuario)) {
+        if (
+            array_key_exists('email_pessoal', $this->dadoUsuario) ||
+            array_key_exists('email_trabalho', $this->dadoUsuario)
+        ) {
             $dado['data_email'] = $hoje;
         }
         if ($this->statusUsuario != 1) {
@@ -69,7 +72,10 @@ trait UsuarioTrait
             'status' => 1
         ];
 
-        if (array_key_exists('email_pessoal', $this->dadoUsuario) || array_key_exists('email_trabalho', $this->dadoUsuario)) {
+        if (
+            array_key_exists('email_pessoal', $this->dadoUsuario) ||
+            array_key_exists('email_trabalho', $this->dadoUsuario)
+        ) {
             $dado['data_email'] = $hoje;
         }
         if (array_key_exists('documento', $this->dadoUsuario)) {

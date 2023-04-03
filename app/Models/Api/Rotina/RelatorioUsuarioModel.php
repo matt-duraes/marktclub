@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class RelatorioUsuarioModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private array $lista;
     private array $analytics;
@@ -44,10 +44,10 @@ final class RelatorioUsuarioModel extends ORM
             if ($r->status == 1) {
                 $lista[$empresa]['status_ativo']++;
                 $status = 'ativo';
-            } else if ($r->status == 2) {
+            } elseif ($r->status == 2) {
                 $lista[$empresa]['status_inativo']++;
                 $status = 'inativo';
-            } else if ($r->status == 3) {
+            } elseif ($r->status == 3) {
                 $lista[$empresa]['status_bloqueado']++;
                 $status = 'bloqueado';
             }
@@ -55,13 +55,13 @@ final class RelatorioUsuarioModel extends ORM
             // Estado Civil
             if ($r->estado_civil == 1) {
                 $lista[$empresa]['estado_civil_solteiro']++;
-            } else if ($r->estado_civil == 2) {
+            } elseif ($r->estado_civil == 2) {
                 $lista[$empresa]['estado_civil_casado']++;
-            } else if ($r->estado_civil == 3) {
+            } elseif ($r->estado_civil == 3) {
                 $lista[$empresa]['estado_civil_divorciado']++;
-            } else if ($r->estado_civil == 4) {
+            } elseif ($r->estado_civil == 4) {
                 $lista[$empresa]['estado_civil_viuvo']++;
-            } else if ($r->estado_civil == 5) {
+            } elseif ($r->estado_civil == 5) {
                 $lista[$empresa]['estado_civil_separado']++;
             } else {
                 $lista[$empresa]['estado_civil_sem_dado']++;
@@ -70,11 +70,11 @@ final class RelatorioUsuarioModel extends ORM
             // Genero
             if ($r->estado_civil == 1) {
                 $lista[$empresa]['genero_masculino']++;
-            } else if ($r->estado_civil == 2) {
+            } elseif ($r->estado_civil == 2) {
                 $lista[$empresa]['genero_feminino']++;
-            } else if ($r->estado_civil == 3) {
+            } elseif ($r->estado_civil == 3) {
                 $lista[$empresa]['genero_outro']++;
-            } else if ($r->estado_civil == 4) {
+            } elseif ($r->estado_civil == 4) {
                 $lista[$empresa]['genero_nao_informado']++;
             } else {
                 $lista[$empresa]['genero_sem_dado']++;
@@ -84,13 +84,13 @@ final class RelatorioUsuarioModel extends ORM
             $diaDiferenca = dataDiferencaDia(empty($r->data_dado) ? $r->data_criacao : $r->data_dado, hoje());
             if ($diaDiferenca <= 90) {
                 $lista[$empresa]['dado_3_meses']++;
-            } else if ($diaDiferenca <= 180) {
+            } elseif ($diaDiferenca <= 180) {
                 $lista[$empresa]['dado_6_meses']++;
-            } else if ($diaDiferenca <= 270) {
+            } elseif ($diaDiferenca <= 270) {
                 $lista[$empresa]['dado_9_meses']++;
-            } else if ($diaDiferenca <= 365) {
+            } elseif ($diaDiferenca <= 365) {
                 $lista[$empresa]['dado_12_meses']++;
-            } else if ($diaDiferenca > 365) {
+            } elseif ($diaDiferenca > 365) {
                 $lista[$empresa]['dado_1_ano']++;
             }
 
@@ -98,30 +98,30 @@ final class RelatorioUsuarioModel extends ORM
             $idade = !empty($r->aniversario) ? dataIdade($r->aniversario) : false;
             if (false === $idade) {
                 $lista[$empresa]['idade_sem_dado']++;
-            } else if ($idade <= 20) {
+            } elseif ($idade <= 20) {
                 $lista[$empresa]['idade_ate_20']++;
-            } else if ($idade <= 30) {
+            } elseif ($idade <= 30) {
                 $lista[$empresa]['idade_ate_30']++;
-            } else if ($idade <= 40) {
+            } elseif ($idade <= 40) {
                 $lista[$empresa]['idade_ate_40']++;
-            } else if ($idade <= 50) {
+            } elseif ($idade <= 50) {
                 $lista[$empresa]['idade_ate_50']++;
-            } else if ($idade <= 60) {
+            } elseif ($idade <= 60) {
                 $lista[$empresa]['idade_ate_60']++;
-            } else if ($idade > 60) {
+            } elseif ($idade > 60) {
                 $lista[$empresa]['idade_mais_60']++;
             }
 
             // Situação
             if ($r->situacao == 1) {
                 $lista[$empresa]['situacao_ativo']++;
-            } else if ($r->situacao == 2) {
+            } elseif ($r->situacao == 2) {
                 $lista[$empresa]['situacao_aposentado']++;
-            } else if ($r->situacao == 3) {
+            } elseif ($r->situacao == 3) {
                 $lista[$empresa]['situacao_pensionista']++;
-            } else if ($r->situacao == 4) {
+            } elseif ($r->situacao == 4) {
                 $lista[$empresa]['situacao_cedido']++;
-            } else if ($r->situacao == 5) {
+            } elseif ($r->situacao == 5) {
                 $lista[$empresa]['situacao_excedente']++;
             } else {
                 $lista[$empresa]['situacao_sem_dado']++;

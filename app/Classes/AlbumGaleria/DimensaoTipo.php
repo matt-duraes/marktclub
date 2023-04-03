@@ -6,10 +6,10 @@ use Status\Status as StatusStatus;
 
 final class DimensaoTipo extends StatusStatus
 {
-    const NOME = 'real';
-    const FIXO = 'fixo';
-    const LARGURA = 'largura';
-    const ALTURA = 'altura';
+    public const NOME = 'real';
+    public const FIXO = 'fixo';
+    public const LARGURA = 'largura';
+    public const ALTURA = 'altura';
     public function __construct(
         protected null|string|int $valor = null
     ) {

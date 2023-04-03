@@ -2,11 +2,13 @@
 
 namespace ApiModel\PainelNotificacao;
 
+use Erro\Excecao;
 use ORM\ORM;
+use Throwable;
 
 final class VisualizarTodasModel extends ORM
 {
-    protected string $_tabela = TABELA_PAINEL_NOTIFICACAO;
+    protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
 
     private int $idUsuario;
     private array $lista;
@@ -16,7 +18,7 @@ final class VisualizarTodasModel extends ORM
         parent::__construct();
         try {
             $this->idUsuario = TOKEN['usuario']->get('id');
-        } catch (\Throwable) {
+        } catch (Throwable) {
             mensagemStatus(404);
         }
     }
@@ -27,6 +29,9 @@ final class VisualizarTodasModel extends ORM
         $this->atualizarStatus();
     }
 
+    /**
+     * @throws Excecao
+     */
     private function pegarLista()
     {
         $this->lista = $this
@@ -36,6 +41,10 @@ final class VisualizarTodasModel extends ORM
                 ['status', 'in', [1, 2]]
             ])->read();
     }
+
+    /**
+     * @throws Excecao
+     */
     private function atualizarStatus()
     {
         foreach ($this->lista as $r) {

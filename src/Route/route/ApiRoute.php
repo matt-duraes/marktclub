@@ -134,3 +134,14 @@ Route
             ::request(['status'])
             ::put('/log-erro/{id}');
     });
+
+Route
+    ::nome('endereco')
+    ::controller(\ApiController\EnderecoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::request(['tabela', 'local', 'vinculo', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'], 'json')
+            ::get('/endereco');
+    });

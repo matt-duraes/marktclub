@@ -11,9 +11,10 @@ if (!function_exists('exiteErro')) {
     /**
      * Verifica se o valor não contem os campos indicados ou se o status é de erro
      *
-     * @param stdClass|array    $valor  Valor a ser conferido
-     * @param array|string      $Campo  Campo para validar se existe, pode ser uma string "campo" ou uma lista em um array ["campo_1", "campo_2"]
-     * @return  bool        Retorna true caso o valor seja válido                     Caso tenha algum erro retorna true
+     * @param   stdClass|array  $valor  Valor a ser conferido
+     * @param   array|string    $Campo  Campo para validar se existe, pode ser uma string "campo"
+     *                                  ou uma lista em um array ["campo_1", "campo_2"]
+     * @return  bool                    Retorna true caso o valor seja válido, Caso tenha algum erro retorna true
      */
     function existeErro(stdClass|array $valor, string|array $campo = ''): bool
     {
@@ -65,7 +66,7 @@ if (!function_exists('ValidarTelefone')) {
     function ValidarTelefone(?string $telefone): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($telefone)->vazio()->telefone();
+            (new \Helpers\ValidarHelper())->valor($telefone)->vazio()->telefone();
             return true;
         } catch (\Throwable) {
             return false;
@@ -88,7 +89,7 @@ if (!function_exists('validarEmail')) {
     function validarEmail(?string $email): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($email)->vazio()->email();
+            (new \Helpers\ValidarHelper())->valor($email)->vazio()->email();
             return true;
         } catch (\Throwable) {
             return false;
@@ -106,7 +107,7 @@ if (!function_exists('validarJson')) {
     function validarJson(?string $json): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($json)->vazio()->json();
+            (new \Helpers\ValidarHelper())->valor($json)->vazio()->json();
             return true;
         } catch (\Throwable) {
             return false;
@@ -124,7 +125,7 @@ if (!function_exists('validarUrl')) {
     function validarUrl(?string $url): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($url)->vazio()->url();
+            (new \Helpers\ValidarHelper())->valor($url)->vazio()->url();
             return true;
         } catch (\Throwable) {
             return false;
@@ -147,7 +148,7 @@ if (!function_exists('validarDecimal')) {
     function validarDecimal(?string $decimal): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($decimal)->vazio()->decimal();
+            (new \Helpers\ValidarHelper())->valor($decimal)->vazio()->decimal();
             return true;
         } catch (\Throwable) {
             return false;
@@ -179,7 +180,7 @@ if (!function_exists('validarDate')) {
     function validarDate(null|string|\Modules\Data $data): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($data)->vazio()->date();
+            (new \Helpers\ValidarHelper())->valor($data)->vazio()->date();
             return true;
         } catch (\Throwable) {
             return false;
@@ -206,7 +207,7 @@ if (!function_exists('validarData')) {
     function validarData(null|string|\Modules\Data $data): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($data)->vazio()->data();
+            (new \Helpers\ValidarHelper())->valor($data)->vazio()->data();
             return true;
         } catch (\Throwable) {
             return false;
@@ -233,7 +234,7 @@ if (!function_exists('validarDataDate')) {
     function validarDataDate(null|string|\Modules\Data $data): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($data)->vazio()->dataDate();
+            (new \Helpers\ValidarHelper())->valor($data)->vazio()->dataDate();
             return true;
         } catch (\Throwable) {
             return false;
@@ -260,7 +261,7 @@ if (!function_exists('validarDateTime')) {
     function validarDateTime(null|string|\Modules\DataHora $data): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($data)->vazio()->dateTime();
+            (new \Helpers\ValidarHelper())->valor($data)->vazio()->dateTime();
             return true;
         } catch (\Throwable) {
             return false;
@@ -287,7 +288,7 @@ if (!function_exists('validarDataHora')) {
     function validarDataHora(null|string|\Modules\DataHora $data): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($data)->vazio()->dataHora();
+            (new \Helpers\ValidarHelper())->valor($data)->vazio()->dataHora();
             return true;
         } catch (\Throwable) {
             return false;
@@ -313,7 +314,7 @@ if (!function_exists('validarDataDateTime')) {
     function validarDataDateTime(null|string|\Modules\DataHora $data): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($data)->vazio()->dataDateTime();
+            (new \Helpers\ValidarHelper())->valor($data)->vazio()->dataDateTime();
             return true;
         } catch (\Throwable) {
             return false;
@@ -335,7 +336,7 @@ if (!function_exists('validarCpf')) {
     function validarCpf(?string $cpf): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($cpf)->vazio()->cpf();
+            (new \Helpers\ValidarHelper())->valor($cpf)->vazio()->cpf();
             return true;
         } catch (\Throwable) {
             return false;
@@ -357,7 +358,7 @@ if (!function_exists('validarCnpj')) {
     function validarCnpj(?string $cnpj): bool
     {
         try {
-            (new \Helpers\ValidarHelper)->valor($cnpj)->vazio()->cnpj();
+            (new \Helpers\ValidarHelper())->valor($cnpj)->vazio()->cnpj();
             return true;
         } catch (\Throwable) {
             return false;
@@ -386,7 +387,7 @@ if (!function_exists('validarUuid')) {
 
         if (!$erro) {
             return $uuidValido;
-        } else if (!$uuidValido) {
+        } elseif (!$uuidValido) {
             mensagemStatus(404);
         }
 
@@ -426,7 +427,7 @@ if (!function_exists('validarUf')) {
         if (empty($uf)) {
             return false;
         }
-        $lista = (new ListaHelper)->uf()->r();
+        $lista = (new ListaHelper())->uf()->r();
         return in_array($uf, $lista);
     }
 }
@@ -435,12 +436,14 @@ if (!function_exists('respostaJson')) {
     /**
      * Valida se o resposta contém erro
      *
-     * @param   array|object|ApiHelper  $resposta   Resposta que será validada
-     * @param   string                  $mensagem   Mensagem que deseja usar no caso de erro e não ter a mensagem na resposta
-     * @param   null|string             $titulo     Título que deseja usar no caso de erro e não ter a mensagem na resposta
-     * @param   int                     $status     Status que deseja retornar no caso de erro
+     * @param   array|object|ApiHelper  $resposta  Resposta que será validada
+     * @param   string                  $mensagem  Mensagem que deseja usar no caso de erro e não
+     *                                             ter a mensagem na resposta
+     * @param   null|string             $titulo    Título que deseja usar no caso de erro e não
+     *                                             ter a mensagem na resposta
+     * @param   int                     $status    Status que deseja retornar no caso de erro
      * @return  void
-     * @throws  Erro\Excecao                        Retonar um Erro\Exececao a resposta contenha um erro
+     * @throws  Erro\Excecao                       Retonar um Erro\Exececao a resposta contenha um erro
      */
     function respostaJson(
         array|stdClass|ApiHelper $resposta,

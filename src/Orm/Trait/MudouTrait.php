@@ -21,28 +21,28 @@ trait MudouTrait
     private function ormVerificarSePropriedadeMudou(string $propriedade)
     {
         $valorNovo = $this->ormPegarValorPropriedade($propriedade);
-        $acao = empty($this->_entityId) ? 'insert' : 'update';
+        $acao = empty($this->ormEntityId) ? 'insert' : 'update';
         if ($acao == 'insert') {
             return !empty($valorNovo);
         }
 
-        $listaAlias = $this->_listaAliasReal;
+        $listaAlias = $this->ormListaAliasReal;
         $propriedadeReal = $listaAlias[$propriedade] ?? '';
         if (empty($propriedadeReal)) {
             return !empty($valorNovo);
         }
 
-        $dadoAtual = $this->_entityRetorno;
+        $dadoAtual = $this->ormEntityRetorno;
         $valorAtual = $dadoAtual[$propriedadeReal] ?? '';
         return !is_null($valorNovo) && $valorAtual != $valorNovo;
     }
 
     private function ormVerificarSeEntityMudou()
     {
-        if (!$this->_listaSet) {
+        if (!$this->ormListaSet) {
             throw new Erro(mensagem: 'Não existe uma lista para verificar se a Entity foi alterada.');
         }
-        foreach ($this->_listaSet as $val) {
+        foreach ($this->ormListaSet as $val) {
             if (!property_exists($this, $val) || is_null($this->$val)) {
                 continue;
             }

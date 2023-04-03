@@ -6,9 +6,9 @@ use Status\Status;
 
 final class TipoUsuario extends Status
 {
-    const TITULAR = 'titular';
-    const DEPENDENTE = 'dependente';
-    const SUPER = 'super';
+    public const TITULAR = 'titular';
+    public const DEPENDENTE = 'dependente';
+    public const SUPER = 'super';
 
     public function __construct(
         protected null|string|int $valor = null

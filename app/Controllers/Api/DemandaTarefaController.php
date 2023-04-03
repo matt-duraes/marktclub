@@ -45,7 +45,7 @@ final class DemandaTarefaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Tarefa = new TarefaEntity();
-        $Tarefa->id($id);
+        $Tarefa->uuid($id);
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Tarefa, lista: ['id', 'titulo', 'texto', 'tipo', 'minuto_producao_estimada'])
         );
@@ -59,7 +59,7 @@ final class DemandaTarefaController extends Controller implements
         }
 
         $Tarefa = new TarefaEntity();
-        $Tarefa->id($id);
+        $Tarefa->uuid($id);
         $Tarefa->set(lista: $dado);
         $Tarefa->salvar();
 
@@ -69,7 +69,7 @@ final class DemandaTarefaController extends Controller implements
     public function deleteDeletar(string $id): Response
     {
         $Tarefa = new TarefaEntity();
-        $Tarefa->id($id);
+        $Tarefa->uuid($id);
         $Tarefa->destruir();
 
         return new Response(status: 204);
@@ -78,7 +78,7 @@ final class DemandaTarefaController extends Controller implements
     public function postLike(string $id)
     {
         $Tarefa = new TarefaEntity();
-        $Tarefa->id($id);
+        $Tarefa->uuid($id);
         $Tarefa->like();
 
         return mensagemSucesso([], 201);
@@ -86,7 +86,7 @@ final class DemandaTarefaController extends Controller implements
     public function postDeslike(Request $request, string $id)
     {
         $Tarefa = new TarefaEntity();
-        $Tarefa->id($id);
+        $Tarefa->uuid($id);
         $Tarefa->deslike($request->motivo);
 
         return mensagemSucesso([], 201);

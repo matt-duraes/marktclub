@@ -53,13 +53,13 @@ use App\Classes\Exemplo\Status;
 
 final class ExemploEntity extends Entity
 {
-    protected string $_tabela = TABELA_EXEMPLO;
+    protected string $ormTabela = TABELA_EXEMPLO;
 
-    protected array $_buscar = ["nome", "data_nascimento", "status", "email", "telefone", "!cpf", "permissao", "data_criacao"];
-    protected array $_insert = ["cpf", "data_nascimento"];
-    protected array $_salvar = ["nome", "status", "email", "telefone", "permissao"];
+    protected array $ormBuscar = ["nome", "data_nascimento", "status", "email", "telefone", "!cpf", "permissao", "data_criacao"];
+    protected array $ormInsert = ["cpf", "data_nascimento"];
+    protected array $ormSalvar = ["nome", "status", "email", "telefone", "permissao"];
 
-    protected string $_validarSalvar = "
+    protected string $ormValidarSalvar = "
         nome|Nome|vazio
         data_nascimento|Data de nascimento|vazio|date
         email|E-mail|vazio|email
@@ -94,7 +94,7 @@ final class ExemploController extends Controller
     public function view(string $id)
     {
         $Exemplo = new ExemploEntity();
-        $Exemplo->id($id);
+        $Exemplo->uuid($id);
 
         return view("exemplo", [
             "id" => $Exemplo->get("id"),
@@ -193,7 +193,7 @@ public function postSalvar(Request $request)
 public function putAtualizar(Request $request, string $id)
 {
     $Exemplo = new ExemploEntity();
-    $Exemplo->id($id);
+    $Exemplo->uuid($id);
 
     $Exemplo->nome = new Nome($request->nome);
     $Exemplo->email = new Nome($request->email);
@@ -213,7 +213,7 @@ public function putAtualizar(Request $request, string $id)
 public function putAtualizar(Request $request, string $id)
 {
     $Exemplo = new ExemploEntity();
-    $Exemplo->id($id);
+    $Exemplo->uuid($id);
     $Exemplo->set(lista: $request->dado());
     $Exemplo->salvar();
 
@@ -232,7 +232,7 @@ public function putAtualizar(Request $request, string $id)
 public function getBuscar(string $id)
 {
     $Exemplo = new ExemploEntity();
-    $Exemplo->id($id);
+    $Exemplo->uuid($id);
 
     return sucesso([
         "id" => $Exemplo->id,
@@ -248,7 +248,7 @@ public function getBuscar(string $id)
 public function deleteDeletar(string $id)
 {
     $Exemplo = new ExemploEntity();
-    $Exemplo->id($id);
+    $Exemplo->uuid($id);
     $Exemplo->destruir();
 
     return new Response(status: 204);

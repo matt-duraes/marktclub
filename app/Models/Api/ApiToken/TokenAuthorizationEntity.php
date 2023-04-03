@@ -3,8 +3,10 @@
 namespace App\Models\Api\ApiToken;
 
 use ORM\Entity;
+use Modules\DataHora;
 use Helpers\JwtHelper;
 use App\Classes\ApiToken\Tipo;
+use App\Classes\StatusGeral\Status;
 use App\Models\Api\ApiApp\AppEntity;
 
 final class TokenAuthorizationEntity extends Entity
@@ -12,15 +14,31 @@ final class TokenAuthorizationEntity extends Entity
     use Trait\ScopeTrait;
     use Trait\RedirectUriTrait;
 
-    protected string $_tabela = TABELA_AUTH_TOKEN;
+    protected string $ormTabela = TABELA_AUTH_TOKEN;
 
-    // protected array $_buscar = [];
-    protected array $_insert = [
+    // protected array $ormBuscar = [];
+    protected array $ormInsert = [
         'id_usuario', 'id_api_app', 'redirect_uri', 'scope_permitido', 'state_cliente', 'authorization_code',
         'access_token', 'grant_type', 'ip', 'sistema_operacional', 'navegador', 'data_ativacao', 'data_vencimento',
         'status', 'refresh_token', 'hash', 'tipo'
     ];
 
+    protected string $id_usuario;
+    protected int $id_api_app;
+    protected string $redirect_uri;
+    protected array $scope_permitido;
+    protected string $state_cliente;
+    protected string $authorization_code;
+    protected string $access_token;
+    protected string $grant_type;
+    protected string $ip;
+    protected string $sistema_operacional;
+    protected string $navegador;
+    protected DataHora $data_ativacao;
+    protected DataHora $data_vencimento;
+    protected string $hash;
+    protected Status $status;
+    protected string $refresh_token;
     protected Tipo $tipo;
 
     public function criarToken(
@@ -34,9 +52,9 @@ final class TokenAuthorizationEntity extends Entity
     ) {
         if (!in_array($redirectUri, $app->redirect_uri)) {
             mensagemErro('Erro!', 'Redirect Uri não está autorizado a criar token.', 403);
-        } else if (empty($audience)) {
+        } elseif (empty($audience)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o audience do app.');
-        } else if (empty($state)) {
+        } elseif (empty($state)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o state do usuário.');
         }
 
@@ -74,10 +92,10 @@ final class TokenAuthorizationEntity extends Entity
         $this->ip = ip();
         $this->sistema_operacional = '';
         $this->navegador = '';
-        $this->data_ativacao = agora();
-        $this->data_vencimento = date('Y-m-d H:i:s', time() + 86400);
+        $this->data_ativacao = new DataHora(agora());
+        $this->data_vencimento = new DataHora(date('Y-m-d H:i:s', time() + 86400));
         $this->hash = uuid();
-        $this->status = 1;
+        $this->status = new Status(Status::ATIVO);
         $this->tipo = $tipo;
         $this->refresh_token = $refreshToken;
         try {

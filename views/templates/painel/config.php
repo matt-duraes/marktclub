@@ -8,7 +8,7 @@ if (!empty($appVoltar) && is_array($appVoltar) && is_string($appVoltar[0])) {
     $appTitulo = '<a href="' . $appVoltar[0] . '">' . strCortar($appVoltar[1], 15, '...', true) .
         '</a><span>/</span>' .
         strCortar(empty($appAcao) ? $appTitulo : $appAcao, 20, '...', true);
-} else if (!empty($appVoltar) && is_array($appVoltar)) {
+} elseif (!empty($appVoltar) && is_array($appVoltar)) {
     $appTituloLista = '';
     foreach ($appVoltar as $appVoltarR) {
         $appTituloLista .= '<a href="' . $appVoltarR[0] . '">' .
@@ -16,7 +16,7 @@ if (!empty($appVoltar) && is_array($appVoltar) && is_string($appVoltar[0])) {
             '</a><span>/</span>';
     }
     $appTitulo = $appTituloLista . strCortar($appTitulo, 15, '...', true);
-} else if (!empty($appAcao) && !empty($appTitulo)) {
+} elseif (!empty($appAcao) && !empty($appTitulo)) {
     $appLink = !empty($config->index->link) ? $config->index->link : LINK . '/app/' . $app;
     $appTitulo = '<a href="' . $appLink . '">' . $appTitulo . '</a><span>/</span>' . $acao;
 }
@@ -41,9 +41,12 @@ try {
             'pagina' => 1,
             'novo' => 'sim'
         ])->get('/painel-notificacao')->object()->dado ?? [];
-    $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel)->tratarRetorno($notificacaoNova->lista ?? []);
+    $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel())
+        ->tratarRetorno($notificacaoNova->lista ?? []);
     $notificacaoNumeroNova = $notificacaoNova->registro->total ?? 0;
-    $notificacaoNumeroNovaVisualizada = $Api->json(['pagina' => 1, 'clicado' => 'nao'])->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
+    $notificacaoNumeroNovaVisualizada = $Api->json(
+        ['pagina' => 1, 'clicado' => 'nao']
+    )->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
 } catch (\Throwable) {
     $notificacaoNova = [];
     $notificacaoNumeroNova = 0;

@@ -6,12 +6,13 @@ use ORM\ORM;
 
 final class AtualizarUsuarioModel extends ORM
 {
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     public function atualizarUsuario(array $dado)
     {
         $cpf = $dado['cpf'];
-        if (!$this->existe([
+        if (
+            !$this->existe([
             ['documento', $cpf],
             [
                 'OR',
@@ -21,7 +22,8 @@ final class AtualizarUsuarioModel extends ORM
                     ['tipo', 3]
                 ]
             ]
-        ])) {
+            ])
+        ) {
             mensagemErro('Erro!', 'Seu Usuário não foi encontrado.');
         }
 

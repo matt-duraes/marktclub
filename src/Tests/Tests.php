@@ -47,7 +47,7 @@ abstract class Tests
     {
         if (empty($dado)) {
             return $dado;
-        } else if (is_string($dado)) {
+        } elseif (is_string($dado)) {
             return $this->Crypt->encode($dado);
         }
         foreach ($dado as $ind => $val) {
@@ -81,10 +81,18 @@ abstract class Tests
     {
         $mensagem = !empty($mensagem) ? ' (' . $mensagem . ')' : '';
         if ($valor == $comparacao) {
-            $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> é igual ao valor comparado <strong>' . $comparacao . '</strong>.' . $mensagem);
+            $this->setarRetorno(
+                true,
+                'O valor <strong>' . $valor . '</strong> é igual ao valor comparado <strong>'
+                    . $comparacao . '</strong>.' . $mensagem
+            );
             return $this;
         }
-        $this->setarRetorno(false, 'O valor <strong>' . $valor . '</strong> é difrente do valor comparado <strong>' . $comparacao . '</strong>.' . $mensagem);
+        $this->setarRetorno(
+            false,
+            'O valor <strong>' . $valor . '</strong> é difrente do valor comparado <strong>'
+                . $comparacao . '</strong>.' . $mensagem
+        );
         return $this;
     }
 
@@ -97,10 +105,17 @@ abstract class Tests
     protected function checkDiferente($valor, $comparacao)
     {
         if ($valor != $comparacao) {
-            $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> é difrente do valor comparado <strong>' . $comparacao . '</strong>.');
+            $this->setarRetorno(
+                true,
+                'O valor <strong>' . $valor . '</strong> é difrente do valor comparado <strong>'
+                    . $comparacao . '</strong>.'
+            );
             return $this;
         }
-        $this->setarRetorno(false, 'O valor <strong>' . $valor . '</strong> é igual ao valor comparado <strong>' . $comparacao . '</strong>.');
+        $this->setarRetorno(
+            false,
+            'O valor <strong>' . $valor . '</strong> é igual ao valor comparado <strong>' . $comparacao . '</strong>.'
+        );
         return $this;
     }
     /**
@@ -156,17 +171,17 @@ abstract class Tests
                     mas foi retornado <strong>' . $checkStatus . '</strong>.
                 '
             );
-        } else if ($checkStatus == $status && !$igual) {
+        } elseif ($checkStatus == $status && !$igual) {
             $this->setarRetorno(
                 false,
                 'Status <strong>' . $texto . '</strong> não poderia ser igual a <strong>' . $status . '</strong>.'
             );
-        } else if ($checkStatus == $status && $igual) {
+        } elseif ($checkStatus == $status && $igual) {
             $this->setarRetorno(
                 true,
                 'Status <strong>' . $texto . '</strong> é igual a <strong>' . $status . '</strong>.'
             );
-        } else if ($checkStatus != $status && !$igual) {
+        } elseif ($checkStatus != $status && !$igual) {
             $this->setarRetorno(
                 true,
                 'Status <strong>' . $texto . '</strong> é diferente de <strong>' . $status . '</strong>.'
@@ -241,7 +256,7 @@ abstract class Tests
                 $erro = true;
                 $this->setarRetorno(false, 'Não existe o índice <strong>' . $ind . '</strong> na resposta.');
                 continue;
-            } else if (!$existe) {
+            } elseif (!$existe) {
                 continue;
             }
 
@@ -253,7 +268,8 @@ abstract class Tests
                 $erro = true;
                 $this->setarRetorno(
                     false,
-                    'O valor do índice <strong>' . $ind . '</strong> deveria ser <strong>' . $valorComparacao . '</strong> mas foi <strong>' . $valor . '</strong>.'
+                    'O valor do índice <strong>' . $ind . '</strong> deveria ser <strong>'
+                        . $valorComparacao . '</strong> mas foi <strong>' . $valor . '</strong>.'
                 );
                 continue;
             }
@@ -278,20 +294,26 @@ abstract class Tests
 
         foreach ($campo as $item) {
             if (!array_key_exists($item, $valorTemporario)) {
-                $this->setarRetorno(false, 'Não foi possível validar se o índice <strong>' . $indice . '</strong> é igual a <strong>' . $valor . '</strong> porque o índice não existe.');
+                $this->setarRetorno(false, 'Não foi possível validar se o índice <strong>'
+                    . $indice . '</strong> é igual a <strong>' . $valor . '</strong> porque o índice não existe.');
                 return $this;
             }
             $valorTemporario = $valorTemporario[$item];
         }
 
         $valor = is_array($valor) || is_object($valor) ? jsonEncode($valor) : $valor;
-        $valorTemporario = is_array($valorTemporario) || is_object($valorTemporario) ? jsonEncode($valorTemporario) : strip_tags($valorTemporario);
+        $valorTemporario = is_array($valorTemporario) || is_object($valorTemporario)
+            ? jsonEncode($valorTemporario) : strip_tags($valorTemporario);
 
         if ($valor != $valorTemporario) {
-            $this->setarRetorno(false, 'O índice <strong>' . $indice . '</strong> deveria ter o valor <strong>' . $valor . '</strong> mas foi encontrado o valor <strong>' . $valorTemporario . '</strong>.');
+            $this->setarRetorno(false, 'O índice <strong>' . $indice . '</strong> deveria ter o valor <strong>'
+                . $valor . '</strong> mas foi encontrado o valor <strong>' . $valorTemporario . '</strong>.');
             return $this;
         }
-        $this->setarRetorno(true, 'O índice <strong>' . $indice . '</strong> é igual a <strong>' . $valor . '</strong>.');
+        $this->setarRetorno(
+            true,
+            'O índice <strong>' . $indice . '</strong> é igual a <strong>' . $valor . '</strong>.'
+        );
         return $this;
     }
 
@@ -307,20 +329,27 @@ abstract class Tests
         $valorTemporario = $this->Curl->array();
         foreach ($campo as $item) {
             if (!array_key_exists($item, $valorTemporario)) {
-                $this->setarRetorno(false, 'Não foi possível validar se o índice <strong>' . $indice . '</strong> é diferente a <strong>' . $valor . '</strong> porque o índice não existe.');
+                $this->setarRetorno(false, 'Não foi possível validar se o índice <strong>'
+                    . $indice . '</strong> é diferente a <strong>' . $valor . '</strong> porque o índice não existe.');
                 return $this;
             }
             $valorTemporario = $valorTemporario[$item];
         }
 
         $valor = is_array($valor) || is_object($valor) ? jsonEncode($valor) : $valor;
-        $valorTemporario = is_array($valorTemporario) || is_object($valorTemporario) ? jsonEncode($valorTemporario) : $valorTemporario;
+        $valorTemporario = is_array($valorTemporario) || is_object($valorTemporario)
+            ? jsonEncode($valorTemporario) : $valorTemporario;
 
         if ($valor == $valorTemporario) {
-            $this->setarRetorno(false, 'O índice <strong>' . $indice . '</strong> não é diferente de <strong>' . $valor . '</strong>.');
+            $this->setarRetorno(
+                false,
+                'O índice <strong>' . $indice . '</strong> não é diferente de <strong>' . $valor . '</strong>.'
+            );
             return $this;
         }
-        $this->setarRetorno(true, 'O índice <strong>' . $indice . '</strong> veio <strong>' . $valorTemporario . '</strong> e é diferente de <strong>' . $valor . '</strong>.');
+        $this->setarRetorno(true, 'O índice <strong>' . $indice . '</strong> veio <strong>'
+            . $valorTemporario . '</strong> e é diferente de <strong>' . $valor . '</strong>.');
+
         return $this;
     }
 
@@ -333,14 +362,21 @@ abstract class Tests
     private function checkTipoIndice(string $indice, string $tipo)
     {
         if (!in_array($tipo, ['array', 'object', 'string', 'numero', 'booleano', 'inteiro'])) {
-            $this->setarRetorno(false, 'Não foi possível validar o tipo do índice <strong>' . $indice . '</strong> porque o tipo não é um valor aceito.');
+            $this->setarRetorno(
+                false,
+                'Não foi possível validar o tipo do índice <strong>'
+                    . $indice . '</strong> porque o tipo não é um valor aceito.'
+            );
         }
 
         $campo = explode('.', str_replace('->', '.', $indice));
         $valor = $this->Curl->array();
         foreach ($campo as $item) {
             if (!array_key_exists($item, $valor)) {
-                $this->setarRetorno(false, 'Não foi possível validar o tipo do índice <strong>' . $indice . '</strong> porque ele não existe.');
+                $this->setarRetorno(
+                    false,
+                    'Não foi possível validar o tipo do índice <strong>' . $indice . '</strong> porque ele não existe.'
+                );
                 return $this;
             }
             $valor = $valor[$item];
@@ -354,10 +390,16 @@ abstract class Tests
             ($tipo == 'booleano' && is_bool($valor)) ||
             ($tipo == 'inteiro' && is_int($valor))
         ) {
-            $this->setarRetorno(false, 'O índice <strong>' . $indice . '</strong> é do tipo <strong>' . $tipo . '</strong>.');
+            $this->setarRetorno(
+                false,
+                'O índice <strong>' . $indice . '</strong> é do tipo <strong>' . $tipo . '</strong>.'
+            );
             return $this;
         }
-        $this->setarRetorno(true, 'O índice <strong>' . $indice . '</strong> não é do tipo <strong>' . $tipo . '</strong>.');
+        $this->setarRetorno(
+            true,
+            'O índice <strong>' . $indice . '</strong> não é do tipo <strong>' . $tipo . '</strong>.'
+        );
         return $this;
     }
 
@@ -378,11 +420,11 @@ abstract class Tests
         $roboUrl = $this->Robo->url();
         if ($roboUrl != $link && $igual) {
             $this->setarRetorno(false, 'A URL do Robo deveria ser ' . $link . ' mas foi retornado ' . $roboUrl . '.');
-        } else if ($roboUrl == $link && !$igual) {
+        } elseif ($roboUrl == $link && !$igual) {
             $this->setarRetorno(false, 'A URL do Robo não poderia ser igual a ' . $link . '.');
-        } else if ($roboUrl == $link && $igual) {
+        } elseif ($roboUrl == $link && $igual) {
             $this->setarRetorno(true, 'A URL do Robo é igual a ' . $link . '.');
-        } else if ($roboUrl != $link && !$igual) {
+        } elseif ($roboUrl != $link && !$igual) {
             $this->setarRetorno(true, 'A URL do Robo é diferente de ' . $link . '.');
         }
         return $this;

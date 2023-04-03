@@ -25,12 +25,20 @@ final class PaginaStatusRetorno
         $header = $this->header;
 
         http_response_code($status);
-        $contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? $_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_ACCEPT'] ?? $_SERVER['ACCEPT'] ?? $header['Content-type'] ?? $header['Content-Type'] ?? $header['content-type'] ?? $header['Accept'] ?? $header['accept'] ?? '';
+        $contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? $_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_ACCEPT']
+            ?? $_SERVER['ACCEPT'] ?? $header['Content-type'] ?? $header['Content-Type']
+            ?? $header['content-type'] ?? $header['Accept'] ?? $header['accept'] ?? '';
         $contentType = explode(',', $contentType)[0] ?? '';
 
         if ($metodo == 'GET' && $contentType != 'application/json') {
-            if (file_exists(ROOT . '/resources/views/' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8') . '/status_html/' . $status . '.php')) {
-                require_once ROOT . '/resources/views/' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8') . '/status_html/' . $status . '.php';
+            if (
+                file_exists(
+                    ROOT . '/resources/views/' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8')
+                        . '/status_html/' . $status . '.php'
+                )
+            ) {
+                require_once ROOT . '/resources/views/' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8')
+                    . '/status_html/' . $status . '.php';
             } else {
                 require_once ROOT . '/system/Status/' . $status . '.php';
             }
@@ -39,9 +47,17 @@ final class PaginaStatusRetorno
         } elseif (403 == $status) {
             return $this->jsonRetorno('Erro de permissão!', 'Você não tem permissão para acessar essa rota.', 403);
         } elseif (400 == $status) {
-            return $this->jsonRetorno('Erro de requisição!', 'Foi enviado uma requisição ruim (Bad Request), verifique os dados enviado e tente novamente.', 400);
+            return $this->jsonRetorno(
+                'Erro de requisição!',
+                'Foi enviado uma requisição ruim (Bad Request), verifique os dados enviado e tente novamente.',
+                400
+            );
         } elseif (404 == $status) {
-            return $this->jsonRetorno('Página não existe!', 'Essa página não existe ou foi movida para outra URL.', 404);
+            return $this->jsonRetorno(
+                'Página não existe!',
+                'Essa página não existe ou foi movida para outra URL.',
+                404
+            );
         } elseif (500 <= $status) {
             return $this->jsonRetorno('Erro interno!', 'Ocorreu um erro interno, por favor, tente novamente.', 500);
         }

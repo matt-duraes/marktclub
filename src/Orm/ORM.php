@@ -2,7 +2,7 @@
 
 namespace ORM;
 
-use \PDO;
+use PDO;
 use Erro\Excecao;
 use ORM\Join\JoinTrait;
 use ORM\Buscar\ReadTrait;
@@ -46,7 +46,7 @@ abstract class ORM
      */
     public function __construct(array $option = [], array $conn = [])
     {
-        $this->_tabelaAtual = $this->_tabela;
+        $this->ormTabelaAtual = $this->ormTabela;
 
         if (empty($option)) {
             $option[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
@@ -58,7 +58,7 @@ abstract class ORM
         $senha = $conn['senha'] ?? env('DB_SENHA', '');
         $porta = $conn['porta'] ?? env('DB_PORT', '');
         $porta = !empty($porta) && preg_match('/^[0-9]+$/', $porta) ? ';port=' . $porta : '';
-        $this->_db = new PDO(
+        $this->ormDB = new PDO(
             'mysql:host=' . $host . ';dbname=' . $banco . $porta,
             $usuario,
             $senha,
@@ -93,13 +93,13 @@ abstract class ORM
 
     public function teste()
     {
-        $this->_rollback = true;
+        $this->ormRollback = true;
         return $this;
     }
 
     public function limpar()
     {
-        $this->_db->rollBack();
+        $this->ormDB->rollBack();
     }
 
     /**
@@ -108,9 +108,12 @@ abstract class ORM
     protected function dado(array $dado)
     {
         if (empty($dado)) {
-            throw new Excecao(titulo: 'Campo dado incorreto!', mensagem: 'Você precisa enviar um array no método dado.');
+            throw new Excecao(
+                titulo: 'Campo dado incorreto!',
+                mensagem: 'Você precisa enviar um array no método dado.'
+            );
         }
-        $this->_dado = $dado;
+        $this->ormDado = $dado;
         return $this;
     }
 
@@ -121,15 +124,15 @@ abstract class ORM
             print_r([
                 'query' => $this->ormMontarQueryString(),
                 'mysql' => $this->ormMontarQueryReal(),
-                'select' => $this->_select,
-                'where' => $this->_whereDado,
-                'having' => $this->_havingDado,
-                'value' => $this->_condicaoValue,
-                'limit' => $this->_limit,
-                'order' => $this->_order,
-                'group' => $this->_group,
-                'campo' => implode(', ', $this->_campo),
-                'join' => $this->_join,
+                'select' => $this->ormSelect,
+                'where' => $this->ormWhereDado,
+                'having' => $this->ormHavingDado,
+                'value' => $this->ormCondicaoValue,
+                'limit' => $this->ormLimit,
+                'order' => $this->ormOrder,
+                'group' => $this->ormGroup,
+                'campo' => implode(', ', $this->ormCampo),
+                'join' => $this->ormJoin,
             ]);
             exit();
         }
@@ -137,8 +140,8 @@ abstract class ORM
 
     private function ormExecute(string $query, array $dado = [])
     {
-        $sql = $this->_db->prepare($query);
-        $this->_db->beginTransaction();
+        $sql = $this->ormDB->prepare($query);
+        $this->ormDB->beginTransaction();
 
         if ($dado) {
             foreach ($dado as $ind => $valor) {
@@ -172,50 +175,50 @@ abstract class ORM
             if (false === $erroTexto) {
                 $erroTexto = 'Ocorreu um erro ao executar ação, recarregue o navegador e tente novamente.';
             }
-            $this->_db->rollBack();
+            $this->ormDB->rollBack();
             return $this->ormTraduzirErro($erroTexto);
         }
 
-        $this->_ultimoId = $this->_db->lastInsertId();
-        if (true !== $this->_rollback) {
-            $this->_db->commit();
+        $this->ormUltimoId = $this->ormDB->lastInsertId();
+        if (true !== $this->ormRollback) {
+            $this->ormDB->commit();
         }
         return $sql;
     }
 
     private function ormResetarOrm()
     {
-        $this->_tabelaAtual = $this->_tabela;
-        $this->_ultimoId = 0;
+        $this->ormTabelaAtual = $this->ormTabela;
+        $this->ormUltimoId = 0;
 
-        $this->_condicaoNumero = 0;
-        $this->_whereDado = [];
-        $this->_havingDado = [];
-        $this->_condicaoValue = [];
+        $this->ormCondicaoNumero = 0;
+        $this->ormWhereDado = [];
+        $this->ormHavingDado = [];
+        $this->ormCondicaoValue = [];
 
-        $this->_order = [];
+        $this->ormOrder = [];
 
-        $this->_limit = '';
-        $this->_limitPagina = 1;
-        $this->_limitQuantidade = 20;
-        $this->_paginacao = false;
+        $this->ormLimit = '';
+        $this->ormLimitPagina = 1;
+        $this->ormLimitQuantidade = 20;
+        $this->ormPaginacao = false;
 
-        $this->_select = '';
-        $this->_group = '';
-        $this->_campo = [];
-        $this->_join = [];
+        $this->ormSelect = '';
+        $this->ormGroup = '';
+        $this->ormCampo = [];
+        $this->ormJoin = [];
     }
 
     private function ormMontarQueryReal()
     {
         $query = $this->ormMontarQueryString();
-        if (!$this->_condicaoValue) {
+        if (!$this->ormCondicaoValue) {
             return $query;
         }
         $de = [];
         $por = [];
-        if ($this->_condicaoValue) {
-            foreach ($this->_condicaoValue as $ind => $val) {
+        if ($this->ormCondicaoValue) {
+            foreach ($this->ormCondicaoValue as $ind => $val) {
                 $de[] = ':' . $ind;
                 $por[] = "'" . $val . "'";
             }
@@ -223,7 +226,7 @@ abstract class ORM
         return str_replace($de, $por, $query);
     }
 
-    private function ormUuid(): String
+    private function ormUuid(): string
     {
         return sprintf(
             '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -240,14 +243,14 @@ abstract class ORM
 
     protected function ormPegarColunaBanco(): array
     {
-        $query = $this->_db->query("SHOW FULL COLUMNS FROM `{$this->_tabela}`");
+        $query = $this->ormDB->query("SHOW FULL COLUMNS FROM `{$this->ormTabela}`");
         $query->setFetchMode(PDO::FETCH_OBJ);
         $lista = $query->fetchAll();
 
         $array = [];
         foreach ($lista as $r) {
             if (mb_detect_encoding($r->Comment, 'UTF-8, ISO-8859-1')) {
-                $comment = utf8_encode($r->Comment);
+                $comment = mb_convert_encoding($r->Comment, 'UTF-8', 'ISO-8859-1');
             } else {
                 $comment = $r->Comment;
             }
@@ -288,7 +291,7 @@ abstract class ORM
         if (empty($id) || !preg_match('/^[0-9]+$/', $id)) {
             return [];
         }
-        $query = $this->_db->prepare('SELECT * FROM `' . $this->_tabela . '` WHERE `id` = ' . $id);
+        $query = $this->ormDB->prepare('SELECT * FROM `' . $this->ormTabela . '` WHERE `id` = ' . $id);
         $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $dado = $query->fetchAll();
@@ -297,16 +300,16 @@ abstract class ORM
 
     protected function ormDestruirPDO()
     {
-        $this->_db = null;
+        $this->ormDB = null;
     }
 
     protected function ormSalvarArquivo()
     {
-        if ($this->_arquivoSalvar) {
-            foreach ($this->_arquivoSalvar as $arquivo) {
+        if ($this->ormArquivoSalvar) {
+            foreach ($this->ormArquivoSalvar as $arquivo) {
                 $arquivo->salvar();
             }
         }
-        $this->_arquivoSalvar = [];
+        $this->ormArquivoSalvar = [];
     }
 }

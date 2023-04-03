@@ -2,25 +2,39 @@
 
 namespace ApiModel\Log;
 
+use Erro\Excecao;
 use ORM\Entity;
 use System\Classes\LogErro\Status;
 
 final class ErrorEntity extends Entity
 {
-    protected string $_tabela = TABELA_LOG_ERRO;
-
-    protected array $_insert = [
-        'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace', 'quantidade'
-    ];
-    protected array $_salvar = ['status'];
-    protected array $_buscar = [
-        'hash', 'mensagem', 'codigo', 'status_http', 'arquivo', 'linha', 'trace',
-        'quantidade', 'data_criacao', 'status'
-    ];
-
     public string $hash;
     public Status $status;
     public int $quantidade;
+    protected string $ormTabela = TABELA_LOG_ERRO;
+    protected array $ormInsert = [
+        'hash',
+        'mensagem',
+        'codigo',
+        'status_http',
+        'arquivo',
+        'linha',
+        'trace',
+        'quantidade'
+    ];
+    protected array $ormSalvar = ['status'];
+    protected array $ormBuscar = [
+        'hash',
+        'mensagem',
+        'codigo',
+        'status_http',
+        'arquivo',
+        'linha',
+        'trace',
+        'quantidade',
+        'data_criacao',
+        'status'
+    ];
 
     public function __construct(
         public ?string $mensagem = null,
@@ -38,6 +52,9 @@ final class ErrorEntity extends Entity
         $this->trace = jsonDecode($this->trace, true, true);
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraInsert()
     {
         $this->quantidade = 1;
@@ -47,6 +64,9 @@ final class ErrorEntity extends Entity
         $this->status = new Status(Status::NOVO);
     }
 
+    /**
+     * @throws Excecao
+     */
     private function verificarSeJaExiste(string $hash)
     {
         $erro = $this->campo(['id', 'uuid', 'quantidade'])->where([
@@ -60,6 +80,10 @@ final class ErrorEntity extends Entity
             mensagemErro('erro_duplicado', 'erro_duplicado');
         }
     }
+
+    /**
+     * @throws Excecao
+     */
     private function atualizarLogErro($id, $quantidade)
     {
         $this

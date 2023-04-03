@@ -15,8 +15,10 @@ trait ClienteTrait
      * @param   null|string             $MensagemVazio  Mensagem para o erro caso esteja vazio
      * @param   null|string             $tituloErro     Título para o erro caso de algum problema
      * @param   null|string             $mensagemErro   Mensagem para o erro caso de algum problema
-     * @return  null|ClienteEntity                      Retorna null para se o ID for vazio e obrigatorio false ou um ClienteEntity
-     * @throws  Excessao                                Erro caso o ID seja vazio e obrigatorio true ou se não achar o cliente
+     * @return  null|ClienteEntity                      Retorna null para se o ID for vazio e
+     *                                                  obrigatorio false ou um ClienteEntity
+     * @throws  Excessao                                Erro caso o ID seja vazio e obrigatorio
+     *                                                  true ou se não achar o cliente
      */
     private function pegarCliente(
         ?string $id,
@@ -31,7 +33,7 @@ trait ClienteTrait
                 empty($tituloVazio) ? 'Campo obrigatório!' : $tituloVazio,
                 empty($mensagemVazio) ? 'O campo usuario é obrigatório.' : $mensagemVazio
             );
-        } else if (empty($id)) {
+        } elseif (empty($id)) {
             return null;
         }
 
@@ -39,7 +41,7 @@ trait ClienteTrait
         $mensagemErro = empty($mensagemErro) ? 'Não foi encontrado nenhum usuário pelo código enviado.' : $mensagemErro;
 
         $Cliente = new ClienteEntity(validarToken: false);
-        $Cliente->id($id, titulo: $tituloErro, mensagem: $mensagemErro);
+        $Cliente->uuid($id, titulo: $tituloErro, mensagem: $mensagemErro);
 
         return $Cliente;
     }

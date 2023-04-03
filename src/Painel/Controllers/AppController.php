@@ -99,7 +99,7 @@ final class AppController extends PadraoController
         $Api = (new ApiHelper(token: true))->headerJson();
         if ($dado && $metodo == 'get') {
             $Api->json($dado);
-        } else if ($dado) {
+        } elseif ($dado) {
             $Api->body($dado);
         }
         $dado = $Api->$metodo($config->rota);
@@ -164,7 +164,7 @@ final class AppController extends PadraoController
         $config = $this->config($appReal, 'visualizar');
         if (!$config->permissao->status) {
             mensagemStatus(403, localhost: 'Você não tem permissão para mudar o status.');
-        } else if (!in_array($request->status, $config->visualizar->status)) {
+        } elseif (!in_array($request->status, $config->visualizar->status)) {
             mensagemErro('Status inválido!', 'O valor do status não é um valor permitido.');
         }
 
@@ -255,7 +255,7 @@ final class AppController extends PadraoController
         $status = in_array($Api->status(), [201, 204]);
         if (!$status && object_key_exists('status', $dado) && $dado->status == 'erro') {
             return new Response(json: $dado, status: $Api->status());
-        } else if (!$status) {
+        } elseif (!$status) {
             mensagemErro('Erro ao salvar!', 'Ocorreu um erro ao salvar, por favor, tente novamente.', 500);
         }
 
@@ -505,7 +505,7 @@ final class AppController extends PadraoController
             $Api->delete($config->api->uri . '/' . $id);
             if ($Api->status() == 401) {
                 return new Response(json: ['status' => 'deslogado'], status: 401);
-            } else if ($Api->status() == 204) {
+            } elseif ($Api->status() == 204) {
                 continue;
             }
 

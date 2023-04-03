@@ -12,15 +12,15 @@ trait UpdateTrait
      *
      * @return array Array com os dados que foram atualizados mais o id e uuid quando existir
      */
-    protected function update()
+    protected function update(): array
     {
-        $dado = $this->_dado;
+        $dado = $this->ormDado;
         if (empty($dado)) {
             throw new Excecao(titulo: 'Dado obrigatório!', mensagem: 'Você deve enviar pelo menos um dado para atualizar.');
         }
 
-        $whereDado = $this->ormConverterCondicaoParaString($this->_whereDado);
-        $whereValue = $this->_condicaoValue;
+        $whereDado = $this->ormConverterCondicaoParaString($this->ormWhereDado);
+        $whereValue = $this->ormCondicaoValue;
 
         if (empty($whereDado) || !is_string($whereDado) || empty($whereValue) || !is_array($whereValue)) {
             throw new Excecao(titulo: 'Dado obrigatório!', mensagem: 'Você deve passar pelo menos uma condicão para atualizar.');
@@ -50,7 +50,7 @@ trait UpdateTrait
             $campo[] = '`' . $ind . '` = :' . $ind;
         }
 
-        $query = "UPDATE `{$this->_tabela}` SET " . implode(', ', $campo) . " WHERE {$whereDado}";
+        $query = "UPDATE `{$this->ormTabela}` SET " . implode(', ', $campo) . " WHERE {$whereDado}";
         $valorMerge = $dado;
         foreach ($whereValue as $ind => $val) {
             $valorMerge[$ind] = $val;

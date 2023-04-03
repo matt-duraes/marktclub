@@ -17,6 +17,5 @@
 .DS_Store
 ._*
 .ftp*
-.vscode
 .chave_privada
 .chave_publica

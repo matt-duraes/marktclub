@@ -25,7 +25,7 @@ final class NoticiaModel extends ORM implements
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $_tabela = TABELA_PUBLICACAO_NOTICIA;
+    protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
 
     private Status $status;
     private Data $dataPublicacaoDe;
@@ -61,7 +61,7 @@ final class NoticiaModel extends ORM implements
             return [];
         }
 
-        $Status = new Status;
+        $Status = new Status();
         $retorno = [];
         foreach ($lista as $r) {
             $titulo = $r->titulo_pequeno;
@@ -76,7 +76,7 @@ final class NoticiaModel extends ORM implements
             $imagem = '';
             if (!empty($r->imagem_pequena)) {
                 $imagem = $r->imagem_pequena;
-            } else if (!empty($r->imagem_pequena)) {
+            } elseif (!empty($r->imagem_pequena)) {
                 $imagem = $r->imagem_grande;
             }
 
@@ -95,7 +95,7 @@ final class NoticiaModel extends ORM implements
 
     private function pegarWhere()
     {
-        $where = $this->_wherePadrao;
+        $where = $this->ormWherePadrao;
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
@@ -105,9 +105,9 @@ final class NoticiaModel extends ORM implements
                 'between',
                 [$this->dataPublicacaoDe->date(), $this->dataPublicacaoAte->date()]
             ];
-        } else if ($this->dataPublicacaoDe->valido()) {
+        } elseif ($this->dataPublicacaoDe->valido()) {
             $where[] = ['data_publicacao_inicio', '>=', $this->dataPublicacaoDe->date()];
-        } else if ($this->dataPublicacaoAte->valido()) {
+        } elseif ($this->dataPublicacaoAte->valido()) {
             $where[] = ['data_publicacao_inicio', '<=', $this->dataPublicacaoAte->date()];
         }
         return $where;

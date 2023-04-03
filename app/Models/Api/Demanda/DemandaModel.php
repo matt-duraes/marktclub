@@ -15,7 +15,7 @@ final class DemandaModel extends ORM
     use EquipeTrait;
     use EmpresaTrait;
 
-    protected string $_tabela = TABELA_DEMANDA_DADO;
+    protected string $ormTabela = TABELA_DEMANDA_DADO;
 
     public function __construct(
         private Status $status,
@@ -47,11 +47,11 @@ final class DemandaModel extends ORM
     {
         if ($this->status->vazio()) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um status para busca.');
-        } else if (!$this->status->valido()) {
+        } elseif (!$this->status->valido()) {
             mensagemErro('Campo inválido!', 'Você deve passar um status válido para a busca.');
-        } else if ($this->ordem->vazio()) {
+        } elseif ($this->ordem->vazio()) {
             mensagemErro('Campo obrigatório!', 'Você deve passar uma ordem para busca.');
-        } else if (!$this->ordem->valido()) {
+        } elseif (!$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'Você deve passar uma ordem válido para a busca.');
         }
     }

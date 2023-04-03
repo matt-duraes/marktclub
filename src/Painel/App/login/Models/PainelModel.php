@@ -28,7 +28,7 @@ final class PainelModel
                 foreach ($val['acao'] as $acao) {
                     $permissaoLista[] = $ind . '_' . $acao;
                 }
-            } else if (array_key_exists('permissao', $val)) {
+            } elseif (array_key_exists('permissao', $val)) {
                 foreach (array_keys($val['permissao']) as $acao) {
                     $permissaoLista[] = $acao;
                 }

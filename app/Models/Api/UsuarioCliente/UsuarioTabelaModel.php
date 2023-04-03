@@ -19,7 +19,7 @@ final class UsuarioTabelaModel extends ORM
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private int $idEmpresa;
     private array $obrigatorio;
@@ -50,7 +50,7 @@ final class UsuarioTabelaModel extends ORM
         if (!is_array($request) || !$request) {
             $this->retorno[] = [false, 'Dados do usuário não poderam ser validados.'];
             return;
-        } else if (!$this->validarCampoObrigatorio()) {
+        } elseif (!$this->validarCampoObrigatorio()) {
             return;
         }
 
@@ -75,7 +75,7 @@ final class UsuarioTabelaModel extends ORM
 
         if (is_object($usuario) && object_key_exists('cod', $usuario)) {
             return $this->atualizarUsuarioExistente($usuario);
-        } else if (is_array($usuario) && empty($usuario)) {
+        } elseif (is_array($usuario) && empty($usuario)) {
             return $this->inserirUsuarioNovo();
         }
         $this->retorno[] = [false, 'Ocorreu um erro ao buscar usuário.'];
@@ -87,7 +87,7 @@ final class UsuarioTabelaModel extends ORM
         if (in_array($usuario->status, [1, 2])) {
             $dado = $this->montarWhereAtualizandoCampoVazio($usuario);
             $dado['status'] = $usuario->status;
-        } else if (in_array($usuario->status, [3, 5])) {
+        } elseif (in_array($usuario->status, [3, 5])) {
             $dado = $this->montarWhereComTodosOsCampos($usuario);
         }
 
@@ -119,7 +119,7 @@ final class UsuarioTabelaModel extends ORM
     {
         $request = $this->request;
 
-        $listaUf = (new ListaHelper)->uf()->r();
+        $listaUf = (new ListaHelper())->uf()->r();
         $Nome = new Nome($request['nome'] ?? '');
         $Cpf = new Cpf($request['cpf'] ?? '');
         $TelefoneCelular = new Telefone($request['telefone_celular'] ?? '');
@@ -192,7 +192,7 @@ final class UsuarioTabelaModel extends ORM
     {
         $request = $this->request;
 
-        $listaUf = (new ListaHelper)->uf()->r();
+        $listaUf = (new ListaHelper())->uf()->r();
         $Nome = new Nome($request['nome'] ?? '');
         $Cpf = new Cpf($request['cpf'] ?? '');
         $TelefoneCelular = new Telefone($request['telefone_celular'] ?? '');
@@ -268,9 +268,9 @@ final class UsuarioTabelaModel extends ORM
         $where = [['empresa', $this->idEmpresa]];
         if (in_array('cpf', $obrigatorio)) {
             $where[] = ['documento', $usuario['cpf']];
-        } else if (in_array('matricula', $obrigatorio)) {
+        } elseif (in_array('matricula', $obrigatorio)) {
             $where[] = ['matricula', $usuario['matricula']];
-        } else if (in_array('siape', $obrigatorio)) {
+        } elseif (in_array('siape', $obrigatorio)) {
             $where[] = ['siape', $usuario['matricula']];
         }
 
@@ -285,19 +285,19 @@ final class UsuarioTabelaModel extends ORM
         if (!array_key_exists('nome', $usuario) || empty($usuario['nome'])) {
             $this->retorno[] = [false, 'Você precisa enviar um nome válido.'];
             return false;
-        } else if (
+        } elseif (
             in_array('cpf', $obrigatorio) &&
             (!array_key_exists('cpf', $usuario) || !validarCpf($usuario['cpf']))
         ) {
             $this->retorno[] = [false, 'Você precisa enviar um CPF válido.'];
             return false;
-        } else if (
+        } elseif (
             in_array('matricula', $obrigatorio) &&
             (!array_key_exists('matricula', $usuario) || empty(soNumero($usuario['matricula'])))
         ) {
             $this->retorno[] = [false, 'Você precisa enviar uma matrícula válida.'];
             return false;
-        } else if (
+        } elseif (
             in_array('siape', $obrigatorio) &&
             (!array_key_exists('siape', $usuario) || empty(soNumero($usuario['siape'])))
         ) {
@@ -326,9 +326,9 @@ final class UsuarioTabelaModel extends ORM
         $where = [['empresa', $this->idEmpresa]];
         if (in_array('cpf', $obrigatorio)) {
             $where[] = ['documento', str_pad($chave, 11, 0, STR_PAD_LEFT)];
-        } else if (in_array('matricula', $obrigatorio)) {
+        } elseif (in_array('matricula', $obrigatorio)) {
             $where[] = ['documento', soNumero($chave)];
-        } else if (in_array('siape', $obrigatorio)) {
+        } elseif (in_array('siape', $obrigatorio)) {
             $where[] = ['siape', soNumero($chave)];
         }
 
@@ -336,7 +336,7 @@ final class UsuarioTabelaModel extends ORM
         if (is_array($usuario) && empty($usuario)) {
             $this->retorno[] = [false, 'Usuário não encontrado para bloquear.'];
             return;
-        } else if (is_object($usuario) && existeErro($usuario, 'id')) {
+        } elseif (is_object($usuario) && existeErro($usuario, 'id')) {
             $this->retorno[] = [false, 'Erro ao buscar usuário para bloquear.'];
             return;
         }

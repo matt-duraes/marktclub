@@ -17,19 +17,19 @@ final class DemandaEntity extends Entity
     use EquipeTrait;
     use EmpresaTrait;
 
-    protected string $_tabela = TABELA_DEMANDA_DADO;
-    protected array $_buscar = [
+    protected string $ormTabela = TABELA_DEMANDA_DADO;
+    protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo',
         'arquivo', 'com_prazo', 'data_entrega'
     ];
-    protected array $_insert = [
+    protected array $ormInsert = [
         'tipo'
     ];
-    protected array $_salvar = [
+    protected array $ormSalvar = [
         'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega',
         'ordem', 'data_entrega_real'
     ];
-    protected string $_validarSalvar = '
+    protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
         tipo|Tipo|vazio|valido
         status|Status|vazio|valido

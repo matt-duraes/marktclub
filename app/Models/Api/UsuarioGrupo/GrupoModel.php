@@ -16,7 +16,7 @@ final class GrupoModel extends ORM
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $_tabela = TABELA_USUARIO_GRUPO;
+    protected string $ormTabela = TABELA_USUARIO_GRUPO;
     private int $idEmpresa;
 
     public function __construct(
@@ -90,11 +90,11 @@ final class GrupoModel extends ORM
 
         if (!validarPagina($pagina)) {
             mensagemErro('Dado inválido!', 'O campo página não é um valor válido.');
-        } else if (!empty($quantidade) && !validarPagina($quantidade)) {
+        } elseif (!empty($quantidade) && !validarPagina($quantidade)) {
             mensagemErro('Dado inválido!', 'O campo quantidade não é um valor válido.');
-        } else if (!empty($quantidade) && $quantidade > 50) {
+        } elseif (!empty($quantidade) && $quantidade > 50) {
             mensagemErro('Dado inválido!', 'O campo quantidade deve ser menor ou igual a 50.');
-        } else if (!$status->vazio() && !$status->valido()) {
+        } elseif (!$status->vazio() && !$status->valido()) {
             mensagemErro('Dado inválido!', 'O campo status não é um valor válido.');
         }
     }

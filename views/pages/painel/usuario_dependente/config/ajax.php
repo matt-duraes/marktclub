@@ -1,6 +1,6 @@
 <?php
 
-$Painel = new PainelConfig\Ajax;
+$Painel = new PainelConfig\Ajax();
 
 return $Painel
     ->request(['usuario'])

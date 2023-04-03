@@ -6,44 +6,45 @@ use PDO;
 
 trait OrmPropriedadeTrait
 {
-    private ?PDO $_db;
+    private ?PDO $ormDB;
 
-    protected string $_ormTipo = 'service';
+    protected string $ormTipo = 'service';
 
-    protected string $_tabela;
-    private string $_tabelaAtual;
+    protected string $ormTabela;
+    private string $ormTabelaAtual;
 
-    protected array $_wherePadrao = [];
+    protected array $ormWherePadrao = [];
 
-    private int $_ultimoId = 0;
+    protected array $ormReplace = [];
 
-    private array $_dado;
+    private int $ormUltimoId = 0;
 
-    private int $_condicaoNumero = 0;
-    private array $_whereDado = [];
-    private array $_havingDado = [];
-    private array $_condicaoValue = [];
+    private array $ormDado;
 
-    private array $_order = [];
+    private int $ormCondicaoNumero = 0;
+    private array $ormWhereDado = [];
+    private array $ormHavingDado = [];
+    private array $ormCondicaoValue = [];
 
-    private string $_limit = '';
-    private int $_limitPagina = 1;
-    private int $_limitQuantidade = 20;
-    private bool $_paginacao = false;
+    private array $ormOrder = [];
 
-    private string $_select = '';
-    private string $_group = '';
-    private array $_campo = [];
-    private array $_join = [];
+    private string $ormLimit = '';
+    private int $ormLimitPagina = 1;
+    private int $ormLimitQuantidade = 20;
+    private bool $ormPaginacao = false;
 
-    private array $_condicao = [
+    private string $ormSelect = '';
+    private string $ormGroup = '';
+    private array $ormCampo = [];
+    private array $ormJoin = [];
+
+    private array $ormCondicao = [
         '>', '>=', '=', '<>', '<', '<=', '!=', 'like', 'notlike',
         'null', 'isnull', 'notnull', '!null', 'isnotnull', 'in',
         'notin', 'between', 'notbetween'
     ];
-    private array $_condicaoNull = ['null', 'isnull', 'notnull', '!null', 'isnotnull'];
+    private array $ormCondicaoNull = ['null', 'isnull', 'notnull', '!null', 'isnotnull'];
 
-    private bool $_rollback = false;
-
-    private array $_arquivoSalvar = [];
+    private bool $ormRollback = false;
+    private array $ormArquivoSalvar = [];
 }

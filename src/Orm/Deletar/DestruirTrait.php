@@ -9,7 +9,7 @@ trait DestruirTrait
     public function destruir()
     {
         $this->ormVerificarSeEntityExiste();
-        $id = $this->_entityId;
+        $id = $this->ormEntityId;
         if (!is_int($id) || $id <= 0) {
             throw new Excecao(titulo: 'Erro ao destruir', mensagem: 'Não existe uma entidade para ser destruida');
         }
@@ -17,7 +17,7 @@ trait DestruirTrait
             $this->regraDestruir();
         }
 
-        $deletarArquivo = $this->ormPegarArquivoParaDeletar($this->_entityRetorno, true);
+        $deletarArquivo = $this->ormPegarArquivoParaDeletar($this->ormEntityRetorno, true);
         $this->where(['id', $id])->delete();
         $this->ormDeletarArquivos($deletarArquivo);
 
@@ -31,19 +31,18 @@ trait DestruirTrait
     {
         $this->id = '';
 
-        $this->_diff = [];
-        $this->_set = [];
-        $this->_get = [];
-        $this->_entityRetorno = [];
-        $this->_entityDeletada = true;
+        $this->ormDiff = [];
+        $this->ormSet = [];
+        $this->ormEntityRetorno = [];
+        $this->ormEntityDeletada = true;
 
-        $this->_entityId = null;
-        $this->_entityAcao = '';
-        $this->_entityUuid = '';
-        $this->_propriedadePublica = [];
-        $this->_propriedadePrivada = [];
-        $this->_listaSet = [];
-        $this->_listaAliasReal = [];
+        $this->ormEntityId = null;
+        $this->ormEntityAcao = '';
+        $this->ormEntityUuid = '';
+        $this->ormPropriedadePublica = [];
+        $this->ormPropriedadePrivada = [];
+        $this->ormListaSet = [];
+        $this->ormListaAliasReal = [];
         $this->ormDestruirPDO();
     }
 }

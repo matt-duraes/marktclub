@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Api;
 
 use Tests\Tests;
@@ -35,7 +34,10 @@ final class TokenCredentialTest extends Tests
 
         return $this
             ->checkStatus(403)
-            ->checkIndiceIgual('erro.mensagem', 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
     public function naoPodeCriarTokenComClientIdErradoTest()
@@ -48,7 +50,10 @@ final class TokenCredentialTest extends Tests
 
         return $this
             ->checkStatus(403)
-            ->checkIndiceIgual('erro.mensagem', 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
 
@@ -62,7 +67,10 @@ final class TokenCredentialTest extends Tests
 
         return $this
             ->checkStatus(403)
-            ->checkIndiceIgual('erro.mensagem', 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
     public function naoPodeCriarTokenComSecretIdErradoTest()
@@ -75,7 +83,10 @@ final class TokenCredentialTest extends Tests
 
         return $this
             ->checkStatus(403)
-            ->checkIndiceIgual('erro.mensagem', 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
 
@@ -89,7 +100,10 @@ final class TokenCredentialTest extends Tests
 
         return $this
             ->checkStatus(403)
-            ->checkIndiceIgual('erro.mensagem', 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
     public function naoPodeCriarTokenComAudienceErradoTest()
@@ -102,7 +116,10 @@ final class TokenCredentialTest extends Tests
 
         return $this
             ->checkStatus(403)
-            ->checkIndiceIgual('erro.mensagem', 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.'
+            )
             ->checkIndiceNaoExiste('dado.access_token');
     }
 
@@ -125,8 +142,12 @@ final class TokenCredentialTest extends Tests
     | PRIVADO
     |--------------------------------------------------------------------------
     */
-    public function pegarBody(?string $clientId = null, ?string $secretId = null, ?string $audience = null, string $scope = '')
-    {
+    public function pegarBody(
+        ?string $clientId = null,
+        ?string $secretId = null,
+        ?string $audience = null,
+        string $scope = ''
+    ) {
         return [
             'client_id' => is_null($clientId) ? env('API_CLIENT_ID') : $clientId,
             'secret_id' => is_null($secretId) ? env('API_SECRET_ID') : $secretId,

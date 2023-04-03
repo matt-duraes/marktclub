@@ -21,7 +21,7 @@ trait DemandaTrait
         $Demanda = $this->Demanda;
         if (!is_object($Demanda) || !object_key_exists('status', $Demanda)) {
             mensagemErro('Erro!', 'Ocorreu um erro ao salvar sua demanda, por favor, tente novamente.');
-        } else if ($this->Demanda->status != 'sucesso') {
+        } elseif ($this->Demanda->status != 'sucesso') {
             mensagemErro($Demanda->erro->titulo, $Demanda->erro->mensagem);
         }
     }

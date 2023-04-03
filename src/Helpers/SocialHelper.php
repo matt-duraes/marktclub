@@ -10,22 +10,23 @@ final class SocialHelper
     private array $googleToken;
 
     /**
-     * @param   string          $rede   Qual rede social vai usar podendo ser google, facebook, twitter, tumblr, whatsapp, reddit, pinterest ou pinterest
+     * @param   string          $rede   Qual rede social vai usar podendo ser google, facebook,
+     *                                  twitter, tumblr, whatsapp, reddit, pinterest ou pinterest
      * @param   null|string     $id     ID do usuário para o Facebook
      * @param   null|string     $token  Token do usuário para o Facebook
      * @param   null|string     $code   Code para gerar o token para o Google
      */
     public function __construct(
-        private string $rede,
+        private ?string $rede = null,
         public ?string $id = null,
         private ?string $token = null,
         ?string $code = null
     ) {
         if ($rede == 'google' && !empty($code)) {
             $this->googleCriarTokenComAuthorizationCode($code);
-        } else if ($rede == 'google') {
+        } elseif ($rede == 'google') {
             $this->googlePegarTokenDoCookie();
-        } else if ($rede == 'facebook' && !empty($id) && !empty($token)) {
+        } elseif ($rede == 'facebook' && !empty($id) && !empty($token)) {
             $this->facebookValidarToken();
         }
     }
@@ -112,7 +113,7 @@ final class SocialHelper
     {
         if ($this->rede == 'google') {
             return $this->googlePegarId();
-        } else if ($this->rede == 'facebook') {
+        } elseif ($this->rede == 'facebook') {
             return $this->id;
         }
         throw new Excecao(
@@ -124,7 +125,7 @@ final class SocialHelper
     {
         if ($this->rede == 'google') {
             return $this->googleToken['access_token'];
-        } else if ($this->rede == 'facebook') {
+        } elseif ($this->rede == 'facebook') {
             return $this->token;
         }
     }
@@ -220,9 +221,11 @@ final class SocialHelper
     | Gera o bloco de comentário do Facebook
     |
     /*/
-    public function comentario(String $link, $numero = 5)
+    public function comentario(string $link, $numero = 5)
     {
-        return '<div class="fb-comments" data-href="' . $link . '" data-width="100%" data-numposts="' . $numero . '"></div>';
+        return '
+            <div class="fb-comments" data-href="' . $link . '" data-width="100%" data-numposts="' . $numero . '"></div>
+        ';
     }
 
     /*/
@@ -230,7 +233,7 @@ final class SocialHelper
     | BUSCA O NÚMERO DE COMENTÁRIO
     |--------------------------------------------------------------------------
     /*/
-    public function numeroComentario(String $url): Int
+    public function numeroComentario(string $url): int
     {
         if ($this->rede == 'facebook') {
             $ch = curl_init('https://graph.facebook.com/?ids=' . str_replace(' ', '+', $url));
@@ -249,7 +252,7 @@ final class SocialHelper
     | BUSCA O NÚMERO DE COMPARTILHAMENTO
     |--------------------------------------------------------------------------
     /*/
-    public function numeroCompartilhamento($url): Int
+    public function numeroCompartilhamento($url): int
     {
         if ($this->rede == 'facebook') {
             $ch = curl_init('https://graph.facebook.com/?ids=' . str_replace(' ', '+', $url));
@@ -278,7 +281,8 @@ final class SocialHelper
 
     private function imagemFacebook()
     {
-        $url = 'https://graph.facebook.com/v11.0/' . $this->id . '/picture?redirect=false&access_token=' . $this->token . '&width=300&height=300';
+        $url = 'https://graph.facebook.com/v11.0/' . $this->id . '/picture?redirect=false&access_token='
+            . $this->token . '&width=300&height=300';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
@@ -328,7 +332,8 @@ final class SocialHelper
     {
         $appId = env('FACEBOOK_APP_ID');
         $appSecret = env('FACEBOOK_APP_SECRET');
-        $url = 'https://graph.facebook.com/debug_token?input_token=' . $appId . '|' . $appSecret . '&access_token=' . $this->token;
+        $url = 'https://graph.facebook.com/debug_token?input_token=' . $appId . '|' . $appSecret
+            . '&access_token=' . $this->token;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');

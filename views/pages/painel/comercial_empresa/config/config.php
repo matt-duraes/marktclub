@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\ComercialEmpresa\Helper;
+
 return [
     'titulo' => 'Comercial',
     'buscar' => true,
@@ -13,6 +15,7 @@ return [
     'historico' => true,
     'api' => [
         'scope' => 'comercial_empresa',
-        'uri' => '/comercial-empresa'
+        'uri' => '/comercial-empresa',
+        'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];

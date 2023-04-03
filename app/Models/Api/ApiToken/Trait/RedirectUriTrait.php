@@ -16,7 +16,7 @@ trait RedirectUriTrait
     {
         if (empty($uri)) {
             mensagemErro('Erro!', 'Não foi enviado uma URI.', 400);
-        } else if (validarUrl($uri)) {
+        } elseif (validarUrl($uri)) {
             mensagemErro('Erro!', 'A URI informada não tem um formato válido.', 400);
         }
         return;

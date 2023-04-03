@@ -6,7 +6,7 @@ use Status\Status;
 
 final class TipoPagamento extends Status
 {
-    const EMPRESA = [
+    public const EMPRESA = [
         'geral' => [
             'lista' => [
                 'cartao-credito' => 'Cartão de Crédito',

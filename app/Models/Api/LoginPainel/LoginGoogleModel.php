@@ -6,7 +6,6 @@ use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
 final class LoginGoogleModel
 {
-
     private EquipeEntity $Usuario;
 
     public function __construct(

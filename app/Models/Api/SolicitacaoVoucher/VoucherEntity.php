@@ -21,15 +21,15 @@ final class VoucherEntity extends Entity implements VoucherInterface
     use VoucherBuscarTrait;
     use TextoTrait;
 
-    protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
+    protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
 
-    protected array $_buscar = [
+    protected array $ormBuscar = [
         'id_usuario_cliente' => 'usuario',
         'id_admin_empresa' => 'empresa',
         'id_vinculo' => 'vinculo',
         'tipo', 'codigo', 'data_criacao', 'data_atualizacao', 'data_validacao', 'data_vencimento', 'status'
     ];
-    protected array $_insert = [
+    protected array $ormInsert = [
         'empresa' => '->id_admin_empresa',
         'usuario' => '->id_usuario_cliente',
         'vinculo' => '->id_vinculo',
@@ -49,6 +49,8 @@ final class VoucherEntity extends Entity implements VoucherInterface
     public string $texto_voucher = '';
     public string $texto_juridico = '';
     public string $texto_validar = '';
+
+    public string $qr_code;
 
     public ConstrutorEntity $Construtor;
 

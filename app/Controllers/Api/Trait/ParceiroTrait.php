@@ -15,8 +15,10 @@ trait ParceiroTrait
      * @param   null|string             $MensagemVazio  Mensagem para o erro caso esteja vazio
      * @param   null|string             $tituloErro     Título para o erro caso de algum problema
      * @param   null|string             $mensagemErro   Mensagem para o erro caso de algum problema
-     * @return  bool|LojaEntity                         Retorna null para se o ID for vazio e obrigatorio false ou um LojaEntity
-     * @throws  Excesao                                 Erro caso o ID seja vazio e obrigatorio true ou se não achar o parceiro
+     * @return  bool|LojaEntity                         Retorna null para se o ID for vazio e obrigatorio
+     *                                                  false ou um LojaEntity
+     * @throws  Excesao                                 Erro caso o ID seja vazio e obrigatorio true
+     *                                                  ou se não achar o parceiro
      */
     private function pegarParceiro(
         ?string $id,
@@ -31,12 +33,13 @@ trait ParceiroTrait
                 empty($tituloVazio) ? 'Campo obrigatório!' : $tituloVazio,
                 empty($mensagemVazio) ? 'O campo parceiro é obrigatório.' : $mensagemVazio,
             );
-        } else if (empty($id)) {
+        } elseif (empty($id)) {
             return null;
         }
 
         $tituloErro = empty($tituloErro) ? 'Parceiro não encontrado!' : $tituloErro;
-        $mensagemErro = empty($mensagemErro) ? 'Não foi encontrado nenhum parceiro pelo código enviado.' : $mensagemErro;
+        $mensagemErro = empty($mensagemErro) ?
+            'Não foi encontrado nenhum parceiro pelo código enviado.' : $mensagemErro;
 
         $Parceiro = new LojaEntity();
         $Parceiro->idSlug($id, titulo: $tituloErro, mensagem: $mensagemErro);

@@ -15,7 +15,6 @@ use App\Models\Api\LoginPainel\LoginFacebookModel;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
-use App\Models\Api\LoginClube\LoginModel as LoginClubeModel;
 
 final class LoginController extends Controller
 {
@@ -35,32 +34,6 @@ final class LoginController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | LOGIN CLUBE
-    |--------------------------------------------------------------------------
-    */
-    public function postLoginApi(Request $request)
-    {
-        $Login = new LoginApiModel($request);
-        return $Login->link();
-    }
-    public function loginApiOk($hash)
-    {
-        $dado = base64Decode($hash);
-        if (
-            !is_array($dado) ||
-            !array_key_exists('nome', $dado) ||
-            sessaoExiste('LOGIN_API_' . $dado['hash']) ||
-            $dado['data'] < dataRemover(date('Y-m-d H:i:s'), 2, 'minutos', 'Y-m-d H:i:s')
-        ) {
-            mensagemStatus(404);
-        }
-
-        sessao('LOGIN_API_' . $dado['hash'], true);
-        return view('login.homologacao', ['nome' => $dado['nome']]);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     | LOGIN PAINEL
     |--------------------------------------------------------------------------
     */
@@ -70,7 +43,7 @@ final class LoginController extends Controller
 
         if (!empty($dado->facebook)) {
             $Login = new LoginFacebookModel($dado->facebook);
-        } else if (!empty($dado->google)) {
+        } elseif (!empty($dado->google)) {
             $Login = new LoginGoogleModel($dado->google);
         } else {
             $Login = new LoginFormModel($dado->login, $dado->senha);
@@ -114,28 +87,6 @@ final class LoginController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | LOGIN CLUBE
-    |--------------------------------------------------------------------------
-    */
-    public function postLoginClube(Request $request)
-    {
-        $Login = new LoginClubeModel(
-            login: $request->login,
-            senha: $request->senha,
-            facebook: $request->facebook,
-            google: $request->google,
-            clientId: $request->client_id,
-            redirectUri: $request->redirect_uri,
-            state: $request->state,
-            scope: $request->scope,
-            audience: $request->audience
-        );
-
-        return mensagemSucesso($Login->token(), 201);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     | LOGIN CLUBE TOKEN
     |--------------------------------------------------------------------------
     */
@@ -143,13 +94,13 @@ final class LoginController extends Controller
     {
         if ($request->vazio('usuario')) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um usuário para continuar.');
-        } else if ($request->vazio('clube')) {
+        } elseif ($request->vazio('clube')) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um clube para continuar.');
         }
 
         try {
             $Construtor = new ConstrutorEntity();
-            $Construtor->id($request->clube);
+            $Construtor->uuid($request->clube);
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Clube não encontrado.', status: 404);
         }

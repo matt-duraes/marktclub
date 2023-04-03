@@ -6,8 +6,8 @@ use Modules\Trait\ValidarTrait;
 
 final class Decimal implements ModuleInterface
 {
-
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->decimal();
@@ -35,7 +35,7 @@ final class Decimal implements ModuleInterface
             $this->valido = false;
             $this->decimal = '';
             return;
-        } else if (!$this->validarDecimal()) {
+        } elseif (!$this->validarDecimal()) {
             $this->valido = false;
             $this->decimal = '';
             return;

@@ -2,6 +2,8 @@
 
 namespace ApiController;
 
+use Throwable;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
@@ -30,10 +32,11 @@ final class LogErroController extends Controller implements
                 $request->linha,
                 $request->trace,
             );
+
             $Error->salvar();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             if ($e->getMessage() != 'erro_duplicado') {
-                mensagemStatus(404, error: $e, localhost: 'Não foi possível salvar o log.');
+                mensagemStatus(404, $e, localhost: 'Não foi possível salvar o log.');
             }
         }
 
@@ -41,21 +44,41 @@ final class LogErroController extends Controller implements
             'id' => $Error->id
         ], status: 201);
     }
+
+    /**
+     * @param  string  $id
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
         $Error = new ErrorEntity();
-        $Error->id($id);
+        $Error->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Error,
                 lista: [
-                    'id', 'mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'quantidade',
-                    'status_http', 'data_criacao', 'status'
+                    'id',
+                    'mensagem',
+                    'codigo',
+                    'arquivo',
+                    'linha',
+                    'trace',
+                    'quantidade',
+                    'status_http',
+                    'data_criacao',
+                    'status'
                 ]
             ),
         );
     }
+
+    /**
+     * @param  Request  $request
+     * @return Response
+     * @throws Excecao
+     */
     public function getListar(Request $request): Response
     {
         $Error = new ErrorModel($request);
@@ -63,10 +86,17 @@ final class LogErroController extends Controller implements
 
         return mensagemSucesso($dado);
     }
+
+    /**
+     * @param  Request  $request
+     * @param  string   $id
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $Error = new ErrorEntity();
-        $Error->id($id);
+        $Error->uuid($id);
         $Error->status = new Status($request->status);
         $Error->salvar();
 

@@ -18,7 +18,7 @@ final class TokenController extends Controller implements
         $grantType = $request->grant_type;
         if ('client_credentials' == $grantType) {
             return $this->criarCredentialToken($request);
-        } else if ('refresh_token' == $grantType) {
+        } elseif ('refresh_token' == $grantType) {
             return $this->criarRefreshToken($request);
         }
         mensagemStatus(400);
@@ -61,7 +61,7 @@ final class TokenController extends Controller implements
                 ['status', 1]
             ]);
         } catch (\Throwable $e) {
-            (new RefreshTokenModel)->tokenVencido($e, 'Não foi possível encontrar o APP');
+            (new RefreshTokenModel())->tokenVencido($e, 'Não foi possível encontrar o APP');
         }
 
         $Token = new RefreshTokenModel(

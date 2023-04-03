@@ -52,8 +52,8 @@ final class PontoCvsController extends Controller implements
     {
         validarUuid($id);
 
-        $Ponto = new pontoEntity;
-        $Ponto->id($id);
+        $Ponto = new pontoEntity();
+        $Ponto->uuid($id);
 
         return $this->retornoSucesso($Ponto);
     }
@@ -62,8 +62,8 @@ final class PontoCvsController extends Controller implements
     {
         validarUuid($id);
 
-        $Ponto = new pontoEntity;
-        $Ponto->id($id);
+        $Ponto = new pontoEntity();
+        $Ponto->uuid($id);
         $Ponto->voucher = $request->voucher ?? '';
         $Ponto->mensagem = $request->mensagem ?? '';
         $Ponto->status = new Status($request->status);

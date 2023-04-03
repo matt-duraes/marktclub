@@ -14,12 +14,12 @@ $download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
 
 if (!file_exists($path)) {
     mensagemStatus(404, localhost: 'O arquivo não existe.');
-} else if (!is_file($path)) {
+} elseif (!is_file($path)) {
     mensagemStatus(404, localhost: 'O arquivo não é um arquivo comum.');
-} else if (!$download) {
+} elseif (!$download) {
     $Response = new Response(arquivo: $path);
     $Response->render();
-} else if ($download) {
+} elseif ($download) {
     $Response = new Response(download: $path);
     $Response->render();
 }

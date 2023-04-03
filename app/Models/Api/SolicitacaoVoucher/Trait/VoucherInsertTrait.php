@@ -53,7 +53,7 @@ trait VoucherInsertTrait
 
         if (empty($voucher)) {
             return false;
-        } else if ($voucher->status == 2) {
+        } elseif ($voucher->status == 2) {
             mensagemErro('Sem saldo!', 'Você já utilizou o voucher mensal desta parceria.');
         }
 

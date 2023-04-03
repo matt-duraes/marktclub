@@ -8,7 +8,7 @@ $id = arquivoPrivadoId($requestUri);
 
 try {
     $Arquivo = new ArquivoEntity();
-    $Arquivo->id($id);
+    $Arquivo->uuid($id);
 } catch (\Throwable) {
     mensagemStatus(404, localhost: 'Falhou ao tentar buscar arquivo.');
 }
@@ -16,7 +16,7 @@ try {
 $download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
 
 $Grupo = new GrupoEntity();
-$Grupo->_id($Arquivo->id_upload_grupo);
+$Grupo->id($Arquivo->id_upload_grupo);
 
 
 $equipe = array_key_exists('USUARIO_PAINEL', $_SESSION) && array_key_exists('id', $_SESSION['USUARIO_PAINEL']) ?
@@ -25,7 +25,7 @@ $equipe = array_key_exists('USUARIO_PAINEL', $_SESSION) && array_key_exists('id'
 $privado = '';
 if (!empty($Arquivo->privado)) {
     $privado = $Arquivo->privado;
-} else if (!empty($Grupo->privado)) {
+} elseif (!empty($Grupo->privado)) {
     $privado = $Grupo->privado;
 }
 
@@ -37,11 +37,11 @@ $arquivo = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->get('ar
 
 if (!file_exists($arquivo)) {
     mensagemStatus(404, localhost: 'Esse arquivo não existe.');
-} else if (!$download) {
+} elseif (!$download) {
     $Response = new Response(arquivo: $arquivo);
     $Response->render();
     exit();
-} else if ($download) {
+} elseif ($download) {
     $Response = new Response(download: $arquivo);
     $Response->render();
     exit();

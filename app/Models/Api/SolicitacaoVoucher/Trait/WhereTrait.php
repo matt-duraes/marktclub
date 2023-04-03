@@ -9,7 +9,7 @@ trait WhereTrait
 {
     protected function pegarWhere(): array
     {
-        $where = $this->_wherePadrao;
+        $where = $this->ormWherePadrao;
 
         $Status = new Status($this->request->status);
         if ($Status->valido()) {
@@ -29,9 +29,9 @@ trait WhereTrait
                 'between',
                 [dataBanco($dataCriacaoDe), dataBanco($dataCriacaoAte) . ' 23:59:59']
             ];
-        } else if (validarDataDate($dataCriacaoDe)) {
+        } elseif (validarDataDate($dataCriacaoDe)) {
             $where[] = ['data_criacao', '>=', dataBanco($dataCriacaoDe)];
-        } else if (validarDataDate($dataCriacaoAte)) {
+        } elseif (validarDataDate($dataCriacaoAte)) {
             $where[] = ['data_criacao', '<=', dataBanco($dataCriacaoAte) . ' 23:59:59'];
         }
 
@@ -43,9 +43,9 @@ trait WhereTrait
                 'between',
                 [dataBanco($dataValidacaoDe), dataBanco($dataValidacaoAte) . ' 23:59:59']
             ];
-        } else if (validarDataDate($dataValidacaoDe)) {
+        } elseif (validarDataDate($dataValidacaoDe)) {
             $where[] = ['data_criacao', '>=', dataBanco($dataValidacaoDe)];
-        } else if (validarDataDate($dataValidacaoAte)) {
+        } elseif (validarDataDate($dataValidacaoAte)) {
             $where[] = ['data_criacao', '<=', dataBanco($dataValidacaoAte) . ' 23:59:59'];
         }
 

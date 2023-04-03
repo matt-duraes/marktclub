@@ -2,16 +2,26 @@
 
 namespace ApiModel\Upload;
 
+use Erro\Excecao;
 use ORM\ORM;
+use Throwable;
 
 final class GrupoModel extends ORM
 {
-    protected string $_tabela = TABELA_UPLOAD_GRUPO;
+    /**
+     * @var string
+     */
+    protected string $ormTabela = TABELA_UPLOAD_GRUPO;
 
-    public function listarSubGrupo($grupo)
+    /**
+     * @param $grupo
+     * @return array
+     * @throws Excecao
+     */
+    public function listarSubGrupo($grupo): array
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($grupo);
+        $Grupo->uuid($grupo);
 
         $dado = $this
             ->campo(['uuid', 'nome'])
@@ -21,6 +31,10 @@ final class GrupoModel extends ORM
         return $this->montarGrupo($dado);
     }
 
+    /**
+     * @param  array  $dado
+     * @return array
+     */
     private function montarGrupo(array $dado): array
     {
         $lista = [];
@@ -36,8 +50,9 @@ final class GrupoModel extends ORM
     /**
      * Pega a lista dos pais do grupo
      *
-     * @param int|string    $grupo  Id ou uuid do grupo atual
+     * @param  int|string  $grupo  Id ou uuid do grupo atual
      * @return array
+     * @throws Excecao
      */
     public function pegarGrupoPai(int|string $grupo): array
     {
@@ -69,7 +84,11 @@ final class GrupoModel extends ORM
         return array_reverse($lista);
     }
 
-    private function pegarIdGrupo($grupo)
+    /**
+     * @param $grupo
+     * @return mixed
+     */
+    private function pegarIdGrupo($grupo): mixed
     {
         if (is_numeric($grupo)) {
             return $grupo;
@@ -77,9 +96,9 @@ final class GrupoModel extends ORM
 
         try {
             $Grupo = new GrupoEntity();
-            $Grupo->id($grupo);
+            $Grupo->uuid($grupo);
             return $Grupo->get('id');
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return '';
         }
     }
@@ -87,9 +106,10 @@ final class GrupoModel extends ORM
     /**
      * Valida se grupo atual faz parte do grupo inicial
      *
-     * @param string $grupoInicial  Uuid do grupo incial
-     * @param string $grupoAtual    Uuid do grupo atual
+     * @param  string  $grupoInicial  Uuid do grupo incial
+     * @param  string  $grupoAtual    Uuid do grupo atual
      * @return bool
+     * @throws Excecao
      */
     public function validarGrupoAtual(string $grupoInicial, string $grupoAtual): bool
     {
@@ -123,8 +143,9 @@ final class GrupoModel extends ORM
     /**
      * Lista toda a arvore de diretorio do grupo
      *
-     * @param string $grupo Uuid do grupo
+     * @param  string  $grupo  Uuid do grupo
      * @return array
+     * @throws Excecao
      */
     public function listarTodaArvoreDiretorio(string $grupo): array
     {
@@ -132,13 +153,21 @@ final class GrupoModel extends ORM
         if (!$diretorio) {
             return [];
         }
-        return [[
-            'id' => $diretorio->uuid,
-            'nome' => $diretorio->nome,
-            'lista' => $this->listarTodaArvoreSubDiretorio($diretorio->id)
-        ]];
+        return [
+            [
+                'id' => $diretorio->uuid,
+                'nome' => $diretorio->nome,
+                'lista' => $this->listarTodaArvoreSubDiretorio($diretorio->id)
+            ]
+        ];
     }
-    private function listarTodaArvoreSubDiretorio($id)
+
+    /**
+     * @param $id
+     * @return array
+     * @throws Excecao
+     */
+    private function listarTodaArvoreSubDiretorio($id): array
     {
         $dado = $this->campo(['id', 'uuid', 'nome'])->where(['id_upload_grupo', $id])->read();
         $lista = [];

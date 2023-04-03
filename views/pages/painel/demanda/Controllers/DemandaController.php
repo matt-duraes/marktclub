@@ -48,7 +48,7 @@ final class DemandaController extends Controller
             ->object();
 
         return view('painel.demanda.demanda', [
-            'r' => (new DetalheModel)->montarDado($demanda->dado),
+            'r' => (new DetalheModel())->montarDado($demanda->dado),
             'Tipo' => new DemandaTarefaTipo(),
             'Status' => new Status()
         ]);
@@ -59,7 +59,7 @@ final class DemandaController extends Controller
 
         $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
-            ->get('/admin-empresa/select')
+            ->get('/comercial-empresa/select')
             ->array();
 
         return view('painel.demanda.demanda-salvar', [
@@ -74,7 +74,7 @@ final class DemandaController extends Controller
 
         $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
-            ->get('/admin-empresa/select')
+            ->get('/comercial-empresa/select')
             ->array();
         $equipe = $this->Api
             ->json(['titulo' => 'Escolha um usuário'])
@@ -203,14 +203,14 @@ final class DemandaController extends Controller
                 $request->_POST('texto', html: false),
                 new Botao($request->cdn)
             );
-        } else if (in_array($request->tipo, ['outro', 'feature'])) {
+        } elseif (in_array($request->tipo, ['outro', 'feature'])) {
             $Demanda = new CriarOutroModel(
                 titulo: $request->titulo,
                 empresa: $request->empresa,
                 texto: $request->_POST('texto', html: false),
                 tipo: $request->tipo
             );
-        } else if ($request->tipo == 'bug') {
+        } elseif ($request->tipo == 'bug') {
             $Demanda = new CriarBugModel(
                 titulo: $request->titulo,
                 empresa: $request->empresa,
@@ -218,7 +218,7 @@ final class DemandaController extends Controller
                 critico: $request->critico,
                 local: $request->local,
             );
-        } else if ($request->tipo == 'associacao') {
+        } elseif ($request->tipo == 'associacao') {
             $Demanda = new CriarAssociacaoModel(
                 empresa: $request->empresa,
                 texto: $request->_POST('texto', html: false)

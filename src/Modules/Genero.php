@@ -42,7 +42,7 @@ final class Genero implements ModuleInterface
             $this->numero = '';
             $this->genero = '';
             return;
-        } else if (!$this->validarGenero()) {
+        } elseif (!$this->validarGenero()) {
             $this->valido = false;
             $this->numero = '';
             $this->genero = '';
@@ -58,7 +58,7 @@ final class Genero implements ModuleInterface
             $this->numero = $this->genero;
             $this->genero = $this->listaValores[$this->genero];
             return;
-        } else if (in_array($this->genero, $this->listaValores)) {
+        } elseif (in_array($this->genero, $this->listaValores)) {
             $this->numero = array_flip($this->listaValores)[$this->genero];
             return;
         }

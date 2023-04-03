@@ -22,26 +22,26 @@ trait EntityUpdateTrait
             in_array('nome', $campoObrigatorio) && $request->existe('nome') && $this->nome->vazio()
         ) {
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } else if (
+        } elseif (
             in_array('cpf', $campoObrigatorio) && $request->existe('cpf') && $this->cpf->vazio()
         ) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
-        } else if (
+        } elseif (
             in_array('email', $campoObrigatorio) &&
             $emailExiste &&
             $this->email_pessoal->vazio() &&
             $this->email_trabalho->vazio()
         ) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail para salvar.');
-        } else if (
+        } elseif (
             in_array('status', $campoObrigatorio) && $request->existe('status') && !$this->status->valido()
         ) {
             mensagemErro('Campo obrigatório!', 'O campo status é obrigatório.');
-        } else if (
+        } elseif (
             in_array('matricula', $campoObrigatorio) && $request->existe('matricula') && empty($this->matricula)
         ) {
             mensagemErro('Campo obrigatório!', 'O campo matrícula é obrigatório.');
-        } else if (
+        } elseif (
             in_array('siape', $campoObrigatorio) && $request->existe('siape') && empty($this->siape)
         ) {
             mensagemErro('Campo obrigatório!', 'O campo siape é obrigatório.');

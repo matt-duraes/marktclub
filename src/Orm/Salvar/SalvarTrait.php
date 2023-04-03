@@ -9,16 +9,16 @@ use Modules\Vazio;
 
 trait SalvarTrait
 {
-    private string $_acao;
+    private string $ormAcao;
 
     public function salvar()
     {
         $this->ormVerificarSeEntityExiste();
         $this->ormPegarAcaoAoSalvar();
 
-        if ($this->_acao == 'insert' && method_exists($this, 'regraInsert')) {
+        if ($this->ormAcao == 'insert' && method_exists($this, 'regraInsert')) {
             $this->regraInsert();
-        } elseif ($this->_acao == 'update' && method_exists($this, 'regraUpdate')) {
+        } elseif ($this->ormAcao == 'update' && method_exists($this, 'regraUpdate')) {
             $this->regraUpdate();
         }
 
@@ -39,23 +39,23 @@ trait SalvarTrait
         $this->ormPegarAcaoAoSalvar();
 
         $dado = $this->ormMontarDado();
-        $this->ormValidarViaHelper($this->_acao);
+        $this->ormValidarViaHelper($this->ormAcao);
 
         $deletarArquivo = [];
-        if ($this->_acao == 'insert') {
+        if ($this->ormAcao == 'insert') {
             $salvar = $this->dado($dado['salvar'])->insert();
-        } elseif ($this->_acao == 'update' && empty($dado['salvar'])) {
+        } elseif ($this->ormAcao == 'update' && empty($dado['salvar'])) {
             $salvar = ['id' => $this->prop('id')];
-        } elseif ($this->_acao == 'update') {
+        } elseif ($this->ormAcao == 'update') {
             $deletarArquivo = $this->ormPegarArquivoParaDeletar($dado['salvar']);
-            $salvar = $this->dado($dado['salvar'])->where(['id', $this->_entityId])->update();
+            $salvar = $this->dado($dado['salvar'])->where(['id', $this->ormEntityId])->update();
         }
 
         if (is_array($salvar) && array_key_exists('id', $salvar)) {
-            $this->_id($salvar['id']);
-            $this->ormAcaoPosSalvar($this->_acao);
+            $this->id($salvar['id']);
+            $this->ormAcaoPosSalvar($this->ormAcao);
             $this->ormDeletarArquivos($deletarArquivo);
-            $this->_diff = $dado['salvar'];
+            $this->ormDiff = $dado['salvar'];
             return $this;
         }
         throw new Excecao(titulo: 'Erro ao salvar!', mensagem: 'Ocorreu um erro ao salvar, por favor, tente novamente.');
@@ -63,12 +63,12 @@ trait SalvarTrait
 
     private function ormPegarAcaoAoSalvar(): void
     {
-        $id = $this->_entityId;
+        $id = $this->ormEntityId;
         if (is_int($id) && $id > 0) {
-            $this->_acao = 'update';
+            $this->ormAcao = 'update';
             return;
         }
-        $this->_acao = 'insert';
+        $this->ormAcao = 'insert';
     }
 
     private function ormMontarDadoOutroValor($linha)
@@ -125,8 +125,8 @@ trait SalvarTrait
     {
         $parametro = $this->ormPegarParametro();
         $dadoAtual = [];
-        if ($this->_acao == 'update') {
-            $dadoAtual = $this->ormPegarTodosOsDadoPeloId($this->_entityId);
+        if ($this->ormAcao == 'update') {
+            $dadoAtual = $this->ormPegarTodosOsDadoPeloId($this->ormEntityId);
         }
 
         $listaTodosOsDados = [];
@@ -167,7 +167,7 @@ trait SalvarTrait
             }
             $listaTodosOsDados[$indice] = $valor;
         }
-        if (empty($lista) && $this->_acao == 'insert') {
+        if (empty($lista) && $this->ormAcao == 'insert') {
             throw new Excecao(
                 titulo: 'Erro ao salvar!',
                 mensagem: 'Você precisa passar pelo menos uma informação para salvar.'
@@ -181,7 +181,7 @@ trait SalvarTrait
 
     private function ormVerificarSePodeSalvarCampo(string $campo, $valor, array $lista = [])
     {
-        $acao = $this->_acao;
+        $acao = $this->ormAcao;
         if ($acao == 'insert') {
             return !empty($valor);
         }
@@ -202,11 +202,11 @@ trait SalvarTrait
 
     private function ormPegarParametro(): array
     {
-        $parametro = property_exists($this, '_salvar') && is_array($this->_salvar) && $this->_salvar ? $this->_salvar : [];
-        if ($this->_acao == 'insert' && !empty($this->_insert)) {
-            $parametro = array_merge($parametro, $this->_insert);
-        } elseif ($this->_acao == 'update' && !empty($this->_update)) {
-            $parametro = array_merge($parametro, $this->_update);
+        $parametro = property_exists($this, 'ormSalvar') && is_array($this->ormSalvar) && $this->ormSalvar ? $this->ormSalvar : [];
+        if ($this->ormAcao == 'insert' && !empty($this->ormInsert)) {
+            $parametro = array_merge($parametro, $this->ormInsert);
+        } elseif ($this->ormAcao == 'update' && !empty($this->ormUpdate)) {
+            $parametro = array_merge($parametro, $this->ormUpdate);
         }
         return $parametro;
     }

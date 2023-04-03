@@ -2,27 +2,40 @@
 
 namespace ApiModel\PainelNotificacao;
 
-use ORM\Entity;
-use Helpers\EmailHelper;
-use System\Classes\PainelNotificacao\Status;
-use App\Models\Api\UsuarioEquipe\PerfilModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
+use Erro\Excecao;
+use Helpers\EmailHelper;
+use ORM\Entity;
+use System\Classes\PainelNotificacao\Status;
 
 final class NotificacaoEntity extends Entity
 {
-    protected string $_tabela = TABELA_PAINEL_NOTIFICACAO;
-    protected array $_insert = [
-        'titulo', 'mensagem', 'link', 'botao', 'id_usuario_equipe', 'id_usuario_dono', 'target'
-    ];
-    protected array $_salvar = ['status'];
-    protected array $_buscar = [
-        'id_usuario_dono', 'titulo', 'mensagem', 'link', 'target', 'botao', 'target', 'status'
-    ];
-
-    protected int $id_usuario_equipe;
-    protected int $id_usuario_dono;
     public Status $status;
     public array $dono;
+    protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
+    protected array $ormInsert = [
+        'titulo',
+        'mensagem',
+        'link',
+        'botao',
+        'id_usuario_equipe',
+        'id_usuario_dono',
+        'target'
+    ];
+    protected array $ormSalvar = ['status'];
+    protected array $ormBuscar = [
+        'id_usuario_dono',
+        'titulo',
+        'mensagem',
+        'link',
+        'target',
+        'botao',
+        'target',
+        'status'
+    ];
+    protected int $id_usuario_equipe;
+    protected int $id_usuario_dono;
 
     public function __construct(
         public ?string $titulo = null,
@@ -42,6 +55,9 @@ final class NotificacaoEntity extends Entity
         $this->target = $this->target == '_blank' ? '_blank' : '_self';
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraInsert()
     {
         $this->id_usuario_equipe = $this->Equipe->get('id');
@@ -59,8 +75,8 @@ final class NotificacaoEntity extends Entity
         $Email->mensagem(
             titulo: $this->titulo,
             mensagem: $this->mensagem,
-            botaoLink: $this->link,
             botaoTexto: $this->botao,
+            botaoLink: $this->link,
             host: 'markt.club'
         );
         $Email->sendGrid(
