@@ -106,8 +106,7 @@ final class Excecao extends \Exception
         }
         if (empty($titulo) && empty($mensagem)) {
             throw new Erro(
-                mensagem: 'Você não passou um código que está na lista de erro, verifique
-                    o código informado ou adicione ele na lista.',
+                mensagem: 'Você não passou um código que está na lista de erro, verifique o código informado ou adicione ele na lista.',
                 arquivo: 'trace:1'
             );
         }
@@ -146,8 +145,7 @@ final class Excecao extends \Exception
                 'status' => 'erro',
                 'erro' => [
                     'titulo' => 'Erro de requisição!',
-                    'mensagem' => 'Foi enviado uma requisição ruim (Bad Request),
-                        verifique os dados enviado e tente novamente.',
+                    'mensagem' => 'Foi enviado uma requisição ruim (Bad Request), verifique os dados enviado e tente novamente.',
                     'codigo' => 400
                 ]
             ];
@@ -165,8 +163,7 @@ final class Excecao extends \Exception
                 'status' => 'erro',
                 'erro' => [
                     'titulo' => 'Erro de permissão!',
-                    'mensagem' => 'Você não tem permissão para acessar essa informação,
-                        verifique suas permissões e tente novamente.',
+                    'mensagem' => 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.',
                     'codigo' => 403
                 ]
             ];
@@ -184,8 +181,7 @@ final class Excecao extends \Exception
                 'status' => 'erro',
                 'erro' => [
                     'titulo' => 'Erro interno!',
-                    'mensagem' => 'Ocorreu um erro interno, por favor, tente novamente, se
-                        o erro persistir, contate o suporte.',
+                    'mensagem' => 'Ocorreu um erro interno, por favor, tente novamente, se o erro persistir, contate o suporte.',
                     'codigo' => 500
                 ]
             ];

@@ -26,7 +26,7 @@ final class TokenAuthorizationEntity extends Entity
     protected string $id_usuario;
     protected int $id_api_app;
     protected string $redirect_uri;
-    protected string $scope_permitido;
+    protected array $scope_permitido;
     protected string $state_cliente;
     protected string $authorization_code;
     protected string $access_token;

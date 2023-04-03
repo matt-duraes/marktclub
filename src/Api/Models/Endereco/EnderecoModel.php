@@ -2,13 +2,13 @@
 
 namespace ApiModel\Endereco;
 
-use Erro\Excecao;
-use Http\Request;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Erro\Excecao;
+use Http\Request;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 
 final class EnderecoModel extends ORM implements ModelListarInterface
 {

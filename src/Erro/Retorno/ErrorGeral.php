@@ -268,10 +268,7 @@ abstract class ErrorGeral extends SolucaoGeral
         }
         if (!$arquivoInicialExiste && !empty($arquivoInicial) && $arquivoInicial != $arquivoPrincipal) {
             $this->alerta++;
-            $this->alertaLista[$this->alerta] = '
-                Por algum motivo, o arquivo inicial do erro não está no trace, adicionamos
-                ele no topo pra facilitar o debug.
-            ';
+            $this->alertaLista[$this->alerta] = 'Por algum motivo, o arquivo inicial do erro não está no trace, adicionamos ele no topo pra facilitar o debug.';
             $lista = array_merge([
                 'id_' . md5(uniqid(time())) => [
                     'alerta' => $this->alerta,

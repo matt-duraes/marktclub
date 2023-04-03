@@ -31,8 +31,8 @@ abstract class SolucaoGeral
                     . $classe . '</strong> ou foi definida com erro de digitação.',
                 'lista' => [
                     'O nome <strong>' . $propriedade . '</strong> está digitado de maneira incorreta.',
-                    'A propriedade <strong>' . $propriedade . '</strong> está digitada de
-                        maneira incorreta na classe <strong>' . $classe . '</strong>.',
+                    'A propriedade <strong>' . $propriedade
+                        . '</strong> está digitada de maneira incorreta na classe <strong>' . $classe . '</strong>.',
                     'Você não definiu a propriedade <strong>' . $propriedade
                         . '</strong> na classe <strong>' . $classe . '</strong>.'
                 ]
@@ -114,13 +114,11 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'A constante ' . $variavel . ' não foi definida.',
-                'texto' => 'Nem sempre este erro indica que o problema é uma constante não declarada,
-                    podem ter outros problemas relacionados a esse erro.',
+                'texto' => 'Nem sempre este erro indica que o problema é uma constante não declarada, podem ter outros problemas relacionados a esse erro.',
                 'lista' => [
                     '<strong>' . $variavel . '</strong> pode ser uma constante não declarada.',
                     '<strong>' . $variavel . '</strong> pode ser uma string que não foi colocada entre aspas.',
-                    '<strong>' . $variavel . '</strong> pode ser uma variável ao qual você esqueceu
-                        de colocar o $ (sifrão).',
+                    '<strong>' . $variavel . '</strong> pode ser uma variável ao qual você esqueceu de colocar o $ (sifrão).',
                     '<strong>' . $variavel . '</strong> pode ser uma classe ao qual você esqueceu de colocar o new.'
                 ]
             ];
@@ -130,8 +128,7 @@ abstract class SolucaoGeral
             $classe = count($classe) == 1 ? $classe[0] : end($classe);
             return [
                 'titulo' => 'A classe ' . $classe . ' não foi encontrada.',
-                'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado, as
-                    vezes o problema pode está na própria classe.',
+                'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
                 'lista' => [
                     'Você não colocou ou colocou errado o "<strong>use</strong>" da classe <strong>'
                         . $classe . '</strong>.',
@@ -156,8 +153,7 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Não foi encontrado o método ' . $metodo . ' na classe ' . $classe . '.',
-                'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado,
-                    as vezes o problema pode está na própria classe.',
+                'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
                 'lista' => [
                     'Você digitou o nome errado do método.',
                     'Você não criou o método "<strong>' . $metodo . '</strong>" na classe "<strong>'
@@ -173,8 +169,7 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Sem permissão para acessar o método ' . $metodo . ' na classe ' . $classe . '.',
-                'texto' => 'Métodos privados não podem ser acessador de outro local a não ser a própria
-                    classe "<strong>' . $classe . '</strong>".',
+                'texto' => 'Métodos privados não podem ser acessador de outro local a não ser a própria classe "<strong>' . $classe . '</strong>".',
                 'lista' => [
                     'Tente mudar a visibilidade do método.',
                     'Mude a sua regra de negócios para chamar o conteúdo do método "<strong>'
@@ -221,8 +216,7 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Sem permissão para acessar a propriedade ' . $propriedade . ' da classe ' . $classe . '.',
-                'texto' => 'Propriedades protegidas não podem ser acessador de outro local a não ser
-                    a própria classe ou de classes herdadas.',
+                'texto' => 'Propriedades protegidas não podem ser acessador de outro local a não ser a própria classe ou de classes herdadas.',
                 'lista' => [
                     'Tente mudar a visibilidade da propriedade.',
                     'Mude a sua regra de negócios para chamar o conteúdo da propriedade "<strong>'
@@ -232,11 +226,7 @@ abstract class SolucaoGeral
         } elseif (preg_match('/^syntax error, unexpected token/', $mensagem)) {
             return [
                 'titulo' => 'Erro de sintaxe.',
-                'texto' => 'Existe um erro de sintaxe no código, as vezes, esse erro
-                acontece em <strong>linhas anteriores</strong> a informada pelo sistema,
-                procure por erros como falta de ";" (ponto e virgula), string, funções ou métodos
-                aberto mas não fechados entre outros erros de digitação tanto na linha informada
-                como nas anteriores.',
+                'texto' => 'Existe um erro de sintaxe no código, as vezes, esse erro acontece em <strong>linhas anteriores</strong> a informada pelo sistema, procure por erros como falta de ";" (ponto e virgula), string, funções ou métodos aberto mas não fechados entre outros erros de digitação tanto na linha informada como nas anteriores.',
             ];
         } elseif (preg_match('/^Too few arguments to function/', $mensagem)) {
             return [

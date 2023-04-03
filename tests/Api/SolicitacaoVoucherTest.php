@@ -71,7 +71,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'usuario' => $this->usuario1
             ])
             ->post('/solicitacao-voucher')
-            ->object()->dado->codigo;
+            ->object()->dado->codigo ?? '';
 
         $codigo2 = $this
             ->Curl
@@ -80,7 +80,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'usuario' => $this->usuario1
             ])
             ->post('/solicitacao-voucher')
-            ->object()->dado->codigo;
+            ->object()->dado->codigo ?? '';
 
         return $this
             ->checkNaoVazio($codigo1)

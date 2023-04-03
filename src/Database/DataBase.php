@@ -82,7 +82,7 @@ final class DataBase
             $query = "SET foreign_key_checks = 0; DROP TABLE IF EXISTS `{$this->tabela}`; SET foreign_key_checks = 1;";
         } elseif ($acao == 'criar') {
             $dado = implode(', ', array_merge($this->estrutura, $this->propriedade));
-            $query = 'CREATE TABLE `{$this->tabela}` ('
+            $query = 'CREATE TABLE `' . $this->tabela . '` ('
                 . $dado . ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
         } elseif ($acao == 'relacionar' && $this->relacionado) {
             $query = $this->montarRelacionado();
@@ -104,7 +104,6 @@ final class DataBase
         if ($acao == 'deletar') {
             return;
         }
-
         $sql = $this->db->prepare("SELECT * FROM `{$this->tabela}` LIMIT 0,1");
         $sql->execute();
         $erro = $sql->errorInfo()[2] ?? '';
@@ -591,7 +590,7 @@ final class DataBase
      * Campo para criação de slug para URL e afins
      *
      * @param  string  $nome
-     * @param  string  $base   Qual campo ser�� usado como base, por exemplo, se existe um campo titulo, ele pegara o
+     * @param  string  $base   Qual campo ser��� usado como base, por exemplo, se existe um campo titulo, ele pegara o
      *                         titulo e criar o slug
      * @return  DataBase
      */
