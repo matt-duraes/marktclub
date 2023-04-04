@@ -11,6 +11,8 @@ use Modules\Dinheiro;
 use Modules\Telefone;
 use Modules\EnderecoEstado;
 use App\Classes\ComercialEmpresa\Status;
+use App\Models\Api\UsuarioEquipe\EquipeModel;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Classes\ComercialEmpresa\TipoPagamento;
 
 final class EmpresaEntity extends Entity
@@ -22,14 +24,14 @@ final class EmpresaEntity extends Entity
         'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
         'responsavel_email', 'responsavel_telefone', 'finalidade_secundaria', 'tipo_pagamento',
         'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site',
-        'renda_media', 'valor_pib', 'estado_principal', 'site', 'status'
+        'renda_media', 'valor_pib', 'estado_principal', 'site', 'id_usuario_equipe', 'status'
     ];
     protected array $ormSalvar = [
         'finalidade_empresa' => '->finalidade_principal',
         'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
         'responsavel_email', 'responsavel_telefone', 'finalidade_secundaria', 'tipo_pagamento',
         'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site',
-        'renda_media', 'valor_pib', 'estado_principal', 'site', 'status'
+        'renda_media', 'valor_pib', 'estado_principal', 'site', 'id_usuario_equipe', 'status'
     ];
 
     protected string $ormValidarSalvar = '
@@ -50,6 +52,7 @@ final class EmpresaEntity extends Entity
 
     protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
 
+    protected int $id_usuario_equipe;
     public string $titulo;
     public Cnpj $cnpj;
     public string $razao_social;
@@ -71,18 +74,58 @@ final class EmpresaEntity extends Entity
     public Dinheiro $renda_media;
     public Dinheiro $valor_pib;
     public EnderecoEstado $estado_principal;
+    public string $equipe;
 
+    protected function regraInsert()
+    {
+        $this->validarSeJaExisteCnpj();
+    }
+    protected function regraUpdate()
+    {
+        $this->validarSeJaExisteCnpj($this->prop('id'));
+    }
+    protected function regraSalvar()
+    {
+        $Equipe = new EquipeModel();
+        $id = $Equipe->where(['uuid', $this->equipe])->primeiro('id');
+
+        $this->id_usuario_equipe = $id;
+    }
 
     protected function regraPosBuscar()
     {
         if (empty($this->imagem)) {
             $this->imagem = arquivoPublico('empresa', 'padrao.png');
         }
-    }
 
+        try {
+            $Equipe = new EquipeModel();
+            $id = $Equipe->where(['id', $this->id_usuario_equipe])->primeiro('id', padrao: '');
+            ppe($id);
+            $this->equipe = $id;
+        } catch (\Throwable $th) {
+            ppe($th);
+        }
+    }
 
     protected function getId()
     {
         return $this->prop('id');
+    }
+
+    private function validarSeJaExisteCnpj(?int $id = null)
+    {
+        if (!$this->cnpj->valido()) {
+            return;
+        }
+
+        $where = [['cnpj', $this->cnpj->numero()]];
+        if (!empty($id)) {
+            $where[] = ['id', '!=', $id];
+        }
+
+        if ($this->existe($where)) {
+            mensagemErro('Campo duplicado!', 'O CNPJ informado já está em uso por outro cliente');
+        }
     }
 }

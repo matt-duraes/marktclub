@@ -12,7 +12,7 @@ $Painel
         placeholder: 'Digite o título, nome fantasia ou razão social'
     )
     ->select(
-        name: 'usuario',
+        name: 'equipe',
         titulo: 'Gestor do contrato',
         label: 'Gestor do contrato',
         lista: 'usuario'

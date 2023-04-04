@@ -21,7 +21,6 @@ use Facebook\WebDriver\Exception\WebDriverCurlException;
 
 final class WebDriverHelper
 {
-
     private string $mensagemPadrao = 'Ocorreu um erro no sistema, por favor, tente novamente.';
     private RemoteWebDriver $Driver;
     private array|RemoteWebElement $ElementoAtual;
@@ -81,7 +80,7 @@ final class WebDriverHelper
      * @throws Excecao
      * @return Self
      */
-    public function requisicao(string $link): Self
+    public function requisicao(string $link): self
     {
         try {
             $this->Driver->get($link);
@@ -194,7 +193,7 @@ final class WebDriverHelper
      * @throws Excecao
      * @return Self
      */
-    public function elemento(string $elemento): Self
+    public function elemento(string $elemento): self
     {
         try {
             $this->ElementoAtual = $this->Driver->findElement(WebDriverBy::cssSelector($elemento));
@@ -855,7 +854,7 @@ final class WebDriverHelper
                 mensagem: 'O arquivo enviado não existe.'
             );
         } elseif ($type == 'file') {
-            $elemento->setFileDetector(new LocalFileDetector);
+            $elemento->setFileDetector(new LocalFileDetector());
         } elseif ($tag == 'select') {
             $elemento = new WebDriverSelect($elemento);
             $elemento->selectByValue($valor);

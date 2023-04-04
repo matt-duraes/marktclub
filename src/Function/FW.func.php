@@ -575,7 +575,10 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             }
 
             $valor = $Entity->$campo;
-            if ($valor instanceof \ORM\Entity) {
+            if ($valor instanceof \ORM\Entity && empty($valor->id)) {
+                $campo = strCaixaBaixa($campo);
+                $valor = null;
+            } elseif ($valor instanceof \ORM\Entity) {
                 $campo = strCaixaBaixa($campo);
                 $valor = $valor->retorno();
             } elseif ($valor instanceof \Status\StatusInterface) {
