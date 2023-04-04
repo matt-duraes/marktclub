@@ -26,7 +26,7 @@ final class VoucherModel extends ORM
     use WhereTrait;
 
 
-    protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
+    protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
     private int $idEmpresa;
 
     public function __construct(
@@ -43,9 +43,9 @@ final class VoucherModel extends ORM
             ->campo(['cod', 'tipo', 'data_criacao', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false)
-            ->order($this->pegarOrdem(new Ordem))
-            ->tabela(TABELA_PARCEIRO_NOVO)->join('cod', 'vinculo')->campo(['titulo'])
-            ->tabela(TABELA_EMPRESA_NOVO)->join('id', 'empresa')->campo(['nome_fantasia', 'cod'], 'empresa')
+            ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'vinculo')->campo(['titulo'])
+            ->tabela(TABELA_COMERCIAL_EMPRESA)->join('id', 'empresa')->campo(['nome_fantasia', 'cod'], 'empresa')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);

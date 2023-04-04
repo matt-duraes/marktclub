@@ -11,7 +11,7 @@ final class DeletarModel extends ORM
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private int $idEmpresa;
     private array $usuario = [];
@@ -22,7 +22,7 @@ final class DeletarModel extends ORM
         $this->validarEmpresa('empresa');
     }
 
-    public function id($id)
+    public function uuid($id)
     {
         $usuario = $this
             ->where($this->pegarWhereParaDeletar([
@@ -46,8 +46,8 @@ final class DeletarModel extends ORM
     }
     private function pegarWhereParaDeletar(array $where)
     {
-        if (!empty($this->_wherePadrao)) {
-            $where[] = $this->_wherePadrao;
+        if (!empty($this->ormWherePadrao)) {
+            $where[] = $this->ormWherePadrao;
         }
         return $where;
     }

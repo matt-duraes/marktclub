@@ -103,9 +103,9 @@ class CurlHelper
     {
         if (is_null($parametro)) {
             return !empty($this->parametro) ? $this->parametro : $this->requisicao['parametro'];
-        } else if (is_string($parametro)) {
+        } elseif (is_string($parametro)) {
             return $this->parametro[$parametro] ?? '';
-        } else if (!empty($this->parametro)) {
+        } elseif (!empty($this->parametro)) {
             $this->parametro = $this->parametro + $parametro;
         } else {
             $this->parametro = $parametro;
@@ -123,9 +123,9 @@ class CurlHelper
     {
         if (is_null($body)) {
             return !empty($this->body) ? $this->body : $this->requisicao['body'];
-        } else if (is_string($body)) {
+        } elseif (is_string($body)) {
             return $this->body[$body] ?? '';
-        } else if (!empty($this->body) && $merge) {
+        } elseif (!empty($this->body) && $merge) {
             $this->body = $this->body + $body;
         } else {
             $this->body = $body;
@@ -140,13 +140,13 @@ class CurlHelper
      * @param array $header Dados que devem ser enviado no header
      * @return Self|array|string
      */
-    public function header(null|array|string $header = null): string|array|Self
+    public function header(null|array|string $header = null): string|array|self
     {
         if (is_null($header)) {
             return !empty($this->header) ? $this->header : $this->requisicao['header'];
-        } else if (is_string($header)) {
+        } elseif (is_string($header)) {
             return $this->header[$header];
-        } else if (!empty($header) && is_array($header)) {
+        } elseif (!empty($header) && is_array($header)) {
             $this->header = array_merge($this->header, $header);
             return $this;
         }
@@ -163,7 +163,7 @@ class CurlHelper
     {
         if (is_null($json)) {
             return !empty($this->json) ? $this->json : $this->requisicao['json'];
-        } else if (is_string($json)) {
+        } elseif (is_string($json)) {
             return $this->json[$json] ?? '';
         }
 
@@ -329,7 +329,7 @@ class CurlHelper
         return $this->retornoValor;
     }
 
-    private function retorno(Bool $tipo)
+    private function retorno(bool $tipo)
     {
         $retorno = $this->retornoValor;
         $dado = jsonDecode($retorno, $tipo);
@@ -378,7 +378,7 @@ class CurlHelper
         ];
     }
 
-    public function headerJson(): Self
+    public function headerJson(): self
     {
         if (array_key_exists('Content-Type', $this->header)) {
             return $this;
@@ -392,7 +392,7 @@ class CurlHelper
     | CURL
     |--------------------------------------------------------------------------
     */
-    protected function curl(String $metodo, String $url)
+    protected function curl(string $metodo, string $url)
     {
         $this->urlUsada = $this->url . $url;
         $this->metodoUsado = $metodo;
@@ -432,11 +432,11 @@ class CurlHelper
             foreach ($option as $ind => $val) {
                 if ($ind == 'CURLOPT_TIMEOUT') {
                     curl_setopt($ch, CURLOPT_TIMEOUT, $val);
-                } else if ($ind == 'CURLOPT_ENCODING') {
+                } elseif ($ind == 'CURLOPT_ENCODING') {
                     curl_setopt($ch, CURLOPT_ENCODING, $val);
-                } else if ($ind == 'CURLOPT_HTTP_VERSION') {
+                } elseif ($ind == 'CURLOPT_HTTP_VERSION') {
                     curl_setopt($ch, CURLOPT_HTTP_VERSION, $val);
-                } else if ($ind == 'CURLOPT_MAXREDIRS') {
+                } elseif ($ind == 'CURLOPT_MAXREDIRS') {
                     curl_setopt($ch, CURLOPT_MAXREDIRS, $val);
                 }
             }

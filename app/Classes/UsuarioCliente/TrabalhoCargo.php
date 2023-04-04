@@ -6,7 +6,7 @@ use Status\Status;
 
 final class TrabalhoCargo extends Status
 {
-    const EMPRESA = [
+    public const EMPRESA = [
         'geral' => [
             'lista' => [
                 'geral' => 'Geral'

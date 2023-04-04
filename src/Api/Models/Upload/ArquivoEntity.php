@@ -2,33 +2,17 @@
 
 namespace ApiModel\Upload;
 
-use ORM\Entity;
-use Helpers\UploadHelper;
-use ApiModel\Upload\GrupoEntity;
 use App\Classes\StatusGeral\Status;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
+use Erro\Erro;
+use Erro\Excecao;
+use Helpers\UploadHelper;
+use ORM\Entity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Throwable;
 
 final class ArquivoEntity extends Entity
 {
-
-    protected string $_tabela = TABELA_UPLOAD_ARQUIVO;
-    protected array $_buscar = [
-        'id_upload_grupo', 'id_usuario_equipe', 'arquivo', 'nome', 'extensao', 'tamanho',
-        'largura', 'altura', 'data_criacao', 'privado'
-    ];
-    protected array $_insert = ['id_usuario_equipe'];
-    protected array $_salvar = ['id_upload_grupo', 'arquivo', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'status'];
-    protected array $_update = ['privado'];
-    protected string $_validarInsert = '
-        id_upload_grupo|Grupo|obrigatorio|vazio|int
-        id_usuario_equipe|Equipe|obrigatorio|vazio|int
-        nome|Nome|obrigatorio|vazio
-    ';
-    protected string $_validarSalvar = '
-        status|Status|valido
-    ';
-
     public array $equipe;
     public int $id_upload_grupo;
     public int $id_usuario_equipe;
@@ -40,6 +24,39 @@ final class ArquivoEntity extends Entity
     public int $largura;
     public ?string $privado;
     public string $link;
+    protected string $ormTabela = TABELA_UPLOAD_ARQUIVO;
+    protected array $ormBuscar = [
+        'id_upload_grupo',
+        'id_usuario_equipe',
+        'arquivo',
+        'nome',
+        'extensao',
+        'tamanho',
+        'largura',
+        'altura',
+        'data_criacao',
+        'privado'
+    ];
+    protected array $ormInsert = ['id_usuario_equipe'];
+    protected array $ormSalvar = [
+        'id_upload_grupo',
+        'arquivo',
+        'nome',
+        'extensao',
+        'tamanho',
+        'largura',
+        'altura',
+        'status'
+    ];
+    protected array $ormUpdate = ['privado'];
+    protected string $ormValidarInsert = '
+        id_upload_grupo|Grupo|obrigatorio|vazio|int
+        id_usuario_equipe|Equipe|obrigatorio|vazio|int
+        nome|Nome|obrigatorio|vazio
+    ';
+    protected string $ormValidarSalvar = '
+        status|Status|valido
+    ';
 
     public function __construct(
         public string|UploadHelper|UploadedFile $arquivo = '',
@@ -50,10 +67,13 @@ final class ArquivoEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $this->equipe = (new PerfilModel)->pegarDado($this->id_usuario_equipe);
+        $this->equipe = (new PerfilModel())->pegarDado($this->id_usuario_equipe);
         $this->link = arquivoPrivado($this->id);
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraSalvar()
     {
         if ($this->Grupo instanceof GrupoEntity) {
@@ -61,6 +81,9 @@ final class ArquivoEntity extends Entity
         }
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraInsert()
     {
         $this->id_usuario_equipe = TOKEN['usuario']->get('id');
@@ -68,29 +91,10 @@ final class ArquivoEntity extends Entity
         $this->nome = $this->arquivo->nomeReal();
         $this->status = new Status(Status::ATIVO);
     }
-    protected function regraPosInsert()
-    {
-        $tamanho = arquivoTamanho(DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo);
-        $this->dado(['tamanho' => $tamanho])->where(['arquivo', $this->arquivo])->update();
-        $this->tamanho = $tamanho;
-    }
 
-    protected function regraPosDestruir()
-    {
-        try {
-            $this->Grupo = new GrupoEntity();
-            $this->Grupo->_id($this->id_upload_grupo);
-        } catch (\Throwable) {
-            return;
-        }
-
-        $path = DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo;
-
-        if (file_exists($path)) {
-            unlink($path);
-        }
-    }
-
+    /**
+     * @throws Excecao
+     */
     private function subirImagem($nome)
     {
         $diretorio = $this->Grupo->diretorio;
@@ -99,9 +103,9 @@ final class ArquivoEntity extends Entity
         $this->arquivo = new UploadHelper(
             arquivo: $this->arquivo,
             diretorio: $diretorio,
+            ext: $extensao,
             nome: $nome,
             nomeMaximo: 36,
-            ext: $extensao,
             path: DIRETORIO_PRIVADO
         );
 
@@ -115,6 +119,36 @@ final class ArquivoEntity extends Entity
         $this->tamanho = $this->arquivo->tamanho();
     }
 
+    /**
+     * @throws Excecao
+     */
+    protected function regraPosInsert()
+    {
+        $tamanho = arquivoTamanho(DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo);
+        $this->dado(['tamanho' => $tamanho])->where(['arquivo', $this->arquivo])->update();
+        $this->tamanho = $tamanho;
+    }
+
+    protected function regraPosDestruir()
+    {
+        try {
+            $this->Grupo = new GrupoEntity();
+            $this->Grupo->id($this->id_upload_grupo);
+        } catch (Throwable) {
+            return;
+        }
+
+        $path = DIRETORIO_PRIVADO . '/' . $this->Grupo->diretorio . '/' . $this->arquivo;
+
+        if (file_exists($path)) {
+            unlink($path);
+        }
+    }
+
+    /**
+     * @throws Erro
+     * @throws Excecao
+     */
     protected function getArquivo()
     {
         return $this->prop('arquivo');

@@ -9,10 +9,10 @@ use App\Classes\DemandaTarefa\Status as DemandaTarefaStatus;
 
 final class TrabalhoEntity extends Entity
 {
-    protected string $_tabela = TABELA_DEMANDA_TRABALHO;
-    protected array $_insert = ['id_demanda_tarefa', 'id_usuario_equipe', 'minuto_trabalhado'];
-    protected array $_salvar = ['status', 'data_trabalho', 'minuto_trabalhado'];
-    protected array $_buscar = ['id_demanda_tarefa', 'data_trabalho', 'data_criacao'];
+    protected string $ormTabela = TABELA_DEMANDA_TRABALHO;
+    protected array $ormInsert = ['id_demanda_tarefa', 'id_usuario_equipe', 'minuto_trabalhado'];
+    protected array $ormSalvar = ['status', 'data_trabalho', 'minuto_trabalhado'];
+    protected array $ormBuscar = ['id_demanda_tarefa', 'data_trabalho', 'data_criacao'];
 
     protected int $id_demanda_tarefa;
     protected int $id_usuario_equipe;
@@ -88,9 +88,9 @@ final class TrabalhoEntity extends Entity
         try {
             $this->Tarefa = new TarefaEntity();
             if (is_int($id)) {
-                $this->Tarefa->_id($id);
-            } else {
                 $this->Tarefa->id($id);
+            } else {
+                $this->Tarefa->uuid($id);
             }
         } catch (\Throwable) {
             mensagemErro('Erro!', 'Não foi encontrado nenhuma tarefa pelo id enviado.', status: 404);

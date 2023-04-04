@@ -51,8 +51,8 @@ final class UsuarioLeadController extends Controller implements
     {
         validarUuid($id);
 
-        $Lead = new LeadEntity;
-        $Lead->id($id);
+        $Lead = new LeadEntity();
+        $Lead->uuid($id);
 
         return $this->retornoSucesso($Lead);
     }
@@ -85,8 +85,8 @@ final class UsuarioLeadController extends Controller implements
     {
         validarUuid($id);
 
-        $Lead = new LeadEntity;
-        $Lead->id($id);
+        $Lead = new LeadEntity();
+        $Lead->uuid($id);
         $Lead->status = new Status($request->status);
         $Lead->salvar();
 
@@ -97,8 +97,8 @@ final class UsuarioLeadController extends Controller implements
     {
         validarUuid($id);
 
-        $Lead = new LeadEntity;
-        $Lead->id($id);
+        $Lead = new LeadEntity();
+        $Lead->uuid($id);
         $Lead->destruir();
 
         return new Response(status: 204);

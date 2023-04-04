@@ -4,7 +4,7 @@ use Helpers\ApiHelper;
 
 $empresa = (new ApiHelper(token: true))
     ->json(['titulo' => 'Escolha um cliente'])
-    ->get('/admin-empresa/select')
+    ->get('/comercial-empresa/select')
     ->array()['dado'] ?? [];
 
 $parceiro = require "parceiro.php";

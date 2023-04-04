@@ -6,7 +6,7 @@ use Http\Request;
 
 trait WhereTrait
 {
-    private array $_where = [];
+    private array $where = [];
     private Request $request;
 
     /**
@@ -17,7 +17,7 @@ trait WhereTrait
      */
     private function setarWhereManual(array $where): self
     {
-        $this->_where[] = $where;
+        $this->where[] = $where;
         return $this;
     }
     private function setarWhere(
@@ -28,17 +28,17 @@ trait WhereTrait
         bool $vazio = true,
         bool $valido = true
     ) {
-        $this->_validarWhere($campo, $tipo, $obrigatorio, $vazio, $valido);
-        $this->_setarCampoWhere($campo, $condicao, $tipo);
+        $this->validarWhere($campo, $tipo, $obrigatorio, $vazio, $valido);
+        $this->setarCampoWhere($campo, $condicao, $tipo);
         return $this;
     }
 
     private function pegarWhere()
     {
-        return $this->_where;
+        return $this->where;
     }
 
-    private function _validarWhere(
+    private function validarWhere(
         string $campo,
         ?string $tipo,
         bool $obrigatorio,
@@ -49,14 +49,14 @@ trait WhereTrait
         $campoVazio = $this->request->vazio($campo);
         if (!$campoExite && $obrigatorio) {
             mensagemErro('Campo obrigatório', 'O campo ' . $campo . ' é obrigatório.');
-        } else if ($campoVazio && !$vazio) {
+        } elseif ($campoVazio && !$vazio) {
             mensagemErro('Campo obrigatório', 'O campo ' . $campo . ' é obrigatório.');
         }
 
         $valor = $this->request->$campo;
-        $this->_validarTipoValor($campo, $valor, $tipo, $valido);
+        $this->validarTipoValor($campo, $valor, $tipo, $valido);
     }
-    private function _validarTipoValor(string $campo, $valor, string $tipo, bool $valido)
+    private function validarTipoValor(string $campo, $valor, string $tipo, bool $valido)
     {
         if (empty($tipo) || empty($valor) || !$valido) {
             return;
@@ -73,36 +73,36 @@ trait WhereTrait
         }
     }
 
-    private function _setarCampoWhere($campo, $condicao, $tipo)
+    private function setarCampoWhere($campo, $condicao, $tipo)
     {
         if ($this->request->vazio($campo)) {
             return;
         }
 
-        $valor = $this->_pegarValorConvertido($campo, $tipo);
+        $valor = $this->pegarValorConvertido($campo, $tipo);
 
         $where = [$campo, $condicao, $this->request->$campo];
         if (in_array($condicao, ['null', 'isnull', '!null', 'notnull'])) {
             $where = [$campo, $condicao];
-        } else if (in_array($condicao, ['in', '!in', 'notin', 'between', '!between', 'notbetween'])) {
+        } elseif (in_array($condicao, ['in', '!in', 'notin', 'between', '!between', 'notbetween'])) {
             $valor = !is_array($valor) ? jsonDecode($valor, true, true) : [];
             $where = !empty($valor) ? [$campo, $condicao, $valor] : '';
         }
 
         if (!empty($where)) {
-            $this->_where[] = $where;
+            $this->where[] = $where;
         }
     }
 
-    private function _pegarValorConvertido($campo, $tipo)
+    private function pegarValorConvertido($campo, $tipo)
     {
         $valor = $this->request->$campo;
 
         if (in_array($tipo, ['cpf', 'telefone', 'cnpj'])) {
             return preg_replace("/[^0-9]/", "", $valor);
-        } else if (in_array($tipo, ['data', 'date'])) {
+        } elseif (in_array($tipo, ['data', 'date'])) {
             return dataBanco($valor);
-        } else if (in_array($tipo, ['dataHora', 'dateTime'])) {
+        } elseif (in_array($tipo, ['dataHora', 'dateTime'])) {
             return dataHoraBanco($valor);
         }
 

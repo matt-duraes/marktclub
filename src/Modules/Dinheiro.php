@@ -6,8 +6,8 @@ use Modules\Trait\ValidarTrait;
 
 final class Dinheiro implements ModuleInterface
 {
-
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->dinheiro();
@@ -35,7 +35,7 @@ final class Dinheiro implements ModuleInterface
             $this->valido = false;
             $this->dinheiro = '';
             return;
-        } else if (!$this->validarDinheiro()) {
+        } elseif (!$this->validarDinheiro()) {
             $this->valido = false;
             $this->dinheiro = '';
             return;
@@ -49,9 +49,9 @@ final class Dinheiro implements ModuleInterface
      *
      * @return string Valor em formato de dinheiro
      */
-    public function dinheiro(): string
+    public function dinheiro(): null|string
     {
-        return number_format($this->dinheiro, 2, ',', '.');
+        return empty($this->dinheiro) ? null : number_format($this->dinheiro, 2, ',', '.');
     }
 
     // doc
@@ -67,7 +67,7 @@ final class Dinheiro implements ModuleInterface
 
     private function validarDinheiro(): bool
     {
-        return preg_match('/^[0-9\.\,]{0,}(\.|\,){1}[0-9]{1,2}$/', $this->dinheiro);
+        return preg_match('/^[0-9\.\,]{0,} elseif (\.|\,){1}[0-9]{1,2}$/', $this->dinheiro);
     }
 
     private function setarValor()

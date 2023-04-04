@@ -18,7 +18,7 @@ final class EquipeModel extends ORM implements ModelListarInterface
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $_tabela = TABELA_USUARIO_EQUIPE;
+    protected string $ormTabela = TABELA_USUARIO_EQUIPE;
 
     private int $idEmpresa;
 
@@ -32,8 +32,8 @@ final class EquipeModel extends ORM implements ModelListarInterface
     {
         $request = $this->request;
         $where = [];
-        if (!empty($this->_wherePadrao)) {
-            $where = $this->_wherePadrao;
+        if (!empty($this->ormWherePadrao)) {
+            $where = $this->ormWherePadrao;
         }
 
         $pesquisa = $request->pesquisa;
@@ -82,7 +82,7 @@ final class EquipeModel extends ORM implements ModelListarInterface
             ->where($where)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order(new Ordem($request->ordem))
-            ->tabela(TABELA_EMPRESA_NOVO)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['cod', 'nome_fantasia'], 'empresa')
             ->read();
@@ -103,7 +103,7 @@ final class EquipeModel extends ORM implements ModelListarInterface
             $email = null;
             if (!empty($r->email_pessoal)) {
                 $email = $r->email_pessoal;
-            } else if (!empty($r->email_trabalho)) {
+            } elseif (!empty($r->email_trabalho)) {
                 $email = $r->email_trabalho;
             }
             $lista[] = [

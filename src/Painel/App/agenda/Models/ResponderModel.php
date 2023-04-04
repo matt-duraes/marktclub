@@ -70,7 +70,7 @@ final class ResponderModel
             ];
             if (!$item['eu']) {
                 $dado['responseStatus'] = $this->pegarValorDaPresenca($this->request->confirmar);
-            } else if (in_array($item['status'], ['sim', 'nao', 'talvez'])) {
+            } elseif (in_array($item['status'], ['sim', 'nao', 'talvez'])) {
                 $dado['responseStatus'] = $this->pegarValorDaPresenca($item['status']);
             }
             if ($item['nome'] != $item['email']) {

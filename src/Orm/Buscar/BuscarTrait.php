@@ -15,7 +15,7 @@ trait BuscarTrait
      * @param   null|string     $titulo     Título em caso de erro
      * @throws  Erro\Excecao
      */
-    public function id(
+    public function uuid(
         string $id,
         bool $erro = true,
         ?string $mensagem = null,
@@ -26,9 +26,9 @@ trait BuscarTrait
         if (empty($id) && !empty($mensagem)) {
             $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
             mensagemErro($titulo, $mensagem);
-        } else if (empty($id) && $erro) {
+        } elseif (empty($id) && $erro) {
             mensagemStatus(404);
-        } else if (empty($id)) {
+        } elseif (empty($id)) {
             return [];
         }
 
@@ -39,11 +39,11 @@ trait BuscarTrait
 
         if (!$eId || !in_array($quantidade, [32, 36])) {
             mensagemStatus(404, localhost: 'Você deve enviar um COD ou UUID para fazer a busca.');
-        } else if (!array_key_exists('uuid', $this->_campoBanco) && !array_key_exists('cod', $this->_campoBanco)) {
+        } elseif (!array_key_exists('uuid', $this->ormCampoBanco) && !array_key_exists('cod', $this->ormCampoBanco)) {
             mensagemStatus(404, localhost: 'A tabela informada não contem um ID.');
-        } else if (array_key_exists('uuid', $this->_campoBanco)) {
+        } elseif (array_key_exists('uuid', $this->ormCampoBanco)) {
             $where = ['uuid', $id];
-        } else if (array_key_exists('cod', $this->_campoBanco)) {
+        } elseif (array_key_exists('cod', $this->ormCampoBanco)) {
             $where = ['cod', $id];
         }
         return $this->buscar($where, $erro, $mensagem, $titulo);
@@ -58,7 +58,7 @@ trait BuscarTrait
      * @param   null|string     $titulo     Título em caso de erro
      * @throws  Erro\Excecao
      */
-    public function _id(
+    public function id(
         int $id,
         bool $erro = true,
         ?string $mensagem = null,
@@ -69,9 +69,9 @@ trait BuscarTrait
         if (empty($id) && !empty($mensagem)) {
             $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
             mensagemErro($titulo, $mensagem);
-        } else if (empty($id) && $erro) {
+        } elseif (empty($id) && $erro) {
             mensagemStatus(404);
-        } else if (empty($id)) {
+        } elseif (empty($id)) {
             return [];
         }
 
@@ -98,21 +98,20 @@ trait BuscarTrait
         if (empty($idSlug) && !empty($mensagem)) {
             $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
             mensagemErro($titulo, $mensagem);
-        } else if (empty($idSlug) && $erro) {
+        } elseif (empty($idSlug) && $erro) {
             mensagemStatus(404);
-        } else if (empty($idSlug)) {
+        } elseif (empty($idSlug)) {
             return [];
         }
 
         $eId = is_string($idSlug) &&
             (preg_match('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $idSlug) ||
                 preg_match('/^[a-f0-9]{32}$/i', $idSlug));
-        $quantidade = mb_strlen($idSlug, 'UTF-8');
 
         $where = [$campo, $idSlug];
-        if ($eId && $quantidade == 32) {
+        if ($eId && array_key_exists('cod', $this->ormCampoBanco)) {
             $where = ['cod', $idSlug];
-        } else if ($eId && $quantidade == 36) {
+        } elseif ($eId && array_key_exists('uuid', $this->ormCampoBanco)) {
             $where = ['uuid', $idSlug];
         }
 
@@ -130,29 +129,35 @@ trait BuscarTrait
      */
     public function buscar(array $where, $erro = true, ?string $mensagem = null, ?string $titulo = null)
     {
-        if (!empty($this->_wherePadrao)) {
-            $where = [$where, [$this->_wherePadrao]];
+        if (!empty($this->ormWherePadrao)) {
+            $where = [$where, [$this->ormWherePadrao]];
         }
+
         $this->ormVerificarSeEntityExiste();
         if (method_exists($this, 'regraBuscar')) {
             $this->regraBuscar();
         }
 
         $campo = $this->ormPegarCampoBusca();
-        $campoTabela = $this->_campoBanco;
+        $campoTabela = $this->ormCampoBanco;
         if ($campo != '*' && !in_array('id', $campo)) {
             $campo[] = 'id';
         }
         if ($campo != '*' && array_key_exists('uuid', $campoTabela) && !in_array('uuid', $campo)) {
             $campo[] = 'uuid';
         }
-        if ($campo != '*' && !array_key_exists('uuid', $campoTabela) && array_key_exists('cod', $campoTabela) && !in_array('uuid', $campo)) {
+        if (
+            $campo != '*' &&
+            !array_key_exists('uuid', $campoTabela) &&
+            array_key_exists('cod', $campoTabela) &&
+            !in_array('uuid', $campo)
+        ) {
             $campo[] = 'cod';
         }
 
         $busca = $this->where($where)->order('id', 'DESC')->campo($campo);
-        if (!empty($this->_relacionado)) {
-            foreach ($this->_relacionado as $r) {
+        if (!empty($this->ormRelacionado)) {
+            foreach ($this->ormRelacionado as $r) {
                 $r = (object)$r;
                 $this
                     ->tabela($r->tabela)->campo($r->campo, $r->alias)
@@ -165,7 +170,7 @@ trait BuscarTrait
         if (empty($busca) && !empty($mensagem)) {
             $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
             throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: 404);
-        } else if (empty($busca) && $erro) {
+        } elseif (empty($busca) && $erro) {
             throw new Excecao(status: 404);
         } elseif (!$busca) {
             return;
@@ -173,13 +178,13 @@ trait BuscarTrait
 
         $this->entityExiste = true;
 
-        $nova = empty($this->_entityId);
-        $this->_entityId = $busca['id'];
+        $nova = empty($this->ormEntityId);
+        $this->ormEntityId = $busca['id'];
         if ($nova) {
             $this->ormPegarListaParaSet();
             $this->ormPegarListaDeAliasEReal();
         }
-        $this->_entityRetorno = $busca;
+        $this->ormEntityRetorno = $busca;
         $this->ormSetarDadoDaEntity($busca, 'buscar');
         if (method_exists($this, 'regraPosBuscar')) {
             $this->regraPosBuscar();
@@ -188,7 +193,7 @@ trait BuscarTrait
 
     private function ormPegarCampoBusca(): string | array
     {
-        $lista = $this->_buscar ?? [];
+        $lista = $this->ormBuscar ?? [];
         if (empty($lista)) {
             return '*';
         }
@@ -204,5 +209,20 @@ trait BuscarTrait
             }
         }
         return array_unique($campo);
+    }
+
+    /**
+     * Recria um entidade usando um ID ou UUID e cancela o salvar
+     *
+     * @param   int|string      $id     ID ou uuid para recriar a entidade
+     */
+    protected function recriarEntity(int|string $id)
+    {
+        if (is_int($id)) {
+            $this->id($id);
+        } else {
+            $this->uuid($id);
+        }
+        $this->cancelarSalvar();
     }
 }

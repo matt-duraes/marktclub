@@ -2,173 +2,370 @@
 
 namespace Tests\Api;
 
+use stdClass;
 use Tests\Tests;
 
 final class SolicitacaoVoucherTest extends Tests
 {
-    private ?string $idVoucher;
+    private ?stdClass $voucher;
 
-    public function listarTodosOsVouchersTest()
+    private string $usuario1 = '5595203c-f7b1-4211-9981-bf09eb236b35';
+    private string $usuario2 = '87cd8f94-601e-4e8e-b800-7f42a75fc0e1';
+    private string $usuario3 = 'c91d0f54-d166-456e-9f21-e072722faa34';
+    private string $parceiroId = 'f10e05c0-5b02-4bff-8e22-719a8797f0d6';
+    private string $parceiroUrl = 'parceiro-normal';
+    private string $parceiroPrazo = 'adca39ea4a6d6bcc51eba8afcdb54eaa';
+    private string $parceiroLimite = '4502e7e8-9359-470e-9588-0a1501449675';
+    private string $parceiroPrazoFixo = 'f9cbb6ae-b847-43cf-b9b8-6f72b67789df';
+    private string $parceiroBlueFit = 'ca0bde20602db3ec777acbbcfb5a4c61';
+
+    public function __construct()
     {
-        $this->api('solicitacao_voucher:listar');
-        $dado = $this
-            ->Curl
-            ->loginPainel()
-            ->json(['pagina' => 1])
-            ->get('/solicitacao-voucher');
+        parent::__construct();
 
-        $this->idVoucher = $dado->object()->dado->lista[0]->id ?? null;
+        $this->resetarTabela(TABELA_SOLICITACAO_VOUCHER);
+        $this->resetarTabela(TABELA_SOLICITACAO_CODIGO);
+        $this->resetarTabela(TABELA_PARCEIRO_LOJA);
+        $this->resetarTabela(TABELA_USUARIO_CLIENTE);
+    }
+
+    public function salvarParceiroNormalPeloIdTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroId,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher');
 
         return $this
-            ->checkStatus(200)
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso');
     }
-    public function naoPodeBuscarComUmaDataCriacaoDeInvalidaTest()
+    public function salvarParceiroNormalPelaUrlTest()
     {
-        $this->api('solicitacao_voucher:listar');
+        $this->scopeSalvar();
         $this
             ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'data_criacao_de' => '01/01/2000',
+            ->body([
+                'id' => $this->parceiroUrl,
+                'usuario' => $this->usuario1
             ])
-            ->get('/solicitacao-voucher');
+            ->post('/solicitacao-voucher');
 
         return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'A data de criação de início não está no formato válido.');
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso');
     }
-    public function naoPodeBuscarComUmaDataCriacaoAteInvalidaTest()
+    public function codigoParceiroNormalDeveSerDiferenteSempreTest()
     {
-        $this->api('solicitacao_voucher:listar');
-        $this
+        $this->scopeSalvar();
+        $codigo1 = $this
             ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'data_criacao_ate' => '01/01/2000',
+            ->body([
+                'id' => $this->parceiroUrl,
+                'usuario' => $this->usuario1
             ])
-            ->get('/solicitacao-voucher');
+            ->post('/solicitacao-voucher')
+            ->object()->dado->codigo ?? '';
 
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'A data de criação final não está no formato válido.');
-    }
-    public function naoPodeBuscarComUmaDataValidacaoDeInvalidaTest()
-    {
-        $this->api('solicitacao_voucher:listar');
-        $this
+        $codigo2 = $this
             ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'data_validacao_de' => '01/01/2000',
+            ->body([
+                'id' => $this->parceiroUrl,
+                'usuario' => $this->usuario1
             ])
-            ->get('/solicitacao-voucher');
+            ->post('/solicitacao-voucher')
+            ->object()->dado->codigo ?? '';
 
         return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'A data de validação de início não está no formato válido.');
+            ->checkNaoVazio($codigo1)
+            ->checkNaoVazio($codigo2)
+            ->checkDiferente($codigo1, $codigo2);
     }
-    public function naoPodeBuscarComUmaDataValidacaoAteInvalidaTest()
-    {
-        $this->api('solicitacao_voucher:listar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'data_validacao_ate' => '01/01/2000',
-            ])
-            ->get('/solicitacao-voucher');
 
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'A data de validação final não está no formato válido.');
-    }
-    public function naoPodeBuscarStatusInvalidoTest()
+    public function salvarVoucherComLimiteTest()
     {
-        $this->api('solicitacao_voucher:listar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'status' => 'nao_existe',
-            ])
-            ->get('/solicitacao-voucher');
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'O Status informado não é válido.');
-    }
-    public function naoPodeBuscarOrdemInvalidaTest()
-    {
-        $this->api('solicitacao_voucher:listar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'ordem' => 'nao_existe',
-            ])
-            ->get('/solicitacao-voucher');
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'A ordem informada não é válida.');
-    }
-    public function listarTodosOsVouchersComTodosOsFiltrosTest()
-    {
-        $this->api('solicitacao_voucher:listar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1,
-                'data_criacao_de' => '2000-01-01',
-                'data_criacao_ate' => hoje(),
-                'data_validacao_de' => '2000-01-01',
-                'data_validacao_ate' => hoje(),
-                'ordem' => 'mais-velho',
-                'status' => 'criado'
-            ])
-            ->get('/solicitacao-voucher');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceIgual('dado.lista.0.status', 'criado');
-    }
-    public function pegarDetalheDoVoucherTest()
-    {
-        $this->api('solicitacao_voucher:buscar');
+        $this->scopeSalvar();
         $dado = $this
             ->Curl
-            ->loginPainel()
-            ->get('/solicitacao-voucher/' . $this->idVoucher);
+            ->body([
+                'id' => $this->parceiroLimite,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher');
+
+        $this->voucher = $dado->object()->dado ?? (object)[];
 
         return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado.id');
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso');
     }
-    public function naoPodePegarVoucherPeloIdTest()
+    public function voucherComLimiteDeveRetornarMesmoVoucherTest()
     {
-        $this->api('solicitacao_voucher:buscar');
+        $this->scopeSalvar();
+        $dado = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroLimite,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
+
+        return $this
+            ->checkIgual($dado->id, $this->voucher->id)
+            ->checkIgual($dado->codigo, $this->voucher->codigo)
+            ->checkIgual($dado->data_criacao, $this->voucher->data_criacao)
+            ->checkIgual($dado->data_vencimento, $this->voucher->data_vencimento)
+            ->checkIgual($dado->status, $this->voucher->status);
+    }
+    public function deveGerarNovoVoucherComPrazoSeVoucherForCanceladoTest()
+    {
+        $this->scopeSalvar();
         $this
             ->Curl
-            ->loginPainel()
-            ->get('/solicitacao-voucher/1');
+            ->body([
+                'id' => $this->parceiroPrazo,
+                'usuario' => $this->usuario3
+            ])
+            ->post('/solicitacao-voucher')->object();
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso');
+    }
+    public function vencimentoVoucherSalvoOntemNaoPodeMudarSeTiverPrazoTest()
+    {
+        $this->scopeSalvar();
+        $dado = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroPrazo,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
+
+        $this->voucher = $dado;
+
+        return $this
+            ->checkIgual($dado->codigo, '123123123')
+            ->checkIgual(dataBanco($dado->data_criacao), dataRemover(hoje(), '1', 'dia'), mensagem: 'Data de criação')
+            ->checkIgual($dado->data_vencimento, dataAdicionar(hoje(), '4', 'dia'), mensagem: 'Data vencimento');
+    }
+
+    public function temQueGerarUmNovoVoucherComPrazoParaOutroUsuarioTest()
+    {
+        $this->scopeSalvar();
+        $dado = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroPrazo,
+                'usuario' => $this->usuario2
+            ])
+            ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
+
+        return $this
+            ->checkStatus(201)
+            ->checkDiferente($dado->codigo, $this->voucher->codigo);
+    }
+
+    public function naoPodeSalvarVoucherComLimiteAtingidoTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroLimite,
+                'usuario' => $this->usuario2
+            ])
+            ->post('/solicitacao-voucher')->object();
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual(
+                'erro.mensagem',
+                'O saldo deste mês para esse parceiro expirou, abriremos um novo lote de vouchers no próximo mês.'
+            );
+    }
+
+    public function parceiroComPrazoFixoDeveUsarEleNoVencimentoTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroPrazoFixo,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object();
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceIgual('dado.data_vencimento', dataAdicionar(hoje(), 60, 'dias'));
+    }
+    public function naoPodeSalvarVoucherSemIdTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => '',
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object();
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'O campo ID é obrigatório.');
+    }
+    public function naoPodeSalvarVoucherComIdInvalidoTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => uuid(),
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object();
 
         return $this
             ->checkStatus(404)
-            ->checkIndiceIgual('status', 'erro');
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'Não foi encontrado um parceiro pelo ID enviado.');
+    }
+    public function naoPodeSalvarVoucherComUrlInvalidaTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => 'url-nao-existe',
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object();
+
+        return $this
+            ->checkStatus(404)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'Não foi encontrado um parceiro pelo ID enviado.');
+    }
+    public function naoPodeSalvarVoucherComUsuarioInvalidoTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroId,
+                'usuario' => uuid()
+            ])
+            ->post('/solicitacao-voucher')->object();
+
+        return $this
+            ->checkStatus(404)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'Não foi encontrado nenhum usuário pelo código enviado.');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | BLUEFIT
+    |--------------------------------------------------------------------------
+    */
+    public function salvarParceiroDaBlueFitTest()
+    {
+        $this->scopeSalvar();
+        $this->voucher = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroBlueFit,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso');
+    }
+    public function deveRetornarMesmoVoucherDaBluefitTest()
+    {
+        $this->scopeSalvar();
+        $dado = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroBlueFit,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIgual($this->voucher->codigo, $dado->codigo);
+    }
+    public function outroUsuarioDeveCriarVoucherNovoDaBlueFitTest()
+    {
+        $this->scopeSalvar();
+        $dado = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroBlueFit,
+                'usuario' => $this->usuario2
+            ])
+            ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkDiferente($this->voucher->codigo, $dado->codigo);
+    }
+    public function usuarioComVoucherVencidoDeveCriarNovoVoucherTest()
+    {
+        $this->scopeSalvar();
+        $dado = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroBlueFit,
+                'usuario' => $this->usuario3
+            ])
+            ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkDiferente(123123, $dado->codigo);
+    }
+
+    public function blueFitTemPrazoFixoEDeveUsarEleNoVencimentoTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroBlueFit,
+                'usuario' => $this->usuario1
+            ])
+            ->post('/solicitacao-voucher');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceIgual('dado.data_vencimento', dataAdicionar(hoje(), 60, 'dias'));
+    }
+
+    private function scopeSalvar()
+    {
+        $this->api('solicitacao_voucher:salvar');
     }
 }

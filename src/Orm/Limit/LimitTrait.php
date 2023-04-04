@@ -13,7 +13,7 @@ trait LimitTrait
      */
     protected function limit(int $inicio, int $quantidade): self
     {
-        $this->_limit = $inicio . ', ' . $quantidade;
+        $this->ormLimit = $inicio . ', ' . $quantidade;
         return $this;
     }
 
@@ -26,10 +26,10 @@ trait LimitTrait
      */
     protected function pagina(int $pagina, int $quantidade = 20): self
     {
-        $this->_limitPagina = $pagina;
-        $this->_limitQuantidade = $quantidade;
-        $this->_limit = ($pagina - 1) * $quantidade . ', ' . $quantidade;
-        $this->_paginacao = true;
+        $this->ormLimitPagina = $pagina;
+        $this->ormLimitQuantidade = $quantidade;
+        $this->ormLimit = ($pagina - 1) * $quantidade . ', ' . $quantidade;
+        $this->ormPaginacao = true;
         return $this;
     }
 

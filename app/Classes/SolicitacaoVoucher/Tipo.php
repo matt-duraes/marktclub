@@ -6,8 +6,8 @@ use Status\Status;
 
 final class Tipo extends Status
 {
-    const VOUCHER = 'voucher';
-    const DECLARACAO = 'declaracao';
+    public const VOUCHER = 'voucher';
+    public const DECLARACAO = 'declaracao';
 
     public function __construct(
         protected null|string|int $valor = null

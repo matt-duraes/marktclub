@@ -32,7 +32,7 @@ final class AlbumController extends Controller
         // painelPermissao('album_deletar');
         // foreach ($request->id as $album) {
         //     // $AlbumEntity = new AlbumDadoEntity();
-        //     $AlbumEntity->id($album);
+        //     $AlbumEntity->uuid($album);
         //     $AlbumEntity->destruir();
         // }
 

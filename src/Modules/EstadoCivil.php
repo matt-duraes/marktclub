@@ -40,7 +40,7 @@ final class EstadoCivil implements ModuleInterface
             $this->estadoCivil = '';
             $this->numero = '';
             return;
-        } else if (!$this->validarEstadoCivil()) {
+        } elseif (!$this->validarEstadoCivil()) {
             $this->valido = false;
             $this->estadoCivil = '';
             $this->numero = '';
@@ -56,7 +56,7 @@ final class EstadoCivil implements ModuleInterface
             $this->numero = $this->estadoCivil;
             $this->estadoCivil = $this->listaValores[$this->estadoCivil];
             return;
-        } else if (in_array($this->estadoCivil, $this->listaValores)) {
+        } elseif (in_array($this->estadoCivil, $this->listaValores)) {
             $this->numero = array_flip($this->listaValores)[$this->estadoCivil];
             return;
         }

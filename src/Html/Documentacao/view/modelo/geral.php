@@ -43,7 +43,7 @@ function validarDadosParaSalvar()
 
     if(!$email->vazio() && !$email->valido()) {
         mensagemErro("Campo inválido!", "O E-mail informado não está no formato válido.");
-    } else if(!$telefone->vazio() && !$telefone->valido()) {
+    } elseif (!$telefone->vazio() && !$telefone->valido()) {
         mensagemErro("Campo inválido!", "O Telefone informado não está no formato válido.");
     }
 }

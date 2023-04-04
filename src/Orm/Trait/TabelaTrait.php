@@ -14,23 +14,27 @@ trait TabelaTrait
     {
         $tabela = $this->ormPegarTabelaDaClasse($tabela);
         $this->verificarSeTabelaExiste($tabela);
-        $this->_tabelaAtual = $tabela;
+        $this->ormTabelaAtual = $tabela;
         return $this;
     }
 
     private function ormPegarTabelaDaClasse(string $tabela): string
     {
         if (class_exists($tabela)) {
-            $classe = new $tabela;
-            return $classe instanceof ORM && !empty($classe->_tabela) && is_string($classe->_tabela) ? $classe->_tabela : $tabela;
+            $classe = new $tabela();
+            return $classe instanceof ORM && !empty($classe->ormTabela) && is_string($classe->ormTabela)
+                ? $classe->ormTabela : $tabela;
         }
         return $tabela;
     }
 
     private function verificarSeTabelaExiste(string $tabela)
     {
-        if (empty($this->_db->query("SHOW TABLES LIKE '$tabela'")->rowCount())) {
-            throw new Excecao(titulo: 'Tabela não encontrada!', mensagem: 'A tabela ' . $tabela . 'não foi encontrada na base de dados.');
+        if (empty($this->ormDB->query("SHOW TABLES LIKE '$tabela'")->rowCount())) {
+            throw new Excecao(
+                titulo: 'Tabela não encontrada!',
+                mensagem: 'A tabela ' . $tabela . 'não foi encontrada na base de dados.'
+            );
         }
     }
 }

@@ -8,6 +8,31 @@ final class Senha implements ModuleInterface
 {
     use ValidarTrait;
 
+    // @codingStandardsIgnoreStart
+    /**
+     * A senha deve ter no mínimo 8 dígitos.
+     */
+    public const MENSAGEM_FORCA_1 = 'A senha deve ter no mínimo 8 dígitos.';
+    // @codingStandardsIgnoreEnd
+    // @codingStandardsIgnoreStart
+    /**
+     * A senha deve ter 1 letra maiuscula, 1 letra minuscula e no mínimo 8 dígitos.
+     */
+    public const MENSAGEM_FORCA_2 = 'A senha deve ter 1 letra maiuscula, 1 letra minuscula e no mínimo 8 dígitos.';
+    // @codingStandardsIgnoreEnd
+    // @codingStandardsIgnoreStart
+    /**
+     * A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número e no mínimo 8 dígitos.
+     */
+    public const MENSAGEM_FORCA_3 = 'A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número e no mínimo 8 dígitos.';
+    // @codingStandardsIgnoreEnd
+    // @codingStandardsIgnoreStart
+    /**
+     * A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número, 1 caracter especial ($, *, &, @, #, ou _) e no mínimo 8 dígitos.
+     */
+    public const MENSAGEM_FORCA_4 = 'A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número, 1 caracter especial ($, *, &, @, #, ou _) e no mínimo 8 dígitos.';
+    // @codingStandardsIgnoreEnd
+
     private ?string $senha = '';
     private bool $mesmaSenha = false;
     private bool $mudouSenha = false;
@@ -42,12 +67,12 @@ final class Senha implements ModuleInterface
             $this->vazio = true;
             $this->valido = false;
             return;
-        } else if (array_key_exists('algoName', $algoritimo) && !empty($algoritimo['algoName']) && $algoritimo['algoName'] != 'unknown') {
+        } elseif (array_key_exists('algoName', $algoritimo) && !empty($algoritimo['algoName']) && $algoritimo['algoName'] != 'unknown') {
             $this->senha = $senha;
             $this->vazio = false;
             $this->valido = true;
             return;
-        } else if (!preg_match($this->pegarExpressaoRegular(), $senha)) {
+        } elseif (!preg_match($this->pegarExpressaoRegular(), $senha)) {
             $this->senha = '';
             $this->valido = false;
             return;
@@ -79,7 +104,7 @@ final class Senha implements ModuleInterface
     {
         if ($this->valido) {
             return '';
-        } else if ($this->forca == 4) {
+        } elseif ($this->forca == 4) {
             return 'Sua senha deve ter pelo menos 1 letra maiuscula, 1 letra minúscula, 1 número, 1 caracter especial e no mínimo 8 digitos.';
         } elseif ($this->forca == 3) {
             return 'Sua senha deve ter pelo menos 1 letra, 1 número, 1 caracter especial e no mínimo 8 digitos.';
@@ -117,7 +142,7 @@ final class Senha implements ModuleInterface
             $this->vazio = true;
             $this->valido = false;
             return;
-        } else if (!preg_match($this->pegarExpressaoRegular(), $senha)) {
+        } elseif (!preg_match($this->pegarExpressaoRegular(), $senha)) {
             $this->senha = '';
             $this->vazio = false;
             $this->valido = false;

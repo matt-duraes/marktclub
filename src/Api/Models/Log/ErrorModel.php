@@ -2,14 +2,15 @@
 
 namespace ApiModel\Log;
 
+use Erro\Excecao;
+use Http\Request;
 use ORM\ORM;
 use stdClass;
-use Http\Request;
 use System\Classes\LogErro\Status;
 
 final class ErrorModel extends ORM
 {
-    protected string $_tabela = TABELA_LOG_ERRO;
+    protected string $ormTabela = TABELA_LOG_ERRO;
 
     public function __construct(
         private Request $request
@@ -17,6 +18,9 @@ final class ErrorModel extends ORM
         parent::__construct();
     }
 
+    /**
+     * @throws Excecao
+     */
     public function listarDado(): stdClass
     {
         $dado = $this
@@ -30,10 +34,28 @@ final class ErrorModel extends ORM
         return $dado;
     }
 
-    private function montarDado($dado)
+    private function pegarPagina(): int
+    {
+        $pagina = $this->request->pagina;
+        if (empty($pagina)) {
+            return 1;
+        }
+        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
+    }
+
+    private function pegarQuantidade(): int
+    {
+        $quantidade = $this->request->quantidade;
+        if (empty($quantidade)) {
+            return 50;
+        }
+        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $quantidade) ? $quantidade : 50;
+    }
+
+    private function montarDado($dado): array
     {
         $retorno = [];
-        $Status = new Status;
+        $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,
@@ -45,22 +67,5 @@ final class ErrorModel extends ORM
             ];
         }
         return $retorno;
-    }
-
-    private function pegarPagina(): int
-    {
-        $pagina = $this->request->pagina;
-        if (empty($pagina)) {
-            return 1;
-        }
-        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
-    }
-    private function pegarQuantidade(): int
-    {
-        $quantidade = $this->request->quantidade;
-        if (empty($quantidade)) {
-            return 50;
-        }
-        return preg_match('/^[1-9]{1}[0-9]{0,}$/', $quantidade) ? $quantidade : 50;
     }
 }

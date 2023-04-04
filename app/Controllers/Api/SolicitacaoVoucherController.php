@@ -2,20 +2,80 @@
 
 namespace App\Controllers\Api;
 
+use ORM\Entity;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Controllers\Api\Trait\ClienteTrait;
+use App\Controllers\Api\Trait\ParceiroTrait;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\SolicitacaoVoucher\VoucherModel;
+use App\Models\Api\SolicitacaoVoucher\CodigoEntity;
 use App\Models\Api\SolicitacaoVoucher\DownloadModel;
 use App\Models\Api\SolicitacaoVoucher\VoucherEntity;
+use App\Models\Api\SolicitacaoVoucher\Interface\VoucherInterface;
 
 final class SolicitacaoVoucherController extends Controller implements
     ControllerBuscarInterface,
-    ControllerListarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface
 {
+    use ClienteTrait;
+    use ParceiroTrait;
+
+    public function postSalvar(Request $request): Response
+    {
+        $Voucher = $this->pegarEntidadeDoVoucher(
+            id: $request->id,
+            usuario: $request->usuario
+        );
+        $Voucher->salvar();
+
+        return $this->retornoSucesso($Voucher, 201);
+    }
+    private function retornoSucesso(VoucherInterface $Voucher, int $status = 200)
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Voucher,
+                lista: [
+                    'id',
+                    'Usuario' => ['id', 'nome', 'cpf'],
+                    'Parceiro' => ['id', 'titulo', 'link_logo'],
+                    'Construtor' => ['id', 'link_logo', 'link_logo_marktclub'],
+                    'codigo', 'data_criacao', 'data_vencimento', 'qr_code', 'texto_desconto',
+                    'texto_voucher', 'texto_juridico', 'texto_validar', 'status'
+                ],
+            ),
+            status: $status
+        );
+    }
+
+    private function pegarEntidadeDoVoucher(string $id, string $usuario): VoucherInterface
+    {
+        $Parceiro = $this->pegarParceiro(
+            id: $id,
+            obrigatorio: true,
+            tituloVazio: 'Campo obrigatório!',
+            mensagemVazio: 'O campo ID é obrigatório.',
+            mensagemErro: 'Não foi encontrado um parceiro pelo ID enviado.'
+        );
+        $Usuario = $this->pegarCliente(id: $usuario);
+
+        if (in_array($Parceiro->get('id'), ['4207'])) {
+            return new CodigoEntity(
+                Parceiro: $Parceiro,
+                Usuario: $Usuario
+            );
+        }
+        return new VoucherEntity(
+            Parceiro: $Parceiro,
+            Usuario: $Usuario
+        );
+    }
+
     public function getListar(Request $request): Response
     {
         return mensagemSucesso([
@@ -66,8 +126,8 @@ final class SolicitacaoVoucherController extends Controller implements
     {
         validarUuid($id);
 
-        $Voucher = new VoucherEntity;
-        $Voucher->id($id);
+        $Voucher = new VoucherEntity();
+        $Voucher->uuid($id);
 
         return mensagemSucesso($Voucher->retorno());
     }

@@ -152,10 +152,10 @@ final class MontarRelatorioModel
             if ($r->status == 'Ativo') {
                 $relatorio['ativo']['numero'] = $r->total;
                 $relatorio['ativo']['porcentagem'] = $r->porcentagem;
-            } else if ($r->status == 'Inativo') {
+            } elseif ($r->status == 'Inativo') {
                 $relatorio['inativo']['numero'] = $r->total;
                 $relatorio['inativo']['porcentagem'] = $r->porcentagem;
-            } else if ($r->status == 'Bloqueado') {
+            } elseif ($r->status == 'Bloqueado') {
                 $relatorio['bloqueado']['numero'] = $r->total;
                 $relatorio['bloqueado']['porcentagem'] = $r->porcentagem;
             }

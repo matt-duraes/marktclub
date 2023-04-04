@@ -28,7 +28,7 @@ final class UsuarioEquipeController extends Controller implements
         }
 
         $Usuario = new EquipeEntity();
-        $Usuario->id($id);
+        $Usuario->uuid($id);
 
         return $this->retornoSucesso($Usuario);
     }
@@ -75,7 +75,7 @@ final class UsuarioEquipeController extends Controller implements
     {
         validarUuid($id);
         $Usuario = new EquipeEntity();
-        $Usuario->id($id);
+        $Usuario->uuid($id);
         $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
 
@@ -86,7 +86,7 @@ final class UsuarioEquipeController extends Controller implements
         $id = $request->id;
         validarUuid($id);
         $Usuario = new EquipeEntity();
-        $Usuario->id($id);
+        $Usuario->uuid($id);
         $Usuario->imagem_arquivo = $request->_FILES('imagem');
         $Usuario->salvar();
 
@@ -101,7 +101,7 @@ final class UsuarioEquipeController extends Controller implements
         validarUuid($id);
 
         $Usuario = new EquipeEntity();
-        $Usuario->id($id);
+        $Usuario->uuid($id);
         $Usuario->destruir();
 
         return new Response(status: 204);
@@ -114,9 +114,9 @@ final class UsuarioEquipeController extends Controller implements
         $senha = $request->senha;
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi definido.');
-        } else if (empty($id)) {
+        } elseif (empty($id)) {
             mensagemStatus(404);
-        } else if (empty($senha)) {
+        } elseif (empty($senha)) {
             mensagemErro('Campo obrigatório!', 'O campo senha é obrigatório.');
         }
 

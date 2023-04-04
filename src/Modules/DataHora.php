@@ -6,7 +6,6 @@ use Modules\Trait\ValidarTrait;
 
 final class DataHora implements ModuleInterface
 {
-
     use ValidarTrait;
 
     private ?string $tipo = null;
@@ -34,11 +33,15 @@ final class DataHora implements ModuleInterface
         private ?string $data
     ) {
         $eData = is_string($this->data) && preg_match(
+            // @codingStandardsIgnoreStart
             "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{4}\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/",
+            // @codingStandardsIgnoreEnd
             $data
         );
         $eDate = is_string($this->data) && preg_match(
+            // @codingStandardsIgnoreStart
             "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/",
+            // @codingStandardsIgnoreEnd
             $data
         );
         if (empty($data)) {
@@ -47,7 +50,7 @@ final class DataHora implements ModuleInterface
             $this->data = '';
             $this->date = '';
             return;
-        } else if (!$eDate && !$eData) {
+        } elseif (!$eDate && !$eData) {
             $this->valido = false;
             $this->data = '';
             $this->date = '';
@@ -56,7 +59,7 @@ final class DataHora implements ModuleInterface
 
         if ($eData) {
             list($diaTemp, $mesTemp, $anoTemp) = explode('/', explode(' ', $data)[0]);
-        } else if ($eDate) {
+        } elseif ($eDate) {
             list($anoTemp, $mesTemp, $diaTemp) = explode('-', explode(' ', $data)[0]);
         }
         if (!checkdate((int)$mesTemp, (int)$diaTemp, (int)$anoTemp)) {

@@ -23,11 +23,11 @@ trait HavingTrait
 
     protected function havingOr()
     {
-        $having = $this->_havingDado;
+        $having = $this->ormHavingDado;
         if (empty($having)) {
             return $this;
         }
-        $this->_havingDado[] = ' OR';
+        $this->ormHavingDado[] = ' OR';
         return $this;
     }
 }

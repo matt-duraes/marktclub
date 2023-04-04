@@ -18,6 +18,7 @@ return [
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Cadastrar usuário', 'tabela_usuario_bloquear' => 'Bloquear usuário']],
             'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'download', 'empresa']],
             'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
+            'comercial_empresa' => ['titulo' => 'Empresa', 'acao' => ['index', 'visualizar', 'add', 'editar', 'deletar']],
             'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_quadro' => 'Quadro de demanda']],
             'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
         ]),

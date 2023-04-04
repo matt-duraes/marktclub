@@ -2,15 +2,16 @@
 
 namespace ApiController;
 
+use ApiModel\Upload\GrupoEntity;
+use ApiModel\Upload\GrupoModel;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use ApiModel\Upload\GrupoModel;
-use ApiModel\Upload\GrupoEntity;
-use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerSalvarInterface;
 
 final class UploadGrupoController extends Controller implements
     ControllerBuscarInterface,
@@ -18,25 +19,44 @@ final class UploadGrupoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    /**
+     * @param  string  $id
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Grupo, lista: [
-                'id', 'equipe', 'nome', 'extensao', 'privado'
+                'id',
+                'equipe',
+                'nome',
+                'extensao',
+                'privado'
             ])
         );
     }
 
-    public function getValidar(Request $request)
+    /**
+     * @param  Request  $request
+     * @return Response
+     * @throws Excecao
+     */
+    public function getValidar(Request $request): Response
     {
         $Grupo = new GrupoModel();
         $valido = $Grupo->validarGrupoAtual($request->raiz, $request->grupo);
         return mensagemSucesso(['valido' => $valido ? 'sim' : 'nao']);
     }
 
+    /**
+     * @param  Request  $request
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
         $Grupo = new GrupoEntity(
@@ -51,32 +71,53 @@ final class UploadGrupoController extends Controller implements
         ], status: 201);
     }
 
+    /**
+     * @param  Request  $request
+     * @param  string   $id
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
         $Grupo->nome = $request->nome;
         $Grupo->salvar();
 
         return new Response(status: 204);
     }
 
+    /**
+     * @param  string  $id
+     * @return Response
+     * @throws Excecao
+     */
     public function deleteDeletar(string $id): Response
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($id);
+        $Grupo->uuid($id);
         $Grupo->destruir();
         return new Response(status: 204);
     }
 
-    public function getPai(string $id)
+    /**
+     * @param  string  $id
+     * @return Response
+     * @throws Excecao
+     */
+    public function getPai(string $id): Response
     {
         $Grupo = new GrupoModel();
         $diretorio = $Grupo->pegarGrupoPai($id);
         return mensagemSucesso($diretorio);
     }
 
-    public function getFilho(string $id)
+    /**
+     * @param  string  $id
+     * @return Response
+     * @throws Excecao
+     */
+    public function getFilho(string $id): Response
     {
         $Grupo = new GrupoModel();
         $diretorio = $Grupo->listarTodaArvoreDiretorio($id);

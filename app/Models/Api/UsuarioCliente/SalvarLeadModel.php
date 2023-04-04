@@ -9,7 +9,7 @@ final class SalvarLeadModel extends ORM
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private int $idEmpresa;
     public function __construct()
@@ -21,10 +21,12 @@ final class SalvarLeadModel extends ORM
     public function salvarLead(array $dado)
     {
         $cpf = $dado['documento'];
-        if ($this->existe([
+        if (
+            $this->existe([
             ['documento', $cpf],
             ['empresa', $this->idEmpresa]
-        ])) {
+            ])
+        ) {
             return false;
         }
 

@@ -19,13 +19,34 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Publicação', callback: function () use ($Painel) {
         $Painel->dataHora(name: 'data_publicacao', label: 'Data de publicação', obrigatorio: 1);
-        $Painel->dataHora(name: 'data_remocao', label: 'Data de remoção', ajuda: 'Preencher caso queira que o album saia do ar em uma data específica.');
+        $Painel->dataHora(
+            name: 'data_remocao',
+            label: 'Data de remoção',
+            ajuda: 'Preencher caso queira que o album saia do ar em uma data específica.'
+        );
         $Painel->switch(name: 'status', label: 'Ativar o álbum?');
     });
     $Painel->fieldset('Dimensão da imagem', callback: function () use ($Painel) {
-        $Painel->select(name: 'dimensao_tipo', label: 'Tipo de álbum', obrigatorio: 1, lista: (new DimensaoTipo())->select('Escolha uma opção'));
-        $Painel->numero(name: 'dimensao_largura', label: 'Largura', placeholder: 'Largura em pixel', maximo: 4, obrigatorio: 1);
-        $Painel->numero(name: 'dimensao_altura', label: 'Altura', placeholder: 'Altura em pixel', maximo: 4, obrigatorio: 1);
+        $Painel->select(
+            name: 'dimensao_tipo',
+            label: 'Tipo de álbum',
+            obrigatorio: 1,
+            lista: (new DimensaoTipo())->select('Escolha uma opção')
+        );
+        $Painel->numero(
+            name: 'dimensao_largura',
+            label: 'Largura',
+            placeholder: 'Largura em pixel',
+            maximo: 4,
+            obrigatorio: 1
+        );
+        $Painel->numero(
+            name: 'dimensao_altura',
+            label: 'Altura',
+            placeholder: 'Altura em pixel',
+            maximo: 4,
+            obrigatorio: 1
+        );
     });
 });
 

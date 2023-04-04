@@ -19,7 +19,7 @@ final class DownloadModel extends ORM
     use ValidarRequestTrait;
     use WhereTrait;
 
-    protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
+    protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
     private array $campoInicial;
 
     public function __construct(
@@ -45,13 +45,13 @@ final class DownloadModel extends ORM
 
         if (in_array('empresa', $this->campoInicial)) {
             $query
-                ->tabela(TABELA_EMPRESA_NOVO)
+                ->tabela(TABELA_COMERCIAL_EMPRESA)
                 ->campo(['nome_fantasia'], 'empresa')
                 ->leftJoin('id', 'empresa');
         }
         if (in_array('parceiro', $this->campoInicial)) {
             $query
-                ->tabela(TABELA_PARCEIRO_NOVO)
+                ->tabela(TABELA_PARCEIRO_LOJA)
                 ->campo(['titulo'], 'parceiro')
                 ->leftJoin('cod', 'vinculo');
         }
@@ -65,7 +65,7 @@ final class DownloadModel extends ORM
         }
         if ($campoUsuario) {
             $query
-                ->tabela(TABELA_USUARIO_NOVO)
+                ->tabela(TABELA_USUARIO_CLIENTE)
                 ->campo($campoUsuario, 'usuario')
                 ->leftJoin('id', 'usuario');
         }
@@ -98,7 +98,7 @@ final class DownloadModel extends ORM
             foreach ($linha as $ind => $val) {
                 if (in_array($ind, ['data_validacao', 'data_criacao', 'data_vencimento'])) {
                     $val = dataBr($val);
-                } else if ($ind == 'status') {
+                } elseif ($ind == 'status') {
                     $val = $Status->indice($val);
                 } else {
                     $val = strNull($val);

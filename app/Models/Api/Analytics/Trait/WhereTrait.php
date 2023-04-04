@@ -1,9 +1,8 @@
 <?php
 
-
 namespace App\Models\Api\Analytics\Trait;
 
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait WhereTrait
 {
@@ -21,7 +20,7 @@ trait WhereTrait
         $podeMudarEmpresa = $this->verificarSePodeMudarEmpresa();
         if ($this->Empresa instanceof EmpresaEntity && $podeMudarEmpresa) {
             $where[] = ['id_admin_empresa', $this->Empresa->get('id')];
-        } else if (!$podeMudarEmpresa) {
+        } elseif (!$podeMudarEmpresa) {
             $where[] = ['id_admin_empresa', TOKEN['empresa']->get('id')];
         }
         return $where;
@@ -32,15 +31,18 @@ trait WhereTrait
         $diasDiferenca = dataDiferencaDia($de, $ate);
         if (empty($de)) {
             mensagemErro('Data obrigatória!', 'A data de começo da busca é obrigatória.');
-        } else if (!validarDate($de)) {
+        } elseif (!validarDate($de)) {
             mensagemErro('Data inválida!', 'A data de começo da busca não está em um formato válido.');
-        } else if (empty($ate)) {
+        } elseif (empty($ate)) {
             mensagemErro('Data obrigatória!', 'A data final da busca é obrigatória.');
-        } else if (!validarDate($ate)) {
+        } elseif (!validarDate($ate)) {
             mensagemErro('Data inválida!', 'A data final da busca não está em um formato válido.');
-        } else if ($diasDiferenca > $diaMaximo) {
-            mensagemErro('Datas inválidas!', 'Você deve fazer uma busca com no máximo ' . $diaMaximo . ' dia(s) de diferênça.');
-        } else if ($ate < $de) {
+        } elseif ($diasDiferenca > $diaMaximo) {
+            mensagemErro(
+                'Datas inválidas!',
+                'Você deve fazer uma busca com no máximo ' . $diaMaximo . ' dia(s) de diferênça.'
+            );
+        } elseif ($ate < $de) {
             mensagemErro('Datas inválidas!', 'A data fianl da busca deve ser maior ou igual a data de começo.');
         }
     }

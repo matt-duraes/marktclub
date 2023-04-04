@@ -6,8 +6,8 @@ use Modules\Trait\ValidarTrait;
 
 final class EnderecoCep implements ModuleInterface
 {
-
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->cep();
@@ -35,7 +35,7 @@ final class EnderecoCep implements ModuleInterface
             $this->valido = false;
             $this->cep = '';
             return;
-        } else if (!$this->validarCep()) {
+        } elseif (!$this->validarCep()) {
             $this->valido = false;
             $this->cep = '';
             return;

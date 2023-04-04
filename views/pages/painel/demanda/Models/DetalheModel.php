@@ -19,7 +19,7 @@ final class DetalheModel
     {
         if (empty($tempo)) {
             return '';
-        } else if ($tempo < 60) {
+        } elseif ($tempo < 60) {
             return $tempo . ' minutos';
         }
         $tempo = $tempo / 60;

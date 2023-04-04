@@ -49,7 +49,7 @@ final class UsuarioDependenteController extends Controller implements
         validarUuid($id);
 
         $Usuario = new DeletarModel();
-        $Usuario->id($id);
+        $Usuario->uuid($id);
         $Usuario->deletar();
 
         return new Response(status: 204);

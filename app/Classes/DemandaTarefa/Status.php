@@ -6,9 +6,9 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    const AGUARDANDO = 'aguardando';
-    const ANDAMENTO = 'andamento';
-    const CONCLIDA = 'concluida';
+    public const AGUARDANDO = 'aguardando';
+    public const ANDAMENTO = 'andamento';
+    public const CONCLIDA = 'concluida';
 
     public function __construct(
         protected null|string|int $valor = null

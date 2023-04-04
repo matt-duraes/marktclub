@@ -4,7 +4,7 @@ namespace ORM\Trait;
 
 trait TraducaoPropriedadeTrait
 {
-    private $_traduzirErro = [
+    private array $ormTraduzirErro = [
         'Table' => 'Tabela',
         'doesn\'t exist' => 'não existe.',
         'Duplicate entry' => 'Valor duplicado',
@@ -25,6 +25,6 @@ trait TraducaoPropriedadeTrait
 
     private function ormTraduzirErro(string $erro): string
     {
-        return str_replace(array_keys($this->_traduzirErro), array_values($this->_traduzirErro), $erro);
+        return str_replace(array_keys($this->ormTraduzirErro), array_values($this->ormTraduzirErro), $erro);
     }
 }

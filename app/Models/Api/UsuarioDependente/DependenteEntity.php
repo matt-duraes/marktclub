@@ -19,8 +19,8 @@ final class DependenteEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected string $_tabela = TABELA_USUARIO_NOVO;
-    protected array $_insert = [
+    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
+    protected array $ormInsert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
         'documento' => '->cpf',
         'email_pessoal' => '->email',
@@ -101,7 +101,7 @@ final class DependenteEntity extends Entity
 
         if (empty($Cliente->id)) {
             mensagemErro('Erro!', 'Não foi possível encontrar o usuário para vincular o dependente.');
-        } else if ($Cliente->tipo->indice() == TipoUsuario::DEPENDENTE) {
+        } elseif ($Cliente->tipo->indice() == TipoUsuario::DEPENDENTE) {
             mensagemErro('Erro!', 'Um dependente não pode adicionar outros dependentes.');
         }
 
@@ -110,12 +110,14 @@ final class DependenteEntity extends Entity
 
     private function validarNumeroDependentes()
     {
-        if ($this->contar([
+        if (
+            $this->contar([
             ['empresa', $this->idEmpresa],
             ['tipo', 2],
             ['titular', $this->titular],
             ['status', 'in', Helper::STATUS_LIBERADO]
-        ]) >= 5) {
+            ]) >= 5
+        ) {
             mensagemErro('Erro!', 'Cada usuário só pode ter 5 dependentes.');
         }
     }
@@ -124,30 +126,33 @@ final class DependenteEntity extends Entity
     {
         if ($this->nome->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo Nome é obrigatório.');
-        } else if (!$this->nome->valido()) {
+        } elseif (!$this->nome->valido()) {
             mensagemErro('Campo inválido!', 'Digite o nome com pelo menos um sobrenome.');
-        } else if ($this->cpf->vazio()) {
+        } elseif ($this->cpf->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
-        } else if (!$this->cpf->valido()) {
+        } elseif (!$this->cpf->valido()) {
             mensagemErro('Campo inválido!', 'O CPF informado não é válido.');
-        } else if ($this->email->vazio()) {
+        } elseif ($this->email->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo e-mail é obrigatório.');
-        } else if (!$this->email->valido()) {
+        } elseif (!$this->email->valido()) {
             mensagemErro('Campo inválido!', 'O e-mail informado não é válido.');
         }
     }
     private function cpfJaExiste()
     {
-        if ($this->existe([
+        if (
+            $this->existe([
             ['empresa', $this->idEmpresa],
             ['documento', $this->cpf->numero()]
-        ])) {
+            ])
+        ) {
             mensagemErro('CPF duplicado!', 'O CPF informado já está em uso por outro usuário.');
         }
     }
     private function emailJaExiste()
     {
-        if ($this->existe([
+        if (
+            $this->existe([
             ['empresa', $this->idEmpresa],
             [
                 'OR',
@@ -155,7 +160,8 @@ final class DependenteEntity extends Entity
                 ['email_trabalho', $this->email->email()],
                 ['email_funcional', $this->email->email()],
             ]
-        ])) {
+            ])
+        ) {
             mensagemErro('E-mail duplicado!', 'O e-mail informado já está em uso por outro usuário.');
         }
     }

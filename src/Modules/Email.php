@@ -6,8 +6,8 @@ use Modules\Trait\ValidarTrait;
 
 final class Email implements ModuleInterface
 {
-
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->email;
@@ -35,7 +35,7 @@ final class Email implements ModuleInterface
             $this->valido = false;
             $this->email = '';
             return;
-        } else if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+        } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             $this->valido = false;
             $this->email = '';
             return;

@@ -19,7 +19,7 @@ final class AppModel extends ORM implements
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $_tabela = TABELA_AUTH_APP;
+    protected string $ormTabela = TABELA_AUTH_APP;
 
     public function __construct(
         protected ?Request $request = null
@@ -40,7 +40,7 @@ final class AppModel extends ORM implements
             ->where($this->pegarWhere())
             ->order($this->pegarOrdem(new Ordem()))
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->tabela(TABELA_EMPRESA_NOVO)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['nome_fantasia'])
             ->read();
@@ -75,11 +75,11 @@ final class AppModel extends ORM implements
 
         if (empty($this->request->pagina)) {
             mensagemErro('Campo obrigatório!', 'O campo pagina é obrigatório.');
-        } else if (!empty($this->request->quantidade) && validarPagina($this->request->quantidade)) {
+        } elseif (!empty($this->request->quantidade) && validarPagina($this->request->quantidade)) {
             mensagemErro('Campo inválido!', 'O campo quantidade deve ser um valor válido.');
-        } else if (!$ordem->vazio() && !$ordem->valido()) {
+        } elseif (!$ordem->vazio() && !$ordem->valido()) {
             mensagemErro('Campo inválido!', 'O campo ordem deve ser um valor válido.');
-        } else if (!$status->vazio() && !$ordem->valido()) {
+        } elseif (!$status->vazio() && !$ordem->valido()) {
             mensagemErro('Campo inválido!', 'O campo status deve ser um valor válido.');
         }
     }

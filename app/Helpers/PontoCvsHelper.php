@@ -99,7 +99,7 @@ final class PontoCvsHelper
     /**
      * Busca a solicitação pelo codigo
      * @param   int     $codigo    Codigo da solicitação
-     * 
+     *
      * @return  stdClass|string      Classe de pontos ou mensagem de erro
      */
     public function buscarSolicitacao(int $codigo): stdClass|string
@@ -189,7 +189,7 @@ final class PontoCvsHelper
 
         if (object_key_exists('erro', $dado)) {
             mensagemErro('Erro!', $dado->erro, status: 500);
-        } else if (!object_key_exists('sucesso', $dado) && !object_key_exists('erro', $dado)) {
+        } elseif (!object_key_exists('sucesso', $dado) && !object_key_exists('erro', $dado)) {
             mensagemStatus(500);
         }
 

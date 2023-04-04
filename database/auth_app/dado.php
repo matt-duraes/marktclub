@@ -117,7 +117,7 @@ EwIDAQAB
             "tabela_usuario:salvar", "tabela_usuario:bloquear",
 
             "solicitacao_voucher:listar", "solicitacao_voucher:buscar", "solicitacao_salavip:listar",
-            "solicitacao_voucher:download",
+            "solicitacao_voucher:download", "solicitacao_voucher:salvar",
 
             "solicitacao_salavip:download",
 
@@ -150,7 +150,8 @@ EwIDAQAB
             "app_usuario:listar", "app_usuario:buscar", "app_usuario:salvar", "app_usuario:atualizar",
             "app_usuario:deletar",
 
-            "admin_empresa:listar", "admin_empresa:buscar",
+            "comercial_empresa:listar", "comercial_empresa:buscar", "comercial_empresa:salvar",
+            "comercial_empresa:atualizar", "comercial_empresa:deletar",
 
             "log_erro:listar", "log_erro:buscar", "log_erro:atualizar",
 

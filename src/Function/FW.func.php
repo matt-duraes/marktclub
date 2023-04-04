@@ -54,9 +54,9 @@ if (!function_exists('jsonDecode')) {
     {
         if (is_array($string)) {
             return $string;
-        } else if (is_object($string)) {
+        } elseif (is_object($string)) {
             $string = json_encode($string);
-        } else if (!is_string($string) || empty($string)) {
+        } elseif (!is_string($string) || empty($string)) {
             return $array ? [] : false;
         }
         $dado = json_decode($string, $retorno);
@@ -171,7 +171,7 @@ if (!function_exists('cookie')) {
     ) {
         if (is_null($valor) && array_key_exists($nome, $_COOKIE)) {
             return $_COOKIE[$nome];
-        } else if (is_null($valor)) {
+        } elseif (is_null($valor)) {
             mensagemErro('Cookie inválido!', 'O cookie que você deseja buscar não existe.');
         }
         $expirar = mktime(hour: $hora, minute: $minuto, day: $dia);
@@ -459,7 +459,7 @@ if (!function_exists('location')) {
      */
     function location(string $link): \Http\Response
     {
-        return (new \Http\Response)->location(url: $link);
+        return (new \Http\Response())->location(url: $link);
     }
 }
 
@@ -477,7 +477,7 @@ if (!function_exists('redirect')) {
      */
     function redirect(string $link): \Http\Response
     {
-        return (new \Http\Response)->location(url: $link, status: 301);
+        return (new \Http\Response())->location(url: $link, status: 301);
     }
 }
 
@@ -497,7 +497,7 @@ if (!function_exists('download')) {
      */
     function download(string $arquivo): \Http\Response
     {
-        return (new \Http\Response)->download(arquivo: $arquivo);
+        return (new \Http\Response())->download(arquivo: $arquivo);
     }
 }
 
@@ -578,9 +578,9 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             if ($valor instanceof \ORM\Entity) {
                 $campo = strCaixaBaixa($campo);
                 $valor = $valor->retorno();
-            } else if ($valor instanceof \Status\StatusInterface) {
+            } elseif ($valor instanceof \Status\StatusInterface) {
                 $valor = $valor->indice();
-            } else if ($valor instanceof \Modules\ModuleInterface) {
+            } elseif ($valor instanceof \Modules\ModuleInterface) {
                 $valor = $valor->valor();
             }
 
@@ -955,7 +955,7 @@ if (!function_exists('descriptografarDado')) {
 
         if ($valor instanceof stdClass) {
             $valor = (array) $valor;
-        } else if (!is_array($valor)) {
+        } elseif (!is_array($valor)) {
             return !empty($valor) ? $Crypt->decode($valor) : $valor;
         }
 
@@ -1003,6 +1003,10 @@ if (!function_exists('criptografarDado')) {
      */
     function criptografarDado(string|stdClass|array $dado, array $criptografia = [], ?string $chave = null, bool $lista = false): array|string
     {
+        if (vazio($dado)) {
+            return $dado;
+        }
+
         $chave =
             is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
             TOKEN['app']->chave_publica :
@@ -1035,11 +1039,11 @@ if (!function_exists('_criptografarDadoRodar')) {
             if (is_array($val) && array_key_exists($ind, $lista)) {
                 $retorno[$ind] = _criptografarDadoRodar($val, $lista[$ind], $Crypt, true);
                 continue;
-            } else if (!empty($val) && in_array($ind, $lista)) {
+            } elseif (!empty($val) && in_array($ind, $lista)) {
                 $val = $Crypt->encode($val);
-            } else if (is_array($val) && empty($val)) {
+            } elseif (is_array($val) && empty($val)) {
                 $val = [];
-            } else if (empty($val)) {
+            } elseif (empty($val)) {
                 $val = '';
             }
             $retorno[$ind] = $val;
@@ -1168,7 +1172,7 @@ if (!function_exists('sessao')) {
                 $SESSAO->set($propriedade, $resultado);
             }
             return;
-        } else if (empty($indice)) {
+        } elseif (empty($indice)) {
             return $SESSAO->all();
         }
 
@@ -1186,14 +1190,14 @@ if (!function_exists('sessao')) {
                 'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.',
                 localhost: 'A sessão ' . $indice . ' não existe.'
             );
-        } else if (is_null($valor) && !$sessaoExiste) {
+        } elseif (is_null($valor) && !$sessaoExiste) {
             return $padrao;
-        } else if (is_null($valor) && empty($objeto)) {
+        } elseif (is_null($valor) && empty($objeto)) {
             return $SESSAO->get($indice);
-        } else if (!is_null($valor) && empty($objeto)) {
+        } elseif (!is_null($valor) && empty($objeto)) {
             $SESSAO->set($indice, $valor);
             return;
-        } else if (is_null($valor) && !empty($objeto)) {
+        } elseif (is_null($valor) && !empty($objeto)) {
             $valorAtual = $SESSAO->get($indice);
             foreach ($objeto as $subIndice) {
                 $existe = is_array($valorAtual) && array_key_exists($subIndice, $valorAtual);
@@ -1201,64 +1205,64 @@ if (!function_exists('sessao')) {
                     throw new Excecao(
                         'Erro!',
                         SISTEMA == 'LOCALHOST' ?
-                            'O indice ' . $subIndice . ' não existe na sessão.' :
-                            'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
+                        'O indice ' . $subIndice . ' não existe na sessão.' :
+                        'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
                     );
-                } else if (!$existe) {
+                } elseif (!$existe) {
                     return $padrao;
                 }
                 $valorAtual = $valorAtual[$subIndice];
             }
             return $valorAtual;
-        } else if (!is_null($valor) && !empty($objeto)) {
+        } elseif (!is_null($valor) && !empty($objeto)) {
             $quantidade = count($objeto);
             $valorAtual = $SESSAO->get($indice);
             if ($quantidade == 1) {
                 $valorAtual[$objeto[1]] = $valor;
-            } else if ($quantidade == 2) {
+            } elseif ($quantidade == 2) {
                 $valorAtual[$objeto[1]][$objeto[2]] = $valor;
-            } else if ($quantidade == 3) {
+            } elseif ($quantidade == 3) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]] = $valor;
-            } else if ($quantidade == 4) {
+            } elseif ($quantidade == 4) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]] = $valor;
-            } else if ($quantidade == 5) {
+            } elseif ($quantidade == 5) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]] = $valor;
-            } else if ($quantidade == 6) {
+            } elseif ($quantidade == 6) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]] = $valor;
-            } else if ($quantidade == 7) {
+            } elseif ($quantidade == 7) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]] = $valor;
-            } else if ($quantidade == 8) {
+            } elseif ($quantidade == 8) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]] = $valor;
-            } else if ($quantidade == 9) {
+            } elseif ($quantidade == 9) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]] = $valor;
-            } else if ($quantidade == 10) {
+            } elseif ($quantidade == 10) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]] = $valor;
-            } else if ($quantidade == 11) {
+            } elseif ($quantidade == 11) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]] = $valor;
-            } else if ($quantidade == 12) {
+            } elseif ($quantidade == 12) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]] = $valor;
-            } else if ($quantidade == 13) {
+            } elseif ($quantidade == 13) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]] = $valor;
-            } else if ($quantidade == 14) {
+            } elseif ($quantidade == 14) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]] = $valor;
-            } else if ($quantidade == 15) {
+            } elseif ($quantidade == 15) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]] = $valor;
-            } else if ($quantidade == 16) {
+            } elseif ($quantidade == 16) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]] = $valor;
-            } else if ($quantidade == 17) {
+            } elseif ($quantidade == 17) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]] = $valor;
-            } else if ($quantidade == 18) {
+            } elseif ($quantidade == 18) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]][$objeto[18]] = $valor;
-            } else if ($quantidade == 19) {
+            } elseif ($quantidade == 19) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]][$objeto[18]][$objeto[19]] = $valor;
-            } else if ($quantidade == 20) {
+            } elseif ($quantidade == 20) {
                 $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]][$objeto[18]][$objeto[19]][$objeto[20]] = $valor;
             } else {
                 throw new Excecao(
                     titulo: 'Erro',
                     mensagem: SISTEMA == 'LOCALHOST' ?
-                        'Você só pode usar no máximo 20 níveis.' :
-                        'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
+                    'Você só pode usar no máximo 20 níveis.' :
+                    'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
                 );
             }
             $SESSAO->set($indice, $valorAtual);
@@ -1278,7 +1282,7 @@ if (!function_exists('sessaoFlash')) {
         if (empty($indice)) {
             return;
         }
-        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session;
+        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
         $SESSAO->registerBag((new \System\Config\Session(true))->storage());
 
         if (!empty($valor)) {
@@ -1296,14 +1300,14 @@ if (!function_exists('sessaoDeletar')) {
      */
     function sessaoDeletar(null|string|array $indice = null): void
     {
-        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session;
+        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
         $SESSAO->registerBag((new \System\Config\Session(true))->storage());
         if (is_array($indice)) {
             foreach ($indice as $subIndice) {
                 $SESSAO->remove($subIndice);
             }
             return;
-        } else if (empty($indice)) {
+        } elseif (empty($indice)) {
             $SESSAO->clear();
             return;
         }
@@ -1325,43 +1329,43 @@ if (!function_exists('sessaoDeletar')) {
         $quantidade = count($objeto);
         if ($quantidade == 1) {
             unset($valorAtual[$objeto[1]]);
-        } else if ($quantidade == 2) {
+        } elseif ($quantidade == 2) {
             unset($valorAtual[$objeto[1]][$objeto[2]]);
-        } else if ($quantidade == 3) {
+        } elseif ($quantidade == 3) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]] = $valor;
-        } else if ($quantidade == 4) {
+        } elseif ($quantidade == 4) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]] = $valor;
-        } else if ($quantidade == 5) {
+        } elseif ($quantidade == 5) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]] = $valor;
-        } else if ($quantidade == 6) {
+        } elseif ($quantidade == 6) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]] = $valor;
-        } else if ($quantidade == 7) {
+        } elseif ($quantidade == 7) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]] = $valor;
-        } else if ($quantidade == 8) {
+        } elseif ($quantidade == 8) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]] = $valor;
-        } else if ($quantidade == 9) {
+        } elseif ($quantidade == 9) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]] = $valor;
-        } else if ($quantidade == 10) {
+        } elseif ($quantidade == 10) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]] = $valor;
-        } else if ($quantidade == 11) {
+        } elseif ($quantidade == 11) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]] = $valor;
-        } else if ($quantidade == 12) {
+        } elseif ($quantidade == 12) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]] = $valor;
-        } else if ($quantidade == 13) {
+        } elseif ($quantidade == 13) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]] = $valor;
-        } else if ($quantidade == 14) {
+        } elseif ($quantidade == 14) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]] = $valor;
-        } else if ($quantidade == 15) {
+        } elseif ($quantidade == 15) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]] = $valor;
-        } else if ($quantidade == 16) {
+        } elseif ($quantidade == 16) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]] = $valor;
-        } else if ($quantidade == 17) {
+        } elseif ($quantidade == 17) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]] = $valor;
-        } else if ($quantidade == 18) {
+        } elseif ($quantidade == 18) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]][$objeto[18]] = $valor;
-        } else if ($quantidade == 19) {
+        } elseif ($quantidade == 19) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]][$objeto[18]][$objeto[19]] = $valor;
-        } else if ($quantidade == 20) {
+        } elseif ($quantidade == 20) {
             $valorAtual[$objeto[1]][$objeto[2]][$objeto[3]][$objeto[4]][$objeto[5]][$objeto[6]][$objeto[7]][$objeto[8]][$objeto[9]][$objeto[10]][$objeto[11]][$objeto[12]][$objeto[13]][$objeto[14]][$objeto[15]][$objeto[16]][$objeto[17]][$objeto[18]][$objeto[19]][$objeto[20]] = $valor;
         } else {
             throw new Excecao(
@@ -1382,7 +1386,7 @@ if (!function_exists('sessaoExiste')) {
      */
     function sessaoExiste(string|array $indice): bool
     {
-        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session;
+        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
         $SESSAO->registerBag((new \System\Config\Session(true))->storage());
 
         if (is_array($indice)) {
@@ -1421,7 +1425,7 @@ if (!function_exists('sessaoDestroi')) {
      */
     function sessaoDestruir(): bool
     {
-        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session;
+        $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
         return $SESSAO->invalidate();
     }
 }
@@ -1534,7 +1538,7 @@ if (!function_exists('imagemUsuario')) {
     {
         if ($tipo == 3 && !empty($facebook)) {
             return $facebook;
-        } else if ($tipo == 2 && !empty($google)) {
+        } elseif ($tipo == 2 && !empty($google)) {
             return $google;
         }
         if (!empty($arquivo)) {

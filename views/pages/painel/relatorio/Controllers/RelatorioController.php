@@ -43,7 +43,7 @@ final class RelatorioController extends Controller
     private function pegarSelectEmpresa()
     {
         return (new ApiHelper(token: true))
-            ->get('/admin-empresa/select')
+            ->get('/comercial-empresa/select')
             ->array()['dado'] ?? [];
     }
 
@@ -160,11 +160,11 @@ final class RelatorioController extends Controller
     {
         if (empty($de)) {
             mensagemErro('Data obrigatória', 'A data de início da busca é obrigatória.');
-        } else if (!validarData($de)) {
+        } elseif (!validarData($de)) {
             mensagemErro('Data inválida', 'A data de início da busca não é uma data válida.');
-        } else if (empty($ate)) {
+        } elseif (empty($ate)) {
             mensagemErro('Data obrigatória', 'A data final da busca é obrigatória.');
-        } else if (!validarData($ate)) {
+        } elseif (!validarData($ate)) {
             mensagemErro('Data inválida', 'A data final da busca não é uma data válida.');
         }
         return;
@@ -227,7 +227,11 @@ final class RelatorioController extends Controller
             ->object();
 
         $Montar = new MontarRelatorioModel();
-        $mes = $Montar->montarLinha($dado->dado->venda_mes ?? [], 'data', ['valor' => 'Valor total', 'ticket' => 'Ticket médio', 'venda' => 'Quantidade de vendas']);
+        $mes = $Montar->montarLinha(
+            $dado->dado->venda_mes ?? [],
+            'data',
+            ['valor' => 'Valor total', 'ticket' => 'Ticket médio', 'venda' => 'Quantidade de vendas']
+        );
 
         return mensagemSucesso([
             'mes' => $mes,

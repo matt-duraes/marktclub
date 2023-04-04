@@ -76,10 +76,9 @@ final class Request
         ) {
             throw new Excecao(
                 titulo: 'Erro!',
-                mensagem: 'Não foi possível validar os dados enviados, por favor, recarregue a página e tente novamente.',
-                lista: [
-                    'validacao' => false
-                ]
+                mensagem:
+                    'Não foi possível validar os dados enviados, por favor, recarregue a página e tente novamente.',
+                lista: ['validacao' => false]
             );
         }
 

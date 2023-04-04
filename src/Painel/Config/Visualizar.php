@@ -273,6 +273,15 @@ final class Visualizar
         $this->linha($campo, $nome, 'cep', $permissao);
         return $this;
     }
+    public function endereco(string $tabela, string $local)
+    {
+        $this->adicionarCampo('', [
+            'funcao' => 'endereco',
+            'tabela' => $tabela,
+            'local' => $local
+        ]);
+        return $this;
+    }
 
     public function contar(array|string $campo, string $nome, ?string $permissao = null): self
     {
@@ -373,10 +382,10 @@ final class Visualizar
     | MÉTODOS PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function adicionarCampo($campo, $dado, ?string $permissao = null)
+    private function adicionarCampo($campo = null, array $dado = [], ?string $permissao = null)
     {
-        $campo = $this->pegarCampoAceito($campo, $permissao);
-        if (empty($campo)) {
+        $campoAceito = !empty($campo) ? $this->pegarCampoAceito($campo, $permissao) : true;
+        if (empty($campoAceito)) {
             return $this;
         }
         $this->setarTitulo();

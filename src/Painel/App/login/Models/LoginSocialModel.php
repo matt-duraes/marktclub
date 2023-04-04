@@ -39,7 +39,7 @@ final class LoginSocialModel implements LoginInterface
             id: $this->id,
             token: $this->accessToken,
             code: $this->code
-        ))->id();
+        ))->uuid();
     }
     private function montarBodyDaRequisicao()
     {

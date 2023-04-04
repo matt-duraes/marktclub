@@ -3,7 +3,7 @@
 return (new \DataBase\DataBase())
     ->id()
     ->uuid()
-    ->int('id_admin_empresa')->relacionado(TABELA_ADMIN_EMPRESA, 'id')
+    ->int('id_admin_empresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')
     ->int('id_campanha_popup')->tamanho(9)
     ->varchar('titulo_painel')->tamanho(100)
     ->varchar('titulo')->tamanho(100)

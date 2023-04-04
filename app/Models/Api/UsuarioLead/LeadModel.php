@@ -20,7 +20,7 @@ final class LeadModel extends ORM
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $_tabela = TABELA_USUARIO_LEAD;
+    protected string $ormTabela = TABELA_USUARIO_LEAD;
     private int $idEmpresa;
 
     public function __construct(
@@ -39,7 +39,7 @@ final class LeadModel extends ORM
                 'documento_cpf', 'data_criacao', 'lead_origem', 'status'
             ])
             ->where($this->pegarWhere())
-            ->order($this->pegarOrdem(new Ordem))
+            ->order($this->pegarOrdem(new Ordem()))
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -59,9 +59,9 @@ final class LeadModel extends ORM
             $email = '';
             if (!empty($r->email_pessoal)) {
                 $email = $r->email_pessoal;
-            } else if (!empty($r->email_trabalho)) {
+            } elseif (!empty($r->email_trabalho)) {
                 $email = $r->email_trabalho;
-            } else if (!empty($r->email_funcional)) {
+            } elseif (!empty($r->email_funcional)) {
                 $email = $r->email_funcional;
             }
 
@@ -146,9 +146,9 @@ final class LeadModel extends ORM
 
         if (!$ordem->vazio() && !$ordem->valido()) {
             mensagemErro('Campo inválido!', 'A ordem informada não é um valor válido.');
-        } else if (!$status->vazio() && !$status->valido()) {
+        } elseif (!$status->vazio() && !$status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é um valor válido.');
-        } else if (!$origem->vazio() && !$origem->valido()) {
+        } elseif (!$origem->vazio() && !$origem->valido()) {
             mensagemErro('Campo inválido!', 'O Origem informado não é um valor válido.');
         }
     }

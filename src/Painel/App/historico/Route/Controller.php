@@ -29,7 +29,7 @@ final class Controller extends ControllerSystem
         }
 
         $Historico = new Entity();
-        $Historico->id($request->id);
+        $Historico->uuid($request->id);
         $Historico->set('texto', $request->texto);
         $Historico->salvar();
 

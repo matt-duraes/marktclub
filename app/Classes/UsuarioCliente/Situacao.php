@@ -6,11 +6,11 @@ use Status\Status;
 
 final class Situacao extends Status
 {
-    const ATIVO = 'ativo';
-    const APOSENTADO = 'aposentado';
-    const PENSIONISTA = 'pensionista';
-    const CEDIDO = 'cedido';
-    const EXCEDENTE = 'excedente';
+    public const ATIVO = 'ativo';
+    public const APOSENTADO = 'aposentado';
+    public const PENSIONISTA = 'pensionista';
+    public const CEDIDO = 'cedido';
+    public const EXCEDENTE = 'excedente';
 
     public function __construct(
         protected null|string|int $valor = null

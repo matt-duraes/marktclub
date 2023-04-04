@@ -2,23 +2,24 @@
 
 namespace ApiModel\Upload;
 
-use ORM\ORM;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
+use Erro\Excecao;
+use ORM\ORM;
 
 final class ArquivoModel extends ORM
 {
+    /**
+     * @var string
+     */
+    protected string $ormTabela = TABELA_UPLOAD_ARQUIVO;
 
-    protected string $_tabela = TABELA_UPLOAD_ARQUIVO;
-
-    /*
-    |--------------------------------------------------------------------------
-    | LISTAR ARQUIVOS
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * @throws Excecao
+     */
     public function buscarArquivos(int $pagina, string $pesquisa, string $grupo)
     {
         $Grupo = new GrupoEntity();
-        $Grupo->id($grupo);
+        $Grupo->uuid($grupo);
 
         $grupoId = $Grupo->get('id');
         $where = [['id_upload_grupo', $grupoId]];
@@ -27,7 +28,13 @@ final class ArquivoModel extends ORM
         }
         $dado = $this
             ->campo([
-                'uuid', 'nome', 'extensao', 'tamanho', 'largura', 'altura', 'data_criacao'
+                'uuid',
+                'nome',
+                'extensao',
+                'tamanho',
+                'largura',
+                'altura',
+                'data_criacao'
             ])
             ->where($where)
             ->order('id', 'DESC')
@@ -35,8 +42,13 @@ final class ArquivoModel extends ORM
             ->leftJoin('id', 'id_usuario_equipe')
             ->campo(
                 [
-                    'nome_real', 'nome_perfil', 'uuid', 'imagem_tipo', 'imagem_arquivo',
-                    'imagem_facebook', 'imagem_google'
+                    'nome_real',
+                    'nome_perfil',
+                    'uuid',
+                    'imagem_tipo',
+                    'imagem_arquivo',
+                    'imagem_facebook',
+                    'imagem_google'
                 ],
                 'usuario'
             )
@@ -47,7 +59,11 @@ final class ArquivoModel extends ORM
         return $dado;
     }
 
-    private function montarDado($dado)
+    /**
+     * @param $dado
+     * @return array
+     */
+    private function montarDado($dado): array
     {
         $lista = [];
         $Perfil = new PerfilModel();
@@ -75,11 +91,9 @@ final class ArquivoModel extends ORM
         return $lista;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MOVER ARQUIVOS
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * @throws Excecao
+     */
     public function moverArquivos($arquivo, GrupoEntity $Grupo)
     {
         $idGrupo = $Grupo->get('id');
@@ -96,16 +110,18 @@ final class ArquivoModel extends ORM
             }
         }
     }
+
+    /**
+     * @throws Excecao
+     */
     private function erroMoverArquivo()
     {
         mensagemErro('Erro!', 'Ocorreu um erro em mover um ou mais arquivos.');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | PEGAR ARQUIVO DO GRUPO
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * @throws Excecao
+     */
     public function pegarArquivosDoGrupo(array $grupo): array
     {
         if (empty($grupo)) {

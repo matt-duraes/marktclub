@@ -19,7 +19,7 @@ final class DownloadModel extends ORM
     use WhereTrait;
     use ValidarRequestTrait;
 
-    protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
+    protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
 
     public function __construct(
         protected Request $request
@@ -69,7 +69,7 @@ final class DownloadModel extends ORM
                 if ($ind == 'data_validacao') {
                     $ind = 'data';
                     $val = dataBr($val);
-                } else if ($ind == 'empresa') {
+                } elseif ($ind == 'empresa') {
                     $val = (new Empresa($val))->Nome();
                 } else {
                     $val = strNull($val);

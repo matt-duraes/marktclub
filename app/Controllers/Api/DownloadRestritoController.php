@@ -56,6 +56,6 @@ final class DownloadRestritoController extends Controller
     private function pegarArquivo($id)
     {
         $this->Download = new DownloadEntity();
-        $this->Download->id($id);
+        $this->Download->uuid($id);
     }
 }

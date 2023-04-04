@@ -2,11 +2,8 @@
 
 namespace Erro\Retorno;
 
-use Helpers\ApiHelper;
-
 trait LogTrait
 {
-
     private function salvarLogErro($mensagem, $codigo, $arquivo, $linha, $trace)
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -26,12 +23,7 @@ trait LogTrait
             'trace' => json_encode($trace)
         ];
 
-        $mensagem = '
-            Ocorreu um erro inesperado, clique em retornar para voltar a navegar.
-            Geralmente esse tipo de erro é temporário, mas para os casos ele continue ocorrendo,
-            já sinalizamos para a equipe técnica sobre o ocorrido, mas caso queira, você pode
-            entre em contato com o suporte e informá-lo.
-        ';
+        $mensagem = 'Ocorreu um erro inesperado, clique em retornar para voltar a navegar. Geralmente esse tipo de erro é temporário, mas para os casos ele continue ocorrendo, já sinalizamos para a equipe técnica sobre o ocorrido, mas caso queira, você pode entre em contato com o suporte e informá-lo.';
 
         try {
             $ch = curl_init();
@@ -47,13 +39,7 @@ trait LogTrait
             curl_exec($ch);
             curl_close($ch);
         } catch (\Throwable) {
-            $mensagem = '
-                Ocorreu um erro inesperado, clique em retornar para voltar a navegar.
-                Esse tipo de erro pode ser temporário, e normalmente os reportamos de forma
-                automaticamente para a equipe técnica, infelizmente esse não foi reportado,
-                por isso, caso o erro continue, entre em contato com o suporte e nos informe
-                sobre esse para para ajudar a corrigí-lo o mais rápido possível.
-            ';
+            $mensagem = 'Ocorreu um erro inesperado, clique em retornar para voltar a navegar. Esse tipo de erro pode ser temporário, e normalmente os reportamos de forma automaticamente para a equipe técnica, infelizmente esse não foi reportado,por isso, caso o erro continue, entre em contato com o suporte e nos informe sobre esse para para ajudar a corrigí-lo o mais rápido possível.';
         }
 
         if (

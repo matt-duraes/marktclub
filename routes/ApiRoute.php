@@ -551,14 +551,6 @@ Route
             ::post('/login/painel');
 
         Route
-            ::nome('loginClube')
-            ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
-            ::request([
-                '!login', '!senha', '!facebook', '!google', 'scope', 'audience', 'redirect_uri', 'state', 'client_id'
-            ])
-            ::post('/login/clube');
-
-        Route
             ::nome('loginApi')
             ::middleware(TokenMiddleware::class, 'scope', ['login:api'])
             ::criptografia(App\Classes\UsuarioCliente\Helper::CRIPTOGRAFAR)
@@ -737,8 +729,8 @@ Route
     });
 
 Route
-    ::nome('convenio_parceiro')
-    ::controller(App\Controllers\Api\ConvenioParceiroController::class)
+    ::nome('parceiro_loja')
+    ::controller(App\Controllers\Api\ParceiroLojaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
@@ -758,6 +750,11 @@ Route
     ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:salvar'])
+            ::request(['id', '!usuario'])
+            ::post('/solicitacao-voucher');
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:buscar'])
@@ -854,21 +851,27 @@ Route::nome('api_app')
             ::get('/api-usuario/select');
     });
 
-Route::nome('admin_empresa')
-    ::controller(App\Controllers\Api\AdminEmpresaController::class)
+Route::nome('comercial_empresa')
+    ::controller(App\Controllers\Api\ComercialEmpresaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::middleware(MarktClubMiddleware::class, 'validar')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
+            ::request(['pagina', '!quantidade'], 'json')
+            ::get('/comercial-empresa');
+
+        Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:buscar'])
-            ::get('/admin-empresa/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
+            ::get('/comercial-empresa/{id}');
 
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['admin_empresa:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request(['!titulo'], 'json')
-            ::get('/admin-empresa/select');
+            ::get('/comercial-empresa/select');
     });
 
 Route::nome('demandaDado')

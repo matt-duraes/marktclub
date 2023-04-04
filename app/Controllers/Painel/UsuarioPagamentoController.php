@@ -18,13 +18,13 @@ final class UsuarioPagamentoController extends Controller
 
         if ($data->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo data da cobrança é obrigatório.');
-        } else if (!$data->valido()) {
+        } elseif (!$data->valido()) {
             mensagemErro('Campo inválido!', 'O campo data da cobrança não é um valor válido.');
-        } else if ($valor->vazio()) {
+        } elseif ($valor->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo valor é obrigatório.');
-        } else if (!$valor->valido()) {
+        } elseif (!$valor->valido()) {
             mensagemErro('Campo inválido!', 'O campo valor não é um valor válido.');
-        } else if (empty($request->usuario)) {
+        } elseif (empty($request->usuario)) {
             mensagemErro('Erro!', 'Ocorreu um erro ao salvar, por favor, tente novamente.');
         }
 

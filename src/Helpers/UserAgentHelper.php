@@ -134,9 +134,9 @@ final class UserAgentHelper
             preg_match('/computer/i', $os)
         ) {
             $dispositivo = 'Desktop';
-        } else if (empty($dispositivo) && preg_match('/Kindle/i', $os)) {
+        } elseif (empty($dispositivo) && preg_match('/Kindle/i', $os)) {
             $dispositivo = 'Kindle';
-        } else if (empty($dispositivo) && preg_match('/iPod/i', $os)) {
+        } elseif (empty($dispositivo) && preg_match('/iPod/i', $os)) {
             $dispositivo = 'iPod';
         }
 
@@ -337,10 +337,10 @@ final class UserAgentHelper
         ) {
             $dispositivo = 'Mobile Phone';
             $mobile = true;
-        } else if (is_string($os) && !empty($os) && preg_match('/ipad/i', $os)) {
+        } elseif (is_string($os) && !empty($os) && preg_match('/ipad/i', $os)) {
             $dispositivo = 'Tablet';
             $tablet = true;
-        } else if (
+        } elseif (
             is_string($os) && !empty($os) &&
             (preg_match('/Win[0-9]+/i', $os) ||
                 preg_match('/Linux/i', $os) ||

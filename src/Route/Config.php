@@ -99,7 +99,7 @@ final class Config
         require_once ROOT . '/routes/' . $this->rota . 'Route.php';
         if ($this->rota == 'Painel') {
             require_once __DIR__ . '/route/PainelRoute.php';
-        } else if ($this->rota == 'Api') {
+        } elseif ($this->rota == 'Api') {
             require_once __DIR__ . '/route/ApiRoute.php';
         }
         $this->rotaUso = Route::pegarRota($this->controller, $this->action);

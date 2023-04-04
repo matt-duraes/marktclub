@@ -5,14 +5,15 @@ namespace App\Models\Api\Analytics;
 use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\Analytics\Trait\WhereTrait;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class LojaMaisAcessadaModel extends ORM
 {
     use ValidarEmpresaTrait;
     use WhereTrait;
-    protected string $_tabela = TABELA_ANALYTICS_LOJA;
+
+    protected string $ormTabela = TABELA_ANALYTICS_LOJA;
 
     public function __construct(
         protected Data $de,

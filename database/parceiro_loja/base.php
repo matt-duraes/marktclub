@@ -1,0 +1,23 @@
+<?php
+
+return (new \DataBase\DataBase())
+    ->id()
+    ->char('cod')->tamanho(36)
+    ->json('empresa')
+    ->json('destaque')
+    ->int('categoria_principal')->tamanho(2)
+    ->json('categoria_todas')
+    ->char('titulo')->tamanho(36)
+    ->varchar('url')
+    ->imagem('imagem')->tamanho(36)
+    ->varchar('desconto')
+    ->text('desconto_texto')->null()
+    ->text('procedimento_texto')->null()
+    ->text('voucher_texto')->null()
+    ->dataCriacao()
+    ->dataAtualizacao()
+    ->date('data_contrato_inicio')->null()
+    ->int('limite_voucher')->tamanho(5)->null()
+    ->int('prazo_voucher')->tamanho(5)->null()
+    ->date('prazo_voucher_fixo')->null()
+    ->status()->null();

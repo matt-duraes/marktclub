@@ -11,10 +11,10 @@ use App\Classes\ParceiroRelatorio\Ordem;
 
 final class RelatorioModel extends ORM
 {
-    protected string $_tabela = TABELA_ANALYTICS_LOJA_VENDA;
-
     use PaginaTrait;
     use QuantidadeTrait;
+
+    protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
 
     private int $idEmpresa;
     public function __construct(
@@ -31,10 +31,10 @@ final class RelatorioModel extends ORM
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order(new Ordem($this->request->ordem))
-            ->tabela(TABELA_PARCEIRO_NOVO)
+            ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
-            ->tabela(TABELA_EMPRESA_NOVO)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['nome_fantasia'], 'empresa')
             ->read();
@@ -76,9 +76,9 @@ final class RelatorioModel extends ORM
 
         if (validarDate($de) && validarDate($ate)) {
             $where[] = ['data_relatorio', 'between', [$de, $ate . ' 23:59:59']];
-        } else if (validarDate($de)) {
+        } elseif (validarDate($de)) {
             $where[] = ['data_relatorio', '>=', $de];
-        } else if (validarDate($ate)) {
+        } elseif (validarDate($ate)) {
             $where[] = ['data_relatorio', '<=', $ate];
         }
         return $where;

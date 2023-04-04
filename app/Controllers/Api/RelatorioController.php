@@ -11,9 +11,9 @@ use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
-use App\Models\Api\AdminEmpresa\EmpresaEntity;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\Analytics\LojaMaisAcessadaModel;
 use App\Models\Api\Analytics\UsuarioMaisAcessoModel;
 use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
@@ -159,7 +159,7 @@ final class RelatorioController extends Controller
         $request->vazio('ate', mensagem: 'A data de final da busca é obrigatória');
         if (!validarDate($request->de)) {
             mensagemErro('Campo inválido!', 'A data de começo da busca não é válida.');
-        } else if (!validarDate($request->ate)) {
+        } elseif (!validarDate($request->ate)) {
             mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
         }
     }
@@ -170,7 +170,7 @@ final class RelatorioController extends Controller
             return null;
         }
         $Empresa = new EmpresaEntity();
-        $Empresa->id($empresa, mensagem: 'Não foi encontrado nenhum empresa pela busca.');
+        $Empresa->uuid($empresa, mensagem: 'Não foi encontrado nenhum empresa pela busca.');
         return $Empresa;
     }
 }

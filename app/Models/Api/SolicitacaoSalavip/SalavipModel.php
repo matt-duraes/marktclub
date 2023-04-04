@@ -23,7 +23,7 @@ final class SalavipModel extends ORM implements
     use WhereTrait;
     use ValidarRequestTrait;
 
-    protected string $_tabela = TABELA_SOLICITACAO_VOUCHER;
+    protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
 
     public function __construct(
         protected Request $request
@@ -43,7 +43,7 @@ final class SalavipModel extends ORM implements
             ->campo(['cod', 'empresa', 'codigo', 'data_validacao'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere())
-            ->order($this->pegarOrdem(new Ordem))
+            ->order($this->pegarOrdem(new Ordem()))
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);

@@ -85,7 +85,9 @@ abstract class ErrorGeral extends SolucaoGeral
         ) {
             $this->alerta++;
             $this->arquivoAlerta = $this->alerta;
-            $this->alertaLista[$this->alerta] = 'Mudamos o arquivo onde foi disparar o erro para apontar para o arquivo real do erro no trace #' . $traceIndice . '.';
+            $this->alertaLista[$this->alerta] =
+                'Mudamos o arquivo onde foi disparar o erro para apontar para o arquivo real do erro no trace #'
+                . $traceIndice . '.';
 
             $this->arquivo = $trace[$traceIndice]['file'];
             $this->linha = $trace[$traceIndice]['line'];
@@ -98,7 +100,9 @@ abstract class ErrorGeral extends SolucaoGeral
                 $this->linha = $rLinha['file'];
 
                 $this->arquivoAlerta = $this->alerta;
-                $this->alertaLista[$this->alerta] = 'Mudamos o arquivo onde foi disparar o erro para apontar para o arquivo real do erro no trace #' . $i . '.';
+                $this->alertaLista[$this->alerta] =
+                    'Mudamos o arquivo onde foi disparar o erro para apontar para o arquivo real do erro no trace #'
+                    . $i . '.';
                 return true;
             }
             $i++;
@@ -242,7 +246,10 @@ abstract class ErrorGeral extends SolucaoGeral
         }
         if (!$arquivoPrincipalExiste && !empty($arquivoPrincipal)) {
             $this->alerta++;
-            $this->alertaLista[$this->alerta] = 'Por algum motivo, o arquivo não está na pilha de arquivos, adicionamos ele no topo para facilitar o debug.';
+            $this->alertaLista[$this->alerta] = '
+                Por algum motivo, o arquivo não está na pilha de arquivos,
+                adicionamos ele no topo para facilitar o debug.
+            ';
             $lista = array_merge([
                 'id_' . md5(uniqid(time())) => [
                     'alerta' => $this->alerta,
@@ -313,7 +320,10 @@ abstract class ErrorGeral extends SolucaoGeral
 
         $conteudo = [];
         try {
-            $conteudo = explode(PHP_EOL, str_replace(array_keys($this->replace), array_values($this->replace), file_get_contents($arquivo)));
+            $conteudo = explode(
+                PHP_EOL,
+                str_replace(array_keys($this->replace), array_values($this->replace), file_get_contents($arquivo))
+            );
         } catch (\Throwable) {
             return '';
         }
@@ -337,14 +347,17 @@ abstract class ErrorGeral extends SolucaoGeral
 
         $html = [];
         if ($linhaInicialHtml) {
-            $html[] = '<div class="linha"><div class="numero">' . ($linhaInicial - 1) . '</div><p class="conteudo_mais">[...]</p></div>';
+            $html[] = '<div class="linha"><div class="numero">'
+                . ($linhaInicial - 1) . '</div><p class="conteudo_mais">[...]</p></div>';
         }
         for ($i = $linhaInicial; $i < $linhaFinal; ++$i) {
             $classe = $i == ($linha - 1) ? 'ativo' : '';
-            $html[] = '<div class="linha ' . $classe . '"><div class="numero">' . ($i + 1) . '</div><p>' . $conteudo[$i] . '</p></div>';
+            $html[] = '<div class="linha ' . $classe . '"><div class="numero">'
+                . ($i + 1) . '</div><p>' . $conteudo[$i] . '</p></div>';
         }
         if ($linhaFinalHtml) {
-            $html[] = '<div class="linha"><div class="numero">' . ($i + 1) . '</div><p class="conteudo_mais">[...]</p></div>';
+            $html[] = '<div class="linha"><div class="numero">' . ($i + 1)
+                . '</div><p class="conteudo_mais">[...]</p></div>';
         }
         return implode(PHP_EOL, $html);
     }

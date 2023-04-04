@@ -12,10 +12,10 @@ use ApiModel\PainelNotificacao\NotificacaoEntity;
 
 final class ArquivoEntity extends Entity
 {
-    protected string $_tabela = TABELA_SISTEMA_DOWNLOAD;
-    protected array $_insert = ['id_admin_empresa', 'id_usuario_equipe', 'arquivo'];
-    protected array $_salvar = ['status'];
-    protected array $_buscar = ['id_usuario_equipe', 'arquivo', 'status'];
+    protected string $ormTabela = TABELA_SISTEMA_DOWNLOAD;
+    protected array $ormInsert = ['id_admin_empresa', 'id_usuario_equipe', 'arquivo'];
+    protected array $ormSalvar = ['status'];
+    protected array $ormBuscar = ['id_usuario_equipe', 'arquivo', 'status'];
 
     protected int $id_admin_empresa;
     protected int $id_usuario_equipe;
@@ -84,7 +84,7 @@ final class ArquivoEntity extends Entity
     private function pegarUsuario(): int
     {
         $this->Equipe = new EquipeEntity(validarToken: false);
-        $this->Equipe->id($this->usuario);
+        $this->Equipe->uuid($this->usuario);
         return $this->Equipe->get('id');
     }
 
@@ -92,7 +92,9 @@ final class ArquivoEntity extends Entity
     {
         $Noticicacao = new NotificacaoEntity(
             titulo: 'Seu arquivo ficou pronto para download',
+            // @codingStandardsIgnoreStart
             mensagem: 'O download do seu arquivo ficou pronto, acesse o painel e verifique sua notificações para fazer o download',
+            // @codingStandardsIgnoreEnd
             link: '{{LINK}}/download-privado/' . $this->id,
             target: '_blank',
             botao: 'Abrir Painel',

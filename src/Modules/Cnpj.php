@@ -6,8 +6,8 @@ use Modules\Trait\ValidarTrait;
 
 final class Cnpj implements ModuleInterface
 {
-
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->cnpj();
@@ -36,7 +36,7 @@ final class Cnpj implements ModuleInterface
             $this->valido = false;
             $this->cnpj = '';
             return;
-        } else if (!$this->validarCnpj()) {
+        } elseif (!$this->validarCnpj()) {
             $this->valido = false;
             $this->cnpj = '';
             return;
