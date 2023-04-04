@@ -8,14 +8,18 @@ use Controller\Controller;
 use App\Classes\ComercialEmpresa\Helper;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
 use App\Models\Api\ComercialEmpresa\EmpresaModel;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 final class ComercialEmpresaController extends Controller implements
     ControllerBuscarInterface,
     ControllerSelectInterface,
-    ControllerListarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface
 {
     public function getListar(Request $request): Response
     {
@@ -47,6 +51,20 @@ final class ComercialEmpresaController extends Controller implements
         $Empresa = new EmpresaEntity();
         $Empresa->uuid($id);
 
+        return $this->retornoPadrao($Empresa);
+    }
+
+    public function postSalvar(Request $request): Response
+    {
+        $Empresa = new EmpresaEntity();
+        $Empresa->set(lista: $request->dado());
+        $Empresa->salvar();
+
+        return $this->retornoPadrao($Empresa, 201);
+    }
+
+    private function retornoPadrao(EmpresaEntity $Empresa, int $status = 200): Response
+    {
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Empresa,
@@ -57,7 +75,18 @@ final class ComercialEmpresaController extends Controller implements
                     'produto_ios', 'produto_android', 'produto_site', 'tipo_pagamento', 'status'
                 ]
             ),
-            criptografar: Helper::CRIPTOGRAFAR
+            criptografar: Helper::CRIPTOGRAFAR,
+            status: $status
         );
+    }
+
+    public function putAtualizar(Request $request, string $id): Response
+    {
+        $Empresa = new EmpresaEntity();
+        $Empresa->uuid($id);
+        $Empresa->set(lista: $request->dado());
+        $Empresa->salvar();
+
+        return new Response(status: 204);
     }
 }

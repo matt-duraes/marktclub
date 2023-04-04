@@ -38,6 +38,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->telefone(name: 'responsavel_telefone', label: 'Telefone do responsavel');
     });
 });
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados interno', callback: function () use ($Painel) {
         $equipe = (new ApiHelper(token: true))
@@ -52,7 +53,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 lista: $equipe['dado'] ?? []
             )
             ->select(
-                name: 'Tipo pagamento',
+                name: 'tipo_pagamento',
                 label: 'Tipo pagamento',
                 lista: (new TipoPagamento())->select('Escolha uma opção')
             )

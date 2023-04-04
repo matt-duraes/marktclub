@@ -70,7 +70,7 @@ final class LoginController extends Controller
     {
         new LoginAutorizadoModel(Login: $Login);
         return mensagemSucesso([
-            'link' => (new AuthHelper)->location()
+            'link' => (new AuthHelper())->location()
         ], 201);
     }
 
@@ -81,13 +81,13 @@ final class LoginController extends Controller
     */
     public function sair(): Response
     {
-        (new AuthHelper)->deletar();
+        (new AuthHelper())->deletar();
         cookieDeletar('FWT');
         return new Response(url: route('login.index'));
     }
     public function bloquear(): Response
     {
-        (new AuthHelper)->deletar();
+        (new AuthHelper())->deletar();
         cookieDeletar('FWT');
         return new Response(status: 200);
     }

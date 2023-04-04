@@ -250,7 +250,7 @@ final class Filtrar
         string $change = '',
         ?string $permissao = null
     ) {
-        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa'])) {
+        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa', 'usuario'])) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {
@@ -263,6 +263,11 @@ final class Filtrar
             $lista = (new ApiHelper(token: true))
                 ->json(['titulo' => 'Escolha um cliente'])
                 ->get('/comercial-empresa/select')
+                ->array()['dado'] ?? [];
+        } elseif (is_string($lista) && $lista == 'usuario') {
+            $lista = (new ApiHelper(token: true))
+                ->json(['titulo' => 'Escolha um usuário'])
+                ->get('/usuario-equipe/select')
                 ->array()['dado'] ?? [];
         }
 
