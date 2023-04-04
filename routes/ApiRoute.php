@@ -557,7 +557,8 @@ Route
             ::request([
                 'nome', 'cpf', '!matricula', '!siape', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!estado_civil',
-                '!endereco_estado', '!endereco_cidade', '!federacao', '!salavip', '!grupo'
+                '!endereco_estado', '!endereco_cidade', '!federacao', '!salavip', '!grupo',
+                '!crm_numero', '!crm_estado', '!termo_lgpd'
             ])
             ::post('/login/api');
 
@@ -855,6 +856,7 @@ Route::nome('comercial_empresa')
     ::controller(App\Controllers\Api\ComercialEmpresaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::middleware(MarktClubMiddleware::class, 'validar')
+    ::criptografia(App\Classes\ComercialEmpresa\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('listar')
@@ -863,15 +865,39 @@ Route::nome('comercial_empresa')
             ::get('/comercial-empresa');
 
         Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
+            ::request(['!titulo'], 'json')
+            ::get('/comercial-empresa/select');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
             ::get('/comercial-empresa/{id}');
 
         Route
-            ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
-            ::request(['!titulo'], 'json')
-            ::get('/comercial-empresa/select');
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:salvar'])
+            ::request([
+                'titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', 'razao_social',
+                'cnpj', '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone',
+                '!responsavel_cpf', '!usuario', '!tipo_pagamento', '!valor_pago', '!renda_media',
+                '!valor_pib', '!produto_clube', '!produto_ios', '!produto_android', '!produto_site',
+                '!estado_principal', 'status'
+            ])
+            ::post('/comercial-empresa');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:atualizar'])
+            ::request([
+                '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
+                '!cnpj', '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone',
+                '!responsavel_cpf', '!usuario', '!tipo_pagamento', '!valor_pago', '!renda_media',
+                '!valor_pib', '!produto_clube', '!produto_ios', '!produto_android', '!produto_site',
+                '!estado_principal', '!status'
+            ])
+            ::put('/comercial-empresa/{id}');
     });
 
 Route::nome('demandaDado')

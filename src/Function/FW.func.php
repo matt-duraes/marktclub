@@ -1702,7 +1702,7 @@ if (!function_exists('removerIndiceVazio')) {
     {
         $retorno = [];
         foreach ($array as $ind => $val) {
-            $valor = trim($val);
+            $valor = !empty($val) ? trim($val) : '';
             if (!empty($valor)) {
                 $retorno[$ind] = $valor;
             }

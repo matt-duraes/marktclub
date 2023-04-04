@@ -93,6 +93,8 @@ final class LoginModel extends Entity
         $federacao = strCaixaAlta($dado['federacao'] ?? '');
         $salavip = $dado['salavip'] ?? '';
         $grupo = strCaixaAlta($dado['grupo'] ?? '');
+        $crmNumero = $dado['crm_numero'] ?? '';
+        $crmEstado = new EnderecoEstado($dado['crm_estado'] ?? '');
 
         $estadoLista = (new ListaHelper())->uf()->add('FU', 'FU')->r();
 
@@ -137,11 +139,17 @@ final class LoginModel extends Entity
             // OUTROS
         } elseif (!empty($salavip) && !preg_match('/^[0-9]{1,}$/', $salavip)) {
             mensagemErro('Campo inválido', 'A Salavip deve ser um valor inteiro.');
+        } elseif (!empty($crmNumero) && !preg_match('/^[0-9]{1,}$/', $crmNumero)) {
+            mensagemErro('Campo inválido', 'O CRM deve ser um valor inteiro.');
+        } elseif (!$crmEstado->vazio() && !$crmEstado->valido()) {
+            mensagemErro('Campo inválido!', 'O estado do CRM não é uma UF válida.');
         }
 
         $this->dadoUsuario = removerIndiceVazio([
             'nome' => $nome->nome(),
             'documento' => (int) $cpf->numero(),
+            'crm_numero' => !empty($crmNumero) ? (int) $crmNumero : null,
+            'crm_estado' => $crmEstado->estado(),
             'matricula' => $matricula,
             'siape' => $siape,
             'sexo' => $genero->numero(),

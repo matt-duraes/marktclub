@@ -49,9 +49,9 @@ final class Dinheiro implements ModuleInterface
      *
      * @return string Valor em formato de dinheiro
      */
-    public function dinheiro(): null|string
+    public function dinheiro(): string
     {
-        return empty($this->dinheiro) ? null : number_format($this->dinheiro, 2, ',', '.');
+        return empty($this->dinheiro) ? '' : number_format($this->dinheiro, 2, ',', '.');
     }
 
     // doc
