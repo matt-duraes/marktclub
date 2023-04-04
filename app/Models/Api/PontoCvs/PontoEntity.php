@@ -219,9 +219,8 @@ final class PontoEntity extends Entity
         $EmailUsuario->mensagem(
             titulo: 'Voucher Solicitado!',
             assunto: 'Você Solicitou um novo Voucher',
-            mensagem: "Olá <strong>$this->nome</strong>, recebemos sua solicitação de um novo voucher!
-            Logo entraremos em contato com mais informações sobre a situação de seu pedido.",
-            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
+            mensagem: 'Olá <strong>' . $this->nome . '</strong>, recebemos sua solicitação de um novo voucher! Logo estarão disponíveis na aba histórico as informações: número do cartão, código e vencimento, para que possa realizar as suas compras. Pedimos que acompanhe pela plataforma.',
+            posMensagem: 'Em caso de dúvidas, entre em contato.',
             logo: $Construtor->logo,
             acao: 'Voucher',
             cor: $Construtor->cor
