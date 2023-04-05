@@ -2,120 +2,136 @@
 
 namespace Helpers;
 
+use Throwable;
+
 final class CryptHelper
 {
     /**
-     * @param null|string   $chave          Chave para criptografar, ENV('CRYPT_HASH') por padrão
-     * @param null|string   $cipher         Um método cipher válido, AES-256-CBC por padrão
-     * @param null|string   $chavePublica   Chave pública caso queira usar RSA
-     * @param null|string   $chavePrivada   Chave privada caso queira usar RSA
-     * @param bool          $url            Se vai converter o encode em URL
+     * @param  string|null  $chave         Chave para criptografar, ENV('CRYPT_HASH') por padrão
+     * @param  string|null  $cifra
+     * @param  string|null  $chavePublica  Chave pública caso queira usar RSA
+     * @param  string|null  $chavePrivada  Chave privada caso queira usar RSA
+     * @param  bool         $url           Se vai converter o encode em URL
      */
     public function __construct(
         private ?string $chave = null,
         private ?string $cifra = null,
-        private ?string $chavePublica = null,
-        private ?string $chavePrivada = null,
-        private bool $url = false
+        private readonly ?string $chavePublica = null,
+        private readonly ?string $chavePrivada = null,
+        private readonly bool $url = false
     ) {
-        $this->chave = !empty($chave) ? $chave : ENV('CRYPT_HASH', '');
-        $this->chave = !empty($this->chave) ? $this->chave : '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
+        if (empty($chave)) {
+            $this->chave = ENV('CRYPT_HASH');
+        }
+
+        if (empty($this->chave)) {
+            $this->chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
+        }
+
         $this->cifra = !empty($cifra) ? $cifra : 'AES-256-CBC';
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | ENCODE
-    |--------------------------------------------------------------------------
-    */
-
     /**
-     * Criptografa o dado enviado
+     * Criptografa os dados enviados
      *
-     * @param   mixed       $dado   Valor a ser criptografado
+     * @param  mixed  $dados  Dados a serem criptografado
      * @return  string|bool
      */
-    public function encode($dado): string|bool
+    public function encode(mixed $dados): string|bool
     {
         if (!empty($this->chavePublica)) {
-            $hash = $this->encodeRsa($dado);
+            $hash = $this->encodeRsa($dados);
         } else {
-            $hash = $this->encodeChave($dado);
+            $hash = $this->encodeChave($dados);
         }
 
         return $this->url ? str_replace(['+', '/', '='], ['-', '_', ':'], $hash) : $hash;
     }
-    private function encodeRsa($dado): string|bool
-    {
-        if (is_array($dado) || is_object($dado)) {
-            $dado = json_encode($dado);
-        }
 
-        if (empty($dado)) {
+    /**
+     * Criptografa os dados enviados
+     *
+     * @param  mixed  $dados  Dados a serem criptografado
+     * @return string|bool
+     */
+    private function encodeRsa(mixed $dados): string|bool
+    {
+        if (empty($dados)) {
             return '';
         }
 
+        if (is_array($dados) || is_object($dados)) {
+            $dados = json_encode($dados);
+        }
+
         try {
-            $status = openssl_public_encrypt($dado, $hash, $this->chavePublica);
-        } catch (\Throwable) {
+            $status = openssl_public_encrypt($dados, $hash, $this->chavePublica);
+        } catch (Throwable) {
+            return false;
+        } finally {
+            if ($status) {
+                return base64_encode($hash);
+            }
+
             return false;
         }
-        if ($status) {
-            return base64_encode($hash);
-        }
-        return false;
     }
-    private function encodeChave($dado): string|bool
+
+    private function encodeChave(mixed $dados): string|bool
     {
-        $cifra = $this->cifra;
-        if (in_array($cifra, openssl_get_cipher_methods())) {
+        if (in_array($this->cifra, openssl_get_cipher_methods())) {
             return false;
         }
 
-        if (is_array($dado) || is_object($dado)) {
-            $dado = json_encode($dado);
+        if (is_array($dados) || is_object($dados)) {
+            $dados = json_encode($dados);
         }
 
-        $iv = strCodigo(openssl_cipher_iv_length($cifra));
+        $iv = strCodigo(openssl_cipher_iv_length($this->cifra));
+
         try {
-            $hash = openssl_encrypt($dado, $cifra, $this->chave, 0, $iv);
+            $hash = openssl_encrypt($dados, $this->cifra, $this->chave, 0, $iv);
             return $iv . $hash;
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return false;
         }
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | DECODE
-    |--------------------------------------------------------------------------
-    */
 
     /**
      * Descriptografa o hash enviado
      *
-     * @param string    $hash   Hash que deve ser descriptografado
+     * @param  string  $hash  Hash que deve ser descriptografado
      * @return array|string|bool
      */
     public function decode(string $hash): array|string|bool
     {
         $hash = $this->url ? str_replace(['-', '_', ':'], ['+', '/', '='], $hash) : $hash;
+
         if (!empty($this->chavePrivada)) {
-            $dado = $this->decodeRsa($hash);
+            $dados = $this->decodeRsa($hash);
         } else {
-            $dado = $this->decodeChave($hash);
+            $dados = $this->decodeChave($hash);
         }
-        if ($dado === false) {
+
+        if ($dados === false) {
             return false;
         }
 
-        $retorno = jsonDecode($dado, true);
+        $retorno = jsonDecode($dados, true);
+
         if (is_array($retorno)) {
             return $retorno;
         }
-        return (string) $dado;
+
+        return (string)$dados;
     }
 
+    /**
+     * Descriptografa o hash enviado
+     *
+     * @param  string  $hash  Hash que deve ser descriptografado
+     * @return array|string|bool
+     */
     private function decodeRsa(string $hash): array|string|bool
     {
         if (openssl_private_decrypt(base64_decode($hash), $dado, $this->chavePrivada)) {
@@ -123,26 +139,34 @@ final class CryptHelper
         }
         return false;
     }
+
+    /**
+     * Descriptografa o hash enviado
+     *
+     * @param  string  $hash  Hash que deve ser descriptografado
+     * @return array|string|bool
+     */
     private function decodeChave(string $hash): array|string|bool
     {
-        $cifra = $this->cifra;
-        if (in_array($cifra, openssl_get_cipher_methods())) {
+        if (in_array($this->cifra, openssl_get_cipher_methods())) {
             return false;
         }
 
-        $iv = mb_substr($hash, 0, openssl_cipher_iv_length($cifra));
-        $texto = str_replace(['-', '_', ':'], ['+', '/', '='], mb_substr($hash, openssl_cipher_iv_length($cifra), null));
+        $iv = mb_substr($hash, 0, openssl_cipher_iv_length($this->cifra));
+        $texto = str_replace(
+            ['-', '_', ':'],
+            ['+', '/', '='],
+            mb_substr($hash, openssl_cipher_iv_length($this->cifra), null)
+        );
 
         try {
-            $dado = openssl_decrypt(
+            return openssl_decrypt(
                 data: $texto,
-                cipher_algo: $cifra,
+                cipher_algo: $this->cifra,
                 passphrase: $this->chave,
-                options: 0,
                 iv: $iv
             );
-            return $dado;
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return false;
         }
     }
@@ -150,7 +174,7 @@ final class CryptHelper
     /**
      * Gera um par de chave pública e privada
      *
-     * @param int $bits Quantidade de bits da chave
+     * @param  int  $bits  Quantidade de bits da chave
      * @return array Array com a chave privada e publica ['privada' => '', 'publica' => '']
      */
     public function gerarChave(int $bits = 2048): array

@@ -2,37 +2,38 @@
 
 namespace Helpers;
 
+use Erro\Excecao;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CurlHelper
 {
-    private $ssl = true;
-    private $parametro;
-    private $body = [];
-    private $header = [];
-    private $option;
-    private $json = [];
     protected $requisicao;
+    protected bool $apiHelper = false;
+    private bool $ssl = true;
+    private $parametro;
+    private array $body = [];
+    private array $header = [];
+    private $option;
+    private array $json = [];
     private $retornoValor;
     private $retornoStatus;
     private $retornoErro;
     private $retornoHeader;
     private $retornoInfo;
-    private $urlUsada = '';
-    private $metodoUsado = '';
+    private string $urlUsada = '';
+    private string $metodoUsado = '';
     private bool $erroValidar = false;
     private string $erroTitulo = 'Erro!';
     private string $erroMensagem = '';
     private int $erroStatus = 400;
-    protected bool $apiHelper = false;
 
     public function __construct(
-        private $url = null
+        private readonly ?string $url = null
     ) {
         $this->resetar();
     }
 
-    public function resetar(): self
+    public function resetar(): static
     {
         $this->retornoErro = [];
         $this->retornoStatus = 0;
@@ -59,16 +60,17 @@ class CurlHelper
      *
      * @return string
      */
-    public function url()
+    public function url(): string
     {
         return $this->urlUsada;
     }
+
     /**
      * Pega o último Método usado
      *
      * @return string
      */
-    public function metodo()
+    public function metodo(): string
     {
         return $this->metodoUsado;
     }
@@ -76,12 +78,12 @@ class CurlHelper
     /**
      * Valida se existe erro apos executar o CURL
      *
-     * @param   string          $mensagem   Mensagem de erro padrão caso a resposta não tenha
-     * @param   null|string     $titulo     Título de erro padrão caso a resposta não tenha
-     * @param   null|int        $status     Status HTML em caso de erro
-     * @return  Self
+     * @param  string       $mensagem  Mensagem de erro padrão caso a resposta não tenha
+     * @param  string|null  $titulo    Título de erro padrão caso a resposta não tenha
+     * @param  int|null     $status    Status HTML em caso de erro
+     * @return CurlHelper
      */
-    public function validar(string $mensagem, ?string $titulo = null, ?int $status = null): self
+    public function validar(string $mensagem, string $titulo = null, int $status = null): static
     {
         $this->erroValidar = true;
         $this->erroMensagem = $mensagem;
@@ -95,11 +97,12 @@ class CurlHelper
     }
 
     /**
-     * Seta os parametros da URL
-     * @param array $parametro Parametro que deve ser enviado
-     * @return Self
+     * Seta os parâmetros da URL
+     *
+     * @param  string|array|null  $parametro  Parâmetro que deve ser enviado
+     * @return CurlHelper|string|array
      */
-    public function parametro(null|string|array $parametro = null): self|string|array
+    public function parametro(string|array $parametro = null): static|string|array
     {
         if (is_null($parametro)) {
             return !empty($this->parametro) ? $this->parametro : $this->requisicao['parametro'];
@@ -113,13 +116,16 @@ class CurlHelper
 
         return $this;
     }
+
     /**
-     * Seta ou pega o body da requisição
+     * Seta ou pega o body da requisição.
      *
-     * @param null|string|array $body Body que deve ser enviado ou string para pegar um indice ou null para pegar todos os indices
-     * @return Self|array|string
+     * @param  null|string|array  $body  Body que deve ser enviado ou string para pegar um índice ou null para pegar
+     *                                   todos os índices
+     * @param  bool               $merge
+     * @return CurlHelper|array|string
      */
-    public function body(null|string|array $body = null, bool $merge = true): self|array|string
+    public function body(null|string|array $body = null, bool $merge = true): static|array|string
     {
         if (is_null($body)) {
             return !empty($this->body) ? $this->body : $this->requisicao['body'];
@@ -135,31 +141,12 @@ class CurlHelper
     }
 
     /**
-     * Seta o header para a requisição
-     *
-     * @param array $header Dados que devem ser enviado no header
-     * @return Self|array|string
-     */
-    public function header(null|array|string $header = null): string|array|self
-    {
-        if (is_null($header)) {
-            return !empty($this->header) ? $this->header : $this->requisicao['header'];
-        } elseif (is_string($header)) {
-            return $this->header[$header];
-        } elseif (!empty($header) && is_array($header)) {
-            $this->header = array_merge($this->header, $header);
-            return $this;
-        }
-        return $this;
-    }
-
-    /**
      * Envia ou pega o json do body
      *
-     * @param array $json Json para ser enviado no body
-     * @return Self|array|string
+     * @param  string|array|null  $json  Json para ser enviado no body
+     * @return CurlHelper|string|array
      */
-    public function json(null|string|array $json = null): self|string|array
+    public function json(string|array $json = null): static|string|array
     {
         if (is_null($json)) {
             return !empty($this->json) ? $this->json : $this->requisicao['json'];
@@ -174,10 +161,10 @@ class CurlHelper
     /**
      * Seta os option para o CURL
      *
-     * @param array $option Option do CURL
-     * @return Self
+     * @param  array  $option  Option do CURL
+     * @return CurlHelper
      */
-    public function option(array $option): self
+    public function option(array $option): static
     {
         $this->option = $option;
         return $this;
@@ -186,32 +173,41 @@ class CurlHelper
     /**
      * Remover a validação do SSL
      *
-     * @return Self
+     * @return CurlHelper
      */
-    public function removerSsl(): self
+    public function removerSsl(): static
     {
         $this->ssl = false;
         return $this;
     }
 
     /**
-     * Envia um arquivo no body
+     * Envia um ou mais arquivos no body
      *
-     * @param array $dado Lista com arquivo para ser feito o upload podendo ser um upload ou arquivo no servidor
-     * @return Self
+     * @param  array  $arquivos  Lista com arquivo para ser feito o upload podendo ser um upload ou arquivo no servidor
+     * @return CurlHelper
      */
-    public function arquivo(array $arquivo): self
+    public function arquivo(array $arquivos): static
     {
         $lista = [];
-        foreach ($arquivo as $ind => $val) {
-            if ($val instanceof UploadedFile) {
-                $lista[$ind] = curl_file_create($val->getPathname(), $val->getMimeType(), $val->getClientOriginalName());
-            } elseif (is_array($val) && isset($val['tmp_name']) && file_exists($val['tmp_name'])) {
-                $lista[$ind] = curl_file_create($val['tmp_name'], $val['type'] ?? mime_content_type($val['tmp_name']), $val['name'] ?? '');
-            } elseif (is_string($val) && file_exists($val)) {
-                $lista[$ind] = curl_file_create($val, mime_content_type($val), basename($val));
+        foreach ($arquivos as $index => $arquivo) {
+            if ($arquivo instanceof UploadedFile) {
+                $lista[$index] = curl_file_create(
+                    $arquivo->getPathname(),
+                    $arquivo->getMimeType(),
+                    $arquivo->getClientOriginalName()
+                );
+            } elseif (is_array($arquivo) && isset($arquivo['tmp_name']) && file_exists($arquivo['tmp_name'])) {
+                $lista[$index] = curl_file_create(
+                    $arquivo['tmp_name'],
+                    $arquivo['type'] ?? mime_content_type($arquivo['tmp_name']),
+                    $arquivo['name'] ?? ''
+                );
+            } elseif (is_string($arquivo) && file_exists($arquivo)) {
+                $lista[$index] = curl_file_create($arquivo, mime_content_type($arquivo), basename($arquivo));
             }
         }
+
         if (!empty($this->body)) {
             $this->body = array_merge($this->body, $lista);
         } else {
@@ -227,172 +223,23 @@ class CurlHelper
         return $this;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | METODOS DA API
-    |--------------------------------------------------------------------------
-    */
-
     /**
      * Envia uma requisição POST
      *
-     * @param string $url Url que deve ser enviado a requisição
-     * @return Self
+     * @param  string  $url  Url que deve ser enviado a requisição
+     * @return CurlHelper
+     * @throws Excecao
      */
-    public function post(string $url): self
+    public function post(string $url): static
     {
         $this->curl('POST', $url);
         return $this;
     }
 
     /**
-     * Envia uma requisição GET
-     *
-     * @param string $url Url que deve ser enviado a requisição
-     * @return Self
+     * @throws Excecao
      */
-    public function get(string $url): self
-    {
-        $this->headerJson();
-        $this->curl('GET', $url);
-        return $this;
-    }
-
-    /**
-     * Envia uma requisição PUT
-     *
-     * @param string $url Url que deve ser enviado a requisição
-     * @return Self
-     */
-    public function put(string $url): self
-    {
-        if (!empty($this->header)) {
-            $this->header['Content-Type'] = 'application/x-www-form-urlencoded';
-        } else {
-            $this->header = ['Content-Type' => 'application/x-www-form-urlencoded'];
-        }
-        $this->curl('PUT', $url);
-        return $this;
-    }
-
-    /**
-     * Envia uma requisição DELETE
-     *
-     * @param string $url Url que deve ser enviado a requisição
-     * @return Self
-     */
-    public function delete(string $url): self
-    {
-        $this->curl('DELETE', $url);
-        return $this;
-    }
-
-    /**
-     * Envia uma requisição PATCH
-     *
-     * @param string $url Url que deve ser enviado a requisição
-     * @return Self
-     */
-    public function patch(string $url): self
-    {
-        $this->curl('PATCH', $url);
-        return $this;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | RETORNOS
-    |--------------------------------------------------------------------------
-    */
-
-    /**
-     * Retorna um array como resposta
-     */
-    public function array()
-    {
-        return $this->retorno(true);
-    }
-
-    /**
-     * Retorna um stdClass object como resposta
-     */
-    public function object()
-    {
-        return $this->retorno(false);
-    }
-
-    /**
-     * Retorna uma string como resposta
-     */
-    public function string()
-    {
-        return $this->retornoValor;
-    }
-
-    private function retorno(bool $tipo)
-    {
-        $retorno = $this->retornoValor;
-        $dado = jsonDecode($retorno, $tipo);
-
-        if ($tipo && !is_array($dado)) {
-            return ['erro' => true, 'titulo' => 'Retorno incorreto!', 'texto' => $retorno];
-        } elseif (!$tipo && !is_object($dado)) {
-            return (object) ['erro' => true, 'titulo' => 'Retorno incorreto!', 'texto' => $retorno];
-        }
-
-        return $dado;
-    }
-
-    /**
-     * Pega o status de resposta da requisição
-     */
-    public function status(): int
-    {
-        return $this->retornoStatus;
-    }
-
-    /**
-     * Pega o retorno do erro
-     */
-    public function erro()
-    {
-        return $this->retornoErro;
-    }
-
-    /**
-     * Retonar o debug
-     *
-     * @return array
-     */
-    public function debug(): array
-    {
-        return [
-            'requisicao' => $this->requisicao,
-            'retorno' => [
-                'valor' => $this->retornoValor,
-                'erro' => $this->retornoErro,
-                'status' => $this->retornoStatus,
-                'header' => $this->retornoHeader,
-                'info' => $this->retornoInfo,
-            ],
-        ];
-    }
-
-    public function headerJson(): self
-    {
-        if (array_key_exists('Content-Type', $this->header)) {
-            return $this;
-        }
-        $this->header(['Content-Type' => 'application/json']);
-        return $this;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | CURL
-    |--------------------------------------------------------------------------
-    */
-    protected function curl(string $metodo, string $url)
+    protected function curl(string $metodo, string $url): static
     {
         $this->urlUsada = $this->url . $url;
         $this->metodoUsado = $metodo;
@@ -410,7 +257,9 @@ class CurlHelper
 
         $parametroExplode = [];
         foreach ($parametro as $ind => $val) {
-            $parametroExplode[] = !is_array($val) && !is_object($val) && !empty($val) ? $ind . '=' . urlencode($val) : $ind . '=';
+            $parametroExplode[] = !is_array($val) && !is_object($val) && !empty($val) ? $ind . '=' . urlencode(
+                    $val
+                ) : $ind . '=';
         }
         $parametroUrl = implode('&', $parametroExplode);
         if (!empty($parametroUrl)) {
@@ -506,5 +355,164 @@ class CurlHelper
         $this->json = [];
 
         return $this;
+    }
+
+    /**
+     * Envia uma requisição GET
+     *
+     * @param  string  $url  Url que deve ser enviado a requisição
+     * @return CurlHelper
+     * @throws Excecao
+     */
+    public function get(string $url): static
+    {
+        $this->headerJson();
+        $this->curl('GET', $url);
+        return $this;
+    }
+
+    public function headerJson(): self
+    {
+        if (array_key_exists('Content-Type', $this->header)) {
+            return $this;
+        }
+        $this->header(['Content-Type' => 'application/json']);
+        return $this;
+    }
+
+    /**
+     * Seta o header para a requisição
+     *
+     * @param  array|string|null  $header  Dados que devem ser enviado no header
+     * @return CurlHelper|string|array
+     */
+    public function header(null|array|string $header = null): static|string|array
+    {
+        if (is_null($header)) {
+            return !empty($this->header) ? $this->header : $this->requisicao['header'];
+        } elseif (is_string($header)) {
+            return $this->header[$header];
+        } elseif (!empty($header) && is_array($header)) {
+            $this->header = array_merge($this->header, $header);
+            return $this;
+        }
+        return $this;
+    }
+
+    /**
+     * Envia uma requisição PUT
+     *
+     * @param  string  $url  Url que deve ser enviado a requisição
+     * @return CurlHelper
+     * @throws Excecao
+     */
+    public function put(string $url): static
+    {
+        if (!empty($this->header)) {
+            $this->header['Content-Type'] = 'application/x-www-form-urlencoded';
+        } else {
+            $this->header = ['Content-Type' => 'application/x-www-form-urlencoded'];
+        }
+        $this->curl('PUT', $url);
+        return $this;
+    }
+
+    /**
+     * Envia uma requisição DELETE
+     *
+     * @param  string  $url  Url que deve ser enviado a requisição
+     * @return CurlHelper
+     * @throws Excecao
+     */
+    public function delete(string $url): static
+    {
+        $this->curl('DELETE', $url);
+        return $this;
+    }
+
+    /**
+     * Envia uma requisição PATCH
+     *
+     * @param  string  $url  Url que deve ser enviado a requisição
+     * @return CurlHelper
+     * @throws Excecao
+     */
+    public function patch(string $url): static
+    {
+        $this->curl('PATCH', $url);
+        return $this;
+    }
+
+    /**
+     * Retorna um array como resposta
+     */
+    public function array()
+    {
+        return $this->retorno(true);
+    }
+
+    private function retorno(bool $tipo): object|bool|array
+    {
+        $retorno = $this->retornoValor;
+        $dado = jsonDecode($retorno, $tipo);
+
+        if ($tipo && !is_array($dado)) {
+            return ['erro' => true, 'titulo' => 'Retorno incorreto!', 'texto' => $retorno];
+        } elseif (!$tipo && !is_object($dado)) {
+            return (object)['erro' => true, 'titulo' => 'Retorno incorreto!', 'texto' => $retorno];
+        }
+
+        return $dado;
+    }
+
+    /**
+     * Retorna um stdClass object como resposta
+     */
+    public function object(): object
+    {
+        return $this->retorno(false);
+    }
+
+    /**
+     * Retorna uma string como resposta
+     */
+    public function string()
+    {
+        return $this->retornoValor;
+    }
+
+    /**
+     * Pega o status de resposta da requisição
+     */
+    public function status(): int
+    {
+        return $this->retornoStatus;
+    }
+
+    /**
+     * Pega o retorno do erro
+     */
+    public function erro()
+    {
+        return $this->retornoErro;
+    }
+
+    /**
+     * Retorna o debug
+     *
+     * @return array
+     */
+    public function debug(): array
+    {
+        return [
+            'requisicao' => $this->requisicao,
+            'retorno' => [
+                'valor' => $this->retornoValor,
+                'erro' => $this->retornoErro,
+                'status' => $this->retornoStatus,
+                'header' => $this->retornoHeader,
+                'info' => $this->retornoInfo
+            ]
+        ];
     }
 }
