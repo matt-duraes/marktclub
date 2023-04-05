@@ -23,7 +23,8 @@ final class AppController extends PadraoController
             mensagemStatus(status: 403, localhost: 'O config do APP proibe o acesso a index.');
         }
 
-        $pesquisa = $request->existe('pesquisa') && !$request->vazio('pesquisa') ? base64Decode($request->pesquisa) : '';
+        $pesquisa = $request->existe('pesquisa')
+            && !$request->vazio('pesquisa') ? base64Decode($request->pesquisa) : '';
         $filtro = $request->existe('filtro')  && !$request->vazio('filtro') ? base64Decode($request->filtro) : [];
         $ordem = $request->existe('ordem') && !$request->vazio('ordem') ? base64Decode($request->ordem) : '';
         $pagina = $request->existe('pagina') && !$request->vazio('pagina') ? $request->pagina : 1;
@@ -142,6 +143,13 @@ final class AppController extends PadraoController
 
         $retorno = $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar);
 
+        $visualizarClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
+            . '\\Models\VisualizarModel';
+        if (class_exists($visualizarClass)) {
+            $VisualizarModel = new $visualizarClass($retorno);
+            $retorno = $VisualizarModel->retorno();
+        }
+
         return view(
             arquivo: $config->visualizar->app . '.visualizar',
             var: [
@@ -178,7 +186,10 @@ final class AppController extends PadraoController
             return $dado;
         }
 
-        return mensagemErro($dado->erro->titulo ?? 'Erro!', $dado->erro->mensagem ?? 'Ocorreu um erro ao mudar seu status.');
+        return mensagemErro(
+            $dado->erro->titulo ?? 'Erro!',
+            $dado->erro->mensagem ?? 'Ocorreu um erro ao mudar seu status.'
+        );
     }
 
     /*
@@ -222,9 +233,19 @@ final class AppController extends PadraoController
         }
 
         $requestCampo = $config->salvar->salvar ?? [];
-        if ($acao == 'insert' && inKey('salvar.insert', $config) && is_array($config->salvar->insert) && $config->salvar->insert) {
+        if (
+            $acao == 'insert' &&
+            inKey('salvar.insert', $config) &&
+            is_array($config->salvar->insert) &&
+            $config->salvar->insert
+        ) {
             $requestCampo = array_merge($requestCampo, $config->salvar->insert);
-        } elseif ($acao == 'update' && inKey('salvar.update', $config) && is_array($config->salvar->update) && $config->salvar->update) {
+        } elseif (
+            $acao == 'update' &&
+            inKey('salvar.update', $config) &&
+            is_array($config->salvar->update) &&
+            $config->salvar->update
+        ) {
             $requestCampo = array_merge($requestCampo, $config->salvar->update);
         }
 
@@ -425,7 +446,9 @@ final class AppController extends PadraoController
     {
         $ordem = $request->existe('ordem') && !empty($request->ordem) ? '&ordem=' . $request->ordem : '';
         if ($request->existe('pesquisa') && !empty($request->pesquisa)) {
-            return new Response(url: LINK . '/app/' . $app . '?pesquisa=' . base64Encode($request->pesquisa, true) . $ordem);
+            return new Response(
+                url: LINK . '/app/' . $app . '?pesquisa=' . base64Encode($request->pesquisa, true) . $ordem
+            );
         }
         $dado = $request->exeto(['pagina', 'pesquisa', 'ordem'], false);
         $lista = [];
@@ -467,7 +490,8 @@ final class AppController extends PadraoController
     public function removerFiltro(Request $request, $app)
     {
         $indice = $request->indice;
-        $ordem = $request->existe('ordem') && !empty($request->ordem) && $indice != 'ordem' ? 'ordem=' . $request->ordem : '';
+        $ordem = $request->existe('ordem') && !empty($request->ordem)
+            && $indice != 'ordem' ? 'ordem=' . $request->ordem : '';
         $filtro = $request->existe('filtro') && !empty($request->filtro) ? base64Decode($request->filtro) : '';
 
         $validar = is_array($filtro) && $filtro;

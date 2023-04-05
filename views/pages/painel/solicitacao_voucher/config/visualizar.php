@@ -15,7 +15,12 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->vazioBreak('usuario', 'Usuário foi deletado e não existe mais')
             ->linha('usuario->nome', 'Nome')
-            ->botao('usuario_link', 'Ver usuário', link: LINK . '/app/visualizar/usuario-cliente/->usuario->id', permissao: Helper::PERMISSAO_VISUALIZAR);
+            ->botao(
+                'usuario_link',
+                'Ver usuário',
+                link: LINK . '/app/visualizar/usuario-cliente/->usuario->id',
+                permissao: Helper::PERMISSAO_VISUALIZAR
+            );
     });
 
     $Painel->bloco(titulo: 'Dados do voucher', callback: function () use ($Painel) {

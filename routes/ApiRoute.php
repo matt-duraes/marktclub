@@ -852,6 +852,17 @@ Route::nome('api_app')
             ::get('/api-usuario/select');
     });
 
+Route::nome('comercial_empresa_select')
+    ::controller(App\Controllers\Api\ComercialEmpresaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(MarktClubMiddleware::class, 'validar')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
+            ::request(['!titulo'], 'json')
+            ::get('/comercial-empresa/select');
+    });
 Route::nome('comercial_empresa')
     ::controller(App\Controllers\Api\ComercialEmpresaController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -863,12 +874,6 @@ Route::nome('comercial_empresa')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
             ::request(['pagina', '!quantidade'], 'json')
             ::get('/comercial-empresa');
-
-        Route
-            ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
-            ::request(['!titulo'], 'json')
-            ::get('/comercial-empresa/select');
 
         Route
             ::nome('buscar')

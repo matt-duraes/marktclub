@@ -48,7 +48,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 
         $Painel
             ->select(
-                name: 'equipe->id',
+                name: 'equipe',
                 label: 'Responsável pelo contrato',
                 lista: $equipe['dado'] ?? []
             )
