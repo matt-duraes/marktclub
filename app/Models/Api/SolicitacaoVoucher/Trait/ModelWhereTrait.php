@@ -5,7 +5,7 @@ namespace App\Models\Api\SolicitacaoVoucher\Trait;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
 
-trait WhereTrait
+trait ModelWhereTrait
 {
     protected function pegarWhere(): array
     {

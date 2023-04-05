@@ -14,8 +14,9 @@ trait WhereTrait
     protected function pegarWhere(): array
     {
         $request = $this->request;
+        $where = [];
         if ($this->ormWherePadrao) {
-            $where = [$this->ormWherePadrao];
+            $where = $this->ormWherePadrao;
         }
 
         // Colocando para aparecer só quem tem data de ativação na FENAE

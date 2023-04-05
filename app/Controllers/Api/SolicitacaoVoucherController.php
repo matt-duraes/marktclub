@@ -13,6 +13,7 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\SolicitacaoVoucher\CodigoEntity;
+use App\Models\Api\SolicitacaoVoucher\VoucherModel;
 use App\Models\Api\SolicitacaoVoucher\DownloadModel;
 use App\Models\Api\SolicitacaoVoucher\VoucherEntity;
 use App\Models\Api\SolicitacaoVoucher\Interface\VoucherInterface;
@@ -78,32 +79,17 @@ final class SolicitacaoVoucherController extends Controller implements
 
     public function getListar(Request $request): Response
     {
-        return mensagemSucesso([
-            'lista' => [],
-            'registro' => [
-                'inicio' => 0,
-                'final' => 0,
-                'atual' => 0,
-                'total' => 0
-            ],
-            'pagina' => [
-                'total' => 0,
-                'atual' => 1,
-                'paginacao' => [1]
-            ]
-        ]);
+        $Voucher = new VoucherModel($request);
+        $dado = $Voucher->listarDados();
 
-        // $Voucher = new VoucherModel($request);
-        // $dado = $Voucher->listarDados();
+        if (existeErro($dado, 'lista')) {
+            mensagemErro(
+                $dado->erro->titulo ?? 'Erro!',
+                $dado->erro->mensagem ?? 'Ocorreu um erro ao listar os vouchers.',
+            );
+        }
 
-        // if (existeErro($dado, 'lista')) {
-        //     mensagemErro(
-        //         $dado->erro->titulo ?? 'Erro!',
-        //         $dado->erro->mensagem ?? 'Ocorreu um erro ao listar os vouchers.',
-        //     );
-        // }
-
-        // return mensagemSucesso($dado);
+        return mensagemSucesso($dado);
     }
 
     public function postDownload(Request $request)

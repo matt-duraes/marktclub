@@ -12,6 +12,7 @@ use Modules\Telefone;
 use Modules\EnderecoEstado;
 use App\Classes\ComercialEmpresa\Status;
 use App\Models\Api\UsuarioEquipe\EquipeModel;
+use App\Models\Api\UsuarioEquipe\HelperModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Classes\ComercialEmpresa\TipoPagamento;
 
@@ -86,10 +87,8 @@ final class EmpresaEntity extends Entity
     }
     protected function regraSalvar()
     {
-        $Equipe = new EquipeModel();
-        $id = $Equipe->where(['uuid', $this->equipe])->primeiro('id');
-
-        $this->id_usuario_equipe = $id;
+        $Equipe = new HelperModel();
+        $this->id_usuario_equipe = $Equipe->pegarIdPeloUuid($this->equipe);
     }
 
     protected function regraPosBuscar()
@@ -98,14 +97,8 @@ final class EmpresaEntity extends Entity
             $this->imagem = arquivoPublico('empresa', 'padrao.png');
         }
 
-        try {
-            $Equipe = new EquipeModel();
-            $id = $Equipe->where(['id', $this->id_usuario_equipe])->primeiro('id', padrao: '');
-            ppe($id);
-            $this->equipe = $id;
-        } catch (\Throwable $th) {
-            ppe($th);
-        }
+        $Equipe = new HelperModel();
+        $this->equipe = $Equipe->pegarUuidPeloId($this->id_usuario_equipe);
     }
 
     protected function getId()

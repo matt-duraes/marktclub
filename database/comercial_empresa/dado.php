@@ -17,6 +17,21 @@ return [
         'status' => 1
     ],
     [
+        'id' => 2,
+        'cod' => '0ffc5c56b99f81ca0edea8bdf524b688',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Anafe Card',
+        'razao_social' => 'Anafe Card',
+        'nome_fantasia' => 'Anafe Card',
+        'cnpj' => 24323554000198,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'anafe',
+        'status' => 1
+    ],
+    [
         'id' => 198,
         'cod' => '42727943964c0800356dde841ff62800',
         'id_usuario_equipe' => 1,
