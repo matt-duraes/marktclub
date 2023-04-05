@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\UsuarioCliente\Helper;
+
 $Painel = new PainelConfig\Visualizar('solicitacao_voucher');
 
 $Painel->coluna(callback: function () use ($Painel) {
@@ -13,18 +15,14 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->vazioBreak('usuario', 'Usuário foi deletado e não existe mais')
             ->linha('usuario->nome', 'Nome')
-            ->linha('usuario->cpf', 'CPF')
-            ->linha('usuario->email', 'E-mail')
-            ->linha('usuario->telefone', 'Telefone')
-            ->botao('usuario_link', 'Ver usuário', link: LINK . '/app/visualizar/usuario-cliente/->usuario->id');
+            ->botao('usuario_link', 'Ver usuário', link: LINK . '/app/visualizar/usuario-cliente/->usuario->id', permissao: Helper::PERMISSAO_VISUALIZAR);
     });
 
     $Painel->bloco(titulo: 'Dados do voucher', callback: function () use ($Painel) {
         $Painel
-            ->linha('tipo', 'Tipo')
-            ->linha('data_criacao', 'Data de criação')
-            ->linha('data_atualizacao', 'Data de atualização')
-            ->linha('data_validacao', 'Data de validação')
+            ->linha('data_criacao', 'Data de criação', formatar: 'datahora')
+            ->linha('data_validacao', 'Data de validação', formatar: 'datahora')
+            ->linha('data_vencimento', 'Data de vencimento', formatar: 'data')
             ->linha('status', 'Status');
     });
 });

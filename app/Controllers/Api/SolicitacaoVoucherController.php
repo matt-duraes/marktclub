@@ -6,6 +6,7 @@ use ORM\Entity;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\SolicitacaoVoucher\Helper;
 use App\Controllers\Api\Trait\ClienteTrait;
 use App\Controllers\Api\Trait\ParceiroTrait;
 use System\Interface\ControllerBuscarInterface;
@@ -46,10 +47,11 @@ final class SolicitacaoVoucherController extends Controller implements
                     'Usuario' => ['id', 'nome', 'cpf'],
                     'Parceiro' => ['id', 'titulo', 'link_logo'],
                     'Construtor' => ['id', 'link_logo', 'link_logo_marktclub'],
-                    'codigo', 'data_criacao', 'data_vencimento', 'qr_code', 'texto_desconto',
+                    'codigo', 'data_criacao', 'data_vencimento', 'data_validacao', 'qr_code', 'texto_desconto',
                     'texto_voucher', 'texto_juridico', 'texto_validar', 'status'
                 ],
             ),
+            criptografar: Helper::CRIPTOGRAFAR,
             status: $status
         );
     }
@@ -110,11 +112,9 @@ final class SolicitacaoVoucherController extends Controller implements
 
     public function getBuscar(string $id): Response
     {
-        validarUuid($id);
-
         $Voucher = new VoucherEntity();
         $Voucher->uuid($id);
 
-        return mensagemSucesso($Voucher->retorno());
+        return $this->retornoSucesso($Voucher);
     }
 }

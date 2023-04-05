@@ -55,6 +55,7 @@ final class VoucherModel extends ORM
                 ],
                 'parceiro' => $r->titulo,
                 'tipo' => $Tipo->indice($r->tipo),
+                'data_vencimento' => $r->data_vencimento,
                 'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status)
             ];
