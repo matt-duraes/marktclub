@@ -21,3 +21,4 @@
 .chave_publica
 /.idea
 composer.phar
+.php-cs-fixer.cache
