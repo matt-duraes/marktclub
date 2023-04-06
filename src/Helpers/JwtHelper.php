@@ -2,8 +2,12 @@
 
 namespace Helpers;
 
+use Erro\Excecao;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Throwable;
+
+use function base64_decode;
 
 final class JwtHelper
 {
@@ -13,11 +17,12 @@ final class JwtHelper
     private string $chavePrivada;
 
     /**
-     * @param null|string   $chave  Nome do arquivo da chave RSA
-     * @param null|string   $hash   Hash quando for usar RS256
+     * @param  string|null  $chave  Nome do arquivo da chave RSA
+     * @param  string|null  $hash   Hash quando for usar RS256
+     * @throws Excecao
      */
     public function __construct(
-        private ?string $chave = null,
+        private readonly ?string $chave = null,
         private ?string $hash = null
     ) {
         if (!empty($chave)) {
@@ -28,15 +33,22 @@ final class JwtHelper
         $this->hash = !is_null($hash) ? $hash : ENV('JWT_HASH', '');
     }
 
-    private function pegarChave()
+    /**
+     * @throws Excecao
+     */
+    private function pegarChave(): void
     {
         $chave = $this->chave;
-        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave)) {
+        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(
+            DIRETORIO_PRIVADO . '/jwt/' . $chave
+        )) {
             $this->chavePrivada = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave);
         } else {
             mensagemErro('Erro!', 'Chave privada não existe.', 500);
         }
-        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub')) {
+        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(
+            DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub'
+        )) {
             $this->chavePublica = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub');
         } else {
             mensagemErro('Erro!', 'Chave pública não existe.', 500);
@@ -46,8 +58,8 @@ final class JwtHelper
     /**
      * Cria um token JWT
      *
-     * @param   array   $payload    Array com os dados que deseja colocar no body do JWT
-     * @return  string              String com o JWT
+     * @param  array  $payload  Array com os dados que deseja colocar no body do JWT
+     * @return  string  String com o JWT
      * @throws  Excecao
      */
     public function encode(array $payload): string
@@ -55,7 +67,7 @@ final class JwtHelper
         $key = !empty($this->chavePrivada) ? $this->chavePrivada : $this->hash;
         try {
             return JWT::encode($payload, $key, $this->algoritimo, null, ['kid' => uuid()]);
-        } catch (\Throwable) {
+        } catch (Throwable) {
             mensagemErro('Erro!', 'Ocorreu um erro ao criar o JWT.', 500);
         }
     }
@@ -63,24 +75,48 @@ final class JwtHelper
     /**
      * Valida se um JWT é valido
      *
-     * @param   string  $jwt    JWT que deseja validar
+     * @param  string  $jwt  JWT que deseja validar
      * @return  bool
      */
-    public function validar(string $jwt): Bool
+    public function validar(string $jwt): bool
     {
         try {
             $this->decode($jwt);
             return true;
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return false;
         }
     }
 
     /**
+     * Pega o body do JWT
+     *
+     * @param  string  $jwt  JWT que deseja retornar
+     * @return  array  Array do body
+     * @throws  Excecao
+     */
+    public function decode(string $jwt): array
+    {
+        $key = !empty($this->chavePublica) ? $this->chavePublica : $this->hash;
+        try {
+            $dados = JWT::decode($jwt, new Key($key, $this->algoritimo));
+        } catch (Throwable $e) {
+            mensagemErro(
+                'Erro!',
+                'O Token enviado não tem um corpo válido.',
+                401,
+                localhost: 'Erro no decode do JWT: ' . $e->getMessage()
+            );
+        }
+
+        return (array)$dados;
+    }
+
+    /**
      * Pega o header do JWT
      *
-     * @param   string  $jwt    JWT que deseja pegar o header
-     * @return  array           Array com o header
+     * @param  string  $jwt  JWT que deseja pegar o header
+     * @return  array  Array com o header
      */
     public function header(string $jwt): array
     {
@@ -90,31 +126,7 @@ final class JwtHelper
             return [];
         }
 
-        $dado = jsonDecode(\base64_decode($explode[0]), true);
+        $dado = jsonDecode(base64_decode($explode[0]), true);
         return is_array($dado) ? $dado : [];
-    }
-
-    /**
-     * Pega o body do JWT
-     *
-     * @param   string    $jwt     JWT que deseja retornar
-     * @return  array              Array do body
-     * @throws  Excecao
-     */
-    public function decode(string $jwt): array
-    {
-        $key = !empty($this->chavePublica) ? $this->chavePublica : $this->hash;
-        try {
-            $dado = JWT::decode($jwt, new Key($key, $this->algoritimo));
-        } catch (\Throwable $e) {
-            mensagemErro(
-                'Erro!',
-                'O Token enviado não tem um corpo válido.',
-                401,
-                localhost: 'Erro no decode do JWT: ' . $e->getMessage()
-            );
-        }
-
-        return (array)$dado;
     }
 }

@@ -11,12 +11,13 @@ class ApiHelper extends CurlHelper
     protected string $audience;
 
     /**
-     * Passar scope caso queira autenticar a requisicão
+     * Passar scope caso queira autenticar a requisição
      *
-     * @param null|string $scope    Scope que deseja acessar
-     * @param string|bool $token    Passa um token para ser usado ou true para usar o token da sessão
+     * @param  string|null  $scope  Scope que deseja acessar
+     * @param  string|bool  $token  Passe um token para ser usado ou true para usar o token da sessão
+     * @throws Excecao
      */
-    public function __construct(?string $scope = null, string|bool $token = false)
+    public function __construct(string $scope = null, string|bool $token = false)
     {
         $this->clientId = env('API_CLIENT_ID');
         $this->secretId = env('API_SECRET_ID');
@@ -34,7 +35,11 @@ class ApiHelper extends CurlHelper
         }
     }
 
-    private function autenticar($scope)
+    /**
+     * @param  string  $scope  Scope que deseja acessar
+     * @throws Excecao
+     */
+    private function autenticar(string $scope): void
     {
         $token = $this->body([
             'client_id' => $this->clientId,
@@ -45,10 +50,11 @@ class ApiHelper extends CurlHelper
         ])->post('/token')->array();
 
         $this->resetar();
-        if (array_key_exists('status', $token) && $token['status'] == 'sucesso') {
+        if (array_key_exists('status', $token) && $token['status'] === 'sucesso') {
             $this->header(['Authorization' => 'Bearer ' . $token['dado']['access_token']]);
             return;
         }
+
         throw new Excecao(status: 401);
     }
 }
