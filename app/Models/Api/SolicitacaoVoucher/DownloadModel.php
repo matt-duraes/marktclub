@@ -47,12 +47,6 @@ final class DownloadModel extends ORM
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem(new Ordem()));
 
-        if (in_array('empresa', $this->campoInicial)) {
-            $query
-                ->tabela(TABELA_COMERCIAL_EMPRESA)
-                ->campo(['nome_fantasia'], 'empresa')
-                ->leftJoin('id', 'empresa');
-        }
         if (in_array('parceiro', $this->campoInicial)) {
             $query
                 ->tabela(TABELA_PARCEIRO_LOJA)
