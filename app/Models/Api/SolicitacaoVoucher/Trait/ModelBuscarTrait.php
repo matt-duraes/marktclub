@@ -16,20 +16,13 @@ trait ModelBuscarTrait
 
     private function buscarVoucher()
     {
-        $query = $this
-        ->campo(['cod', 'tipo', 'data_criacao', 'data_vencimento', 'status'])
-        ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-        ->where($this->pegarWhere(), obrigatorio: false)
-        ->order($this->pegarOrdem(new Ordem()))
-        ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'vinculo')->campo(['titulo']);
-
-        if ($this->idEmpresa == 1) {
-            $query
-            ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->join('id', 'empresa')
-            ->campo(['nome_fantasia', 'cod'], 'empresa');
-        }
-
-        return $query->read();
+        return $this
+            ->campo(['cod', 'tipo', 'data_criacao', 'data_vencimento', 'status'])
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->where($this->pegarWhere(), obrigatorio: false)
+            ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'vinculo')->campo(['titulo'])
+            ->tabela(TABELA_COMERCIAL_EMPRESA)->join('id', 'empresa')->campo(['nome_fantasia', 'cod'], 'empresa')
+            ->read();
     }
 }

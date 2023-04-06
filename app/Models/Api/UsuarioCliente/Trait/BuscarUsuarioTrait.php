@@ -41,12 +41,10 @@ trait BuscarUsuarioTrait
                 ->where(['status', 1])
                 ->group('id_usuario_cliente');
         }
-        if ($this->idEmpresa == 1) {
-            $query
-                ->tabela(TABELA_COMERCIAL_EMPRESA)
-                ->join('id', 'empresa')
-                ->campo(['cod', 'nome_fantasia'], 'empresa');
-        }
+        $query
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->join('id', 'empresa')
+            ->campo(['cod', 'nome_fantasia'], 'empresa');
 
         return $query->read();
     }
