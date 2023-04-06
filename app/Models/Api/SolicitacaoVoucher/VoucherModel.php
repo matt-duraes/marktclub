@@ -49,10 +49,6 @@ final class VoucherModel extends ORM
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->cod,
-                'empresa' => [
-                    'id' => $r->empresa_cod,
-                    'nome_fantasia' => $r->empresa_nome_fantasia
-                ],
                 'parceiro' => $r->titulo,
                 'tipo' => $Tipo->indice($r->tipo),
                 'data_vencimento' => $r->data_vencimento,

@@ -16,6 +16,6 @@ return [
     'api' => [
         'scope' => 'solicitacao_voucher',
         'uri' => '/solicitacao-voucher',
-        'criptografar' => Helper::CRIPTOGRAFAR
+        // 'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];
