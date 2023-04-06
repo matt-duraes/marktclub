@@ -8,7 +8,7 @@ return [
     'filtrar' => true,
     'ordem' => true,
     'visualizar' => true,
-    'add' => true,
+    'add' => false,
     'editar' => true,
     'deletar' => true,
     'download' => true,

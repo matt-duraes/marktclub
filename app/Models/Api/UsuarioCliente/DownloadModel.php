@@ -13,22 +13,23 @@ use App\Classes\UsuarioCliente\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class DownloadModel extends ORM
 {
     use BuscarUsuarioTrait;
-    use ValidarEmpresaTrait;
+    use ValidarEmpresaDownloadTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
+    private int $idEmpresa;
     public function __construct(
         private ?Request $request = null
     ) {
         parent::__construct();
-        $this->validarEmpresa('empresa');
+        $this->validarEmpresa($request->usuario, 'empresa');
         $this->validarCamposAceito();
     }
 
@@ -72,6 +73,9 @@ final class DownloadModel extends ORM
                 continue;
             }
             foreach ($linha as $ind => $val) {
+                if (in_array($ind, ['empresa_id', 'empresa_nome_fantasia']) && $this->idEmpresa != 1) {
+                    continue;
+                }
                 if ($ind == 'documento') {
                     $ind = 'cpf';
                     $val = strCpf($val);

@@ -1,7 +1,6 @@
 <?php
 
 use Route\Route;
-use App\Middlewares\Painel\AuthMiddleware;
 
 require_once ROOT . '/views/pages/painel/demanda/Routes/DemandaRoute.php';
 require_once ROOT . '/views/pages/painel/album_galeria/Routes/AlbumRoute.php';
@@ -16,7 +15,7 @@ require_once ROOT . '/views/pages/painel/usuario_tabela/Routes/TabelaRoute.php';
 
 Route
     ::middleware(
-        classe: AuthMiddleware::class,
+        classe: App\Middlewares\Painel\AuthMiddleware::class,
         action: 'logado',
     )
 

@@ -21,6 +21,7 @@ final class ClienteModel extends ORM
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
+    private int $idEmpresa;
     public function __construct(
         protected ?Request $request = null
     ) {

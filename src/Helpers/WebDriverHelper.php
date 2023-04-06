@@ -201,6 +201,32 @@ final class WebDriverHelper
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA OS ELEMENTOS
+    |--------------------------------------------------------------------------
+    |
+    | Pega os elementos para manipular pelo WebDriver
+    |
+    */
+
+    /**
+     * Pega o primeiro elemento que for encontrado na página
+     *
+     * @param string    $elemento   Seletor CSS para pegar o elemento desejado
+     * @throws Excecao
+     * @return Self
+     */
+    public function elemento(string $elemento): self
+    {
+        try {
+            $this->ElementoAtual = $this->Driver->findElement(WebDriverBy::cssSelector($elemento));
+        } catch (\Throwable $th) {
+            $this->erroPadrao($th);
+        }
+        return $this;
+    }
+
     /**
      * Procura por todos os elementos que existem na página
      *
@@ -887,5 +913,98 @@ final class WebDriverHelper
         $elemento = $this->pegarElementoInternamente();
         $elemento->sendKeys(WebDriverKeys::ENTER);
         return $this;
+    }
+
+    /**
+     * Simula um clique no primeiro elemento
+     *
+     * @throws Excecao
+     * @return Self
+     */
+    public function click()
+    {
+        $elemento = $this->pegarElementoInternamente();
+        if (
+            is_array($elemento) &&
+            array_key_exists(0, $elemento) &&
+            $elemento[0] instanceof RemoteWebElement
+        ) {
+            $elemento[0]->click();
+            return $this;
+        } elseif ($elemento instanceof RemoteWebElement) {
+            $elemento->click();
+            return $this;
+        }
+        $this->erroElemento();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS DA CLASSE
+    |--------------------------------------------------------------------------
+    */
+    private function pegarElementoInternamente(): WebDriverElement | array
+    {
+        try {
+            $elemento = $this->ElementoAtual;
+        } catch (\Throwable $th) {
+            $this->erroPadrao($th);
+        }
+        return $elemento;
+    }
+    private function erroPadrao($error)
+    {
+        mensagemErro(
+            titulo: 'Erro!',
+            mensagem: $this->mensagemPadrao,
+            error: $error
+        );
+    }
+    private function erroElemento()
+    {
+        mensagemErro(
+            titulo: 'Erro!',
+            mensagem: $this->mensagemPadrao,
+            localhost: 'O elemento que você tentou acessar não existe.'
+        );
+    }
+    private function setarValorCorreto(RemoteWebElement $elemento, string $valor)
+    {
+        $tag = $elemento->getTagName();
+        if ($tag == 'input') {
+            try {
+                $type = $elemento->getAttribute('type');
+            } catch (\Throwable) {
+                $type = '';
+            }
+        }
+
+        if ($type == 'file' && !file_exists($valor)) {
+            mensagemErro(
+                titulo: 'Erro',
+                mensagem: 'O arquivo enviado não existe.'
+            );
+        } elseif ($type == 'file') {
+            $elemento->setFileDetector(new LocalFileDetector());
+        } elseif ($tag == 'select') {
+            $elemento = new WebDriverSelect($elemento);
+            $elemento->selectByValue($valor);
+            return;
+        } elseif ($type == 'checkbox') {
+            $elemento = new WebDriverCheckboxes($elemento);
+            $elemento->selectByValue($valor);
+            return;
+        } elseif ($type == 'radio') {
+            $elemento = new WebDriverRadios($elemento);
+            $elemento->selectByValue($valor);
+            return;
+        } elseif ($tag == 'textarea') {
+            $elemento->click();
+        }
+        if (empty($valor)) {
+            $elemento->clear();
+            return;
+        }
+        $elemento->sendKeys($valor);
     }
 }

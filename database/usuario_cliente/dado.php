@@ -32,6 +32,33 @@ return [
         'status' => 1
     ],
     [
+        'cod' => uuid(),
+        'empresa' => 2,
+        'tipo' => 1,
+        'nome' => 'Usuario Empresa 2 = 1',
+        'documento' => cpfAleatorio(),
+        'salt' => password('Teste@1324'),
+        'status' => 1
+    ],
+    [
+        'cod' => uuid(),
+        'empresa' => 2,
+        'tipo' => 1,
+        'nome' => 'Usuario Empresa 2 = 2',
+        'documento' => cpfAleatorio(),
+        'salt' => password('Teste@1324'),
+        'status' => 1
+    ],
+    [
+        'cod' => uuid(),
+        'empresa' => 2,
+        'tipo' => 1,
+        'nome' => 'Usuario Empresa 2 = 3',
+        'documento' => cpfAleatorio(),
+        'salt' => password('Teste@1324'),
+        'status' => 1
+    ],
+    [
         'matricula' => 1354826,
         'cod' => uuid(),
         'empresa' => 198,

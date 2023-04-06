@@ -9,23 +9,27 @@ use System\Trait\Model\PaginaTrait;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
-use App\Models\Api\SolicitacaoVoucher\Trait\WhereTrait;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use App\Models\Api\SolicitacaoVoucher\Trait\ModelWhereTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
 
 final class DownloadModel extends ORM
 {
     use PaginaTrait;
     use OrdemTrait;
+    use ModelWhereTrait;
     use ValidarRequestTrait;
-    use WhereTrait;
+    use ValidarEmpresaDownloadTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
-    private array $campoInicial;
 
+    private array $campoInicial;
+    private int $idEmpresa;
     public function __construct(
         protected Request $request
     ) {
         parent::__construct();
+        $this->validarEmpresa($request->usuario, 'empresa');
         $this->validarRequest();
         $this->validarCamposAceito();
     }
@@ -42,19 +46,6 @@ final class DownloadModel extends ORM
             ->campo($campo)
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem(new Ordem()));
-
-        if (in_array('empresa', $this->campoInicial)) {
-            $query
-                ->tabela(TABELA_COMERCIAL_EMPRESA)
-                ->campo(['nome_fantasia'], 'empresa')
-                ->leftJoin('id', 'empresa');
-        }
-        if (in_array('parceiro', $this->campoInicial)) {
-            $query
-                ->tabela(TABELA_PARCEIRO_LOJA)
-                ->campo(['titulo'], 'parceiro')
-                ->leftJoin('cod', 'vinculo');
-        }
 
         $campoUsuario = [];
         if (in_array('usuario_nome', $this->campoInicial)) {
@@ -100,6 +91,8 @@ final class DownloadModel extends ORM
                     $val = dataBr($val);
                 } elseif ($ind == 'status') {
                     $val = $Status->indice($val);
+                } elseif ($ind == 'titulo') {
+                    $ind = 'parceiro';
                 } else {
                     $val = strNull($val);
                 }
@@ -143,6 +136,7 @@ final class DownloadModel extends ORM
         }
         if (array_key_exists('parceiro', $campo)) {
             unset($campo['parceiro']);
+            $campo['titulo'] = true;
         }
         if (array_key_exists('usuario_cpf', $campo)) {
             unset($campo['usuario_cpf']);

@@ -51,6 +51,7 @@ final class EquipeEntity extends Entity
     protected array $ormUpdate = [
         'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google', 'id_facebook', 'id_google'
     ];
+    protected array $ormRetornoPadrao = ['id', 'nome', 'cpf', 'perfil', 'imagem'];
 
     protected string $ormValidarSalvar = '
         documento_cpf|CPF|cpf
