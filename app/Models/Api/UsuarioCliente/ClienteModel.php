@@ -62,8 +62,12 @@ final class ClienteModel extends ORM
                 $uuid = $this->campo(['cod'])->where(['id', $r->titular])->read(indice: 0, campo: 'cod');
             }
 
-            $dado = [
+            $lista[] = [
                 'id' => $uuid,
+                'empresa' => [
+                    'id' => $r->empresa_cod,
+                    'nome_fantasia' => $r->empresa_nome_fantasia,
+                ],
                 'nome' => $r->nome,
                 'cpf' => $r->tipo == 2 ? '' : $r->documento,
                 'email' => $email,
@@ -71,15 +75,6 @@ final class ClienteModel extends ORM
                 'data_criacao' => $r->data_criacao,
                 'status' => (new Status($r->status))->indice(),
             ];
-
-            if ($this->idEmpresa == 1) {
-                $dado['empresa'] = [
-                    'id' => $r->empresa_cod,
-                    'nome_fantasia' => $r->empresa_nome_fantasia,
-                ];
-            }
-
-            $lista[] = $dado;
         }
         return $lista;
     }
