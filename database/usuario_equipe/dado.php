@@ -13,6 +13,8 @@ $permissao = json_encode([
     'relatorio_usuario_index', 'relatorio_acesso_index', 'relatorio_loja_venda_index',
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar',
     'solicitacao_salavip_index', 'solicitacao_salavip_download',
+    'comercial_empresa_index', 'comercial_empresa_editar', 'comercial_empresa_visualizar',
+    'comercial_prospeccao_index', 'comercial_atendimento_index',
     'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
     'api_app_index', 'api_app_add', 'api_app_editar', 'api_app_deletar',
     'api_usuario_index', 'api_usuario_add', 'api_usuario_editar', 'api_usuario_deletar',

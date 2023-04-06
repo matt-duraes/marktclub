@@ -86,7 +86,7 @@ return [
         'titulo' => 'COMERCIAL',
         'ordem' => '++',
         'status' =>  1,
-        'permissao' => '["comercial_empresa_index"]'
+        'permissao' => '["comercial_empresa_index", "comercial_prospeccao_index", "comercial_atendimento_index"]'
     ],
     [
         'id' => '++',
@@ -99,6 +99,30 @@ return [
         'menu' => ['comercial-empresa'],
         'status' =>  1,
         'permissao' => '["comercial_empresa_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Prospecção',
+        'url' => '/comercial-prospeccao',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M9.3,13c0.4,0,0.8,0.4,0.8,0.8c1.3,0,2.5,0.4,3.4,1.2l1.7,0c1.1,0,2,0.5,2.6,1.2l2.5,0c1.6,0,2.9,0.9,3.6,2.3c-1.9,2.5-4.9,4.1-8.3,4.1c-2.2,0-4.1-0.5-5.6-1.3c-0.1,0.3-0.4,0.5-0.7,0.5H6.9c-0.4,0-0.8-0.4-0.8-0.8v-7.1c0-0.4,0.4-0.8,0.8-0.8H9.3z M10.1,15.4l0,4l0,0c1.4,1,3.3,1.5,5.5,1.5c2.4,0,4.6-0.9,6.2-2.5l0.1-0.1l-0.1-0.1c-0.4-0.3-0.8-0.5-1.3-0.5l-0.2,0l-1.7,0c0.1,0.3,0.1,0.5,0.1,0.8v0.8h-7.1v-1.6l5.4,0l0-0.1c-0.3-0.6-0.9-1.1-1.7-1.1l-0.1,0l-2.3,0C12.2,15.8,11.2,15.4,10.1,15.4z M8.5,14.6H7.7v5.5h0.8V14.6z M19.5,9.9c1.3,0,2.4,1.1,2.4,2.4s-1.1,2.4-2.4,2.4c-1.3,0-2.4-1.1-2.4-2.4S18.2,9.9,19.5,9.9z M19.5,11.4c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8s0.8-0.4,0.8-0.8C20.3,11.8,20,11.4,19.5,11.4z M14,7.5c1.3,0,2.4,1.1,2.4,2.4s-1.1,2.4-2.4,2.4c-1.3,0-2.4-1.1-2.4-2.4S12.7,7.5,14,7.5z M14,9.1c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8s0.8-0.4,0.8-0.8C14.8,9.4,14.4,9.1,14,9.1z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['comercial-prospeccao'],
+        'status' =>  1,
+        'permissao' => '["comercial_prospeccao_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Atendimento',
+        'url' => '/comercial-atendimento',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M10.9,7.6H20c0.5,0,0.8,0.4,0.8,0.8v14.9c0,0.5-0.4,0.8-0.8,0.8H10c-0.5,0-0.8-0.4-0.8-0.8V5.9h1.7V7.6z M10.9,13.3h8.3V9.2h-8.3V13.3z M10.9,15v7.4h8.3V15H10.9z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['comercial-atendimento'],
+        'status' =>  1,
+        'permissao' => '["comercial_atendimento_index"]'
     ],
     [
         'id' => '++',
