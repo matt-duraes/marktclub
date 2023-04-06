@@ -51,7 +51,7 @@ final class SolicitacaoVoucherController extends Controller implements
                     'texto_voucher', 'texto_juridico', 'texto_validar', 'status'
                 ],
             ),
-            criptografar: Helper::CRIPTOGRAFAR,
+            // criptografar: Helper::CRIPTOGRAFAR,
             status: $status
         );
     }
