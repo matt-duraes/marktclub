@@ -100,7 +100,7 @@ final class DownloadModel extends ORM
         $Status = new Status();
         foreach ($dado as $linha) {
             foreach ($linha as $ind => $val) {
-                if (in_array($ind, ['empresa_id', 'empresa_cod']) && $this->idEmpresa != 1) {
+                if (in_array($ind, ['empresa_id', 'empresa_nome_fantasia']) && $this->idEmpresa != 1) {
                     continue;
                 } elseif (in_array($ind, ['data_validacao', 'data_criacao', 'data_vencimento'])) {
                     $val = dataBr($val);
