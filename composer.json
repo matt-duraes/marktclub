@@ -40,7 +40,6 @@
       "Modules\\": "src/Modules/",
       "DataBase\\": "src/Database/",
       "Route\\": "src/Route/",
-      "Api\\": "src/Http/",
       "Http\\": "src/Http/",
       "Erro\\": "src/Erro/",
       "ApiController\\": "src/Api/Controllers",
