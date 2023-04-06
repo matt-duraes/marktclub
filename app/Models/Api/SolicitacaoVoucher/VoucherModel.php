@@ -47,23 +47,18 @@ final class VoucherModel extends ORM
         $Tipo = new Tipo();
         $retorno = [];
         foreach ($dado as $r) {
-            $dado = [
+            $retorno[] = [
                 'id' => $r->cod,
+                'empresa' => [
+                    'id' => $r->empresa_cod,
+                    'nome_fantasia' => $r->empresa_nome_fantasia
+                ],
                 'parceiro' => $r->titulo,
                 'tipo' => $Tipo->indice($r->tipo),
                 'data_vencimento' => $r->data_vencimento,
                 'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status)
             ];
-
-            if ($this->idEmpresa == 1) {
-                $dado['empresa'] = [
-                    'id' => $r->empresa_cod,
-                    'nome_fantasia' => $r->empresa_nome_fantasia
-                ];
-            }
-
-            $retorno[] = $dado;
         }
         return $retorno;
     }
