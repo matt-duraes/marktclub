@@ -47,13 +47,6 @@ final class DownloadModel extends ORM
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem(new Ordem()));
 
-        if (in_array('parceiro', $this->campoInicial)) {
-            $query
-                ->tabela(TABELA_PARCEIRO_LOJA)
-                ->campo(['titulo'], 'parceiro')
-                ->leftJoin('cod', 'vinculo');
-        }
-
         $campoUsuario = [];
         if (in_array('usuario_nome', $this->campoInicial)) {
             $campoUsuario[] = 'nome';
@@ -94,12 +87,12 @@ final class DownloadModel extends ORM
         $Status = new Status();
         foreach ($dado as $linha) {
             foreach ($linha as $ind => $val) {
-                if (in_array($ind, ['empresa_id', 'empresa_nome_fantasia']) && $this->idEmpresa != 1) {
-                    continue;
-                } elseif (in_array($ind, ['data_validacao', 'data_criacao', 'data_vencimento'])) {
+                if (in_array($ind, ['data_validacao', 'data_criacao', 'data_vencimento'])) {
                     $val = dataBr($val);
                 } elseif ($ind == 'status') {
                     $val = $Status->indice($val);
+                } elseif ($ind == 'titulo') {
+                    $ind = 'parceiro';
                 } else {
                     $val = strNull($val);
                 }
@@ -143,6 +136,7 @@ final class DownloadModel extends ORM
         }
         if (array_key_exists('parceiro', $campo)) {
             unset($campo['parceiro']);
+            $campo['titulo'] = true;
         }
         if (array_key_exists('usuario_cpf', $campo)) {
             unset($campo['usuario_cpf']);

@@ -21,6 +21,7 @@ trait VoucherInsertTrait
         $this->id_admin_empresa = $this->Usuario->id_admin_empresa;
         $this->id_usuario_cliente = $this->Usuario->get('id');
         $this->id_vinculo = $this->Parceiro->id;
+        $this->titulo = $this->Parceiro->titulo;
         $this->tipo = new Tipo(Tipo::VOUCHER);
         $this->codigo = $this->gerarCodigoUnico();
         $this->data_vencimento = new Data($this->pegarVencimentoVoucher());
