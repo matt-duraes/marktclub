@@ -9,7 +9,8 @@ $Painel
     ->campo('parceiro', 'Parceiro', 'grande')
     ->campo('empresa.nome_fantasia', 'Empresa', 'pequeno', permissao: Helper::PERMISSAO_EMPRESA)
     ->campo('tipo', 'Tipo', 'pequeno')
-    ->campo('data_criacao', 'Criado em', 'pequeno')
+    ->dataCriacao()
+    ->campo('data_vencimento', 'Válido até', 'pequeno', formatar: 'data')
     ->status('status', 'Status', new Status());
 
 return $Painel;

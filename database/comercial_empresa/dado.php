@@ -4,6 +4,7 @@ return [
     [
         'id' => 1,
         'cod' => '14afa776394ada4be23be6acf7e3259e',
+        'id_usuario_equipe' => 1,
         'titulo' => 'Markt Club',
         'razao_social' => 'Markt Club',
         'nome_fantasia' => 'Markt Club',
@@ -16,8 +17,24 @@ return [
         'status' => 1
     ],
     [
+        'id' => 2,
+        'cod' => '0ffc5c56b99f81ca0edea8bdf524b688',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Anafe Card',
+        'razao_social' => 'Anafe Card',
+        'nome_fantasia' => 'Anafe Card',
+        'cnpj' => 24323554000198,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'anafe',
+        'status' => 1
+    ],
+    [
         'id' => 198,
         'cod' => '42727943964c0800356dde841ff62800',
+        'id_usuario_equipe' => 1,
         'titulo' => 'CVS Mais',
         'razao_social' => 'CVS Mais',
         'nome_fantasia' => 'CVS Mais',
@@ -32,6 +49,7 @@ return [
     [
         'id' => 223,
         'cod' => '62c6e14371c10bf6ffb20325af002e7e',
+        'id_usuario_equipe' => 1,
         'titulo' => 'Banco Digio',
         'razao_social' => 'Banco Digio',
         'nome_fantasia' => 'Banco Digio',

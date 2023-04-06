@@ -90,7 +90,7 @@ return [
         'categoria_principal' => '1',
         'categoria_todas' => '["1","2","3","4","5","6","7","8"]',
         'titulo' => 'Parceiro com prazo fixo',
-        'url' => 'parceiro-prazo-foxp',
+        'url' => 'parceiro-prazo-fixo',
         'imagem' => 'parceiro.png',
         'desconto' => '10% de desconto',
         'desconto_texto' => 'Texto de desconto do parceiro',

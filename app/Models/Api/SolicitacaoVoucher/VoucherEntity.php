@@ -37,7 +37,7 @@ final class VoucherEntity extends Entity implements VoucherInterface
     ];
 
     public Data $data_vencimento;
-    protected DataHora $data_validacao;
+    public DataHora $data_validacao;
     public Tipo $tipo;
     public Status $status;
 

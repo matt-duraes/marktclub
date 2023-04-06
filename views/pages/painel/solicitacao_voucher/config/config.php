@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\SolicitacaoVoucher\Helper;
+
 return [
     'titulo' => 'Vouchers',
     'buscar' => true,
@@ -13,6 +15,7 @@ return [
     'historico' => false,
     'api' => [
         'scope' => 'solicitacao_voucher',
-        'uri' => '/solicitacao-voucher'
+        'uri' => '/solicitacao-voucher',
+        'criptografar' => Helper::CRIPTOGRAFAR
     ]
 ];

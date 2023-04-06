@@ -6,7 +6,6 @@ use Helpers\ExcelHelper;
 
 final class DownloadModel
 {
-
     public string $arquivo;
     public string $link;
 

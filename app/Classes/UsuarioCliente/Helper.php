@@ -17,4 +17,5 @@ final class Helper
     ];
     public const STATUS_LIBERADO = [1, 2, 3, 5];
     public const PERMISSAO_EMPRESA = 'usuario_cliente_empresa';
+    public const PERMISSAO_VISUALIZAR = 'usuario_cliente_index';
 }

@@ -9,23 +9,27 @@ use System\Trait\Model\PaginaTrait;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
-use App\Models\Api\SolicitacaoVoucher\Trait\WhereTrait;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use App\Models\Api\SolicitacaoVoucher\Trait\ModelWhereTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
 
 final class DownloadModel extends ORM
 {
     use PaginaTrait;
     use OrdemTrait;
+    use ModelWhereTrait;
     use ValidarRequestTrait;
-    use WhereTrait;
+    use ValidarEmpresaDownloadTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
+
     private array $campoInicial;
 
     public function __construct(
         protected Request $request
     ) {
         parent::__construct();
+        $this->validarEmpresa($request->usuario, 'empresa');
         $this->validarRequest();
         $this->validarCamposAceito();
     }
