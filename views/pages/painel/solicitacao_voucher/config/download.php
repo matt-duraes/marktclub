@@ -18,8 +18,7 @@ return $Painel
     })
     ->bloco('Usuário', function () use ($Painel) {
         $Painel
-            ->campo('usuario_nome', 'Nome')
-            ->campo('usuario_cpf', 'CPF');
+            ->campo('usuario_nome', 'Nome');
     });
 
 return $Painel;
