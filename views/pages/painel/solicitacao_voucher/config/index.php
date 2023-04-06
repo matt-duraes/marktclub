@@ -1,7 +1,6 @@
 <?php
 
 use App\Classes\SolicitacaoVoucher\Ordem;
-use App\Classes\SolicitacaoVoucher\Helper;
 use App\Classes\SolicitacaoVoucher\Status;
 
 $Painel = new PainelConfig\Index('solicitacao_voucher', new Ordem());

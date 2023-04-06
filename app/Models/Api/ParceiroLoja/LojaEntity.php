@@ -16,6 +16,7 @@ final class LojaEntity extends Entity
     ];
     protected array $ormRetornoPadrao = ['id', 'titulo', 'link_logo'];
 
+    public string $titulo;
     public ?int $limite_voucher;
     public ?int $prazo_voucher;
     public Data $prazo_voucher_fixo;
