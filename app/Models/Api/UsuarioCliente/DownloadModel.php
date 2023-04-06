@@ -24,6 +24,7 @@ final class DownloadModel extends ORM
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
+    private int $idEmpresa;
     public function __construct(
         private ?Request $request = null
     ) {
@@ -72,6 +73,9 @@ final class DownloadModel extends ORM
                 continue;
             }
             foreach ($linha as $ind => $val) {
+                if (in_array($ind, ['empresa_id', 'empresa_cod']) && $this->idEmpresa != 1) {
+                    continue;
+                }
                 if ($ind == 'documento') {
                     $ind = 'cpf';
                     $val = strCpf($val);

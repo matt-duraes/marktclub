@@ -24,7 +24,7 @@ final class DownloadModel extends ORM
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
 
     private array $campoInicial;
-
+    private int $idEmpresa;
     public function __construct(
         protected Request $request
     ) {
@@ -100,7 +100,9 @@ final class DownloadModel extends ORM
         $Status = new Status();
         foreach ($dado as $linha) {
             foreach ($linha as $ind => $val) {
-                if (in_array($ind, ['data_validacao', 'data_criacao', 'data_vencimento'])) {
+                if (in_array($ind, ['empresa_id', 'empresa_cod']) && $this->idEmpresa != 1) {
+                    continue;
+                } elseif (in_array($ind, ['data_validacao', 'data_criacao', 'data_vencimento'])) {
                     $val = dataBr($val);
                 } elseif ($ind == 'status') {
                     $val = $Status->indice($val);
