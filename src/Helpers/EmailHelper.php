@@ -21,8 +21,10 @@ final class EmailHelper
      * @param  int     $porta          Porta que enviara o e-mail
      * @param  string  $usuario        Usuário do e-mail de envio
      * @param  string  $senha          Senha do e-mail de envio
-     * @param  array   $emailEnvio     Array com nome e e-mail do e-mail de envio. Ex: ['nome', 'email@dominio.com']
-     * @param  array   $emailResposta  Array com nome e e-mail do e-mail de resposta. Ex: ['nome', 'email@dominio.com']
+     * @param  array   $emailEnvio     Array com nome e e-mail do e-mail de envio.
+     *                                 Ex: ['nome', 'email@dominio.com']
+     * @param  array   $emailResposta  Array com nome e e-mail do e-mail de resposta.
+     *                                 Ex: ['nome', 'email@dominio.com']
      * @param  bool    $debug          Libera o debug
      */
     public function __construct(
@@ -135,18 +137,18 @@ final class EmailHelper
      * @param  string       $titulo         Título do e-mail
      * @param  string       $nome           Nome de quem vai receber o e-mail
      * @param  string       $email          E-mail de quem vai receber o e-mail
-     * @param  string|null  $mensagem       Texto para o corpo da mensagem
-     * @param  string|null  $mensagemTexto  Mensagem sem HTML
-     * @param  array        $copia          E-mail de cópia nos padrões:
+     * @param  string|null  $mensagem       [optional] Texto para o corpo da mensagem
+     * @param  string|null  $mensagemTexto  [optional] Mensagem sem HTML
+     * @param  array        $copia          [optional] E-mail de cópia nos padrões:
      *                                      ['email1', 'email2'] ou
      *                                      [['Nome 1', 'email1'], ['Nome 2', 'email2']]
-     * @param  array        $copiaOculta    E-mail de cópia oculta nos padrões:
+     * @param  array        $copiaOculta    [optional] E-mail de cópia oculta nos padrões:
      *                                      ['email1', 'email2'] ou
      *                                      [['Nome 1', 'email1'], ['Nome 2', 'email2']]
-     * @param  array        $arquivo        Arquivo em anexo nos padrões:
+     * @param  array        $arquivo        [optional] Arquivo em anexo nos padrões:
      *                                      ['arquivo1', 'arquivo2'] ou
      *                                      [['Nome 1', 'arquivo1'], ['Nome 2', 'arquivo2']]
-     * @param  int|null     $sleep          Tempo que o e-mail deve aguardar para ser enviado
+     * @param  int|null     $sleep          [optional] Tempo que o e-mail deve aguardar para ser enviado
      * @return EmailHelper
      * @throws Excecao
      */
@@ -350,7 +352,8 @@ final class EmailHelper
             return $this->validarEmail($email);
         } elseif (is_array($email)) {
             foreach ($email as $lista) {
-                if (!(is_array($lista) && count($lista) == 2 && !empty($lista[0]) && $this->validarEmail($lista[1]))
+                if (
+                    !(is_array($lista) && count($lista) == 2 && !empty($lista[0]) && $this->validarEmail($lista[1]))
                     && !(is_string($lista) && $this->validarEmail($lista))
                 ) {
                     return false;
@@ -374,7 +377,8 @@ final class EmailHelper
             return file_exists($arquivo);
         } elseif (is_array($arquivo)) {
             foreach ($arquivo as $lista) {
-                if (!(is_array($lista) && count($lista) == 2 && !empty($lista[0]) && file_exists($lista[1])) &&
+                if (
+                    !(is_array($lista) && count($lista) == 2 && !empty($lista[0]) && file_exists($lista[1])) &&
                     !(is_string($lista) && file_exists($lista))
                 ) {
                     return false;
@@ -437,19 +441,20 @@ final class EmailHelper
      * @param  string       $titulo         Título para o e-mail
      * @param  string       $nome           Nome de quem vai receber o e-mail
      * @param  string       $email          E-mail de quem vai receber o e-mail
-     * @param  string|null  $mensagem       Mensagem do e-mail, se null, pega o this->mensagem
-     * @param  string|null  $mensagemTexto  Mensagem em texto puro, se null, pegar a mensagem e converte para texto
-     * @param  array        $copia          Lista de email para enviar como copia.
+     * @param  string|null  $mensagem       [optional] Mensagem do e-mail, se null, pega o this->mensagem
+     * @param  string|null  $mensagemTexto  [optional] Mensagem em texto puro, se null,
+     *                                      pegar a mensagem e converte para texto
+     * @param  array        $copia          [optional] Lista de email para enviar como copia.
      *                                      [email1, email2] ou
      *                                      [[nome1, email1],[nome2, email2]]
-     * @param  array        $copiaOculta    Lista de email para enviar como copia oculta.
+     * @param  array        $copiaOculta    [optional] Lista de email para enviar como copia oculta.
      *                                      [email1, email2] ou
      *                                      [[nome1, email1],[nome2, email2]]
-     * @param  array        $arquivo        Arquivo para anexar ao email.
+     * @param  array        $arquivo        [optional] Arquivo para anexar ao email.
      *                                      [arquivo1, arquivo2] ou
      *                                      [[nome1, arquivo1],[nome2, arquivo2]]
-     * @param  string|null  $deNome         Nome de quem está enviando o e-mail, se null, pegar do env
-     * @param  string|null  $deEmail        E-mai de quem está enviando o e-mail, se null, pegar do env
+     * @param  string|null  $deNome         [optional] Nome de quem está enviando o e-mail, se null, pegar do env
+     * @param  string|null  $deEmail        [optional] E-mai de quem está enviando o e-mail, se null, pegar do env
      * @throws Excecao
      * @throws TypeException
      */
@@ -545,10 +550,10 @@ final class EmailHelper
     /**
      * Seta o host para enviar o e-mail
      *
-     * @param  string|null  $host     Host
-     * @param  int|null     $porta    Porta do host
-     * @param  string|null  $usuario  Usuário do host
-     * @param  string|null  $senha    Senha do host
+     * @param  string|null  $host     [optional] Host
+     * @param  int|null     $porta    [optional] Porta do host
+     * @param  string|null  $usuario  [optional] Usuário do host
+     * @param  string|null  $senha    [optional] Senha do host
      * @return EmailHelper
      */
     public function host(

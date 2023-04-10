@@ -27,7 +27,7 @@ final class ImagemHelper
         $this->verificarSeArquivoExiste($this->arquivo);
         $this->verificarSeArquivoEImagem($this->arquivo);
         $this->passarArquivoPeloAntiVirus($this->arquivo);
-        $this->imagem = (new ImageManager)->make($this->arquivo);
+        $this->imagem = (new ImageManager())->make($this->arquivo);
     }
 
     /**
@@ -118,17 +118,18 @@ final class ImagemHelper
     }
 
     /**
-     * Adiciona um texto a imagem
+     * Adiciona um texto há imagem
      *
      * @param  string       $texto    Texto que deseja adicionar
-     * @param  string       $posicao  Posição do texto em relação a imagem podendo ser: top-left, top, top-right, left,
-     *                                center, right, bottom-left, bottom ou bottom-right
-     * @param  int          $x        Posição do eixo x em relação a imagem.
-     * @param  int          $y        Posição do eixo y em relação a imagem.
-     * @param  string|null  $fonte    Path da fonte que deseja usar
-     * @param  int|null     $tamanho  Tamanho da fonte
-     * @param  string|null  $cor      Cor hexadecimal para a fonte
-     * @param  int|null     $angulo   Angulo que o texto deve ficar
+     * @param  string       $posicao  [optional] Posição do texto em relação a imagem podendo ser: top-left, top,
+     *                                top-right, left,
+     *                                [optional] center, right, bottom-left, bottom ou bottom-right
+     * @param  int          $x        [optional] Posição do eixo x em relação a imagem.
+     * @param  int          $y        [optional] Posição do eixo y em relação a imagem.
+     * @param  string|null  $fonte    [optional] Path da fonte que deseja usar
+     * @param  int|null     $tamanho  [optional] Tamanho da fonte
+     * @param  string|null  $cor      [optional] Cor hexadecimal para a fonte
+     * @param  int|null     $angulo   [optional] Angulo que o texto deve ficar
      * @return ImagemHelper
      */
     public function texto(

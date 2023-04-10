@@ -21,10 +21,10 @@ final class ExcelHelper
     private Style $style;
 
     /**
-     * @param  string     $font      Fonte que será usada
-     * @param  int|float  $fontSize  Tamanho da fonte a será usada
-     * @param  bool       $border    Se a planilha terá borda
-     * @param  string     $path      Diretório base para de arquivo
+     * @param  string     $font      [optional] Fonte que será usada
+     * @param  int|float  $fontSize  [optional] Tamanho da fonte a será usada
+     * @param  bool       $border    [optional] Se a planilha terá borda
+     * @param  string     $path      [optional] Diretório base para de arquivo
      */
     public function __construct(
         private readonly string $font = 'Arial',
@@ -41,14 +41,14 @@ final class ExcelHelper
 
     private function setarStylePadrao(): void
     {
-        $style = (new StyleBuilder)
+        $style = (new StyleBuilder())
             ->setFontName($this->font)
             ->setFontSize($this->fontSize)
             ->setFontColor(Color::rgb(0, 0, 0));
 
         if ($this->border) {
             $style->setBorder(
-                (new BorderBuilder)
+                (new BorderBuilder())
                     ->setBorderTop(Color::BLACK, Border::WIDTH_THIN)
                     ->setBorderLeft(Color::BLACK, Border::WIDTH_THIN)
                     ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN)
@@ -84,7 +84,7 @@ final class ExcelHelper
 
     private function styleTitulo(): Style
     {
-        $style = (new StyleBuilder)
+        $style = (new StyleBuilder())
             ->setFontBold()
             ->setFontName($this->font)
             ->setFontSize($this->fontSize)
@@ -93,7 +93,7 @@ final class ExcelHelper
 
         if ($this->border) {
             $style->setBorder(
-                (new BorderBuilder)
+                (new BorderBuilder())
                     ->setBorderTop(Color::BLACK, Border::WIDTH_THIN)
                     ->setBorderLeft(Color::BLACK, Border::WIDTH_THIN)
                     ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN)
