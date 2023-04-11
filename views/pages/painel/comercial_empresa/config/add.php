@@ -69,7 +69,12 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->switch(name: 'produto_android', label: 'APP para Android')
             ->switch(name: 'produto_site', label: 'Site pré-moldado')
             ->select(name: 'estado_principal', label: 'Estado principal', lista: 'estado')
-            ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha uma opção'))
+            ->select(
+                name: 'status',
+                label: 'Status',
+                lista: (new Status())->select('Escolha uma opção'),
+                acao: 'editar'
+            )
             ;
     });
 });

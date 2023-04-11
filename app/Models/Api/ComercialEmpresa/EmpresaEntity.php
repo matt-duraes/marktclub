@@ -11,10 +11,9 @@ use Modules\Dinheiro;
 use Modules\Telefone;
 use Modules\EnderecoEstado;
 use App\Classes\ComercialEmpresa\Status;
-use App\Models\Api\UsuarioEquipe\EquipeModel;
 use App\Models\Api\UsuarioEquipe\HelperModel;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Classes\ComercialEmpresa\TipoPagamento;
+use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 
 final class EmpresaEntity extends Entity
 {
@@ -24,14 +23,14 @@ final class EmpresaEntity extends Entity
         'finalidade_principal' => 'finalidade_empresa',
         'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
         'responsavel_email', 'responsavel_telefone', 'finalidade_secundaria', 'tipo_pagamento',
-        'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site',
+        'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'prospeccao_status',
         'renda_media', 'valor_pib', 'estado_principal', 'site', 'id_usuario_equipe', 'status'
     ];
     protected array $ormSalvar = [
         'finalidade_empresa' => '->finalidade_principal',
         'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
         'responsavel_email', 'responsavel_telefone', 'finalidade_secundaria', 'tipo_pagamento',
-        'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site',
+        'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'prospeccao_status',
         'renda_media', 'valor_pib', 'estado_principal', 'site', 'id_usuario_equipe', 'status'
     ];
 
@@ -60,6 +59,7 @@ final class EmpresaEntity extends Entity
     public string $nome_fantasia;
     public string $imagem;
     public string $slug;
+    public ProspeccaoStatus $prospeccao_status;
     public Status $status;
     public string $responsavel_nome;
     public Cpf $responsavel_cpf;
@@ -79,6 +79,8 @@ final class EmpresaEntity extends Entity
 
     protected function regraInsert()
     {
+        $this->prospeccao_status = new ProspeccaoStatus(ProspeccaoStatus::ABORDAGEM);
+        $this->status = new Status(Status::PROSPECCAO);
         $this->validarSeJaExisteCnpj();
     }
     protected function regraUpdate()

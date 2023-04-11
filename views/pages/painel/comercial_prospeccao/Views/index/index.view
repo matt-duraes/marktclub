@@ -1,0 +1,73 @@
+@template "painel"
+
+<div class="bloco_kambam_index">
+    <div class="conteudo_geral">
+        <section class="bloco_coluna">
+            <header>
+                <h1>Abordagem</h1>
+                <div class="flex"></div>
+                <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
+            </header>
+            <div class="conteudo">
+                @ifforeach($abordagem as $r):
+                @view painel/comercial_prospeccao/index/item.view
+                @elseforeach;
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
+                @endif;
+            </div>
+        </section>
+
+        <section class="bloco_coluna">
+            <header>
+                <h1>Apresentação</h1>
+            </header>
+            <div class="conteudo" id="bloco_coluna_liberado">
+                @ifforeach($apresentacao as $r):
+                @view painel/comercial_prospeccao/index/item.view
+                @elseforeach;
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
+                @endif;
+            </div>
+        </section>
+
+        <section class="bloco_coluna">
+            <header>
+                <h1>Negociação</h1>
+            </header>
+            <div class="conteudo">
+                @ifforeach($negociacao as $r):
+                @view painel/comercial_prospeccao/index/item.view
+                @elseforeach;
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
+                @endif;
+            </div>
+        </section>
+
+        <section class="bloco_coluna">
+            <header>
+                <h1>Em Avaliação</h1>
+            </header>
+            <div class="conteudo">
+                @ifforeach($avaliacao as $r):
+                @view painel/comercial_prospeccao/index/item.view
+                @elseforeach;
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
+                @endif;
+            </div>
+        </section>
+
+        <section class="bloco_coluna">
+            <header>
+                <h1>Minuta Enviada</h1>
+            </header>
+            <div class="conteudo">
+                @ifforeach($minuta as $r):
+                @view painel/comercial_prospeccao/index/item.view
+                @elseforeach;
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
+                @endif;
+            </div>
+        </section>
+
+    </div>
+</div>

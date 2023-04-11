@@ -8,7 +8,7 @@ Route
         action: 'logado',
     )
     ::nome('comercialProspeccao')
-    ::controller(Painel\ComercialProspecacao\Controllers\ComercialProspeccaoController::class)
+    ::controller(Painel\ComercialProspeccao\Controllers\ComercialProspeccaoController::class)
     ::grupo(function () {
         Route
             ::nome('lista')

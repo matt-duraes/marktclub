@@ -872,7 +872,7 @@ Route::nome('comercial_empresa')
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
-            ::request(['pagina', '!quantidade'], 'json')
+            ::request(['pagina', '!prospeccao_status', '!status', '!quantidade'], 'json')
             ::get('/comercial-empresa');
 
         Route
@@ -888,7 +888,7 @@ Route::nome('comercial_empresa')
                 'cnpj', '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone',
                 '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!valor_pago', '!renda_media',
                 '!valor_pib', '!produto_clube', '!produto_ios', '!produto_android', '!produto_site',
-                '!estado_principal', 'status'
+                '!estado_principal'
             ])
             ::post('/comercial-empresa');
 
@@ -900,7 +900,7 @@ Route::nome('comercial_empresa')
                 '!cnpj', '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone',
                 '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!valor_pago', '!renda_media',
                 '!valor_pib', '!produto_clube', '!produto_ios', '!produto_android', '!produto_site',
-                '!estado_principal', '!status'
+                '!estado_principal', '!prospeccao_status', '!status'
             ])
             ::put('/comercial-empresa/{id}');
     });

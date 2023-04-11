@@ -1,0 +1,30 @@
+<article class="bloco_kambam_item" data-id="{!!$r->id!!}">
+    <header>
+        <h1>{{$r->titulo}}</h1>
+        <p>{{$r->data_criacao}}</p>
+    </header>
+    <a class="botao_link" href="{{LINK}}/app/visualizar/comercial-empresa/{{$r->id}}">ver empresa</a>
+    <div class="bloco">
+        <div class="figure" style="background-image: url({!!$r->usuario->imagem!!});" data-ajuda="{{$r->usuario->nome}}"></div>
+        <i class="icone">@iconeTelefone(19)</i>
+        <i class="icone">@iconeMensagem(18)</i>
+
+        <div class="linha"></div>
+        <i class="inativar" data-ajuda="Finalizar contrato">@iconeFechar(10)</i>
+        <i class="ativar" data-ajuda="Contrato fechado">@iconeCheck(12)</i>
+
+        <div class="grow"></div>
+
+        @ if( $r->status == 'abordagem' ):
+        <i class="seta seta_inativa">@iconeSetaEsquerda(18)</i>
+        @ else:
+        <i class="seta" data-ajuda="Voltar contrato">@iconeSetaEsquerda(18)</i>
+        @ endif;
+
+        @ if( $r->status == 'minuta' ):
+        <i class="seta seta_inativa">@iconeSetaEsquerda(18)</i>
+        @ else:
+        <i class="seta" data-ajuda="Avançar contrato">@iconeSetaDireita(18)</i>
+        @ endif;
+    </div>
+</article>

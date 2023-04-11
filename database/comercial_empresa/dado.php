@@ -60,5 +60,44 @@ return [
         'responsavel_telefone' => telefoneCelularAleatorio(),
         'slug' => 'bancodigio',
         'status' => 1
-    ]
+    ],
+    [
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Prospecção Nome 01',
+        'razao_social' => 'Prospecção Nome 01',
+        'nome_fantasia' => 'Prospecção Nome 01',
+        'cnpj' => cnpjAleatorio(),
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'prospeccao_status' => 1,
+        'status' => 3
+    ],
+    [
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Prospecção Nome 02',
+        'razao_social' => 'Prospecção Nome 02',
+        'nome_fantasia' => 'Prospecção Nome 02',
+        'cnpj' => cnpjAleatorio(),
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'prospeccao_status' => 1,
+        'status' => 3
+    ],
+    [
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Prospecção Nome 03',
+        'razao_social' => 'Prospecção Nome 03',
+        'nome_fantasia' => 'Prospecção Nome 03',
+        'cnpj' => cnpjAleatorio(),
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'prospeccao_status' => 1,
+        'status' => 3
+    ],
 ];
