@@ -6,15 +6,15 @@ use Status\Status;
 
 final class Tipo extends Status
 {
-    public const VOUCHER = 'voucher';
-    public const DECLARACAO = 'declaracao';
+    public const LOJA = 'loja';
+    public const AUTOMOVEL = 'automovel';
 
     public function __construct(
         protected null|string|int $valor = null
     ) {
         parent::__construct([
-            self::VOUCHER => 'Voucher',
-            self::DECLARACAO => 'Declaração'
+            self::LOJA => 'Loja',
+            self::AUTOMOVEL => 'Automóvel'
         ]);
     }
 }

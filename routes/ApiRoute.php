@@ -754,7 +754,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:salvar'])
-            ::request(['id', '!usuario'])
+            ::request(['id', '!usuario', '!tipo'])
             ::post('/solicitacao-voucher');
         Route
             ::nome('buscar')

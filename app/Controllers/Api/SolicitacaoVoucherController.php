@@ -6,6 +6,7 @@ use ORM\Entity;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Helper;
 use App\Controllers\Api\Trait\ClienteTrait;
 use App\Controllers\Api\Trait\ParceiroTrait;
@@ -31,7 +32,8 @@ final class SolicitacaoVoucherController extends Controller implements
     {
         $Voucher = $this->pegarEntidadeDoVoucher(
             id: $request->id,
-            usuario: $request->usuario
+            usuario: $request->usuario,
+            tipo: $request->tipo
         );
         $Voucher->salvar();
 
@@ -56,7 +58,7 @@ final class SolicitacaoVoucherController extends Controller implements
         );
     }
 
-    private function pegarEntidadeDoVoucher(string $id, string $usuario): VoucherInterface
+    private function pegarEntidadeDoVoucher(string $id, string $usuario, string $tipo): VoucherInterface
     {
         $Parceiro = $this->pegarParceiro(
             id: $id,
@@ -75,7 +77,8 @@ final class SolicitacaoVoucherController extends Controller implements
         }
         return new VoucherEntity(
             Parceiro: $Parceiro,
-            Usuario: $Usuario
+            Usuario: $Usuario,
+            tipo: new Tipo($tipo)
         );
     }
 

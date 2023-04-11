@@ -10,7 +10,7 @@ return [
     'visualizar' => true,
     'add' => false,
     'editar' => true,
-    'deletar' => true,
+    'deletar' => false,
     'download' => true,
     'historico' => true,
     'api' => [

@@ -3,7 +3,6 @@
 namespace App\Models\Api\SolicitacaoVoucher\Trait;
 
 use Modules\Data;
-use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
 
 trait VoucherInsertTrait
@@ -22,7 +21,6 @@ trait VoucherInsertTrait
         $this->id_usuario_cliente = $this->Usuario->get('id');
         $this->id_vinculo = $this->Parceiro->id;
         $this->titulo = $this->Parceiro->titulo;
-        $this->tipo = new Tipo(Tipo::VOUCHER);
         $this->codigo = $this->gerarCodigoUnico();
         $this->data_vencimento = new Data($this->pegarVencimentoVoucher());
         $this->status = new Status(Status::CRIADO);
