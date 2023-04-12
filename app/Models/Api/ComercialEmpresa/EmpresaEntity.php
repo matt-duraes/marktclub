@@ -39,9 +39,9 @@ final class EmpresaEntity extends Entity
         razao_social|Razão Social|vazio
         cnpj|CNPJ|vazio|valido
         responsavel_nome|Nome do responsável|vazio|valido
-        responsavel_cpf|CPF do responsável|vazio|valido
-        responsavel_telefone|Telefone do responsável|valido
-        responsavel_email|E-mail do responsável|valido
+        responsavel_cpf|CPF do responsável|valido
+        responsavel_telefone|Telefone do responsável|vazio|valido
+        responsavel_email|E-mail do responsável|vazio|valido
         estado_principal|Estado principal|valido
         tipo_pagamento|Tipo de pagamento|valido
         valor_pago|Valor pago|valido
