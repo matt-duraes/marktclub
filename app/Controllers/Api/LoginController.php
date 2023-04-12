@@ -39,7 +39,7 @@ final class LoginController extends Controller
     */
     public function postLoginApi(Request $request)
     {
-        $Login = new LoginApiModel($request);
+        $Login = new LoginApiModel($request->dado());
         return $Login->link();
     }
     public function loginApiOk($hash)

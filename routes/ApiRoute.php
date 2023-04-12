@@ -584,6 +584,18 @@ Route
             ::middleware(App\Middlewares\SistemaMiddleware::class, 'tipo', ['HOMOLOGACAO'])
             ::view('/login/api-ok/{hash}');
     });
+Route
+    ::nome('termoLgpd')
+    ::controller(App\Controllers\Api\TermoLgpdController::class)
+    ::grupo(function () {
+        Route
+            ::nome('assinar')
+            ::view('/termo-lgpd/assinar/{hash}');
+        Route
+            ::nome('salvar')
+            ::request(['hash', 'termo'])
+            ::post('/termo-lgpd');
+    });
 
 Route
     ::nome('mensageria')

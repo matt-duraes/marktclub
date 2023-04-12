@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro na ativação</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
+    <div id="site">
+        <header>
+            <h1>Ocorreu um problema</h1>
+            <p>Não podemos continuar com seu login, isso pode ter ocorrido por alguns motivos:</p>
+        </header>
+        <ul>
+            <li>O link só pode ser acessado uma vez, caso você recarregue a página ou tente acessar o link novamente, a página não irá funcionar.</li>
+            <li>O link tem uma prazo de vida grande mas que tem validade, caso tenha passado esse prazo, o link não irá funcionar.</li>
+            <li>O link está quebrado, com url inválida ou quebrada</li>
+        </ul>
+
+        <p>Independente do motivo, volte a página de login e refaça seu login para continuar.</p>
+    </div>
+</body>
+</html>

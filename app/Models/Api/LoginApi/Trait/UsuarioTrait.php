@@ -78,9 +78,6 @@ trait UsuarioTrait
         ) {
             $dado['data_email'] = $hoje;
         }
-        if (array_key_exists('documento', $this->dadoUsuario)) {
-            $this->dadoUsuario['documento'] = new Cpf($this->dadoUsuario['documento']);
-        }
 
         $salvar = $this->dado(array_merge($this->dadoUsuario, $dado))->insert();
         if (existeErro($salvar, 'id') || empty($salvar['id'])) {

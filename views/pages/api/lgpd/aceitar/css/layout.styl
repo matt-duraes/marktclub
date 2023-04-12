@@ -1,0 +1,91 @@
+@system "Resetar"
+@system "Form"
+@system "Alerta"
+@system "Loading"
+
+body
+    background-color: #F6F6F6
+    font-family: 'Roboto', sans-serif
+
+#site
+    width: 100%
+    padding: 40px 20px
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    figure
+        width: 100%
+        max-height: 80px
+        margin-bottom: 40px
+        text-align: center
+    figure img
+        max-width: 100%
+        max-height: 100%
+    h1
+        max-width: 700px
+        line-height: 1.5em
+        font-size: 2rem
+        margin-bottom: 10px
+        text-align: center
+    > h2
+        max-width: 400px
+        line-height: 1.5em
+        font-weight: 300
+        font-size: 1.6rem
+        text-align: center
+    > p
+        max-width: 400px
+        line-height: 1.5em
+        font-weight: 300
+        font-size: 1.6rem
+        color: #666
+        text-align: center
+    .texto
+        width: 100%
+        max-width: 900px
+        margin-bottom: 40px
+    .texto h2
+        width: 100%
+        line-height: 1.5em
+        font-size: 1.6rem
+        margin-top: 40px
+    .texto p
+        width: 100%
+        line-height: 1.5em
+        font-size: 1.6rem
+        font-weight: 300
+        margin: 10px 0
+    .texto strong
+        font-size: 1.6rem
+    .botao_lista
+        width: 100%
+        max-width: 500px
+        margin-top: 40px
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+    .botao_continuar
+        width: 150px
+        height: 50px
+        line-height: 50px
+        font-size: 1.6rem
+        border-radius: 5px
+        color: #FFF
+        text-align: center
+        cursor: pointer
+        &.inativo
+            background-color: #ccc !important
+            color: #666
+            cursor: no-drop
+    .botao_sair
+        width: 150px
+        height: 50px
+        line-height: 50px
+        font-size: 1.6rem
+        font-weight: 300
+        border-radius: 5px
+        border: 1px solid #999
+        color: #666
+        text-align: center
+        cursor: pointer
