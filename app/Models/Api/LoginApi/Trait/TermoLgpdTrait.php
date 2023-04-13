@@ -20,7 +20,7 @@ trait TermoLgpdTrait
     {
         $dado = jsonEncode([
             'usuario' => removerIndiceVazio($this->request),
-            'link' => $this->linkClube,
+            'link' => 'https://' . str_replace(['https://', 'http://'], '', $this->linkClube),
             'empresa' => $this->idEmpresa
         ]);
 
