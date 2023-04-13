@@ -26,6 +26,9 @@ final class EmpresaModel extends ORM implements ModelListarInterface
         private ?Request $request = null
     ) {
         parent::__construct();
+        if (is_null($request)) {
+            return;
+        }
         $this->validarRequest();
     }
 
