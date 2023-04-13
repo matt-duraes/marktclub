@@ -68,8 +68,7 @@ final class SolicitacaoVoucherController extends Controller implements
             mensagemErro: 'Não foi encontrado um parceiro pelo ID enviado.'
         );
         $Usuario = $this->pegarCliente(id: $usuario);
-
-        if (in_array($Parceiro->get('id'), ['4207'])) {
+        if (in_array($Parceiro->get('id'), ['4207', '15612'])) {
             return new CodigoEntity(
                 Parceiro: $Parceiro,
                 Usuario: $Usuario

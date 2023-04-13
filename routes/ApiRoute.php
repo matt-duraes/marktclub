@@ -410,6 +410,12 @@ Route
             ::get('/usuario-equipe/select');
 
         Route
+            ::nome('perfil')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
+            ::request(['!titulo'], 'json')
+            ::get('/usuario-equipe/perfil');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:buscar'])
             ::get('/usuario-equipe/{id}');

@@ -117,5 +117,22 @@ return [
         'empresa' => ["1", "2", "66"],
         'prazo_voucher_fixo' => dataAdicionar(hoje(), 60, 'dias'),
         'status' => 4
+    ],
+    [
+        'id' => 15612,
+        'cod' => 'ca0bde20602db3ec777acbbcfb5a4c62',
+        'categoria_principal' => '1',
+        'categoria_todas' => '["1","2","3","4","5","6","7","8"]',
+        'titulo' => 'Madruga App de Mobilidade',
+        'url' => 'madruga',
+        'imagem' => 'parceiro.png',
+        'desconto' => '10% de desconto',
+        'desconto_texto' => 'Texto de desconto do parceiro',
+        'procedimento_texto' => 'Texto de procedimento do parceiro',
+        'voucher_texto' => 'Texto para o voucher do parceiro',
+        'destaque' => ["1", "2", "66"],
+        'empresa' => ["1", "2", "66"],
+        'prazo_voucher_fixo' => dataAdicionar(hoje(), 60, 'dias'),
+        'status' => 4
     ]
 ];
