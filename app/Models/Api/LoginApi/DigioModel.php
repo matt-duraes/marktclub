@@ -6,6 +6,7 @@ use ORM\Entity;
 use App\Helpers\DigioHelper;
 use App\Models\Api\LoginApi\Trait\LinkTrait;
 use App\Models\Api\LoginApi\Trait\UsuarioTrait;
+use App\Models\Api\LoginApi\Trait\TermoLgpdTrait;
 use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class DigioModel extends Entity
@@ -13,6 +14,7 @@ final class DigioModel extends Entity
     use ConstrutorTrait;
     use UsuarioTrait;
     use LinkTrait;
+    use TermoLgpdTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
@@ -22,6 +24,7 @@ final class DigioModel extends Entity
     private ?string $idUsuario = null;
     private ?int $statusUsuario = null;
     private ?string $hash = null;
+    private bool $lgpd = false;
 
     public function __construct(
         private ?string $usuario,
