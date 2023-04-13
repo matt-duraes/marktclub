@@ -13,7 +13,7 @@ final class TermoLgpdController extends Controller
     {
         $path = DIRETORIO_PRIVADO . '/lgpd/' . $hash . '.json';
         $dado = pegarArquivo($path);
-        deletarArquivo($path);
+        // deletarArquivo($path);
         if (
             !is_array($dado) ||
             !array_key_exists('usuario', $dado) ||
@@ -25,7 +25,10 @@ final class TermoLgpdController extends Controller
 
         try {
             $Construtor = new ConstrutorEntity();
-            $Construtor->id($dado['empresa']);
+            $Construtor->buscar([
+                ['empresa', $dado['empresa']],
+                ['status', 1]
+            ]);
         } catch (\Throwable) {
             return $this->lgpdErro();
         }
