@@ -1705,7 +1705,7 @@ if (!function_exists('removerIndiceVazio')) {
     {
         $retorno = [];
         foreach ($array as $ind => $val) {
-            $valor = !empty($val) ? trim($val) : '';
+            $valor = !empty($val) && (is_string($val) || is_numeric($val)) ? trim($val) : $val;
             if (!empty($valor)) {
                 $retorno[$ind] = $valor;
             }
@@ -1782,5 +1782,38 @@ if (!function_exists('porcentagem')) {
             return '0.00';
         }
         return number_format(($valor * 100) / $total, 2, '.');
+    }
+}
+if (!function_exists('criarArquivo')) {
+    function criarArquivo($path, $conteudo): bool
+    {
+        $arquivo = fopen($path, 'w+');
+        if (!$arquivo) {
+            return false;
+        }
+        fwrite($arquivo, $conteudo);
+        fclose($arquivo);
+        return true;
+    }
+}
+if (!function_exists('pegarArquivo')) {
+    function pegarArquivo($path)
+    {
+        if (!file_exists($path)) {
+            return false;
+        }
+        $arquivo = file_get_contents($path);
+        $array = json_decode($arquivo, true);
+
+        return is_array($array) ? $array : $arquivo;
+    }
+}
+if (!function_exists('deletarArquivo')) {
+    function deletarArquivo($path)
+    {
+        if (!file_exists($path)) {
+            return false;
+        }
+        return unlink($path);
     }
 }

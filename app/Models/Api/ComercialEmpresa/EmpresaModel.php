@@ -12,6 +12,7 @@ use System\Trait\Model\QuantidadeTrait;
 use App\Classes\ComercialEmpresa\Helper;
 use App\Classes\ComercialEmpresa\Status;
 use System\Interface\ModelListarInterface;
+use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 
 final class EmpresaModel extends ORM implements ModelListarInterface
 {
@@ -31,7 +32,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'titulo', 'razao_social', 'cnpj', 'data_criacao', 'status'])
+            ->campo(['cod', 'titulo', 'razao_social', 'cnpj', 'data_criacao', 'prospeccao_status', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
@@ -45,6 +46,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
     {
         $retorno = [];
         $Status = new Status();
+        $ProspeccaoStatus = new ProspeccaoStatus();
 
         foreach ($lista as $r) {
             $titulo = !empty($r->titulo) ? $r->titulo : $r->razao_social;
@@ -53,6 +55,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
                 'titulo' => $titulo,
                 'cnpj' => $r->cnpj,
                 'data_criacao' => $r->data_criacao,
+                'prospeccao_status' => $ProspeccaoStatus->indice($r->prospeccao_status),
                 'status' => $Status->indice($r->status)
             ];
         }
@@ -66,9 +69,26 @@ final class EmpresaModel extends ORM implements ModelListarInterface
 
     private function pegarWhere()
     {
-        return [];
+        $where = [];
+        $status = new Status($this->request->status);
+        if ($status->valido()) {
+            $where[] = ['status', $status->numero()];
+        }
+        $prospeccaoStatus = new ProspeccaoStatus($this->request->prospeccao_status);
+        if ($prospeccaoStatus->valido()) {
+            $where[] = ['prospeccao_status', $prospeccaoStatus->numero()];
+        }
+        return $where;
     }
     private function validarRequest()
     {
+        $status = new Status($this->request->status);
+        if (!$status->vazio() && !$status->valido()) {
+            mensagemErro('Campo inválido!', 'O status enviado não é válido.');
+        }
+        $prospeccaoStatus = new ProspeccaoStatus($this->request->prospeccao_status);
+        if (!$prospeccaoStatus->vazio() && !$prospeccaoStatus->valido()) {
+            mensagemErro('Campo inválido!', 'O status da prospecção enviada não é válida.');
+        }
     }
 }
