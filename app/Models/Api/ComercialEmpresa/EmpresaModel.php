@@ -5,6 +5,7 @@ namespace App\Models\Api\ComercialEmpresa;
 use ORM\ORM;
 use stdClass;
 use Http\Request;
+use Modules\Cnpj;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ComercialEmpresa\Ordem;
@@ -12,6 +13,7 @@ use System\Trait\Model\QuantidadeTrait;
 use App\Classes\ComercialEmpresa\Helper;
 use App\Classes\ComercialEmpresa\Status;
 use System\Interface\ModelListarInterface;
+use App\Models\Api\UsuarioEquipe\HelperModel;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 
 final class EmpresaModel extends ORM implements ModelListarInterface
@@ -73,14 +75,56 @@ final class EmpresaModel extends ORM implements ModelListarInterface
     private function pegarWhere()
     {
         $where = [];
+        // CNPJ
+        $cnpj = new Cnpj($this->request->cnpj);
+        if ($cnpj->valido()) {
+            $where[] = ['cnpj', $cnpj->numero()];
+        }
+        // STATUS
         $status = new Status($this->request->status);
         if ($status->valido()) {
             $where[] = ['status', $status->numero()];
         }
+        // PROSPECCAO
         $prospeccaoStatus = new ProspeccaoStatus($this->request->prospeccao_status);
         if ($prospeccaoStatus->valido()) {
             $where[] = ['prospeccao_status', $prospeccaoStatus->numero()];
         }
+        // PESQUISA
+        $pesquisa = $this->request->pesquisa;
+        $cnpj = soNumero($pesquisa);
+        $titulo = $this->request->titulo;
+        if (!empty($titulo)) {
+            $pesquisa = $titulo;
+            $cnpj = '';
+        }
+        if (!empty($pesquisa) && !empty($cnpj)) {
+            $where[] = [
+                'OR',
+                ['titulo', 'like', '%' . $pesquisa . '%'],
+                ['razao_social', 'like', '%' . $pesquisa . '%'],
+                ['nome_fantasia', 'like', '%' . $pesquisa . '%'],
+                ['cnpj', 'like', '%' . $cnpj . '%'],
+            ];
+        } elseif (!empty($pesquisa)) {
+            $where[] = [
+                'OR',
+                ['titulo', 'like', '%' . $pesquisa . '%'],
+                ['razao_social', 'like', '%' . $pesquisa . '%'],
+                ['nome_fantasia', 'like', '%' . $pesquisa . '%'],
+            ];
+        }
+        // USUARIO
+        $usuario = $this->request->usuario;
+        $idEquipe = '';
+        if (!empty($usuario)) {
+            $Equipe = new HelperModel();
+            $idEquipe = $Equipe->pegarIdPeloUuid($usuario);
+        }
+        if (!empty($idEquipe)) {
+            $where[] = ['id_usuario_equipe', $idEquipe];
+        }
+
         return $where;
     }
     private function validarRequest()

@@ -179,6 +179,25 @@ final class Filtrar
         return $this;
     }
 
+    public function cnpj(
+        $name,
+        ?string $titulo = null,
+        string $label = '',
+        string $placeholder = '',
+        bool $obrigatorio = false
+    ) {
+        $this->input(
+            name: $name,
+            titulo: $titulo,
+            label: $label,
+            placeholder: $placeholder,
+            obrigatorio: $obrigatorio,
+            mascara: '00.000.000/0000-00',
+            numero: 1
+        );
+        return $this;
+    }
+
     public function cep(
         $name,
         ?string $titulo = null,
