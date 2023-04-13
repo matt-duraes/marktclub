@@ -1,11 +1,11 @@
 <article class="bloco_kambam_item" data-id="{!!$r->id!!}">
     <header>
+        <figure style="background-image: url({!!$r->usuario->imagem!!});" data-ajuda="{{$r->usuario->nome}}"></figure>
         <h1>{{$r->titulo}}</h1>
-        <p>{{$r->data_criacao}}</p>
     </header>
     <a class="botao_link" href="{{LINK}}/app/visualizar/comercial-empresa/{{$r->id}}">ver empresa</a>
+    <p class="data">{{$r->data_criacao}}</p>
     <div class="bloco">
-        <div class="figure" style="background-image: url({!!$r->usuario->imagem!!});" data-ajuda="{{$r->usuario->nome}}"></div>
         <i class="icone">@iconeTelefone(19)</i>
         <i class="icone">@iconeMensagem(18)</i>
 

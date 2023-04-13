@@ -195,6 +195,16 @@
         flex-basis: 0%
     .lista .td.center
         flexCenter()
+    .lista .td.imagem
+        width: 60px
+    .lista .td.imagem figure
+        width: 40px
+        height: 40px
+        background-size: cover
+        background-position: center center
+        background-repeat: no-repeat
+        border-radius: 50%
+        background-color: #EEE
     .lista .td.status
         width: 20px
         flexCenter()
@@ -214,7 +224,8 @@
         .td
         .barra
             display: none
-        .td:nth-child(1)
+        .td.imagem_usuario
+        .td.primeiro
             display: flex
 
 #bloco_app_lista .bloco_lista .sem_registro

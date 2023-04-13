@@ -41,6 +41,15 @@ final class EmpresaModel extends ORM implements ModelListarInterface
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_USUARIO_EQUIPE)
+            ->leftJoin('id', 'id_usuario_equipe')
+            ->campo(
+                [
+                    'uuid', 'nome_real', 'nome_perfil', 'imagem_tipo', 'imagem_arquivo',
+                    'imagem_facebook', 'imagem_google'
+                ],
+                'usuario'
+            )
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista ?? []);
@@ -57,6 +66,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
             $titulo = !empty($r->titulo) ? $r->titulo : $r->razao_social;
             $retorno[] = [
                 'id' => $r->cod,
+                'usuario' => $this->montarPerfil($r),
                 'titulo' => $titulo,
                 'cnpj' => $r->cnpj,
                 'data_criacao' => $r->data_criacao,
@@ -70,6 +80,27 @@ final class EmpresaModel extends ORM implements ModelListarInterface
             criptografia: Helper::CRIPTOGRAFAR,
             lista: true
         );
+    }
+
+    private function montarPerfil($r)
+    {
+        if (empty($r->usuario_uuid)) {
+            return [
+                'nome' => 'Sem usuário',
+                'imagem' => imagemUsuario()
+            ];
+        }
+        return [
+            'id' => $r->usuario_uuid,
+            'nome' => $r->usuario_nome_real,
+            'perfil' => $r->usuario_nome_perfil,
+            'imagem' => imagemUsuario(
+                $r->usuario_imagem_tipo,
+                $r->usuario_imagem_arquivo,
+                $r->usuario_imagem_facebook,
+                $r->usuario_imagem_google
+            )
+        ];
     }
 
     private function pegarWhere()

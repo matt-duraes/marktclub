@@ -33,13 +33,33 @@ final class Index
     }
 
     /**
+     * Gera uma imagem de usuário no começo da linha
+     *
+     * @param   null|string  $permissao  Permissão que o usuário deve ter
+     */
+    public function imagemUsuario(?string $permissao = null)
+    {
+        if (!$this->campoAceito('usuario', $permissao)) {
+            return $this;
+        }
+
+        $this->grade[] = [
+            'nome' => 'Usuário',
+            'campo' => 'usuario',
+            'formatar' => 'imagem'
+        ];
+        return $this;
+    }
+
+    /**
      * Adiciona um campo a linha
      *
-     * @param   string          $campo          Nome do campo
-     * @param   string          $nome           Nome do item que irá aparecer para o usuário
-     * @param   string          $tipo           Tipo podendo ser grande, normal ou pequeno
-     * @param   string          $formatar       Tipo de valor que deve retorna podendo ser telefone, cep, cpf, cnpj, data e datahora
-     * @param   null|string     $permissao      Permissão que o usuário deve ter
+     * @param   string       $campo      Nome do campo
+     * @param   string       $nome       Nome do item que irá aparecer para o usuário
+     * @param   string       $tipo       Tipo podendo ser grande, normal ou pequeno
+     * @param   string       $formatar   Tipo de valor que deve retorna podendo ser telefone, cep,
+     *                                   cpf, cnpj, data e datahora
+     * @param   null|string  $permissao  Permissão que o usuário deve ter
      * @return  self
      */
     public function campo(string $campo, string $nome, string $tipo, string $formatar = '', ?string $permissao = null)

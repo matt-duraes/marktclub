@@ -14,6 +14,7 @@ final class VisualizarModel implements PainelVisualizarRetornoInterface
 
     public function retorno(): stdClass
     {
+        ppe($this->dado);
         return $this->dado;
     }
 }

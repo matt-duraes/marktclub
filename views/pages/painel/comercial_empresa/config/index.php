@@ -6,6 +6,7 @@ use App\Classes\ComercialEmpresa\Status;
 $Painel = new PainelConfig\Index('comercial_empresa', new Ordem());
 
 return $Painel
+    ->imagemUsuario()
     ->campo('titulo', 'Título', 'grande')
     ->campo('cnpj', 'CNPJ', 'pequeno', formatar: 'cnpj')
     ->campo('data_criacao', 'Criado em', 'pequeno', formatar: 'data')
