@@ -8,7 +8,11 @@ trait LinkTrait
 {
     public function link(): Response
     {
-        $link = 'https://' . $this->linkClube . '/login/api/' . $this->hash;
+        if ($this->lgpd) {
+            return $this->mandarParaTermoLgpd();
+        }
+
+        $link = 'https://' . str_replace(['https://', 'http://'], '', $this->linkClube) . '/login/api/' . $this->hash;
         if (SISTEMA == 'HOMOLOGACAO' && !in_array($this->linkClube, ['cfmhml.marktclub.net.br'])) {
             $link = 'https://apiv4homologacao.marktclub.net.br/login/api-ok/' . base64Encode([
                 'nome' => $this->dadoUsuario['nome'],

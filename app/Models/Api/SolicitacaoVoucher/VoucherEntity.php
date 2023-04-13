@@ -39,7 +39,6 @@ final class VoucherEntity extends Entity implements VoucherInterface
 
     public Data $data_vencimento;
     public DataHora $data_validacao;
-    public Tipo $tipo;
     public Status $status;
 
     protected string $id_vinculo;
@@ -57,7 +56,8 @@ final class VoucherEntity extends Entity implements VoucherInterface
 
     public function __construct(
         public ?LojaEntity $Parceiro = null,
-        public ?ClienteEntity $Usuario = null
+        public ?ClienteEntity $Usuario = null,
+        public ?Tipo $tipo = null
     ) {
         parent::__construct();
     }

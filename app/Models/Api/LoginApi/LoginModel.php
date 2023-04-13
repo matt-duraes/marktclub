@@ -15,6 +15,7 @@ use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
 use App\Models\Api\LoginApi\Trait\LinkTrait;
 use App\Models\Api\LoginApi\Trait\UsuarioTrait;
+use App\Models\Api\LoginApi\Trait\TermoLgpdTrait;
 use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class LoginModel extends Entity
@@ -22,27 +23,28 @@ final class LoginModel extends Entity
     use ConstrutorTrait;
     use UsuarioTrait;
     use LinkTrait;
+    use TermoLgpdTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     private string $linkClube;
-    private int $idEmpresa;
-    private array $dadoUsuario;
     private ?string $idUsuario = null;
     private ?int $statusUsuario = null;
     private ?string $hash = null;
+    private bool $lgpd = false;
+    private array $dadoUsuario;
 
     public function __construct(
-        private Request $request
+        private array $request,
+        private ?int $idEmpresa = null
     ) {
-        if (!defined('TOKEN')) {
+        if (!defined('TOKEN') && empty($idEmpresa)) {
             mensagemStatus(401);
         }
 
         parent::__construct();
 
-        $this->idEmpresa = TOKEN['empresa']->get('id');
-        $this->dadoUsuario = $request->dado();
+        $this->idEmpresa = !empty($idEmpresa) ? $idEmpresa : TOKEN['empresa']->get('id');
         $this->hash = uuid();
 
         $this->buscarLinkClube();
@@ -52,6 +54,9 @@ final class LoginModel extends Entity
         $this->verificarSeUsuarioJaExiste();
         if (!empty($this->idUsuario)) {
             $this->atualizarUsuarioJaExistente();
+            return;
+        } elseif (array_key_exists('termo_lgpd', $request) && $request['termo_lgpd'] == 'nao') {
+            $this->lgpd = true;
             return;
         }
         $this->salvarNovoUsuario();
@@ -65,18 +70,22 @@ final class LoginModel extends Entity
     private function verificarCamposObrigatorio(): void
     {
         $request = $this->request;
-        if (!$request->existe('nome')) {
+        $nome = $request['nome'] ?? '';
+        $cpf = $request['cpf'] ?? '';
+        $emailPessoal = $request['email_pessoal'] ?? '';
+        $emailTrabalho = $request['email_trabalho'] ?? '';
+        if (empty($nome)) {
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } elseif (!$request->existe('cpf')) {
+        } elseif (empty($cpf)) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
-        } elseif (!$request->existe('email_pessoal') && !$request->existe('email_trabalho')) {
+        } elseif (empty($emailTrabalho) && empty($emailPessoal)) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail.');
         }
         return;
     }
     private function validarRequest()
     {
-        $dado = $this->dadoUsuario;
+        $dado = $this->request;
         $nome = new Nome($dado['nome'] ?? '');
         $cpf = new Cpf($dado['cpf'] ?? '');
         $matricula = $dado['matricula'] ?? '';
@@ -95,6 +104,7 @@ final class LoginModel extends Entity
         $grupo = strCaixaAlta($dado['grupo'] ?? '');
         $crmNumero = $dado['crm_numero'] ?? '';
         $crmEstado = new EnderecoEstado($dado['crm_estado'] ?? '');
+        $termo = $dado['termo_lgpd'] ?? '';
 
         $estadoLista = (new ListaHelper())->uf()->add('FU', 'FU')->r();
 
@@ -168,5 +178,8 @@ final class LoginModel extends Entity
             'hash_data' => agora(),
             'status' => 1
         ]);
+        if ($termo == 'sim') {
+            $this->dadoUsuario['data_termo'] = hoje();
+        }
     }
 }

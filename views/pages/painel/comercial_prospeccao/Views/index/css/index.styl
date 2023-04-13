@@ -1,0 +1,152 @@
+.bloco_kambam_index
+    width: 100%
+    padding: 20px 0 20px 20px
+    overflow-x: auto
+    .conteudo_geral
+        width: 100%
+        display: flex
+        flex-direction: row
+
+.bloco_kambam_index .bloco_coluna
+    width: calc(100% / 4)
+    margin-right: 20px
+    > header
+        width: 100%
+        display: flex
+        flex-direction: row
+        align-items: center
+    > header h1
+        height: 30px
+        line-height: 30px
+        font-weight: bold
+        font-size: 1.8rem
+        color: #666
+    > header .botao
+        height: 25px
+        line-height: 25px
+        border-radius: 13px
+        background: $cor
+        padding: 0 10px
+        margin-left: 10px
+        color: #FFF
+        font-size: 1.4rem
+        cursor: pointer
+    > header i
+        width: 25px
+        height: 25px
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        font-size: 2rem
+        color: #999
+        cursor: pointer
+        &.hide
+            display: none
+    > header .flex
+        flex-grow: 1
+        flex-basis: 0%
+    .conteudo
+        width: 100%
+        height: calc(100vh - 135px)
+        margin-top: 5px
+        overflow-y: auto
+    .conteudo .tarefa_zero
+        width: 100%
+        padding: 50px 0
+        font-size: 1.3rem
+        color: #999
+        background-color: #FFF
+        border-radius: 5px
+        text-align: center
+        &.hide
+            display: none
+    .conteudo article
+        width: 100%
+        position: relative
+        background: #FFF
+        box-shadow: 0 4px 4px rgba(0,0,0,.1)
+        border-radius: 4px
+        margin-top: 20px
+        transition: opacity .3s ease-out
+        overflow: hidden
+        flexCol()
+        align-items: flex-start
+        &:first-child
+            margin-top: 0
+    .conteudo:hover article
+        opacity: .5
+    .conteudo:hover article:hover
+        opacity: 1
+    .conteudo article header
+        width: 100%
+        padding: 15px 10px 0
+    .conteudo article header h1
+        width: 100%
+        font-size: 1.5rem
+        color: #333
+        font-weight: bold
+    .conteudo article header p
+        width: 100%
+        max-height: 4.5em
+        line-height: 1.5em
+        font-size: 1.5rem
+        color: #999
+        margin-top: 5px
+        overflow: hidden
+    .conteudo article .botao_link
+        background-color: $corLink
+        color: #FFF
+        texto()
+        padding: 1px 10px
+        border-radius: 20px
+        margin: 10px 0 15px 10px
+    .conteudo article .bloco
+        width: 100%
+        flexRow()
+        padding: 10px 10px 10px 5px
+        border-top: 1px solid #DDD
+        align-items: center
+    .conteudo article .bloco .icone
+        width: 30px
+        height: 30px
+        flexCenter()
+        margin-left: 5px
+        fill: #666
+        cursor: pointer
+    .conteudo article .bloco .inativar
+    .conteudo article .bloco .ativar
+        width: 27px
+        height: 27px
+        flexCenter()
+        border-radius: 50%
+        fill: #FFF
+        margin-left: 10px
+        cursor: pointer
+        opacity: .7
+        transition: opacity .3s ease-out
+        &:hover
+            opacity: 1
+    .conteudo article .bloco .inativar
+        background-color: $corVermelho
+    .conteudo article .bloco .ativar
+        background-color: $corVerde
+    .conteudo article .bloco .grow
+        flexGrow()
+    .conteudo article .bloco .linha
+        width: 1px
+        height: 30px
+        background-color: #DDD
+        margin-left: 10px
+    .conteudo article .bloco .seta
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        opacity: .5
+        transition: opacity .3s ease-out
+        &:hover
+            opacity: 1
+    .conteudo article .bloco .seta_inativa
+        color: #CCC
+        cursor: default

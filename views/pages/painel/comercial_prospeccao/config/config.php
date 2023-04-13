@@ -3,16 +3,16 @@
 use App\Classes\ComercialEmpresa\Helper;
 
 return [
-    'titulo' => 'Comercial',
-    'buscar' => true,
-    'filtrar' => true,
-    'ordem' => true,
-    'visualizar' => true,
-    'add' => false,
-    'editar' => true,
+    'titulo' => 'Prospecção',
+    'buscar' => false,
+    'filtrar' => false,
+    'ordem' => false,
+    'visualizar' => false,
+    'add' => true,
+    'editar' => false,
     'deletar' => false,
-    'download' => true,
-    'historico' => true,
+    'download' => false,
+    'historico' => false,
     'api' => [
         'scope' => 'comercial_empresa',
         'uri' => '/comercial-empresa',
