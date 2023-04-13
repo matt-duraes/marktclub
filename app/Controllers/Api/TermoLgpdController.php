@@ -13,7 +13,7 @@ final class TermoLgpdController extends Controller
     {
         $path = DIRETORIO_PRIVADO . '/lgpd/' . $hash . '.json';
         $dado = pegarArquivo($path);
-        // deletarArquivo($path);
+        deletarArquivo($path);
         if (
             !is_array($dado) ||
             !array_key_exists('usuario', $dado) ||
