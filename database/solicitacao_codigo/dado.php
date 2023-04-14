@@ -27,6 +27,7 @@ for ($i = 0; $i < 40; $i++) {
     $array[] = [
         'id_parceiro_loja' => [4207, 15612][rand(0, 1)],
         'codigo' => strCodigo(8),
+        'data_vencimento' => dataAdicionar(hoje(), 2, 'meses'),
         'status' => 1
     ];
 }
