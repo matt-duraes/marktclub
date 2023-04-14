@@ -7,7 +7,6 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
-use Helpers\CryptHelper;
 
 final class AppController extends PadraoController
 {
@@ -50,6 +49,7 @@ final class AppController extends PadraoController
         if ($dado instanceof Response) {
             return $dado;
         }
+
         $dado->dado->lista = $this->tratarListaDeRetorno($dado->dado->lista, $config->api->criptografar);
 
         return view(

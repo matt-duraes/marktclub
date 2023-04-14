@@ -7,6 +7,7 @@ use Http\Response;
 use Controller\Controller;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Models\Api\UsuarioEquipe\EquipeModel;
+use App\Models\Api\UsuarioEquipe\SelectModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
@@ -133,11 +134,13 @@ final class UsuarioEquipeController extends Controller implements
 
     public function getSelect(Request $request)
     {
-        $Equipe = new EquipeModel();
-        $select = $Equipe->pegarSelect('uuid', 'nome_real', [
-            ['status', 1]
-        ], titulo: $request->titulo);
+        $Equipe = new SelectModel($request);
+        return mensagemSucesso($Equipe->listarSelect());
+    }
 
-        return mensagemSucesso($select);
+    public function getPerfil(Request $request)
+    {
+        $Equipe = new SelectModel($request);
+        return mensagemSucesso($Equipe->listarPerfil());
     }
 }

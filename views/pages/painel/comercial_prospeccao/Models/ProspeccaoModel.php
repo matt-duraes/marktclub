@@ -43,9 +43,9 @@ final class ProspeccaoModel
             $retorno[] = (object)[
                 'id' => $r['id'],
                 'usuario' => (object)[
-                    'id' => '',
-                    'imagem' => '',
-                    'nome' => '',
+                    'id' => $r['usuario']['id'] ?? '',
+                    'nome' => $this->Crypt->decode($r['usuario']['nome']),
+                    'imagem' => $this->Crypt->decode($r['usuario']['imagem'])
                 ],
                 'titulo' => $this->Crypt->decode($r['titulo']),
                 'cnpj' => strCnpj($this->Crypt->decode($r['cnpj'])),

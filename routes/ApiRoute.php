@@ -410,6 +410,12 @@ Route
             ::get('/usuario-equipe/select');
 
         Route
+            ::nome('perfil')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
+            ::request(['!titulo'], 'json')
+            ::get('/usuario-equipe/perfil');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:buscar'])
             ::get('/usuario-equipe/{id}');
@@ -884,7 +890,7 @@ Route::nome('comercial_empresa')
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
-            ::request(['pagina', '!prospeccao_status', '!status', '!quantidade'], 'json')
+            ::request(['pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario', '!prospeccao_status', '!status', '!quantidade'], 'json')
             ::get('/comercial-empresa');
 
         Route

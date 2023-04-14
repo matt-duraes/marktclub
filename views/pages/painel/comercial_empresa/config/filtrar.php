@@ -11,8 +11,9 @@ $Painel
         label: 'Título',
         placeholder: 'Digite o título, nome fantasia ou razão social'
     )
+    ->cnpj(name: 'cnpj', titulo: 'CNPJ', label: 'CNPJ')
     ->select(
-        name: 'equipe',
+        name: 'usuario',
         titulo: 'Gestor do contrato',
         label: 'Gestor do contrato',
         lista: 'usuario'

@@ -29,9 +29,9 @@ $appLink = str_replace('_', '-', $app);
             <?php
             if (!empty($busca->ordem)) :
                 $valorOrder = $busca->ordem;
-            ?>
+                ?>
                 <div class="bloco ordem">ordem:<span><?= $busca->ordem_titulo ?></span><button type="button" data-indice="ordem" class="botao_filtro_limpar"><?= iconeFechar(8) ?></button></div>
-            <?php
+                <?php
             endif;
             ?>
         </div>
@@ -48,13 +48,21 @@ $appLink = str_replace('_', '-', $app);
                 </div>
             <?php endif; ?>
             <div class="dado">
+                <?php $primeiro = true; ?>
                 <?php foreach ($config->index->grade as $grade) : ?>
-                    <?php if ($grade['tipo'] == 'status') : ?>
+                    <?php if (array_key_exists('formatar', $grade) && $grade['formatar'] == 'imagem' || array_key_exists('campo', $grade) && $grade['campo'] == 'usuario') : ?>
+                        <div class="td imagem_usuario imagem"></div>
+                    <?php elseif ($grade['tipo'] == 'status') : ?>
                         <div class="td status"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
                         <div class="barra"></div>
                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
-                        <div class="td <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
+                        <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
                         <div class="barra"></div>
+                        <?php
+                        if ($primeiro) {
+                            $primeiro = false;
+                        }
+                        ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
@@ -67,13 +75,21 @@ $appLink = str_replace('_', '-', $app);
                 <div class="checkbox"></div>
             <?php endif; ?>
             <div class="dado">
+                <?php $primeiro = true; ?>
                 <?php foreach ($config->index->grade as $grade) : ?>
-                    <?php if ($grade['tipo'] == 'status') : ?>
+                    <?php if (array_key_exists('formatar', $grade) && $grade['formatar'] == 'imagem' || array_key_exists('campo', $grade) && $grade['campo'] == 'usuario') : ?>
+                        <div class="td imagem_usuario imagem"></div>
+                    <?php elseif ($grade['tipo'] == 'status') : ?>
                         <div class="td status"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
                         <div class="barra"></div>
                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
-                        <div class="td <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
+                        <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
                         <div class="barra"></div>
+                        <?php
+                        if ($primeiro) {
+                            $primeiro = false;
+                        }
+                        ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
@@ -102,20 +118,23 @@ $appLink = str_replace('_', '-', $app);
 
                         <?php if ($config->permissao->editar || $config->permissao->visualizar) : ?>
                             <a href="<?= str_replace(['{app}', '{id}'], [$appLink, $r->id], $config->abrir) ?>" class="dado">
-                            <?php else : ?>
+                        <?php else : ?>
                                 <div class="dado">
-                                <?php endif; ?>
+                        <?php endif; ?>
+                                <?php $primeiro = true; ?>
                                 <?php foreach ($config->index->grade as $grade) : ?>
-                                    <?php if ($grade['tipo'] == 'status') : ?>
-                                        <?php
-                                        $statusValor = painelValor($r, $grade['campo']);
-                                        $texto = '';
-                                        $cor = '';
-                                        if (array_key_exists($statusValor, $grade['valor'])) {
-                                            $texto = $grade['valor'][$statusValor]['nome'];
-                                            $cor = painelCor($grade['valor'][$statusValor]['cor']);
-                                        }
-                                        ?>
+                                    <?php if (array_key_exists('formatar', $grade) && $grade['formatar'] == 'imagem' || array_key_exists('campo', $grade) && $grade['campo'] == 'usuario') : ?>
+                                        <div class="td imagem_usuario imagem"><figure data-ajuda="<?= $r->usuario->nome ?>" style="background-image: url(<?= $r->usuario->imagem ?>)"></figure></div>
+                                    <?php elseif ($grade['tipo'] == 'status') : ?>
+                                            <?php
+                                            $statusValor = painelValor($r, $grade['campo']);
+                                            $texto = '';
+                                            $cor = '';
+                                            if (array_key_exists($statusValor, $grade['valor'])) {
+                                                $texto = $grade['valor'][$statusValor]['nome'];
+                                                $cor = painelCor($grade['valor'][$statusValor]['cor']);
+                                            }
+                                            ?>
                                         <div class="td status" data-ajuda="<?= $texto ?>">
                                             <span style="background-color: <?= $cor ?>"></span>
                                         </div>
@@ -127,21 +146,26 @@ $appLink = str_replace('_', '-', $app);
                                         </div>
                                         <div class="barra"></div>
                                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
-                                        <div class="td <?= $grade['tipo'] ?>">
+                                        <div class="td <?= $primeiro == true ? 'primeiro' : ''?> <?= $grade['tipo'] ?>">
                                             <?= painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '') ?>
                                         </div>
                                         <div class="barra"></div>
+                                        <?php
+                                        if ($primeiro) {
+                                            $primeiro = false;
+                                        }
+                                        ?>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                                 <?php if ($config->permissao->editar || $config->permissao->visualizar) : ?>
                             </a>
-                        <?php else : ?>
+                                <?php else : ?>
                     </div>
-                <?php endif; ?>
+                                <?php endif; ?>
                 </div>
     </div>
-<?php endforeach; ?>
-<?php elseif ($filtro) : ?>
+            <?php endforeach; ?>
+        <?php elseif ($filtro) : ?>
     <div class="sem_registro">
         <div class="conteudo">
             <i><?= iconeBuscar() ?></i>
@@ -150,7 +174,7 @@ $appLink = str_replace('_', '-', $app);
             <a class="limpar" href="<?= LINK ?>/app/<?= $appLink ?><?= !empty($busca->ordem) ? '?ordem=' . $busca->ordem : '' ?>">LIMPAR BUSCA</a>
         </div>
     </div>
-<?php elseif ($dado->pagina->total > 0 && $dado->pagina->atual > $dado->pagina->total) : ?>
+        <?php elseif ($dado->pagina->total > 0 && $dado->pagina->atual > $dado->pagina->total) : ?>
     <div class="sem_registro">
         <div class="conteudo">
             <i><?= iconeAdd(20) ?></i>
@@ -159,7 +183,7 @@ $appLink = str_replace('_', '-', $app);
             <a class="add" href="<?= LINK ?>/<?= $URI ?>pagina=1">VOLTAR</a>
         </div>
     </div>
-<?php else : ?>
+        <?php else : ?>
     <div class="sem_registro">
         <div class="conteudo">
             <i><?= iconeAdd(20) ?></i>
@@ -170,7 +194,7 @@ $appLink = str_replace('_', '-', $app);
             <?php endif; ?>
         </div>
     </div>
-<?php endif; ?>
+        <?php endif; ?>
 </div>
 
 <?php if ($dado->registro->total > 0 && $dado->pagina->atual > 0 && $dado->pagina->atual <= $dado->pagina->total) : ?>
