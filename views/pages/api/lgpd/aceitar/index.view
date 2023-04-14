@@ -16,7 +16,8 @@
 <div id="site">
     <figure><img src="{!!$logo!!}"></figure>
     <header>
-        <h1>TERMO DE USO E CONSENTIMENTO DO CFM+ BENEFÍCIOS CLUBE DE VANTAGENS DO CONSELHO FEDERAL DE MEDICINA</h1>
+        <h1>TERMO DE USO E CONSENTIMENTO DO CFM+ BENEFÍCIOS</h1>
+        <p>CLUBE DE VANTAGENS DO CONSELHO FEDERAL DE MEDICINA</p>
     </header>
 
     <div class="texto">

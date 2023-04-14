@@ -2,7 +2,6 @@
 
 use Helpers\ListaHelper;
 use App\Classes\ComercialEmpresa\Status;
-use App\Classes\ComercialEmpresa\EnderecoLocal;
 
 $Painel = new PainelConfig\Visualizar('comercial_empresa');
 
