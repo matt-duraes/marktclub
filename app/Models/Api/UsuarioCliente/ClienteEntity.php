@@ -64,7 +64,8 @@ final class ClienteEntity extends Entity
         'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'grupo', 'tipo', 'federacao'
     ];
     protected string $ormValidarSalvar = '
-        documento|CPF|cpf
+        nome|Nome|valido
+        cpf|CPF|valido
         genero|Gênero|valido
         data_nascimento|Data Nascimento|dataDate
         email_trabalho|E-mail de trabalho|email
