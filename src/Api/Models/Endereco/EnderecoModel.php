@@ -61,7 +61,6 @@ final class EnderecoModel extends ORM implements ModelListarInterface
             ->group('titulo')
             ->order('id', 'DESC')
             ->read();
-        ppe($dado);
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
