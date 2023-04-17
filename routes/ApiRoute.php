@@ -590,6 +590,7 @@ Route
             ::middleware(App\Middlewares\SistemaMiddleware::class, 'tipo', ['HOMOLOGACAO'])
             ::view('/login/api-ok/{hash}');
     });
+
 Route
     ::nome('termoLgpd')
     ::controller(App\Controllers\Api\TermoLgpdController::class)
@@ -601,6 +602,19 @@ Route
             ::nome('salvar')
             ::request(['hash', 'termo'])
             ::post('/termo-lgpd');
+    });
+
+Route
+    ::nome('turismo')
+    ::controller(App\Controllers\Api\TurismoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('token')
+            ::request(['usuario', 'ip', 'memoria', 'user_agent'])
+            ::post('/turismo/token');
+        Route
+            ::nome('validarUsuario')
+            ::get('/turismo/validar-usaurio/{usuario}');
     });
 
 Route
@@ -890,7 +904,13 @@ Route::nome('comercial_empresa')
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
-            ::request(['pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario', '!prospeccao_status', '!status', '!quantidade'], 'json')
+            ::request(
+                [
+                    'pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario', '!prospeccao_status',
+                    '!status', '!quantidade'
+                ],
+                'json'
+            )
             ::get('/comercial-empresa');
 
         Route
