@@ -612,6 +612,7 @@ Route
             ::nome('token')
             ::request(['usuario', 'ip', 'memoria', 'user_agent'])
             ::post('/turismo/token');
+
         Route
             ::nome('validarUsuario')
             ::get('/turismo/validar-usaurio/{usuario}');

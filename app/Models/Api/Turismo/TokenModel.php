@@ -21,7 +21,7 @@ final class TokenModel extends CurlHelper
         parent::__construct(env('MILHAS_API_LINK'));
         $this->partnerId = env('MILHAS_API_PARTNER_ID');
         $this->linkWhiteLabel = env('MILHAS_API_WHITELABEL');
-        $this->apiRetorno = 'https://apiv4.marktclub.net.br/turismo/validar-usaurio/' . $this->Usuario->id;
+        $this->apiRetorno = env('MILHAS_API_RETORNO') . $this->Usuario->id;
 
         $token = $this->buscarToken();
         $this->setarLink($token);

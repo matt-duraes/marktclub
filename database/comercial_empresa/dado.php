@@ -62,6 +62,7 @@ return [
         'status' => 1
     ],
     [
+        'cod' => uuid(),
         'id_usuario_equipe' => 1,
         'titulo' => 'Prospecção Nome 01',
         'razao_social' => 'Prospecção Nome 01',
@@ -72,9 +73,11 @@ return [
         'responsavel_email' => emailAleatorio(),
         'responsavel_telefone' => telefoneCelularAleatorio(),
         'prospeccao_status' => 1,
+        'slug' => 'nome-01',
         'status' => 3
     ],
     [
+        'cod' => uuid(),
         'id_usuario_equipe' => 1,
         'titulo' => 'Prospecção Nome 02',
         'razao_social' => 'Prospecção Nome 02',
@@ -85,9 +88,11 @@ return [
         'responsavel_email' => emailAleatorio(),
         'responsavel_telefone' => telefoneCelularAleatorio(),
         'prospeccao_status' => 1,
+        'slug' => 'nome-02',
         'status' => 3
     ],
     [
+        'cod' => uuid(),
         'id_usuario_equipe' => 1,
         'titulo' => 'Prospecção Nome 03',
         'razao_social' => 'Prospecção Nome 03',
@@ -98,6 +103,7 @@ return [
         'responsavel_email' => emailAleatorio(),
         'responsavel_telefone' => telefoneCelularAleatorio(),
         'prospeccao_status' => 1,
+        'slug' => 'nome-03',
         'status' => 3
     ],
 ];

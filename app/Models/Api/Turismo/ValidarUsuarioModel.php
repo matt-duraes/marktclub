@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\Turismo;
 
-use ORM\ORM;
 use App\Models\Api\Analytics\HelperModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 
@@ -21,14 +20,14 @@ final class ValidarUsuarioModel
         $Helper = new HelperModel();
         $registro = $Helper->pegarUltimoRegistroPeloUsuario($this->Usuario->get('id'), ['data_criacao']);
         if (!is_array($registro) || !array_key_exists('data_criacao', $registro)) {
-            mensagemStatus(401);
+            mensagemStatus(403);
         }
         $this->ultimaData = dataAdicionar($registro['data_criacao'], 10, 'minutos');
     }
     private function validarDataDoRegistro()
     {
         if ($this->ultimaData < agora()) {
-            mensagemStatus(401);
+            mensagemStatus(403);
         }
     }
 }
