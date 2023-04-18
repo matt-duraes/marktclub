@@ -100,7 +100,7 @@ window.addEventListener('load', () => {
         } else {
             body = new FormData();
         }
-        let tipo, isArray, name, value, inputFile, inputReal, lista;
+        let tipo, isArray, name, mascara, value, lista;
         let ArrayLista = [];
         listaInput.forEach(input => {
             if (input.classList.contains('fw_form_tag')) {
@@ -119,10 +119,13 @@ window.addEventListener('load', () => {
 
             tipo = input.getAttribute('type');
             name = input.getAttribute('name');
+            mascara = input.getAttribute('data-mascara');
             isArray = /\[\]$/.test(name);
 
             if (name == undefined || /^\_/.test(name)) {
                 return;
+            } else if (mascara == 'dinheiro') {
+                value = input.value.replace(/\./g, '').replace(',', '.');
             } else if (tipo == 'checkbox' && isArray && input.checked) {
                 value = input.value;
             } else if (tipo == 'checkbox' && isArray && !input.checked) {
