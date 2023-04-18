@@ -22,7 +22,7 @@ final class ValidarUsuarioModel
         if (!is_array($registro) || !array_key_exists('data_criacao', $registro)) {
             mensagemStatus(403);
         }
-        $this->ultimaData = dataAdicionar($registro['data_criacao'], 10, 'minutos', 'Y-m-d H:i:s');
+        $this->ultimaData = dataAdicionar($registro['data_criacao'], 20, 'minutos', 'Y-m-d H:i:s');
     }
     private function validarDataDoRegistro()
     {
