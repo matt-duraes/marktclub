@@ -8,7 +8,7 @@
                 <div class="flex"></div>
                 <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
             </header>
-            <div class="conteudo" id="bloco_abordagem" data-bloco="abordagem">
+            <div class="conteudo" id="bloco_abordagem" data-prospeccao="abordagem">
                 @ifforeach($abordagem as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
@@ -21,7 +21,7 @@
             <header>
                 <h1>Apresentação</h1>
             </header>
-            <div class="conteudo" id="bloco_apresentacao" data-bloco="apresentacao">
+            <div class="conteudo" id="bloco_apresentacao" data-prospeccao="apresentacao">
                 @ifforeach($apresentacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
@@ -34,7 +34,7 @@
             <header>
                 <h1>Negociação</h1>
             </header>
-            <div class="conteudo" id="bloco_negociacao" data-bloco="negociacao">
+            <div class="conteudo" id="bloco_negociacao" data-prospeccao="negociacao">
                 @ifforeach($negociacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
@@ -47,7 +47,7 @@
             <header>
                 <h1>Em Avaliação</h1>
             </header>
-            <div class="conteudo" id="bloco_avaliacao" data-bloco="avaliacao">
+            <div class="conteudo" id="bloco_avaliacao" data-prospeccao="avaliacao">
                 @ifforeach($avaliacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
@@ -60,7 +60,7 @@
             <header>
                 <h1>Minuta Enviada</h1>
             </header>
-            <div class="conteudo" id="bloco_minuta" data-bloco="minuta">
+            <div class="conteudo" id="bloco_minuta" data-prospeccao="minuta">
                 @ifforeach($minuta as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;

@@ -13,4 +13,12 @@ Route
         Route
             ::nome('lista')
             ::view('/comercial-prospeccao');
+        Route
+            ::nome('atualizarStatus')
+            ::request(['status', 'id'])
+            ::post('/comercial-prospeccao/atualizar-status');
+        Route
+            ::nome('atualizarProspeccao')
+            ::request(['prospeccao', 'id'])
+            ::post('/comercial-prospeccao/atualizar-prospeccao');
     });

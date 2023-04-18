@@ -11,7 +11,7 @@
 
         <div class="linha"></div>
         <i class="inativar botao_item_cancelar" data-ajuda="Finalizar contrato">@iconeFechar(10)</i>
-        <i class="ativar botao_item_concluir" data-ajuda="Contrato fechado">@iconeCheck(12)</i>
+        <i class="ativar botao_item_concluir" data-ajuda="Concluir contrato">@iconeCheck(12)</i>
 
         <div class="grow"></div>
 

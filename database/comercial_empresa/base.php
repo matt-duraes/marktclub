@@ -29,5 +29,5 @@ return (new \DataBase\DataBase())
     ->char('estado_principal')->tamanho(2)->null()
     ->dataCriacao()
     ->dataAtualizacao()
-    ->int('prospecao_status')->tamanho(1)->null()
+    ->int('prospeccao_status')->tamanho(1)->null()
     ->status();
