@@ -17,7 +17,7 @@ final class CriarOutroModel
         private string $texto,
         private string $tipo
     ) {
-        $this->criarDemanda($titulo, $tipo);
+        $this->criarDemanda($titulo, $tipo, 'ti');
         $this->verificarSeSalvouDemanda();
         $this->salvarTarefa('nao-definido', $titulo, $texto);
     }

@@ -3,6 +3,7 @@
         <h1>NOVA TAREFA</h1>
     </header>
     <form class="form_geral conteudo_pagina_popup">
+        @ if( $area == 'ti' ):
         <div class="botao_lista" id="bloco_tipo_demanda">
             <h2>Qual tipo de tarefa deseja criar?</h2>
             <p>Para facilitar a vida de todos, tenha certeza de abrir a demanda na categoria correta!</p>
@@ -12,9 +13,9 @@
             <div class="botao" data-tipo="associacao">Site Associação</div>
             <div class="botao" data-tipo="feature">Feature</div>
             <div class="botao" data-tipo="outro">Outros</div>
-
             <input type="hidden" id="input_tipo">
         </div>
+        @ endif;
 
         <div class="geral display_none" id="bloco_geral_header">
             <h3>Dados principais</h3>
@@ -35,6 +36,12 @@
         <div class="bloco_conjunto display_none" id="bloco_tipo_outro">
             @view "painel/demanda/demanda-salvar/outro"
         </div>
+
+        @ if( $area == 'criacao' ):
+        <div class="bloco_conjunto">
+            @view "painel/demanda/demanda-salvar/outro"
+        </div>
+        @ endif;
 
         <div class="geral display_none" id="bloco_geral_footer">
             <h3>Outros dados</h3>

@@ -284,19 +284,31 @@ return [
         'titulo' => 'DEMANDA',
         'ordem' => '++',
         'status' =>  1,
-        'permissao' => '["demanda_quadro","log_erro_index"]'
+        'permissao' => '["demanda_tecnologia", "demanda_criacao","log_erro_index"]'
     ],
     [
         'id' => '++',
         'id_admin_empresa' => 1,
         'tipo' => 3,
-        'titulo' => 'Quadro',
-        'url' => '/demanda',
-        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path d="M11.8,11c-0.5,0-0.8,0.4-0.8,0.8v16.4c0,0.5,0.4,0.8,0.8,0.8h3.3c0.5,0,0.8-0.4,0.8-0.8V11.8c0-0.5-0.4-0.8-0.8-0.8H11.8z M12.6,27.4V12.6h1.6v14.8H12.6z"/><path d="M17.5,11.8c0-0.5,0.4-0.8,0.8-0.8h3.3c0.5,0,0.8,0.4,0.8,0.8v6.6c0,0.5-0.4,0.8-0.8,0.8h-3.3c-0.5,0-0.8-0.4-0.8-0.8V11.8z M19.2,12.6v4.9h1.6v-4.9H19.2z"/><path d="M24.9,11c-0.5,0-0.8,0.4-0.8,0.8v11.5c0,0.5,0.4,0.8,0.8,0.8h3.3c0.5,0,0.8-0.4,0.8-0.8V11.8c0-0.5-0.4-0.8-0.8-0.8H24.9z M27.4,22.5h-1.6v-9.8h1.6V22.5z"/><path d="M11,6.9c-2.3,0-4.1,1.8-4.1,4.1V29c0,2.3,1.8,4.1,4.1,4.1H29c2.3,0,4.1-1.8,4.1-4.1V11c0-2.3-1.8-4.1-4.1-4.1H11z M8.5,11c0-1.4,1.1-2.5,2.5-2.5H29c1.4,0,2.5,1.1,2.5,2.5V29c0,1.4-1.1,2.5-2.5,2.5H11c-1.4,0-2.5-1.1-2.5-2.5V11z"/></svg>',
+        'titulo' => 'Tecnologia',
+        'url' => '/demanda/tecnologia',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M8.3,9.1v9.2h13.4V9.1H8.3z M6.6,8.3c0-0.5,0.4-0.8,0.8-0.8h15.1c0.5,0,0.8,0.4,0.8,0.8V20H6.6V8.3z M5.8,20.9h18.5v1.7H5.8V20.9z"/></svg>',
         'ordem' => '++',
-        'menu' => ['demanda-quadro'],
+        'menu' => ['demanda-tecnologia'],
         'status' =>  1,
-        'permissao' => '["demanda_quadro"]'
+        'permissao' => '["demanda_tecnologia"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Criação',
+        'url' => '/demanda/criacao',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M9.2,11.7v9.9h3.3v-9.9H9.2z M7.6,10.9l3.3-4.1l3.3,4.1v12.3H7.6V10.9z M20.8,18.3v-1.6h-2.5V15h2.5v-1.6h-1.6v-1.6h1.6v-1.6h-3.3v11.5h3.3v-1.6h-1.6v-1.6H20.8z M16.6,8.4h4.9c0.5,0,0.8,0.4,0.8,0.8v13.2c0,0.5-0.4,0.8-0.8,0.8h-4.9c-0.5,0-0.8-0.4-0.8-0.8V9.2C15.8,8.8,16.2,8.4,16.6,8.4z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['demanda-criacao'],
+        'status' =>  1,
+        'permissao' => '["demanda_criacao"]'
     ],
     [
         'id' => '++',

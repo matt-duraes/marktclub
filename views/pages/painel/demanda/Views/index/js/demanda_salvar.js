@@ -1,4 +1,5 @@
 const demandaSalvar = () => {
+    const area = document.querySelector('#input_area').value || '';
     const inputTipo = document.getElementById('input_tipo');
     const inputTitulo = document.getElementById('input_titulo');
     const inputTexto = document.getElementById('input_texto');
@@ -302,6 +303,7 @@ const demandaSalvar = () => {
             texto += inputTexto.value;
 
             const body = new FormData();
+            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaCliente.value);
             body.append('dominio_tipo', inputDominioTipo.value);
@@ -361,6 +363,7 @@ const demandaSalvar = () => {
             texto += inputTexto.value;
 
             const body = new FormData();
+            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaAssociacao.value);
             body.append('texto', texto);
@@ -394,6 +397,7 @@ const demandaSalvar = () => {
     const montarDadoOutro = () => {
         return new Promise(resolve => {
             const body = new FormData();
+            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('titulo', inputTitulo.value);
             body.append('empresa', inputEmpresaOutro.value);
@@ -430,6 +434,7 @@ const demandaSalvar = () => {
     const montarDadoBug = () => {
         return new Promise(resolve => {
             const body = new FormData();
+            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('titulo', inputTitulo.value);
             body.append('local', inputBugLocal.value);

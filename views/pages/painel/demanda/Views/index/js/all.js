@@ -8,7 +8,7 @@
 
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
-
+    const area = document.querySelector('#input_area').value || '';
     /*
     |--------------------------------------------------------------------------
     | ABRIR ADD NOVO
@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
     const botaoAdd = document.getElementById('botao_add_tarefa');
     const PaginaAddTarefa = new Pagina(
         'demanda-salvar',
-        LINK + '/demanda/demanda-salvar',
+        LINK + '/demanda/demanda-salvar/' + area,
         {},
         true,
         true,

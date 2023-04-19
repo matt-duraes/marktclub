@@ -18,7 +18,7 @@ Route
             ::view('/demanda/demanda/{id}');
         Route
             ::nome('demandaSalvar')
-            ::view('/demanda/demanda-salvar');
+            ::view('/demanda/demanda-salvar/{area}');
         Route
             ::nome('tarefaSalvar')
             ::view('/demanda/tarefa-salvar/{demanda}');

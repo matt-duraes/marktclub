@@ -15,7 +15,7 @@ final class CriarAssociacaoModel
         private string $empresa,
         private string $texto
     ) {
-        $this->criarDemanda('Novo site para associação', 'novo-associacao');
+        $this->criarDemanda('Novo site para associação', 'novo-associacao', 'ti');
         $this->verificarSeSalvouDemanda();
         $this->salvarTarefa('nao-definido', 'Novo site para associação', $texto);
     }

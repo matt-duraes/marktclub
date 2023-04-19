@@ -951,7 +951,7 @@ Route::nome('demandaDado')
         Route
             ::nome('listar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
-            ::request(['status', 'ordem'], 'json')
+            ::request(['status', 'area', 'ordem'], 'json')
             ::get('/demanda-dado');
 
         Route
@@ -962,7 +962,7 @@ Route::nome('demandaDado')
         Route
             ::nome('salvar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
-            ::request(['empresa', 'titulo', 'tipo'])
+            ::request(['empresa', 'titulo', 'tipo', 'area'])
             ::post('/demanda-dado');
 
         Route

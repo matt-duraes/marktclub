@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Data;
 use Modules\Botao;
 use Modules\DataHora;
+use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
@@ -20,10 +21,10 @@ final class DemandaEntity extends Entity
     protected string $ormTabela = TABELA_DEMANDA_DADO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo',
-        'arquivo', 'com_prazo', 'data_entrega'
+        'arquivo', 'com_prazo', 'data_entrega', 'data_criacao'
     ];
     protected array $ormInsert = [
-        'tipo'
+        'tipo', 'area'
     ];
     protected array $ormSalvar = [
         'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega',
@@ -32,6 +33,7 @@ final class DemandaEntity extends Entity
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
         tipo|Tipo|vazio|valido
+        area|Área|vazio|valido
         status|Status|vazio|valido
         data_entrega|Data da entrega|valido
     ';
@@ -61,7 +63,8 @@ final class DemandaEntity extends Entity
     public function __construct(
         public ?string $titulo = null,
         public null|string|array $empresa = null,
-        public ?Tipo $tipo = null
+        public ?Tipo $tipo = null,
+        public ?Area $area = null
     ) {
         parent::__construct();
     }

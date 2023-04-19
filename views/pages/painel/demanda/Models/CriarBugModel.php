@@ -23,7 +23,7 @@ final class CriarBugModel
             $this->empresa = '14afa776394ada4be23be6acf7e3259e';
         }
 
-        $this->criarDemanda($titulo, 'bug-' . $local);
+        $this->criarDemanda($titulo, 'bug-' . $local, 'ti');
         $this->verificarSeSalvouDemanda();
         $this->salvarTarefa('nao-definido', $titulo, $texto);
         $this->notificarUsuario();

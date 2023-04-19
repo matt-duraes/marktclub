@@ -9,6 +9,7 @@ use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use Painel\Demanda\Models\ListaModel;
 use Painel\Demanda\Models\DetalheModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
@@ -29,11 +30,9 @@ final class DemandaController extends Controller
     {
         return view('painel.demanda.index', [
             'app' => 'demanda',
-            'nova' => $this->buscarDemanda('nova', 'mais-novo'),
-            'liberada' => $this->buscarDemanda('liberada', 'ordem'),
-            'andamento' => $this->buscarDemanda('andamento', 'mais-novo'),
-            'teste' => $this->buscarDemanda('teste', 'mais-novo'),
-            'concluida' => $this->buscarDemanda('concluida', 'mais-novo'),
+            'appTitulo' => 'Demanda TI',
+            'area' => 'ti',
+            'quadro' => (new ListaModel())->quadroTi(),
             'Tipo' => new Tipo(),
             'Area' => new DemandaTarefaTipo()
         ]);
@@ -54,7 +53,7 @@ final class DemandaController extends Controller
         ]);
     }
 
-    public function demandaSalvar()
+    public function demandaSalvar(string $area)
     {
 
         $empresa = $this->Api
@@ -63,7 +62,8 @@ final class DemandaController extends Controller
             ->array();
 
         return view('painel.demanda.demanda-salvar', [
-            'empresa' => $empresa['dado'] ?? []
+            'empresa' => $empresa['dado'] ?? [],
+            'area' => $area
         ]);
     }
 
@@ -179,15 +179,6 @@ final class DemandaController extends Controller
             'tipoLista' => $Tipo->select('Escolha uma opção'),
             'r' => $tarefa->dado
         ]);
-    }
-
-    private function buscarDemanda($status, $ordem)
-    {
-        $lista = $this->Api->json([
-            'status' => $status,
-            'ordem' => $ordem
-        ])->get('/demanda-dado')->object();
-        return $lista->dado ?? [];
     }
 
     public function postDemandaSalvar(Request $request)

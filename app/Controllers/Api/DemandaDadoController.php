@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
@@ -33,7 +34,7 @@ final class DemandaDadoController extends Controller implements
                 $Demanda,
                 lista: [
                     'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
-                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'arquivo', 'status'
+                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'data_criacao', 'arquivo', 'status'
                 ]
             )
         );
@@ -43,7 +44,8 @@ final class DemandaDadoController extends Controller implements
     {
         $Demanda = new DemandaModel(
             new Status($request->status),
-            new Ordem($request->ordem)
+            new Ordem($request->ordem),
+            new Area($request->area)
         );
 
         return mensagemSucesso($Demanda->listarDados());
@@ -54,7 +56,8 @@ final class DemandaDadoController extends Controller implements
         $Demanda = new DemandaEntity(
             titulo: $request->titulo,
             empresa: $request->empresa,
-            tipo: new Tipo($request->tipo)
+            tipo: new Tipo($request->tipo),
+            area: new Area($request->area)
         );
         $Demanda->salvar();
 
