@@ -54,12 +54,14 @@
             "Random\\": "src/Random",
             "Route\\": "src/Route/",
             "Status\\": "src/Status",
-            "System\\": "src/",
-            "Tests\\": [
-                "tests",
-                "src/Tests"
-            ]
+            "System\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "Tests\\": [
+            "tests",
+            "src/Tests"
+        ]
     },
     "config": {
         "allow-plugins": {
