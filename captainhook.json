@@ -27,7 +27,9 @@
                         "deps",
                         "composer",
                         "gulp",
-                        "captainhook"
+                        "captainhook",
+                        "api",
+                        "site"
                     ],
                     "descriptionCase": "lower",
                     "descriptionEndMark": "",
@@ -52,7 +54,7 @@
                 "action": "composer normalize"
             },
             {
-                "action": "./vendor/bin/php-cs-fixer fix --allow-risky=yes"
+                "action": "./vendor/bin/php-cs-fixer fix"
             }
         ]
     },
