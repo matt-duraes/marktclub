@@ -7,6 +7,7 @@ use Http\Response;
 use Modules\Botao;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
 use Painel\Demanda\Models\ListaModel;
@@ -26,15 +27,25 @@ final class DemandaController extends Controller
         $this->Api = new ApiHelper(token: true);
     }
 
-    public function lista()
+    public function tecnologia()
+    {
+        $quadro = (new ListaModel())->quadroTi();
+        return $this->listar('Demanda da TI', Area::TECNOLOGIA, $quadro);
+    }
+    public function criacao()
+    {
+        $quadro = (new ListaModel())->quadroCriacao();
+        return $this->listar('Demanda da criação', Area::CRIACAO, $quadro);
+    }
+    private function listar($titulo, $area, $quadro)
     {
         return view('painel.demanda.index', [
-            'app' => 'demanda',
-            'appTitulo' => 'Demanda TI',
-            'area' => 'ti',
-            'quadro' => (new ListaModel())->quadroTi(),
+            'app' => 'demanda-' . $area,
+            'appTitulo' => $titulo,
+            'area' => $area,
+            'quadro' => $quadro,
             'Tipo' => new Tipo(),
-            'Area' => new DemandaTarefaTipo()
+            'Area' => new DemandaTarefaTipo(),
         ]);
     }
 

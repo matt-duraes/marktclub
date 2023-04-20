@@ -3,56 +3,59 @@
 namespace Painel\Demanda\Models;
 
 use Helpers\ApiHelper;
+use App\Classes\DemandaDado\Area;
 
 final class ListaModel
 {
     public function quadroCriacao()
     {
+        $area = Area::CRIACAO;
         return [
             [
                 'titulo' => 'Backlog',
-                'lista' => $this->buscarDemanda('nova', 'mais-novo', 'criacao')
+                'lista' => $this->buscarDemanda('nova', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Liberada',
-                'lista' => $this->buscarDemanda('liberada', 'ordem', 'criacao')
+                'lista' => $this->buscarDemanda('liberada', 'ordem', $area)
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista' => $this->buscarDemanda('andamento', 'mais-novo', 'criacao')
+                'lista' => $this->buscarDemanda('andamento', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Aguardando aprovação',
-                'lista' => $this->buscarDemanda('teste', 'mais-novo', 'criacao')
+                'lista' => $this->buscarDemanda('teste', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Concluída',
-                'lista' => $this->buscarDemanda('concluida', 'mais-novo', 'criacao')
+                'lista' => $this->buscarDemanda('concluida', 'mais-novo', $area)
             ],
         ];
     }
     public function quadroTi()
     {
+        $area = Area::TECNOLOGIA;
         return [
             [
                 'titulo' => 'Backlog',
-                'lista' => $this->buscarDemanda('nova', 'mais-novo', 'ti')
+                'lista' => $this->buscarDemanda('nova', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Liberada',
-                'lista' => $this->buscarDemanda('liberada', 'ordem', 'ti')
+                'lista' => $this->buscarDemanda('liberada', 'ordem', $area)
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista' => $this->buscarDemanda('andamento', 'mais-novo', 'ti')
+                'lista' => $this->buscarDemanda('andamento', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Teste',
-                'lista' => $this->buscarDemanda('teste', 'mais-novo', 'ti')
+                'lista' => $this->buscarDemanda('teste', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Concluída',
-                'lista' => $this->buscarDemanda('concluida', 'mais-novo', 'ti')
+                'lista' => $this->buscarDemanda('concluida', 'mais-novo', $area)
             ],
         ];
     }

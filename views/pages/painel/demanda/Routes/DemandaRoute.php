@@ -11,8 +11,11 @@ Route
     ::controller(Painel\Demanda\Controllers\DemandaController::class)
     ::grupo(function () {
         Route
-            ::nome('lista')
-            ::view('/demanda');
+            ::nome('tecnologia')
+            ::view('/demanda/tecnologia');
+        Route
+            ::nome('criacao')
+            ::view('/demanda/criacao');
         Route
             ::nome('demanda')
             ::view('/demanda/demanda/{id}');

@@ -6,7 +6,6 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\DemandaDado\Area;
-use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\DemandaModel;
@@ -53,12 +52,8 @@ final class DemandaDadoController extends Controller implements
 
     public function postSalvar(Request $request): Response
     {
-        $Demanda = new DemandaEntity(
-            titulo: $request->titulo,
-            empresa: $request->empresa,
-            tipo: new Tipo($request->tipo),
-            area: new Area($request->area)
-        );
+        $Demanda = new DemandaEntity();
+        $Demanda->set(lista: $request->dado());
         $Demanda->salvar();
 
         return mensagemSucesso(

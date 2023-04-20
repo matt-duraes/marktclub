@@ -6,7 +6,7 @@ use Status\Status as StatusStatus;
 
 final class Area extends StatusStatus
 {
-    public const TI = 'ti';
+    public const TECNOLOGIA = 'tecnologia';
     public const CRIACAO = 'criacao';
 
     public function __construct(
@@ -14,7 +14,7 @@ final class Area extends StatusStatus
     ) {
         parent::__construct(
             lista: [
-                self::TI => 'TI',
+                self::TECNOLOGIA => 'Tecnologia',
                 self::CRIACAO => 'Criação'
             ]
         );

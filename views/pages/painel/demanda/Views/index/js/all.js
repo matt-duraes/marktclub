@@ -1,5 +1,4 @@
 // @template "painel"
-// @system "DragDrop"
 // @import "demanda_detalhe"
 // @import "demanda_salvar"
 // @import "demanda_editar"
@@ -67,13 +66,4 @@ window.addEventListener('load', () => {
         }
         Alerta.notificacao('Erro ao ordenar tarefas, por favor, tente novamente.', false);
     };
-
-    new DragDrop()
-        .bloco(blocoTarefaLiberada)
-        .item('.bloco_tarefa_item')
-        .botao('.botao_mover')
-        .eventoFim(e => {
-            reordenarTarefaLiberada();
-        })
-        .iniciar();
 });

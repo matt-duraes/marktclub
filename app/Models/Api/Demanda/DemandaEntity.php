@@ -21,7 +21,7 @@ final class DemandaEntity extends Entity
     protected string $ormTabela = TABELA_DEMANDA_DADO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo',
-        'arquivo', 'com_prazo', 'data_entrega', 'data_criacao'
+        'arquivo', 'com_prazo', 'data_entrega', 'area', 'data_criacao'
     ];
     protected array $ormInsert = [
         'tipo', 'area'
@@ -55,17 +55,18 @@ final class DemandaEntity extends Entity
     public Status $status;
     public int $id_usuario_equipe;
 
+    public string $titulo;
+    public string|array $empresa;
+    public Tipo $tipo;
+    public Area $area;
+
     /**
      * @param   null|string         $titulo     Título da demanda que deseja salvar
      * @param   null|string|array   $empresa    UUID da empresa dona da demanda e um array ao buscar
      * @param   null|Tipo           $tipo       Típo da demanda que deseja salvar
      */
-    public function __construct(
-        public ?string $titulo = null,
-        public null|string|array $empresa = null,
-        public ?Tipo $tipo = null,
-        public ?Area $area = null
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 

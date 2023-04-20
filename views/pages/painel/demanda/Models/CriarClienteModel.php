@@ -5,6 +5,7 @@ namespace Painel\Demanda\Models;
 use stdClass;
 use Modules\Botao;
 use Helpers\ApiHelper;
+use App\Classes\DemandaDado\Area;
 
 final class CriarClienteModel
 {
@@ -30,7 +31,7 @@ final class CriarClienteModel
         private string $texto,
         private Botao $cdn
     ) {
-        $this->criarDemanda('Novo clube de vantagens', 'novo-cliente', 'ti');
+        $this->criarDemanda('Novo clube de vantagens', 'novo-cliente', Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
         $this->montarDominioLink();
         $this->configurarDnsCdn();

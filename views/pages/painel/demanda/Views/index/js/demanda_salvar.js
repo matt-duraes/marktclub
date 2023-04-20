@@ -33,26 +33,37 @@ const demandaSalvar = () => {
 
     const botaoSalvar = document.getElementById('botao_salvar_demanda');
 
-    /*
-    |--------------------------------------------------------------------------
-    | ESCOLHER TIPO
-    |--------------------------------------------------------------------------
-    */
     const blocoEscolherTipo = document.getElementById('bloco_tipo_demanda');
     const botaoTipo = blocoEscolherTipo.querySelectorAll('.botao');
-    botaoTipo.forEach(botao => {
-        botao.addEventListener('click', () => {
-            const tipo = botao.getAttribute('data-tipo');
-            mudarTipoDemanda(tipo);
-        });
-    });
 
+    const blocoCriacao = document.getElementById('bloco_criacao');
     const blocoTipoAssociacao = document.getElementById('bloco_tipo_associacao');
     const blocoTipoCliente = document.getElementById('bloco_tipo_cliente');
     const blocoTipoBug = document.getElementById('bloco_tipo_bug');
     const blocoTipoOutro = document.getElementById('bloco_tipo_outro');
     const blocoHeader = document.getElementById('bloco_geral_header');
     const blocoFooter = document.getElementById('bloco_geral_footer');
+
+    if (area == 'tecnologia') {
+        blocoEscolherTipo.classList.remove('display_none');
+    } else if (area == 'criacao') {
+        blocoCriacao.classList.remove('display_none');
+        botaoSalvar.classList.remove('display_none');
+        blocoHeader.classList.remove('display_none');
+        blocoFooter.classList.remove('display_none');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ESCOLHER TIPO
+    |--------------------------------------------------------------------------
+    */
+    botaoTipo.forEach(botao => {
+        botao.addEventListener('click', () => {
+            const tipo = botao.getAttribute('data-tipo');
+            mudarTipoDemanda(tipo);
+        });
+    });
 
     const mudarTipoDemanda = tipo => {
         inputTipo.value = tipo;
@@ -244,7 +255,7 @@ const demandaSalvar = () => {
             return;
         }
 
-        window.location.assign(LINK + '/demanda#demanda-' + json.dado.id);
+        window.location.assign(LINK + '/demanda/' + area + '#demanda-' + json.dado.id);
         window.location.reload();
     });
 
@@ -303,7 +314,6 @@ const demandaSalvar = () => {
             texto += inputTexto.value;
 
             const body = new FormData();
-            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaCliente.value);
             body.append('dominio_tipo', inputDominioTipo.value);
@@ -363,7 +373,6 @@ const demandaSalvar = () => {
             texto += inputTexto.value;
 
             const body = new FormData();
-            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaAssociacao.value);
             body.append('texto', texto);
@@ -397,7 +406,6 @@ const demandaSalvar = () => {
     const montarDadoOutro = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('titulo', inputTitulo.value);
             body.append('empresa', inputEmpresaOutro.value);
@@ -434,7 +442,6 @@ const demandaSalvar = () => {
     const montarDadoBug = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('area', area);
             body.append('tipo', inputTipo.value);
             body.append('titulo', inputTitulo.value);
             body.append('local', inputBugLocal.value);

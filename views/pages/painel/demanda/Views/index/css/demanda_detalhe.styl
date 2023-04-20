@@ -39,7 +39,7 @@
     width: 100%
     flexRow()
     padding: 13px 20px
-    margin: 20px 0 30px
+    margin-top: 20px
     align-items: center
     border-top: 1px solid #DDD
     border-bottom: 1px solid #DDD
@@ -80,6 +80,20 @@
         &.nao
             color: $cor
 
+#bloco_demanda_tarefa .bloco_data
+    width: 100%
+    flexRow()
+    padding: 20px
+    .data
+        flexCenter()
+        border-right: 1px solid #CCC
+        padding-right: 10px
+        margin-right: 10px
+    .data i
+        margin-right: 10px
+        flexCenter()
+    .data p
+        font-size: 1.3rem
 #bloco_demanda_tarefa .bloco_tarefa
     width: 100%
     flexCol()
