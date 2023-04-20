@@ -40,7 +40,7 @@ foreach ($lista as $dado) {
         sleep($sleep);
     }
 
-    $mail = new PHPMailer;
+    $mail = new PHPMailer();
     $mail->isSMTP();
     $mail->SMTPAuth = true;
     $mail->Priority = 1;

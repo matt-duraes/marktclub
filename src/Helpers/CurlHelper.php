@@ -258,8 +258,8 @@ class CurlHelper
         $parametroExplode = [];
         foreach ($parametro as $ind => $val) {
             $parametroExplode[] = !is_array($val) && !is_object($val) && !empty($val) ? $ind . '=' . urlencode(
-                    $val
-                ) : $ind . '=';
+                $val
+            ) : $ind . '=';
         }
         $parametroUrl = implode('&', $parametroExplode);
         if (!empty($parametroUrl)) {

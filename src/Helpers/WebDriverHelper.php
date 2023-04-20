@@ -380,7 +380,7 @@ final class WebDriverHelper
                 mensagem: 'O arquivo enviado não existe.'
             );
         } elseif ($type == 'file') {
-            $elemento->setFileDetector(new LocalFileDetector);
+            $elemento->setFileDetector(new LocalFileDetector());
         } elseif ($tag == 'select') {
             $elemento = new WebDriverSelect($elemento);
             $elemento->selectByValue($valor);

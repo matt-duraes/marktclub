@@ -639,7 +639,8 @@ final class ValidarHelper
         } elseif (is_array($valor)) {
             $strlen = count($valor);
         }
-        if (!empty($valor) && (!in_array($operador, ['>=', '>', '=', '==', '!=', '<=', '<']) ||
+        if (!empty($valor) && (
+            !in_array($operador, ['>=', '>', '=', '==', '!=', '<=', '<']) ||
             ($operador == '>=' && $strlen < $comparador) ||
             ($operador == '>' && $strlen <= $comparador) ||
             (in_array($operador, ['=', '==']) && $strlen != $comparador) ||

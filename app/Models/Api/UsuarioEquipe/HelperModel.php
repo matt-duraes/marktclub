@@ -22,7 +22,7 @@ final class HelperModel extends ORM
     public function pegarUuidPeloId(?int $id): string
     {
         if (empty($id)) {
-                return '';
+            return '';
         }
         return $this->campo(['uuid'])->where(['id', $id])->primeiro(campo: 'uuid', padrao: '');
     }

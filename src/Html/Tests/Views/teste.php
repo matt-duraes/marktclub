@@ -41,23 +41,23 @@
                 $acao = 'falhou';
                 include 'teste/montar.php';
             }
-            ?>
+        ?>
         </div>
         <div class="bloco" id="bloco_passou">
             <?php
-            if ($Testes->passou == 0) {
-                include 'teste/sem_passou.php';
-            } else {
-                $acao = 'passou';
-                include 'teste/montar.php';
-            }
-            ?>
+        if ($Testes->passou == 0) {
+            include 'teste/sem_passou.php';
+        } else {
+            $acao = 'passou';
+            include 'teste/montar.php';
+        }
+        ?>
         </div>
         <div class="bloco" id="bloco_todos">
             <?php
-            $acao = 'todos';
-            include 'teste/montar.php';
-            ?>
+        $acao = 'todos';
+        include 'teste/montar.php';
+        ?>
         </div>
     </div>
 </body>

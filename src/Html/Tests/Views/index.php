@@ -33,7 +33,7 @@
         <?php
         $lista = listarArquivoDiretorio(ROOT . '/tests/Api', final: 'Test', ext: ['php']);
         if ($lista) :
-        ?>
+            ?>
 
             <form action="<?= LINK; ?>/__tests" method="get" class="lista">
                 <input type="hidden" id="LINK" value="<?= LINK ?>">
@@ -50,10 +50,10 @@
                 <div class="conteudo">
                     <p>Selecione os testes que deseja executar:</p>
                     <?php
-                    foreach ($lista as $val) :
-                        $val = preg_replace('/\.php$/', '', $val);
-                        $nome = trim(preg_replace(['/Test$/', '/([A-Z])/'], ['', ' $0'], $val));
-                    ?>
+                        foreach ($lista as $val) :
+                            $val = preg_replace('/\.php$/', '', $val);
+                            $nome = trim(preg_replace(['/Test$/', '/([A-Z])/'], ['', ' $0'], $val));
+                            ?>
                         <div class="checkbox">
                             <input type="checkbox" class="input_teste" name="arquivo" id="id_<?= $val; ?>" value="<?= $val; ?>">
                             <label for="id_<?= $val; ?>"><?= $nome; ?></label>

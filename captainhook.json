@@ -48,13 +48,16 @@
         "enabled": true,
         "actions": [
             {
-                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting"
-            },
-            {
                 "action": "composer normalize"
             },
             {
                 "action": "./vendor/bin/php-cs-fixer fix"
+            },
+            {
+                "action": "gulp commit"
+            },
+            {
+                "action": "git add ."
             }
         ]
     },

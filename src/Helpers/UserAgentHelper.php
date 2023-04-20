@@ -330,7 +330,8 @@ final class UserAgentHelper
         $dispositivo = '';
         if (
             is_string($os) && !empty($os) &&
-            (preg_match('/android/i', $os) ||
+            (
+                preg_match('/android/i', $os) ||
                 preg_match('/ios/i', $os) ||
                 preg_match('/WinPhone/i', $os)
             )
@@ -342,7 +343,8 @@ final class UserAgentHelper
             $tablet = true;
         } elseif (
             is_string($os) && !empty($os) &&
-            (preg_match('/Win[0-9]+/i', $os) ||
+            (
+                preg_match('/Win[0-9]+/i', $os) ||
                 preg_match('/Linux/i', $os) ||
                 preg_match('/MacOSX/i', $os) ||
                 preg_match('/Macintosh/i', $os) ||

@@ -20,7 +20,7 @@
         <?= formTextarea(name: 'historico_novo', label: '', numeroLinha: 4, placeholder: 'Digite sua mensagem', id: 'input_historico_mensagem') ?>
         <p>Aperte Shift+Enter para quebrar linha ou apenas Enter para salvar</p>
         <ul class="bloco_marcar_equipe" id="bloco_historico_marcacao_equipe">
-            <?php foreach ((new \PainelModel\Historico\Equipe)->pegarListaEquipe() as $hE) : ?>
+            <?php foreach ((new \PainelModel\Historico\Equipe())->pegarListaEquipe() as $hE) : ?>
                 <li data-usuario="<?= $hE->perfil ?>" class="">
                     <div class="imagem" style="background-image: url(<?= $hE->imagem ?>);"></div>
                     <div class="usuario"><?= $hE->perfil ?></div>

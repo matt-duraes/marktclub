@@ -1,6 +1,7 @@
 <?php
 
 use Helpers\ListaHelper;
+
 ?>
 <div class="bloco_endereco_geral">
     <input type="hidden" name="tabela" value="<?= $enderecoTabela ?>">
@@ -42,7 +43,7 @@ use Helpers\ListaHelper;
                         name: 'endereco_pais_' . uuid(),
                         label: 'País',
                         placeholder: 'Escolha um país',
-                        lista: (new ListaHelper)->add('', 'Escolha um país')->pais()->r(),
+                        lista: (new ListaHelper())->add('', 'Escolha um país')->pais()->r(),
                         value: 'BR',
                         obrigatorio: true,
                         change: 'mudarPais'
@@ -103,7 +104,7 @@ use Helpers\ListaHelper;
                         name: 'endereco_estado_' . uuid(),
                         label: 'Estado',
                         placeholder: 'Escolha um estado',
-                        lista: (new ListaHelper)->add('', 'Escolha um estado')->estado()->r(),
+                        lista: (new ListaHelper())->add('', 'Escolha um estado')->estado()->r(),
                         obrigatorio: true,
                         change: 'buscarCidade'
                     ) ?>
@@ -118,7 +119,7 @@ use Helpers\ListaHelper;
                         name: 'endereco_cidade_brasil_' . uuid(),
                         label: 'Cidade',
                         placeholder: 'Escolha uma cidade',
-                        lista: (new ListaHelper)->add('', 'Escolha uma cidade')->r(),
+                        lista: (new ListaHelper())->add('', 'Escolha uma cidade')->r(),
                         obrigatorio: true
                     ) ?>
                     <?= formInput(

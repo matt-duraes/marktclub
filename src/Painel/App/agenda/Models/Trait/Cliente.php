@@ -6,7 +6,6 @@ use Helpers\CurlHelper;
 
 trait Cliente
 {
-
     private CurlHelper $Cliente;
 
     private function setarCliente()

@@ -154,7 +154,8 @@ trait SalvarTrait
             }
             if (
                 $propriedadeReal instanceof Senha &&
-                (!$propriedadeReal->valido() ||
+                (
+                    !$propriedadeReal->valido() ||
                     !$propriedadeReal->mudouSenha() ||
                     $propriedadeReal->mesmaSenha()
                 )

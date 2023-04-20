@@ -54,7 +54,8 @@ trait ValidarTrait
                 (
                     ($coluna[$ind]->tipo == 'date' && preg_replace('/[^0-9]/', '', $valor) == '00000000') ||
                     ($coluna[$ind]->tipo == 'datetime' && preg_replace('/[^0-9]/', '', $valor) == '00000000000000') ||
-                    ($coluna[$ind]->tipo == 'time' && preg_replace('/[^0-9]/', '', $valor) == '000000'))
+                    ($coluna[$ind]->tipo == 'time' && preg_replace('/[^0-9]/', '', $valor) == '000000')
+                )
             ) {
                 throw new Excecao(titulo: 'Campo obrigatório!', mensagem: 'O campo ' . $titulo . ' é obrigatório.');
             } elseif (

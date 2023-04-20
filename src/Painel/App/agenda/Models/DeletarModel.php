@@ -6,7 +6,6 @@ use Helpers\CurlHelper;
 
 final class DeletarModel
 {
-
     use Trait\Cliente;
     use Trait\Id;
     use Trait\Evento;

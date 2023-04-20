@@ -1133,7 +1133,8 @@ if (!function_exists('inKey')) {
                 !str_contains($linha, '.') &&
                 (
                     (is_array($item) && !array_key_exists($linha, $item)) ||
-                    (is_object($item) && !isset($item->$linha)))
+                    (is_object($item) && !isset($item->$linha))
+                )
             ) {
                 return false;
             }

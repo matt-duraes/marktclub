@@ -4,7 +4,6 @@ namespace PainelModel\Notificacao;
 
 final class HelperModel
 {
-
     public function tratarRetorno($lista)
     {
         $retorno = [];

@@ -6,7 +6,8 @@ $finder = PhpCsFixer\Finder::create()
         'vendor',
         'node_modules',
         'resources',
-        'views'
+        'views',
+        'routes'
     ]);
 
 $config = new PhpCsFixer\Config();
