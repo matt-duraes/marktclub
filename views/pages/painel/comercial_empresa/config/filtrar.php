@@ -25,6 +25,6 @@ $Painel
         lista: (new Status())->select('Escolha uma opção')
     );
 
-    $Painel->replace('status', (new Status())->select());
+$Painel->replace('status', (new Status())->select());
 
-    return $Painel;
+return $Painel;

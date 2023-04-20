@@ -1,6 +1,6 @@
 <?php
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('LISTAR PARCEIROS EM DESTAQUE')
     ->descricao('Requisição para fazer a busca das informações básicas dos parceiros em destaque')

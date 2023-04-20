@@ -1,9 +1,9 @@
-<?php
-$URI = preg_replace(['/\&?pagina\=[0-9]+/', '/^\//'], '', URI);
-$URI = str_contains($URI, '?') ? $URI . '&' : $URI . '?';
-$appLink = str_replace('_', '-', $app);
-?>
 <div id="bloco_app_lista">
+    <?php
+        $URI = preg_replace(['/\&?pagina\=[0-9]+/', '/^\//'], '', URI);
+        $URI = str_contains($URI, '?') ? $URI . '&' : $URI . '?';
+        $appLink = str_replace('_', '-', $app);
+    ?>
     <?php if ($filtro || !empty($busca->ordem)) : ?>
         <div id="bloco_app_filtro" class="bloco_filtro">
 
@@ -33,7 +33,7 @@ $appLink = str_replace('_', '-', $app);
                 <div class="bloco ordem">ordem:<span><?= $busca->ordem_titulo ?></span><button type="button" data-indice="ordem" class="botao_filtro_limpar"><?= iconeFechar(8) ?></button></div>
                 <?php
             endif;
-?>
+            ?>
         </div>
     <?php endif; ?>
 
@@ -59,9 +59,9 @@ $appLink = str_replace('_', '-', $app);
                         <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
                         <div class="barra"></div>
                         <?php
-            if ($primeiro) {
-                $primeiro = false;
-            }
+                        if ($primeiro) {
+                            $primeiro = false;
+                        }
                         ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -127,14 +127,14 @@ $appLink = str_replace('_', '-', $app);
                                         <div class="td imagem_usuario imagem"><figure data-ajuda="<?= $r->usuario->nome ?>" style="background-image: url(<?= $r->usuario->imagem ?>)"></figure></div>
                                     <?php elseif ($grade['tipo'] == 'status') : ?>
                                             <?php
-                                                    $statusValor = painelValor($r, $grade['campo']);
-                                        $texto = '';
-                                        $cor = '';
-                                        if (array_key_exists($statusValor, $grade['valor'])) {
-                                            $texto = $grade['valor'][$statusValor]['nome'];
-                                            $cor = painelCor($grade['valor'][$statusValor]['cor']);
-                                        }
-                                        ?>
+                                            $statusValor = painelValor($r, $grade['campo']);
+                                            $texto = '';
+                                            $cor = '';
+                                            if (array_key_exists($statusValor, $grade['valor'])) {
+                                                $texto = $grade['valor'][$statusValor]['nome'];
+                                                $cor = painelCor($grade['valor'][$statusValor]['cor']);
+                                            }
+                                            ?>
                                         <div class="td status" data-ajuda="<?= $texto ?>">
                                             <span style="background-color: <?= $cor ?>"></span>
                                         </div>

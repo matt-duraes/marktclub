@@ -2,7 +2,7 @@
 
 use App\Classes\UsuarioCliente\Helper;
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('SALVAR NOVO USUÁRIO')
     ->descricao('Requisição para salvar um novo usuário.')

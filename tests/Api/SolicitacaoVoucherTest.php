@@ -36,7 +36,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroId,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher');
 
@@ -52,7 +53,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroUrl,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher');
 
@@ -68,7 +70,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroUrl,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')
             ->object()->dado->codigo ?? '';
@@ -77,7 +80,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroUrl,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')
             ->object()->dado->codigo ?? '';
@@ -95,7 +99,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroLimite,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher');
 
@@ -113,7 +118,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroLimite,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
@@ -131,7 +137,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroPrazo,
-                'usuario' => $this->usuario3
+                'usuario' => $this->usuario3,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
 
@@ -146,7 +153,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroPrazo,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
@@ -165,7 +173,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroPrazo,
-                'usuario' => $this->usuario2
+                'usuario' => $this->usuario2,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
@@ -181,7 +190,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroLimite,
-                'usuario' => $this->usuario2
+                'usuario' => $this->usuario2,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
         return $this
@@ -200,7 +210,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroPrazoFixo,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
 
@@ -216,7 +227,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => '',
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
 
@@ -232,7 +244,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => uuid(),
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
 
@@ -248,7 +261,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => 'url-nao-existe',
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
 
@@ -264,7 +278,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroId,
-                'usuario' => uuid()
+                'usuario' => uuid(),
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
 
@@ -286,7 +301,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroBlueFit,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
@@ -302,7 +318,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroBlueFit,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
@@ -319,7 +336,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroBlueFit,
-                'usuario' => $this->usuario2
+                'usuario' => $this->usuario2,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
@@ -336,7 +354,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroBlueFit,
-                'usuario' => $this->usuario3
+                'usuario' => $this->usuario3,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
@@ -354,7 +373,8 @@ final class SolicitacaoVoucherTest extends Tests
             ->Curl
             ->body([
                 'id' => $this->parceiroBlueFit,
-                'usuario' => $this->usuario1
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
             ])
             ->post('/solicitacao-voucher');
 

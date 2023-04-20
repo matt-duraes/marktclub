@@ -615,7 +615,7 @@ Route
 
         Route
             ::nome('validarUsuario')
-            ::get('/turismo/validar-usuario/{usuario}');
+            ::get('/turismo/validar-usaurio/{usuario}');
     });
 
 Route
@@ -951,7 +951,7 @@ Route::nome('demandaDado')
         Route
             ::nome('listar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
-            ::request(['status', 'area', 'ordem'], 'json')
+            ::request(['status', 'ordem'], 'json')
             ::get('/demanda-dado');
 
         Route
@@ -962,7 +962,7 @@ Route::nome('demandaDado')
         Route
             ::nome('salvar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
-            ::request(['empresa', 'titulo', 'tipo', 'area'])
+            ::request(['empresa', 'titulo', 'tipo'])
             ::post('/demanda-dado');
 
         Route

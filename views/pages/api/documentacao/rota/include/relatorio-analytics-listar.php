@@ -1,6 +1,6 @@
 <?php
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('ANALYTICS LISTAR')
     ->descricao('Requisição feita para listar os acessos de um intervalo entre determinada datas')

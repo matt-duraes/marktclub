@@ -2,7 +2,7 @@
 
 use App\Classes\UsuarioCliente\Helper;
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('ATUALIZAR USUÁRIO')
     ->descricao('Requisição para atualizar um usuário que já existe.')

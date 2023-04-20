@@ -48,6 +48,9 @@
         "enabled": true,
         "actions": [
             {
+                "action": "php src/Files/stop-burrice.php"
+            },
+            {
                 "action": "composer normalize"
             },
             {

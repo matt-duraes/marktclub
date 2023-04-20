@@ -1,6 +1,6 @@
 <?php
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('DELETAR USUÁRIO')
     ->descricao('Requisição para deletar um usuário que já existe.')
