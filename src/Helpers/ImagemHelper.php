@@ -3,8 +3,8 @@
 namespace Helpers;
 
 use Erro\Excecao;
-use Intervention\Image\Image;
 use Intervention\Image\Gd\Font;
+use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 
 final class ImagemHelper
@@ -12,10 +12,13 @@ final class ImagemHelper
     private Image $imagem;
     private string $diretorioFinal;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct(
-        private string $arquivo,
+        private readonly string $arquivo,
         private string $diretorio,
-        private string $nome,
+        private readonly string $nome,
         private string $path = DIRETORIO_PUBLICO
     ) {
         $this->pegarDadoParaSalvar();
@@ -24,10 +27,88 @@ final class ImagemHelper
         $this->verificarSeArquivoExiste($this->arquivo);
         $this->verificarSeArquivoEImagem($this->arquivo);
         $this->passarArquivoPeloAntiVirus($this->arquivo);
-        $this->imagem = (new ImageManager)->make($this->arquivo);
+        $this->imagem = (new ImageManager())->make($this->arquivo);
     }
 
-    public function add($arquivo): self
+    /**
+     * @return void
+     */
+    private function pegarDadoParaSalvar(): void
+    {
+        $this->path = '/' . preg_replace(['/^\//', '/\/$/'], '', $this->path);
+        $this->diretorio = '/' . preg_replace(['/^\//', '/\/$/'], '', $this->diretorio);
+        $this->diretorioFinal = $this->path . $this->diretorio;
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarSeDiretorioEValido(): void
+    {
+        if (!is_dir($this->diretorioFinal)) {
+            throw new Excecao(
+                titulo: 'Erro no diretório!',
+                mensagem: 'O diretório de destino não existe.'
+            );
+        } elseif (!is_writable($this->diretorioFinal)) {
+            throw new Excecao(
+                titulo: 'Erro no diretório!',
+                mensagem: 'Você não tem permissão para salvar nesse diretório.'
+            );
+        }
+    }
+
+    /**
+     * @param $arquivo
+     * @throws Excecao
+     */
+    private function verificarSeArquivoExiste($arquivo): void
+    {
+        if (!file_exists($arquivo)) {
+            throw new Excecao(
+                titulo: 'Erro ao validar arquivo!',
+                mensagem: 'O arquivo enviado não foi encontrado.',
+                status: 404
+            );
+        }
+    }
+
+    /**
+     * @param $arquivo
+     * @throws Excecao
+     */
+    private function verificarSeArquivoEImagem($arquivo): void
+    {
+        $imagem = getimagesize($arquivo);
+        if (!in_array($imagem['mime'] ?? '', ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'])) {
+            throw new Excecao(
+                titulo: 'Erro ao validar arquivo!',
+                mensagem: 'O arquivo enviado não é um arquivo de imagem.'
+            );
+        }
+    }
+
+    /**
+     * @param $arquivo
+     * @throws Excecao
+     */
+    private function passarArquivoPeloAntiVirus($arquivo): void
+    {
+        $validar = (new AntiVirusHelper($arquivo))->validar();
+        if (true !== $validar) {
+            throw new Excecao(
+                titulo: 'Erro ao validar arquivo!',
+                mensagem: 'O arquivo enviado não é um arquivo válido ou não foi possível validar sua segurança.'
+            );
+        }
+    }
+
+    /**
+     * @param $arquivo
+     * @return ImagemHelper
+     * @throws Excecao
+     */
+    public function add($arquivo): ImagemHelper
     {
         $this->verificarSeArquivoExiste($arquivo);
         $this->verificarSeArquivoEImagem($arquivo);
@@ -37,28 +118,30 @@ final class ImagemHelper
     }
 
     /**
-     * Adiciona um texto a imagem
+     * Adiciona um texto há imagem
      *
-     * @param string        $texto      Texto que deseja adicionar
-     * @param string        $posicao    Posição do texto em relação a imagem podendo ser: top-left, top, top-right, left, center, right, bottom-left, bottom ou bottom-right
-     * @param int           $x          Posição do eixo x em relação a imagem.
-     * @param int           $y          Posição do eixo y em relação a imagem.
-     * @param null|string   $fonte      Path da fonte que deseja usar
-     * @param null|int      $tamanho    Tamanho da fonte
-     * @param null|string   $cor        Cor hexadecimal para a fonte
-     * @param null|int      $angulo     Angulo que o texto deve ficar
-     * @return Self
+     * @param  string       $texto    Texto que deseja adicionar
+     * @param  string       $posicao  [optional] Posição do texto em relação a imagem podendo ser: top-left, top,
+     *                                top-right, left,
+     *                                [optional] center, right, bottom-left, bottom ou bottom-right
+     * @param  int          $x        [optional] Posição do eixo x em relação a imagem.
+     * @param  int          $y        [optional] Posição do eixo y em relação a imagem.
+     * @param  string|null  $fonte    [optional] Path da fonte que deseja usar
+     * @param  int|null     $tamanho  [optional] Tamanho da fonte
+     * @param  string|null  $cor      [optional] Cor hexadecimal para a fonte
+     * @param  int|null     $angulo   [optional] Angulo que o texto deve ficar
+     * @return ImagemHelper
      */
     public function texto(
         string $texto,
         string $posicao = 'top-left',
         int $x = 0,
         int $y = 0,
-        ?string $fonte = null,
-        ?int $tamanho = null,
-        ?string $cor = null,
-        ?int $angulo = null
-    ): self {
+        string $fonte = null,
+        int $tamanho = null,
+        string $cor = null,
+        int $angulo = null
+    ): ImagemHelper {
         $font = new Font(htmlentities($texto));
         $font->valign('top');
         if (!empty($cor)) {
@@ -84,7 +167,10 @@ final class ImagemHelper
         return $this;
     }
 
-    public function salvar(): self
+    /**
+     * @throws Excecao
+     */
+    public function salvar(): ImagemHelper
     {
         if (is_null($this->imagem)) {
             throw new Excecao(
@@ -98,6 +184,10 @@ final class ImagemHelper
         return $this;
     }
 
+    /**
+     * @return string
+     * @throws Excecao
+     */
     public function imagem(): string
     {
         if (!file_exists($this->diretorioFinal . '/' . $this->nome)) {
@@ -108,63 +198,5 @@ final class ImagemHelper
             );
         }
         return $this->nome;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
-    private function pegarDadoParaSalvar()
-    {
-        $this->path = '/' . preg_replace(['/^\//', '/\/$/'], '', $this->path);
-        $this->diretorio = '/' . preg_replace(['/^\//', '/\/$/'], '', $this->diretorio);
-        $this->diretorioFinal = $this->path . $this->diretorio;
-    }
-
-    private function validarSeDiretorioEValido()
-    {
-        if (!is_dir($this->diretorioFinal)) {
-            throw new Excecao(
-                titulo: 'Erro no diretório!',
-                mensagem: 'O diretório de destino não existe.'
-            );
-        } elseif (!is_writable($this->diretorioFinal)) {
-            throw new Excecao(
-                titulo: 'Erro no diretório!',
-                mensagem: 'Você não tem permissão para salvar nesse diretório.'
-            );
-        }
-    }
-
-    private function verificarSeArquivoExiste($arquivo)
-    {
-        if (!file_exists($arquivo)) {
-            throw new Excecao(
-                titulo: 'Erro ao validar arquivo!',
-                mensagem: 'O arquivo enviado não foi encontrado.',
-                status: 404
-            );
-        }
-    }
-    private function verificarSeArquivoEImagem($arquivo): void
-    {
-        $imagem = getimagesize($arquivo);
-        if (!in_array($imagem['mime'] ?? '', ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'])) {
-            throw new Excecao(
-                titulo: 'Erro ao validar arquivo!',
-                mensagem: 'O arquivo enviado não é um arquivo de imagem.'
-            );
-        }
-    }
-    private function passarArquivoPeloAntiVirus($arquivo)
-    {
-        $validar = (new AntiVirusHelper($arquivo))->validar();
-        if (true !== $validar) {
-            throw new Excecao(
-                titulo: 'Erro ao validar arquivo!',
-                mensagem: 'O arquivo enviado não é um arquivo válido ou não foi possível validar sua segurança.'
-            );
-        }
     }
 }

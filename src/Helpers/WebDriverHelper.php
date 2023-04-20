@@ -3,21 +3,22 @@
 namespace Helpers;
 
 use Erro\Excecao;
+use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Cookie;
+use Facebook\WebDriver\Exception\WebDriverCurlException;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\LocalFileDetector;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverCheckboxes;
+use Facebook\WebDriver\WebDriverDimension;
+use Facebook\WebDriver\WebDriverElement;
+use Facebook\WebDriver\WebDriverExpectedCondition;
 use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\WebDriverRadios;
 use Facebook\WebDriver\WebDriverSelect;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverDimension;
-use Facebook\WebDriver\WebDriverCheckboxes;
-use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\RemoteWebElement;
-use Facebook\WebDriver\Remote\LocalFileDetector;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\WebDriverExpectedCondition;
-use Facebook\WebDriver\Exception\WebDriverCurlException;
+use Throwable;
 
 final class WebDriverHelper
 {
@@ -26,13 +27,12 @@ final class WebDriverHelper
     private array|RemoteWebElement $ElementoAtual;
 
     /**
-     * @param string                    $url            URL do servidor selenium
-     *                                                  (Caso de conexão recusada, tente colocar o
-     *                                                  IP Local. ex: 192.168.0.100)
-     * @param null|DesiredCapabilities  $capacidade     Qual as capacidades desejadas para o browser
-     * @param bool                      $visivel        Se irá abrir o navegador ou não. Não irá funcionar caso pase o $capacidade
-     * @param null|string               $download       Diretorio para download Não irá funcionar caso pase o $capacidade
-     * @throws Excecao
+     * @param  string                    $url         URL do servidor selenium (Caso de conexão recusada, tente colocar
+     *                                                o IP Local. ex: 192.168.0.100)
+     * @param  DesiredCapabilities|null  $capacidade  Qual as capacidades desejadas para o browser
+     * @param  bool                      $visivel     Se irá abrir o navegador ou não. Não irá funcionar caso passe o
+     *                                                $capacidade
+     * @param  string|null               $download    Diretório para download Não irá funcionar caso passe o $capacidade
      */
     public function __construct(
         string $url = 'http://localhost:4444/wd/hub',
@@ -60,31 +60,55 @@ final class WebDriverHelper
         }
         try {
             $this->Driver = RemoteWebDriver::create($url, $capacidade);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->erroPadrao($th);
         }
     }
 
     /**
+     * @param $error
+     * @throws Excecao
+     */
+    private function erroPadrao($error): void
+    {
+        mensagemErro(
+            titulo: 'Erro!',
+            mensagem: $this->mensagemPadrao,
+            error: $error
+        );
+    }
+
+    /**
      * Retorna o webdrive para manipulação direta
+     *
+     * @return RemoteWebDriver
      */
     public function webDriver(): RemoteWebDriver
     {
         return $this->Driver;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA OS COOKIES
+    |--------------------------------------------------------------------------
+    |
+    | Pega, seta ou deleta os cookies da página
+    |
+    */
+
     /**
      * Vai para a o link informado
      *
-     * @param string    $link   Link para onde deseja navegar
-     * @throws Excecao
+     * @param  string  $link  Link para onde deseja navegar
      * @return Self
+     * @throws Excecao
      */
     public function requisicao(string $link): self
     {
         try {
             $this->Driver->get($link);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $mensagem = $th->getMessage();
             if ($th instanceof WebDriverCurlException && str_contains($mensagem, 'Operation timed out after')) {
                 mensagemErro(
@@ -99,28 +123,19 @@ final class WebDriverHelper
         return $this;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | TRATA OS COOKIES
-    |--------------------------------------------------------------------------
-    |
-    | Pega, seta ou deleta os cookies da página
-    |
-    */
-
     /**
      * Pega todos os cookies da página
      *
-     * @param null|string   $indice     Caso queira pegar um cookie específico, passar o name do cookie
-     * @throws Excecao
+     * @param  null|string  $indice  Caso queira pegar um cookie específico, passar o name do cookie
      * @return array    Lista com os cookies ou 1 cookie caso passa um indice
+     * @throws Excecao
      */
     public function pegarCookie(?string $indice = null): array
     {
         if (!empty($indice)) {
             try {
                 return $this->Driver->manage()->getCookieNamed($indice);
-            } catch (\Throwable $th) {
+            } catch (Throwable $th) {
                 $this->erroPadrao($th);
             }
             return $this;
@@ -146,8 +161,8 @@ final class WebDriverHelper
     /**
      * Seta o valor de cookie
      *
-     * @param string $nome      O nome para o cookie
-     * @param string $valor     O valor do cookie
+     * @param  string  $nome   O nome para o cookie
+     * @param  string  $valor  O valor do cookie
      * @return Self
      */
     public function setarCookie(string $nome, string $valor): self
@@ -156,10 +171,19 @@ final class WebDriverHelper
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA OS ELEMENTOS
+    |--------------------------------------------------------------------------
+    |
+    | Pega os elementos para manipular pelo WebDriver
+    |
+    */
+
     /**
      * Deleta um ou todos os cookies
      *
-     * @param null|string   $indice     Caso deseja deletar um cookie específico
+     * @param  null|string  $indice     Caso deseja deletar um cookie específico
      *                                  informa o indice
      * @return Self
      */
@@ -168,7 +192,7 @@ final class WebDriverHelper
         if (!empty($indice)) {
             try {
                 $this->Driver->manage()->deleteCookieNamed($indice);
-            } catch (\Throwable $th) {
+            } catch (Throwable $th) {
                 $this->erroPadrao($th);
             }
             return $this;
@@ -206,22 +230,22 @@ final class WebDriverHelper
     /**
      * Procura por todos os elementos que existem na página
      *
-     * @param string    $elemento   Seletor CSS para pegar o elemento desejado
-     * @param null|int  $indice     Um número caso queira pegar apenas 1 elemento
-     * @throws Excecao
+     * @param  string    $elemento  Seletor CSS para pegar o elemento desejado
+     * @param  null|int  $indice    Um número caso queira pegar apenas 1 elemento
      * @return Self
+     * @throws Excecao
      */
     public function todosElementos(string $elemento, ?int $indice = null): self
     {
         try {
             $elemento = $this->Driver->findElements(WebDriverBy::cssSelector($elemento));
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->erroPadrao($th);
         }
         if (is_numeric($indice)) {
             try {
                 $elemento = $elemento[$indice];
-            } catch (\Throwable $th) {
+            } catch (Throwable $th) {
                 $this->erroPadrao($th);
             }
         }
@@ -232,16 +256,16 @@ final class WebDriverHelper
     /**
      * Pega um indice do elemento buscado pelo método elementoTodos
      *
-     * @param int $indice   Indice que deseja buscar
-     * @throws Excecao
+     * @param  int  $indice  Indice que deseja buscar
      * @return Self
+     * @throws Excecao
      */
     public function setarElemento(int $indice): self
     {
         try {
             $this->ElementoAtual = $this->ElementoAtual[$indice];
             return $this;
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->erroPadrao($th);
         }
     }
@@ -274,11 +298,11 @@ final class WebDriverHelper
     /**
      * Seta um valor a um elemento de formulário
      *
-     * @param string        $valor          Valor que deseja se setado
-     * @param null|string   $elemento       Caso não queira pegar o elemento atual, passar seletor CSS para pegar
+     * @param  string       $valor          Valor que deseja se setado
+     * @param  null|string  $elemento       Caso não queira pegar o elemento atual, passar seletor CSS para pegar
      *                                      o elemento
-     * @throws Excecao
      * @return Self
+     * @throws Excecao
      */
     public function setarValor(string $valor, ?string $elemento = null): self
     {
@@ -295,9 +319,116 @@ final class WebDriverHelper
     }
 
     /**
+     * Pega o primeiro elemento que for encontrado na página
+     *
+     * @param  string  $elemento  Seletor CSS para pegar o elemento desejado
+     * @return Self
      * @throws Excecao
+     */
+    public function elemento(string $elemento): self
+    {
+        try {
+            $this->ElementoAtual = $this->Driver->findElement(WebDriverBy::cssSelector($elemento));
+        } catch (Throwable $th) {
+            $this->erroPadrao($th);
+        }
+        return $this;
+    }
+
+    private function pegarElementoInternamente(): WebDriverElement|array
+    {
+        try {
+            $elemento = $this->ElementoAtual;
+        } catch (Throwable $th) {
+            $this->erroPadrao($th);
+        }
+        return $elemento;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA OS GET DE CONTEÚDO
+    |--------------------------------------------------------------------------
+    |
+    | Pega os valores do página como HTML, title, o texto dos elementos
+    |
+    */
+
+    private function erroElemento()
+    {
+        mensagemErro(
+            titulo: 'Erro!',
+            mensagem: $this->mensagemPadrao,
+            localhost: 'O elemento que você tentou acessar não existe.'
+        );
+    }
+
+    private function setarValorCorreto(RemoteWebElement $elemento, string $valor)
+    {
+        $tag = $elemento->getTagName();
+        if ($tag == 'input') {
+            try {
+                $type = $elemento->getAttribute('type');
+            } catch (Throwable) {
+                $type = '';
+            }
+        }
+
+        if ($type == 'file' && !file_exists($valor)) {
+            mensagemErro(
+                titulo: 'Erro',
+                mensagem: 'O arquivo enviado não existe.'
+            );
+        } elseif ($type == 'file') {
+            $elemento->setFileDetector(new LocalFileDetector);
+        } elseif ($tag == 'select') {
+            $elemento = new WebDriverSelect($elemento);
+            $elemento->selectByValue($valor);
+            return;
+        } elseif ($type == 'checkbox') {
+            $elemento = new WebDriverCheckboxes($elemento);
+            $elemento->selectByValue($valor);
+            return;
+        } elseif ($type == 'radio') {
+            $elemento = new WebDriverRadios($elemento);
+            $elemento->selectByValue($valor);
+            return;
+        } elseif ($tag == 'textarea') {
+            $elemento->click();
+        }
+        if (empty($valor)) {
+            $elemento->clear();
+            return;
+        }
+        $elemento->sendKeys($valor);
+    }
+
+    /**
+     * Simula um clique no primeiro elemento
+     *
+     * @return Self
+     * @throws Excecao
+     */
+    public function click()
+    {
+        $elemento = $this->pegarElementoInternamente();
+        if (is_array($elemento) &&
+            array_key_exists(0, $elemento) &&
+            $elemento[0] instanceof RemoteWebElement
+        ) {
+            $elemento[0]->click();
+            return $this;
+        } elseif ($elemento instanceof RemoteWebElement) {
+            $elemento->click();
+            return $this;
+        }
+        $this->erroElemento();
+    }
+
+    /**
      * @return string|array     Retonar uma string caso tenha passado um indice para
      *                          o elemento ou um array com a lista de valores
+     * @throws Excecao
      */
     public function pegarValor(): string
     {
@@ -316,7 +447,7 @@ final class WebDriverHelper
             if ($elemento instanceof WebDriverElement) {
                 try {
                     $lista[] = $item->getAttribute('value');
-                } catch (\Throwable $th) {
+                } catch (Throwable $th) {
                     mensagemErro(
                         titulo: 'Erro!',
                         mensagem: $this->mensagemPadrao,
@@ -330,16 +461,26 @@ final class WebDriverHelper
         return $lista;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | MANUPULADORES
+    |--------------------------------------------------------------------------
+    |
+    | Ações que manupulação a página como fazer esperar algo
+    | mudar para uma nova janela que foi aberta, acessar um iframe e etc
+    |
+    */
+
     /**
      * Pegar um valor de atributo do elemento
      *
-     * @param string $atributo      Qual atributo deseja pegar
+     * @param  string  $atributo  Qual atributo deseja pegar
      *
-     * @throws Excecao
      * @return string|array     Retorna uma string caso tenha passado um indice ao elemento
      *                          ou um array para multiplos elementos
+     * @throws Excecao
      */
-    public function pegarAttr(string $atributo): string | array
+    public function pegarAttr(string $atributo): string|array
     {
         $elemento = $this->pegarElementoInternamente();
 
@@ -359,17 +500,9 @@ final class WebDriverHelper
         return $lista;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | TRATA OS GET DE CONTEÚDO
-    |--------------------------------------------------------------------------
-    |
-    | Pega os valores do página como HTML, title, o texto dos elementos
-    |
-    */
-
     /**
      * Pega o HTML da página atual
+     *
      * @return string Retorna HTML
      */
     public function pegarHtml(): string
@@ -379,6 +512,7 @@ final class WebDriverHelper
 
     /**
      * Pega o título da página atual
+     *
      * @return string Retorna o título da página atual
      */
     public function pegarTitle(): string
@@ -389,11 +523,11 @@ final class WebDriverHelper
     /**
      * Pega a texto do elemento selecionado
      *
-     * @throws Excecao
      * @return string|array     Retorna o valor do texto caso tenha definido o indice do elemento
      *                          ou retorna um array com os valores para multiplos elementos
+     * @throws Excecao
      */
-    public function pegarTexto(): string | array
+    public function pegarTexto(): string|array
     {
         $elemento = $this->pegarElementoInternamente();
         if (is_array($elemento) && empty($elemento)) {
@@ -422,28 +556,18 @@ final class WebDriverHelper
         return $this->Driver->getCurrentURL();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MANUPULADORES
-    |--------------------------------------------------------------------------
-    |
-    | Ações que manupulação a página como fazer esperar algo
-    | mudar para uma nova janela que foi aberta, acessar um iframe e etc
-    |
-    */
-
     /**
      * Faz o webdriver esperar alguma ação do navegador para continuar
      *
-     * @param int           $segundos       Quantidade de segundos que deseja esperar
-     * @param null|string   $condicao       Condição para a espera podendendo ser: titulo, %titulo%, url, %url%, texto,
+     * @param  int          $segundos       Quantidade de segundos que deseja esperar
+     * @param  null|string  $condicao       Condição para a espera podendendo ser: titulo, %titulo%, url, %url%, texto,
      *                                      %texto%, visivel condições entre "%" indicam que o valor pode conter e não
      *                                      precisar ser igual. condições texto, %texto% e visivel devem ter
      *                                      obrigatoriamente o $elemento passado
-     * @param null|string   $valor          Valor deseja para condição, obrigatório menos para a condição visivel
-     * @param null|string   $elemento       Seletor Css do elemento que deseja analisar
-     * @throws Excecao
+     * @param  null|string  $valor          Valor deseja para condição, obrigatório menos para a condição visivel
+     * @param  null|string  $elemento       Seletor Css do elemento que deseja analisar
      * @return Self
+     * @throws Excecao
      */
     public function esperar(
         int $segundos = 0,
@@ -454,11 +578,10 @@ final class WebDriverHelper
         if ($segundos > 0 && empty($condicao)) {
             $this->Driver->wait();
             return $this;
-        } elseif (
-            empty($condicao) || !in_array(
-                $condicao,
-                ['titulo', '%titulo%', 'url', '%url%', 'texto', '%texto%', 'visivel']
-            )
+        } elseif (empty($condicao) || !in_array(
+            $condicao,
+            ['titulo', '%titulo%', 'url', '%url%', 'texto', '%texto%', 'visivel']
+        )
         ) {
             mensagemErro(
                 titulo: 'Erro!',
@@ -486,17 +609,24 @@ final class WebDriverHelper
 
         try {
             $this->Driver->wait(30)->until($until);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->erroPadrao($th);
         }
 
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA A JANELA
+    |--------------------------------------------------------------------------
+    */
+
     /**
      * Scroll a página para altura desejada
      *
-     * @param int  $altura  Altura que deseja rolar o scroll, caso tenha um elemento setado, somarar ao eixo y do elemento
+     * @param  int  $altura  Altura que deseja rolar o scroll, caso tenha um elemento setado, somarar ao eixo y do
+     *                       elemento
      * @return Self
      */
     public function scroll(int $altura = 0): self
@@ -515,14 +645,13 @@ final class WebDriverHelper
     /**
      * Acessa um iframe/frame que foi pegado pelo método elemento(s)
      *
-     * @throws Excecao
      * @return Self
+     * @throws Excecao
      */
     public function iframe(): self
     {
         $elemento = $this->pegarElementoInternamente();
-        if (
-            (is_array($elemento) && (!array_key_exists(0, $elemento) || !$elemento[0] instanceof WebDriverElement)) ||
+        if ((is_array($elemento) && (!array_key_exists(0, $elemento) || !$elemento[0] instanceof WebDriverElement)) ||
             (!is_array($elemento) && !$elemento instanceof WebDriverElement)
         ) {
             $this->erroElemento();
@@ -531,7 +660,7 @@ final class WebDriverHelper
         $elemento = is_array($elemento) ? $elemento[0] : $elemento;
         try {
             $this->Driver->switchTo()->frame($elemento);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->erroPadrao($th);
         }
         return $this;
@@ -540,15 +669,15 @@ final class WebDriverHelper
     /**
      * Muda para outra aba aberta
      *
-     * @param int   $aba    Número da aba da janela que quer comandar
-     * @throws Excecao
+     * @param  int  $aba  Número da aba da janela que quer comandar
      * @return Self
+     * @throws Excecao
      */
     public function aba($aba): self
     {
         try {
             $this->Driver->switchTo()->window($this->Driver->getWindowHandles()[$aba]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->erroPadrao($th);
         }
         return $this;
@@ -570,17 +699,11 @@ final class WebDriverHelper
         $this->Driver->quit();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | TRATA A JANELA
-    |--------------------------------------------------------------------------
-    */
-
     /**
      * Seta valor fixo para o tamanho  da janela
      *
-     * @param int $largura  Seta a largura da janela
-     * @param int $altura   Seta a altura da janela
+     * @param  int  $largura  Seta a largura da janela
+     * @param  int  $altura   Seta a altura da janela
      * @return Self
      */
     public function janelaTamanho(int $largura, int $altura): self
@@ -588,6 +711,15 @@ final class WebDriverHelper
         $this->Driver->manage()->window()->setSize(new WebDriverDimension($largura, $altura));
         return $this;
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA OS ALERTS
+    |--------------------------------------------------------------------------
+    |
+    | Aceita, fecha, recusae pega o texto dos alerts do javascriot
+    |
+    */
 
     /**
      * Coloca a janela em tela cheia
@@ -633,6 +765,15 @@ final class WebDriverHelper
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA OS MOUSES
+    |--------------------------------------------------------------------------
+    |
+    | Manipula o mouse na tela
+    |
+    */
+
     /**
      * Coloca a janela em modo paisagem
      *
@@ -643,15 +784,6 @@ final class WebDriverHelper
         $this->Driver->manage()->window()->setScreenOrientation('LANDSCAPE');
         return $this;
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | TRATA OS ALERTS
-    |--------------------------------------------------------------------------
-    |
-    | Aceita, fecha, recusae pega o texto dos alerts do javascriot
-    |
-    */
 
     /**
      * Aceita o alerta
@@ -688,7 +820,7 @@ final class WebDriverHelper
     /**
      * Passa um texto para o alerta
      *
-     * @param string $valor Valor que deseja passar
+     * @param  string  $valor  Valor que deseja passar
      * @return Selg
      */
     public function alertValor(string $valor): self
@@ -696,15 +828,6 @@ final class WebDriverHelper
         $this->Driver->switchTo()->alert()->sendKeys($valor);
         return $this;
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | TRATA OS MOUSES
-    |--------------------------------------------------------------------------
-    |
-    | Manipula o mouse na tela
-    |
-    */
 
     /**
      * Pegar o mouse e faz a ação de mouse down
@@ -718,10 +841,19 @@ final class WebDriverHelper
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | TRATA AÇÕES NA TELA
+    |--------------------------------------------------------------------------
+    |
+    | Ação na tela como clique e enter
+    |
+    */
+
     /**
      * Pega o mouse e faz a ação de mouse up
      *
-     * @param bool $elemento    Se vai usar uma cordenada de um elemento ou não
+     * @param  bool  $elemento  Se vai usar uma cordenada de um elemento ou não
      * @return Self
      */
     public function mouseSoltarClique(bool $elemento = true): self
@@ -734,9 +866,9 @@ final class WebDriverHelper
     /**
      * Pega o mouse e faz a ação de mouse up
      *
-     * @param null|int  $x          Posição X onde o mouse vai parar
-     * @param null|int  $y          Posição y onde o mouse vai parar
-     * @param bool      $elemento   Se vai usar uma cordenada de um elemento ou não
+     * @param  null|int  $x         Posição X onde o mouse vai parar
+     * @param  null|int  $y         Posição y onde o mouse vai parar
+     * @param  bool      $elemento  Se vai usar uma cordenada de um elemento ou não
      * @return Self
      */
     public function mouseMover(?int $x = null, ?int $y = null, bool $elemento = true): self
@@ -746,36 +878,35 @@ final class WebDriverHelper
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS DA CLASSE
+    |--------------------------------------------------------------------------
+    */
+
     public function mouseCliqueDuplo()
     {
         $this->Driver->getMouse()->doubleClick($this->ElementoAtual->getCoordinates());
         return $this;
     }
+
     public function mouseClique()
     {
         $this->Driver->getMouse()->click($this->ElementoAtual->getCoordinates());
         return $this;
     }
+
     public function mouseCliqueDireito()
     {
         $this->Driver->getMouse()->contextClick($this->ElementoAtual->getCoordinates());
         return $this;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | TRATA AÇÕES NA TELA
-    |--------------------------------------------------------------------------
-    |
-    | Ação na tela como clique e enter
-    |
-    */
-
     /**
      * Simula um enter no primeiro elemento
      *
-     * @throws Excecao
      * @return Self
+     * @throws Excecao
      */
     public function enter(): self
     {

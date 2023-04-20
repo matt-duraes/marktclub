@@ -1,58 +1,76 @@
 {
-  "name": "andrerodrigue5/framework",
-  "description": "Micro Framework",
-  "license": "MIT",
-  "require": {
-    "php": "^8.1",
-    "firebase/php-jwt": "^6",
-    "intervention/image": "^2",
-    "phpmailer/phpmailer": "^6",
-    "symfony/http-client": "^6",
-    "symfony/browser-kit": "^6",
-    "symfony/css-selector": "^6",
-    "symfony/http-foundation": "^6",
-    "symfony/mime": "^6",
-    "phpmussel/core": "^3",
-    "ezyang/htmlpurifier": "^4",
-    "mpdf/mpdf": "^8",
-    "google/apiclient": "^2",
-    "box/spout": "^3",
-    "sendgrid/sendgrid": "^8",
-    "ext-pdo": "*"
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "autoload": {
-    "psr-4": {
-      "System\\": "src/",
-      "Status\\": "src/Status",
-      "Random\\": "src/Random",
-      "Order\\": "src/Order",
-      "Tests\\": [
-        "tests",
-        "src/Tests"
-      ],
-      "App\\": "app/",
-      "Controller\\": "src/Controller/",
-      "ORM\\": "src/Orm/",
-      "Helpers\\": "src/Helpers/",
-      "Modules\\": "src/Modules/",
-      "DataBase\\": "src/Database/",
-      "Route\\": "src/Route/",
-      "Http\\": "src/Http/",
-      "Erro\\": "src/Erro/",
-      "ApiController\\": "src/Api/Controllers",
-      "ApiModel\\": "src/Api/Models",
-      "PainelConfig\\": "src/Painel/Config",
-      "PainelApp\\": "src/Painel/App",
-      "PainelController\\": "src/Painel/Controllers",
-      "PainelModel\\": "src/Painel/Models",
-      "DocumentacaoConfig\\": "src/Documentacao/"
+    "name": "andrerodrigue5/framework",
+    "description": "Micro Framework",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "ext-calendar": "*",
+        "ext-curl": "*",
+        "ext-fileinfo": "*",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "box/spout": "^3",
+        "ezyang/htmlpurifier": "^4",
+        "firebase/php-jwt": "^6",
+        "google/apiclient": "^2",
+        "intervention/image": "^2",
+        "mpdf/mpdf": "^8",
+        "phpmailer/phpmailer": "^6",
+        "phpmussel/core": "^3",
+        "sendgrid/sendgrid": "^8",
+        "symfony/browser-kit": "^6",
+        "symfony/css-selector": "^6",
+        "symfony/http-client": "^6",
+        "symfony/http-foundation": "^6",
+        "symfony/mime": "^6"
+    },
+    "require-dev": {
+        "captainhook/captainhook": "^5",
+        "captainhook/plugin-composer": "^5",
+        "ergebnis/composer-normalize": "^2",
+        "friendsofphp/php-cs-fixer": "^3",
+        "php-webdriver/webdriver": "^1",
+        "ramsey/conventional-commits": "^1",
+        "squizlabs/php_codesniffer": "^3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ApiController\\": "src/Api/Controllers",
+            "ApiModel\\": "src/Api/Models",
+            "App\\": "app/",
+            "Controller\\": "src/Controller/",
+            "DataBase\\": "src/Database/",
+            "DocumentacaoConfig\\": "src/Documentacao/",
+            "Erro\\": "src/Erro/",
+            "Helpers\\": "src/Helpers/",
+            "Http\\": "src/Http/",
+            "Modules\\": "src/Modules/",
+            "ORM\\": "src/Orm/",
+            "Order\\": "src/Order",
+            "PainelApp\\": "src/Painel/App",
+            "PainelConfig\\": "src/Painel/Config",
+            "PainelController\\": "src/Painel/Controllers",
+            "PainelModel\\": "src/Painel/Models",
+            "Random\\": "src/Random",
+            "Route\\": "src/Route/",
+            "Status\\": "src/Status",
+            "System\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "Tests\\": [
+            "tests",
+            "src/Tests"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "captainhook/plugin-composer": true
+        },
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "post-autoload-dump": "./vendor/bin/captainhook install -f -s"
     }
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "^3",
-    "php-webdriver/webdriver": "^1"
-  }
 }

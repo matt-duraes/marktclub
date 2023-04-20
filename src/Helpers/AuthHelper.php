@@ -2,23 +2,26 @@
 
 namespace Helpers;
 
+use Erro\Excecao;
+
 final class AuthHelper
 {
     /**
      * Validar se usuário está logado
-     * @param Null|String       $local          Qual o local está, por exemplo: site, painel, etc
-     * @param Bool              $location       Se vai salvar a URL para usar no location
+     *
+     * @param  string|null  $local     Qual o local está, por exemplo: site, painel, etc
+     * @param  bool         $location  Se vai salvar a URL para usar no location
+     * @throws Excecao
      */
-    public function validar(?string $local = null, bool $location = true)
+    public function validar(string $local = null, bool $location = true): bool
     {
         $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
         $userAgent = md5($_SERVER['HTTP_USER_AGENT']);
 
-        if (
-            sessaoExiste('USUARIO') &&
-            sessaoExiste('AUTH_' . $local . '_' . $userAgent . '_HASH') &&
-            sessaoExiste('AUTH_' . $local . '_' . $userAgent) &&
-            sessao('AUTH_' . $local . '_' . $userAgent . '_HASH') == sessao('AUTH_' . $local . '_' . $userAgent)
+        if (sessaoExiste('USUARIO')
+            && sessaoExiste('AUTH_' . $local . '_' . $userAgent . '_HASH')
+            && sessaoExiste('AUTH_' . $local . '_' . $userAgent)
+            && sessao('AUTH_' . $local . '_' . $userAgent . '_HASH') == sessao('AUTH_' . $local . '_' . $userAgent)
         ) {
             return true;
         }
@@ -28,40 +31,49 @@ final class AuthHelper
             $hostname = explode('/', str_replace(['http://', 'https://'], '', LINK))[0];
             sessao('AUTH_' . $local . '_LOCATION', $protocolo . '//' . $hostname . $_SERVER['REQUEST_URI']);
         }
+
         return false;
     }
 
     /**
      * Retorna o link para o location após o login
-     * @param   Null|String       $local        Qual o local está, por exemplo: site, painel, etc
-     * @param   Null|String       $link         Para qual link deve ser redirecionado, caso exista
-     *                                              um link de redirecionamento, será ignorado
+     *
+     * @param  string|null  $local  Qual o local está, por exemplo: site, painel, etc
+     * @param  string|null  $link   Para qual link deve ser redirecionado, caso exista um link de redirecionamento,
+     *                              será ignorado
+     * @return mixed
+     * @throws Excecao
      */
-    public function location(?string $local = null, ?string $link = null)
+    public function location(string $local = null, string $link = null): mixed
     {
-        $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
-        $link = $link == null ? LINK : $link;
+        $local = $local ?? mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+        $link = $link ?? LINK;
+        $nomeDaLocation = 'AUTH_' . $local . '_LOCATION';
 
-        if (sessaoExiste('AUTH_' . $local . '_LOCATION')) {
-            $link = sessao('AUTH_' . $local . '_LOCATION');
-            sessaoDeletar('AUTH_' . $local . '_LOCATION');
+        if (sessaoExiste($nomeDaLocation)) {
+            $link = sessao($nomeDaLocation);
+            sessaoDeletar($nomeDaLocation);
         }
+
         return $link;
     }
 
     /**
      * Gera a auth do usuário
-     * @param Array             $usuario        Array com os dados do usuário
-     * @param Null|String       $local          Qual o local está, por exemplo: site, painel, etc
+     *
+     * @param  array        $usuario  Array com os dados do usuário
+     * @param  string|null  $local    Qual o local está, por exemplo: site, painel, etc
+     * @return bool
+     * @throws Excecao
      */
-    public function criar(array $usuario, ?string $local = null): Bool
+    public function criar(array $usuario, ?string $local = null): bool
     {
         $this->deletar();
 
-        $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+        $local = $local ?? mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
         $hash = uuid();
+        $userAgent = md5($_SERVER['HTTP_USER_AGENT'] ?? 'unknown');
 
-        $userAgent = md5($_SERVER['HTTP_USER_AGENT']);
         sessao('AUTH_' . $local . '_' . $userAgent . '_HASH', $hash);
         sessao('AUTH_' . $local . '_' . $userAgent, $hash);
         sessao('USUARIO', $usuario);
@@ -70,7 +82,9 @@ final class AuthHelper
     }
 
     /**
-     * Deleta a sesão atual caso exista
+     * Deleta a sessão atual caso exista
+     *
+     * @return bool
      */
     public function deletar(): bool
     {

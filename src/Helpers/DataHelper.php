@@ -2,10 +2,103 @@
 
 namespace Helpers;
 
+use DateTime;
+use Exception;
+
 final class DataHelper
 {
+    private $retorno;
+    private $replaceDataBr;
+    private $replaceDataEua = [];
+
     /**
-     * @param String $formato Formato que deseja retornar a data
+     * @param  string  $data  Data para ser convertida
+     */
+    public function __construct(string $data = '')
+    {
+        $this->replaceDataBr = [
+            'anos',
+            'ano',
+            'meses',
+            'mes',
+            'semanas',
+            'semana',
+            'dias',
+            'dia',
+            'horas',
+            'hora',
+            'minutos',
+            'minuto',
+            'segundos',
+            'segundo'
+        ];
+        $this->replaceDataEua = [
+            'year',
+            'year',
+            'month',
+            'month',
+            'week',
+            'week',
+            'day',
+            'day',
+            'hour',
+            'hour',
+            'minute',
+            'minute',
+            'second',
+            'second'
+        ];
+        $this->valor($data);
+    }
+
+    /**
+     * @param  string  $data  Data para ser convertida
+     * @throws Exception
+     */
+    public function valor(string $data = ''): DataHelper
+    {
+        if (!$this->validarData($data)) {
+            $this->retorno = null;
+            return $this;
+        }
+
+        $this->retorno = new DateTime(str_replace('/', '-', $data));
+        return $this;
+    }
+
+    /**
+     * @param  string  $data
+     * @return bool
+     */
+    private function validarData(string $data): bool
+    {
+        // @phpcs:disable
+        if (empty($data)
+            || in_array($data, ['00/00/0000', '00/00/0000 00:00:00', '0000-00-00', '0000-00-00 00:00:00'])
+            || (!preg_match('/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/([0-9]{4})$/', $data)
+                && !preg_match('/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $data)
+                && !preg_match(
+                    "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{4}\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/",
+                    $data
+                )
+                && !preg_match(
+                    "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/",
+                    $data
+                ))
+        ) {
+            return false;
+        }
+        return true;
+        // @phpcs:enable
+    }
+
+    public function date(): string
+    {
+        return $this->formato('Y-m-d');
+    }
+
+    /**
+     * @param  string  $formato  Formato que deseja retornar a data
      */
     public function formato(string $formato = 'Y-m-d H:i:s'): string
     {
@@ -17,14 +110,19 @@ final class DataHelper
         return $data->format($formato);
     }
 
-    public function date(): string
+    private function validar(): bool
     {
-        return $this->formato('Y-m-d');
+        if (!$this->retorno instanceof DateTime) {
+            $this->retorno = null;
+            return false;
+        }
+
+        return true;
     }
 
     public function dateTime(): string
     {
-        return $this->formato('Y-m-d H:i:s');
+        return $this->formato();
     }
 
     public function data(): string
@@ -35,6 +133,56 @@ final class DataHelper
     public function dataHora(): string
     {
         return $this->formato('d/m/Y H:i:s');
+    }
+
+    public function nomeSemana(): string
+    {
+        if (!$this->validar()) {
+            return '';
+        }
+
+        $semana = $this->retorno->format('w');
+
+        $lista = [
+            0 => 'Domingo',
+            1 => 'Segunda-Feira',
+            2 => 'Terça-Feira',
+            3 => 'Quarta-Feira',
+            4 => 'Quinta-Feira',
+            5 => 'Sexta-Feira',
+            6 => 'Sábado',
+        ];
+
+        return $lista[$semana] ?? '';
+    }
+
+    /**
+     * @param  bool  $hora  Se a data deve retornar com H:i:s
+     * @return string
+     */
+    public function extenso(bool $hora = false): string
+    {
+        if (!$this->validar()) {
+            return '';
+        }
+
+        $formato = 'Y-m-d';
+        if ($hora) {
+            $formato .= ' H:i:s';
+        }
+
+        $data = $this->retorno->format($formato);
+
+        $explode = explode(' ', $data);
+        $explodeData = explode('-', $explode[0]);
+
+        $string = $explodeData[2] . ' de ' . $this->nomeMes() . ' de ' . $explodeData[0];
+
+        if ($hora) {
+            $string .= ' às ' . $explode[1] ?? '00:00:00';
+        }
+
+        return $string;
     }
 
     public function nomeMes(): string
@@ -63,62 +211,14 @@ final class DataHelper
         return $lista[$mes] ?? '';
     }
 
-    public function nomeSemana(): string
-    {
-        if (!$this->validar()) {
-            return '';
-        }
-
-        $semana = $this->retorno->format('w');
-
-        $lista = [
-            0 => 'Domingo',
-            1 => 'Segunda-Feira',
-            2 => 'Terça-Feira',
-            3 => 'Quarta-Feira',
-            4 => 'Quinta-Feira',
-            5 => 'Sexta-Feira',
-            6 => 'Sábado',
-        ];
-
-        return $lista[$semana] ?? '';
-    }
-
-    /**
-     * @param Bool $hora Se a data deve retornar com H:i:s
-     */
-    public function extenso(bool $hora = false): string
-    {
-        if (!$this->validar()) {
-            return '';
-        }
-
-        $formato = 'Y-m-d';
-        if ($hora) {
-            $formato .= ' H:i:s';
-        }
-
-        $data = $this->retorno->format($formato);
-
-        $explode = explode(' ', $data);
-        $explodeData = explode('-', $explode[0]);
-
-        $string = $explodeData[2] . ' de ' . $this->nomeMes() . ' de ' . $explodeData[0];
-
-        if ($hora) {
-            $string .= ' às ' . $explode[1] ?? '00:00:00';
-        }
-
-        return $string;
-    }
-
     /**
      * Retorna a diferença de dias entre duas datas
      *
-     * @param   string      $data       Data que será usada para comparar
-     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
+     * @param  string  $data  Data que será usada para comparar
+     * @return  bool|int  Retorna false se der erro ou intenro com a diferença
+     * @throws Exception
      */
-    public function diferencaDia(string $data): bool | int
+    public function diferencaDia(string $data): bool|int
     {
         $comparar = $data;
         if (!$this->validar() || !$this->validarData($comparar)) {
@@ -126,15 +226,17 @@ final class DataHelper
         }
 
         $valor = $this->retorno;
-        return $valor->diff(new \DateTime(str_replace('/', '-', $comparar)))->format('%r%a');
+        return $valor->diff(new DateTime(str_replace('/', '-', $comparar)))->format('%r%a');
     }
+
     /**
      * Retorna a diferença de horas entre duas datas
      *
-     * @param   string      $data       Data que será usada para comparar
-     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
+     * @param  string  $data  Data que será usada para comparar
+     * @return  bool|int  Retorna false se der erro ou intenro com a diferença
+     * @throws Exception
      */
-    public function diferencaHora(string $data): bool | int
+    public function diferencaHora(string $data): bool|int
     {
         $comparar = $data;
         if (!$this->validar() || !$this->validarData($comparar)) {
@@ -142,18 +244,30 @@ final class DataHelper
         }
 
         $valor = $this->retorno;
-        $diff = $valor->diff(new \DateTime(str_replace('/', '-', $comparar)));
+        $diff = $valor->diff(new DateTime(str_replace('/', '-', $comparar)));
         $dia = abs($diff->format('%R%a')) * 24;
         $resultado = floor($diff->h + $dia);
         return $this->retornarDiferenca($valor, $data, $resultado);
     }
+
+    /**
+     * @throws Exception
+     */
+    private function retornarDiferenca($data, $comparacao, $valor)
+    {
+        $data = $data instanceof DateTime ? $data : new DateTime($data);
+        $comparacao = $comparacao instanceof DateTime ? $comparacao : new DateTime($comparacao);
+        return $data <= $comparacao ? $valor : -$valor;
+    }
+
     /**
      * Retorna a diferença de minutos entre duas datas
      *
-     * @param   string      $data       Data que será usada para comparar
-     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
+     * @param  string  $data  Data que será usada para comparar
+     * @return  bool|int  Retorna false se der erro ou um int com a diferença
+     * @throws Exception
      */
-    public function diferencaMinuto(string $data): bool | int
+    public function diferencaMinuto(string $data): bool|int
     {
         $comparar = $data;
         if (!$this->validar() || !$this->validarData($comparar)) {
@@ -161,19 +275,21 @@ final class DataHelper
         }
 
         $valor = $this->retorno;
-        $diff = $valor->diff(new \DateTime(str_replace('/', '-', $comparar)));
+        $diff = $valor->diff(new DateTime(str_replace('/', '-', $comparar)));
         $dia = abs($diff->format('%r%a')) * 24 * 60;
         $hora = $diff->h * 60;
         $resultado = floor($diff->i + $dia + $hora);
         return $this->retornarDiferenca($valor, $data, $resultado);
     }
+
     /**
-     * Retorna a diferença de segudoss entre duas datas
+     * Retorna a diferença de segundos entre duas datas
      *
-     * @param   string      $data       Data que será usada para comparar
-     * @return  bool|int                Retorna false se der erro ou intenro com a diferença
+     * @param  string  $data  Data que será usada para comparar
+     * @return  bool|int  Retorna false se der erro ou um int com a diferença
+     * @throws Exception
      */
-    public function diferencaSegundo(string $data): bool | int
+    public function diferencaSegundo(string $data): bool|int
     {
         $comparar = $data;
         if (!$this->validar() || !$this->validarData($comparar)) {
@@ -181,22 +297,18 @@ final class DataHelper
         }
 
         $valor = $this->retorno;
-        $diff = $valor->diff(new \DateTime(str_replace('/', '-', $comparar)));
+        $diff = $valor->diff(new DateTime(str_replace('/', '-', $comparar)));
         $dia = abs($diff->format('%r%a')) * 24 * 60 * 60;
         $hora = $diff->h * 60 * 60;
         $minuto = $diff->i * 60;
         $resultado = floor($diff->s + $dia + $hora + $minuto);
         return $this->retornarDiferenca($valor, $data, $resultado);
     }
-    private function retornarDiferenca($data, $comparacao, $valor)
-    {
-        $data = $data instanceof \DateTime ? $data : new \DateTime($data);
-        $comparacao = $comparacao instanceof \DateTime ? $comparacao : new \DateTime($comparacao);
-        return $data <= $comparacao ? $valor : -$valor;
-    }
 
     /**
-     * @param Bool $curto True para data com padrão curto ou false para padrão normal
+     * @param  bool  $curto  True para data com padrão curto ou false para padrão normal
+     * @return string
+     * @throws Exception
      */
     public function social(bool $curto = false): string
     {
@@ -207,14 +319,33 @@ final class DataHelper
         if ($valor->format('Y-m-d H:i:s') > date('Y-m-d H:i:s')) {
             return '';
         }
-        $data = $valor->diff(new \DateTime(date('Y-m-d H:i:s')));
+        $data = $valor->diff(new DateTime(date('Y-m-d H:i:s')));
         if ($curto) {
             return $this->socialCurto($data);
         }
         return $this->socialGrande($data);
     }
 
-    private function socialGrande($data)
+    private function socialCurto($data): string
+    {
+        if ($data->y > 0) {
+            return $data->y . ' a';
+        } elseif ($data->m > 0 || $data->d >= 7) {
+            return floor($data->days / 7) . ' sem';
+        } elseif ($data->d > 1) {
+            return $data->d . ' d';
+        } elseif ($data->h > 1) {
+            return $data->h . ' h';
+        } elseif ($data->i > 1) {
+            return $data->i . ' m';
+        } elseif ($data->s > 10) {
+            return $data->s . ' s';
+        } else {
+            return 'Agora';
+        }
+    }
+
+    private function socialGrande($data): string
     {
         if ($data->y == 1) {
             return 'Há 1 ano';
@@ -243,39 +374,24 @@ final class DataHelper
         }
     }
 
-    private function socialCurto($data)
-    {
-        if ($data->y > 0) {
-            return $data->y . ' a';
-        } elseif ($data->m > 0 || $data->d >= 7) {
-            return floor($data->days / 7) . ' sem';
-        } elseif ($data->d > 1) {
-            return $data->d . ' d';
-        } elseif ($data->h > 1) {
-            return $data->h . ' h';
-        } elseif ($data->i > 1) {
-            return $data->i . ' m';
-        } elseif ($data->s > 10) {
-            return $data->s . ' s';
-        } else {
-            return 'Agora';
-        }
-    }
-
-    public function idade()
+    /**
+     * @return false
+     */
+    public function idade(): bool
     {
         if (!$this->validar()) {
             return false;
         }
 
-        return $this->retorno->diff(new \DateTime())->y;
+        return $this->retorno->diff(new DateTime())->y;
     }
 
     /**
-     * @param Int $numero Número a ser adicionado
-     * @param String $tempo Tipo de tempo a ser adicionado, por exemplo, segundos, mimutos, horas, etc
+     * @param  int     $numero  Número a ser adicionado
+     * @param  string  $tempo   Tipo de tempo a ser adicionado, por exemplo, segundos, minutos, horas, etc
+     * @return DataHelper
      */
-    public function adicionar(int $numero, String $tempo = ''): DataHelper
+    public function adicionar(int $numero, string $tempo = ''): DataHelper
     {
         if (!$this->validar()) {
             return $this;
@@ -290,10 +406,11 @@ final class DataHelper
     }
 
     /**
-     * @param Int $numero Número a ser removido
-     * @param String $tempo Tipo de tempo a ser removido, por exemplo, segundos, mimutos, horas, etc
+     * @param  int     $numero  Número a ser removido
+     * @param  string  $tempo   Tipo de tempo a ser removido, por exemplo, segundos, minutos, horas, etc
+     * @return DataHelper
      */
-    public function remover(int $numero, String $tempo = ''): DataHelper
+    public function remover(int $numero, string $tempo = ''): DataHelper
     {
         if (!$this->validar()) {
             return $this;
@@ -310,25 +427,30 @@ final class DataHelper
     /**
      * Pega o último dia do mês
      *
-     * @return  self
+     * @return  DataHelper
+     * @throws Exception
      */
-    public function ultimoDiaMes(): self
+    public function ultimoDiaMes(): DataHelper
     {
         if (!$this->validar()) {
             return $this;
         }
 
         $data = explode('-', $this->retorno->format('Y-m-d'));
-        $this->valor($data[0] . '-' . $data[1] . '-' . cal_days_in_month(CAL_GREGORIAN, $data[1], $data[0]) . ' 23:59:59');
+        $this->valor(
+            $data[0] . '-' . $data[1] . '-' . cal_days_in_month(CAL_GREGORIAN, $data[1], $data[0]) . ' 23:59:59'
+        );
 
         return $this;
     }
+
     /**
      * Pega o primeiro dia do mês
      *
-     * @return  self
+     * @return  DataHelper
+     * @throws Exception
      */
-    public function primeiroDiaMes()
+    public function primeiroDiaMes(): DataHelper
     {
         if (!$this->validar()) {
             return $this;
@@ -339,33 +461,10 @@ final class DataHelper
 
         return $this;
     }
-    /*
-    |--------------------------------------------------------------------------
-    | BASE DA CLASSE
-    |--------------------------------------------------------------------------
-    |
-    | Métodos e propriedades base da classe como getters, setters, validações,
-    | construtores e demais métodos para o bom funcionamento da classe,
-    | não alterar ou remover nenhum dos métodos ou propriedades
-    |
-     */
-    private $retorno;
-    private $replaceDataBr;
-    private $replaceDataEua = [];
 
     /**
-     * @param String $data Data para ser convertida
-     */
-    public function __construct(string $data = '')
-    {
-        $this->replaceDataBr = ['anos', 'ano', 'meses', 'mes', 'semanas', 'semana', 'dias', 'dia', 'horas', 'hora', 'minutos', 'minuto', 'segudos', 'segundo'];
-        $this->replaceDataEua = ['year', 'year', 'month', 'month', 'week', 'week', 'day', 'day', 'hour', 'hour', 'minute', 'minute', 'second', 'second'];
-        $this->valor($data);
-    }
-
-    /**
-     * @param   string  $formato    Formato que deseja retornar a data
-     * @return  string              Data no formato definido
+     * @param  string  $formato  Formato que deseja retornar a data
+     * @return  string  Data no formato definido
      */
     public function r(string $formato = 'd/m/Y'): string
     {
@@ -380,30 +479,19 @@ final class DataHelper
     }
 
     /**
-     * @param String $data Data para ser convertida
-     */
-    public function valor(string $data = ''): DataHelper
-    {
-        if (!$this->validarData($data)) {
-            $this->retorno = null;
-            return $this;
-        }
-
-        $this->retorno = new \DateTime(str_replace('/', '-', $data));
-        return $this;
-    }
-
-    /**
      * Retorna quantos dias passou da data até hoje
+     *
+     * @return string
+     * @throws Exception
      */
-    public function quantosDias()
+    public function quantosDias(): string
     {
         if (!$this->validar()) {
             return '';
         }
 
         $this->valor($this->formato('Y-m-d'));
-        $data = $this->retorno->diff(new \DateTime(date('Y-m-d')));
+        $data = $this->retorno->diff(new DateTime(date('Y-m-d')));
 
         if ($data->y == 1) {
             return 'Há 1 ano';
@@ -427,30 +515,5 @@ final class DataHelper
             return 'Há 4 semanas';
         }
         return 'Há ' . $data->days . ' dias';
-    }
-
-    private function validarData(string $data): bool
-    {
-        if (
-            empty($data) ||
-            in_array($data, ['00/00/0000', '00/00/0000 00:00:00', '0000-00-00', '0000-00-00 00:00:00']) ||
-            (!preg_match('/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/([0-9]{4})$/', $data) &&
-                !preg_match('/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $data) &&
-                !preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{4}\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $data) &&
-                !preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $data))
-        ) {
-            return false;
-        }
-        return true;
-    }
-
-    private function validar(): bool
-    {
-        if (!$this->retorno instanceof \DateTime) {
-            $this->retorno = null;
-            return false;
-        }
-
-        return true;
     }
 }

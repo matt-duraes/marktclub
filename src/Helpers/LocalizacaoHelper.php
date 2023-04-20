@@ -2,18 +2,20 @@
 
 namespace Helpers;
 
+use Erro\Excecao;
+
 final class LocalizacaoHelper
 {
     /**
-     * Busca os dados geograficos pelo IP do usuário
+     * Busca os dados geográficos pelo IP do usuário
      *
-     * @param null|string $ip IP do usuário ou null para tentar pegar IP automático
+     * @param  string|null  $ip  IP do usuário ou null para tentar pegar IP automático
      * @return array
      */
-    public function pegarDadosPeloIp(?string $ip = null): array
+    public function pegarDadosPeloIp(string $ip = null): array
     {
         $ip = !empty($ip) ? $ip : ip();
-        $url = (string) "http://ip-api.com/json/{$ip}?fields=65535";
+        $url = (string)"http://ip-api.com/json/{$ip}?fields=65535";
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -26,16 +28,30 @@ final class LocalizacaoHelper
         }
 
         return [
-            'pais' => isset($retorno['countryCode']) ? $retorno['countryCode'] : '',
-            'estado' => isset($retorno['region']) ? $retorno['region'] : '',
-            'cidade' => isset($retorno['city']) ? $retorno['city'] : '',
-            'latitude' => isset($retorno['lat']) ? $retorno['lat'] : '',
-            'longitude' => isset($retorno['lon']) ? $retorno['lon'] : '',
-            'provedor' => isset($retorno['isp']) ? $retorno['isp'] : '',
+            'pais' => $retorno['countryCode'] ?? '',
+            'estado' => $retorno['region'] ?? '',
+            'cidade' => $retorno['city'] ?? '',
+            'latitude' => $retorno['lat'] ?? '',
+            'longitude' => $retorno['lon'] ?? '',
+            'provedor' => $retorno['isp'] ?? '',
         ];
     }
 
-    public function pegarEnderecoPeloCep(null|string|int $cep)
+    /**
+     * @param  string  $mensagem
+     * @throws Excecao
+     */
+    private function mensagemErroApi(string $mensagem = ''): void
+    {
+        mensagemErro('Erro na API', 'Não foi possível conectar com a API.', localhost: $mensagem);
+    }
+
+    /**
+     * @param  string|int|null  $cep
+     * @return array
+     * @throws Excecao
+     */
+    public function pegarEnderecoPeloCep(null|string|int $cep): array
     {
         $ch = curl_init('https://brasilapi.com.br/api/cep/v1/' . preg_replace("/[^0-9]/", "", $cep));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -55,11 +71,13 @@ final class LocalizacaoHelper
         ];
     }
 
-
-
-    public function pegarEnderecoPelaGeolocalizacao($latitude, $longitude)
+    /**
+     * @throws Excecao
+     */
+    public function pegarEnderecoPelaGeolocalizacao($latitude, $longitude): array
     {
-        $url = 'https://maps.google.com/maps/api/geocode/json?latlng=' . $latitude . ',' . $longitude . '&key=' . $this->googleKey();
+        $parameters = $latitude . ',' . $longitude . '&key=' . $this->googleKey();
+        $url = 'https://maps.google.com/maps/api/geocode/json?latlng=' . $parameters;
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -67,7 +85,7 @@ final class LocalizacaoHelper
 
         $retorno = jsonDecode(curl_exec($ch), true);
 
-        if (!isset($retorno['results']) || empty($retorno['results'])) {
+        if (empty($retorno['results'])) {
             $this->mensagemErroApi();
         }
 
@@ -103,15 +121,39 @@ final class LocalizacaoHelper
         return $endereco;
     }
 
+    /**
+     * @throws Excecao
+     */
+    private function googleKey()
+    {
+        $apiKey = env('GOOGLE_API_KEY');
+        if (empty($apiKey)) {
+            $this->mensagemErroApi('Não foi passado uma API KEY do GOOGLE.');
+        }
+        return $apiKey;
+    }
+
+    /**
+     * @param  string|null  $pais
+     * @param  string|null  $titulo
+     * @param  string|null  $cep
+     * @param  string|null  $logradouro
+     * @param  string|null  $numero
+     * @param  string|null  $bairro
+     * @param  string|null  $cidade
+     * @param  string|null  $estado
+     * @return array|void
+     * @throws Excecao
+     */
     public function pegarGeolocalizacaoPeloEndereco(
-        ?string $pais = null,
-        ?string $titulo = null,
-        ?string $cep = null,
-        ?string $logradouro = null,
-        ?string $numero = null,
-        ?string $bairro = null,
-        ?string $cidade = null,
-        ?string $estado = null,
+        string $pais = null,
+        string $titulo = null,
+        string $cep = null,
+        string $logradouro = null,
+        string $numero = null,
+        string $bairro = null,
+        string $cidade = null,
+        string $estado = null,
     ) {
         $dado = $this->buscarGeolocalizacaoNoGoogle(
             pais: $pais,
@@ -169,16 +211,29 @@ final class LocalizacaoHelper
         }
         mensagemErro('Erro!', 'Não foi possível achar uma geolocalização pelo endereço');
     }
+
+    /**
+     * @param  string|null  $pais
+     * @param  string|null  $titulo
+     * @param  string|null  $cep
+     * @param  string|null  $logradouro
+     * @param  string|null  $numero
+     * @param  string|null  $bairro
+     * @param  string|null  $cidade
+     * @param  string|null  $estado
+     * @return bool|array
+     * @throws Excecao
+     */
     private function buscarGeolocalizacaoNoGoogle(
-        ?string $pais = null,
-        ?string $titulo = null,
-        ?string $cep = null,
-        ?string $logradouro = null,
-        ?string $numero = null,
-        ?string $bairro = null,
-        ?string $cidade = null,
-        ?string $estado = null,
-    ) {
+        string $pais = null,
+        string $titulo = null,
+        string $cep = null,
+        string $logradouro = null,
+        string $numero = null,
+        string $bairro = null,
+        string $cidade = null,
+        string $estado = null,
+    ): bool|array {
         $pais = empty($pais) ? 'BR' : $pais;
 
         if (empty($titulo) && empty($logradouro) && empty($bairro) && empty($cidade) && empty($estado)) {
@@ -211,7 +266,9 @@ final class LocalizacaoHelper
             $endereco = $titulo;
         }
 
-        $url = 'https://maps.google.com/maps/api/geocode/json?address=' . urlencode($endereco) . '&key=' . $this->googleKey() . '&region=' . $pais . '&components=country:' . $pais . '|language:pt-BR';
+        $url = 'https://maps.google.com/maps/api/geocode/json?address=' . urlencode(
+            $endereco
+        ) . '&key=' . $this->googleKey() . '&region=' . $pais . '&components=country:' . $pais . '|language:pt-BR';
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
@@ -225,7 +282,12 @@ final class LocalizacaoHelper
             'longitude' => $dado['results'][0]['geometry']['location']['lng'],
         ];
     }
-    private function validarRetornoGeolocalizacaoDoGoogle($retorno)
+
+    /**
+     * @param $retorno
+     * @return bool
+     */
+    private function validarRetornoGeolocalizacaoDoGoogle($retorno): bool
     {
         return is_array($retorno) &&
             array_key_exists('results', $retorno) &&
@@ -233,20 +295,54 @@ final class LocalizacaoHelper
             array_key_exists('formatted_address', $retorno['results'][0]);
     }
 
+    /**
+     * @param  string  $estado
+     * @param  string  $indice
+     * @param  string  $titulo
+     * @return array
+     * @throws Excecao
+     */
     public function pegarListaCidadePeloEstado(
         string $estado,
         string $indice = '',
         string $titulo = ''
     ): array {
         $id = [
-            'RO' => 11, 'AC' => 12, 'AM' => 13, 'RR' => 14, 'PA' => 15, 'AP' => 16, 'TO' => 17, 'MA' => 21,
-            'PI' => 22, 'CE' => 23, 'RN' => 24, 'PB' => 25, 'PE' => 26, 'AL' => 27, 'SE' => 28, 'BA' => 29,
-            'MG' => 31, 'ES' => 32, 'RJ' => 33, 'SP' => 35, 'PR' => 41, 'SC' => 42, 'RS' => 43, 'MS' => 50,
-            'MT' => 51, 'GO' => 52, 'DF' => 53
+            'RO' => 11,
+            'AC' => 12,
+            'AM' => 13,
+            'RR' => 14,
+            'PA' => 15,
+            'AP' => 16,
+            'TO' => 17,
+            'MA' => 21,
+            'PI' => 22,
+            'CE' => 23,
+            'RN' => 24,
+            'PB' => 25,
+            'PE' => 26,
+            'AL' => 27,
+            'SE' => 28,
+            'BA' => 29,
+            'MG' => 31,
+            'ES' => 32,
+            'RJ' => 33,
+            'SP' => 35,
+            'PR' => 41,
+            'SC' => 42,
+            'RS' => 43,
+            'MS' => 50,
+            'MT' => 51,
+            'GO' => 52,
+            'DF' => 53
         ][strCaixaAlta($estado)] ?? '';
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' . $id . '/municipios');
+        curl_setopt(
+            $ch,
+            CURLOPT_URL,
+            'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' . $id . '/municipios'
+        );
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -265,19 +361,5 @@ final class LocalizacaoHelper
         }
 
         return $cidade;
-    }
-
-    private function googleKey()
-    {
-        $apiKey = env('GOOGLE_API_KEY');
-        if (empty($apiKey)) {
-            $this->mensagemErroApi('Não foi passado uma API KEY do GOOGLE.');
-        }
-        return $apiKey;
-    }
-
-    private function mensagemErroApi(string $mensagem = '')
-    {
-        mensagemErro('Erro na API', 'Não foi possível conectar com a API.', localhost: $mensagem);
     }
 }
