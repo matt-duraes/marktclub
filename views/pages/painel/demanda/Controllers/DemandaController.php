@@ -11,6 +11,7 @@ use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
 use Painel\Demanda\Models\ListaModel;
+use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
@@ -225,6 +226,8 @@ final class DemandaController extends Controller
                 empresa: $request->empresa,
                 texto: $request->_POST('texto', html: false)
             );
+        } elseif ($request->tipo == Tipo::CRIACAO) {
+            $Demanda = new CriacaoModel($request);
         }
 
         return mensagemSucesso(['id' => $Demanda->id()], 201);

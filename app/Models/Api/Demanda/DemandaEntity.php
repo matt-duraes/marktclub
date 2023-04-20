@@ -60,11 +60,6 @@ final class DemandaEntity extends Entity
     public Tipo $tipo;
     public Area $area;
 
-    /**
-     * @param   null|string         $titulo     Título da demanda que deseja salvar
-     * @param   null|string|array   $empresa    UUID da empresa dona da demanda e um array ao buscar
-     * @param   null|Tipo           $tipo       Típo da demanda que deseja salvar
-     */
     public function __construct()
     {
         parent::__construct();

@@ -1,16 +1,29 @@
 @? formSelect(name: 'empresa_criacao', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
-@? formSelect(name: 'categoria', placeholder: 'Escolha uma categoria', label: 'Categoria', obrigatorio: 1, lista: ['' => 'Escolha uma opção', 'social' => 'Rede Social', 'site' => 'Site', 'impresso' => 'Impressos', 'kit' => 'Kit de Boas-Vindas', 'video' => 'Vídeo', 'outro' => 'Outros'], change: 'criacao_categoria')
 
-<div class="bloco_site display_none">
-    <h3>Dimensão da peça</h3>
+<div class="checkbox">
+    <h3>Tipo da demanda</h3>
+    @? formCheckbox(name: 'criacao_categoria_site', label: 'Site', check: false)
+    @? formCheckbox(name: 'criacao_categoria_social', label: 'Rede social', check: false)
+    @? formCheckbox(name: 'criacao_categoria_impresso', label: 'Impressos', check: false)
+    @? formCheckbox(name: 'criacao_categoria_kit', label: 'Kit de boas-vidas', check: false)
+    @? formCheckbox(name: 'criacao_categoria_video', label: 'Vídeo', check: false)
+    @? formCheckbox(name: 'criacao_categoria_outro', label: 'Outro', check: false)
+</div>
+<div class="bloco display_none" id="bloco_criacao_outro">
+    <h3>Texto para o tipo outro</h3>
+    @? formTextarea(name: 'outro_texto', label: 'Detalhe', placeholder: 'Detalhe do tipo outro')
+</div>
+<div class="bloco display_none" id="bloco_criacao_site">
+    <h3>Dimensão do banner para o site</h3>
     @? formNumero(name: ['site_largura', 'site_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura', 'Altura'], mascara: ['numero', 'numero'], obrigatorio: 1)
 </div>
-<div class="bloco_social display_none">
+<div class="display_none" id="bloco_criacao_social">
+    <h3>Quais redes sociais irá usar?</h3>
     @? formSwitch(name: 'digital_stories', label: 'Stories', check: false)
     @? formSwitch(name: 'digital_feed', label: 'Feed', check: false)
     @? formSwitch(name: 'digital_banner', label: 'Banner', check: false)
 </div>
-<div class="bloco_feed display_none">
+<div class="checkbox display_none" id="bloco_criacao_feed">
     <h3>Feed de qual rede social?</h3>
     @? formCheckbox(name: 'feed_whatsapp', label: 'WhatsApp', check: false)
     @? formCheckbox(name: 'feed_instagram', label: 'Instagram', check: false)
@@ -20,24 +33,36 @@
     @? formCheckbox(name: 'feed_youtube', label: 'YouTube', check: false)
     @? formCheckbox(name: 'feed_tiktok', label: 'TikTok', check: false)
 </div>
-<div class="bloco_impreso display_none">
-    @? formSwitch(name: 'impresso_voucher', label: 'Voucher', check: false)
-    @? formSwitch(name: 'impresso_folder', label: 'Folder', check: false)
-    @? formSwitch(name: 'impresso_banner', label: 'Banner', check: false)
-    @? formSwitch(name: 'impresso_revista', label: 'Revista', check: false)
-    @? formSwitch(name: 'impresso_outro', label: 'Outro', check: false)
+<div class="checkbox display_none" id="bloco_criacao_impresso">
+    <h3>Quais materiais impressos?</h3>
+    @? formCheckbox(name: 'impresso_voucher', label: 'Voucher', check: false)
+    @? formCheckbox(name: 'impresso_folder', label: 'Folder', check: false)
+    @? formCheckbox(name: 'impresso_banner', label: 'Banner', check: false)
+    @? formCheckbox(name: 'impresso_revista', label: 'Revista', check: false)
+    @? formCheckbox(name: 'impresso_outro', label: 'Outro', check: false)
 </div>
-<div class="bloco_kit display_none">
-    @? formSwitch(name: 'kit_email', label: 'E-mail', check: false)
-    @? formSwitch(name: 'kit_stories', label: 'Stories', check: false)
-    @? formSwitch(name: 'kit_feed', label: 'Feed', check: false)
-    @? formSwitch(name: 'kit_como_acessar', label: 'Como acessar', check: false)
-    @? formSwitch(name: 'kit_baixe_app', label: 'Baixe o APP', check: false)
-    @? formSwitch(name: 'kit_previa', label: 'Prévia', check: false)
-    @? formSwitch(name: 'kit_video', label: 'Vídeo padrão', check: false)
+<div class="bloco display_none" id="bloco_criacao_impresso_outro">
+    <h3>Descrição do outro tipo de impresso</h3>
+    @? formTextarea(name: 'impresso_outro_texto', label: 'Detalhe', placeholder: 'Detalhe do impresso outro')
 </div>
-<div class="bloco_video display_none">
-    @? formSelect(name: 'video_formato', label: 'Formato do vídeo', placeholder: 'Formato do vídeo', lista: ['' => 'Escolha uma opção', 'horizontal' => '16:9 Horizontal', 'vertical' => '9:16 Vertical', 'outro' => 'Outro'], change: 'criacao_video_formato', obrigatorio: 1)
+<div class="checkbox display_none" id="bloco_criacao_kit">
+    <h3>Quais materiais do kit de boas-vindas deseja usar?</h3>
+    @? formCheckbox(name: 'kit_email', label: 'E-mail', check: false)
+    @? formCheckbox(name: 'kit_stories', label: 'Stories', check: false)
+    @? formCheckbox(name: 'kit_feed', label: 'Feed', check: false)
+    @? formCheckbox(name: 'kit_como_acessar', label: 'Como acessar', check: false)
+    @? formCheckbox(name: 'kit_baixar_app', label: 'Baixe o APP', check: false)
+    @? formCheckbox(name: 'kit_previa', label: 'Prévia', check: false)
+    @? formCheckbox(name: 'kit_video', label: 'Vídeo padrão', check: false)
+</div>
+<div class="bloco display_none" id="bloco_criacao_video">
+    <h3>Dados para o vídeo</h3>
+    @? formSelect(name: 'video_formato', label: 'Formato do vídeo', placeholder: 'Formato do vídeo', lista: ['' => 'Escolha uma opção', 'horizontal' => '16:9 Horizontal (celular deitado)', 'vertical' => '9:16 Vertical (celular em pé)', 'outro' => 'Outro'], change: 'criacao_video_formato', obrigatorio: 1)
 
-    @? formNumero(name: ['video_largura', 'video_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura', 'Altura'], mascara: ['numero', 'numero'], class: 'display_none', id: 'bloco_video_dimensao', obrigatorio: 1)
+    @? formNumero(name: ['video_largura', 'video_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura', 'Altura'], mascara: ['numero', 'numero'], class: 'display_none', id: 'bloco_criacao_video_dimensao', obrigatorio: 1)
+</div>
+
+<div class="bloco" id="bloco_criacao_texto">
+    <h3>Descreva com detalhe a demanda</h3>
+    @? formTextarea(name: 'criacao_texto', label: 'Histórico', placeholder: 'Histório explicativo da demanda')
 </div>

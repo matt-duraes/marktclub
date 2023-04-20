@@ -1,7 +1,8 @@
-let idDemanda, idDono;
+let idDemanda, idDono, area;
 const demandaDetalhe = () => {
     idDemanda = document.getElementById('input_demanda_id').value;
     idDono = document.getElementById('input_demanda_dono_id').value;
+    area = document.querySelector('#input_area').value || '';
 
     historicoLoad();
 
@@ -209,7 +210,7 @@ const demandaDetalhe = () => {
             Loading.hide();
             return;
         }
-        window.location.assign(LINK + '/demanda');
+        window.location.assign(LINK + '/demanda/' + area);
     };
 
     /*
@@ -275,7 +276,7 @@ const demandaDetalhe = () => {
             Loading.hide();
             return;
         }
-        window.location.assign(LINK + '/demanda');
+        window.location.assign(LINK + '/demanda/' + area);
     };
 };
 

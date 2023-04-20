@@ -380,12 +380,27 @@ if (!function_exists('strEmail')) {
      * @param   string  $email  E-mail que deseja converter
      * @return  string          String convertida
      */
-    // echo strCaixaAlta nul
     function strEmail($email)
     {
         if (is_null($email)) {
             return '';
         }
         return strCaixaBaixa($email);
+    }
+}
+if (!function_exists('strConverterTextareaEmParagrafo')) {
+    // doc
+    /**
+     * Converte um texto de textarea para paragrafo colocar <p></p> em cada quebra de linha
+     *
+     * @param   null|string  $texto  String a ser convertida
+     * @return  string               String convertida
+     */
+    function strConverterTextareaEmParagrafo(?string $texto = null)
+    {
+        if (empty($texto)) {
+            return '';
+        }
+        return '<p>' . implode('</p><p>', explode(PHP_EOL, $texto)) . '</p>';
     }
 }

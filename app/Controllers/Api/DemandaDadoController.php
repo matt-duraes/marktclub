@@ -32,7 +32,7 @@ final class DemandaDadoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Demanda,
                 lista: [
-                    'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
+                    'area', 'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
                     'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'data_criacao', 'arquivo', 'status'
                 ]
             )

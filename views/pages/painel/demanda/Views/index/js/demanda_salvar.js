@@ -30,6 +30,45 @@ const demandaSalvar = () => {
     const inputEmail = document.getElementById('input_email');
     const inputTelefone = document.getElementById('input_telefone');
     const inputEndereco = document.getElementById('input_endereco');
+    // Criacao
+    const inputEmpresaCriacao = document.getElementById('input_empresa_criacao');
+
+    const inputCriacaoCategoriaSite = document.getElementById('input_criacao_categoria_site');
+    const inputCriacaoCategoriaSocial = document.getElementById('input_criacao_categoria_social');
+    const inputCriacaoCategoriaImpresso = document.getElementById('input_criacao_categoria_impresso');
+    const inputCriacaoCategoriaKit = document.getElementById('input_criacao_categoria_kit');
+    const inputCriacaoCategoriaVideo = document.getElementById('input_criacao_categoria_video');
+    const inputCriacaoCategoriaOutro = document.getElementById('input_criacao_categoria_outro');
+    const inputOutroTexto = document.getElementById('input_outro_texto');
+    const inputSiteLargura = document.getElementById('input_site_largura');
+    const inputSiteAltura = document.getElementById('input_site_altura');
+    const inputDigitalStories = document.getElementById('input_digital_stories');
+    const inputDigitalFeed = document.getElementById('input_digital_feed');
+    const inputDigitalBanner = document.getElementById('input_digital_banner');
+    const inputFeedWhatsapp = document.getElementById('input_feed_whatsapp');
+    const inputFeedInstagram = document.getElementById('input_feed_instagram');
+    const inputFeedFacebook = document.getElementById('input_feed_facebook');
+    const inputFeedLinkedin = document.getElementById('input_feed_linkedin');
+    const inputFeedTwitter = document.getElementById('input_feed_twitter');
+    const inputFeedYoutube = document.getElementById('input_feed_youtube');
+    const inputFeedTiktok = document.getElementById('input_feed_tiktok');
+    const inputImpressoVoucher = document.getElementById('input_impresso_voucher');
+    const inputImpressoFolder = document.getElementById('input_impresso_folder');
+    const inputImpressoBanner = document.getElementById('input_impresso_banner');
+    const inputImpressoRevista = document.getElementById('input_impresso_revista');
+    const inputImpressoOutro = document.getElementById('input_impresso_outro');
+    const inputImpressoOutroTexto = document.getElementById('input_impresso_outro_texto');
+    const inputKitEmail = document.getElementById('input_kit_email');
+    const inputKitStories = document.getElementById('input_kit_stories');
+    const inputKitVideo = document.getElementById('input_kit_video');
+    const inputKitFeed = document.getElementById('input_kit_feed');
+    const inputKitComoAcessar = document.getElementById('input_kit_como_acessar');
+    const inputKitBaixarApp = document.getElementById('input_kit_baixar_app');
+    const inputKitPrevia = document.getElementById('input_kit_previa');
+    const inputVideoFormato = document.getElementById('input_video_formato');
+    const inputVideoLargura = document.getElementById('input_video_largura');
+    const inputVideoAltura = document.getElementById('input_video_altura');
+    const inputCriacaoTexto = document.getElementById('input_criacao_texto');
 
     const botaoSalvar = document.getElementById('botao_salvar_demanda');
 
@@ -44,13 +83,22 @@ const demandaSalvar = () => {
     const blocoHeader = document.getElementById('bloco_geral_header');
     const blocoFooter = document.getElementById('bloco_geral_footer');
 
+    const blocoCriacaoOutro = document.getElementById('bloco_criacao_outro');
+    const blocoCriacaoSite = document.getElementById('bloco_criacao_site');
+    const blocoCriacaoSocial = document.getElementById('bloco_criacao_social');
+    const blocoCriacaoFeed = document.getElementById('bloco_criacao_feed');
+    const blocoCriacaoImpresso = document.getElementById('bloco_criacao_impresso');
+    const blocoCriacaoImpressoOutro = document.getElementById('bloco_criacao_impresso_outro');
+    const blocoCriacaoKit = document.getElementById('bloco_criacao_kit');
+    const blocoCriacaoVideo = document.getElementById('bloco_criacao_video');
+    const blocoCriacaoVideoDimensao = document.getElementById('bloco_criacao_video_dimensao');
+
     if (area == 'tecnologia') {
         blocoEscolherTipo.classList.remove('display_none');
     } else if (area == 'criacao') {
         blocoCriacao.classList.remove('display_none');
         botaoSalvar.classList.remove('display_none');
         blocoHeader.classList.remove('display_none');
-        blocoFooter.classList.remove('display_none');
     }
 
     /*
@@ -93,7 +141,117 @@ const demandaSalvar = () => {
     formSelectChange = acao => {
         if (acao == 'mudarTipoDominio') {
             mudarTipoDominio();
+        } else if (acao == 'criacao_video_formato') {
+            monitorarFormatoVideo();
         }
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | CRIACAO
+    |--------------------------------------------------------------------------
+    */
+    inputDigitalFeed.addEventListener('change', () => {
+        if (inputDigitalFeed.checked) {
+            blocoCriacaoFeed.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoFeed.classList.add('display_none');
+    });
+
+    inputCriacaoCategoriaSite.addEventListener('change', () => {
+        inputSiteLargura.value = '';
+        inputSiteAltura.value = '';
+        if (inputCriacaoCategoriaSite.checked) {
+            blocoCriacaoSite.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoSite.classList.add('display_none');
+    });
+    inputCriacaoCategoriaSocial.addEventListener('change', () => {
+        inputDigitalStories.checked = false;
+        inputDigitalFeed.checked = false;
+        inputDigitalBanner.checked = false;
+        inputFeedWhatsapp.checked = false;
+        inputFeedInstagram.checked = false;
+        inputFeedFacebook.checked = false;
+        inputFeedLinkedin.checked = false;
+        inputFeedTwitter.checked = false;
+        inputFeedYoutube.checked = false;
+        inputFeedTiktok.checked = false;
+        if (inputCriacaoCategoriaSocial.checked) {
+            blocoCriacaoSocial.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoSocial.classList.add('display_none');
+        blocoCriacaoFeed.classList.add('display_none');
+    });
+    inputCriacaoCategoriaImpresso.addEventListener('change', () => {
+        inputImpressoVoucher.checked = false;
+        inputImpressoFolder.checked = false;
+        inputImpressoBanner.checked = false;
+        inputImpressoRevista.checked = false;
+        inputImpressoOutro.checked = false;
+        formValue(inputImpressoOutroTexto, '');
+        if (inputCriacaoCategoriaImpresso.checked) {
+            blocoCriacaoImpresso.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoImpresso.classList.add('display_none');
+        blocoCriacaoImpressoOutro.classList.add('display_none');
+    });
+    inputImpressoOutro.addEventListener('change', () => {
+        formValue(inputImpressoOutroTexto, '');
+        if (inputImpressoOutro.checked) {
+            blocoCriacaoImpressoOutro.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoImpressoOutro.classList.add('display_none');
+    });
+    inputCriacaoCategoriaKit.addEventListener('change', () => {
+        inputKitEmail.checked = false;
+        inputKitStories.checked = false;
+        inputKitVideo.checked = false;
+        inputKitFeed.checked = false;
+        inputKitComoAcessar.checked = false;
+        inputKitBaixarApp.checked = false;
+        inputKitPrevia.checked = false;
+        if (inputCriacaoCategoriaKit.checked) {
+            blocoCriacaoKit.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoKit.classList.add('display_none');
+    });
+    inputCriacaoCategoriaVideo.addEventListener('change', () => {
+        formValue(inputVideoFormato, '');
+        inputVideoLargura.value = '';
+        inputVideoAltura.value = '';
+        if (inputCriacaoCategoriaVideo.checked) {
+            blocoCriacaoVideo.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoVideo.classList.add('display_none');
+        blocoCriacaoVideoDimensao.classList.add('display_none');
+    });
+    inputCriacaoCategoriaOutro.addEventListener('change', () => {
+        inputOutroTexto.value = '';
+        if (inputCriacaoCategoriaOutro.checked) {
+            blocoCriacaoOutro.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoOutro.classList.add('display_none');
+    });
+
+    const monitorarFormatoVideo = () => {
+        const tipo = inputVideoFormato.value;
+        inputVideoLargura.value = '';
+        inputVideoAltura.value = '';
+        if (tipo == 'outro') {
+            inputVideoLargura.focus();
+            blocoCriacaoVideoDimensao.classList.remove('display_none');
+            return;
+        }
+        blocoCriacaoVideoDimensao.classList.add('display_none');
     };
 
     /*
@@ -237,6 +395,9 @@ const demandaSalvar = () => {
         } else if (tipo == 'outro' || tipo == 'feature') {
             valido = await validarDadoOutro();
             body = await montarDadoOutro();
+        } else if (area == 'criacao') {
+            valido = await validarDadoCriacao();
+            body = await montarDadoCriacao();
         }
 
         if (!valido) {
@@ -448,6 +609,137 @@ const demandaSalvar = () => {
             body.append('empresa', inputEmpresaBug.value);
             body.append('critico', inputBugCritico.value);
             body.append('texto', inputTexto.value);
+
+            resolve(body);
+        });
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA CRIACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoCriacao = () => {
+        return new Promise(resolve => {
+            let mensagem = '';
+            if (inputTitulo.value == '') {
+                mensagem = 'Digite um título para a demanda.';
+            } else if (inputEmpresaCriacao.value == '') {
+                mensagem = 'Escolha uma empresa para continuar.';
+            } else if (
+                !inputCriacaoCategoriaImpresso.checked &&
+                !inputCriacaoCategoriaKit.checked &&
+                !inputCriacaoCategoriaOutro.checked &&
+                !inputCriacaoCategoriaSite.checked &&
+                !inputCriacaoCategoriaSocial.checked &&
+                !inputCriacaoCategoriaVideo.checked
+            ) {
+                mensagem = 'Você tem que escolher pelo menos um tipo de tarefa para a demanda.';
+            } else if (
+                inputCriacaoCategoriaSite.checked &&
+                (inputSiteLargura.value == '' || inputSiteAltura.value == '')
+            ) {
+                mensagem = 'Você deve passar a largura e altura da peça do site.';
+            } else if (
+                inputCriacaoCategoriaSocial.checked &&
+                !inputDigitalStories.checked &&
+                !inputDigitalFeed.checked &&
+                !inputDigitalBanner.checked
+            ) {
+                mensagem = 'Você deve marcar pelo menos uma rede social.';
+            } else if (
+                inputDigitalFeed.checked &&
+                !inputFeedFacebook.checked &&
+                !inputFeedWhatsapp.checked &&
+                !inputFeedInstagram.checked &&
+                !inputFeedLinkedin.checked &&
+                !inputFeedTwitter.checked &&
+                !inputFeedYoutube.checked &&
+                !inputFeedTiktok.checked
+            ) {
+                mensagem = 'Você deve marcar em quais redes sociais irão aparecer as artes do feed.';
+            } else if (
+                inputCriacaoCategoriaImpresso.checked &&
+                !inputImpressoVoucher.checked &&
+                !inputImpressoFolder.checked &&
+                !inputImpressoBanner.checked &&
+                !inputImpressoRevista.checked &&
+                !inputImpressoOutro.checked
+            ) {
+                mensagem = 'Você deve marcar quais peças impressas devem ser criadas.';
+            } else if (inputImpressoOutro.checked && inputImpressoOutroTexto.value == '') {
+                mensagem = 'Você deve fazer uma descrição sobre que tipo de outro impresso deseja.';
+            } else if (
+                inputCriacaoCategoriaKit.checked &&
+                !inputKitEmail.checked &&
+                !inputKitStories.checked &&
+                !inputKitFeed.checked &&
+                !inputKitComoAcessar.checked &&
+                !inputKitBaixarApp.checked &&
+                !inputKitPrevia.checked &&
+                !inputKitVideo.checked
+            ) {
+                mensagem = 'Você deve marcar quais peças do kit de boas-vindas devem ser criadas.';
+            } else if (
+                inputVideoFormato.value == 'outro' &&
+                (inputVideoLargura.value == '' || inputVideoAltura == '')
+            ) {
+                mensagem = 'Você deve passar a largura e altura do vídeo.';
+            } else if (inputCriacaoCategoriaOutro.checked && inputOutroTexto.value == '') {
+                mensagem = 'É obrigado digitar uma descrição para o tipo de demanda outro.';
+            } else if (inputCriacaoTexto.value == '') {
+                mensagem = 'É obrigatório criar um histórico com a descrição detalhada da demanda.';
+            }
+            if (mensagem != '') {
+                // Alerta.notificacao(mensagem, false);
+                // resolve(false);
+            }
+            resolve(true);
+        });
+    };
+
+    const montarDadoCriacao = () => {
+        return new Promise(resolve => {
+            const body = new FormData();
+            body.append('tipo', 'criacao');
+            body.append('empresa', inputEmpresaCriacao.value);
+            body.append('titulo', inputTitulo.value);
+            body.append('criacao_site', inputCriacaoCategoriaSite.checked ? 'sim' : 'nao');
+            body.append('criacao_social', inputCriacaoCategoriaSocial.checked ? 'sim' : 'nao');
+            body.append('criacao_impresso', inputCriacaoCategoriaImpresso.checked ? 'sim' : 'nao');
+            body.append('criacao_kit', inputCriacaoCategoriaKit.checked ? 'sim' : 'nao');
+            body.append('criacao_video', inputCriacaoCategoriaVideo.checked ? 'sim' : 'nao');
+            body.append('criacao_outro', inputCriacaoCategoriaOutro.checked ? 'sim' : 'nao');
+            body.append('site_largura', inputSiteLargura.value);
+            body.append('site_altura', inputSiteAltura.value);
+            body.append('digital_stories', inputDigitalStories.checked ? 'sim' : 'nao');
+            body.append('digital_feed', inputDigitalFeed.checked ? 'sim' : 'nao');
+            body.append('digital_banner', inputDigitalBanner.checked ? 'sim' : 'nao');
+            body.append('feed_whatsapp', inputFeedWhatsapp.checked ? 'sim' : 'nao');
+            body.append('feed_instagram', inputFeedInstagram.checked ? 'sim' : 'nao');
+            body.append('feed_facebook', inputFeedFacebook.checked ? 'sim' : 'nao');
+            body.append('feed_linkedin', inputFeedLinkedin.checked ? 'sim' : 'nao');
+            body.append('feed_twitter', inputFeedTwitter.checked ? 'sim' : 'nao');
+            body.append('feed_youtube', inputFeedYoutube.checked ? 'sim' : 'nao');
+            body.append('feed_tiktop', inputFeedTiktok.checked ? 'sim' : 'nao');
+            body.append('impresso_voucher', inputImpressoVoucher.checked ? 'sim' : 'nao');
+            body.append('impresso_folder', inputImpressoFolder.checked ? 'sim' : 'nao');
+            body.append('impresso_banner', inputImpressoBanner.checked ? 'sim' : 'nao');
+            body.append('impresso_revista', inputImpressoRevista.checked ? 'sim' : 'nao');
+            body.append('impresso_outro', inputImpressoOutro.checked ? 'sim' : 'nao');
+            body.append('impresso_outro_texto', inputImpressoOutroTexto.value);
+            body.append('kit_email', inputKitEmail.checked ? 'sim' : 'nao');
+            body.append('kit_stories', inputKitStories.checked ? 'sim' : 'nao');
+            body.append('kit_video', inputKitVideo.checked ? 'sim' : 'nao');
+            body.append('kit_feed', inputKitFeed.checked ? 'sim' : 'nao');
+            body.append('kit_como_acessar', inputKitComoAcessar.checked ? 'sim' : 'nao');
+            body.append('kit_baixar_app', inputKitBaixarApp.checked ? 'sim' : 'nao');
+            body.append('kit_previa', inputKitPrevia.checked ? 'sim' : 'nao');
+            body.append('video_formato', inputVideoFormato.value);
+            body.append('video_largura', inputVideoLargura.value);
+            body.append('video_altura', inputVideoAltura.value);
+            body.append('outro_texto', inputOutroTexto.value);
+            body.append('criacao_texto', inputCriacaoTexto.value);
 
             resolve(body);
         });

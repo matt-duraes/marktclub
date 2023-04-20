@@ -15,6 +15,7 @@ final class Tipo extends Status
     public const BUG_APP = 'bug-app';
     public const BUG_OUTRO = 'bug-outro';
     public const FEATURE = 'feature';
+    public const CRIACAO = 'criacao';
 
     public function __construct(
         protected null|string|int $valor = null
@@ -29,7 +30,8 @@ final class Tipo extends Status
                 self::BUG_PAINEL => 'Bug no painel',
                 self::BUG_APP => 'Bug no APP',
                 self::BUG_OUTRO => 'Bug outros',
-                self::FEATURE => 'Feature'
+                self::FEATURE => 'Feature',
+                self::CRIACAO => 'Criação',
             ]
         );
     }

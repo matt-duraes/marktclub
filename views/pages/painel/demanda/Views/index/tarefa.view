@@ -1,7 +1,4 @@
 <article class="bloco_tarefa_item" data-id="{!!$r->id!!}">
-    @ if( $r->status == 'liberada' ):
-    <div class="botao_mover">@iconeDrag</div>
-    @ endif;
     <header>
         <h1 class="tarefa_titulo">{{$r->titulo}}</h1>
         @ if( !empty($r->tarefa_total) ) :
