@@ -80,11 +80,7 @@
     },
     "post-commit": {
         "enabled": true,
-        "actions": [
-            {
-                "action": "git fetch --all --progress"
-            }
-        ]
+        "actions": []
     },
     "post-merge": {
         "enabled": false,
