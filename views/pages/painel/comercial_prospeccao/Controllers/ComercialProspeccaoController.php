@@ -16,7 +16,8 @@ final class ComercialProspeccaoController extends Controller
         $Prospeccao = new ProspeccaoModel();
 
         return view('painel.comercial_prospeccao.index', [
-            'app' => 'demanda',
+            'app' => 'comercial-prospeccao',
+            'appTitulo' => 'Prospecção',
             'abordagem' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::ABORDAGEM),
             'apresentacao' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::APRESENTACAO),
             'negociacao' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::NEGOCIACAO),

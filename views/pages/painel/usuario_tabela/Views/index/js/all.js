@@ -275,7 +275,6 @@ window.addEventListener('load', () => {
     };
     const erroNoEnvio = () => {
         const lista = blocoSucesso.querySelectorAll('.linha.loading');
-        console.log(lista);
         lista.forEach(item => {
             item.classList.add('erro');
             item.classList.remove('dado');

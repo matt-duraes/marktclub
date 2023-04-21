@@ -4,7 +4,7 @@
     <div class="conteudo_geral">
         <section class="bloco_coluna">
             <header>
-                <h1>Abordagem</h1>
+                <h1>Abordagem <span>({!!count($abordagem)!!})</span></h1>
                 <div class="flex"></div>
                 <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
             </header>
@@ -12,59 +12,59 @@
                 @ifforeach($abordagem as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
-                <div class="item_zero">Sem itens<br> no momento</div>
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
                 @endif;
             </div>
         </section>
 
         <section class="bloco_coluna">
             <header>
-                <h1>Apresentação</h1>
+                <h1>Apresentação <span>({!!count($apresentacao)!!})</span></h1>
             </header>
             <div class="conteudo" id="bloco_apresentacao" data-prospeccao="apresentacao">
                 @ifforeach($apresentacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
-                <div class="item_zero">Sem itens<br> no momento</div>
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
                 @endif;
             </div>
         </section>
 
         <section class="bloco_coluna">
             <header>
-                <h1>Negociação</h1>
+                <h1>Negociação <span>({!!count($negociacao)!!})</span></h1>
             </header>
             <div class="conteudo" id="bloco_negociacao" data-prospeccao="negociacao">
                 @ifforeach($negociacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
-                <div class="item_zero">Sem itens<br> no momento</div>
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
                 @endif;
             </div>
         </section>
 
         <section class="bloco_coluna">
             <header>
-                <h1>Em Avaliação</h1>
+                <h1>Em Avaliação <span>({!!count($avaliacao)!!})</span></h1>
             </header>
             <div class="conteudo" id="bloco_avaliacao" data-prospeccao="avaliacao">
                 @ifforeach($avaliacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
-                <div class="item_zero">Sem itens<br> no momento</div>
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
                 @endif;
             </div>
         </section>
 
         <section class="bloco_coluna">
             <header>
-                <h1>Minuta Enviada</h1>
+                <h1>Minuta Enviada <span>({!!count($minuta)!!})</span></h1>
             </header>
             <div class="conteudo" id="bloco_minuta" data-prospeccao="minuta">
                 @ifforeach($minuta as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
-                <div class="item_zero">Sem itens<br> no momento</div>
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
                 @endif;
             </div>
         </section>

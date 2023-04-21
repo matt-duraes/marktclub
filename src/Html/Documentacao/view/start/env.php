@@ -42,7 +42,7 @@ $Doc
 
             ->tr(['INI_LISTA', 'Lista para setar as ini do PHP, enviar um json ind => val'])
 
-            ->tr(['API_URL', 'Url interna da API, usada apenas em local, geralmente 127.0.0.1'])
+            ->tr(['API_LINK', 'Url interna da API, usada apenas em local, geralmente 127.0.0.1'])
             ->tr(['API_CLIENT_ID', 'Client_id do App da api'])
             ->tr(['API_CLIENT_SECRET', 'Client_secret do App da api'])
             ->tr(['API_AUDIENCE', 'Audience do App da api'])

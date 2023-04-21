@@ -381,7 +381,7 @@ final class SolicitacaoVoucherTest extends Tests
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceIgual('dado.data_vencimento', dataAdicionar(hoje(), 60, 'dias'));
+            ->checkIndiceIgual('dado.data_vencimento', '2040-01-01');
     }
 
     private function scopeSalvar()

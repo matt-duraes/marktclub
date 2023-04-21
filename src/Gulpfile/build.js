@@ -12,7 +12,7 @@ const {
 const exec = require('gulp-exec');
 const replace = require('gulp-replace');
 const plumber = require('gulp-plumber');
-const { mensagemErro } = require('./mensagem.js');
+const { mensagemErro, mensagemSucesso } = require('./mensagem.js');
 let config;
 
 exports.buildDefineTabela = async () => {
@@ -64,7 +64,11 @@ exports.buildPhpMussel = () => {
         .pipe(dest('./'));
 };
 
-exports.buildCopiarComposerConfig = () => {
+exports.buildCopiarComposerConfig = async () => {
+    if (await fsVerificarSeArquivoExiste('./composer.json')) {
+        mensagemSucesso('Arquivo do composer não foi copiado porque ele já existe.');
+        return Promise.resolve();
+    }
     return src(['./src/Files/raiz/composer.json']).pipe(plumber()).pipe(dest('./'));
 };
 
@@ -158,6 +162,11 @@ exports.buildArquivosRaiz = () => {
         './src/Files/raiz/.prettierrc',
         './src/Files/raiz/phpunit.xml',
         './src/Files/raiz/adp.phar',
+        './src/Files/raiz/.chave_publica',
+        './src/Files/raiz/.chave_privada',
+        './src/Files/raiz/.editorconfig',
+        './src/Files/raiz/.php-cs-fixer.dist.php',
+        './src/Files/raiz/captainhook.json',
     ])
         .pipe(plumber())
         .pipe(dest('./'));

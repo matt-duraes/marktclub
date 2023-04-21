@@ -24,7 +24,7 @@ class ApiHelper extends CurlHelper
         $this->audience = env('API_AUDIENCE');
         $this->apiHelper = true;
 
-        parent::__construct(env('API_URL', LINK_API));
+        parent::__construct(env('API_LINK', LINK_API));
 
         if (!empty($scope)) {
             $this->autenticar($scope);

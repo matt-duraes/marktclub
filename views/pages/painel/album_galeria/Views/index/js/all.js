@@ -41,7 +41,6 @@ if (botaoDeletar) {
     botaoDeletar.addEventListener('click', async () => {
         const lista = bloco.querySelectorAll('.bloco_lista article.arquivo_checked');
         const quantidade = lista.length;
-        console.log(quantidade);
         if (quantidade <= 0) {
             return;
         }

@@ -467,7 +467,7 @@ listaMapa.forEach(bloco => {
                 erro => {}
             );
         } else {
-            console.log('erro 2');
+            //
         }
     });
 

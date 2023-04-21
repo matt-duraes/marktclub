@@ -1,6 +1,6 @@
 @template "painel"
 
-<div id="bloco_demanda_index">
+<div class="bloco_kambam_index" id="bloco_demanda_index">
     <input type="hidden" id="input_area" value="{{$area}}">
     <div class="conteudo_geral">
         @ foreach($quadro as $ind => $item):

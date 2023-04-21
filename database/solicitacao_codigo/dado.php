@@ -9,7 +9,7 @@ $array[] = [
     'codigo' => 123123,
     'data_criacao' => dataRemover(agora(), 20, 'dias', 'Y-m-d H:i:s'),
     'data_emissao' => dataRemover(agora(), 20, 'dias', 'Y-m-d H:i:s'),
-    'data_vencimento' => dataRemover(hoje(), 10, 'dias'),
+    'data_vencimento' => '2040-01-01',
     'status' => 3
 ];
 $array[] = [
@@ -19,7 +19,7 @@ $array[] = [
     'codigo' => 321321,
     'data_criacao' => dataRemover(agora(), 20, 'dias', 'Y-m-d H:i:s'),
     'data_emissao' => dataRemover(agora(), 20, 'dias', 'Y-m-d H:i:s'),
-    'data_vencimento' => dataRemover(hoje(), 10, 'dias'),
+    'data_vencimento' => '2040-01-01',
     'status' => 3
 ];
 
@@ -27,7 +27,7 @@ for ($i = 0; $i < 40; $i++) {
     $array[] = [
         'id_parceiro_loja' => [4207, 15612][rand(0, 1)],
         'codigo' => strCodigo(8),
-        'data_vencimento' => dataAdicionar(hoje(), 2, 'meses'),
+        'data_vencimento' => '2040-01-01',
         'status' => 1
     ];
 }

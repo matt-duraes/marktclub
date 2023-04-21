@@ -17,8 +17,11 @@
 .DS_Store
 ._*
 .ftp*
-.chave_privada
-.chave_publica
+/.chave_privada
+/.chave_publica
 /.idea
 composer.phar
-.php-cs-fixer.cache
+/.php-cs-fixer.cache
+/.editorconfig
+/.php-cs-fixer.dist.php
+/captainhook.json

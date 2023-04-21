@@ -47,7 +47,7 @@ window.addEventListener('load', () => {
         atualizarStatusContrato(item, id, 'inativo');
     };
     concluirContrato = async (item, id) => {
-        if (!(await Alerta.confirmar('Cancelar contrato!', 'Tem certeza que deseja concluir esse contrato?', '!'))) {
+        if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', true))) {
             return;
         }
         atualizarStatusContrato(item, id, 'ativo');

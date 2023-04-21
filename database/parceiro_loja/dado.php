@@ -115,7 +115,7 @@ return [
         'voucher_texto' => 'Texto para o voucher do parceiro',
         'destaque' => ["1", "2", "66"],
         'empresa' => ["1", "2", "66"],
-        'prazo_voucher_fixo' => dataAdicionar(hoje(), 60, 'dias'),
+        'prazo_voucher_fixo' => '2040-01-01',
         'status' => 4
     ],
     [

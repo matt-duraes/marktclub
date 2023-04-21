@@ -6,19 +6,20 @@ use Helpers\CurlHelper;
 
 class Api
 {
-    private $url;
-    private $clientId;
-    private $clientSecret;
-    private $audience;
-    private $parametro;
-    private $header;
-    private $token;
+    private string $url;
+    private string $clientId;
+    private string $clientSecret;
+    private string $audience;
+    private array $parametro;
+    private array $header;
+    private string $token;
+    private array $arquivo;
 
     public function __construct()
     {
         $this->clientId = env('API_CLIENT_ID');
         $this->clientSecret = env('API_CLIENT_SECRET');
-        $this->url = env('API_URL');
+        $this->url = env('API_LINK');
         $this->audience = env('API_AUDIENCE');
         $this->parametro = [];
         $this->arquivo = [];
@@ -26,7 +27,7 @@ class Api
         $this->token = '';
     }
 
-    public function criarToken($scope = '', $forcar = false): String
+    public function criarToken($scope = '', $forcar = false): string
     {
         if (
             !$forcar && isset($_SESSION['TOKEN_CREDENTIAL']) &&
@@ -101,22 +102,22 @@ class Api
         return $this;
     }
 
-    public function post(String $uri)
+    public function post(string $uri)
     {
         return $this->enviar($uri, 'POST');
     }
 
-    public function get(String $uri)
+    public function get(string $uri)
     {
         return $this->enviar($uri, 'GET');
     }
 
-    public function put(String $uri)
+    public function put(string $uri)
     {
         return $this->enviar($uri, 'PUT');
     }
 
-    public function delete(String $uri)
+    public function delete(string $uri)
     {
         return $this->enviar($uri, 'DELETE');
     }

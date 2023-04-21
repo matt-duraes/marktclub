@@ -10,7 +10,7 @@
         <i class="icone botao_item_historico">@iconeMensagem(18)</i>
 
         <div class="linha"></div>
-        <i class="inativar botao_item_cancelar" data-ajuda="Finalizar contrato">@iconeFechar(10)</i>
+        <i class="inativar botao_item_cancelar" data-ajuda="Cancelar contrato">@iconeFechar(10)</i>
         <i class="ativar botao_item_concluir" data-ajuda="Concluir contrato">@iconeCheck(12)</i>
 
         <div class="grow"></div>

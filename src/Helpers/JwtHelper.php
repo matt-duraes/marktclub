@@ -2,10 +2,10 @@
 
 namespace Helpers;
 
+use Throwable;
 use Erro\Excecao;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Throwable;
 
 use function base64_decode;
 
@@ -38,16 +38,20 @@ final class JwtHelper
     private function pegarChave(): void
     {
         $chave = $this->chave;
-        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(
-            DIRETORIO_PRIVADO . '/jwt/' . $chave
-        )) {
+        if (
+            file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(
+                DIRETORIO_PRIVADO . '/jwt/' . $chave
+            )
+        ) {
             $this->chavePrivada = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave);
         } else {
             mensagemErro('Erro!', 'Chave privada não existe.', 500);
         }
-        if (file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(
-            DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub'
-        )) {
+        if (
+            file_exists(DIRETORIO_PRIVADO . '/jwt/' . $chave) && file_get_contents(
+                DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub'
+            )
+        ) {
             $this->chavePublica = file_get_contents(DIRETORIO_PRIVADO . '/jwt/' . $chave . '.pub');
         } else {
             mensagemErro('Erro!', 'Chave pública não existe.', 500);

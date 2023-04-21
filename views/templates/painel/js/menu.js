@@ -30,3 +30,17 @@ window.addEventListener('load', () => {
         }, 300);
     }
 });
+
+const posicionarMenuPrincipal = () => {
+    const blocoMenuPrincipal = document.querySelector('#nav_template');
+    const blocoScroll = blocoMenuPrincipal.querySelector('.conteudo');
+    const menuAtual = blocoMenuPrincipal.querySelector('.pagina_atual');
+    if (!menuAtual) {
+        return;
+    }
+    const posicaoMenu = menuAtual.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    const menuTop = posicaoMenu - windowHeight - 45 + windowHeight / 2;
+    blocoScroll.scrollTop = menuTop;
+};
+posicionarMenuPrincipal();
