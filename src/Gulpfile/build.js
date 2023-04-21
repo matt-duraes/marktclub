@@ -132,8 +132,11 @@ exports.buildEnv = async () => {
         dbSenha +
         '\n';
 
-    await fsRemoverArquivoSeExistir('.env.local');
-    await fsCriarArquivo('.env.local', conteudoLocal);
+    if (!(await fsVerificarSeArquivoExiste('.env.local'))) {
+        await fsCriarArquivo('.env.local', conteudoLocal);
+    } else {
+        mensagemSucesso('Não foi criado o arquivo .env.local porque ele já existe.');
+    }
 
     const conteudoAdp =
         'GIT=' +
