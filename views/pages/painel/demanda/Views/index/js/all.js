@@ -1,5 +1,4 @@
 // @template "painel"
-// @system "DragDrop"
 // @import "demanda_detalhe"
 // @import "demanda_salvar"
 // @import "demanda_editar"
@@ -8,7 +7,7 @@
 
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
-
+    const area = document.querySelector('#input_area').value || '';
     /*
     |--------------------------------------------------------------------------
     | ABRIR ADD NOVO
@@ -17,7 +16,7 @@ window.addEventListener('load', () => {
     const botaoAdd = document.getElementById('botao_add_tarefa');
     const PaginaAddTarefa = new Pagina(
         'demanda-salvar',
-        LINK + '/demanda/demanda-salvar',
+        LINK + '/demanda/demanda-salvar/' + area,
         {},
         true,
         true,
@@ -67,13 +66,4 @@ window.addEventListener('load', () => {
         }
         Alerta.notificacao('Erro ao ordenar tarefas, por favor, tente novamente.', false);
     };
-
-    new DragDrop()
-        .bloco(blocoTarefaLiberada)
-        .item('.bloco_tarefa_item')
-        .botao('.botao_mover')
-        .eventoFim(e => {
-            reordenarTarefaLiberada();
-        })
-        .iniciar();
 });

@@ -4,7 +4,6 @@ namespace Helpers;
 
 final class TextoHelper
 {
-
     /**
      * @param Mixed $valor Valor a ser convertido
      */
@@ -52,7 +51,7 @@ final class TextoHelper
         if (!$this->validar()) {
             return $this;
         }
-        $ListaHelper = new ListaHelper;
+        $ListaHelper = new ListaHelper();
         $tamanho = strlen($this->valor);
         if ($tamanho == 2) {
             $estado = $ListaHelper->uf()->r();

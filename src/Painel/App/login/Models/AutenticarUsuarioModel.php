@@ -39,7 +39,7 @@ final class AutenticarUsuarioModel
     }
     public function autenticarUsuario()
     {
-        (new AuthHelper)->criar($this->body);
+        (new AuthHelper())->criar($this->body);
 
         sessao('TOKEN', $this->token->access_token);
         sessao('TOKEN_EXPIRE', date('Y-m-d H:i:s', time() + $this->token->expires_in - 60));

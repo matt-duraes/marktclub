@@ -74,8 +74,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Status',
                 lista: (new Status())->select('Escolha uma opção'),
                 acao: 'editar'
-            )
-            ;
+            );
     });
 });
 

@@ -11,7 +11,6 @@ use function base64_decode;
 
 final class JwtHelper
 {
-
     private string $algoritimo = 'HS256';
     private string $chavePublica;
     private string $chavePrivada;

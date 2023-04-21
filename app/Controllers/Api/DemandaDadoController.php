@@ -5,7 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Classes\DemandaDado\Tipo;
+use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\DemandaModel;
@@ -32,8 +32,8 @@ final class DemandaDadoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Demanda,
                 lista: [
-                    'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
-                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'arquivo', 'status'
+                    'area', 'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
+                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'data_criacao', 'arquivo', 'status'
                 ]
             )
         );
@@ -43,7 +43,8 @@ final class DemandaDadoController extends Controller implements
     {
         $Demanda = new DemandaModel(
             new Status($request->status),
-            new Ordem($request->ordem)
+            new Ordem($request->ordem),
+            new Area($request->area)
         );
 
         return mensagemSucesso($Demanda->listarDados());
@@ -51,11 +52,8 @@ final class DemandaDadoController extends Controller implements
 
     public function postSalvar(Request $request): Response
     {
-        $Demanda = new DemandaEntity(
-            titulo: $request->titulo,
-            empresa: $request->empresa,
-            tipo: new Tipo($request->tipo)
-        );
+        $Demanda = new DemandaEntity();
+        $Demanda->set(lista: $request->dado());
         $Demanda->salvar();
 
         return mensagemSucesso(

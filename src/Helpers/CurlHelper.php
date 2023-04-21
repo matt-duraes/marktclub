@@ -33,7 +33,7 @@ class CurlHelper
         $this->resetar();
     }
 
-    public function resetar(): static
+    public function resetar(): self
     {
         $this->retornoErro = [];
         $this->retornoStatus = 0;
@@ -83,7 +83,7 @@ class CurlHelper
      * @param  int|null     $status    Status HTML em caso de erro
      * @return CurlHelper
      */
-    public function validar(string $mensagem, string $titulo = null, int $status = null): static
+    public function validar(string $mensagem, string $titulo = null, int $status = null): self
     {
         $this->erroValidar = true;
         $this->erroMensagem = $mensagem;
@@ -102,7 +102,7 @@ class CurlHelper
      * @param  string|array|null  $parametro  Parâmetro que deve ser enviado
      * @return CurlHelper|string|array
      */
-    public function parametro(string|array $parametro = null): static|string|array
+    public function parametro(string|array $parametro = null): self|string|array
     {
         if (is_null($parametro)) {
             return !empty($this->parametro) ? $this->parametro : $this->requisicao['parametro'];
@@ -125,7 +125,7 @@ class CurlHelper
      * @param  bool               $merge
      * @return CurlHelper|array|string
      */
-    public function body(null|string|array $body = null, bool $merge = true): static|array|string
+    public function body(null|string|array $body = null, bool $merge = true): self|array|string
     {
         if (is_null($body)) {
             return !empty($this->body) ? $this->body : $this->requisicao['body'];
@@ -146,7 +146,7 @@ class CurlHelper
      * @param  string|array|null  $json  Json para ser enviado no body
      * @return CurlHelper|string|array
      */
-    public function json(string|array $json = null): static|string|array
+    public function json(string|array $json = null): self|string|array
     {
         if (is_null($json)) {
             return !empty($this->json) ? $this->json : $this->requisicao['json'];
@@ -164,7 +164,7 @@ class CurlHelper
      * @param  array  $option  Option do CURL
      * @return CurlHelper
      */
-    public function option(array $option): static
+    public function option(array $option): self
     {
         $this->option = $option;
         return $this;
@@ -175,7 +175,7 @@ class CurlHelper
      *
      * @return CurlHelper
      */
-    public function removerSsl(): static
+    public function removerSsl(): self
     {
         $this->ssl = false;
         return $this;
@@ -187,7 +187,7 @@ class CurlHelper
      * @param  array  $arquivos  Lista com arquivo para ser feito o upload podendo ser um upload ou arquivo no servidor
      * @return CurlHelper
      */
-    public function arquivo(array $arquivos): static
+    public function arquivo(array $arquivos): self
     {
         $lista = [];
         foreach ($arquivos as $index => $arquivo) {
@@ -230,7 +230,7 @@ class CurlHelper
      * @return CurlHelper
      * @throws Excecao
      */
-    public function post(string $url): static
+    public function post(string $url): self
     {
         $this->curl('POST', $url);
         return $this;
@@ -239,7 +239,7 @@ class CurlHelper
     /**
      * @throws Excecao
      */
-    protected function curl(string $metodo, string $url): static
+    protected function curl(string $metodo, string $url): self
     {
         $this->urlUsada = $this->url . $url;
         $this->metodoUsado = $metodo;
@@ -258,8 +258,8 @@ class CurlHelper
         $parametroExplode = [];
         foreach ($parametro as $ind => $val) {
             $parametroExplode[] = !is_array($val) && !is_object($val) && !empty($val) ? $ind . '=' . urlencode(
-                    $val
-                ) : $ind . '=';
+                $val
+            ) : $ind . '=';
         }
         $parametroUrl = implode('&', $parametroExplode);
         if (!empty($parametroUrl)) {
@@ -364,7 +364,7 @@ class CurlHelper
      * @return CurlHelper
      * @throws Excecao
      */
-    public function get(string $url): static
+    public function get(string $url): self
     {
         $this->headerJson();
         $this->curl('GET', $url);
@@ -386,7 +386,7 @@ class CurlHelper
      * @param  array|string|null  $header  Dados que devem ser enviado no header
      * @return CurlHelper|string|array
      */
-    public function header(null|array|string $header = null): static|string|array
+    public function header(null|array|string $header = null): self|string|array
     {
         if (is_null($header)) {
             return !empty($this->header) ? $this->header : $this->requisicao['header'];
@@ -406,7 +406,7 @@ class CurlHelper
      * @return CurlHelper
      * @throws Excecao
      */
-    public function put(string $url): static
+    public function put(string $url): self
     {
         if (!empty($this->header)) {
             $this->header['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -424,7 +424,7 @@ class CurlHelper
      * @return CurlHelper
      * @throws Excecao
      */
-    public function delete(string $url): static
+    public function delete(string $url): self
     {
         $this->curl('DELETE', $url);
         return $this;
@@ -437,7 +437,7 @@ class CurlHelper
      * @return CurlHelper
      * @throws Excecao
      */
-    public function patch(string $url): static
+    public function patch(string $url): self
     {
         $this->curl('PATCH', $url);
         return $this;

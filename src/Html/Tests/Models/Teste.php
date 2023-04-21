@@ -34,7 +34,7 @@ function __executarTeste($listaTeste)
         }
 
         $metodos = get_class_methods($classNome);
-        $class = new $classNome;
+        $class = new $classNome();
 
         foreach ($metodos as $metodo) {
             if (!preg_match('/Test$/', $metodo)) {

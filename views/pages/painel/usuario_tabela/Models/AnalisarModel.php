@@ -70,21 +70,21 @@ final class AnalisarModel
                 continue;
             }
 
-                $nome = trim($registro[0]);
-                $cpf = trim($registro[1]);
-                $siape = trim($registro[2]);
-                $telefoneCelular = trim($registro[3]);
-                $telefoneFixo = trim($registro[4]);
-                $emailPessoal = trim($registro[5]);
-                $emailTrabalho = trim($registro[6]);
-                $enderecoEstado = trim($registro[7]);
-                $enderecoCidade = trim($registro[8]);
-                $dataNascimento = trim($registro[9]);
-                $genero = trim($registro[10]);
-                $situacao = trim($registro[11]);
-                $federacao = trim($registro[12]);
-                $matricula = trim($registro[13]);
-                $grupo = trim($registro[14]);
+            $nome = trim($registro[0]);
+            $cpf = trim($registro[1]);
+            $siape = trim($registro[2]);
+            $telefoneCelular = trim($registro[3]);
+            $telefoneFixo = trim($registro[4]);
+            $emailPessoal = trim($registro[5]);
+            $emailTrabalho = trim($registro[6]);
+            $enderecoEstado = trim($registro[7]);
+            $enderecoCidade = trim($registro[8]);
+            $dataNascimento = trim($registro[9]);
+            $genero = trim($registro[10]);
+            $situacao = trim($registro[11]);
+            $federacao = trim($registro[12]);
+            $matricula = trim($registro[13]);
+            $grupo = trim($registro[14]);
 
             // Campo único obrigatório
             if (in_array('cpf', $obrigatorio) && empty($cpf)) {
@@ -113,7 +113,7 @@ final class AnalisarModel
             }
 
             // Validando campos
-                $cpfValidar = !empty($cpf) ? str_pad($cpf, 11, 0, STR_PAD_LEFT) : '';
+            $cpfValidar = !empty($cpf) ? str_pad($cpf, 11, 0, STR_PAD_LEFT) : '';
             if (!empty($cpf) && !validarCpf($cpfValidar)) {
                 $listaErro[] = [
                 'linha' => $linha,
@@ -181,13 +181,13 @@ final class AnalisarModel
                 ];
             }
 
-                $cpf = soNumero($cpf);
-                $siape = soNumero($siape);
-                $telefoneCelular = soNumero($telefoneCelular);
-                $telefoneFixo = soNumero($telefoneFixo);
-                $matricula = soNumero($matricula);
+            $cpf = soNumero($cpf);
+            $siape = soNumero($siape);
+            $telefoneCelular = soNumero($telefoneCelular);
+            $telefoneFixo = soNumero($telefoneFixo);
+            $matricula = soNumero($matricula);
 
-                $dado = [];
+            $dado = [];
 
             if (!empty($nome)) {
                 $dado['nome'] = strCaixaAltaAlta($nome);
@@ -235,7 +235,7 @@ final class AnalisarModel
                 $dado['grupo'] = $grupo;
             }
 
-                $titulo = '';
+            $titulo = '';
             if (in_array('cpf', $obrigatorio)) {
                 $titulo = 'CPF: ' . $cpf;
             }
@@ -310,7 +310,7 @@ final class AnalisarModel
                 continue;
             }
 
-                $chave = is_string($registro[0]) ? trim($registro[0]) : '';
+            $chave = is_string($registro[0]) ? trim($registro[0]) : '';
             if (empty($chave)) {
                 $listaErro[] = [
                 'linha' => $linha,
@@ -319,8 +319,8 @@ final class AnalisarModel
                 continue;
             }
 
-                $chave =
-                    in_array('cpf', $obrigatorio) ? str_pad(soNumero($chave), 11, 0, STR_PAD_LEFT) : soNumero($chave);
+            $chave =
+                in_array('cpf', $obrigatorio) ? str_pad(soNumero($chave), 11, 0, STR_PAD_LEFT) : soNumero($chave);
 
             if (in_array('cpf', $obrigatorio) && !validarCpf($chave)) {
                 $listaErro[] = [
@@ -340,9 +340,9 @@ final class AnalisarModel
                 ];
             }
 
-                $dado = ['chave' => $chave];
+            $dado = ['chave' => $chave];
 
-                $titulo = '';
+            $titulo = '';
             if (in_array('cpf', $obrigatorio)) {
                 $titulo = 'CPF: ' . $chave;
             }
@@ -353,11 +353,11 @@ final class AnalisarModel
                 $titulo = 'SIAPE: ' . $chave;
             }
 
-                $listaOk[] = [
-                'linha' => $linha,
-                'titulo' => $titulo,
-                'hash' => base64Encode($dado, true)
-                ];
+            $listaOk[] = [
+            'linha' => $linha,
+            'titulo' => $titulo,
+            'hash' => base64Encode($dado, true)
+            ];
         }
 
         if (!$listaOk && !$listaErro) {

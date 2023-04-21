@@ -615,7 +615,7 @@ Route
 
         Route
             ::nome('validarUsuario')
-            ::get('/turismo/validar-usuario/{usuario}');
+            ::get('/turismo/validar-usaurio/{usuario}');
     });
 
 Route

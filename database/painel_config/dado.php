@@ -21,7 +21,7 @@ return [
             'comercial_empresa' => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
             'comercial_prospeccao' => ['titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar']],
             'comercial_atendimento' => ['titulo' => 'Comercial Atendimento', 'permissao' => ['comercial_atendimento_index' => 'Comercial Atendimento']],
-            'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_quadro' => 'Quadro de demanda']],
+            'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_tecnologia' => 'Tecnologia', 'demanda_criacao' => 'Criação']],
             'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
         ]),
         'configuracao' => ['agenda', 'perfil', 'bloquear'],

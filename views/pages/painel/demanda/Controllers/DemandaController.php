@@ -7,8 +7,11 @@ use Http\Response;
 use Modules\Botao;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use Painel\Demanda\Models\ListaModel;
+use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
@@ -25,17 +28,25 @@ final class DemandaController extends Controller
         $this->Api = new ApiHelper(token: true);
     }
 
-    public function lista()
+    public function tecnologia()
+    {
+        $quadro = (new ListaModel())->quadroTi();
+        return $this->listar('Demanda da TI', Area::TECNOLOGIA, $quadro);
+    }
+    public function criacao()
+    {
+        $quadro = (new ListaModel())->quadroCriacao();
+        return $this->listar('Demanda da criação', Area::CRIACAO, $quadro);
+    }
+    private function listar($titulo, $area, $quadro)
     {
         return view('painel.demanda.index', [
-            'app' => 'demanda',
-            'nova' => $this->buscarDemanda('nova', 'mais-novo'),
-            'liberada' => $this->buscarDemanda('liberada', 'ordem'),
-            'andamento' => $this->buscarDemanda('andamento', 'mais-novo'),
-            'teste' => $this->buscarDemanda('teste', 'mais-novo'),
-            'concluida' => $this->buscarDemanda('concluida', 'mais-novo'),
+            'app' => 'demanda-' . $area,
+            'appTitulo' => $titulo,
+            'area' => $area,
+            'quadro' => $quadro,
             'Tipo' => new Tipo(),
-            'Area' => new DemandaTarefaTipo()
+            'Area' => new DemandaTarefaTipo(),
         ]);
     }
 
@@ -54,7 +65,7 @@ final class DemandaController extends Controller
         ]);
     }
 
-    public function demandaSalvar()
+    public function demandaSalvar(string $area)
     {
 
         $empresa = $this->Api
@@ -63,7 +74,8 @@ final class DemandaController extends Controller
             ->array();
 
         return view('painel.demanda.demanda-salvar', [
-            'empresa' => $empresa['dado'] ?? []
+            'empresa' => $empresa['dado'] ?? [],
+            'area' => $area
         ]);
     }
 
@@ -181,15 +193,6 @@ final class DemandaController extends Controller
         ]);
     }
 
-    private function buscarDemanda($status, $ordem)
-    {
-        $lista = $this->Api->json([
-            'status' => $status,
-            'ordem' => $ordem
-        ])->get('/demanda-dado')->object();
-        return $lista->dado ?? [];
-    }
-
     public function postDemandaSalvar(Request $request)
     {
         if ($request->tipo == 'cliente') {
@@ -223,6 +226,8 @@ final class DemandaController extends Controller
                 empresa: $request->empresa,
                 texto: $request->_POST('texto', html: false)
             );
+        } elseif ($request->tipo == Tipo::CRIACAO) {
+            $Demanda = new CriacaoModel($request);
         }
 
         return mensagemSucesso(['id' => $Demanda->id()], 201);

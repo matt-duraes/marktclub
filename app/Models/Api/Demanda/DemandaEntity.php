@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Data;
 use Modules\Botao;
 use Modules\DataHora;
+use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
@@ -20,10 +21,10 @@ final class DemandaEntity extends Entity
     protected string $ormTabela = TABELA_DEMANDA_DADO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo',
-        'arquivo', 'com_prazo', 'data_entrega'
+        'arquivo', 'com_prazo', 'data_entrega', 'area', 'data_criacao'
     ];
     protected array $ormInsert = [
-        'tipo'
+        'tipo', 'area'
     ];
     protected array $ormSalvar = [
         'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega',
@@ -32,6 +33,7 @@ final class DemandaEntity extends Entity
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
         tipo|Tipo|vazio|valido
+        area|Área|vazio|valido
         status|Status|vazio|valido
         data_entrega|Data da entrega|valido
     ';
@@ -53,16 +55,13 @@ final class DemandaEntity extends Entity
     public Status $status;
     public int $id_usuario_equipe;
 
-    /**
-     * @param   null|string         $titulo     Título da demanda que deseja salvar
-     * @param   null|string|array   $empresa    UUID da empresa dona da demanda e um array ao buscar
-     * @param   null|Tipo           $tipo       Típo da demanda que deseja salvar
-     */
-    public function __construct(
-        public ?string $titulo = null,
-        public null|string|array $empresa = null,
-        public ?Tipo $tipo = null
-    ) {
+    public string $titulo;
+    public string|array $empresa;
+    public Tipo $tipo;
+    public Area $area;
+
+    public function __construct()
+    {
         parent::__construct();
     }
 

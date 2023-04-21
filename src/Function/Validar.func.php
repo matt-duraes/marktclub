@@ -459,11 +459,13 @@ if (!function_exists('respostaJson')) {
 
         if (
             (!is_array($resposta) && !is_object($resposta)) ||
-            (is_array($resposta) &&
+            (
+                is_array($resposta) &&
                 (!array_key_exists('status', $resposta) ||
                     !array_key_exists('dado', $resposta) || $resposta['status'] != 'sucesso')
             ) ||
-            (is_object($resposta) &&
+            (
+                is_object($resposta) &&
                 (!object_key_exists('status', $resposta) ||
                     !object_key_exists('dado', $resposta) || $resposta->status != 'sucesso')
             )

@@ -6,7 +6,7 @@ return [
         'id_admin_empresa' => '1',
         'nome' => 'App de teste',
         'descricao' => 'App para integração',
-        'imagem_app' => NULL,
+        'imagem_app' => null,
         'chave_privada' => '-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC1sakflQqRcKs8
 ssPuJZUlRacksw+VnXhCcEwYa3GN2RmeWOccJEGObrR5umITk3Uy/cExUj/o+AiE

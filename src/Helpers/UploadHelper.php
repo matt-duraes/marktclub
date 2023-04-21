@@ -437,7 +437,7 @@ final class UploadHelper
             return true;
         }
         if (in_array($this->arquivo->getMimeType(), ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'])) {
-            $img = new ImageManager;
+            $img = new ImageManager();
             $this->imagem = $img->make($this->arquivo->getPathname());
             return true;
         }

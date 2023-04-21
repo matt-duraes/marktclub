@@ -1,6 +1,6 @@
 <?php
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('ANALYTICS DOWNLOAD')
     ->descricao('Requisição para fazer o download do dump inicial de um analytics')

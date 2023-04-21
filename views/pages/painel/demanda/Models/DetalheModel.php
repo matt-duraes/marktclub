@@ -7,6 +7,8 @@ final class DetalheModel
     public function montarDado($dado)
     {
         $tarefa = [];
+        $dado->data_criacao = dataBr($dado->data_criacao);
+        $dado->data_entrega = !empty($dado->data_entrega) ? dataBr($dado->data_entrega) : '';
         foreach ($dado->tarefa as $r) {
             $r->tempo_estimado = $this->calcularTempo($r->minuto_producao_estimada);
             $r->tempo_real = $this->calcularTempo($r->minuto_producao_real);

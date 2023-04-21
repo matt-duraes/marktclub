@@ -6,13 +6,14 @@ use Helpers\ApiHelper;
 
 trait DemandaTrait
 {
-    private function criarDemanda($titulo, $tipo)
+    private function criarDemanda($titulo, $tipo, $area)
     {
         $Api = new ApiHelper(token: true);
         $this->Demanda = $Api->body([
             'empresa' => $this->empresa,
             'titulo' => $titulo,
-            'tipo' => $tipo
+            'tipo' => $tipo,
+            'area' => $area
         ])->post('/demanda-dado')->object();
     }
 

@@ -4,6 +4,7 @@ namespace Painel\Demanda\Models;
 
 use stdClass;
 use Helpers\ApiHelper;
+use App\Classes\DemandaDado\Area;
 
 final class CriarBugModel
 {
@@ -23,7 +24,7 @@ final class CriarBugModel
             $this->empresa = '14afa776394ada4be23be6acf7e3259e';
         }
 
-        $this->criarDemanda($titulo, 'bug-' . $local);
+        $this->criarDemanda($titulo, 'bug-' . $local, Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
         $this->salvarTarefa('nao-definido', $titulo, $texto);
         $this->notificarUsuario();

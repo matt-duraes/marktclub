@@ -13,7 +13,8 @@ final class AuthMiddleware
         $retorno = $this->verificarSeEstaLogado();
         if (
             (is_bool($retorno) && !$retorno) ||
-            (!is_bool($retorno) &&
+            (
+                !is_bool($retorno) &&
                 !empty($class) &&
                 !empty($action) &&
                 !call_user_func_array([new $class(), $action], [$retorno])

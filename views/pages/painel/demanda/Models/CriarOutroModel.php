@@ -3,6 +3,7 @@
 namespace Painel\Demanda\Models;
 
 use stdClass;
+use App\Classes\DemandaDado\Area;
 
 final class CriarOutroModel
 {
@@ -17,7 +18,7 @@ final class CriarOutroModel
         private string $texto,
         private string $tipo
     ) {
-        $this->criarDemanda($titulo, $tipo);
+        $this->criarDemanda($titulo, $tipo, Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
         $this->salvarTarefa('nao-definido', $titulo, $texto);
     }

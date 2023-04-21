@@ -6,8 +6,13 @@ use Helpers\ApiHelper;
 
 trait TarefaTrait
 {
-    private function salvarTarefa(string $tipo, string $titulo, string $texto, ?string $equipe = null)
-    {
+    private function salvarTarefa(
+        string $tipo,
+        string $titulo,
+        string $texto,
+        ?string $equipe = null,
+        ?int $tempo = null
+    ) {
         $Api = new ApiHelper(token: true);
         $dado = [
             'demanda' => $this->Demanda->dado->id,
@@ -15,6 +20,9 @@ trait TarefaTrait
             'titulo' => $titulo,
             'texto' => $texto
         ];
+        if (!empty($tempo)) {
+            $dado['minuto_producao_estimada'] = $tempo;
+        }
         if (!empty($equipe)) {
             $dado['equipe'] = $equipe;
         }

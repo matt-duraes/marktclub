@@ -1,6 +1,6 @@
 <?php
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('TOKEN')
     ->descricao('Requisição para criar um token, toda rota dessa API deve ter um token para receber permissão de acesso e esse token deve ser criado aqui. Após o token criado, você pode salvá-lo e usar mais de uma vez até seu vencimento.')

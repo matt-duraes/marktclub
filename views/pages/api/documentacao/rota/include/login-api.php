@@ -1,6 +1,6 @@
 <?php
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('LOGIN VIA API')
     ->descricao('Requisição para fazer login no clube via API, todos os dados dessa requisição devem ser criptografados, para saber mais, acesse o menu de chaves da API')

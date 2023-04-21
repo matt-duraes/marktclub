@@ -43,6 +43,19 @@
         @ endif;
     </div>
 
+    <div class="bloco_data">
+        <div class="data" data-ajuda="Criado em">
+            <i>@iconeCalendario(15)</i>
+            <p>{{$r->data_criacao}}</p>
+        </div>
+        @ if( !empty($r->data_entrega) ):
+        <div class="data" data-ajuda="Previsto para">
+            <i>@iconeEmail(12)</i>
+            <p>{{$r->data_entrega}}</p>
+        </div>
+        @ endif;
+    </div>
+
     <div class="bloco_tarefa">
         <h2>Tarefas</h2>
         @ if( in_array($r->status, ['nova', 'liberada', 'andamento']) ):

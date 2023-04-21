@@ -104,13 +104,13 @@
                     <ul class="lista_arquivo" id="bloco_lista_trace">
                         <?php
                         $arquivoHover = false;
-                        foreach ($_trace as $id => $r) :
-                            $hover = '';
-                            if ($r['arquivo'] == $_arquivo && $r['linha'] == $_linha && !$arquivoHover) {
-                                $arquivoHover = true;
-                                $hover = 'hover';
-                            }
-                        ?>
+            foreach ($_trace as $id => $r) :
+                $hover = '';
+                if ($r['arquivo'] == $_arquivo && $r['linha'] == $_linha && !$arquivoHover) {
+                    $arquivoHover = true;
+                    $hover = 'hover';
+                }
+                ?>
                             <li class="botao_escolher_codigo lista <?= $hover ?>" data-linha="<?= $r['linha'] ?>" data-id="<?= $id ?>">
                                 <p class="nome">
                                     <?= $r['arquivo'] ?>
@@ -131,12 +131,12 @@
                 </div>
                 <?php
                 $codigoAtivo = false;
-                foreach ($_trace as $id => $r) :
-                    $ativo = '';
-                    if ($r['arquivo'] == $_arquivo && $r['linha'] == $_linha && !$codigoAtivo) {
-                        $codigoAtivo = true;
-                        $ativo = 'codigo_ativo';
-                    }
+            foreach ($_trace as $id => $r) :
+                $ativo = '';
+                if ($r['arquivo'] == $_arquivo && $r['linha'] == $_linha && !$codigoAtivo) {
+                    $codigoAtivo = true;
+                    $ativo = 'codigo_ativo';
+                }
                 ?>
                     <div class="codigo bloco_codigo_geral <?= $ativo ?>" id="<?= $id ?>">
                         <div class="titulo" id="bloco_trace_titulo">

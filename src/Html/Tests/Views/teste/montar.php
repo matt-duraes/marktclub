@@ -36,7 +36,7 @@
                     } elseif ($linha->tipo == 'erro') {
                         include 'linha_erro.php';
                     }
-                    ?>
+            ?>
                 </ul>
             </div>
         <?php endforeach ?>

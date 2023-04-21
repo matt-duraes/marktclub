@@ -213,7 +213,7 @@ final class Response extends Psr7Response
         if (!in_array($status, [301, 302, 307, 308])) {
             mensagemStatus(400, localhost: 'O status para redirecionamento deve ser 301, 302, 307 ou 308.');
         }
-        $location = new RedirectResponse($url, $status, $header,);
+        $location = new RedirectResponse($url, $status, $header, );
         $this->responseLocation = $location;
         return $this;
     }

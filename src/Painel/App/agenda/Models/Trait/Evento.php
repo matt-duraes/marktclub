@@ -6,7 +6,6 @@ use PainelApp\agenda\Models\BuscarModel;
 
 trait Evento
 {
-
     private bool $meuEvento;
     private bool $temVideo;
 

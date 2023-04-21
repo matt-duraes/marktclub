@@ -29,7 +29,7 @@ final class NotificacaoController extends Controller
             ])
             ->get('/painel-notificacao')->object();
 
-        $notificacao->dado->lista = (new HelperModel)->tratarRetorno($notificacao->dado->lista);
+        $notificacao->dado->lista = (new HelperModel())->tratarRetorno($notificacao->dado->lista);
         return mensagemSucesso($notificacao->dado);
     }
     public function postAtualizar(Request $request)

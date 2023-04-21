@@ -2,7 +2,7 @@
 
 use App\Classes\UsuarioCliente\Helper;
 
-$Doc = new \DocumentacaoConfig\Requisicao;
+$Doc = new \DocumentacaoConfig\Requisicao();
 $Doc
     ->titulo('LISTAR USUÁRIOS')
     ->descricao('Requisição para buscar uma lista de usuários.')

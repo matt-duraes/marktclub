@@ -2,7 +2,6 @@
 
 namespace ApiController;
 
-use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;

@@ -1,73 +1,25 @@
 @template "painel"
 
 <div id="bloco_demanda_index">
+    <input type="hidden" id="input_area" value="{{$area}}">
     <div class="conteudo_geral">
+        @ foreach($quadro as $ind => $item):
         <section class="bloco_coluna">
             <header>
-                <h1>Backlog</h1>
+                <h1>{{$item['titulo']}} <span>({!!count($item['lista'])!!})</span></h1>
                 <div class="flex"></div>
+                @ if( $ind == 0 ):
                 <button id="botao_add_tarefa" class="botao">Add</button>
+                @ endif;
             </header>
             <div class="conteudo">
-                @ifforeach($nova as $r):
+                @ifforeach($item['lista'] as $r):
                 @view painel/demanda/index/tarefa.view
                 @elseforeach;
                 <div class="tarefa_zero">Sem itens<br> no momento</div>
                 @endif;
             </div>
         </section>
-
-        <section class="bloco_coluna">
-            <header>
-                <h1>Liberada</h1>
-            </header>
-            <div class="conteudo" id="bloco_coluna_liberado">
-                @ifforeach($liberada as $r):
-                @view painel/demanda/index/tarefa.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
-            </div>
-        </section>
-
-        <section class="bloco_coluna">
-            <header>
-                <h1>Em andamento</h1>
-            </header>
-            <div class="conteudo">
-                @ifforeach($andamento as $r):
-                @view painel/demanda/index/tarefa.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
-            </div>
-        </section>
-
-        <section class="bloco_coluna">
-            <header>
-                <h1>Teste</h1>
-            </header>
-            <div class="conteudo">
-                @ifforeach($teste as $r):
-                @view painel/demanda/index/tarefa.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
-            </div>
-        </section>
-
-        <section class="bloco_coluna">
-            <header>
-                <h1>Concluida</h1>
-            </header>
-            <div class="conteudo">
-                @ifforeach($concluida as $r):
-                @view painel/demanda/index/tarefa.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
-            </div>
-        </section>
-
+        @endforeach;
     </div>
 </div>

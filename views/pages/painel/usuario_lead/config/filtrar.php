@@ -12,11 +12,11 @@ $Painel
     ->numero(name: 'matricula', titulo: 'Matrícula', label: 'Matrícula', placeholder: 'Digite uma matrícula')
     ->numero(name: 'siape', titulo: 'SIAPE', label: 'SIAPE', placeholder: 'Digite um SIAPE')
     ->bloco(function () use ($Painel) {
-    $Painel
-        ->select(name: 'origem', titulo: 'Origem', label: 'Origem', lista: (new Origem())->select())
-        ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select());
+        $Painel
+            ->select(name: 'origem', titulo: 'Origem', label: 'Origem', lista: (new Origem())->select())
+            ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select());
     });
 
-    $Painel->replace('status', (new Status())->select());
+$Painel->replace('status', (new Status())->select());
 
 return $Painel;

@@ -11,14 +11,17 @@ Route
     ::controller(Painel\Demanda\Controllers\DemandaController::class)
     ::grupo(function () {
         Route
-            ::nome('lista')
-            ::view('/demanda');
+            ::nome('tecnologia')
+            ::view('/demanda/tecnologia');
+        Route
+            ::nome('criacao')
+            ::view('/demanda/criacao');
         Route
             ::nome('demanda')
             ::view('/demanda/demanda/{id}');
         Route
             ::nome('demandaSalvar')
-            ::view('/demanda/demanda-salvar');
+            ::view('/demanda/demanda-salvar/{area}');
         Route
             ::nome('tarefaSalvar')
             ::view('/demanda/tarefa-salvar/{demanda}');
@@ -30,7 +33,14 @@ Route
             ::nome('demandaSalvar')
             ::request([
                 'tipo', '!titulo', 'empresa', '!dominio_tipo', '!dominio_link', '!login_api',
-                '!login_link', '!app', '!texto', '!cdn', '!local', '!critico'
+                '!login_link', '!app', '!texto', '!cdn', '!local', '!critico', '!criacao_site',
+                '!criacao_social', '!criacao_impresso', '!criacao_kit', '!criacao_video', '!criacao_outro',
+                '!site_largura', '!site_altura', '!digital_stories', '!digital_feed', '!digital_banner',
+                '!feed_whatsapp', '!feed_instagram', '!feed_facebook', '!feed_linkedin', '!feed_twitter',
+                '!feed_youtube', '!feed_tiktop', '!impresso_voucher', '!impresso_folder', '!impresso_banner',
+                '!impresso_revista', '!impresso_outro', '!impresso_outro_texto', '!kit_email',
+                '!kit_stories', '!kit_video', '!kit_feed', '!kit_como_acessar', '!kit_baixar_app',
+                '!kit_previa', '!video_formato', '!video_largura', '!video_altura', '!outro_texto', '!criacao_texto'
             ])
             ::post('/demanda/demanda-salvar');
         Route
