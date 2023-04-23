@@ -1,0 +1,30 @@
+@system "Loading"
+@system "Pagina"
+@template "site"
+@system "Form"
+@resource "site/variavel"
+@resource "site/loja/busca"
+
+#bloco_pagina_senha
+    width: 100%
+    max-width: $maxWidth
+    .conteudo form
+        width: 100%
+        flexCol()
+        max-width: 700px
+        espacoTopPadrao()
+        button
+            buttonCard()
+            align-self: start
+        button:hover
+            hoverButtonPadrao()
+        p
+            subTitulo()
+        fieldset
+            width: 100%
+            flexCol()
+            blocoShadow()
+            margin-bottom: 20px
+            border-radius: 15px
+            background-color: $branco
+

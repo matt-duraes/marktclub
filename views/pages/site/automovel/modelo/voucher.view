@@ -1,0 +1,33 @@
+
+<div class="modal_mapa bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>CONFIRMAR MODELO</h1>
+        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+    </header>
+        
+    <div class="conteudo_pagina_popup voucher">
+       <h1>Nome do Carro</h1>
+       <div class="conteudo">
+        <p>Modelo do Carro</p>
+        <p>Versão do Carro e ano do carro</p>
+        <p>Cor do Carro</p>
+       </div>
+
+       <div class="destaque">
+        <p>R$ 240.490,00</p>
+       </div>
+
+        <ul>
+            <li></li>
+        </ul>
+
+        <div class="resto"></div>
+
+        <div class="footer_pagina_popup">
+            <div class="button voltar botao_fechar_popup">CANCELAR</div>
+            <a class="voucher" href="">GERAR VOUCHER</a>
+        </div>
+    </div>
+
+</div>
+

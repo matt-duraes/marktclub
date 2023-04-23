@@ -1,0 +1,32 @@
+@system "Form"
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/loja/parceiro"
+@system "Alerta"
+@system "Loading"
+@system "Pagina"
+
+
+#bloco_credito_alfa
+    maxWidth()
+    flexCenter()
+    flexCol()
+    h1
+        titulo()
+        color: $corClube
+        bold()
+
+    p, li
+        texto()
+    .container
+        width: 100%
+        min-height: calc(100vh - 0px)
+    .disclaimer
+        width: 100%
+        p
+            disclaimerFontSize()
+            color: #666
+            text-align: left
+    .bloco_parceiro
+        espacoTopPadrao()

@@ -1,0 +1,30 @@
+@template "site"
+
+<div id="bloco_sicoob" class="bloco_credito_index">
+
+    @view site/geral/banner.view
+
+    <div class="atencao bloco_atencao_geral">
+        <p>
+            O SICOOB Judiciário, em recente fusão com o Uniasacred, é seu mais novo parceiro.
+            Especializado no atendimento de servidores públicos federais e entidades de classe,
+            ele existe para fazer você economizar em relação aos bancos de varejo. Aproveite as
+            vantagens da Cooperativa que oferece as melhores condições para você fazer aquela
+            viagem, trocar de carro ou simplesmente levantar aquele dinheirinho para acertar as
+            contas.
+        </p>
+    </div>
+
+    <section class="bloco_escolha bloco_titulo_texto_centralizado">
+        <h2>QUAL PRODUTO DESEJA?</h2>
+        <p>Escolha entre a contratação de um novo consignado ou a portabilidade do seu consignado atual.</p>
+
+        <div class="bloco_botao">
+            <a href="" class="botao botao_geral_cor cor_bg">Crédito Consignado</a>
+            <a href="" class="botao botao_geral_cor cor_bg">Crédito Pessoal</a>
+            <a href="" class="botao botao_geral_cor cor_bg">Veículo Zero</a>
+            <a href="" class="botao botao_geral_cor cor_bg">Veículo Seminovo</a>
+        </div>
+    </section>
+
+</div>

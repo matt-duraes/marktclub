@@ -1,29 +1,75 @@
 @system "Resetar"
+@system "Pagina"
+@system "Form"
+@system "Animacao"
 
 @resource "site/mixim"
+@resource "site/variavel"
 @resource "site/geral"
+@resource "site/pagina_popup"
 
-$maxWidth = 1130px
-$menuWidth = 400px
 $hoverBranco = #F8F9FA
+$menuWidth = 300px
+
+*::-webkit-scrollbar
+    width: 10px
+
+*::-webkit-scrollbar-track
+    background: transparent
+
+*::-webkit-scrollbar-thumb
+    background: transparent
+    border-radius: 15px
+    height: 150px
+
+*:hover::-webkit-scrollbar-thumb
+    background: #cfcfcf
+.fw_pagina_body
+    padding-right: 10px
 
 body
     font-family: 'Inter', sans-serif
     color: #495057
     background-color: #f8f9fa
-
-#switch_menu
-    width: 10px
-    height: 100%
-    position: fixed
-    top: 0
-    left: 0
-    z-index: 50
+    &::-webkit-scrollbar-track
+        background: #DDD
+    ::-webkit-scrollbar-thumb
+        background: #DDD
+a
+    cursor: pointer
+.display_none
     display: none
 
 #site
     width: 100%
     min-height: 100vh
+
+#header_principal
+    width: 100%
+    background-color: #FFF
+    box-shadow: 0 5px 5px rgba(0,0,0,.1)
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 9
+    flexRow()
+    align-items: center
+    padding: 10px 20px
+    display: none
+    .botao
+        width: 40px
+        height: 40px
+        flexCenter()
+        margin-right: 10px
+        cursor: pointer
+    figure
+        max-height: 50px
+    figure img
+        max-width: 100%
+        max-height: 50px
+@media screen and (max-width:1250px)
+    #header_principal
+        display: flex
 
 #menu_principal
     width: 100%
@@ -31,7 +77,7 @@ body
     position: fixed
     top: 0
     left: 0
-    z-index: 10
+    z-index: 11
     flexCol()
     .bg
         width: 100%
@@ -40,9 +86,10 @@ body
         position: fixed
         top: 0
         left: 0
-        background-color: rgba(0,0,0,.7)
+        background-color: rgba(0,0,0,0)
         z-index: 1
         box-shadow: 0 10px 15px rgba(0,0,0,.3)
+        transition: background-color .3s ease-out
     .conteudo
         width: 100%
         max-width: $menuWidth
@@ -166,14 +213,48 @@ body
     .conteudo .menu .resto
         width: 100%
         margin-bottom: 40px
+@media screen and (max-width:1250px)
+    #menu_principal
+        width: 100vw
+        max-width: 100vh
+        &.menu_fechado
+            display: none
+        .bg
+            max-width: 100%
+            height: 100%
+        .conteudo
+            width: $menuWidth
+            max-width: 100%
+            opacity: 0
+            margin-left: -200px
+            transition: opacity .3s ease-out, margin-left .3s ease-out
+    #menu_principal.ativo
+        .bg
+            background-color: rgba(0,0,0,.7)
+        .conteudo
+            opacity: 1
+            margin-left: 0
+
+#botao_swiped_esquerdo
+    width: 15px
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 10
 
 #conteudo_principal
+    flexCol()
     width: calc(100% - $menuWidth)
     min-height: calc(100vh - 150px)
     margin-left: $menuWidth
-    flexCol()
     align-items: center
-    padding: 40px 20px 150px
+    padding: 20px 20px 60px
+@media screen and (max-width:1250px)
+    #conteudo_principal
+        width: 100%
+        margin-left: 0
+        padding-top: 90px
 
 #rodape_principal
     width: calc(100% - $menuWidth)
@@ -221,3 +302,26 @@ body
         margin: 0 10px
         overflow: hidden
         display: flex
+        background: #212529
+@media screen and (max-width:1250px)
+    #rodape_principal
+        width: 100%
+        margin-left: 0
+@media screen and (max-width:1000px)
+    #rodape_principal
+        .bloco
+            width: 100%
+            max-width: 100%
+            margin: 20px 0 0
+@media screen and (max-width:700px)
+    #rodape_principal
+        padding-top: 30px
+        .app
+            width: 100%
+            flexCol()
+            align-items: center
+        .app a
+            width: 100%
+            max-width: 230px
+            margin: 10px 0
+            justify-content: center

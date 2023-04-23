@@ -1,0 +1,280 @@
+@system "Form"
+@template "site"
+@resource "site/variavel"
+
+#bloco_odonto
+    max-width: $maxWidth
+    flexCol()
+#bloco_odonto .topo_banner
+    width: 100%
+    height: 300px
+    position: relative
+    float: left
+    background: url('https://clube.marktclub.com.br/images/banner_topo_odonto_1.png') no-repeat top center
+    background-size: cover
+    border-radius: 3px
+    margin-bottom: 10px
+
+.titulo_normal
+    texto()
+@media only screen and (max-width: 600px)
+    #bloco_odonto .aviso_teleorientacao p.titulo_normal
+        padding: 10px 20px
+    #bloco_odonto .aviso_teleorientacao .video iframe
+        width: calc(100% - 20px)
+
+#bloco_odonto .sobre_saude
+    width: 100%
+    margin: 20px 0 80px 0
+    spaceBetween()
+    flex-wrap: wrap
+    figure.logo
+        width: 100%
+        text-align: center
+        margin-bottom: 20px
+        flexCenter()
+    article
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        margin: 10px 0
+        borda-padrao()
+        header
+            width: 100%
+            margin-bottom: 10px
+            borda-padrao()
+            padding: 10px
+        p.texto
+            padding: 10px
+    .opcao
+        width: 100%
+        padding-bottom: 40px
+        margin-bottom: 20px
+        flexCenter()
+        flex-direction: column
+        border-bottom: 1px solid #999
+    .conteudo
+        flexCenter()
+        flex-direction: column
+        text-align: center
+        width: 100%
+        max-width: 500px
+        margin-top: 20px
+    .conteudo h2
+        margin-top: 10px
+    .botao_opcao_saude
+        width: 100%
+        max-width: 600px
+        flexCenter()
+        margin-top: 20px
+    .botao_opcao_saude a
+        width: 250px
+        height: 50px
+        flexCenter()
+        titulo()
+        border-radius: 3px
+        cursor: pointer
+
+@media only screen and (max-width: 400px)
+    #bloco_odonto .sobre_saude figure.logo img.seguro
+        width: 80%
+
+
+#bloco_odonto .sobre_saude article.vantagens
+    height: 150px
+    @media screen and (max-width:800px)
+        height: auto
+    header
+        height: 100%
+        width: 50%
+        flexCenter()
+        text-align: center
+        background: #fff
+        margin: 0
+        @media screen and (max-width:800px)
+            width: 100%
+            height: auto
+
+    section.lista_vantagens
+        height: 100%
+        width: 50%
+        justifyStart()
+        flex-wrap: wrap
+        background-color: #fff
+        borda-padrao()
+        @media screen and (max-width:800px)
+            width: 100%
+        p.texto
+            width: 100%
+            height: calc(100% / 3)
+            border-bottom: 1px solid $corClube
+            text-align: center
+            font-size: 1.2em
+            justifyStart()
+            padding-left: 25%
+            @media screen and (max-width:800px)
+                height: 45px
+            &:last-child
+                border: none
+            i
+                flexCenter()
+                width: 40px
+                margin-right: 10px
+                font-size: 1.5em
+                &:after
+                    width: auto
+
+@media screen and (max-width: 730px)
+    #bloco__saude_operadora .sobre_saude article.vantagens section.lista_vantagens p.texto
+        padding-left: 20px
+
+#bloco_odonto .sobre_saude article.quem_pode
+    blocoShadow()
+    header
+        border: none
+        border-bottom: 1px solid #ddd
+        border-radius: 0px
+        margin-bottom: 0px
+    header h1
+        color: $corClube
+    section.explicacao
+        width: 50%
+        padding: 20px
+        padding-right: 100px
+        background: #FFF
+        @media screen and (max-width:800px)
+            width: 100%
+            padding-right: 20px
+        span
+            bold()
+        ul
+            margin-top: 10px
+            li
+                margin: 10px 0
+    figure
+        width: 50%
+        display: flex
+        align-items: flex-end
+        justify-content: flex-end
+        background: #FFF
+        @media screen and (max-width:800px)
+            display: none
+    section.explore
+        width: 100%
+        height: 200px
+        flexCenter()
+        border-top: 1px solid #e8e8e8
+        background: #FFF
+        div.chamada
+            width: 50%
+            text-align: center
+            color: #fff
+            h1
+                color: $corClube
+            @media screen and (max-width:800px)
+                display: 100%
+            p
+                width: 100%
+                color: #666
+                font-size: 1.4em
+                margin-top: 5px
+            a
+                margin-top: 30px
+                padding: 10px 30px
+                background: rgba(0,0,0,0.3)
+                text-align: center
+                display: inline-block
+                font-size: 1.5em
+                color: #fff
+                &:visited
+                    color: inherit
+        figure
+            flexCenter()
+            @media screen and (max-width:600px)
+                display: none
+    .preco
+        width: 100%
+        display: flex
+        flex-direction: column
+        margin-top: 20px
+    .preco h2
+        width: 100%
+        titulo()
+        color: $corClube
+        margin-bottom: 10px
+    .preco p.apenas
+        width: 100%
+        texto()
+        color: #333
+        margin-bottom: 5px
+        text-indent: inherit
+    .preco .valor
+        display: flex
+        flex-direction: row
+        texto()
+        color: #999
+    .preco .valor b
+        bold()
+        font-size: 2.2em
+        margin-top: -4px
+    .preco .valor span
+        font-size: .8em
+    .preco p
+        color: #666
+        font-size: 1.2em
+        text-indent: 45px
+        margin-top: -4px
+
+
+#bloco_odonto .sobre_saude article.plano
+    background: #FFF
+    header
+        border: none
+        border-bottom: 1px solid #ddd
+        border-radius: 0px
+    header h1
+        color: $corClube
+    ul
+        width: 100%
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        padding: 10px 10px 20px 10px
+        list-style-type: circle
+        list-style-position: inside
+    ul li
+        width: calc((100% / 4) - 20px)
+        texto()
+        margin: 10px
+        span
+            texto()
+            bold()
+    p
+        texto()
+        margin-left: 20px
+        padding-bottom: 20px
+
+@media screen and (max-width: 800px)
+    #bloco_odonto .sobre_saude article.plano ul li
+        width: calc((100% / 2) - 20px)
+@media screen and (max-width: 500px)
+    #bloco_odonto .sobre_saude article.plano ul li
+        width: 100%
+        margin: 0
+        padding: 10px
+
+
+#bloco_odonto .sobre_saude article.plano.coluna
+    ul
+        flex-direction: column
+    ul li
+        width: calc(100% - 20px)
+    ul li.preto
+        list-style-type: disc
+    ul li.recuo
+        padding-left: 20px
+
+.simulacao
+    flexCenter()
+    width: 100%
+    text-align: center

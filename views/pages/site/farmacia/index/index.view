@@ -1,0 +1,30 @@
+@template "site"
+
+<div id="bloco_medicamento">
+    <div class="conteudo_principal">
+        <header>
+                <a href="@route(medicamento.carteirinha)" target="_blank"><figure class="imagem_fundo" style="background-image: url('https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png'); background-size:cover"></figure>
+                    <div class="bloco_aviso"></a>
+                <h1>Veja agora as redes que fazem parte do programa Tem + Saúde.</h1>
+                <p>Basta escolher a drogaria, clicar em “Quero Utilizar” e apresentar sua carteirinha
+                digital Tem + Saúde que aparecerá automaticamente</p>
+            </div>
+        </header>
+    </div>
+    <div class="bloco_parceiro">
+        @for ($i = 1; $i <= 10; $i++):
+            <article class="parceiro">
+                <a href="@route(medicamento.detalhe)"></a>
+                <figure><img src="{!!LINK_PADRAO!!}/images/site/drogaraia.png" alt=""></figure>
+                <header>
+                    <h1>Droga Raia</h1>
+                </header>
+                <div class="icone">
+                    <i class="favorito">@iconeFavorito</i>
+                </div>
+            </article>
+        @endfor
+    </div>
+
+</div>
+

@@ -1,0 +1,7 @@
+@template "site"
+
+<div id="bloco_veiculo">
+    @view site/geral/parceiro.view
+
+    @view site/automovel/geral/mensagem.view
+</div>

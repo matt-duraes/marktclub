@@ -1,14 +1,19 @@
 .bloco_geral_banner
     width: 100%
     max-width: 1130px
-    height: 430px
-    position: relative
-    boxShadow()
-    border-radius: 15px
-    background: #FFF
-    display: flex
+    flexCol()
     align-items: center
-    overflow: hidden
+    &.mobile
+        display: none
+    .conteudo
+        width: 100%
+        flexRow()
+        align-items: center
+        boxShadow()
+        position: relative
+        border-radius: 15px
+        background: #FFF
+        overflow: hidden
     .seta
         width: 80px
         height: 80px
@@ -27,20 +32,39 @@
         right: 30px
     &:hover .seta
         opacity: 1
-    figure
+    .imagem
         width: 100%
-        height: 100%
-        position: absolute
-        top: 0
-        left: 0
-        background-position: center center
-        background-size: cover
-        opacity: 0
+        position: relative
+        z-index: 1
+        display: grid
+        grid-template-columns: 1fr
+        grid-template-rows: 1fr
+    .imagem figure
+        width: 100%
+        opacity: 1
+        flexCol()
+        grid-column-start: 1
+        grid-column-end: 1
+        grid-row-start: 1
+        grid-row-end: 1
         &:first-child
             opacity: 1
-    figure a
+    .imagem figure img
+        width: 100%
+    .imagem figure a
         width: 100%
         height: 100%
         position: absolute
         top: 0
         left: 0
+        z-index: 3
+.bloco_geral_banner.mobile
+    .conteudo
+        max-width: 600px
+
+@media screen and (max-width:900px)
+    .bloco_geral_banner
+        &.mobile
+            display: flex
+        &.desktop
+            display: none

@@ -1,0 +1,29 @@
+
+<div class="bloco_pagina_popup" id="popup_imagem">
+        
+    <header class="header_pagina_popup">
+        <h1>Responda</h1>
+        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+    </header>
+        
+    <div class="conteudo_pagina_popup">
+        <header class="header_padrao_popup">
+            <h1>Texto popup</h1>
+        </header>
+        <figure style="background-image: url(https://arquivo.marktclub.com.br/publicidade/467e8626bbf4e88d5e0a12b2ac5a7b64.png)" href="#imagem">
+        </figure>
+
+        <div id="botao_regulamento_link">
+            <a href="#">Ler Regulamento</a>
+        </div>
+        <div id="botao_regulamento_abre" class="mostra">
+            <button class="abreRegulamentoPopup">Abrir Regulamento</button>
+            <div class="regulamento_texto">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, quaerat corrupti ea facilis earum ipsam eos esse veniam eveniet optio praesentium, deleniti rem nesciunt hic aliquid accusamus iste maiores sapiente.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, quaerat corrupti ea facilis earum ipsam eos esse veniam eveniet optio praesentium, deleniti rem nesciunt hic aliquid accusamus iste maiores sapiente.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+

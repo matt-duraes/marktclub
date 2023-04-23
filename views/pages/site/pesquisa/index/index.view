@@ -1,0 +1,101 @@
+<div class="modal_mapa bloco_pagina_popup" id="popup_pesquisa_satisfacao">
+    <header class="header_pagina_popup">
+        <h1>Pesquisa de Satisfação</h1>
+        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+    </header>
+        
+    <div class="conteudo_pagina_popup">
+        <form id="form_buscar_mobile" action="" class="form_geral" method="post">
+            <header class="header_padrao_popup">
+                <h1>Ajude a melhorar o seu Clube de Vantagens, é rápido e fácil de responder</h1>
+            </header>
+
+            <fieldset class="boxForm">
+                <label>É fácil navegar no seu Clube de Vantagens?</label>
+                <div class="conteudo">
+                    <label for="sim" class="input_checkbox ativo">Sim
+                        <input id="sim" name="navegar" type="radio" value="1">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    <label for="nao" class="input_checkbox">Não
+                        <input id="nao" name="navegar" type="radio" value="2">
+                        <span class="span_checkbox"></span>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="boxForm">
+                <label>Você geralmente acha o que procura?</label>
+                <div class="conteudo">
+                    <label for="sim_procura" class="input_checkbox ativo">Sim
+                        <input id="sim_procura" name="pesquisa" type="radio" value="1">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    <label for="nao_procura" class="input_checkbox">Não
+                        <input id="nao_procura" name="pesquisa" type="radio" value="2">
+                        <span class="span_checkbox"></span>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="boxForm">
+                <label>Você conseguiu ajuda/suporte quando precisou?</label>
+                <div class="conteudo">
+                    <label for="sim_suporte" class="input_checkbox ativo">Sim
+                        <input id="sim_suporte" name="suporte" type="radio" value="1">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    <label for="nao_suporte" class="input_checkbox">Não
+                        <input id="nao_suporte" name="suporte" type="radio" value="2">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    <label for="nunca_suporte" class="input_checkbox">Nunca precisei de suporte
+                        <input id="nunca_suporte" name="suporte" type="radio" value="3">
+                        <span class="span_checkbox"></span>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="boxForm">
+                <label>Qual foi a qualidade no atendimento?</label>
+                <div class="conteudo">
+                    <label for="otima" class="input_checkbox ativo">Ótima
+                        <input id="otima" name="atendimento" type="radio" value="1">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    <label for="boa" class="input_checkbox">Boa
+                        <input id="boa" name="atendimento" type="radio" value="2">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    <label for="ruim" class="input_checkbox">Ruim
+                        <input id="ruim" name="atendimento" type="radio" value="2">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    <label for="pessima" class="input_checkbox">Péssima
+                        <input id="pessima" name="atendimento" type="radio" value="2">
+                        <span class="span_checkbox"></span>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="boxForm conhece">
+                <label>Quais destes sistemas do Clube você conhece?</label>
+                <div class="conteudo">
+                    @ifforeach($sistemaConhece as $c)
+                    <label for="{{ $c->name }}" class="input_checkbox ativo item">{{ $c->label }}
+                        <input id="{{ $c->name }}" name="conhece" type="checkbox" value="{{ $c->valor }}">
+                        <span class="span_checkbox"></span>
+                    </label>
+                    @endifforeach;
+                </div>
+            </fieldset>
+
+            <ul>
+                <li></li>
+            </ul>
+
+            <div class="resto"></div>
+
+            <div class="footer_pagina_popup">
+                <button class="button" id="envioPesquisaSatisfacao">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+</div>

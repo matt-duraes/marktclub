@@ -1,0 +1,8 @@
+@template "site"
+
+<div id="bloco_consultoria_alfa">
+
+    @view site/alfa/consultoria/geral/banner.view
+
+
+</div>

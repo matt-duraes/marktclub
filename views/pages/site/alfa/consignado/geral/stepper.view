@@ -1,0 +1,130 @@
+
+<div class="containerStepper">
+    <div class="progressBar">
+        <div class="step">
+            <div class="bullet">
+                <span>1</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Simulação</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>2</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Valor da simulação</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>3</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Dados de contato</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>4</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Solicitar contratação</p>
+        </div>
+    </div>
+    <div class="formContainerStepper">
+        <form action="#" method="post" class="form_geral">
+            <div class="page slidePage" id="bloco_simulacao">
+                <header>
+                    <h1>SIMULAR EMPRÉSTIMO</h1>
+                    <p>Esta é uma página de simulação e não implica na contratação automática de empréstimos.</p>
+                </header>
+                <input type="hidden" name="tipo" value="consignado">
+                @? formInput(name: 'valor', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor', value: '')
+
+                @? formSelect(name: 'prazo', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', lista: $taxa, value: '')
+
+                <div class="aviso">
+                    <p> A simulação que está prestes a fazer é válida por 3 dias corridos.</p>
+                </div>
+                <div class="footer_button primeiro">
+                    <button id="botao_simular_credito" class="proxima">Avançar</button>
+                </div>
+            </div>
+            <div class="page slidePage" id="resultado_simulacao">
+                <header>
+                    <h1>SIMULAÇÃO</h1>
+					<p>Veja o valor da sua simulação.</p>
+                </header>
+                <div class="resultado">
+                    <h2>Valor da parcela:</h2>
+                    <div class="resultado_valor">
+                        <p id="simulacao_valor"></p>
+                    </div>
+                </div>
+
+				<div class="aviso_resultado">
+					<h2>Para um empréstimo de <span class="valor_emprestimo"></span> em <span class="valor_prazo"></span> vezes</h2>
+					<p>*Taxas em condições especiais que poderão ser alteradas sem aviso prévio.</p>
+				</div>
+
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="proxima">Avançar</button>
+                </div>
+            </div>
+            <div class="page slidePage" id="contato">
+                <header>
+                    <h1>DADOS PARA CONTATO</h1>
+                    <p >Confirme seus dados para que o Banco Alfa entre em contato e valide seu pedido. Esta ação não implica na contratação automática da portabilidade.</p>
+                </header>
+                <div class="duplo_label">
+                    @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: '')
+                    @? formCpf(name: 'cpf', placeholder: 'CPF', label: 'CPF', class: 'cpf', value: '')
+                </div>
+                <div class="duplo_label">
+                    @? formEmail(name: 'emailpessoal', label: 'E-mail pessoal', class: 'email', placeholder: 'Digite seu e-mail pessoal', value: '')
+                    @? formInput(name: 'enderecoCidade', placeholder: 'Digite uma cidade', label: 'Cidade', class: 'cidade', value: '')
+                </div>
+                <div class="duplo_label">
+                    @? formTelefone(name: 'telefoneCelular', label: 'Telefone celular', class: 'celular', placeholder: 'Digite seu telefone celular', value: '')
+                    @? formTelefone(name: 'telefoneFixo', label: 'Telefone fixo', class: 'fixo', placeholder: 'Digite seu telefone fixo', value: '')
+                </div>
+                @? formInput(name: 'orgao', placeholder: 'Digite um órgão', label: 'Ex: Órgão onde trabalha', class: 'orgao', value: '')
+                @? formTextarea(name: 'mensagem', placeholder: 'Digite o mensagem', class: 'mensagem', label: 'Digite uma breve mensagem')
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="proxima">Avançar</button>
+                </div>
+            </div>
+            <div class="page slidePage" id="bloco_solicitacao">
+                <header>
+                    <h1>SOLICITAR CONTRATAÇÃO</h1>
+                    <p>Veja os dados abaixo, verifique se está tudo certo e envie sua solicitação de empréstimo para o Banco Alfa.</p>
+                </header>
+                <div class="coluna-divisoria">
+                        <h1>VALOR DO EMPRÉSTIMO</h1>
+                        <p class="valor_emprestimo">R$ x.xxx,xx</p>
+                </div>
+                <div class="coluna-divisoria">
+                    <h1>QUANTIDADE DE PARCELAS</h1>
+                    <p><span class="valor_prazo"></span> vezes</p>
+                </div>
+                <div class="coluna-divisoria">
+                    <h1>VALOR DA PARCELA</h1>
+                    <p class="valor_parcela">R$ x.xxx,xx</p>
+                </div>
+                <div class="coluna-divisoria">
+                    <h1>JUROS</h1>
+                    <p id="texto_valor_juros"></p>
+                </div>
+                <div class="coluna-divisoria">
+                    <h1>DATA DE SIMULAÇÃO</h1>
+                    <p class="data_simulacao"><?=date('d/m/Y');?></p>
+                </div>
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="submit" id="enviar_solicitacao">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

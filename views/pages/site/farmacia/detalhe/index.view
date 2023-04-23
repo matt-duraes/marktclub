@@ -1,0 +1,82 @@
+@template "site"
+<div class="bloco_loja_detalhe">
+    <header class="topo">
+        <figure class="fundo" style="background-image: url(https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png); background-size:cover">
+            <div class="icone_redondo">
+                <img src="https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg" alt="icone redondo">
+            </div>
+        </figure>
+    </header>
+    <div class="infoParceiro">
+        <div class="bio">
+            <h1>NOME EMPRESA</h1>
+            <div class="icones">
+                <a href="#">
+                    Ver E-mail<br>
+                    @iconeGlobo
+                </a>
+                <a href=""  data-ajuda="Download da tabela de exemplo" >
+                    Abrir Site <br>
+                    @iconeMedicamento
+                </a>
+                <a href="@route(voucher.voucher)/parceiro"  data-id="1" class="gerar_voucher">
+                    Gerar Voucher <br>
+                    @iconeFavorito
+                </a>
+            </div>
+        </div>
+        <div class="descricao">
+            <p>Doutor acesso é um aplicativo de telemdicina exclusiva para consultas on-line. 
+                Tenha médicos 24 horas por dia e mais de 20 especialidades médicos por agendamento. 
+                Baixe o app, se consulte em 10min e pague só daqui 7 dias
+            </p>
+            <a href="@route(medicamento.carteirinha)" data-id="1" target="_blank" class="cor_bg auxilio_ressarcimento">Abrir Carteirinha</a>
+        </div>
+    </div>
+    <div class="bloco_desconto_procedimento">
+        <div class="desconto">
+            <div class="bloco_titulo_desconto">
+                <h1>Descontos</h1>
+                <p>Desconto de 25% vitalicio sem carência, no serviço de telemedicina da Doutor Acesso
+                    Fideliadde de apenas 6 meses.
+                </p>
+            </div>
+            <div class="bloco_fique_atento">
+                <span>Fique Atento</span>
+                <ul>
+                    <li>- A responsabilidade pela oferta, condições, formas de pagamento e produtos é da
+                        Doutor Acesso
+                    </li>
+                    <li>- O desconto não é cumulativo com outras promoções vigentes.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="procedimento">
+            <div class="bloco_titulo_procedimento">
+                <h1>Procedimentos</h1>
+                <p>Desconto de 25% vitalicio sem carência, no serviço de telemedicina da Doutor Acesso
+                    Fideliadde de apenas 6 meses.
+                </p>
+            </div>
+            <div class="bloco_fique_atento">
+                <span>Fique Atento</span>
+                <ul>
+                    <li>- A responsabilidade pela oferta, condições, formas de pagamento e produtos é da
+                        Doutor Acesso
+                    </li>
+                    <li>- O desconto não é cumulativo com outras promoções vigentes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloco_relacionado">
+        <div class="titulo">
+            <h1>Confira mais convênios</h1>
+            <a href="@route(loja.index)">Ver todos os convênios</a>
+        </div>
+        <div id="bloco_parceiro">
+            @view site/loja/geral/parceiro.view
+        </div>
+    </div>
+</div>

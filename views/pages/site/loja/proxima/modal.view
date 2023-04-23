@@ -1,0 +1,31 @@
+
+<div class="modal_mapa bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>BUSCAR</h1>
+        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+    </header>
+        
+    <div class="conteudo_pagina_popup">
+        <form id="form_buscar_mobile" action="" class="form_geral" method="post">
+            @? formSelect(name: 'categoria', placeholder: 'Ordenar por', label: 'Categoria', class: 'busca_categoria', lista: (new \App\Classes\Loja\Categoria)->select(), value: '')
+
+            @? formInput(name: 'local', placeholder: 'Buscar por cidade ou local', label: 'Local', class: 'busca_local', value: '')
+
+            @? formInput(name: 'pesquisa', placeholder: 'Pesquisa', label: 'Pesquisaa', class: 'buscar_input_pesquisa', value: '')
+
+            @? formSelect(name: 'raio', placeholder: 'Raio', class: 'botao_raio', label: 'Raio', lista: ['2' => '2 KM', '5' => '5 KM', '10' => '10 KM', '30' => '30 KM','50' => '50 KM'], value: '30')
+
+            <ul>
+                <li></li>
+            </ul>
+
+            <div class="resto"></div>
+
+            <div class="footer_pagina_popup">
+                <button class="button" id="busca_mapa">BUSCAR</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+

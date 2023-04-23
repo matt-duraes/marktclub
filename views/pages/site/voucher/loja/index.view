@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>VOUCHER - {!! $dado->voucher->titulo !!}</title>
+    <link rel="shortcut icon" type="image" href="{!!LINK_PADRAO!!}/images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    @CSS
+</head>
+
+<body>
+
+    <div id="bloco_voucher">
+        <header>
+            <figure>
+                <img height="60" src="{!! $dado->voucher->imagem->empresa !!}" alt="">
+            </figure>
+        </header>
+
+        @ if (!empty($dado->voucher->imagem->parceiro)) :
+            <div class="logo">
+                <figure>
+                    <img height="60" src="{!! $dado->voucher->imagem->parceiro !!}" alt="PARCEIRO">
+                </figure>
+            </div>
+        @ endif;
+
+        <section class="container bg_cor">
+            <div class="imagem">
+                <img src="{!! $dado->voucher->imagem->qrcode !!}" alt="codigo">
+            </div>
+        </section>
+
+        @if (isset($dado->voucher->codigo) && !empty($dado->voucher->codigo)) :
+            <div class="codigo">
+                <p>{!! $dado->voucher->codigo; !!}</p>
+            </div>
+        @ endif;
+
+        <section class="titulo">
+
+            <h2>{!! $dado->voucher->usuario->nome !!}</h2>
+            <h1>{!! $dado->voucher->usuario->cpf !!}</h1>
+            @ if (isset($tipo) && $tipo == 'duplo' && isset($cpf) && !empty($cpf)) :
+                <p class="cpf_dependente">CPF DO DEPENDENTE:<br>{!! $cpf !!}</p>
+            @ endif;
+
+            <div class="data">
+                <article class="data--caixa">
+                    <p>CRIADO EM</p>
+                    <p>{!! $dado->voucher->data->criacao !!}</p>
+                </article>
+                @ if (!isset($salavip)) :
+                    <article class="data--caixa">
+                        <p>VÁLIDO ATÉ</p>
+                        <p class="bold">{!! $dado->voucher->data->validade !!}</p>
+                    </article>
+                @ endif;
+            </div>
+        </section>
+
+        <section class="descricao">
+            <article class="caixa-descricao">
+                <p>{!! nl2br($dado->voucher->texto->desconto) !!}</p>
+            </article>
+        </section>
+        @ if (isset($dado->voucher->texto->opcional) && !empty($dado->voucher->texto->opcional)) :
+            <section class="descricao">
+                <article class="caixa-descricao">
+                    <p>{!! nl2br($dado->voucher->texto->opcional) !!}</p>
+                </article>
+            </section>
+        @ endif;
+
+
+        <section class="termo">
+            @ if (!in_array(CLUBE_ID, ['c3b3159ff6e9e937b954bf7eaca06aac', '2879077062aaa01f2c0862a7f108971d', 'dbbe96804930940e3c2f68f8794fcf2f', '1c3b51e4a59ae2e157adaf3e502d22ad', 'c3b3159ff6e9e937b954bf7eaca06aac', 'afac6330ef2337e096e2e57ceeb7206b', '9e0a3da675156380c20929856059a31b', 'f1fbde0562dc08274d6d7ae0277a14c3', '211b8e74e634a517f6f37338b6270728', 'a1d776a3f802f45d340e8b6c24beb8b8'])) : 
+                <article class="imagem">
+                    <p>Administrado por:</p>
+                    <figure>
+                        <img height="60" src="{!! $dado->voucher->imagem->marktclub !!}" alt="MARKTCLUB">
+                    </figure>
+                </article>
+                <article>
+                    <p>{!! $dado->voucher->texto->juridico !!}</p>
+                </article>
+            @ endif;
+
+            <article>
+                <p>{!! $dado->voucher->texto->validar !!}</p>
+            </article>
+        </section>
+
+
+    </div>
+
+
+    <form action="/" method="post">
+        <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
+        <input type="hidden" name="COR" id="COR" value="{!!COR!!}">
+    </form>
+
+
+    <script type="text/javascript">
+        /*  if (window.innerWidth > 700) {
+            window.print();
+        } */
+    </script>
+
+</body>
+
+</html>

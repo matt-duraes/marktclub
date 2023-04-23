@@ -1,0 +1,101 @@
+<div class="containerStepper">
+    <div class="progressBar">
+        <div class="step">
+            <div class="bullet">
+                <span>1</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Plano</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>2</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Simulação</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>3</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Resultado</p>
+        </div>
+    </div>
+    <div class="formContainerStepper">
+        <form action="#" method="post" class="form_geral">
+            <fieldset class="page slidePage" id="bloco_plano_seguro">
+                <header>
+                    <h1>ESCOLHA SEU PLANO</h1>
+                </header>
+                <div class="conteudo">
+                    <div class="button">
+						<input type="radio" id="basica" name="acomodacao" value="basico">
+						<label for="basica">Afinidade Básica</label>
+                    </div>
+                    <div class="button">
+						<input type="radio" id="pratico" name="acomodacao" value="pratico">
+						<label for="pratico">Afinidade prático</label>
+                    </div>
+                    <div class="button">
+						<input type="radio" id="versatil" name="acomodacao" value="versatil">
+						<label for="versatil">Afinidade versátil</label>
+                    </div>
+                </div>
+                <div class="footer_button primeiro">
+                    <button id="botao_avanca_simulacao" class="proxima">Avançar</button>
+                </div>
+            </fieldset>
+
+            <fieldset class="page slidePage segundo" id="simulacao_seguro">
+                <header>
+                    <h1>PREENCHA AS INFORMAÇÕES</h1>
+                </header>
+                @? formData(name: 'data_nascimento', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                <div class="dependente">
+                    <p>Dependentes</p>
+                    <div class="linha_dependente default">
+                        <div class="remove">@iconeFechar()</div>
+                        @? formData(name: 'dependente', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                    </div>
+                    <div class="adicionaDependente">
+                        <p>Adicionar Dependente</p>
+                    </div>
+                </div>
+
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="proxima">Avançar</button>
+                </div>
+            </fieldset>
+            <fieldset class="page slidePag terceiro" id="bloco_contratacao_seguro">
+                <header>
+                    <h1>RESULTADO DA SIMULAÇÃO</h1>
+                </header>
+                <div class="resultado_titular">
+                    <p>Total</p>
+                    <h2 class="titular_valor">R$ xxx,xx</h2>
+                </div>
+                <div class="coluna">
+                    <div class="resultado_dependente">
+                        <p>Total</p>
+                        <h2 class="titulo-normal titular_valor">R$ xxx,xx</h2>
+                    </div>
+                    <div class="resultado_dependente">
+                        <p>Total</p>
+                        <h2 class="titulo-normal titular_valor">R$ xxx,xx</h2>
+                    </div>
+                </div>
+                <div class="aviso">
+                    <p>Gostou dos valores?</p>
+                    <p>Preencha nosso formulário e um especialista irá entrar em contato, fique tranquilo que o preenchimento do formulário não implica em contratação, é apenas para um melhor atendimento.</p>
+
+                </div>
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button data-simulacao="11c93e77-976b-49bd-a6e2-95b781c4b10c" id="enviarSimulacaoSeguro">Tenho Interesse</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

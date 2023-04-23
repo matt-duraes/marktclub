@@ -1,0 +1,129 @@
+@template "site
+
+<div id="bloco_contratacao">
+
+@ if( $tituloPagina ):
+    @view site/planosaude/geral/titulo_pagina.view
+@ endif;
+
+<div class="containerStepper">
+    <div class="progressBar">
+        <div class="step">
+            <div class="bullet">
+                <span>1</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Dados Pessoais</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>2</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Contato</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>3</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Endereço</p>
+        </div>
+    </div>
+    <div class="formContainerStepper">
+        <form action="#" method="post" class="form_geral">
+            <input type="hidden" name="simulacao" id="simulacao" value="{{$simulacao}}">
+            <fieldset class="page slidePage" id="dados">
+                <header>
+                    <h1>DADOS PESSOAIS</h1>
+                </header>
+                <div class="conteudo">
+                    <div class="duplo_label">
+                        @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: '')
+                        @? formInput(name: 'naturalidade', placeholder: 'Digite um naturalidade', label: 'Digite a naturalidade', class: 'naturalidade', value: '')
+                    </div>
+                    <div class="dupla_label">
+                        @? formCpf(name: 'cpf', placeholder: 'CPF', label: 'CPF', class: 'cpf', value: '')
+                        @? formData(name: 'data_nascimento', placeholder: 'Data de nascimento', label: 'Data de nascimento',  value: '')
+                    </div>
+                    <div class="duplo_label">
+                        @? formSelect(name: 'genero', placeholder: 'Gênero', label: 'Gênero', class: 'busca_genero', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um gênero')->genero()->r(), value: '')
+                        @? formSelect(name: 'estado_civil', placeholder: 'Estado Civil', label: 'Estado Civil', class: 'busca_estado_civil', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado civil')->estadoCivil()->r(), value: '')
+                    </div>
+                    <div class="duplo_label">
+                        @? formInput(name: 'peso', placeholder: 'Digite o peso', label: 'Digite o peso',  value: '')
+                        @? formInput(name: 'altura', placeholder: 'Digite a altura', label: 'Digite a altura',  value: '')
+                    </div>
+                    <div class="duplo_label">
+                        @? formInput(name: 'rg', placeholder: 'Digite o rg', label: 'Digite o rg',  value: '')
+                        @? formInput(name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor', label: 'Digite o orgão expedidor',  value: '')
+                    </div>
+                    <div class="responsavel">
+                        <h2>Dados do responsável</h2>
+                        @? formSwitch(name: 'responsavel', label: 'Eu sou o responsável', check: false)
+                        <div class="duplo_label">
+                            @? formInput(name: 'responsavel_nome', placeholder: 'Digite o nome do responsável', label: 'Digite um nome', class: 'nome_responsavel', value: '')
+
+                            @? formCpf(name: 'responsavel_cpf', placeholder: 'CPF', label: 'CPF do responsável', class: 'cpf', value: '')
+                        </div>
+                        <div class="duplo_label">
+                            @? formInput(name: 'responsavel_rg', placeholder: 'Digite o rg', label: 'Digite o rg do responsável',  value: '')
+                            @? formInput(name: 'responsavel_orgao_expedidor', placeholder: 'Digite um orgão expedidor', label: 'Digite o orgão expedidor do responsável',  value: '')
+                        </div>
+                    </div>
+                </div>
+                <div class="footer_button primeiro">
+                    <button class="proxima">Avançar</button>
+                </div>
+            </fieldset>
+
+            <fieldset class="page slidePage segundo" id="contato">
+                <header>
+                    <h1>CONTATO</h1>
+                </header>
+                <div class="conteudo">
+                    @? formEmail(name: 'emailpessoal', label: 'E-mail pessoal', class: 'email', placeholder: 'Digite seu e-mail pessoal', value: '')
+                    <div class="duplo_label">
+                        @? formTelefone(name: 'telefoneCelular', label: 'Telefone celular', class: 'celular', placeholder: 'Digite seu telefone celular', value: '')
+                        @? formTelefone(name: 'telefoneResidencial', label: 'Telefone residencial', class: 'residencial', placeholder: 'Digite seu telefone residencial', value: '')
+                    </div>
+                    <div class="duplo_label">
+                        @? formTelefone(name: 'telefoneComercial', label: 'Telefone comercial', class: 'comercial', placeholder: 'Digite seu telefone comercial', value: '')
+                        @? formInput(name: 'ramal', placeholder: 'Digite o ramal', label: 'Digite o ramal',  value: '')
+                    </div>
+                </div>
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="proxima">Avançar</button>
+                </div>
+            </fieldset>
+
+            <fieldset class="page slidePag terceiro" id="endereco">
+                <header>
+                    <h1>ENDEREÇO</h1>
+                </header>
+                <div class="conteudo">
+                    <div class="duplo_label">
+                        @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP', value: '')
+                        @? formInput(name: 'bairro', placeholder: 'Bairro', label: 'Bairro', value: '')
+                    </div>
+                    <div class="duplo_label">
+                        @? formInput(name: 'logradouro', placeholder: 'Logradouro', label: 'Logradouro', value: '')
+                        @? formInput(name: 'numero', placeholder: 'Número', label: 'Número', value: '')
+                    </div>
+                        @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: '')
+                    <div class="duplo_label">
+                        @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', value: '')
+                        @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: '')
+                    </div>
+                </div>
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button data-simulacao="11c93e77-976b-49bd-a6e2-95b781c4b10c" id="enviarSimulacaoSeguro">Tenho Interesse</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+</div>

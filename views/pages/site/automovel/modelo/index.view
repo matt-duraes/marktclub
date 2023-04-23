@@ -1,0 +1,35 @@
+@template "site"
+
+<div id="bloco_modelo">
+    <div class="bloco_tab_geral bloco_procedimento">
+        <div class="bloco_botao">
+            <button class="botao ativo" data-id="#tab1">
+                <span class="texto_inativo">Procedimento</span>
+                <span class="texto_ativo cor_color">Procedimento</span>
+            </button>
+            <button class="botao" data-id="#tab2">
+                <span class="texto_inativo">Endereço</span>
+                <span class="texto_ativo cor_color">Endereço</span>
+            </button>
+        </div>
+
+        <div id="tab1" class="conteudo">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit reiciendis neque rerum doloremque distinctio molestiae ea veritatis laudantium consequatur, sed doloribus odit temporibus deleniti sit atque soluta voluptate libero rem. Voluptatem fuga beatae nostrum explicabo vel, eos impedit exercitationem quaerat ea qui placeat commodi ipsam facilis quam, iusto quos ex!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, quasi asperiores obcaecati ad optio necessitatibus. Culpa laborum dicta mollitia soluta!</p>
+            <a class="botao_pequeno_cor cor_bg" href="#">Link</a>
+            <div class="bloco_atencao_geral">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt vero non doloremque voluptates ex at eius iste ea a saepe in rerum harum, voluptate repellat! Hic ut dolores repellendus animi?</p>
+            </div>
+        </div>
+
+        <div id="tab2" class="conteudo display_none">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum mollitia consequuntur officiis deleniti nulla minima maiores, laudantium assumenda soluta maxime omnis, ipsam quod. Maxime ut perspiciatis, natus quaerat sit ratione?</p>
+            <a class="botao_geral_cor cor_bg" href="#">Como chegar</a>
+        </div>
+
+    </div>
+
+    @view site/geral/parceiro.view
+
+    @view site/automovel/geral/mensagem.view
+</div>

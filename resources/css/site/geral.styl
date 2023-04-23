@@ -20,6 +20,25 @@
     border-radius: 5px
     textoFontSize()
     padding: 0 20px
+    text-align: center
+    cursor: pointer
+.botao_pequeno_cor
+    height: 26px
+    line-height: 26px
+    border-radius: 5px
+    font-size: 1.2rem
+    padding: 0 10px
+    text-align: center
+    cursor: pointer
+.botao_pequeno_borda
+    height: 26px
+    line-height: 26px
+    border-radius: 5px
+    font-size: 1.2rem
+    padding: 0 10px
+    text-align: center
+    border: 1px dashed
+    cursor: pointer
 
 .bloco_geral_ul
     width: 100%
@@ -146,3 +165,55 @@
         flexGrow()
     a
         texto()
+
+.bloco_atencao_geral
+    width: 100%
+    padding: 10px
+    border: 1px dashed #f00
+    borderRadius()
+    p
+        texto()
+
+.bloco_titulo_texto
+.bloco_titulo_texto_centralizado
+    flexCol()
+    boxShadow()
+    borderRadius()
+    background: #FFF
+    padding: 10px 20px
+    > h2
+        titulo()
+        margin-top: 5px
+    > p
+        texto()
+        margin: 15px 0
+        color: #666
+.bloco_titulo_texto_centralizado
+    text-align: center
+    align-items: center
+
+.bloco_geral_article
+    maxWidth()
+    flexRow()
+    spaceBetween()
+    flex-wrap: wrap
+    .article_fake
+    article
+        width: calc((100% / 3) - 15px)
+@media screen and (max-width:900px)
+    .bloco_geral_article
+        justify-content: center
+        .article_fake
+        article
+            width: calc(50% - 15px)
+            max-width: 350px
+            &:nth-child(even)
+                margin-left: 30px
+@media screen and (max-width:600px)
+    .bloco_geral_article
+        justify-content: center
+        .article_fake
+        article
+            width: 100%
+            &:nth-child(even)
+                margin-left: 0

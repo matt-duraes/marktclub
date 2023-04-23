@@ -1,0 +1,66 @@
+@system "Form"
+@system "Alerta"
+@template "site"
+@resource "site/mixim"
+@resource "site/variavel"
+@resource "site/passo_passo"
+@resource "site/loja/parceiro"
+
+
+#bloco_pagina_preferencia
+    width: 100%
+    flexCenter()
+    position: relative
+    .conteudo
+        width: 100%
+        max-width: $maxWidth
+        espacoTopPadrao()
+    .conteudo .formContainerStepper
+        padding: 0px 10px
+    .conteudo form .parceiro
+        flexWrap()
+        align-items: center
+        justify-content: center
+        espacoVerticalPadrao()
+    .conteudo form .parceiro .opcao
+        flexCenter()
+        width: calc((100% / 4) - 20px)
+        float: left
+        margin: 0 10px 0 0
+        height: 40px
+        position: relative
+        border: 1px solid #ff6f00
+        border-radius: 20px
+        margin-bottom: 10px
+        cursor: pointer
+        label
+            width: 100%
+            height: 100%
+            flexCenter()
+            texto()
+            line-height: 1.8em
+            cursor: pointer
+        input[type="checkbox"]
+            opacity: 0.011
+        input[type="checkbox"]:checked + label
+            background: $corClube
+            color: $branco
+            border-radius: 20px
+        label
+            cursor: pointer
+
+.formContainerStepper form .page
+    margin-left: 10px
+.bloco_parceiro
+    padding: 0px 10px
+
+.bloco_parceiro .parceiro header,
+.bloco_parceiro .parceiro p
+    text-align: left
+    padding-right: 0px
+.bloco_parceiro .parceiro header
+    margin-top: 0px !important
+
+.progressBar .step .bullet:before,
+.progressBar .step .bullet:after
+    right: -66px

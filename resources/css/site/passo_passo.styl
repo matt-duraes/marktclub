@@ -1,0 +1,134 @@
+.bloco_passo_passo_geral
+    width: 100%
+    flexCol()
+.bloco_passo_passo_geral .bloco_progresso
+    width: 100%
+    flexRow()
+    justify-content: center
+    espacoBottomPadrao()
+    .item
+        flexCol()
+        align-items: center
+        padding: 0 10px
+        position: relative
+    .item .bola
+        border-radius: 50%
+        width: 40px
+        height: 40px
+        border: 2px solid #CCC
+        flexCenter()
+    .item .bola span
+        texto()
+        color: #999
+    .item .check
+        display: none
+    .item .linha_direita
+    .item .linha_esquerda
+        width: calc(50% - 30px)
+        height: 2px
+        background-color: #CCC
+        position: absolute
+        margin-top: 19px
+    .item .linha_direita
+        right: 0
+    .item .linha_esquerda
+        left: 0
+    .item p
+        font-size: 1.4rem
+        margin-top: 5px
+        text-align: center
+        color: #999
+    .item.concluido .bola span
+        display: none
+    .item.concluido .bola .check
+        display: block
+
+.bloco_passo_passo_geral .bloco_conteudo
+    width: 100%
+    overflow: hidden
+    boxShadow()
+    background-color: #FFF
+    borderRadius()
+    .bloco_scroll
+        width: 100%
+        flexRow()
+        transition: margin-left .3s ease-out
+        margin-left: 0
+        &.passo_1
+            margin-left: 0
+        &.passo_2
+            margin-left: -100%
+        &.passo_3
+            margin-left: -200%
+        &.passo_4
+            margin-left: -300%
+        &.passo_5
+            margin-left: -400%
+        &.passo_6
+            margin-left: -500%
+        &.passo_7
+            margin-left: -600%
+        &.passo_8
+            margin-left: -700%
+        &.passo_9
+            margin-left: -800%
+        &.passo_10
+            margin-left: -900%
+    .conteudo
+        display: none
+        align-items: center
+        &:first-child
+            flexCol()
+.bloco_passo_passo_geral.carregado .bloco_conteudo .bloco_scroll .conteudo
+    flexCol()
+
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_1
+    .bloco_scroll
+        width: 100%
+    .conteudo
+        width: 100%
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_2
+    .bloco_scroll
+        width: 200%
+    .conteudo
+        width: calc(100% / 2)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_3
+    .bloco_scroll
+        width: 300%
+    .conteudo
+        width: calc(100% / 3)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_4
+    .bloco_scroll
+        width: 400%
+    .conteudo
+        width: calc(100% / 4)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_5
+    .bloco_scroll
+        width: 500%
+    .conteudo
+        width: calc(100% / 5)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_6
+    .bloco_scroll
+        width: 600%
+    .conteudo
+        width: calc(100% / 6)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_7
+    .bloco_scroll
+        width: 700%
+    .conteudo
+        width: calc(100% / 7)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_8
+    .bloco_scroll
+        width: 800%
+    .conteudo
+        width: calc(100% / 8)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_9
+    .bloco_scroll
+        width: 900%
+    .conteudo
+        width: calc(100% / 9)
+.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_10
+    .bloco_scroll
+        width: 1000%
+    .conteudo
+        width: calc(100% / 10)

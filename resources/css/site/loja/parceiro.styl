@@ -1,16 +1,20 @@
-.bloco_parceiro
-    width: 100%
-    flexRow()
-    flex-wrap: wrap
-    justify-content: space-between
-.bloco_parceiro .fake
-    width: calc(25% - 15px)
-.bloco_parceiro .parceiro
-    blocoShadow()
-    width: calc((100% / 3) - 15px)
+.bloco_parceiro article
     flexCol()
+    blocoShadow()
+    cursor: pointer
+    margin-bottom: 22px
+    borderRadiusPadrao()
     position: relative
-    margin-bottom: 20px
+    overflow: hidden
+    .linha
+        width: 100%
+        height: 8px
+        position: absolute
+        bottom: -8px
+        left: 0
+        transition: bottom .3s ease-out
+    &:hover .linha
+        bottom: 0
     a
         width: 100%
         height: 100%
@@ -20,24 +24,33 @@
         z-index: 2
     figure
         width: 100%
-        height: 160px
         position: relative
         flexCenter()
-    figure img
-        max-width: 90%
+    figure.logo
+        height: 140px
+        padding: 20px
+    figure.completo
+        height: 180px
+        padding: 20px 20px 0 20px
+    figure.logo img
+        max-width: 100%
         max-height: 100px
+    figure.completo img
+        max-width: 100%
+        max-height: 200px
     header
         width: 100%
-        flexRow()
-        align-items: center
-        padding-right: 60px
+        margin: 20px 0 10px
     header h1
         width: 100%
         titulo()
         flexGrow()
     p
-        texto()
-        padding-right: 60px
+        font-size: 1.5rem
+        line-height: 1.5em
+        color: #888
+    p.destaque
+        font-weight: bold
     .icone
         width: 30px
         position: absolute

@@ -54,6 +54,7 @@ exports.deploy = parallel(
     copiandoArquivosDeImagem,
     criandoDefineTabela
 );
+exports.teste = parallel(series(copiandoArquivosJS));
 
 // Instalar o framework
 exports.install = series(
@@ -146,36 +147,12 @@ async function monitorarSistema() {
         await cssUnico(path, browserSync);
         consoleFooter(time);
     });
-    watch([
-        './src/Painel/App/**/*.styl',
-        './views/templates/**/*.styl',
-        './resources/css/**/*.styl',
-        './src/Html/Scripts/css/*.styl',
-    ]).on('change', async () => {
-        const time = new Date().getTime();
-        consoleHeader();
-        await cssTodos();
-        browserSync.reload();
-        consoleFooter(time);
-    });
 
     // JS
     watch('./views/pages/**/*.js').on('change', async path => {
         const time = new Date().getTime();
         consoleHeader();
         await jsUnico(path);
-        browserSync.reload();
-        consoleFooter(time);
-    });
-    watch([
-        './src/Painel/App/**/*.js',
-        './views/templates/**/*.js',
-        './resources/js/**/*.js',
-        './src/Html/Scripts/js/*.js',
-    ]).on('change', async () => {
-        const time = new Date().getTime();
-        consoleHeader();
-        await jsTodos();
         browserSync.reload();
         consoleFooter(time);
     });

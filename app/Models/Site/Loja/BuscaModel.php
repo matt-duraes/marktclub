@@ -4,7 +4,7 @@ namespace App\Models\Site\Loja;
 
 use Http\Request;
 use Helpers\ListaHelper;
-use App\Classes\ParceiroLoja\OrdemClube;
+use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Estabelecimento;
 
 final class BuscaModel
@@ -13,7 +13,7 @@ final class BuscaModel
     private array $filtro = [];
     private string $url = '';
     private Estabelecimento $Estabelecimento;
-    private OrdemClube $Ordem;
+    private Ordem $Ordem;
 
     public function __construct(
         private Request $request,
@@ -21,7 +21,7 @@ final class BuscaModel
     ) {
         $this->url = route('loja.index');
         $this->Estabelecimento = new Estabelecimento($request->estabelecimento);
-        $this->Ordem = new OrdemClube($request->ordem);
+        $this->Ordem = new Ordem($request->ordem);
 
         if (!empty($busca)) {
             $this->converterPesquisaEmDado();

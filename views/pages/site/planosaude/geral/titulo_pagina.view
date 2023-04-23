@@ -1,0 +1,3 @@
+<header class="tituloPagina">
+    <h1>{!!$tituloPagina!!}</h1>
+</header>

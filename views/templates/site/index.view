@@ -13,19 +13,22 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     @CSS
     @dir "/include/css.view"
-    
+
 </head>
 
 <body>
-
-    <div id="switch_menu" class="mobile"></div>
-
     <div id="site">
+        <div id="botao_swiped_esquerdo"></div>
 
-        <nav id="menu_principal">
+        <header id="header_principal">
+            <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
+            <figure><img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}"></figure>
+        </header>
+
+        <nav id="menu_principal" class="menu_fechado">
             <div class="bg"></div>
             <div class="conteudo">
                 <figure><img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}"></figure>
@@ -46,6 +49,29 @@
         <main id="conteudo_principal">
             [[VIEW]]
         </main>
+
+
+        @if(isset($popupSimples) && !empty($popupSimples)):
+        <div id="hash_simple"></div>
+        <div id="notification">
+            <div class="note_conteudo">
+                <div class="close">@iconeFechar</div>
+                <div class="note_texto">
+                    <img src="https://arquivo.marktclub.com.br/construtor/logo_marktclub_tem_mais.png" alt="imagem">
+                    <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h1>
+                    <p>Explicabo, laudantium quisquam repellat quas corporis blanditiis, ab atque quibusdam dolor possimus, voluptatum officia tempora non sunt architecto. Quasi aliquid cupiditate quisquam.</p>
+                </div>
+            </div>
+        </div>
+        @endif;
+
+        @if(isset($popupImagem) && !empty($popupImagem)):
+        <div id="hash_imagem" data-popup-imagem="1"></div>
+        @endif;
+
+        @if(isset($popupEnquete) && !empty($popupEnquete)):
+        <div id="hash_enquete" data-popup-enquete="1"></div>
+        @endif;
 
         <footer id="rodape_principal">
             <section class="bloco">
@@ -118,8 +144,16 @@
 
     </div>
 
-    @JS
+    <form action="/" method="post">
+        <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
+        <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
+        <input type="hidden" name="CORCLUBE" id="CORCLUBE" value="{!!COR!!}">
+    </form>
 
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    @JS
+    <div id="bloco_fw_calendario"></div>
 </body>
 
 </html>

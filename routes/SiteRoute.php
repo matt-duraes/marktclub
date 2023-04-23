@@ -10,7 +10,78 @@ Route
             ::nome('index')
             ::view('/');
     });
+Route
+    ::nome('cupom')
+    ::controller(App\Controllers\Site\CupomController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/cupom');
+        Route
+            ::nome('buscar')
+            ::request(['!pesquisa'])
+            ::view('/cupom/buscar/{!pesquisa}');
+        Route
+            ::nome('detalhe')
+            ::view('/cupom/{url}');
+    });
+Route
+    ::nome('cashback')
+    ::controller(App\Controllers\Site\CashbackController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/cashback');
+        Route
+            ::nome('buscar')
+            ::request(['!pesquisa'])
+            ::view('/cashback/buscar/{!pesquisa}');
+        Route
+            ::nome('detalhe')
+            ::view('/cashback/{url}');
+        Route
+            ::nome('extrato')
+            ::view('/cashback/extrato');
+        Route
+            ::nome('abrirResgateCashback')
+            ::view('/cashback/resgatar');
+    });
 
+Route
+    ::nome('turismo')
+    ::controller(App\Controllers\Site\TurismoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/turismo');
+        Route
+            ::nome('aeroporto')
+            ::request(['pesquisa'])
+            ::get('/turismo/listar-aeroporto');
+        Route
+            ::nome('hotel')
+            ::request(['pesquisa'])
+            ::get('/turismo/listar-hotel');
+        Route
+            ::nome('solicitaVoo')
+            ::request(['origem', 'destino', 'data_ida', 'data_volta', 'adulto', '!crianca', '!bebe', 'tipo'])
+            ::post('/turismo/solicitar-voo');
+        Route
+            ::nome('solicitaHotel')
+            ::request(['cidade', 'checkin', 'checkout', 'quantidade_quarto', 'adulto', '!crianca'])
+            ::post('/turismo/solicitar-hotel');
+    });
+Route
+    ::nome('cinema')
+    ::controller(App\Controllers\Site\CinemaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/cinema');
+        Route
+            ::nome('extrato')
+            ::view('/cinema/extrato');
+    });
 Route
     ::nome('loja')
     ::controller(App\Controllers\Site\LojaController::class)
@@ -18,16 +89,256 @@ Route
         Route
             ::nome('index')
             ::view('/convenios');
-
         Route
             ::nome('busca')
             ::request(['!estado', '!categoria', '!tag', '!estabelecimento', '!pesquisa', '!ordem'])
             ::view('/convenios/buscar/{!pesquisa}');
-
         Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
+            ::nome('confirmar')
+            ::view('/convenios/confirmar/{url}');
+
+        Route
             ::nome('proxima')
             ::view('/convenios/mapa');
+        Route
+            ::nome('abrirMapaModal')
+            ::view('/convenios/mapa-modal');
+        Route
+            ::nome('buscaMapa')
+            ::request(['!categoria', '!pesquisa', 'latitude', 'longitude', 'raio'])
+            ::post('/convenios/mapa-listar');
+    });
+
+Route
+    ::nome('voucher')
+    ::controller(App\Controllers\Site\VoucherController::class)
+    ::grupo(function () {
+        Route
+            ::nome('voucher')
+            ::view('/voucher/{url}');
+    });
+
+Route
+    ::nome('salavip')
+    ::controller(App\Controllers\Site\SalaVipController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/salavip');
+    });
+Route
+    ::nome('odontologico')
+    ::controller(App\Controllers\Site\OdontologicoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/plano-odontologico');
+    });
+Route
+    ::nome('planosaude')
+    ::controller(App\Controllers\Site\PlanoSaudeController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/saude');
+        Route
+            ::nome('detalhe')
+            ::view('/saude/detalhe/{nome-do-plano}');
+        Route
+            ::nome('unimedvitoria')
+            ::view('/saude/unimed-vitoria');
+        Route
+            ::nome('unimedflorianopolis')
+            ::view('/saude/unimed-florianopolis');
+        Route
+            ::nome('tabela')
+            ::request(['id'])
+            ::view('/saude/abrirtabela');
+        Route
+            ::nome('centralnacional')
+            ::view('/saude/central-nacional-unimed');
+        Route
+            ::nome('amil')
+            ::view('/saude/amil');
+        Route
+            ::nome('precoAmil')
+            ::request(['id','!local'])
+            ::view('/saude/abrir-tabela-preco');
+        Route
+            ::nome('federalSaude')
+            ::view('/federal-saude');
+        Route
+            ::nome('unimedSeguro')
+            ::view('/unimed-seguros');
+        Route
+            ::nome('simulacao')
+            ::view('/saude/simulacao/{url}');
+        Route
+            ::nome('contratacao')
+            ::view('/saude/contratacao/{simulacao}');
+    });
+Route
+    ::nome('farmacia')
+    ::controller(App\Controllers\Site\FarmaciaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/farmacia');
+        Route
+            ::nome('detalhe')
+            ::view('/farmacia/{url}');
+        Route
+            ::nome('carteirinha')
+            ::view('/farmacia/carteirinha');
+        Route
+            ::nome('tabela')
+            ::view('/farmacia/tabela/{id}');
+    });
+Route
+    ::nome('sicoob')
+    ::controller(App\Controllers\Site\SicoobController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/credito/sicoob');
+        Route
+            ::nome('abrirModalRegulamento')
+            ::view('/sicoob-regulamento/{url}');
+    });
+
+Route
+    ::nome('automovel')
+    ::controller(App\Controllers\Site\AutomovelController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/automoveis');
+        Route
+            ::nome('veiculo')
+            ::view('/automoveis/{url}');
+        Route
+            ::nome('modelo')
+            ::view('/automovel/{montadora}/{veiculo}');
+
+            Route
+            ::nome('voucher')
+            ::view('/automovel-voucher/{url}');
+        Route
+            ::nome('declaracao')
+            ::view('/automovel-declaracao/{url}');
+    });
+Route
+    ::nome('termo')
+    ::controller(App\Controllers\Site\TermoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('termosite')
+            ::view('/termo-de-uso-do-site');
+        Route
+            ::nome('termocashback')
+            ::view('/termo-de-uso-do-cashback');
+    });
+
+Route
+    ::nome('alfa')
+    ::controller(App\Controllers\Site\AlfaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('credito')
+            ::view('/credito/alfa');
+        Route
+            ::nome('veiculo')
+            ::view('/credito/alfa-veiculo');
+        Route
+            ::nome('portabilidade')
+            ::view('/credito/alfa-portabilidade');
+        Route
+            ::nome('consignado')
+            ::view('/credito/alfa-consignado');
+        Route
+            ::nome('corretoraAlfa')
+            ::view('/corretora/alfa');
+        Route
+            ::nome('consultoriaAlfa')
+            ::view('/consultoria/alfa');
+    });
+
+Route
+    ::nome('site')
+    ::controller(App\Controllers\Site\SiteController::class)
+    ::grupo(function () {
+        Route
+            ::nome('pesquisa')
+            ::view('/pesquisa-de-satisfacao');
+        Route
+            ::nome('sosmulher')
+            ::view('/sos-mulher');
+        Route
+            ::nome('indiqueAmigo')
+            ::view('/indique-um-amigo');
+        Route
+            ::nome('abrirModalEnquetePopup')
+            ::view('/enquete-popup/{id}');
+        Route
+            ::nome('abrirModalPopupImagem')
+            ::view('/enquete-imagem/{id}');
+    });
+
+Route
+    ::nome('promocao')
+    ::controller(App\Controllers\Site\PromocaoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/promocao');
+    });
+
+Route
+    ::nome('perfil')
+    ::controller(App\Controllers\Site\PerfilController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/perfil');
+        Route
+            ::nome('salvaDados')
+            ::request(['nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho', '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'])
+            ::post('/perfil/salvar-dados');
+        Route
+            ::nome('senha')
+            ::view('/perfil/alterar-senha');
+        Route
+            ::nome('alteraSenha')
+            ::request(['senha_atual', 'senha_nova', 'senha_repetir'])
+            ::post('/perfil/alterar-senha');
+        Route
+            ::nome('dependente')
+            ::view('/perfil/adicionar-dependente');
+        Route
+            ::nome('salvaDependente')
+            ::request(['nome', 'email', 'cpf'])
+            ::post('/perfil/salvar-dependentes');
+        Route
+            ::nome('deletaDependente')
+            ::request(['id'])
+            ::post('/perfil/deletar-dependente');
+        Route
+            ::nome('social')
+            ::request(['id', 'token', 'rede', 'code', 'acao'])
+            ::post('/perfil/vincular-google');
+    });
+
+Route
+    ::nome('preferencia')
+    ::controller(App\Controllers\Site\PreferenciaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/preferencias');
+        Route
+            ::nome('boasVindas')
+            ::view('/preferencias/boas-vindas');
     });

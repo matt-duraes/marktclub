@@ -1,0 +1,171 @@
+@system "Form"
+@template "site"
+@resource "site/variavel"
+@system "Form"
+@resource "site/loja/parceiro"
+
+.bloco_parceiro .parceiro header h1
+    color: #333
+.bloco_loja_detalhe
+    max-width: $maxWidth
+    header.topo
+        height: 250px
+        figure.fundo
+            width: 100%
+            height: 250px
+            display: flex
+            justify-content: flex-start
+            align-items: flex-end
+            blocoShadow()
+            border-top-left-radius: 5px
+            border-top-right-radius: 5px
+            border-bottom-left-radius: 0px
+            border-bottom-right-radius: 0px
+            position: relative
+            .icone_redondo
+                width: 150px
+                height: 150px
+                position: absolute
+                top: 150px
+                margin-right: 20px
+                border-radius: 50%
+                blocoShadow()
+                padding: 0px
+                border-radius: 50%
+            .icone_redondo img
+                height: 100%
+                width: 100%
+                border: 2px solid white
+                border-radius: 50%
+                position: relative
+                object-fit: cover
+    .infoParceiro
+        espacoBottomPadrao()
+        blocoShadow()
+        border-top-left-radius: 0px
+        border-top-right-radius: 0px
+        border-bottom-left-radius: 5px
+        border-bottom-right-radius: 5px
+        padding: 50px 20px 20px 20px
+        .bio
+            height: 80px
+            display: flex
+            justify-content: space-between
+            align-items: center
+            h1
+                width: 30%
+                titulo()
+                position: relative
+                left: -2
+                color: $corClube
+            .icones
+                display: flex
+                justify-content: space-around
+                text-align: center
+                a
+                    texto()
+                    text-align: center
+                    margin: 0px 10px
+                svg
+                    margin: 5px
+                    cursor: pointer
+    .bloco_desconto_procedimento
+        display: flex
+        min-height: 270px
+        .desconto
+            margin-right: 10px
+            blocoShadow()
+            .bloco_titulo_desconto
+                height: 40%
+            .bloco_fique_atento
+                padding-top: 25px
+                height: 60%
+                span
+                    margin-bottom: 15px
+                    texto()
+                    color: $corClube
+                li
+                    padding-top: 10px
+        .procedimento
+            margin-left:10px
+            blocoShadow()
+            .bloco_titulo_procedimento
+                height: 40%
+            .bloco_fique_atento
+                padding-top: 25px
+                height: 60%
+                span
+                    texto()
+                    color: $corClube
+                li
+                    padding-top: 10px
+    .bloco_relacionado
+        .titulo
+            display: flex
+            height: 40px
+            align-items: center
+            espacoVerticalPadrao()
+            h1
+                width: 50%
+            a
+                texto()
+                cursor: pointer
+                color: $corClube
+                width: 50%
+                display: flex
+                justify-content: flex-end
+        .bloco_parceiro
+            display: flex
+            justify-content: flex-start
+        .bloco_parceiro .parceiro:nth-child(1)
+            margin-right: 20px
+        .bloco_parceiro .parceiro figure img
+            width: 150px
+            height: 150px
+
+@media screen and ( max-width: 750px)
+    header.topo
+        height: 450px
+    .conteudo_medicamento
+        height: 450px
+    .bloco_regra_medicamento
+        flexCol()
+    .bloco_loja_detalhe .bloco_regra_medicamento .desconto
+        margin: 0px 0px 20px 0px
+    .bloco_loja_detalhe .bloco_regra_medicamento .procedimento
+        margin: 0px 0px 20px 0px
+
+@media screen and ( max-width: 650px)
+    .bloco_loja_detalhe header.topo
+        height: 240px
+        margin-bottom: 53px
+    .bloco_loja_detalhe header.topo .conteudo_medicamento
+        margin-bottom: 45px
+        height: 240px !important
+@media screen and ( max-width: 425px)
+    .bloco_loja_detalhe .conteudo_medicamento
+        height: 400px
+    .informacao_medicamento
+        height: 40% !important
+        width: 100%
+        flexCol()
+        h1
+            width: 100% !important
+            text-align: center
+        .icones
+            flexCenter()
+            width: 100% !important
+    .descricao_medicamento
+        height: 60% !important
+    .bloco_relacionado
+        height: 2000px !important
+
+
+@media screen and ( max-width: 375px)
+    .bloco_relacionado
+        .titulo
+            height: 100px !important
+            flexCol()
+            justify-content: center
+            width: 100%
+            text-align: center

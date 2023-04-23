@@ -19,15 +19,24 @@ define('MENU_LOJA_PROXIMA', true);
 define('MENU_CUPOM', true);
 define('MENU_CASHBACK', true);
 define('MENU_EXTENSAO', true);
+define('MENU_PROMOCAO', true);
 
 define('MENU_CINEMA', true);
 define('MENU_TURISMO', true);
 define('MENU_SALAVIP', true);
 
-
 define('MENU_CREDITO_SICOOB', true);
 define('MENU_CREDITO_CONSIGNADO', true);
 define('MENU_CREDITO_AUTOMOVEL', true);
+define('MENU_CREDITO', true);
+
+define('MENU_ODONTOLOGICO', true);
+define('MENU_SEGURO_DE_VIDA', true);
+define('MENU_MEDICAMENTO', true);
+define('MENU_FEDERAL_SAUDE', true);
+
+define('MENU_CONSULTORIA', true);
+
 define('MENU_HOVER', isset($menu) ? $menu : '');
 
 define('COR', '#FF6F00');

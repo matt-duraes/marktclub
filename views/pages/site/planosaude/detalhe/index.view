@@ -1,0 +1,97 @@
+@template "site"
+
+<div class="conteudo_principal">
+	<div class="bloco_plano_saude">
+		<figure>
+			<img src="https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg" alt="">
+		</figure>
+		<div class="bloco_conteudo">
+			<h1>Unimed Vitória</h1>
+			<p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de
+			direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro EMpresarial Enseada
+			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua 
+			entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apílice para reajuste anual é o mês de Julho
+			</p>
+		</div>
+		<div class="bloco_beneficio">
+			<header>
+				<h1>Benefícios exclusivos</h1>
+				<p>Ver todas as vantagens</p>
+			</header>
+			<div class="bloco_vantagem">
+				<div class="bloco_icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+				<div class="bloco_icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+				<div class="bloco_icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+			</div>
+			<div class="rede_credenciada_botao">
+				<a href="#" class="botao_plano_saude">Consultar rede credenciada</a>
+				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
+			</div>
+		</div>	
+	</div>
+	<div class="bloco_explore_rede">
+		<div class="titulo_rede">
+			<h1>Explore a rede credenciada</h1>
+		</div>
+		<div class="lista_passo_a_passo">
+			<ul>
+				<li>Clique no botão "Consultar rede credenciada"</li>
+				<li>Na página que abrirá, clique em "Busca detalhada"</li>
+				<li>Em seguida selecione o estado (UF) que deseja consultar</li>
+				<li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada,
+					<br> mas caso queira é possível selecionar a cidade e especialidade que desejar.
+				</li>
+			</ul>
+		</div>
+		<div class="bloco_botao_explore">
+			<a href="#">Consultar rede credenciada</a>
+		</div>
+	</div>
+
+	<div class="bloco_carencia">
+		<h1>Carência</h1>
+		<table>
+			<thead>
+				<tr class="titulo_table">
+					<th>Procedimentos</th>
+					<th scope="col" class="coluna">Carência</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Acidente Pessoal</th>
+					<td>24 Horas</td>
+				</tr>
+				<tr>
+					<th scope="row">Consultas / Exame simples</th>
+					<td>30 Dias</td>
+				</tr>
+				<tr>
+					<th scope="row">Exames especializados</th>
+					<td>180 Dias</td>
+				</tr>
+				<tr>
+					<th scope="row">Internações clínicas e cirúrgicas (exceto acid. pessoal)</th>
+					<td>180 Dias</td>
+				</tr>
+				<tr>
+					<th scope="row">Parto e termo</th>
+					<td>300 Dias</td>
+				</tr>
+				<tr>
+					<th scope="row">Doenças e Lesões Preexistentes</th>
+					<td>720 Dias</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

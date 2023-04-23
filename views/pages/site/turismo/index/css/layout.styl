@@ -1,0 +1,25 @@
+@system "Form"
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/loja/parceiro"
+@resource "site/loja/relacionado"
+@system "Calendario"
+@system "Alerta"
+
+#bloco_turismo
+    maxWidth()
+
+#bloco_turismo .bloco_chamada
+    width: 100%
+    flexCol()
+    align-items: center
+    margin: 40px 0 60px
+    h1
+        titulo()
+        text-align: center
+    p
+        texto()
+        max-width: 400px
+        text-align: center
+        margin-bottom: 30px

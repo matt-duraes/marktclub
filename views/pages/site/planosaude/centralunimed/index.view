@@ -1,0 +1,5 @@
+@template "site"
+
+<div class="bloco_cnu">
+    <img src="{!!LINK_PADRAO!!}/images/site/saude_comunicado_cnu.jpeg" alt="central nacional unimed">
+</div>

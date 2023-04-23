@@ -1,0 +1,105 @@
+
+<div class="modal_modelo bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>SOLICITAR DECLARAÇÃO</h1>
+        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+    </header>
+        
+    <div class="conteudo_pagina_popup declaracao">
+        <h1>CONFIRME SEUS DADOS</h1>
+
+        @ if(isset($perfil) && !empty($perfil)  && ($perfil == 'titular' || $perfil == 'administrador') ):
+        <p>Selecione se a carta-bônus será destinada ao titular ou um dependente</p>
+        @ else:
+        <p>Para solicitar a carta-bônus preencha os dados do titular e confirme seus dados</p>
+        @endif;
+
+        <form id="form_solicita_declaracao" action="" class="form_geral" method="post">
+
+            @ if(isset($perfil) && !empty($perfil)  && ($perfil == 'titular' || $perfil == 'administrador') ):
+                @? formSelect(name: 'tipo', placeholder: 'Selecione entre titular ou dependente', class: 'botao_tipo', label: 'Titular ou dependente', change: 'mudarTipo', lista: ['titular' => 'Titular', 'dependente' => 'Dependente'], value: '')
+            @ else:
+                <input type="hidden" name="tipo" value="dependente">
+            @endif;
+
+            <div class="container_opcao">
+
+                <div class="conteudo_titular {!!$default!!}">
+                
+                    @ if(isset($perfil) && !empty($perfil)  && ($perfil == 'titular' || $perfil == 'administrador') ):
+                        <header class="{!!$default!!}">
+                            <h1>SEUS DADOS</h1>
+                        </header>
+                    @ else:
+                        <header class="{!!$default!!}">
+                            <h1>DADOS DO TITULAR</h1>
+                        </header>
+                    @endif;
+
+                    @? formCpf(name: 'documento', placeholder: 'CPF', label: 'CPF', value: '')
+                    
+                    @? formInput(name: 'nome', placeholder: 'Nome completo', label: 'Nome completo', value: '')
+
+                    @? formSelect(name: 'tipo', placeholder: 'Selecione o estado civil', class: 'botao_raio', label: 'Estado civil', lista: ['solteiro' => 'Solteiro', 'casado' => 'Casado', 'separado' => 'Separados', 'divorciado' => 'Divorciado', 'viuvo' => 'Viúvo'], value: '')
+
+                    @? formInput(name: 'rg_titular', placeholder: 'RG', label: 'RG', value: '')
+
+				    @? formData(name: "data_nascimento", id: "data_nascimento", placeholder:"Data de nascimento", label: "Data de nascimento")
+                    <div class="duplo_label">
+                        @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP', value: '')
+                        @? formInput(name: 'bairro', placeholder: 'Bairro', label: 'Bairro', value: '')
+                    </div>
+                    <div class="duplo_label">
+                        @? formInput(name: 'logradouro', placeholder: 'Logradouro', label: 'Logradouro', value: '')
+                        @? formInput(name: 'numero', placeholder: 'Número', label: 'Número', value: '')
+                    </div>
+                        @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: '')
+                    <div class="duplo_label">
+                        @? formInput(name: 'logradouro', placeholder: 'Logradouro', label: 'Logradouro', value: '')
+                        @? formInput(name: 'numero', placeholder: 'Número', label: 'Número', value: '')
+                    </div>
+                    <div class="duplo_label">
+                        @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', value: '')
+                        @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: '')
+                    </div>
+                </div>
+
+
+                <div class="conteudo_dependente {!!$esconde!!}">
+                
+                    @ if(isset($perfil) && !empty($perfil)  && ($perfil == 'titular' || $perfil == 'administrador') ): 
+                    <header class="{!!$default!!}">
+                        <h1 class="color_cor">DADOS DO DEPENDENTE</h1>
+                    </header>
+                    @ else: 
+                    <header class="{!!$default!!}">
+                        <h1 class="color_cor">SEUS DADOS</h1>
+                    </header>
+                    @endif;
+
+                    @? formInput(name: 'nome_dependente', placeholder: 'Nome completo', label: 'Nome completo', value: '')
+
+                    @? formCpf(name: 'dependente_cpf', placeholder: 'CPF', label: 'CPF', value: '')
+                    
+                    @? formSelect(name: 'grau_parentesco', placeholder: 'Selecione o grau parentesco', class: 'botao_grau', label: 'Grau de parentesco', lista: ['pai' => 'Pai', 'mae' => 'Mãe', 'conjuge' => 'Cônjuge', 'filho' => 'Filho'], value: '')
+
+                    @? formInput(name: 'rg_dependente', placeholder: 'RG', label: 'RG', value: '')
+
+				    @? formData(name: "data_nascimento", id: "data_nascimento", placeholder:"Data de nascimento", label: "Data de nascimento")
+                </div>
+
+
+            </div>
+
+
+            <div class="resto"></div>
+
+            <div class="footer_pagina_popup">
+                <div class="button voltar">CANCELAR</div>
+                <div class="button salvar" id="botao_solicitar_declaracao">SOLICITAR</div>
+            </div>
+        </form>
+    </div>
+
+</div>
+

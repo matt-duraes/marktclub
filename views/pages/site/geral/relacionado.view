@@ -1,0 +1,15 @@
+<aside class="bloco_relacionado">
+    <header>
+        @ if( $parceiroTipo == 'cashback' ):
+        <h1>Veja outras opções de cashback</h1>
+        <a class="cor_color" href="@route(cashback.detalhe)">Veja mais</a>
+        @ elseif( $parceiroTipo == 'loja' ):
+        <h1>Veja outras lojas</h1>
+        <a class="cor_color" href="@route(loja.detalhe)">Veja mais</a>
+        @ elseif( $parceiroTipo == 'turismo' ):
+        <h1>Veja nossos parceiros direto de hotéis</h1>
+        <a class="cor_color" href="@route(loja.detalhe)">Veja mais</a>
+        @ endif;
+    </header>
+    @view site/geral/parceiro.view
+</aside>

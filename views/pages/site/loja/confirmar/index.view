@@ -1,0 +1,15 @@
+
+<div class="bloco_popup_geral" id="bloco_loja_confirmar">
+    <header class="popup_header">
+        <h1>Procedimento</h1>
+        <i class="fechar">@iconeFechar</i>
+    </header>
+    <div class="popup_conteudo">
+        <div class="conteudo_confirmar">
+            <p>Desconto de 25% vitalicio sem carência, no serviço de telemedicina da Doutor Acesso
+                Fideliadde de apenas 6 meses.
+            </p>
+            <a href="" target="_blank" rel="nofollow noopener" class="botao_geral_cor cor_bg">GERAR VOUCHER</a>
+        </div>
+    </div>
+</div>

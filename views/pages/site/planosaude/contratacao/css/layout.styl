@@ -1,0 +1,26 @@
+@system "Resetar"
+@system "Form"
+@template "site"
+@resource "site/loja/busca"
+@resource "site/variavel"
+@resource "site/passo_passo"
+
+#bloco_contratacao
+    width: 100%
+    max-width: $maxWidth
+    .conteudo
+        flexCol()
+    .duplo_label
+        width: 100%
+        spaceBetween()
+        .bloco_input:nth-child(1)
+            margin-right: 20px
+    .responsavel
+        espacoTopPadrao()
+        h2
+            text-align: left
+            texto()
+            color: $corClube
+
+.progressBar .step .bullet:before, .progressBar .step .bullet:after
+    right: -66px

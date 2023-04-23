@@ -1,0 +1,30 @@
+<div id="bloco_popup_detalhe" class="bloco_popup_geral">
+    <header class="popup_header">
+        <h1>CUPOM</h1>
+        <i class="fechar">@iconeFechar</i>
+    </header>
+    <div class="popup_conteudo">
+        <div class="conteudo">
+            <input type="hidden" id="input_cupom_url" value="{{$url}}">
+            <figure><img src="https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg"></figure>
+            <h2>Nome do parceiro</h2>
+            <p class="detalhe">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, quae!</p>
+
+            @ if( "cupom" === "cupom" ):
+            <form action="/">
+                <span>cupom:</span>
+                <input type="text" readonly id="input_cupom_valor" value="{{numeroAleatorio(10000, 9999999)}}">
+                <div class="botao cor_bg" id="botao_cupom_copiar">COPIAR CUPOM</div>
+            </form>
+            @ else:
+            <div class="atencao bloco_atencao_geral">
+                <p>Este parceiro aplica os descontos diretamente no site,
+                    sem necessidade de cupom, para ver os desconto,
+                    clique no botão abaixo</p>
+            </div>
+            @ endif;
+
+            <a href="#" class="botao_geral_cor cor_bg" target="_blank" rel="nofollow noopener">Ir para loja</a>
+        </div>
+    </div>
+</div>

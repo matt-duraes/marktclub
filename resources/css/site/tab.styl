@@ -1,0 +1,51 @@
+.bloco_tab_geral
+    width: 100%
+    flexCol()
+.bloco_tab_geral .bloco_botao
+    width: 100%
+    flexRow()
+    .botao
+        height: 50px
+        line-height: 50px
+        padding: 0 25px
+        margin-right: 5px
+        position: relative
+        border-radius: 5px 5px 0 0
+        overflow: hidden
+        transition: background-color .3s ease-out
+        &.ativo
+        &:hover
+            background-color: rgba(255,255,255,1)
+            boxShadow()
+    .botao span
+        textoFontSize()
+        position: relative
+        z-index: 2
+        color: #999
+        text-transform: uppercase
+    .botao span.texto_ativo
+        display: none
+    .botao.ativo .texto_ativo
+    .botao:hover .texto_ativo
+        display: block
+    .botao.ativo .texto_inativo
+    .botao:hover .texto_inativo
+        display: none
+
+.bloco_tab_geral .conteudo
+    box-shadow: 0 4px 5px rgba(0,0,0,.1)
+    border-radius: 0 5px 5px 5px
+    z-index: 2
+    margin-top: -1px
+    background-color: #fff
+    padding: 10px 20px
+    flexCol()
+    align-items: flex-start
+    > h1
+        titulo()
+    > p
+        texto()
+    > a
+    > p
+    > div
+        margin: 10px 0

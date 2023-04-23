@@ -1,0 +1,583 @@
+@template "site"
+
+<div class="bloco_saude">
+	<div class="bloco_plano_saude">
+		<figure>
+			<img src="{!!LINK_PADRAO!!}/images/site/logo_amil.png" alt="" style="width:150px">
+		</figure>
+		<div class="bloco_conteudo">
+			<h1>AMIL</h1>
+			<p>
+                Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n°. 41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada - Enseada do Suá, Vitória - ES, CEP 29050-335, inscrita no CNPJ sob n°. 11.073.058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho.
+			</p>
+		</div>
+		<div class="bloco_beneficio">
+			<header>
+				<h1>Benefícios exclusivos</h1>
+				<p>Ver todas as vantagens</p>
+			</header>
+			<div class="bloco_vantagem">
+				<div class="bloco_icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+				<div class="bloco_icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+				<div class="bloco_icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+			</div>
+			<div class="rede_credenciada_botao">
+				<a href="#" class="botao_padrao">Consultar rede credenciada</a>
+				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
+			</div>
+		</div>	
+	</div>
+	<div class="bloco_explore_rede">
+		<div class="titulo_rede">
+			<h1>Explore a rede credenciada</h1>
+		</div>
+		<div class="lista_passo_a_passo">
+			<ul>
+				<li>Clique no botão “Veja Aqui”</li>
+				<li>Na página que abrirá, selecione o Tipo do Produto: SAÚDE;</li>
+				<li>Selecione o plano que deseja consultar entre as opções abaixo e clique em Continuar:</li>
+				<li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada
+					<br> Amil Fácil S60 QC – RJ, 
+                    Amil Fácil S60 QC – SP, 
+                    Amil Fácil S60 QC BX - Jundiaí, 
+                    Amil Fácil S80 QC – SP RJ DF, 
+                    Amil Fácil S80 QP – SP RJ DF, 
+                    Amil S380 QC, 
+                    Amil S380 QP, 
+                    Amil S450 QC, 
+                    Amil S450 QP, 
+                    Amil S750,
+				</li>
+                <li>
+                    Em seguida, selecione a UF, Município e Bairro que deseja consultar e clique em Continuar;
+                </li>
+                <li>
+                    Selecione o tipo de Serviço e a Especialidade que deseja e clique em Buscar.
+                </li>
+			</ul>
+		</div>
+		<div class="rede_credenciada_botao">
+			<a href="#" class="botao_padrao">Consultar rede credenciada</a>
+		</div>
+	</div>
+
+	<div class="bloco_carencia">
+		<h1>Carência</h1>
+		<div class="table_container">
+			<table>
+				<thead>
+					<tr class="titulo_table">
+						<th>Procedimentos</th>
+						<th scope="col" class="coluna">Carência</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Acidente Pessoal</th>
+						<td>24 Horas</td>
+					</tr>
+					<tr>
+						<th scope="row">Consultas eletivas em consultórios, clínicas ou centros médicos</th>
+						<td>30 Dias</td>
+					</tr>
+					<tr>
+						<th scope="row">Exames e procedimentos terapêuticos ambulatoriais básicos</th>
+						<td>30 Dias</td>
+					</tr>
+					<tr>
+						<th scope="row">Exames e procedimentos especiais realizados em regime ambulatorial, relacionados na cláusula contratual, exceto Endoscopia digestiva,respiratória e urológica</th>
+						<td>180 Dias</td>
+					</tr>
+					<tr>
+						<th scope="row">Ultrassonografia</th>
+						<td>180 Dias</td>
+					</tr>
+					<tr>
+						<th scope="row">TC, RNM, neurorradiologia, cardiografia, mielografia, radiologia intervencionista</th>
+						<td>180 Dias</td>
+					</tr>
+                    <tr>
+                        <th>Exames de hemodinâmica, exames cardiovasculares em medicina nuclear diagnóstica e imunocintilografia</th>
+                        <td>180 Dias</td>
+                    </tr>
+                    <tr>
+                        <th>Procedimentos terapêuticos endoscópicos digestivos, respiratórios e urológicos
+                        </th>
+                        <td>180 Dias</td>
+                    </tr>
+                    <tr>
+                        <th>Hemodinâmica terapêutica e angioplastias (não relacionadas com doenças preexistentes)
+                        </th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Quimioterapia e radioterapia (não relacionadas com doenças preexistentes)</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Procedimentos para litotripsia</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Videolaparoscopia e procedimentos videoassistidos com finalidade terapêutico-diagnóstica ambulatorial</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Procedimentos para artroscopia</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Diálise ou hemodiálise (não relacionada com doenças preexistentes)</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Hemoterapia</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Internações em geral (não relacionadas com doenças preexistentes)</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Internações para obstetrícia e neonatologia</th>
+                        <td>300 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Cirurgias em regime de day hospital (não relacionadas com doenças preexistentes)</th>
+                        <td>180 Dias</td>
+                    </tr>
+
+                    <tr>
+                        <th>Cobertura Parcial Temporária CPT</th>
+                        <td>24 meses</td>
+                    </tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="bloco_preco_plano">
+		<h1>Preços do Plano de Saúde</h1>
+		<div class="bloco_botao_plano">
+				<button data-id="1"data-local="distrito_federal" class="botao_preco_plano cor_bg">Distrito Federal</button>
+				<button data-id="2"data-local="rio_de_janeiro"	class="botao_preco_plano cor_bg">Rio de Janeiro</button>
+				<button data-id="3"data-local="sao_paulo" class="botao_preco_plano cor_bg">São Paulo</button>
+		</div>
+	</div>
+
+	<div class="bloco_reembolso">
+		<div class="bloco_reembolso_tabela">
+			<h1>Reembolso</h1>
+			<div class="table_container">
+				<table class="tabela_amil_reembolso" >
+					<thead>
+						<tr class="titulo_table">
+							<th colspan="2"></th>
+							<th colspan="4">LINHA AMIL - MULTIPLOS</th>
+						</tr>
+						<tr class="titulo_table">
+							<th>Grupo de procedimentos</th>
+							<th>Valor da URA</th>
+							<th>AMIL S380R</th>
+							<th>AMIL S450R</th>
+							<th>AMIL S750R1</th>
+							<th>AMIL S750R2</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Atendimento de <br>urgência (PS)</td>
+							<td>1,60</td>
+							<td>1</td>
+							<td>1</td>
+							<td>2</td>
+							<td>2,5</td>
+						</tr>
+						<tr>
+							<td>Consultas eletivas e <br>clinicas</td>
+							<td>1,60</td>
+							<td>1</td>
+							<td>1</td>
+							<td>2</td>
+							<td>2,5</td>
+						</tr>
+						<tr>
+							<td>Exames básicos</td>
+							<td>0,32</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1,5</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Exames básicos</td>
+							<td>0,32</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1,5</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Honorários médicos de <br> internação cirúrgica</td>
+							<td>0,63</td>
+							<td>1</td>
+							<td>1</td>
+							<td>2</td>
+							<td>2,5</td>
+						</tr>
+						<tr>
+							<td>Honorários médicos de <br> internação clínica</td>
+							<td>1,60</td>
+							<td>1</td>
+							<td>1</td>
+							<td>2</td>
+							<td>2,5</td>
+						</tr>
+						<tr>
+							<td>Procedimentos básicos</td>
+							<td>0,63</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1,5</td>
+							<td>2</td>
+						</tr>
+						<tr class="ultima_linha">
+							<td>Procedimentos básicos</td>
+							<td>0,63</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1,5</td>
+							<td>2</td>
+						</tr>	
+					</tbody>
+					<tfoot>
+						<p>
+							Obs. Para cálculo do reembolso ora instituído, deverá ser multiplicado o múltiplo de reembolso informado na tabela acima, tomando como base o valor de reembolso descrito na tabela vigente no momento da contratação e suas atualizações. A lista de eventos cobertos pela faculdade de livre escolha, excetuados os produtos que preveem reembolso apenas para consultas, bem como o valor pecuniário ou unidade de referência do reembolso, a qual a tabela acima será aplicada, encontra-se registrada no 4º Registro de Títulos e Documentos – Rio de Janeiro, e no site “amil.com.br”.
+						</p>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<div class="bloco_auxilio_ressarcimento">
+		<h1>Auxílio Ressarcimento</h1>
+		<p>Você sabia que pode receber um auxílio ressarcimento de acordo com sua faixa salarial e
+		idade? Veja a tabela abaixo:
+		</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Faixa Etária</th>
+					<th>0,00  a<br> 1.499</th>
+					<th>1.500 a<br> 1.999</th>
+					<th>2.000 a<br> 2.499</th>
+					<th>2.500 a<br> 2.999</th>
+					<th>3.000 a<br> 3.999</th>
+					<th>4.000 a<br> 5.499</th>
+					<th>5.500 a<br> 7.499</th>
+					<th>7500 acima</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>00-18</td>
+					<td>R$ 149,52</td>
+					<td>R$ 142,47</td>
+					<td>R$ 135,42</td>
+					<td>R$ 129,78</td>
+					<td>R$ 122,71</td>
+					<td>R$ 111,43</td>
+					<td>R$ 107,20</td>
+					<td>R$ 101,56</td>
+				</tr>		
+				<tr>		
+					<td>19-23</td>
+					<td>R$ 156,57</td>
+					<td>R$ 149,52</td>
+					<td>R$ 142,47</td>
+					<td>R$ 135,42</td>
+					<td>R$ 129,78</td>
+					<td>R$ 114,25</td>
+					<td>R$ 108,61</td>
+					<td>R$ 102,97</td>
+				</tr>
+				<tr>
+					<td>24-28</td>
+					<td>R$ 158,69</td>
+					<td>R$ 151,64</td>
+					<td>R$ 144,59</td>
+					<td>R$ 137,53</td>
+					<td>R$ 131,89</td>
+					<td>R$ 116,38</td>
+					<td>R$ 110,73</td>
+					<td>R$ 105,08</td>
+				</tr>
+				<tr>
+					<td>29-33</td>
+					<td>R$ 165,04</td>
+					<td>R$ 156,57</td>
+					<td>R$ 149,52</td>
+					<td>R$ 142,47</td>
+					<td>R$ 135,42</td>
+					<td>R$ 117,07</td>
+					<td>R$ 111,43</td>
+					<td>R$ 105,79</td>
+				</tr>
+				<tr>
+					<td>34-38</td>
+					<td>R$ 168,97</td>
+					<td>R$ 161,51</td>
+					<td>R$ 154,46</td>
+					<td>R$ 147,41</td>
+					<td>R$ 140,35</td>
+					<td>R$ 122,02</td>
+					<td>R$ 116,38</td>
+					<td>R$ 110,73</td>
+				</tr>
+				<tr>
+					<td>39-43</td>
+					<td>R$ 175,61</td>
+					<td>R$ 167,15</td>
+					<td>R$ 160,10</td>
+					<td>R$ 153,05</td>
+					<td>R$ 146,00</td>
+					<td>R$ 127,66</td>
+					<td>R$ 122,02</td>
+					<td>R$ 116,38</td>
+				</tr>
+				<tr>
+					<td>44-48</td>
+					<td>R$ 190,03</td>
+					<td>R$ 180,76</td>
+					<td>R$ 171,49</td>
+					<td>R$ 163,77</td>
+					<td>R$ 155,04</td>
+					<td>R$ 129,78</td>
+					<td>R$ 123,60</td>
+					<td>R$ 117,42</td>
+				</tr>
+				<tr>
+					<td>49-53</td>
+					<td>R$ 193,05</td>
+					<td>R$ 183,63</td>
+					<td>R$ 174,21</td>
+					<td>R$ 166,37</td>
+					<td>R$ 158,52</td>
+					<td>R$ 131,84</td>
+					<td>R$ 125,56</td>
+					<td>R$ 119,28</td>
+				</tr>
+				<tr>
+					<td>54-58</td>
+					<td>R$ 196,06</td>
+					<td>R$ 186,50</td>
+					<td>R$ 176,94</td>
+					<td>R$ 168,97</td>
+					<td>R$ 161,00</td>
+					<td>R$ 133,90</td>
+					<td>R$ 127,52</td>
+					<td>R$ 124,33</td>
+				</tr>
+				<tr>
+					<td>59 ou +</td>
+					<td>R$ 205,63</td>
+					<td>R$ 196,06</td>
+					<td>R$ 186,50</td>
+					<td>R$ 176,94</td>
+					<td>R$ 168,97</td>
+					<td>R$ 137,09</td>
+					<td>R$ 130,71</td>
+					<td>R$ 124,33</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<p>* Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.</p>
+			</tfoot>
+		</table>
+	</div>
+	<div class="bloco_coparticipacao">
+		<h1>Preços de Coparticipação</h1>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2"></th>
+					<th colspan="6">Limite de Cooparticipação por item</th>
+				</tr>
+				<tr>
+					<th colspan="2"></th>
+					<th colspan="2">Linha Amil Fácil</th>
+					<th colspan="4">Linha Amil</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Procedimentos</td>
+					<td>% de coparticipação</td>
+					<td>AMILS60</td>
+					<td>AMILS80</td>
+					<td>AMILS380R</td>
+					<td>AMILS450R</td>
+					<td>AMILS750R1</td>
+					<td>AMILS750R2</td>
+				</tr>
+				<tr>
+					<td>Consultas eletivas e clínicas</td>
+					<td>30%</td>
+					<td>25,00</td>
+					<td>25,00</td>
+					<td>30,00</td>
+					<td>30,00</td>
+					<td>35,00</td>
+					<td>35,00</td>
+				</tr>
+				<tr>
+					<td>Consultas hospitalares (PS)</td>
+					<td>30%</td>
+					<td>50,00</td>
+					<td>50,00</td>
+					<td>60,00</td>
+					<td>60,00</td>
+					<td>70,00</td>
+					<td>70,00</td>
+				</tr>
+				<tr>
+					<td>Exames básicos</td>
+					<td>30%</td>
+					<td>20,00</td>
+					<td>20,00</td>
+					<td>25,00</td>
+					<td>25,00</td>
+					<td>35,00</td>
+					<td>35,00</td>
+				</tr>
+				<tr>
+					<td>Exames especiais</td>
+					<td>30%</td>
+					<td>100,00</td>
+					<td>100,00</td>
+					<td>110,00</td>
+					<td>110,00</td>
+					<td>130,00</td>
+					<td>130,00</td>
+				</tr>
+				<tr>
+					<td>Fisioterapia</td>
+					<td>30%</td>
+					<td>15,00</td>
+					<td>15,00</td>
+					<td>20,00</td>
+					<td>20,00</td>
+					<td>35,00</td>
+					<td>35,00</td>
+				</tr>
+				<tr>
+					<td>Fonoaudiologia</td>
+					<td>30%</td>
+					<td>15,00</td>
+					<td>15,00</td>
+					<td>20,00</td>
+					<td>20,00</td>
+					<td>35,00</td>
+					<td>35,00</td>
+				</tr>
+				<tr>
+					<td>Internação - cobrança por evento</td>
+					<td>Fixo</td>
+					<td>180,00</td>
+					<td>180,00</td>
+					<td>200,00</td>
+					<td>220,00</td>
+					<td>370,00</td>
+					<td>370,00</td>
+				</tr>
+				<tr>
+					<td>Nutrição</td>
+					<td>30%</td>
+					<td>15,00</td>
+					<td>15,00</td>
+					<td>20,00</td>
+					<td>20,00</td>
+					<td>35,00</td>
+					<td>35,00</td>
+				</tr>
+				<tr>
+					<td>Procedimentos básicos</td>
+					<td>30%</td>
+					<td>35,00</td>
+					<td>35,00</td>
+					<td>40,00</td>
+					<td>40,00</td>
+					<td>50,00</td>
+					<td>50,00</td>
+				</tr>
+				<tr>
+					<td>Procedimentos especiais</td>
+					<td>30%</td>
+					<td>140,00</td>
+					<td>140,00</td>
+					<td>150,00</td>
+					<td>150,00</td>
+					<td>160,00</td>
+					<td>160,00</td>
+				</tr>
+				<tr>
+					<td>Psicoterapia</td>
+					<td>30%</td>
+					<td>15,00</td>
+					<td>15,00</td>
+					<td>20,00</td>
+					<td>20,00</td>
+					<td>35,00</td>
+					<td>35,00</td>
+				</tr>
+				<tr>
+					<td>Quimioterapia</td>
+					<td>0%</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>Radioterapia</td>
+					<td>0%</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</tbody>		
+		</table>
+	</div>
+
+	<section class="bloco_simulacao">
+		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
+		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
+		<a href="@route(planosaude.simulacao)/amil">Fazer Simulação</a>
+	</section>
+</div>

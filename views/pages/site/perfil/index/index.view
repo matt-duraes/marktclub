@@ -1,0 +1,62 @@
+@template "site"
+
+<div id="bloco_pagina_perfil">
+    @ if( $tituloPagina ):
+        @view site/promocao/geral/titulo_pagina.view
+    @ endif;
+    
+    <div class="conteudo">
+        <section class="foto">
+            <figure style="background-image: url(https://lh3.googleusercontent.com/ogw/AOh-ky0qIecPHzcVkKjpNnwIesf2ZRiPq9bj4IiPNyiEjcg)"></figure>
+            <div class="legenda">
+                <article>
+                    <h1>{{$dado->nome}}</h1>
+                    <p>Usuário desde: 18/06/2018</p>
+                    <p>Ultimo acesso: 14/03/2023</p>
+                <article>
+                <button id="botao_vincular_google" type="button" class="google">
+                    <div class="logo-google">
+                        <img src="https://clube.marktclub.com.br/images/google.svg">
+                    </div>
+                    <span class="texto">
+                        Vincular foto
+                    </span>
+                </button>
+            </div>
+        </section>
+        <form method="post" class="form_geral">
+            <fieldset>
+                <p>Dados pessoais</p>
+                @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: $dado->nome)
+                @? formData(name: 'data_nascimento', placeholder: 'Data de nascimento', label: 'Data de nascimento',  value: $dado->data_nascimento)
+
+                @? formSelect(name: 'genero', placeholder: 'Gênero', label: 'Gênero', class: 'busca_genero', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um gênero')->genero()->r(), value: $dado->genero)
+                @? formSelect(name: 'estado_civil', placeholder: 'Estado Civil', label: 'Estado Civil', class: 'busca_estado_civil', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado civil')->estadoCivil()->r(), value: $dado->estado_civil)
+            </fieldset>
+            <fieldset>
+                <p>Dados de Contato</p>
+                @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', placeholder: 'Digite seu e-mail pessoal', value: $dado->email_pessoal)
+                @? formEmail(name: 'email_trabalho', label: 'E-mail trabalho', placeholder: 'Digite seu e-mail de trabalho', value: $dado->email_trabalho)
+                @? formTelefone(name: 'telefone_trabalho', label: 'Telefone de trabalho', placeholder: 'Digite seu telefone de trabalho', value: $dado->telefone_trabalho)
+                @? formTelefone(name: 'telefone_pessoal', label: 'Telefone pessoal', placeholder: 'Digite seu telefone pessoal', value: $dado->telefone_pessoal)
+            </fieldset>
+            <fieldset>
+                <p>Endereço</p>
+                <div class="duplo_label">
+                    @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP', mascara: '00000-000', value: $dado->endereco_cep)
+                    @? formInput(name: 'bairro', placeholder: 'Bairro', label: 'Bairro', value: $dado->endereco_bairro)
+                </div>
+                <div class="duplo_label">
+                    @? formInput(name: 'logradouro', placeholder: 'Logradouro', label: 'Logradouro', value: $dado->endereco_logradouro)
+                    @? formInput(name: 'numero', placeholder: 'Número', label: 'Número', value: $dado->endereco_numero)
+                </div>
+                    @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: $dado->endereco_complemento)
+                <div class="duplo_label">
+                    @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', value: $dado->endereco_cidade)
+                    @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $dado->endereco_estado)
+                </div>
+            </fieldset>
+            <button id="botao_salvar_dados_perfil">Atualizar</button>
+        </form>
+    </div>
+</div>

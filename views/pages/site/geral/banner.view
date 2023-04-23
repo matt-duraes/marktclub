@@ -1,0 +1,43 @@
+@ if( $banner->desktop ):
+<div class="bloco_geral_banner banner desktop">
+    <div class="conteudo">
+        @ if( count($banner->desktop) > 1 ):
+        <div class="seta anterior">@iconeSetaEsquerda(40)</div>
+        <div class="seta proximo">@iconeSetaDireita(40)</div>
+        @ endif;
+
+        <div class="imagem">
+            @ foreach( $banner->desktop as $r )
+            <figure>
+                <img src="{!!$r->imagem!!}">
+                @ if( !empty($r->link) ):
+                <a href="{!!$r->link!!}"></a>
+                @ endif;
+            </figure>
+            @ endforeach;
+        </div>
+    </div>
+</div>
+@ endif;
+
+@ if( $banner->mobile ):
+<div class="bloco_geral_banner banner mobile">
+    <div class="conteudo">
+        @ if( count($banner->mobile) > 1 ):
+        <div class="seta anterior">@iconeSetaEsquerda(40)</div>
+        <div class="seta proximo">@iconeSetaDireita(40)</div>
+        @ endif;
+
+        <div class="imagem">
+            @ foreach( $banner->mobile as $r )
+            <figure>
+                <img src="{!!$r->imagem!!}">
+                @ if( !empty($r->link) ):
+                <a href="{!!$r->link!!}"></a>
+                @ endif;
+            </figure>
+            @ endforeach;
+        </div>
+    </div>
+</div>
+@ endif;

@@ -1,0 +1,114 @@
+@system "Form"
+@template "site"
+@resource "site/variavel"
+@resource "site/saude/padraoIndex"
+
+.conteudo_principal
+    max-width: $maxWidth
+
+.bloco_texto_saude
+    text-align: center
+    margin-bottom: 25px
+    h1
+        bold()
+.bloco_saude
+    display: flex
+    flex-wrap: wrap
+    width: 100vw
+    max-width: $maxWidth
+    justify-content: space-between
+    align-items: stretch
+    blocoShadow()
+    .plano_saude
+        flex-basis: calc(33% - 10px)
+        margin-bottom: 25px
+        height: 250px
+        min-width: 300px
+        boxShadow()
+        flexCenter()
+        &.fake
+            box-shadow: none
+        &:hover
+            border: 1px solid $corClube
+            cursor: pointer
+        &.fake:hover
+            border: none
+            box-shadow: none
+        a
+            width: 100%
+            flexCenter()
+            flex-direction: column
+        figure
+            height: 100px
+            width: 220px
+            background-position: center
+            background-repeat: no-repeat
+        .titulo_plano_saude
+            height: 50%
+            width: 100%
+            text-align: center
+            color: $corClube
+            h1
+                margin-top: 25px
+                bold()
+@media screen and (max-width: 639px)
+    .bloco_saude .plano_saude
+        flex-basis: calc(100% - 10px) !important
+        margin-bottom: 25px !important
+        height: 250px !important
+        min-width: 300px !important
+
+@media screen and (max-width: 939px)
+    .bloco_saude .plano_saude
+        flex-basis: calc(50% - 10px)
+        margin-bottom: 25px
+        height: 250px
+        min-width: 300px
+@media screen and (max-width: 767px)
+    .bloco_saude .plano_saude
+        flex-basis: calc(10% - 10px)
+
+
+
+/*BLOCO MODAL PREÇOS PLANO DE SAUDE*/
+
+@media only screen and (max-width: 999px)
+    .bloco_parceiro .bloco_cupom
+        blocoShadow()
+        width: calc((100% / 2) - 15px)
+        height: 370px
+        flexCol()
+        position: relative
+        margin-bottom: 20px
+        height: 350px
+        cursor: pointerfigure
+        height: 30%
+        margin: auto
+        background-color:red
+        figure
+            height: 30%
+            margin: auto
+
+@media only screen and (max-width: 1000px)
+    .bloco_parceiro .bloco_cupom
+        blocoShadow()
+        width: calc((100% / 2) - 15px)
+        height: 370px
+        flexCol()
+        position: relative
+        margin-bottom: 20px
+        height: 350px
+        cursor: pointer
+        figure
+            height: 30%
+            margin: auto
+            img
+                height: 100%
+                width: 80%
+        #titulo_cupom
+            height: 15%
+        #descricao_cupom
+            height: 40%
+            padding-top: 20px
+        #botao_cupom
+            height: 15%

@@ -9,7 +9,7 @@
         </fieldset>
         <fieldset>
             @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->valor('pesquisa'))
-            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\Loja\OrdemClube)->select(), value: $Busca->valor('ordem'))
+            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\ParceiroLoja\Ordem)->select(), value: $Busca->valor('ordem'))
             <button class="botao_geral_cor cor_bg">Buscar</button>
         </fieldset>
     </form>

@@ -1,0 +1,159 @@
+<div class="containerStepper">
+    <div class="progressBar">
+        <div class="step">
+            <div class="bullet">
+                <span>1</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Plano</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>2</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Simulação</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>3</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Resultado</p>
+        </div>
+    </div>
+    <div class="formContainerStepper">
+        <form action="#" method="post" class="form_geral">
+            <fieldset class="page slidePage" id="bloco_plano_amil">
+                <header>
+                    <h1>ESCOLHA SEU PLANO</h1>
+                </header>
+                <div class="conteudo">
+                    <input type="hidden" id="acomodacao" name="acomodacao">
+                    <div class="button">
+                        <input id="brasilia" class="brasilia" name="regiao" type="radio" value="brasilia">
+                        <label for="brasilia">Brasília</label>
+                    </div>
+                    <div class="button">
+                        <input id="rio_de_janeiro" class="rio_de_janeiro" name="regiao" type="radio" value="rio-de-janeiro">
+                        <label for="rio_de_janeiro">Rio de Janeiro</label>
+                    </div>
+                    <div class="button">
+                        <input id="sao_paulo" class="sao_paulo" name="regiao" type="radio" value="sao-paulo">
+                        <label for="sao_paulo">São Paulo</label>
+                    </div>
+                </div>
+                <div class="footer_button primeiro">
+                    <button id="botao_avanca_simulacao" class="proxima">Avançar</button>
+                </div>
+            </fieldset>
+            <fieldset class="page slidePage adicional" id="bloco_tipo_amil">
+                <header>
+                    <h1>ESCOLHA SEU PLANO</h1>
+                </header>
+                <div class="conteudo">
+                    <div class="button amil_s60qc_rj">
+						<input type="radio" id="amil_s60qc_rj" name="tipo" value="amil_s60qc_rj">
+						<label for="amil_s60qc_rj">Amil Fácil S60 QC - RJ</label>
+                    </div>
+                    <div class="button amil_s60qc_jundiai">
+						<input type="radio" id="amil_s60qc_jundiai" name="tipo" value="amil_s60qc_jundiai">
+						<label for="amil_s60qc_jundiai">Amil Fácil S60 QC - Jundiaí</label>
+                    </div>
+                    <div class="button amil_s60qc_sp">
+						<input type="radio" id="amil_s60qc_sp" name="tipo" value="amil_s60qc_sp">
+						<label for="amil_s60qc_sp">Amil Fácil S60 QC - SP</label>
+                    </div>
+                    <div class="button amil_s80qc">
+						<input type="radio" id="amil_s80qc" name="tipo" value="amil_s80qc"  class="amil_s80qc">
+						<label for="amil_s80qc"  class="amil_s80qc">Amil Fácil S80 QC</label>
+                    </div>
+                    <div class="button amil_s80qp">
+						<input type="radio" id="amil_s80qp" name="tipo" value="amil_s80qp">
+						<label for="amil_s80qp">Amil Fácil S80 QP</label>
+                    </div>
+                    <div class="button amil_s380qc">
+						<input type="radio" id="amil_s380qc" name="tipo" value="amil_s380qc">
+						<label for="amil_s380qc">Amil Fácil S380 QC</label>
+                    </div>
+                    <div class="button amil_s380qp">
+                        <input type="radio" id="amil_s380qp" name="tipo" value="amil_s380qp">
+                        <label for="amil_s380qp">Amil Fácil S380 QP</label>
+                    </div>
+                    <div class="button amil_s450qc">
+                        <input type="radio" id="amil_s450qc" name="tipo" value="amil_s450qc">
+                        <label for="amil_s450qc">Amil Fácil S450 QC</label>
+                    </div>
+                    <div class="button amil_s450qp">
+                        <input type="radio" id="amil_s450qp" name="tipo" value="amil_s450qp">
+                        <label for="amil_s450qp">Amil Fácil S450 QP</label>
+                    </div>
+                    <div class="button amil_s750r1">
+                        <input type="radio" id="amil_s750r1" name="tipo" value="amil_s750r1">
+                        <label for="amil_s750r1">Amil Fácil S750 R1</label>
+                    </div>
+                    <div class="button amil_s750r2">
+                        <input type="radio" id="amil_s750r2" name="tipo" value="amil_s750r2">
+                        <label for="amil_s750r2">Amil Fácil S750 R2</label>
+                    </div>
+
+
+                </div>
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button id="botao_avanca_simulacao" class="proxima">Avançar</button>
+                </div>
+            </fieldset>
+
+            <fieldset class="page slidePage segundo" id="simulacao_amil">
+                <header>
+                    <h1>PREENCHA AS INFORMAÇÕES</h1>
+                </header>
+                @? formData(name: 'data_nascimento', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                <div class="dependente">
+                    <p>Dependentes</p>
+                    <div class="linha_dependente default">
+                        <div class="remove">@iconeFechar()</div>
+                        @? formData(name: 'dependente', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                    </div>
+                    <div class="adicionaDependente">
+                        <p>Adicionar Dependente</p>
+                    </div>
+                </div>
+
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="proxima">Avançar</button>
+                </div>
+            </fieldset>
+            <fieldset class="page slidePag terceiro" id="bloco_contratacao_amil">
+                <header>
+                    <h1>RESULTADO DA SIMULAÇÃO</h1>
+                </header>
+                <div class="resultado_titular">
+                    <p>Total</p>
+                    <h2 class="titular_valor">R$ xxx,xx</h2>
+                </div>
+                <div class="coluna">
+                    <div class="resultado_dependente">
+                        <p>Total</p>
+                        <h2 class="titulo-normal titular_valor">R$ xxx,xx</h2>
+                    </div>
+                    <div class="resultado_dependente">
+                        <p>Total</p>
+                        <h2 class="titulo-normal titular_valor">R$ xxx,xx</h2>
+                    </div>
+                </div>
+                <div class="aviso">
+                    <p>Gostou dos valores?</p>
+                    <p>Preencha nosso formulário e um especialista irá entrar em contato, fique tranquilo que o preenchimento do formulário não implica em contratação, é apenas para um melhor atendimento.</p>
+
+                </div>
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button data-simulacao="11c93e77-976b-49bd-a6e2-95b781c4b10c" id="enviar_contratacao_amil">Tenho Interesse</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

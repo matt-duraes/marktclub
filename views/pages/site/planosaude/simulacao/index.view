@@ -1,0 +1,24 @@
+@template "site"
+
+<div id="bloco_simulacao">
+
+@ if( $tituloPagina ):
+    @view site/planosaude/geral/titulo_pagina.view
+@ endif;
+
+@ if( $operadora == 'unimed-vitoria' ):
+    @view site/planosaude/unimedvitoria/simulacao.view
+@ endif;
+@ if( $operadora == 'unimed-florianopolis' ):
+    @view site/planosaude/unimedflorianopolis/simulacao.view
+@ endif;
+@ if( $operadora == 'amil' ):
+    @view site/planosaude/amil/simulacao.view
+@ endif;
+@ if( $operadora == 'unimed-seguro' ):
+    @view site/planosaude/unimedSeguro/simulacao.view
+@ endif;
+
+<input type="hidden" name="operadora" id="operadora" value="{{$operadora}}">
+
+</div>

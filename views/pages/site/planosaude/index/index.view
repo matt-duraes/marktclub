@@ -1,0 +1,53 @@
+@template "site"
+<div class="conteudo_principal">
+    <header>
+        <div class="bloco_texto_saude">
+            <h1>Selecione uma operadora</h1>
+            <p>Para continuar, escolha entre uma das operadoras abaixo</p>
+        </div>
+    </header>
+    <div class="bloco_saude">
+            <div class="plano_saude">
+                <a href="@route(planosaude.unimedvitoria)">
+                    <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/logo_unimed_vitoria.jpeg'); background-size: contain"></figure>
+                    <div class="titulo_plano_saude">
+                        <h1>Unimed Vitória</h1>
+                    </div>
+                </a>
+            </div>
+            <div class="plano_saude">
+                <a href="@route(planosaude.unimedSeguro)">
+                    <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/saude_unimed_seguro.png'); background-size: contain"></figure>
+                    <div class="titulo_plano_saude">
+                        <h1>Federal Saude</h1>
+                    </div>
+                </a>
+            </div>
+            <div class="plano_saude">
+                <a href="@route(planosaude.centralnacional)">
+                    <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/cnu_logo.png'); background-size: contain"></figure>
+                    <div class="titulo_plano_saude">
+                        <h1>Central Nacional Unimed</h1>
+                    </div>
+                </a>
+            </div>
+            <div class="plano_saude">
+                <a href="@route(planosaude.unimedflorianopolis)">
+                    <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/logo_unimed_florianopolis.jpg'); background-size: contain"></figure>
+                    <div class="titulo_plano_saude">
+                        <h1>Unimed - Florianópolis</h1>
+                    </div>
+                </a>
+            </div>
+            <div class="plano_saude">
+                <a href="@route(planosaude.amil)">
+                    <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/logo_amil.png'); background-size: contain"></figure>
+                    <div class="titulo_plano_saude">
+                        <h1>Amil</h1>
+                    </div>
+                </a>
+            </div>
+            <div class="plano_saude fake">
+            </div>
+    </div>
+</div>

@@ -7,4 +7,10 @@
     .cor_color_hover:hover, .cor_color {
         color: {{COR}} !important;
     }
+    .cor_border_hover:hover, .cor_border{
+        border-color: {{COR}} !important;
+    }
+    .cor_fill_hover:hover, .cor_fill{
+        fill: {{COR}} !important;
+    }
 </style>

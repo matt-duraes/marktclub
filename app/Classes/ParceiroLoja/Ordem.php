@@ -10,10 +10,12 @@ final class Ordem extends Order
         protected null|string $valor = null
     ) {
         $this->tabela(TABELA_PARCEIRO_LOJA);
+        $this->campo('favorito', 'Seus favoritos', 'favorito', 'ASC');
         $this->campo('titulo-a-z', 'Títiulo A-Z', 'titulo', 'ASC');
         $this->campo('titulo-z-a', 'Títiulo Z-A', 'titulo', 'DESC');
-        $this->rand();
         $this->maisNovo();
         $this->maisVelho();
+        $this->campo('delivery', 'Lojas com delivery', 'delivery', 'ASC');
+        $this->campo('nacional', 'Lojas nacionais', 'nacional', 'ASC');
     }
 }

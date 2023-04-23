@@ -1,0 +1,102 @@
+
+<div class="containerStepper">
+    <div class="progressBar">
+        <div class="step">
+            <div class="bullet">
+                <span>1</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Valor do empréstimo</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>2</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Dados de contato</p>
+        </div>
+        <div class="step">
+            <div class="bullet">
+                <span>3</span>
+                <div class="check"> @iconeCheck()</div>
+            </div>
+            <p>Solicitar portabilidade</p>
+        </div>
+    </div>
+
+    <div class="formContainerStepper">
+        <form action="#" method="post" class="form_geral">
+            <div class="page slidePage" id="bloco_simulacao">
+                <header>
+                    <h1>DADOS DO EMPRÉSTIMO</h1>
+                    <p>É uma página de solicitação de portabilidade e não implica na contratação automática.</p>
+                </header>
+                <input type="hidden" name="tipo" value="portabilidade">
+                @? formInput(name: 'valor', placeholder: 'Valor da parcela atual', label: 'Valor da parcela atual', class: 'busca_valor', value: '')
+                
+                @? formSelect(name: 'parcela', placeholder: 'Quantidade de parcelas que faltam pagar', label: 'Quantidade de parcelas que faltam pagar', obrigatorio: 1, lista: range(1, 96))
+        
+                @? formInput(name: 'taxa', placeholder: 'Qual a taxa atual? (opcional)', label: 'Qual a taxa atual? (opcional)', class: 'busca_taxa', value: '')
+            
+                <div class="footer_button primeiro">
+                    <button id="botao_simular_credito" class="proxima">Avançar</button>
+                </div>
+            </div>
+            
+            <div class="page slidePage" id="contato">
+                <header>
+                    <h1>DADOS PARA CONTATO</h1>
+                    <p >Confirme seus dados para que o Banco Alfa entre em contato e valide seu pedido. Esta ação não implica na contratação automática da portabilidade.</p>
+                </header>
+    
+                <div class="duplo_label">
+                    @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: '')
+                    @? formCpf(name: 'cpf', placeholder: 'CPF', label: 'CPF', class: 'cpf', value: '')
+                </div>
+                <div class="duplo_label">
+                    @? formEmail(name: 'emailpessoal', label: 'E-mail pessoal', class: 'email', placeholder: 'Digite seu e-mail pessoal', value: '')
+                    @? formInput(name: 'enderecoCidade', placeholder: 'Digite uma cidade', label: 'Cidade', class: 'cidade', value: '')
+                </div>
+                <div class="duplo_label">
+                    @? formTelefone(name: 'telefoneCelular', label: 'Telefone celular', class: 'celular', placeholder: 'Digite seu telefone celular', value: '')
+                    @? formTelefone(name: 'telefoneFixo', label: 'Telefone fixo', class: 'fixo', placeholder: 'Digite seu telefone fixo', value: '')
+                </div>
+                @? formInput(name: 'orgao', placeholder: 'Digite um órgão', label: 'Ex: Órgão onde trabalha', class: 'orgao', value: '')
+                @? formTextarea(name: 'mensagem', placeholder: 'Digite o mensagem', class: 'mensagem', label: 'Digite uma breve mensagem')
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="proxima">Avançar</button>
+                </div>
+            </div>
+            <div class="page slidePage" id="bloco_contratacao">
+                
+                <header>
+                    <h1>SOLICITAR PORTABILIDADE</h1>
+                    <p>Veja os dados abaixo, verifique se está tudo certo e envie sua solicitação de portabilidade para o Banco Alfa.</p>
+                </header>
+
+                <div class="coluna-divisoria">
+                    <h1>VALOR DA PARCELA ATUAL</h1>
+                    <p class="valor_emprestimo">R$ <span id="texto_valor_valor"></span></p>
+                </div>
+                <div class="coluna-divisoria">
+                    <h1>QUANTIDADE DE PARCELAS QUE FALTAM PAGAR</h1>
+                    <p><span class="valor_prazo" id="texto_valor_parcela"></span> parcelas</p>
+                </div>
+                <div class="coluna-divisoria" id="bloco_taxa_opcional">
+                    <h1>JUROS ATUAL</h1>
+                    <p id="texto_valor_taxa"></p>
+                </div>
+                <div class="coluna-divisoria">
+                    <h1>DATA DE SIMULAÇÃO</h1>
+                    <p class="data_simulacao"><?= date('d/m/Y'); ?></p>
+                </div>
+                <div class="footer_button">
+                    <button class="voltar">Voltar</button>
+                    <button class="submit" id="enviar_contratacao">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

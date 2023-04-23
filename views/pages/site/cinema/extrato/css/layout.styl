@@ -1,0 +1,136 @@
+@system "Form"
+@template "site"
+@system "Pagina"
+@resource "site/banner"
+@resource "site/variavel"
+@resource "site/tab"
+
+
+#bloco_pagina_cinema
+    width: 100%
+    flexCenter()
+    position: relative
+    .conteudo
+        width: 100%
+        max-width: $maxWidth
+        espacoTopPadrao()
+    .conteudo .regulamento
+        width: 200px
+        height: 40px
+        flexCenter()
+        font-size: 1.2em
+        line-height: 40px
+        bordaSolida()
+        bordaPadrao()
+        color: $corClube
+        margin-top: 10px
+    .panel
+        width: 100%
+        max-width: $maxWidth
+        blocoShadow()
+        padding: 20px
+        espacoTopPadrao()
+        espacoBottomPadrao()
+        header
+            alignItemStart()
+            flexCol()
+            padding: 20px
+            text-align: center
+            h1
+                titulo()
+                text-align: left
+                color: $corClube
+            p
+                text-align: left
+                padding: 5px 0px
+                texto()
+    .info
+        padding: 20px
+        blocoAvisoDashed()
+        height: auto
+        border: 3px dashed $corClube
+
+
+
+#bloco_pagina_cinema  .table_container
+    width: 100%
+    table
+        width: 100%
+        border-collapse: collapse
+        overflow: hidden
+        position: relative
+    table tfoot p
+        disclaimerFontSize()
+        color: #666
+        text-align: left
+    table th,
+    table td
+        padding: 15px
+        background-color: $branco
+        color: #333
+    table th
+        texto()
+        text-align: left
+    table thead
+        th
+            background-color: #eee
+            color: #181818
+    table tbody
+        tr
+            border-top: 1px solid #eee
+            &:hover
+                border-top: 1px solid #ccc
+            &:hover > td
+                border-top: 1px solid #ccc
+                border-bottom: 1px solid #ccc
+        td
+            texto()
+            position: relative
+
+
+@media only screen and  (max-width: 760px)
+    td, tr
+        display: block
+    thead tr
+        position: absolute
+        top: -9999px
+        left: -9999px
+    tr
+        border: 1px solid $corClube
+        border-top: 1px solid $corClube !important
+    tr + tr
+        margin-top: 1.5em
+    td
+        border: none
+        border-bottom: 1px solid #eee
+        position: relative
+        padding-left: 50%
+        background-color: #F8D9D5
+        text-align: left
+    td:before
+        content: attr(data-label)
+        display: inline-block
+        line-height: 1.5
+        width: 100%
+        white-space: nowrap
+        color: $corClube
+    #bloco_pagina_cinema .table_container table tbody tr:hover > td
+        border-top: none
+        border-bottom: 1px solid #eee
+
+
+.aviso
+    width: 100%
+    justifyStart()
+    bordaPadrao()
+    background: #FA5252
+    padding: 10px
+.aviso svg
+    fill: $branco
+.aviso p
+    max-width: 100%
+    line-height: 1.2em
+    font-size: 1.5em
+    border-radius: 8px
+    padding-left: 10px
+    color: $branco

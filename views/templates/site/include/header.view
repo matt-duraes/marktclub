@@ -1,0 +1,9 @@
+@template "site"
+<div class="conteudo_principal">
+    <header>
+        <figure class="imagem_fundo" style="background-image: url('https://clube.marktclub.com.br/images/tela_cinema.jpg'); background-size:cover"></figure>
+        <div class="bloco_aviso">
+            <p>TEXTO API</p>
+        </div>
+    </header>
+</div>

@@ -1,0 +1,101 @@
+@system "Form"
+@system "Alerta"
+@system "Loading"
+@system "Pagina"
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/passo_passo"
+
+#bloco_credito_alfa
+    maxWidth()
+    flexCenter()
+    flexCol()
+    .formulario-contratacao
+        width: 100%
+        spaceBetween()
+        flexCol()
+        .coluna-divisoria
+            width: 100%
+            max-width: 500px
+            spaceBetween()
+            margin-top: 10px
+            color: #666
+            h1
+                bold()
+            h1,  p, p span
+                textoMobile()
+    .disclaimer
+        maxWidth()
+        espacoTopPadrao()
+        padding: 0px 20px
+        p
+            disclaimerFontSize()
+            color: #666
+            text-align: left
+    .aviso
+        width: 100%
+        flexCenter()
+    .aviso p
+        max-width: 300px
+        margin: 25px 0px
+        padding: 10px 20px
+        line-height: 1.2em
+        font-size: 1.5em
+        border-radius: 8px
+        background: #FA5252
+        color: $branco
+    #contato
+        display: none
+    .duplo_label
+        width: 100%
+        spaceBetween()
+        .bloco_input:nth-child(1)
+            margin-right: 20px
+    #resultado_simulacao
+        flexCenter()
+        flexCol()
+        .resultado h2
+            color: #333
+            font-size: 1.8em
+        .aviso_resultado
+            espacoBottomPadrao()
+        .aviso_resultado h2
+            color: #333
+            font-size: 1.2em
+        .aviso_resultado p
+            color: #333
+            font-size: 1.2em
+            line-height: 1.5em
+        .aviso_resultado span
+            font-size: 1em
+            line-height: 1.5em
+        .resultado_valor
+            width: 100%
+            max-width: 200px
+            height: 50px
+            flexCenter()
+            flexCol()
+            margin: 10px auto
+            border-radius: 3px
+            border: 1px solid #009900
+        .resultado_valor p
+            color: #009900
+            font-weight: bold
+            font-size: 1.8em !important
+    #bloco_solicitacao
+        display: none
+        align-items: center
+        justify-content: center
+        espacoTopPadrao()
+        espacoBottomPadrao()
+        .coluna-divisoria
+            width: 100%
+            max-width: 500px
+            spaceBetween()
+            margin-top: 10px
+            color: #666
+            h1
+                bold()
+            h1,  p, p span
+                textoMobile()

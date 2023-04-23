@@ -1,0 +1,13 @@
+<div class="busca_convenio">
+    <form action="@route(loja.busca)" method="get" class="form_geral">
+        <legend>Busque por um parceiro</legend>
+        <fieldset>
+            @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista:  (new \App\Classes\ParceiroCashback\Categoria)->select('Escolha uma opção'), value: '')
+        </fieldset>
+        <fieldset>
+            @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: '')
+            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\ParceiroCashback\Ordem)->select(), value: '')
+            <button class="botao_geral_cor cor_bg">Buscar</button>
+        </fieldset>
+    </form>
+</div>

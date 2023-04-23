@@ -1,0 +1,20 @@
+<?php
+
+return (new \DataBase\DataBase())
+    ->id()
+    ->char('cod')->tamanho(36)
+    ->json('empresa')->null()
+    ->varchar('titulo')->tamanho(100)
+    ->int('tipo')->tamanho(1)
+    ->int('programa')->tamanho(1)
+    ->text('descricao_publica')
+    ->text('categoria')
+    ->text('restricoes')
+    ->text('comissao_min')
+    ->text('comissao_max')
+    ->slug('url', 'titulo')
+    ->text('link')
+    ->text('imagem')
+    ->dataCriacao()
+    ->dataAtualizacao()
+    ->status()->null();

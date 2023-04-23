@@ -1,0 +1,57 @@
+@template "site"
+
+<div id="bloco_pagina_dependente">
+    @ if( $tituloPagina ):
+        @view site/promocao/geral/titulo_pagina.view
+    @ endif;
+
+    <div class="conteudo">
+        <form action="#" method="post" class="form_geral">
+            <fieldset>
+                <p>Utilize o formulário abaixo para cadastrar até 5 dependentes, totalmente
+                <strong>sem custo</strong></p>
+                <div class="dependente">
+                    <div class="linha_dependente default">
+                        <div class="remove">@iconeFechar()</div>
+                        @? formInput(name: 'dependente_nome', placeholder: 'Digite o nome do dependente', label: 'Nome do dependente', value: '')
+                        @? formCpf(name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF', obrigatorio: true)
+                        @? formInput(name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
+                    </div>
+                    <div class="adicionaDependente">
+                        <p>Adicionar Dependente</p>
+                    </div>
+                </div>
+                <button id="botao_cadastra_dependente">Cadastrar dependente</button>
+            </fieldset>
+        </form>
+
+
+        <table>
+            <thead>
+                <tr class="titulo_table">
+                    <th>Nome</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @ ifforeach( $dado as $r ):
+                <tr class="hover">
+                    <td>{{$r->nome}}</td>
+                    <td class="deletar botao_deletar_dependente" data-id="{{$r->id}}">
+                        <p>
+                            Deletar 
+                            <i class="botao_deletar">@iconeFechar(8)</i>
+                        </p>
+                    </td>
+                </tr>
+                @endifforeach;
+            </tbody>
+        </table>
+        @ if(!$dado):
+        <div class="zero">
+            <i>@iconeDependente(30)</i>
+            <p>Sem dependentes no momento</p>
+        </div>
+        @endif;
+    </div>
+</div>

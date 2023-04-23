@@ -1,0 +1,78 @@
+@system "Form"
+@template "site"
+@resource "site/loja/busca"
+@resource "site/variavel"
+@resource "site/saude/padraoIndex"
+
+.bloco_preco_plano
+    espacoTopPadrao()
+    blocoShadow()
+    h1
+        text-align: center
+    .bloco_botao_plano
+        min-height: 100px
+        text-align: center
+        button
+            text-align: center
+            margin-top: 25px
+            width: 200px
+            margin-right: 20px
+            border-radius: 10px
+            height: 50px
+            
+.bloco_reembolso_tabela
+        max-width: $maxWidth
+        width: 100%
+        blocoShadow()
+        espacoTopPadrao()
+        espacoBottomPadrao()
+        h1
+            espacoBottomPadrao()
+        .table_container
+            width: 100%
+            table
+                espacoTopPadrao()
+                color: black
+                texto()
+                min-width: max-content
+                width: 100%
+                espacoBottomPadrao()
+                thead
+                    th
+                        text-align: center
+                        vertical-align: center
+                        texto()
+                        border: 1px solid #ccc
+                        &:first-child
+                            border-left: none
+                        &:last-child
+                            border-right: none
+
+.bloco_coparticipacao
+    espacoTopPadrao()
+    blocoShadow()
+    min-height: 700px
+    overflow-x: scroll
+    width: 100%
+    table
+        espacoTopPadrao()
+        height: 500px
+        min-width: max-content
+        width: 100%
+        color: black
+        texto()
+        thead
+            tr
+                th
+                    text-align: center
+                    vertical-align: middle
+                    bordaPadraoTabela()
+                    height: 40px
+                    border-top: none
+                    &:first-child
+                        border-left: none
+                        border-bottom: none
+                    &:nth-child(2)
+                        border-left: none
+                    &:last-child
+                        border-right: none

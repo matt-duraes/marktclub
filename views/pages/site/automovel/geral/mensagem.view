@@ -1,0 +1,19 @@
+<form class="busca_automovel form_geral" action="/" method="get">
+    <h1>Não achou o que procura?</h1>
+    <p>Nos mande uma mensagem com os dados do veículo que iremos tentar achar o melhor preço para você</p>
+    <div class="bloco">
+        <div class="duplo_label">
+            @? formInput(name: 'cidade', placeholder: 'Em qual cidade será feito a compra?', label: 'Cidade', class: 'busca_cidade', value: '')
+            @? formInput(name: 'modelo', placeholder: 'Qual modelo que você está procurando?', label: 'Modelo', class: 'busca_modelo', value: '')
+        </div>
+        <div class="duplo_label">
+            @? formInput(name: 'versao', placeholder: 'Existe alguma versão ou opcional?', label: 'Versão', class: 'busca_versao', value: '')
+            @? formInput(name: 'cor', placeholder: 'Tem alguma cor em específico?', label: 'Cor', class: 'busca_cor', value: '')
+        </div>
+            @? formInput(name: 'veiculo', placeholder: 'Qual o carro ou produto você está procurando?', label: 'Veículo', class: 'busca_veiculo', value: '')
+        @? formTextarea(name: 'mensagem', label: 'Digite uma breve mensagem', placeholder: 'Digite sua mensagem')
+    </div>
+    <div class="bloco footer">
+        <button class="botao_geral_cor cor_bg">Mandar mensagem</button>
+    </div>
+</form>

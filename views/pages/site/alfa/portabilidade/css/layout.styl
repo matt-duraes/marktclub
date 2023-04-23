@@ -1,0 +1,39 @@
+@system "Form"
+@system "Alerta"
+@template "site"
+@resource "site/banner"
+@resource "site/passo_passo"
+
+#bloco_credito_alfa
+    maxWidth()
+    .banner
+    .bloco_geral
+        espacoBottomPadrao()
+#bloco_credito_alfa .bloco_credito
+    width: 100%
+    height: 100%
+    max-width: 700px
+    flexCol()
+    align-items: center
+    position: relative
+    padding: 20px 20px 75px 20px
+    h1
+        width: 100%
+        text-align: center
+        titulo()
+    p
+        width: 100%
+        max-width: 500px
+        text-align: center
+        texto()
+    form
+        width: 100%
+    .bloco_botao
+        width: 100%
+        flexRow()
+        position: absolute
+        right: 20px
+        bottom: 20px
+        justify-content: space-between
+    .bloco_botao .cinza
+        background-color: #DDD

@@ -5,7 +5,11 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Loja\MapaModel;
 use App\Models\Site\Loja\BuscaModel;
+use App\models\Site\Loja\ListarModel;
+use App\models\Site\Loja\RelacionadoModel;
 
 final class LojaController extends Controller
 {
@@ -15,7 +19,9 @@ final class LojaController extends Controller
             'menu' => 'loja',
             'banner' => true,
             'Busca' => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'parceiro' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1]
+            'lista' => (new ListarModel())->listarDados(),
+            'parceiroTipo' => 'loja',
+            'banner' => (new BannerModel())->loja(),
         ]);
     }
 
@@ -28,18 +34,48 @@ final class LojaController extends Controller
         return new Response(url: $Busca->url());
     }
 
-    public function detalhe(Request $request, $url)
+    public function detalhe(Request $request, $url = null, ?BuscaModel $Busca = null)
     {
         return view('loja.detalhe', [
             'menu' => 'loja',
-            'Busca' => new BuscaModel($request)
+            'url' => $url,
+            'Busca' => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
+            'lista' => (new RelacionadoModel())->listarDados(),
+            'parceiroTipo' => 'loja'
         ]);
     }
+    public function confirmar(string $url)
+    {
+        return view('loja.confirmar');
+    }
 
-    public function proxima()
+    public function proxima(Request $request, ?MapaModel $Busca = null)
     {
         return view('loja.proxima', [
             'menu' => 'loja-proxima'
         ]);
+    }
+
+    public function abrirModal(Request $request)
+    {
+        return view('loja.geral.modal');
+    }
+
+    public function abrirModalIndicacao()
+    {
+        return view('loja.geral.modalIndicacao');
+    }
+    public function abrirMapaModal()
+    {
+        return view('loja.proxima.modal', [
+            'menu' => 'loja-proxima'
+        ]);
+    }
+
+    public function postBuscaMapa(Request $request)
+    {
+        $Busca = new MapaModel($request);
+
+        return new Response(status: 201);
     }
 }

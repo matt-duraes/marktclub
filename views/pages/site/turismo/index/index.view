@@ -1,0 +1,18 @@
+@template "site"
+
+<div id="bloco_turismo">
+    @view site/geral/banner.view
+
+    <div class="bloco_chamada">
+        <h1>123 Milhas com 5% de desconto</h1>
+        <p>Agora você tem desconto no maior portal de vendas de passagem aéreas e hotéis do Brasil</p>
+        <a href="" class="botao_geral_cor cor_bg">ACESSAR SITE</a>
+    </div>
+
+    @php $banner = $carro
+    @view site/geral/banner.view
+
+    @ if( $lista ):
+    @view site/geral/relacionado.view
+    @ endif;
+</div>

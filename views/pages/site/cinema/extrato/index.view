@@ -1,0 +1,70 @@
+@template "site"
+
+<div id="bloco_pagina_cinema">
+
+    <div class="conteudo">
+
+        <section class="panel">
+            <header>
+                <h1>Veja como resgatar seus ingressos</h1>
+                <p>1° - Após comprar seus ingressos pelo menu CINEMA, você receberá seus cupons por e-mail ou pode pegar na aba "Histórico de compra".</p>
+                <p>2° - Com os cupons, você deverá acessar o site ingresso.com (Ou site do Cinemark seguindo o passo a passo clicando aqui ), escolher um cinema Cinemark de sua preferência e o filme que deseja assistir.</p>
+                <p>SILIUM, aqui você sempre tem Mais Vantagens!</p>
+                <p>3° - Depois de escolher os assentos, clique em "tipo de ingresso", escolha a opção "Super Saver Eletrônico", coloque os códigos dos cupons e continue com o resgate dos ingresso.</p>
+            </header>
+        </section>
+
+        <div class="info">
+            <p>Válido apenas para salas 2D (está sinalizada apenas com a legenda DUB ou LEG) - Válido para qualquer dia da semana, filme e horário, exceto para salas Prime, Poltronas D-BOX, 3D e XD - Válido apenas na rede Cinemark - Quantidade limitada de 2 ingressos por semana - Quantidade limitada de ingressos, com renovação mensal de estoque - Este ingresso não está válido para os cinemas de Vitória e Vila Velha/ES.</p>
+        </div>
+
+
+        <div class="tabs">
+
+            <div class="tab">
+                <button class="tabLink active" data-tab="#tab1">Histórico de compra</button>
+            </div>
+
+            <div id="tab1" class="tabConteudo active">
+                <div class="table_container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Código do cupom</th>
+                                <th>Data da compra</th>
+                                <th>Status da compra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Produto">Fisioterapia</td>
+                                <td data-label="Código do cupom">ASDQEQSD</td>
+                                <td data-label="Data da compra">23/06/2013</td>
+                                <td data-label="Status da compra">Em processamento</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Produto">Acupuntura</td>
+                                <td data-label="Código do cupom">ASDQEQSD</td>
+                                <td data-label="Data da compra">23/10/2014</td>
+                                <td data-label="Status da compra">Disponível</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Produto">Pisiquiátrica</td>
+                                <td data-label="Código do cupom">ASDQEQSD</td>
+                                <td data-label="Data da compra">23/10/2015</td>
+                                <td data-label="Status da compra">Disponível</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>

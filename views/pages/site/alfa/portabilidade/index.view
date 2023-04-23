@@ -1,0 +1,74 @@
+@template "site"
+
+<div id="bloco_credito_alfa">
+
+    @view site/geral/banner.view
+
+    <div class="bloco_geral bloco_passo_passo_geral">
+        <div class="bloco_progresso">
+            <div class="item">
+                <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Valor do<br>empréstimo</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>2</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Dados de<br>contato</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>3</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Solicitar<br>portabilidade</p>
+            </div>
+        </div>
+        <div class="bloco_conteudo">
+            <div class="bloco_scroll">
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <h1>DADOS DO EMPRÉSTIMO</h1>
+                        <p>É uma página de solicitação de portabilidade e não implica na contratação automática.</p>
+
+                        <form action="" class="form_geral">
+                            @? formNumero(name: 'valor_parcela', placeholder: 'Valor da parcela atual', label: 'Valor da parcela')
+                            @? formSelect(name: 'quantidade_parcela', label: 'Quantidade parcela restante', placeholder: 'Escolha a quantidade de parcelas restantes', lista: $parcela, value: '')
+                        </form>
+                        <div class="bloco_botao">
+                            <div></div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <h1>DADOS PARA CONTATO</h1>
+                        <p>Confirme seus dados para que o Banco Alfa entre em contato e valide seu pedido. Esta ação não implica na contratação automática da portabilidade.</p>
+                        <form action="" class="form_geral">
+
+                        </form>
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg">Finalizar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="disclaimer">Sujeito a análise cadastral, aprovação de crédito e margem consignável disponível. O CET - Custo Efetivo Total - será apresentado pela Alfa na ocasião da contratação. Condições sujeitas a alteração sem prévio aviso. SAC: 0800 725 0044 – e-mail: sacfinanceiraalfa@alfanet.com.br / Ouvidoria: 0800 722 0140 - e-mail: ouvidoria@alfanet.com.br. Exclusivo para deficientes auditivos e de fala: SAC: 0800 770 5244 / Ouvidoria: 0800 770 5140.</p>
+</div>

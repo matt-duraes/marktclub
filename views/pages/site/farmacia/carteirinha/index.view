@@ -1,0 +1,14 @@
+@CSS
+<div class="bloco_carteirinha">
+    <div class="bloco_info">
+        <figure>
+        </figure>
+        <div class="borda_meio"></div>
+        <div class="bloco_cpf">
+            <h1>{{$carteira->dado->cpf}}</h1>
+        </div>
+    </div>
+    <div class="bloco_nome">
+        <h1>{{$carteira->dado->nome}}</h1>    
+    </div>
+</div>

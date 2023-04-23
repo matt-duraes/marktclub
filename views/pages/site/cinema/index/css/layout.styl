@@ -1,0 +1,136 @@
+@system "Form"
+@template "site"
+@resource "site/loja/busca"
+@resource "site/variavel"
+
+.conteudo_cinema
+    maxWidth()
+    header
+        width: 100%
+        height: 306px
+        figure
+            blocoShadow()
+            width: 100%
+            height: 200px
+.bloco_aviso
+    margin-top: 25px
+    margin-bottom: 25px
+    width: 100%
+    padding: 15px
+    border: 1px solid $corClube
+    text-align: center
+
+.bloco_info_cinema
+    blocoShadow()
+    margin-top: 0px
+    min-height: 440px
+    width: 100%
+    height: 200px
+    .bloco_passo_a_passo
+        height: 75%
+        p
+            padding-bottom:20px
+        a
+            color: $corClube
+    .bloco_historico
+        padding-top:25px
+        height: 25%
+        p
+            padding-top:10px
+
+
+.bloco_ingresso
+    blocoShadow()
+    width: 100%
+    display: flex
+    min-height: 380px
+    flex-direction: column
+    margin-bottom: 15px
+    .titulo_ingresso
+        height: 10%
+        margin-top: 5px
+        margin-bottom: 25px
+    .ingresso_escolha
+        height: 69.1%
+        color: white
+        display: flex
+        justify-content: center
+        align-items: center
+        .ingresso:hover
+            border: 1px solid $corClube
+        .ingresso
+            blocoShadow()
+            width: 49%
+            margin: auto
+            height: 200px
+            flex-direction: column
+            flexCenter()
+            cursor: pointer
+            color: black
+            .icone_ingresso
+                display: flex
+                justify-content: center
+                height: 50px
+                width: 100%
+                i
+                    margin: 0px 10px 0px 10px
+        .ingresso:first-child
+            margin-right:20px
+    .botao_ingresso
+        height:15%
+        margin-top: 25px
+        margin-bottom: 5px
+
+
+.bloco_prime
+    min-height: 425px
+    margin:auto
+    blocoShadow()
+    display: flex
+    flex-direction: column
+    .assinatura_titulo
+        text-align: center
+        width: 100%
+        margin-bottom: 20px
+    .bloco_primepass
+        display: flex
+    .primepass
+        width: 50%
+        blocoShadow()
+        display: flex
+        flex-direction: column
+        align-items: center
+        text-align: center
+        min-height: 385px
+        .logo figure
+            width: 200px
+            height: 100px
+        figure
+            background-repeat: no-repeat
+            background-size: 80% auto
+            background-position: center center
+            position: relative
+        .subtitulo
+            font-size: 1.438rem
+            line-height: 120%
+            font-weight: 500
+            padding-bottom: 15px
+        p
+            margin-top:15px
+        button
+            background-color:orange
+            margin-top:25px
+    .primepass:hover
+        border: 1px solid $corClube
+        cursor: pointer
+    .primepass:first-child
+        margin-right:20px
+
+@media screen and (max-width:1000px)
+    .header
+        height: 290px
+    .bloco_info_cinema
+        margin-top: 20px
+        display: flex
+        flex-direction: column
+        min-height: 440px

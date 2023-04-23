@@ -1,0 +1,72 @@
+@system "Form"
+@template "site"
+@resource "site/loja/busca"
+@resource "site/variavel"
+@resource "site/loja/parceiro"
+@resource "site/loja/relacionado"
+
+#bloco_cashback_detalhe
+    maxWidth()
+
+#bloco_cashback_detalhe .header_detalhe
+    blocoShadow()
+    width: 100%
+    flexRow()
+    align-items: center
+    espacoBottomPadrao()
+    figure
+        width: 200px
+        text-align: center
+        margin-right: 20px
+    figure img
+        max-width: 100%
+        max-height: 130px
+    .texto_cashback
+        flexGrow()
+        flexCol()
+        align-items: flex-start
+    .texto_cashback h1
+        titulo()
+    .texto_cashback p
+        texto()
+        margin: 10px 0 20px
+
+#bloco_cashback_detalhe .bloco_passo_a_passo
+    width: 100%
+    espacoBottomPadrao()
+    flexRow()
+    justify-content: space-between
+    .bola
+        width: 50px
+        height: 50px
+        border-radius: 50%
+        top: 0
+        bottom: 0
+        margin: auto -15px auto - 15px
+        z-index: 2
+        background-color: #FFF
+        boxShadow()
+        flexCenter()
+    .descricao_passo_a_passo
+        flex-grow: 1
+        flex-basis: 0%
+        flexCol()
+        blocoShadow()
+        align-items: center
+    .descricao_passo_a_passo p
+        texto()
+        text-align: center
+        margin-top: 20px
+
+#bloco_cashback_detalhe .bloco_dado
+    padding-bottom: 20px
+    .bloco_acessar
+        flexRow()
+        margin-top: 15px
+        align-items: center
+    .bloco_acessar p
+        texto()
+    .bloco_acessar .botao
+        margin-left: 20px
+    .atencao
+        margin-top: 20px
