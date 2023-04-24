@@ -15,18 +15,16 @@ final class FinalidadeSecundaria extends StatusStatus
     public const OUTRO = 'outro';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::ASSOCIACAO => 'Associação',
-                self::SINDICATO => 'Sindicato',
-                self::EMBAIXADA => 'Embaixada',
-                self::CONSELHO => 'Conselho de classe',
-                self::FACULDADE => 'Faculdade',
-                self::BANCO => 'Banco',
-                self::OUTRO => 'Outro',
-            ]
-        );
+        parent::__construct([
+            self::ASSOCIACAO => 'Associação',
+            self::SINDICATO  => 'Sindicato',
+            self::EMBAIXADA  => 'Embaixada',
+            self::CONSELHO   => 'Conselho de classe',
+            self::FACULDADE  => 'Faculdade',
+            self::BANCO      => 'Banco',
+            self::OUTRO      => 'Outro'
+        ]);
     }
 }

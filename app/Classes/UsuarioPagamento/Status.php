@@ -10,13 +10,11 @@ final class Status extends StatusStatus
     public const PAGO = 'pago';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::ABERTO => 'Aberto',
-                self::PAGO => 'Pago'
-            ]
-        );
+        parent::__construct([
+            self::ABERTO => 'Aberto',
+            self::PAGO   => 'Pago'
+        ]);
     }
 }

@@ -10,13 +10,11 @@ final class FinalidadePrincipal extends StatusStatus
     public const PRIVADA = 'privada';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::PUBLICA => 'Entidade pública',
-                self::PRIVADA => 'Empresa privada',
-            ]
-        );
+        parent::__construct([
+            self::PUBLICA => 'Entidade pública',
+            self::PRIVADA => 'Empresa privada'
+        ]);
     }
 }

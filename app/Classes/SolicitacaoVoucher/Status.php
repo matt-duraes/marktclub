@@ -11,19 +11,16 @@ final class Status extends StatusStatus
     public const VENCIDO = 'vencido';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::CRIADO => 'Criado',
-                self::VALIDADO => 'Validado',
-                self::VENCIDO => 'Vencido',
-            ],
-            cor: [
-                self::CRIADO => 'azul',
-                self::VALIDADO => 'verde',
-                self::VENCIDO => 'vermelho'
-            ]
-        );
+        parent::__construct([
+            self::CRIADO   => 'Criado',
+            self::VALIDADO => 'Validado',
+            self::VENCIDO  => 'Vencido'
+        ], [
+            self::CRIADO   => 'azul',
+            self::VALIDADO => 'verde',
+            self::VENCIDO  => 'vermelho'
+        ]);
     }
 }

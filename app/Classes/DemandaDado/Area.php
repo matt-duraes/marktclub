@@ -10,13 +10,11 @@ final class Area extends StatusStatus
     public const CRIACAO = 'criacao';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::TECNOLOGIA => 'Tecnologia',
-                self::CRIACAO => 'Criação'
-            ]
-        );
+        parent::__construct([
+            self::TECNOLOGIA => 'Tecnologia',
+            self::CRIACAO    => 'Criação'
+        ]);
     }
 }

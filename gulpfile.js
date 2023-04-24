@@ -40,7 +40,7 @@ exports.upgrade = series(
     instalandoDownloadDoProjeto,
     copiandoArquivoDoComposer,
     executandoComposerInstall,
-    parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste)
+    parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste),
 );
 
 // Limpa o framework
@@ -52,7 +52,7 @@ exports.deploy = parallel(
     series(copiandoArquivosJS, preparandoJSParaProducao),
     series(copiandoArquivosHtml, preparandoHtmlParaProducao),
     copiandoArquivosDeImagem,
-    criandoDefineTabela
+    criandoDefineTabela,
 );
 exports.js = parallel(copiandoArquivosJS);
 exports.css = parallel(copiandoArquivosCSS);
@@ -69,10 +69,10 @@ exports.install = series(
         copiandoArquivoParaDocker,
         criandoDiretorios,
         copiandoArquivoParaEnv,
-        copiandoArquivoParaPhpMussel
+        copiandoArquivoParaPhpMussel,
     ),
     copiandoArquivoDeErro,
-    criandoPaginaExemplo
+    criandoPaginaExemplo,
 );
 
 // Executa ao dar commit
@@ -99,12 +99,15 @@ function validandoArquivoDeConfiguracao() {
 function corrigindoBugDoComposer() {
     return buildCorrigindoComposer();
 }
+
 async function fazerDownloadDoProjeto() {
     return buildBaixandoUpdate();
 }
+
 function instalandoDownloadDoProjeto() {
     return buildCopiandoUpdate();
 }
+
 function subindoContainer() {
     return dockerComposerUp();
 }
@@ -174,7 +177,7 @@ async function monitorarSistema() {
             await htmlTodos();
             browserSync.reload();
             consoleFooter(time);
-        }
+        },
     );
     watch(['./src/**/*.php', '!./src/Database/tabela.php']).on('change', () => {
         browserSync.reload();
@@ -206,6 +209,7 @@ function verificarSePrecisaConfigurar() {
 function copiandoArquivoDoComposer() {
     return buildCopiarComposerConfig();
 }
+
 function executandoComposerInstall() {
     return buildComposerInstall();
 }
@@ -217,15 +221,19 @@ function copiandoArquivoParaDocker() {
 function criandoDiretorios() {
     return buildDiretorios();
 }
+
 function copiandoArquivosDaRaiz() {
     return buildArquivosRaiz();
 }
+
 function copiandoArquivosDeteste() {
     return buildArquivosTeste();
 }
+
 function copiandoArquivosPublicos() {
     return buildArquivosPublico();
 }
+
 function copiandoArquivoDeErro() {
     return buildArquivoErro();
 }
@@ -273,9 +281,11 @@ function preparandoHtmlParaProducao() {
 function copiandoArquivosDeImagem() {
     return imagemTodos();
 }
+
 function criandoDefineTabela() {
     return buildDefineTabela();
 }
+
 function criandoPaginaExemplo() {
     return buildPaginaExemplo();
 }

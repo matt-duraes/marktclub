@@ -10,10 +10,10 @@ final class Tipo extends Status
     public const AUTOMOVEL = 'automovel';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::LOJA => 'Loja',
+            self::LOJA      => 'Loja',
             self::AUTOMOVEL => 'Automóvel'
         ]);
     }

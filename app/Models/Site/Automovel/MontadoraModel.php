@@ -1,10 +1,10 @@
 <?php
 
-namespace App\models\Site\Automovel;
+namespace App\Models\Site\Automovel;
 
-use stdClass;
-use Helpers\ApiHelper;
 use App\Models\Site\ListarInterface;
+use Helpers\ApiHelper;
+use stdClass;
 
 final class MontadoraModel extends ApiHelper implements ListarInterface
 {
@@ -12,6 +12,7 @@ final class MontadoraModel extends ApiHelper implements ListarInterface
     {
         parent::__construct(scope: '');
     }
+
     public function listarDados(): stdClass
     {
         return $this->montarRetorno();
@@ -20,26 +21,26 @@ final class MontadoraModel extends ApiHelper implements ListarInterface
     private function montarRetorno(): stdClass
     {
         return (object)[
-            'tipo' => 'montadora',
+            'tipo'  => 'montadora',
             'lista' => [
                 (object)[
-                    'id' => uuid(),
+                    'id'     => uuid(),
                     'titulo' => 'Montadora 01',
-                    'link' => route('automovel.veiculo') . '/veiculo',
+                    'link'   => route('automovel.veiculo') . '/veiculo',
                     'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg'
                 ],
                 (object)[
-                    'id' => uuid(),
+                    'id'     => uuid(),
                     'titulo' => 'Montadora 02',
-                    'link' => route('automovel.veiculo') . '/veiculo',
+                    'link'   => route('automovel.veiculo') . '/veiculo',
                     'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg'
                 ],
                 (object)[
-                    'id' => uuid(),
+                    'id'     => uuid(),
                     'titulo' => 'Montadora 03',
-                    'link' => route('automovel.veiculo') . '/veiculo',
+                    'link'   => route('automovel.veiculo') . '/veiculo',
                     'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg'
-                ],
+                ]
             ]
         ];
     }

@@ -15,18 +15,16 @@ final class Tipo extends Status
     public const NAO_DEFINIDO = 'nao-definido';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::BACKEND => 'Back-end',
-                self::FRONTEND => 'Front-End',
-                self::CRIACAO => 'Criação',
-                self::APP => 'APP',
-                self::BANCO => 'Banco de dados',
-                self::INFRA => 'Infraestrutura',
-                self::NAO_DEFINIDO => 'Não definido'
-            ]
-        );
+        parent::__construct([
+            self::BACKEND      => 'Back-end',
+            self::FRONTEND     => 'Front-End',
+            self::CRIACAO      => 'Criação',
+            self::APP          => 'APP',
+            self::BANCO        => 'Banco de dados',
+            self::INFRA        => 'Infraestrutura',
+            self::NAO_DEFINIDO => 'Não definido'
+        ]);
     }
 }

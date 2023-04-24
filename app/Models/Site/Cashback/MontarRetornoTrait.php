@@ -9,29 +9,29 @@ trait MontarRetornoTrait
     private function montarRetorno(): stdClass
     {
         return (object)[
-            'tipo' => 'cashback',
+            'tipo'  => 'cashback',
             'lista' => [
                 (object)[
-                    'id' => uuid(),
-                    'titulo' => 'Nome do parceiro 01',
-                    'link' => route('cashback.detalhe') . '/loja',
-                    'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg',
+                    'id'       => uuid(),
+                    'titulo'   => 'Nome do parceiro 01',
+                    'link'     => route('cashback.detalhe') . '/loja',
+                    'imagem'   => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg',
                     'desconto' => '10%'
                 ],
                 (object)[
-                    'id' => uuid(),
-                    'titulo' => 'Nome do parceiro 02',
-                    'link' => route('cashback.detalhe') . '/loja',
-                    'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg',
+                    'id'       => uuid(),
+                    'titulo'   => 'Nome do parceiro 02',
+                    'link'     => route('cashback.detalhe') . '/loja',
+                    'imagem'   => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg',
                     'desconto' => '4%'
                 ],
                 (object)[
-                    'id' => uuid(),
-                    'titulo' => 'Nome do parceiro 03',
-                    'link' => route('cashback.detalhe') . '/loja',
-                    'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg',
+                    'id'       => uuid(),
+                    'titulo'   => 'Nome do parceiro 03',
+                    'link'     => route('cashback.detalhe') . '/loja',
+                    'imagem'   => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg',
                     'desconto' => '7%'
-                ],
+                ]
             ]
         ];
     }

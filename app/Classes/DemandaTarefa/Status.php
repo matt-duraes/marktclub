@@ -11,14 +11,12 @@ final class Status extends StatusStatus
     public const CONCLIDA = 'concluida';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::AGUARDANDO => 'Aguardando',
-                self::ANDAMENTO => 'Em andamento',
-                self::CONCLIDA => 'Concluida'
-            ]
-        );
+        parent::__construct([
+            self::AGUARDANDO => 'Aguardando',
+            self::ANDAMENTO  => 'Em andamento',
+            self::CONCLIDA   => 'Concluida'
+        ]);
     }
 }

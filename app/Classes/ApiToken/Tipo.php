@@ -10,17 +10,14 @@ final class Tipo extends StatusStatus
     public const PAINEL = 'painel';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::CLUBE => 'Clube',
-                self::PAINEL => 'Painel',
-            ],
-            cor: [
-                self::CLUBE => 'verde',
-                self::PAINEL => 'azul',
-            ]
-        );
+        parent::__construct([
+            self::CLUBE  => 'Clube',
+            self::PAINEL => 'Painel'
+        ], [
+            self::CLUBE  => 'verde',
+            self::PAINEL => 'azul'
+        ]);
     }
 }
