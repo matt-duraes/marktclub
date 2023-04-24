@@ -1,0 +1,10 @@
+<!-- Adicionar CSS @resources site/popup -->
+<div class="bloco_popup_geral">
+    <header class="popup_header">
+        <h1>TÍTULO</h1>
+        <i class="fechar">@iconeFechar</i>
+    </header>
+    <div class="popup_conteudo">
+        <!-- CONTEÚDO AQUI -->
+    </div>
+</div>

@@ -54,7 +54,8 @@ exports.deploy = parallel(
     copiandoArquivosDeImagem,
     criandoDefineTabela
 );
-exports.teste = parallel(series(copiandoArquivosJS));
+exports.js = parallel(copiandoArquivosJS);
+exports.css = parallel(copiandoArquivosCSS);
 
 // Instalar o framework
 exports.install = series(

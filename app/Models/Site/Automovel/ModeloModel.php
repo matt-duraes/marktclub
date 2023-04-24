@@ -20,7 +20,7 @@ final class ModeloModel extends ApiHelper implements ListarInterface
     private function montarRetorno(): stdClass
     {
         return (object)[
-            'tipo' => 'veiculo',
+            'tipo' => 'modelo',
             'lista' => [
                 (object)[
                     'id' => uuid(),

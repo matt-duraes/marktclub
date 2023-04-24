@@ -1,0 +1,8 @@
+<!-- Bloco com display none para ser usado no JS -->
+<div class="display_none"></div>
+
+<!-- Bloco com block Flex para ser usado no JS -->
+<div class="display_block"></div>
+
+<!-- Bloco com display Flex para ser usado no JS -->
+<div class="display_flex"></div>

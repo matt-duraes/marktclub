@@ -3,156 +3,156 @@
 
 
 body
-	flexCenter()
+    flexCenter()
 
 @media print
-	body
-		background-color: #FFF
+    body
+        background-color: #FFF
 
 #bloco_voucher
-	flexCol()
-	width: 100%
-	max-width: 730px
-	margin: 20px
-	align-content: center
-	boxShadow()
+    flexCol()
+    width: 100%
+    max-width: 730px
+    margin: 20px
+    align-content: center
+    boxShadow()
 
 #bloco_voucher header
-	width: 100%
-	height: 80px
-	flexCenter()
-	background-color: #FFF
-	figure
-		height: 60px
-		background-position: center center 
-		background-repeat: no-repeat
-	figure img
-		padding: 5px
+    width: 100%
+    height: 80px
+    flexCenter()
+    background-color: #FFF
+    figure
+        height: 60px
+        background-position: center center
+        background-repeat: no-repeat
+    figure img
+        padding: 5px
 
 #bloco_voucher .logo
-	width: auto
-	espacoVerticalPadrao()
-	display: flex
-	align-items: center
-	justify-content: center
-	figure
-		height: 60px
-		background-position: center center 
-		background-repeat: no-repeat
-		background-color: #FFF
-	figure img
-		padding: 5px
+    width: auto
+    espacoVerticalPadrao()
+    display: flex
+    align-items: center
+    justify-content: center
+    figure
+        height: 60px
+        background-position: center center
+        background-repeat: no-repeat
+        background-color: #FFF
+    figure img
+        padding: 5px
 
 #bloco_voucher .container
-	width: 100%
-	background-color: $corClube
-	.imagem
-		width: 100%
-		flexCenter()
-		flexCol()
-		espacoVerticalPadrao()
-		color: rgb(100, 98, 98)
-		font-weight: 600
-	.imagem img 
-		width: 150px
-		height: 150px
-		background-color: #FFF
+    width: 100%
+    background-color: $corClube
+    .imagem
+        width: 100%
+        flexCenter()
+        flexCol()
+        espacoVerticalPadrao()
+        color: rgb(100, 98, 98)
+        font-weight: 600
+    .imagem img
+        width: 150px
+        height: 150px
+        background-color: #FFF
 
 #bloco_voucher .codigo
-	flexCenter()
-	margin: 20px 0px
-	p
-		subTitulo()
+    flexCenter()
+    margin: 20px 0px
+    p
+        subTitulo()
 
 #bloco_voucher .titulo
-	width: 100%
-	flexCenter()
-	flexCol()
-	margin-bottom: 20px
-	h2
-		textoMobile()
-		text-transform: uppercase
-		color: $corClube
-	h1
-		subTitulo()
-		color: $corClube
-	.data
-		width: 100%
-		max-width: 170px
-		display: flex
-		justify-content: space-between
-		margin: 10px 0px
-	.data article
-		flexCenter()
-		flexCol()
-		flex: 1
-		height: 40px
-		background-color: $branco
-		margin: 5px
-		p
-			color: #666
-			padding: 2px 0px
-		p.bold
-			font-weight: bold
-			color: $corClube
-	.cpf_dependente
-		width: 100%
-		font-size: 1.4em
-		text-align: center
+    width: 100%
+    flexCenter()
+    flexCol()
+    margin-bottom: 20px
+    h2
+        textoMobile()
+        text-transform: uppercase
+        color: $corClube
+    h1
+        subTitulo()
+        color: $corClube
+    .data
+        width: 100%
+        max-width: 170px
+        display: flex
+        justify-content: space-between
+        margin: 10px 0px
+    .data article
+        flexCenter()
+        flexCol()
+        flex: 1
+        height: 40px
+        background-color: $branco
+        margin: 5px
+        p
+            color: #666
+            padding: 2px 0px
+        p.bold
+            font-weight: bold
+            color: $corClube
+    .cpf_dependente
+        width: 100%
+        font-size: 1.4em
+        text-align: center
 
 
 #bloco_voucher .descricao
-	width: 100%
-	flexCenter()
-	flexCol()
-	.caixa-descricao
-		width: calc(100% - 40px)
-		padding: 20px
-		background-color: $branco
-		p
-			color: #666
-			textoTelaPequena()
-			line-height: 1.2em
+    width: 100%
+    flexCenter()
+    flexCol()
+    .caixa-descricao
+        width: calc(100% - 40px)
+        padding: 20px
+        background-color: $branco
+        p
+            color: #666
+            textoTelaPequena()
+            line-height: 1.2em
 
 #bloco_voucher .termo
-	width: 100%
-	flexCenter()
-	flexCol()
-	background-color: $branco
-	margin-top: 40px
-	padding: 20px 0px
-	article
-		width: calc(100% - 40px)
-		flexCol()
-		padding: 0px 10px
-	article p
-		font-size: 1em
-		line-height: 1em
-		color: #666
-		margin: 2px
-	article.imagem
-		flexCenter()
-		figure
-			background-position: center center 
-			background-repeat: no-repeat
-		figure img
-			padding: 15px
+    width: 100%
+    flexCenter()
+    flexCol()
+    background-color: $branco
+    margin-top: 40px
+    padding: 20px 0px
+    article
+        width: calc(100% - 40px)
+        flexCol()
+        padding: 0px 10px
+    article p
+        font-size: 1em
+        line-height: 1em
+        color: #666
+        margin: 2px
+    article.imagem
+        flexCenter()
+        figure
+            background-position: center center
+            background-repeat: no-repeat
+        figure img
+            padding: 15px
 
 @media print
-	#bloco_voucher
-		width: 100%
-		margin: 0
-		float: none !important
-	#bloco_voucher .container
-		background-color: transparent !important
-	#bloco_voucher .titulo h1
-		color: #000 !important
-	#bloco_voucher .titulo .data article
-		border: 1px solid #E8E8E8
-	#bloco_voucher .titulo .data article p.bold
-		color: #000 !important
+    #bloco_voucher
+        width: 100%
+        margin: 0
+        float: none !important
+    #bloco_voucher .container
+        background-color: transparent !important
+    #bloco_voucher .titulo h1
+        color: #000 !important
+    #bloco_voucher .titulo .data article
+        border: 1px solid #E8E8E8
+    #bloco_voucher .titulo .data article p.bold
+        color: #000 !important
 
 @media screen and (max-width: 730px)
-	#bloco_voucher
-		border: none
-		margin: 0
+    #bloco_voucher
+        border: none
+        margin: 0

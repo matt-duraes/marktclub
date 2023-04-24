@@ -1,0 +1,39 @@
+<!-- Página com passo-a-passo, deve adicionar @resources site/passo_passo -->
+<div class="bloco_passo_passo_geral">
+    <div class="bloco_progresso">
+        <div class="item">
+            <div class="bola">
+                <span>1</span>
+                <div class="cor_fill check">@iconeCheck()</div>
+            </div>
+            <p>Texto 01</p>
+        </div>
+        <div class="item">
+            <div class="bola">
+                <span>2</span>
+                <div class="cor_fill check">@iconeCheck()</div>
+            </div>
+            <p>Texto 02</p>
+        </div>
+        <div class="item">
+            <div class="bola">
+                <span>3</span>
+                <div class="cor_fill check">@iconeCheck()</div>
+            </div>
+            <p>Texto 03</p>
+        </div>
+    </div>
+    <div class="bloco_conteudo">
+        <div class="bloco_scroll">
+            <div class="conteudo">
+                <!-- Conteudo 01 -->
+            </div>
+            <div class="conteudo">
+                <!-- Conteudo 02 -->
+            </div>
+            <div class="conteudo">
+                <!-- Conteudo 03 -->
+            </div>
+        </div>
+    </div>
+</div>

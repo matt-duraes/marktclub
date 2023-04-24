@@ -2,25 +2,22 @@
 
 namespace App\Controllers\Site;
 
-use Controller\Controller;
-use Helpers\ApiHelper;
-use Helpers\SocialHelper;
 use Http\Request;
 use Http\Response;
-use App\Models\Site\Perfil\{DadosModel, DependenteModel, SenhaModel};
+use Helpers\ApiHelper;
+use Helpers\SocialHelper;
+use Controller\Controller;
 use App\Models\Api\Loja\LojaMapaModel;
+use App\Models\Site\Perfil\{DadosModel, DependenteModel, SenhaModel};
 
 final class PerfilController extends Controller
 {
     public function index()
     {
-
-        $Perfil = new DadosModel();
-        $perfil = $Perfil->getDado();
-
         return view('perfil.index', [
-            'tituloPagina' => 'Atualize seus dados',
-            'dado' => $perfil
+            'dado' => (object)[
+                'nome' => '',
+            ]
         ]);
     }
 
@@ -64,7 +61,6 @@ final class PerfilController extends Controller
     {
 
         return (new DependenteModel())->postDado($request);
-
     }
 
     /*
@@ -76,7 +72,6 @@ final class PerfilController extends Controller
     {
 
         return (new DependenteModel())->postDeleta($request);
-
     }
 
     /*
@@ -88,7 +83,6 @@ final class PerfilController extends Controller
     {
 
         return (new SenhaModel())->postDado($request);
-
     }
 
     /*
@@ -103,5 +97,4 @@ final class PerfilController extends Controller
 
         return mensagemSucesso([], status: 201);
     }
-
 }

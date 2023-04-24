@@ -48,8 +48,7 @@ const cupomDetalhe = () => {
     });
 };
 
-window.onload = function () {
-    const LINK = document.getElementById('LINK').value;
+window.addEventListener('load', () => {
     const cupomLista = document.querySelectorAll('#bloco_cupom article');
 
     if (!cupomLista) {
@@ -64,4 +63,4 @@ window.onload = function () {
             cupomPagina[url].abrir();
         });
     });
-};
+});

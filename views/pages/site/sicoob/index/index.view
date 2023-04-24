@@ -16,7 +16,7 @@
     </div>
 
     <section class="bloco_escolha bloco_titulo_texto_centralizado">
-        <h2>QUAL PRODUTO DESEJA?</h2>
+        <h1>QUAL PRODUTO DESEJA?</h1>
         <p>Escolha entre a contratação de um novo consignado ou a portabilidade do seu consignado atual.</p>
 
         <div class="bloco_botao">
