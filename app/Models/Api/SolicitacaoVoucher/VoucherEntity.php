@@ -8,6 +8,7 @@ use Modules\DataHora;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\ParceiroLoja\LojaEntity;
+use App\Classes\SolicitacaoVoucher\TipoUsuario;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\SolicitacaoVoucher\Trait\TextoTrait;
@@ -27,19 +28,20 @@ final class VoucherEntity extends Entity implements VoucherInterface
         'id_usuario_cliente' => 'usuario',
         'id_admin_empresa' => 'empresa',
         'id_vinculo' => 'vinculo',
-        'tipo', 'codigo', 'data_criacao', 'data_atualizacao', 'data_validacao',
+        'tipo', 'tipo_usuario', 'codigo', 'data_criacao', 'data_atualizacao', 'data_validacao',
         'data_vencimento', 'status'
     ];
     protected array $ormInsert = [
         'empresa' => '->id_admin_empresa',
         'usuario' => '->id_usuario_cliente',
         'vinculo' => '->id_vinculo',
-        'titulo', 'tipo', 'codigo', 'data_vencimento', 'status'
+        'titulo', 'tipo', 'tipo_usuario', 'codigo', 'data_vencimento', 'status'
     ];
 
     public Data $data_vencimento;
     public DataHora $data_validacao;
     public Status $status;
+    public TipoUsuario $tipo_usuario;
 
     protected string $id_vinculo;
     protected int $id_usuario_cliente;

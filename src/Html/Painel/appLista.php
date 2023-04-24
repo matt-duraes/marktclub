@@ -3,6 +3,7 @@
         $URI = preg_replace(['/\&?pagina\=[0-9]+/', '/^\//'], '', URI);
         $URI = str_contains($URI, '?') ? $URI . '&' : $URI . '?';
         $appLink = str_replace('_', '-', $app);
+        $replace = $config->index->replace;
     ?>
     <?php if ($filtro || !empty($busca->ordem)) : ?>
         <div id="bloco_app_filtro" class="bloco_filtro">
@@ -141,13 +142,25 @@
                                         <div class="barra"></div>
                                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno']) && isset($grade['copiar']) && $grade['copiar']) : ?>
                                         <div class="td <?= $grade['tipo'] ?> bloco_copiar">
-                                            <?= painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '') ?>
+                                            <?php
+                                                $valor = painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '');
+                                            if (array_key_exists($grade['campo'], $replace)) {
+                                                $valor = $replace[$grade['campo']][$valor] ?? $valor;
+                                            }
+                                                echo $valor;
+                                            ?>
                                             <div class="botao_copiar copiar" data-ajuda="Copiar"><?= iconeCopiar() ?></div>
                                         </div>
                                         <div class="barra"></div>
                                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
                                         <div class="td <?= $primeiro == true ? 'primeiro' : ''?> <?= $grade['tipo'] ?>">
-                                            <?= painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '') ?>
+                                            <?php
+                                                $valor = painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '');
+                                            if (array_key_exists($grade['campo'], $replace)) {
+                                                $valor = $replace[$grade['campo']][$valor] ?? $valor;
+                                            }
+                                                echo $valor;
+                                            ?>
                                         </div>
                                         <div class="barra"></div>
                                         <?php

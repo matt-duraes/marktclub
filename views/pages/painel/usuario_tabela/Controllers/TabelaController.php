@@ -16,7 +16,7 @@ final class TabelaController extends Controller
             'appTitulo' => 'TABELA / SALVAR',
             'app' => 'tabela-salvar',
             'tipo' => 'salvar',
-            'arquivo' => arquivoPublico('tabela', 'layout_usuario.csv')
+            'arquivo' => arquivoPublico('tabela', 'layout_usuario.csv', parametro: ['download' => 'sim'])
         ]);
     }
 
@@ -26,7 +26,7 @@ final class TabelaController extends Controller
             'appTitulo' => 'TABELA / BLOQUEAR',
             'app' => 'tabela-bloquear',
             'tipo' => 'bloquear',
-            'arquivo' => arquivoPublico('tabela', 'layout_bloqueio.csv')
+            'arquivo' => arquivoPublico('tabela', 'layout_bloqueio.csv', parametro: ['download' => 'sim'])
         ]);
     }
 
