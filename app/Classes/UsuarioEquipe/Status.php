@@ -10,17 +10,14 @@ final class Status extends StatusStatus
     public const INATIVO = 'inativo';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::ATIVO => 'Ativo',
-                self::INATIVO => 'Inativo',
-            ],
-            cor: [
-                self::ATIVO => 'verde',
-                self::INATIVO => 'vermelho',
-            ],
-        );
+        parent::__construct([
+            self::ATIVO   => 'Ativo',
+            self::INATIVO => 'Inativo'
+        ], [
+            self::ATIVO   => 'verde',
+            self::INATIVO => 'vermelho'
+        ]);
     }
 }

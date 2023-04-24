@@ -10,13 +10,11 @@ final class Status extends StatusStatus
     public const ERRO = 'erro';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::NOVA => 'Nova',
-                self::ERRO => 'Erro'
-            ]
-        );
+        parent::__construct([
+            self::NOVA => 'Nova',
+            self::ERRO => 'Erro'
+        ]);
     }
 }

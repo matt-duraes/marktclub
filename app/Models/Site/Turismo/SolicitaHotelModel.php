@@ -2,11 +2,9 @@
 
 namespace App\Models\Site\Turismo;
 
-use stdClass;
-use Http\Request;
-use Http\Response;
+use Erro\Excecao;
 use Helpers\ApiHelper;
-use Helpers\ListaHelper;
+use Http\Request;
 
 final class SolicitaHotelModel
 {
@@ -20,37 +18,41 @@ final class SolicitaHotelModel
     public function __construct(
         private Request $request
     ) {
-
-        $this->cidade = $request->cidade;
-        $this->checkin = $request->checkin;
-        $this->checkout = $request->checkout;
-        $this->quantidade_quarto = $request->quantidade_quarto;
-        $this->adulto = !empty($request->adulto) ? $request->adulto : 0;
-        $this->crianca = !empty($request->crianca) ? $request->crianca : 0;
-
+        $this->cidade = $this->request->cidade;
+        $this->checkin = $this->request->checkin;
+        $this->checkout = $this->request->checkout;
+        $this->quantidade_quarto = $this->request->quantidade_quarto;
+        $this->adulto = !empty($this->request->adulto) ? $this->request->adulto : 0;
+        $this->crianca = !empty($this->request->crianca) ? $this->request->crianca : 0;
     }
-    public function postDado()
-    {
 
+    /**
+     * @return string
+     * @throws Excecao
+     */
+    public function postDado(): string
+    {
         $Api = new ApiHelper('turismo:buscar');
         $dado = [
-            'cidade' => $this->cidade,
-            'checkin' => $this->checkin,
-            'checkout' => $this->checkout,
+            'cidade'            => $this->cidade,
+            'checkin'           => $this->checkin,
+            'checkout'          => $this->checkout,
             'quantidade_quarto' => $this->quantidade_quarto,
         ];
         if (!empty($this->adulto)) {
-            foreach($this->adulto as $key => $valor):
+            foreach ($this->adulto as $key => $valor) {
                 $dado['adulto'][$key] = $valor;
-            endforeach;
+            }
         }
         if (!empty($this->crianca)) {
-            foreach($this->crianca as $key => $valor):
+            foreach ($this->crianca as $key => $valor) {
                 $dado['crianca'][$key] = $valor;
-            endforeach;
+            }
         }
 
-        $dado = $Api->body($dado)->post('/turismo/solicitar-hotel')->object();
+        $dado = $Api->body($dado)
+            ->post('/turismo/solicitar-hotel')
+            ->object();
 
         if (existeErro($dado, 'dado')) {
             mensagemErro(
@@ -61,12 +63,13 @@ final class SolicitaHotelModel
         return $this->montarRetorno($dado);
     }
 
-    private function montarRetorno($dado)
+    /**
+     * @param  $dado
+     *
+     * @return string
+     */
+    private function montarRetorno($dado): string
     {
-
         return $dado->dado->link ?? '';
     }
-
-
-
 }

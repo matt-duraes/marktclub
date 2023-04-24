@@ -2,11 +2,9 @@
 
 namespace App\Models\Site\Turismo;
 
-use stdClass;
-use Http\Request;
-use Http\Response;
+use Erro\Excecao;
 use Helpers\ApiHelper;
-use Helpers\ListaHelper;
+use Http\Request;
 
 final class CidadeAeroportoModel
 {
@@ -15,14 +13,15 @@ final class CidadeAeroportoModel
     public function __construct(
         private Request $request
     ) {
-
-        $this->pesquisa = $request->pesquisa;
-
+        $this->pesquisa = $this->request->pesquisa;
     }
 
-    public function getDado()
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function getDado(): array
     {
-
         $Api = new ApiHelper('turismo:aeroporto');
         $dado = $Api->json([
             'pesquisa' => $this->pesquisa ?? '',
@@ -31,19 +30,20 @@ final class CidadeAeroportoModel
         return $this->montarRetorno($dado);
     }
 
-    private function montarRetorno($dado)
+    /**
+     * @param  $dado
+     *
+     * @return array
+     */
+    private function montarRetorno($dado): array
     {
-
         $retorno = [];
-        if(is_array($dado['dado']) && !empty($dado['dado'])):
-            foreach($dado['dado'] as $key => $valor):
+        if (is_array($dado['dado']) && !empty($dado['dado'])) {
+            foreach ($dado['dado'] as $key => $valor) {
                 $retorno[$key] = $valor;
-            endforeach;
-        endif;
+            }
+        }
 
         return $retorno;
     }
-
-
-
 }

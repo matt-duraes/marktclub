@@ -36,39 +36,37 @@ final class Federacao extends StatusStatus
     public const TO = 'TO';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::FU => 'Funcionario',
-                self::AC => 'Acre',
-                self::AL => 'Alagoas',
-                self::AP => 'Amapá',
-                self::AM => 'Amazonas',
-                self::BA => 'Bahia',
-                self::CE => 'Ceará',
-                self::DF => 'Distrito Federal',
-                self::ES => 'Espírito Santo',
-                self::GO => 'Goiás',
-                self::MA => 'Maranhão',
-                self::MT => 'Mato Grosso',
-                self::MS => 'Mato Grosso do Sul',
-                self::MG => 'Minas Gerais',
-                self::PA => 'Pará',
-                self::PB => 'Paraíba',
-                self::PR => 'Paraná',
-                self::PE => 'Pernambuco',
-                self::PI => 'Piauí',
-                self::RJ => 'Rio de Janeiro',
-                self::RN => 'Rio Grande do Norte',
-                self::RS => 'Rio Grande do Sul',
-                self::RO => 'Rondônia',
-                self::RR => 'Roraima',
-                self::SC => 'Santa Catarina',
-                self::SP => 'São Paulo',
-                self::SE => 'Sergipe',
-                self::TO => 'Tocantins',
-            ],
-        );
+        parent::__construct([
+            self::FU => 'Funcionario',
+            self::AC => 'Acre',
+            self::AL => 'Alagoas',
+            self::AP => 'Amapá',
+            self::AM => 'Amazonas',
+            self::BA => 'Bahia',
+            self::CE => 'Ceará',
+            self::DF => 'Distrito Federal',
+            self::ES => 'Espírito Santo',
+            self::GO => 'Goiás',
+            self::MA => 'Maranhão',
+            self::MT => 'Mato Grosso',
+            self::MS => 'Mato Grosso do Sul',
+            self::MG => 'Minas Gerais',
+            self::PA => 'Pará',
+            self::PB => 'Paraíba',
+            self::PR => 'Paraná',
+            self::PE => 'Pernambuco',
+            self::PI => 'Piauí',
+            self::RJ => 'Rio de Janeiro',
+            self::RN => 'Rio Grande do Norte',
+            self::RS => 'Rio Grande do Sul',
+            self::RO => 'Rondônia',
+            self::RR => 'Roraima',
+            self::SC => 'Santa Catarina',
+            self::SP => 'São Paulo',
+            self::SE => 'Sergipe',
+            self::TO => 'Tocantins'
+        ]);
     }
 }

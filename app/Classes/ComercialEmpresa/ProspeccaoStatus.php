@@ -13,16 +13,14 @@ final class ProspeccaoStatus extends StatusStatus
     public const MINUTA = 'minuta';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::ABORDAGEM => 'Abordagem',
-                self::APRESENTACAO => 'Apresentação',
-                self::NEGOCIACAO => 'Nogociação',
-                self::AVALIACAO => 'Em avaliação',
-                self::MINUTA => 'Minuta enviada',
-            ]
-        );
+        parent::__construct([
+            self::ABORDAGEM    => 'Abordagem',
+            self::APRESENTACAO => 'Apresentação',
+            self::NEGOCIACAO   => 'Nogociação',
+            self::AVALIACAO    => 'Em avaliação',
+            self::MINUTA       => 'Minuta enviada'
+        ]);
     }
 }

@@ -4,105 +4,130 @@ namespace App\Models\Site;
 
 final class BannerModel
 {
-    public function index()
-    {
-        return (object)[
-        'desktop' => [
-            (object)[
-                'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
-                'link' => route('loja.detalhe') . '/loja'
-            ],
-            (object)[
-                'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
-                'link' => route('loja.detalhe') . '/loja'
-            ],
-        ],
-        'mobile' => [
-            (object)[
-                'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
-                'link' => route('loja.detalhe') . '/loja'
-            ],
-            (object)[
-                'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
-                'link' => route('loja.detalhe') . '/loja'
-            ],
-        ]
-        ];
-    }
-
-    public function loja()
-    {
-        return $this->index();
-    }
-    public function automovel()
+    /**
+     * @return object
+     */
+    public function loja(): object
     {
         return $this->index();
     }
 
-    public function turismo()
+    /**
+     * @return object
+     */
+    public function index(): object
     {
         return (object)[
-        'desktop' => [
-            (object)[
-                'imagem' => LINK_PADRAO . '/images/site/turismo_123_desktop.png',
-                'link' => ''
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
+                    'link'   => route('loja.detalhe') . '/loja'
+                ],
+                (object)[
+                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
+                    'link'   => route('loja.detalhe') . '/loja'
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
+                    'link'   => route('loja.detalhe') . '/loja'
+                ],
+                (object)[
+                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
+                    'link'   => route('loja.detalhe') . '/loja'
+                ]
             ]
-        ],
-        'mobile' => [
-            (object)[
-                'imagem' => LINK_PADRAO . '/images/site/turismo_123_mobile.png',
-                'link' => ''
-            ]
-        ]
         ];
     }
-    public function turismoCarro()
+
+    /**
+     * @return object
+     */
+    public function automovel(): object
+    {
+        return $this->index();
+    }
+
+    /**
+     * @return object
+     */
+    public function turismo(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/turismo_123_desktop.png',
+                    'link'   => ''
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/turismo_123_mobile.png',
+                    'link'   => ''
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return object
+     */
+    public function turismoCarro(): object
     {
         return (object)[
             'desktop' => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/turismo_carro_desktop.png',
-                    'link' => ''
+                    'link'   => ''
                 ]
             ],
-            'mobile' => [
+            'mobile'  => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/turismo_carro_mobile.png',
-                    'link' => ''
+                    'link'   => ''
                 ]
             ]
         ];
     }
-    public function sicoob()
+
+    /**
+     * @return object
+     */
+    public function sicoob(): object
     {
         return (object)[
             'desktop' => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/credito_sicoob_desktop.jpg',
-                    'link' => ''
+                    'link'   => ''
                 ]
             ],
-            'mobile' => [
+            'mobile'  => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/credito_sicoob_mobile.jpg',
-                    'link' => ''
+                    'link'   => ''
                 ]
             ]
         ];
     }
-    public function alfa()
+
+    /**
+     * @return object
+     */
+    public function alfa(): object
     {
         return (object)[
             'desktop' => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/credito_alfa_desktop.png',
-                    'link' => ''
+                    'link'   => ''
                 ]
             ],
-            'mobile' => [
+            'mobile'  => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/credito_alfa_mobile.png',
-                    'link' => ''
+                    'link'   => ''
                 ]
             ]
         ];

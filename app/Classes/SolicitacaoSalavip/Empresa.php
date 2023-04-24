@@ -10,14 +10,11 @@ final class Empresa extends Status
     public const ANAPE = 'anape';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            [
-                self::ANAFE => 'ANAFE',
-                self::ANAPE => 'ANAPE'
-            ],
-            numero: [2, 66]
-        );
+        parent::__construct([
+            self::ANAFE => 'ANAFE',
+            self::ANAPE => 'ANAPE'
+        ], numero: [2, 66]);
     }
 }

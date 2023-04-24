@@ -7,36 +7,36 @@ use Status\Status;
 final class TrabalhoCargo extends Status
 {
     public const EMPRESA = [
-        'geral' => [
-            'lista' => [
+        'geral'     => [
+            'lista'  => [
                 'geral' => 'Geral'
             ],
             'numero' => [2000]
         ],
         'marktclub' => [
-            'lista' => [
+            'lista'  => [
                 'desenvolvedor' => 'Desenvolvedor'
             ],
             'numero' => [1000]
         ],
-        'unareg' => [
-            'lista' => [
-                'analista-administrativo' => 'Analista Administrativo',
-                'especialista' => 'Especialista',
+        'unareg'    => [
+            'lista'  => [
+                'analista-administrativo'       => 'Analista Administrativo',
+                'especialista'                  => 'Especialista',
                 'especialista-geoprocessamento' => 'Especialista em Geoprocessamento',
-                'especialista-regulacao' => 'Especialista em Regulação',
-                'tecnico-administrativo' => 'Técnico Administrativo',
-                'tecnico-regulacao' => 'Técnico em Regulação',
+                'especialista-regulacao'        => 'Especialista em Regulação',
+                'tecnico-administrativo'        => 'Técnico Administrativo',
+                'tecnico-regulacao'             => 'Técnico em Regulação',
                 'especialista-recuros-minerais' => 'Especialista em Recursos Minerais',
-                'tecnico-atividades-mineracao' => 'Técnico em Atividades de Mineração',
-                'colaborador' => 'Colaborador UNAREG',
+                'tecnico-atividades-mineracao'  => 'Técnico em Atividades de Mineração',
+                'colaborador'                   => 'Colaborador UNAREG'
             ],
             'numero' => [1, 2, 3, 4, 5, 6, 7, 8, 9]
         ]
     ];
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
         parent::__construct(empresa: self::EMPRESA);
     }
