@@ -26,10 +26,12 @@ final class AutomovelController extends Controller
     }
 
     /**
+     * @param  string  $url
+     *
      * @return Response
      * @throws Excecao
      */
-    public function veiculo(): Response
+    public function veiculo(string $url): Response
     {
         return view('automovel.veiculo', [
             'menu'  => 'automovel',
@@ -38,10 +40,13 @@ final class AutomovelController extends Controller
     }
 
     /**
+     * @param  string  $montadora
+     * @param  string  $veiculo
+     *
      * @return Response
      * @throws Excecao
      */
-    public function modelo(): Response
+    public function modelo(string $montadora, string $veiculo): Response
     {
         return view('automovel.modelo', [
             'menu'  => 'automovel',
@@ -54,7 +59,7 @@ final class AutomovelController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function abrirModalModeloVoucher(): Response
+    public function abrirModalModeloVoucher($url = null): Response
     {
         return view('automovel.detalheAutomovel.modalVoucher');
     }
@@ -63,7 +68,7 @@ final class AutomovelController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function abrirModalModeloDeclaracao(): Response
+    public function abrirModalModeloDeclaracao($url = null): Response
     {
         $perfil = 'titular';
         $default = $perfil == 'titular' ? '' : 'esconde';

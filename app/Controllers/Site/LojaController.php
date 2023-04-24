@@ -5,6 +5,7 @@ namespace App\Controllers\Site;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Loja\MapaModel;
 use App\Models\Site\Loja\RelacionadoModel;
 use Controller\Controller;
 use Erro\Excecao;
@@ -68,19 +69,24 @@ final class LojaController extends Controller
     }
 
     /**
+     * @param  string  $url
+     *
      * @return Response
      * @throws Excecao
      */
-    public function confirmar(): Response
+    public function confirmar(string $url): Response
     {
         return view('loja.confirmar');
     }
 
     /**
+     * @param  Request         $request
+     * @param  MapaModel|null  $Busca
+     *
      * @return Response
      * @throws Excecao
      */
-    public function proxima(): Response
+    public function proxima(Request $request, MapaModel $Busca = null): Response
     {
         return view('loja.proxima', [
             'menu' => 'loja-proxima'
@@ -88,10 +94,12 @@ final class LojaController extends Controller
     }
 
     /**
+     * @param  Request  $request
+     *
      * @return Response
      * @throws Excecao
      */
-    public function abrirModal(): Response
+    public function abrirModal(Request $request): Response
     {
         return view('loja.geral.modal');
     }
@@ -117,9 +125,11 @@ final class LojaController extends Controller
     }
 
     /**
+     * @param  Request  $request
+     *
      * @return Response
      */
-    public function postBuscaMapa(): Response
+    public function postBuscaMapa(Request $request): Response
     {
         return new Response(status: 201);
     }

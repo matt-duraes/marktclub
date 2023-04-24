@@ -17,7 +17,7 @@ final class CupomController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function buscar(Request $request, ?string $pesquisa = null): Response
+    public function buscar(Request $request, string $pesquisa = null): Response
     {
         if ($pesquisa) {
             return $this->index($pesquisa);
@@ -34,7 +34,7 @@ final class CupomController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function index(?string $pesquisa = null): Response
+    public function index(string $pesquisa = null): Response
     {
         return view('cupom.index', [
             'menu'         => 'cupom',
