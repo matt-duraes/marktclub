@@ -2,26 +2,22 @@
 
 namespace App\Controllers\Site;
 
+use App\Models\Site\Cupom\ListarModel;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Helpers\ApiHelper;
-use Controller\Controller;
-use App\models\Site\Cupom\ListarModel;
 
 final class CupomController extends Controller
 {
-    public function index(?string $pesquisa = null)
-    {
-        return view('cupom.index', [
-            'menu' => 'cupom',
-            'banner' => false,
-            'pesquisa' => $pesquisa,
-            'lista' => (new ListarModel())->listarDados(),
-            'parceiroTipo' => 'cupom'
-        ]);
-    }
-
-    public function buscar(Request $request, ?string $pesquisa = null)
+    /**
+     * @param  Request      $request
+     * @param  string|null  $pesquisa
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function buscar(Request $request, ?string $pesquisa = null): Response
     {
         if ($pesquisa) {
             return $this->index($pesquisa);
@@ -32,7 +28,30 @@ final class CupomController extends Controller
         return new Response(url: route('cupom.buscar') . '/' . strSlug($request->pesquisa));
     }
 
-    public function detalhe(string $url)
+    /**
+     * @param  string|null  $pesquisa
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function index(?string $pesquisa = null): Response
+    {
+        return view('cupom.index', [
+            'menu'         => 'cupom',
+            'banner'       => false,
+            'pesquisa'     => $pesquisa,
+            'lista'        => (new ListarModel())->listarDados(),
+            'parceiroTipo' => 'cupom'
+        ]);
+    }
+
+    /**
+     * @param  string  $url
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function detalhe(string $url): Response
     {
         return view('cupom.detalhe', [
             'url' => $url
