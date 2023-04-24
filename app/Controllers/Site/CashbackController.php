@@ -18,7 +18,7 @@ final class CashbackController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function buscar(Request $request, ?string $pesquisa = null): Response
+    public function buscar(Request $request, string $pesquisa = null): Response
     {
         if ($pesquisa) {
             return $this->index($pesquisa);
@@ -46,10 +46,12 @@ final class CashbackController extends Controller
 
     /**
      *
+     * @param  string  $url
+     *
      * @return Response
      * @throws Excecao
      */
-    public function detalhe(): Response
+    public function detalhe(string $url): Response
     {
         return view('cashback.detalhe', [
             'menu'         => 'cashback',
