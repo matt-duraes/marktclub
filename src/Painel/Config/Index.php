@@ -13,6 +13,7 @@ final class Index
     private string $linkEditar;
     private string $linkVisualizar;
     private bool $drag = false;
+    private array $replace = [];
 
     public function __construct(
         private string $app,
@@ -192,5 +193,14 @@ final class Index
     public function pegarDrag()
     {
         return $this->drag;
+    }
+
+    public function replace(string $campo, array $lista)
+    {
+        $this->replace[$campo] = $lista;
+    }
+    public function pegarReplace()
+    {
+        return $this->replace;
     }
 }

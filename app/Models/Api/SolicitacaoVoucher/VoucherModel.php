@@ -8,6 +8,7 @@ use Http\Request;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\SolicitacaoVoucher\TipoUsuario;
 use App\Models\Api\SolicitacaoVoucher\Trait\ModelBuscarTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
 
@@ -45,12 +46,14 @@ final class VoucherModel extends ORM
 
         $Status = new Status();
         $Tipo = new Tipo();
+        $TipoUsuario = new TipoUsuario();
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->cod,
                 'parceiro' => $r->titulo,
                 'tipo' => $Tipo->indice($r->tipo),
+                'tipo_usuario' => $TipoUsuario->indice($r->tipo_usuario),
                 'data_vencimento' => $r->data_vencimento,
                 'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status)

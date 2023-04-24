@@ -24,6 +24,7 @@ abstract class Tests
     use Usuario;
     use Outros;
 
+    private array $tabelaResetar = [];
     private array $todos = [];
     private array $passou = [];
     private array $falhou = [];
@@ -505,23 +506,36 @@ abstract class Tests
     }
 
     /**
-     * Reseta a tabela
+     * Adicionar tabela para resetar
      *
      * @param   string  $tabela     Nome da tabela que dese ser resetada
      */
-    protected function resetarTabela(string $tabela)
+    protected function tabela(string $tabela)
     {
         $path = ROOT . '/database/' . $tabela;
         if (!file_exists($path . '/base.php')) {
-            return;
+            return $this;
         }
         $arquivo = listarArquivoDiretorio($path, inicio: 'tabela:');
         $diretorio = array_key_exists(0, $arquivo) ? str_replace('tabela:', '', $arquivo[0]) : $tabela;
-        $Database = include $path . '/base.php';
-        $Database->diretorio = $diretorio;
-        $Database->tabela = $tabela;
-        $Database->sistemaDeletar();
-        $Database->sistemaCriar();
+
+        $this->tabelaResetar[] = [$path, $diretorio, $tabela];
+        return $this;
+    }
+    protected function resetar()
+    {
+        $lista = $this->tabelaResetar;
+        if (!$lista) {
+            return;
+        }
+        foreach ($lista as $r) {
+            $Database = include $r[0] . '/base.php';
+            $Database->tabela = $r[1];
+            $Database->diretorio = $r[2];
+
+            $Database->sistemaDeletar();
+            $Database->sistemaCriar();
+        }
         $Database->sistemaRelacionar();
     }
 }

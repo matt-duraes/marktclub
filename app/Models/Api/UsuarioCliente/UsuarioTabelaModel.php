@@ -12,6 +12,7 @@ use Modules\Genero;
 use Modules\Telefone;
 use Helpers\CryptHelper;
 use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\Situacao;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
@@ -201,6 +202,7 @@ final class UsuarioTabelaModel extends ORM
         $EmailTrabalho = new Email($request['email_trabalho'] ?? '');
         $DataNascimento = new Data($request['data_nascimento'] ?? '');
         $Genero = new Genero($request['genero'] ?? '');
+        $Situracao = new Situacao($request['situacao'] ?? '');
 
         $dado = $this->dado;
         if (!$Nome->vazio()) {
@@ -216,10 +218,13 @@ final class UsuarioTabelaModel extends ORM
         if (array_key_exists('siape', $request) && !empty($request['siape'])) {
             $dado['siape'] = (int)soNumero($request['siape']);
         }
-        if (!$TelefoneCelular->vazio()) {
+        if (!$Situracao->vazio() && $Situracao->valido()) {
+            $dado['situacao'] = $Situracao->numero();
+        }
+        if (!$TelefoneCelular->vazio() && $TelefoneCelular->valido()) {
             $dado['telefone_celular'] = (int)$TelefoneCelular->numero();
         }
-        if (!$TelefoneFixo->vazio()) {
+        if (!$TelefoneFixo->vazio() && $TelefoneFixo->valido()) {
             $dado['telefone_fixo'] = (int)$TelefoneFixo->numero();
         }
         if (!$EmailPessoal->vazio() && $EmailPessoal->valido()) {
@@ -240,7 +245,10 @@ final class UsuarioTabelaModel extends ORM
         if (!$Genero->vazio() && $Genero->valido()) {
             $dado['sexo'] = $Genero->numero();
         }
-        if (array_key_exists('federacao', $request) && !empty($request['federacao'])) {
+        if (
+            array_key_exists('federacao', $request) &&
+            (in_array($request['federacao'], $listaUf) || $request['federacao'] == 'FU')
+        ) {
             $dado['federacao'] = strCaixaAlta($request['federacao']);
         }
         if (array_key_exists('grupo', $request) && !empty($request['grupo'])) {
@@ -249,14 +257,10 @@ final class UsuarioTabelaModel extends ORM
         if (array_key_exists('matricula', $request) && !empty($request['matricula'])) {
             $dado['matricula'] = $request['matricula'];
         }
-        if (array_key_exists('situacao', $request) && !empty($request['situacao'])) {
-            $dado['situacao'] = $request['situacao'];
-        }
         if (empty($usuario)) {
             $dado['data_criacao'] = agora();
             $dado['cod'] = uuid();
         }
-
         return $dado;
     }
 

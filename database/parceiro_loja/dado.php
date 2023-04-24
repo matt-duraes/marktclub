@@ -34,6 +34,21 @@ return [
         'status' => 4
     ],
     [
+        'cod' => '5d20bebb-36d5-47ce-8bc8-178309983a9a',
+        'categoria_principal' => '1',
+        'categoria_todas' => '["1","2","3","4","5","6","7","8"]',
+        'titulo' => 'Parceiro Voucher Criado',
+        'url' => 'parceiro-voucher-criado',
+        'imagem' => 'parceiro.png',
+        'desconto' => '10% de desconto',
+        'desconto_texto' => 'Texto de desconto do parceiro',
+        'procedimento_texto' => 'Texto de procedimento do parceiro',
+        'voucher_texto' => 'Texto para o voucher do parceiro',
+        'destaque' => ["1", "2", "66"],
+        'empresa' => ["1", "2", "66"],
+        'status' => 4
+    ],
+    [
         'id' => 1,
         'cod' => 'f10e05c0-5b02-4bff-8e22-719a8797f0d6',
         'categoria_principal' => '1',
