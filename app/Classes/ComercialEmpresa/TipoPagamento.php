@@ -10,13 +10,11 @@ final class TipoPagamento extends StatusStatus
     public const FIXO = 'fixo';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::USUARIO => 'Por usuário',
-                self::FIXO => 'Valor fixo',
-            ]
-        );
+        parent::__construct([
+            self::USUARIO => 'Por usuário',
+            self::FIXO    => 'Valor fixo'
+        ]);
     }
 }

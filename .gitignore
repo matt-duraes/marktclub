@@ -10,7 +10,6 @@
 /.env
 /.env.*
 /.prettierrc
-/phpunit.xml
 /.eslintignore
 /tests/server
 /adp.phar

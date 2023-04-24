@@ -6,8 +6,9 @@ final class Helper
 {
     public const CRIPTOGRAFAR = [
         'usuario' => ['nome', 'perfil', 'imagem'],
-        'titulo', 'nome_fantasia', 'razao_social', 'cnpj', 'slug', 'imagem', 'responsavel_nome',
-        'responsavel_cpf', 'responsavel_email', 'responsavel_telefone'
+        'titulo', 'nome_fantasia', 'razao_social', 'cnpj', 'slug', 'imagem',
+        'responsavel_nome', 'responsavel_cpf', 'responsavel_email',
+        'responsavel_telefone'
     ];
     public const STATUS_LIBERADO = [1, 2];
 }

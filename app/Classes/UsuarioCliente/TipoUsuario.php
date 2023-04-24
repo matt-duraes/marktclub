@@ -11,15 +11,12 @@ final class TipoUsuario extends Status
     public const SUPER = 'super';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::TITULAR => 'Titular',
-                self::DEPENDENTE => 'Dependente',
-                self::SUPER => 'Super Usuário'
-            ],
-            numero: [1, 2, 3]
-        );
+        parent::__construct([
+            self::TITULAR    => 'Titular',
+            self::DEPENDENTE => 'Dependente',
+            self::SUPER      => 'Super Usuário'
+        ], numero: [1, 2, 3]);
     }
 }

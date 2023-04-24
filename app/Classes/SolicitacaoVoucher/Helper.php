@@ -8,7 +8,7 @@ use App\Classes\UsuarioCliente\Helper as UsuarioClienteHelper;
 final class Helper
 {
     public const CRIPTOGRAFAR = [
-        'usuario' => UsuarioClienteHelper::CRIPTOGRAFAR,
+        'usuario'  => UsuarioClienteHelper::CRIPTOGRAFAR,
         'parceiro' => ParceiroLojaHelper::CRIPTOGRAFAR
     ];
     public const PERMISSAO_EMPRESA = 'solicitacao_voucher_empresa';

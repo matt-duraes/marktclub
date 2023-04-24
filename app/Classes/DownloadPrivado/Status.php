@@ -10,13 +10,11 @@ final class Status extends StatusStatus
     public const VISUALIZADO = 'visualizado';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::NOVO => 'Novo',
-                self::VISUALIZADO => 'Visualizado'
-            ]
-        );
+        parent::__construct([
+            self::NOVO        => 'Novo',
+            self::VISUALIZADO => 'Visualizado'
+        ]);
     }
 }

@@ -11,19 +11,16 @@ final class Status extends StatusStatus
     public const BLOQUEADO = 'bloqueado';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::INDICADO => 'Indicado',
-                self::ATIVADO => 'Ativado',
-                self::BLOQUEADO => 'Bloqueado'
-            ],
-            cor: [
-                self::INDICADO => 'azul',
-                self::ATIVADO => 'verde',
-                self::BLOQUEADO => 'vermelho'
-            ],
-        );
+        parent::__construct([
+            self::INDICADO  => 'Indicado',
+            self::ATIVADO   => 'Ativado',
+            self::BLOQUEADO => 'Bloqueado'
+        ], [
+            self::INDICADO  => 'azul',
+            self::ATIVADO   => 'verde',
+            self::BLOQUEADO => 'vermelho'
+        ]);
     }
 }
