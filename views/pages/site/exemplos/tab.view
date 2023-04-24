@@ -1,0 +1,21 @@
+<div class="bloco_tab_geral bloco_procedimento">
+    <div class="bloco_botao">
+        <button class="botao ativo" data-id="bloco_nome_01">
+            <span class="texto_inativo">Item 01</span>
+            <span class="texto_ativo cor_color">Item 01</span>
+        </button>
+        <button class="botao" data-id="bloco_nome_02">
+            <span class="texto_inativo">Item 02</span>
+            <span class="texto_ativo cor_color">Item 02</span>
+        </button>
+    </div>
+
+    <div id="bloco_nome_01" class="conteudo">
+        <!-- Conteudo 01 -->
+    </div>
+
+    <div id="bloco_nome_02" class="conteudo display_none">
+        <!-- Conteudo 02 -->
+    </div>
+
+</div>

@@ -1,0 +1,8 @@
+<!-- Botão normal para ser preenchido com uma cor -->
+<div class="botao_geral_cor">Botão</div>
+
+<!-- Botão pequeno para ser preenchido com uma cor -->
+<a class="botao_pequeno_cor">Botão</a>
+
+<!-- Botão pequeno sem cor e com borda -->
+<a class="botao_pequeno_borda">Botão</a>

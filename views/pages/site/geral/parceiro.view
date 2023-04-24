@@ -2,7 +2,7 @@
 @ if($lista):
     @ foreach( $lista->lista as $r ):
     <article class="parceiro" data-url="{{$r->id}}">
-        @ if( $lista->tipo == 'cupom' ):
+        @ if( in_array($lista->tipo, ['modelo', 'cupom']) ):
         <div class="link_cupom_parceiro" data-id="{!!$r->id!!}"></div>
         @ else:
         <a class="link_cupom_parceiro" href="{!!$r->link!!}"></a>

@@ -1,9 +1,0 @@
-<div class="busca_convenio">
-    <form action="@route(cupom.buscar)" method="get" class="form_geral">
-        <legend>Busque por um Cupom</legend>
-        <fieldset>
-            @? formInput(name: 'pesquisa', placeholder: 'Busque por um cupom', label: 'Pesquisa', class: 'busca_pesquisa', value: $pesquisa)
-            <button class="botao_geral_cor cor_bg">Buscar</button>
-        </fieldset>
-    </form>
-</div>

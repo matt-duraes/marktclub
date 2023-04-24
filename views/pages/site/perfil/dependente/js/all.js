@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
     const botaoAdicionaDependente = document.querySelector('.adicionaDependente');
 
     if (botaoAdicionaDependente) {
-        botaoAdicionaDependente.addEventListener('click', (e) => {
+        botaoAdicionaDependente.addEventListener('click', e => {
             e.preventDefault();
 
             const blocoDefault = document.querySelector('.dependente .linha_dependente.default');
@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
         });
     }
 
-    document.querySelector('body').addEventListener('click', function(event) {
+    document.querySelector('body').addEventListener('click', function (event) {
         if (event.target.classList.contains('remove')) {
             const linhaDependente = event.target.closest('.linha_dependente');
             linhaDependente.remove();
@@ -32,13 +32,12 @@ window.addEventListener('load', () => {
     });
 
     const botaoSalvar = document.querySelector('#botao_cadastra_dependente');
-    botaoSalvar.addEventListener('click', async (e) => {
+    botaoSalvar.addEventListener('click', async e => {
         e.preventDefault();
         await salvarDependente();
     });
 
     const salvarDependente = async () => {
-
         const colunas = document.querySelectorAll('#bloco_pagina_dependente .dependente .linha_dependente.normal');
 
         for (let i = 0; i < colunas.length; i++) {
@@ -74,9 +73,9 @@ window.addEventListener('load', () => {
                 }
 
                 Alerta.notificacao(
-                json.erro != undefined && json.erro.mensagem != undefined
-                    ? json.erro.mensagem
-                    : 'Ocorreu um erro ao salvar dependente, tente novamente.',
+                    json.erro != undefined && json.erro.mensagem != undefined
+                        ? json.erro.mensagem
+                        : 'Ocorreu um erro ao salvar dependente, tente novamente.',
                     false
                 );
             }
@@ -97,7 +96,7 @@ window.addEventListener('load', () => {
                     <td>${nome}</td>
                     <td class="deletar">
                         <p data-id="${id}" >
-                            Deletar 
+                            Deletar
                             <i class="botao_deletar botao_deletar_dependente">${Icone.fechar(8)}</i>
                         </p>
                     </td>
@@ -106,8 +105,7 @@ window.addEventListener('load', () => {
         );
     };
 
-
-    if(blocoDependente){
+    if (blocoDependente) {
         blocoDependente.addEventListener('click', async e => {
             if (
                 !e.target.classList.contains('botao_deletar_dependente') &&

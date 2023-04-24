@@ -1,0 +1,16 @@
+<!-- Bloco com titulo e texto padrão centralizados, não impede de ter outras coisas dentro -->
+<div class="bloco_titulo_texto_centralizado">
+    <h1>Lorem ipsum dolor sit.</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, ea.</p>
+</div>
+
+<!-- Bloco com titulo e texto padrão, não impede de ter outras coisas dentro -->
+<div class="bloco_titulo_texto">
+    <h1>Lorem ipsum dolor sit.</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, ea.</p>
+</div>
+
+<!-- Bloco de atenção -->
+<div class="bloco_atencao_geral">
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias, quia.</p>
+</div>

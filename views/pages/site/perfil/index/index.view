@@ -1,10 +1,6 @@
 @template "site"
 
 <div id="bloco_pagina_perfil">
-    @ if( $tituloPagina ):
-        @view site/promocao/geral/titulo_pagina.view
-    @ endif;
-    
     <div class="conteudo">
         <section class="foto">
             <figure style="background-image: url(https://lh3.googleusercontent.com/ogw/AOh-ky0qIecPHzcVkKjpNnwIesf2ZRiPq9bj4IiPNyiEjcg)"></figure>
