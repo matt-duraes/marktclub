@@ -14,6 +14,7 @@ final class SolicitacaoVoucherTest extends Tests
     private string $usuario3 = 'c91d0f54-d166-456e-9f21-e072722faa34';
     private string $parceiroId = 'f10e05c0-5b02-4bff-8e22-719a8797f0d6';
     private string $parceiroUrl = 'parceiro-normal';
+    private string $parceiroIdAntido = '5d20bebb-36d5-47ce-8bc8-178309983a9a';
     private string $parceiroPrazo = 'adca39ea4a6d6bcc51eba8afcdb54eaa';
     private string $parceiroLimite = '4502e7e8-9359-470e-9588-0a1501449675';
     private string $parceiroPrazoFixo = 'f9cbb6ae-b847-43cf-b9b8-6f72b67789df';
@@ -23,10 +24,12 @@ final class SolicitacaoVoucherTest extends Tests
     {
         parent::__construct();
 
-        $this->resetarTabela(TABELA_SOLICITACAO_VOUCHER);
-        $this->resetarTabela(TABELA_SOLICITACAO_CODIGO);
-        $this->resetarTabela(TABELA_PARCEIRO_LOJA);
-        $this->resetarTabela(TABELA_USUARIO_CLIENTE);
+        $this
+            ->tabela('solicitacao_voucher')
+            ->tabela('solicitacao_codigo')
+            ->tabela('parceiro_loja')
+            ->tabela('usuario_cliente')
+            ->resetar();
     }
 
     public function salvarParceiroNormalPeloIdTest()
@@ -63,7 +66,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso');
     }
-    public function codigoParceiroNormalDeveSerDiferenteSempreTest()
+    public function codigoParceiroNormalDeveSerIgualSeForNovoTest()
     {
         $this->scopeSalvar();
         $codigo1 = $this
@@ -87,9 +90,31 @@ final class SolicitacaoVoucherTest extends Tests
             ->object()->dado->codigo ?? '';
 
         return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
             ->checkNaoVazio($codigo1)
             ->checkNaoVazio($codigo2)
-            ->checkDiferente($codigo1, $codigo2);
+            ->checkIgual($codigo1, $codigo2);
+    }
+    public function codigoParceiroNormalDeveSerDiferenteSeForAntigoTest()
+    {
+        $codigo = $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroIdAntido,
+                'usuario' => $this->usuario1,
+                'tipo' => 'loja'
+            ])
+            ->post('/solicitacao-voucher')
+            ->object()->dado->codigo ?? '';
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkNaoVazio($codigo)
+            ->checkDiferente($codigo, 'abcde123456');
     }
 
     public function salvarVoucherComLimiteTest()
@@ -124,6 +149,9 @@ final class SolicitacaoVoucherTest extends Tests
             ->post('/solicitacao-voucher')->object()->dado ?? (object)[];
 
         return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
             ->checkIgual($dado->id, $this->voucher->id)
             ->checkIgual($dado->codigo, $this->voucher->codigo)
             ->checkIgual($dado->data_criacao, $this->voucher->data_criacao)
@@ -161,6 +189,9 @@ final class SolicitacaoVoucherTest extends Tests
         $this->voucher = $dado;
 
         return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
             ->checkIgual($dado->codigo, '123123123')
             ->checkIgual(dataBanco($dado->data_criacao), dataRemover(hoje(), '1', 'dia'), mensagem: 'Data de criação')
             ->checkIgual($dado->data_vencimento, dataAdicionar(hoje(), '4', 'dia'), mensagem: 'Data vencimento');
@@ -180,6 +211,8 @@ final class SolicitacaoVoucherTest extends Tests
 
         return $this
             ->checkStatus(201)
+            ->checkIndiceExiste('status')
+            ->checkIndiceIgual('status', 'sucesso')
             ->checkDiferente($dado->codigo, $this->voucher->codigo);
     }
 
@@ -217,6 +250,7 @@ final class SolicitacaoVoucherTest extends Tests
 
         return $this
             ->checkStatus(201)
+            ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceIgual('dado.data_vencimento', dataAdicionar(hoje(), 60, 'dias'));
     }

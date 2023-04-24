@@ -94,7 +94,8 @@ abstract class PadraoController extends Controller
             ],
             'index' => (object)[
                 'app' => $appUso,
-                'grade' => $Index->pegarGrade()
+                'grade' => $Index->pegarGrade(),
+                'replace' => $padrao ? $Index->pegarReplace() : [],
             ],
             'filtrar' => (object) [
                 'nome' => $Filtrar ? $Filtrar->pegarNome() : [],
