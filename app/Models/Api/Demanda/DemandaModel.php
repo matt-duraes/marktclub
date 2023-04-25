@@ -68,6 +68,7 @@ final class DemandaModel extends ORM
         if ($status->indice() == 'concluida') {
             return [
                 ['status', $status->numero()],
+                ['area', $this->area->numero()],
                 ['data_atualizacao', '>=', dataRemover(agora(), 10, 'dias')]
             ];
         }
