@@ -18,7 +18,7 @@ final class SolicitaVooModel
     protected array|int $bebe;
 
     public function __construct(
-        private Request $request
+        private readonly Request $request
     ) {
         $this->tipo = $this->request->tipo;
         $this->destino = $this->request->destino;
