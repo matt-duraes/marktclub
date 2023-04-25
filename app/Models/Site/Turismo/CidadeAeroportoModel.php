@@ -11,7 +11,7 @@ final class CidadeAeroportoModel
     protected string $pesquisa;
 
     public function __construct(
-        private Request $request
+        private readonly Request $request
     ) {
         $this->pesquisa = $this->request->pesquisa;
     }
