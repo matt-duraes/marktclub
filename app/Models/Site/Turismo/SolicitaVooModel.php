@@ -2,11 +2,9 @@
 
 namespace App\Models\Site\Turismo;
 
-use stdClass;
-use Http\Request;
-use Http\Response;
+use Erro\Excecao;
 use Helpers\ApiHelper;
-use Helpers\ListaHelper;
+use Http\Request;
 
 final class SolicitaVooModel
 {
@@ -22,30 +20,32 @@ final class SolicitaVooModel
     public function __construct(
         private Request $request
     ) {
-
-        $this->tipo = $request->tipo;
-        $this->destino = $request->destino;
-        $this->origem = $request->origem;
-        $this->data_ida = $request->data_ida;
-        $this->data_volta = $request->data_volta;
-        $this->adulto = !empty($request->adulto) ? $request->adulto : 0;
-        $this->crianca = !empty($request->crianca) ? $request->crianca : 0;
-        $this->bebe = !empty($request->bebe) ? $request->bebe : 0;
-
+        $this->tipo = $this->request->tipo;
+        $this->destino = $this->request->destino;
+        $this->origem = $this->request->origem;
+        $this->data_ida = $this->request->data_ida;
+        $this->data_volta = $this->request->data_volta;
+        $this->adulto = !empty($this->request->adulto) ? $this->request->adulto : 0;
+        $this->crianca = !empty($this->request->crianca) ? $this->request->crianca : 0;
+        $this->bebe = !empty($this->request->bebe) ? $this->request->bebe : 0;
     }
-    public function postDado()
-    {
 
+    /**
+     * @return string
+     * @throws Excecao
+     */
+    public function postDado(): string
+    {
         $Api = new ApiHelper('turismo:buscar');
         $dado = $Api->body([
-            'tipo' => $this->tipo,
-            'destino' => $this->destino,
-            'origem' => $this->origem,
-            'data_ida' => $this->data_ida,
+            'tipo'       => $this->tipo,
+            'destino'    => $this->destino,
+            'origem'     => $this->origem,
+            'data_ida'   => $this->data_ida,
             'data_volta' => $this->data_volta,
-            'adulto' => $this->adulto,
-            'crianca' => $this->crianca,
-            'bebe' => $this->bebe
+            'adulto'     => $this->adulto,
+            'crianca'    => $this->crianca,
+            'bebe'       => $this->bebe
         ])->post('/turismo/solicitar-voo')->object();
 
         if (existeErro($dado, 'dado')) {
@@ -57,12 +57,13 @@ final class SolicitaVooModel
         return $this->montarRetorno($dado);
     }
 
-    private function montarRetorno($dado)
+    /**
+     * @param  $dado
+     *
+     * @return string
+     */
+    private function montarRetorno($dado): string
     {
-
         return $dado->dado->link ?? '';
     }
-
-
-
 }

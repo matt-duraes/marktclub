@@ -16,19 +16,17 @@ final class Categoria extends Status
     public const VESTUARIO = 'vestuario';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            [
-                self::ALIMENTACAO => 'Alimentação',
-                self::BELEZA => 'Beleza',
-                self::EDUCACAO => 'Educação',
-                self::ELETROELETRONICO => 'Eletroeletronico',
-                self::OUTROS => 'Outros',
-                self::SAUDE => 'Saúde',
-                self::VEICULO => 'Veículo',
-                self::VESTUARIO => 'Vestuário'
-            ]
-        );
+        parent::__construct([
+            self::ALIMENTACAO      => 'Alimentação',
+            self::BELEZA           => 'Beleza',
+            self::EDUCACAO         => 'Educação',
+            self::ELETROELETRONICO => 'Eletroeletronico',
+            self::OUTROS           => 'Outros',
+            self::SAUDE            => 'Saúde',
+            self::VEICULO          => 'Veículo',
+            self::VESTUARIO        => 'Vestuário'
+        ]);
     }
 }

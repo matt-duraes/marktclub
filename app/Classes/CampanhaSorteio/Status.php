@@ -6,18 +6,17 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    public const ATIVO = '';
-    public const SORTEADO = '';
-    public const DELETADO = '';
+    public const ATIVO = 'ativo';
+    public const SORTEADO = 'sorteado';
+    public const DELETADO = 'deletado';
+
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::ATIVO => 'Ativo',
-                self::SORTEADO => 'Sorteado',
-                self::DELETADO => 'Deletado'
-            ]
-        );
+        parent::__construct([
+            self::ATIVO    => 'Ativo',
+            self::SORTEADO => 'Sorteado',
+            self::DELETADO => 'Deletado'
+        ]);
     }
 }

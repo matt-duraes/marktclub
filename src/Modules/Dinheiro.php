@@ -67,7 +67,7 @@ final class Dinheiro implements ModuleInterface
 
     private function validarDinheiro(): bool
     {
-        return preg_match('/^[0-9\.\,]{0,} elseif (\.|\,){1}[0-9]{1,2}$/', $this->dinheiro);
+        return preg_match('/^[0-9\.\,]{0,}(\.|\,){1}[0-9]{1,2}$/', $this->dinheiro);
     }
 
     private function setarValor()

@@ -7,7 +7,7 @@ use Order\Order;
 final class OrdemClube extends Order
 {
     public function __construct(
-        protected null|string $valor = null
+        protected ?string $valor = null
     ) {
         $this->tabela(TABELA_PARCEIRO_LOJA);
         $this->campo('favorito', 'Seus favoritos', 'favorito', 'ASC');

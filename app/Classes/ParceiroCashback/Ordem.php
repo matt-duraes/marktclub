@@ -7,7 +7,7 @@ use Order\Order;
 final class Ordem extends Order
 {
     public function __construct(
-        protected null|string $valor = null
+        protected ?string $valor = null
     ) {
         $this->tabela(TABELA_PARCEIRO_CASHBACK);
         $this->campo('nome-a-z', 'Nome A-Z', 'nome', 'ASC');

@@ -8,17 +8,6 @@
 // @system "Mascara"
 // @resource "site/passo_passo"
 
-const OPERADORA = document.querySelector('#operadora').value;
-if (OPERADORA === 'unimed-vitoria') {
-    // @resource "site/saude/unimedvitoria/simulacao"
-} else if (OPERADORA === 'unimed-florianopolis') {
-    // @resource "site/saude/unimedflorianopolis/simulacao"
-} else if (OPERADORA === 'amil') {
-    // @resource "site/saude/amil/simulacao"
-} else if (OPERADORA === 'unimed-seguro') {
-    // @resource "site/saude/unimedSeguro/simulacao"
-}
-
 const botaoAdicionaDependente = document.querySelector('.adicionaDependente');
 
 if (botaoAdicionaDependente) {

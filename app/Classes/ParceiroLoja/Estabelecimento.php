@@ -10,13 +10,11 @@ final class Estabelecimento extends Status
     public const ONLINE = 'online';
 
     public function __construct(
-        protected null|string|int $valor = null
+        protected string|int|null $valor = null
     ) {
-        parent::__construct(
-            lista: [
-                self::FISICO => 'Físico',
-                self::ONLINE => 'On-line'
-            ]
-        );
+        parent::__construct([
+            self::FISICO => 'Físico',
+            self::ONLINE => 'On-line'
+        ]);
     }
 }

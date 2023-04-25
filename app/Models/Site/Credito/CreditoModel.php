@@ -8,9 +8,9 @@ final class CreditoModel
     {
         $parcela = [
             '' => 'Escolha uma opção',
-            1 => '1 parcela'
+            1  => '1 parcela'
         ];
-        for ($i = 2; $i <= 96; ++$i) {
+        for ($i = 2; $i <= $quantidade; ++$i) {
             $parcela[$i] = $i . ' parcelas';
         }
         return $parcela;

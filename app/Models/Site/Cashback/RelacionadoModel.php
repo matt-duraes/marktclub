@@ -1,11 +1,10 @@
 <?php
 
-namespace App\models\Site\Cashback;
+namespace App\Models\Site\Cashback;
 
-use stdClass;
-use Helpers\ApiHelper;
 use App\Models\Site\ListarInterface;
-use App\Models\Site\Cashback\MontarRetornoTrait;
+use Helpers\ApiHelper;
+use stdClass;
 
 final class RelacionadoModel extends ApiHelper implements ListarInterface
 {
@@ -15,6 +14,7 @@ final class RelacionadoModel extends ApiHelper implements ListarInterface
     {
         parent::__construct(scope: '');
     }
+
     public function listarDados(): stdClass
     {
         return $this->montarRetorno();
