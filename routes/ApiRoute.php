@@ -1,8 +1,8 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
+use Route\Route;
 
 Route
     ::nome('downloadRestrito')
@@ -1044,4 +1044,15 @@ Route
         Route
             ::nome('remover')
             ::view('/emailmarketing/remover/{hash}');
+    });
+
+Route
+    ::nome('carteirinha')
+    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    // ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::get('/carteirinha/{id}');
     });
