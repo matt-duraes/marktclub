@@ -83,9 +83,6 @@ window.addEventListener('load', () => {
                         <strong class="texto_nome">Nome:</strong> ${nome}
                     </div>
                     <div class="linha">
-                        <strong class="texto_nome">E-mail:</strong> ${email}
-                    </div>
-                    <div class="linha">
                         <strong class="texto_nome">Status:</strong> ${statusNome}
                     </div>
                     ${htmlDeletar}
