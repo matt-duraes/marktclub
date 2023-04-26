@@ -18,7 +18,6 @@ final class VoucherModel extends ORM
     use ValidarRequestTrait;
     use ModelBuscarTrait;
 
-
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
     private int $idEmpresa;
 

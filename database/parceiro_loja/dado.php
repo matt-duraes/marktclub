@@ -79,7 +79,7 @@ return [
         'destaque' => ["1", "2", "66"],
         'empresa' => ["1", "2", "66"],
         'limite_voucher' => 1,
-        'status' => 4
+        'status' => 5
     ],
     [
         'id' => 4,
@@ -114,7 +114,7 @@ return [
         'destaque' => ["1", "2", "66"],
         'empresa' => ["1", "2", "66"],
         'prazo_voucher_fixo' => dataAdicionar(hoje(), 60, 'dias'),
-        'status' => 4
+        'status' => 5
     ],
     [
         'id' => 4207,
