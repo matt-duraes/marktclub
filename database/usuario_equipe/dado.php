@@ -1,26 +1,23 @@
 <?php
 
 $permissao = json_encode([
-    'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_visualizar', 'usuario_cliente_download',
-    'usuario_cliente_editar', 'usuario_cliente_deletar', 'usuario_cliente_empresa',
-    'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar',
-    'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_deletar',
-    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
-    'usuario_lead_index', 'usuario_lead_visualizar', 'usuario_lead_status',
-    'usuario_indicacao_index', 'usuario_indicacao_visualizar', 'usuario_indicacao_status',
-    'usuario_grupo_index', 'usuario_grupo_add', 'usuario_grupo_editar', 'usuario_grupo_deletar',
-    'tabela_usuario_salvar', 'tabela_usuario_bloquear',
-    'relatorio_usuario_index', 'relatorio_acesso_index', 'relatorio_loja_venda_index',
-    'solicitacao_voucher_index', 'solicitacao_voucher_visualizar',
-    'solicitacao_salavip_index', 'solicitacao_salavip_download',
-    'comercial_empresa_index', 'comercial_empresa_editar', 'comercial_empresa_visualizar',
-    'comercial_prospeccao_index', 'comercial_atendimento_index',
-    'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
-    'api_app_index', 'api_app_add', 'api_app_editar', 'api_app_deletar',
-    'api_usuario_index', 'api_usuario_add', 'api_usuario_editar', 'api_usuario_deletar',
-    'ponto_cvs_index', 'ponto_cvs_add', 'ponto_cvs_editar', 'ponto_cvs_visualizar',
-    'demanda_tecnologia', 'demanda_criacao',
-    'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
+    "usuario_cliente_index","usuario_cliente_add","usuario_cliente_editar","usuario_cliente_visualizar",
+    "usuario_cliente_deletar","usuario_cliente_download","usuario_cliente_empresa","usuario_cliente_analytics",
+    "usuario_grupo_index","usuario_grupo_add","usuario_grupo_editar","usuario_grupo_deletar",
+    "usuario_dependente_index","usuario_dependente_add","usuario_dependente_deletar","usuario_indicacao_index",
+    "usuario_indicacao_visualizar","usuario_indicacao_status","usuario_lead_index","usuario_lead_visualizar",
+    "usuario_lead_status","usuario_equipe_index","usuario_equipe_add","usuario_equipe_editar",
+    "usuario_equipe_deletar","usuario_equipe_empresa","publicacao_noticia_index","publicacao_noticia_add",
+    "publicacao_noticia_editar","publicacao_noticia_deletar","parceiro_relatorio_index",
+    "parceiro_relatorio_add","parceiro_relatorio_editar","parceiro_relatorio_deletar",
+    "relatorio_acesso_index","relatorio_acesso_empresa","relatorio_usuario_index","relatorio_usuario_empresa",
+    "relatorio_loja_venda_index","relatorio_loja_venda_empresa","tabela_usuario_salvar","tabela_usuario_bloquear",
+    "solicitacao_voucher_index","solicitacao_voucher_visualizar","solicitacao_voucher_download",
+    "solicitacao_voucher_empresa","solicitacao_premium_index","solicitacao_premium_visualizar",
+    "solicitacao_salavip_index","solicitacao_salavip_download","comercial_empresa_index",
+    "comercial_empresa_visualizar","comercial_empresa_editar","comercial_prospeccao_index",
+    "comercial_prospeccao_add","comercial_prospeccao_editar","comercial_atendimento_index",
+    "demanda_tecnologia","demanda_criacao","log_erro_index","log_erro_visualizar","log_erro_status"
 ]);
 
 return [

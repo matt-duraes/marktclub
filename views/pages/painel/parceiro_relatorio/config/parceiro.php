@@ -2,6 +2,9 @@
 
 return [
     '' => 'Escolha um parceiro',
+    "f98e10ebc70e101c9d5d6fcf766d5320" => "UBER - Renner",
+    "acb21f1581f8f80fc32608f1ea5ce24f" => "UBER - Aliexpress",
+    "d48d291730d4b05e09a115f34f00461f" => "UBER - Centauro",
     "10356c247ed17b0e7067639ba029b6e1" => "DIGIO - ALIEXPRESS",
     "39dba8a6f3dc5c3bb40c2508393ca700" => "DIGIO - ASUS",
     "f85045e3dfdadd45d8ec3655b28692bb" => "DIGIO - BUSER",

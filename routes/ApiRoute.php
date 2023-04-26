@@ -780,6 +780,16 @@ Route
     });
 
 Route
+    ::nome('solicitacao_premium')
+    ::controller(App\Controllers\Api\SolicitacaoPremiumController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])
+            ::get('/solicitacao-premium');
+    });
+Route
     ::nome('solicitacao_voucher')
     ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -798,7 +808,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
             ::request([
                 'pagina', '!ordem', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
-                '!data_validacao_de', '!data_validacao_ate'
+                '!data_validacao_de', '!data_validacao_ate', '!tipo', '!tipo_usuario'
             ], 'json')
             ::get('/solicitacao-voucher');
         Route
