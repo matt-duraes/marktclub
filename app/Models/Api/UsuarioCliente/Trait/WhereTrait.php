@@ -40,13 +40,13 @@ trait WhereTrait
         }
 
         //tipo
-        $dependente = $request->dependente;
-        $tipo = new TipoUsuario($request->tipo_usuario);
-        if ($dependente != 'sim' && $tipo->vazio()) {
-            $where[] = ['tipo', 'in', [1, 3]];
-        } elseif ($tipo->valido()) {
-            $where[] = ['tipo', $tipo->numero()];
-        }
+        // $dependente = $request->dependente;
+        // $tipo = new TipoUsuario($request->tipo_usuario);
+        // if ($dependente != 'sim' && $tipo->vazio()) {
+        //     $where[] = ['tipo', 'in', [1, 3]];
+        // } elseif ($tipo->valido()) {
+        //     $where[] = ['tipo', $tipo->numero()];
+        // }
 
         // nome
         $nome = $request->nome;
