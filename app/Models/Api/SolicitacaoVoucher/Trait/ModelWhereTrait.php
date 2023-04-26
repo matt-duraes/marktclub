@@ -24,7 +24,7 @@ trait ModelWhereTrait
 
         $tipoUsuario = new TipoUsuario($this->request->tipo_usuario);
         if ($tipoUsuario->valido()) {
-            $where[] = ['tipo_usuario', $Tipo->numero()];
+            $where[] = ['tipo_usuario', $tipoUsuario->numero()];
         }
 
         $dataCriacaoDe = $this->request->data_criacao_de;
