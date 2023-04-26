@@ -13,6 +13,11 @@ $Painel
     ->input(name: 'nome', titulo: 'Nome', label: 'Nome', placeholder: 'Digite o nome')
     ->email(name: 'email', titulo: 'E-mail', label: 'E-mail', placeholder: 'Digite um e-mail')
     ->cpf(name: 'cpf', titulo: 'CPF', label: 'CPF', placeholder: 'Digite um CPF')
+    ->select(
+        name: 'tipo',
+        label: 'Tipo de usuário',
+        lista: ['' => 'Escolha uma opção', 'titular' => 'Titular', 'dependente' => 'Dependente']
+    )
     ->bloco(function () use ($Painel) {
         $Painel
             ->input(name: 'matricula', titulo: 'Matrícula', label: 'Matrícula', placeholder: 'Digite uma matrícula')
