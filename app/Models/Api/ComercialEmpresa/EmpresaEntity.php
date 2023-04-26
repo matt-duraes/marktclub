@@ -14,6 +14,8 @@ use App\Classes\ComercialEmpresa\Status;
 use App\Models\Api\UsuarioEquipe\HelperModel;
 use App\Classes\ComercialEmpresa\TipoPagamento;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\FinalidadePrincipal;
+use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
 
 final class EmpresaEntity extends Entity
 {
@@ -76,6 +78,8 @@ final class EmpresaEntity extends Entity
     public Dinheiro $valor_pib;
     public EnderecoEstado $estado_principal;
     public string $equipe;
+    public FinalidadePrincipal $finalidade_principal;
+    public FinalidadeSecundaria $finalidade_secundaria;
 
     protected function regraInsert()
     {

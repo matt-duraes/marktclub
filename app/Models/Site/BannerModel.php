@@ -111,7 +111,46 @@ final class BannerModel
             ]
         ];
     }
-
+    /**
+     * @return object
+     */
+    public function farmacia(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object) [
+                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'link'   => ''
+                ]
+            ],
+            'mobile' => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'link'   => ''
+                ]
+            ]
+        ];
+    }
+    /**
+     * @return object
+     */
+    public function saude(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/plano_saude_desktop.png',
+                    'link'   => ''
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/plano_saude_desktop.png',
+                    'link'   => ''
+                ]
+            ]
+        ];
+    }
     /**
      * @return object
      */

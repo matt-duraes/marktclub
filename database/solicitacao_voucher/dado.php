@@ -4,6 +4,19 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
+        'vinculo' => '5d20bebb-36d5-47ce-8bc8-178309983a9a',
+        'usuario' => 1,
+        'empresa' => 1,
+        'codigo' => 'abcde12345',
+        'data_criacao' => dataRemover(agora(), 10, 'minutos', 'Y-m-d H:i:s'),
+        'data_vencimento' => dataAdicionar(agora(), 10, 'dia', 'Y-m-d'),
+        'status' => 3,
+    ],
+    [
+        'cod' => uuid(),
+        'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '4502e7e8-9359-470e-9588-0a1501449675',
         'usuario' => 1,
         'empresa' => 1,
@@ -15,6 +28,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '890713a200a9e45aa85e2ae67aa41e74',
         'usuario' => 1,
         'empresa' => 1,
@@ -25,6 +39,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '430d03455f8a53fd2f5c3e45e9e06154',
         'usuario' => 1,
         'empresa' => 1,
@@ -35,6 +50,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '86e1b9af92abbbab7a733c3b4bfea5ae',
         'usuario' => 1,
         'empresa' => 1,
@@ -45,6 +61,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => 'dafe3631a15177f9e1ec290056105f44',
         'usuario' => 1,
         'empresa' => 1,
@@ -55,6 +72,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '890713a200a9e45aa85e2ae67aa41e74',
         'usuario' => 1,
         'empresa' => 2,
@@ -65,6 +83,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '890713a200a9e45aa85e2ae67aa41e74',
         'usuario' => 1,
         'empresa' => 2,
@@ -75,6 +94,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '9792e058562303f9e7e0604c5117c569',
         'usuario' => 1,
         'empresa' => 66,
@@ -86,6 +106,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '890713a200a9e45aa85e2ae67aa41e74',
         'usuario' => 1,
         'empresa' => 1,
@@ -96,6 +117,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '430d03455f8a53fd2f5c3e45e9e06154',
         'usuario' => 1,
         'empresa' => 1,
@@ -105,6 +127,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '86e1b9af92abbbab7a733c3b4bfea5ae',
         'usuario' => 1,
         'empresa' => 1,
@@ -114,6 +137,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => 'dafe3631a15177f9e1ec290056105f44',
         'usuario' => 1,
         'empresa' => 1,
@@ -123,6 +147,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => 'adca39ea4a6d6bcc51eba8afcdb54eaa',
         'usuario' => 1,
         'empresa' => 1,
@@ -134,6 +159,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => 'adca39ea4a6d6bcc51eba8afcdb54eaa',
         'usuario' => 3,
         'empresa' => 1,
@@ -145,6 +171,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '890713a200a9e45aa85e2ae67aa41e74',
         'usuario' => 1,
         'empresa' => 2,
@@ -154,6 +181,7 @@ return [
     [
         'cod' => uuid(),
         'tipo' => 1,
+        'tipo_usuario' => 1,
         'vinculo' => '9792e058562303f9e7e0604c5117c569',
         'usuario' => 1,
         'empresa' => 66,

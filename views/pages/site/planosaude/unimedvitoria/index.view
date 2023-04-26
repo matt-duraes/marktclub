@@ -9,7 +9,7 @@
 			<h1>Unimed Vitória</h1>
 			<p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de
 			direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro EMpresarial Enseada
-			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua 
+			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua
 			entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apílice para reajuste anual é o mês de Julho
 			</p>
 		</div>
@@ -36,7 +36,7 @@
 				<a href="#" class="botao_padrao">Consultar rede credenciada</a>
 				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
 			</div>
-		</div>	
+		</div>
 	</div>
 	<div class="bloco_explore_rede">
 		<div class="titulo_rede">
@@ -154,7 +154,7 @@
 						<td data-label="Enfermaria - 466.263/12-6">578,07</td>
 						<td data-label="Apartamento - 466.267/12-9">696,47</td>
 					</tr>
-					<tr> 
+					<tr>
 						<td data-label="Acomodação">49 a 53</td>
 						<td data-label="Enfermaria - 466.263/12-6">602,91</td>
 						<td data-label="Apartamento - 466.267/12-9">726,38</td>
@@ -163,12 +163,12 @@
 						<td data-label="Acomodação">54 a 58</td>
 						<td data-label="Enfermaria - 466.263/12-6">627,69</td>
 						<td data-label="Apartamento - 466.267/12-9">756,30</td>
-					</tr>	
+					</tr>
 					<tr>
 						<td data-label="Acomodação">59 ou mais</td>
 						<td data-label="Enfermaria - 466.263/12-6">1.307,28</td>
 						<td data-label="Apartamento - 466.267/12-9">1.496,77</td>
-					</tr>		
+					</tr>
 				</tbody>
 			</table>
 			<p class="footer">*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor correspondente aos planos contratados.</p>
@@ -216,7 +216,7 @@
 						<td data-label="4.000,00 a 5.499,00">R$ 114,25</td>
 						<td data-label="5.500,00 a 7.499,00">R$ 108,61</td>
 						<td data-label="7.500 acima">R$ 102,97</td>
-					</tr>	
+					</tr>
 					<tr>
 						<td data-label="Faixa etária">24-28</td>
 						<td data-label="0,00 a 1.449,00">R$ 158,69</td>
@@ -307,7 +307,7 @@
 					</tr>
 
 				</tbody>
-			
+
 			</table>
 			<p class="footer">*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor correspondente aos planos contratados.</p>
 		</div>
@@ -361,7 +361,7 @@
 						<td data-label="Percentual">25%</td>
 						<td data-label="Valor média por evento">R$ 15,00</td>
 					</tr>
-					<tr> 
+					<tr>
 						<td data-label="Procedimento">Fisioterapia</td>
 						<td data-label="Percentual">25%</td>
 						<td data-label="Valor média por evento">R$ 8,75</td>
@@ -370,7 +370,7 @@
 						<td data-label="Procedimento">Psicoterapia</td>
 						<td data-label="Percentual">25%</td>
 						<td data-label="Valor média por evento">R$ 22,00</td>
-					</tr>	
+					</tr>
 					<tr>
 						<td data-label="Procedimento">Fonoaudiologia</td>
 						<td data-label="Percentual">25%</td>
@@ -385,12 +385,12 @@
 						<td data-label="Procedimento">Quimioterapia</td>
 						<td data-label="Percentual">25%</td>
 						<td data-label="Valor média por evento">R$ 85,75</td>
-					</tr>	
+					</tr>
 					<tr>
 						<td data-label="Procedimento">Diálise</td>
 						<td data-label="Percentual">25%</td>
 						<td data-label="Valor média por evento">R$ 55,00</td>
-					</tr>	
+					</tr>
 				</tbody>
 			</table>
 			<p class="footer">*TETO LIMITE BENEFICIÁRIO/MÊS: R$200</p>

@@ -163,7 +163,6 @@ exports.buildArquivosRaiz = () => {
     return src([
         './src/Files/raiz/.eslintignore',
         './src/Files/raiz/.prettierrc',
-        './src/Files/raiz/phpunit.xml',
         './src/Files/raiz/adp.phar',
         './src/Files/raiz/.chave_publica',
         './src/Files/raiz/.chave_privada',

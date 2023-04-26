@@ -3,6 +3,7 @@
 namespace Painel\UsuarioTabela\Models;
 
 use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\Situacao;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class AnalisarModel
@@ -168,7 +169,7 @@ final class AnalisarModel
                 'mensagem' => 'O campo GÊNERO está inválido (' . $genero . ').'
                 ];
             }
-            if (!empty($federacao) && !in_array($federacao, $listaEstado)) {
+            if (!empty($federacao) && !in_array($federacao, $listaEstado) && $federacao != 'FU') {
                 $listaErro[] = [
                 'linha' => $linha,
                 'mensagem' => 'O campo FEDERAÇÃO está inválido (' . $federacao . ').'
@@ -176,8 +177,15 @@ final class AnalisarModel
             }
             if (!empty($matricula) && empty(soNumero($matricula))) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo MATRÍCULA está inválido (' . $matricula . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo MATRÍCULA está inválido (' . $matricula . ').'
+                ];
+            }
+
+            if (!empty($situacao) && !(new Situacao($situacao))->valido()) {
+                $listaErro[] = [
+                    'linha' => $linha,
+                    'mensagem' => 'O campo SITUAÇÃO está inválido (' . $situacao . ').'
                 ];
             }
 
@@ -214,7 +222,7 @@ final class AnalisarModel
                 $dado['endereco_estado'] = $enderecoEstado;
             }
             if (!empty($enderecoCidade)) {
-                $dado['endereco_ciadde'] = $enderecoCidade;
+                $dado['endereco_cidade'] = $enderecoCidade;
             }
             if (!empty($dataNascimento)) {
                 $dado['data_nascimento'] = $dataNascimento;
@@ -248,9 +256,9 @@ final class AnalisarModel
 
             if ($dado) {
                 $listaOk[] = [
-                'linha' => $linha,
-                'titulo' => $titulo,
-                'hash' => base64Encode($dado, true)
+                    'linha' => $linha,
+                    'titulo' => $titulo,
+                    'hash' => base64Encode($dado, true)
                 ];
             }
         }

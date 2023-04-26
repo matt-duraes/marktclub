@@ -17,7 +17,7 @@ trait ModelBuscarTrait
     private function buscarVoucher()
     {
         return $this
-            ->campo(['cod', 'titulo', 'tipo', 'data_criacao', 'data_vencimento', 'status'])
+            ->campo(['cod', 'titulo', 'tipo', 'tipo_usuario', 'data_criacao', 'data_vencimento', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem(new Ordem()))

@@ -6,9 +6,11 @@ use ORM\ORM;
 use Http\Request;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
+use App\Classes\SolicitacaoVoucher\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ModelWhereTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
@@ -85,12 +87,18 @@ final class DownloadModel extends ORM
         $i = 0;
         $retorno = [];
         $Status = new Status();
+        $Tipo = new Tipo();
+        $TipoUsuario = new TipoUsuario();
         foreach ($dado as $linha) {
             foreach ($linha as $ind => $val) {
                 if (in_array($ind, ['data_validacao', 'data_criacao', 'data_vencimento'])) {
                     $val = dataBr($val);
                 } elseif ($ind == 'status') {
                     $val = $Status->indice($val);
+                } elseif ($ind == 'tipo') {
+                    $val = $Tipo->indice($val);
+                } elseif ($ind == 'tipo_usuario') {
+                    $val = $TipoUsuario->indice($val);
                 } elseif ($ind == 'titulo') {
                     $ind = 'parceiro';
                 } else {
@@ -107,7 +115,7 @@ final class DownloadModel extends ORM
     {
         $camposAceito = [
             'empresa', 'codigo', 'data_criacao', 'data_validacao', 'data_vencimento', 'status',
-            'usuario_nome', 'usuario_cpf', 'parceiro'
+            'usuario_nome', 'usuario_cpf', 'parceiro', 'tipo_usuario', 'tipo'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);

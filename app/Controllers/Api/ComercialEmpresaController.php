@@ -69,10 +69,11 @@ final class ComercialEmpresaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Empresa,
                 lista: [
-                    'equipe', 'titulo', 'nome_fantasia', 'razao_social', 'cnpj', 'slug', 'imagem',
-                    'responsavel_nome', 'responsavel_cpf', 'responsavel_email', 'responsavel_telefone',
-                    'estado_principal', 'valor_pago', 'valor_pib', 'renda_media', 'valor_usuario', 'produto_clube',
-                    'produto_ios', 'produto_android', 'produto_site', 'tipo_pagamento', 'status'
+                    'equipe', 'finalidade_principal', 'finalidade_secundaria', 'titulo', 'nome_fantasia',
+                    'razao_social', 'cnpj', 'slug', 'imagem', 'responsavel_nome', 'responsavel_cpf',
+                    'responsavel_email', 'responsavel_telefone', 'estado_principal', 'valor_pago',
+                    'valor_pib', 'renda_media', 'valor_usuario', 'produto_clube', 'produto_ios',
+                    'produto_android', 'produto_site', 'tipo_pagamento', 'site', 'status'
                 ]
             ),
             criptografar: Helper::CRIPTOGRAFAR,
