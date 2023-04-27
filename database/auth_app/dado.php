@@ -153,6 +153,9 @@ EwIDAQAB
 
             "comercial_empresa:listar", "comercial_empresa:buscar", "comercial_empresa:salvar",
             "comercial_empresa:atualizar", "comercial_empresa:deletar",
+            "comercial_prespeccao:listar", "comercial_prespeccao:buscar", "comercial_prespeccao:salvar",
+            "comercial_prespeccao:editar",
+            "comercial_regra:listar", "comercial_regra:buscar", "comercial_regra:salvar", "comercial_regra:editar",
 
             "log_erro:listar", "log_erro:buscar", "log_erro:atualizar",
 

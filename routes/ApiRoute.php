@@ -914,7 +914,7 @@ Route::nome('comercial_empresa')
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request(
                 [
                     'pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario', '!prospeccao_status',
@@ -952,6 +952,34 @@ Route::nome('comercial_empresa')
                 '!estado_principal', '!prospeccao_status', '!status'
             ])
             ::put('/comercial-empresa/{id}');
+    });
+Route::nome('comercial_regra')
+    ::controller(App\Controllers\Api\ComercialRegraController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:listar'])
+            ::request(['pagina', '!titulo', '!empresa'], 'json')
+            ::get('/comercial-regra');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:buscar'])
+            ::get('/comercial-regra/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:salvar'])
+            ::request(['titulo', 'texto', 'empresa'])
+            ::post('/comercial-regra');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:atualizar'])
+            ::request(['titulo', 'texto', 'empresa'])
+            ::put('/comercial-regra/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:deletar'])
+            ::delete('/comercial-regra/{id}');
     });
 
 Route::nome('demandaDado')

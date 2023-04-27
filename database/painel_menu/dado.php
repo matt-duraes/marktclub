@@ -127,6 +127,18 @@ return [
     [
         'id' => '++',
         'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Regra de negócio',
+        'url' => '/comercial-regra',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M17.3,8.8H9.6v12.4h10.9v-9.3h-3.1V8.8z M8,8c0-0.4,0.3-0.8,0.8-0.8h9.3l3.9,3.9L22,22c0,0.4-0.3,0.8-0.8,0.8H8.8C8.3,22.8,8,22.4,8,22V8z M14.2,14.2v-2.3h1.6v2.3h2.3v1.6h-2.3v2.3h-1.6v-2.3h-2.3v-1.6H14.2z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['comercial-regra'],
+        'status' =>  1,
+        'permissao' => '["comercial_regra_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
         'tipo' => 1,
         'titulo' => 'PARCEIROS',
         'ordem' => '++',
