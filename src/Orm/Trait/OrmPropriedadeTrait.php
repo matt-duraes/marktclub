@@ -41,7 +41,7 @@ trait OrmPropriedadeTrait
     private array $ormCondicao = [
         '>', '>=', '=', '<>', '<', '<=', '!=', 'like', 'notlike',
         'null', 'isnull', 'notnull', '!null', 'isnotnull', 'in',
-        'notin', 'between', 'notbetween'
+        'notin', 'between', 'notbetween', 'json'
     ];
     private array $ormCondicaoNull = ['null', 'isnull', 'notnull', '!null', 'isnotnull'];
 
