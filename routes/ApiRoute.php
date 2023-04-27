@@ -1056,3 +1056,37 @@ Route
             // ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
             ::get('/carteirinha/{id}');
     });
+
+Route
+    ::nome('popup')
+    ::controller(App\Controllers\Api\PopupController::class)
+    //::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            //::middleware(TokenMiddleware::class, 'scope', ['popup:buscar'])
+            ::get('/popup/{id}');
+
+        Route
+            ::nome('salvar')
+            //::middleware(TokenMiddleware::class, 'scope', ['popup:salvar'])
+            ::request([
+                'titulo', 'texto', '!subtitulo', '!formulario',
+                '!imagem', '!data_vencimento', '!status'
+            ])
+            ::post('/popup');
+
+        Route
+            ::nome('atualizar')
+            //::middleware(TokenMiddleware::class, 'scope', ['popup:atualizar'])
+            ::request([
+                'titulo', 'texto', '!subtitulo', '!formulario',
+                '!imagem', '!data_vencimento', '!status'
+            ])
+            ::put('/popup/{id}');
+
+        Route
+            ::nome('deletar')
+            //::middleware(TokenMiddleware::class, 'scope', ['popup:deletar'])
+            ::delete('/popup/{id}');
+    });
