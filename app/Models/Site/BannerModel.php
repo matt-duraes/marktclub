@@ -52,6 +52,26 @@ final class BannerModel
     /**
      * @return object
      */
+    public function cinema(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object) [
+                    'imagem' =>'https://clube.marktclub.com.br/images/tela_cinema.jpg',
+                    'link' => 'https://clube.marktclub.com.br/images/tela_cinema.jpg'
+                ]
+            ],
+            'mobile' => [
+                (object) [
+                    'imagem' =>'',
+                    'link' => ''
+                ]
+            ]
+        ];
+    }
+    /**
+     * @return object
+     */
     public function turismo(): object
     {
         return (object)[
