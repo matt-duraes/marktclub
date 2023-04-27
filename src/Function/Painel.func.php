@@ -305,7 +305,6 @@ if (!function_exists('painelLinhaLista')) {
             }
 
             $valor = !in_array($acao, ['checked', 'botao', 'contar', 'array']) && is_array($valor) ? implode(' ou ', $valor) : $valor;
-
             if ($acao == 'contar' && is_array($valor)) {
                 $acao = 'linha';
                 $valor = count($valor);
@@ -330,6 +329,8 @@ if (!function_exists('painelLinhaLista')) {
                 echo '<div class="linha bg_hover"><strong class="texto_nome">' . $nome . '</strong> <p>' . $valor . '</p></div>';
             } elseif ($acao == 'titulo') {
                 echo '<h2 class="titulo">' . $valor . '</h2>';
+            } elseif ($acao == 'texto') {
+                echo '<div class="bloco_texto bloco_noticia_texto">' . $valor . '</div>';
             } elseif ($acao == 'sub_titulo') {
                 echo '<p class="sub_titulo">' . $valor . '</p>';
             } elseif ($acao == 'checked' && is_array($valor)) {

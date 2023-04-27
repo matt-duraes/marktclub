@@ -35,8 +35,11 @@ final class ComercialRegraController extends Controller implements
     }
     public function postSalvar(Request $request): Response
     {
+        $dado = $request->dado();
+        $dado['texto'] = $request->_POST('texto', html: false);
+
         $Regra = new RegraEntity();
-        $Regra->set(lista: $this->pegarDadoParaSalvar($request));
+        $Regra->set(lista: $dado);
         $Regra->salvar();
 
         return $this->retornoPadrao($Regra, 201);
@@ -44,9 +47,12 @@ final class ComercialRegraController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
+        $dado = $request->dado();
+        $dado['texto'] = $request->_PUT('texto', html: false);
+
         $Regra = new RegraEntity();
         $Regra->uuid($id);
-        $Regra->set(lista: $this->pegarDadoParaSalvar($request));
+        $Regra->set(lista: $dado);
         $Regra->salvar();
 
         return new Response(status: 204);
@@ -58,13 +64,6 @@ final class ComercialRegraController extends Controller implements
         $Regra->destruir();
 
         return new Response(status: 204);
-    }
-
-    private function pegarDadoParaSalvar(Request $request)
-    {
-        $dado = $request->dado();
-        $dado['texto'] = $request->_POST('texto', html: false);
-        return $dado;
     }
 
     private function retornoPadrao(RegraEntity $Regra, int $status = 200)

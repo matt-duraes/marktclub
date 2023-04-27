@@ -5,10 +5,10 @@ return [
     'buscar' => false,
     'filtrar' => true,
     'ordem' => false,
-    'visualizar' => false,
+    'visualizar' => true,
     'add' => true,
     'editar' => true,
-    'deletar' => false,
+    'deletar' => true,
     'download' => false,
     'historico' => false,
     'api' => [

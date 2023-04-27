@@ -8,6 +8,7 @@ use Http\Request;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
+use App\Models\Api\ComercialEmpresa\HelperModel;
 
 final class RegraModel extends ORM implements ModelListarInterface
 {
@@ -19,13 +20,14 @@ final class RegraModel extends ORM implements ModelListarInterface
     public function __construct(
         private Request $request
     ) {
+        parent::__construct();
     }
 
     public function listarDados(): stdClass
     {
         $lista = $this
             ->campo(['uuid', 'id_comercial_empresa', 'titulo', 'texto', 'data_criacao'])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
@@ -60,7 +62,7 @@ final class RegraModel extends ORM implements ModelListarInterface
         }
         $empresa = $this->request->empresa;
         if (!empty($empresa)) {
-            $where[] = ['id_comercial_empresa', $empresa];
+            $where[] = ['id_comercial_empresa', 'json', (new HelperModel())->pegarIdPeloUuid($empresa)];
         }
         return $where;
     }

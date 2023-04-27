@@ -27,10 +27,10 @@ final class RegraEntity extends Entity
 
     protected function regraSalvar()
     {
-        $this->id_comercial_empresa = (new HelperModel())->mudarUuidParaId($this->empresa);
+        $this->id_comercial_empresa = (new HelperModel())->mudarListaUuidParaId($this->empresa);
     }
     protected function regraPosBuscar()
     {
-        $this->empresa = (new HelperModel())->mudarIdParaUuid($this->id_comercial_empresa);
+        $this->empresa = (new HelperModel())->mudarListaIdParaUuid($this->id_comercial_empresa);
     }
 }

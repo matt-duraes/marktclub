@@ -8,7 +8,7 @@ final class HelperModel extends ORM
 {
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
 
-    public function mudarUuidParaId(array $uuid): array
+    public function mudarListaUuidParaId(array $uuid): array
     {
         $lista = $this->campo(['id'])->where(['cod', 'in', $uuid])->read();
         $id = [];
@@ -17,13 +17,18 @@ final class HelperModel extends ORM
         }
         return $id;
     }
-    public function mudarIdParaUuid(array $id): array
+    public function mudarListaIdParaUuid(array $id): array
     {
-        $lista = $this->campo(['cod'])->where(['cod', 'in', $id])->read();
+        $lista = $this->campo(['cod'])->where(['id', 'in', $id])->read();
         $uuid = [];
         foreach ($lista as $r) {
-            $uuid[] = $r->uuid;
+            $uuid[] = $r->cod;
         }
         return $uuid;
+    }
+
+    public function pegarIdPeloUuid(string $uuid)
+    {
+        return $this->campo(['id'])->where(['cod', $uuid])->primeiro(campo: 'id');
     }
 }
