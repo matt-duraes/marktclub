@@ -7,13 +7,8 @@ use System\Interface\PainelVisualizarRetornoInterface;
 
 final class VisualizarModel implements PainelVisualizarRetornoInterface
 {
-    public function __construct(
-        private stdClass $dado
-    ) {
-    }
-
-    public function retorno(): stdClass
+    public function retorno(stdClass $dado): stdClass
     {
-        return $this->dado;
+        return $dado;
     }
 }

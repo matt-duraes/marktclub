@@ -4,7 +4,7 @@ namespace System\Interface;
 
 use stdClass;
 
-interface PainelVisualizarRetornoInterface
+interface PainelIndexRetornoInterface
 {
     public function retorno(stdClass $dado): stdClass;
 }

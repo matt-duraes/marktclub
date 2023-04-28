@@ -787,6 +787,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])
+            ::request(['pagina', 'data'], 'json')
             ::get('/solicitacao-premium');
     });
 Route
