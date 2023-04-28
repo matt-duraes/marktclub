@@ -29,6 +29,10 @@ final class Request
     private function validarRequest(): void
     {
         $rota = $this->route->rotaUso();
+        if ($rota['metodo'] == 'VIEW') {
+            return;
+        }
+
         $get = $rota['request']['get'] ?? [];
         $post = $rota['request']['post'] ?? [];
         $files = $rota['request']['files'] ?? [];
