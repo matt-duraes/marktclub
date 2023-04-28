@@ -1056,3 +1056,24 @@ Route
             // ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
             ::get('/carteirinha/{id}');
     });
+
+Route
+    ::nome('solicitacao_alfa')
+    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    // ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('termos')
+            // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:termos'])
+            ::get('/alfa/termos/{id}');
+
+        Route
+            ::nome('taxas')
+            // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:taxas'])
+            ::post('/alfa/taxas/{id}');
+
+        Route
+            ::nome('solicitacao')
+            // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
+            ::post('/alfa/solicitacao');
+    });
