@@ -4,28 +4,33 @@ namespace App\Controllers\Site;
 
 use Http\Request;
 use Http\Response;
-use Helpers\ApiHelper;
 use Controller\Controller;
-use App\Models\Site\Saude\SimulacaoModel;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Saude\PlanoModel;
 
 final class PlanoSaudeController extends Controller
 {
-    public function index()
+    public function index(): response
     {
         return view('planosaude.index', [
-            'menu' => 'saude'
+            'menu'   => 'saude',
+            'banner' => (new BannerModel())->saude(),
+            'lista'  => (new PlanoModel())->listarDados()
         ]);
     }
     public function detalhe()
     {
         return view('planosaude.detalhe', [
-            'menu' => 'saude'
+            'menu' => 'saude',
+            'lista'  => (new PlanoModel())->listarDados()
         ]);
     }
     public function unimedvitoria()
     {
         return view('planosaude.unimedvitoria', [
-            'menu' => 'saude'
+            'menu' => 'saude',
+            'lista'  => (new PlanoModel())->listarDados()
+
         ]);
     }
     public function unimedflorianopolis()
@@ -67,7 +72,8 @@ final class PlanoSaudeController extends Controller
     public function federalSaude()
     {
         return view('planosaude.federalSaude', [
-            'menu' => 'federal_saude'
+            'menu' => 'federal_saude',
+            'banner' => (new BannerModel())->saude(),
         ]);
     }
     public function unimedSeguro()
