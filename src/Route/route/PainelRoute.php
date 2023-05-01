@@ -368,6 +368,22 @@ Route
             ::rotaNaoUnica()
             ::request(['tabela', 'local', 'id', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'])
             ::post('/sistema-endereco/buscar-lista');
+        Route
+            ::nome('salvarEndereco')
+            ::rotaNaoUnica()
+            ::request([
+                'tabela', 'local', 'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
+                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
+            ])
+            ::post('/sistema-endereco/salvar-endereco');
+        Route
+            ::nome('atualizarEndereco')
+            ::rotaNaoUnica()
+            ::request([
+                'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
+                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
+            ])
+            ::post('/sistema-endereco/atualizar-endereco/{id}');
     }, true)
 
     // DOWNLOAD PRIVADO

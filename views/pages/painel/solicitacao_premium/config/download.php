@@ -12,5 +12,3 @@ return $Painel
             ->campo('data_vencimento', 'Data de vencimento')
             ->campo('status', 'Status');
     });
-
-return $Painel;
