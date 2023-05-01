@@ -9,5 +9,5 @@ return $Painel
     ->imagemUsuario()
     ->campo('titulo', 'Título', 'grande')
     ->campo('cnpj', 'CNPJ', 'pequeno', formatar: 'cnpj')
-    ->campo('data_criacao', 'Criado em', 'pequeno', formatar: 'data')
+    ->dataCriacao()
     ->status('status', 'Status', new Status());
