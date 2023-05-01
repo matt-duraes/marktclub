@@ -219,6 +219,16 @@ final class Visualizar
         ], $permissao);
         return $this;
     }
+    public function texto(array|string $campo, ?string $permissao = null): self
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'texto',
+            'campo' => $campo,
+            'nome' => '',
+            'formatar' => ''
+        ], $permissao);
+        return $this;
+    }
     public function linha(array|string $campo, string $nome, string $formatar = '', ?string $permissao = null): self
     {
         $this->adicionarCampo($campo, [

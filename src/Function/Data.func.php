@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Data;
+
 if (!function_exists('dataAdicionar')) {
     // doc
     // exemplo
@@ -371,5 +373,22 @@ if (!function_exists('dataPrimeiroDiaMes')) {
             return false;
         }
         return (new \Helpers\DataHelper())->valor($data)->primeiroDiaMes()->r($formato);
+    }
+}
+if (!function_exists('dataListarMesAno')) {
+    // doc
+    // exemplo
+    // echo dataListarMesAno 2022-01-01 2022-05-01
+    // echo dataListarMesAno 2022-05-01 2022-01-01
+    /**
+     * Gera um array com a lista entre os meses informados
+     *
+     * @param   string       $de   Data inicial da lista
+     * @param   string       $ate  Data final da lista
+     * @return  array
+     */
+    function dataListarMesAno(string $de, string $ate): array
+    {
+        return (new \Helpers\DataHelper())->listarMesAno(new Data($de), new Data($ate));
     }
 }

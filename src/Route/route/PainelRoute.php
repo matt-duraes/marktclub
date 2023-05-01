@@ -106,12 +106,11 @@ Route
         Route
             ::nome('senha')
             ::rotaNaoUnica()
-            ::view('/perfil/senha');
+            ::get('/perfil/senha');
 
         Route
-            ::nome('atualizar_senha')
+            ::nome('senha')
             ::rotaNaoUnica()
-            ::action('senha')
             ::request(['hash_validacao', 'senha_atual', 'senha_nova', 'senha_repetir'])
             ::post('/perfil/senha');
 

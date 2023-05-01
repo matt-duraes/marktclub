@@ -39,7 +39,6 @@
         <div class="linha"></div>
         @ endif;
 
-
         <a href="{!!route('login.sair')!!}">
             <i>@iconeSair</i>
             <p>Sair</p>

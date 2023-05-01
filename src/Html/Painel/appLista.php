@@ -98,10 +98,13 @@
 
         <?php if (isset($dado->lista) && !vazio($dado->lista)) : ?>
             <?php foreach ($dado->lista as $r) : ?>
-                <?php $r = is_array($r) ? (object)$r : $r; ?>
+                <?php
+                    $r = is_array($r) ? (object)$r : $r;
+                    $id = $r->id ?? '';
+                ?>
                 <div class="linha">
                     <div class="lista geral form_geral">
-                        <input type="hidden" name="id" value="<?= $r->id ?>">
+                        <input type="hidden" name="id" value="<?= $id ?>">
                         <?php if ($config->permissao->drag) : ?>
                             <div class="drag"><?= iconeDrag() ?></div>
                         <?php endif; ?>
@@ -109,8 +112,8 @@
                         <?php if ($config->permissao->deletar) : ?>
                             <div class="checkbox">
                                 <?= formCheckbox(
-                                    name: 'id_' . $r->id,
-                                    value: $r->id,
+                                    name: 'id_' . $id,
+                                    value: $id,
                                     label: '',
                                     check: false
                                 ); ?>
@@ -118,7 +121,7 @@
                         <?php endif; ?>
 
                         <?php if ($config->permissao->editar || $config->permissao->visualizar) : ?>
-                            <a href="<?= str_replace(['{app}', '{id}'], [$appLink, $r->id], $config->abrir) ?>" class="dado">
+                            <a href="<?= str_replace(['{app}', '{id}'], [$appLink, $id], $config->abrir) ?>" class="dado">
                         <?php else : ?>
                                 <div class="dado">
                         <?php endif; ?>

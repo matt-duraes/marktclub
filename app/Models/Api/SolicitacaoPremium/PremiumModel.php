@@ -4,11 +4,14 @@ namespace App\Models\Api\SolicitacaoPremium;
 
 use ORM\ORM;
 use Http\Request;
+use Modules\Data;
 use App\Classes\SolicitacaoPremium\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
 
 final class PremiumModel extends ORM
 {
+    use SetarDataTrait;
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
@@ -36,7 +39,7 @@ final class PremiumModel extends ORM
                 ['data_criacao', 'between', [$this->de, $this->ate]]
             ])
             ->tabela(TABELA_PARCEIRO_LOJA)
-            ->join('id', 'vinculo')
+            ->join('cod', 'vinculo')
             ->campo(['id', 'titulo', 'limite_voucher'])
             ->where(['status', 5])
             ->read();
@@ -54,7 +57,7 @@ final class PremiumModel extends ORM
                     'ativo' => 0,
                     'validado' => 0,
                     'cancelado' => 0,
-                    'limite' => empty($r->limite_voucher) ? 'Sem limite' : '',
+                    'limite' => empty($r->limite_voucher) ? 'Sem limite' : $r->limite_voucher,
                     'status' => ''
                 ];
             }
@@ -71,26 +74,33 @@ final class PremiumModel extends ORM
     }
     private function colocarStatus($dado): array
     {
-        $retorno = [];
+        $livre = [];
+        $esgotado = [];
+        $gerado = [];
+        $estourado = [];
         foreach ($dado as $r) {
             $totalValido = $r['ativo'] + $r['validado'];
             if (!is_numeric($r['limite']) || $totalValido < $r['limite']) {
                 $r['status'] = Status::LIVRE;
-            } elseif ($r['ativo'] == $r['limite']) {
+                $livre[] = $r;
+            } elseif ($totalValido > $r['limite']) {
+                $r['status'] = Status::ESTOURADO;
+                $estourado[] = $r;
+            } elseif ($r['validado'] == $r['limite']) {
                 $r['status'] = Status::ESGOTADO;
-            } elseif ($r['limite'] == $totalValido) {
+                $esgotado[] = $r;
+            } elseif ($totalValido == $r['limite']) {
                 $r['status'] = Status::GERADO;
+                $gerado[] = $r;
             }
-            $retorno[] = $r;
         }
-        return $retorno;
+        return array_merge($estourado, $livre, $gerado, $esgotado);
     }
     private function validarRequest()
     {
-    }
-    private function setarPrimeiroUltimoDia()
-    {
-        $this->de = dataPrimeiroDiaMes(hoje());
-        $this->ate = dataUltimoDiaMes(hoje(), formato: 'Y-m-d H:i:s');
+        $data = new Data($this->request->data);
+        if (!$data->vazio() && !$data->valido()) {
+            mensagemErro('Campo inválido!', 'A data informada não é válida.');
+        }
     }
 }

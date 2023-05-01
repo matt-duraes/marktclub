@@ -1,13 +1,11 @@
 <?php
 
-use App\Classes\SolicitacaoVoucher\Helper;
-
 return [
     'titulo' => 'Voucher premium',
     'buscar' => false,
-    'filtrar' => false,
+    'filtrar' => true,
     'ordem' => false,
-    'visualizar' => true,
+    'visualizar' => false,
     'download' => true,
     'add' => false,
     'editar' => false,

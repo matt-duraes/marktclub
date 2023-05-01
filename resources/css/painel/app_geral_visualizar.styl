@@ -11,7 +11,7 @@
         align-items: center
     .bloco_fieldset
         width: calc(100% - 40px)
-        max-width: 700px
+        max-width: 800px
         display: flex
         flex-direction: column
         background: #FFF
@@ -189,9 +189,11 @@
         margin-top: 10px
         cursor: pointer
     h2.titulo
+        max-width: 700px
         font-size: $tituloFontSize
         margin-top: 20px
     p.sub_titulo
+        max-width: 700px
         line-height: 1.5em
         font-size: $textoFontSize
         color: #666
@@ -199,6 +201,11 @@
     .bloco_coluna_geral > p.sub_titulo
         width: 100%
         text-align: center
+    .bloco_texto
+        width: 100%
+        max-width: 700px
+        margin-top: 40px
+        blocoShadow()
     .margin
         width: 100%
 #bloco_app_visualizar .bloco_botao_status
