@@ -31,7 +31,8 @@ return [
             'usuario_cliente' => [
                 'geral' => [
                     'nome', 'cpf', 'matricula', 'siape', 'genero', 'estado_civil', 'data_nascimento', 'email_trabalho',
-                    'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_estado', 'endereco_cidade', 'senha',
+                    'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cidade', 'endereco_bairro', 'endereco_complemento', 'endereco_numero',
+                    'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
                     'data_criacao_ate', 'data_criacao', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
                     'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao', 'analytics'

@@ -7,6 +7,7 @@ use Http\Request;
 use Modules\Genero;
 use Modules\DataHora;
 use Modules\Telefone;
+use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
@@ -99,6 +100,8 @@ final class DownloadModel extends ORM
                     $val = (new Genero($val))->genero();
                 } elseif ($ind == 'estado_civil') {
                     $val = (new EstadoCivil($val))->estadoCivil();
+                } elseif ($ind == 'endereco_cep') {
+                    $val = (new EnderecoCep($val))->cep();
                 } elseif ($ind == 'cidade') {
                     $ind = 'endereco_cidade';
                     $val = strNull($val);
