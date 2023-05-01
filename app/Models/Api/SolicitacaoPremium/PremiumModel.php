@@ -7,9 +7,11 @@ use Http\Request;
 use Modules\Data;
 use App\Classes\SolicitacaoPremium\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
 
 final class PremiumModel extends ORM
 {
+    use SetarDataTrait;
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
@@ -100,11 +102,5 @@ final class PremiumModel extends ORM
         if (!$data->vazio() && !$data->valido()) {
             mensagemErro('Campo inválido!', 'A data informada não é válida.');
         }
-    }
-    private function setarPrimeiroUltimoDia()
-    {
-        $data = new Data($this->request->data);
-        $this->de = dataPrimeiroDiaMes($data->date());
-        $this->ate = dataUltimoDiaMes($data->date(), formato: 'Y-m-d H:i:s');
     }
 }

@@ -424,7 +424,7 @@ final class DataHelper
      * @param   Date   $ate  Data final da lista, se null, pega a data atual
      * @return  array        Array com a lista de meses
      */
-    public function listarMeses(Data $de, Data $ate): array
+    public function listarMesAno(Data $de, Data $ate): array
     {
         $inicio = (new DateTime($de->date()))->format('Y-m-') . '01';
         $final = (new DateTime($ate->date()))->format('Y-m-') . '01';

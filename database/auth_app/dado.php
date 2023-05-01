@@ -116,7 +116,7 @@ EwIDAQAB
 
             "tabela_usuario:salvar", "tabela_usuario:bloquear",
 
-            "solicitacao_premium:listar",
+            "solicitacao_premium:listar", "solicitacao_premium:download",
             "solicitacao_voucher:listar", "solicitacao_voucher:buscar", "solicitacao_voucher:download",
             "solicitacao_voucher:salvar",
 

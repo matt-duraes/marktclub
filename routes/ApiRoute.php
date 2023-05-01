@@ -789,6 +789,13 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])
             ::request(['pagina', 'data'], 'json')
             ::get('/solicitacao-premium');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:download'])
+            ::request([
+                'campo', 'usuario', 'data'
+            ])
+            ::post('/solicitacao-premium/download');
     });
 Route
     ::nome('solicitacao_voucher')

@@ -33,7 +33,7 @@ final class IndexModel implements PainelIndexBuscarInterface
         if (!empty($ordem)) {
             $parametro['ordem'] = $ordem;
         }
-        if (is_array($filtro) && array_key_exists('data', $filtro) && validarData($filtro['data'])) {
+        if (is_array($filtro) && array_key_exists('data', $filtro) && validarDate($filtro['data'])) {
             $parametro['data'] = $filtro['data'];
         } else {
             $parametro['data'] = hoje();
