@@ -104,7 +104,6 @@ final class DownloadModel extends ORM
                 );
             }
         }
-        return;
     }
     private function converterCampoParaDownload()
     {
