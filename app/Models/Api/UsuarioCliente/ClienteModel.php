@@ -10,13 +10,13 @@ use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends ORM
 {
-    use ValidarEmpresaTrait;
+    use ValidarEmpresaDownloadTrait;
     use BuscarUsuarioTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
@@ -26,7 +26,7 @@ final class ClienteModel extends ORM
         protected ?Request $request = null
     ) {
         parent::__construct();
-        $this->validarEmpresa('empresa');
+        $this->validarEmpresa($request->usuario, 'empresa');
         $this->validarCampoDoRequest();
     }
 

@@ -155,7 +155,7 @@ Route::nome('usuario_cliente_download')
             ::request([
                 'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente',
-                '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo'
+                '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo', '!endereco_estado', '!federacao'
             ])
             ::post('/usuario-cliente/download');
     });
@@ -170,7 +170,8 @@ Route::nome('usuario_cliente')
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
-                '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo'
+                '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
+                '!endereco_estado', '!federacao'
             ], 'json')
             ::get('/usuario-cliente');
 
