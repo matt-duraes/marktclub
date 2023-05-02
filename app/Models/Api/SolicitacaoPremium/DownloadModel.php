@@ -7,11 +7,13 @@ use Http\Request;
 use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
 
 final class DownloadModel extends ORM
 {
     use SetarDataTrait;
+    use WhereTrait;
     use ValidarEmpresaDownloadTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
@@ -41,7 +43,7 @@ final class DownloadModel extends ORM
         $campo = $this->converterCampoParaDownload();
         $dado = $this
             ->campo($campo)
-            ->where(['data_criacao', 'between', [$this->de, $this->ate]])
+            ->where($this->pegarWhere())
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('cod', 'vinculo')
             ->where(['status', 5])

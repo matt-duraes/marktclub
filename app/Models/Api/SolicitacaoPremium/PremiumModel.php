@@ -7,12 +7,14 @@ use Http\Request;
 use Modules\Data;
 use App\Classes\SolicitacaoPremium\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
 
 final class PremiumModel extends ORM
 {
     use SetarDataTrait;
     use ValidarEmpresaTrait;
+    use WhereTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
 
@@ -34,10 +36,7 @@ final class PremiumModel extends ORM
     {
         $dado = $this
             ->campo(['status'])
-            ->where([
-                ['empresa', $this->idEmpresa],
-                ['data_criacao', 'between', [$this->de, $this->ate]]
-            ])
+            ->where($this->pegarWhere())
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('cod', 'vinculo')
             ->campo(['id', 'titulo', 'limite_voucher'])
