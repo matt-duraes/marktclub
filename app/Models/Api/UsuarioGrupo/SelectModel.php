@@ -4,13 +4,10 @@ namespace App\Models\Api\UsuarioGrupo;
 
 use ORM\ORM;
 use Http\Request;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class SelectModel extends ORM
 {
-    use ValidarEmpresaTrait;
-
     protected string $ormTabela = TABELA_USUARIO_GRUPO;
     private int $idEmpresa;
 
@@ -18,7 +15,6 @@ final class SelectModel extends ORM
         protected Request $request
     ) {
         parent::__construct();
-        $this->setarIdEmpresa();
     }
 
     public function listarDados(): array
@@ -41,8 +37,9 @@ final class SelectModel extends ORM
     }
     private function pegarEmpresa()
     {
+        $id = TOKEN['empresa']->get('id');
         if ($this->request->vazio('empresa')) {
-            return $this->idEmpresa;
+            return $id;
         }
 
         try {
@@ -50,7 +47,7 @@ final class SelectModel extends ORM
             $Empresa->uuid($this->request->empresa);
             return $Empresa->get('id');
         } catch (\Throwable) {
-            return $this->idEmpresa;
+            return $id;
         }
     }
 }
