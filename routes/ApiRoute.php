@@ -1061,17 +1061,8 @@ Route
     ::nome('solicitacao_alfa')
     ::controller(App\Controllers\Api\CarteirinhaController::class)
     // ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
-        Route
-            ::nome('termos')
-            // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:termos'])
-            ::get('/alfa/termos/{id}');
-
-        Route
-            ::nome('taxas')
-            // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:taxas'])
-            ::post('/alfa/taxas/{id}');
-
         Route
             ::nome('solicitacao')
             // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
