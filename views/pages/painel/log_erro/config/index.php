@@ -9,4 +9,5 @@ return $Painel
     ->campo('quantidade', 'Quantidade', 'pequeno')
     ->campo('status_http', 'HTTP', 'pequeno')
     ->dataCriacao()
+    ->dataAtualizacao()
     ->status('status', 'Status', new Status());
