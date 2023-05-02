@@ -38,7 +38,7 @@ final class SelectModel extends ORM
     private function pegarEmpresa()
     {
         $id = TOKEN['empresa']->get('id');
-        if ($this->request->vazio('empresa')) {
+        if ($this->request->vazio('empresa') || $id != 1) {
             return $id;
         }
 
