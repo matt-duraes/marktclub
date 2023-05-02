@@ -3,10 +3,9 @@
 namespace App\Models\Api\Cinema;
 
 use Erro\Excecao;
-use Modules\Data;
 use ORM\Entity;
 
-class CinemaEntity extends Entity
+class ConsultaModel extends Entity
 {
     private const LIMITE_RESGATE = 2;
 
@@ -52,41 +51,5 @@ class CinemaEntity extends Entity
                 ])
                 ->contar()
         ];
-    }
-
-
-    /**
-     * @param  string  $uuidEmpresa
-     * @param  string  $uuidUsuario
-     *
-     * @return array
-     * @throws Excecao
-     */
-    public function extrato(string $uuidEmpresa, string $uuidUsuario): array
-    {
-        $extrato = $this
-            ->select()
-            ->campo([
-                'cod', 'cupom', 'data_criacao', 'status'
-            ])
-            ->where([
-                ['empresa', $uuidEmpresa],
-                ['usuario', $uuidUsuario]
-            ])
-            ->get();
-
-        $novoExtrato = [];
-        foreach ($extrato as $transacao) {
-            $novoExtrato[] = [
-                'id'      => $transacao->id,
-                'produto' => 'Cupom digital para cinema',
-                'data'    => [
-                    'compra' => (new Data($transacao))->data()
-                ],
-                'cupom'   => $transacao->status === 3 ? json_decode($transacao->cupom) : ''
-            ];
-        }
-
-        return $novoExtrato;
     }
 }
