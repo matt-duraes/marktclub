@@ -1058,6 +1058,17 @@ Route
     });
 
 Route
+    ::nome('solicitacao_alfa')
+    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    // ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
+    ::grupo(function () {
+        Route
+            ::nome('solicitacao')
+            // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
+            ::post('/alfa/solicitacao');
+
+Route
     ::nome('popup')
     ::controller(App\Controllers\Api\PopupController::class)
     //::middleware(TokenMiddleware::class, 'token')
