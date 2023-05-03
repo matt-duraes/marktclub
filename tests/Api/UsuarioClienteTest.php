@@ -449,7 +449,7 @@ final class UsuarioClienteTest extends Tests
             'primeiro_acesso' => $this->simNao(),
             'mudar_senha' => $this->simNao(),
             'estado_civil' => $this->estadoCivil(),
-            'endereco_cep' => $this->cep(),
+            'endereco_cep' => strCep($this->cep()),
             'endereco_logradouro' => $this->logradouro(),
             'endereco_numero' => $this->numero(),
             'endereco_complemento' => $this->complemento(),
