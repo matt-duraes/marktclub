@@ -174,7 +174,7 @@ final class CriarClienteModel
                 ->body([
                     'titulo' => 'Criou uma nova tarefa para você',
                     'mensagem' => 'Foi criado uma nova tarefa para você, acesse a demanda e verifique o pedido.',
-                    'link' => LINK . '/demanda#demanda-' . $this->Demanda->dado->id,
+                    'link' => LINK . '/demanda/tecnologia#demanda-' . $this->Demanda->dado->id,
                     'botao' => 'Acessar painel',
                     'dono' => sessao('USUARIO.id'),
                     'equipe' => $equipe

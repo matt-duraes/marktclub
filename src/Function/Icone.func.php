@@ -1218,21 +1218,6 @@ if (!function_exists('iconeDownload')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M15.7,1.3c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3s1.3-0.6,1.3-1.3 c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4C18.3,0.6,17.7,0,17,0C16.3,0,15.7,0.6,15.7,1.3L15.7,1.3z"/><path d="M6.1,18.4c1.1,1.4,2.3,2.7,3.4,4.1c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.4,0.5,1.4,0.5,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c0.5-0.6,0.5-1.4,0-1.9c-0.5-0.5-1.4-0.6-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c0.6,0,1.2,0,1.9,0c-1.1-1.4-2.3-2.7-3.4-4.1 c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.5-0.6-1.4-0.5-1.9,0C5.6,17.1,5.6,17.8,6.1,18.4L6.1,18.4z"/><path d="M1.3,40c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0c0,0,0,0,0.1,0 c0.7,0,1.3-0.6,1.3-1.3s-0.6-1.3-1.3-1.3c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0 c-1.3,0-2.5,0-3.8,0c0,0,0,0-0.1,0c-0.7,0-1.3,0.6-1.3,1.3C0,39.4,0.6,40,1.3,40L1.3,40z"/></svg>';
     }
 }
-if (!function_exists('iconeAguarde')) {
-    // doc
-    // exemplo
-    // echo iconeAguarde
-    /**
-     * Gera um icone de aguarde
-     *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
-     */
-    function iconeAguarde(int $tamanho = 28): string
-    {
-        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 80 80" enable-background="new 0 0 80 80" xml:space="preserve"><g><path d="M39.5,60C28.7,60,20,51.3,20,40.5S28.7,21,39.5,21S59,29.7,59,40.5S50.3,60,39.5,60z M39.5,23   C29.9,23,22,30.9,22,40.5S29.9,58,39.5,58S57,50.1,57,40.5S49.1,23,39.5,23z"/></g><g><polygon points="49,42 38,42 38,31 40,31 40,40 49,40  "/></g></svg>';
-    }
-}
 if (!function_exists('iconeOlhoAberto')) {
     // doc
     // exemplo
@@ -1386,9 +1371,9 @@ if (!function_exists('iconeDeslike')) {
 if (!function_exists('iconeFixar')) {
     // doc
     // exemplo
-    // echo iconeDeslike
+    // echo iconeFixar
     /**
-     * Gera um icone de deslike
+     * Gera um icone de fixar
      *
      * @param   int     $tamanho    Altura do atributo height do svg
      * @return  string              SVG do icone
@@ -1396,5 +1381,20 @@ if (!function_exists('iconeFixar')) {
     function iconeFixar(int $tamanho = 20)
     {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg>';
+    }
+}
+if (!function_exists('iconeRelogio')) {
+    // doc
+    // exemplo
+    // echo iconeRelogio
+    /**
+     * Gera um icone de relógio
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeRelogio(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,30C6.7,30,0,23.3,0,15C0,6.7,6.7,0,15,0c8.3,0,15,6.7,15,15C30,23.3,23.3,30,15,30z M15,27c6.6,0,12-5.4,12-12c0-6.6-5.4-12-12-12C8.4,3,3,8.4,3,15C3,21.6,8.4,27,15,27z M16.5,15h6v3h-9V7.5h3V15z"/></svg>';
     }
 }
