@@ -9,6 +9,34 @@
     .bloco
         width: 100%
         margin-top: 40px
+.bloco_geral_imagem_esquerda
+    height: auto
+.bloco_plano
+    flexCenter()
+@media screen and (max-width: 800px)
+    .bloco_plano
+        padding: 20px
+        figure
+            display: none
+    .final
+        padding: 20px 0px
+@media screen and (max-width: 450px)
+    .bloco_geral_imagem_esquerda
+        flex-direction: column
+    .bloco_geral_imagem_esquerda header
+        flex-grow: 1
+        flex-basis: 0%
+        padding-right: 0px
+        margin-right: 0px
+        padding-bottom: 20px
+        border-right: none
+        border-bottom: 1px solid #ddd
+    .bloco_geral_imagem_esquerda .final
+        width: 100%
+        margin-right: 0px
+        padding-left: 20px
+        padding-top: 0px
+
 .bloco_promocao
     width: 100%
     flexRow()

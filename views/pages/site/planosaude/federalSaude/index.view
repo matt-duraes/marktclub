@@ -4,6 +4,7 @@
         <figure class="imagem_banner">
             <img src="{!!LINK_PADRAO!!}/images/site/banner_federal_saude.jpg" alt="">
         </figure>
+
         <h1>O QUE DESEJA FAZER?</h1>
         <p>Caso queira simular o plano da Federal Clube, clique em "Contratar o Federal Saúde" ou
             se já possui o plano, clique em "Solicitar 2° via do Boleto"</p>

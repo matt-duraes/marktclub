@@ -70,7 +70,7 @@
         <div class="container_acessa consultoria">
             <a href="@route(alfa.consultoriaAlfa)" target="_blank" class="bg_cor">Saiba mais sobre a consultoria financeira</a>
         </div>
-	
+
 	</section>
 
 </div>

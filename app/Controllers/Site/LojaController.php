@@ -133,4 +133,26 @@ final class LojaController extends Controller
     {
         return new Response(status: 201);
     }
+
+    /**
+     * @return Response
+     */
+    public function melhoridade(): Response
+    {
+        $ConvenioParceiro = ['dominos', 'lojateste'];
+        $categoria = ['alimentacao','saude', 'veiculo'];
+        $alimentacaoTag = ['bares','restaurante','churrascarias','doces',
+        'sanduiches', 'suplementos', 'cafes'];
+        $veiculoTag = ['concessionarias','locadoras','pneus','oficinas'];
+        $saudeTag = ['academia','visao','esportes','spas'];
+        $estado = ['Acre','Alagoas','Amapá','Amazonas','Rio de Janeiro','Brasilia','São Paulo'];
+
+        return view('loja.pesquisa', [
+            'alimentacaoTag' => $alimentacaoTag,
+            'veiculoTag' => $veiculoTag,
+            'saudeTag' => $saudeTag,
+            'categoria' => $categoria,
+            'estado' => $estado,
+        ]);
+    }
 }

@@ -25,7 +25,7 @@
         </div>
 
         <div class="bloco_botao">
-            <div class="botao branco botao_geral_cor botao_abrir_carteirinha">
+            <div data-url="1" class="botao branco botao_geral_cor botao_abrir_carteirinha">
                 <i>@iconeTelefone(15)</i>
                 Ver carteirinha
             </div>

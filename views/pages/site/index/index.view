@@ -5,11 +5,15 @@
 
     <div class="bloco">
         <div class="bloco_geral_imagem_esquerda">
-            <figure><img src="{{LINK_PADRAO}}/images/site/home_saude.jpg" alt=""></figure>
-            <header>
-                <h1>Que tal um plano de saúde feito para você?</h1>
-                <p>Venha conhecer o plano de saúde que cabe no seu bolso</p>
-            </header>
+            <div class="bloco_plano">
+                <figure>
+                    <img src="{{LINK_PADRAO}}/images/site/home_saude.jpg" alt="">
+                </figure>
+                <header>
+                    <h1>Que tal um plano de saúde feito para você?</h1>
+                    <p>Venha conhecer o plano de saúde que cabe no seu bolso</p>
+                </header>
+            </div>
             <div class="final">
                 <div class="valor">
                     <p class="apartir">Apartir</p>

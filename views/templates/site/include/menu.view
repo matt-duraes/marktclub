@@ -4,6 +4,11 @@
     Início
 </a>
 
+<a class="{!!MENU_HOVER == 'acessorapido' ? 'cor_bg pagina_atual' : ''!!}" href="@route(acessorapido.index)">
+    <i>@iconeSiteHome</i>
+    Acesso Rápido
+</a>
+
 @ if( MENU_LOJA || MENU_LOJA_PROXIMA || MENU_CUPOM || MENU_CASHBACK || MENU_EXTENSAO || MENU_PROMOCAO):
 <div class="categoria">DESCONTOS</div>
 

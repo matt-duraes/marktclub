@@ -4,11 +4,7 @@
 @resources "site/variavel"
 @resource "site/saude/padraoIndex"
 
-#bloco_federal_saude
-    h1
-        titulo()
-    p 
-        texto()
+
 .bloco_federal_saude
     width: 100%
     max-width: $maxWidth
@@ -30,13 +26,14 @@
             texto()
             min-width: 250px
             border-radius: 5px
-            margin: 25px
+            margin:25px 12px
 .inativo
     display: none
 .ativo
     display: block
 
 .container_contratacao
+    margin-top: 25px
     width: 100%
     max-width: $maxWidth
     .bloco_contratar_federal
@@ -75,7 +72,7 @@
         p
             margin-bottom: 25px
         iframe
-            margin-bottom: 25px 
+            margin-bottom: 25px
         .link_teleorientacao
             width: 100%
             display: flex
@@ -120,9 +117,7 @@
         margin: 25px !important
     .link_teleorientacao
         flexCol()
-    iframe 
+    iframe
         width: 100%
 
-@media screen and (max-width:485px)
-    .bloco_federal_saude
-        height: 550px
+

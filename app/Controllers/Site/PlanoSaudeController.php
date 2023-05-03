@@ -74,6 +74,7 @@ final class PlanoSaudeController extends Controller
         return view('planosaude.federalSaude', [
             'menu' => 'federal_saude',
             'banner' => (new BannerModel())->saude(),
+            'lista'  => (new PlanoModel())->listarDados()
         ]);
     }
     public function unimedSeguro()

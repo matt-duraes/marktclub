@@ -11,6 +11,14 @@ Route
             ::view('/');
     });
 Route
+    ::nome('acessorapido')
+    ::controller(App\Controllers\Site\AcessoRapidoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/acesso-rapido');
+    });
+Route
     ::nome('cupom')
     ::controller(App\Controllers\Site\CupomController::class)
     ::grupo(function () {
@@ -99,7 +107,6 @@ Route
         Route
             ::nome('confirmar')
             ::view('/convenios/confirmar/{url}');
-
         Route
             ::nome('proxima')
             ::view('/convenios/mapa');
@@ -110,6 +117,9 @@ Route
             ::nome('buscaMapa')
             ::request(['!categoria', '!pesquisa', 'latitude', 'longitude', 'raio'])
             ::post('/convenios/mapa-listar');
+        Route
+            ::nome('melhoridade')
+            ::view('/convenios/melhor-idade');
     });
 
 Route
