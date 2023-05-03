@@ -1,31 +1,10 @@
 @system "Form"
 @template "site"
+@resource "site/banner"
 @resource "site/loja/parceiro"
 
 
 #bloco_medicamento
-    max-width: $maxWidth
-    #bloco_loja_index
-        width: 100%
-        flexCol()
-        align-items: center
-        .banner
-            margin: 20px 0
-        .bloco_parceiro
-            max-width: 1130px
-
-
-    .conteudo_principal
-        conteudoPricipalBannerGrande()
-        height: 468px
-        .bloco_aviso
-            blocoAvisoDashed()
-            border: 3px dashed $corClube
-
-    .bloco_parceiro
-        width: 100%
-        max-width: $maxWidth
-        flexRow()
-        flex-wrap: wrap
-        justify-content: space-between
-        espacoTopPadrao()
+    maxWidth()
+    .banner
+        espacoBottomPadrao()

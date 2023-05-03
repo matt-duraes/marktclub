@@ -12,7 +12,7 @@
             <button class="cor_bg" data-opcao="solicitar">Solicitar 2° Via do Boleto</button>
         </article>
     </div>
-    
+
     <div class="container_contratacao inativo">
         <div class="bloco_contratar_federal">
             <h1>Para continuar, escolha entre uma das operadoras abaixo:</h1>
@@ -59,6 +59,6 @@
             </div>
         </div>
     </div>
-    
+
 
 </div>

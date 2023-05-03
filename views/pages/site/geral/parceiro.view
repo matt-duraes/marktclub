@@ -20,7 +20,6 @@
             <p>{{$r->texto}}</p>
             @ endif;
         </header>
-
         @ if( $lista->tipo == 'cashback' ):
         <p>Receba de volta</p>
         <p class="destaque cor_color">{{$r->desconto}}</p>

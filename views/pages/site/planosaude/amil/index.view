@@ -34,7 +34,7 @@
 				<a href="#" class="botao_padrao">Consultar rede credenciada</a>
 				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
 			</div>
-		</div>	
+		</div>
 	</div>
 	<div class="bloco_explore_rede">
 		<div class="titulo_rede">
@@ -46,15 +46,15 @@
 				<li>Na página que abrirá, selecione o Tipo do Produto: SAÚDE;</li>
 				<li>Selecione o plano que deseja consultar entre as opções abaixo e clique em Continuar:</li>
 				<li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada
-					<br> Amil Fácil S60 QC – RJ, 
-                    Amil Fácil S60 QC – SP, 
-                    Amil Fácil S60 QC BX - Jundiaí, 
-                    Amil Fácil S80 QC – SP RJ DF, 
-                    Amil Fácil S80 QP – SP RJ DF, 
-                    Amil S380 QC, 
-                    Amil S380 QP, 
-                    Amil S450 QC, 
-                    Amil S450 QP, 
+					<br> Amil Fácil S60 QC – RJ,
+                    Amil Fácil S60 QC – SP,
+                    Amil Fácil S60 QC BX - Jundiaí,
+                    Amil Fácil S80 QC – SP RJ DF,
+                    Amil Fácil S80 QP – SP RJ DF,
+                    Amil S380 QC,
+                    Amil S380 QP,
+                    Amil S450 QC,
+                    Amil S450 QP,
                     Amil S750,
 				</li>
                 <li>
@@ -265,7 +265,7 @@
 							<td>1</td>
 							<td>1,5</td>
 							<td>2</td>
-						</tr>	
+						</tr>
 					</tbody>
 					<tfoot>
 						<p>
@@ -310,8 +310,8 @@
 					<td>R$ 111,43</td>
 					<td>R$ 107,20</td>
 					<td>R$ 101,56</td>
-				</tr>		
-				<tr>		
+				</tr>
+				<tr>
 					<td>19-23</td>
 					<td>R$ 156,57</td>
 					<td>R$ 149,52</td>
@@ -571,7 +571,7 @@
 					<td>-</td>
 					<td>-</td>
 				</tr>
-			</tbody>		
+			</tbody>
 		</table>
 	</div>
 

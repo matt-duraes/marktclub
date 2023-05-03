@@ -1,12 +1,9 @@
 @template "site"
-<div class="conteudo_cinema">
-    <header>
-        <figure class="imagem_fundo" style="background-image: url('https://clube.marktclub.com.br/images/tela_cinema.jpg'); background-size:cover">
-        </figure>
-        <div class="bloco_aviso">
-            <p>Agora você pode comprar ingressos para o cinema com um super desconto</p>
-        </div>
-    </header>
+<div id="conteudo_cinema">
+    @view site/geral/banner.view
+    <div class="bloco_atencao_geral">
+        <p>Agora você pode comprar ingressos para o cinema com um super desconto</p>
+    </div>
     <div class="bloco_info_cinema">
         <div class="bloco_passo_a_passo">
             <h2> Entenda como comprar o seu ingresso</h2> <br>
@@ -23,7 +20,7 @@
             </p>
         </div>
     </div>
-    <div class="bloco_aviso">
+    <div class="bloco_atencao_geral aviso">
         <p>Válido apenas para salas 2D (está sinalizada apenas com a legenda DUB ou LEG) - Válido para qualquer dia da semana, filme e horário, exceto para salas Prime, Poltronas D-BOX, 3D e XD - Válido apenas na rede Cinemark - Quantidade limitada de 2 ingressos por semana - Quantidade limitada de ingressos, com renovação mensal de estoque - Este ingresso não está válido para os cinemas de Vitória e Vila Velha/ES.</p>
     </div>
 
@@ -50,10 +47,8 @@
                 <p>R$36.00</p>
             </div>
         </div>
-        <div class="botao_ingresso">
-            <button class="botao_geral_cor cor_bg">COMPRAR</button>
-        </div>
-        
+        <button class="botao_geral_cor cor_bg">COMPRAR</button>
+
     </div>
     <div class="bloco_prime">
         <div class="assinatura_titulo">
