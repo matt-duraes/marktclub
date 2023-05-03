@@ -24,7 +24,7 @@ if (!empty($appVoltar) && is_array($appVoltar) && is_string($appVoltar[0])) {
 $buscarStatus = $config->permissao->buscar ?? false;
 $filtrarStatus = $config->permissao->filtrar ?? false;
 $ordemStatus = $config->permissao->ordem ?? false;
-
+ppe(sessao('USUARIO'), true);
 $app = $app ?? '';
 define('EMPRESA_ID', sessao('EMPRESA.id', padrao: ''));
 define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));

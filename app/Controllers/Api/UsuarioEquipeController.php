@@ -64,7 +64,7 @@ final class UsuarioEquipeController extends Controller implements
                     'Empresa' => ['id', 'nome_fantasia'],
                     'perfil', 'nome', 'cpf', 'imagem', 'email_trabalho', 'email_pessoal', 'telefone_trabalho',
                     'telefone_pessoal', 'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'id_google',
-                    'id_facebook', 'gerente', 'admin', 'status', 'permissao'
+                    'id_facebook', 'marktclub', 'gerente', 'admin', 'status', 'permissao'
                 ],
             ),
             status: $status,
