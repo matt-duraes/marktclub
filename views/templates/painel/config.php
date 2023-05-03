@@ -24,13 +24,14 @@ if (!empty($appVoltar) && is_array($appVoltar) && is_string($appVoltar[0])) {
 $buscarStatus = $config->permissao->buscar ?? false;
 $filtrarStatus = $config->permissao->filtrar ?? false;
 $ordemStatus = $config->permissao->ordem ?? false;
-ppe(sessao('USUARIO'), true);
+
 $app = $app ?? '';
 define('EMPRESA_ID', sessao('EMPRESA.id', padrao: ''));
 define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));
 define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));
+define('USUARIO_MARKTCLUB', sessao('USUARIO.marktclub', padrao: 'nao'));
 define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
 define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
 

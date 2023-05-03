@@ -482,17 +482,19 @@ if (!function_exists('painelAppAddBotao')) {
      */
     function painelAppAddBotao(?string $id = null, ?string $botao = null)
     {
-        $id = $id != null ? $id : 'botao_salvar_geral';
-        $botao = $botao != null ? $botao : 'SALVAR';
-        echo '
+        $id = is_null($id) ? 'botao_salvar_geral' : $id;
+        $botao = is_null($botao) ? 'SALVAR' : $botao;
+        if (!empty($botao)) {
+            echo '
                 <div class="botao_salvar" id="' . $id . '">
                     <p>' . $botao . '</p>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
                     </span>
                 </div>
-            </form>
-        ';
+            ';
+        }
+        echo '</form>';
     }
 }
 
