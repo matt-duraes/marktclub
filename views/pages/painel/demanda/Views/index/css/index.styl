@@ -72,20 +72,24 @@
         position: absolute
         top: 0
         left: 0
-    .conteudo article .bloco_area
+    .conteudo article .bloco_data
         width: 100%
         flexRow()
         flex-wrap: wrap
         border-top: 1px solid #ddd
         margin-top: 10px
         padding: 10px 5px 0 10px
-    .conteudo article .bloco_area .area
+    .conteudo article .bloco_data .data
         border: 1px solid #CCC
         border-radius: 15px
         padding: 5px 10px
         font-size: 1.2rem
-        color: #666
+        color: #333
+        fill: #777
         margin: 5px 5px 0 0
+        flexCenter()
+    .conteudo article .bloco_data .data svg
+        margin-right: 5px
     .conteudo article footer
         width: 100%
         display: flex

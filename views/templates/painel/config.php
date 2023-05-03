@@ -53,6 +53,7 @@ try {
     $notificacaoNumeroNovaVisualizada = 0;
 }
 
+define('TRABALHO_AREA', sessao('TRABALHO.area', padrao: false));
 define('TRABALHO_INICIADO', sessao('TRABALHO.iniciado', padrao: false));
 define('TRABALHO_MINIMIZADO', sessao('TRABALHO.minimizado', padrao: false));
 define('TRABALHO_ID', sessao('TRABALHO.id', padrao: ''));

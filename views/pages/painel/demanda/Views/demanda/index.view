@@ -119,7 +119,7 @@
                 <div class="texto bloco_noticia_texto">
                     {!!$tarefa->texto!!}
                 </div>
-                @ if( $tarefa->status == 'concluida' && $r->status == 'teste' ):
+                @ if( $tarefa->status == 'concluida' ):
                 <div class="bloco_teste">
                     <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
                     <div class="bloco_imagem">
@@ -156,7 +156,7 @@
     </div>
 
     <div class="bloco_historico">
-        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Vez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda#demanda-' . $r->id, notificar: [$r->dono->id])
+        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Vez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda/' . $r->area . '#demanda-' . $r->id, notificar: [$r->dono->id])
     </div>
 
     <div id="bloco_recusar_tarefa" class="display_none">

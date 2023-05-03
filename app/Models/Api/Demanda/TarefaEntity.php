@@ -179,7 +179,8 @@ final class TarefaEntity extends Entity
         $Historico->acao = new Acao('mensagem');
         $Historico->notificar_equipe = [$usuario['id']];
         $Historico->notificar_titulo = 'Recusou sua tarefa, acesse a demanda para verificar o motivo.';
-        $Historico->notificar_link = LINK_PAINEL . '/demanda#demanda-' . $this->Demanda->id;
+        $Historico->notificar_link = LINK_PAINEL . '/demanda/'
+            . $this->Demanda->area->indice() . '#demanda-' . $this->Demanda->id;
         $Historico->salvar();
     }
 }

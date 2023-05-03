@@ -204,7 +204,7 @@ const demandaDetalhe = () => {
 
     const comecarTrabalhoTarefa = async id => {
         Loading.show();
-        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id + '/' + idDemanda);
+        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id + '/' + idDemanda + '/' + area);
         const json = await respostaJson(resposta, 'Erro ao começar a trabalhar na demanda.');
         if (false === json) {
             Loading.hide();

@@ -106,8 +106,7 @@ final class DemandaController extends Controller
         $request
             ->vazio('titulo', mensagem: 'Digite um título para continuar.')
             ->vazio('empresa', mensagem: 'Escolha uma empresa para continuar.')
-            ->vazio('dono', mensagem: 'Escolha um dono da demanda para continuar.')
-            ->validarData('data_entrega', mensagem: 'Digite uma data de entrega válida para continuar.');
+            ->vazio('dono', mensagem: 'Escolha um dono da demanda para continuar.');
 
 
         $this->Api
@@ -300,10 +299,11 @@ final class DemandaController extends Controller
         return new Response(status: 204);
     }
 
-    public function getTrabalhoComecar(string $tarefa, string $demanda)
+    public function getTrabalhoComecar(string $tarefa, string $demanda, string $area)
     {
+        $mensagemErro = 'Erro ao começar a demanda, por favor, tente novamente.';
         $dado = $this->Api
-            ->validar('Erro ao começar a demanda, por favor, tente novamente.')
+            ->validar($mensagemErro)
             ->body(['tarefa' => $tarefa])
             ->post('/demanda-trabalho')
             ->object()->dado;
@@ -316,7 +316,8 @@ final class DemandaController extends Controller
             'minimizado' => false,
             'data' => $dado->data_criacao,
             'tempo' => $dado->tempo_trabalho,
-            'total' => $dado->tempo_total
+            'total' => $dado->tempo_total,
+            'area' => $area
         ]);
 
         return mensagemSucesso([
@@ -326,6 +327,10 @@ final class DemandaController extends Controller
             'tempo' => $dado->tempo_trabalho,
             'total' => $dado->tempo_total
         ]);
+    }
+    public function getTrabalhoMinimizar(string $acao)
+    {
+        sessao('TRABALHO.minimizado', $acao == 'sim');
     }
     public function getTrabalhoAtualizar(string $id)
     {
