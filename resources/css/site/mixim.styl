@@ -65,6 +65,9 @@ flexGrow()
 flexWrap()
     display: flex
     flex-wrap: wrap
+alignItemCenter()
+    display: flex
+    align-items: center
 alignItemEnd()
     display: flex
     align-items: flex-end
@@ -160,138 +163,8 @@ blocoAvisoDashed()
         titulo()
         color: $corClube
     p
-        texto()
-blocoBeneficio()
-    display: flex
-    flexCol()
-    padding-top: 20px
-    padding-bottom: 20px
-    header
-        display: flex
-        align-items: center
-        h1
-            width: 80%
-        p
-            width: 20%
-            color: $corClube
-    .bloco_vantagem
-        min-height: 150px
-        display: flex
-        .bloco_icone_vantagem
-            width: 200px
-            text-align: center
-            margin: 10px
-            flexCol()
-            flexCenter()
-            height: 100px
-    .rede_credenciada_botao
-        .segunda_via_boleto
-            margin-left: 20px
-blocoUniflex()
-    espacoTopPadrao()
-    blocoShadow()
-    min-height: 450px
-    p
-        texto()
-        espacoVerticalPadrao()
-        span
-            padding-right: 5px
-            font-weight: bold
-            texto()
-    table
-        width:100%
-        espacoTopPadrao()
-        texto()
-        thead
-            tr
-                th
-                    padding: 10px
-                    height: 52px
-                    width: 50%
-                    border-bottom: 1px solid #bebebe
-                    color: black
-        tbody
-            tr
-                width: 50%
-                &:last-child
-                    td
-                        border-bottom: none
-                td
-                    padding: 10px
-                    text-align: center
-                    height: 52px
-                    border-bottom: 1px solid #bebebe
-                    border-right: 1px solid #bebebe
-                    width: 25%
-                    &:last-child
-                        border-right: none
+        texto()e
 
-blocoPlanoSaude()
-    maxWidth()
-    blocoShadow()
-    espacoTopPadrao()
-    h1
-        espacoBottomPadrao()
-    table
-        width:100%
-        espacoBottomPadrao()
-    th
-        text-align: center
-        padding-top: 15px
-        padding-bottom: 15px
-        texto()
-        border: 1px solid #ccc
-        min-width: 140px
-        &:first-child
-            padding-right: 5px
-            border: none
-            border-bottom: 1px solid #ccc
-    button
-        padding: 20px
-        border-radius: 10px
-        background-color: $corClube
-    thead, tfoot
-        bold()
-    thead
-        tr
-            th
-                &:last-child
-                    border-right: none
-    tbody
-        tr
-            border-bottom: none
-        td
-            text-align: center
-            texto()
-            border: 1px solid #ccc
-            &:first-child
-                border-left: none
-            &:last-child
-                border-right: none
-
-    .coluna
-        text-align: center
-    .titulo_table
-        color: black
-    .uniflex_opcao
-        th
-            &:first-child
-                border-right: none
-
-blocoAuxilioRessarcimento()
-    blocoShadow()
-    min-height: 200px
-    p
-        margin: 20px 0px
-    button
-        width: 200px
-        background-color: $corClube
-        height: 50px
-        border-radius: 5px
-        color: white
-        opacity: 0.9
-        &:hover
-            opacity: 1
 modalPlanoSaude()
     background-color: white
     width: 80%
@@ -317,64 +190,6 @@ modalPlanoSaude()
     .aviso_plano
         text-align: center
 
-blocoCarencia()
-    maxWidth()
-    blocoShadow()
-    espacoTopPadrao()
-    h1
-        espacoBottomPadrao()
-    table
-        width:100%
-        espacoBottomPadrao()
-        border-radius: 5px
-    th
-        text-align: left
-        padding-top: 15px
-        padding-bottom: 15px
-        texto()
-    button
-        padding: 20px
-        border-radius: 10px
-        background-color: $corClube
-    thead, tfoot
-        bold()
-    caption
-        padding: 10px
-        caption-side: bottom
-    table
-        border-collapse: collapse
-    td, th
-        border-bottom: 1px solid rgb(190, 190, 190)
-    td
-        text-align: center
-        texto()
-    .coluna
-        text-align: center
-    .titulo_table
-        color: black
-
-blocoExploreRede()
-    blocoShadow()
-    min-height: 350px
-    .titulo_rede
-        height: 50px
-    .lista_passo_a_passo
-        height: 180px
-        padding-top: 10px
-        padding-left: 20px
-        li
-            list-style-type: disc
-    .bloco_botao_explore
-        height: 80px
-        padding-top: 30px
-        a
-            padding: 15px
-            background-color: $corClube
-            border-radius: 5px
-            color: white
-            opacity: 0.9
-            &:hover
-                opacity: 1
 bordaPadraoTabela()
     border: 1px solid #ccc
 bordaBottomPadraoTabela()

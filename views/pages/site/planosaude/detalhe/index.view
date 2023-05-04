@@ -1,6 +1,6 @@
 @template "site"
 
-<div class="conteudo_principal">
+<div>
 	<div class="bloco_plano_saude">
 		<figure>
 			<img src="https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg" alt="">
