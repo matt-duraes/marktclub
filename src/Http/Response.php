@@ -2,14 +2,14 @@
 
 namespace Http;
 
-use Erro\Excecao;
 use stdClass;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Erro\Excecao;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response as Psr7Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Response as Psr7Response;
 
 final class Response extends Psr7Response
 {
@@ -46,17 +46,21 @@ final class Response extends Psr7Response
     ) {
         if (!empty($this->json)) {
             $this->json($this->json, $this->status, $this->header);
+            return;
         } elseif (!empty($this->url)) {
             $status = ($this->status == 200) ? 302 : $this->status;
             $this->location($this->url, $status, $this->header);
+            return;
         } elseif (!empty($this->download)) {
             $this->download($this->download, $this->status, $this->header);
+            return;
         } elseif (!empty($this->arquivo)) {
             $this->arquivo($this->arquivo, $this->status, $this->header);
+            return;
         }
 
         $this->tipo = 'responseBody';
-        $this->responseBody = parent::__construct($this->body, $this->status, $this->header);
+        $this->responseBody = new Psr7Response($this->body, $this->status, $this->header);
     }
 
     /**
