@@ -1032,6 +1032,7 @@ Route
             ::nome('relatorioAnalytics')
             ::request(['!data'])
             ::get('/rotina/relatorio-analytics');
+
         Route
             ::nome('relatorioUsuario')
             ::get('/rotina/relatorio-usuario');
@@ -1049,38 +1050,39 @@ Route
 Route
     ::nome('carteirinha')
     ::controller(App\Controllers\Api\CarteirinhaController::class)
-    // ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
             ::get('/carteirinha/{id}');
     });
 
 Route
     ::nome('solicitacao_alfa')
     ::controller(App\Controllers\Api\CarteirinhaController::class)
-    // ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('solicitacao')
-            // ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
             ::post('/alfa/solicitacao');
+    });
 
 Route
     ::nome('popup')
     ::controller(App\Controllers\Api\PopupController::class)
-    //::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            //::middleware(TokenMiddleware::class, 'scope', ['popup:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:buscar'])
             ::get('/popup/{id}');
 
         Route
             ::nome('salvar')
-            //::middleware(TokenMiddleware::class, 'scope', ['popup:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:salvar'])
             ::request([
                 'titulo', 'texto', '!subtitulo', '!formulario',
                 '!imagem', '!data_vencimento', '!status'
@@ -1089,7 +1091,7 @@ Route
 
         Route
             ::nome('atualizar')
-            //::middleware(TokenMiddleware::class, 'scope', ['popup:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:atualizar'])
             ::request([
                 'titulo', 'texto', '!subtitulo', '!formulario',
                 '!imagem', '!data_vencimento', '!status'
@@ -1098,28 +1100,29 @@ Route
 
         Route
             ::nome('deletar')
-            //::middleware(TokenMiddleware::class, 'scope', ['popup:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:deletar'])
             ::delete('/popup/{id}');
+    });
 
 Route
     ::nome('solicitacao_declaracao')
     ::controller(App\Controllers\Api\SolicitacaoDeclaracaoController::class)
-    //::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')
-            //::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
             ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
             ::get('/solicitacao-declaracao');
 
         Route
             ::nome('buscar')
-            //::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
             ::get('/solicitacao-declaracao/{id}');
 
         Route
             ::nome('salvar')
-            //::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
                 'cpf', 'tipo', 'estado_civil', 'data_nascimento',
                 'status', 'rg', 'cidade', 'estado', 'cep', 'logradouro',
