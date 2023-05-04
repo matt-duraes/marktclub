@@ -29,6 +29,6 @@ final class HelperModel extends ORM
 
     public function pegarIdPeloUuid(string $uuid)
     {
-        return $this->campo(['id'])->where(['cod', $uuid])->primeiro(campo: 'id');
+        return $this->campo(['id'])->where(['cod', $uuid])->primeiro(campo: 'id', padrao: 0);
     }
 }

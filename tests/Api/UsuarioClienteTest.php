@@ -13,7 +13,15 @@ final class UsuarioClienteTest extends Tests
     public function __construct()
     {
         parent::__construct();
+        $this->finalizarTeste();
         $this->bodySalvar = $this->criarBodyUsuario();
+    }
+    public function finalizarTeste()
+    {
+        $this
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->tabela(TABELA_USUARIO_GRUPO)
+            ->resetar();
     }
 
     public function verificarSeEstaSalvandoUsuarioTest()

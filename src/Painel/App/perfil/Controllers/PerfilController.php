@@ -268,7 +268,7 @@ final class PerfilController extends Controller
     {
         (new ApiHelper(token: true))
             ->validar('Erro ao mudar a empresa da equipe.')
-            ->body(['empresa', $request->empresa])
+            ->body(['empresa' => $request->empresa])
             ->put('/usuario-equipe/empresa');
 
         return new Response(status: 204);

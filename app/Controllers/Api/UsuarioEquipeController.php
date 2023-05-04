@@ -14,6 +14,7 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioEquipe\MudarEmpresaModel;
 
 final class UsuarioEquipeController extends Controller implements
     ControllerSalvarInterface,
@@ -24,10 +25,6 @@ final class UsuarioEquipeController extends Controller implements
 {
     public function getBuscar(string $id): Response
     {
-        if (empty($id)) {
-            mensagemStatus(404);
-        }
-
         $Usuario = new EquipeEntity();
         $Usuario->uuid($id);
 
@@ -74,7 +71,6 @@ final class UsuarioEquipeController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        validarUuid($id);
         $Usuario = new EquipeEntity();
         $Usuario->uuid($id);
         $Usuario->set(lista: $request->dado());
@@ -82,12 +78,16 @@ final class UsuarioEquipeController extends Controller implements
 
         return new Response(status: 204);
     }
+    public function putEmpresa(Request $request): Response
+    {
+        new MudarEmpresaModel($request->empresa);
+        return new Response(status: 204);
+    }
+
     public function postImagem(Request $request)
     {
-        $id = $request->id;
-        validarUuid($id);
         $Usuario = new EquipeEntity();
-        $Usuario->uuid($id);
+        $Usuario->uuid($request->id);
         $Usuario->imagem_arquivo = $request->_FILES('imagem');
         $Usuario->salvar();
 
@@ -99,8 +99,6 @@ final class UsuarioEquipeController extends Controller implements
 
     public function deleteDeletar(string $id): Response
     {
-        validarUuid($id);
-
         $Usuario = new EquipeEntity();
         $Usuario->uuid($id);
         $Usuario->destruir();
@@ -138,9 +136,9 @@ final class UsuarioEquipeController extends Controller implements
         return mensagemSucesso($Equipe->listarSelect());
     }
 
-    public function getPerfil(Request $request)
+    public function getPerfil()
     {
-        $Equipe = new SelectModel($request);
+        $Equipe = new SelectModel();
         return mensagemSucesso($Equipe->listarPerfil());
     }
 }

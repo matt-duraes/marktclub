@@ -2,7 +2,7 @@
 
 window.addEventListener('load', () => {
     const botao = document.getElementById('botao_mudar_empresa');
-    const inputEmpresa = document.getElementById('mudar_empresa');
+    const inputEmpresa = document.getElementById('input_mudar_empresa');
     const hash = document.querySelector('#input_mudar_empresa_hash').value;
 
     botao.addEventListener('click', async () => {

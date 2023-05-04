@@ -54,14 +54,14 @@ final class EquipeEntity extends Entity
     protected array $ormRetornoPadrao = ['id', 'nome', 'cpf', 'perfil', 'imagem'];
 
     protected string $ormValidarSalvar = '
-        documento_cpf|CPF|cpf
+        cpf|CPF|vazio|cpf
         genero|Gênero|valido
         data_nascimento|Data Nascimento|dataDate
-        email_trabalho|E-mail de trabalho|email
+        email_trabalho|E-mail de trabalho|vazio|email
         email_pessoal|E-mail pessoal|email
         telefone_pessoal|Telefone pessoal|telefone
         telefone_trabalho|Telefone de trabalho|telefone
-        status|Status|valido
+        status|Status|vazio|valido
     ';
 
     public Nome $nome;
@@ -207,6 +207,11 @@ final class EquipeEntity extends Entity
         }
 
         $this->atualizarPerfilUsuario();
+
+        $cpfAtual = (int)$this->prop('documento_cpf');
+        if (validarCpf($cpfAtual) && (int)$this->cpf->numero() != $cpfAtual) {
+            mensagemErro('Campo inválido!', 'Você não pode mudar o CPF desse usuário.');
+        }
     }
     private function atualizarPerfilUsuario()
     {
@@ -226,8 +231,8 @@ final class EquipeEntity extends Entity
             );
         } elseif (
             $this->existe([
-            ['id', '!=', $id],
-            ['nome_perfil', $this->perfil]
+                ['id', '!=', $id],
+                ['nome_perfil', $this->perfil]
             ])
         ) {
             mensagemErro('Campo inválido!', 'O perfil informado já está em uso por outro usuário.');
