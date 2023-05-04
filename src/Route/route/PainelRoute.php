@@ -121,6 +121,16 @@ Route
             ::post('/perfil/social');
 
         Route
+            ::nome('empresa')
+            ::rotaNaoUnica()
+            ::view('/perfil/empresa');
+        Route
+            ::nome('empresa')
+            ::rotaNaoUnica()
+            ::request(['hash_validacao', 'empresa'])
+            ::post('/perfil/empresa');
+
+        Route
             ::nome('imagem')
             ::rotaNaoUnica()
             ::request(['hash_validacao'])

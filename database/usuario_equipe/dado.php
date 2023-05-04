@@ -40,9 +40,10 @@ return [
         'imagem_tipo' => '2',
         'permissao' => $permissao,
         'salt' => password('Teste@1324'),
-        'desenvolvedor' => null,
-        'gerente' => null,
-        'admin' => null,
+        'marktclub' => 1,
+        'desenvolvedor' => 1,
+        'gerente' => 1,
+        'admin' => 1,
         'status' => '1'
     ],
     [

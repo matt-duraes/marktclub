@@ -35,7 +35,7 @@ trait UpdateTrait
 
         $existe = $this->readTexto('SELECT `id` ' . $colunaUuid . ' FROM {{TABELA}} WHERE ' . $whereDado . ' LIMIT 0, 1', $whereValue);
         if (!is_array($existe) || !isset($existe[0], $existe[0]->id) || !is_numeric($existe[0]->id)) {
-            throw new Excecao(titulo: 'Dado inválido!', mensagem: 'Não foi encontrado nehum dado para atualizar.');
+            throw new Excecao(titulo: 'Dado inválido!', mensagem: 'Não foi encontrado nenhum dado para atualizar.');
         }
 
         $colunaDataAtualizacao = $coluna['data_atualizacao'] ?? false;

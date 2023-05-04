@@ -66,6 +66,7 @@ final class BuscarUsuarioModel
             'cpf' => $cpf,
             'google' => $Crypt->decode($body->google ?? ''),
             'facebook' => $Crypt->decode($body->facebook ?? ''),
+            'marktclub' => $body->marktclub,
             'permissao' => $body->permissao,
             'gerente' => $body->gerente,
             'admin' => $body->admin,

@@ -413,7 +413,6 @@ Route
         Route
             ::nome('perfil')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
-            ::request(['!titulo'], 'json')
             ::get('/usuario-equipe/perfil');
 
         Route
@@ -441,6 +440,12 @@ Route
                 '!imagem_google', '!id_facebook', '!id_google', '!perfil'
             ])
             ::put('/usuario-equipe/{id}');
+        Route
+            ::nome('empresa')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
+            ::request(['empresa'])
+            ::put('/usuario-equipe/empresa');
+
         Route
             ::nome('imagem')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])

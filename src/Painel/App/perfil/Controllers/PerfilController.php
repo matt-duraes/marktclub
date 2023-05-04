@@ -250,6 +250,32 @@ final class PerfilController extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | MUDAR A EMPRESA DA EQUIPE
+    |--------------------------------------------------------------------------
+    */
+    public function empresa()
+    {
+        $empresa = (new ApiHelper(token: true))
+            ->json(['titulo' => 'Escolha uma empresa'])
+            ->get('/comercial-empresa/select')
+            ->array()['dado'] ?? [];
+
+        return view('perfil.empresa', [
+            'empresa' => $empresa
+        ]);
+    }
+    public function postEmpresa(Request $request)
+    {
+        (new ApiHelper(token: true))
+            ->validar('Erro ao mudar a empresa da equipe.')
+            ->body(['empresa' => $request->empresa])
+            ->put('/usuario-equipe/empresa');
+
+        return new Response(status: 204);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | MENSAGEM SE O USUÁRIO NÃO ESTIVER LOGADO
     |--------------------------------------------------------------------------
     */
