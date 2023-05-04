@@ -240,4 +240,19 @@ return [
         'limite_voucher' => 3,
         'status' => 5
     ],
+    [
+        'cod' => 'f98e10ebc70e101c9d5d6fcf766d5320',
+        'categoria_principal' => '1',
+        'categoria_todas' => '["1","2","3","4","5","6","7","8"]',
+        'titulo' => 'UBER - Renner',
+        'url' => 'uber-renner',
+        'imagem' => 'parceiro.png',
+        'desconto' => '10% de desconto',
+        'desconto_texto' => 'Texto de desconto do parceiro',
+        'procedimento_texto' => 'Texto de procedimento do parceiro',
+        'voucher_texto' => 'Texto para o voucher do parceiro',
+        'destaque' => ["1", "2", "66"],
+        'empresa' => ["1", "2", "66"],
+        'status' => 4
+    ],
 ];
