@@ -25,6 +25,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 1
     ],
     [
@@ -49,6 +50,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2,
     ],
     [
@@ -75,6 +77,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -101,6 +104,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -127,6 +131,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -153,6 +158,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -179,6 +185,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -205,6 +212,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -231,6 +239,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -257,6 +266,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -283,6 +293,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ],
     [
@@ -309,6 +320,7 @@ return [
         'dependente_rg'              => rgAleatorio(),
         'dependente_data_nascimento' => dataPassadaAleatorio(),
         'data_validacao'             => dataFuturaAleatorio(),
+        'tipo'                       => valorAleatorio([1, 2, 3, 4, 5]),
         'status'                     => 2
     ]
 ];
