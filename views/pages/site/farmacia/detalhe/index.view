@@ -25,16 +25,23 @@
         </div>
 
         <div class="bloco_botao">
-            <div data-url="1" class="botao branco botao_geral_cor botao_abrir_carteirinha">
-                <i>@iconeTelefone(15)</i>
-                Ver carteirinha
-            </div>
-            <div class="linha"></div>
-            <div class="botao branco botao_geral_cor">
-                <i>@iconeTelefone(15)</i>
-                Acessar Site
-            </div>
+            @if(TIPO_USUARIO != 'indicado'):
+                <div data-id='{{$lista->titulo}}' class="botao branco botao_geral_cor botao_abrir_carteirinha">
+                    <i>@iconeTelefone(15)</i>
+                    Ver carteirinha
+                </div>
+                <div class="linha"></div>
+                <div class="botao branco botao_geral_cor">
+                    <i>@iconeTelefone(15)</i>
+                    Acessar Site
+                </div>
+            @endif
         </div>
+        @if(TIPO_USUARIO == 'indicado')
+            <div class="bloco_atencao_geral">
+                <p>Apenas associados possuem acesso a este recurso</p>
+            </div>
+        @endif
 
     </div>
 @endif

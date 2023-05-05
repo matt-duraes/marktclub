@@ -1,5 +1,6 @@
 <?php
 
+use App\Middlewares\UsuarioMiddleware;
 use Route\Route;
 
 Route
@@ -202,10 +203,7 @@ Route
             ::view('/farmacia/{url}');
         Route
             ::nome('carteirinha')
-            ::view('/farmacia/carteirinha');
-        Route
-            ::nome('tabela')
-            ::view('/farmacia/tabela/{id}');
+            ::get('/farmacia/carteirinha');
     });
 Route
     ::nome('sicoob')

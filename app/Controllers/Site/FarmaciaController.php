@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Site;
 
-use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Farmacia\FarmaciaModel;
@@ -20,25 +19,30 @@ final class FarmaciaController extends Controller
     public function detalhe(string $url)
     {
         $lista = (new FarmaciaModel())->buscarFarmacia($url);
-        return view('farmacia.detalhe', [
+        return view(
+            'farmacia.detalhe',
+            [
+            'menu' => 'farmacia',
             'loja' => $url,
             'banner' => (new BannerModel())->farmacia(),
             'lista' => $lista
-        ]);
+            ]
+        );
     }
-    public function carteirinha()
+    public function getCarteirinha()
     {
-        $Api = new ApiHelper('carteirinha:buscar');
+        //     $Api = new ApiHelper('carteirinha:buscar');
+        //     $carteira = $Api->get('/carteirinha/5595203c-f7b1-4211-9981-bf09eb236b35')->object();
+        $carteira = (object) [
+            'cpf' => '07385666167',
+            'nome' => 'Mateus'
+        ];
 
-        $carteira = $Api->get('/carteirinha/5595203c-f7b1-4211-9981-bf09eb236b35')->object();
-
-        return view('farmacia.carteirinha', [
-            'carteira' => $carteira ?? null
-        ]);
-    }
-
-    public function tabela()
-    {
-        return view('farmacia.carteirinha');
+        return view(
+            'farmacia.carteirinha',
+            [
+            'carteira' => $carteira
+            ]
+        );
     }
 }

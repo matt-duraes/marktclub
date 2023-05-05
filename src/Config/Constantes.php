@@ -9,6 +9,7 @@ final class Constantes
      */
     public function __construct()
     {
+        define('TIPO_USUARIO', 'indicado');
         define('DIRETORIO_VIEW', env('DIRETORIO_VIEW', 'public'));
         define('ROOT', $this->root());
         define('TITULO', env('APP_TITULO', ''));

@@ -10,10 +10,13 @@ final class AlfaController extends Controller
 {
     public function credito()
     {
-        return view('alfa.credito', [
+        return view(
+            'alfa.credito',
+            [
             'menu' => 'credito',
             'banner' => (new BannerModel())->alfa()
-        ]);
+            ]
+        );
     }
 
     public function portabilidade()

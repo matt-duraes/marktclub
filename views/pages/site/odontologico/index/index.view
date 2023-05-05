@@ -95,9 +95,14 @@
                 <li class="titulo_normal preto">Em até 05 (cinco) dias úteis você receberá um informativo de boas-vindas com as informações da sua contratação, informações gerais sobre o plano contratado, data de início da vigência e a primeira fatura</li>
             </ul>
         </article>
-
-        <article class="simulacao">
-            <a href="" target="_blank" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
-        </article>
+        @if(TIPO_USUARIO != 'indicado'):
+            <article class="simulacao">
+                <a href="" target="_blank" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
+            </article>
+        @else:
+            <div class="bloco_atencao_geral">
+                <p>Apenas associados podem contratar esse recurso</p>
+            </div>
+        @endif
     </section>
 </div>

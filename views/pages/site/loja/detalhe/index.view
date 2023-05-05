@@ -33,15 +33,20 @@
             </p>
         </div>
     </div>
-
-    <div class="bloco_botao">
-        <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeTelefone(17)</i></a>
-        <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="display_none botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeTelefone(17)</i></a>
-        <div class="linha"></div>
-        <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver telefone</div>
-        <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver e-mail</div>
-        <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Abrir Site</div>
-    </div>
+    @if(TIPO_USUARIO != 'indicado')
+        <div class="bloco_botao">
+            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeTelefone(17)</i></a>
+            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="display_none botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeTelefone(17)</i></a>
+            <div class="linha"></div>
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver telefone</div>
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver e-mail</div>
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Abrir Site</div>
+        </div>
+    @else
+        <div class="bloco_atencao_geral_centralizado">
+            <p>Apenas associados possuem acesso a esse recurso</p>
+        </div>
+    @endif
 
     <div class="bloco_mapa">
         <header>

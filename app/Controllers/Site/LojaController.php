@@ -21,6 +21,7 @@ final class LojaController extends Controller
      * @return Response
      * @throws Excecao
      */
+
     public function busca(Request $request, string $pesquisa = null): Response
     {
         $Busca = new BuscaModel($request, $pesquisa);
@@ -39,6 +40,7 @@ final class LojaController extends Controller
      */
     public function index(Request $request, BuscaModel $Busca = null): Response
     {
+
         return view('loja.index', [
             'menu'         => 'loja',
             'banner'       => true,
@@ -89,7 +91,7 @@ final class LojaController extends Controller
     public function proxima(Request $request, MapaModel $Busca = null): Response
     {
         return view('loja.proxima', [
-            'menu' => 'loja-proxima'
+            'menu' => 'loja-proxima',
         ]);
     }
 
@@ -110,7 +112,11 @@ final class LojaController extends Controller
      */
     public function abrirModalIndicacao(): Response
     {
-        return view('loja.geral.modalIndicacao');
+        return view('loja.geral.modalIndicacao', [
+            'tipo'      => $tipo,
+
+        ]);
+
     }
 
     /**
@@ -148,6 +154,7 @@ final class LojaController extends Controller
         $estado = ['Acre','Alagoas','Amapá','Amazonas','Rio de Janeiro','Brasilia','São Paulo'];
 
         return view('loja.pesquisa', [
+            'tipo'      => $tipo,
             'alimentacaoTag' => $alimentacaoTag,
             'veiculoTag' => $veiculoTag,
             'saudeTag' => $saudeTag,

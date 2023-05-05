@@ -9,7 +9,7 @@
 			<h1>Unimed Seguros</h1>
 			<p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de
 			direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro EMpresarial Enseada
-			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua 
+			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua
 			entidade de classe, conforme regulamentações vigentes da ANS. <span class="bold">O aniversário desta apílice para reajuste anual é o mês de Julho</span>
 			</p>
 		</div>
@@ -36,7 +36,7 @@
 				<a href="#" class="botao_padrao">Consultar rede credenciada</a>
 				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
 			</div>
-		</div>	
+		</div>
 	</div>
 	<div class="bloco_explore_rede">
 		<div class="titulo_rede">
@@ -166,7 +166,7 @@
 						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 1.805,72</td>
 						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 2.415,49</td>
 						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 2.901,35</td>
-					</tr>		
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -392,6 +392,12 @@
 	<section class="bloco_simulacao">
 		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
-		<a href="@route(planosaude.simulacao)/unimed-seguros">Fazer Simulação</a>
+        @if(TIPO_USUARIO != 'indicado')
+            <a href="@route(planosaude.simulacao)/unimed-seguros">Fazer Simulação</a>
+        @else
+            <div class="bloco_atencao_geral">
+                <p>Apenas associados possuem acesso a este recurso</p>
+            </div>
+        @endif
 	</section>
 </div>

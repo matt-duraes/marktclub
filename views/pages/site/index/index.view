@@ -2,7 +2,11 @@
 
 <div id="bloco_index">
     @view site/geral/banner.view
-
+    @if(TIPO_USUARIO == 'indicado'):
+        <div class="bloco_atencao_geral_centralizado">
+            <p>Você está utilizando uma versão limitada do clube</p>
+        </div>
+    @endif
     <div class="bloco">
         <div class="bloco_geral_imagem_esquerda">
             <div class="bloco_plano">
@@ -24,7 +28,9 @@
                     </div>
                     <div class="observacao">*Para pessoas com idade de 36 anos</div>
                 </div>
-                <a href="" class="botao_geral_cor cor_bg">Fazer cotação</a>
+                @if(TIPO_USUARIO != 'indicado'):
+                    <a href="" class="botao_geral_cor cor_bg">Fazer cotação</a>
+                @endif
             </div>
         </div>
     </div>
@@ -33,7 +39,9 @@
         <div class="bloco_geral_sem_resultado bloco_favorito">
             <i>@iconeGps(40)</i>
             <p>Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas?</p>
-            <a class="botao_geral_cor cor_bg" href="">Salvar lojas favoritas</a>
+            @if(TIPO_USUARIO != 'indicado'):
+                <a class="botao_geral_cor cor_bg" href="">Salvar lojas favoritas</a>
+            @endif
         </div>
     </div>
 

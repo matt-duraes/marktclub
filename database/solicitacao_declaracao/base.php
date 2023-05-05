@@ -1,0 +1,31 @@
+<?php
+
+use Database\DataBase;
+
+return (new DataBase())
+    ->id()
+    ->char('cod')->tamanho(36)
+    ->int('empresa')->tamanho(9)
+    ->int('usuario')->tamanho(9)
+    ->cpf()
+    ->varchar('tipo')->tamanho(1)
+    ->varchar('valor')->tamanho(50)->null()
+    ->varchar('estado_civil')->tamanho(50)
+    ->varchar('documento_rg')->tamanho(50)
+    ->datetime('data_nascimento')
+    ->varchar('cep')->tamanho(8)
+    ->varchar('estado')->tamanho(75)
+    ->varchar('cidade')->tamanho(100)
+    ->varchar('bairro')->tamanho(50)
+    ->varchar('numero')->tamanho(5)
+    ->varchar('logradouro')->tamanho(250)
+    ->varchar('complemento')->tamanho(250)
+    ->cpf('dependente_cpf')->null()
+    ->varchar('dependente_nome')->tamanho(250)->null()
+    ->varchar('dependente_grau_parentesco')->tamanho(10)->null()
+    ->varchar('dependente_rg')->tamanho(50)->null()
+    ->datetime('dependente_data_nascimento')->null()
+    ->dataCriacao()
+    ->dataAtualizacao()
+    ->datetime('data_validacao')->null()
+    ->status();

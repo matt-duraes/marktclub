@@ -71,6 +71,7 @@ final class PlanoSaudeController extends Controller
     }
     public function federalSaude()
     {
+
         return view('planosaude.federalSaude', [
             'menu' => 'federal_saude',
             'banner' => (new BannerModel())->saude(),

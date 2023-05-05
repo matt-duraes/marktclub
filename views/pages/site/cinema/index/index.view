@@ -1,7 +1,7 @@
 @template "site"
 <div id="conteudo_cinema">
     @view site/geral/banner.view
-    <div class="bloco_atencao_geral">
+    <div class="bloco_titulo_texto_centralizado">
         <p>Agora você pode comprar ingressos para o cinema com um super desconto</p>
     </div>
     <div class="bloco_info_cinema">
@@ -30,50 +30,61 @@
         <div class="titulo_ingresso">
             <h2>Escolha a quantidade de ingressos</h2>
         </div>
-        <div class="ingresso_escolha">
-            <div class="ingresso">
-                <div class="icone_ingresso">
-                    <i>@iconeIngresso()</i>
+        @if (TIPO_USUARIO != 'indicado'):
+            <div class="ingresso_escolha">
+                <div class="ingresso">
+                    <div class="icone_ingresso">
+                        <i>@iconeIngresso()</i>
+                    </div>
+                    <p>1 ingresso</p>
+                    <p>R$18.00</p>
                 </div>
-                <p>1 ingresso</p>
-                <p>R$18.00</p>
-            </div>
-            <div class="ingresso">
-                <div class="icone_ingresso">
-                    <i>@iconeIngresso()</i>
-                    <i>@iconeIngresso()</i>
+                <div class="ingresso">
+                    <div class="icone_ingresso">
+                        <i>@iconeIngresso()</i>
+                        <i>@iconeIngresso()</i>
+                    </div>
+                    <p>2 ingressos</p>
+                    <p>R$36.00</p>
                 </div>
-                <p>2 ingressos</p>
-                <p>R$36.00</p>
             </div>
-        </div>
-        <button class="botao_geral_cor cor_bg">COMPRAR</button>
-
+            <button class="botao_geral_cor cor_bg">COMPRAR</button>
+        @else:
+            <div class="bloco_atencao_geral_centralizado">
+                <p>Apenas associados possuem acesso a esse recurso</p>
+            </div>
+        @endif
     </div>
     <div class="bloco_prime">
         <div class="assinatura_titulo">
             <h2>OUTROS PARCEIROS DE CINEMA</h2>
             <p>Você pode escolher fazer uma assinatura do Primepass ou Cinépolis, clique no parceiro abaixo e saiba mais</p>
         </div>
-        <div class="bloco_primepass">
-            <div class="primepass">
-                <h2>Você vai muito ao cinema?</h2>
-                <div class="logo">
-                    <figure style="background-image: url(https://arquivo.marktclub.com.br/parceiro/916ef15d1bb931d7005027934f41b972.png);"></figure>
+        @if (TIPO_USUARIO != 'indicado'):
+            <div class="bloco_primepass">
+                <div class="primepass">
+                    <h2>Você vai muito ao cinema?</h2>
+                    <div class="logo">
+                        <figure style="background-image: url(https://arquivo.marktclub.com.br/parceiro/916ef15d1bb931d7005027934f41b972.png);"></figure>
+                    </div>
+                    <p class="subtitulo">PRIMEPASS</p>
+                    <p>Primepass é o novo passe multicinemas que te permite assistir nas melhores salas, todas as estreias em cartaz que quiser, pagando apenas um valor fixo por mês.</p>
+                    <button class="botao_geral_cor cor_bg">VER MAIS</button>
                 </div>
-                <p class="subtitulo">PRIMEPASS</p>
-                <p>Primepass é o novo passe multicinemas que te permite assistir nas melhores salas, todas as estreias em cartaz que quiser, pagando apenas um valor fixo por mês.</p>
-                <button class="botao_geral_cor cor_bg">VER MAIS</button>
-            </div>
-            <div class="primepass">
-                <h2>Você vai muito ao cinema?</h2>
-                <div class="logo">
-                    <figure style="background-image: url(https://arquivo.marktclub.com.br/parceiro/3b26d45c74bb0de75801df02a4a208db.png);"></figure>
+                <div class="primepass">
+                    <h2>Você vai muito ao cinema?</h2>
+                    <div class="logo">
+                        <figure style="background-image: url(https://arquivo.marktclub.com.br/parceiro/3b26d45c74bb0de75801df02a4a208db.png);"></figure>
+                    </div>
+                    <p class="subtitulo">PRIMEPASS</p>
+                    <p> Primepass é o novo passe multicinemas que te permite assistir nas melhores salas, todas as estreias em cartaz que quiser, pagando apenas um valor fixo por mês.</p>
+                    <button class="botao_geral_cor cor_bg">VER MAIS</button>
                 </div>
-                <p class="subtitulo">PRIMEPASS</p>
-                <p> Primepass é o novo passe multicinemas que te permite assistir nas melhores salas, todas as estreias em cartaz que quiser, pagando apenas um valor fixo por mês.</p>
-                <button class="botao_geral_cor cor_bg">VER MAIS</button>
             </div>
-        </div>
+        @else:
+            <div class="bloco_atencao_geral_centralizado">
+                <p>Apenas associados possuem acesso a esse recurso</p>
+            </div>
+        @endif
     </div>
 </div>

@@ -4,21 +4,25 @@
 @resources "site/variavel"
 @resource "site/saude/padraoIndex"
 
-
+#bloco_federal_saude
+    h1
+        titulo()
+    p,button
+        texto()
 .bloco_federal_saude
     width: 100%
     max-width: $maxWidth
     blocoShadow()
-    .imagem_banner
+    figure
         width: 100%
         height: 200px
         img
             width: 100%
             height: 100%
             object-fit: cover
-    h1,p
-        espacoTopPadrao()
+    .bloco_chamada
         text-align: center
+        padding: 20px
     .bloco_opcao
         text-align: center
         button
@@ -27,6 +31,8 @@
             min-width: 250px
             border-radius: 5px
             margin:25px 12px
+    .bloco_atencao_geral
+        text-align: center
 .inativo
     display: none
 .ativo
@@ -39,7 +45,10 @@
     .bloco_contratar_federal
         width: 100%
         blocoShadow()
+        p
+            texto()
         h1
+            titulo()
             text-align: center
             espacoBottomPadrao()
         .bloco_card_plano

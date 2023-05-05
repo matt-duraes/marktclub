@@ -400,6 +400,12 @@
 	<section class="bloco_simulacao">
 		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
-		<a href="@route(planosaude.simulacao)/unimed-vitoria">Fazer Simulação</a>
+        @if(TIPO_USUARIO != 'indicado')
+            <a href="@route(planosaude.simulacao)/unimed-vitoria">Fazer Simulação</a>
+        @else
+        <div class="bloco_atencao_geral">
+            <p>Apenas associados possuem acesso a este recurso</p>
+        </div>
+        @endif
 	</section>
 </div>

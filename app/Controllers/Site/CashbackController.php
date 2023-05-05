@@ -37,11 +37,14 @@ final class CashbackController extends Controller
      */
     public function index(string $pesquisa = null): Response
     {
-        return view('cashback.index', [
-            'menu'         => 'cashback',
-            'lista'        => (new ListarModel())->listarDados(),
-            'parceiroTipo' => 'cashback'
-        ]);
+        return view(
+            'cashback.index',
+            [
+                'menu'         => 'cashback',
+                'lista'        => (new ListarModel())->listarDados(),
+                'parceiroTipo' => 'cashback'
+            ]
+        );
     }
 
     /**
@@ -53,11 +56,14 @@ final class CashbackController extends Controller
      */
     public function detalhe(string $url): Response
     {
-        return view('cashback.detalhe', [
-            'menu'         => 'cashback',
-            'lista'        => (new RelacionadoModel())->listarDados(),
-            'parceiroTipo' => 'cashback'
-        ]);
+        return view(
+            'cashback.detalhe',
+            [
+                'menu'         => 'cashback',
+                'lista'        => (new RelacionadoModel())->listarDados(),
+                'parceiroTipo' => 'cashback'
+            ]
+        );
     }
 
     /**
