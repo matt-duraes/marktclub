@@ -8,224 +8,94 @@
 
 #bloco_corretora_alfa
     flexCenter()
-    flexCol()
-    max-width: 1130px
-
-#bloco_corretora_alfa .chamada
-    width: 100%
-    flexCenter()
-    espacoTopPadrao()
-    h1
+    directionColumn()
+    max-width: $maxWidth
+    .bloco_conteudo
         width: 100%
-        max-width: 500px
-        titulo()
-        color: #333
-        espacoBottomPadrao()
-        text-align: center
-        span.alfa
-            font-weight: bold
-            color: #000
-
-#bloco_corretora_alfa .conteudo
-    width: 100%
-    display: flex
-    justify-content: space-between
-    flex-direction: column
-    .direito .paragrafo
-        display: flex
-        align-items: flex-start
-        flex-direction: column
-        espacoBottomPadrao()
-        margin-left: 10px
-    .direito .paragrafo h1
-        subTitulo()
-        color: #333
-        span.alfa
-            font-weight: bold
-            color: #000
-    .direito .paragrafo p
-        textoTelaPequena()
-        line-height: 1.2em
-        color: #333
-        span
-            font-weight: bold
-            color: #000
-    .direito .paragrafo .lista
-        display: flex
-        align-items: flex-start
-        justify-content: flex-start
-        flex-direction: column
-    .direito .paragrafo .lista li
-        display: flex
-        align-items: flex-start
-        justify-content: flex-start
-        flex-direction: column
-        FontSizeTelaPequena()
-        espacoBottomPadrao()
-        color: #333
-    .direito .paragrafo .lista li img
-        margin-right: 10px
-    .obs
-        margin-left: 10px
-        margin-bottom: 5px
-        font-size: 1em
-        line-height: 1.2em
-        text-align: left
-    .vantagens
-        width: 100%
-        height: 200px
-        display: flex
-        border: 1px solid #E8E8E8
-        espacoBottomPadrao()
-        @media screen and (max-width:800px)
-            height: auto
-        header
-            height: 100%
+        spaceAround()
+        espacoVerticalPadrao()
+        padding: 0px 10px
+    .bloco_conteudo .descricao
+        width: 50%
+        justifyStart()
+        alignItemStart()
+        directionColumn()
+        h1
+            titulo()
+            color: $corClube
+        hr
             width: 50%
-            flexCenter()
-            flex-direction: column
-            text-align: center
-            color: #fff
-            background: #fff
-            margin: 0
-            border-right: 1px solid #E8E8E8
-            h1,
-            p
-                color: $corClube
-            h1
-                titulo()
-            p
-                subTitulo()
-            @media screen and (max-width:800px)
-                width: 100%
-                height: auto
-
-        section.lista_vantagens
-            height: 100%
-            width: 50%
-            display: flex
-            align-items: center
-            justify-content: flex-start
-            flex-wrap: wrap
-            background-color: #fff
-            borda-padrao()
-            @media screen and (max-width:800px)
-                width: 100%
-            p
-                width: 100%
-                height: calc(100% / 3)
-                display: flex
-                align-items: center
-                justify-content: flex-start
-                padding-left: 5%
-                padding-right: 5%
-                text-align: left
-                textoTelaPequena()
-                border-bottom: 1px solid #eee
-                @media screen and (max-width:800px)
-                    height: 60px
-                &:last-child
-                    border: none
-                i
-                    flexCenter()
-                    width: 40px
-                    margin-right: 10px
-                    font-size: 1.5em
-                    &:after
-                        width: auto
-
-
-@media screen and (max-width: 950px)
-    #bloco_corretora_alfa .conteudo
-        flex-direction: column
-    #bloco_corretora_alfa .conteudo .esquerdo
-        display: flex
-        align-items: flex-start
-        justify-content: center
-    #bloco_corretora_alfa .conteudo .direito
-        spaceBetween()
-    #bloco_corretora_alfa .conteudo .direito .paragrafo
-        width: 100%
-
-@media screen and (max-width: 600px)
-    #bloco_corretora_alfa .conteudo .direito
-        flex-direction: column
-    #bloco_corretora_alfa .conteudo .direito
-        align-items: flex-end
-
-#bloco_corretora_alfa .conteudo.cobertura
-    flex-direction: column
-    margin-top: 40px
-    h1
-        subTituloMaiusculo()
-    p
-        subTitulo()
-        border-bottom: 1px solid #000
-    .lista_cobertura
-        width: 100%
-        display: flex
-        padding-left: 20px
-        espacoTopPadrao()
-    .lista_cobertura article
-        width: 100%
-    .esquerdo .paragrafo
-    .direito .paragrafo
-        display: flex
-        align-items: flex-start
-        flex-direction: column
-    .esquerdo .paragrafo .lista
-    .direito .paragrafo .lista
-        list-style-type: disc !important
-    .esquerdo .paragrafo .lista li
-    .direito .paragrafo .lista li
-        display: list-item
-        texto()
-        margin-bottom: 10px
-        margin-right: 10px
-        color: #333
-        span
+            bordaBottomPadraoTabela()
+            margin: 20px 0px
+        p
             texto()
-            font-weight: bold
-            color: #000
-
-@media screen and (max-width: 600px)
-    #bloco_corretora_alfa .conteudo.cobertura .lista_cobertura
-        flex-direction: column
-
-
-#bloco_corretora_alfa .acessar_corretora
-    width: 100%
-    flexCenter()
-    flex-direction: column
-    espacamentoPadrao()
-    a
-        padding: 10px 20px
-        font-size: 1.5em
-        line-height: 1.5em
-        color: #FFF
-        border-radius: 20px
-        background-color: $corClube
-    .titulo_corretora
+        p span
+            font-size: 1em
+            color: $corClube
+    .bloco_conteudo .lista
+        width: 50%
+        ul li
+            list-style: none
+            margin-bottom: 10px
+            padding: 10px
+            texto()
+            borderRadius()
+            boxShadow()
+            background-color: #fff
+            border: 1px solid $corClube
+    .bloco_conteudo.relatorio
         width: 100%
         flexCenter()
-        flex-direction: column
-    .titulo_corretora h1
-        max-width: 250px
-        font-size: 2em
-        line-height: 1.5em
-        color: #333
-        span
+        directionColumn()
+        header
+            width: 100%
+            justifyStart()
+            alignItemStart()
+            directionColumn()
+            espacoBottomPadrao()
+        header h1
+            titulo()
+            color: $corClube
+        header p
+            texto()
+        .bloco_geral_article
+            width: calc(100% + 10px)
+        article
+            alignSelfStretch()
+            list-style: none
+            margin-bottom: 10px
+            padding: 10px
+            line-height: 1.5em
+            font-size: 1.6rem
+            border-radius: 5px
+            background-color: #fff
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1)
+            border: 1px solid $corClube
+            margin: 5px
+        article p
+            texto()
+        article p span
             font-size: 1em
-            font-weight: bold
-            color: #333
-    .titulo_corretora p
-        max-width: 500px
-        color: #333
-        font-size: 2em
-        line-height: 1.5em
-        text-align: center
-    .container_acessa.consultoria
-        espacamentoPadrao()
+            acessar_corretora
+    .acessar_corretora
+        espacoVerticalPadrao()
+        a
+            texto()
+    .disclaimer
+        width: 100%
+        alignItemStart()
+        espacoTopPadrao()
+        directionColumn()
+        p
+            padding: 10px
+            disclaimerFontSize()
 
-.banner_consultoria
-    espacamentoPadrao()
+
+@media screen and (max-width: 670px)
+    #bloco_corretora_alfa .bloco_conteudo
+        directionColumn()
+    #bloco_corretora_alfa .bloco_conteudo .descricao,
+    #bloco_corretora_alfa .bloco_conteudo .lista
+        width: 100%
+    #bloco_corretora_alfa .bloco_conteudo .lista
+        espacoTopPadrao()

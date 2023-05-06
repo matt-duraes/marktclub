@@ -132,4 +132,27 @@ final class BannerModel
             ]
         ];
     }
+
+    /**
+     * @return object
+     */
+    public function corretora(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
+                    marketclub'
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
+                    marketclub'
+                ]
+            ]
+        ];
+    }
 }
