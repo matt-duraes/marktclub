@@ -20,6 +20,13 @@
         <div class="linha"></div>
         @ endif;
 
+        @ if( USUARIO_MARKTCLUB == 'sim' ):
+        <a href="{!!route('perfil.empresa')!!}">
+            <i>@iconeUsuario(12)</i>
+            <p>Mudar empresa</p>
+        </a>
+        @ endif;
+
         @ if( in_array('perfil', PAINEL_CONFIGURACAO) ):
         <a href="{!!route('perfil.dado')!!}">
             <i>@iconeConfig(12)</i>
@@ -38,7 +45,6 @@
         </a>
         <div class="linha"></div>
         @ endif;
-
 
         <a href="{!!route('login.sair')!!}">
             <i>@iconeSair</i>

@@ -3,48 +3,43 @@
 <div class="bloco_saude">
 	<div class="bloco_plano_saude">
 		<figure>
-			<img src="{{LINK_PADRAO}}/images/site/saude_unimed_seguro.png" alt="">
+			<img src="https://clube.marktclub.com.br/images/saude-unimed-seguro.png" alt="">
 		</figure>
-		<div class="bloco_conteudo">
+		<header class="bloco_conteudo">
 			<h1>Unimed Seguros</h1>
 			<p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de
 			direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro EMpresarial Enseada
 			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua
 			entidade de classe, conforme regulamentações vigentes da ANS. <span class="bold">O aniversário desta apílice para reajuste anual é o mês de Julho</span>
 			</p>
-		</div>
+		</header>
 		<div class="bloco_beneficio">
 			<header>
 				<h1>Benefícios exclusivos</h1>
-				<p>Ver todas as vantagens</p>
 			</header>
 			<div class="bloco_vantagem">
-				<div class="bloco_icone_vantagem">
+				<div class="icone_vantagem">
 					@iconeCashbackHome
 					<p>Menores preços do mercado</p>
 				</div>
-				<div class="bloco_icone_vantagem">
-					@iconeDependente
+				<div class="icone_vantagem">
+					@iconeDependenteOutline
 					<p>Contrate para seus dependentes</p>
 				</div>
-				<div class="bloco_icone_vantagem">
+				<div class="icone_vantagem">
 					@iconeMundo
 					<p>Ampla cobertura em todo o Brasil</p>
 				</div>
 			</div>
-			<div class="rede_credenciada_botao">
-				<a href="#" class="botao_padrao">Consultar rede credenciada</a>
-				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
-			</div>
 		</div>
 	</div>
-	<div class="bloco_explore_rede">
-		<div class="titulo_rede">
+	<div class="bloco_plano_saude">
+		<header>
 			<h1>Explore a rede credenciada</h1>
-		</div>
+            <p>Você conhece as iniciativas do programa Cuidando de Perto da Seguros Unimed para cuidar integralmente da sua saúde?</p>
+		</header>
 		<div class="lista_passo_a_passo">
-			<p>Você conhece as iniciativas do programa Cuidando de Perto da Seguros Unimed para cuidar integralmente da sua saúde?</p>
-			<ul>
+			<ul class="bloco_geral_ul">
 				<li>Titular;</li>
 				<li>Cônjuge ou Companheiro (a);</li>
 				<li>Filhos solteiro (menores de 24 anos);</li>
@@ -55,20 +50,20 @@
 				<li>Obs: Documentação entregues até dia 10 do mês, serão efetivadas no mês subsequinte</li>
 			</ul>
 		</div>
-		<div class="botao_padrao">
-			<a href="http://www.segurosunimed.com.br/institucional/servicos/guiamedico">Consultar rede credenciada</a>
+		<div class="display_flex">
+			<a class="botao_geral_cor cor_bg" target="_blank" href="http://www.segurosunimed.com.br/institucional/servicos/guiamedico">Consultar rede credenciada</a>
 		</div>
 	</div>
 
-	<div class="bloco_lista">
+	<div class="bloco_plano_saude">
 		<figure>
-			<img src="{{LINK_PADRAO}}/images/site/cuidando_de_perto.png" alt="Cuidando de perto">
+			<img src="https://clube.marktclub.com.br/images/cuidando_de_perto.png" alt="Cuidando de perto">
 		</figure>
-		<div class="titulo_rede">
+		<header class="titulo_rede">
 			<h1>Conheça o Cuidando de Perto</h1>
-		</div>
+		</header>
 		<div class="lista_passo_a_passo">
-			<ul>
+			<ul class="bloco_geral_ul">
 				<li>Clique no botão "Consultar rede credenciada"</li>
 				<li>Na página que abrirá, clique em "Busca detalhada"</li>
 				<li>Em seguida selecione o estado (UF) que deseja consultar</li>
@@ -77,29 +72,31 @@
 				</li>
 			</ul>
 		</div>
-		<div class="botao_padrao">
-			<a href="{{LINK_ARQUIVO}}/download/manual_cuidando_de_perto.pdf">Conheça sobre o Programa</a>
+		<div class="display_flex">
+			<a class="botao_geral_cor cor_bg" href="{{LINK_ARQUIVO}}/download/manual_cuidando_de_perto.pdf">Conheça sobre o Programa</a>
 		</div>
 	</div>
 
 	<div class="bloco_plano_saude">
-		<h1>PREÇOS DO PLANO DE SAÚDE</h1>
-		<div class="table_container">
+		<header>
+            <h1>PREÇOS DO PLANO DE SAÚDE</h1>
+        </header>
+		<div class="bloco_tabela_geral">
 			<table>
 				<thead>
-					<tr class="titulo_table">
+					<tr>
 						<th></th>
-						<th class="titulo_table">Afinidade Básica</th>
-						<th class="titulo_table">Afinidade Prático</th>
-						<th class="titulo_table">Afinidade Versátil</th>
+						<th>Afinidade Básica</th>
+						<th>Afinidade Prático</th>
+						<th>Afinidade Versátil</th>
 					</tr>
-					<tr class="titulo_table">
+					<tr>
 						<th></th>
 						<th>Enfermaria</th>
 						<th>Apartamento</th>
 						<th>Apartamento</th>
 					</tr>
-					<tr class="titulo_table">
+					<tr>
 						<th>FAIXA ETÁRIA</th>
 						<th>ANS N. 465.816/11-7</th>
 						<th>ANS N. 465.817/11-6</th>
@@ -108,75 +105,75 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td data-label="Faixa etária">0 a 18</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 302,96</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 402,57</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 484,41</td>
+						<td>0 a 18</td>
+						<td>R$ 302,96</td>
+						<td>R$ 402,57</td>
+						<td>R$ 484,41</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">19 a 23</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 365,27</td>
+						<td>19 a 23</td>
+						<td>R$ 365,27</td>
 						<td>R$ 488,18</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 577,25</td>
+						<td>R$ 577,25</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">24 a 28</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 421,29</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 565,10</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 667,54</td>
+						<td>24 a 28</td>
+						<td>R$ 421,29</td>
+						<td>R$ 565,10</td>
+						<td>R$ 667,54</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">29 a 33</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 479,93</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 645,61</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 767,32</td>
+						<td>29 a 33</td>
+						<td>R$ 479,93</td>
+						<td>R$ 645,61</td>
+						<td>R$ 767,32</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">34 a 38</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 552,27</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 742,55</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 882,94</td>
+						<td>34 a 38</td>
+						<td>R$ 552,27</td>
+						<td>R$ 742,55</td>
+						<td>R$ 882,94</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">39 a 43</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 650,44</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 865,98</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 1.039,89</td>
+						<td>39 a 43</td>
+						<td>R$ 650,44</td>
+						<td>R$ 865,98</td>
+						<td>R$ 1.039,89</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">44 a 48</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 758,29</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 1.003,56</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 1.212,32</td>
+						<td>44 a 48</td>
+						<td>R$ 758,29</td>
+						<td>R$ 1.003,56</td>
+						<td>R$ 1.212,32</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">49 a 53</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 1.016,58</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 1.354,63</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 1.640,57</td>
+						<td>49 a 53</td>
+						<td>R$ 1.016,58</td>
+						<td>R$ 1.354,63</td>
+						<td>R$ 1.640,57</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">54 a 58</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 1.372,30</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 1.828,17</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 2.218,28</td>
+						<td>54 a 58</td>
+						<td>R$ 1.372,30</td>
+						<td>R$ 1.828,17</td>
+						<td>R$ 2.218,28</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">59 ou mais</td>
-						<td data-label="Afinidade Básica - Enfermaria - ANS N. 465.816/11-7">R$ 1.805,72</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.817/11-6">R$ 2.415,49</td>
-						<td data-label="Afinidade Básica - Apartamento - ANS N. 465.820/11-5">R$ 2.901,35</td>
-					</tr>
+						<td>59 ou mais</td>
+						<td>R$ 1.805,72</td>
+						<td>R$ 2.415,49</td>
+						<td>R$ 2.901,35</td>
+                    </tr>
 				</tbody>
 			</table>
 		</div>
 
 		<div class="bloco_lista">
-			<div class="titulo_rede">
+			<header>
 				<h1>Afinidade Básico</h1>
-			</div>
+			</header>
 			<div class="lista_passo_a_passo">
-				<ul>
+				<ul class="bloco_geral_ul">
 					<li><p><span>Segmento:</span> Ambulatorial Hospitalar com Obstetrícia</p></li>
 					<li><p><span>Abrangência Geográfica:</span> Nacional</p></li>
 					<li><p><span>Padrão de Acomodação:</span> Coletivo (Enfermaria)</p></li>
@@ -186,11 +183,11 @@
 			</div>
 		</div>
 		<div class="bloco_lista">
-			<div class="titulo_rede">
+			<header>
 				<h1>Afinidade Prático</h1>
-			</div>
+			</header>
 			<div class="lista_passo_a_passo">
-				<ul>
+				<ul class="bloco_geral_ul">
 					<li><p><span>Segmento:</span> Ambulatorial Hospitalar com Obstetrícia</p></li>
 					<li><p><span>Abrangência Geográfica:</span> Nacional</p></li>
 					<li><p><span>Padrão de Acomodação:</span> Individual (apartamento)</p></li>
@@ -200,11 +197,11 @@
 			</div>
 		</div>
 		<div class="bloco_lista">
-			<div class="titulo_rede">
+			<header>
 				<h1>Afinidade Versátil</h1>
-			</div>
+			</header>
 			<div class="lista_passo_a_passo">
-				<ul>
+				<ul class="bloco_geral_ul">
 					<li><p><span>Segmento:</span> Ambulatorial Hospitalar com Obstetrícia</p></li>
 					<li><p><span>Abrangência Geográfica:</span> Nacional</p></li>
 					<li><p><span>Padrão de Acomodação:</span> Individual (Apartamento)</p></li>
@@ -216,9 +213,11 @@
 	</div>
 
 	<section class="bloco_auxilio_ressarcimento bloco_plano_saude">
-		<h1>AUXÍLIO RESSARCIMENTO</h1>
-		<p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
-		<div class="table_container">
+		<header>
+            <h1>AUXÍLIO RESSARCIMENTO</h1>
+            <p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
+        </header>
+		<div class="bloco_tabela_geral">
 			<table>
 				<thead>
 					<tr>
@@ -235,7 +234,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td data-label="Faixa Etária">00-18</td>
+						<td>00-18</td>
 						<td>R$ 149,52</td>
 						<td>R$ 142,47</td>
 						<td>R$ 135,42</td>
@@ -246,7 +245,7 @@
 						<td>R$ 101,56</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">19-23</td>
+						<td>19-23</td>
 						<td>R$ 156,57</td>
 						<td>R$ 149,52</td>
 						<td>R$ 142,47</td>
@@ -257,7 +256,7 @@
 						<td>R$ 102,97</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">24-28</td>
+						<td>24-28</td>
 						<td>R$ 158,69</td>
 						<td>R$ 151,64</td>
 						<td>R$ 144,59</td>
@@ -268,7 +267,7 @@
 						<td>R$ 105,08</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">29-33</td>
+						<td>29-33</td>
 						<td>R$ 165,04</td>
 						<td>R$ 156,57</td>
 						<td>R$ 149,52</td>
@@ -279,7 +278,7 @@
 						<td>R$ 105,79</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">34-38</td>
+						<td>34-38</td>
 						<td>R$ 168,97</td>
 						<td>R$ 161,51</td>
 						<td>R$ 154,46</td>
@@ -290,7 +289,7 @@
 						<td>R$ 110,73</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">39-43</td>
+						<td>39-43</td>
 						<td>R$ 175,61</td>
 						<td>R$ 167,15</td>
 						<td>R$ 160,10</td>
@@ -301,7 +300,7 @@
 						<td>R$ 116,38</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">44-48</td>
+						<td>44-48</td>
 						<td>R$ 190,03</td>
 						<td>R$ 180,76</td>
 						<td>R$ 171,49</td>
@@ -312,7 +311,7 @@
 						<td>R$ 117,42</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">49-53</td>
+						<td>49-53</td>
 						<td>R$ 193,05</td>
 						<td>R$ 183,63</td>
 						<td>R$ 174,21</td>
@@ -323,7 +322,7 @@
 						<td>R$ 119,28</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">54-58</td>
+						<td>54-58</td>
 						<td>R$ 196,06</td>
 						<td>R$ 186,50</td>
 						<td>R$ 176,94</td>
@@ -334,7 +333,7 @@
 						<td>R$ 124,33</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">59 ou +</td>
+						<td>59 ou +</td>
 						<td>R$ 205,63</td>
 						<td>R$ 196,06</td>
 						<td>R$ 186,50</td>
@@ -346,50 +345,52 @@
 					</tr>
 				</tbody>
 			</table>
-			<p class="footer">* Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.</p>
+			<p>* Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.</p>
 		</div>
 	</section>
 
 
 	<section class="bloco_plano_saude">
-		<h1>FATOR MODERADOR</h1>
-		<p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
-		<div class="table_container">
+		<header>
+            <h1>FATOR MODERADOR</h1>
+            <p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
+        </header>
+        <div class="bloco_tabela_geral">
 			<table>
 				<thead>
 					<tr>
-						<th>PROCEDIMENTOS</th>
-						<th>DESCRIÇÃO</th>
-						<th>PERCENTUAL</th>
+						<th>Procedimentos</th>
+						<th>Descrição</th>
+						<th>Percentual</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td data-label="Procedimento">Fisioterapia</td>
-						<td data-label="Descrição">A partir da 61ª (sexagéssima primeira) sessão, <br> por segurado, por ano de vigência da apólice </td>
-						<td data-label="Percentual">30%</td>
+						<td>Fisioterapia</td>
+						<td>A partir da 61ª (sexagéssima primeira) sessão, <br> por segurado, por ano de vigência da apólice </td>
+						<td>30%</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Acupuntura</td>
-						<td data-label="Descrição">A partir da 61ª (sexagéssima primeira) sessão, <br> por segurado, por ano de vigência da apólice</td>
-						<td data-label="Percentual">30%</td>
+						<td>Acupuntura</td>
+						<td>A partir da 61ª (sexagéssima primeira) sessão, <br> por segurado, por ano de vigência da apólice</td>
+						<td>30%</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Pisiquiátrica</td>
-						<td data-label="Descrição">Ultrapassando 30 (trinta) dias de internação <br>no transcorrer de 1 (um) ano de contrato</td>
-						<td data-label="Percentual">30%</td>
+						<td>Pisiquiátrica</td>
+						<td>Ultrapassando 30 (trinta) dias de internação <br>no transcorrer de 1 (um) ano de contrato</td>
+						<td>30%</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Demais procedimentos</td>
-						<td data-label="Descrição">-</td>
-						<td data-label="Percentual">0%</td>
+						<td>Demais procedimentos</td>
+						<td>-</td>
+						<td>0%</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</section>
 
-	<section class="bloco_simulacao">
+    <section class="bloco_simulacao container_scroll">
 		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado')
@@ -400,4 +401,7 @@
             </div>
         @endif
 	</section>
+    @if(TIPO_USUARIO != 'indicado'):
+        <a href="@route(planosaude.simulacao)/unimed-seguros" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
+    @endif
 </div>

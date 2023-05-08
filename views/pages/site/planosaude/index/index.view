@@ -1,5 +1,12 @@
 @template "site"
+
+@if(CLUBE_ID == 'federal'):
+<div id="bloco_saude" class="federal_saude">
+    @view site/planosaude/federalSaude/index.view
+</div>
+@else:
 <div id="bloco_saude">
-    @view site/geral/banner.view
     @view site/geral/parceiro.view
 </div>
+@endif;
+

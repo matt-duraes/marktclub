@@ -51,7 +51,9 @@ if (!function_exists('painelAppFiltro')) {
             $inputOrdem = '<input type="hidden" name="ordem" value="' . $ordem . '">';
         }
         echo '
-            <form action="' . LINK . '/app/filtrar/' . $app . '" method="post" id="bloco_app_filtrar" class="form_geral bloco_pagina_popup">
+            <form
+                action="' . LINK . '/app/filtrar/' . $app . '"
+                method="post" id="bloco_app_filtrar" class="form_geral bloco_pagina_popup">
                 <header class="header_pagina_popup">
                     <i class="mobile botao_fechar_filtro">' . iconeVoltar() . '</i>
                     <h1>FILTRAR DADOS</h1>
@@ -118,9 +120,21 @@ if (!function_exists('painelAppDownloadEnd')) {
     {
         echo '
                     <div class="footer" id="bloco_download_footer">
-                        <input class="autocomplete" autocomplete="current-password" type="password" name="password">
-                        ' . formCheckbox(name: 'termo', value: 'sim', label: 'Confirmar que sou ' . sessao('USUARIO.nome') . ' e que tenho permissão para fazer esse download.', check: false, class: 'botao_termo_download') . '
-                        ' . formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha', attr: ['autocomplete' => 'new-password']) . '
+                        <input class="autocomplete" autocomplete="current-password" type="password" name="password">' .
+        formCheckbox(
+            name: 'termo',
+            value: 'sim',
+            label: 'Confirmar que sou ' . sessao('USUARIO.nome')
+                                                    . ' e que tenho permissão para fazer esse download.',
+            check: false,
+            class: 'botao_termo_download'
+        ) .
+        formSenha(
+            name: 'senha',
+            label: 'Senha',
+            placeholder: 'Digite sua senha',
+            attr: ['autocomplete' => 'new-password']
+        ) . '
                         <button type="submit" class="botao_download_geral button botao_loading_geral">
                             <p>DOWNLOAD</p>
                             <span>' . iconeLoadingBola() . '</span>
@@ -144,8 +158,13 @@ if (!function_exists('painelPopup()')) {
      * @param null|string   $id         ID para o bloco
      * @param bool          $fechar     Se vai ter o botão de fechar no header
      */
-    function painelPopup(string $titulo, ?string $action = null, ?string $method = null, ?string $id = null, bool $fechar = true)
-    {
+    function painelPopup(
+        string $titulo,
+        ?string $action = null,
+        ?string $method = null,
+        ?string $id = null,
+        bool $fechar = true
+    ) {
         $form = !empty($action) || !empty($method);
         $action = $form && empty($action) ? '/' : $action;
         $method = $form && !in_array($method, ['POST', 'GET']) ? 'POST' : $method;
@@ -242,7 +261,8 @@ if (!function_exists('painelLinhaLista')) {
             }
 
             $campo = $item['campo'] ?? '';
-            $campo = !is_array($campo) && !in_array($acao, ['checked', 'botao', 'status', 'vazio_break']) ? [$campo] : $campo;
+            $campo = !is_array($campo) && !in_array($acao, ['checked', 'botao', 'status', 'vazio_break'])
+                ? [$campo] : $campo;
 
             if ($acao == 'vazio_break' && object_key_exists($campo, $dado) && !empty(painelValor($dado, $campo))) {
                 continue;
@@ -284,7 +304,8 @@ if (!function_exists('painelLinhaLista')) {
                             $valorTemporario = $replace[$val][$valorTemporario] ?? $valorTemporario;
                         }
                         if ($acao == 'contar') {
-                            $valor = array_merge(is_object($valor) ? (array) $valor : $valor, is_object($valorTemporario) ? (array)$valorTemporario : $valorTemporario);
+                            $valor = array_merge(is_object($valor) ? (array) $valor
+                                : $valor, is_object($valorTemporario) ? (array)$valorTemporario : $valorTemporario);
                             continue;
                         }
                         $valor[] = $valorTemporario;
@@ -304,8 +325,8 @@ if (!function_exists('painelLinhaLista')) {
                 }
             }
 
-            $valor = !in_array($acao, ['checked', 'botao', 'contar', 'array']) && is_array($valor) ? implode(' ou ', $valor) : $valor;
-
+            $valor = !in_array($acao, ['checked', 'botao', 'contar', 'array']) && is_array($valor)
+                ? implode(' ou ', $valor) : $valor;
             if ($acao == 'contar' && is_array($valor)) {
                 $acao = 'linha';
                 $valor = count($valor);
@@ -327,33 +348,47 @@ if (!function_exists('painelLinhaLista')) {
             } elseif ($acao == 'linha') {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
-                echo '<div class="linha bg_hover"><strong class="texto_nome">' . $nome . '</strong> <p>' . $valor . '</p></div>';
+                echo '<div class="linha bg_hover"><strong class="texto_nome">'
+                    . $nome . '</strong> <p>' . $valor . '</p></div>';
             } elseif ($acao == 'titulo') {
                 echo '<h2 class="titulo">' . $valor . '</h2>';
+            } elseif ($acao == 'texto') {
+                echo '<div class="bloco_texto bloco_noticia_texto">' . $valor . '</div>';
             } elseif ($acao == 'sub_titulo') {
                 echo '<p class="sub_titulo">' . $valor . '</p>';
             } elseif ($acao == 'checked' && is_array($valor)) {
                 echo '<div class="bloco_checked">';
                 foreach ($valor as $ind) {
-                    echo '<div class="item"><span class="texto_nome">' . $ind . '</span> <i>' . iconeCheck() . '</i></div>';
+                    echo '<div class="item"><span class="texto_nome">' . $ind . '</span> <i>'
+                        . iconeCheck() . '</i></div>';
                 }
                 echo '</div>';
             } elseif ($acao == 'checked' && is_bool($valor)) {
                 $icone = $valor ? iconeCheck(10) : iconeFechar(8);
                 $classe = $valor ? 'checked_sim' : 'checked_nao';
-                echo '<div class="checked bg_hover"><span class="texto_nome">' . $nome . '</span> <i class="' . $classe . '">' . $icone . '</i></div>';
+                echo '<div class="checked bg_hover"><span class="texto_nome">' . $nome . '</span> <i class="'
+                    . $classe . '">' . $icone . '</i></div>';
             } elseif ($acao == 'botao' && !empty($link)) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
-                echo '<a class="botao_link" ' . $id . ' href="' . painelConverterLink($link, $dado) . '">' . $texto . '</a>';
+                echo '<a class="botao_link" ' . $id . ' href="' . painelConverterLink($link, $dado)
+                    . '">' . $texto . '</a>';
             } elseif ($acao == 'botao') {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 echo '<div class="botao_link" ' . $id . '>' . $texto . '</div>';
-            } elseif ($acao == 'status' && is_string($valor) && !empty($valor) && is_array($inArray) && $inArray && in_array($valor, $inArray)) {
+            } elseif (
+                $acao == 'status' &&
+                is_string($valor) &&
+                !empty($valor) &&
+                is_array($inArray) &&
+                $inArray &&
+                in_array($valor, $inArray)
+            ) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 $cor = !empty($cor) ? $cor : '';
                 $mensagem = !empty($mensagem) ? 'data-mensagem="' . $mensagem . '"' : '';
                 $status = !empty($status) ? 'data-status="' . $status . '"' : '';
-                $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $mensagem . ' ' . $status . '>' . $texto . '</div>';
+                $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $mensagem . ' '
+                    . $status . '>' . $texto . '</div>';
             } elseif ($acao == 'array' && is_array($valor) && $valor) {
                 $valor = array_key_exists(0, $valor) && count($valor) == 1 ? $valor[0] : $valor;
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
@@ -365,13 +400,15 @@ if (!function_exists('painelLinhaLista')) {
                 echo '<div class="lista_item display_none">';
                 foreach ($valor as $ind => $val) {
                     if (!is_array($val) && !is_object($val)) {
-                        $ind = !is_int($ind) ? '<span class="texto_nome">' . preg_replace('/\:$/', '', $ind) . ':</span>' : '';
+                        $ind = !is_int($ind) ? '<span class="texto_nome">' . preg_replace('/\:$/', '', $ind)
+                            . ':</span>' : '';
                         echo '<div class="item bg_hover">' . $ind . ' <p>' . $val . '</p></div>';
                         continue;
                     }
                     echo '<div class="array_subitem">';
                     foreach ($val as $ind2 => $val2) {
-                        $ind2 = !is_int($ind2) ? '<span class="texto_nome">' . preg_replace('/\:$/', '', $ind2) . ':</span>' : '';
+                        $ind2 = !is_int($ind2) ? '<span class="texto_nome">' . preg_replace('/\:$/', '', $ind2)
+                            . ':</span>' : '';
                         $val2 = is_array($val2) || is_object($val2) ? jsonEncode($val2) : $val2;
                         echo '<div class="item bg_hover">' . $ind2 . ' <p>' . $val2 . '</p></div>';
                     }
@@ -445,17 +482,19 @@ if (!function_exists('painelAppAddBotao')) {
      */
     function painelAppAddBotao(?string $id = null, ?string $botao = null)
     {
-        $id = $id != null ? $id : 'botao_salvar_geral';
-        $botao = $botao != null ? $botao : 'SALVAR';
-        echo '
+        $id = is_null($id) ? 'botao_salvar_geral' : $id;
+        $botao = is_null($botao) ? 'SALVAR' : $botao;
+        if (!empty($botao)) {
+            echo '
                 <div class="botao_salvar" id="' . $id . '">
                     <p>' . $botao . '</p>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
                     </span>
                 </div>
-            </form>
-        ';
+            ';
+        }
+        echo '</form>';
     }
 }
 
@@ -576,11 +615,11 @@ if (!function_exists('painelValor')) {
 if (!function_exists('painelValorFormatar')) {
     function painelValorFormatar($valor, string $vazio = '', string $formatar = '')
     {
-        if (empty($valor)) {
+        if (is_numeric($valor) && empty($formatar)) {
+            return $valor;
+        } elseif (empty($valor)) {
             return $vazio;
-        } elseif (
-            (!is_string($valor) && !is_numeric($valor)) || empty($formatar)
-        ) {
+        } elseif ((!is_string($valor) && !is_numeric($valor)) || empty($formatar)) {
             return $valor;
         } elseif ($formatar == 'telefone') {
             $valor = strTelefone($valor);
@@ -636,7 +675,8 @@ if (!function_exists('painelConfigSelect')) {
             $explode = explode('=', $val);
             $indice = $explode[0];
             $value = $explode[1] ?? '';
-            $select[preg_replace(['/^\ {1,}/', '/\ {1,}$/'], '', $indice)] = preg_replace(['/^\ {1,}/', '/\ {1,}$/'], '', $value);
+            $select[preg_replace(['/^\ {1,}/', '/\ {1,}$/'], '', $indice)] =
+                preg_replace(['/^\ {1,}/', '/\ {1,}$/'], '', $value);
         }
         return $select;
     }
@@ -668,14 +708,16 @@ if (!function_exists('painelInputLista')) {
                 $formatar = $input['formatar'];
                 unset($input['formatar']);
             }
-            $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado) ? painelValor($dado, $indice, formatar: $formatar) : '';
+            $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado)
+                ? painelValor($dado, $indice, formatar: $formatar) : '';
 
             if ($funcao == 'imagem' && validarUuid($valor, false)) {
                 $input['value'] = arquivoPrivado($valor);
             } elseif ($funcao == 'switch') {
                 $input['check'] = in_array($valor, [1, 'sim']);
             } elseif ($funcao == 'checkbox') {
-                $input['check'] = is_array($valor) && !empty($valor) && !empty($input['value']) && in_array($input['value'], $valor);
+                $input['check'] = is_array($valor) && !empty($valor) && !empty($input['value'])
+                    && in_array($input['value'], $valor);
             } else {
                 $input['value'] = $valor;
             }
@@ -746,7 +788,8 @@ if (!function_exists('painelMenu')) {
                     $uri = preg_replace('/^uri\:/', '', $linha);
                 }
             }
-            $link = $uri == null ? LINK . '/app/' . str_replace('_', '-', $app) : LINK . '/' . preg_replace('/^\//', '', $uri);
+            $link = $uri == null ? LINK . '/app/' . str_replace('_', '-', $app) : LINK
+                . '/' . preg_replace('/^\//', '', $uri);
             $hover = $appUso == $app ? 'hover' : '';
             if (array_key_exists($app, $permissao) && in_array($app . '_index', $permissaoUsuario)) {
                 $menu .= '
@@ -857,7 +900,12 @@ if (!function_exists('botaoControle')) {
         }
 
         $editarHtml = '';
-        if (!empty($editar) && $editarPermissao && !empty($editarLink) && (in_array($app . '_editar', $permissao) || $dev)) {
+        if (
+            !empty($editar) &&
+            $editarPermissao &&
+            !empty($editarLink) &&
+            (in_array($app . '_editar', $permissao) || $dev)
+        ) {
             $editarHtml = '
                 <a class="botao editar" href="' . $editarLink . '" id="' . $editar . '">
                     <i>' . iconeEditar(15) . '</i>
@@ -884,7 +932,12 @@ if (!function_exists('botaoControle')) {
         }
 
         $downloadHtml = '';
-        if (!empty($download) && $downloadPermissao && !empty($downloadLink) && (in_array($app . '_download', $permissao) || $dev)) {
+        if (
+            !empty($download) &&
+            $downloadPermissao &&
+            !empty($downloadLink) &&
+            (in_array($app . '_download', $permissao) || $dev)
+        ) {
             $downloadHtml = '
                 <a class="botao download" href="' . $downloadLink . '" id="' . $download . '">
                     <i>' . iconeDownload(18) . '</i>

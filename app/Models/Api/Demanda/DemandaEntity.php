@@ -171,6 +171,12 @@ final class DemandaEntity extends Entity
         $this->ordem = 999;
         $this->pegarIdEmpresa();
     }
+    protected function regraSalvar()
+    {
+        if ($this->com_prazo->valor() == 'sim' && $this->data_entrega->vazio()) {
+            mensagemErro('Campo obrigatório!', 'A data de entrega é obrigatória.');
+        }
+    }
 
     protected function getId()
     {

@@ -34,7 +34,7 @@ final class EquipeEntity extends Entity
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao',
         'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
-        'id_facebook', 'id_google', 'gerente', 'admin'
+        'id_facebook', 'id_google', 'marktclub', 'gerente', 'admin'
     ];
     protected array $ormSalvar = [
         'nome_real' => '->nome',
@@ -42,7 +42,7 @@ final class EquipeEntity extends Entity
         'salt' => '->senha',
         'nome_perfil' => '->perfil',
         'email_trabalho', 'email_pessoal', 'genero', 'telefone_pessoal', 'telefone_trabalho', 'status',
-        'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'permissao', 'admin'
+        'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'marktclub', 'permissao', 'admin'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
@@ -54,14 +54,14 @@ final class EquipeEntity extends Entity
     protected array $ormRetornoPadrao = ['id', 'nome', 'cpf', 'perfil', 'imagem'];
 
     protected string $ormValidarSalvar = '
-        documento_cpf|CPF|cpf
+        cpf|CPF|vazio|cpf
         genero|Gênero|valido
         data_nascimento|Data Nascimento|dataDate
-        email_trabalho|E-mail de trabalho|email
+        email_trabalho|E-mail de trabalho|vazio|email
         email_pessoal|E-mail pessoal|email
         telefone_pessoal|Telefone pessoal|telefone
         telefone_trabalho|Telefone de trabalho|telefone
-        status|Status|valido
+        status|Status|vazio|valido
     ';
 
     public Nome $nome;
@@ -85,6 +85,7 @@ final class EquipeEntity extends Entity
     protected int $imagem_tipo;
     protected string $imagem_facebook;
     protected string $imagem_google;
+    public Botao $marktclub;
     public Botao $gerente;
     public Botao $admin;
     public string $id_google;
@@ -206,6 +207,11 @@ final class EquipeEntity extends Entity
         }
 
         $this->atualizarPerfilUsuario();
+
+        $cpfAtual = (int)$this->prop('documento_cpf');
+        if (validarCpf($cpfAtual) && (int)$this->cpf->numero() != $cpfAtual) {
+            mensagemErro('Campo inválido!', 'Você não pode mudar o CPF desse usuário.');
+        }
     }
     private function atualizarPerfilUsuario()
     {
@@ -225,8 +231,8 @@ final class EquipeEntity extends Entity
             );
         } elseif (
             $this->existe([
-            ['id', '!=', $id],
-            ['nome_perfil', $this->perfil]
+                ['id', '!=', $id],
+                ['nome_perfil', $this->perfil]
             ])
         ) {
             mensagemErro('Campo inválido!', 'O perfil informado já está em uso por outro usuário.');

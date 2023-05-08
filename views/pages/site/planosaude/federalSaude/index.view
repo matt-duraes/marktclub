@@ -1,74 +1,41 @@
-@template "site"
-<div id="bloco_federal_saude">
-    <div class="bloco_federal_saude">
-        <figure class="imagem_banner">
-            <img src="{!!LINK_PADRAO!!}/images/site/banner_federal_saude.jpg" alt="">
-        </figure>
-        <div class="bloco_chamada">
-            <h1>O QUE DESEJA FAZER?</h1>
-            <p>
-                Caso queira simular o plano da Federal Clube, clique em "Contratar o Federal Saúde" ou
-                se já possui o plano, clique em "Solicitar 2° via do Boleto"
-            </p>
-        </div>
-        @if (TIPO_USUARIO != 'indicado'):
-        <article class="bloco_opcao">
-            <button class="cor_bg" data-opcao="contratar">Contratar o Federal Saúde</button>
-            <button class="cor_bg" data-opcao="solicitar">Solicitar 2° Via do Boleto</button>
-        </article>
-        @else
-        <div class="bloco_atencao_geral">
-            <p>Apenas associados possuem acesso a esse recurso</p>
-        </div>
-        @endif
+<div class="bloco_federal_saude">
+    @view site/geral/banner.view
+    <header class="titulo_saude">
+        <h1>O QUE DESEJA FAZER?</h1>
+        <p>Caso queira simular o plano da Federal Clube, clique em "Contratar o Federal Saúde" ou
+            se já possui o plano, clique em "Solicitar 2° via do Boleto"</p>
+    </header>
+    <div class="bloco_opcao">
+        <button class="botao botao_geral_cor cor_bg" data-opcao="contratar">Contratar o Federal Saúde</button>
+        <button class="botao botao_geral_cor cor_bg" data-opcao="solicitar">Solicitar 2° Via do Boleto</button>
     </div>
-
-    <div class="container_contratacao inativo">
-        <div class="bloco_contratar_federal">
-            <h1>Para continuar, escolha entre uma das operadoras abaixo:</h1>
-            <div class="bloco_card_plano">
-                <div class="card_plano_saude">
-                    <a href="@route(planosaude.unimedvitoria)">
-                        <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/logo_unimed_vitoria.png'); background-size: contain"></figure>
-                        <h1>Unimed Vitória</h1>
-                    </a>
-                </div>
-                <div class="card_plano_saude">
-                    <a href="@route(planosaude.unimedSeguro)">
-                        <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/saude_unimed_seguro.png'); background-size: contain"></figure>
-                        <h1>Unimed Seguros</h1>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="bloco_video_teleorientacao">
-            <h1>Teleorientação Médica 24hrs</h1>
-            <p>Um serviço da Seguros Unimed para os seus clientes. Assista o vídeo abaixo:</p>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/wnppH0USXfM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="link_teleorientacao">
-                <a class="cor_bg" href="https://arquivo.marktclub.com.br/download/programa_seguros_unimed.pdf" target="_blank">Clique e veja o cuidado da Seguros Unimed com os beneficiários</a>
-                <br>
-                <a class="cor_bg" href="https://arquivo.marktclub.com.br/download/manual_acesso_unimed_seguro.pdf" target="_blank">Clique e veja o Manual de acesso ao Apps da Seguros Unimed</a>
-            </div>
-        </div>
-    </div>
-    <div class="bloco_solicitar_federal inativo">
-        <h1>Escolha sua operadora para gerar o boleto:</h1>
-        <div class="bloco_card_plano">
-            <div class="card_plano_saude">
-                <a href="https://www.benevix.com.br/boletos/" target="_blank">
-                    <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/logo_unimed_vitoria.png'); background-size: cover"></figure>
-                    <h1>Unimed Vitória</h1>
-                </a>
-            </div>
-            <div class="card_plano_saude">
-                <a href="https://fenapef.admex.com.br/default.aspx" target="_blank">
-                    <figure class="imagem_plano_saude" style="background-image: url('{!!LINK_PADRAO!!}/images/site/logo_unimed_vitoria.png'); background-size: cover"></figure>
-                    <h1>Seguros Unimed</h1>
-                </a>
-            </div>
-        </div>
-    </div>
-
-
 </div>
+
+<div class="contratacao display_none">
+    <div class="contratar_federal">
+        <header class="titulo_saude">
+            <h1>Para continuar, escolha entre uma das operadoras abaixo:</h1>
+        </header>
+
+        @view site/geral/parceiro.view
+    </div>
+    <div class="bloco_video_teleorientacao">
+        <h1>Teleorientação Médica 24hrs</h1>
+        <p>Um serviço da Seguros Unimed para os seus clientes. Assista o vídeo abaixo:</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/wnppH0USXfM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div class="link_teleorientacao">
+            <a class="botao botao_geral_cor_auto_height cor_bg" href="https://arquivo.marktclub.com.br/download/programa_seguros_unimed.pdf" target="_blank">Clique e veja o cuidado da Seguros Unimed com os beneficiários</a>
+            <br>
+            <a class="botao botao_geral_cor_auto_height cor_bg" href="https://arquivo.marktclub.com.br/download/manual_acesso_unimed_seguro.pdf" target="_blank">Clique e veja o Manual de acesso ao Apps da Seguros Unimed</a>
+        </div>
+    </div>
+</div>
+<div class="boleto display_none">
+    <header class="titulo_saude">
+        <h1>Escolha sua operadora para gerar o boleto:</h1>
+    </header>
+    @php $lista = $saudeBoleto
+    @view site/geral/parceiro.view
+</div>
+
+

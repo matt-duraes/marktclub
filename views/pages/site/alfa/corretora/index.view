@@ -1,80 +1,52 @@
 @template "site"
 
 <div id="bloco_corretora_alfa">
-    @view site/alfa/corretora/geral/banner.view
-    <div class="chamada">
-        <h1>Conte com a expertise da 4ª Corretora de Câmbio e Valores Mobiliários S.A. registrada na bolsa brasileira.</span></h1>
-    </div>
 
-    <section class="conteudo">
-        <div class="vantagens">
-            <header>
-                <h1>Abra a sua conta na Alfa Corretora</h1>
-                <p>Rápido, fácil e seguro</p>
-            </header>
-            <section class="lista_vantagens">
-                <p>Para operações realizadas via Home Broker*</p>
-                <p>Invista em papeis do Banco Alfa de investimento S.A.
-                    e de instituições parceiras com garantia do FGC**</p>
-                <p>Efetue opeações no Mercado de Capitais através da negociação de emissões nos mercados Primários e Secundários</p>
-            </section>
+    @view site/geral/banner.view
+
+    <!-- <header>
+		<h1>Conte com a expertise da 4ª Corretora de Câmbio e Valores Mobiliários S.A. registrada na bolsa brasileira.</h1>
+    </header> -->
+
+	<section class="bloco_conteudo">
+        <div class="descricao">
+            <h1>Rápido, fácil e seguro</h1>
+            <hr>
+            <p>Conheça as vantagens de investir<br>
+                com a <span>Alfa Corretora</span></p>
         </div>
-        <p class="obs">* Passados esses 90 dias será cobrada a tabela padrão da Alfa Corretora disponível no site <a href="https://alfacorretora.com.br/duvidas/" target="_blank">https://alfacorretora.com.br/duvidas/</a>. <br> Durante a vigência da promoção, o cliente só arcará com os custos de emolumentos cobrados pela B3</p>
-        <p class="obs">** Permitimos aplicações até o limite de cobertura do FGC de 250 mil reais por CPF e por instituição financeira</p>
-    </section>
-
-    <section class="conteudo cobertura">
-        <h1>Relatório diário Morning Call</h1>
-        <p>Conteúdo do Parceiro Eleven Financial</p>
-        <div class="lista_cobertura">
-            <article class="esquerdo">
-                <div class="paragrafo">
-                    <ul class="lista">
-                        <li><span>Principais movimentos dos mercados Globais</span>, Moedas e Commodities que poderão influenciar no mercado local.</li>
-                        <li>Análises financeiras independente com <span>cobertura de mais de 140 empresas de capital aberto</span></li>
-                        <li><span>Relatórios individuais</span> para te ajudar na decisão de um investimento.</li>
-                    </ul>
-                </div>
-            </article>
-            <article class="direito">
-                <div class="paragrafo">
-                    <ul class="lista">
-                        <li><span>Sugestão de carteiras de ações</span> para a construção de um portfólio diversificado.</li>
-                        <li>Apoio profissional, completo e personalizado com <span>balanceamento de risco vs. Retorno</span></li>
-                        <li><span>Participação da Alfa Corretora</span> de todos os IPOs do mercado.</li>
-                    </ul>
-                </div>
-            </article>
+        <div class="lista">
+            <ul class="bloco_geral_ul">
+                <li>Para operações realizadas via Home Broker*</li>
+                <li>Invista em papeis do Banco Alfa de investimento S.A.
+                    e de instituições parceiras com garantia do FGC**</li>
+                <li>Efetue opeações no Mercado de Capitais através da negociação de emissões nos mercados Primários e Secundários</li>
+            </ul>
         </div>
-    </section>
+	</section>
 
-    @if(TIPO_USUARIO != 'indicado'):
-        <section class="acessar_corretora">
-            <a href="https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub"  target="_blank">INVISTA AGORA</a>
-        </section>
-    @else:
-        <div class="bloco_atencao_geral_centralizado">
-            <p>Apenas associados possuem acesso a esse recurso</p>
-        </div>
-    @endif
-
-    <div class="bloco_geral_banner banner_consultoria">
-        <div class="imagem">
-        <figure style="background: url(https://clube.marktclub.com.br/images/consultoria_banner_semb2.png) no-repeat center center;"></figure>
-        </div>
-    </div>
-
-
-    <section class="acessar_corretora">
-        <header class="titulo_corretora consultoria">
-            <h1>Conheça as vantagens de ter uma <span>consultoria ALFA</span></h1>
-            <p></p>
+	<section class="bloco_conteudo relatorio">
+        <header>
+            <h1>Relatório diário Morning Call</h1>
+            <p>Conteúdo do Parceiro Eleven Financial</p>
         </header>
+		<div class="bloco_geral_ul bloco_geral_article">
+			<article><p><span>Principais movimentos dos mercados Globais</span>, Moedas e Commodities que poderão influenciar no mercado local.</p></article>
+			<article><p>Análises financeiras independente com <span>cobertura de mais de 140 empresas de capital aberto</span></p></article>
+			<article><p><span>Relatórios individuais</span> para te ajudar na decisão de um investimento.</p></article>
+			<article><p><span>Sugestão de carteiras de ações</span> para a construção de um portfólio diversificado.</p></article>
+			<article><p>Apoio profissional, completo e personalizado com <span>balanceamento de risco vs. Retorno</span></p></article>
+			<article><p><span>Participação da Alfa Corretora</span> de todos os IPOs do mercado.</p></article>
+		</div>
+	</section>
 
-        <div class="container_acessa consultoria">
-            <a href="@route(alfa.consultoriaAlfa)" target="_blank" class="bg_cor">Saiba mais sobre a consultoria financeira</a>
-        </div>
-
+	<section class="acessar_corretora botao_geral_cor cor_bg botao">
+        <a href="https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub" target="_blank">INVISTA AGORA</a>
     </section>
+
+    <div class="disclaimer">
+        <p>* Passados esses 90 dias será cobrada a tabela padrão da Alfa Corretora disponível no site <a href="https://alfacorretora.com.br/duvidas/" target="_blank">https://alfacorretora.com.br/duvidas/</a>. <br> Durante a vigência da promoção, o cliente só arcará com os custos de emolumentos cobrados pela B3</p>
+        <p>** Permitimos aplicações até o limite de cobertura do FGC de 250 mil reais por CPF e por instituição financeira</p>
+    </div>
 
 </div>

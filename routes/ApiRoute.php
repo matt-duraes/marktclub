@@ -155,7 +155,7 @@ Route::nome('usuario_cliente_download')
             ::request([
                 'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente',
-                '!empresa', '!trabalho_empresa', '!trabalho_cargo'
+                '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo', '!endereco_estado', '!federacao'
             ])
             ::post('/usuario-cliente/download');
     });
@@ -170,7 +170,8 @@ Route::nome('usuario_cliente')
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
-                '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo'
+                '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
+                '!endereco_estado', '!federacao'
             ], 'json')
             ::get('/usuario-cliente');
 
@@ -412,7 +413,6 @@ Route
         Route
             ::nome('perfil')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
-            ::request(['!titulo'], 'json')
             ::get('/usuario-equipe/perfil');
 
         Route
@@ -440,6 +440,12 @@ Route
                 '!imagem_google', '!id_facebook', '!id_google', '!perfil'
             ])
             ::put('/usuario-equipe/{id}');
+        Route
+            ::nome('empresa')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
+            ::request(['empresa'])
+            ::put('/usuario-equipe/empresa');
+
         Route
             ::nome('imagem')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
@@ -615,7 +621,7 @@ Route
 
         Route
             ::nome('validarUsuario')
-            ::get('/turismo/validar-usaurio/{usuario}');
+            ::get('/turismo/validar-usuario/{usuario}');
     });
 
 Route
@@ -780,6 +786,24 @@ Route
     });
 
 Route
+    ::nome('solicitacao_premium')
+    ::controller(App\Controllers\Api\SolicitacaoPremiumController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])
+            ::request(['pagina', '!data', '!empresa'], 'json')
+            ::get('/solicitacao-premium');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:download'])
+            ::request([
+                'campo', 'usuario', 'data'
+            ])
+            ::post('/solicitacao-premium/download');
+    });
+Route
     ::nome('solicitacao_voucher')
     ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -798,7 +822,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
             ::request([
                 'pagina', '!ordem', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
-                '!data_validacao_de', '!data_validacao_ate'
+                '!data_validacao_de', '!data_validacao_ate', '!tipo', '!tipo_usuario'
             ], 'json')
             ::get('/solicitacao-voucher');
         Route
@@ -904,7 +928,7 @@ Route::nome('comercial_empresa')
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request(
                 [
                     'pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario', '!prospeccao_status',
@@ -942,6 +966,34 @@ Route::nome('comercial_empresa')
                 '!estado_principal', '!prospeccao_status', '!status'
             ])
             ::put('/comercial-empresa/{id}');
+    });
+Route::nome('comercial_regra')
+    ::controller(App\Controllers\Api\ComercialRegraController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:listar'])
+            ::request(['pagina', '!titulo', '!empresa'], 'json')
+            ::get('/comercial-regra');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:buscar'])
+            ::get('/comercial-regra/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:salvar'])
+            ::request(['titulo', 'texto', 'empresa'])
+            ::post('/comercial-regra');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:atualizar'])
+            ::request(['titulo', 'texto', 'empresa'])
+            ::put('/comercial-regra/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:deletar'])
+            ::delete('/comercial-regra/{id}');
     });
 
 Route::nome('demandaDado')
@@ -1032,6 +1084,7 @@ Route
             ::nome('relatorioAnalytics')
             ::request(['!data'])
             ::get('/rotina/relatorio-analytics');
+
         Route
             ::nome('relatorioUsuario')
             ::get('/rotina/relatorio-usuario');
@@ -1049,33 +1102,79 @@ Route
 Route
     ::nome('carteirinha')
     ::controller(App\Controllers\Api\CarteirinhaController::class)
-    // ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
             ::get('/carteirinha/{id}');
+    });
+
+Route
+    ::nome('solicitacao_alfa')
+    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
+    ::grupo(function () {
+        Route
+            ::nome('solicitacao')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
+            ::post('/alfa/solicitacao');
+    });
+
+Route
+    ::nome('popup')
+    ::controller(App\Controllers\Api\PopupController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:buscar'])
+            ::get('/popup/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:salvar'])
+            ::request([
+                'titulo', 'texto', '!subtitulo', '!formulario',
+                '!imagem', '!data_vencimento', '!status'
+            ])
+            ::post('/popup');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:atualizar'])
+            ::request([
+                'titulo', 'texto', '!subtitulo', '!formulario',
+                '!imagem', '!data_vencimento', '!status'
+            ])
+            ::put('/popup/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:deletar'])
+            ::delete('/popup/{id}');
     });
 
 Route
     ::nome('solicitacao_declaracao')
     ::controller(App\Controllers\Api\SolicitacaoDeclaracaoController::class)
-    //::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')
-            //::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
             ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
             ::get('/solicitacao-declaracao');
 
         Route
             ::nome('buscar')
-            //::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
             ::get('/solicitacao-declaracao/{id}');
 
         Route
             ::nome('salvar')
-            //::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
                 'cpf', 'tipo', 'estado_civil', 'data_nascimento',
                 'status', 'rg', 'cidade', 'estado', 'cep', 'logradouro',

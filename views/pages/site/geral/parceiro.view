@@ -8,7 +8,7 @@
         <a class="link_cupom_parceiro" href="{!!$r->link!!}"></a>
         @ endif;
 
-        @ if( in_array($lista->tipo, ['veiculo', 'modelo']) ):
+        @ if( in_array($lista->tipo, ['veiculo', 'modelo', 'operadora']) ):
         <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
         @ else:
         <figure class="logo"><img src="{!!$r->imagem!!}" alt=""></figure>

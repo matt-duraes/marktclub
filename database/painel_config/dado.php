@@ -17,10 +17,12 @@ return [
             'relatorio_loja_venda' => ['titulo' => 'Relatório de vendas', 'permissao' => ['relatorio_loja_venda_index' => 'Relatório de vendas', 'relatorio_loja_venda_empresa' => 'Todas as empresas']],
             'tabela' => ['titulo' => 'Tabela', 'permissao' => ['tabela_usuario_salvar' => 'Cadastrar usuário', 'tabela_usuario_bloquear' => 'Bloquear usuário']],
             'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'download', 'empresa']],
+            'solicitacao_premium' => ['titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']],
             'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
             'comercial_empresa' => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
             'comercial_prospeccao' => ['titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar']],
             'comercial_atendimento' => ['titulo' => 'Comercial Atendimento', 'permissao' => ['comercial_atendimento_index' => 'Comercial Atendimento']],
+            'comercial_regra' => ['titulo' => 'Comercial Regra de Negócio', 'acao' => ['index', 'add', 'visualizar', 'editar', 'deletar']],
             'demanda' => ['titulo' => 'Demanda', 'permissao' => ['demanda_tecnologia' => 'Tecnologia', 'demanda_criacao' => 'Criação']],
             'log_erro' => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
         ]),
@@ -29,9 +31,10 @@ return [
             'usuario_cliente' => [
                 'geral' => [
                     'nome', 'cpf', 'matricula', 'siape', 'genero', 'estado_civil', 'data_nascimento', 'email_trabalho',
-                    'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_estado', 'endereco_cidade', 'senha',
+                    'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cidade', 'endereco_bairro', 'endereco_complemento', 'endereco_numero',
+                    'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
-                    'data_criacao_ate', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
+                    'data_criacao_ate', 'data_criacao', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
                     'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao', 'analytics'
                 ],
                 'download' => [

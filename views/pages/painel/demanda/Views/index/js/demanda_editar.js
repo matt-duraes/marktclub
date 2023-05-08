@@ -57,7 +57,7 @@ const demandaEditar = () => {
             mensagem = 'Escolha uma empresa para continuar.';
         } else if (inputDono.value == '') {
             mensagem = 'Escolha um dono da demanda para continuar.';
-        } else if (!inputComPrazo.checked && inputDataEntrega.value == '') {
+        } else if (inputComPrazo.checked && inputDataEntrega.value == '') {
             mensagem = 'Demanda com prazo deve ter uma data para entrega.';
         }
 

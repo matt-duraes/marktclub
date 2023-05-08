@@ -3,7 +3,7 @@
 <div class="bloco_saude">
 	<div class="bloco_plano_saude">
 		<figure>
-			<img src="{!!LINK_PADRAO!!}/images/site/logo_unimed_florianopolis.jpg" alt="">
+			<img src="https://clube.marktclub.com.br/images/logo_unimed_florianopolis.jpg" alt="">
 		</figure>
 		<div class="bloco_conteudo">
 			<h1>Unimed Florianópolis</h1>
@@ -16,34 +16,29 @@
 		<div class="bloco_beneficio">
 			<header>
 				<h1>Benefícios exclusivos</h1>
-				<p>Ver todas as vantagens</p>
 			</header>
 			<div class="bloco_vantagem">
-				<div class="bloco_icone_vantagem">
+				<div class="icone_vantagem">
 					@iconeCashbackHome
 					<p>Menores preços do mercado</p>
 				</div>
-				<div class="bloco_icone_vantagem">
-					@iconeCashbackHome
-					<p>Menores preços do mercado</p>
+				<div class="icone_vantagem">
+					@iconeDependenteOutline
+					<p>Contrate para seus dependentes</p>
 				</div>
-				<div class="bloco_icone_vantagem">
-					@iconeCashbackHome
-					<p>Menores preços do mercado</p>
+				<div class="icone_vantagem">
+					@iconeMundo
+					<p>Ampla cobertura em todo o Brasil</p>
 				</div>
-			</div>
-			<div class="rede_credenciada_botao">
-				<a href="#" class="botao_padrao">Consultar rede credenciada</a>
-				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
 			</div>
 		</div>
 	</div>
-	<div class="bloco_explore_rede">
-		<div class="titulo_rede">
+	<div class="bloco_plano_saude">
+		<header>
 			<h1>Explore a rede credenciada</h1>
-		</div>
+		</header>
 		<div class="lista_passo_a_passo">
-			<ul>
+			<ul class="bloco_geral_ul">
 				<li>Clique no botão "Consultar rede credenciada"</li>
 				<li>Na página que abrirá, clique em "Busca detalhada"</li>
 				<li>Em seguida selecione o estado (UF) que deseja consultar</li>
@@ -52,109 +47,111 @@
 				</li>
 			</ul>
 		</div>
-		<div class="bloco_botao_explore">
-			<a href="#">Consultar rede credenciada</a>
+		<div class="display_flex">
+			<a href="https://www.unimed.coop.br/web/florianopolis/guia-medico" class="botao_geral_cor cor_bg">Consultar rede credenciada</a>
 		</div>
 	</div>
 
-	<div class="bloco_carencia">
-		<h1>Carência</h1>
-		<div class="table_container">
+	<div class="bloco_plano_saude">
+		<header>
+            <h1>Carência</h1>
+        </header>
+		<div class="bloco_tabela_geral">
 			<table>
 				<thead>
-					<tr class="titulo_table">
+					<tr>
 						<th>Procedimentos</th>
-						<th scope="col" class="coluna">Carência</th>
+						<th>Carência</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<th data-label="Procedimento" scope="row">Urgência e Emergência na Segmentação Ambulatorial</th>
-						<td data-label="Carência">24 Horas</td>
+						<td>Urgência e Emergência na Segmentação Ambulatorial</td>
+						<td>24 Horas</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento" scope="row">Consultas médicas</td>
-						<td data-label="Carência">30 Dias</td>
+						<td>Consultas médicas</td>
+						<td>30 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Exames laboratoriais (exceto genética) anatomopatológicos e citopatológicos, raio x contrastado simples, eletrocardiograma, eletroencefalograma e ultrassonografia (exceto obstétrica)</td>
-						<td data-label="Carência">30 Dias</td>
+						<td>Exames laboratoriais (exceto genética) anatomopatológicos e citopatológicos, raio x contrastado simples, eletrocardiograma, eletroencefalograma e ultrassonografia (exceto obstétrica)</td>
+						<td>30 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Consultas e Sessão de fisioterapia</td>
-						<td data-label="Carência">90 Dias</td>
+						<td>Consultas e Sessão de fisioterapia</td>
+						<td>90 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Acupuntura</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Acupuntura</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Densitometria</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Densitometria</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Diálise / hemodiálise</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Diálise / hemodiálise</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Endoscopia / colonoscopia</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Endoscopia / colonoscopia</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Espirometria / prova de função pulmonar</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Espirometria / prova de função pulmonar</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Exames obstétricos</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Exames obstétricos</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Exames de genética</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Exames de genética</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Holter / mapa</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Holter / mapa</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Laparoscopia / litotripsia</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Laparoscopia / litotripsia</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Mamografia</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Mamografia</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Medicina nuclear / medicina transfuncional</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Medicina nuclear / medicina transfuncional</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Radioterapia / quimioterapia</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Radioterapia / quimioterapia</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Ressonância / tomografia</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Ressonância / tomografia</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Teste ergométrico</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Teste ergométrico</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento"> Transplantes</td>
-						<td data-label="Carência">180 Dias</td>
+						<td> Transplantes</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Consulta e sessão com fonoaudiólogo, terapeuta ocupacional, psicólogo, nutricionista e psicoterapeuta</td>
-						<td data-label="Carência">180 Dias</td>
+						<td>Consulta e sessão com fonoaudiólogo, terapeuta ocupacional, psicólogo, nutricionista e psicoterapeuta</td>
+						<td>180 Dias</td>
 					</tr>
 					<tr>
-						<td data-label="Procedimento">Parto a termo</td>
-						<td data-label="Carência">300 Dias</td>
+						<td>Parto a termo</td>
+						<td>300 Dias</td>
 					</tr>
 					<tr>
-						<th data-label="Procedimento">Tratamento de doenças preexistentes cobertura parcial temporária (CPT)</th>
-						<td data-label="Carência">24 meses</td>
+						<td>Tratamento de doenças preexistentes cobertura parcial temporária (CPT)</td>
+						<td>24 meses</td>
 					</tr>
 				</tbody>
 			</table>
@@ -162,18 +159,20 @@
 	</div>
 
 	<div class="bloco_plano_saude">
-		<h1>PREÇOS DO PLANO DE SAÚDE</h1>
-		<div class="table_container">
-			<table class="tabela_preco_florianopolis" >
+		<header>
+            <h1>Preços do Plano de Saúde</h1>
+        </header>
+		<div class="bloco_tabela_geral">
+			<table>
 				<thead>
-					<tr class="titulo_table">
+					<tr>
 						<th colspan="1"></th>
 						<th colspan="2"></th>
 						<th colspan="2">GRANDE FLORIANÓPOLIS</th>
 						<th colspan="1"></th>
 						<th colspan="1"></th>
 					</tr>
-					<tr class="titulo_table">
+					<tr>
 						<th colspan="1"></th>
 						<th colspan="2">UNIFLEX REGIONAL</th>
 						<th colspan="2">UNIFLEX ESTADUAL</th>
@@ -187,7 +186,7 @@
 						<th colspan="2">COPART 50%</th>
 
 					</tr>
-					<tr class="titulo_table">
+					<tr>
 						<th>ACOMODAÇÃO</th>
 						<th>ENFERMARIA</th>
 						<th>ENFERMARIA</th>
@@ -196,7 +195,7 @@
 						<th>ENFERMARIA</th>
 						<th>APARTAMENTO</th>
 					</tr>
-					<tr class="titulo_table">
+					<tr>
 						<th>ANS</th>
 						<th>ANS N. 450.633/04-2</th>
 						<th>ANS N. 450.632/04-4</th>
@@ -208,107 +207,238 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td data-label="Faixa etária">0 a 18</td>
-						<td data-label="Uniflex Regional - Coparticipação 50% - Enfermaria - ANS N. 450.633/04-2">160,47</td>
-						<td data-label="Uniflex Regional - Coparticipação 30% - Enfermaria - ANS N. 450.632/04-4">193,62</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Enfermaria - ANS N. 450.995/14-7">194,57</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Apartamento - ANS N. 471.956/14-5">262,12</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Enfermaria - ANS N. 435.411/01-7">228,42</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Apartamento - ANS N. 471.954/14-9">289,71</td>
+						<td>0 a 18</td>
+						<td>160,47</td>
+						<td>193,62</td>
+						<td>194,57</td>
+						<td>262,12</td>
+						<td>228,42</td>
+						<td>289,71</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">19 to 23</td>
-						<td data-label="Uniflex Regional - Coparticipação 50% - Enfermaria - ANS N. 450.633/04-2">194,17</td>
-						<td data-label="Uniflex Regional - Coparticipação 30% - Enfermaria - ANS N. 450.632/04-4">234,28</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Enfermaria - ANS N. 450.995/14-7">235,43</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Apartamento - ANS N. 471.956/14-5">317,17</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Enfermaria - ANS N. 435.411/01-7">276,38</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Apartamento - ANS N. 471.954/14-9">350,56</td>
+						<td>19 to 23</td>
+						<td>194,17</td>
+						<td>234,28</td>
+						<td>235,43</td>
+						<td>317,17</td>
+						<td>276,38</td>
+						<td>350,56</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">24 a 28</td>
-						<td data-label="Uniflex Regional - Coparticipação 50% - Enfermaria - ANS N. 450.633/04-2">233,01</td>
-						<td data-label="Uniflex Regional - Coparticipação 30% - Enfermaria - ANS N. 450.632/04-4">281,14</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Enfermaria - ANS N. 450.995/14-7">282,51</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Apartamento - ANS N. 471.956/14-5">380,60</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Enfermaria - ANS N. 435.411/01-7">331,66</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Apartamento - ANS N. 471.954/14-9">420,66</td>
+						<td>24 a 28</td>
+						<td>233,01</td>
+						<td>281,14</td>
+						<td>282,51</td>
+						<td>380,60</td>
+						<td>331,66</td>
+						<td>420,66</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">29 a 33</td>
-						<td data-label="Uniflex Regional - Coparticipação 50% - Enfermaria - ANS N. 450.633/04-2">272,63</td>
-						<td data-label="Uniflex Regional - Coparticipação 30% - Enfermaria - ANS N. 450.632/04-4">328,93</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Enfermaria - ANS N. 450.995/14-7">330,55</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Apartamento - ANS N. 471.956/14-5">445,31</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Enfermaria - ANS N. 435.411/01-7">388,06</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Apartamento - ANS N. 471.954/14-9">492,18</td>
+						<td>29 a 33</td>
+						<td>272,63</td>
+						<td>328,93</td>
+						<td>330,55</td>
+						<td>445,31</td>
+						<td>388,06</td>
+						<td>492,18</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">34 a 38</td>
-						<td data-label="Uniflex Regional - Coparticipação 50% - Enfermaria - ANS N. 450.633/04-2">321,69</td>
-						<td data-label="Uniflex Regional - Coparticipação 30% - Enfermaria - ANS N. 450.632/04-4">388,13</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Enfermaria - ANS N. 450.995/14-7">390,04</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Apartamento - ANS N. 471.956/14-5">525,47</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Enfermaria - ANS N. 435.411/01-7">457,90</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Apartamento - ANS N. 471.954/14-9">580,77</td>
+						<td>34 a 38</td>
+						<td>321,69</td>
+						<td>388,13</td>
+						<td>390,04</td>
+						<td>525,47</td>
+						<td>457,90</td>
+						<td>580,77</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">39 a 43</td>
-						<td data-label="Uniflex Regional - Coparticipação 50% - Enfermaria - ANS N. 450.633/04-2">366,72</td>
-						<td data-label="Uniflex Regional - Coparticipação 30% - Enfermaria - ANS N. 450.632/04-4">442,47</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Enfermaria - ANS N. 450.995/14-7">444,65</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Apartamento - ANS N. 471.956/14-5">599,04</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Enfermaria - ANS N. 435.411/01-7">522,00</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Apartamento - ANS N. 471.954/14-9">662,08</td>
+						<td>39 a 43</td>
+						<td>366,72</td>
+						<td>442,47</td>
+						<td>444,65</td>
+						<td>599,04</td>
+						<td>522,00</td>
+						<td>662,08</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">44 a 48</td>
-						<td data-label="Uniflex Regional - Coparticipação 50% - Enfermaria - ANS N. 450.633/04-2">414,42</td>
-						<td data-label="Uniflex Regional - Coparticipação 30% - Enfermaria - ANS N. 450.632/04-4">499,99</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Enfermaria - ANS N. 450.995/14-7">502,46</td>
-						<td data-label="Uniflex Estadual - Coparticipação 50% - Apartamento - ANS N. 471.956/14-5">676,90</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Enfermaria - ANS N. 435.411/01-7">589,86</td>
-						<td data-label="Uniflex Nacional - Coparticipação 50% - Apartamento - ANS N. 471.954/14-9">748,15</td>
+						<td>44 a 48</td>
+						<td>414,42</td>
+						<td>499,99</td>
+						<td>502,46</td>
+						<td>676,90</td>
+						<td>589,86</td>
+						<td>748,15</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa etária">49 a 53</td>
-						<td data-label="Uniflex Regional - 50% de coparticipação - Apartamento - ANS N. 450.634/04-0">513,87</td>
-						<td data-label="Uniflex Regional - 30% de coparticipação - Apartamento - ANS N. 450.638/04-6">619,98</td>
-						<td data-label="Uniflex Estadual - 50% de coparticipação - Apartamento - ANS N. 450.997/14-3">623,04</td>
-						<td data-label="Uniflex Estadual - 50% de coparticipação - Apartamento - ANS N. 471.957/14-3">839,35</td>
-						<td data-label="Uniflex Nacional - 50% de coparticipação - Apartamento - ANS N. 435.413/01-4">731,42</td>
-						<td data-label="Uniflex Nacional - 50% de coparticipação - Apartamento - ANS N. 471.955/14-7">927,70</td>
+						<td>49 a 53</td>
+						<td>513,87</td>
+						<td>619,98</td>
+						<td>623,04</td>
+						<td>839,35</td>
+						<td>731,42</td>
+						<td>927,70</td>
 					</tr>
 					<tr>
-						<td data-label="Faixa Etária">54 a 58</td>
-						<td data-label="Uniflex Regional - 50% de coparticipação - Enfermaria - ANS N. 450.635/04-8">657,74</td>
-						<td data-label="Uniflex Regional - 30% de coparticipação - Enfermaria - ANS N. 450.634/04-0">793,57</td>
-						<td data-label="Uniflex Estadual - 50% de coparticipação - Enfermaria - ANS N. 450.997/14-3">797,50</td>
-						<td data-label="Uniflex Estadual - 50% de coparticipação - Apartamento - ANS N. 471.957/14-3">1.074,37</td>
-						<td data-label="Uniflex Nacional - 50% de coparticipação - Enfermaria - ANS N. 435.413/01-3">936,23</td>
-						<td data-label="Uniflex Nacional - 50% de coparticipação - Apartamento - ANS N. 471.955/14-7">1.187,45</td>
+						<td>54 a 58</td>
+						<td>657,74</td>
+						<td>793,57</td>
+						<td>797,50</td>
+						<td>1.074,37</td>
+						<td>936,23</td>
+						<td>1.187,45</td>
 						</tr>
-					<tr class="ultima_linha">
-						<td data-label="Faixa etária">59 ou mais</td>
-						<td data-label="Uniflex Regional - 50% de coparticipação - Enfermaria - ANS N. 450.633/04-2">940,59</td>
-						<td data-label="Uniflex Regional - 30% de coparticipação - Enfermaria - ANS N. 450.632/04-4">1.134,81</td>
-						<td data-label="Uniflex Estadual - 50% de coparticipação - Enfermaria - ANS N. 450.995/14-7">1.140,41</td>
-						<td data-label="Uniflex Estadual - 50% de coparticipação - Apartamento - ANS N. 471.956/14-5">1.536,36</td>
-						<td data-label="Uniflex Nacional - 50% de coparticipação - Enfermaria - ANS N. 435.411/01-7">1.338,81</td>
-						<td data-label="Uniflex Nacional - 50% de coparticipação - Apartamento - ANS N. 471.954/14-9">1.698,06</td>
-					</tr>
+					<tr>
+						<td>59 ou mais</td>
+						<td>940,59</td>
+						<td>1.134,81</td>
+						<td>1.140,41</td>
+						<td>1.536,36</td>
+						<td>1.338,81</td>
+						<td>1.698,06</td>
+                    </tr>
 				</tbody>
-				<tfoot>
+				<p>
 					*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor correspondente aos planos contratados.
-				</tfoot>
+				</p>
 			</table>
 		</div>
 	</div>
 
-	<div class="bloco_auxilio_ressarcimento">
-		<h1>Você sabia que pode receber um auxílio ressarcimento?</h1>
-		<p>Clique no botão abaixo e confira na tabela de acordo com sua faixa salarial e idade</p>
-		<button data-id="1" class="auxilio_ressarcimento">Abrir tabela</button>
+	<div class="bloco_plano_saude bloco_tabela_geral">
+		<header>
+            <h1>Você sabia que pode receber um auxílio ressarcimento?</h1>
+            <p>Clique no botão abaixo e confira na tabela de acordo com sua faixa salarial e idade</p>
+        </header>
+        <table class="bloco_tabela_geral">
+            <thead>
+                <tr>
+                    <th>Faixa Etátia</th>
+                    <th>0,00     <br> a <br> 1.499,00</th>
+                    <th>1.500,00 <br> a <br> 1.999,00</th>
+                    <th>2.000,00 <br> a <br> 2.499,00</th>
+                    <th>2.500,00 <br> a <br> 2.999,00</th>
+                    <th>3.000,00 <br> a <br> 3.999,00</th>
+                    <th>4.000,00 <br> a <br> 5.499,00</th>
+                    <th>5.500,00 <br> a <br> 7.499,00</th>
+                    <th>7.500 <br>acima</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>00-18</td>
+                    <td>R$ 149,52</td>
+                    <td>R$ 142,47</td>
+                    <td>R$ 135,42</td>
+                    <td>R$ 129,78</td>
+                    <td>R$ 122,71</td>
+                    <td>R$ 111,43</td>
+                    <td>R$ 107,20</td>
+                    <td>R$ 101,56</td>
+                </tr>
+                <tr>
+                    <td>19-23</td>
+                    <td>R$ 156,57</td>
+                    <td>R$ 149,52</td>
+                    <td>R$ 142,47</td>
+                    <td>R$ 135,42</td>
+                    <td>R$ 129,78</td>
+                    <td>R$ 114,25</td>
+                    <td>R$ 108,61</td>
+                    <td>R$ 102,97</td>
+                </tr>
+                <tr>
+                    <td>24-28</td>
+                    <td>R$ 158,69</td>
+                    <td>R$ 151,64</td>
+                    <td>R$ 144,59</td>
+                    <td>R$ 137,53</td>
+                    <td>R$ 131,89</td>
+                    <td>R$ 116,38</td>
+                    <td>R$ 110,73</td>
+                    <td>R$ 105,08</td>
+                </tr>
+                <tr>
+                    <td>29-33</td>
+                    <td>R$165,04</td>
+                    <td>R$156,57</td>
+                    <td>R$149,52</td>
+                    <td>R$142,47</td>
+                    <td>R$135,42</td>
+                    <td>R$117,07</td>
+                    <td>R$111,43</td>
+                    <td>R$105,79</td>
+                </tr>
+                <tr>
+                    <td>34-38</td>
+                    <td>R$168,97</td>
+                    <td>R$161,51</td>
+                    <td>R$154,46</td>
+                    <td>R$147,41</td>
+                    <td>R$140,35</td>
+                    <td>R$122,02</td>
+                    <td>R$116,38</td>
+                    <td>R$110,73</td>
+                </tr>
+                <tr>
+                    <td>39-43</td>
+                    <td>R$175,61</td>
+                    <td>R$167,15</td>
+                    <td>R$160,10</td>
+                    <td>R$153,05</td>
+                    <td>R$146,00</td>
+                    <td>R$127,66</td>
+                    <td>R$122,02</td>
+                    <td>R$116,38</td>
+                </tr>
+                <tr>
+                    <td>44-48</td>
+                    <td>R$190,03</td>
+                    <td>R$180,76</td>
+                    <td>R$171,49</td>
+                    <td>R$163,77</td>
+                    <td>R$155,04</td>
+                    <td>R$129,78</td>
+                    <td>R$123,60</td>
+                    <td>R$117,42</td>
+                </tr>
+                <tr>
+                    <td>49-53</td>
+                    <td>R$193,05</td>
+                    <td>R$183,63</td>
+                    <td>R$174,21</td>
+                    <td>R$166,37</td>
+                    <td>R$158,52</td>
+                    <td>R$131,84</td>
+                    <td>R$125,56</td>
+                    <td>R$119,28</td>
+                </tr>
+                <tr>
+                    <td>54-58</td>
+                    <td>R$196,06</td>
+                    <td>R$186,50</td>
+                    <td>R$176,94</td>
+                    <td>R$168,97</td>
+                    <td>R$161,00</td>
+                    <td>R$133,90</td>
+                    <td>R$127,52</td>
+                    <td>R$124,33</td>
+                </tr>
+                <tr>
+                    <td>59 ou +</td>
+                    <td>R$205,63</td>
+                    <td>R$196,06</td>
+                    <td>R$186,50</td>
+                    <td>R$176,94</td>
+                    <td>R$168,97</td>
+                    <td>R$137,09</td>
+                    <td>R$130,71</td>
+                    <td>R$124,33</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            ** Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.
+        </p>
 	</div>
 
 	<div class="bloco_plano_saude uniflex">
@@ -316,7 +446,7 @@
 		<p><span>Segmentação:</span> Ambulatorial + Hospitalar com Obstetrícia</p>
 		<p><span>Abrangência:</span> Grupo de municípios: Água Mornas, Alfredo Wagner, Angelina, Anitápolis, Antônio, Carlos, Biguaçu, Florianópolis, Garopaba, Governador Celso Ramos, Leoberto Leal, Major Gercino, Palhoça, Paulo Lopes, Rancho Queimado, Santo Maro da Imperatriz, São Bonifácio, São José, São Pedro de Alcântara e Tijucas</p>
 		<p><span>Fator Moderador:</span>Coparticipação</p>
-		<div class="table_container">
+		<div class="bloco_tabela_geral">
 			<table>
 				<thead>
 					<tr>
@@ -326,21 +456,19 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 30%">Consulta em consultório</td>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 30%">R$29,40</td>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 50%">Consulta em consultório</td>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 50%">R$49,00</td>
+						<td colspan="1">Consulta em consultório</td>
+						<td colspan="1">R$29,40</td>
+						<td colspan="1">Consulta em consultório</td>
+						<td colspan="1">R$49,00</td>
 					</tr>
 					<tr>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 30%">Consulta em Pronto Socorro</td>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 30%">R$22,20</td>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 50%">R$37,00</td>
-						<td colspan="1" data-label="COPARTICIPAÇÃO 50%">Consulta em Pronto Socorro</td>
+						<td colspan="1">Consulta em Pronto Socorro</td>
+						<td colspan="1">R$22,20</td>
+						<td colspan="1">R$37,00</td>
+						<td colspan="1">Consulta em Pronto Socorro</td>
 					</tr>
 				</tbody>
-				<tfoot>
 				<p>*Demais procedimentos respeitando o valor máximo de franquia de R$ 190,00 por procedimento.</p>
-				</tfoot>
 			</table>
 		</div>
 	</div>
@@ -350,7 +478,7 @@
 		<p><span>Segmentação:</span>  Ambulatorial + Hospitalar com Obstetrícia</p>
 		<p><span>Abrangência:</span> Nacional</p>
 		<p><span>Fator Moderador:</span>Coparticipação</p>
-		<div class="table_container">
+		<div class="bloco_tabela_geral">
 			<table>
 				<thead>
 					<tr>
@@ -379,7 +507,7 @@
 		<p><span>Segmentação:</span> Ambulatorial + Hospitalar com Obstetrícia</p>
 		<p><span>Abrangência:</span> Nacional</p>
 		<p><span>Fator Moderador:</span>Coparticipação</p>
-		<div class="table_container">
+		<div class="bloco_tabela_geral">
 			<table>
 				<thead>
 					<tr>
@@ -404,7 +532,7 @@
 		</div>
 	</div>
 
-	<section class="bloco_simulacao">
+	<section class="bloco_simulacao container_scroll">
 		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado')
@@ -415,4 +543,7 @@
             </div>
         @endif
 	</section>
+    @if(TIPO_USUARIO != 'indicado'):
+        <a href="@route(planosaude.simulacao)/unimed-florianopolis" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
+    @endif
 </div>

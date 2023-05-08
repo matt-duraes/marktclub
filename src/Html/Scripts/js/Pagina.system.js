@@ -13,9 +13,9 @@ class Pagina {
         this._historico = historico !== undefined ? historico : true;
         this._fechar = fechar !== undefined ? fechar : true;
 
+        this._montarRequest(request);
         this._link = link;
         this._linkAtual = linkExplode[0];
-        this._request = request;
         this._titulo = titulo;
         this._ancoraAtual = linkExplode[1] || '';
         this._ancora = this._criarSlug(titulo);
@@ -24,6 +24,18 @@ class Pagina {
             this._verificarSeVaiAbrirAoCarregar();
             this._monitorarTrocaDeUrl();
         }
+    }
+    _montarRequest(request) {
+        if (request != undefined && request instanceof Object) {
+            this._request = request;
+            return;
+        }
+        this._request = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
     }
     _criarSlug(titulo) {
         return titulo

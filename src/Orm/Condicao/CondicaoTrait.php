@@ -119,8 +119,13 @@ trait CondicaoTrait
         return $array;
     }
 
-    private function ormMontarLinhaDaCondicao(string $campo, string $condicao, $valor = '', string $tipo = '', ?array $replace = null)
-    {
+    private function ormMontarLinhaDaCondicao(
+        string $campo,
+        string $condicao,
+        $valor = '',
+        string $tipo = '',
+        ?array $replace = null
+    ) {
         $condicaoLista = $this->ormCondicao;
         $condicao = str_replace(' ', '', mb_strtolower($condicao, 'UTF-8'));
 
@@ -209,6 +214,11 @@ trait CondicaoTrait
             throw new Erro(
                 mensagem: 'Valor do NOT BETWEEN incorreto. (' . $campo . ')'
             );
+        } elseif ($condicao == 'json') {
+            $this->ormCondicaoNumero++;
+            $numero = $this->ormCondicaoNumero;
+            $this->ormCondicaoValue[$numero] = $valor;
+            return 'JSON_CONTAINS(' . $this->ormMontaNomeCampo($campo) . ', :' . $numero . ')';
         } elseif ($condicao == 'like' and is_string($valor)) {
             $this->ormCondicaoNumero++;
             $numero = $this->ormCondicaoNumero;
@@ -232,10 +242,16 @@ trait CondicaoTrait
 
     private function ormMontaNomeCampo($campo)
     {
-        if (strstr($campo, '.') || strstr($campo, '`') || strstr($campo, '(')) {
+        if (str_contains($campo, '`') || str_contains($campo, '(')) {
             return $campo;
+        } elseif (!str_contains($campo, '.')) {
+            return '`' . $this->ormTabelaAtual . '`.`' . $campo . '`';
         }
-        return '`' . $this->ormTabelaAtual . '`.`' . $campo . '`';
+        $explode = explode('.', $campo);
+        $campo = $explode[0];
+        unset($explode[0]);
+        $path = implode('.', $explode);
+        return 'JSON_EXTRACT(`' . $this->ormTabelaAtual . '`.`' . $campo . '`, \'$.' . $path . '\')';
     }
 
     private function ormConverterCondicaoParaString($dado, $parente = false)
