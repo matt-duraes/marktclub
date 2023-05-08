@@ -567,9 +567,10 @@ if (!function_exists('formSelect')) {
         bool $footer = true,
         string $change = ''
     ): string {
-        $valueTexto = !empty($value) && isset($lista[$value]) ? $lista[$value] : '';
+        $valueTexto = (is_string($value) || is_numeric($value)) && !empty($value) && array_key_exists($value, $lista)
+            ? $lista[$value] : '';
         if (is_array($valueTexto)) {
-            $valueTexto = $valueTexto[0];
+            $valueTexto = $valueTexto[0] ?? $valueTexto;
         }
 
         $changeHtml = !empty($change) ? 'data-onchange="' . $change . '"' : '';

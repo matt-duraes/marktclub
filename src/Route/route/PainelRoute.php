@@ -106,12 +106,11 @@ Route
         Route
             ::nome('senha')
             ::rotaNaoUnica()
-            ::view('/perfil/senha');
+            ::get('/perfil/senha');
 
         Route
-            ::nome('atualizar_senha')
+            ::nome('senha')
             ::rotaNaoUnica()
-            ::action('senha')
             ::request(['hash_validacao', 'senha_atual', 'senha_nova', 'senha_repetir'])
             ::post('/perfil/senha');
 
@@ -120,6 +119,16 @@ Route
             ::rotaNaoUnica()
             ::request(['hash_validacao', 'id', 'token', 'rede', 'code', 'acao'])
             ::post('/perfil/social');
+
+        Route
+            ::nome('empresa')
+            ::rotaNaoUnica()
+            ::view('/perfil/empresa');
+        Route
+            ::nome('empresa')
+            ::rotaNaoUnica()
+            ::request(['hash_validacao', 'empresa'])
+            ::post('/perfil/empresa');
 
         Route
             ::nome('imagem')
@@ -369,6 +378,22 @@ Route
             ::rotaNaoUnica()
             ::request(['tabela', 'local', 'id', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'])
             ::post('/sistema-endereco/buscar-lista');
+        Route
+            ::nome('salvarEndereco')
+            ::rotaNaoUnica()
+            ::request([
+                'tabela', 'local', 'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
+                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
+            ])
+            ::post('/sistema-endereco/salvar-endereco');
+        Route
+            ::nome('atualizarEndereco')
+            ::rotaNaoUnica()
+            ::request([
+                'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
+                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
+            ])
+            ::post('/sistema-endereco/atualizar-endereco/{id}');
     }, true)
 
     // DOWNLOAD PRIVADO

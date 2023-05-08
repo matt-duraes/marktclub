@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
@@ -16,7 +17,7 @@ trait WhereTrait
         $request = $this->request;
         $where = [];
         if ($this->ormWherePadrao) {
-            $where = $this->ormWherePadrao;
+            $where[] = $this->ormWherePadrao;
         }
 
         // Colocando para aparecer só quem tem data de ativação na FENAE
@@ -39,12 +40,25 @@ trait WhereTrait
             $where[] = [$wherePesquisa];
         }
 
-        //tipo
-        $dependente = $request->dependente;
-        $tipo = new TipoUsuario($request->tipo_usuario);
-        if ($dependente != 'sim' && $tipo->vazio()) {
-            $where[] = ['tipo', 'in', [1, 3]];
-        } elseif ($tipo->valido()) {
+        // federação
+        $listaEstado = (new ListaHelper())->uf()->r();
+        $federacao = $request->federacao;
+        if ($request->tipo == 'funcionario') {
+            $where[] = ['federacao', 'FU'];
+        }
+        if (in_array($federacao, $listaEstado)) {
+            $where[] = ['federacao', $federacao];
+        }
+
+        // estado
+        $enderecoEstado = $request->endereco_estado;
+        if (in_array($enderecoEstado, $listaEstado)) {
+            $where[] = ['uf', $enderecoEstado];
+        }
+
+        // tipo
+        $tipo = new TipoUsuario($request->tipo);
+        if (!$tipo->vazio() && $tipo->valido()) {
             $where[] = ['tipo', $tipo->numero()];
         }
 

@@ -10,6 +10,7 @@ use Modules\Email;
 use Modules\Senha;
 use Modules\Genero;
 use Modules\Telefone;
+use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
@@ -59,4 +60,5 @@ trait PropriedadeEntityTrait
     private array $campoObrigatorio = [];
     private int $idEmpresa;
     public string $federacao;
+    public EnderecoCep $endereco_cep;
 }

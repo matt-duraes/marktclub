@@ -27,6 +27,7 @@ final class EquipeModel extends ORM implements ModelListarInterface
     ) {
         parent::__construct();
         $this->validarEmpresa();
+        $this->validarRequest();
     }
     public function listarDados(): stdClass
     {
@@ -122,5 +123,18 @@ final class EquipeModel extends ORM implements ModelListarInterface
             ];
         }
         return $lista;
+    }
+
+    private function validarRequest()
+    {
+        $request = $this->request;
+        $ordem = new Ordem($request->ordem);
+        if (!$ordem->vazio() && !$ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A ordem informada não é um valor válido.');
+        }
+        $status = new Status($request->status);
+        if (!$status->vazio() && !$status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é um valor válido.');
+        }
     }
 }

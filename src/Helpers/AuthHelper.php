@@ -11,20 +11,27 @@ final class AuthHelper
      *
      * @param  string|null  $local     Qual o local está, por exemplo: site, painel, etc
      * @param  bool         $location  Se vai salvar a URL para usar no location
+     *
      * @throws Excecao
      */
     public function validar(string $local = null, bool $location = true): bool
     {
-        $local = $local != null ? $local : mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
-        $userAgent = md5($_SERVER['HTTP_USER_AGENT']);
+        if (is_null($local)) {
+            $local = mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+        }
 
-        if (sessaoExiste('USUARIO')
+        $userAgent = md5($_SERVER['HTTP_USER_AGENT'] ?? 'unknown');
+
+        // phpcs:disable
+        if (
+            sessaoExiste('USUARIO')
             && sessaoExiste('AUTH_' . $local . '_' . $userAgent . '_HASH')
             && sessaoExiste('AUTH_' . $local . '_' . $userAgent)
             && sessao('AUTH_' . $local . '_' . $userAgent . '_HASH') == sessao('AUTH_' . $local . '_' . $userAgent)
         ) {
             return true;
         }
+        // phpcs:enable
 
         if ($location) {
             $protocolo = explode('/', LINK)[0];
@@ -41,12 +48,16 @@ final class AuthHelper
      * @param  string|null  $local  Qual o local está, por exemplo: site, painel, etc
      * @param  string|null  $link   Para qual link deve ser redirecionado, caso exista um link de redirecionamento,
      *                              será ignorado
+     *
      * @return mixed
      * @throws Excecao
      */
     public function location(string $local = null, string $link = null): mixed
     {
-        $local = $local ?? mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+        if (is_null($local)) {
+            $local = mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+        }
+
         $link = $link ?? LINK;
         $nomeDaLocation = 'AUTH_' . $local . '_LOCATION';
 
@@ -63,6 +74,7 @@ final class AuthHelper
      *
      * @param  array        $usuario  Array com os dados do usuário
      * @param  string|null  $local    Qual o local está, por exemplo: site, painel, etc
+     *
      * @return bool
      * @throws Excecao
      */
@@ -70,7 +82,10 @@ final class AuthHelper
     {
         $this->deletar();
 
-        $local = $local ?? mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+        if (is_null($local)) {
+            $local = mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+        }
+
         $hash = uuid();
         $userAgent = md5($_SERVER['HTTP_USER_AGENT'] ?? 'unknown');
 

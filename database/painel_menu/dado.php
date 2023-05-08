@@ -127,6 +127,18 @@ return [
     [
         'id' => '++',
         'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Regra de negócio',
+        'url' => '/app/comercial-regra',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M17.3,8.8H9.6v12.4h10.9v-9.3h-3.1V8.8z M8,8c0-0.4,0.3-0.8,0.8-0.8h9.3l3.9,3.9L22,22c0,0.4-0.3,0.8-0.8,0.8H8.8C8.3,22.8,8,22.4,8,22V8z M14.2,14.2v-2.3h1.6v2.3h2.3v1.6h-2.3v2.3h-1.6v-2.3h-2.3v-1.6H14.2z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['comercial-regra'],
+        'status' =>  1,
+        'permissao' => '["comercial_regra_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
         'tipo' => 1,
         'titulo' => 'PARCEIROS',
         'ordem' => '++',
@@ -252,6 +264,18 @@ return [
         'ordem' => '++',
         'status' =>  1,
         'permissao' => '["solicitacao_voucher_index", "solicitacao_salavip_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Voucher Premium',
+        'url' => '/app/solicitacao-premium',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M13.8,20c-0.3,0.7-1.2,0.7-1.5,0l-0.8-1.7c-0.7-1.5-1.9-2.8-3.4-3.4l-2.1-0.9c-0.7-0.3-0.7-1.3,0-1.5l2-0.9c1.5-0.7,2.8-2,3.4-3.5l0.8-1.8c0.3-0.7,1.2-0.7,1.5,0l0.8,1.8c0.7,1.6,1.9,2.9,3.4,3.5l2,0.9c0.7,0.3,0.7,1.3,0,1.5l-2.1,0.9c-1.5,0.7-2.7,1.9-3.4,3.4L13.8,20z M8.6,13.1c2,0.9,3.6,2.3,4.5,4.3c0.9-2,2.5-3.4,4.5-4.3c-2-0.9-3.6-2.4-4.5-4.4C12.2,10.7,10.6,12.2,8.6,13.1z M21.3,24.2l0.2-0.5c0.4-0.9,1.1-1.6,1.9-1.9l0.7-0.3c0.4-0.2,0.4-0.7,0-0.8l-0.6-0.3c-0.9-0.4-1.6-1.1-1.9-2l-0.2-0.5c-0.2-0.4-0.7-0.4-0.8,0l-0.2,0.5c-0.4,0.9-1.1,1.6-1.9,2l-0.6,0.3c-0.4,0.2-0.4,0.7,0,0.8l0.7,0.3c0.8,0.4,1.5,1.1,1.9,1.9l0.2,0.5C20.7,24.5,21.2,24.5,21.3,24.2z M20.5,21l0.5-0.5l0.5,0.5L21,21.5L20.5,21z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['solicitacao-premium'],
+        'status' =>  1,
+        'permissao' => '["solicitacao_premium_index"]'
     ],
     [
         'id' => '++',

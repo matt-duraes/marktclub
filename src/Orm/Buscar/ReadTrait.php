@@ -258,20 +258,19 @@ trait ReadTrait
             );
         }
 
-        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->ormReplace);
+        $as = !empty($as) && str_contains($as, '!') ? substr($as, 1) : $as;
 
+        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->ormReplace);
         $lista = [];
         foreach ($campo as $val) {
             if (is_string($val)) {
-                $as_campo = $as != null ? ' AS `' . $as . '_' . $val . '`' : '';
                 if ($replace && array_key_exists($val, $replace)) {
-                    $as_campo = $as != null ? ' AS `' . $as . '_' . $val . '`' : ' AS `' . $val . '`';
                     $val = $replace[$val];
                 }
-                $lista[] = '`' . $this->ormTabelaAtual . '`.`' . $val . '`' . $as_campo;
+                $lista[] = $this->setarStringCampo($val, $as);
                 continue;
             } elseif (is_array($val) && count($val) == 2) {
-                $lista[] = "`{$this->ormTabelaAtual}`.`{$val[0]}` AS `{$val[1]}`";
+                $lista[] = $this->setarStringCampo($val[0], $val[1]);
                 continue;
             }
             throw new Excecao(
@@ -281,6 +280,42 @@ trait ReadTrait
         }
         $this->ormCampo[] = implode(', ', $lista);
         return $this;
+    }
+    /**
+     * Faz um count de um campo da tabela
+     *
+     * @param  string       $campo  Campo da tabela que deseja fazer o count
+     * @param  null|string  $as     Alias para campo, começar com ! para ser exatamente esse nome ou vazio
+     *                              para ser o próprio campo
+     */
+    public function count(string $campo, string $as = null): self
+    {
+        $as = !empty($as) ? $this->setarValorAlias($campo, $as) : implode('_', explode('.', $campo));
+        $campo = $this->setarStringCampo($campo, '');
+        $this->ormCampo[] = 'count(' . $campo . ')' . $as;
+        return $this;
+    }
+    private function setarStringCampo($campo, $as)
+    {
+        $as = $this->setarValorAlias($campo, $as);
+        if (!str_contains($campo, '.')) {
+            return '`' . $this->ormTabelaAtual . '`.`' . $campo . '`' . $as;
+        }
+        $explode = explode('.', $campo);
+        $campo = $explode[0];
+        unset($explode[0]);
+        return 'JSON_EXTRACT(`' . $this->ormTabelaAtual . '`.`'
+            . $campo . '`, \'$.' . implode('.', $explode) . '\')' . $as;
+    }
+    private function setarValorAlias(string $campo, ?string $as)
+    {
+        if (empty($as)) {
+            return '';
+        } elseif (str_contains($as, '!')) {
+            return ' AS ' . substr($as, 1);
+        }
+        $campo = implode('_', explode('.', $campo));
+        return ' AS ' . $as . '_' . $campo;
     }
 
     /**

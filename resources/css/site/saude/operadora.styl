@@ -1,0 +1,127 @@
+.bloco_saude
+    padding: 20px
+    maxWidth()
+    h1
+        titulo()
+    p
+        texto()
+    .bloco_conteudo
+        espacoVerticalPadrao()
+    .bloco_conteudo span
+        font-size: 1em
+        bold()
+    .bloco_plano_saude
+        min-height: 300px
+        blocoShadow()
+        espacoTopPadrao()
+        border-bottom-left-radius: 0px
+        border-bottom-right-radius: 0px
+        figure img
+            width: 200px
+    .lista_passo_a_passo
+        espacoVerticalPadrao()
+        padding-left: 20px
+        span
+            font-size: 1em
+    .bloco_beneficio
+        display: flex
+        flexCol()
+        header
+            display: flex
+            align-items: center
+            h1
+                width: 80%
+            p
+                width: 20%
+                color: $corClube
+    .bloco_beneficio .bloco_vantagem
+        min-height: 150px
+        alignItemCenter()
+    .bloco_beneficio .bloco_vantagem .icone_vantagem
+        width: 200px
+        height: 100px
+        flexCenter()
+        directionColumn()
+        text-align: center
+        margin: 10px
+        svg
+            width: 40px
+            height: 40px
+            fill: $corClube
+            border-radius: 50%
+            padding: 5px
+    .bloco_auxilio_ressarcimento
+        blocoShadow()
+        min-height: 200px
+        border-top-left-radius: 0px
+        border-top-right-radius: 0px
+        table tbody td
+            padding: 15px 0px
+        button
+            espacoTopPadrao()
+
+@media screen and (max-width: 600px)
+    .bloco_saude
+        padding: 0px 0px 20px 0px
+    .bloco_plano_saude
+        min-height: 550px
+
+.bloco_simulacao
+    flexCenter()
+    maxWidth()
+    flexCol()
+    margin-top: 40px
+    h1
+        texto()
+    p
+        subTitulo()
+        text-align: center
+    a
+        espacoTopPadrao()
+        flexCenter()
+
+.uniflex
+    espacoTopPadrao()
+    blocoShadow()
+    min-height: 450px
+    p
+        texto()
+        espacoVerticalPadrao()
+        span
+            padding-right: 5px
+            font-weight: bold
+            texto()
+    table
+        width:100%
+        espacoTopPadrao()
+        texto()
+        thead tr th
+            padding: 10px
+            height: 52px
+            width: 50%
+            border-bottom: 1px solid #bebebe
+            color: black
+        tbody tr
+            width: 50%
+            &:last-child td
+                border-bottom: none
+        tbody td
+            padding: 10px
+            text-align: center
+            height: 52px
+            border-bottom: 1px solid #bebebe
+            border-right: 1px solid #bebebe
+            width: 25%
+            &:last-child
+                border-right: none
+
+@media screen and (max-width: 558px)
+    .bloco_saude .bloco_beneficio .bloco_vantagem .icone_vantagem
+        justifyStart()
+    .bloco_saude .bloco_beneficio .bloco_vantagem .icone_vantagem svg
+        width: 30px
+        height: 30px
+
+@media screen and (max-width: 447px)
+    .bloco_saude .bloco_beneficio .bloco_vantagem .icone_vantagem
+        height: 130px

@@ -67,7 +67,11 @@ final class Senha implements ModuleInterface
             $this->vazio = true;
             $this->valido = false;
             return;
-        } elseif (array_key_exists('algoName', $algoritimo) && !empty($algoritimo['algoName']) && $algoritimo['algoName'] != 'unknown') {
+        } elseif (
+            array_key_exists('algoName', $algoritimo) &&
+            !empty($algoritimo['algoName']) &&
+            $algoritimo['algoName'] != 'unknown'
+        ) {
             $this->senha = $senha;
             $this->vazio = false;
             $this->valido = true;
@@ -105,13 +109,13 @@ final class Senha implements ModuleInterface
         if ($this->valido) {
             return '';
         } elseif ($this->forca == 4) {
-            return 'Sua senha deve ter pelo menos 1 letra maiuscula, 1 letra minúscula, 1 número, 1 caracter especial e no mínimo 8 digitos.';
+            return self::MENSAGEM_FORCA_4;
         } elseif ($this->forca == 3) {
-            return 'Sua senha deve ter pelo menos 1 letra, 1 número, 1 caracter especial e no mínimo 8 digitos.';
+            return self::MENSAGEM_FORCA_3;
         } elseif ($this->forca == 2) {
-            return 'Sua senha deve ter pelo menos 1 letra, 1 número e no mínimo 8 digitos.';
+            return self::MENSAGEM_FORCA_2;
         } elseif ($this->forca == 1) {
-            return 'Sua senha deve ter pelo menos 8 digitos.';
+            return self::MENSAGEM_FORCA_1;
         }
         return 'Sua senha não está em um formato válido.';
     }

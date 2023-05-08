@@ -27,21 +27,10 @@ final class AlfaController extends Controller
 
     public function consignado()
     {
-        $taxa = [
-            '' => 'Escolha uma opção',
-            "12" => "01 a 12 vezes - 1,65% a.m. ",
-            "24" => "13 a 24 vezes - 1,62% a.m. ",
-            "36" => "25 a 36 vezes - 1,60% a.m. ",
-            "48" => "37 a 48 vezes - 1,60% a.m. ",
-            "60" => "49 a 60 vezes - 1,61% a.m. ",
-            "72" => "61 a 72 vezes - 1,61% a.m. ",
-            "84" => "73 a 84 vezes - 1,62% a.m. ",
-            "96" => "85 a 96 vezes - 1,64% a.m. ",
-        ];
-
         return view('alfa.consignado', [
             'menu' => 'credito',
-            'taxa' => $taxa
+            'banner' => (new BannerModel())->alfa(),
+            'parcela' => (new CreditoModel())->listarParcelas()
         ]);
     }
 
@@ -56,6 +45,7 @@ final class AlfaController extends Controller
     public function corretoraAlfa()
     {
         return view('alfa.corretora', [
+            'banner' => (new BannerModel())->corretora(),
             'menu' => 'corretora_alfa'
         ]);
     }

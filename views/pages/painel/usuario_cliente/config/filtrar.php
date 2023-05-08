@@ -1,5 +1,6 @@
 <?php
 
+use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
@@ -13,6 +14,24 @@ $Painel
     ->input(name: 'nome', titulo: 'Nome', label: 'Nome', placeholder: 'Digite o nome')
     ->email(name: 'email', titulo: 'E-mail', label: 'E-mail', placeholder: 'Digite um e-mail')
     ->cpf(name: 'cpf', titulo: 'CPF', label: 'CPF', placeholder: 'Digite um CPF')
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->select(
+                name: 'tipo',
+                label: 'Tipo de usuário',
+                lista: ['' => 'Escolha uma opção', 'titular' => 'Titular', 'dependente' => 'Dependente', 'funcionario' => 'Funcionário']
+            )
+            ->select(
+                name: 'endereco_estado',
+                label: 'Estado',
+                lista: (new ListaHelper())->add('', 'Escolha um estado')->estado()->r()
+            )
+            ->select(
+                name: 'federacao',
+                label: 'Federação',
+                lista: (new ListaHelper())->add('', 'Escolha um estado')->estado()->r()
+            );
+    })
     ->bloco(function () use ($Painel) {
         $Painel
             ->input(name: 'matricula', titulo: 'Matrícula', label: 'Matrícula', placeholder: 'Digite uma matrícula')
@@ -60,8 +79,7 @@ $Painel
             );
     })
     ->switch(name: 'lead', titulo: 'Usuários do lead', label: 'Apenas usuários do lead?')
-    ->switch(name: 'pagamento', titulo: 'Pagamento em aberto', label: 'Apenas pagamento em aberto?')
-    ->switch(name: 'dependente', titulo: 'Adicionar dependente', label: 'Adicionar dependente na busca?');
+    ->switch(name: 'pagamento', titulo: 'Pagamento em aberto', label: 'Apenas pagamento em aberto?');
 
 $Painel->replace('status', (new Status())->select());
 

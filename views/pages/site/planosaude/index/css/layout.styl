@@ -1,11 +1,92 @@
 @system "Form"
 @template "site"
-@resource "site/variavel"
-@resource "site/saude/padraoIndex"
-@resource "site/loja/parceiro"
 @resource "site/banner"
+@resource "site/variavel"
+@resource "site/saude/operadora"
+@resource "site/loja/parceiro"
 
 #bloco_saude
-    maxWidth()
-    .banner
+    width: 100%
+    max-width: $maxWidth
+    flexCenter()
+    directionColumn()
+    &.federal_saude .bloco_geral_article
+        max-width: 700px
+    &.federal_saude .bloco_parceiro article
+        width: calc(50% - 15px)
+        max-width: 350px
+
+#bloco_saude .bloco_federal_saude
+    width: 100%
+    max-width: $maxWidth
+    flexCenter()
+    directionColumn()
+    .bloco_opcao button
+        margin-right: 20px
+    header.titulo_saude
+        width: 100%
         espacoBottomPadrao()
+    header.titulo_saude h1
+        titulo()
+    header.titulo_saude p
+        texto()
+    header.titulo_saude h1,header p
+        espacoTopPadrao()
+        text-align: center
+
+#bloco_saude .contratacao
+    width: 100%
+    max-width: $maxWidth
+#bloco_saude .contratacao .contratar_federal
+    width: 100%
+    padding: 20px
+    flexCenter()
+    directionColumn()
+    header.titulo_saude h1
+        titulo()
+        text-align: center
+        espacoBottomPadrao()
+    .bloco_card_plano
+        espacoBottomPadrao()
+        flexCenter()
+
+#bloco_saude .contratacao .bloco_video_teleorientacao
+    flexCenter()
+    directionColumn()
+    blocoShadow()
+    espacoTopPadrao()
+    width: 100%
+    h1
+        espacoTopPadrao()
+        titulo()
+    p
+        texto()
+        espacoBottomPadrao()
+    iframe
+        espacoBottomPadrao()
+    .link_teleorientacao
+        width: 100%
+        flexCenter()
+        espacoBottomPadrao()
+        a
+            max-width: 300px
+            margin: 0px 10px
+#bloco_saude .boleto
+    width: 100%
+    espacoTopPadrao()
+    flexCenter()
+    directionColumn()
+    header.titulo_saude h1
+        titulo()
+        text-align: center
+        espacoBottomPadrao()
+
+@media screen and (max-width:650px)
+    #bloco_saude .link_teleorientacao
+        flexCol()
+        iframe
+            width: 100%
+
+@media screen and (max-width:485px)
+    #bloco_saude .bloco_federal_saude
+        height: 550px

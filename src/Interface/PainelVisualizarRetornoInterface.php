@@ -6,6 +6,5 @@ use stdClass;
 
 interface PainelVisualizarRetornoInterface
 {
-    public function __construct(stdClass $dado);
-    public function retorno(): stdClass;
+    public function retorno(stdClass $dado): stdClass;
 }

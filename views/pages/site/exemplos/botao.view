@@ -6,3 +6,9 @@
 
 <!-- Botão pequeno sem cor e com borda -->
 <a class="botao_pequeno_borda">Botão</a>
+
+<!-- Botão fixo a direita e no bottom da página -->
+<a class="botao_fixo_bottom">Botão</a>
+
+<!-- Input com aparência de botão -->
+<a class="botao_input">Botão</a>

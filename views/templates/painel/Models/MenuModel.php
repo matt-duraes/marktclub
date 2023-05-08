@@ -15,7 +15,6 @@ final class MenuModel
         $dropDown = false;
         $dropDownLista = (object)[];
         foreach ($lista as $r) {
-
             if (in_array($r['tipo'], ['titulo', 'dropdown']) && !vazio($dropDownLista)) {
                 $link[] = $dropDownLista;
                 $dropDownLista = (object)[];

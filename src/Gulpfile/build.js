@@ -126,7 +126,7 @@ exports.buildEnv = async () => {
     const conteudoLocal =
         'APP_URL=' +
         url +
-        '\nAPP_TIPO=localhost\n\nSESSION_DIRETORIO={{ROOT}}/files/sessions\n\nDB_HOST=mariadb\nDB_BANCO=' +
+        '\nAPP_TIPO=localhost\n\nSESSION_DIRETORIO={{ROOT}}/files/sessions\n\nDB_HOST=mysql\nDB_BANCO=' +
         dbNome +
         '\nDB_USUARIO=root\nDB_SENHA=' +
         dbSenha +
@@ -200,7 +200,7 @@ exports.buildDiretorios = async () => {
     await fsCriarDiretorio('./files/log');
     await fsCriarDiretorio('./files/erro');
     await fsCriarDiretorio('./files/banco');
-    await fsCriarDiretorio('./files/banco/mariadb');
+    await fsCriarDiretorio('./files/banco/mysql');
     await fsCriarDiretorio('./files/phpmussel');
     await fsCriarDiretorio('./files/phpmussel/assinatura');
     await fsCriarDiretorio('./files/phpmussel/cache');

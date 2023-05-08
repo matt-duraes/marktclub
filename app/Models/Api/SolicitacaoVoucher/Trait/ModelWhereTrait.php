@@ -4,6 +4,7 @@ namespace App\Models\Api\SolicitacaoVoucher\Trait;
 
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
+use App\Classes\SolicitacaoVoucher\TipoUsuario;
 
 trait ModelWhereTrait
 {
@@ -19,6 +20,11 @@ trait ModelWhereTrait
         $Tipo = new Tipo($this->request->tipo);
         if ($Tipo->valido()) {
             $where[] = ['tipo', $Tipo->numero()];
+        }
+
+        $tipoUsuario = new TipoUsuario($this->request->tipo_usuario);
+        if ($tipoUsuario->valido()) {
+            $where[] = ['tipo_usuario', $tipoUsuario->numero()];
         }
 
         $dataCriacaoDe = $this->request->data_criacao_de;
