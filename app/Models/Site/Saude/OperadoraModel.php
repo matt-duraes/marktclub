@@ -26,7 +26,7 @@ final class OperadoraModel extends ApiHelper implements ListarInterface
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Unimed Vitória',
-                    'link'   => route('planosaude.unimedvitoria'),
+                    'link'   => route('planosaude.unimedVitoria'),
                     'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg'
                 ],
                 (object)[
@@ -75,7 +75,7 @@ final class OperadoraModel extends ApiHelper implements ListarInterface
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Unimed Vitória',
-                    'link'   => route('planosaude.unimedvitoria'),
+                    'link'   => route('planosaude.unimedVitoria'),
                     'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg'
                 ],
                 (object)[
