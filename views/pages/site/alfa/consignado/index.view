@@ -1,16 +1,146 @@
 @template "site"
 
 <div id="bloco_credito_alfa">
-    
-    @view site/alfa/consignado/geral/banner.view
+    @view site/geral/banner.view
+    <div class="bloco_geral bloco_passo_passo_geral">
+        <div class="bloco_progresso">
+            <div class="item">
+                <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Simulação<br>empréstimo</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>2</span>
+                    <div class="cor_fill check"> @iconeCheck()</div>
+                </div>
+                <p>Valor da simulação</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>2</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Dados de<br>contato</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>3</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Solicitar<br>portabilidade</p>
+            </div>
+        </div>
+        <div class="bloco_conteudo">
+            <div class="bloco_scroll">
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <h1>DADOS DO EMPRÉSTIMO</h1>
+                        <p>É uma página de solicitação de portabilidade e não implica na contratação automática.</p>
 
+                        <form action="" class="form_geral">
 
-    @view site/alfa/consignado/geral/stepper.view
+                            @? formInput(name: 'valor', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor', value: '')
+                            @? formSelect(name: 'prazo', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', lista: $parcela, value: '')
+
+                        </form>
+
+                        <div class="bloco_botao">
+                            <div></div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo" id="resultado_simulacao">
+                    <div class="bloco_credito">
+                        <header>
+                            <h1>SIMULAÇÃO</h1>
+                            <p>Veja o valor da sua simulação.</p>
+                        </header>
+                        <div class="resultado">
+                            <h2>Valor da parcela:</h2>
+                            <div class="resultado_valor">
+                                <p id="simulacao_valor">R$ 190,00</p>
+                            </div>
+                        </div>
+
+                        <div class="aviso_resultado">
+                            <h2>Para um empréstimo de <span class="valor_emprestimo"></span> em <span class="valor_prazo"></span> vezes</h2>
+                            <p>*Taxas em condições especiais que poderão ser alteradas sem aviso prévio.</p>
+                        </div>
+
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <h1>DADOS PARA CONTATO</h1>
+                        <p>Confirme seus dados para que o Banco Alfa entre em contato e valide seu pedido. Esta ação não implica na contratação automática da portabilidade.</p>
+                        <form action="" class="form_geral">
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'nome', placeholder: 'Nome completo', label: 'Nome completo')
+                                @? formInput(name: 'email', placeholder: 'E-mail', label: 'E-mail')
+                            </div>
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'telefone_fixo', placeholder: 'Telefone fixo', label: 'Telefone fixo')
+                                @? formInput(name: 'telefone_celular', placeholder: 'Telefone celular', label: 'Telefone celular')
+                            </div>
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade')
+                                @? formInput(name: 'orgao', placeholder: 'Orgão', label: 'Orgão')
+                            </div>
+                            @? formTextarea(name: 'mensagem', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
+
+                        </form>
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <header>
+                            <h1>SOLICITAR PORTABILIDADE</h1>
+                            <p>Veja os dados abaixo, verifique se está tudo certo e envie sua solicitação de empréstimo para o Banco Alfa.</p>
+                        </header>
+                        <div class="formulario_contratacao">
+                            <div class="coluna_divisoria">
+                                <h1>VALOR DA PARCELA ATUAL</h1>
+                                <p class="valor_emprestimo">R$ x.xxx,xx</p>
+                            </div>
+                            <div class="coluna_divisoria">
+                                <h1>QUANTIDADE DE PARCELAS QUE FALTAM PAGAR</h1>
+                                <p><span class="valor_prazo">12</span> vezes</p>
+                            </div>
+                            <div class="coluna_divisoria">
+                                <h1>JUROS ATUAL</h1>
+                                <p id="texto_valor_juros">1.3%</p>
+                            </div>
+                            <div class="coluna_divisoria">
+                                <h1>DATA DE SIMULAÇÃO</h1>
+                                <p class="data_simulacao"><?=date('d/m/Y');?></p>
+                            </div>
+                        </div>
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg">Finalizar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="disclaimer">
         <p>
-        Sujeito a análise cadastral, aprovação de crédito e margem consignável disponível. O CET - Custo Efetivo Total - será apresentado pela Alfa na ocasião da contratação. Condições sujeitas a alteração sem prévio aviso. SAC: 0800 725 0044 – e-mail: sacfinanceiraalfa@alfanet.com.br / Ouvidoria: 0800 722 0140 - e-mail: ouvidoria@alfanet.com.br. Exclusivo para deficientes auditivos e de fala: SAC: 0800 770 5244 / Ouvidoria: 0800 770 5140.
+            Sujeito a análise cadastral, aprovação de crédito e margem consignável disponível. O CET - Custo Efetivo Total - será apresentado pela Alfa na ocasião da contratação. Condições sujeitas a alteração sem prévio aviso. SAC: 0800 725 0044 – e-mail: sacfinanceiraalfa@alfanet.com.br / Ouvidoria: 0800 722 0140 - e-mail: ouvidoria@alfanet.com.br. Exclusivo para deficientes auditivos e de fala: SAC: 0800 770 5244 / Ouvidoria: 0800 770 5140.
         </p>
     </div>
-
 </div>
