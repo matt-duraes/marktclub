@@ -15,7 +15,7 @@ final class SelectModel extends ORM
     private int $idEmpresa;
 
     public function __construct(
-        private Request $request
+        private ?Request $request = null
     ) {
         parent::__construct();
         $this->setarIdEmpresa();

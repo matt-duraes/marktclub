@@ -115,6 +115,25 @@ final class Index
 
         return $this;
     }
+    /**
+     * Adiciona uma data de atualização a linha
+     *
+     * @return Self
+     */
+    public function dataAtualizacao(?string $permissao = null)
+    {
+        if (!$this->campoAceito('data_atualizacao', $permissao)) {
+            return $this;
+        }
+        $this->grade[] = [
+            'nome' => 'Atualizado em',
+            'tipo' => 'pequeno',
+            'campo' => 'data_atualizacao',
+            'formatar' => 'datahora'
+        ];
+
+        return $this;
+    }
 
     /**
      * Adiciona um campo de status a linha

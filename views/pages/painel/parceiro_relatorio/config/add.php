@@ -14,8 +14,8 @@ $Painel = new PainelConfig\Add('parceiro_relatorio');
 $Painel->coluna(callback: function () use ($Painel, $parceiro, $empresa) {
     $Painel->fieldset('Dados', function () use ($Painel, $parceiro, $empresa) {
         $Painel
-            ->select(name: 'parceiro', label: 'Parceiro', lista: $parceiro)
-            ->select(name: 'empresa', label: 'Empresa', lista: $empresa);
+            ->select(name: 'parceiro->id', label: 'Parceiro', lista: $parceiro)
+            ->select(name: 'empresa->id', label: 'Empresa', lista: $empresa);
     });
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel

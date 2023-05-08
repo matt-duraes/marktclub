@@ -51,6 +51,7 @@ trait CodigoInsertTrait
             ->where([
                 ['status', 1],
                 ['id_parceiro_loja', $this->Parceiro->get('id')],
+                ['data_vencimento', '>=', hoje()]
             ])
             ->primeiro(campo: 'id');
 

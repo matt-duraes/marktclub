@@ -68,20 +68,22 @@ final class PerfilController extends Controller
 
     public function postValidarSenha(Request $request)
     {
-        $Api = new ApiHelper(token: true);
-        $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        return mensagemSucesso(['senha' => $this->validarSenha($request->senha)]);
+    }
 
-        $dado = $Api->body([
-            'senha' => criptografarDado(dado: $request->senha, chave: $chave)
-        ])->post('/usuario-equipe/validar-senha')->object();
+    private function validarSenha(string $senha): bool
+    {
+        $chave = (new ApiHelper(token: true))->get('/admin/chave-publica')->object()->dado->chave ?? '';
 
-        if (existeErro($dado, 'dado')) {
-            return mensagemErro(
-                $dado->erro->titulo ?? 'Erro!',
-                $dado->erro->mensagem ?? 'Ocorreu um erro ao validar sua senha.'
-            );
-        }
-        return mensagemSucesso(['senha' => $dado->dado->senha == 1]);
+        $dado = (new ApiHelper(token: true))
+            ->body([
+                'senha' => criptografarDado(dado: $senha, chave: $chave)
+            ])
+            ->post('/usuario-equipe/validar-senha')
+            ->object();
+
+        $senha = $dado->dado->senha ?? false;
+        return $senha == 1;
     }
 
     public function postDado(Request $request): Response
@@ -102,7 +104,9 @@ final class PerfilController extends Controller
                 'telefone_pessoal' => soNumero($request->telefone_pessoal),
                 'perfil' => $request->perfil
             ],
-            criptografia: ['nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'perfil'],
+            criptografia: [
+                'nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'perfil'
+            ],
             chave: $chave
         );
 
@@ -114,7 +118,7 @@ final class PerfilController extends Controller
         return new Response(status: 204);
     }
 
-    public function senha(): Response
+    public function getSenha(): Response
     {
         return view(arquivo: 'perfil.senha');
     }
@@ -122,6 +126,33 @@ final class PerfilController extends Controller
     public function postSenha(Request $request): Response
     {
         $this->verificarUsuarioLogadoAjax();
+
+        $request
+            ->vazio('senha_atual', mensagem: 'O campo senha atual é obrigatório.')
+            ->vazio('senha_nova', mensagem: 'O campo nova senha é obrigatório.')
+            ->vazio('senha_repetir', mensagem: 'O campo repetir nova senha é obrigatório.');
+
+        if ($request->senha_nova != $request->senha_repetir) {
+            mensagemErro('Campo inválido!', 'O campo nova senha e repetir senha estão diferentes.');
+        }
+
+        if (!$this->validarSenha($request->senha_atual)) {
+            mensagemErro(
+                'Senha inválida!',
+                'O campo senha atual está incorreta.'
+            );
+        }
+
+        $chave = (new ApiHelper(token: true))->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $id = sessao('USUARIO.id');
+
+        (new ApiHelper(token: true))
+            ->validar('Ocorreu um erro ao atualizar seus dados, por favor, tente novamente.')
+            ->body([
+                'senha' => criptografarDado(dado: $request->senha_nova, chave: $chave)
+            ])
+            ->put('/usuario-equipe/' . $id);
+
         return new Response(status: 204);
     }
 
@@ -146,11 +177,11 @@ final class PerfilController extends Controller
         }
 
         $campo = $request->rede == 'google' ? 'id_google' : 'id_facebook';
-        $dado = [$campo => $Social->uuid()];
+        $dado = [$campo => $Social->id()];
 
         $this->atualizarDadoDaEquipe($dado);
 
-        sessao('USUARIO.' . $request->rede, $Social->uuid());
+        sessao('USUARIO.' . $request->rede, $Social->id());
         return mensagemSucesso([], status: 201);
     }
 
@@ -215,6 +246,32 @@ final class PerfilController extends Controller
 
         sessao('USUARIO.imagem', $imagem);
         return mensagemSucesso(['imagem' => $imagem . '?cache=' . md5(uniqid(time()))], status: 201);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUDAR A EMPRESA DA EQUIPE
+    |--------------------------------------------------------------------------
+    */
+    public function empresa()
+    {
+        $empresa = (new ApiHelper(token: true))
+            ->json(['titulo' => 'Escolha uma empresa'])
+            ->get('/comercial-empresa/select')
+            ->array()['dado'] ?? [];
+
+        return view('perfil.empresa', [
+            'empresa' => $empresa
+        ]);
+    }
+    public function postEmpresa(Request $request)
+    {
+        (new ApiHelper(token: true))
+            ->validar('Erro ao mudar a empresa da equipe.')
+            ->body(['empresa' => $request->empresa])
+            ->put('/usuario-equipe/empresa');
+
+        return new Response(status: 204);
     }
 
     /*

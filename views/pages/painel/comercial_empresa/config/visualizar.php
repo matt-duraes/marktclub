@@ -6,6 +6,11 @@ use App\Classes\ComercialEmpresa\Status;
 $Painel = new PainelConfig\Visualizar('comercial_empresa');
 
 $Painel->coluna(callback: function () use ($Painel) {
+    // $Painel->bloco(titulo: 'Endereço', callback: function () use ($Painel) {
+    //     $Painel
+    //         ->endereco('comercial_empresa', 'principal');
+    // });
+
     $Painel->bloco(titulo: 'Dados do cliente', callback: function () use ($Painel) {
         $Painel
             ->linha('titulo', 'Título')
@@ -45,10 +50,6 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('estado_principal', 'Estado principal')
             ->linha('status', 'Status');
     });
-    // $Painel->bloco(titulo: 'Endereço', callback: function () use ($Painel) {
-    //     $Painel
-    //         ->endereco('comercial_empresa', EnderecoLocal::PRINCIPAL);
-    // });
 });
 
 $Painel->replace('estado_principal', (new ListaHelper())->uf()->r());

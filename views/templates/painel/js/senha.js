@@ -1,7 +1,54 @@
+const blocoAtualizarSenha = () => {
+    const hash = document.querySelector('#bloco_alterar_senha input[name=form_system_hash]').value;
+    const inputSenhaAtual = document.querySelector('#input_senha_atual');
+    const inputSenhaNova = document.querySelector('#input_senha_nova');
+    const inputSenhaRepetir = document.querySelector('#input_senha_repetir');
+    const botaoAtualizar = document.querySelector('#botao_salvar_nova_senha');
+
+    botaoAtualizar.addEventListener('click', () => {
+        atualizarSenha();
+    });
+    const atualizarSenha = async () => {
+        Loading.show();
+        const body = new FormData();
+        body.append('senha_atual', inputSenhaAtual.value);
+        body.append('senha_nova', inputSenhaNova.value);
+        body.append('senha_repetir', inputSenhaRepetir.value);
+        body.append('form_system_hash', hash);
+        body.append('form_system_validacao', '');
+
+        const resposta = await fetch(LINK + '/perfil/senha', {
+            method: 'POST',
+            body,
+        });
+
+        const json = await respostaJson(resposta, 'Erro ao mudar senha, por favor, tente novamente.');
+
+        Loading.hide();
+        if (false === json) {
+            return;
+        }
+        paginaSenha.fechar();
+        Alerta.notificacao('Senha alterada com sucesso.', true);
+    };
+};
+
+const paginaSenha = new Pagina(
+    'Alterar senha',
+    document.querySelector('#LINK').value + '/perfil/senha',
+    undefined,
+    true,
+    true,
+    blocoAtualizarSenha
+);
+
 window.addEventListener('load', () => {
-    // const botaoAbrir = document.getElementById('botao_config_alterar_senha');
+    const botaoAbrir = document.getElementById('botao_config_alterar_senha');
+    botaoAbrir.addEventListener('click', () => {
+        paginaSenha.abrir();
+    });
     // const blocoConfig = document.getElementById('bloco_config_template');
-    // const paginaSenha = new Pagina('Alterar senha', LINK + '/perfil/senha');
+
     // botaoAbrir.addEventListener('click', () => {
     //     blocoConfig.classList.remove('aberto');
     //     setTimeout(() => {

@@ -257,7 +257,7 @@ Route
             ::view('/credito/alfa-consignado');
         Route
             ::nome('corretoraAlfa')
-            ::view('/corretora/alfa');
+            ::view('/corretora-alfa');
         Route
             ::nome('consultoriaAlfa')
             ::view('/consultoria/alfa');

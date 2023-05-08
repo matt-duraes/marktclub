@@ -67,6 +67,7 @@ botaoTrabalhoMinimizar.addEventListener('click', () => {
         blocoTrabalho.classList.add('display_none');
     }, 300);
     blocoTrabalhoHeader.classList.add('ativo');
+    fetch(LINK + '/demanda/trabalho-minimizar/sim');
 });
 botaoTrabalhoHeader.addEventListener('click', () => {
     blocoTrabalho.classList.remove('display_none');
@@ -74,6 +75,7 @@ botaoTrabalhoHeader.addEventListener('click', () => {
         blocoTrabalho.classList.add('ativo');
     }, 40);
     blocoTrabalhoHeader.classList.remove('ativo');
+    fetch(LINK + '/demanda/trabalho-minimizar/nao');
 });
 
 botaoTrabalhoParar.addEventListener('click', async () => {

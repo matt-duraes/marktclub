@@ -13,7 +13,15 @@ final class UsuarioClienteTest extends Tests
     public function __construct()
     {
         parent::__construct();
+        $this->finalizarTeste();
         $this->bodySalvar = $this->criarBodyUsuario();
+    }
+    public function finalizarTeste()
+    {
+        $this
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->tabela(TABELA_USUARIO_GRUPO)
+            ->resetar();
     }
 
     public function verificarSeEstaSalvandoUsuarioTest()
@@ -449,7 +457,7 @@ final class UsuarioClienteTest extends Tests
             'primeiro_acesso' => $this->simNao(),
             'mudar_senha' => $this->simNao(),
             'estado_civil' => $this->estadoCivil(),
-            'endereco_cep' => $this->cep(),
+            'endereco_cep' => strCep($this->cep()),
             'endereco_logradouro' => $this->logradouro(),
             'endereco_numero' => $this->numero(),
             'endereco_complemento' => $this->complemento(),

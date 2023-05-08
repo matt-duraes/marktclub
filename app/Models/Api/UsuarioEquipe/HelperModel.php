@@ -7,9 +7,6 @@ use ORM\ORM;
 final class HelperModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_EQUIPE;
-    protected array $ormReplace = [
-        'id_admin_empresa' => 'id_comercial_empresa'
-    ];
 
     public function pegarIdPeloUuid(?string $uuid): int
     {
@@ -33,9 +30,9 @@ final class HelperModel extends ORM
             return 0;
         }
         return $this
-            ->campo(['id_comercial_empresa'])
+            ->campo(['id_admin_empresa'])
             ->where(['uuid', $uuid])
-            ->primeiro(campo: 'id_comercial_empresa', padrao: 0);
+            ->primeiro(campo: 'id_admin_empresa', padrao: 0);
     }
     public function pegarPermissaoPeloId(?int $id): array
     {

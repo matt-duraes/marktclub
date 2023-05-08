@@ -1,7 +1,9 @@
 <?php
 
+use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Helper;
 use App\Classes\SolicitacaoVoucher\Status;
+use App\Classes\SolicitacaoVoucher\TipoUsuario;
 
 $Status = new Status();
 
@@ -9,6 +11,15 @@ $Painel = new PainelConfig\Filtrar('solicitacao_voucher');
 
 $Painel
     ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', permissao: Helper::PERMISSAO_EMPRESA)
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->select(name: 'tipo', label: 'Típo de voucher', lista: (new Tipo())->select('Escolha uma opção'))
+            ->select(
+                name: 'tipo_usuario',
+                label: 'Tipo de usuário',
+                lista: (new TipoUsuario())->select('Escolha uma opção')
+            );
+    })
     ->bloco(function () use ($Painel) {
         $Painel
             ->data(name: 'data_criacao_de', titulo: 'Criado em', label: 'Criado em')

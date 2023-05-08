@@ -31,6 +31,7 @@ define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));
 define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));
+define('USUARIO_MARKTCLUB', sessao('USUARIO.marktclub', padrao: 'nao'));
 define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
 define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
 
@@ -53,6 +54,7 @@ try {
     $notificacaoNumeroNovaVisualizada = 0;
 }
 
+define('TRABALHO_AREA', sessao('TRABALHO.area', padrao: false));
 define('TRABALHO_INICIADO', sessao('TRABALHO.iniciado', padrao: false));
 define('TRABALHO_MINIMIZADO', sessao('TRABALHO.minimizado', padrao: false));
 define('TRABALHO_ID', sessao('TRABALHO.id', padrao: ''));

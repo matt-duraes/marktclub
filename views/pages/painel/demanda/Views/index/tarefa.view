@@ -9,13 +9,12 @@
         <div class="porcentagem" data-ajuda="{!!empty($r->tarefa_concluida) ? 0 : $r->tarefa_concluida!!} de {{$r->tarefa_total}} {{$r->tarefa_total > 1 ? 'tarefas concluídas' : 'tarefa concluída'}} ({!!porcentagem($r->tarefa_concluida, $r->tarefa_total)!!}%)"><span style="width: {!!porcentagem($r->tarefa_concluida, $r->tarefa_total)!!}%;"></span></div>
         @ endif;
     </header>
-    @ if( !empty($r->area) ):
-    <div class="bloco_area">
-        @ foreach($r->area as $area):
-        <div class="area">{{$Area->nome($area)}}</div>
-        @ endforeach;
+    <div class="bloco_data">
+        <div class="data">@iconeCalendario(14) {{dataBr($r->data_criacao)}}</div>
+        @ if( !empty($r->data_entrega) ):
+        <div class="data">@iconeRelogio(15) {{dataBr($r->data_entrega)}}</div>
+        @ endif;
     </div>
-    @ endif;
     <footer>
         <figure class="cliente" style="background-image: url({!!$r->empresa->imagem!!})" data-ajuda="{{$r->empresa->nome}}"></figure>
         <div class="linha"></div>

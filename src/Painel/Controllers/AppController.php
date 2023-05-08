@@ -29,28 +29,41 @@ final class AppController extends PadraoController
         $pagina = $request->existe('pagina') && !$request->vazio('pagina') ? $request->pagina : 1;
         $pagina = preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
 
-        $parametro = [
-            'pagina' => $pagina
-        ];
-        if (!empty($pesquisa)) {
-            $parametro['pesquisa'] = $pesquisa;
-        }
-        if (!empty($ordem)) {
-            $parametro['ordem'] = $ordem;
-        }
-        if (!empty($filtro) && is_array($filtro)) {
-            $parametro = array_merge($parametro, $filtro);
+        $indexClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
+            . '\\Models\IndexModel';
+
+        if (class_exists($indexClass) && method_exists($indexClass, 'buscar')) {
+            $VisualizarModel = new $indexClass();
+            $dado = $VisualizarModel->buscar(pagina: $pagina, pesquisa: $pesquisa, filtro: $filtro, ordem: $ordem);
+        } else {
+            $parametro = [
+                'pagina' => $pagina
+            ];
+            if (!empty($pesquisa)) {
+                $parametro['pesquisa'] = $pesquisa;
+            }
+            if (!empty($ordem)) {
+                $parametro['ordem'] = $ordem;
+            }
+            if (!empty($filtro) && is_array($filtro)) {
+                $parametro = array_merge($parametro, $filtro);
+            }
+
+            $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
+            $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
+            $dado = $this->validarRetornoApi($dado, true);
+
+            if ($dado instanceof Response) {
+                return $dado;
+            }
+
+            $dado->dado->lista = $this->tratarListaDeRetorno($dado->dado->lista, $config->api->criptografar);
         }
 
-        $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
-        $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
-
-        $dado = $this->validarRetornoApi($dado, true);
-        if ($dado instanceof Response) {
-            return $dado;
+        if (class_exists($indexClass) && method_exists($indexClass, 'retorno')) {
+            $VisualizarModel = new $indexClass();
+            $dado = $VisualizarModel->retorno(dado: $dado);
         }
-
-        $dado->dado->lista = $this->tratarListaDeRetorno($dado->dado->lista, $config->api->criptografar);
 
         return view(
             arquivo: $config->index->app . '.index',
@@ -131,23 +144,29 @@ final class AppController extends PadraoController
             throw new Excecao(status: 403);
         }
 
-        $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
-        if ($dado->status() == 404) {
-            mensagemStatus(404);
-        }
-
-        $dado = $this->validarRetornoApi($dado);
-        if ($dado instanceof Response) {
-            return $dado;
-        }
-
-        $retorno = $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar);
-
         $visualizarClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
             . '\\Models\VisualizarModel';
-        if (class_exists($visualizarClass)) {
-            $VisualizarModel = new $visualizarClass($retorno);
-            $retorno = $VisualizarModel->retorno();
+
+        if (class_exists($visualizarClass) && method_exists($visualizarClass, 'buscar')) {
+            $VisualizarModel = new $visualizarClass();
+            $dado = $VisualizarModel->buscar($uuid);
+        } else {
+            $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
+            if ($dado->status() == 404) {
+                mensagemStatus(404);
+            }
+
+            $dado = $this->validarRetornoApi($dado);
+            if ($dado instanceof Response) {
+                return $dado;
+            }
+
+            $dado = $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar);
+        }
+
+        if (class_exists($visualizarClass) && method_exists($visualizarClass, 'retorno')) {
+            $VisualizarModel = new $visualizarClass();
+            $dado = $VisualizarModel->retorno($dado);
         }
 
         return view(
@@ -156,7 +175,7 @@ final class AppController extends PadraoController
                 'app' => $app,
                 'config' => $config,
                 'acao' => 'visualizar',
-                'dado' => is_array($retorno) ? object($retorno) : $retorno
+                'dado' => is_array($dado) ? object($dado) : $dado
             ],
             css: $config->visualizar->css,
             js: $config->visualizar->js,

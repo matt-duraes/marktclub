@@ -1,0 +1,15 @@
+@template "painel"
+@hash('mudar_empresa', 'input_mudar_empresa')
+
+@? painelAppAdd();
+
+    @? painelColuna('auto');
+        @php painelFieldset('Mudar empresa')
+            <p class="texto_descricao">Escolha uma empresa para mudar seu usuário</p>
+            @? formSelect(name: 'mudar_empresa', placeholder: 'Escolha uma empresa', label: 'Empresa', lista: $empresa)
+            <div class="bloco_botao">
+                <div class="botao_verde" id="botao_mudar_empresa">MUDAR</div>
+            </div>
+        @php painelFieldsetEnd()
+    @? painelColunaEnd();
+@? painelAppAddEnd('', '');

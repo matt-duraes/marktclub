@@ -95,6 +95,9 @@ function __executarTeste($listaTeste)
                 $listaTodos->test->falhou[] = $erroGeral;
             }
         }
+        if (method_exists($class, 'finalizarTeste')) {
+            $class->finalizarTeste();
+        }
         $retornoFinal->lista[] = $listaTodos;
     }
     return $retornoFinal;

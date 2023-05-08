@@ -1818,3 +1818,26 @@ if (!function_exists('deletarArquivo')) {
         return unlink($path);
     }
 }
+if (!function_exists('retornarPaginacao')) {
+    function retornarPaginacao(array $dado)
+    {
+        $total = count($dado);
+        return (object)[
+            'status' => 'sucesso',
+            'dado' => (object)[
+                'lista' => $dado,
+                'registro' => (object)[
+                    'inicio' => 1,
+                    'final' => $total,
+                    'atual' => $total,
+                    'total' => $total
+                ],
+                'pagina' => (object)[
+                    'total' => 1,
+                    'atual' => 1,
+                    'paginacao' => [1],
+                ]
+            ]
+        ];
+    }
+}

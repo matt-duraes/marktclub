@@ -108,18 +108,18 @@ const historicoLoad = () => {
 
         let classe;
         lista.forEach(item => {
-            if (item.tipo == 'hoje' && !historicoLista.querySelector(`.bloco_data_${item.hash}`)) {
+            if (item.tipo == 'hoje' && !historicoLista.querySelector(`.bloco_historico_data_${item.hash}`)) {
                 historicoLista.insertAdjacentHTML(
                     'beforeend',
-                    `<div id="bloco_historico_hoje" class="item_geral bloco_data bloco_data_${item.hash}">Hoje</div>`
+                    `<div id="bloco_historico_hoje" class="item_geral bloco_historico_data bloco_historico_data_${item.hash}">Hoje</div>`
                 );
-                adicionarTextoAjuda(historicoLista.querySelector(`.bloco_data_${item.hash}`), item.data);
-            } else if (item.tipo == 'data' && !historicoLista.querySelector(`.bloco_data_${item.hash}`)) {
+                adicionarTextoAjuda(historicoLista.querySelector(`.bloco_historico_data_${item.hash}`), item.data);
+            } else if (item.tipo == 'data' && !historicoLista.querySelector(`.bloco_historico_data_${item.hash}`)) {
                 historicoLista.insertAdjacentHTML(
                     'beforeend',
-                    `<div class="item_geral bloco_data bloco_data_${item.hash}">${item.social}</div>`
+                    `<div class="item_geral bloco_historico_data bloco_historico_data_${item.hash}">${item.social}</div>`
                 );
-                adicionarTextoAjuda(historicoLista.querySelector(`.bloco_data_${item.hash}`), item.data);
+                adicionarTextoAjuda(historicoLista.querySelector(`.bloco_historico_data_${item.hash}`), item.data);
             } else if (item.tipo == 'mensagem') {
                 classe = item.minha_mensagem ? 'minha_mensagem' : 'outra_mensagem';
                 historicoLista.insertAdjacentHTML(
@@ -234,7 +234,7 @@ const historicoLoad = () => {
         if (!blocoHoje) {
             historicoLista.insertAdjacentHTML(
                 'afterbegin',
-                '<div class="item_geral bloco_data" id="bloco_historico_hoje">Hoje</div>'
+                '<div class="item_geral bloco_historico_data" id="bloco_historico_hoje">Hoje</div>'
             );
             blocoHoje = historicoLista.querySelector('#bloco_historico_hoje');
         }
@@ -272,7 +272,10 @@ const historicoLoad = () => {
             return;
         }
         const itemGeral = historicoLista.querySelectorAll('.item_geral');
-        if (itemGeral[0].classList.contains('bloco_data') && itemGeral[1].classList.contains('bloco_data')) {
+        if (
+            itemGeral[0].classList.contains('bloco_historico_data') &&
+            itemGeral[1].classList.contains('bloco_historico_data')
+        ) {
             itemGeral[0].parentNode.removeChild(itemGeral[0]);
         }
     };

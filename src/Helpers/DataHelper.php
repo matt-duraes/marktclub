@@ -4,50 +4,39 @@ namespace Helpers;
 
 use DateTime;
 use Exception;
+use Modules\Data;
 
 final class DataHelper
 {
     private $retorno;
-    private $replaceDataBr;
-    private $replaceDataEua = [];
+    private array $replaceDataBr = [
+        'anos', 'ano', 'meses', 'mes', 'semanas', 'semana', 'dias', 'dia', 'horas',
+        'hora', 'minutos', 'minuto', 'segundos', 'segundo'
+    ];
+    private array $replaceDataEua = [
+        'year', 'year', 'month', 'month', 'week', 'week', 'day', 'day', 'hour', 'hour',
+        'minute', 'minute', 'second', 'second'
+    ];
+    private array $listaMes = [
+        1  => 'Janeiro',
+        2  => 'Fevereiro',
+        3  => 'Março',
+        4  => 'Abril',
+        5  => 'Maio',
+        6  => 'Junho',
+        7  => 'Julho',
+        8  => 'Agosto',
+        9  => 'Setembro',
+        10 => 'Outubro',
+        11 => 'Novembro',
+        12 => 'Dezembro',
+    ];
 
     /**
      * @param  string  $data  Data para ser convertida
      */
     public function __construct(string $data = '')
     {
-        $this->replaceDataBr = [
-            'anos',
-            'ano',
-            'meses',
-            'mes',
-            'semanas',
-            'semana',
-            'dias',
-            'dia',
-            'horas',
-            'hora',
-            'minutos',
-            'minuto',
-            'segundos',
-            'segundo'
-        ];
-        $this->replaceDataEua = [
-            'year',
-            'year',
-            'month',
-            'month',
-            'week',
-            'week',
-            'day',
-            'day',
-            'hour',
-            'hour',
-            'minute',
-            'minute',
-            'second',
-            'second'
-        ];
         $this->valor($data);
     }
 
@@ -192,23 +181,7 @@ final class DataHelper
         }
 
         $mes = (int)$this->retorno->format('m');
-
-        $lista = [
-            1 => 'Janeiro',
-            2 => 'Fevereiro',
-            3 => 'Março',
-            4 => 'Abril',
-            5 => 'Maio',
-            6 => 'Junho',
-            7 => 'Julho',
-            8 => 'Agosto',
-            9 => 'Setembro',
-            10 => 'Outubro',
-            11 => 'Novembro',
-            12 => 'Dezembro',
-        ];
-
-        return $lista[$mes] ?? '';
+        return $this->listaMes[$mes] ?? '';
     }
 
     /**
@@ -442,6 +415,40 @@ final class DataHelper
         );
 
         return $this;
+    }
+
+    /**
+     * Gera um array com a lista de meses entre as datas informadas
+     *
+     * @param   Date   $de   Data de começo da lista
+     * @param   Date   $ate  Data final da lista, se null, pega a data atual
+     * @return  array        Array com a lista de meses
+     */
+    public function listarMesAno(Data $de, Data $ate): array
+    {
+        $inicio = (new DateTime($de->date()))->format('Y-m-') . '01';
+        $final = (new DateTime($ate->date()))->format('Y-m-') . '01';
+        $remover = strtotime($inicio) > strtotime($final);
+
+        $lista = [];
+        $break = false;
+        for ($i = 1; $i < 10; ++$i) {
+            $data = new DateTime($inicio);
+            $lista[$data->format('Y-m-') . '01'] = $this->listaMes[(int)$data->format('m')]
+                . ' de ' . $data->format('Y');
+
+            if ($remover) {
+                $inicio = date_sub($data, date_interval_create_from_date_string('1 month'))->format('Y-m-d');
+            } else {
+                $inicio = date_add($data, date_interval_create_from_date_string('1 month'))->format('Y-m-d');
+            }
+            if ($break) {
+                break;
+            } elseif ($inicio == $final) {
+                $break = true;
+            }
+        }
+        return $lista;
     }
 
     /**

@@ -41,24 +41,11 @@ final class EnderecoModel extends ORM implements ModelListarInterface
     {
         $dado = $this
             ->campo([
-                'uuid',
-                'titulo',
-                'telefone',
-                'cep',
-                'logradouro',
-                'complemento',
-                'referencia',
-                'numero',
-                'bairro',
-                'cidade',
-                'estado',
-                'pais',
-                'latitude',
-                'longitude'
+                'uuid', 'titulo', 'telefone', 'cep', 'logradouro', 'complemento', 'referencia',
+                'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude'
             ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false)
-            ->group('titulo')
             ->order('id', 'DESC')
             ->read();
 
@@ -84,9 +71,12 @@ final class EnderecoModel extends ORM implements ModelListarInterface
             return [];
         }
 
-        $returno = [];
+        $retorno = [];
         foreach ($dado as $r) {
+            $retorno[] = [
+                'id' => $r->uuid
+            ];
         }
-        return $returno;
+        return $retorno;
     }
 }

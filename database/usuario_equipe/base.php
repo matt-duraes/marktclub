@@ -32,6 +32,7 @@ return (new \DataBase\DataBase())
     ->int('primeiro_acesso')->null()
     ->int('mudar_senha')->null()
     ->int('desenvolvedor')->null()
+    ->int('marktclub')->null()
     ->int('gerente')->null()
     ->int('admin')->null()
     ->status()->null();

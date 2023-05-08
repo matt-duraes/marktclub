@@ -83,7 +83,7 @@ Route
 
         Route
             ::nome('trabalhoComecar')
-            ::get('/demanda/trabalho-comecar/{tarefa}/{demanda}');
+            ::get('/demanda/trabalho-comecar/{tarefa}/{demanda}/{area}');
         Route
             ::nome('trabalhoAtualizar')
             ::get('/demanda/trabalho-atualizar/{id}');
@@ -93,4 +93,7 @@ Route
         Route
             ::nome('trabalhoConcluir')
             ::get('/demanda/trabalho-concluir/{id}');
+        Route
+            ::nome('trabalhoMinimizar')
+            ::get('/demanda/trabalho-minimizar/{acao}');
     });

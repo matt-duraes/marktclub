@@ -3,13 +3,23 @@
 namespace App\Models\Api\SolicitacaoVoucher\Trait;
 
 use Modules\Data;
+use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
+use App\Classes\SolicitacaoVoucher\TipoUsuario;
 
 trait ValidarRequestTrait
 {
     private function validarRequest()
     {
+        $tipo = new Tipo($this->request->tipo);
+        if (!$tipo->vazio() && !$tipo->valido()) {
+            mensagemErro('Campo inválido!', 'O tipo de voucher informado não é válido.');
+        }
+        $tipoUsuario = new TipoUsuario($this->request->tipo_usuario);
+        if (!$tipoUsuario->vazio() && !$tipoUsuario->valido()) {
+            mensagemErro('Campo inválido!', 'O tipo de usuário informado não é válido.');
+        }
         $dataCriacaoDe = new Data($this->request->data_criacao_de);
         if (!$dataCriacaoDe->vazio() && (!$dataCriacaoDe->valido() || !$dataCriacaoDe->eDate())) {
             mensagemErro('Campo inválido!', 'A data de criação de início não está no formato válido.');

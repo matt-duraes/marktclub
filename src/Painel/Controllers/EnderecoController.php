@@ -3,6 +3,7 @@
 namespace PainelController;
 
 use Http\Request;
+use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
 use Helpers\LocalizacaoHelper;
@@ -42,7 +43,7 @@ final class EnderecoController extends Controller
         return mensagemSucesso($dado);
     }
 
-    public function listarEndereco(Request $request)
+    public function postListarEndereco(Request $request)
     {
         $Api = new ApiHelper(token: true);
         $dado = $Api
@@ -57,9 +58,31 @@ final class EnderecoController extends Controller
                 'estado' => $request->estado,
                 'titulo' => $request->titulo
             ])
-            ->get('/sistema-endereco')
+            ->get('/endereco')
             ->object();
 
         return mensagemSucesso($dado);
+    }
+    public function postSalvarEndereco(Request $request)
+    {
+        $Api = new ApiHelper(token: true);
+        $Api
+            ->validar('Ocorreu um erro ao salvar endereço, por favor, tente novamente.')
+            ->json($request->dado())
+            ->post('/endereco')
+            ->object();
+
+        return new Response(status: 204);
+    }
+    public function postAtualizarEndereco(Request $request, string $id)
+    {
+        $Api = new ApiHelper(token: true);
+        $Api
+            ->validar('Ocorreu um erro ao salvar endereço, por favor, tente novamente.')
+            ->json($request->dado())
+            ->post('/endereco/' . $id)
+            ->object();
+
+        return new Response(status: 204);
     }
 }
