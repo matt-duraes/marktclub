@@ -16,7 +16,7 @@
 			<img src="https://arquivo.marktclub.com.br/construtor/logo_marktclub_tem_mais.png" alt="">
 		</figure>
 		<div class="bloco_botao">
-			<a class="botao_geral_cor cor_bg">Navegação normal</a>
+			<a class="botao_geral_cor cor_bg" href="@route(index.index)">Navegação normal</a>
 			<a class="botao_geral_cor cor_bg" href="@route(acessorapido.index)">Voltar</a>
 		</div>
 	</header>
@@ -88,7 +88,7 @@
 						<div class="lista_estado">
 							<div class="estado"  id="DF">
 								<input type="radio" name="estado" value="DF">
-								<label for="DF">BRASILIA</label>
+								<label for="DF">DF</label>
 							</div>
 							<div class="estado"  id="AC">
 								<input type="radio" name="estado" value="AC">

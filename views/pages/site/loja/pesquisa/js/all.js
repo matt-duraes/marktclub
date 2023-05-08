@@ -1,4 +1,3 @@
-// @template "site"
 // @system "Alerta"
 // @system "Icone"
 // @system "Pagina"
@@ -9,7 +8,7 @@
 // @system "Mascara"
 
 window.addEventListener('load', () => {
-    const botaoBusca = document.querySelector('#busca_personalizada');
+    const botaoBusca = document.querySelector('.conteudo_formulario #busca_personalizada');
     const opcaoLocal = document.querySelectorAll('.opcao_estado .input_radio_botao');
     const blocoEstado = document.querySelector('.bloco_estado');
     const blocoMundo = document.querySelector('.bloco_mundo');
@@ -17,12 +16,13 @@ window.addEventListener('load', () => {
 
     botaoBusca.addEventListener('click', buscaPersonalizada);
 
-    opcaoLocal.forEach(elements => {
-        elements.addEventListener('click', element => {
+    opcaoLocal.forEach(opcoesLocal => {
+        opcoesLocal.addEventListener('click', local => {
+            const opcoes = document.getElementsByName('opcao');
             let param = { blocoEstado, botaoFooter, blocoMundo };
-            if (element.target.className == 'estado') {
+            if (local.target.className == 'estado') {
                 escolhaEstado(param);
-            } else if (element.target.className == 'mundo') {
+            } else if (local.target.className == 'mundo') {
                 escolhaMundo(param);
             }
         });
@@ -36,9 +36,12 @@ const buscaPersonalizada = () => {
 
 const escolhaMundo = param => {
     let { blocoEstado, botaoFooter, blocoMundo } = param;
+    let listaEstado = document.querySelector('.lista_estado');
     botaoFooter.style.display = 'flex';
+    listaEstado.style.display = 'none';
     blocoEstado.classList.remove('marcado');
     blocoMundo.classList.add('marcado');
+    avancar();
 };
 
 const escolhaEstado = param => {
@@ -55,20 +58,24 @@ const selecaoEstado = () => {
     let estados = document.querySelectorAll('.lista_estado .estado');
     estados.forEach(estado => {
         estado.addEventListener('click', event => {
-            let estado = event.currentTarget;
-            estado.classList.remove('marcado');
-            estado.classList.add('marcado');
-            avancar(estado);
+            let estadoClicado = event.currentTarget;
+            estados.forEach(estado => {
+                if (estado !== estadoClicado) {
+                    estado.classList.remove('marcado');
+                }
+            });
+            estadoClicado.classList.add('marcado');
+            avancar(estadoClicado);
         });
     });
 };
 
-const avancar = estado => {
+const avancar = (estado = '') => {
     botaoAvancar.addEventListener('click', event => {
         event.preventDefault();
         let estadoId = estado.id;
         selecaoCategoria(estadoId);
-        teste(estadoId);
+        busca(estadoId);
     });
 };
 
@@ -77,10 +84,10 @@ const selecaoCategoria = () => {
     document.querySelector('.teste').style.display = 'flex';
 };
 
-const teste = estadoId => {
-    const elements = document.querySelectorAll('.opcao_categoria a');
-    elements.forEach(element => {
-        const url = element.href;
-        element.href = url + `&estado=${estadoId}`;
+const busca = estadoId => {
+    const elementos = document.querySelectorAll('.opcao_categoria a');
+    elementos.forEach(elemento => {
+        const url = elemento.href;
+        elemento.href = url + `&estado=${estadoId}`;
     });
 };

@@ -3,14 +3,11 @@
 @resource "site/loja/busca"
 @resource "site/variavel"
 @resource "site/mixim"
-@resource "site/variavel"
 @resource "site/geral"
 @resource "site/pagina_popup"
 
-/******************************/
-/* BLOCO MELHORIDADE PESQUISA */
-/******************************/
 
+/*HEADER*/
 header
     margin: auto
     max-width: $maxWidth
@@ -31,19 +28,22 @@ header
         display: flex
         align-items: center
         justify-content: flex-end
-        a
-            min-width: 150px
-            text-align: center
-            color: white
-            texto()
-            flexCenter()
-            &:first-child
-                border: 1px solid $corClube
-                color: $corClube
-                margin-right: 20px
-            &:last-child
-                background-color: $corClube
-                texto()
+
+header .bloco_botao a
+    min-width: 150px
+    text-align: center
+    color: white
+    texto()
+    flexCenter()
+    &:first-child
+        border: 1px solid $corClube
+        color: $corClube
+        margin-right: 20px
+    &:last-child
+        background-color: $corClube
+        texto()
+
+/*BLOCO BEM VINDO*/
 
 #bloco_maioridade_popup
     flexCol()
@@ -51,234 +51,265 @@ header
     blocoShadow()
     margin: auto
     max-width: $maxWidth
-    form
+
+#bloco_maioridade_popup form
+    width: 100%
+    min-height: 400px
+    flexCol()
+    flexCenter()
+    position: relative
+    fieldset
+        background: white
+        border-radius: 3px
+        padding: 20px 30px
+        box-sizing: border-box
         width: 100%
-        min-height: 400px
-        flexCol()
-        flexCenter()
+        margin: 0 auto
         position: relative
-        fieldset
-            background: white
-            border-radius: 3px
-            padding: 20px 30px
-            box-sizing: border-box
+        display: none
+        flex-direction: column
+        &.primeiro
+            display: flex
+
+#bloco_maioridade_popup form fieldset
+    .mensagem
+        width: 100%
+        flexCenter()
+        flex-direction: column
+        margin-bottom: 20px
+        text-align: center
+        h1
+            titulo()
+            font-weight: bold
+        p
+            texto()
+            color: #666
+        .conteudo
             width: 100%
-            margin: 0 auto
-            position: relative
-            display: none
+            max-width: 500px
+            flexCenter()
             flex-direction: column
-            &.primeiro
-                display: flex
-            .mensagem
-                width: 100%
-                flexCenter()
-                flex-direction: column
-                margin-bottom: 20px
-                text-align: center
-                h1
-                    titulo()
-                    font-weight: bold
-                p
-                    texto()
-                    color: #666
-                .conteudo
-                    width: 100%
-                    max-width: 500px
-                    flexCenter()
-                    flex-direction: column
-                    text-align: center
-            .conteudo_formulario
-                width: 100%
-                flexCol()
-                align-items: center
-                a
-                    width: 100%
-                    max-width: 300px
-                    height: 40px
-                    border: 1px solid $corClube
-                    border-radius: 3px
-                    color: $corClube !important
-                    texto()
-                    text-align: center
-                    &:hover
-                        background-color: $corClube
-                        color: white !important
-                span
-                    texto()
-                    margin: 20px auto
-                    color: #999
-                .opcao_categoria,
-                .busca_personalizada
-                    width: 100%
-                    max-width: 750px
-                    flexCenter()
-                    flex-wrap: wrap
-                    a
-                        width: calc(( 100% / 4 ) - 10px)
-                        height: 40px
-                        flexCenter()
-                        padding: 10px
-                        margin-left: calc( 10px / 2 )
-                        margin-right: calc( 10px / 2 )
-                        margin-bottom: 10px
-                        border-radius: 3px
-                        texto()
-                        text-align: center
-                        border: 1px solid $corClube
-                        color: $corClube
-                        &:hover
-                            background-color: $corClube
-                            color: white
-                    &::after
-                        content: ""
-                        flex: auto
-                .busca_personalizada
-                    display: none
-                .opcao_estado
-                    width: 100%
-                    max-width: 500px
-                    flexCenter()
-                    .bloco_hover
-                        position: relative
-                        width: calc(( 100% / 2 ) - 10px)
-                        height: 50px
-                        margin-left: calc( 10px / 2 )
-                        margin-right: calc( 10px / 2 )
-                        border-radius: 3px
-                a
-                    width: 100%
-                    height: 50px
-                    position: relative
-                    flexCenter()
-                    texto()
-                    margin-bottom: 10px
-                    text-align: center
-                    border-width: 1px
-                    border-style: solid
-                    border-radius: 3px
-                    color: #999
-                    p
-                        z-index: 20
-                    .bg
-                        width: 100%
-                        height: 50px
-                        position: absolute
-                        top: 0
-                        left: 0
-                        z-index: 1
-                        opacity: 0
-                        transition: opacity .3s ease-out
-                        cursor: pointer
-                        border-radius: 3px
-                    &:hover
-                        .bg
-                            opacity: .7
-                .input_radio_botao
-                    width: 100%
-                    display: flex
-                    align-items: center
-                    justify-content: space-between
-                    margin: 10px auto
-                    input[type="radio"]
-                        display: none
-                    label
-                        flex: 1
-                        height: 50px
-                        flexCenter()
-                        texto()
-                        line-height: 50px
-                        border: 1px solid $corClube
-                        color: $corClube
-                        border-radius: 3px
-                        margin: auto 5px
-                        cursor: pointer
-                        &:hover
-                            background-color: $corClube
-                            color: white
-                .seleciona_estado
-                    width: 100%
-                    max-width: 700px
-                    display: flex
-                    flex-wrap: wrap
-                    margin-top: 20px
-                    &:after
-                        content: ""
-                        flex: auto
-                    .esconde
-                        display: none
-                    .input_radio_botao
-                        width: calc(( 100% / 4 ) - 5px)
-                        margin-left: calc( 5px / 2 )
-                        margin-right: calc( 5px / 2 )
-                        flexCenter()
-                        margin-top: 5px
-                        margin-bottom: 5px
-                        label
-                            height: 40px
-                            line-height: 40px
-                            font-size: 1.5em
-                            line-height: 1.5em
-                            margin: auto 2px
-                .seleciona_categoria
-                    width: 100%
-                    max-width: 700px
-                    display: flex
-                    flex-wrap: wrap
-                    margin-top: 20px
-                    &:after
-                        content: ""
-                        flex: auto
-                    .esconde
-                        display: none
-                .input_radio_botao
-                    width: calc(( 100% / 4 ) - 5px)
-                    margin-left: calc( 5px / 2 )
-                    margin-right: calc( 5px / 2 )
-                    flexCenter()
-                    margin-top: 5px
-                    margin-bottom: 5px
-                    label
-                        height: 40px
-                        line-height: 40px
-                        font-size: 1.5em
-                        line-height: 1.5em
-                        margin: auto 2px
-                    .categoria
-                        max-width: 300px
-            .botao_footer
-                width: 100%
-                max-width: 1000px
-                display: none
-                align-items: flex-end
-                justify-content: space-between
-                button
-                    margin-top: 25px
-                    border: 1px solid $corClube
-                    width: 150px
-                    height: 40px
-                    texto()
-                    border-radius: 5px
-                    background-color: white
-                    color: $corClube
-            .lista_estado
-                display: none
-                width: 100%
-                min-height: 70px
-                .estado
-                    width: calc((100% / 3) - 15px)
-                    height: 30px
-                    border: 2px solid $corClube
-                    margin: 10px
-                    text-align: center
-                    padding: 10px
-                    cursor: pointer
-                    color: $corClube
-            .marcado
-                background-color: $corClube
-                label
-                    color: white !important
-        #bloco_seleciona_estado .conteudo_formulario .opcao_estado .input_radio_botao
-            width: 250px !important
+            text-align: center
+
+#bloco_maioridade_popup form fieldset .conteudo_formulario
+    width: 100%
+    flexCol()
+    align-items: center
+    a
+        width: 100%
+        max-width: 300px
+        height: 40px
+        border: 1px solid $corClube
+        border-radius: 3px
+        color: $corClube !important
+        texto()
+        text-align: center
+        &:hover
+            background-color: $corClube
+            color: white !important
+    span
+        texto()
+        margin: 20px auto
+        color: #999
+    .opcao_categoria,
+    .busca_personalizada
+        width: 100%
+        max-width: 750px
+        flexCenter()
+        flex-wrap: wrap
+
+#bloco_maioridade_popup form fieldset .conteudo_formulario .opcao_categoria,
+#bloco_maioridade_popup form fieldset .conteudo_formulario .busca_personalizada
+    a
+        width: calc(( 100% / 4 ) - 10px)
+        height: 40px
+        flexCenter()
+        padding: 10px
+        margin-left: calc( 10px / 2 )
+        margin-right: calc( 10px / 2 )
+        margin-bottom: 10px
+        border-radius: 3px
+        texto()
+        text-align: center
+        border: 1px solid $corClube
+        color: $corClube
+        &:hover
+            background-color: $corClube
+            color: white
+    &::after
+        content: ""
+        flex: auto
+
+#bloco_maioridade_popup form fieldset .conteudo_formulario .busca_personalizada
+    display: none
+#bloco_maioridade_popup .conteudo_formulario .busca_personalizada .opcao_estado
+    width: 100%
+    max-width: 500px
+    flexCenter()
+    .bloco_hover
+        position: relative
+        width: calc(( 100% / 2 ) - 10px)
+        height: 50px
+        margin-left: calc( 10px / 2 )
+        margin-right: calc( 10px / 2 )
+        border-radius: 3px
+#bloco_maioridade_popup form .conteudo_formulario a
+    width: 100%
+    height: 50px
+    position: relative
+    flexCenter()
+    texto()
+    margin-bottom: 10px
+    text-align: center
+    border-width: 1px
+    border-style: solid
+    border-radius: 3px
+    color: #999
+    p
+        z-index: 20
+    .bg
+        width: 100%
+        height: 50px
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 1
+        opacity: 0
+        transition: opacity .3s ease-out
+        cursor: pointer
+        border-radius: 3px
+    &:hover
+        .bg
+            opacity: .7
+
+#bloco_maioridade_popup .conteudo_formulario .input_radio_botao
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin: 10px auto
+    input[type="radio"]
+        display: none
+    label
+        flex: 1
+        height: 50px
+        flexCenter()
+        texto()
+        line-height: 50px
+        border: 1px solid $corClube
+        color: $corClube
+        border-radius: 3px
+        margin: auto 5px
+        cursor: pointer
+        &:hover
+            background-color: $corClube
+            color: white
+
+#bloco_maioridade_popup .conteudo_formulario .seleciona_estado
+    width: 100%
+    max-width: 700px
+    display: flex
+    flex-wrap: wrap
+    margin-top: 20px
+    &:after
+        content: ""
+        flex: auto
+    .esconde
+        display: none
+    .input_radio_botao
+        width: calc(( 100% / 4 ) - 5px)
+        margin-left: calc( 5px / 2 )
+        margin-right: calc( 5px / 2 )
+        flexCenter()
+        margin-top: 5px
+        margin-bottom: 5px
+        label
+            height: 40px
+            line-height: 40px
+            font-size: 1.5em
+            line-height: 1.5em
+            margin: auto 2px
+
+#bloco_maioridade_popup .conteudo_formulario .seleciona_categoria
+    width: 100%
+    max-width: 700px
+    display: flex
+    flex-wrap: wrap
+    margin-top: 20px
+    &:after
+        content: ""
+        flex: auto
+    .esconde
+        display: none
+
+#bloco_maioridade_popup .conteudo_formulario .input_radio_botao
+    width: calc(( 100% / 4 ) - 5px)
+    margin-left: calc( 5px / 2 )
+    margin-right: calc( 5px / 2 )
+    flexCenter()
+    margin-top: 5px
+    margin-bottom: 5px
+    label
+        height: 40px
+        line-height: 40px
+        font-size: 1.5em
+        line-height: 1.5em
+        margin: auto 2px
+
+.input_radio_botao
+    width: calc(( 100% / 4 ) - 5px)
+    margin-left: calc( 5px / 2 )
+    margin-right: calc( 5px / 2 )
+    flexCenter()
+    margin-top: 5px
+    margin-bottom: 5px
+    label
+        height: 40px
+        line-height: 40px
+        font-size: 1.5em
+        line-height: 1.5em
+        margin: auto 2px
+    .categoria
+        max-width: 300px
+
+.botao_footer
+    width: 100%
+    max-width: 1000px
+    display: none
+    align-items: flex-end
+    justify-content: space-between
+    button
+        margin-top: 25px
+        border: 1px solid $corClube
+        width: 150px
+        height: 40px
+        texto()
+        border-radius: 5px
+        background-color: white
+        color: $corClube
+
+.lista_estado
+    display: none
+    width: 100%
+    min-height: 70px
+    .estado
+        width: calc((100% / 3) - 15px)
+        height: 30px
+        border: 2px solid $corClube
+        margin: 10px
+        text-align: center
+        padding: 10px
+        cursor: pointer
+        color: $corClube
+
+.marcado
+    background-color: $corClube
+    label
+        color: white !important
+
+#bloco_seleciona_estado .conteudo_formulario .opcao_estado .input_radio_botao
+    width: 250px !important
+
 .bloco_estado_personalizado
     display: none
     width: 100%
@@ -305,7 +336,6 @@ header
         content: ""
         flex: auto
 
-
 @media screen and (max-width: 750px)
     header
         flex-direction: column
@@ -322,6 +352,7 @@ header
                 width: 250px
     #bloco_maioridade_popup form fieldset .conteudo_formulario .opcao_categoria a
         width: calc((100% / 3 - 10px))
+
 @media screen and (max-width: 425px)
     #bloco_maioridade_popup form fieldset .conteudo_formulario .opcao_categoria a
         width: calc((100% / 2 - 10px))

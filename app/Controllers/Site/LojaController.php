@@ -113,8 +113,7 @@ final class LojaController extends Controller
     public function abrirModalIndicacao(): Response
     {
         return view('loja.geral.modalIndicacao', [
-            'tipo'      => $tipo,
-
+            // 'tipo'      => $tipo,
         ]);
 
     }
@@ -154,7 +153,6 @@ final class LojaController extends Controller
         $estado = ['Acre','Alagoas','Amapá','Amazonas','Rio de Janeiro','Brasilia','São Paulo'];
 
         return view('loja.pesquisa', [
-            'tipo'      => $tipo,
             'alimentacaoTag' => $alimentacaoTag,
             'veiculoTag' => $veiculoTag,
             'saudeTag' => $saudeTag,
