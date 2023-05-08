@@ -39,6 +39,7 @@
                             @? formNumero(name: 'valor_parcela', placeholder: 'Valor da parcela atual', label: 'Valor da parcela')
                             @? formSelect(name: 'quantidade_parcela', label: 'Quantidade parcela restante', placeholder: 'Escolha a quantidade de parcelas restantes', lista: $parcela, value: '')
                         </form>
+
                         <div class="bloco_botao">
                             <div></div>
                             <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
@@ -50,6 +51,19 @@
                         <h1>DADOS PARA CONTATO</h1>
                         <p>Confirme seus dados para que o Banco Alfa entre em contato e valide seu pedido. Esta ação não implica na contratação automática da portabilidade.</p>
                         <form action="" class="form_geral">
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'nome', placeholder: 'Nome completo', label: 'Nome completo')
+                                @? formInput(name: 'email', placeholder: 'E-mail', label: 'E-mail')
+                            </div>
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'telefone_fixo', placeholder: 'Telefone fixo', label: 'Telefone fixo')
+                                @? formInput(name: 'telefone_celular', placeholder: 'Telefone celular', label: 'Telefone celular')
+                            </div>
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade')
+                                @? formInput(name: 'orgao', placeholder: 'Orgão', label: 'Orgão')
+                            </div>
+                            @? formTextarea(name: 'mensagem', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
 
                         </form>
                         <div class="bloco_botao">
@@ -60,6 +74,28 @@
                 </div>
                 <div class="conteudo">
                     <div class="bloco_credito">
+                        <header>
+                            <h1>SOLICITAR PORTABILIDADE</h1>
+                            <p>Veja os dados abaixo, verifique se está tudo certo e envie sua solicitação de empréstimo para o Banco Alfa.</p>
+                        </header>
+                        <div class="formulario_contratacao">
+                            <div class="coluna_divisoria">
+                                <h1>VALOR DA PARCELA ATUAL</h1>
+                                <p class="valor_emprestimo">R$ x.xxx,xx</p>
+                            </div>
+                            <div class="coluna_divisoria">
+                                <h1>QUANTIDADE DE PARCELAS QUE FALTAM PAGAR</h1>
+                                <p><span class="valor_prazo">12</span> vezes</p>
+                            </div>
+                            <div class="coluna_divisoria">
+                                <h1>JUROS ATUAL</h1>
+                                <p id="texto_valor_juros">1.3%</p>
+                            </div>
+                            <div class="coluna_divisoria">
+                                <h1>DATA DE SIMULAÇÃO</h1>
+                                <p class="data_simulacao"><?=date('d/m/Y');?></p>
+                            </div>
+                        </div>
                         <div class="bloco_botao">
                             <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
                             <div class="botao_geral_cor cor_bg">Finalizar</div>

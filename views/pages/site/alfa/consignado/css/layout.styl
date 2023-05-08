@@ -11,20 +11,25 @@
     maxWidth()
     flexCenter()
     flexCol()
-    .formulario-contratacao
+    .bloco_geral_banner
+        espacoBottomPadrao()
+    .form_geral .bloco_input
+        margin-top: 5px
+    .formulario_contratacao
         width: 100%
+        espacoVerticalPadrao()
+        flexCenter()
+        directionColumn()
+    .formulario_contratacao .coluna_divisoria
+        width: 100%
+        max-width: 500px
         spaceBetween()
-        flexCol()
-        .coluna-divisoria
-            width: 100%
-            max-width: 500px
-            spaceBetween()
-            margin-top: 10px
-            color: #666
-            h1
-                bold()
-            h1,  p, p span
-                textoMobile()
+        margin-top: 10px
+        color: #666
+        h1
+            bold()
+        h1,  p, p span
+            textoMobile()
     .disclaimer
         maxWidth()
         espacoTopPadrao()
@@ -33,40 +38,32 @@
             disclaimerFontSize()
             color: #666
             text-align: left
-    .aviso
+    .aviso_resultado
         width: 100%
         flexCenter()
-    .aviso p
-        max-width: 300px
-        margin: 25px 0px
-        padding: 10px 20px
-        line-height: 1.2em
-        font-size: 1.5em
-        border-radius: 8px
-        background: #FA5252
-        color: $branco
-    #contato
-        display: none
-    .duplo_label
-        width: 100%
-        spaceBetween()
-        .bloco_input:nth-child(1)
-            margin-right: 20px
+        directionColumn()
+        espacoVerticalPadrao()
     #resultado_simulacao
         flexCenter()
         flexCol()
+        .resultado
+            espacoTopPadrao()
         .resultado h2
             color: #333
-            font-size: 1.8em
+            texto()
         .aviso_resultado
             espacoBottomPadrao()
         .aviso_resultado h2
             color: #333
-            font-size: 1.2em
+            texto()
         .aviso_resultado p
-            color: #333
-            font-size: 1.2em
-            line-height: 1.5em
+            texto()
+            max-width: 300px
+            texto()
+            font-size: 1.5em
+            border-radius: 8px
+            background: #FA5252
+            color: $branco
         .aviso_resultado span
             font-size: 1em
             line-height: 1.5em
@@ -83,19 +80,33 @@
             color: #009900
             font-weight: bold
             font-size: 1.8em !important
-    #bloco_solicitacao
-        display: none
-        align-items: center
-        justify-content: center
+
+#bloco_credito_alfa .bloco_credito
+    width: 100%
+    height: 100%
+    max-width: 700px
+    flexCol()
+    align-items: center
+    position: relative
+    padding: 20px 20px 75px 20px
+    h1
+        width: 100%
+        text-align: center
+        titulo()
+    p
+        width: 100%
+        max-width: 500px
+        text-align: center
+        texto()
+    form
+        width: 100%
         espacoTopPadrao()
-        espacoBottomPadrao()
-        .coluna-divisoria
-            width: 100%
-            max-width: 500px
-            spaceBetween()
-            margin-top: 10px
-            color: #666
-            h1
-                bold()
-            h1,  p, p span
-                textoMobile()
+    .bloco_botao
+        width: 100%
+        flexRow()
+        position: absolute
+        right: 20px
+        bottom: 20px
+        justify-content: space-between
+    .bloco_botao .cinza
+        background-color: #DDD

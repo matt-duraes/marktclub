@@ -1,0 +1,107 @@
+<!-- @php $classe_busca = $dado && $busca ? 'busca_realizada' : '';
+<div id="bloco__shopping--index" class="<?=$classe_busca;?>">
+
+    @if (!empty($classe_busca)):
+    <aside>
+        <h1 class="color_cor"><?=$busca['Pesquisa'] ?? $busca['Categoria'] ?? 'Busca';?></h1>
+        <form class="bloco_geral">
+            @if (isset($filtro['loja']) && $filtro['loja']):
+            <div class="collapse">
+                <h3>Loja</h3>
+                <div class="conteudo">
+                    <ul>
+                        @foreach ($filtro['loja'] as $ind => $val): ?>
+                        <li><a href="<?=$ind;?>"><?=$val;?></a></li>
+                        @endforeach;?>
+                    </ul>
+                </div>
+                @if (count($filtro['loja']) > 4): ?>
+                <div class="botao botao_mostrar_tudo">Ver todos</div>
+                @endif;?>
+            </div>
+            @endif;?>
+
+            @if (isset($filtro['fabricante']) && $filtro['fabricante']):
+            <div class="collapse">
+                <h3>Fabricante</h3>
+                <div class="conteudo">
+                    <ul>
+                        @foreach ($filtro['fabricante'] as $ind => $val):
+                        <li><a href="<?=$ind;?>"><?=$val;?></a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                @if (count($filtro['fabricante']) > 4):
+                <div class="botao botao_mostrar_tudo">Ver todos</div>
+                @endif
+            </div>
+            @endif
+
+            @if (isset($filtro['categoria']) && $filtro['categoria']):
+            <div class="collapse">
+                <h3>Categoria</h3>
+                <div class="conteudo">
+                    <ul>
+                        @foreach ($filtro['categoria'] as $ind => $val):
+                        <li><a href="<?=$ind;?>"><?=$val;?></a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                @if (count($filtro['categoria']) > 4):
+                <div class="botao botao_mostrar_tudo">Ver todos</div>
+                @endif
+            </div>
+            @endif
+
+            <div class="filtrar-preco">
+                <h3>Preço</h3>
+                <div class="preco_filtro">
+                    <input type="text" id="input_preco_min" name="min" data-mascara="dinheiro" placeholder="Min" value="<?=$filtro['preco_de'];?>">
+                    <input type="text" id="input_preco_max" name="max" data-mascara="dinheiro" placeholder="Max" value="<?=$filtro['preco_ate'];?>">
+                    <button class="bg_cor" id="botao_filtrar_preco"><i data-font="&#xe80a;"></i></button>
+                </div>
+            </div>
+        </form>
+    </aside>
+	@endif
+
+    <div class="bloco_produto">
+
+        @if ($dado && !$busca):
+        <h1 class="color_cor">PRODUTOS MAIS PROCURADOS</h1>
+        @endif
+
+        @if ($busca):
+        <div class="filtro">
+            <div class="conteudo">
+                @foreach ($busca as $ind => $val):
+                <div class="item" data-tipo="<?=$ind;?>">
+                    <span><?=$ind;?>:</span>
+                    <p><?=$val;?></p>
+                    <i class="botao_remover_filtro" data-font="&#xe80e;"></i>
+                </div>
+                @endforeach
+            </div>
+            <div class="remover" id="botao_remover_todos_filtro">Limpar todos</div>
+        </div>
+        @endif
+
+        <section class="lista_produto">
+            @php include 'shopping_produto_lista.php'
+        </section>
+    </div>
+
+    @if (isset($paginacao->pagina) && isset($paginacao->pagina->total) && $paginacao->pagina->total > 1):
+    <div class="bloco_paginacao">
+        <a class="texto" href="<?=$linkPaginacao;?>1" target="_self">Primeira</a>
+        @foreach ($paginacao->pagina->paginacao as $pagina):
+        @if ($paginacao->pagina->atual == $pagina):
+        <a class="hover" target="_self"><?=$pagina;?></a>
+        @else:
+        <a href="<?=$linkPaginacao . $pagina;?>" target="_self"><?=$pagina;?></a>
+        @endif
+        @endforeach
+        <a class="texto" href="<?=$linkPaginacao . $paginacao->pagina->total;?>" target="_self">Última</a>
+    </div>
+    @endif
+</div> -->

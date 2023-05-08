@@ -235,6 +235,7 @@ Route
             ::nome('declaracao')
             ::view('/automovel-declaracao/{url}');
     });
+
 Route
     ::nome('termo')
     ::controller(App\Controllers\Site\TermoController::class)
