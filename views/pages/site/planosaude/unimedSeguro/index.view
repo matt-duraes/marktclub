@@ -352,8 +352,8 @@
 
 	<section class="bloco_plano_saude">
 		<header>
-            <h1>FATOR MODERADOR</h1>
-            <p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
+		    <h1>FATOR MODERADOR</h1>
+		    <p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
         </header>
         <div class="bloco_tabela_geral">
 			<table>
