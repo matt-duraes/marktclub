@@ -11,9 +11,12 @@ final class AcessoRapidoController extends Controller
 {
     public function index()
     {
-        return view('acesso_rapido.index', [
-            'menu' => 'acessorapido'
-        ]);
+        return view(
+            'acesso_rapido.index',
+            [
+                'menu' => 'acessorapido'
+            ]
+        );
     }
 
 
