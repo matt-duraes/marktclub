@@ -8,19 +8,38 @@
 #bloco_contratacao
     width: 100%
     max-width: $maxWidth
-    .conteudo
-        flexCol()
-    .duplo_label
+    .contratacao
         width: 100%
-        spaceBetween()
-        .bloco_input:nth-child(1)
-            margin-right: 20px
+        height: 100%
+        max-width: 700px
+        flexCol()
+        align-items: center
+        position: relative
+        padding: 20px 20px 75px 20px
+        h1
+            width: 100%
+            text-align: center
+            titulo()
+        p
+            width: 100%
+            max-width: 500px
+            text-align: center
+            texto()
+        form
+            width: 100%
+    .contratacao .bloco_botao
+        width: 100%
+        flexRow()
+        position: absolute
+        right: 20px
+        bottom: 20px
+        justify-content: space-between
+    .contratacao .bloco_botao .cinza
+        background-color: #DDD
     .responsavel
+        width: 100%
         espacoTopPadrao()
         h2
             text-align: left
             texto()
             color: $corClube
-
-.progressBar .step .bullet:before, .progressBar .step .bullet:after
-    right: -66px

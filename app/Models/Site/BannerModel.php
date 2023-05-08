@@ -52,6 +52,26 @@ final class BannerModel
     /**
      * @return object
      */
+    public function cinema(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object) [
+                    'imagem' =>'https://clube.marktclub.com.br/images/tela_cinema.jpg',
+                    'link' => 'https://clube.marktclub.com.br/images/tela_cinema.jpg'
+                ]
+            ],
+            'mobile' => [
+                (object) [
+                    'imagem' =>'',
+                    'link' => ''
+                ]
+            ]
+        ];
+    }
+    /**
+     * @return object
+     */
     public function turismo(): object
     {
         return (object)[
@@ -111,7 +131,46 @@ final class BannerModel
             ]
         ];
     }
-
+    /**
+     * @return object
+     */
+    public function farmacia(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object) [
+                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'link'   => ''
+                ]
+            ],
+            'mobile' => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'link'   => ''
+                ]
+            ]
+        ];
+    }
+    /**
+     * @return object
+     */
+    public function saude(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/plano_saude_desktop.png',
+                    'link'   => ''
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => LINK_PADRAO . '/images/site/plano_saude_desktop.png',
+                    'link'   => ''
+                ]
+            ]
+        ];
+    }
     /**
      * @return object
      */
@@ -128,6 +187,29 @@ final class BannerModel
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/credito_alfa_mobile.png',
                     'link'   => ''
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return object
+     */
+    public function corretora(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
+                    marketclub'
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
+                    marketclub'
                 ]
             ]
         ];

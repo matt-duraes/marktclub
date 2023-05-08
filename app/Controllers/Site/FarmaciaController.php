@@ -4,6 +4,8 @@ namespace App\Controllers\Site;
 
 use Helpers\ApiHelper;
 use Controller\Controller;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Farmacia\FarmaciaModel;
 
 final class FarmaciaController extends Controller
 {
@@ -11,13 +13,17 @@ final class FarmaciaController extends Controller
     {
         return view('farmacia.index', [
             'menu' => 'farmacia',
+            'banner' => (new BannerModel())->farmacia(),
+            'lista'  => (new FarmaciaModel())->listarDados()
         ]);
     }
-    public function detalhe()
+    public function detalhe(string $url)
     {
+        $lista = (new FarmaciaModel())->buscarFarmacia($url);
         return view('farmacia.detalhe', [
-            'menu' => 'farmacia',
-            'parceiro' => [1, 2, 3]
+            'loja' => $url,
+            'banner' => (new BannerModel())->farmacia(),
+            'lista' => $lista
         ]);
     }
     public function carteirinha()

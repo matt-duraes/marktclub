@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Site;
 
+use App\Models\Site\BannerModel;
+
 use Controller\Controller;
 
 final class CinemaController extends Controller
@@ -9,7 +11,8 @@ final class CinemaController extends Controller
     public function index(?string $pesquisa = null)
     {
         return view('cinema.index', [
-            'menu' => 'cinema'
+            'menu'   => 'cinema',
+            'banner' => (new BannerModel())->cinema()
         ]);
     }
 

@@ -1,13 +1,3 @@
-// @template "site"
-// @system "Alerta"
-// @system "Icone"
-// @system "Pagina"
-// @system "Funcao"
-// @system "Form"
-// @system "Loading"
-// @system "Mascara"
-// @resource "site/passo_passo"
-
 window.addEventListener('load', () => {
     const listaGeral = document.querySelectorAll('.bloco_passo_passo_geral');
 

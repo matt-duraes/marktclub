@@ -19,7 +19,6 @@
     </div>
 </div>
 @ endif;
-
 @ if( $banner->mobile ):
 <div class="bloco_geral_banner banner mobile">
     <div class="conteudo">
@@ -40,4 +39,5 @@
         </div>
     </div>
 </div>
+
 @ endif;

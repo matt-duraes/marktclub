@@ -16,7 +16,7 @@ final class SolicitaHotelModel
     protected array|int $crianca;
 
     public function __construct(
-        private Request $request
+        private readonly Request $request
     ) {
         $this->cidade = $this->request->cidade;
         $this->checkin = $this->request->checkin;

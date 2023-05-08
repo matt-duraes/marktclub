@@ -1,129 +1,126 @@
-
-<div class="containerStepper">
-    <div class="progressBar">
-        <div class="step">
-            <div class="bullet">
-                <span>1</span>
-                <div class="check"> @iconeCheck()</div>
+<div id="bloco_simulacao_saude">
+    <div class="bloco_geral bloco_passo_passo_geral">
+        <div class="bloco_progresso">
+            <div class="item">
+                <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Plano</p>
             </div>
-            <p>Plano</p>
-        </div>
-        <div class="step">
-            <div class="bullet">
-                <span>2</span>
-                <div class="check"> @iconeCheck()</div>
+            <div class="item">
+                <div class="bola">
+                    <span>2</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Simulação</p>
             </div>
-            <p>Simulação</p>
-        </div>
-        <div class="step">
-            <div class="bullet">
-                <span>3</span>
-                <div class="check"> @iconeCheck()</div>
+            <div class="item">
+                <div class="bola">
+                    <span>3</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Resultado</p>
             </div>
-            <p>Resultado</p>
         </div>
-    </div>
-    <div class="formContainerStepper">
-        <form action="#" method="post" class="form_geral">
-            <fieldset class="page slidePage" id="bloco_plano_floripa">
-                <header>
-                    <h1>ESCOLHA SEU PLANO</h1>
-                </header>
+        <div class="bloco_conteudo">
+            <form method="post" class="bloco_scroll">
                 <div class="conteudo">
-                    <div class="button">
-                        <input id="regional" class="regional" name="tipo" type="radio" value="regional">
-                        <label for="regional">Uniflex regional</label>
-                    </div>
-                    <div class="button">
-                        <input id="estadual" class="estadual" name="tipo" type="radio" value="estadual">
-                        <label for="estadual">Uniflex estadual</label>
-                    </div>
-                    <div class="button">
-                        <input id="nacional" class="nacional" name="tipo" type="radio" value="nacional">
-                        <label for="nacional">Uniflex nacional</label>
+                    <div class="bloco_simulacao">
+                        <header>
+                            <h1>ESCOLHA SEU PLANO</h1>
+                        </header>
+                        <div class="botao_acomodacao coluna">
+                            <div class="bloco_regional">
+                                <div class="botao_input">
+                                    <input id="regional" class="regional" name="tipo" type="radio" value="regional">
+                                    <label for="regional">Uniflex regional</label>
+                                </div>
+                                <div class="botao_input">
+                                    <input id="estadual" class="estadual" name="tipo" type="radio" value="estadual">
+                                    <label for="estadual">Uniflex estadual</label>
+                                </div>
+                                <div class="botao_input">
+                                    <input id="nacional" class="nacional" name="tipo" type="radio" value="nacional">
+                                    <label for="nacional">Uniflex nacional</label>
+                                </div>
+                            </div>
+
+                            <div id="bloco_central_plano">
+                                <div class="botao_input enfermaria">
+                                    <input id="enfermaria" name="acomodacao" type="radio" value="enfermaria">
+                                    <label  class="botao_passa_passo_proximo" for="enfermaria">Enfermaria</label>
+                                </div>
+                                <div class="botao_input enfermaria_30">
+                                    <input id="enfermaria_30" name="acomodacao" type="radio" value="enfermaria_30">
+                                    <label  class="botao_passa_passo_proximo" for="enfermaria_30">Enfermaria - 30%</label>
+                                </div>
+                                <div class="botao_input enfermaria_50">
+                                    <input id="enfermaria_50" name="acomodacao" type="radio" value="enfermaria_50">
+                                    <label  class="botao_passa_passo_proximo" for="enfermaria_50">Enfermaria - 50%</label>
+                                </div>
+                                <div class="botao_input apartamento">
+                                    <input  id="apartamento" name="acomodacao" type="radio" value="apartamento">
+                                    <label  class="botao_passa_passo_proximo" for="apartamento">Apartamento</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="footer_button primeiro">
-                    <button id="botao_avanca_simulacao" class="proxima">Avançar</button>
-                </div>
-            </fieldset>
-            <fieldset class="page slidePage adicional" id="bloco_central_plano">
-                <header>
-                    <h1>ESCOLHA SEU PLANO</h1>
-                </header>
                 <div class="conteudo">
-                    <div class="button enfermaria">
-                        <input id="enfermaria" name="acomodacao" type="radio" value="enfermaria">
-                        <label for="enfermaria">Enfermaria</label>
-                    </div>
-                    <div class="button enfermaria_30">
-                        <input id="enfermaria_30" name="acomodacao" type="radio" value="enfermaria_30">
-                        <label for="enfermaria_30">Enfermaria - 30%</label>
-                    </div>
-                    <div class="button enfermaria_50">
-                        <input id="enfermaria_50" name="acomodacao" type="radio" value="enfermaria_50">
-                        <label for="enfermaria_50">Enfermaria - 50%</label>
-                    </div>
-                    <div class="button apartamento">
-                        <input  id="apartamento" name="acomodacao" type="radio" value="apartamento">
-                        <label for="apartamento">Apartamento</label>
+                    <div class="bloco_simulacao form_geral">
+                        <header>
+                            <h1>PREENCHA AS INFORMAÇÕES</h1>
+                        </header>
+                        @? formData(name: 'data_nascimento', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                        <div class="dependente">
+                            <p>Dependentes</p>
+                            <div class="linha_dependente default">
+                                <div class="remove">@iconeFechar()</div>
+                                @? formData(name: 'dependente', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                            </div>
+                            <div class="adicionaDependente">
+                                <p>Adicionar Dependente</p>
+                            </div>
+                        </div>
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
                     </div>
                 </div>
-                <div class="footer_button">
-                    <button class="voltar">Voltar</button>
-                    <button id="botao_avanca_simulacao" class="proxima">Avançar</button>
-                </div>
-            </fieldset>
+                <div class="conteudo">
+                    <div class="bloco_simulacao">
+                        <header>
+                            <h1>RESULTADO DA SIMULAÇÃO</h1>
+                        </header>
+                        <div class="resultado_dependente">
+                            <p>Total</p>
+                            <p class="valor">R$ xxx,xx</p>
+                        </div>
+                        <div class="coluna">
+                            <div class="resultado_dependente">
+                                <p>Total</p>
+                                <p class="valor">R$ xxx,xx</p>
+                            </div>
+                            <div class="resultado_dependente">
+                                <p>Total</p>
+                                <p class="valor">R$ xxx,xx</p>
+                            </div>
+                        </div>
+                        <div class="aviso">
+                            <p>Gostou dos valores?</p>
+                            <p>Preencha nosso formulário e um especialista irá entrar em contato, fique tranquilo que o preenchimento do formulário não implica em contratação, é apenas para um melhor atendimento.</p>
 
-            <fieldset class="page slidePage segundo" id="simulacao_florianopolis">
-                <header>
-                    <h1>PREENCHA AS INFORMAÇÕES</h1>
-                </header>
-                @? formData(name: 'data_nascimento', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
-                <div class="dependente">
-                    <p>Dependentes</p>
-                    <div class="linha_dependente default">
-                        <div class="remove">@iconeFechar()</div>
-                        @? formData(name: 'dependente', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
-                    </div>
-                    <div class="adicionaDependente">
-                        <p>Adicionar Dependente</p>
-                    </div>
-                </div>
+                        </div>
 
-                <div class="footer_button">
-                    <button class="voltar">Voltar</button>
-                    <button class="proxima">Avançar</button>
-                </div>
-            </fieldset>
-            <fieldset class="page slidePag terceiro" id="bloco_contratacao_floripa">
-                <header>
-                    <h1>RESULTADO DA SIMULAÇÃO</h1>
-                </header>
-                <div class="resultado_titular">
-                    <p>Total</p>
-                    <h2 class="titular_valor">R$ xxx,xx</h2>
-                </div>
-                <div class="coluna">
-                    <div class="resultado_dependente">
-                        <p>Total</p>
-                        <h2 class="titulo-normal titular_valor">R$ xxx,xx</h2>
-                    </div>
-                    <div class="resultado_dependente">
-                        <p>Total</p>
-                        <h2 class="titulo-normal titular_valor">R$ xxx,xx</h2>
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <button class="botao_geral_cor cor_bg" data-simulacao="11c93e77-976b-49bd-a6e2-95b781c4b10c" id="enviar_contratacao">Finalizar</button>
+                        </div>
                     </div>
                 </div>
-                <div class="aviso">
-                    <p>Gostou dos valores?</p>
-                    <p>Preencha nosso formulário e um especialista irá entrar em contato, fique tranquilo que o preenchimento do formulário não implica em contratação, é apenas para um melhor atendimento.</p>
-
-                </div>
-                <div class="footer_button">
-                    <button class="voltar">Voltar</button>
-                    <button data-simulacao="11c93e77-976b-49bd-a6e2-95b781c4b10c" id="enviar_contratacao_floripa">Tenho Interesse</button>
-                </div>
-            </fieldset>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

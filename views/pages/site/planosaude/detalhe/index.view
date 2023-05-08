@@ -1,6 +1,6 @@
 @template "site"
 
-<div class="conteudo_principal">
+<div>
 	<div class="bloco_plano_saude">
 		<figure>
 			<img src="https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg" alt="">
@@ -9,7 +9,7 @@
 			<h1>Unimed Vitória</h1>
 			<p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de
 			direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro EMpresarial Enseada
-			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua 
+			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua
 			entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apílice para reajuste anual é o mês de Julho
 			</p>
 		</div>
@@ -36,7 +36,7 @@
 				<a href="#" class="botao_plano_saude">Consultar rede credenciada</a>
 				<a href="#" class="segunda_via_boleto">Pedir 2° via do Boleto</a>
 			</div>
-		</div>	
+		</div>
 	</div>
 	<div class="bloco_explore_rede">
 		<div class="titulo_rede">

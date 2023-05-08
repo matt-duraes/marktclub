@@ -45,6 +45,7 @@ final class AlfaController extends Controller
     public function corretoraAlfa()
     {
         return view('alfa.corretora', [
+            'banner' => (new BannerModel())->corretora(),
             'menu' => 'corretora_alfa'
         ]);
     }
