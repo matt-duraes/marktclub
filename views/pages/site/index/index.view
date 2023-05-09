@@ -3,7 +3,7 @@
 <div id="bloco_index">
     @view site/geral/banner.view
     @if(TIPO_USUARIO == 'indicado'):
-        <div class="bloco_atencao_geral_centralizado">
+        <div class="bloco_atencao_geral">
             <p>Você está utilizando uma versão limitada do clube</p>
         </div>
     @endif

@@ -29,7 +29,7 @@
                 <a href="#" class="botao_geral_cor cor_bg" target="_blank" rel="nofollow noopener">Ir para loja</a>
             @endif
             @ if(TIPO_USUARIO == 'indicado')
-                <div class="bloco_atencao_geral_centralizado">
+                <div class="bloco_atencao_geral">
                     <p>Apenas associados possuem acesso a esse recurso</p>
                 </div>
             @endif

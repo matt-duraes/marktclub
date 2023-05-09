@@ -582,13 +582,15 @@
 		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado'):
-            a href="@route(planosaude.simulacao)/amil">Fazer Simulação</a>
-        @else
-            <div class="bloco_atencao_geral">
-                <p>Apenas associados possuem acesso a este recurso</p>
-            </div>
+            <a href="@route(planosaude.simulacao)/amil">Fazer Simulação</a>
         @endif
 	</section>
+    @if (TIPO_USUARIO == 'indicado'):
+        <div class="bloco_atencao_geral">
+            <p>Apenas associados possuem acesso a este recurso</p>
+        </div>
+    @endif
+
     @if(TIPO_USUARIO != 'indicado'):
         <a href="@route(planosaude.simulacao)/amil" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
     @endif

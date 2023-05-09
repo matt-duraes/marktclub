@@ -7,73 +7,84 @@
 .conteudo_principal
     max-width: $maxWidth
     margin: auto
-    h1
-        titulo()
-    p,a
-        texto()
-    header
-        height: 100px
-        display: flex
-        justify-content: space-between
-        align-items: center
-        max-width: $maxWidth
-        padding: 0px 20px 0px 20px
-        blocoShadow()
-        margin: 0px auto 25px auto
-        figure
-            width: 300px
-            img
-                width: 250px
-        a
-            background-color: $corClube
-            color: white !important
-    .info_acesso
-        margin-left: 25px
-        margin-top: 50px
-        h1
-            bold()
-    nav
-        espacoTopPadrao()
-        display: flex
-        align-items: center
-        flex-wrap: wrap
-        width: 100%
-        padding: 20px
-        a
-            blocoShadow()
-            width: calc((100% / 3) - 25px)
-            height: 80px
-            order: 1
-            bold()
-            flexCenter()
-            margin: 6px 25px 6px 0px
-            &:hover
-                border: 1px solid $corClube
+
+.conteudo_principal h1
+    titulo()
+
+.conteudo_principal p,a
+    texto()
+
+.conteudo_principal header
+    height: 100px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    max-width: $maxWidth
+    padding: 0px 20px 0px 20px
+    blocoShadow()
+    margin: 0px auto 25px auto
+
+.conteudo_principal header figure
+    width: 300px
+
+.conteudo_principal header figure img
+    width: 250px
+
+.conteudo_principal header a
+    background-color: $corClube
+    color: white !important
+
+.conteudo_principal .info_acesso
+    margin-left: 25px
+    margin-top: 50px
+
+.conteudo_principal .info_acesso h1
+    bold()
+
+.conteudo_principal nav
+    espacoTopPadrao()
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+    width: 100%
+    padding: 20px
+
+.conteudo_principal nav a
+    blocoShadow()
+    width: calc((100% / 3) - 25px)
+    height: 80px
+    order: 1
+    bold()
+    flexCenter()
+    margin: 6px 25px 6px 0px
+
+.conteudo_principal nav a:hover
+    border: 1px solid $corClube
+
+
 @media screen and (max-width:1320px)
     .conteudo_principal
         width: 100%
         padding-left: 17px
-        nav
-            a
-                width: calc((100% / 2) - 25px)
+    .conteudo_principal nav a
+        width: calc((100% / 2) - 25px)
+
 @media  screen and (max-width:630px)
     #conteudo_principal
         padding: 0px
-        .conteudo_principal
+    #conteudo_principal .conteudo_principal
             padding-left: 25px
             margin-top: 70px
-            nav
-                a
-                    text-align: center
-                    width: calc(100% - 25px)
-                    margin-bottom: 25px
-@media screen and (max-width: 425px)
-    .conteudo_principal
-        .info_acesso
-            padding-right: 30px
+    #conteudo_principal .conteudo_principal nav a
             text-align: center
-        nav
-            a
-                text-align: center
-                width: calc(100% - 25px)
-                margin-bottom: 25px
+            width: calc(100% - 25px)
+            margin-bottom: 25px
+
+@media screen and (max-width: 425px)
+    .conteudo_principal .info_acesso
+        padding-right: 30px
+        text-align: center
+    .conteudo_principal .info_acesso nav a
+        text-align: center
+        width: calc(100% - 25px)
+        margin-bottom: 25px

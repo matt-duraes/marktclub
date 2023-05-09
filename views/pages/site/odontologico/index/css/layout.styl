@@ -54,3 +54,27 @@
         flexWrap()
         li
             width: calc((100%/4) - 20px)
+
+@media screen and (max-width: 850px)
+    #bloco_odonto
+        .bloco_plano_saude.procedimento .lista_passo_a_passo .bloco_geral_ul li
+            width: calc((100% / 3) - 20px)
+
+@media screen and (max-width: 650px)
+    #bloco_odonto
+        .bloco_plano_saude.procedimento .lista_passo_a_passo .bloco_geral_ul li
+            width: calc((100% / 2) - 20px)
+
+@media screen and (max-width: 550px)
+    #bloco_odonto
+        .bloco_plano_saude.procedimento .lista_passo_a_passo .bloco_geral_ul li
+            width: 100%
+@media screen and (max-width: 425px)
+    .bloco_saude .bloco_beneficio .bloco_vantagem
+        flex-wrap: wrap
+        justify-content: center
+
+#bloco_odonto .acessa_rede p
+    margin-bottom: 0px
+.bloco_atencao_geral
+    margin-top: 20px

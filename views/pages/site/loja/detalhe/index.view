@@ -43,7 +43,7 @@
             <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Abrir Site</div>
         </div>
     @else
-        <div class="bloco_atencao_geral_centralizado">
+        <div class="bloco_atencao_geral">
             <p>Apenas associados possuem acesso a esse recurso</p>
         </div>
     @endif

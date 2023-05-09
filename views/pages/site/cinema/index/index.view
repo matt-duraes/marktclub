@@ -50,7 +50,7 @@
             </div>
             <button class="botao_geral_cor cor_bg">COMPRAR</button>
         @else:
-            <div class="bloco_atencao_geral_centralizado">
+            <div class="bloco_atencao_geral">
                 <p>Apenas associados possuem acesso a esse recurso</p>
             </div>
         @endif
@@ -82,7 +82,7 @@
                 </div>
             </div>
         @else:
-            <div class="bloco_atencao_geral_centralizado">
+            <div class="bloco_atencao_geral">
                 <p>Apenas associados possuem acesso a esse recurso</p>
             </div>
         @endif

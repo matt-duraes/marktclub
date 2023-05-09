@@ -407,12 +407,13 @@
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado')
             <a href="@route(planosaude.simulacao)/unimed-vitoria">Fazer Simulação</a>
-        @else
+        @endif
+	</section>
+    @if(TIPO_USUARIO == 'indicado'):
         <div class="bloco_atencao_geral">
             <p>Apenas associados possuem acesso a este recurso</p>
         </div>
-        @endif
-	</section>
+    @endif
     @if(TIPO_USUARIO != 'indicado'):
         <a href="@route(planosaude.simulacao)/unimed-vitoria" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
     @endif

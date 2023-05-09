@@ -54,7 +54,7 @@
                     pagamento do mesmo</p>
             </div>
         @else
-            <div class="bloco_atencao_geral_centralizado">
+            <div class="bloco_atencao_geral">
                 <p>Apenas associados possuem acesso a esse recurso</p>
             </div>
         @endif

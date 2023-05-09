@@ -59,9 +59,16 @@
 
 		<div class="acessa_rede">
             <p>Acesse o botão abaixo e pesquise por Plano Integral Cerd</p>
-            <div class="display_flex">
-                <a href="https://www.unimed.coop.br/guia-medico" class="botao_geral_cor cor_bg" target="_blank">VEJA AQUI</a>
-            </div>
+            @if(TIPO_USUARIO != 'indicado'):
+                <div class="display_flex">
+                    <a href="https://www.unimed.coop.br/guia-medico" class="botao_geral_cor cor_bg" target="_blank">VEJA AQUI</a>
+                </div>
+            @else:
+                <div class="bloco_atencao_geral">
+                    <p>Apenas associados possuem acesso a esse recurso</p>
+                </div>
+            @endif
+
 		</div>
 	</div>
 
@@ -111,27 +118,16 @@
 		</div>
 	</div>
 
-	<section class="bloco_simulacao container_scroll">
-        <article class="plano coluna">
-            <header class="topo">
-                <h1 class="titulo_grande color_cor">PRAZO DE PROCESSAMENTO DO PEDIDO</h1>
-            </header>
-            <ul>
-                <li class="titulo_normal preto">Em até 05 (cinco) dias úteis você receberá um informativo de boas-vindas com as informações da sua contratação, informações gerais sobre o plano contratado, data de início da vigência e a primeira fatura</li>
-            </ul>
-        </article>
-        @if(TIPO_USUARIO != 'indicado'):
-            <article class="simulacao">
-                <a href="" target="_blank" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
-            </article>
-        @else:
-            <div class="bloco_atencao_geral">
-                <p>Apenas associados podem contratar esse recurso</p>
-            </div>
-        @endif
-	</section>
+    @if(TIPO_USUARIO != 'indicado'):
+        <section class="bloco_simulacao container_scroll">
+            <a href="#" target="_blank" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
+        </section>
+    @else:
+        <div class="bloco_atencao_geral">
+            <p>Apenas associados possuem acesso a esse recurso</p>
+        </div>
+    @endif
     @if(TIPO_USUARIO != 'indicado'):
         <a href="#" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">CONTRATAR AGORA</a>
     @endif
-
 </div>
