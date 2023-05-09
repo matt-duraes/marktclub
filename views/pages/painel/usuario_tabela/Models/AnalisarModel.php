@@ -90,26 +90,26 @@ final class AnalisarModel
             // Campo único obrigatório
             if (in_array('cpf', $obrigatorio) && empty($cpf)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'Campo CPF é obrigatório.'
+                    'linha' => $linha,
+                    'mensagem' => 'Campo CPF é obrigatório.'
                 ];
             }
             if (in_array('matricula', $obrigatorio) && empty($matricula)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'Campo matrícula é obrigatório.'
+                    'linha' => $linha,
+                    'mensagem' => 'Campo matrícula é obrigatório.'
                 ];
             }
             if (in_array('siape', $obrigatorio) && empty($siape)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'Campo siape é obrigatório.'
+                    'linha' => $linha,
+                    'mensagem' => 'Campo siape é obrigatório.'
                 ];
             }
             if (empty($nome)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'Campo nome é obrigatório.'
+                    'linha' => $linha,
+                    'mensagem' => 'Campo nome é obrigatório.'
                 ];
             }
 
@@ -117,62 +117,62 @@ final class AnalisarModel
             $cpfValidar = !empty($cpf) ? str_pad($cpf, 11, 0, STR_PAD_LEFT) : '';
             if (!empty($cpf) && !validarCpf($cpfValidar)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo CPF está inválido (' . $cpf . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo CPF está inválido (' . $cpf . ').'
                 ];
             }
             if (!empty($siape) && empty(soNumero($siape))) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo SIAPE está inválido (' . $siape . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo SIAPE está inválido (' . $siape . ').'
                 ];
             }
             if (!empty($telefoneCelular) && !ValidarTelefone($telefoneCelular)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo TELEFONE CELULAR está inválido (' . $telefoneCelular . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo TELEFONE CELULAR está inválido (' . $telefoneCelular . ').'
                 ];
             }
             if (!empty($telefoneFixo) && !ValidarTelefone($telefoneFixo)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo TELEFONE FIXO está inválido (' . $telefoneFixo . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo TELEFONE FIXO está inválido (' . $telefoneFixo . ').'
                 ];
             }
             if (!empty($emailPessoal) && !validarEmail($emailPessoal)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo EMAIL PESSOAL está inválido (' . $emailPessoal . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo EMAIL PESSOAL está inválido (' . $emailPessoal . ').'
                 ];
             }
             if (!empty($emailTrabalho) && !validarEmail($emailTrabalho)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo EMAIL DE TRABALHO está inválido (' . $emailTrabalho . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo EMAIL DE TRABALHO está inválido (' . $emailTrabalho . ').'
                 ];
             }
             if (!empty($enderecoEstado) && !in_array($enderecoEstado, $listaEstado)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo ENDEREÇO DO ESTADO está inválido (' . $enderecoEstado . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo ENDEREÇO DO ESTADO está inválido (' . $enderecoEstado . ').'
                 ];
             }
             if (!empty($dataNascimento) && !validarDate($dataNascimento)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo DATA NASCIMENTO está inválido (' . $dataNascimento . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo DATA NASCIMENTO está inválido (' . $dataNascimento . ').'
                 ];
             }
             if (!empty($genero) && !in_array($genero, [1, 2, 'masculino', 'feminino', 'homem', 'mulher', 'm', 'f'])) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo GÊNERO está inválido (' . $genero . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo GÊNERO está inválido (' . $genero . ').'
                 ];
             }
             if (!empty($federacao) && !in_array($federacao, $listaEstado) && $federacao != 'FU') {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'O campo FEDERAÇÃO está inválido (' . $federacao . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'O campo FEDERAÇÃO está inválido (' . $federacao . ').'
                 ];
             }
             if (!empty($matricula) && empty(soNumero($matricula))) {
@@ -263,7 +263,6 @@ final class AnalisarModel
             }
         }
 
-
         if ($listaOk && !$listaErro) {
             return [
                 'status' => 'sucesso',
@@ -332,19 +331,18 @@ final class AnalisarModel
 
             if (in_array('cpf', $obrigatorio) && !validarCpf($chave)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'A chave não é um CPF válido (' . $chave . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'A chave não é um CPF válido (' . $chave . ').'
                 ];
-            } elseif (in_array('matricula', $obrigatorio) && empty(soNumero($chave))) {
+            } elseif (in_array('matricula', $obrigatorio) && empty($chave)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'A chave não é um SIAPE válido (' . $chave . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'A chave não é uma matrícula válida (' . $chave . ').'
                 ];
-            }
-            if (in_array('siape', $obrigatorio) && empty($siape)) {
+            } elseif (in_array('siape', $obrigatorio) && empty($chave)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'A chave não é uma matrícula válido (' . $chave . ').'
+                    'linha' => $linha,
+                    'mensagem' => 'A chave não é um SIAPE válido (' . $chave . ').'
                 ];
             }
 
@@ -362,9 +360,9 @@ final class AnalisarModel
             }
 
             $listaOk[] = [
-            'linha' => $linha,
-            'titulo' => $titulo,
-            'hash' => base64Encode($dado, true)
+                'linha' => $linha,
+                'titulo' => $titulo,
+                'hash' => base64Encode($dado, true)
             ];
         }
 
