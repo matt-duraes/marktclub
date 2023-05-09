@@ -2,24 +2,23 @@
 
 namespace App\Controllers\Site;
 
+use App\Models\Site\Cashback\ListarModel;
+use App\Models\Site\Cashback\RelacionadoModel;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\models\Site\Cashback\ListarModel;
-use App\models\Site\Cashback\RelacionadoModel;
 
 final class CashbackController extends Controller
 {
-    public function index(?string $pesquisa = null)
-    {
-        return view('cashback.index', [
-            'menu' => 'cashback',
-            'lista' => (new ListarModel())->listarDados(),
-            'parceiroTipo' => 'cashback'
-        ]);
-    }
-
-    public function buscar(Request $request, ?string $pesquisa = null)
+    /**
+     * @param  Request      $request
+     * @param  string|null  $pesquisa
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function buscar(Request $request, string $pesquisa = null): Response
     {
         if ($pesquisa) {
             return $this->index($pesquisa);
@@ -30,23 +29,53 @@ final class CashbackController extends Controller
         return new Response(url: route('cashback.buscar') . '/' . strSlug($request->pesquisa));
     }
 
-    public function detalhe(string $url)
+    /**
+     * @param  string|null  $pesquisa
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function index(string $pesquisa = null): Response
     {
-        return view('cashback.detalhe', [
-            'menu' => 'cashback',
-            'lista' => (new RelacionadoModel())->listarDados(),
+        return view('cashback.index', [
+            'menu'         => 'cashback',
+            'lista'        => (new ListarModel())->listarDados(),
             'parceiroTipo' => 'cashback'
         ]);
     }
 
-    public function extrato()
+    /**
+     *
+     * @param  string  $url
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function detalhe(string $url): Response
+    {
+        return view('cashback.detalhe', [
+            'menu'         => 'cashback',
+            'lista'        => (new RelacionadoModel())->listarDados(),
+            'parceiroTipo' => 'cashback'
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function extrato(): Response
     {
         return view('cashback.extrato', [
             'saldo' => 10000
         ]);
     }
 
-    public function abrirResgateCashback()
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function abrirResgateCashback(): Response
     {
         return view('cashback.extrato.modal');
     }

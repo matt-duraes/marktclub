@@ -30,5 +30,9 @@ trait EntitySalvarTrait
         ) {
             mensagemErro('Campo inválido!', 'O grupo informado não é um valor válido.');
         }
+
+        if (!empty($this->request->grupo)) {
+            $this->grupo = strCaixaBaixa($this->request->grupo);
+        }
     }
 }

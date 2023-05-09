@@ -39,12 +39,53 @@
     text-align: center
     border: 1px dashed
     cursor: pointer
+.botao_geral_cor_auto_height
+    height: auto
+    line-height: 1.5em
+    border-radius: 5px
+    textoFontSize()
+    padding: 10px
+    text-align: center
+    cursor: pointer
+.botao_link_underline:hover
+    text-decoration: underline
+
+.botao_input
+    float: left
+    margin: 0 10px 0 0
+    width: 150px
+    height: 40px
+    position: relative
+    border: 1px solid $corClube
+    border-radius: 5px
+    label,
+    input
+        display: block
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+    label
+        flexCenter()
+        texto()
+    input[type="radio"]
+        opacity: 0.011
+    input[type="radio"]:checked + label
+        background: $corClube
+        color: $branco
+        border-radius: 4px
+    label
+        cursor: pointer
+        line-height: 1.8em
 
 .bloco_geral_ul
     width: 100%
     li
         list-style: disc
         texto()
+    li span
+        font-size: 1em
 
 .bloco_geral_tabela
     width: 100%
@@ -221,3 +262,31 @@
             width: 100%
             &:nth-child(even)
                 margin-left: 0
+
+.botao_fixo_bottom
+    position: fixed
+    bottom: 42px
+    right: 100px
+
+[data-anime-botao]
+    opacity: 0
+    transition: .3s
+[data-anime-botao="left"]
+    transform: translate3d(-50px, 0, 0)
+[data-anime-botao="right"]
+    transform: translate3d(50px, 0, 0)
+.container_scroll.ativar [data-anime-botao]
+    opacity: 1
+    transform: translate3d(0px, 0px, 0px)
+.botao_scroll.animar-botao
+    transform: translate3d(0px, 100px, 0px)
+    opacity: 0
+
+.coluna
+    flexCol()
+
+.form_input_dupla
+    width: 100%
+    spaceBetween()
+    .bloco_input:nth-child(1)
+        margin-right: 20px

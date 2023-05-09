@@ -105,12 +105,6 @@
 
 @if(MENU_ODONTOLOGICO || MENU_SEGURO_DE_VIDA || MENU_MEDICAMENTO || MENU_FEDERAL_SAUDE):
 <div class="categoria">SAÚDE</div>
-@if(MENU_FEDERAL_SAUDE):
-    <a class="{!!MENU_HOVER == 'federal_saude' ? 'cor_bg pagina_atual' : '' !!}" href="<?= route('planosaude.federalSaude') ?>">
-        <i>@iconeSaude</i>
-            Federal Saúde
-    </a>
-@endif
 @if(MENU_ODONTOLOGICO):
 <a class="{!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
     <i>@iconeDentista</i>

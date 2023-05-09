@@ -1,8 +1,8 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
+use Route\Route;
 
 Route
     ::nome('downloadRestrito')
@@ -1084,6 +1084,7 @@ Route
             ::nome('relatorioAnalytics')
             ::request(['!data'])
             ::get('/rotina/relatorio-analytics');
+
         Route
             ::nome('relatorioUsuario')
             ::get('/rotina/relatorio-usuario');
@@ -1096,4 +1097,90 @@ Route
         Route
             ::nome('remover')
             ::view('/emailmarketing/remover/{hash}');
+    });
+
+Route
+    ::nome('carteirinha')
+    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::get('/carteirinha/{id}');
+    });
+
+Route
+    ::nome('solicitacao_alfa')
+    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
+    ::grupo(function () {
+        Route
+            ::nome('solicitacao')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
+            ::post('/alfa/solicitacao');
+    });
+
+Route
+    ::nome('popup')
+    ::controller(App\Controllers\Api\PopupController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:buscar'])
+            ::get('/popup/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:salvar'])
+            ::request([
+                'titulo', 'texto', '!subtitulo', '!formulario',
+                '!imagem', '!data_vencimento', '!status'
+            ])
+            ::post('/popup');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:atualizar'])
+            ::request([
+                'titulo', 'texto', '!subtitulo', '!formulario',
+                '!imagem', '!data_vencimento', '!status'
+            ])
+            ::put('/popup/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['popup:deletar'])
+            ::delete('/popup/{id}');
+    });
+
+Route
+    ::nome('solicitacao_declaracao')
+    ::controller(App\Controllers\Api\SolicitacaoDeclaracaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
+            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
+            ::get('/solicitacao-declaracao');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
+            ::get('/solicitacao-declaracao/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
+            ::request([
+                'cpf', 'tipo', 'estado_civil', 'data_nascimento',
+                'status', 'rg', 'cidade', 'estado', 'cep', 'logradouro',
+                'numero', '!complemento', 'bairro', '!dependente_nome',
+                '!dependente_rg', '!dependente_documento', '!dependente_grau_parentesco',
+                '!dependente_data_nascimento', 'id_usuario_cliente', 'id_versao'
+            ], 'json')
+            ::post('/solicitacao-declaracao');
     });

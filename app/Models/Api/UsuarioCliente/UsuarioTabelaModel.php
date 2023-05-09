@@ -180,7 +180,7 @@ final class UsuarioTabelaModel extends ORM
             $dado['federacao'] = strCaixaAlta($request['federacao']);
         }
         if (array_key_exists('grupo', $request) && !empty($request['grupo'])) {
-            $dado['grupo'] = $request['grupo'];
+            $dado['grupo'] = strCaixaBaixa($request['grupo']);
         }
         if (array_key_exists('matricula', $request) && !empty($request['matricula'])) {
             $dado['matricula'] = $request['matricula'];
@@ -252,7 +252,7 @@ final class UsuarioTabelaModel extends ORM
             $dado['federacao'] = strCaixaAlta($request['federacao']);
         }
         if (array_key_exists('grupo', $request) && !empty($request['grupo'])) {
-            $dado['grupo'] = $request['grupo'];
+            $dado['grupo'] = strCaixaBaixa($request['grupo']);
         }
         if (array_key_exists('matricula', $request) && !empty($request['matricula'])) {
             $dado['matricula'] = $request['matricula'];

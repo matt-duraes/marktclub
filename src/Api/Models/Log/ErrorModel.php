@@ -2,10 +2,10 @@
 
 namespace ApiModel\Log;
 
-use Erro\Excecao;
-use Http\Request;
 use ORM\ORM;
 use stdClass;
+use Erro\Excecao;
+use Http\Request;
 use System\Classes\LogErro\Status;
 
 final class ErrorModel extends ORM
@@ -24,7 +24,7 @@ final class ErrorModel extends ORM
     public function listarDado(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'mensagem', 'quantidade', 'status_http', 'data_criacao', 'status'])
+            ->campo(['uuid', 'mensagem', 'quantidade', 'status_http', 'data_criacao', 'data_atualizacao', 'status'])
             ->where([
                 ['status', 1]
             ])
@@ -63,6 +63,7 @@ final class ErrorModel extends ORM
                 'quantidade' => $r->quantidade,
                 'status_http' => $r->status_http,
                 'data_criacao' => $r->data_criacao,
+                'data_atualizacao' => $r->data_atualizacao,
                 'status' => $Status->indice($r->status)
             ];
         }

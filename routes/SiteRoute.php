@@ -168,11 +168,8 @@ Route
             ::request(['id','!local'])
             ::view('/saude/abrir-tabela-preco');
         Route
-            ::nome('federalSaude')
-            ::view('/federal-saude');
-        Route
             ::nome('unimedSeguro')
-            ::view('/unimed-seguros');
+            ::view('/saude/unimed-seguro');
         Route
             ::nome('simulacao')
             ::view('/saude/simulacao/{url}');
@@ -260,7 +257,7 @@ Route
             ::view('/credito/alfa-consignado');
         Route
             ::nome('corretoraAlfa')
-            ::view('/corretora/alfa');
+            ::view('/corretora-alfa');
         Route
             ::nome('consultoriaAlfa')
             ::view('/consultoria/alfa');
