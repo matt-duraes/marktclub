@@ -159,7 +159,7 @@ Route
             ::nome('detalhe')
             ::view('/saude/detalhe/{nome-do-plano}');
         Route
-            ::nome('unimedvitoria')
+            ::nome('unimedVitoria')
             ::view('/saude/unimed-vitoria');
         Route
             ::nome('unimedflorianopolis')

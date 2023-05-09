@@ -75,7 +75,7 @@
 
 @ if( MENU_TURISMO ):
 <a class="{!!MENU_HOVER == 'turismo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(turismo.index)">
-    <i>@iconeTurismoHome</i>
+    <i>@iconeTurismoHomeOutline</i>
     Turismo
 </a>
 @ endif;

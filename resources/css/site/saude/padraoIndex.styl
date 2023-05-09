@@ -234,18 +234,19 @@
     blocoUniflex()
 
 @media only screen and  (max-width: 760px)
-    td, tr
-        display: block
+    table
+        td, tr
+            display: block
     thead tr
         position: absolute
         top: -9999px
         left: -9999px
-    tr
+    table tr
         border: 1px solid $corClube
         border-top: 1px solid $corClube !important
-    tr + tr
+    table tr + tr
         margin-top: 1.5em
-    td
+    table td
         border: none
         border-bottom: 1px solid #eee
         position: relative
@@ -253,13 +254,13 @@
         background-color: #F8D9D5
         text-align: left
         padding: 15px !important
-    td:before
-        content: attr(data-label)
-        display: inline-block
-        line-height: 1.5
-        width: 100%
-        white-space: nowrap
-        color: $corClube
+        &::before
+            content: attr(data-label)
+            display: inline-block
+            line-height: 1.5
+            width: 100%
+            white-space: nowrap
+            color: $corClube
     .bloco_saude table tbody tr:hover > td
         border-top: none
         border-bottom: 1px solid #eee

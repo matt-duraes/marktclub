@@ -8,5 +8,5 @@
 <div id="bloco_saude">
     @view site/geral/parceiro.view
 </div>
-@endif;
+@endif
 
