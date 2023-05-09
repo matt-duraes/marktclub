@@ -91,6 +91,7 @@
                         <a href="/__documentacao/funcao-php/icone">Icones</a>
                         <a href="/__documentacao/funcao-php/texto">Textos</a>
                         <a href="/__documentacao/funcao-php/validacao">Validação</a>
+                        <a href="/__documentacao/funcao-php/gerais">Gerais</a>
                     </div>
                 </div>
                 <div class="grupo">
@@ -121,7 +122,7 @@
                     require_once __DIR__ . '/../css/Codigo.system.css';
                     require_once __DIR__ . '/../css/Alerta.system.css';
                     require_once __DIR__ . '/../css/layout.css';
-                    ?>
+        ?>
     </style>
 
     <script>
@@ -140,7 +141,7 @@
                     require_once ROOT . '/src/Html/Scripts/js/Form.cor.js';
                     require_once ROOT . '/src/Html/Scripts/js/Form.tag.js';
                     require_once ROOT . '/src/Html/Scripts/js/Form.system.js';
-                    ?>
+        ?>
     </script>
 </body>
 

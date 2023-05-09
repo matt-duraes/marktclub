@@ -4,6 +4,7 @@ namespace Http;
 
 use Erro\Erro;
 use Helpers\CryptHelper;
+use Helpers\ValidarHelper;
 use Symfony\Component\HttpFoundation\Request as Psr7Request;
 
 final class Request extends Psr7Request
@@ -40,99 +41,6 @@ final class Request extends Psr7Request
     public function request(): Psr7Request
     {
         return $this->__requestInterno;
-    }
-
-    // doc
-    /**
-     * Verifica se um parâmetro foi enviado na request
-     *
-     * @param   string          $parametro  Parametro que deseja validar
-     * @param   null|string     $titulo     Título caso deseja retornar um erro
-     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
-     * @return  bool|self                   True caso o parâmetro exista ou self se tive passado mensagem de erro
-     * @throws  Erro\Excecao                Erro caso o campo parametro não exista e tenha passado uma mensagem de erro
-     */
-    public function existe(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool
-    {
-        $dado = $this->dado();
-        $existe = array_key_exists($parametro, $dado);
-        if (!$existe && !empty($mensagem)) {
-            $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
-            mensagemErro($titulo, $mensagem);
-        } elseif ($existe && !empty($mensagem)) {
-            return $this;
-        }
-        return $existe;
-    }
-
-    // doc
-    /**
-     * Verifica que um parâmetro não foi enviado ou se ele está vazio
-     *
-     * @param   string          $parametro  Parametro que deseja validar
-     * @param   null|string     $titulo     Título caso deseja retornar um erro
-     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
-     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
-     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
-     */
-    public function vazio(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
-    {
-        $dado = $this->dado();
-        $vazio = !array_key_exists($parametro, $dado) || empty($dado[$parametro]);
-        if ($vazio && !empty($mensagem)) {
-            $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
-            mensagemErro($titulo, $mensagem);
-        } elseif (!$vazio && !empty($mensagem)) {
-            return $this;
-        }
-        return $vazio;
-    }
-
-    // doc
-    /**
-     * Verifica que um parâmetro é uma data valida
-     *
-     * @param   string          $parametro  Parametro que deseja validar
-     * @param   null|string     $titulo     Título caso deseja retornar um erro
-     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
-     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
-     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
-     */
-    public function validarData(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
-    {
-        $dado = $this->dado();
-        $eData = array_key_exists($parametro, $dado) && validarData($dado[$parametro]);
-
-        if (!$eData && !empty($mensagem)) {
-            $titulo = empty($titulo) ? 'Campo inválido!' : $titulo;
-            mensagemErro($titulo, $mensagem);
-        } elseif ($eData && !empty($mensagem)) {
-            return $this;
-        }
-        return $eData;
-    }
-    // doc
-    /**
-     * Verifica que um parâmetro é uma date valida
-     *
-     * @param   string          $parametro  Parametro que deseja validar
-     * @param   null|string     $titulo     Título caso deseja retornar um erro
-     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
-     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
-     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
-     */
-    public function validarDate(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
-    {
-        $dado = $this->dado();
-        $eData = array_key_exists($parametro, $dado) && validarDate($dado[$parametro]);
-
-        if (!$eData && !empty($mensagem)) {
-            $titulo = empty($titulo) ? 'Campo inválido!' : $titulo;
-            mensagemErro($titulo, $mensagem);
-        } elseif ($eData && !empty($mensagem)) {
-            return $this;
-        }
-        return $eData;
     }
 
     // doc
@@ -446,6 +354,111 @@ final class Request extends Psr7Request
     public function metodo(): string
     {
         return $this->__metodo;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | COMEÇO DAS VALIDAÇÕES DOS DADOS
+    |--------------------------------------------------------------------------
+    */
+    // doc
+    /**
+     * Verifica se um parâmetro foi enviado na request
+     *
+     * @param   string          $parametro  Parametro que deseja validar
+     * @param   null|string     $titulo     Título caso deseja retornar um erro
+     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
+     * @return  bool|self                   True caso o parâmetro exista ou self se tive passado mensagem de erro
+     * @throws  Erro\Excecao                Erro caso o campo parametro não exista e tenha passado uma mensagem de erro
+     */
+    public function existe(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool
+    {
+        $dado = $this->dado();
+        $existe = array_key_exists($parametro, $dado);
+        if (!$existe && !empty($mensagem)) {
+            $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
+            mensagemErro($titulo, $mensagem);
+        } elseif ($existe && !empty($mensagem)) {
+            return $this;
+        }
+        return $existe;
+    }
+
+    // doc
+    /**
+     * Verifica que um parâmetro não foi enviado ou se ele está vazio
+     *
+     * @param   string          $parametro  Parametro que deseja validar
+     * @param   null|string     $titulo     Título caso deseja retornar um erro
+     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
+     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
+     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
+     */
+    public function vazio(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
+    {
+        $dado = $this->dado();
+        $vazio = !array_key_exists($parametro, $dado) || empty($dado[$parametro]);
+        if ($vazio && !empty($mensagem)) {
+            $titulo = empty($titulo) ? 'Campo obrigatório!' : $titulo;
+            mensagemErro($titulo, $mensagem);
+        } elseif (!$vazio && !empty($mensagem)) {
+            return $this;
+        }
+        return $vazio;
+    }
+
+    // doc
+    /**
+     * Verifica que um parâmetro é uma data valida
+     *
+     * @param   string          $parametro  Parametro que deseja validar
+     * @param   null|string     $titulo     Título caso deseja retornar um erro
+     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
+     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
+     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
+     */
+    public function validarData(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
+    {
+        $dado = $this->dado();
+        $eData = array_key_exists($parametro, $dado) && validarData($dado[$parametro]);
+
+        if (!$eData && !empty($mensagem)) {
+            $titulo = empty($titulo) ? 'Campo inválido!' : $titulo;
+            mensagemErro($titulo, $mensagem);
+        } elseif ($eData && !empty($mensagem)) {
+            return $this;
+        }
+        return $eData;
+    }
+
+    // doc
+    /**
+     * Verifica que um parâmetro é uma date valida
+     *
+     * @param   string          $parametro  Parametro que deseja validar
+     * @param   null|string     $titulo     Título caso deseja retornar um erro
+     * @param   null|string     $mensagem   Mensagem caso deseja retornar um erro
+     * @return  bool|self                   True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
+     * @throws  Erro\Excecao                Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
+     */
+    public function validarDate(string $parametro, ?string $titulo = null, ?string $mensagem = null): bool|self
+    {
+        $dado = $this->dado();
+        $eData = array_key_exists($parametro, $dado) && validarDate($dado[$parametro]);
+
+        if (!$eData && !empty($mensagem)) {
+            $titulo = empty($titulo) ? 'Campo inválido!' : $titulo;
+            mensagemErro($titulo, $mensagem);
+        } elseif ($eData && !empty($mensagem)) {
+            return $this;
+        }
+        return $eData;
+    }
+
+    public function validar(string $validacao): self
+    {
+        (new ValidarHelper(dado: $this->dado()))->validar($validacao);
+        return $this;
     }
 
     /*
