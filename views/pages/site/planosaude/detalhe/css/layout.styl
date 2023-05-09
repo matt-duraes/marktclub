@@ -13,92 +13,96 @@
     padding: 20px
     width: 100%
     max-width: $maxWidth
-    .bloco_plano_saude
-        blocoShadow()
-        margin-bottom: 25px
-        figure
-            img
-                width: 250px
-    .bloco_beneficio
+
+.conteudo_principal .bloco_plano_saude
+    blocoShadow()
+    margin-bottom: 25px
+    figure
+        img
+            width: 250px
+
+.conteudo_principal .bloco_beneficio
+    display: flex
+    flexCol()
+    padding-top: 20px
+    padding-bottom: 20px
+    header
         display: flex
+        align-items: center
+    header h1
+        width: 80%
+    header p
+        width: 20%
+        color: $corClube
+    .bloco_vantagem
+        height: 150px
+        display: flex
+    .bloco_vantagem .bloco_icone_vantagem
+        width: 200px
+        text-align: center
+        margin: 10px
         flexCol()
-        padding-top: 20px
-        padding-bottom: 20px
-        header
-            display: flex
-            align-items: center
-            h1
-                width: 80%
-            p
-                width: 20%
-                color: $corClube
-        .bloco_vantagem
-            height: 150px
-            display: flex
-            .bloco_icone_vantagem
-                width: 200px
-                text-align: center
-                margin: 10px
-                flexCol()
-                flexCenter()
-                height: 100px
-        .rede_credenciada_botao
-            .segunda_via_boleto
-                margin-left: 20px
-    .bloco_explore_rede
-        blocoShadow()
-        min-height: 350px
-        .titulo_rede
-            height: 50px
-        .lista_passo_a_passo
-            height: 180px
-            padding-top: 10px
-            padding-left: 20px
-            li
-                list-style-type: disc
-        .bloco_botao_explore
-            height: 80px
-            padding-top: 30px
-            a
-                padding: 15px
-                background-color: $corClube
-                border-radius: 5px
-    .bloco_carencia
-        max-width: $maxWidth
-        width: 100%
-        blocoShadow()
-        espacoTopPadrao()
-        h1
-            espacoBottomPadrao()
-        table
-            width:100%
-            espacoBottomPadrao()
-            border-radius: 5px
-        th
-            text-align: left
-            padding-top: 15px
-            padding-bottom: 15px
-            texto()
-        button
-            padding: 20px
-            border-radius: 10px
-            background-color: $corClube
-        thead, tfoot
-            bold()
-        caption
-            padding: 10px
-            caption-side: bottom
-        table
-            border-collapse: collapse
-        td, th
-            border-bottom: 1px solid rgb(190, 190, 190)
-        td
-            text-align: center
-            texto()
-        .coluna
-            text-align: center
-        .titulo_table
-            color: black
+        flexCenter()
+        height: 100px
+    .rede_credenciada_botao .segunda_via_boleto
+        margin-left: 20px
+
+.conteudo_principal .bloco_beneficio .bloco_explore_rede
+    blocoShadow()
+    min-height: 350px
+    .titulo_rede
+        height: 50px
+    .lista_passo_a_passo
+        height: 180px
+        padding-top: 10px
+        padding-left: 20px
+    .lista_passo_a_passo li
+        list-style-type: disc
+    .bloco_botao_explore
+        height: 80px
+        padding-top: 30px
+    .bloco_botao_explore a
+        padding: 15px
+        background-color: $corClube
+        border-radius: 5px
+
+.conteudo_principal .bloco_beneficio .bloco_carencia
+    max-width: $maxWidth
+    width: 100%
+    blocoShadow()
+    espacoTopPadrao()
+    h1
+        espacoBottomPadrao()
+    table
+        width:100%
+        espacoBottomPadrao()
+        border-radius: 5px
+    th
+        text-align: left
+        padding-top: 15px
+        padding-bottom: 15px
+        texto()
+    button
+        padding: 20px
+        border-radius: 10px
+        background-color: $corClube
+    thead, tfoot
+        bold()
+    caption
+        padding: 10px
+        caption-side: bottom
+    table
+        border-collapse: collapse
+    td, th
+        border-bottom: 1px solid rgb(190, 190, 190)
+    td
+        text-align: center
+        texto()
+    .coluna
+        text-align: center
+    .titulo_table
+        color: black
+
 @media screen and (max-width: 600px)
     .conteudo_principal
         padding: 0px 0px 20px 0px
@@ -106,20 +110,19 @@
         padding-top: 0px
     .bloco_plano_saude
         height: 870px
-        .bloco_beneficio
-            header
-                flexCol()
-                width: 100%
-                text-align: center
-                p
-                    width: 100%
-            .rede_credenciada_botao
-                flexCol()
-                .segunda_via_boleto
-                    color: red
-                    text-align: center
-                    margin-top: 25px
-                    texto()
+    .bloco_plano_saude .bloco_beneficio header
+        flexCol()
+        width: 100%
+        text-align: center
+        p
+            width: 100%
+    .bloco_plano_saude .bloco_beneficio .rede_credenciada_botao
+        flexCol()
+        .segunda_via_boleto
+            color: red
+            text-align: center
+            margin-top: 25px
+            texto()
     .bloco_explore_rede
         min-height: 600px
         .lista_passo_a_passo
