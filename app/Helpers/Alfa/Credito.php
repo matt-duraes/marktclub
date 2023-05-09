@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helpers\Alfa;
 
+use App\Classes\SolicitacaoAlfa\Tipo;
 use Erro\Erro;
 use Erro\Excecao;
+use Helpers\ApiHelper;
 
-class BancoAlfaHelper
+class Credito
 {
     /**
-     * Tipos de solicitações
+     * @var string Link da API
      */
-    private const TIPO_SOLICITACAO = [1, 5];
-    /**
-     * @var string URL da API
-     */
-    private string $url;
+    private string $link;
     /**
      * @var string Id da API
      */
@@ -24,9 +22,9 @@ class BancoAlfaHelper
      */
     private string $client_secret;
     /**
-     * @var string Login da API
+     * @var string Usuário da API
      */
-    private string $login;
+    private string $usuario;
     /**
      * @var string Senha da API
      */
@@ -42,11 +40,11 @@ class BancoAlfaHelper
     public function __construct()
     {
         $envsAlfa = [
-            'ALFA_BANCO_LINK'          => env('ALFA_BANCO_LINK'),
-            'ALFA_BANCO_CLIENT_ID'     => env('ALFA_BANCO_CLIENT_ID'),
-            'ALFA_BANCO_CLIENT_SECRET' => env('ALFA_BANCO_CLIENT_SECRET'),
-            'ALFA_BANCO_LOGIN'         => env('ALFA_BANCO_LOGIN'),
-            'ALFA_BANCO_SENHA'         => env('ALFA_BANCO_SENHA')
+            'ALFA_API_BANCO_LINK'          => env('ALFA_API_BANCO_LINK'),
+            'ALFA_API_BANCO_CLIENT_ID'     => env('ALFA_API_BANCO_CLIENT_ID'),
+            'ALFA_API_BANCO_CLIENT_SECRET' => env('ALFA_API_BANCO_CLIENT_SECRET'),
+            'ALFA_API_BANCO_USUARIO'       => env('ALFA_API_BANCO_USUARIO'),
+            'ALFA_API_BANCO_SENHA'         => env('ALFA_API_BANCO_SENHA')
         ];
 
         foreach ($envsAlfa as $index => $value) {
@@ -65,16 +63,16 @@ class BancoAlfaHelper
             }
         }
 
-        $this->url = env('ALFA_BANCO_URL');
-        $this->client_id = env('ALFA_BANCO_CLIENT_ID');
-        $this->client_secret = env('ALFA_BANCO_CLIENT_SECRET');
-        $this->login = env('ALFA_BANCO_LOGIN');
-        $this->senha = env('ALFA_BANCO_SENHA');
+        $this->link = env('ALFA_API_BANCO_LINK');
+        $this->client_id = env('ALFA_API_BANCO_CLIENT_ID');
+        $this->client_secret = env('ALFA_API_BANCO_CLIENT_SECRET');
+        $this->usuario = env('ALFA_API_BANCO_USUARIO');
+        $this->senha = env('ALFA_API_BANCO_SENHA');
 
-        if (!empty(env('ALFA_BANCO_BYPASS')) && is_string(env('ALFA_BANCO_BYPASS'))) {
+        if (!empty(env('ALFA_API_BANCO_BYPASS')) && is_string(env('ALFA_API_BANCO_BYPASS'))) {
             $this->bypass = explode(
                 ',',
-                preg_replace("/[^0-9]/", '', env('ALFA_BANCO_BYPASS'))
+                preg_replace("/[^0-9]/", '', env('ALFA_API_BANCO_BYPASS'))
             );
         }
     }
@@ -91,16 +89,20 @@ class BancoAlfaHelper
             return false;
         }
 
-        $mensagemMontada = $this->criaMensagemSolicitacao($dados);
+        $mensagemMontada = $this->criarMensagemSolicitacao($dados);
 
-        $resposta = $this->curl($mensagemMontada, [
-            'Content-type'        => 'application/json',
-            'Authorization'       => 'Bearer',
-            'x-ibm-client-id'     => $this->client_id,
-            'x-ibm-client-secret' => $this->client_secret,
-            'Login'               => $this->login,
-            'Senha'               => $this->senha,
-        ]);
+        $resposta = (new ApiHelper())
+            ->post($this->link . '')
+            ->header([
+                'Content-type'        => 'application/json',
+                'Authorization'       => 'Bearer',
+                'x-ibm-client-id'     => $this->client_id,
+                'x-ibm-client-secret' => $this->client_secret,
+                'Login'               => $this->usuario,
+                'Senha'               => $this->senha
+            ])
+            ->body($mensagemMontada)
+            ->object();
 
         if (!is_object($resposta) || !isset($resposta->sucesso) || true !== $resposta->sucesso) {
             return false;
@@ -115,9 +117,9 @@ class BancoAlfaHelper
      * @return array Mensagem da solicitação pronta para envio
      * @throws Excecao
      */
-    private function criaMensagemSolicitacao(array $dados): array
+    private function criarMensagemSolicitacao(array $dados): array
     {
-        if (!in_array($dados['tipo'] ?? 0, self::TIPO_SOLICITACAO, true)) {
+        if (!($dados['tipo'] instanceof Tipo)) {
             throw new Excecao('Tipo de solicitação', 'O tipo de solicitação informada não é válida');
         }
 
@@ -138,7 +140,7 @@ class BancoAlfaHelper
 
         $data = date('d/m/Y');
 
-        if ($dados['tipo'] === 1) {
+        if ($dados['tipo']->valido(1)) {
             $template = "
                 Solicitação de empréstimo consignado.
                 Associação: $empresa
@@ -187,34 +189,5 @@ class BancoAlfaHelper
             ],
             'ReceberEmailSMS' => false
         ];
-    }
-
-    /**
-     * @param  array  $dados      Dados para serem enviados
-     * @param  array  $cabecalho  Cabeçalho da requisição
-     *
-     * @return array Se vazio ocorrou um erro na API ou no decode do JSON
-     */
-    private function curl(array $dados = [], array $cabecalho = []): array
-    {
-        $ch = curl_init();
-
-        $cabecalhoPadrao = [];
-
-        foreach ($cabecalho as $opcao => $valor) {
-            $cabecalhoPadrao[] = $opcao . ': ' . $valor;
-        }
-
-        curl_setopt($ch, CURLOPT_URL, $this->url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $cabecalhoPadrao);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($dados));
-
-        $resposta = curl_exec($ch);
-        curl_close($ch);
-
-        $resposta = is_string($resposta) ? json_decode($resposta, true) : [];
-        return is_array($resposta) ? $resposta : [];
     }
 }

@@ -17,6 +17,6 @@ class Tipo extends Status
             self::CREDITO       => 'Crédito',
             self::PORTABILIDADE => 'Portabilidade',
             self::VEICULO       => 'Veículo'
-        ]);
+        ], numero: [1, 5, 6]);
     }
 }

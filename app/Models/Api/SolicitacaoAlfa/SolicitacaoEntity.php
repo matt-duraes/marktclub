@@ -37,7 +37,7 @@ class SolicitacaoEntity extends Entity
         valor_emprestimo|Valor desejado|vazio
         prazo|Prazo desejado|vazio
         valor_parcela_atual|Valor parcela atual|vazio
-        quantidade_parcelas_restantes|Parcelas restantes|obrigatorio|vazio
+        quantidade_parcelas_restantes|Parcelas restantes|vazio
         taxa|Taxa|vazio
         nome|Nome|obrigatorio|valido
         documento_cpf|CPF|obrigatorio|valido
@@ -46,6 +46,7 @@ class SolicitacaoEntity extends Entity
         telefone_fixo|Telefone fixo|vazio
         orgao|Orgão|obrigatorio
         observacao|Observação|obrigatorio
+        tipo|Tipo|obrigatorio|valido
     ';
     protected Dinheiro $valor_emprestimo;
     protected int $prazo;
@@ -62,7 +63,7 @@ class SolicitacaoEntity extends Entity
     protected DataHora $data_simulacao;
     protected DataHora $data_autorizacao;
     protected Status $status;
-    protected Tipo $tipo_solicitacao;
+    protected Tipo $tipo;
 
     public function __construct()
     {
