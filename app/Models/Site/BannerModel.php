@@ -214,4 +214,24 @@ final class BannerModel
             ]
         ];
     }
+    /**
+     * @return object
+     */
+    public function odontologico(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_topo_odonto_1.png',
+                    'link'   => '#'
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_topo_odonto_1.png',
+                    'link'   => '#'
+                ]
+            ]
+        ];
+    }
 }
