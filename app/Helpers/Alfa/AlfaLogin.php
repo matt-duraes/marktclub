@@ -4,9 +4,9 @@ namespace App\Helpers\Alfa;
 
 use Erro\Erro;
 use Erro\Excecao;
-use Helpers\ApiHelper;
+use Helpers\CurlHelper;
 
-class Login
+class AlfaLogin
 {
     /**
      * @var string Link da API
@@ -82,7 +82,7 @@ class Login
      */
     private function criarToken(): void
     {
-        $token = (new ApiHelper())
+        $token = (new CurlHelper())
             ->post($this->link . '/login/')
             ->headerJson()
             ->body([
@@ -100,7 +100,7 @@ class Login
      */
     private function pegarFuncao(): void
     {
-        $funcao = (new ApiHelper())
+        $funcao = (new CurlHelper())
             ->get($this->link . '/me/funcoes')
             ->headerJson()
             ->header([
@@ -118,15 +118,15 @@ class Login
     }
 
     /**
-     * @param  int  $cpf  CPF para validar
+     * @param  string  $cpf  CPF para validar
      *
      * @return array
      * @throws Excecao
      */
-    public function validarCpf(int $cpf): array
+    public function validarCpf(string $cpf): array
     {
         $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
-        $usuario = (new ApiHelper())
+        $usuario = (new CurlHelper())
             ->get($this->link . '/cep/funcionarios/')
             ->headerJson()
             ->header([

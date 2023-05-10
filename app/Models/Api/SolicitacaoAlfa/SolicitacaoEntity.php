@@ -6,7 +6,6 @@ use App\Classes\SolicitacaoAlfa\Tipo;
 use App\Classes\StatusGeral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Modules\Cpf;
-use Modules\DataHora;
 use Modules\Dinheiro;
 use Modules\Email;
 use Modules\Nome;
@@ -17,21 +16,37 @@ class SolicitacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public string $codigo_solicitacao;
+    public Dinheiro $valor_emprestimo;
+    public int $prazo;
+    public Dinheiro $valor_parcela_atual;
+    public int $quantidade_parcelas_restantes;
+    public float $taxa;
+    public Nome $nome;
+    public Cpf $documento_cpf;
+    public Email $email;
+    public Telefone $telefone_celular;
+    public Telefone $telefone_fixo;
+    public string $cidade;
+    public string $orgao;
+    public string $observacao;
+    public Status $status;
+    public Tipo $tipo;
     protected string $ormTabela = TABELA_SOLICITACAO_ALFA;
     protected array $ormBuscar = [
-        'valor_emprestimo', 'prazo', 'valor_parcela_atual', 'quantidade_parcelas_restantes',
-        'taxa', 'nome', 'documento_cpf', 'email', 'telefone_celular', 'telefone_fixo', 'orgao',
-        'observacao', 'data_simulacao', 'data_autorizacao', 'status', 'tipo'
+        'codigo_solicitacao', 'valor_emprestimo', 'prazo', 'valor_parcela_atual',
+        'quantidade_parcelas_restantes', 'taxa', 'nome', 'documento_cpf', 'email',
+        'telefone_celular', 'telefone_fixo', 'cidade', 'orgao', 'observacao', 'status', 'tipo'
     ];
     protected array $ormInsert = [
-        'valor_emprestimo', 'prazo', 'valor_parcela_atual', 'quantidade_parcelas_restantes',
-        'taxa', 'nome', 'documento_cpf', 'email', 'telefone_celular', 'telefone_fixo', 'orgao',
-        'observacao', 'data_simulacao', 'data_autorizacao', 'status', 'tipo'
+        'codigo_solicitacao', 'valor_emprestimo', 'prazo', 'valor_parcela_atual',
+        'quantidade_parcelas_restantes', 'taxa', 'nome', 'documento_cpf', 'email',
+        'telefone_celular', 'telefone_fixo', 'cidade', 'orgao', 'observacao', 'status', 'tipo'
     ];
     protected array $ormSalvar = [
-        'valor_emprestimo', 'prazo', 'valor_parcela_atual', 'quantidade_parcelas_restantes',
-        'taxa', 'nome', 'documento_cpf', 'email', 'telefone_celular', 'telefone_fixo', 'orgao',
-        'observacao'
+        'codigo_solicitacao', 'valor_emprestimo', 'prazo', 'valor_parcela_atual',
+        'quantidade_parcelas_restantes', 'taxa', 'nome', 'documento_cpf', 'email',
+        'telefone_celular', 'telefone_fixo', 'cidade', 'orgao', 'observacao'
     ];
     protected string $ormValidarInsert = '
         valor_emprestimo|Valor desejado|vazio
@@ -44,26 +59,11 @@ class SolicitacaoEntity extends Entity
         email|E-mail|obrigatorio|valido
         telefone_celular|Telefone celular|obrigatorio|valido
         telefone_fixo|Telefone fixo|vazio
+        cidade|Cidade|vazio
         orgao|Orgão|obrigatorio
         observacao|Observação|obrigatorio
         tipo|Tipo|obrigatorio|valido
     ';
-    protected Dinheiro $valor_emprestimo;
-    protected int $prazo;
-    protected Dinheiro $valor_parcela_atual;
-    protected int $quantidade_parcelas_restantes;
-    protected float $taxa;
-    protected Nome $nome;
-    protected Cpf $documento_cpf;
-    protected Email $email;
-    protected Telefone $telefone_celular;
-    protected Telefone $telefone_fixo;
-    protected string $orgao;
-    protected string $observacao;
-    protected DataHora $data_simulacao;
-    protected DataHora $data_autorizacao;
-    protected Status $status;
-    protected Tipo $tipo;
 
     public function __construct()
     {

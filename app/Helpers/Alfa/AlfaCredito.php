@@ -2,12 +2,12 @@
 
 namespace App\Helpers\Alfa;
 
-use App\Classes\SolicitacaoAlfa\Tipo;
+use App\Models\Api\SolicitacaoAlfa\SolicitacaoEntity;
 use Erro\Erro;
 use Erro\Excecao;
-use Helpers\ApiHelper;
+use Helpers\CurlHelper;
 
-class Credito
+class AlfaCredito
 {
     /**
      * @var string Link da API
@@ -33,11 +33,15 @@ class Credito
      * @var array|null Lista de CPFs para bypassar a validação (SOMENTE PARA FINALIDADE DE TESTE)
      */
     private ?array $bypass = null;
+    /**
+     * @var SolicitacaoEntity Entidade da solicitação de crédito
+     */
+    private SolicitacaoEntity $solicitacaoEntity;
 
     /**
      * @throws Erro
      */
-    public function __construct()
+    public function __construct(SolicitacaoEntity $solicitacaoEntity)
     {
         $envsAlfa = [
             'ALFA_API_BANCO_LINK'          => env('ALFA_API_BANCO_LINK'),
@@ -68,6 +72,7 @@ class Credito
         $this->client_secret = env('ALFA_API_BANCO_CLIENT_SECRET');
         $this->usuario = env('ALFA_API_BANCO_USUARIO');
         $this->senha = env('ALFA_API_BANCO_SENHA');
+        $this->solicitacaoEntity = $solicitacaoEntity;
 
         if (!empty(env('ALFA_API_BANCO_BYPASS')) && is_string(env('ALFA_API_BANCO_BYPASS'))) {
             $this->bypass = explode(
@@ -78,21 +83,19 @@ class Credito
     }
 
     /**
-     * @param  array  $dados  Dados da solicitação
-     *
-     * @return bool Se FALSE não foi possível salvar. Se TRUE salvo com sucesso.
-     * @throws Excecao E lançada uma excesão caso o tipo seja inválido ou não corresponder ao disponível
+     * @return bool Se FALSE não foi possível enviar. Se TRUE enviado com sucesso.
+     * @throws Excecao Caso de erro na requisição
      */
-    public function salvar(array $dados): bool
+    public function enviarSolicitacao(): bool
     {
-        if ($this->bypass !== null && in_array($dados['cpf'], $this->bypass)) {
+        if ($this->bypass !== null && in_array($this->solicitacaoEntity->documento_cpf, $this->bypass)) {
             return false;
         }
 
-        $mensagemMontada = $this->criarMensagemSolicitacao($dados);
+        $mensagemMontada = $this->criarMensagemSolicitacao($this->solicitacaoEntity);
 
-        $resposta = (new ApiHelper())
-            ->post($this->link . '')
+        $resposta = (new CurlHelper())
+            ->post($this->link)
             ->header([
                 'Content-type'        => 'application/json',
                 'Authorization'       => 'Bearer',
@@ -104,7 +107,7 @@ class Credito
             ->body($mensagemMontada)
             ->object();
 
-        if (!is_object($resposta) || !isset($resposta->sucesso) || true !== $resposta->sucesso) {
+        if (!is_object($resposta) || !object_key_exists('sucesso', $resposta) || true !== $resposta->sucesso) {
             return false;
         }
 
@@ -112,75 +115,55 @@ class Credito
     }
 
     /**
-     * @param  array  $dados  Dados da solicitação
+     * @param  SolicitacaoEntity  $solicitacaoEntity  Entidade da solicitação
      *
      * @return array Mensagem da solicitação pronta para envio
-     * @throws Excecao
      */
-    private function criarMensagemSolicitacao(array $dados): array
+    private function criarMensagemSolicitacao(SolicitacaoEntity $solicitacaoEntity): array
     {
-        if (!($dados['tipo'] instanceof Tipo)) {
-            throw new Excecao('Tipo de solicitação', 'O tipo de solicitação informada não é válida');
-        }
-
-        $codigo = $dados['codigo'] ?? '';
-        $valor = $dados['valor'] ?? '';
-        $prazo = $dados['prazo'] ?? '';
-        $parcela = $dados['parcela'] ?? '';
-        $nome = $dados['nome'] ?? '';
-        $email = $dados['email'] ?? '';
-        $cpf = $dados['cpf'] ?? '';
-        $telefone_celular = $dados['telefone_celular'] ?? '';
-        $telefone_fixo = $dados['telefone_fixo'] ?? '';
-        $empresa = $dados['empresa'];
-        $cidade = $dados['cidade'];
-        $orgao = $dados['orgao'];
-        $mensagem = $dados['mensagem'];
-        $taxa = $dados['taxa'];
-
         $data = date('d/m/Y');
 
-        if ($dados['tipo']->valido(1)) {
+        if ($solicitacaoEntity->tipo->numero() === 1) {
             $template = "
                 Solicitação de empréstimo consignado.
-                Associação: $empresa
-                Número da Simulação: $codigo
-                Valor: $valor
-                Valor da parcela: $parcela
-                Quantidade de parcelas: $prazo
-                Taxa: $taxa
-                Cidade: $cidade
-                Órgão: $orgao
+                Associação: $solicitacaoEntity->empresa
+                Número da Simulação: $solicitacaoEntity->codigo_solicitacao
+                Valor: $solicitacaoEntity->valor_emprestimo
+                Valor da parcela: $solicitacaoEntity->valor_parcela_atual
+                Quantidade de parcelas: $solicitacaoEntity->prazo
+                Taxa: $solicitacaoEntity->taxa
+                Cidade: $solicitacaoEntity->cidade
+                Órgão: $solicitacaoEntity->orgao
                 Data: $data
-                Mensagem: $mensagem
+                Mensagem: $solicitacaoEntity->observacao
             ";
         } else {
             $template = "
                 Solicitação de portabilidade para empréstimo consignado.
-                Associação: $empresa
-                Número da Simulação: $codigo
-                Valor da parcela atual: $parcela
-                Quantidade de parcelas que faltam pagar: $prazo
-                Taxa do empréstimo atual: $taxa
-                Cidade:$cidade
-                Órgão: $orgao
+                Associação: $solicitacaoEntity->empresa
+                Número da Simulação: $solicitacaoEntity->codigo_solicitacao
+                Valor da parcela atual: $solicitacaoEntity->valor_parcela_atual
+                Quantidade de parcelas que faltam pagar: $solicitacaoEntity->quantidade_parcelas_restantes
+                Taxa do empréstimo atual: $solicitacaoEntity->valor_emprestimo
+                Cidade: $solicitacaoEntity->cidade
+                Órgão: $solicitacaoEntity->orgao
                 Data: $data
-                Mensagem: $mensagem
+                Mensagem: $solicitacaoEntity->observacao
             ";
         }
 
         return [
             'Convenio'        => 'Markt Club',
             'Mensagem'        => $template,
-            'EmpresaOrgao'    => $empresa,
+            'EmpresaOrgao'    => $solicitacaoEntity->empresa,
             'PeriodoDesejado' => 'Manhã',
-            'Assunto'         => "Parceria Markt Club + $empresa + $nome",
+            'Assunto'         => "Parceria Markt Club + $solicitacaoEntity->empresa + $solicitacaoEntity->nome",
             'DadosPessoais'   => [
-                'Nome'                => $nome,
-                'CPF'                 => $cpf,
-                'Email'               => $email,
-                'TelefoneCelular'     => $telefone_celular,
-                'TelefoneResidencial' => $telefone_fixo,
+                'Nome'                => $solicitacaoEntity->nome,
+                'CPF'                 => $solicitacaoEntity->documento_cpf,
+                'Email'               => $solicitacaoEntity->email,
+                'TelefoneCelular'     => $solicitacaoEntity->telefone_celular,
+                'TelefoneResidencial' => $solicitacaoEntity->telefone_fixo,
                 'TelefoneComercial'   => ''
             ],
             'Produtos'        => [
