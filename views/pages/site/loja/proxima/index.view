@@ -18,7 +18,7 @@
 
     <header class="bloco_header form_geral">
 
-        <a class="voltar" href="{!!LINK_PADRAO!!}" target="_self"><i>@iconeFlechaEsquerda</i><span>VOLTAR</span></a>
+        <a class="voltar" href="@route(index.index)" target="_self"><i>@iconeFlechaEsquerda</i><span>VOLTAR</span></a>
 
         <form id="form_buscar" class="desktop" action="" method="post">
 
