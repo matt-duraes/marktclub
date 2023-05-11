@@ -3,9 +3,9 @@ const open = require('open');
 const fs = require('fs');
 const prop = require('yargs').argv;
 const { watch, parallel, series } = require('gulp');
-const { cssUnico, cssTodos, cssDeploy } = require('./src/Gulpfile/css.js');
-const { jsUnico, jsTodos, jsDeploy } = require('./src/Gulpfile/js.js');
-const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
+const { cssUnico, cssTodos, cssDeploy, cssProducao } = require('./src/Gulpfile/css.js');
+const { jsUnico, jsTodos, jsDeploy, jsProducao } = require('./src/Gulpfile/js.js');
+const { htmlUnico, htmlTodos, htmlDeploy, htmlProducao } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
 const {
@@ -27,7 +27,7 @@ const {
     buildCorrigindoComposer,
     buildDefineTabela,
 } = require('./src/Gulpfile/build.js');
-const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
+const { limparArquivosDoMac, limparSessao, limparDeploy } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
 
 // Subir e parar desenvolvimento
@@ -40,7 +40,7 @@ exports.upgrade = series(
     instalandoDownloadDoProjeto,
     copiandoArquivoDoComposer,
     executandoComposerInstall,
-    parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste),
+    parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste)
 );
 
 // Limpa o framework
@@ -48,14 +48,24 @@ exports.clearFramework = series(limpandoFramework);
 
 // Deploy em produção
 exports.deploy = parallel(
-    series(copiandoArquivosCSS, preparandoCSSParaProducao),
-    series(copiandoArquivosJS, preparandoJSParaProducao),
-    series(copiandoArquivosHtml, preparandoHtmlParaProducao),
+    parallel(
+        series(copiandoArquivosCSS, preparandoCSSParaProducao, colocandoCssEmProducao),
+        series(copiandoArquivosJS, preparandoJSParaProducao, colocandoJsEmProducao),
+        series(copiandoArquivosHtml, preparandoHtmlParaProducao, colocandoHtmlEmProducao)
+    ),
     copiandoArquivosDeImagem,
-    criandoDefineTabela,
+    criandoDefineTabela
 );
-exports.js = parallel(copiandoArquivosJS);
-exports.css = parallel(copiandoArquivosCSS);
+exports.build = parallel(
+    series(copiandoArquivosCSS, colocandoCssEmProducao),
+    series(copiandoArquivosJS, colocandoJsEmProducao),
+    series(copiandoArquivosHtml, colocandoHtmlEmProducao),
+    copiandoArquivosDeImagem,
+    criandoDefineTabela
+);
+exports.js = series(copiandoArquivosJS, preparandoJSParaProducao, colocandoJsEmProducao);
+exports.css = series(copiandoArquivosCSS, preparandoCSSParaProducao, colocandoCssEmProducao);
+exports.html = series(copiandoArquivosHtml, preparandoHtmlParaProducao, colocandoHtmlEmProducao);
 
 // Instalar o framework
 exports.install = series(
@@ -69,17 +79,23 @@ exports.install = series(
         copiandoArquivoParaDocker,
         criandoDiretorios,
         copiandoArquivoParaEnv,
-        copiandoArquivoParaPhpMussel,
+        copiandoArquivoParaPhpMussel
     ),
     copiandoArquivoDeErro,
     criandoPaginaExemplo,
+    parallel(
+        series(copiandoArquivosCSS, preparandoCSSParaProducao, colocandoCssEmProducao),
+        series(copiandoArquivosJS, preparandoJSParaProducao, colocandoJsEmProducao),
+        series(copiandoArquivosHtml, preparandoHtmlParaProducao, colocandoHtmlEmProducao),
+        copiandoArquivosDeImagem,
+        criandoDefineTabela
+    )
 );
 
 // Executa ao dar commit
 exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
-exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem);
 exports.composerBugfix = series(corrigindoBugDoComposer);
 
 /*
@@ -87,6 +103,9 @@ exports.composerBugfix = series(corrigindoBugDoComposer);
 | FUNÇÕES DO FULP
 |--------------------------------------------------------------------------
 */
+function limpandoBuildDoDeploy() {
+    return limparDeploy();
+}
 function validandoArquivoDeConfiguracao() {
     if (!fs.existsSync('./files/config/gulp.json')) {
         console.log('Execute "\x1b[32m\x1b[1mgulp install\033[0m" para poder configurar o projeto.');
@@ -177,7 +196,7 @@ async function monitorarSistema() {
             await htmlTodos();
             browserSync.reload();
             consoleFooter(time);
-        },
+        }
     );
     watch(['./src/**/*.php', '!./src/Database/tabela.php']).on('change', () => {
         browserSync.reload();
@@ -261,6 +280,9 @@ function copiandoArquivosCSS() {
 function preparandoCSSParaProducao() {
     return cssDeploy();
 }
+function colocandoCssEmProducao() {
+    return cssProducao();
+}
 
 function copiandoArquivosJS() {
     return jsTodos();
@@ -269,13 +291,18 @@ function copiandoArquivosJS() {
 function preparandoJSParaProducao() {
     return jsDeploy();
 }
+function colocandoJsEmProducao() {
+    return jsProducao();
+}
 
 function copiandoArquivosHtml() {
     return htmlTodos();
 }
-
 function preparandoHtmlParaProducao() {
     return htmlDeploy();
+}
+function colocandoHtmlEmProducao() {
+    return htmlProducao();
 }
 
 function copiandoArquivosDeImagem() {

@@ -8,24 +8,9 @@ const plumber = require('gulp-plumber');
 const { arquivoExiste, inArray } = require('./Helper.js');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const glob = require('glob');
-const { fsDeletarDiretorio } = require('./arquivo');
+const { fsDeletarDiretorio, fsCopiar } = require('./arquivo');
 
 let config;
-/*
-|--------------------------------------------------------------------------
-| BUILD
-|--------------------------------------------------------------------------
-*/
-exports.jsDeploy = async function () {
-    if (config == undefined) {
-        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
-    return src(config.public + '/js/**/*.js')
-        .pipe(plumber())
-        .pipe(uglify())
-        .pipe(dest(config.public + '/js'));
-};
-
 /*
 |--------------------------------------------------------------------------
 | HTML
@@ -33,10 +18,6 @@ exports.jsDeploy = async function () {
 */
 exports.jsUnico = function (path) {
     return new Promise(async resolve => {
-        if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-        }
-
         let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
         const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/path.js';
 
@@ -66,11 +47,7 @@ exports.jsUnico = function (path) {
 */
 exports.jsTodos = function () {
     return new Promise(async resolve => {
-        if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-        }
-
-        await fsDeletarDiretorio(config.public + '/js');
+        await fsDeletarDiretorio('./files/build/js');
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/all.js')
@@ -82,7 +59,7 @@ exports.jsTodos = function () {
             arquivo = listaArquivo[i];
             try {
                 await processarJs(arquivo);
-                mensagemSucesso('Arquivo copiado com sucesso: ' + arquivo);
+                // mensagemSucesso('Arquivo copiado com sucesso: ' + arquivo);
             } catch (error) {
                 mensagemErro('Erro ao copiar arquivo: ' + arquivo);
             }
@@ -92,6 +69,31 @@ exports.jsTodos = function () {
         }
         resolve(true);
     });
+};
+
+/*
+|--------------------------------------------------------------------------
+| BUILD
+|--------------------------------------------------------------------------
+*/
+exports.jsDeploy = async function () {
+    return src('./files/build/js/*.js').pipe(plumber()).pipe(uglify()).pipe(dest('./files/build/js'));
+};
+
+/*
+|--------------------------------------------------------------------------
+| PRODUÇÃO
+|--------------------------------------------------------------------------
+*/
+exports.jsProducao = async () => {
+    if (config == undefined) {
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+    await fsDeletarDiretorio(config.public + '/js');
+
+    return src('./files/build/js/*.js')
+        .pipe(plumber())
+        .pipe(dest(config.public + '/js'));
 };
 
 /*
@@ -147,7 +149,7 @@ function processarJs(path) {
                     return '';
                 })
             )
-            .pipe(dest(config.public + '/js'))
+            .pipe(dest('./files/build/js'))
             .on('end', resolve)
             .on('error', reject);
     });

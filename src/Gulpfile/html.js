@@ -8,7 +8,6 @@ const {
     fsVerificarSeArquivoExiste,
     fsCriarDiretorio,
     fsDeletarDiretorio,
-    fsRemoverArquivoSeExistir,
     fsCriarArquivo,
     fsPegarConteudo,
 } = require('./arquivo');
@@ -19,10 +18,20 @@ const {
 |--------------------------------------------------------------------------
 */
 exports.htmlDeploy = function () {
-    return src('files/build/views/**/*.view')
+    return src('files/build/html/**/*.php')
         .pipe(plumber())
         .pipe(htmlMin({ collapseWhitespace: true }))
-        .pipe(dest('files/build/views/'));
+        .pipe(dest('files/build/html/'));
+};
+
+/*
+|--------------------------------------------------------------------------
+| PRODUÇÃO
+|--------------------------------------------------------------------------
+*/
+exports.htmlProducao = async () => {
+    await fsDeletarDiretorio('files/build/view');
+    return src('./files/build/html/*.php').pipe(plumber()).pipe(dest('./files/build/view'));
 };
 
 /*
@@ -62,8 +71,8 @@ exports.htmlUnico = function (path) {
 exports.htmlTodos = function () {
     return new Promise(async resolve => {
         await fsCriarDiretorio('files/build');
-        await fsDeletarDiretorio('files/build/views');
-        await fsCriarDiretorio('files/build/views');
+        await fsDeletarDiretorio('files/build/html');
+        await fsCriarDiretorio('files/build/html');
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/*.view')
@@ -87,7 +96,7 @@ exports.htmlTodos = function () {
 
                 try {
                     const retorno = await processarHtml(arquivo, nome);
-                    mensagemSucesso(retorno);
+                    // mensagemSucesso(retorno);
                 } catch (error) {
                     mensagemErro(error);
                 }
@@ -107,19 +116,12 @@ exports.htmlTodos = function () {
 */
 async function processarHtml(arquivo, nome) {
     return new Promise(async (resolve, reject) => {
-        const dest = 'files/build/views/';
+        const dest = './files/build/html/';
 
         try {
             await fsVerificarSeArquivoExiste(arquivo);
         } catch (error) {
             reject('Arquivo não existe: ' + arquivo);
-            return;
-        }
-
-        try {
-            await fsRemoverArquivoSeExistir(dest + nome);
-        } catch (error) {
-            reject('Ocorreu um erro ao deletar o arquivo: ' + arquivo);
             return;
         }
 
