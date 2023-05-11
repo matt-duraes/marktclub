@@ -40,8 +40,6 @@ exports.upgrade = series(
     instalandoDownloadDoProjeto,
     copiandoArquivoDoComposer,
     executandoComposerInstall,
-    copiandoArquivosCSS,
-    preparandoCSSParaProducao,
     parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste)
 );
 

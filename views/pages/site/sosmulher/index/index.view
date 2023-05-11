@@ -1,75 +1,43 @@
 @template "site"
-<div class="bloco_loja_detalhe">
-    <header class="topo">
-        <figure class="fundo" style="background-image: url(https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png); background-size:cover">
-            <div class="icone_redondo">
-                <img src="https://clube.marktclub.com.br/images/denuncia_index_capa_parceiro.png" alt="icone redondo">
-            </div>
-        </figure>
-    </header>
-    <div class="infoParceiro">
-        <div class="bio">
-            <h1>Karina, Precisa de ajuda?</h1>
-            <div class="icones">
-                <a href="#">
-                    Ver E-mail<br>
-                    @iconeGlobo
-                </a>
-                <a href=""  data-ajuda="Download da tabela de exemplo" >
-                    Abrir Site <br>
-                    @iconeMedicamento
-                </a>
-                <a href="@route(voucher.voucher)/parceiro"  data-id="1" class="gerar_voucher">
-                    Gerar Voucher <br>
-                    @iconeFavorito
-                </a>
-            </div>
+
+<div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
+    <div class="bloco_topo">
+        <section class="bloco_banner">
+            <figure class="banner desktop"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
+            <figure class="banner mobile"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
+            <figure class="logo"><img src="https://clube.marktclub.com.br/images/denuncia_index_capa_parceiro.png"></figure>
+        </section>
+        <header class="bloco_header">
+            <h1>PRECISA DE AJUDA?</h1>
+            <p>Atenção! Esta página é voltada ao suporte à mulher. <br>
+                Em caso de emergência, ligue para o 180.
+            </p>
+        </header>
+    </div>
+
+    <div class="bloco_desconto_procedimento">
+        <div class="bloco bloco_titulo_texto">
+            <h1>Como Utilizar?</h1>
+            <p>
+                Agende uma conversa.
+                Para utilizar essa ferramente, basta apertar o botão encontrar parceiros.
+                Aqui você localiza empresas que disponibilizam o serviço de atendimento online.
+            </p>
         </div>
-        <div class="descricao">
-            <p>Atenção! Esta página é voltada ao suporte à mulher. Em caso de emergência, ligue para o 180.
+        <div class="bloco bloco_titulo_texto">
+            <h1>Atendimento online</h1>
+            <p>Aqui você será redirecionada para o chat do Ministério dos Direitos Humanos.
+                Ao entrar em contato por esse campo, você encontra uma forma mais silenciosa e segura de denunciar.
             </p>
         </div>
     </div>
-    <div class="bloco_desconto_procedimento">
-        <div class="desconto">
-            <div class="bloco_titulo_desconto">
-                <h1>Como Utilizar?</h1>
-                <p>
-                    Agende uma conversa.
-                    Para utilizar essa ferramente, basta apertar o botão encontrar parceiros.
-                    Aqui você localiza empresas que disponibilizam o serviço de atendimento online.
-                </p>
-            </div>
-        </div>
-        <div class="procedimento">
-            <div class="bloco_titulo_procedimento">
-                <h1>Atendimento online</h1>
-                <p>Aqui você será redirecionada para o chat do Ministério dos Direitos Humanos.
-                Ao entrar em contato por esse campo, você encontra uma forma mais silenciosa e segura de denunciar.
-                </p>
-            </div>
-            <div class="bloco_fique_atento">
-                <span>AVISO</span>
-                <ul>
-                    <li>- Os canais acima não são do Markt Club.
-                    </li>
-                    <li>- Você será redirecionado aos órgãos responsáveis pelo atendimento.</li>
-                </ul>
-            </div>
-        </div>
+
+    <div class="bloco_atencao_geral">
+        <p>
+            Os canais acima não são do Markt Club.
+            Você será redirecionado aos órgãos responsáveis pelo atendimento.
+        </p>
     </div>
 
-    <div class="bloco_relacionado">
-        <div class="titulo">
-            <h1>Denuncie aqui</h1>
-        </div>
-        <div class="bloco_parceiro">
-            <article class="parceiro">
-                <figure><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_180.png" alt=""></figure>
-            </article>
-            <article class="parceiro">
-                <figure><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_100.png" alt=""></figure>
-            </article>
-        </div>
-    </div>
+    @view site/geral/relacionado.view
 </div>

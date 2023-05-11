@@ -5,6 +5,7 @@ namespace App\Controllers\Site;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
+use App\Models\Site\SosMulher\ListarModel;
 
 final class SiteController extends Controller
 {
@@ -45,7 +46,9 @@ final class SiteController extends Controller
     public function sosmulher(): Response
     {
         return view('sosmulher.index', [
-            'parceiro' => [1, 2, 3]
+            'parceiro' => [1, 2, 3],
+            'parceiroTipo' => 'sosmulher',
+            'lista'        => (new ListarModel())->listarDados(),
         ]);
     }
 
