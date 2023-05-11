@@ -12,7 +12,7 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function pesquisa(): Response
+    public function getPesquisa(): Response
     {
         $listaConhece = [
             (object)['name' => '0800', 'label' => '0800', 'valor' => '1'],
@@ -35,6 +35,7 @@ final class SiteController extends Controller
         return view('pesquisa.index', [
             'sistemaConhece' => $listaConhece
         ]);
+
     }
 
     /**

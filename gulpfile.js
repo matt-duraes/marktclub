@@ -40,7 +40,9 @@ exports.upgrade = series(
     instalandoDownloadDoProjeto,
     copiandoArquivoDoComposer,
     executandoComposerInstall,
-    parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste),
+    copiandoArquivosCSS,
+    preparandoCSSParaProducao,
+    parallel(corrigindoBugDoComposer, copiandoArquivosDaRaiz, copiandoArquivoDeErro, copiandoArquivosDeteste)
 );
 
 // Limpa o framework
@@ -52,7 +54,7 @@ exports.deploy = parallel(
     series(copiandoArquivosJS, preparandoJSParaProducao),
     series(copiandoArquivosHtml, preparandoHtmlParaProducao),
     copiandoArquivosDeImagem,
-    criandoDefineTabela,
+    criandoDefineTabela
 );
 exports.js = parallel(copiandoArquivosJS);
 exports.css = parallel(copiandoArquivosCSS);
@@ -69,10 +71,10 @@ exports.install = series(
         copiandoArquivoParaDocker,
         criandoDiretorios,
         copiandoArquivoParaEnv,
-        copiandoArquivoParaPhpMussel,
+        copiandoArquivoParaPhpMussel
     ),
     copiandoArquivoDeErro,
-    criandoPaginaExemplo,
+    criandoPaginaExemplo
 );
 
 // Executa ao dar commit
@@ -177,7 +179,7 @@ async function monitorarSistema() {
             await htmlTodos();
             browserSync.reload();
             consoleFooter(time);
-        },
+        }
     );
     watch(['./src/**/*.php', '!./src/Database/tabela.php']).on('change', () => {
         browserSync.reload();

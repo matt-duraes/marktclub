@@ -278,7 +278,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('pesquisa')
-            ::view('/pesquisa-de-satisfacao');
+            ::get('/pesquisa-de-satisfacao');
         Route
             ::nome('sosmulher')
             ::view('/sos-mulher');

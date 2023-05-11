@@ -133,7 +133,7 @@
 
 <div class="linha"></div>
 
-<a class="footer" id="abrePesquisa">Pesquisa de satisfação</a>
+<a class="footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</a>
 <a class="footer" href="@route('pesquisa.satisfacao')">Sala VIP</a>
 <a class="footer" href="@route('site.sosmulher')">SOS Mulher</a>
 

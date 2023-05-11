@@ -1,0 +1,38 @@
+.bloco_quiz_geral
+    width: 100%
+    max-width: $maxWidth
+    flexCenter()
+    directionColumn()
+    padding: 20px
+    margin-top: 90px
+    header
+        flexCenter()
+        directionColumn()
+    header h1
+        subTitulo()
+    header p
+        texto()
+    fieldset
+        flexCenter()
+        directionColumn()
+        espacoTopPadrao()
+    fieldset p
+        textoMobile()
+        margin-bottom: 10px
+    fieldset .pergunta
+        flexCenter()
+        flexWrap()
+    fieldset .pergunta.checkbox .botao_input
+        width: calc((100% / 3) - 10px)
+        margin-top: 10px
+    button
+        espacoTopPadrao()
+        background-color: $corClube
+        color: $branco
+
+@media screen and (max-width: 740px)
+    .bloco_quiz_geral fieldset p
+        margin-bottom: 0px
+    .bloco_quiz_geral fieldset .pergunta .botao_input
+        margin-top: 10px
+
