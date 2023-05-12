@@ -5,7 +5,7 @@
 </a>
 
 <a class="{!!MENU_HOVER == 'acessorapido' ? 'cor_bg pagina_atual' : ''!!}" href="@route(acessorapido.index)">
-    <i>@iconeSiteHome</i>
+    <i>@iconeAcessoRapido(25)</i>
     Acesso Rápido
 </a>
 
