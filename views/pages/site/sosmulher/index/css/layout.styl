@@ -20,10 +20,22 @@
     .conteudo_confirmar a
         margin-top: 30px
 
+.bloco_botao .botao
+    width: 200px
+
+.bloco_botao .destaque
+    padding: 0px
+
+@media screen and ( max-width: 900px)
+    .bloco_botao .botao
+        max-width: 250px
+
 @media screen and ( max-width: 600px )
     .bloco_desconto_procedimento
         flex-direction: column
     .bloco_desconto_procedimento .bloco
         width: 100%
+    .bloco_botao .botao
+        width: 200px
         &:first-child
-            margin-bottom: 20px
+            margin-top: 20px

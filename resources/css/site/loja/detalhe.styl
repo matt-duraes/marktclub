@@ -60,10 +60,17 @@
     .bloco
         width: calc(50% - 10px)
 
-.bloco_loja_detalhe .bloco_botao
-    flexRow()
-    align-items: center
-    espacoBottomPadrao()
+.bloco_botao
+    display: flex
+    width: 100%
+    flex-wrap: wrap
+    align-content: stretch
+    overflow: scroll
+    padding: 20px
+    .botao
+        background-color: #f1f1f1
+        margin-right: 20px
+        margin-top: 20px
     .linha
         width: 1px
         height: 30px
@@ -89,6 +96,28 @@
         padding-right: 10px
     .destaque i
         margin-left: 5px
+
+@media screen and (max-width: 940px)
+    .bloco_loja_detalhe .bloco_botao
+        justify-content: center
+        .botao
+            width: 45%
+            margin: 10px
+        .botao &:first-child
+            margin-top: 0px
+        .botao &:last-child
+            margin-bottom: 0px
+
+@media screen and (max-width: 615px)
+    .bloco_loja_detalhe .bloco_botao
+        padding-top: 0px
+        padding-bottom: 0px
+        margin-bottom: 0px
+        .botao
+            width: 100%
+            flexCenter()
+        .botao i
+            display: none
 
 .bloco_loja_detalhe .bloco_mapa
     width: calc(100% + 40px)
@@ -121,7 +150,17 @@
         top: 0
         left: 0
         z-index: 1
-
+@media screen and ( max-width: 600px)
+    .bloco_loja_detalhe .bloco_mapa header
+        flex-direction: column
+    header h1
+        margin: 0px
+        width: 100%
+    .bloco_loja_detalhe .bloco_mapa header .buscar
+        width: 100%
+        margin: 20px 0px
+    .bloco_loja_detalhe .bloco_mapa header .botao_geral_cor
+        width: 100%
 @media screen and ( max-width: 600px )
     .bloco_desconto_procedimento
         flex-direction: column

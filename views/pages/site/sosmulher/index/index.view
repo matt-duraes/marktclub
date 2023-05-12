@@ -38,6 +38,16 @@
             Você será redirecionado aos órgãos responsáveis pelo atendimento.
         </p>
     </div>
+    <div class="bloco_botao">
+        <a href="" target="_blank" rel="nofollow noopener"  class="botao destaque botao_geral_cor cor_bg">
+            <i>@iconeTelefone(17)</i>
+            Ligar
+        </a>
+        <a href="" target="_blank" rel="nofollow noopener"  class="botao destaque botao_geral_cor cor_bg">
+            <i>@iconeTelefone(17)</i>
+            Chat
+        </a>
 
+    </div>
     @view site/geral/relacionado.view
 </div>
