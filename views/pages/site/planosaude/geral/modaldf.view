@@ -20,7 +20,7 @@
                     <th>Amil S750<br>R1</th>
                     <th>Amil S750<br>R2</th>
                 </tr>
-                <tr class="titulo_table">
+                <tr>
                     <th>Registro ANS</th>
                     <th>485.432<br>/20-2</th>
                     <th>485.430<br>/20-6</th>
@@ -31,7 +31,7 @@
                     <th>485.420<br>/20-9</th>
                     <th>485.420<br>/20-9</th>
                 </tr>
-                <tr class="titulo_table">
+                <tr>
                     <th>REEMBOLSO</th>
                     <th>Não</th>
                     <th>Não</th>
@@ -42,11 +42,11 @@
                     <th>Sim</th>
                     <th>Sim</th>
                 </tr>
-                <tr class="titulo_table">
+                <tr>
                     <th>Segmentação</th>
                     <th colspan="8">Ambulatorial, Hospitalar com Obstetrícia</th>
                 </tr>
-                <tr class="titulo_table">
+                <tr>
                     <th>Grupo de <br> Municípios</th>
                     <th>Grupo de <br> Municípios</th>
                     <th>Nacional</th>
@@ -57,7 +57,7 @@
                     <th>Nacional</th>
                     <th>Nacional</th>
                 </tr>
-                <tr class="titulo_table">
+                <tr>
                     <th>Acomodação</th>
                     <th>Coletivo</th>
                     <th>Individual</th>

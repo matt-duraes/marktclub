@@ -535,7 +535,7 @@
 		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado')
-            <a href="@route(planosaude.simulacao)/unimed-florianopolis">Fazer Simulação</a>
+            <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/unimed-florianopolis">Fazer Simulação</a>
         @endif
 	</section>
     @if(TIPO_USUARIO == 'indicado'):
