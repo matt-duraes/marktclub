@@ -16,7 +16,22 @@ final class PerfilController extends Controller
     {
         return view('perfil.index', [
             'dado' => (object)[
-                'nome' => '',
+                'nome' => 'Nome do usuário',
+                'data_nascimento' => '',
+                'genero' => '',
+                'estado_civil' => '',
+                'email_pessoal' => '',
+                'email_trabalho' => '',
+                'telefone_trabalho' => '',
+                'telefone_pessoal' => '',
+                'endereco_cep' => '',
+                'endereco_bairro' => '',
+                'endereco_logradouro' => '',
+                'endereco_numero' => '',
+                'endereco_complemento' => '',
+                'endereco_cidade' => '',
+                'endereco_estado' => '',
+                'endereco_estado' => ''
             ]
         ]);
     }

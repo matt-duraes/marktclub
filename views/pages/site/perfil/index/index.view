@@ -11,7 +11,7 @@
                     <p>Ultimo acesso: 14/03/2023</p>
                 <article>
                 <button id="botao_vincular_google" type="button" class="google">
-                    <div class="logo-google">
+                    <div class="logo_google">
                         <img src="https://clube.marktclub.com.br/images/google.svg">
                     </div>
                     <span class="texto">
@@ -38,21 +38,21 @@
             </fieldset>
             <fieldset>
                 <p>Endereço</p>
-                <div class="duplo_label">
+                <div class="form_input_dupla">
                     @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP', mascara: '00000-000', value: $dado->endereco_cep)
                     @? formInput(name: 'bairro', placeholder: 'Bairro', label: 'Bairro', value: $dado->endereco_bairro)
                 </div>
-                <div class="duplo_label">
+                <div class="form_input_dupla">
                     @? formInput(name: 'logradouro', placeholder: 'Logradouro', label: 'Logradouro', value: $dado->endereco_logradouro)
                     @? formInput(name: 'numero', placeholder: 'Número', label: 'Número', value: $dado->endereco_numero)
                 </div>
                     @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: $dado->endereco_complemento)
-                <div class="duplo_label">
+                <div class="form_input_dupla">
                     @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', value: $dado->endereco_cidade)
                     @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $dado->endereco_estado)
                 </div>
             </fieldset>
-            <button id="botao_salvar_dados_perfil">Atualizar</button>
+            <button id="botao_salvar_dados_perfil" class="botao_geral_cor cor_bg">Atualizar</button>
         </form>
     </div>
 </div>
