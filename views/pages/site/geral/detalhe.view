@@ -29,7 +29,7 @@
             <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeTelefone(17)</i></a>
             <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="display_none botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeTelefone(17)</i></a>
             <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver telefone</div>
-            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver e-mail</div>
+            <div class="botao branco botao_geral_cor"><i>@iconeEmail(15)</i> Ver e-mail</div>
             <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Abrir Site</div>
         </div>
     @else
@@ -43,7 +43,7 @@
         <header>
             <h1>Endereços</h1>
             <div class="grow"></div>
-            <div class="botao_geral_cor buscar"><i>@iconeBuscar</i> Buscar endereço</div>
+            <div class="botao_geral_cor buscar"><i>@iconeMundo</i> Buscar endereço</div>
             <a href="_blank" rel="nofollow noopener" class="botao_geral_cor cor_bg">Como Chegar <i>@iconeTelefone(17)</i></a>
         </header>
         <div class="mapa"></div>
