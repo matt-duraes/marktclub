@@ -1,0 +1,55 @@
+
+@ if($dado):
+<div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
+    <input type="hidden" name="url" id="input_loja_url" value="{{$url}}">
+    <div class="bloco_topo">
+        <section class="bloco_banner">
+            <figure class="banner desktop"><img src="https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png"></figure>
+            <figure class="banner mobile"><img src="https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png"></figure>
+            <figure class="logo"><img src="https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg"></figure>
+        </section>
+        <header class="bloco_header">
+            <h1>{{$dado->lista->titulo}}</h1>
+            <p>{{$dado->lista->texto->descricao}}</p>
+        </header>
+    </div>
+
+    <div class="bloco_desconto_procedimento">
+        <div class="bloco bloco_titulo_texto">
+            <h1>Descontos</h1>
+            <p>{{$dado->lista->texto->desconto}}</p>
+        </div>
+        <div class="bloco bloco_titulo_texto">
+            <h1>Procedimentos</h1>
+            <p>{{$dado->lista->texto->procedimento}} </p>
+        </div>
+    </div>
+    @if(TIPO_USUARIO != 'indicado')
+        <div class="bloco_botao">
+            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeTelefone(17)</i></a>
+            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="display_none botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeTelefone(17)</i></a>
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver telefone</div>
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver e-mail</div>
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Abrir Site</div>
+        </div>
+    @else
+        <div class="bloco_atencao_geral">
+            <p>Apenas associados possuem acesso a esse recurso</p>
+        </div>
+    @endif
+
+    @if($dado->lista->contato->endereco)
+    <div class="bloco_mapa">
+        <header>
+            <h1>Endereços</h1>
+            <div class="grow"></div>
+            <div class="botao_geral_cor buscar"><i>@iconeBuscar</i> Buscar endereço</div>
+            <a href="_blank" rel="nofollow noopener" class="botao_geral_cor cor_bg">Como Chegar <i>@iconeTelefone(17)</i></a>
+        </header>
+        <div class="mapa"></div>
+    </div>
+    @endif
+
+    @view site/geral/relacionado.view
+</div>
+@ endif;

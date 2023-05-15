@@ -48,7 +48,8 @@ final class SiteController extends Controller
         return view('sosmulher.index', [
             'parceiro' => [1, 2, 3],
             'parceiroTipo' => 'sosmulher',
-            'lista'        => (new ListarModel())->listarDados(),
+            'dado'        => (new ListarModel())->listarDados(),
+            'lista'        => (new ListarModel())->listarRelacionado(),
         ]);
     }
 

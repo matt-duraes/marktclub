@@ -8,35 +8,24 @@
             <figure class="logo"><img src="https://clube.marktclub.com.br/images/denuncia_index_capa_parceiro.png"></figure>
         </section>
         <header class="bloco_header">
-            <h1>PRECISA DE AJUDA?</h1>
-            <p>Atenção! Esta página é voltada ao suporte à mulher. <br>
-                Em caso de emergência, ligue para o 180.
-            </p>
+            <h1>{{$dado->descricao->titulo}}</h1>
+            <p>{{$dado->descricao->subtitulo}}</p>
         </header>
     </div>
 
     <div class="bloco_desconto_procedimento">
         <div class="bloco bloco_titulo_texto">
-            <h1>Como Utilizar?</h1>
-            <p>
-                Agende uma conversa.
-                Para utilizar essa ferramente, basta apertar o botão encontrar parceiros.
-                Aqui você localiza empresas que disponibilizam o serviço de atendimento online.
-            </p>
+            <h1>{{$dado->como_utilizar->titulo}}</h1>
+            <p>{{$dado->como_utilizar->texto}}</p>
         </div>
         <div class="bloco bloco_titulo_texto">
-            <h1>Atendimento online</h1>
-            <p>Aqui você será redirecionada para o chat do Ministério dos Direitos Humanos.
-                Ao entrar em contato por esse campo, você encontra uma forma mais silenciosa e segura de denunciar.
-            </p>
+            <h1>{{$dado->atendimento->titulo}}</h1>
+            <p>{{$dado->atendimento->texto}}</p>
         </div>
     </div>
 
     <div class="bloco_atencao_geral">
-        <p>
-            Os canais acima não são do Markt Club.
-            Você será redirecionado aos órgãos responsáveis pelo atendimento.
-        </p>
+        <p>{{$dado->aviso->texto}}</p>
     </div>
     <div class="bloco_botao">
         <a href="" target="_blank" rel="nofollow noopener"  class="botao destaque botao_geral_cor cor_bg">
