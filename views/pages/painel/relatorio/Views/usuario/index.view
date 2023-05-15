@@ -35,9 +35,6 @@
                 <div class="quadro roxo" id="grafico_status_bloqueado">
                     <div class="numero"><span class="loading">0</span></div>
                     <p>Usuários bloqueados</p>
-                    <div class="porcentagem"><span class="loading">0</span></div>
-                    <div class="barra"><span></span></div>
-                    <p class="porcentagem_texto">do total de usuários</p>
                 </div>
             </div>
         </div>

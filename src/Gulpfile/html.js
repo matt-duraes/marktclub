@@ -10,6 +10,7 @@ const {
     fsDeletarDiretorio,
     fsCriarArquivo,
     fsPegarConteudo,
+    fsRemoverArquivoSeExistir,
 } = require('./arquivo');
 
 /*
@@ -50,11 +51,12 @@ exports.htmlUnico = function (path) {
             .replace(/\//g, '_')
             .replace(/_{2,}/g, '_');
 
+        await fsRemoverArquivoSeExistir('files/build/views/' + nome);
         await fsCriarDiretorio('files/build');
         await fsCriarDiretorio('files/build/views');
 
         try {
-            const retorno = await processarHtml(arquivo, nome);
+            const retorno = await processarHtml(arquivo, nome, 'files/build/views');
             mensagemSucesso(retorno);
         } catch (error) {
             mensagemErro(error);
@@ -95,7 +97,7 @@ exports.htmlTodos = function () {
                     .replace(/_{2,}/g, '_');
 
                 try {
-                    await processarHtml(arquivo, nome);
+                    await processarHtml(arquivo, nome, 'files/build/html');
                 } catch (error) {
                     mensagemErro(error);
                 }
@@ -113,7 +115,7 @@ exports.htmlTodos = function () {
 | FUNÇÕES GERAIS
 |--------------------------------------------------------------------------
 */
-async function processarHtml(arquivo, nome) {
+async function processarHtml(arquivo, nome, destino) {
     return new Promise(async (resolve, reject) => {
         try {
             await fsVerificarSeArquivoExiste(arquivo);
@@ -127,7 +129,7 @@ async function processarHtml(arquivo, nome) {
         conteudo = await fazerReplaceNoConteudo(conteudo, arquivo.replace(/\/[a-zA-Z0-9\_\-]+\.view$/, ''));
 
         try {
-            await fsCriarArquivo('files/build/html/' + nome, conteudo);
+            await fsCriarArquivo(destino + '/' + nome, conteudo);
             resolve('Arquivo salvo com sucesso: ' + arquivo);
         } catch (error) {
             reject('Ocorreu um erro ao salvar o arquivo: ' + arquivo);

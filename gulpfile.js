@@ -53,11 +53,12 @@ exports.build = parallel(
     copiandoArquivosDeImagem,
     criandoDefineTabela
 );
-exports.js = series(copiandoArquivosJS, preparandoJSParaProducao, colocandoJsEmProducao);
-exports.css = series(copiandoArquivosCSS, preparandoCSSParaProducao, colocandoCssEmProducao);
-exports.html = series(copiandoArquivosHtml, preparandoHtmlParaProducao, colocandoHtmlEmProducao);
+exports.js = series(copiandoArquivosJS, colocandoJsEmProducao);
+exports.css = series(copiandoArquivosCSS, colocandoCssEmProducao);
+exports.html = series(copiandoArquivosHtml, colocandoHtmlEmProducao);
 exports.imagem = series(copiandoArquivosDeImagem);
 exports.tabela = series(criandoDefineTabela);
+exports.teste = series(preparandoJSParaProducao);
 
 // Instalar o framework
 exports.install = series(
@@ -76,9 +77,9 @@ exports.install = series(
     copiandoArquivoDeErro,
     criandoPaginaExemplo,
     parallel(
-        series(copiandoArquivosCSS, preparandoCSSParaProducao, colocandoCssEmProducao),
-        series(copiandoArquivosJS, preparandoJSParaProducao, colocandoJsEmProducao),
-        series(copiandoArquivosHtml, preparandoHtmlParaProducao, colocandoHtmlEmProducao),
+        series(copiandoArquivosCSS, colocandoCssEmProducao),
+        series(copiandoArquivosJS, colocandoJsEmProducao),
+        series(copiandoArquivosHtml, colocandoHtmlEmProducao),
         copiandoArquivosDeImagem,
         criandoDefineTabela
     )

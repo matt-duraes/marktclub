@@ -8,7 +8,7 @@ const plumber = require('gulp-plumber');
 const { arquivoExiste, inArray } = require('./Helper.js');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const glob = require('glob');
-const { fsDeletarDiretorio, fsCriarArquivo, fsCriarDiretorio } = require('./arquivo');
+const { fsDeletarDiretorio, fsCriarArquivo, fsCriarDiretorio, fsRemoverArquivoSeExistir } = require('./arquivo');
 
 let arquivoConteudo = [];
 let config;
@@ -24,23 +24,22 @@ exports.jsUnico = function (path) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
-        let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
-        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/path.js';
+        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
+        const nome = pegarNomeArquivo(pathReal);
 
-        if (await arquivoExiste(pathReal, false)) {
-            const conteudo = fs.readFileSync(pathReal, 'utf-8');
-            pathAll = conteudo.replace(/^\/\/\ ?/, '').trim();
-        }
-
-        if (!(await arquivoExiste(pathAll))) {
+        if (!(await arquivoExiste(pathReal))) {
+            mensagemErro('Arquivo não existe: ' + pathReal);
             resolve(false);
         }
 
+        await fsRemoverArquivoSeExistir('files/build/js/' + nome);
+        await fsRemoverArquivoSeExistir(config.public + '/js/' + nome);
+
         try {
-            await processarJs(pathAll, config.public + '/js');
-            mensagemSucesso('Arquivo copiado com sucesso: ' + pathAll);
+            await processarJs(pathReal, config.public + '/js');
+            mensagemSucesso('Arquivo copiado com sucesso: ' + pathReal);
         } catch (error) {
-            mensagemErro('Erro ao copiar arquivo: ' + pathAll);
+            mensagemErro('Erro ao copiar arquivo: ' + pathReal);
         }
         resolve(true);
     });
@@ -84,7 +83,13 @@ exports.jsTodos = function () {
 |--------------------------------------------------------------------------
 */
 exports.jsDeploy = async function () {
-    return src('./files/build/js/*.js').pipe(plumber()).pipe(uglify()).pipe(dest('./files/build/js'));
+    if (config == undefined) {
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+    return src(config.public + '/js/*.js')
+        .pipe(plumber())
+        .pipe(uglify())
+        .pipe(dest(config.public + '/js'));
 };
 
 /*
@@ -128,17 +133,21 @@ exports.jsValidar = async path => {
 | FUNÇÕES GERAIS
 |--------------------------------------------------------------------------
 */
+function pegarNomeArquivo(path) {
+    return (
+        path
+            .replace(/^src\/Painel\/App\//, 'painel_')
+            .replace(/^views\/(pages\/)?/, '')
+            .replace(/\/js\/[a-zA-Z0-9\-\_\.]+\.js/, '')
+            .replace(/\/Views/, '')
+            .replace(/\//g, '_')
+            .replace(/_{2,}/g, '_') + '.js'
+    );
+}
 function processarJs(path, destino) {
     return new Promise(async (resolve, reject) => {
         const dirBase = path.replace(/\/all.js$/, '') + '/';
-        const nome =
-            path
-                .replace(/^src\/Painel\/App\//, 'painel_')
-                .replace(/^views\/(pages\/)?/, '')
-                .replace(/\/js\/[a-zA-Z0-9\-\_\.]+\.js/, '')
-                .replace(/\/Views/, '')
-                .replace(/\//g, '_')
-                .replace(/_{2,}/g, '_') + '.js';
+        const nome = pegarNomeArquivo(path);
 
         const conteudo = fs.readFileSync(path, 'utf-8');
         let listaImport = pegarListaImports(conteudo, dirBase);
