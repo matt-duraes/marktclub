@@ -102,6 +102,7 @@ exports.jsProducao = async () => {
         config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
     await fsDeletarDiretorio(config.public + '/js');
+    await new Promise(r => setTimeout(r, 2000));
 
     return src('./files/build/js/*.js')
         .pipe(plumber())

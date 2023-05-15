@@ -32,6 +32,8 @@ exports.htmlDeploy = function () {
 */
 exports.htmlProducao = async () => {
     await fsDeletarDiretorio('files/build/views');
+    await new Promise(r => setTimeout(r, 2000));
+
     return src('./files/build/html/*.php').pipe(plumber()).pipe(dest('./files/build/views'));
 };
 

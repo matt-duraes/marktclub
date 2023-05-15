@@ -76,6 +76,13 @@ final class SelectModel extends ORM
         $where = [
             ['id_admin_empresa', $this->idEmpresa]
         ];
+        if ($this->idEmpresa == 1) {
+            $where = [
+                'OR',
+                ['id_admin_empresa', $this->idEmpresa],
+                ['marktclub', 1]
+            ];
+        }
         return $where;
     }
 }

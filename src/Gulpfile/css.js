@@ -104,6 +104,7 @@ exports.cssProducao = async () => {
     }
 
     await fsDeletarDiretorio(config.public + '/css');
+    await new Promise(r => setTimeout(r, 2000));
 
     return src('./files/build/css/*.css')
         .pipe(plumber())
