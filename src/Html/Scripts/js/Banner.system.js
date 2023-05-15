@@ -1,7 +1,6 @@
+/* eslint-disable */
 class Banner {
-
     init(option) {
-
         if (typeof option != 'object') {
             option = {};
         }
@@ -23,7 +22,6 @@ class Banner {
 
         let self = this;
         self._giroAutomatico(banner, option.elemento, tempo).then(retorno => {
-
             if (false === retorno) {
                 return false;
             }
@@ -37,27 +35,24 @@ class Banner {
             }
 
             if (anterior && proximo) {
-                proximo.addEventListener('click', function() {
+                proximo.addEventListener('click', function () {
                     self._proximo();
                 });
-                anterior.addEventListener('click', function() {
+                anterior.addEventListener('click', function () {
                     self._anterior();
                 });
             }
 
-            banner.addEventListener("swiped-left", function() {
+            banner.addEventListener('swiped-left', function () {
                 self._proximo();
             });
-            banner.addEventListener("swiped-right", function() {
+            banner.addEventListener('swiped-right', function () {
                 self._anterior();
             });
-
         });
-
     }
 
     async _giroAutomatico(banner, elemento, tempo) {
-
         elemento = banner.querySelectorAll(elemento);
         let quantidade = elemento.length;
         if (quantidade == 0) {
@@ -84,23 +79,21 @@ class Banner {
         }, tempo);
 
         self = this;
-        banner.addEventListener('mouseover', function() {
+        banner.addEventListener('mouseover', function () {
             clearInterval(self._contador);
         });
-        banner.addEventListener('mouseout', function() {
+        banner.addEventListener('mouseout', function () {
             self._contador = setInterval(() => {
                 self._proximo();
             }, tempo);
         });
-
     }
     _proximo() {
-
         let bannerAtual = this._bannerAtual;
         if (bannerAtual == this._bannerTotal) {
             this._bannerAtual = 0;
         } else {
-            this._bannerAtual++
+            this._bannerAtual++;
         }
 
         let elementoAtual = this._elemento[bannerAtual];
@@ -112,15 +105,13 @@ class Banner {
             elementoAtual.style['z-index'] = 1;
             elementoProximo.style['z-index'] = 3;
         }, 300);
-
     }
     _anterior() {
-
         let bannerAtual = this._bannerAtual;
         if (bannerAtual == 0) {
             this._bannerAtual = this._bannerTotal;
         } else {
-            this._bannerAtual--
+            this._bannerAtual--;
         }
 
         let elementoAtual = this._elemento[bannerAtual];
@@ -132,7 +123,6 @@ class Banner {
             elementoAtual.style['z-index'] = 1;
             elementoProximo.style['z-index'] = 3;
         }, 300);
-
     }
-
 }
+/* eslint-enable */

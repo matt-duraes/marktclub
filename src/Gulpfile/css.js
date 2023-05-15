@@ -9,7 +9,7 @@ const plumber = require('gulp-plumber');
 const { arquivoExiste } = require('./Helper.js');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const glob = require('glob');
-const { fsDeletarDiretorio, fsCriarArquivo } = require('./arquivo');
+const { fsDeletarDiretorio, fsCriarArquivo, fsCriarDiretorio } = require('./arquivo');
 
 let arquivoConteudo = [];
 let config;
@@ -37,8 +37,10 @@ exports.cssUnico = function (path, browser) {
             resolve(false);
         }
 
+        await fsCriarDiretorio('./files/build/css');
+
         try {
-            await processarCss(pathAll, browser);
+            await processarCss(pathAll, config.public + '/css', browser);
             mensagemSucesso('Arquivo copiado com sucesso: ' + pathAll);
         } catch (error) {
             mensagemErro('Erro ao copiar arquivo: ' + pathAll);
@@ -54,15 +56,12 @@ exports.cssUnico = function (path, browser) {
 */
 exports.cssTodos = function () {
     return new Promise(async resolve => {
-        if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-        }
-        await fsDeletarDiretorio('./files/deploy/css');
+        await fsDeletarDiretorio('./files/build/css');
+        await fsCriarDiretorio('./files/build/css');
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/layout.styl')
             .concat(glob.sync('src/Painel/App/**/layout.styl'));
-        // const listaArquivo = glob.sync('views/pages/site/alfa/consignado/css/layout.styl');
 
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
@@ -70,8 +69,7 @@ exports.cssTodos = function () {
         for (i = 0; i < quantidade; ++i) {
             arquivo = listaArquivo[i];
             try {
-                await processarCss(arquivo);
-                mensagemSucesso('Arquivo copiado com sucesso: ' + arquivo);
+                await processarCss(arquivo, './files/build/css');
             } catch (error) {
                 mensagemErro('Erro ao copiar arquivo: ' + arquivo);
             }
@@ -89,9 +87,6 @@ exports.cssTodos = function () {
 |--------------------------------------------------------------------------
 */
 exports.cssDeploy = async function () {
-    if (config == undefined) {
-        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
     return src('./files/build/css/*.css')
         .pipe(plumber())
         .pipe(autoprefixer())
@@ -108,11 +103,12 @@ exports.cssProducao = async () => {
     if (config == undefined) {
         config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
+
     await fsDeletarDiretorio(config.public + '/css');
 
     return src('./files/build/css/*.css')
         .pipe(plumber())
-        .pipe(dest(config.public + '/js'));
+        .pipe(dest(config.public + '/css'));
 };
 
 /*
@@ -120,7 +116,7 @@ exports.cssProducao = async () => {
 | FUNÇÕES GERAIS
 |--------------------------------------------------------------------------
 */
-function processarCss(path, browser) {
+function processarCss(path, destino, browser) {
     return new Promise(async (resolve, reject) => {
         const dirBase = path.replace(/\/layout.styl$/, '') + '/';
         const nome =
@@ -176,7 +172,7 @@ function processarCss(path, browser) {
                         'include css': true,
                     })
                 )
-                .pipe(dest('./files/build/css'))
+                .pipe(dest(destino))
                 .pipe(browser.stream())
                 .on('end', resolve)
                 .on('error', reject);
@@ -196,7 +192,7 @@ function processarCss(path, browser) {
                         'include css': true,
                     })
                 )
-                .pipe(dest('./files/build/css'))
+                .pipe(dest(destino))
                 .on('end', resolve)
                 .on('error', reject);
         }

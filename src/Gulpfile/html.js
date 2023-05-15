@@ -30,8 +30,8 @@ exports.htmlDeploy = function () {
 |--------------------------------------------------------------------------
 */
 exports.htmlProducao = async () => {
-    await fsDeletarDiretorio('files/build/view');
-    return src('./files/build/html/*.php').pipe(plumber()).pipe(dest('./files/build/view'));
+    await fsDeletarDiretorio('files/build/views');
+    return src('./files/build/html/*.php').pipe(plumber()).pipe(dest('./files/build/views'));
 };
 
 /*
@@ -95,8 +95,7 @@ exports.htmlTodos = function () {
                     .replace(/_{2,}/g, '_');
 
                 try {
-                    const retorno = await processarHtml(arquivo, nome);
-                    // mensagemSucesso(retorno);
+                    await processarHtml(arquivo, nome);
                 } catch (error) {
                     mensagemErro(error);
                 }
@@ -116,8 +115,6 @@ exports.htmlTodos = function () {
 */
 async function processarHtml(arquivo, nome) {
     return new Promise(async (resolve, reject) => {
-        const dest = './files/build/html/';
-
         try {
             await fsVerificarSeArquivoExiste(arquivo);
         } catch (error) {
@@ -130,7 +127,7 @@ async function processarHtml(arquivo, nome) {
         conteudo = await fazerReplaceNoConteudo(conteudo, arquivo.replace(/\/[a-zA-Z0-9\_\-]+\.view$/, ''));
 
         try {
-            await fsCriarArquivo(dest + nome, conteudo);
+            await fsCriarArquivo('files/build/html/' + nome, conteudo);
             resolve('Arquivo salvo com sucesso: ' + arquivo);
         } catch (error) {
             reject('Ocorreu um erro ao salvar o arquivo: ' + arquivo);

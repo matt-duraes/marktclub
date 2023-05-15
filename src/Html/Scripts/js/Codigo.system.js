@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*!
   Highlight.js v11.4.0 (git: 2d0e7c1094)
   (c) 2006-2022 Ivan Sagalaev and other contributors
@@ -914,3 +915,4 @@
     },H,J,{beginKeywords:"import",end:/$/,contains:[...v],relevance:0
     },...B,..._,...M,I,P,...z,...q,U,V]}}})();hljs.registerLanguage("swift",e)})();
     hljs.highlightAll();
+/* eslint-enable */

@@ -8,9 +8,11 @@ const plumber = require('gulp-plumber');
 const { arquivoExiste, inArray } = require('./Helper.js');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const glob = require('glob');
-const { fsDeletarDiretorio, fsCopiar } = require('./arquivo');
+const { fsDeletarDiretorio, fsCriarArquivo, fsCriarDiretorio } = require('./arquivo');
 
+let arquivoConteudo = [];
 let config;
+
 /*
 |--------------------------------------------------------------------------
 | HTML
@@ -18,6 +20,10 @@ let config;
 */
 exports.jsUnico = function (path) {
     return new Promise(async resolve => {
+        if (config == undefined) {
+            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+        }
+
         let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
         const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/path.js';
 
@@ -31,7 +37,7 @@ exports.jsUnico = function (path) {
         }
 
         try {
-            await processarJs(pathAll);
+            await processarJs(pathAll, config.public + '/js');
             mensagemSucesso('Arquivo copiado com sucesso: ' + pathAll);
         } catch (error) {
             mensagemErro('Erro ao copiar arquivo: ' + pathAll);
@@ -48,18 +54,19 @@ exports.jsUnico = function (path) {
 exports.jsTodos = function () {
     return new Promise(async resolve => {
         await fsDeletarDiretorio('./files/build/js');
+        await fsCriarDiretorio('./files/build/js');
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/all.js')
             .concat(glob.sync('src/Painel/App/**/all.js'));
+
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
         let i, arquivo;
         for (i = 0; i < quantidade; ++i) {
             arquivo = listaArquivo[i];
             try {
-                await processarJs(arquivo);
-                // mensagemSucesso('Arquivo copiado com sucesso: ' + arquivo);
+                await processarJs(arquivo, './files/build/js');
             } catch (error) {
                 mensagemErro('Erro ao copiar arquivo: ' + arquivo);
             }
@@ -95,24 +102,45 @@ exports.jsProducao = async () => {
         .pipe(plumber())
         .pipe(dest(config.public + '/js'));
 };
+exports.jsValidar = async path => {
+    return src(path)
+        .pipe(plumber())
+        .pipe(
+            eslint({
+                rules: {
+                    camelcase: 1,
+                    semi: 1,
+                },
+                parserOptions: {
+                    ecmaVersion: 2017,
+                },
+                env: {
+                    es6: true,
+                },
+            })
+        )
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+};
 
 /*
 |--------------------------------------------------------------------------
 | FUNÇÕES GERAIS
 |--------------------------------------------------------------------------
 */
-function processarJs(path) {
+function processarJs(path, destino) {
     return new Promise(async (resolve, reject) => {
         const dirBase = path.replace(/\/all.js$/, '') + '/';
-        const nome = path
-            .replace(/^src\/Painel\/App\//, 'painel_')
-            .replace(/^views\/(pages\/)?/, '')
-            .replace(/\/js\/[a-zA-Z0-9\-\_\.]+\.js/, '')
-            .replace(/\/Views/, '')
-            .replace(/\//g, '_')
-            .replace(/_{2,}/g, '_');
-        const conteudo = fs.readFileSync(path, 'utf-8');
+        const nome =
+            path
+                .replace(/^src\/Painel\/App\//, 'painel_')
+                .replace(/^views\/(pages\/)?/, '')
+                .replace(/\/js\/[a-zA-Z0-9\-\_\.]+\.js/, '')
+                .replace(/\/Views/, '')
+                .replace(/\//g, '_')
+                .replace(/_{2,}/g, '_') + '.js';
 
+        const conteudo = fs.readFileSync(path, 'utf-8');
         let listaImport = pegarListaImports(conteudo, dirBase);
         if (listaImport) {
             listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
@@ -125,31 +153,29 @@ function processarJs(path) {
             return;
         }
 
-        return src(listaImport)
+        let conteudoTemp = '';
+        let conteudoFinal = '';
+        [].forEach.call(listaImport, arquivo => {
+            if (arquivoConteudo[arquivo]) {
+                conteudoTemp = arquivoConteudo[arquivo];
+            } else {
+                conteudoTemp = fs.readFileSync(arquivo, 'utf-8');
+                arquivoConteudo[arquivo] = conteudoTemp;
+            }
+            conteudoFinal += conteudoTemp + '\n';
+        });
+        conteudoFinal += conteudo;
+
+        await fsCriarArquivo('files/build/js/' + nome, conteudoFinal);
+
+        return src('files/build/js/' + nome)
             .pipe(plumber())
-            .pipe(
-                eslint({
-                    rules: {
-                        camelcase: 1,
-                        semi: 1,
-                    },
-                    parserOptions: {
-                        ecmaVersion: 2017,
-                    },
-                    env: {
-                        es6: true,
-                    },
-                })
-            )
-            .pipe(eslint.format())
-            .pipe(eslint.failAfterError())
-            .pipe(concat(nome + '.js'))
             .pipe(
                 replace(/\/\/\ ?(\@template|\@import|\@resource|\@system)(.*)/g, function handleReplace(match) {
                     return '';
                 })
             )
-            .pipe(dest('./files/build/js'))
+            .pipe(dest(destino))
             .on('end', resolve)
             .on('error', reject);
     });

@@ -4,7 +4,7 @@ const fs = require('fs');
 const prop = require('yargs').argv;
 const { watch, parallel, series } = require('gulp');
 const { cssUnico, cssTodos, cssDeploy, cssProducao } = require('./src/Gulpfile/css.js');
-const { jsUnico, jsTodos, jsDeploy, jsProducao } = require('./src/Gulpfile/js.js');
+const { jsUnico, jsValidar, jsTodos, jsDeploy, jsProducao } = require('./src/Gulpfile/js.js');
 const { htmlUnico, htmlTodos, htmlDeploy, htmlProducao } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
@@ -46,16 +46,6 @@ exports.upgrade = series(
 // Limpa o framework
 exports.clearFramework = series(limpandoFramework);
 
-// Deploy em produção
-exports.deploy = parallel(
-    parallel(
-        series(copiandoArquivosCSS, preparandoCSSParaProducao, colocandoCssEmProducao),
-        series(copiandoArquivosJS, preparandoJSParaProducao, colocandoJsEmProducao),
-        series(copiandoArquivosHtml, preparandoHtmlParaProducao, colocandoHtmlEmProducao)
-    ),
-    copiandoArquivosDeImagem,
-    criandoDefineTabela
-);
 exports.build = parallel(
     series(copiandoArquivosCSS, colocandoCssEmProducao),
     series(copiandoArquivosJS, colocandoJsEmProducao),
@@ -66,6 +56,8 @@ exports.build = parallel(
 exports.js = series(copiandoArquivosJS, preparandoJSParaProducao, colocandoJsEmProducao);
 exports.css = series(copiandoArquivosCSS, preparandoCSSParaProducao, colocandoCssEmProducao);
 exports.html = series(copiandoArquivosHtml, preparandoHtmlParaProducao, colocandoHtmlEmProducao);
+exports.imagem = series(copiandoArquivosDeImagem);
+exports.tabela = series(criandoDefineTabela);
 
 // Instalar o framework
 exports.install = series(
@@ -175,6 +167,7 @@ async function monitorarSistema() {
     watch('./views/pages/**/*.js').on('change', async path => {
         const time = new Date().getTime();
         consoleHeader();
+        await jsValidar(path);
         await jsUnico(path);
         browserSync.reload();
         consoleFooter(time);
@@ -283,7 +276,6 @@ function preparandoCSSParaProducao() {
 function colocandoCssEmProducao() {
     return cssProducao();
 }
-
 function copiandoArquivosJS() {
     return jsTodos();
 }
