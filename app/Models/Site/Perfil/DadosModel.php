@@ -59,22 +59,22 @@ final class DadosModel
             $r = $dado->dado;
             $retorno = (object)[
                 'id'                   => $r->id,
-                'nome'                 => $Crypt->decode($r->nome),
-                'cpf'                  => $Crypt->decode($r->cpf),
-                'email_pessoal'        => $Crypt->decode($r->email_pessoal),
-                'email_trabalho'       => $Crypt->decode($r->email_trabalho),
-                'telefone_trabalho'    => $Crypt->decode($r->telefone_trabalho),
-                'telefone_pessoal'     => $Crypt->decode($r->telefone_pessoal),
-                'estado_civil'         => $Crypt->decode($r->estado_civil),
-                'genero'               => $Crypt->decode($r->genero),
-                'data_nascimento'      => $Crypt->decode($r->data_nascimento),
-                'endereco_cep'         => $Crypt->decode($r->endereco_cep),
-                'endereco_logradouro'  => $Crypt->decode($r->endereco_logradouro),
-                'endereco_numero'      => $Crypt->decode($r->endereco_numero),
-                'endereco_complemento' => $Crypt->decode($r->endereco_complemento),
-                'endereco_bairro'      => $Crypt->decode($r->endereco_bairro),
-                'endereco_cidade'      => $Crypt->decode($r->endereco_cidade),
-                'endereco_estado'      => $Crypt->decode($r->endereco_estado)
+                'nome'                 => $Crypt->decode($r->nome) ?? '',
+                'cpf'                  => $Crypt->decode($r->cpf) ?? '',
+                'email_pessoal'        => $Crypt->decode($r->email_pessoal) ?? '',
+                'email_trabalho'       => $Crypt->decode($r->email_trabalho) ?? '',
+                'telefone_trabalho'    => $Crypt->decode($r->telefone_trabalho) ?? '',
+                'telefone_pessoal'     => $Crypt->decode($r->telefone_pessoal) ?? '',
+                'estado_civil'         => $Crypt->decode($r->estado_civil) ?? '',
+                'genero'               => $Crypt->decode($r->genero) ?? '',
+                'data_nascimento'      => $Crypt->decode($r->data_nascimento) ?? '',
+                'endereco_cep'         => $Crypt->decode($r->endereco_cep) ?? '',
+                'endereco_logradouro'  => $Crypt->decode($r->endereco_logradouro) ?? '',
+                'endereco_numero'      => $Crypt->decode($r->endereco_numero) ?? '',
+                'endereco_complemento' => $Crypt->decode($r->endereco_complemento) ?? '',
+                'endereco_bairro'      => $Crypt->decode($r->endereco_bairro) ?? '',
+                'endereco_cidade'      => $Crypt->decode($r->endereco_cidade) ?? '',
+                'endereco_estado'      => $Crypt->decode($r->endereco_estado) ?? ''
             ];
         }
 
