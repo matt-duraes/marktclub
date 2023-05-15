@@ -67,7 +67,7 @@ final class LojaController extends Controller
             'url'          => $url,
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
             'lista'        => (new RelacionadoModel())->listarDados(),
-            'dado'        => (new DetalheModel())->listarDados(),
+            'dado'        => (new DetalheModel($url))->listarDados(),
             'parceiroTipo' => 'loja'
         ]);
     }

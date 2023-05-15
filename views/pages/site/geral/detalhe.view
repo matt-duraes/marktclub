@@ -4,9 +4,9 @@
     <input type="hidden" name="url" id="input_loja_url" value="{{$url}}">
     <div class="bloco_topo">
         <section class="bloco_banner">
-            <figure class="banner desktop"><img src="https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png"></figure>
-            <figure class="banner mobile"><img src="https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png"></figure>
-            <figure class="logo"><img src="https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg"></figure>
+            <figure class="banner desktop"><img src="{{$dado->lista->imagem->capa}}"></figure>
+            <figure class="banner mobile"><img src="{{$dado->lista->imagem->capa}}"></figure>
+            <figure class="logo"><img src="{{$dado->lista->imagem->logo}}"></figure>
         </section>
         <header class="bloco_header">
             <h1>{{$dado->lista->titulo}}</h1>
