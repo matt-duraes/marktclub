@@ -79,7 +79,7 @@
 
 	<div class="bloco_plano_saude">
 		<header>
-            <h1>PREÇOS DO PLANO DE SAÚDE</h1>
+            <h1>Preços do Plano de Saúde</h1>
         </header>
 		<div class="bloco_tabela_geral">
 			<table>
@@ -214,7 +214,7 @@
 
 	<section class="bloco_auxilio_ressarcimento bloco_plano_saude">
 		<header>
-            <h1>AUXÍLIO RESSARCIMENTO</h1>
+            <h1>Auxílio Ressarcimento</h1>
             <p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
         </header>
 		<div class="bloco_tabela_geral">
@@ -352,7 +352,7 @@
 
 	<section class="bloco_plano_saude">
 		<header>
-		    <h1>FATOR MODERADOR</h1>
+		    <h1>Fator Moderador</h1>
 		    <p>Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:</p>
         </header>
         <div class="bloco_tabela_geral">
@@ -393,8 +393,8 @@
     <section class="bloco_simulacao container_scroll">
 		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
 		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
-        @if(TIPO_USUARIO != 'indicado')
-            <a href="@route(planosaude.simulacao)/unimed-seguros">Fazer Simulação</a>
+        @if(TIPO_USUARIO != 'indicado'):
+            <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/unimed-seguros">Fazer Simulação</a>
         @else
             <div class="bloco_atencao_geral">
                 <p>Apenas associados possuem acesso a este recurso</p>

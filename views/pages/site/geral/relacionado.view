@@ -9,6 +9,9 @@
         @ elseif( $parceiroTipo == 'turismo' ):
         <h1>Veja nossos parceiros direto de hotéis</h1>
         <a class="cor_color" href="@route(loja.detalhe)">Veja mais</a>
+        @ elseif( $parceiroTipo == 'sosmulher' ):
+        <h1>Denuncie aqui</h1>
+        <a class="cor_color" href="#">Veja mais</a>
         @ endif;
     </header>
     @view site/geral/parceiro.view

@@ -60,11 +60,13 @@ final class PlanoSaudeController extends Controller
 
     public function unimedVitoria()
     {
-        return view('planosaude.unimedvitoria', [
-            'menu' => 'saude',
-            'lista'  => (new OperadoraModel())->listarDados()
-
-        ]);
+        return view(
+            'planosaude.unimedvitoria',
+            [
+                'menu' => 'saude',
+                'lista'  => (new OperadoraModel())->listarDados()
+            ]
+        );
     }
 
     public function unimedflorianopolis()

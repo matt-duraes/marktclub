@@ -7,6 +7,7 @@ use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Loja\MapaModel;
 use App\Models\Site\Loja\RelacionadoModel;
+use App\Models\Site\Loja\DetalheModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -66,6 +67,7 @@ final class LojaController extends Controller
             'url'          => $url,
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
             'lista'        => (new RelacionadoModel())->listarDados(),
+            'dado'        => (new DetalheModel($url))->listarDados(),
             'parceiroTipo' => 'loja'
         ]);
     }

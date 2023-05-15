@@ -5,6 +5,7 @@ namespace App\Controllers\Site;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
+use App\Models\Site\SosMulher\ListarModel;
 
 final class SiteController extends Controller
 {
@@ -12,7 +13,7 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function pesquisa(): Response
+    public function getPesquisa(): Response
     {
         $listaConhece = [
             (object)['name' => '0800', 'label' => '0800', 'valor' => '1'],
@@ -35,6 +36,7 @@ final class SiteController extends Controller
         return view('pesquisa.index', [
             'sistemaConhece' => $listaConhece
         ]);
+
     }
 
     /**
@@ -44,7 +46,10 @@ final class SiteController extends Controller
     public function sosmulher(): Response
     {
         return view('sosmulher.index', [
-            'parceiro' => [1, 2, 3]
+            'parceiro' => [1, 2, 3],
+            'parceiroTipo' => 'sosmulher',
+            'dado'        => (new ListarModel())->listarDados(),
+            'lista'        => (new ListarModel())->listarRelacionado(),
         ]);
     }
 
