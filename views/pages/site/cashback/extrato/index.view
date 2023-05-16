@@ -1,21 +1,22 @@
 @template "site"
 
 <div id="bloco_pagina_cashback">
-    
-    <div class="conteudo">
-        @view site/cashback/geral/banner.view
 
-        <section class="panel">
-            <header>
-				<p>Você tem acesso a dezenas de parceiros que oferecem % do valor da sua compra em pontos SILIUM, que poderão ser resgatados em dinheiro!</p>
-				<p>Para efetuar o resgate, basta acumular 10.000 pontos e solicitar a transferência. Sendo que cada 100 pontos SILIUM equivalem a 1 Real".</p>
-				<p>SILIUM, aqui você sempre tem Mais Vantagens!</p>
-				<p>* Os pagamentos serão feitos sempre nos dias 10 e 25 de cada mês.
-                Para você receber no dia 10 do mesmo mês, faça a sua solicitação até dia 05. Para receber até dia 25 do mesmo mês, faça sua solicitação até dia 20.</p>
-            </header>
+    <div class="conteudo">
+
+        <figure>
+            <img src="https://clube.marktclub.com.br/images/logo_silium.png" alt="Logo Silium">
+        </figure>
+
+        <section class="bloco_titulo_texto">
+			<p>Você tem acesso a dezenas de parceiros que oferecem % do valor da sua compra em pontos SILIUM, que poderão ser resgatados em dinheiro!</p>
+			<p>Para efetuar o resgate, basta acumular 10.000 pontos e solicitar a transferência. Sendo que cada 100 pontos SILIUM equivalem a 1 Real".</p>
+			<p>SILIUM, aqui você sempre tem Mais Vantagens!</p>
+			<p>* Os pagamentos serão feitos sempre nos dias 10 e 25 de cada mês.
+            Para você receber no dia 10 do mesmo mês, faça a sua solicitação até dia 05. Para receber até dia 25 do mesmo mês, faça sua solicitação até dia 20.</p>
         </section>
-        
-		<a href="#" target="_blank" class="regulamento">REGULAMENTO SILIUM</a>
+
+		<a href="#" target="_blank" class="regulamento botao_geral_cor_borda_solida">REGULAMENTO SILIUM</a>
 
 		<div class="saldo">
 			<div class="saldo_conta">
@@ -34,15 +35,20 @@
             @ endif;
 		</div>
 
-		<div class="tabs">
-		
-			<div class="tab">
-				<button class="tabLink active" data-tab="#tab1">Extrato de compra</button>
-				<button class="tabLink normal" data-tab="#tab2">Extrato de saque</button>
-			</div>
+        <div class="bloco_tab_geral bloco_procedimento">
+            <div class="bloco_botao">
+                <button class="botao ativo" data-id="bloco_nome_01">
+                    <span class="texto_inativo">Extrato de compra</span>
+                    <span class="texto_ativo cor_color">Extrato de compra</span>
+                </button>
+                <button class="botao" data-id="bloco_nome_02">
+                    <span class="texto_inativo">Extrato de saque</span>
+                    <span class="texto_ativo cor_color">Extrato de saque</span>
+                </button>
+            </div>
 
-			<div id="tab1" class="tabConteudo active">
-				<div class="table_container">
+            <div id="bloco_nome_01" class="conteudo">
+                <div class="bloco_tabela_geral">
 					<table>
 						<thead>
 							<tr>
@@ -80,10 +86,10 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+            </div>
 
-			<div id="tab2" class="tabConteudo">
-				<div class="table_container">
+            <div id="bloco_nome_02" class="conteudo display_none">
+                <div class="bloco_tabela_geral">
 					<table>
 						<thead>
 							<tr>
@@ -108,12 +114,9 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+            </div>
 
-
-		</div>
-
-    
+        </div>
     </div>
 
 </div>
