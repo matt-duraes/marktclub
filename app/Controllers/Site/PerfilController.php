@@ -38,9 +38,7 @@ final class PerfilController extends Controller
 
     public function senha()
     {
-        return view('perfil.senha', [
-            'tituloPagina' => 'Atualize sua senha'
-        ]);
+        return view('perfil.senha');
     }
 
     public function dependente()

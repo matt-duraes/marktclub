@@ -1,20 +1,30 @@
 @template "site"
 
 <div id="bloco_pagina_senha">
-    @ if( $tituloPagina ):
-        @view site/promocao/geral/titulo_pagina.view
-    @ endif;
 
-    <div class="conteudo">
+    <div class="bloco_titulo_texto">
+        <h1>Siga os passos abaixo para alterar a sua senha</h1>
+        <div class="requisito">
+            <p>Sua senha deve:</p>
+            <ul class="bloco_geral_ul">
+                <li>Ter pelo menos 8 caracteres</li>
+                <li>Ter pelo menos uma letra minúscula</li>
+                <li>Ter pelo menos uma letra maiúscula</li>
+                <li>Ter pelo menos um símbolo</li>
+                <li>Ter pelo menos um número</li>
+            </ul>
+        </div>
         <form action="@route('post.perfil.alteraSenha')"  method="post" id="form_mudar_senha" class="form_geral">
             <fieldset>
                 <p>Preencha os campos abaixo para resetar sua senha.</p>
                 @? formSenha(name: 'senha_atual', id: 'input_senha_atual', label: 'Senha atual', placeholder: 'Digite sua senha atual', attr: ['autocomplete' => 'current-password'], obrigatorio: 1);
-                
-                @? formSenha(name: 'senha_nova', id: 'input_senha_nova', label: 'Nova senha', placeholder: 'Digite sua senha nova', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
-                @? formSenha(name: 'senha_repetir', id: 'input_senha_repetir', label: 'Repetir senha', placeholder: 'Repitir a nova senha', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
+
+                <div class="form_input_dupla">
+                    @? formSenha(name: 'senha_nova', id: 'input_senha_nova', label: 'Nova senha', placeholder: 'Digite sua senha nova', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
+                    @? formSenha(name: 'senha_repetir', id: 'input_senha_repetir', label: 'Repetir senha', placeholder: 'Repitir a nova senha', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
+                </div>
             </fieldset>
-            <button id="botao_salvar_senha">Resetar senha</button>
+            <button id="botao_salvar_senha" class="botao_geral_cor cor_bg">Resetar senha</button>
         </form>
     </div>
 </div>
