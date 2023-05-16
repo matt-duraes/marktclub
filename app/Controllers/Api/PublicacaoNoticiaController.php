@@ -39,7 +39,7 @@ final class PublicacaoNoticiaController extends Controller implements
     public function postSalvar(Request $request): Response
     {
         $dado = $request->dado();
-        $dado['texto_grande'] = $request->_POST('texto_grande', html: false);
+        $dado['texto_grande'] = $request->getPost('texto_grande', html: false);
 
         $Noticia = new NoticiaEntity();
         $Noticia->set(lista: $dado);
@@ -69,7 +69,7 @@ final class PublicacaoNoticiaController extends Controller implements
     {
         $dado = $request->dado();
         if ($request->existe('texto_grande')) {
-            $dado['texto_grande'] = $request->_PUT('texto_grande', html: false);
+            $dado['texto_grande'] = $request->getPut('texto_grande', html: false);
         }
 
         $Noticia = new NoticiaEntity();

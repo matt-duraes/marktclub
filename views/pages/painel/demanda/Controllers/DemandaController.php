@@ -166,7 +166,7 @@ final class DemandaController extends Controller
             ->body([
                 'demanda' => $request->demanda,
                 'titulo' => $request->titulo,
-                'texto' => $request->_POST('texto', html: false),
+                'texto' => $request->getPost('texto', html: false),
                 'tipo' => $request->tipo,
                 'minuto_producao_estimada' => $request->minuto,
             ])
@@ -202,28 +202,28 @@ final class DemandaController extends Controller
                 new Botao($request->login_api),
                 $request->login_link,
                 new Botao($request->app),
-                $request->_POST('texto', html: false),
+                $request->getPost('texto', html: false),
                 new Botao($request->cdn)
             );
         } elseif (in_array($request->tipo, ['outro', 'feature'])) {
             $Demanda = new CriarOutroModel(
                 titulo: $request->titulo,
                 empresa: $request->empresa,
-                texto: $request->_POST('texto', html: false),
+                texto: $request->getPost('texto', html: false),
                 tipo: $request->tipo
             );
         } elseif ($request->tipo == 'bug') {
             $Demanda = new CriarBugModel(
                 titulo: $request->titulo,
                 empresa: $request->empresa,
-                texto: $request->_POST('texto', html: false),
+                texto: $request->getPost('texto', html: false),
                 critico: $request->critico,
                 local: $request->local,
             );
         } elseif ($request->tipo == 'associacao') {
             $Demanda = new CriarAssociacaoModel(
                 empresa: $request->empresa,
-                texto: $request->_POST('texto', html: false)
+                texto: $request->getPost('texto', html: false)
             );
         } elseif ($request->tipo == Tipo::CRIACAO) {
             $Demanda = new CriacaoModel($request);
@@ -242,7 +242,7 @@ final class DemandaController extends Controller
 
         $dado = $this->Api->body([
             'titulo' => $request->titulo,
-            'texto' => $request->_POST('texto', html: false),
+            'texto' => $request->getPost('texto', html: false),
             'tipo' => $request->tipo,
             'minuto_producao_estimada' => $request->minuto
         ])->put('/demanda-tarefa/' . $id);

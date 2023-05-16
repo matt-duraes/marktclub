@@ -36,7 +36,7 @@ final class ComercialRegraController extends Controller implements
     public function postSalvar(Request $request): Response
     {
         $dado = $request->dado();
-        $dado['texto'] = $request->_POST('texto', html: false);
+        $dado['texto'] = $request->getPost('texto', html: false);
 
         $Regra = new RegraEntity();
         $Regra->set(lista: $dado);
@@ -48,7 +48,7 @@ final class ComercialRegraController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
-        $dado['texto'] = $request->_PUT('texto', html: false);
+        $dado['texto'] = $request->getPut('texto', html: false);
 
         $Regra = new RegraEntity();
         $Regra->uuid($id);

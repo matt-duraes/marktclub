@@ -67,5 +67,5 @@ define('TRABALHO_TOTAL', sessao('TRABALHO.total', padrao: 0));
 function temPermissaoEmpresa(string $app): bool
 {
     $usuarioPermissao = sessao('USUARIO.permissao');
-    return in_array($app . '_empresa', $usuarioPermissao);
+    return in_array($app . '_empresa', $usuarioPermissao) && EMPRESA_ID == '14afa776394ada4be23be6acf7e3259e';
 }
