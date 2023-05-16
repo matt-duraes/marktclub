@@ -512,12 +512,11 @@ final class Request extends Psr7Request
         }
 
         $_POST = $this->psr7Request->request->all();
-        if (!empty($_POST)) {
+        if (is_array($_POST) && !empty($_POST)) {
             return $this->purifier($_POST, $indice, $purifier, $html);
         }
 
         $phpInput = $this->psr7Request->getContent();
-
         $_POST = jsonDecode($phpInput, true);
         if (is_array($_POST)) {
             return $this->purifier($_POST, $indice, $purifier, $html);
