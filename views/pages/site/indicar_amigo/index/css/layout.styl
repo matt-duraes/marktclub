@@ -1,16 +1,32 @@
-@system "Form"
 @template "site"
+@system "Form"
 @system "Pagina"
-@resource "site/loja/busca"
-
 
 #bloco_pagina_indicacao
     width: 100%
     flexCenter()
+    max-width: $maxWidth
     position: relative
-    .conteudo
-        width: 100%
-        max-width: $maxWidth
-        espacoTopPadrao()
     .input_form
         margin-right: 10px
+    .texto
+        espacoTopPadrao()
+    .formulario_indicacao
+        width: 100%
+        border-radius: 15px
+        espacoVerticalPadrao()
+        form
+            width: 100%
+            flexCol()
+        form legend
+            titulo()
+        form fieldset
+            width: 100%
+            flexRow()
+        form fieldset button
+            width: 180px
+            margin-top: 20px
+
+@media screen and (max-width: 700px)
+    #bloco_pagina_indicacao .formulario_indicacao form fieldset
+        flexCol()
