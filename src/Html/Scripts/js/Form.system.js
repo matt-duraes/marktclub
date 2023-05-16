@@ -943,7 +943,7 @@ fwFormLoading = bloco => {
         //     };
         //     textareaFunction();
         // });
-        const textareaHeightPadrao = 45;
+        const textareaHeightPadrao = 25;
         textareaResizeLista.forEach(textarea => {
             textareaFunction = textarea.oninput = function () {
                 textarea.style.height = 0;

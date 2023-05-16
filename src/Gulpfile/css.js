@@ -21,6 +21,8 @@ let config;
 */
 exports.cssUnico = function (path, browser) {
     return new Promise(async resolve => {
+        arquivoConteudo = [];
+
         if (config == undefined) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
@@ -40,7 +42,6 @@ exports.cssUnico = function (path, browser) {
             await processarCss(pathReal, config.public + '/css', browser);
             mensagemSucesso('Arquivo copiado com sucesso: ' + pathReal);
         } catch (error) {
-            console.log(error);
             mensagemErro('Erro ao copiar arquivo: ' + pathReal);
             resolve(false);
         }
@@ -55,6 +56,7 @@ exports.cssUnico = function (path, browser) {
 */
 exports.cssTodos = function () {
     return new Promise(async resolve => {
+        arquivoConteudo = [];
         await fsDeletarDiretorio('./files/build/css');
         await fsCriarDiretorio('./files/build/css');
 

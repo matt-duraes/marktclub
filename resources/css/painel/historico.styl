@@ -103,6 +103,28 @@
     .add .textarea .usuario_marcado
         color: #00aced
         text-decoration: underline
+    .add .botao_upload
+        position: absolute
+        width: 50px
+        height: 50px
+        flexCenter()
+        top: 0
+        right: 0
+        z-index: 5
+        overflow: hidden
+        display: none
+    .add .botao_upload i
+        width: 50px
+        height: 50px
+        flexCenter()
+        position: absolute
+        top: 0
+        left: 0
+        transition: left .3s ease-out
+        cursor: pointer
+        fill: #999
+    .add .bloco_input textarea:not(:placeholder-shown) ~ .botao_upload i
+        left: 50px
     .add p
         width: 100%
         text-align: right
@@ -137,6 +159,7 @@
         cursor: pointer
         font-size: 1.2rem
         display: none
+
 @media screen and (max-width:800px)
     #bloco_historico_view
         header form

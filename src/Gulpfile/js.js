@@ -20,6 +20,8 @@ let config;
 */
 exports.jsUnico = function (path) {
     return new Promise(async resolve => {
+        arquivoConteudo = [];
+
         if (config == undefined) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
@@ -52,6 +54,8 @@ exports.jsUnico = function (path) {
 */
 exports.jsTodos = function () {
     return new Promise(async resolve => {
+        arquivoConteudo = [];
+
         await fsDeletarDiretorio('./files/build/js');
         await fsCriarDiretorio('./files/build/js');
 

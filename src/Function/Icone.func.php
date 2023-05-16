@@ -1188,6 +1188,21 @@ if (!function_exists('iconeDinheiro')) {
         return '<svg height="' . $tamanho . '" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><switch><foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1"/><g i:extraneous="self"><g><path d="M50,29.7c-11.2,0-20.3,9.1-20.3,20.3S38.8,70.3,50,70.3S70.3,61.2,70.3,50S61.2,29.7,50,29.7z M51.7,60.1v2.7 c0,0.4-0.3,0.7-0.7,0.7h-1.9c-0.4,0-0.7-0.3-0.7-0.7v-2.6c-1.7-0.3-3-0.9-3.9-1.5c-0.4-0.2-0.7-0.5-1-0.7c-0.3-0.2-0.3-0.7-0.1-1 l1.2-1.6c0.2-0.3,0.7-0.4,1-0.1c0.3,0.2,0.6,0.5,1,0.6c0.9,0.6,2.2,1.1,3.6,1.1c1.7,0,3.1-0.9,3.1-2.5c0-3.5-9.8-2.6-9.8-9 c0-2.7,2-4.9,5.1-5.5v-2.7c0-0.4,0.3-0.7,0.7-0.7h1.9c0.4,0,0.7,0.3,0.7,0.7v2.6c1.5,0.2,2.6,0.7,3.4,1.1 c0.3,0.2,0.6,0.4,0.8,0.6c0.3,0.2,0.3,0.6,0.2,0.9l-0.9,1.6c-0.2,0.4-0.7,0.5-1,0.2c-0.2-0.2-0.5-0.3-0.7-0.4 c-0.8-0.4-1.9-0.9-3.2-0.9c-1.9,0-3.2,0.9-3.2,2.4c0,3.7,9.8,2.7,9.8,8.9C56.9,57.1,55,59.5,51.7,60.1z"/><path d="M95.4,20.5H4.6c-1.2,0-2.1,1-2.1,2.1v54.7c0,1.2,1,2.1,2.1,2.1h90.7c1.2,0,2.1-1,2.1-2.1V22.7 C97.5,21.5,96.5,20.5,95.4,20.5z M91.3,58.7c-7.4,1.6-13.3,7.6-14.6,15.1H23.3C22,66.3,16.2,60.3,8.7,58.7V41.3 c7.4-1.6,13.3-7.6,14.6-15.1h53.3c1.3,7.5,7.2,13.5,14.6,15.1V58.7z"/></g></g></switch></svg>';
     }
 }
+if (!function_exists('iconeAnexo')) {
+    // doc
+    // exemplo
+    // echo iconeAnexo
+    /**
+     * Gera um icone de anexo
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeAnexo(int $tamanho = 20): string
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 18 20" style="enable-background:new 0 0 18 20;" xml:space="preserve"><path d="M12.2,6l-5.8,5.9C6,12.3,6,13,6.4,13.4c0.4,0.4,1,0.4,1.4,0l5.8-5.9c1.2-1.2,1.2-3.2,0-4.4c-1.2-1.2-3.1-1.2-4.3,0L3.5,9c-2,2-2,5.4,0,7.4c2,2,5.2,2,7.2,0l5.8-5.9l1.4,1.5l-5.8,5.9c-2.8,2.9-7.3,2.9-10.1,0s-2.8-7.5,0-10.4l5.8-5.9c2-2,5.2-2,7.2,0s2,5.4,0,7.4l-5.8,5.9c-1.2,1.2-3.1,1.2-4.3,0c-1.2-1.2-1.2-3.2,0-4.4l5.8-5.9L12.2,6z"/></svg>';
+    }
+}
 if (!function_exists('iconeUpload')) {
     // doc
     // exemplo
