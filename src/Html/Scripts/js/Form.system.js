@@ -927,19 +927,30 @@ fwFormLoading = bloco => {
     |--------------------------------------------------------------------------
     /*/
     if (textareaResizeLista.length > 0) {
+        // textareaResizeLista.forEach(textarea => {
+        //     textareaFunction = textarea.oninput = function () {
+        //         const quantidadeLinhaAtual = parseInt(textarea.value.split('\n').length);
+        //         const numeroLinhaMaxima = parseInt(textarea.getAttribute('data-numero-linha'));
+        //         const blocoCss = window.getComputedStyle(textarea);
+        //         const restoAltura =
+        //             parseInt(blocoCss.paddingTop) +
+        //             parseInt(blocoCss.paddingBottom) +
+        //             parseInt(blocoCss.borderTopWidth) +
+        //             parseInt(blocoCss.borderBottomWidth);
+        //         const linhaParaCalculo =
+        //             quantidadeLinhaAtual > numeroLinhaMaxima ? numeroLinhaMaxima : quantidadeLinhaAtual;
+        //         textarea.style.height = `calc(${restoAltura}px + ${linhaParaCalculo * 1.5}em)`;
+        //     };
+        //     textareaFunction();
+        // });
+        const textareaHeightPadrao = 45;
         textareaResizeLista.forEach(textarea => {
             textareaFunction = textarea.oninput = function () {
-                const quantidadeLinhaAtual = parseInt(textarea.value.split('\n').length);
-                const numeroLinhaMaxima = parseInt(textarea.getAttribute('data-numero-linha'));
-                const blocoCss = window.getComputedStyle(textarea);
-                const restoAltura =
-                    parseInt(blocoCss.paddingTop) +
-                    parseInt(blocoCss.paddingBottom) +
-                    parseInt(blocoCss.borderTopWidth) +
-                    parseInt(blocoCss.borderBottomWidth);
-                const linhaParaCalculo =
-                    quantidadeLinhaAtual > numeroLinhaMaxima ? numeroLinhaMaxima : quantidadeLinhaAtual;
-                textarea.style.height = `calc(${restoAltura}px + ${linhaParaCalculo * 1.5}em)`;
+                textarea.style.height = 0;
+                textarea.style.height =
+                    textarea.scrollHeight < textareaHeightPadrao
+                        ? textareaHeightPadrao + 'px'
+                        : textarea.scrollHeight + 'px';
             };
             textareaFunction();
         });
