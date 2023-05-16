@@ -13,7 +13,6 @@ $Painel = new PainelConfig\Add(app: 'usuario_cliente', acao: $acao);
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados pessoais', function () use ($Painel) {
         $Painel
-            ->textarea('nome', label: 'Teste')
             ->input(name: 'nome', label: 'Nome Completo')
             ->cpf(name: 'cpf', label: 'CPF', placeholder: 'CPF')
             ->select(name: 'genero', label: 'Gênero', lista: 'genero')
