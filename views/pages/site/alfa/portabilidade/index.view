@@ -1,6 +1,6 @@
 @template "site"
 
-<div id="bloco_credito_alfa">
+<div id="bloco_credito_alfa" class="bloco_credito_geral_simulacao">
 
     @view site/geral/banner.view
 
@@ -36,7 +36,7 @@
                         <p>É uma página de solicitação de portabilidade e não implica na contratação automática.</p>
 
                         <form action="" class="form_geral">
-                            @? formNumero(name: 'valor_parcela',  placeholder: 'Valor da parcela atual', label: 'Valor da parcela')
+                            @? formNumero(name: 'valor_parcela',  placeholder: 'Valor da parcela atual', label: 'Valor da parcela', mascara: 'dinheiro')
                             @? formSelect(name: 'quantidade_parcela', label: 'Quantidade parcela restante', placeholder: 'Escolha a quantidade de parcelas restantes', lista: $parcela, value: '')
                         </form>
 

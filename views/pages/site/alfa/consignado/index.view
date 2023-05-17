@@ -1,6 +1,6 @@
 @template "site"
 
-<div id="bloco_credito_alfa">
+<div id="bloco_credito_alfa" class="bloco_credito_geral_simulacao">
     @view site/geral/banner.view
     <div class="bloco_geral bloco_passo_passo_geral">
         <div class="bloco_progresso">
@@ -42,7 +42,7 @@
 
                         <form action="" class="form_geral">
 
-                            @? formInput(name: 'valor', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor', value: '')
+                            @? formInput(name: 'valor', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', mascara: 'dinheiro', class: 'busca_valor', value: '')
                             @? formSelect(name: 'prazo', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', lista: $parcela, value: '')
 
                         </form>

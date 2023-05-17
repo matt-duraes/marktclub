@@ -13,10 +13,6 @@ window.addEventListener('load', () => {
     btnSubmit.addEventListener('click', function (e) {
         event.preventDefault();
 
-        bullets[3].classList.add('ativo');
-        progressChecks[3].classList.add('ativo');
-        progressTexts[3].classList.add('ativo');
-
         setTimeout(function () {
             Alerta.mensagem('Envio do formulário com sucesso!');
         }, 800);
