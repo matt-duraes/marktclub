@@ -5,14 +5,17 @@
 #bloco_pagina_indicacao
     width: 100%
     flexCenter()
-    max-width: $maxWidth
+    max-width: 600px
     position: relative
+    .conteudo
+        max-width: 600px
     .input_form
         margin-right: 10px
     .texto
         espacoTopPadrao()
     .formulario_indicacao
         width: 100%
+        max-width: 600px
         border-radius: 15px
         espacoVerticalPadrao()
         form
@@ -22,11 +25,8 @@
             titulo()
         form fieldset
             width: 100%
-            flexRow()
+            flexCol()
         form fieldset button
+            alignSelfEnd()
             width: 180px
             margin-top: 20px
-
-@media screen and (max-width: 700px)
-    #bloco_pagina_indicacao .formulario_indicacao form fieldset
-        flexCol()

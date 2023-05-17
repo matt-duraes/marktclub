@@ -1,9 +1,9 @@
 @template "site"
 
-<div id="bloco_pagina_indicacao">
+<div id="bloco_pagina_indicacao" class="bloco_titulo_texto">
+    <h1>Indique para um amigo</h1>
 
-    <div class="bloco_titulo_texto">
-        <h1>Indique para um amigo</h1>
+    <div class="conteudo">
 
         <section class="texto">
             {!!$texto!!}
@@ -20,8 +20,6 @@
                 </fieldset>
             </form>
         </div>
-
-
     </div>
 
 </div>
