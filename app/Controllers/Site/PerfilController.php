@@ -8,7 +8,7 @@ use Helpers\ApiHelper;
 use Helpers\SocialHelper;
 use Controller\Controller;
 use App\Models\Api\Loja\LojaMapaModel;
-use App\Models\Site\Perfil\{DadosModel, DependenteModel, SenhaModel};
+use App\Models\Site\Perfil\{DadosModel,  SenhaModel};
 
 final class PerfilController extends Controller
 {
@@ -45,12 +45,16 @@ final class PerfilController extends Controller
 
     public function dependente()
     {
-        $Perfil = new DependenteModel();
-        $perfil = $Perfil->getDado();
+        $dado[] = (object)[
+            'nome' => 'Nome do dependente',
+            'email'   => '',
+            'cpf'     => '',
+            'usuario' =>  '',
+            'id' => ''
+        ];
 
         return view('perfil.dependente', [
-            'tituloPagina' => 'Adicione dependentes',
-            'dado' => $perfil
+            'dado' => $dado
         ]);
     }
 

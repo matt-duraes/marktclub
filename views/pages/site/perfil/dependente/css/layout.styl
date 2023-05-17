@@ -5,111 +5,19 @@
 @system "Alerta"
 @resource "site/variavel"
 @resource "site/loja/busca"
+@resource "site/tabela"
+@resource "site/dependente"
 
 #bloco_pagina_dependente
     width: 100%
     max-width: $maxWidth
     margin-bottom: 60px
-    table
-        width 100%
-        border-collapse collapse
-        overflow hidden
-        boxShadow()
-        position relative
-        espacoTopPadrao()
-    table tfoot p
-        disclaimerFontSize()
-        color: #666
-        text-align: left
-    table th,
-    table td
-        padding 15px
-        background-color $branco
-        color #333
-    table th
-        texto()
-        text-align left
-    table thead
-        th
-            background-color #eee
-            color: #181818
-    table tbody
-        tr
-            border-top: 1px solid #eee
-            &:hover
-                border-top: 1px solid #ccc
-            &:hover > td
-                border-top: 1px solid #ccc
-                border-bottom: 1px solid #ccc
-        td
-            texto()
-            position relative
-        td.deletar p
-            width: 110px
-            spaceBetween()
-            color: $branco
-            background-color: $vermelho3
-            font-size: 0.8em
-            line-height: 1.5em
-            padding: 5px 10px
-            cursor: pointer
-            border-radius: 50px
-        td i
-            padding-left: 20px
-        td i svg
-            fill: $branco
-    .conteudo form
+    .bloco_titulo_texto form
         width: 100%
         flexCol()
         espacoTopPadrao()
-        button
-            buttonCard()
-            align-self: start
-        button:hover
-            hoverButtonPadrao()
         p
             subTitulo()
         p strong
             font-size: 1em
             bold()
-        fieldset
-            width: 100%
-            flexCol()
-            blocoShadow()
-            margin-bottom: 20px
-            border-radius: 15px
-            background-color: $branco
-            .dependente
-                padding: 0px 10px
-            .dependente .adicionaDependente
-                blocoAvisoDashed()
-                bordaTracejada()
-                cursor: pointer
-                p
-                    margin-top: 0px
-            .dependente p
-                text-align: left
-                texto()
-                color: $corClube
-                espacoTopPadrao()
-            .dependente .linha_dependente
-                width: 100%
-                max-width: $maxWidth
-                padding: 20px
-                espacoTopPadrao()
-                espacoBottomPadrao()
-                blocoShadow()
-                position: relative
-                &.default
-                    display: none
-            .dependente .linha_dependente .remove
-                position: absolute
-                right: 20px
-                top: 10px
-                fill: $branco
-                padding: 8px
-                border-radius: 5px
-                cursor: pointer
-                background-color: red
-            .dependente .linha_dependente .bloco_input
-                margin-top: 30px
