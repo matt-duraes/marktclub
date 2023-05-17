@@ -1,9 +1,9 @@
 @template "site"
 
-<div id="bloco_pagina_senha">
+<div id="bloco_pagina_senha" class="bloco_titulo_texto">
+    <h1>Siga os passos abaixo para alterar a sua senha</h1>
 
-    <div class="bloco_titulo_texto">
-        <h1>Siga os passos abaixo para alterar a sua senha</h1>
+    <div class="conteudo">
         <div class="requisito">
             <p>Sua senha deve:</p>
             <ul class="bloco_geral_ul">
