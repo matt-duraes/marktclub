@@ -210,6 +210,18 @@ Route
             ::nome('index')
             ::view('/credito/sicoob');
         Route
+            ::nome('consignado')
+            ::view('/credito/sicoob-consignado');
+        Route
+            ::nome('creditoPessoal')
+            ::view('/credito/sicoob-credito-pessoal');
+        Route
+            ::nome('veiculoZero')
+            ::view('/credito/sicoob-veiculo-zero');
+        Route
+            ::nome('veiculoSeminovo')
+            ::view('/credito/sicoob-veiculo-seminovo');
+        Route
             ::nome('abrirModalRegulamento')
             ::view('/sicoob-regulamento/{url}');
     });

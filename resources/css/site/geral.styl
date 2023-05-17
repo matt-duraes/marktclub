@@ -13,6 +13,23 @@
 .texto i
 .texto li
     texto()
+.deletar p
+    width: 110px
+    spaceBetween()
+    color: $branco
+    background-color: $vermelho3
+    font-size: 0.8em
+    line-height: 1.5em
+    padding: 5px 10px
+    cursor: pointer
+    border-radius: 5px
+.deletar i
+    padding-left: 20px
+.deletar i svg
+    fill: $branco
+
+.bold
+    font-weight: bold
 
 .botao_geral_cor
     height: 45px
@@ -321,3 +338,13 @@
     spaceBetween()
     .bloco_input:nth-child(1)
         margin-right: 20px
+
+.bloco_regulamento
+    width: 100%
+    flexCenter()
+    directionColumn()
+    espacoVerticalPadrao()
+    padding: 0px 20px
+    p
+        texto()
+        margin-top: 5px

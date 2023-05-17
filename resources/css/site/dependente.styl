@@ -1,0 +1,44 @@
+.bloco_geral_dependente
+    width: 100%
+    flexCol()
+    margin-bottom: 20px
+    border-radius: 15px
+    button
+        align-self: end
+    .dependente .adicionaDependente
+        blocoAvisoDashed()
+        bordaTracejada()
+        cursor: pointer
+        p
+            margin-top: 0px
+    .dependente p
+        text-align: left
+        texto()
+        color: $corClube
+        espacoTopPadrao()
+    .dependente .linha_dependente
+        width: 100%
+        max-width: $maxWidth
+        padding: 20px
+        espacoTopPadrao()
+        espacoBottomPadrao()
+        border: 1px solid #EEE
+        position: relative
+        &.default
+            display: none
+    .dependente .linha_dependente .remove
+        position: absolute
+        right: 20px
+        top: 10px
+        fill: $branco
+        padding: 8px
+        border-radius: 5px
+        cursor: pointer
+        background-color: $vermelho3
+    .dependente .linha_dependente .bloco_input
+        margin-top: 30px
+
+
+@media screen and (max-width: 900px)
+    .bloco_geral_dependente .dependente .linha_dependente .bloco_input
+        width: 100%
