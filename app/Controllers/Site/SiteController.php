@@ -104,7 +104,7 @@ final class SiteController extends Controller
             HTML;
         endif;
 
-        return view('indicacao.index', [
+        return view('indicar_amigo.index', [
             'tituloPagina' => 'Indique para um amigo',
             'texto'        => $texto
         ]);
