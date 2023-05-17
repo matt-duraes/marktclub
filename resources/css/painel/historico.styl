@@ -186,17 +186,23 @@
         background-position: center center
         background-size: cover
     .fixar
-        width: 30px
-        height: 30px
+        width: 25px
+        height: 25px
         flexCenter()
         position: absolute
-        top: 20px
-        background-color: #EEE
+        top: 55px
         border-radius: 20px
         fill: #999
-        border: 1px solid #EEE
         opacity: 0
-    figure + .dado
+        cursor: pointer
+    .fixar.ativo
+    &:hover .fixar
+        opacity: 0
+    &.minha_mensagem .fixar
+        right: 25px
+    &.outra_mensagem .fixar
+        left: 20px
+    figure ~ .dado
         min-width: 150px
         display: flex
         flex-direction: column
@@ -209,15 +215,15 @@
         opacity: 0
         transition: opacity .3s ease-out, left .3s ease-out, right .3s ease-out
         z-index: 3
-    figure:hover + .dado
+    figure:hover ~ .dado
         opacity: 1
-    &.outra_mensagem figure + .dado
+    &.outra_mensagem figure ~ .dado
         left: 80px
-    &.outra_mensagem figure:hover + .dado
+    &.outra_mensagem figure:hover ~ .dado
         left: 60px
-    &.minha_mensagem figure + .dado
+    &.minha_mensagem figure ~ .dado
         right: 80px
-    &.minha_mensagem figure:hover + .dado
+    &.minha_mensagem figure:hover ~ .dado
         right: 60px
     .deletar
         width: 30px
