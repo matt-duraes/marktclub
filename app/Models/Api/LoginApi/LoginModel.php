@@ -101,7 +101,7 @@ final class LoginModel extends Entity
         $enderecoCidade = $dado['endereco_cidade'] ?? '';
         $federacao = strCaixaAlta($dado['federacao'] ?? '');
         $salavip = $dado['salavip'] ?? '';
-        $grupo = strCaixaAlta($dado['grupo'] ?? '');
+        $grupo = strCaixaBaixa($dado['grupo'] ?? '');
         $crmNumero = $dado['crm_numero'] ?? '';
         $crmEstado = new EnderecoEstado($dado['crm_estado'] ?? '');
         $termo = $dado['termo_lgpd'] ?? '';

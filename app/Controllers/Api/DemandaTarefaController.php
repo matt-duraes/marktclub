@@ -24,7 +24,7 @@ final class DemandaTarefaController extends Controller implements
         $Tarefa = new TarefaEntity(
             demanda: $request->demanda,
             titulo: $request->titulo,
-            texto: $request->_POST('texto', html: false),
+            texto: $request->getPost('texto', html: false),
             tipo: new Tipo($request->tipo),
             minuto_producao_estimada: $minuto,
             equipe: $request->equipe
@@ -55,7 +55,7 @@ final class DemandaTarefaController extends Controller implements
     {
         $dado = $request->dado();
         if (!$request->vazio('texto')) {
-            $dado['texto'] = $request->_PUT('texto', html: false);
+            $dado['texto'] = $request->getPut('texto', html: false);
         }
 
         $Tarefa = new TarefaEntity();

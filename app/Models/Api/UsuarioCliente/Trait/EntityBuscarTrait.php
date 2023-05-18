@@ -21,5 +21,9 @@ trait EntityBuscarTrait
         }
         $this->Empresa = new EmpresaEntity();
         $this->Empresa->id($this->id_admin_empresa);
+
+        if (!empty($this->grupo)) {
+            $this->grupo = strCaixaBaixa($this->grupo);
+        }
     }
 }

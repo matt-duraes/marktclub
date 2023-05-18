@@ -1770,6 +1770,10 @@ if (!function_exists('naoLocalhost')) {
     }
 }
 if (!function_exists('porcentagem')) {
+    // doc
+    // exemplo
+    // echo porcentagem 10,100
+    // echo porcentagem 50,80
     /**
      * Calcula a porcentagem entre 2 número
      *

@@ -271,7 +271,7 @@ final class AppController extends PadraoController
         if (empty($requestCampo)) {
             throw new Erro(mensagem: 'Não existe uma lista de indices para salvar ou ela está vazia.');
         }
-        $lista = $request->_POST(html: false);
+        $lista = $request->getPost(html: false);
         if (empty($lista)) {
             throw new Erro(mensagem: 'Não existe uma lista de indices para salvar ou ela está vazia.');
         }

@@ -1,7 +1,6 @@
 <?php
 
 use Modules\Genero;
-use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use App\Classes\UsuarioLead\Status;
 use App\Classes\UsuarioCliente\Origem;

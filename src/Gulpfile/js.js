@@ -8,23 +8,10 @@ const plumber = require('gulp-plumber');
 const { arquivoExiste, inArray } = require('./Helper.js');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const glob = require('glob');
-const { fsDeletarDiretorio } = require('./arquivo');
+const { fsDeletarDiretorio, fsCriarArquivo, fsCriarDiretorio, fsRemoverArquivoSeExistir } = require('./arquivo');
 
+let arquivoConteudo = [];
 let config;
-/*
-|--------------------------------------------------------------------------
-| BUILD
-|--------------------------------------------------------------------------
-*/
-exports.jsDeploy = async function () {
-    if (config == undefined) {
-        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
-    return src(config.public + '/js/**/*.js')
-        .pipe(plumber())
-        .pipe(uglify())
-        .pipe(dest(config.public + '/js'));
-};
 
 /*
 |--------------------------------------------------------------------------
@@ -33,27 +20,28 @@ exports.jsDeploy = async function () {
 */
 exports.jsUnico = function (path) {
     return new Promise(async resolve => {
+        arquivoConteudo = [];
+
         if (config == undefined) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
-        let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
-        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/path.js';
+        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
+        const nome = pegarNomeArquivo(pathReal);
 
-        if (await arquivoExiste(pathReal, false)) {
-            const conteudo = fs.readFileSync(pathReal, 'utf-8');
-            pathAll = conteudo.replace(/^\/\/\ ?/, '').trim();
-        }
-
-        if (!(await arquivoExiste(pathAll))) {
+        if (!(await arquivoExiste(pathReal))) {
+            mensagemErro('Arquivo não existe: ' + pathReal);
             resolve(false);
         }
 
+        await fsRemoverArquivoSeExistir('files/build/js/' + nome);
+        await fsRemoverArquivoSeExistir(config.public + '/js/' + nome);
+
         try {
-            await processarJs(pathAll);
-            mensagemSucesso('Arquivo copiado com sucesso: ' + pathAll);
+            await processarJs(pathReal, config.public + '/js');
+            mensagemSucesso('Arquivo copiado com sucesso: ' + pathReal);
         } catch (error) {
-            mensagemErro('Erro ao copiar arquivo: ' + pathAll);
+            mensagemErro('Erro ao copiar arquivo: ' + pathReal);
         }
         resolve(true);
     });
@@ -66,23 +54,22 @@ exports.jsUnico = function (path) {
 */
 exports.jsTodos = function () {
     return new Promise(async resolve => {
-        if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-        }
+        arquivoConteudo = [];
 
-        await fsDeletarDiretorio(config.public + '/js');
+        await fsDeletarDiretorio('./files/build/js');
+        await fsCriarDiretorio('./files/build/js');
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/all.js')
             .concat(glob.sync('src/Painel/App/**/all.js'));
+
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
         let i, arquivo;
         for (i = 0; i < quantidade; ++i) {
             arquivo = listaArquivo[i];
             try {
-                await processarJs(arquivo);
-                mensagemSucesso('Arquivo copiado com sucesso: ' + arquivo);
+                await processarJs(arquivo, './files/build/js');
             } catch (error) {
                 mensagemErro('Erro ao copiar arquivo: ' + arquivo);
             }
@@ -96,21 +83,78 @@ exports.jsTodos = function () {
 
 /*
 |--------------------------------------------------------------------------
+| BUILD
+|--------------------------------------------------------------------------
+*/
+exports.jsDeploy = async function () {
+    if (config == undefined) {
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+    return src(config.public + '/js/*.js')
+        .pipe(plumber())
+        .pipe(uglify())
+        .pipe(dest(config.public + '/js'));
+};
+
+/*
+|--------------------------------------------------------------------------
+| PRODUÇÃO
+|--------------------------------------------------------------------------
+*/
+exports.jsProducao = async () => {
+    if (config == undefined) {
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+    await fsDeletarDiretorio(config.public + '/js');
+    await new Promise(r => setTimeout(r, 2000));
+
+    return src('./files/build/js/*.js')
+        .pipe(plumber())
+        .pipe(dest(config.public + '/js'));
+};
+exports.jsValidar = async path => {
+    return src(path)
+        .pipe(plumber())
+        .pipe(
+            eslint({
+                rules: {
+                    camelcase: 1,
+                    semi: 1,
+                },
+                parserOptions: {
+                    ecmaVersion: 2017,
+                },
+                env: {
+                    es6: true,
+                },
+            })
+        )
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+};
+
+/*
+|--------------------------------------------------------------------------
 | FUNÇÕES GERAIS
 |--------------------------------------------------------------------------
 */
-function processarJs(path) {
-    return new Promise(async (resolve, reject) => {
-        const dirBase = path.replace(/\/all.js$/, '') + '/';
-        const nome = path
+function pegarNomeArquivo(path) {
+    return (
+        path
             .replace(/^src\/Painel\/App\//, 'painel_')
             .replace(/^views\/(pages\/)?/, '')
             .replace(/\/js\/[a-zA-Z0-9\-\_\.]+\.js/, '')
             .replace(/\/Views/, '')
             .replace(/\//g, '_')
-            .replace(/_{2,}/g, '_');
-        const conteudo = fs.readFileSync(path, 'utf-8');
+            .replace(/_{2,}/g, '_') + '.js'
+    );
+}
+function processarJs(path, destino) {
+    return new Promise(async (resolve, reject) => {
+        const dirBase = path.replace(/\/all.js$/, '') + '/';
+        const nome = pegarNomeArquivo(path);
 
+        const conteudo = fs.readFileSync(path, 'utf-8');
         let listaImport = pegarListaImports(conteudo, dirBase);
         if (listaImport) {
             listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
@@ -123,31 +167,29 @@ function processarJs(path) {
             return;
         }
 
-        return src(listaImport)
+        let conteudoTemp = '';
+        let conteudoFinal = '';
+        [].forEach.call(listaImport, arquivo => {
+            if (arquivoConteudo[arquivo]) {
+                conteudoTemp = arquivoConteudo[arquivo];
+            } else {
+                conteudoTemp = fs.readFileSync(arquivo, 'utf-8');
+                arquivoConteudo[arquivo] = conteudoTemp;
+            }
+            conteudoFinal += conteudoTemp + '\n';
+        });
+        conteudoFinal += conteudo;
+
+        await fsCriarArquivo('files/build/js/' + nome, conteudoFinal);
+
+        return src('files/build/js/' + nome)
             .pipe(plumber())
-            .pipe(
-                eslint({
-                    rules: {
-                        camelcase: 1,
-                        semi: 1,
-                    },
-                    parserOptions: {
-                        ecmaVersion: 2017,
-                    },
-                    env: {
-                        es6: true,
-                    },
-                })
-            )
-            .pipe(eslint.format())
-            .pipe(eslint.failAfterError())
-            .pipe(concat(nome + '.js'))
             .pipe(
                 replace(/\/\/\ ?(\@template|\@import|\@resource|\@system)(.*)/g, function handleReplace(match) {
                     return '';
                 })
             )
-            .pipe(dest(config.public + '/js'))
+            .pipe(dest(destino))
             .on('end', resolve)
             .on('error', reject);
     });
