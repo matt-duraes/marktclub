@@ -1,46 +1,46 @@
 @template "site"
 
 <div class="bloco_saude">
-	<div class="bloco_plano_saude">
-		<figure>
-			<img src="https://clube.marktclub.com.br/images/logo_amil.png" alt="">
-		</figure>
-		<div class="bloco_conteudo">
-			<h1>AMIL</h1>
-			<p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n°. 41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada - Enseada do Suá, Vitória - ES, CEP 29050-335, inscrita no CNPJ sob n°. 11.073.058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho.
-			</p>
-		</div>
-		<div class="bloco_beneficio">
-			<header>
-				<h1>Benefícios exclusivos</h1>
-			</header>
-			<div class="bloco_vantagem">
-				<div class="icone_vantagem">
-					@iconeCashbackHome
-					<p>Menores preços do mercado</p>
-				</div>
-				<div class="icone_vantagem">
-					@iconeDependenteOutline
-					<p>Contrate para seus dependentes</p>
-				</div>
-				<div class="icone_vantagem">
-					@iconeMundo
-					<p>Ampla cobertura em todo o Brasil</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="bloco_plano_saude">
-		<hheader>
-			<h1>Explore a rede credenciada</h1>
-		</hheader>
-		<div class="lista_passo_a_passo">
-			<ul class="bloco_geral_ul">
-				<li>Clique no botão “Veja Aqui”</li>
-				<li>Na página que abrirá, selecione o Tipo do Produto: SAÚDE;</li>
-				<li>Selecione o plano que deseja consultar entre as opções abaixo e clique em Continuar:</li>
-				<li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada
-					<br> Amil Fácil S60 QC – RJ,
+    <div class="bloco_plano_saude">
+        <figure>
+            <img src="https://clube.marktclub.com.br/images/logo_amil.png" alt="">
+        </figure>
+        <div class="bloco_conteudo">
+            <h1>AMIL</h1>
+            <p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n°. 41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada - Enseada do Suá, Vitória - ES, CEP 29050-335, inscrita no CNPJ sob n°. 11.073.058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho.
+            </p>
+        </div>
+        <div class="bloco_beneficio">
+            <header>
+                <h1>Benefícios exclusivos</h1>
+            </header>
+            <div class="bloco_vantagem">
+                <div class="icone_vantagem">
+                    <i class="cor_fill">@iconeCashbackHome</i>
+                    <p>Menores preços do mercado</p>
+                </div>
+                <div class="icone_vantagem">
+                    @iconeDependenteOutline
+                    <p>Contrate para seus dependentes</p>
+                </div>
+                <div class="icone_vantagem">
+                    @iconeMundo
+                    <p>Ampla cobertura em todo o Brasil</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bloco_plano_saude">
+        <hheader>
+            <h1>Explore a rede credenciada</h1>
+        </hheader>
+        <div class="lista_passo_a_passo">
+            <ul class="bloco_geral_ul">
+                <li>Clique no botão “Veja Aqui”</li>
+                <li>Na página que abrirá, selecione o Tipo do Produto: SAÚDE;</li>
+                <li>Selecione o plano que deseja consultar entre as opções abaixo e clique em Continuar:</li>
+                <li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada
+                    <br> Amil Fácil S60 QC – RJ,
                     Amil Fácil S60 QC – SP,
                     Amil Fácil S60 QC BX - Jundiaí,
                     Amil Fácil S80 QC – SP RJ DF,
@@ -50,57 +50,57 @@
                     Amil S450 QC,
                     Amil S450 QP,
                     Amil S750,
-				</li>
+                </li>
                 <li>
                     Em seguida, selecione a UF, Município e Bairro que deseja consultar e clique em Continuar;
                 </li>
                 <li>
                     Selecione o tipo de Serviço e a Especialidade que deseja e clique em Buscar.
                 </li>
-			</ul>
-		</div>
-		<div class="display_flex">
+            </ul>
+        </div>
+        <div class="display_flex">
             <a href="https://www.amil.com.br/institucional/#/servicos/saude/rede-credenciada/amil/busca-avancada" class="botao_geral_cor cor_bg" target="_blank">Consultar rede credenciada</a>
-		</div>
-	</div>
+        </div>
+    </div>
 
-	<div class="bloco_plano_saude">
-		<header>
+    <div class="bloco_plano_saude">
+        <header>
             <h1>Carência</h1>
         </header>
-		<div class="bloco_tabela_geral">
-			<table>
-				<thead>
-					<tr>
-						<th>Procedimentos</th>
-						<th>Carência</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Acidente Pessoal</td>
-						<td>24 Horas</td>
-					</tr>
-					<tr>
-						<td>Consultas eletivas em consultórios, clínicas ou centros médicos</td>
-						<td>30 Dias</td>
-					</tr>
-					<tr>
-						<td>Exames e procedimentos terapêuticos ambulatoriais básicos</td>
-						<td>30 Dias</td>
-					</tr>
-					<tr>
-						<td>Exames e procedimentos especiais realizados em regime ambulatorial, relacionados na cláusula contratual, exceto Endoscopia digestiva,respiratória e urológica</td>
-						<td>180 Dias</td>
-					</tr>
-					<tr>
-						<td>Ultrassonografia</td>
-						<td>180 Dias</td>
-					</tr>
-					<tr>
-						<td>TC, RNM, neurorradiologia, cardiografia, mielografia, radiologia intervencionista</td>
-						<td>180 Dias</td>
-					</tr>
+        <div class="bloco_tabela_geral">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Procedimentos</th>
+                        <th>Carência</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Acidente Pessoal</td>
+                        <td>24 Horas</td>
+                    </tr>
+                    <tr>
+                        <td>Consultas eletivas em consultórios, clínicas ou centros médicos</td>
+                        <td>30 Dias</td>
+                    </tr>
+                    <tr>
+                        <td>Exames e procedimentos terapêuticos ambulatoriais básicos</td>
+                        <td>30 Dias</td>
+                    </tr>
+                    <tr>
+                        <td>Exames e procedimentos especiais realizados em regime ambulatorial, relacionados na cláusula contratual, exceto Endoscopia digestiva,respiratória e urológica</td>
+                        <td>180 Dias</td>
+                    </tr>
+                    <tr>
+                        <td>Ultrassonografia</td>
+                        <td>180 Dias</td>
+                    </tr>
+                    <tr>
+                        <td>TC, RNM, neurorradiologia, cardiografia, mielografia, radiologia intervencionista</td>
+                        <td>180 Dias</td>
+                    </tr>
                     <tr>
                         <td>Exames de hemodinâmica, exames cardiovasculares em medicina nuclear diagnóstica e imunocintilografia</td>
                         <td>180 Dias</td>
@@ -165,22 +165,22 @@
                         <td>Cobertura Parcial Temporária CPT</td>
                         <td>24 meses</td>
                     </tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="bloco_titulo_texto_centralizado">
-		<header>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="bloco_titulo_texto_centralizado">
+        <header>
             <h1>Preços do Plano de Saúde</h1>
         </header>
-		<div class="bloco_botao_plano">
-			<button data-id="1" data-local="distrito_federal" class="botao_preco_plano botao_geral_cor cor_bg">Distrito Federal</button>
-			<button data-id="2" data-local="rio_de_janeiro"	class="botao_preco_plano botao_geral_cor cor_bg">Rio de Janeiro</button>
-			<button data-id="3" data-local="sao_paulo" class="botao_preco_plano botao_geral_cor cor_bg">São Paulo</button>
-		</div>
-	</div>
+        <div class="bloco_botao_plano">
+            <button data-id="1" data-local="distrito_federal" class="botao_preco_plano botao_geral_cor cor_bg">Distrito Federal</button>
+            <button data-id="2" data-local="rio_de_janeiro"    class="botao_preco_plano botao_geral_cor cor_bg">Rio de Janeiro</button>
+            <button data-id="3" data-local="sao_paulo" class="botao_preco_plano botao_geral_cor cor_bg">São Paulo</button>
+        </div>
+    </div>
 
-	<div class="bloco_plano_saude">
+    <div class="bloco_plano_saude">
         <header>
             <h1>Reembolso</h1>
         </header>
@@ -273,17 +273,17 @@
                 </tfoot>
             </table>
         </div>
-	</div>
+    </div>
 
-	<div class="bloco_auxilio_ressarcimento bloco_plano_saude">
-		<header>
+    <div class="bloco_auxilio_ressarcimento bloco_plano_saude">
+        <header>
             <h1>Auxílio Ressarcimento</h1>
             <p>Você sabia que pode receber um auxílio ressarcimento de acordo com sua faixa salarial e
             idade? Veja a tabela abaixo:
             </p>
         </header>
-		<div class="bloco_tabela_geral">
-		<table>
+        <div class="bloco_tabela_geral">
+        <table>
             <thead>
                 <tr>
                     <th>Faixa Etária</th>
@@ -414,9 +414,9 @@
                 </tfoot>
             </table>
         </div>
-	</div>
-	<div class="bloco_plano_saude">
-		<header>
+    </div>
+    <div class="bloco_plano_saude">
+        <header>
             <h1>Preços de Coparticipação</h1>
         </header>
         <div class="bloco_tabela_geral">
@@ -576,15 +576,15 @@
                 </tbody>
             </table>
         </div>
-	</div>
+    </div>
 
-	<section class="bloco_simulacao container_scroll">
-		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
-		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
+    <section class="bloco_simulacao container_scroll">
+        <h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
+        <p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado'):
             <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/amil">Fazer Simulação</a>
         @endif
-	</section>
+    </section>
     @if (TIPO_USUARIO == 'indicado'):
         <div class="bloco_atencao_geral">
             <p>Apenas associados possuem acesso a este recurso</p>

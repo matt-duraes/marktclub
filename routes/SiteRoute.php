@@ -1,6 +1,5 @@
 <?php
 
-use App\Middlewares\UsuarioMiddleware;
 use Route\Route;
 
 Route
@@ -12,12 +11,15 @@ Route
             ::view('/');
     });
 Route
-    ::nome('acessorapido')
+    ::nome('acessoRapido')
     ::controller(App\Controllers\Site\AcessoRapidoController::class)
     ::grupo(function () {
         Route
             ::nome('index')
             ::view('/acesso-rapido');
+        Route
+            ::nome('sair')
+            ::view('/acesso-rapido/sair');
     });
 Route
     ::nome('cupom')
@@ -119,7 +121,7 @@ Route
             ::request(['!categoria', '!pesquisa', 'latitude', 'longitude', 'raio'])
             ::post('/convenios/mapa-listar');
         Route
-            ::nome('melhoridade')
+            ::nome('melhorIdade')
             ::view('/convenios/melhor-idade');
     });
 
@@ -323,7 +325,11 @@ Route
             ::view('/perfil');
         Route
             ::nome('salvaDados')
-            ::request(['nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho', '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'])
+            ::request([
+                'nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho',
+                '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro',
+                'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'
+            ])
             ::post('/perfil/salvar-dados');
         Route
             ::nome('senha')

@@ -46,6 +46,40 @@ a
     width: 100%
     min-height: 100vh
 
+#header_acesso_rapido
+    width: 100%
+    min-height: 110px
+    flexCol()
+    align-items: center
+    justify-content: center
+    boxShadow()
+    background-color: #FFF
+    padding: 20px
+    figure
+        height: 70px
+        position: absolute
+        top: 20px
+    figure img
+        height: 100%
+        max-height: 100%
+    .bloco_botao
+        width: 100%
+        flexRow()
+        align-items: center
+        justify-content: space-between
+@media screen and (max-width:1100px)
+    #header_acesso_rapido .bloco_botao
+        margin-top: 90px
+        a
+            width: 100%
+            max-width: 320px
+@media screen and (max-width:800px)
+    #header_acesso_rapido .bloco_botao
+        margin-top: 70px
+        flexCol()
+        a
+            margin-top: 20px
+
 #header_principal
     width: 100%
     background-color: #FFF
@@ -257,6 +291,12 @@ a
         width: 100%
         margin-left: 0
         padding-top: 90px
+
+#conteudo_acesso_rapido
+    width: 100%
+    padding: 40px 20px 60px
+    align-items: center
+    flexCol()
 
 #rodape_principal
     width: calc(100% - $menuWidth)

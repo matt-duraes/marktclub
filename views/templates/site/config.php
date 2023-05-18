@@ -39,6 +39,6 @@ define('MENU_CONSULTORIA', true);
 
 define('MENU_HOVER', isset($menu) ? $menu : '');
 
-define('COR', '#FF6F00');
+define('COR', '#000');
 
 include ROOT . '/resources/php/site/icone.php';
