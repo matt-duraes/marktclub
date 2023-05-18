@@ -37,14 +37,14 @@ class DeclaracaoEntity extends Entity
 
     public function regraInsert(): void
     {
-        $loja = (new LojaEntity())
+        $Loja = (new LojaEntity())
             ->idSlug(
                 $this->request->get('url', ''),
                 mensagem: 'Parceiro não encontrado ou não existente'
             );
 
         $this->cod = uuid();
-        $this->vinculo = $loja['id'];
+        $this->vinculo = $Loja->id;
         $this->tipo = new Tipo($this->request->get('tipo'));
         $this->status = new Status(Status::NOVA);
     }
