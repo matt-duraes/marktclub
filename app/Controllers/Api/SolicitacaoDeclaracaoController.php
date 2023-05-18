@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Controllers\Api\Trait\ClienteTrait;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoEntity;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoModel;
 use Erro\Excecao;
@@ -16,6 +17,8 @@ class SolicitacaoDeclaracaoController implements
     ControllerSalvarInterface,
     ControllerListarInterface
 {
+    use ClienteTrait;
+
     /**
      * @param  string  $id
      *
@@ -43,9 +46,7 @@ class SolicitacaoDeclaracaoController implements
             pegarPropriedadeDaEntity(
                 $Declaracao,
                 lista: [
-                    'empresa', 'usuario', 'tipo', 'vinculo', 'cpf', 'valor', 'estado_civil',
-                    'documento_rg', 'data_nascimento', 'cep', 'estado', 'cidade', 'bairro',
-                    'numero', 'logradouro', 'complemento', 'dependente_cpf', 'data_validacao', 'status'
+                    'cod', 'vinculo', 'tipo', 'status', 'data_criacao'
                 ]
             ),
             $status
