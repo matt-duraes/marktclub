@@ -29,7 +29,7 @@ trait BuscarTrait
         } elseif (empty($id) && $erro) {
             mensagemStatus(404);
         } elseif (empty($id)) {
-            return [];
+            return;
         }
 
         $eId = is_string($id) &&
@@ -72,7 +72,7 @@ trait BuscarTrait
         } elseif (empty($id) && $erro) {
             mensagemStatus(404);
         } elseif (empty($id)) {
-            return [];
+            return;
         }
 
         return $this->buscar(['id', $id], $erro, $mensagem, $titulo);
@@ -101,7 +101,7 @@ trait BuscarTrait
         } elseif (empty($idSlug) && $erro) {
             mensagemStatus(404);
         } elseif (empty($idSlug)) {
-            return [];
+            return;
         }
 
         $eId = is_string($idSlug) &&
