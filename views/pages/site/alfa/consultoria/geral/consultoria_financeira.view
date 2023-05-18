@@ -1,0 +1,103 @@
+
+<div class="bloco_credito_geral_simulacao">
+    <div class="bloco_geral bloco_passo_passo_geral">
+        <div class="bloco_progresso">
+            <div class="item">
+                <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check"> @iconeCheck()</div>
+                </div>
+                <p>Descrição do serviço</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>2</span>
+                    <div class="cor_fill check"> @iconeCheck()</div>
+                </div>
+                <p>Mentoria <br> Premium</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>3</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Solicitar<br>contratação</p>
+            </div>
+        </div>
+        <div class="bloco_conteudo">
+            <div class="bloco_scroll form_geral">
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <header>
+                            <h1>Mentoria Premium</h1>
+                        </header>
+
+                        <div class="bloco_tipo">
+                            <p>10% de descontos aos membros associados do Federal Club</p>
+                            <p>Acompanhamento anual</p>
+                            <p>Dividimos em até 12x sem juros</p>
+                            <p>Condição especial de renovação de contrato</p>
+                            <ul class="bloco_geral_ul">
+                                <li>Reunião Raio-x: entendemos o seu contexto e a estrutura do seu patrimônio financeiro</li>
+                                <li>Apresentação da estratégia B2 e nossos resultados</li>
+                                <li>Simulações comparativas</li>
+                                <li>Alocação de ativos na estratégia B2</li>
+                                <li>Acompanhamento personalizado trimestral</li>
+                            </ul>
+                        </div>
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <header>
+                            <h1>Mentoria Express</h1>
+                        </header>
+
+                        <div class="bloco_tipo">
+                            <ul class="bloco_geral_ul">
+                                <li>Encontros individuais comum planejador financeiro o qual irá de forma pontual entender a realidade financeira do cliente e elaborar um planejamento financeiro para ser executado pelo cliente; </li>
+                                <li>Inclui: plano de ação para quitar dívidas ou, para os que não tem dívidas, fazer sobrar dinheiro no final do mês;</li>
+                                <li>Acesso ao portal de cursos online sobre planejamento financeiro;</li>
+                                <li>Duração: 2 meses</li>
+                                <li>Valor: R$ 1.200,00 parcelado em até 12x.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo">
+                    <div class="bloco_credito ">
+                        <h1>Solicitar Contratação</h1>
+                        <form action="" class="form_geral">
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'nome', placeholder: 'Nome completo', label: 'Nome completo')
+                                @? formInput(name: 'email', placeholder: 'E-mail', label: 'E-mail')
+                            </div>
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'telefone_fixo', placeholder: 'Telefone fixo', label: 'Telefone fixo')
+                                @? formInput(name: 'telefone_celular', placeholder: 'Telefone celular', label: 'Telefone celular')
+                            </div>
+                            <div class="form_input_dupla">
+                                @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade')
+                            </div>
+
+
+                            <div class="bloco_botao">
+                                <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                                <div class="botao_geral_cor cor_bg">Contratar</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
