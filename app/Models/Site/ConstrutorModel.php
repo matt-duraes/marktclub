@@ -23,7 +23,7 @@ final class ConstrutorModel
      */
     public function montarUnico(): object
     {
-        unset($_SESSION['CLUBE']); //TODO: unset colocado temporariamente enquanto rota do construtor ainda não existe
+        sessaoDeletar('CLUBE'); //TODO: unset colocado temporariamente enquanto rota do construtor ainda não existe
         $clube = $this->buscarClube();
 
         if ($clube) {
@@ -40,14 +40,14 @@ final class ConstrutorModel
             ],
         ];
 
-        $_SESSION['CLUBE'] = $construtor;
+        sessao('CLUBE', $construtor);
 
         return $construtor;
     }
 
     private function buscarClube()
     {
-        return $_SESSION['CLUBE'] ?? null;
+        return sessao('CLUBE', padrao: '');
     }
 
     /**
@@ -80,6 +80,4 @@ final class ConstrutorModel
             'unimedflorianopolis' => $unimedflorianopolis,
         ];
     }
-
-
 }

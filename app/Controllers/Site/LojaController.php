@@ -2,16 +2,16 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\BannerModel;
-use App\Models\Site\Loja\BuscaModel;
-use App\Models\Site\Loja\ListarModel;
-use App\Models\Site\Loja\MapaModel;
-use App\Models\Site\Loja\RelacionadoModel;
-use App\Models\Site\Loja\DetalheModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Loja\MapaModel;
+use App\Models\Site\Loja\BuscaModel;
+use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Loja\DetalheModel;
+use App\Models\Site\Loja\RelacionadoModel;
 
 final class LojaController extends Controller
 {
@@ -117,7 +117,6 @@ final class LojaController extends Controller
         return view('loja.geral.modalIndicacao', [
             // 'tipo'      => $tipo,
         ]);
-
     }
 
     /**
@@ -144,17 +143,17 @@ final class LojaController extends Controller
     /**
      * @return Response
      */
-    public function melhoridade(): Response
+    public function melhorIdade(): Response
     {
-        $ConvenioParceiro = ['dominos', 'lojateste'];
         $categoria = ['alimentacao','saude', 'veiculo'];
-        $alimentacaoTag = ['bares','restaurante','churrascarias','doces',
-        'sanduiches', 'suplementos', 'cafes'];
+        $alimentacaoTag = [
+            'bares','restaurante','churrascarias','doces', 'sanduiches', 'suplementos', 'cafes'
+        ];
         $veiculoTag = ['concessionarias','locadoras','pneus','oficinas'];
         $saudeTag = ['academia','visao','esportes','spas'];
         $estado = ['Acre','Alagoas','Amapá','Amazonas','Rio de Janeiro','Brasilia','São Paulo'];
 
-        return view('loja.pesquisa', [
+        return view('loja.melhor_idade', [
             'alimentacaoTag' => $alimentacaoTag,
             'veiculoTag' => $veiculoTag,
             'saudeTag' => $saudeTag,

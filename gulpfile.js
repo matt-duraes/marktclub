@@ -182,19 +182,6 @@ async function monitorarSistema() {
         browserSync.reload();
         consoleFooter(time);
     });
-    watch(['./src/Painel/App/**/*.view', './views/templates/**/*.view', './resources/php/**/*.php']).on(
-        'change',
-        async () => {
-            const time = new Date().getTime();
-            consoleHeader();
-            await htmlTodos();
-            browserSync.reload();
-            consoleFooter(time);
-        }
-    );
-    watch(['./src/**/*.php', '!./src/Database/tabela.php']).on('change', () => {
-        browserSync.reload();
-    });
 
     // IMAGEM
     watch(['./views/images/**/*']).on('all', async () => {

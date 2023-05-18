@@ -1,4 +1,5 @@
 @template "site"
+
 <div class="conteudo_principal">
     <section class="info_acesso">
         <h1>Boas-vindas, User</h1>
@@ -7,7 +8,6 @@
     <nav>
         <a href="@route(loja.melhoridade)">Buscar lojas conveniadas</a>
         <a href="@route(loja.proxima)"> Lojas próximas</a>
-        <a href="#">Lojas com entrega</a>
         <a href="@route(turismo.index)">Passagem e hospedagem</a>
         <a href="@route('medicamento.index')">Farmácias</a>
         <a href="@route('planosaude.index')">Plano de saúde</a>
@@ -20,7 +20,3 @@
         <a href="@route('edita.dados')">Alterar dados pessoais</a>
     </nav>
 </div>
-@JS
-
-</body>
-</html>

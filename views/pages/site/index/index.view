@@ -1,12 +1,15 @@
 @template "site"
 
 <div id="bloco_index">
+
     @view site/geral/banner.view
+
     @if(TIPO_USUARIO == 'indicado'):
         <div class="bloco_atencao_geral">
             <p>Você está utilizando uma versão limitada do clube</p>
         </div>
     @endif
+
     <div class="bloco">
         <div class="bloco_geral_imagem_esquerda">
             <div class="bloco_plano">
