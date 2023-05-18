@@ -38,8 +38,10 @@ final class IndexModel implements PainelIndexBuscarInterface
         } else {
             $parametro['data'] = hoje();
         }
-        if (is_array($filtro) && array_key_exists('empresa', $filtro)) {
+        if (is_array($filtro) && array_key_exists('empresa', $filtro) && !empty($filtro['empresa'])) {
             $parametro['empresa'] = $filtro['empresa'];
+        } else {
+            $parametro['empresa'] = sessao('USUARIO.empresa')->id;
         }
         return $parametro;
     }

@@ -1256,7 +1256,6 @@ if (!function_exists('formTextarea')) {
         array $attr = [],
         ?int $numeroLinha = null
     ): string {
-        $html = $option['html'] ?? '';
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
         $obrigatorio = $obrigatorio ? 'input_obrigatorio' : '';
         $footer = formFooter(true);
@@ -1274,8 +1273,8 @@ if (!function_exists('formTextarea')) {
 
         return '
             <div class="bloco_input input_textarea ' . $class . '" id="' . $id . '">
-                ' . $html . '
                 <textarea data-numero-linha="' . $numeroLinha . '" speelcheck="true" ' . implode(' ', $attrInput) . ' class="input_geral resize textarea_resize ' . $obrigatorio . '" name="' . $name . '" placeholder="' . $placeholder . '" id="input_' . $name . '">' . $value . '</textarea>
+                ' . $html . '
                 <div class="borda"></div>
                 ' . $label . '
                 <div class="input_icone"></div>

@@ -132,7 +132,8 @@ final class MontarRelatorioModel
     {
         $relatorio = [
             'total' => [
-                'numero' => $dado->total
+                'usuario' => $dado->usuario,
+                'bloqueado' => $dado->bloqueado,
             ],
             'Ativo' => [
                 'numero' => 0,
@@ -141,11 +142,7 @@ final class MontarRelatorioModel
             'Inativo' => [
                 'numero' => 0,
                 'porcentagem' => 0
-            ],
-            'Bloqueado' => [
-                'numero' => 0,
-                'porcentagem' => 0
-            ],
+            ]
         ];
 
         foreach ($dado->lista as $r) {
@@ -155,9 +152,6 @@ final class MontarRelatorioModel
             } elseif ($r->status == 'Inativo') {
                 $relatorio['inativo']['numero'] = $r->total;
                 $relatorio['inativo']['porcentagem'] = $r->porcentagem;
-            } elseif ($r->status == 'Bloqueado') {
-                $relatorio['bloqueado']['numero'] = $r->total;
-                $relatorio['bloqueado']['porcentagem'] = $r->porcentagem;
             }
         }
 

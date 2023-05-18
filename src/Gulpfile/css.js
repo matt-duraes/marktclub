@@ -9,53 +9,41 @@ const plumber = require('gulp-plumber');
 const { arquivoExiste } = require('./Helper.js');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const glob = require('glob');
-const { fsDeletarDiretorio } = require('./arquivo');
+const { fsDeletarDiretorio, fsCriarArquivo, fsCriarDiretorio, fsRemoverArquivoSeExistir } = require('./arquivo');
 
+let arquivoConteudo = [];
 let config;
-/*
-|--------------------------------------------------------------------------
-| BUILD
-|--------------------------------------------------------------------------
-*/
-exports.cssDeploy = async function () {
-    if (config == undefined) {
-        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
-    return src(config.public + '/css/*.css')
-        .pipe(plumber())
-        .pipe(autoprefixer())
-        .pipe(cssMin())
-        .pipe(dest(config.public + '/css'));
-};
 
 /*
 |--------------------------------------------------------------------------
-| HTML
+| CSS ÚNICO
 |--------------------------------------------------------------------------
 */
 exports.cssUnico = function (path, browser) {
     return new Promise(async resolve => {
+        arquivoConteudo = [];
+
         if (config == undefined) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
-        let pathAll = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/layout.styl';
-        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/path.styl';
+        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/layout.styl';
+        const nome = pegarNomeArquivo(pathReal);
 
-        if (await arquivoExiste(pathReal, false)) {
-            const conteudo = fs.readFileSync(pathReal, 'utf-8');
-            pathAll = conteudo.replace(/^\/\/\ ?/, '').trim();
-        }
-
-        if (!(await arquivoExiste(pathAll))) {
+        if (!(await arquivoExiste(pathReal))) {
+            mensagemErro('Arquivo não existe: ' + pathReal);
             resolve(false);
         }
 
+        await fsRemoverArquivoSeExistir('files/build/css/' + nome);
+        await fsRemoverArquivoSeExistir(config.public + '/css/' + nome);
+
         try {
-            await processarCss(pathAll, browser);
-            mensagemSucesso('Arquivo copiado com sucesso: ' + pathAll);
+            await processarCss(pathReal, config.public + '/css', browser);
+            mensagemSucesso('Arquivo copiado com sucesso: ' + pathReal);
         } catch (error) {
-            mensagemErro('Erro ao copiar arquivo: ' + pathAll);
+            mensagemErro('Erro ao copiar arquivo: ' + pathReal);
+            resolve(false);
         }
         resolve(true);
     });
@@ -68,11 +56,9 @@ exports.cssUnico = function (path, browser) {
 */
 exports.cssTodos = function () {
     return new Promise(async resolve => {
-        if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-        }
-
-        await fsDeletarDiretorio(config.public + '/css');
+        arquivoConteudo = [];
+        await fsDeletarDiretorio('./files/build/css');
+        await fsCriarDiretorio('./files/build/css');
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/layout.styl')
@@ -84,8 +70,7 @@ exports.cssTodos = function () {
         for (i = 0; i < quantidade; ++i) {
             arquivo = listaArquivo[i];
             try {
-                await processarCss(arquivo);
-                mensagemSucesso('Arquivo copiado com sucesso: ' + arquivo);
+                await processarCss(arquivo, './files/build/css');
             } catch (error) {
                 mensagemErro('Erro ao copiar arquivo: ' + arquivo);
             }
@@ -99,78 +84,113 @@ exports.cssTodos = function () {
 
 /*
 |--------------------------------------------------------------------------
+| BUILD
+|--------------------------------------------------------------------------
+*/
+exports.cssDeploy = async function () {
+    return src('./files/build/css/*.css')
+        .pipe(plumber())
+        .pipe(autoprefixer())
+        .pipe(cssMin())
+        .pipe(dest('./files/build/css'));
+};
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCAO
+|--------------------------------------------------------------------------
+*/
+exports.cssProducao = async () => {
+    if (config == undefined) {
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+
+    await fsDeletarDiretorio(config.public + '/css');
+    await new Promise(r => setTimeout(r, 2000));
+
+    return src('./files/build/css/*.css')
+        .pipe(plumber())
+        .pipe(dest(config.public + '/css'));
+};
+
+/*
+|--------------------------------------------------------------------------
 | FUNÇÕES GERAIS
 |--------------------------------------------------------------------------
 */
-function processarCss(path, browser) {
-    return new Promise(async (resolve, reject) => {
-        const dirBase = path.replace(/\/layout.styl$/, '') + '/';
-        const nome = path
+function pegarNomeArquivo(path) {
+    return (
+        path
             .replace(/^src\/Painel\/App\//, 'painel_')
             .replace(/^views\/(pages\/)?/, '')
             .replace(/\/css\/[a-zA-Z0-9\-\_\.]+\.styl/, '')
             .replace(/\/Views/, '')
             .replace(/\//g, '_')
-            .replace(/_{2,}/g, '_');
+            .replace(/_{2,}/g, '_') + '.styl'
+    );
+}
+async function processarCss(path, destino, browser) {
+    const dirBase = path.replace(/\/layout.styl$/, '') + '/';
+    const nome = pegarNomeArquivo(path);
 
-        const conteudo = fs.readFileSync(path, 'utf-8');
+    const conteudo = fs.readFileSync(path, 'utf-8');
+    let listaImport = pegarListaImports(conteudo, dirBase);
+    if (listaImport) {
+        listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
+        listaImport.unshift('src/Html/Scripts/css/Variavel.system.styl');
+    } else {
+        listaImport = ['src/Html/Scripts/css/Variavel.system.styl'];
+    }
 
-        let listaImport = pegarListaImports(conteudo, dirBase);
-        if (listaImport) {
-            listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
-            listaImport.push(path);
-            listaImport.unshift('src/Html/Scripts/css/Variavel.system.styl');
+    if (!(await arquivoExiste(listaImport))) {
+        return;
+    }
+
+    let conteudoTemp = '';
+    let conteudoFinal = '';
+    [].forEach.call(listaImport, arquivo => {
+        if (arquivoConteudo[arquivo]) {
+            conteudoTemp = arquivoConteudo[arquivo];
         } else {
-            listaImport = ['src/Html/Scripts/css/Variavel.system.styl', path];
+            conteudoTemp = fs.readFileSync(arquivo, 'utf-8');
+            arquivoConteudo[arquivo] = conteudoTemp;
         }
-
-        if (!(await arquivoExiste(listaImport))) {
-            return;
-        }
-
-        if (browser != undefined) {
-            return src(listaImport)
-                .pipe(plumber())
-                .pipe(concat(nome + '.styl'))
-                .pipe(
-                    replace(
-                        /(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
-                        function handleReplace(match) {
-                            return '';
-                        }
-                    )
-                )
-                .pipe(
-                    stylus({
-                        'include css': true,
-                    })
-                )
-                .pipe(dest(config.public + '/css'))
-                .pipe(browser.stream())
-                .on('end', resolve)
-                .on('error', reject);
-        } else {
-            return src(listaImport)
-                .pipe(plumber())
-                .pipe(concat(nome + '.styl'))
-                .pipe(
-                    replace(
-                        /(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
-                        function handleReplace(match) {
-                            return '';
-                        }
-                    )
-                )
-                .pipe(
-                    stylus({
-                        'include css': true,
-                    })
-                )
-                .pipe(dest(config.public + '/css'))
-                .on('end', resolve)
-                .on('error', reject);
-        }
+        conteudoFinal += conteudoTemp + '\n';
     });
+    conteudoFinal += conteudo;
+
+    await fsCriarArquivo('files/build/css/' + nome, conteudoFinal);
+
+    if (browser != undefined) {
+        return src('files/build/css/' + nome)
+            .pipe(plumber())
+            .pipe(
+                replace(/(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g, function handleReplace(match) {
+                    return '';
+                })
+            )
+            .pipe(
+                stylus({
+                    'include css': true,
+                })
+            )
+            .pipe(dest(destino))
+            .pipe(browser.stream());
+    } else {
+        return src('files/build/css/' + nome)
+            .pipe(plumber())
+            .pipe(
+                replace(/(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g, function handleReplace(match) {
+                    return '';
+                })
+            )
+            .pipe(
+                stylus({
+                    'include css': true,
+                })
+            )
+            .pipe(dest(destino));
+    }
 }
 // Pegar lista de imports
 function pegarListaImports(conteudo, path) {
