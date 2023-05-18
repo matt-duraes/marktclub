@@ -60,6 +60,7 @@ final class AlfaController extends Controller
             'alfa.corretora',
             [
                 'banner' => (new BannerModel())->corretora(),
+                'consultoria' => (new BannerModel())->consultoriaAlfa(),
                 'menu' => 'corretora_alfa'
             ]
         );
@@ -67,6 +68,12 @@ final class AlfaController extends Controller
 
     public function consultoriaAlfa()
     {
-        return view('alfa.consultoria');
+        return view(
+            'alfa.consultoria',
+            [
+                'banner' => (new BannerModel())->consultoriaAlfa(),
+                'menu' => 'corretora_alfa'
+            ]
+        );
     }
 }
