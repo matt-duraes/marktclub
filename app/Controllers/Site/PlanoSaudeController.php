@@ -3,7 +3,6 @@
 namespace App\Controllers\Site;
 
 use Http\Request;
-use Http\Response;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\ConstrutorModel;
@@ -12,35 +11,15 @@ use App\Models\Site\Saude\OperadoraModel;
 final class PlanoSaudeController extends Controller
 {
     private $location = false;
-    private $cnu;
-    private $vitoria;
-    private $seguros;
-    private $amil;
 
     public function __construct()
     {
         parent::__construct();
 
-        $construtor = (new ConstrutorModel())->buscar();
-        $_SESSION['CLUBE'] = $construtor;
+        $construtor = (new ConstrutorModel())->montaPlanoDeSaude();
         //Para visualizar federal saúde só alterar essa define para federal
         define('CLUBE_ID', '80b010d457c4329f4aadacd5b57766c8');
-
-        $this->cnu = isset($_SESSION['CLUBE']->saude->cnu) && $_SESSION['CLUBE']->saude->cnu == 1;
-        $this->seguros = isset($_SESSION['CLUBE']->saude->seguros) && $_SESSION['CLUBE']->saude->seguros == 1;
-        $this->vitoria = isset($_SESSION['CLUBE']->saude->vitoria) && $_SESSION['CLUBE']->saude->vitoria == 1;
-        $this->amil = isset($_SESSION['CLUBE']->saude->amil) && $_SESSION['CLUBE']->saude->amil == 1;
-        $this->unimedflorianopolis = isset($_SESSION['CLUBE']->saude->unimedflorianopolis) && $_SESSION['CLUBE']->saude->unimedflorianopolis == 1;
-
-        if (CLUBE_ID != 'federal') {
-            if ($this->vitoria && !$this->cnu && !$this->seguros) {
-                $this->location = route('planosaude.unimed');
-            } elseif ($this->cnu && !$this->vitoria && !$this->seguros) {
-                $this->location = route('planosaude.centralnacional');
-            } elseif ($this->seguros && !$this->vitoria && !$this->cnu) {
-                $this->location = route('planosaude.unimedSeguro');
-            }
-        }
+        $this->defineLocation($construtor);
     }
 
     public function index()
@@ -61,48 +40,55 @@ final class PlanoSaudeController extends Controller
             return location($this->location);
         }
 
-        return view('planosaude.index', $retorno);
+        return view('plano_saude.index', $retorno);
     }
 
-    public function detalhe()
+    private function defineLocation($construtor)
     {
-        return view('planosaude.detalhe', [
-            'menu' => 'saude',
-            'lista'  => (new OperadoraModel())->listarDados()
-        ]);
+        if (CLUBE_ID !== 'federal' && $this->location === false) {
+            if ($construtor->vitoria && !$construtor->cnu && !$construtor->seguros) {
+                $this->location = route('planosaude.unimedVitoria');
+            } elseif ($construtor->cnu && !$construtor->vitoria && !$construtor->seguros) {
+                $this->location = route('planosaude.centralnacional');
+            } elseif ($construtor->seguros && !$construtor->vitoria && !$construtor->cnu) {
+                $this->location = route('planosaude.unimedSeguro');
+            }
+        }
     }
 
-    public function unimedvitoria()
+    public function unimedVitoria()
     {
-        return view('planosaude.unimedvitoria', [
-            'menu' => 'saude',
-            'lista'  => (new OperadoraModel())->listarDados()
-
-        ]);
+        return view(
+            'plano_saude.unimedvitoria',
+            [
+                'menu' => 'saude',
+                'lista'  => (new OperadoraModel())->listarDados()
+            ]
+        );
     }
 
     public function unimedflorianopolis()
     {
-        return view('planosaude.unimedflorianopolis', [
+        return view('plano_saude.unimedflorianopolis', [
             'menu' => 'saude'
         ]);
     }
 
     public function tabela()
     {
-        return view('planosaude.geral.modal');
+        return view('plano_saude.geral.modal');
     }
 
     public function centralnacional()
     {
-        return view('planosaude.centralunimed', [
+        return view('plano_saude.centralunimed', [
             'menu' => 'saude'
         ]);
     }
 
     public function amil()
     {
-        return view('planosaude.amil', [
+        return view('plano_saude.amil', [
             'menu' => 'saude'
         ]);
     }
@@ -119,30 +105,31 @@ final class PlanoSaudeController extends Controller
             return view($views[$request->local]);
         }
 
-        return view('planosaude.index', [
+        return view('plano_saude.index', [
             'menu' => 'saude'
         ]);
-
     }
 
     public function federalSaude()
     {
-        return view('planosaude.federalSaude', [
+
+        return view('plano_saude.federalSaude', [
             'menu' => 'federal_saude',
             'banner' => (new BannerModel())->saude(),
+            // 'lista'  => (new PlanoModel())->listarDados()
         ]);
     }
 
     public function unimedSeguro()
     {
-        return view('planosaude.unimedSeguro', [
+        return view('plano_saude.unimedSeguro', [
             'menu' => 'saude'
         ]);
     }
 
     public function simulacao($url = null)
     {
-        return view('planosaude.simulacao', [
+        return view('plano_saude.simulacao', [
             'menu' => 'saude',
             'operadora' => $url
         ]);
@@ -151,7 +138,7 @@ final class PlanoSaudeController extends Controller
     public function contratacao($simulacao = null)
     {
 
-        return view('planosaude.contratacao', [
+        return view('plano_saude.contratacao', [
             'menu' => 'saude',
             'simulacao' => $simulacao
         ]);

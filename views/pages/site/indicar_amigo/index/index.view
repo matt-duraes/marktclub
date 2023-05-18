@@ -1,30 +1,25 @@
 @template "site"
 
-<div id="bloco_pagina_indicacao">
-    
-    <div class="conteudo">
-        @ if( $tituloPagina ):
-            @view site/indicacao/geral/titulo_pagina.view
-        @ endif;
+<div id="bloco_pagina_indicacao" class="bloco_titulo_texto">
+    <h1>Indique para um amigo</h1>
 
-        <section class="panel">
-            <div class="panel_conteudo">
-                {!!$texto!!}
-            </div>
+    <div class="conteudo">
+
+        <section class="texto">
+            {!!$texto!!}
         </section>
 
-        <div class="busca_convenio">
+        <div class="formulario_indicacao">
             <form action="#" method="post" class="form_geral">
-                <legend>Informe os dados abaixo da pessoa a qual gostaria de indicar: </legend>
                 <fieldset>
+                    <legend>Informe os dados abaixo da pessoa a qual gostaria de indicar: </legend>
+
                     @? formInput(name: 'nome', placeholder: 'Digite o nome', label: 'Digite o nome', class: 'input_form',  value: '')
                     @? formEmail(name: 'email', placeholder: 'Digite o email', label: 'Digite o email', class: 'input_form',  value: '')
                     <button class="botao_geral_cor cor_bg">Enviar</button>
                 </fieldset>
             </form>
         </div>
-
-    
     </div>
 
 </div>

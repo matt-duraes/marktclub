@@ -7,11 +7,16 @@
     <section class="bloco_escolha bloco_titulo_texto_centralizado">
         <h1>QUAL PRODUTO DESEJA?</h1>
         <p>Escolha entre a contratação de um novo consignado ou a portabilidade do seu consignado atual.</p>
-
-        <div class="bloco_botao">
-            <a href="@route(alfa.portabilidade)" class="botao botao_geral_cor cor_bg">Portabilidade</a>
-            <a href="@route(alfa.consignado)" class="botao botao_geral_cor cor_bg">Novo Consignado</a>
-        </div>
+        @if(TIPO_USUARIO != 'indicado'):
+            <div class="bloco_botao">
+                <a href="@route(alfa.portabilidade)" class="botao botao_geral_cor cor_bg">Portabilidade</a>
+                <a href="@route(alfa.consignado)" class="botao botao_geral_cor cor_bg">Novo Consignado</a>
+            </div>
+        @else
+            <div class="bloco_atencao_geral">
+                <p>Apenas associados possuem acesso a esse recurso</p>
+            </div>
+        @endif
     </section>
 
     <p class="disclaimer">Sujeito a análise cadastral, aprovação de crédito e margem consignável disponível. O CET - Custo Efetivo Total - será apresentado pela Alfa na ocasião da contratação. Condições sujeitas a alteração sem prévio aviso. SAC: 0800 725 0044 – e-mail: sacfinanceiraalfa@alfanet.com.br / Ouvidoria: 0800 722 0140 - e-mail: ouvidoria@alfanet.com.br. Exclusivo para deficientes auditivos e de fala: SAC: 0800 770 5244 / Ouvidoria: 0800 770 5140.</p>

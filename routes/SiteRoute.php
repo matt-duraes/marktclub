@@ -11,6 +11,17 @@ Route
             ::view('/');
     });
 Route
+    ::nome('acessoRapido')
+    ::controller(App\Controllers\Site\AcessoRapidoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/acesso-rapido');
+        Route
+            ::nome('sair')
+            ::view('/acesso-rapido/sair');
+    });
+Route
     ::nome('cupom')
     ::controller(App\Controllers\Site\CupomController::class)
     ::grupo(function () {
@@ -99,7 +110,6 @@ Route
         Route
             ::nome('confirmar')
             ::view('/convenios/confirmar/{url}');
-
         Route
             ::nome('proxima')
             ::view('/convenios/mapa');
@@ -110,6 +120,9 @@ Route
             ::nome('buscaMapa')
             ::request(['!categoria', '!pesquisa', 'latitude', 'longitude', 'raio'])
             ::post('/convenios/mapa-listar');
+        Route
+            ::nome('melhorIdade')
+            ::view('/convenios/melhor-idade');
     });
 
 Route
@@ -148,7 +161,7 @@ Route
             ::nome('detalhe')
             ::view('/saude/detalhe/{nome-do-plano}');
         Route
-            ::nome('unimedvitoria')
+            ::nome('unimedVitoria')
             ::view('/saude/unimed-vitoria');
         Route
             ::nome('unimedflorianopolis')
@@ -189,10 +202,7 @@ Route
             ::view('/farmacia/{url}');
         Route
             ::nome('carteirinha')
-            ::view('/farmacia/carteirinha');
-        Route
-            ::nome('tabela')
-            ::view('/farmacia/tabela/{id}');
+            ::get('/farmacia/carteirinha');
     });
 Route
     ::nome('sicoob')
@@ -201,6 +211,18 @@ Route
         Route
             ::nome('index')
             ::view('/credito/sicoob');
+        Route
+            ::nome('consignado')
+            ::view('/credito/sicoob-consignado');
+        Route
+            ::nome('creditoPessoal')
+            ::view('/credito/sicoob-credito-pessoal');
+        Route
+            ::nome('veiculoZero')
+            ::view('/credito/sicoob-veiculo-zero');
+        Route
+            ::nome('veiculoSeminovo')
+            ::view('/credito/sicoob-veiculo-seminovo');
         Route
             ::nome('abrirModalRegulamento')
             ::view('/sicoob-regulamento/{url}');
@@ -227,6 +249,7 @@ Route
             ::nome('declaracao')
             ::view('/automovel-declaracao/{url}');
     });
+
 Route
     ::nome('termo')
     ::controller(App\Controllers\Site\TermoController::class)
@@ -269,7 +292,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('pesquisa')
-            ::view('/pesquisa-de-satisfacao');
+            ::get('/pesquisa-de-satisfacao');
         Route
             ::nome('sosmulher')
             ::view('/sos-mulher');
@@ -302,7 +325,11 @@ Route
             ::view('/perfil');
         Route
             ::nome('salvaDados')
-            ::request(['nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho', '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'])
+            ::request([
+                'nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho',
+                '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro',
+                'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'
+            ])
             ::post('/perfil/salvar-dados');
         Route
             ::nome('senha')

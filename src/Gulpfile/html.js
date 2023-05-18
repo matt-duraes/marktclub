@@ -76,6 +76,7 @@ exports.htmlTodos = function () {
     return new Promise(async resolve => {
         await fsCriarDiretorio('files/build');
         await fsDeletarDiretorio('files/build/html');
+        await fsDeletarDiretorio('files/build/views');
         await fsCriarDiretorio('files/build/html');
 
         const listaArquivo = glob
@@ -131,6 +132,7 @@ async function processarHtml(arquivo, nome, destino) {
         conteudo = await fazerReplaceNoConteudo(conteudo, arquivo.replace(/\/[a-zA-Z0-9\_\-]+\.view$/, ''));
 
         try {
+            await fsRemoverArquivoSeExistir(destino + '/' + nome);
             await fsCriarArquivo(destino + '/' + nome, conteudo);
             resolve('Arquivo salvo com sucesso: ' + arquivo);
         } catch (error) {

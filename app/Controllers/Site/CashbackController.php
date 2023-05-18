@@ -4,6 +4,7 @@ namespace App\Controllers\Site;
 
 use App\Models\Site\Cashback\ListarModel;
 use App\Models\Site\Cashback\RelacionadoModel;
+use App\Models\Site\BannerModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -37,11 +38,14 @@ final class CashbackController extends Controller
      */
     public function index(string $pesquisa = null): Response
     {
-        return view('cashback.index', [
-            'menu'         => 'cashback',
-            'lista'        => (new ListarModel())->listarDados(),
-            'parceiroTipo' => 'cashback'
-        ]);
+        return view(
+            'cashback.index',
+            [
+                'menu'         => 'cashback',
+                'lista'        => (new ListarModel())->listarDados(),
+                'parceiroTipo' => 'cashback'
+            ]
+        );
     }
 
     /**
@@ -53,11 +57,14 @@ final class CashbackController extends Controller
      */
     public function detalhe(string $url): Response
     {
-        return view('cashback.detalhe', [
-            'menu'         => 'cashback',
-            'lista'        => (new RelacionadoModel())->listarDados(),
-            'parceiroTipo' => 'cashback'
-        ]);
+        return view(
+            'cashback.detalhe',
+            [
+                'menu'         => 'cashback',
+                'lista'        => (new RelacionadoModel())->listarDados(),
+                'parceiroTipo' => 'cashback'
+            ]
+        );
     }
 
     /**
@@ -67,7 +74,7 @@ final class CashbackController extends Controller
     public function extrato(): Response
     {
         return view('cashback.extrato', [
-            'saldo' => 10000
+            'saldo'  => 10000
         ]);
     }
 

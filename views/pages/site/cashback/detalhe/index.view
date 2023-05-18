@@ -7,7 +7,9 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus id modi tenetur exercitationem, voluptatem optio atque eos neque officia enim quam in fugit pariatur, iure asperiores earum labore alias! Eum.
             Optio aliquid nam, sapiente odio, fuga laborum cupiditate error dolorum consequuntur animi in molestiae nemo porro eos hic laboriosam dolores nostrum eum, deserunt esse facere corporis voluptatem quisquam ex. Molestiae.
             Excepturi architecto fugit temporibus. </p>
-            <a href="" class="botao_pequeno_borda cor_border">Regulamento do SILIUM</a>
+            @if(TIPO_USUARIO != 'indicado'):
+                <a href="" class="botao_pequeno_borda cor_border">Regulamento do SILIUM</a>
+            @endif
         </div>
     </div>
     <div class="bloco_passo_a_passo">
@@ -41,15 +43,21 @@
     </div>
     <div class="bloco_dado bloco_titulo_texto">
         <h1>Receba de volta</h1>
-        <div class="bloco_acessar">
-            <p>10% em SILIUM</p>
-            <a class="botao_geral_cor cor_bg botao" target="_blank" rel="nofollow noopener">Acessar parceiro para acumular pontos</a>
-        </div>
-        <div class="atencao bloco_atencao_geral">
-            <p>Não contempla venda de produtos ofertados via hostsites, apralelos ao site principal.
-                Os pontos referentes à compras via boletos bancários serão computados apenas após o
-                pagamento do mesmo</p>
-        </div>
+        @if(TIPO_USUARIO != 'indicado'):
+            <div class="bloco_acessar">
+                <p>10% em SILIUM</p>
+                <a class="botao_geral_cor cor_bg botao" target="_blank" rel="nofollow noopener">Acessar parceiro para acumular pontos</a>
+            </div>
+            <div class="atencao bloco_atencao_geral">
+                <p>Não contempla venda de produtos ofertados via hostsites, apralelos ao site principal.
+                    Os pontos referentes à compras via boletos bancários serão computados apenas após o
+                    pagamento do mesmo</p>
+            </div>
+        @else
+            <div class="bloco_atencao_geral">
+                <p>Apenas associados possuem acesso a esse recurso</p>
+            </div>
+        @endif
     </div>
 
     @view site/geral/relacionado.view

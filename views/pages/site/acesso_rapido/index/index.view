@@ -1,0 +1,22 @@
+@template "site"
+
+<div class="conteudo_principal">
+    <section class="info_acesso">
+        <h1>Boas-vindas, User</h1>
+        <p>O que você deseja fazer hoje? Selecione uma das opções abaixo.</p>
+    </section>
+    <nav>
+        <a href="@route(loja.melhoridade)">Buscar lojas conveniadas</a>
+        <a href="@route(loja.proxima)"> Lojas próximas</a>
+        <a href="@route(turismo.index)">Passagem e hospedagem</a>
+        <a href="@route('medicamento.index')">Farmácias</a>
+        <a href="@route('planosaude.index')">Plano de saúde</a>
+        <a href="@route(cashback.index)">Cashback</a>
+        <a href="@route('automovel.index)">Automóveis</a>
+        <a href="@route('cinema.index')">Ingressos de cinema</a>
+        <a href="@route('promocao.index')">Promoções</a>
+        <a href="@route('perfil.dependente')">Dependente</a>
+        <a href="@route('perfil.alteraSenha')">Alterar Senha</a>
+        <a href="@route('edita.dados')">Alterar dados pessoais</a>
+    </nav>
+</div>

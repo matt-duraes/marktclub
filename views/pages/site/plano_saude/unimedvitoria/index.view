@@ -1,0 +1,420 @@
+@template "site"
+
+<div class="bloco_saude">
+	<div class="bloco_plano_saude">
+		<figure>
+			<img src="https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg" alt="">
+		</figure>
+		<header class="bloco_conteudo">
+			<h1>Unimed Vitória</h1>
+			<p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de
+			direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro EMpresarial Enseada
+			do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua
+			entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apílice para reajuste anual é o mês de Julho
+			</p>
+		</header>
+		<div class="bloco_beneficio">
+			<header>
+				<h1>Benefícios exclusivos</h1>
+			</header>
+			<div class="bloco_vantagem">
+				<div class="icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+				<div class="icone_vantagem">
+					@iconeDependenteOutline
+					<p>Contrate para seus dependentes</p>
+				</div>
+				<div class="icone_vantagem">
+					@iconeMundo
+					<p>Ampla cobertura em todo o Brasil</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bloco_plano_saude">
+		<header>
+			<h1>Explore a rede credenciada</h1>
+		</header>
+		<div class="lista_passo_a_passo">
+			<ul class="bloco_geral_ul">
+				<li>Clique no botão "Consultar rede credenciada"</li>
+				<li>Na página que abrirá, clique em "Busca detalhada"</li>
+				<li>Em seguida selecione o estado (UF) que deseja consultar</li>
+				<li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada,
+					<br> mas caso queira é possível selecionar a cidade e especialidade que desejar.
+				</li>
+			</ul>
+		</div>
+		<div class="display_flex">
+            <a href="https://www.unimed.coop.br/guia-medico" class="botao_geral_cor cor_bg" target="_blank">Consultar rede credenciada</a>
+            @if(CLUBE_ID == 'federal'):
+            <a href="https://www.benevix.com.br/boletos" class="botao botao_geral_cor_auto_height botao_link_underline">Pedir 2° via do Boleto</a>
+            @endif;
+		</div>
+	</div>
+
+	<div class="bloco_plano_saude">
+		<header>
+            <h1>Carência</h1>
+        </header>
+		<div class="bloco_tabela_geral">
+			<table>
+				<thead>
+					<tr>
+						<th>Procedimentos</th>
+						<th>Carência</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Acidente Pessoal</td>
+						<td>24 Horas</td>
+					</tr>
+					<tr>
+						<td>Consultas / Exame simples</td>
+						<td>30 Dias</td>
+					</tr>
+					<tr>
+						<td>Exames especializados</td>
+						<td>180 Dias</td>
+					</tr>
+					<tr>
+						<td>Internações clínicas e cirúrgicas (exceto acid. pessoal)</td>
+						<td>180 Dias</td>
+					</tr>
+					<tr>
+						<td>Parto e termo</td>
+						<td>300 Dias</td>
+					</tr>
+					<tr>
+						<td>Doenças e Lesões Preexistentes</td>
+						<td>720 Dias</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="bloco_plano_saude">
+		<header>
+            <h1>Preços do Plano de Saúde</h1>
+        </header>
+		<div class="bloco_tabela_geral">
+			<table>
+				<thead>
+					<tr>
+						<th>Produto</th>
+						<th>Premium Nacional</th>
+						<th>Carência</th>
+					</tr>
+					<tr>
+						<th>Registro ANS</th>
+						<th>466.263/12-6</th>
+						<th>466.267/12-9</th>
+					</tr>
+					<tr>
+						<th>Acomodação</th>
+						<th>Enfermaria</th>
+						<th>Apartamento</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>0 a 18</td>
+						<td>235,92</td>
+						<td>248,18</td>
+					</tr>
+					<tr>
+						<td>19 a 23</td>
+						<td>254,35</td>
+						<td>306,12</td>
+					</tr>
+					<tr>
+						<td>24 a 28</td>
+						<td>274,69</td>
+						<td>330,60</td>
+					</tr>
+					<tr>
+						<td>29 a 33</td>
+						<td>316,75</td>
+						<td>376,56</td>
+					</tr>
+					<tr>
+						<td>34 a 38</td>
+						<td>342,09</td>
+						<td>406,66</td>
+					</tr>
+					<tr>
+						<td>39 a 43</td>
+						<td>362,78</td>
+						<td>435,70</td>
+					</tr>
+					<tr>
+						<td>44 a 48</td>
+						<td>578,07</td>
+						<td>696,47</td>
+					</tr>
+					<tr>
+						<td>49 a 53</td>
+						<td>602,91</td>
+						<td>726,38</td>
+					</tr>
+					<tr>
+						<td>54 a 58</td>
+						<td>627,69</td>
+						<td>756,30</td>
+					</tr>
+					<tr>
+						<td>59 ou mais</td>
+						<td>1.307,28</td>
+						<td>1.496,77</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor correspondente aos planos contratados.</p>
+		</div>
+	</div>
+
+	<div class="bloco_auxilio_ressarcimento bloco_plano_saude">
+		<header>
+            <h1>Você sabia que pode receber um auxílio ressarcimento?</h1>
+            <p>Clique no botão abaixo e confira na tabela de acordo com sua faixa salarial e idade</p>
+        </header>
+		<div class="bloco_tabela_geral">
+			<table>
+				<thead>
+					<tr>
+						<th>Faixa Etária</th>
+						<th>0,00 a 1.449,00</th>
+						<th>1.500,00 a 1.999,00</th>
+						<th>2.000,00 a 2.499,00</th>
+						<th>2.500,00 a 2.999,00</th>
+						<th>3.000,00 a 3.999,00</th>
+						<th>4.000,00 a 5.499,00</th>
+						<th>5.500,00 a 7.499,00</th>
+						<th>7.500 acima</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>00-18</td>
+						<td>R$ 149,52</td>
+						<td>R$ 142,47</td>
+						<td>R$ 135,42</td>
+						<td>R$ 129,78</td>
+						<td>R$ 122,71</td>
+						<td>R$ 111,43</td>
+						<td>R$ 107,20</td>
+						<td>R$ 101,56</td>
+					</tr>
+					<tr>
+						<td>19-23</td>
+						<td>R$ 156,57</td>
+						<td>R$ 149,52</td>
+						<td>R$ 142,47</td>
+						<td>R$ 135,42</td>
+						<td>R$ 129,78</td>
+						<td>R$ 114,25</td>
+						<td>R$ 108,61</td>
+						<td>R$ 102,97</td>
+					</tr>
+					<tr>
+						<td>24-28</td>
+						<td>R$ 158,69</td>
+						<td>R$ 151,64</td>
+						<td>R$ 144,59</td>
+						<td>R$ 137,53</td>
+						<td>R$ 131,89</td>
+						<td>R$ 116,38</td>
+						<td>R$ 110,73</td>
+						<td>R$ 105,08</td>
+					</tr>
+					<tr>
+						<td>29-33</td>
+						<td>R$ 165,04</td>
+						<td>R$ 156,57</td>
+						<td>R$ 149,52</td>
+						<td>R$ 142,47</td>
+						<td>R$ 135,42</td>
+						<td>R$ 117,07</td>
+						<td>R$ 111,43</td>
+						<td>R$ 105,79</td>
+					</tr>
+					<tr>
+						<td>34-38</td>
+						<td>R$ 168,97</td>
+						<td>R$ 161,51</td>
+						<td>R$ 154,46</td>
+						<td>R$ 147,41</td>
+						<td>R$ 140,35</td>
+						<td>R$ 122,02</td>
+						<td>R$ 116,38</td>
+						<td>R$ 110,73</td>
+					</tr>
+					<tr>
+						<td>39-43</td>
+						<td>R$ 175,61</td>
+						<td>R$ 167,15</td>
+						<td>R$ 160,10</td>
+						<td>R$ 153,05</td>
+						<td>R$ 146,00</td>
+						<td>R$ 127,66</td>
+						<td>R$ 122,02</td>
+						<td>R$ 116,38</td>
+					</tr>
+					<tr>
+						<td>44-48</td>
+						<td>R$ 190,03</td>
+						<td>R$ 180,76</td>
+						<td>R$ 171,49</td>
+						<td>R$ 163,77</td>
+						<td>R$ 155,04</td>
+						<td>R$ 129,78</td>
+						<td>R$ 123,60</td>
+						<td>R$ 117,42</td>
+					</tr>
+					<tr>
+						<td>49-53</td>
+						<td>R$ 193,05</td>
+						<td>R$ 183,63</td>
+						<td>R$ 174,21</td>
+						<td>R$ 166,37</td>
+						<td>R$ 158,52</td>
+						<td>R$ 131,84</td>
+						<td>R$ 125,56</td>
+						<td>R$ 119,28</td>
+					</tr>
+					<tr>
+						<td>54-58</td>
+						<td>R$ 196,06</td>
+						<td>R$ 186,50</td>
+						<td>R$ 176,94</td>
+						<td>R$ 168,97</td>
+						<td>R$ 161,00</td>
+						<td>R$ 133,90</td>
+						<td>R$ 127,52</td>
+						<td>R$ 124,33</td>
+					</tr>
+					<tr>
+						<td>59 ou +</td>
+						<td>R$ 205,63</td>
+						<td>R$ 196,06</td>
+						<td>R$ 186,50</td>
+						<td>R$ 176,94</td>
+						<td>R$ 168,97</td>
+						<td>R$ 137,09</td>
+						<td>R$ 130,71</td>
+						<td>R$ 124,33</td>
+					</tr>
+
+				</tbody>
+
+			</table>
+			<p>*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor correspondente aos planos contratados.</p>
+		</div>
+	</div>
+
+
+	<section class="bloco_plano_saude">
+        <header>
+            <h1>Preços de Participação</h1>
+        </header>
+		<div class="bloco_tabela_geral">
+			<table>
+				<thead>
+					<tr>
+						<th>Procedimentos</th>
+						<th>Percentual</th>
+						<th>Valor Média Por Evento</th>
+					</tr>
+				</thead>
+				<tbody>
+                    <tr>
+                        <td>Consultas Eletivas</td>
+                        <td>25%</td>
+                        <td>R$ 20,50</td>
+                    </tr>
+                    <tr>
+                        <td>Consulta Pronto-Socorro</td>
+                        <td>25%</td>
+                        <td>R$ 33,20</td>
+                    </tr>
+                    <tr>
+                        <td>Exames Básicos</td>
+                        <td>25%</td>
+                        <td>R$ 6,30</td>
+                    </tr>
+                    <tr>
+                        <td>Exames Especiais</td>
+                        <td>25%</td>
+                        <td>R$ 60,38</td>
+                    </tr>
+                    <tr>
+                        <td>Procedimentos Básicos</td>
+                        <td>25%</td>
+                        <td>R$ 06,75</td>
+                    </tr>
+                    <tr>
+                        <td>Procedimentos Especiais</td>
+                        <td>25%</td>
+                        <td>R$ 267,85</td>
+                    </tr>
+                    <tr>
+                        <td>Nutrição</td>
+                        <td>25%</td>
+                        <td>R$ 15,00</td>
+                    </tr>
+                    <tr>
+                        <td>Fisioterapia</td>
+                        <td>25%</td>
+                        <td>R$ 8,75</td>
+                    </tr>
+                    <tr>
+                        <td>Psicoterapia</td>
+                        <td>25%</td>
+                        <td>R$ 22,00</td>
+                    </tr>
+                    <tr>
+                        <td>Fonoaudiologia</td>
+                        <td>25%</td>
+                        <td>R$ 8,75</td>
+                    </tr>
+                    <tr>
+                        <td>Radioterapia</td>
+                        <td>25%</td>
+                        <td>R$ 57,08</td>
+                    </tr>
+                    <tr>
+                        <td>Quimioterapia</td>
+                        <td>25%</td>
+                        <td>R$ 85,75</td>
+                    </tr>
+                    <tr>
+                        <td>Diálise</td>
+                        <td>25%</td>
+                        <td>R$ 55,00</td>
+                    </tr>
+                </tbody>
+			</table>
+			<p>*Teto Limite Beneficiário/Mês: R$200</p>
+		</div>
+	</section>
+
+	<section class="bloco_simulacao container_scroll">
+		<h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
+		<p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
+        @if(TIPO_USUARIO != 'indicado'):
+            <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/unimed-vitoria">Fazer Simulação</a>
+        @endif
+	</section>
+    @if(TIPO_USUARIO == 'indicado'):
+        <div class="bloco_atencao_geral">
+            <p>Apenas associados possuem acesso a este recurso</p>
+        </div>
+    @endif
+    @if(TIPO_USUARIO != 'indicado'):
+        <a href="@route(planosaude.simulacao)/unimed-vitoria" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
+    @endif
+</div>

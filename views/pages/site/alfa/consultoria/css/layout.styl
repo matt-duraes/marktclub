@@ -1,12 +1,31 @@
 @system "Form"
-@template "site"
-@resource "site/variavel"
-@resource "site/banner"
 @system "Alerta"
 @system "Loading"
 @system "Pagina"
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/passo_passo"
+@resource "site/credito/simulacao"
 
 #bloco_consultoria_alfa
     maxWidth()
     flexCenter()
     flexCol()
+    .bloco_tipo
+        width: 100%
+        espacoVerticalPadrao()
+        flexCenter()
+        directionColumn()
+    .bloco_tipo p
+        max-width: 100%
+        text-align: left
+        margin: 5px 0px
+    .bloco_tipo p span
+        text-decoration: underline
+        font-size: 1em
+    .bloco_tipo .bloco_botao_tipo
+        width: 100%
+        espacoVerticalPadrao()
+        flexCenter()
+

@@ -13,6 +13,23 @@
 .texto i
 .texto li
     texto()
+.deletar p
+    width: 110px
+    spaceBetween()
+    color: $branco
+    background-color: $vermelho3
+    font-size: 0.8em
+    line-height: 1.5em
+    padding: 5px 10px
+    cursor: pointer
+    border-radius: 5px
+.deletar i
+    padding-left: 20px
+.deletar i svg
+    fill: $branco
+
+.bold
+    font-weight: bold
 
 .botao_geral_cor
     height: 45px
@@ -47,37 +64,50 @@
     padding: 10px
     text-align: center
     cursor: pointer
+.botao_geral_borda
+    height: 45px
+    line-height: 45px
+    border-radius: 5px
+    textoFontSize()
+    padding: 0 20px
+    text-align: center
+    cursor: pointer
+    border: 1px solid
+    cursor: pointer
 .botao_link_underline:hover
     text-decoration: underline
 
+
 .botao_input
-    float: left
-    margin: 0 10px 0 0
-    width: 150px
+    display: inline-block
+    width: auto
     height: 40px
-    position: relative
-    border: 1px solid $corClube
-    border-radius: 5px
-    label,
-    input
-        display: block
-        position: absolute
-        top: 0
-        left: 0
-        right: 0
-        bottom: 0
+    min-width: 150px
+    margin-right: 10px
+    @media screen and (max-width: 740px)
+        height: 50px
     label
-        flexCenter()
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 100%
+        height: 100%
+        border-radius: 5px
+        border: 1px solid $corClube
+        cursor: pointer
         texto()
-    input[type="radio"]
-        opacity: 0.011
-    input[type="radio"]:checked + label
-        background: $corClube
+        padding: 0px 10px
+    input[type="radio"],
+    input[type="checkbox"]
+        position: absolute
+        opacity: 0.01
+        z-index: -1
+    input[type="radio"]:checked + label,
+    input[type="checkbox"]:checked + label
+        background-color: $corClube
         color: $branco
         border-radius: 4px
-    label
-        cursor: pointer
-        line-height: 1.8em
+
 
 .bloco_geral_ul
     width: 100%
@@ -106,6 +136,7 @@
         &:hover
             background-color: #F8F9FA
     a i
+        alignItemCenter()
         margin-right: 10px
 
 .bloco_geral_sem_resultado
@@ -218,6 +249,15 @@
     borderRadius()
     p
         texto()
+.bloco_atencao_geral_icone
+    width: 100%
+    padding: 10px
+    border: 1px dashed #f00
+    borderRadius()
+    p
+        texto()
+        padding-left: 10px
+
 
 .bloco_titulo_texto
 .bloco_titulo_texto_centralizado
@@ -245,15 +285,19 @@
     .article_fake
     article
         width: calc((100% / 3) - 15px)
+    .article_fake
+        background-color: transparent
+        box-shadow: none
+
 @media screen and (max-width:900px)
     .bloco_geral_article
-        justify-content: center
         .article_fake
         article
-            width: calc(50% - 15px)
-            max-width: 350px
+            width: calc(50% - 20px)
+            min-height: 250px
             &:nth-child(even)
                 margin-left: 30px
+
 @media screen and (max-width:600px)
     .bloco_geral_article
         justify-content: center
@@ -267,6 +311,10 @@
     position: fixed
     bottom: 42px
     right: 100px
+
+@media screen and (max-width: 600px)
+    .botao_fixo_bottom
+        right: 20px
 
 [data-anime-botao]
     opacity: 0
@@ -290,3 +338,13 @@
     spaceBetween()
     .bloco_input:nth-child(1)
         margin-right: 20px
+
+.bloco_regulamento
+    width: 100%
+    flexCenter()
+    directionColumn()
+    espacoVerticalPadrao()
+    padding: 0px 20px
+    p
+        texto()
+        margin-top: 5px

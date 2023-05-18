@@ -1,0 +1,71 @@
+.bloco_pagina_popup
+    width: calc(100% - 40px)
+    max-width: 700px
+    position: relative
+    margin: 20px 0
+    display: flex
+    background-color: #FFF
+    box-shadow: 0 4px 5px rgba(0,0,0,.2)
+    overflow: hidden
+    border-radius: 3px
+    display: flex
+    flex-direction: column
+    overflow: hidden
+    .header_pagina_popup
+        width: 100%
+        height: 50px
+        line-height: 50px
+        padding: 0 10px
+        border-bottom: 1px solid #EEE
+        background-color: #FFF
+        display: flex
+        flex-direction: row
+        align-items: center
+        z-index: 10
+    .header_pagina_popup i
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+        cursor: pointer
+    .header_pagina_popup h1
+        flexGrow()
+        font-size: 1.6rem
+        color: #666
+        padding: 0 20px 0 10px
+        text-transform: uppercase
+        cursor: default
+    .conteudo_pagina_popup
+        width: 100%
+        max-height: calc(100vh - 150px)
+        padding: 10px 20px 20px 20px
+        overflow-y: auto
+        overflow-x: hidden
+        flex-direction: column
+    .footer_pagina_popup
+        width: 100%
+        border-top: 1px solid #EEE
+        padding: 10px 20px
+        display: flex
+        flex-direction: row
+        z-index: 10
+        bottom: 0
+        .flex
+            height: 40px
+            flexGrow()
+        .button
+            height: 40px
+            line-height: 40px
+            border-radius: 20px
+            color: #FFF
+            padding: 0 25px
+            font-size: 1.2rem
+        .button.enviar
+            background: $corClube
+        .button.voltar
+            background: #CCC
+        .button.erro
+            bgDegradeVermelho()
+        .button.ok
+            padding: 0
+

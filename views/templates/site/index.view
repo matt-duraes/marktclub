@@ -21,127 +21,20 @@
 
 <body>
     <div id="site">
-        <div id="botao_swiped_esquerdo"></div>
-
-        <header id="header_principal">
-            <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
-            <figure><img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}"></figure>
-        </header>
-
-        <nav id="menu_principal" class="menu_fechado">
-            <div class="bg"></div>
-            <div class="conteudo">
-                <figure><img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}"></figure>
-                <div class="perfil" id="bloco_perfil">
-                    <a href="@route(perfil.index)"></a>
-                    <figure style="background-image: url({{USUARIO_IMAGEM}})"></figure>
-                    <div class="nome">{{USUARIO_NOME}}</div>
-                    <div class="email">{{USUARIO_EMAIL}}</div>
-                    <i class="abrir" id="botao_menu_perfil">@iconeOpcao(15)</i>
-                </div>
-                @dir "/include/sub_menu.view"
-                <div class="menu">
-                    @dir "/include/menu.view"
-                </div>
-            </div>
-        </nav>
-
-        <main id="conteudo_principal">
-            [[VIEW]]
-        </main>
-
-
-        @if(isset($popupSimples) && !empty($popupSimples)):
-        <div id="hash_simple"></div>
-        <div id="notification">
-            <div class="note_conteudo">
-                <div class="close">@iconeFechar</div>
-                <div class="note_texto">
-                    <img src="https://arquivo.marktclub.com.br/construtor/logo_marktclub_tem_mais.png" alt="imagem">
-                    <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h1>
-                    <p>Explicabo, laudantium quisquam repellat quas corporis blanditiis, ab atque quibusdam dolor possimus, voluptatum officia tempora non sunt architecto. Quasi aliquid cupiditate quisquam.</p>
-                </div>
-            </div>
-        </div>
+        @php $melhorIdade = sessaoExiste('TEMPLATE') && sessao('TEMPLATE') == 'melhor-idade';
+        @ if($melhorIdade) :
+            @dir "/include/rapido_header.view"
+        @ else :
+            @dir "/include/site_header.view"
         @endif;
 
-        @if(isset($popupImagem) && !empty($popupImagem)):
-        <div id="hash_imagem" data-popup-imagem="1"></div>
+        [[VIEW]]
+
+        @ if($melhorIdade) :
+            @dir "/include/rapido_footer.view"
+        @ else :
+            @dir "/include/site_footer.view"
         @endif;
-
-        @if(isset($popupEnquete) && !empty($popupEnquete)):
-        <div id="hash_enquete" data-popup-enquete="1"></div>
-        @endif;
-
-        <footer id="rodape_principal">
-            <section class="bloco">
-                <header>
-                    <h1>Contato</h1>
-                </header>
-                <a class="dado" href="tel:{{soNumero(CONTATO_TELEFONE)}}" class="mobile">
-                    <i>@iconeTelefone</i>
-                    {{CONTATO_TELEFONE}}
-                </a>
-                <div class="dado" class="desktop">
-                    <i>@iconeTelefone</i>
-                    {{CONTATO_TELEFONE}}
-                </div>
-                <a class="dado" href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
-                    <i>@iconeWhatsapp(19)</i>
-                    {{CONTATO_WHATSAPP}}
-                </a>
-                <div class="dado">
-                    <i>@iconeEmail(15)</i>
-                    {{CONTATO_EMAIL}}
-                </div>
-                <div class="dado">
-                    <i>@iconeTelefone</i>
-                    {{CONTATO_HORARIO}}
-                </div>
-            </section>
-
-            <section class="bloco">
-                <header>
-                    <h1>Ajuda</h1>
-                </header>
-                <a class="dado" href="">
-                    <i>@iconeWhatsapp(19)</i>
-                    Indicar um parceiro
-                </a>
-                <a class="dado" href="">
-                    <i>@iconeWhatsapp(19)</i>
-                    Indicar um parceiro
-                </a>
-            </section>
-
-            <section class="bloco">
-                <header>
-                    <h1>Termo</h1>
-                </header>
-                <a class="dado" href="">
-                    <i>@iconeWhatsapp(19)</i>
-                    Termo de uso
-                </a>
-                <a class="dado" href="">
-                    <i>@iconeWhatsapp(19)</i>
-                    Termo do Silium
-                </a>
-            </section>
-
-            <div class="linha"></div>
-
-            <p class="texto">Baixe o nosso aplicativo no seu smartphone e leve o {{CLUBE_TITULO}} com você</p>
-            <div class="app">
-                <a href="#" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_apple.png" alt="Apple Store"></a>
-                <a href="#" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_google.png" alt="Google Play"></a>
-            </div>
-
-            <div class="linha"></div>
-
-            <p class="texto">{{CONTATO_ENDERECO}}</p>
-            <p class="texto">{{CLUBE_TITULO}} - &copy; 2011/{{date('Y')}} Todos os direitos reservados</p>
-        </footer>
-
     </div>
 
     <form action="/" method="post">

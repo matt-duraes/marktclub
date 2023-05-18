@@ -214,4 +214,44 @@ final class BannerModel
             ]
         ];
     }
+    /**
+     * @return object
+     */
+    public function odontologico(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_topo_odonto_1.png',
+                    'link'   => '#'
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/banner_topo_odonto_1.png',
+                    'link'   => '#'
+                ]
+            ]
+        ];
+    }
+    /**
+     * @return object
+     */
+    public function consultoriaAlfa(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'link'   => route('alfa.consultoriaAlfa')
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'link'   => route('alfa.consultoriaAlfa')
+                ]
+            ]
+        ];
+    }
 }

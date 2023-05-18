@@ -1,0 +1,118 @@
+@system "Form"
+@system "Alerta"
+@system "Loading"
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/passo_passo"
+
+#bloco_simulacao_saude
+    width: 100%
+    max-width: $maxWidth
+    espacoTopPadrao()
+    #bloco_tipo_amil
+    #bloco_central_plano
+        display: none
+        espacoTopPadrao()
+    .bloco_simulacao
+        width: 100%
+        height: 100%
+        max-width: 700px
+        flexCol()
+        align-items: center
+        position: relative
+        padding: 20px 20px 75px 20px
+        h1
+            width: 100%
+            text-align: center
+            titulo()
+        p
+            width: 100%
+            max-width: 500px
+            text-align: center
+            texto()
+        form
+            width: 100%
+    .bloco_simulacao .botao_acomodacao
+        flexCenter()
+        height: 100%
+    .bloco_simulacao .bloco_botao
+        width: calc(100% + 40px)
+        flexRow()
+        position: absolute
+        bottom: 20px
+        justify-content: space-between
+    .bloco_simulacao .bloco_botao .cinza
+        background-color: #DDD
+    .bloco_simulacao .aviso
+        espacoBottomPadrao()
+    .conteudo
+        flexCenter()
+    .resultado_dependente
+        flexCenter()
+        margin: 10px 0px
+    .resultado_dependente p
+        height: 100%
+        texto()
+        flexCenter()
+        color: $branco
+        border: 1px solid #ff6f00
+        background-color: $corClube
+        padding: 10px 20px
+    .resultado_dependente .valor
+        width: auto
+        texto()
+        color: #333
+        background-color: $branco
+        border: 1px solid $corClube
+        border-left: none
+        padding: 6px 20px
+
+#bloco_simulacao_saude #bloco_tipo_amil
+    flex-wrap: wrap
+#bloco_simulacao_saude #bloco_tipo_amil .botao_input
+    width: 210px
+    margin-top: 10px
+
+.bloco_simulacao
+    .dependente
+        width: 100%
+        directionColumn()
+        alignSelfStart()
+        padding: 0px 10px
+    .dependente .adicionaDependente
+        width: 100%
+        blocoAvisoDashed()
+        bordaTracejada()
+        cursor: pointer
+        p
+            justifyCenter()
+            text-align: center
+            margin-top: 0px
+    .dependente p
+        text-align: left !important
+        texto()
+        color: $corClube
+        espacoTopPadrao()
+        margin-bottom: 10px
+    .dependente .linha_dependente
+        width: 100%
+        max-width: $maxWidth
+        padding: 20px
+        espacoBottomPadrao()
+        blocoShadow()
+        position: relative
+        &.default
+            display: none
+    .dependente .linha_dependente .remove
+        position: absolute
+        right: 20px
+        top: 10px
+        fill: $branco
+        padding: 8px
+        border-radius: 5px
+        cursor: pointer
+        background-color: red
+    .dependente .linha_dependente .bloco_input
+        margin-top: 30px
+

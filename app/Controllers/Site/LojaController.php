@@ -2,15 +2,16 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\BannerModel;
-use App\Models\Site\Loja\BuscaModel;
-use App\Models\Site\Loja\ListarModel;
-use App\Models\Site\Loja\MapaModel;
-use App\Models\Site\Loja\RelacionadoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Loja\MapaModel;
+use App\Models\Site\Loja\BuscaModel;
+use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Loja\DetalheModel;
+use App\Models\Site\Loja\RelacionadoModel;
 
 final class LojaController extends Controller
 {
@@ -21,6 +22,7 @@ final class LojaController extends Controller
      * @return Response
      * @throws Excecao
      */
+
     public function busca(Request $request, string $pesquisa = null): Response
     {
         $Busca = new BuscaModel($request, $pesquisa);
@@ -39,6 +41,7 @@ final class LojaController extends Controller
      */
     public function index(Request $request, BuscaModel $Busca = null): Response
     {
+
         return view('loja.index', [
             'menu'         => 'loja',
             'banner'       => true,
@@ -64,6 +67,7 @@ final class LojaController extends Controller
             'url'          => $url,
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
             'lista'        => (new RelacionadoModel())->listarDados(),
+            'dado'        => (new DetalheModel($url))->listarDados(),
             'parceiroTipo' => 'loja'
         ]);
     }
@@ -89,7 +93,7 @@ final class LojaController extends Controller
     public function proxima(Request $request, MapaModel $Busca = null): Response
     {
         return view('loja.proxima', [
-            'menu' => 'loja-proxima'
+            'menu' => 'loja-proxima',
         ]);
     }
 
@@ -110,7 +114,9 @@ final class LojaController extends Controller
      */
     public function abrirModalIndicacao(): Response
     {
-        return view('loja.geral.modalIndicacao');
+        return view('loja.geral.modalIndicacao', [
+            // 'tipo'      => $tipo,
+        ]);
     }
 
     /**
@@ -132,5 +138,27 @@ final class LojaController extends Controller
     public function postBuscaMapa(Request $request): Response
     {
         return new Response(status: 201);
+    }
+
+    /**
+     * @return Response
+     */
+    public function melhorIdade(): Response
+    {
+        $categoria = ['alimentacao','saude', 'veiculo'];
+        $alimentacaoTag = [
+            'bares','restaurante','churrascarias','doces', 'sanduiches', 'suplementos', 'cafes'
+        ];
+        $veiculoTag = ['concessionarias','locadoras','pneus','oficinas'];
+        $saudeTag = ['academia','visao','esportes','spas'];
+        $estado = ['Acre','Alagoas','Amapá','Amazonas','Rio de Janeiro','Brasilia','São Paulo'];
+
+        return view('loja.melhor_idade', [
+            'alimentacaoTag' => $alimentacaoTag,
+            'veiculoTag' => $veiculoTag,
+            'saudeTag' => $saudeTag,
+            'categoria' => $categoria,
+            'estado' => $estado,
+        ]);
     }
 }

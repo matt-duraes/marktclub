@@ -1,0 +1,71 @@
+
+<div class="bloco_credito_geral_simulacao">
+    <div class="bloco_geral bloco_passo_passo_geral">
+        <div class="bloco_progresso">
+            <div class="item">
+                <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Simulação<br>empréstimo</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>2</span>
+                    <div class="cor_fill check"> @iconeCheck()</div>
+                </div>
+                <p>Valor da simulação</p>
+            </div>
+        </div>
+        <div class="bloco_conteudo">
+            <div class="bloco_scroll">
+                <div class="conteudo">
+                    <div class="bloco_credito">
+                        <h1>DADOS DO EMPRÉSTIMO</h1>
+                        <p>{{$dado->lista->titulo}}</p>
+
+                        <form method="post" id="formulario_emprestimo" class="form_geral">
+                            <input type="hidden" data-name="tipo_financiamento" value="{{$dado->tipo}}">
+                            @? formInput(name: 'financiamento', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor', mascara: 'dinheiro', value: '')
+                            @? formSelect(name: 'parcela', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', lista: $dado->lista->parcela)
+
+                        </form>
+                        <button data-tipo="{{$dado->tipo}}"
+                            class="botao_geral_cor_auto_height botao_link_underline abrirModalRegulamento">Abrir Regulamento</button>
+                        <div class="bloco_botao">
+                            <div></div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo" id="botao_fazer_simulacao">Continuar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo" id="resultado_simulacao">
+                    <div class="bloco_credito">
+                        <header>
+                            <h1>SIMULAÇÃO</h1>
+                            <p>Valor da parcela com seguro:</p>
+                        </header>
+                        <div class="resultado">
+                            <div class="resultado_valor">
+                                <p id="simulacao_valor">R$ xxx,xx</p>
+                            </div>
+                        </div>
+
+                        <div class="aviso_resultado">
+                            <h2>Para um empréstimo de <span class="valor_emprestimo"></span> em <span class="valor_prazo">X</span> vezes</h2>
+                            <p>*Taxas em condições especiais que poderão ser alteradas sem aviso prévio.</p>
+                        </div>
+
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg" id="enviar_solicitacao">Contratar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="disclaimer">
+        <p>* As taxas utilizadas são para condições especiais e podem ser alteradas sem aviso prévio</p>
+    </div>
+</div>

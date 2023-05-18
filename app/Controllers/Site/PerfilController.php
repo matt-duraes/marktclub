@@ -8,7 +8,7 @@ use Helpers\ApiHelper;
 use Helpers\SocialHelper;
 use Controller\Controller;
 use App\Models\Api\Loja\LojaMapaModel;
-use App\Models\Site\Perfil\{DadosModel, DependenteModel, SenhaModel};
+use App\Models\Site\Perfil\{DadosModel,  SenhaModel};
 
 final class PerfilController extends Controller
 {
@@ -16,26 +16,43 @@ final class PerfilController extends Controller
     {
         return view('perfil.index', [
             'dado' => (object)[
-                'nome' => '',
+                'nome' => 'Nome do usuário',
+                'data_nascimento' => '',
+                'genero' => '',
+                'estado_civil' => '',
+                'email_pessoal' => '',
+                'email_trabalho' => '',
+                'telefone_trabalho' => '',
+                'telefone_pessoal' => '',
+                'endereco_cep' => '',
+                'endereco_bairro' => '',
+                'endereco_logradouro' => '',
+                'endereco_numero' => '',
+                'endereco_complemento' => '',
+                'endereco_cidade' => '',
+                'endereco_estado' => '',
+                'endereco_estado' => ''
             ]
         ]);
     }
 
     public function senha()
     {
-        return view('perfil.senha', [
-            'tituloPagina' => 'Atualize sua senha'
-        ]);
+        return view('perfil.senha');
     }
 
     public function dependente()
     {
-        $Perfil = new DependenteModel();
-        $perfil = $Perfil->getDado();
+        $dado[] = (object)[
+            'nome' => 'Nome do dependente',
+            'email'   => '',
+            'cpf'     => '',
+            'usuario' =>  '',
+            'id' => ''
+        ];
 
         return view('perfil.dependente', [
-            'tituloPagina' => 'Adicione dependentes',
-            'dado' => $perfil
+            'dado' => $dado
         ]);
     }
 
