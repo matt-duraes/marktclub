@@ -1112,13 +1112,18 @@ Route
 
 Route
     ::nome('solicitacao_alfa')
-    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    ::controller(App\Controllers\Api\SolicitacaoAlfaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('solicitacao')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
+            ::request([
+                '!valor_emprestimo', '!prazo', '!valor_parcela_atual', '!quantidade_parcelas_restantes',
+                '!taxa', 'nome', 'documento_cpf', 'email', 'telefone_celular', '!telefone_fixo', 'orgao',
+                'observacao', '!data_simulacao', '!status', '!tipo'
+            ])
             ::post('/alfa/solicitacao');
     });
 
