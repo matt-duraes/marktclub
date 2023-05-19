@@ -88,11 +88,11 @@ class AlfaCredito
      */
     public function enviarSolicitacao(): bool
     {
-        if ($this->bypass !== null && in_array($this->solicitacaoEntity->documento_cpf, $this->bypass)) {
+        if ($this->bypass !== null && in_array($this->solicitacaoEntity->get('documento_cpf'), $this->bypass)) {
             return false;
         }
 
-        $mensagemMontada = $this->criarMensagemSolicitacao($this->solicitacaoEntity);
+        $mensagemMontada = $this->criarMensagemSolicitacao();
 
         $resposta = (new CurlHelper())
             ->post($this->link)
@@ -115,55 +115,54 @@ class AlfaCredito
     }
 
     /**
-     * @param  SolicitacaoEntity  $solicitacaoEntity  Entidade da solicitação
-     *
      * @return array Mensagem da solicitação pronta para envio
+     * @throws Excecao
      */
-    private function criarMensagemSolicitacao(SolicitacaoEntity $solicitacaoEntity): array
+    private function criarMensagemSolicitacao(): array
     {
         $data = date('d/m/Y');
-
-        if ($solicitacaoEntity->tipo->numero() === 1) {
+        // phpcs:disable
+        if ($this->solicitacaoEntity->get('tipo')->numero() === 1) {
             $template = "
                 Solicitação de empréstimo consignado.
-                Associação: $solicitacaoEntity->empresa
-                Número da Simulação: $solicitacaoEntity->codigo_solicitacao
-                Valor: $solicitacaoEntity->valor_emprestimo
-                Valor da parcela: $solicitacaoEntity->valor_parcela_atual
-                Quantidade de parcelas: $solicitacaoEntity->prazo
-                Taxa: $solicitacaoEntity->taxa
-                Cidade: $solicitacaoEntity->cidade
-                Órgão: $solicitacaoEntity->orgao
+                Associação: {$this->solicitacaoEntity->get('empresa')}
+                Número da Simulação: {$this->solicitacaoEntity->get('codigo_solicitacao')}
+                Valor: {$this->solicitacaoEntity->get('valor_emprestimo')}
+                Valor da parcela: {$this->solicitacaoEntity->get('valor_parcela_atual')}
+                Quantidade de parcelas: {$this->solicitacaoEntity->get('prazo')}
+                Taxa: {$this->solicitacaoEntity->get('taxa')}
+                Cidade: {$this->solicitacaoEntity->get('cidade')}
+                Órgão: {$this->solicitacaoEntity->get('orgao')}
                 Data: $data
-                Mensagem: $solicitacaoEntity->observacao
+                Mensagem: {$this->solicitacaoEntity->get('observacao')}
             ";
         } else {
             $template = "
                 Solicitação de portabilidade para empréstimo consignado.
-                Associação: $solicitacaoEntity->empresa
-                Número da Simulação: $solicitacaoEntity->codigo_solicitacao
-                Valor da parcela atual: $solicitacaoEntity->valor_parcela_atual
-                Quantidade de parcelas que faltam pagar: $solicitacaoEntity->quantidade_parcelas_restantes
-                Taxa do empréstimo atual: $solicitacaoEntity->valor_emprestimo
-                Cidade: $solicitacaoEntity->cidade
-                Órgão: $solicitacaoEntity->orgao
+                Associação: {$this->solicitacaoEntity->get('empresa')}
+                Número da Simulação: {$this->solicitacaoEntity->get('codigo_solicitacao')}
+                Valor da parcela atual: {$this->solicitacaoEntity->get('valor_parcela_atual')}
+                Quantidade de parcelas que faltam pagar: {$this->solicitacaoEntity->get('quantidade_parcelas_restantes')}
+                Taxa do empréstimo atual: {$this->solicitacaoEntity->get('valor_emprestimo')}
+                Cidade: {$this->solicitacaoEntity->get('cidade')}
+                Órgão: {$this->solicitacaoEntity->get('orgao')}
                 Data: $data
-                Mensagem: $solicitacaoEntity->observacao
+                Mensagem: {$this->solicitacaoEntity->get('observacao')}
             ";
         }
 
         return [
             'Convenio'        => 'Markt Club',
             'Mensagem'        => $template,
-            'EmpresaOrgao'    => $solicitacaoEntity->empresa,
+            'EmpresaOrgao'    => $this->solicitacaoEntity->get('empresa'),
             'PeriodoDesejado' => 'Manhã',
-            'Assunto'         => "Parceria Markt Club + $solicitacaoEntity->empresa + $solicitacaoEntity->nome",
+            'Assunto'         => "Parceria Markt Club + {$this->solicitacaoEntity->get('empresa')} + {$this->solicitacaoEntity->get('nome')}",
             'DadosPessoais'   => [
-                'Nome'                => $solicitacaoEntity->nome,
-                'CPF'                 => $solicitacaoEntity->documento_cpf,
-                'Email'               => $solicitacaoEntity->email,
-                'TelefoneCelular'     => $solicitacaoEntity->telefone_celular,
-                'TelefoneResidencial' => $solicitacaoEntity->telefone_fixo,
+                'Nome'                => $this->solicitacaoEntity->get('nome'),
+                'CPF'                 => $this->solicitacaoEntity->get('documento_cpf'),
+                'Email'               => $this->solicitacaoEntity->get('email'),
+                'TelefoneCelular'     => $this->solicitacaoEntity->get('telefone_celular'),
+                'TelefoneResidencial' => $this->solicitacaoEntity->get('telefone_fixo'),
                 'TelefoneComercial'   => ''
             ],
             'Produtos'        => [
@@ -172,5 +171,6 @@ class AlfaCredito
             ],
             'ReceberEmailSMS' => false
         ];
+        // phpcs:enable
     }
 }
