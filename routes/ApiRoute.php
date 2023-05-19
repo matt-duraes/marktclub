@@ -1181,11 +1181,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
-                'cpf', 'tipo', 'estado_civil', 'data_nascimento',
-                'status', 'rg', 'cidade', 'estado', 'cep', 'logradouro',
-                'numero', '!complemento', 'bairro', '!dependente_nome',
-                '!dependente_rg', '!dependente_documento', '!dependente_grau_parentesco',
-                '!dependente_data_nascimento', 'id_usuario_cliente', 'id_versao'
+                'url', 'tipo'
             ], 'json')
             ::post('/solicitacao-declaracao');
     });

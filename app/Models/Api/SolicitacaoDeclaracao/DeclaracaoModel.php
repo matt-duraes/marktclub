@@ -4,6 +4,7 @@ namespace App\Models\Api\SolicitacaoDeclaracao;
 
 use App\Classes\SolicitacaoDeclaracao\Ordem;
 use App\Classes\SolicitacaoDeclaracao\Status;
+use App\Classes\SolicitacaoDeclaracao\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Http\Request;
@@ -25,6 +26,8 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
 
     /**
+     * @param  Request  $request
+     *
      * @throws Excecao
      */
     public function __construct(
@@ -66,7 +69,7 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'tipo', 'data_criacao', 'status'])
+            ->campo(['cod', 'tipo', 'status', 'data_criacao'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere())
             ->order($this->pegarOrdem(new Ordem()))
@@ -91,54 +94,47 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
             $where[] = ['status', $Status->numero()];
         }
 
-        /*$Tipo = new Tipo($this->request->get('tipo'));
+        $Tipo = new Tipo($this->request->get('tipo'));
         if ($Tipo->valido()) {
             $where[] = ['tipo', $Tipo->numero()];
-        }*/
+        }
 
         $dataCriacaoDe = $this->request->get('data_criacao_de');
         $dataCriacaoAte = $this->request->get('data_criacao_ate');
 
         if (validarDataDate($dataCriacaoDe) && validarDataDate($dataCriacaoAte)) {
-            $where[] = [
-                'data_criacao',
-                'between',
-                [$dataCriacaoDe, $dataCriacaoAte]
-            ];
-        } else {
-            if (validarDataDate($dataCriacaoDe)) {
-                $where[] = ['data_criacao', '>=', dataBanco($dataCriacaoDe)];
-            } else {
-                if (validarDataDate($dataCriacaoAte)) {
-                    $where[] = ['data_criacao', '<=', dataBanco($dataCriacaoAte) . ' 23:59:59'];
-                }
-            }
+            $where[] = ['data_criacao', 'between', [$dataCriacaoDe, $dataCriacaoAte]];
+        } elseif (validarDataDate($dataCriacaoDe)) {
+            $where[] = ['data_criacao', '>=', dataBanco($dataCriacaoDe)];
+        } elseif (validarDataDate($dataCriacaoAte)) {
+            $where[] = ['data_criacao', '<=', dataBanco($dataCriacaoAte) . ' 23:59:59'];
         }
 
         return $where;
     }
 
     /**
-     * @param  array  $dado
+     * @param  array  $dados
      *
      * @return array
      */
-    protected function montarRetorno(array $dado): array
+    protected function montarRetorno(array $dados): array
     {
-        if (empty($dado)) {
+        if (empty($dados)) {
             return [];
         }
 
         $Status = new Status();
-        //$Tipo = new Tipo();
+        $Tipo = new Tipo();
+
         $retorno = [];
-        foreach ($dado as $r) {
+        foreach ($dados as $items) {
             $retorno[] = [
-                'id'           => $r->cod,
-                'parceiro'     => $r->titulo,
-                //'tipo'       => $Tipo->indice($r->tipo),
-                'data_criacao' => dataHoraBr($r->data_criacao),
-                'status'       => $Status->indice($r->status)
+                'id'           => $items->cod,
+                'parceiro'     => $items->titulo,
+                'tipo'         => $Tipo->indice($items->tipo),
+                'status'       => $Status->indice($items->status),
+                'data_criacao' => dataHoraBr($items->data_criacao)
             ];
         }
         return $retorno;
