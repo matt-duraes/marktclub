@@ -137,21 +137,21 @@ document.querySelector('body').addEventListener('click', function (event) {
             }
         }
 
-        let data = {
+        /*  let data = {
             acomodacao,
             titular,
             dependente,
             operadora,
             regiao,
             tipo,
-        };
+        }; */
     }
 });
 
-const btnSubmit = document.querySelector('#enviar_contratacao');
-if (btnSubmit) {
-    btnSubmit.addEventListener('click', function (e) {
-        event.preventDefault();
+const botaoEnviarSimulacao = document.querySelector('#enviar_contratacao');
+if (botaoEnviarSimulacao) {
+    botaoEnviarSimulacao.addEventListener('click', function (e) {
+        e.preventDefault();
 
         let simulacao = btnSubmit.getAttribute('data-simulacao');
         setTimeout(function () {
