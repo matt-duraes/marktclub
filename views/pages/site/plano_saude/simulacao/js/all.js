@@ -112,7 +112,7 @@ tipoInputsAmil.forEach(function (tipoInput) {
 document.querySelector('body').addEventListener('click', function (event) {
     if (event.target.classList.contains('simular')) {
         event.preventDefault();
-
+        /*
         let proximoResultado = event.target;
 
         let form = proximoResultado.closest('form');
@@ -137,7 +137,7 @@ document.querySelector('body').addEventListener('click', function (event) {
             }
         }
 
-        /*  let data = {
+         let data = {
             acomodacao,
             titular,
             dependente,
