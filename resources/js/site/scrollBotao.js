@@ -1,6 +1,6 @@
 const containerScroll = document.querySelectorAll('.container_scroll');
 
-function animaScroll(botaoScroll) {
+const animaScroll = botaoScroll => {
     const metadeJanela = window.innerHeight * 0.9;
 
     containerScroll.forEach(section => {
@@ -16,4 +16,4 @@ function animaScroll(botaoScroll) {
             botaoScroll.classList.remove('animar-botao');
         }
     });
-}
+};
