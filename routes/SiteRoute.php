@@ -202,7 +202,7 @@ Route
             ::view('/farmacia/{url}');
         Route
             ::nome('carteirinha')
-            ::get('/farmacia/carteirinha');
+            ::view('/tem-mais-saude/carteirinha');
     });
 Route
     ::nome('sicoob')
