@@ -1,5 +1,5 @@
 
-<div class="modal_mapa bloco_popup_geral md">
+<div class="modal_mapa bloco_popup_geral medio">
     <?php  include ROOT . '/resources/php/site/icone.php'; ?>
 
     <header class="popup_header">
