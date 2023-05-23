@@ -62,6 +62,21 @@ return [
         'status' => 1
     ],
     [
+        'cod' => '14afa776394ada4be23be6acf7e3259f',
+        'id_usuario_equipe' => 1,
+        'id_admin_empresa' => 1,
+        'titulo' => 'Sub Empresa Markt Club',
+        'razao_social' => 'Sub Empresa Markt Club',
+        'nome_fantasia' => 'Sub Empresa Markt Club',
+        'cnpj' => 42353214000191,
+        'responsavel_nome' => 'André Rodrigues',
+        'responsavel_cpf' => 1495180131,
+        'responsavel_email' => 'andre2@marktclub.com.br',
+        'responsavel_telefone' => 61981777772,
+        'slug' => 'sub-marktclub',
+        'status' => 1
+    ],
+    [
         'cod' => uuid(),
         'id_usuario_equipe' => 1,
         'titulo' => 'Prospecção Nome 01',

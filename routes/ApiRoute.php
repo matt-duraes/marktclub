@@ -189,7 +189,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!empresa', '!federacao'
+                '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao'
             ])
             ::post('/usuario-cliente');
 
@@ -919,6 +919,17 @@ Route::nome('comercial_empresa_select')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request(['!titulo'], 'json')
             ::get('/comercial-empresa/select');
+    });
+Route::nome('comercial_subempresa_select')
+    ::controller(App\Controllers\Api\ComercialSubempresaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(MarktClubMiddleware::class, 'validar')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:select'])
+            ::request(['!titulo', '!empresa'], 'json')
+            ::get('/comercial-subempresa/select');
     });
 Route::nome('comercial_empresa')
     ::controller(App\Controllers\Api\ComercialEmpresaController::class)
