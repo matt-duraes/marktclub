@@ -4,9 +4,6 @@
 
     @view site/geral/banner.view
 
-    <!-- <header>
-		<h1>Conte com a expertise da 4ª Corretora de Câmbio e Valores Mobiliários S.A. registrada na bolsa brasileira.</h1>
-    </header> -->
 
 	<section class="bloco_conteudo">
         <div class="descricao">
@@ -43,6 +40,9 @@
 	<section class="acessar_corretora botao_geral_cor cor_bg botao">
         <a href="https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub" target="_blank">INVISTA AGORA</a>
     </section>
+
+    @php $banner = $consultoria
+    @view site/geral/banner.view
 
     <div class="disclaimer">
         <p>* Passados esses 90 dias será cobrada a tabela padrão da Alfa Corretora disponível no site <a href="https://alfacorretora.com.br/duvidas/" target="_blank">https://alfacorretora.com.br/duvidas/</a>. <br> Durante a vigência da promoção, o cliente só arcará com os custos de emolumentos cobrados pela B3</p>

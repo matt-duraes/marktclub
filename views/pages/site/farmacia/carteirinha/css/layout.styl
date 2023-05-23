@@ -1,6 +1,6 @@
 @template "site"
 @resource "site/variavel"
-    
+
 .bloco_carteirinha
     width: 400px
     margin-top: $tamanho
@@ -9,6 +9,7 @@
     height: 200px
     position: relative
     margin: 10px
+    border-radius: 5px
     boxShadow()
     .bloco_info
         height: 80%
@@ -37,7 +38,7 @@
                 color: white
                 texto()
                 font-weight: bold
-    .bloco_nome    
+    .bloco_nome
         position: absolute
         width: 100%
         height: 50px
@@ -48,63 +49,13 @@
         font-size: 1.5em
         font-weight: 700
         z-index: 9999
+        border-radius: 5px
         h1
             color: #003d78
             texto()
 
-
-@media screen and (max-width: 767px)
-	.bloco_carteirinha
-		width: 100vh
-		height: 100vw
-		transform: rotate(90deg) translateY(-100%)
-		transform-origin: top left
-		margin: 0px
-	.bloco_carteirinha .bloco_info
-		height: 100%
-	.bloco_carteirinha .bloco_info figure
-		top: 50%
-		margin-top: -60px
-	.bloco_carteirinha .bloco_info .borda_meio
-		top: 50%
-		height: 150px
-		margin-top: -75px
-		height: 250px
-	.bloco_carteirinha .bloco_info .bloco_cpf
-		top: 50%
-		margin-top: -140px
-
-
-@media only screen and (max-device-width : 1000px) and (orientation : landscape)
-	.bloco_carteirinha
-		width: 100vw
-		height: 100vh
-		transform: rotate(0deg) translateY(0%)
-		transform-origin: bottom left
-		margin: 0px
-	.bloco_carteirinha .bloco_info figure
-		top: 50%
-		margin-top: -60px
-	.bloco_carteirinha .bloco_info .borda_meio
-		top: 50%
-		margin-top: -95px
-	.bloco_carteirinha .bloco_info .bloco_cpf
-		top: 50%
-		margin-top: 20px
-		right: 20px
-
-@media only screen and (max-device-width : 850px) and (orientation : landscape)	
-	.bloco_carteirinha .bloco_info .sombra
-		width: 100%
-	.bloco_carteirinha .bloco_info figure
-		top: 50%
-		margin-top: -60px
-	.bloco_carteirinha .bloco_info .borda_meio
-		top: 50%
-		margin-top: -95px
-		height: 250px
-	.bloco_carteirinha .bloco_info .bloco_cpf
-		top: 50%
-		margin-top: -95px
-		right: 40px
-		
+@media screen and ( max-width: 425px)
+    .bloco_carteirinha
+        rotate: 90deg
+        height: 250px
+        margin-top: calc(50vh - 125px)

@@ -1,19 +1,19 @@
 
-<div class="modal_mapa bloco_pagina_popup">
+<div class="modal_mapa bloco_popup_geral md">
     <?php  include ROOT . '/resources/php/site/icone.php'; ?>
-        
-    <header class="header_pagina_popup">
+
+    <header class="popup_header">
         <h1>RESGATAR</h1>
         <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
     </header>
-        
-    <div class="conteudo_pagina_popup">
 
-        <div class="aviso">
+    <div class="popup_conteudo">
+
+        <div class="bloco_atencao_geral_icone display_flex">
             <i>@iconeAlerta()</i>
             <p>Será cobrada a tarifa de transferência bancária.</p>
         </div>
-        <form id="form_buscar_mobile" action="" class="form_geral" method="post">
+        <form action="" class="form_geral" method="post">
 
             @? formInput(name: 'titular', placeholder: 'Nome do titular', label: 'Nome do titular', value: '')
             @? formCpf(name: 'cpf', placeholder: 'CPF do titular', label: 'CPF do titular', value: '')
@@ -21,15 +21,8 @@
             @? formInput(name: 'agencia', placeholder: 'Número do Agência', label: 'Número do Agência', value: '')
             @? formInput(name: 'conta', placeholder: 'Número da conta', label: 'Número da conta', value: '')
 
-            <ul>
-                <li></li>
-            </ul>
 
-            <div class="resto"></div>
-
-            <div class="footer_pagina_popup">
-                <button class="button enviar" id="busca_resgate">RESGATAR</button>
-            </div>
+            <button class="botao_geral_cor cor_bg enviar" id="busca_resgate">RESGATAR</button>
         </form>
     </div>
 

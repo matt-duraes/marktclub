@@ -11,11 +11,13 @@
             <p class="detalhe">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, quae!</p>
 
             @ if( "cupom" === "cupom" ):
-            <form action="/">
-                <span>cupom:</span>
-                <input type="text" readonly id="input_cupom_valor" value="{{numeroAleatorio(10000, 9999999)}}">
-                <div class="botao cor_bg" id="botao_cupom_copiar">COPIAR CUPOM</div>
-            </form>
+                @if (TIPO_USUARIO != 'indicado'):
+                    <form action="/">
+                        <span>cupom:</span>
+                        <input type="text" readonly id="input_cupom_valor" value="{{numeroAleatorio(10000, 9999999)}}">
+                        <div class="botao cor_bg" id="botao_cupom_copiar">COPIAR CUPOM</div>
+                    </form>
+                @endif
             @ else:
             <div class="atencao bloco_atencao_geral">
                 <p>Este parceiro aplica os descontos diretamente no site,
@@ -23,8 +25,14 @@
                     clique no botão abaixo</p>
             </div>
             @ endif;
-
-            <a href="#" class="botao_geral_cor cor_bg" target="_blank" rel="nofollow noopener">Ir para loja</a>
+            @if (TIPO_USUARIO != 'indicado'):
+                <a href="#" class="botao_geral_cor cor_bg" target="_blank" rel="nofollow noopener">Ir para loja</a>
+            @endif
+            @ if(TIPO_USUARIO == 'indicado')
+                <div class="bloco_atencao_geral">
+                    <p>Apenas associados possuem acesso a esse recurso</p>
+                </div>
+            @endif
         </div>
     </div>
 </div>

@@ -1,0 +1,141 @@
+@system "Form"
+@template "site"
+@resources "site/loja/busca"
+@resources "site/variavel"
+@resource "site/saude/padraoIndex"
+
+#bloco_federal_saude
+    h1
+        titulo()
+    p,button
+        texto()
+
+.bloco_federal_saude
+    width: 100%
+    max-width: $maxWidth
+    blocoShadow()
+
+.bloco_federal_saude figure
+    width: 100%
+    height: 200px
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+.bloco_federal_saude .bloco_chamada
+    text-align: center
+    padding: 20px
+
+.bloco_federal_saude .bloco_opcao
+    text-align: center
+    button
+        min-height: 55px
+        texto()
+        min-width: 250px
+        border-radius: 5px
+        margin:25px 12px
+    .bloco_atencao_geral
+        text-align: center
+
+.inativo
+    display: none
+.ativo
+    display: block
+
+.container_contratacao
+    margin-top: 25px
+    width: 100%
+    max-width: $maxWidth
+
+.container_contratacao .bloco_contratar_federal
+    width: 100%
+    blocoShadow()
+    p
+        texto()
+    h1
+        titulo()
+        text-align: center
+        espacoBottomPadrao()
+
+.container_contratacao .bloco_contratar_federal .bloco_card_plano
+    espacoBottomPadrao()
+    flexCenter()
+    .card_plano_saude
+        margin: 0px 25px
+        height: 200px
+        width: 300px
+        flexCenter()
+        boxShadow()
+        &:hover
+            border: 1px solid #ccc
+    .card_plano_saude figure
+        height: 60px
+        width: 180px
+        margin: auto
+        background-repeat: no-repeat
+        background-position: center
+    .card_plano_saude h1
+        padding-top: 20px
+.container_contratacao .bloco_contratar_federal .bloco_video_teleorientacao
+    flexCenter()
+    flexCol()
+    margin-top: 25px
+    blocoShadow()
+    width: 100%
+    h1
+        margin-bottom: 0px
+    p
+        margin-bottom: 25px
+    iframe
+        margin-bottom: 25px
+    .link_teleorientacao
+        width: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+    .link_teleorientacao a
+        font-size: 1.2rem
+        vertical-align: middle
+        text-align: center
+        margin: 25px
+        padding: 20px
+        border-radius: 5px
+        max-width: 300px
+
+.bloco_solicitar_federal
+    width: 100%
+    blocoShadow()
+    h1
+        text-align: center
+        espacoBottomPadrao()
+    .bloco_card_plano
+        espacoBottomPadrao()
+        flexCenter()
+    .bloco_card_plano .card_plano_saude
+        margin: 0px 25px
+        height: 200px
+        width: 300px
+        flexCenter()
+        boxShadow()
+        &:hover
+            border: 1px solid #ccc
+    .bloco_card_plano .card_plano_saude figure
+        height: 60px
+        width: 180px
+        margin: auto
+    .bloco_card_plano .card_plano_saude h1
+        padding-top: 20px
+
+@media screen and (max-width:650px)
+    .bloco_card_plano
+        flex-direction: column
+    .bloco_card_plano .card_plano_saude
+        width: 100% !important
+        margin: 25px !important
+    .link_teleorientacao
+        flexCol()
+    iframe
+        width: 100%
+
+

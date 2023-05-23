@@ -4,10 +4,10 @@ namespace Http;
 
 use Erro\Erro;
 use Erro\Excecao;
-use Helpers\CryptHelper;
 use HTMLPurifier;
-use HTMLPurifier_AttrDef_Enum;
+use Helpers\CryptHelper;
 use HTMLPurifier_Config;
+use HTMLPurifier_AttrDef_Enum;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request as Psr7Request;
 
@@ -42,8 +42,8 @@ final class Request extends Psr7Request
     {
         $lista = [];
         if (in_array($this->metodo, ['GET', 'DELETE'], true)) {
-            $lista = $this->json()
-                ? $this->psr7Request->query->all() + $this->json()
+            $lista = $this->getJson()
+                ? $this->psr7Request->query->all() + $this->getJson()
                 : $this->psr7Request->query->all();
         } elseif (in_array($this->metodo, ['POST', 'PUT'], true)) {
             $lista = $this->pegarRequestOuBody();
@@ -77,7 +77,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pega os dados da request quando eles foream enviados via JSON
      *
@@ -87,7 +86,7 @@ final class Request extends Psr7Request
      *
      * @return string|array Array com a lista de dados recebidos pela request ou o valor do insice
      */
-    public function json(string $indice = '', bool $purifier = true, bool $html = true): array|string
+    public function getJson(string $indice = '', bool $purifier = true, bool $html = true): array|string
     {
         $dados = jsonDecode($this->body(), true);
         if (is_array($dados)) {
@@ -97,7 +96,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pega o body da request
      *
@@ -109,7 +107,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * @param  array   $lista
      * @param  string  $indice
@@ -171,7 +168,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * @return array
      */
@@ -190,7 +186,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * @param  string  $input
      *
@@ -228,7 +223,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * @return void
      */
@@ -244,7 +238,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * @param  string  $propriedade
      *
@@ -260,7 +253,6 @@ final class Request extends Psr7Request
     }
 
     //doc
-
     /**
      * Pega a lista de dados enviado na request limpando os valores usados apenas pelo sistema
      *
@@ -285,7 +277,6 @@ final class Request extends Psr7Request
     }
 
     //doc
-
     /**
      * Retorna a classe origin Symfony\Component\HttpFoundation\Request
      *
@@ -297,7 +288,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Verifica se um parâmetro foi enviado na request
      *
@@ -321,7 +311,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Verifica que um parâmetro não foi enviado ou se ele está vazio
      *
@@ -346,7 +335,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Verifica que um parâmetro é uma data valida
      *
@@ -371,7 +359,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Verifica que um parâmetro é uma date valida
      *
@@ -396,7 +383,6 @@ final class Request extends Psr7Request
     }
 
     //doc
-
     /**
      * Pega uma chave específica da request
      *
@@ -420,7 +406,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pega a lista de dados selecionada pelo usuário
      *
@@ -456,7 +441,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * O contrário da lista, aqui você indica os dados que não quer achar
      *
@@ -486,7 +470,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pega todos os dados recebidos pela request, mesmo os que são usados apenas pelo sistema
      *
@@ -498,7 +481,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pegar o mesmo valor do $_GET
      *
@@ -514,7 +496,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pega o mesmo valor do $_POST
      *
@@ -524,19 +505,18 @@ final class Request extends Psr7Request
      *
      * @return array|string|bool Array com a lista de dados recebidos pela request ou o valor do indice
      */
-    public function getPost(string $indice = '', bool $purifier = true, bool $html = true): array|string|bool
+    public function getPost(string $indice = '', bool $purifier = true, bool $html = true): array|string
     {
-        if (!in_array($this->metodo, ['POST', 'GET'])) {
-            return !empty($indice) ? false : [];
+        if ($this->metodo !== 'POST') {
+            return !empty($indice) ? '' : [];
         }
 
         $_POST = $this->psr7Request->request->all();
-        if (!empty($_POST)) {
+        if (is_array($_POST) && !empty($_POST)) {
             return $this->purifier($_POST, $indice, $purifier, $html);
         }
 
         $phpInput = $this->psr7Request->getContent();
-
         $_POST = jsonDecode($phpInput, true);
         if (is_array($_POST)) {
             return $this->purifier($_POST, $indice, $purifier, $html);
@@ -546,7 +526,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pegar a request igual o $_POST mas quando for usado o método PUT
      *
@@ -583,7 +562,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pegar o mesmo valor do $_FILES
      *
@@ -603,7 +581,6 @@ final class Request extends Psr7Request
     }
 
     // doc
-
     /**
      * Pegar o headers recebidos pelo request
      *

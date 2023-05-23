@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*!
  * swiped-events.js - v@version@
  * Pure JavaScript swipe events
@@ -143,3 +144,4 @@
         return defaultValue;
     }
 })(window, document);
+/* eslint-enable */

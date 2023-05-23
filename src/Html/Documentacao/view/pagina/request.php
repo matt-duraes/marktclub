@@ -45,7 +45,7 @@ use Http\Request;
 ...
 public function postSalvar(Request $request)
 {
-    $texto = $request->_POST("texto", html: false);
+    $texto = $request->getPost("texto", html: false);
 }
     ')
     ->paragrafo('No exemplo acima você pode notar que peguei diretamente o valor do parâmetro texto pelo _POST e falei para ele não limpar o html. Tome muito cuidado ao fazer isso, principalmente se desabilitar o purifier que é algo que não recomendo, sempre que isso ocorre, você está abrindo espaço para brechas de segurança.');

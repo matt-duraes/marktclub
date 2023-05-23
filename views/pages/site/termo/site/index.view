@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TERMO DE USO DO CLUBE DE VANTAGENS</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <?= urldecode($_SESSION['CLUBE']->font->link) ?>
+    <?= urldecode(sessao('CLUBE')->font->link) ?>
 
     <style>
         body {
-            font-family: '<?= $_SESSION['CLUBE']->font->nome ?>', sans-serif;
+            font-family: '<?= sessao('CLUBE')->font->nome ?>', sans-serif;
         }
     </style>
 </head>
@@ -21,7 +21,7 @@
     <div id="bloco-termo__app">
         <section class="termo-container">
             <h1>TERMO DE USO DO CLUBE DE VANTAGENS</h1>
-            <?php if (in_array($_SESSION['CLUBE']->id, ['2dbd9e375eeabfbe859365dae0798f49'])) : ?>
+            <?php if (in_array(sessao('CLUBE.id'), ['2dbd9e375eeabfbe859365dae0798f49'])) : ?>
 
                 <article class="termo-conteudo">
                     <h2 class="titulo-normal bold">1. Introdução</h2>
@@ -88,7 +88,7 @@
                     <p class="titulo-normal">Dados de nosso DPO: André Pereira Rodrigues, portador do CPF 014.951.801-31 e seu contato direto é andrerodrigues@andrerodrigues.com</p>
                     <p class="titulo-normal">Antes de prosseguir, é fundamental que você leia e compreenda todos os termos e condições que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este regulamento, que foi redigido de forma clara e em linguagem acessível.</p>
                     <p class="titulo-normal">Ao se cadastrar ou utilizar o Clube de Vantagens, você estará legalmente vinculado a todos os termos e condições aqui presentes. Caso você não concorde com qualquer das regras previstas, você poderá solicitar o cancelamento de seu acesso por e-mail:
-                        <?php if ($_SESSION['CLUBE']->id != 'c3b3159ff6e9e937b954bf7eaca06aac') : ?>
+                        <?php if (sessao('CLUBE.id') != 'c3b3159ff6e9e937b954bf7eaca06aac') : ?>
                             atendimento@marktclub.com.br
                         <?php else : ?>
                             sac@vivafacil.app.

@@ -17,7 +17,14 @@
         <input type="hidden" id="input_historico_link" value="<?= base64Encode(!empty($link) ? $link : LINK . URI) ?>">
         <input type="hidden" id="input_historico_notificar" value="<?= base64Encode($notificar) ?>">
         <figure style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></figure>
-        <?= formTextarea(name: 'historico_novo', label: '', numeroLinha: 4, placeholder: 'Digite sua mensagem', id: 'input_historico_mensagem') ?>
+        <?= formTextarea(
+            name: 'historico_novo',
+            label: '',
+            numeroLinha: 4,
+            placeholder: 'Digite sua mensagem',
+            id: 'input_historico_mensagem',
+            html: '<div class="botao_upload"><i id="botao_historico_upload">' . iconeAnexo(18) . '</i></div>'
+        ) ?>
         <p>Aperte Shift+Enter para quebrar linha ou apenas Enter para salvar</p>
         <ul class="bloco_marcar_equipe" id="bloco_historico_marcacao_equipe">
             <?php foreach ((new \PainelModel\Historico\Equipe())->pegarListaEquipe() as $hE) : ?>

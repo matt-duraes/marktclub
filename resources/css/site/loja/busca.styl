@@ -32,3 +32,20 @@
     form fieldset button
         width: 180px
         margin-top: 20px
+
+@media screen and (max-width: 900px)
+    .busca_convenio form fieldset
+        flex-wrap:  wrap
+    .form_geral .bloco_input
+        width: calc((100% / 2) - 15px)
+@media screen and (max-width: 700px)
+    .busca_convenio form fieldset
+        flex-direction: column
+        .busca_estado,
+        .busca_categoria,
+        .busca_tag,
+        .busca_estabelecimento,
+        .busca_pesquisa,
+        .busca_ordem
+            max-width: 100%
+            width: 100%

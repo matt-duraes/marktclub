@@ -11,6 +11,14 @@ return $Painel
             ->metodo('get')
             ->rota('/usuario-grupo/select');
     })
+    ->grupo('subempresa', function () use ($Painel) {
+        $Painel
+            ->request(['empresa', 'titulo'])
+            ->permissao('usuario_cliente_add')
+            ->scope('comercial_subempresa:select')
+            ->metodo('get')
+            ->rota('/comercial-subempresa/select');
+    })
     ->grupo('analytics', function () use ($Painel) {
         $Painel
             ->request(['usuario', 'de', 'ate', 'pagina', 'quantidade'])

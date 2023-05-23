@@ -33,10 +33,13 @@ final class AutomovelController extends Controller
      */
     public function veiculo(string $url): Response
     {
-        return view('automovel.veiculo', [
-            'menu'  => 'automovel',
-            'lista' => (new VeiculoModel())->listarDados(),
-        ]);
+        return view(
+            'automovel.veiculo',
+            [
+                'menu'  => 'automovel',
+                'lista' => (new VeiculoModel())->listarDados(),
+            ]
+        );
     }
 
     /**
@@ -48,10 +51,13 @@ final class AutomovelController extends Controller
      */
     public function modelo(string $montadora, string $veiculo): Response
     {
-        return view('automovel.modelo', [
-            'menu'  => 'automovel',
-            'lista' => (new ModeloModel())->listarDados()
-        ]);
+        return view(
+            'automovel.modelo',
+            [
+                'menu'  => 'automovel',
+                'lista' => (new ModeloModel())->listarDados()
+            ]
+        );
     }
 
 

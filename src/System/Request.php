@@ -42,15 +42,15 @@ final class Request
         $request = $this->request;
 
         if ($request->metodo() != 'PUT') {
-            $this->verificaRequestEstaOk($request->_GET(), $get);
+            $this->verificaRequestEstaOk($request->getGet(), $get);
         }
 
-        $this->verificaRequestEstaOk($request->_JSON(), $json);
-        $this->verificaRequestEstaOk($request->_POST(), $post);
-        $this->verificaRequestEstaOk($request->_FILES(), $files);
+        $this->verificaRequestEstaOk($request->getJson(), $json);
+        $this->verificaRequestEstaOk($request->getPost(), $post);
+        $this->verificaRequestEstaOk($request->getFiles(), $files);
 
         if ($request->metodo() == 'PUT') {
-            $this->verificaRequestEstaOk($request->_PUT(), $put);
+            $this->verificaRequestEstaOk($request->getPut(), $put);
         }
     }
 

@@ -6,7 +6,13 @@
     <div class="bloco_chamada">
         <h1>123 Milhas com 5% de desconto</h1>
         <p>Agora você tem desconto no maior portal de vendas de passagem aéreas e hotéis do Brasil</p>
-        <a href="" class="botao_geral_cor cor_bg">ACESSAR SITE</a>
+        @if(TIPO_USUARIO != 'indicado'):
+            <a href="" class="botao_geral_cor cor_bg">ACESSAR SITE</a>
+        @else:
+            <div class="bloco_atencao_geral">
+                <p>Apenas associados possuem acesso a esse recurso</p>
+            </div>
+        @endif
     </div>
 
     @php $banner = $carro

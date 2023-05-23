@@ -36,13 +36,16 @@ final class CupomController extends Controller
      */
     public function index(string $pesquisa = null): Response
     {
-        return view('cupom.index', [
-            'menu'         => 'cupom',
-            'banner'       => false,
-            'pesquisa'     => $pesquisa,
-            'lista'        => (new ListarModel())->listarDados(),
-            'parceiroTipo' => 'cupom'
-        ]);
+        return view(
+            'cupom.index',
+            [
+                'menu'         => 'cupom',
+                'banner'       => false,
+                'pesquisa'     => $pesquisa,
+                'lista'        => (new ListarModel())->listarDados(),
+                'parceiroTipo' => 'cupom'
+            ]
+        );
     }
 
     /**
@@ -53,8 +56,11 @@ final class CupomController extends Controller
      */
     public function detalhe(string $url): Response
     {
-        return view('cupom.detalhe', [
-            'url' => $url
-        ]);
+        return view(
+            'cupom.detalhe',
+            [
+                'url' => $url
+            ]
+        );
     }
 }

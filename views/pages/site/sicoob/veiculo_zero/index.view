@@ -1,0 +1,8 @@
+@template "site"
+
+<div id="bloco_credito_sicoob">
+
+@view site/geral/banner.view
+@view site/sicoob/geral/simulacao.view
+
+</div>

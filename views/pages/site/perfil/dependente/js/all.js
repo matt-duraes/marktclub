@@ -4,26 +4,9 @@
 // @system "Form"
 // @system "Loading"
 // @system "Mascara"
+// @resource "site/dependente"
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
-
-    const botaoAdicionaDependente = document.querySelector('.adicionaDependente');
-
-    if (botaoAdicionaDependente) {
-        botaoAdicionaDependente.addEventListener('click', e => {
-            e.preventDefault();
-
-            const blocoDefault = document.querySelector('.dependente .linha_dependente.default');
-            const novoBloco = document.querySelector('.dependente .linha_dependente');
-            const clone = blocoDefault.cloneNode(true);
-            clone.classList.remove('default');
-            clone.classList.add('normal');
-
-            novoBloco.parentNode.insertBefore(clone, novoBloco.nextSibling);
-        });
-    }
-
     document.querySelector('body').addEventListener('click', function (event) {
         if (event.target.classList.contains('remove')) {
             const linhaDependente = event.target.closest('.linha_dependente');

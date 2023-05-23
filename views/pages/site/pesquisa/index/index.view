@@ -1,101 +1,90 @@
-<div class="modal_mapa bloco_pagina_popup" id="popup_pesquisa_satisfacao">
-    <header class="header_pagina_popup">
+<div class="bloco_popup_geral">
+    <header class="popup_header">
         <h1>Pesquisa de Satisfação</h1>
-        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+        <i class="fechar">@iconeFechar</i>
     </header>
-        
-    <div class="conteudo_pagina_popup">
-        <form id="form_buscar_mobile" action="" class="form_geral" method="post">
-            <header class="header_padrao_popup">
+    <div class="popup_conteudo centralizado">
+        <!-- CONTEÚDO AQUI -->
+        <form id="form_buscar" action="" class="form_geral bloco_quiz_geral" method="post">
+            <header>
                 <h1>Ajude a melhorar o seu Clube de Vantagens, é rápido e fácil de responder</h1>
             </header>
-
-            <fieldset class="boxForm">
-                <label>É fácil navegar no seu Clube de Vantagens?</label>
-                <div class="conteudo">
-                    <label for="sim" class="input_checkbox ativo">Sim
-                        <input id="sim" name="navegar" type="radio" value="1">
-                        <span class="span_checkbox"></span>
-                    </label>
-                    <label for="nao" class="input_checkbox">Não
-                        <input id="nao" name="navegar" type="radio" value="2">
-                        <span class="span_checkbox"></span>
-                    </label>
+            <fieldset>
+                <p>É fácil navegar no seu Clube de Vantagens?</p>
+                <div class="pergunta">
+                    <div class="botao_input">
+                        <input id="navegar" name="navegar" type="radio" value="sim_navegar">
+                        <label for="navegar">Sim</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="nao_navegar" name="navegar" type="radio" value="nao_navegar">
+                        <label for="nao_navegar">Não</label>
+                    </div>
                 </div>
             </fieldset>
-            <fieldset class="boxForm">
-                <label>Você geralmente acha o que procura?</label>
-                <div class="conteudo">
-                    <label for="sim_procura" class="input_checkbox ativo">Sim
-                        <input id="sim_procura" name="pesquisa" type="radio" value="1">
-                        <span class="span_checkbox"></span>
-                    </label>
-                    <label for="nao_procura" class="input_checkbox">Não
-                        <input id="nao_procura" name="pesquisa" type="radio" value="2">
-                        <span class="span_checkbox"></span>
-                    </label>
+            <fieldset>
+                <p>Você geralmente acha o que procura?</p>
+                <div class="pergunta">
+                    <div for="sim_procura" class="botao_input">
+                        <input id="sim_procura" name="pesquisa" type="radio" value="sim_procura">
+                        <label for="sim_procura">Sim</label>
+                    </div>
+                    <div for="nao_procura" class="botao_input">
+                        <input id="nao_procura" name="pesquisa" type="radio" value="nao_procura">
+                        <label for="nao_procura">Não</label>
+                    </div>
                 </div>
             </fieldset>
-            <fieldset class="boxForm">
-                <label>Você conseguiu ajuda/suporte quando precisou?</label>
-                <div class="conteudo">
-                    <label for="sim_suporte" class="input_checkbox ativo">Sim
-                        <input id="sim_suporte" name="suporte" type="radio" value="1">
-                        <span class="span_checkbox"></span>
-                    </label>
-                    <label for="nao_suporte" class="input_checkbox">Não
-                        <input id="nao_suporte" name="suporte" type="radio" value="2">
-                        <span class="span_checkbox"></span>
-                    </label>
-                    <label for="nunca_suporte" class="input_checkbox">Nunca precisei de suporte
-                        <input id="nunca_suporte" name="suporte" type="radio" value="3">
-                        <span class="span_checkbox"></span>
-                    </label>
+            <fieldset>
+                <p>Você conseguiu ajuda/suporte quando precisou?</p>
+                <div class="pergunta">
+                    <div class="botao_input">
+                        <input id="sim_suporte" name="pesquisa" type="radio" value="sim_suporte">
+                        <label for="sim_suporte">Sim</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="nao_suporte" name="pesquisa" type="radio" value="nao_suporte">
+                        <label for="nao_suporte">Não</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="nunca_suporte" name="pesquisa" type="radio" value="nunca_suporte">
+                        <label for="nunca_suporte">Nunca precisei de suporte</label>
+                    </div>
                 </div>
             </fieldset>
-            <fieldset class="boxForm">
-                <label>Qual foi a qualidade no atendimento?</label>
-                <div class="conteudo">
-                    <label for="otima" class="input_checkbox ativo">Ótima
-                        <input id="otima" name="atendimento" type="radio" value="1">
-                        <span class="span_checkbox"></span>
-                    </label>
-                    <label for="boa" class="input_checkbox">Boa
-                        <input id="boa" name="atendimento" type="radio" value="2">
-                        <span class="span_checkbox"></span>
-                    </label>
-                    <label for="ruim" class="input_checkbox">Ruim
-                        <input id="ruim" name="atendimento" type="radio" value="2">
-                        <span class="span_checkbox"></span>
-                    </label>
-                    <label for="pessima" class="input_checkbox">Péssima
-                        <input id="pessima" name="atendimento" type="radio" value="2">
-                        <span class="span_checkbox"></span>
-                    </label>
+            <fieldset>
+                <p>Qual foi a qualidade no atendimento?</p>
+                <div class="pergunta">
+                    <div class="botao_input">
+                        <input id="otima" name="atendimento" type="radio" value="otima">
+                        <label for="otima">Ótima</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="boa" name="atendimento" type="radio" value="boa">
+                        <label for="boa">Boa</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="ruim" name="atendimento" type="radio" value="ruim">
+                        <label for="ruim">Ruim</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="pessima" name="atendimento" type="radio" value="pessima">
+                        <label for="pessima">Péssima</label>
+                    </div>
                 </div>
             </fieldset>
-            <fieldset class="boxForm conhece">
-                <label>Quais destes sistemas do Clube você conhece?</label>
-                <div class="conteudo">
+            <fieldset>
+                <p>Quais destes sistemas do Clube você conhece?</p>
+                <div class="pergunta checkbox">
                     @ifforeach($sistemaConhece as $c)
-                    <label for="{{ $c->name }}" class="input_checkbox ativo item">{{ $c->label }}
+                    <div for="{{ $c->name }}" class="botao_input">
                         <input id="{{ $c->name }}" name="conhece" type="checkbox" value="{{ $c->valor }}">
-                        <span class="span_checkbox"></span>
-                    </label>
+                        <label for="{{ $c->name }}">{{ $c->label }}</label>
+                    </div>
                     @endifforeach;
                 </div>
             </fieldset>
-
-            <ul>
-                <li></li>
-            </ul>
-
-            <div class="resto"></div>
-
-            <div class="footer_pagina_popup">
-                <button class="button" id="envioPesquisaSatisfacao">Enviar</button>
-            </div>
+            <button class="botao_geral_cor">Enviar Pesquisa</button>
         </form>
     </div>
-
 </div>

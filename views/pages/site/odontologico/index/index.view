@@ -1,103 +1,133 @@
 @template "site"
-<div id="bloco_odonto">
+<div id="bloco_odonto" class="bloco_saude">
 
-    <section class="topo_banner">
-    </section>
+    @view site/geral/banner.view
 
-    <section class="sobre_saude">
-        <div class="header_saude">
-            <figure class="logo">
-            <img src="https://clube.marktclub.com.br/images/odontoprev.png" height="80" class="seguro" alt="[ODONTO]">
-            </figure>
-            <p class="titulo_normal">Em parceria com a OdontoPrev oferecemos planos Odontológicos Coletivos por Adesão, sem carências, com atendimento nacional, amplo rol de procedimentos e excelente custo-benefício.</p>
+    <div class="bloco_plano_saude">
+		<figure>
+			<img src="https://clube.marktclub.com.br/images/odontoprev.png" alt="">
+		</figure>
+		<header class="bloco_conteudo">
+            <p>Em parceria com a OdontoPrev oferecemos planos Odontológicos Coletivos por Adesão, sem carências,
+                com atendimento nacional, amplo rol de procedimentos e excelente custo-benefício.</p>
+		</header>
+		<div class="bloco_beneficio">
+			<header>
+				<h1>Vantagens exclusivas para você</h1>
+			</header>
+			<div class="bloco_vantagem">
+				<div class="icone_vantagem">
+					@iconeCashbackHome
+					<p>Menores preços do mercado</p>
+				</div>
+				<div class="icone_vantagem">
+					@iconeDependenteOutline
+					<p>Contrate para seus dependentes</p>
+				</div>
+				<div class="icone_vantagem">
+					@iconeMundo
+					<p>Ampla cobertura em todo o Brasil</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bloco_plano_saude">
+		<header>
+			<h1>Explore a rede credenciada</h1>
+		</header>
+		<div class="lista_passo_a_passo">
+			<ul class="bloco_geral_ul">
+                <li>Próteses Simples (unitária);</li>
+                <li>Cirurgia e Radiografias;</li>
+                <li>Documentação e Radiografias Ortodônticas;</li>
+                <li>Restaurações;</li>
+                <li>O plano Integral tem abrangência nacional com rede credenciada de clínicas e dentistas distribuída em mais de 2.500 municípios.</li>
+			</ul>
+		</div>
+        <div class="preco">
+            <h2>Valor por usuário:</h2>
+            <p class="apenas">Apenas</p>
+            <div class="valor">R$ <b class="cor_color">24</b><span class="cor_color">,90</span></div>
+            <p>mensal</p>
         </div>
-        <article class="vantagens">
-            <header>
-                <h1>Vantagens exclusivas para você</h1>
-            </header>
-            <section class="lista_vantagens">
-                <p class="texto"><i>R$</i>Menores preços do mercado</p>
-                <p class="texto"><i>@iconePerfil()</i>Contrate para seus dependentes</p>
-                <p class="texto"><i>@iconeCelular()</i>Ampla cobertura em todo o Brasil</p>
-            </section>
-        </article>
+        <div class="aviso_preco">
+            <p>
+                Taxa de adesão de R$10,00 por beneficiário inscrito. <br>
+                *A taxa só será cobrada no primeiro mês.</p>
+        </div>
 
-        <article class="quem_pode">
-            <header class="topo">
-                <h1 class="titulo_grande color_cor">SEU PLANO - INTEGRAL CERD</h1>
-            </header>
-            <section class="explicacao">
-                <ul>
-                    <li class="titulo_normal">a) Próteses Simples (unitária);</li>
-                    <li class="titulo_normal">b) Cirurgia e Radiografias;</li>
-                    <li class="titulo_normal">c) Documentação e Radiografias Ortodônticas;</li>
-                    <li class="titulo_normal">d) Restaurações;</li>
-                    <li class="titulo_normal">e) O plano Integral tem abrangência nacional com rede credenciada de clínicas e dentistas distribuída em mais de 2.500 municípios.</li>
-                </ul>
-                <div class="preco">
-                    <h2>Valor por usuário:</h2>
-                    <p class="apenas">Apenas</p>
-                    <div class="valor">R$ <b class="color_cor">21</b><span class="color_cor">,90</span></div>
-                    <p>mensal</p>
+		<div class="acessa_rede">
+            <p>Acesse o botão abaixo e pesquise por Plano Integral Cerd</p>
+            @if(TIPO_USUARIO != 'indicado'):
+                <div class="display_flex">
+                    <a href="https://www.unimed.coop.br/guia-medico" class="botao_geral_cor cor_bg" target="_blank">VEJA AQUI</a>
                 </div>
-            </section>
-            <figure>
-                <img height="393" src="https://clube.marktclub.com.br/images/imagem_contrate.png" alt="Familia feliz">
-            </figure>
-            <section class="explore">
-                <div class="chamada">
-                    <h1 class="titulo_normal">EXPLORE TODA REDE CREDENCIADA</h1>
-                    <p>Acesse o botão abaixo e pesquise por Plano Integral Cerd</p>
-                    <a href="https://www.odontoprev.com.br/redecredenciada/selecaoProduto?cdMarca=1" target="_blank" class="border_cor">VEJA AQUI</a>
+            @else:
+                <div class="bloco_atencao_geral">
+                    <p>Apenas associados possuem acesso a esse recurso</p>
                 </div>
-                <figure>
-                    <img src="https://clube.marktclub.com.br/images/icone_brasil_saude.png" alt="Brasil">
-                </figure>
-            </section>
-        </article>
+            @endif
 
-        <article class="plano">
-            <header class="topo">
-                <h1 class="titulo_grande color_cor">PROCEDIMENTOS COBERTOS</h1>
-            </header>
-            <ul>
-                <li class="titulo_normal">Cirurgias</li>
-                <li class="titulo_normal">Endodontia</li>
-                <li class="titulo_normal">Prevenção</li>
-                <li class="titulo_normal">Dentística</li>
-                <li class="titulo_normal">Odontopediatria</li>
-                <li class="titulo_normal">Prótese Dentária</li>
-                <li class="titulo_normal">Diagnósticos</li>
-                <li class="titulo_normal">Periodontia</li>
-                <li class="titulo_normal">Radiologia</li>
-                <li class="titulo_normal">Emergência</li>
-            </ul>
-        </article>
+		</div>
+	</div>
 
-        <article class="plano coluna">
-            <header class="topo">
-                <h1 class="titulo_grande color_cor">VALORES E DATAS</h1>
-            </header>
-            <ul>
-                <li class="titulo_normal preto"><span class="bold">Vencimento da mensalidade</span>: todo dia 10 de cada mês.</li>
-                <li class="titulo_normal preto"><span class="bold">*Vigência</span>: dia 1º do mês subsequente à contratação, respeitando a regra abaixo:</li>
-                <li class="titulo_normal recuo"><span class="bold">Data de corte para vigência dia 1º do mês subsequente</span>: dia 15 do mês anterior.</li>
-            </ul>
-            <p>* Este plano tem permanência mínima de 12 meses.</p>
-        </article>
+	<div class="bloco_plano_saude procedimento">
+		<header>
+			<h1>Procedimentos Cobertos</h1>
+		</header>
+		<div class="lista_passo_a_passo">
+			<ul class="bloco_geral_ul">
+                <li>Cirurgias</li>
+                <li>Endodontia</li>
+                <li>Prevenção</li>
+                <li>Dentística</li>
+                <li>Odontopediatria</li>
+                <li>Prótese Dentária</li>
+                <li>Diagnósticos</li>
+                <li>Periodontia</li>
+                <li>Radiologia</li>
+                <li>Emergência</li>
+			</ul>
+		</div>
+	</div>
 
+	<div class="bloco_plano_saude">
+		<header>
+			<h1>Valores e Datas</h1>
+		</header>
+		<div class="lista_passo_a_passo">
+			<ul class="bloco_geral_ul">
+                <li><span>Vencimento da mensalidade</span>: todo dia 10 de cada mês.</li>
+                <li><span>*Vigência</span>: dia 1º do mês subsequente à contratação, respeitando a regra abaixo:</li>
+                <li class="recuo"><span>Data de corte para vigência dia 1º do mês subsequente</span>: dia 15 do mês anterior.</li>
+			</ul>
+		</div>
+        <p class="observacao">* Este plano tem permanência mínima de 12 meses.</p>
+	</div>
 
-        <article class="plano coluna">
-            <header class="topo">
-                <h1 class="titulo_grande color_cor">PRAZO DE PROCESSAMENTO DO PEDIDO</h1>
-            </header>
-            <ul>
-                <li class="titulo_normal preto">Em até 05 (cinco) dias úteis você receberá um informativo de boas-vindas com as informações da sua contratação, informações gerais sobre o plano contratado, data de início da vigência e a primeira fatura</li>
-            </ul>
-        </article>
+	<div class="bloco_plano_saude">
+		<header>
+			<h1>Prazo de Processamento de Pedido</h1>
+		</header>
+		<div class="lista_passo_a_passo">
+			<ul class="bloco_geral_ul">
+                <li>Em até 05 (cinco) dias úteis você receberá um informativo de boas-vindas com as informações da sua contratação,
+                    informações gerais sobre o plano contratado, data de início da vigência e a primeira fatura</li>
+			</ul>
+		</div>
+	</div>
 
-        <article class="simulacao">
-            <a href="" target="_blank" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
-        </article>
-    </section>
+    @if(TIPO_USUARIO != 'indicado'):
+        <section class="bloco_simulacao container_scroll">
+            <a href="#" target="_blank" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
+        </section>
+    @else:
+        <div class="bloco_atencao_geral">
+            <p>Apenas associados possuem acesso a esse recurso</p>
+        </div>
+    @endif
+    @if(TIPO_USUARIO != 'indicado'):
+        <a href="#" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">CONTRATAR AGORA</a>
+    @endif
 </div>

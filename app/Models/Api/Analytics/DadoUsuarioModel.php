@@ -80,24 +80,22 @@ final class DadoUsuarioModel extends ORM
 
     private function montarStatus($r): array
     {
+        $usuario = $r->usuario - $r->status_bloqueado;
         return [
             'total' => $r->usuario,
+            'usuario' => $usuario,
+            'bloqueado' => $r->status_bloqueado,
             'lista' => [
                 [
                     'status' => 'Ativo',
                     'total' => $r->status_ativo,
-                    'porcentagem' => porcentagem($r->status_ativo, $r->usuario),
+                    'porcentagem' => porcentagem($r->status_ativo, $usuario),
                 ],
                 [
                     'status' => 'Inativo',
                     'total' => $r->status_inativo,
-                    'porcentagem' => porcentagem($r->status_inativo, $r->usuario)
-                ],
-                [
-                    'status' => 'Bloqueado',
-                    'total' => $r->status_bloqueado,
-                    'porcentagem' => porcentagem($r->status_bloqueado, $r->usuario)
-                ],
+                    'porcentagem' => porcentagem($r->status_inativo, $usuario)
+                ]
             ]
         ];
     }

@@ -72,16 +72,14 @@ window.addEventListener('load', () => {
     const graficoStatusInativo = document.querySelector('#grafico_status_inativo');
     const graficoStatusBloqueado = document.querySelector('#grafico_status_bloqueado');
     const carregarGraficoPorStatus = data => {
-        graficoStatusTotal.querySelector('.numero').innerText = data.total.numero;
+        graficoStatusTotal.querySelector('.numero').innerText = data.total.usuario;
         graficoStatusAtivo.querySelector('.numero').innerText = data.ativo.numero;
         graficoStatusAtivo.querySelector('.porcentagem').innerText = data.ativo.porcentagem + '%';
         graficoStatusAtivo.querySelector('.barra span').style.width = data.ativo.porcentagem + '%';
         graficoStatusInativo.querySelector('.numero').innerText = data.inativo.numero;
         graficoStatusInativo.querySelector('.porcentagem').innerText = data.inativo.porcentagem + '%';
         graficoStatusInativo.querySelector('.barra span').style.width = data.inativo.porcentagem + '%';
-        graficoStatusBloqueado.querySelector('.numero').innerText = data.bloqueado.numero;
-        graficoStatusBloqueado.querySelector('.porcentagem').innerText = data.bloqueado.porcentagem + '%';
-        graficoStatusBloqueado.querySelector('.barra span').style.width = data.bloqueado.porcentagem + '%';
+        graficoStatusBloqueado.querySelector('.numero').innerText = data.total.bloqueado;
     };
 
     /*
