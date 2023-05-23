@@ -24,8 +24,8 @@ class SolicitacaoAlfaController
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity($solicitacaoCreditoEntity, lista: [
-                'codigo_solicitacao', 'nome', 'documento_cpf', 'email',
-                'telefone_celular', 'telefone_fixo', 'orgao', 'observacao'
+                'nome', 'documento_cpf', 'email', 'telefone_celular',
+                'telefone_fixo', 'orgao', 'observacao'
             ]),
             201,
             Helper::CRIPTOGRAFAR
