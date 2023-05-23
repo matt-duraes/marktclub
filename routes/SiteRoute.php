@@ -353,6 +353,9 @@ Route
             ::nome('social')
             ::request(['id', 'token', 'rede', 'code', 'acao'])
             ::post('/perfil/vincular-google');
+        Route
+            ::nome('carteira')
+            ::view('/perfil/carteira');
     });
 
 Route
