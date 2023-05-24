@@ -119,7 +119,7 @@
                     </div>
                 </div>
                 <div class="conteudo">
-                    <div class="bloco_simulacao form_geral">
+                    <div class="bloco_simulacao form_geral bloco_geral_dependente">
                         <header>
                             <h1>PREENCHA AS INFORMAÇÕES</h1>
                         </header>

@@ -96,9 +96,9 @@ window.addEventListener('load', () => {
         botaoEnviarSimulacao.addEventListener('click', function (e) {
             e.preventDefault();
 
-            let simulacao = btnSubmit.getAttribute('data-simulacao');
+            let simulacao = botaoEnviarSimulacao.getAttribute('data-simulacao');
             setTimeout(function () {
-                window.location.assign(LINK + '/saude/contratacao/' + simulacao);
+                window.location.assign(document.querySelector('#LINK').value + '/saude/contratacao/' + simulacao);
             }, 200);
         });
     }
