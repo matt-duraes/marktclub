@@ -32,7 +32,7 @@ final class TabelaController extends Controller
 
     public function postAnalisarSalvar(Request $request)
     {
-        $Analisar = new AnalisarModel($request->_FILES('arquivo'));
+        $Analisar = new AnalisarModel($request->getFiles('arquivo'));
         $dado = $Analisar->analisarParaSalvar();
 
         if ($dado['status'] == 'sucesso') {
@@ -46,7 +46,7 @@ final class TabelaController extends Controller
 
     public function postAnalisarBloquear(Request $request)
     {
-        $Analisar = new AnalisarModel($request->_FILES('arquivo'));
+        $Analisar = new AnalisarModel($request->getFiles('arquivo'));
         $dado = $Analisar->analisarParaBloquear();
 
         if ($dado['status'] == 'sucesso') {

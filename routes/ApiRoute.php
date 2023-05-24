@@ -596,6 +596,14 @@ Route
             ::middleware(App\Middlewares\SistemaMiddleware::class, 'tipo', ['HOMOLOGACAO'])
             ::view('/login/api-ok/{hash}');
     });
+Route
+    ::nome('loginFenae')
+    ::controller(App\Controllers\Api\FenaeLoginController::class)
+    ::grupo(function () {
+        Route
+            ::nome('paginaLogin')
+            ::view('/login/fenae');
+    });
 
 Route
     ::nome('termoLgpd')
