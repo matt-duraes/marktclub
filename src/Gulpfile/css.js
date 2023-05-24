@@ -138,8 +138,9 @@ async function processarCss(path, destino, browser) {
     if (listaImport) {
         listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
         listaImport.unshift('src/Html/Scripts/css/Variavel.system.styl');
+        listaImport.push(path);
     } else {
-        listaImport = ['src/Html/Scripts/css/Variavel.system.styl'];
+        listaImport = ['src/Html/Scripts/css/Variavel.system.styl', path];
     }
 
     if (!(await arquivoExiste(listaImport))) {
@@ -157,7 +158,6 @@ async function processarCss(path, destino, browser) {
         }
         conteudoFinal += conteudoTemp + '\n';
     });
-    conteudoFinal += conteudo;
 
     await fsCriarArquivo('files/build/css/' + nome, conteudoFinal);
 
