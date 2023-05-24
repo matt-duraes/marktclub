@@ -148,7 +148,7 @@ final class UploadController extends Controller
             ->Api
             ->validar('Erro ao fazer upload da imagem')
             ->body(['grupo' => $request->grupo_atual])
-            ->arquivo(['arquivo' => $request->_FILES('arquivo')])
+            ->arquivo(['arquivo' => $request->getFiles('arquivo')])
             ->post('/upload-arquivo')->object()->dado;
 
         return mensagemSucesso([
@@ -201,7 +201,7 @@ final class UploadController extends Controller
     public function postDeletar(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
-        foreach ($request->id  as $id) {
+        foreach ($request->id as $id) {
             $this
                 ->Api
                 ->validar('Ocorre um erro ao deletar um ou mais arquivos.')
