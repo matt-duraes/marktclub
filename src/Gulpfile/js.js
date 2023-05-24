@@ -178,7 +178,6 @@ function processarJs(path, destino) {
             }
             conteudoFinal += conteudoTemp + '\n';
         });
-        conteudoFinal += conteudo;
 
         await fsCriarArquivo('files/build/js/' + nome, conteudoFinal);
 
