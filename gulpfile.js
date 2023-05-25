@@ -58,7 +58,6 @@ exports.css = series(copiandoArquivosCSS, colocandoCssEmProducao);
 exports.html = series(copiandoArquivosHtml, colocandoHtmlEmProducao);
 exports.imagem = series(copiandoArquivosDeImagem);
 exports.tabela = series(criandoDefineTabela);
-exports.teste = series(preparandoJSParaProducao);
 
 // Instalar o framework
 exports.install = series(

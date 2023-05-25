@@ -9,5 +9,5 @@ return [
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'grupo',
         'federacao'
     ],
-    'insert' => ['empresa']
+    'insert' => ['empresa', 'subempresa']
 ];
