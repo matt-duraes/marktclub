@@ -1,5 +1,5 @@
 
-<div class="bloco_popup_geral md">
+<div class="bloco_popup_geral medio">
     <header class="popup_header">
 		<h1 class="h1_voltar">REGULAMENTO</h1>
         <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>

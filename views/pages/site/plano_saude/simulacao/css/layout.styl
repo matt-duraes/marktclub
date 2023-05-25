@@ -5,7 +5,12 @@
 @resource "site/variavel"
 @resource "site/banner"
 @resource "site/passo_passo"
+@resource "site/dependente"
 
+#bloco_simulacao
+    width: 100%
+    max-width: $maxWidth
+    flexCenter()
 #bloco_simulacao_saude
     width: 100%
     max-width: $maxWidth
@@ -33,11 +38,15 @@
             texto()
         form
             width: 100%
+    .bloco_simulacao.bloco_geral_dependente .dependente p
+        text-align: left
+    .bloco_simulacao.bloco_geral_dependente .dependente .adicionaDependente p
+        text-align: center
     .bloco_simulacao .botao_acomodacao
         flexCenter()
         height: 100%
     .bloco_simulacao .bloco_botao
-        width: calc(100% + 40px)
+        width: calc(100% - 40px)
         flexRow()
         position: absolute
         bottom: 20px
@@ -69,50 +78,30 @@
         padding: 6px 20px
 
 #bloco_simulacao_saude #bloco_tipo_amil
+    flexCenter()
     flex-wrap: wrap
 #bloco_simulacao_saude #bloco_tipo_amil .botao_input
     width: 210px
+    height: 50px
     margin-top: 10px
 
-.bloco_simulacao
-    .dependente
-        width: 100%
-        directionColumn()
-        alignSelfStart()
-        padding: 0px 10px
-    .dependente .adicionaDependente
-        width: 100%
-        blocoAvisoDashed()
-        bordaTracejada()
-        cursor: pointer
-        p
-            justifyCenter()
-            text-align: center
-            margin-top: 0px
-    .dependente p
-        text-align: left !important
-        texto()
-        color: $corClube
-        espacoTopPadrao()
-        margin-bottom: 10px
-    .dependente .linha_dependente
-        width: 100%
-        max-width: $maxWidth
-        padding: 20px
-        espacoBottomPadrao()
-        blocoShadow()
-        position: relative
-        &.default
-            display: none
-    .dependente .linha_dependente .remove
-        position: absolute
-        right: 20px
-        top: 10px
-        fill: $branco
-        padding: 8px
-        border-radius: 5px
-        cursor: pointer
-        background-color: red
-    .dependente .linha_dependente .bloco_input
-        margin-top: 30px
 
+@media screen and (max-width: 900px)
+    #bloco_simulacao_saude #bloco_tipo_amil
+        espacoBottomPadrao()
+    #bloco_simulacao_saude .bloco_simulacao .bloco_regional
+        flexCenter()
+        flex-wrap: wrap
+    #bloco_simulacao_saude .bloco_simulacao .bloco_regional .botao_input
+        margin: 10px
+    #bloco_simulacao_saude .form_geral .bloco_input
+        width: 100%
+
+@media screen and (max-width: 650px)
+    #bloco_simulacao_saude .bloco_simulacao
+        width: calc(100% - 100px)
+        max-width: 100%
+
+@media screen and (max-width: 460px)
+    #bloco_simulacao_saude .bloco_simulacao
+        width: 100%
