@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\LoginApi;
 
-use ORM\Entity;
-use Modules\Cpf;
-use Http\Request;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Email;
-use Modules\Genero;
-use Modules\Telefone;
-use Helpers\ListaHelper;
-use Modules\EstadoCivil;
-use Modules\EnderecoEstado;
-use App\Models\Api\LoginApi\Trait\LinkTrait;
-use App\Models\Api\LoginApi\Trait\UsuarioTrait;
-use App\Models\Api\LoginApi\Trait\TermoLgpdTrait;
 use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
+use App\Models\Api\LoginApi\Trait\LinkTrait;
+use App\Models\Api\LoginApi\Trait\TermoLgpdTrait;
+use App\Models\Api\LoginApi\Trait\UsuarioTrait;
+use Erro\Excecao;
+use Helpers\ListaHelper;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\EnderecoEstado;
+use Modules\EstadoCivil;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
 
 final class LoginModel extends Entity
 {
@@ -30,12 +30,18 @@ final class LoginModel extends Entity
     private string $linkClube;
     private ?string $idUsuario = null;
     private ?int $statusUsuario = null;
-    private ?string $hash = null;
+    private ?string $hash;
     private bool $lgpd = false;
     private array $dadoUsuario;
 
+    /**
+     * @param  array     $request
+     * @param  int|null  $idEmpresa
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private array $request,
+        private readonly array $request,
         private ?int $idEmpresa = null
     ) {
         if (!defined('TOKEN') && empty($idEmpresa)) {
@@ -62,11 +68,10 @@ final class LoginModel extends Entity
         $this->salvarNovoUsuario();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | BUSCAR USUÁRIO
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function verificarCamposObrigatorio(): void
     {
         $request = $this->request;
@@ -81,9 +86,13 @@ final class LoginModel extends Entity
         } elseif (empty($emailTrabalho) && empty($emailPessoal)) {
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail.');
         }
-        return;
     }
-    private function validarRequest()
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarRequest(): void
     {
         $dado = $this->request;
         $nome = new Nome($dado['nome'] ?? '');
@@ -108,12 +117,12 @@ final class LoginModel extends Entity
 
         $estadoLista = (new ListaHelper())->uf()->add('FU', 'FU')->r();
 
-        // NOME
         if ($nome->vazio()) {
+            // NOME
             mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
         } elseif (!$nome->valido()) {
+            // DOCUMENTO
             mensagemErro('Campo inválido!', 'O campo nome deve ter pelo menos um sobrenome.');
-        // DOCUMENTO
         } elseif ($cpf->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
         } elseif (!$cpf->valido()) {
@@ -122,32 +131,32 @@ final class LoginModel extends Entity
             mensagemErro('Campo inválido', 'A matrícula deve ser um valor inteiro.');
         } elseif (!empty($siape) && !preg_match('/^[0-9]{1,}$/', $siape)) {
             mensagemErro('Campo inválido', 'O SIAPE deve ser um valor inteiro.');
-        //EMAIL
         } elseif ($emailPessoal->vazio() && $emailTrabalho->vazio()) {
+            // EMAIL
             mensagemErro('Campo obrigatório!', 'Você deve enviar pelo menos um e-mail.');
         } elseif (!$emailPessoal->vazio() && !$emailPessoal->valido()) {
             mensagemErro('Campo inválido!', 'O campo E-mail pessoal não é um e-mail válido.');
         } elseif (!$emailTrabalho->vazio() && !$emailTrabalho->valido()) {
             mensagemErro('Campo inválido!', 'O campo E-mail de trabalho não é um e-mail válido.');
-        // TELEFONE
         } elseif (!$telefonePessoal->vazio() && !$telefonePessoal->valido()) {
+            // TELEFONE
             mensagemErro('Campo inválido!', 'O campo Telefone pessoal não é um telefone válido.');
         } elseif (!$telefoneTrabalho->vazio() && !$telefoneTrabalho->valido()) {
             mensagemErro('Campo inválido!', 'O campo Telefone de trabalho não é um telefone válido.');
-        // DADOS PESSOAIS
         } elseif (!$genero->vazio() && !$genero->valido()) {
+            // DADOS PESSOAIS
             mensagemErro('Campo inválido!', 'O campo Gênero não é um valor válido.');
         } elseif (!$estadoCivil->vazio() && !$estadoCivil->valido()) {
             mensagemErro('Campo inválido!', 'O campo Estado Civil não é um valor válido.');
         } elseif (!$dataNascimento->vazio() && (!$dataNascimento->valido() || !$dataNascimento->eDate())) {
             mensagemErro('Campo inválido!', 'O campo Data de nascimento não é uma data válida.');
-        // ENDEREÇO
         } elseif (!$enderecoEstado->vazio() && !$enderecoEstado->valido()) {
+            // ENDEREÇO
             mensagemErro('Campo inválido!', 'O campo Estado do endereço não é uma UF válida.');
         } elseif (!empty($federacao) && !in_array($federacao, $estadoLista)) {
             mensagemErro('Campo inválido!', 'O campo Federação não é um valor válida.');
-        // OUTROS
         } elseif (!empty($salavip) && !preg_match('/^[0-9]{1,}$/', $salavip)) {
+            // OUTROS
             mensagemErro('Campo inválido', 'A Salavip deve ser um valor inteiro.');
         } elseif (!empty($crmNumero) && !preg_match('/^[0-9]{1,}$/', $crmNumero)) {
             mensagemErro('Campo inválido', 'O CRM deve ser um valor inteiro.');
@@ -156,27 +165,27 @@ final class LoginModel extends Entity
         }
 
         $this->dadoUsuario = removerIndiceVazio([
-            'nome' => $nome->nome(),
-            'documento' => (int) $cpf->numero(),
-            'crm_numero' => !empty($crmNumero) ? (int) $crmNumero : null,
-            'crm_estado' => $crmEstado->estado(),
-            'matricula' => $matricula,
-            'siape' => $siape,
-            'sexo' => $genero->numero(),
-            'estado_civil' => $estadoCivil->numero(),
-            'aniversario' => $dataNascimento->date(),
-            'email_pessoal' => $emailPessoal->email(),
-            'email_trabalho' => $emailTrabalho->email(),
+            'nome'             => $nome->nome(),
+            'documento'        => (int)$cpf->numero(),
+            'crm_numero'       => !empty($crmNumero) ? (int)$crmNumero : null,
+            'crm_estado'       => $crmEstado->estado(),
+            'matricula'        => $matricula,
+            'siape'            => $siape,
+            'sexo'             => $genero->numero(),
+            'estado_civil'     => $estadoCivil->numero(),
+            'aniversario'      => $dataNascimento->date(),
+            'email_pessoal'    => $emailPessoal->email(),
+            'email_trabalho'   => $emailTrabalho->email(),
             'telefone_celular' => $telefonePessoal->numero(),
-            'telefone_fixo' => $telefoneTrabalho->numero(),
-            'uf' => $enderecoEstado->estado(),
-            'cidade' => $enderecoCidade,
-            'federacao' => $federacao,
-            'salavip' => $salavip,
-            'grupo' => $grupo,
-            'hash' => $this->hash,
-            'hash_data' => agora(),
-            'status' => 1
+            'telefone_fixo'    => $telefoneTrabalho->numero(),
+            'uf'               => $enderecoEstado->estado(),
+            'cidade'           => $enderecoCidade,
+            'federacao'        => $federacao,
+            'salavip'          => $salavip,
+            'grupo'            => $grupo,
+            'hash'             => $this->hash,
+            'hash_data'        => agora(),
+            'status'           => 1
         ]);
         if ($termo == 'sim') {
             $this->dadoUsuario['data_termo'] = hoje();
