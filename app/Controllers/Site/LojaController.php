@@ -48,7 +48,8 @@ final class LojaController extends Controller
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
             'lista'        => (new ListarModel())->listarDados(),
             'parceiroTipo' => 'loja',
-            'banner'       => (new BannerModel())->loja()
+            'banner'       => (new BannerModel())->loja(),
+            'popupSimples' => true
         ]);
     }
 

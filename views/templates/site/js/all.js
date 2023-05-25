@@ -4,5 +4,7 @@
 // @import "menu_principal"
 // @import "menu_perfil"
 // @import "pesquisa_satisfacao"
-
-const LINK = document.querySelector('#LINK').value || '';
+// @import "campanha"
+window.addEventListener('load', () => {
+    const LINK = document.querySelector('#LINK').value || '';
+});

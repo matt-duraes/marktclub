@@ -1,12 +1,11 @@
 
-<div class="bloco_pagina_popup" id="popup_imagem">
-        
-    <header class="header_pagina_popup">
-        <h1>Responda</h1>
+<div class="bloco_popup_geral"id="popup_imagem">
+    <header class="popup_header">
+        <h1>Título do Popup</h1>
         <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
     </header>
-        
-    <div class="conteudo_pagina_popup">
+
+    <div class="popup_conteudo centralizado conteudo_pagina_popup">
         <header class="header_padrao_popup">
             <h1>Texto popup</h1>
         </header>
@@ -17,7 +16,7 @@
             <a href="#">Ler Regulamento</a>
         </div>
         <div id="botao_regulamento_abre" class="mostra">
-            <button class="abreRegulamentoPopup">Abrir Regulamento</button>
+            <button class="abreRegulamentoPopup botao_geral_cor cor_bg">Abrir Regulamento</button>
             <div class="regulamento_texto">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, quaerat corrupti ea facilis earum ipsam eos esse veniam eveniet optio praesentium, deleniti rem nesciunt hic aliquid accusamus iste maiores sapiente.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, quaerat corrupti ea facilis earum ipsam eos esse veniam eveniet optio praesentium, deleniti rem nesciunt hic aliquid accusamus iste maiores sapiente.</p>

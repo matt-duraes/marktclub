@@ -1,0 +1,81 @@
+#popup_campanha_simples
+    display: flex
+    max-width: 400px
+    position: fixed
+    bottom: 20px
+    right: 20px
+    z-index: 9999
+    .campanha_conteudo
+        display: none
+        align-items: center
+        position: relative
+        background-color: white
+        border-radius: 5px
+        padding: 25px
+        boxShadow()
+    .campanha_conteudo .fechar
+        position: absolute
+        top: 10px
+        right: 10px
+        font-size: 24px
+        font-weight: bold
+        cursor: pointer
+        svg
+            fill: $corClube
+    .campanha_texto h1
+        margin-top: 0
+        texto()
+        line-height: 1.5em
+    .campanha_texto p
+        margin-bottom: 0
+        textoMobile()
+
+#popup_enquete
+    .conteudo_pagina_popup
+        flexCenter()
+        directionColumn()
+        espacoVerticalPadrao()
+    .conteudo_pagina_popup form
+        width: calc(100% - 40px)
+    .conteudo_pagina_popup form .bloco_input
+        width: 100%
+	.footer_pagina_popup
+        width: 100%
+        flexCenter()
+
+#popup_imagem
+    max-width: 600px
+	.header_padrao_popup h1
+        texto()
+        line-height: 1.5em
+    .conteudo_pagina_popup
+        flexCenter()
+        directionColumn()
+        espacoVerticalPadrao()
+    .conteudo_pagina_popup figure
+        width: 600px
+        height: 400px
+        background-size: 60% auto
+        background-position: center
+        background-repeat: no-repeat
+        espacoVerticalPadrao()
+    #botao_regulamento_link
+        flexCenter()
+        display: none
+    #botao_regulamento_link.mostra
+        display: flex
+    #botao_regulamento_link a
+        anchorButton()
+    #botao_regulamento_abre
+        display: none
+    #botao_regulamento_abre.mostra
+        flexCenter()
+        flexCol()
+        .regulamento_texto
+            padding: 25px
+            display: none
+        .regulamento_texto.mostra
+            flexCenter()
+            flexCol()
+        .regulamento_texto p
+            textoMobile()

@@ -114,7 +114,7 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function abrirModalEnquetePopup(): Response
+    public function abrirModalEnquetePopup($id = null): Response
     {
         return view('popup.enquete');
     }
@@ -123,7 +123,7 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function abrirModalPopupImagem(): Response
+    public function abrirModalPopupImagem($id = null): Response
     {
         return view('popup.imagem');
     }
