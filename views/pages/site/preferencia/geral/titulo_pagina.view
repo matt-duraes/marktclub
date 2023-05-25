@@ -1,4 +1,0 @@
-<header class="tituloPagina">
-    <a class="voltar" href="{!!LINK_PADRAO!!}" target="_self"><i>@iconeFlechaEsquerda</i><span>VOLTAR</span></a>
-    <h1>{!!$tituloPagina!!}</h1>
-</header>
