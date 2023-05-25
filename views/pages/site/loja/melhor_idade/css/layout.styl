@@ -2,9 +2,10 @@
 @template "site"
 @resource "site/loja/busca"
 @resource "site/variavel"
-@resource "site/mixim"
-@resource "site/geral"
-@resource "site/pagina_popup"
+@resource "site/saude/operadora"
+@resource "site/tabela"
+@resource "site/popup"
+
 
 #bloco_maioridade_popup
     flexCol()
@@ -32,6 +33,16 @@
         &.primeiro
             display: flex
 
+#bloco_maioridade_popup form #bloco_seleciona_estado
+    width: 850px
+    max-width: $maxWidth
+#bloco_maioridade_popup form #bloco_seleciona_estado .conteudo_formulario .lista_estado
+    flex-wrap: wrap
+    .estado
+        width: calc(( 100% / 4 ) - 10px)
+        cursor: pointer
+        label
+            texto()
 #bloco_maioridade_popup form fieldset
     .mensagem
         width: 100%
@@ -181,6 +192,7 @@
         width: calc(( 100% / 4 ) - 5px)
         margin-left: calc( 5px / 2 )
         margin-right: calc( 5px / 2 )
+        cursor: pointer
         flexCenter()
         margin-top: 5px
         margin-bottom: 5px
@@ -250,19 +262,27 @@
         color: $corClube
 
 .lista_estado
+    margin-top: 20px
     display: none
     width: 100%
     min-height: 70px
     .estado
-        width: calc((100% / 3) - 15px)
-        height: 30px
-        border: 2px solid $corClube
-        margin: 10px
-        text-align: center
+        width: calc(( 100% / 4 ) - 10px)
+        height: 40px
+        flexCenter()
         padding: 10px
+        margin-left: calc( 10px / 2 )
+        margin-right: calc( 10px / 2 )
+        margin-bottom: 10px
+        border-radius: 3px
         cursor: pointer
+        texto()
+        text-align: center
+        border: 1px solid $corClube
         color: $corClube
-
+        &:hover
+            background-color: $corClube
+            color: white
 .marcado
     background-color: $corClube
     label
@@ -312,3 +332,4 @@
 @media screen and (max-width: 325px)
     #bloco_maioridade_popup form fieldset .conteudo_formulario .opcao_categoria a
         width: calc((100% / 1 - 10px))
+

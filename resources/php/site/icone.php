@@ -65,6 +65,12 @@ if (!function_exists('iconeCinemaHome')) {
         return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 20h8v2h-8C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10a9.956 9.956 0 0 1-2 6h-2.708A8 8 0 1 0 12 20zm0-10a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-4 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm8 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-4 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>';
     }
 }
+if (!function_exists('iconeTelefoneLoja')) {
+    function iconeTelefoneLoja(int $tamanho = 24)
+    {
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="'.$tamanho.'"><path d="M7 4V20H17V4H7ZM6 2H18C18.5523 2 19 2.44772 19 3V21C19 21.5523 18.5523 22 18 22H6C5.44772 22 5 21.5523 5 21V3C5 2.44772 5.44772 2 6 2ZM12 17C12.5523 17 13 17.4477 13 18C13 18.5523 12.5523 19 12 19C11.4477 19 11 18.5523 11 18C11 17.4477 11.4477 17 12 17Z"></path></svg>';
+    }
+}
 if (!function_exists('iconeTurismoHome')) {
     function iconeTurismoHome()
     {
@@ -262,7 +268,16 @@ if (!function_exists('iconePreferenciaOutline')) {
     }
 }
 
-
+if (!function_exists('iconeDeclaracao')) {
+    /*
+    * @param   int     $tamanho    Altura do atributo height do svg
+    * @return  string              SVG do icone
+    */
+    function iconeDeclaracao(int $tamanho = 24)
+    {
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="'.$tamanho.'"><path d="M9 2.00318V2H19.9978C20.5513 2 21 2.45531 21 2.9918V21.0082C21 21.556 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5501 3 20.9932V8L9 2.00318ZM5.82918 8H9V4.83086L5.82918 8ZM11 4V9C11 9.55228 10.5523 10 10 10H5V20H19V4H11Z"></path></svg>';
+    }
+}
 if (!function_exists('iconeAlerta')) {
     // doc
     // exemplo
@@ -375,7 +390,36 @@ if (!function_exists('iconeUsuarioOutline')) {
         return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M20 22H18V20C18 18.3431 16.6569 17 15 17H9C7.34315 17 6 18.3431 6 20V22H4V20C4 17.2386 6.23858 15 9 15H15C17.7614 15 20 17.2386 20 20V22ZM12 13C8.68629 13 6 10.3137 6 7C6 3.68629 8.68629 1 12 1C15.3137 1 18 3.68629 18 7C18 10.3137 15.3137 13 12 13ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path></svg>';
     }
 }
-
+if (!function_exists('iconeBusca')) {
+    // doc
+    // exemplo
+    // echo iconeBusca
+    /**
+     * Gera um icone de lupa
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeBusca(int $tamanho = 24)
+    {
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="'.$tamanho.'" ><path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path></svg>';
+    }
+}
+if(!function_exists('iconeMapa')) {
+    // doc
+    // exemplo
+    // echo iconeMapa
+    /**
+     * Gera um icone de Mapa
+     *
+     * @param   int     $tamanho    Altura do atributo height do svg
+     * @return  string              SVG do icone
+     */
+    function iconeMapa(int $tamanho = 24)
+    {
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="'.$tamanho.'"><path d="M12 20.8995L16.9497 15.9497C19.6834 13.2161 19.6834 8.78392 16.9497 6.05025C14.2161 3.31658 9.78392 3.31658 7.05025 6.05025C4.31658 8.78392 4.31658 13.2161 7.05025 15.9497L12 20.8995ZM12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364L12 23.7279ZM12 13C13.1046 13 14 12.1046 14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13ZM12 15C9.79086 15 8 13.2091 8 11C8 8.79086 9.79086 7 12 7C14.2091 7 16 8.79086 16 11C16 13.2091 14.2091 15 12 15Z"></path></svg>';
+    }
+}
 if (!function_exists('iconeSenhaOutline')) {
     // doc
     // exemplo

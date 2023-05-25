@@ -12,6 +12,7 @@ use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Loja\DetalheModel;
 use App\Models\Site\Loja\RelacionadoModel;
+use Helpers\ListaHelper;
 
 final class LojaController extends Controller
 {
@@ -62,6 +63,8 @@ final class LojaController extends Controller
      */
     public function detalhe(Request $request, $url = null, BuscaModel $Busca = null): Response
     {
+        $dado = (new DetalheModel($url))->listarDados();
+
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'url'          => $url,
@@ -151,14 +154,14 @@ final class LojaController extends Controller
         ];
         $veiculoTag = ['concessionarias','locadoras','pneus','oficinas'];
         $saudeTag = ['academia','visao','esportes','spas'];
-        $estado = ['Acre','Alagoas','Amapá','Amazonas','Rio de Janeiro','Brasilia','São Paulo'];
+        $estados = (new ListaHelper())->estado()->r();
 
         return view('loja.melhor_idade', [
             'alimentacaoTag' => $alimentacaoTag,
             'veiculoTag' => $veiculoTag,
             'saudeTag' => $saudeTag,
             'categoria' => $categoria,
-            'estado' => $estado,
+            'estados' => $estados
         ]);
     }
 }

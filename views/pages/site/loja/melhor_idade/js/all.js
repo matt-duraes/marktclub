@@ -5,38 +5,23 @@
 // @system "Form"
 // @system "Galeria"
 // @system "Calendario"
-// @system "Mascara"
 
 window.addEventListener('load', () => {
-    const botaoBusca = document.querySelector('.conteudo_formulario #busca_personalizada');
-    const opcaoLocal = document.querySelectorAll('.opcao_estado .input_radio_botao');
-    const blocoEstado = document.querySelector('.bloco_estado');
-    const blocoMundo = document.querySelector('.bloco_mundo');
-    const botaoFooter = document.querySelector('.botao_footer');
-
-    botaoBusca.addEventListener('click', buscaPersonalizada);
-
-    opcaoLocal.forEach(opcoesLocal => {
-        opcoesLocal.addEventListener('click', local => {
-            const opcoes = document.getElementsByName('opcao');
-            let param = { blocoEstado, botaoFooter, blocoMundo };
-            if (local.target.className == 'estado') {
-                escolhaEstado(param);
-            } else if (local.target.className == 'mundo') {
-                escolhaMundo(param);
-            }
-        });
-    });
-});
+const botaoBusca = document.querySelector('.conteudo_formulario #busca_personalizada');
+const opcaoLocal = document.querySelectorAll('.opcao_estado .input_radio_botao');
+const blocoEstado = document.querySelector('.bloco_estado');
+const blocoMundo = document.querySelector('.bloco_mundo');
+const botaoFooter = document.querySelector('.botao_footer');
+const listaEstado = document.querySelector('.lista_estado');
+const blocoSelecionaEstado = document.querySelector('#bloco_seleciona_estado');
+const botaoAvancar = document.querySelector('#botaoAvancar'); // Substitua "seuBotaoAvancar" pelo seletor correto do seu botão de avançar
 
 const buscaPersonalizada = () => {
     document.querySelector('#primeiro').style.display = 'none';
-    document.querySelector('#bloco_seleciona_estado').style.display = 'block';
+    blocoSelecionaEstado.style.display = 'block';
 };
 
-const escolhaMundo = param => {
-    let { blocoEstado, botaoFooter, blocoMundo } = param;
-    let listaEstado = document.querySelector('.lista_estado');
+const escolhaMundo = () => {
     botaoFooter.style.display = 'flex';
     listaEstado.style.display = 'none';
     blocoEstado.classList.remove('marcado');
@@ -44,9 +29,7 @@ const escolhaMundo = param => {
     avancar();
 };
 
-const escolhaEstado = param => {
-    let listaEstado = document.querySelector('.lista_estado');
-    let { blocoEstado, botaoFooter, blocoMundo } = param;
+const escolhaEstado = () => {
     botaoFooter.style.display = 'flex';
     listaEstado.style.display = 'flex';
     blocoMundo.classList.remove('marcado');
@@ -55,32 +38,32 @@ const escolhaEstado = param => {
 };
 
 const selecaoEstado = () => {
-    let estados = document.querySelectorAll('.lista_estado .estado');
-    estados.forEach(estado => {
-        estado.addEventListener('click', event => {
-            let estadoClicado = event.currentTarget;
-            estados.forEach(estado => {
-                if (estado !== estadoClicado) {
-                    estado.classList.remove('marcado');
-                }
-            });
-            estadoClicado.classList.add('marcado');
-            avancar(estadoClicado);
+    listaEstado.addEventListener('click', event => {
+        const estadoClicado = event.target.closest('.estado');
+        if (!estadoClicado) return;
+        const estados = document.querySelectorAll('.lista_estado .estado');
+        estados.forEach(estado => {
+            if (estado !== estadoClicado) {
+                estado.classList.remove('marcado');
+            }
         });
+        estadoClicado.classList.add('marcado');
+        avancar(estadoClicado);
     });
 };
 
 const avancar = (estado = '') => {
+    botaoAvancar.removeEventListener('click', avancar); // Remove o manipulador de eventos avancar
     botaoAvancar.addEventListener('click', event => {
         event.preventDefault();
-        let estadoId = estado.id;
-        selecaoCategoria(estadoId);
+        const estadoId = estado.id;
+        selecaoCategoria();
         busca(estadoId);
     });
 };
 
 const selecaoCategoria = () => {
-    document.querySelector('#bloco_seleciona_estado').style.display = 'none';
+    blocoSelecionaEstado.style.display = 'none';
     document.querySelector('.teste').style.display = 'flex';
 };
 
@@ -91,3 +74,17 @@ const busca = estadoId => {
         elemento.href = url + `&estado=${estadoId}`;
     });
 };
+
+botaoBusca.addEventListener('click', buscaPersonalizada);
+
+opcaoLocal.forEach(opcoesLocal => {
+    opcoesLocal.addEventListener('click', local => {
+        const opcoes = document.getElementsByName('opcao');
+        if (local.target.className === 'estado') {
+            escolhaEstado();
+        } else if (local.target.className === 'mundo') {
+            escolhaMundo();
+        }
+    });
+});
+
