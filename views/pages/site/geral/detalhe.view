@@ -48,8 +48,8 @@
         <header>
             <h1>Endereços</h1>
             <div class="grow"></div>
-            <div class="botao branco botao_geral_cor"><i>@iconeBusca(20)</i> Buscar endereço</div>
-            <a href="_blank" rel="nofollow noopener" class="botao destaque botao_geral_cor cor_bg">Como Chegar <i>@iconeMapa(20)</i></a>
+            <div class="botao branco botao_geral_cor" id="botao_endereco">Buscar endereço <i>@iconeBusca(20)</i></div>
+            <a href="_blank" rel="nofollow noopener" id="como_chegar" class="botao destaque botao_geral_cor cor_bg">Como Chegar <i>@iconeMapa(20)</i></a>
         </header>
         <div class="mapa"></div>
     </div>
