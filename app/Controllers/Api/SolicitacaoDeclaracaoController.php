@@ -46,7 +46,7 @@ class SolicitacaoDeclaracaoController implements
             pegarPropriedadeDaEntity(
                 $Declaracao,
                 lista: [
-                    'cod', 'vinculo', 'tipo', 'status', 'data_criacao'
+                    'vinculo', 'tipo', 'status', 'data_criacao'
                 ]
             ),
             $status

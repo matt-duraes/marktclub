@@ -13,6 +13,13 @@
             </div>
             <div class="item">
                 <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Dados Responsável</p>
+            </div>
+            <div class="item">
+                <div class="bola">
                     <span>2</span>
                     <div class="cor_fill check">@iconeCheck()</div>
                 </div>
@@ -54,6 +61,17 @@
                             @? formInput(name: 'rg', placeholder: 'Digite o rg', label: 'Digite o rg',  value: '')
                             @? formInput(name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor', label: 'Digite o orgão expedidor',  value: '')
                         </div>
+                        <div class="bloco_botao">
+                            <div></div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="conteudo" id="responsavel">
+                    <div class="contratacao form_geral">
+                        <header>
+                            <h1>DADOS DO RESPONSÁVEL</h1>
+                        </header>
                         <div class="responsavel">
                             <h2>Dados do responsável</h2>
                             @? formSwitch(name: 'responsavel', label: 'Eu sou o responsável', check: false)
@@ -68,7 +86,7 @@
                             </div>
                         </div>
                         <div class="bloco_botao">
-                            <div></div>
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
                             <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
                         </div>
                     </div>

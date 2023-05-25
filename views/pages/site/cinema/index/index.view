@@ -1,90 +1,69 @@
 @template "site"
-<div id="conteudo_cinema">
+<div id="bloco_cinema">
+
     @view site/geral/banner.view
     <div class="bloco_titulo_texto_centralizado">
         <p>Agora você pode comprar ingressos para o cinema com um super desconto</p>
     </div>
-    <div class="bloco_info_cinema">
+
+    <div class="bloco_titulo_texto">
         <div class="bloco_passo_a_passo">
             <h2> Entenda como comprar o seu ingresso</h2> <br>
             <p>1° - Escolha a quantidade de ingressos (limitado a 2 por cpf por semana).</p>
             <p>2° - Clique em comprar e efetue o pagamento.</p>
-            <p>3° - Após efetuar a compra, você receberá por e-mail um cupom para resgatar o ingresso, você também pode pegar seus cupons pelo menu lateral direito "cinema".</p>
-            <p>4° - Você deverá acessar o site <a href="https://www.ingresso.com/" target="_blank">ingresso.com </a>(Ou site do Cinemark seguindo o passo a passo clicando aqui ), escolher um cinema Cinemark de sua preferência e o filme que deseja assistir.</p>
-            <p>5° - Depois de escolher os assentos, clique em "tipo de ingresso", escolha a opção "Super Saver Eletrônico", coloque os códigos dos cupons e continue com o resgate dos ingressos.</p>
-        </div>
-        <div class="bloco_historico">
+            <p>3° - Após efetuar a compra, você receberá por e-mail um cupom para resgatar o ingresso,
+                você também pode pegar seus cupons pelo menu lateral direito "cinema".</p>
+            <p>4° - Você deverá acessar o site <a href="https://www.ingresso.com/" target="_blank">ingresso.com </a>
+                (Ou site do Cinemark seguindo o passo a passo clicando aqui ), escolher um cinema Cinemark de sua
+                preferência e o filme que deseja assistir.</p>
+            <p>5° - Depois de escolher os assentos, clique em "tipo de ingresso", escolha a opção "Super Saver Eletrônico",
+                coloque os códigos dos cupons e continue com o resgate dos ingressos.</p>
+
             <h2>Cupons e histórico de compra</h2>
             <p>
                 Caso você queira ver seu histórico de compras ou pegar seus cupons, basta acessar o seu histórico do cinema clicando aqui.
             </p>
         </div>
     </div>
+
+
     <div class="bloco_atencao_geral aviso">
         <p>Válido apenas para salas 2D (está sinalizada apenas com a legenda DUB ou LEG) - Válido para qualquer dia da semana, filme e horário, exceto para salas Prime, Poltronas D-BOX, 3D e XD - Válido apenas na rede Cinemark - Quantidade limitada de 2 ingressos por semana - Quantidade limitada de ingressos, com renovação mensal de estoque - Este ingresso não está válido para os cinemas de Vitória e Vila Velha/ES.</p>
     </div>
 
-
-
-    <div class="bloco_ingresso">
-        <div class="titulo_ingresso">
+    <div class="bloco_titulo_texto">
+        <header>
             <h2>Escolha a quantidade de ingressos</h2>
+        </header>
+        <div class="botao_ingresso">
+            <div class="botao_input 1_ingresso">
+                <input id="1_ingresso" name="ingresso" type="radio" value="1_ingresso" checked>
+                <label for="1_ingresso">1 Ingresso</label>
+            </div>
+            <div class="botao_input 2_ingresso">
+                <input id="2_ingresso" name="ingresso" type="radio" value="2_ingresso">
+                <label for="2_ingresso">2 ingressos</label>
+            </div>
         </div>
-        @if (TIPO_USUARIO != 'indicado'):
-            <div class="ingresso_escolha">
-                <div class="ingresso">
-                    <div class="icone_ingresso">
-                        <i>@iconeIngresso()</i>
+
+        <div class="bloco_ingresso">
+            <div class="ingresso_container">
+                <div class="link">
+                    <div class="preco">
+                        <p class="quantidade">1 Ingresso</p>
+                        <div class="valor">R$ <b class="cor_color">19,50</b></div>
                     </div>
-                    <p>1 ingresso</p>
-                    <p>R$18.00</p>
+                    <em></em>
                 </div>
-                <div class="ingresso">
-                    <div class="icone_ingresso">
-                        <i>@iconeIngresso()</i>
-                        <i>@iconeIngresso()</i>
-                    </div>
-                    <p>2 ingressos</p>
-                    <p>R$36.00</p>
-                </div>
+                <a href="#" class="botao botao_geral_cor cor_bg">COMPRAR</a>
             </div>
-            <button class="botao_geral_cor cor_bg">COMPRAR</button>
-        @else:
-            <div class="bloco_atencao_geral">
-                <p>Apenas associados possuem acesso a esse recurso</p>
-            </div>
-        @endif
-    </div>
-    <div class="bloco_prime">
-        <div class="assinatura_titulo">
-            <h2>OUTROS PARCEIROS DE CINEMA</h2>
-            <p>Você pode escolher fazer uma assinatura do Primepass ou Cinépolis, clique no parceiro abaixo e saiba mais</p>
         </div>
-        @if (TIPO_USUARIO != 'indicado'):
-            <div class="bloco_primepass">
-                <div class="primepass">
-                    <h2>Você vai muito ao cinema?</h2>
-                    <div class="logo">
-                        <figure style="background-image: url(https://arquivo.marktclub.com.br/parceiro/916ef15d1bb931d7005027934f41b972.png);"></figure>
-                    </div>
-                    <p class="subtitulo">PRIMEPASS</p>
-                    <p>Primepass é o novo passe multicinemas que te permite assistir nas melhores salas, todas as estreias em cartaz que quiser, pagando apenas um valor fixo por mês.</p>
-                    <button class="botao_geral_cor cor_bg">VER MAIS</button>
-                </div>
-                <div class="primepass">
-                    <h2>Você vai muito ao cinema?</h2>
-                    <div class="logo">
-                        <figure style="background-image: url(https://arquivo.marktclub.com.br/parceiro/3b26d45c74bb0de75801df02a4a208db.png);"></figure>
-                    </div>
-                    <p class="subtitulo">PRIMEPASS</p>
-                    <p> Primepass é o novo passe multicinemas que te permite assistir nas melhores salas, todas as estreias em cartaz que quiser, pagando apenas um valor fixo por mês.</p>
-                    <button class="botao_geral_cor cor_bg">VER MAIS</button>
-                </div>
-            </div>
-        @else:
-            <div class="bloco_atencao_geral">
-                <p>Apenas associados possuem acesso a esse recurso</p>
-            </div>
-        @endif
     </div>
+    <div class="bloco_atencao_geral aviso">
+        <p>Apenas associados possuem acesso a esse recurso</p>
+    </div>
+
+    @ if( $lista ):
+    @view site/geral/relacionado.view
+    @ endif;
 </div>

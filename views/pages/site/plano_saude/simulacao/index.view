@@ -3,16 +3,16 @@
 <div id="bloco_simulacao">
 
 @ if( $operadora == 'unimed-vitoria' ):
-    @view site/planosaude/unimedvitoria/simulacao.view
+    @view site/plano_saude/unimedvitoria/simulacao.view
 @ endif;
 @ if( $operadora == 'unimed-florianopolis' ):
-    @view site/planosaude/unimedflorianopolis/simulacao.view
+    @view site/plano_saude/unimedflorianopolis/simulacao.view
 @ endif;
 @ if( $operadora == 'amil' ):
-    @view site/planosaude/amil/simulacao.view
+    @view site/plano_saude/amil/simulacao.view
 @ endif;
 @ if( $operadora == 'unimed-seguros' ):
-    @view site/planosaude/unimedSeguro/simulacao.view
+    @view site/plano_saude/unimedSeguro/simulacao.view
 @ endif;
 
 <input type="hidden" name="operadora" id="operadora" value="{{$operadora}}">

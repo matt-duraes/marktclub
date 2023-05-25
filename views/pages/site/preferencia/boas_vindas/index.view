@@ -1,4 +1,5 @@
 @php include ROOT . '/resources/php/site/icone.php'
+@php include ROOT . "/views/templates/site/config.php"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +12,23 @@
     @CSS
 </head>
 <body>
+
+    <header id="header_preferencia">
+        <figure>
+            <a href="@route(acessoRapido.index)"><img src="{{CLUBE_LOGO}}"></a>
+        </figure>
+    </header>
+
     <div id="bloco_pagina_preferencia">
-        <div class="conteudo">
-            @view site/preferencia/geral/stepper.view
-        </div>
+        <form class="conteudo">
+            @view site/preferencia/geral/personaliza.view
+        </form>
 
     </div>
 
     @JS
+    <script>
+        @php include ROOT . '/resources/js/site/preferencia/personaliza.js'
+    </script>
 </body>
 </html>

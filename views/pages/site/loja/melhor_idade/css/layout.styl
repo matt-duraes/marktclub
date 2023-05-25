@@ -11,9 +11,9 @@
     flexCol()
     flexCenter()
     blocoShadow()
-    margin: auto
+    width: 100%
     max-width: $maxWidth
-
+    background-color: red
 #bloco_maioridade_popup form
     width: 100%
     min-height: 400px
@@ -34,8 +34,9 @@
             display: flex
 
 #bloco_maioridade_popup form #bloco_seleciona_estado
-    width: 850px
+    width: 100%
     max-width: $maxWidth
+    background-color: yellow
 #bloco_maioridade_popup form #bloco_seleciona_estado .conteudo_formulario .lista_estado
     flex-wrap: wrap
     .estado
@@ -43,6 +44,20 @@
         cursor: pointer
         label
             texto()
+@media screen and ( max-width:  650px)
+    #bloco_maioridade_popup form #bloco_seleciona_estado
+        .conteudo_formulario .lista_estado .estado
+            width: calc((100% / 3) - 10px)
+@media screen and ( max-width:  500px)
+    #bloco_maioridade_popup form #bloco_seleciona_estado
+        .conteudo_formulario .lista_estado .estado
+            width: calc((100% / 2) - 10px)
+@media screen and ( max-width:  350px)
+    #bloco_maioridade_popup
+        padding: 0px
+    #bloco_maioridade_popup form #bloco_seleciona_estado
+        .conteudo_formulario .lista_estado .estado
+            width: 100%
 #bloco_maioridade_popup form fieldset
     .mensagem
         width: 100%
@@ -321,7 +336,7 @@
     #bloco_maioridade_popup form fieldset .conteudo_formulario .opcao_categoria a
         width: calc((100% / 3 - 10px))
 
-@media screen and (max-width: 425px)
+@media screen and (max-width: 500px)
     #bloco_maioridade_popup form fieldset .conteudo_formulario .opcao_categoria a
         width: calc((100% / 2 - 10px))
     .conteudo_formulario .lista_estado
