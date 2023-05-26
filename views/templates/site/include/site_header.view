@@ -2,13 +2,21 @@
 
 <header id="header_principal">
     <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
-    <figure><img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}"></figure>
+    <figure>
+        <a href="@route(index.index)">
+            <img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}">
+        </a>
+    </figure>
 </header>
 
 <nav id="menu_principal" class="menu_fechado">
     <div class="bg"></div>
     <div class="conteudo">
-        <figure><img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}"></figure>
+        <figure>
+            <a href="@route(index.index)">
+                <img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}">
+            </a>
+        </figure>
         <div class="perfil" id="bloco_perfil">
             <a href="@route(perfil.index)"></a>
             <figure style="background-image: url({{USUARIO_IMAGEM}})"></figure>

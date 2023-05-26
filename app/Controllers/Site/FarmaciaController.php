@@ -29,7 +29,7 @@ final class FarmaciaController extends Controller
             ]
         );
     }
-    public function getCarteirinha()
+    public function carteirinha()
     {
         //     $Api = new ApiHelper('carteirinha:buscar');
         //     $carteira = $Api->get('/carteirinha/5595203c-f7b1-4211-9981-bf09eb236b35')->object();

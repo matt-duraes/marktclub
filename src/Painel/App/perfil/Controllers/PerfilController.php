@@ -232,7 +232,7 @@ final class PerfilController extends Controller
     */
     public function postImagem(Request $request)
     {
-        $arquivo = $request->_FILES('arquivo');
+        $arquivo = $request->getFiles('arquivo');
         $dado = (new ApiHelper(token: true))
             ->validar('Erro ao fazer o upload da imagem, por favor, tente novamente.')
             ->body(['id' => sessao('USUARIO.id')])

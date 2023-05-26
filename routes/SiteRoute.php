@@ -202,7 +202,7 @@ Route
             ::view('/farmacia/{url}');
         Route
             ::nome('carteirinha')
-            ::get('/farmacia/carteirinha');
+            ::view('/tem-mais-saude/carteirinha');
     });
 Route
     ::nome('sicoob')
@@ -353,6 +353,9 @@ Route
             ::nome('social')
             ::request(['id', 'token', 'rede', 'code', 'acao'])
             ::post('/perfil/vincular-google');
+        Route
+            ::nome('carteira')
+            ::view('/perfil/carteira');
     });
 
 Route
