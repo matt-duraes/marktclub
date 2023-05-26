@@ -27,13 +27,13 @@
         <div class="bloco_botao">
             @if(TIPO_USUARIO != 'indicado'):
             <a href="@route(farmacia.carteirinha)" target="_blank" class="botao branco botao_geral_cor botao_abrir_carteirinha">
-                <i>@iconeTelefone(15)</i>
+                <i>@iconeCarteirinha(20)</i>
                 Ver carteirinha
             </a>
 
                 <div class="linha"></div>
                 <div class="botao branco botao_geral_cor">
-                    <i>@iconeTelefone(15)</i>
+                    <i>@iconeSiteCliente(20)</i>
                     Acessar Site
                 </div>
             @endif
