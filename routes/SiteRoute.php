@@ -375,3 +375,12 @@ Route
             ::nome('index')
             ::view('/campanha');
     });
+
+Route
+    ::nome('regulamento')
+    ::controller(App\Controllers\Site\RegulamentoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('sorteio')
+            ::view('/regulamento-sorteio');
+    });
