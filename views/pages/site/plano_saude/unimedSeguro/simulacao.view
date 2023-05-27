@@ -32,23 +32,23 @@
                         </header>
                         <div class="botao_acomodacao">
                             <div class="botao_input">
-        						<input type="radio" id="basica" name="acomodacao" value="basico">
-        						<label class="botao_passa_passo_proximo" for="basica">Afinidade Básica</label>
+                                <input type="radio" id="basica" name="acomodacao" value="basico">
+                                <label class="botao_passa_passo_proximo" for="basica">Afinidade Básica</label>
                             </div>
                             <div class="botao_input">
-        						<input type="radio" id="pratico" name="acomodacao" value="pratico">
-        						<label class="botao_passa_passo_proximo" for="pratico">Afinidade prático</label>
+                                <input type="radio" id="pratico" name="acomodacao" value="pratico">
+                                <label class="botao_passa_passo_proximo" for="pratico">Afinidade prático</label>
                             </div>
                             <div class="botao_input">
-        						<input type="radio" id="versatil" name="acomodacao" value="versatil">
-        						<label class="botao_passa_passo_proximo" for="versatil">Afinidade versátil</label>
+                                <input type="radio" id="versatil" name="acomodacao" value="versatil">
+                                <label class="botao_passa_passo_proximo" for="versatil">Afinidade versátil</label>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="conteudo">
-                    <div class="bloco_simulacao form_geral">
+                    <div class="bloco_simulacao form_geral bloco_geral_dependente">
                         <header>
                             <h1>PREENCHA AS INFORMAÇÕES</h1>
                         </header>

@@ -1,7 +1,7 @@
-<div class="bloco_popup_geral">
+<div class="bloco_popup_geral medio">
     <header class="popup_header">
         <h1>Pesquisa de Satisfação</h1>
-        <i class="fechar">@iconeFechar</i>
+        <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
     <div class="popup_conteudo centralizado">
         <!-- CONTEÚDO AQUI -->

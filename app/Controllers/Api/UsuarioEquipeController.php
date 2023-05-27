@@ -88,7 +88,7 @@ final class UsuarioEquipeController extends Controller implements
     {
         $Usuario = new EquipeEntity();
         $Usuario->uuid($request->id);
-        $Usuario->imagem_arquivo = $request->_FILES('imagem');
+        $Usuario->imagem_arquivo = $request->getFiles('imagem');
         $Usuario->salvar();
 
         return mensagemSucesso([

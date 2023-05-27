@@ -61,4 +61,5 @@ trait PropriedadeEntityTrait
     private int $idEmpresa;
     public string $federacao;
     public EnderecoCep $endereco_cep;
+    public string $subempresa = '';
 }

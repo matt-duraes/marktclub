@@ -1,8 +1,8 @@
 @template "site"
 
 <div id="bloco_pagina_preferencia">
-    <div class="conteudo">
-        @view site/preferencia/geral/stepper.view
-    </div>
+    <form method="post">
+        @view site/preferencia/geral/personaliza.view
+    </form>
 </div>
 

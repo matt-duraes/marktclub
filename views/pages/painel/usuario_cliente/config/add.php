@@ -58,7 +58,13 @@ $Painel->coluna(callback: function () use ($Painel) {
                 lista: 'empresa',
                 acao: 'add',
                 permissao: Helper::PERMISSAO_EMPRESA,
-                change: 'buscarGrupoEmpresa'
+                change: 'mudarEmpresa'
+            )
+            ->select(
+                name: 'subempresa',
+                label: 'Subempresa',
+                lista: ['' => 'Escolha uma empresa'],
+                acao: 'add'
             )
             ->select(name: 'grupo', label: 'Grupo', lista: ['' => 'Carregando'])
             ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $tipoPagamento)

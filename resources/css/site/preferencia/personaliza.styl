@@ -1,0 +1,83 @@
+
+#bloco_pagina_preferencia
+    width: 100%
+    flexCenter()
+    position: relative
+
+#bloco_pagina_preferencia .conteudo
+    width: 100%
+    max-width: $maxWidth
+    position: relative
+
+#bloco_pagina_preferencia .conteudo header.titulo_pagina
+    width: 100%
+    justifyStart()
+    alignItemStart()
+    directionColumn()
+
+#bloco_pagina_preferencia .conteudo header.titulo_pagina h1
+    titulo()
+#bloco_pagina_preferencia .conteudo header.titulo_pagina p
+    texto()
+
+#bloco_pagina_preferencia .conteudo .bloco_botao
+    width: calc(100% - 40px)
+    flexRow()
+    justify-content: space-between
+    espacoTopPadrao()
+    position: absolute
+    bottom: 20px
+    .cinza
+        background-color: #DDD
+
+#bloco_pagina_preferencia .conteudo .bloco_tag
+    width: 100%
+    espacoTopPadrao()
+    flexCenter()
+    directionColumn()
+    margin-bottom: 100px
+
+#bloco_pagina_preferencia .conteudo .bloco_tag button
+    width: 300px
+    espacoTopPadrao()
+
+
+#bloco_pagina_preferencia .conteudo .bloco_tag .container_tag
+    width: 100%
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-template-rows: masonry
+    espacoBottomPadrao()
+    align-items: center
+    justify-content: center
+
+#bloco_pagina_preferencia .bloco_tag_parceiro
+    espacoTopPadrao()
+    margin-bottom: 100px
+    position: relative
+    article
+        align-self: stretch
+
+#bloco_pagina_preferencia .conteudo .bloco_tag .botao_input
+    height: auto
+    order: 1
+    bold()
+    flexCenter()
+    border-color: #181818
+    margin: 15px 15px 6px 0px
+    input[type="radio"]:checked + label,
+    input[type="checkbox"]:checked + label
+        background-color: $corClube
+        color: $branco
+        border-radius: 4px
+
+#bloco_pagina_preferencia .conteudo .bloco_tag .botao_input label
+    blocoShadow()
+
+@media screen and (max-width: 740px)
+    #bloco_pagina_preferencia .conteudo .bloco_tag .container_tag
+        grid-template-columns: repeat(3, 1fr)
+
+@media screen and (max-width: 570px)
+    #bloco_pagina_preferencia .conteudo .bloco_tag .container_tag
+        grid-template-columns: repeat(2, 1fr)

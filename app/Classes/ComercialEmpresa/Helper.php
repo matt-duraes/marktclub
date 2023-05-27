@@ -10,5 +10,5 @@ final class Helper
         'responsavel_nome', 'responsavel_cpf', 'responsavel_email',
         'responsavel_telefone'
     ];
-    public const STATUS_LIBERADO = [1, 2];
+    public const STATUS_LIBERADO = [1, 3];
 }

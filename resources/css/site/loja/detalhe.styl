@@ -61,7 +61,7 @@
     .bloco
         width: calc(50% - 10px)
 
-.bloco_botao
+.bloco_botao, .bloco_mapa header
     display: flex
     width: 100%
     flex-wrap: wrap
@@ -153,6 +153,10 @@
         top: 0
         left: 0
         z-index: 1
+@media screen and ( max-width: 700px)
+    .bloco_botao .branco i, .bloco_mapa header .branco i
+        border: none
+        margin: none
 @media screen and ( max-width: 600px)
     .bloco_loja_detalhe .bloco_mapa header
         flex-direction: column
@@ -164,6 +168,14 @@
         margin: 20px 0px
     .bloco_loja_detalhe .bloco_mapa header .botao_geral_cor
         width: 100%
+    .bloco_mapa header .branco
+        margin-left: 0px
+    #botao_endereco
+        padding: 0px
+        margin-right: 0px
+    #como_chegar
+        padding: 0px
+        margin-right: 0px
 @media screen and ( max-width: 600px )
     .bloco_desconto_procedimento
         flex-direction: column
