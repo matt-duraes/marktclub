@@ -366,3 +366,12 @@ Route
             ::nome('boasVindas')
             ::view('/preferencias/boas-vindas');
     });
+
+Route
+    ::nome('campanha')
+    ::controller(App\Controllers\Site\CampanhaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/campanha');
+    });

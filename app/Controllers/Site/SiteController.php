@@ -127,4 +127,14 @@ final class SiteController extends Controller
     {
         return view('popup.imagem');
     }
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function regulamento_campanha(): Response
+    {
+        return view('regulamento.campanha');
+    }
+
+
 }
