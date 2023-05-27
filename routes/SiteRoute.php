@@ -372,8 +372,11 @@ Route
     ::controller(App\Controllers\Site\CampanhaController::class)
     ::grupo(function () {
         Route
-            ::nome('index')
+            ::nome('tematica')
             ::view('/campanha');
+        Route
+            ::nome('atualizar_cpf')
+            ::view('/campanha/atualizar-cpf');
     });
 
 Route
