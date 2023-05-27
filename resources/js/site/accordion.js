@@ -30,3 +30,5 @@ function Accordion() {
 function criarAccordion() {
     var accordion = new Accordion();
 }
+
+window.addEventListener('load', criarAccordion);
