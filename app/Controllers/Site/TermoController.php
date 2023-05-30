@@ -8,13 +8,23 @@ final class TermoController extends Controller
 {
     public function termosite()
     {
-        return view('termo.site');
+        return view('termo.site', [
+            'clube' => '1'
+        ]);
     }
 
     public function termocashback()
     {
-        return view('termo.cashback');
+        return view('termo.cashback', [
+            'clube' => '1'
+        ]);
     }
+
+    public function app()
+    {
+        return view('termo.app');
+    }
+
 
 
 }

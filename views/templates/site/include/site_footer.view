@@ -67,11 +67,11 @@
         <header>
             <h1>Termo</h1>
         </header>
-        <a class="dado" href="">
+        <a class="dado" href="@route(termo.termosite)">
             <i>@iconeTermoUso(19)</i>
             Termo de uso
         </a>
-        <a class="dado" href="">
+        <a class="dado" href="@route(termo.termocashback)">
             <i>@iconeTermoUso(19)</i>
             Termo do Silium
         </a>

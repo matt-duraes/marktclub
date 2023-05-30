@@ -31,7 +31,9 @@
             <p>Est sequi architecto fuga perferendis.</p>
         </article>
         @ else:
-        <p>Sem sorteios no momento.</p>
+        <article class="texto">
+            <p>Sem sorteios no momento.</p>
+        </article>
         @ endif;
 
         <a href="@route(loja.index)" class="sair botao_geral_cor" target="_self">Ir para o site</a>

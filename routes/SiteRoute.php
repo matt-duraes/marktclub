@@ -260,6 +260,9 @@ Route
         Route
             ::nome('termocashback')
             ::view('/termo-de-uso-do-cashback');
+        Route
+            ::nome('app')
+            ::view('/termo-de-uso-app');
     });
 
 Route
