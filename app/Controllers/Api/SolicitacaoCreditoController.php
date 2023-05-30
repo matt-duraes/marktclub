@@ -4,18 +4,18 @@ namespace App\Controllers\Api;
 
 use App\Models\Api\SolicitacaoCredito\CreditoEntity;
 use App\Models\Api\SolicitacaoCredito\CreditoModel;
+use Controller\ControllerInterface;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
 class SolicitacaoCreditoController implements
+    ControllerInterface,
     ControllerBuscarInterface,
     ControllerListarInterface,
-    ControllerAtualizarInterface,
     ControllerSalvarInterface
 {
     /**
@@ -44,7 +44,7 @@ class SolicitacaoCreditoController implements
             pegarPropriedadeDaEntity(
                 $creditoEntity,
                 lista: [
-                    'cod', 'vinculo', 'tipo', 'status', 'data_criacao'
+                    'operadora', 'tipo', 'valor', 'parcelas', 'valor_parcelas', 'observacao', 'status'
                 ]
             ),
             $status
@@ -61,23 +61,6 @@ class SolicitacaoCreditoController implements
     {
         $CreditoModel = new CreditoModel($request);
         return mensagemSucesso($CreditoModel->listarDados());
-    }
-
-    /**
-     * @param  Request  $request
-     * @param  string   $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function putAtualizar(Request $request, string $id): Response
-    {
-        $CreditoEntity = new CreditoEntity();
-        $CreditoEntity->uuid($id);
-        $CreditoEntity->set(lista: $request->dado());
-        $CreditoEntity->salvar();
-
-        return $this->retornoSucesso($CreditoEntity);
     }
 
     /**

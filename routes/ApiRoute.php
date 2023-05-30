@@ -1219,23 +1219,15 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
             ::request([
-                'pagina', '!tipo', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/solicitacao-credito');
-
-        Route
-            ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:atualizar'])
-            ::request([
-                'valor', 'parcelas', '!valor_parcelas', '!status'
-            ], 'json')
-            ::post('/solicitacao-credito/{id}');
 
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
             ::request([
                 'operadora', 'tipo', 'valor', 'parcelas', '!valor_parcelas', '!status'
-            ], 'json')
+            ])
             ::post('/solicitacao-credito');
     });

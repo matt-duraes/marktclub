@@ -5,7 +5,6 @@ namespace App\Models\Api\SolicitacaoCredito;
 use App\Classes\SolicitacaoCredito\Operadora;
 use App\Classes\SolicitacaoCredito\Status;
 use App\Classes\SolicitacaoCredito\Tipo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\ValidarHelper;
 use Http\Request;
@@ -14,45 +13,43 @@ use ORM\Entity;
 
 class CreditoEntity extends Entity
 {
-    use ValidarEmpresaTrait;
-
     private const TIPO_PRAZO_MAXIMO = [
-        Tipo::CONSIGNADO => 96,
-        Tipo::CREDITO_PESSOAL => 24,
-        Tipo::VEICULO_NOVO => 48,
+        Tipo::CONSIGNADO       => 96,
+        Tipo::CREDITO_PESSOAL  => 24,
+        Tipo::VEICULO_NOVO     => 48,
         Tipo::VEICULO_SEMINOVO => 36
     ];
     private const OPERADORA_TIPO_JUROS = [
         Operadora::SICOOB => [
-            Tipo::CONSIGNADO => 1.59,
-            Tipo::CREDITO_PESSOAL => [3.7, 3.1],
-            Tipo::VEICULO_NOVO => 2.1,
+            Tipo::CONSIGNADO       => 1.59,
+            Tipo::CREDITO_PESSOAL  => [3.7, 3.1],
+            Tipo::VEICULO_NOVO     => 2.1,
             Tipo::VEICULO_SEMINOVO => 3.5
         ]
     ];
+    public string $codigo;
+    public Operadora $operadora;
+    public Tipo $tipo;
+    public Dinheiro $valor;
+    public string $parcelas;
+    public Dinheiro $valor_parcelas;
+    public string $observacao;
+    public Status $status;
     protected string $ormTabela = TABELA_SOLICITACAO_CREDITO;
     protected array $ormBuscar = [
-        'codigo', 'operadora', 'tipo', 'valor', 'parcelas', 'valor_parcelas', 'status'
+        'codigo', 'operadora', 'tipo', 'valor',
+        'parcelas', 'valor_parcelas', 'observacao', 'status'
     ];
     protected array $ormSalvar = [
-        'codigo', 'operadora', 'tipo', 'valor', 'parcelas', 'valor_parcelas', 'status'
+        'codigo', 'operadora', 'tipo', 'valor',
+        'parcelas', 'valor_parcelas', 'observacao', 'status'
     ];
-    protected string $codigo;
-    protected Operadora $operadora;
-    protected Tipo $tipo;
-    protected Dinheiro $valor;
-    protected string $taxa;
-    protected string $parcelas;
-    protected Dinheiro $valor_parcelas;
-    protected string $observacao;
-    protected Status $status;
     private float $juros = 0;
 
     public function __construct(
         private readonly ?Request $request = null
     ) {
         parent::__construct();
-        $this->validarEmpresa();
     }
 
     /**
@@ -69,13 +66,11 @@ class CreditoEntity extends Entity
             $this->codigo = $this->gerarCodigoDaSolicitacao();
         }
 
-        $this->operadora = new Operadora($this->request->get('operadora'));
-        $this->tipo = new Tipo($this->request->get('tipo'));
-        $this->valor = new Dinheiro($this->request->get('valor'));
-        $this->taxa = $this->request->get('taxa', '0');
-        $this->parcelas = $this->request->get('parcelas', '0');
-        $this->valor_parcelas = new Dinheiro($this->request->get('valor_parcelas'));
-        $this->observacao = $this->request->get('observacao', '');
+        $this->operadora = new Operadora($this->request->operadora ?? '');
+        $this->tipo = new Tipo($this->request->tipo ?? '');
+        $this->valor = new Dinheiro($this->request->valor ?? '');
+        $this->parcelas = $this->request->parcelas ?? '';
+        $this->observacao = $this->request->observacao ?? '';
         $this->status = new Status(Status::CRIADA);
 
         $ValidarHelper
@@ -85,10 +80,10 @@ class CreditoEntity extends Entity
             ->valor($this->tipo, 'Tipo', 'O Tipo de solicitação deve ser uma escolha válida.')
             ->obrigatorio()
             ->valido()
-            ->valor($this->valor, 'Valor', 'O valor deve ser um número válido.')
+            ->valor($this->valor, 'Valor', 'O Valor deve ser um número válido.')
             ->obrigatorio()
-            ->decimal()
-            ->tamanho('>', 1);
+            ->valido()
+            ->tamanho('>=', 1);
 
         $prazoMaximo = self::TIPO_PRAZO_MAXIMO[$this->tipo->indice()] ?? 96;
 
