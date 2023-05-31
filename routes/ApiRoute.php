@@ -1,8 +1,8 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
+use Route\Route;
 
 Route
     ::nome('downloadRestrito')
@@ -1203,4 +1203,31 @@ Route
                 'url', 'tipo'
             ], 'json')
             ::post('/solicitacao-declaracao');
+    });
+
+Route
+    ::nome('solicitacao_credito')
+    ::controller(App\Controllers\Api\SolicitacaoCreditoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:buscar'])
+            ::get('/solicitacao-credito/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
+            ::request([
+                'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/solicitacao-credito');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
+            ::request([
+                'operadora', 'tipo', 'valor', 'parcelas', '!valor_parcelas', '!status'
+            ])
+            ::post('/solicitacao-credito');
     });
