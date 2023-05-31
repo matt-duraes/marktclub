@@ -1,0 +1,24 @@
+@template "site"
+
+<div id="bloco_pagina_atualiza_dados" class="bloco_titulo_texto">
+    <h1>Atualize seus Dados</h1>
+
+    <div class="conteudo">
+
+        <section class="texto">
+            <p>Para poder usar alguns parceiros, você deve salvar seu CPF para gerar voucher, declarações ou validar sua conta.</p>
+        </section>
+
+        <div class="formulario_indicacao">
+            <form action="#" method="post" class="form_geral">
+                <fieldset>
+                    <legend>Informe os dados abaixo para atualizar: </legend>
+
+                    @? formCpf(name: 'documento', placeholder: 'Digite o seu cpf', label: 'Digite o seu cpf', class: 'nome', value: '')
+                    <button class="botao_geral_cor cor_bg">Enviar</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>

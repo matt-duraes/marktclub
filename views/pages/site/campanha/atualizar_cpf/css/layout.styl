@@ -1,0 +1,33 @@
+@template "site"
+@system "Form"
+@system "Pagina"
+
+#bloco_pagina_atualiza_dados
+    width: 100%
+    flexCenter()
+    max-width: 600px
+    position: relative
+    .conteudo
+        max-width: 600px
+    .input_form
+        margin-right: 10px
+    .texto
+        espacoTopPadrao()
+
+#bloco_pagina_atualiza_dados .formulario_indicacao
+    width: 100%
+    max-width: 600px
+    border-radius: 15px
+    espacoVerticalPadrao()
+    form
+        width: 100%
+        flexCol()
+    form legend
+        titulo()
+    form fieldset
+        width: 100%
+        flexCol()
+    form fieldset button
+        alignSelfEnd()
+        width: 180px
+        margin-top: 20px
