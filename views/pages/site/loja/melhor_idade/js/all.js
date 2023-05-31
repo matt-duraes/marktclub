@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
         document.querySelector('#bloco_seleciona_estado').style.display = 'block';
     };
 
-    const escolhaMundo = param => {
+    const escolhaMundo = () => {
         botaoFooter.style.display = 'flex';
         listaEstado.style.display = 'none';
         blocoEstado.classList.remove('marcado');
@@ -29,7 +29,7 @@ window.addEventListener('load', () => {
         avancar();
     };
 
-    const escolhaEstado = param => {
+    const escolhaEstado = () => {
         botaoFooter.style.display = 'flex';
         listaEstado.style.display = 'flex';
         blocoMundo.classList.remove('marcado');
@@ -78,7 +78,6 @@ window.addEventListener('load', () => {
 
     opcaoLocal.forEach(opcoesLocal => {
         opcoesLocal.addEventListener('click', local => {
-            const opcoes = document.getElementsByName('opcao');
             if (local.target.className === 'estado') {
                 escolhaEstado();
             } else if (local.target.className === 'mundo') {
