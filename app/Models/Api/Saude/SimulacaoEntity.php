@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\SolicitacaoSaude;
+namespace App\Models\Api\Saude;
 
 use App\Classes\Saude\Helper;
 use App\Classes\Saude\Localizacao;
@@ -8,46 +8,41 @@ use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Status;
 use App\Classes\Saude\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
 use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Data;
 use Modules\Dinheiro;
 use ORM\Entity;
 
-/**
- * @property $uuid
- * @property $data_nascimento
- * @property $quantidade_dependentes
- * @property $operadora
- * @property $acomodacao
- * @property $regiao
- * @property $valor
- * @property $tipo
- * @property $status
- */
-class SolicitacaoEntity extends Entity
+class SimulacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    private const TABELA_SOLICITACAO_SAUDE = '';
-
-    protected string $ormTabela = self::TABELA_SOLICITACAO_SAUDE;
-    protected array $ormSalvar = [
-        'uuid' => 'cod',
-        'empresa', 'usuario', 'data_nascimento', 'quantidade_dependentes',
+    public Data $data_nascimento;
+    public int $quantidade_dependentes;
+    public Operadora $operadora;
+    public int $acomodacao;
+    public Localizacao $regiao;
+    public Dinheiro $valor;
+    public Tipo $tipo;
+    public Status $status;
+    protected string $ormTabela = TABELA_SAUDE_SIMULACAO;
+    protected array $ormInsert = [
+        'id_admin_empresa'  => '->idEmpresa',
+        'id_usuario_equipe' => '->idUsuario'
+    ];
+    protected array $ormBuscar = [
+        'data_nascimento', 'quantidade_dependentes',
         'operadora', 'acomodacao', 'regiao', 'valor', 'tipo', 'status'
     ];
-    protected string $uuid;
-    protected Data $data_nascimento;
-    protected int $quantidade_dependentes;
-    protected Operadora $operadora;
-    protected int $acomodacao;
-    protected Localizacao $regiao;
-    protected Dinheiro $valor;
-    protected Tipo $tipo;
-    protected Status $status;
+    protected array $ormSalvar = [
+        'data_nascimento', 'quantidade_dependentes',
+        'operadora', 'acomodacao', 'regiao', 'valor', 'tipo', 'status'
+    ];
 
+    /**
+     * @param  ?Request  $request
+     */
     public function __construct(
         private readonly ?Request $request = null
     ) {
@@ -55,33 +50,36 @@ class SolicitacaoEntity extends Entity
         $this->validarEmpresa();
     }
 
-    /**
-     * @throws Excecao
-     */
     public function regraInsert(): void
     {
         $ValidarHelper = new ValidarHelper();
 
-        $this->uuid = uuid();
         $this->data_nascimento = new Data($this->request->get('data_nascimento'));
         $this->operadora = new Operadora($this->request->get('operadora'));
         $this->regiao = new Localizacao($this->request->get('regiao'));
         $this->tipo = new Tipo($this->request->get('tipo'));
         $this->status = new Status(Status::REGISTRADO);
 
-        if (
-            $this->operadora->valido()
-            && in_array($this->operadora->indice(), ['amil', 'central_nacional_unimed'], true)
-        ) {
-            if (!$this->tipo->valido()) {
-                mensagemErro('Tipo inválido', 'Tipo não corresponde ao aceitável', 404);
-            } elseif (!$this->regiao->valido()) {
-                mensagemErro(
-                    'Região inválida',
-                    'Região não atendida ou não corresponde ao aceitável',
-                    404
-                );
-            }
+        $ValidarHelper
+            ->valor(
+                $this->data_nascimento,
+                'Data de Nascimento',
+                'Data de Nascimento não é um formato válido'
+            )
+            ->obrigatorio()
+            ->valido()
+            ->valor($this->operadora, 'Operadora', 'Operadora do Plano não encontrada ou inválida')
+            ->obrigatorio()
+            ->valido();
+
+        if (in_array($this->operadora->indice(), ['amil', 'central_nacional_unimed'], true)) {
+            $ValidarHelper
+                ->valor($this->regiao, 'Região', 'Região não encontrada ou inválida')
+                ->obrigatorio()
+                ->valido()
+                ->valor($this->tipo, 'Tipo', 'Tipo não encontrado ou inválido')
+                ->obrigatorio()
+                ->valido();
         }
 
         $ValidarHelper
@@ -95,27 +93,18 @@ class SolicitacaoEntity extends Entity
             ->vazio();
 
         $dependentes = [];
-        if (!empty($this->request->get('dependente'))) {
-            $dependentes = explode(',', $this->request->get('dependente'));
+        if (is_array($this->request->get('dependentes')) && !empty($this->request->get('dependentes'))) {
+            $dependentes = explode(',', $this->request->get('dependentes'));
             $this->quantidade_dependentes = count($dependentes);
 
             $contador = 1;
             for ($i = 0; $i <= $this->quantidade_dependentes; $i++) {
                 $ValidarHelper
                     ->valor($dependentes[$i], 'Dependente ' . $contador)
-                    ->date()
                     ->obrigatorio()
-                    ->vazio();
+                    ->date();
                 $contador++;
             }
-        }
-
-        if (!$ValidarHelper->valido()) {
-            mensagemErro(
-                'Informações inválidas',
-                'Não conseguimos validar algumas informações.',
-                404
-            );
         }
 
         $valorTotal = $this->simularValor();
@@ -146,7 +135,7 @@ class SolicitacaoEntity extends Entity
     }
 
     /**
-     * @param  string|null  $dataNascimento
+     * @param  ?string  $dataNascimento
      *
      * @return float
      */
@@ -172,7 +161,7 @@ class SolicitacaoEntity extends Entity
     }
 
     /**
-     * @param  string|null  $dataNascimento
+     * @param  ?string  $dataNascimento
      *
      * @return int
      */
