@@ -35,8 +35,12 @@
 
         @ elseif( $lista->tipo == 'loja' ):
         <p>{{$r->desconto}}</p>
-        <div class="icone">
+        <div class="icone bloco_favorito" data-url="{{$r->id}}">
+            @if ($r->favorito == '1')
+            <i class="favorito favorito_marcado">@iconeFavorito</i>
+            @else
             <i class="favorito">@iconeFavorito</i>
+            @endif
         </div>
         @ endif;
 

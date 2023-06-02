@@ -45,22 +45,24 @@
                 <label for="2_ingresso">2 ingressos</label>
             </div>
         </div>
-
-        <div class="bloco_ingresso">
-            <div class="ingresso_container">
-                <div class="link">
-                    <div class="preco">
-                        <p class="quantidade">1 Ingresso</p>
-                        <div class="valor">R$ <b class="cor_color">19,50</b></div>
+        @if(TIPO_USUARIO != 'indicado')
+            <div class="bloco_ingresso">
+                <div class="ingresso_container">
+                    <div class="link">
+                        <div class="preco">
+                            <p class="quantidade">1 Ingresso</p>
+                            <div class="valor">R$ <b class="cor_color">19,50</b></div>
+                        </div>
+                        <em></em>
                     </div>
-                    <em></em>
+                    <a href="#" class="botao botao_geral_cor cor_bg">COMPRAR</a>
                 </div>
-                <a href="#" class="botao botao_geral_cor cor_bg">COMPRAR</a>
             </div>
-        </div>
-    </div>
-    <div class="bloco_atencao_geral aviso">
-        <p>Apenas associados possuem acesso a esse recurso</p>
+        @else
+            <div class="bloco_atencao_geral aviso">
+                <p>Apenas associados possuem acesso a esse recurso</p>
+            </div>
+        @endif
     </div>
 
     @ if( $lista ):

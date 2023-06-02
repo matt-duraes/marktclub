@@ -104,6 +104,8 @@
         color: $branco
         border-radius: 4px
 
+.favorito_marcado
+    fill: red
 
 .bloco_geral_ul
     width: 100%
@@ -303,6 +305,21 @@
             &:nth-child(even)
                 margin-left: 0
 
+.article_favoritos
+    justify-content: flex-start
+    .parceiro_favorito
+        width: calc((100% / 3) - 20px)
+        margin-right: 20px
+@media screen and (max-width: 900px)
+    .article_favoritos .parceiro_favorito
+        width: calc(50% - 15px)
+        margin: 0px
+        margin-bottom: 20px
+        min-height: 250px
+@media screen and (max-width: 600px)
+    .article_favoritos .parceiro_favorito
+        width: 100%
+        margin-bottom: 20px
 .botao_fixo_bottom
     position: fixed
     bottom: 42px

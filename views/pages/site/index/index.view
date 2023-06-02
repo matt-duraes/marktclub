@@ -39,12 +39,16 @@
     </div>
 
     <div class="bloco">
-        <div class="bloco_geral_sem_resultado bloco_favorito">
-            <i>@iconeGps(40)</i>
-            <p>Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas?</p>
-            @if(TIPO_USUARIO != 'indicado'):
-                <a class="botao_geral_cor cor_bg" href="">Salvar lojas favoritas</a>
-            @endif
+        <div class="bloco">
+            <header class="titulo_geral">
+                <h1>LOJAS FAVORITAS</h1>
+                <a class="cor_color" href="">Ver todas as lojas</a>
+            </header>
+            @php
+                $lista = $loja_nova;
+            @end
+            @view site/geral/parceiroFavorito.view
+
         </div>
     </div>
 
