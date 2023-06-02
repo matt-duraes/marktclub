@@ -8,6 +8,12 @@ foreach ($lista->lista as $loja) {
     }
 }
 ?>
+@if($favoritos == null)
+    <div class="bloco_geral_sem_resultado bloco_favorito">
+        <i>@iconeFavorito(40)</i>
+        <p>Você ainda não tem lojas favoritas</p>
+    </div>
+@endif
 <div class="bloco_parceiro bloco_geral_article article_favoritos">
 @if (!is_null($favoritos))
     @foreach($favoritos as $r):
@@ -25,11 +31,6 @@ foreach ($lista->lista as $loja) {
             <div class="linha cor_bg"></div>
         </article>
         @ endforeach:
-@else
-    <div class="bloco_geral_sem_resultado bloco_favorito">
-        <i>@iconeFavorito(40)</i>
-        <p>Você ainda não tem lojas favoritas</p>
-    </div>
 @endif
 </div>
 

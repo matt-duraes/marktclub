@@ -17,7 +17,7 @@ trait MontarRetornoTrait
                     'link'     => route('loja.detalhe') . '/loja',
                     'imagem'   => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg',
                     'desconto' => '10% de desconto',
-                    'favorito' => '1'
+                    'favorito' => '0'
                 ],
                 (object)[
                     'id'       => 'abe97655-2422-44e5-9159-1a7b0b0ce7f7',

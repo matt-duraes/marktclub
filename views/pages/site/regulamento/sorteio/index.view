@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>SORTEIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    @CSS
+</head>
+<body>
+
+<div id="bloco_regulamento">
+    <section class="regulamento_conteudo">
+        <div class="bloco_geral_sem_resultado">
+            <header>
+                <h1>Regulamento do sorteio</h1>
+            </header>
+        </div>
+
+        @ if(!empty($dado)):
+        <article class="texto">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quis neque?</p>
+            <p>Error consequatur exercitationem tempora earum harum animi laudantium in a eveniet dignissimos molestiae reiciendis.</p>
+            <p>Est sequi architecto fuga perferendis.</p>
+        </article>
+        @ else:
+        <article class="texto">
+            <p>Sem sorteios no momento.</p>
+        </article>
+        @ endif;
+
+        <a href="@route(loja.index)" class="sair botao_geral_cor" target="_self">Ir para o site</a>
+    </section>
+
+</div>
+
+
+
+</body>
+</html>

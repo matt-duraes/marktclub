@@ -1,0 +1,30 @@
+.accordion
+    espacoTopPadrao()
+.accordion .accordion_item
+    margin-bottom: 10px
+.accordion .accordion_item .accordion_titulo
+    alignItemCenter()
+    height: 50px
+    position: relative
+    padding-left: 20px
+    texto()
+    cursor: pointer
+    color: #181818
+    background-color: #F6F6F6
+    bordaPadraoTabela()
+    borderRadius()
+.accordion .accordion_item .accordion_titulo > i
+    flexCenter()
+    margin-right: 10px
+    &.menos
+        display: none
+.accordion .accordion_item.abrir .accordion_titulo > i.menos
+    display: block
+.accordion .accordion_item.abrir .accordion_titulo > i.mais
+    display: none
+.accordion .accordion_item .accordion_conteudo
+    display: none
+    border-radius: 3px
+    padding: 20px 0px
+    &.abrir
+        display: block

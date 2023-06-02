@@ -1,0 +1,57 @@
+@template "site"
+
+
+<div id="bloco_campanha_tematica">
+    <div class="bloco_geral_texto">
+        <header>
+            <h1>Título da Campanha</h1>
+        </header>
+    </div>
+    @view site/geral/banner.view
+
+    <div class="bloco_geral_sem_resultado">
+        <header>
+            <h1>Texto da abaixo do banner</h1>
+        </header>
+    </div>
+
+    @if($tipo_campanha == 1):
+        <div class="bloco_lista_parceiro">
+
+            @view site/geral/parceiro.view
+        </div>
+    @elseif($tipo_campanha == 2):
+        <div class="accordion">
+            <div class="accordion_item">
+                <h2 class="accordion_titulo">
+                        <i class="mais">@iconeMais()</i>
+                        <i class="menos">@iconeMenos()</i>
+                        Título da Categoria 1
+                </h2>
+                <div class="accordion_conteudo">
+                    @view site/geral/parceiro.view
+                </div>
+            </div>
+            <div class="accordion_item">
+                <h2 class="accordion_titulo">
+                        <i class="mais">@iconeMais()</i>
+                        <i class="menos">@iconeMenos()</i>
+                        Título da Categoria 2
+                </h2>
+                <div class="accordion_conteudo">
+                    @view site/geral/parceiro.view
+                </div>
+            </div>
+            <div class="accordion_item">
+                <h2 class="accordion_titulo">
+                        <i class="mais">@iconeMais()</i>
+                        <i class="menos">@iconeMenos()</i>
+                        Título da Categoria 3
+                </h2>
+                <div class="accordion_conteudo">
+                    @view site/geral/parceiro.view
+                </div>
+            </div>
+        </div>
+    @endif;
+</div>

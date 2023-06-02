@@ -1,12 +1,10 @@
-
-<div class="bloco_pagina_popup" id="popup_enquete">
-        
-    <header class="header_pagina_popup">
-        <h1>Responda</h1>
+<div class="bloco_popup_geral medio" id="popup_enquete">
+    <header class="popup_header">
+        <h1>Título do Popup</h1>
         <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
     </header>
-        
-    <div class="conteudo_pagina_popup">
+
+    <div class="popup_conteudo centralizado conteudo_pagina_popup">
         <header class="header_padrao_popup">
             <h1>Texto popup</h1>
         </header>
@@ -21,7 +19,7 @@
             <div class="resto"></div>
 
             <div class="footer_pagina_popup">
-                <button class="button enviar" id="busca_resgate">RESGATAR</button>
+                <button class="button enviar botao_geral_cor cor_bg" id="busca_resgate">RESGATAR</button>
             </div>
         </form>
     </div>

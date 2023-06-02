@@ -264,6 +264,9 @@ Route
         Route
             ::nome('termocashback')
             ::view('/termo-de-uso-do-cashback');
+        Route
+            ::nome('app')
+            ::view('/termo-de-uso-app');
     });
 
 Route
@@ -372,4 +375,25 @@ Route
         Route
             ::nome('boasVindas')
             ::view('/preferencias/boas-vindas');
+    });
+
+Route
+    ::nome('campanha')
+    ::controller(App\Controllers\Site\CampanhaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('tematica')
+            ::view('/campanha');
+        Route
+            ::nome('atualizar_cpf')
+            ::view('/campanha/atualizar-cpf');
+    });
+
+Route
+    ::nome('regulamento')
+    ::controller(App\Controllers\Site\RegulamentoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('sorteio')
+            ::view('/regulamento-sorteio');
     });

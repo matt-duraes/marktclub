@@ -1,0 +1,14 @@
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/loja/parceiro"
+@resource "site/accordion"
+
+#bloco_campanha_tematica
+    width: 100%
+    max-width: $maxWidth
+
+#bloco_campanha_tematica .bloco_geral_banner,
+#bloco_campanha_tematica .bloco_lista_parceiro
+    espacoVerticalPadrao()
+

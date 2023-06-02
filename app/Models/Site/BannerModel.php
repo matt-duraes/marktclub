@@ -234,6 +234,7 @@ final class BannerModel
             ]
         ];
     }
+
     /**
      * @return object
      */
@@ -250,6 +251,27 @@ final class BannerModel
                 (object)[
                     'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
                     'link'   => route('alfa.consultoriaAlfa')
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return object
+     */
+    public function campanha(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'link'   => ''
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'link'   => ''
                 ]
             ]
         ];
