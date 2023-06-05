@@ -10,7 +10,7 @@ $empresa = (new ApiHelper(token: true))
 $Painel = new PainelConfig\Add('parceiro_cashback');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Título/Comissão', function () use ($Painel) {
+    $Painel->fieldset('Logo', function () use ($Painel) {
         $Painel->imagem('imagem', '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
     $Painel->fieldset('Dados', function () use ($Painel) {
@@ -23,7 +23,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Descrição', function () use ($Painel) {
+    $Painel->fieldset('Descrições', function () use ($Painel) {
         $Painel
             ->textarea('texto_descricao', label: 'Descrição', placeholder: 'Digite uma descrição')
             ->textarea('texto_restricao', label: 'Restrições do parceiro', placeholder: 'Digite uma restrição')
