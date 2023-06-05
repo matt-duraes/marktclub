@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Api;
 
-use App\Controllers\Api\Trait\ClienteTrait;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoEntity;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoModel;
+use Controller\ControllerInterface;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
@@ -13,12 +13,11 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
 class SolicitacaoDeclaracaoController implements
+    ControllerInterface,
     ControllerBuscarInterface,
-    ControllerSalvarInterface,
-    ControllerListarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface
 {
-    use ClienteTrait;
-
     /**
      * @param  string  $id
      *
@@ -73,8 +72,7 @@ class SolicitacaoDeclaracaoController implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Declaracao = new DeclaracaoEntity();
-        $Declaracao->set(lista: $request->dado());
+        $Declaracao = new DeclaracaoEntity($request);
         $Declaracao->salvar();
 
         return $this->retornoSucesso($Declaracao, 201);

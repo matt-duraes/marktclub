@@ -1,10 +1,10 @@
 <?php
 
-use Database\DataBase;
+use DataBase\DataBase;
 
 return (new DataBase())
     ->id()
-    ->char('cod')->tamanho(36)
+    ->uuid()
     ->int('empresa')
     ->int('usuario')
     ->char('vinculo')->tamanho(36)

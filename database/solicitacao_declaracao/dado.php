@@ -2,59 +2,59 @@
 
 return [
     [
-        'cod'     => uuid(),
+        'uuid'    => uuid(),
         'usuario' => rand(1, 10),
         'empresa' => rand(1, 20),
         'vinculo' => uuid(),
-        'tipo'    => valorAleatorio([1, 2, 3, 4, 5]),
-        'status'  => 1
+        'tipo'    => valorAleatorio([1, 2]),
+        'status'  => valorAleatorio([1, 2, 3, 4, 5])
     ],
     [
-        'cod'     => uuid(),
+        'uuid'    => uuid(),
         'usuario' => rand(1, 10),
         'empresa' => rand(1, 20),
         'vinculo' => uuid(),
-        'tipo'    => valorAleatorio([1, 2, 3, 4, 5]),
-        'status'  => 0
+        'tipo'    => valorAleatorio([1, 2]),
+        'status'  => valorAleatorio([1, 2, 3, 4, 5])
     ],
     [
-        'cod'     => uuid(),
+        'uuid'    => uuid(),
         'usuario' => rand(1, 10),
         'empresa' => rand(1, 20),
         'vinculo' => uuid(),
-        'tipo'    => valorAleatorio([1, 2, 3, 4, 5]),
-        'status'  => 1
+        'tipo'    => valorAleatorio([1, 2]),
+        'status'  => valorAleatorio([1, 2, 3, 4, 5])
     ],
     [
-        'cod'     => uuid(),
+        'uuid'    => uuid(),
         'usuario' => rand(1, 10),
         'empresa' => rand(1, 20),
         'vinculo' => uuid(),
-        'tipo'    => valorAleatorio([1, 2, 3, 4, 5]),
-        'status'  => 0
+        'tipo'    => valorAleatorio([1, 2]),
+        'status'  => valorAleatorio([1, 2, 3, 4, 5])
     ],
     [
-        'cod'     => uuid(),
+        'uuid'    => uuid(),
         'usuario' => rand(1, 10),
         'empresa' => rand(1, 20),
         'vinculo' => uuid(),
-        'tipo'    => valorAleatorio([1, 2, 3, 4, 5]),
-        'status'  => 1
+        'tipo'    => valorAleatorio([1, 2]),
+        'status'  => valorAleatorio([1, 2, 3, 4, 5])
     ],
     [
-        'cod'     => uuid(),
+        'uuid'    => uuid(),
         'usuario' => rand(1, 10),
         'empresa' => rand(1, 20),
         'vinculo' => uuid(),
-        'tipo'    => valorAleatorio([1, 2, 3, 4, 5]),
-        'status'  => 0
+        'tipo'    => valorAleatorio([1, 2]),
+        'status'  => valorAleatorio([1, 2, 3, 4, 5])
     ],
     [
-        'cod'     => uuid(),
+        'uuid'    => uuid(),
         'usuario' => rand(1, 10),
         'empresa' => rand(1, 20),
         'vinculo' => uuid(),
-        'tipo'    => valorAleatorio([1, 2, 3, 4, 5]),
-        'status'  => 0
+        'tipo'    => valorAleatorio([1, 2]),
+        'status'  => valorAleatorio([1, 2, 3, 4, 5])
     ]
 ];

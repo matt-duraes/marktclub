@@ -82,8 +82,7 @@ class CreditoEntity extends Entity
             ->valido()
             ->valor($this->valor, 'Valor', 'O Valor deve ser um número válido.')
             ->obrigatorio()
-            ->valido()
-            ->tamanho('>=', 1);
+            ->valido();
 
         $prazoMaximo = self::TIPO_PRAZO_MAXIMO[$this->tipo->indice()] ?? 96;
 
@@ -92,8 +91,8 @@ class CreditoEntity extends Entity
             ->obrigatorio()
             ->inteiro()
             ->positivo()
-            ->tamanho('>=', 1)
-            ->tamanho('<=', $prazoMaximo);
+            ->tamanho('>=', 1, 'numero')
+            ->tamanho('<=', $prazoMaximo, 'numero');
 
         $valorParcelas = match ($this->tipo->indice()) {
             Tipo::CONSIGNADO => $this->jurosConsignado()->calcularParcelas(),

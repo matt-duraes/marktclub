@@ -72,7 +72,6 @@ class SolicitacaoCreditoController implements
     public function postSalvar(Request $request): Response
     {
         $CreditoEntity = new CreditoEntity($request);
-        $CreditoEntity->set(lista: $request->dado());
         $CreditoEntity->salvar();
 
         return $this->retornoSucesso($CreditoEntity, 201);

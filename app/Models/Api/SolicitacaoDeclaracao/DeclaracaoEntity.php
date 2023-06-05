@@ -13,20 +13,23 @@ class DeclaracaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public string $idEmpresa;
+    public string $idUsuario;
+    public string $vinculo;
+    public Tipo $tipo;
+    public Status $status;
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
+    protected array $ormInsert = [
+        'id_admin_empresa'   => '->idEmpresa',
+        'id_usuario_cliente' => '->idUsuario'
+    ];
     protected array $ormBuscar = [
-        'id_usuario_cliente' => 'usuario',
         'tipo', 'status', 'data_criacao'
     ];
     protected array $ormSalvar = [
-        'cod', 'empresa', 'usuario', 'vinculo', 'tipo', 'status'
+        'uuid' => 'cod',
+        'vinculo', 'tipo', 'status'
     ];
-    protected string $cod;
-    protected string $empresa;
-    protected string $usuario;
-    protected string $vinculo;
-    protected Tipo $tipo;
-    protected Status $status;
 
     public function __construct(
         private readonly ?Request $request = null,
@@ -35,17 +38,22 @@ class DeclaracaoEntity extends Entity
         $this->validarEmpresa();
     }
 
+    /**
+     * @return void
+     */
     public function regraInsert(): void
     {
-        $Loja = (new LojaEntity())
-            ->idSlug(
-                $this->request->get('url', ''),
-                mensagem: 'Parceiro não encontrado ou não existente'
+        if ($this->request !== null) {
+            $LojaEntity = new LojaEntity();
+            $LojaEntity->idSlug(
+                $this->request->url ?? '',
+                mensagem: 'Parceiro não encontrado ou inexistente',
+                titulo: 'Inconsistências encontradas'
             );
 
-        $this->cod = uuid();
-        $this->vinculo = $Loja->id;
-        $this->tipo = new Tipo($this->request->get('tipo'));
-        $this->status = new Status(Status::NOVA);
+            $this->vinculo = $LojaEntity->id;
+            $this->tipo = new Tipo($this->request->tipo ?? '');
+            $this->status = new Status(Status::NOVA);
+        }
     }
 }
