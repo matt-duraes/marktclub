@@ -26,7 +26,11 @@ foreach ($lista->lista as $loja) {
             </header>
             <p>{{$r->desconto}}</p>
             <div class="icone bloco_favorito" data-url="{{$r->id}}">
-                <i class="favorito favorito_marcado">@iconeFavorito</i>
+                @if($r->favorito == '1')
+                    <i class="favorito favorito_marcado">@iconeFavorito</i>
+                @else
+                    <i class="favorito">@iconeFavorito</i>
+                @endif
             </div>
             <div class="linha cor_bg"></div>
         </article>

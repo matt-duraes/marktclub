@@ -23,7 +23,6 @@ final class RelacionadoModel extends ApiHelper implements ListarInterface
     public function favoritar(string $uuid = null, string $acao = null): stdClass
     {
         $retorno = $this->listarDados();
-
         if ($uuid !== null) {
             foreach ($retorno->lista as $item) {
                 if ($item->id === $uuid) {
