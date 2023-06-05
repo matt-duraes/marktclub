@@ -312,13 +312,31 @@ final class Visualizar
         ], $permissao);
         return $this;
     }
-    public function botao(array|string $campo, string $texto, ?string $id = null, ?string $link = null, ?string $permissao = null)
+    public function hidden(array|string $campo, string $id = null, string $permissao = null): self
     {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'hidden',
+            'campo' => $campo,
+            'nome' => '',
+            'id' => $id,
+            'formatar' => ''
+        ], $permissao);
+        return $this;
+    }
+    public function botao(
+        array|string $campo,
+        string $texto,
+        ?string $id = null,
+        ?string $link = null,
+        ?string $target = null,
+        ?string $permissao = null
+    ) {
         $this->adicionarCampo($campo, [
             'funcao' => 'botao',
             'texto' => $texto,
             'id' => $id,
-            'link' => $link
+            'link' => $link,
+            'target' => $target
         ], $permissao);
         return $this;
     }

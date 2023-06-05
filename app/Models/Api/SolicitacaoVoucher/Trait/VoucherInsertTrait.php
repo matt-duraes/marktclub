@@ -54,7 +54,6 @@ trait VoucherInsertTrait
         if (!$this->validarSeParceiroTemLimiteMaximo()) {
             return false;
         }
-
         $voucher = $this
             ->campo(['id', 'status'])
             ->where([
@@ -88,7 +87,6 @@ trait VoucherInsertTrait
                 ['status', 1]
             ])
             ->primeiro();
-
         if (empty($voucher)) {
             return false;
         }

@@ -15,6 +15,16 @@ return [
         'status' => 1
     ],
     [
+        'id' => 31,
+        'cod' => '236e76ea7af7e44d92294b31bb029a9b',
+        'empresa' => 2,
+        'titulo' => 'Anafe Card',
+        'link_site' => 'https://localhost.com:4200',
+        'logo' => '70ff785234195b33e0036ca434feaa3c.png',
+        'cor' => '#004E7D',
+        'status' => 1
+    ],
+    [
         'id' => 165,
         'cod' => '5cc28dab736cb7d4ef436ee2447a07ee',
         'empresa' => 198,
