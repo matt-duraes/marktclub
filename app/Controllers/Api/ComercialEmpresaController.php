@@ -38,7 +38,7 @@ final class ComercialEmpresaController extends Controller implements
             indice: 'cod',
             valor: 'nome_fantasia',
             where: [
-                ['status', 'in', [1, 2]],
+                ['status', 'in', Helper::STATUS_LIBERADO],
                 ['id_admin_empresa', 'null']
             ],
             titulo: $request->titulo
