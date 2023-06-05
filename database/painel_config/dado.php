@@ -12,6 +12,7 @@ return [
             'usuario_equipe' => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
             'publicacao_noticia' => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_relatorio' => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'parceiro_cashback' => ['titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
             'relatorio_acesso' => ['titulo' => 'Relatório Acesso', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas']],
             'relatorio_usuario' => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
             'relatorio_loja_venda' => ['titulo' => 'Relatório de vendas', 'permissao' => ['relatorio_loja_venda_index' => 'Relatório de vendas', 'relatorio_loja_venda_empresa' => 'Todas as empresas']],

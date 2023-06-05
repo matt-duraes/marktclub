@@ -264,6 +264,9 @@ final class UploadHelper
     }
     private function passarArquivoPeloAntiVirus()
     {
+        if (eLocalhost()) {
+            return;
+        }
         $validar = (new AntiVirusHelper($this->arquivo->getPathname()))->validar();
         if (true !== $validar) {
             throw new Excecao(
