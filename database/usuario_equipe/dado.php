@@ -10,6 +10,7 @@ $permissao = json_encode([
     "usuario_equipe_deletar","usuario_equipe_empresa","publicacao_noticia_index","publicacao_noticia_add",
     "publicacao_noticia_editar","publicacao_noticia_deletar","parceiro_relatorio_index",
     "parceiro_relatorio_add","parceiro_relatorio_editar","parceiro_relatorio_deletar",
+    "parceiro_cashback_index", "parceiro_cashback_add","parceiro_cashback_editar","parceiro_cashback_deletar",
     "relatorio_acesso_index","relatorio_acesso_empresa","relatorio_usuario_index","relatorio_usuario_empresa",
     "relatorio_loja_venda_index","relatorio_loja_venda_empresa","tabela_usuario_salvar","tabela_usuario_bloquear",
     "solicitacao_voucher_index","solicitacao_voucher_visualizar","solicitacao_voucher_download",

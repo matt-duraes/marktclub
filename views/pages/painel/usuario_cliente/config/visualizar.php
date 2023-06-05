@@ -84,8 +84,20 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->checked('mudar_senha', 'Mudar Senha?')
             ->linha('status', 'Status');
     });
+    $Painel->bloco(titulo: 'Voucher', callback: function () use ($Painel) {
+        $Painel
+            ->hidden(campo: 'empresa->id', id: 'input_id_empresa')
+            ->botao(
+                campo: 'salavip',
+                texto: 'Salavip',
+                id: 'botao_gerar_salavip',
+                link: LINK . '/solicitacao-voucher/gerar',
+                target: '_blank'
+            );
+    });
 });
 
+$Painel->include('dependente', campo: 'dependente');
 $Painel->include('pagamento', campo: 'pagamento');
 $Painel->include('dependente', campo: 'dependente');
 $Painel->include('analytics', campo: 'analytics');

@@ -35,6 +35,13 @@ Route
     }, true)
 
     // SISTEMA DE PAGAMENTO USUARIO
+    ::controller(App\Controllers\Painel\SolicitacaoVoucherController::class)
+    ::grupo(function () {
+        Route
+            ::nome('voucher')
+            ::view('/solicitacao-voucher/gerar/{parceiro}/{usuario}');
+    }, true)
+    // SISTEMA DE PAGAMENTO USUARIO
     ::controller(App\Controllers\Painel\UsuarioPagamentoController::class)
     ::grupo(function () {
         Route

@@ -6,10 +6,11 @@ $Painel = new PainelConfig\Index('solicitacao_premium');
 $Painel
     ->campo('parceiro', 'Parceiro', 'grande')
     ->campo('limite', 'Limite', 'pequeno')
-    ->campo('total', 'Todos', 'pequeno')
-    ->campo('ativo', 'Não utilizado', 'pequeno')
+    ->campo('disponivel', 'Disponíveis', 'pequeno')
+    ->campo('ativo', 'Pendentes', 'pequeno')
     ->campo('validado', 'Utilizado', 'pequeno')
     ->campo('cancelado', 'Cancelados', 'pequeno')
+    ->campo('total', 'Todos', 'pequeno')
     ->status('status', 'Status', new Status());
 
 return $Painel;

@@ -727,6 +727,38 @@ Route
     });
 
 Route
+    ::nome('parceiro_cashback')
+    ::controller(App\Controllers\Api\ParceiroCashbackController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:listar'])
+            ::request(['pagina', '!quantidade', '!ordem', '!empresa', '!status'], 'json')
+            ::get('/parceiro-cashback');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:buscar'])
+            ::get('/parceiro-cashback/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:salvar'])
+            ::request([
+                'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
+                'status', 'empresa', 'link_site', 'imagem'
+            ])
+            ::post('/parceiro-cashback');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:atualizar'])
+            ::request([
+                'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
+                'status', 'empresa', 'link_site', 'imagem'
+            ])
+            ::put('/parceiro-cashback/{id}');
+    });
+
+Route
     ::nome('parceiro_relatorio')
     ::controller(App\Controllers\Api\ParceiroRelatorioController::class)
     ::middleware(TokenMiddleware::class, 'token')

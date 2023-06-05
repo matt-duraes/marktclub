@@ -141,6 +141,9 @@ EwIDAQAB
             "parceiro_relatorio:salvar", "parceiro_relatorio:atualizar", "parceiro_relatorio:listar",
             "parceiro_relatorio:buscar", "parceiro_relatorio:deletar",
 
+            "parceiro_cashback:salvar", "parceiro_cashback:atualizar", "parceiro_cashback:listar",
+            "parceiro_cashback:buscar", "parceiro_cashback:deletar",
+
             "publicacao_noticia:salvar", "publicacao_noticia:atualizar", "publicacao_noticia:listar",
             "publicacao_noticia:buscar", "publicacao_noticia:deletar",
 

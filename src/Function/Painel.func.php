@@ -275,6 +275,8 @@ if (!function_exists('painelLinhaLista')) {
             $texto = $item['texto'] ?? '';
             $id = $item['id'] ?? '';
             $link = $item['link'] ?? '';
+            $target = array_key_exists('target', $item) && in_array($item['target'], ['_blank', '_self'])
+                ? $item['target'] : '_self';
             $status = $item['status'] ?? '';
             $mensagem = $item['mensagem'] ?? '';
             $inArray = $item['inArray'] ?? '';
@@ -368,10 +370,14 @@ if (!function_exists('painelLinhaLista')) {
                 $classe = $valor ? 'checked_sim' : 'checked_nao';
                 echo '<div class="checked bg_hover"><span class="texto_nome">' . $nome . '</span> <i class="'
                     . $classe . '">' . $icone . '</i></div>';
+            } elseif ($acao == 'hidden') {
+                $id = !empty($id) ? 'id="' . $id . '"' : '';
+                echo '<input type="hidden" ' . $id . ' value="' . $valor . '">';
             } elseif ($acao == 'botao' && !empty($link)) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
-                echo '<a class="botao_link" ' . $id . ' href="' . painelConverterLink($link, $dado)
-                    . '">' . $texto . '</a>';
+                $rel = $target == '_blank' ? 'rel="noopener noreferrer"' : '';
+                echo '<a class="botao_link" ' . $id . ' target="' . $target . '" ' . $rel . ' href="'
+                    . painelConverterLink($link, $dado) . '">' . $texto . '</a>';
             } elseif ($acao == 'botao') {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 echo '<div class="botao_link" ' . $id . '>' . $texto . '</div>';
