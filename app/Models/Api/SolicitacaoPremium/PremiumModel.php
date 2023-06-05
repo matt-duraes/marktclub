@@ -54,6 +54,7 @@ final class PremiumModel extends ORM
                     'parceiro' => $r->titulo,
                     'total' => 0,
                     'ativo' => 0,
+                    'disponivel' => 0,
                     'validado' => 0,
                     'cancelado' => 0,
                     'limite' => empty($r->limite_voucher) ? 'Sem limite' : $r->limite_voucher,
@@ -69,9 +70,9 @@ final class PremiumModel extends ORM
                 $retorno[$r->id]['cancelado']++;
             }
         }
-        return $this->colocarStatus($retorno);
+        return $this->colocarDadosPosteriores($retorno);
     }
-    private function colocarStatus($dado): array
+    private function colocarDadosPosteriores($dado): array
     {
         $livre = [];
         $esgotado = [];
@@ -79,6 +80,7 @@ final class PremiumModel extends ORM
         $estourado = [];
         foreach ($dado as $r) {
             $totalValido = $r['ativo'] + $r['validado'];
+            $r['disponivel'] = $r['limite'] - $r['validado'] - $r['ativo'];
             if (!is_numeric($r['limite']) || $totalValido < $r['limite']) {
                 $r['status'] = Status::LIVRE;
                 $livre[] = $r;
