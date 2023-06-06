@@ -38,7 +38,7 @@ final class FenaeController extends Controller
                 state: $request->state
             );
         } catch (\Throwable) {
-            return new Response(url: env('FENAE_LOGOUT_REDIRECT_URI'));
+            return new Response(url: env('FENAE_CLUBE'));
         }
         $usuario = $Token->pegarUsuario();
         $Login = new SalvarModel(
@@ -72,7 +72,7 @@ final class FenaeController extends Controller
     }
     public function usuarioDeslogou()
     {
-        return new Response(url: env('FENAE_LOGIN'));
+        return new Response(url: env('FENAE_CLUBE'));
     }
 
     /**
