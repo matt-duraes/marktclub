@@ -43,7 +43,6 @@ final class UrlLoginModel
     }
     public function pegarUrlLogin(): string
     {
-        // ppe($_SESSION);
         return $this->authorizationUrl;
     }
 }
