@@ -14,32 +14,14 @@ final class UrlLoginModel
     public function __construct()
     {
         $this->setarProvider();
-        $this->setarSessoes();
-        $this->validarCriacaoUrl();
+        $this->criarCookie();
     }
-    private function setarSessoes(): void
+    private function criarCookie(): void
     {
-        sessao('FENAE_LOGIN_STATE', $this->provider->getState() ?? '');
-        sessao('FENAE_LOGIN_PKCE', $this->provider->getPkceCode() ?? '');
-    }
-    private function validarCriacaoUrl(): void
-    {
-        if (
-            sessaoExiste('FENAE_LOGIN_STATE') &&
-            sessaoExiste('FENAE_LOGIN_PKCE') &&
-            !empty(sessao('FENAE_LOGIN_STATE')) &&
-            !empty(sessao('FENAE_LOGIN_PKCE'))
-        ) {
-            return;
-        }
-
-        mensagemErro(
-            titulo: 'ERRO!',
-            // @codingStandardsIgnoreStart
-            mensagem: 'Ocorreu um erro ao fazer seu login, tente novamente, caso o erro continue, entre em contato com o atendimento.',
-            // @codingStandardsIgnoreEnd
-            status: 500
-        );
+        cookie('MKCTC', base64Encode([
+            'state' => $this->provider->getState(),
+            'pkce' => $this->provider->getPkceCode()
+        ]), minuto: 10);
     }
     public function pegarUrlLogin(): string
     {

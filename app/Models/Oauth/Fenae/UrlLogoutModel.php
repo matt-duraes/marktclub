@@ -15,30 +15,12 @@ final class UrlLogoutModel
     public function __construct()
     {
         $this->setarProvider();
-        $this->setarSessao();
-        $this->validarCriacaoUrl();
+        $this->setarCookie();
         $this->pegarIdToken();
     }
-    private function setarSessao(): void
+    private function setarCookie(): void
     {
-        sessao('FENAE_LOGIN_STATE', $this->provider->getState());
-    }
-    private function validarCriacaoUrl(): void
-    {
-        if (
-            sessaoExiste('FENAE_LOGIN_STATE') ||
-            !empty(sessao('FENAE_LOGIN_STATE'))
-        ) {
-            return;
-        }
-
-        mensagemErro(
-            titulo: 'ERRO!',
-            // @codingStandardsIgnoreStart
-            mensagem: 'Ocorreu um erro ao fazer seu login, tente novamente, caso o erro continue, entre em contato com o atendimento.',
-            // @codingStandardsIgnoreEnd
-            status: 500
-        );
+        cookie('MKCLOE', base64Encode($this->provider->getState()), minuto: 10);
     }
 
     private function pegarIdToken()
