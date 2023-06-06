@@ -25,9 +25,9 @@ final class UrlLoginModel
     private function validarCriacaoUrl(): void
     {
         if (
-            sessaoExiste('FENAE_LOGIN_STATE') ||
-            sessaoExiste('FENAE_LOGIN_PKCE') ||
-            !empty(sessao('FENAE_LOGIN_STATE')) ||
+            sessaoExiste('FENAE_LOGIN_STATE') &&
+            sessaoExiste('FENAE_LOGIN_PKCE') &&
+            !empty(sessao('FENAE_LOGIN_STATE')) &&
             !empty(sessao('FENAE_LOGIN_PKCE'))
         ) {
             return;
@@ -43,6 +43,7 @@ final class UrlLoginModel
     }
     public function pegarUrlLogin(): string
     {
+        // ppe($_SESSION);
         return $this->authorizationUrl;
     }
 }

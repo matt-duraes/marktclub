@@ -38,11 +38,11 @@ final class PegarTokenModel
         if (
             sessaoExiste('FENAE_LOGIN_PKCE') &&
             sessaoExiste('FENAE_LOGIN_STATE') &&
-            sessaoExiste('FENAE_LOGIN_STATE') == $this->state
+            sessao('FENAE_LOGIN_STATE') == $this->state
         ) {
             return;
         }
-        mensagemStatus(401);
+        mensagemStatus(401, localhost: 'Não foi possível validar sessões.');
     }
     private function setarAccessToken(): void
     {

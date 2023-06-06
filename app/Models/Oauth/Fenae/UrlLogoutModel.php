@@ -46,7 +46,11 @@ final class UrlLogoutModel
         if (!cookieExiste('MKCLTI')) {
             return;
         }
-        $this->uriIdToken = '&id_token_hint=' . base64Decode(cookie('MKCLTI'));
+        $id = base64Decode(cookie('MKCLTI'));
+        if (empty($id)) {
+            return;
+        }
+        $this->uriIdToken = '&id_token_hint=' . $id;
     }
 
     /**
