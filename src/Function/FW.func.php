@@ -174,7 +174,10 @@ if (!function_exists('cookie')) {
         } elseif (is_null($valor)) {
             mensagemErro('Cookie inválido!', 'O cookie que você deseja buscar não existe.');
         }
-        $expirar = mktime(hour: $hora, minute: $minuto, day: $dia);
+        $dia = !empty($dia) ? $dia * 86400 : 0;
+        $hora = !empty($hora) ? $hora * 3600 : 0;
+        $minuto = !empty($minuto) ? $minuto * 60 : 0;
+        $expirar = time() + $minuto + $hora + $dia;
         return setcookie($nome, $valor, $expirar, $path, $dominio, true, true);
     }
 }
@@ -1555,7 +1558,7 @@ if (!function_exists('arquivoPublico')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param   string      $diretorio  Diretório que o arquivo pertence
+     * @param   string      $diretorio  Diret��rio que o arquivo pertence
      * @param   string      $arquivo    Arquivo que deseja pegar
      * @param   array       $parametro  Parametro para inserir como GET na URL
      * @param   string      $padrao     Imagem padrão caso não tenha arquivo
