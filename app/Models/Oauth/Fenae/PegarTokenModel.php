@@ -12,17 +12,19 @@ final class PegarTokenModel
     private GenericProvider $provider;
     private AccessToken $accessToken;
     private array $usuario;
+    private string $validarState = '';
+    private string $validarPkce = '';
 
     public function __construct(
         private string $code,
         private string $state
     ) {
+        $this->pegarCookie();
         $this->validarRequest();
         $this->setarProvider();
         $this->setarAccessToken();
         $this->validarAccessToken();
         $this->setarUsuario();
-        $this->deletarSessao();
     }
 
     /**
@@ -33,12 +35,22 @@ final class PegarTokenModel
         return $this->usuario;
     }
 
+    private function pegarCookie()
+    {
+        if (!cookieExiste('MKCTC')) {
+            mensagemStatus(401, localhost: 'Cookie não existe para validar login.');
+        }
+        $dado = base64Decode(cookie('MKCTC'));
+        cookieDeletar('MKCTC');
+        $this->validarState = $dado['state'];
+        $this->validarPkce = $dado['pkce'];
+    }
     private function validarRequest(): void
     {
         if (
-            sessaoExiste('FENAE_LOGIN_PKCE') &&
-            sessaoExiste('FENAE_LOGIN_STATE') &&
-            sessao('FENAE_LOGIN_STATE') == $this->state
+            !empty($this->validarState) &&
+            !empty($this->validarPkce) &&
+            $this->validarState == $this->state
         ) {
             return;
         }
@@ -46,7 +58,7 @@ final class PegarTokenModel
     }
     private function setarAccessToken(): void
     {
-        $this->provider->setPkceCode(sessao('FENAE_LOGIN_PKCE'));
+        $this->provider->setPkceCode($this->validarPkce);
         $this->accessToken = $this->provider->getAccessToken('authorization_code', [
             'code' => $this->code
         ]);
@@ -73,10 +85,5 @@ final class PegarTokenModel
             'email' => strCaixaBaixa($usuario['email']),
             'grupo' => strCaixaBaixa($usuario['type'])
         ];
-    }
-    private function deletarSessao()
-    {
-        sessaoDeletar('FENAE_LOGIN_PKCE');
-        sessaoDeletar('FENAE_LOGIN_STATE');
     }
 }

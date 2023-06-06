@@ -19,8 +19,6 @@ final class FenaeController extends Controller
      */
     public function paginaLogin()
     {
-        //843.573.208-87
-        //Hxm7O7i9Ry
         $Login = new UrlLoginModel();
         return new Response(url: $Login->pegarUrlLogin());
     }
@@ -38,6 +36,7 @@ final class FenaeController extends Controller
                 state: $request->state
             );
         } catch (\Throwable) {
+            $this->limparTemporario();
             return new Response(url: env('FENAE_CLUBE'));
         }
         $usuario = $Token->pegarUsuario();
@@ -48,6 +47,7 @@ final class FenaeController extends Controller
             email: $usuario['email'],
             grupo: $usuario['grupo']
         );
+        $this->limparTemporario();
         return new Response(url: $Login->pegarLink());
     }
 
@@ -80,14 +80,21 @@ final class FenaeController extends Controller
      */
     private function limparLogin()
     {
-        if (sessaoExiste('FENAE_LOGIN_STATE')) {
-            sessaoDeletar('FENAE_LOGIN_STATE');
-        }
-        if (sessaoExiste('FENAE_LOGIN_PKCE')) {
-            sessaoDeletar('FENAE_LOGIN_PKCE');
-        }
+        $this->limparTemporario();
         if (cookieExiste('MKCLTI')) {
             cookieDeletar('MKCLTI');
+        }
+    }
+    private function limparTemporario()
+    {
+        if (cookieExiste('MKCTC')) {
+            cookieDeletar('MKCTC');
+        }
+        if (cookieExiste('MKCLCO')) {
+            cookieDeletar('MKCLCO');
+        }
+        if (cookieExiste('MKCLOE')) {
+            cookieDeletar('MKCLOE');
         }
     }
 }
