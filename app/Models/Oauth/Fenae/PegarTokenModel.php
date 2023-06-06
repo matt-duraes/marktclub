@@ -22,6 +22,7 @@ final class PegarTokenModel
         $this->setarAccessToken();
         $this->validarAccessToken();
         $this->setarUsuario();
+        $this->deletarSessao();
     }
 
     /**
@@ -60,12 +61,22 @@ final class PegarTokenModel
     private function setarUsuario()
     {
         $idToken = $this->accessToken->getValues()['id_token'] ?? '';
-        $usuario = jsonDecode(base64_decode(explode('.', $idToken)[1]), retorno: true);
+        if (empty($idToken)) {
+            mensagemStatus(401, localhost: 'Não foi possível pegar o usuário.');
+        }
+
+        cookie('MKCLTI', base64Encode($idToken), dia: 1);
+        $usuario = $this->provider->getResourceOwner($this->accessToken)->toArray();
         $this->usuario = [
             'nome' => $usuario['name'],
             'cpf' => (int)soNumero($usuario['cpf']),
             'email' => strCaixaBaixa($usuario['email']),
             'grupo' => strCaixaBaixa($usuario['type'])
         ];
+    }
+    private function deletarSessao()
+    {
+        sessaoDeletar('FENAE_LOGIN_PKCE');
+        sessaoDeletar('FENAE_LOGIN_STATE');
     }
 }

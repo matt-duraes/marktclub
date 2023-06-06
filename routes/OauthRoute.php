@@ -12,4 +12,13 @@ Route
         Route
             ::nome('pegarToken')
             ::view('/login/fenae-autorizar');
+        Route
+            ::nome('delogarPelaFenae')
+            ::view('/login/fenae-deslogar');
+        Route
+            ::nome('deslogarPeloUsuario')
+            ::view('/login/fenae-logout');
+        Route
+            ::nome('usuarioDeslogou')
+            ::view('/login/fenae-sair');
     });

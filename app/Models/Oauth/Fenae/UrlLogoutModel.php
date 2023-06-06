@@ -4,31 +4,30 @@ namespace App\Models\Oauth\Fenae;
 
 use League\OAuth2\Client\Provider\GenericProvider;
 
-final class UrlLoginModel
+final class UrlLogoutModel
 {
     use ProviderTrait;
 
     private GenericProvider $provider;
     private string $url;
+    private string $uriIdToken = '';
 
     public function __construct()
     {
         $this->setarProvider();
-        $this->setarSessoes();
+        $this->setarSessao();
         $this->validarCriacaoUrl();
+        $this->pegarIdToken();
     }
-    private function setarSessoes(): void
+    private function setarSessao(): void
     {
-        sessao('FENAE_LOGIN_STATE', $this->provider->getState() ?? '');
-        sessao('FENAE_LOGIN_PKCE', $this->provider->getPkceCode() ?? '');
+        sessao('FENAE_LOGIN_STATE', $this->provider->getState());
     }
     private function validarCriacaoUrl(): void
     {
         if (
             sessaoExiste('FENAE_LOGIN_STATE') ||
-            sessaoExiste('FENAE_LOGIN_PKCE') ||
-            !empty(sessao('FENAE_LOGIN_STATE')) ||
-            !empty(sessao('FENAE_LOGIN_PKCE'))
+            !empty(sessao('FENAE_LOGIN_STATE'))
         ) {
             return;
         }
@@ -41,8 +40,22 @@ final class UrlLoginModel
             status: 500
         );
     }
-    public function pegarUrlLogin(): string
+
+    private function pegarIdToken()
     {
-        return $this->authorizationUrl;
+        if (!cookieExiste('MKCLTI')) {
+            return;
+        }
+        $this->uriIdToken = '&id_token_hint=' . base64Decode(cookie('MKCLTI'));
+    }
+
+    /**
+     * Pega a URL de logout do sistema
+     *
+     * @return string
+     */
+    public function pegarUrlLogout(): string
+    {
+        return $this->sessionEndUrl . $this->uriIdToken;
     }
 }
