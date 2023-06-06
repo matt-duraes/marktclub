@@ -36,11 +36,13 @@ trait ProviderTrait
 
     private function pegarConfiguracao()
     {
-        if (!cookieExiste('MKCLCO')) {
-            $Curl = new CurlHelper();
-            $configuracao = $Curl->get(env('FENAE_LINK_CONFIGURACAO'))->array();
-            cookie('MKCLCO', base64Encode($configuracao), hora: 1);
+        if (cookieExiste('MKCLCO')) {
+            $this->configuracao = base64Decode(cookie('MKCLCO'));
+            return;
         }
-        $this->configuracao = base64Decode(cookie('MKCLCO'));
+        $Curl = new CurlHelper();
+        $configuracao = $Curl->get(env('FENAE_LINK_CONFIGURACAO'))->array();
+        $this->configuracao = $configuracao;
+        cookie('MKCLCO', base64Encode($configuracao), hora: 1);
     }
 }
