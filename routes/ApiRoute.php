@@ -1125,7 +1125,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:buscar'])
             ::get('/carteirinha/{id}');
     });
 
@@ -1188,7 +1188,9 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
-            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
             ::get('/solicitacao-declaracao');
 
         Route
@@ -1201,7 +1203,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
                 'url', 'tipo'
-            ], 'json')
+            ])
             ::post('/solicitacao-declaracao');
     });
 

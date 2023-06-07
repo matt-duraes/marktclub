@@ -161,7 +161,15 @@ EwIDAQAB
 
             "log_erro:listar", "log_erro:buscar", "log_erro:atualizar",
 
-            "ponto_cvs:listar", "ponto_cvs:buscar", "ponto_cvs:salvar", "ponto_cvs:atualizar"
+            "ponto_cvs:listar", "ponto_cvs:buscar", "ponto_cvs:salvar", "ponto_cvs:atualizar",
+
+            "solicitacao_declaracao:listar", "solicitacao_declaracao:buscar", "solicitacao_declaracao:salvar",
+
+            "solicitacao_credito:listar", "solicitacao_credito:buscar", "solicitacao_credito:salvar",
+
+            "carteirinha:buscar",
+
+            "popup:buscar", "popup:salvar", "popup:atualizar", "popup:deletar",
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
