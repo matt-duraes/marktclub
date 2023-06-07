@@ -1125,7 +1125,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:buscar'])
             ::get('/carteirinha/{id}');
     });
 
