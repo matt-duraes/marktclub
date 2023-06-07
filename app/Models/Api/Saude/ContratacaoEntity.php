@@ -53,18 +53,15 @@ class ContratacaoEntity extends Entity
     public string $bairro;
     public int $numero;
     public string $complemento;
+    protected ?int $idEmpresa;
+    protected ?int $idUsuario;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
-        'id_admin_empresa'  => '->idEmpresa',
-        'id_usuario_equipe' => '->idUsuario'
+        'id_empresa' => '->idEmpresa',
+        'id_usuario' => '->idUsuario'
     ];
     protected array $ormBuscar = [
-        'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
-        'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
-        'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
-        'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
-        'ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
-        'complemento', 'status'
+        'status'
     ];
     protected array $ormSalvar = [
         'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
@@ -76,10 +73,10 @@ class ContratacaoEntity extends Entity
     ];
 
     /**
-     * @param  ?Request  $request
+     * @param  Request  $request
      */
     public function __construct(
-        private readonly ?Request $request = null
+        private readonly Request $request
     ) {
         parent::__construct();
         $this->validarEmpresa();
@@ -103,15 +100,15 @@ class ContratacaoEntity extends Entity
                 in_array(
                     $typeProperty,
                     [
-                        'Cpf', 'Nome', 'Data', 'EstadoCivil', 'Genero', 'Email', 'Telefone', 'EnderecoCep',
-                        'EnderecoEstado'
+                        'Cpf', 'Nome', 'Data', 'EstadoCivil', 'Genero', 'Email',
+                        'Telefone', 'EnderecoCep', 'EnderecoEstado'
                     ],
                     true
                 )
             ) {
-                $this->$nameProperty = new $typeProperty($this->request->get($nameProperty));
+                $this->$nameProperty = new $typeProperty($this->request->getPost($nameProperty));
             } else {
-                $this->$nameProperty = $this->request->get($nameProperty, ($typeProperty === 'string') ? '' : 0);
+                $this->$nameProperty = $this->request->getPost($nameProperty);
             }
         }
 

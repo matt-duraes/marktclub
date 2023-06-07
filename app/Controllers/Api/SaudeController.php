@@ -13,14 +13,15 @@ use Http\Response;
 class SaudeController implements ControllerInterface
 {
     /**
-     * @param  string  $id
+     * @param  Request  $request
+     * @param  string   $id
      *
      * @return Response
      * @throws Excecao
      */
-    public function getBuscarSimulacao(string $id): Response
+    public function getBuscarSimulacao(Request $request, string $id): Response
     {
-        $SaudeSimulacao = new SimulacaoModel();
+        $SaudeSimulacao = new SimulacaoModel($request);
         $simulacao = $SaudeSimulacao->validarSimulacao($id);
 
         if ($simulacao === null) {
@@ -36,7 +37,7 @@ class SaudeController implements ControllerInterface
      * @return Response
      * @throws Excecao
      */
-    public function postSimularContratacao(Request $request): Response
+    public function postSimularPlano(Request $request): Response
     {
         $SaudeSimulacao = new SimulacaoEntity($request);
         $SaudeSimulacao->salvar();
@@ -52,7 +53,6 @@ class SaudeController implements ControllerInterface
     public function postContratarPlano(Request $request): Response
     {
         $SaudeContratacao = new ContratacaoEntity($request);
-        $SaudeContratacao->set(lista: $request->dado());
         $SaudeContratacao->salvar();
         return mensagemSucesso($SaudeContratacao->retorno(), 201);
     }

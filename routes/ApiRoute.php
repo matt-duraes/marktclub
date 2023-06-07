@@ -1,8 +1,8 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
+use Route\Route;
 
 Route
     ::nome('downloadRestrito')
@@ -1184,4 +1184,37 @@ Route
                 'url', 'tipo'
             ], 'json')
             ::post('/solicitacao-declaracao');
+    });
+
+Route
+    ::nome('saude')
+    ::controller(App\Controllers\Api\SaudeController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscarSimulacao')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude:buscarSimulacao'])
+            ::get('/saude/simulacao/{id}');
+
+        Route
+            ::nome('simularPlano')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude:simularPlano'])
+            ::request([
+                'data_nascimento', '!dependentes', 'operadora',
+                'acomodacao', 'regiao', 'tipo'
+            ])
+            ::post('/saude/simulacao');
+
+        Route
+            ::nome('contratarPlano')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude:contratarPlano'])
+            ::request([
+                'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+                'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
+                'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
+                'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+                'ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
+                'complemento'
+            ])
+            ::post('/saude/contratacao');
     });

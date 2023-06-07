@@ -23,28 +23,31 @@ class SimulacaoEntity extends Entity
     public Operadora $operadora;
     public int $acomodacao;
     public Localizacao $regiao;
-    public Dinheiro $valor;
+    public Dinheiro $valorTitular;
+    public string $valorDependentes;
+    public Dinheiro $valorTotal;
     public Tipo $tipo;
     public Status $status;
+    protected ?int $idEmpresa;
+    protected ?int $idUsuario;
     protected string $ormTabela = TABELA_SAUDE_SIMULACAO;
     protected array $ormInsert = [
-        'id_admin_empresa'  => '->idEmpresa',
-        'id_usuario_equipe' => '->idUsuario'
+        'id_empresa' => '->idEmpresa',
+        'id_usuario' => '->idUsuario'
     ];
     protected array $ormBuscar = [
-        'data_nascimento', 'quantidade_dependentes',
-        'operadora', 'acomodacao', 'regiao', 'valor', 'tipo', 'status'
+        'operadora', 'tipo', 'status'
     ];
     protected array $ormSalvar = [
-        'data_nascimento', 'quantidade_dependentes',
-        'operadora', 'acomodacao', 'regiao', 'valor', 'tipo', 'status'
+        'data_nascimento', 'quantidade_dependentes', 'operadora', 'acomodacao',
+        'regiao', 'valorTitular', 'valorDependentes', 'valorTotal', 'tipo', 'status'
     ];
 
     /**
-     * @param  ?Request  $request
+     * @param  Request  $request
      */
     public function __construct(
-        private readonly ?Request $request = null
+        private readonly Request $request
     ) {
         parent::__construct();
         $this->validarEmpresa();
@@ -54,10 +57,11 @@ class SimulacaoEntity extends Entity
     {
         $ValidarHelper = new ValidarHelper();
 
-        $this->data_nascimento = new Data($this->request->get('data_nascimento'));
-        $this->operadora = new Operadora($this->request->get('operadora'));
-        $this->regiao = new Localizacao($this->request->get('regiao'));
-        $this->tipo = new Tipo($this->request->get('tipo'));
+        $this->data_nascimento = new Data($this->request->getPost('data_nascimento'));
+        $this->quantidade_dependentes = 0;
+        $this->operadora = new Operadora($this->request->getPost('operadora'));
+        $this->regiao = new Localizacao($this->request->getPost('regiao'));
+        $this->tipo = new Tipo($this->request->getPost('tipo'));
         $this->status = new Status(Status::REGISTRADO);
 
         $ValidarHelper
@@ -68,9 +72,17 @@ class SimulacaoEntity extends Entity
             )
             ->obrigatorio()
             ->valido()
-            ->valor($this->operadora, 'Operadora', 'Operadora do Plano não encontrada ou inválida')
+            ->valor(
+                $this->operadora,
+                'Operadora',
+                'Operadora do Plano não encontrada ou inválida'
+            )
             ->obrigatorio()
-            ->valido();
+            ->valido()
+            ->valor($this->request->getPost('acomodacao'), 'Acomodação')
+            ->inArray(array_keys($this->pegarAcomodacao()))
+            ->obrigatorio()
+            ->vazio();
 
         if (in_array($this->operadora->indice(), ['amil', 'central_nacional_unimed'], true)) {
             $ValidarHelper
@@ -82,19 +94,9 @@ class SimulacaoEntity extends Entity
                 ->valido();
         }
 
-        $ValidarHelper
-            ->valor($this->request->get('acomodacao'), 'Acomodação')
-            ->inArray(array_keys($this->pegarAcomodacao()))
-            ->obrigatorio()
-            ->vazio()
-            ->valor($this->request->get('titular'), 'Titular')
-            ->date()
-            ->obrigatorio()
-            ->vazio();
-
         $dependentes = [];
-        if (is_array($this->request->get('dependentes')) && !empty($this->request->get('dependentes'))) {
-            $dependentes = explode(',', $this->request->get('dependentes'));
+        if (is_array($this->request->getPost('dependentes')) && !empty($this->request->getPost('dependentes'))) {
+            $dependentes = explode(',', $this->request->getPost('dependentes'));
             $this->quantidade_dependentes = count($dependentes);
 
             $contador = 1;
@@ -107,15 +109,23 @@ class SimulacaoEntity extends Entity
             }
         }
 
-        $valorTotal = $this->simularValor();
+        $contador = 1;
+        $valorTitular = $this->simularValor();
+        $valorDependentes = [];
+        $valorTotal = $valorTitular;
         if ($this->quantidade_dependentes > 0) {
             for ($i = 0; $i <= $this->quantidade_dependentes; $i++) {
-                $valorTotal = $valorTotal + $this->simularValor($dependentes[$i]);
+                $valor = $this->simularValor($dependentes[$i]);
+                $valorDependentes['dependente-' . $contador] = $valor;
+                $valorTotal = $valorTotal + $valor;
+                $contador++;
             }
         }
 
-        $this->acomodacao = $this->pegarAcomodacao()[$this->request->get('acomodacao')];
-        $this->valor = new Dinheiro((string)$valorTotal);
+        $this->acomodacao = $this->pegarAcomodacao()[$this->request->getPost('acomodacao')];
+        $this->valorTitular = new Dinheiro((string)$valorTitular);
+        $this->valorDependentes = jsonEncode($valorDependentes);
+        $this->valorTotal = new Dinheiro((string)$valorTotal);
     }
 
     /**
