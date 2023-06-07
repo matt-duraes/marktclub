@@ -3,6 +3,7 @@
 use Route\Route;
 use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('downloadRestrito')
@@ -630,6 +631,24 @@ Route
         Route
             ::nome('validarUsuario')
             ::get('/turismo/validar-usuario/{usuario}');
+        Route
+            ::nome('redirecionar')
+            ::view('/turismo/redirecionar/{usuario}');
+        Route
+            ::nome('abrir')
+            ::view('/turismo/abrir/{usuario}/{memoria}');
+    });
+Route
+    ::nome('pagina')
+    ::middleware(TokenProvMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\PaginaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('turismo')
+            ::get('/pagina/turismo');
+        Route
+            ::nome('cinema')
+            ::get('/pagina/cinema');
     });
 
 Route
