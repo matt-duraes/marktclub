@@ -2,70 +2,30 @@
 <div id="bloco_cinema">
 
     @view site/geral/banner.view
-    <div class="bloco_titulo_texto_centralizado">
-        <p>Agora você pode comprar ingressos para o cinema com um super desconto</p>
+    <div class="bloco_atencao_geral">
+        <p>Agora você pode comprar ingressos para o cinema com até 30% de desconto em vários cinemas do país
+        </p>
     </div>
 
-    <div class="bloco_titulo_texto">
-        <div class="bloco_passo_a_passo">
-            <h2> Entenda como comprar o seu ingresso</h2> <br>
-            <p>1° - Escolha a quantidade de ingressos (limitado a 2 por cpf por semana).</p>
-            <p>2° - Clique em comprar e efetue o pagamento.</p>
-            <p>3° - Após efetuar a compra, você receberá por e-mail um cupom para resgatar o ingresso,
-                você também pode pegar seus cupons pelo menu lateral direito "cinema".</p>
-            <p>4° - Você deverá acessar o site <a href="https://www.ingresso.com/" target="_blank">ingresso.com </a>
-                (Ou site do Cinemark seguindo o passo a passo clicando aqui ), escolher um cinema Cinemark de sua
-                preferência e o filme que deseja assistir.</p>
-            <p>5° - Depois de escolher os assentos, clique em "tipo de ingresso", escolha a opção "Super Saver Eletrônico",
-                coloque os códigos dos cupons e continue com o resgate dos ingressos.</p>
-
-            <h2>Cupons e histórico de compra</h2>
-            <p>
-                Caso você queira ver seu histórico de compras ou pegar seus cupons, basta acessar o seu histórico do cinema clicando aqui.
-            </p>
-        </div>
+    <div class="bloco_parceiro bloco_geral_article">
+        @ if($lista):
+            @ foreach( $lista->lista as $r ):
+            <article class="parceiro">
+                @ if( in_array($lista->tipo, ['cinema']) ):
+                    <a class="link_cupom_parceiro" href="{!!$r->link!!}"></a>
+                @ endif;
+                <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
+                <div class="linha cor_bg"></div>
+            </article>
+            @ endforeach:
+        @ endif;
     </div>
-
-
-    <div class="bloco_atencao_geral aviso">
-        <p>Válido apenas para salas 2D (está sinalizada apenas com a legenda DUB ou LEG) - Válido para qualquer dia da semana, filme e horário, exceto para salas Prime, Poltronas D-BOX, 3D e XD - Válido apenas na rede Cinemark - Quantidade limitada de 2 ingressos por semana - Quantidade limitada de ingressos, com renovação mensal de estoque - Este ingresso não está válido para os cinemas de Vitória e Vila Velha/ES.</p>
-    </div>
-
-    <div class="bloco_titulo_texto">
-        <header>
-            <h2>Escolha a quantidade de ingressos</h2>
-        </header>
-        <div class="botao_ingresso">
-            <div class="botao_input 1_ingresso">
-                <input id="1_ingresso" name="ingresso" type="radio" value="1_ingresso" checked>
-                <label for="1_ingresso">1 Ingresso</label>
-            </div>
-            <div class="botao_input 2_ingresso">
-                <input id="2_ingresso" name="ingresso" type="radio" value="2_ingresso">
-                <label for="2_ingresso">2 ingressos</label>
-            </div>
-        </div>
-        @if(TIPO_USUARIO != 'indicado')
-            <div class="bloco_ingresso">
-                <div class="ingresso_container">
-                    <div class="link">
-                        <div class="preco">
-                            <p class="quantidade">1 Ingresso</p>
-                            <div class="valor">R$ <b class="cor_color">19,50</b></div>
-                        </div>
-                        <em></em>
-                    </div>
-                    <a href="#" class="botao botao_geral_cor cor_bg">COMPRAR</a>
-                </div>
-            </div>
-        @else
-            <div class="bloco_atencao_geral aviso">
-                <p>Apenas associados possuem acesso a esse recurso</p>
-            </div>
-        @endif
-    </div>
-
-    @ if( $lista ):
-    @view site/geral/relacionado.view
-    @ endif;
+    <section class="bloco_simulacao container_scroll">
+        <a class="botao_geral_cor cor_bg" href="https://afiliados.easylive.com.br/?aid=5">COMPRAR INGRESSO</a>
+	</section>
+    <a href="https://afiliados.easylive.com.br/?aid=5" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">COMPRAR INGRESSO</a>
 </div>
+
+
+
+

@@ -1,5 +1,4 @@
 @template "site"
-
 <div id="bloco_index">
 
     @view site/geral/banner.view
