@@ -4,7 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoEntity;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoModel;
-use Controller\ControllerInterface;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
@@ -12,8 +12,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class SolicitacaoDeclaracaoController implements
-    ControllerInterface,
+class SolicitacaoDeclaracaoController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface

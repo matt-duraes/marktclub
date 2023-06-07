@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Models\Api\Popup\PopupEntity;
+use Controller\Controller;
 use Controller\ControllerInterface;
 use Erro\Excecao;
 use Http\Request;
@@ -12,8 +13,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class PopupController implements
-    ControllerInterface,
+class PopupController extends Controller implements
     ControllerBuscarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
@@ -43,10 +43,13 @@ class PopupController implements
     private function retornoPadrao(PopupEntity $PopupEntity, int $status = 200): Response
     {
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($PopupEntity, lista: [
-                'slug', 'titulo', 'subtitulo', 'texto', 'formulario', 'imagem',
-                'data_criacao', 'data_atualizacao', 'data_vencimento', 'status'
-            ]),
+            pegarPropriedadeDaEntity(
+                $PopupEntity,
+                lista: [
+                    'slug', 'titulo', 'subtitulo', 'texto', 'formulario', 'imagem',
+                    'data_criacao', 'data_atualizacao', 'data_vencimento', 'status'
+                ]
+            ),
             $status
         );
     }

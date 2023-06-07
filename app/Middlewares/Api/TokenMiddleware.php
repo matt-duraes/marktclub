@@ -4,6 +4,7 @@ namespace App\Middlewares\Api;
 
 use App\Models\Api\ApiToken\ValidarTokenAuthorizationEntity;
 use App\Models\Api\ApiToken\ValidarTokenCredentialModel;
+use Erro\Excecao;
 use Helpers\JwtHelper;
 use Throwable;
 
@@ -16,17 +17,20 @@ final class TokenMiddleware
     public function __construct()
     {
         $header = getallheaders();
-        $this->token = $header['Authorization'] ??
-            $header['authorization'] ??
-            $_SERVER['HTTP_AUTHORIZATION'] ??
-            false;
+        $this->token = $header['Authorization']
+            ?? $header['authorization']
+            ?? $_SERVER['HTTP_AUTHORIZATION']
+            ?? false;
 
         $this->validarTokenEnviado();
         $this->pegarBody();
         $this->tipoToken = $this->pegarTipoDeToken();
     }
 
-    private function validarTokenEnviado()
+    /**
+     * @return void
+     */
+    private function validarTokenEnviado(): void
     {
         $token = $this->token;
         if (empty($token)) {
@@ -41,12 +45,27 @@ final class TokenMiddleware
         }
     }
 
-    private function erroToken($mensagem)
+    /**
+     * @param $mensagem
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function erroToken($mensagem): void
     {
-        mensagemErro('Token inválido!', 'Envie um token válido para autenticação.', 401, localhost: $mensagem);
+        mensagemErro(
+            'Token inválido!',
+            'Envie um token válido para autenticação.',
+            401,
+            localhost: $mensagem
+        );
     }
 
-    private function pegarBody()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarBody(): void
     {
         if (mb_strlen($this->token) == 36) {
             return;
@@ -59,6 +78,10 @@ final class TokenMiddleware
         }
     }
 
+    /**
+     * @return string|void
+     * @throws Excecao
+     */
     private function pegarTipoDeToken()
     {
         if (mb_strlen($this->token) == 36) {
@@ -69,6 +92,10 @@ final class TokenMiddleware
         $this->erroToken('Middleware Token - Token não tem 36 caracteres ou é um JWT.');
     }
 
+    /**
+     * @return bool|void
+     * @throws Excecao
+     */
     public function token()
     {
         $tipo = $this->tipoToken;
@@ -86,8 +113,8 @@ final class TokenMiddleware
             } catch (Throwable $e) {
                 mensagemStatus(
                     401,
-                    localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1',
-                    error: $e
+                    error: $e,
+                    localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1'
                 );
             }
         }
@@ -95,7 +122,13 @@ final class TokenMiddleware
         mensagemStatus(500, localhost: 'Middleware Token - Tipo de token inválido.');
     }
 
-    public function scope($scope)
+    /**
+     * @param $scope
+     *
+     * @return bool
+     * @throws Excecao
+     */
+    public function scope($scope): bool
     {
         $scopePermitido = TOKEN['scope'];
         if (!in_array($scope, $scopePermitido)) {
@@ -110,6 +143,10 @@ final class TokenMiddleware
         return true;
     }
 
+    /**
+     * @return true|void
+     * @throws Excecao
+     */
     public function login()
     {
         if ($this->tipoToken == 'authorization') {

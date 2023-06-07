@@ -33,9 +33,9 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     public function __construct(
         protected Request $request
     ) {
-        parent::__construct();
         $this->validarEmpresa();
         $this->validarRequest();
+        parent::__construct();
     }
 
     /**
@@ -44,23 +44,23 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
      */
     private function validarRequest(): void
     {
-        $dataCriacaoDe = new Data($this->request->data_criacao_de ?? '');
+        $dataCriacaoDe = new Data($this->request->data_criacao_de);
         if (!$dataCriacaoDe->vazio() && (!$dataCriacaoDe->valido() || !$dataCriacaoDe->eDate())) {
             mensagemErro('Campo inválido!', 'A data de criação de início não está no formato válido.');
         }
-        $dataCriacaoAte = new Data($this->request->data_criacao_ate ?? '');
+        $dataCriacaoAte = new Data($this->request->data_criacao_ate);
         if (!$dataCriacaoAte->vazio() && (!$dataCriacaoAte->valido() || !$dataCriacaoAte->eDate())) {
             mensagemErro('Campo inválido!', 'A data de criação final não está no formato válido.');
         }
-        $Tipo = new Tipo($this->request->tipo ?? '');
+        $Tipo = new Tipo($this->request->tipo);
         if (!$Tipo->vazio() && !$Tipo->valido()) {
             mensagemErro('Campo inválido!', 'O Tipo informado não é válido.');
         }
-        $Status = new Status($this->request->status ?? '');
+        $Status = new Status($this->request->status);
         if (!$Status->vazio() && !$Status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
-        $Ordem = new Ordem($this->request->ordem ?? '');
+        $Ordem = new Ordem($this->request->ordem);
         if (!$Ordem->vazio() && !$Ordem->valido()) {
             mensagemErro('Campo inválido!', 'A ordem informada não é válida.');
         }
@@ -93,18 +93,18 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     {
         $where = $this->ormWherePadrao;
 
-        $Status = new Status($this->request->status ?? '');
+        $Status = new Status($this->request->status);
         if ($Status->valido()) {
             $where[] = ['status', $Status->numero()];
         }
 
-        $Tipo = new Tipo($this->request->tipo ?? '');
+        $Tipo = new Tipo($this->request->tipo);
         if ($Tipo->valido()) {
             $where[] = ['tipo', $Tipo->numero()];
         }
 
-        $dataCriacaoDe = $this->request->data_criacao_de ?? '';
-        $dataCriacaoAte = $this->request->data_criacao_ate ?? '';
+        $dataCriacaoDe = $this->request->data_criacao_de;
+        $dataCriacaoAte = $this->request->data_criacao_ate;
 
         if (validarDataDate($dataCriacaoDe) && validarDataDate($dataCriacaoAte)) {
             $where[] = ['data_criacao', 'between', [$dataCriacaoDe, $dataCriacaoAte]];

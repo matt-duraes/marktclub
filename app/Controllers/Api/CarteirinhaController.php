@@ -4,13 +4,12 @@ namespace App\Controllers\Api;
 
 use App\Classes\Carteirinha\Helper;
 use App\Controllers\Api\Trait\ClienteTrait;
-use Controller\ControllerInterface;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
 use System\Interface\ControllerBuscarInterface;
 
-class CarteirinhaController implements
-    ControllerInterface,
+class CarteirinhaController extends Controller implements
     ControllerBuscarInterface
 {
     use ClienteTrait;
