@@ -14,17 +14,46 @@ final class PegarTokenModel
     private array $usuario;
     private string $validarState = '';
     private string $validarPkce = '';
+    private string $linkErro = '';
+    private string $linkClube;
 
     public function __construct(
         private string $code,
         private string $state
     ) {
+        $this->linkClube = env('FENAE_CLUBE');
         $this->pegarCookie();
         $this->validarRequest();
         $this->setarProvider();
         $this->setarAccessToken();
         $this->validarAccessToken();
         $this->setarUsuario();
+    }
+    /**
+     * Verifica se o usuário pode logar
+     *
+     * @return bool
+     */
+    public function podeLogar(): bool
+    {
+        if (!$this->usuario['filiado']) {
+            $this->linkErro = $this->linkClube . '?erro=nao-filiado';
+            return false;
+        } elseif (
+            empty($this->usuario['nome']) ||
+            empty($this->usuario['cpf']) ||
+            empty($this->usuario['email']) ||
+            !validarCpf($this->usuario['cpf']) ||
+            !validarEmail($this->usuario['email'])
+        ) {
+            $this->linkErro = $this->linkClube . '?erro=atualizar-cadastro';
+            return false;
+        }
+        return true;
+    }
+    public function pegarLinkErro(): string
+    {
+        return $this->linkErro;
     }
 
     /**
@@ -83,7 +112,8 @@ final class PegarTokenModel
             'nome' => $usuario['name'],
             'cpf' => (int)soNumero($usuario['cpf']),
             'email' => strCaixaBaixa($usuario['email']),
-            'grupo' => strCaixaBaixa($usuario['type'])
+            'grupo' => strCaixaBaixa($usuario['type']),
+            'filiado' => $usuario['affiliate'] == 1
         ];
     }
 }
