@@ -37,7 +37,11 @@ final class FenaeController extends Controller
             );
         } catch (\Throwable) {
             $this->limparTemporario();
-            return new Response(url: env('FENAE_CLUBE'));
+            return new Response(url: env('FENAE_CLUBE') . '?erro=login-erro');
+        }
+        if (!$Token->podeLogar()) {
+            $this->limparTemporario();
+            return new Response(url: $Token->pegarLinkErro());
         }
         $usuario = $Token->pegarUsuario();
         $Login = new SalvarModel(
