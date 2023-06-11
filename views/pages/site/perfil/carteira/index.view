@@ -1,129 +1,20 @@
 @CSS
+@php $logo = defined('CLUBE_LOGO')
+
 <div id="bloco_carteirinha">
-    <div class="bloco_frente" style="background: url({{$dado->frente_carteirinha}}); background-size: 100% 100%;">
-        <!-- CARTEIRINHA SINPOL DF -->
-        @if(CLUBE_ID == 'sinpoldf'):
-            <div id="container_sinpol_frente">
-                <div class="um_bloco">
-                    <p>NOME</p>
-                    <p class="dados_carteirinha">{{$dado->nome}}</p>
-                </div>
-                <div class="dois_blocos">
-                    <div class="data_filiacao_sinpol">
-                        <p class="titulo_bloco">DATA DE FILIAÇÃO</p>
-                        <p class="dados_carteirinha">{{$dado->dt_filiacao}}</p>
-                    </div>
-                    <div class="matricula_sinpol">
-                        <p>MATRICULA NA PCDF</p>
-                        <p class="dados_carteirinha">{{$dado->matricula_pcdf}}</p>
-                    </div>
-                </div>
-            </div>
-        <!-- CARTEIRINHA SINDFAZENDA -->
-        @elseif(CLUBE_ID == 'sindfazenda'):
-            <div id="carteirinha_sindfazenda">
-                <div class="bloco_logo">
-                    <img src="{{$dado->logo}}" height="50" />
-                </div>
-                <div class="bloco_dado_duplo">
-                    <div class="nome">
-                        <p class="titulo_dados">
-                            {{$dado->nome}}
-                        </p>
-                    </div>
-                    <div class="documento">
-                        <p class="titulo_dados documento">
-                            {{$dado->documento}}
-                        </p>
-                    </div>
-                </div>
-                <div class="bloco_dados">
-                    <p class="titulo_dados">{{$dado->estado}} </p>
-                </div>
-            </div>
-        <!-- CARTEIRINHA CEME CARD -->
-        @elseif(CLUBE_ID == 'cemecard'):
-            <!-- TRECHO DO CÓDIGO COMENTADO POIS O RETORNO DOS DADOS DA CARTEIRINHA VEM DA API DO CLIENTE-->
-            <div id="dados_cemecard">
-                <div class="bloco_esquerda">
-                    <div class="bloco_status">
-                        <div class="status">
-                            <!-- @php $status = $carteira->dado->status; -->
-                                <!-- @if($status == 'Inativo'): -->
-                                    <div class="circulo_status_inativo"></div>
-                                <!-- @else -->
-                                    <div class="circulo_status"></div>
-                                <!-- @endif -->
-                            <!-- <p>{{$carteira->dado->status}}</p> -->
-                        </div>
-                    </div>
-                    <div class="bloco_qrcode">
-                        <div class="qrcode">
-                            <!-- @php $qrcode = urlencode("https://www.cemecard.com.br/#/valida-usuario/{$carteira->dado->documento}"); -->
-                            <!-- <img src="https://chart.apis.google.com/chart?cht=qr&chl=<?= $qrcode ?>&chs=200x200" alt=""> -->
-                        </div>
-                    </div>
-                    <div class="bloco_tipo">
-                        <!-- <h2>{{$carteira->dado->tipo}}</h2> -->
-                    </div>
-                </div>
-                <div class="bloco_direita">
-                    <div class="bloco_nome">
-                        <!-- <p>{{$carteira->dado->nome}}</p> -->
-                    </div>
-                    <div class="bloco_info">
-                        <div class="data_cemecard">
-                            <p>DATA DE VALIDADE</p>
-                            <!-- <h2>{{$carteira->dado->vencimento}}</h2> -->
-                        </div>
-                        <div class="numero_cartao">
-                            <p>Ṇ° DO CARTÃO</p>
-                            <!-- <h2>{{$carteira->dado->numero_cartao}}</h2> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <!-- CARTEIRINHA PADRÃO -->
+    <div class="bloco_frente" style="background: url({{$dado->imagem->frente}}); background-size: 100% 100%;">
+
+        @if(defined('CLUBE_ID') == '61df17919405cf68f723510ec3af4acd'):
+            @view site/perfil/carteira/sinpoldf.view
+        @elseif(defined('CLUBE_ID') == 'sindfazenda'):
+            @view site/perfil/carteira/sindfazenda.view
+        @elseif(defined('CLUBE_ID') == 'cemecard'):
+            @view site/perfil/carteira/cemecard.view
         @else
-            <div id="carteirinha_padrao">
-                <div class="bloco_logo">
-                    <img src="{{$dado->logo}}" />
-                </div>
-                <div class="bloco_dado">
-                    <p>{{$dado->nome}}</p>
-                </div>
-            </div>
+            @view site/perfil/carteira/padrao.view
         @endif
     </div>
-<!-- VERSO CARTEIRINHA SINPOLDF -->
-@if(CLUBE_ID == 'sinpoldf'):
-    <div class="bloco_atras" style="background: url({{$dado->verso_carteirinha}}); background-size: 100% 100%;">
-        <!-- USANDO IF PARA CASO NO FUTURO APAREÇA OUTRO CLIENTE COM FUNDO -->
-        @if(CLUBE_ID == 'sinpoldf'):
-            <div id="container_sinpol_fundo">
-                <div class="dois_blocos">
-                    <div class="rg">
-                        <p class="titulo_bloco">RG</p>
-                        <p class="dados_carteirinha">{{$dado->rg}}</p>
-                    </div>
-                    <div class="cpf">
-                        <p>CPF</p>
-                        <p class="dados_carteirinha">{{$dado->cpf}}</p>
-                    </div>
-                </div>
-                <div class="um_bloco">
-                    <div class="data_nascimento">
-                        <p>DATA DE NASCIMENTO</p>
-                        <p class="dados_carteirinha">{{$dado->dt_nascimento}}</p>
-                    </div>
-                </div>
-                <div class="data_emissao">
-                    <p class="dados_carteirinha">Data de emissão <br> {{$dado->dt_emissao}} </p>
-                </div>
-            </div>
-        @endif
-    </div>
-@endif
+
 </div>
 
 

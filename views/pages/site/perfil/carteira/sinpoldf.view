@@ -1,0 +1,40 @@
+<div id="container_sinpol_frente">
+    <div class="um_bloco">
+        <p>NOME</p>
+        <p class="dados_carteirinha">{{$dado->nome}}</p>
+    </div>
+    <div class="dois_blocos">
+        <div class="data_filiacao_sinpol">
+            <p class="titulo_bloco">DATA DE FILIAÇÃO</p>
+            <p class="dados_carteirinha">{{$dado->data->filiacao}}</p>
+        </div>
+        <div class="matricula_sinpol">
+            <p>MATRICULA NA PCDF</p>
+            <p class="dados_carteirinha">{{$dado->matricula}}</p>
+        </div>
+    </div>
+</div>
+
+<div class="bloco_atras" style="background: url({{$dado->imagem->fundo}}); background-size: 100% 100%;">
+    <div id="container_sinpol_fundo">
+        <div class="dois_blocos">
+            <div class="rg">
+                <p class="titulo_bloco">RG</p>
+                <p class="dados_carteirinha">{{$dado->rg}}</p>
+            </div>
+            <div class="cpf">
+                <p>CPF</p>
+                <p class="dados_carteirinha">{{$dado->cpf}}</p>
+            </div>
+        </div>
+        <div class="um_bloco">
+            <div class="data_nascimento">
+                <p>DATA DE NASCIMENTO</p>
+                <p class="dados_carteirinha">{{$dado->data->aniversario}}</p>
+            </div>
+        </div>
+        <div class="data_emissao">
+            <p class="dados_carteirinha">Data de emissão <br> {{$dado->data->emissao}} </p>
+        </div>
+    </div>
+</div>

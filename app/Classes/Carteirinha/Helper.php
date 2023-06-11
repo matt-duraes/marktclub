@@ -5,7 +5,8 @@ namespace App\Classes\Carteirinha;
 class Helper
 {
     public const CRIPTOGRAFAR = [
-        'nome', 'matricula', 'numero_cartao', 'documento',
-        'documento_rg', 'aniversario', 'data_filiacao'
+        'usuario' => ['nome', 'matricula', 'numero_cartao', 'documento',
+        'documento_rg', 'aniversario', 'data_filiacao']
     ];
+    public const STATUS_LIBERADO = [1];
 }

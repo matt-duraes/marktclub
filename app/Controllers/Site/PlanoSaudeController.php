@@ -18,7 +18,6 @@ final class PlanoSaudeController extends Controller
 
         $construtor = (new ConstrutorModel())->montaPlanoDeSaude();
         //Para visualizar federal saúde só alterar essa define para federal
-        define('CLUBE_ID', '80b010d457c4329f4aadacd5b57766c8');
         $this->defineLocation($construtor);
     }
 
@@ -30,7 +29,7 @@ final class PlanoSaudeController extends Controller
             'saudeBoleto' => (new OperadoraModel())->saudeBoleto(),
         ];
 
-        if (CLUBE_ID != 'federal') {
+        if (defined('CLUBE_ID') != 'federal') {
             $retorno['lista'] = (new OperadoraModel())->listarDados();
         } else {
             $retorno['lista'] = (new OperadoraModel())->listarDadosFederal();
@@ -45,7 +44,7 @@ final class PlanoSaudeController extends Controller
 
     private function defineLocation($construtor)
     {
-        if (CLUBE_ID !== 'federal' && $this->location === false) {
+        if (defined('CLUBE_ID') !== 'federal' && $this->location === false) {
             if ($construtor->vitoria && !$construtor->cnu && !$construtor->seguros) {
                 $this->location = route('planosaude.unimedVitoria');
             } elseif ($construtor->cnu && !$construtor->vitoria && !$construtor->seguros) {
