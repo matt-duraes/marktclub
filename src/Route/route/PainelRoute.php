@@ -202,6 +202,10 @@ Route
             ::action('ajax')
             ::request('*')
             ::post('/app/ajax/{app}');
+        Route
+            ::action('classe')
+            ::request('*')
+            ::post('/app/classe/{app}');
 
         Route
             ::action('visualizar')

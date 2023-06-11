@@ -154,6 +154,8 @@ EwIDAQAB
             "app_usuario:listar", "app_usuario:buscar", "app_usuario:salvar", "app_usuario:atualizar",
             "app_usuario:deletar",
 
+            "comercial_restricao:listar", "comercial_restricao:buscar", "comercial_restricao:salvar",
+            "comercial_restricao:atualizar", "comercial_restricao:deletar",
             "comercial_empresa:listar", "comercial_empresa:buscar", "comercial_empresa:salvar",
             "comercial_empresa:atualizar", "comercial_empresa:deletar",
             "comercial_subempresa:select",

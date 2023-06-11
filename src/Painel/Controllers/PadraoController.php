@@ -13,9 +13,25 @@ use Painel\Historico\Models\Entity as HistoricoEntity;
 
 abstract class PadraoController extends Controller
 {
-    protected function converterNomeApp($app)
+    /**
+     * Converte o nome do app para o padrão real
+     *
+     * @param   string  $app  App que deseja converter
+     * @return  string
+     */
+    protected function converterNomeApp(string $app): string
     {
         return str_replace('-', '_', $app);
+    }
+    /**
+     * Converter um nome com padrao nome_aqui para NomeAqui
+     *
+     * @param   string  $nome  Nome que deseja converter
+     * @return  string
+     */
+    protected function converterNomeParaClass(string $nome): string
+    {
+        return str_replace(' ', '', strCaixaAltaAlta(str_replace(['_', '-'], ' ', $nome)));
     }
 
     protected function config(string $app, string $local, ?string $indice = null): stdClass
