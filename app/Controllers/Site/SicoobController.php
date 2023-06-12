@@ -5,6 +5,9 @@ namespace App\Controllers\Site;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Sicoob\ParcelaModel;
+use App\Models\Site\Sicoob\SimulacaoModel;
+use Http\Request;
+use Http\Response;
 
 final class SicoobController extends Controller
 {

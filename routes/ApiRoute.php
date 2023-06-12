@@ -1213,6 +1213,14 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('simular')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
+            ::request([
+                'operadora', 'tipo', 'valor', 'parcelas'
+            ])
+            ::get('/solicitacao-credito');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:buscar'])
             ::get('/solicitacao-credito/{id}');
@@ -1223,7 +1231,7 @@ Route
             ::request([
                 'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
-            ::get('/solicitacao-credito');
+            ::get('/solicitacao-credito/listar');
 
         Route
             ::nome('salvar')
