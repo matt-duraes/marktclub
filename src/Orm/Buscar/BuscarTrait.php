@@ -46,6 +46,7 @@ trait BuscarTrait
         } elseif (array_key_exists('cod', $this->ormCampoBanco)) {
             $where = ['cod', $id];
         }
+
         return $this->buscar($where, $erro, $mensagem, $titulo);
     }
 

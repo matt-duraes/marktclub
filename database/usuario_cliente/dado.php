@@ -69,5 +69,17 @@ return [
         'documento' => 67783406815,
         'salt' => password('Teste@1324'),
         'status' => 1
+    ],
+    [
+        'id' => 100,
+        'cod' => '00956a04-3b7e-446b-9a5e-7a425ce1b408',
+        'empresa' => 1967,
+        'tipo' => 1,
+        'nome' => nomeCompletoAleatorio(),
+        'email_trabalho' => emailAleatorio(),
+        'telefone_fixo' => telefoneAleatorio(),
+        'documento' => 67783406815,
+        'salt' => password('Teste@1324'),
+        'status' => 1
     ]
 ];

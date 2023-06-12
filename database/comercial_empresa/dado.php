@@ -77,6 +77,21 @@ return [
         'status' => 1
     ],
     [
+        'id' => 1967,
+        'cod' => '9954c5edcc9a7b72fed65715f326df81',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Grupo diário',
+        'razao_social' => 'Grupo diário',
+        'nome_fantasia' => 'Grupo diário',
+        'cnpj' => 26748774000199,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'grupodiario',
+        'status' => 1
+    ],
+    [
         'cod' => '14afa776394ada4be23be6acf7e3259f',
         'id_usuario_equipe' => 1,
         'id_admin_empresa' => 1,

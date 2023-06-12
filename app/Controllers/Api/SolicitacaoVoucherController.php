@@ -67,7 +67,13 @@ final class SolicitacaoVoucherController extends Controller implements
             mensagemVazio: 'O campo ID é obrigatório.',
             mensagemErro: 'Não foi encontrado um parceiro pelo ID enviado.'
         );
-        $Usuario = $this->pegarCliente(id: $usuario);
+        $Usuario = $this->pegarCliente(
+            id: $usuario,
+            obrigatorio: true,
+            tituloVazio: 'Campo obrigatório!',
+            mensagemVazio: 'O campo usuário é obrigatório.',
+            mensagemErro: 'Não foi encontrado o usuário pelo código enviado.'
+        );
         if (in_array($Parceiro->get('id'), ['4207', '15612'])) {
             return new CodigoEntity(
                 Parceiro: $Parceiro,

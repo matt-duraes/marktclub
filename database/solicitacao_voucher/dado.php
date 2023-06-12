@@ -418,4 +418,16 @@ return [
         'codigo' => rand(10000000, 99999999),
         'status' => 2,
     ],
+    [
+        'cod' => uuid(),
+        'tipo' => 1,
+        'tipo_usuario' => 1,
+        'vinculo' => '7b1476c3-2627-490c-a0cf-dff7b9196b00',
+        'usuario' => 100,
+        'empresa' => 1967,
+        'codigo' => rand(10000000, 99999999),
+        'data_criacao' => dataPrimeiroDiaMes(hoje() . ' 00:00:00'),
+        'data_vencimento' => dataPrimeiroDiaMes(hoje()),
+        'status' => 2,
+    ],
 ];

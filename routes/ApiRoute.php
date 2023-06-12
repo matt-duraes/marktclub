@@ -1037,6 +1037,18 @@ Route::nome('comercial_empresa')
             ])
             ::put('/comercial-empresa/{id}');
     });
+Route
+    ::nome('comercial_restricao')
+    ::controller(App\Controllers\Api\ComercialRestricaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_restricao:listar'])
+            ::request(['!titulo'], 'json')
+            ::get('/comercial-restricao/select');
+    });
+
 Route::nome('comercial_regra')
     ::controller(App\Controllers\Api\ComercialRegraController::class)
     ::middleware(TokenMiddleware::class, 'token')
