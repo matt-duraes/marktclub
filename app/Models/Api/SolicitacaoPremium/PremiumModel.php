@@ -80,7 +80,7 @@ final class PremiumModel extends ORM
         $estourado = [];
         foreach ($dado as $r) {
             $totalValido = $r['ativo'] + $r['validado'];
-            $r['disponivel'] = $r['limite'] - $r['validado'] - $r['ativo'];
+            $r['disponivel'] = is_numeric($r['limite']) ? $r['limite'] - $r['validado'] - $r['ativo'] : '-';
             if (!is_numeric($r['limite']) || $totalValido < $r['limite']) {
                 $r['status'] = Status::LIVRE;
                 $livre[] = $r;
