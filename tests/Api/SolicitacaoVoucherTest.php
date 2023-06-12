@@ -12,6 +12,7 @@ final class SolicitacaoVoucherTest extends Tests
     private string $usuario1 = '5595203c-f7b1-4211-9981-bf09eb236b35';
     private string $usuario2 = '87cd8f94-601e-4e8e-b800-7f42a75fc0e1';
     private string $usuario3 = 'c91d0f54-d166-456e-9f21-e072722faa34';
+    private string $usuarioGrupoDiario = '00956a04-3b7e-446b-9a5e-7a425ce1b408';
     private string $parceiroId = 'f10e05c0-5b02-4bff-8e22-719a8797f0d6';
     private string $parceiroUrl = 'parceiro-normal';
     private string $parceiroIdAntido = '5d20bebb-36d5-47ce-8bc8-178309983a9a';
@@ -19,6 +20,7 @@ final class SolicitacaoVoucherTest extends Tests
     private string $parceiroLimite = '4502e7e8-9359-470e-9588-0a1501449675';
     private string $parceiroPrazoFixo = 'f9cbb6ae-b847-43cf-b9b8-6f72b67789df';
     private string $parceiroBlueFit = 'ca0bde20602db3ec777acbbcfb5a4c61';
+    private string $parceiroUsadoVencido = '7b1476c3-2627-490c-a0cf-dff7b9196b00';
 
     public function __construct()
     {
@@ -226,7 +228,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'usuario' => $this->usuario2,
                 'tipo' => 'loja'
             ])
-            ->post('/solicitacao-voucher')->object();
+            ->post('/solicitacao-voucher');
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
@@ -234,6 +236,23 @@ final class SolicitacaoVoucherTest extends Tests
                 'erro.mensagem',
                 'O saldo deste mês para esse parceiro expirou, abriremos um novo lote de vouchers no próximo mês.'
             );
+    }
+
+    public function voucherValidadoMasVencidoNaoPodeGerarUmNovoTest()
+    {
+        $this->scopeSalvar();
+        $this
+            ->Curl
+            ->body([
+                'id' => $this->parceiroUsadoVencido,
+                'usuario' => $this->usuarioGrupoDiario,
+                'tipo' => 'loja'
+            ])
+            ->post('/solicitacao-voucher');
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'Você já utilizou o voucher mensal desta parceria.');
     }
 
     public function parceiroComPrazoFixoDeveUsarEleNoVencimentoTest()
@@ -320,7 +339,7 @@ final class SolicitacaoVoucherTest extends Tests
         return $this
             ->checkStatus(404)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'Não foi encontrado nenhum usuário pelo código enviado.');
+            ->checkIndiceIgual('erro.mensagem', 'Não foi encontrado o usuário pelo código enviado.');
     }
 
     /*

@@ -45,13 +45,13 @@ return [
         'status' => 1
     ],
     [
-        'id' => 212,
-        'cod' => '8986a24345f36de15e2a7f4a51f1c9e7',
-        'empresa' => 223,
-        'titulo' => 'CVS MAIS',
+        'id' => 221,
+        'cod' => '122f833e84a78931e6fdcfa2e2a58771',
+        'empresa' => 1967,
+        'titulo' => 'Clube D+',
         'link_site' => 'https://localhost.com:4200',
         'logo' => 'logo_cvsmais_tem_mais.png',
-        'cor' => '#f00068',
+        'cor' => '#d9031c',
         'status' => 1
     ]
 ];

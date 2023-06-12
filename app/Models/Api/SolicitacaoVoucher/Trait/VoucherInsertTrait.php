@@ -55,18 +55,18 @@ trait VoucherInsertTrait
             return false;
         }
         $voucher = $this
-            ->campo(['id', 'status'])
+            ->campo(['id', 'data_vencimento', 'status'])
             ->where([
                 ['data_criacao', 'between', [dataPrimeiroDiaMes(hoje()), dataUltimoDiaMes(hoje(), 'Y-m-d H:i:s')]],
-                ['data_vencimento', '>=', hoje()],
                 ['usuario', $this->Usuario->get('id')],
                 ['empresa', $this->Usuario->id_admin_empresa],
                 ['vinculo', $this->Parceiro->id],
                 ['status', 'in', [1, 2]]
             ])
+            ->order('status', 'DESC')
             ->primeiro();
 
-        if (empty($voucher)) {
+        if (empty($voucher) || ($voucher->status == 1 && $voucher->data_vencimento < hoje())) {
             return false;
         } elseif ($voucher->status == 2) {
             mensagemErro('Sem saldo!', 'Você já utilizou o voucher mensal desta parceria.');
