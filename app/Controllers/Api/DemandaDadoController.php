@@ -86,4 +86,15 @@ final class DemandaDadoController extends Controller implements
 
         return new Response(status: 204);
     }
+
+    public function postCancelar(Request $request, string $id)
+    {
+        $request->vazio('motivo', mensagem: 'O campo motivo é obrigatório.');
+
+        $Demanda = new DemandaEntity();
+        $Demanda->uuid($id);
+        $Demanda->cancelar($request->motivo);
+
+        return new Response(status: 204);
+    }
 }

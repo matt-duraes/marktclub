@@ -51,6 +51,10 @@ Route
             ::request(['titulo', 'dono', 'empresa', 'com_prazo', 'data_entrega'])
             ::post('/demanda/demanda-editar/{id}');
         Route
+            ::nome('demandaCancelar')
+            ::request(['motivo'])
+            ::post('/demanda/demanda-cancelar/{id}');
+        Route
             ::nome('demandaLiberar')
             ::post('/demanda/demanda-liberar/{id}');
         Route

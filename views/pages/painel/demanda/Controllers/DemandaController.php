@@ -17,6 +17,7 @@ use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
 use Painel\Demanda\Models\CriarClienteModel;
 use Painel\Demanda\Models\CriarAssociacaoModel;
+use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaController extends Controller
@@ -121,6 +122,21 @@ final class DemandaController extends Controller
             ->put('/demanda-dado/' . $id);
 
         return new Response(status: 204);
+    }
+
+    public function postDemandaCancelar(Request $request, string $id)
+    {
+        $request->vazio('motivo', mensagem: 'O campo motivo é obrigatório!');
+
+        $this->Api
+            ->validar('Ocorreu um erro ao cancelar demanda.')
+            ->body([
+                'motivo' => $request->motivo
+            ])
+            ->post('/demanda-dado/cancelar/' . $id);
+
+        return new Response(status: 204);
+        ;
     }
 
     public function postDemandaLiberar(string $id)
