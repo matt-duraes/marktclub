@@ -858,7 +858,7 @@ Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:download'])
             ::request([
-                'campo', 'usuario', 'data'
+                'campo', 'usuario', '!data', '!empresa'
             ])
             ::post('/solicitacao-premium/download');
     });
