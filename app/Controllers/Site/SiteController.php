@@ -59,7 +59,6 @@ final class SiteController extends Controller
      */
     public function indiqueAmigo(): Response
     {
-        define('CLUBE_ID', '80b010d457c4329f4aadacd5b57766c8');
         define('CLUBE_FINALIDADE', 1);
 
         $texto = <<<HTML
@@ -78,7 +77,7 @@ final class SiteController extends Controller
             </p>
         HTML;
 
-        if (CLUBE_ID == '2dbd9e375eeabfbe859365dae0798f49') :
+        if (defined('CLUBE_ID') == '2dbd9e375eeabfbe859365dae0798f49') :
             $texto = <<<HTML
                 <p>O que você acha de liberar um acesso por 30 dias para um amigo?</p>
                 <p>
@@ -90,7 +89,7 @@ final class SiteController extends Controller
                     Quando você indica, você também demonstra sua amizade!
                 </p>
             HTML;
-        elseif (CLUBE_FINALIDADE == 2) :
+        elseif (defined('CLUBE_FINALIDADE') == 2) :
             $texto = <<<HTML
                 <p>O que você acha de liberar um acesso por 48h para um amigo?</p>
                 <p>

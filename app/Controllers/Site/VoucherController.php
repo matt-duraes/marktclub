@@ -11,9 +11,6 @@ final class VoucherController extends Controller
     public function voucher(Request $request, $url = null)
     {
 
-        define('CLUBE_ID', '80b010d457c4329f4aadacd5b57766c8');
-        define('COR', '#FF6F00');
-
         $voucher = (object)[
             'id' => 123,
             'criacao' => '24/02/2023',
@@ -41,7 +38,7 @@ final class VoucherController extends Controller
                     'desconto' => 'Este convênio possui mais de uma modalidade de desconto, confira quais:
                     - Isenção da taxa de matrícula.
                     - Desconto de 50% nas mensalidades para cursos regulares.
-                    
+
                     Fique atento!
                     - A responsabilidade pela oferta, condições, formas de pagamento e serviços é do YES! Idiomas Asa Sul.
                     - Desconto aplicado somente para pagamentos até a data de vencimento.

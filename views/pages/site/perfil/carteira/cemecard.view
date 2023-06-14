@@ -1,0 +1,40 @@
+<!-- TRECHO DO CÓDIGO COMENTADO POIS O RETORNO DOS DADOS DA CARTEIRINHA VEM DA API DO CLIENTE-->
+<div id="dados_cemecard">
+    <div class="bloco_esquerda">
+        <div class="bloco_status">
+            <div class="status">
+                <!-- @php $status = $carteira->dado->status; -->
+                    <!-- @if($status == 'Inativo'): -->
+                        <div class="circulo_status_inativo"></div>
+                    <!-- @else -->
+                        <div class="circulo_status"></div>
+                    <!-- @endif -->
+                <!-- <p>{{$carteira->dado->status}}</p> -->
+            </div>
+        </div>
+        <div class="bloco_qrcode">
+            <div class="qrcode">
+                <!-- @php $qrcode = urlencode("https://www.cemecard.com.br/#/valida-usuario/{$carteira->dado->documento}"); -->
+                <!-- <img src="https://chart.apis.google.com/chart?cht=qr&chl=<?= $qrcode ?>&chs=200x200" alt=""> -->
+            </div>
+        </div>
+        <div class="bloco_tipo">
+            <!-- <h2>{{$carteira->dado->tipo}}</h2> -->
+        </div>
+    </div>
+    <div class="bloco_direita">
+        <div class="bloco_nome">
+            <!-- <p>{{$carteira->dado->nome}}</p> -->
+        </div>
+        <div class="bloco_info">
+            <div class="data_cemecard">
+                <p>DATA DE VALIDADE</p>
+                <!-- <h2>{{$carteira->dado->vencimento}}</h2> -->
+            </div>
+            <div class="numero_cartao">
+                <p>Ṇ° DO CARTÃO</p>
+                <!-- <h2>{{$carteira->dado->numero_cartao}}</h2> -->
+            </div>
+        </div>
+    </div>
+</div>

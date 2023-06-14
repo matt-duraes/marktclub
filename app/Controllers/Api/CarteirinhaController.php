@@ -8,6 +8,8 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
 use System\Interface\ControllerBuscarInterface;
+use App\Models\Api\Carteirinha\CarteiraModel;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 class CarteirinhaController extends Controller implements
     ControllerBuscarInterface
@@ -20,20 +22,20 @@ class CarteirinhaController extends Controller implements
      * @return Response
      * @throws Excecao
      */
+
     public function getBuscar(string $id): Response
     {
-        $ClienteEntity = $this->pegarCliente($id);
+        if (empty($id)) {
+            mensagemStatus(404);
+        }
 
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $ClienteEntity,
-                lista: [
-                    'nome', 'matricula', 'numero_cartao', 'documento',
-                    'documento_rg', 'aniversario', 'data_filiacao', 'tipo', 'status'
-                ]
-            ),
-            200,
-            Helper::CRIPTOGRAFAR
-        );
+        $ClienteEntity = $this->pegarCliente($id, true);
+
+        $Carteira = (new CarteiraModel($ClienteEntity))->pegarCarteirinha();
+
+        return mensagemSucesso($Carteira);
+
     }
+
+
 }
