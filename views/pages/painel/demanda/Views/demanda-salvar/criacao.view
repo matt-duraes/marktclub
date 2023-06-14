@@ -9,29 +9,35 @@
     @? formCheckbox(name: 'criacao_categoria_video', label: 'Vídeo', check: false)
     @? formCheckbox(name: 'criacao_categoria_outro', label: 'Outro', check: false)
 </div>
-<div class="bloco display_none" id="bloco_criacao_outro">
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_outro">
     <h3>Texto para o tipo outro</h3>
     @? formTextarea(name: 'outro_texto', label: 'Detalhe', placeholder: 'Detalhe do tipo outro')
 </div>
-<div class="bloco display_none" id="bloco_criacao_site">
-    <h3>Dimensão do banner para o site</h3>
-    @? formNumero(name: ['site_largura', 'site_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura', 'Altura'], mascara: ['numero', 'numero'], obrigatorio: 1)
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_site">
+    <h2>SITE</h2>
+    <h3>Tamanho do banner</h3>
+    @? formNumero(name: ['site_largura', 'site_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura do banner', 'Altura do banner'], mascara: ['numero', 'numero'], obrigatorio: 1)
+    @? formEditor(name: 'site_texto', label: 'Descrição', placeholder: 'Descreva a demanda para o site', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
-<div class="display_none" id="bloco_criacao_social">
-    <h3>Quais redes sociais irá usar?</h3>
-    @? formSwitch(name: 'digital_stories', label: 'Stories', check: false)
-    @? formSwitch(name: 'digital_feed', label: 'Feed', check: false)
-    @? formSwitch(name: 'digital_banner', label: 'Banner', check: false)
-</div>
-<div class="checkbox display_none" id="bloco_criacao_feed">
-    <h3>Feed de qual rede social?</h3>
-    @? formCheckbox(name: 'feed_whatsapp', label: 'WhatsApp', check: false)
-    @? formCheckbox(name: 'feed_instagram', label: 'Instagram', check: false)
-    @? formCheckbox(name: 'feed_facebook', label: 'Facebook', check: false)
-    @? formCheckbox(name: 'feed_linkedin', label: 'LinkedIn', check: false)
-    @? formCheckbox(name: 'feed_twitter', label: 'Twitter', check: false)
-    @? formCheckbox(name: 'feed_youtube', label: 'YouTube', check: false)
-    @? formCheckbox(name: 'feed_tiktok', label: 'TikTok', check: false)
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_social">
+    <h2>REDE SOCIAL</h2>
+    <div>
+        <h3>Quais redes sociais irá usar?</h3>
+        @? formSwitch(name: 'digital_stories', label: 'Stories', check: false)
+        @? formSwitch(name: 'digital_feed', label: 'Feed', check: false)
+        @? formSwitch(name: 'digital_banner', label: 'Banner', check: false)
+    </div>
+    <div class="checkbox display_none" id="bloco_criacao_feed">
+        <h3>Feed de qual rede social?</h3>
+        @? formCheckbox(name: 'feed_whatsapp', label: 'WhatsApp', check: false)
+        @? formCheckbox(name: 'feed_instagram', label: 'Instagram', check: false)
+        @? formCheckbox(name: 'feed_facebook', label: 'Facebook', check: false)
+        @? formCheckbox(name: 'feed_linkedin', label: 'LinkedIn', check: false)
+        @? formCheckbox(name: 'feed_twitter', label: 'Twitter', check: false)
+        @? formCheckbox(name: 'feed_youtube', label: 'YouTube', check: false)
+        @? formCheckbox(name: 'feed_tiktok', label: 'TikTok', check: false)
+    </div>
+    @? formEditor(name: 'rede_social_texto', label: 'Descrição', placeholder: 'Descreva a demanda para a rede social', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
 <div class="checkbox display_none" id="bloco_criacao_impresso">
     <h3>Quais materiais impressos?</h3>

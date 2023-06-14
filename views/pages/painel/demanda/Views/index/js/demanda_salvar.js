@@ -72,8 +72,9 @@ const demandaSalvar = () => {
 
     const botaoSalvar = document.getElementById('botao_salvar_demanda');
 
-    const blocoEscolherTipo = document.getElementById('bloco_tipo_demanda');
-    const botaoTipo = blocoEscolherTipo.querySelectorAll('.botao');
+    const blocoEscolherTecnologia = document.getElementById('bloco_tipo_demanda_tecnologia');
+    const blocoEscolherCriacao = document.getElementById('bloco_tipo_demanda_criacao');
+    const botaoTipo = document.querySelectorAll('#bloco_demanda_nova .botao_lista .botao');
 
     const blocoCriacao = document.getElementById('bloco_criacao');
     const blocoTipoAssociacao = document.getElementById('bloco_tipo_associacao');
@@ -94,11 +95,9 @@ const demandaSalvar = () => {
     const blocoCriacaoVideoDimensao = document.getElementById('bloco_criacao_video_dimensao');
 
     if (area == 'tecnologia') {
-        blocoEscolherTipo.classList.remove('display_none');
+        blocoEscolherTecnologia.classList.remove('display_none');
     } else if (area == 'criacao') {
-        blocoCriacao.classList.remove('display_none');
-        botaoSalvar.classList.remove('display_none');
-        blocoHeader.classList.remove('display_none');
+        blocoEscolherCriacao.classList.remove('display_none');
     }
 
     /*
@@ -116,9 +115,13 @@ const demandaSalvar = () => {
     const mudarTipoDemanda = tipo => {
         inputTipo.value = tipo;
 
-        blocoFooter.classList.remove('display_none');
         botaoSalvar.classList.remove('display_none');
-        blocoEscolherTipo.classList.add('display_none');
+        blocoEscolherTecnologia.classList.add('display_none');
+        blocoEscolherCriacao.classList.add('display_none');
+
+        if (tipo != 'peca' && tipo != 'sorteio') {
+            blocoFooter.classList.remove('display_none');
+        }
 
         if (tipo == 'associacao') {
             blocoTipoAssociacao.classList.remove('display_none');
@@ -130,6 +133,12 @@ const demandaSalvar = () => {
         } else if (tipo == 'outro' || tipo == 'feature') {
             blocoHeader.classList.remove('display_none');
             blocoTipoOutro.classList.remove('display_none');
+        } else if (tipo == 'criacao') {
+            blocoCriacao.classList.remove('display_none');
+            botaoSalvar.classList.remove('display_none');
+            blocoHeader.classList.remove('display_none');
+        } else if (tipo == 'sorteio') {
+            //
         }
     };
 
