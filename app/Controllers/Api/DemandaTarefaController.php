@@ -85,6 +85,8 @@ final class DemandaTarefaController extends Controller implements
     }
     public function postDeslike(Request $request, string $id)
     {
+        $request->vazio('motivo', mensagem: 'O campo motivo é obrigatório.');
+
         $Tarefa = new TarefaEntity();
         $Tarefa->uuid($id);
         $Tarefa->deslike($request->motivo);

@@ -4,10 +4,14 @@
     <header>
         <i class="fechar mobile botao_fechar_demanda">@iconeVoltar</i>
         <h1>{{$r->titulo}}</h1>
-        @ if( $r->sou_dono || sessao('USUARIO.gerente', padrao: 'nao') == 'sim' ):
-        <div class="botao_editar">
+        @ if( ($r->sou_dono || sessao('USUARIO.gerente', padrao: 'nao') == 'sim') && $r->status != 'concluido' ):
+        <div class="botao_topo">
             <i id="botao_editar_demanda" data-ajuda="Editar demanda">@iconeEditar(15)</i>
         </div>
+        <div class="botao_topo">
+            <i id="botao_cancelar_demanda" data-ajuda="Cancelar demanda">@iconeBloquear(19)</i>
+        </div>
+        <div class="linha"></div>
         @ endif;
         <i class="fechar desktop botao_fechar_demanda">@iconeFechar</i>
     </header>
@@ -159,18 +163,32 @@
         @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Vez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda/' . $r->area . '#demanda-' . $r->id, notificar: [$r->dono->id])
     </div>
 
-    <div id="bloco_recusar_tarefa" class="display_none">
+    <div id="bloco_recusar_tarefa" class="bloco_adicionar_motivo display_none">
         <div class="conteudo">
             <header>
-                <h1>MOTIVO</h1>
+                <h1>Recusar tarefa</h1>
             </header>
             <div class="bloco_texto">
                 <input type="hidden" id="input_id_deslike" value="">
-                @? formTextarea(name: 'texto_deslike', placeholder: 'Digite o motivo', label: 'Motivo')
+                @? formTextarea(name: 'texto_deslike', placeholder: 'Digite o motivo da recusa', label: 'Motivo')
             </div>
             <div class="bloco_botao">
                 <button class="cancelar" id="botao_recusar_cancelar">CANCELAR</button>
                 <button class="salvar" id="botao_recusar_salvar">SALVAR</button>
+            </div>
+        </div>
+    </div>
+    <div id="bloco_cancelar_demanda" class="bloco_adicionar_motivo display_none">
+        <div class="conteudo">
+            <header>
+                <h1>Cancelar demanda</h1>
+            </header>
+            <div class="bloco_texto">
+                @? formTextarea(name: 'texto_cancelar', placeholder: 'Digite o motivo do cancelamento', label: 'Motivo')
+            </div>
+            <div class="bloco_botao">
+                <button class="cancelar" id="botao_cancelar_cancelar">CANCELAR</button>
+                <button class="salvar" id="botao_cancelar_salvar">SALVAR</button>
             </div>
         </div>
     </div>

@@ -8,6 +8,9 @@ class Pagina {
      * @param {object} callback Callback que será executado depois de carregar a pagina
      */
     constructor(titulo, link, request, fechar, historico, callback) {
+        if (titulo == undefined || titulo == '') {
+            return;
+        }
         const linkExplode = window.location.href.split('#');
 
         this._historico = historico !== undefined ? historico : true;

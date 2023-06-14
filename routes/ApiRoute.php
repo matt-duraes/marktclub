@@ -1107,6 +1107,11 @@ Route::nome('demandaDado')
                 '!com_prazo', '!status', '!ordem'
             ])
             ::put('/demanda-dado/{id}');
+        Route
+            ::nome('cancelar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
+            ::request(['motivo'])
+            ::post('/demanda-dado/cancelar/{id}');
     });
 
 Route::nome('demandaTarefa')
