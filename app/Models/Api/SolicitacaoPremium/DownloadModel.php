@@ -9,11 +9,13 @@ use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
 
 final class DownloadModel extends ORM
 {
     use SetarDataTrait;
     use WhereTrait;
+    use ValidarRequestTrait;
     use ValidarEmpresaDownloadTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
@@ -30,7 +32,8 @@ final class DownloadModel extends ORM
         parent::__construct();
         $this->validarEmpresa($request->usuario, 'empresa');
         $this->validarCamposAceito();
-        $this->setarPrimeiroUltimoDia();
+        $this->validarRequest();
+        $this->setarDadoDaData();
     }
 
     /*

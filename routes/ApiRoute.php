@@ -852,13 +852,13 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])
-            ::request(['pagina', '!data', '!empresa'], 'json')
+            ::request(['pagina', '!data_de', '!data_ate', '!empresa'], 'json')
             ::get('/solicitacao-premium');
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:download'])
             ::request([
-                'campo', 'usuario', '!data', '!empresa'
+                'campo', 'usuario', '!data_de', '!data_ate', '!empresa'
             ])
             ::post('/solicitacao-premium/download');
     });

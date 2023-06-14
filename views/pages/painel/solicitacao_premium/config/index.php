@@ -11,6 +11,7 @@ $Painel
     ->campo('validado', 'Utilizado', 'pequeno')
     ->campo('cancelado', 'Cancelados', 'pequeno')
     ->campo('total', 'Todos', 'pequeno')
-    ->status('status', 'Status', new Status());
+    ->status('status', 'Status', new Status())
+    ->ultimaLinha();
 
 return $Painel;

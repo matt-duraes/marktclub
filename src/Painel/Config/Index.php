@@ -14,6 +14,9 @@ final class Index
     private string $linkVisualizar;
     private bool $drag = false;
     private array $replace = [];
+    private bool $ultimaLinha = false;
+    private string $css = '';
+    private string $js = '';
 
     public function __construct(
         private string $app,
@@ -31,6 +34,25 @@ final class Index
         $appLink = str_replace('_', '-', $app);
         $this->linkEditar = LINK . '/app/editar/' . $appLink . '/{id}';
         $this->linkVisualizar = LINK . '/app/visualizar/' . $appLink . '/{id}';
+    }
+    /**
+     * Coloca um destaque na última linha
+     */
+    public function ultimaLinha()
+    {
+        $this->ultimaLinha = true;
+        return $this;
+    }
+
+    public function css(string $css)
+    {
+        $this->css = $css;
+        return $this;
+    }
+    public function js(string $js)
+    {
+        $this->js = $js;
+        return $this;
     }
 
     /**
@@ -212,6 +234,19 @@ final class Index
     public function pegarDrag()
     {
         return $this->drag;
+    }
+    public function pegarUltimaLinha()
+    {
+        return $this->ultimaLinha;
+    }
+
+    public function pegarCss()
+    {
+        return $this->css;
+    }
+    public function pegarJs()
+    {
+        return $this->js;
     }
 
     public function replace(string $campo, array $lista)

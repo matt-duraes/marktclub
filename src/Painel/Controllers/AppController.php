@@ -79,7 +79,9 @@ final class AppController extends PadraoController
                     'ordem' => $request->chave('ordem', ''),
                     'ordem_titulo' => $config->ordem->lista->$ordem->titulo ?? ''
                 ]
-            ]
+            ],
+            css: $config->index->css,
+            js: $config->index->js
         );
     }
 

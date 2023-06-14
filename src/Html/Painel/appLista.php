@@ -38,7 +38,7 @@
         </div>
     <?php endif; ?>
 
-    <div class="bloco_lista">
+    <div class="bloco_lista <?= $config->index->ultima_linha ? 'ultima_linha_destaque' : ''?>">
         <div class="lista titulo form_geral" id="bloco_app_titulo">
             <?php if ($config->permissao->drag) : ?>
                 <div class="drag"></div>
@@ -139,9 +139,14 @@
                                                 $cor = painelCor($grade['valor'][$statusValor]['cor']);
                                             }
                                             ?>
+                                        <?php if (empty($texto)) : ?>
+                                        <div class="td status">
+                                        </div>
+                                        <?php else : ?>
                                         <div class="td status" data-ajuda="<?= $texto ?>">
                                             <span style="background-color: <?= $cor ?>"></span>
                                         </div>
+                                        <?php endif; ?>
                                         <div class="barra"></div>
                                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno']) && isset($grade['copiar']) && $grade['copiar']) : ?>
                                         <div class="td <?= $grade['tipo'] ?> bloco_copiar">
