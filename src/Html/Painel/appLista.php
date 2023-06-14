@@ -54,7 +54,7 @@
                     <?php if (array_key_exists('formatar', $grade) && $grade['formatar'] == 'imagem' || array_key_exists('campo', $grade) && $grade['campo'] == 'usuario') : ?>
                         <div class="td imagem_usuario imagem"></div>
                     <?php elseif ($grade['tipo'] == 'status') : ?>
-                        <div class="td status"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
+                        <div class="td status" data-titulo="<?= echoView($grade['nome']) ?>"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
                         <div class="barra"></div>
                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
                         <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
@@ -81,7 +81,7 @@
                     <?php if (array_key_exists('formatar', $grade) && $grade['formatar'] == 'imagem' || array_key_exists('campo', $grade) && $grade['campo'] == 'usuario') : ?>
                         <div class="td imagem_usuario imagem"></div>
                     <?php elseif ($grade['tipo'] == 'status') : ?>
-                        <div class="td status"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
+                        <div class="td status" data-titulo="<?= echoView($grade['nome']) ?>"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
                         <div class="barra"></div>
                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
                         <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
@@ -140,10 +140,10 @@
                                             }
                                             ?>
                                         <?php if (empty($texto)) : ?>
-                                        <div class="td status">
+                                        <div class="td status"  data-titulo="">
                                         </div>
                                         <?php else : ?>
-                                        <div class="td status" data-ajuda="<?= $texto ?>">
+                                        <div class="td status" data-titulo="<?= echoView($texto) ?>" data-ajuda="<?= echoView($texto) ?>">
                                             <span style="background-color: <?= $cor ?>"></span>
                                         </div>
                                         <?php endif; ?>
@@ -247,7 +247,8 @@
     deletarPermissao: $config->permissao->deletar && $dado->registro->total > 0 && $dado->pagina->atual <= $dado->pagina->total,
     download: 'botao_download_geral',
     downloadPermissao: $config->permissao->download && $dado->registro->total > 0 && $dado->pagina->atual <= $dado->pagina->total,
-    downloadQuantidade: $dado->registro->total
+    downloadQuantidade: $dado->registro->total,
+    copiarPermissao: $config->index->copiar
 ) ?>
 
 </div>

@@ -12,6 +12,9 @@ $Painel
     ->campo('cancelado', 'Cancelados', 'pequeno')
     ->campo('total', 'Todos', 'pequeno')
     ->status('status', 'Status', new Status())
-    ->ultimaLinha();
+    ->ultimaLinha()
+    ->copiar()
+    ->css('painel_solicitacao_premium_index')
+    ->js('painel_solicitacao_premium_index');
 
 return $Painel;

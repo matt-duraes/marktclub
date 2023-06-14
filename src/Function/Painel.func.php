@@ -883,6 +883,9 @@ if (!function_exists('botaoControle')) {
         string $deletar = '',
         string $deletarTexto = 'DELETAR',
         bool $deletarPermissao = true,
+        string $copiar = '',
+        string $copiarTexto = 'COPIAR',
+        bool $copiarPermissao = false
     ) {
         $permissao = sessao('USUARIO.permissao');
         $app = str_replace('-', '_', $app);
@@ -937,6 +940,17 @@ if (!function_exists('botaoControle')) {
             ';
         }
 
+        $copiarHtml = '';
+        if ($copiarPermissao) {
+            $copiar = !empty($copiar) ? $copiar : 'botao_copiar_geral';
+            $copiarHtml = '
+                <div class="botao copiar" id="' . $copiar . '">
+                    <i>' . iconeCopiar(17) . '</i>
+                    <p>' . $copiarTexto . '</p>
+                </div>
+            ';
+        }
+
         $downloadHtml = '';
         if (
             !empty($download) &&
@@ -961,6 +975,7 @@ if (!function_exists('botaoControle')) {
         }
         return '
             <div id="bloco_botao_salvar">
+                ' . $copiarHtml . '
                 ' . $downloadHtml . '
                 ' . $deletarHtml . '
                 ' . $editarHtml . '

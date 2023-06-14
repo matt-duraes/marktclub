@@ -112,9 +112,10 @@ abstract class PadraoController extends Controller
                 'app' => $appUso,
                 'grade' => $Index->pegarGrade(),
                 'replace' => $padrao ? $Index->pegarReplace() : [],
-                'ultima_linha' => $Index->pegarUltimaLinha(),
+                'ultima_linha' => $padrao ? $Index->pegarUltimaLinha() : '',
                 'css' => $padrao ? $Index->pegarCss() : '',
                 'js' => $padrao ? $Index->pegarJs() : '',
+                'copiar' => $padrao ? $Index->pegarCopiar() : false,
             ],
             'filtrar' => (object) [
                 'nome' => $Filtrar ? $Filtrar->pegarNome() : [],
