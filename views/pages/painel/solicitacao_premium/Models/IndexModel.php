@@ -38,16 +38,18 @@ final class IndexModel implements PainelIndexBuscarInterface
                 $$ind += $val;
             }
         }
-        $dado[] = [
-            'parceiro' => 'Total',
-            'total' => $total,
-            'ativo' => $ativo,
-            'disponivel' => !empty($disponivel) ? $disponivel : '-',
-            'validado' => $validado,
-            'cancelado' => $cancelado,
-            'limite' => !empty($limite) ? $limite : '-',
-            'status' => '-',
-        ];
+        if ($dado) {
+            $dado[] = [
+                'parceiro' => 'Total',
+                'total' => $total,
+                'ativo' => $ativo,
+                'disponivel' => !empty($disponivel) ? $disponivel : '-',
+                'validado' => $validado,
+                'cancelado' => $cancelado,
+                'limite' => !empty($limite) ? $limite : '-',
+                'status' => '-',
+            ];
+        }
         return retornarPaginacao($dado);
     }
 
