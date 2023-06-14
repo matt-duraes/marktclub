@@ -3,6 +3,15 @@
 @resource "site/loja/parceiro"
 @resource "site/loja/relacionado"
 
+@system "Form"
+@template "site"
+@resource "site/loja/busca"
+@resource "site/variavel"
+@resource "site/saude/operadora"
+@resource "site/tabela"
+@resource "site/passo_passo"
+
+
 #bloco_cinema
     maxWidth()
     .desktop
@@ -11,98 +20,5 @@
 .aviso
     espacoVerticalPadrao()
 
-.bloco_titulo_texto
+.bloco_parceiro
     espacoTopPadrao()
-    h2
-        titulo()
-        &:nth-of-type(2)
-            espacoTopPadrao()
-    p
-        texto()
-    p > a
-        font-size: 1em
-        text-decoration: underline
-    .botao_ingresso
-        flexCenter()
-        espacoVerticalPadrao()
-
-.bloco_ingresso
-    flexCenter()
-    directionColumn()
-    width: 100%
-    padding: 15px
-    position: relative
-    top: 0
-    z-index: 1
-
-.bloco_ingresso .ingresso_container
-    position: relative
-    display: table
-    width: 450px
-    height: 228px
-    padding-bottom: 57px
-    background: #EEE
-    text-align: center
-    &:before
-        content:""
-        position: absolute
-        top: 54.5%
-        left: 0
-        border-top: 20px solid transparent
-        border-bottom: 20px solid transparent
-        border-left: 20px solid $branco
-    &:after
-        content:""
-        position: absolute
-        top: 54.5%
-        right: 0
-        border-top: 20px solid transparent
-        border-bottom: 20px solid transparent
-        border-right: 20px solid $branco
-    .link em
-        display: block
-        font-size: 29px
-        font-style: normal
-        color: #86db78
-        border-top: 2px dashed rgba(0,0,0,.1)
-        padding: 10px 0
-    .botao
-        position: absolute
-        bottom: 0
-        left: 0
-        width: 100%
-        height: 45px
-        line-height: 45px
-    .preco
-        width: 100%
-        flexCenter()
-        directionColumn()
-        margin-top: 20px
-        margin-bottom: 35px
-    .preco h2
-        width: 100%
-        font-size: 1.2em
-        line-height: 1.5em
-        color: #999
-    .preco p
-        width: 100%
-        texto()
-        color: #333
-        margin-bottom: 25px
-        text-indent: inherit
-        text-align: center
-    .preco .valor
-        display: flex
-        flex-direction: row
-        titulo()
-        color: #999
-    .preco .valor b
-        bold()
-        font-size: 2.2em
-        margin-top: -4px
-    .preco .valor span
-        font-size: .8em
-
-@media screen and (max-width: 540px)
-    .bloco_ingresso .ingresso_container
-        width: 300px

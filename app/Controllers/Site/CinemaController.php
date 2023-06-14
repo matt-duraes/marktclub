@@ -3,7 +3,7 @@
 namespace App\Controllers\Site;
 
 use App\Models\Site\BannerModel;
-use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Cinema\ListarModel;
 
 use Controller\Controller;
 

@@ -123,6 +123,10 @@ Route
         Route
             ::nome('melhorIdade')
             ::view('/convenios/melhor-idade');
+        Route
+            ::nome('favorito')
+            ::request(['uuid','acao'])
+            ::post('/convenios/favorito');
     });
 
 Route

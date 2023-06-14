@@ -12,6 +12,7 @@ use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Loja\DetalheModel;
 use App\Models\Site\Loja\RelacionadoModel;
+use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 
 final class LojaController extends Controller
@@ -144,6 +145,21 @@ final class LojaController extends Controller
         return new Response(status: 201);
     }
 
+
+
+    /**
+     * @param  Request  $request
+     *
+     * @return Response
+     */
+    public function postFavorito(Request $request): Response
+    {
+        $uuid = $request->uuid;
+        $acao = $request->acao;
+        $loja = (new RelacionadoModel())->favoritar($uuid, $acao);
+        return new Response(json: $loja);
+
+    }
     /**
      * @return Response
      */

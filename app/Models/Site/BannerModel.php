@@ -57,8 +57,8 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' =>'https://clube.marktclub.com.br/images/tela_cinema.jpg',
-                    'link' => 'https://clube.marktclub.com.br/images/tela_cinema.jpg'
+                    'imagem' =>'https://clube.marktclub.com.br/images/cinema_banner.jpg',
+                    'link' => 'https://afiliados.easylive.com.br/?aid=5'
                 ]
             ],
             'mobile' => [

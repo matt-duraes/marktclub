@@ -1,0 +1,42 @@
+
+<?php
+$favoritos = [];
+
+foreach ($lista->lista as $loja) {
+    if ($loja->favorito == 1) {
+        $favoritos [] = $loja;
+    }
+}
+?>
+@if($favoritos == null)
+    <div class="bloco_geral_sem_resultado bloco_favorito">
+        <i>@iconeFavorito(40)</i>
+        <p>Você ainda não tem lojas favoritas</p>
+    </div>
+@endif
+<div class="bloco_parceiro bloco_geral_article article_favoritos">
+@if (!is_null($favoritos))
+    @foreach($favoritos as $r):
+        <article class="parceiro parceiro_favorito" data-url="{{$r->id}}">
+            <a class="link_cupom_parceiro" href="{!!$r->link!!}"></a>
+            <figure class="logo"><img src="{!!$r->imagem!!}" alt=""></figure>
+
+            <header>
+                <h1>{{$r->titulo}}</h1>
+            </header>
+            <p>{{$r->desconto}}</p>
+            <div class="icone bloco_favorito" data-url="{{$r->id}}">
+                @if($r->favorito == '1')
+                    <i class="favorito favorito_marcado">@iconeFavorito</i>
+                @else
+                    <i class="favorito">@iconeFavorito</i>
+                @endif
+            </div>
+            <div class="linha cor_bg"></div>
+        </article>
+        @ endforeach:
+@endif
+</div>
+
+
+
