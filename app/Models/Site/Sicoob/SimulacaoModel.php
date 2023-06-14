@@ -38,7 +38,7 @@ final class SimulacaoModel
                 'tipo' => $this->tipo,
                 'valor' => $this->valor,
                 'parcelas' => $this->prazo,
-            ])->get('/solicitacao-credito')
+            ])->get('/solicitar-credito')
             ->object();
 
         return mensagemSucesso([

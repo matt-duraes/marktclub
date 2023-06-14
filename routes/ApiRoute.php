@@ -1218,7 +1218,7 @@ Route
             ::request([
                 'operadora', 'tipo', 'valor', 'parcelas'
             ])
-            ::get('/solicitacao-credito');
+            ::get('/solicitar-credito');
 
         Route
             ::nome('buscar')
@@ -1231,7 +1231,7 @@ Route
             ::request([
                 'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
-            ::get('/solicitacao-credito/listar');
+            ::get('/solicitacao-credito');
 
         Route
             ::nome('salvar')

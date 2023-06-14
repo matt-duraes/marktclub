@@ -27,6 +27,7 @@ class CreditoEntity extends Entity
             Tipo::VEICULO_SEMINOVO => 3.5
         ]
     ];
+    public int $usuario;
     public string $empresa;
     public string $codigo;
     public Operadora $operadora;
@@ -42,7 +43,7 @@ class CreditoEntity extends Entity
         'parcelas', 'valor_parcelas', 'observacao', 'status'
     ];
     protected array $ormSalvar = [
-        'codigo', 'operadora', 'tipo', 'valor', 'empresa',
+        'codigo', 'operadora', 'tipo', 'valor', 'empresa','usuario',
         'parcelas', 'valor_parcelas', 'observacao', 'status'
     ];
     private float $juros = 0;
@@ -77,6 +78,8 @@ class CreditoEntity extends Entity
     public function regraInsert(): void
     {
         $this->codigo = $this->gerarCodigoDaSolicitacao();
+        //TODO - remover usuário após criar token para setar o id do usuário
+        $this->usuario = 1;
 
         if ((new CreditoModel())->verificarExisteCodigo($this->codigo)) {
             $this->codigo = $this->gerarCodigoDaSolicitacao();
