@@ -26,7 +26,7 @@ final class EnqueteSatisfacaoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Enquete,
                 lista: [
-                    'id', 'data_criacao', 'data_atualizacao', 'status'
+                    'id', 'data_criacao', 'status'
                 ],
             ),
             status: $status
