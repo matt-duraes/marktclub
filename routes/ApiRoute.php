@@ -1233,3 +1233,17 @@ Route
             ])
             ::post('/solicitacao-credito');
     });
+
+Route
+    ::nome('enquete_satisfacao')
+    ::controller(App\Controllers\Api\EnqueteSatisfacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:salvar'])
+            ::request([
+                'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
+            ])
+            ::post('/enquete/satisfacao');
+    });
