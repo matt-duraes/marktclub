@@ -248,7 +248,7 @@
     download: 'botao_download_geral',
     downloadPermissao: $config->permissao->download && $dado->registro->total > 0 && $dado->pagina->atual <= $dado->pagina->total,
     downloadQuantidade: $dado->registro->total,
-    copiarPermissao: $config->index->copiar
+    copiarPermissao: $config->index->copiar && object_key_exists('lista', $dado) && !vazio($dado->lista)
 ) ?>
 
 </div>
