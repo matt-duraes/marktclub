@@ -4,6 +4,8 @@ return [
     [
         'uuid'           => uuid(),
         'codigo'         => uuid(),
+        'usuario'        => 1,
+        'empresa'        => 1,
         'operadora'      => 1,
         'tipo'           => 1,
         'valor'          => numeroAleatorio(1, 100000),
@@ -15,6 +17,8 @@ return [
     [
         'uuid'           => uuid(),
         'codigo'         => uuid(),
+        'usuario'        => 1,
+        'empresa'        => 1,
         'operadora'      => 1,
         'tipo'           => 3,
         'valor'          => numeroAleatorio(1, 100000),
@@ -26,6 +30,8 @@ return [
     [
         'uuid'           => uuid(),
         'codigo'         => uuid(),
+        'usuario'        => 1,
+        'empresa'        => 1,
         'operadora'      => 1,
         'tipo'           => 2,
         'valor'          => numeroAleatorio(1, 100000),

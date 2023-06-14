@@ -232,6 +232,25 @@ Route
             ::view('/sicoob-regulamento/{url}');
     });
 
+
+Route
+    ::nome('solicitacao_credito')
+    ::controller(App\Controllers\Site\SolicitacaoCreditoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('simulacao')
+            ::request([
+                'tipo', 'valor', 'prazo', 'operadora'
+            ])
+            ::get('/credito/simulacao');
+        Route
+            ::nome('salvar')
+            ::request([
+                'tipo', 'valor', 'prazo', 'operadora'
+            ])
+            ::post('/credito/salvar');
+    });
+
 Route
     ::nome('automovel')
     ::controller(App\Controllers\Site\AutomovelController::class)

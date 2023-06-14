@@ -1213,6 +1213,14 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('simular')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
+            ::request([
+                'operadora', 'tipo', 'valor', 'parcelas'
+            ])
+            ::get('/solicitar-credito');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:buscar'])
             ::get('/solicitacao-credito/{id}');

@@ -27,6 +27,8 @@ class CreditoEntity extends Entity
             Tipo::VEICULO_SEMINOVO => 3.5
         ]
     ];
+    public int $usuario;
+    public string $empresa;
     public string $codigo;
     public Operadora $operadora;
     public Tipo $tipo;
@@ -37,11 +39,11 @@ class CreditoEntity extends Entity
     public Status $status;
     protected string $ormTabela = TABELA_SOLICITACAO_CREDITO;
     protected array $ormBuscar = [
-        'codigo', 'operadora', 'tipo', 'valor',
+        'codigo', 'operadora', 'tipo', 'valor', 'empresa',
         'parcelas', 'valor_parcelas', 'observacao', 'status'
     ];
     protected array $ormSalvar = [
-        'codigo', 'operadora', 'tipo', 'valor',
+        'codigo', 'operadora', 'tipo', 'valor', 'empresa','usuario',
         'parcelas', 'valor_parcelas', 'observacao', 'status'
     ];
     private float $juros = 0;
@@ -50,7 +52,24 @@ class CreditoEntity extends Entity
         private readonly ?Request $request = null
     ) {
         parent::__construct();
+        $this->empresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
     }
+    /*
+    |--------------------------------------------------------------------------
+    | REGRAS PARA SIMULAR
+    |--------------------------------------------------------------------------
+    */
+    public function simularCredito()
+    {
+        $this->validarRequest();
+        $this->retornarValorParcelas();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | REGRAS PARA SALVAR
+    |--------------------------------------------------------------------------
+    */
 
     /**
      * @return void
@@ -58,13 +77,22 @@ class CreditoEntity extends Entity
      */
     public function regraInsert(): void
     {
-        $ValidarHelper = new ValidarHelper();
-
         $this->codigo = $this->gerarCodigoDaSolicitacao();
+        //TODO - remover usuário após criar token para setar o id do usuário
+        $this->usuario = 1;
 
         if ((new CreditoModel())->verificarExisteCodigo($this->codigo)) {
             $this->codigo = $this->gerarCodigoDaSolicitacao();
         }
+        $this->validarRequest();
+        $this->retornarValorParcelas();
+
+    }
+
+
+    private function validarRequest(): void
+    {
+        $validarHelper = new ValidarHelper();
 
         $this->operadora = new Operadora($this->request->operadora ?? '');
         $this->tipo = new Tipo($this->request->tipo ?? '');
@@ -73,7 +101,7 @@ class CreditoEntity extends Entity
         $this->observacao = $this->request->observacao ?? '';
         $this->status = new Status(Status::CRIADA);
 
-        $ValidarHelper
+        $validarHelper
             ->valor($this->operadora, 'Operadora', 'A Operadora deve ser uma escolha válida.')
             ->obrigatorio()
             ->valido()
@@ -86,14 +114,17 @@ class CreditoEntity extends Entity
 
         $prazoMaximo = self::TIPO_PRAZO_MAXIMO[$this->tipo->indice()] ?? 96;
 
-        $ValidarHelper
+        $validarHelper
             ->valor($this->parcelas, 'Prazo', "O prazo deve ser de 1 à $prazoMaximo.")
             ->obrigatorio()
             ->inteiro()
             ->positivo()
             ->tamanho('>=', 1, 'numero')
             ->tamanho('<=', $prazoMaximo, 'numero');
+    }
 
+    private function retornarValorParcelas(): void
+    {
         $valorParcelas = match ($this->tipo->indice()) {
             Tipo::CONSIGNADO => $this->jurosConsignado()->calcularParcelas(),
             Tipo::CREDITO_PESSOAL => $this->jurosCreditoPessoal()->calcularParcelas(),
@@ -149,7 +180,6 @@ class CreditoEntity extends Entity
 
     private function jurosCreditoPessoal(): self
     {
-        $this->juros = self::OPERADORA_TIPO_JUROS[$this->operadora->indice()][Tipo::CREDITO_PESSOAL];
         if ($this->operadora->indice() === Operadora::SICOOB) {
             $this->juros = self::OPERADORA_TIPO_JUROS[Operadora::SICOOB][Tipo::CREDITO_PESSOAL][0];
             if ($this->parcelas >= 1 && $this->parcelas <= 12) {

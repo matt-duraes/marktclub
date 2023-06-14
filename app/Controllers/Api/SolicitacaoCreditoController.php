@@ -23,6 +23,19 @@ class SolicitacaoCreditoController extends Controller implements
      * @return Response
      * @throws Excecao
      */
+    public function getSimular(Request $request): Response
+    {
+        $CreditoEntity = new CreditoEntity($request);
+        $CreditoEntity->simularCredito();
+        return $this->retornoSucesso($CreditoEntity, 201);
+    }
+
+    /**
+     * @param  string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
         $CreditoEntity = new CreditoEntity();

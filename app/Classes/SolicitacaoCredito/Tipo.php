@@ -9,7 +9,7 @@ class Tipo extends Status
     public const CONSIGNADO = 'consignado';
     public const CREDITO_PESSOAL = 'credito_pessoal';
     public const VEICULO_NOVO = 'veiculo_novo';
-    public const VEICULO_SEMINOVO = 'veiculo_sminovo';
+    public const VEICULO_SEMINOVO = 'veiculo_seminovo';
     public const PORTABILIDADE = 'portabilidade';
 
     public function __construct(
