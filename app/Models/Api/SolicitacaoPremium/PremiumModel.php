@@ -4,15 +4,16 @@ namespace App\Models\Api\SolicitacaoPremium;
 
 use ORM\ORM;
 use Http\Request;
-use Modules\Data;
 use App\Classes\SolicitacaoPremium\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
 
 final class PremiumModel extends ORM
 {
     use SetarDataTrait;
+    use ValidarRequestTrait;
     use ValidarEmpresaTrait;
     use WhereTrait;
 
@@ -21,6 +22,9 @@ final class PremiumModel extends ORM
     private int $idEmpresa;
     private string $de;
     private string $ate;
+    private bool $mesAtualInteiro = false;
+    private bool $mesAtual = false;
+
     public function __construct(
         private Request $request
     ) {
@@ -29,7 +33,7 @@ final class PremiumModel extends ORM
 
         $this->validarEmpresa('empresa');
         $this->validarRequest();
-        $this->setarPrimeiroUltimoDia();
+        $this->setarDadoDaData();
     }
 
     public function listarDados(): array
@@ -50,15 +54,19 @@ final class PremiumModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             if (!array_key_exists($r->id, $retorno)) {
+                $limite = empty($r->limite_voucher) ? 'Sem limite' : $r->limite_voucher;
+                if (!$this->mesAtual) {
+                    $limite = '-';
+                }
                 $retorno[$r->id] = [
                     'parceiro' => $r->titulo,
                     'total' => 0,
                     'ativo' => 0,
-                    'disponivel' => 0,
+                    'disponivel' => '-',
                     'validado' => 0,
                     'cancelado' => 0,
-                    'limite' => empty($r->limite_voucher) ? 'Sem limite' : $r->limite_voucher,
-                    'status' => ''
+                    'limite' => $limite,
+                    'status' => Status::SEM_STATUS
                 ];
             }
             $retorno[$r->id]['total']++;
@@ -78,9 +86,16 @@ final class PremiumModel extends ORM
         $esgotado = [];
         $gerado = [];
         $estourado = [];
+        $semStatus = [];
         foreach ($dado as $r) {
+            if (!$this->mesAtualInteiro) {
+                $semStatus[] = $r;
+                continue;
+            }
+
             $totalValido = $r['ativo'] + $r['validado'];
             $r['disponivel'] = is_numeric($r['limite']) ? $r['limite'] - $r['validado'] - $r['ativo'] : '-';
+
             if (!is_numeric($r['limite']) || $totalValido < $r['limite']) {
                 $r['status'] = Status::LIVRE;
                 $livre[] = $r;
@@ -95,13 +110,6 @@ final class PremiumModel extends ORM
                 $gerado[] = $r;
             }
         }
-        return array_merge($estourado, $livre, $gerado, $esgotado);
-    }
-    private function validarRequest()
-    {
-        $data = new Data($this->request->data);
-        if (!$data->vazio() && !$data->valido()) {
-            mensagemErro('Campo inválido!', 'A data informada não é válida.');
-        }
+        return array_merge($semStatus, $estourado, $livre, $gerado, $esgotado);
     }
 }

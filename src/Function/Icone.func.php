@@ -1078,9 +1078,9 @@ if (!function_exists('iconeCopiar')) {
      * @param   int     $tamanho    Altura do atributo height do svg
      * @return  string              SVG do icone
      */
-    function iconeCopiar(int $tamanho = 20): string
+    function iconeCopiar(int $tamanho = 15): string
     {
-        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" data-name="Layer 4" viewBox="0 0 64 64" x="0px" y="0px"><path d="M33.553,51.6a5.507,5.507,0,0,0,5.5-5.5v-2.51h5.479a5.506,5.506,0,0,0,5.5-5.5V24.132a5.506,5.506,0,0,0-5.5-5.5H30.572a5.506,5.506,0,0,0-5.5,5.5v2.509h-5.48a5.507,5.507,0,0,0-5.5,5.5V46.1a5.507,5.507,0,0,0,5.5,5.5ZM28.072,24.132a2.5,2.5,0,0,1,2.5-2.5h13.96a2.5,2.5,0,0,1,2.5,2.5V38.091a2.5,2.5,0,0,1-2.5,2.5H39.053v-8.45a5.507,5.507,0,0,0-5.5-5.5H28.072ZM17.092,46.1V32.141a2.5,2.5,0,0,1,2.5-2.5H33.553a2.5,2.5,0,0,1,2.5,2.5V46.1a2.5,2.5,0,0,1-2.5,2.5H19.592A2.5,2.5,0,0,1,17.092,46.1Z"/></svg>';
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 27" style="enable-background:new 0 0 30 27;" xml:space="preserve"><path d="M16.2,27c2.5,0,4.6-2,4.6-4.5v-2.1h4.6c2.5,0,4.6-2,4.6-4.5V4.5C30,2,27.9,0,25.4,0H13.8c-2.5,0-4.6,2-4.6,4.5v2.1H4.6c-2.5,0-4.6,2-4.6,4.5v11.4C0,25,2.1,27,4.6,27H16.2z M11.7,4.5c0-1.1,0.9-2,2.1-2h11.7c1.2,0,2.1,0.9,2.1,2v11.4c0,1.1-0.9,2-2.1,2h-4.6v-6.9c0-2.5-2.1-4.5-4.6-4.5h-4.6V4.5z M2.5,22.5V11.1c0-1.1,0.9-2,2.1-2h11.7c1.2,0,2.1,0.9,2.1,2v11.4c0,1.1-0.9,2-2.1,2H4.6C3.4,24.5,2.5,23.6,2.5,22.5z"/></svg>';
     }
 }
 if (!function_exists('iconeCalendario')) {

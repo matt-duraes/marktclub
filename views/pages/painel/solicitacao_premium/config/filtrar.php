@@ -1,6 +1,5 @@
 <?php
 
-use Helpers\ListaHelper;
 use App\Classes\SolicitacaoPremium\Helper;
 
 $Painel = new PainelConfig\Filtrar('solicitacao_premium');
@@ -12,11 +11,10 @@ $Painel
         lista: 'empresa',
         permissao: Helper::PERMISSAO_EMPRESA
     )
-    ->select(
-        name: 'data',
-        titulo: 'Data',
-        label: 'Data',
-        lista: (new ListaHelper())->add('', 'Escolha uma data')->add(lista: dataListarMesAno(hoje(), '2022-12-01'))->r(),
-    );
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->data(name: 'data_de', titulo: 'Data inicial', label: 'Data inicial', placeholder: 'Data inicial')
+            ->data(name: 'data_ate', titulo: 'Data final', label: 'Data final', placeholder: 'Data final');
+    });
 
 return $Painel;
