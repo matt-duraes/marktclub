@@ -14,7 +14,7 @@ final class CriacaoModel
     use TarefaTrait;
 
     private stdClass $Demanda;
-    private array $listaNotificacao = ['3df1a38ec0919bd14162beabb73e12b4'];
+    private array $listaNotificacao = ['3df1a38ec0919bd14162beabb73e12b4', 'b9f14339-ae96-4524-8697-737133b3360e'];
     private string $empresa;
 
     public function __construct(
@@ -23,7 +23,6 @@ final class CriacaoModel
         $this->empresa = $request->empresa;
         $this->criarDemanda($request->titulo, Tipo::CRIACAO, Area::CRIACAO);
         $this->verificarSeSalvouDemanda();
-        $this->criarHistorico();
         $this->criarDemandaSite();
         $this->criarDemandaRedeSocial();
         $this->criarDemandaImpresso();
@@ -31,18 +30,6 @@ final class CriacaoModel
         $this->criarDemandaVideo();
         $this->criarDemandaOutro();
         $this->notificarUsuario();
-    }
-
-    private function criarHistorico()
-    {
-        (new ApiHelper(token: true))
-            ->body([
-                'app' => ["demanda_dado"],
-                'relacionado' => [$this->id()],
-                'acao' => 'mensagem',
-                'mensagem' => $this->request->criacao_texto,
-            ])
-            ->post('/painel-historico');
     }
 
     private function criarDemandaSite()
@@ -56,6 +43,8 @@ final class CriacaoModel
                 <p>Criar peça para site no tamanho <strong>'
                     . $this->request->site_largura . '</strong>x<strong>'
                     . $this->request->site_altura . '</strong></p>
+                <hr>
+                ' . $this->request->getPost('site_texto', html: false) . '
             '
         );
     }
@@ -64,37 +53,42 @@ final class CriacaoModel
         if ($this->request->criacao_social != 'sim') {
             return;
         }
-
+        $texto = '';
         if ($this->request->digital_stories == 'sim') {
-            $this->criarTarefaPadrao('Criar peça para stories');
+            $texto .= '<li>Criar peça para stories</li>';
         }
+        $feed = '';
         if ($this->request->feed_whatsapp == 'sim') {
-            $this->criarTarefaPadrao('Criar peça para o feed do WhatsApp');
+            $feed .= '<li>Criar peça para o feed do WhatsApp</li>';
         }
         if ($this->request->feed_instagram == 'sim') {
-            $this->criarTarefaPadrao('Criar peça para o feed do Instagram');
+            $feed .= '<li>Criar peça para o feed do Instagram</li>';
         }
         if ($this->request->feed_facebook == 'sim') {
-            $this->criarTarefaPadrao('Criar peça para o feed do Facebook');
+            $feed .= '<li>Criar peça para o feed do Facebook</li>';
         }
         if ($this->request->feed_linkedin == 'sim') {
-            $this->criarTarefaPadrao('Criar peça para o feed do LinkedIn');
+            $feed .= '<li>Criar peça para o feed do LinkedIn</li>';
         }
         if ($this->request->feed_twitter == 'sim') {
-            $this->criarTarefaPadrao('Criar peça para o feed do Twitter');
+            $feed .= '<li>Criar peça para o feed do Twitter</li>';
         }
         if ($this->request->feed_youtube == 'sim') {
-            $this->criarTarefaPadrao('Criar peça para o feed do YouTube');
+            $feed .= '<li>Criar peça para o feed do YouTube</li>';
         }
         if ($this->request->feed_tiktop == 'sim') {
-            $this->criarTarefaPadrao(
-                'Criar peça para o feed do TikTop',
-                '<p>Criar peça para o feed do TikTopER ಠ_ಠ</p>'
-            );
+            $feed .= '<li>Criar peça para o feed do TikTop</li>';
+        }
+        if (!empty($feed)) {
+            $texto .= '<li>Criar peça para os Feeds:<ul>' . $feed . '</ul></li>';
         }
         if ($this->request->digital_banner == 'sim') {
-            $this->criarTarefaPadrao('Criar um banner para as redes sociais');
+            $texto .= '<li>Criar um banner para as redes sociais</li>';
         }
+        $this->criarTarefaPadrao(
+            'Criar peças para rede social',
+            '<ol>' . $texto . '</ol><hr>' . $this->request->getPost('digital_texto', html: false)
+        );
     }
     private function criarDemandaImpresso()
     {
@@ -102,24 +96,26 @@ final class CriacaoModel
             return;
         }
 
+        $texto = '';
         if ($this->request->impresso_voucher == 'sim') {
-            $this->criarTarefaPadrao('Criar peça impressa para um voucher');
+            $texto .= '<li>Criar peça impressa para um voucher</li>';
         }
         if ($this->request->impresso_folder == 'sim') {
-            $this->criarTarefaPadrao('Criar peça impressa para um folder');
+            $texto .= '<li>Criar peça impressa para um folder</li>';
         }
         if ($this->request->impresso_banner == 'sim') {
-            $this->criarTarefaPadrao('Criar peça impresa para um banner');
+            $texto .= '<li>Criar peça impresa para um banner</li>';
         }
         if ($this->request->impresso_revista == 'sim') {
-            $this->criarTarefaPadrao('Criar peça impresa para uma revista');
+            $texto .= '<li>Criar peça impresa para uma revista</li>';
         }
         if ($this->request->impresso_outro == 'sim') {
-            $this->criarTarefaPadrao(
-                'Criar peça impressa em outro',
-                strConverterTextareaEmParagrafo($this->request->impresso_outro_texto)
-            );
+            $texto .= '<li>Criar peça impressa em outro</li>';
         }
+        $this->criarTarefaPadrao(
+            'Criar peças para impressão',
+            '<ol>' . $texto . '</ol><hr>' . $this->request->getPost('impresso_texto', html: false)
+        );
     }
     private function criarDemandaKit()
     {
@@ -127,27 +123,32 @@ final class CriacaoModel
             return;
         }
 
+        $texto = '';
         if ($this->request->kit_email == 'sim') {
-            $this->criarTarefaPadrao('Criar e-mail do Kit de boas-vindas');
+            $texto .= '<li>Criar e-mail do Kit de boas-vindas</li>';
         }
         if ($this->request->kit_stories == 'sim') {
-            $this->criarTarefaPadrao('Criar stories do Kit de boas-vindas');
+            $texto .= '<li>Criar stories do Kit de boas-vindas</li>';
         }
         if ($this->request->kit_video == 'sim') {
-            $this->criarTarefaPadrao('Criar vídeo do Kit de boas-vindas');
+            $texto .= '<li>Criar vídeo do Kit de boas-vindas</li>';
         }
         if ($this->request->kit_feed == 'sim') {
-            $this->criarTarefaPadrao('Criar peças para feed do Kit de boas-vindas');
+            $texto .= '<li>Criar peças para feed do Kit de boas-vindas</li>';
         }
         if ($this->request->kit_como_acessar == 'sim') {
-            $this->criarTarefaPadrao('Criar ajuda de como acessar do Kit de boas-vindas');
+            $texto .= '<li>Criar ajuda de como acessar do Kit de boas-vindas</li>';
         }
         if ($this->request->kit_baixar_app == 'sim') {
-            $this->criarTarefaPadrao('Criar ajuda de como baixar os APPs do Kit de boas-vindas');
+            $texto .= '<li>Criar ajuda de como baixar os APPs do Kit de boas-vindas</li>';
         }
         if ($this->request->kit_previa == 'sim') {
-            $this->criarTarefaPadrao('Criar prévia do Kit de boas-vindas');
+            $texto .= '<li>Criar prévia do Kit de boas-vindas</li>';
         }
+        $this->criarTarefaPadrao(
+            'Criar peças do kit de bem-vindos',
+            '<ol>' . $texto . '</ol><hr>' . $this->request->getPost('kit_texto', html: false)
+        );
     }
     private function criarDemandaVideo()
     {
@@ -165,10 +166,12 @@ final class CriacaoModel
                 . $this->request->video_altura . '</strong>';
         }
         $this->criarTarefaPadrao(
-            titulo: 'Criar vídeo',
+            titulo: 'Criar peça para vídeo',
             texto: '
                 <p>Criar vídeo com o seguinte formato:</p>
                 <p>' . $formato . '</p>
+                <hr>
+                ' . $this->request->getPost('video_texto', html: false) . '
             '
         );
     }
@@ -180,7 +183,7 @@ final class CriacaoModel
 
         $this->criarTarefaPadrao(
             titulo: 'Criar outro tipo de criação',
-            texto: strConverterTextareaEmParagrafo($this->request->outro_texto)
+            texto: $this->request->getPost('outro_texto', html: false)
         );
     }
 

@@ -40,7 +40,8 @@ Route
                 '!feed_youtube', '!feed_tiktop', '!impresso_voucher', '!impresso_folder', '!impresso_banner',
                 '!impresso_revista', '!impresso_outro', '!impresso_outro_texto', '!kit_email',
                 '!kit_stories', '!kit_video', '!kit_feed', '!kit_como_acessar', '!kit_baixar_app',
-                '!kit_previa', '!video_formato', '!video_largura', '!video_altura', '!outro_texto', '!criacao_texto'
+                '!kit_previa', '!video_formato', '!video_largura', '!video_altura', '!outro_texto', '!site_texto',
+                '!digital_texto', '!impresso_texto', 'kit_texto', '!video_texto'
             ])
             ::post('/demanda/demanda-salvar');
         Route

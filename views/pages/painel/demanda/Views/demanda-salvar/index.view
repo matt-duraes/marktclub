@@ -23,7 +23,7 @@
         </div>
 
         <div class="geral display_none" id="bloco_geral_header">
-            <h3>Dados principais</h3>
+            <h3>Título da demanda</h3>
             @? formInput(name: 'titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
         </div>
 
