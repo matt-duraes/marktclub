@@ -587,6 +587,7 @@ if (!function_exists('formSelect')) {
                     $classeInterna = $val[1] ?? '';
                     $val = $val[0];
                 }
+                $ind = is_int($ind) ? $val : $ind;
                 $option[] = '<li class="' . $classeInterna . ' " data-value="' . $ind . '">' . $val . '</li>';
             }
         }

@@ -32,14 +32,12 @@ const demandaSalvar = () => {
     const inputEndereco = document.getElementById('input_endereco');
     // Criacao
     const inputEmpresaCriacao = document.getElementById('input_empresa_criacao');
-
     const inputCriacaoCategoriaSite = document.getElementById('input_criacao_categoria_site');
     const inputCriacaoCategoriaSocial = document.getElementById('input_criacao_categoria_social');
     const inputCriacaoCategoriaImpresso = document.getElementById('input_criacao_categoria_impresso');
     const inputCriacaoCategoriaKit = document.getElementById('input_criacao_categoria_kit');
     const inputCriacaoCategoriaVideo = document.getElementById('input_criacao_categoria_video');
     const inputCriacaoCategoriaOutro = document.getElementById('input_criacao_categoria_outro');
-    const inputOutroTexto = document.getElementById('input_outro_texto');
     const inputSiteLargura = document.getElementById('input_site_largura');
     const inputSiteAltura = document.getElementById('input_site_altura');
     const inputDigitalStories = document.getElementById('input_digital_stories');
@@ -57,7 +55,6 @@ const demandaSalvar = () => {
     const inputImpressoBanner = document.getElementById('input_impresso_banner');
     const inputImpressoRevista = document.getElementById('input_impresso_revista');
     const inputImpressoOutro = document.getElementById('input_impresso_outro');
-    const inputImpressoOutroTexto = document.getElementById('input_impresso_outro_texto');
     const inputKitEmail = document.getElementById('input_kit_email');
     const inputKitStories = document.getElementById('input_kit_stories');
     const inputKitVideo = document.getElementById('input_kit_video');
@@ -68,14 +65,34 @@ const demandaSalvar = () => {
     const inputVideoFormato = document.getElementById('input_video_formato');
     const inputVideoLargura = document.getElementById('input_video_largura');
     const inputVideoAltura = document.getElementById('input_video_altura');
-    const inputCriacaoTexto = document.getElementById('input_criacao_texto');
+    const inputSiteTexto = document.getElementById('input_site_texto');
+    const inputRedeSocialTexto = document.getElementById('input_rede_social_texto');
+    const inputImpressoTexto = document.getElementById('input_impresso_texto');
+    const inputKitTexto = document.getElementById('input_kit_texto');
+    const inputVideoTexto = document.getElementById('input_video_texto');
+    const inputOutroTexto = document.getElementById('input_outro_texto');
+    // Sorteio
+    const inputEmpresaSorteio = document.getElementById('input_empresa_sorteio');
+    const inputSorteioDataInicio = document.getElementById('input_data_inicio');
+    const inputSorteioDataFinal = document.getElementById('input_data_final');
+    const inputSorteioDataSorteio = document.getElementById('input_data_sorteio');
+    const inputSorteioComoParticipar = document.getElementById('input_como_participar');
+    const inputSorteioMotivacao = document.getElementById('input_sorteio_motivacao');
+    const inputSorteioMotivacaoOutro = document.getElementById('input_sorteio_motivacao_outro');
+    const inputSorteioPremioItem = document.getElementById('input_premio_item');
+    const inputSorteioPremioCompra = document.getElementById('input_premio_compra');
+    const inputSorteioPremioEntrega = document.getElementById('input_premio_entrega');
+    const inputSorteioPremioEntregaOutro = document.getElementById('input_premio_entrega_outro');
+    const inputSorteioTexto = document.getElementById('input_sorteio_texto');
 
     const botaoSalvar = document.getElementById('botao_salvar_demanda');
 
-    const blocoEscolherTipo = document.getElementById('bloco_tipo_demanda');
-    const botaoTipo = blocoEscolherTipo.querySelectorAll('.botao');
+    const blocoEscolherTecnologia = document.getElementById('bloco_tipo_demanda_tecnologia');
+    const blocoEscolherCriacao = document.getElementById('bloco_tipo_demanda_criacao');
+    const botaoTipo = document.querySelectorAll('#bloco_demanda_nova .botao_lista .botao');
 
-    const blocoCriacao = document.getElementById('bloco_criacao');
+    const blocoTipoSorteio = document.getElementById('bloco_sorteio');
+    const blocoTipoCriacao = document.getElementById('bloco_criacao');
     const blocoTipoAssociacao = document.getElementById('bloco_tipo_associacao');
     const blocoTipoCliente = document.getElementById('bloco_tipo_cliente');
     const blocoTipoBug = document.getElementById('bloco_tipo_bug');
@@ -93,12 +110,13 @@ const demandaSalvar = () => {
     const blocoCriacaoVideo = document.getElementById('bloco_criacao_video');
     const blocoCriacaoVideoDimensao = document.getElementById('bloco_criacao_video_dimensao');
 
+    const blocoSorteioMotivacaoOutro = document.getElementById('bloco_sorteio_motivacao_outro');
+    const blocoSorteioEntregaOutro = document.getElementById('bloco_premio_entrega_outro');
+
     if (area == 'tecnologia') {
-        blocoEscolherTipo.classList.remove('display_none');
+        blocoEscolherTecnologia.classList.remove('display_none');
     } else if (area == 'criacao') {
-        blocoCriacao.classList.remove('display_none');
-        botaoSalvar.classList.remove('display_none');
-        blocoHeader.classList.remove('display_none');
+        blocoEscolherCriacao.classList.remove('display_none');
     }
 
     /*
@@ -116,9 +134,10 @@ const demandaSalvar = () => {
     const mudarTipoDemanda = tipo => {
         inputTipo.value = tipo;
 
-        blocoFooter.classList.remove('display_none');
+        blocoEscolherTecnologia.classList.add('display_none');
+        blocoEscolherCriacao.classList.add('display_none');
         botaoSalvar.classList.remove('display_none');
-        blocoEscolherTipo.classList.add('display_none');
+        blocoFooter.classList.remove('display_none');
 
         if (tipo == 'associacao') {
             blocoTipoAssociacao.classList.remove('display_none');
@@ -130,6 +149,15 @@ const demandaSalvar = () => {
         } else if (tipo == 'outro' || tipo == 'feature') {
             blocoHeader.classList.remove('display_none');
             blocoTipoOutro.classList.remove('display_none');
+        } else if (tipo == 'criacao') {
+            blocoTipoCriacao.classList.remove('display_none');
+            botaoSalvar.classList.add('display_none');
+            blocoFooter.classList.add('display_none');
+            blocoHeader.classList.remove('display_none');
+        } else if (tipo == 'sorteio') {
+            blocoTipoSorteio.classList.remove('display_none');
+            blocoFooter.classList.add('display_none');
+            blocoHeader.classList.remove('display_none');
         }
     };
 
@@ -139,11 +167,37 @@ const demandaSalvar = () => {
     |--------------------------------------------------------------------------
     */
     formSelectChange = acao => {
-        if (acao == 'mudarTipoDominio') {
+        if (acao == 'mudar_tipo_dominio') {
             mudarTipoDominio();
         } else if (acao == 'criacao_video_formato') {
             monitorarFormatoVideo();
+        } else if (acao == 'motivacao_outro') {
+            motivacaoOutro();
+        } else if (acao == 'entrega_outro') {
+            entregaOutro();
         }
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | SORTEIO
+    |--------------------------------------------------------------------------
+    */
+    const motivacaoOutro = () => {
+        if (inputSorteioMotivacao.value == 'outro') {
+            blocoSorteioMotivacaoOutro.classList.remove('display_none');
+            inputSorteioMotivacaoOutro.focus();
+            return;
+        }
+        blocoSorteioMotivacaoOutro.classList.add('display_none');
+    };
+    const entregaOutro = () => {
+        if (inputSorteioPremioEntrega.value == 'outro') {
+            blocoSorteioEntregaOutro.classList.remove('display_none');
+            inputSorteioPremioEntregaOutro.focus();
+            return;
+        }
+        blocoSorteioEntregaOutro.classList.add('display_none');
     };
 
     /*
@@ -160,6 +214,7 @@ const demandaSalvar = () => {
     });
 
     inputCriacaoCategoriaSite.addEventListener('change', () => {
+        adicionarBotaoSalvarCriacao();
         inputSiteLargura.value = '';
         inputSiteAltura.value = '';
         if (inputCriacaoCategoriaSite.checked) {
@@ -169,6 +224,7 @@ const demandaSalvar = () => {
         blocoCriacaoSite.classList.add('display_none');
     });
     inputCriacaoCategoriaSocial.addEventListener('change', () => {
+        adicionarBotaoSalvarCriacao();
         inputDigitalStories.checked = false;
         inputDigitalFeed.checked = false;
         inputDigitalBanner.checked = false;
@@ -187,12 +243,13 @@ const demandaSalvar = () => {
         blocoCriacaoFeed.classList.add('display_none');
     });
     inputCriacaoCategoriaImpresso.addEventListener('change', () => {
+        adicionarBotaoSalvarCriacao();
         inputImpressoVoucher.checked = false;
         inputImpressoFolder.checked = false;
         inputImpressoBanner.checked = false;
         inputImpressoRevista.checked = false;
         inputImpressoOutro.checked = false;
-        formValue(inputImpressoOutroTexto, '');
+        formValue(inputImpressoTexto, '');
         if (inputCriacaoCategoriaImpresso.checked) {
             blocoCriacaoImpresso.classList.remove('display_none');
             return;
@@ -200,15 +257,9 @@ const demandaSalvar = () => {
         blocoCriacaoImpresso.classList.add('display_none');
         blocoCriacaoImpressoOutro.classList.add('display_none');
     });
-    inputImpressoOutro.addEventListener('change', () => {
-        formValue(inputImpressoOutroTexto, '');
-        if (inputImpressoOutro.checked) {
-            blocoCriacaoImpressoOutro.classList.remove('display_none');
-            return;
-        }
-        blocoCriacaoImpressoOutro.classList.add('display_none');
-    });
+
     inputCriacaoCategoriaKit.addEventListener('change', () => {
+        adicionarBotaoSalvarCriacao();
         inputKitEmail.checked = false;
         inputKitStories.checked = false;
         inputKitVideo.checked = false;
@@ -223,6 +274,7 @@ const demandaSalvar = () => {
         blocoCriacaoKit.classList.add('display_none');
     });
     inputCriacaoCategoriaVideo.addEventListener('change', () => {
+        adicionarBotaoSalvarCriacao();
         formValue(inputVideoFormato, '');
         inputVideoLargura.value = '';
         inputVideoAltura.value = '';
@@ -234,6 +286,7 @@ const demandaSalvar = () => {
         blocoCriacaoVideoDimensao.classList.add('display_none');
     });
     inputCriacaoCategoriaOutro.addEventListener('change', () => {
+        adicionarBotaoSalvarCriacao();
         inputOutroTexto.value = '';
         if (inputCriacaoCategoriaOutro.checked) {
             blocoCriacaoOutro.classList.remove('display_none');
@@ -241,6 +294,21 @@ const demandaSalvar = () => {
         }
         blocoCriacaoOutro.classList.add('display_none');
     });
+
+    const adicionarBotaoSalvarCriacao = () => {
+        if (
+            inputCriacaoCategoriaSite.checked ||
+            inputCriacaoCategoriaSocial.checked ||
+            inputCriacaoCategoriaImpresso.checked ||
+            inputCriacaoCategoriaKit.checked ||
+            inputCriacaoCategoriaVideo.checked ||
+            inputCriacaoCategoriaOutro.checked
+        ) {
+            botaoSalvar.classList.remove('display_none');
+            return;
+        }
+        botaoSalvar.classList.add('display_none');
+    };
 
     const monitorarFormatoVideo = () => {
         const tipo = inputVideoFormato.value;
@@ -395,9 +463,12 @@ const demandaSalvar = () => {
         } else if (tipo == 'outro' || tipo == 'feature') {
             valido = await validarDadoOutro();
             body = await montarDadoOutro();
-        } else if (area == 'criacao') {
+        } else if (tipo == 'criacao') {
             valido = await validarDadoCriacao();
             body = await montarDadoCriacao();
+        } else if (tipo == 'sorteio') {
+            valido = await validarDadoSorteio();
+            body = await montarDadoSorteio();
         }
 
         if (!valido) {
@@ -616,6 +687,70 @@ const demandaSalvar = () => {
 
     /*
     |--------------------------------------------------------------------------
+    | ABRIR TAREFA SORTEIO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoSorteio = () => {
+        return new Promise(resolve => {
+            let mensagem = '';
+            if (inputTitulo.value == '') {
+                mensagem = 'Digite um título para a demanda.';
+            } else if (inputEmpresaSorteio.value == '') {
+                mensagem = 'Escolha uma empresa para continuar.';
+            } else if (inputSorteioDataInicio.value == '') {
+                mensagem = 'Digite a data de início da sorteio.';
+            } else if (inputSorteioDataFinal.value == '') {
+                mensagem = 'Digite a data final do sorteio.';
+            } else if (inputSorteioDataSorteio.value == '') {
+                mensagem = 'Digite a data que será o sorteio.';
+            } else if (inputSorteioComoParticipar.value == '') {
+                mensagem = 'Digite as normas para o usuário participar do sorteio.';
+            } else if (inputSorteioMotivacao.value == '') {
+                mensagem = 'Escolha a motivação do sorteio.';
+            } else if (inputSorteioMotivacao.value == 'outro' && inputSorteioMotivacaoOutro.value == '') {
+                mensagem = 'Digite a motivação do sorteio.';
+            } else if (inputSorteioPremioItem.value == '') {
+                mensagem = 'Digite qual item vai ser sorteado.';
+            } else if (inputSorteioPremioCompra.value == '') {
+                mensagem = 'Escolha quem vai comprar o prémio.';
+            } else if (inputSorteioPremioEntrega.value == '') {
+                mensagem = 'Escolha a forma de entrega do prémio.';
+            } else if (inputSorteioPremioEntrega.value == 'outro' && inputSorteioPremioEntregaOutro.value == '') {
+                mensagem = 'Digite a forma de entrega do prémio.';
+            } else if (inputSorteioTexto.value == '') {
+                mensagem = 'Digite a descrição do sorteio';
+            }
+            if (mensagem != '') {
+                Alerta.notificacao(mensagem, false);
+                resolve(false);
+            }
+            resolve(true);
+        });
+    };
+    const montarDadoSorteio = () => {
+        return new Promise(resolve => {
+            const body = new FormData();
+            body.append('tipo', inputTipo.value);
+            body.append('empresa', inputEmpresaSorteio.value);
+            body.append('titulo', inputTitulo.value);
+            body.append('sorteio_inicio', inputSorteioDataInicio.value);
+            body.append('sorteio_final', inputSorteioDataFinal.value);
+            body.append('sorteio_data', inputSorteioDataSorteio.value);
+            body.append('sorteio_como_participar', inputSorteioComoParticipar.value);
+            body.append('sorteio_motivacao', inputSorteioMotivacao.value);
+            body.append('sorteio_motivacao_outro', inputSorteioMotivacaoOutro.value);
+            body.append('sorteio_premio', inputSorteioPremioItem.value);
+            body.append('sorteio_premio_compra', inputSorteioPremioCompra.value);
+            body.append('sorteio_premio_entrega', inputSorteioPremioEntrega.value);
+            body.append('sorteio_premio_entrega_outro', inputSorteioPremioEntregaOutro.value);
+            body.append('sorteio_texto', inputSorteioTexto.value);
+
+            resolve(body);
+        });
+    };
+
+    /*
+    |--------------------------------------------------------------------------
     | ABRIR TAREFA CRIACAO
     |--------------------------------------------------------------------------
     */
@@ -640,6 +775,8 @@ const demandaSalvar = () => {
                 (inputSiteLargura.value == '' || inputSiteAltura.value == '')
             ) {
                 mensagem = 'Você deve passar a largura e altura da peça do site.';
+            } else if (inputCriacaoCategoriaSite.checked && inputSiteTexto.value == '') {
+                mensagem = 'Você deve passar a descrição da tarefa do site.';
             } else if (
                 inputCriacaoCategoriaSocial.checked &&
                 !inputDigitalStories.checked &&
@@ -658,6 +795,8 @@ const demandaSalvar = () => {
                 !inputFeedTiktok.checked
             ) {
                 mensagem = 'Você deve marcar em quais redes sociais irão aparecer as artes do feed.';
+            } else if (inputCriacaoCategoriaSocial.checked && inputRedeSocialTexto.value == '') {
+                mensagem = 'Você deve passar a descrição da tarefa da rede social.';
             } else if (
                 inputCriacaoCategoriaImpresso.checked &&
                 !inputImpressoVoucher.checked &&
@@ -667,8 +806,8 @@ const demandaSalvar = () => {
                 !inputImpressoOutro.checked
             ) {
                 mensagem = 'Você deve marcar quais peças impressas devem ser criadas.';
-            } else if (inputImpressoOutro.checked && inputImpressoOutroTexto.value == '') {
-                mensagem = 'Você deve fazer uma descrição sobre que tipo de outro impresso deseja.';
+            } else if (inputCriacaoCategoriaImpresso.checked && inputImpressoTexto.value == '') {
+                mensagem = 'Você deve passar a descrição da tarefa de imprenso.';
             } else if (
                 inputCriacaoCategoriaKit.checked &&
                 !inputKitEmail.checked &&
@@ -680,19 +819,23 @@ const demandaSalvar = () => {
                 !inputKitVideo.checked
             ) {
                 mensagem = 'Você deve marcar quais peças do kit de boas-vindas devem ser criadas.';
+            } else if (inputCriacaoCategoriaKit.checked && inputKitTexto.value == '') {
+                mensagem = 'Você deve passar a descrição da tarefa do kit de boa-vindas.';
             } else if (
                 inputVideoFormato.value == 'outro' &&
                 (inputVideoLargura.value == '' || inputVideoAltura == '')
             ) {
                 mensagem = 'Você deve passar a largura e altura do vídeo.';
+            } else if (inputCriacaoCategoriaVideo.checked && inputVideoTexto.value == '') {
+                mensagem = 'Você deve passar a descrição da tarefa do vídeo.';
             } else if (inputCriacaoCategoriaOutro.checked && inputOutroTexto.value == '') {
                 mensagem = 'É obrigado digitar uma descrição para o tipo de demanda outro.';
-            } else if (inputCriacaoTexto.value == '') {
-                mensagem = 'É obrigatório criar um histórico com a descrição detalhada da demanda.';
+            } else if (inputCriacaoCategoriaOutro.checked && inputOutroTexto.value == '') {
+                mensagem = 'Você deve passar a descrição da tarefa de outro.';
             }
             if (mensagem != '') {
-                // Alerta.notificacao(mensagem, false);
-                // resolve(false);
+                Alerta.notificacao(mensagem, false);
+                resolve(false);
             }
             resolve(true);
         });
@@ -701,7 +844,7 @@ const demandaSalvar = () => {
     const montarDadoCriacao = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('tipo', 'criacao');
+            body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaCriacao.value);
             body.append('titulo', inputTitulo.value);
             body.append('criacao_site', inputCriacaoCategoriaSite.checked ? 'sim' : 'nao');
@@ -712,6 +855,7 @@ const demandaSalvar = () => {
             body.append('criacao_outro', inputCriacaoCategoriaOutro.checked ? 'sim' : 'nao');
             body.append('site_largura', inputSiteLargura.value);
             body.append('site_altura', inputSiteAltura.value);
+            body.append('site_texto', inputSiteTexto.value);
             body.append('digital_stories', inputDigitalStories.checked ? 'sim' : 'nao');
             body.append('digital_feed', inputDigitalFeed.checked ? 'sim' : 'nao');
             body.append('digital_banner', inputDigitalBanner.checked ? 'sim' : 'nao');
@@ -722,12 +866,13 @@ const demandaSalvar = () => {
             body.append('feed_twitter', inputFeedTwitter.checked ? 'sim' : 'nao');
             body.append('feed_youtube', inputFeedYoutube.checked ? 'sim' : 'nao');
             body.append('feed_tiktop', inputFeedTiktok.checked ? 'sim' : 'nao');
+            body.append('digital_texto', inputRedeSocialTexto.value);
             body.append('impresso_voucher', inputImpressoVoucher.checked ? 'sim' : 'nao');
             body.append('impresso_folder', inputImpressoFolder.checked ? 'sim' : 'nao');
             body.append('impresso_banner', inputImpressoBanner.checked ? 'sim' : 'nao');
             body.append('impresso_revista', inputImpressoRevista.checked ? 'sim' : 'nao');
             body.append('impresso_outro', inputImpressoOutro.checked ? 'sim' : 'nao');
-            body.append('impresso_outro_texto', inputImpressoOutroTexto.value);
+            body.append('impresso_texto', inputImpressoTexto.value);
             body.append('kit_email', inputKitEmail.checked ? 'sim' : 'nao');
             body.append('kit_stories', inputKitStories.checked ? 'sim' : 'nao');
             body.append('kit_video', inputKitVideo.checked ? 'sim' : 'nao');
@@ -735,11 +880,12 @@ const demandaSalvar = () => {
             body.append('kit_como_acessar', inputKitComoAcessar.checked ? 'sim' : 'nao');
             body.append('kit_baixar_app', inputKitBaixarApp.checked ? 'sim' : 'nao');
             body.append('kit_previa', inputKitPrevia.checked ? 'sim' : 'nao');
+            body.append('kit_texto', inputKitTexto.value);
             body.append('video_formato', inputVideoFormato.value);
             body.append('video_largura', inputVideoLargura.value);
             body.append('video_altura', inputVideoAltura.value);
+            body.append('video_texto', inputVideoTexto.value);
             body.append('outro_texto', inputOutroTexto.value);
-            body.append('criacao_texto', inputCriacaoTexto.value);
 
             resolve(body);
         });

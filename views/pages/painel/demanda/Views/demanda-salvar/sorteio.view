@@ -1,0 +1,22 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_sorteio', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco_coluna">
+    <h3>Datas do sorteio</h3>
+    @? formData(name: ['data_inicio', 'data_final'], placeholder: ['Data de início da campanha', 'Data final da campanha'], label: 'Data do sorteio')
+    @? formData(name: 'data_sorteio', label: 'Data do sorteio', placeholder: 'Data do sorteio')
+</div>
+
+<h3>Como o sorteio irá funcinar?</h3>
+@? formInput(name: 'como_participar', label: 'Como participar', placeholder: 'Como o usuário participa do sorteio?')
+@? formSelect(name: 'sorteio_motivacao', placeholder: 'Escolha uma motivação', change: 'motivacao_outro', label: 'Motivação', obrigatorio: 1, lista: ['' => 'Escolha uma opção', 'Campanha de ativação', 'Dia comemorativo', 'outro' => 'Outro'])
+@? formInput(name: 'sorteio_motivacao_outro', placeholder: 'Motivação do sorteio', class: 'display_none', id: 'bloco_sorteio_motivacao_outro')
+
+<h3>Dados do prémio</h3>
+@? formInput(name: 'premio_item', label: 'Qual será o prémio', placeholder: 'Qual será o prémio')
+@? formSelect(name: 'premio_compra', label: 'Quem dará o prémio?', placeholder: 'Quem dará o prémio?', lista: ['' => 'Escolha uma opção', 'Markt Club', 'Cliente'])
+@? formSelect(name: 'premio_entrega', label: 'Onde será a entrega?', change: 'entrega_outro', placeholder: 'Onde será a entrega?', lista: ['' => 'Escolha uma opção', 'Residência do usuário', 'Sede do cliente', 'outro' => 'Outro'])
+@? formInput(name: 'premio_entrega_outro', label: 'Local de entrega', placeholder: 'Local de entrega do prémio', class: 'display_none', id: 'bloco_premio_entrega_outro')
+
+<h3>Outro dados para o sorteio</h3>
+@? formEditor(name: 'sorteio_texto', label: 'Descrição', placeholder: 'Descreva a demanda', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')

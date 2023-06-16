@@ -8,9 +8,12 @@
     h3
         width: 100%
         texto()
-        margin-top: 40px
+        margin-top: 20px
         font-weight: bold
         color: #666
+    .margin_final
+        width: 100%
+        margin-bottom: 40px
     .chamada
         width: 100%
         texto()
@@ -28,8 +31,24 @@
         flexRow()
         flex-wrap: wrap
         align-items: flex-start
+    .bloco.bloco_grupo
+        border: 1px solid #DDD
+        margin-top: 30px
+        padding: 0 20px 5px 20px
+        border-radius: 5px
+    .bloco.bloco_grupo h2
+        margin-top: 10px
     .bloco .quebra
         width: 100%
+    .bloco_coluna
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        justify-content: space-between
+    .bloco_coluna h3
+        width: 100%
+    .bloco_coluna .bloco_input
+        width: calc(50% - 10px)
     .botao_lista
         width: 100%
         flexRow()

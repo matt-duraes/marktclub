@@ -13,11 +13,11 @@ use App\Classes\DemandaTarefa\Status;
 use Painel\Demanda\Models\ListaModel;
 use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
+use Painel\Demanda\Models\SorteioModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
 use Painel\Demanda\Models\CriarClienteModel;
 use Painel\Demanda\Models\CriarAssociacaoModel;
-use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaController extends Controller
@@ -243,6 +243,8 @@ final class DemandaController extends Controller
             );
         } elseif ($request->tipo == Tipo::CRIACAO) {
             $Demanda = new CriacaoModel($request);
+        } elseif ($request->tipo == Tipo::SORTEIO) {
+            $Demanda = new SorteioModel($request);
         }
 
         return mensagemSucesso(['id' => $Demanda->id()], 201);
