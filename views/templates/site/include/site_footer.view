@@ -1,11 +1,11 @@
 </main>
 
 @if(isset($popupSimples) && !empty($popupSimples)):
-<div id="hash_simple"></div>
-<div id="notification">
-    <div class="note_conteudo">
-        <div class="close">@iconeFechar</div>
-        <div class="note_texto">
+<div id="hash_simples"></div>
+<div id="popup_campanha_simples">
+    <div class="campanha_conteudo">
+        <div class="fechar">@iconeFechar</div>
+        <div class="campanha_texto">
             <img src="https://arquivo.marktclub.com.br/construtor/logo_marktclub_tem_mais.png" alt="imagem">
             <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h1>
             <p>Explicabo, laudantium quisquam repellat quas corporis blanditiis, ab atque quibusdam dolor possimus, voluptatum officia tempora non sunt architecto. Quasi aliquid cupiditate quisquam.</p>
@@ -28,11 +28,11 @@
             <h1>Contato</h1>
         </header>
         <a class="dado" href="tel:{{soNumero(CONTATO_TELEFONE)}}" class="mobile">
-            <i>@iconeTelefone</i>
+            <i>@iconeTelefoneLoja</i>
             {{CONTATO_TELEFONE}}
         </a>
         <div class="dado" class="desktop">
-            <i>@iconeTelefone</i>
+            <i>@iconeTelefoneLoja</i>
             {{CONTATO_TELEFONE}}
         </div>
         <a class="dado" href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
@@ -44,7 +44,7 @@
             {{CONTATO_EMAIL}}
         </div>
         <div class="dado">
-            <i>@iconeTelefone</i>
+            <i>@iconeCalendario</i>
             {{CONTATO_HORARIO}}
         </div>
     </section>
@@ -54,11 +54,11 @@
             <h1>Ajuda</h1>
         </header>
         <a class="dado" href="">
-            <i>@iconeWhatsapp(19)</i>
+            <i>@iconeIndiqueAmigo(19)</i>
             Indicar um parceiro
         </a>
         <a class="dado" href="">
-            <i>@iconeWhatsapp(19)</i>
+            <i>@iconeIndiqueAmigo(19)</i>
             Indicar um parceiro
         </a>
     </section>
@@ -67,12 +67,12 @@
         <header>
             <h1>Termo</h1>
         </header>
-        <a class="dado" href="">
-            <i>@iconeWhatsapp(19)</i>
+        <a class="dado" href="@route(termo.termosite)">
+            <i>@iconeTermoUso(19)</i>
             Termo de uso
         </a>
-        <a class="dado" href="">
-            <i>@iconeWhatsapp(19)</i>
+        <a class="dado" href="@route(termo.termocashback)">
+            <i>@iconeTermoUso(19)</i>
             Termo do Silium
         </a>
     </section>

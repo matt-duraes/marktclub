@@ -2,18 +2,18 @@
 
 namespace ApiController;
 
-use ApiModel\Upload\ArquivoEntity;
-use ApiModel\Upload\ArquivoModel;
-use ApiModel\Upload\GrupoEntity;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use ApiModel\Upload\GrupoEntity;
+use ApiModel\Upload\ArquivoModel;
+use ApiModel\Upload\ArquivoEntity;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UploadArquivoController extends Controller implements
     ControllerListarInterface,
@@ -61,7 +61,7 @@ final class UploadArquivoController extends Controller implements
         $Grupo->uuid($request->grupo);
 
         $Arquivo = new ArquivoEntity(
-            arquivo: $request->_FILES('arquivo'),
+            arquivo: $request->getFiles('arquivo'),
             Grupo: $Grupo
         );
         $Arquivo->salvar();

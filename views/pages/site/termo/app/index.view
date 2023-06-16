@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TERMO DE USO DO CLUBE DE VANTAGENS</title>
+    @CSS
+</head>
+
+<body>
+
+    <div id="bloco_regulamento">
+        <section class="regulamento_conteudo">
+            <div class="bloco_geral_sem_resultado">
+                <h1>Política de privacidade</h1>
+                <p>Para reafirmar nosso compromisso com a transparência, segue a nossa Política de Privacidade.</p>
+            </div>
+            <article class="texto">
+                <div class="bloco_geral_sem_resultado">
+                    <h1>1. Quais são as informações que obtemos</h1>
+                </div>
+				<p>O aplicativo coleta algumas informações dependendo da área de navegação, são eles:</p>
+				<p>1 - Dados pessoais como e-mail, telefone, data de nascimento entre outros. Isso acontece quando você atualiza seu perfil ou ativa seu cadastro. Vale ressaltar que todos os dados são guardados em um local seguro, não são repassados à terceiros e possuímos todos os protocolos de segurança, sendo criptografada toda e qualquer transmissão de dados.</p>
+				<p>2 - Sua geolocalização (latitude e longitude) ao acessar o mapa de convênios próximos.</p>
+				<p>3 - Novas áreas, que podem ser adicionadas futuramente.</p>
+
+                <div class="bloco_geral_sem_resultado">
+                    <h1>2. Isenção de responsabilidade</h1>
+                </div>
+				<p>O aplicativo não garante o pleno funcionamento de <span>hyperlinks</span> externos que não são de sua responsabilidade e qualquer dado informado pelo usuário diretamente nesses endereços de terceiros.</p>
+
+                <div class="bloco_geral_sem_resultado">
+                    <h1>3. Segurança</h1>
+                </div>
+				<p>Todas as requisições pelo aplicativo rodam em um ambiente criptografado garantido uma alta taxa de segurança para o usuário.</p>
+
+                <div class="bloco_geral_sem_resultado">
+                    <h1>4. Aceitação</h1>
+                </div>
+				<p>Ao utilizar esse aplicativo, o usuário aceita esse termo e os demais termos da plataforma, tanto do aplicativo como dos demais termos de uso do site.</p>
+            </article>
+        </section>
+
+    </div>
+
+
+</body>
+
+</html>

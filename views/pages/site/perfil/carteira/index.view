@@ -1,0 +1,20 @@
+@CSS
+@php $logo = defined('CLUBE_LOGO')
+
+<div id="bloco_carteirinha">
+    <div class="bloco_frente" style="background: url({{$dado->imagem->frente}}); background-size: 100% 100%;">
+
+        @if(defined('CLUBE_ID') == '61df17919405cf68f723510ec3af4acd'):
+            @view site/perfil/carteira/sinpoldf.view
+        @elseif(defined('CLUBE_ID') == 'sindfazenda'):
+            @view site/perfil/carteira/sindfazenda.view
+        @elseif(defined('CLUBE_ID') == 'cemecard'):
+            @view site/perfil/carteira/cemecard.view
+        @else
+            @view site/perfil/carteira/padrao.view
+        @endif
+    </div>
+
+</div>
+
+

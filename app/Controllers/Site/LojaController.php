@@ -12,6 +12,8 @@ use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Loja\DetalheModel;
 use App\Models\Site\Loja\RelacionadoModel;
+use Helpers\ApiHelper;
+use Helpers\ListaHelper;
 
 final class LojaController extends Controller
 {
@@ -48,7 +50,8 @@ final class LojaController extends Controller
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
             'lista'        => (new ListarModel())->listarDados(),
             'parceiroTipo' => 'loja',
-            'banner'       => (new BannerModel())->loja()
+            'banner'       => (new BannerModel())->loja(),
+            'popupSimples' => true
         ]);
     }
 
@@ -62,6 +65,8 @@ final class LojaController extends Controller
      */
     public function detalhe(Request $request, $url = null, BuscaModel $Busca = null): Response
     {
+        $dado = (new DetalheModel($url))->listarDados();
+
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'url'          => $url,
@@ -140,6 +145,21 @@ final class LojaController extends Controller
         return new Response(status: 201);
     }
 
+
+
+    /**
+     * @param  Request  $request
+     *
+     * @return Response
+     */
+    public function postFavorito(Request $request): Response
+    {
+        $uuid = $request->uuid;
+        $acao = $request->acao;
+        $loja = (new RelacionadoModel())->favoritar($uuid, $acao);
+        return new Response(json: $loja);
+
+    }
     /**
      * @return Response
      */
@@ -151,14 +171,14 @@ final class LojaController extends Controller
         ];
         $veiculoTag = ['concessionarias','locadoras','pneus','oficinas'];
         $saudeTag = ['academia','visao','esportes','spas'];
-        $estado = ['Acre','Alagoas','Amapá','Amazonas','Rio de Janeiro','Brasilia','São Paulo'];
+        $estados = (new ListaHelper())->estado()->r();
 
         return view('loja.melhor_idade', [
             'alimentacaoTag' => $alimentacaoTag,
             'veiculoTag' => $veiculoTag,
             'saudeTag' => $saudeTag,
             'categoria' => $categoria,
-            'estado' => $estado,
+            'estados' => $estados
         ]);
     }
 }

@@ -28,10 +28,9 @@
         form
             width: 100%
     .contratacao .bloco_botao
-        width: 100%
+        width: calc(100% - 40px)
         flexRow()
         position: absolute
-        right: 20px
         bottom: 20px
         justify-content: space-between
     .contratacao .bloco_botao .cinza
@@ -43,3 +42,8 @@
             text-align: left
             texto()
             color: $corClube
+
+
+@media screen and (max-width: 900px)
+    #bloco_contratacao .form_geral .bloco_input
+        width: 100%

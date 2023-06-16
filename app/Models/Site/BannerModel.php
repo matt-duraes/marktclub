@@ -57,8 +57,8 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' =>'https://clube.marktclub.com.br/images/tela_cinema.jpg',
-                    'link' => 'https://clube.marktclub.com.br/images/tela_cinema.jpg'
+                    'imagem' =>'https://clube.marktclub.com.br/images/cinema_banner.jpg',
+                    'link' => 'https://afiliados.easylive.com.br/?aid=5'
                 ]
             ],
             'mobile' => [
@@ -234,6 +234,7 @@ final class BannerModel
             ]
         ];
     }
+
     /**
      * @return object
      */
@@ -250,6 +251,27 @@ final class BannerModel
                 (object)[
                     'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
                     'link'   => route('alfa.consultoriaAlfa')
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return object
+     */
+    public function campanha(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'link'   => ''
+                ]
+            ],
+            'mobile'  => [
+                (object)[
+                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'link'   => ''
                 ]
             ]
         ];

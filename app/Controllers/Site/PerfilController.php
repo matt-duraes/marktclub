@@ -8,7 +8,7 @@ use Helpers\ApiHelper;
 use Helpers\SocialHelper;
 use Controller\Controller;
 use App\Models\Api\Loja\LojaMapaModel;
-use App\Models\Site\Perfil\{DadosModel,  SenhaModel};
+use App\Models\Site\Perfil\{DadosModel,  SenhaModel, CarteirinhaModel};
 
 final class PerfilController extends Controller
 {
@@ -56,6 +56,16 @@ final class PerfilController extends Controller
         ]);
     }
 
+    public function carteira(): Response
+    {
+
+        $dado = (new CarteirinhaModel())->getDado();
+
+        return view('perfil.carteira', [
+            'dado' => $dado,
+            'logo'=> defined('CLUBE_LOGO')
+        ]);
+    }
     /*
     |--------------------------------------------------------------------------
     | SALVAR DADOS

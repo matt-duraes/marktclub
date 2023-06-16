@@ -62,6 +62,21 @@ return [
         'status' => 1
     ],
     [
+        'cod' => '14afa776394ada4be23be6acf7e3259f',
+        'id_usuario_equipe' => 1,
+        'id_admin_empresa' => 1,
+        'titulo' => 'Sub Empresa Markt Club',
+        'razao_social' => 'Sub Empresa Markt Club',
+        'nome_fantasia' => 'Sub Empresa Markt Club',
+        'cnpj' => 42353214000191,
+        'responsavel_nome' => 'André Rodrigues',
+        'responsavel_cpf' => 1495180131,
+        'responsavel_email' => 'andre2@marktclub.com.br',
+        'responsavel_telefone' => 61981777772,
+        'slug' => 'sub-marktclub',
+        'status' => 1
+    ],
+    [
         'cod' => uuid(),
         'id_usuario_equipe' => 1,
         'titulo' => 'Prospecção Nome 01',
@@ -105,5 +120,50 @@ return [
         'prospeccao_status' => 1,
         'slug' => 'nome-03',
         'status' => 3
+    ],
+    [
+        'id' => 229,
+        'cod' => 'ea964013e0feec5b5f52bc8a94fe7574',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Cemecard',
+        'razao_social' => 'Cemecard',
+        'nome_fantasia' => 'Cemecard',
+        'cnpj' => 48722524000112,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'cemecard',
+        'status' => 1
+    ],
+    [
+        'id' => 82,
+        'cod' => '61df17919405cf68f723510ec3af4acd',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Sinpol-DF',
+        'razao_social' => 'Sinpol-DF',
+        'nome_fantasia' => 'Sinpol-DF',
+        'cnpj' => 53545733000178,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'sinpol-df',
+        'status' => 1
+    ],
+    [
+        'id' => 4,
+        'cod' => '34be95dcb312e99aa17c3d0deab5556b',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Asagu Card',
+        'razao_social' => 'Asagu Card',
+        'nome_fantasia' => 'Asagu Card',
+        'cnpj' => 30133813000110,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'asagu',
+        'status' => 1
     ],
 ];

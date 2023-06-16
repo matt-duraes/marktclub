@@ -6,6 +6,13 @@
                     <span>1</span>
                     <div class="cor_fill check">@iconeCheck()</div>
                 </div>
+                <p>Região</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
                 <p>Plano</p>
             </div>
             <div class="item">
@@ -25,27 +32,37 @@
         </div>
         <div class="bloco_conteudo">
             <form method="post" class="bloco_scroll">
-                <div class="conteudo" id="bloco_plano_amil">
+                <div class="conteudo" id="bloco_regiao_amil">
                     <div class="bloco_simulacao">
                         <header>
-                            <h1>ESCOLHA SEU PLANO</h1>
+                            <h1>ESCOLHA A REGIÃO</h1>
                         </header>
                         <div class="botao_acomodacao coluna">
                             <div class="bloco_regional">
                                 <input type="hidden" id="acomodacao" name="acomodacao">
                                 <div class="botao_input">
                                     <input id="brasilia" class="brasilia" name="regiao" type="radio" value="brasilia">
-                                    <label for="brasilia">Brasília</label>
+                                    <label for="brasilia" class="botao_passa_passo_proximo">Brasília</label>
                                 </div>
                                 <div class="botao_input">
                                     <input id="rio_de_janeiro" class="rio_de_janeiro" name="regiao" type="radio" value="rio-de-janeiro">
-                                    <label for="rio_de_janeiro">Rio de Janeiro</label>
+                                    <label for="rio_de_janeiro" class="botao_passa_passo_proximo">Rio de Janeiro</label>
                                 </div>
                                 <div class="botao_input">
                                     <input id="sao_paulo" class="sao_paulo" name="regiao" type="radio" value="sao-paulo">
-                                    <label for="sao_paulo">São Paulo</label>
+                                    <label for="sao_paulo" class="botao_passa_passo_proximo">São Paulo</label>
                                 </div>
                             </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo" id="bloco_plano_amil">
+                    <div class="bloco_simulacao">
+                        <header>
+                            <h1>ESCOLHA SEU PLANO</h1>
+                        </header>
+                        <div class="botao_acomodacao coluna">
 
                             <div id="bloco_tipo_amil">
                                 <div class="botao_input amil_s60qc_rj">
@@ -93,11 +110,16 @@
                                     <label class="botao_passa_passo_proximo" for="amil_s750r2">Amil Fácil S750 R2</label>
                                 </div>
                             </div>
+
+                            <div class="bloco_botao">
+                                <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                                <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="conteudo">
-                    <div class="bloco_simulacao form_geral">
+                    <div class="bloco_simulacao form_geral bloco_geral_dependente">
                         <header>
                             <h1>PREENCHA AS INFORMAÇÕES</h1>
                         </header>

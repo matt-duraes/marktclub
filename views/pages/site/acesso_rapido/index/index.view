@@ -6,10 +6,10 @@
         <p>O que você deseja fazer hoje? Selecione uma das opções abaixo.</p>
     </section>
     <nav>
-        <a href="@route(loja.melhoridade)">Buscar lojas conveniadas</a>
+        <a href="@route(loja.melhorIdade)">Buscar lojas conveniadas</a>
         <a href="@route(loja.proxima)"> Lojas próximas</a>
         <a href="@route(turismo.index)">Passagem e hospedagem</a>
-        <a href="@route('medicamento.index')">Farmácias</a>
+        <a href="@route('farmacia.index')">Farmácias</a>
         <a href="@route('planosaude.index')">Plano de saúde</a>
         <a href="@route(cashback.index)">Cashback</a>
         <a href="@route('automovel.index)">Automóveis</a>

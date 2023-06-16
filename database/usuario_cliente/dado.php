@@ -9,6 +9,8 @@ return [
         'nome' => nomeCompletoAleatorio(),
         'documento' => cpfAleatorio(),
         'salt' => password('Teste@1324'),
+        'matricula' => '123456',
+        'uf' => 'DF',
         'status' => 1
     ],
     [
@@ -67,6 +69,18 @@ return [
         'email_trabalho' => emailAleatorio(),
         'telefone_fixo' => telefoneAleatorio(),
         'documento' => 67783406815,
+        'salt' => password('Teste@1324'),
+        'status' => 1
+    ],
+    [
+        'matricula' => 13548123,
+        'cod' => uuid(),
+        'empresa' => 82,
+        'tipo' => 1,
+        'nome' => nomeCompletoAleatorio(),
+        'email_trabalho' => emailAleatorio(),
+        'telefone_fixo' => telefoneAleatorio(),
+        'documento' => 28155322041,
         'salt' => password('Teste@1324'),
         'status' => 1
     ]

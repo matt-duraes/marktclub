@@ -1,6 +1,6 @@
 <?php
 
-use Database\DataBase;
+use DataBase\DataBase;
 
 return (new DataBase())
     ->id()

@@ -3,6 +3,8 @@
 namespace App\Controllers\Api;
 
 use App\Models\Api\Popup\PopupEntity;
+use Controller\Controller;
+use Controller\ControllerInterface;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
@@ -11,7 +13,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class PopupController implements
+class PopupController extends Controller implements
     ControllerBuscarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
@@ -41,10 +43,13 @@ class PopupController implements
     private function retornoPadrao(PopupEntity $PopupEntity, int $status = 200): Response
     {
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($PopupEntity, lista: [
-                'slug', 'titulo', 'subtitulo', 'texto', 'formulario', 'imagem',
-                'data_criacao', 'data_atualizacao', 'data_vencimento', 'status'
-            ]),
+            pegarPropriedadeDaEntity(
+                $PopupEntity,
+                lista: [
+                    'slug', 'titulo', 'subtitulo', 'texto', 'formulario', 'imagem',
+                    'data_criacao', 'data_atualizacao', 'data_vencimento', 'status'
+                ]
+            ),
             $status
         );
     }
@@ -58,7 +63,6 @@ class PopupController implements
     public function postSalvar(Request $request): Response
     {
         $PopupEntity = new PopupEntity();
-
         $PopupEntity->set(lista: $request->dado());
         $PopupEntity->salvar();
 
@@ -76,11 +80,10 @@ class PopupController implements
     {
         $PopupEntity = new PopupEntity();
         $PopupEntity->uuid($id);
-
         $PopupEntity->set(lista: $request->dado());
         $PopupEntity->salvar();
 
-        return new Response(status: 204);
+        return $this->retornoPadrao($PopupEntity);
     }
 
     /**
@@ -93,9 +96,8 @@ class PopupController implements
     {
         $PopupEntity = new PopupEntity();
         $PopupEntity->uuid($id);
-
         $PopupEntity->destruir();
 
-        return new Response(status: 204);
+        return mensagemSucesso([], 204);
     }
 }

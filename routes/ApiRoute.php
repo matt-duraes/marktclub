@@ -189,7 +189,7 @@ Route::nome('usuario_cliente')
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!empresa', '!federacao'
+                '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao'
             ])
             ::post('/usuario-cliente');
 
@@ -596,6 +596,14 @@ Route
             ::middleware(App\Middlewares\SistemaMiddleware::class, 'tipo', ['HOMOLOGACAO'])
             ::view('/login/api-ok/{hash}');
     });
+Route
+    ::nome('loginFenae')
+    ::controller(App\Controllers\Api\FenaeLoginController::class)
+    ::grupo(function () {
+        Route
+            ::nome('paginaLogin')
+            ::view('/login/fenae');
+    });
 
 Route
     ::nome('termoLgpd')
@@ -920,6 +928,17 @@ Route::nome('comercial_empresa_select')
             ::request(['!titulo'], 'json')
             ::get('/comercial-empresa/select');
     });
+Route::nome('comercial_subempresa_select')
+    ::controller(App\Controllers\Api\ComercialSubempresaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(MarktClubMiddleware::class, 'validar')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:select'])
+            ::request(['!titulo', '!empresa'], 'json')
+            ::get('/comercial-subempresa/select');
+    });
 Route::nome('comercial_empresa')
     ::controller(App\Controllers\Api\ComercialEmpresaController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -1106,7 +1125,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:buscar'])
             ::get('/carteirinha/{id}');
     });
 
@@ -1169,7 +1188,9 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
-            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
             ::get('/solicitacao-declaracao');
 
         Route
@@ -1182,7 +1203,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
                 'url', 'tipo'
-            ], 'json')
+            ])
             ::post('/solicitacao-declaracao');
     });
 
@@ -1223,4 +1244,38 @@ Route
                 'complemento'
             ])
             ::post('/saude/contratacao');
+      
+Route
+    ::nome('solicitacao_credito')
+    ::controller(App\Controllers\Api\SolicitacaoCreditoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('simular')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
+            ::request([
+                'operadora', 'tipo', 'valor', 'parcelas'
+            ])
+            ::get('/solicitar-credito');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:buscar'])
+            ::get('/solicitacao-credito/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
+            ::request([
+                'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/solicitacao-credito');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
+            ::request([
+                'operadora', 'tipo', 'valor', 'parcelas', '!valor_parcelas', '!status'
+            ])
+            ::post('/solicitacao-credito');
     });

@@ -41,7 +41,7 @@ final class ClienteEntity extends Entity
     ];
     protected array $ormInsert = [
         'empresa' => '->idEmpresa',
-        'cod', 'tipo'
+        'id_admin_subempresa', 'cod', 'tipo'
     ];
     protected array $ormBuscar = [
         'cpf' => 'documento',

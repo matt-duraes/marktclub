@@ -35,7 +35,7 @@ return [
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
                     'data_criacao_ate', 'data_criacao', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
-                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'federacao', 'analytics'
+                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'subempresa', 'federacao', 'analytics'
                 ],
                 'download' => [
                     'status', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',
@@ -43,7 +43,7 @@ return [
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'federacao', 'grupo',
                     'matricula', 'data_nascimento', 'genero', 'estado_civil', 'cpf', 'telefone_pessoal',
                     'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload',
-                    'lead', 'origem', 'empresa', 'federacao', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
+                    'lead', 'origem', 'empresa', 'subempresa', 'federacao', 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
                 ]
             ]
         ],

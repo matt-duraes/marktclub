@@ -14,38 +14,48 @@ class DeclaracaoEntity extends Entity
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
+    protected array $ormInsert = [
+        'id_empresa' => '->idEmpresa',
+        'id_usuario' => '->idUsuario',
+        'status'     => 1
+    ];
     protected array $ormBuscar = [
-        'id_usuario_cliente' => 'usuario',
         'tipo', 'status', 'data_criacao'
     ];
     protected array $ormSalvar = [
-        'cod', 'empresa', 'usuario', 'vinculo', 'tipo', 'status'
+        'uuid' => 'cod',
+        'vinculo', 'tipo', 'status'
     ];
-    protected string $cod;
-    protected string $empresa;
-    protected string $usuario;
+    protected string $idEmpresa;
+    protected string $idUsuario;
     protected string $vinculo;
     protected Tipo $tipo;
     protected Status $status;
 
     public function __construct(
-        private readonly ?Request $request = null,
+        private readonly ?Request $request = null
     ) {
-        parent::__construct();
         $this->validarEmpresa();
+        parent::__construct();
     }
 
+    /**
+     * @return void
+     */
     public function regraInsert(): void
     {
-        $Loja = (new LojaEntity())
-            ->idSlug(
-                $this->request->get('url', ''),
-                mensagem: 'Parceiro não encontrado ou não existente'
-            );
+        if ($this->request === null) {
+            return;
+        }
 
-        $this->cod = uuid();
-        $this->vinculo = $Loja->id;
-        $this->tipo = new Tipo($this->request->get('tipo'));
-        $this->status = new Status(Status::NOVA);
+        $LojaEntity = new LojaEntity();
+        $LojaEntity->idSlug(
+            $this->request->url,
+            mensagem: 'Parceiro não encontrado ou inexistente',
+            titulo: 'Inconsistências encontradas'
+        );
+
+        $this->vinculo = $LojaEntity->id;
+        $this->tipo = new Tipo($this->request->tipo);
     }
 }

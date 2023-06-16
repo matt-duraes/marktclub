@@ -6,154 +6,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TERMO DE USO DO CLUBE DE VANTAGENS</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <?= urldecode(sessao('CLUBE')->font->link) ?>
-
-    <style>
-        body {
-            font-family: '<?= sessao('CLUBE')->font->nome ?>', sans-serif;
-        }
-    </style>
+    @CSS
 </head>
 
 <body>
 
-    <div id="bloco-termo__app">
-        <section class="termo-container">
-            <h1>TERMO DE USO DO CLUBE DE VANTAGENS</h1>
-            <?php if (in_array(sessao('CLUBE.id'), ['2dbd9e375eeabfbe859365dae0798f49'])) : ?>
+    <div id="bloco_regulamento">
+        <section class="regulamento_conteudo">
+            <div class="bloco_geral_sem_resultado">
+                <h1>TERMO DE USO DO CLUBE DE VANTAGENS</h1>
+            </div>
+            @ if ($clube == '2dbd9e375eeabfbe859365dae0798f49') :
 
-                <article class="termo-conteudo">
-                    <h2 class="titulo-normal bold">1. Introdução</h2>
-                    <p class="titulo-normal">1.1. Obrigado pelo interesse em utilizar o Clube de Vantagens, um Portal virtual desenvolvido e mantido pela Markt Tec Serviços em Tecnologia da Informação LTDA., pessoa jurídica de direito privado, inscrita no CNPJ sob o n.º 14.150.830/0001-00, sediada no SIG, quadra 01, Lote 385, Loja 07, Edifício Platinum Office, CEP 70.610-410, Brasília-DF.</p>
-                    <p class="titulo-normal">1.2. Antes de prosseguir, é fundamental que você leia e compreenda todos os termos e condições que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este regulamento, que foi redigido de forma clara e em linguagem acessível.</p>
-                    <p class="titulo-normal">1.3. Ao se cadastrar ou utilizar o Clube de Vantagens, você estará legalmente vinculado a todos os termos e condições aqui presentes.</p>
-                    <p class="titulo-normal">1.4. Caso você não concorde com qualquer das regras previstas, você poderá solicitar o cancelamento de seu acesso por e-mail: atendimento@marktclub.com.br.</p>
-                    <p class="titulo-normal">1.5. Caso tenha qualquer dúvida sobre o conteúdo desses Termos de Uso, entre em contato com nosso suporte. Será um prazer atendê-lo!</p>
+                <article class="texto">
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>1. Introdução</h1>
+                    </div>
+                    <p>1.1. Obrigado pelo interesse em utilizar o Clube de Vantagens, um Portal virtual desenvolvido e mantido pela Markt Tec Serviços em Tecnologia da Informação LTDA., pessoa jurídica de direito privado, inscrita no CNPJ sob o n.º 14.150.830/0001-00, sediada no SIG, quadra 01, Lote 385, Loja 07, Edifício Platinum Office, CEP 70.610-410, Brasília-DF.</p>
+                    <p>1.2. Antes de prosseguir, é fundamental que você leia e compreenda todos os termos e condições que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este regulamento, que foi redigido de forma clara e em linguagem acessível.</p>
+                    <p>1.3. Ao se cadastrar ou utilizar o Clube de Vantagens, você estará legalmente vinculado a todos os termos e condições aqui presentes.</p>
+                    <p>1.4. Caso você não concorde com qualquer das regras previstas, você poderá solicitar o cancelamento de seu acesso por e-mail: atendimento@marktclub.com.br.</p>
+                    <p>1.5. Caso tenha qualquer dúvida sobre o conteúdo desses Termos de Uso, entre em contato com nosso suporte. Será um prazer atendê-lo!</p>
 
-                    <h2 class="titulo-normal bold">2. O Clube de Vantagens</h2>
-                    <p class="titulo-normal">2.1. O Clube de Vantagens disponibiliza uma plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas online e físicas, que são chamados CONVENIADOS.</p>
-                    <p class="titulo-normal">2.2. O Clube de Vantagens não vende qualquer produto ou serviço no seu Portal, apenas veicula anúncios de produtos e serviços fornecidos pelos CONVENIADOS. Por essa razão, nós não nos responsabilizamos por nenhuma compra ou transação realizada entre o usuário, o Clube de Vantagens e os conveniados/fornecedores.</p>
-                    <p class="titulo-normal">2.3. Ao efetuar uma compra de um conveniado, através de um link disponibilizado no Portal, você cria uma nova e distinta relação jurídica diretamente com este conveniado, da qual o Clube de Vantagens não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma.</p>
-                    <p class="titulo-normal">2.4. Os anúncios veiculados no Portal podem conter informações sobre alguns produtos ou serviços, incluindo preço. No entanto, você deve sempre conferir o preço e demais informações dos produtos diretamente no site dos conveniados, pois alguns dos anúncios podem estar desatualizados ou com informações antigas por isso, nós não nos responsabilizamos por estas informações, tendo em vista que elas são enviados pelos conveniados e apenas publicamos estas informações.</p>
-                    <p class="titulo-normal">2.5. A responsabilidade pelos produtos e serviços e por suas informações, incluindo o preço, é exclusiva e integral dos conveniados.</p>
-                    <p class="titulo-normal">2.6. É sua obrigação confirmar a veracidade das informações dos anúncios constantes no Portal diretamente no próprio site dos conveniados. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e no site dos conveniados, prevalecerão as informações do site do conveniado.</p>
-                    <p class="titulo-normal">2.7. Prezando pelo bom atendimento e minimização dos erros, sugerimos que nossos usuários sempre enviem feedback sobre as suas experiências de compra. Caso algum parceiro apresente problemas de forma recorrente, poderemos tirá-lo do ar, evitando problemas futuros.</p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>2. O Clube de Vantagens</h1>
+                    </div>
+                    <p>2.1. O Clube de Vantagens disponibiliza uma plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas online e físicas, que são chamados CONVENIADOS.</p>
+                    <p>2.2. O Clube de Vantagens não vende qualquer produto ou serviço no seu Portal, apenas veicula anúncios de produtos e serviços fornecidos pelos CONVENIADOS. Por essa razão, nós não nos responsabilizamos por nenhuma compra ou transação realizada entre o usuário, o Clube de Vantagens e os conveniados/fornecedores.</p>
+                    <p>2.3. Ao efetuar uma compra de um conveniado, através de um link disponibilizado no Portal, você cria uma nova e distinta relação jurídica diretamente com este conveniado, da qual o Clube de Vantagens não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma.</p>
+                    <p>2.4. Os anúncios veiculados no Portal podem conter informações sobre alguns produtos ou serviços, incluindo preço. No entanto, você deve sempre conferir o preço e demais informações dos produtos diretamente no site dos conveniados, pois alguns dos anúncios podem estar desatualizados ou com informações antigas por isso, nós não nos responsabilizamos por estas informações, tendo em vista que elas são enviados pelos conveniados e apenas publicamos estas informações.</p>
+                    <p>2.5. A responsabilidade pelos produtos e serviços e por suas informações, incluindo o preço, é exclusiva e integral dos conveniados.</p>
+                    <p>2.6. É sua obrigação confirmar a veracidade das informações dos anúncios constantes no Portal diretamente no próprio site dos conveniados. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e no site dos conveniados, prevalecerão as informações do site do conveniado.</p>
+                    <p>2.7. Prezando pelo bom atendimento e minimização dos erros, sugerimos que nossos usuários sempre enviem feedback sobre as suas experiências de compra. Caso algum parceiro apresente problemas de forma recorrente, poderemos tirá-lo do ar, evitando problemas futuros.</p>
 
-                    <h2 class="titulo-normal bold">3. O CASHBACK</h2>
-                    <p class="titulo-normal">3.1. O nosso Clube de Vantagens oferece também uma oportunidade para que você possa receber um desconto adicional da compra de um produto ou serviço dos nossos conveniados, conforme regulamento próprio na opção do perfil do usuário denominado “Termo de Uso SILLIUM”. </p>
-                    <p class="titulo-normal">3.2. Esse desconto adicional é concedido diretamente pela Markt Tec Serviços em Tecnologia da Informação, através do reembolso de parte do valor gasto por você nas compras em parceiros cadastrados na aba do portal denominada CASHCACK-SILIUM.</p>
-                    <p class="titulo-normal">3.3. O Cashback funciona de maneira bem simples: no nosso Clube de Vantagens, nós realizamos uma promessa de recompensa, que será devida a qualquer pessoa que cumprir os Requisitos Essenciais. Isto é: se você cumprir os Requisitos Essenciais, teremos o compromisso de creditá-lo com a recompensa prometida.</p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>3. O CASHBACK</h1>
+                    </div>
+                    <p>3.1. O nosso Clube de Vantagens oferece também uma oportunidade para que você possa receber um desconto adicional da compra de um produto ou serviço dos nossos conveniados, conforme regulamento próprio na opção do perfil do usuário denominado “Termo de Uso SILLIUM”. </p>
+                    <p>3.2. Esse desconto adicional é concedido diretamente pela Markt Tec Serviços em Tecnologia da Informação, através do reembolso de parte do valor gasto por você nas compras em parceiros cadastrados na aba do portal denominada CASHCACK-SILIUM.</p>
+                    <p>3.3. O Cashback funciona de maneira bem simples: no nosso Clube de Vantagens, nós realizamos uma promessa de recompensa, que será devida a qualquer pessoa que cumprir os Requisitos Essenciais. Isto é: se você cumprir os Requisitos Essenciais, teremos o compromisso de creditá-lo com a recompensa prometida.</p>
 
-                    <h2 class="titulo-normal bold">4. Os Requisitos Essenciais</h2>
-                    <p class="titulo-normal">4.1. Para conferir todas informações e requisitos, consulte o Termo de Uso SILLIUM, disponível no perfil de usuário.</p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>4. Os Requisitos Essenciais</h1>
+                    </div>
+                    <p>4.1. Para conferir todas informações e requisitos, consulte o Termo de Uso SILLIUM, disponível no perfil de usuário.</p>
 
-
-                    <h2 class="titulo-normal bold">5. Tratamento de Dados</h2>
-                    <p class="titulo-normal">5.1. Para facilitar a compreensão deste item, estabelecemos algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:</p>
-                    <p class="titulo-normal"><span style="font-weight: bold">Titular:</span> é a pessoa física a quem se referem os dados pessoais que são objeto de tratamento.</p>
-                    <p class="titulo-normal"><span style="font-weight: bold">Dado Pessoal:</span> informação relacionada a pessoa natural identificada ou identificável.</p>
-                    <p class="titulo-normal"><span style="font-weight: bold">Dado Pessoal Sensível:</span> dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.</p>
-                    <p class="titulo-normal"><span style="font-weight: bold">Dados:</span> Dado Pessoal e Dado Pessoal Sensível, abrangendo inclusive os Dados relativos ao cadastro efetuado e os Dados oriundos dos hábitos de utilização da plataforma Clube de Vantagens.</p>
-                    <p class="titulo-normal"><span style="font-weight: bold">Tratamento:</span> toda operação realizada com dados pessoais, como as que se referem a coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação, avaliação ou controle da informação, modificação, comunicação, transferência, difusão ou extração.</p>
-                    <p class="titulo-normal"><span style="font-weight: bold">Controlador:</span> pessoa natural ou jurídica, de direito público ou privado, a quem competem as decisões referentes ao tratamento de dados pessoais.</p>
-                    <p class="titulo-normal">5.2. A partir do momento em que você se cadastra no Clube de Vantagens, você fornece o seu consentimento específico, livre, informado e inequívoco, para que:</p>
-                    <p class="titulo-normal pl10">a. Nós realizemos o Tratamento de seus Dados, para que possamos veicular, de modo mais adequado ao seu perfil, anúncios de produtos e serviços fornecidos pelos Conveniados; e</p>
-                    <p class="titulo-normal pl10">b. Nós compartilhemos com nossos Conveniados e empresas do Conglomerado Financeiro Alfa: Banco Alfa de Investimento S.A., Banco Alfa S.A., Financeira Alfa S.A. - C.F.I., Alfa Arrendamento Mercantil S.A., Alfa Corretora de Câmbio e Valores Mobiliários S.A., Alfa Previdência e Vida S.A. e Alfa Seguradora S.A. ("Conglomerado Financeiro Alfa"), os Dados necessários para que esses Conveniados possam identificar você como um membro do Clube de Vantagens.</p>
-                    <p class="titulo-normal pl10">c. Ao manifestarem sua aceitação com o presente termo, os Titulares consentem e concordam expressamente que os Conveniados e empresas do Conglomerado Financeiro, realizem o tratamento de seus Dados Pessoais única e exclusivamente para as finalidades acima especificadas na alínea “a” acima e item “i” da cláusula 5.4, ressalvadas demais hipóteses previstas na legislação vigente à época.</p>
-                    <p class="titulo-normal">5.3. Você tem todos os seus direitos estabelecidos na legislação de proteção de dados garantidos:</p>
-                    <p class="titulo-normal pl10">a. Confirmação da existência de Tratamento;</p>
-                    <p class="titulo-normal pl10">b. Acesso aos Dados;</p>
-                    <p class="titulo-normal pl10">c. Correção de Dados incompletos, inexatos ou desatualizados;</p>
-                    <p class="titulo-normal pl10">d. Anonimização, bloqueio ou eliminação de Dados desnecessários, excessivos ou tratados em desconformidade com a lei;</p>
-                    <p class="titulo-normal pl10">e. Portabilidade dos Dados;</p>
-                    <p class="titulo-normal pl10">f. Eliminação dos Dados tratados com o consentimento;</p>
-                    <p class="titulo-normal pl10">g. Informação sobre entidades públicas e privadas com as quais foi realizado uso compartilhado de Dados;</p>
-                    <p class="titulo-normal pl10">h. Informação sobre a possibilidade de não fornecimento do consentimento e sobre as consequências da negativa;</p>
-                    <p class="titulo-normal pl10">i. Revogação do consentimento; e</p>
-                    <p class="titulo-normal pl10">j. Revisão de decisões automatizadas tomadas com base no Tratamento de Dados.</p>
-                    <p class="titulo-normal">5.3.1. Caso você queira exercer algum desses direitos, basta encaminhar um e-mail especificando o direito a ser exercido para atendimento@marktclub.com.br, com o assunto Exercício de Direitos LGPD.</p>
-                    <p class="titulo-normal">5.4. Cada Conveniado - em especial, em relação aos Dados mencionados na alínea “b” da cláusula 5.2. acima, é considerado um Controlador independente e responde isoladamente pelos danos eventualmente causados, de modo que não existe, em hipótese alguma, a nossa responsabilidade em relação ao Tratamento de Dados que venha a ser realizado por qualquer um dos Conveniados.</p>
-                    <p class="titulo-normal">Quando preencher o cadastro complementar:</p>
-                    <p class="titulo-normal">Forneço meu consentimento específico, livre, informado e inequívoco, para que a Markt Tec Serviços em Tecnologia da Informação Ltda. e as Empresas do Conglomerado Financeiro Alfa:</p>
-                    <p class="titulo-normal pl10">(i) realizem o tratamento de meus dados pessoais e dados pessoais sensíveis, com a finalidade de veicular, de modo mais adequado ao meu perfil, material informativo sobre o mercado financeiro, anúncios de produtos e serviços fornecidos pelos seus conveniados e empresas do Conglomerado Financeiro Alfa; e
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>5. Tratamento de Dados</h1>
+                    </div>
+                    <p>5.1. Para facilitar a compreensão deste item, estabelecemos algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:</p>
+                    <p><span class="bold">Titular:</span> é a pessoa física a quem se referem os dados pessoais que são objeto de tratamento.</p>
+                    <p><span class="bold">Dado Pessoal:</span> informação relacionada a pessoa natural identificada ou identificável.</p>
+                    <p><span class="bold">Dado Pessoal Sensível:</span> dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.</p>
+                    <p><span class="bold">Dados:</span> Dado Pessoal e Dado Pessoal Sensível, abrangendo inclusive os Dados relativos ao cadastro efetuado e os Dados oriundos dos hábitos de utilização da plataforma Clube de Vantagens.</p>
+                    <p><span class="bold">Tratamento:</span> toda operação realizada com dados pessoais, como as que se referem a coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação, avaliação ou controle da informação, modificação, comunicação, transferência, difusão ou extração.</p>
+                    <p><span class="bold">Controlador:</span> pessoa natural ou jurídica, de direito público ou privado, a quem competem as decisões referentes ao tratamento de dados pessoais.</p>
+                    <p>5.2. A partir do momento em que você se cadastra no Clube de Vantagens, você fornece o seu consentimento específico, livre, informado e inequívoco, para que:</p>
+                    <p class="recuo">a. Nós realizemos o Tratamento de seus Dados, para que possamos veicular, de modo mais adequado ao seu perfil, anúncios de produtos e serviços fornecidos pelos Conveniados; e</p>
+                    <p class="recuo">b. Nós compartilhemos com nossos Conveniados e empresas do Conglomerado Financeiro Alfa: Banco Alfa de Investimento S.A., Banco Alfa S.A., Financeira Alfa S.A. - C.F.I., Alfa Arrendamento Mercantil S.A., Alfa Corretora de Câmbio e Valores Mobiliários S.A., Alfa Previdência e Vida S.A. e Alfa Seguradora S.A. ("Conglomerado Financeiro Alfa"), os Dados necessários para que esses Conveniados possam identificar você como um membro do Clube de Vantagens.</p>
+                    <p class="recuo">c. Ao manifestarem sua aceitação com o presente termo, os Titulares consentem e concordam expressamente que os Conveniados e empresas do Conglomerado Financeiro, realizem o tratamento de seus Dados Pessoais única e exclusivamente para as finalidades acima especificadas na alínea “a” acima e item “i” da cláusula 5.4, ressalvadas demais hipóteses previstas na legislação vigente à época.</p>
+                    <p>5.3. Você tem todos os seus direitos estabelecidos na legislação de proteção de dados garantidos:</p>
+                    <p class="recuo">a. Confirmação da existência de Tratamento;</p>
+                    <p class="recuo">b. Acesso aos Dados;</p>
+                    <p class="recuo">c. Correção de Dados incompletos, inexatos ou desatualizados;</p>
+                    <p class="recuo">d. Anonimização, bloqueio ou eliminação de Dados desnecessários, excessivos ou tratados em desconformidade com a lei;</p>
+                    <p class="recuo">e. Portabilidade dos Dados;</p>
+                    <p class="recuo">f. Eliminação dos Dados tratados com o consentimento;</p>
+                    <p class="recuo">g. Informação sobre entidades públicas e privadas com as quais foi realizado uso compartilhado de Dados;</p>
+                    <p class="recuo">h. Informação sobre a possibilidade de não fornecimento do consentimento e sobre as consequências da negativa;</p>
+                    <p class="recuo">i. Revogação do consentimento; e</p>
+                    <p class="recuo">j. Revisão de decisões automatizadas tomadas com base no Tratamento de Dados.</p>
+                    <p>5.3.1. Caso você queira exercer algum desses direitos, basta encaminhar um e-mail especificando o direito a ser exercido para atendimento@marktclub.com.br, com o assunto Exercício de Direitos LGPD.</p>
+                    <p>5.4. Cada Conveniado - em especial, em relação aos Dados mencionados na alínea “b” da cláusula 5.2. acima, é considerado um Controlador independente e responde isoladamente pelos danos eventualmente causados, de modo que não existe, em hipótese alguma, a nossa responsabilidade em relação ao Tratamento de Dados que venha a ser realizado por qualquer um dos Conveniados.</p>
+                    <p>Quando preencher o cadastro complementar:</p>
+                    <p>Forneço meu consentimento específico, livre, informado e inequívoco, para que a Markt Tec Serviços em Tecnologia da Informação Ltda. e as Empresas do Conglomerado Financeiro Alfa:</p>
+                    <p class="recuo">(i) realizem o tratamento de meus dados pessoais e dados pessoais sensíveis, com a finalidade de veicular, de modo mais adequado ao meu perfil, material informativo sobre o mercado financeiro, anúncios de produtos e serviços fornecidos pelos seus conveniados e empresas do Conglomerado Financeiro Alfa; e
                     </p>
-                    <p class="titulo-normal pl10">(ii) compartilhe com seus conveniados e empresas do Conglomerado Financeiro Alfa os dados necessários para que esses conveniados e o Conglomerado Financeiro Alfa possam me identificar como um membro do Clube de Vantagens.</p>
-                    <p class="titulo-normal">Estou ciente que os dados tratados pela Markt Tec Serviços em Tecnologia da Informação Ltda. e as Empresas do Conglomerado Financeiro Alfa incluem aqueles relativos ao preenchimento deste cadastro, bem como os relativos aos meus acessos ao Clube de Serviços.</p>
+                    <p class="recuo">(ii) compartilhe com seus conveniados e empresas do Conglomerado Financeiro Alfa os dados necessários para que esses conveniados e o Conglomerado Financeiro Alfa possam me identificar como um membro do Clube de Vantagens.</p>
+                    <p>Estou ciente que os dados tratados pela Markt Tec Serviços em Tecnologia da Informação Ltda. e as Empresas do Conglomerado Financeiro Alfa incluem aqueles relativos ao preenchimento deste cadastro, bem como os relativos aos meus acessos ao Clube de Serviços.</p>
                 </article>
-            <?php else : ?>
-                <article class="termo-conteudo">
-                    <h2 class="titulo-normal bold">1. Introdução</h2>
-                    <p class="titulo-normal">Obrigado pelo interesse em utilizar o Clube de Vantagens, um Portal virtual desenvolvido e mantido pela Markt Tec Serviços em Tecnologia da Informação LTDA., pessoa jurídica de direito privado, inscrita no CNPJ sob o n.º 14.150.830/0001-00, sediada no SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10. CEP 70610-440, Capital Financial Center, Brasília - DF.</p>
-                    <p class="titulo-normal">Dados de nosso DPO: André Pereira Rodrigues, portador do CPF 014.951.801-31 e seu contato direto é andrerodrigues@andrerodrigues.com</p>
-                    <p class="titulo-normal">Antes de prosseguir, é fundamental que você leia e compreenda todos os termos e condições que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este regulamento, que foi redigido de forma clara e em linguagem acessível.</p>
-                    <p class="titulo-normal">Ao se cadastrar ou utilizar o Clube de Vantagens, você estará legalmente vinculado a todos os termos e condições aqui presentes. Caso você não concorde com qualquer das regras previstas, você poderá solicitar o cancelamento de seu acesso por e-mail:
-                        <?php if (sessao('CLUBE.id') != 'c3b3159ff6e9e937b954bf7eaca06aac') : ?>
+            @ else :
+                <article class="texto">
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>1. Introdução</h1>
+                    </div>
+                    <p>Obrigado pelo interesse em utilizar o Clube de Vantagens, um Portal virtual desenvolvido e mantido pela Markt Tec Serviços em Tecnologia da Informação LTDA., pessoa jurídica de direito privado, inscrita no CNPJ sob o n.º 14.150.830/0001-00, sediada no SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10. CEP 70610-440, Capital Financial Center, Brasília - DF.</p>
+                    <p>Dados de nosso DPO: André Pereira Rodrigues, portador do CPF 014.951.801-31 e seu contato direto é andrerodrigues@andrerodrigues.com</p>
+                    <p>Antes de prosseguir, é fundamental que você leia e compreenda todos os termos e condições que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este regulamento, que foi redigido de forma clara e em linguagem acessível.</p>
+                    <p>Ao se cadastrar ou utilizar o Clube de Vantagens, você estará legalmente vinculado a todos os termos e condições aqui presentes. Caso você não concorde com qualquer das regras previstas, você poderá solicitar o cancelamento de seu acesso por e-mail:
+                        @ if ($clube != 'c3b3159ff6e9e937b954bf7eaca06aac') :
                             atendimento@marktclub.com.br
-                        <?php else : ?>
+                        @ else :
                             sac@vivafacil.app.
-                            <?php endif; ?>.
+                            @ endif;.
                             Caso tenha qualquer dúvida sobre o conteúdo desses Termos de Uso, entre em contato com nosso suporte. Será um prazer atendê-lo!</p>
 
-                    <h2 class="titulo-normal bold">2. O Clube de Vantagens</h2>
-                    <p class="titulo-normal">2.1. O Clube de Vantagens disponibiliza uma plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas online e físicas, que são chamados CONVENIADOS.</p>
-                    <p class="titulo-normal">2.2. O Clube de Vantagens não vende qualquer produto ou serviço no seu Portal, apenas veicula anúncios de produtos e serviços fornecidos pelos CONVENIADOS. Por essa razão, nós não nos responsabilizamos por nenhuma compra ou transação realizada entre o usuário, o Clube de Vantagens e os conveniados/fornecedores.</p>
-                    <p class="titulo-normal">2.3. Ao efetuar uma compra de um conveniado, através de um link disponibilizado no Portal, você cria uma nova e distinta relação jurídica diretamente com este conveniado, da qual o Clube de Vantagens não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma.</p>
-                    <p class="titulo-normal">2.4. Os anúncios veiculados no Portal podem conter informações sobre alguns produtos ou serviços, incluindo preço. No entanto, você deve sempre conferir o preço e demais informações dos produtos diretamente no site dos conveniados, pois alguns dos anúncios podem estar desatualizados ou algum dos conveniados podem cometer erros – por isso, nós não nos responsabilizamos por estas informações, tendo em vista que elas são enviados pelos conveniados e apenas publicamos estas informações.</p>
-                    <p class="titulo-normal">2.5. A responsabilidade pelos produtos e serviços e por suas informações, incluindo o preço, é exclusiva e integral dos conveniados.</p>
-                    <p class="titulo-normal">2.6. É sua obrigação confirmar a veracidade das informações dos anúncios constantes no Portal diretamente no próprio site dos conveniados. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e no site dos conveniados, prevalecerão as informações do site do conveniado.</p>
-                    <p class="titulo-normal">2.7. Prezando pelo bom atendimento e minimização dos erros, sugerimos que nossos usuários sempre enviem feedback sobre as suas experiências de compra. Caso algum parceiro apresente problemas de forma recorrente, poderemos tirá-lo do ar, evitando problemas futuros.</p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>2. O Clube de Vantagens</h1>
+                    </div>
+                    <p>2.1. O Clube de Vantagens disponibiliza uma plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas online e físicas, que são chamados CONVENIADOS.</p>
+                    <p>2.2. O Clube de Vantagens não vende qualquer produto ou serviço no seu Portal, apenas veicula anúncios de produtos e serviços fornecidos pelos CONVENIADOS. Por essa razão, nós não nos responsabilizamos por nenhuma compra ou transação realizada entre o usuário, o Clube de Vantagens e os conveniados/fornecedores.</p>
+                    <p>2.3. Ao efetuar uma compra de um conveniado, através de um link disponibilizado no Portal, você cria uma nova e distinta relação jurídica diretamente com este conveniado, da qual o Clube de Vantagens não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma.</p>
+                    <p>2.4. Os anúncios veiculados no Portal podem conter informações sobre alguns produtos ou serviços, incluindo preço. No entanto, você deve sempre conferir o preço e demais informações dos produtos diretamente no site dos conveniados, pois alguns dos anúncios podem estar desatualizados ou algum dos conveniados podem cometer erros – por isso, nós não nos responsabilizamos por estas informações, tendo em vista que elas são enviados pelos conveniados e apenas publicamos estas informações.</p>
+                    <p>2.5. A responsabilidade pelos produtos e serviços e por suas informações, incluindo o preço, é exclusiva e integral dos conveniados.</p>
+                    <p>2.6. É sua obrigação confirmar a veracidade das informações dos anúncios constantes no Portal diretamente no próprio site dos conveniados. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e no site dos conveniados, prevalecerão as informações do site do conveniado.</p>
+                    <p>2.7. Prezando pelo bom atendimento e minimização dos erros, sugerimos que nossos usuários sempre enviem feedback sobre as suas experiências de compra. Caso algum parceiro apresente problemas de forma recorrente, poderemos tirá-lo do ar, evitando problemas futuros.</p>
 
-                    <h2 class="titulo-normal bold">3. O CASH BACK</h2>
-                    <p class="titulo-normal">3.1. O nosso Clube de Vantagens oferece também uma oportunidade para que você possa receber um desconto adicional da compra de um produto ou serviço dos nossos conveniados, desde que sejam cumpridos os requisitos ‘A’ a ‘E’ do item 4 destes Termos e Condições de Uso (“Requisitos Essenciais”).</p>
-                    <p class="titulo-normal">3.2. Esse desconto adicional é concedido diretamente pela Markt Tec Serviços em Tecnologia da Informação, através do reembolso de parte do valor gasto por você nas compras efetuadas através da área chamada de Cashback (dinheiro de volta).</p>
-                    <p class="titulo-normal">O Cashback funciona de maneira bem simples: no nosso Clube de Vantagens, nós realizamos uma promessa de recompensa, que será devida a qualquer pessoa que cumprir os Requisitos Essenciais. Isto é: se você cumprir os Requisitos Essenciais, teremos o compromisso de creditá-lo com a recompensa prometida: o Cashback, que corresponde a um percentual do valor total da compra que você receberá em pontos. Para maiores esclarecimentos, acesse o “Termo de Uso do Silium” no menu.</p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>3. O CASH BACK</h1>
+                    </div>
+                    <p>3.1. O nosso Clube de Vantagens oferece também uma oportunidade para que você possa receber um desconto adicional da compra de um produto ou serviço dos nossos conveniados, desde que sejam cumpridos os requisitos ‘A’ a ‘E’ do item 4 destes Termos e Condições de Uso (“Requisitos Essenciais”).</p>
+                    <p>3.2. Esse desconto adicional é concedido diretamente pela Markt Tec Serviços em Tecnologia da Informação, através do reembolso de parte do valor gasto por você nas compras efetuadas através da área chamada de Cashback (dinheiro de volta).</p>
+                    <p>O Cashback funciona de maneira bem simples: no nosso Clube de Vantagens, nós realizamos uma promessa de recompensa, que será devida a qualquer pessoa que cumprir os Requisitos Essenciais. Isto é: se você cumprir os Requisitos Essenciais, teremos o compromisso de creditá-lo com a recompensa prometida: o Cashback, que corresponde a um percentual do valor total da compra que você receberá em pontos. Para maiores esclarecimentos, acesse o “Termo de Uso do Silium” no menu.</p>
 
-                    <h2 class="titulo-normal bold">4. Os Requisitos Essenciais</h2>
-                    <p class="titulo-normal">4.1. Para que você adquira o direito à recompensa prometida pelo Clube de Vantagens, na forma do reembolso de parte do valor gasto em determinada aquisição pelo Portal (o Cashback), é indispensável que você cumpra todos os requisitos abaixo, cumulativamente:</p>
-                    <p class="titulo-normal pl10">A. Efetuar a compra nos parceiros relacionados na área do menu chamado CASHBACK; e</p>
-                    <p class="titulo-normal pl10">B. Finalizar a compra com o mesmo CPF e e-mail cadastrados no Clube de Vantagens; e</p>
-                    <p class="titulo-normal pl10">C. Aguardar o prazo de até 90 (noventa) dias para que o saldo seja atualizado com o crédito da compra efetuada.</p>
-                    <p class="titulo-normal">4.2. Ao dizermos que os Requisitos Essenciais são cumulativos, significa que todos deverão ser cumpridos para que surja o direito ao recebimento do Cashback. Por exemplo, cumpridos os Requisitos ‘A’ a ‘D’, somente após solicitar o resgate, informando alguns dados adicionais, você adquirirá o direito de receber os valores.</p>
-                    <p class="titulo-normal">4.3. Antes da solicitação do resgate dos pontos para conversão em dinheiro, os valores demonstrados na sua conta do Clube de Vantagens são meramente indicativos, e não representam nenhum direito adquirido, pois os Requisitos Essenciais ainda não foram integralmente cumpridos.</p>
-                    <p class="titulo-normal">4.4. As informações prestadas no cadastro devem ser exatas, precisas e verdadeiras, e você se compromete a atualizar o cadastro sempre que houver alguma alteração nos seus dados. Nós poderemos nos utilizar de todos os meios legais para confirmar a veracidade desses dados, embora não nos responsabilizamos, em hipótese nenhuma, por dados incorretos ou não verdadeiros informados por você. Isto é, você nos garante e assume responsabilidade pela veracidade, exatidão e autenticidade de todos os dados que nos fornecer.</p>
-                    <p class="titulo-normal">4.5. Recomendamos fortemente que você mude a sua senha periodicamente, e que não utilize senhas que facilitem a adivinhação por terceiros, como números de telefone, endereço, datas de nascimento, nomes de parentes etc.</p>
-                    <p class="titulo-normal">4.6. Para que os Requisitos ‘B’,‘C’ e ‘D’ sejam cumpridos, é essencial que você esteja logado no Clube de Vantagens.</p>
-                    <p class="titulo-normal">4.7. O programa de CASHBACK conta com regulamento próprio e você pode consultá-lo no link do seu perfil chamado TERMO DE USO SILLIUM.</p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>4. Os Requisitos Essenciais</h1>
+                    </div>
+                    <p>4.1. Para que você adquira o direito à recompensa prometida pelo Clube de Vantagens, na forma do reembolso de parte do valor gasto em determinada aquisição pelo Portal (o Cashback), é indispensável que você cumpra todos os requisitos abaixo, cumulativamente:</p>
+                    <p class="recuo">A. Efetuar a compra nos parceiros relacionados na área do menu chamado CASHBACK; e</p>
+                    <p class="recuo">B. Finalizar a compra com o mesmo CPF e e-mail cadastrados no Clube de Vantagens; e</p>
+                    <p class="recuo">C. Aguardar o prazo de até 90 (noventa) dias para que o saldo seja atualizado com o crédito da compra efetuada.</p>
+                    <p>4.2. Ao dizermos que os Requisitos Essenciais são cumulativos, significa que todos deverão ser cumpridos para que surja o direito ao recebimento do Cashback. Por exemplo, cumpridos os Requisitos ‘A’ a ‘D’, somente após solicitar o resgate, informando alguns dados adicionais, você adquirirá o direito de receber os valores.</p>
+                    <p>4.3. Antes da solicitação do resgate dos pontos para conversão em dinheiro, os valores demonstrados na sua conta do Clube de Vantagens são meramente indicativos, e não representam nenhum direito adquirido, pois os Requisitos Essenciais ainda não foram integralmente cumpridos.</p>
+                    <p>4.4. As informações prestadas no cadastro devem ser exatas, precisas e verdadeiras, e você se compromete a atualizar o cadastro sempre que houver alguma alteração nos seus dados. Nós poderemos nos utilizar de todos os meios legais para confirmar a veracidade desses dados, embora não nos responsabilizamos, em hipótese nenhuma, por dados incorretos ou não verdadeiros informados por você. Isto é, você nos garante e assume responsabilidade pela veracidade, exatidão e autenticidade de todos os dados que nos fornecer.</p>
+                    <p>4.5. Recomendamos fortemente que você mude a sua senha periodicamente, e que não utilize senhas que facilitem a adivinhação por terceiros, como números de telefone, endereço, datas de nascimento, nomes de parentes etc.</p>
+                    <p>4.6. Para que os Requisitos ‘B’,‘C’ e ‘D’ sejam cumpridos, é essencial que você esteja logado no Clube de Vantagens.</p>
+                    <p>4.7. O programa de CASHBACK conta com regulamento próprio e você pode consultá-lo no link do seu perfil chamado TERMO DE USO SILLIUM.</p>
 
-                    <h2 class="titulo-normal bold">5. Tratamento de Dados</h2>
-                    <p class="titulo-normal">5.1. Para facilitar a compreensão deste item, estabelecemos algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:</p>
-                    <p class="titulo-normal">Dado Pessoal: informação relacionada a pessoa natural identificada ou identificável</p>
-                    <p class="titulo-normal">Dado Pessoal Sensível: dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.</p>
-                    <p class="titulo-normal">Dados: Dado Pessoal e Dado Pessoal Sensível, abrangendo inclusive os Dados relativos ao cadastro efetuado e os Dados oriundos dos hábitos de utilização da plataforma Clube de Vantagens.</p>
-                    <p class="titulo-normal">Tratamento: toda operação realizada com dados pessoais, como as que se referem a coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação, avaliação ou controle da informação, modificação, comunicação, transferência, difusão ou extração.</p>
-                    <p class="titulo-normal">Controlador: pessoa natural ou jurídica, de direito público ou privado, a quem competem as decisões referentes ao tratamento de dados pessoais.</p>
-                    <p class="titulo-normal">5.2. A partir do momento em que você se cadastra no Clube de Vantagens, você fornece o seu consentimento específico, livre, informado e inequívoco, para que:</p>
-                    <p class="titulo-normal pl10">a. Nós realizemos o Tratamento de seus Dados, para que possamos veicular, de modo mais adequado ao seu perfil, anúncios de produtos e serviços fornecidos pelos Conveniados; e</p>
-                    <p class="titulo-normal pl10">b. Nós compartilhemos com nossos Conveniados os Dados ESTRITAMENTE necessários para que esses Conveniados possam identificar você como um membro do Clube de Vantagens. No caso de uso presencial, você apresentará de livre e espontânea vontade o documento. No caso de uso on-line, os dados não são encaminhados para as lojas parceiras. Em casos de projetos especiais, antes de qualquer encaminhamento de dados, você, usuário, será avisado e deverá consentir o encaminhamos destes dados que serão claramente especificados. Nenhum dado será encaminhado sem o seu consentimento.</p>
-                    <p class="titulo-normal">5.3. Você tem todos os seus direitos estabelecidos na legislação de proteção de dados garantidos:</p>
-                    <p class="titulo-normal pl10">a. Confirmação da existência de Tratamento;</p>
-                    <p class="titulo-normal pl10">b. Acesso aos Dados;</p>
-                    <p class="titulo-normal pl10">c. Correção de Dados incompletos, inexatos ou desatualizados;</p>
-                    <p class="titulo-normal pl10">d. Anonimização, bloqueio ou eliminação de Dados desnecessários, excessivos ou tratados em desconformidade com a lei;</p>
-                    <p class="titulo-normal pl10">e. Portabilidade dos Dados;</p>
-                    <p class="titulo-normal pl10">f. Eliminação dos Dados tratados com o consentimento;</p>
-                    <p class="titulo-normal pl10">g. Informação sobre entidades públicas e privadas com as quais foi realizado uso compartilhado de Dados;</p>
-                    <p class="titulo-normal pl10">h. Informação sobre a possibilidade de não fornecimento do consentimento e sobre as consequências da negativa;</p>
-                    <p class="titulo-normal pl10">i. Revogação do consentimento; e</p>
-                    <p class="titulo-normal pl10">j. Revisão de decisões automatizadas tomadas com base no Tratamento de Dados.</p>
-                    <p class="titulo-normal"> <span style="font-weight: bold">OBSERVAÇÃO:</span> No caso dos dois últimos itens (I e J), nossa empresa conta com um responsável que possui a responsabilidade de ser nosso DPO (Data Protection Officer). Em conformidade com a legislação vigente, apresentamos os dados e forma de contato com o responsável. Nosso DPO é André Pereira Rodrigues, portador do CPF 014.951.801-31. Para fazer qualquer tipo de solicitação ligada ao seu tratamento de dados, basta encaminhar um e-mail para andrerodrigues@andrerodrigues.com.</p>
-                    <p class="titulo-normal">5.3.1. Caso você queira exercer algum desses direitos, basta encaminhar um e-mail especificando o direito a ser exercido para atendimento@marktclub.com.br, com o assunto Exercício de Direitos LGPD.</p>
-                    <p class="titulo-normal">5.4. Cada Conveniado - em especial, em relação aos Dados mencionados no item 5.2.(b) - é considerado um Controlador independente e responde isoladamente pelos danos eventualmente causados, de modo que não existe, em hipótese alguma, a nossa responsabilidade em relação ao Tratamento de Dados que venha a ser realizado por qualquer um dos Conveniados.</p>
-                    <p class="titulo-normal">Quando preencher o cadastro complementar:</p>
-                    <p class="titulo-normal">Forneço meu consentimento específico, livre, informado e inequívoco, para que a Markt Tec Serviços em Tecnologia da Informação Ltda. (i) realize o tratamento de meus dados pessoais e dados pessoais sensíveis, com a finalidade de veicular, de modo mais adequado ao meu perfil, anúncios de produtos e serviços fornecidos pelos seus conveniados; e (ii) compartilhe com seus conveniados os dados necessários para que esses conveniados possam me identificar como um membro do Clube de Vantagens. Estou ciente que os dados tratados pela Markt Tec Serviços em Tecnologia da Informação Ltda. incluem aqueles relativos ao preenchimento deste cadastro, bem como os relativos aos meus acessos ao Clube de Serviços.</p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>5. Tratamento de Dados</h1>
+                    </div>
+                    <p>5.1. Para facilitar a compreensão deste item, estabelecemos algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:</p>
+                    <p>Dado Pessoal: informação relacionada a pessoa natural identificada ou identificável</p>
+                    <p>Dado Pessoal Sensível: dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.</p>
+                    <p>Dados: Dado Pessoal e Dado Pessoal Sensível, abrangendo inclusive os Dados relativos ao cadastro efetuado e os Dados oriundos dos hábitos de utilização da plataforma Clube de Vantagens.</p>
+                    <p>Tratamento: toda operação realizada com dados pessoais, como as que se referem a coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação, avaliação ou controle da informação, modificação, comunicação, transferência, difusão ou extração.</p>
+                    <p>Controlador: pessoa natural ou jurídica, de direito público ou privado, a quem competem as decisões referentes ao tratamento de dados pessoais.</p>
+                    <p>5.2. A partir do momento em que você se cadastra no Clube de Vantagens, você fornece o seu consentimento específico, livre, informado e inequívoco, para que:</p>
+                    <p class="recuo">a. Nós realizemos o Tratamento de seus Dados, para que possamos veicular, de modo mais adequado ao seu perfil, anúncios de produtos e serviços fornecidos pelos Conveniados; e</p>
+                    <p class="recuo">b. Nós compartilhemos com nossos Conveniados os Dados ESTRITAMENTE necessários para que esses Conveniados possam identificar você como um membro do Clube de Vantagens. No caso de uso presencial, você apresentará de livre e espontânea vontade o documento. No caso de uso on-line, os dados não são encaminhados para as lojas parceiras. Em casos de projetos especiais, antes de qualquer encaminhamento de dados, você, usuário, será avisado e deverá consentir o encaminhamos destes dados que serão claramente especificados. Nenhum dado será encaminhado sem o seu consentimento.</p>
+                    <p>5.3. Você tem todos os seus direitos estabelecidos na legislação de proteção de dados garantidos:</p>
+                    <p class="recuo">a. Confirmação da existência de Tratamento;</p>
+                    <p class="recuo">b. Acesso aos Dados;</p>
+                    <p class="recuo">c. Correção de Dados incompletos, inexatos ou desatualizados;</p>
+                    <p class="recuo">d. Anonimização, bloqueio ou eliminação de Dados desnecessários, excessivos ou tratados em desconformidade com a lei;</p>
+                    <p class="recuo">e. Portabilidade dos Dados;</p>
+                    <p class="recuo">f. Eliminação dos Dados tratados com o consentimento;</p>
+                    <p class="recuo">g. Informação sobre entidades públicas e privadas com as quais foi realizado uso compartilhado de Dados;</p>
+                    <p class="recuo">h. Informação sobre a possibilidade de não fornecimento do consentimento e sobre as consequências da negativa;</p>
+                    <p class="recuo">i. Revogação do consentimento; e</p>
+                    <p class="recuo">j. Revisão de decisões automatizadas tomadas com base no Tratamento de Dados.</p>
+                    <p> <span class="bold">OBSERVAÇÃO:</span> No caso dos dois últimos itens (I e J), nossa empresa conta com um responsável que possui a responsabilidade de ser nosso DPO (Data Protection Officer). Em conformidade com a legislação vigente, apresentamos os dados e forma de contato com o responsável. Nosso DPO é André Pereira Rodrigues, portador do CPF 014.951.801-31. Para fazer qualquer tipo de solicitação ligada ao seu tratamento de dados, basta encaminhar um e-mail para andrerodrigues@andrerodrigues.com.</p>
+                    <p>5.3.1. Caso você queira exercer algum desses direitos, basta encaminhar um e-mail especificando o direito a ser exercido para atendimento@marktclub.com.br, com o assunto Exercício de Direitos LGPD.</p>
+                    <p>5.4. Cada Conveniado - em especial, em relação aos Dados mencionados no item 5.2.(b) - é considerado um Controlador independente e responde isoladamente pelos danos eventualmente causados, de modo que não existe, em hipótese alguma, a nossa responsabilidade em relação ao Tratamento de Dados que venha a ser realizado por qualquer um dos Conveniados.</p>
+                    <p>Quando preencher o cadastro complementar:</p>
+                    <p>Forneço meu consentimento específico, livre, informado e inequívoco, para que a Markt Tec Serviços em Tecnologia da Informação Ltda. (i) realize o tratamento de meus dados pessoais e dados pessoais sensíveis, com a finalidade de veicular, de modo mais adequado ao meu perfil, anúncios de produtos e serviços fornecidos pelos seus conveniados; e (ii) compartilhe com seus conveniados os dados necessários para que esses conveniados possam me identificar como um membro do Clube de Vantagens. Estou ciente que os dados tratados pela Markt Tec Serviços em Tecnologia da Informação Ltda. incluem aqueles relativos ao preenchimento deste cadastro, bem como os relativos aos meus acessos ao Clube de Serviços.</p>
                 </article>
-            <?php endif; ?>
+            @ endif;
         </section>
 
     </div>
 
-    <link rel="stylesheet" href="<?= LINK; ?>/css/site/termo_uso_app.css?cache=<?= CACHE; ?>" />
 
 </body>
 

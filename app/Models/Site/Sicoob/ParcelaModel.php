@@ -35,7 +35,7 @@ final class ParcelaModel
         }
 
         return (object)[
-            'tipo'  => 'credito-pessoal',
+            'tipo'  => 'credito_pessoal',
             'lista' => (object)[
                 'titulo' => 'Agora você conta com uma linha de crédito feita especialmente para você.',
                 'parcela'   => $parcela,
@@ -53,7 +53,7 @@ final class ParcelaModel
         }
 
         return (object)[
-            'tipo'  => 'veiculo-0',
+            'tipo'  => 'veiculo_novo',
             'lista' => (object)[
                 'titulo' => 'A realização do sonho do carro 0km está mais próximo.
                 Confira o que preparamos para você.',
@@ -72,7 +72,7 @@ final class ParcelaModel
         }
 
         return (object)[
-            'tipo'  => 'veiculo-seminovo',
+            'tipo'  => 'veiculo_seminovo',
             'lista' => (object)[
                 'titulo' => 'Se você quer dar um upgrade no seu carro, a hora é agora!
                 Linha específica para carros seminovos.',

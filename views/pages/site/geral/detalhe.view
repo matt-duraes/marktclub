@@ -24,13 +24,18 @@
             <p>{{$dado->lista->texto->procedimento}} </p>
         </div>
     </div>
-    @if(TIPO_USUARIO != 'indicado')
+    @if(TIPO_USUARIO != 'indicado'):
         <div class="bloco_botao">
-            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeTelefone(17)</i></a>
-            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="display_none botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeTelefone(17)</i></a>
-            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver telefone</div>
+            @if ($dado->lista->procedimento == 'declaracao'):
+                <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeDeclaracao(17)</i></a>
+            @elseif ($dado->lista->procedimento == 'voucher'):
+                <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeVoucher(17)</i></a>
+            @elseif ($dado->lista->procedimento == 'on-line'):
+                <div class="botao branco botao_geral_cor"><i>@iconeTelefone()</i> Abrir Site</div>
+            @endif
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefoneLoja()</i> Ver telefone</div>
             <div class="botao branco botao_geral_cor"><i>@iconeEmail(15)</i> Ver e-mail</div>
-            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Abrir Site</div>
+
         </div>
     @else
         <div class="bloco_atencao_geral">
@@ -43,8 +48,8 @@
         <header>
             <h1>Endereços</h1>
             <div class="grow"></div>
-            <div class="botao_geral_cor buscar"><i>@iconeMundo</i> Buscar endereço</div>
-            <a href="_blank" rel="nofollow noopener" class="botao_geral_cor cor_bg">Como Chegar <i>@iconeTelefone(17)</i></a>
+            <div class="botao botao_geral_cor cor_bg" id="botao_endereco">Buscar endereço <i>@iconeBusca(20)</i></div>
+            <a href="_blank" rel="nofollow noopener" id="como_chegar" class="botao destaque botao_geral_cor cor_bg">Como Chegar <i>@iconeMapa(20)</i></a>
         </header>
         <div class="mapa"></div>
     </div>

@@ -6,7 +6,14 @@
                     <span>1</span>
                     <div class="cor_fill check">@iconeCheck()</div>
                 </div>
-                <p>Plano</p>
+                <p>Abrangência</p>
+            </div>
+            <div class="item">
+                <div class="bola">
+                    <span>1</span>
+                    <div class="cor_fill check">@iconeCheck()</div>
+                </div>
+                <p>Cobertura</p>
             </div>
             <div class="item">
                 <div class="bola">
@@ -34,18 +41,27 @@
                             <div class="bloco_regional">
                                 <div class="botao_input">
                                     <input id="regional" class="regional" name="tipo" type="radio" value="regional">
-                                    <label for="regional">Uniflex regional</label>
+                                    <label for="regional" class="botao_passa_passo_proximo">Uniflex regional</label>
                                 </div>
                                 <div class="botao_input">
                                     <input id="estadual" class="estadual" name="tipo" type="radio" value="estadual">
-                                    <label for="estadual">Uniflex estadual</label>
+                                    <label for="estadual" class="botao_passa_passo_proximo">Uniflex estadual</label>
                                 </div>
                                 <div class="botao_input">
                                     <input id="nacional" class="nacional" name="tipo" type="radio" value="nacional">
-                                    <label for="nacional">Uniflex nacional</label>
+                                    <label for="nacional" class="botao_passa_passo_proximo">Uniflex nacional</label>
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="conteudo">
+                    <div class="bloco_simulacao">
+                        <header>
+                            <h1>ESCOLHA SEU PLANO</h1>
+                        </header>
+                        <div class="botao_acomodacao coluna">
                             <div id="bloco_central_plano">
                                 <div class="botao_input enfermaria">
                                     <input id="enfermaria" name="acomodacao" type="radio" value="enfermaria">
@@ -65,10 +81,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="bloco_botao">
+                            <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
+                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                        </div>
                     </div>
                 </div>
                 <div class="conteudo">
-                    <div class="bloco_simulacao form_geral">
+                    <div class="bloco_simulacao form_geral bloco_geral_dependente">
                         <header>
                             <h1>PREENCHA AS INFORMAÇÕES</h1>
                         </header>

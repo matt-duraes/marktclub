@@ -1,0 +1,8 @@
+<div id="carteirinha_padrao">
+    <div class="bloco_logo">
+        <img src="{{$dado->imagem->logo}}" />
+    </div>
+    <div class="bloco_dado">
+        <p>{{$dado->nome}}</p>
+    </div>
+</div>
