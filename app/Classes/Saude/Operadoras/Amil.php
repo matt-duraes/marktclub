@@ -54,21 +54,6 @@ class Amil extends AbstractOperadora
     ];
 
     /**
-     * @param  Data         $dataNascimento  Data de Nascimento do Cliente
-     * @param  string       $acomodacao      Acomodação
-     * @param  Plano|null   $plano           Plano de Saúde
-     * @param  Regiao|null  $regiao          Região
-     */
-    public function __construct(
-        Data $dataNascimento,
-        string $acomodacao,
-        ?Plano $plano = null,
-        ?Regiao $regiao = null
-    ) {
-        parent::__construct($dataNascimento, $acomodacao, $plano, $regiao);
-    }
-
-    /**
      * @return int|null Código da Acomodação para o Banco de Dados, NULL caso não encontrado há acomodação
      */
     public function pegarCodigoAcomodacao(): ?int
