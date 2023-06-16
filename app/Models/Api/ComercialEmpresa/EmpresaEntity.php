@@ -5,15 +5,21 @@ namespace App\Models\Api\ComercialEmpresa;
 use ORM\Entity;
 use Modules\Cpf;
 use Modules\Cnpj;
+use Modules\Data;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Dinheiro;
 use Modules\Telefone;
 use Modules\EnderecoEstado;
 use App\Classes\ComercialEmpresa\Status;
+use App\Classes\ComercialEmpresa\TipoSite;
 use App\Models\Api\UsuarioEquipe\HelperModel;
+use App\Classes\ComercialEmpresa\EmailDisparo;
+use App\Classes\ComercialEmpresa\ContratoPrazo;
 use App\Classes\ComercialEmpresa\TipoPagamento;
+use App\Classes\ComercialEmpresa\CadastroUsuario;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\ContratoRenovacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
 
@@ -21,19 +27,26 @@ final class EmpresaEntity extends Entity
 {
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
     protected array $ormBuscar = [
-        'imagem' => 'imagem_arquivo',
         'finalidade_principal' => 'finalidade_empresa',
-        'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
-        'responsavel_email', 'responsavel_telefone', 'finalidade_secundaria', 'tipo_pagamento',
-        'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'prospeccao_status',
-        'renda_media', 'valor_pib', 'estado_principal', 'site', 'id_usuario_equipe', 'status'
+        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
+        'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'id_usuario_equipe', 'tipo_pagamento', 'valor_pago', 'renda_media', 'valor_pib', 'produto_clube',
+        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
+        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
+        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
+        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
+        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista'
     ];
     protected array $ormSalvar = [
         'finalidade_empresa' => '->finalidade_principal',
-        'titulo', 'cnpj', 'razao_social', 'nome_fantasia', 'slug', 'responsavel_nome', 'responsavel_cpf',
-        'responsavel_email', 'responsavel_telefone', 'finalidade_secundaria', 'tipo_pagamento',
-        'valor_pago', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'prospeccao_status',
-        'renda_media', 'valor_pib', 'estado_principal', 'site', 'id_usuario_equipe', 'status'
+        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
+        'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'id_usuario_equipe', 'tipo_pagamento', 'valor_pago', 'renda_media', 'valor_pib', 'produto_clube',
+        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
+        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
+        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
+        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
+        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista'
     ];
 
     protected string $ormValidarSalvar = '
@@ -45,10 +58,6 @@ final class EmpresaEntity extends Entity
         responsavel_telefone|Telefone do responsável|vazio|valido
         responsavel_email|E-mail do responsável|vazio|valido
         estado_principal|Estado principal|valido
-        tipo_pagamento|Tipo de pagamento|valido
-        valor_pago|Valor pago|valido
-        renda_media|Renda média|valido
-        valor_pib|Valor do PIB|valido
         status|Status|vazio|valido
     ';
 
@@ -71,6 +80,8 @@ final class EmpresaEntity extends Entity
     public Botao $produto_ios;
     public Botao $produto_android;
     public Botao $produto_site;
+    public Botao $produto_webview;
+    public Botao $produto_api;
     public string $site;
     public TipoPagamento $tipo_pagamento;
     public Dinheiro $valor_pago;
@@ -80,6 +91,22 @@ final class EmpresaEntity extends Entity
     public string $equipe;
     public FinalidadePrincipal $finalidade_principal;
     public FinalidadeSecundaria $finalidade_secundaria;
+    public Data $data_eleicao;
+    public array $email_dia;
+    public array $whatsapp_dia;
+    public array $rede_social_dia;
+    public ContratoPrazo $contrato_prazo;
+    public ContratoRenovacao $contrato_renovacao;
+    public TipoSite $tipo_site;
+    public CadastroUsuario $cadastro_usuario;
+    public Botao $comunicacao_email;
+    public Botao $comunicacao_whatsapp;
+    public Botao $comunicacao_rede_social;
+    public EmailDisparo $email_disparo;
+    public string $observacao_ti;
+    public string $observacao_comunicacao;
+    public string $observacao_financeiro;
+    public array $restricao_lista;
 
     protected function regraInsert()
     {

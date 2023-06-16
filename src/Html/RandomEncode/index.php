@@ -17,12 +17,14 @@ $cnpj = env('POSTMAN_CNPJ', '');
 $rg = env('POSTMAN_RG', '');
 $login = env('POSTMAN_LOGIN', '');
 $senha = env('POSTMAN_SENHA', '');
+$decimal = env('POSTMAN_DECIMAL', '');
 
 echo jsonEncode([
     'nome' => $Crypt->encode(!empty($nome) ? $nome : nomeAleatorio()),
     'sobreNome' => $Crypt->encode(!empty($sobreNome) ? $sobreNome : sobreNomeAleatorio()),
     'nomeCompleto' => $Crypt->encode(!empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio()),
     'numero' => $Crypt->encode(!empty($numero) ? $numero : numeroAleatorio()),
+    'decimal' => $Crypt->encode(!empty($decimal) ? $decimal : numeroAleatorio(1, 999) . '.' . numeroAleatorio(10, 99)),
     'telefone' => $Crypt->encode(!empty($telefone) ? $telefone : telefoneAleatorio()),
     'email' => $Crypt->encode(!empty($email) ? $email : emailAleatorio()),
     'data' => $Crypt->encode(!empty($data) ? $data : date('Y-m-d')),

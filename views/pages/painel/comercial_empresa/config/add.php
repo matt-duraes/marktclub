@@ -199,7 +199,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->fieldsetCheckbox(callback: function () use ($Painel) {
             $restricao = (new ApiHelper(token: true))->get('/comercial-restricao/select')->array()['dado'] ?? [];
             foreach ($restricao as $id => $titulo) {
-                $Painel->checkbox(name: 'restricao_lista', label: $titulo, value: $id);
+                $Painel->checkbox(name: 'restricao_lista[]', label: $titulo, value: $id);
             }
         });
     });

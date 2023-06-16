@@ -32,7 +32,7 @@ final class DemandaController extends Controller
     public function tecnologia()
     {
         $quadro = (new ListaModel())->quadroTi();
-        return $this->listar('Demanda da TI', Area::TECNOLOGIA, $quadro);
+        return $this->listar('Demanda da Tecnologia', Area::TECNOLOGIA, $quadro);
     }
     public function criacao()
     {

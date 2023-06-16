@@ -229,13 +229,19 @@ final class Visualizar
         ], $permissao);
         return $this;
     }
-    public function linha(array|string $campo, string $nome, string $formatar = '', ?string $permissao = null): self
-    {
+    public function linha(
+        array|string $campo,
+        string $nome,
+        string $formatar = '',
+        ?string $permissao = null,
+        bool $vazio = true
+    ): self {
         $this->adicionarCampo($campo, [
             'funcao' => 'linha',
             'campo' => $campo,
             'nome' => $nome,
-            'formatar' => $formatar
+            'formatar' => $formatar,
+            'vazio' => true
         ], $permissao);
         return $this;
     }
