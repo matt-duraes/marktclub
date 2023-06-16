@@ -32,7 +32,6 @@ const demandaSalvar = () => {
     const inputEndereco = document.getElementById('input_endereco');
     // Criacao
     const inputEmpresaCriacao = document.getElementById('input_empresa_criacao');
-
     const inputCriacaoCategoriaSite = document.getElementById('input_criacao_categoria_site');
     const inputCriacaoCategoriaSocial = document.getElementById('input_criacao_categoria_social');
     const inputCriacaoCategoriaImpresso = document.getElementById('input_criacao_categoria_impresso');
@@ -72,6 +71,19 @@ const demandaSalvar = () => {
     const inputKitTexto = document.getElementById('input_kit_texto');
     const inputVideoTexto = document.getElementById('input_video_texto');
     const inputOutroTexto = document.getElementById('input_outro_texto');
+    // Sorteio
+    const inputEmpresaSorteio = document.getElementById('input_empresa_sorteio');
+    const inputSorteioDataInicio = document.getElementById('input_data_inicio');
+    const inputSorteioDataFinal = document.getElementById('input_data_final');
+    const inputSorteioDataSorteio = document.getElementById('input_data_sorteio');
+    const inputSorteioComoParticipar = document.getElementById('input_como_participar');
+    const inputSorteioMotivacao = document.getElementById('input_sorteio_motivacao');
+    const inputSorteioMotivacaoOutro = document.getElementById('input_sorteio_motivacao_outro');
+    const inputSorteioPremioItem = document.getElementById('input_premio_item');
+    const inputSorteioPremioCompra = document.getElementById('input_premio_compra');
+    const inputSorteioPremioEntrega = document.getElementById('input_premio_entrega');
+    const inputSorteioPremioEntregaOutro = document.getElementById('input_premio_entrega_outro');
+    const inputSorteioTexto = document.getElementById('input_sorteio_texto');
 
     const botaoSalvar = document.getElementById('botao_salvar_demanda');
 
@@ -79,7 +91,8 @@ const demandaSalvar = () => {
     const blocoEscolherCriacao = document.getElementById('bloco_tipo_demanda_criacao');
     const botaoTipo = document.querySelectorAll('#bloco_demanda_nova .botao_lista .botao');
 
-    const blocoCriacao = document.getElementById('bloco_criacao');
+    const blocoTipoSorteio = document.getElementById('bloco_sorteio');
+    const blocoTipoCriacao = document.getElementById('bloco_criacao');
     const blocoTipoAssociacao = document.getElementById('bloco_tipo_associacao');
     const blocoTipoCliente = document.getElementById('bloco_tipo_cliente');
     const blocoTipoBug = document.getElementById('bloco_tipo_bug');
@@ -96,6 +109,9 @@ const demandaSalvar = () => {
     const blocoCriacaoKit = document.getElementById('bloco_criacao_kit');
     const blocoCriacaoVideo = document.getElementById('bloco_criacao_video');
     const blocoCriacaoVideoDimensao = document.getElementById('bloco_criacao_video_dimensao');
+
+    const blocoSorteioMotivacaoOutro = document.getElementById('bloco_sorteio_motivacao_outro');
+    const blocoSorteioEntregaOutro = document.getElementById('bloco_premio_entrega_outro');
 
     if (area == 'tecnologia') {
         blocoEscolherTecnologia.classList.remove('display_none');
@@ -121,6 +137,7 @@ const demandaSalvar = () => {
         blocoEscolherTecnologia.classList.add('display_none');
         blocoEscolherCriacao.classList.add('display_none');
         botaoSalvar.classList.remove('display_none');
+        blocoFooter.classList.remove('display_none');
 
         if (tipo == 'associacao') {
             blocoTipoAssociacao.classList.remove('display_none');
@@ -133,12 +150,14 @@ const demandaSalvar = () => {
             blocoHeader.classList.remove('display_none');
             blocoTipoOutro.classList.remove('display_none');
         } else if (tipo == 'criacao') {
-            blocoCriacao.classList.remove('display_none');
+            blocoTipoCriacao.classList.remove('display_none');
             botaoSalvar.classList.add('display_none');
             blocoFooter.classList.add('display_none');
             blocoHeader.classList.remove('display_none');
         } else if (tipo == 'sorteio') {
+            blocoTipoSorteio.classList.remove('display_none');
             blocoFooter.classList.add('display_none');
+            blocoHeader.classList.remove('display_none');
         }
     };
 
@@ -148,11 +167,37 @@ const demandaSalvar = () => {
     |--------------------------------------------------------------------------
     */
     formSelectChange = acao => {
-        if (acao == 'mudarTipoDominio') {
+        if (acao == 'mudar_tipo_dominio') {
             mudarTipoDominio();
         } else if (acao == 'criacao_video_formato') {
             monitorarFormatoVideo();
+        } else if (acao == 'motivacao_outro') {
+            motivacaoOutro();
+        } else if (acao == 'entrega_outro') {
+            entregaOutro();
         }
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | SORTEIO
+    |--------------------------------------------------------------------------
+    */
+    const motivacaoOutro = () => {
+        if (inputSorteioMotivacao.value == 'outro') {
+            blocoSorteioMotivacaoOutro.classList.remove('display_none');
+            inputSorteioMotivacaoOutro.focus();
+            return;
+        }
+        blocoSorteioMotivacaoOutro.classList.add('display_none');
+    };
+    const entregaOutro = () => {
+        if (inputSorteioPremioEntrega.value == 'outro') {
+            blocoSorteioEntregaOutro.classList.remove('display_none');
+            inputSorteioPremioEntregaOutro.focus();
+            return;
+        }
+        blocoSorteioEntregaOutro.classList.add('display_none');
     };
 
     /*
@@ -418,9 +463,12 @@ const demandaSalvar = () => {
         } else if (tipo == 'outro' || tipo == 'feature') {
             valido = await validarDadoOutro();
             body = await montarDadoOutro();
-        } else if (area == 'criacao') {
+        } else if (tipo == 'criacao') {
             valido = await validarDadoCriacao();
             body = await montarDadoCriacao();
+        } else if (tipo == 'sorteio') {
+            valido = await validarDadoSorteio();
+            body = await montarDadoSorteio();
         }
 
         if (!valido) {
@@ -639,6 +687,70 @@ const demandaSalvar = () => {
 
     /*
     |--------------------------------------------------------------------------
+    | ABRIR TAREFA SORTEIO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoSorteio = () => {
+        return new Promise(resolve => {
+            let mensagem = '';
+            if (inputTitulo.value == '') {
+                mensagem = 'Digite um título para a demanda.';
+            } else if (inputEmpresaSorteio.value == '') {
+                mensagem = 'Escolha uma empresa para continuar.';
+            } else if (inputSorteioDataInicio.value == '') {
+                mensagem = 'Digite a data de início da sorteio.';
+            } else if (inputSorteioDataFinal.value == '') {
+                mensagem = 'Digite a data final do sorteio.';
+            } else if (inputSorteioDataSorteio.value == '') {
+                mensagem = 'Digite a data que será o sorteio.';
+            } else if (inputSorteioComoParticipar.value == '') {
+                mensagem = 'Digite as normas para o usuário participar do sorteio.';
+            } else if (inputSorteioMotivacao.value == '') {
+                mensagem = 'Escolha a motivação do sorteio.';
+            } else if (inputSorteioMotivacao.value == 'outro' && inputSorteioMotivacaoOutro.value == '') {
+                mensagem = 'Digite a motivação do sorteio.';
+            } else if (inputSorteioPremioItem.value == '') {
+                mensagem = 'Digite qual item vai ser sorteado.';
+            } else if (inputSorteioPremioCompra.value == '') {
+                mensagem = 'Escolha quem vai comprar o prémio.';
+            } else if (inputSorteioPremioEntrega.value == '') {
+                mensagem = 'Escolha a forma de entrega do prémio.';
+            } else if (inputSorteioPremioEntrega.value == 'outro' && inputSorteioPremioEntregaOutro.value == '') {
+                mensagem = 'Digite a forma de entrega do prémio.';
+            } else if (inputSorteioTexto.value == '') {
+                mensagem = 'Digite a descrição do sorteio';
+            }
+            if (mensagem != '') {
+                Alerta.notificacao(mensagem, false);
+                resolve(false);
+            }
+            resolve(true);
+        });
+    };
+    const montarDadoSorteio = () => {
+        return new Promise(resolve => {
+            const body = new FormData();
+            body.append('tipo', inputTipo.value);
+            body.append('empresa', inputEmpresaSorteio.value);
+            body.append('titulo', inputTitulo.value);
+            body.append('sorteio_inicio', inputSorteioDataInicio.value);
+            body.append('sorteio_final', inputSorteioDataFinal.value);
+            body.append('sorteio_data', inputSorteioDataSorteio.value);
+            body.append('sorteio_como_participar', inputSorteioComoParticipar.value);
+            body.append('sorteio_motivacao', inputSorteioMotivacao.value);
+            body.append('sorteio_motivacao_outro', inputSorteioMotivacaoOutro.value);
+            body.append('sorteio_premio', inputSorteioPremioItem.value);
+            body.append('sorteio_premio_compra', inputSorteioPremioCompra.value);
+            body.append('sorteio_premio_entrega', inputSorteioPremioEntrega.value);
+            body.append('sorteio_premio_entrega_outro', inputSorteioPremioEntregaOutro.value);
+            body.append('sorteio_texto', inputSorteioTexto.value);
+
+            resolve(body);
+        });
+    };
+
+    /*
+    |--------------------------------------------------------------------------
     | ABRIR TAREFA CRIACAO
     |--------------------------------------------------------------------------
     */
@@ -732,7 +844,7 @@ const demandaSalvar = () => {
     const montarDadoCriacao = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('tipo', 'criacao');
+            body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaCriacao.value);
             body.append('titulo', inputTitulo.value);
             body.append('criacao_site', inputCriacaoCategoriaSite.checked ? 'sim' : 'nao');

@@ -13,13 +13,15 @@ final class CancelarTarefaModel extends ORM
         private DemandaEntity $Demanda
     ) {
         parent::__construct();
+        $where = ['id_demanda_dado', $this->Demanda->get('id')];
+        if (!$this->existe($where)) {
+            return;
+        }
         $salvar = $this
             ->dado([
                 'status' => (new Status(Status::CANCELADA))->numero(),
             ])
-            ->where([
-                ['id_demanda_dado', $this->Demanda->get('id')]
-            ])
+            ->where($where)
             ->update();
         if (existeErro($salvar, 'id')) {
             mensagemErro('Erro!', 'Ocorreu um erro ao tentar cancelar as tarefas.', status: 500);

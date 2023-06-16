@@ -274,6 +274,7 @@ const demandaDetalhe = () => {
             Alerta.notificacao('Digite o motivo do cancelamento da demanda.');
             return;
         }
+        Loading.show();
         const body = new FormData();
         body.append('motivo', inputTextoCancelar.value);
         const resposta = await fetch(LINK + '/demanda/demanda-cancelar/' + idDemanda, {
@@ -281,6 +282,7 @@ const demandaDetalhe = () => {
             body,
         });
         const json = await respostaJson(resposta, 'Erro ao cancelar demanda, por favor, tente novamente.');
+        Loading.hide();
         if (false === json) {
             return;
         }

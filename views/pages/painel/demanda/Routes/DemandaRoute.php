@@ -41,7 +41,10 @@ Route
                 '!impresso_revista', '!impresso_outro', '!impresso_outro_texto', '!kit_email',
                 '!kit_stories', '!kit_video', '!kit_feed', '!kit_como_acessar', '!kit_baixar_app',
                 '!kit_previa', '!video_formato', '!video_largura', '!video_altura', '!outro_texto', '!site_texto',
-                '!digital_texto', '!impresso_texto', 'kit_texto', '!video_texto'
+                '!digital_texto', '!impresso_texto', '!kit_texto', '!video_texto', '!sorteio_inicio',
+                '!sorteio_final', '!sorteio_data', '!sorteio_como_participar', '!sorteio_motivacao',
+                '!sorteio_motivacao_outro', '!sorteio_premio', '!sorteio_premio_compra', '!sorteio_premio_entrega',
+                '!sorteio_premio_entrega_outro', '!sorteio_texto'
             ])
             ::post('/demanda/demanda-salvar');
         Route
