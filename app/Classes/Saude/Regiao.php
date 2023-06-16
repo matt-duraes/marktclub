@@ -4,7 +4,7 @@ namespace App\Classes\Saude;
 
 use Status\Status;
 
-class Localizacao extends Status
+class Regiao extends Status
 {
     public const BRASILIA = 'brasilia';
     public const SALVADOR = 'salvador';

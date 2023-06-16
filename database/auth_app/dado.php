@@ -160,7 +160,11 @@ EwIDAQAB
 
             "log_erro:listar", "log_erro:buscar", "log_erro:atualizar",
 
-            "ponto_cvs:listar", "ponto_cvs:buscar", "ponto_cvs:salvar", "ponto_cvs:atualizar"
+            "ponto_cvs:listar", "ponto_cvs:buscar", "ponto_cvs:salvar", "ponto_cvs:atualizar",
+
+            "saude_simulacao:buscar", "saude_simulacao:salvar",
+
+            "saude_contratacao:salvar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],

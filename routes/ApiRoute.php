@@ -1187,27 +1187,33 @@ Route
     });
 
 Route
-    ::nome('saude')
-    ::controller(App\Controllers\Api\SaudeController::class)
+    ::nome('saude_simulacao')
+    ::controller(App\Controllers\Api\SaudeSimulacaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('buscarSimulacao')
-            ::middleware(TokenMiddleware::class, 'scope', ['saude:buscarSimulacao'])
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:buscar'])
             ::get('/saude/simulacao/{id}');
 
         Route
-            ::nome('simularPlano')
-            ::middleware(TokenMiddleware::class, 'scope', ['saude:simularPlano'])
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
                 'data_nascimento', '!dependentes', 'operadora',
-                'acomodacao', 'regiao', 'tipo'
+                'acomodacao', '!regiao', '!plano'
             ])
             ::post('/saude/simulacao');
+    });
 
+Route
+    ::nome('saude_contratacao')
+    ::controller(App\Controllers\Api\SaudeContratacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
         Route
-            ::nome('contratarPlano')
-            ::middleware(TokenMiddleware::class, 'scope', ['saude:contratarPlano'])
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:salvar'])
             ::request([
                 'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
                 'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',

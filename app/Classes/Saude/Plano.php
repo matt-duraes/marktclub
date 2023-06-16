@@ -4,7 +4,7 @@ namespace App\Classes\Saude;
 
 use Status\Status;
 
-class Tipo extends Status
+class Plano extends Status
 {
     public const ABSOLUTO = 'absoluto';
     public const AMIL_S60QC_RJ = 'amil_s60qc_rj';
@@ -26,6 +26,8 @@ class Tipo extends Status
     public const ESTILO_NACIONAL = 'estilo_nacional';
     public const EXCLUSIVO_NACIONAL = 'exclusivo_nacional';
     public const SUPERIOR_NACIONAL = 'superior_nacional';
+    public const ESTADUAL = 'estadual';
+    public const NACIONAL = 'nacional';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -36,21 +38,23 @@ class Tipo extends Status
             self::ABSOLUTO           => 'Absoluto',
             self::SUPERIOR_NACIONAL  => 'Superior Nacional',
             self::EXCLUSIVO_NACIONAL => 'Exclusivo Nacional',
-            self::AMIL_S60QC_RJ      => 'Amil S60QC RJ',
-            self::AMIL_S80QC         => 'Amil S80QC',
-            self::AMIL_S380QC        => 'Amil S380QC',
-            self::AMIL_S450QC        => 'Amil S450QC',
-            self::AMIL_S60QC_JUNDIAI => 'Amil S60QC Jundiai',
-            self::AMIL_S60QC_SP      => 'Amil S60QC SP',
-            self::AMIL_S80QP         => 'Amil S80QP',
-            self::AMIL_S380QP        => 'Amil S380QP',
-            self::AMIL_S450QP        => 'Amil S450QP',
-            self::AMIL_S750R1        => 'Amil S750R1',
-            self::AMIL_S750R2        => 'Amil S750R2',
-            self::AMIL_S580QP        => 'Amil S580QP',
-            self::AMIL_S75QC         => 'Amil S75QC',
-            self::AMIL_S75QP         => 'Amil S75QP',
-            self::REGIONAL           => 'Regional'
+            self::AMIL_S60QC_RJ      => 'Amil Fácil S60 QC RJ',
+            self::AMIL_S80QC         => 'Amil Fácil S80 QC',
+            self::AMIL_S380QC        => 'Amil S380 QC',
+            self::AMIL_S450QC        => 'Amil S450 QC',
+            self::AMIL_S60QC_JUNDIAI => 'Amil Fácil S60 QC Jundiai',
+            self::AMIL_S60QC_SP      => 'Amil Fácil S60 QC SP',
+            self::AMIL_S80QP         => 'Amil Fácil S80 QP',
+            self::AMIL_S380QP        => 'Amil S380 QP',
+            self::AMIL_S450QP        => 'Amil S450 QP',
+            self::AMIL_S750R1        => 'Amil S750 R1',
+            self::AMIL_S750R2        => 'Amil S750 R2',
+            self::AMIL_S580QP        => 'Amil Fácil S580 QP',
+            self::AMIL_S75QC         => 'Amil Fácil S75 QC',
+            self::AMIL_S75QP         => 'Amil Fácil S75 QP',
+            self::REGIONAL           => 'Regional',
+            self::ESTADUAL           => 'Estadual',
+            self::NACIONAL           => 'Nacional'
         ]);
     }
 }

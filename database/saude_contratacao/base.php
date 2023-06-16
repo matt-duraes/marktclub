@@ -5,7 +5,7 @@ use DataBase\DataBase;
 return (new DataBase())
     ->id()
     ->uuid()
-    ->int('id_empresa')->tamanho(9)
+    ->int('id_admin_empresa')->tamanho(9)
     ->int('id_usuario')->tamanho(9)
     ->char('id_simulacao')->tamanho(36)
     ->cpf()
