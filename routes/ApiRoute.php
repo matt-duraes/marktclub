@@ -1240,6 +1240,19 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:buscar'])
+            ::get('/enquete-satisfacao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
+            ::request([
+                'pagina',  '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/enquete-satisfacao');
+
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:salvar'])
             ::request([
