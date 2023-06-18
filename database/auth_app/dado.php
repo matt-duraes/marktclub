@@ -172,6 +172,8 @@ EwIDAQAB
             "carteirinha:buscar",
 
             "popup:buscar", "popup:salvar", "popup:atualizar", "popup:deletar",
+
+            "cupom:buscar", "cupom:listar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],

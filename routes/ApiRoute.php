@@ -1241,3 +1241,16 @@ Route
             ])
             ::post('/solicitacao-credito');
     });
+
+Route
+    ::nome('cupom')
+    ::controller(App\Controllers\Api\CupomController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['cupom:listar'])
+            ::request(['!pesquisa'])
+            ::get('/cupom');
+
+    });
