@@ -1252,5 +1252,8 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['cupom:listar'])
             ::request(['!pesquisa'])
             ::get('/cupom');
-
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['cupom:buscar'])
+            ::get('/cupom/{id}');
     });

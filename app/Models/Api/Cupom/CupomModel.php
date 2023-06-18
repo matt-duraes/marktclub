@@ -17,27 +17,26 @@ class CupomModel extends ORM
 {
     protected string $ormTabela = TABELA_CUPOM_BLOQUEIO;
 
-
     public string $idEmpresa;
+
     /**
-     * @param  Request  $request
-     *
      * @throws Excecao
      */
-    public function __construct(
-        protected Request $request
-    ) {
+    public function __construct()
+    {
         parent::__construct();
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
     }
 
     /**
-     * @return stdClass
+     * @param  Request  $request
+     *
+     * @return array
      * @throws Excecao
      */
-    public function listarDados(): array
+    public function listarDados(Request $request): array
     {
-        $CupomHelper = new CupomHelper($this->request);
+        $CupomHelper = new CupomHelper($request);
         $dado  = $CupomHelper->listar();
 
 
@@ -46,6 +45,34 @@ class CupomModel extends ORM
         }
 
         return $this->montarRetorno($dado);
+    }
+
+    /**
+     * @param string  $id
+     * @return array
+     * @throws Excecao
+     */
+    public function buscarDados($id): array
+    {
+
+        $dado = (new CupomHelper())->buscar($id);
+
+        if (!is_array($dado) || !isset($dado['id'])) {
+            mensagemStatus(404);
+        }
+
+        $busca = $dado['cupom'];
+        $tipo = 1;
+        if ($dado['tipo'] == 'link') {
+            $busca = $dado['link'];
+            $tipo = 2;
+        }
+
+        if (!$this->validarLista($tipo, $busca)) {
+            mensagemStatus(404);
+        }
+
+        return $dado;
     }
 
 
