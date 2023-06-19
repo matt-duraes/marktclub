@@ -1241,3 +1241,15 @@ Route
             ])
             ::post('/solicitacao-credito');
     });
+
+Route
+    ::nome('farmacia')
+    ::controller(App\Controllers\Api\FarmaciaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['farmacia:listar'])
+            ::request(['!estabelecimento'])
+            ::get('/medicamento');
+    });
