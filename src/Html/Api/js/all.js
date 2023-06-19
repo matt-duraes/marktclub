@@ -20,6 +20,59 @@ window.addEventListener('load', () => {
     const botaoJson = document.getElementById('botao_json');
     const botaoEnviar = document.getElementById('botao_enviar');
 
+    /*
+    |--------------------------------------------------------------------------
+    | MANDAR REQUEST
+    |--------------------------------------------------------------------------
+    */
+    botaoEnviar.addEventListener('click', async () => {
+        const parPar = pegarParametro(blocoParametro);
+        const parBody = pegarParametro(blocoBody);
+        const parHeader = pegarParametro(blocoHeader);
+        const parJson = inputJson.value.trim();
+
+        const body = new FormData();
+        body.append('acao', 'request');
+        body.append('token', inputToken.value);
+        body.append('metodo', inputMetodo.value);
+        body.append('uri', inputUri.value);
+        body.append('parametro', JSON.stringify(parPar));
+        body.append('body', JSON.stringify(parBody));
+        body.append('header', JSON.stringify(parHeader));
+        body.append('json', JSON.stringify(parJson));
+
+        const resposta = await fetch('__api', {
+            method: 'POST',
+            body,
+        });
+
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (e) {
+            json = {};
+        }
+        console.log(json);
+    });
+    const pegarParametro = bloco => {
+        const retorno = {};
+        const lista = bloco.querySelectorAll('li');
+        lista.forEach(item => {
+            const check = item.querySelector('.bloco_checkbox input');
+            const indice = item.querySelector('.chave').value;
+            const valor = item.querySelector('.valor').value;
+            if (!check.checked || indice == '') {
+                return;
+            }
+            retorno[indice] = valor;
+        });
+        return retorno;
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | CLIQUE NO MENU
+    |--------------------------------------------------------------------------
+    */
     const listaMenu = document.querySelectorAll('.bloco_menu .grupo');
     listaMenu.forEach(grupo => {
         const botao = grupo.querySelector('.nome');
