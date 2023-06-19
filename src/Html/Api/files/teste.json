@@ -1,0 +1,12 @@
+{
+    "uri": "{{LINK}}/teste",
+    "metodo": "POST",
+    "token": "token",
+    "parametro": [],
+    "header": [],
+    "body": [
+        ["texto", true, "nome", "__nomeAleatorio"],
+        ["texto", true, "email", "__emailAleatorio"]
+    ],
+    "json": ""
+}
