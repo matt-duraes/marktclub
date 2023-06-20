@@ -241,7 +241,7 @@ final class Visualizar
             'campo' => $campo,
             'nome' => $nome,
             'formatar' => $formatar,
-            'vazio' => true
+            'vazio' => $vazio
         ], $permissao);
         return $this;
     }
@@ -383,6 +383,7 @@ final class Visualizar
     public function replace(string $campo, array $lista)
     {
         $this->replace[$campo] = $lista;
+        return $this;
     }
 
     public function margin(int $margin)

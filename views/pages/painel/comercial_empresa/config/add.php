@@ -108,7 +108,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo pagamento',
                 lista: (new TipoPagamento())->select('Escolha uma opção')
             )
-            ->data(name: 'contrato_inicio', label: 'Início do contrato', placeholder: 'Início do contrato')
+            ->data(name: 'contrato_data', label: 'Data do contrato', placeholder: 'Data do início do contrato')
             ->select(
                 name: 'contrato_prazo',
                 label: 'Prazo do contrato',
