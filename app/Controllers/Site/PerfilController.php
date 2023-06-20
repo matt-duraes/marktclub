@@ -124,8 +124,6 @@ final class PerfilController extends Controller
             return mensagemErro('Parâmetros inválidos', 'os dados enviados não são válidos');
         }
 
-        $SocialHelper = new SocialHelper(rede: $request->rede, code: $request->code);
-        $SocialHelper->imagem();
-        // $Salvar = (new DadosModel())->postImagemSocial($request);
+        $Salvar = (new DadosModel())->postImagemSocial($request);
     }
 }
