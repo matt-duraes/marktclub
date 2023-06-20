@@ -16,13 +16,13 @@ class EnqueteEntity extends Entity
 {
     protected string $idEmpresa;
     protected string $idUsuario;
-    protected Navegar $navegar;
-    protected Procura $procura;
-    protected Suporte $suporte;
-    protected Atendimento $atendimento;
-    protected array  $sistemas;
-    protected string $comentario;
-    protected Status $status;
+    public Navegar $navegar;
+    public Procura $procura;
+    public Suporte $suporte;
+    public Atendimento $atendimento;
+    public array  $sistemas;
+    public string $comentario;
+    public Status $status;
     protected string $ormTabela = TABELA_ENQUETE;
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
