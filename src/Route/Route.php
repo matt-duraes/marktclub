@@ -36,7 +36,7 @@ final class Route
     ];
 
     private static string $nome;
-    private static string $nomeGrupo;
+    private static string $nomeGrupo = '';
     private static string $controller;
     private static string $action;
     private static array $request = [];
@@ -347,6 +347,10 @@ final class Route
 
         return $rotaFinal;
     }
+    public static function pegarTodasRotas()
+    {
+        return self::$Route;
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -407,6 +411,7 @@ final class Route
             'request' => $request,
             'controller' => self::$controller,
             'action' => self::$action,
+            'grupo' => self::$nomeGrupo
         ];
     }
 
