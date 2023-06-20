@@ -14,7 +14,7 @@
                     <div class="logo_google">
                         <img src="https://clube.marktclub.com.br/images/google.svg">
                     </div>
-                    <span class="texto">
+                    <span class="texto" id="foto_google">
                         Vincular foto
                     </span>
                 </button>

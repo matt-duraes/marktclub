@@ -6,7 +6,6 @@
 // @system "Mascara"
 
 window.addEventListener('load', () => {
-
     const LINK = document.getElementById('LINK').value;
     const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
 
@@ -28,14 +27,11 @@ window.addEventListener('load', () => {
     const inputComplemento = document.querySelector('#bloco_pagina_perfil form input[name=complemento]');
     const inputCidade = document.querySelector('#bloco_pagina_perfil form input[name=cidade]');
 
-
-    botaoSalvar.addEventListener('click', (e) => {
+    botaoSalvar.addEventListener('click', e => {
         e.preventDefault();
         acaoParaAtualizarDado();
     });
     const acaoParaAtualizarDado = async () => {
-
-
         let body = new FormData();
         body.append('nome', inputNome.value);
         body.append('data_nascimento', inputData.value);
@@ -109,6 +105,7 @@ window.addEventListener('load', () => {
         Loading.show();
 
         let body = new FormData();
+
         body.append('id', id);
         body.append('token', token);
         body.append('code', code);
@@ -119,7 +116,6 @@ window.addEventListener('load', () => {
             method: 'POST',
             body,
         });
-
         let json;
         try {
             json = await response.json();
@@ -128,6 +124,7 @@ window.addEventListener('load', () => {
         }
 
         Loading.hide();
+
         if (response.status == 201 && acao == 'imagem') {
             setarNovaImagem(json.dado.imagem);
             fecharPopupMudarImagem();
@@ -147,5 +144,5 @@ window.addEventListener('load', () => {
 
         oauth2Google('imagem');
     };
-    
 });
+z;

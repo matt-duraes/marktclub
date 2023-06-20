@@ -120,8 +120,12 @@ final class PerfilController extends Controller
     public function postSocial(Request $request)
     {
 
-        $Salvar = (new DadosModel())->postImagemSocial($request);
+        if($request->rede == '' || $request->code == '') {
+            return mensagemErro('Parâmetros inválidos', 'os dados enviados não são válidos');
+        }
 
-        return mensagemSucesso([], status: 201);
+        $SocialHelper = new SocialHelper(rede: $request->rede, code: $request->code);
+        $SocialHelper->imagem();
+        // $Salvar = (new DadosModel())->postImagemSocial($request);
     }
 }

@@ -297,7 +297,6 @@ final class SocialHelper
     {
         $google = new Google\Client();
         $body = $google->verifyIdToken($this->googleToken['id_token']);
-
         if (!array_key_exists('picture', $body)) {
             mensagemErro('Erro!', 'Não foi possível pegar sua imagem do Google.');
         }
@@ -312,8 +311,8 @@ final class SocialHelper
             'client_secret' => env('GOOGLE_CLIENT_SECRET'),
             'redirect_uri' => env('GOOGLE_REDIRECT_URI')
         ]);
-        $token = $client->fetchAccessTokenWithAuthCode($code);
 
+        $token = $client->fetchAccessTokenWithAuthCode($code);
         return $this->googleSetarToken($token);
     }
 
@@ -363,6 +362,7 @@ final class SocialHelper
 
     private function googlePegarTokenDoCookie()
     {
+
         if (!cookieExiste('GOOGLE_SOCIAL')) {
             $this->googleToken = [];
             return;
