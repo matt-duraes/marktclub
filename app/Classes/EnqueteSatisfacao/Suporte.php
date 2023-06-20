@@ -8,7 +8,7 @@ final class Suporte extends StatusStatus
 {
     public const SIM = 'sim';
     public const NAO = 'nao';
-    public const NUNCA = 'nao';
+    public const NUNCA = 'nunca';
 
     public function __construct(
         protected string|int|null $valor = null
