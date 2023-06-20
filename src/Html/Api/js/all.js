@@ -13,26 +13,47 @@ window.addEventListener('load', () => {
     const blocoBody = document.getElementById('bloco_body');
     const blocoHeader = document.getElementById('bloco_header');
     const blocoJson = document.getElementById('bloco_json');
+    const blocoCodigoHtml = document.getElementById('bloco_codigo_html');
 
     const botaoParametro = document.getElementById('botao_parametro');
     const botaoBody = document.getElementById('botao_body');
     const botaoHeader = document.getElementById('botao_header');
     const botaoJson = document.getElementById('botao_json');
     const botaoEnviar = document.getElementById('botao_enviar');
+    const botaoSalvar = document.getElementById('botao_salvar');
 
+    /*
+    |--------------------------------------------------------------------------
+    | SALVAR REQUEST
+    |--------------------------------------------------------------------------
+    */
+    botaoSalvar.addEventListener('click', async () => {
+        const json = mandarRequisicao('salvar');
+        console.log(json);
+    });
     /*
     |--------------------------------------------------------------------------
     | MANDAR REQUEST
     |--------------------------------------------------------------------------
     */
     botaoEnviar.addEventListener('click', async () => {
-        const parPar = pegarParametro(blocoParametro);
-        const parBody = pegarParametro(blocoBody);
-        const parHeader = pegarParametro(blocoHeader);
+        const json = mandarRequisicao('request');
+        blocoResposta.innerHTML = JSON.stringify(json.retorno, null, 4);
+        const erro = json.codigo_html >= 400 ? 'erro' : 'sucesso';
+        blocoCodigoHtml.classList.add(erro);
+        blocoCodigoHtml.innerText = json.codigo_html;
+    });
+    const mandarRequisicao = async acao => {
+        const parPar = acao == 'salvar' ? pegarLinha(blocoParametro) : pegarParametro(blocoParametro);
+        const parBody = acao == 'salvar' ? pegarLinha(blocoBody) : pegarParametro(blocoBody);
+        const parHeader = acao == 'salvar' ? pegarLinha(blocoHeader) : pegarParametro(blocoHeader);
         const parJson = inputJson.value.trim();
+        blocoCodigoHtml.classList.remove('erro');
+        blocoCodigoHtml.classList.remove('sucesso');
+        blocoCodigoHtml.innerText = '';
 
         const body = new FormData();
-        body.append('acao', 'request');
+        body.append('acao', acao);
         body.append('token', inputToken.value);
         body.append('metodo', inputMetodo.value);
         body.append('uri', inputUri.value);
@@ -52,19 +73,32 @@ window.addEventListener('load', () => {
         } catch (e) {
             json = {};
         }
-        console.log(json);
-    });
+    };
     const pegarParametro = bloco => {
         const retorno = {};
         const lista = bloco.querySelectorAll('li');
         lista.forEach(item => {
             const check = item.querySelector('.bloco_checkbox input');
-            const indice = item.querySelector('.chave').value;
-            const valor = item.querySelector('.valor').value;
+            const indice = item.querySelector('.chave').value.trim();
+            const valor = item.querySelector('.valor').value.trim();
             if (!check.checked || indice == '') {
                 return;
             }
             retorno[indice] = valor;
+        });
+        return retorno;
+    };
+    const pegarLinha = bloco => {
+        const retorno = [];
+        const lista = bloco.querySelectorAll('li');
+        lista.forEach(item => {
+            const check = item.querySelector('.bloco_checkbox input');
+            const indice = item.querySelector('.chave').value.trim();
+            const valor = item.querySelector('.valor').value.trim();
+            if (indice == '') {
+                return;
+            }
+            retorno.push(['texto', check.checked, indice, valor]);
         });
         return retorno;
     };

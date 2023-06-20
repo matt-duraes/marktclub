@@ -58,7 +58,7 @@
                 <li class="item" id="botao_header">Header</li>
                 <li class="item" id="botao_json">JSON</li>
                 <li class="resto"></li>
-                <li class="salvar display_none">salvar</li>
+                <li class="salvar" id="botao_salvar">salvar</li>
             </ul>
             <ol id="bloco_parametro" class="bloco_scroll bloco_parametro">
             </ol>
@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="bloco_resposta">
-            <p>Resposta:</p>
+            <div class="titulo"><p>Resposta:</p><span id="bloco_codigo_html"></span></div>
             <pre id="bloco_resposta"><?php print_r(['teste' => 1, 'teste_2' => 2])?>
             </pre>
         </div>

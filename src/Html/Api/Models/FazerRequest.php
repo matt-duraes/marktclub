@@ -13,6 +13,38 @@ final class FazerRequest
     private string $redirectUri;
     private string $audience;
 
+    private string $nomeEncode;
+    private string $sobreNomeEncode;
+    private string $nomeCompletoEncode;
+    private string $numeroEncode;
+    private string $decimalEncode;
+    private string $telefoneEncode;
+    private string $emailEncode;
+    private string $dataEncode;
+    private string $dataPassadaEncode;
+    private string $dataFuturaEncode;
+    private string $cpfEncode;
+    private string $cnpjEncode;
+    private string $rgEncode;
+    private string $loginEncode;
+    private string $senhaEncode;
+
+    private string $nome;
+    private string $sobreNome;
+    private string $nomeCompleto;
+    private string $numero;
+    private string $telefone;
+    private string $email;
+    private string $data;
+    private string $dataPassada;
+    private string $dataFutura;
+    private string $cpf;
+    private string $cnpj;
+    private string $rg;
+    private string $login;
+    private string $senha;
+    private string $decimal;
+
     public function __construct(
         string $token,
         string $metodo,
@@ -34,14 +66,14 @@ final class FazerRequest
         } elseif ($token == 'painel') {
             $this->criarTokenPainel();
         }
-        $this->enviarCurl($metodo, $uri, $body, $parametro, $json, $this->header);
+        $dado = $this->enviarCurl($metodo, $uri, $body, $parametro, $json, $this->header);
+        $retorno['retorno'] = jsonDecode($dado->retorno, true, true);
+        $retorno['codigo_html'] = $dado->status;
+        $this->retorno = $retorno;
     }
     public function retorno()
     {
-        return jsonEncode([
-            'retorno' => $this->retorno,
-            'status' => $this->status
-        ]);
+        return jsonEncode($this->retorno);
     }
     private function enviarCurl(
         string $metodo,
@@ -52,6 +84,9 @@ final class FazerRequest
         ?array $header = null
     ) {
         $link = str_replace('{{LINK}}', $this->link, $uri);
+        $body = $this->montarParametro($body);
+        $parametro = $this->montarParametro($parametro);
+        $json = $this->montarParametro($json);
 
         if ($parametro) {
             $parametroFinal = [];
@@ -91,6 +126,23 @@ final class FazerRequest
             'status' => $status,
         ];
     }
+    private function montarParametro($dado)
+    {
+        if (empty($dado)) {
+            return[];
+        }
+        foreach ($dado as $ind => $val) {
+            if (!str_starts_with($val, '__') || !str_ends_with($val, '__')) {
+                continue;
+            }
+            $nome = preg_replace(['/^\_\_/', '/\_\_$/'], '', $val);
+            if (!property_exists($this, $nome)) {
+                continue;
+            }
+            $dado[$ind] = $this->$nome;
+        }
+        return $dado;
+    }
     private function gerarTokenPadrao()
     {
         $token = $this->enviarCurl(
@@ -103,12 +155,8 @@ final class FazerRequest
                 'grant_type' => 'client_credentials',
                 'scope' => ''
             ]
-        )->retorno->token->access_token ?? '';
-
-        if (!empty($token)) {
-            return $token;
-        }
-        mensagemErro('Erro!', 'Erro ao tentar gerar token.', status: 401);
+        );
+        return $this->pegarToken($token);
     }
     private function criarToken()
     {
@@ -117,21 +165,32 @@ final class FazerRequest
     }
     private function criarTokenPainel()
     {
-        $token = $this->gerarTokenPadrao();
+        $header = $this->gerarTokenPadrao();
         $token = $this->enviarCurl(
-            'POST',
-            '{{LINK}}/login/painel',
-            [
-                'login' => env(''),
-                'senha',
-                'scope',
-                'audience',
-                'redirect_uri',
+            metodo: 'POST',
+            uri: '{{LINK}}/login/painel',
+            body: [
+                'login' => $this->loginEncode,
+                'senha' => $this->senhaEncode,
+                'scope' => '',
+                'audience' => $this->audience,
+                'redirect_uri' => $this->redirectUri,
                 'state' => uuid()
-            ]
+            ],
+            header: ['Authorization' => 'Bearer ' . $header]
         );
+        $token = $this->pegarToken($token);
+        $this->header['Authorization'] = 'Bearer ' . $token;
     }
-    private function gerar()
+    private function pegarToken($token)
+    {
+        $token = jsonDecode($token->retorno, true, true)['dado']['access_token'] ?? '';
+        if (!empty($token)) {
+            return $token;
+        }
+        mensagemErro('Erro!', 'Erro ao tentar gerar token.', status: 401);
+    }
+    private function setarDadoRandom()
     {
         $chave = file_get_contents(ROOT . "/.chave_publica");
         $Crypt = new CryptHelper(chavePublica: $chave);
@@ -150,20 +209,36 @@ final class FazerRequest
         $senha = env('POSTMAN_SENHA', '');
         $decimal = env('POSTMAN_DECIMAL', '');
 
-        $this->nomeCript = $Crypt->encode(!empty($nome) ? $nome : nomeAleatorio());
-        $this->sobreNomeCript = $Crypt->encode(!empty($sobreNome) ? $sobreNome : sobreNomeAleatorio());
-        $this->nomeCompletoCript = $Crypt->encode(!empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio());
-        $this->numeroCript = $Crypt->encode(!empty($numero) ? $numero : numeroAleatorio());
-        $this->decimalCript = $Crypt->encode(!empty($decimal) ? $decimal : numeroAleatorio(1, 999) . '.' . numeroAleatorio(10, 99));
-        $this->telefoneCript = $Crypt->encode(!empty($telefone) ? $telefone : telefoneAleatorio());
-        $this->emailCript = $Crypt->encode(!empty($email) ? $email : emailAleatorio());
-        $this->dataCript = $Crypt->encode(!empty($data) ? $data : date('Y-m-d'));
-        $this->dataPassadaCript = $Crypt->encode(dataPassadaAleatorio());
-        $this->dataFuturaCript = $Crypt->encode(dataFuturaAleatorio());
-        $this->cpfCript = $Crypt->encode(!empty($cpf) ? $cpf : cpfAleatorio());
-        $this->cnpjCript = $Crypt->encode(!empty($cnpj) ? $cnpj : cnpjAleatorio());
-        $this->rgCript = $Crypt->encode(!empty($rg) ? $rg : rgAleatorio());
-        $this->loginCript = $Crypt->encode(!empty($login) ? $login : '01234567890');
-        $this->senhaCript = $Crypt->encode(!empty($senha) ? $senha : 'Teste@1324');
+        $this->nome = !empty($nome) ? $nome : nomeAleatorio();
+        $this->sobreNome = !empty($sobreNome) ? $sobreNome : sobreNomeAleatorio();
+        $this->nomeCompleto = !empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio();
+        $this->numero = !empty($numero) ? $numero : numeroAleatorio();
+        $this->decimal = !empty($decimal) ? $decimal : numeroAleatorio(1, 999) . '.' . numeroAleatorio(10, 99);
+        $this->telefone = !empty($telefone) ? $telefone : telefoneAleatorio();
+        $this->email = !empty($email) ? $email : emailAleatorio();
+        $this->data = !empty($data) ? $data : date('Y-m-d');
+        $this->dataPassada = dataPassadaAleatorio();
+        $this->dataFutura = dataFuturaAleatorio();
+        $this->cpf = !empty($cpf) ? $cpf : cpfAleatorio();
+        $this->cnpj = !empty($cnpj) ? $cnpj : cnpjAleatorio();
+        $this->rg = !empty($rg) ? $rg : rgAleatorio();
+        $this->login = !empty($login) ? $login : '01234567890';
+        $this->senha = !empty($senha) ? $senha : 'Teste@1324';
+
+        $this->nomeEncode = $Crypt->encode(!empty($nome) ? $nome : nomeAleatorio());
+        $this->sobreNomeEncode = $Crypt->encode(!empty($sobreNome) ? $sobreNome : sobreNomeAleatorio());
+        $this->nomeCompletoEncode = $Crypt->encode(!empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio());
+        $this->numeroEncode = $Crypt->encode(!empty($numero) ? $numero : numeroAleatorio());
+        $this->decimalEncode = $Crypt->encode(!empty($decimal) ? $decimal : numeroAleatorio(1, 999) . '.' . numeroAleatorio(10, 99));
+        $this->telefoneEncode = $Crypt->encode(!empty($telefone) ? $telefone : telefoneAleatorio());
+        $this->emailEncode = $Crypt->encode(!empty($email) ? $email : emailAleatorio());
+        $this->dataEncode = $Crypt->encode(!empty($data) ? $data : date('Y-m-d'));
+        $this->dataPassadaEncode = $Crypt->encode(dataPassadaAleatorio());
+        $this->dataFuturaEncode = $Crypt->encode(dataFuturaAleatorio());
+        $this->cpfEncode = $Crypt->encode(!empty($cpf) ? $cpf : cpfAleatorio());
+        $this->cnpjEncode = $Crypt->encode(!empty($cnpj) ? $cnpj : cnpjAleatorio());
+        $this->rgEncode = $Crypt->encode(!empty($rg) ? $rg : rgAleatorio());
+        $this->loginEncode = $Crypt->encode(!empty($login) ? $login : '01234567890');
+        $this->senhaEncode = $Crypt->encode(!empty($senha) ? $senha : 'Teste@1324');
     }
 }

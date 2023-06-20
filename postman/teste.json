@@ -7,8 +7,8 @@
         ["texto", true, "Content-Type", "application/json"]
     ],
     "body": [
-        ["texto", true, "nome", "__nomeAleatorio"],
-        ["texto", true, "email", "__emailAleatorio"]
+        ["texto", true, "nome", "__nome__"],
+        ["texto", true, "email", "__email__"]
     ],
     "json": ""
 }

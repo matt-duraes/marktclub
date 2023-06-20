@@ -17,7 +17,7 @@ final class PegarDadoRequisicaoModel
     }
     private function buscarRequisicao()
     {
-        $path = ROOT . '/src/Html/Api/files/' . $this->id . '.json';
+        $path = ROOT . '/postman/' . $this->id . '.json';
         if (!file_exists($path)) {
             return;
         }

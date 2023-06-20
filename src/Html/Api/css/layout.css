@@ -231,11 +231,33 @@ body {
     overflow-y: auto;
     padding: 20px;
 }
-#site .bloco_conteudo .bloco_resposta p {
+#site .bloco_conteudo .bloco_resposta .titulo {
     width: 100%;
-    font-size: 1.3rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 10px;
+}
+#site .bloco_conteudo .bloco_resposta .titulo p {
+    height: 25px;
+    line-height: 25px;
+    font-size: 1.3rem;
+    flex-grow: 1;
+    flex-basis: 0%;
+}
+#site .bloco_conteudo .bloco_resposta .titulo span {
+    height: 25px;
+    line-height: 25px;
+    font-size: 1.3rem;
+    padding: 0 10px;
+    border-radius: 20px;
+    color: #FFF;
+}
+#site .bloco_conteudo .bloco_resposta .titulo span.erro {
+    background-color: var(--vermelho);
+}
+#site .bloco_conteudo .bloco_resposta .titulo span.sucesso {
+    background-color: var(--verde);
 }
 #site .bloco_conteudo .bloco_resposta pre {
     width: 100%;
