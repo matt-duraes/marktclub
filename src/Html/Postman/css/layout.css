@@ -3,25 +3,44 @@
     --azul: #00aced;
     --vermelho: #FF6C60;
     --rosa: #c44993;
+    --get: #52da9d;
+    --post: #dbbd75;
+    --put: #5bb2f2;
+    --delete: #e28881;
+    --menuWidth: 350px;
 }
 body {
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
+    background-color: #282a36;
 }
 .display_none {
-    display: none;
+    display: none !important;
 }
 #site {
     width: 100%;
     display: flex;
     flex-direction: row;
 }
+#site input,
+#site select,
+#site textarea {
+    color: #FFF;
+    font-size: 1.4rem;
+}
+#site input::placeholder,
+#site textarea::placeholder {
+    color: #CCC;
+}
 #site .bloco_menu {
-    width: 350px;
+    width: var(--menuWidth);
     max-height: 100vh;
     overflow-y: auto;
     padding: 20px 0;
-    user-select:none
+    user-select:none;
+    background-color: #21222b;
+    border-right: 1px solid #bc96f7;
+    z-index: 10;
 }
 #site .bloco_menu .grupo {
     width: 100%;
@@ -36,7 +55,7 @@ body {
     padding: 7px 10px;
 }
 #site .bloco_menu .grupo .nome:hover {
-    background-color: #EEE;
+    background-color: #313341;
 }
 #site .bloco_menu .grupo .nome i {
     width: 30px;
@@ -44,12 +63,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    fill: #FFF;
 }
 #site .bloco_menu .grupo .nome p {
     height: 30px;
     line-height: 33px;
     font-size: 1.6rem;
     padding-left: 5px;
+    color: #FFF;
 }
 #site .bloco_menu .grupo .request {
     width: 100%;
@@ -59,7 +80,7 @@ body {
     align-items: center;
 }
 #site .bloco_menu .grupo .request:hover {
-    background-color: #EEE;
+    background-color: #313341;
 }
 #site .bloco_menu .grupo.fechado .request {
     display: none;
@@ -67,17 +88,138 @@ body {
 #site .bloco_menu .grupo .request .metodo {
     width: 40px;
     font-size: 1.3rem;
+    font-weight: bold;
+}
+#site .bloco_menu .grupo .request .metodo.GET {
+    color: var(--get)
+}
+#site .bloco_menu .grupo .request .metodo.POST {
+    color: var(--post)
+}
+#site .bloco_menu .grupo .request .metodo.PUT {
+    color: var(--put)
+}
+#site .bloco_menu .grupo .request .metodo.DELETE {
+    color: var(--delete)
 }
 #site .bloco_menu .grupo .request .uri {
     flex-grow: 1;
     flex-basis: 0%;
     font-size: 1.5rem;
+    color: #DDD;
+}
+#site .bloco_header {
+    width: calc(100% - var(--menuWidth));
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 41px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    fill: #FFF;
+    color: #FFF;
+    z-index: 3;
+}
+#site .bloco_header .lista {
+    height: 41px;
+    max-width: calc(100% - 40px);
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+}
+#site .bloco_header .lista .aba {
+    height: 40px;
+    line-height: 37px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid rgba(0,0,0,0);
+    border-right: 1px solid #bc96f7;
+    cursor: pointer;
+}
+#site .bloco_header .lista .aba.ativa {
+    border-top-color: var(--vermelho);
+    height: 41px;
+    background-color: #282a36;
+}
+#site .bloco_header .lista .aba .metodo,
+#site .bloco_header .lista .aba .uri {
+    font-size: 1.4rem;
+}
+#site .bloco_header .lista .aba .uri {
+    flex-grow: 1;
+    flex-basis: 0%;
+    overflow: hidden;
+    background-color: #282a36;
+}
+#site .bloco_header .lista .aba .metodo {
+    margin-right: 5px;
+    font-weight: bold;
+}
+#site .bloco_header .lista .aba .metodo.GET {
+    color: var(--get);
+}
+#site .bloco_header .lista .aba .metodo.POST {
+    color: var(--post);
+}
+#site .bloco_header .lista .aba .metodo.PUT {
+    color: var(--put);
+}
+#site .bloco_header .lista .aba .metodo.DELETE {
+    color: var(--delete);
+}
+#site .bloco_header .lista .aba .fechar {
+    width: 30px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+}
+#site .bloco_header .lista .aba.ativa .fechar {
+    height: 40px;
+}
+#site .bloco_header .lista .aba:hover .fechar {
+    opacity: 1;
+}
+#site .bloco_header .botao_mais {
+    width: 28px;
+    height: 28px;
+    fill: #CCC;
+    margin: 6px 0 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+}
+#site .bloco_header .botao_mais:hover {
+    background-color: rgba(255,255,255,.1);
 }
 #site .bloco_conteudo {
-    width: calc(100% - 300px);
-    min-height: 100VH;
-    background-color: #F6F6F6;
+    width: calc(100% - var(--menuWidth));
+    min-height: calc(100vh - 40px);
+    background-color: #282a36;
+    border-top: 1px solid #bc96f7;
+    margin-top: 40px;
     overflow-y: auto;
+    color: #FFF;
+    z-index: 2;
+}
+#site .bloco_conteudo.bloco_icone {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    fill: #666;
+}
+#site .bloco_conteudo.bloco_icone p {
+    margin-top: 20px;
+    font-size: 1.8rem;
+    color: #999;
 }
 #site .bloco_conteudo .link {
     width: 100%;
@@ -85,14 +227,44 @@ body {
     flex-direction: row;
     padding: 20px 20px 0 20px;
 }
-#site .bloco_conteudo .link .bloco_input {
-    margin: 0 20px 0 0;
+#site .bloco_conteudo .link .bloco_select {
+    height: 45px;
+    border: 1px solid #bc96f7;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+#site .bloco_conteudo .link .bloco_select select {
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 40px 0 15px;
+}
+#site .bloco_conteudo .link .bloco_select i {
+    position: absolute;
+    right: 10px;
+    fill: #FFF;
 }
 #site .bloco_conteudo .link .bloco_token {
-    width: 200px;
+    width: 140px;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
 }
 #site .bloco_conteudo .link .bloco_metodo {
-    width: 180px;
+    width: 110px;
+    border-left: none;
+    border-right: none;
+}
+#site .bloco_conteudo .link input {
+    height: 45px;
+    line-height: 45px;
+    flex-grow: 1;
+    flex-basis: 0%;
+    padding: 0 15px;
+    border: 1px solid #bc96f7;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    margin-right: 20px;
 }
 #site .bloco_conteudo .link .botao {
     height: 45px;
@@ -112,7 +284,7 @@ body {
     height: calc(50vh - 90px);
     overflow-y: auto;
     padding: 20px;
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid #bc96f7;
 }
 #site .bloco_conteudo .parametro ul {
     width: 100%;
@@ -151,10 +323,10 @@ body {
     flex-direction: row;
     align-items: center;
     padding: 5px 0;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid #bc96f7;
 }
 #site .bloco_conteudo .parametro ol li:first-child {
-    border-top: 1px solid #CCC;
+    border-top: 1px solid #bc96f7;
 }
 #site .bloco_conteudo .parametro ol li .bloco_checkbox {
     width: 20px;
@@ -170,9 +342,6 @@ body {
     left: 0;
     opacity: 0;
 }
-#site .bloco_conteudo .parametro ol li .bloco_checkbox input::placeholder {
-    color: #DDD;
-}
 #site .bloco_conteudo .parametro ol li .bloco_checkbox span {
     width: 100%;
     height: 100%;
@@ -184,9 +353,15 @@ body {
     justify-content: center;
     fill:#FFF;
 }
+#site .bloco_conteudo .parametro ol li .bloco_checkbox span svg {
+    display: none;
+}
 #site .bloco_conteudo .parametro ol li .bloco_checkbox input:checked + span {
     border-color: var(--verde);
     background-color: var(--verde);
+}
+#site .bloco_conteudo .parametro ol li .bloco_checkbox input:checked + span svg{
+    display: block;
 }
 #site .bloco_conteudo .parametro ol li input {
     font-size: 1.3rem;
@@ -209,6 +384,7 @@ body {
     border-radius: 50%;
     cursor: pointer;
     opacity: 0;
+    fill: #FFF;
 }
 #site .bloco_conteudo .parametro ol li:hover .deletar {
     opacity: 1;
@@ -228,12 +404,12 @@ body {
 #site .bloco_conteudo .bloco_resposta {
     width: 100%;
     height: calc(50vh - 20px);
-    overflow-y: auto;
-    padding: 20px;
 }
 #site .bloco_conteudo .bloco_resposta .titulo {
     width: 100%;
+    height: 25px;
     display: flex;
+    padding: 20px;
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
@@ -244,6 +420,7 @@ body {
     font-size: 1.3rem;
     flex-grow: 1;
     flex-basis: 0%;
+    color: #FFF;
 }
 #site .bloco_conteudo .bloco_resposta .titulo span {
     height: 25px;
@@ -261,5 +438,9 @@ body {
 }
 #site .bloco_conteudo .bloco_resposta pre {
     width: 100%;
+    height: calc(100% - 50px);
     font-size: 1.5rem;
+    overflow: auto;
+    padding: 0 20px 20px 20px;
+    color: #FFF
 }

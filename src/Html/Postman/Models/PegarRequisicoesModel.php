@@ -28,7 +28,7 @@ final class PegarRequisicoesModel
     {
         foreach ($dado as $ind => $r) {
             $grupo = $this->formatarNomeGrupo($r['grupo']);
-            if (empty($grupo)) {
+            if (empty($grupo) || !in_array($r['metodo'], ['GET', 'POST', 'PUT', 'DELETE'])) {
                 continue;
             }
             if (!array_key_exists($grupo, $this->rota)) {
@@ -38,7 +38,10 @@ final class PegarRequisicoesModel
                 ];
             }
             $this->rota[$grupo]->rota[] = (object) [
-                'id' => $r['metodo'] . '.' . $ind,
+                'id' => 'request_' . strCaixaBaixa(
+                    str_replace(' ', '-', $grupo) . '.' . str_replace(['/', ' ', '*'], ['-', '', 'id'], $r['metodo']
+                        . '.' . preg_replace('/^\//', '', $ind))
+                ),
                 'uri' => $r['uri'],
                 'metodo' => $r['metodo'],
                 'request' => $r['request']

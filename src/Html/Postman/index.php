@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'buscar') {
     exit();
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'salvar') {
     $Request = new SalvarRequest(
+        id: $_POST['id'],
         token: $_POST['token'],
         metodo: $_POST['metodo'],
         uri: $_POST['uri'],

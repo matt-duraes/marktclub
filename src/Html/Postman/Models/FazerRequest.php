@@ -66,8 +66,13 @@ final class FazerRequest
         } elseif ($token == 'painel') {
             $this->criarTokenPainel();
         }
+
+        $body = $this->montarParametro($body);
+        $parametro = $this->montarParametro($parametro);
+        $json = $this->montarParametro($json);
+
         $dado = $this->enviarCurl($metodo, $uri, $body, $parametro, $json, $this->header);
-        $retorno['retorno'] = jsonDecode($dado->retorno, true, true);
+        $retorno['retorno'] = $dado->retorno;
         $retorno['codigo_html'] = $dado->status;
         $this->retorno = $retorno;
     }
@@ -84,9 +89,6 @@ final class FazerRequest
         ?array $header = null
     ) {
         $link = str_replace('{{LINK}}', $this->link, $uri);
-        $body = $this->montarParametro($body);
-        $parametro = $this->montarParametro($parametro);
-        $json = $this->montarParametro($json);
 
         if ($parametro) {
             $parametroFinal = [];
@@ -111,7 +113,7 @@ final class FazerRequest
         if ($header) {
             $headerFinal = [];
             foreach ($header as $ind => $val) {
-                $headerFinal[] = $ind . ':' . $val;
+                $headerFinal[] = $ind . ': ' . $val;
             }
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerFinal);
         }
