@@ -1,6 +1,6 @@
 <?php
 
-final class PegarDadoRequisicaoModel
+final class PegarDadoRequisicao
 {
     private array $retorno = [];
     public function __construct(
@@ -33,6 +33,12 @@ final class PegarDadoRequisicaoModel
             'header' => [],
             'body' => [],
             'json' => '',
+            'doc' => [
+                'descricao' => '',
+                'requisicao' => '',
+                'resposta' => ''
+            ],
+            'variavel' => []
         ];
     }
 }

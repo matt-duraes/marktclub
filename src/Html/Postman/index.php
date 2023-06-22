@@ -1,16 +1,16 @@
 <?php
 
-include 'Models/PegarRequisicoesModel.php';
-include 'Models/PegarDadoRequisicaoModel.php';
-include 'Models/FazerRequest.php';
-include 'Models/SalvarRequest.php';
+include 'Models/FazerRequisicao.php';
+include 'Models/MontarMenu.php';
+include 'Models/PegarDadoRequisicao.php';
+include 'Models/SalvarRequisicao.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'buscar') {
-    $Request = new PegarDadoRequisicaoModel($_POST['id']);
+    $Request = new PegarDadoRequisicao($_POST['id']);
     echo json_encode($Request->retorno());
     exit();
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'request') {
-    $Request = new FazerRequest(
+    $Request = new FazerRequisicao(
         token: $_POST['token'],
         metodo: $_POST['metodo'],
         uri: $_POST['uri'],
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'buscar') {
     echo $Request->retorno();
     exit();
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'salvar') {
-    $Request = new SalvarRequest(
+    $Request = new SalvarRequisicao(
         id: $_POST['id'],
         token: $_POST['token'],
         metodo: $_POST['metodo'],
@@ -31,9 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'buscar') {
         body: jsonDecode($_POST['body'], true, true),
         header: jsonDecode($_POST['header'], true, true),
         json: jsonDecode($_POST['json'], true, true),
+        descricao: $_POST['descricao'],
+        requisicao: $_POST['requisicao'],
+        resposta: $_POST['resposta'],
+        variavel: jsonDecode($_POST['variavel'], true, true)
     );
     echo $Request->retorno();
     exit();
 }
-$Rota = new PegarRequisicoesModel();
+$Rota = new MontarMenu();
 include 'view/index.php';

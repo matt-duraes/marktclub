@@ -1,6 +1,6 @@
 <?php
 
-final class SalvarRequest
+final class SalvarRequisicao
 {
     public function __construct(
         string $id,
@@ -10,7 +10,11 @@ final class SalvarRequest
         array $parametro,
         array $body,
         private array $header,
-        array $json
+        array $json,
+        string $descricao,
+        string $requisicao,
+        string $resposta,
+        array $variavel
     ) {
         $dado = [
             "uri" => $uri,
@@ -19,7 +23,13 @@ final class SalvarRequest
             "parametro" => $parametro,
             "header" => $header,
             "body" => $body,
-            "json" => $json
+            "json" => $json,
+            "doc" => [
+                "descricao" => $descricao,
+                "requisicao" => $requisicao,
+                "resposta" => $resposta
+            ],
+            'variavel' => $variavel
         ];
         $this->criarArquivo($id, $dado);
     }

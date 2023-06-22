@@ -28,7 +28,7 @@
                 <p><?= $grupo->grupo ?></p>
             </div>
             <?php foreach ($grupo->rota as $rota) : ?>
-            <div class="request" data-id="<?= $rota->id ?>" data-metodo="<?= $rota->metodo ?>" data-uri="<?= $rota->uri ?>">
+            <div class="request" data-id="<?= $rota->id ?>" data-arquivo="<?= $rota->arquivo ?>" data-metodo="<?= $rota->metodo ?>" data-uri="<?= $rota->uri ?>">
                 <div class="metodo <?=$rota->metodo?>"><?= $rota->metodo == 'POST' ? 'POST' : strCortar($rota->metodo, 3, '', true) ?></div> <div class="uri"><?= $rota->uri ?></div>
             </div>
             <?php endforeach; ?>
@@ -37,6 +37,13 @@
     </div>
     <div class="bloco_header">
         <div class="lista" id="bloco_aba_lista">
+            <?php for ($i = 0; $i < 0; ++$i) :?>
+            <div class="aba ativa" id="bloco_aba_modelo">
+                <div class="metodo"></div>
+                <div class="uri"></div>
+                <div class="fechar"><?= iconeFechar(8) ?></div>
+            </div>
+            <?php endfor; ?>
         </div>
         <div class="botao_mais" id="botao_nova_aba"><?= iconeMais(13)?></div>
     </div>
@@ -52,11 +59,23 @@
     <div class="bloco_conteudo display_none" id="bloco_request_lista"></div>
 
     <div class="bloco_modelo_geral display_none">
+        <!-- ABA PADRAO -->
         <div class="aba ativa" id="bloco_aba_modelo">
             <div class="metodo"></div>
             <div class="uri"></div>
             <div class="fechar"><?= iconeFechar(8) ?></div>
         </div>
+        <!-- LINHA PADRAO -->
+        <li id="bloco_linha_modelo">
+            <div class="bloco_checkbox">
+                <input type="checkbox" class="check monitorar_salvar" ${checked}>
+                <span><?= iconeCheck(10) ?></span>
+            </div>
+            <input class="chave monitorar_salvar" type="text" value="" name="key" placeholder="chave">
+            <input class="valor monitorar_salvar" type="text" value="" name="value" placeholder="valor">
+            <i class="deletar"><?= iconeDeletar(17)?></i>
+        </li>
+        <!-- CONTEUDO PADRAO -->
         <div class="bloco_request ativo" id="bloco_request_modelo">
             <div class="link">
                 <div class="bloco_select bloco_token">
@@ -81,20 +100,32 @@
             </div>
             <div class="parametro">
                 <ul>
-                    <li class="item botao_parametro" class="hover">Parametro</li>
-                    <li class="item botao_body">Body</li>
-                    <li class="item botao_header">Header</li>
-                    <li class="item botao_json">JSON</li>
+                    <li class="item botao_parametro ativo" data-id="bloco_parametro_parametro">Parametro</li>
+                    <li class="item botao_body" data-id="bloco_parametro_body">Body</li>
+                    <li class="item botao_header" data-id="bloco_parametro_header">Header</li>
+                    <li class="item botao_json" data-id="bloco_parametro_json">JSON</li>
+                    <li class="item botao_variavel" data-id="bloco_parametro_variavel">Variável</li>
+                    <li class="item botao_documentacao" data-id="bloco_parametro_documentacao">Doc</li>
                     <li class="salvar display_none botao_salvar">salvar</li>
                 </ul>
-                <ol class="bloco_scroll bloco_parametro_geral bloco_parametro">
+                <ol class="bloco_scroll bloco_parametro_parametro ativo">
                 </ol>
-                <ol class="bloco_scroll bloco_parametro_geral bloco_body display_none">
+                <ol class="bloco_scroll bloco_parametro_body">
                 </ol>
-                <ol class="bloco_scroll bloco_parametro_geral bloco_header display_none">
+                <ol class="bloco_scroll bloco_parametro_header">
                 </ol>
-                <div class="bloco_scroll bloco_json display_none">
+                <div class="bloco_scroll bloco_parametro_json">
                     <textarea name="json" class="monitorar_salvar input_json" placeholder="Digite o json"></textarea>
+                </div>
+                <ol class="bloco_scroll bloco_parametro_variavel">
+                </ol>
+                <div class="bloco_scroll bloco_parametro_documentacao">
+                    <p>Descrição:</p>
+                    <textarea name="descricao" placeholder="Digite uma descrição" class="input_descricao"></textarea>
+                    <p>Exemplo de requisição:</p>
+                    <textarea name="request" placeholder="Digite um CURL de exemplo" class="input_requisicao"></textarea>
+                    <p>Exemplo da resposta:</p>
+                    <textarea name="resposta" placeholder="Digite um CURL de exemplo" class="input_resposta"></textarea>
                 </div>
             </div>
             <div class="bloco_resposta">

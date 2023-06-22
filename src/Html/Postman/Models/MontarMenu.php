@@ -2,7 +2,7 @@
 
 use Route\Route;
 
-final class PegarRequisicoesModel
+final class MontarMenu
 {
     private array $rota = [];
     public function __construct()
@@ -38,9 +38,9 @@ final class PegarRequisicoesModel
                 ];
             }
             $this->rota[$grupo]->rota[] = (object) [
-                'id' => 'request_' . strCaixaBaixa(
-                    str_replace(' ', '-', $grupo) . '.' . str_replace(['/', ' ', '*'], ['-', '', 'id'], $r['metodo']
-                        . '.' . preg_replace('/^\//', '', $ind))
+                'id' => 'id_' . md5(uniqid(time())),
+                'arquivo' => strCaixaBaixa(
+                    $r['metodo'] . '.' . str_replace(['/', ' ', '*'], ['-', '', 'id'], preg_replace('/^\//', '', $ind))
                 ),
                 'uri' => $r['uri'],
                 'metodo' => $r['metodo'],

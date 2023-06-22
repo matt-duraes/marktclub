@@ -2,7 +2,7 @@
 
 use Helpers\CryptHelper;
 
-final class FazerRequest
+final class FazerRequisicao
 {
     private $retorno = '';
     private int $status = 0;
