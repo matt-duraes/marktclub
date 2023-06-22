@@ -1,1 +1,0 @@
-{"uri":"{{LINK}}\/token","metodo":"POST","token":"sem_token","parametro":[],"header":[],"body":[["texto",true,"client_id","__clientId__"],["texto",true,"grant_type","client_credentials"],["texto",true,"scope",""],["texto",true,"secret_id","__secretId__"],["texto",true,"audience","__audience__"]],"json":[]}

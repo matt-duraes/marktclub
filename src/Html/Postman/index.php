@@ -4,10 +4,18 @@ include 'Models/FazerRequisicao.php';
 include 'Models/MontarMenu.php';
 include 'Models/PegarDadoRequisicao.php';
 include 'Models/SalvarRequisicao.php';
+include 'Models/DiretorioSalvar.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'buscar') {
     $Request = new PegarDadoRequisicao($_POST['id']);
     echo json_encode($Request->retorno());
+    exit();
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'diretorio-salvar') {
+    $Diretorio = new DiretorioSalvar(
+        nome: $_POST['nome'],
+        pai: $_POST['pai']
+    );
+    echo $Diretorio->retorno();
     exit();
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['acao'] == 'request') {
     $Request = new FazerRequisicao(

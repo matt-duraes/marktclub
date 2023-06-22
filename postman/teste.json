@@ -1,0 +1,6 @@
+{
+    "id":"id_2",
+    "metodo":"POST",
+    "nome":"/teste",
+    "uri":"{{LINK}}/teste"
+}
