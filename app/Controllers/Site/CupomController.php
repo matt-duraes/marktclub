@@ -36,6 +36,7 @@ final class CupomController extends Controller
      */
     public function index(string $pesquisa = null): Response
     {
+
         return view(
             'cupom.index',
             [
