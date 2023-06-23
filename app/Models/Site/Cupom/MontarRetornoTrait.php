@@ -8,24 +8,45 @@ trait MontarRetornoTrait
 {
     private function montarRetorno($lista): stdClass
     {
+        $retorno = new stdClass();
+        $retorno->tipo = 'cupom';
+        $retorno->lista = new stdClass();
 
-        $retorno = (object)[
-            'tipo' => 'cupom',
-            'lista' => (object)[]
-        ];
-
-        if (is_object($lista) && !empty($lista->dado)) {
-            foreach ($lista->dado as $key => $valor) {
-                $retorno->lista->$key = (object)[
-                    'id'       => $valor->id,
-                    'titulo'   => $valor->parceiro->nome,
-                    'texto'    => $valor->descricao,
-                    'imagem'   => $valor->parceiro->imagem,
-                    'validade' => $valor->validade
-                ];
+        if ($lista instanceof stdClass && property_exists($lista, 'dado')) {
+            if (is_array($lista->dado)) {
+                $this->processarItens($lista->dado, $retorno->lista);
+            } else {
+                $this->processarCasoNaoArray($lista->dado, $retorno->lista);
             }
         }
 
-        return $retorno ;
+        return $retorno;
     }
+    private function processarItens($dado, &$retornoLista)
+    {
+        foreach ($dado as $key => $valor) {
+            $retornoLista->$key = (object) [
+                'id'       => $valor->id,
+                'titulo'   => $valor->parceiro->nome,
+                'texto'    => $valor->descricao,
+                'imagem'   => $valor->parceiro->imagem,
+                'validade' => $valor->validade
+            ];
+        }
+    }
+
+    private function processarCasoNaoArray($lista, &$retornoLista)
+    {
+        $retornoLista = (object) [
+            'id'       => $lista->id,
+            'titulo'   => $lista->parceiro->nome,
+            'texto'    => $lista->descricao,
+            'imagem'   => $lista->parceiro->imagem,
+            'validade' => $lista->validade,
+            'url'      => $lista->parceiro->link,
+            'cupom'    => $lista->cupom,
+            'tipo'     => $lista->tipo
+        ];
+    }
+
 }
