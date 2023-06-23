@@ -1,6 +1,6 @@
 <?php
 
-use Route\Route;
+namespace System\Html\Postman\Models;
 
 final class MontarMenu
 {
@@ -12,7 +12,7 @@ final class MontarMenu
         $this->pegarListaRota();
         $this->criarHtmlMenu();
     }
-    public function menu()
+    public function retorno()
     {
         return $this->menu;
     }
@@ -31,12 +31,12 @@ final class MontarMenu
         $html = '';
         foreach ($lista as $grupo) {
             $html .= '
-                <div class="grupo fechado">
+                <div class="grupo fechado bloco_keyup" data-nome="' . $grupo->nome . '">
                     <div class="nome">
                         <i class="pasta pasta_aberta">' . iconePasta(20) . '</i>
                         <i class="pasta pasta_fechada">' . iconePastaAberta(20) . '</i>
-                        <p class="nome_grupo">' . $grupo->nome . '</p>
-                        <input type="text" class="nome_grupo input_nome display_none" placeholder="Nome do grupo" value="' . $grupo->nome . '">
+                        <p class="nome_grupo bloco_nome">' . $grupo->nome . '</p>
+                        <input type="text" class="nome_grupo bloco_input input_salvar input_nome" placeholder="Nome do grupo" value="' . $grupo->nome . '">
                         <i class="opcao botao_opcao_grupo">' . iconeOpcao() . '</i>
                     </div>
             ';
@@ -45,7 +45,7 @@ final class MontarMenu
                     $html .= $this->criarHtmlGrupo([$r]);
                     continue;
                 } elseif ($r->tipo == 'vazio') {
-                    $html .= '<div class="request_vazio">Sem requisição</div>';
+                    $html .= '<div class="requisicao_vazio">Sem requisição</div>';
                     continue;
                 }
                 $html .= $this->criarHtmlRequisicao($r);
@@ -63,13 +63,16 @@ final class MontarMenu
         $metodo = $r->metodo == 'POST' ? 'POST' : strCortar($r->metodo, 3, '', true);
         return '
             <div
-                class="request" data-id="' . $r->id . '"
+                class="requisicao bloco_keyup" data-id="' . $r->id . '"
                 data-metodo="' . $r->metodo . '"
-                data-uri="' . $r->uri . '"
+                data-nome="' . $r->nome . '"
             >
                 <div class="metodo ' . $r->metodo . '">' . $metodo . '</div>
-                <div class="uri">' . $r->uri . '</div>
-                <input name="uri" class="input_uri display_none" value="' . $r->uri . '" placeholder="Nome da rota">
+                <div class="nome bloco_nome">' . $r->nome . '</div>
+                <input
+                    name="nome" class="nome_requisicao bloco_input input_salvar input_nome"
+                    value="' . $r->nome . '" placeholder="Nome da rota"
+                >
                 <i class="opcao botao_opcao_requisicao">' . iconeOpcao() . '</i>
             </div>
         ';
@@ -139,7 +142,11 @@ final class MontarMenu
                 continue;
             }
             $requisicao = $this->montarMenu($path . '/' . $item);
-            $retorno['requisicao'][$requisicao->metodo][$requisicao->nome] = (object)[
+            if (empty($requisicao)) {
+                continue;
+            }
+            $this->temporario++;
+            $retorno['requisicao'][$requisicao->metodo][$requisicao->nome . '_' . $this->temporario] = (object)[
                 'tipo' => 'requisicao',
                 'dado' => $requisicao
             ];
@@ -149,22 +156,12 @@ final class MontarMenu
     private function montarMenu($path)
     {
         if (!file_exists($path)) {
-            return $this->menuPadrao();
+            return [];
         }
         $dado = jsonDecode(file_get_contents($path), true, true);
         if (!array_key_exists('id', $dado) || !array_key_exists('metodo', $dado) || !array_key_exists('uri', $dado)) {
-            return $this->menuPadrao();
+            return [];
         }
         return (object)$dado;
-    }
-    private function menuPadrao()
-    {
-        $this->temporario++;
-        return (object)[
-            'id' => 'id_' . md5(uniqid(time())),
-            'metodo' => 'GET',
-            'nome' => 'Temporario ' . $this->temporario,
-            'uri' => '/'
-        ];
     }
 }

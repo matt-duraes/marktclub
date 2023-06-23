@@ -1,14 +1,18 @@
 window.addEventListener('load', () => {
-    const blocoMenuLista = $('#bloco_menu');
-    const blocoGrupoMedelo = pegarElementoModelo('bloco_grupo_modelo');
+    const blocoMenuGrupoMedelo = pegarElementoModelo('bloco_menu_grupo_modelo');
     const botaoAdicionarGrupo = $('#botao_adicionar_grupo');
 
     const blocoOpcaoGrupo = $('#bloco_opcao_grupo');
     const botaoGrupoRenomear = $('#bloco_opcao_grupo .botao_grupo_renomear');
+    const botaoGrupoDeletar = $('#bloco_opcao_grupo .botao_grupo_deletar');
 
     const blocoOpcaoRequisicao = $('#bloco_opcao_requisicao');
-    const blocoRequisicaoModelo = pegarElementoModelo('bloco_requisicao_modelo');
+    const blocoMenuRequisicaoModelo = pegarElementoModelo('bloco_menu_requisicao_modelo');
     const botaoRequisicaoAdicionar = $('#bloco_opcao_grupo .botao_requisicao_adicionar');
+    const botaoRequisicaoRenomear = $('#bloco_opcao_requisicao .botao_requisicao_renomear');
+    const botaoRequisicaoDeletar = $('#bloco_opcao_requisicao .botao_requisicao_deletar');
+
+    const blocoMenuSemRequisicao = pegarElementoModelo('bloco_menu_sem_requisicao');
 
     body.addEventListener('click', e => {
         // Fechar bloco Grupo
@@ -36,23 +40,6 @@ window.addEventListener('load', () => {
         }
     });
 
-    const atualizarNomeGrupoEnter = e => {
-        if (e.key == 'Enter' && e.target.value == '') {
-            e.preventDefault();
-            Alerta.notificacao('Você deve passar um nome para o grupo.', false);
-        } else if (e.key == 'Enter' && e.target.value == '') {
-            e.preventDefault();
-            atualizarNomeGrupo(e.target);
-        }
-    };
-    const atualizarNomeGrupoChange = e => {
-        atualizarNomeGrupo(e.target);
-    };
-    const adicionarEventoInputGrupo = input => {
-        input.addEventListener('change', atualizarNomeGrupoChange);
-        input.addEventListener('keydown', atualizarNomeGrupoEnter);
-    };
-
     /*
     |--------------------------------------------------------------------------
     | ACAO AO CLICAR NO MENU
@@ -62,95 +49,253 @@ window.addEventListener('load', () => {
         const target = e.target;
         const blocoGrupo = target.closest('.grupo');
 
-        const clickOpcao = target.closest('.botao_opcao_grupo') || target.classList.contains('botao_opcao_grupo');
-        const clickNome = target.closest('.nome') || target.classList.contains('nome');
-        if (clickOpcao) {
+        const clickOpcaoRequisicao =
+            target.closest('.botao_opcao_requisicao') || target.classList.contains('botao_opcao_requisicao');
+        const clickRequisicao = target.closest('.requisicao') || target.classList.contains('requisicao');
+        const clickOpcaoGrupo = target.closest('.botao_opcao_grupo') || target.classList.contains('botao_opcao_grupo');
+        const clickGrupo = target.closest('.nome') || target.classList.contains('nome');
+
+        if (clickOpcaoRequisicao) {
+            abrirOpcaoRequisicao(target.closest('.requisicao'));
+        } else if (clickRequisicao) {
+            abrirRequisicao(
+                target.classList.contains('.requisicao')
+                    ? target.classList.contains('.requisicao')
+                    : target.closest('.requisicao')
+            );
+        } else if (clickOpcaoGrupo) {
             abrirOpcaoGrupo(blocoGrupo);
-        } else if (clickNome) {
+        } else if (clickGrupo) {
             abrirFecharGrupo(blocoGrupo);
         }
     });
+    const abrirRequisicao = requisicao => {
+        const requisicaoAberto = blocoMenuLista.querySelector('.requisicao.aberto');
+        if (requisicaoAberto) {
+            requisicaoAberto.classList.remove('aberto');
+        }
+        requisicao.classList.add('aberto');
+        const grupo = requisicao.closest('.grupo');
+        abrirNovaAba(requisicao, grupo);
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR/FECHAR MENU
+    |--------------------------------------------------------------------------
+    */
     const abrirFecharGrupo = grupo => {
-        const input = grupo.querySelector('.nome input');
-        if (input.classList.contains('display_none')) {
+        if (!grupo.classList.contains('ativo') && !grupo.classList.contains('update')) {
             grupo.classList.toggle('fechado');
         }
     };
-    /*
-    |--------------------------------------------------------------------------
-    | ABRIR ROTA
-    |--------------------------------------------------------------------------
-    */
-    const menuRotaLista = document.querySelectorAll('.bloco_menu .request');
-    menuRotaLista.forEach(botao => {
-        botao.addEventListener('click', () => {
-            const id = botao.getAttribute('data-id');
-            const metodo = botao.getAttribute('data-metodo');
-            const uri = botao.getAttribute('data-uri');
-            // adicionarNovaAba(id, metodo, uri);
-        });
-    });
-    const menuGrupoLista = blocoMenuLista.querySelectorAll('.grupo');
-    menuGrupoLista.forEach(grupo => {
-        adicionarEventoInputGrupo(grupo);
-    });
 
     /*
     |--------------------------------------------------------------------------
-    | REQUISIÇÃO
+    | RENOMEAR GRUPO/MENU
     |--------------------------------------------------------------------------
     */
-    const fecharOpcaoRequisicao = () => {
-        const grupo = blocoMenuLista.querySelector('.grupo.ativo');
+    const renomearNomeMenu = e => {
+        if (e.type == 'keyup' && e.key == 'Enter') {
+            e.target.blur();
+            e.preventDefault();
+            return;
+        } else if (e.type == 'keyup') {
+            return;
+        }
+
+        const input = e.target;
+        const acao = input.classList.contains('nome_requisicao') ? 'requisicao' : 'grupo';
+        const bloco = acao == 'grupo' ? input.closest('.grupo') : input.closest('.requisicao');
+        const texto = bloco.querySelector('.bloco_nome');
+        const valor = input.value.trim();
+
+        if (bloco.classList.contains('novo') && valor == '') {
+            removerMenuItem(bloco, acao != 'grupo' ? input.closest('.grupo') : '');
+            return;
+        } else if (valor == '' || valor == bloco.getAttribute('data-nome')) {
+            resetarNomeMenu(bloco, texto, input);
+            return;
+        }
+
+        atualizarNomeMenu(bloco, texto, input, acao);
+    };
+    const resetarNomeMenu = (bloco, texto, input) => {
+        const valor = bloco.getAttribute('data-nome');
+        input.value = valor;
+        finalizarMudancaNomeMenu(bloco, texto, valor);
+    };
+    const atualizarNomeMenu = async (bloco, texto, input, acao) => {
+        const valor = input.value.trim();
+        const novo = bloco.classList.contains('novo') ? 'sim' : 'nao';
+        const eGrupo = acao == 'grupo';
+        const pai = bloco.closest('.grupo');
+        const resposta = await post(
+            '__postman',
+            {
+                id: bloco.getAttribute(eGrupo ? 'data-nome' : 'data-id'),
+                acao: 'atualizar-nome-' + acao,
+                pai: pai ? pai.getAttribute('data-nome') : '',
+                nome: valor,
+                novo: novo,
+            },
+            'Ocorreu um erro a atualizar o nome, por favor, tente novamente.'
+        );
+        if (false === resposta && novo == 'sim') {
+            removerMenuItem(bloco);
+            return;
+        } else if (false === resposta) {
+            resetarNomeMenu(bloco, texto, input);
+            return;
+        }
+        bloco.setAttribute('data-nome', valor);
+        if (acao == 'requisicao') {
+            bloco.setAttribute('data-id', resposta.dado.id);
+            bloco.setAttribute('data-metodo', resposta.dado.metodo);
+        }
+        finalizarMudancaNomeMenu(bloco, texto, valor);
+    };
+    const finalizarMudancaNomeMenu = (bloco, texto, valor) => {
+        bloco.classList.remove('ativo');
+        bloco.classList.remove('update');
+        texto.innerText = valor;
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | REMOVER ITEM MENU
+    |--------------------------------------------------------------------------
+    */
+    botaoRequisicaoDeletar.addEventListener('click', () => {
+        const blocoRequisicao = blocoMenuLista.querySelector('.requisicao.ativo');
+        blocoOpcaoRequisicao.classList.add('display_none');
+        deletarNomeMenu(blocoRequisicao, 'requisicao');
+    });
+
+    botaoGrupoDeletar.addEventListener('click', () => {
+        const blocoGrupo = blocoMenuLista.querySelector('.grupo.ativo');
         blocoOpcaoGrupo.classList.add('display_none');
+        deletarNomeMenu(blocoGrupo, 'grupo');
+    });
+
+    const deletarNomeMenu = async (bloco, acao) => {
+        if (!(await Alerta.confirmar('Deletar item', 'Essa ação não poderá ser desfeita', false))) {
+            return;
+        }
+        const pai = bloco.closest('.grupo');
+        const resposta = await post(
+            '__postman',
+            {
+                id: bloco.getAttribute(acao == 'grupo' ? 'data-nome' : 'data-id'),
+                pai: pai ? pai.getAttribute('data-nome') : '',
+                acao: 'deletar-' + acao,
+            },
+            'Ocorreu um erro a atualizar o nome, por favor, tente novamente.'
+        );
+        if (false === resposta) {
+            return;
+        }
+        removerMenuItem(bloco, pai);
+    };
+
+    const removerMenuItem = (bloco, grupo) => {
+        const lista = bloco.querySelectorAll('.bloco_input');
+        lista.forEach(input => {
+            input.removeEventListener('blur', renomearNomeMenu);
+            input.removeEventListener('keyup', renomearNomeMenu);
+        });
+        bloco.parentNode.removeChild(bloco);
         if (!grupo) {
             return;
         }
-        grupo.classList.remove('ativo');
-    };
-    const abrirOpcaoRequisicao = grupo => {
-        blocoOpcaoGrupo.classList.remove('display_none');
-        const blocoNome = grupo.querySelector('.nome');
-        const posicaoBloco = blocoOpcaoGrupo.getBoundingClientRect();
-        const posicaoNome = blocoNome.getBoundingClientRect();
-        const posicaoMenu = blocoMenuLista.getBoundingClientRect();
-
-        const blocoGrupoAtivo = blocoMenuLista.querySelector('.grupo.ativo');
-        if (blocoGrupoAtivo) {
-            blocoGrupoAtivo.classList.remove('ativo');
+        if (grupo.querySelectorAll('.requisicao').length > 0) {
+            return;
         }
-
-        let blocoTopo = posicaoNome.top + posicaoNome.height - 5;
-        if (window.innerHeight / 2 < blocoTopo) {
-            blocoTopo = posicaoNome.top - posicaoBloco.height + 5;
-        }
-        blocoOpcaoGrupo.style.top = blocoTopo + 'px';
-        blocoOpcaoGrupo.style.left = posicaoMenu.width - posicaoBloco.width - 5 + 'px';
-
-        grupo.classList.add('ativo');
-        grupo.classList.remove('fechado');
+        const clone = blocoMenuSemRequisicao.cloneNode(true);
+        grupo.appendChild(clone);
     };
 
     /*
     |--------------------------------------------------------------------------
-    | GRUPO
+    | ADICIONAR EVENTOS NO MENU
     |--------------------------------------------------------------------------
     */
-    const renomearGrupo = grupo => {
-        grupo.classList.add('ativo');
-        setTimeout(() => {
-            blocoOpcaoGrupo.classList.add('display_none');
-        }, 40);
-        const blocoTexto = grupo.querySelector('.nome p');
-        const inputTexto = grupo.querySelector('.nome input');
-        blocoTexto.classList.add('display_none');
-        inputTexto.classList.remove('display_none');
-        inputTexto.focus();
-        inputTexto.select();
+    const adicionarEventoMenuInput = input => {
+        input.addEventListener('blur', renomearNomeMenu);
+        input.addEventListener('keyup', renomearNomeMenu);
     };
-    botaoGrupoRenomear.addEventListener('click', () => {
-        renomearGrupo(blocoMenuLista.querySelector('.grupo.ativo'));
+    const menuNomeLista = blocoMenuLista.querySelectorAll('.bloco_input');
+    menuNomeLista.forEach(input => {
+        adicionarEventoMenuInput(input);
     });
+
+    /*
+    |--------------------------------------------------------------------------
+    | BLOCO OPCAO REQUISICAO
+    |--------------------------------------------------------------------------
+    */
+    const fecharOpcaoRequisicao = () => {
+        const requisicao = blocoMenuLista.querySelector('.requisicao.ativo');
+        blocoOpcaoRequisicao.classList.add('display_none');
+        if (!requisicao) {
+            return;
+        }
+        requisicao.classList.remove('ativo');
+    };
+    const abrirOpcaoRequisicao = requisicao => {
+        blocoOpcaoRequisicao.classList.remove('display_none');
+        const posicaoBloco = blocoOpcaoRequisicao.getBoundingClientRect();
+        const posicaoRequisicao = requisicao.getBoundingClientRect();
+        const posicaoMenu = blocoMenuLista.getBoundingClientRect();
+
+        const blocoRequisicaoAtivo = blocoMenuLista.querySelector('.requisicao.ativo');
+        if (blocoRequisicaoAtivo) {
+            blocoRequisicaoAtivo.classList.remove('ativo');
+        }
+
+        let blocoTopo = posicaoRequisicao.top + posicaoRequisicao.height;
+        if (window.innerHeight / 2 < blocoTopo) {
+            blocoTopo = posicaoRequisicao.top - posicaoBloco.height;
+        }
+        blocoOpcaoRequisicao.style.top = blocoTopo + 'px';
+        blocoOpcaoRequisicao.style.left = posicaoMenu.width - posicaoBloco.width - 5 + 'px';
+        requisicao.classList.add('ativo');
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | RENOMEAR
+    |--------------------------------------------------------------------------
+    */
+    botaoRequisicaoRenomear.addEventListener('click', () => {
+        const blocoRequisicao = blocoMenuLista.querySelector('.requisicao.ativo');
+        const inputUri = blocoRequisicao.querySelector('input');
+        abrirBlocoRenomear(blocoRequisicao, blocoOpcaoRequisicao, inputUri);
+    });
+
+    botaoGrupoRenomear.addEventListener('click', () => {
+        const blocoGrupo = blocoMenuLista.querySelector('.grupo.ativo');
+        const inputTexto = blocoGrupo.querySelector('.nome input');
+        abrirBlocoRenomear(blocoGrupo, blocoOpcaoGrupo, inputTexto);
+    });
+    const abrirBlocoRenomear = (bloco, opcao, input) => {
+        setTimeout(() => {
+            opcao.classList.add('display_none');
+        }, 40);
+
+        if (!bloco) {
+            return;
+        }
+        bloco.classList.add('ativo');
+        bloco.classList.add('update');
+        input.focus();
+        input.select();
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | BLOCO OPCAO GRUPO
+    |--------------------------------------------------------------------------
+    */
     const fecharOpcaoGrupo = () => {
         const grupo = blocoMenuLista.querySelector('.grupo.ativo');
         blocoOpcaoGrupo.classList.add('display_none');
@@ -184,48 +329,43 @@ window.addEventListener('load', () => {
 
     /*
     |--------------------------------------------------------------------------
-    | ADICIONAR NOVO GRUPO
+    | ADICIONAR GRUPO
     |--------------------------------------------------------------------------
     */
     botaoAdicionarGrupo.addEventListener('click', () => {
-        const clone = blocoGrupoMedelo.cloneNode(true);
+        const clone = blocoMenuGrupoMedelo.cloneNode(true);
         blocoMenuLista.prepend(clone);
         clone.scrollIntoView();
 
-        const inputNome = clone.querySelector('.input_nome');
-        inputNome.focus();
-        adicionarEventoInputGrupo(inputNome);
-        inputNome.addEventListener('blur', removerGrupoNovoVazio);
+        const input = clone.querySelector('.input_nome');
+        input.focus();
+        adicionarEventoMenuInput(input);
     });
-    const atualizarNomeGrupo = inputNome => {
-        const grupo = inputNome.closest('.grupo');
-        if (inputNome.value == '' && grupo.classList.contains('novo')) {
-            return;
-        } else if (inputNome.value == '') {
-            Alerta.notificacao('Você deve passar um nome para o grupo.', false);
-            inputNome.value.focus();
-            return;
-        }
-        const textoNome = grupo.querySelector('.nome p');
-        textoNome.innerText = inputNome.value;
-        inputNome.classList.add('display_none');
-        textoNome.classList.remove('display_none');
-    };
-    const removerGrupoNovoVazio = e => {
-        const inputNome = e.target;
-        const grupo = inputNome.closest('.grupo');
-        if (!grupo.classList.contains('novo')) {
-            return;
-        }
-        const blocoNome = grupo.querySelector('.nome');
-        blocoNome.classList.remove('hover');
-        grupo.classList.remove('novo');
 
-        inputNome.removeEventListener('blur', removerGrupoNovoVazio);
-        if (inputNome.value == '') {
-            inputNome.removeEventListener('change', atualizarNomeGrupoChange);
-            inputNome.removeEventListener('keydown', atualizarNomeGrupoEnter);
-            grupo.parentNode.removeChild(grupo);
+    /*
+    |--------------------------------------------------------------------------
+    | ADICIONAR REQUEST
+    |--------------------------------------------------------------------------
+    */
+    botaoRequisicaoAdicionar.addEventListener('click', () => {
+        const grupo = blocoMenuLista.querySelector('.grupo.ativo');
+        if (!grupo) {
+            return;
         }
-    };
+        const clone = blocoMenuRequisicaoModelo.cloneNode(true);
+        const vazio = grupo.querySelector('.requisicao_vazio');
+        if (vazio) {
+            vazio.parentNode.removeChild(vazio);
+        }
+        grupo.appendChild(clone);
+        clone.scrollIntoView();
+        const input = clone.querySelector('input');
+        input.focus();
+        blocoOpcaoGrupo.classList.add('display_none');
+        setTimeout(() => {
+            clone.classList.add('ativo');
+        }, 40);
+
+        adicionarEventoMenuInput(input);
+    });
 });

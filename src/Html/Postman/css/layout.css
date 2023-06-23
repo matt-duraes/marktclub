@@ -134,7 +134,7 @@ body {
 #site .bloco_menu .grupo.fechado {
     height: var(--grupoHeader);
 }
-#site .bloco_menu .grupo .nome {
+#site .bloco_menu .grupo > .nome {
     width: 100%;
     height: var(--grupoHeader);
     position: relative;
@@ -143,11 +143,12 @@ body {
     align-items: center;
     padding: 0 10px;
 }
-#site .bloco_menu .grupo .grupo .nome {
+#site .bloco_menu .grupo .grupo > .nome {
     padding-left: 30px;
 }
+#site .bloco_menu .grupo.update > .nome,
 #site .bloco_menu .grupo.ativo > .nome,
-#site .bloco_menu .grupo .nome:hover {
+#site .bloco_menu .grupo > .nome:hover {
     background-color: #313341;
 }
 #site .bloco_menu .grupo .nome i.pasta {
@@ -179,6 +180,13 @@ body {
 }
 #site .bloco_menu .grupo .nome input {
     background-color: #212121;
+    display: none;
+}
+#site .bloco_menu .grupo.update .nome .bloco_nome {
+    display: none;
+}
+#site .bloco_menu .grupo.update .nome input {
+    display: block;
 }
 #site .bloco_menu .grupo .nome input::placeholder {
     color: #999;
@@ -193,21 +201,25 @@ body {
     align-items: center;
     justify-content: center;
 }
+#site .bloco_menu i.opcao:hover {
+    background-color: rgba(255,255,255,.1);
+}
+#site .bloco_menu .grupo.update .nome i.opcao,
 #site .bloco_menu .grupo.ativo .nome i.opcao,
 #site .bloco_menu .nome:hover i.opcao {
     display: flex;
 }
-#site .bloco_menu .novo .nome:hover i.opcao {
-    display: none;
+#site .bloco_menu .update i.opcao {
+    display: none !important;
 }
-#site .bloco_menu .request_vazio {
+#site .bloco_menu .requisicao_vazio {
     width: 100%;
     padding: 10px 10px 10px 15px;
     font-size: 1.5rem;
     color: #DDD;
     padding-left: 45px;
 }
-#site .bloco_menu .request {
+#site .bloco_menu .requisicao {
     width: 100%;
     padding: 0 10px 0 15px;
     display: flex;
@@ -215,52 +227,66 @@ body {
     align-items: center;
     cursor: pointer;
 }
-#site .bloco_menu .request:hover {
+#site .bloco_menu .requisicao.aberto,
+#site .bloco_menu .requisicao.ativo,
+#site .bloco_menu .requisicao:hover {
     background-color: #313341;
 }
-#site .bloco_menu .grupo .request {
+#site .bloco_menu .grupo .requisicao {
     padding-left: 35px;
 }
-#site .bloco_menu .grupo .grupo .request {
+#site .bloco_menu .grupo .grupo .requisicao {
     padding-left: 65px;
 }
-#site .bloco_menu .request .metodo {
-    width: 40px;
-    height: 35px;
-    line-height: 35px;
+#site .bloco_menu .requisicao .metodo {
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
     font-size: 1.3rem;
     font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
 }
-#site .bloco_menu .request .metodo.GET {
+#site .bloco_menu .requisicao .metodo.GET {
     color: var(--get)
 }
-#site .bloco_menu .request .metodo.POST {
+#site .bloco_menu .requisicao .metodo.POST {
     color: var(--post)
 }
-#site .bloco_menu .request .metodo.PUT {
+#site .bloco_menu .requisicao .metodo.PUT {
     color: var(--put)
 }
-#site .bloco_menu .request .metodo.DELETE {
+#site .bloco_menu .requisicao .metodo.DELETE {
     color: var(--delete)
 }
-#site .bloco_menu .request .uri {
+#site .bloco_menu .requisicao .nome {
     height: 35px;
     line-height: 35px;
     flex-grow: 1;
     flex-basis: 0%;
     font-size: 1.5rem;
     color: #DDD;
+    overflow: hidden;
 }
-#site .bloco_menu .request input {
+#site .bloco_menu .requisicao input {
     height: 25px;
     line-height: 25px;
     flex-grow: 1;
     flex-basis: 0%;
+    margin: 5px 0;
     font-size: 1.5rem;
     color: #DDD;
     background-color: #212121;
+    display: none;
 }
-#site .bloco_menu .request:hover .opcao {
+#site .bloco_menu .requisicao.update .nome {
+    display: none;
+}
+#site .bloco_menu .requisicao.update input {
+    display: block;
+}
+#site .bloco_menu .requisicao.ativo .opcao,
+#site .bloco_menu .requisicao:hover .opcao {
     display: flex;
 }
 #site .bloco_header {
@@ -297,16 +323,16 @@ body {
     border-right: 1px solid #bc96f7;
     cursor: pointer;
 }
-#site .bloco_header .lista .aba.ativa {
+#site .bloco_header .lista .aba.ativo {
     border-top-color: var(--vermelho);
     height: 41px;
     background-color: #282a36;
 }
 #site .bloco_header .lista .aba .metodo,
-#site .bloco_header .lista .aba .uri {
+#site .bloco_header .lista .aba .nome {
     font-size: 1.4rem;
 }
-#site .bloco_header .lista .aba .uri {
+#site .bloco_header .lista .aba .nome {
     flex-grow: 1;
     flex-basis: 0%;
     overflow: hidden;
@@ -337,7 +363,7 @@ body {
     cursor: pointer;
     opacity: 0;
 }
-#site .bloco_header .lista .aba.ativa .fechar {
+#site .bloco_header .lista .aba.ativo .fechar {
     height: 40px;
 }
 #site .bloco_header .lista .aba:hover .fechar {
@@ -379,6 +405,13 @@ body {
     margin-top: 20px;
     font-size: 1.8rem;
     color: #999;
+}
+#site .bloco_conteudo .bloco_requisicao {
+    width: 100%;
+    display: none;
+}
+#site .bloco_conteudo .bloco_requisicao.ativo {
+    display: block;
 }
 #site .bloco_conteudo .link {
     width: 100%;
@@ -436,6 +469,9 @@ body {
     border-left: none;
     border-radius: 0 5px 5px 0;
     margin-right: 20px;
+}
+#site .bloco_conteudo .link input::placeholder {
+    color: #888;
 }
 #site .bloco_conteudo .link .botao {
     height: 45px;
@@ -541,6 +577,9 @@ body {
 #site .bloco_conteudo .parametro ol li input {
     font-size: 1.3rem;
     height: 30px;
+}
+#site .bloco_conteudo .parametro ol li input::placeholder {
+    color: #888;
 }
 #site .bloco_conteudo .parametro ol li .chave {
     width: 140px;
