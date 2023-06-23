@@ -26,7 +26,8 @@ window.addEventListener('load', () => {
     const inputNumero = document.querySelector('#bloco_pagina_perfil form input[name=numero]');
     const inputComplemento = document.querySelector('#bloco_pagina_perfil form input[name=complemento]');
     const inputCidade = document.querySelector('#bloco_pagina_perfil form input[name=cidade]');
-
+    const fotoPerfil = document.querySelector('#imagem_fundo_perfil');
+    const blocoPerfil = document.querySelector('#bloco_perfil figure');
     botaoSalvar.addEventListener('click', e => {
         e.preventDefault();
         acaoParaAtualizarDado();
@@ -83,6 +84,11 @@ window.addEventListener('load', () => {
         oauth2Google('imagem');
     });
 
+    const setarNovaImagem = imagem => {
+        fotoPerfil.style.backgroundImage = `url(${imagem})`;
+        blocoPerfil.style.backgroundImage = `url(${imagem})`;
+    };
+
     const oauth2Google = acao => {
         const client = google.accounts.oauth2.initCodeClient({
             // eslint-disable-next-line camelcase
@@ -96,6 +102,7 @@ window.addEventListener('load', () => {
         });
         client.requestCode();
     };
+
     /*
     |--------------------------------------------------------------------------
     | VINCULAR REDE SOCIAL
@@ -122,14 +129,13 @@ window.addEventListener('load', () => {
         } catch (error) {
             json = {};
         }
-
         Loading.hide();
 
         if (response.status == 201 && acao == 'imagem') {
             setarNovaImagem(json.dado.imagem);
             fecharPopupMudarImagem();
             return;
-        } else if (response.status != 201) {
+        } else if (response.status == 400) {
             Alerta.notificacao('Ocorreu um erro ao vincular sua conta, por favor, tente novamente.', false);
             return;
         } else if (
@@ -145,4 +151,3 @@ window.addEventListener('load', () => {
         oauth2Google('imagem');
     };
 });
-z;

@@ -120,10 +120,8 @@ final class PerfilController extends Controller
     public function postSocial(Request $request)
     {
 
-        if($request->rede == '' || $request->code == '') {
-            return mensagemErro('Parâmetros inválidos', 'os dados enviados não são válidos');
+        if ($request->acao == 'imagem') {
+            return (new DadosModel())->postImagemSocial($request);
         }
-
-        $Salvar = (new DadosModel())->postImagemSocial($request);
     }
 }
