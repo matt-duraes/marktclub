@@ -131,23 +131,14 @@ window.addEventListener('load', () => {
         }
         Loading.hide();
 
-        if (response.status == 201 && acao == 'imagem') {
-            setarNovaImagem(json.dado.imagem);
-            fecharPopupMudarImagem();
-            return;
-        } else if (response.status == 400) {
+        if (response.status != 201) {
             Alerta.notificacao('Ocorreu um erro ao vincular sua conta, por favor, tente novamente.', false);
             return;
-        } else if (
-            !(await Alerta.confirmar(
-                'Conta vinculada',
-                'Sua conta foi vinculada com sucesso, gostaria de usar sua foto de perfil da rede social no painel?',
-                true
-            ))
-        ) {
+        } else if (response.status == 201 && acao == 'imagem') {
+            setarNovaImagem(json.dado.imagem);
+            Alerta.notificacao('Foto vinculada', true);
             return;
         }
-
         oauth2Google('imagem');
     };
 });
