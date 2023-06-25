@@ -6,6 +6,73 @@ const blocoAbaLista = $('#bloco_aba_lista');
 const blocoRequisicaoLista = $('#bloco_requisicao_lista');
 const blocoRequisicaoVazio = $('#bloco_requisicao_vazio');
 
+blocoAbaLista.addEventListener('click', e => {
+    const clickFechar = e.target.classList.contains('fechar') || e.target.closest('.fechar');
+    const clickAba = e.target.classList.contains('aba') || e.target.closest('.aba');
+    if (clickFechar) {
+        fecharAbaAberta(e.target.closest('.aba'));
+    } else if (clickAba) {
+        abrirAbaJaAberta(e.target.classList.contains('aba') ? e.target : e.target.closest('.aba'));
+    }
+});
+blocoRequisicaoLista.addEventListener('input', e => {
+    if (!e.target.classList.contains('monitorar_salvar') && !e.target.closest('.monitorar_salvar')) {
+        return;
+    }
+    const bloco = e.target.closest('.bloco_requisicao');
+    const botaoSalvar = bloco.querySelector('.botao_salvar');
+    botaoSalvar.classList.remove('display_none');
+});
+const fecharAbaAberta = async aba => {
+    if (!aba) {
+        return;
+    }
+    const id = aba.getAttribute('data-id');
+    const menu = blocoMenuLista.querySelector('#' + id + '_menu');
+    const bloco = blocoRequisicaoLista.querySelector('#' + id + '_requisicao');
+    const botaoSalvar = bloco.querySelector('.botao_salvar');
+    if (!botaoSalvar || botaoSalvar.classList.contains('display_none')) {
+        confirmarFecharAba(bloco, menu, aba);
+    } else if (
+        await Alerta.confirmar('confirmar', 'Tem certeza que deseja fechar essa requisição sem salvar?', false)
+    ) {
+        confirmarFecharAba(bloco, menu, aba);
+    }
+};
+const confirmarFecharAba = (bloco, menu, aba) => {
+    if (menu) {
+        menu.classList.remove('aberto');
+        menu.classList.remove('ativo');
+    }
+    if (bloco) {
+        bloco.parentNode.removeChild(bloco);
+    }
+    const abaAberta = aba.classList.contains('ativo');
+    aba.parentNode.removeChild(aba);
+    if (abaAberta) {
+        abrirAbaJaAberta(blocoAbaLista.querySelector('.aba'));
+    }
+};
+
+const abrirAbaJaAberta = aba => {
+    if (!aba) {
+        blocoRequisicaoVazio.classList.remove('display_none');
+        blocoRequisicaoLista.classList.add('display_none');
+        return;
+    }
+    const id = aba.getAttribute('data-id');
+    const menu = blocoMenuLista.querySelector('#' + id + '_menu');
+    if (!menu) {
+        return;
+    }
+    menu.classList.add('aberto');
+    const grupo = menu.closest('.grupo');
+    if (grupo) {
+        grupo.classList.remove('fechado');
+    }
+    abrirNovaAba(menu, grupo);
+};
+
 const abrirNovaAba = (requisicao, grupo) => {
     const id = requisicao.getAttribute('data-id');
     const metodo = requisicao.getAttribute('data-metodo');
@@ -35,6 +102,7 @@ const abrirNovaAba = (requisicao, grupo) => {
         adicionarNovaRequisicao(id, grupo ? grupo.getAttribute('data-nome') : '');
     }
 };
+
 const adicionarNovaAba = (id, metodo, nome) => {
     const clone = blocoAbaModelo.cloneNode(true);
     const blocoMetodo = clone.querySelector('.metodo');
@@ -78,6 +146,9 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     const botaoDocumentacao = bloco.querySelector('.botao_documentacao');
     const botaoSalvar = bloco.querySelector('.botao_salvar');
     const botaoEnviar = bloco.querySelector('.botao_enviar');
+    const botaoRespostaJson = bloco.querySelector('.botao_resposta_json');
+    const botaoRespostaBody = bloco.querySelector('.botao_resposta_body');
+    const botaoRespostaHtml = bloco.querySelector('.botao_resposta_html');
 
     botaoParametro.addEventListener('click', abrirNovoParametro);
     botaoBody.addEventListener('click', abrirNovoParametro);
@@ -86,6 +157,10 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     botaoVariavel.addEventListener('click', abrirNovoParametro);
     botaoDocumentacao.addEventListener('click', abrirNovoParametro);
     botaoEnviar.addEventListener('click', enviarRequisicao);
+
+    botaoRespostaJson.addEventListener('click', mudarTipoResposta);
+    botaoRespostaBody.addEventListener('click', mudarTipoResposta);
+    botaoRespostaHtml.addEventListener('click', mudarTipoResposta);
 
     const inputToken = bloco.querySelector('.input_token');
     const blocoMetodo = bloco.querySelector('.bloco_metodo');
@@ -110,6 +185,28 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     montarParametro(blocoBody, resposta.body);
     montarParametro(blocoHeader, resposta.header);
     montarParametro(blocoVar, resposta.variavel);
+};
+const mudarTipoResposta = e => {
+    const botao = e.target.classList.contains('tipo_resposta') ? e.target : e.target.closest('.tipo_resposta');
+    const id = botao.getAttribute('data-id') || '';
+    if (id == '') {
+        return;
+    }
+    const blocoLista = botao.closest('.bloco_resposta_lista');
+    const blocoAtivo = blocoLista.querySelector('.bloco_resposta.ativo');
+    const menuAtivo = blocoLista.querySelector('.tipo_resposta.ativo');
+    const blocoNovo = blocoLista.querySelector('.' + id);
+    if (!blocoNovo || botao == menuAtivo) {
+        return;
+    }
+    if (menuAtivo) {
+        menuAtivo.classList.remove('ativo');
+    }
+    if (blocoAtivo) {
+        blocoAtivo.classList.remove('ativo');
+    }
+    botao.classList.add('ativo');
+    blocoNovo.classList.add('ativo');
 };
 const abrirNovoParametro = e => {
     const bloco = e.target.closest('.parametro');
@@ -143,6 +240,7 @@ const adicionarNovaLinha = (bloco, check, chave, valor) => {
     inputChave.innerText = chave;
     inputValor.innerText = valor;
     bloco.appendChild(clone);
+    botaoDeletar.addEventListener('click', mostrarBotaoSalvar);
     botaoDeletar.addEventListener('click', deletarLinha);
     if (chave == '') {
         blocoCheck.classList.add('display_none');
@@ -178,3 +276,11 @@ const deletarLinha = e => {
     botaoDeletar.removeEventListener('click', deletarLinha);
     linha.parentNode.removeChild(linha);
 };
+
+const mostrarBotaoSalvar = e => {
+    const bloco = e.target.closest('.bloco_requisicao');
+    const salvar = bloco.querySelector('.botao_salvar');
+    salvar.classList.remove('display_none');
+};
+
+abrirNovaAba($('.requisicao'), $('.grupo'));

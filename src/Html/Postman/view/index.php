@@ -130,9 +130,16 @@
                     <textarea name="resposta" placeholder="Digite um CURL de exemplo" class="input_resposta"></textarea>
                 </div>
             </div>
-            <div class="bloco_resposta">
+            <div class="bloco_resposta_lista">
                 <div class="titulo"><p>Resposta:</p><span class="bloco_codigo_html"></span></div>
-                <pre class="bloco_resposta_html"></pre>
+                <ul class="botao_respota_lista display_none">
+                    <li class="tipo_resposta botao_resposta_json ativo" data-id="bloco_resposta_json">Json</li>
+                    <li class="tipo_resposta botao_resposta_body" data-id="bloco_resposta_body">Body</li>
+                    <li class="tipo_resposta botao_resposta_html" data-id="bloco_resposta_html">HTML</li>
+                </ul>
+                <pre class="bloco_resposta bloco_resposta_json ativo"></pre>
+                <div class="bloco_resposta bloco_resposta_body"></div>
+                <iframe class="bloco_resposta bloco_resposta_html"></iframe>
             </div>
         </div>
     </div>

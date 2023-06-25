@@ -152,6 +152,12 @@ window.addEventListener('load', () => {
             bloco.setAttribute('data-id', resposta.dado.id);
             bloco.setAttribute('data-metodo', resposta.dado.metodo);
         }
+        if (acao == 'requisicao' && bloco.classList.contains('novo')) {
+            bloco.setAttribute('id', resposta.dado.id + '_menu');
+            bloco.classList.remove('novo');
+        } else if (eGrupo && bloco.classList.contains('novo')) {
+            bloco.classList.remove('novo');
+        }
         finalizarMudancaNomeMenu(bloco, texto, valor);
     };
     const finalizarMudancaNomeMenu = (bloco, texto, valor) => {

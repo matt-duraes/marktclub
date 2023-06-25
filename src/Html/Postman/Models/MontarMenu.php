@@ -63,7 +63,7 @@ final class MontarMenu
         $metodo = $r->metodo == 'POST' ? 'POST' : strCortar($r->metodo, 3, '', true);
         return '
             <div
-                class="requisicao bloco_keyup" data-id="' . $r->id . '"
+                class="requisicao bloco_keyup" id="' . $r->id . '_menu" data-id="' . $r->id . '"
                 data-metodo="' . $r->metodo . '"
                 data-nome="' . $r->nome . '"
             >
