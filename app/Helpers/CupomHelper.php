@@ -47,7 +47,7 @@ final class CupomHelper
         ]);
 
         if ($data['error']) {
-            return mensagem_codigo(404, 404);
+            mensagemStatus(404);
         }
 
         return $data['data'][0] ?? [];

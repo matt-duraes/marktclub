@@ -120,8 +120,8 @@ final class PerfilController extends Controller
     public function postSocial(Request $request)
     {
 
-        $Salvar = (new DadosModel())->postImagemSocial($request);
-
-        return mensagemSucesso([], status: 201);
+        if ($request->acao == 'imagem') {
+            return (new DadosModel())->postImagemSocial($request);
+        }
     }
 }

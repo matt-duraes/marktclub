@@ -6,7 +6,6 @@
 // @system "Mascara"
 
 window.addEventListener('load', () => {
-
     const LINK = document.getElementById('LINK').value;
     const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
 
@@ -27,15 +26,13 @@ window.addEventListener('load', () => {
     const inputNumero = document.querySelector('#bloco_pagina_perfil form input[name=numero]');
     const inputComplemento = document.querySelector('#bloco_pagina_perfil form input[name=complemento]');
     const inputCidade = document.querySelector('#bloco_pagina_perfil form input[name=cidade]');
-
-
-    botaoSalvar.addEventListener('click', (e) => {
+    const fotoPerfil = document.querySelector('#imagem_fundo_perfil');
+    const blocoPerfil = document.querySelector('#bloco_perfil figure');
+    botaoSalvar.addEventListener('click', e => {
         e.preventDefault();
         acaoParaAtualizarDado();
     });
     const acaoParaAtualizarDado = async () => {
-
-
         let body = new FormData();
         body.append('nome', inputNome.value);
         body.append('data_nascimento', inputData.value);
@@ -87,6 +84,11 @@ window.addEventListener('load', () => {
         oauth2Google('imagem');
     });
 
+    const setarNovaImagem = imagem => {
+        fotoPerfil.style.backgroundImage = `url(${imagem})`;
+        blocoPerfil.style.backgroundImage = `url(${imagem})`;
+    };
+
     const oauth2Google = acao => {
         const client = google.accounts.oauth2.initCodeClient({
             // eslint-disable-next-line camelcase
@@ -100,6 +102,7 @@ window.addEventListener('load', () => {
         });
         client.requestCode();
     };
+
     /*
     |--------------------------------------------------------------------------
     | VINCULAR REDE SOCIAL
@@ -109,6 +112,7 @@ window.addEventListener('load', () => {
         Loading.show();
 
         let body = new FormData();
+
         body.append('id', id);
         body.append('token', token);
         body.append('code', code);
@@ -119,33 +123,22 @@ window.addEventListener('load', () => {
             method: 'POST',
             body,
         });
-
         let json;
         try {
             json = await response.json();
         } catch (error) {
             json = {};
         }
-
         Loading.hide();
-        if (response.status == 201 && acao == 'imagem') {
-            setarNovaImagem(json.dado.imagem);
-            fecharPopupMudarImagem();
-            return;
-        } else if (response.status != 201) {
+
+        if (response.status != 201) {
             Alerta.notificacao('Ocorreu um erro ao vincular sua conta, por favor, tente novamente.', false);
             return;
-        } else if (
-            !(await Alerta.confirmar(
-                'Conta vinculada',
-                'Sua conta foi vinculada com sucesso, gostaria de usar sua foto de perfil da rede social no painel?',
-                true
-            ))
-        ) {
+        } else if (response.status == 201 && acao == 'imagem') {
+            setarNovaImagem(json.dado.imagem);
+            Alerta.notificacao('Foto vinculada', true);
             return;
         }
-
         oauth2Google('imagem');
     };
-    
 });

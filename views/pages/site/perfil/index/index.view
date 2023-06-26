@@ -1,20 +1,19 @@
 @template "site"
-
 <div id="bloco_pagina_perfil">
     <div class="conteudo">
         <section class="foto">
-            <figure style="background-image: url(https://lh3.googleusercontent.com/ogw/AOh-ky0qIecPHzcVkKjpNnwIesf2ZRiPq9bj4IiPNyiEjcg)"></figure>
+            <figure id="imagem_fundo_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
             <div class="legenda">
                 <article>
                     <h1>{{$dado->nome}}</h1>
-                    <p>Usuário desde: 18/06/2018</p>
+                    <p>Usuários desde: 18/06/2018</p>
                     <p>Ultimo acesso: 14/03/2023</p>
                 <article>
                 <button id="botao_vincular_google" type="button" class="google">
                     <div class="logo_google">
                         <img src="https://clube.marktclub.com.br/images/google.svg">
                     </div>
-                    <span class="texto">
+                    <span class="texto" id="foto_google">
                         Vincular foto
                     </span>
                 </button>

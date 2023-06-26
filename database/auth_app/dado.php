@@ -173,6 +173,8 @@ EwIDAQAB
 
             "popup:buscar", "popup:salvar", "popup:atualizar", "popup:deletar",
 
+            "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
+
             "cupom:buscar", "cupom:listar"
         ],
         'campo_permitido' => [
