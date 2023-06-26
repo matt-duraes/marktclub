@@ -4,8 +4,8 @@ namespace App\Models\Site\Perfil;
 
 use Erro\Excecao;
 use Helpers\ApiHelper;
-use Helpers\CryptHelper;
 use Helpers\SocialHelper;
+use Helpers\CryptHelper;
 use Http\Request;
 use Http\Response;
 
@@ -19,7 +19,8 @@ final class DadosModel
     public function __construct()
     {
         $Curl = new ApiHelper('admin:chave_publica');
-        $chave = $Curl->get('/admin/chave-publica')
+        $chave = $Curl
+            ->get('/admin/chave-publica')
             ->object()->dado->chave ?? '';
         $this->chave = $chave;
     }
@@ -37,7 +38,6 @@ final class DadosModel
         $dado = $Api->validar('Página não encontrada!', status: 404)
             ->get('/usuario-cliente/' . $id)
             ->object();
-
         return $this->montarRetorno($dado);
     }
 
@@ -126,26 +126,24 @@ final class DadosModel
      * @return Response
      * @throws Excecao
      */
-    public function postImagemSocial(Request $request): Response
+    public function postImagemSocial(Request $request)
     {
         $imagem = $this->pegarIdRedeSocial($request);
-
         $Crypt = new CryptHelper(chavePublica: $this->chave);
-
         $id = '5595203c-f7b1-4211-9981-bf09eb236b35';
 
-        $Api->body([
+        $dadosApi = (new ApiHelper())
+        ->body([
             'foto_perfil' => $imagem ? $Crypt->encode($imagem) : null,
-        ])->put('/usuario-cliente/' . $id);
+        ])
+        ->put('/usuario-cliente/' . $id);
 
-        if ($status == 204) {
-            return new Response(status: 204);
+        if($imagem) {
+            sessao('USUARIO.imagem', $imagem);
+            return mensagemSucesso([
+                'imagem' => $imagem
+            ], status: 201);
         }
-
-        mensagemErro(
-            'Erro!',
-            'Ocorreu um erro ao tentar salvar as informações, por favor, tente novamente.'
-        );
     }
 
     /**
@@ -175,10 +173,8 @@ final class DadosModel
      * @return Response
      * @throws Excecao
      */
-    private function vincularImagem(SocialHelper $Social, $rede): Response
+    private function vincularImagem(SocialHelper $Social, $rede)
     {
-        return mensagemSucesso([
-            'imagem' => ($rede == 'google') ? $Social->imagem() : ''
-        ], 201);
+        return  ($rede == 'google') ? $Social->imagem() : '';
     }
 }

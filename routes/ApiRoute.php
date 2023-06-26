@@ -1243,6 +1243,34 @@ Route
     });
 
 Route
+    ::nome('enquete_satisfacao')
+    ::controller(App\Controllers\Api\EnqueteSatisfacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:buscar'])
+            ::get('/enquete-satisfacao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
+            ::request([
+                'pagina',  '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/enquete-satisfacao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:salvar'])
+            ::request([
+                'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
+            ])
+            ::post('/enquete/satisfacao');
+    });
+
+
+Route
     ::nome('farmacia')
     ::controller(App\Controllers\Api\FarmaciaController::class)
     ::middleware(TokenMiddleware::class, 'token')

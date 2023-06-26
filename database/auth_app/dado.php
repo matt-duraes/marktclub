@@ -172,6 +172,9 @@ EwIDAQAB
             "carteirinha:buscar",
 
             "popup:buscar", "popup:salvar", "popup:atualizar", "popup:deletar",
+
+            "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
+
             "farmacia:listar"
         ],
         'campo_permitido' => [
