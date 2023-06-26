@@ -32,6 +32,7 @@ final class RequisicaoEnviar
     private string $loginEncode;
     private string $senhaEncode;
 
+    private string $uuid;
     private string $nome;
     private string $sobreNome;
     private string $nomeCompleto;
@@ -216,6 +217,7 @@ final class RequisicaoEnviar
         $senha = env('POSTMAN_SENHA', '');
         $decimal = env('POSTMAN_DECIMAL', '');
 
+        $this->uuid = uuid();
         $this->nome = !empty($nome) ? $nome : nomeAleatorio();
         $this->sobreNome = !empty($sobreNome) ? $sobreNome : sobreNomeAleatorio();
         $this->nomeCompleto = !empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio();
