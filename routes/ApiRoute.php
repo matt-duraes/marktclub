@@ -1277,7 +1277,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['cupom:listar'])
-            ::request(['!pesquisa'])
+            ::request(['!pesquisa'], 'json')
             ::get('/cupom');
         Route
             ::nome('buscar')

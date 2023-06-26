@@ -19,6 +19,7 @@ final class BuscaModel extends ApiHelper
     {
         $apiHelper = new ApiHelper('cupom:buscar');
         $dado = $apiHelper->get('/cupom/'.$url)->object();
+
         return $this->montarRetorno($dado);
     }
 

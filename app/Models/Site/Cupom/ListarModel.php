@@ -18,8 +18,8 @@ final class ListarModel extends ApiHelper implements ListarInterface
     public function listarDados(string $pesquisa = null): stdClass
     {
         $apiHelper = new ApiHelper('cupom:listar');
-        $dado = $apiHelper->parametro([
-            'pesquisa' => $this->pesquisa ?? '',
+        $dado = $apiHelper->json([
+            'pesquisa' => $pesquisa ?? '',
         ])->get('/cupom')->object();
 
         return $this->montarRetorno($dado);

@@ -20,14 +20,14 @@ final class CupomHelper
         $this->token = env('LOMADEE_CUPOM_TOKEN', '');
     }
 
-    public function listar(String $search = ''): array
+    public function listar(): array
     {
-
         $param = [
-            'sourceId' => $this->soucerId,
+            'sourceId' => $this->soucerId
         ];
-        if (!empty($search)) {
-            $param['keyword'] = $search;
+
+        if (!empty($this->request->pesquisa)) {
+            $param['keyword'] = $this->request->pesquisa;
         }
 
         $data = $this->curl('/coupon/_all', $param);

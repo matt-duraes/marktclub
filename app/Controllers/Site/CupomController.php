@@ -44,7 +44,7 @@ final class CupomController extends Controller
                 'menu'         => 'cupom',
                 'banner'       => false,
                 'pesquisa'     => $pesquisa,
-                'lista'        => (new ListarModel())->listarDados(),
+                'lista'        => (new ListarModel())->listarDados($pesquisa),
                 'parceiroTipo' => 'cupom'
             ]
         );

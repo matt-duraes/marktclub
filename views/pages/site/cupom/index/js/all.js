@@ -8,7 +8,6 @@
 const cupomPagina = {};
 
 const cupomDetalhe = () => {
-    const url = document.getElementById('input_cupom_url').value;
     const inputCodigo = document.getElementById('input_cupom_valor');
     const botaoCopiar = document.getElementById('botao_cupom_copiar');
     const botaoFechar = document.querySelector('#bloco_popup_detalhe .fechar');
