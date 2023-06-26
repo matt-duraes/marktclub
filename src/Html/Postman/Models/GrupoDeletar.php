@@ -25,7 +25,7 @@ final class GrupoDeletar
     }
     private function deletarDiretorioSubDiretorio($path): void
     {
-        $lista = array_diff(scandir($path), array('.','..'));
+        $lista = array_diff(scandir($path), ['.','..']);
 
         foreach ($lista as $arquivo) {
             $temp = $path . '/' . $arquivo;

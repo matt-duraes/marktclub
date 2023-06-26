@@ -102,7 +102,7 @@
             </div>
             <div class="parametro">
                 <ul>
-                    <li class="item botao_parametro ativo" data-id="bloco_parametro_parametro">Parametro</li>
+                    <li class="item botao_parametro" data-id="bloco_parametro_parametro">Parametro</li>
                     <li class="item botao_body" data-id="bloco_parametro_body">Body</li>
                     <li class="item botao_header" data-id="bloco_parametro_header">Header</li>
                     <li class="item botao_json" data-id="bloco_parametro_json">JSON</li>
@@ -110,7 +110,7 @@
                     <li class="item botao_documentacao" data-id="bloco_parametro_documentacao">Doc</li>
                     <li class="salvar display_none botao_salvar">salvar</li>
                 </ul>
-                <ol class="bloco_scroll bloco_parametro_parametro ativo">
+                <ol class="bloco_scroll bloco_parametro_parametro">
                 </ol>
                 <ol class="bloco_scroll bloco_parametro_body">
                 </ol>
@@ -132,13 +132,13 @@
             </div>
             <div class="bloco_resposta_lista">
                 <div class="titulo"><p>Resposta:</p><span class="bloco_codigo_html"></span></div>
-                <ul class="botao_respota_lista display_none">
-                    <li class="tipo_resposta botao_resposta_json ativo" data-id="bloco_resposta_json">Json</li>
-                    <li class="tipo_resposta botao_resposta_body" data-id="bloco_resposta_body">Body</li>
+                <ul class="bloco_resposta_botao display_none">
+                    <li class="tipo_resposta botao_resposta_body ativo" data-id="bloco_resposta_body">Body</li>
+                    <li class="tipo_resposta botao_resposta_json" data-id="bloco_resposta_json">Json</li>
                     <li class="tipo_resposta botao_resposta_html" data-id="bloco_resposta_html">HTML</li>
                 </ul>
-                <pre class="bloco_resposta bloco_resposta_json ativo"></pre>
-                <div class="bloco_resposta bloco_resposta_body"></div>
+                <div class="bloco_resposta bloco_resposta_body ativo"></div>
+                <pre class="bloco_resposta bloco_resposta_json"></pre>
                 <iframe class="bloco_resposta bloco_resposta_html"></iframe>
             </div>
         </div>
@@ -159,7 +159,6 @@
     <?php require_once __DIR__ . '/../js/all.js'; ?>
     <?php require_once __DIR__ . '/../js/enviar.js'; ?>
     <?php require_once __DIR__ . '/../js/menu.js'; ?>
-    <?php require_once __DIR__ . '/../js/salvar.js'; ?>
     <?php require_once __DIR__ . '/../js/aba.js'; ?>
     <?php require_once ROOT . '/src/Html/Scripts/js/Player.system.js'; ?>
     <?php require_once ROOT . '/src/Html/Scripts/js/Alerta.system.js'; ?>

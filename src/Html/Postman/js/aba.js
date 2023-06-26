@@ -116,6 +116,7 @@ const adicionarNovaAba = (id, metodo, nome) => {
 };
 const adicionarNovaRequisicao = async (id, pai) => {
     const clone = blocoRequisicaoModelo.cloneNode(true);
+    clone.setAttribute('data-id', id);
     clone.setAttribute('id', id + '_requisicao');
     blocoRequisicaoLista.prepend(clone);
 
@@ -157,6 +158,7 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     botaoVariavel.addEventListener('click', abrirNovoParametro);
     botaoDocumentacao.addEventListener('click', abrirNovoParametro);
     botaoEnviar.addEventListener('click', enviarRequisicao);
+    botaoSalvar.addEventListener('click', salvarRequisicao);
 
     botaoRespostaJson.addEventListener('click', mudarTipoResposta);
     botaoRespostaBody.addEventListener('click', mudarTipoResposta);
@@ -167,24 +169,44 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     const inputMetodo = bloco.querySelector('.input_metodo');
     const inputUri = bloco.querySelector('.input_uri');
     const inputDescricao = bloco.querySelector('.input_descricao');
+    const inputJson = bloco.querySelector('.input_json');
     const inputRequisicao = bloco.querySelector('.input_requisicao');
     const inputResposta = bloco.querySelector('.input_resposta');
     inputToken.value = resposta.token;
     if (!blocoMetodo.classList.contains('inativo')) {
         inputMetodo.value = resposta.metodo;
     }
+    let json;
+    try {
+        json = JSON.stringify(resposta.json, null, 2);
+    } catch (e) {
+        json = [];
+    }
+    inputJson.value = json == '[]' ? '' : json;
     inputUri.value = resposta.uri;
     inputDescricao.value = resposta.documentacao.descricao;
     inputRequisicao.value = resposta.documentacao.requisicao;
     inputResposta.value = resposta.documentacao.resposta;
     const blocoParametro = bloco.querySelector('.bloco_parametro_parametro');
     const blocoBody = bloco.querySelector('.bloco_parametro_body');
+    const blocoJson = bloco.querySelector('.bloco_parametro_json');
     const blocoHeader = bloco.querySelector('.bloco_parametro_header');
     const blocoVar = bloco.querySelector('.bloco_parametro_variavel');
     montarParametro(blocoParametro, resposta.parametro);
     montarParametro(blocoBody, resposta.body);
     montarParametro(blocoHeader, resposta.header);
     montarParametro(blocoVar, resposta.variavel);
+
+    if (resposta.body.length > 0) {
+        botaoBody.classList.add('ativo');
+        blocoBody.classList.add('ativo');
+    } else if (resposta.json != '') {
+        botaoJson.classList.add('ativo');
+        blocoJson.classList.add('ativo');
+    } else {
+        botaoParametro.classList.add('ativo');
+        blocoParametro.classList.add('ativo');
+    }
 };
 const mudarTipoResposta = e => {
     const botao = e.target.classList.contains('tipo_resposta') ? e.target : e.target.closest('.tipo_resposta');
@@ -225,7 +247,7 @@ const abrirNovoParametro = e => {
 const montarParametro = (bloco, lista) => {
     bloco.innerHTML = '';
     lista.forEach(item => {
-        adicionarNovaLinha(bloco, lista[1], lista[2], lista[3]);
+        adicionarNovaLinha(bloco, item[1], item[2], item[3]);
     });
     adicionarNovaLinha(bloco, false, '', '');
 };
@@ -237,8 +259,8 @@ const adicionarNovaLinha = (bloco, check, chave, valor) => {
     const inputCheck = clone.querySelector('.check');
     const blocoCheck = clone.querySelector('.bloco_checkbox span');
     inputCheck.checked = check;
-    inputChave.innerText = chave;
-    inputValor.innerText = valor;
+    inputChave.value = chave;
+    inputValor.value = valor;
     bloco.appendChild(clone);
     botaoDeletar.addEventListener('click', mostrarBotaoSalvar);
     botaoDeletar.addEventListener('click', deletarLinha);
@@ -282,5 +304,3 @@ const mostrarBotaoSalvar = e => {
     const salvar = bloco.querySelector('.botao_salvar');
     salvar.classList.remove('display_none');
 };
-
-abrirNovaAba($('.requisicao'), $('.grupo'));

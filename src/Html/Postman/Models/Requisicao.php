@@ -53,7 +53,7 @@ final class Requisicao
         if (empty($nome)) {
             return '';
         }
-        return preg_replace(['/[^A-Za-z\ \-\_0-9à-úÀÚ]/', '/\ {1,}/'], ['', ' '], trim($nome));
+        return preg_replace(['/[^A-Za-z\/\ \-\_0-9à-úÀÚ]/', '/\ {1,}/'], ['', ' '], trim($nome));
     }
 
     public function nome(string $nome)
@@ -61,6 +61,62 @@ final class Requisicao
         $this->requisicao['nome'] = $this->setarNome($nome);
         return $this;
     }
+    public function token(string $token)
+    {
+        $this->requisicao['token'] = $token;
+        return $this;
+    }
+    public function metodo(string $metodo)
+    {
+        $this->requisicao['metodo'] = $metodo;
+        return $this;
+    }
+    public function uri(string $uri)
+    {
+        $this->requisicao['uri'] = $uri;
+        return $this;
+    }
+    public function parametro(array $parametro)
+    {
+        $this->requisicao['parametro'] = $parametro;
+        return $this;
+    }
+    public function body(array $body)
+    {
+        $this->requisicao['body'] = $body;
+        return $this;
+    }
+    public function header(array $header)
+    {
+        $this->requisicao['header'] = $header;
+        return $this;
+    }
+    public function variavel(array $variavel)
+    {
+        $this->requisicao['variavel'] = $variavel;
+        return $this;
+    }
+    public function json(array $json)
+    {
+        $this->requisicao['json'] = $json;
+        return $this;
+    }
+    public function descriaco(string $descriaco)
+    {
+        $this->requisicao['documentacao']['descricao'] = $descriaco;
+        return $this;
+    }
+    public function requisicao(string $requisicao)
+    {
+        $this->requisicao['documentacao']['requisicao'] = $requisicao;
+        return $this;
+    }
+    public function resposta(string $resposta)
+    {
+        $this->requisicao['documentacao']['resposta'] = $resposta;
+        return $this;
+    }
+
     public function salvar()
     {
         if (!criarArquivo($this->path, jsonEncode($this->requisicao))) {

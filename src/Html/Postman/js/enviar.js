@@ -1,21 +1,74 @@
+const salvarRequisicao = async e => {
+    const bloco = e.target.closest('.bloco_requisicao');
+    const resposta = await mandarRequisicao(bloco, 'salvar');
+    if (false == resposta) {
+        return;
+    }
+    const botaoSalvar = bloco.querySelector('.botao_salvar');
+    botaoSalvar.classList.add('display_none');
+};
 const enviarRequisicao = async e => {
     const bloco = e.target.closest('.bloco_requisicao');
-    const resposta = await mandarRequisicao(bloco, 'requisicao');
-    let retorno;
-    try {
-        retorno = JSON.parse(resposta.retorno);
-        retorno = JSON.stringify(retorno, null, 2);
-    } catch (e) {
-        retorno = resposta.retorno.replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+    const blocoRespostaJson = bloco.querySelector('.bloco_resposta_json');
+    const blocoRespostaBody = bloco.querySelector('.bloco_resposta_body');
+    const blocoRespostaHtml = bloco.querySelector('.bloco_resposta_html');
+    const blocoStatusHtml = bloco.querySelector('.bloco_codigo_html');
+    const blocoBotao = bloco.querySelector('.bloco_resposta_botao');
+    const blocoBotaoAtivo = blocoBotao.querySelector('.ativo');
+    const blocoRespostaAtivo = bloco.querySelector('ativo');
+    const botaoHtml = blocoBotao.querySelector('.botao_resposta_html');
+    const botaoJson = blocoBotao.querySelector('.botao_resposta_json');
+
+    if (blocoBotaoAtivo) {
+        blocoBotaoAtivo.classList.remove('ativo');
     }
-    const blocoResposta = bloco.querySelector('.bloco_resposta_html');
-    const blocoStatus = bloco.querySelector('.bloco_codigo_html');
-    blocoResposta.innerHTML = retorno;
-    const erro = resposta.codigo_html >= 400 ? 'erro' : 'sucesso';
-    blocoStatus.classList.add(erro);
-    blocoStatus.innerText = resposta.codigo_html;
+    if (blocoRespostaAtivo) {
+        blocoRespostaAtivo.classList.remove('ativo');
+    }
+
+    blocoRespostaJson.innerHTML = '';
+    blocoRespostaBody.innerHTML = '';
+    blocoRespostaHtml.removeAttribute('srcdoc');
+    blocoBotao.classList.add('display_none');
+    blocoStatusHtml.classList.remove('erro');
+    blocoStatusHtml.classList.remove('sucesso');
+    blocoStatusHtml.innerText = '';
+    blocoRespostaJson.classList.remove('ativo');
+    blocoRespostaBody.classList.remove('ativo');
+    blocoRespostaHtml.classList.remove('ativo');
+
+    const resposta = await mandarRequisicao(bloco, 'requisicao');
+    if (false == resposta) {
+        return;
+    }
+    let json;
+    try {
+        json = JSON.parse(resposta.dado.retorno);
+        json = JSON.stringify(json, null, 2);
+    } catch (e) {
+        console.log(e);
+        json = '';
+    }
+    const body = resposta.dado.retorno != '' ? resposta.dado.retorno.replace(/\</g, '&lt;').replace(/\>/g, '&gt;') : '';
+    blocoBotao.classList.remove('display_none');
+    if (json != '') {
+        botaoJson.classList.add('ativo');
+        blocoRespostaJson.classList.add('ativo');
+    } else {
+        botaoHtml.classList.add('ativo');
+        blocoRespostaHtml.classList.add('ativo');
+        json = 'Resposta não é um json';
+    }
+
+    blocoRespostaBody.innerHTML = body;
+    blocoRespostaJson.innerHTML = json;
+    blocoRespostaHtml.setAttribute('srcdoc', resposta.dado.retorno);
+    const erro = resposta.dado.codigo_html >= 400 ? 'erro' : 'sucesso';
+    blocoStatusHtml.classList.add(erro);
+    blocoStatusHtml.innerText = resposta.dado.codigo_html;
 };
 const mandarRequisicao = async (bloco, acao) => {
+    const id = bloco.getAttribute('data-id');
     const blocoParametro = bloco.querySelector('.bloco_parametro_parametro');
     const blocoBody = bloco.querySelector('.bloco_parametro_body');
     const blocoHeader = bloco.querySelector('.bloco_parametro_header');
@@ -28,28 +81,27 @@ const mandarRequisicao = async (bloco, acao) => {
     const inputToken = bloco.querySelector('.input_token');
     const inputMetodo = bloco.querySelector('.input_metodo');
     const inputUri = bloco.querySelector('.input_uri');
-    const body = new FormData();
-    body.append('acao', acao);
-    body.append('id', requisicaoId);
-    body.append('token', inputToken.value);
-    body.append('metodo', inputMetodo.value);
-    body.append('uri', inputUri.value);
-    body.append('parametro', JSON.stringify(parPar));
-    body.append('body', JSON.stringify(parBody));
-    body.append('header', JSON.stringify(parHeader));
-    body.append('variavel', JSON.stringify(parVariavel));
-    body.append('json', JSON.stringify(inputJson.value.trim()));
-    const resposta = await fetch('__postman', {
-        method: 'POST',
-        body,
+    const inputDocDescricao = bloco.querySelector('.input_descricao');
+    const inputDocRequisicao = bloco.querySelector('.input_requisicao');
+    const inputDocResposta = bloco.querySelector('.input_resposta');
+    const menu = blocoMenuLista.querySelector('#' + id + '_menu');
+    const pai = menu ? menu.closest('.grupo') : null;
+    return await post('__postman', {
+        acao: acao,
+        id: id,
+        pai: pai ? pai.getAttribute('data-nome') : '',
+        token: inputToken.value,
+        metodo: inputMetodo.value,
+        uri: inputUri.value,
+        parametro: JSON.stringify(parPar),
+        body: JSON.stringify(parBody),
+        header: JSON.stringify(parHeader),
+        variavel: JSON.stringify(parVariavel),
+        json: JSON.stringify(inputJson.value.trim()),
+        descriaco: inputDocDescricao.value,
+        requisicao: inputDocRequisicao.value,
+        resposta: inputDocResposta.value,
     });
-    let json;
-    try {
-        json = await resposta.json();
-    } catch (e) {
-        json = {};
-    }
-    return json;
 };
 const pegarParametro = bloco => {
     const retorno = {};

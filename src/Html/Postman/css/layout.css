@@ -686,16 +686,18 @@ body {
 #site .bloco_conteudo .bloco_resposta_lista ul li:hover {
     background-color: rgba(255,255,255,.2);
 }
-
 #site .bloco_conteudo .bloco_resposta_lista .bloco_resposta {
     width: 100%;
     height: calc(100% - 120px);
     font-size: 1.5rem;
     overflow: auto;
-    padding: 0 20px 20px 20px;
+    padding: 20px;
     margin-top: 5px;
     color: #FFF;
     display: none;
+}
+#site .bloco_conteudo .bloco_resposta_lista .bloco_resposta.bloco_resposta_html {
+    padding: 0;
 }
 #site .bloco_conteudo .bloco_resposta_lista .bloco_resposta.ativo {
     display: block;

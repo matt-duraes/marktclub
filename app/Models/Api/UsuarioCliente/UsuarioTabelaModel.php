@@ -275,7 +275,7 @@ final class UsuarioTabelaModel extends ORM
         } elseif (in_array('matricula', $obrigatorio)) {
             $where[] = ['matricula', $usuario['matricula']];
         } elseif (in_array('siape', $obrigatorio)) {
-            $where[] = ['siape', $usuario['matricula']];
+            $where[] = ['siape', $usuario['siape']];
         }
 
         return $where;

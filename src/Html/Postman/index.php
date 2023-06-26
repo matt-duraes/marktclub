@@ -9,7 +9,9 @@ $controller = [
         'atualizar-nome-requisicao' => 'RequisicaoRenomear',
         'buscar-requisicao' => 'RequisicaoBuscar',
         'deletar-grupo' => 'GrupoDeletar',
-        'deletar-requisicao' => 'RequisicaoDeletar'
+        'deletar-requisicao' => 'RequisicaoDeletar',
+        'requisicao' => 'RequisicaoEnviar',
+        'salvar' => 'RequisicaoSalvar',
     ],
     'GET' => [
         'vazio' => 'MontarMenu'
