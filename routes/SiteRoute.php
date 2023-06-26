@@ -320,6 +320,12 @@ Route
             ::nome('pesquisa')
             ::get('/pesquisa-de-satisfacao');
         Route
+            ::nome('pesquisa')
+            ::request([
+                'navegar', 'procura', 'suporte', 'comentario', 'atendimento', 'sistema'
+            ])
+            ::post('/pesquisa-de-satisfacao');
+        Route
             ::nome('sosmulher')
             ::view('/sos-mulher');
         Route
