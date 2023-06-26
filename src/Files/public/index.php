@@ -72,7 +72,10 @@ require_once __DIR__ . '/../src/Config/Autoload.php';
 $requestUri = array_key_exists('REQUEST_URI', $_SERVER) ? explode('/', $_SERVER['REQUEST_URI']) : [];
 $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
 
-if ($requestUri == '__base' && SISTEMA == 'LOCALHOST') {
+if ($requestUri == '__postman' && SISTEMA == 'LOCALHOST') {
+    require_once __DIR__ . '/../src/Html/Postman/index.php';
+    exit();
+} elseif ($requestUri == '__base' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../src/Html/Database/index.php';
     exit();
 } elseif ($requestUri == '__tests' && SISTEMA == 'LOCALHOST') {

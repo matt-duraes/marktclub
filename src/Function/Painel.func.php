@@ -282,6 +282,7 @@ if (!function_exists('painelLinhaLista')) {
             $inArray = $item['inArray'] ?? '';
             $cor = $item['cor'] ?? '';
             $formatar = $item['formatar'] ?? '';
+            $vazio = $item['vazio'] ?? true;
 
             $valor = [];
             if (is_array($campo) && $campo) {
@@ -347,7 +348,7 @@ if (!function_exists('painelLinhaLista')) {
 
             if ($acao == 'imagem_redonda') {
                 echo '<figure class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
-            } elseif ($acao == 'linha') {
+            } elseif ($acao == 'linha' && ($vazio || !empty($valor))) {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
                 echo '<div class="linha bg_hover"><strong class="texto_nome">'

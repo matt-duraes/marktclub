@@ -1793,6 +1793,13 @@ if (!function_exists('porcentagem')) {
     }
 }
 if (!function_exists('criarArquivo')) {
+    /**
+     * Cria um arquivo
+     *
+     * @param   string  $path      Path do diretório completo com o nome do arquivo
+     * @param   string  $conteudo  Conteudo a ser salvo
+     * @return  bool
+     */
     function criarArquivo($path, $conteudo): bool
     {
         $arquivo = fopen($path, 'w+');

@@ -15,8 +15,8 @@ final class CadastroUsuario extends StatusStatus
     ) {
         parent::__construct([
             self::API => 'Via API',
-            self::CLIENTE => 'Pelo cliente pelo painel',
-            self::COMERCIAL => 'Pelo comercial pelo painel'
+            self::CLIENTE => 'Pelo cliente via painel',
+            self::COMERCIAL => 'Pelo comercial via painel'
         ]);
     }
 }

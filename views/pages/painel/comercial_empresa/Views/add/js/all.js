@@ -1,4 +1,6 @@
 // @template "painel"
+// @resource "painel/app_geral_add"
+
 window.addEventListener('load', () => {
     const inputFinalidadePrincipal = document.getElementById('input_finalidade_principal');
     const inputFinalidadeSecundaria = document.getElementById('input_finalidade_secundaria');
