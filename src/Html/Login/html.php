@@ -5,7 +5,7 @@ $login = '';
 $senha = '';
 if (isset($_POST['login']) && isset($_POST['senha'])) {
     if ($_POST['login'] == env('APP_LOGIN') && $_POST['senha'] == env('APP_SENHA')) {
-        cookie(nome: 'APP_LOGADO', valor: true, dia: 1);
+        cookie(nome: 'APP_LOGADO', valor: true, hora: 1);
         header("Refresh:0");
         exit();
     } else {
