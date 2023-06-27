@@ -163,6 +163,10 @@ EwIDAQAB
 
             "ponto_cvs:listar", "ponto_cvs:buscar", "ponto_cvs:salvar", "ponto_cvs:atualizar",
 
+            "saude_simulacao:buscar", "saude_simulacao:salvar",
+
+            "saude_contratacao:salvar",
+
             "solicitacao_declaracao:listar", "solicitacao_declaracao:buscar", "solicitacao_declaracao:salvar",
 
             "solicitacao_credito:listar", "solicitacao_credito:buscar", "solicitacao_credito:salvar",
@@ -174,6 +178,8 @@ EwIDAQAB
             "popup:buscar", "popup:salvar", "popup:atualizar", "popup:deletar",
 
             "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
+
+            "farmacia:listar",
 
             "cupom:buscar", "cupom:listar"
         ],
