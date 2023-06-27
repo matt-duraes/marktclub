@@ -146,7 +146,9 @@ final class MontarMenu
                 continue;
             }
             $this->temporario++;
-            $retorno['requisicao'][$requisicao->metodo][$requisicao->nome . '_' . $this->temporario] = (object)[
+            $retorno['requisicao'][$requisicao->metodo][
+                str_replace(['/', ':', ' ', '-', '_'], '', $requisicao->nome) . '_' . $this->temporario
+            ] = (object)[
                 'tipo' => 'requisicao',
                 'dado' => $requisicao
             ];

@@ -1,3 +1,5 @@
+const botaoNovaAba = $('#botao_nova_aba');
+
 const blocoAbaModelo = pegarElementoModelo('bloco_aba_modelo');
 const blocoRequisicaoModelo = pegarElementoModelo('bloco_requisicao_modelo');
 const blocoLinhaModelo = pegarElementoModelo('bloco_linha_modelo');
@@ -5,6 +7,11 @@ const blocoLinhaModelo = pegarElementoModelo('bloco_linha_modelo');
 const blocoAbaLista = $('#bloco_aba_lista');
 const blocoRequisicaoLista = $('#bloco_requisicao_lista');
 const blocoRequisicaoVazio = $('#bloco_requisicao_vazio');
+
+botaoNovaAba.addEventListener('click', () => {
+    const id = 'id_temp_' + Math.floor(Date.now() * Math.random()).toString(36);
+    abrirNovaAba(id, 'GET', 'Temporario');
+});
 
 blocoAbaLista.addEventListener('click', e => {
     const clickFechar = e.target.classList.contains('fechar') || e.target.closest('.fechar');
@@ -21,7 +28,9 @@ blocoRequisicaoLista.addEventListener('input', e => {
     }
     const bloco = e.target.closest('.bloco_requisicao');
     const botaoSalvar = bloco.querySelector('.botao_salvar');
-    botaoSalvar.classList.remove('display_none');
+    if (botaoSalvar) {
+        botaoSalvar.classList.remove('display_none');
+    }
 });
 const fecharAbaAberta = async aba => {
     if (!aba) {
@@ -62,21 +71,20 @@ const abrirAbaJaAberta = aba => {
     }
     const id = aba.getAttribute('data-id');
     const menu = blocoMenuLista.querySelector('#' + id + '_menu');
-    if (!menu) {
-        return;
+    let grupo, nome, metodo;
+    if (menu) {
+        menu.classList.add('aberto');
+        metodo = menu.getAttribute('data-metodo');
+        nome = menu.getAttribute('data-nome');
+        grupo = menu.closest('.grupo');
+        if (grupo) {
+            grupo.classList.remove('fechado');
+        }
     }
-    menu.classList.add('aberto');
-    const grupo = menu.closest('.grupo');
-    if (grupo) {
-        grupo.classList.remove('fechado');
-    }
-    abrirNovaAba(menu, grupo);
+    abrirNovaAba(id, metodo, nome, grupo);
 };
 
-const abrirNovaAba = (requisicao, grupo) => {
-    const id = requisicao.getAttribute('data-id');
-    const metodo = requisicao.getAttribute('data-metodo');
-    const nome = requisicao.getAttribute('data-nome');
+const abrirNovaAba = (id, metodo, nome, grupo) => {
     const abaExiste = blocoAbaLista.querySelector('#' + id + '_aba');
     const abaAtiva = blocoAbaLista.querySelector('.aba.ativo');
     const requisicaoExiste = blocoRequisicaoLista.querySelector('#' + id + '_requisicao');
@@ -123,10 +131,12 @@ const adicionarNovaRequisicao = async (id, pai) => {
     blocoRequisicaoLista.classList.remove('display_none');
     blocoRequisicaoVazio.classList.add('display_none');
 
+    const eVazio = id.startsWith('id_temp_');
+    const acao = eVazio ? 'requisicao-vazia' : 'buscar-requisicao';
     const resposta = await post(
         '__postman',
         {
-            acao: 'buscar-requisicao',
+            acao: acao,
             id: id,
             pai: pai,
         },
@@ -136,9 +146,9 @@ const adicionarNovaRequisicao = async (id, pai) => {
     if (false === resposta) {
         return;
     }
-    adicionarDadoAoRequest(clone, resposta.dado);
+    adicionarDadoAoRequest(clone, resposta.dado, eVazio);
 };
-const adicionarDadoAoRequest = (bloco, resposta) => {
+const adicionarDadoAoRequest = (bloco, resposta, vazio) => {
     const botaoParametro = bloco.querySelector('.botao_parametro');
     const botaoBody = bloco.querySelector('.botao_body');
     const botaoHeader = bloco.querySelector('.botao_header');
@@ -151,6 +161,15 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     const botaoRespostaBody = bloco.querySelector('.botao_resposta_body');
     const botaoRespostaHtml = bloco.querySelector('.botao_resposta_html');
 
+    const inputToken = bloco.querySelector('.input_token');
+    const blocoMetodo = bloco.querySelector('.bloco_metodo');
+    const inputMetodo = bloco.querySelector('.input_metodo');
+    const inputUri = bloco.querySelector('.input_uri');
+    const inputDocumentacao = bloco.querySelector('.input_documentacao');
+    const inputDescricao = bloco.querySelector('.input_descricao');
+    const inputRequisicao = bloco.querySelector('.input_requisicao');
+    const inputResposta = bloco.querySelector('.input_resposta');
+
     botaoParametro.addEventListener('click', abrirNovoParametro);
     botaoBody.addEventListener('click', abrirNovoParametro);
     botaoHeader.addEventListener('click', abrirNovoParametro);
@@ -158,32 +177,24 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     botaoVariavel.addEventListener('click', abrirNovoParametro);
     botaoDocumentacao.addEventListener('click', abrirNovoParametro);
     botaoEnviar.addEventListener('click', enviarRequisicao);
-    botaoSalvar.addEventListener('click', salvarRequisicao);
+    inputMetodo.addEventListener('change', mudarTipoMetodo);
+    if (!vazio) {
+        botaoSalvar.addEventListener('click', salvarRequisicao);
+    } else {
+        botaoSalvar.parentNode.removeChild(botaoSalvar);
+        botaoDocumentacao.parentNode.removeChild(botaoDocumentacao);
+    }
 
     botaoRespostaJson.addEventListener('click', mudarTipoResposta);
     botaoRespostaBody.addEventListener('click', mudarTipoResposta);
     botaoRespostaHtml.addEventListener('click', mudarTipoResposta);
 
-    const inputToken = bloco.querySelector('.input_token');
-    const blocoMetodo = bloco.querySelector('.bloco_metodo');
-    const inputMetodo = bloco.querySelector('.input_metodo');
-    const inputUri = bloco.querySelector('.input_uri');
-    const inputDescricao = bloco.querySelector('.input_descricao');
-    const inputJson = bloco.querySelector('.input_json');
-    const inputRequisicao = bloco.querySelector('.input_requisicao');
-    const inputResposta = bloco.querySelector('.input_resposta');
     inputToken.value = resposta.token;
     if (!blocoMetodo.classList.contains('inativo')) {
         inputMetodo.value = resposta.metodo;
     }
-    let json;
-    try {
-        json = JSON.stringify(resposta.json, null, 2);
-    } catch (e) {
-        json = [];
-    }
-    inputJson.value = json == '[]' ? '' : json;
     inputUri.value = resposta.uri;
+    inputDocumentacao.checked = resposta.documentacao.status;
     inputDescricao.value = resposta.documentacao.descricao;
     inputRequisicao.value = resposta.documentacao.requisicao;
     inputResposta.value = resposta.documentacao.resposta;
@@ -196,6 +207,7 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     montarParametro(blocoBody, resposta.body);
     montarParametro(blocoHeader, resposta.header);
     montarParametro(blocoVar, resposta.variavel);
+    montarParametro(blocoJson, resposta.json);
 
     if (resposta.body.length > 0) {
         botaoBody.classList.add('ativo');
@@ -206,6 +218,21 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     } else {
         botaoParametro.classList.add('ativo');
         blocoParametro.classList.add('ativo');
+    }
+};
+const mudarTipoMetodo = e => {
+    const metodo = e.target.value;
+    const metodoTexto = metodo == 'DELETE' ? 'DEL' : metodo;
+    const bloco = e.target.closest('.bloco_requisicao');
+    const id = bloco.getAttribute('data-id');
+    const aba = blocoAbaLista.querySelector('#' + id + '_aba .metodo');
+    aba.className = 'metodo ' + metodo;
+    aba.innerText = metodoTexto;
+
+    const menu = blocoMenuLista.querySelector('#' + id + '_menu .metodo');
+    if (menu) {
+        menu.className = 'metodo ' + metodo;
+        menu.innerText = metodoTexto;
     }
 };
 const mudarTipoResposta = e => {
@@ -247,20 +274,24 @@ const abrirNovoParametro = e => {
 const montarParametro = (bloco, lista) => {
     bloco.innerHTML = '';
     lista.forEach(item => {
-        adicionarNovaLinha(bloco, item[1], item[2], item[3]);
+        adicionarNovaLinha(bloco, item[0], item[1], item[2], item[3], item[4]);
     });
-    adicionarNovaLinha(bloco, false, '', '');
+    adicionarNovaLinha(bloco, 'texto', false, '', '', '');
 };
-const adicionarNovaLinha = (bloco, check, chave, valor) => {
+const adicionarNovaLinha = (bloco, tipo, check, chave, valor, descricao) => {
     const clone = blocoLinhaModelo.cloneNode(true);
     const botaoDeletar = clone.querySelector('.deletar');
+    const inputDescricao = clone.querySelector('.descricao');
+    const inputTipo = clone.querySelector('.tipo');
     const inputChave = clone.querySelector('.chave');
     const inputValor = clone.querySelector('.valor');
     const inputCheck = clone.querySelector('.check');
     const blocoCheck = clone.querySelector('.bloco_checkbox span');
     inputCheck.checked = check;
+    inputTipo.value = tipo;
     inputChave.value = chave;
     inputValor.value = valor;
+    inputDescricao.value = descricao;
     bloco.appendChild(clone);
     botaoDeletar.addEventListener('click', mostrarBotaoSalvar);
     botaoDeletar.addEventListener('click', deletarLinha);
@@ -290,7 +321,7 @@ const monitorarUltimaLinha = e => {
     botaoDeletar.classList.remove('display_none');
     inputChave.removeEventListener('keyup', monitorarUltimaLinha);
     inputValor.removeEventListener('keyup', monitorarUltimaLinha);
-    adicionarNovaLinha(bloco, false, '', '');
+    adicionarNovaLinha(bloco, 'texto', false, '', '', '');
 };
 const deletarLinha = e => {
     const linha = e.target.closest('li');

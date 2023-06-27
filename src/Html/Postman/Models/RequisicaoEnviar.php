@@ -7,47 +7,10 @@ use Helpers\CryptHelper;
 final class RequisicaoEnviar
 {
     private $retorno = '';
-    private int $status = 0;
     private array $header;
-
+    private array $variavel;
     private string $link;
-    private string $clientId;
-    private string $secretId;
-    private string $redirectUri;
-    private string $audience;
-
-    private string $nomeEncode;
-    private string $sobreNomeEncode;
-    private string $nomeCompletoEncode;
-    private string $numeroEncode;
-    private string $decimalEncode;
-    private string $telefoneEncode;
-    private string $emailEncode;
-    private string $dataEncode;
-    private string $dataPassadaEncode;
-    private string $dataFuturaEncode;
-    private string $cpfEncode;
-    private string $cnpjEncode;
-    private string $rgEncode;
-    private string $loginEncode;
-    private string $senhaEncode;
-
-    private string $uuid;
-    private string $nome;
-    private string $sobreNome;
-    private string $nomeCompleto;
-    private string $numero;
-    private string $telefone;
-    private string $email;
-    private string $data;
-    private string $dataPassada;
-    private string $dataFutura;
-    private string $cpf;
-    private string $cnpj;
-    private string $rg;
-    private string $login;
-    private string $senha;
-    private string $decimal;
+    private CryptHelper $Crypt;
 
     public function __construct($post)
     {
@@ -58,14 +21,12 @@ final class RequisicaoEnviar
         $body = jsonDecode($post['body'], true, true);
         $json = jsonDecode($post['json'], true, true);
         $header = jsonDecode($post['header'], true, true);
+        $this->variavel = jsonDecode($post['variavel'], true, true);
         $this->header = $header;
 
-        $this->link = env('POSTMAN_API_LINK');
-        $this->clientId = env('POSTMAN_API_CLIENT_ID');
-        $this->secretId = env('POSTMAN_API_SECRET_ID');
-        $this->redirectUri = env('POSTMAN_API_REDIRECT_URI');
-        $this->audience = env('POSTMAN_API_AUDIENCE');
-        $this->setarDadoRandom();
+        $chave = file_get_contents(ROOT . "/.chave_publica");
+        $this->Crypt = new CryptHelper(chavePublica: $chave);
+        $this->link = env('POSTMAN_API_LINK', '');
 
         if ($token == 'token') {
             $this->criarToken();
@@ -76,6 +37,7 @@ final class RequisicaoEnviar
         $body = $this->montarParametro($body);
         $parametro = $this->montarParametro($parametro);
         $json = $this->montarParametro($json);
+        $this->header = $this->montarParametro($this->header);
 
         $dado = $this->enviarCurl($metodo, $uri, $body, $parametro, $json, $this->header);
         $retorno['retorno'] = $dado->retorno;
@@ -94,7 +56,8 @@ final class RequisicaoEnviar
         ?array $json = null,
         ?array $header = null
     ) {
-        $link = str_replace('{{LINK}}', $this->link, $uri);
+        $variavel = $this->variavel;
+        $link = str_replace(array_keys($variavel), array_values($variavel), str_replace('{{LINK}}', $this->link, $uri));
 
         if ($parametro) {
             $parametroFinal = [];
@@ -139,17 +102,44 @@ final class RequisicaoEnviar
         if (empty($dado)) {
             return[];
         }
-        foreach ($dado as $ind => $val) {
-            if (!str_starts_with($val, '__') || !str_ends_with($val, '__')) {
+
+        $retorno = [];
+        foreach ($dado as $r) {
+            $tipo = $r[0];
+            $ind = $r[1];
+            $val = $r[2];
+
+            if (!str_starts_with($val, '$')) {
+                $retorno[$ind] = $this->pegarValor($tipo, $val);
                 continue;
             }
-            $nome = preg_replace(['/^\_\_/', '/\_\_$/'], '', $val);
-            if (!property_exists($this, $nome)) {
+            $propriedade = substr($val, 1);
+            if ($propriedade == 'uuid') {
+                $retorno[$ind] = uuid();
                 continue;
             }
-            $dado[$ind] = $this->$nome;
+            if (array_key_exists($propriedade, $this->variavel)) {
+                $retorno[$ind] = $this->variavel[$propriedade];
+                continue;
+            }
+            $valor = env('POSTMAN_' . strCaixaAlta($propriedade), '');
+            if (!empty($valor)) {
+                $retorno[$ind] = $this->pegarValor($tipo, $valor);
+                continue;
+            }
+            $funcao = $propriedade . 'Aleatorio';
+            if (function_exists($funcao)) {
+                $retorno[$ind] = $this->pegarValor($tipo, $funcao());
+                continue;
+            }
+            $retorno[$ind] = '';
         }
-        return $dado;
+
+        return $retorno;
+    }
+    private function pegarValor($tipo, $val)
+    {
+        return $tipo == 'cript' ? $this->Crypt->encode($val) : $val;
     }
     private function gerarTokenPadrao()
     {
@@ -157,9 +147,9 @@ final class RequisicaoEnviar
             'POST',
             '{{LINK}}/token',
             [
-                'client_id' => $this->clientId,
-                'secret_id' => $this->secretId,
-                'audience' => $this->audience,
+                'client_id' => env('POSTMAN_API_CLIENT_ID'),
+                'secret_id' => env('POSTMAN_API_SECRET_ID'),
+                'audience' => env('POSTMAN_API_AUDIENCE'),
                 'grant_type' => 'client_credentials',
                 'scope' => ''
             ]
@@ -169,7 +159,7 @@ final class RequisicaoEnviar
     private function criarToken()
     {
         $token = $this->gerarTokenPadrao();
-        $this->header['Authorization'] = 'Bearer ' . $token;
+        $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
     private function criarTokenPainel()
     {
@@ -178,17 +168,17 @@ final class RequisicaoEnviar
             metodo: 'POST',
             uri: '{{LINK}}/login/painel',
             body: [
-                'login' => $this->loginEncode,
-                'senha' => $this->senhaEncode,
+                'login' => $this->Crypt->encode(env('POSTMAN_LOGIN')),
+                'senha' => $this->Crypt->encode(env('POSTMAN_SENHA')),
                 'scope' => '',
-                'audience' => $this->audience,
-                'redirect_uri' => $this->redirectUri,
+                'audience' => env('POSTMAN_API_AUDIENCE'),
+                'redirect_uri' => env('POSTMAN_API_REDIRECT_URI'),
                 'state' => uuid()
             ],
             header: ['Authorization' => 'Bearer ' . $header]
         );
         $token = $this->pegarToken($token);
-        $this->header['Authorization'] = 'Bearer ' . $token;
+        $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
     private function pegarToken($token)
     {
@@ -197,57 +187,5 @@ final class RequisicaoEnviar
             return $token;
         }
         mensagemErro('Erro!', 'Erro ao tentar gerar token.', status: 401);
-    }
-    private function setarDadoRandom()
-    {
-        $chave = file_get_contents(ROOT . "/.chave_publica");
-        $Crypt = new CryptHelper(chavePublica: $chave);
-
-        $nome = env('POSTMAN_NOME', '');
-        $sobreNome = env('POSTMAN_SOBRENOME', '');
-        $nomeCompleto = env('POSTMAN_NOME_COMPLETO', '');
-        $numero = env('POSTMAN_NUMERO', '');
-        $telefone = env('POSTMAN_TELEFONE', '');
-        $email = env('POSTMAN_EMAIL', '');
-        $data = env('POSTMAN_DATA', '');
-        $cpf = env('POSTMAN_CPF', '');
-        $cnpj = env('POSTMAN_CNPJ', '');
-        $rg = env('POSTMAN_RG', '');
-        $login = env('POSTMAN_LOGIN', '');
-        $senha = env('POSTMAN_SENHA', '');
-        $decimal = env('POSTMAN_DECIMAL', '');
-
-        $this->uuid = uuid();
-        $this->nome = !empty($nome) ? $nome : nomeAleatorio();
-        $this->sobreNome = !empty($sobreNome) ? $sobreNome : sobreNomeAleatorio();
-        $this->nomeCompleto = !empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio();
-        $this->numero = !empty($numero) ? $numero : numeroAleatorio();
-        $this->decimal = !empty($decimal) ? $decimal : numeroAleatorio(1, 999) . '.' . numeroAleatorio(10, 99);
-        $this->telefone = !empty($telefone) ? $telefone : telefoneAleatorio();
-        $this->email = !empty($email) ? $email : emailAleatorio();
-        $this->data = !empty($data) ? $data : date('Y-m-d');
-        $this->dataPassada = dataPassadaAleatorio();
-        $this->dataFutura = dataFuturaAleatorio();
-        $this->cpf = !empty($cpf) ? $cpf : cpfAleatorio();
-        $this->cnpj = !empty($cnpj) ? $cnpj : cnpjAleatorio();
-        $this->rg = !empty($rg) ? $rg : rgAleatorio();
-        $this->login = !empty($login) ? $login : '01234567890';
-        $this->senha = !empty($senha) ? $senha : 'Teste@1324';
-
-        $this->nomeEncode = $Crypt->encode(!empty($nome) ? $nome : nomeAleatorio());
-        $this->sobreNomeEncode = $Crypt->encode(!empty($sobreNome) ? $sobreNome : sobreNomeAleatorio());
-        $this->nomeCompletoEncode = $Crypt->encode(!empty($nomeCompleto) ? $nomeCompleto : nomeCompletoAleatorio());
-        $this->numeroEncode = $Crypt->encode(!empty($numero) ? $numero : numeroAleatorio());
-        $this->decimalEncode = $Crypt->encode(!empty($decimal) ? $decimal : numeroAleatorio(1, 999) . '.' . numeroAleatorio(10, 99));
-        $this->telefoneEncode = $Crypt->encode(!empty($telefone) ? $telefone : telefoneAleatorio());
-        $this->emailEncode = $Crypt->encode(!empty($email) ? $email : emailAleatorio());
-        $this->dataEncode = $Crypt->encode(!empty($data) ? $data : date('Y-m-d'));
-        $this->dataPassadaEncode = $Crypt->encode(dataPassadaAleatorio());
-        $this->dataFuturaEncode = $Crypt->encode(dataFuturaAleatorio());
-        $this->cpfEncode = $Crypt->encode(!empty($cpf) ? $cpf : cpfAleatorio());
-        $this->cnpjEncode = $Crypt->encode(!empty($cnpj) ? $cnpj : cnpjAleatorio());
-        $this->rgEncode = $Crypt->encode(!empty($rg) ? $rg : rgAleatorio());
-        $this->loginEncode = $Crypt->encode(!empty($login) ? $login : '01234567890');
-        $this->senhaEncode = $Crypt->encode(!empty($senha) ? $senha : 'Teste@1324');
     }
 }

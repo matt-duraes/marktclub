@@ -46,7 +46,7 @@ header('X-XSS-Protection: 1; mode=block');
 |
 |--------------------------------------------------------------------------
 */
-if (!empty(env('APP_LOGIN', '')) && !empty(env('APP_SENHA', '')) && !sessaoExiste('APP_LOGADO')) {
+if (!empty(env('APP_LOGIN', '')) && !empty(env('APP_SENHA', '')) && !cookieExiste('APP_LOGADO')) {
     require_once __DIR__ . '/../src/Html/Login/index.php';
     exit();
 }

@@ -8,7 +8,7 @@ final class Requisicao
     private string $path;
     private string $id;
     public function __construct(
-        string $path,
+        ?string $path = null,
         ?string $pai = null,
         ?string $id = null
     ) {
@@ -35,12 +35,13 @@ final class Requisicao
             'metodo' => $dado['metodo'] ?? 'GET',
             'nome' => $dado['nome'] ?? 'Temporario',
             'uri' => $dado['uri'] ?? '{{LINK}}/',
-            'parametro' => $dado['parametro'] ?? [],
-            'body' => $dado['body'] ?? [],
-            'header' => $dado['header'] ?? [],
-            'variavel' => $dado['variavel'] ?? [],
-            'json' => $dado['json'] ?? '',
+            'parametro' => jsonDecode($dado['parametro'] ?? [], true, true),
+            'body' => jsonDecode($dado['body'] ?? [], true, true),
+            'header' => jsonDecode($dado['header'] ?? [], true, true),
+            'variavel' => jsonDecode($dado['variavel'] ?? [], true, true),
+            'json' => jsonDecode($dado['json'] ?? [], true, true),
             'documentacao' => [
+                'status' => $dado['documentacao']['status'] ?? false,
                 'descricao' => $dado['documentacao']['descricao'] ?? '',
                 'requisicao' => $dado['documentacao']['requisicao'] ?? '',
                 'resposta' => $dado['documentacao']['resposta'] ?? '',
@@ -53,7 +54,7 @@ final class Requisicao
         if (empty($nome)) {
             return '';
         }
-        return preg_replace(['/[^A-Za-z\/\ \-\_0-9à-úÀÚ]/', '/\ {1,}/'], ['', ' '], trim($nome));
+        return preg_replace(['/[^A-Za-z\:\/\ \-\_0-9à-úÀÚ]/', '/\ {1,}/'], ['', ' '], trim($nome));
     }
 
     public function nome(string $nome)
@@ -99,6 +100,11 @@ final class Requisicao
     public function json(array $json)
     {
         $this->requisicao['json'] = $json;
+        return $this;
+    }
+    public function documentacao(bool $documentacao)
+    {
+        $this->requisicao['documentacao']['status'] = $documentacao;
         return $this;
     }
     public function descriaco(string $descriaco)
