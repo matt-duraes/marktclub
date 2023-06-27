@@ -168,22 +168,16 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     const blocoMetodo = bloco.querySelector('.bloco_metodo');
     const inputMetodo = bloco.querySelector('.input_metodo');
     const inputUri = bloco.querySelector('.input_uri');
+    const inputDocumentacao = bloco.querySelector('.input_documentacao');
     const inputDescricao = bloco.querySelector('.input_descricao');
-    const inputJson = bloco.querySelector('.input_json');
     const inputRequisicao = bloco.querySelector('.input_requisicao');
     const inputResposta = bloco.querySelector('.input_resposta');
     inputToken.value = resposta.token;
     if (!blocoMetodo.classList.contains('inativo')) {
         inputMetodo.value = resposta.metodo;
     }
-    let json;
-    try {
-        json = JSON.stringify(resposta.json, null, 2);
-    } catch (e) {
-        json = [];
-    }
-    inputJson.value = json == '[]' ? '' : json;
     inputUri.value = resposta.uri;
+    inputDocumentacao.checked = resposta.documentacao.status;
     inputDescricao.value = resposta.documentacao.descricao;
     inputRequisicao.value = resposta.documentacao.requisicao;
     inputResposta.value = resposta.documentacao.resposta;
@@ -196,6 +190,7 @@ const adicionarDadoAoRequest = (bloco, resposta) => {
     montarParametro(blocoBody, resposta.body);
     montarParametro(blocoHeader, resposta.header);
     montarParametro(blocoVar, resposta.variavel);
+    montarParametro(blocoJson, resposta.json);
 
     if (resposta.body.length > 0) {
         botaoBody.classList.add('ativo');
@@ -247,20 +242,24 @@ const abrirNovoParametro = e => {
 const montarParametro = (bloco, lista) => {
     bloco.innerHTML = '';
     lista.forEach(item => {
-        adicionarNovaLinha(bloco, item[1], item[2], item[3]);
+        adicionarNovaLinha(bloco, item[0], item[1], item[2], item[3], item[4]);
     });
-    adicionarNovaLinha(bloco, false, '', '');
+    adicionarNovaLinha(bloco, 'texto', false, '', '', '');
 };
-const adicionarNovaLinha = (bloco, check, chave, valor) => {
+const adicionarNovaLinha = (bloco, tipo, check, chave, valor, descricao) => {
     const clone = blocoLinhaModelo.cloneNode(true);
     const botaoDeletar = clone.querySelector('.deletar');
+    const inputDescricao = clone.querySelector('.descricao');
+    const inputTipo = clone.querySelector('.tipo');
     const inputChave = clone.querySelector('.chave');
     const inputValor = clone.querySelector('.valor');
     const inputCheck = clone.querySelector('.check');
     const blocoCheck = clone.querySelector('.bloco_checkbox span');
     inputCheck.checked = check;
+    inputTipo.value = tipo;
     inputChave.value = chave;
     inputValor.value = valor;
+    inputDescricao.value = descricao;
     bloco.appendChild(clone);
     botaoDeletar.addEventListener('click', mostrarBotaoSalvar);
     botaoDeletar.addEventListener('click', deletarLinha);
@@ -290,7 +289,7 @@ const monitorarUltimaLinha = e => {
     botaoDeletar.classList.remove('display_none');
     inputChave.removeEventListener('keyup', monitorarUltimaLinha);
     inputValor.removeEventListener('keyup', monitorarUltimaLinha);
-    adicionarNovaLinha(bloco, false, '', '');
+    adicionarNovaLinha(bloco, 'texto', false, '', '', '');
 };
 const deletarLinha = e => {
     const linha = e.target.closest('li');

@@ -73,8 +73,16 @@
                 <input type="checkbox" class="check monitorar_salvar" ${checked}>
                 <span><?= iconeCheck(10) ?></span>
             </div>
-            <input class="chave monitorar_salvar" type="text" value="" name="key" placeholder="chave">
-            <input class="valor monitorar_salvar" type="text" value="" name="value" placeholder="valor">
+            <div class="bloco_select bloco_tipo_linha">
+                <select name="tipo_linha" class="tipo monitorar_salvar">
+                    <option value="texto">Texto</option>
+                    <option value="cript">Cript</option>
+                </select>
+                <i><?= iconeSetaBaixo(6) ?></i>
+            </div>
+            <input class="chave monitorar_salvar" type="text" value="" name="chave" placeholder="chave">
+            <input class="valor monitorar_salvar" type="text" value="" name="valor" placeholder="valor">
+            <input class="descricao monitorar_salvar" type="text" value="" name="descricao" placeholder="descrição">
             <i class="deletar"><?= iconeDeletar(17)?></i>
         </li>
         <!-- CONTEUDO PADRAO -->
@@ -98,7 +106,7 @@
                     <i><?= iconeSetaBaixo(6) ?></i>
                 </div>
                 <input type="text" class="input_uri monitorar_salvar" name="uri" placeholder="Digite a URL">
-                <div class="botao botao_enviar">ENVIAR</div>
+                <div class="botao botao_enviar"></div>
             </div>
             <div class="parametro">
                 <ul>
@@ -116,12 +124,18 @@
                 </ol>
                 <ol class="bloco_scroll bloco_parametro_header">
                 </ol>
-                <div class="bloco_scroll bloco_parametro_json">
-                    <textarea name="json" class="monitorar_salvar input_json" placeholder="Digite o json"></textarea>
-                </div>
+                <ol class="bloco_scroll bloco_parametro_json">
+                </ol>
                 <ol class="bloco_scroll bloco_parametro_variavel">
                 </ol>
                 <div class="bloco_scroll bloco_parametro_documentacao">
+                    <div class="botao_add_documentacao">
+                        <div class="checked">
+                            <input class="monitorar_salvar input_documentacao" type="checkbox">
+                            Adicionar a documentação?
+                            <div class="bloco_bola"><span></span></div>
+                        </div>
+                    </div>
                     <p>Descrição:</p>
                     <textarea name="descricao" placeholder="Digite uma descrição" class="input_descricao"></textarea>
                     <p>Exemplo de requisição:</p>

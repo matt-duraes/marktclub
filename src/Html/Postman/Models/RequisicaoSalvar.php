@@ -10,8 +10,7 @@ final class RequisicaoSalvar
     private string $pai;
     public function __construct($post)
     {
-        $json = preg_replace(['/^\"/', '/\"$/', '/\\\/'], '', $post['json']);
-        $json = jsonDecode($json, true, true);
+        $json = jsonDecode($post['json'], true, true);
 
         $this->id = $post['id'];
         $this->pai = $post['pai'];
@@ -27,6 +26,7 @@ final class RequisicaoSalvar
             ->header(jsonDecode($post['header'], true, true))
             ->variavel(jsonDecode($post['variavel'], true, true))
             ->json($json)
+            ->documentacao($post['documentacao'] == 'sim')
             ->descriaco($post['descriaco'])
             ->requisicao($post['requisicao'])
             ->resposta($post['resposta'])
