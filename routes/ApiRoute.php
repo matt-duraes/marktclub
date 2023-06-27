@@ -1208,6 +1208,44 @@ Route
     });
 
 Route
+    ::nome('saude_simulacao')
+    ::controller(App\Controllers\Api\SaudeSimulacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:buscar'])
+            ::get('/saude/simulacao/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
+            ::request([
+                'data_nascimento', '!dependentes', 'operadora',
+                'acomodacao', '!regiao', '!plano'
+            ])
+            ::post('/saude/simulacao');
+    });
+
+Route
+    ::nome('saude_contratacao')
+    ::controller(App\Controllers\Api\SaudeContratacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:salvar'])
+            ::request([
+                'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+                'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
+                'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
+                'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+                'ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
+                'complemento'
+            ])
+            ::post('/saude/contratacao');
+      
+Route
     ::nome('solicitacao_credito')
     ::controller(App\Controllers\Api\SolicitacaoCreditoController::class)
     ::middleware(TokenMiddleware::class, 'token')
