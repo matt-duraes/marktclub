@@ -79,8 +79,30 @@ final class AppController extends PadraoController
                     'ordem' => $request->chave('ordem', ''),
                     'ordem_titulo' => $config->ordem->lista->$ordem->titulo ?? ''
                 ]
-            ]
+            ],
+            css: $config->index->css,
+            js: $config->index->js
         );
+    }
+
+    public function postClasse(Request $request, string $app)
+    {
+        $appReal = $this->converterNomeApp($app);
+        if (is_dir(ROOT . '/views/pages/painel/' . $appReal . '/routes')) {
+            mensagemStatus(404, localhost: 'Esse APP tem um Route próprio.');
+        }
+
+        if (!$request->existe('classe')) {
+            mensagemStatus(404, localhost: 'Não foi passado o parametro classe na requisição.');
+        }
+
+        $Classe = 'Painel\\' . $this->converterNomeParaClass($appReal) . '\\Classes\\'
+            . $this->converterNomeParaClass($request->classe);
+        if (!class_exists($Classe)) {
+            mensagemStatus(404, localhost: 'A classe procurada não existe.');
+        }
+
+        return (new $Classe(request: $request))->retorno();
     }
 
     public function postAjax(Request $request, string $app)

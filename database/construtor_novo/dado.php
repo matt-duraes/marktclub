@@ -15,6 +15,26 @@ return [
         'status' => 1
     ],
     [
+        'id' => 31,
+        'cod' => '236e76ea7af7e44d92294b31bb029a9b',
+        'empresa' => 2,
+        'titulo' => 'Anafe Card',
+        'link_site' => 'https://localhost.com:4200',
+        'logo' => '70ff785234195b33e0036ca434feaa3c.png',
+        'cor' => '#004E7D',
+        'status' => 1
+    ],
+    [
+        'id' => 134,
+        'cod' => '14bd832c9740b2e3093d402fd58c2f93',
+        'empresa' => 153,
+        'titulo' => 'Fenae',
+        'link_site' => 'https://localhost.com:4200',
+        'logo' => 'a96542ac6f8df4c7acbc53d1aa29de3d.png',
+        'cor' => '#20409a',
+        'status' => 1
+    ],
+    [
         'id' => 165,
         'cod' => '5cc28dab736cb7d4ef436ee2447a07ee',
         'empresa' => 198,
@@ -25,13 +45,13 @@ return [
         'status' => 1
     ],
     [
-        'id' => 212,
-        'cod' => '8986a24345f36de15e2a7f4a51f1c9e7',
-        'empresa' => 223,
-        'titulo' => 'CVS MAIS',
+        'id' => 221,
+        'cod' => '122f833e84a78931e6fdcfa2e2a58771',
+        'empresa' => 1967,
+        'titulo' => 'Clube D+',
         'link_site' => 'https://localhost.com:4200',
         'logo' => 'logo_cvsmais_tem_mais.png',
-        'cor' => '#f00068',
+        'cor' => '#d9031c',
         'status' => 1
     ],
     [

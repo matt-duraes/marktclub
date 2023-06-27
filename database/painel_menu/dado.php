@@ -143,7 +143,7 @@ return [
         'titulo' => 'PARCEIROS',
         'ordem' => '++',
         'status' =>  1,
-        'permissao' => '["parceiro_relatorio_index"]'
+        'permissao' => '["parceiro_relatorio_index","parceiro_cashback_index"]'
     ],
     [
         'id' => '++',
@@ -156,6 +156,18 @@ return [
         'menu' => ['parceiro-relatorio'],
         'status' =>  1,
         'permissao' => '["parceiro_relatorio_index"]'
+    ],
+    [
+        'id' => '++',
+        'id_admin_empresa' => 1,
+        'tipo' => 3,
+        'titulo' => 'Cashback',
+        'url' => '/app/parceiro-cashback',
+        'icone' => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,18.6c2,0,3.6-1.6,3.6-3.6c0-2-1.6-3.6-3.6-3.6c-2,0-3.6,1.6-3.6,3.6C11.4,17,13,18.6,15,18.6z M23.1,7.8H6.9C6.4,7.8,6,8.2,6,8.7v12.6c0,0.5,0.4,0.9,0.9,0.9h16.2c0.5,0,0.9-0.4,0.9-0.9V8.7C24,8.2,23.6,7.8,23.1,7.8z M7.8,18.3v-6.6c1-0.3,1.8-1.1,2.1-2.1h10.2c0.3,1,1.1,1.8,2.1,2.1v6.6c-1,0.3-1.8,1.1-2.1,2.1H9.9C9.6,19.4,8.8,18.6,7.8,18.3z"/></svg>',
+        'ordem' => '++',
+        'menu' => ['parceiro-cashback'],
+        'status' =>  1,
+        'permissao' => '["parceiro_cashback_index"]'
     ],
     [
         'id' => '++',

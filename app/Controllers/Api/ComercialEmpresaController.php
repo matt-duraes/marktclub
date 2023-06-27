@@ -38,7 +38,8 @@ final class ComercialEmpresaController extends Controller implements
             indice: 'cod',
             valor: 'nome_fantasia',
             where: [
-                ['status', 'in', [1, 2]]
+                ['status', 'in', Helper::STATUS_LIBERADO],
+                ['id_admin_empresa', 'null']
             ],
             titulo: $request->titulo
         );
@@ -50,7 +51,6 @@ final class ComercialEmpresaController extends Controller implements
     {
         $Empresa = new EmpresaEntity();
         $Empresa->uuid($id);
-
         return $this->retornoPadrao($Empresa);
     }
 
@@ -69,11 +69,16 @@ final class ComercialEmpresaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Empresa,
                 lista: [
-                    'equipe', 'finalidade_principal', 'finalidade_secundaria', 'titulo', 'nome_fantasia',
-                    'razao_social', 'cnpj', 'slug', 'imagem', 'responsavel_nome', 'responsavel_cpf',
-                    'responsavel_email', 'responsavel_telefone', 'estado_principal', 'valor_pago',
-                    'valor_pib', 'renda_media', 'valor_usuario', 'produto_clube', 'produto_ios',
-                    'produto_android', 'produto_site', 'tipo_pagamento', 'site', 'status'
+                    'equipe', 'finalidade_principal', 'finalidade_secundaria', 'imagem',
+                    'titulo', 'nome_fantasia', 'razao_social', 'slug',
+                    'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+                    'tipo_pagamento', 'valor_pago', 'renda_media', 'valor_pib', 'produto_clube',
+                    'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
+                    'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
+                    'contrato_data', 'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario',
+                    'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo',
+                    'prospeccao_status', 'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro',
+                    'restricao_lista'
                 ]
             ),
             criptografar: Helper::CRIPTOGRAFAR,

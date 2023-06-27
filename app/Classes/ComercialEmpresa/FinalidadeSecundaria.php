@@ -4,7 +4,7 @@ namespace App\Classes\ComercialEmpresa;
 
 use Status\Status as StatusStatus;
 
-final class FinalidadeSecundaria extends StatusStatus
+class FinalidadeSecundaria extends StatusStatus
 {
     public const ASSOCIACAO = 'associacao';
     public const SINDICATO = 'sindicato';
@@ -15,16 +15,22 @@ final class FinalidadeSecundaria extends StatusStatus
     public const OUTRO = 'outro';
 
     public function __construct(
-        protected string|int|null $valor = null
+        protected string|int|null $valor = null,
+        array $lista = [],
+        array $cor = null,
+        array $numero = null
     ) {
-        parent::__construct([
-            self::ASSOCIACAO => 'Associação',
-            self::SINDICATO  => 'Sindicato',
-            self::EMBAIXADA  => 'Embaixada',
-            self::CONSELHO   => 'Conselho de classe',
-            self::FACULDADE  => 'Faculdade',
-            self::BANCO      => 'Banco',
-            self::OUTRO      => 'Outro'
-        ]);
+        if (empty($lista)) {
+            $lista = [
+                self::ASSOCIACAO => 'Associação',
+                self::SINDICATO  => 'Sindicato',
+                self::EMBAIXADA  => 'Embaixada',
+                self::CONSELHO   => 'Conselho de classe',
+                self::FACULDADE  => 'Faculdade',
+                self::BANCO      => 'Banco',
+                self::OUTRO      => 'Outro'
+            ];
+        }
+        parent::__construct(lista: $lista, cor: $cor, numero: $numero);
     }
 }

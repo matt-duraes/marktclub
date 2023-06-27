@@ -4,6 +4,7 @@ namespace App\Models\Api\Demanda;
 
 use ORM\ORM;
 use App\Classes\DemandaTarefa\Tipo;
+use App\Classes\DemandaTarefa\Helper;
 use App\Classes\DemandaTarefa\Status;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
@@ -25,7 +26,8 @@ final class TarefaModel extends ORM
     {
         $lista = $this
             ->where([
-                ['id_demanda_dado', $this->Demanda->get('id')]
+                ['id_demanda_dado', $this->Demanda->get('id')],
+                ['status', 'in', Helper::STATUS_LIBERADO]
             ])->order('status', 'ASC')->read();
 
         return $this->montarRetorno($lista);

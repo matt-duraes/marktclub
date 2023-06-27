@@ -32,6 +32,21 @@ return [
         'status' => 1
     ],
     [
+        'id' => 153,
+        'cod' => '369fc307129e405b3f2f00620c7b012d',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Fenae',
+        'razao_social' => 'Fenae',
+        'nome_fantasia' => 'Fenae',
+        'cnpj' => 3636693000100,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'fenae',
+        'status' => 1
+    ],
+    [
         'id' => 198,
         'cod' => '42727943964c0800356dde841ff62800',
         'id_usuario_equipe' => 1,
@@ -59,6 +74,21 @@ return [
         'responsavel_email' => emailAleatorio(),
         'responsavel_telefone' => telefoneCelularAleatorio(),
         'slug' => 'bancodigio',
+        'status' => 1
+    ],
+    [
+        'id' => 1967,
+        'cod' => '9954c5edcc9a7b72fed65715f326df81',
+        'id_usuario_equipe' => 1,
+        'titulo' => 'Grupo diário',
+        'razao_social' => 'Grupo diário',
+        'nome_fantasia' => 'Grupo diário',
+        'cnpj' => 26748774000199,
+        'responsavel_nome' => nomeCompletoAleatorio(),
+        'responsavel_cpf' => cpfAleatorio(),
+        'responsavel_email' => emailAleatorio(),
+        'responsavel_telefone' => telefoneCelularAleatorio(),
+        'slug' => 'grupodiario',
         'status' => 1
     ],
     [

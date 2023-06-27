@@ -5,6 +5,45 @@
 // @import "tarefa_editar"
 // @import "tarefa_salvar"
 
+const blocoListaSessao = document.querySelectorAll('.bloco_kambam_index .conteudo_geral .bloco_coluna');
+
+removerItemDemanda = item => {
+    if (!item) {
+        return;
+    }
+    const bloco = item.closest('.bloco_coluna');
+    item.parentNode.removeChild(item);
+    removeuItemDemanda(bloco);
+};
+removeuItemDemanda = bloco => {
+    if (!bloco) {
+        return;
+    }
+    const blocoConteudo = bloco.querySelector('.conteudo');
+    const blocoQuantidade = bloco.querySelector('header h1 span');
+    const quantidade = blocoConteudo.querySelectorAll('article').length;
+    if (quantidade == 0) {
+        blocoConteudo.innerHTML = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
+    }
+    blocoQuantidade.innerHTML = `(${quantidade})`;
+};
+moverItemDemanda = (destino, item) => {
+    if (!destino || !item) {
+        return;
+    }
+    const blocoAtual = item.closest('.bloco_coluna');
+    const blocoConteudo = destino.querySelector('.conteudo');
+    const blocoQuantidade = destino.querySelector('header h1 span');
+    const blocoZero = blocoConteudo.querySelector('.tarefa_zero');
+    if (blocoZero) {
+        blocoZero.parentNode.removeChild(blocoZero);
+    }
+    blocoConteudo.appendChild(item);
+    const quantidade = blocoConteudo.querySelectorAll('article').length;
+    blocoQuantidade.innerHTML = `(${quantidade})`;
+    removeuItemDemanda(blocoAtual);
+};
+
 window.addEventListener('load', () => {
     const LINK = document.getElementById('LINK').value;
     const area = document.querySelector('#input_area').value || '';

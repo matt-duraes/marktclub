@@ -1,0 +1,186 @@
+@system "Resetar"
+
+body
+    font-family: 'Inter', sans-serif
+    background-color: #F0F0F0
+    font-size: 62.5%
+    display: flex
+    align-items: center
+    justify-content: center
+
+@media print
+    body
+        background-color: #FFF
+
+#bloco-voucher
+    width: 100%
+    max-width: 730px
+    margin: 20px
+    borda-padrao()
+    display: flex
+    align-content: center
+    flex-direction: column
+
+@media screen and (max-width: 730px)
+    #bloco-voucher
+        border: none
+        margin: 0
+
+@media print
+    #bloco-voucher
+        width: 100%
+        margin: 0
+        float: none !important
+
+#bloco-voucher header
+    width: 100%
+    height: 80px
+    display: flex
+    align-items: center
+    justify-content: center
+    background-color: #FFF
+    figure
+        height: 60px
+        background-position: center center
+        background-repeat: no-repeat
+    figure img
+        padding: 5px
+
+#bloco-voucher .logo
+    width: auto
+    margin: 40px 0px
+    display: flex
+    align-items: center
+    justify-content: center
+    figure
+        height: 60px
+        background-position: center center
+        background-repeat: no-repeat
+        background-color: #FFF
+    figure img
+        padding: 5px
+
+#bloco-voucher .voucher-container
+    width: 100%
+    background-color: #004E7D
+    .voucher-imagem
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        margin: 10px 0
+        color: #FFF
+        font-size: 1.5em
+        font-weight: 600
+    .voucher-imagem img
+        width: 150px
+        height: 150px
+        background-color: #FFF
+        margin: 10px 0px
+
+@media print
+    #bloco-voucher .voucher-container
+        background-color: transparent !important
+
+#bloco-voucher .voucher-codigo
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 20px 0px
+    p
+        font-size: 1.8em
+
+#bloco-voucher .voucher-titulo
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    margin-bottom: 20px
+    h2
+        font-size: 1.2em
+        line-height: 1.2em
+        text-transform: uppercase
+    h1
+        font-size: 2.2em
+        line-height: 2.2em
+    .data
+        width: 100%
+        max-width: 170px
+        display: flex
+        justify-content: space-between
+    .data .data--caixa
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        flex: 1
+        height: 40px
+        background-color: $branco
+        margin: 5px
+        p
+            color: #666
+            padding: 2px 0px
+        p.bold
+            font-weight: bold
+    .cpf_dependente
+        width: 100%
+        font-size: 1.4em
+        text-align: center
+        margin-bottom: 20px
+
+
+@media print
+    #bloco-voucher .voucher-titulo h1
+        color: #000 !important
+    #bloco-voucher .voucher-titulo .data .data--caixa
+        border: 1px solid #E8E8E8
+    #bloco-voucher .voucher-titulo .data .data--caixa p.bold
+        color: #000 !important
+
+#bloco-voucher .voucher-descricao
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    margin-bottom: 20px
+    .caixa-descricao
+        width: calc(100% - 40px)
+        padding: 10px
+        background-color: $branco
+        p
+            color: #666
+            font-size: 1.2em
+            line-height: 1.2em
+
+#bloco-voucher .voucher-termo
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    background-color: $branco
+    margin-top: 20px
+    padding-bottom: 20px
+    .caixa-termo
+        width: calc(100% - 40px)
+        display: flex
+        flex-direction: column
+        padding: 0px 10px
+        margin-top: 20px
+    .caixa-termo p
+        font-size: 1em
+        line-height: 1em
+        color: #666
+        margin: 2px
+    .caixa-termo.imagem
+        display: flex
+        align-items: center
+        justify-content: center
+        figure
+            background-position: center center
+            background-repeat: no-repeat
+        figure img
+            padding: 15px

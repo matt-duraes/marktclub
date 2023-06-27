@@ -15,25 +15,22 @@
     h1
         flexGrow()
         titulo()
-    .botao_editar
+    .botao_topo
         position: relative
-        padding-right: 40px
         flexRow()
         align-items: center
-        &::after
-            content: ""
-            width: 1px
-            height: 24px
-            background-color: #CCC
-            position: absolute
-            right: 20px
+        margin-right: 10px
     i
         width: 30px
         height: 30px
         flexCenter()
         cursor: pointer
-        &.mobile
-            margin-right: 10px
+    .linha
+        width: 1px
+        height: 24px
+        position: relative
+        background-color: #CCC
+        margin: 0 15px 0 5px
 
 #bloco_demanda_tarefa .bloco_equipe
     width: 100%
@@ -89,6 +86,8 @@
         border-right: 1px solid #CCC
         padding-right: 10px
         margin-right: 10px
+        &:last-child
+            border-right: none
     .data i
         margin-right: 10px
         flexCenter()
@@ -270,7 +269,7 @@
         opacity: 0
         cursor: pointer
 
-#bloco_recusar_tarefa
+.bloco_adicionar_motivo
     width: 100vw
     height: 100vh
     position: fixed

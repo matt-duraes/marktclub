@@ -68,7 +68,8 @@ final class CriarClienteModel
             '<p>Criar o domínio <strong>
             ' . $this->dominioLink . '
             </strong> na CDN</p><p>DNS: <strong>' . DNS_CNAME . '</strong></p>',
-            $this->usuarioDns
+            $this->usuarioDns,
+            tempo: 20
         );
     }
 
@@ -78,7 +79,8 @@ final class CriarClienteModel
             'banco',
             'Criar app para o clube',
             '<p>Criar o APP para o clube no banco de dados</p>',
-            $this->usuarioBancoDados
+            $this->usuarioBancoDados,
+            tempo: 60
         );
     }
 
@@ -91,7 +93,8 @@ final class CriarClienteModel
             'banco',
             'Criar app para o aplicativo',
             '<p>Criar o APP para o aplicativo no banco de dados</p>',
-            $this->usuarioBancoDados
+            $this->usuarioBancoDados,
+            tempo: 60
         );
     }
 
@@ -104,7 +107,8 @@ final class CriarClienteModel
             'banco',
             'Criar documentação da API',
             '<p>Criar documentação para login via API do Cliente</p>',
-            $this->usuarioBancoDados
+            $this->usuarioBancoDados,
+            tempo: 120
         );
     }
 
@@ -123,7 +127,8 @@ final class CriarClienteModel
             'criacao',
             'Configurar Construtor',
             $texto,
-            $this->usuarioCriacao
+            $this->usuarioCriacao,
+            tempo: 60
         );
     }
     private function rodarScriptSubirConvenio()
@@ -137,7 +142,8 @@ final class CriarClienteModel
                 <strong>' . env('DNS_IP_API', '') . '</strong>
                 </p>
             ',
-            $this->usuarioInfra
+            $this->usuarioInfra,
+            tempo: 10
         );
     }
 
@@ -150,19 +156,22 @@ final class CriarClienteModel
             'criacao',
             'Criar peças para o APP',
             '<p>Criar as peças para a criação dos APP no IOS e Android</p>',
-            $this->usuarioCriacao
+            $this->usuarioCriacao,
+            tempo: 60
         );
         $this->salvarTarefa(
             'app',
             'Criar APP para Android',
             '<p>Criar APP para Andriod</p>',
-            $this->usuarioApp
+            $this->usuarioApp,
+            tempo: 60
         );
         $this->salvarTarefa(
             'app',
             'Criar APP para IOS',
             '<p>Criar APP para IOS</p>',
-            $this->usuarioApp
+            $this->usuarioApp,
+            tempo: 60
         );
     }
 

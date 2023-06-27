@@ -216,8 +216,9 @@ final class Request extends Psr7Request
                 }
                 $dado[explode('"', $indice[1])[0]] = trim($inputExplode[$numeroValor]);
                 $i += 4;
+            } else {
+                $i++;
             }
-            $i++;
         }
         return $dado;
     }
