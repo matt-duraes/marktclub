@@ -1,8 +1,9 @@
 <?php
 
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
 use Route\Route;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('downloadRestrito')
@@ -630,6 +631,24 @@ Route
         Route
             ::nome('validarUsuario')
             ::get('/turismo/validar-usuario/{usuario}');
+        Route
+            ::nome('redirecionar')
+            ::view('/turismo/redirecionar/{usuario}');
+        Route
+            ::nome('abrir')
+            ::view('/turismo/abrir/{usuario}/{memoria}');
+    });
+Route
+    ::nome('pagina')
+    ::middleware(TokenProvMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\PaginaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('turismo')
+            ::get('/pagina/turismo');
+        Route
+            ::nome('cinema')
+            ::get('/pagina/cinema');
     });
 
 Route
@@ -727,6 +746,38 @@ Route
     });
 
 Route
+    ::nome('parceiro_cashback')
+    ::controller(App\Controllers\Api\ParceiroCashbackController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:listar'])
+            ::request(['pagina', '!quantidade', '!ordem', '!empresa', '!status'], 'json')
+            ::get('/parceiro-cashback');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:buscar'])
+            ::get('/parceiro-cashback/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:salvar'])
+            ::request([
+                'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
+                'status', 'empresa', 'link_site', 'imagem'
+            ])
+            ::post('/parceiro-cashback');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:atualizar'])
+            ::request([
+                'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
+                'status', 'empresa', 'link_site', 'imagem'
+            ])
+            ::put('/parceiro-cashback/{id}');
+    });
+
+Route
     ::nome('parceiro_relatorio')
     ::controller(App\Controllers\Api\ParceiroRelatorioController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -801,13 +852,13 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])
-            ::request(['pagina', '!data', '!empresa'], 'json')
+            ::request(['pagina', '!data_de', '!data_ate', '!empresa'], 'json')
             ::get('/solicitacao-premium');
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:download'])
             ::request([
-                'campo', 'usuario', 'data'
+                'campo', 'usuario', '!data_de', '!data_ate', '!empresa'
             ])
             ::post('/solicitacao-premium/download');
     });
@@ -966,11 +1017,15 @@ Route::nome('comercial_empresa')
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:salvar'])
             ::request([
-                'titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', 'razao_social',
-                'cnpj', '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone',
-                '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!valor_pago', '!renda_media',
-                '!valor_pib', '!produto_clube', '!produto_ios', '!produto_android', '!produto_site',
-                '!estado_principal'
+                '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
+                '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone', '!responsavel_cpf',
+                '!equipe', '!tipo_pagamento', '!valor_pago', '!renda_media', '!valor_pib', '!produto_clube',
+                '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
+                '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
+                '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
+                '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
+                '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
+                '!contrato_data'
             ])
             ::post('/comercial-empresa');
 
@@ -979,13 +1034,29 @@ Route::nome('comercial_empresa')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:atualizar'])
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
-                '!cnpj', '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone',
-                '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!valor_pago', '!renda_media',
-                '!valor_pib', '!produto_clube', '!produto_ios', '!produto_android', '!produto_site',
-                '!estado_principal', '!prospeccao_status', '!status'
+                '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone', '!responsavel_cpf',
+                '!equipe', '!tipo_pagamento', '!valor_pago', '!renda_media', '!valor_pib', '!produto_clube',
+                '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
+                '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
+                '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
+                '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
+                '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
+                '!contrato_data'
             ])
             ::put('/comercial-empresa/{id}');
     });
+Route
+    ::nome('comercial_restricao')
+    ::controller(App\Controllers\Api\ComercialRestricaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_restricao:listar'])
+            ::request(['!titulo'], 'json')
+            ::get('/comercial-restricao/select');
+    });
+
 Route::nome('comercial_regra')
     ::controller(App\Controllers\Api\ComercialRegraController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -1044,6 +1115,11 @@ Route::nome('demandaDado')
                 '!com_prazo', '!status', '!ordem'
             ])
             ::put('/demanda-dado/{id}');
+        Route
+            ::nome('cancelar')
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
+            ::request(['motivo'])
+            ::post('/demanda-dado/cancelar/{id}');
     });
 
 Route::nome('demandaTarefa')

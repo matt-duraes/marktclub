@@ -13,6 +13,7 @@ use App\Classes\DemandaTarefa\Status;
 use Painel\Demanda\Models\ListaModel;
 use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
+use Painel\Demanda\Models\SorteioModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
 use Painel\Demanda\Models\CriarClienteModel;
@@ -31,7 +32,7 @@ final class DemandaController extends Controller
     public function tecnologia()
     {
         $quadro = (new ListaModel())->quadroTi();
-        return $this->listar('Demanda da TI', Area::TECNOLOGIA, $quadro);
+        return $this->listar('Demanda da Tecnologia', Area::TECNOLOGIA, $quadro);
     }
     public function criacao()
     {
@@ -121,6 +122,21 @@ final class DemandaController extends Controller
             ->put('/demanda-dado/' . $id);
 
         return new Response(status: 204);
+    }
+
+    public function postDemandaCancelar(Request $request, string $id)
+    {
+        $request->vazio('motivo', mensagem: 'O campo motivo é obrigatório!');
+
+        $this->Api
+            ->validar('Ocorreu um erro ao cancelar demanda.')
+            ->body([
+                'motivo' => $request->motivo
+            ])
+            ->post('/demanda-dado/cancelar/' . $id);
+
+        return new Response(status: 204);
+        ;
     }
 
     public function postDemandaLiberar(string $id)
@@ -227,6 +243,8 @@ final class DemandaController extends Controller
             );
         } elseif ($request->tipo == Tipo::CRIACAO) {
             $Demanda = new CriacaoModel($request);
+        } elseif ($request->tipo == Tipo::SORTEIO) {
+            $Demanda = new SorteioModel($request);
         }
 
         return mensagemSucesso(['id' => $Demanda->id()], 201);

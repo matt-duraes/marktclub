@@ -8,7 +8,8 @@ final class Status extends StatusStatus
 {
     public const AGUARDANDO = 'aguardando';
     public const ANDAMENTO = 'andamento';
-    public const CONCLIDA = 'concluida';
+    public const CONCLUIDA = 'concluida';
+    public const CANCELADA = 'cancelada';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -16,7 +17,8 @@ final class Status extends StatusStatus
         parent::__construct([
             self::AGUARDANDO => 'Aguardando',
             self::ANDAMENTO  => 'Em andamento',
-            self::CONCLIDA   => 'Concluida'
+            self::CONCLUIDA  => 'Concluida',
+            self::CANCELADA   => 'Cancelada'
         ]);
     }
 }

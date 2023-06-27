@@ -114,8 +114,15 @@ final class Add
         return $this;
     }
 
-    public function fieldsetCheckbox(string $titulo = null, ?\Closure $callback = null, ?string $todos = null, ?bool $mais = null, ?bool $margin = null)
-    {
+    public function fieldsetCheckbox(
+        string $titulo = null,
+        \Closure $callback = null,
+        string $todos = null,
+        bool $mais = null,
+        bool $margin = null,
+        string $id = null,
+        string $class = null
+    ) {
         if (is_null($callback)) {
             $this->erroCallback();
         }
@@ -124,8 +131,11 @@ final class Add
         $classTodos = !empty($todos) ? 'bloco_checkbox_marcar_todos' : '';
         $classMais = $mais ? 'bloco_checkbox_mais' : '';
         $classMargin = $margin ? 'bloco_fieldset_margin' : '';
+        $id = !empty($id) ? ' id="' . $id . '"' : '';
 
-        $this->html('<div class="bloco_checkbox_geral ' . $classTodos . ' ' . $classMais . ' ' . $classMargin . '">');
+        $this->html('
+            <div class="bloco_checkbox_geral '
+            . $class . ' ' . $classTodos . ' ' . $classMais . ' ' . $classMargin . '"' . $id . '>');
 
         if (!empty($titulo)) {
             $this->html('<h3>' . $titulo . '</h3>');
@@ -151,6 +161,19 @@ final class Add
         ];
     }
 
+    public function blocoCheckbox(
+        string $titulo = null,
+        \Closure $callback,
+        string $class = null,
+        string $id = null
+    ) {
+        $this->div(
+            callback: $callback,
+            class: !empty($class) ? 'bloco_checkbox_interno ' . $class : 'bloco_checkbox_interno',
+            id: $id,
+            htmlPre: '<h3>' . $titulo . '</h3>'
+        );
+    }
     public function div(
         \Closure $callback,
         string $class = null,
@@ -160,7 +183,7 @@ final class Add
         string $htmlPos = null
     ) {
         $class = !empty($class) ? 'class="' . $class . '"' : '';
-        $id = !empty($id) ? 'class="' . $id . '"' : '';
+        $id = !empty($id) ? 'id="' . $id . '"' : '';
 
         $attrLista = [];
         foreach ($attr as $ind => $val) {
@@ -615,7 +638,6 @@ final class Add
     public function cnpj(
         string | array $name,
         string $label = '',
-        $value = '',
         string | array $placeholder = '',
         string $class = '',
         string $id = '',
@@ -652,7 +674,7 @@ final class Add
             request: $request,
             separador: $separador,
             maximo: $maximo,
-            formatar: 'cnpj'
+            mascara: '00.000.000/0000-00'
         );
         return $this;
     }
@@ -742,7 +764,33 @@ final class Add
         bool $footer = true,
         string $separador = ''
     ) {
-        $this->input($name, $label, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, '00/00/0000', $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador, formatar: 'data');
+        $this->input(
+            $name,
+            $label,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            null,
+            'text',
+            $attr,
+            '00/00/0000',
+            $ajuda,
+            true,
+            true,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            formatar: 'data'
+        );
         return $this;
     }
     public function dataHora(
@@ -764,7 +812,33 @@ final class Add
         bool $footer = true,
         string $separador = ''
     ) {
-        $this->input($name, $label, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, '00/00/0000 00:00:00', $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador, formatar: 'datahora');
+        $this->input(
+            $name,
+            $label,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            null,
+            'text',
+            $attr,
+            '00/00/0000 00:00:00',
+            $ajuda,
+            true,
+            true,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            formatar: 'datahora'
+        );
         return $this;
     }
     public function senha(
@@ -784,7 +858,25 @@ final class Add
         bool $footer = true
     ) {
         $senha = is_array($name) ? [true, true] : true;
-        return $this->input(name: $name, label: $label, placeholder: $placeholder, class: $class, id: $id, html: $html, icone: $icone, iconeCor: $iconeCor, obrigatorio: $obrigatorio, focus: $focus, contador: $contador, type: 'password', attr: $attr, mascara: '', ajuda: $ajuda, senha: $senha, footer: $footer);
+        return $this->input(
+            name: $name,
+            label: $label,
+            placeholder: $placeholder,
+            class: $class,
+            id: $id,
+            html: $html,
+            icone: $icone,
+            iconeCor: $iconeCor,
+            obrigatorio: $obrigatorio,
+            focus: $focus,
+            contador: $contador,
+            type: 'password',
+            attr: $attr,
+            mascara: '',
+            ajuda: $ajuda,
+            senha: $senha,
+            footer: $footer
+        );
     }
 
     public function select(

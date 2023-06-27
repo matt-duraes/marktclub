@@ -34,4 +34,19 @@ final class TurismoController extends Controller
         );
         return new Response(status: 200);
     }
+
+    public function redirecionar(string $usuario)
+    {
+        return view('turismo.redirecionar', var: ['usuario' => $usuario]);
+    }
+    public function abrir(string $usuario, $memoria)
+    {
+        $Turismo = new TokenModel(
+            Usuario: $this->pegarCliente($usuario, obrigatorio: true),
+            ip: ip(),
+            userAgent: $_SERVER['HTTP_USER_AGENT'] ?? '',
+            memoria: $memoria
+        );
+        return new Response(url: $Turismo->pegarLink());
+    }
 }

@@ -25,7 +25,7 @@ final class SelectModel extends ORM
     {
         $dado = $this
         ->campo([
-        'uuid', 'nome_real'
+            'uuid', 'nome_real'
         ])
         ->where($this->pegarWhere(), obrigatorio: false)
         ->order('nome_real', 'ASC')
@@ -76,7 +76,7 @@ final class SelectModel extends ORM
         $where = [
             ['id_admin_empresa', $this->idEmpresa]
         ];
-        if ($this->idEmpresa == 1) {
+        if (defined('TOKEN') && TOKEN['empresa']->get('id') == 1) {
             $where = [
                 'OR',
                 ['id_admin_empresa', $this->idEmpresa],

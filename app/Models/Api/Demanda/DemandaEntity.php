@@ -9,9 +9,12 @@ use Modules\DataHora;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Status;
+use System\Classes\PainelHistorico\Acao;
+use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use App\Models\Api\Demanda\CancelarTarefaModel;
 
 final class DemandaEntity extends Entity
 {
@@ -181,5 +184,25 @@ final class DemandaEntity extends Entity
     protected function getId()
     {
         return $this->prop('id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CANCELAR
+    |--------------------------------------------------------------------------
+    */
+    public function cancelar(string $motivo)
+    {
+        new CancelarTarefaModel(Demanda: $this);
+
+        $this->status = new Status(Status::CANCELADA);
+        $this->salvar();
+
+        $Historico = new HistoricoEntity();
+        $Historico->mensagem = 'Tarefa cancelada: <br>' . $motivo;
+        $Historico->relacionado = [$this->id];
+        $Historico->app = ['demanda_dado'];
+        $Historico->acao = new Acao('mensagem');
+        $Historico->salvar();
     }
 }

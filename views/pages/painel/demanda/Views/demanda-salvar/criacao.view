@@ -1,3 +1,4 @@
+<h3>Cliente</h3>
 @? formSelect(name: 'empresa_criacao', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
 
 <div class="checkbox">
@@ -9,60 +10,67 @@
     @? formCheckbox(name: 'criacao_categoria_video', label: 'Vídeo', check: false)
     @? formCheckbox(name: 'criacao_categoria_outro', label: 'Outro', check: false)
 </div>
-<div class="bloco display_none" id="bloco_criacao_outro">
-    <h3>Texto para o tipo outro</h3>
-    @? formTextarea(name: 'outro_texto', label: 'Detalhe', placeholder: 'Detalhe do tipo outro')
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_site">
+    <h2>SITE</h2>
+    <h3>Tamanho do banner</h3>
+    @? formNumero(name: ['site_largura', 'site_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura do banner', 'Altura do banner'], mascara: ['numero', 'numero'], obrigatorio: 1)
+    @? formEditor(name: 'site_texto', label: 'Descrição', placeholder: 'Descreva a demanda para o site', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
-<div class="bloco display_none" id="bloco_criacao_site">
-    <h3>Dimensão do banner para o site</h3>
-    @? formNumero(name: ['site_largura', 'site_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura', 'Altura'], mascara: ['numero', 'numero'], obrigatorio: 1)
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_social">
+    <h2>REDE SOCIAL</h2>
+    <div>
+        <h3>Quais redes sociais irá usar?</h3>
+        @? formSwitch(name: 'digital_stories', label: 'Stories', check: false)
+        @? formSwitch(name: 'digital_feed', label: 'Feed', check: false)
+        @? formSwitch(name: 'digital_banner', label: 'Banner', check: false)
+    </div>
+    <div class="checkbox display_none" id="bloco_criacao_feed">
+        <h3>Feed de qual rede social?</h3>
+        @? formCheckbox(name: 'feed_whatsapp', label: 'WhatsApp', check: false)
+        @? formCheckbox(name: 'feed_instagram', label: 'Instagram', check: false)
+        @? formCheckbox(name: 'feed_facebook', label: 'Facebook', check: false)
+        @? formCheckbox(name: 'feed_linkedin', label: 'LinkedIn', check: false)
+        @? formCheckbox(name: 'feed_twitter', label: 'Twitter', check: false)
+        @? formCheckbox(name: 'feed_youtube', label: 'YouTube', check: false)
+        @? formCheckbox(name: 'feed_tiktok', label: 'TikTok', check: false)
+    </div>
+    @? formEditor(name: 'rede_social_texto', label: 'Descrição', placeholder: 'Descreva a demanda para a rede social', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
-<div class="display_none" id="bloco_criacao_social">
-    <h3>Quais redes sociais irá usar?</h3>
-    @? formSwitch(name: 'digital_stories', label: 'Stories', check: false)
-    @? formSwitch(name: 'digital_feed', label: 'Feed', check: false)
-    @? formSwitch(name: 'digital_banner', label: 'Banner', check: false)
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_impresso">
+    <h2>IMPRESSOS</h2>
+    <div class="checkbox">
+        <h3>Quais materiais impressos?</h3>
+        @? formCheckbox(name: 'impresso_voucher', label: 'Voucher', check: false)
+        @? formCheckbox(name: 'impresso_folder', label: 'Folder', check: false)
+        @? formCheckbox(name: 'impresso_banner', label: 'Banner', check: false)
+        @? formCheckbox(name: 'impresso_revista', label: 'Revista', check: false)
+        @? formCheckbox(name: 'impresso_outro', label: 'Outro', check: false)
+    </div>
+    @? formEditor(name: 'impresso_texto', label: 'Descrição', placeholder: 'Descreva a demanda para o material impresso', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
-<div class="checkbox display_none" id="bloco_criacao_feed">
-    <h3>Feed de qual rede social?</h3>
-    @? formCheckbox(name: 'feed_whatsapp', label: 'WhatsApp', check: false)
-    @? formCheckbox(name: 'feed_instagram', label: 'Instagram', check: false)
-    @? formCheckbox(name: 'feed_facebook', label: 'Facebook', check: false)
-    @? formCheckbox(name: 'feed_linkedin', label: 'LinkedIn', check: false)
-    @? formCheckbox(name: 'feed_twitter', label: 'Twitter', check: false)
-    @? formCheckbox(name: 'feed_youtube', label: 'YouTube', check: false)
-    @? formCheckbox(name: 'feed_tiktok', label: 'TikTok', check: false)
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_kit">
+    <div class="checkbox">
+        <h2>KIT DE BOAS-VINDAS</h2>
+        <h3>Quais materiais do kit de boas-vindas deseja usar?</h3>
+        @? formCheckbox(name: 'kit_email', label: 'E-mail', check: false)
+        @? formCheckbox(name: 'kit_stories', label: 'Stories', check: false)
+        @? formCheckbox(name: 'kit_feed', label: 'Feed', check: false)
+        @? formCheckbox(name: 'kit_como_acessar', label: 'Como acessar', check: false)
+        @? formCheckbox(name: 'kit_baixar_app', label: 'Baixe o APP', check: false)
+        @? formCheckbox(name: 'kit_previa', label: 'Prévia', check: false)
+        @? formCheckbox(name: 'kit_video', label: 'Vídeo padrão', check: false)
+    </div>
+    @? formEditor(name: 'kit_texto', label: 'Descrição', placeholder: 'Descreva a demanda para o kit de boas-vindas', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
-<div class="checkbox display_none" id="bloco_criacao_impresso">
-    <h3>Quais materiais impressos?</h3>
-    @? formCheckbox(name: 'impresso_voucher', label: 'Voucher', check: false)
-    @? formCheckbox(name: 'impresso_folder', label: 'Folder', check: false)
-    @? formCheckbox(name: 'impresso_banner', label: 'Banner', check: false)
-    @? formCheckbox(name: 'impresso_revista', label: 'Revista', check: false)
-    @? formCheckbox(name: 'impresso_outro', label: 'Outro', check: false)
-</div>
-<div class="bloco display_none" id="bloco_criacao_impresso_outro">
-    <h3>Descrição do outro tipo de impresso</h3>
-    @? formTextarea(name: 'impresso_outro_texto', label: 'Detalhe', placeholder: 'Detalhe do impresso outro')
-</div>
-<div class="checkbox display_none" id="bloco_criacao_kit">
-    <h3>Quais materiais do kit de boas-vindas deseja usar?</h3>
-    @? formCheckbox(name: 'kit_email', label: 'E-mail', check: false)
-    @? formCheckbox(name: 'kit_stories', label: 'Stories', check: false)
-    @? formCheckbox(name: 'kit_feed', label: 'Feed', check: false)
-    @? formCheckbox(name: 'kit_como_acessar', label: 'Como acessar', check: false)
-    @? formCheckbox(name: 'kit_baixar_app', label: 'Baixe o APP', check: false)
-    @? formCheckbox(name: 'kit_previa', label: 'Prévia', check: false)
-    @? formCheckbox(name: 'kit_video', label: 'Vídeo padrão', check: false)
-</div>
-<div class="bloco display_none" id="bloco_criacao_video">
-    <h3>Dados para o vídeo</h3>
-    @? formSelect(name: 'video_formato', label: 'Formato do vídeo', placeholder: 'Formato do vídeo', lista: ['' => 'Escolha uma opção', 'horizontal' => '16:9 Horizontal (celular deitado)', 'vertical' => '9:16 Vertical (celular em pé)', 'outro' => 'Outro'], change: 'criacao_video_formato', obrigatorio: 1)
-
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_video">
+    <h2>VÍDEO</h2>
+    <h3>Tamanho do vídeo a ser criado</h3>
+    @? formSelect(name: 'video_formato', label: 'Formato do vídeo', placeholder: 'Formato do vídeo', lista: ['' => 'Escolha uma opção', 'horizontal' => '16:9 Horizontal - celular deitado', 'vertical' => '9:16 Vertical - celular em pé', 'outro' => 'Outro'], change: 'criacao_video_formato', obrigatorio: 1)
     @? formNumero(name: ['video_largura', 'video_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura', 'Altura'], mascara: ['numero', 'numero'], class: 'display_none', id: 'bloco_criacao_video_dimensao', obrigatorio: 1)
+    @? formEditor(name: 'video_texto', label: 'Descrição', placeholder: 'Descreva a demanda para o vídeo', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
-
-<div class="bloco" id="bloco_criacao_texto">
-    <h3>Descreva com detalhe a demanda</h3>
-    @? formTextarea(name: 'criacao_texto', label: 'Histórico', placeholder: 'Histório explicativo da demanda')
+<div class="bloco bloco_grupo display_none" id="bloco_criacao_outro">
+    <h2>OUTRO</h2>
+    @? formEditor(name: 'outro_texto', label: 'Descrição', placeholder: 'Descreva a demanda', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>
+<div class="margin_final"></div>

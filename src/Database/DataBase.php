@@ -465,7 +465,6 @@ final class DataBase
     {
         $this->setarTipo($nome, 'VARCHAR');
         $this->dado['tamanho'] = 255;
-        $this->dado['unico'] = true;
         $this->dado['validar'] = 'email';
         return $this;
     }

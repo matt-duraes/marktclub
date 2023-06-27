@@ -12,6 +12,7 @@ return [
             'usuario_equipe' => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
             'publicacao_noticia' => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_relatorio' => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'parceiro_cashback' => ['titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
             'relatorio_acesso' => ['titulo' => 'Relatório Acesso', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas']],
             'relatorio_usuario' => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
             'relatorio_loja_venda' => ['titulo' => 'Relatório de vendas', 'permissao' => ['relatorio_loja_venda_index' => 'Relatório de vendas', 'relatorio_loja_venda_empresa' => 'Todas as empresas']],
@@ -31,11 +32,12 @@ return [
             'usuario_cliente' => [
                 'geral' => [
                     'nome', 'cpf', 'matricula', 'siape', 'genero', 'estado_civil', 'data_nascimento', 'email_trabalho',
-                    'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cidade', 'endereco_bairro', 'endereco_complemento', 'endereco_numero',
+                    'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cidade', 'endereco_bairro',
+                    'endereco_complemento', 'endereco_numero', 'tipo_pagamento', 'analytics', 'salavip',
                     'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'senha',
                     'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
-                    'data_criacao_ate', 'data_criacao', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa', 'tipo_pagamento',
-                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'subempresa', 'federacao', 'analytics'
+                    'data_criacao_ate', 'data_criacao', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa',
+                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'subempresa', 'federacao'
                 ],
                 'download' => [
                     'status', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',

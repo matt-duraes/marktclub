@@ -229,13 +229,19 @@ final class Visualizar
         ], $permissao);
         return $this;
     }
-    public function linha(array|string $campo, string $nome, string $formatar = '', ?string $permissao = null): self
-    {
+    public function linha(
+        array|string $campo,
+        string $nome,
+        string $formatar = '',
+        ?string $permissao = null,
+        bool $vazio = true
+    ): self {
         $this->adicionarCampo($campo, [
             'funcao' => 'linha',
             'campo' => $campo,
             'nome' => $nome,
-            'formatar' => $formatar
+            'formatar' => $formatar,
+            'vazio' => $vazio
         ], $permissao);
         return $this;
     }
@@ -312,13 +318,31 @@ final class Visualizar
         ], $permissao);
         return $this;
     }
-    public function botao(array|string $campo, string $texto, ?string $id = null, ?string $link = null, ?string $permissao = null)
+    public function hidden(array|string $campo, string $id = null, string $permissao = null): self
     {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'hidden',
+            'campo' => $campo,
+            'nome' => '',
+            'id' => $id,
+            'formatar' => ''
+        ], $permissao);
+        return $this;
+    }
+    public function botao(
+        array|string $campo,
+        string $texto,
+        ?string $id = null,
+        ?string $link = null,
+        ?string $target = null,
+        ?string $permissao = null
+    ) {
         $this->adicionarCampo($campo, [
             'funcao' => 'botao',
             'texto' => $texto,
             'id' => $id,
-            'link' => $link
+            'link' => $link,
+            'target' => $target
         ], $permissao);
         return $this;
     }
@@ -359,6 +383,7 @@ final class Visualizar
     public function replace(string $campo, array $lista)
     {
         $this->replace[$campo] = $lista;
+        return $this;
     }
 
     public function margin(int $margin)

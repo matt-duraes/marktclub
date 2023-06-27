@@ -14,6 +14,10 @@ final class Index
     private string $linkVisualizar;
     private bool $drag = false;
     private array $replace = [];
+    private bool $ultimaLinha = false;
+    private bool $copiar = false;
+    private string $css = '';
+    private string $js = '';
 
     public function __construct(
         private string $app,
@@ -31,6 +35,49 @@ final class Index
         $appLink = str_replace('_', '-', $app);
         $this->linkEditar = LINK . '/app/editar/' . $appLink . '/{id}';
         $this->linkVisualizar = LINK . '/app/visualizar/' . $appLink . '/{id}';
+    }
+    /**
+     * Coloca um destaque na última linha
+     *
+     * @return self
+     */
+    public function ultimaLinha(): self
+    {
+        $this->ultimaLinha = true;
+        return $this;
+    }
+    /**
+     * Coloca um botão para copiar os dados
+     *
+     * @return self
+     */
+    public function copiar(): self
+    {
+        $this->copiar = true;
+        return $this;
+    }
+
+    /**
+     * Seta um arquivo CSS
+     *
+     * @param   string  $css  Nome do arquivo passando sem a extenção .js - Ex.: painel_diretorio_index
+     * @return  self
+     */
+    public function css(string $css): self
+    {
+        $this->css = $css;
+        return $this;
+    }
+    /**
+     * Seta um arquivo JS
+     *
+     * @param   string  $js  Nome do arquivo passando sem a extenção .css - Ex.: painel_diretorio_index
+     * @return  self
+     */
+    public function js(string $js): self
+    {
+        $this->js = $js;
+        return $this;
     }
 
     /**
@@ -212,6 +259,23 @@ final class Index
     public function pegarDrag()
     {
         return $this->drag;
+    }
+    public function pegarUltimaLinha()
+    {
+        return $this->ultimaLinha;
+    }
+
+    public function pegarCss()
+    {
+        return $this->css;
+    }
+    public function pegarJs()
+    {
+        return $this->js;
+    }
+    public function pegarCopiar()
+    {
+        return $this->copiar;
     }
 
     public function replace(string $campo, array $lista)

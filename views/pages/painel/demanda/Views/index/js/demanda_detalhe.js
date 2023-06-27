@@ -1,8 +1,9 @@
-let idDemanda, idDono, area;
+let idDemanda, idDono, area, blocoItem;
 const demandaDetalhe = () => {
     idDemanda = document.getElementById('input_demanda_id').value;
     idDono = document.getElementById('input_demanda_dono_id').value;
     area = document.querySelector('#input_area').value || '';
+    blocoItem = document.querySelector('.bloco_tarefa_item[data-id="' + idDemanda + '"]');
 
     historicoLoad();
 
@@ -162,7 +163,7 @@ const demandaDetalhe = () => {
             blocoRecusarTarefa.classList.add('display_none');
             inputIdDeslike.value = '';
             inputTextoDeslike.value = '';
-            inputTextoDeslike.style.height = '1.5em';
+            inputTextoDeslike.style.height = '25px';
         }, 300);
     });
     botaoRecusarSalvar.addEventListener('click', async () => {
@@ -235,6 +236,64 @@ const demandaDetalhe = () => {
 
     /*
     |--------------------------------------------------------------------------
+    | CANCELAR DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    const botaoCancelar = document.querySelector('#botao_cancelar_demanda');
+    if (botaoCancelar) {
+        botaoCancelar.addEventListener('click', () => {
+            abrirBlocoCancelarDemanda();
+        });
+    }
+
+    const blocoCancelarDemanda = document.querySelector('#bloco_cancelar_demanda');
+    const botaoCancelarCancelar = document.querySelector('#botao_cancelar_cancelar');
+    const botaoCancelarSalvar = document.querySelector('#botao_cancelar_salvar');
+    const inputTextoCancelar = document.querySelector('#input_texto_cancelar');
+    const abrirBlocoCancelarDemanda = id => {
+        blocoCancelarDemanda.classList.remove('display_none');
+        setTimeout(() => {
+            blocoCancelarDemanda.classList.add('ativo');
+            inputTextoCancelar.focus();
+        }, 40);
+    };
+    const fecharBlocoCancelarDemanda = () => {
+        blocoCancelarDemanda.classList.remove('ativo');
+        setTimeout(() => {
+            blocoCancelarDemanda.classList.add('display_none');
+            inputTextoCancelar.value = '';
+            inputTextoCancelar.style.height = '25px';
+        }, 300);
+    };
+    botaoCancelarCancelar.addEventListener('click', () => {
+        fecharBlocoCancelarDemanda();
+    });
+
+    botaoCancelarSalvar.addEventListener('click', async () => {
+        if (inputTextoCancelar.value == '') {
+            Alerta.notificacao('Digite o motivo do cancelamento da demanda.');
+            return;
+        }
+        Loading.show();
+        const body = new FormData();
+        body.append('motivo', inputTextoCancelar.value);
+        const resposta = await fetch(LINK + '/demanda/demanda-cancelar/' + idDemanda, {
+            method: 'POST',
+            body,
+        });
+        const json = await respostaJson(resposta, 'Erro ao cancelar demanda, por favor, tente novamente.');
+        Loading.hide();
+        if (false === json) {
+            return;
+        }
+        fecharBlocoCancelarDemanda();
+        const PaginaFechar = new Pagina();
+        PaginaFechar.fechar();
+        removerItemDemanda(blocoItem);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
     | ABRIR NOVA DEMANDA
     |--------------------------------------------------------------------------
     */
@@ -272,11 +331,12 @@ const demandaDetalhe = () => {
             method: 'POST',
         });
         const json = await respostaJson(resposta, 'Erro ao liberar demanda, por favor, tente novamente.');
+        Loading.hide();
         if (false === json) {
-            Loading.hide();
             return;
         }
-        window.location.assign(LINK + '/demanda/' + area);
+        Alerta.notificacao('Demanda liberada com sucesso!', true);
+        moverItemDemanda(blocoListaSessao[1], blocoItem);
     };
 };
 

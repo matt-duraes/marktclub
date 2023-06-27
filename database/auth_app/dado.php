@@ -141,6 +141,9 @@ EwIDAQAB
             "parceiro_relatorio:salvar", "parceiro_relatorio:atualizar", "parceiro_relatorio:listar",
             "parceiro_relatorio:buscar", "parceiro_relatorio:deletar",
 
+            "parceiro_cashback:salvar", "parceiro_cashback:atualizar", "parceiro_cashback:listar",
+            "parceiro_cashback:buscar", "parceiro_cashback:deletar",
+
             "publicacao_noticia:salvar", "publicacao_noticia:atualizar", "publicacao_noticia:listar",
             "publicacao_noticia:buscar", "publicacao_noticia:deletar",
 
@@ -151,6 +154,8 @@ EwIDAQAB
             "app_usuario:listar", "app_usuario:buscar", "app_usuario:salvar", "app_usuario:atualizar",
             "app_usuario:deletar",
 
+            "comercial_restricao:listar", "comercial_restricao:buscar", "comercial_restricao:salvar",
+            "comercial_restricao:atualizar", "comercial_restricao:deletar",
             "comercial_empresa:listar", "comercial_empresa:buscar", "comercial_empresa:salvar",
             "comercial_empresa:atualizar", "comercial_empresa:deletar",
             "comercial_subempresa:select",

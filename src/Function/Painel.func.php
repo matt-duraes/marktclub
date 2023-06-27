@@ -275,11 +275,14 @@ if (!function_exists('painelLinhaLista')) {
             $texto = $item['texto'] ?? '';
             $id = $item['id'] ?? '';
             $link = $item['link'] ?? '';
+            $target = array_key_exists('target', $item) && in_array($item['target'], ['_blank', '_self'])
+                ? $item['target'] : '_self';
             $status = $item['status'] ?? '';
             $mensagem = $item['mensagem'] ?? '';
             $inArray = $item['inArray'] ?? '';
             $cor = $item['cor'] ?? '';
             $formatar = $item['formatar'] ?? '';
+            $vazio = $item['vazio'] ?? true;
 
             $valor = [];
             if (is_array($campo) && $campo) {
@@ -345,7 +348,7 @@ if (!function_exists('painelLinhaLista')) {
 
             if ($acao == 'imagem_redonda') {
                 echo '<figure class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
-            } elseif ($acao == 'linha') {
+            } elseif ($acao == 'linha' && ($vazio || !empty($valor))) {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
                 echo '<div class="linha bg_hover"><strong class="texto_nome">'
@@ -368,10 +371,14 @@ if (!function_exists('painelLinhaLista')) {
                 $classe = $valor ? 'checked_sim' : 'checked_nao';
                 echo '<div class="checked bg_hover"><span class="texto_nome">' . $nome . '</span> <i class="'
                     . $classe . '">' . $icone . '</i></div>';
+            } elseif ($acao == 'hidden') {
+                $id = !empty($id) ? 'id="' . $id . '"' : '';
+                echo '<input type="hidden" ' . $id . ' value="' . $valor . '">';
             } elseif ($acao == 'botao' && !empty($link)) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
-                echo '<a class="botao_link" ' . $id . ' href="' . painelConverterLink($link, $dado)
-                    . '">' . $texto . '</a>';
+                $rel = $target == '_blank' ? 'rel="noopener noreferrer"' : '';
+                echo '<a class="botao_link" ' . $id . ' target="' . $target . '" ' . $rel . ' href="'
+                    . painelConverterLink($link, $dado) . '">' . $texto . '</a>';
             } elseif ($acao == 'botao') {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 echo '<div class="botao_link" ' . $id . '>' . $texto . '</div>';
@@ -877,6 +884,9 @@ if (!function_exists('botaoControle')) {
         string $deletar = '',
         string $deletarTexto = 'DELETAR',
         bool $deletarPermissao = true,
+        string $copiar = '',
+        string $copiarTexto = 'COPIAR',
+        bool $copiarPermissao = false
     ) {
         $permissao = sessao('USUARIO.permissao');
         $app = str_replace('-', '_', $app);
@@ -931,6 +941,17 @@ if (!function_exists('botaoControle')) {
             ';
         }
 
+        $copiarHtml = '';
+        if ($copiarPermissao) {
+            $copiar = !empty($copiar) ? $copiar : 'botao_copiar_geral';
+            $copiarHtml = '
+                <div class="botao copiar" id="' . $copiar . '">
+                    <i>' . iconeCopiar(17) . '</i>
+                    <p>' . $copiarTexto . '</p>
+                </div>
+            ';
+        }
+
         $downloadHtml = '';
         if (
             !empty($download) &&
@@ -955,6 +976,7 @@ if (!function_exists('botaoControle')) {
         }
         return '
             <div id="bloco_botao_salvar">
+                ' . $copiarHtml . '
                 ' . $downloadHtml . '
                 ' . $deletarHtml . '
                 ' . $editarHtml . '
