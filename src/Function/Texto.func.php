@@ -404,3 +404,19 @@ if (!function_exists('strConverterTextareaEmParagrafo')) {
         return '<p>' . implode('</p><p>', explode(PHP_EOL, $texto)) . '</p>';
     }
 }
+if (!function_exists('strDominio')) {
+    // doc
+    /**
+     * Converter um URL para seu domínio
+     *
+     * @param   null|string  $texto  String a ser convertida
+     * @return  string               String convertida
+     */
+    function strDominio(?string $texto = null)
+    {
+        if (empty($texto)) {
+            return '';
+        }
+        return explode('/', preg_replace('/^http(s){0,1}\:\/\//', '', $texto))[0] ?? '';
+    }
+}

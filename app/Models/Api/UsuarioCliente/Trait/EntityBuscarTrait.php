@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use Modules\Botao;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 
@@ -25,5 +26,8 @@ trait EntityBuscarTrait
         if (!empty($this->grupo)) {
             $this->grupo = strCaixaBaixa($this->grupo);
         }
+
+        $dataTermo = $this->data_termo->date();
+        $this->termo = new Botao(!empty($dataTermo) && $dataTermo < '2000-01-01' ? 'sim' : 'nao');
     }
 }
