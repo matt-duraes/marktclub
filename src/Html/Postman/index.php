@@ -10,6 +10,7 @@ $controller = [
         'buscar-requisicao' => 'RequisicaoBuscar',
         'deletar-grupo' => 'GrupoDeletar',
         'deletar-requisicao' => 'RequisicaoDeletar',
+        'requisicao-vazia' => 'RequisicaoVazia',
         'requisicao' => 'RequisicaoEnviar',
         'salvar' => 'RequisicaoSalvar',
     ],

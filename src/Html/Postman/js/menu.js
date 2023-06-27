@@ -76,7 +76,10 @@ window.addEventListener('load', () => {
         }
         requisicao.classList.add('aberto');
         const grupo = requisicao.closest('.grupo');
-        abrirNovaAba(requisicao, grupo);
+        const id = requisicao.getAttribute('data-id');
+        const metodo = requisicao.getAttribute('data-metodo');
+        const nome = requisicao.getAttribute('data-nome');
+        abrirNovaAba(id, metodo, nome, grupo);
     };
     /*
     |--------------------------------------------------------------------------
@@ -157,6 +160,10 @@ window.addEventListener('load', () => {
             bloco.classList.remove('novo');
         } else if (eGrupo && bloco.classList.contains('novo')) {
             bloco.classList.remove('novo');
+        }
+        if (acao == 'requisicao' && !eGrupo) {
+            bloco.classList.add('aberto');
+            abrirNovaAba(resposta.dado.id, resposta.dado.metodo, valor, pai);
         }
         finalizarMudancaNomeMenu(bloco, texto, valor);
     };

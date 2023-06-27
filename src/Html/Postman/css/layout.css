@@ -726,6 +726,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow: hidden;
 }
 #site .bloco_conteudo .bloco_requisicao.loading .bloco_resposta_lista::after {
     width: 100%;

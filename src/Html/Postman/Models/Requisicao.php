@@ -8,7 +8,7 @@ final class Requisicao
     private string $path;
     private string $id;
     public function __construct(
-        string $path,
+        ?string $path = null,
         ?string $pai = null,
         ?string $id = null
     ) {
