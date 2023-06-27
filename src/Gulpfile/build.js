@@ -24,7 +24,7 @@ exports.buildDefineTabela = async () => {
         diretorio = lista[i];
         arquivo = await fsListarDiretorio('./database/' + diretorio);
         tabela = arquivo.find(e => /^tabela\:/.test(e));
-        tabela = tabela == undefined ? diretorio : tabela.replace('tabela:', '');
+        tabela = tabela == undefined ? diretorio : tabela.replace('tabela-', '');
         conteudo += `define("TABELA_${diretorio.toUpperCase()}", "${tabela}");\n`;
     }
 
@@ -41,12 +41,14 @@ exports.buildGit = () => {
             .pipe(plumber())
             .pipe(exec('git init'))
             .pipe(exec('git remote remove origin'))
+            .pipe(exec('git remote remove upstream'))
             .pipe(exec('git remote add origin ' + config.gitOrigin))
             .pipe(exec('git remote add upstream ' + config.gitUpstream));
     }
     return src('./')
         .pipe(plumber())
         .pipe(exec('git remote remove origin'))
+        .pipe(exec('git remote remove upstream'))
         .pipe(exec('git remote add origin ' + config.gitOrigin))
         .pipe(exec('git remote add upstream ' + config.gitUpstream));
 };
@@ -193,6 +195,7 @@ exports.buildDiretorios = async () => {
     await fsCriarDiretorio('./app/Helpers');
     await fsCriarDiretorio('./app/Middlewares');
     await fsCriarDiretorio('./database');
+    await fsCriarDiretorio('./postman');
     await fsCriarDiretorio('./files/arquivo_privado');
     await fsCriarDiretorio('./files/arquivo_publico');
     await fsCriarDiretorio('./files/banco');

@@ -516,8 +516,8 @@ abstract class Tests
         if (!file_exists($path . '/base.php')) {
             return $this;
         }
-        $arquivo = listarArquivoDiretorio($path, inicio: 'tabela:');
-        $diretorio = array_key_exists(0, $arquivo) ? str_replace('tabela:', '', $arquivo[0]) : $tabela;
+        $arquivo = listarArquivoDiretorio($path, inicio: 'tabela-');
+        $diretorio = array_key_exists(0, $arquivo) ? str_replace('tabela-', '', $arquivo[0]) : $tabela;
 
         $this->tabelaResetar[] = [$path, $diretorio, $tabela];
         return $this;
