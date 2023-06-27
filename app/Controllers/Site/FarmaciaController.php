@@ -18,14 +18,14 @@ final class FarmaciaController extends Controller
     }
     public function detalhe(string $url)
     {
-        $lista = (new FarmaciaModel())->buscarFarmacia($url);
+        $dado = (new FarmaciaModel())->buscarDados($url);
         return view(
             'farmacia.detalhe',
             [
-            'menu' => 'farmacia',
-            'loja' => $url,
-            'banner' => (new BannerModel())->farmacia(),
-            'lista' => $lista
+                'menu' => 'farmacia',
+                'dado' => $dado,
+                'tipo' => 'farmacia',
+                'lista' => (new FarmaciaModel())->relacionado($dado->id)
             ]
         );
     }

@@ -144,6 +144,8 @@ EwIDAQAB
             "parceiro_cashback:salvar", "parceiro_cashback:atualizar", "parceiro_cashback:listar",
             "parceiro_cashback:buscar", "parceiro_cashback:deletar",
 
+            "parceiro_loja:listar", "parceiro_loja:buscar",
+
             "publicacao_noticia:salvar", "publicacao_noticia:atualizar", "publicacao_noticia:listar",
             "publicacao_noticia:buscar", "publicacao_noticia:deletar",
 
@@ -183,8 +185,6 @@ EwIDAQAB
             "popup:buscar", "popup:salvar", "popup:atualizar", "popup:deletar",
 
             "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
-
-            "farmacia:listar",
 
             "cupom:buscar", "cupom:listar"
         ],
