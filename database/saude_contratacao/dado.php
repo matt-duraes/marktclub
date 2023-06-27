@@ -15,7 +15,7 @@ return [
         'data_nascimento'      => dataPassadaAleatorio(),
         'estado_civil'         => estadoCivilAleatorio(),
         'naturalidade'         => 'Brasileiro',
-        'sexo'                 => generoAleatorio(),
+        'sexo'                 => 1,
         'peso'                 => 75,
         'altura'               => 1.75,
         'filiacao'             => '',

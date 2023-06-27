@@ -165,7 +165,7 @@ EwIDAQAB
 
             "saude_simulacao:buscar", "saude_simulacao:salvar",
 
-            "saude_contratacao:salvar"
+            "saude_contratacao:salvar",
 
             "solicitacao_declaracao:listar", "solicitacao_declaracao:buscar", "solicitacao_declaracao:salvar",
 
@@ -179,7 +179,9 @@ EwIDAQAB
 
             "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
 
-            "farmacia:listar"
+            "farmacia:listar",
+
+            "cupom:buscar", "cupom:listar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],

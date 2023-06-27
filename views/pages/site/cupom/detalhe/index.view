@@ -5,16 +5,16 @@
     </header>
     <div class="popup_conteudo">
         <div class="conteudo">
-            <input type="hidden" id="input_cupom_url" value="{{$url}}">
-            <figure><img src="https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg"></figure>
-            <h2>Nome do parceiro</h2>
-            <p class="detalhe">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, quae!</p>
+            <input type="hidden" id="input_cupom_url" value="{{$dado->url}}">
+            <figure><img src="{{$dado->imagem}}"></figure>
+            <h2>{{$dado->titulo}}</h2>
+            <p class="detalhe">{{$dado->texto}}</p>
 
-            @ if( "cupom" === "cupom" ):
+            @ if( $dado->tipo === "cupom" ):
                 @if (TIPO_USUARIO != 'indicado'):
                     <form action="/">
                         <span>cupom:</span>
-                        <input type="text" readonly id="input_cupom_valor" value="{{numeroAleatorio(10000, 9999999)}}">
+                        <input type="text" readonly id="input_cupom_valor" value="{{$dado->cupom}}">
                         <div class="botao cor_bg" id="botao_cupom_copiar">COPIAR CUPOM</div>
                     </form>
                 @endif
@@ -26,7 +26,7 @@
             </div>
             @ endif;
             @if (TIPO_USUARIO != 'indicado'):
-                <a href="#" class="botao_geral_cor cor_bg" target="_blank" rel="nofollow noopener">Ir para loja</a>
+                <a href="{{$dado->url}}" class="botao_geral_cor cor_bg" target="_blank" rel="nofollow noopener">Ir para loja</a>
             @endif
             @ if(TIPO_USUARIO == 'indicado')
                 <div class="bloco_atencao_geral">

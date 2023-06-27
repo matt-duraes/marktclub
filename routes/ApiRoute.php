@@ -1244,7 +1244,8 @@ Route
                 'complemento'
             ])
             ::post('/saude/contratacao');
-      
+    });
+
 Route
     ::nome('solicitacao_credito')
     ::controller(App\Controllers\Api\SolicitacaoCreditoController::class)
@@ -1318,4 +1319,20 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['farmacia:listar'])
             ::request(['!estabelecimento'])
             ::get('/medicamento');
+    });
+
+Route
+    ::nome('cupom')
+    ::controller(App\Controllers\Api\CupomController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['cupom:listar'])
+            ::request(['!pesquisa'], 'json')
+            ::get('/cupom');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['cupom:buscar'])
+            ::get('/cupom/{id}');
     });
