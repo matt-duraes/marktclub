@@ -2,13 +2,14 @@
 
 namespace App\Models\Api\SolicitacaoPremium;
 
-use ORM\ORM;
-use Http\Request;
 use App\Classes\SolicitacaoPremium\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Http\Request;
+use ORM\ORM;
 
 final class PremiumModel extends ORM
 {
@@ -25,17 +26,22 @@ final class PremiumModel extends ORM
     private bool $mesAtualInteiro = false;
     private bool $mesAtual = false;
 
+    /**
+     * @param  Request  $request
+     */
     public function __construct(
-        private Request $request
+        protected readonly Request $request
     ) {
-
         parent::__construct();
-
         $this->validarEmpresa('empresa');
         $this->validarRequest();
         $this->setarDadoDaData();
     }
 
+    /**
+     * @return array
+     * @throws Excecao
+     */
     public function listarDados(): array
     {
         $dado = $this
@@ -43,12 +49,19 @@ final class PremiumModel extends ORM
             ->where($this->pegarWhere())
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('cod', 'vinculo')
-            ->campo(['id', 'titulo', 'limite_voucher'])
+            ->campo([
+                'id', 'titulo', 'limite_voucher'
+            ])
             ->where(['status', 5])
             ->read();
         return $this->montarRetorno($dado);
     }
 
+    /**
+     * @param  array  $dado
+     *
+     * @return array
+     */
     private function montarRetorno(array $dado): array
     {
         $retorno = [];
@@ -59,17 +72,17 @@ final class PremiumModel extends ORM
                     $limite = '-';
                 }
                 $retorno[$r->id] = [
-                    'parceiro' => $r->titulo,
-                    'total' => 0,
-                    'ativo' => 0,
+                    'parceiro'   => $r->titulo,
+                    'total'      => 0,
+                    'ativo'      => 0,
                     'disponivel' => '-',
-                    'validado' => 0,
-                    'cancelado' => 0,
-                    'limite' => $limite,
-                    'status' => Status::SEM_STATUS
+                    'validado'   => 0,
+                    'cancelado'  => 0,
+                    'limite'     => $limite,
+                    'status'     => Status::SEM_STATUS
                 ];
             }
-            $retorno[$r->id]['total']++;
+            (int)$retorno[$r->id]['total']++;
             if ($r->status == 1) {
                 $retorno[$r->id]['ativo']++;
             } elseif ($r->status == 2) {
@@ -80,6 +93,12 @@ final class PremiumModel extends ORM
         }
         return $this->colocarDadosPosteriores($retorno);
     }
+
+    /**
+     * @param $dado
+     *
+     * @return array
+     */
     private function colocarDadosPosteriores($dado): array
     {
         $livre = [];
