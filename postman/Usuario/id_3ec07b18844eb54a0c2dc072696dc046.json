@@ -1,1 +1,0 @@
-{"id":"id_3ec07b18844eb54a0c2dc072696dc046","token":"token","metodo":"POST","nome":"\/usuario-cliente\/:id","uri":"{{LINK}}\/usuario-cliente\/$USUARIO_ID","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$USUARIO_ID","dado.id","ID do usu\u00e1rio"]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

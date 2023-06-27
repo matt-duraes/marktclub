@@ -1,1 +1,0 @@
-{"id":"id_bc05eb7b8d1b6f9968b39d00fcee6014","token":"token","metodo":"DELETE","nome":"\/usuario-cliente\/:id","uri":"{{LINK}}\/usuario-cliente\/$_USUARIO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

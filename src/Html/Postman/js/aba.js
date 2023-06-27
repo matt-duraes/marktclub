@@ -71,17 +71,16 @@ const abrirAbaJaAberta = aba => {
     }
     const id = aba.getAttribute('data-id');
     const menu = blocoMenuLista.querySelector('#' + id + '_menu');
-    if (!menu) {
-        return;
+    let grupo, nome, metodo;
+    if (menu) {
+        menu.classList.add('aberto');
+        metodo = menu.getAttribute('data-metodo');
+        nome = menu.getAttribute('data-nome');
+        grupo = menu.closest('.grupo');
+        if (grupo) {
+            grupo.classList.remove('fechado');
+        }
     }
-    menu.classList.add('aberto');
-    const grupo = menu.closest('.grupo');
-    if (grupo) {
-        grupo.classList.remove('fechado');
-    }
-
-    const metodo = menu.getAttribute('data-metodo');
-    const nome = menu.getAttribute('data-nome');
     abrirNovaAba(id, metodo, nome, grupo);
 };
 
