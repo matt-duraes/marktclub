@@ -1405,3 +1405,17 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['cupom:buscar'])
             ::get('/cupom/{id}');
     });
+
+Route
+    ::nome('contato')
+    ::controller(App\Controllers\Api\ContatoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:salvar'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', 'url', '!descoberta_site'
+            ])
+            ::post('/contato');
+    });

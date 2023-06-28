@@ -1,0 +1,18 @@
+<div class="bloco_popup_geral medio">
+    <header class="popup_header">
+        <h1>Precisando de alguma ajuda?</h1>
+        <i class="botao_fechar_popup">@iconeFechar</i>
+    </header>
+    <div class="popup_conteudo centralizado">
+        <!-- CONTEÚDO AQUI -->
+        <form id="formulario_pesquisa" action="" class="form_geral bloco_ajuda_geral" method="post">
+            <header>
+                <p>Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento que funciona das 9h às 19h, de segunda à sexta. Caso não tenha encontrado o convênio que procura, pode nos indicar! Teremos prazer em fechar uma nova parceria.
+                </p>
+            </header>
+            <fieldset>
+            </fieldset>
+            <button class="botao_geral_cor" id="botao_envia_pesquisa">Enviar Pesquisa</button>
+        </form>
+    </div>
+</div>

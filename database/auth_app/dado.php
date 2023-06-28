@@ -186,7 +186,9 @@ EwIDAQAB
 
             "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
 
-            "cupom:buscar", "cupom:listar"
+            "cupom:buscar", "cupom:listar",
+
+            "contato:salvar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],

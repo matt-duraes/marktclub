@@ -144,6 +144,7 @@ final class SiteController extends Controller
     {
         return view('popup.imagem');
     }
+
     /**
      * @return Response
      * @throws Excecao
@@ -153,5 +154,13 @@ final class SiteController extends Controller
         return view('regulamento.campanha');
     }
 
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function getAjuda(): Response
+    {
+        return view('ajuda.index');
+    }
 
 }

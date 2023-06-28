@@ -337,6 +337,9 @@ Route
         Route
             ::nome('abrirModalPopupImagem')
             ::view('/enquete-imagem/{id}');
+        Route
+            ::nome('ajuda')
+            ::get('/ajuda');
     });
 
 Route

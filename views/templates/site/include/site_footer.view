@@ -57,9 +57,9 @@
             <i>@iconeIndiqueAmigo(19)</i>
             Indicar um parceiro
         </a>
-        <a class="dado" href="">
-            <i>@iconeIndiqueAmigo(19)</i>
-            Indicar um parceiro
+        <a class="dado" id="abreAjuda">
+            <i>@iconeFaleConosco(19)</i>
+            Fale Conosco
         </a>
     </section>
 
