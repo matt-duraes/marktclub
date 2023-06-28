@@ -4,7 +4,6 @@
 
     @view site/geral/banner.view
 
-
 	<section class="bloco_conteudo">
         <div class="descricao">
             <h1>Rápido, fácil e seguro</h1>

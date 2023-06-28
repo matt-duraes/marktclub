@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoEntity;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
@@ -11,10 +12,10 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class SolicitacaoDeclaracaoController implements
+class SolicitacaoDeclaracaoController extends Controller implements
     ControllerBuscarInterface,
-    ControllerSalvarInterface,
-    ControllerListarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface
 {
     /**
      * @param  string  $id
@@ -43,9 +44,7 @@ class SolicitacaoDeclaracaoController implements
             pegarPropriedadeDaEntity(
                 $Declaracao,
                 lista: [
-                    'empresa', 'usuario', 'tipo', 'vinculo', 'cpf', 'valor', 'estado_civil',
-                    'documento_rg', 'data_nascimento', 'cep', 'estado', 'cidade', 'bairro',
-                    'numero', 'logradouro', 'complemento', 'dependente_cpf', 'data_validacao', 'status'
+                    'vinculo', 'tipo', 'status', 'data_criacao'
                 ]
             ),
             $status
@@ -72,8 +71,7 @@ class SolicitacaoDeclaracaoController implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Declaracao = new DeclaracaoEntity();
-        $Declaracao->set(lista: $request->dado());
+        $Declaracao = new DeclaracaoEntity($request);
         $Declaracao->salvar();
 
         return $this->retornoSucesso($Declaracao, 201);

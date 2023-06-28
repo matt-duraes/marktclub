@@ -1,66 +1,66 @@
-<div class="bloco_popup_geral">
+<div class="bloco_popup_geral medio">
     <header class="popup_header">
         <h1>Pesquisa de Satisfação</h1>
-        <i class="fechar">@iconeFechar</i>
+        <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
     <div class="popup_conteudo centralizado">
         <!-- CONTEÚDO AQUI -->
-        <form id="form_buscar" action="" class="form_geral bloco_quiz_geral" method="post">
+        <form id="formulario_pesquisa" action="" class="form_geral bloco_quiz_geral" method="post">
             <header>
                 <h1>Ajude a melhorar o seu Clube de Vantagens, é rápido e fácil de responder</h1>
             </header>
             <fieldset>
-                <p>É fácil navegar no seu Clube de Vantagens?</p>
+                <p>É fácil navegar no seu Clube de Vantagens?*</p>
                 <div class="pergunta">
                     <div class="botao_input">
-                        <input id="navegar" name="navegar" type="radio" value="sim_navegar">
+                        <input id="navegar" name="navegar" type="radio" value="sim">
                         <label for="navegar">Sim</label>
                     </div>
                     <div class="botao_input">
-                        <input id="nao_navegar" name="navegar" type="radio" value="nao_navegar">
+                        <input id="nao_navegar" name="navegar" type="radio" value="nao">
                         <label for="nao_navegar">Não</label>
                     </div>
                 </div>
             </fieldset>
             <fieldset>
-                <p>Você geralmente acha o que procura?</p>
+                <p>Você geralmente acha o que procura?*</p>
                 <div class="pergunta">
                     <div for="sim_procura" class="botao_input">
-                        <input id="sim_procura" name="pesquisa" type="radio" value="sim_procura">
+                        <input id="sim_procura" name="procura" type="radio" value="sim">
                         <label for="sim_procura">Sim</label>
                     </div>
                     <div for="nao_procura" class="botao_input">
-                        <input id="nao_procura" name="pesquisa" type="radio" value="nao_procura">
+                        <input id="nao_procura" name="procura" type="radio" value="nao">
                         <label for="nao_procura">Não</label>
                     </div>
                 </div>
             </fieldset>
             <fieldset>
-                <p>Você conseguiu ajuda/suporte quando precisou?</p>
+                <p>Você conseguiu ajuda/suporte quando precisou?*</p>
                 <div class="pergunta">
                     <div class="botao_input">
-                        <input id="sim_suporte" name="pesquisa" type="radio" value="sim_suporte">
+                        <input id="sim_suporte" name="suporte" type="radio" value="sim">
                         <label for="sim_suporte">Sim</label>
                     </div>
                     <div class="botao_input">
-                        <input id="nao_suporte" name="pesquisa" type="radio" value="nao_suporte">
+                        <input id="nao_suporte" name="suporte" type="radio" value="nao">
                         <label for="nao_suporte">Não</label>
                     </div>
                     <div class="botao_input">
-                        <input id="nunca_suporte" name="pesquisa" type="radio" value="nunca_suporte">
+                        <input id="nunca_suporte" name="suporte" type="radio" value="nunca">
                         <label for="nunca_suporte">Nunca precisei de suporte</label>
                     </div>
                 </div>
             </fieldset>
             <fieldset>
-                <p>Qual foi a qualidade no atendimento?</p>
+                <p>Qual foi a qualidade no atendimento?*</p>
                 <div class="pergunta">
                     <div class="botao_input">
-                        <input id="otima" name="atendimento" type="radio" value="otima">
+                        <input id="otima" name="atendimento" type="radio" value="otimo">
                         <label for="otima">Ótima</label>
                     </div>
                     <div class="botao_input">
-                        <input id="boa" name="atendimento" type="radio" value="boa">
+                        <input id="boa" name="atendimento" type="radio" value="bom">
                         <label for="boa">Boa</label>
                     </div>
                     <div class="botao_input">
@@ -68,23 +68,27 @@
                         <label for="ruim">Ruim</label>
                     </div>
                     <div class="botao_input">
-                        <input id="pessima" name="atendimento" type="radio" value="pessima">
+                        <input id="pessima" name="atendimento" type="radio" value="pessimo">
                         <label for="pessima">Péssima</label>
                     </div>
                 </div>
             </fieldset>
             <fieldset>
-                <p>Quais destes sistemas do Clube você conhece?</p>
+                <p>Quais destes sistemas do Clube você conhece?*</p>
                 <div class="pergunta checkbox">
                     @ifforeach($sistemaConhece as $c)
                     <div for="{{ $c->name }}" class="botao_input">
-                        <input id="{{ $c->name }}" name="conhece" type="checkbox" value="{{ $c->valor }}">
+                        <input id="{{ $c->name }}" name="sistema" type="checkbox" value="{{ $c->valor }}">
                         <label for="{{ $c->name }}">{{ $c->label }}</label>
                     </div>
                     @endifforeach;
                 </div>
             </fieldset>
-            <button class="botao_geral_cor">Enviar Pesquisa</button>
+            <fieldset>
+                <p>Escreva alguma mensagem se desejar?</p>
+                @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
+            </fieldset>
+            <button class="botao_geral_cor" id="botao_envia_pesquisa">Enviar Pesquisa</button>
         </form>
     </div>
 </div>

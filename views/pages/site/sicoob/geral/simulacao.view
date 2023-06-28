@@ -25,7 +25,7 @@
                         <p>{{$dado->lista->titulo}}</p>
 
                         <form method="post" id="formulario_emprestimo" class="form_geral">
-                            <input type="hidden" data-name="tipo_financiamento" value="{{$dado->tipo}}">
+                            <input type="hidden" name="tipo_financiamento" value="{{$dado->tipo}}">
                             @? formInput(name: 'financiamento', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor', mascara: 'dinheiro', value: '')
                             @? formSelect(name: 'parcela', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', lista: $dado->lista->parcela)
 
@@ -34,7 +34,7 @@
                             class="botao_geral_cor_auto_height botao_link_underline abrirModalRegulamento">Abrir Regulamento</button>
                         <div class="bloco_botao">
                             <div></div>
-                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo" id="botao_fazer_simulacao">Continuar</div>
+                            <div class="botao_geral_cor cor_bg" id="botao_fazer_simulacao">Continuar</div>
                         </div>
                     </div>
                 </div>

@@ -13,4 +13,6 @@
     .cor_fill_hover:hover, .cor_fill{
         fill: {{COR}} !important;
     }
+
+    :root{ --cor-clube: {{COR}} !important;}
 </style>

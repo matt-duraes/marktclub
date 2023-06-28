@@ -1,17 +1,17 @@
 <aside class="bloco_relacionado">
     <header>
-        @ if( $parceiroTipo == 'cashback' ):
+        @ if( $tipo == 'cashback' ):
         <h1>Veja outras opções de cashback</h1>
-        <a class="cor_color" href="@route(cashback.detalhe)">Veja mais</a>
-        @ elseif( $parceiroTipo == 'loja' ):
+        <a class="cor_color" href="">Veja mais</a>
+        @ elseif( $tipo == 'loja' ):
         <h1>Veja outras lojas</h1>
-        <a class="cor_color" href="@route(loja.detalhe)">Veja mais</a>
-        @ elseif( $parceiroTipo == 'turismo' ):
+        <a class="cor_color" href="">Veja mais</a>
+        @ elseif( $tipo == 'turismo' ):
         <h1>Veja nossos parceiros direto de hotéis</h1>
-        <a class="cor_color" href="@route(loja.detalhe)">Veja mais</a>
-        @ elseif( $parceiroTipo == 'sosmulher' ):
-        <h1>Denuncie aqui</h1>
-        <a class="cor_color" href="#">Veja mais</a>
+        <a class="cor_color" href="">Veja mais</a>
+        @ elseif( $tipo == 'farmacia' ):
+        <h1>Veja outros farmácias</h1>
+        <a class="cor_color" href="">Veja mais</a>
         @ endif;
     </header>
     @view site/geral/parceiro.view

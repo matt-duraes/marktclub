@@ -18,7 +18,8 @@ final class Botao implements ModuleInterface
     /**
      * Gera um modulo de botão
      *
-     * @param null|int|string   $valor         Valor podendo ser string sendo sim ou nao ou um int com valor 1 para sim ou vazio para nao
+     * @param  null|int|string   $valor  Valor podendo ser string sendo sim ou nao ou um int com
+     *                                   valor 1 para sim ou vazio para nao
      */
     public function __construct(
         private null|int|string $valor,
@@ -72,6 +73,16 @@ final class Botao implements ModuleInterface
     public function valor(): string
     {
         return $this->valor == 'sim' ? 'sim' : 'nao';
+    }
+    // doc
+    /**
+     * Pegar o valor do botão como boolean
+     *
+     * @return bool
+     */
+    public function bool(): string
+    {
+        return $this->valor == 'sim';
     }
 
     private function validarNumero(): bool

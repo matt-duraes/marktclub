@@ -39,6 +39,8 @@ trait PropriedadeEntityTrait
     public Senha $senha;
     public Data $data_nascimento;
     public Data $trabalho_data_inicio;
+    public Data $data_termo;
+    public Botao $termo;
     public TrabalhoEmpresa $trabalho_empresa;
     public TrabalhoCargo $trabalho_cargo;
     public TipoPagamento $tipo_pagamento;

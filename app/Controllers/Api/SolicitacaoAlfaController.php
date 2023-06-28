@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\SolicitacaoAlfa\Helper;
 use App\Models\Api\SolicitacaoAlfa\SolicitacaoEntity;
 use Erro\Excecao;
 use Http\Request;
@@ -17,12 +18,17 @@ class SolicitacaoAlfaController
      */
     public function postSolicitacao(Request $request): Response
     {
-        $solicitacaoCreditoEntity = new SolicitacaoEntity();
+        $solicitacaoCreditoEntity = new SolicitacaoEntity($request);
         $solicitacaoCreditoEntity->set(lista: $request->dado());
         $solicitacaoCreditoEntity->salvar();
 
-        return new Response(json: [
-            'id' => $solicitacaoCreditoEntity->get('uuid')
-        ], status: 201);
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($solicitacaoCreditoEntity, lista: [
+                'nome', 'documento_cpf', 'email', 'telefone_celular',
+                'telefone_fixo', 'orgao', 'observacao'
+            ]),
+            201,
+            Helper::CRIPTOGRAFAR
+        );
     }
 }

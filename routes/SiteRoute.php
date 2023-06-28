@@ -123,6 +123,10 @@ Route
         Route
             ::nome('melhorIdade')
             ::view('/convenios/melhor-idade');
+        Route
+            ::nome('favorito')
+            ::request(['uuid','acao'])
+            ::post('/convenios/favorito');
     });
 
 Route
@@ -202,7 +206,7 @@ Route
             ::view('/farmacia/{url}');
         Route
             ::nome('carteirinha')
-            ::get('/farmacia/carteirinha');
+            ::view('/tem-mais-saude/carteirinha');
     });
 Route
     ::nome('sicoob')
@@ -226,6 +230,25 @@ Route
         Route
             ::nome('abrirModalRegulamento')
             ::view('/sicoob-regulamento/{url}');
+    });
+
+
+Route
+    ::nome('solicitacao_credito')
+    ::controller(App\Controllers\Site\SolicitacaoCreditoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('simulacao')
+            ::request([
+                'tipo', 'valor', 'prazo', 'operadora'
+            ])
+            ::get('/credito/simulacao');
+        Route
+            ::nome('salvar')
+            ::request([
+                'tipo', 'valor', 'prazo', 'operadora'
+            ])
+            ::post('/credito/salvar');
     });
 
 Route
@@ -260,6 +283,9 @@ Route
         Route
             ::nome('termocashback')
             ::view('/termo-de-uso-do-cashback');
+        Route
+            ::nome('app')
+            ::view('/termo-de-uso-app');
     });
 
 Route
@@ -293,6 +319,12 @@ Route
         Route
             ::nome('pesquisa')
             ::get('/pesquisa-de-satisfacao');
+        Route
+            ::nome('pesquisa')
+            ::request([
+                'navegar', 'procura', 'suporte', 'comentario', 'atendimento', 'sistema'
+            ])
+            ::post('/pesquisa-de-satisfacao');
         Route
             ::nome('sosmulher')
             ::view('/sos-mulher');
@@ -353,6 +385,9 @@ Route
             ::nome('social')
             ::request(['id', 'token', 'rede', 'code', 'acao'])
             ::post('/perfil/vincular-google');
+        Route
+            ::nome('carteira')
+            ::view('/perfil/carteira');
     });
 
 Route
@@ -365,4 +400,25 @@ Route
         Route
             ::nome('boasVindas')
             ::view('/preferencias/boas-vindas');
+    });
+
+Route
+    ::nome('campanha')
+    ::controller(App\Controllers\Site\CampanhaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('tematica')
+            ::view('/campanha');
+        Route
+            ::nome('atualizar_cpf')
+            ::view('/campanha/atualizar-cpf');
+    });
+
+Route
+    ::nome('regulamento')
+    ::controller(App\Controllers\Site\RegulamentoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('sorteio')
+            ::view('/regulamento-sorteio');
     });

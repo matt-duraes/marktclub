@@ -113,15 +113,28 @@ final class RequisicaoEnviar
                 $retorno[$ind] = $this->pegarValor($tipo, $val);
                 continue;
             }
-            $propriedade = substr($val, 1);
-            if ($propriedade == 'uuid') {
+
+            if ($val == '$uuid') {
                 $retorno[$ind] = uuid();
                 continue;
-            }
-            if (array_key_exists($propriedade, $this->variavel)) {
-                $retorno[$ind] = $this->variavel[$propriedade];
+            } elseif ($val == '$hoje') {
+                $retorno[$ind] = hoje();
+                continue;
+            } elseif (str_starts_with($val, '$hoje')) {
+                $retorno[$ind] = $this->manipularData(hoje(), $val, 'Y-m-d');
+                continue;
+            } elseif ($val == '$agora') {
+                $retorno[$ind] = agora();
+                continue;
+            } elseif (str_starts_with($val, '$agora')) {
+                $retorno[$ind] = $this->manipularData(agora(), $val, 'Y-m-d H:i:s');
+                continue;
+            } elseif (array_key_exists($val, $this->variavel)) {
+                $retorno[$ind] = $this->variavel[$val];
                 continue;
             }
+
+            $propriedade = substr($val, 1);
             $valor = env('POSTMAN_' . strCaixaAlta($propriedade), '');
             if (!empty($valor)) {
                 $retorno[$ind] = $this->pegarValor($tipo, $valor);
@@ -136,6 +149,15 @@ final class RequisicaoEnviar
         }
 
         return $retorno;
+    }
+    private function manipularData($data, $string, $retorno)
+    {
+        if (str_contains($string, '+')) {
+            return dataAdicionar($data, explode('+', $string)[1] ?? 1, 'dia', $retorno);
+        } elseif (str_contains($string, '-')) {
+            return dataRemover($data, explode('-', $string)[1] ?? 1, 'dia', $retorno);
+        }
+        return $data;
     }
     private function pegarValor($tipo, $val)
     {

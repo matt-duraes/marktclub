@@ -18,18 +18,18 @@ final class FarmaciaController extends Controller
     }
     public function detalhe(string $url)
     {
-        $lista = (new FarmaciaModel())->buscarFarmacia($url);
+        $dado = (new FarmaciaModel())->buscarDados($url);
         return view(
             'farmacia.detalhe',
             [
-            'menu' => 'farmacia',
-            'loja' => $url,
-            'banner' => (new BannerModel())->farmacia(),
-            'lista' => $lista
+                'menu' => 'farmacia',
+                'dado' => $dado,
+                'tipo' => 'farmacia',
+                'lista' => (new FarmaciaModel())->relacionado($dado->id)
             ]
         );
     }
-    public function getCarteirinha()
+    public function carteirinha()
     {
         //     $Api = new ApiHelper('carteirinha:buscar');
         //     $carteira = $Api->get('/carteirinha/5595203c-f7b1-4211-9981-bf09eb236b35')->object();

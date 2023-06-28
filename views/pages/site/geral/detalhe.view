@@ -1,36 +1,40 @@
 
 @ if($dado):
 <div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
-    <input type="hidden" name="url" id="input_loja_url" value="{{$url}}">
     <div class="bloco_topo">
         <section class="bloco_banner">
-            <figure class="banner desktop"><img src="{{$dado->lista->imagem->capa}}"></figure>
-            <figure class="banner mobile"><img src="{{$dado->lista->imagem->capa}}"></figure>
-            <figure class="logo"><img src="{{$dado->lista->imagem->logo}}"></figure>
+            <figure class="banner desktop"><img src="{{$dado->capa_desktop}}"></figure>
+            <figure class="banner mobile"><img src="{{$dado->capa_mobile}}"></figure>
+            <figure class="logo"><img src="{{$dado->logo}}"></figure>
         </section>
         <header class="bloco_header">
-            <h1>{{$dado->lista->titulo}}</h1>
-            <p>{{$dado->lista->texto->descricao}}</p>
+            <h1>{{$dado->titulo}}</h1>
+            <p>{{$dado->texto_descricao}}</p>
         </header>
     </div>
 
     <div class="bloco_desconto_procedimento">
         <div class="bloco bloco_titulo_texto">
             <h1>Descontos</h1>
-            <p>{{$dado->lista->texto->desconto}}</p>
+            <p>{{$dado->texto_desconto}}</p>
         </div>
         <div class="bloco bloco_titulo_texto">
             <h1>Procedimentos</h1>
-            <p>{{$dado->lista->texto->procedimento}} </p>
+            <p>{{$dado->texto_procedimento}} </p>
         </div>
     </div>
-    @if(TIPO_USUARIO != 'indicado')
+    @if(TIPO_USUARIO != 'indicado'):
         <div class="bloco_botao">
-            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeTelefone(17)</i></a>
-            <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="display_none botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeTelefone(17)</i></a>
-            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Ver telefone</div>
+            @if ($dado->procedimento == 'declaracao'):
+                <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeDeclaracao(17)</i></a>
+            @elseif ($dado->procedimento == 'voucher'):
+                <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeVoucher(17)</i></a>
+            @elseif ($dado->procedimento == 'on-line'):
+                <div class="botao branco botao_geral_cor"><i>@iconeTelefone()</i> Abrir Site</div>
+            @endif
+            <div class="botao branco botao_geral_cor"><i>@iconeTelefoneLoja()</i> Ver telefone</div>
             <div class="botao branco botao_geral_cor"><i>@iconeEmail(15)</i> Ver e-mail</div>
-            <div class="botao branco botao_geral_cor"><i>@iconeTelefone(15)</i> Abrir Site</div>
+
         </div>
     @else
         <div class="bloco_atencao_geral">
@@ -38,13 +42,13 @@
         </div>
     @endif
 
-    @if($dado->lista->contato->endereco)
+    @if($dado->endereco)
     <div class="bloco_mapa">
         <header>
             <h1>Endereços</h1>
             <div class="grow"></div>
-            <div class="botao_geral_cor buscar"><i>@iconeMundo</i> Buscar endereço</div>
-            <a href="_blank" rel="nofollow noopener" class="botao_geral_cor cor_bg">Como Chegar <i>@iconeTelefone(17)</i></a>
+            <div class="botao botao_geral_cor cor_bg" id="botao_endereco">Buscar endereço <i>@iconeBusca(20)</i></div>
+            <a href="_blank" rel="nofollow noopener" id="como_chegar" class="botao destaque botao_geral_cor cor_bg">Como Chegar <i>@iconeMapa(20)</i></a>
         </header>
         <div class="mapa"></div>
     </div>

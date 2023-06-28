@@ -53,5 +53,15 @@ return [
         'logo' => 'logo_cvsmais_tem_mais.png',
         'cor' => '#d9031c',
         'status' => 1
+    ],
+    [
+        'id' => 72,
+        'cod' => '61df17919405cf68f723510ec3af4acd',
+        'empresa' => 82,
+        'titulo' => 'CLUBE DE VANTAGENS SINPOLDF',
+        'link_site' => 'sinpoldf.temmaisvantagens.com.br',
+        'logo' => '27e13bb65402e5c25978b225c9775814.png',
+        'cor' => '#f00068',
+        'status' => 1
     ]
 ];

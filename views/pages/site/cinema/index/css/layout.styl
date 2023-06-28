@@ -1,126 +1,24 @@
 @template "site"
 @resource "site/variavel"
+@resource "site/loja/parceiro"
+@resource "site/loja/relacionado"
 
-#conteudo_cinema
+@system "Form"
+@template "site"
+@resource "site/loja/busca"
+@resource "site/variavel"
+@resource "site/saude/operadora"
+@resource "site/tabela"
+@resource "site/passo_passo"
+
+
+#bloco_cinema
     maxWidth()
     .desktop
         img
             width: 100%
-    h2
-        titulo()
-    p
-        texto()
 .aviso
-    margin: 25px 0px 25px 0px
+    espacoVerticalPadrao()
 
-.bloco_info_cinema
-    blocoShadow()
-    margin-top: 25px
-    width: 100%
-    p
-        margin-bottom: 20px
-.bloco_ingresso
-    blocoShadow()
-    width: 100%
-    display: flex
-    flex-direction: column
-    margin-bottom: 15px
-    .titulo_ingresso
-        height: 10%
-        margin-top: 5px
-        text-align: center
-        margin-bottom: 20px
-    .ingresso_escolha
-        height: 69.1%
-        color: white
-        display: flex
-        justify-content: center
-        align-items: center
-        .ingresso:hover
-            border: 1px solid $corClube
-        .ingresso
-            blocoShadow()
-            width: 49%
-            margin: auto
-            height: 200px
-            flex-direction: column
-            flexCenter()
-            cursor: pointer
-            color: black
-            .icone_ingresso
-                display: flex
-                justify-content: center
-                height: 50px
-                width: 100%
-                i
-                    margin: 0px 10px 0px 10px
-        .ingresso:first-child
-            margin-right:20px
-    button
-        height:15%
-        width: 250px
-        margin-top: 25px
-        margin-bottom: 5px
-
-
-.bloco_prime
-    margin:auto
-    blocoShadow()
-    display: flex
-    flex-direction: column
-    .assinatura_titulo
-        text-align: center
-        width: 100%
-        margin-bottom: 20px
-    .bloco_primepass
-        display: flex
-    .primepass
-        width: 50%
-        blocoShadow()
-        display: flex
-        flex-direction: column
-        align-items: center
-        text-align: center
-        min-height: 385px
-        .logo figure
-            width: 200px
-            height: 100px
-        figure
-            background-repeat: no-repeat
-            background-size: 80% auto
-            background-position: center center
-            position: relative
-        .subtitulo
-            font-size: 1.438rem
-            line-height: 120%
-            font-weight: 500
-            padding-bottom: 15px
-        p
-            margin-top:15px
-        button
-            background-color:orange
-            margin-top:25px
-    .primepass:hover
-        border: 1px solid $corClube
-        cursor: pointer
-    .primepass:first-child
-        margin-right:20px
-
-@media screen and (max-width: 768px)
-    .bloco_prime .bloco_primepass
-        flex-direction: column
-        .primepass
-            width: 100%
-            &:first-child
-                margin-bottom: 25px
-@media screen and (max-width: 425px)
-    .bloco_ingresso .ingresso_escolha
-        flex-direction: column
-        .ingresso
-            width: 100%
-            &:first-child
-                margin-bottom: 25px
-    .bloco_ingresso button
-        width: 100%
-    .primepass button
-        width: 100%
+.bloco_parceiro
+    espacoTopPadrao()

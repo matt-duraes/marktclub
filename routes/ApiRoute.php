@@ -555,6 +555,15 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('loginClube')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
+            ::criptografia(['login', 'senha'])
+            ::request([
+                'login', 'senha', 'scope', 'redirect_uri', 'state'
+            ])
+            ::post('/login/clube');
+
+        Route
             ::nome('loginPainel')
             ::middleware(TokenMiddleware::class, 'scope', ['login:painel'])
             ::criptografia(['login', 'senha', 'google', 'facebook'])
@@ -833,15 +842,12 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('destaque')
-            ::middleware(TokenMiddleware::class, 'scope', ['convenio_parceiro:destaque'])
-            ::request(['categoria', 'quantidade', 'ordem'], 'json')
-            ::get('/convenio-parceiro/destaque');
-
+            ::nome('listar')
+            ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status'], 'json')
+            ::get('/parceiro-loja');
         Route
             ::nome('buscar')
-            ::request(['!email'], 'json')
-            ::get('/convenio-parceiro/{url}');
+            ::get('/parceiro-loja/{id}');
     });
 
 Route
@@ -1201,19 +1207,24 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['carterinha:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:buscar'])
             ::get('/carteirinha/{id}');
     });
 
 Route
     ::nome('solicitacao_alfa')
-    ::controller(App\Controllers\Api\CarteirinhaController::class)
+    ::controller(App\Controllers\Api\SolicitacaoAlfaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('solicitacao')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
+            ::request([
+                '!valor_emprestimo', '!prazo', '!valor_parcela_atual', '!quantidade_parcelas_restantes',
+                '!taxa', 'nome', 'documento_cpf', 'email', 'telefone_celular', '!telefone_fixo', 'orgao',
+                'observacao', '!data_simulacao', '!status', '!tipo'
+            ])
             ::post('/alfa/solicitacao');
     });
 
@@ -1259,7 +1270,9 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
-            ::request(['pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'], 'json')
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
             ::get('/solicitacao-declaracao');
 
         Route
@@ -1271,11 +1284,124 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
-                'cpf', 'tipo', 'estado_civil', 'data_nascimento',
-                'status', 'rg', 'cidade', 'estado', 'cep', 'logradouro',
-                'numero', '!complemento', 'bairro', '!dependente_nome',
-                '!dependente_rg', '!dependente_documento', '!dependente_grau_parentesco',
-                '!dependente_data_nascimento', 'id_usuario_cliente', 'id_versao'
-            ], 'json')
+                'url', 'tipo'
+            ])
             ::post('/solicitacao-declaracao');
+    });
+
+Route
+    ::nome('saude_simulacao')
+    ::controller(App\Controllers\Api\SaudeSimulacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:buscar'])
+            ::get('/saude/simulacao/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
+            ::request([
+                'data_nascimento', '!dependentes', 'operadora',
+                'acomodacao', '!regiao', '!plano'
+            ])
+            ::post('/saude/simulacao');
+    });
+
+Route
+    ::nome('saude_contratacao')
+    ::controller(App\Controllers\Api\SaudeContratacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:salvar'])
+            ::request([
+                'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+                'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
+                'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
+                'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+                'ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
+                'complemento'
+            ])
+            ::post('/saude/contratacao');
+    });
+
+Route
+    ::nome('solicitacao_credito')
+    ::controller(App\Controllers\Api\SolicitacaoCreditoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('simular')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
+            ::request([
+                'operadora', 'tipo', 'valor', 'parcelas'
+            ])
+            ::get('/solicitar-credito');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:buscar'])
+            ::get('/solicitacao-credito/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
+            ::request([
+                'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/solicitacao-credito');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
+            ::request([
+                'operadora', 'tipo', 'valor', 'parcelas', '!valor_parcelas', '!status'
+            ])
+            ::post('/solicitacao-credito');
+    });
+
+Route
+    ::nome('enquete_satisfacao')
+    ::controller(App\Controllers\Api\EnqueteSatisfacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:buscar'])
+            ::get('/enquete-satisfacao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
+            ::request([
+                'pagina',  '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/enquete-satisfacao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:salvar'])
+            ::request([
+                'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
+            ])
+            ::post('/enquete/satisfacao');
+    });
+
+Route
+    ::nome('cupom')
+    ::controller(App\Controllers\Api\CupomController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['cupom:listar'])
+            ::request(['!pesquisa'], 'json')
+            ::get('/cupom');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['cupom:buscar'])
+            ::get('/cupom/{id}');
     });

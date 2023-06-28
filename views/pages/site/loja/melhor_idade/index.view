@@ -1,3 +1,4 @@
+@template "site"
 <div id="bloco_maioridade_popup">
     <div class="formulario-step">
         <form action="" id="myForm" method="GET">
@@ -25,7 +26,6 @@
                                 </a>
                             @endforeach
                         @endif
-
                         @if($veiculoTag):
                             @foreach($veiculoTag as $ind => $val):
                                 <a href="@route('loja.busca')?categoria=veiculos&tag=<?=$veiculoTag[$ind]?>">
@@ -33,7 +33,6 @@
                                 </a>
                             @endforeach
                         @endif
-
                         @if($saudeTag):
                             @foreach($saudeTag as $ind => $val):
                                 <a href="@route('loja.busca')?categoria=saude&acessorp=1&tag=<?=$saudeTag[$ind]?>">
@@ -44,7 +43,6 @@
                     </div>
                 </article>
             </fieldset>
-
             <fieldset id="bloco_seleciona_estado">
                 <div class="mensagem">
                     <div class="conteudo">
@@ -64,22 +62,12 @@
                         </div>
                     </div>
                     <div class="lista_estado">
-                        <div class="estado"  id="DF">
-                            <input type="radio" name="estado" value="DF">
-                            <label for="DF">DF</label>
+                        @foreach ($estados as $ind => $val):
+                        <div class="estado"  id="{{$val}}">
+                            <input type="radio" name="estado" value="{{$val}}">
+                            <label for="{{$val}}">{{$val}}</label>
                         </div>
-                        <div class="estado"  id="AC">
-                            <input type="radio" name="estado" value="AC">
-                            <label for="AC">ACRE</label>
-                        </div>
-                        <div class="estado"  id="RJ">
-                            <input type="radio" name="estado" value="RJ">
-                            <label for="RJ">RJ</label>
-                        </div>
-                        <div class="estado"  id="SP">
-                            <input type="radio" name="estado" value="SP">
-                            <label for="SP">SAO PAULO</label>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="botao_footer">
                         <button class="voltar botao_trocar_anterior" data-proximo="#primeiro">Voltar</button>
@@ -102,7 +90,6 @@
                                 </a>
                             @endforeach
                         @endif
-
                         @if($veiculoTag):
                             @foreach($veiculoTag as $ind => $val):
                                 <a data-estado='' href="@route('loja.busca')?categoria=veiculos&tag=<?=$veiculoTag[$ind]?>">
@@ -110,7 +97,6 @@
                                 </a>
                             @endforeach
                         @endif
-
                         @if($saudeTag):
                             @foreach($saudeTag as $ind => $val):
                                 <a data-estado='' href="@route('loja.busca')?categoria=saude&acessorp=1&tag=<?=$saudeTag[$ind]?>">
@@ -121,7 +107,6 @@
                     </div>
                 </article>
             </fieldset>
-
         </form>
     </div>
 </div>

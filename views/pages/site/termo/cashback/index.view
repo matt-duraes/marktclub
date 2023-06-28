@@ -12,18 +12,24 @@
 
 <body>
 
-    <div id="bloco_termo_app">
-        <section class="termo_container">
-            <h1>TERMO DE USO DO CASHBACK SILIUM</h1>
-            <!-- @if (in_array(sessao('CLUBE.id'), ['2dbd9e375eeabfbe859365dae0798f49'])) : -->
-                <article class="termo_conteudo">
-                    <h2>1. Introdução</h2>
+    <div id="bloco_regulamento">
+        <section class="regulamento_conteudo">
+            <div class="bloco_geral_sem_resultado">
+                <h1>TERMO DE USO DO CASHBACK SILIUM</h1>
+            </div>
+            @ if ($clube == '2dbd9e375eeabfbe859365dae0798f49') :
+                <article class="texto">
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>1. Introdução</h1>
+                    </div>
                     <p>1.1. Obrigado pelo interesse em utilizar o sistema de cashback SILIUM, um Portal virtual ("Portal") desenvolvido e mantido pela Markt Tec Serviços em Tecnologia da Informação Ltda ("Markt Club"), pessoa jurídica de direito privado, inscrita no CNPJ sob o nº 14.150.830/0001-00, sediada no SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10. CEP 70610-440, Capital Financial Center, Brasília - DF.</p>
                     <p>O presente Termos de Uso ("Termo" ou Termos") estabelece a relação contratual entre os clientes que utilizam o sistema desenvolvido pelo Markt Club ("Usuários"), estabelecendo as regras de utilização e as responsabilidades de cada parte, em conformidade com a legislação brasileira, incluindo as disposições da Lei Nº 12.965/14 ("Marco Civil da Internet") e do Decreto Nº 8.771, de 11/05/16 ("Decreto").</p>
                     <p>Antes de prosseguir, é fundamental que você leia e compreenda todos os Termos que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este contrato virtual, que foi inclusive redigido de forma clara e em linguagem acessível.</p>
                     <p>Caso você não concorde com qualquer das regras previstas, você não é obrigado aceitar esse Termo e utilizar o sistema do Markt Club e caso desejar poderá relatar suas observações no e-mail atendimento@temmaisvantagens.com.br. Caso tenha qualquer dúvida sobre o conteúdo desses Termos de Uso, entre em contato com nosso suporte.</p>
 
-                    <h2>2. O Markt Club</h2>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>2. O Markt Club</h1>
+                    </div>
                     <p>2.1. O Portal do Markt Club disponibiliza uma Plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas.</p>
                     <p>2.2. O Markt Club não vende qualquer produto ou serviço no seu Portal, apenas veicula anúncios de produtos e serviços fornecidos pelos Anunciantes. Por essa razão, nós não nos responsabilizamos por nenhuma compra ou transação realizada entre vocês e os Anunciantes/ fornecedores.</p>
                     <p>2.3. Ao efetuar uma compra de um Anunciante, através do sistema ou de um link disponibilizado no Site, você cria uma nova e distinta relação jurídica diretamente com este Anunciante, da qual o Markt Club não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma. </p>
@@ -31,13 +37,17 @@
                     <p>2.5. A responsabilidade pelos produtos e serviços e por suas informações, incluindo o preço, é exclusiva e integral dos Anunciantes.</p>
                     <p>2.6. É sua obrigação confirmar a veracidade das informações dos anúncios constantes no Portal diretamente no próprio site dos Anunciantes. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e no site dos Anunciantes, prevalecerá as informações do site do Anunciante.</p>
 
-                    <h2>3. O Cashback - SILIUM </h2>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>3. O Cashback - SILIUM </h1>
+                    </div>
                     <p>3.1. O Markt Club agora passa a oferecer também uma oportunidade para que você possa receber um desconto especial da compra de um produto ou serviço dos nossos Anunciantes. Esse desconto especial é concedido diretamente pelo Markt Club, através do reembolso de parte do valor gasto por você nas compras efetuadas através do Portal, chamado por nós de CASHBACK - SILIUM.</p>
                     <p>3.2. O Cashback não é cumulativo com outras promoções, descontos, programas de fidelidade ou condições especiais ofertadas pelos Anunciantes ou por terceiros, portanto fique atento à essa restrição! A utilização de qualquer outro benefício invalidará o seu Cashback.</p>
                     <p>3.3. Para ter direito ao Cashback é importante que o Usuário observe as Condições de Uso, o presente Termo, além dos requisitos básicos ("Requisitos Essenciais"), definidos neste Termo.</p>
                     <p>3.4. O Cashback funciona de maneira bem simples: no nosso Portal, nós realizamos uma promessa de recompensa, que será devida a qualquer pessoa que cumprir os Requisitos Essenciais. Isto é: se você cumprir os Requisitos Essenciais, nós teremos o compromisso de creditá-lo com a recompensa prometida: o Cashback. </p>
 
-                    <p>4. Os Requisitos Essenciais </p>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>4. Os Requisitos Essenciais </h1>
+                    </div>
                     <p>4.1. Para que você adquira o direito à recompensa prometida pelo Markt Club, na forma do reembolso de parte do valor gasto em determina aquisição pelo Portal (o Cashback), é necessário observar os requisitos abaixo, definidos de acordo com o tipo de Anunciante envolvido na compra, ou seja, se realizada em Lojas Virtuais ou em Lojas Físicas.</p>
                     <p>4.2. Nas compras realizadas em Lojas Virtuais, é indispensável o cumprimento todos os requisitos abaixo, cumulativamente: </p>
                     <p>A. Efetuar o cadastro e login no Site ou Aplicativo deste sistema administrado pelo Markt Club; e</p>
@@ -68,7 +78,10 @@
                     <p>b) O Markt Club é uma empresa que administra Clube de Vantagens e Convênios para entidades de classe e grandes empresas, não possuindo operações de varejo para contratação direta de Usuários PESSOA FÍSICA. Diante disso, caso o CONTRATANTE do Markt Club cancele ou não renove o contrato do clube de vantagens, os saldos dos Usuários participantes deste clube de vantagens serão automaticamente cancelados, justamente por não existir mais vínculo contratual entre as partes.</p>
                     <p>4.17. O valor referente aos resgates solicitados será creditado em dinheiro na sua conta bancária, na área do Usuário, acessando CASHBACK SILIUM, botão: SOLICITAR RESGATE. É necessário que o CPF do titular da conta bancária seja o mesmo CPF cadastrado no SILIUM por você. Além disso, esta conta bancária somente poderá estar vinculada a um único CPF cadastrado na base de dados do Markt Club.</p>
                     <p>4.17.1. Ao se cadastrar no SILIUM o Usuário garante possuir Conta Corrente ou Poupança de sua titularidade, para a qual o resgate será enviado após a confirmação do saldo. É expressamente vedada a utilização de conta-salário para pedidos de resgate. </p>
-                    <h2>5. Responsabilidades e outras questões </h2>
+
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>5. Responsabilidades e outras questões </h1>
+                    </div>
                     <p>5.1. É de sua responsabilidade manter seu sistema protegido contra vírus e outros malwares. Dessa forma, não nos responsabilizamos por danos causados por vírus e malwares em decorrência de acesso, utilização ou navegação no site na internet ou como consequência da transferência de dados, arquivos, imagens, textos ou áudio contidos no mesmo. É de sua responsabilidade a certificação de estar acessando sua conta em redes seguras.</p>
                     <p>5.2. Não somos responsáveis por qualquer ação ou omissão dos Usuários tomada com base em informações, anúncios ou outros materiais veiculados no Portal.</p>
                     <p>5.3. O Markt Club se esforça para manter o Portal sempre atualizado, mas não temos responsabilidade sobre qualquer informação imprecisa, inexata, errada, fraudulenta ou divergente nos materiais veiculados pelos Anunciantes. Por isso, é sempre importante que você acesse diretamente o site dos Anunciantes para confirmar e obter as informações necessárias sobre os produtos e serviços. </p>
@@ -79,7 +92,10 @@
                     <p>c) Origem, qualidade, quantidade e entrega dos produtos e serviços divulgados pelos Anunciantes; e</p>
                     <p>d) Obrigações de natureza tributária aplicáveis às transações entre os Usuários e os Anunciantes. </p>
                     <p>5.6. Nós também não nos responsabilizamos por opiniões e reclamações de Usuários sobre os Anunciantes, seus produtos ou serviços, sendo a responsabilidade exclusiva de quem as emitiu.</p>
-                    <h2>6. Tratamento de Dados</h2>
+
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>6. Tratamento de Dados</h1>
+                    </div>
                     <p>6.1. Para facilitar a compreensão deste item, estabelecemos algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:</p>
                     <p><span>Titular:</span> é a pessoa física a quem se referem os dados pessoais que são objeto de tratamento.</p>
                     <p><span>Dado Pessoal:</span> informação relacionada a pessoa natural identificada ou identificável.</p>
@@ -109,7 +125,10 @@
                     <p>(i) realizem o tratamento de meus dados pessoais e dados pessoais sensíveis, com a finalidade de veicular, de modo mais adequado ao meu perfil, material informativo sobre o mercado financeiro, anúncios de produtos e serviços fornecidos pelos seus anunciantes e empresas do Conglomerado Financeiro Alfa; e </p>
                     <p>(ii) compartilhe com seus anunciantes e empresas do Conglomerado Financeiro Alfa os dados necessários para que esses anunciantes e o Conglomerado Financeiro Alfa possam me identificar como um membro do Clube de Vantagens e usuário do sistema de CASHBACK SILIUM.</p>
                     <p>Estou ciente que os dados tratados pela Markt Club e as Empresas do Conglomerado Financeiro Alfa incluem aqueles relativos ao preenchimento deste cadastro, bem como os relativos aos meus acessos ao Clube de Serviços.</p>
-                    <h2>7. Outros assuntos</h2>
+
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>7. Outros assuntos</h1>
+                    </div>
                     <p>7.1. Esse Termos de Uso constitui documento jurídico integral e perfeito para regular a relação, e poderá ser modificado livremente e a qualquer tempo pelo Markt Club, passando a valer somente após aceitação dos Usuários.</p>
                     <p>7.1.1. Dessa forma, será enviado um aviso aos Usuários informando sempre que ocorrerem mudanças. Os Usuários, por sua vez, terão um prazo de 30 (trinta) dias para manifestarem sua concordância aos novos Termos. Caso a manifestação não seja realizada durante esse período, o Markt Club poderá considerar, legitimamente, a concordância tácita aos novos Termos de Uso. Os novos termos terão validade a partir da data em que forem veiculados no site do Markt Club, reservando-se ao Usuário o direito de permanecer cadastrado ou simplesmente solicitar sua exclusão. </p>
                     <p>7.2. O Markt Club poderá, a qualquer momento e a seu exclusivo critério, modificar a configuração do Portal, podendo também eliminar ou acrescentar quaisquer Anunciantes cadastrados em seu banco de dados.</p>
@@ -132,15 +151,19 @@
                     <p>7.10. Por fim, caso seja necessário dirimir qualquer dúvida ou controvérsia decorrente deste contrato, o foro eleito é o da Comarca de São Paulo/SP, com renúncia de todos os outros, por mais privilegiados que sejam.</p>
                     <p>Isto significa que, caso seja necessário discutirmos algo na Justiça, as ações devem ser propostas em São Paulo/SP. </p>
                 </article>
-            <!-- @else : -->
-                <article class="termo_conteudo">
-                    <h2>1. Introdução</h2>
+            @else :
+                <article class="texto">
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>1. Introdução</h1>
+                    </div>
                     <p>Obrigado pelo interesse em utilizar o sistema de cashback SILIUM, um Portal virtual ("Portal") desenvolvido e mantido pela Markt Tec Serviços em Tecnologia da Informação Ltda ("Markt Club"), pessoa jurídica de direito privado, inscrita no CNPJ sob o nº 14.150.830/0001-00, sediada no SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10. CEP 70610-440, Capital Financial Center, Brasília - DF.</p>
                     <p>O presente Termos de Uso ("Termo" ou Termos") estabelece a relação contratual entre os clientes que utilizam o sistema desenvolvido pelo Markt Club ("Usuários"), estabelecendo as regras de utilização e as responsabilidades de cada parte, em conformidade com a legislação brasileira, incluindo as disposições da Lei Nº 12.965/14 ("Marco Civil da Internet") e do Decreto Nº 8.771, de 11/05/16 ("Decreto").</p>
                     <p>Antes de prosseguir, é fundamental que você leia e compreenda todos os Termos que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este contrato virtual, que foi inclusive redigido de forma clara e em linguagem acessível.</p>
                     <p>Caso você não concorde com qualquer das regras previstas, você deverá não aceitar esse Termo, não utilizar o sistema do Markt Club e relatar suas observações no e-mail atendimento@temmaisvantagens.com.br. Caso tenha qualquer dúvida sobre o conteúdo desses Termos de Uso, entre em contato com nosso suporte. </p>
 
-                    <h2>2. O Clube de Vantagens</h2>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>2. O Clube de Vantagens</h1>
+                    </div>
                     <p>2.1. O Clube de Vantagens disponibiliza uma plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas online e físicas, que são chamados CONVENIADOS.</p>
                     <p>2.2. O Clube de Vantagens não vende qualquer produto ou serviço no seu Portal, apenas veicula anúncios de produtos e serviços fornecidos pelos CONVENIADOS. Por essa razão, nós não nos responsabilizamos por nenhuma compra ou transação realizada entre o usuário, o Clube de Vantagens e os conveniados/fornecedores.</p>
                     <p>2.3. Ao efetuar uma compra de um conveniado, através de um link disponibilizado no Portal, você cria uma nova e distinta relação jurídica diretamente com este conveniado, da qual o Clube de Vantagens não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma.</p>
@@ -149,13 +172,17 @@
                     <p>2.6. É sua obrigação confirmar a veracidade das informações dos anúncios constantes no Portal diretamente no próprio site dos conveniados. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e no site dos conveniados, prevalecerão as informações do site do conveniado.</p>
                     <p>2.7. Prezando pelo bom atendimento e minimização dos erros, sugerimos que nossos usuários sempre enviem feedback sobre as suas experiências de compra. Caso algum parceiro apresente problemas de forma recorrente, poderemos tirá-lo do ar, evitando problemas futuros.</p>
 
-                    <h2>3. O Cashback - SILIUM </h2>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>3. O Cashback - SILIUM </h1>
+                    </div>
                     <p>3.1.O Markt Club agora passa a oferecer também uma oportunidade para que você possa receber um desconto especial da compra de um produto ou serviço dos nossos Anunciantes. Esse desconto especial é concedido diretamente pelo Markt Club, através do reembolso de parte do valor gasto por você nas compras efetuadas através do Portal, chamado por nós de CASHBACK - SILIUM. </p>
                     <p>3.2. O Cashback não é cumulativo com outras promoções, descontos, programas de fidelidade ou condições especiais ofertadas pelos Anunciantes ou por terceiros, portanto fique atento à essa restrição! A utilização de qualquer outro benefício invalidará o seu Cashback. </p>
                     <p>3.3. Para ter direito ao Cashback é importante que o Usuário observe as Condições de Uso, o presente Termo, além dos requisitos básicos ("Requisitos Essenciais"), definidos neste Termo. </p>
                     <p>3.4. O Cashback funciona de maneira bem simples: no nosso Portal, nós realizamos uma promessa de recompensa, que será devida a qualquer pessoa que cumprir os Requisitos Essenciais. Isto é: se você cumprir os Requisitos Essenciais, nós teremos o compromisso de creditá-lo com a recompensa prometida: o Cashback. </p>
 
-                    <h2>4. Os Requisitos Essenciais</h2>
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>4. Os Requisitos Essenciais</h1>
+                    </div>
                     <p>4.1. Para que você adquira o direito à recompensa prometida pelo Markt Club, na forma do reembolso de parte do valor gasto em determina aquisição pelo Portal (o Cashback), é necessário observar os requisitos abaixo, definidos de acordo com o tipo de Anunciante envolvido na compra, ou seja, se realizada em Lojas Virtuais ou em Lojas Físicas. </p>
                     <p>4.2. Nas compras realizadas em Lojas Virtuais, é indispensável o cumprimento todos os requisitos abaixo, cumulativamente: </p>
                     <p>A. Efetuar o cadastro e login no Site ou Aplicativo deste sistema administrado pelo Markt Club; e</p>
@@ -182,7 +209,10 @@
                     <p>4.16. Importante! Situações que provocam a PERDA DE PONTOS. a) Caso você não efetue login no PORTAL por 12 (doze meses) meses, seu saldo do SILIUM expirará e será zerado, e você não poderá mais adquirir o direito a receber estes valores. b) O Markt Club é uma empresa que administra Clube de Vantagens e Convênios para entidades de classe e grandes empresas, não possuindo operações de varejo para contratação direta de usuários PESSOA FÍSICA. Diante disso, caso o CONTRATANTE do Markt Club cancele ou não renove o contrato do clube de vantagens, os saldos dos usuários participantes deste clube de vantagens serão automaticamente cancelados, justamente por não existir mais vínculo contratual entre as partes. </p>
                     <p>4.17. O valor referente aos resgates solicitados será creditado em dinheiro na sua conta bancária, na área do usuário, acessando CASHBACK SILIUM, botão: SOLICITAR RESGATE. É necessário que o CPF do titular da conta bancária seja o mesmo CPF cadastrado no SILIUM por você. Além disso, esta conta bancária somente poderá estar vinculada a um único CPF cadastrado na base de dados do Markt Club. </p>
                     <p>4.17.1. Ao se cadastrar no SILIUM o usuário garante possuir Conta Corrente ou Poupança de sua titularidade, para a qual o resgate será enviado após a confirmação do saldo. É expressamente vedada a utilização de conta-salário para pedidos de resgate. </p>
-                    <h2>5. Responsabilidades e outras questões </h2>
+
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>5. Responsabilidades e outras questões </h1>
+                    </div>
                     <p>5.1. É de sua responsabilidade manter seu sistema protegido contra vírus e outros malwares. Dessa forma, não nos responsabilizamos por danos causados por vírus e malwares em decorrência de acesso, utilização ou navegação no site na internet ou como consequência da transferência de dados, arquivos, imagens, textos ou áudio contidos no mesmo. É de sua responsabilidade a certificação de estar acessando sua conta em redes seguras. </p>
                     <p>5.2. Não somos responsáveis por qualquer ação ou omissão dos Usuários tomada com base em informações, anúncios ou outros materiais veiculados no Portal. </p>
                     <p>5.3. O Markt Club se esforça para manter o Portal sempre atualizado, mas não temos responsabilidade sobre qualquer informação imprecisa, inexata, errada, fraudulenta ou divergente nos materiais veiculados pelos Anunciantes. Por isso, é sempre importante que você acesse diretamente o site dos Anunciantes para confirmar e obter as informações necessárias sobre os produtos e serviços. </p>
@@ -193,7 +223,10 @@
                     <p>c) Origem, qualidade, quantidade e entrega dos produtos e serviços divulgados pelos Anunciantes; e </p>
                     <p>d) Obrigações de natureza tributária aplicáveis às transações entre os Usuários e os Anunciantes. </p>
                     <p>5.6. Nós também não nos responsabilizamos por opiniões e reclamações de Usuários sobre os Anunciantes, seus produtos ou serviços, sendo a responsabilidade exclusiva de quem as emitiu.</p>
-                    <h2>6. Tratamento de Dados</h2>
+
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>6. Tratamento de Dados</h1>
+                    </div>
                     <p>6.1. Para facilitar a compreensão deste item, estabelecemos algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:</p>
                     <p>Dado Pessoal: informação relacionada a pessoa natural identificada ou identificável.</p>
                     <p>Dado Pessoal Sensível: dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.</p>
@@ -215,7 +248,10 @@
                     <p>i. Revogação do consentimento; e</p>
                     <p>j. Revisão de decisões automatizadas tomadas com base no Tratamento de Dados.</p>
                     <p>OBSERVAÇÃO:</span> No caso dos dois últimos itens (I e J), nossa empresa conta com um responsável que possui a responsabilidade de ser nosso DPO (Data Protection Officer). Em conformidade com a legislação vigente, apresentamos os dados e forma de contato com o responsável. Nosso DPO é André Pereira Rodrigues, portador do CPF 014.951.801-31. Para fazer qualquer tipo de solicitação ligada ao seu tratamento de dados, basta encaminhar um e-mail para andrerodrigues@andrerodrigues.com.</p>
-                    <h2>7. Outros assuntos</h2>
+
+                    <div class="bloco_geral_sem_resultado">
+                        <h1>7. Outros assuntos</h1>
+                    </div>
                     <p>7.1. Esse Termos de Uso constitui documento jurídico integral e perfeito para regular a relação, e poderá ser modificado livremente e a qualquer tempo pelo Markt Club. Dessa forma, será enviado um aviso aos Usuários informando sempre que ocorrerem mudanças. Os Usuários, por sua vez, terão um prazo de 30 (trinta) dias para manifestarem sua concordância aos novos Termos. Caso a manifestação não seja realizada durante esse período, o Markt Club poderá considerar, legitimamente, a concordância tácita aos novos Termos de Uso. Os novos termos terão validade a partir da data em que forem veiculados no site do Markt Club, reservando-se ao Usuário o direito de permanecer cadastrado ou simplesmente solicitar sua exclusão.</p>
                     <p>7.2. O Markt Club poderá, a qualquer momento e a seu exclusivo critério, modificar a configuração do Portal, podendo também eliminar ou acrescentar quaisquer Anunciantes cadastrados em seu banco de dados.</p>
                     <p>7.3. Todo o conteúdo (incluindo, mas não se limitando a, marcas, modelos, textos, programas de computador, sons, fotografias e outros materiais disponíveis no portal do Markt Club), a aparência, a organização e a estrutura do Markt Club são protegidas pela legislação de propriedade intelectual e não infringem qualquer lei ou norma a que estejam subordinadas, contratos, documentos, acordos dos quais faz parte, bem como não infringem direitos de terceiros. A violação de tais direitos ensejará a respectiva indenização aos prejudicados, sem prejuízo de perdas e danos e honorários advocatícios.</p>
@@ -229,7 +265,7 @@
                     <p>7.10. Por fim, caso seja necessário dirimir qualquer dúvida ou controvérsia decorrente deste contrato, o foro eleito é o da Comarca de Brasília/DF, com renúncia de todos os outros, por mais privilegiados que sejam. Isto significa que, caso seja necessário discutirmos algo na Justiça, as ações devem ser propostas em Brasília/DF. .</p>
                     <p>7.11. Obrigado por ter lido até o final. Boas compras.</p>
                 </article>
-            <!-- @endif -->
+            @endif
         </section>
 
     </div>

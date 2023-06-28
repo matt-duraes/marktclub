@@ -26,7 +26,7 @@ final class TurismoController extends Controller
             'banner' => (new BannerModel())->turismo(),
             'carro' => (new BannerModel())->turismoCarro(),
             'lista' => (new ListarModel())->listarDados(),
-            'parceiroTipo' => 'loja',
+            'parceiroTipo' => 'turismo',
         ]);
     }
 

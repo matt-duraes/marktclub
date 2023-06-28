@@ -5,7 +5,9 @@ namespace App\Controllers\Site;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
+use Http\Request;
 use App\Models\Site\SosMulher\ListarModel;
+use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
 
 final class SiteController extends Controller
 {
@@ -16,27 +18,43 @@ final class SiteController extends Controller
     public function getPesquisa(): Response
     {
         $listaConhece = [
-            (object)['name' => '0800', 'label' => '0800', 'valor' => '1'],
-            (object)['name' => 'cinema', 'label' => 'Cinema', 'valor' => '2'],
-            (object)['name' => 'lojaProxima', 'label' => 'Lojas Próximas', 'valor' => '3'],
-            (object)['name' => 'indicacaoLoja', 'label' => 'Indicação de Lojas', 'valor' => '4'],
-            (object)['name' => 'turismo', 'label' => 'Turismo', 'valor' => '5'],
-            (object)['name' => 'saude', 'label' => 'Saúde', 'valor' => '6'],
-            (object)['name' => 'credito', 'label' => 'Crédito', 'valor' => '7'],
-            (object)['name' => 'odontologico', 'label' => 'Plano Odontológico', 'valor' => '8'],
-            (object)['name' => 'silium', 'label' => 'Cashback Silium', 'valor' => '9'],
-            (object)['name' => 'lojas', 'label' => 'Lojas', 'valor' => '10'],
-            (object)['name' => 'dependente', 'label' => 'Adicionar Dependentes', 'valor' => '11'],
-            (object)['name' => 'preferencia', 'label' => 'Preferências', 'valor' => '12'],
-            (object)['name' => 'whatsapp', 'label' => 'Whatsapp', 'valor' => '13'],
-            (object)['name' => 'promocao', 'label' => 'Promoção', 'valor' => '14'],
-            (object)['name' => 'medicamento', 'label' => 'Medicamento', 'valor' => '15']
+            (object)['name' => '0800', 'label' => '0800', 'valor' => '0800'],
+            (object)['name' => 'cinema', 'label' => 'Cinema', 'valor' => 'CINEMA'],
+            (object)['name' => 'lojaProxima', 'label' => 'Lojas Próximas', 'valor' => 'Lojas Próximas'],
+            (object)['name' => 'indicacaoLoja', 'label' => 'Indicação de Lojas', 'valor' => 'INDICACAO'],
+            (object)['name' => 'turismo', 'label' => 'Turismo', 'valor' => 'TURISMO'],
+            (object)['name' => 'saude', 'label' => 'Saúde', 'valor' => 'SAUDE'],
+            (object)['name' => 'credito', 'label' => 'Crédito', 'valor' => 'CREDITO ALFA'],
+            (object)['name' => 'odontologico', 'label' => 'Plano Odontológico', 'valor' => 'ODONTOLOGICO'],
+            (object)['name' => 'silium', 'label' => 'Cashback Silium', 'valor' => 'SILIUM'],
+            (object)['name' => 'lojas', 'label' => 'Lojas', 'valor' => 'CONVENIOS'],
+            (object)['name' => 'dependente', 'label' => 'Adicionar Dependentes', 'valor' => 'DEPENDENTES'],
+            (object)['name' => 'preferencia', 'label' => 'Preferências', 'valor' => 'PREFERENCIAS'],
+            (object)['name' => 'whatsapp', 'label' => 'Whatsapp', 'valor' => 'WHATSAPP'],
+            (object)['name' => 'promocao', 'label' => 'Promoção', 'valor' => 'PROMOCOES'],
+            (object)['name' => 'medicamento', 'label' => 'Medicamento', 'valor' => 'MEDICAMENTO'],
+            (object)['name' => 'nenhum', 'label' => 'Nenhum', 'valor' => 'NENHUM']
         ];
 
         return view('pesquisa.index', [
             'sistemaConhece' => $listaConhece
         ]);
 
+    }
+
+    /**
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postPesquisa(Request $request): Response
+    {
+        $pesquisa = new SalvarPesquisaModel($request);
+        $pesquisa = $pesquisa->postSalvar();
+
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
     }
 
     /**
@@ -59,7 +77,6 @@ final class SiteController extends Controller
      */
     public function indiqueAmigo(): Response
     {
-        define('CLUBE_ID', '80b010d457c4329f4aadacd5b57766c8');
         define('CLUBE_FINALIDADE', 1);
 
         $texto = <<<HTML
@@ -78,7 +95,7 @@ final class SiteController extends Controller
             </p>
         HTML;
 
-        if (CLUBE_ID == '2dbd9e375eeabfbe859365dae0798f49') :
+        if (defined('CLUBE_ID') == '2dbd9e375eeabfbe859365dae0798f49') :
             $texto = <<<HTML
                 <p>O que você acha de liberar um acesso por 30 dias para um amigo?</p>
                 <p>
@@ -90,7 +107,7 @@ final class SiteController extends Controller
                     Quando você indica, você também demonstra sua amizade!
                 </p>
             HTML;
-        elseif (CLUBE_FINALIDADE == 2) :
+        elseif (defined('CLUBE_FINALIDADE') == 2) :
             $texto = <<<HTML
                 <p>O que você acha de liberar um acesso por 48h para um amigo?</p>
                 <p>
@@ -114,7 +131,7 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function abrirModalEnquetePopup(): Response
+    public function abrirModalEnquetePopup($id = null): Response
     {
         return view('popup.enquete');
     }
@@ -123,8 +140,18 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function abrirModalPopupImagem(): Response
+    public function abrirModalPopupImagem($id = null): Response
     {
         return view('popup.imagem');
     }
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function regulamento_campanha(): Response
+    {
+        return view('regulamento.campanha');
+    }
+
+
 }

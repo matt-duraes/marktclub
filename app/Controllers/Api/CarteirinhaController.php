@@ -3,31 +3,39 @@
 namespace App\Controllers\Api;
 
 use App\Classes\Carteirinha\Helper;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Controllers\Api\Trait\ClienteTrait;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
 use System\Interface\ControllerBuscarInterface;
+use App\Models\Api\Carteirinha\CarteiraModel;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 
-class CarteirinhaController implements ControllerBuscarInterface
+class CarteirinhaController extends Controller implements
+    ControllerBuscarInterface
 {
+    use ClienteTrait;
+
     /**
      * @param  string  $id
      *
      * @return Response
      * @throws Excecao
      */
+
     public function getBuscar(string $id): Response
     {
-        $ClienteEntity = new ClienteEntity();
-        $ClienteEntity->uuid($id);
+        if (empty($id)) {
+            mensagemStatus(404);
+        }
 
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity($ClienteEntity, lista: [
-                'nome', 'matricula', 'cpf', 'documento_rg', 'numero_cartao',
-                'aniversario', 'data_filiacao', 'data_validade', 'tipo', 'status'
-            ]),
-            200,
-            Helper::CRIPTOGRAFAR
-        );
+        $ClienteEntity = $this->pegarCliente($id, true);
+
+        $Carteira = (new CarteiraModel($ClienteEntity))->pegarCarteirinha();
+
+        return mensagemSucesso($Carteira);
+
     }
+
+
 }

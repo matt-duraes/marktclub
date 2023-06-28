@@ -1,0 +1,37 @@
+<div id="bloco_preferencia">
+
+    <div class="conteudo" id="bloco_tag_lista">
+        <header class="titulo_pagina">
+            <h1>Personalize</h1>
+            <p>O clube é feito para você, personalize-o conforme as suas preferências, selecione entre as categorias abaixo:</p>
+        </header>
+        <div class="bloco_tag" id="lista_tag">
+
+            <div class="container_tag">
+                @for($i=1; $i<40; $i++):
+                <div class="botao_input">
+                    <input id="{{ $i }}" name="tag" type="checkbox" value="{{ $i }}">
+                    <label for="{{ $i }}">Parceiro - {{ $i }}</label>
+                </div>
+                @endfor;
+            </div>
+            <button class="botao_geral_cor cor_bg" id="botao_envia_lista_tag">Avançar</button>
+
+        </div>
+
+
+    </div>
+    <div class="conteudo display_none" id="bloco_tag_parceiro">
+        <header class="titulo_pagina">
+            <h1>Selecionamos uma lista de parceiros conforme as suas preferências,<br> deseja favoritar algum deles?</h1>
+            <p>Ao favoritar esses parceiros irão aparecer no topo da sua lista ao entrar no clube, basta clicar no botão nos blocos abaixo</p>
+        </header>
+        <div class="bloco_tag"  class="bloco_tag_parceiro">
+            @view site/geral/parceiro.view
+
+
+            <button class="botao_geral_cor cor_bg" id="botao_envia_lista_tag">Registrar</button>
+        </div>
+    </div>
+
+</div>

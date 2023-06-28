@@ -1,15 +1,18 @@
 @CSS
-<div class="bloco_carteirinha">
-    <div class="bloco_info">
-        <figure>
-        </figure>
-        <div class="borda_meio"></div>
-        <div class="bloco_cpf">
-            <h1>{{$carteira->cpf}}</h1>
+<div class="bloco_container_carteirinha">
+    <div class="bloco_carteirinha">
+        <div class="bloco_info">
+            <figure>
+            </figure>
+            <div class="borda_meio"></div>
+            <div class="bloco_cpf">
+                <h1>{{$carteira->cpf}}</h1>
+            </div>
+        </div>
+        <div class="bloco_nome">
+            <h1>{{$carteira->nome}}</h1>
         </div>
     </div>
-    <div class="bloco_nome">
-        <h1>{{$carteira->nome}}</h1>
-    </div>
 </div>
+
 

@@ -8,12 +8,11 @@
 const cupomPagina = {};
 
 const cupomDetalhe = () => {
-    const url = document.getElementById('input_cupom_url').value;
     const inputCodigo = document.getElementById('input_cupom_valor');
     const botaoCopiar = document.getElementById('botao_cupom_copiar');
     const botaoFechar = document.querySelector('#bloco_popup_detalhe .fechar');
     botaoFechar.addEventListener('click', () => {
-        cupomPagina[url].fechar();
+        Pagina.staticFechar();
     });
 
     if (!inputCodigo) {
@@ -57,7 +56,7 @@ window.addEventListener('load', () => {
 
     cupomLista.forEach(cupom => {
         const url = cupom.getAttribute('data-url');
-        cupomPagina[url] = new Pagina('cupom - ' + url, LINK + '/cupom/' + url, {}, true, true, cupomDetalhe);
+        cupomPagina[url] = new Pagina('cupom - ' + url, '/cupom/' + url, {}, true, true, cupomDetalhe);
 
         cupom.addEventListener('click', () => {
             cupomPagina[url].abrir();

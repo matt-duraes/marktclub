@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\LoginApi;
 
-use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
-use App\Models\Api\LoginApi\Trait\LinkTrait;
-use App\Models\Api\LoginApi\Trait\TermoLgpdTrait;
-use App\Models\Api\LoginApi\Trait\UsuarioTrait;
-use Erro\Excecao;
-use Helpers\ListaHelper;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoEstado;
-use Modules\EstadoCivil;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Telefone;
 use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Modules\Genero;
+use Modules\Telefone;
+use Helpers\ListaHelper;
+use Modules\EstadoCivil;
+use Modules\EnderecoEstado;
+use App\Models\Api\LoginApi\Trait\LinkTrait;
+use App\Models\Api\LoginApi\Trait\UsuarioTrait;
+use App\Models\Api\LoginApi\Trait\TermoLgpdTrait;
+use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 
 final class LoginModel extends Entity
 {

@@ -2,9 +2,11 @@
 
 namespace App\Middlewares\Api;
 
-use Helpers\JwtHelper;
-use App\Models\Api\ApiToken\ValidarTokenCredentialModel;
 use App\Models\Api\ApiToken\ValidarTokenAuthorizationEntity;
+use App\Models\Api\ApiToken\ValidarTokenCredentialModel;
+use Erro\Excecao;
+use Helpers\JwtHelper;
+use Throwable;
 
 final class TokenMiddleware
 {
@@ -15,66 +17,20 @@ final class TokenMiddleware
     public function __construct()
     {
         $header = getallheaders();
-        $this->token = $header['Authorization'] ??
-            $header['authorization'] ??
-            $_SERVER['HTTP_AUTHORIZATION'] ??
-            false;
+        $this->token = $header['Authorization']
+            ?? $header['authorization']
+            ?? $_SERVER['HTTP_AUTHORIZATION']
+            ?? false;
 
         $this->validarTokenEnviado();
         $this->pegarBody();
         $this->tipoToken = $this->pegarTipoDeToken();
     }
 
-    public function token()
-    {
-        $tipo = $this->tipoToken;
-        if ($tipo == 'client-credentials') {
-            $Token = new ValidarTokenCredentialModel();
-            return $Token->validar($this->token);
-        } elseif ($tipo == 'authorization') {
-            $Token = new ValidarTokenAuthorizationEntity();
-            try {
-                $Token->buscar([
-                ['access_token', $this->token],
-                ['status', 1]
-                ]);
-                return true;
-            } catch (\Throwable $e) {
-                mensagemStatus(
-                    401,
-                    localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1',
-                    error: $e
-                );
-            }
-        }
-
-        mensagemStatus(500, localhost: 'Middleware Token - Tipo de token inválido.');
-    }
-
-    public function scope($scope)
-    {
-        $scopePermitido = TOKEN['scope'];
-        if (!in_array($scope, $scopePermitido)) {
-            mensagemErro(
-                'Erro de permissão!',
-                'Você não tem permissão para acessar esse scope.',
-                403,
-                localhost: 'Middleware Token - Seu token não tem o scope para essa ação.'
-            );
-        }
-        define('TOKEN_SCOPE', $scope);
-        return true;
-    }
-
-    public function login()
-    {
-        if ($this->tipoToken == 'authorization') {
-            return true;
-        }
-        $this->erroToken('Middleware Token - Não é um token authorization.');
-    }
-
-    private function validarTokenEnviado()
+    /**
+     * @return void
+     */
+    private function validarTokenEnviado(): void
     {
         $token = $this->token;
         if (empty($token)) {
@@ -89,7 +45,27 @@ final class TokenMiddleware
         }
     }
 
-    private function pegarBody()
+    /**
+     * @param $mensagem
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function erroToken($mensagem): void
+    {
+        mensagemErro(
+            'Token inválido!',
+            'Envie um token válido para autenticação.',
+            401,
+            localhost: $mensagem
+        );
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarBody(): void
     {
         if (mb_strlen($this->token) == 36) {
             return;
@@ -97,11 +73,15 @@ final class TokenMiddleware
         try {
             $Jwt = new JwtHelper();
             $this->body = $Jwt->decode($this->token);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $this->erroToken('Middleware Token - Erro ao pegar body do token - ' . $e->getMessage() . '.');
         }
     }
 
+    /**
+     * @return string|void
+     * @throws Excecao
+     */
     private function pegarTipoDeToken()
     {
         if (mb_strlen($this->token) == 36) {
@@ -112,8 +92,66 @@ final class TokenMiddleware
         $this->erroToken('Middleware Token - Token não tem 36 caracteres ou é um JWT.');
     }
 
-    private function erroToken($mensagem)
+    /**
+     * @return bool|void
+     * @throws Excecao
+     */
+    public function token()
     {
-        mensagemErro('Token inválido!', 'Envie um token válido para autenticação.', 401, localhost: $mensagem);
+        $tipo = $this->tipoToken;
+        if ($tipo == 'client-credentials') {
+            $Token = new ValidarTokenCredentialModel();
+            return $Token->validar($this->token);
+        } elseif ($tipo == 'authorization') {
+            $Token = new ValidarTokenAuthorizationEntity();
+            try {
+                $Token->buscar([
+                    ['access_token', $this->token],
+                    ['status', 1]
+                ]);
+                return true;
+            } catch (Throwable $e) {
+                mensagemStatus(
+                    401,
+                    error: $e,
+                    localhost: 'Middleware Token - Não foi possível achar seu token ou o status dele não é 1'
+                );
+            }
+        }
+
+        mensagemStatus(500, localhost: 'Middleware Token - Tipo de token inválido.');
+    }
+
+    /**
+     * @param $scope
+     *
+     * @return bool
+     * @throws Excecao
+     */
+    public function scope($scope): bool
+    {
+        $scopePermitido = TOKEN['scope'];
+        if (!in_array($scope, $scopePermitido)) {
+            mensagemErro(
+                'Erro de permissão!',
+                'Você não tem permissão para acessar esse scope.',
+                403,
+                localhost: 'Middleware Token - Seu token não tem o scope para essa ação.'
+            );
+        }
+        define('TOKEN_SCOPE', $scope);
+        return true;
+    }
+
+    /**
+     * @return true|void
+     * @throws Excecao
+     */
+    public function login()
+    {
+        if ($this->tipoToken == 'authorization') {
+            return true;
+        }
+        $this->erroToken('Middleware Token - Não é um token authorization.');
     }
 }

@@ -12,8 +12,8 @@ $listaDefine = [];
 
 foreach ($listaDiretorio as $diretorio) {
     if (file_exists($ROOT . '/database/' . $diretorio . '/base.php')) {
-        $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $diretorio, inicio: 'tabela:');
-        $tabelaReal = array_key_exists(0, $listaTabela) ? str_replace('tabela:', '', $listaTabela[0]) : $diretorio;
+        $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $diretorio, inicio: 'tabela-');
+        $tabelaReal = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $diretorio;
         $nomeDefine = "TABELA_" . mb_strtoupper($diretorio, 'UTF-8');
         $listaDefine[] = 'define("' . $nomeDefine . '", "' . $tabelaReal . '");';
         if (!defined($nomeDefine)) {
@@ -36,10 +36,10 @@ $listaModel = [];
 
 foreach ($listaTabela as $diretorio) {
     if (file_exists($ROOT . '/database/' . $diretorio . '/base.php')) {
-        $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $diretorio, inicio: 'tabela:');
+        $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $diretorio, inicio: 'tabela-');
         $Database = include $ROOT . '/database/' . $diretorio . '/base.php';
         $Database->diretorio = $diretorio;
-        $Database->tabela = array_key_exists(0, $listaTabela) ? str_replace('tabela:', '', $listaTabela[0]) : $diretorio;
+        $Database->tabela = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $diretorio;
         $Database->sistemaDeletar();
         $Database->sistemaCriar();
         $listaModel[] = $Database;

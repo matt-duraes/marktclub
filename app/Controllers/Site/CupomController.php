@@ -3,6 +3,7 @@
 namespace App\Controllers\Site;
 
 use App\Models\Site\Cupom\ListarModel;
+use App\Models\Site\Cupom\BuscaModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -36,13 +37,14 @@ final class CupomController extends Controller
      */
     public function index(string $pesquisa = null): Response
     {
+
         return view(
             'cupom.index',
             [
                 'menu'         => 'cupom',
                 'banner'       => false,
                 'pesquisa'     => $pesquisa,
-                'lista'        => (new ListarModel())->listarDados(),
+                'lista'        => (new ListarModel())->listarDados($pesquisa),
                 'parceiroTipo' => 'cupom'
             ]
         );
@@ -56,10 +58,13 @@ final class CupomController extends Controller
      */
     public function detalhe(string $url): Response
     {
+        $dado  = (new BuscaModel())->listarDados($url);
+
         return view(
             'cupom.detalhe',
             [
-                'url' => $url
+                'url' => $url,
+                'dado' => $dado->lista
             ]
         );
     }
