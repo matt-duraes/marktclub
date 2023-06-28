@@ -3,6 +3,7 @@
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 
 $Painel = new PainelConfig\Index('usuario_cliente', new Ordem());
 $Painel
@@ -13,4 +14,5 @@ $Painel
     ->dataCriacao()
     ->status('status', 'Status', new Status());
 
+$Painel->replace('tipo', new TipoUsuario());
 return $Painel;

@@ -278,9 +278,9 @@ final class Index
         return $this->copiar;
     }
 
-    public function replace(string $campo, array $lista)
+    public function replace(string $campo, array|StatusInterface $lista)
     {
-        $this->replace[$campo] = $lista;
+        $this->replace[$campo] = $lista instanceof StatusInterface ? $lista->select(null) : $lista;
     }
     public function pegarReplace()
     {
