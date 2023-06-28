@@ -56,7 +56,7 @@ final class ClienteModel extends ORM
             } elseif (!empty($r->email_trabalho)) {
                 $email = $r->email_trabalho;
             }
-            $tipo = $TipoUsuario->nome($r->tipo);
+            $tipo = $TipoUsuario->indice($r->tipo);
             if ($r->federacao == 'FU') {
                 $tipo = TipoUsuario::FUNCIONARIO;
             }
