@@ -23,7 +23,7 @@ exports.buildDefineTabela = async () => {
     for (i = 0; i < quantidade; i++) {
         diretorio = lista[i];
         arquivo = await fsListarDiretorio('./database/' + diretorio);
-        tabela = arquivo.find(e => /^tabela\:/.test(e));
+        tabela = arquivo.find(e => /^tabela\-/.test(e));
         tabela = tabela == undefined ? diretorio : tabela.replace('tabela-', '');
         conteudo += `define("TABELA_${diretorio.toUpperCase()}", "${tabela}");\n`;
     }
