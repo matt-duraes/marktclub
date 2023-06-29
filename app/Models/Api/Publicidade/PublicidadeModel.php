@@ -7,6 +7,7 @@ use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Http\Request;
+use Modules\Data;
 use ORM\ORM;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
@@ -135,5 +136,25 @@ class PublicidadeModel extends ORM
             ];
         }
         return $retorno;
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarRequest(): void
+    {
+        $dataCriacaoDe = new Data($this->request->data_criacao_de);
+        if (!$dataCriacaoDe->vazio() && (!$dataCriacaoDe->valido() || !$dataCriacaoDe->eDate())) {
+            mensagemErro('Campo inválido!', 'A data de criação de início não está no formato válido.');
+        }
+        $dataCriacaoAte = new Data($this->request->data_criacao_ate);
+        if (!$dataCriacaoAte->vazio() && (!$dataCriacaoAte->valido() || !$dataCriacaoAte->eDate())) {
+            mensagemErro('Campo inválido!', 'A data de criação final não está no formato válido.');
+        }
+        $Tipo = new Tipo($this->request->tipo);
+        if (!$Tipo->vazio() && !$Tipo->valido()) {
+            mensagemErro('Campo inválido!', 'O Tipo informado não é válido.');
+        }
     }
 }
