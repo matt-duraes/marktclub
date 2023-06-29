@@ -186,7 +186,9 @@ EwIDAQAB
 
             "farmacia:listar",
 
-            "cupom:buscar", "cupom:listar"
+            "cupom:buscar", "cupom:listar",
+
+            "publicidade:buscar", "publicidade:listar", "publicidade:salvar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
