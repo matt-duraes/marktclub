@@ -340,6 +340,9 @@ Route
         Route
             ::nome('ajuda')
             ::get('/ajuda');
+        Route
+            ::nome('indiqueParceiro')
+            ::get('/indique-um-parceiro');
     });
 
 Route

@@ -1419,3 +1419,17 @@ Route
             ])
             ::post('/contato');
     });
+
+Route
+    ::nome('mensagem')
+    ::controller(App\Controllers\Api\IndicacaoParceiroController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:salvar'])
+            ::request([
+                'parceiro', 'telefone', 'email', 'mensagem'
+            ])
+            ::post('/parceiro/indicacao');
+    });

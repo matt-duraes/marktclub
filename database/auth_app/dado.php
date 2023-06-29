@@ -188,7 +188,9 @@ EwIDAQAB
 
             "cupom:buscar", "cupom:listar",
 
-            "contato:salvar"
+            "contato:salvar",
+
+            "mensagem_indicacao_parceiro:salvar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],

@@ -165,8 +165,18 @@ final class SiteController extends Controller
         $construtor = (new ConstrutorModel())->montaPermissaoMenuAjuda();
 
         return view('ajuda.index', [
-            'menu' => $construtor
+            'menu' => $construtor,
+            'email' => defined('CONTATO_EMAIL') ?? ''
         ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function getIndiqueParceiro(): Response
+    {
+        return view('indicar_parceiro.index');
     }
 
 }

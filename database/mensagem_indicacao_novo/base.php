@@ -1,0 +1,20 @@
+<?php
+
+return (new \DataBase\DataBase())
+    ->id()
+    ->uuid()
+    ->char('id_parceiro_vinculo')->null()
+    ->int('id_usuario_equipe')->null()
+    ->int('id_usuario_cliente')->null()
+    ->int('id_admin_empresa')->null()
+    ->int('tipo')->null()
+    ->int('flag')->null()
+    ->email('email_pessoal')->null()
+    ->email('email')->null()
+    ->varchar('parceiro')->tamanho(100)
+    ->varchar('nome')->tamanho(100)->null()
+    ->telefone('telefone')->null()
+    ->text('mensagem')->null()
+    ->dataCriacao()
+    ->dataAtualizacao()
+    ->status();

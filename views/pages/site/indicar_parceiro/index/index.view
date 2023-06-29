@@ -1,42 +1,36 @@
-<div class="bloco_popup_indicacao">
+<div class="bloco_popup_geral medio">
+    <header class="popup_header">
+        <h1>Indicação</h1>
+        <i class="botao_fechar_popup">@iconeFechar</i>
+    </header>
+    <div class="popup_conteudo centralizado">
+        <form id="formulario_indicacao" action="" class="form_geral bloco_conteudo_geral centralizado" method="post">
+            <header class="coluna texto">
+                <p>Não achou o parceiro que procurava ou quer indicar um parceiro?</p>
+                <p>Preencha os campos abaixo e envie sua sugestão.</p>
+            </header>
 
-    <header class="header_popup">
-		<h1>INDICAÇÃO</h1>
-        <p>iconeFechar</p>
-	</header>
-    <div class="popup_indicacao_conteudo">
-        <form action="" method="post" id="busca_lista_convenio_mobile">
-            <div class="descricao_indicacao">
-                <div class="icone_jornal">
-                    <p>iconeJORNAL</p>
-                </div>
-                <div class="texto_descricao">
-                    <p>Não achou o parceiro que procurava ou quer indicar um parceiro?</p>
-                    <p>Preencha os campos abaixo e envie sua sugestão.</p>
-                </div>
-            </div>
-
-            <article class="dados_parceiro">
-                <h1> DADOS DO PARCEIRO</h1>
+            <fieldset class="texto">
+                <h1 class="texto"> DADOS DO PARCEIRO</h1>
                 <label>
-                    <input type="text" name="nome" placeholder="Qual o nome do parceiro?">
+                    @? formInput(name: 'nome', placeholder: 'Qual o nome do parceiro?', label: '', class: 'busca_nome', value: '')
                 </label>
                 <label>
-                    <input type="tel" name="telefone" data-mascara="telefone" placeholder="Você tem o telefone do parceiro?">
+                    @? formInput(name: 'telefone', placeholder: 'Você tem o telefone do parceiro?', label: '', class: 'busca_telefone', value: '')
                 </label>
                 <label>
-                    <input type="email" name="email" placeholder="Você tem o e-mail do parceiro?">
+                    @? formEmail(name: 'email', label: 'E-mail do parceiro', placeholder: 'Você tem o e-mail do parceiro?', value: '')
                 </label>
-            </article>
+            </fieldset>
 
-            <article class="mensagem_parceiro">
-                <h1>MENSAGEM</h1>
+            <fieldset class="texto">
+                <h1 class="texto">MENSAGEM</h1>
                 <label class="label_mensagem">
-                    <textarea  placeholder="Digite uma breve mensagem" name="mensagem"></textarea>
+                    @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
                 </label>
-            </article>
+            </fieldset>
 
-            <button class="botao_enviar_indicacao bg_cor">ENVIAR</button>
+            <button  class="botao_enviar_indicacao botao_geral_cor cor_bg">ENVIAR</button>
         </form>
     </div>
 

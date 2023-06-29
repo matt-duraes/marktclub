@@ -5,6 +5,7 @@
 // @import "menu_principal"
 // @import "menu_perfil"
 // @import "pesquisa_satisfacao"
+// @import "indicar_parceiro"
 // @import "ajuda"
 
 window.addEventListener('load', () => {

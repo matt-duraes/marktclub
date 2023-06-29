@@ -1,6 +1,3 @@
-
-@php $emailClube = defined('CONTATO_EMAIL')
-
 <div class="bloco_popup_geral medio">
     <header class="popup_header">
         <h1>Precisando de alguma ajuda?</h1>
@@ -14,8 +11,8 @@
                 </p>
             </header>
             <fieldset>
-                @if ($emailClube):
-                    <a>$emailClube</a>
+                @if ($email):
+                    <a>{{$email}}</a>
                     <p>ou</p>
                 @endif;?>
                 @if ($menu->automovel):

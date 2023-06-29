@@ -53,7 +53,7 @@
         <header>
             <h1>Ajuda</h1>
         </header>
-        <a class="dado" href="">
+        <a class="dado" id="abreIndiqueParceiro">
             <i>@iconeIndiqueAmigo(19)</i>
             Indicar um parceiro
         </a>
