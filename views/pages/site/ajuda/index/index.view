@@ -1,3 +1,6 @@
+
+@php $emailClube = defined('CONTATO_EMAIL')
+
 <div class="bloco_popup_geral medio">
     <header class="popup_header">
         <h1>Precisando de alguma ajuda?</h1>
@@ -11,8 +14,30 @@
                 </p>
             </header>
             <fieldset>
+                @if ($emailClube):
+                    <a>$emailClube</a>
+                    <p>ou</p>
+                @endif;?>
+                @if ($menu->automovel):
+                    <a href="@route('automovel.index)">INDICAR UMA CONCESSIONÁRIA</a>
+                @endif;?>
+                @if ($menu->saude):
+                    <a href="@route('planosaude.index')">FAZER COTAÇÃO DE PLANO DE SAÚDE</a>
+                @endif;?>
+                @if ($menu->credito):
+                    <a href="@route('sicoob.index')">CRÉDITO SICOOB</a>
+                @endif;?>
+                @if ($menu->credito_alfa):
+                    <a href="@route('alfa.credito')">SOLICITAR CONSIGNADO</a>
+                @endif;?>
+                @if ($menu->cinema):
+                    <a href="@route(('cinema.index')">COMPRAR INGRESSOS PARA O CINEMA</a>
+                @endif;?>
+                @if ($menu->turismo):
+                    <a href="@route(('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
+                @endif;?>
             </fieldset>
-            <button class="botao_geral_cor" id="botao_envia_pesquisa">Enviar Pesquisa</button>
+            <p class="fechar botao_fechar_popup">NÃO PRECISO DE ATENDIMENTO</p>
         </form>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="bloco_popup_indicacao">
 
-    <header class="header_popup">	
+    <header class="header_popup">
 		<h1>INDICAÇÃO</h1>
         <p>iconeFechar</p>
 	</header>
@@ -9,7 +9,7 @@
             <div class="descricao_indicacao">
                 <div class="icone_jornal">
                     <p>iconeJORNAL</p>
-                </div> 
+                </div>
                 <div class="texto_descricao">
                     <p>Não achou o parceiro que procurava ou quer indicar um parceiro?</p>
                     <p>Preencha os campos abaixo e envie sua sugestão.</p>

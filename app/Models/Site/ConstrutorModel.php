@@ -38,6 +38,14 @@ final class ConstrutorModel
                 'unimedflorianopolis' => true,
                 'amil' => true,
             ],
+            'menu' => (object) [
+                'automovel' => true,
+                'saude' => true,
+                'credito' => true,
+                'credito_alfa' => true,
+                'turismo' => true,
+                'cinema' => true,
+            ]
         ];
 
         sessao('CLUBE', $construtor);
@@ -78,6 +86,32 @@ final class ConstrutorModel
             'vitoria' => $vitoria,
             'amil' => $amil,
             'unimedflorianopolis' => $unimedflorianopolis,
+        ];
+    }
+
+    /**
+     * @return object
+     */
+    public function montaPermissaoMenuAjuda(): object
+    {
+        $clube = $this->montarUnico();
+
+        if (!$clube || !property_exists($clube, 'menu')) {
+            return (object)[];
+        }
+
+        $menu = $clube->menu ?? null;
+        if (!$menu) {
+            return (object)[];
+        }
+
+        return (object)[
+            'automovel' => $menu->automovel ?? false,
+            'saude' => $menu->saude ?? false,
+            'credito' => $menu->credito ?? false,
+            'credito_alfa' => $menu->credito_alfa ?? false,
+            'turismo' =>$menu->turismo ?? false,
+            'cinema' => $menu->cinema ?? false
         ];
     }
 }

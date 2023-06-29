@@ -8,6 +8,7 @@ use Http\Response;
 use Http\Request;
 use App\Models\Site\SosMulher\ListarModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
+use App\Models\Site\ConstrutorModel;
 
 final class SiteController extends Controller
 {
@@ -160,7 +161,12 @@ final class SiteController extends Controller
      */
     public function getAjuda(): Response
     {
-        return view('ajuda.index');
+
+        $construtor = (new ConstrutorModel())->montaPermissaoMenuAjuda();
+
+        return view('ajuda.index', [
+            'menu' => $construtor
+        ]);
     }
 
 }

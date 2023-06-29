@@ -13,16 +13,38 @@ class ContatoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  Request  $request
+    * @param  ContatoEntity  $enqueteEntity
+    *
+    * @return Response
+    * @throws Excecao
+    */
+    public function postSalvar(Request $request): Response
+    {
+        $Contato = new ContatoEntity();
+        $Contato->set(lista: $request->dado());
+        $Contato->salvar();
+
+        return $this->retornoSucesso($Contato, 201);
+    }
+
+
+    /**
+     * @param  ContatoEntity  $contatoEntity
+     * @param  int            $status
      *
      * @return Response
      * @throws Excecao
      */
-    public function postSalvar(Request $request): Response
+    private function retornoSucesso(ContatoEntity $contatoEntity, int $status = 200): Response
     {
-        $ContatoEntity = new ContatoEntity($request);
-        $ContatoEntity->salvar();
-
-        return $this->retornoSucesso($ContatoEntity, 201);
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $contatoEntity,
+                lista: [
+                    'id_admin_empresa', 'nome', 'email', 'telefone', 'mensagem', 'url', 'descoberta_site'
+                ]
+            ),
+            $status
+        );
     }
 }
