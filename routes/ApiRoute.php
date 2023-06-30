@@ -839,7 +839,6 @@ Route
 Route
     ::nome('parceiro_loja')
     ::controller(App\Controllers\Api\ParceiroLojaController::class)
-    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')

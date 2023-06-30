@@ -32,7 +32,7 @@ class LojaModel extends ORM
     public function pegarRetorno(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'status'])
+            ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'favorito', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->where($this->pegarWhere())
@@ -54,6 +54,7 @@ class LojaModel extends ORM
                 'desconto' => $r->desconto,
                 'imagem' => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
                 'url' => $r->url,
+                'favorito' => $r->favorito,
                 'status' => $Status->indice($r->status)
             ];
         }
