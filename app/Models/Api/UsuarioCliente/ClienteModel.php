@@ -34,7 +34,7 @@ final class ClienteModel extends ORM
     {
         $dado = $this->buscarUsuario([
             'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal',
-            'data_criacao', 'usuario_lead', 'tipo', 'titular', 'status'
+            'data_criacao', 'usuario_lead', 'tipo', 'titular', 'federacao', 'status'
         ], true);
 
         $dado->lista = $this->montarRetornoLista($dado->lista);
@@ -57,6 +57,9 @@ final class ClienteModel extends ORM
                 $email = $r->email_trabalho;
             }
             $tipo = $TipoUsuario->nome($r->tipo);
+            if ($r->federacao == 'FU') {
+                $tipo = TipoUsuario::FUNCIONARIO;
+            }
             $uuid = $r->cod;
             if ($r->tipo == 2) {
                 $uuid = $this->campo(['cod'])->where(['id', $r->titular])->read(indice: 0, campo: 'cod');

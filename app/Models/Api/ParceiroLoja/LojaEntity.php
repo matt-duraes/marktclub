@@ -4,6 +4,7 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\Entity;
 use Modules\Data;
+use App\Classes\ParceiroLoja\Status;
 
 final class LojaEntity extends Entity
 {
@@ -12,7 +13,8 @@ final class LojaEntity extends Entity
         'texto_desconto' => 'desconto_texto',
         'texto_voucher' => 'voucher_texto',
         'texto_procedimento' => 'procedimento_texto',
-        'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo', 'data_contrato_inicio', 'imagem'
+        'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo', 'data_contrato_inicio',
+        'imagem', 'status'
     ];
     protected array $ormRetornoPadrao = ['id', 'titulo', 'link_logo'];
 
@@ -26,6 +28,7 @@ final class LojaEntity extends Entity
     public string $texto_procedimento;
     public string $imagem;
     public string $link_logo;
+    public Status $status;
 
     protected function regraPosBuscar()
     {

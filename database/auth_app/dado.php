@@ -144,6 +144,8 @@ EwIDAQAB
             "parceiro_cashback:salvar", "parceiro_cashback:atualizar", "parceiro_cashback:listar",
             "parceiro_cashback:buscar", "parceiro_cashback:deletar",
 
+            "parceiro_loja:listar", "parceiro_loja:buscar",
+
             "publicacao_noticia:salvar", "publicacao_noticia:atualizar", "publicacao_noticia:listar",
             "publicacao_noticia:buscar", "publicacao_noticia:deletar",
 
@@ -189,6 +191,8 @@ EwIDAQAB
             "cupom:buscar", "cupom:listar",
 
             "publicidade:buscar", "publicidade:listar", "publicidade:salvar"
+
+            "cupom:buscar", "cupom:listar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],

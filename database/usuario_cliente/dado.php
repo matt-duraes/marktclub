@@ -41,6 +41,15 @@ return [
         'status' => 1
     ],
     [
+        'cod' => 'cdc41730-abc7-4b51-abd7-698e2cb3c0b2',
+        'empresa' => 1,
+        'tipo' => 1,
+        'nome' => 'Usuário de Teste',
+        'documento' => '01234567890',
+        'salt' => password('Teste@1324'),
+        'status' => 1
+    ],
+    [
         'cod' => uuid(),
         'empresa' => 2,
         'tipo' => 1,

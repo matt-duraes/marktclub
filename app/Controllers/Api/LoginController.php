@@ -6,8 +6,10 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
+use App\Models\Api\ApiApp\AppEntity;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginApi\DigioModel;
+use App\Models\Api\LoginClube\LoginClubeModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
@@ -60,6 +62,28 @@ final class LoginController extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | LOGIN CLUBE
+    |--------------------------------------------------------------------------
+    */
+    public function postLoginClube(Request $request)
+    {
+
+
+        $Login = new LoginClubeModel(
+            login: $request->login,
+            senha: $request->senha,
+            redirectUri: $request->redirect_uri,
+            state: $request->state
+        );
+
+        return mensagemSucesso([
+            'token' => $Login->token,
+            'clube' => $Login->construtor
+        ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | LOGIN PAINEL
     |--------------------------------------------------------------------------
     */
@@ -89,19 +113,32 @@ final class LoginController extends Controller
             criptografia: ['name', 'picture', 'email']
         );
 
-        return $this->criarToken($payload, $request, new Tipo(Tipo::PAINEL));
+        return $this->criarToken(
+            body: $payload,
+            audience: $request->audience,
+            redirectUri: $request->redirect_uri,
+            state: $request->state,
+            scope: $request->scope,
+            tipo: new Tipo(Tipo::PAINEL)
+        );
     }
 
-    private function criarToken(array $body, Request $request, Tipo $tipo): Response
-    {
+    private function criarToken(
+        array $body,
+        string $audience,
+        string $redirectUri,
+        string $state,
+        string $scope,
+        Tipo $tipo
+    ): Response {
         $Token = new TokenAuthorizationEntity();
         $token = $Token->criarToken(
             TOKEN['app'],
             $body,
-            empty($request->scope) ? [] : explode(' ', $request->scope),
-            $request->audience,
-            $request->redirect_uri,
-            $request->state,
+            empty($scope) ? [] : explode(' ', $scope),
+            $audience,
+            $redirectUri,
+            $state,
             $tipo
         );
 

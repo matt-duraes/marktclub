@@ -615,6 +615,15 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('loginClube')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
+            ::criptografia(['login', 'senha'])
+            ::request([
+                'login', 'senha', 'scope', 'redirect_uri', 'state'
+            ])
+            ::post('/login/clube');
+
+        Route
             ::nome('loginPainel')
             ::middleware(TokenMiddleware::class, 'scope', ['login:painel'])
             ::criptografia(['login', 'senha', 'google', 'facebook'])
@@ -924,11 +933,15 @@ Route
                 'categoria', 'quantidade', 'ordem'
             ], 'json')
             ::get('/convenio-parceiro/destaque');
-
+      
+        Route
+            ::nome('listar')
+            ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status'], 'json')
+            ::get('/parceiro-loja');
+      
         Route
             ::nome('buscar')
-            ::request(['!email'], 'json')
-            ::get('/convenio-parceiro/{url}');
+            ::get('/parceiro-loja/{id}');
     });
 
 Route
@@ -952,6 +965,7 @@ Route
             ])
             ::post('/solicitacao-premium/download');
     });
+
 Route
     ::nome('solicitacao_voucher')
     ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
@@ -1514,19 +1528,6 @@ Route
                 'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
             ])
             ::post('/enquete/satisfacao');
-    });
-
-
-Route
-    ::nome('farmacia')
-    ::controller(App\Controllers\Api\FarmaciaController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['farmacia:listar'])
-            ::request(['!estabelecimento'])
-            ::get('/medicamento');
     });
 
 Route
