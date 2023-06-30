@@ -842,7 +842,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status'], 'json')
+            ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo','!status', '!favorito'], 'json')
             ::get('/parceiro-loja');
         Route
             ::nome('buscar')

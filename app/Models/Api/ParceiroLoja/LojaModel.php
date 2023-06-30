@@ -42,6 +42,23 @@ class LojaModel extends ORM
         return $dado;
     }
 
+    public function pegarRetornoFavorito(): stdClass
+    {
+        $dado = $this
+            ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'favorito', 'status'])
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
+            ->where($this->pegarWhere())
+            ->where([
+                'AND',
+                ['favorito', 1],
+            ])
+            ->read();
+
+        $dado->lista = $this->montarRetorno($dado->lista);
+        return $dado;
+    }
+
     protected function montarRetorno($lista): array
     {
         $retorno = [];

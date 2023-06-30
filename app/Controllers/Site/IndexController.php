@@ -20,8 +20,7 @@ final class IndexController extends Controller
         if (sessaoExiste('TEMPLATE') && sessao('TEMPLATE') == 'melhor-idade') {
             return new Response(url: route('acessoRapido.index'));
         }
-        $dados = (new LojaModel($url))->listarDados();
-        $favoritas = (new LojaModel($url))->montarFavorito($dados);
+        $favoritas = (new LojaModel($url))->montarFavorito();
         return view('index', [
             'menu'      => 'home',
             'loja_nova' => (new NovaLojaModel())->listarDados(),

@@ -39,15 +39,30 @@ final class LojaModel extends ApiHelper implements ListarInterface
         ];
     }
 
-    public function montarFavorito($favoritos)
+    public function montarFavorito(int $quantidade = 20): stdClass
     {
-        $retorno = [];
-        foreach($favoritos->lista as $r) {
-            if($r->favorito == 1) {
-                $retorno[] = $r;
-            }
-        }
-        return $retorno;
+        $dado = $this
+        ->json([
+            'pagina' => 1,
+            'quantidade' => $quantidade,
+            'tipo' => Tipo::LOJA,
+            'status' => Status::CONCLUIDO,
+            'favorito' => 1
+        ])
+        ->get('/parceiro-loja')
+        ->object();
+        return (object)[
+            'tipo' => 'loja',
+            'lista' => $this->montarLista($dado->dado->lista),
+            'paginacao' => $dado->dado->pagina,
+        ];
+        // $retorno = [];
+        // foreach($favoritos->lista as $r) {
+        // if($r->favorito == 1) {
+        // $retorno[] = $r;
+        // }
+        // }
+        // return $retorno;
     }
 
     private function montarLista(array $dado): array
