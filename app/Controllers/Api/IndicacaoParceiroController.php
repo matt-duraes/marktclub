@@ -2,12 +2,12 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\Api\IndicacaoParceiro\IndicacaoParceiroEntity;
-use Controller\Controller;
-use Erro\Excecao;
 use Http\Request;
+use Erro\Excecao;
 use Http\Response;
+use Controller\Controller;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\IndicacaoParceiro\IndicacaoParceiroEntity;
 
 class IndicacaoParceiroController extends Controller implements
     ControllerSalvarInterface

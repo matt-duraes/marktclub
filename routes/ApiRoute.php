@@ -1429,7 +1429,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:salvar'])
             ::request([
-                'parceiro', 'telefone', 'email', 'mensagem'
+                'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
             ])
             ::post('/parceiro/indicacao');
     });

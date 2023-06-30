@@ -4,7 +4,7 @@
         <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
     <div class="popup_conteudo centralizado">
-        <form id="formulario_indicacao" action="" class="form_geral bloco_conteudo_geral centralizado" method="post">
+        <form id="formulario_indica_parceiro" action="" class="form_geral bloco_conteudo_geral centralizado" method="post">
             <header class="coluna texto">
                 <p>Não achou o parceiro que procurava ou quer indicar um parceiro?</p>
                 <p>Preencha os campos abaixo e envie sua sugestão.</p>
@@ -13,10 +13,10 @@
             <fieldset class="texto">
                 <h1 class="texto"> DADOS DO PARCEIRO</h1>
                 <label>
-                    @? formInput(name: 'nome', placeholder: 'Qual o nome do parceiro?', label: '', class: 'busca_nome', value: '')
+                    @? formInput(name: 'parceiro', placeholder: 'Qual o nome do parceiro?', label: '', class: 'busca_nome', value: '')
                 </label>
                 <label>
-                    @? formInput(name: 'telefone', placeholder: 'Você tem o telefone do parceiro?', label: '', class: 'busca_telefone', value: '')
+                    @? formTelefone(name: 'telefone', placeholder: 'Você tem o telefone do parceiro?', label: '', class: 'busca_telefone', value: '')
                 </label>
                 <label>
                     @? formEmail(name: 'email', label: 'E-mail do parceiro', placeholder: 'Você tem o e-mail do parceiro?', value: '')
@@ -30,7 +30,7 @@
                 </label>
             </fieldset>
 
-            <button  class="botao_enviar_indicacao botao_geral_cor cor_bg">ENVIAR</button>
+            <button id="botao_enviar_indicacao" class="botao_enviar_indicacao botao_geral_cor cor_bg">ENVIAR</button>
         </form>
     </div>
 
