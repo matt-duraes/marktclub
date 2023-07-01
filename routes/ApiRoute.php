@@ -1405,3 +1405,19 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['cupom:buscar'])
             ::get('/cupom/{id}');
     });
+
+
+
+Route
+    ::nome('automovel')
+    ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_automovel:salvar'])
+            ::request([
+                'produto', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+            ])
+            ::post('/automovel/indicacao');
+    });
