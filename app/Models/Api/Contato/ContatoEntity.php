@@ -18,9 +18,6 @@ class ContatoEntity extends Entity
 
     protected string $ormTabela = TABELA_MENSAGEM_CONTATO_NOVO;
 
-    protected array $ormSalvar = [
-        'id_admin_empresa', 'nome', 'email', 'telefone', 'mensagem', 'url', 'descoberta_site'
-    ];
 
     public Nome $nome;
     public Email $email;
@@ -30,6 +27,13 @@ class ContatoEntity extends Entity
     public string $url;
     public int $idEmpresa;
     public Status $status;
+
+    protected array $ormBuscar = [
+        'id_admin_empresa', 'nome', 'email', 'telefone', 'mensagem',  'descoberta_site'
+    ];
+    protected array $ormSalvar = [
+        'id_admin_empresa', 'nome', 'email', 'telefone', 'mensagem', 'url', 'descoberta_site'
+    ];
 
     public function __construct(
         private readonly ?Request $request = null

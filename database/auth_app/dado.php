@@ -188,7 +188,7 @@ EwIDAQAB
 
             "cupom:buscar", "cupom:listar",
 
-            "contato:salvar",
+            "contato:salvar", "contato:listar", "contato:buscar",
 
             "mensagem_indicacao_parceiro:salvar",
 

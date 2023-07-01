@@ -3,17 +3,47 @@
 namespace App\Controllers\Api;
 
 use App\Models\Api\Contato\ContatoEntity;
+use App\Models\Api\Contato\ContatoModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
 class ContatoController extends Controller implements
+    ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface
 {
     /**
-    * @param  ContatoEntity  $enqueteEntity
+     * @param  string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getBuscar(string $id): Response
+    {
+        $Contato = new ContatoEntity();
+        $Contato->uuid($id);
+
+        return $this->retornoSucesso($Contato);
+    }
+
+    /**
+     * @param  Request  $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getListar(Request $request): Response
+    {
+        $Contato = new ContatoModel($request);
+        return mensagemSucesso($Contato->listarDados());
+    }
+    /**
+    * @param  ContatoEntity  $contatoEntity
     *
     * @return Response
     * @throws Excecao

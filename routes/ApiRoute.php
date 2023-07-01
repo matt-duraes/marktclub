@@ -1418,6 +1418,17 @@ Route
                 'nome', 'email', 'telefone', 'mensagem', 'url', '!descoberta_site'
             ])
             ::post('/contato');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/contato');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:buscar'])
+            ::get('/contato/{id}');
     });
 
 Route
