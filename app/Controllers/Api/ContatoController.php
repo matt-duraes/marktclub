@@ -48,6 +48,7 @@ class ContatoController extends Controller implements
     * @return Response
     * @throws Excecao
     */
+
     public function postSalvar(Request $request): Response
     {
         $Contato = new ContatoEntity();

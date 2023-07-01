@@ -190,7 +190,7 @@ EwIDAQAB
 
             "contato:salvar", "contato:listar", "contato:buscar",
 
-            "mensagem_indicacao_parceiro:salvar",
+            "mensagem_indicacao_parceiro:salvar", "mensagem_indicacao_parceiro:listar", "mensagem_indicacao_parceiro:buscar",
 
             "mensagem_indicacao_automovel:salvar"
         ],

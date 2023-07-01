@@ -17,6 +17,11 @@ class IndicacaoParceiroEntity extends Entity
 {
     protected string $ormTabela = TABELA_MENSAGEM_INDICACAO_NOVO;
 
+    protected array $ormBuscar = [
+        'id_admin_empresa', 'id_usuario_cliente',
+        'parceiro', 'telefone', 'email', 'mensagem','tipo',
+        'data_atualizacao', 'data_criacao', 'status',
+    ];
     protected array $ormSalvar = [
         'id_admin_empresa',  'id_usuario_cliente', 'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
     ];

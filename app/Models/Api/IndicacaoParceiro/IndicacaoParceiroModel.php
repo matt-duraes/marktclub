@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models\Api\Contato;
+namespace App\Models\Api\IndicacaoParceiro;
 
-use App\Classes\Contato\Ordem;
-use App\Classes\Contato\Status;
+use App\Classes\IndicacaoParceiro\Ordem;
+use App\Classes\IndicacaoParceiro\Status;
+use App\Classes\IndicacaoParceiro\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Http\Request;
@@ -15,14 +16,14 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class ContatoModel extends ORM implements ModelListarInterface
+class IndicacaoParceiroModel extends ORM implements ModelListarInterface
 {
     use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_MENSAGEM_CONTATO_NOVO;
+    protected string $ormTabela = TABELA_MENSAGEM_INDICACAO_NOVO;
 
     /**
      * @param  Request  $request
@@ -68,13 +69,16 @@ class ContatoModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'nome', 'telefone', 'email', 'status', 'mensagem',  'descoberta_site', 'data_criacao'])
+            ->campo(['uuid', 'id_admin_empresa',  'id_usuario_cliente', 'parceiro', 'telefone', 'email', 'mensagem', 'tipo', 'data_criacao', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), false)
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['cod', 'nome_fantasia'], 'empresa')
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->join('id', 'id_usuario_cliente')
+            ->campo(['nome', 'documento',  'email_pessoal'])
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -119,21 +123,25 @@ class ContatoModel extends ORM implements ModelListarInterface
         }
 
         $Status = new Status();
+        $Tipo = new Tipo();
 
         $retorno = [];
         foreach ($dados as $items) {
             $retorno[] = [
-                'id'           => $items->uuid,
-                'nome'         => $items->nome,
-                'telefone'     => $items->telefone,
-                'email'        => $items->email,
-                'mensagem'     => $items->mensagem,
-                'descoberta_site' => $items->descoberta_site,
+                'id'            => $items->uuid,
+                'usuario_nome'  => $items->nome,
+                'usuario_email' => $items->email_pessoal,
                 'empresa' => [
                     'nome' => $items->empresa_nome_fantasia
                 ],
-                'status'       => $Status->indice($items->status),
-                'data_criacao' => dataHoraBr($items->data_criacao)
+                'parceiro'      => strNull($items->parceiro),
+                'telefone'      => strNull($items->telefone),
+                'email'         => strNull($items->email),
+                'telefone'      => strNull($items->telefone),
+                'mensagem'      => strNull($items->mensagem),
+                'tipo'          => $Tipo->indice($items->tipo),
+                'data_criacao'  => dataHoraBr($items->data_criacao),
+                'status'        => $Status->indice($items->status)
             ];
         }
         return $retorno;

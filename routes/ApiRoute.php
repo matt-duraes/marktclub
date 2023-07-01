@@ -1443,6 +1443,17 @@ Route
                 'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
             ])
             ::post('/parceiro/indicacao');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:listar'])
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/parceiro-indicacao');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:buscar'])
+            ::get('/parceiro-indicacao/{id}');
     });
 
 Route

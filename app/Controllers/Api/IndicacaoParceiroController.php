@@ -6,12 +6,43 @@ use Http\Request;
 use Erro\Excecao;
 use Http\Response;
 use Controller\Controller;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\IndicacaoParceiro\IndicacaoParceiroEntity;
+use App\Models\Api\IndicacaoParceiro\IndicacaoParceiroModel;
 
 class IndicacaoParceiroController extends Controller implements
+    ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface
 {
+    /**
+     * @param  string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getBuscar(string $id): Response
+    {
+        $IndicacaoParceiro = new IndicacaoParceiroEntity();
+        $IndicacaoParceiro->uuid($id);
+
+        return $this->retornoSucesso($IndicacaoParceiro);
+    }
+
+    /**
+     * @param  Request  $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getListar(Request $request): Response
+    {
+        $IndicacaoParceiro = new IndicacaoParceiroModel($request);
+        return mensagemSucesso($IndicacaoParceiro->listarDados());
+    }
+
     /**
     * @param  IndicacaoParceiroEntity  $indicacaoParceiroEntity
     *
