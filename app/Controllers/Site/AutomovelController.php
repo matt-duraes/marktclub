@@ -5,10 +5,12 @@ namespace App\Controllers\Site;
 use App\Models\Site\Automovel\ModeloModel;
 use App\Models\Site\Automovel\MontadoraModel;
 use App\Models\Site\Automovel\VeiculoModel;
+use App\Models\Site\Automovel\SalvarIndicacaoModel;
 use App\Models\Site\BannerModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
+use Http\Request;
 
 final class AutomovelController extends Controller
 {
@@ -86,4 +88,21 @@ final class AutomovelController extends Controller
             'esconde' => $esconde
         ]);
     }
+
+
+    /**
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postIndicacao(Request $request): Response
+    {
+        $indicacao = new SalvarIndicacaoModel($request);
+        $indicacao = $indicacao->postSalvar();
+
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
+    }
+
 }
