@@ -19,10 +19,10 @@ const {
 |--------------------------------------------------------------------------
 */
 exports.htmlDeploy = function () {
-    return src('files/build/html/**/*.php')
+    return src('files/build/views/**/*.php')
         .pipe(plumber())
         .pipe(htmlMin({ collapseWhitespace: true }))
-        .pipe(dest('files/build/html/'));
+        .pipe(dest('files/build/views/'));
 };
 
 /*
@@ -34,7 +34,7 @@ exports.htmlProducao = async () => {
     await fsDeletarDiretorio('files/build/views');
     await new Promise(r => setTimeout(r, 2000));
 
-    return src('./files/build/html/*.php').pipe(plumber()).pipe(dest('./files/build/views'));
+    return src('./files/build/views/*.php').pipe(plumber()).pipe(dest('./files/build/views'));
 };
 
 /*
@@ -74,10 +74,9 @@ exports.htmlUnico = function (path) {
 */
 exports.htmlTodos = function () {
     return new Promise(async resolve => {
-        await fsCriarDiretorio('files/build');
-        await fsDeletarDiretorio('files/build/html');
         await fsDeletarDiretorio('files/build/views');
-        await fsCriarDiretorio('files/build/html');
+        await fsCriarDiretorio('files');
+        await fsCriarDiretorio('files/build');
         await fsCriarDiretorio('files/build/views');
 
         const listaArquivo = glob

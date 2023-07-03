@@ -61,6 +61,8 @@ exports.jsTodos = function () {
         arquivoConteudo = [];
 
         await fsDeletarDiretorio('./files/build/js');
+        await fsCriarDiretorio('./files');
+        await fsCriarDiretorio('./files/build');
         await fsCriarDiretorio('./files/build/js');
 
         const listaArquivo = glob
@@ -159,7 +161,13 @@ function processarJs(path, destino) {
         const dirBase = path.replace(/\/all.js$/, '') + '/';
         const nome = pegarNomeArquivo(path);
 
-        const conteudo = fs.readFileSync(path, 'utf-8');
+        let conteudo = '';
+        if (arquivoConteudo[path]) {
+            conteudo = arquivoConteudo[path];
+        } else {
+            conteudo = fs.readFileSync(path, 'utf-8');
+            arquivoConteudo[path] = conteudo;
+        }
         let listaImport = pegarListaImports(conteudo, dirBase);
         if (listaImport) {
             listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
@@ -266,13 +274,21 @@ function pegarSubImports(lista) {
     [].forEach.call(lista, arquivo => {
         if (
             ((/^views\/templates/.test(arquivo) && /all.js$/.test(arquivo)) ||
-                (/^views\/pages/.test(arquivo) && /all.js$/.test(arquivo))) &&
+                (/^views\/pages/.test(arquivo) && /all.js$/.test(arquivo)) ||
+                (/^src\/Painel\/template/.test(arquivo) && /all.js$/.test(arquivo))) &&
             fs.existsSync(arquivo)
         ) {
             path = arquivo.split('/');
             path.pop();
             path = path.join('/') + '/';
-            conteudo = fs.readFileSync(arquivo, 'utf-8');
+
+            if (arquivoConteudo[arquivo]) {
+                conteudo = arquivoConteudo[arquivo];
+            } else {
+                conteudo = fs.readFileSync(arquivo, 'utf-8');
+                arquivoConteudo[arquivo] = conteudo;
+            }
+
             tmp = pegarListaImports(conteudo, path);
             if (false !== tmp) {
                 [].forEach.call(tmp, subArquivo => {

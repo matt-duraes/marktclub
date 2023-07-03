@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Painel\templete\Models;
+namespace PainelModel\Template;
 
 final class MenuModel
 {

@@ -138,7 +138,14 @@ async function processarCss(path, destino, browser) {
     const dirBase = path.replace(/\/layout.styl$/, '') + '/';
     const nome = pegarNomeArquivo(path);
 
-    const conteudo = fs.readFileSync(path, 'utf-8');
+    let conteudo = '';
+    if (arquivoConteudo[path]) {
+        conteudo = arquivoConteudo[path];
+    } else {
+        conteudo = fs.readFileSync(path, 'utf-8');
+        arquivoConteudo[path] = conteudo;
+    }
+
     let listaImport = pegarListaImports(conteudo, dirBase);
     if (listaImport) {
         listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
@@ -244,13 +251,19 @@ function pegarSubImports(lista) {
     [].forEach.call(lista, arquivo => {
         if (
             ((/^views\/templates/.test(arquivo) && /layout.styl$/.test(arquivo)) ||
-                (/^views\/pages/.test(arquivo) && /layout.styl$/.test(arquivo))) &&
+                (/^views\/pages/.test(arquivo) && /layout.styl$/.test(arquivo)) ||
+                (/^src\/Painel\/template/.test(arquivo) && /layout.styl$/.test(arquivo))) &&
             fs.existsSync(arquivo)
         ) {
             path = arquivo.split('/');
             path.pop();
             path = path.join('/') + '/';
-            conteudo = fs.readFileSync(arquivo, 'utf-8');
+            if (arquivoConteudo[arquivo]) {
+                conteudo = arquivoConteudo[arquivo];
+            } else {
+                conteudo = fs.readFileSync(arquivo, 'utf-8');
+                arquivoConteudo[arquivo] = conteudo;
+            }
             tmp = pegarListaImports(conteudo, path);
             if (false !== tmp) {
                 [].forEach.call(tmp, subArquivo => {

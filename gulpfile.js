@@ -55,11 +55,13 @@ exports.upgrade = series(
 exports.clearFramework = series(limpandoFramework);
 
 // Deploy em produção
-exports.deploy = parallel(
-    series(copiandoArquivosCSS, preparandoCSSParaProducao),
-    series(copiandoArquivosJS, preparandoJSParaProducao),
-    series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-    series(copiandoArquivosDeImagem)
+exports.deploy = series(
+    parallel(
+        series(copiandoArquivosJS, preparandoJSParaProducao),
+        series(copiandoArquivosHtml, preparandoHtmlParaProducao),
+        series(copiandoArquivosDeImagem)
+    ),
+    series(copiandoArquivosCSS, preparandoCSSParaProducao)
 );
 
 // Instalar o framework
@@ -86,7 +88,10 @@ exports.install = series(
 exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
-exports.build = parallel(copiandoArquivosCSS, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem);
+exports.build = series(
+    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
+    copiandoArquivosCSS
+);
 exports.composerBugfix = series(corrigindoBugDoComposer);
 
 /*
