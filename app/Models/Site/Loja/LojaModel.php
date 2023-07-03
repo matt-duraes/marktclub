@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Site\Farmacia;
+namespace App\Models\Site\Loja;
 
 use stdClass;
 use Helpers\ApiHelper;
@@ -9,7 +9,7 @@ use App\Classes\ParceiroLoja\Status;
 use App\Models\Site\ListarInterface;
 use App\Classes\ParceiroLoja\Estabelecimento;
 
-final class FarmaciaModel extends ApiHelper implements ListarInterface
+final class LojaModel extends ApiHelper implements ListarInterface
 {
     public function __construct()
     {
@@ -27,17 +27,34 @@ final class FarmaciaModel extends ApiHelper implements ListarInterface
             ->json([
                 'pagina' => 1,
                 'quantidade' => $quantidade,
-                'estabelecimento' => Estabelecimento::FISICO,
-                'tipo' => Tipo::FARMACIA,
+                'tipo' => Tipo::LOJA,
                 'status' => Status::CONCLUIDO,
             ])
             ->get('/parceiro-loja')
             ->object();
-
         return (object)[
-            'tipo' => 'farmacia',
+            'tipo' => 'loja',
             'lista' => $this->montarLista($dado->dado->lista),
-            'paginacao' => $dado->dado->pagina
+            'paginacao' => $dado->dado->pagina,
+        ];
+    }
+
+    public function montarFavorito(int $quantidade = 20): stdClass
+    {
+        $dado = $this
+        ->json([
+            'pagina' => 1,
+            'quantidade' => $quantidade,
+            'tipo' => Tipo::LOJA,
+            'status' => Status::CONCLUIDO,
+            'favorito' => 1
+        ])
+        ->get('/parceiro-loja')
+        ->object();
+        return (object)[
+            'tipo' => 'loja',
+            'lista' => $this->montarLista($dado->dado->lista),
+            'paginacao' => $dado->dado->pagina,
         ];
     }
 
@@ -48,9 +65,10 @@ final class FarmaciaModel extends ApiHelper implements ListarInterface
             $retorno[] = (object)[
                 'id'       => uuid(),
                 'titulo'   => $r->titulo,
-                'link'     => route('farmacia.detalhe') . '/' . $r->url,
+                'link'     => route('loja.detalhe') . '/' . $r->url,
                 'imagem'   => $r->imagem,
-                'desconto' => $r->desconto
+                'desconto' => $r->desconto,
+                'favorito' => $r->favorito,
             ];
         }
         return $retorno;
@@ -74,18 +92,22 @@ final class FarmaciaModel extends ApiHelper implements ListarInterface
     private function montarRetorno($dado)
     {
         return (object)[
+
             'id' => $dado->id ?? '',
             'titulo' => $dado->titulo ?? '',
             'logo' => $dado->link_logo ?? '',
             'texto_desconto' => $dado->texto_desconto ?? '',
             'texto_procedimento' => $dado->texto_procedimento ?? '',
-            'texto_descricao' => 'Texto de descrição padrão',
-            'capa_desktop' => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
-            'capa_mobile' => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
+            'texto_descricao' => $dado->descricao ?? 'texto descricao padrão 22',
+            'capa_desktop' => 'https://arquivo.marktclub.com.br/parceiro/'.$dado->banner ?? 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
+            'capa_mobile' =>  'https://arquivo.marktclub.com.br/parceiro/'.$dado->banner ?? 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
             'procedimento' => 'voucher',
             'endereco' => [],
-
+            'favorito' => $dado->favorito,
+            'tipo' => 'loja',
+            'descricao' => $dado->descricao ?? 'texto descricao padrão 22',
         ];
+
     }
 
     /*

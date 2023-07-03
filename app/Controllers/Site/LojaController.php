@@ -12,6 +12,8 @@ use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Loja\DetalheModel;
 use App\Models\Site\Loja\RelacionadoModel;
+use App\Models\Site\Loja\LojaModel;
+
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 
@@ -43,13 +45,14 @@ final class LojaController extends Controller
      */
     public function index(Request $request, BuscaModel $Busca = null): Response
     {
-
+        $dado = (new LojaModel())->listarDados();
         return view('loja.index', [
             'menu'         => 'loja',
             'banner'       => true,
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'lista'        => (new ListarModel())->listarDados(),
+            'lista'        => $dado,
             'parceiroTipo' => 'loja',
+            'capa_desktop' => '',
             'banner'       => (new BannerModel())->loja(),
             'popupSimples' => true
         ]);
@@ -65,14 +68,13 @@ final class LojaController extends Controller
      */
     public function detalhe(Request $request, $url = null, BuscaModel $Busca = null): Response
     {
-        $dado = (new DetalheModel($url))->listarDados();
-
+        $dado = (new LojaModel())->buscarDados($url);
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'url'          => $url,
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'lista'        => (new RelacionadoModel())->listarDados(),
-            'dado'        => (new DetalheModel($url))->listarDados(),
+            'dado'         => $dado,
+            'lista' => (new LojaModel())->relacionado($dado->id),
             'parceiroTipo' => 'loja'
         ]);
     }

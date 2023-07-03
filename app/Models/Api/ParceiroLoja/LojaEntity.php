@@ -13,8 +13,10 @@ final class LojaEntity extends Entity
         'texto_desconto' => 'desconto_texto',
         'texto_voucher' => 'voucher_texto',
         'texto_procedimento' => 'procedimento_texto',
-        'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo', 'data_contrato_inicio',
-        'imagem', 'status'
+        'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo','banner'
+        ,'data_contrato_inicio','imagem', 'status', 'desconto_texto', 'procedimento_texto',
+        'favorito', 'descricao'
+
     ];
     protected array $ormRetornoPadrao = ['id', 'titulo', 'link_logo'];
 
@@ -27,6 +29,9 @@ final class LojaEntity extends Entity
     public string $texto_voucher;
     public string $texto_procedimento;
     public string $imagem;
+    public string $descricao;
+    public string $banner;
+    public int $favorito;
     public string $link_logo;
     public Status $status;
 
