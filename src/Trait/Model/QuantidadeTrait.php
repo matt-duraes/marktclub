@@ -9,10 +9,10 @@ trait QuantidadeTrait
     /**
      * Pega a quantidade de registros por busca da request
      *
-     * @param   bool    $obrigatorio    Se é obrigatório ter uma quantidade no request
-     * @param   bool    $valido         Se a quantidade deve ser um número valido
-     * @return  int                     O número com a quantidade
-     * @throws  Excecao                 Uma exeção com o erro
+     * @param  bool    $obrigatorio Se é obrigatório ter uma quantidade no request
+     * @param  bool    $valido      Se a quantidade deve ser um número valido
+     * @return int     O número com a quantidade
+     * @throws Excecao Uma exeção com o erro
      */
     protected function pegarQuantidade(bool $obrigatorio = false, bool $valido = true): int
     {

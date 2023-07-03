@@ -36,15 +36,15 @@ final class ListarModel extends ApiHelper implements ListarInterface
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema/playarte.png',
+                    'imagem'   => 'https://clube.marktclub.com.br/images/cinema/playarte.png',
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema/uci.png',
+                    'imagem'   => 'https://clube.marktclub.com.br/images/cinema/uci.png',
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema/moviecom.png',
+                    'imagem'   => 'https://clube.marktclub.com.br/images/cinema/moviecom.png',
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
             ]

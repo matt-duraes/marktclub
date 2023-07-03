@@ -36,6 +36,6 @@ trait MontarRetornoTrait
                     'favorito' => '1'
                 ]
             ]
-                ];
+        ];
     }
 }

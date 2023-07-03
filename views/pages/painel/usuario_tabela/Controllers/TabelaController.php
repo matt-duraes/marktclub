@@ -14,9 +14,9 @@ final class TabelaController extends Controller
     {
         return view(arquivo: 'painel.usuario_tabela.index', var: [
             'appTitulo' => 'TABELA / SALVAR',
-            'app' => 'tabela-salvar',
-            'tipo' => 'salvar',
-            'arquivo' => arquivoPublico('tabela', 'layout_usuario.csv', parametro: ['download' => 'sim'])
+            'app'       => 'tabela-salvar',
+            'tipo'      => 'salvar',
+            'arquivo'   => arquivoPublico('tabela', 'layout_usuario.csv', parametro: ['download' => 'sim'])
         ]);
     }
 
@@ -24,9 +24,9 @@ final class TabelaController extends Controller
     {
         return view(arquivo: 'painel.usuario_tabela.index', var: [
             'appTitulo' => 'TABELA / BLOQUEAR',
-            'app' => 'tabela-bloquear',
-            'tipo' => 'bloquear',
-            'arquivo' => arquivoPublico('tabela', 'layout_bloqueio.csv', parametro: ['download' => 'sim'])
+            'app'       => 'tabela-bloquear',
+            'tipo'      => 'bloquear',
+            'arquivo'   => arquivoPublico('tabela', 'layout_bloqueio.csv', parametro: ['download' => 'sim'])
         ]);
     }
 
@@ -40,7 +40,7 @@ final class TabelaController extends Controller
         }
         return new Response(json: [
             'status' => 'erro',
-            'lista' => $dado['erro']
+            'lista'  => $dado['erro']
         ], status: 400);
     }
 
@@ -54,7 +54,7 @@ final class TabelaController extends Controller
         }
         return new Response(json: [
             'status' => 'erro',
-            'lista' => $dado['erro']
+            'lista'  => $dado['erro']
         ], status: 400);
     }
 

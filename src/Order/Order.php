@@ -14,8 +14,8 @@ abstract class Order implements OrderInterface
     /**
      * Pessa o valor manualmente a ordem
      *
-     * @param   string $valor   Valor da ordem
-     * @return  self
+     * @param  string $valor Valor da ordem
+     * @return self
      */
     public function valor(string $valor): self
     {
@@ -27,8 +27,8 @@ abstract class Order implements OrderInterface
     /**
      * Qual tabela pertence a ordem
      *
-     * @param   string $tabela      Nome da tabela que deseja usar
-     * @return  self
+     * @param  string $tabela Nome da tabela que deseja usar
+     * @return self
      */
     public function tabela(string $tabela): self
     {
@@ -40,8 +40,8 @@ abstract class Order implements OrderInterface
     /**
      * Pega um array com a lista de valores válidos no formato indice => nome
      *
-     * @param   null|string     $titulo Título para ficar no primeiro valor do array tendo o indice vazio: "" => $titulo
-     * @return  array
+     * @param  null|string $titulo Título para ficar no primeiro valor do array tendo o indice vazio: "" => $titulo
+     * @return array
      */
     public function select(?string $titulo = null): array
     {
@@ -59,12 +59,12 @@ abstract class Order implements OrderInterface
     /**
      * Cria uma ordem passando os campos para a tabela atual
      *
-     * @param   string      $indice     Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
-     * @param   string      $nome       Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
-     * @param   string      $campo      Campo do banco que deseja usar para ordernar. Ex: Nome
-     * @param   string      $direcao    Qual direção será usada podendo ser ASC ou DESC
-     * @param   null|string $tabela     Tabela que vai usar, se null, pega a tabela atual
-     * @return  self
+     * @param  string      $indice  Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
+     * @param  string      $nome    Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
+     * @param  string      $campo   Campo do banco que deseja usar para ordernar. Ex: Nome
+     * @param  string      $direcao Qual direção será usada podendo ser ASC ou DESC
+     * @param  null|string $tabela  Tabela que vai usar, se null, pega a tabela atual
+     * @return self
      */
     public function campo(string $indice, string $nome, string $campo, string $direcao, ?string $tabela = null): self
     {
@@ -74,11 +74,11 @@ abstract class Order implements OrderInterface
 
         $tabela = !empty($tabela) ? $tabela : $this->tabela;
         $this->lista[$indice] = [
-            'order' => '`' . $tabela . '`.`' . $campo . '` ' . $direcao,
+            'order'  => '`' . $tabela . '`.`' . $campo . '` ' . $direcao,
             'indice' => $indice,
-            'nome' => $nome,
-            'campo' => $campo,
-            'icone' => $direcao == 'ASC' ? '>' : '<'
+            'nome'   => $nome,
+            'campo'  => $campo,
+            'icone'  => $direcao == 'ASC' ? '>' : '<'
         ];
 
         return $this;
@@ -88,21 +88,21 @@ abstract class Order implements OrderInterface
     /**
      * Cria uma ordem passando a string ORDER em forma de texto
      *
-     * @param   string      $indice     Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
-     * @param   string      $nome       Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
-     * @param   string      $campo      Campo do banco que deseja usar para ordernar. Ex: Nome
-     * @param   string      $ordem      A ordem que deseja usar. Ex: `tabela`.`nome` ASC
-     * @param   string      $icone      Icone que deseja usar podendo ser < ou >
-     * @return  self
+     * @param  string $indice Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
+     * @param  string $nome   Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
+     * @param  string $campo  Campo do banco que deseja usar para ordernar. Ex: Nome
+     * @param  string $ordem  A ordem que deseja usar. Ex: `tabela`.`nome` ASC
+     * @param  string $icone  Icone que deseja usar podendo ser < ou >
+     * @return self
      */
     public function campoTexto(string $indice, string $nome, string $campo, string $ordem, ?string $icone): self
     {
         $this->lista[$indice] = [
-            'order' => $ordem,
+            'order'  => $ordem,
             'indice' => $indice,
-            'nome' => $nome,
-            'campo' => $campo,
-            'icone' => in_array($icone, ['<', '>']) ? $icone : ''
+            'nome'   => $nome,
+            'campo'  => $campo,
+            'icone'  => in_array($icone, ['<', '>']) ? $icone : ''
         ];
         return $this;
     }
@@ -116,11 +116,11 @@ abstract class Order implements OrderInterface
     public function rand()
     {
         $this->lista['randomico'] = [
-            'order' => 'RAND()',
+            'order'  => 'RAND()',
             'indice' => 'randomico',
-            'nome' => 'Randômico',
-            'campo' => '',
-            'icone' => ''
+            'nome'   => 'Randômico',
+            'campo'  => '',
+            'icone'  => ''
         ];
     }
 
@@ -164,10 +164,10 @@ abstract class Order implements OrderInterface
     /**
      * Buscar por um indice ascendente
      *
-     * @param   string $indice      Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
-     * @param   string $nome        Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
-     * @param   string $campo       Campo do banco que deseja usar para ordernar. Ex: Nome
-     * @return  self
+     * @param  string $indice Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
+     * @param  string $nome   Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
+     * @param  string $campo  Campo do banco que deseja usar para ordernar. Ex: Nome
+     * @return self
      */
     public function asc(string $indice, string $nome, string $campo): self
     {
@@ -179,10 +179,10 @@ abstract class Order implements OrderInterface
     /**
      * Buscar por um indice descendente
      *
-     * @param   string $indice      Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
-     * @param   string $nome        Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
-     * @param   string $campo       Campo do banco que deseja usar para ordernar. Ex: Nome
-     * @return  self
+     * @param  string $indice Indice publico que deseja usar para a ordenação. Ex: nome-mais-novo
+     * @param  string $nome   Nome do campo para ser mostrado para o usuário normal. Ex: Nome mais novo
+     * @param  string $campo  Campo do banco que deseja usar para ordernar. Ex: Nome
+     * @return self
      */
     public function desc($indice, $nome, $campo): self
     {
@@ -212,10 +212,10 @@ abstract class Order implements OrderInterface
         $retorno = [];
         foreach ($lista as $r) {
             $retorno[] = (object)[
-                'hash' => base64Encode($r['indice'], true),
+                'hash'   => base64Encode($r['indice'], true),
                 'titulo' => $r['nome'],
-                'icone' => $r['icone'],
-                'campo' => $r['campo'],
+                'icone'  => $r['icone'],
+                'campo'  => $r['campo'],
                 'indice' => $r['indice']
             ];
         }

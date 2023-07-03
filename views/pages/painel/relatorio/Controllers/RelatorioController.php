@@ -13,30 +13,32 @@ final class RelatorioController extends Controller
     {
         return view(arquivo: 'painel.relatorio.acesso', var: [
             'appTitulo' => 'Relatório de acesso',
-            'app' => 'relatorio-acesso',
-            'de' => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
-            'ate' => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
-            'empresa' => $this->pegarSelectEmpresa()
+            'app'       => 'relatorio-acesso',
+            'de'        => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
+            'ate'       => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
+            'empresa'   => $this->pegarSelectEmpresa()
         ]);
     }
+
     public function usuario()
     {
         return view(arquivo: 'painel.relatorio.usuario', var: [
             'appTitulo' => 'Relatório de usuário',
-            'app' => 'relatorio-usuario',
-            'de' => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
-            'ate' => date('d/m/Y'),
-            'empresa' => $this->pegarSelectEmpresa()
+            'app'       => 'relatorio-usuario',
+            'de'        => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
+            'ate'       => date('d/m/Y'),
+            'empresa'   => $this->pegarSelectEmpresa()
         ]);
     }
+
     public function lojaVenda()
     {
         return view(arquivo: 'painel.relatorio.venda', var: [
             'appTitulo' => 'Relatório de venda',
-            'app' => 'relatorio-loja-venda',
-            'de' => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
-            'ate' => '01/' . date('m/Y'),
-            'empresa' => $this->pegarSelectEmpresa()
+            'app'       => 'relatorio-loja-venda',
+            'de'        => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
+            'ate'       => '01/' . date('m/Y'),
+            'empresa'   => $this->pegarSelectEmpresa()
         ]);
     }
 
@@ -60,7 +62,7 @@ final class RelatorioController extends Controller
         $this->validarData($de, $ate);
 
         $body = [
-            'de' => dataBanco($de),
+            'de'  => dataBanco($de),
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
@@ -93,12 +95,12 @@ final class RelatorioController extends Controller
 
         $uri = [
             'usuario' => 'usuario-mais-acesso',
-            'pagina' => 'pagina-mais-acessada',
-            'loja' => 'loja-mais-acessada'
+            'pagina'  => 'pagina-mais-acessada',
+            'loja'    => 'loja-mais-acessada'
         ];
 
         $body = [
-            'de' => dataBanco($de),
+            'de'  => dataBanco($de),
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
@@ -131,7 +133,7 @@ final class RelatorioController extends Controller
         }
 
         $body = [
-            'de' => dataBanco($de),
+            'de'  => dataBanco($de),
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
@@ -191,13 +193,13 @@ final class RelatorioController extends Controller
 
         $Montar = new MontarRelatorioModel();
         return mensagemSucesso([
-            'status' => $Montar->montarRelatorioStatus($dado->dado->status),
-            'estado' => $Montar->montarRelatorioEstado($dado->dado->estado),
-            'genero' => $Montar->montarPizza($dado->dado->genero->lista, 'genero'),
-            'faixa_etaria' => $Montar->montarPizza($dado->dado->faixa_etaria->lista, 'faixa_etaria'),
+            'status'         => $Montar->montarRelatorioStatus($dado->dado->status),
+            'estado'         => $Montar->montarRelatorioEstado($dado->dado->estado),
+            'genero'         => $Montar->montarPizza($dado->dado->genero->lista, 'genero'),
+            'faixa_etaria'   => $Montar->montarPizza($dado->dado->faixa_etaria->lista, 'faixa_etaria'),
             'atualizar_dado' => $Montar->montarPizza($dado->dado->atualizar_dado->lista, 'tempo'),
-            'estado_civil' => $Montar->montarPizza($dado->dado->estado_civil->lista, 'estado_civil'),
-            'situacao' => $Montar->montarPizza($dado->dado->situacao->lista, 'situacao'),
+            'estado_civil'   => $Montar->montarPizza($dado->dado->estado_civil->lista, 'estado_civil'),
+            'situacao'       => $Montar->montarPizza($dado->dado->situacao->lista, 'situacao'),
         ]);
     }
 
@@ -213,7 +215,7 @@ final class RelatorioController extends Controller
 
         $this->validarData($de, $ate);
         $body = [
-            'de' => dataBanco($de),
+            'de'  => dataBanco($de),
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
@@ -234,8 +236,8 @@ final class RelatorioController extends Controller
         );
 
         return mensagemSucesso([
-            'mes' => $mes,
-            'venda' => $dado->dado->venda_loja ?? [],
+            'mes'    => $mes,
+            'venda'  => $dado->dado->venda_loja ?? [],
             'ticket' => $dado->dado->ticket_loja ?? [],
         ]);
     }

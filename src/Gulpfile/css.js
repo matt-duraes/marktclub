@@ -57,12 +57,17 @@ exports.cssUnico = function (path, browser) {
 exports.cssTodos = function () {
     return new Promise(async resolve => {
         arquivoConteudo = [];
+        if (config == undefined) {
+            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+        }
+
         await fsDeletarDiretorio('./files/build/css');
         await fsCriarDiretorio('./files/build/css');
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/layout.styl')
-            .concat(glob.sync('src/Painel/App/**/layout.styl'));
+            .concat(glob.sync('src/Painel/App/**/layout.styl'))
+            .concat(glob.sync('src/Painel/template/**/layout.styl'));
 
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
@@ -70,7 +75,7 @@ exports.cssTodos = function () {
         for (i = 0; i < quantidade; ++i) {
             arquivo = listaArquivo[i];
             try {
-                await processarCss(arquivo, './files/build/css');
+                await processarCss(arquivo, config.public + '/css');
             } catch (error) {
                 mensagemErro('Erro ao copiar arquivo: ' + arquivo);
             }
@@ -165,9 +170,12 @@ async function processarCss(path, destino, browser) {
         return src('files/build/css/' + nome)
             .pipe(plumber())
             .pipe(
-                replace(/(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g, function handleReplace(match) {
-                    return '';
-                })
+                replace(
+                    /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
+                    function handleReplace(match) {
+                        return '';
+                    }
+                )
             )
             .pipe(
                 stylus({
@@ -177,12 +185,15 @@ async function processarCss(path, destino, browser) {
             .pipe(dest(destino))
             .pipe(browser.stream());
     } else {
-        return src('files/build/css/' + nome)
+        return src('files/build/css/**/*.styl')
             .pipe(plumber())
             .pipe(
-                replace(/(\@template(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g, function handleReplace(match) {
-                    return '';
-                })
+                replace(
+                    /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
+                    function handleReplace(match) {
+                        return '';
+                    }
+                )
             )
             .pipe(
                 stylus({
@@ -194,12 +205,12 @@ async function processarCss(path, destino, browser) {
 }
 // Pegar lista de imports
 function pegarListaImports(conteudo, path) {
-    if (!/\@import|\@resource|\@template|\@system/.test(conteudo)) {
+    if (!/\@import|\@painel|\@resource|\@template|\@system/.test(conteudo)) {
         return false;
     }
     const lista = conteudo
         .replace(/\"|\'|\(|\)/g, '')
-        .match(/(\@import|\@resource|\@template|\@system)\ [a-zA-Z0-9\_\-\.\/]+/g);
+        .match(/(\@import|\@painel|\@resource|\@template|\@system)\ [a-zA-Z0-9\_\-\.\/]+/g);
 
     let retorno = [];
     const quantidade = lista.length;
@@ -208,14 +219,18 @@ function pegarListaImports(conteudo, path) {
         arquivo = lista[i];
         if (/\@import/.test(arquivo)) {
             retorno.push(path + arquivo.replace('@import ', '') + '.styl');
+        } else if (/\@template\ ?(\"|\')?painel/.test(arquivo)) {
+            retorno.push('src/Painel/template/css/layout.styl');
         } else if (/\@template/.test(arquivo)) {
             retorno.push('views/templates/' + arquivo.replace('@template ', '') + '/css/layout.styl');
         } else if (/\@resource/.test(arquivo)) {
             retorno.push('resources/css/' + arquivo.replace('@resource ', '') + '.styl');
+        } else if (/\@painel/.test(arquivo)) {
+            retorno.push('src/Painel/css/' + arquivo.replace('@painel ', '') + '.styl');
         } else if (/\@system/.test(arquivo)) {
             retorno.push(
                 'src/Html/Scripts/css/' +
-                    arquivo.replace('@system ', '').replace(/(\.system\.js|\.system|\.js)$/, '') +
+                    arquivo.replace('@system ', '').replace(/(\.system\.styl|\.system|\.css)$/, '') +
                     '.system.styl'
             );
         }

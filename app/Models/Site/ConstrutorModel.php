@@ -32,11 +32,11 @@ final class ConstrutorModel
 
         $construtor = (object) [
             'saude' => (object) [
-                'cnu' => true,
-                'seguros' => true,
-                'vitoria' => true,
+                'cnu'                 => true,
+                'seguros'             => true,
+                'vitoria'             => true,
                 'unimedflorianopolis' => true,
-                'amil' => true,
+                'amil'                => true,
             ],
         ];
 
@@ -73,10 +73,10 @@ final class ConstrutorModel
         $unimedflorianopolis = $saude->unimedflorianopolis ?? false;
 
         return (object)[
-            'cnu' => $cnu,
-            'seguros' => $seguros,
-            'vitoria' => $vitoria,
-            'amil' => $amil,
+            'cnu'                 => $cnu,
+            'seguros'             => $seguros,
+            'vitoria'             => $vitoria,
+            'amil'                => $amil,
             'unimedflorianopolis' => $unimedflorianopolis,
         ];
     }

@@ -18,7 +18,7 @@ class SolicitacaoCreditoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -31,7 +31,7 @@ class SolicitacaoCreditoController extends Controller implements
     }
 
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -44,8 +44,8 @@ class SolicitacaoCreditoController extends Controller implements
     }
 
     /**
-     * @param  CreditoEntity  $creditoEntity
-     * @param  int            $status
+     * @param CreditoEntity $creditoEntity
+     * @param int           $status
      *
      * @return Response
      * @throws Excecao
@@ -65,7 +65,7 @@ class SolicitacaoCreditoController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -77,7 +77,7 @@ class SolicitacaoCreditoController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

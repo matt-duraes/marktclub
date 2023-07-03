@@ -2,7 +2,6 @@
 
 namespace App\Models\Site\Cupom;
 
-use App\Models\Site\ListarInterface;
 use Helpers\ApiHelper;
 use stdClass;
 
@@ -18,9 +17,8 @@ final class BuscaModel extends ApiHelper
     public function listarDados(string $url = null): stdClass
     {
         $apiHelper = new ApiHelper('cupom:buscar');
-        $dado = $apiHelper->get('/cupom/'.$url)->object();
+        $dado = $apiHelper->get('/cupom/' . $url)->object();
 
         return $this->montarRetorno($dado);
     }
-
 }

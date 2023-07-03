@@ -62,7 +62,6 @@ final class OperadoraModel extends ApiHelper implements ListarInterface
 
     private function montarRetorno(): stdClass
     {
-
         return (object)[
             'tipo'  => 'operadora',
             'lista' => [

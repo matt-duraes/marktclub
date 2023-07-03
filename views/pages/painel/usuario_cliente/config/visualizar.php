@@ -105,7 +105,6 @@ $Painel->include('analytics', campo: 'analytics');
 $Painel->css('painel_usuario_cliente_visualizar');
 $Painel->js('painel_usuario_cliente_visualizar');
 
-
 $Api = new ApiHelper(token: true);
 $Lista = new ListaHelper();
 

@@ -10,8 +10,8 @@ final class EstadoCivil implements ModuleInterface
 
     private array $listaValores = [1 => 'solteiro', 2 => 'casado', 3 => 'divorciado', 4 => 'viuvo', 5 => 'separado'];
     private array $listaIndiceNome = ['solteiro' => 'Solteiro', 'casado' => 'Casado', 'divorciado' => 'Divorciado', 'viuvo' => 'Viuvo', 'separado' => 'Separado'];
-
     private string $numero = '';
+
     public function __toString()
     {
         return $this->estadoCivil();
@@ -29,7 +29,7 @@ final class EstadoCivil implements ModuleInterface
     /**
      * Gera um modulo de estado civil
      *
-     * @param null|int|string   $estadoCivil    Valor do estado civil podendo ser string ou int quando vier do banco
+     * @param null|int|string $estadoCivil Valor do estado civil podendo ser string ou int quando vier do banco
      */
     public function __construct(
         private null|int|string $estadoCivil = null
@@ -69,8 +69,8 @@ final class EstadoCivil implements ModuleInterface
     /**
      * Pega um array com a lista de valores válidos no formato indice => nome
      *
-     * @param   null|string $titulo     Um titulo para o select
-     * @return  array                   Array com os dados
+     * @param  null|string $titulo Um titulo para o select
+     * @return array       Array com os dados
      */
     public function select(?string $titulo = null): array
     {

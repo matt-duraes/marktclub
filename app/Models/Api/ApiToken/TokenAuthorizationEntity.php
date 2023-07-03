@@ -22,7 +22,6 @@ final class TokenAuthorizationEntity extends Entity
         'access_token', 'grant_type', 'ip', 'sistema_operacional', 'navegador', 'data_ativacao', 'data_vencimento',
         'status', 'refresh_token', 'hash', 'tipo'
     ];
-
     protected string $id_usuario;
     protected int $id_api_app;
     protected string $redirect_uri;
@@ -67,11 +66,11 @@ final class TokenAuthorizationEntity extends Entity
         $this->salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo);
 
         $token = [
-            'access_token' => $accessToken,
-            'id_token' => $jwt,
-            'scope' => implode(' ', $scope),
-            'expires_in' => $tempoVida,
-            'token_type' => 'Bearer',
+            'access_token'  => $accessToken,
+            'id_token'      => $jwt,
+            'scope'         => implode(' ', $scope),
+            'expires_in'    => $tempoVida,
+            'token_type'    => 'Bearer',
             'refresh_token' => $refreshToken
         ];
 
@@ -119,13 +118,13 @@ final class TokenAuthorizationEntity extends Entity
     {
         $criado = time();
         $payload = [
-            'iss' => LINK,
-            'aud' => $audience,
-            'iat' => $criado,
-            'exp' => time() + $tempoVida,
-            'azp' => $app->client_id,
+            'iss'   => LINK,
+            'aud'   => $audience,
+            'iat'   => $criado,
+            'exp'   => time() + $tempoVida,
+            'azp'   => $app->client_id,
             'scope' => implode(' ', $scope),
-            'gty' => 'implicit',
+            'gty'   => 'implicit',
         ];
         $payload = array_merge($payload, $body);
 

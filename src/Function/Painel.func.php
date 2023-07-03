@@ -15,15 +15,15 @@ if (!function_exists('painelCor')) {
     /**
      * Retornar uma cor pelo nome
      *
-     * @param string     $cor       Cores padrões: verde, vermelho, azul, laranja, preto, branco
-     *                              cinza, rosa, roxo, amarelo, marrom
+     * @param  string $cor Cores padrões: verde, vermelho, azul, laranja, preto, branco
+     *                     cinza, rosa, roxo, amarelo, marrom
      * @return string
      */
     function painelCor(string $cor)
     {
         return [
-            'verde' => '#169e91', 'vermelho' => '#FF6C60', 'azul' => '#63b4e4', 'laranja' => '#ff6600',
-            'preto' => '#333', 'branco' => '#FFF', 'cinza' => '#CCC', 'rosa' => '#ff1981', 'roxo' => '#68217a',
+            'verde'   => '#169e91', 'vermelho' => '#FF6C60', 'azul' => '#63b4e4', 'laranja' => '#ff6600',
+            'preto'   => '#333', 'branco' => '#FFF', 'cinza' => '#CCC', 'rosa' => '#ff1981', 'roxo' => '#68217a',
             'amarelo' => '#FFCC00', 'marrom' => '#8B4513'
         ][$cor] ?? '';
     }
@@ -35,9 +35,9 @@ if (!function_exists('painelCor')) {
 */
 if (!function_exists('painelAppFiltro')) {
     /**
-     * @param null|string       $app        App que deseja usar
-     * @param null|string       $ordem      Ordem que está usando no momento
-     * @param Null|StdClass     $config     Configuração do app filtro
+     * @param null|string   $app    App que deseja usar
+     * @param null|string   $ordem  Ordem que está usando no momento
+     * @param null|StdClass $config Configuração do app filtro
      */
     function painelAppFiltro(?string $app = null, ?string $ordem = null, ?stdClass $config = null)
     {
@@ -87,9 +87,9 @@ if (!function_exists('painelAppFiltroEnd')) {
 */
 if (!function_exists('painelAppDownload')) {
     /**
-     * @param null|string       $app        App que deseja usar
-     * @param null|string       $ordem      Ordem que está usando no momento
-     * @param Null|StdClass     $config     Configuração do app download
+     * @param null|string   $app    App que deseja usar
+     * @param null|string   $ordem  Ordem que está usando no momento
+     * @param null|StdClass $config Configuração do app download
      */
     function painelAppDownload(
         ?string $app = null,
@@ -152,11 +152,11 @@ if (!function_exists('painelAppDownloadEnd')) {
 */
 if (!function_exists('painelPopup()')) {
     /**
-     * @param string        $titulo     Título para o Popup
-     * @param null|string   $action     Link para o formulário caso queira usar o popup como Form
-     * @param null|string   $method     GET ou POST para o método do formulário caso queira usar o popup como Form
-     * @param null|string   $id         ID para o bloco
-     * @param bool          $fechar     Se vai ter o botão de fechar no header
+     * @param string      $titulo Título para o Popup
+     * @param null|string $action Link para o formulário caso queira usar o popup como Form
+     * @param null|string $method GET ou POST para o método do formulário caso queira usar o popup como Form
+     * @param null|string $id     ID para o bloco
+     * @param bool        $fechar Se vai ter o botão de fechar no header
      */
     function painelPopup(
         string $titulo,
@@ -173,10 +173,10 @@ if (!function_exists('painelPopup()')) {
 }
 if (!function_exists('painelPopupEnd')) {
     /**
-     * @param null|string   $botao      Texto para o botão
-     * @param null|string   $id         ID para o botão
-     * @param bool          $form       Se o popup é um form ou não
-     * @param string        $html       Coloca um html do lado do botao
+     * @param null|string $botao Texto para o botão
+     * @param null|string $id    ID para o botão
+     * @param bool        $form  Se o popup é um form ou não
+     * @param string      $html  Coloca um html do lado do botao
      */
     function painelPopupEnd(?string $botao = null, ?string $id = null, bool $form = false, string $html = '')
     {
@@ -471,8 +471,8 @@ if (!function_exists('painelAppAddEnd')) {
     /**
      * Finaliza o bloco do APP ADD
      *
-     * @param null|string   $id     ID do botão para salvar
-     * @param null|string   $botao  Nome do botão para salvar
+     * @param null|string $id    ID do botão para salvar
+     * @param null|string $botao Nome do botão para salvar
      */
     function painelAppAddEnd(?string $id = null, ?string $botao = null)
     {
@@ -484,8 +484,8 @@ if (!function_exists('painelAppAddBotao')) {
     /**
      * Finaliza o bloco do APP ADD
      *
-     * @param null|string   $id     ID do botão para salvar
-     * @param null|string   $botao  Nome do botão para salvar
+     * @param null|string $id    ID do botão para salvar
+     * @param null|string $botao Nome do botão para salvar
      */
     function painelAppAddBotao(?string $id = null, ?string $botao = null)
     {
@@ -520,8 +520,8 @@ if (!function_exists('painelBotao')) {
     /**
      * Finaliza o bloco do APP ADD
      *
-     * @param null|string   $id     ID do botão para salvar
-     * @param null|string   $botao  Nome do botão para salvar
+     * @param null|string $id    ID do botão para salvar
+     * @param null|string $botao Nome do botão para salvar
      */
     function painelBotao(?string $id = null, ?string $botao = null)
     {
@@ -655,7 +655,7 @@ if (!function_exists('painelSelectConfig')) {
     /**
      * Converte um array id => valor para o padrão de select do painel
      *
-     * @param array $lista Array com a lista
+     * @param  array  $lista Array com a lista
      * @return string
      */
     function painelSelectConfig(array $lista): string
@@ -672,7 +672,7 @@ if (!function_exists('painelConfigSelect')) {
     /**
      * Converter uma string de select para array
      *
-     * @param array $lista Array com a lista
+     * @param  array $lista Array com a lista
      * @return array
      */
     function painelConfigSelect(string $valor): array
@@ -729,7 +729,6 @@ if (!function_exists('painelInputLista')) {
                 $input['value'] = $valor;
             }
 
-
             if (array_key_exists('placeholder', $input) && empty($input['placeholder'])) {
                 $input['placeholder'] = $input['label'];
             }
@@ -741,10 +740,10 @@ if (!function_exists('painelInputLista')) {
 
 if (!function_exists('painelMenuBloco')) {
     /**
-     * @param string        $titulo         Título do bloco do menu
-     * @param string        $app            APP que será achamado
-     * @param null|string   $appUsado       App que está em uso para colocar o Hover
-     * @param null|string   $uri            URI do menu, caso não enviado, irá usar o padrão do APP
+     * @param string      $titulo   Título do bloco do menu
+     * @param string      $app      APP que será achamado
+     * @param null|string $appUsado App que está em uso para colocar o Hover
+     * @param null|string $uri      URI do menu, caso não enviado, irá usar o padrão do APP
      */
     // function painelMenu(string $titulo, string $app, string $appUsado = null, ?string $uri = null)
     // {
@@ -812,8 +811,8 @@ if (!function_exists('painelMenu')) {
 
 if (!function_exists('botaoLoading')) {
     /**
-     * @param string        $texto      Texto do botão
-     * @param null|string   $id         ID para o botão
+     * @param string      $texto Texto do botão
+     * @param null|string $id    ID para o botão
      */
     function botaoLoading(string $texto, ?string $id = null)
     {
@@ -831,9 +830,9 @@ if (!function_exists('botaoLoading')) {
 if (!function_exists('painelPermissao')) {
     /**
      * Verifica se o usuário tem permissão
-     * @param   string    $permissao    Permissão que deve ser verificada
-     * @param   bool      $erro         Se true dispara status code 403, se false, retorna um bool
-     * @return  bool                    True para se tiver permissão
+     * @param  string $permissao Permissão que deve ser verificada
+     * @param  bool   $erro      Se true dispara status code 403, se false, retorna um bool
+     * @return bool   True para se tiver permissão
      */
     function painelPermissao(string $permissao, $erro = true)
     {
@@ -853,18 +852,18 @@ if (!function_exists('painelPermissao')) {
 if (!function_exists('botaoControle')) {
     /**
      * Gera uma lista de botões
-     * @param string    $app            O APP que está usando
-     * @param string    $add            ID do botão de ADD
-     * @param string    $addTexto       Texto para o botão de ADD
-     * @param string    $addLink        Link para o botão de ADD
-     * @param string    $editar         ID do botão de Editar
-     * @param string    $editarTexto    Texto para o botão de Editar
-     * @param string    $editarLink     Link para o botão de Editar
-     * @param string    $download       ID do botão de Download
-     * @param string    $downloadTexto  Texto para o botão de Download
-     * @param string    $downloadLink   Link para o botão de Download
-     * @param string    $deletar        ID do botão de Deletar
-     * @param string    $deletarTexto   Texto para o botão de Deletar
+     * @param string $app           O APP que está usando
+     * @param string $add           ID do botão de ADD
+     * @param string $addTexto      Texto para o botão de ADD
+     * @param string $addLink       Link para o botão de ADD
+     * @param string $editar        ID do botão de Editar
+     * @param string $editarTexto   Texto para o botão de Editar
+     * @param string $editarLink    Link para o botão de Editar
+     * @param string $download      ID do botão de Download
+     * @param string $downloadTexto Texto para o botão de Download
+     * @param string $downloadLink  Link para o botão de Download
+     * @param string $deletar       ID do botão de Deletar
+     * @param string $deletarTexto  Texto para o botão de Deletar
      */
     function botaoControle(
         string $app,

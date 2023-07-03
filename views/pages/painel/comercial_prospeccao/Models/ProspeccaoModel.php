@@ -17,14 +17,15 @@ final class ProspeccaoModel
         $chave = $this->Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
         $this->Crypt = new CryptHelper(chavePrivada: $chave);
     }
+
     public function buscarProspeccao($prospeccao)
     {
         $dado = $this->Api
             ->json([
-                'pagina' => 1,
-                'quantidade' => 50,
+                'pagina'            => 1,
+                'quantidade'        => 50,
                 'prospeccao_status' => $prospeccao,
-                'status' => Status::PROSPECCAO
+                'status'            => Status::PROSPECCAO
             ])
             ->get('/comercial-empresa')
             ->array();
@@ -41,16 +42,16 @@ final class ProspeccaoModel
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = (object)[
-                'id' => $r['id'],
+                'id'      => $r['id'],
                 'usuario' => (object)[
-                    'id' => $r['usuario']['id'] ?? '',
-                    'nome' => $this->Crypt->decode($r['usuario']['nome']),
+                    'id'     => $r['usuario']['id'] ?? '',
+                    'nome'   => $this->Crypt->decode($r['usuario']['nome']),
                     'imagem' => $this->Crypt->decode($r['usuario']['imagem'])
                 ],
-                'titulo' => $this->Crypt->decode($r['titulo']),
-                'cnpj' => strCnpj($this->Crypt->decode($r['cnpj'])),
+                'titulo'       => $this->Crypt->decode($r['titulo']),
+                'cnpj'         => strCnpj($this->Crypt->decode($r['cnpj'])),
                 'data_criacao' => dataBr($r['data_criacao']),
-                'status' => $r['prospeccao_status']
+                'status'       => $r['prospeccao_status']
             ];
         }
         return $retorno;

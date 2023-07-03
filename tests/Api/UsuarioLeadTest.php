@@ -66,6 +66,7 @@ final class UsuarioLeadTest extends Tests
             ->checkIndiceIgual('erro.codigo', 931)
             ->checkIndiceNaoExiste('dado.id');
     }
+
     public function naoPodeSalvarLeadComTermoComDataFuturaTest()
     {
         $this->api('usuario_lead:salvar');
@@ -82,6 +83,7 @@ final class UsuarioLeadTest extends Tests
             ->checkIndiceIgual('erro.codigo', 931)
             ->checkIndiceNaoExiste('dado.id');
     }
+
     public function naoPodeSalvarLeadComLgpdComDataPassadaTest()
     {
         $this->api('usuario_lead:salvar');
@@ -98,6 +100,7 @@ final class UsuarioLeadTest extends Tests
             ->checkIndiceIgual('erro.codigo', 931)
             ->checkIndiceNaoExiste('dado.id');
     }
+
     public function naoPodeSalvarLeadComLgpdComDataFuturaTest()
     {
         $this->api('usuario_lead:salvar');
@@ -138,13 +141,13 @@ final class UsuarioLeadTest extends Tests
             ->Curl
             ->loginPainel()
             ->json([
-                'pagina' => 1,
+                'pagina'   => 1,
                 'pesquisa' => $this->bodySalvar['cpf'],
-                'nome' => $this->bodySalvar['nome'],
-                'email' => $this->bodySalvar['email_pessoal'],
-                'cpf' => $this->bodySalvar['cpf'],
-                'status' => 'novo',
-                'ordem' => 'mais-novo'
+                'nome'     => $this->bodySalvar['nome'],
+                'email'    => $this->bodySalvar['email_pessoal'],
+                'cpf'      => $this->bodySalvar['cpf'],
+                'status'   => 'novo',
+                'ordem'    => 'mais-novo'
             ])
             ->get('/usuario-lead');
 
@@ -153,6 +156,7 @@ final class UsuarioLeadTest extends Tests
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso');
     }
+
     public function naoPodeListarLeadsComUmStatusInvalidoTest()
     {
         $this->api('usuario_lead:listar');
@@ -169,6 +173,7 @@ final class UsuarioLeadTest extends Tests
             ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'O Status informado não é um valor válido.');
     }
+
     public function naoPodeListarLeadsComUmaOrdemInvalidaTest()
     {
         $this->api('usuario_lead:listar');
@@ -177,7 +182,7 @@ final class UsuarioLeadTest extends Tests
             ->loginPainel()
             ->json([
                 'pagina' => 1,
-                'ordem' => 'nao_existe'
+                'ordem'  => 'nao_existe'
             ])
             ->get('/usuario-lead');
 
@@ -185,6 +190,7 @@ final class UsuarioLeadTest extends Tests
             ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'A ordem informada não é um valor válido.');
     }
+
     public function leadNovoNaoPodeMudarStatusParaSemInteresseTest()
     {
         $this->api('usuario_lead:atualizar');
@@ -199,6 +205,7 @@ final class UsuarioLeadTest extends Tests
             ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'Um Lead novo só pode mudar de status para "andamento".');
     }
+
     public function leadNovoNaoPodeMudarStatusParaCadastroRealizadoTest()
     {
         $this->api('usuario_lead:atualizar');
@@ -218,10 +225,12 @@ final class UsuarioLeadTest extends Tests
     {
         return $this->mudarStatusDoLead('andamento');
     }
+
     public function mudarStatusDeEmAndamentoParaSemInteresseTest()
     {
         return $this->mudarStatusDoLead('sem-interesse');
     }
+
     private function mudarStatusDoLead($status)
     {
         $this->api('usuario_lead:atualizar');
@@ -275,12 +284,12 @@ final class UsuarioLeadTest extends Tests
         $this->cpf = $this->cpf();
 
         $dado = $this->cryptEncode([
-            'nome' => $this->nomeCompleto(),
-            'email_pessoal' => $this->email(),
+            'nome'             => $this->nomeCompleto(),
+            'email_pessoal'    => $this->email(),
             'telefone_pessoal' => $this->telefone(),
-            'cpf' => $this->cpf,
-            'termo_aceitar' => $this->hoje(),
-            'termo_lgpd' => $this->hoje()
+            'cpf'              => $this->cpf,
+            'termo_aceitar'    => $this->hoje(),
+            'termo_lgpd'       => $this->hoje()
         ], Helper::CRIPTOGRAFAR);
 
         $resposta = $this
@@ -311,17 +320,18 @@ final class UsuarioLeadTest extends Tests
             ->checkIgual($status, 204)
             ->checkIndiceIgual('dado.status', 'cadastro-realizado');
     }
+
     public function verificarSeUsuarioClienteFoiSalvoPeloLeadTest()
     {
         $dado = $this
             ->Curl
             ->json([
                 'pagina' => 1,
-                'cpf' => $this->cryptEncode($this->cpf)
+                'cpf'    => $this->cryptEncode($this->cpf)
             ])
             ->get('/usuario-cliente')->array();
 
-        $cpf =  array_key_exists('dado', $dado) &&
+        $cpf = array_key_exists('dado', $dado) &&
             array_key_exists('lista', $dado['dado']) &&
             array_key_exists(0, $dado['dado']['lista']) ? $dado['dado']['lista'][0]['cpf'] : '';
 
@@ -373,6 +383,7 @@ final class UsuarioLeadTest extends Tests
             ->checkStatus(404)
             ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
     }
+
     public function naoPodeAtualizarLeadPeloIdTest()
     {
         $this->api('usuario_lead:atualizar');
@@ -386,6 +397,7 @@ final class UsuarioLeadTest extends Tests
             ->checkStatus(404)
             ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
     }
+
     public function naoPodeDeletarLeadPeloIdTest()
     {
         $this->api('usuario_lead:deletar');
@@ -408,30 +420,30 @@ final class UsuarioLeadTest extends Tests
     {
         $estado = $this->estado();
         return $this->cryptEncode([
-            'nome' => $this->nomeCompleto(),
-            'email_trabalho' => $this->email(),
-            'email_pessoal' => $this->email(),
-            'email_funcional' => $this->email(),
-            'telefone_pessoal' => strTelefone($this->telefone()),
-            'telefone_trabalho' => strTelefone($this->telefone()),
-            'cpf' => strCpf($this->cpf()),
-            'rg' => $this->rg(),
-            'siape' => $this->numero(100000, 999999),
-            'genero' => $this->genero(),
-            'data_nascimento' => $this->dataPassada(),
-            'trabalho_empresa' => 'marktclub',
-            'trabalho_cargo' => 'desenvolvedor',
+            'nome'                 => $this->nomeCompleto(),
+            'email_trabalho'       => $this->email(),
+            'email_pessoal'        => $this->email(),
+            'email_funcional'      => $this->email(),
+            'telefone_pessoal'     => strTelefone($this->telefone()),
+            'telefone_trabalho'    => strTelefone($this->telefone()),
+            'cpf'                  => strCpf($this->cpf()),
+            'rg'                   => $this->rg(),
+            'siape'                => $this->numero(100000, 999999),
+            'genero'               => $this->genero(),
+            'data_nascimento'      => $this->dataPassada(),
+            'trabalho_empresa'     => 'marktclub',
+            'trabalho_cargo'       => 'desenvolvedor',
             'trabalho_data_inicio' => $this->dataPassada(),
-            'endereco_cep' => strCep($this->cep()),
-            'endereco_logradouro' => $this->logradouro(),
-            'endereco_numero' => $this->numero(),
+            'endereco_cep'         => strCep($this->cep()),
+            'endereco_logradouro'  => $this->logradouro(),
+            'endereco_numero'      => $this->numero(),
             'endereco_complemento' => $this->complemento(),
-            'endereco_bairro' => $this->bairro(),
-            'endereco_cidade' => $this->cidade($estado),
-            'endereco_estado' => $estado,
-            'termo_aceitar' => $this->hoje(),
-            'termo_lgpd' => $this->hoje(),
-            'lista_dependente' => []
+            'endereco_bairro'      => $this->bairro(),
+            'endereco_cidade'      => $this->cidade($estado),
+            'endereco_estado'      => $estado,
+            'termo_aceitar'        => $this->hoje(),
+            'termo_lgpd'           => $this->hoje(),
+            'lista_dependente'     => []
         ], Helper::CRIPTOGRAFAR);
     }
 }

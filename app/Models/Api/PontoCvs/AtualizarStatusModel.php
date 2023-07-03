@@ -13,7 +13,7 @@ final class AtualizarStatusModel extends ORM
 
     public function atualizarStatus()
     {
-        $pontosPendentes = $this->campo(['pedido_codigo'])->where([['status', 1], ['pedido_codigo', "!null"]])->read();
+        $pontosPendentes = $this->campo(['pedido_codigo'])->where([['status', 1], ['pedido_codigo', '!null']])->read();
         $codigoPonto = array_column($pontosPendentes, 'pedido_codigo');
 
         $PontoCvsHelper = new PontoCvsHelper();
@@ -37,15 +37,15 @@ final class AtualizarStatusModel extends ORM
         switch ($solicitacao->status) {
             case 1:
                 return [
-                    'voucher' => $solicitacao->pedido_desc ?? '',
+                    'voucher'      => $solicitacao->pedido_desc ?? '',
                     'data_voucher' => $solicitacao->pedido_vigencia ?? '',
-                    'status' => (new Status('aprovado'))->numero()
+                    'status'       => (new Status('aprovado'))->numero()
                 ];
             case 3:
                 return [
-                    'voucher' => '',
+                    'voucher'      => '',
                     'data_voucher' => '',
-                    'status' => (new Status('recusado'))->numero()
+                    'status'       => (new Status('recusado'))->numero()
                 ];
         }
         return;

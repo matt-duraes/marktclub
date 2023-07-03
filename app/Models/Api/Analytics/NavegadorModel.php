@@ -52,8 +52,8 @@ final class NavegadorModel extends ORM
             }
 
             $dado[$r->navegador] = [
-                'navegador' => $r->navegador,
-                'total' => $r->quantidade,
+                'navegador'   => $r->navegador,
+                'total'       => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
         }

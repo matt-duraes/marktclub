@@ -14,11 +14,11 @@ use Http\Response;
 
 if (!function_exists('view')) {
     /**
-     * @param  string       $arquivo  Arquivo Html
-     * @param  array        $var      Lista de variáveis a ser passada para a view
-     * @param  array        $header   Lista de header para ser incorporado
-     * @param  string|null  $css      Arquivo CSS para incorporar
-     * @param  string|null  $js       Arquivo JS para incorporar
+     * @param  string      $arquivo Arquivo Html
+     * @param  array       $var     Lista de variáveis a ser passada para a view
+     * @param  array       $header  Lista de header para ser incorporado
+     * @param  string|null $css     Arquivo CSS para incorporar
+     * @param  string|null $js      Arquivo JS para incorporar
      * @return Response
      * @throws Excecao
      */
@@ -82,8 +82,8 @@ if (!function_exists('view')) {
 
 if (!function_exists('verificarSeExisteScriptDoTemplate')) {
     /**
-     * @param $target
-     * @param $tipo
+     * @param         $target
+     * @param         $tipo
      * @return string
      */
     function verificarSeExisteScriptDoTemplate($target, $tipo): string
@@ -118,11 +118,11 @@ if (!function_exists('verificarSeExisteScriptDoTemplate')) {
 
 if (!function_exists('converterHtml')) {
     /**
-     * @param $target
-     * @param $css
-     * @param $js
-     * @param $var
-     * @param $header
+     * @param           $target
+     * @param           $css
+     * @param           $js
+     * @param           $var
+     * @param           $header
      * @return Response
      */
     function converterHtml($target, $css, $js, $var, $header): Response
@@ -179,8 +179,8 @@ if (!function_exists('converterHtml')) {
 */
 if (!function_exists('html')) {
     /**
-     * @param  string  $arquivo  Arquivo Html
-     * @param  array   $var      Lista de variáveis a ser passada para a view
+     * @param  string  $arquivo Arquivo Html
+     * @param  array   $var     Lista de variáveis a ser passada para a view
      * @throws Excecao
      */
     function html(string $arquivo, array $var = []): mixed

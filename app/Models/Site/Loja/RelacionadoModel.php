@@ -31,7 +31,5 @@ final class RelacionadoModel extends ApiHelper implements ListarInterface
                 }
             }
         }
-
     }
-
 }

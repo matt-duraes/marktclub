@@ -2,7 +2,6 @@
 
 namespace ORM;
 
-use ORM\ORM;
 use Erro\Erro;
 use Modules\Cpf;
 use Erro\Excecao;
@@ -42,28 +41,21 @@ abstract class Entity extends ORM
     public string $id = '';
     public ?DataHora $data_criacao = null;
     public ?DataHora $data_atualizacao = null;
-
     private array $ormRelacionado = [];
-
     protected array $ormBuscar = ['id'];
     protected array $ormSalvar = [];
     protected array $ormInsert = [];
     protected array $ormUpdate = [];
     protected ?array $ormDiff = null;
-
     private bool $cancelarSalvar = false;
-
     protected string $ormValidarSalvar = '';
     protected string $ormValidarInsert = '';
     protected string $ormValidarUpdate = '';
-
     protected array $ormDeletarArquivo = [];
-
     protected array $ormSet = [];
     protected array $ormSetReal = [];
     protected array $ormEntityRetorno = [];
     private bool $ormEntityDeletada = false;
-
     private ?int $ormEntityId = 0;
     private string $ormEntityUuid = '';
     private array $ormPropriedadePublica = [];
@@ -72,16 +64,14 @@ abstract class Entity extends ORM
     private array $ormListaAliasReal = [];
     private array $ormPropriedadeSetada = [];
     protected array $ormRetornoPadrao = [];
-
     protected bool $entityExiste = false;
-
     protected $ormCampoBanco = [];
 
     /**
-     * @param  array  $option  Option aceitos pelo PDO
-     * @param  array  $conn    Option para a conexao podendo ser:
-     *                         host, banco, usuario, porta e senha.
-     *                         Caso não informa, será usado o ENV
+     * @param array $option Option aceitos pelo PDO
+     * @param array $conn   Option para a conexao podendo ser:
+     *                      host, banco, usuario, porta e senha.
+     *                      Caso não informa, será usado o ENV
      */
     public function __construct(array $option = [], array $conn = [])
     {
@@ -145,9 +135,9 @@ abstract class Entity extends ORM
     }
 
     /**
-     * @param Null|String       $propriedade        Propriedade que será buscada
-     * @param Null|Array        $lista              Lista com as propriedades que deseja listar
-     * @return Mixed
+     * @param  null|string $propriedade Propriedade que será buscada
+     * @param  null|array  $lista       Lista com as propriedades que deseja listar
+     * @return mixed
      */
     public function get(?string $propriedade = null, ?array $lista = null)
     {
@@ -175,9 +165,9 @@ abstract class Entity extends ORM
     }
 
     /**
-     * @param String        $propriedade        Propriedade que será setada
-     * @param Mixed         $valor              Valor da propriedade que será setada
-     * @param Null|Array    $lista              Array com uma lista para setar em massa
+     * @param string     $propriedade Propriedade que será setada
+     * @param mixed      $valor       Valor da propriedade que será setada
+     * @param null|array $lista       Array com uma lista para setar em massa
      */
     public function set(string $propriedade = '', $valor = '', ?array $lista = null): void
     {
@@ -715,6 +705,7 @@ abstract class Entity extends ORM
         }
         return $lista;
     }
+
     private function ormDeletarArquivos(array $lista): void
     {
         if (!$lista) {

@@ -33,21 +33,21 @@ $Doc
     \"pagina\": 1,
     \"ordem\": \"nome-a-z\"
 }'")
-    ->preSucesso("{
-    \"status\": \"sucesso\",
-    \"dado\": {
-        \"lista\": [
+    ->preSucesso('{
+    "status": "sucesso",
+    "dado": {
+        "lista": [
             {
-                \"id\": \"7f10e270-d695-418e-bc21-a2dfa3d24352\",
-                \"nome\": \"det4I78ZqeI1ilwC0EqFQ1404w81SRknJfJf2el0MXhfdLjwI9GefBjfbg==\",
-                \"cpf\": \"u4zI78ZqeI1ilwC0EqFQ1404w81SRknJfJf2ZSU+p+el0MXhfdLjwI9GefBjfbg==\",
-                \"email\": \"det4I78ZqeI1ilwC0EqFQ1404w81SRknJfJf2el0MXhfdLjwI9GefBjfbg==\",
-                \"data_criacao\": \"2018-09-28 15:45:27\",
-                \"status\": \"ativo\"
+                "id": "7f10e270-d695-418e-bc21-a2dfa3d24352",
+                "nome": "det4I78ZqeI1ilwC0EqFQ1404w81SRknJfJf2el0MXhfdLjwI9GefBjfbg==",
+                "cpf": "u4zI78ZqeI1ilwC0EqFQ1404w81SRknJfJf2ZSU+p+el0MXhfdLjwI9GefBjfbg==",
+                "email": "det4I78ZqeI1ilwC0EqFQ1404w81SRknJfJf2el0MXhfdLjwI9GefBjfbg==",
+                "data_criacao": "2018-09-28 15:45:27",
+                "status": "ativo"
             }
         ]
     }
-}")
-    ->preFalha("");
+}')
+    ->preFalha('');
 
 echo $Doc;

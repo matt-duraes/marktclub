@@ -11,11 +11,13 @@ use PainelModel\Upload\Helper;
 final class UploadController extends Controller
 {
     private ApiHelper $Api;
+
     public function __construct()
     {
         $this->Api = new ApiHelper(token: true);
         parent::__construct();
     }
+
     /*
     |--------------------------------------------------------------------------
     | RETORNA A BUSCA DE IMAGENS
@@ -28,9 +30,9 @@ final class UploadController extends Controller
             ->Api
             ->validar('Erro ao buscar lista de arquivos')
             ->json([
-                'pagina' => $request->pagina,
+                'pagina'   => $request->pagina,
                 'pesquisa' => $request->pesquisa,
-                'grupo' => $request->grupo_atual
+                'grupo'    => $request->grupo_atual
             ])
             ->get('/upload-arquivo')->object();
 
@@ -44,10 +46,10 @@ final class UploadController extends Controller
             ->get('/upload-grupo/filho/' . $request->grupo_atual)->object();
 
         return mensagemSucesso([
-            'header' => $header->dado ?? [],
+            'header'    => $header->dado ?? [],
             'diretorio' => $diretorio->dado[0]->lista ?? [],
-            'arquivo' => $arquivo->dado->lista,
-            'pagina' => $arquivo->dado->pagina->total
+            'arquivo'   => $arquivo->dado->lista,
+            'pagina'    => $arquivo->dado->pagina->total
         ]);
     }
 
@@ -84,6 +86,7 @@ final class UploadController extends Controller
             'diretorio' => $grupo->dado
         ]);
     }
+
     public function postMover(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
@@ -104,10 +107,11 @@ final class UploadController extends Controller
         $grupo = (new Helper())->criarDiretorio($request->grupo_atual, $request->nome);
 
         return mensagemSucesso([
-            'id' => $grupo->dado->id,
+            'id'   => $grupo->dado->id,
             'nome' => $grupo->dado->nome,
         ], status: 201);
     }
+
     public function postRenomearDiretorio(Request $request)
     {
         $this->validarGrupoAtual($request->grupo_inicial, $request->grupo_atual);
@@ -152,15 +156,15 @@ final class UploadController extends Controller
             ->post('/upload-arquivo')->object()->dado;
 
         return mensagemSucesso([
-            'id' => $arquivo->id,
-            'equipe' => $arquivo->equipe,
-            'nome' => $arquivo->nome,
+            'id'       => $arquivo->id,
+            'equipe'   => $arquivo->equipe,
+            'nome'     => $arquivo->nome,
             'extensao' => $arquivo->extensao,
-            'tamanho' => $arquivo->tamanho,
-            'largura' => $arquivo->largura,
-            'altura' => $arquivo->altura,
-            'arquivo' => $arquivo->link,
-            'data' => dataBr($arquivo->data_criacao, 'd/m/Y H:i')
+            'tamanho'  => $arquivo->tamanho,
+            'largura'  => $arquivo->largura,
+            'altura'   => $arquivo->altura,
+            'arquivo'  => $arquivo->link,
+            'data'     => dataBr($arquivo->data_criacao, 'd/m/Y H:i')
         ], status: 201);
     }
 
@@ -222,7 +226,7 @@ final class UploadController extends Controller
         }
 
         $valido = $this->Api->json([
-            'raiz' => $grupoInicial,
+            'raiz'  => $grupoInicial,
             'grupo' => $grupoAtual
         ])->get('/upload-grupo/validar')->object()->dado->valido ?? 'nao';
 

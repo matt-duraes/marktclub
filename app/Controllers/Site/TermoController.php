@@ -24,7 +24,4 @@ final class TermoController extends Controller
     {
         return view('termo.app');
     }
-
-
-
 }

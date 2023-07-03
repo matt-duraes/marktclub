@@ -14,7 +14,7 @@ class SaudeContratacaoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

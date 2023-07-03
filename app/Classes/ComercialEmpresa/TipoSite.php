@@ -14,8 +14,8 @@ final class TipoSite extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::PROPRIO => 'Site próprio',
-            self::TEMVANTAGENS => 'temvantagens.com.br',
+            self::PROPRIO          => 'Site próprio',
+            self::TEMVANTAGENS     => 'temvantagens.com.br',
             self::TEMMAISVANTAGENS => 'temMAISvantagens.com.br',
         ]);
     }

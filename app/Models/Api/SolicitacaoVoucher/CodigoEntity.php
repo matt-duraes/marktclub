@@ -29,19 +29,15 @@ final class CodigoEntity extends Entity implements VoucherInterface
         'data_criacao', 'data_vencimento', 'status',
         'codigo'
     ];
-
     public string $codigo;
     public DataHora $data_emissao;
     public Data $data_vencimento;
     public Status $status;
-
     public string $texto_desconto = '';
     public string $texto_voucher = '';
     public string $texto_juridico = '';
     public string $texto_validar = '';
-
     public string $qr_code;
-
     public ConstrutorEntity $Construtor;
 
     public function __construct(

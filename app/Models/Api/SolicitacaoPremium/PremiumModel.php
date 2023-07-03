@@ -18,7 +18,6 @@ final class PremiumModel extends ORM
     use WhereTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
-
     private int $idEmpresa;
     private string $de;
     private string $ate;
@@ -28,7 +27,6 @@ final class PremiumModel extends ORM
     public function __construct(
         private Request $request
     ) {
-
         parent::__construct();
 
         $this->validarEmpresa('empresa');
@@ -59,14 +57,14 @@ final class PremiumModel extends ORM
                     $limite = '-';
                 }
                 $retorno[$r->id] = [
-                    'parceiro' => $r->titulo,
-                    'total' => 0,
-                    'ativo' => 0,
+                    'parceiro'   => $r->titulo,
+                    'total'      => 0,
+                    'ativo'      => 0,
                     'disponivel' => '-',
-                    'validado' => 0,
-                    'cancelado' => 0,
-                    'limite' => $limite,
-                    'status' => Status::SEM_STATUS
+                    'validado'   => 0,
+                    'cancelado'  => 0,
+                    'limite'     => $limite,
+                    'status'     => Status::SEM_STATUS
                 ];
             }
             $retorno[$r->id]['total']++;
@@ -80,6 +78,7 @@ final class PremiumModel extends ORM
         }
         return $this->colocarDadosPosteriores($retorno);
     }
+
     private function colocarDadosPosteriores($dado): array
     {
         $livre = [];

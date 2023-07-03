@@ -12,19 +12,17 @@ use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Loja\DetalheModel;
 use App\Models\Site\Loja\RelacionadoModel;
-use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 
 final class LojaController extends Controller
 {
     /**
-     * @param  Request      $request
-     * @param  string|null  $pesquisa
+     * @param Request     $request
+     * @param string|null $pesquisa
      *
      * @return Response
      * @throws Excecao
      */
-
     public function busca(Request $request, string $pesquisa = null): Response
     {
         $Busca = new BuscaModel($request, $pesquisa);
@@ -35,15 +33,14 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request          $request
-     * @param  BuscaModel|null  $Busca
+     * @param Request         $request
+     * @param BuscaModel|null $Busca
      *
      * @return Response
      * @throws Excecao
      */
     public function index(Request $request, BuscaModel $Busca = null): Response
     {
-
         return view('loja.index', [
             'menu'         => 'loja',
             'banner'       => true,
@@ -56,9 +53,9 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request          $request
-     * @param                   $url
-     * @param  BuscaModel|null  $Busca
+     * @param Request         $request
+     * @param                 $url
+     * @param BuscaModel|null $Busca
      *
      * @return Response
      * @throws Excecao
@@ -72,13 +69,13 @@ final class LojaController extends Controller
             'url'          => $url,
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
             'lista'        => (new RelacionadoModel())->listarDados(),
-            'dado'        => (new DetalheModel($url))->listarDados(),
+            'dado'         => (new DetalheModel($url))->listarDados(),
             'parceiroTipo' => 'loja'
         ]);
     }
 
     /**
-     * @param  string  $url
+     * @param string $url
      *
      * @return Response
      * @throws Excecao
@@ -89,8 +86,8 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request         $request
-     * @param  MapaModel|null  $Busca
+     * @param Request        $request
+     * @param MapaModel|null $Busca
      *
      * @return Response
      * @throws Excecao
@@ -103,7 +100,7 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -136,7 +133,7 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -145,10 +142,8 @@ final class LojaController extends Controller
         return new Response(status: 201);
     }
 
-
-
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -158,27 +153,27 @@ final class LojaController extends Controller
         $acao = $request->acao;
         $loja = (new RelacionadoModel())->favoritar($uuid, $acao);
         return new Response(json: $loja);
-
     }
+
     /**
      * @return Response
      */
     public function melhorIdade(): Response
     {
-        $categoria = ['alimentacao','saude', 'veiculo'];
+        $categoria = ['alimentacao', 'saude', 'veiculo'];
         $alimentacaoTag = [
-            'bares','restaurante','churrascarias','doces', 'sanduiches', 'suplementos', 'cafes'
+            'bares', 'restaurante', 'churrascarias', 'doces', 'sanduiches', 'suplementos', 'cafes'
         ];
-        $veiculoTag = ['concessionarias','locadoras','pneus','oficinas'];
-        $saudeTag = ['academia','visao','esportes','spas'];
+        $veiculoTag = ['concessionarias', 'locadoras', 'pneus', 'oficinas'];
+        $saudeTag = ['academia', 'visao', 'esportes', 'spas'];
         $estados = (new ListaHelper())->estado()->r();
 
         return view('loja.melhor_idade', [
             'alimentacaoTag' => $alimentacaoTag,
-            'veiculoTag' => $veiculoTag,
-            'saudeTag' => $saudeTag,
-            'categoria' => $categoria,
-            'estados' => $estados
+            'veiculoTag'     => $veiculoTag,
+            'saudeTag'       => $saudeTag,
+            'categoria'      => $categoria,
+            'estados'        => $estados
         ]);
     }
 }

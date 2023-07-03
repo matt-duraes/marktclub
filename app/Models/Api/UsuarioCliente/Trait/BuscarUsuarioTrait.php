@@ -16,9 +16,9 @@ trait BuscarUsuarioTrait
     /**
      * Buscar o usuário
      *
-     * @param   array           $campo      Campo que deseja buscar do usuário
-     * @param   bool            $paginacao  Se vai ter paginação
-     * @return  stdClass|array              stdClass se tiver paginacao ou array quando não tiver paginacao
+     * @param  array          $campo     Campo que deseja buscar do usuário
+     * @param  bool           $paginacao Se vai ter paginação
+     * @return stdClass|array stdClass se tiver paginacao ou array quando não tiver paginacao
      */
     private function buscarUsuario(array $campo, bool $paginacao): stdClass|array
     {

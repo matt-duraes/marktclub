@@ -24,7 +24,7 @@ final class RequisicaoEnviar
         $this->variavel = jsonDecode($post['variavel'], true, true);
         $this->header = $header;
 
-        $chave = file_get_contents(ROOT . "/.chave_publica");
+        $chave = file_get_contents(ROOT . '/.chave_publica');
         $this->Crypt = new CryptHelper(chavePublica: $chave);
         $this->link = env('POSTMAN_API_LINK', '');
 
@@ -44,10 +44,12 @@ final class RequisicaoEnviar
         $retorno['codigo_html'] = $dado->status;
         $this->retorno = $retorno;
     }
+
     public function retorno()
     {
         return $this->retorno;
     }
+
     private function enviarCurl(
         string $metodo,
         string $uri,
@@ -94,9 +96,10 @@ final class RequisicaoEnviar
 
         return (object)[
             'retorno' => $retorno,
-            'status' => $status,
+            'status'  => $status,
         ];
     }
+
     private function montarParametro($dado)
     {
         if (empty($dado)) {
@@ -150,6 +153,7 @@ final class RequisicaoEnviar
 
         return $retorno;
     }
+
     private function manipularData($data, $string, $retorno)
     {
         if (str_contains($string, '+')) {
@@ -159,30 +163,34 @@ final class RequisicaoEnviar
         }
         return $data;
     }
+
     private function pegarValor($tipo, $val)
     {
         return $tipo == 'cript' ? $this->Crypt->encode($val) : $val;
     }
+
     private function gerarTokenPadrao()
     {
         $token = $this->enviarCurl(
             'POST',
             '{{LINK}}/token',
             [
-                'client_id' => env('POSTMAN_API_CLIENT_ID'),
-                'secret_id' => env('POSTMAN_API_SECRET_ID'),
-                'audience' => env('POSTMAN_API_AUDIENCE'),
+                'client_id'  => env('POSTMAN_API_CLIENT_ID'),
+                'secret_id'  => env('POSTMAN_API_SECRET_ID'),
+                'audience'   => env('POSTMAN_API_AUDIENCE'),
                 'grant_type' => 'client_credentials',
-                'scope' => ''
+                'scope'      => ''
             ]
         );
         return $this->pegarToken($token);
     }
+
     private function criarToken()
     {
         $token = $this->gerarTokenPadrao();
         $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
+
     private function criarTokenPainel()
     {
         $header = $this->gerarTokenPadrao();
@@ -190,18 +198,19 @@ final class RequisicaoEnviar
             metodo: 'POST',
             uri: '{{LINK}}/login/painel',
             body: [
-                'login' => $this->Crypt->encode(env('POSTMAN_LOGIN')),
-                'senha' => $this->Crypt->encode(env('POSTMAN_SENHA')),
-                'scope' => '',
-                'audience' => env('POSTMAN_API_AUDIENCE'),
+                'login'        => $this->Crypt->encode(env('POSTMAN_LOGIN')),
+                'senha'        => $this->Crypt->encode(env('POSTMAN_SENHA')),
+                'scope'        => '',
+                'audience'     => env('POSTMAN_API_AUDIENCE'),
                 'redirect_uri' => env('POSTMAN_API_REDIRECT_URI'),
-                'state' => uuid()
+                'state'        => uuid()
             ],
             header: ['Authorization' => 'Bearer ' . $header]
         );
         $token = $this->pegarToken($token);
         $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
+
     private function pegarToken($token)
     {
         $token = jsonDecode($token->retorno, true, true)['dado']['access_token'] ?? '';

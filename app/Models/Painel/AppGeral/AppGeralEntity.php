@@ -11,10 +11,12 @@ abstract class AppGeralEntity extends Entity implements PainelEntityInterface
     {
         return object([]);
     }
+
     public function dadoVisualizar(): stdClass
     {
         return object([]);
     }
+
     public function setarStatus(string|int $status): void
     {
     }

@@ -25,18 +25,18 @@ final class FarmaciaModel extends ApiHelper implements ListarInterface
     {
         $dado = $this
             ->json([
-                'pagina' => 1,
-                'quantidade' => $quantidade,
+                'pagina'          => 1,
+                'quantidade'      => $quantidade,
                 'estabelecimento' => Estabelecimento::FISICO,
-                'tipo' => Tipo::FARMACIA,
-                'status' => Status::CONCLUIDO
+                'tipo'            => Tipo::FARMACIA,
+                'status'          => Status::CONCLUIDO
             ])
             ->get('/parceiro-loja')
             ->object();
 
         return (object)[
-            'tipo' => 'farmacia',
-            'lista' => $this->montarLista($dado->dado->lista),
+            'tipo'      => 'farmacia',
+            'lista'     => $this->montarLista($dado->dado->lista),
             'paginacao' => $dado->dado->pagina
         ];
     }
@@ -71,19 +71,20 @@ final class FarmaciaModel extends ApiHelper implements ListarInterface
         }
         return $this->montarRetorno($dado->dado);
     }
+
     private function montarRetorno($dado)
     {
         return (object)[
-            'id' => $dado->id,
-            'titulo' => $dado->titulo,
-            'logo' => $dado->link_logo,
-            'texto_desconto' => $dado->texto_desconto,
+            'id'                 => $dado->id,
+            'titulo'             => $dado->titulo,
+            'logo'               => $dado->link_logo,
+            'texto_desconto'     => $dado->texto_desconto,
             'texto_procedimento' => $dado->texto_procedimento,
-            'texto_descricao' => 'Texto de descrição padrão',
-            'capa_desktop' => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
-            'capa_mobile' => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
-            'procedimento' => 'voucher',
-            'endereco' => []
+            'texto_descricao'    => 'Texto de descrição padrão',
+            'capa_desktop'       => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
+            'capa_mobile'        => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
+            'procedimento'       => 'voucher',
+            'endereco'           => []
         ];
     }
 

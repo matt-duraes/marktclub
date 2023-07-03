@@ -5,8 +5,8 @@ namespace ORM\Group;
 trait GroupTrait
 {
     /**
-     * @param   string      $campo      Campo que deverá agrupar
-     * @param   null|array  $replace    Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
+     * @param string     $campo   Campo que deverá agrupar
+     * @param null|array $replace Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
      */
     protected function group(string $campo, ?array $replace = null)
     {
@@ -22,6 +22,7 @@ trait GroupTrait
         $this->ormGroup = "`{$this->ormTabelaAtual}`.`{$campo}`";
         return $this;
     }
+
     protected function groupTexto(string $group)
     {
         if (!empty($group)) {

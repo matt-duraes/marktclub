@@ -39,6 +39,7 @@ trait TextoTrait
             $this->texto_juridico .= '<br>E-mail: ' . $this->Construtor->contato_email->email();
         }
     }
+
     private function montarTextoDesconto()
     {
         $this->texto_desconto = $this->Parceiro->texto_desconto;
@@ -49,6 +50,7 @@ trait TextoTrait
             // @codingStandardsIgnoreEnd
         }
     }
+
     private function montarTextoVoucher()
     {
         if (!empty($this->Parceiro->texto_voucher)) {
@@ -57,6 +59,7 @@ trait TextoTrait
             $this->texto_voucher = $this->Parceiro->texto_procedimento;
         }
     }
+
     private function montarTextoValidar()
     {
         $this->texto_validar = 'Para validação, acesse voucher.marktclub.com.br ou utilize o QR Code.';

@@ -62,6 +62,7 @@ final class ParceiroRelatorioController extends Controller implements
 
         return mensagemSucesso($this->pegarDadoRetorno($Relatorio), status: 201);
     }
+
     private function pegarDadoRetorno(RelatorioEntity $Relatorio)
     {
         return pegarPropriedadeDaEntity($Relatorio, lista: [
@@ -96,6 +97,7 @@ final class ParceiroRelatorioController extends Controller implements
         $Empresa->uuid($empresa, mensagem: 'Não foi encontrado uma empresa por esse código.');
         return $Empresa;
     }
+
     private function pegarParceiro(?string $parceiro)
     {
         $Parceiro = new LojaEntity();

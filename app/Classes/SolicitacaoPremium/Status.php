@@ -16,15 +16,15 @@ final class Status extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::LIVRE   => 'Voucher disponível',
-            self::GERADO => 'Todos gerados',
-            self::ESGOTADO  => 'Esgotado',
+            self::LIVRE      => 'Voucher disponível',
+            self::GERADO     => 'Todos gerados',
+            self::ESGOTADO   => 'Esgotado',
             self::ESTOURADO  => 'Estourado',
             self::SEM_STATUS => 'Sem status'
         ], [
-            self::LIVRE   => 'verde',
-            self::GERADO => 'azul',
-            self::ESGOTADO  => 'preto',
+            self::LIVRE      => 'verde',
+            self::GERADO     => 'azul',
+            self::ESGOTADO   => 'preto',
             self::ESTOURADO  => 'vermelho',
             self::SEM_STATUS => 'cinza'
         ]);

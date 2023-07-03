@@ -12,18 +12,18 @@ final class PdfHelper
     private array $orientacaoLista;
 
     /**
-     * @param null|string   $titulo         Título do documento
-     * @param null|string   $autor          Nome do autor do documento
-     * @param null|string   $orientacao     Orientação do papel podendo ser: paisagem ou retrato
-     * @param int           $largura        Largura da página em milimetros
-     * @param int           $altura         Altura da página em milimetros
-     * @param int           $margemTopo     Margin do topo do documento em milimetro
-     * @param int           $margemDireita  Margin da direita do documento em milimetro
-     * @param int           $margemBaixo    Margin de baixo do documento em milimetro
-     * @param int           $margemEsquerda Margin da esquerda do documento em milimetro
-     * @param int           $margemHeader   Margin do header do documento em milimetro
-     * @param int           $margemFooter   Margin do footer do documento em milimetro
-     * @param string        $diretorio      Diretório temporário para criar o arquivo
+     * @param null|string $titulo         Título do documento
+     * @param null|string $autor          Nome do autor do documento
+     * @param null|string $orientacao     Orientação do papel podendo ser: paisagem ou retrato
+     * @param int         $largura        Largura da página em milimetros
+     * @param int         $altura         Altura da página em milimetros
+     * @param int         $margemTopo     Margin do topo do documento em milimetro
+     * @param int         $margemDireita  Margin da direita do documento em milimetro
+     * @param int         $margemBaixo    Margin de baixo do documento em milimetro
+     * @param int         $margemEsquerda Margin da esquerda do documento em milimetro
+     * @param int         $margemHeader   Margin do header do documento em milimetro
+     * @param int         $margemFooter   Margin do footer do documento em milimetro
+     * @param string      $diretorio      Diretório temporário para criar o arquivo
      */
     public function __construct(
         private ?string $titulo = null,
@@ -41,23 +41,23 @@ final class PdfHelper
         private string $diretorio = DIRETORIO_PRIVADO . '/temp'
     ) {
         $this->orientacaoLista = [
-            'L' => 'L',
+            'L'        => 'L',
             'paisagem' => 'L',
-            'retrato' => 'P',
-            'P' => 'P'
+            'retrato'  => 'P',
+            'P'        => 'P'
         ];
         $this->PDF = new Mpdf([
-            'tempDir' => $this->diretorio,
-            'mode' => 'utf-8',
-            'format' => [$this->largura, $this->altura],
-            'orientation' => $this->orientacaoLista[$this->orientacao] ?? 'L',
-            'margin_left' => $this->margemEsquerda,
-            'margin_right' => $this->margemDireita,
-            'margin_top' => $this->margemTopo,
+            'tempDir'       => $this->diretorio,
+            'mode'          => 'utf-8',
+            'format'        => [$this->largura, $this->altura],
+            'orientation'   => $this->orientacaoLista[$this->orientacao] ?? 'L',
+            'margin_left'   => $this->margemEsquerda,
+            'margin_right'  => $this->margemDireita,
+            'margin_top'    => $this->margemTopo,
             'margin_bottom' => $this->margemBaixo,
             'margin_header' => $this->margemHeader,
             'margin_footer' => $this->margemFooter,
-            'default_font' => $this->fonte
+            'default_font'  => $this->fonte
         ]);
         if (!empty($this->titulo)) {
             $this->PDF->SetTitle($this->titulo);
@@ -70,8 +70,8 @@ final class PdfHelper
     /**
      * Adiciona uma nova fonte
      *
-     * @param string $fonte Fonte que deseja usar
-     * @return Self
+     * @param  string $fonte Fonte que deseja usar
+     * @return self
      */
     public function fonte(string $fonte, ?string $familia = null): self
     {
@@ -86,8 +86,8 @@ final class PdfHelper
     /**
      * Adiciona uma nova página
      *
-     * @param null|string $orientacao Orientacão da página podendo ser retrato ou paisagem, deixar null para padrão
-     * @return Self
+     * @param  null|string $orientacao Orientacão da página podendo ser retrato ou paisagem, deixar null para padrão
+     * @return self
      */
     public function pagina(?string $orientacao = null): self
     {
@@ -99,8 +99,8 @@ final class PdfHelper
     /**
      * Adiciona um HTML ao arquivo PDF
      *
-     * @param string $html HTML que deseja adicionar
-     * @return Self
+     * @param  string $html HTML que deseja adicionar
+     * @return self
      */
     public function html(string $html): self
     {
@@ -111,10 +111,10 @@ final class PdfHelper
     /**
      * Adicionar um link
      *
-     * @param string        $link
-     * @param null|string   $texto
-     * @param null|string   $target
-     * @return Self
+     * @param  string      $link
+     * @param  null|string $texto
+     * @param  null|string $target
+     * @return self
      */
     public function link(string $link, ?string $texto = null, ?string $target = null): self
     {
@@ -127,7 +127,7 @@ final class PdfHelper
     /**
      * Coloca uma quebra de linha
      *
-     * @return Self
+     * @return self
      */
     public function quebraLinha(): self
     {
@@ -138,10 +138,10 @@ final class PdfHelper
     /**
      * Adicionar um título ao arquivo
      *
-     * @param string    $titulo     Título que deseja adicionar
-     * @param int       $fonte      Tamanho da fonte
-     * @param string    $cor        Cor da fonte
-     * @return Self
+     * @param  string $titulo Título que deseja adicionar
+     * @param  int    $fonte  Tamanho da fonte
+     * @param  string $cor    Cor da fonte
+     * @return self
      */
     public function titulo(string $titulo, int $fonte = 24, string $cor = '#000000'): self
     {
@@ -152,8 +152,8 @@ final class PdfHelper
     /**
      * Adicionar um subtítulo ao arquivo
      *
-     * @param string $subTitulo Subtítulo que deseja adicionar
-     * @return Self
+     * @param  string $subTitulo Subtítulo que deseja adicionar
+     * @return self
      */
     public function subTitulo(string $subTitulo, int $fonte = 20, string $cor = '#000000'): self
     {
@@ -164,8 +164,8 @@ final class PdfHelper
     /**
      * Adicionar um texto ao arquivo
      *
-     * @param string $texto Texto que deseja adicionar
-     * @return Self
+     * @param  string $texto Texto que deseja adicionar
+     * @return self
      */
     public function texto(string $texto, int $fonte = 14, string $cor = '#000000'): self
     {
@@ -191,13 +191,13 @@ final class PdfHelper
     /**
      * Seta o header do documento
      *
-     * @param null|string   $esquerda   Texto da esquerda do header. Passar: algo + {PAGINA} para paginar, ex: Pag: {PAGINA}
-     * @param null|string   $centro     Texto do centro do header. Passar: algo + {PAGINA} para paginar, ex: Pag: {PAGINA}
-     * @param null|string   $direita    Texto da direita do header. Passar: algo + {PAGINA} para paginar, ex: Pag: {PAGINA}
-     * @param int           $fonte      Tamanho da fonte do header
-     * @param bool          $bold       Se o texto vai ter bold
-     * @param bool          $italic     Se o texto vai ter itálico
-     * @return Self
+     * @param  null|string $esquerda Texto da esquerda do header. Passar: algo + {PAGINA} para paginar, ex: Pag: {PAGINA}
+     * @param  null|string $centro   Texto do centro do header. Passar: algo + {PAGINA} para paginar, ex: Pag: {PAGINA}
+     * @param  null|string $direita  Texto da direita do header. Passar: algo + {PAGINA} para paginar, ex: Pag: {PAGINA}
+     * @param  int         $fonte    Tamanho da fonte do header
+     * @param  bool        $bold     Se o texto vai ter bold
+     * @param  bool        $italic   Se o texto vai ter itálico
+     * @return self
      */
     public function header(
         ?string $esquerda = null,
@@ -228,8 +228,8 @@ final class PdfHelper
     /**
      * Adiciona um header passando HTML
      *
-     * @param string $html HTML que deseja adicionar. Passar: algo + {PAGINA} para paginar, ex: <p>Pag:</p> <spam>{PAGINA}</spam>
-     * @return Self
+     * @param  string $html HTML que deseja adicionar. Passar: algo + {PAGINA} para paginar, ex: <p>Pag:</p> <spam>{PAGINA}</spam>
+     * @return self
      */
     public function headerHtml(string $html): self
     {
@@ -240,13 +240,13 @@ final class PdfHelper
     /**
      * Seta o footer do documento
      *
-     * @param null|string   $esquerda   Texto da esquerda do header
-     * @param null|string   $centro     Texto do centro do header
-     * @param null|string   $direita    Texto da direita do header
-     * @param int           $fonte      Tamanho da fonte do header
-     * @param bool          $bold       Se o texto vai ter bold
-     * @param bool          $italic     Se o texto vai ter itálico
-     * @return Self
+     * @param  null|string $esquerda Texto da esquerda do header
+     * @param  null|string $centro   Texto do centro do header
+     * @param  null|string $direita  Texto da direita do header
+     * @param  int         $fonte    Tamanho da fonte do header
+     * @param  bool        $bold     Se o texto vai ter bold
+     * @param  bool        $italic   Se o texto vai ter itálico
+     * @return self
      */
     public function footer(
         ?string $esquerda = null,
@@ -278,8 +278,8 @@ final class PdfHelper
     /**
      * Adiciona um footer passando HTML
      *
-     * @param string $html HTML que deseja adicionar
-     * @return Self
+     * @param  string $html HTML que deseja adicionar
+     * @return self
      */
     public function footerHtml(string $html): self
     {
@@ -290,11 +290,11 @@ final class PdfHelper
     /**
      * Adiciona uma marca d'água no documento
      *
-     * @param string    $imagem     Imagem que deseja usar
-     * @param float     $opacidade  Opacidade da imagem podendo ser de 0 a 1
-     * @param null|int  $x          Posição X da imagem (obrigatório passar o parametro $y), deixar null para centralidar
-     * @param null|int  $y          Posição Y da imagem (obrigatório passar o parametro $x), deixar null para ficar no topo
-     * @return Self
+     * @param  string   $imagem    Imagem que deseja usar
+     * @param  float    $opacidade Opacidade da imagem podendo ser de 0 a 1
+     * @param  null|int $x         Posição X da imagem (obrigatório passar o parametro $y), deixar null para centralidar
+     * @param  null|int $y         Posição Y da imagem (obrigatório passar o parametro $x), deixar null para ficar no topo
+     * @return self
      */
     public function marcaDagua(string $imagem, float $opacidade = 0.2, ?int $x = null, ?int $y = null): self
     {
@@ -310,19 +310,20 @@ final class PdfHelper
     /**
      * Adiciona arquivo CSS
      *
-     * @param string $css CSS para ser adicionado a documento
-     * @return Self
+     * @param  string $css CSS para ser adicionado a documento
+     * @return self
      */
     public function css(string $css): self
     {
         $this->setarCss($css);
         return $this;
     }
+
     /**
      * Path para o arquivo CSS que será adicionado
      *
-     * @param string $arquivo path do arquivo
-     * @return Self
+     * @param  string $arquivo path do arquivo
+     * @return self
      */
     public function cssArquivo(string $arquivo): self
     {
@@ -332,6 +333,7 @@ final class PdfHelper
         $this->setarCss(file_get_contents($arquivo));
         return $this;
     }
+
     private function setarCss($css): void
     {
         $this->PDF->WriteHTML($css, HTMLParserMode::HEADER_CSS);
@@ -356,8 +358,8 @@ final class PdfHelper
     /**
      * Pega ou devolte a classe Mpdf
      *
-     * @param Mpdf|null $mpdf Classe Mpdf
-     * @return Mpdf|Self
+     * @param  Mpdf|null $mpdf Classe Mpdf
+     * @return Mpdf|self
      */
     public function mPdf(?Mpdf $mpdf = null): Mpdf|self
     {

@@ -40,7 +40,7 @@ try {
     $notificacaoNova = $Api
         ->json([
             'pagina' => 1,
-            'novo' => 'sim'
+            'novo'   => 'sim'
         ])->get('/painel-notificacao')->object()->dado ?? [];
     $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel())
         ->tratarRetorno($notificacaoNova->lista ?? []);

@@ -13,18 +13,21 @@ final class Senha implements ModuleInterface
      * A senha deve ter no mínimo 8 dígitos.
      */
     public const MENSAGEM_FORCA_1 = 'A senha deve ter no mínimo 8 dígitos.';
+
     // @codingStandardsIgnoreEnd
     // @codingStandardsIgnoreStart
     /**
      * A senha deve ter 1 letra maiuscula, 1 letra minuscula e no mínimo 8 dígitos.
      */
     public const MENSAGEM_FORCA_2 = 'A senha deve ter 1 letra maiuscula, 1 letra minuscula e no mínimo 8 dígitos.';
+
     // @codingStandardsIgnoreEnd
     // @codingStandardsIgnoreStart
     /**
      * A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número e no mínimo 8 dígitos.
      */
     public const MENSAGEM_FORCA_3 = 'A senha deve ter 1 letra maiuscula, 1 letra minuscula, 1 número e no mínimo 8 dígitos.';
+
     // @codingStandardsIgnoreEnd
     // @codingStandardsIgnoreStart
     /**
@@ -54,8 +57,8 @@ final class Senha implements ModuleInterface
     /**
      * Modulo para senha
      *
-     * @param null|string   $senha          Senha do usuário
-     * @param int           $forca          Força da senha de 1 a 4, sendo 4 mais forte
+     * @param null|string $senha Senha do usuário
+     * @param int         $forca Força da senha de 1 a 4, sendo 4 mais forte
      */
     public function __construct(
         ?string $senha,
@@ -124,7 +127,7 @@ final class Senha implements ModuleInterface
     /**
      * Valida a senha com o salt
      *
-     * @param string    $senha       A senha que o usuário digitou para poder comparar com o salt
+     * @param string $senha A senha que o usuário digitou para poder comparar com o salt
      * @param bool                   Retorna true para sim e false para não
      */
     public function validarSenha(string $senha): bool
@@ -136,8 +139,7 @@ final class Senha implements ModuleInterface
     /**
      * Salva uma nova senha para o usuário
      *
-     * @param   string  $senha  Nova senha
-     * @return  void
+     * @param string $senha Nova senha
      */
     public function mudarSenha(string $senha): void
     {

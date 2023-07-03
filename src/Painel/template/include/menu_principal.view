@@ -1,5 +1,5 @@
 @php
-    $Menu = new \Templates\Painel\Models\MenuModel;
+    $Menu = new \System\Painel\templete\Models\MenuModel;
     $menuLista = $Menu->montarMenu(isset($app) ? $app : '');
 @end
 <div id="bloco_menu_principal">

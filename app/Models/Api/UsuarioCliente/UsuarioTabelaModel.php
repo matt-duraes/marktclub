@@ -4,7 +4,6 @@ namespace App\Models\Api\UsuarioCliente;
 
 use ORM\ORM;
 use Modules\Cpf;
-use Http\Request;
 use Modules\Data;
 use Modules\Nome;
 use Modules\Email;
@@ -21,7 +20,6 @@ final class UsuarioTabelaModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
     private array $obrigatorio;
     private array $dado;
@@ -64,14 +62,14 @@ final class UsuarioTabelaModel extends ORM
         ])->where($where)->primeiro();
 
         $this->dado = [
-            'status' => 2,
-            'mensagem' => 1,
-            'empresa' => $this->idEmpresa,
-            'tipo' => 1,
-            'data_atualizacao' => agora(),
+            'status'             => 2,
+            'mensagem'           => 1,
+            'empresa'            => $this->idEmpresa,
+            'tipo'               => 1,
+            'data_atualizacao'   => agora(),
             'data_upload_tabela' => hoje(),
-            'data_dado' => hoje(),
-            'primeiro_acesso' => 1
+            'data_dado'          => hoje(),
+            'primeiro_acesso'    => 1
         ];
 
         if (is_object($usuario) && object_key_exists('cod', $usuario)) {
@@ -173,7 +171,7 @@ final class UsuarioTabelaModel extends ORM
         if (empty($usuario->sexo) && !$Genero->vazio() && $Genero->valido()) {
             $dado['sexo'] = $Genero->numero();
         }
-        if (empty($usuario->situacao) && array_key_exists('situacao', $request) &&  !empty($request['situacao'])) {
+        if (empty($usuario->situacao) && array_key_exists('situacao', $request) && !empty($request['situacao'])) {
             $dado['situacao'] = $request['situacao'];
         }
         if (array_key_exists('federacao', $request) && !empty($request['federacao'])) {
@@ -346,7 +344,7 @@ final class UsuarioTabelaModel extends ORM
         }
 
         $salvar = $this->dado([
-            'status' => 3,
+            'status'           => 3,
             'data_atualizacao' => agora()
         ])->where(['id', $usuario->id])->update();
 

@@ -10,12 +10,12 @@ trait OrdemTrait
     /**
      * Pega a ordem do request
      *
-     * @param   OrderInterface          $ordem          A classe de ordem
-     * @param   null|string             $tabela         Tabela da ordem
-     * @param   bool                    $obrigatorio    Se é obrigatório ter uma ordem no request
-     * @param   bool                    $valido         Se a ordem deve ser valida
-     * @return  string|OrderInterface                   id desc por padrão ou um OrdemInterface
-     * @throws  Excecao                                 Uma exeção com o erro
+     * @param  OrderInterface        $ordem       A classe de ordem
+     * @param  null|string           $tabela      Tabela da ordem
+     * @param  bool                  $obrigatorio Se é obrigatório ter uma ordem no request
+     * @param  bool                  $valido      Se a ordem deve ser valida
+     * @return string|OrderInterface id desc por padrão ou um OrdemInterface
+     * @throws Excecao               Uma exeção com o erro
      */
     protected function pegarOrdem(
         OrderInterface $ordem,
@@ -36,7 +36,6 @@ trait OrdemTrait
         } elseif ($ordem->vazio()) {
             return $ordem;
         }
-
 
         if (!$ordem->valido() && $valido) {
             mensagemErro('Campo inválido!', 'O campo ordem está inválido.');

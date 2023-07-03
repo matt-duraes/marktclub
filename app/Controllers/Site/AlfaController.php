@@ -13,7 +13,7 @@ final class AlfaController extends Controller
         return view(
             'alfa.credito',
             [
-                'menu' => 'credito',
+                'menu'   => 'credito',
                 'banner' => (new BannerModel())->alfa()
             ]
         );
@@ -24,8 +24,8 @@ final class AlfaController extends Controller
         return view(
             'alfa.portabilidade',
             [
-                'menu' => 'credito',
-                'banner' => (new BannerModel())->alfa(),
+                'menu'    => 'credito',
+                'banner'  => (new BannerModel())->alfa(),
                 'parcela' => (new CreditoModel())->listarParcelas()
             ]
         );
@@ -36,8 +36,8 @@ final class AlfaController extends Controller
         return view(
             'alfa.consignado',
             [
-                'menu' => 'credito',
-                'banner' => (new BannerModel())->alfa(),
+                'menu'    => 'credito',
+                'banner'  => (new BannerModel())->alfa(),
                 'parcela' => (new CreditoModel())->listarParcelas()
             ]
         );
@@ -48,7 +48,7 @@ final class AlfaController extends Controller
         return view(
             'alfa.veiculo',
             [
-                'menu' => 'credito',
+                'menu'     => 'credito',
                 'parceiro' => [1, 2, 3]
             ]
         );
@@ -59,9 +59,9 @@ final class AlfaController extends Controller
         return view(
             'alfa.corretora',
             [
-                'banner' => (new BannerModel())->corretora(),
+                'banner'      => (new BannerModel())->corretora(),
                 'consultoria' => (new BannerModel())->consultoriaAlfa(),
-                'menu' => 'corretora_alfa'
+                'menu'        => 'corretora_alfa'
             ]
         );
     }
@@ -72,7 +72,7 @@ final class AlfaController extends Controller
             'alfa.consultoria',
             [
                 'banner' => (new BannerModel())->consultoriaAlfa(),
-                'menu' => 'corretora_alfa'
+                'menu'   => 'corretora_alfa'
             ]
         );
     }

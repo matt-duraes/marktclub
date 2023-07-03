@@ -126,15 +126,15 @@ trait Salvar
                 }
 
                 $dado['attendees'][] = [
-                    'email' => $email,
+                    'email'          => $email,
                     'responseStatus' => 'needsAction'
                 ];
             }
         }
         if (!$euEstouComoConvidado) {
             $dado['attendees'][] = [
-                'name' => $this->meuNome(),
-                'email' => $this->meuEmail(),
+                'name'           => $this->meuNome(),
+                'email'          => $this->meuEmail(),
                 'responseStatus' => 'accepted'
             ];
         }

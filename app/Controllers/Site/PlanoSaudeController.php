@@ -24,8 +24,8 @@ final class PlanoSaudeController extends Controller
     public function index()
     {
         $retorno = [
-            'menu' => 'saude',
-            'banner' => (new BannerModel())->saude(),
+            'menu'        => 'saude',
+            'banner'      => (new BannerModel())->saude(),
             'saudeBoleto' => (new OperadoraModel())->saudeBoleto(),
         ];
 
@@ -60,7 +60,7 @@ final class PlanoSaudeController extends Controller
         return view(
             'plano_saude.unimedvitoria',
             [
-                'menu' => 'saude',
+                'menu'   => 'saude',
                 'lista'  => (new OperadoraModel())->listarDados()
             ]
         );
@@ -95,8 +95,8 @@ final class PlanoSaudeController extends Controller
     public function precoAmil(Request $request)
     {
         $views = [
-            'rio_de_janeiro' => 'planosaude.geral.modalrio',
-            'sao_paulo' => 'planosaude.geral.modalsp',
+            'rio_de_janeiro'   => 'planosaude.geral.modalrio',
+            'sao_paulo'        => 'planosaude.geral.modalsp',
             'distrito_federal' => 'planosaude.geral.modaldf',
         ];
 
@@ -111,9 +111,8 @@ final class PlanoSaudeController extends Controller
 
     public function federalSaude()
     {
-
         return view('plano_saude.federalSaude', [
-            'menu' => 'federal_saude',
+            'menu'   => 'federal_saude',
             'banner' => (new BannerModel())->saude(),
             // 'lista'  => (new PlanoModel())->listarDados()
         ]);
@@ -129,16 +128,15 @@ final class PlanoSaudeController extends Controller
     public function simulacao($url = null)
     {
         return view('plano_saude.simulacao', [
-            'menu' => 'saude',
+            'menu'      => 'saude',
             'operadora' => $url
         ]);
     }
 
     public function contratacao($simulacao = null)
     {
-
         return view('plano_saude.contratacao', [
-            'menu' => 'saude',
+            'menu'      => 'saude',
             'simulacao' => $simulacao
         ]);
     }

@@ -20,9 +20,9 @@ final class AlbumController extends Controller
 
         $permissao = sessao('USUARIO.permissao');
         return view('painel.album_galeria.index', [
-            'appTitulo' => 'ÁLBUM',
-            'app' => 'album_galeria',
-            'album' => [],
+            'appTitulo'   => 'ÁLBUM',
+            'app'         => 'album_galeria',
+            'album'       => [],
             'podeDeletar' => in_array('album_galeria_deletar', $permissao)
         ]);
     }

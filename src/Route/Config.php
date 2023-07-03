@@ -67,6 +67,7 @@ final class Config
         $this->controller = !empty($controller) ? $controller : 'index';
         $this->action = !empty($action) ? $action : 'index';
     }
+
     private function transformarRotaEmDiretorio($rota): array
     {
         $lista = array_diff(scandir(__DIR__ . '/../../routes'), ['..', '.']);

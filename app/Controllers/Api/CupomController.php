@@ -4,10 +4,8 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
-use Modules\Email;
 use Controller\Controller;
 use App\Models\Api\Cupom\CupomModel;
-use App\Models\Api\Cupom\CupomEntity;
 use System\Interface\ControllerListarInterface;
 
 final class CupomController extends Controller implements
@@ -27,8 +25,5 @@ final class CupomController extends Controller implements
         $listar = $CupomHelper->buscarDados($id);
 
         return mensagemSucesso($listar);
-
     }
-
-
 }

@@ -9,10 +9,8 @@ final class LogDownloadEntity extends Entity
 {
     protected string $ormTabela = TABELA_PAINEL_LOG_DOWNLOAD;
     protected array $ormInsert = ['id_admin_empresa', 'id_usuario_equipe', 'app', 'request', 'quantidade'];
-
     private int $idEmpresa;
     private int $idUsuario;
-
     protected int $id_admin_empresa;
     protected int $id_usuario_equipe;
 

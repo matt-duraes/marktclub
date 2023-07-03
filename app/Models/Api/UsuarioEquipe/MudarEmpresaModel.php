@@ -19,6 +19,7 @@ final class MudarEmpresaModel extends ORM
         $this->validarIdUsuarioEmpresa($idUsuario, $idEmpresa);
         $this->atualizarEmpresa($idUsuario, $idEmpresa);
     }
+
     private function validarIdUsuarioEmpresa(int $usuario, int $empresa): void
     {
         if (empty($usuario)) {
@@ -27,6 +28,7 @@ final class MudarEmpresaModel extends ORM
             mensagemErro('Dado inválido!', 'Nenhuma empresa encontrada.', status: 404);
         }
     }
+
     private function atualizarEmpresa(int $usuario, int $empresa): void
     {
         $this->dado(['id_admin_empresa' => $empresa])->where(['id', $usuario])->update();

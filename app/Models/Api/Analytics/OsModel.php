@@ -52,8 +52,8 @@ final class OsModel extends ORM
             }
 
             $dado[$r->os] = [
-                'os' => $r->os,
-                'total' => $r->quantidade,
+                'os'          => $r->os,
+                'total'       => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
         }

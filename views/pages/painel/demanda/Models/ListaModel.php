@@ -13,49 +13,50 @@ final class ListaModel
         return [
             [
                 'titulo' => 'Backlog',
-                'lista' => $this->buscarDemanda('nova', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('nova', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Liberada',
-                'lista' => $this->buscarDemanda('liberada', 'ordem', $area)
+                'lista'  => $this->buscarDemanda('liberada', 'ordem', $area)
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista' => $this->buscarDemanda('andamento', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('andamento', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Aguardando aprovação',
-                'lista' => $this->buscarDemanda('teste', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('teste', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Concluída',
-                'lista' => $this->buscarDemanda('concluida', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('concluida', 'mais-novo', $area)
             ],
         ];
     }
+
     public function quadroTi()
     {
         $area = Area::TECNOLOGIA;
         return [
             [
                 'titulo' => 'Backlog',
-                'lista' => $this->buscarDemanda('nova', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('nova', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Liberada',
-                'lista' => $this->buscarDemanda('liberada', 'ordem', $area)
+                'lista'  => $this->buscarDemanda('liberada', 'ordem', $area)
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista' => $this->buscarDemanda('andamento', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('andamento', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Teste',
-                'lista' => $this->buscarDemanda('teste', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('teste', 'mais-novo', $area)
             ],
             [
                 'titulo' => 'Concluída',
-                'lista' => $this->buscarDemanda('concluida', 'mais-novo', $area)
+                'lista'  => $this->buscarDemanda('concluida', 'mais-novo', $area)
             ],
         ];
     }
@@ -65,8 +66,8 @@ final class ListaModel
         return (new ApiHelper(token: true))
             ->json([
                 'status' => $status,
-                'area' => $area,
-                'ordem' => $ordem
+                'area'   => $area,
+                'ordem'  => $ordem
             ])
             ->get('/demanda-dado')
             ->object()->dado ?? [];

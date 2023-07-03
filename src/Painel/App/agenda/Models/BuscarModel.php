@@ -25,9 +25,9 @@ final class BuscarModel
     /**
      * Busca a lista de eventos da data x a y
      *
-     * @param string $de    Data de inicio da busca
-     * @param string $ate   Data fim para a busca
-     * @return array Array com a lista de eventos
+     * @param  string $de  Data de inicio da busca
+     * @param  string $ate Data fim para a busca
+     * @return array  Array com a lista de eventos
      */
     public function buscarListaEvento(string $de, string $ate): array
     {
@@ -37,12 +37,12 @@ final class BuscarModel
         $ate = $this->converterDataParaRFC3339($ate);
 
         $retorno = $this->Cliente->parametro([
-            'calendarId' => 'primary',
-            'timeMin' => $de,
-            'timeMax' => $ate,
-            'showDeleted' => 'false',
+            'calendarId'   => 'primary',
+            'timeMin'      => $de,
+            'timeMax'      => $ate,
+            'showDeleted'  => 'false',
             'singleEvents' => 'true',
-            'orderBy' =>  'startTime',
+            'orderBy'      => 'startTime',
         ])->get('/primary/events')->object();
 
         $this->validarRetorno($retorno, 'items');

@@ -1,16 +1,16 @@
 <?php
 
 return [
-    'titulo' => 'Cashback',
-    'buscar' => true,
-    'filtrar' => true,
-    'ordem' => true,
-    'add' => true,
-    'editar' => true,
-    'deletar' => true,
+    'titulo'    => 'Cashback',
+    'buscar'    => true,
+    'filtrar'   => true,
+    'ordem'     => true,
+    'add'       => true,
+    'editar'    => true,
+    'deletar'   => true,
     'historico' => false,
-    'api' => [
+    'api'       => [
         'scope' => 'parceiro_cashback',
-        'uri' => '/parceiro-cashback'
+        'uri'   => '/parceiro-cashback'
     ]
 ];

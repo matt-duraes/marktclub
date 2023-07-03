@@ -24,35 +24,33 @@ final class EquipeEntity extends Entity
     use CampoUnicoTrait;
 
     protected string $ormTabela = TABELA_USUARIO_EQUIPE;
-
     protected array $ormBuscar = [
-        'nome' => 'nome_real',
-        'cpf' => 'documento_cpf',
+        'nome'   => 'nome_real',
+        'cpf'    => 'documento_cpf',
         'perfil' => 'nome_perfil',
-        'email' => ['email_trabalho', 'email_pessoal'],
-        'senha' => 'salt',
+        'email'  => ['email_trabalho', 'email_pessoal'],
+        'senha'  => 'salt',
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao',
         'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
         'id_facebook', 'id_google', 'marktclub', 'gerente', 'admin'
     ];
     protected array $ormSalvar = [
-        'nome_real' => '->nome',
+        'nome_real'     => '->nome',
         'documento_cpf' => '->cpf',
-        'salt' => '->senha',
-        'nome_perfil' => '->perfil',
+        'salt'          => '->senha',
+        'nome_perfil'   => '->perfil',
         'email_trabalho', 'email_pessoal', 'genero', 'telefone_pessoal', 'telefone_trabalho', 'status',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'marktclub', 'permissao', 'admin'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
-        'tipo' => 1
+        'tipo'             => 1
     ];
     protected array $ormUpdate = [
         'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google', 'id_facebook', 'id_google'
     ];
     protected array $ormRetornoPadrao = ['id', 'nome', 'cpf', 'perfil', 'imagem'];
-
     protected string $ormValidarSalvar = '
         cpf|CPF|vazio|cpf
         genero|Gênero|valido
@@ -63,7 +61,6 @@ final class EquipeEntity extends Entity
         telefone_trabalho|Telefone de trabalho|telefone
         status|Status|vazio|valido
     ';
-
     public Nome $nome;
     public string $perfil;
     public Cpf $cpf;
@@ -91,8 +88,8 @@ final class EquipeEntity extends Entity
     public string $id_google;
     public string $id_facebook;
     public EmpresaEntity $Empresa;
-
     private int $idEmpresa;
+
     public function __construct(
         private bool $validarToken = true
     ) {
@@ -108,6 +105,7 @@ final class EquipeEntity extends Entity
     {
         return $this->prop('id');
     }
+
     protected function setEmpresa($valor)
     {
         $this->Empresa = new EmpresaEntity();
@@ -154,7 +152,7 @@ final class EquipeEntity extends Entity
         } elseif ($this->propriedadeExiste('email_trabalho') && empty($this->email_trabalho->email())) {
             mensagemErro('Campo obrigatório!', 'O campo e-mail de trabalho é obrigatório.');
         } elseif ($this->propriedadeExiste('permissao') && empty($this->permissao)) {
-            mensagemErro("Campo obrigatório!", "Você deve marcar as permissões do usuário.");
+            mensagemErro('Campo obrigatório!', 'Você deve marcar as permissões do usuário.');
         } elseif ($this->propriedadeExiste('senha') && !$this->senha->vazio() && !$this->senha->valido()) {
             mensagemErro('Senha inválida!', $this->senha->mensagem());
         }
@@ -174,6 +172,7 @@ final class EquipeEntity extends Entity
         $perfil = $this->nome->primeiroNome();
         $this->perfil = $this->criarPerfilValido(strSlug($perfil, '.'));
     }
+
     private function criarPerfilValido($perfil, int $numero = 0)
     {
         $perfilFinal = $perfil;
@@ -213,6 +212,7 @@ final class EquipeEntity extends Entity
             mensagemErro('Campo inválido!', 'Você não pode mudar o CPF desse usuário.');
         }
     }
+
     private function atualizarPerfilUsuario()
     {
         $perfil = $this->perfil;

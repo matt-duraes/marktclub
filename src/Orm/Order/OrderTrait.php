@@ -9,9 +9,9 @@ trait OrderTrait
     /**
      * Ordena a busca no banco
      *
-     * @param   string|array|OrderInterface     $campo      Campo para a busca podendo ser uma string, um array nos formatos ["campo_1", "campo_2"] ou [["campo_1", "ASC"], ["campo_2", "DESC"]] ou um OrderInterface
-     * @param   string                          $direcao    Direção podendo ser ASC ou DESC, ASC por padrão
-     * @return  self
+     * @param  string|array|OrderInterface $campo   Campo para a busca podendo ser uma string, um array nos formatos ["campo_1", "campo_2"] ou [["campo_1", "ASC"], ["campo_2", "DESC"]] ou um OrderInterface
+     * @param  string                      $direcao Direção podendo ser ASC ou DESC, ASC por padrão
+     * @return self
      */
     protected function order(string|array|OrderInterface $campo, string $direcao = 'ASC'): self
     {
@@ -43,8 +43,8 @@ trait OrderTrait
     /**
      * Ordem em texto puro
      *
-     * @param   string $order   Ordem que deseja buscar
-     * @return  self
+     * @param  string $order Ordem que deseja buscar
+     * @return self
      */
     protected function orderTexto(string $order): self
     {

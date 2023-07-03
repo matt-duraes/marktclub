@@ -3,7 +3,6 @@
 namespace Painel\ComercialProspeccao\Controllers;
 
 use Http\Request;
-use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
@@ -16,13 +15,13 @@ final class ComercialProspeccaoController extends Controller
         $Prospeccao = new ProspeccaoModel();
 
         return view('painel.comercial_prospeccao.index', [
-            'app' => 'comercial-prospeccao',
-            'appTitulo' => 'Prospecção',
-            'abordagem' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::ABORDAGEM),
+            'app'          => 'comercial-prospeccao',
+            'appTitulo'    => 'Prospecção',
+            'abordagem'    => $Prospeccao->buscarProspeccao(ProspeccaoStatus::ABORDAGEM),
             'apresentacao' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::APRESENTACAO),
-            'negociacao' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::NEGOCIACAO),
-            'avaliacao' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::AVALIACAO),
-            'minuta' => $Prospeccao->buscarProspeccao(ProspeccaoStatus::MINUTA)
+            'negociacao'   => $Prospeccao->buscarProspeccao(ProspeccaoStatus::NEGOCIACAO),
+            'avaliacao'    => $Prospeccao->buscarProspeccao(ProspeccaoStatus::AVALIACAO),
+            'minuta'       => $Prospeccao->buscarProspeccao(ProspeccaoStatus::MINUTA)
         ]);
     }
 
@@ -38,6 +37,7 @@ final class ComercialProspeccaoController extends Controller
 
         return mensagemSucesso(['id' => $request->id], status: 201);
     }
+
     public function postAtualizarProspeccao(Request $request)
     {
         (new ApiHelper(token: true))

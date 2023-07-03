@@ -9,6 +9,7 @@ final class Botao implements ModuleInterface
     use ValidarTrait;
 
     private int $numero = 0;
+
     public function __toString()
     {
         return $this->valor();
@@ -18,8 +19,8 @@ final class Botao implements ModuleInterface
     /**
      * Gera um modulo de botão
      *
-     * @param  null|int|string   $valor  Valor podendo ser string sendo sim ou nao ou um int com
-     *                                   valor 1 para sim ou vazio para nao
+     * @param null|int|string $valor Valor podendo ser string sendo sim ou nao ou um int com
+     *                               valor 1 para sim ou vazio para nao
      */
     public function __construct(
         private null|int|string $valor,
@@ -43,7 +44,7 @@ final class Botao implements ModuleInterface
     /**
      * Adicionar um número ao valor atual
      *
-     * @param  int  $numero  Número a ser adicionado
+     * @param int $numero Número a ser adicionado
     */
     public function adicionar(int $numero): void
     {
@@ -54,7 +55,7 @@ final class Botao implements ModuleInterface
     /**
      * Remove um número ao valor atual
      *
-     * @param  int  $numero  Número a ser removido
+     * @param int $numero Número a ser removido
      */
     public function remover(int $numero): void
     {

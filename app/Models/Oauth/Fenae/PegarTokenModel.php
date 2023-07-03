@@ -29,6 +29,7 @@ final class PegarTokenModel
         $this->validarAccessToken();
         $this->setarUsuario();
     }
+
     /**
      * Verifica se o usuário pode logar
      *
@@ -51,6 +52,7 @@ final class PegarTokenModel
         }
         return true;
     }
+
     public function pegarLinkErro(): string
     {
         return $this->linkErro;
@@ -74,6 +76,7 @@ final class PegarTokenModel
         $this->validarState = $dado['state'];
         $this->validarPkce = $dado['pkce'];
     }
+
     private function validarRequest(): void
     {
         if (
@@ -85,6 +88,7 @@ final class PegarTokenModel
         }
         mensagemStatus(401, localhost: 'Não foi possível validar sessões.');
     }
+
     private function setarAccessToken(): void
     {
         $this->provider->setPkceCode($this->validarPkce);
@@ -92,6 +96,7 @@ final class PegarTokenModel
             'code' => $this->code
         ]);
     }
+
     private function validarAccessToken(): void
     {
         if (!$this->accessToken->hasExpired()) {
@@ -99,6 +104,7 @@ final class PegarTokenModel
         }
         mensagemStatus(403);
     }
+
     private function setarUsuario()
     {
         $idToken = $this->accessToken->getValues()['id_token'] ?? '';
@@ -109,10 +115,10 @@ final class PegarTokenModel
         cookie('MKCLTI', base64Encode($idToken), dia: 1);
         $usuario = $this->provider->getResourceOwner($this->accessToken)->toArray();
         $this->usuario = [
-            'nome' => $usuario['name'],
-            'cpf' => (int)soNumero($usuario['cpf']),
-            'email' => strCaixaBaixa($usuario['email']),
-            'grupo' => strCaixaBaixa($usuario['type']),
+            'nome'    => $usuario['name'],
+            'cpf'     => (int)soNumero($usuario['cpf']),
+            'email'   => strCaixaBaixa($usuario['email']),
+            'grupo'   => strCaixaBaixa($usuario['type']),
             'filiado' => $usuario['affiliate'] == 1
         ];
     }

@@ -44,9 +44,10 @@ final class Cpf implements ModuleInterface
 
         $this->cpf = preg_replace('/[^0-9]/', '', $this->cpf);
     }
+
     private function colocarZero()
     {
-        $cpf = !empty($this->cpf) ? preg_replace("/[^0-9]/", "", $this->cpf) : '';
+        $cpf = !empty($this->cpf) ? preg_replace('/[^0-9]/', '', $this->cpf) : '';
         if (empty($cpf) || $cpf < 1 || mb_strlen($cpf) >= 11) {
             return;
         }

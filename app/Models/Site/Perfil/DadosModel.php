@@ -25,7 +25,6 @@ final class DadosModel
         $this->chave = $chave;
     }
 
-
     /**
      * @return object|array
      * @throws Excecao
@@ -42,7 +41,7 @@ final class DadosModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return object|array
      * @throws Excecao
@@ -82,7 +81,7 @@ final class DadosModel
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -121,7 +120,7 @@ final class DadosModel
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -138,7 +137,7 @@ final class DadosModel
         ])
         ->put('/usuario-cliente/' . $id);
 
-        if($imagem) {
+        if ($imagem) {
             sessao('USUARIO.imagem', $imagem);
             return mensagemSucesso([
                 'imagem' => $imagem
@@ -147,7 +146,7 @@ final class DadosModel
     }
 
     /**
-     * @param  $request
+     * @param $request
      *
      * @return Response|void
      * @throws Excecao
@@ -167,8 +166,8 @@ final class DadosModel
     }
 
     /**
-     * @param  SocialHelper  $Social
-     * @param                $rede
+     * @param SocialHelper $Social
+     * @param              $rede
      *
      * @return Response
      * @throws Excecao

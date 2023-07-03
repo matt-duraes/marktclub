@@ -20,6 +20,6 @@ $Doc
 
     ->preExemplo("curl --location --request DELETE '{{LINK}}/usuario-cliente/:id' \
 --header 'Authorization: Bearer {{TOKEN}}'")
-    ->preFalha("");
+    ->preFalha('');
 
 echo $Doc;

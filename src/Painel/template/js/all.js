@@ -12,9 +12,9 @@
 // @system "Form"
 // @system "Icone"
 
-// @resource "painel/pagina_popup"
-// @resource "painel/form_geral"
-// @resource "painel/historico"
+// @painel "pagina_popup"
+// @painel "form_geral"
+// @painel "historico"
 
 // @import "ordem"
 // @import "filtrar"

@@ -13,7 +13,7 @@ final class Procura extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::SIM => 'Acha o que procura',
+            self::SIM    => 'Acha o que procura',
             self::NAO    => 'Não acha o que procura'
         ]);
     }

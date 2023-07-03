@@ -54,6 +54,10 @@ exports.jsUnico = function (path) {
 */
 exports.jsTodos = function () {
     return new Promise(async resolve => {
+        if (config == undefined) {
+            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+        }
+
         arquivoConteudo = [];
 
         await fsDeletarDiretorio('./files/build/js');
@@ -61,7 +65,8 @@ exports.jsTodos = function () {
 
         const listaArquivo = glob
             .sync('views/@(pages|templates)/**/all.js')
-            .concat(glob.sync('src/Painel/App/**/all.js'));
+            .concat(glob.sync('src/Painel/App/**/all.js'))
+            .concat(glob.sync('src/Painel/template/**/all.js'));
 
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
@@ -69,7 +74,7 @@ exports.jsTodos = function () {
         for (i = 0; i < quantidade; ++i) {
             arquivo = listaArquivo[i];
             try {
-                await processarJs(arquivo, './files/build/js');
+                await processarJs(arquivo, config.public + '/js');
             } catch (error) {
                 mensagemErro('Erro ao copiar arquivo: ' + arquivo);
             }
@@ -184,9 +189,12 @@ function processarJs(path, destino) {
         return src('files/build/js/' + nome)
             .pipe(plumber())
             .pipe(
-                replace(/\/\/\ ?(\@template|\@import|\@resource|\@system)(.*)/g, function handleReplace(match) {
-                    return '';
-                })
+                replace(
+                    /\/\/\ ?(\@template|\@painel|\@import|\@resource|\@system)(.*)/g,
+                    function handleReplace(match) {
+                        return '';
+                    }
+                )
             )
             .pipe(dest(destino))
             .on('end', resolve)
@@ -195,12 +203,12 @@ function processarJs(path, destino) {
 }
 // Pegar lista de imports
 function pegarListaImports(conteudo, path) {
-    if (!/\ ?\/\/\ ?(\@import|\@resource|\@template|\@system)/.test(conteudo)) {
+    if (!/\ ?\/\/\ ?(\@import|\@painel|\@resource|\@template|\@system)/.test(conteudo)) {
         return false;
     }
     const lista = conteudo
         .replace(/\"|\'|\(|\)/g, '')
-        .match(/(\@import|\@resource|\@template|\@system)\ [a-zA-Z0-9\_\-\.\/]+/g);
+        .match(/(\@import|\@painel|\@resource|\@template|\@system)\ [a-zA-Z0-9\_\-\.\/]+/g);
 
     let retorno = [];
     const quantidade = lista.length;
@@ -209,10 +217,14 @@ function pegarListaImports(conteudo, path) {
         item = lista[i];
         if (/\@import/.test(item)) {
             arquivo = path + item.replace('@import ', '') + '.js';
+        } else if (/\@template ?(\"|\')?painel/.test(item)) {
+            arquivo = 'src/Painel/template/js/all.js';
         } else if (/\@template/.test(item)) {
             arquivo = 'views/templates/' + item.replace('@template ', '') + '/js/all.js';
         } else if (/\@resource/.test(item)) {
             arquivo = 'resources/js/' + item.replace('@resource ', '') + '.js';
+        } else if (/\@painel/.test(item)) {
+            arquivo = 'src/Painel/js/' + item.replace('@painel ', '') + '.js';
         } else if (/\@system/.test(item)) {
             arquivo =
                 'src/Html/Scripts/js/' +

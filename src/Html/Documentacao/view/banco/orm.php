@@ -101,7 +101,7 @@ public function atualizarUsuarioExistente(string $nome, string $email, int $id)
 }
 ...
             ')
-            ->paragrafo("Aqui tivemos 2 métodos novos, o where e o update, vou começar pelo update porque o WHERE vai precisar de muita explicação para mostrar tudo o que é capaz de fazer com ele.")
+            ->paragrafo('Aqui tivemos 2 métodos novos, o where e o update, vou começar pelo update porque o WHERE vai precisar de muita explicação para mostrar tudo o que é capaz de fazer com ele.')
             ->margin(30)
             ->bloco(function () use ($Doc) {
                 $Doc
@@ -155,7 +155,7 @@ $this->where([
 (`tabela`.`nome` = "$nome" AND `tabela`.`status` > 1 AND `tabela`.`email` LIKE "%$email%" AND `tabela`.`tipo` IN(1, 2, 3) AND `tabela`.`data_ativacao` IS NOT NULL)
 ...
             ')
-            ->paragrafo("Agora vamos para a parte mais difícil de entender, vamos criar grupos dentro do where mudando o tipo  consulta entre eles, misturando AND e OR")
+            ->paragrafo('Agora vamos para a parte mais difícil de entender, vamos criar grupos dentro do where mudando o tipo  consulta entre eles, misturando AND e OR')
             ->codigo('
 ...
 $this->where([

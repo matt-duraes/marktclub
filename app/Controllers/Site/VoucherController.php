@@ -3,35 +3,33 @@
 namespace App\Controllers\Site;
 
 use Http\Request;
-use Http\Response;
 use Controller\Controller;
 
 final class VoucherController extends Controller
 {
     public function voucher(Request $request, $url = null)
     {
-
         $voucher = (object)[
-            'id' => 123,
+            'id'      => 123,
             'criacao' => '24/02/2023',
-            'status' => 'novo',
-            'codigo' => 'qYiyaf30Qz',
+            'status'  => 'novo',
+            'codigo'  => 'qYiyaf30Qz',
             'voucher' => (object)[
                 'titulo' => 'Yes Idiomas',
                 'imagem' => (object)[
-                    'parceiro' => 'https://arquivo.marktclub.com.br/parceiro/0009e3aec14f8583fb62a413aa8a9aec.png',
-                    'empresa' => 'https://arquivo.marktclub.com.br/construtor/a2ca966d45780803f2497bd2a77b0e3b.png',
+                    'parceiro'  => 'https://arquivo.marktclub.com.br/parceiro/0009e3aec14f8583fb62a413aa8a9aec.png',
+                    'empresa'   => 'https://arquivo.marktclub.com.br/construtor/a2ca966d45780803f2497bd2a77b0e3b.png',
                     'marktclub' => 'https://arquivo.marktclub.com.br/construtor/a2ca966d45780803f2497bd2a77b0e3b.png',
-                    'qrcode' => 'https://chart.apis.google.com/chart?cht=qr&chl=http://voucher.marktclub.com.br/validar/qYiyaf30Qz&chs=300x300'
+                    'qrcode'    => 'https://chart.apis.google.com/chart?cht=qr&chl=http://voucher.marktclub.com.br/validar/qYiyaf30Qz&chs=300x300'
                 ],
-                'codigo' => 'qYiyaf30Qz',
+                'codigo'  => 'qYiyaf30Qz',
                 'usuario' => (object)[
                     'nome' => 'Karina Cruz',
-                    'cpf' => '034.840.871-45',
+                    'cpf'  => '034.840.871-45',
                 ],
                 'data' => (object)[
-                    'criacao' => '24/02/2023',
-                    'validade' => '06/03/2023',
+                    'criacao'    => '24/02/2023',
+                    'validade'   => '06/03/2023',
                     'vencimento' => '06/03/2023',
                 ],
                 'texto' => (object)[

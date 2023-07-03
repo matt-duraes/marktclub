@@ -46,8 +46,8 @@ final class PerfilController extends Controller
         return view(arquivo: 'perfil.dado', var: [
             'appTitulo' => 'Atualizar Dados',
             'appVoltar' => [route('perfil.index'), 'Perfil'],
-            'genero' => (new ListaHelper())->add('', 'Escolha uma opção')->genero()->r(),
-            'usuario' => $this->descriptografarUsuario($usuario['dado'])
+            'genero'    => (new ListaHelper())->add('', 'Escolha uma opção')->genero()->r(),
+            'usuario'   => $this->descriptografarUsuario($usuario['dado'])
         ]);
     }
 
@@ -96,13 +96,13 @@ final class PerfilController extends Controller
         $id = sessao('USUARIO.id');
         $dado = criptografarDado(
             dado: [
-                'nome' => $request->nome,
-                'data_nascimento' => $request->data_nascimento,
-                'genero' => $request->genero,
-                'email_pessoal' => $request->email_pessoal,
+                'nome'              => $request->nome,
+                'data_nascimento'   => $request->data_nascimento,
+                'genero'            => $request->genero,
+                'email_pessoal'     => $request->email_pessoal,
                 'telefone_trabalho' => soNumero($request->telefone_trabalho),
-                'telefone_pessoal' => soNumero($request->telefone_pessoal),
-                'perfil' => $request->perfil
+                'telefone_pessoal'  => soNumero($request->telefone_pessoal),
+                'perfil'            => $request->perfil
             ],
             criptografia: [
                 'nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'perfil'
@@ -264,6 +264,7 @@ final class PerfilController extends Controller
             'empresa' => $empresa
         ]);
     }
+
     public function postEmpresa(Request $request)
     {
         (new ApiHelper(token: true))

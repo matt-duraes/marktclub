@@ -71,12 +71,12 @@ final class GrupoModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'indice' => $r->indice,
-                'titulo' => $r->titulo,
-                'data_criacao' => $r->data_criacao,
+                'id'               => $r->uuid,
+                'indice'           => $r->indice,
+                'titulo'           => $r->titulo,
+                'data_criacao'     => $r->data_criacao,
                 'data_atualizacao' => $r->data_atualizacao,
-                'status' => (new Status($r->status))->indice()
+                'status'           => (new Status($r->status))->indice()
             ];
         }
         return $retorno;

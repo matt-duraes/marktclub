@@ -37,12 +37,12 @@ final class CriarBugModel
         }
         (new ApiHelper(token: true))
             ->body([
-                'titulo' => 'Criou uma uma demanda de bug crítico',
+                'titulo'   => 'Criou uma uma demanda de bug crítico',
                 'mensagem' => 'Foi criado uma nova demanda de bug crítico, acesse o painel e verifique o pedido para verificar a urgência.',
-                'link' => LINK . '/demanda/tecnologia#demanda-' . $this->Demanda->dado->id,
-                'botao' => 'Acessar painel',
-                'dono' => sessao('USUARIO.id'),
-                'equipe' => '8fd85f9f7cc21d6e33399681d6e5fca7'
+                'link'     => LINK . '/demanda/tecnologia#demanda-' . $this->Demanda->dado->id,
+                'botao'    => 'Acessar painel',
+                'dono'     => sessao('USUARIO.id'),
+                'equipe'   => '8fd85f9f7cc21d6e33399681d6e5fca7'
             ])
             ->post('/painel-notificacao');
     }

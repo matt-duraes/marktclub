@@ -31,6 +31,7 @@ trait VoucherInsertTrait
         $this->data_vencimento = new Data($this->pegarVencimentoVoucher());
         $this->status = new Status(Status::CRIADO);
     }
+
     private function pegarTipoUsuario()
     {
         if ($this->Usuario->federacao == 'FU') {
@@ -75,6 +76,7 @@ trait VoucherInsertTrait
         $this->recriarEntity($voucher->id);
         return true;
     }
+
     private function verificarSeTemVoucherCriadoAgora(): bool
     {
         $voucher = $this

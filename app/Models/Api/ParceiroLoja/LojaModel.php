@@ -29,6 +29,7 @@ class LojaModel extends ORM
         parent::__construct();
         $this->validarRequest();
     }
+
     public function pegarRetorno(): stdClass
     {
         $dado = $this
@@ -49,12 +50,12 @@ class LojaModel extends ORM
 
         foreach ($lista as $r) {
             $retorno[] = [
-                'id' => $r->cod,
-                'titulo' => $r->titulo,
+                'id'       => $r->cod,
+                'titulo'   => $r->titulo,
                 'desconto' => $r->desconto,
-                'imagem' => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
-                'url' => $r->url,
-                'status' => $Status->indice($r->status)
+                'imagem'   => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
+                'url'      => $r->url,
+                'status'   => $Status->indice($r->status)
             ];
         }
         return $retorno;
@@ -75,6 +76,7 @@ class LojaModel extends ORM
             mensagemErro('Erro!', 'O campo status não é um valor válido.');
         }
     }
+
     protected function pegarWhere(): array
     {
         $where = $this->ormWherePadrao ? [$this->ormWherePadrao] : [];

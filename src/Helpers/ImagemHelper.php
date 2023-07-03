@@ -31,7 +31,6 @@ final class ImagemHelper
     }
 
     /**
-     * @return void
      */
     private function pegarDadoParaSalvar(): void
     {
@@ -59,7 +58,7 @@ final class ImagemHelper
     }
 
     /**
-     * @param $arquivo
+     * @param          $arquivo
      * @throws Excecao
      */
     private function verificarSeArquivoExiste($arquivo): void
@@ -74,7 +73,7 @@ final class ImagemHelper
     }
 
     /**
-     * @param $arquivo
+     * @param          $arquivo
      * @throws Excecao
      */
     private function verificarSeArquivoEImagem($arquivo): void
@@ -89,7 +88,7 @@ final class ImagemHelper
     }
 
     /**
-     * @param $arquivo
+     * @param          $arquivo
      * @throws Excecao
      */
     private function passarArquivoPeloAntiVirus($arquivo): void
@@ -104,7 +103,7 @@ final class ImagemHelper
     }
 
     /**
-     * @param $arquivo
+     * @param               $arquivo
      * @return ImagemHelper
      * @throws Excecao
      */
@@ -120,16 +119,16 @@ final class ImagemHelper
     /**
      * Adiciona um texto há imagem
      *
-     * @param  string       $texto    Texto que deseja adicionar
-     * @param  string       $posicao  [optional] Posição do texto em relação a imagem podendo ser: top-left, top,
-     *                                top-right, left,
-     *                                [optional] center, right, bottom-left, bottom ou bottom-right
-     * @param  int          $x        [optional] Posição do eixo x em relação a imagem.
-     * @param  int          $y        [optional] Posição do eixo y em relação a imagem.
-     * @param  string|null  $fonte    [optional] Path da fonte que deseja usar
-     * @param  int|null     $tamanho  [optional] Tamanho da fonte
-     * @param  string|null  $cor      [optional] Cor hexadecimal para a fonte
-     * @param  int|null     $angulo   [optional] Angulo que o texto deve ficar
+     * @param  string       $texto   Texto que deseja adicionar
+     * @param  string       $posicao [optional] Posição do texto em relação a imagem podendo ser: top-left, top,
+     *                               top-right, left,
+     *                               [optional] center, right, bottom-left, bottom ou bottom-right
+     * @param  int          $x       [optional] Posição do eixo x em relação a imagem.
+     * @param  int          $y       [optional] Posição do eixo y em relação a imagem.
+     * @param  string|null  $fonte   [optional] Path da fonte que deseja usar
+     * @param  int|null     $tamanho [optional] Tamanho da fonte
+     * @param  string|null  $cor     [optional] Cor hexadecimal para a fonte
+     * @param  int|null     $angulo  [optional] Angulo que o texto deve ficar
      * @return ImagemHelper
      */
     public function texto(

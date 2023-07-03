@@ -2,14 +2,12 @@
 
 namespace Tests;
 
-use Tests\Api;
 use Random\Data;
 use Random\Outros;
 use Random\Contato;
 use Random\Usuario;
 use Random\Endereco;
 use Random\Documento;
-use Database\DataBase;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use Helpers\CurlHelper as Curl;
@@ -74,9 +72,9 @@ abstract class Tests
     /**
      * Verifica se o valor é igual do valor comparado
      *
-     * @param mixed     $valor          Valor a comparar
-     * @param mixed     $comparacao     Valor a ser comparado
-     * @param string    $mensagem       Caso queira passar uma mensagem personalizada no final
+     * @param mixed  $valor      Valor a comparar
+     * @param mixed  $comparacao Valor a ser comparado
+     * @param string $mensagem   Caso queira passar uma mensagem personalizada no final
      */
     protected function checkIgual($valor, $comparacao, ?string $mensagem = null)
     {
@@ -100,8 +98,8 @@ abstract class Tests
     /**
      * Verifica se o valor é diferente do valor comparado
      *
-     * @param mixed $valor          Valor a comparar
-     * @param mixed $comparacao     Valor a ser comparado
+     * @param mixed $valor      Valor a comparar
+     * @param mixed $comparacao Valor a ser comparado
      */
     protected function checkDiferente($valor, $comparacao)
     {
@@ -119,10 +117,11 @@ abstract class Tests
         );
         return $this;
     }
+
     /**
      * Verifica se o valor é vazio
      *
-     * @param mixed $valor          Valor a validar
+     * @param mixed $valor Valor a validar
      */
     protected function checkVazio($valor)
     {
@@ -133,10 +132,11 @@ abstract class Tests
         $this->setarRetorno(true, 'O valor <strong>' . $valor . '</strong> é vazio.');
         return $this;
     }
+
     /**
      * Verifica se o valor não é vazio
      *
-     * @param mixed $valor          Valor a validar
+     * @param mixed $valor Valor a validar
      */
     protected function checkNaoVazio($valor)
     {
@@ -148,7 +148,6 @@ abstract class Tests
         return $this;
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | CHECK DO ROBO E CURL
@@ -157,8 +156,8 @@ abstract class Tests
     /**
      * Verifica se o status é igual ao enviado
      *
-     * @param int   $status     Status para comparar
-     * @param bool  $igual      Se é igual ou diferente do valor comparado
+     * @param int  $status Status para comparar
+     * @param bool $igual  Se é igual ou diferente do valor comparado
      */
     protected function checkStatus(int $status, bool $igual = true)
     {
@@ -239,8 +238,8 @@ abstract class Tests
     /**
      * Verifica se a resposta da requisição ->dado é igual a array enviado
      *
-     * @param array     $array  Array que deve ser comparado
-     * @param bool      $igual  Se for false, só valida os dados que tem nos 2 arrais
+     * @param array $array Array que deve ser comparado
+     * @param bool  $igual Se for false, só valida os dados que tem nos 2 arrais
      */
     protected function checkRespostaDadoIgual(array $array, bool $igual = true, array $crypt = [])
     {
@@ -285,8 +284,8 @@ abstract class Tests
     /**
      * Verifica se o indice é igual ao valor passado
      *
-     * @param string    $indice     Indice que deve ser validado
-     * @param mixed     $valor      Valor que o indice deve retornar
+     * @param string $indice Indice que deve ser validado
+     * @param mixed  $valor  Valor que o indice deve retornar
      */
     protected function checkIndiceIgual(string $indice, $valor)
     {
@@ -321,8 +320,8 @@ abstract class Tests
     /**
      * Verifica se o indice é diferente ao valor passado
      *
-     * @param string    $indice     Indice que deve ser validado
-     * @param mixed     $valor      Valor que o indice deve retornar
+     * @param string $indice Indice que deve ser validado
+     * @param mixed  $valor  Valor que o indice deve retornar
      */
     protected function checkIndiceDiferente(string $indice, $valor)
     {
@@ -357,8 +356,8 @@ abstract class Tests
     /**
      * Valida se o indice é do tipo
      *
-     * @param string $indice    Indice que deseja validar
-     * @param string $tipo      Tipo podendo ser array, object, string, numero, booleano ou inteiro
+     * @param string $indice Indice que deseja validar
+     * @param string $tipo   Tipo podendo ser array, object, string, numero, booleano ou inteiro
      */
     private function checkTipoIndice(string $indice, string $tipo)
     {
@@ -413,8 +412,8 @@ abstract class Tests
     /**
      * Verifica se a URL do robo é igual ou diferente da enviada
      *
-     * @param string    $link   Link que deve ser comparado
-     * @param bool      $igual  Se é igual ou diferente do valor comparado
+     * @param string $link  Link que deve ser comparado
+     * @param bool   $igual Se é igual ou diferente do valor comparado
      */
     protected function checkUrl(string $link, bool $igual = true): self
     {
@@ -434,7 +433,7 @@ abstract class Tests
     /**
      * Verifica se o texto exista na página da requisição do robo
      *
-     * @param string $texto     Texto que tem que existe na request
+     * @param string $texto Texto que tem que existe na request
      */
     protected function checkExisteTexto(string $texto)
     {
@@ -445,6 +444,7 @@ abstract class Tests
         $this->setarRetorno(false, 'Não existe o texto <strong>' . $texto . '</strong> na resposta do Robo.');
         return $this;
     }
+
     /*
     |--------------------------------------------------------------------------
     | PUBLIC
@@ -453,25 +453,26 @@ abstract class Tests
     public function test()
     {
         $retorno = (object) [
-            'todos' => $this->todos,
+            'todos'  => $this->todos,
             'passou' => $this->passou,
             'falhou' => $this->falhou,
             'status' => $this->checkCurl ? $this->Curl->status() : $this->Robo->status(),
             'metodo' => $this->checkCurl ? $this->Curl->metodo() : $this->Robo->metodo(),
-            'url' => $this->checkCurl ? $this->Curl->url() : $this->Robo->url(),
-            'curl' => $this->checkCurl ? $this->Curl : false,
-            'robo' => $this->checkRobo ? $this->Robo : false
+            'url'    => $this->checkCurl ? $this->Curl->url() : $this->Robo->url(),
+            'curl'   => $this->checkCurl ? $this->Curl : false,
+            'robo'   => $this->checkRobo ? $this->Robo : false
         ];
         $this->todos = [];
         $this->passou = [];
         $this->falhou = [];
         return $retorno;
     }
+
     private function setarRetorno($passou, $mensagem)
     {
         $resposta = (object)[
             'mensagem' => $mensagem,
-            'status' => $passou ? 'passou' : 'falhou'
+            'status'   => $passou ? 'passou' : 'falhou'
         ];
         $this->todos[] = $resposta;
         if ($passou) {
@@ -490,10 +491,11 @@ abstract class Tests
         $this->Curl = new Curl($url);
         return $this;
     }
+
     /**
      * Seta um API para Curl
      *
-     * @param null|string   $scope      Escopo da ação que deseja criar
+     * @param null|string $scope Escopo da ação que deseja criar
      * @param
      */
     protected function api(string $scope)
@@ -508,7 +510,7 @@ abstract class Tests
     /**
      * Adicionar tabela para resetar
      *
-     * @param   string  $tabela     Nome da tabela que dese ser resetada
+     * @param string $tabela Nome da tabela que dese ser resetada
      */
     protected function tabela(string $tabela)
     {
@@ -522,6 +524,7 @@ abstract class Tests
         $this->tabelaResetar[] = [$path, $diretorio, $tabela];
         return $this;
     }
+
     protected function resetar()
     {
         $lista = $this->tabelaResetar;

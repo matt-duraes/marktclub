@@ -5,8 +5,6 @@ namespace App\Models\Site\Perfil;
 use Erro\Excecao;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
-use Http\Request;
-use Http\Response;
 
 final class CarteirinhaModel
 {
@@ -22,7 +20,6 @@ final class CarteirinhaModel
             ->object()->dado->chave ?? '';
         $this->chave = $chave;
     }
-
 
     /**
      * @return object|array
@@ -41,7 +38,7 @@ final class CarteirinhaModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return object|array
      * @throws Excecao
@@ -56,33 +53,31 @@ final class CarteirinhaModel
         if ($dado->dado) {
             $r = $dado->dado[0];
             $retorno = (object)[
-                'nome'      => $criptografa->decode($r->usuario->nome) ?? '',
-                'matricula' => $criptografa->decode($r->usuario->matricula) ?? '',
-                'cpf' => $criptografa->decode($r->usuario->documento) ?? '',
-                'rg' => $criptografa->decode($r->usuario->documento_rg) ?? '',
+                'nome'            => $criptografa->decode($r->usuario->nome) ?? '',
+                'matricula'       => $criptografa->decode($r->usuario->matricula) ?? '',
+                'cpf'             => $criptografa->decode($r->usuario->documento) ?? '',
+                'rg'              => $criptografa->decode($r->usuario->documento_rg) ?? '',
                 'endereco_estado' => $r->usuario->endereco_estado ?? '',
-                'texto' => (object)[
+                'texto'           => (object)[
                     'principal' => $r->texto->principal,
-                    'perdido' => $r->texto->perdido
+                    'perdido'   => $r->texto->perdido
                 ],
                 'empresa' => (object)[
                     'nome' => $r->empresa->nome
                 ],
                 'imagem' => (object)[
-                    'logo' => $r->imagem->logo,
+                    'logo'   => $r->imagem->logo,
                     'frente' => $r->imagem->frente,
-                    'fundo' => $r->imagem->fundo
+                    'fundo'  => $r->imagem->fundo
                 ],
                 'data' => (object)[
                     'aniversario' => $r->data->aniversario ?? false,
-                    'filiacao' => $r->data->data_filiacao ?? false,
-                    'emissao' => $r->data->emissao ?? false,
+                    'filiacao'    => $r->data->data_filiacao ?? false,
+                    'emissao'     => $r->data->emissao ?? false,
                 ]
             ];
         }
 
         return $retorno;
     }
-
-
 }

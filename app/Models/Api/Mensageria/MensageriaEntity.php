@@ -10,14 +10,12 @@ use App\Classes\Mensageria\Status;
 final class MensageriaEntity extends Entity
 {
     protected string $ormTabela = TABELA_SISTEMA_MENSAGERIA;
-
     protected array $ormInsert = [
         'tipo', 'payload', 'envio_uri', 'envio_metodo', 'envio_api', 'envio_scope', 'data_enviar_apos'
     ];
     protected array $ormUpdate = ['data_envio', 'quantidade_envio', 'status_resposta'];
     protected array $ormSalvar = ['status'];
     protected array $ormBuscar = ['envio_uri', 'envio_api', 'envio_scope', 'data_enviar_apos'];
-
     private MensageriaInterface $Mensageria;
     public string $envio_uri;
     public string $envio_metodo;
@@ -27,9 +25,9 @@ final class MensageriaEntity extends Entity
     protected DataHora $data_enviar_apos;
 
     /**
-     * @param   null|string     $tipo       Tipo da mensagem
-     * @param   null|array      $payload    Payload da mensagem
-     * @param   null|DataHora   $dataEnvio  Caso a mensagem só possa ser enviada depois de uma hora específica
+     * @param null|string   $tipo      Tipo da mensagem
+     * @param null|array    $payload   Payload da mensagem
+     * @param null|DataHora $dataEnvio Caso a mensagem só possa ser enviada depois de uma hora específica
      */
     public function __construct(
         public ?string $tipo = null,

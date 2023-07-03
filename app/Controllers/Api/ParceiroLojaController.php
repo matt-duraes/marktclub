@@ -28,6 +28,7 @@ final class ParceiroLojaController extends Controller implements
             )
         );
     }
+
     public function getListar(Request $request): Response
     {
         $Parceiro = new LojaModel($request);

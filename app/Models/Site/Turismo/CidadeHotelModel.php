@@ -31,7 +31,7 @@ final class CidadeHotelModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return array
      */
