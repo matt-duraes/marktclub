@@ -29,7 +29,7 @@ final class FarmaciaModel extends ApiHelper implements ListarInterface
                 'quantidade' => $quantidade,
                 'estabelecimento' => Estabelecimento::FISICO,
                 'tipo' => Tipo::FARMACIA,
-                'status' => Status::CONCLUIDO
+                'status' => Status::CONCLUIDO,
             ])
             ->get('/parceiro-loja')
             ->object();
@@ -74,16 +74,17 @@ final class FarmaciaModel extends ApiHelper implements ListarInterface
     private function montarRetorno($dado)
     {
         return (object)[
-            'id' => $dado->id,
-            'titulo' => $dado->titulo,
-            'logo' => $dado->link_logo,
-            'texto_desconto' => $dado->texto_desconto,
-            'texto_procedimento' => $dado->texto_procedimento,
+            'id' => $dado->id ?? '',
+            'titulo' => $dado->titulo ?? '',
+            'logo' => $dado->link_logo ?? '',
+            'texto_desconto' => $dado->texto_desconto ?? '',
+            'texto_procedimento' => $dado->texto_procedimento ?? '',
             'texto_descricao' => 'Texto de descrição padrão',
             'capa_desktop' => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
             'capa_mobile' => 'https://clube.marktclub.com.br/images/tem_mais_saude_carteirinha.png',
             'procedimento' => 'voucher',
-            'endereco' => []
+            'endereco' => [],
+
         ];
     }
 

@@ -32,7 +32,10 @@ class LojaModel extends ORM
     public function pegarRetorno(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'favorito', 'status'])
+            ->campo([
+                'cod', 'titulo', 'url', 'desconto', 'imagem', 'banner', 'favorito',
+                'desconto_texto', 'procedimento_texto', 'status', 'descricao'
+            ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->where($this->pegarWhere())
@@ -45,7 +48,10 @@ class LojaModel extends ORM
     public function pegarRetornoFavorito(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'favorito', 'status'])
+            ->campo([
+                'cod', 'titulo', 'url', 'desconto', 'imagem', 'favorito',
+                'desconto_texto', 'procedimento_texto', 'status', 'descricao', 'banner'
+            ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->where($this->pegarWhere())
@@ -72,7 +78,11 @@ class LojaModel extends ORM
                 'imagem' => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
                 'url' => $r->url,
                 'favorito' => $r->favorito,
-                'status' => $Status->indice($r->status)
+                'desconto_texto' => $r->desconto_texto,
+                'procedimento_texto' => $r->procedimento_texto,
+                'status' => $Status->indice($r->status),
+                'descricao' => $r->descricao,
+                'banner' => LINK_ARQUIVO . '/parceiro/' . $r->banner
             ];
         }
         return $retorno;

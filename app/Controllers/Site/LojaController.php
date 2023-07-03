@@ -46,7 +46,6 @@ final class LojaController extends Controller
     public function index(Request $request, BuscaModel $Busca = null): Response
     {
         $dado = (new LojaModel())->listarDados();
-
         return view('loja.index', [
             'menu'         => 'loja',
             'banner'       => true,
@@ -69,12 +68,13 @@ final class LojaController extends Controller
      */
     public function detalhe(Request $request, $url = null, BuscaModel $Busca = null): Response
     {
-
+        $dado = (new LojaModel())->buscarDados($url);
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'url'          => $url,
             'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'dado'         => (new DetalheModel($url))->listarDados(),
+            'dado'         => $dado,
+            'lista' => (new LojaModel())->relacionado($dado->id),
             'parceiroTipo' => 'loja'
         ]);
     }
