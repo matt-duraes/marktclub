@@ -1,4 +1,3 @@
-
 @ if($dado):
 <div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
     <div class="bloco_topo">
@@ -54,6 +53,5 @@
     </div>
     @endif
 
-    @view site/geral/relacionado.view
 </div>
 @ endif;

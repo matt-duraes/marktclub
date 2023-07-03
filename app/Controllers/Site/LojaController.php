@@ -5,6 +5,7 @@ namespace App\Controllers\Site;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Loja\MapaModel;
@@ -12,7 +13,6 @@ use App\Models\Site\Loja\BuscaModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Loja\DetalheModel;
 use App\Models\Site\Loja\RelacionadoModel;
-use Helpers\ListaHelper;
 
 final class LojaController extends Controller
 {
