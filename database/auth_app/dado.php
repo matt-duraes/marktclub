@@ -186,7 +186,11 @@ EwIDAQAB
 
             "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
 
+            "farmacia:listar",
+
             "cupom:buscar", "cupom:listar",
+
+            "publicidade:buscar", "publicidade:listar", "publicidade:salvar"
 
             "contato:salvar", "contato:listar", "contato:buscar",
 
