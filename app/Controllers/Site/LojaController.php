@@ -5,31 +5,28 @@ namespace App\Controllers\Site;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
+use Modules\Inteiro;
+use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Models\Site\Loja\MapaModel;
-use App\Models\Site\Loja\BuscaModel;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Models\Site\Loja\BuscarModel;
+use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
-use App\Models\Site\Loja\DetalheModel;
-use App\Models\Site\Loja\RelacionadoModel;
-use App\Models\Site\Loja\LojaModel;
-
-use Helpers\ApiHelper;
-use Helpers\ListaHelper;
 
 final class LojaController extends Controller
 {
     /**
-     * @param  Request      $request
-     * @param  string|null  $pesquisa
+     * @param Request     $request
+     * @param string|null $pesquisa
      *
      * @return Response
      * @throws Excecao
      */
-
     public function busca(Request $request, string $pesquisa = null): Response
     {
-        $Busca = new BuscaModel($request, $pesquisa);
+        $Busca = new FiltroModel($request, $pesquisa);
         if ($pesquisa) {
             return $this->index($request, $Busca);
         }
@@ -37,50 +34,55 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request          $request
-     * @param  BuscaModel|null  $Busca
+     * @param Request         $request
+     * @param BuscaModel|null $Busca
      *
      * @return Response
      * @throws Excecao
      */
-    public function index(Request $request, BuscaModel $Busca = null): Response
+    public function index(Request $request, FiltroModel $Busca = null): Response
     {
-        $dado = (new LojaModel())->listarDados();
+        $Lista = new ListarModel(
+            pagina: new Inteiro($request->pagina),
+            favorito: new Botao($request->favorito),
+            ordem: new Ordem($request->ordem)
+        );
         return view('loja.index', [
             'menu'         => 'loja',
             'banner'       => true,
-            'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'lista'        => $dado,
+            'Busca'        => $Busca instanceof FiltroModel ? $Busca : new FiltroModel($request),
+            'lista'        => $Lista->listarDados(),
             'parceiroTipo' => 'loja',
-            'capa_desktop' => '',
             'banner'       => (new BannerModel())->loja(),
             'popupSimples' => true
         ]);
     }
 
     /**
-     * @param  Request          $request
-     * @param                   $url
-     * @param  BuscaModel|null  $Busca
+     * @param Request         $request
+     * @param                 $url
+     * @param BuscaModel|null $Busca
      *
      * @return Response
      * @throws Excecao
      */
-    public function detalhe(Request $request, $url = null, BuscaModel $Busca = null): Response
+    public function detalhe(string $url): Response
     {
-        $dado = (new LojaModel())->buscarDados($url);
+        $Dado = new BuscarModel($url);
+        $Lista = new ListarModel(
+            quantidade: new Inteiro(3),
+            ordem: new Ordem(Ordem::RANDOMICO)
+        );
         return view('loja.detalhe', [
             'menu'         => 'loja',
-            'url'          => $url,
-            'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'dado'         => $dado,
-            'lista' => (new LojaModel())->relacionado($dado->id),
+            'lista'        => $Lista->listarDados(),
+            'dado'         => $Dado->buscarDados(),
             'parceiroTipo' => 'loja'
         ]);
     }
 
     /**
-     * @param  string  $url
+     * @param string $url
      *
      * @return Response
      * @throws Excecao
@@ -91,13 +93,13 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request         $request
-     * @param  MapaModel|null  $Busca
+     * @param Request        $request
+     * @param MapaModel|null $Busca
      *
      * @return Response
      * @throws Excecao
      */
-    public function proxima(Request $request, MapaModel $Busca = null): Response
+    public function proxima(): Response
     {
         return view('loja.proxima', [
             'menu' => 'loja-proxima',
@@ -105,7 +107,7 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -138,7 +140,7 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -147,10 +149,8 @@ final class LojaController extends Controller
         return new Response(status: 201);
     }
 
-
-
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -158,29 +158,29 @@ final class LojaController extends Controller
     {
         $uuid = $request->uuid;
         $acao = $request->acao;
-        $loja = (new RelacionadoModel())->favoritar($uuid, $acao);
+        $loja = []; //(new RelacionadoModel())->favoritar($uuid, $acao);
         return new Response(json: $loja);
-
     }
+
     /**
      * @return Response
      */
     public function melhorIdade(): Response
     {
-        $categoria = ['alimentacao','saude', 'veiculo'];
+        $categoria = ['alimentacao', 'saude', 'veiculo'];
         $alimentacaoTag = [
-            'bares','restaurante','churrascarias','doces', 'sanduiches', 'suplementos', 'cafes'
+            'bares', 'restaurante', 'churrascarias', 'doces', 'sanduiches', 'suplementos', 'cafes'
         ];
-        $veiculoTag = ['concessionarias','locadoras','pneus','oficinas'];
-        $saudeTag = ['academia','visao','esportes','spas'];
+        $veiculoTag = ['concessionarias', 'locadoras', 'pneus', 'oficinas'];
+        $saudeTag = ['academia', 'visao', 'esportes', 'spas'];
         $estados = (new ListaHelper())->estado()->r();
 
         return view('loja.melhor_idade', [
             'alimentacaoTag' => $alimentacaoTag,
-            'veiculoTag' => $veiculoTag,
-            'saudeTag' => $saudeTag,
-            'categoria' => $categoria,
-            'estados' => $estados
+            'veiculoTag'     => $veiculoTag,
+            'saudeTag'       => $saudeTag,
+            'categoria'      => $categoria,
+            'estados'        => $estados
         ]);
     }
 }

@@ -15,7 +15,6 @@ final class DownloadEntity extends Entity
         'nome', 'email', 'arquivo', 'codigo_email', 'codigo_autorizacao', 'data_vencimento'
     ];
     protected array $ormUpdate = ['codigo_email', 'codigo_autorizacao'];
-
     public Nome $nome;
     public DataHora $data_vencimento;
     public Email $email;
@@ -39,6 +38,7 @@ final class DownloadEntity extends Entity
         $this->salvarCodigoEmail($codigo);
         $this->enviarCodigoPorEmail($codigo);
     }
+
     /**
      * Validar código enviado
      */
@@ -70,6 +70,7 @@ final class DownloadEntity extends Entity
         $this->codigo_email = $codigo;
         $this->salvar();
     }
+
     private function enviarCodigoPorEmail($codigo)
     {
         $titulo = 'Código de desbloqueio';
@@ -86,6 +87,7 @@ final class DownloadEntity extends Entity
         );
         $Email->sendGrid($titulo, $this->nome->nome(), $this->email->email());
     }
+
     private function salvarCodigoAutorizacao()
     {
         $this->codigo_email = '';

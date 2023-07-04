@@ -78,6 +78,7 @@ final class UsuarioEquipeController extends Controller implements
 
         return new Response(status: 204);
     }
+
     public function putEmpresa(Request $request): Response
     {
         new MudarEmpresaModel($request->empresa);
@@ -92,7 +93,7 @@ final class UsuarioEquipeController extends Controller implements
         $Usuario->salvar();
 
         return mensagemSucesso([
-            'id' => $Usuario->id,
+            'id'     => $Usuario->id,
             'imagem' => $Usuario->imagem
         ], status: 201, criptografar: ['imagem']);
     }

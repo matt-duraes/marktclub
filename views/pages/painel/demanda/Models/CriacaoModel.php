@@ -48,6 +48,7 @@ final class CriacaoModel
             '
         );
     }
+
     private function criarDemandaRedeSocial()
     {
         if ($this->request->criacao_social != 'sim') {
@@ -90,6 +91,7 @@ final class CriacaoModel
             '<ol>' . $texto . '</ol><hr>' . $this->request->getPost('digital_texto', html: false)
         );
     }
+
     private function criarDemandaImpresso()
     {
         if ($this->request->criacao_impresso != 'sim') {
@@ -117,6 +119,7 @@ final class CriacaoModel
             '<ol>' . $texto . '</ol><hr>' . $this->request->getPost('impresso_texto', html: false)
         );
     }
+
     private function criarDemandaKit()
     {
         if ($this->request->criacao_kit != 'sim') {
@@ -150,6 +153,7 @@ final class CriacaoModel
             '<ol>' . $texto . '</ol><hr>' . $this->request->getPost('kit_texto', html: false)
         );
     }
+
     private function criarDemandaVideo()
     {
         if ($this->request->criacao_video != 'sim') {
@@ -175,6 +179,7 @@ final class CriacaoModel
             '
         );
     }
+
     private function criarDemandaOutro()
     {
         if ($this->request->criacao_outro != 'sim') {
@@ -203,12 +208,12 @@ final class CriacaoModel
         foreach ($this->listaNotificacao as $equipe) {
             $Api
                 ->body([
-                    'titulo' => 'Criou uma nova tarefa para você',
+                    'titulo'   => 'Criou uma nova tarefa para você',
                     'mensagem' => 'Foi criado uma nova tarefa para você, acesse a demanda e verifique o pedido.',
-                    'link' => LINK . '/demanda/criacao#demanda-' . $this->Demanda->dado->id,
-                    'botao' => 'Acessar painel',
-                    'dono' => sessao('USUARIO.id'),
-                    'equipe' => $equipe
+                    'link'     => LINK . '/demanda/criacao#demanda-' . $this->Demanda->dado->id,
+                    'botao'    => 'Acessar painel',
+                    'dono'     => sessao('USUARIO.id'),
+                    'equipe'   => $equipe
                 ])
                 ->post('/painel-notificacao');
         }

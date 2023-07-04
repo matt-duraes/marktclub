@@ -128,8 +128,8 @@ final class Link
     }
 
     /**
-     * @param  string  $linkGeral
-     * @param  string  $link
+     * @param  string                     $linkGeral
+     * @param  string                     $link
      * @return array|string|string[]|null
      */
     private function montarLinkPadrao(string $linkGeral, string $link): array|string|null
@@ -149,8 +149,8 @@ final class Link
     }
 
     /**
-     * @param  string  $linkGeral
-     * @param  string  $link
+     * @param  string                     $linkGeral
+     * @param  string                     $link
      * @return array|string|string[]|null
      */
     private function montarLinkParaDefine(string $linkGeral, string $link): array|string|null

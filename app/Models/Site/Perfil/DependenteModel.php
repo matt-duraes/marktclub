@@ -42,9 +42,8 @@ final class DependenteModel
         return $dado->dado ?? [];
     }
 
-
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -71,7 +70,7 @@ final class DependenteModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return Response
      * @throws Excecao
@@ -98,7 +97,7 @@ final class DependenteModel
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

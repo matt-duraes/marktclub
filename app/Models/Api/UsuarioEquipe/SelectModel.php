@@ -11,7 +11,6 @@ final class SelectModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_USUARIO_EQUIPE;
-
     private int $idEmpresa;
 
     public function __construct(
@@ -33,6 +32,7 @@ final class SelectModel extends ORM
 
         return $this->montarRetornoSelect($dado);
     }
+
     private function montarRetornoSelect($dado): array
     {
         $retorno = [];
@@ -58,19 +58,21 @@ final class SelectModel extends ORM
 
         return $this->montarRetornoPerfil($dado);
     }
+
     private function montarRetornoPerfil($dado): array
     {
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'nome' => $r->nome_real,
+                'id'     => $r->uuid,
+                'nome'   => $r->nome_real,
                 'perfil' => $r->nome_perfil,
                 'imagem' => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google)
             ];
         }
         return $retorno;
     }
+
     private function pegarWhere(): array
     {
         $where = [

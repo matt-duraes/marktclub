@@ -17,7 +17,6 @@ final class DigioModel extends Entity
     use TermoLgpdTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private string $linkClube;
     private int $idEmpresa;
     private array $dadoUsuario;

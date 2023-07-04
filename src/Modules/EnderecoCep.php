@@ -69,7 +69,7 @@ final class EnderecoCep implements ModuleInterface
 
     private function validarCep(): bool
     {
-        $cep = preg_replace("/[^0-9]/", "", $this->cep);
+        $cep = preg_replace('/[^0-9]/', '', $this->cep);
         return $cep >= 1000000 && $cep <= 99999999;
     }
 }

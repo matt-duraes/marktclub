@@ -7,16 +7,16 @@ use ORM\ORM;
 final class SemDadoModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct()
     {
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
         parent::__construct();
     }
+
     public function pegarRelatorio()
     {
-
         $where = [
             ['empresa', $this->idEmpresa],
             ['status', 'in', [1, 2]],
@@ -29,7 +29,6 @@ final class SemDadoModel extends ORM
         $dado = $this->campo([
             'telefone_fixo', 'telefone_celular', 'email_pessoal', 'email_trabalho', 'uf', 'cidade', 'aniversario'
         ])->where($where)->read();
-
 
         $telefoneFixo = 0;
         $telefoneCelular = 0;
@@ -68,50 +67,50 @@ final class SemDadoModel extends ORM
         $relatorio = [];
         if ($telefoneFixo > 0) {
             $relatorio[] = [
-                'campo' => 'Telefone Fixo',
-                'total' => $telefoneFixo,
+                'campo'       => 'Telefone Fixo',
+                'total'       => $telefoneFixo,
                 'porcentagem' => number_format(($telefoneFixo * 100) / $total, 2, '.')
             ];
         }
         if ($telefoneCelular > 0) {
             $relatorio[] = [
-                'campo' => 'Telefone Celular',
-                'total' => $telefoneCelular,
+                'campo'       => 'Telefone Celular',
+                'total'       => $telefoneCelular,
                 'porcentagem' => number_format(($telefoneCelular * 100) / $total, 2, '.')
             ];
         }
         if ($emailPessoal > 0) {
             $relatorio[] = [
-                'campo' => 'Email pessoal',
-                'total' => $emailPessoal,
+                'campo'       => 'Email pessoal',
+                'total'       => $emailPessoal,
                 'porcentagem' => number_format(($emailPessoal * 100) / $total, 2, '.')
             ];
         }
         if ($emailTrabalho > 0) {
             $relatorio[] = [
-                'campo' => 'E-mail de trabalho',
-                'total' => $emailTrabalho,
+                'campo'       => 'E-mail de trabalho',
+                'total'       => $emailTrabalho,
                 'porcentagem' => number_format(($emailTrabalho * 100) / $total, 2, '.')
             ];
         }
         if ($enderecoEstado > 0) {
             $relatorio[] = [
-                'campo' => 'Estado do endereço',
-                'total' => $enderecoEstado,
+                'campo'       => 'Estado do endereço',
+                'total'       => $enderecoEstado,
                 'porcentagem' => number_format(($enderecoEstado * 100) / $total, 2, '.')
             ];
         }
         if ($enderecoCidade > 0) {
             $relatorio[] = [
-                'campo' => 'Cidade do endereço',
-                'total' => $enderecoCidade,
+                'campo'       => 'Cidade do endereço',
+                'total'       => $enderecoCidade,
                 'porcentagem' => number_format(($enderecoCidade * 100) / $total, 2, '.')
             ];
         }
         if ($dataNascimento > 0) {
             $relatorio[] = [
-                'campo' => 'Data de nascimento',
-                'total' => $dataNascimento,
+                'campo'       => 'Data de nascimento',
+                'total'       => $dataNascimento,
                 'porcentagem' => number_format(($dataNascimento * 100) / $total, 2, '.')
             ];
         }

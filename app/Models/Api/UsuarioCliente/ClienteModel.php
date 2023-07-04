@@ -20,8 +20,8 @@ final class ClienteModel extends ORM
     use BuscarUsuarioTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct(
         protected ?Request $request = null
     ) {
@@ -56,7 +56,7 @@ final class ClienteModel extends ORM
             } elseif (!empty($r->email_trabalho)) {
                 $email = $r->email_trabalho;
             }
-            $tipo = $TipoUsuario->nome($r->tipo);
+            $tipo = $TipoUsuario->indice($r->tipo);
             if ($r->federacao == 'FU') {
                 $tipo = TipoUsuario::FUNCIONARIO;
             }
@@ -66,17 +66,17 @@ final class ClienteModel extends ORM
             }
 
             $lista[] = [
-                'id' => $uuid,
+                'id'      => $uuid,
                 'empresa' => [
-                    'id' => $r->empresa_cod,
+                    'id'            => $r->empresa_cod,
                     'nome_fantasia' => $r->empresa_nome_fantasia,
                 ],
-                'nome' => $r->nome,
-                'cpf' => $r->tipo == 2 ? '' : $r->documento,
-                'email' => $email,
-                'tipo' => $tipo,
+                'nome'         => $r->nome,
+                'cpf'          => $r->tipo == 2 ? '' : $r->documento,
+                'email'        => $email,
+                'tipo'         => $tipo,
                 'data_criacao' => $r->data_criacao,
-                'status' => (new Status($r->status))->indice(),
+                'status'       => (new Status($r->status))->indice(),
             ];
         }
         return $lista;

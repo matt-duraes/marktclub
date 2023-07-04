@@ -13,7 +13,7 @@ trait Cliente
         $this->Cliente = new CurlHelper('https://www.googleapis.com/calendar/v3/calendars');
         $this->Cliente->header([
             'authorization' => 'Bearer ' . $this->token,
-            'Content-Type' => 'application/json'
+            'Content-Type'  => 'application/json'
         ]);
     }
 }

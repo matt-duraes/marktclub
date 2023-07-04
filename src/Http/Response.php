@@ -25,13 +25,13 @@ final class Response extends Psr7Response
      * O response pode ser retornado diretamente do seu construtor, mas, nada impede de usar um método para enviar a
      * resposta adequada, por isso mesmo todos os seus métodos são opcionais
      *
-     * @param  string          $body      Body para respostas com string
-     * @param  stdClass|array  $json      Array ou Object para retorno em formato de JSON
-     * @param  string          $url       URL para fazer o location do usuário
-     * @param  string          $download  Path de um arquivo para downlaod
-     * @param  string          $arquivo   Path de um arquivo para mostrar direto no navegador
-     * @param  array           $header    Header para resposta no formato ['indice' => 'valor']
-     * @param  int             $status    Status HTML entre 100 e 399
+     * @param string         $body     Body para respostas com string
+     * @param stdClass|array $json     Array ou Object para retorno em formato de JSON
+     * @param string         $url      URL para fazer o location do usuário
+     * @param string         $download Path de um arquivo para downlaod
+     * @param string         $arquivo  Path de um arquivo para mostrar direto no navegador
+     * @param array          $header   Header para resposta no formato ['indice' => 'valor']
+     * @param int            $status   Status HTML entre 100 e 399
      *
      * @throws Excecao
      */
@@ -66,9 +66,9 @@ final class Response extends Psr7Response
     /**
      * Retorna um JSON na response
      *
-     * @param  stdClass|array  $dados   Array ou stdClass que deseja retornar
-     * @param  int             $status  Status para o retorno
-     * @param  array           $header  Header do cabeçalho
+     * @param stdClass|array $dados  Array ou stdClass que deseja retornar
+     * @param int            $status Status para o retorno
+     * @param array          $header Header do cabeçalho
      *
      * @return self
      */
@@ -83,11 +83,11 @@ final class Response extends Psr7Response
     /**
      * Retorna um location para uma URL informada
      *
-     * @param  string  $url     A URL que dese ser redirecionada
-     * @param  int     $status  Status HTTP que deve ser usando podendo ser: 301 = URL mudou, você não deve mais usar
-     *                          essa URL e sim a nova; 302 = Movida temporariamente, continue usando a mesma URL; 307 =
-     *                          Igual a 302 mas mantem o método usado; 308 = Igual a 301 mas mantem o método usado.
-     * @param  array   $header  Header para ser usando no location
+     * @param string $url    A URL que dese ser redirecionada
+     * @param int    $status Status HTTP que deve ser usando podendo ser: 301 = URL mudou, você não deve mais usar
+     *                       essa URL e sim a nova; 302 = Movida temporariamente, continue usando a mesma URL; 307 =
+     *                       Igual a 302 mas mantem o método usado; 308 = Igual a 301 mas mantem o método usado.
+     * @param array  $header Header para ser usando no location
      *
      * @return self
      * @throws Excecao Exceção caso o status não seja um dos listados
@@ -107,9 +107,9 @@ final class Response extends Psr7Response
     /**
      * Faz o download de um arquivo
      *
-     * @param  string  $arquivo  Path do arquivo que deseja fazer download
-     * @param  int     $status   Status para o header
-     * @param  array   $header   Header do cabeçalho
+     * @param string $arquivo Path do arquivo que deseja fazer download
+     * @param int    $status  Status para o header
+     * @param array  $header  Header do cabeçalho
      *
      * @return self
      * @throws Excecao
@@ -138,9 +138,9 @@ final class Response extends Psr7Response
     /**
      * Abre um arquivo no navegador
      *
-     * @param  string  $arquivo  Path do arquivo
-     * @param  int     $status   Status para o header
-     * @param  array   $header   Header do cabeçalho
+     * @param string $arquivo Path do arquivo
+     * @param int    $status  Status para o header
+     * @param array  $header  Header do cabeçalho
      *
      * @return self
      * @throws Excecao
@@ -182,10 +182,10 @@ final class Response extends Psr7Response
     public function render(): BinaryFileResponse|RedirectResponse|JsonResponse|Psr7Response
     {
         return match ($this->tipo) {
-            'responseJson' => $this->responseJson->send(),
+            'responseJson'     => $this->responseJson->send(),
             'responseLocation' => $this->responseLocation->send(),
-            'responseFile' => $this->responseFile->send(),
-            default => $this->responseBody->send()
+            'responseFile'     => $this->responseFile->send(),
+            default            => $this->responseBody->send()
         };
     }
 
@@ -210,8 +210,8 @@ final class Response extends Psr7Response
     /**
      * Seta os Cookies para a resposta
      *
-     * @param  array  $cookies  Lista de cookie no padrão ['nome_cookie' => ['value' => '', 'secure' => '', 'domain' =>
-     *                          '', 'expire' => '', 'httpOnly' => '', 'raw' => '', 'path' => '', 'sameSite' => '']]
+     * @param array $cookies Lista de cookie no padrão ['nome_cookie' => ['value' => '', 'secure' => '', 'domain' =>
+     *                       '', 'expire' => '', 'httpOnly' => '', 'raw' => '', 'path' => '', 'sameSite' => '']]
      *
      * @return self
      */
@@ -249,7 +249,7 @@ final class Response extends Psr7Response
     /**
      * Seta o valor do Status HTTP da página
      *
-     * @param  int  $status  Status podendo ser de 100 a 399
+     * @param int $status Status podendo ser de 100 a 399
      *
      * @return self
      * @throws Excecao Execão caso passa um status fora do range permitido
@@ -269,7 +269,7 @@ final class Response extends Psr7Response
     /**
      * Seta um header para o retorno no padrao ['header' => 'valor']
      *
-     * @param  array  $header  Header do cabeçalho
+     * @param array $header Header do cabeçalho
      *
      * @return self
      */

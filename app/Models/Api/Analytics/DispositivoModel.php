@@ -52,7 +52,7 @@ final class DispositivoModel extends ORM
             }
             $dado[$r->dispositivo] = [
                 'dispositivo' => $r->dispositivo,
-                'total' => $r->quantidade,
+                'total'       => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
         }

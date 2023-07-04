@@ -3,7 +3,6 @@
 namespace Status;
 
 use Helpers\TextoHelper;
-use Status\StatusInterface;
 
 abstract class Status implements StatusInterface
 {
@@ -11,7 +10,6 @@ abstract class Status implements StatusInterface
     private array $indiceNumero = [];
     private array $indiceNome = [];
     private array $numeroNome = [];
-
     protected bool $test = false;
 
     public function __toString()
@@ -24,10 +22,10 @@ abstract class Status implements StatusInterface
     /**
      * Construtor para um Status
      *
-     * @param null|array    $lista      Lista de valores no padrao indice => Nome
-     * @param null|array    $cor        Lista de cores no padrão indice => Cor
-     * @param null|array    $numero     Número que deve ser salvo no banco, caso não passe, será automatico
-     * @param null|array    $empresa    Quando o valor muda dependendo da empresa
+     * @param null|array $lista   Lista de valores no padrao indice => Nome
+     * @param null|array $cor     Lista de cores no padrão indice => Cor
+     * @param null|array $numero  Número que deve ser salvo no banco, caso não passe, será automatico
+     * @param null|array $empresa Quando o valor muda dependendo da empresa
      */
     public function __construct(
         protected ?array $lista = null,
@@ -89,6 +87,7 @@ abstract class Status implements StatusInterface
         }
         return $array;
     }
+
     private function criarArray(array $lista): array
     {
         $i = 1;
@@ -104,8 +103,8 @@ abstract class Status implements StatusInterface
     /**
      * Pega um array com a lista de valores válidos no formato indice => nome
      *
-     * @param   null|string     $titulo Título para ficar no primeiro valor do array tendo o indice vazio: "" => $titulo
-     * @return  array
+     * @param  null|string $titulo Título para ficar no primeiro valor do array tendo o indice vazio: "" => $titulo
+     * @return array
      */
     public function select(?string $titulo = null): array
     {
@@ -126,8 +125,8 @@ abstract class Status implements StatusInterface
         foreach ($this->cor as $indice => $cor) {
             $retorno[$indice] = [
                 'indice' => $indice,
-                'nome' => $this->lista[$indice] ?? '',
-                'cor' => $cor
+                'nome'   => $this->lista[$indice] ?? '',
+                'cor'    => $cor
             ];
         }
         return $retorno;
@@ -148,7 +147,7 @@ abstract class Status implements StatusInterface
      * Pega o valor do número do valor selecionado
      *
      * @param   null|string|int     Valor caso queira ignorar o valor geral do status
-     * @return  null|int            Retorna null caso o valor seja inválido ou o int do valor
+     * @return null|int Retorna null caso o valor seja inválido ou o int do valor
      */
     public function numero(null|string|int $valor = null): ?int
     {
@@ -166,7 +165,7 @@ abstract class Status implements StatusInterface
      * Pega o nome do valor selecionado
      *
      * @param   null|string|int     Valor caso queira ignorar o valor geral do status
-     * @return  null|int            Retorna null caso o valor seja inválido ou a string do nome
+     * @return null|int Retorna null caso o valor seja inválido ou a string do nome
      */
     public function nome(null|string|int $valor = null): ?string
     {
@@ -185,7 +184,7 @@ abstract class Status implements StatusInterface
      * Pega o valor do indice do valor selecionado
      *
      * @param   null|string|int     Valor caso queira ignorar o valor geral do status
-     * @return  null|int            Retorna null caso o valor seja inválido ou o numero o valor
+     * @return null|int Retorna null caso o valor seja inválido ou o numero o valor
      */
     public function indice(null|string|int $valor = null): ?string
     {

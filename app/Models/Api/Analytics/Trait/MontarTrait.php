@@ -10,8 +10,8 @@ trait MontarTrait
         $total = $this->contar($where);
         foreach ($dado as $r) {
             $relatorio[] = [
-                'item' => !empty($r->item) ? $r->item : 'Outro',
-                'total' => $r->quantidade,
+                'item'        => !empty($r->item) ? $r->item : 'Outro',
+                'total'       => $r->quantidade,
                 'porcentagem' => $r->quantidade == 0 ? 0 : number_format(($r->quantidade * 100) / $total, 2, '.')
             ];
         }

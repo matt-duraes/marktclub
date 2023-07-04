@@ -2,12 +2,12 @@
 
 return [
     [
-        'uuid' => '1e01bddf-6ba5-437c-9dba-003f31988f71',
+        'uuid'             => '1e01bddf-6ba5-437c-9dba-003f31988f71',
         'id_admin_empresa' => '1',
-        'nome' => 'App de teste',
-        'descricao' => 'App para integração',
-        'imagem_app' => null,
-        'chave_privada' => '-----BEGIN PRIVATE KEY-----
+        'nome'             => 'App de teste',
+        'descricao'        => 'App para integração',
+        'imagem_app'       => null,
+        'chave_privada'    => '-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC1sakflQqRcKs8
 ssPuJZUlRacksw+VnXhCcEwYa3GN2RmeWOccJEGObrR5umITk3Uy/cExUj/o+AiE
 Fqmtq9/IpbCi3w0qgbs8ALilciWoEpQ07e/s8DOaj5Ywt5YbSPqvqq570iUWZ+hi
@@ -44,9 +44,9 @@ dOwdWsxp17oe+7wSSm3u4YaS4pkvpuLko79+bljUEK93fdzOv1JmxjldkMkok9Fu
 5LbA08OpypDMldLVmZCWb7jgE/G96RJQSFYdBNY+Hwac8xT9tx/bwfkb8T5uT6qI
 EwIDAQAB
 -----END PUBLIC KEY-----',
-        'secret_id' => '76631-L78AuvFlyaQef6keC9%!iIt3Mk*NRSRbFrVeG$H2XwrH5!vboob%hILjidXC4v12tyj!jO4MWR',
-        'client_id' => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
-        'audience' => 'web',
+        'secret_id'          => '76631-L78AuvFlyaQef6keC9%!iIt3Mk*NRSRbFrVeG$H2XwrH5!vboob%hILjidXC4v12tyj!jO4MWR',
+        'client_id'          => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
+        'audience'           => 'web',
         'chave_privada_fake' => '-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC1sakflQqRcKs8
 ssPuJZUlRacksw+VnXhCcEwYa3GN2RmeWOccJEGObrR5umITk3Uy/cExUj/o+AiE
@@ -84,123 +84,117 @@ dOwdWsxp17oe+7wSSm3u4YaS4pkvpuLko79+bljUEK93fdzOv1JmxjldkMkok9Fu
 5LbA08OpypDMldLVmZCWb7jgE/G96RJQSFYdBNY+Hwac8xT9tx/bwfkb8T5uT6qI
 EwIDAQAB
 -----END PUBLIC KEY-----',
-        'secret_id_fake' => '76631-L78AuvFlyaQef6keC9%!iIt3Mk*NRSRbFrVeG$H2XwrH5!vboob%hILjidXC4v12tyj!jO4MWR',
-        'client_id_fake' => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
+        'secret_id_fake'     => '76631-L78AuvFlyaQef6keC9%!iIt3Mk*NRSRbFrVeG$H2XwrH5!vboob%hILjidXC4v12tyj!jO4MWR',
+        'client_id_fake'     => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
         'authorization_code' => '1',
         'client_credentials' => '1',
-        'refresh_token' => '1',
-        'redirect_uri' => ["localhost.com:4000", "localhost.com:8000"],
-        'scope_permitido' => [
-            "token_credential:salvar",
+        'refresh_token'      => '1',
+        'redirect_uri'       => ['localhost.com:4000', 'localhost.com:8000'],
+        'scope_permitido'    => [
+            'token_credential:salvar',
 
-            "usuario_cliente:salvar", "usuario_cliente:atualizar", "usuario_cliente:listar",
-            "usuario_cliente:buscar", "usuario_cliente:deletar", "usuario_cliente:deletar_cpf",
-            "usuario_cliente:download",
+            'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
+            'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
+            'usuario_cliente:download',
 
-            "usuario_dependente:salvar", "usuario_dependente:listar", "usuario_dependente:deletar",
+            'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
 
-            "usuario_equipe:salvar", "usuario_equipe:atualizar", "usuario_equipe:listar",
-            "usuario_equipe:buscar", "usuario_equipe:deletar", "usuario_equipe:validar_senha",
+            'usuario_equipe:salvar', 'usuario_equipe:atualizar', 'usuario_equipe:listar',
+            'usuario_equipe:buscar', 'usuario_equipe:deletar', 'usuario_equipe:validar_senha',
 
-            "usuario_lead:salvar", "usuario_lead:atualizar", "usuario_lead:listar", "usuario_lead:buscar",
-            "usuario_lead:deletar",
+            'usuario_lead:salvar', 'usuario_lead:atualizar', 'usuario_lead:listar', 'usuario_lead:buscar',
+            'usuario_lead:deletar',
 
-            "usuario_pagamento:listar", "usuario_pagamento:buscar", "usuario_pagamento:salvar",
-            "usuario_pagamento:atualizar",
+            'usuario_pagamento:listar', 'usuario_pagamento:buscar', 'usuario_pagamento:salvar',
+            'usuario_pagamento:atualizar',
 
-            "usuario_indicacao:salvar", "usuario_indicacao:atualizar", "usuario_indicacao:listar",
-            "usuario_indicacao:buscar", "usuario_indicacao:deletar",
+            'usuario_indicacao:salvar', 'usuario_indicacao:atualizar', 'usuario_indicacao:listar',
+            'usuario_indicacao:buscar', 'usuario_indicacao:deletar',
 
-            "usuario_grupo:salvar", "usuario_grupo:atualizar", "usuario_grupo:listar", "usuario_grupo:buscar",
-            "usuario_grupo:deletar",
+            'usuario_grupo:salvar', 'usuario_grupo:atualizar', 'usuario_grupo:listar', 'usuario_grupo:buscar',
+            'usuario_grupo:deletar',
 
-            "tabela_usuario:salvar", "tabela_usuario:bloquear",
+            'tabela_usuario:salvar', 'tabela_usuario:bloquear',
 
-            "solicitacao_premium:listar", "solicitacao_premium:download",
-            "solicitacao_voucher:listar", "solicitacao_voucher:buscar", "solicitacao_voucher:download",
-            "solicitacao_voucher:salvar",
+            'solicitacao_premium:listar', 'solicitacao_premium:download',
+            'solicitacao_voucher:listar', 'solicitacao_voucher:buscar', 'solicitacao_voucher:download',
+            'solicitacao_voucher:salvar',
 
-            "solicitacao_salavip:listar", "solicitacao_salavip:download",
+            'solicitacao_salavip:listar', 'solicitacao_salavip:download',
 
-            "voucher:salvar", "voucher:verificar", "voucher:validar",
+            'voucher:salvar', 'voucher:verificar', 'voucher:validar',
 
-            "relatorio_analytics:listar", "relatorio_analytics:download",
+            'relatorio_analytics:listar', 'relatorio_analytics:download',
 
-            "relatorio_acesso:listar",
+            'relatorio_acesso:listar',
 
-            "relatorio_usuario:listar",
+            'relatorio_usuario:listar',
 
-            "relatorio_loja_venda:listar",
+            'relatorio_loja_venda:listar',
 
-            "login:painel", "login:api", "login:clube", "login:token", "login:digio",
+            'login:painel', 'login:api', 'login:clube', 'login:token', 'login:digio',
 
-            "admin:chave_publica", "admin:chave_privada",
+            'admin:chave_publica', 'admin:chave_privada',
 
-            "convenio_parceiro:destaque",
+            'convenio_parceiro:destaque',
 
-            "parceiro_relatorio:salvar", "parceiro_relatorio:atualizar", "parceiro_relatorio:listar",
-            "parceiro_relatorio:buscar", "parceiro_relatorio:deletar",
+            'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
+            'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
 
-            "parceiro_cashback:salvar", "parceiro_cashback:atualizar", "parceiro_cashback:listar",
-            "parceiro_cashback:buscar", "parceiro_cashback:deletar",
+            'parceiro_cashback:salvar', 'parceiro_cashback:atualizar', 'parceiro_cashback:listar',
+            'parceiro_cashback:buscar', 'parceiro_cashback:deletar',
 
-            "parceiro_loja:listar", "parceiro_loja:buscar",
+            'parceiro_loja:listar', 'parceiro_loja:buscar',
 
-            "publicacao_noticia:salvar", "publicacao_noticia:atualizar", "publicacao_noticia:listar",
-            "publicacao_noticia:buscar", "publicacao_noticia:deletar",
+            'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
+            'publicacao_noticia:buscar', 'publicacao_noticia:deletar',
 
-            "campanha_sorteio:buscar", "campanha_sorteio:sortear", "campanha_sorteio:resultado",
+            'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
-            "app_api:listar", "app_api:buscar", "app_api:salvar", "app_api:atualizar", "app_api:deletar",
+            'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',
 
-            "app_usuario:listar", "app_usuario:buscar", "app_usuario:salvar", "app_usuario:atualizar",
-            "app_usuario:deletar",
+            'app_usuario:listar', 'app_usuario:buscar', 'app_usuario:salvar', 'app_usuario:atualizar',
+            'app_usuario:deletar',
 
-            "comercial_restricao:listar", "comercial_restricao:buscar", "comercial_restricao:salvar",
-            "comercial_restricao:atualizar", "comercial_restricao:deletar",
-            "comercial_empresa:listar", "comercial_empresa:buscar", "comercial_empresa:salvar",
-            "comercial_empresa:atualizar", "comercial_empresa:deletar",
-            "comercial_subempresa:select",
-            "comercial_prespeccao:listar", "comercial_prespeccao:buscar", "comercial_prespeccao:salvar",
-            "comercial_prespeccao:atualizar",
-            "comercial_regra:listar", "comercial_regra:buscar", "comercial_regra:salvar", "comercial_regra:atualizar",
-            "comercial_regra:deletar",
+            'comercial_restricao:listar', 'comercial_restricao:buscar', 'comercial_restricao:salvar',
+            'comercial_restricao:atualizar', 'comercial_restricao:deletar',
+            'comercial_empresa:listar', 'comercial_empresa:buscar', 'comercial_empresa:salvar',
+            'comercial_empresa:atualizar', 'comercial_empresa:deletar',
+            'comercial_subempresa:select',
+            'comercial_prespeccao:listar', 'comercial_prespeccao:buscar', 'comercial_prespeccao:salvar',
+            'comercial_prespeccao:atualizar',
+            'comercial_regra:listar', 'comercial_regra:buscar', 'comercial_regra:salvar', 'comercial_regra:atualizar',
+            'comercial_regra:deletar',
 
-            "log_erro:listar", "log_erro:buscar", "log_erro:atualizar",
+            'log_erro:listar', 'log_erro:buscar', 'log_erro:atualizar',
 
-            "ponto_cvs:listar", "ponto_cvs:buscar", "ponto_cvs:salvar", "ponto_cvs:atualizar",
+            'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar',
 
-            "saude_simulacao:buscar", "saude_simulacao:salvar",
+            'saude_simulacao:buscar', 'saude_simulacao:salvar',
 
-            "saude_contratacao:salvar",
+            'saude_contratacao:salvar',
 
-            "solicitacao_declaracao:listar", "solicitacao_declaracao:buscar", "solicitacao_declaracao:salvar",
+            'solicitacao_declaracao:listar', 'solicitacao_declaracao:buscar', 'solicitacao_declaracao:salvar',
 
-            "solicitacao_credito:listar", "solicitacao_credito:buscar", "solicitacao_credito:salvar",
+            'solicitacao_credito:listar', 'solicitacao_credito:buscar', 'solicitacao_credito:salvar',
 
             'solicitacao_credito:simular',
 
-            "carteirinha:buscar",
+            'carteirinha:buscar',
 
-            "popup:buscar", "popup:salvar", "popup:atualizar", "popup:deletar",
+            'popup:buscar', 'popup:salvar', 'popup:atualizar', 'popup:deletar',
 
-            "enquete_satisfacao:listar", "enquete_satisfacao:buscar", "enquete_satisfacao:salvar",
+            'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
 
-            "farmacia:listar",
-
-            "cupom:buscar", "cupom:listar",
-
-            "publicidade:buscar", "publicidade:listar", "publicidade:salvar"
-
-            "cupom:buscar", "cupom:listar"
+            'cupom:buscar', 'cupom:listar'
         ],
         'campo_permitido' => [
-            "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
-            "usuario:atualizar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
-            "usuario:buscar" => ["uuid", "nome", "cpf"],
-            "usuario:listar" => ["uuid", "nome", "cpf"]
+            'usuario:salvar'    => ['nome', 'cpf', 'email_trabalho', 'senha', 'telefone_celular'],
+            'usuario:atualizar' => ['nome', 'cpf', 'email_trabalho', 'senha', 'telefone_celular'],
+            'usuario:buscar'    => ['uuid', 'nome', 'cpf'],
+            'usuario:listar'    => ['uuid', 'nome', 'cpf']
         ],
         'tempo_vida' => '50000',
-        'status' => '1'
+        'status'     => '1'
     ]
 ];

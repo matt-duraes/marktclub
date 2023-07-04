@@ -4,7 +4,6 @@ namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
 use Http\Request;
-use Modules\Data;
 use Helpers\DataHelper;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
@@ -13,7 +12,6 @@ final class LojaVendaModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
-
     private int $idEmpresa;
     private string $de;
     private string $ate;
@@ -49,8 +47,8 @@ final class LojaVendaModel extends ORM
     public function montarDado($r): array
     {
         return [
-            'venda_mes' => $this->montarRelatorioPorMes($r),
-            'venda_loja' => $this->montarVendaPorLoja($r),
+            'venda_mes'   => $this->montarRelatorioPorMes($r),
+            'venda_loja'  => $this->montarVendaPorLoja($r),
             'ticket_loja' => $this->montarTicketPorLoja($r)
         ];
     }
@@ -73,10 +71,10 @@ final class LojaVendaModel extends ORM
         for ($i = 0; $i < 13; $i++) {
             $data = $Data->valor($de)->adicionar($i, 'mes')->formato('Y-m-d');
             $dado[$data] = object([
-                'data' => $Data->valor($data)->formato('m/Y'),
-                'valor' => 0,
+                'data'   => $Data->valor($data)->formato('m/Y'),
+                'valor'  => 0,
                 'ticket' => 0,
-                'venda' => 0
+                'venda'  => 0
             ]);
             if ($data == $ate) {
                 break;
@@ -107,7 +105,7 @@ final class LojaVendaModel extends ORM
             if (!array_key_exists($r->id_parceiro_loja, $dado)) {
                 $dado[$r->id_parceiro_loja] = object([
                     'parceiro_titulo' => $r->parceiro_titulo,
-                    'valor_venda' => 0,
+                    'valor_venda'     => 0,
                 ]);
             }
             $dado[$r->id_parceiro_loja]->valor_venda += $r->valor_venda;
@@ -125,8 +123,8 @@ final class LojaVendaModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'loja' => $r->parceiro_titulo,
-                'total' => !empty($r->valor_venda) ? number_format($r->valor_venda, '2', ',', '.') : "0.00",
+                'loja'        => $r->parceiro_titulo,
+                'total'       => !empty($r->valor_venda) ? number_format($r->valor_venda, '2', ',', '.') : '0.00',
                 'porcentagem' => porcentagem($r->valor_venda, $total)
             ];
         }
@@ -145,7 +143,7 @@ final class LojaVendaModel extends ORM
             if (!array_key_exists($r->id_parceiro_loja, $dado)) {
                 $dado[$r->id_parceiro_loja] = object([
                     'parceiro_titulo' => $r->parceiro_titulo,
-                    'ticket' => 0,
+                    'ticket'          => 0,
                 ]);
             }
             $dado[$r->id_parceiro_loja]->ticket += $ticket;
@@ -163,8 +161,8 @@ final class LojaVendaModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'loja' => $r->parceiro_titulo,
-                'total' => !empty($r->ticket) ? number_format($r->ticket, '2', ',', '.') : "0.00",
+                'loja'        => $r->parceiro_titulo,
+                'total'       => !empty($r->ticket) ? number_format($r->ticket, '2', ',', '.') : '0.00',
                 'porcentagem' => porcentagem($r->ticket, $total)
             ];
         }

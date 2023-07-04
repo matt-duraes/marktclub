@@ -20,9 +20,9 @@ final class CampanhaSorteioController extends Controller implements
         $Sorteio = $this->pegarSorteio($id);
 
         return mensagemSucesso([
-            'id' => $Sorteio->id,
+            'id'     => $Sorteio->id,
             'titulo' => $Sorteio->titulo,
-            'texto' => $Sorteio->texto,
+            'texto'  => $Sorteio->texto,
             'imagem' => $Sorteio->imagem,
             'status' => $Sorteio->status->indice()
         ]);
@@ -39,9 +39,9 @@ final class CampanhaSorteioController extends Controller implements
         $Sorteio->salvar();
 
         return mensagemSucesso([
-            'id' => $Sorteio->id,
+            'id'        => $Sorteio->id,
             'sorteados' => $Sorteio->usuario_sorteado,
-            'hash' => $Sorteio->hash
+            'hash'      => $Sorteio->hash
         ], status: 201);
     }
 
@@ -57,13 +57,13 @@ final class CampanhaSorteioController extends Controller implements
         }
 
         return mensagemSucesso([
-            'id' => $Sorteio->id,
-            'titulo' => $Sorteio->titulo,
-            'texto' => $Sorteio->texto,
-            'imagem' => $Sorteio->imagem,
+            'id'        => $Sorteio->id,
+            'titulo'    => $Sorteio->titulo,
+            'texto'     => $Sorteio->texto,
+            'imagem'    => $Sorteio->imagem,
             'sorteados' => $Sorteio->usuario_sorteado,
-            'data' => $Sorteio->data_sorteio->data(),
-            'status' => $Sorteio->status
+            'data'      => $Sorteio->data_sorteio->data(),
+            'status'    => $Sorteio->status
         ]);
     }
 

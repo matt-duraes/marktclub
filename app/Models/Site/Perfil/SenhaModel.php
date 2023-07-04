@@ -24,7 +24,7 @@ final class SenhaModel
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

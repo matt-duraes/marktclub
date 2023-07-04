@@ -15,10 +15,10 @@ abstract class AbstractOperadora implements OperadoraInterface
     protected array|int $valores;
 
     /**
-     * @param  Data         $dataNascimento  Data de Nascimento do Cliente
-     * @param  string       $acomodacao      Acomodação
-     * @param  Plano|null   $plano           Plano de Saúde
-     * @param  Regiao|null  $regiao          Região
+     * @param Data        $dataNascimento Data de Nascimento do Cliente
+     * @param string      $acomodacao     Acomodação
+     * @param Plano|null  $plano          Plano de Saúde
+     * @param Regiao|null $regiao         Região
      */
     public function __construct(
         protected readonly Data $dataNascimento,
@@ -30,7 +30,7 @@ abstract class AbstractOperadora implements OperadoraInterface
     }
 
     /**
-     * @param  Data  $dataNascimento  Data de Nascimento
+     * @param Data $dataNascimento Data de Nascimento
      *
      * @return int|null Idade, NULL caso valor inválido
      */
@@ -44,11 +44,12 @@ abstract class AbstractOperadora implements OperadoraInterface
      */
     #[ArrayShape([
         'data_nascimento' => "\Modules\Data",
-        'acomodacao'      => "string",
-        'acomodacoes'     => "array",
+        'acomodacao'      => 'string',
+        'acomodacoes'     => 'array',
         'plano'           => "\App\Classes\Saude\Plano|null",
         'regiao'          => "\App\Classes\Saude\Regiao|null"
-    ])] public function pegarDados(): array
+    ])]
+    public function pegarDados(): array
     {
         return [
             'data_nascimento' => $this->dataNascimento,
@@ -65,7 +66,7 @@ abstract class AbstractOperadora implements OperadoraInterface
     abstract public function pegarCodigoAcomodacao(): ?int;
 
     /**
-     * @param  Data|null  $dataNascimento  Data de Nascimento (opcional)
+     * @param Data|null $dataNascimento Data de Nascimento (opcional)
      *
      * @return float|null Valor da simulação, NULL caso error ao simular
      */

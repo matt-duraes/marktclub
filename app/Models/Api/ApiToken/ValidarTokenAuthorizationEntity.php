@@ -16,7 +16,6 @@ final class ValidarTokenAuthorizationEntity extends Entity
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
     protected array $ormBuscar = ['id_api_app', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'];
-
     protected Tipo $tipo;
     protected int $id_api_app;
     protected string $id_usuario;

@@ -13,19 +13,19 @@ trait TokenTrait
     /**
      * Criar a define do token
      *
-     * @param string                        $token      Token que o usuário usou
-     * @param AppEntity                     $App        App do token
-     * @param EquipeEntity|ClienteEntity   $Usuario    Usuário dependendo do tipo do token
+     * @param string                     $token   Token que o usuário usou
+     * @param AppEntity                  $App     App do token
+     * @param EquipeEntity|ClienteEntity $Usuario Usuário dependendo do tipo do token
      */
     public function criarDefinesDoToken(string $token, AppEntity $App, $Empresa, $Usuario, array $scope, string $tipo)
     {
         define('TOKEN', [
-            'token' => $token,
-            'scope' => $scope,
-            'app' => $App,
+            'token'   => $token,
+            'scope'   => $scope,
+            'app'     => $App,
             'empresa' => $Empresa,
             'usuario' => $Usuario,
-            'tipo' => $tipo
+            'tipo'    => $tipo
         ]);
     }
 
@@ -40,13 +40,13 @@ trait TokenTrait
     ) {
         $payload = criptografarDado(
             [
-                'sub' => $Usuario->id,
-                'name' => $Usuario->nome->nome(),
-                'picture' => $Usuario->imagem,
-                'email' => $Usuario->email->email(),
+                'sub'            => $Usuario->id,
+                'name'           => $Usuario->nome->nome(),
+                'picture'        => $Usuario->imagem,
+                'email'          => $Usuario->email->email(),
                 'email_verified' => 'nao',
-                'create_at' => $Usuario->data_criacao->date(),
-                'updated_at' => $Usuario->data_atualizacao->date(),
+                'create_at'      => $Usuario->data_criacao->date(),
+                'updated_at'     => $Usuario->data_atualizacao->date(),
             ],
             criptografia: ['name', 'picture', 'email']
         );

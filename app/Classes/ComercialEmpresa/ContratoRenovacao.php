@@ -14,7 +14,7 @@ final class ContratoRenovacao extends StatusStatus
     ) {
         parent::__construct([
             self::AUTOMATICO => 'Automático',
-            self::ADITIVO => 'Aditivo'
+            self::ADITIVO    => 'Aditivo'
         ]);
     }
 }

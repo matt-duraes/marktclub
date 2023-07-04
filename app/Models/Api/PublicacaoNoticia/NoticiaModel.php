@@ -26,7 +26,6 @@ final class NoticiaModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
-
     private Status $status;
     private Data $dataPublicacaoDe;
     private Data $dataPublicacaoAte;
@@ -81,13 +80,13 @@ final class NoticiaModel extends ORM implements
             }
 
             $retorno[] = [
-                'id' => $r->uuid,
-                'titulo' => $titulo,
-                'texto' => $texto,
-                'imagem' => $imagem,
+                'id'                     => $r->uuid,
+                'titulo'                 => $titulo,
+                'texto'                  => $texto,
+                'imagem'                 => $imagem,
                 'data_publicacao_inicio' => $r->data_publicacao_inicio,
-                'url' => $r->url,
-                'status' => $Status->indice($r->status)
+                'url'                    => $r->url,
+                'status'                 => $Status->indice($r->status)
             ];
         }
         return $retorno;
@@ -112,6 +111,7 @@ final class NoticiaModel extends ORM implements
         }
         return $where;
     }
+
     private function validarRequest()
     {
         $this->status = new Status($this->request->status);
@@ -125,6 +125,7 @@ final class NoticiaModel extends ORM implements
             ->validarCampoModulo('data de publicação inicial', $this->dataPublicacaoDe)
             ->validarCampoModulo('data de publicação final', $this->dataPublicacaoAte);
     }
+
     private function validarCampoModulo(string $campo, ModuleInterface|OrderInterface|StatusInterface $modulo)
     {
         if ($modulo->vazio() || $modulo->valido()) {

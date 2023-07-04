@@ -4,7 +4,6 @@ namespace Erro\Retorno;
 
 use Erro\Erro;
 use Erro\Alerta;
-use Erro\Retorno\SolucaoGeral;
 
 abstract class ErrorGeral extends SolucaoGeral
 {
@@ -25,12 +24,11 @@ abstract class ErrorGeral extends SolucaoGeral
     protected string $mensagem;
     protected array $trace;
     protected array $traceString;
-
     private array $replace = [
-        '?' => '&#63;',
-        '<' => '&#60;',
+        '?'  => '&#63;',
+        '<'  => '&#60;',
         '\\' => '&#92;',
-        '>' => '&#62;'
+        '>'  => '&#62;'
     ];
 
     public function __toString(): string
@@ -231,14 +229,14 @@ abstract class ErrorGeral extends SolucaoGeral
                 $arquivoInicialExiste = true;
             }
             $lista['id_' . md5(uniqid(time()))] = [
-                'alerta' => '',
-                'arquivo' => $arquivo,
-                'editor' => $this->pegarUrlDoEditor($arquivo),
-                'linha' => $r['line'],
-                'codigo' => $this->montarArrayDoCodigo($r['file'], $r['line']),
+                'alerta'       => '',
+                'arquivo'      => $arquivo,
+                'editor'       => $this->pegarUrlDoEditor($arquivo),
+                'linha'        => $r['line'],
+                'codigo'       => $this->montarArrayDoCodigo($r['file'], $r['line']),
                 'classeFuncao' => [
                     'valor' => $classeFuncao,
-                    'html' => $classeFuncaoHtml
+                    'html'  => $classeFuncaoHtml
                 ],
                 'classe' => $classe,
                 'funcao' => $funcao
@@ -252,14 +250,14 @@ abstract class ErrorGeral extends SolucaoGeral
             ';
             $lista = array_merge([
                 'id_' . md5(uniqid(time())) => [
-                    'alerta' => $this->alerta,
-                    'arquivo' => $arquivoPrincipal,
-                    'editor' => $this->pegarUrlDoEditor($arquivoPrincipal),
-                    'linha' => $this->linha,
-                    'codigo' => $this->montarArrayDoCodigo($this->arquivo, $this->linha),
+                    'alerta'       => $this->alerta,
+                    'arquivo'      => $arquivoPrincipal,
+                    'editor'       => $this->pegarUrlDoEditor($arquivoPrincipal),
+                    'linha'        => $this->linha,
+                    'codigo'       => $this->montarArrayDoCodigo($this->arquivo, $this->linha),
                     'classeFuncao' => [
                         'valor' => '',
-                        'html' => ''
+                        'html'  => ''
                     ],
                     'classe' => '',
                     'funcao' => ''
@@ -271,14 +269,14 @@ abstract class ErrorGeral extends SolucaoGeral
             $this->alertaLista[$this->alerta] = 'Por algum motivo, o arquivo inicial do erro não está no trace, adicionamos ele no topo pra facilitar o debug.';
             $lista = array_merge([
                 'id_' . md5(uniqid(time())) => [
-                    'alerta' => $this->alerta,
-                    'arquivo' => $arquivoInicial,
-                    'editor' => $this->pegarUrlDoEditor($arquivoInicial),
-                    'linha' => $this->linhaInicial,
-                    'codigo' => $this->montarArrayDoCodigo($this->arquivoInicial, $this->linhaInicial),
+                    'alerta'       => $this->alerta,
+                    'arquivo'      => $arquivoInicial,
+                    'editor'       => $this->pegarUrlDoEditor($arquivoInicial),
+                    'linha'        => $this->linhaInicial,
+                    'codigo'       => $this->montarArrayDoCodigo($this->arquivoInicial, $this->linhaInicial),
                     'classeFuncao' => [
                         'valor' => '',
-                        'html' => ''
+                        'html'  => ''
                     ],
                     'classe' => '',
                     'funcao' => ''

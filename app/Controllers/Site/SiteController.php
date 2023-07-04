@@ -39,7 +39,6 @@ final class SiteController extends Controller
         return view('pesquisa.index', [
             'sistemaConhece' => $listaConhece
         ]);
-
     }
 
     /**
@@ -64,9 +63,9 @@ final class SiteController extends Controller
     public function sosmulher(): Response
     {
         return view('sosmulher.index', [
-            'parceiro' => [1, 2, 3],
+            'parceiro'     => [1, 2, 3],
             'parceiroTipo' => 'sosmulher',
-            'dado'        => (new ListarModel())->listarDados(),
+            'dado'         => (new ListarModel())->listarDados(),
             'lista'        => (new ListarModel())->listarRelacionado(),
         ]);
     }
@@ -144,6 +143,7 @@ final class SiteController extends Controller
     {
         return view('popup.imagem');
     }
+
     /**
      * @return Response
      * @throws Excecao
@@ -152,6 +152,4 @@ final class SiteController extends Controller
     {
         return view('regulamento.campanha');
     }
-
-
 }

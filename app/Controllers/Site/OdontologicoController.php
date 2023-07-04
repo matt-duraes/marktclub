@@ -10,7 +10,7 @@ final class OdontologicoController extends Controller
     public function index()
     {
         return view('odontologico.index', [
-            'menu' => 'odontologico',
+            'menu'   => 'odontologico',
             'banner' => (new BannerModel())->odontologico(),
         ]);
     }

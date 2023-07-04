@@ -10,7 +10,7 @@
 */
 if (!function_exists('route')) {
     /**
-     * @param String    $local      Local da rota que deseja pegar: 'post.grupo.rota' ou apensa 'grupo.rota' para views
+     * @param string $local Local da rota que deseja pegar: 'post.grupo.rota' ou apensa 'grupo.rota' para views
      */
     function route(string $rota)
     {
@@ -28,7 +28,7 @@ if (!function_exists('route')) {
 */
 if (!function_exists('uri')) {
     /**
-     * @param String    $rota       Local da rota que deseja pegar: 'post.grupo.rota' ou apensa 'grupo.rota' para views
+     * @param string $rota Local da rota que deseja pegar: 'post.grupo.rota' ou apensa 'grupo.rota' para views
      */
     function routeUri($rota)
     {

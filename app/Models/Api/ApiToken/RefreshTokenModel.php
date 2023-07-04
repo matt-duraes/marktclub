@@ -6,7 +6,6 @@ use ORM\ORM;
 use stdClass;
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiApp\AppEntity;
-use App\Models\Api\ApiToken\TokenInterface;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
@@ -15,7 +14,6 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     use TokenTrait;
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
-
     private stdClass $tokenAtual;
     private EquipeEntity $Usuario;
     private array $token;
@@ -75,6 +73,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
             $this->tokenVencido($e, mensagem: 'Erro ao pegar token atual.');
         }
     }
+
     private function pegarUsuario()
     {
         if (in_array($this->App->audience, ['web'])) {
@@ -87,6 +86,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
         }
         $this->Usuario = $Usuario;
     }
+
     private function pegarScope()
     {
         if (!empty($this->scope)) {
@@ -94,6 +94,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
         }
         return jsonDecode($this->tokenAtual->scope_permitido);
     }
+
     public function tokenVencido(?\Throwable $e = null, ?string $mensagem = null)
     {
         mensagemErro('Token vencido!', 'O token enviado está vencido.', status: 403, error: $e, localhost: $mensagem);

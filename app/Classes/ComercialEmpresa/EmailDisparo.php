@@ -13,7 +13,7 @@ final class EmailDisparo extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::MARKTCLUB => 'Markt Club',
+            self::MARKTCLUB  => 'Markt Club',
             self::CLIENTE    => 'Cliente'
         ]);
     }

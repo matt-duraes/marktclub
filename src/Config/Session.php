@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 final class Session
 {
     /**
-     * @return void
      */
     public function start(): void
     {
@@ -21,7 +20,7 @@ final class Session
         $__SESSION_CACHE = env('SESSION_CACHE', '');
         if (
             session_cache_limiter() != 'nocache' &&
-            preg_match("/^[0-9]+$/", $__SESSION_CACHE) &&
+            preg_match('/^[0-9]+$/', $__SESSION_CACHE) &&
             $__SESSION_CACHE > 0
         ) {
             session_cache_expire($__SESSION_CACHE);
@@ -35,9 +34,9 @@ final class Session
         $__SESSION_SAMESITE = env('SESSION_SAMESITE', 'Strict');
         $session = new SessionSession(
             new NativeSessionStorage([
-                'cookie_secure' => true,
+                'cookie_secure'   => true,
                 'cookie_httponly' => true,
-                'cookie_path' => '/',
+                'cookie_path'     => '/',
                 'cookie_samesite' => $__SESSION_SAMESITE
             ])
         );

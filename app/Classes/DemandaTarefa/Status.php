@@ -15,9 +15,9 @@ final class Status extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::AGUARDANDO => 'Aguardando',
-            self::ANDAMENTO  => 'Em andamento',
-            self::CONCLUIDA  => 'Concluida',
+            self::AGUARDANDO  => 'Aguardando',
+            self::ANDAMENTO   => 'Em andamento',
+            self::CONCLUIDA   => 'Concluida',
             self::CANCELADA   => 'Cancelada'
         ]);
     }

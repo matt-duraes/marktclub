@@ -9,7 +9,7 @@ trait Id
     /**
      * Remove a criptografia do ID
      *
-     * @param string $id ID que deve ser descriptografado
+     * @param  string $id ID que deve ser descriptografado
      * @return string
      */
     public function pegarId(string $id)
@@ -20,7 +20,7 @@ trait Id
     /**
      * Adiciona criptografia ao ID
      *
-     * @param string $id ID que deve ser criptografado
+     * @param  string $id ID que deve ser criptografado
      * @return string
      */
     public function setarId(string $id)

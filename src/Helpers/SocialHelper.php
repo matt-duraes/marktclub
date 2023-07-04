@@ -10,11 +10,11 @@ final class SocialHelper
     private array $googleToken;
 
     /**
-     * @param   string          $rede   Qual rede social vai usar podendo ser google, facebook,
-     *                                  twitter, tumblr, whatsapp, reddit, pinterest ou pinterest
-     * @param   null|string     $id     ID do usuário para o Facebook
-     * @param   null|string     $token  Token do usuário para o Facebook
-     * @param   null|string     $code   Code para gerar o token para o Google
+     * @param string      $rede  Qual rede social vai usar podendo ser google, facebook,
+     *                           twitter, tumblr, whatsapp, reddit, pinterest ou pinterest
+     * @param null|string $id    ID do usuário para o Facebook
+     * @param null|string $token Token do usuário para o Facebook
+     * @param null|string $code  Code para gerar o token para o Google
      */
     public function __construct(
         private ?string $rede = null,
@@ -34,8 +34,8 @@ final class SocialHelper
     /**
      * Verifica se o usuário está logado e se o usuário tem o scope que deseja
      *
-     * @param   array   $scope  Lista de scope que o usuário tem que ter
-     * @return  bool
+     * @param  array $scope Lista de scope que o usuário tem que ter
+     * @return bool
      */
     public function logado(array $scope = []): bool
     {
@@ -84,9 +84,9 @@ final class SocialHelper
         }
 
         $client = new Google\Client([
-            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'client_id'     => env('GOOGLE_CLIENT_ID'),
             'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-            'redirect_uri' => env('GOOGLE_REDIRECT_URI')
+            'redirect_uri'  => env('GOOGLE_REDIRECT_URI')
         ]);
 
         try {
@@ -121,6 +121,7 @@ final class SocialHelper
             mensagem: 'Verifique o tipo de integração para pegar o ID.'
         );
     }
+
     public function token()
     {
         if ($this->rede == 'google') {
@@ -132,7 +133,6 @@ final class SocialHelper
 
     public function metaTag(string|array $titulo, string|array $descricao, null|string|array $imagem = null)
     {
-
         $titulo = $this->pegarMetaReal($titulo, TITULO);
         $descricao = $this->pegarMetaReal($titulo, DESCRICAO);
         $imagem = $this->pegarMetaImagem($imagem);
@@ -161,6 +161,7 @@ final class SocialHelper
             <title>' . $tituloTag . '</title>
         ';
     }
+
     private function pegarMetaReal(string|array $lista, string $padrao)
     {
         $lista = !is_array($lista) ? [$lista] : $lista;
@@ -171,6 +172,7 @@ final class SocialHelper
         }
         return $padrao;
     }
+
     private function pegarMetaImagem($imagem)
     {
         $imagem = $this->pegarMetaReal($imagem, env('IMAGEM_SOCIAL', ''));
@@ -307,9 +309,9 @@ final class SocialHelper
     private function googleCriarTokenComAuthorizationCode($code)
     {
         $client = new Google\Client([
-            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'client_id'     => env('GOOGLE_CLIENT_ID'),
             'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-            'redirect_uri' => env('GOOGLE_REDIRECT_URI')
+            'redirect_uri'  => env('GOOGLE_REDIRECT_URI')
         ]);
 
         $token = $client->fetchAccessTokenWithAuthCode($code);
@@ -362,7 +364,6 @@ final class SocialHelper
 
     private function googlePegarTokenDoCookie()
     {
-
         if (!cookieExiste('GOOGLE_SOCIAL')) {
             $this->googleToken = [];
             return;

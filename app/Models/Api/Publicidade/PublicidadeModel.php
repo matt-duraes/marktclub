@@ -85,7 +85,7 @@ class PublicidadeModel extends ORM
     }
 
     /**
-     * @param  array  $publicidades
+     * @param array $publicidades
      *
      * @return array
      */
@@ -139,7 +139,6 @@ class PublicidadeModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

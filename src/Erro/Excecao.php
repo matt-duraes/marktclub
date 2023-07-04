@@ -2,7 +2,6 @@
 
 namespace Erro;
 
-use Erro\Erro;
 use Throwable;
 
 final class Excecao extends \Exception
@@ -10,16 +9,16 @@ final class Excecao extends \Exception
     private string $tipo;
 
     /**
-     * @param string          $titulo    Título para o erro
-     * @param string          $mensagem  Texto para a mensagem de erro
-     * @param int             $status    Status Html para o erro
-     * @param int             $codigo    Código para o erro
-     * @param string          $campo     Campo de erro para quando usar código
-     * @param array           $lista     Lista para o retorno
-     * @param array           $dado      Array de dado com retorno, exemplo:
-     *                                   ['titulo'=> '...', 'mensagem' => '...', ...]
-     * @param array           $header    Header a ser informado na exceção
-     * @param null|Throwable  $previous  Próximo erro
+     * @param string         $titulo   Título para o erro
+     * @param string         $mensagem Texto para a mensagem de erro
+     * @param int            $status   Status Html para o erro
+     * @param int            $codigo   Código para o erro
+     * @param string         $campo    Campo de erro para quando usar código
+     * @param array          $lista    Lista para o retorno
+     * @param array          $dado     Array de dado com retorno, exemplo:
+     *                                 ['titulo'=> '...', 'mensagem' => '...', ...]
+     * @param array          $header   Header a ser informado na exceção
+     * @param null|Throwable $previous Próximo erro
      */
     public function __construct(
         private string $titulo = '',
@@ -74,7 +73,7 @@ final class Excecao extends \Exception
         if ($this->acao() == 'json') {
             return [
                 'status' => 'erro',
-                'erro' => $retorno
+                'erro'   => $retorno
             ];
         }
         return $this->retornarPaginaHtml($retorno);
@@ -124,7 +123,7 @@ final class Excecao extends \Exception
         if ($this->acao() == 'json') {
             return [
                 'status' => 'erro',
-                'erro' => $retorno
+                'erro'   => $retorno
             ];
         }
         return $this->retornarPaginaHtml($retorno);
@@ -143,46 +142,46 @@ final class Excecao extends \Exception
         if ($acao == 'json' && 400 == $status) {
             return [
                 'status' => 'erro',
-                'erro' => [
-                    'titulo' => 'Erro de requisição!',
+                'erro'   => [
+                    'titulo'   => 'Erro de requisição!',
                     'mensagem' => 'Foi enviado uma requisição ruim (Bad Request), verifique os dados enviado e tente novamente.',
-                    'codigo' => 400
+                    'codigo'   => 400
                 ]
             ];
         } elseif ($acao == 'json' && 401 == $status) {
             return [
                 'status' => 'erro',
-                'erro' => [
-                    'titulo' => 'Erro de permissão!',
+                'erro'   => [
+                    'titulo'   => 'Erro de permissão!',
                     'mensagem' => 'Você não autenticou essa requisição, faça sua autenticação e tente novamente.',
-                    'codigo' => 401
+                    'codigo'   => 401
                 ]
             ];
         } elseif ($acao == 'json' && 403 == $status) {
             return [
                 'status' => 'erro',
-                'erro' => [
-                    'titulo' => 'Erro de permissão!',
+                'erro'   => [
+                    'titulo'   => 'Erro de permissão!',
                     'mensagem' => 'Você não tem permissão para acessar essa informação, verifique suas permissões e tente novamente.',
-                    'codigo' => 403
+                    'codigo'   => 403
                 ]
             ];
         } elseif ($acao == 'json' && 404 == $status) {
             return [
                 'status' => 'erro',
-                'erro' => [
-                    'titulo' => 'Página não existe!',
+                'erro'   => [
+                    'titulo'   => 'Página não existe!',
                     'mensagem' => 'Essa página ou recurso não existe ou foi movida para outra URL.',
-                    'codigo' => 404
+                    'codigo'   => 404
                 ]
             ];
         } elseif ($acao == 'json' && 500 == $status) {
             return [
                 'status' => 'erro',
-                'erro' => [
-                    'titulo' => 'Erro interno!',
+                'erro'   => [
+                    'titulo'   => 'Erro interno!',
                     'mensagem' => 'Ocorreu um erro interno, por favor, tente novamente, se o erro persistir, contate o suporte.',
-                    'codigo' => 500
+                    'codigo'   => 500
                 ]
             ];
         }
@@ -234,8 +233,8 @@ final class Excecao extends \Exception
         if (SISTEMA == 'LOCALHOST') {
             $dado += [
                 'erroArquivo' => $this->getFile(),
-                'erroLinha' => $this->getLine(),
-                'erroTrace' => $this->getTraceAsString(),
+                'erroLinha'   => $this->getLine(),
+                'erroTrace'   => $this->getTraceAsString(),
             ];
         }
 

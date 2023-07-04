@@ -20,6 +20,7 @@ trait EntityInsertTrait
             $this->status = new Status(Status::INATIVO);
         }
     }
+
     private function setarSubempresa()
     {
         if (empty($this->subempresa)) {
@@ -32,6 +33,7 @@ trait EntityInsertTrait
         }
         $this->id_admin_subempresa = $idSubempresa;
     }
+
     private function validarCamposObrigatorioNoInsert()
     {
         $request = $this->request;

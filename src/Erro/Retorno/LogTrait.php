@@ -16,11 +16,11 @@ trait LogTrait
 
         $body = [
             'mensagem' => $mensagem,
-            'codigo' => $codigo,
-            'status' => $status,
-            'arquivo' => $arquivo,
-            'linha' => $linha,
-            'trace' => json_encode($trace)
+            'codigo'   => $codigo,
+            'status'   => $status,
+            'arquivo'  => $arquivo,
+            'linha'    => $linha,
+            'trace'    => json_encode($trace)
         ];
 
         $mensagem = 'Ocorreu um erro inesperado, clique em retornar para voltar a navegar. Geralmente esse tipo de erro é temporário, mas para os casos ele continue ocorrendo, já sinalizamos para a equipe técnica sobre o ocorrido, mas caso queira, você pode entre em contato com o suporte e informá-lo.';
@@ -31,7 +31,6 @@ trait LogTrait
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-
 
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
@@ -49,10 +48,10 @@ trait LogTrait
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'erro',
-                'erro' => [
-                    'titulo' => 'Erro interno!',
+                'erro'   => [
+                    'titulo'   => 'Erro interno!',
                     'mensagem' => 'Ocorreu um erro interno, por favor, tente novamente, se o erro persistir, contate o suporte.',
-                    'codigo' => 500
+                    'codigo'   => 500
                 ]
             ]);
             exit();

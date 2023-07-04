@@ -17,9 +17,9 @@ final class ListaHelper
     }
 
     /**
-     * @param  array|stdClass  $lista
-     * @param  string          $indice
-     * @param  string          $valor
+     * @param  array|stdClass $lista
+     * @param  string         $indice
+     * @param  string         $valor
      * @return $this
      */
     public function lista(array|stdClass $lista, string $indice, string $valor): ListaHelper
@@ -36,7 +36,6 @@ final class ListaHelper
 
     /**
      * @param $lista
-     * @return void
      */
     private function addLista($lista): void
     {
@@ -51,11 +50,11 @@ final class ListaHelper
     public function estadoCivil(): ListaHelper
     {
         $this->add(lista: [
-            'solteiro' => 'Solteiro',
-            'casado' => 'Casado',
+            'solteiro'   => 'Solteiro',
+            'casado'     => 'Casado',
             'divorciado' => 'Divorciado',
-            'viuvo' => 'Viúvo',
-            'separado' => 'Separado'
+            'viuvo'      => 'Viúvo',
+            'separado'   => 'Separado'
         ]);
         return $this;
     }
@@ -63,9 +62,9 @@ final class ListaHelper
     /**
      * Adiciona um valor a lista
      *
-     * @param  mixed   $indice  Um índice para ser adicionado
-     * @param  string  $titulo  Um título para ser adicionado
-     * @param  array   $lista   Um array com uma lista de itens a ser adicionado
+     * @param mixed  $indice Um índice para ser adicionado
+     * @param string $titulo Um título para ser adicionado
+     * @param array  $lista  Um array com uma lista de itens a ser adicionado
      */
     public function add(mixed $indice = 0, string $titulo = '', array $lista = []): ListaHelper
     {
@@ -80,7 +79,6 @@ final class ListaHelper
     /**
      * @param $indice
      * @param $titulo
-     * @return void
      */
     private function addItem($indice, $titulo): void
     {
@@ -96,9 +94,9 @@ final class ListaHelper
     public function genero(): ListaHelper
     {
         $this->add(lista: [
-            'masculino' => 'Masculino',
-            'feminino' => 'Feminino',
-            'outro' => 'Outro',
+            'masculino'    => 'Masculino',
+            'feminino'     => 'Feminino',
+            'outro'        => 'Outro',
             'nao-informar' => 'Não informar'
         ]);
         return $this;

@@ -22,16 +22,16 @@ final class TurismoController extends Controller
     public function index(): Response
     {
         return view('turismo.index', [
-            'menu' => 'turismo',
-            'banner' => (new BannerModel())->turismo(),
-            'carro' => (new BannerModel())->turismoCarro(),
-            'lista' => (new ListarModel())->listarDados(),
+            'menu'         => 'turismo',
+            'banner'       => (new BannerModel())->turismo(),
+            'carro'        => (new BannerModel())->turismoCarro(),
+            'lista'        => (new ListarModel())->listarDados(),
             'parceiroTipo' => 'turismo',
         ]);
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -48,7 +48,7 @@ final class TurismoController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -65,7 +65,7 @@ final class TurismoController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -89,7 +89,7 @@ final class TurismoController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

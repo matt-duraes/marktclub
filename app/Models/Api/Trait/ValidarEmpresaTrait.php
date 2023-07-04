@@ -12,7 +12,7 @@ trait ValidarEmpresaTrait
     /**
      * Mudar o ID da empresa se tiver pemissão
      *
-     * @param   int     $id     ID da empresa
+     * @param int $id ID da empresa
      */
     public function setarIdEmpresaManual(int $id)
     {
@@ -27,26 +27,26 @@ trait ValidarEmpresaTrait
     /**
      * Verifica se existe token e seta a empresa
      *
-     * @return void
-     * @throws Excecao  Retorna uma Excecao caso não exista token
+     * @throws Excecao Retorna uma Excecao caso não exista token
      */
     private function setarIdEmpresa(): void
     {
         $this->verificarSeExisteToken();
         $this->idEmpresa = TOKEN['empresa']->get('id');
     }
+
     private function setarIdUsuario(): void
     {
         $this->verificarSeExisteToken();
         $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
             TOKEN['usuario']->get('id') : null;
     }
+
     /**
      * Faz a validação para pegar apenas registros da empresa ou todas se for Markt Club e o usuário tenha permissão
      *
-     * @param   string  $campoEmpresa   Se o campo da empresa é o id_admin_empresa ou empresa
-     * @return void
-     * @throws Excecao  Retorna uma Excecao caso não exista token
+     * @param  string  $campoEmpresa Se o campo da empresa é o id_admin_empresa ou empresa
+     * @throws Excecao Retorna uma Excecao caso não exista token
      */
     private function validarEmpresa(string $campoEmpresa = 'id_admin_empresa'): void
     {
@@ -63,6 +63,7 @@ trait ValidarEmpresaTrait
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
         }
     }
+
     private function setaPropriedadeInicial(string $campoEmpresa)
     {
         $this->nomeCampoEmpresa = in_array(
@@ -103,6 +104,7 @@ trait ValidarEmpresaTrait
             mensagemErro('Empresa inválida!', 'Não foi encontrado uma empresa pelo código enviado.', error: $e);
         }
     }
+
     private function verificarSePodeMudarEmpresa(): bool
     {
         $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
@@ -117,7 +119,7 @@ trait ValidarEmpresaTrait
     /**
      * Pega o Where padrão para as buscas concatenando com o where da empresa
      *
-     * @param   array $where    Where que deseja colocar padrão
+     * @param array $where Where que deseja colocar padrão
      */
     private function setarWherePadrao(array $where = []): void
     {

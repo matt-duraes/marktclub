@@ -25,6 +25,7 @@ final class Equipe
         }
         return $this->equipe;
     }
+
     private function buscarEquipeApi(int $pagina = 1)
     {
         $Api = new \Helpers\ApiHelper(token: true);
@@ -43,9 +44,9 @@ final class Equipe
         $Crypt = new CryptHelper(chavePrivada: $chave);
         foreach ($lista->dado->lista as $r) {
             $this->equipe[] = object([
-                'id' => $r->id,
+                'id'     => $r->id,
                 'perfil' => $Crypt->decode($r->perfil),
-                'nome' => $Crypt->decode($r->nome),
+                'nome'   => $Crypt->decode($r->nome),
                 'imagem' => $Crypt->decode($r->imagem)
             ]);
         }

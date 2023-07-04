@@ -35,6 +35,7 @@ final class SelectModel extends ORM
             ['id_admin_empresa', $idEmpresa]
         ];
     }
+
     private function pegarEmpresa()
     {
         $id = TOKEN['empresa']->get('id');

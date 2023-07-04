@@ -6,6 +6,7 @@ final class CinemaModel extends PaginaPadraoModel
 {
     private string $linkArquivo = LINK_ARQUIVO . '/pagina/cinema';
     private string $link;
+
     public function __construct()
     {
         $this->link = 'https://afiliados.easylive.com.br/?aid=5';

@@ -14,7 +14,7 @@ foreach ($listaDiretorio as $diretorio) {
     if (file_exists($ROOT . '/database/' . $diretorio . '/base.php')) {
         $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $diretorio, inicio: 'tabela-');
         $tabelaReal = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $diretorio;
-        $nomeDefine = "TABELA_" . mb_strtoupper($diretorio, 'UTF-8');
+        $nomeDefine = 'TABELA_' . mb_strtoupper($diretorio, 'UTF-8');
         $listaDefine[] = 'define("' . $nomeDefine . '", "' . $tabelaReal . '");';
         if (!defined($nomeDefine)) {
             define($nomeDefine, $tabelaReal);

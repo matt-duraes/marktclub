@@ -73,6 +73,7 @@ final class RelatorioController extends Controller
             )
         );
     }
+
     public function getLojaMaisAcessada(Request $request)
     {
         $this->validarData($request);
@@ -83,6 +84,7 @@ final class RelatorioController extends Controller
         );
         return mensagemSucesso($Relatorio->listarDado());
     }
+
     public function getPaginaMaisAcessada(Request $request)
     {
         $this->validarData($request);
@@ -105,6 +107,7 @@ final class RelatorioController extends Controller
 
         return mensagemSucesso($Relatorio->listarDado());
     }
+
     public function getNavegador(Request $request)
     {
         $this->validarData($request);
@@ -116,6 +119,7 @@ final class RelatorioController extends Controller
 
         return mensagemSucesso($Relatorio->listarDado());
     }
+
     public function getOs(Request $request)
     {
         $this->validarData($request);
@@ -139,6 +143,7 @@ final class RelatorioController extends Controller
         $dado = $Relatorio->pegarRelatorio();
         return mensagemSucesso($dado);
     }
+
     public function postAnalyticsDownload()
     {
         $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql.zip';

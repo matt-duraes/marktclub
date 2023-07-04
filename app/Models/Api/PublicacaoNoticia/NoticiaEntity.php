@@ -13,9 +13,8 @@ final class NoticiaEntity extends Entity
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
-
     protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa',
+        'id_admin_empresa'  => '->idEmpresa',
         'id_usuario_equipe' => '->idUsuario'
     ];
     protected array $ormSalvar = [
@@ -40,7 +39,6 @@ final class NoticiaEntity extends Entity
         texto_grande|Texto grande|obrigatorio|vazio
         status|Status|obrigatorio|vazio|valido
     ';
-
     public string $titulo_grande;
     public string $titulo_pequeno;
     public string $subtitulo;
@@ -62,7 +60,6 @@ final class NoticiaEntity extends Entity
     public Botao $permissao_site;
     public Botao $permissao_banner;
     public Status $status;
-
     private int $idEmpresa;
     private ?int $idUsuario;
 

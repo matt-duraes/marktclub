@@ -24,6 +24,7 @@ final class ParceiroCashbackController extends Controller implements
         $Cashback = new CashbackModel($request);
         return mensagemSucesso($Cashback->pegarRetorno());
     }
+
     public function getBuscar(string $id): Response
     {
         $Cashback = new CashbackEntity();
@@ -31,6 +32,7 @@ final class ParceiroCashbackController extends Controller implements
 
         return $this->retornoSucesso($Cashback);
     }
+
     public function postSalvar(Request $request): Response
     {
         $Cashback = new CashbackEntity();

@@ -25,7 +25,7 @@ final class UsuarioDependenteController extends Controller implements
 
         return new Response(json: [
             'status' => 'sucesso',
-            'dado' => $dado
+            'dado'   => $dado
         ]);
     }
 

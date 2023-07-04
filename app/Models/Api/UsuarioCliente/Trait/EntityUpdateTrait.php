@@ -12,6 +12,7 @@ trait EntityUpdateTrait
         }
         $this->validarCamposObrigatorioNoUpdate();
     }
+
     private function validarCamposObrigatorioNoUpdate()
     {
         $campoObrigatorio = $this->campoObrigatorio;

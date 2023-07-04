@@ -7,10 +7,10 @@ if (!function_exists('socialMetaTag')) {
     /**
      * Pega a lista de metatag da página
      *
-     * @param   string|array        $titulo     Título da metatag, array para pegar o primeiro preenchido
-     * @param   string|array        $descricao  Descrição da metatag, array para pegar o primeiro peenchido
-     * @param   null|string|array   $imagem     Imagem da metatag, array para pegar o primeiro peenchido
-     * @return  string                          Lista com as metatags
+     * @param  string|array      $titulo    Título da metatag, array para pegar o primeiro preenchido
+     * @param  string|array      $descricao Descrição da metatag, array para pegar o primeiro peenchido
+     * @param  null|string|array $imagem    Imagem da metatag, array para pegar o primeiro peenchido
+     * @return string            Lista com as metatags
      */
     function socialMetaTag(string|array $titulo, string|array $descricao, null|string|array $imagem)
     {

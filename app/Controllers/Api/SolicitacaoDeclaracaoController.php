@@ -18,7 +18,7 @@ class SolicitacaoDeclaracaoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -32,8 +32,8 @@ class SolicitacaoDeclaracaoController extends Controller implements
     }
 
     /**
-     * @param  DeclaracaoEntity  $Declaracao
-     * @param  int               $status
+     * @param DeclaracaoEntity $Declaracao
+     * @param int              $status
      *
      * @return Response
      * @throws Excecao
@@ -52,7 +52,7 @@ class SolicitacaoDeclaracaoController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -64,7 +64,7 @@ class SolicitacaoDeclaracaoController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

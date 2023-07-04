@@ -8,6 +8,7 @@ use App\Models\Api\UsuarioCliente\ClienteEntity;
 final class ValidarUsuarioModel
 {
     private string $ultimaData;
+
     public function __construct(
         private ClienteEntity $Usuario
     ) {
@@ -24,6 +25,7 @@ final class ValidarUsuarioModel
         }
         $this->ultimaData = dataAdicionar($registro['data_criacao'], 20, 'minutos', 'Y-m-d H:i:s');
     }
+
     private function validarDataDoRegistro()
     {
         if ($this->ultimaData < agora()) {

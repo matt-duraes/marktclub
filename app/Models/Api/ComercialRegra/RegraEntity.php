@@ -19,7 +19,6 @@ final class RegraEntity extends Entity
         texto|Texto|vazio|obrigatorio
         empresa|Empresa|vazio|obrigatorio
     ';
-
     public string $titulo;
     public string $texto;
     public array $empresa;
@@ -29,6 +28,7 @@ final class RegraEntity extends Entity
     {
         $this->id_comercial_empresa = (new HelperModel())->mudarListaUuidParaId($this->empresa);
     }
+
     protected function regraPosBuscar()
     {
         $this->empresa = (new HelperModel())->mudarListaIdParaUuid($this->id_comercial_empresa);

@@ -11,6 +11,7 @@ use PainelModel\Notificacao\HelperModel;
 final class NotificacaoController extends Controller
 {
     private ApiHelper $Api;
+
     public function __construct()
     {
         $this->Api = new ApiHelper(token: true);
@@ -23,8 +24,8 @@ final class NotificacaoController extends Controller
             ->Api
             ->validar('Erro ao buscar lista de notificações')
             ->json([
-                'novo' => 'nao',
-                'pagina' => $request->pagina,
+                'novo'       => 'nao',
+                'pagina'     => $request->pagina,
                 'quantidade' => 20
             ])
             ->get('/painel-notificacao')->object();
@@ -32,6 +33,7 @@ final class NotificacaoController extends Controller
         $notificacao->dado->lista = (new HelperModel())->tratarRetorno($notificacao->dado->lista);
         return mensagemSucesso($notificacao->dado);
     }
+
     public function postAtualizar(Request $request)
     {
         foreach ($request->id as $id) {

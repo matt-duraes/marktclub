@@ -43,9 +43,10 @@ final class Cnpj implements ModuleInterface
         }
         $this->cnpj = preg_replace('/[^0-9]/', '', $this->cnpj);
     }
+
     private function colocarZero()
     {
-        $cnpj = !empty($this->cnpj) ? preg_replace("/[^0-9]/", "", $this->cnpj) : '';
+        $cnpj = !empty($this->cnpj) ? preg_replace('/[^0-9]/', '', $this->cnpj) : '';
         if (empty($cnpj) || $cnpj < 1 || mb_strlen($cnpj) >= 14) {
             return;
         }

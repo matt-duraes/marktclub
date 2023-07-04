@@ -4,7 +4,6 @@ namespace App\Controllers\Site;
 
 use App\Models\Site\Cashback\ListarModel;
 use App\Models\Site\Cashback\RelacionadoModel;
-use App\Models\Site\BannerModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -13,8 +12,8 @@ use Http\Response;
 final class CashbackController extends Controller
 {
     /**
-     * @param  Request      $request
-     * @param  string|null  $pesquisa
+     * @param Request     $request
+     * @param string|null $pesquisa
      *
      * @return Response
      * @throws Excecao
@@ -31,7 +30,7 @@ final class CashbackController extends Controller
     }
 
     /**
-     * @param  string|null  $pesquisa
+     * @param string|null $pesquisa
      *
      * @return Response
      * @throws Excecao
@@ -50,7 +49,7 @@ final class CashbackController extends Controller
 
     /**
      *
-     * @param  string  $url
+     * @param string $url
      *
      * @return Response
      * @throws Excecao

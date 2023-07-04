@@ -1,6 +1,6 @@
 <?php
 
-namespace Templates\Painel\Models;
+namespace PainelModel\Template;
 
 final class MenuModel
 {
@@ -37,35 +37,35 @@ final class MenuModel
 
             if ($r['tipo'] == 'titulo') {
                 $link[] = (object)[
-                    'tipo' => 'titulo',
-                    'titulo' => strCaixaAlta($r['titulo']),
+                    'tipo'      => 'titulo',
+                    'titulo'    => strCaixaAlta($r['titulo']),
                     'permissao' => $permissao
                 ];
             } elseif ($r['tipo'] == 'dropdown') {
                 $dropDown = true;
                 $dropDownLista = (object)[
-                    'tipo' => 'dropdown',
-                    'titulo' => $r['titulo'],
-                    'icone' => $r['icone'],
-                    'aberto' => in_array($menu, $r['menu']),
+                    'tipo'      => 'dropdown',
+                    'titulo'    => $r['titulo'],
+                    'icone'     => $r['icone'],
+                    'aberto'    => in_array($menu, $r['menu']),
                     'permissao' => $permissao,
-                    'lista' => []
+                    'lista'     => []
                 ];
             } elseif ($dropDown && $r['tipo'] == 'menu') {
                 $dropDownLista->lista[] = (object)[
-                    'titulo' => $r['titulo'],
-                    'url' => LINK . $r['url'],
-                    'icone' => $r['icone'],
-                    'pagina' => in_array($menu, $r['menu']),
+                    'titulo'    => $r['titulo'],
+                    'url'       => LINK . $r['url'],
+                    'icone'     => $r['icone'],
+                    'pagina'    => in_array($menu, $r['menu']),
                     'permissao' => $permissao
                 ];
             } elseif ($r['tipo'] == 'menu') {
                 $link[] = (object)[
-                    'tipo' => 'menu',
-                    'titulo' => $r['titulo'],
-                    'url' => LINK . $r['url'],
-                    'icone' => $r['icone'],
-                    'pagina' => in_array($menu, $r['menu']),
+                    'tipo'      => 'menu',
+                    'titulo'    => $r['titulo'],
+                    'url'       => LINK . $r['url'],
+                    'icone'     => $r['icone'],
+                    'pagina'    => in_array($menu, $r['menu']),
                     'permissao' => $permissao
                 ];
             }
