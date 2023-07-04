@@ -434,12 +434,7 @@ Route::nome('construtor')::controller(App\Controllers\Api\ConstrutorController::
 });
 
 Route::nome('parceiro_loja')::middleware(TokenMiddleware::class, 'token')::controller(App\Controllers\Api\ParceiroLojaController::class)::grupo(function () {
-    Route::nome('destaque')::middleware(TokenMiddleware::class, 'scope', ['convenio_parceiro:destaque'])::request([
-        'categoria', 'quantidade', 'ordem'
-    ], 'json')::get('/convenio-parceiro/destaque');
-
     Route::nome('listar')::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status', '!ordem', '!favorito'], 'json')::get('/parceiro-loja');
-
     Route::nome('buscar')::get('/parceiro-loja/{id}');
 });
 

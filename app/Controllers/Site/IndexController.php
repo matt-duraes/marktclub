@@ -20,14 +20,12 @@ final class IndexController extends Controller
     public function index(): Response
     {
         $LojaNova = new ListarModel(
-            pagina: new Inteiro(1),
             quantidade: new Inteiro(3),
             ordem: new Ordem(Ordem::MAIS_NOVO),
         );
         $LojaFavorita = new ListarModel(
-            pagina: new Inteiro(1),
             quantidade: new Inteiro(3),
-            favorito: new Botao('sim'),
+            favorito: new Botao(Botao::SIM),
             ordem: new Ordem(Ordem::RANDOMICO)
         );
 

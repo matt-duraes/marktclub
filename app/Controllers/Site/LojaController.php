@@ -10,6 +10,7 @@ use Modules\Inteiro;
 use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
+use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
@@ -45,6 +46,7 @@ final class LojaController extends Controller
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
             favorito: new Botao($request->favorito),
+            tipo: new Tipo(Tipo::LOJA),
             ordem: new Ordem($request->ordem)
         );
         return view('loja.index', [
@@ -107,12 +109,11 @@ final class LojaController extends Controller
     }
 
     /**
-     * @param Request $request
      *
      * @return Response
      * @throws Excecao
      */
-    public function abrirModal(Request $request): Response
+    public function abrirModal(): Response
     {
         return view('loja.geral.modal');
     }
