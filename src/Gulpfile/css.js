@@ -69,7 +69,6 @@ exports.cssTodos = async function () {
         .concat(glob.sync('src/Painel/template/**/layout.styl'));
 
     const quantidade = listaArquivo.length;
-    const ultimo = quantidade - 1;
     let i, arquivo;
     for (i = 0; i < quantidade; ++i) {
         arquivo = listaArquivo[i];
