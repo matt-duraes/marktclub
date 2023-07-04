@@ -438,6 +438,15 @@ Route::nome('parceiro_loja')::middleware(TokenMiddleware::class, 'token')::contr
     Route::nome('buscar')::get('/parceiro-loja/{id}');
 });
 
+Route::nome('parceiro_favorito')::middleware(TokenMiddleware::class, 'token')::controller(App\Controllers\Api\ParceiroFavoritoController::class)::grupo(function () {
+    Route::nome('salvar')::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:salvar'])::request(['parceiro'])::post('/parceiro-favorito');
+    Route::nome('deletar')::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:deletar'])::delete('/parceiro-favorito/{id}');
+});
+
+Route::nome('parceiro_subcategoria')::middleware(TokenMiddleware::class, 'token')::controller(App\Controllers\Api\ParceiroSubcategoriaController::class)::grupo(function () {
+    Route::nome('select')::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])::request(['!titulo', '!categoria'], 'json')::get('/parceiro-subcategoria/select');
+});
+
 Route::nome('solicitacao_premium')::controller(App\Controllers\Api\SolicitacaoPremiumController::class)::middleware(TokenMiddleware::class, 'token')::grupo(function () {
     Route::nome('listar')::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])::request([
         'pagina', '!data_de', '!data_ate', '!empresa'

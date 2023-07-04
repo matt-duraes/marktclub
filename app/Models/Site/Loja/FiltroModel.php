@@ -3,247 +3,106 @@
 namespace App\Models\Site\Loja;
 
 use Http\Request;
+use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Estabelecimento;
 
 final class FiltroModel
 {
-    private array $where = [];
-    private array $filtro = [];
-    private string $url = '';
-    private Estabelecimento $Estabelecimento;
-    private Ordem $Ordem;
-    private array $estadoIndiceNome = [
-        'acre'                => 'Acre',
-        'alagoas'             => 'Alagoas',
-        'amapa'               => 'Amapá',
-        'amazonas'            => 'Amazonas',
-        'bahia'               => 'Bahia',
-        'ceara'               => 'Ceará',
-        'distrito federal'    => 'Distrito Federal',
-        'espirito santo'      => 'Espírito Santo',
-        'goias'               => 'Goiás',
-        'maranhao'            => 'Maranhão',
-        'mato grosso'         => 'Mato Grosso',
-        'mato grosso do sul'  => 'Mato Grosso do Sul',
-        'minas gerais'        => 'Minas Gerais',
-        'para'                => 'Pará',
-        'paraiba'             => 'Paraíba',
-        'parana'              => 'Paraná',
-        'pernambuco'          => 'Pernambuco',
-        'piaui'               => 'Piauí',
-        'rio de janeiro'      => 'Rio de Janeiro',
-        'rio grande do norte' => 'Rio Grande do Norte',
-        'rio grande do sul'   => 'Rio Grande do Sul',
-        'rondonia'            => 'Rondônia',
-        'roraima'             => 'Roraima',
-        'santa catarina'      => 'Santa Catarina',
-        'sao paulo'           => 'São Paulo',
-        'sergipe'             => 'Sergipe',
-        'tocantins'           => 'Tocantins'
+    private array $dado = [
+        'estado' => [
+            'indice' => 'estado',
+            'nome'   => 'Estado'
+        ],
+        'categoria' => [
+            'indice' => 'categoria',
+            'nome'   => 'Categoria'
+        ],
+        'subcategoria' => [
+            'indice' => 'subcategoria',
+            'nome'   => 'Subcategoria'
+        ],
+        'estabelecimento' => [
+            'indice' => 'estabelecimento',
+            'nome'   => 'Estabelecimento'
+        ],
+        'pesquisa' => [
+            'indice' => 'pesquisa',
+            'nome'   => 'Pesquisa'
+        ],
+        'ordem' => [
+            'indice' => 'ordem',
+            'nome'   => 'Ordem'
+        ],
     ];
-    private array $estadoIndiceUF = [
-        'acre'                => 'AC',
-        'alagoas'             => 'AL',
-        'amapa'               => 'AP',
-        'amazonas'            => 'AM',
-        'bahia'               => 'BA',
-        'ceara'               => 'CE',
-        'distrito federal'    => 'DF',
-        'espirito santo'      => 'ES',
-        'goias'               => 'GO',
-        'maranhao'            => 'MA',
-        'mato grosso'         => 'MT',
-        'mato grosso do sul'  => 'MS',
-        'minas gerais'        => 'MG',
-        'para'                => 'PA',
-        'paraiba'             => 'PB',
-        'parana'              => 'PR',
-        'pernambuco'          => 'PE',
-        'piaui'               => 'PI',
-        'rio de janeiro'      => 'RJ',
-        'rio grande do norte' => 'RN',
-        'rio grande do sul'   => 'RS',
-        'rondonia'            => 'RO',
-        'roraima'             => 'RR',
-        'santa catarina'      => 'SC',
-        'sao paulo'           => 'SP',
-        'sergipe'             => 'SE',
-        'tocantins'           => 'TO'
-    ];
+    public string $link;
+    public array $uso = [];
+    public ?string $estado = null;
+    public ?string $categoria = null;
+    public ?string $subcategoria = null;
+    public ?string $estabelecimento = null;
+    public ?string $pesquisa = null;
+    public ?string $ordem = null;
 
     public function __construct(
-        private readonly ?Request $request = null,
-        private readonly ?string $busca = null
+        private Request $request
     ) {
-        $this->url = route('loja.index');
-        $this->Estabelecimento = new Estabelecimento($request->estabelecimento);
-        $this->Ordem = new Ordem($request->ordem);
-
-        if (!empty($busca)) {
-            $this->converterPesquisaEmDado();
-            return;
-        }
-
-        if ($this->requestVazio()) {
-            return;
-        }
-
-        $this->converterDadoEmPesquisa();
+        $this->link = route('loja.index');
+        $this->montarDado();
     }
 
-    /**
-     */
-    private function converterPesquisaEmDado(): void
+    private function montarDado()
     {
-        $busca = str_replace('-', ' ', $this->busca);
-        $busca = $this->montarWhereFiltro('pela ordem', $busca, 'ordem');
-        $busca = $this->montarWhereFiltro('pela pesquisa', $busca, 'pesquisa');
-        $busca = $this->montarWhereFiltro('em estabelecimento', $busca, 'estabelecimento');
-        $busca = $this->montarWhereFiltro('pela tag', $busca, 'tag');
-        $busca = $this->montarWhereFiltro('na categoria', $busca, 'categoria');
-        $busca = $this->montarWhereFiltro('no estado', $busca, 'endereco_estado');
-    }
+        $lista = limparVazioDeArray($this->request->dado());
+        $permitido = array_keys($this->dado);
+        $dado = $this->dado;
 
-    /**
-     * @param $regex
-     * @param $busca
-     * @param $indice
-     *
-     * @return mixed
-     */
-    private function montarWhereFiltro($regex, $busca, $indice): mixed
-    {
-        if (!preg_match('/' . $regex . '/', $busca)) {
-            return $busca;
-        }
-
-        $explode = explode($regex, $busca);
-        $busca = trim(preg_replace('/\-$/', '', $explode[0]));
-        $valor = trim($explode[1] ?? '');
-        $valorReal = $valor;
-        if ($indice === 'endereco_estado' && !array_key_exists($valor, $this->estadoIndiceNome)) {
-            return $busca;
-        } elseif ($indice === 'endereco_estado') {
-            $valorReal = $this->estadoIndiceUF[$valor];
-            $valor = $this->estadoIndiceNome[$valor];
-        }
-
-        $this->where[$indice] = $valorReal;
-        if ($indice !== 'ordem') {
-            $this->criarFiltro($indice, $valor, $valorReal);
-        }
-        return $busca;
-    }
-
-    /**
-     * @param $indice
-     * @param $valor
-     * @param $valorReal
-     *
-     */
-    private function criarFiltro($indice, $valor, $valorReal): void
-    {
-        $nome = [
-            'endereco_estado' => 'Estado',
-            'categoria'       => 'Categoria',
-            'tag'             => 'Subcategoria',
-            'pesquisa'        => 'Pesquisa',
-            'estabelecimento' => 'Estabelecimento',
-            'ordem'           => 'Ordem'
-        ];
-        if ($indice == 'estabelecimento') {
-            $valor = (new Estabelecimento($valor))->nome();
-        }
-        $this->filtro[$indice] = object([
-            'indice'     => $indice,
-            'valor'      => $valor,
-            'valor_real' => $valorReal,
-            'nome'       => $nome[$indice]
-        ]);
-    }
-
-    /**
-     * @return bool
-     */
-    private function requestVazio(): bool
-    {
-        $request = $this->request;
-        if (
-            empty($request->categoria)
-            && empty($request->tag)
-            && empty($request->pesquisa)
-            && !validarUf($request->estado)
-            && !$this->Estabelecimento->valido()
-            && !$this->Ordem->valido()
-        ) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     */
-    private function converterDadoEmPesquisa(): void
-    {
-        $estado = (new ListaHelper())->estado()->r();
-
-        $uri = '';
-        foreach ($this->request->dado() as $ind => $val) {
-            if (empty($val)) {
+        $retorno = [];
+        foreach ($lista as $ind => $val) {
+            if (!in_array($ind, $permitido)) {
+                mensagemStatus(404);
+            } elseif (empty($val) || ($ind == 'subcategoria' && empty($this->request->categoria))) {
+                continue;
+            }
+            $valorReal = $this->pegarValorReal($ind, $val);
+            if (empty($valorReal)) {
                 continue;
             }
 
-            if ($ind == 'estado' && validarUf($val)) {
-                $uri .= '-no-estado-' . strSlug($estado[$val]);
-            } elseif ($ind == 'categoria') {
-                $uri .= '-na-categoria-' . strSlug($val);
-            } elseif ($ind == 'tag') {
-                $uri .= '-pela-tag-' . strSlug($val);
-            } elseif ($ind == 'pesquisa') {
-                $uri .= '-pela-pesquisa-' . urlencode($val);
-            } elseif ($ind == 'estabelecimento' && $this->Estabelecimento->valido()) {
-                $uri .= '-em-estabelecimento-' . strSlug($val);
-            } elseif ($ind == 'ordem' && $this->Ordem->valido()) {
-                $uri .= '-pela-ordem-' . strSlug($val);
-            }
+            $retorno[] = $ind . '=' . $val;
+            $uso = $dado[$ind];
+            $uso['valor_real'] = $valorReal;
+            $valor = str_replace(['"', "'", '\\', '/', '|'], '', $val);
+            $uso['valor'] = $valor;
+            $this->uso[] = $uso;
+            $this->$ind = $valor;
         }
-        $this->url = route('loja.busca') . '/' . preg_replace('/^\-/', '', $uri);
+        $this->link .= '?' . implode('&', $retorno);
     }
 
-    /**
-     * @return array
-     */
-    public function filtro(): array
+    private function pegarValorReal($indice, $valor)
     {
-        return $this->filtro;
+        if ($indice == 'estado') {
+            return (new ListaHelper())->estado()->r()[$valor] ?? $valor;
+        } elseif ($indice == 'categoria') {
+            return (new Categoria())->select()[$valor] ?? $valor;
+        } elseif ($indice == 'estabelecimento') {
+            return (new Estabelecimento())->select()[$valor] ?? $valor;
+        } elseif ($indice == 'ordem') {
+            return (new Ordem())->select()[$valor] ?? $valor;
+        } elseif ($indice == 'subcategoria') {
+            return $this->buscarSubcategoria($this->request->categoria, $valor);
+        }
+        return $valor;
     }
 
-    /**
-     * @return array
-     */
-    public function where(): array
+    private function buscarSubcategoria($categoria, $subcategoria)
     {
-        return $this->where;
-    }
-
-    /**
-     * @return string
-     */
-    public function url(): string
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param string $indice
-     *
-     * @return string
-     */
-    public function valor(string $indice): string
-    {
-        $valor = $this->filtro[$indice]->valor_real ?? '';
-        return ($indice === 'ordem') && empty($valor) ? 'favorito' : $valor;
+        return (new ApiHelper(scope: 'parceiro_subcategoria:listar'))
+            ->json(['categoria' => $categoria])
+            ->get('/parceiro-subcategoria/select')
+            ->array()['dado'][$subcategoria] ?? '';
     }
 }

@@ -1,0 +1,1 @@
+{"id":"id_34adaa455603a5b417da628b7bebc485","token":"token","metodo":"DELETE","nome":"\/parceiro-favorito\/:id","uri":"{{LINK}}\/parceiro-favorito\/$FAVORITO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

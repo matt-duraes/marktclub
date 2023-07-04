@@ -33,18 +33,16 @@
 
         @ elseif( $lista->tipo == 'loja' ):
         <p>{{$r->desconto}}</p>
-        <div class="icone bloco_favorito" data-url="{{$r->id}}">
-            @if ($r->favorito == 1)
-            <i class="favorito favorito_marcado">@iconeFavorito</i>
-            @else
-            <i class="favorito">@iconeFavorito</i>
-            @endif
+        <div class="bloco_favorito botao_favorito {!!$r->favorito == 'sim' ? 'favorito_marcado' : ''!!}" data-url="{{$r->id}}">
+            <i class="marcado">@iconeFavoritoMarcado</i>
+            <i class="desmarcado">@iconeFavorito</i>
         </div>
         @ endif;
 
         <div class="linha cor_bg"></div>
     </article>
     @ endforeach:
+    <article class="article_fake"></article>
     <article class="article_fake"></article>
     @ elseif(isset($busca) && $busca)
     <div class="sem_parceiro">

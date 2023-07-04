@@ -146,6 +146,10 @@ EwIDAQAB
 
             'parceiro_loja:listar', 'parceiro_loja:buscar',
 
+            'parceiro_subcategoria:listar',
+
+            'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
+
             'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
             'publicacao_noticia:buscar', 'publicacao_noticia:deletar',
 
@@ -160,7 +164,7 @@ EwIDAQAB
             'comercial_restricao:atualizar', 'comercial_restricao:deletar',
             'comercial_empresa:listar', 'comercial_empresa:buscar', 'comercial_empresa:salvar',
             'comercial_empresa:atualizar', 'comercial_empresa:deletar',
-            'comercial_subempresa:select',
+            'comercial_subempresa:listar',
             'comercial_prespeccao:listar', 'comercial_prespeccao:buscar', 'comercial_prespeccao:salvar',
             'comercial_prespeccao:atualizar',
             'comercial_regra:listar', 'comercial_regra:buscar', 'comercial_regra:salvar', 'comercial_regra:atualizar',

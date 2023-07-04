@@ -1,10 +1,10 @@
+// @system "Funcao"
 // @system "Pagina"
+// @system "Loading"
 // @system "Form"
 // @system "SwipeEvent"
 // @system "Alerta"
 // @import "menu_principal"
 // @import "menu_perfil"
 // @import "pesquisa_satisfacao"
-window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value || '';
-});
+const LINK = document.querySelector('#LINK').value || '';

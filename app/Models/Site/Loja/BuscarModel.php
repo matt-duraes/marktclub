@@ -35,10 +35,10 @@ final class BuscarModel extends ApiHelper
             'logo'               => $r->link_logo,
             'texto_desconto'     => $r->texto_desconto,
             'texto_procedimento' => $r->texto_procedimento,
-            'procedimento'       => 'voucher',
-            'texto_descricao'    => '',
-            'capa_desktop'       => '',
-            'capa_mobile'        => '',
+            'texto_descricao'    => $r->texto_descricao,
+            'procedimento'       => $r->procedimento,
+            'capa_desktop'       => $r->link_capa_desktop,
+            'capa_mobile'        => $r->link_capa_mobile,
             'endereco'           => '',
         ];
     }

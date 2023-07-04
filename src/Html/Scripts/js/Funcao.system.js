@@ -1,3 +1,7 @@
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+const ppe = console.log.bind(console);
+
 const link = () => {
     return window.location.href.replace('://', ':||').split('/')[0].replace(':||', '://');
 };

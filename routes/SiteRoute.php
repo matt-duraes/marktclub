@@ -34,15 +34,12 @@ Route::nome('cinema')::controller(App\Controllers\Site\CinemaController::class):
     Route::nome('extrato')::view('/cinema/extrato');
 });
 Route::nome('loja')::controller(App\Controllers\Site\LojaController::class)::grupo(function () {
+    Route::nome('buscar')::request(['!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem'])::get('/convenios/buscar');
     Route::nome('index')::view('/convenios');
-    Route::nome('buscar')::request(['!estado', '!categoria', '!tag', '!estabelecimento', '!pesquisa', '!ordem'])::view('/convenios/buscar/{!pesquisa}');
     Route::nome('detalhe')::view('/convenios/{url}');
-    Route::nome('confirmar')::view('/convenios/confirmar/{url}');
     Route::nome('proxima')::view('/convenios/mapa');
-    Route::nome('abrirMapaModal')::view('/convenios/mapa-modal');
-    Route::nome('buscaMapa')::request(['!categoria', '!pesquisa', 'latitude', 'longitude', 'raio'])::post('/convenios/mapa-listar');
-    Route::nome('melhorIdade')::view('/convenios/melhor-idade');
-    Route::nome('favorito')::request(['uuid', 'acao'])::post('/convenios/favorito');
+    Route::nome('subcategoria')::request(['categoria'])::post('/convenios/subcategoria');
+    Route::nome('favorito')::request(['url', 'acao'])::post('/convenios/favorito');
 });
 
 Route::nome('voucher')::controller(App\Controllers\Site\VoucherController::class)::grupo(function () {
@@ -84,11 +81,11 @@ Route::nome('sicoob')::controller(App\Controllers\Site\SicoobController::class):
 
 Route::nome('solicitacao_credito')::controller(App\Controllers\Site\SolicitacaoCreditoController::class)::grupo(function () {
     Route::nome('simulacao')::request([
-            'tipo', 'valor', 'prazo', 'operadora'
-        ])::get('/credito/simulacao');
+        'tipo', 'valor', 'prazo', 'operadora'
+    ])::get('/credito/simulacao');
     Route::nome('salvar')::request([
-            'tipo', 'valor', 'prazo', 'operadora'
-        ])::post('/credito/salvar');
+        'tipo', 'valor', 'prazo', 'operadora'
+    ])::post('/credito/salvar');
 });
 
 Route::nome('automovel')::controller(App\Controllers\Site\AutomovelController::class)::grupo(function () {
@@ -118,8 +115,8 @@ Route::nome('alfa')::controller(App\Controllers\Site\AlfaController::class)::gru
 Route::nome('site')::controller(App\Controllers\Site\SiteController::class)::grupo(function () {
     Route::nome('pesquisa')::get('/pesquisa-de-satisfacao');
     Route::nome('pesquisa')::request([
-            'navegar', 'procura', 'suporte', 'comentario', 'atendimento', 'sistema'
-        ])::post('/pesquisa-de-satisfacao');
+        'navegar', 'procura', 'suporte', 'comentario', 'atendimento', 'sistema'
+    ])::post('/pesquisa-de-satisfacao');
     Route::nome('sosmulher')::view('/sos-mulher');
     Route::nome('indiqueAmigo')::view('/indique-um-amigo');
     Route::nome('abrirModalEnquetePopup')::view('/enquete-popup/{id}');
@@ -133,10 +130,10 @@ Route::nome('promocao')::controller(App\Controllers\Site\PromocaoController::cla
 Route::nome('perfil')::controller(App\Controllers\Site\PerfilController::class)::grupo(function () {
     Route::nome('index')::view('/perfil');
     Route::nome('salvaDados')::request([
-            'nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho',
-            '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro',
-            'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'
-        ])::post('/perfil/salvar-dados');
+        'nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho',
+        '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro',
+        'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'
+    ])::post('/perfil/salvar-dados');
     Route::nome('senha')::view('/perfil/alterar-senha');
     Route::nome('alteraSenha')::request(['senha_atual', 'senha_nova', 'senha_repetir'])::post('/perfil/alterar-senha');
     Route::nome('dependente')::view('/perfil/adicionar-dependente');
