@@ -5,14 +5,15 @@ namespace App\Controllers\Site;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
+use Modules\Inteiro;
 use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Models\Site\Loja\MapaModel;
-use App\Models\Site\Loja\BuscaModel;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Models\Site\Loja\BuscarModel;
+use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
-use App\Models\Site\Loja\DetalheModel;
-use App\Models\Site\Loja\RelacionadoModel;
 
 final class LojaController extends Controller
 {
@@ -25,7 +26,7 @@ final class LojaController extends Controller
      */
     public function busca(Request $request, string $pesquisa = null): Response
     {
-        $Busca = new BuscaModel($request, $pesquisa);
+        $Busca = new FiltroModel($request, $pesquisa);
         if ($pesquisa) {
             return $this->index($request, $Busca);
         }
@@ -39,13 +40,18 @@ final class LojaController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function index(Request $request, BuscaModel $Busca = null): Response
+    public function index(Request $request, FiltroModel $Busca = null): Response
     {
+        $Lista = new ListarModel(
+            pagina: new Inteiro($request->pagina),
+            favorito: new Botao($request->favorito),
+            ordem: new Ordem($request->ordem)
+        );
         return view('loja.index', [
             'menu'         => 'loja',
             'banner'       => true,
-            'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'lista'        => (new ListarModel())->listarDados(),
+            'Busca'        => $Busca instanceof FiltroModel ? $Busca : new FiltroModel($request),
+            'lista'        => $Lista->listarDados(),
             'parceiroTipo' => 'loja',
             'banner'       => (new BannerModel())->loja(),
             'popupSimples' => true
@@ -60,16 +66,17 @@ final class LojaController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function detalhe(Request $request, $url = null, BuscaModel $Busca = null): Response
+    public function detalhe(string $url): Response
     {
-        $dado = (new DetalheModel($url))->listarDados();
-
+        $Dado = new BuscarModel($url);
+        $Lista = new ListarModel(
+            quantidade: new Inteiro(3),
+            ordem: new Ordem(Ordem::RANDOMICO)
+        );
         return view('loja.detalhe', [
             'menu'         => 'loja',
-            'url'          => $url,
-            'Busca'        => $Busca instanceof BuscaModel ? $Busca : new BuscaModel($request),
-            'lista'        => (new RelacionadoModel())->listarDados(),
-            'dado'         => (new DetalheModel($url))->listarDados(),
+            'lista'        => $Lista->listarDados(),
+            'dado'         => $Dado->buscarDados(),
             'parceiroTipo' => 'loja'
         ]);
     }
@@ -92,7 +99,7 @@ final class LojaController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function proxima(Request $request, MapaModel $Busca = null): Response
+    public function proxima(): Response
     {
         return view('loja.proxima', [
             'menu' => 'loja-proxima',
@@ -151,7 +158,7 @@ final class LojaController extends Controller
     {
         $uuid = $request->uuid;
         $acao = $request->acao;
-        $loja = (new RelacionadoModel())->favoritar($uuid, $acao);
+        $loja = []; //(new RelacionadoModel())->favoritar($uuid, $acao);
         return new Response(json: $loja);
     }
 

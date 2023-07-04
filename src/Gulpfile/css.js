@@ -54,37 +54,48 @@ exports.cssUnico = function (path, browser) {
 | TODOS
 |--------------------------------------------------------------------------
 */
-exports.cssTodos = function () {
-    return new Promise(async resolve => {
-        arquivoConteudo = [];
-        if (config == undefined) {
-            config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+exports.cssTodos = async function () {
+    arquivoConteudo = [];
+    if (config == undefined) {
+        config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+
+    await fsDeletarDiretorio('./files/build/css');
+    await fsCriarDiretorio('./files/build/css');
+
+    const listaArquivo = glob
+        .sync('views/@(pages|templates)/**/layout.styl')
+        .concat(glob.sync('src/Painel/App/**/layout.styl'))
+        .concat(glob.sync('src/Painel/template/**/layout.styl'));
+
+    const quantidade = listaArquivo.length;
+    const ultimo = quantidade - 1;
+    let i, arquivo;
+    for (i = 0; i < quantidade; ++i) {
+        arquivo = listaArquivo[i];
+        try {
+            await processarCss(arquivo);
+        } catch (error) {
+            mensagemErro('Erro ao copiar arquivo: ' + arquivo);
         }
+    }
 
-        await fsDeletarDiretorio('./files/build/css');
-        await fsCriarDiretorio('./files/build/css');
-
-        const listaArquivo = glob
-            .sync('views/@(pages|templates)/**/layout.styl')
-            .concat(glob.sync('src/Painel/App/**/layout.styl'))
-            .concat(glob.sync('src/Painel/template/**/layout.styl'));
-
-        const quantidade = listaArquivo.length;
-        const ultimo = quantidade - 1;
-        let i, arquivo;
-        for (i = 0; i < quantidade; ++i) {
-            arquivo = listaArquivo[i];
-            try {
-                await processarCss(arquivo, config.public + '/css');
-            } catch (error) {
-                mensagemErro('Erro ao copiar arquivo: ' + arquivo);
-            }
-            if (i == ultimo) {
-                resolve(true);
-            }
-        }
-        resolve(true);
-    });
+    return src('files/build/css/**/*.styl')
+        .pipe(plumber())
+        .pipe(
+            replace(
+                /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
+                function handleReplace(match) {
+                    return '';
+                }
+            )
+        )
+        .pipe(
+            stylus({
+                'include css': true,
+            })
+        )
+        .pipe(dest(config.public + '/css'));
 };
 
 /*
@@ -191,23 +202,6 @@ async function processarCss(path, destino, browser) {
             )
             .pipe(dest(destino))
             .pipe(browser.stream());
-    } else {
-        return src('files/build/css/**/*.styl')
-            .pipe(plumber())
-            .pipe(
-                replace(
-                    /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
-                    function handleReplace(match) {
-                        return '';
-                    }
-                )
-            )
-            .pipe(
-                stylus({
-                    'include css': true,
-                })
-            )
-            .pipe(dest(destino));
     }
 }
 // Pegar lista de imports

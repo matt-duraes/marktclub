@@ -2,12 +2,12 @@
 
 namespace App\Models\Site\Loja;
 
-use App\Classes\ParceiroLoja\Estabelecimento;
-use App\Classes\ParceiroLoja\Ordem;
-use Helpers\ListaHelper;
 use Http\Request;
+use Helpers\ListaHelper;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\Estabelecimento;
 
-final class BuscaModel
+final class FiltroModel
 {
     private array $where = [];
     private array $filtro = [];
@@ -74,7 +74,7 @@ final class BuscaModel
     ];
 
     public function __construct(
-        private readonly Request $request,
+        private readonly ?Request $request = null,
         private readonly ?string $busca = null
     ) {
         $this->url = route('loja.index');

@@ -6,19 +6,27 @@ use stdClass;
 
 abstract class Order implements OrderInterface
 {
+    public const MAIS_NOVO = 'mais-novo';
+    public const MAIS_VELHO = 'mais-velho';
+    public const RANDOMICO = 'randomico';
+    public const STATUS = 'status';
+
     private string $tabela;
     private array $lista;
     protected ?string $valor;
 
     // doc
     /**
-     * Pessa o valor manualmente a ordem
+     * Pega ou seta o valor manualmente da ordem
      *
      * @param  string $valor Valor da ordem
      * @return self
      */
-    public function valor(string $valor): self
+    public function valor(?string $valor = null): self|string|null
     {
+        if (is_null($valor)) {
+            return $this->valor;
+        }
         $this->valor = $valor;
         return $this;
     }
@@ -122,6 +130,7 @@ abstract class Order implements OrderInterface
             'campo'  => '',
             'icone'  => ''
         ];
+        return $this;
     }
 
     // doc

@@ -6,7 +6,7 @@ use stdClass;
 
 interface OrderInterface
 {
-    public function valor(string $valor): self;
+    public function valor(?string $valor = null): self|string|null;
 
     public function vazio(): bool;
 

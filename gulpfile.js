@@ -51,6 +51,10 @@ exports.upgrade = series(
     )
 );
 
+exports.css = series(copiandoArquivosCSS);
+exports.js = series(copiandoArquivosJS);
+exports.html = series(copiandoArquivosHtml);
+
 // Limpa o framework
 exports.clearFramework = series(limpandoFramework);
 

@@ -19,7 +19,7 @@ class PublicidadeController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -32,8 +32,8 @@ class PublicidadeController extends Controller implements
     }
 
     /**
-     * @param  Entity  $Entity  Entidade da Publicidade
-     * @param  int     $status  Status code que deverá ser retornado
+     * @param Entity $Entity Entidade da Publicidade
+     * @param int    $status Status code que deverá ser retornado
      *
      * @return Response
      * @throws Excecao
@@ -52,7 +52,7 @@ class PublicidadeController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -64,7 +64,7 @@ class PublicidadeController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

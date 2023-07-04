@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Models\Site\Loja;
+
+use stdClass;
+use Helpers\ApiHelper;
+use App\Classes\ParceiroLoja\Status;
+
+final class BuscarModel extends ApiHelper
+{
+    public function __construct(
+        private string $url
+    ) {
+        parent::__construct(scope: 'parceiro_loja:buscar');
+    }
+
+    public function buscarDados(): stdClass
+    {
+        $dado = $this
+            ->validar(mensagem: 'Página não encontrada', status: 404)
+            ->get('/parceiro-loja/' . $this->url)
+            ->object();
+
+        if ($dado->dado->status != Status::CONCLUIDO) {
+            mensagemStatus(404);
+        }
+        return $this->montarRetorno($dado->dado);
+    }
+
+    private function montarRetorno($r): stdClass
+    {
+        return (object)[
+            'id'                 => $r->id,
+            'titulo'             => $r->titulo,
+            'logo'               => $r->link_logo,
+            'texto_desconto'     => $r->texto_desconto,
+            'texto_procedimento' => $r->texto_procedimento,
+            'procedimento'       => 'voucher',
+            'texto_descricao'    => '',
+            'capa_desktop'       => '',
+            'capa_mobile'        => '',
+            'endereco'           => '',
+        ];
+    }
+}

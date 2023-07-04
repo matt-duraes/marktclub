@@ -11,32 +11,37 @@ use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 use App\Classes\ParceiroLoja\Estabelecimento;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
-class LojaModel extends ORM
+class LojaModel extends ORM implements ModelListarInterface
 {
     use EmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
+    private int $idEmpresa;
 
     public function __construct(
         private ?Request $request
     ) {
         parent::__construct();
+        $this->validarEmpresa('empresa');
         $this->validarRequest();
     }
 
-    public function pegarRetorno(): stdClass
+    public function listarDados(): stdClass
     {
         $dado = $this
             ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), obrigatorio: false)
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -55,6 +60,7 @@ class LojaModel extends ORM
                 'desconto' => $r->desconto,
                 'imagem'   => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
                 'url'      => $r->url,
+                'favorito' => 'nao',
                 'status'   => $Status->indice($r->status)
             ];
         }
@@ -79,7 +85,10 @@ class LojaModel extends ORM
 
     protected function pegarWhere(): array
     {
-        $where = $this->ormWherePadrao ? [$this->ormWherePadrao] : [];
+        $where = [
+            ['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%']
+        ];
+
         $tipo = new Tipo($this->request->tipo);
         if ($tipo->valido()) {
             $where[] = ['tipo', $tipo->numero()];
@@ -91,7 +100,9 @@ class LojaModel extends ORM
         }
 
         $status = new Status($this->request->status);
-        if ($status->valido()) {
+        if ($this->idEmpresa != 1 || !$status->valido()) {
+            $where[] = ['status', (new Status(Status::CONCLUIDO))->numero()];
+        } elseif ($status->valido()) {
             $where[] = ['status', $status->numero()];
         }
         return $where;

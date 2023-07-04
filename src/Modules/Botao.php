@@ -8,6 +8,9 @@ final class Botao implements ModuleInterface
 {
     use ValidarTrait;
 
+    public const SIM = 'sim';
+    public const NAO = 'nao';
+
     private string|int $numero = '';
 
     public function __toString()

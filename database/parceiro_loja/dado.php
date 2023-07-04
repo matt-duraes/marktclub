@@ -15,6 +15,7 @@ return [
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'destaque'            => ['2'],
         'empresa'             => ['2'],
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -31,6 +32,7 @@ return [
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'destaque'            => ['66'],
         'empresa'             => ['66'],
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -46,6 +48,7 @@ return [
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -62,6 +65,7 @@ return [
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -79,9 +83,11 @@ return [
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
         'limite_voucher'      => 1,
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
+        'tipo'                => 1,
         'id'                  => 4,
         'cod'                 => 'adca39ea4a6d6bcc51eba8afcdb54eaa',
         'categoria_principal' => '1',
@@ -97,6 +103,7 @@ return [
         'empresa'             => ['1', '2', '66'],
         'limite_voucher'      => 10,
         'prazo_voucher'       => 5,
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -114,9 +121,11 @@ return [
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
+        'tipo'                => 1,
         'id'                  => 4207,
         'cod'                 => 'ca0bde20602db3ec777acbbcfb5a4c61',
         'categoria_principal' => '1',
@@ -131,6 +140,7 @@ return [
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
         'prazo_voucher_fixo'  => '2040-01-01',
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -148,6 +158,7 @@ return [
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -166,6 +177,7 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'tipo'                => 1,
         'status'              => 5
     ],
     [
@@ -184,6 +196,7 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'tipo'                => 1,
         'status'              => 5
     ],
     [
@@ -202,6 +215,7 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'tipo'                => 1,
         'status'              => 5
     ],
     [
@@ -220,6 +234,7 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'tipo'                => 1,
         'status'              => 5
     ],
     [
@@ -238,6 +253,7 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 3,
+        'tipo'                => 1,
         'status'              => 5
     ],
     [
@@ -255,6 +271,7 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 3,
+        'tipo'                => 1,
         'status'              => 5
     ],
     [
@@ -270,6 +287,7 @@ return [
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
         'status'              => 4
     ],
     [
@@ -320,7 +338,6 @@ return [
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
         'tipo'                => 3,
-        'estabelecimento'     => 1,
         'status'              => 4
     ],
 ];

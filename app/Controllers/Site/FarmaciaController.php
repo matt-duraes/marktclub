@@ -4,16 +4,21 @@ namespace App\Controllers\Site;
 
 use Controller\Controller;
 use App\Models\Site\BannerModel;
+use App\Classes\ParceiroLoja\Tipo;
+use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Farmacia\FarmaciaModel;
 
 final class FarmaciaController extends Controller
 {
     public function index()
     {
+        $Farmacia = new ListarModel(
+            tipo: new Tipo(Tipo::FARMACIA)
+        );
         return view('farmacia.index', [
             'menu'   => 'farmacia',
             'banner' => (new BannerModel())->farmacia(),
-            'lista'  => (new FarmaciaModel())->listarDados()
+            'lista'  => $Farmacia->listarDados()
         ]);
     }
 

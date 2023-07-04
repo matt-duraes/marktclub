@@ -4,6 +4,7 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\Entity;
 use Modules\Data;
+use Modules\Botao;
 use App\Classes\ParceiroLoja\Status;
 
 final class LojaEntity extends Entity
@@ -27,6 +28,7 @@ final class LojaEntity extends Entity
     public string $texto_procedimento;
     public string $imagem;
     public string $link_logo;
+    public Botao $favorito;
     public Status $status;
 
     protected function regraPosBuscar()
@@ -35,6 +37,7 @@ final class LojaEntity extends Entity
             $this->prazo_voucher = 10;
         }
         $this->link_logo = !empty($this->imagem) ? LINK_ARQUIVO . '/parceiro/' . $this->imagem : '';
+        $this->favorito = new Botao('nao');
     }
 
     protected function getId()
