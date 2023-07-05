@@ -47,7 +47,7 @@ final class ListarModel extends ApiHelper implements ListarInterface
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = (object)[
-                'id'       => uuid(),
+                'id'       => $r->id,
                 'titulo'   => $r->titulo,
                 'link'     => route('loja.detalhe') . '/' . $r->url,
                 'imagem'   => $r->imagem,

@@ -46,13 +46,14 @@ final class LojaController extends Controller
             pagina: new Inteiro($request->pagina),
             favorito: new Botao($request->favorito),
             tipo: new Tipo(Tipo::LOJA),
-            ordem: new Ordem($request->ordem)
+            ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito')
         );
+        $Filtro = new FiltroModel($request);
         return view('loja.index', [
             'menu'   => 'loja',
-            'Busca'  => new FiltroModel($request),
+            'Busca'  => $Filtro,
             'lista'  => $Lista->listarDados(),
-            'banner' => (new BannerModel())->loja()
+            'banner' => $Filtro->existe ? [] : (new BannerModel())->loja()
         ]);
     }
 
@@ -99,6 +100,20 @@ final class LojaController extends Controller
 
     public function postFavorito(Request $request): Response
     {
+        (new ApiHelper(scope: 'parceiro_favorito:salvar'))
+            ->validar(mensagem: 'Erro ao salvar favorito, por favor, tente novamente.', retorno: false)
+            ->body(['parceiro' => $request->id])
+            ->post('/parceiro-favorito')
+            ->object()->dado;
+
+        return mensagemSucesso([], status: 201);
+    }
+
+    public function deleteFavorito(string $id)
+    {
+        (new ApiHelper(scope: 'parceiro_favorito:deletar'))
+            ->validar('Erro ao remover favorito, por favor, tente novamente.', retorno: false)
+            ->delete('/parceiro-favorito/' . $id);
         return new Response(status: 204);
     }
 

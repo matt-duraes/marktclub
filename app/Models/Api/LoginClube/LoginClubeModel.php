@@ -13,6 +13,7 @@ final class LoginClubeModel
 {
     private ClienteEntity $Usuario;
     private AppEntity $App;
+    private int $idEmpresa;
     public array $token;
     public array $construtor;
 
@@ -27,30 +28,54 @@ final class LoginClubeModel
         private string $redirectUri,
         private string $state
     ) {
-        $this->pegarApp();
-        $this->fazerLogin();
         $this->pegarConstrutor();
+        $this->fazerLogin();
         $this->criarToken();
     }
 
-    private function pegarApp()
+    private function pegarConstrutor()
     {
-        $this->App = new AppEntity();
-        $this->App->buscar(
-            where: [
-                ['redirect_uri', 'LIKE', '%"' . strDominio($this->redirectUri) . '"%'],
-                ['status', 1]
-            ],
-            mensagem: 'Não foi possível validar a requisição para fazer login do usuário.'
-        );
+        $this->redirectUri = explode('/', preg_replace('/^https?\:\/\//', '', $this->redirectUri))[0];
+        $Construtor = new ConstrutorEntity();
+        $Construtor->buscar([
+            ['link_site', 'like', 'https://' . $this->redirectUri . '%'],
+            ['status', 1]
+        ]);
+        $this->idEmpresa = $Construtor->id_admin_empresa;
+        $this->construtor = [
+            'id'      => $Construtor->id,
+            'titulo'  => $Construtor->titulo,
+            'cor'     => $Construtor->cor,
+            'menu'    => [
+                'convenio'       => $Construtor->menu_convenio->valor(),
+                'convenio_mapa'  => $Construtor->menu_convenio_mapa->valor(),
+                'cinema'         => $Construtor->menu_cinema->valor(),
+                'turismo'        => $Construtor->menu_turismo->valor(),
+                'promocao'       => $Construtor->menu_promocao->valor(),
+                'sicoob_credito' => $Construtor->menu_sicoob_credito->valor(),
+                'medicamento'    => $Construtor->menu_medicamento->valor(),
+                'automovel'      => $Construtor->menu_automovel->valor(),
+                'saude_vitoria'  => $Construtor->menu_saude_vitoria->valor(),
+                'saude_amil'     => $Construtor->menu_saude_amil->valor(),
+                'saude_seguros'  => $Construtor->menu_saude_seguros->valor(),
+                'cashback'       => $Construtor->menu_cashback->valor(),
+                'indicacao'      => $Construtor->menu_indicacao->valor(),
+                'cupom'          => $Construtor->menu_cupom->valor(),
+                'odontologia'    => $Construtor->menu_odontologia->valor(),
+                'premium'        => $Construtor->menu_premium->valor(),
+                'dependente'     => $Construtor->menu_dependente->valor(),
+                'carteiria'      => $Construtor->menu_carteiria->valor(),
+                'salavip'        => $Construtor->menu_salavip->valor(),
+            ]
+        ];
     }
 
     private function fazerLogin()
     {
-        if ($this->App->id_admin_empresa == 153) {
+        if ($this->idEmpresa == 153) {
             return;
         }
-        $this->Usuario = (new LoginMarktClubModel($this->login, $this->senha, $this->App->id_admin_empresa))->Usuario;
+        $this->Usuario = (new LoginMarktClubModel($this->login, $this->senha, $this->idEmpresa))->Usuario;
     }
 
     private function criarToken()
@@ -75,51 +100,18 @@ final class LoginClubeModel
             criptografia: ['name', 'picture', 'document', 'email']
         );
 
-        $App = $this->App;
+        $App = new AppEntity();
+        $App->uuid('5add7e1c-3da1-4c0f-90b4-da17d4f05eca');
+
         $Token = new TokenAuthorizationEntity();
         $this->token = $Token->criarToken(
             $App,
             $payload,
             [],
             $App->audience,
-            $this->redirectUri,
+            'clube.markt.club',
             $this->state,
             new Tipo(Tipo::CLUBE)
         );
-    }
-
-    private function pegarConstrutor()
-    {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar([
-            ['empresa', $this->App->id_admin_empresa],
-            ['status', 1]
-        ]);
-        $this->construtor = [
-            'id'     => $Construtor->id,
-            'titulo' => $Construtor->titulo,
-            'cor'    => $Construtor->cor,
-            'menu'   => [
-                'convenio'       => $Construtor->menu_convenio->valor(),
-                'convenio_mapa'  => $Construtor->menu_convenio_mapa->valor(),
-                'cinema'         => $Construtor->menu_cinema->valor(),
-                'turismo'        => $Construtor->menu_turismo->valor(),
-                'promocao'       => $Construtor->menu_promocao->valor(),
-                'sicoob_credito' => $Construtor->menu_sicoob_credito->valor(),
-                'medicamento'    => $Construtor->menu_medicamento->valor(),
-                'automovel'      => $Construtor->menu_automovel->valor(),
-                'saude_vitoria'  => $Construtor->menu_saude_vitoria->valor(),
-                'saude_amil'     => $Construtor->menu_saude_amil->valor(),
-                'saude_seguros'  => $Construtor->menu_saude_seguros->valor(),
-                'cashback'       => $Construtor->menu_cashback->valor(),
-                'indicacao'      => $Construtor->menu_indicacao->valor(),
-                'cupom'          => $Construtor->menu_cupom->valor(),
-                'odontologia'    => $Construtor->menu_odontologia->valor(),
-                'premium'        => $Construtor->menu_premium->valor(),
-                'dependente'     => $Construtor->menu_dependente->valor(),
-                'carteiria'      => $Construtor->menu_carteiria->valor(),
-                'salavip'        => $Construtor->menu_salavip->valor(),
-            ]
-        ];
     }
 }

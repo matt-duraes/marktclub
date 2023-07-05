@@ -101,10 +101,10 @@ const criarVariaveis = (bloco, resposta) => {
     });
 };
 const pegarHtmlIframe = html => {
-    if (html.includes('<html')) {
-        return html;
+    if (!html.includes('<html') || html.includes('PRE PRINT EXIT')) {
+        return `<style>* {color: #FFF;}</style> ${html}`;
     }
-    return `<style>* {color: #FFF;}</style> ${html}`;
+    return html;
 };
 const mandarRequisicao = async (bloco, acao) => {
     const id = bloco.getAttribute('data-id');

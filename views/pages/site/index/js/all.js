@@ -1,2 +1,2 @@
-// @resource "site/favoritar"
-// var screenWidth = window.screen.width;
+// @template "site"
+// @resource "site/loja/favorito"

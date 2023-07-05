@@ -39,7 +39,8 @@ Route::nome('loja')::controller(App\Controllers\Site\LojaController::class)::gru
     Route::nome('detalhe')::view('/convenios/{url}');
     Route::nome('proxima')::view('/convenios/mapa');
     Route::nome('subcategoria')::request(['categoria'])::post('/convenios/subcategoria');
-    Route::nome('favorito')::request(['url', 'acao'])::post('/convenios/favorito');
+    Route::nome('favorito')::request(['id'])::post('/convenios/favorito');
+    Route::nome('favorito')::delete('/convenios/favorito/{id}');
 });
 
 Route::nome('voucher')::controller(App\Controllers\Site\VoucherController::class)::grupo(function () {

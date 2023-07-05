@@ -62,3 +62,24 @@
         width: 30px
         height: 30px
         flexCenter()
+    .bloco_favorito
+        width: 40px
+        height: 40px
+        flexCenter()
+        position: absolute
+        top: 15px
+        right: 15px
+        z-index: 2
+        cursor: pointer
+        border-radius: 50%
+        &:hover
+            background-color: #EEE
+    .bloco_favorito .marcado
+        display: none
+        fill: #FF6C60
+    .bloco_favorito .desmarcado
+        fill: #999
+    .bloco_favorito.favorito_marcado .desmarcado
+        display: none
+    .bloco_favorito.favorito_marcado .marcado
+        display: flex

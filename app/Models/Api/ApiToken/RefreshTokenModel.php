@@ -8,6 +8,7 @@ use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class RefreshTokenModel extends ORM implements TokenInterface
 {
@@ -25,10 +26,11 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     ) {
         parent::__construct();
         if (is_null($App) || empty($refreshToken)) {
-            return;
+            mensagemStatus(403);
         }
-
         $this->pegarTokenAtual();
+        $this->mudaAppSeTokenForClube();
+        $this->validaSeTokenDoApp();
         $this->pegarUsuario();
 
         $this->token = $this->criarImplicitToken(
@@ -55,15 +57,13 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     {
         try {
             $token = $this
-                ->campo(['id_usuario', 'scope_permitido', 'state_cliente', 'tipo'])
+                ->campo(['id_usuario', 'id_api_app', 'scope_permitido', 'state_cliente', 'tipo'])
                 ->where([
-                    ['id_api_app', $this->App->get('id')],
                     ['refresh_token', $this->refreshToken],
                     ['grant_type', 'implicit'],
                     ['ip', ip()],
                     ['status', 1]
                 ])->primeiro();
-
             if (empty($token)) {
                 $this->tokenVencido(mensagem: 'Não foi encontrado o token atual.');
             }
@@ -74,10 +74,29 @@ final class RefreshTokenModel extends ORM implements TokenInterface
         }
     }
 
+    private function mudaAppSeTokenForClube()
+    {
+        $AppToken = new AppEntity();
+        $AppToken->id($this->tokenAtual->id_api_app);
+        if ($AppToken->id == '5add7e1c-3da1-4c0f-90b4-da17d4f05eca') {
+            $this->App = $AppToken;
+        }
+    }
+
+    private function validaSeTokenDoApp()
+    {
+        if ($this->App->get('id') != $this->tokenAtual->id_api_app) {
+            mensagemStatus(403, localhost: 'O Token não é do APP que solicitou o refresh.');
+        }
+    }
+
     private function pegarUsuario()
     {
+        ppe($this->App->audience);
         if (in_array($this->App->audience, ['web'])) {
             $Usuario = new EquipeEntity(validarToken: false);
+        } elseif ($this->App->audience == 'clube') {
+            $Usuario = new ClienteEntity(validarToken: false);
         }
         try {
             $Usuario->uuid($this->tokenAtual->id_usuario);

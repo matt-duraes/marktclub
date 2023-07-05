@@ -26,6 +26,7 @@ class LojaModel extends ORM implements ModelListarInterface
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     private int $idEmpresa;
+    private array $favorito = [];
 
     public function __construct(
         private ?Request $request
@@ -40,9 +41,18 @@ class LojaModel extends ORM implements ModelListarInterface
         $dado = $this
             ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new Ordem()))
             ->where($this->pegarWhere(), obrigatorio: false)
-            ->read();
+            ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_PARCEIRO_FAVORITO)
+            ->campo([['id_parceiro_loja', '!favorito']]);
+
+        if ($this->request->favorito == 'sim') {
+            $dado->join('id_parceiro_loja', 'id');
+        } else {
+            $dado->leftJoin('id_parceiro_loja', 'id');
+        }
+
+        $dado = $dado->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
@@ -60,7 +70,7 @@ class LojaModel extends ORM implements ModelListarInterface
                 'desconto' => $r->desconto,
                 'imagem'   => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
                 'url'      => $r->url,
-                'favorito' => 'nao',
+                'favorito' => !empty($r->favorito) ? 'sim' : 'nao',
                 'status'   => $Status->indice($r->status)
             ];
         }

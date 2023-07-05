@@ -1,7 +1,7 @@
 <div class="bloco_parceiro bloco_geral_article">
 @ if($lista):
     @ foreach($lista->lista as $r):
-    <article class="parceiro" data-url="{{$r->id}}">
+    <article class="parceiro" data-id="{{$r->id}}">
         @if( in_array($lista->tipo, ['modelo', 'cupom']) ):
             <div class="link_cupom_parceiro" data-id="{!!$r->id!!}"></div>
         @else:

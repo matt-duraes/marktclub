@@ -32,6 +32,10 @@ final class FiltroModel
             'indice' => 'pesquisa',
             'nome'   => 'Pesquisa'
         ],
+        'favorito' => [
+            'indice' => 'favorito',
+            'nome'   => 'Só favoritos'
+        ],
         'ordem' => [
             'indice' => 'ordem',
             'nome'   => 'Ordem'
@@ -45,6 +49,7 @@ final class FiltroModel
     public ?string $estabelecimento = null;
     public ?string $pesquisa = null;
     public ?string $ordem = null;
+    public bool $existe = false;
 
     public function __construct(
         private Request $request
@@ -56,6 +61,10 @@ final class FiltroModel
     private function montarDado()
     {
         $lista = limparVazioDeArray($this->request->dado());
+        if (!$lista) {
+            return;
+        }
+        $this->existe = true;
         $permitido = array_keys($this->dado);
         $dado = $this->dado;
 

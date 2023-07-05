@@ -27,7 +27,6 @@ trait OrdemTrait
         if (property_exists($this, 'request') && !empty($this->request->ordem)) {
             $valor = $this->request->ordem;
         }
-
         $tabela = !empty($tabela) ? '`' . $tabela . '`.' : '';
         $ordem->valor($valor);
 
