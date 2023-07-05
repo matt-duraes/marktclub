@@ -4,7 +4,7 @@ return [
     [
         'id' => 1,
         'uuid' => 'bc180f6b35353088a7a0e6ea0891aa9c',
-        'cod_parceiro' => 'ca0bde20602db3ec777acbbcfb5a4c62',
+        'cod_parceiro' => '259c44ede5b4302d2c65a2bc8ea0d16f',
         'vinculo' => null,
         'link_login' => null,
         'documento' =>  2,
@@ -14,6 +14,7 @@ return [
         'titulo' =>  'Volvo',
         'imagem' =>  'e3e107b27bac20f1aca0100ea6ee1d27.png',
         'bg' =>  '56ee66ba5047066eae555bc033232f7e.jpg',
+        'link' => 'volvo',
         'link_concessionaria' => 'http://www.volvocars.com/br/concessionarias',
         'procedimento' => '<ul>
         <li>Escolha o modelo que gostaria de adquirir;</li>

@@ -2,12 +2,14 @@
 
 return [
     [
-        'uuid' => '5054a4d2e98726d15b2c3e70190d40cf',
+        'uuid' => '4adf065ca05b8a2cdac481ec1eb38461',
         'empresa' => ["1"],
-        'titulo' => 'Título do carro',
-        'montadora' => 'titulo-da-montadora',
-        'url' => 'titulo-do-carro',
-        'imagem' => 'f0c712a2efcae1610000b5592891e460.png',
+        'titulo' => 'S90',
+        'montadora' => 'volvo',
+        'url' => 's90',
+        'modelo' => "[{\'titulo\':\'T4 Kinetic\',\'texto\':\'2017/2018\',\'cor\':\'Sólida\',\'valor\':\'159950.00\',\'valor_off\':\'140756.00\'},
+        {\'titulo\':\'T4 Momentum\',\'texto\':\'2017/2018\',\'cor\':\'Sólida\',\'valor\':\'173950.00\',\'valor_off\':\'153076.00\'}]",
+        'imagem' => '4cf1b7cb871a7fcea964226818d594a8.png',
         'status' => 1
     ]
 ];

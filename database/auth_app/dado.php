@@ -190,7 +190,9 @@ EwIDAQAB
 
             "mensagem_indicacao_automovel:salvar",  "mensagem_indicacao_automovel:listar", "mensagem_indicacao_automovel:buscar",
 
-            "automovel_montadora:listar", "automovel_montadora:salvar", "automovel_montadora:buscar"
+            "automovel_montadora:listar", "automovel_montadora:salvar", "automovel_montadora:buscar",
+
+            "automovel_modelo:listar", "automovel_modelo:salvar", "automovel_modelo:buscar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
