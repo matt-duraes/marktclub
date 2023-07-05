@@ -26,7 +26,7 @@ window.addEventListener('load', () => {
         body.append('versao', versao.value);
         body.append('cor', cor.value);
         body.append('cidade', cidade.value);
-        body.append('mensagem', mensagem);
+        body.append('mensagem', mensagem.value);
 
         Loading.show();
 

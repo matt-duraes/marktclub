@@ -1421,3 +1421,39 @@ Route
             ])
             ::post('/automovel/indicacao');
     });
+
+
+
+Route
+    ::nome('automovel_montadora')
+    ::controller(App\Controllers\Api\AutomovelMontadoraController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:listar'])
+            ::request(['pagina', '!quantidade', '!pesquisa', '!titulo', '!tipo', '!ordem', '!status'], 'json')
+            ::get('/automovel-montadora');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:buscar'])
+            ::get('/automovel-montadora/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:salvar'])
+            ::request(['tipo', 'valor', 'status', '!data_vencimento'])
+            ::post('/automovel-montadora');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:atualizar'])
+            ::request(['!tipo', '!valor', '!status', '!data_vencimento'])
+            ::put('/automovel-montadora/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:deletar'])
+            ::delete('/automovel-montadora/{id}');
+    });
