@@ -10,10 +10,10 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\Automovel\Modelo\ModeloModel;
-use App\Models\Api\Automovel\Modelo\ModeloEntity;
+use App\Models\Api\Automovel\Versao\VersaoModel;
+use App\Models\Api\Automovel\Versao\VersaoEntity;
 
-final class AutomovelModeloController extends Controller implements
+final class AutomovelVersaoController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
@@ -31,13 +31,13 @@ final class AutomovelModeloController extends Controller implements
     {
         validarUuid($id);
 
-        $Modelo = new ModeloEntity();
-        $Modelo->buscar([
+        $Versao = new VersaoEntity();
+        $Versao->buscar([
             ['uuid', $id],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
 
-        return $this->retornoSucesso($Modelo);
+        return $this->retornoSucesso($Versao);
     }
 
     /**
@@ -48,9 +48,9 @@ final class AutomovelModeloController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Modelo = new ModeloModel($request);
+        $Versao = new VersaoModel($request);
 
-        $dado = $Modelo->listarDados();
+        $dado = $Versao->listarDados();
 
         return mensagemSucesso($dado);
     }
@@ -63,11 +63,11 @@ final class AutomovelModeloController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Modelo = new ModeloEntity($request);
-        $Modelo->set(lista: $request->dado());
-        $Modelo->salvar();
+        $Versao = new VersaoEntity($request);
+        $Versao->set(lista: $request->dado());
+        $Versao->salvar();
 
-        return $this->retornoSucesso($Modelo, 201);
+        return $this->retornoSucesso($Versao, 201);
     }
 
     /**
@@ -80,14 +80,14 @@ final class AutomovelModeloController extends Controller implements
     {
         validarUuid($id);
 
-        $Modelo = new ModeloEntity($request);
-        $Modelo->buscar([
+        $Versao = new VersaoEntity($request);
+        $Versao->buscar([
             ['uuid', $id],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
 
-        $Modelo->set(lista: $request->dado());
-        $Modelo->salvar();
+        $Versao->set(lista: $request->dado());
+        $Versao->salvar();
 
         return new Response(status: 204);
     }
@@ -102,20 +102,20 @@ final class AutomovelModeloController extends Controller implements
     {
         validarUuid($id);
 
-        $Modelo = new ModeloEntity();
-        $Modelo->id($id);
-        $Modelo->destruir();
+        $Versao = new VersaoEntity();
+        $Versao->id($id);
+        $Versao->destruir();
 
         return new Response(status: 204);
     }
 
-    private function retornoSucesso(ModeloEntity $Modelo, int $status = 200)
+    private function retornoSucesso(VersaoEntity $Versao, int $status = 200)
     {
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
-                $Modelo,
+                $Versao,
                 lista: [
-                    'tipo', 'montadora', 'titulo', 'imagem', 'url', 'status'
+                    'titulo', 'vinculo', 'detalhe', 'valor', 'valor_off', 'tipo', 'status'
                 ]
             ),
             status: $status,

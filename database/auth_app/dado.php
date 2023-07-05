@@ -192,7 +192,9 @@ EwIDAQAB
 
             "automovel_montadora:listar", "automovel_montadora:salvar", "automovel_montadora:buscar",
 
-            "automovel_modelo:listar", "automovel_modelo:salvar", "automovel_modelo:buscar"
+            "automovel_modelo:listar", "automovel_modelo:salvar", "automovel_modelo:buscar",
+
+            "automovel_versao:listar", "automovel_versao:salvar", "automovel_versao:buscar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],
