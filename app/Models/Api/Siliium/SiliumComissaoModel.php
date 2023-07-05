@@ -26,22 +26,22 @@ class SiliumComissaoModel extends ORM
     protected ?int $idUsuario;
 
     /**
-     * @param Request $request
+     * @param Request|null $request
      */
     public function __construct(
-        protected readonly Request $request
+        protected readonly ?Request $request = null
     ) {
         $this->validarEmpresa();
         parent::__construct();
     }
 
     /**
-     * @param string|int|null $id
+     * @param array|null $id Lista de Id's
      *
      * @return int|float Saldo Total
      * @throws Excecao
      */
-    public function pegarSaldo(string|int $id = null): int|float
+    public function pegarSaldo(array $id = null): int|float
     {
         $wherePadrao = $this->pegarWherePadrao();
 

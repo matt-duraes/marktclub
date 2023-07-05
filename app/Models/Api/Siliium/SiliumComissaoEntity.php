@@ -16,8 +16,8 @@ class SiliumComissaoEntity extends Entity
         'comissao_usuario', 'data_compra', 'moeda', 'status'
     ];
     protected array $ormInsert = [
-        'id_admin_empresa' => 'idEmpresa',
-        'id_usuario'       => 'idUsuario'
+        'id_empresa' => 'idEmpresa',
+        'id_usuario' => 'idUsuario'
     ];
     protected array $ormSalvar = [
         'comissao_usuario', 'data_compra', 'moeda', 'status'
@@ -27,10 +27,10 @@ class SiliumComissaoEntity extends Entity
     protected int|float $comissao_usuario;
     protected Data $data_compra;
     protected string $moeda;
-    //protected Status $status;
+    protected int $status;
 
     /**
-     * @param  Request|null  $request
+     * @param Request|null $request
      */
     public function __construct(
         protected readonly ?Request $request = null
