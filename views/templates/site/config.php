@@ -1,15 +1,18 @@
 <?php
 
+$CLUBE = sessao('CLUBE');
+$USUARIO = sessao('USUARIO');
+
 define('CLUBE_LOGO', 'https://arquivo.marktclub.com.br/construtor/logo_marktclub_tem_mais.png');
 
-define('CLUBE_TITULO', 'Markt Club');
-define('CLUBE_ID', 'b7ecc8af-25c1-4981-a891-cc60c3464f6c');
+define('CLUBE_TITULO', $CLUBE['titulo']);
+define('CLUBE_ID', $CLUBE['id']);
 
 define('CLUBE_FINALIDADE', 1);
 
-define('USUARIO_NOME', 'André Rodrigues');
-define('USUARIO_IMAGEM', 'https://lh3.googleusercontent.com/ogw/AOh-ky0qIecPHzcVkKjpNnwIesf2ZRiPq9bj4IiPNyiEjcg');
-define('USUARIO_EMAIL', 'andrerodrigues@andrerodrigues.com');
+define('USUARIO_NOME', $USUARIO['nome']);
+define('USUARIO_IMAGEM', $USUARIO['imagem']);
+define('USUARIO_EMAIL', $USUARIO['email']);
 
 define('CONTATO_TELEFONE', '(61) 99354-6881');
 define('CONTATO_WHATSAPP', '(61) 99354-6881');

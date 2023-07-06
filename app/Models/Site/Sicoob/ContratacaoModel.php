@@ -3,10 +3,11 @@
 namespace App\Models\Site\Sicoob;
 
 use Erro\Excecao;
-use Helpers\ApiHelper;
 use Http\Request;
+use Http\Response;
+use App\Helpers\ClubeApiHelper;
 
-final class ContratacaoModel
+final class ContratacaoModel extends ClubeApiHelper
 {
     protected string $tipo;
     protected string $valor;
@@ -26,19 +27,19 @@ final class ContratacaoModel
     }
 
     /**
-     * @return object|array
+     * @return Response
      * @throws Excecao
      */
-    public function postSalvar(): object
+    public function postSalvar(): Response
     {
-        $api = new ApiHelper('solicitacao_credito:salvar');
-
-        $api->validar('Página não encontrada!', status: 404)->body([
-            'operadora' => 1,
-            'tipo'      => $this->tipo,
-            'valor'     => strDinheiro($this->valor),
-            'parcelas'  => $this->prazo,
-        ])->post('/solicitacao-credito')
+        $this
+            ->validar('Página não encontrada!', status: 404)
+            ->body([
+                'operadora' => 1,
+                'tipo'      => $this->tipo,
+                'valor'     => strDinheiro($this->valor),
+                'parcelas'  => $this->prazo,
+            ])->post('/solicitacao-credito')
             ->object();
 
         return mensagemSucesso([], 201);

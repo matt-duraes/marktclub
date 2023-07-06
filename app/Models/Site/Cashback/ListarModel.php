@@ -2,18 +2,13 @@
 
 namespace App\Models\Site\Cashback;
 
-use App\Models\Site\ListarInterface;
-use Helpers\ApiHelper;
 use stdClass;
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\ListarInterface;
 
-final class ListarModel extends ApiHelper implements ListarInterface
+final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
     use MontarRetornoTrait;
-
-    public function __construct()
-    {
-        parent::__construct(scope: '');
-    }
 
     public function listarDados(): stdClass
     {

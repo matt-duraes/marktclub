@@ -3,13 +3,13 @@
 namespace App\Models\Site\Loja;
 
 use Http\Request;
-use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Estabelecimento;
 
-final class FiltroModel
+final class FiltroModel extends ClubeApiHelper
 {
     private array $dado = [
         'estado' => [
@@ -109,7 +109,7 @@ final class FiltroModel
 
     private function buscarSubcategoria($categoria, $subcategoria)
     {
-        return (new ApiHelper(scope: 'parceiro_subcategoria:listar'))
+        return $this
             ->json(['categoria' => $categoria])
             ->get('/parceiro-subcategoria/select')
             ->array()['dado'][$subcategoria] ?? '';

@@ -3,25 +3,19 @@
 namespace App\Models\Site\Perfil;
 
 use Erro\Excecao;
-use Helpers\ApiHelper;
-use Helpers\CryptHelper;
 use Http\Request;
 use Http\Response;
+use App\Helpers\ClubeApiHelper;
+use App\Classes\UsuarioCliente\TipoUsuario;
 
-final class DependenteModel
+final class DependenteModel extends ClubeApiHelper
 {
-    protected string $chave;
-
-    /**
-     * @throws Excecao
-     */
     public function __construct()
     {
-        $Curl = new ApiHelper('admin:chave_publica');
-        $chave = $Curl->get('/admin/chave-publica')
-            ->object()->dado->chave ?? '';
-
-        $this->chave = $chave;
+        if (sessao('USUARIO.tipo') == TipoUsuario::DEPENDENTE) {
+            mensagemStatus(404);
+        }
+        parent::__construct();
     }
 
     /**
@@ -29,12 +23,10 @@ final class DependenteModel
      */
     public function getDado()
     {
-        $id = '5595203c-f7b1-4211-9981-bf09eb236b35';
-        $Api = new ApiHelper('usuario_dependente:listar');
-
-        $dado = $Api->validar('Página não encontrada!', status: 404)
+        $dado = $this
+            ->validar('Página não encontrada!', status: 404)
             ->json([
-                'usuario' => $id
+                'usuario' => $this->idUsuario
             ])
             ->get('/usuario-dependente')
             ->object();
@@ -50,22 +42,17 @@ final class DependenteModel
      */
     public function postDado(Request $request): Response
     {
-        $Crypt = new CryptHelper(chavePublica: $this->chave);
-        $Api = new ApiHelper('usuario_dependente:salvar');
+        $salvar = $this
+            ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.')
+            ->body([
+                'nome'    => $this->Crypt->encode($request->nome),
+                'email'   => $this->Crypt->encode($request->email),
+                'cpf'     => $this->Crypt->encode($request->cpf),
+                'usuario' => $this->idUsuario
+            ])
+            ->post('/usuario-dependente')
+            ->object();
 
-        $id = '5595203c-f7b1-4211-9981-bf09eb236b35';
-
-        $salvar = $Api->body([
-            'nome'    => $Crypt->encode($request->nome),
-            'email'   => $Crypt->encode($request->email),
-            'cpf'     => $Crypt->encode($request->cpf),
-            'usuario' => $id
-        ])->post('/usuario-dependente')->object();
-
-        respostaJson(
-            $salvar,
-            'Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.'
-        );
         return $this->montarRetornoPostDado($salvar);
     }
 
@@ -77,16 +64,12 @@ final class DependenteModel
      */
     private function montarRetornoPostDado($dado): Response
     {
-        $Curl = new ApiHelper('admin:chave_privada');
-        $chave = $Curl->get('/admin/chave-privada')->object()->dado->chave ?? '';
-        $Crypt = new CryptHelper(chavePrivada: $chave);
-
         $retorno = [];
         if ($dado->dado) {
             $r = $dado->dado;
             $retorno = (object)[
                 'id'   => $r->id,
-                'nome' => $Crypt->decode($r->nome),
+                'nome' => $this->Crypt->decode($r->nome),
             ];
         }
 
@@ -104,15 +87,9 @@ final class DependenteModel
      */
     public function postDeleta(Request $request): Response
     {
-        // new CryptHelper(chavePublica: $this->chave);
-        $Api = new ApiHelper('usuario_dependente:deletar');
-        $salvar = $Api->delete('/usuario-dependente/' . $request->id);
-
-        respostaJson(
-            $salvar,
-            'Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.'
-        );
-
+        $this
+            ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.')
+            ->delete('/usuario-dependente/' . $request->id);
         return new Response(status: 204);
     }
 }

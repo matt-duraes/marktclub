@@ -7,8 +7,10 @@ use stdClass;
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
+use App\Models\Api\AdminConstrutor\ClubeModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 
 final class RefreshTokenModel extends ORM implements TokenInterface
 {
@@ -16,8 +18,9 @@ final class RefreshTokenModel extends ORM implements TokenInterface
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
     private stdClass $tokenAtual;
-    private EquipeEntity $Usuario;
+    private EquipeEntity|ClienteEntity $Usuario;
     private array $token;
+    public array $clube = [];
 
     public function __construct(
         private ?AppEntity $App = null,
@@ -78,9 +81,13 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     {
         $AppToken = new AppEntity();
         $AppToken->id($this->tokenAtual->id_api_app);
-        if ($AppToken->id == '5add7e1c-3da1-4c0f-90b4-da17d4f05eca') {
-            $this->App = $AppToken;
+        if ($AppToken->id != env('API_CLUBE_ID')) {
+            return;
         }
+        $this->App = $AppToken;
+        $Construtor = new ConstrutorEntity();
+        $Construtor->id($this->App->id_admin_empresa);
+        $this->clube = (new ClubeModel($Construtor))->construtor;
     }
 
     private function validaSeTokenDoApp()
@@ -92,7 +99,6 @@ final class RefreshTokenModel extends ORM implements TokenInterface
 
     private function pegarUsuario()
     {
-        ppe($this->App->audience);
         if (in_array($this->App->audience, ['web'])) {
             $Usuario = new EquipeEntity(validarToken: false);
         } elseif ($this->App->audience == 'clube') {

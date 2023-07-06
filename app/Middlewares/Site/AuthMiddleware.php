@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middlewares\Painel;
+namespace App\Middlewares\Site;
 
 use Http\Response;
 use Helpers\AuthHelper;
@@ -14,6 +14,14 @@ final class AuthMiddleware
     {
         $token = cookieExiste('CLT') ? base64Decode(cookie('CLT')) : [];
         $this->token = is_array($token) ? $token : [];
+    }
+
+    public function deslogado(): bool|Response
+    {
+        if ($this->verificarSeEstaLogado()) {
+            return new Response(url: LINK);
+        }
+        return true;
     }
 
     public function logado(): bool|Response
@@ -32,6 +40,8 @@ final class AuthMiddleware
         $retorno = (new AuthHelper())->validar();
         if (
             false === $retorno ||
+            !sessaoExiste('USUARIO') ||
+            !sessaoExiste('CLUBE') ||
             !sessaoExiste('TOKEN') ||
             !sessaoExiste('TOKEN_EXPIRE') ||
             agora() >= sessao('TOKEN_EXPIRE') ||
@@ -57,6 +67,7 @@ final class AuthMiddleware
 
     private function usuarioNaoLogado()
     {
+        (new AuthHelper());
         cookieDeletar('CLT');
         if (METODO == 'GET' && CONTENT_TYPE != 'application/json') {
             return new Response(url: LINK . '/login');

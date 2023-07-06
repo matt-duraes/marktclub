@@ -5,22 +5,22 @@ namespace App\Models\Site\Loja;
 use stdClass;
 use Modules\Botao;
 use Modules\Inteiro;
-use Helpers\ApiHelper;
+use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Site\ListarInterface;
 
-final class ListarModel extends ApiHelper implements ListarInterface
+final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
     public function __construct(
         private Inteiro $pagina = new Inteiro(1),
         private Inteiro $quantidade = new Inteiro(20),
         private Botao $favorito = new Botao(Botao::NAO),
-        private Tipo $tipo = new Tipo(Tipo::LOJA),
+        private Tipo $tipo = new Tipo(),
         private Ordem $ordem = new Ordem(),
     ) {
-        parent::__construct(scope: 'parceiro_loja:listar');
+        parent::__construct();
     }
 
     /*
@@ -36,7 +36,7 @@ final class ListarModel extends ApiHelper implements ListarInterface
             ->object();
 
         return (object)[
-            'tipo'      => 'loja',
+            'tipo'      => $this->tipo->indice(),
             'lista'     => $this->montarLista($dado->dado->lista),
             'paginacao' => $dado->dado->pagina,
         ];
@@ -45,14 +45,20 @@ final class ListarModel extends ApiHelper implements ListarInterface
     private function montarLista(array $dado): array
     {
         $retorno = [];
+
         foreach ($dado as $r) {
+            $link = route('loja.detalhe');
+            if ($r->tipo == Tipo::FARMACIA) {
+                $link = route('farmacia.detalhe');
+            }
             $retorno[] = (object)[
                 'id'       => $r->id,
                 'titulo'   => $r->titulo,
-                'link'     => route('loja.detalhe') . '/' . $r->url,
+                'link'     => $link . '/' . $r->url,
                 'imagem'   => $r->imagem,
                 'desconto' => $r->desconto,
                 'favorito' => $r->favorito,
+                'tipo'     => $r->tipo,
             ];
         }
         return $retorno;

@@ -2,23 +2,16 @@
 
 namespace App\Models\Site\Cupom;
 
-use Helpers\ApiHelper;
 use stdClass;
+use App\Helpers\ClubeApiHelper;
 
-final class BuscaModel extends ApiHelper
+final class BuscaModel extends ClubeApiHelper
 {
     use MontarRetornoTrait;
 
-    public function __construct()
-    {
-        parent::__construct(scope: '');
-    }
-
     public function listarDados(string $url = null): stdClass
     {
-        $apiHelper = new ApiHelper('cupom:buscar');
-        $dado = $apiHelper->get('/cupom/' . $url)->object();
-
+        $dado = $this->get('/cupom/' . $url)->object();
         return $this->montarRetorno($dado);
     }
 }

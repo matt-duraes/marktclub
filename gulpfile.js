@@ -8,6 +8,7 @@ const { jsUnico, jsTodos, jsDeploy } = require('./src/Gulpfile/js.js');
 const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
+const { phpCsFixer } = require('./src/Gulpfile/php.js');
 const {
     buildCopiarComposerConfig,
     buildComposerInstall,
@@ -156,6 +157,14 @@ async function monitorarSistema() {
     if (prop.open == undefined) {
         await open(config.browserSync.open + ':' + proxyPorta);
     }
+
+    // PHP CS FIXER
+    watch(['**/*.php', '!**/*Route.php']).on('change', async path => {
+        const time = new Date().getTime();
+        consoleHeader();
+        await phpCsFixer(path);
+        consoleFooter(time);
+    });
 
     // CSS
     watch('./views/pages/**/*.styl').on('change', async path => {

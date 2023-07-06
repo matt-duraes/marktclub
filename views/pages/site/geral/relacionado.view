@@ -10,7 +10,7 @@
         <h1>Veja nossos parceiros direto de hotéis</h1>
         <a class="cor_color" href="">Veja mais</a>
         @ elseif( $tipo == 'farmacia' ):
-        <h1>Veja outros farmácias</h1>
+        <h1>Veja outras farmácias</h1>
         <a class="cor_color" href="">Veja mais</a>
         @ endif;
     </header>

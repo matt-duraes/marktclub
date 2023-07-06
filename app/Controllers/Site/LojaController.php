@@ -48,6 +48,7 @@ final class LojaController extends Controller
             tipo: new Tipo(Tipo::LOJA),
             ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito')
         );
+
         $Filtro = new FiltroModel($request);
         return view('loja.index', [
             'menu'   => 'loja',

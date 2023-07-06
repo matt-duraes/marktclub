@@ -3,15 +3,15 @@
 namespace App\Models\Site\Loja;
 
 use stdClass;
-use Helpers\ApiHelper;
+use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Status;
 
-final class BuscarModel extends ApiHelper
+final class BuscarModel extends ClubeApiHelper
 {
     public function __construct(
         private string $url
     ) {
-        parent::__construct(scope: 'parceiro_loja:buscar');
+        parent::__construct();
     }
 
     public function buscarDados(): stdClass

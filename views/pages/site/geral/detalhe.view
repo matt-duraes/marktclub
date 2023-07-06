@@ -24,7 +24,9 @@
     </div>
     @ if(TIPO_USUARIO != 'indicado'):
     <div class="bloco_botao">
-        @ if ($dado->procedimento == $procedimento::DECLARACAO):
+        @ if( $tipo == 'farmacia' ):
+        <div id="botao_abrir_saude" class="botao destaque botao_geral_cor cor_bg">Abrir carteirinha <i>@iconeDeclaracao(17)</i></div>
+        @ elseif ($dado->procedimento == $procedimento::DECLARACAO):
         <div id="botao_abrir_declaracao" class="botao destaque botao_geral_cor cor_bg">Solicitar Declaração <i>@iconeDeclaracao(17)</i></div>
         @ elseif ($dado->procedimento == $procedimento::VOUCHER):
         <a href="" target="_blank" rel="nofollow noopener" id="botao_abrir_voucher" class="botao destaque botao_geral_cor cor_bg">Gerar Voucher <i>@iconeVoucher(17)</i></a>

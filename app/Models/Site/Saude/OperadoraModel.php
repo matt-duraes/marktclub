@@ -2,17 +2,12 @@
 
 namespace App\Models\Site\Saude;
 
-use App\Models\Site\ListarInterface;
-use Helpers\ApiHelper;
 use stdClass;
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\ListarInterface;
 
-final class OperadoraModel extends ApiHelper implements ListarInterface
+final class OperadoraModel extends ClubeApiHelper implements ListarInterface
 {
-    public function __construct()
-    {
-        parent::__construct(scope: '');
-    }
-
     public function listarDados(): stdClass
     {
         return $this->montarRetorno();
@@ -27,13 +22,15 @@ final class OperadoraModel extends ApiHelper implements ListarInterface
                     'id'     => uuid(),
                     'titulo' => 'Unimed Vitória',
                     'link'   => route('planosaude.unimedVitoria'),
-                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg'
+                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg',
+                    'tipo'   => 'operadora'
                 ],
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Unimed Seguros',
                     'link'   => route('planosaude.unimedSeguro'),
-                    'imagem' => 'https://clube.marktclub.com.br/images/saude-unimed-seguro.png'
+                    'imagem' => 'https://clube.marktclub.com.br/images/saude-unimed-seguro.png',
+                    'tipo'   => 'operadora'
                 ]
             ]
         ];
@@ -48,13 +45,15 @@ final class OperadoraModel extends ApiHelper implements ListarInterface
                     'id'     => uuid(),
                     'titulo' => 'Unimed Vitória',
                     'link'   => 'https://www.benevix.com.br/boletos/',
-                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg'
+                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg',
+                    'tipo'   => 'operadora'
                 ],
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Unimed Seguros',
                     'link'   => 'https://fenapef.admex.com.br/default.asp',
-                    'imagem' => 'https://clube.marktclub.com.br/images/saude-unimed-seguro.png'
+                    'imagem' => 'https://clube.marktclub.com.br/images/saude-unimed-seguro.png',
+                    'tipo'   => 'operadora'
                 ]
             ]
         ];
@@ -69,31 +68,36 @@ final class OperadoraModel extends ApiHelper implements ListarInterface
                     'id'     => uuid(),
                     'titulo' => 'Amil',
                     'link'   => route('planosaude.amil'),
-                    'imagem' => 'https://clube.marktclub.com.br/images/logo_amil.png'
+                    'imagem' => 'https://clube.marktclub.com.br/images/logo_amil.png',
+                    'tipo'   => 'operadora'
                 ],
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Unimed Vitória',
                     'link'   => route('planosaude.unimedVitoria'),
-                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg'
+                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_vitoria.jpg',
+                    'tipo'   => 'operadora'
                 ],
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Central Nacional Unimed',
                     'link'   => route('planosaude.centralnacional'),
-                    'imagem' => 'https://clube.marktclub.com.br/images/cnu_logo.png'
+                    'imagem' => 'https://clube.marktclub.com.br/images/cnu_logo.png',
+                    'tipo'   => 'operadora'
                 ],
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Unimed - Florianópolis',
                     'link'   => route('planosaude.unimedflorianopolis'),
-                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_florianopolis.jpg'
+                    'imagem' => 'https://clube.marktclub.com.br/images/logo_unimed_florianopolis.jpg',
+                    'tipo'   => 'operadora'
                 ],
                 (object)[
                     'id'     => uuid(),
                     'titulo' => 'Unimed Seguros',
                     'link'   => route('planosaude.unimedSeguro'),
-                    'imagem' => 'https://clube.marktclub.com.br/images/saude-unimed-seguro.png'
+                    'imagem' => 'https://clube.marktclub.com.br/images/saude-unimed-seguro.png',
+                    'tipo'   => 'operadora'
                 ]
             ]
         ];

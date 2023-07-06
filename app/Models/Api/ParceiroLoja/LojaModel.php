@@ -39,7 +39,7 @@ class LojaModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'titulo', 'url', 'desconto', 'imagem', 'status'])
+            ->campo(['cod', 'titulo', 'url', 'tipo', 'desconto', 'imagem', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem(new Ordem()))
@@ -62,6 +62,7 @@ class LojaModel extends ORM implements ModelListarInterface
     {
         $retorno = [];
         $Status = new Status();
+        $Tipo = new Tipo();
 
         foreach ($lista as $r) {
             $retorno[] = [
@@ -70,6 +71,7 @@ class LojaModel extends ORM implements ModelListarInterface
                 'desconto' => $r->desconto,
                 'imagem'   => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
                 'url'      => $r->url,
+                'tipo'     => $Tipo->indice($r->tipo),
                 'favorito' => !empty($r->favorito) ? 'sim' : 'nao',
                 'status'   => $Status->indice($r->status)
             ];

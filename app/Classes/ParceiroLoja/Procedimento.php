@@ -16,7 +16,7 @@ final class Procedimento extends Status
         parent::__construct([
             self::VOUCHER      => 'Voucher',
             self::WEBSITE      => 'Website',
-            self::DECLARACAO   => 'Declaração',
+            self::DECLARACAO   => 'Declaração'
         ]);
     }
 }
