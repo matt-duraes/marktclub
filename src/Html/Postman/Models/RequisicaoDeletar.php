@@ -8,6 +8,7 @@ final class RequisicaoDeletar
     private string $path = ROOT . '/postman/';
     private string $id;
     private string $pai;
+
     public function __construct($post)
     {
         $this->id = $post['id'];
@@ -15,6 +16,7 @@ final class RequisicaoDeletar
 
         (new Requisicao($this->path, $this->pai, $this->id))->deletar();
     }
+
     public function retorno()
     {
         return [];

@@ -4,9 +4,12 @@ namespace App\Controllers\Site;
 
 use Erro\Excecao;
 use Http\Response;
+use Modules\Botao;
+use Modules\Inteiro;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Models\Site\Loja\NovaLojaModel;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Models\Site\Loja\ListarModel;
 
 final class IndexController extends Controller
 {
@@ -16,13 +19,21 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
-        if (sessaoExiste('TEMPLATE') && sessao('TEMPLATE') == 'melhor-idade') {
-            return new Response(url: route('acessoRapido.index'));
-        }
+        $LojaNova = new ListarModel(
+            quantidade: new Inteiro(3),
+            ordem: new Ordem(Ordem::MAIS_NOVO),
+        );
+        $LojaFavorita = new ListarModel(
+            quantidade: new Inteiro(3),
+            favorito: new Botao(Botao::SIM),
+            ordem: new Ordem(Ordem::RANDOMICO)
+        );
+
         return view('index', [
-            'menu'      => 'home',
-            'loja_nova' => (new NovaLojaModel())->listarDados(),
-            'banner'    => (new BannerModel())->index()
+            'menu'          => 'home',
+            'loja_nova'     => $LojaNova->listarDados(),
+            'loja_favorita' => $LojaFavorita->listarDados(),
+            'banner'        => (new BannerModel())->index(),
         ]);
     }
 }

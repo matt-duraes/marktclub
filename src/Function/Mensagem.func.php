@@ -8,12 +8,12 @@ if (!function_exists('mensagemErro')) {
     /**
      * Retorna uma exceção do sistema baseado nos dados informados
      *
-     * @param string            $titulo     Título para a mensagem de erro
-     * @param string            $mensagem   Texto da mensagem de erro
-     * @param null|int          $status     Status de erro que deseja retornar podendo ser 400, 401, 403, 404 ou 500
-     * @param null|Throwable    $error      Throwable do erro original para debugar em localhost
-     * @param null|string       $localhost  Mensagem para ser exibida em localhost
-     * @throws Excecao                      Gera uma excecao do sistema
+     * @param  string         $titulo    Título para a mensagem de erro
+     * @param  string         $mensagem  Texto da mensagem de erro
+     * @param  null|int       $status    Status de erro que deseja retornar podendo ser 400, 401, 403, 404 ou 500
+     * @param  null|Throwable $error     Throwable do erro original para debugar em localhost
+     * @param  null|string    $localhost Mensagem para ser exibida em localhost
+     * @throws Excecao        Gera uma excecao do sistema
      */
     function mensagemErro(
         string $titulo,
@@ -28,7 +28,7 @@ if (!function_exists('mensagemErro')) {
         }
         if ($eLocalhost && $error instanceof Throwable) {
             $traducao = [
-                'Typed property' => 'A propriedade digitada',
+                'Typed property'                             => 'A propriedade digitada',
                 'must not be accessed before initialization' => 'não deve ser acessado antes da inicialização'
             ];
             $errorMensagem = str_replace(
@@ -53,9 +53,9 @@ if (!function_exists('mensagemStatus')) {
     /**
      * Retorna uma exceção do sistema com status HTML informado
      *
-     * @param int           $status     Status de erro que deseja retornar podendo ser 400, 401, 403, 404 ou 500
-     * @param null|string   $localhost  Mensagem para ser exibida em localhost
-     * @throws Excecao                  Gera uma excecao do sistema
+     * @param  int         $status    Status de erro que deseja retornar podendo ser 400, 401, 403, 404 ou 500
+     * @param  null|string $localhost Mensagem para ser exibida em localhost
+     * @throws Excecao     Gera uma excecao do sistema
      */
     function mensagemStatus(
         int $status,
@@ -68,7 +68,7 @@ if (!function_exists('mensagemStatus')) {
         }
         if ($eLocalhost && $error instanceof Throwable) {
             $traducao = [
-                'Typed property' => 'A propriedade digitada',
+                'Typed property'                             => 'A propriedade digitada',
                 'must not be accessed before initialization' => 'não deve ser acessado antes da inicialização'
             ];
             $errorMensagem = str_replace(
@@ -95,12 +95,12 @@ if (!function_exists('mensagemSucesso')) {
     /**
      * Gera uma mensagem de sucesso
      *
-     * @param array|stdClass    $dado               Array ou object com os dados da resposta
-     * @param int               $status             Status da resposta podendo ser 200 ou 201
-     * @param array             $criptografar       Lista de dados para criptografar
+     * @param array|stdClass $dado         Array ou object com os dados da resposta
+     * @param int            $status       Status da resposta podendo ser 200 ou 201
+     * @param array          $criptografar Lista de dados para criptografar
      *
-     * @return  Response        Retorna um ResponseInterface com um array no formato: ["status" => "sucesso", "dado" => $dado]
-     * @throws  Erro\Excecao    Retorna uma exceção caso seja passa um status errado
+     * @return Response     Retorna um ResponseInterface com um array no formato: ["status" => "sucesso", "dado" => $dado]
+     * @throws Erro\Excecao Retorna uma exceção caso seja passa um status errado
      */
     function mensagemSucesso(array|stdClass $dado, int $status = 200, array $criptografar = []): Response
     {
@@ -114,7 +114,7 @@ if (!function_exists('mensagemSucesso')) {
 
         return new Response(json: [
             'status' => 'sucesso',
-            'dado' => $dado
+            'dado'   => $dado
         ], status: $status);
     }
 }

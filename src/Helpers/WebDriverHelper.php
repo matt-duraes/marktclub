@@ -27,12 +27,12 @@ final class WebDriverHelper
     private array|RemoteWebElement $ElementoAtual;
 
     /**
-     * @param  string                    $url         URL do servidor selenium (Caso de conexão recusada, tente colocar
-     *                                                o IP Local. ex: 192.168.0.100)
-     * @param  DesiredCapabilities|null  $capacidade  Qual as capacidades desejadas para o browser
-     * @param  bool                      $visivel     Se irá abrir o navegador ou não. Não irá funcionar caso passe o
-     *                                                $capacidade
-     * @param  string|null               $download    Diretório para download Não irá funcionar caso passe o $capacidade
+     * @param string                   $url        URL do servidor selenium (Caso de conexão recusada, tente colocar
+     *                                             o IP Local. ex: 192.168.0.100)
+     * @param DesiredCapabilities|null $capacidade Qual as capacidades desejadas para o browser
+     * @param bool                     $visivel    Se irá abrir o navegador ou não. Não irá funcionar caso passe o
+     *                                             $capacidade
+     * @param string|null              $download   Diretório para download Não irá funcionar caso passe o $capacidade
      */
     public function __construct(
         string $url = 'http://localhost:4444/wd/hub',
@@ -66,7 +66,7 @@ final class WebDriverHelper
     }
 
     /**
-     * @param $error
+     * @param          $error
      * @throws Excecao
      */
     private function erroPadrao($error): void
@@ -100,8 +100,8 @@ final class WebDriverHelper
     /**
      * Vai para a o link informado
      *
-     * @param  string  $link  Link para onde deseja navegar
-     * @return Self
+     * @param  string  $link Link para onde deseja navegar
+     * @return self
      * @throws Excecao
      */
     public function requisicao(string $link): self
@@ -126,8 +126,8 @@ final class WebDriverHelper
     /**
      * Pega todos os cookies da página
      *
-     * @param  null|string  $indice  Caso queira pegar um cookie específico, passar o name do cookie
-     * @return array    Lista com os cookies ou 1 cookie caso passa um indice
+     * @param  null|string $indice Caso queira pegar um cookie específico, passar o name do cookie
+     * @return array       Lista com os cookies ou 1 cookie caso passa um indice
      * @throws Excecao
      */
     public function pegarCookie(?string $indice = null): array
@@ -145,12 +145,12 @@ final class WebDriverHelper
         $lista = [];
         foreach ($Cookie as $r) {
             $lista = [
-                'name' => $r->getName(),
-                'value' => $r->getValue(),
-                'expires' => $r->getExpiry(),
-                'path' => $r->getPath(),
-                'domain' => $r->getDomain(),
-                'secure' => $r->isSecure(),
+                'name'     => $r->getName(),
+                'value'    => $r->getValue(),
+                'expires'  => $r->getExpiry(),
+                'path'     => $r->getPath(),
+                'domain'   => $r->getDomain(),
+                'secure'   => $r->isSecure(),
                 'httpOnly' => $r->isHttpOnly(),
                 'sameSite' => $r->getSameSite(),
             ];
@@ -161,9 +161,9 @@ final class WebDriverHelper
     /**
      * Seta o valor de cookie
      *
-     * @param  string  $nome   O nome para o cookie
-     * @param  string  $valor  O valor do cookie
-     * @return Self
+     * @param  string $nome  O nome para o cookie
+     * @param  string $valor O valor do cookie
+     * @return self
      */
     public function setarCookie(string $nome, string $valor): self
     {
@@ -183,9 +183,9 @@ final class WebDriverHelper
     /**
      * Deleta um ou todos os cookies
      *
-     * @param  null|string  $indice     Caso deseja deletar um cookie específico
-     *                                  informa o indice
-     * @return Self
+     * @param  null|string $indice Caso deseja deletar um cookie específico
+     *                             informa o indice
+     * @return self
      */
     public function cookieDeletar(?string $indice = ''): self
     {
@@ -213,9 +213,9 @@ final class WebDriverHelper
     /**
      * Pega o primeiro elemento que for encontrado na página
      *
-     * @param string    $elemento   Seletor CSS para pegar o elemento desejado
+     * @param  string  $elemento Seletor CSS para pegar o elemento desejado
      * @throws Excecao
-     * @return Self
+     * @return self
      */
     public function elemento(string $elemento): self
     {
@@ -230,9 +230,9 @@ final class WebDriverHelper
     /**
      * Procura por todos os elementos que existem na página
      *
-     * @param  string    $elemento  Seletor CSS para pegar o elemento desejado
-     * @param  null|int  $indice    Um número caso queira pegar apenas 1 elemento
-     * @return Self
+     * @param  string   $elemento Seletor CSS para pegar o elemento desejado
+     * @param  null|int $indice   Um número caso queira pegar apenas 1 elemento
+     * @return self
      * @throws Excecao
      */
     public function todosElementos(string $elemento, ?int $indice = null): self
@@ -256,8 +256,8 @@ final class WebDriverHelper
     /**
      * Pega um indice do elemento buscado pelo método elementoTodos
      *
-     * @param  int  $indice  Indice que deseja buscar
-     * @return Self
+     * @param  int     $indice Indice que deseja buscar
+     * @return self
      * @throws Excecao
      */
     public function setarElemento(int $indice): self
@@ -298,10 +298,10 @@ final class WebDriverHelper
     /**
      * Seta um valor a um elemento de formulário
      *
-     * @param  string       $valor          Valor que deseja se setado
-     * @param  null|string  $elemento       Caso não queira pegar o elemento atual, passar seletor CSS para pegar
-     *                                      o elemento
-     * @return Self
+     * @param  string      $valor    Valor que deseja se setado
+     * @param  null|string $elemento Caso não queira pegar o elemento atual, passar seletor CSS para pegar
+     *                               o elemento
+     * @return self
      * @throws Excecao
      */
     public function setarValor(string $valor, ?string $elemento = null): self
@@ -321,8 +321,8 @@ final class WebDriverHelper
     /**
      * Pega o primeiro elemento que for encontrado na página
      *
-     * @param  string  $elemento  Seletor CSS para pegar o elemento desejado
-     * @return Self
+     * @param  string  $elemento Seletor CSS para pegar o elemento desejado
+     * @return self
      * @throws Excecao
      */
     public function elemento(string $elemento): self
@@ -406,7 +406,7 @@ final class WebDriverHelper
     /**
      * Simula um clique no primeiro elemento
      *
-     * @return Self
+     * @return self
      * @throws Excecao
      */
     public function click()
@@ -426,8 +426,8 @@ final class WebDriverHelper
     }
 
     /**
-     * @return string|array     Retonar uma string caso tenha passado um indice para
-     *                          o elemento ou um array com a lista de valores
+     * @return string|array Retonar uma string caso tenha passado um indice para
+     *                      o elemento ou um array com a lista de valores
      * @throws Excecao
      */
     public function pegarValor(): string
@@ -474,10 +474,10 @@ final class WebDriverHelper
     /**
      * Pegar um valor de atributo do elemento
      *
-     * @param  string  $atributo  Qual atributo deseja pegar
+     * @param string $atributo Qual atributo deseja pegar
      *
-     * @return string|array     Retorna uma string caso tenha passado um indice ao elemento
-     *                          ou um array para multiplos elementos
+     * @return string|array Retorna uma string caso tenha passado um indice ao elemento
+     *                      ou um array para multiplos elementos
      * @throws Excecao
      */
     public function pegarAttr(string $atributo): string|array
@@ -523,8 +523,8 @@ final class WebDriverHelper
     /**
      * Pega a texto do elemento selecionado
      *
-     * @return string|array     Retorna o valor do texto caso tenha definido o indice do elemento
-     *                          ou retorna um array com os valores para multiplos elementos
+     * @return string|array Retorna o valor do texto caso tenha definido o indice do elemento
+     *                      ou retorna um array com os valores para multiplos elementos
      * @throws Excecao
      */
     public function pegarTexto(): string|array
@@ -559,14 +559,14 @@ final class WebDriverHelper
     /**
      * Faz o webdriver esperar alguma ação do navegador para continuar
      *
-     * @param  int          $segundos       Quantidade de segundos que deseja esperar
-     * @param  null|string  $condicao       Condição para a espera podendendo ser: titulo, %titulo%, url, %url%, texto,
-     *                                      %texto%, visivel condições entre "%" indicam que o valor pode conter e não
-     *                                      precisar ser igual. condições texto, %texto% e visivel devem ter
-     *                                      obrigatoriamente o $elemento passado
-     * @param  null|string  $valor          Valor deseja para condição, obrigatório menos para a condição visivel
-     * @param  null|string  $elemento       Seletor Css do elemento que deseja analisar
-     * @return Self
+     * @param  int         $segundos Quantidade de segundos que deseja esperar
+     * @param  null|string $condicao Condição para a espera podendendo ser: titulo, %titulo%, url, %url%, texto,
+     *                               %texto%, visivel condições entre "%" indicam que o valor pode conter e não
+     *                               precisar ser igual. condições texto, %texto% e visivel devem ter
+     *                               obrigatoriamente o $elemento passado
+     * @param  null|string $valor    Valor deseja para condição, obrigatório menos para a condição visivel
+     * @param  null|string $elemento Seletor Css do elemento que deseja analisar
+     * @return self
      * @throws Excecao
      */
     public function esperar(
@@ -625,9 +625,9 @@ final class WebDriverHelper
     /**
      * Scroll a página para altura desejada
      *
-     * @param  int  $altura  Altura que deseja rolar o scroll, caso tenha um elemento setado, somarar ao eixo y do
-     *                       elemento
-     * @return Self
+     * @param  int  $altura Altura que deseja rolar o scroll, caso tenha um elemento setado, somarar ao eixo y do
+     *                      elemento
+     * @return self
      */
     public function scroll(int $altura = 0): self
     {
@@ -645,7 +645,7 @@ final class WebDriverHelper
     /**
      * Acessa um iframe/frame que foi pegado pelo método elemento(s)
      *
-     * @return Self
+     * @return self
      * @throws Excecao
      */
     public function iframe(): self
@@ -669,8 +669,8 @@ final class WebDriverHelper
     /**
      * Muda para outra aba aberta
      *
-     * @param  int  $aba  Número da aba da janela que quer comandar
-     * @return Self
+     * @param  int     $aba Número da aba da janela que quer comandar
+     * @return self
      * @throws Excecao
      */
     public function aba($aba): self
@@ -702,9 +702,9 @@ final class WebDriverHelper
     /**
      * Seta valor fixo para o tamanho  da janela
      *
-     * @param  int  $largura  Seta a largura da janela
-     * @param  int  $altura   Seta a altura da janela
-     * @return Self
+     * @param  int  $largura Seta a largura da janela
+     * @param  int  $altura  Seta a altura da janela
+     * @return self
      */
     public function janelaTamanho(int $largura, int $altura): self
     {
@@ -724,7 +724,7 @@ final class WebDriverHelper
     /**
      * Coloca a janela em tela cheia
      *
-     * @return Self
+     * @return self
      */
     public function janelaTelaCheia(): self
     {
@@ -735,7 +735,7 @@ final class WebDriverHelper
     /**
      * Maxima a janela
      *
-     * @return Self
+     * @return self
      */
     public function janelaMaximizar(): self
     {
@@ -746,7 +746,7 @@ final class WebDriverHelper
     /**
      * Minimiza a janela
      *
-     * @return Self
+     * @return self
      */
     public function janelaMinimizar(): self
     {
@@ -757,7 +757,7 @@ final class WebDriverHelper
     /**
      * Coloca a janela em modo retrato
      *
-     * @return Self
+     * @return self
      */
     public function janelaRetrato(): self
     {
@@ -777,7 +777,7 @@ final class WebDriverHelper
     /**
      * Coloca a janela em modo paisagem
      *
-     * @return Self
+     * @return self
      */
     public function janelaPaisagem(): self
     {
@@ -788,7 +788,7 @@ final class WebDriverHelper
     /**
      * Aceita o alerta
      *
-     * @return Self
+     * @return self
      */
     public function alertAceitar(): self
     {
@@ -799,7 +799,7 @@ final class WebDriverHelper
     /**
      * Recusa o alerta
      *
-     * @return Self
+     * @return self
      */
     public function alertRecusar(): self
     {
@@ -820,7 +820,7 @@ final class WebDriverHelper
     /**
      * Passa um texto para o alerta
      *
-     * @param  string  $valor  Valor que deseja passar
+     * @param  string $valor Valor que deseja passar
      * @return Selg
      */
     public function alertValor(string $valor): self
@@ -832,7 +832,7 @@ final class WebDriverHelper
     /**
      * Pegar o mouse e faz a ação de mouse down
      *
-     * @return Self
+     * @return self
      */
     public function mouseApertaClique(): self
     {
@@ -853,8 +853,8 @@ final class WebDriverHelper
     /**
      * Pega o mouse e faz a ação de mouse up
      *
-     * @param  bool  $elemento  Se vai usar uma cordenada de um elemento ou não
-     * @return Self
+     * @param  bool $elemento Se vai usar uma cordenada de um elemento ou não
+     * @return self
      */
     public function mouseSoltarClique(bool $elemento = true): self
     {
@@ -866,10 +866,10 @@ final class WebDriverHelper
     /**
      * Pega o mouse e faz a ação de mouse up
      *
-     * @param  null|int  $x         Posição X onde o mouse vai parar
-     * @param  null|int  $y         Posição y onde o mouse vai parar
-     * @param  bool      $elemento  Se vai usar uma cordenada de um elemento ou não
-     * @return Self
+     * @param  null|int $x        Posição X onde o mouse vai parar
+     * @param  null|int $y        Posição y onde o mouse vai parar
+     * @param  bool     $elemento Se vai usar uma cordenada de um elemento ou não
+     * @return self
      */
     public function mouseMover(?int $x = null, ?int $y = null, bool $elemento = true): self
     {
@@ -905,7 +905,7 @@ final class WebDriverHelper
     /**
      * Simula um enter no primeiro elemento
      *
-     * @return Self
+     * @return self
      * @throws Excecao
      */
     public function enter(): self
@@ -919,7 +919,7 @@ final class WebDriverHelper
      * Simula um clique no primeiro elemento
      *
      * @throws Excecao
-     * @return Self
+     * @return self
      */
     public function click()
     {
@@ -952,6 +952,7 @@ final class WebDriverHelper
         }
         return $elemento;
     }
+
     private function erroPadrao($error)
     {
         mensagemErro(
@@ -960,6 +961,7 @@ final class WebDriverHelper
             error: $error
         );
     }
+
     private function erroElemento()
     {
         mensagemErro(
@@ -968,6 +970,7 @@ final class WebDriverHelper
             localhost: 'O elemento que você tentou acessar não existe.'
         );
     }
+
     private function setarValorCorreto(RemoteWebElement $elemento, string $valor)
     {
         $tag = $elemento->getTagName();

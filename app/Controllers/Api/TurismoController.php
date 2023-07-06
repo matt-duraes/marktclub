@@ -39,6 +39,7 @@ final class TurismoController extends Controller
     {
         return view('turismo.redirecionar', var: ['usuario' => $usuario]);
     }
+
     public function abrir(string $usuario, $memoria)
     {
         $Turismo = new TokenModel(

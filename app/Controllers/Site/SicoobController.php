@@ -5,16 +5,13 @@ namespace App\Controllers\Site;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Sicoob\ParcelaModel;
-use App\Models\Site\Sicoob\SimulacaoModel;
-use Http\Request;
-use Http\Response;
 
 final class SicoobController extends Controller
 {
     public function index()
     {
         return view('sicoob.index', [
-            'menu' => 'sicoob',
+            'menu'   => 'sicoob',
             'banner' => (new BannerModel())->sicoob()
         ]);
     }
@@ -22,39 +19,38 @@ final class SicoobController extends Controller
     public function consignado()
     {
         return view('sicoob.consignado', [
-            'menu' => 'sicoob',
+            'menu'   => 'sicoob',
             'banner' => (new BannerModel())->sicoob(),
-            'dado' => (new ParcelaModel())->listarConsignado()
+            'dado'   => (new ParcelaModel())->listarConsignado()
         ]);
     }
 
     public function creditoPessoal()
     {
         return view('sicoob.credito_pessoal', [
-            'menu' => 'sicoob',
+            'menu'   => 'sicoob',
             'banner' => (new BannerModel())->sicoob(),
-            'dado' => (new ParcelaModel())->listarCreditoPessoal()
+            'dado'   => (new ParcelaModel())->listarCreditoPessoal()
         ]);
     }
 
     public function veiculoZero()
     {
         return view('sicoob.veiculo_zero', [
-            'menu' => 'sicoob',
+            'menu'   => 'sicoob',
             'banner' => (new BannerModel())->sicoob(),
-            'dado' => (new ParcelaModel())->listarVeiculoZero()
+            'dado'   => (new ParcelaModel())->listarVeiculoZero()
         ]);
     }
 
     public function veiculoSeminovo()
     {
         return view('sicoob.veiculo_seminovo', [
-            'menu' => 'sicoob',
+            'menu'   => 'sicoob',
             'banner' => (new BannerModel())->sicoob(),
-            'dado' => (new ParcelaModel())->listarVeiculoSeminovo()
+            'dado'   => (new ParcelaModel())->listarVeiculoSeminovo()
         ]);
     }
-
 
     public function abrirModalRegulamento($url = null)
     {

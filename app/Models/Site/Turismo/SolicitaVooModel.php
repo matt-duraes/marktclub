@@ -58,7 +58,7 @@ final class SolicitaVooModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return string
      */

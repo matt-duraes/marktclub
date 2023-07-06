@@ -5,7 +5,6 @@ namespace App\Models\Site\Pesquisa;
 use Erro\Excecao;
 use Helpers\ApiHelper;
 use Http\Request;
-use Http\Response;
 
 final class SalvarModel
 {
@@ -30,7 +29,6 @@ final class SalvarModel
         $this->sistema = $request->sistema;
     }
 
-
     /**
      * @return object|array
      * @throws Excecao
@@ -49,18 +47,15 @@ final class SalvarModel
         }
 
         $api->body([
-                'navegar' => $this->navegar,
-                'procura' => $this->procura,
-                'suporte' => $this->suporte,
-                'comentario' => $this->comentario,
-                'atendimento' => $this->atendimento,
-                'sistemas' => json_encode($sistema)
-            ])->post('/enquete/satisfacao')
+            'navegar'     => $this->navegar,
+            'procura'     => $this->procura,
+            'suporte'     => $this->suporte,
+            'comentario'  => $this->comentario,
+            'atendimento' => $this->atendimento,
+            'sistemas'    => json_encode($sistema)
+        ])->post('/enquete/satisfacao')
             ->object();
 
         return mensagemSucesso([], 201);
     }
-
-
-
 }

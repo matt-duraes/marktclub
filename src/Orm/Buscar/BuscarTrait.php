@@ -9,11 +9,11 @@ trait BuscarTrait
     /**
      * Buscar um registro pelo UUID
      *
-     * @param   string|int      $id         ID ou UUID do usuário
-     * @param   bool            $erro       Caso não encontre o resulta, retorna erro 404
-     * @param   null|string     $mensagem   Mensagem em caso de erro
-     * @param   null|string     $titulo     Título em caso de erro
-     * @throws  Erro\Excecao
+     * @param  string|int   $id       ID ou UUID do usuário
+     * @param  bool         $erro     Caso não encontre o resulta, retorna erro 404
+     * @param  null|string  $mensagem Mensagem em caso de erro
+     * @param  null|string  $titulo   Título em caso de erro
+     * @throws Erro\Excecao
      */
     public function uuid(
         string $id,
@@ -53,11 +53,11 @@ trait BuscarTrait
     /**
      * Buscar um registro pelo ID
      *
-     * @param   string|int      $id         ID ou UUID do usuário
-     * @param   bool            $erro       Caso não encontre o resulta, retorna erro 404
-     * @param   null|string     $mensagem   Mensagem em caso de erro
-     * @param   null|string     $titulo     Título em caso de erro
-     * @throws  Erro\Excecao
+     * @param  string|int   $id       ID ou UUID do usuário
+     * @param  bool         $erro     Caso não encontre o resulta, retorna erro 404
+     * @param  null|string  $mensagem Mensagem em caso de erro
+     * @param  null|string  $titulo   Título em caso de erro
+     * @throws Erro\Excecao
      */
     public function id(
         int $id,
@@ -82,12 +82,12 @@ trait BuscarTrait
     /**
      * Buscar um registro pelo UUID ou um slug
      *
-     * @param   int|string      $idSlug     UUID ou slug para a busca
-     * @param   string          $campo      Campo que será usado para a busca no caso do slug
-     * @param   bool            $erro       Caso não encontre o resulta, retorna erro 404
-     * @param   null|string     $mensagem   Mensagem em caso de erro
-     * @param   null|string     $titulo     Título em caso de erro
-     * @throws  Erro\Excecao
+     * @param  int|string   $idSlug   UUID ou slug para a busca
+     * @param  string       $campo    Campo que será usado para a busca no caso do slug
+     * @param  bool         $erro     Caso não encontre o resulta, retorna erro 404
+     * @param  null|string  $mensagem Mensagem em caso de erro
+     * @param  null|string  $titulo   Título em caso de erro
+     * @throws Erro\Excecao
      */
     public function idSlug(
         int|string $idSlug,
@@ -122,11 +122,11 @@ trait BuscarTrait
     /**
      * Faz uma busca pelo where passado
      *
-     * @param array     $where      Where para a busca
-     * @param bool      $erro       Caso não encontre o resulta, retorna erro 404
-     * @param   null|string     $mensagem   Mensagem em caso de erro
-     * @param   null|string     $titulo     Título em caso de erro
-     * @throws  Erro\Excecao
+     * @param  array        $where    Where para a busca
+     * @param  bool         $erro     Caso não encontre o resulta, retorna erro 404
+     * @param  null|string  $mensagem Mensagem em caso de erro
+     * @param  null|string  $titulo   Título em caso de erro
+     * @throws Erro\Excecao
      */
     public function buscar(array $where, $erro = true, ?string $mensagem = null, ?string $titulo = null)
     {
@@ -215,7 +215,7 @@ trait BuscarTrait
     /**
      * Recria um entidade usando um ID ou UUID e cancela o salvar
      *
-     * @param   int|string      $id     ID ou uuid para recriar a entidade
+     * @param int|string $id ID ou uuid para recriar a entidade
      */
     protected function recriarEntity(int|string $id)
     {

@@ -61,6 +61,7 @@ final class EditarModel
         }
         return $parametro;
     }
+
     private function validarRetorno($retorno): void
     {
         if (existeErro($retorno, 'id')) {

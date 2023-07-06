@@ -43,10 +43,7 @@
                 <h1>LOJAS FAVORITAS</h1>
                 <a class="cor_color" href="">Ver todas as lojas</a>
             </header>
-            @php
-                $lista = $loja_nova;
-            @end
-            @view site/geral/parceiroFavorito.view
+            @view site/geral/parceiro_favorito.view
 
         </div>
     </div>

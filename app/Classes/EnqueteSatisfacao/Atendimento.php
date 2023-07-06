@@ -15,9 +15,9 @@ final class Atendimento extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::OTIMO => 'Ótimo',
-            self::BOM    => 'Bom',
-            self::RUIM    => 'Ruim',
+            self::OTIMO      => 'Ótimo',
+            self::BOM        => 'Bom',
+            self::RUIM       => 'Ruim',
             self::PESSIMO    => 'Pessimo'
         ]);
     }

@@ -22,6 +22,7 @@ final class PainelController extends Controller
         $Configuracao = new ConfiguracaoEntity();
         return mensagemSucesso($Configuracao->configuracao);
     }
+
     public function getUploadGrupo(): Response
     {
         $Configuracao = new ConfiguracaoEntity();
@@ -33,6 +34,7 @@ final class PainelController extends Controller
         $Menu = new MenuModel();
         return mensagemSucesso($Menu->listarDados());
     }
+
     public function getCampoObrigatorio(Request $request): Response
     {
         $Configuracao = new ConfiguracaoEntity();
@@ -43,6 +45,7 @@ final class PainelController extends Controller
         }
         return mensagemSucesso($campo);
     }
+
     public function getCampoPermitido(Request $request): Response
     {
         $Configuracao = new ConfiguracaoEntity();
@@ -90,6 +93,7 @@ final class PainelController extends Controller
     {
         return mensagemSucesso(['chave' => TOKEN['app']->chave_publica]);
     }
+
     public function getChavePrivada()
     {
         return mensagemSucesso(['chave' => TOKEN['app']->chave_privada]);

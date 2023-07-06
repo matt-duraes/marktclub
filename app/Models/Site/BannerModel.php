@@ -57,18 +57,19 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' =>'https://clube.marktclub.com.br/images/cinema_banner.jpg',
-                    'link' => 'https://afiliados.easylive.com.br/?aid=5'
+                    'imagem' => 'https://clube.marktclub.com.br/images/cinema_banner.jpg',
+                    'link'   => 'https://afiliados.easylive.com.br/?aid=5'
                 ]
             ],
             'mobile' => [
                 (object) [
-                    'imagem' =>'',
-                    'link' => ''
+                    'imagem' => '',
+                    'link'   => ''
                 ]
             ]
         ];
     }
+
     /**
      * @return object
      */
@@ -131,6 +132,7 @@ final class BannerModel
             ]
         ];
     }
+
     /**
      * @return object
      */
@@ -151,6 +153,7 @@ final class BannerModel
             ]
         ];
     }
+
     /**
      * @return object
      */
@@ -171,6 +174,7 @@ final class BannerModel
             ]
         ];
     }
+
     /**
      * @return object
      */
@@ -214,6 +218,7 @@ final class BannerModel
             ]
         ];
     }
+
     /**
      * @return object
      */

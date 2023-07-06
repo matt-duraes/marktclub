@@ -24,50 +24,52 @@ abstract class PaginaPadraoModel implements PaginaInterface
     /**
      * Cria uma nova sessão
      *
-     * @param   Closure  $funcao  Função com os métodos que deseja executar
-     * @param   string   $local   Local que irá aparecer
-     * @return  self
+     * @param  Closure $funcao Função com os métodos que deseja executar
+     * @param  string  $local  Local que irá aparecer
+     * @return self
      */
     protected function sessao(Closure $funcao, string $local = self::LOCAL_GERAL): self
     {
         $this->validarLocal($local);
         call_user_func($funcao);
         $this->html[] = [
-            'tipo' => 'sessao',
+            'tipo'  => 'sessao',
             'local' => $local,
             'lista' => $this->funcao
         ];
         $this->funcao = [];
         return $this;
     }
+
     /**
      * Cria um lista com logo
      *
-     * @param   Closure  $funcao  Função com os métodos que deseja executar
-     * @param   string   $local   Local que irá aparecer
-     * @return  self
+     * @param  Closure $funcao Função com os métodos que deseja executar
+     * @param  string  $local  Local que irá aparecer
+     * @return self
      */
     protected function listaLogo(Closure $funcao, string $local = self::LOCAL_GERAL): self
     {
         $this->validarLocal($local);
         call_user_func($funcao);
         $this->funcao[] = [
-            'tipo' => 'lista-logo',
+            'tipo'  => 'lista-logo',
             'local' => $local,
             'lista' => $this->listaLogo
         ];
         $this->listaLogo = [];
         return $this;
     }
+
     /**
      * Imagem de logo
      *
-     * @param   string       $imagem  Link da imagem
-     * @param   string|null  $titulo  Título para a imagem
-     * @param   string|null  $link    Link para onde o usuário será enviado
-     * @param   string|null  $target  Target do link
-     * @param   string       $local   Local que irá aparecer
-     * @return  self
+     * @param  string      $imagem Link da imagem
+     * @param  string|null $titulo Título para a imagem
+     * @param  string|null $link   Link para onde o usuário será enviado
+     * @param  string|null $target Target do link
+     * @param  string      $local  Local que irá aparecer
+     * @return self
      */
     protected function logo(
         string $imagem,
@@ -79,8 +81,8 @@ abstract class PaginaPadraoModel implements PaginaInterface
         $this->validarLocal($local);
         $this->validarLink($imagem);
         $dado = [
-            'tipo' => 'logo',
-            'local' => $local,
+            'tipo'   => 'logo',
+            'local'  => $local,
             'imagem' => $imagem
         ];
         if (!empty($titulo)) {
@@ -94,13 +96,14 @@ abstract class PaginaPadraoModel implements PaginaInterface
         $this->listaLogo[] = $dado;
         return $this;
     }
+
     /**
      * Adiciona uma observação
      *
-     * @param   string|null  $titulo  Título da observação
-     * @param   string|null  $texto   Texto da observação
-     * @param   string       $local   Local que irá aparecer
-     * @return  self
+     * @param  string|null $titulo Título da observação
+     * @param  string|null $texto  Texto da observação
+     * @param  string      $local  Local que irá aparecer
+     * @return self
      */
     protected function observacao(string $titulo = null, string $texto = null, string $local = self::LOCAL_GERAL): self
     {
@@ -109,7 +112,7 @@ abstract class PaginaPadraoModel implements PaginaInterface
             mensagemErro('Erro!', 'Você tem que passar um título e/ou texto para a observação.');
         }
         $dado = [
-            'tipo' => 'observacao',
+            'tipo'  => 'observacao',
             'local' => $local,
         ];
         if (!empty($titulo)) {
@@ -125,11 +128,11 @@ abstract class PaginaPadraoModel implements PaginaInterface
     /**
      * Adiciona um banner
      *
-     * @param   string       $imagem  Link da imagem
-     * @param   string|null  $link    Link para onde o usuário será enviado
-     * @param   string|null  $target  Target do link
-     * @param   string       $local   Local que irá aparecer
-     * @return  self
+     * @param  string      $imagem Link da imagem
+     * @param  string|null $link   Link para onde o usuário será enviado
+     * @param  string|null $target Target do link
+     * @param  string      $local  Local que irá aparecer
+     * @return self
      */
     protected function banner(
         string $imagem,
@@ -140,8 +143,8 @@ abstract class PaginaPadraoModel implements PaginaInterface
         $this->validarLocal($local);
         $this->validarLink($imagem);
         $dado = [
-            'tipo' => 'banner',
-            'local' => $local,
+            'tipo'   => 'banner',
+            'local'  => $local,
             'imagem' => $imagem
         ];
 
@@ -153,76 +156,82 @@ abstract class PaginaPadraoModel implements PaginaInterface
         $this->funcao[] = $dado;
         return $this;
     }
+
     /**
      * Adiciona um banner mobile
      *
-     * @param   string       $imagem  Link da imagem
-     * @param   string|null  $link    Link para onde o usuário será enviado
-     * @param   string|null  $target  Target do link
-     * @return  self
+     * @param  string      $imagem Link da imagem
+     * @param  string|null $link   Link para onde o usuário será enviado
+     * @param  string|null $target Target do link
+     * @return self
      */
     protected function bannerMobile(string $imagem, string $link = null, $target = null): self
     {
         $this->banner($imagem, $link, $target, self::LOCAL_MOBILE);
         return $this;
     }
+
     /**
      * Adiciona um banner desktop
      *
-     * @param   string       $imagem  Link da imagem
-     * @param   string|null  $link    Link para onde o usuário será enviado
-     * @param   string|null  $target  Target do link
-     * @return  self
+     * @param  string      $imagem Link da imagem
+     * @param  string|null $link   Link para onde o usuário será enviado
+     * @param  string|null $target Target do link
+     * @return self
      */
     protected function bannerDesktop(string $imagem, string $link = null, $target = null): self
     {
         $this->banner($imagem, $link, $target, self::LOCAL_DESKTOP);
         return $this;
     }
+
     /**
      * Adiciona um título
      *
-     * @param   string  $texto  Texto para o titulo
-     * @param   string  $local  Local que irá aparecer
-     * @return  self
+     * @param  string $texto Texto para o titulo
+     * @param  string $local Local que irá aparecer
+     * @return self
      */
     protected function titulo(string $texto, string $local = self::LOCAL_GERAL): self
     {
         $this->textoGeral('titulo', $texto, $local);
         return $this;
     }
+
     /**
      * Adiciona um subtítulo
      *
-     * @param   string  $texto  Texto para o titulo
-     * @param   string  $local  Local que irá aparecer
-     * @return  self
+     * @param  string $texto Texto para o titulo
+     * @param  string $local Local que irá aparecer
+     * @return self
      */
     protected function subtitulo(string $texto, string $local = self::LOCAL_GERAL): self
     {
         $this->textoGeral('subtitulo', $texto, $local);
         return $this;
     }
+
     /**
      * Adiciona um texto
      *
-     * @param   string  $texto  Texto para o titulo
-     * @param   string  $local  Local que irá aparecer
-     * @return  self
+     * @param  string $texto Texto para o titulo
+     * @param  string $local Local que irá aparecer
+     * @return self
      */
     protected function texto(string $texto, string $local = self::LOCAL_GERAL): self
     {
         $this->textoGeral('texto', $texto, $local);
         return $this;
     }
+
     /**
      * Adiciona um botão normal
      *
-     * @param   string       $texto   Texto do botão
-     * @param   string|null  $link    Link para onde o usuário será enviado
-     * @param   string|null  $target  Target do link
-     * @param   string       $local   Local que irá aparecer
-     * @return  self
+     * @param  string      $texto  Texto do botão
+     * @param  string|null $link   Link para onde o usuário será enviado
+     * @param  string|null $target Target do link
+     * @param  string      $local  Local que irá aparecer
+     * @return self
      */
     protected function botao(
         string $texto,
@@ -233,14 +242,15 @@ abstract class PaginaPadraoModel implements PaginaInterface
         $this->botaoGeral($texto, $link, $target, $local, 'botao');
         return $this;
     }
+
     /**
      * Adiciona um botão de destaque
      *
-     * @param   string       $texto   Texto do botão
-     * @param   string|null  $link    Link para onde o usuário será enviado
-     * @param   string|null  $target  Target do link
-     * @param   string       $local   Local que irá aparecer
-     * @return  self
+     * @param  string      $texto  Texto do botão
+     * @param  string|null $link   Link para onde o usuário será enviado
+     * @param  string|null $target Target do link
+     * @param  string      $local  Local que irá aparecer
+     * @return self
      */
     protected function botaoDestaque(
         string $texto,
@@ -261,7 +271,7 @@ abstract class PaginaPadraoModel implements PaginaInterface
     {
         $this->validarLocal($local);
         $dado = [
-            'tipo' => $tipo,
+            'tipo'  => $tipo,
             'local' => $local,
             'texto' => $texto
         ];
@@ -272,15 +282,17 @@ abstract class PaginaPadraoModel implements PaginaInterface
         }
         $this->funcao[] = $dado;
     }
+
     private function textoGeral($tipo, $texto, $local)
     {
         $this->validarLocal($local);
         $this->funcao[] = [
-            'tipo' => $tipo,
+            'tipo'  => $tipo,
             'local' => $local,
             'texto' => $texto
         ];
     }
+
     private function validarLocal(string $local): void
     {
         if (in_array($local, [self::LOCAL_DESKTOP, self::LOCAL_GERAL, self::LOCAL_MOBILE])) {
@@ -288,6 +300,7 @@ abstract class PaginaPadraoModel implements PaginaInterface
         }
         mensagemErro(titulo: 'Erro!', mensagem: 'Local inválido.');
     }
+
     private function validarLink(string $link): void
     {
         if (validarUrl($link)) {
@@ -295,6 +308,7 @@ abstract class PaginaPadraoModel implements PaginaInterface
         }
         mensagemErro('Erro!', 'A string ' . $link . ' não é um link válido.');
     }
+
     private function pegarTarget(string $target = null)
     {
         return in_array($target, [self::TARGET_BLANK, self::TARGET_SELF]) ? $target : '_self';

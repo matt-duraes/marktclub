@@ -13,7 +13,6 @@ final class IndicacaoModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_USUARIO_INDICACAO;
-
     private int $idEmpresa;
 
     public function __construct(
@@ -49,11 +48,11 @@ final class IndicacaoModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->cod,
-                'nome' => strNull($r->nome),
-                'email' => strEmail($r->email),
+                'id'           => $r->cod,
+                'nome'         => strNull($r->nome),
+                'email'        => strEmail($r->email),
                 'data_criacao' => $r->data_criacao,
-                'status' => $Status->indice($r->status)
+                'status'       => $Status->indice($r->status)
             ];
         }
         return $retorno;

@@ -69,7 +69,7 @@ final class PainelHistoricoController extends Controller implements
     }
 
     /**
-     * @param  string  $id
+     * @param  string   $id
      * @return Response
      * @throws Excecao
      */

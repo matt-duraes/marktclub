@@ -15,6 +15,7 @@ trait CodigoInsertTrait
         $this->verificarSeExisteVoucherLivre();
         $this->setarValoresParaInsert();
     }
+
     private function setarValoresParaInsert()
     {
         $this->id_admin_empresa = $this->Usuario->id_admin_empresa;

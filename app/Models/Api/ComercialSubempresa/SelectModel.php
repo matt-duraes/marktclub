@@ -9,8 +9,8 @@ use App\Classes\ComercialEmpresa\Helper;
 final class SelectModel extends ORM
 {
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
-
     private int $idEmpresa;
+
     public function __construct(
         private ?Request $request = null
     ) {
@@ -30,6 +30,7 @@ final class SelectModel extends ORM
             ['status', 'in', Helper::STATUS_LIBERADO]
         ];
     }
+
     private function pegarEmpresa()
     {
         if (!defined('TOKEN')) {

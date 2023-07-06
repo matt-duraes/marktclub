@@ -78,9 +78,9 @@ class CurlHelper
     /**
      * Valida se existe erro apos executar o CURL
      *
-     * @param  string       $mensagem  Mensagem de erro padrão caso a resposta não tenha
-     * @param  string|null  $titulo    Título de erro padrão caso a resposta não tenha
-     * @param  int|null     $status    Status HTML em caso de erro
+     * @param  string      $mensagem Mensagem de erro padrão caso a resposta não tenha
+     * @param  string|null $titulo   Título de erro padrão caso a resposta não tenha
+     * @param  int|null    $status   Status HTML em caso de erro
      * @return CurlHelper
      */
     public function validar(string $mensagem, string $titulo = null, int $status = null): self
@@ -99,7 +99,7 @@ class CurlHelper
     /**
      * Seta os parâmetros da URL
      *
-     * @param  string|array|null  $parametro  Parâmetro que deve ser enviado
+     * @param  string|array|null       $parametro Parâmetro que deve ser enviado
      * @return CurlHelper|string|array
      */
     public function parametro(string|array $parametro = null): self|string|array
@@ -120,9 +120,9 @@ class CurlHelper
     /**
      * Seta ou pega o body da requisição.
      *
-     * @param  null|string|array  $body  Body que deve ser enviado ou string para pegar um índice ou null para pegar
-     *                                   todos os índices
-     * @param  bool               $merge
+     * @param  null|string|array       $body  Body que deve ser enviado ou string para pegar um índice ou null para pegar
+     *                                        todos os índices
+     * @param  bool                    $merge
      * @return CurlHelper|array|string
      */
     public function body(null|string|array $body = null, bool $merge = true): self|array|string
@@ -143,7 +143,7 @@ class CurlHelper
     /**
      * Envia ou pega o json do body
      *
-     * @param  string|array|null  $json  Json para ser enviado no body
+     * @param  string|array|null       $json Json para ser enviado no body
      * @return CurlHelper|string|array
      */
     public function json(string|array $json = null): self|string|array
@@ -161,7 +161,7 @@ class CurlHelper
     /**
      * Seta os option para o CURL
      *
-     * @param  array  $option  Option do CURL
+     * @param  array      $option Option do CURL
      * @return CurlHelper
      */
     public function option(array $option): self
@@ -184,7 +184,7 @@ class CurlHelper
     /**
      * Envia um ou mais arquivos no body
      *
-     * @param  array  $arquivos  Lista com arquivo para ser feito o upload podendo ser um upload ou arquivo no servidor
+     * @param  array      $arquivos Lista com arquivo para ser feito o upload podendo ser um upload ou arquivo no servidor
      * @return CurlHelper
      */
     public function arquivo(array $arquivos): self
@@ -226,7 +226,7 @@ class CurlHelper
     /**
      * Envia uma requisição POST
      *
-     * @param  string  $url  Url que deve ser enviado a requisição
+     * @param  string     $url Url que deve ser enviado a requisição
      * @return CurlHelper
      * @throws Excecao
      */
@@ -342,12 +342,12 @@ class CurlHelper
         }
 
         $this->requisicao = [
-            'url' => $url,
-            'body' => $body,
+            'url'       => $url,
+            'body'      => $body,
             'parametro' => $parametro,
-            'json' => $json,
-            'header' => $header,
-            'option' => $option,
+            'json'      => $json,
+            'header'    => $header,
+            'option'    => $option,
         ];
 
         $this->parametro = [];
@@ -360,7 +360,7 @@ class CurlHelper
     /**
      * Envia uma requisição GET
      *
-     * @param  string  $url  Url que deve ser enviado a requisição
+     * @param  string     $url Url que deve ser enviado a requisição
      * @return CurlHelper
      * @throws Excecao
      */
@@ -383,7 +383,7 @@ class CurlHelper
     /**
      * Seta o header para a requisição
      *
-     * @param  array|string|null  $header  Dados que devem ser enviado no header
+     * @param  array|string|null       $header Dados que devem ser enviado no header
      * @return CurlHelper|string|array
      */
     public function header(null|array|string $header = null): self|string|array
@@ -402,7 +402,7 @@ class CurlHelper
     /**
      * Envia uma requisição PUT
      *
-     * @param  string  $url  Url que deve ser enviado a requisição
+     * @param  string     $url Url que deve ser enviado a requisição
      * @return CurlHelper
      * @throws Excecao
      */
@@ -420,7 +420,7 @@ class CurlHelper
     /**
      * Envia uma requisição DELETE
      *
-     * @param  string  $url  Url que deve ser enviado a requisição
+     * @param  string     $url Url que deve ser enviado a requisição
      * @return CurlHelper
      * @throws Excecao
      */
@@ -433,7 +433,7 @@ class CurlHelper
     /**
      * Envia uma requisição PATCH
      *
-     * @param  string  $url  Url que deve ser enviado a requisição
+     * @param  string     $url Url que deve ser enviado a requisição
      * @return CurlHelper
      * @throws Excecao
      */
@@ -506,12 +506,12 @@ class CurlHelper
     {
         return [
             'requisicao' => $this->requisicao,
-            'retorno' => [
-                'valor' => $this->retornoValor,
-                'erro' => $this->retornoErro,
+            'retorno'    => [
+                'valor'  => $this->retornoValor,
+                'erro'   => $this->retornoErro,
                 'status' => $this->retornoStatus,
                 'header' => $this->retornoHeader,
-                'info' => $this->retornoInfo
+                'info'   => $this->retornoInfo
             ]
         ];
     }

@@ -24,5 +24,4 @@ final class ListarModel extends ApiHelper implements ListarInterface
 
         return $this->montarRetorno($dado);
     }
-
 }

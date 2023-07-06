@@ -60,7 +60,7 @@ final class ArquivoModel extends ORM
     }
 
     /**
-     * @param $dado
+     * @param        $dado
      * @return array
      */
     private function montarDado($dado): array
@@ -69,7 +69,7 @@ final class ArquivoModel extends ORM
         $Perfil = new PerfilModel();
         foreach ($dado as $r) {
             $lista[] = (object)[
-                'id' => $r->uuid,
+                'id'     => $r->uuid,
                 'equipe' => $Perfil->montarUsuario(
                     $r->usuario_uuid,
                     $r->usuario_nome_perfil,
@@ -79,13 +79,13 @@ final class ArquivoModel extends ORM
                     $r->usuario_imagem_google,
                     $r->usuario_imagem_arquivo
                 ),
-                'nome' => $r->nome,
+                'nome'     => $r->nome,
                 'extensao' => $r->extensao,
-                'tamanho' => !empty($r->tamanho) ? $r->tamanho : '',
-                'largura' => !empty($r->largura) ? $r->largura : '',
-                'altura' => !empty($r->altura) ? $r->altura : '',
-                'arquivo' => arquivoPrivado($r->uuid),
-                'data' => $r->data_criacao
+                'tamanho'  => !empty($r->tamanho) ? $r->tamanho : '',
+                'largura'  => !empty($r->largura) ? $r->largura : '',
+                'altura'   => !empty($r->altura) ? $r->altura : '',
+                'arquivo'  => arquivoPrivado($r->uuid),
+                'data'     => $r->data_criacao
             ];
         }
         return $lista;

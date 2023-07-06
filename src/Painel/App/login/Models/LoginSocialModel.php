@@ -4,7 +4,6 @@ namespace PainelApp\login\Models;
 
 use stdClass;
 use Helpers\SocialHelper;
-use PainelApp\login\Models\LoginInterface;
 use PainelApp\login\Models\Trait\ChaveTrait;
 use PainelApp\login\Models\Trait\TokenTrait;
 use PainelApp\login\Models\Trait\RequisicaoTrait;
@@ -41,15 +40,16 @@ final class LoginSocialModel implements LoginInterface
             code: $this->code
         ))->uuid();
     }
+
     private function montarBodyDaRequisicao()
     {
         $this->body = criptografarDado(
             dado: [
-                $this->rede => $this->redeSocialId,
-                'scope' => '',
-                'audience' => env('API_AUDIENCE', ''),
+                $this->rede    => $this->redeSocialId,
+                'scope'        => '',
+                'audience'     => env('API_AUDIENCE', ''),
                 'redirect_uri' => env('API_REDIRECT_URI', ''),
-                'state' => uuid()
+                'state'        => uuid()
             ],
             criptografia: ['login', 'senha'],
             chave: $this->chavePublica

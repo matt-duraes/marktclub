@@ -11,8 +11,8 @@ trait DeleteTrait
     /**
      * Método que manda o ORM deletar o registro
      *
-     * @return bool             Retorna true em caso de sucesso
-     * @throws \Erro\Excecao    Retorna uma Exceção em caso de erro
+     * @return bool          Retorna true em caso de sucesso
+     * @throws \Erro\Excecao Retorna uma Exceção em caso de erro
      */
     protected function delete(): bool
     {

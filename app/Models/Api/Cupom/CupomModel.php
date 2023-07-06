@@ -2,21 +2,14 @@
 
 namespace App\Models\Api\Cupom;
 
-use App\Classes\Cupom\Ordem;
-use App\Classes\Cupom\Status;
-use App\Classes\Cupom\Tipo;
 use Erro\Excecao;
 use Http\Request;
-use Modules\Data;
 use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use App\Helpers\CupomHelper;
 
 class CupomModel extends ORM
 {
     protected string $ormTabela = TABELA_CUPOM_BLOQUEIO;
-
     public string $idEmpresa;
 
     /**
@@ -29,7 +22,7 @@ class CupomModel extends ORM
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return array
      * @throws Excecao
@@ -37,8 +30,7 @@ class CupomModel extends ORM
     public function listarDados(Request $request): array
     {
         $CupomHelper = new CupomHelper($request);
-        $dado  = $CupomHelper->listar();
-
+        $dado = $CupomHelper->listar();
 
         if (!$dado) {
             return [];
@@ -48,13 +40,12 @@ class CupomModel extends ORM
     }
 
     /**
-     * @param string  $id
+     * @param  string  $id
      * @return array
      * @throws Excecao
      */
     public function buscarDados($id): array
     {
-
         $dado = (new CupomHelper())->buscar($id);
 
         if (!is_array($dado) || !isset($dado['id'])) {
@@ -75,15 +66,13 @@ class CupomModel extends ORM
         return $dado;
     }
 
-
     /**
-     * @param  array  $dados
+     * @param array $dados
      *
      * @return array
      */
     protected function montarRetorno(array $lista): array
     {
-
         $blackList = $this->listarBloqueado();
 
         $parceiroBloqueado = [
@@ -119,7 +108,6 @@ class CupomModel extends ORM
         return $retorno;
     }
 
-
     public function listarBloqueado(): array
     {
         $bloqueado = $this
@@ -134,14 +122,13 @@ class CupomModel extends ORM
             }
         }
         return $array;
-
     }
 
     public function validarLista($tipo, $busca): bool
     {
         if ($tipo == 'link') {
             $tipo = 2;
-        } elseif($tipo == 'cupom') {
+        } elseif ($tipo == 'cupom') {
             $tipo = 1;
         }
 
@@ -149,6 +136,5 @@ class CupomModel extends ORM
             ['tipo', $tipo],
             ['valor', $busca]
         ]);
-
     }
 }

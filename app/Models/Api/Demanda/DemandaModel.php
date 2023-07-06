@@ -121,19 +121,19 @@ final class DemandaModel extends ORM
             }
 
             $retorno[$r->id] = [
-                'id' => $r->uuid,
-                'dono' => $dono,
-                'empresa' => $this->pegarEmpresa($r->id_admin_empresa),
-                'equipe' => !empty($equipe->id) ? [$equipe] : [],
-                'area' => !empty($tarefaTipo) ? [$tarefaTipo] : [],
-                'titulo' => $r->titulo,
-                'tipo' => (new Tipo($r->tipo))->indice(),
-                'tarefa_total' => !empty($r->tarefa_id) ? 1 : 0,
+                'id'               => $r->uuid,
+                'dono'             => $dono,
+                'empresa'          => $this->pegarEmpresa($r->id_admin_empresa),
+                'equipe'           => !empty($equipe->id) ? [$equipe] : [],
+                'area'             => !empty($tarefaTipo) ? [$tarefaTipo] : [],
+                'titulo'           => $r->titulo,
+                'tipo'             => (new Tipo($r->tipo))->indice(),
+                'tarefa_total'     => !empty($r->tarefa_id) ? 1 : 0,
                 'tarefa_andamento' => !empty($r->tarefa_status) && $r->tarefa_status == 2 ? 1 : 0,
                 'tarefa_concluida' => !empty($r->tarefa_status) && $r->tarefa_status == 3 ? 1 : 0,
-                'data_criacao' => $r->data_criacao,
-                'data_entrega' => $r->com_prazo == 1 ? $r->data_entrega : '',
-                'status' => (new Status($r->status))->indice()
+                'data_criacao'     => $r->data_criacao,
+                'data_entrega'     => $r->com_prazo == 1 ? $r->data_entrega : '',
+                'status'           => (new Status($r->status))->indice()
             ];
         }
 

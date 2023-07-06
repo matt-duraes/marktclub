@@ -26,7 +26,6 @@ final class LoginModel extends Entity
     use TermoLgpdTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private string $linkClube;
     private ?string $idUsuario = null;
     private ?int $statusUsuario = null;
@@ -35,8 +34,8 @@ final class LoginModel extends Entity
     private array $dadoUsuario;
 
     /**
-     * @param  array     $request
-     * @param  int|null  $idEmpresa
+     * @param array    $request
+     * @param int|null $idEmpresa
      *
      * @throws Excecao
      */
@@ -69,7 +68,6 @@ final class LoginModel extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function verificarCamposObrigatorio(): void
@@ -89,7 +87,6 @@ final class LoginModel extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

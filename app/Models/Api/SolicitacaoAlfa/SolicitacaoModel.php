@@ -10,7 +10,7 @@ class SolicitacaoModel extends ORM
     protected string $ormTabela = TABELA_SOLICITACAO_ALFA;
 
     /**
-     * @param  string  $codigo
+     * @param string $codigo
      *
      * @return bool
      * @throws Excecao

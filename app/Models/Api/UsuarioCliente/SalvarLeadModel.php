@@ -10,8 +10,8 @@ final class SalvarLeadModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct()
     {
         parent::__construct();
@@ -23,8 +23,8 @@ final class SalvarLeadModel extends ORM
         $cpf = $dado['documento'];
         if (
             $this->existe([
-            ['documento', $cpf],
-            ['empresa', $this->idEmpresa]
+                ['documento', $cpf],
+                ['empresa', $this->idEmpresa]
             ])
         ) {
             return false;
@@ -42,11 +42,11 @@ final class SalvarLeadModel extends ORM
 
         $dado += [
             'usuario_lead' => 1,
-            'cod' => uuid(),
-            'empresa' => $this->idEmpresa,
-            'titular' => null,
-            'tipo' => 1,
-            'status' => 2
+            'cod'          => uuid(),
+            'empresa'      => $this->idEmpresa,
+            'titular'      => null,
+            'tipo'         => 1,
+            'status'       => 2
         ];
 
         $salvar = $this->dado($dado)->insert();
@@ -54,6 +54,7 @@ final class SalvarLeadModel extends ORM
             mensagemErro('Erro!', 'O Status foi alterado mas ouve um erro ao salvar usuário.');
         }
     }
+
     private function removerEmailJaExiste($email)
     {
         return $this->existe([

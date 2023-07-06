@@ -12,7 +12,6 @@ use App\Classes\UsuarioPagamento\Status;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 use App\Models\Api\UsuarioPagamento\PagamentoEntity;
@@ -25,7 +24,6 @@ final class UsuarioPagamentoController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-
         $Pagamento = new PagamentoModel($request);
         $dado = $Pagamento->listarDados();
 
@@ -56,9 +54,9 @@ final class UsuarioPagamentoController extends Controller implements
         $Pagamento->salvar();
 
         return mensagemSucesso([
-            'id' => $Pagamento->id,
+            'id'    => $Pagamento->id,
             'valor' => $Pagamento->valor_debito->decimal(),
-            'data' => $Pagamento->data_cobranca->date()
+            'data'  => $Pagamento->data_cobranca->date()
         ], status: 201);
     }
 

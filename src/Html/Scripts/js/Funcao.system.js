@@ -13,96 +13,73 @@ const base64Encode = string => {
 const base64Decode = string => {
     return window.atob(string);
 };
-// Get Elementos
-const echo = dado => {
-    console.log(dado);
-};
-const el = function (nome, pai) {
-    if (typeof pai == 'object') {
-        return pai.querySelector(nome);
-    } else if (typeof pai == 'string') {
-        pai = document.querySelector(pai);
-        if (pai) {
-            return pai.querySelector(nome);
-        }
-        return null;
-    } else {
-        return document.querySelector(nome);
-    }
-};
-const pegarId = function (id) {
-    return document.getElementById(id.replace(/^\#/, ''));
-};
-const pegarClasse = function (classe, pai) {
-    if (typeof pai == 'object') {
-        return pai.getElementsByClassName(classe);
-    } else if (typeof pai == 'string') {
-        pai = document.querySelector(pai);
-        if (pai) {
-            return pai.getElementsByClassName(classe);
-        }
-        return null;
-    } else {
-        return document.getElementsByClassName(classe);
-    }
-};
-const pegarTag = function (tag, pai) {
-    if (typeof pai == 'object') {
-        return pai.getElementsByTagName(tag);
-    } else if (typeof pai == 'string') {
-        pai = document.querySelector(pai);
-        if (pai) {
-            return pai.getElementsByTagName(tag);
-        }
-        return null;
-    } else {
-        return document.getElementsByTagName(tag);
-    }
-};
-const pegarTodos = (elemento, pai) => {
-    if (typeof pai == 'object') {
-        return pai.querySelectorAll(elemento);
-    } else if (typeof pai == 'string') {
-        pai = document.querySelector(pai);
-        if (pai) {
-            return pai.querySelectorAll(elemento);
-        }
-        return null;
-    } else {
-        return document.querySelectorAll(elemento);
-    }
-};
-const attr = (elemento, attr, valor) => {
-    if (valor == undefined) {
-        return elemento.getAttribute(attr);
-    }
-    return elemento.setAttribute(attr, valor);
-};
 
-const contar = (elemento, pai) => {
-    return getAll(elemento, pai).length;
+ajaxGet = async (link, body, erro, opcao) => {
+    return await ajax(link, 'GET', body, erro, opcao);
 };
+ajaxPost = async (link, body, erro, opcao) => {
+    return await ajax(link, 'POST', body, erro, opcao);
+};
+ajaxPut = async (link, body, erro, opcao) => {
+    return await ajax(link, 'PUT', body, erro, opcao);
+};
+ajaxDelete = async (link, body, erro, opcao) => {
+    return await ajax(link, 'DELETE', body, erro, opcao);
+};
+ajax = async (link, metodo, body, erro, opcao) => {
+    if (opcao == undefined || !opcao instanceof Object) {
+        opcao = {};
+    }
 
-const _arrayCompare = function (a1, a2) {
-    if (a1.length != a2.length) return false;
-    let tamanho = a2.length;
-    let i;
-    for (i = 0; i < tamanho; i++) {
-        if (a1[i] !== a2[i]) return false;
+    if (body != undefined && body instanceof Object && metodo == 'POST') {
+        const dado = new FormData();
+        Object.entries(body).forEach(valores => {
+            const [indice, valor] = valores;
+            dado.append(indice, valor);
+        });
+        opcao.body = dado;
+    } else if (body != undefined && body instanceof Object && (metodo == 'GET' || metodo == 'PUT')) {
+        let lista = [];
+        Object.entries(body).forEach(valores => {
+            const [indice, valor] = valores;
+            lista.push(indice + '=' + encodeURI(valor));
+        });
+        lista = lista.split('&');
+        link = link.includes('?') ? link + '&' + lista : link + '?' + lista;
     }
-    return true;
-};
-const inArray = function (valor, array) {
-    let tamanho = array.length;
-    let i;
-    for (i = 0; i < tamanho; i++) {
-        if (typeof array[i] == 'object') {
-            if (_arrayCompare(array[i], valor)) return true;
-        } else {
-            if (array[i] == valor) return true;
+    opcao.method = metodo;
+
+    const resposta = await fetch(link, opcao);
+    const status = resposta.status;
+    if (status == 204) {
+        return true;
+    }
+    const mensagemErro = erro == undefined ? 'Erro a fazer a requisição, por favor, tente novamente.' : erro;
+    let json;
+    try {
+        json = await resposta.json();
+    } catch (e) {
+        if (mensagemErro != '') {
+            Alerta.notificacao(mensagemErro, false);
         }
+        return false;
     }
-    return false;
+    if (!(json instanceof Object) || json.status == undefined) {
+        if (mensagemErro != '') {
+            Alerta.notificacao(mensagemErro, false);
+        }
+        return false;
+    } else if (json.status != 'sucesso') {
+        if (typeof erro === 'string' && erro == '') {
+            return false;
+        }
+        Alerta.notificacao(
+            json.erro != undefined && json.erro.mensagem != undefined ? json.erro.mensagem : mensagemErro,
+            false
+        );
+        return false;
+    }
+    return json;
 };
 
 /*
@@ -301,7 +278,7 @@ const uuid = function () {
     });
 };
 
-const aleatorioNumero = function (max) {
+const numeroAleatorio = function (max) {
     return Math.floor(Math.random() * max + 1);
 };
 
@@ -352,42 +329,4 @@ const respostaJson = (resposta, mensagem) => {
         }
         return resolve(false);
     });
-};
-
-const adicionarHtml = (elemento, valor, local = 'comeco') => {
-    if (local == 'comeco') {
-        return elemento.insertAdjacentHTML('afterbegin', valor);
-    }
-    return elemento.insertAdjacentHTML('beforeend', valor);
-};
-
-const removerElemento = elemento => {
-    return elemento.parentNode.removeChild(elemento);
-};
-
-/**
- * Adiciona uma classe ao elemento
- *
- * @param   {Element}           elemento    Elemento que deseja adicionar a classe
- * @param   {string}            classe      Classe que deseja adicionar
- * @returns {(Element|null)}                Retorna um objeto de elemento ou null caso o elemento não exista
- */
-const addClasse = (elemento, classe) => {
-    return elemento.classList.add(classe);
-};
-const alterarClasse = (elemento, classe) => {
-    return elemento.classList.toggle(classe);
-};
-const removerClasse = (elemento, classe) => {
-    return elemento.classList.remove(classe);
-};
-const classeExiste = (elemento, classe) => {
-    return elemento.classList.contains(classe);
-};
-
-const pp = erro => {
-    console.log(erro);
-};
-const ppe = erro => {
-    console.log(erro);
 };

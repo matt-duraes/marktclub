@@ -67,7 +67,7 @@ class Amil extends AbstractOperadora
     }
 
     /**
-     * @param  Data|null  $dataNascimento  Data de Nascimento (opcional)
+     * @param Data|null $dataNascimento Data de Nascimento (opcional)
      *
      * @return float|null Valor da simulação, NULL caso error ao simular
      */

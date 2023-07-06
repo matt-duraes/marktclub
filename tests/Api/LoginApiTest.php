@@ -2,7 +2,6 @@
 
 namespace Tests\Api;
 
-use stdClass;
 use Tests\Tests;
 use App\Classes\UsuarioCliente\Helper;
 
@@ -11,6 +10,7 @@ final class LoginApiTest extends Tests
     private string $cpf;
     private array $usuario;
     private array $bodySalvar;
+
     public function __construct()
     {
         parent::__construct();
@@ -34,9 +34,9 @@ final class LoginApiTest extends Tests
         $this
             ->Curl
             ->body([
-                'nome' => $this->cryptEncode($this->nomeCompleto()),
+                'nome'          => $this->cryptEncode($this->nomeCompleto()),
                 'email_pessoal' => $this->cryptEncode($this->email()),
-                'cpf' => $this->cryptEncode($this->cpf)
+                'cpf'           => $this->cryptEncode($this->cpf)
             ])
             ->post('/login/api');
         return $this->loginOk();
@@ -50,7 +50,7 @@ final class LoginApiTest extends Tests
             ->Curl
             ->json([
                 'pagina' => 1,
-                'cpf' => $this->cryptEncode($this->cpf)
+                'cpf'    => $this->cryptEncode($this->cpf)
             ])
             ->get('/usuario-cliente');
 
@@ -72,9 +72,9 @@ final class LoginApiTest extends Tests
         $this
             ->Curl
             ->body([
-                'nome' => $this->cryptEncode($this->nomeCompleto()),
+                'nome'          => $this->cryptEncode($this->nomeCompleto()),
                 'email_pessoal' => $this->cryptEncode($this->email()),
-                'cpf' => $this->cpf
+                'cpf'           => $this->cpf
             ])
             ->post('/login/api');
 
@@ -100,21 +100,21 @@ final class LoginApiTest extends Tests
         $estado = $this->estado();
         $this->cpf = $this->cpf();
         $completo = [
-            'nome' => $this->nomeCompleto(),
-            'cpf' => $this->cpf,
-            'matricula' => $this->numero(100000, 999999),
-            'siape' => $this->numero(100000, 999999),
-            'genero' => $this->genero(),
-            'data_nascimento' => $this->dataPassada(),
-            'email_trabalho' => $this->email(),
-            'email_pessoal' => $this->email(),
+            'nome'              => $this->nomeCompleto(),
+            'cpf'               => $this->cpf,
+            'matricula'         => $this->numero(100000, 999999),
+            'siape'             => $this->numero(100000, 999999),
+            'genero'            => $this->genero(),
+            'data_nascimento'   => $this->dataPassada(),
+            'email_trabalho'    => $this->email(),
+            'email_pessoal'     => $this->email(),
             'telefone_trabalho' => $this->telefoneFixo(),
-            'telefone_pessoal' => $this->telefoneCelular(),
-            'estado_civil' => $this->estadoCivil(),
-            'endereco_estado' => $estado,
-            'endereco_cidade' => $this->cidade($estado),
-            'grupo' => 'teste-01',
-            'salavip' => 2
+            'telefone_pessoal'  => $this->telefoneCelular(),
+            'estado_civil'      => $this->estadoCivil(),
+            'endereco_estado'   => $estado,
+            'endereco_cidade'   => $this->cidade($estado),
+            'grupo'             => 'teste-01',
+            'salavip'           => 2
         ];
 
         return $this->cryptEncode($completo, Helper::CRIPTOGRAFAR);

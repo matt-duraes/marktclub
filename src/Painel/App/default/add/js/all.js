@@ -2,4 +2,4 @@
 // @system "Form"
 // @system "Galeria"
 // @system "Mascara"
-// @resource "painel/app_geral_add"
+// @painel "app_geral_add"

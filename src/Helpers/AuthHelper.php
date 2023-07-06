@@ -9,8 +9,8 @@ final class AuthHelper
     /**
      * Validar se usuário está logado
      *
-     * @param  string|null  $local     Qual o local está, por exemplo: site, painel, etc
-     * @param  bool         $location  Se vai salvar a URL para usar no location
+     * @param string|null $local    Qual o local está, por exemplo: site, painel, etc
+     * @param bool        $location Se vai salvar a URL para usar no location
      *
      * @throws Excecao
      */
@@ -45,9 +45,9 @@ final class AuthHelper
     /**
      * Retorna o link para o location após o login
      *
-     * @param  string|null  $local  Qual o local está, por exemplo: site, painel, etc
-     * @param  string|null  $link   Para qual link deve ser redirecionado, caso exista um link de redirecionamento,
-     *                              será ignorado
+     * @param string|null $local Qual o local está, por exemplo: site, painel, etc
+     * @param string|null $link  Para qual link deve ser redirecionado, caso exista um link de redirecionamento,
+     *                           será ignorado
      *
      * @return mixed
      * @throws Excecao
@@ -72,8 +72,8 @@ final class AuthHelper
     /**
      * Gera a auth do usuário
      *
-     * @param  array        $usuario  Array com os dados do usuário
-     * @param  string|null  $local    Qual o local está, por exemplo: site, painel, etc
+     * @param array       $usuario Array com os dados do usuário
+     * @param string|null $local   Qual o local está, por exemplo: site, painel, etc
      *
      * @return bool
      * @throws Excecao

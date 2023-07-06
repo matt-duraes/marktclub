@@ -28,7 +28,7 @@ final class TrabalhoModel extends ORM
             $minuto = dataDiferencaMinuto($r->data_criacao, $r->data_trabalho);
             $this->dado([
                 'minuto_trabalhado' => $minuto,
-                'status' => 2
+                'status'            => 2
             ])->where(['id', $r->id])->update();
         }
     }

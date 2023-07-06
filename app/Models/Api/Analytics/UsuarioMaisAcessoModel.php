@@ -44,7 +44,7 @@ final class UsuarioMaisAcessoModel extends ORM
             if (!array_key_exists($r->id_usuario_cliente, $dado)) {
                 $dado[$r->id_usuario_cliente] = object([
                     'usuario_nome' => $r->usuario_nome,
-                    'quantidade' => 0,
+                    'quantidade'   => 0,
                 ]);
             }
             $dado[$r->id_usuario_cliente]->quantidade += $r->quantidade;
@@ -63,8 +63,8 @@ final class UsuarioMaisAcessoModel extends ORM
         $i = 1;
         foreach ($dado as $r) {
             $retorno[] = [
-                'usuario' => $r->usuario_nome,
-                'total' => $r->quantidade,
+                'usuario'     => $r->usuario_nome,
+                'total'       => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
             if ($i >= 20) {

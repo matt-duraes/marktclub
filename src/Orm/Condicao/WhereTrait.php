@@ -5,10 +5,10 @@ namespace ORM\Condicao;
 trait WhereTrait
 {
     /**
-     * @param   array       $where          Where em formato array ['campo', '=', 'valor']
-     * @param   bool        $obrigatorio    Se será obrigatório passar um where
-     * @param   string      $separador      Separador dos campos pondendo ser AND ou OR
-     * @param   null|array  $replace        Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
+     * @param array      $where       Where em formato array ['campo', '=', 'valor']
+     * @param bool       $obrigatorio Se será obrigatório passar um where
+     * @param string     $separador   Separador dos campos pondendo ser AND ou OR
+     * @param null|array $replace     Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
      */
     protected function where(array $where, bool $obrigatorio = true, string $separador = 'AND', ?array $replace = null)
     {

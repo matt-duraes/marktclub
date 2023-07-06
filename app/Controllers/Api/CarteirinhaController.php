@@ -2,14 +2,12 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Carteirinha\Helper;
 use App\Controllers\Api\Trait\ClienteTrait;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
 use System\Interface\ControllerBuscarInterface;
 use App\Models\Api\Carteirinha\CarteiraModel;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 class CarteirinhaController extends Controller implements
     ControllerBuscarInterface
@@ -17,12 +15,11 @@ class CarteirinhaController extends Controller implements
     use ClienteTrait;
 
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
      */
-
     public function getBuscar(string $id): Response
     {
         if (empty($id)) {
@@ -34,8 +31,5 @@ class CarteirinhaController extends Controller implements
         $Carteira = (new CarteiraModel($ClienteEntity))->pegarCarteirinha();
 
         return mensagemSucesso($Carteira);
-
     }
-
-
 }

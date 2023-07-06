@@ -12,6 +12,7 @@ final class PaginaController extends Controller
     {
         return mensagemSucesso((new TurismoModel())->pegarHtml());
     }
+
     public function getCinema()
     {
         return mensagemSucesso((new CinemaModel())->pegarHtml());

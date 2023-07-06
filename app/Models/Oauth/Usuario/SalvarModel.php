@@ -9,7 +9,6 @@ use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 final class SalvarModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idUsuario = 0;
     private string $emailUsuario;
     private string $linkClube;
@@ -55,12 +54,12 @@ final class SalvarModel extends ORM
         $agora = agora();
         $hoje = hoje();
         $dado = [
-            'nome' => $this->nome,
-            'grupo' => $this->grupo,
-            'hash' => $this->hash,
-            'hash_data' => agora(),
+            'nome'             => $this->nome,
+            'grupo'            => $this->grupo,
+            'hash'             => $this->hash,
+            'hash_data'        => agora(),
             'data_atualizacao' => $agora,
-            'status' => 1
+            'status'           => 1
         ];
 
         $email = strCaixaBaixa($this->email);
@@ -74,32 +73,34 @@ final class SalvarModel extends ORM
             mensagemStatus(401, localhost: 'Não foi possível atualizar usuário.');
         }
     }
+
     private function salvarUsuario()
     {
         $agora = agora();
         $hoje = hoje();
         $dado = $this->dado([
-            'cod' => uuid(),
-            'tipo' => 1,
-            'empresa' => $this->empresa,
-            'nome' => $this->nome,
-            'documento' => (int)soNumero($this->cpf),
-            'email_pessoal' => strCaixaBaixa($this->email),
-            'nome' => $this->nome,
-            'grupo' => strCaixaBaixa($this->grupo),
-            'data_criacao' => $agora,
+            'cod'              => uuid(),
+            'tipo'             => 1,
+            'empresa'          => $this->empresa,
+            'nome'             => $this->nome,
+            'documento'        => (int)soNumero($this->cpf),
+            'email_pessoal'    => strCaixaBaixa($this->email),
+            'nome'             => $this->nome,
+            'grupo'            => strCaixaBaixa($this->grupo),
+            'data_criacao'     => $agora,
             'data_atualizacao' => $agora,
-            'data_email' => $hoje,
-            'data_ativacao' => $agora,
-            'data_dado' => $hoje,
-            'hash' => $this->hash,
-            'hash_data' => $agora,
-            'status' => 1
+            'data_email'       => $hoje,
+            'data_ativacao'    => $agora,
+            'data_dado'        => $hoje,
+            'hash'             => $this->hash,
+            'hash_data'        => $agora,
+            'status'           => 1
         ])->insert();
         if (!$dado) {
             mensagemStatus(401, localhost: 'Não foi possível salvar usuário.');
         }
     }
+
     private function pegarLinkClube()
     {
         $Construtor = new ConstrutorEntity();
@@ -113,7 +114,7 @@ final class SalvarModel extends ORM
     /**
      * Pega o link para fazer login
      *
-     * @return  string
+     * @return string
      */
     public function pegarLink(): string
     {

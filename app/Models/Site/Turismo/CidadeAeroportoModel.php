@@ -31,7 +31,7 @@ final class CidadeAeroportoModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return array
      */

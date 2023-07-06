@@ -26,7 +26,7 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @throws Excecao
      */
@@ -39,7 +39,6 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void
@@ -118,7 +117,7 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     }
 
     /**
-     * @param  array  $dados
+     * @param array $dados
      *
      * @return array
      */

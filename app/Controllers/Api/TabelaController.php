@@ -22,7 +22,7 @@ final class TabelaController extends Controller implements
 
         return mensagemSucesso([
             'retorno' => $retorno,
-            'tipo' => 'salvar'
+            'tipo'    => 'salvar'
         ], status: 201);
     }
 
@@ -38,7 +38,7 @@ final class TabelaController extends Controller implements
 
         return mensagemSucesso([
             'retorno' => $retorno,
-            'tipo' => 'bloquear'
+            'tipo'    => 'bloquear'
         ], status: 201);
     }
 }

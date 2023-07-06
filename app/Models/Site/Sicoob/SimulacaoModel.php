@@ -5,7 +5,6 @@ namespace App\Models\Site\Sicoob;
 use Erro\Excecao;
 use Helpers\ApiHelper;
 use Http\Request;
-use Http\Response;
 
 final class SimulacaoModel
 {
@@ -24,7 +23,6 @@ final class SimulacaoModel
         $this->prazo = $request->prazo;
     }
 
-
     /**
      * @return object|array
      * @throws Excecao
@@ -34,11 +32,11 @@ final class SimulacaoModel
         $api = new ApiHelper('solicitacao_credito:simular');
 
         $dado = $api->validar('Página não encontrada!', status: 404)->parametro([
-                'operadora' => 1,
-                'tipo' => $this->tipo,
-                'valor' => $this->valor,
-                'parcelas' => $this->prazo,
-            ])->get('/solicitar-credito')
+            'operadora' => 1,
+            'tipo'      => $this->tipo,
+            'valor'     => $this->valor,
+            'parcelas'  => $this->prazo,
+        ])->get('/solicitar-credito')
             ->object();
 
         return mensagemSucesso([
@@ -47,7 +45,7 @@ final class SimulacaoModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return object|array
      * @throws Excecao
@@ -57,14 +55,13 @@ final class SimulacaoModel
         $retorno = [];
         if ($dado) {
             $retorno = (object)[
-                'valor' => $dado->valor,
-                'parcelas' => $dado->parcelas,
+                'valor'          => $dado->valor,
+                'parcelas'       => $dado->parcelas,
                 'valor_parcelas' => $dado->valor_parcelas,
-                'tipo' => $dado->tipo
+                'tipo'           => $dado->tipo
             ];
         }
 
         return $retorno;
     }
-
 }

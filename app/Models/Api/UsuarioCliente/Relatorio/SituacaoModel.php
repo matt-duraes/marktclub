@@ -7,13 +7,14 @@ use ORM\ORM;
 final class SituacaoModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct()
     {
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
         parent::__construct();
     }
+
     public function pegarRelatorio()
     {
         $where = [
@@ -46,46 +47,46 @@ final class SituacaoModel extends ORM
         $lista = [];
         if ($dado->ativo > 0) {
             $lista[] = [
-                'situacao' => 'Ativo',
-                'total' => $dado->ativo,
+                'situacao'    => 'Ativo',
+                'total'       => $dado->ativo,
                 'porcentagem' => $dado->ativo == 0 ? 0 : number_format(($dado->ativo * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->aposentado > 0) {
             $lista[] = [
-                'situacao' => 'Aposentado',
-                'total' => $dado->aposentado,
+                'situacao'    => 'Aposentado',
+                'total'       => $dado->aposentado,
                 'porcentagem' => $dado->aposentado == 0 ? 0
                     : number_format(($dado->aposentado * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->pensionista > 0) {
             $lista[] = [
-                'situacao' => 'Pensionista',
-                'total' => $dado->pensionista,
+                'situacao'    => 'Pensionista',
+                'total'       => $dado->pensionista,
                 'porcentagem' => $dado->pensionista == 0 ? 0
                     : number_format(($dado->pensionista * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->cedido > 0) {
             $lista[] = [
-                'situacao' => 'Cedido',
-                'total' => $dado->cedido,
+                'situacao'    => 'Cedido',
+                'total'       => $dado->cedido,
                 'porcentagem' => $dado->cedido == 0 ? 0 : number_format(($dado->cedido * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->excedente > 0) {
             $lista[] = [
-                'situacao' => 'Excedente',
-                'total' => $dado->excedente,
+                'situacao'    => 'Excedente',
+                'total'       => $dado->excedente,
                 'porcentagem' => $dado->excedente == 0 ? 0
                     : number_format(($dado->excedente * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->sem_dado > 0) {
             $lista[] = [
-                'situacao' => 'Sem dado',
-                'total' => $dado->sem_dado,
+                'situacao'    => 'Sem dado',
+                'total'       => $dado->sem_dado,
                 'porcentagem' => $dado->sem_dado == 0 ? 0
                     : number_format(($dado->sem_dado * 100) / $dado->total, 2, '.'),
             ];

@@ -24,7 +24,7 @@ final class AppController extends PadraoController
 
         $pesquisa = $request->existe('pesquisa')
             && !$request->vazio('pesquisa') ? base64Decode($request->pesquisa) : '';
-        $filtro = $request->existe('filtro')  && !$request->vazio('filtro') ? base64Decode($request->filtro) : [];
+        $filtro = $request->existe('filtro') && !$request->vazio('filtro') ? base64Decode($request->filtro) : [];
         $ordem = $request->existe('ordem') && !$request->vazio('ordem') ? base64Decode($request->ordem) : '';
         $pagina = $request->existe('pagina') && !$request->vazio('pagina') ? $request->pagina : 1;
         $pagina = preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
@@ -68,15 +68,15 @@ final class AppController extends PadraoController
         return view(
             arquivo: $config->index->app . '.index',
             var: [
-                'dado' => $dado->dado ?? [],
-                'app' => $app,
+                'dado'   => $dado->dado ?? [],
+                'app'    => $app,
                 'config' => $config,
-                'acao' => 'index',
+                'acao'   => 'index',
                 'filtro' => $this->pegarFiltro($request, $config),
-                'busca' => (object)[
-                    'filtro' => $request->chave('filtro', ''),
-                    'pesquisa' => $request->chave('pesquisa', ''),
-                    'ordem' => $request->chave('ordem', ''),
+                'busca'  => (object)[
+                    'filtro'       => $request->chave('filtro', ''),
+                    'pesquisa'     => $request->chave('pesquisa', ''),
+                    'ordem'        => $request->chave('ordem', ''),
                     'ordem_titulo' => $config->ordem->lista->$ordem->titulo ?? ''
                 ]
             ],
@@ -194,15 +194,16 @@ final class AppController extends PadraoController
         return view(
             arquivo: $config->visualizar->app . '.visualizar',
             var: [
-                'app' => $app,
+                'app'    => $app,
                 'config' => $config,
-                'acao' => 'visualizar',
-                'dado' => is_array($dado) ? object($dado) : $dado
+                'acao'   => 'visualizar',
+                'dado'   => is_array($dado) ? object($dado) : $dado
             ],
             css: $config->visualizar->css,
             js: $config->visualizar->js,
         );
     }
+
     public function postStatus(Request $request)
     {
         $appReal = $this->converterNomeApp($request->app);
@@ -249,10 +250,10 @@ final class AppController extends PadraoController
         return view(
             arquivo: $config->add->app . '.add',
             var: [
-                'app' => $app,
-                'config' => $config,
-                'acao' => 'add',
-                'request' => $request,
+                'app'       => $app,
+                'config'    => $config,
+                'acao'      => 'add',
+                'request'   => $request,
                 'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : ''
             ],
             css: $config->add->css,
@@ -323,7 +324,7 @@ final class AppController extends PadraoController
 
         return new Response(json: [
             'status' => 'sucesso',
-            'dado' => [
+            'dado'   => [
                 'id' => $acao == 'insert' ? $dado->dado->id : $request->id
             ]
         ], status: $Api->status());
@@ -351,12 +352,12 @@ final class AppController extends PadraoController
         return view(
             arquivo: $config->add->app . '.add',
             var: [
-                'app' => $app,
-                'config' => $config,
-                'acao' => 'editar',
-                'dado' => $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar),
-                'request' => $request,
-                'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : '',
+                'app'        => $app,
+                'config'     => $config,
+                'acao'       => 'editar',
+                'dado'       => $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar),
+                'request'    => $request,
+                'appVoltar'  => !empty($config->add->link) ? [$config->add->link, ''] : '',
                 'linkVoltar' => $config->add->link
 
             ],
@@ -382,14 +383,15 @@ final class AppController extends PadraoController
         return view(
             arquivo: $config->download->app . '.download',
             var: [
-                'app' => $app,
-                'config' => $config,
+                'app'      => $app,
+                'config'   => $config,
                 'pesquisa' => $request->pesquisa,
-                'filtro' => $request->filtro,
-                'ordem' => $request->ordem,
+                'filtro'   => $request->filtro,
+                'ordem'    => $request->ordem,
             ]
         );
     }
+
     public function postDownload(Request $request, string $app)
     {
         $request->vazio('senha', mensagem: 'Digite sua senha para fazer o download.');
@@ -427,8 +429,8 @@ final class AppController extends PadraoController
             }
         }
         $payload = [
-            'campo' => $request->campo,
-            'app' => $appReal,
+            'campo'   => $request->campo,
+            'app'     => $appReal,
             'usuario' => sessao('USUARIO.id')
         ];
 
@@ -449,7 +451,7 @@ final class AppController extends PadraoController
             ->validar('Ocorreu um erro ao salvar o seu pedido, por favor, tente novamente.')
             ->body([
                 'payload' => base64Encode($payload),
-                'tipo' => 'download.privado'
+                'tipo'    => 'download.privado'
             ])
             ->post('/mensageria')
             ->object();
@@ -476,9 +478,9 @@ final class AppController extends PadraoController
         return view(
             arquivo: $config->filtrar->app . '.filtrar',
             var: [
-                'app' => $app,
+                'app'    => $app,
                 'config' => $config,
-                'ordem' => $request->ordem
+                'ordem'  => $request->ordem
             ]
         );
     }

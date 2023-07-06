@@ -34,6 +34,7 @@ abstract class AppGeralModel extends ORM implements PainelModelInterface
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
+
     protected function pegarWhere(?string $pesquisa, ?array $filtro)
     {
         if (!empty($pesquisa)) {
@@ -44,18 +45,22 @@ abstract class AppGeralModel extends ORM implements PainelModelInterface
         }
         return $this->montarWherePadrao();
     }
+
     protected function montarWhereDaPesquisa(string $pesquisa): array
     {
         return [];
     }
+
     protected function montarWhereDoFiltro(array $pesquisa): array
     {
         return [];
     }
+
     protected function montarWherePadrao(): array
     {
         return [];
     }
+
     protected function montarRetorno(array $lista)
     {
         return [];
@@ -75,6 +80,7 @@ abstract class AppGeralModel extends ORM implements PainelModelInterface
         }
         return ['id', 'DESC'];
     }
+
     public function ordenarLista(?array $lista, int $pagina)
     {
         if (empty($lista)) {
@@ -102,6 +108,7 @@ abstract class AppGeralModel extends ORM implements PainelModelInterface
         }
         return preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? (int)$pagina : 1;
     }
+
     protected function pegarQuantidade(): int
     {
         return 50;

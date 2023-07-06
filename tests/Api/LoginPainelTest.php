@@ -89,14 +89,14 @@ final class LoginPainelTest extends Tests
     private function pegarBody(string $login, string $senha)
     {
         return [
-            'login' => $this->cryptEncode($login),
-            'senha' => $this->cryptEncode($senha),
-            'facebook' => '',
-            'google' => '',
-            'scope' => '',
-            'audience' => env('API_AUDIENCE'),
+            'login'        => $this->cryptEncode($login),
+            'senha'        => $this->cryptEncode($senha),
+            'facebook'     => '',
+            'google'       => '',
+            'scope'        => '',
+            'audience'     => env('API_AUDIENCE'),
             'redirect_uri' => env('API_REDIRECT_URI'),
-            'state' => uuid()
+            'state'        => uuid()
         ];
     }
 }

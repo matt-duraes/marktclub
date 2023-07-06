@@ -12,6 +12,7 @@ final class TokenModel extends CurlHelper
     private string $apiRetorno;
     private string $linkWhiteLabel;
     private string $link;
+
     public function __construct(
         private ClienteEntity $Usuario,
         private string $ip,
@@ -39,21 +40,22 @@ final class TokenModel extends CurlHelper
                 'Content-Type' => 'application/json'
             ])
             ->json([
-                'partnerId' => $this->partnerId,
-                'customerPartnerId' => $this->Usuario->id,
+                'partnerId'               => $this->partnerId,
+                'customerPartnerId'       => $this->Usuario->id,
                 'checkCustomerPartnerApi' => $this->apiRetorno,
-                'fingerprint' => [
-                    'userAgent' => $this->userAgent,
-                    'ip' => $this->ip,
-                    'language' => 'pt-BR',
-                    'timezone' => '-3',
+                'fingerprint'             => [
+                    'userAgent'    => $this->userAgent,
+                    'ip'           => $this->ip,
+                    'language'     => 'pt-BR',
+                    'timezone'     => '-3',
                     'deviceMemory' => $this->memoria,
-                    'plataform' => $this->pegarPlataforma()
+                    'plataform'    => $this->pegarPlataforma()
                 ]
             ])
             ->post('/partners/auth')
             ->array();
     }
+
     private function setarLink(array $token)
     {
         if (!is_array($token) || !array_key_exists('accessToken', $token)) {
@@ -61,6 +63,7 @@ final class TokenModel extends CurlHelper
         }
         $this->link = $this->linkWhiteLabel . '/?auth=' . $token['accessToken'];
     }
+
     private function pegarPlataforma(): string
     {
         $Agent = new UserAgentHelper($this->userAgent);

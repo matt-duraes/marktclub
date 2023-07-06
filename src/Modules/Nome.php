@@ -29,12 +29,11 @@ final class Nome implements ModuleInterface
     /**
      * Gera um modulo de nome
      *
-     * @param null|string   $nome  Valor do nome para o modulo
+     * @param null|string $nome Valor do nome para o modulo
      */
     public function __construct(
         private ?string $nome
     ) {
-
         if (empty($this->nome)) {
             $this->nome = '';
             $this->primeiro_nome = '';

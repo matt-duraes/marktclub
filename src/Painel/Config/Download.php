@@ -9,7 +9,6 @@ final class Download
     private array $campo = [];
     private array $replace = [];
     private string $titulo = '';
-
     private int $bloco;
 
     public function __construct(
@@ -58,10 +57,12 @@ final class Download
     {
         return $this->html;
     }
+
     public function pegarCampo()
     {
         return $this->campo;
     }
+
     public function pegarReplace()
     {
         return $this->replace;

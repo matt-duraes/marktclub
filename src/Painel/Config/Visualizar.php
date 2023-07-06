@@ -6,9 +6,7 @@ final class Visualizar
 {
     private int $coluna;
     private int $fieldset;
-
     private string|int $numeroColuna;
-
     private array $camposAceitos = [];
     private string $titulo = '';
     private array $html = [];
@@ -16,7 +14,6 @@ final class Visualizar
     private string $js = '';
     private string $linkEditar = '';
     private string $link;
-
     private array $replace = [];
     private array $status = [];
 
@@ -46,30 +43,37 @@ final class Visualizar
     {
         return $this->html;
     }
+
     public function pegarCss()
     {
         return $this->css;
     }
+
     public function pegarJs()
     {
         return $this->js;
     }
+
     public function pegarLink()
     {
         return $this->link;
     }
+
     public function pegarLinkEditar()
     {
         return $this->linkEditar;
     }
+
     public function pegarTipo()
     {
         return in_array($this->tipo, ['html', 'mensagem']) ? $this->tipo : 'html';
     }
+
     public function pegarReplace()
     {
         return $this->replace;
     }
+
     public function pegarStatus()
     {
         return $this->status;
@@ -85,11 +89,13 @@ final class Visualizar
         $this->css = $css;
         return $this;
     }
+
     public function js(string $js)
     {
         $this->js = $js;
         return $this;
     }
+
     public function linkEditar(string $link)
     {
         $this->linkEditar = $link;
@@ -157,7 +163,7 @@ final class Visualizar
     {
         $this->html[$this->coluna][$this->fieldset]['lista'][] = [
             'funcao' => 'html',
-            'html' => $html
+            'html'   => $html
         ];
     }
 
@@ -199,36 +205,40 @@ final class Visualizar
     {
         $this->adicionarCampo($campo, [
             'funcao' => 'imagem_redonda',
-            'campo' => $campo
+            'campo'  => $campo
         ], $permissao);
         return $this;
     }
+
     public function titulo(array|string $campo, ?string $permissao = null): self
     {
         $this->adicionarCampo($campo, [
             'funcao' => 'titulo',
-            'campo' => $campo
+            'campo'  => $campo
         ], $permissao);
         return $this;
     }
+
     public function subTitulo(array|string $campo, ?string $permissao = null): self
     {
         $this->adicionarCampo($campo, [
             'funcao' => 'sub_titulo',
-            'campo' => $campo
+            'campo'  => $campo
         ], $permissao);
         return $this;
     }
+
     public function texto(array|string $campo, ?string $permissao = null): self
     {
         $this->adicionarCampo($campo, [
-            'funcao' => 'texto',
-            'campo' => $campo,
-            'nome' => '',
+            'funcao'   => 'texto',
+            'campo'    => $campo,
+            'nome'     => '',
             'formatar' => ''
         ], $permissao);
         return $this;
     }
+
     public function linha(
         array|string $campo,
         string $nome,
@@ -237,64 +247,73 @@ final class Visualizar
         bool $vazio = true
     ): self {
         $this->adicionarCampo($campo, [
-            'funcao' => 'linha',
-            'campo' => $campo,
-            'nome' => $nome,
+            'funcao'   => 'linha',
+            'campo'    => $campo,
+            'nome'     => $nome,
             'formatar' => $formatar,
-            'vazio' => $vazio
+            'vazio'    => $vazio
         ], $permissao);
         return $this;
     }
+
     public function array(array|string $campo, string $nome, ?string $permissao = null)
     {
         $this->adicionarCampo($campo, [
             'funcao' => 'array',
-            'campo' => $campo,
-            'nome' => $nome
+            'campo'  => $campo,
+            'nome'   => $nome
         ], $permissao);
         return $this;
     }
+
     public function cpf(array|string $campo, string $nome, ?string $permissao = null): self
     {
         $this->linha($campo, $nome, 'cpf', $permissao);
         return $this;
     }
+
     public function cnpj(array|string $campo, string $nome, ?string $permissao = null): self
     {
         $this->linha($campo, $nome, 'cnpj', $permissao);
         return $this;
     }
+
     public function data(array|string $campo, string $nome, ?string $permissao = null): self
     {
         $this->linha($campo, $nome, 'data', $permissao);
         return $this;
     }
+
     public function dataHora(array|string $campo, string $nome, ?string $permissao = null): self
     {
         $this->linha($campo, $nome, 'datahora', $permissao);
         return $this;
     }
+
     public function email(array|string $campo, string $nome, ?string $permissao = null): self
     {
         $this->linha($campo, $nome, 'email', $permissao);
         return $this;
     }
+
     public function telefone(array|string $campo, string $nome, ?string $permissao = null): self
     {
         $this->linha($campo, $nome, 'telefone', $permissao);
         return $this;
     }
+
     public function cep(array|string $campo, string $nome, ?string $permissao = null): self
     {
         $this->linha($campo, $nome, 'cep', $permissao);
         return $this;
     }
+
     public function endereco(string $tabela, string $local)
     {
         $this->adicionarCampo('', [
             'funcao' => 'endereco',
             'tabela' => $tabela,
-            'local' => $local
+            'local'  => $local
         ]);
         return $this;
     }
@@ -303,8 +322,8 @@ final class Visualizar
     {
         $this->adicionarCampo($campo, [
             'funcao' => 'contar',
-            'campo' => $campo,
-            'nome' => $nome
+            'campo'  => $campo,
+            'nome'   => $nome
         ], $permissao);
         return $this;
     }
@@ -313,22 +332,24 @@ final class Visualizar
     {
         $this->adicionarCampo($campo, [
             'funcao' => 'checked',
-            'campo' => $campo,
-            'nome' => $nome
+            'campo'  => $campo,
+            'nome'   => $nome
         ], $permissao);
         return $this;
     }
+
     public function hidden(array|string $campo, string $id = null, string $permissao = null): self
     {
         $this->adicionarCampo($campo, [
-            'funcao' => 'hidden',
-            'campo' => $campo,
-            'nome' => '',
-            'id' => $id,
+            'funcao'   => 'hidden',
+            'campo'    => $campo,
+            'nome'     => '',
+            'id'       => $id,
             'formatar' => ''
         ], $permissao);
         return $this;
     }
+
     public function botao(
         array|string $campo,
         string $texto,
@@ -339,13 +360,14 @@ final class Visualizar
     ) {
         $this->adicionarCampo($campo, [
             'funcao' => 'botao',
-            'texto' => $texto,
-            'id' => $id,
-            'link' => $link,
+            'texto'  => $texto,
+            'id'     => $id,
+            'link'   => $link,
             'target' => $target
         ], $permissao);
         return $this;
     }
+
     public function status(
         array|string $campo,
         string $texto,
@@ -358,14 +380,14 @@ final class Visualizar
     ) {
         $this->status[] = $status;
         $this->adicionarCampo($campo, [
-            'funcao' => 'status',
-            'texto' => $texto,
-            'inArray' => $inArray,
-            'cor' => $cor,
-            'id' => $id,
-            'status' => $status,
+            'funcao'   => 'status',
+            'texto'    => $texto,
+            'inArray'  => $inArray,
+            'cor'      => $cor,
+            'id'       => $id,
+            'status'   => $status,
             'mensagem' => $mensagem,
-            'campo' => $campo
+            'campo'    => $campo
         ], $permissao);
         return $this;
     }
@@ -375,7 +397,7 @@ final class Visualizar
         $this->adicionarCampo($campo, [
             'funcao' => 'vazio_break',
             'titulo' => $titulo,
-            'campo' => $campo
+            'campo'  => $campo
         ], $permissao);
         return $this;
     }
@@ -395,9 +417,9 @@ final class Visualizar
     /**
      * Faz o include de uma view
      *
-     * @param string                $view       Qual view será incluida
-     * @param null|array|string     $campo      Caso queira mostrar apenas se tiver permissão para um campo
-     * @param null|string           $permissao  Caso o usuário tenha que ter uma permissão específica
+     * @param string            $view      Qual view será incluida
+     * @param null|array|string $campo     Caso queira mostrar apenas se tiver permissão para um campo
+     * @param null|string       $permissao Caso o usuário tenha que ter uma permissão específica
      */
     public function include($view, null|array|string $campo = null, ?string $permissao = null): self
     {
@@ -406,7 +428,7 @@ final class Visualizar
         }
 
         $this->html[]['lista'][] = [
-            'funcao' => 'include',
+            'funcao'  => 'include',
             'arquivo' => ROOT . '/files/build/views/painel_' . $this->app . '_' . $view . '.php'
         ];
         return $this;
@@ -428,6 +450,7 @@ final class Visualizar
 
         $this->html[$this->coluna][$this->fieldset]['lista'][] = $dado;
     }
+
     private function pegarCampoAceito($campo, ?string $permissao = null)
     {
         $usuarioPermissao = sessao('USUARIO.permissao');
@@ -455,6 +478,7 @@ final class Visualizar
         }
         return $campo;
     }
+
     private function setarTitulo()
     {
         if (!empty($this->titulo)) {
@@ -462,6 +486,7 @@ final class Visualizar
             $this->titulo = '';
         }
     }
+
     private function setarColuna()
     {
         if (!empty($this->numeroColuna)) {
@@ -469,6 +494,7 @@ final class Visualizar
             $this->numeroColuna = 0;
         }
     }
+
     private function erroCallback()
     {
         mensagemStatus(500, localhost: 'Você deve passar uma callback.');

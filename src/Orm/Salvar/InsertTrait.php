@@ -74,6 +74,7 @@ trait InsertTrait
         $this->ormSalvarArquivo();
         return $dado;
     }
+
     private function ormCriarSlug($valor)
     {
         $valor = mb_strtolower(trim($valor), 'UTF-8');

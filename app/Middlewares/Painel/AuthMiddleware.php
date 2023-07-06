@@ -10,11 +10,13 @@ use PainelApp\login\Models\LoginAutorizadoModel;
 final class AuthMiddleware
 {
     private array $token;
+
     public function __construct()
     {
         $token = cookieExiste('FWT') ? base64Decode(cookie('FWT')) : [];
         $this->token = is_array($token) ? $token : [];
     }
+
     public function logado(): bool|Response
     {
         $retorno = $this->verificarSeEstaLogado();

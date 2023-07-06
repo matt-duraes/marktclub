@@ -4,7 +4,6 @@ namespace Painel\SolicitacaoPremium\Models;
 
 use stdClass;
 use Helpers\ApiHelper;
-use App\Classes\SolicitacaoPremium\Status;
 use System\Interface\PainelIndexBuscarInterface;
 
 final class IndexModel implements PainelIndexBuscarInterface
@@ -21,6 +20,7 @@ final class IndexModel implements PainelIndexBuscarInterface
             ->get('/solicitacao-premium')->object()->dado;
         return $this->montarRetorno($dado);
     }
+
     private function montarRetorno($dado)
     {
         $total = 0;
@@ -40,14 +40,14 @@ final class IndexModel implements PainelIndexBuscarInterface
         }
         if ($dado) {
             $dado[] = [
-                'parceiro' => 'Total',
-                'total' => $total,
-                'ativo' => $ativo,
+                'parceiro'   => 'Total',
+                'total'      => $total,
+                'ativo'      => $ativo,
                 'disponivel' => !empty($disponivel) ? $disponivel : '-',
-                'validado' => $validado,
-                'cancelado' => $cancelado,
-                'limite' => !empty($limite) ? $limite : '-',
-                'status' => '-',
+                'validado'   => $validado,
+                'cancelado'  => $cancelado,
+                'limite'     => !empty($limite) ? $limite : '-',
+                'status'     => '-',
             ];
         }
         return retornarPaginacao($dado);

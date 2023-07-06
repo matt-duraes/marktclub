@@ -52,9 +52,9 @@ final class DependenteModel extends ORM
         $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->cod,
-                'nome' => $r->nome,
-                'email' => !empty($r->email_pessoal) ? $r->email_pessoal : $r->email_trabalho,
+                'id'     => $r->cod,
+                'nome'   => $r->nome,
+                'email'  => !empty($r->email_pessoal) ? $r->email_pessoal : $r->email_trabalho,
                 'status' => $Status->indice($r->status)
             ];
         }

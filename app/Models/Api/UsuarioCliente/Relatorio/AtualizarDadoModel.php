@@ -7,13 +7,14 @@ use ORM\ORM;
 final class AtualizarDadoModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct()
     {
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
         parent::__construct();
     }
+
     public function pegarRelatorio()
     {
         $data = date('Y-m-d');
@@ -66,22 +67,22 @@ final class AtualizarDadoModel extends ORM
         $relatorio = [];
         if ($numero3Meses > 0) {
             $relatorio[] = [
-                'tempo' => '3 meses',
-                'total' => $numero3Meses,
+                'tempo'       => '3 meses',
+                'total'       => $numero3Meses,
                 'porcentagem' => number_format(($numero3Meses * 100) / $total, 2, '.')
             ];
         }
         if ($numero6Meses > 0) {
             $relatorio[] = [
-                'tempo' => '6 meses',
-                'total' => $numero6Meses,
+                'tempo'       => '6 meses',
+                'total'       => $numero6Meses,
                 'porcentagem' => number_format(($numero6Meses * 100) / $total, 2, '.')
             ];
         }
         if ($numero1Ano > 0) {
             $relatorio[] = [
-                'tempo' => '1 ano',
-                'total' => $numero1Ano,
+                'tempo'       => '1 ano',
+                'total'       => $numero1Ano,
                 'porcentagem' => number_format(($numero1Ano * 100) / $total, 2, '.')
             ];
         }

@@ -11,10 +11,10 @@ if (!function_exists('exiteErro')) {
     /**
      * Verifica se o valor não contem os campos indicados ou se o status é de erro
      *
-     * @param   stdClass|array  $valor  Valor a ser conferido
-     * @param   array|string    $Campo  Campo para validar se existe, pode ser uma string "campo"
-     *                                  ou uma lista em um array ["campo_1", "campo_2"]
-     * @return  bool                    Retorna true caso o valor seja válido, Caso tenha algum erro retorna true
+     * @param  stdClass|array $valor Valor a ser conferido
+     * @param  array|string   $Campo Campo para validar se existe, pode ser uma string "campo"
+     *                               ou uma lista em um array ["campo_1", "campo_2"]
+     * @return bool           Retorna true caso o valor seja válido, Caso tenha algum erro retorna true
      */
     function existeErro(stdClass|array $valor, string|array $campo = ''): bool
     {
@@ -60,8 +60,8 @@ if (!function_exists('ValidarTelefone')) {
     /**
      * Valida se é um telefone
      *
-     * @param null|string $telefone Telefone a ser validado
-     * @return  bool        Retorna true caso o valor seja válido
+     * @param  null|string $telefone Telefone a ser validado
+     * @return bool        Retorna true caso o valor seja válido
      */
     function ValidarTelefone(?string $telefone): bool
     {
@@ -83,8 +83,8 @@ if (!function_exists('validarEmail')) {
     /**
      * Valida se é um e-mail
      *
-     * @param null|string $email E-mail a ser validado
-     * @return  bool        Retorna true caso o valor seja válido
+     * @param  null|string $email E-mail a ser validado
+     * @return bool        Retorna true caso o valor seja válido
      */
     function validarEmail(?string $email): bool
     {
@@ -101,8 +101,8 @@ if (!function_exists('validarJson')) {
     /**
      * Valida se string é um json
      *
-     * @param   null|string $json   Json a ser validado
-     * @return  bool                Retorna true caso o valor seja válido
+     * @param  null|string $json Json a ser validado
+     * @return bool        Retorna true caso o valor seja válido
      */
     function validarJson(?string $json): bool
     {
@@ -119,8 +119,8 @@ if (!function_exists('validarUrl')) {
     /**
      * Valida se é uma URL
      *
-     * @param   null|string $url    Url a ser validada
-     * @return  bool                Retorna true caso o valor seja válido
+     * @param  null|string $url Url a ser validada
+     * @return bool        Retorna true caso o valor seja válido
      */
     function validarUrl(?string $url): bool
     {
@@ -142,8 +142,8 @@ if (!function_exists('validarDecimal')) {
     /**
      * Valida se é um valor decimal
      *
-     * @param null|string $decimal Valor decimal a ser validado
-     * @return  bool        Retorna true caso o valor seja válido
+     * @param  null|string $decimal Valor decimal a ser validado
+     * @return bool        Retorna true caso o valor seja válido
      */
     function validarDecimal(?string $decimal): bool
     {
@@ -174,8 +174,8 @@ if (!function_exists('validarDate')) {
     /**
      * Valida uma data no formato date
      *
-     * @param null|string|\Modules\Data $data   Data que deseja validar
-     * @return  bool                            Retorna true caso o valor seja válido
+     * @param  null|string|\Modules\Data $data Data que deseja validar
+     * @return bool                      Retorna true caso o valor seja válido
      */
     function validarDate(null|string|\Modules\Data $data): bool
     {
@@ -201,8 +201,8 @@ if (!function_exists('validarData')) {
     /**
      * Valida uma data no formato data
      *
-     * @param null|string|\Modules\Data $data   Data que deseja validar
-     * @return  bool                            Retorna true caso o valor seja válido
+     * @param  null|string|\Modules\Data $data Data que deseja validar
+     * @return bool                      Retorna true caso o valor seja válido
      */
     function validarData(null|string|\Modules\Data $data): bool
     {
@@ -228,8 +228,8 @@ if (!function_exists('validarDataDate')) {
     /**
      * Valida uma data no formato data ou date
      *
-     * @param null|string|\Modules\Data $data   Data que deseja validar
-     * @return  bool                                Retorna true caso o valor seja válido
+     * @param  null|string|\Modules\Data $data Data que deseja validar
+     * @return bool                      Retorna true caso o valor seja válido
      */
     function validarDataDate(null|string|\Modules\Data $data): bool
     {
@@ -255,8 +255,8 @@ if (!function_exists('validarDateTime')) {
     /**
      * Valida uma data no formato dateTime
      *
-     * @param   null|string|\Modules\DataHora   $data   Data que deseja validar
-     * @return  bool                                    Retorna true caso o valor seja válido
+     * @param  null|string|\Modules\DataHora $data Data que deseja validar
+     * @return bool                          Retorna true caso o valor seja válido
      */
     function validarDateTime(null|string|\Modules\DataHora $data): bool
     {
@@ -282,8 +282,8 @@ if (!function_exists('validarDataHora')) {
     /**
      * Valida uma data no formato dataHora
      *
-     * @param   null|string|\Modules\DataHora $data     Data que deseja validar
-     * @return  bool                                    Retorna true caso o valor seja válido
+     * @param  null|string|\Modules\DataHora $data Data que deseja validar
+     * @return bool                          Retorna true caso o valor seja válido
      */
     function validarDataHora(null|string|\Modules\DataHora $data): bool
     {
@@ -308,8 +308,8 @@ if (!function_exists('validarDataDateTime')) {
     /**
      * Valida uma data no formato dateTime
      *
-     * @param null|string|\Modules\DataHora     $data   Data que deseja validar
-     * @return  bool                                    Retorna true caso o valor seja válido
+     * @param  null|string|\Modules\DataHora $data Data que deseja validar
+     * @return bool                          Retorna true caso o valor seja válido
      */
     function validarDataDateTime(null|string|\Modules\DataHora $data): bool
     {
@@ -330,8 +330,8 @@ if (!function_exists('validarCpf')) {
     /**
      * Valida CPF
      *
-     * @param null|string $cpf CPF a ser validado
-     * @return  bool        Retorna true caso o valor seja válido
+     * @param  null|string $cpf CPF a ser validado
+     * @return bool        Retorna true caso o valor seja válido
      */
     function validarCpf(?string $cpf): bool
     {
@@ -352,8 +352,8 @@ if (!function_exists('validarCnpj')) {
     /**
      * Valida um CNPJ
      *
-     * @param null|string $cnpj CNPJ a ser validado
-     * @return  bool        Retorna true caso o valor seja válido
+     * @param  null|string $cnpj CNPJ a ser validado
+     * @return bool        Retorna true caso o valor seja válido
      */
     function validarCnpj(?string $cnpj): bool
     {
@@ -374,10 +374,10 @@ if (!function_exists('validarUuid')) {
     /**
      * Valida se uma string é um uuid
      *
-     * @param   mixed $uuid     Valor a ser validado
-     * @param   bool  $erro     Caso true, retorna uma excecao, false retorna um bool
-     * @return  bool            Retorna true caso o valor seja válido
-     * @throws  Erro\Excecao    Retonar um Erro\Exececao caso $erro for true e a validação falhe
+     * @param  mixed        $uuid Valor a ser validado
+     * @param  bool         $erro Caso true, retorna uma excecao, false retorna um bool
+     * @return bool         Retorna true caso o valor seja válido
+     * @throws Erro\Excecao Retonar um Erro\Exececao caso $erro for true e a validação falhe
      */
     function validarUuid($uuid, bool $erro = true): bool
     {
@@ -402,8 +402,8 @@ if (!function_exists('validarPagina')) {
     /**
      * Valida se o valor é uma número de página válido
      *
-     * @param   string|int $pagina Número da página que deseja validar
-     * @return  bool
+     * @param  string|int $pagina Número da página que deseja validar
+     * @return bool
      */
     function validarPagina(null|string|int $pagina): bool
     {
@@ -419,8 +419,8 @@ if (!function_exists('validarUf')) {
     /**
      * Valida se o valor é uma UF brasileiro
      *
-     * @param   string|int $pagina Número da página que deseja validar
-     * @return  bool
+     * @param  string|int $pagina Número da página que deseja validar
+     * @return bool
      */
     function validarUf(?string $uf): bool
     {
@@ -436,14 +436,13 @@ if (!function_exists('respostaJson')) {
     /**
      * Valida se o resposta contém erro
      *
-     * @param   array|object|ApiHelper  $resposta  Resposta que será validada
-     * @param   string                  $mensagem  Mensagem que deseja usar no caso de erro e não
-     *                                             ter a mensagem na resposta
-     * @param   null|string             $titulo    Título que deseja usar no caso de erro e não
-     *                                             ter a mensagem na resposta
-     * @param   int                     $status    Status que deseja retornar no caso de erro
-     * @return  void
-     * @throws  Erro\Excecao                       Retonar um Erro\Exececao a resposta contenha um erro
+     * @param  array|object|ApiHelper $resposta Resposta que será validada
+     * @param  string                 $mensagem Mensagem que deseja usar no caso de erro e não
+     *                                          ter a mensagem na resposta
+     * @param  null|string            $titulo   Título que deseja usar no caso de erro e não
+     *                                          ter a mensagem na resposta
+     * @param  int                    $status   Status que deseja retornar no caso de erro
+     * @throws Erro\Excecao           Retonar um Erro\Exececao a resposta contenha um erro
      */
     function respostaJson(
         array|stdClass|ApiHelper $resposta,

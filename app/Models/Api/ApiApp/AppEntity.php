@@ -9,18 +9,15 @@ use Helpers\CryptHelper;
 final class AppEntity extends Entity
 {
     protected string $ormTabela = TABELA_AUTH_APP;
-
     protected array $ormBuscar = [
         'nome', 'descricao', 'id_admin_empresa', 'tempo_vida', 'redirect_uri', 'scope_permitido',
         'campo_permitido', 'client_id', 'secret_id', 'audience', 'chave_privada', 'chave_publica',
         'authorization_code', 'client_credentials', 'refresh_token', 'chave_privada_fake', 'chave_publica_fake',
         'imagem_app'
     ];
-
     protected array $ormSalvar = [
         'chave_publica', 'chave_privada', 'client_id', 'secret_id'
     ];
-
     public string $nome;
     public string $descricao;
     public int $id_admin_empresa;

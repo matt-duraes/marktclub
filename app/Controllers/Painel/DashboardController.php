@@ -10,7 +10,7 @@ final class DashboardController extends Controller
     {
         return view(arquivo: 'dashboard', var: [
             'appTitulo' => 'Dashboard',
-            'app' => 'dashboard'
+            'app'       => 'dashboard'
         ]);
     }
 }

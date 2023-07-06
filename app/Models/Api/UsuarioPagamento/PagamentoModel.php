@@ -17,8 +17,8 @@ final class PagamentoModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_USUARIO_PAGAMENTO;
-
     protected Status $status;
+
     public function __construct(
         protected ?Request $request = null
     ) {
@@ -51,8 +51,8 @@ final class PagamentoModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'data' => $r->data_cobranca,
+                'id'    => $r->uuid,
+                'data'  => $r->data_cobranca,
                 'valor' => number_format($r->valor_debito, 2, ',', '.')
             ];
         }
@@ -66,7 +66,6 @@ final class PagamentoModel extends ORM
     */
     public function listarDados(): stdClass
     {
-
         $dado = $this
             ->campo([
                 'data_cobranca', 'status'
@@ -96,10 +95,10 @@ final class PagamentoModel extends ORM
         $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->cod,
-                'nome' => $r->nome,
-                'cpf' => $r->documento,
-                'data' => $r->data_cobranca,
+                'id'     => $r->cod,
+                'nome'   => $r->nome,
+                'cpf'    => $r->documento,
+                'data'   => $r->data_cobranca,
                 'status' => $Status->indice($r->status)
             ];
         }
@@ -152,7 +151,7 @@ final class PagamentoModel extends ORM
                 ['email_funcional', 'like', $pesquisa . '%'],
             ];
 
-            $pesquisaCpf = preg_replace("/[^0-9]/", "", $pesquisa);
+            $pesquisaCpf = preg_replace('/[^0-9]/', '', $pesquisa);
             if (!empty($pesquisaCpf)) {
                 $wherePesquisa[] = ['documento', 'like', $pesquisaCpf . '%'];
             }
@@ -164,7 +163,7 @@ final class PagamentoModel extends ORM
             $where[] = ['nome', 'like', $nome . '%'];
         }
 
-        $cpf = !empty($this->request->cpf) ? preg_replace("/[^0-9]/", "", $this->request->cpf) : '';
+        $cpf = !empty($this->request->cpf) ? preg_replace('/[^0-9]/', '', $this->request->cpf) : '';
         if (!empty($cpf)) {
             $where[] = ['documento', $cpf];
         }

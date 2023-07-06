@@ -64,7 +64,7 @@ final class SolicitaHotelModel
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return string
      */

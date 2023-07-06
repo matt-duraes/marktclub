@@ -21,6 +21,7 @@ trait Usuario
     {
         return sessao('USUARIO.nome');
     }
+
     private function meuEmail()
     {
         return sessao('USUARIO.email');

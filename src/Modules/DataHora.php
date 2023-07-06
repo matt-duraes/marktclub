@@ -10,6 +10,7 @@ final class DataHora implements ModuleInterface
 
     private ?string $tipo = null;
     private ?string $date = null;
+
     public function __toString()
     {
         return $this->data;

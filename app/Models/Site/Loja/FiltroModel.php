@@ -2,12 +2,12 @@
 
 namespace App\Models\Site\Loja;
 
-use App\Classes\ParceiroLoja\Estabelecimento;
-use App\Classes\ParceiroLoja\Ordem;
-use Helpers\ListaHelper;
 use Http\Request;
+use Helpers\ListaHelper;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\Estabelecimento;
 
-final class BuscaModel
+final class FiltroModel
 {
     private array $where = [];
     private array $filtro = [];
@@ -74,7 +74,7 @@ final class BuscaModel
     ];
 
     public function __construct(
-        private readonly Request $request,
+        private readonly ?Request $request = null,
         private readonly ?string $busca = null
     ) {
         $this->url = route('loja.index');
@@ -94,7 +94,6 @@ final class BuscaModel
     }
 
     /**
-     * @return void
      */
     private function converterPesquisaEmDado(): void
     {
@@ -108,9 +107,9 @@ final class BuscaModel
     }
 
     /**
-     * @param  $regex
-     * @param  $busca
-     * @param  $indice
+     * @param $regex
+     * @param $busca
+     * @param $indice
      *
      * @return mixed
      */
@@ -139,11 +138,10 @@ final class BuscaModel
     }
 
     /**
-     * @param  $indice
-     * @param  $valor
-     * @param  $valorReal
+     * @param $indice
+     * @param $valor
+     * @param $valorReal
      *
-     * @return void
      */
     private function criarFiltro($indice, $valor, $valorReal): void
     {
@@ -186,7 +184,6 @@ final class BuscaModel
     }
 
     /**
-     * @return void
      */
     private function converterDadoEmPesquisa(): void
     {
@@ -240,7 +237,7 @@ final class BuscaModel
     }
 
     /**
-     * @param  string  $indice
+     * @param string $indice
      *
      * @return string
      */

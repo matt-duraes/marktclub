@@ -4,7 +4,6 @@ namespace App\Controllers\Api;
 
 use App\Models\Api\Popup\PopupEntity;
 use Controller\Controller;
-use Controller\ControllerInterface;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
@@ -20,7 +19,7 @@ class PopupController extends Controller implements
     ControllerDeletarInterface
 {
     /**
-     * @param  string  $id  Identificação(Uuid) do Pop-up
+     * @param string $id Identificação(Uuid) do Pop-up
      *
      * @return Response
      * @throws Excecao
@@ -34,8 +33,8 @@ class PopupController extends Controller implements
     }
 
     /**
-     * @param  PopupEntity  $PopupEntity  Entidade do Popup
-     * @param  int          $status       Status code que deverá ser retornado
+     * @param PopupEntity $PopupEntity Entidade do Popup
+     * @param int         $status      Status code que deverá ser retornado
      *
      * @return Response
      * @throws Excecao
@@ -55,7 +54,7 @@ class PopupController extends Controller implements
     }
 
     /**
-     * @param  Request  $request  Requisição
+     * @param Request $request Requisição
      *
      * @return Response
      * @throws Excecao
@@ -70,8 +69,8 @@ class PopupController extends Controller implements
     }
 
     /**
-     * @param  Request  $request  Requisição
-     * @param  string   $id       Identificação(Uuid) do Pop-up
+     * @param Request $request Requisição
+     * @param string  $id      Identificação(Uuid) do Pop-up
      *
      * @return Response
      * @throws Excecao
@@ -87,7 +86,7 @@ class PopupController extends Controller implements
     }
 
     /**
-     * @param  string  $id  Identificação(Uuid) do Pop-up
+     * @param string $id Identificação(Uuid) do Pop-up
      *
      * @return Response
      * @throws Excecao

@@ -17,6 +17,7 @@ final class HelperModel extends ORM
         }
         return $id;
     }
+
     public function mudarListaIdParaUuid(array $id): array
     {
         $lista = $this->campo(['cod'])->where(['id', 'in', $id])->read();

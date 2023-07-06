@@ -16,11 +16,11 @@ class Operadora extends Status
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::UNIMED => 'Unimed',
-            self::UNIMED_SEGURO => 'Unimed Seguro',
-            self::CENTRAL_NACIONAL_UNIMED => 'Central Nacional Unimed',
+            self::UNIMED                          => 'Unimed',
+            self::UNIMED_SEGURO                   => 'Unimed Seguro',
+            self::CENTRAL_NACIONAL_UNIMED         => 'Central Nacional Unimed',
             self::CENTRAL_NACIONAL_UNIMED_FLORIPA => 'Central Nacional Unimed Florianópolis',
-            self::AMIL => 'Amil'
+            self::AMIL                            => 'Amil'
         ]);
     }
 }
