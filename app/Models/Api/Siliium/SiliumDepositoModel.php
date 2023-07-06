@@ -20,7 +20,7 @@ class SiliumDepositoModel extends ORM
     protected ?int $idUsuario;
 
     public function __construct(
-        protected readonly Request $request
+        protected readonly ?Request $request = null
     ) {
         $this->validarEmpresa();
         parent::__construct();
@@ -68,16 +68,16 @@ class SiliumDepositoModel extends ORM
     }
 
     /**
-     * @return bool|string
+     * @return array
      * @throws Excecao
      */
-    public function realizarSaque(): bool|string
+    public function realizarSaque(): array
     {
         $SiliumComissaoModel = new SiliumComissaoModel();
         $saldo = $SiliumComissaoModel->pegarSaldo();
 
         if ($saldo <= self::SALDO_MINIMO) {
-            return false;
+            mensagemErro('Saldo insuficiente', 'Seu saldo está abaixo de ' . self::SALDO_MINIMO);
         }
 
         $this->validarRequest();
@@ -94,7 +94,7 @@ class SiliumDepositoModel extends ORM
             'agencia'    => $this->request->agencia,
             'conta'      => $this->request->conta,
             'tipo_conta' => $this->request->tipo_conta,
-            'documento'  => soNumero($this->request->documento_cpf),
+            'documento'  => (int)soNumero($this->request->documento_cpf),
             'nome'       => $this->request->titular,
             'status'     => 1
         ];
@@ -103,14 +103,9 @@ class SiliumDepositoModel extends ORM
             ->dado($transacao)
             ->insert();
 
-        $SiliumComissaoModel
-            ->dado([
-                'uuid'   => $dados['uuid'],
-                'status' => 2
-            ])
-            ->update();
+        $SiliumComissaoModel->atualizarStatus($dados['id'], 2);
 
-        return $dados['uuid'];
+        return $dados;
     }
 
     /**

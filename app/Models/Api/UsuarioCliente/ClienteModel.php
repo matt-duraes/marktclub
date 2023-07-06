@@ -2,17 +2,18 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
-use stdClass;
-use Http\Request;
-use Modules\Data;
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
+use ORM\ORM;
+use stdClass;
 
 final class ClienteModel extends ORM
 {
@@ -20,8 +21,13 @@ final class ClienteModel extends ORM
     use BuscarUsuarioTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
+    /**
+     * @param Request|null $request
+     *
+     * @throws Excecao
+     */
     public function __construct(
         protected ?Request $request = null
     ) {
@@ -30,59 +36,11 @@ final class ClienteModel extends ORM
         $this->validarCampoDoRequest();
     }
 
-    public function listarDados(): stdClass
-    {
-        $dado = $this->buscarUsuario([
-            'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal',
-            'data_criacao', 'usuario_lead', 'tipo', 'titular', 'federacao', 'status'
-        ], true);
-
-        $dado->lista = $this->montarRetornoLista($dado->lista);
-        return $dado;
-    }
-
-    private function montarRetornoLista($dado)
-    {
-        if (!$dado) {
-            return [];
-        }
-
-        $TipoUsuario = new TipoUsuario();
-        $lista = [];
-        foreach ($dado as $r) {
-            $email = null;
-            if (!empty($r->email_pessoal)) {
-                $email = $r->email_pessoal;
-            } elseif (!empty($r->email_trabalho)) {
-                $email = $r->email_trabalho;
-            }
-            $tipo = $TipoUsuario->nome($r->tipo);
-            if ($r->federacao == 'FU') {
-                $tipo = TipoUsuario::FUNCIONARIO;
-            }
-            $uuid = $r->cod;
-            if ($r->tipo == 2) {
-                $uuid = $this->campo(['cod'])->where(['id', $r->titular])->read(indice: 0, campo: 'cod');
-            }
-
-            $lista[] = [
-                'id' => $uuid,
-                'empresa' => [
-                    'id' => $r->empresa_cod,
-                    'nome_fantasia' => $r->empresa_nome_fantasia,
-                ],
-                'nome' => $r->nome,
-                'cpf' => $r->tipo == 2 ? '' : $r->documento,
-                'email' => $email,
-                'tipo' => $tipo,
-                'data_criacao' => $r->data_criacao,
-                'status' => (new Status($r->status))->indice(),
-            ];
-        }
-        return $lista;
-    }
-
-    private function validarCampoDoRequest()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarCampoDoRequest(): void
     {
         if (is_null($this->request)) {
             return;
@@ -116,5 +74,81 @@ final class ClienteModel extends ORM
         } elseif (!$TrabalhoCargo->vazio() && !$TrabalhoCargo->valido()) {
             mensagemErro('Campo inválido!', 'O cargo não é um valor válido.');
         }
+    }
+
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
+    public function listarDados(): stdClass
+    {
+        $dado = $this->buscarUsuario([
+            'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal',
+            'data_criacao', 'usuario_lead', 'tipo', 'titular', 'federacao', 'status'
+        ], true);
+
+        $dado->lista = $this->montarRetornoLista($dado->lista);
+        return $dado;
+    }
+
+    /**
+     * @param $dado
+     *
+     * @return array
+     * @throws Excecao
+     */
+    private function montarRetornoLista($dado): array
+    {
+        if (!$dado) {
+            return [];
+        }
+
+        $TipoUsuario = new TipoUsuario();
+        $lista = [];
+        foreach ($dado as $r) {
+            $email = null;
+            if (!empty($r->email_pessoal)) {
+                $email = $r->email_pessoal;
+            } elseif (!empty($r->email_trabalho)) {
+                $email = $r->email_trabalho;
+            }
+            $tipo = $TipoUsuario->nome($r->tipo);
+            if ($r->federacao == 'FU') {
+                $tipo = TipoUsuario::FUNCIONARIO;
+            }
+            $uuid = $r->cod;
+            if ($r->tipo == 2) {
+                $uuid = $this->campo(['cod'])->where(['id', $r->titular])->read(indice: 0, campo: 'cod');
+            }
+
+            $lista[] = [
+                'id'           => $uuid,
+                'empresa'      => [
+                    'id'            => $r->empresa_cod,
+                    'nome_fantasia' => $r->empresa_nome_fantasia,
+                ],
+                'nome'         => $r->nome,
+                'cpf'          => $r->tipo == 2 ? '' : $r->documento,
+                'email'        => $email,
+                'tipo'         => $tipo,
+                'data_criacao' => $r->data_criacao,
+                'status'       => (new Status($r->status))->indice(),
+            ];
+        }
+        return $lista;
+    }
+
+    /**
+     * @param int|string $id
+     *
+     * @return int|null
+     * @throws Excecao
+     */
+    public function buscarEmpresaPeloId(int|string $id): ?int
+    {
+        return $this
+            ->campo(['empresa'])
+            ->where(['id', $id])
+            ->read(0)->empresa ?? null;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Models\Api\Siliium\SiliumComissaoModel;
+use App\Models\Api\Siliium\SiliumDepositoModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -11,28 +12,40 @@ use Http\Response;
 class SiliumController extends Controller
 {
     /**
-     * @param  Request  $request
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
      */
-    public function getSaldo(Request $request): Response
+    public function getSaldo(string $id): Response
     {
-        $SiliumComissaoModel = new SiliumComissaoModel($request);
+        $SiliumComissaoModel = new SiliumComissaoModel();
         return mensagemSucesso([
-            'saldo' => $SiliumComissaoModel->pegarSaldo($request->id ?? null)
+            'saldo' => $SiliumComissaoModel->pegarSaldo($id)
         ]);
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
      */
     public function getExtrato(Request $request): Response
     {
-        $SiliumComissaoModel = new SiliumComissaoModel($request);
-        return mensagemSucesso($SiliumComissaoModel->retirarExtrato());
+        $SiliumDepositoModel = new SiliumDepositoModel($request);
+        return mensagemSucesso($SiliumDepositoModel->gerarExtrato());
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postSaque(Request $request): Response
+    {
+        $SiliumDepositoModel = new SiliumDepositoModel($request);
+        return mensagemSucesso($SiliumDepositoModel->realizarSaque());
     }
 }
