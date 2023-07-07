@@ -4,7 +4,7 @@ namespace Modules;
 
 use Modules\Trait\ValidarTrait;
 
-final class Botao implements ModuleInterface
+final class Contar implements ModuleInterface
 {
     use ValidarTrait;
 

@@ -43,11 +43,15 @@ final class LoginClubeModel
         if (!eProducao() && array_key_exists($redirectUri, $this->listaUriHomologacao)) {
             $redirectUri = $this->listaUriHomologacao[$redirectUri];
         }
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar([
-            ['link_site', $redirectUri],
-            ['status', 1]
-        ]);
+        try {
+            $Construtor = new ConstrutorEntity();
+            $Construtor->buscar([
+                ['link_site', $redirectUri],
+                ['status', 1]
+            ]);
+        } catch (\Throwable $e) {
+            mensagemStatus(404, localhost: 'Erro ao buscar empresa. ' . $e->getMessage());
+        }
         $this->idEmpresa = $Construtor->id_admin_empresa;
         $this->construtor = (new ClubeModel($Construtor))->construtor;
     }
