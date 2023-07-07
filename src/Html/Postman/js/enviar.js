@@ -101,7 +101,7 @@ const criarVariaveis = (bloco, resposta) => {
     });
 };
 const pegarHtmlIframe = html => {
-    if (!html.includes('<html') || html.includes('PRE PRINT EXIT')) {
+    if (!html.includes('<html') || html.includes('PRE PRINT EXIT') || html.includes('VAR_DUMP EXIT')) {
         return `<style>* {color: #FFF;}</style> ${html}`;
     }
     return html;

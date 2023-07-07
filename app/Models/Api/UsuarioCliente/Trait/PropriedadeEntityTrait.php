@@ -54,6 +54,7 @@ trait PropriedadeEntityTrait
     public Situacao $situacao;
     public Status $status;
     public string $imagem;
+    public string $imagem_google;
     public array $pagamento;
     public string $grupo;
     public Origem $origem;

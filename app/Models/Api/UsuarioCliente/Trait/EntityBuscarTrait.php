@@ -14,7 +14,8 @@ trait EntityBuscarTrait
         if (!$this->trabalho_empresa->vazio() && !empty($this->siape) && $this->id_admin_empresa == 19) {
             $this->contratoSiape = $this->trabalho_empresa->numero() . $this->siape . '341201';
         }
-        $this->imagem = imagemUsuario();
+
+        $this->imagem = imagemUsuario(tipo: !empty($this->imagem_google) ? 2 : 1, google: $this->imagem_google);
 
         if ($this->validarToken) {
             $Pagamento = new PagamentoModel();
