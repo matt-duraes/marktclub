@@ -39,7 +39,7 @@ final class LogarModel
             ->body([
                 'login'        => $this->Crypt->encode($this->login),
                 'senha'        => $this->Crypt->encode($this->senha),
-                'redirect_uri' => eLocalhost() ? 'https://clube.markt.club' : LINK,
+                'redirect_uri' => LINK,
                 'scope'        => '',
                 'state'        => uuid(),
             ])
