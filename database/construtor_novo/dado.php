@@ -6,7 +6,7 @@ return [
         'cod'              => 'b7ecc8af-25c1-4981-a891-cc60c3464f6c',
         'empresa'          => 1,
         'titulo'           => 'Markt Club',
-        'link_site'        => 'clube.markt.club',
+        'link_site'        => 'clube.marktclub.com.br',
         'logo'             => 'logo_marktclub_tem_mais.png',
         'cor'              => '#FF6F00',
         'contato_telefone' => '6132023003',
