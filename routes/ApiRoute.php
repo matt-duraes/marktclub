@@ -707,6 +707,22 @@ Route
     });
 
 Route
+    ::nome('parceiro_cupom')
+    ::controller(App\Controllers\Api\ParceiroCupomController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro-cupom:listar'])
+            ::request(['!pesquisa'], 'json')
+            ::get('/parceiro-cupom');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro-cupom:buscar'])
+            ::get('/parceiro-cupom/{id}');
+    });
+
+Route
     ::nome('parceiro_cashback')
     ::controller(App\Controllers\Api\ParceiroCashbackController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -1399,22 +1415,6 @@ Route
                 'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
             ])
             ::post('/enquete/satisfacao');
-    });
-
-Route
-    ::nome('cupom')
-    ::controller(App\Controllers\Api\CupomController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['cupom:listar'])
-            ::request(['!pesquisa'], 'json')
-            ::get('/cupom');
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['cupom:buscar'])
-            ::get('/cupom/{id}');
     });
 
 Route
