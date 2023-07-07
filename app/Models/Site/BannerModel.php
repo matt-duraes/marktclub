@@ -20,26 +20,26 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
+                    'imagem' => LINK_PADRAO . '/images/temp/index_desktop.png',
                     'target' => '_self',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'link'   => route('loja.index')
                 ],
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
+                    'imagem' => LINK_PADRAO . '/images/temp/index_desktop.png',
                     'target' => '_self',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'link'   => route('loja.index')
                 ]
             ],
             'mobile'  => [
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
+                    'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
                     'target' => '_self',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'link'   => route('loja.index')
                 ],
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
+                    'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
                     'target' => '_self',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'link'   => route('loja.index')
                 ]
             ]
         ];
@@ -107,14 +107,14 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object)[
-                    'imagem' => LINK_PADRAO . '/images/site/turismo_carro_desktop.png',
-                    'link'   => ''
+                    'imagem' => LINK_PADRAO . '/images/temp/turismo_carro_desktop.png',
+                    'link'   => route('loja.index')
                 ]
             ],
             'mobile'  => [
                 (object)[
-                    'imagem' => LINK_PADRAO . '/images/site/turismo_carro_mobile.png',
-                    'link'   => ''
+                    'imagem' => LINK_PADRAO . '/images/temp/turismo_carro_mobile.png',
+                    'link'   => route('loja.index')
                 ]
             ]
         ];
