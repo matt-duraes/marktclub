@@ -1,24 +1,12 @@
 @template "site"
 @resource "site/variavel"
+@resource "site/banner"
 @resource "site/loja/parceiro"
 @resource "site/loja/relacionado"
 
-@system "Form"
-@template "site"
-@resource "site/loja/busca"
-@resource "site/variavel"
-@resource "site/saude/operadora"
-@resource "site/tabela"
-@resource "site/passo_passo"
-
-
 #bloco_cinema
     maxWidth()
-    .desktop
-        img
-            width: 100%
-.aviso
-    espacoVerticalPadrao()
 
+.bloco_atencao_geral
 .bloco_parceiro
     espacoTopPadrao()

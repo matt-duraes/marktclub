@@ -136,6 +136,9 @@ Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
+            ::nome('voucher')
+            ::view('/convenios/voucher/{url}');
+        Route
             ::nome('proxima')
             ::view('/convenios/mapa');
         Route

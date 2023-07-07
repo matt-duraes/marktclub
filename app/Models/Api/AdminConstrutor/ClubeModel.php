@@ -15,10 +15,11 @@ final class ClubeModel
     private function montarClube(ConstrutorEntity $Construtor)
     {
         $this->construtor = [
-            'id'      => $Construtor->id,
-            'titulo'  => $Construtor->titulo,
-            'cor'     => $Construtor->cor,
-            'menu'    => [
+            'id'           => $Construtor->id,
+            'titulo'       => $Construtor->titulo,
+            'cor'          => $Construtor->cor,
+            'link_logo'    => $Construtor->link_logo,
+            'menu'         => [
                 'convenio'       => $Construtor->menu_convenio->valor(),
                 'convenio_mapa'  => $Construtor->menu_convenio_mapa->valor(),
                 'cinema'         => $Construtor->menu_cinema->valor(),

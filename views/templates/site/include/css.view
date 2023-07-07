@@ -1,18 +1,18 @@
 <style>
     .cor_bg_hover:hover, .cor_bg {
-        background-color: {{COR}} !important;
+        background-color: {{CLUBE_COR}} !important;
         color: #FFF !important;
         fill: #FFF !important;
     }
     .cor_color_hover:hover, .cor_color {
-        color: {{COR}} !important;
+        color: {{CLUBE_COR}} !important;
     }
     .cor_border_hover:hover, .cor_border{
-        border-color: {{COR}} !important;
+        border-color: {{CLUBE_COR}} !important;
     }
     .cor_fill_hover:hover, .cor_fill{
-        fill: {{COR}} !important;
+        fill: {{CLUBE_COR}} !important;
     }
 
-    :root{ --cor-clube: {{COR}} !important;}
+    :root{ --cor-clube: {{CLUBE_COR}} !important;}
 </style>
