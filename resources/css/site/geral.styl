@@ -309,6 +309,14 @@
     &.fechar
         bottom: 0
         opacity: 0
+@media screen and (max-width: 1250px)
+    .botao_fixo_bottom
+        left: calc((100% / 2) - 120px)
+@media screen and (max-width: 600px)
+    .botao_fixo_bottom
+        max-width: calc(100% - 40px)
+        left: 20px
+        bottom: 20px
 
 [data-anime-botao]
     opacity: 0

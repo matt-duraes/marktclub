@@ -61,16 +61,16 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema_banner.jpg',
+                    'imagem' => LINK_PADRAO . '/images/temp/cinema_desktop.jpeg',
                     'target' => '_self',
-                    'link'   => 'https://afiliados.easylive.com.br/?aid=5'
+                    'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86'
                 ]
             ],
             'mobile' => [
                 (object) [
-                    'imagem' => '',
+                    'imagem' => LINK_PADRAO . '/images/temp/cinema_mobile.jpeg',
                     'target' => '_self',
-                    'link'   => ''
+                    'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86'
                 ]
             ]
         ];
@@ -149,13 +149,13 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'imagem' => LINK_PADRAO . '/images/temp/farmacia_desktop.png',
                     'link'   => ''
                 ]
             ],
             'mobile' => [
                 (object)[
-                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'imagem' => LINK_PADRAO . '/images/temp/farmacia_mobile.png',
                     'link'   => ''
                 ]
             ]
@@ -213,15 +213,13 @@ final class BannerModel
             'desktop' => [
                 (object)[
                     'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
-                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
-                    marketclub'
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub'
                 ]
             ],
             'mobile'  => [
                 (object)[
                     'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
-                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
-                    marketclub'
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub'
                 ]
             ]
         ];
