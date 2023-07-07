@@ -5,8 +5,8 @@
         <h1>LOGIN</h1>
         <p>Digite seu login e senha para continuar.</p>
 
-        @? formCpf(name: 'login', placeholder: 'Digite seu CPF', value: '01234567890')
-        @? formSenha(name: 'senha', placeholder: 'Digite sua senha', value: 'Teste@1324')
+        @? formCpf(name: 'login', placeholder: 'Digite seu CPF')
+        @? formSenha(name: 'senha', placeholder: 'Digite sua senha')
         <div class="botao" id="botao_fazer_login">FAZER LOGIN</div>
     </form>
 </div>

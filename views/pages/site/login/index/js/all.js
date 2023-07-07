@@ -9,7 +9,20 @@ window.addEventListener('load', () => {
     const inputSenha = $('#input_senha');
     const botaoLogin = $('#botao_fazer_login');
 
-    botaoLogin.addEventListener('click', async () => {
+    inputLogin.addEventListener('keydown', e => {
+        if (e.key == 'Enter') {
+            fazerLogin();
+        }
+    });
+    inputSenha.addEventListener('keydown', e => {
+        if (e.key == 'Enter') {
+            fazerLogin();
+        }
+    });
+    botaoLogin.addEventListener('click', () => {
+        fazerLogin();
+    });
+    const fazerLogin = async () => {
         const login = inputLogin.value;
         const senha = inputSenha.value;
         const resposta = await ajaxPost(LINK + '/login', { login, senha }, 'Erro ao fazer o login, tente novamente.');
@@ -17,5 +30,5 @@ window.addEventListener('load', () => {
             return;
         }
         window.location.assign(resposta.dado.link);
-    });
+    };
 });

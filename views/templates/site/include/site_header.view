@@ -182,7 +182,7 @@
 
             <div class="linha"></div>
 
-            <a href="@route('login.sair')" class="sair">Sair do clube</a>
+            <a href="@route('sair.sair')" class="sair">Sair do clube</a>
 
             <div class="resto"></div>
         </div>
