@@ -7,7 +7,7 @@
         @ endif;
 
         @ if( $banner->desktop ):
-        <div class="imagem desktop">
+        <div class="imagem banner_desktop">
             @ foreach( $banner->desktop as $r )
             <figure>
                 <img src="{!!$r->imagem!!}">
@@ -19,7 +19,7 @@
         </div>
         @ endif;
         @ if( $banner->mobile):
-        <div class="imagem mobile">
+        <div class="imagem banner_mobile">
             @ foreach( $banner->mobile as $r )
             <figure>
                 <img src="{!!$r->imagem!!}">
