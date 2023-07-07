@@ -1,3 +1,22 @@
+@media screen and (max-width:900px)
+    .bloco_geral_article
+        .article_fake
+            width: calc(50% - 20px)
+        article
+            width: calc(50% - 20px)
+            min-height: 250px
+            &:nth-child(even)
+                margin-left: 30px
+
+@media screen and (max-width:600px)
+    .bloco_geral_article
+        justify-content: center
+        .article_fake
+            width: 100%
+        article
+            width: 100%
+            &:nth-child(even)
+                margin-left: 0
 .bloco_parceiro article
     flexCol()
     blocoShadow()

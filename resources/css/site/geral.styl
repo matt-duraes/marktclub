@@ -279,36 +279,6 @@
     text-align: center
     align-items: center
 
-.bloco_geral_article
-    maxWidth()
-    flexRow()
-    spaceBetween()
-    flex-wrap: wrap
-    .article_fake
-    article
-        width: calc((100% / 3) - 15px)
-    .article_fake
-        background-color: transparent
-        box-shadow: none
-
-@media screen and (max-width:900px)
-    .bloco_geral_article
-        .article_fake
-        article
-            width: calc(50% - 20px)
-            min-height: 250px
-            &:nth-child(even)
-                margin-left: 30px
-
-@media screen and (max-width:600px)
-    .bloco_geral_article
-        justify-content: center
-        .article_fake
-        article
-            width: 100%
-            &:nth-child(even)
-                margin-left: 0
-
 .article_favoritos
     justify-content: flex-start
     .parceiro_favorito
