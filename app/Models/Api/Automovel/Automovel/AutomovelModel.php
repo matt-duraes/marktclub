@@ -1,25 +1,29 @@
 <?php
 
-namespace App\Models\Api\Automovel\Montadora;
+namespace App\Models\Api\Automovel\Automovel;
 
 use Erro\Excecao;
 use Http\Request;
 use ORM\ORM;
 use stdClass;
-use App\Classes\Automovel\Montadora\Ordem;
-use App\Classes\Automovel\Montadora\Tipo;
-use App\Classes\ParceiroLoja\Status;
+use App\Classes\Automovel\Automovel\Ordem;
+use App\Classes\Automovel\Automovel\TipoProcedimento;
+use App\Classes\Automovel\Automovel\Status;
+use App\Models\Api\Automovel\Montadora\MontadoraModel;
+use App\Models\Api\Automovel\Versao\VersaoEntity;
+use App\Models\Api\GeralEndereco\EnderecoModel;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use App\Models\Api\SelectGeralModel;
 
-final class MontadoraModel extends ORM
+final class AutomovelModel extends ORM
 {
     use QuantidadeTrait;
     use OrdemTrait;
     use PaginaTrait;
 
-    protected string $ormTabela = TABELA_CARRO_MENU;
+    protected string $ormTabela = TABELA_CARRO;
     protected int $idEmpresa;
     protected string $link_arquivo;
 
@@ -51,7 +55,6 @@ final class MontadoraModel extends ORM
     {
         $pagina = $this->request->pagina;
         $quantidade = $this->request->quantidade;
-        $tipo = new Tipo($this->request->tipo);
         $ordem = new Ordem($this->request->ordem);
         $status = new Status($this->request->status);
 
@@ -63,8 +66,6 @@ final class MontadoraModel extends ORM
             mensagemErro('Dado inválido!', 'O campo quantidade deve ser menor ou igual a 50.');
         } elseif (!$ordem->vazio() && !$ordem->valido()) {
             mensagemErro('Dado inválido!', 'O campo ordem não é um valor válido.');
-        } elseif (!$tipo->vazio() && !$tipo->valido()) {
-            mensagemErro('Dado inválido!', 'O campo tipo não é um valor válido.');
         } elseif (!$status->vazio() && !$status->valido()) {
             mensagemErro('Dado inválido!', 'O campo status não é um valor válido.');
         }
@@ -75,22 +76,32 @@ final class MontadoraModel extends ORM
      */
     public function listarDados(): stdClass
     {
+
+        if ($this->request->url == 'honda-email') :
+            return mensagemStatus(404);
+        endif;
+
         $dado = $this
-            ->campo(['uuid','cod_parceiro', 'imagem', 'bg', 'titulo', 'tipo', 'data_criacao'])
+            ->campo(['uuid', 'titulo', 'url', 'texto', 'montadora', 'imagem'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order(new Ordem($this->request->ordem))
-            ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'cod_parceiro')
-            ->where([
-                ['status', 4],
-                ['empresa', 'like', '%"' . $this->idEmpresa . '"%']
-            ])
-            ->campo(['url', 'status'])
+            ->tabela(TABELA_CARRO_MENU)
+            ->join('link', 'montadora')
+            ->campo(['documento', 'procedimento', 'link_concessionaria', 'link'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
-        $dado->lista = $this->montarRetorno($dado->lista);
+        if (!$dado) :
+            return [];
+        endif;
 
+        if (!(new MontadoraModel())->validarPermissao($dado->lista[0]->montadora)) :
+            return mensagemStatus(404);
+        endif;
+
+        $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
+
     }
 
     /**
@@ -100,14 +111,9 @@ final class MontadoraModel extends ORM
     {
         $where = [];
 
-        $pesquisa = $this->request->pesquisa;
-        if (!empty($pesquisa)) {
-            $where[] = ['titulo', 'like', '%' . $pesquisa . '%'];
-        }
-
-        $tipo = new Tipo($this->request->tipo);
-        if ($tipo->valido()) {
-            $where[] = ['tipo', $tipo->numero()];
+        $url = $this->request->url;
+        if (!empty($url)) {
+            $where[] = ['url', $url];
         }
 
         $status = new Status($this->request->status);
@@ -127,46 +133,50 @@ final class MontadoraModel extends ORM
         $retorno = [];
 
         $Status = new Status();
-        $Tipo = new Tipo();
+        $TipoProcedimento = new TipoProcedimento();
 
         foreach ($dado as $r) {
+
+            $uuid_montadora = (new MontadoraModel())->pegarUuidPelaUrl($r->link);
+
+            $pagamento_tipo = 'de-por';
+            if ($r->link == 'amigos-chevrolet' || $r->montadora == 'amigos-chevrolet' || $uuid_montadora == 'a3093c4cc552204314a9cd13c7a9c66b') :
+                $pagamento_tipo = 'carta-bonus';
+            endif;
+
+            $listaEndereco = (new EnderecoModel(
+                uuid: $uuid_montadora,
+                tabela: TABELA_CARRO_MENU,
+                local: 2
+            ))->listarDados();
+
+            $versao = new VersaoEntity();
+            $versao->buscar([
+                ['vinculo', $r->uuid],
+                ['status', 1]
+            ]);
+
             $retorno[] = [
                 'id' => $r->uuid,
-                'tipo' => $Tipo->indice($r->tipo),
-                'imagem' => [
-                    'logo' => $this->link_arquivo . '/carro/' . $r->imagem,
-                    'bg' => $this->link_arquivo . '/carro/' . $r->bg,
+                'titulo' => $r->titulo,
+                'procedimento' => [
+                    'texto' => $r->procedimento,
+                    'geral' => $r->procedimento,
+                    'individual' => !empty($r->texto) ? $r->texto : '',
+                    'tipo' => $TipoProcedimento->indice($r->documento),
                 ],
-                'url' => [
-                    'link' => $this->link_site . '/automoveis/' . $r->url,
-                    'valor' => $r->url,
+                'desconto' => [
+                    'tipo' => $pagamento_tipo,
                 ],
-                'status' => $Status->indice($r->status)
+                'imagem' => $this->link_arquivo . '/carro/' . $r->imagem,
+                'endereco' => [
+                    'concessionaria' => !empty($r->link_concessionaria) ? $r->link_concessionaria : '',
+                    'lista' =>  $listaEndereco ?? [],
+                ],
+                'versao' => $versao
             ];
         }
+
         return $retorno;
     }
-
-    public function validarPermissao($url)
-    {
-
-        $busca = $this->campo(['uuid'])->where(['link', $url])
-            ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'cod_parceiro')->where([
-                ['status', 4],
-                ['empresa', 'like', '%"' . $this->idEmpresa . '"%'],
-            ])->read()[0] ?? [];
-
-        if($busca) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function pegarUuidPelaUrl(String $url = null)
-    {
-        return $this->campo(['uuid'])->where(['link',  $url])->read()[0]->uuid ?? '';
-    }
-
-
 }

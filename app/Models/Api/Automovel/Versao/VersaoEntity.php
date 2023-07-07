@@ -9,7 +9,6 @@ use ORM\Entity;
 final class VersaoEntity extends Entity
 {
     public string $tipo;
-    public UploadHelper|string $imagem;
 
     protected string $ormTabela = TABELA_CARRO_MODELO;
 
@@ -25,6 +24,11 @@ final class VersaoEntity extends Entity
         tipo|Tipo|obrigatorio|vazio
         valor|Valor|obrigatorio|vazio
     ';
+
+    public string $uuid;
+
+    public string $titulo;
+    public string $vinculo;
 
     public function __construct(
         private ?Request $request = null,

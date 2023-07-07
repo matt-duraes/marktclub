@@ -194,7 +194,9 @@ EwIDAQAB
 
             "automovel_modelo:listar", "automovel_modelo:salvar", "automovel_modelo:buscar",
 
-            "automovel_versao:listar", "automovel_versao:salvar", "automovel_versao:buscar"
+            "automovel_versao:listar", "automovel_versao:salvar", "automovel_versao:buscar",
+
+            "automovel:listar"
         ],
         'campo_permitido' => [
             "usuario:salvar" => ["nome", "cpf", "email_trabalho", "senha", "telefone_celular"],

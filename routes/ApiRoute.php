@@ -1409,7 +1409,7 @@ Route
 
 
 Route
-    ::nome('automovel')
+    ::nome('automovel_indicacao')
     ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
@@ -1528,4 +1528,18 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:deletar'])
             ::delete('/automovel-versao/{id}');
+    });
+
+
+Route
+    ::nome('automovel')
+    ::controller(App\Controllers\Api\AutomovelController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel:listar'])
+            ::request(['pagina', '!url', '!quantidade', '!vinculo', '!ordem', '!status'], 'json')
+            ::get('/automovel');
+
     });
