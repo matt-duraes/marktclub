@@ -45,6 +45,13 @@ a
 .display_none
     display: none
 
+.mobile
+    display: none !important
+@media screen and (max-width: 1000px)
+    .mobile
+        display: flex !important
+    .desktop
+        display: none !important
 #site
     width: 100%
     min-height: 100vh
