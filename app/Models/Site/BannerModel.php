@@ -21,20 +21,24 @@ final class BannerModel
             'desktop' => [
                 (object)[
                     'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
+                    'target' => '_self',
                     'link'   => route('loja.detalhe') . '/loja'
                 ],
                 (object)[
                     'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
+                    'target' => '_self',
                     'link'   => route('loja.detalhe') . '/loja'
                 ]
             ],
             'mobile'  => [
                 (object)[
                     'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
+                    'target' => '_self',
                     'link'   => route('loja.detalhe') . '/loja'
                 ],
                 (object)[
                     'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
+                    'target' => '_self',
                     'link'   => route('loja.detalhe') . '/loja'
                 ]
             ]
@@ -58,12 +62,14 @@ final class BannerModel
             'desktop' => [
                 (object) [
                     'imagem' => 'https://clube.marktclub.com.br/images/cinema_banner.jpg',
+                    'target' => '_self',
                     'link'   => 'https://afiliados.easylive.com.br/?aid=5'
                 ]
             ],
             'mobile' => [
                 (object) [
                     'imagem' => '',
+                    'target' => '_self',
                     'link'   => ''
                 ]
             ]
@@ -79,13 +85,15 @@ final class BannerModel
             'desktop' => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/turismo_123_desktop.png',
-                    'link'   => ''
+                    'link'   => '',
+                    'target' => ''
                 ]
             ],
             'mobile'  => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/turismo_123_mobile.png',
-                    'link'   => ''
+                    'link'   => '',
+                    'target' => ''
                 ]
             ]
         ];

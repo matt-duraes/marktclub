@@ -10,6 +10,7 @@ use Modules\Inteiro;
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use Controller\Controller;
+use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
@@ -17,6 +18,7 @@ use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\Procedimento;
+use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
 
 final class LojaController extends Controller
 {
@@ -44,6 +46,7 @@ final class LojaController extends Controller
     {
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
+            quantidade: new Inteiro(24),
             favorito: new Botao($request->favorito),
             tipo: new Tipo(Tipo::LOJA),
             ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito')
@@ -83,6 +86,23 @@ final class LojaController extends Controller
             'tipo'         => 'loja',
             'lista'        => $Lista->listarDados(),
             'procedimento' => new Procedimento()
+        ]);
+    }
+
+    public function voucher(string $url)
+    {
+        $dado = (new ClubeApiHelper())
+            ->validar(status: 404)
+            ->body([
+                'id'      => $url,
+                'tipo'    => SolicitacaoVoucherTipo::LOJA,
+                'usuario' => sessao('USUARIO.id')
+            ])
+            ->post('/solicitacao-voucher')
+            ->object()->dado;
+
+        return view('loja.voucher', [
+            'dado' => $dado
         ]);
     }
 

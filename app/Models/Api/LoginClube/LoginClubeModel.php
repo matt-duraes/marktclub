@@ -43,6 +43,7 @@ final class LoginClubeModel
         if (!eProducao() && array_key_exists($redirectUri, $this->listaUriHomologacao)) {
             $redirectUri = $this->listaUriHomologacao[$redirectUri];
         }
+
         try {
             $Construtor = new ConstrutorEntity();
             $Construtor->buscar([

@@ -3,10 +3,10 @@
 $CLUBE = sessao('CLUBE');
 $USUARIO = sessao('USUARIO');
 
-define('CLUBE_LOGO', 'https://arquivo.marktclub.com.br/construtor/logo_marktclub_tem_mais.png');
-
+define('CLUBE_LOGO', $CLUBE['link_logo']);
 define('CLUBE_TITULO', $CLUBE['titulo']);
 define('CLUBE_ID', $CLUBE['id']);
+define('CLUBE_COR', $CLUBE['cor']);
 
 define('CLUBE_FINALIDADE', 1);
 
@@ -44,7 +44,5 @@ define('MENU_FEDERAL_SAUDE', true);
 define('MENU_CONSULTORIA', true);
 
 define('MENU_HOVER', isset($menu) ? $menu : '');
-
-define('COR', '#000');
 
 include ROOT . '/resources/php/site/icone.php';

@@ -39,6 +39,7 @@ final class BuscarModel extends ClubeApiHelper
             'procedimento'       => $r->procedimento,
             'capa_desktop'       => $r->link_capa_desktop,
             'capa_mobile'        => $r->link_capa_mobile,
+            'url'                => $r->url,
             'endereco'           => '',
         ];
     }

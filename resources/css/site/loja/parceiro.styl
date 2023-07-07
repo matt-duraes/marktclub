@@ -1,23 +1,13 @@
-@media screen and (max-width:900px)
-    .bloco_geral_article
-        .article_fake
-            width: calc(50% - 20px)
-        article
-            width: calc(50% - 20px)
-            min-height: 250px
-            &:nth-child(even)
-                margin-left: 30px
+.bloco_geral_article
+    maxWidth()
+    flexRow()
+    spaceBetween()
+    flex-wrap: wrap
 
-@media screen and (max-width:600px)
-    .bloco_geral_article
-        justify-content: center
-        .article_fake
-            width: 100%
-        article
-            width: 100%
-            &:nth-child(even)
-                margin-left: 0
+.bloco_parceiro .article_fake
+    width: calc((100% / 3) - 15px)
 .bloco_parceiro article
+    width: calc((100% / 3) - 15px)
     flexCol()
     blocoShadow()
     cursor: pointer
@@ -103,3 +93,16 @@
         display: none
     .bloco_favorito.favorito_marcado .marcado
         display: flex
+
+@media screen and (max-width:900px)
+    .bloco_geral_article
+        .article_fake
+        article
+            width: calc(50% - 10px)
+
+@media screen and (max-width:600px)
+    .bloco_geral_article
+        justify-content: center
+        .article_fake
+        article
+            width: 100%

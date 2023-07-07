@@ -42,8 +42,8 @@
         <div class="linha cor_bg"></div>
     </article>
     @ endforeach:
-    <article class="article_fake"></article>
-    <article class="article_fake"></article>
+    <div class="article_fake"></div>
+    <div class="article_fake"></div>
     @ elseif(isset($busca) && $busca)
     <div class="sem_parceiro">
         <i>@iconeImagem</i>
