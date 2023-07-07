@@ -17,6 +17,7 @@ final class LoginClubeModel
     private int $idEmpresa;
     public array $token;
     public array $construtor;
+    private array $listaUriHomologacao;
 
     /**
      * Faz o login normal do usuário com usuario e senha
@@ -29,6 +30,7 @@ final class LoginClubeModel
         private string $redirectUri,
         private string $state
     ) {
+        $this->listaUriHomologacao = env('API_REDIRECT_URI_HOMOLOGACAO', []);
         $this->pegarConstrutor();
         $this->fazerLogin();
         $this->criarToken();
@@ -36,10 +38,14 @@ final class LoginClubeModel
 
     private function pegarConstrutor()
     {
-        $this->redirectUri = explode('/', preg_replace('/^https?\:\/\//', '', $this->redirectUri))[0];
+        $redirectUri = explode('/', preg_replace('/^https?\:\/\//', '', $this->redirectUri))[0];
+        $this->redirectUri = $redirectUri;
+        if (!eProducao() && in_array($redirectUri, $this->listaUriHomologacao)) {
+            $redirectUri = $this->listaUriHomologacao[$redirectUri];
+        }
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar([
-            ['link_site', 'like', 'https://' . $this->redirectUri . '%'],
+            ['link_site', 'like', 'https://' . $redirectUri . '%'],
             ['status', 1]
         ]);
         $this->idEmpresa = $Construtor->id_admin_empresa;
