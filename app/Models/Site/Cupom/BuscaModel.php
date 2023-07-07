@@ -11,7 +11,7 @@ final class BuscaModel extends ClubeApiHelper
 
     public function listarDados(string $url = null): stdClass
     {
-        $dado = $this->get('/cupom/' . $url)->object();
+        $dado = $this->get('/parceiro-cupom/' . $url)->object();
         return $this->montarRetorno($dado);
     }
 }

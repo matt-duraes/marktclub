@@ -14,7 +14,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     {
         $dado = $this->json([
             'pesquisa' => $pesquisa ?? '',
-        ])->get('/cupom')->object();
+        ])->get('/parceiro-cupom')->object();
 
         return $this->montarRetorno($dado);
     }

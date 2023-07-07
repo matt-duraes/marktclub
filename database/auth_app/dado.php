@@ -100,7 +100,7 @@ $scope = [
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
 
-    'cupom:buscar', 'cupom:listar'
+    'parceiro-cupom:buscar', 'parceiro-cupom:listar'
 ];
 
 return [

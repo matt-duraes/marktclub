@@ -5,8 +5,6 @@
 // @system "Pagina"
 // @system "Funcao"
 
-const cupomPagina = {};
-
 const cupomDetalhe = () => {
     const inputCodigo = document.getElementById('input_cupom_valor');
     const botaoCopiar = document.getElementById('botao_cupom_copiar');
@@ -55,11 +53,11 @@ window.addEventListener('load', () => {
     }
 
     cupomLista.forEach(cupom => {
-        const url = cupom.getAttribute('data-url');
-        cupomPagina[url] = new Pagina('cupom - ' + url, '/cupom/' + url, {}, true, true, cupomDetalhe);
+        const id = cupom.getAttribute('data-id');
+        const PaginaCupom = new Pagina('cupom - ' + id, '/cupom/' + id, {}, true, true, cupomDetalhe);
 
         cupom.addEventListener('click', () => {
-            cupomPagina[url].abrir();
+            PaginaCupom.abrir();
         });
     });
 });

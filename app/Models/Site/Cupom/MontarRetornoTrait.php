@@ -31,6 +31,7 @@ trait MontarRetornoTrait
                 'titulo'   => $valor->parceiro->nome,
                 'texto'    => $valor->descricao,
                 'imagem'   => $valor->parceiro->imagem,
+                'tipo'     => 'cupom',
                 'validade' => $valor->validade
             ];
         }

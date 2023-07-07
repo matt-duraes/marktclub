@@ -5,11 +5,13 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Api\Cupom\CupomModel;
+use App\Models\Api\ParceiroCupom\CupomModel;
+use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 
-final class CupomController extends Controller implements
-    ControllerListarInterface
+final class ParceiroCupomController extends Controller implements
+    ControllerListarInterface,
+    ControllerBuscarInterface
 {
     public function getListar(Request $request): Response
     {
