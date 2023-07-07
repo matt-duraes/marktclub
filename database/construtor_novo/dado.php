@@ -6,7 +6,7 @@ return [
         'cod'              => 'b7ecc8af-25c1-4981-a891-cc60c3464f6c',
         'empresa'          => 1,
         'titulo'           => 'Markt Club',
-        'link_site'        => 'https://clube.markt.club',
+        'link_site'        => 'clube.markt.club',
         'logo'             => 'logo_marktclub_tem_mais.png',
         'cor'              => '#FF6F00',
         'contato_telefone' => '6132023003',
@@ -19,7 +19,7 @@ return [
         'cod'       => '236e76ea7af7e44d92294b31bb029a9b',
         'empresa'   => 2,
         'titulo'    => 'Anafe Card',
-        'link_site' => 'https://anafecard.com.br',
+        'link_site' => 'anafecard.com.br',
         'logo'      => '70ff785234195b33e0036ca434feaa3c.png',
         'cor'       => '#004E7D',
         'status'    => 1
@@ -29,7 +29,7 @@ return [
         'cod'       => '14bd832c9740b2e3093d402fd58c2f93',
         'empresa'   => 153,
         'titulo'    => 'Fenae',
-        'link_site' => 'https://convenios.fenae.org.br',
+        'link_site' => 'convenios.fenae.org.br',
         'logo'      => 'a96542ac6f8df4c7acbc53d1aa29de3d.png',
         'cor'       => '#20409a',
         'status'    => 1
@@ -39,7 +39,7 @@ return [
         'cod'       => '5cc28dab736cb7d4ef436ee2447a07ee',
         'empresa'   => 198,
         'titulo'    => 'CVS MAIS',
-        'link_site' => 'https://clube.cvsmais.com.br',
+        'link_site' => 'clube.cvsmais.com.br',
         'logo'      => 'logo_cvsmais_tem_mais.png',
         'cor'       => '#f00068',
         'status'    => 1
@@ -49,7 +49,7 @@ return [
         'cod'       => '122f833e84a78931e6fdcfa2e2a58771',
         'empresa'   => 1967,
         'titulo'    => 'Clube D+',
-        'link_site' => 'https://clubedmais.com.br',
+        'link_site' => 'clubedmais.com.br',
         'logo'      => 'logo_cvsmais_tem_mais.png',
         'cor'       => '#d9031c',
         'status'    => 1
@@ -59,7 +59,7 @@ return [
         'cod'       => '61df17919405cf68f723510ec3af4acd',
         'empresa'   => 82,
         'titulo'    => 'CLUBE DE VANTAGENS SINPOLDF',
-        'link_site' => 'https://sinpoldf.temmaisvantagens.com.br',
+        'link_site' => 'sinpoldf.temmaisvantagens.com.br',
         'logo'      => '27e13bb65402e5c25978b225c9775814.png',
         'cor'       => '#f00068',
         'status'    => 1

@@ -45,7 +45,7 @@ final class LoginClubeModel
         }
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar([
-            ['link_site', 'like', 'https://' . $redirectUri . '%'],
+            ['link_site', $redirectUri],
             ['status', 1]
         ]);
         $this->idEmpresa = $Construtor->id_admin_empresa;
