@@ -1,16 +1,28 @@
 <div class="busca_convenio">
-    <form action="@route(loja.busca)" method="get" class="form_geral">
+    <form action="@route(get.loja.buscar)" method="get" class="form_geral">
         <legend>Busque por um convênio</legend>
         <fieldset>
-            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: '')
-            @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: ['' => 'Todas as categoria'], value: '')
-            @? formSelect(name: 'tag', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Escolha uma categoria'], value: '')
-            @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: ['' => 'Todas os tipos', 'fisico' => 'Fisico', 'online' => 'On-line'], value: '')
+            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $Busca->estado ?? '')
+            @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: (new App\Classes\ParceiroLoja\Categoria)->select('Escolha uma categoria'), change: 'mudarCategoria', value: $Busca->categoria ?? '')
+            @? formSelect(name: 'subcategoria', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Escolha uma categoria'], value: $Busca->subcategoria ?? '')
+            @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: (new App\Classes\ParceiroLoja\Estabelecimento)->select('Escolha um tipo'), value: $Busca->estabelecimento ?? '')
         </fieldset>
         <fieldset>
-            @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: '')
-            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\ParceiroLoja\Ordem)->select(), value: '')
+            @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->pesquisa ?? '')
+            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\ParceiroLoja\Ordem)->select(), value: $Busca->ordem ?? '')
             <button class="botao_geral_cor cor_bg">Buscar</button>
         </fieldset>
     </form>
+    @ if( isset($Busca) && $Busca->uso ):
+    <div class="buscar_convenio_lista">
+        <h2>Filtros:</h2>
+        @ foreach( $Busca->uso as $r ):
+        <div class="item" data-indice="{{$r['indice']}}" data-valor="{{$r['valor']}}">
+            <div class="nome">{{$r['nome']}}</div>
+            <div class="valor">{{$r['valor_real']}}</div>
+            <div class="remover">@iconeFechar(10)</div>
+        </div>
+        @ endforeach;
+    </div>
+    @ endif;
 </div>

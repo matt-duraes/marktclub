@@ -26,6 +26,7 @@ class CurlHelper
     private string $erroTitulo = 'Erro!';
     private string $erroMensagem = '';
     private int $erroStatus = 400;
+    private bool $erroRetorno = true;
 
     public function __construct(
         private readonly ?string $url = null
@@ -78,15 +79,23 @@ class CurlHelper
     /**
      * Valida se existe erro apos executar o CURL
      *
-     * @param  string      $mensagem Mensagem de erro padrão caso a resposta não tenha
+     * @param  string|null $mensagem Mensagem de erro padrão caso a resposta não tenha
      * @param  string|null $titulo   Título de erro padrão caso a resposta não tenha
      * @param  int|null    $status   Status HTML em caso de erro
+     * @param  bool        $retorno  Se pode mostar o retorno de erro ou obriga a usar o da mensagem
      * @return CurlHelper
      */
-    public function validar(string $mensagem, string $titulo = null, int $status = null): self
-    {
+    public function validar(
+        string $mensagem = null,
+        string $titulo = null,
+        int $status = null,
+        bool $retorno = true
+    ): self {
         $this->erroValidar = true;
-        $this->erroMensagem = $mensagem;
+        $this->erroRetorno = $retorno;
+        if (!empty($mensagem)) {
+            $this->erroMensagem = $mensagem;
+        }
         if (!empty($titulo)) {
             $this->erroTitulo = $titulo;
         }
@@ -338,7 +347,7 @@ class CurlHelper
         curl_close($ch);
 
         if ($this->erroValidar) {
-            respostaJson($this, $this->erroMensagem, $this->erroTitulo, $this->erroStatus);
+            respostaJson($this, $this->erroMensagem, $this->erroTitulo, $this->erroStatus, $this->erroRetorno);
         }
 
         $this->requisicao = [

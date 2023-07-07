@@ -22,9 +22,8 @@ final class ParceiroLojaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Parceiro,
                 lista: [
-                    'titulo', 'link_logo', 'texto_desconto', 'texto_voucher',
-                    'texto_procedimento', 'status', 'favorito', 'descricao', 'banner',
-                    'desconto_texto', 'procedimento_texto', 'desconto', 'voucher_texto'
+                    'titulo', 'link_logo', 'link_capa_mobile', 'link_capa_desktop', 'texto_desconto',
+                    'texto_voucher', 'texto_procedimento', 'texto_descricao', 'procedimento', 'favorito', 'status'
                 ]
             )
         );

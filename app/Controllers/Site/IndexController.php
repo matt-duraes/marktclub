@@ -21,7 +21,7 @@ final class IndexController extends Controller
     {
         $LojaNova = new ListarModel(
             quantidade: new Inteiro(3),
-            ordem: new Ordem(Ordem::MAIS_NOVO),
+            ordem: new Ordem(Ordem::MAIS_NOVO)
         );
         $LojaFavorita = new ListarModel(
             quantidade: new Inteiro(3),

@@ -21,4 +21,4 @@ Route
         Route
             ::nome('usuarioDeslogou')
             ::view('/login/fenae-sair');
-    });
+});

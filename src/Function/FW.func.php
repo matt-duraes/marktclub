@@ -533,6 +533,23 @@ if (!function_exists('limparNullDeArray')) {
         return $lista;
     }
 }
+if (!function_exists('limparVazioDeArray')) {
+    /**
+     * @param array $array Array a ser limpo
+     */
+    function limparVazioDeArray(array $array): array
+    {
+        $lista = [];
+        foreach ($array as $ind => $val) {
+            if (is_array($val)) {
+                $lista[$ind] = limparVazioDeArray($val);
+            } elseif (!empty($val)) {
+                $lista[$ind] = $val;
+            }
+        }
+        return $lista;
+    }
+}
 
 /*/
 |--------------------------------------------------------------------------

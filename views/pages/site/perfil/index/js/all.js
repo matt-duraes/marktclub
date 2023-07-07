@@ -28,6 +28,7 @@ window.addEventListener('load', () => {
     const inputCidade = document.querySelector('#bloco_pagina_perfil form input[name=cidade]');
     const fotoPerfil = document.querySelector('#imagem_fundo_perfil');
     const blocoPerfil = document.querySelector('#bloco_perfil figure');
+
     botaoSalvar.addEventListener('click', e => {
         e.preventDefault();
         acaoParaAtualizarDado();

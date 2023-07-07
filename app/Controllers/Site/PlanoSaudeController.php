@@ -5,41 +5,17 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Models\Site\ConstrutorModel;
 use App\Models\Site\Saude\OperadoraModel;
 
 final class PlanoSaudeController extends Controller
 {
     private $location = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        $construtor = (new ConstrutorModel())->montaPlanoDeSaude();
-        //Para visualizar federal saúde só alterar essa define para federal
-        $this->defineLocation($construtor);
-    }
-
     public function index()
     {
-        $retorno = [
-            'menu'        => 'saude',
-            'banner'      => (new BannerModel())->saude(),
-            'saudeBoleto' => (new OperadoraModel())->saudeBoleto(),
-        ];
-
-        if (defined('CLUBE_ID') != 'federal') {
-            $retorno['lista'] = (new OperadoraModel())->listarDados();
-        } else {
-            $retorno['lista'] = (new OperadoraModel())->listarDadosFederal();
-        }
-
-        if ($this->location) {
-            return location($this->location);
-        }
-
-        return view('plano_saude.index', $retorno);
+        return view('plano_saude.index', [
+            'lista' => (new OperadoraModel())->listarDados()
+        ]);
     }
 
     private function defineLocation($construtor)

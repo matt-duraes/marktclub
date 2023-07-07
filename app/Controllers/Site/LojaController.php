@@ -7,6 +7,7 @@ use Http\Request;
 use Http\Response;
 use Modules\Botao;
 use Modules\Inteiro;
+use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
@@ -15,6 +16,7 @@ use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
+use App\Classes\ParceiroLoja\Procedimento;
 
 final class LojaController extends Controller
 {
@@ -25,13 +27,10 @@ final class LojaController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function busca(Request $request, string $pesquisa = null): Response
+    public function getBuscar(Request $request): Response
     {
-        $Busca = new FiltroModel($request, $pesquisa);
-        if ($pesquisa) {
-            return $this->index($request, $Busca);
-        }
-        return new Response(url: $Busca->url());
+        $Filtro = new FiltroModel($request);
+        return new Response(url: $Filtro->link);
     }
 
     /**
@@ -41,22 +40,21 @@ final class LojaController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function index(Request $request, FiltroModel $Busca = null): Response
+    public function index(Request $request): Response
     {
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
             favorito: new Botao($request->favorito),
             tipo: new Tipo(Tipo::LOJA),
-            ordem: new Ordem($request->ordem)
+            ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito')
         );
+
+        $Filtro = new FiltroModel($request);
         return view('loja.index', [
-            'menu'         => 'loja',
-            'banner'       => true,
-            'Busca'        => $Busca instanceof FiltroModel ? $Busca : new FiltroModel($request),
-            'lista'        => $Lista->listarDados(),
-            'parceiroTipo' => 'loja',
-            'banner'       => (new BannerModel())->loja(),
-            'popupSimples' => true
+            'menu'   => 'loja',
+            'Busca'  => $Filtro,
+            'lista'  => $Lista->listarDados(),
+            'banner' => $Filtro->existe ? [] : (new BannerModel())->loja()
         ]);
     }
 
@@ -75,23 +73,49 @@ final class LojaController extends Controller
             quantidade: new Inteiro(3),
             ordem: new Ordem(Ordem::RANDOMICO)
         );
+
         return view('loja.detalhe', [
             'menu'         => 'loja',
-            'lista'        => $Lista->listarDados(),
             'dado'         => $Dado->buscarDados(),
-            'parceiroTipo' => 'loja'
+            'endereco'     => [],
+            'telefone'     => [],
+            'email'        => [],
+            'tipo'         => 'loja',
+            'lista'        => $Lista->listarDados(),
+            'procedimento' => new Procedimento()
         ]);
     }
 
-    /**
-     * @param string $url
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function confirmar(string $url): Response
+    public function postSubcategoria(Request $request)
     {
-        return view('loja.confirmar');
+        $dado = (new ApiHelper(scope: 'parceiro_subcategoria:listar'))
+            ->json([
+                'categoria' => $request->categoria,
+                'titulo'    => 'Escolha uma categoria'
+            ])
+            ->get('/parceiro-subcategoria/select')
+            ->array();
+
+        return mensagemSucesso($dado['dado'] ?? []);
+    }
+
+    public function postFavorito(Request $request): Response
+    {
+        (new ApiHelper(scope: 'parceiro_favorito:salvar'))
+            ->validar(mensagem: 'Erro ao salvar favorito, por favor, tente novamente.', retorno: false)
+            ->body(['parceiro' => $request->id])
+            ->post('/parceiro-favorito')
+            ->object()->dado;
+
+        return mensagemSucesso([], status: 201);
+    }
+
+    public function deleteFavorito(string $id)
+    {
+        (new ApiHelper(scope: 'parceiro_favorito:deletar'))
+            ->validar('Erro ao remover favorito, por favor, tente novamente.', retorno: false)
+            ->delete('/parceiro-favorito/' . $id);
+        return new Response(status: 204);
     }
 
     /**
@@ -106,61 +130,6 @@ final class LojaController extends Controller
         return view('loja.proxima', [
             'menu' => 'loja-proxima',
         ]);
-    }
-
-    /**
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function abrirModal(): Response
-    {
-        return view('loja.geral.modal');
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function abrirModalIndicacao(): Response
-    {
-        return view('loja.geral.modalIndicacao', [
-            // 'tipo'      => $tipo,
-        ]);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function abrirMapaModal(): Response
-    {
-        return view('loja.proxima.modal', [
-            'menu' => 'loja-proxima'
-        ]);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function postBuscaMapa(Request $request): Response
-    {
-        return new Response(status: 201);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function postFavorito(Request $request): Response
-    {
-        $uuid = $request->uuid;
-        $acao = $request->acao;
-        $loja = []; //(new RelacionadoModel())->favoritar($uuid, $acao);
-        return new Response(json: $loja);
     }
 
     /**

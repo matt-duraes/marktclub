@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Site;
 
+use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Cinema\ListarModel;
-use Controller\Controller;
 
 final class CinemaController extends Controller
 {
@@ -20,10 +20,5 @@ final class CinemaController extends Controller
             'lista'        => (new ListarModel())->listarDados(),
             'parceiroTipo' => 'cinema',
         ]);
-    }
-
-    public function extrato()
-    {
-        return view('cinema.extrato');
     }
 }

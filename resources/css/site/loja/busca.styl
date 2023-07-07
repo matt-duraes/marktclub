@@ -49,3 +49,37 @@
         .busca_ordem
             max-width: 100%
             width: 100%
+
+.buscar_convenio_lista
+    width: 100%
+    max-width: 1130px
+    flexRow()
+    flex-wrap: wrap
+    margin-top: 10px
+    h2
+        width: 100%
+        font-size: 1.3rem
+    .item
+        flexCol()
+        position: relative
+        margin: 10px 10px 0 0
+        border: 1px solid #DDD
+        padding: 5px 50px 5px 5px
+        border-radius: 5px
+    .item .nome
+        font-size: 1.3rem
+        color: #666
+    .item .valor
+        font-size: 1.4rem
+        color: #333
+        margin-top: 5px
+    .item .remover
+        width: 30px
+        height: 30px
+        position: absolute
+        right: 5px
+        flexCenter()
+        cursor: pointer
+        border-radius: 50%
+        &:hover
+            background-color: #EEE

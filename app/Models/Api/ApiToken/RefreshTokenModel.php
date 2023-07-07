@@ -7,7 +7,10 @@ use stdClass;
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
+use App\Models\Api\AdminConstrutor\ClubeModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 
 final class RefreshTokenModel extends ORM implements TokenInterface
 {
@@ -15,8 +18,9 @@ final class RefreshTokenModel extends ORM implements TokenInterface
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
     private stdClass $tokenAtual;
-    private EquipeEntity $Usuario;
+    private EquipeEntity|ClienteEntity $Usuario;
     private array $token;
+    public array $clube = [];
 
     public function __construct(
         private ?AppEntity $App = null,
@@ -25,10 +29,11 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     ) {
         parent::__construct();
         if (is_null($App) || empty($refreshToken)) {
-            return;
+            mensagemStatus(403);
         }
-
         $this->pegarTokenAtual();
+        $this->mudaAppSeTokenForClube();
+        $this->validaSeTokenDoApp();
         $this->pegarUsuario();
 
         $this->token = $this->criarImplicitToken(
@@ -55,15 +60,13 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     {
         try {
             $token = $this
-                ->campo(['id_usuario', 'scope_permitido', 'state_cliente', 'tipo'])
+                ->campo(['id_usuario', 'id_api_app', 'scope_permitido', 'state_cliente', 'tipo'])
                 ->where([
-                    ['id_api_app', $this->App->get('id')],
                     ['refresh_token', $this->refreshToken],
                     ['grant_type', 'implicit'],
                     ['ip', ip()],
                     ['status', 1]
                 ])->primeiro();
-
             if (empty($token)) {
                 $this->tokenVencido(mensagem: 'Não foi encontrado o token atual.');
             }
@@ -74,10 +77,32 @@ final class RefreshTokenModel extends ORM implements TokenInterface
         }
     }
 
+    private function mudaAppSeTokenForClube()
+    {
+        $AppToken = new AppEntity();
+        $AppToken->id($this->tokenAtual->id_api_app);
+        if ($AppToken->id != env('API_CLUBE_ID')) {
+            return;
+        }
+        $this->App = $AppToken;
+        $Construtor = new ConstrutorEntity();
+        $Construtor->id($this->App->id_admin_empresa);
+        $this->clube = (new ClubeModel($Construtor))->construtor;
+    }
+
+    private function validaSeTokenDoApp()
+    {
+        if ($this->App->get('id') != $this->tokenAtual->id_api_app) {
+            mensagemStatus(403, localhost: 'O Token não é do APP que solicitou o refresh.');
+        }
+    }
+
     private function pegarUsuario()
     {
         if (in_array($this->App->audience, ['web'])) {
             $Usuario = new EquipeEntity(validarToken: false);
+        } elseif ($this->App->audience == 'clube') {
+            $Usuario = new ClienteEntity(validarToken: false);
         }
         try {
             $Usuario->uuid($this->tokenAtual->id_usuario);
