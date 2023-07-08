@@ -8,6 +8,8 @@ use stdClass;
 
 final class MontadoraModel extends ApiHelper implements ListarInterface
 {
+    use MontarRetornoTrait;
+
     public function __construct()
     {
         parent::__construct(scope: '');
@@ -15,33 +17,12 @@ final class MontadoraModel extends ApiHelper implements ListarInterface
 
     public function listarDados(): stdClass
     {
-        return $this->montarRetorno();
-    }
+        $apiHelper = new ApiHelper('automovel_montadora:listar');
 
-    private function montarRetorno(): stdClass
-    {
-        return (object)[
-            'tipo'  => 'montadora',
-            'lista' => [
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Montadora 01',
-                    'link'   => route('automovel.veiculo') . '/veiculo',
-                    'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Montadora 02',
-                    'link'   => route('automovel.veiculo') . '/veiculo',
-                    'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Montadora 03',
-                    'link'   => route('automovel.veiculo') . '/veiculo',
-                    'imagem' => 'https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg'
-                ]
-            ]
-        ];
+        $dado = $apiHelper->json([
+                    'pagina' => 1
+                ])->get('/automovel-montadora')->object();
+
+        return $this->montarRetorno($dado);
     }
 }

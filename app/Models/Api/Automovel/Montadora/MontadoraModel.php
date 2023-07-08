@@ -132,6 +132,7 @@ final class MontadoraModel extends ORM
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,
+                'titulo' => $r->titulo,
                 'tipo' => $Tipo->indice($r->tipo),
                 'imagem' => [
                     'logo' => $this->link_arquivo . '/carro/' . $r->imagem,
