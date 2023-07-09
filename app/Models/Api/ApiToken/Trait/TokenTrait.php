@@ -4,6 +4,7 @@ namespace App\Models\Api\ApiToken\Trait;
 
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiApp\AppEntity;
+use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
@@ -31,25 +32,14 @@ trait TokenTrait
 
     public function criarImplicitToken(
         AppEntity $App,
-        EquipeEntity $Usuario,
+        EquipeEntity|ClienteEntity $Usuario,
         array $scope,
         string $audience,
         string $redirectUri,
         string $state,
         Tipo $tipo
     ) {
-        $payload = criptografarDado(
-            [
-                'sub'            => $Usuario->id,
-                'name'           => $Usuario->nome->nome(),
-                'picture'        => $Usuario->imagem,
-                'email'          => $Usuario->email->email(),
-                'email_verified' => 'nao',
-                'create_at'      => $Usuario->data_criacao->date(),
-                'updated_at'     => $Usuario->data_atualizacao->date(),
-            ],
-            criptografia: ['name', 'picture', 'email']
-        );
+        $payload = (new PayloadModel($Usuario))->payload;
 
         $Token = new TokenAuthorizationEntity();
         return $Token->criarToken(

@@ -6,12 +6,18 @@
 
 #bloco_promocao
     maxWidth()
+    flexRow()
+    flex-wrap: wrap
+    justify-content: space-between
+    .article_fake
+        width: calc((100% / 3) - 18px)
     article
+        width: calc((100% / 3) - 18px)
         flexCol()
         boxShadow()
         cursor: pointer
         border-radius: 3px
-        margin-bottom: 22px
+        margin-bottom: 25px
         borderRadiusPadrao()
         overflow: hidden
     article figure
@@ -19,3 +25,15 @@
         height: 250px
         background-size: cover
         background-position: top center
+
+@media screen and (max-width:900px)
+    #bloco_promocao
+        .article_fake
+        article
+            width: calc(50% - 10px)
+
+@media screen and (max-width:600px)
+    #bloco_promocao
+        .article_fake
+        article
+            width: 100%

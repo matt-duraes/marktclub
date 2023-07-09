@@ -442,14 +442,20 @@ if (!function_exists('respostaJson')) {
      * @param  null|string            $titulo   Título que deseja usar no caso de erro e não
      *                                          ter a mensagem na resposta
      * @param  int                    $status   Status que deseja retornar no caso de erro
+     * @param  bool                   $retorno  Se vai mostrar o erro da API ou o padrão
      * @throws Erro\Excecao           Retonar um Erro\Exececao a resposta contenha um erro
      */
     function respostaJson(
         array|stdClass|ApiHelper $resposta,
         string $mensagem,
         ?string $titulo = null,
-        int $status = 400
+        int $status = 400,
+        bool $retorno = true
     ) {
+        if (eLocalhost()) {
+            $retorno = true;
+        }
+
         if ($resposta instanceof ApiHelper && $resposta->status() == 204) {
             return true;
         }
@@ -472,32 +478,43 @@ if (!function_exists('respostaJson')) {
             if (
                 is_array($resposta) &&
                 array_key_exists('erro', $resposta) &&
-                array_key_exists('titulo', $resposta['erro'])
+                array_key_exists('titulo', $resposta['erro']) &&
+                $retorno
             ) {
                 $titulo = $resposta['erro']['titulo'];
             }
             if (
                 is_array($resposta) &&
                 array_key_exists('erro', $resposta) &&
-                array_key_exists('mensagem', $resposta['erro'])
+                array_key_exists('mensagem', $resposta['erro']) &&
+                $retorno
             ) {
                 $mensagem = $resposta['erro']['mensagem'];
             }
             if (
                 is_object($resposta) &&
                 object_key_exists('erro', $resposta) &&
-                object_key_exists('titulo', $resposta->erro)
+                object_key_exists('titulo', $resposta->erro) &&
+                $retorno
             ) {
                 $titulo = $resposta->erro->titulo;
             }
             if (
                 is_object($resposta) &&
                 object_key_exists('erro', $resposta) &&
-                object_key_exists('mensagem', $resposta->erro)
+                object_key_exists('mensagem', $resposta->erro) &&
+                $retorno
             ) {
                 $mensagem = $resposta->erro->mensagem;
             }
-            mensagemErro(empty($titulo) ? 'Erro!' : $titulo, mensagem: $mensagem, status: $status);
+            if (empty($titulo) && empty($mensagem) && !empty($status)) {
+                mensagemStatus($status);
+            }
+            mensagemErro(
+                empty($titulo) ? 'Erro!' : $titulo,
+                mensagem: !empty($mensagem) ? $mensagem : 'Erro na requisição, por favor, tente novamente.',
+                status: $status
+            );
         }
         return true;
     }

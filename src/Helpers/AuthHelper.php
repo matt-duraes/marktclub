@@ -6,6 +6,8 @@ use Erro\Excecao;
 
 final class AuthHelper
 {
+    private string $location = LINK;
+
     /**
      * Validar se usuário está logado
      *
@@ -22,7 +24,6 @@ final class AuthHelper
 
         $userAgent = md5($_SERVER['HTTP_USER_AGENT'] ?? 'unknown');
 
-        // phpcs:disable
         if (
             sessaoExiste('USUARIO')
             && sessaoExiste('AUTH_' . $local . '_' . $userAgent . '_HASH')
@@ -31,15 +32,16 @@ final class AuthHelper
         ) {
             return true;
         }
-        // phpcs:enable
-
         if ($location) {
-            $protocolo = explode('/', LINK)[0];
-            $hostname = explode('/', str_replace(['http://', 'https://'], '', LINK))[0];
-            sessao('AUTH_' . $local . '_LOCATION', $protocolo . '//' . $hostname . $_SERVER['REQUEST_URI']);
+            $this->criarLocation($local, LINK . URI);
         }
 
         return false;
+    }
+
+    private function criarLocation($local, $link)
+    {
+        sessao('AUTH_' . $local . '_LOCATION', $link);
     }
 
     /**
@@ -80,6 +82,7 @@ final class AuthHelper
      */
     public function criar(array $usuario, ?string $local = null): bool
     {
+        $location = $this->location();
         $this->deletar();
 
         if (is_null($local)) {
@@ -92,6 +95,7 @@ final class AuthHelper
         sessao('AUTH_' . $local . '_' . $userAgent . '_HASH', $hash);
         sessao('AUTH_' . $local . '_' . $userAgent, $hash);
         sessao('USUARIO', $usuario);
+        $this->criarLocation($local, $location);
 
         return true;
     }

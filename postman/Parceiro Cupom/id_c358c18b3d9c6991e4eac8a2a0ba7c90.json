@@ -1,0 +1,1 @@
+{"id":"id_c358c18b3d9c6991e4eac8a2a0ba7c90","token":"token","metodo":"GET","nome":"\/parceiro-cupom","uri":"{{LINK}}\/parceiro-cupom","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$PARCEIRO_CUPOM_ID","dado.0.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

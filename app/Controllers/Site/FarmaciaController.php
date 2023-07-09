@@ -2,11 +2,13 @@
 
 namespace App\Controllers\Site;
 
+use Modules\Inteiro;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Classes\ParceiroLoja\Tipo;
+use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\ListarModel;
-use App\Models\Site\Farmacia\FarmaciaModel;
+use App\Classes\ParceiroLoja\Procedimento;
 
 final class FarmaciaController extends Controller
 {
@@ -15,6 +17,7 @@ final class FarmaciaController extends Controller
         $Farmacia = new ListarModel(
             tipo: new Tipo(Tipo::FARMACIA)
         );
+
         return view('farmacia.index', [
             'menu'   => 'farmacia',
             'banner' => (new BannerModel())->farmacia(),
@@ -24,14 +27,21 @@ final class FarmaciaController extends Controller
 
     public function detalhe(string $url)
     {
-        $dado = (new FarmaciaModel())->buscarDados($url);
+        $Listar = new ListarModel(
+            quantidade: new Inteiro(3),
+            tipo: new Tipo(Tipo::FARMACIA)
+        );
         return view(
             'farmacia.detalhe',
             [
-                'menu'  => 'farmacia',
-                'dado'  => $dado,
-                'tipo'  => 'farmacia',
-                'lista' => (new FarmaciaModel())->relacionado($dado->id)
+                'menu'         => 'farmacia',
+                'dado'         => (new BuscarModel($url))->buscarDados(),
+                'tipo'         => 'farmacia',
+                'lista'        => $Listar->listarDados(),
+                'telefone'     => [],
+                'email'        => [],
+                'endereco'     => [],
+                'procedimento' => new Procedimento()
             ]
         );
     }

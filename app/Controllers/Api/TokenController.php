@@ -70,9 +70,17 @@ final class TokenController extends Controller implements
             scope: $request->scope
         );
 
+        $retorno = $Token->pegarToken();
+        if ($Token->clube) {
+            $retorno = [
+                'token' => $retorno,
+                'clube' => $Token->clube
+            ];
+        }
+
         return new Response(json: [
             'status' => 'sucesso',
-            'dado'   => $Token->pegarToken()
+            'dado'   => $retorno
         ], status: 201);
     }
 }

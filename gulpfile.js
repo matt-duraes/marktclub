@@ -8,6 +8,7 @@ const { jsUnico, jsTodos, jsDeploy } = require('./src/Gulpfile/js.js');
 const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
+const { phpCsFixer } = require('./src/Gulpfile/php.js');
 const {
     buildCopiarComposerConfig,
     buildComposerInstall,
@@ -24,6 +25,7 @@ const {
     buildBaixandoUpdate,
     buildCopiandoUpdate,
     buildLimparFramework,
+    buildDefineTabela,
     buildPaginaExemplo,
     buildArquivoErro,
     buildCorrigindoComposer,
@@ -54,6 +56,7 @@ exports.upgrade = series(
 exports.css = series(copiandoArquivosCSS);
 exports.js = series(copiandoArquivosJS);
 exports.html = series(copiandoArquivosHtml);
+exports.tabela = series(copiandoArquivosCSS);
 
 // Limpa o framework
 exports.clearFramework = series(limpandoFramework);
@@ -85,7 +88,9 @@ exports.install = series(
         copiandoArquivoParaPhpMussel
     ),
     copiandoArquivoDeErro,
-    criandoPaginaExemplo
+    criandoPaginaExemplo,
+    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem, criarArquivoDaTabela),
+    copiandoArquivosCSS
 );
 
 // Executa ao dar commit
@@ -93,7 +98,7 @@ exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
 exports.build = series(
-    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
+    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem, criarArquivoDaTabela),
     copiandoArquivosCSS
 );
 exports.composerBugfix = series(corrigindoBugDoComposer);
@@ -156,6 +161,14 @@ async function monitorarSistema() {
     if (prop.open == undefined) {
         await open(config.browserSync.open + ':' + proxyPorta);
     }
+
+    // PHP CS FIXER
+    watch(['**/*.php', '!**/*Route.php']).on('change', async path => {
+        const time = new Date().getTime();
+        consoleHeader();
+        await phpCsFixer(path);
+        consoleFooter(time);
+    });
 
     // CSS
     watch('./views/pages/**/*.styl').on('change', async path => {
@@ -229,7 +242,9 @@ function executandoComposerInstall() {
 function copiandoArquivoParaDocker() {
     return buildDocker();
 }
-
+function criarArquivoDaTabela() {
+    return buildDefineTabela();
+}
 function criandoDiretorios() {
     return buildDiretorios();
 }

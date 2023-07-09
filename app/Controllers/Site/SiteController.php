@@ -2,10 +2,10 @@
 
 namespace App\Controllers\Site;
 
-use Controller\Controller;
 use Erro\Excecao;
-use Http\Response;
 use Http\Request;
+use Http\Response;
+use Controller\Controller;
 use App\Models\Site\SosMulher\ListarModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
 
@@ -76,8 +76,6 @@ final class SiteController extends Controller
      */
     public function indiqueAmigo(): Response
     {
-        define('CLUBE_FINALIDADE', 1);
-
         $texto = <<<HTML
             <p>O que você acha de liberar um acesso por 48h para um amigo?</p>
             <p>

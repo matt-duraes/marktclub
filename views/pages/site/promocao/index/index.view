@@ -1,12 +1,10 @@
 @template "site"
 
 <div id="bloco_promocao">
-    <div class="bloco_geral_article">
-        @ ifforeach($lista as $r):
-        <article>
-            <figure style="background-image: url(https://arquivo.marktclub.com.br/publicidade/467e8626bbf4e88d5e0a12b2ac5a7b64.png)"></figure>
-            <a class="botao_geral_cor" href="@route(loja.detalhe)/teste" target="_self" >ACESSAR PARCEIRO</a>
-        </article>
-        @ endifforeach;
-    </div>
+    @ ifforeach($lista as $r):
+    <article>
+        <figure style="background-image: url(https://arquivo.marktclub.com.br/publicidade/467e8626bbf4e88d5e0a12b2ac5a7b64.png)"></figure>
+        <a class="botao_geral_cor" href="@route(loja.index)" target="_self" >ACESSAR PARCEIRO</a>
+    </article>
+    @ endifforeach;
 </div>

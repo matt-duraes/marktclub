@@ -8,6 +8,7 @@ use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginApi\DigioModel;
+use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\LoginClube\LoginClubeModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
@@ -98,18 +99,7 @@ final class LoginController extends Controller
         }
 
         $Usuario = $Login->pegarUsuario();
-        $payload = criptografarDado(
-            dado: [
-                'sub'            => $Usuario->id,
-                'name'           => $Usuario->nome->nome(),
-                'picture'        => $Usuario->imagem,
-                'email'          => $Usuario->email->email(),
-                'email_verified' => 'nao',
-                'create_at'      => $Usuario->data_criacao->date(),
-                'updated_at'     => $Usuario->data_atualizacao->date(),
-            ],
-            criptografia: ['name', 'picture', 'email']
-        );
+        $payload = (new PayloadModel($Usuario))->payload;
 
         return $this->criarToken(
             body: $payload,

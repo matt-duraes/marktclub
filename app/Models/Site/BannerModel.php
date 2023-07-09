@@ -20,22 +20,26 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'imagem' => LINK_PADRAO . '/images/temp/index_desktop.png',
+                    'target' => '_self',
+                    'link'   => route('loja.index')
                 ],
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'imagem' => LINK_PADRAO . '/images/temp/index_desktop.png',
+                    'target' => '_self',
+                    'link'   => route('loja.index')
                 ]
             ],
             'mobile'  => [
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/873354e55041317af1d891c2f81ed355.png',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
+                    'target' => '_self',
+                    'link'   => route('loja.index')
                 ],
                 (object)[
-                    'imagem' => 'https://arquivo.marktclub.com.br/publicidade/a9a4e3f337b4dfdcbc4c83dc29c524c6.jpg',
-                    'link'   => route('loja.detalhe') . '/loja'
+                    'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
+                    'target' => '_self',
+                    'link'   => route('loja.index')
                 ]
             ]
         ];
@@ -57,14 +61,16 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema_banner.jpg',
-                    'link'   => 'https://afiliados.easylive.com.br/?aid=5'
+                    'imagem' => LINK_PADRAO . '/images/temp/cinema_desktop.jpeg',
+                    'target' => '_self',
+                    'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86'
                 ]
             ],
             'mobile' => [
                 (object) [
-                    'imagem' => '',
-                    'link'   => ''
+                    'imagem' => LINK_PADRAO . '/images/temp/cinema_mobile.jpeg',
+                    'target' => '_self',
+                    'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86'
                 ]
             ]
         ];
@@ -79,13 +85,15 @@ final class BannerModel
             'desktop' => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/turismo_123_desktop.png',
-                    'link'   => ''
+                    'link'   => '',
+                    'target' => ''
                 ]
             ],
             'mobile'  => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/site/turismo_123_mobile.png',
-                    'link'   => ''
+                    'link'   => '',
+                    'target' => ''
                 ]
             ]
         ];
@@ -99,14 +107,14 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object)[
-                    'imagem' => LINK_PADRAO . '/images/site/turismo_carro_desktop.png',
-                    'link'   => ''
+                    'imagem' => LINK_PADRAO . '/images/temp/turismo_carro_desktop.png',
+                    'link'   => route('loja.index')
                 ]
             ],
             'mobile'  => [
                 (object)[
-                    'imagem' => LINK_PADRAO . '/images/site/turismo_carro_mobile.png',
-                    'link'   => ''
+                    'imagem' => LINK_PADRAO . '/images/temp/turismo_carro_mobile.png',
+                    'link'   => route('loja.index')
                 ]
             ]
         ];
@@ -141,13 +149,13 @@ final class BannerModel
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'imagem' => LINK_PADRAO . '/images/temp/farmacia_desktop.png',
                     'link'   => ''
                 ]
             ],
             'mobile' => [
                 (object)[
-                    'imagem' => LINK_PADRAO . '/images/site/farmacia_desktop.png',
+                    'imagem' => LINK_PADRAO . '/images/temp/farmacia_mobile.png',
                     'link'   => ''
                 ]
             ]
@@ -205,15 +213,13 @@ final class BannerModel
             'desktop' => [
                 (object)[
                     'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
-                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
-                    marketclub'
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub'
                 ]
             ],
             'mobile'  => [
                 (object)[
                     'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
-                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=
-                    marketclub'
+                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub'
                 ]
             ]
         ];
