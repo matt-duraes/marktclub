@@ -25,6 +25,7 @@ const {
     buildBaixandoUpdate,
     buildCopiandoUpdate,
     buildLimparFramework,
+    buildDefineTabela,
     buildPaginaExemplo,
     buildArquivoErro,
     buildCorrigindoComposer,
@@ -55,6 +56,7 @@ exports.upgrade = series(
 exports.css = series(copiandoArquivosCSS);
 exports.js = series(copiandoArquivosJS);
 exports.html = series(copiandoArquivosHtml);
+exports.tabela = series(copiandoArquivosCSS);
 
 // Limpa o framework
 exports.clearFramework = series(limpandoFramework);
@@ -86,7 +88,9 @@ exports.install = series(
         copiandoArquivoParaPhpMussel
     ),
     copiandoArquivoDeErro,
-    criandoPaginaExemplo
+    criandoPaginaExemplo,
+    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem, criarArquivoDaTabela),
+    copiandoArquivosCSS
 );
 
 // Executa ao dar commit
@@ -94,7 +98,7 @@ exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
 exports.build = series(
-    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
+    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem, criarArquivoDaTabela),
     copiandoArquivosCSS
 );
 exports.composerBugfix = series(corrigindoBugDoComposer);
@@ -238,7 +242,9 @@ function executandoComposerInstall() {
 function copiandoArquivoParaDocker() {
     return buildDocker();
 }
-
+function criarArquivoDaTabela() {
+    return buildDefineTabela();
+}
 function criandoDiretorios() {
     return buildDiretorios();
 }
