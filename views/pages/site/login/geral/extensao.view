@@ -1,0 +1,13 @@
+<section class="bloco_saibamais">
+    <div class="box_quebra_cabeca">
+        <figure class="img_quebra_cabeca cor_bg"
+        style="mask-image: url({!!LINK_PADRAO!!}/images/login/extensao.svg);
+        -webkit-mask-image: url({!!LINK_PADRAO!!}/images/login/extensao.svg)"></figure>
+        <div class="texto_quebra_cabeca">
+            <p class="texto"> Saiba na mesma hora se o site acessado possui algum desconto disponivel aqui no seu clube</p>
+            <a href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc" class="botao_quebra_cabeca texto cor_bg">
+                Adicionar extensão
+            </a>
+        </div>
+    </div>
+</section>

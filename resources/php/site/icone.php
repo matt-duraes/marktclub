@@ -510,3 +510,71 @@ if (!function_exists('iconeMenos')) {
         return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M19 11H5V13H19V11Z"></path></svg>';
     }
 }
+
+if (!function_exists('iconeBaixarApp')) {
+    // doc
+    // exemplo
+    // echo iconeBaixarApp
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeBaixarApp(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M9 2V4H5L4.999 14H18.999L19 4H15V2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H9ZM18.999 16H4.999L5 20H19L18.999 16ZM17 17V19H15V17H17ZM13 2V7H16L12 11L8 7H11V2H13Z"></path></svg>';
+    }
+}
+
+
+if (!function_exists('iconeFaq')) {
+    // doc
+    // exemplo
+    // echo iconeFaq
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeFaq(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M5.76282 17H20V5H4V18.3851L5.76282 17ZM6.45455 19L2 22.5V4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.45455ZM11 14H13V16H11V14ZM8.56731 8.81346C8.88637 7.20919 10.302 6 12 6C13.933 6 15.5 7.567 15.5 9.5C15.5 11.433 13.933 13 12 13H11V11H12C12.8284 11 13.5 10.3284 13.5 9.5C13.5 8.67157 12.8284 8 12 8C11.2723 8 10.6656 8.51823 10.5288 9.20577L8.56731 8.81346Z"></path></svg>';
+    }
+}
+
+
+
+if (!function_exists('iconeComoFunciona')) {
+    // doc
+    // exemplo
+    // echo iconeComoFunciona
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeComoFunciona(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM13 13.3551V14H11V12.5C11 11.9477 11.4477 11.5 12 11.5C12.8284 11.5 13.5 10.8284 13.5 10C13.5 9.17157 12.8284 8.5 12 8.5C11.2723 8.5 10.6656 9.01823 10.5288 9.70577L8.56731 9.31346C8.88637 7.70919 10.302 6.5 12 6.5C13.933 6.5 15.5 8.067 15.5 10C15.5 11.5855 14.4457 12.9248 13 13.3551Z"></path></svg>';
+    }
+}
+
+
+if (!function_exists('iconePrimeiroAcesso')) {
+    // doc
+    // exemplo
+    // echo iconePrimeiroAcesso
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconePrimeiroAcesso(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM17.7929 19.9142L21.3284 16.3787L22.7426 17.7929L17.7929 22.7426L14.2574 19.2071L15.6716 17.7929L17.7929 19.9142Z"></path></svg>';
+    }
+}

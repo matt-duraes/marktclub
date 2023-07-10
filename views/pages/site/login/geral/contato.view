@@ -1,0 +1,30 @@
+<section class="meu_parceiro">
+    <div class="item">
+        <img class="parceiro_mobile" src="{!!LINK_PADRAO!!}/images/login/parceiroNovo.png">
+        <a class="botao_saiba cor_bg">
+            Saiba mais
+        </a>
+    </div>
+    <div class="item">
+        <h1 class="h1_mobile cor_color">Ainda não é <br> nosso parceiro?</h1>
+        <h2 class="beneficio_mobile">Aumente seu faturamento <br> sem pagar nada!</h2>
+    </div>
+
+</section>
+<section class="duvida cor_bg">
+    <a data-href="@route('index.popup_formulario_contato')" class="botao_popup_contato">Alguma dúvida ?</a>
+</section>
+
+<section class="mostra_mobile formulario_mobile">
+    <h1 class="color_cor">Entre em contato </h1>
+    <form action="@route('post.index.contato')" class="form_geral" method="post">
+        <input type="hidden" name="hash" value="uuid()">
+        <input type="hidden" name="validacao" value="{{ uuid() }}">
+        <input type="text" id="nome" name="nome" placeholder="Qual seu nome?" required>
+        <input type="text" id="email" name="email" placeholder="Qual seu email" required>
+        <input type="text" id="telefone" name="telefone" data-mascara="telefone" placeholder="Qual seu telefone" required>
+        <textarea cols="30" rows="10" placeholder="Digite uma breve mensagem" name="mensagem"></textarea>
+        <div style="margin-bottom: 20px" id="captcha1" class="g-recaptcha" data-sitekey="6LdvI7UZAAAAACBAtfCkp0x4pXws09pkQPRm325T"></div>
+        <button class="bg_cor botao_enviar" id="indicar_parceiro">Enviar</button>
+    </form>
+</section>

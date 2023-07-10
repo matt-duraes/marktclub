@@ -1,7 +1,77 @@
 @system "Resetar"
+@system "Pagina"
+@system "Form"
+@system "Animacao"
+@system "Loading"
+@system "Alerta"
+
 @resource "site/mixim"
+@resource "site/variavel"
+@resource "site/geral"
 
 body
     background-color: #F6F6F6
     font-family: 'Inter', sans-serif
     color: #495057
+
+#site
+    min-height: 100vh
+    flexCenter()
+    directionColumn()
+    overflow: hidden
+
+#header_principal
+    width: 100%
+    max-width: 1000px
+    height: 180px
+    position: absolute
+    top: 0
+    padding: 0 20px
+    display: flex
+    flex-direction: row
+    align-items: center
+    z-index: 3
+    figure
+        flex-grow: 1
+        flex-basis: 0%
+    figure img
+        height: 60px
+    figure .automatico
+        height: auto
+    nav
+        display: flex
+        flex-direction: row
+    nav .botao
+        position: relative
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin-right: 20px
+        border-bottom: 3px solid rgba(255,255,255,0)
+        cursor: pointer
+    nav .botao i
+        height: 30px
+        font-size: 3em
+        overflow: hidden
+    nav .botao svg
+        margin: 2px 0 7px
+    nav .botao p
+        font-size: 1.6em
+        color: #666
+        margin-top: 5px
+    nav .botao .borda
+        width: 0%
+        height: 3px
+        margin-top: 8px
+        transition: width .3s ease-out
+    nav .botao:hover .borda
+        width: 100%
+    nav .entrar
+        height: 40px
+        line-height: 40px
+        padding: 0 25px
+        color: #FFF
+        font-size: 1.6em
+        margin-top: 7px
+        margin-left: 20px
+        border-radius: 3px

@@ -1,0 +1,31 @@
+<section class="app">
+    <div class="bloco_esquerdo">
+        <h1 class="cor_color app_mobile">Baixe também <br> o nosso App</h1>
+        <p class="faturamento_mobile">e tenha todos os benefícios<br> na palma da mão</p>
+        <br>
+        <div class="link_app baixe_app">
+            <h2 class="plataforma"> Selecione abaixo a plataforma desejada </h2>
+            <div class="box_link_app">
+                <a href="#" target="_blank">
+                    <div class="box_apple"></div>
+                </a>
+            </div>
+            <div class="box_link_app">
+                <a href="#" target="_blank">
+                    <div class="box_google"></div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <figure>
+        <img class="celularmobile" src="{!!LINK_PADRAO!!}//images/login/celular.png">
+        <div class="qr_code">
+            <img src="https://chart.apis.google.com/chart?cht=qr&chl=@route('get.index.qrcode_app')&chs=200x200" alt="">
+            <figure class="img_celular_app cor_bg"></figure>
+            <h1>ESCANEIE</h1>
+            <span class="span_baixar cor_color">PARA BAIXAR</span>
+        </div>
+    </figure>
+</section>
