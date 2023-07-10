@@ -425,6 +425,10 @@ Route
         Route
             ::nome('carteira')
             ::view('/perfil/carteira');
+        Route
+            ::nome('buscarCep')
+            ::request(['cep'])
+            ::post('/perfil/buscar-cep');
     });
 
 Route

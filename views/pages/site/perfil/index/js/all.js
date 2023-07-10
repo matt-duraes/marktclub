@@ -33,6 +33,47 @@ window.addEventListener('load', () => {
         e.preventDefault();
         acaoParaAtualizarDado();
     });
+
+    async function buscarEnderecoPeloCep(cep) {
+        let body = new FormData();
+        body.append('cep', cep.replace(/[^0-9]/g, ''));
+
+        const resposta = await fetch(LINK + '/perfil/buscar-cep', {
+            method: 'POST',
+            body,
+        });
+
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (error) {
+            json = {};
+        }
+        if (json.status == 'erro') {
+            Alerta.notificacao('CEP inválido. Endereço não encontrado.', false);
+            return;
+        }
+        atualizarEnderecoPeloCep(json.dado);
+    }
+
+    const atualizarEnderecoPeloCep = endereco => {
+        document.querySelector('#bloco_pagina_perfil form input[name=logradouro]').value = `${endereco.logradouro}`;
+        document.querySelector('#bloco_pagina_perfil form input[name=cidade]').value = `${endereco.cidade}`;
+        document.querySelector('#bloco_pagina_perfil form input[name=bairro]').value = `${endereco.bairro}`;
+        document.querySelector('#bloco_pagina_perfil form input[name=estado]').value = `${endereco.estado}`;
+    };
+    let cepAtual = '';
+    inputCep.addEventListener('blur', () => {
+        const cep = inputCep.value;
+        if (cep == cepAtual || cep == '') {
+            return;
+        }
+        cepAtual = cep;
+        Loading.show();
+        buscarEnderecoPeloCep(cep);
+        Loading.hide();
+    });
+
     const acaoParaAtualizarDado = async () => {
         let body = new FormData();
         body.append('nome', inputNome.value);
@@ -76,7 +117,9 @@ window.addEventListener('load', () => {
                 : 'Ocorreu um erro ao atualizar seus dados, por favor, tente novamente.',
             false
         );
-    }; /*
+    };
+
+    /*
     |--------------------------------------------------------------------------
     | GOOGLE
     |--------------------------------------------------------------------------
