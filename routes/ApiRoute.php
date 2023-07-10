@@ -1462,7 +1462,7 @@ Route
 
 Route
     ::nome('automovel_modelo')
-    ::controller(App\Controllers\Api\AutomovelMontadoraController::class)
+    ::controller(App\Controllers\Api\AutomovelModeloController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route

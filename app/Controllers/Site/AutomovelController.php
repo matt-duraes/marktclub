@@ -39,7 +39,7 @@ final class AutomovelController extends Controller
             'automovel.veiculo',
             [
                 'menu'  => 'automovel',
-                'lista' => (new VeiculoModel())->listarDados(),
+                'lista' => (new VeiculoModel($url))->listarDados(),
             ]
         );
     }
@@ -53,11 +53,15 @@ final class AutomovelController extends Controller
      */
     public function modelo(string $montadora, string $veiculo): Response
     {
+
+        $lista = (new ModeloModel())->listarDados();
+
         return view(
             'automovel.modelo',
             [
                 'menu'  => 'automovel',
-                'lista' => (new ModeloModel())->listarDados()
+                'dado' => $lista->dado ?? [],
+                'lista' => $lista ?? []
             ]
         );
     }

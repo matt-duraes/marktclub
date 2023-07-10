@@ -2,7 +2,7 @@
 @ if($lista):
     @ foreach( $lista->lista as $r ):
     <article class="parceiro" data-url="{{$r->id}}">
-        @ if( in_array($lista->tipo, ['modelo', 'cupom']) ):
+        @ if( in_array($lista->tipo, ['cupom']) ):
             <div class="link_cupom_parceiro" data-id="{!!$r->id!!}"></div>
         @ else:
             <a class="link_cupom_parceiro" href="{!!$r->link!!}"></a>
@@ -27,7 +27,7 @@
         <p>Válido até:</p>
         <p class="destaque cor_color">{{$r->validade}}</p>
 
-        @ elseif( in_array($lista->tipo, ['veiculo', 'modelo']) ):
+        @ elseif( in_array($lista->tipo, ['veiculo']) ):
         <p>{{$r->de}}</p>
         <p class="destaque cor_color">{{$r->por}}</p>
 

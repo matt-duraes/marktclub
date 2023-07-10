@@ -9,7 +9,7 @@ trait MontarRetornoTrait
     private function montarRetorno($lista): stdClass
     {
         $retorno = new stdClass();
-        $retorno->tipo = 'montadora';
+        $retorno->tipo = $this->tipo;
         $retorno->lista = new stdClass();
 
         if ($lista instanceof stdClass && property_exists($lista, 'dado')) {
@@ -20,13 +20,22 @@ trait MontarRetornoTrait
     }
     private function processarItens($dado, &$retornoLista)
     {
+        $rota = '';
+        if($this->tipo == 'montadora') {
+            $rota = route('automovel.veiculo');
+        } elseif($this->tipo == 'modelo') {
+            $rota = route('automovel.modelo');
+        }
+
         foreach ($dado->lista as $key => $valor) {
             $retornoLista->$key = (object) [
                 'id'       => $valor->id,
                 'titulo'   => $valor->titulo,
                 'texto'    => '',
-                'link'    => $valor->url->link,
-                'imagem'   => $valor->imagem->logo
+                'link'    => $rota . '/' . $valor->url->valor,
+                'imagem'   => $valor->imagem->link,
+                'de'   => '',
+                'por'   => '',
             ];
         }
     }

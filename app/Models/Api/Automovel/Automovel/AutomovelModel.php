@@ -10,7 +10,7 @@ use App\Classes\Automovel\Automovel\Ordem;
 use App\Classes\Automovel\Automovel\TipoProcedimento;
 use App\Classes\Automovel\Automovel\Status;
 use App\Models\Api\Automovel\Montadora\MontadoraModel;
-use App\Models\Api\Automovel\Versao\VersaoEntity;
+use App\Models\Api\Automovel\Versao\VersaoModel;
 use App\Models\Api\GeralEndereco\EnderecoModel;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
@@ -150,30 +150,27 @@ final class AutomovelModel extends ORM
                 local: 2
             ))->listarDados();
 
-            $versao = new VersaoEntity();
-            $versao->buscar([
-                ['vinculo', $r->uuid],
-                ['status', 1]
-            ]);
+
+            $versao = (new VersaoModel())->pegarVersaoPeloVinculo($r->uuid);
 
             $retorno[] = [
                 'id' => $r->uuid,
                 'titulo' => $r->titulo,
-                'procedimento' => [
+                'procedimento' => (object)[
                     'texto' => $r->procedimento,
                     'geral' => $r->procedimento,
                     'individual' => !empty($r->texto) ? $r->texto : '',
                     'tipo' => $TipoProcedimento->indice($r->documento),
                 ],
-                'desconto' => [
+                'desconto' => (object)[
                     'tipo' => $pagamento_tipo,
                 ],
                 'imagem' => $this->link_arquivo . '/carro/' . $r->imagem,
-                'endereco' => [
+                'endereco' => (object)[
                     'concessionaria' => !empty($r->link_concessionaria) ? $r->link_concessionaria : '',
                     'lista' =>  $listaEndereco ?? [],
                 ],
-                'versao' => $versao
+                'versao' => (object)$versao
             ];
         }
 

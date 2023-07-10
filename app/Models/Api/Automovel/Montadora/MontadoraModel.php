@@ -135,8 +135,12 @@ final class MontadoraModel extends ORM
                 'titulo' => $r->titulo,
                 'tipo' => $Tipo->indice($r->tipo),
                 'imagem' => [
-                    'logo' => $this->link_arquivo . '/carro/' . $r->imagem,
-                    'bg' => $this->link_arquivo . '/carro/' . $r->bg,
+                    'link' => $this->link_arquivo . '/carro/' . $r->imagem,
+                    'valor' => $r->imagem,
+                ],
+                'imagem_background' => [
+                    'link' => $this->link_arquivo . '/carro/' . $r->bg,
+                    'valor' =>$r->bg,
                 ],
                 'url' => [
                     'link' => $this->link_site . '/automoveis/' . $r->url,

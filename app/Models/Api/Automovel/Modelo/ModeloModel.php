@@ -7,6 +7,7 @@ use Http\Request;
 use ORM\ORM;
 use stdClass;
 use App\Classes\Automovel\Modelo\Ordem;
+use App\Classes\Automovel\Modelo\Status;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
@@ -71,7 +72,7 @@ final class ModeloModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'montadora', 'titulo', 'imagem', 'url', 'data_criacao'])
+            ->campo(['uuid', 'montadora', 'titulo', 'imagem', 'url', 'status', 'data_criacao'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order(new Ordem($this->request->ordem))
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -116,19 +117,19 @@ final class ModeloModel extends ORM
         $retorno = [];
 
         $Status = new Status();
-        $Tipo = new Tipo();
 
         foreach ($dado as $r) {
             $retorno[] = [
                 'id' => $r->uuid,
                 'titulo' => $r->titulo,
+                'montadora' => $r->montadora,
                 'imagem' => [
-                    'logo' => $this->link_arquivo . '/carro/' . $r->imagem,
-                    'bg' => $this->link_arquivo . '/carro/' . $r->bg,
+                    'link' => $this->link_arquivo . '/carro/' . $r->imagem,
+                    'valor' =>  $r->imagem,
                 ],
                 'url' => [
-                    'link' => $this->link_site . '/automoveis/' . $r->url,
-                    'valor' => $r->url,
+                    'link' => $this->link_site . '/automovel/'. $r->montadora . '/' . $r->url,
+                    'valor' => $r->montadora . '/' . $r->url,
                 ],
                 'status' => $Status->indice($r->status)
             ];

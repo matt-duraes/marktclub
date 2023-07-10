@@ -5,6 +5,7 @@ namespace App\Models\Api\Automovel\Versao;
 use Helpers\UploadHelper;
 use Http\Request;
 use ORM\Entity;
+use App\Classes\Automovel\Automovel\TipoProcedimento;
 
 final class VersaoEntity extends Entity
 {
@@ -34,5 +35,14 @@ final class VersaoEntity extends Entity
         private ?Request $request = null,
     ) {
         parent::__construct();
+    }
+
+
+    protected function regraPosBuscar()
+    {
+        $TipoProcedimento = new TipoProcedimento();
+        $this->tipo = $TipoProcedimento->indice($this->tipo);
+        $this->valor = preg_match('/[a-zA-Z]/', $this->valor) == 0 ? strDinheiro($this->valor) : $this->valor;
+        $this->valor_off = preg_match('/[a-zA-Z]/', $this->valor_off) == 0 ? strDinheiro($this->valor_off) : $this->valor_off;
     }
 }

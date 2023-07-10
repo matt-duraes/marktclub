@@ -10,6 +10,8 @@ final class MontadoraModel extends ApiHelper implements ListarInterface
 {
     use MontarRetornoTrait;
 
+    public string $tipo = 'montadora';
+
     public function __construct()
     {
         parent::__construct(scope: '');

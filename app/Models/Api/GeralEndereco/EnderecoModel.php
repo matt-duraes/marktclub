@@ -89,6 +89,7 @@ final class EnderecoModel extends ORM
                 'mapa' => (object)[
                     'latitude' => $r->latitude,
                     'longitude' => $r->longitude,
+                    'link' => 'https://www.google.com.br/maps/dir//' . $r->latitude . "," . $r->longitude
                 ],
                 'principal' => $r->principal == 1 ? true : false
             ];
