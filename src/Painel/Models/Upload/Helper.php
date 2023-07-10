@@ -10,6 +10,7 @@ final class Helper
 {
     private string $grupo;
     public array $retornoMover = [];
+
     public function __construct(
         private ?Request $request = null
     ) {
@@ -24,7 +25,7 @@ final class Helper
         $grupo = $this->criarDiretorio($request->grupo_destino, $request->nome, false);
         if (is_object($grupo)) {
             $this->retornoMover = [
-                'id' => $grupo->dado->id,
+                'id'   => $grupo->dado->id,
                 'nome' => $grupo->dado->nome
             ];
         }
@@ -59,7 +60,7 @@ final class Helper
             ->validar('Erro ao criar diretório')
             ->body([
                 'grupo' => $grupo,
-                'nome' => $nome
+                'nome'  => $nome
             ])
             ->post('/upload-grupo')
             ->object();

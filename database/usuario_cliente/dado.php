@@ -2,93 +2,93 @@
 
 return [
     [
-        'id' => 1,
-        'cod' => '5595203c-f7b1-4211-9981-bf09eb236b35',
-        'empresa' => 1,
-        'tipo' => 1,
-        'nome' => nomeCompletoAleatorio(),
+        'id'        => 1,
+        'cod'       => '5595203c-f7b1-4211-9981-bf09eb236b35',
+        'empresa'   => 1,
+        'tipo'      => 1,
+        'nome'      => nomeCompletoAleatorio(),
         'documento' => cpfAleatorio(),
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'salt'      => password('Teste@1324'),
+        'status'    => 1
     ],
     [
-        'id' => 2,
-        'cod' => '87cd8f94-601e-4e8e-b800-7f42a75fc0e1',
-        'empresa' => 1,
-        'tipo' => 1,
-        'nome' => nomeCompletoAleatorio(),
+        'id'        => 2,
+        'cod'       => '87cd8f94-601e-4e8e-b800-7f42a75fc0e1',
+        'empresa'   => 1,
+        'tipo'      => 1,
+        'nome'      => nomeCompletoAleatorio(),
         'documento' => cpfAleatorio(),
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'salt'      => password('Teste@1324'),
+        'status'    => 1
     ],
     [
-        'id' => 3,
-        'cod' => 'c91d0f54-d166-456e-9f21-e072722faa34',
-        'empresa' => 1,
-        'tipo' => 1,
-        'nome' => nomeCompletoAleatorio(),
+        'id'        => 3,
+        'cod'       => 'c91d0f54-d166-456e-9f21-e072722faa34',
+        'empresa'   => 1,
+        'tipo'      => 1,
+        'nome'      => nomeCompletoAleatorio(),
         'documento' => cpfAleatorio(),
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'salt'      => password('Teste@1324'),
+        'status'    => 1
     ],
     [
-        'cod' => uuid(),
-        'empresa' => 2,
-        'tipo' => 1,
-        'nome' => 'Usuario Empresa 2 = 1',
+        'cod'       => uuid(),
+        'empresa'   => 2,
+        'tipo'      => 1,
+        'nome'      => 'Usuario Empresa 2 = 1',
         'documento' => cpfAleatorio(),
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'salt'      => password('Teste@1324'),
+        'status'    => 1
     ],
     [
-        'cod' => 'cdc41730-abc7-4b51-abd7-698e2cb3c0b2',
-        'empresa' => 1,
-        'tipo' => 1,
-        'nome' => 'Usuário de Teste',
+        'cod'       => 'cdc41730-abc7-4b51-abd7-698e2cb3c0b2',
+        'empresa'   => 1,
+        'tipo'      => 1,
+        'nome'      => 'Usuário de Teste',
         'documento' => '01234567890',
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'salt'      => password('Teste@1324'),
+        'status'    => 1
     ],
     [
-        'cod' => uuid(),
-        'empresa' => 2,
-        'tipo' => 1,
-        'nome' => 'Usuario Empresa 2 = 2',
+        'cod'       => uuid(),
+        'empresa'   => 2,
+        'tipo'      => 1,
+        'nome'      => 'Usuario Empresa 2 = 2',
         'documento' => cpfAleatorio(),
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'salt'      => password('Teste@1324'),
+        'status'    => 1
     ],
     [
-        'cod' => uuid(),
-        'empresa' => 2,
-        'tipo' => 1,
-        'nome' => 'Usuario Empresa 2 = 3',
+        'cod'       => uuid(),
+        'empresa'   => 2,
+        'tipo'      => 1,
+        'nome'      => 'Usuario Empresa 2 = 3',
         'documento' => cpfAleatorio(),
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'salt'      => password('Teste@1324'),
+        'status'    => 1
     ],
     [
-        'matricula' => 1354826,
-        'cod' => uuid(),
-        'empresa' => 198,
-        'tipo' => 1,
-        'nome' => nomeCompletoAleatorio(),
+        'matricula'      => 1354826,
+        'cod'            => uuid(),
+        'empresa'        => 198,
+        'tipo'           => 1,
+        'nome'           => nomeCompletoAleatorio(),
         'email_trabalho' => emailAleatorio(),
-        'telefone_fixo' => telefoneAleatorio(),
-        'documento' => 67783406815,
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'telefone_fixo'  => telefoneAleatorio(),
+        'documento'      => 67783406815,
+        'salt'           => password('Teste@1324'),
+        'status'         => 1
     ],
     [
-        'id' => 100,
-        'cod' => '00956a04-3b7e-446b-9a5e-7a425ce1b408',
-        'empresa' => 1967,
-        'tipo' => 1,
-        'nome' => nomeCompletoAleatorio(),
+        'id'             => 100,
+        'cod'            => '00956a04-3b7e-446b-9a5e-7a425ce1b408',
+        'empresa'        => 1967,
+        'tipo'           => 1,
+        'nome'           => nomeCompletoAleatorio(),
         'email_trabalho' => emailAleatorio(),
-        'telefone_fixo' => telefoneAleatorio(),
-        'documento' => 67783406815,
-        'salt' => password('Teste@1324'),
-        'status' => 1
+        'telefone_fixo'  => telefoneAleatorio(),
+        'documento'      => 67783406815,
+        'salt'           => password('Teste@1324'),
+        'status'         => 1
     ]
 ];

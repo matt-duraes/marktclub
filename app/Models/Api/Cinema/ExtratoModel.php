@@ -11,8 +11,8 @@ class ExtratoModel extends ORM
     protected string $ormTabela = TABELA_CINEMA_INGRESSO;
 
     /**
-     * @param  string  $uuidEmpresa
-     * @param  string  $uuidUsuario
+     * @param string $uuidEmpresa
+     * @param string $uuidUsuario
      *
      * @return array
      * @throws Excecao

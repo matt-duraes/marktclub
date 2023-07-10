@@ -1,0 +1,84 @@
+{
+    "eslint.options": {
+        "rules": {
+            "camelcase": 1,
+            "semi": 1
+        },
+        "parserOptions": {
+            "ecmaVersion": 2017
+        },
+        "env": {
+            "es6": true
+        }
+    },
+
+    "files.watcherExclude": {
+        "**/.git/*/**": true,
+        "**/node_modules/*/**": true,
+        "**/public/*/**": true,
+        "**/files/*/**": true
+    },
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/.idea": true
+    },
+
+    "php.suggest.basic": false,
+    "editor.formatOnSave": false,
+    "php-cs-fixer.executablePath": "${workspaceFolder}/php-cs-fixer.phar",
+    "php-cs-fixer.config": ".php-cs-fixer.php;.php-cs-fixer.dist.php;.php_cs;.php_cs.dist",
+    "[php]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "junstyle.php-cs-fixer"
+    },
+    "[html]": {
+        "editor.suggest.insertMode": "replace",
+        "gitlens.codeLens.scopes": [
+            "document"
+        ]
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[sass]": {
+        "editor.defaultFormatter": "syler.sass-indented"
+    },
+    "prettier.printWidth": 120,
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "prettier.arrowParens": "avoid",
+
+    "files.insertFinalNewline": true,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.inlineSuggest.enabled": true,
+    "namespaceResolver.sortOnSave": true,
+    "javascript.suggest.completeFunctionCalls": true,
+    "extensions.ignoreRecommendations": true,
+
+    "files.trimTrailingWhitespace": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.renderWhitespace": "boundary",
+    "editor.useTabStops": false,
+    "editor.detectIndentation": false,
+
+    "editor.tabCompletion": "on",
+    "sass.disableAutoIndent": true,
+
+    "editor.wordWrap": "off",
+    "files.associations": {
+        "*.styl": "sass",
+        "*.view": "html"
+    },
+
+    "php-docblocker.returnVoid": false,
+    "php-docblocker.alignParams": true,
+    "php-docblocker.alignReturn": true,
+    "php-docblocker.paramDescription": true,
+    "php-docblocker.returnDescription": true,
+    "php-docblocker.varDescription": true,
+    "php-docblocker.useShortNames": true
+}

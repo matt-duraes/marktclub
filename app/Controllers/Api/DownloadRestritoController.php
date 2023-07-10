@@ -17,9 +17,10 @@ final class DownloadRestritoController extends Controller
 
         return view('download.restrito', [
             'nome' => $this->Download->nome->nome(),
-            'id' => $id
+            'id'   => $id
         ]);
     }
+
     public function download(string $id, string $codigo)
     {
         $this->pegarArquivo($id);
@@ -38,6 +39,7 @@ final class DownloadRestritoController extends Controller
         $this->Download->gerarCodigoEmail();
         return new Response(status: 201);
     }
+
     public function postValidar(Request $request)
     {
         $this->pegarArquivo($request->id);

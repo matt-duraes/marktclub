@@ -18,10 +18,10 @@ final class EnqueteSatisfacaoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-    * @param  string  $id
+     * @param string $id
     *
-    * @return Response
-    * @throws Excecao
+     * @return Response
+     * @throws Excecao
     */
     public function getBuscar(string $id): Response
     {
@@ -31,8 +31,8 @@ final class EnqueteSatisfacaoController extends Controller implements
     }
 
     /**
-     * @param  EnqueteEntity  $enqueteEntity
-     * @param  int            $status
+     * @param EnqueteEntity $enqueteEntity
+     * @param int           $status
      *
      * @return Response
      * @throws Excecao
@@ -50,11 +50,12 @@ final class EnqueteSatisfacaoController extends Controller implements
             $status
         );
     }
+
     /**
-    * @param  EnqueteEntity  $enqueteEntity
+     * @param EnqueteEntity $enqueteEntity
     *
-    * @return Response
-    * @throws Excecao
+     * @return Response
+     * @throws Excecao
     */
     public function postSalvar(Request $request): Response
     {
@@ -66,7 +67,7 @@ final class EnqueteSatisfacaoController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -76,5 +77,4 @@ final class EnqueteSatisfacaoController extends Controller implements
         $Enquete = new EnqueteModel($request);
         return mensagemSucesso($Enquete->listarDados());
     }
-
 }

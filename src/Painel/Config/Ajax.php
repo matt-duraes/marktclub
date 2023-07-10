@@ -36,21 +36,25 @@ final class Ajax
         $this->request[$this->indice] = $request;
         return $this;
     }
+
     public function permissao(string $permissao)
     {
         $this->permissao[$this->indice] = $permissao;
         return $this;
     }
+
     public function rota(string $rota)
     {
         $this->rota[$this->indice] = $rota;
         return $this;
     }
+
     public function metodo(string $metodo)
     {
         $this->metodo[$this->indice] = $metodo;
         return $this;
     }
+
     public function scope(string $scope)
     {
         $this->scope[$this->indice] = $scope;
@@ -69,18 +73,22 @@ final class Ajax
 
         return !empty($permissao) && in_array($permissao, $permissaoUsuario) && in_array($permissao, $permissaoPainel);
     }
+
     public function pegarRequest()
     {
         return $this->request[$this->indice] ?? '';
     }
+
     public function pegarRota()
     {
         return $this->rota[$this->indice] ?? '';
     }
+
     public function pegarMetodo()
     {
         return strCaixaBaixa($this->metodo[$this->indice] ?? 'POST');
     }
+
     public function pegarScope()
     {
         return $this->scope[$this->indice] ?? '';

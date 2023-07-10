@@ -2,17 +2,12 @@
 
 namespace App\Models\Site\Cinema;
 
-use App\Models\Site\ListarInterface;
-use Helpers\ApiHelper;
 use stdClass;
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\ListarInterface;
 
-final class ListarModel extends ApiHelper implements ListarInterface
+final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
-    public function __construct()
-    {
-        parent::__construct(scope: '');
-    }
-
     public function listarDados(): stdClass
     {
         return $this->montarRetorno();
@@ -36,15 +31,15 @@ final class ListarModel extends ApiHelper implements ListarInterface
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema/playarte.png',
+                    'imagem'   => 'https://clube.marktclub.com.br/images/cinema/playarte.png',
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema/uci.png',
+                    'imagem'   => 'https://clube.marktclub.com.br/images/cinema/uci.png',
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/cinema/moviecom.png',
+                    'imagem'   => 'https://clube.marktclub.com.br/images/cinema/moviecom.png',
                     'link'     => 'https://afiliados.easylive.com.br/?aid=5'
                 ],
             ]

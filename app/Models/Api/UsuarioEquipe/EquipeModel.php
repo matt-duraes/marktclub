@@ -19,7 +19,6 @@ final class EquipeModel extends ORM implements ModelListarInterface
     use QuantidadeTrait;
 
     protected string $ormTabela = TABELA_USUARIO_EQUIPE;
-
     private int $idEmpresa;
 
     public function __construct(
@@ -29,6 +28,7 @@ final class EquipeModel extends ORM implements ModelListarInterface
         $this->validarEmpresa();
         $this->validarRequest();
     }
+
     public function listarDados(): stdClass
     {
         $request = $this->request;
@@ -108,18 +108,18 @@ final class EquipeModel extends ORM implements ModelListarInterface
                 $email = $r->email_trabalho;
             }
             $lista[] = [
-                'id' => $r->uuid,
+                'id'      => $r->uuid,
                 'empresa' => [
-                    'id' => $r->empresa_cod,
+                    'id'            => $r->empresa_cod,
                     'nome_fantasia' => $r->empresa_nome_fantasia,
                 ],
-                'nome' => $r->nome_real,
-                'perfil' => $r->nome_perfil,
-                'cpf' => $r->documento_cpf,
-                'email' => strEmail($email),
-                'imagem' => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google),
+                'nome'         => $r->nome_real,
+                'perfil'       => $r->nome_perfil,
+                'cpf'          => $r->documento_cpf,
+                'email'        => strEmail($email),
+                'imagem'       => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google),
                 'data_criacao' => $r->data_criacao,
-                'status' => $Status->indice($r->status),
+                'status'       => $Status->indice($r->status),
             ];
         }
         return $lista;

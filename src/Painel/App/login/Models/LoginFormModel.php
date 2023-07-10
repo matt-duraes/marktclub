@@ -27,12 +27,12 @@ final class LoginFormModel implements LoginInterface
     {
         $this->body = criptografarDado(
             dado: [
-                'login' => $this->login,
-                'senha' => $this->senha,
-                'scope' => '',
-                'audience' => env('API_AUDIENCE', ''),
+                'login'        => $this->login,
+                'senha'        => $this->senha,
+                'scope'        => '',
+                'audience'     => env('API_AUDIENCE', ''),
                 'redirect_uri' => env('API_REDIRECT_URI', ''),
-                'state' => uuid()
+                'state'        => uuid()
             ],
             criptografia: ['login', 'senha'],
             chave: $this->chavePublica

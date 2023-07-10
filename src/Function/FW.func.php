@@ -45,10 +45,10 @@ if (!function_exists('jsonDecode')) {
     /**
      * Converter um JSON em array ou objeto
      *
-     * @param string    $string     Valor que deseja ser convertido
-     * @param bool      $retorno    True para retornar um array ou false para retornar um object
-     * @param bool      $array      Se true, em caso de erro, retorna um array vazio
-     * @return array|strClass|bool  Array, Object ou false
+     * @param  string              $string  Valor que deseja ser convertido
+     * @param  bool                $retorno True para retornar um array ou false para retornar um object
+     * @param  bool                $array   Se true, em caso de erro, retorna um array vazio
+     * @return array|strClass|bool Array, Object ou false
      */
     function jsonDecode($string, bool $retorno = false, bool $array = false): array|stdClass|bool
     {
@@ -73,8 +73,8 @@ if (!function_exists('jsonEncode')) {
     /**
      * Converte um valor em JSON
      *
-     * @param mixed $valor  Valor que deseja converter
-     * @return string   String JSON ou false em caso de erro
+     * @param  mixed  $valor Valor que deseja converter
+     * @return string String JSON ou false em caso de erro
      */
     function jsonEncode($valor): string|bool
     {
@@ -117,9 +117,9 @@ if (!function_exists('ip')) {
 /*/
 if (!function_exists('password')) {
     /**
-     * @param String $password Senha que será criptografada
-     * @param String $algoritimo Tipo de algoritimo que será usado para criptografar
-     * @param array $option Option para criar a criptografia
+     * @param string $password   Senha que será criptografada
+     * @param string $algoritimo Tipo de algoritimo que será usado para criptografar
+     * @param array  $option     Option para criar a criptografia
      */
     function password(string $password, string $algoritimo = 'PASSWORD_DEFAULT', array $option = ['cost' => 11]): string
     {
@@ -137,7 +137,7 @@ if (!function_exists('hashIpUser')) {
     /**
      * Criar um hash com o IP e UserAgent do usuário
      *
-     * @param string $prefix    Coloca um prefix no inicio do string antes de criptografar
+     * @param  string $prefix Coloca um prefix no inicio do string antes de criptografar
      * @return string String contento o hash MD5
      */
     function hashIpUser(string $prefix = ''): string
@@ -150,14 +150,14 @@ if (!function_exists('hashIpUser')) {
 /**
  * Seta um novo Cookie ou pega um cookie
  *
- * @param string    $nome       Nome do cookie
- * @param mixed     $valor      Valor para o cookie
- * @param int       $dia        Quantidade de dias para o token expirar
- * @param int       $hora       Quantidade de horas para o token expirar
- * @param int       $minuto     Quantidade de minutos para o token expirar
- * @param string    $path       Path do token
- * @param string    $dominio    Domínio do token
- * @return String   Retorna true ou false
+ * @param  string $nome    Nome do cookie
+ * @param  mixed  $valor   Valor para o cookie
+ * @param  int    $dia     Quantidade de dias para o token expirar
+ * @param  int    $hora    Quantidade de horas para o token expirar
+ * @param  int    $minuto  Quantidade de minutos para o token expirar
+ * @param  string $path    Path do token
+ * @param  string $dominio Domínio do token
+ * @return string Retorna true ou false
  */
 if (!function_exists('cookie')) {
     function cookie(
@@ -185,7 +185,7 @@ if (!function_exists('cookie')) {
 /**
  * Deleta o cookie
  *
- * @param string $nome  Nome do cookie para deletar
+ * @param string $nome Nome do cookie para deletar
  */
 if (!function_exists('cookieExiste')) {
     function cookieExiste(string $nome): bool
@@ -197,7 +197,7 @@ if (!function_exists('cookieExiste')) {
 /**
  * Deleta o cookie
  *
- * @param string $nome  Nome do cookie para deletar
+ * @param string $nome Nome do cookie para deletar
  */
 if (!function_exists('cookieDeletar')) {
     function cookieDeletar(string $nome): bool
@@ -214,8 +214,8 @@ if (!function_exists('inteiro')) {
     /**
      * Gera um número inteiro com o intervalo de min e max
      *
-     * @param int $min Valor mínimo
-     * @param int $max Valor máximo
+     * @param  int $min Valor mínimo
+     * @param  int $max Valor máximo
      * @return int Número inteiro
      */
     function inteiro(int $min = 1000, int $max = 9999): int
@@ -228,9 +228,9 @@ if (!function_exists('qrcode')) {
     /**
      * Gera um QR Code com o dado enviado e retorna uma imagem com o tamanho definido pela largura e altura
      *
-     * @param String $dado Dado que será retornado pelo QR Code
-     * @param int $width Largura do QR Code
-     * @param int $height Altura do QR Code
+     * @param  string $dado   Dado que será retornado pelo QR Code
+     * @param  int    $width  Largura do QR Code
+     * @param  int    $height Altura do QR Code
      * @return string Link para a imagem do QR Code
      */
     function qrcode(string $dado, int $width = 200, int $height = 200): string
@@ -255,8 +255,8 @@ if (!function_exists('error404')) {
 }
 if (!function_exists('paginaErro')) {
     /**
-     * @param Int   $status   Status HTML da página a ser chamada podendo ser: 400, 401, 403, 404, 500
-     *                        Caso ao contrário, será 400
+     * @param int $status Status HTML da página a ser chamada podendo ser: 400, 401, 403, 404, 500
+     *                    Caso ao contrário, será 400
      */
     function paginaErro(int $status): void
     {
@@ -363,7 +363,7 @@ if (!function_exists('pp')) {
 /*/
 if (!function_exists('ppe')) {
     /**
-     * @param Mixed     $conteudo       Conteudo a ser impresso
+     * @param mixed $conteudo Conteudo a ser impresso
      */
     function ppe($conteudo, bool $view = false)
     {
@@ -433,8 +433,8 @@ if (!function_exists('soNumero')) {
 /*/
 if (!function_exists('env')) {
     /**
-     * @param String $nome Nome do envia a ser pego
-     * @param mixed $padrao Padrão caso não exista o env
+     * @param string $nome   Nome do envia a ser pego
+     * @param mixed  $padrao Padrão caso não exista o env
      */
     function env(string $nome, $padrao = null)
     {
@@ -458,7 +458,7 @@ if (!function_exists('env')) {
 /*/
 if (!function_exists('location')) {
     /**
-     * @param String $link Link para ser redirecionado
+     * @param string $link Link para ser redirecionado
      */
     function location(string $link): \Http\Response
     {
@@ -476,7 +476,7 @@ if (!function_exists('location')) {
 /*/
 if (!function_exists('redirect')) {
     /**
-     * @param String $link Link para ser redirecionado
+     * @param string $link Link para ser redirecionado
      */
     function redirect(string $link): \Http\Response
     {
@@ -494,9 +494,9 @@ if (!function_exists('redirect')) {
 /*/
 if (!function_exists('download')) {
     /**
-     * @param String $arquivo Arquivo para ser feito o download
-     * @param String $nome Nome do arquivo ao ser feito o download
-     * @param string|array $ext Lista de extensões permitidas para fazer downlaod
+     * @param string       $arquivo Arquivo para ser feito o download
+     * @param string       $nome    Nome do arquivo ao ser feito o download
+     * @param string|array $ext     Lista de extensões permitidas para fazer downlaod
      */
     function download(string $arquivo): \Http\Response
     {
@@ -533,6 +533,23 @@ if (!function_exists('limparNullDeArray')) {
         return $lista;
     }
 }
+if (!function_exists('limparVazioDeArray')) {
+    /**
+     * @param array $array Array a ser limpo
+     */
+    function limparVazioDeArray(array $array): array
+    {
+        $lista = [];
+        foreach ($array as $ind => $val) {
+            if (is_array($val)) {
+                $lista[$ind] = limparVazioDeArray($val);
+            } elseif (!empty($val)) {
+                $lista[$ind] = $val;
+            }
+        }
+        return $lista;
+    }
+}
 
 /*/
 |--------------------------------------------------------------------------
@@ -551,7 +568,6 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
         $null = true,
         $empty = true
     ): array {
-
         $listaBusca = ['id'];
         if ($request && $request->dado()) {
             $listaBusca = array_merge($listaBusca, array_keys($request->dado()));
@@ -624,8 +640,8 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
 /*/
 if (!function_exists('stringArray')) {
     /**
-     * @param String $string String a ser convertida em array
-     * @param bool $retorno Se true, converte string para array e false para object
+     * @param string $string  String a ser convertida em array
+     * @param bool   $retorno Se true, converte string para array e false para object
      */
     function stringArray(string $string, bool $retorno = true)
     {
@@ -672,10 +688,10 @@ if (!function_exists('hashUnico')) {
 
 if (!function_exists('formHash')) {
     /**
-     * @param null|string       $indice         Indice para validar o hash, caso seja null, passa um hash md5
-     * @param null|string       $id             Prefix do id para os inputs ex.: input_id irá virar input_id_hash e
-     *                                          input_id_validacao, caso seja null, não será adicionado ID
-     * @param null|string       $validacao      Valor do campo validacao, caso fique em branco, usará um hash aleatória
+     * @param null|string $indice    Indice para validar o hash, caso seja null, passa um hash md5
+     * @param null|string $id        Prefix do id para os inputs ex.: input_id irá virar input_id_hash e
+     *                               input_id_validacao, caso seja null, não será adicionado ID
+     * @param null|string $validacao Valor do campo validacao, caso fique em branco, usará um hash aleatória
      */
     function formHash(?string $indice = null, ?string $id = null, ?string $validacao = null): string
     {
@@ -684,10 +700,10 @@ if (!function_exists('formHash')) {
         $idValidacao = !empty($id) ? 'id="' . $id . '_validacao"' : '';
         $hash = md5(uniqid(time()));
         $formHash = [
-            'id' => uuid(),
+            'id'     => uuid(),
             'indice' => $indice,
-            'hash' => $hash,
-            'data' => strtotime(agora()),
+            'hash'   => $hash,
+            'data'   => strtotime(agora()),
         ];
         $cookie = (new \Helpers\CryptHelper())->encode($formHash);
         $validacao = $validacao === null ? md5($cookie) : $validacao;
@@ -701,7 +717,7 @@ if (!function_exists('formHash')) {
 
 if (!function_exists('agora')) {
     /**
-     * @param Bool      $br         Se a data vai ser no formato BR
+     * @param bool $br Se a data vai ser no formato BR
      */
     function agora(bool $br = false): string
     {
@@ -713,7 +729,7 @@ if (!function_exists('agora')) {
 }
 if (!function_exists('hoje')) {
     /**
-     * @param Bool      $br         Se a data vai ser no formato BR
+     * @param bool $br Se a data vai ser no formato BR
      */
     function hoje(bool $br = false): string
     {
@@ -726,7 +742,7 @@ if (!function_exists('hoje')) {
 
 if (!function_exists('route')) {
     /**
-     * @param String $rota Rota que deseja pegar o link
+     * @param string $rota Rota que deseja pegar o link
      */
     function route(string $rota): string
     {
@@ -751,11 +767,11 @@ if (!function_exists('listarArquivoDiretorio')) {
     /**
      * Lista dos os arquivos de um diretório
      *
-     * @param string        $diretorio  Diretório que deseja buscar os arquivos
-     * @param string        $inicio     Somente arquivos que começem com o valor informado
-     * @param string        $final      Somente arquivos que terminem com o valor informado
-     * @param null|array    $ext        Lista de extensões permitidas
-     * @return array Array com a lista de arquivos encontrado
+     * @param  string     $diretorio Diretório que deseja buscar os arquivos
+     * @param  string     $inicio    Somente arquivos que começem com o valor informado
+     * @param  string     $final     Somente arquivos que terminem com o valor informado
+     * @param  null|array $ext       Lista de extensões permitidas
+     * @return array      Array com a lista de arquivos encontrado
      */
     function listarArquivoDiretorio(string $diretorio, string $inicio = '', string $final = '', ?array $ext = null): array
     {
@@ -828,9 +844,9 @@ if (!function_exists('arquivoTamanho')) {
 }
 if (!function_exists('pegarHtml')) {
     /**
-     * @param String    $arquivo        Arquivo que deseja pegar dentro de /html/views
-     *                                  Caso não passar o arquivo.php, ele irá assumir que será index.php
-     * @param Array     $var            Lista de variáveis que serão enviadas ao arquivo em formato de array
+     * @param string $arquivo Arquivo que deseja pegar dentro de /html/views
+     *                        Caso não passar o arquivo.php, ele irá assumir que será index.php
+     * @param array  $var     Lista de variáveis que serão enviadas ao arquivo em formato de array
      */
     function pegarHtml(string $arquivo, array $var = [])
     {
@@ -850,16 +866,16 @@ if (!function_exists('pegarHtml')) {
 }
 if (!function_exists('pegarHtmlEmail')) {
     /**
-     * @param String            $tipo           O Tipo de e-mail tendo o padrão de sistema como botao, numero e mensagem
-     * @param String            $titulo         Título do e-mail
-     * @param String            $assinto        Assunto do e-mail
-     * @param String            $mensagem       Mensagem que será enviada para o usuário
-     * @param null|string       $link           Link que o usuário será enviado
-     * @param null|string       $botao          Texto que irá dentro do botão do link
-     * @param null|string       $acao           Ação do porque o usuário está recebendo esse e-mail, ex: ... recebemos uma solicitação de {{$acao}} para sua conta ...
-     * @param null|string       $acaoTexto      Texto completo do porque o usuário está recebendo esse e-mail. Colocar {{PADRAO}} no final caso queira usar o final padrão do texto de ação.
-     * @param null|string       $idPublico      ID público do usuário para remover o e-mail dele da lista de disparo
-     * @param Null|Array        $var            Array que será convertido para variáveis caso precise de mais variáveis fora as padrões
+     * @param string      $tipo      O Tipo de e-mail tendo o padrão de sistema como botao, numero e mensagem
+     * @param string      $titulo    Título do e-mail
+     * @param string      $assinto   Assunto do e-mail
+     * @param string      $mensagem  Mensagem que será enviada para o usuário
+     * @param null|string $link      Link que o usuário será enviado
+     * @param null|string $botao     Texto que irá dentro do botão do link
+     * @param null|string $acao      Ação do porque o usuário está recebendo esse e-mail, ex: ... recebemos uma solicitação de {{$acao}} para sua conta ...
+     * @param null|string $acaoTexto Texto completo do porque o usuário está recebendo esse e-mail. Colocar {{PADRAO}} no final caso queira usar o final padrão do texto de ação.
+     * @param null|string $idPublico ID público do usuário para remover o e-mail dele da lista de disparo
+     * @param null|array  $var       Array que será convertido para variáveis caso precise de mais variáveis fora as padrões
      */
     function pegarHtmlEmail(
         string $tipo,
@@ -894,22 +910,22 @@ if (!function_exists('pegarHtmlEmail')) {
         );
 
         $browser = LINK . '/email/browser/' . (new CryptHelper(url: true))->encode([
-            'tipo' => $tipo,
-            'titulo' => $titulo,
-            'assunto' => $assunto,
-            'mensagem' => $mensagem,
-            'link' => $link,
-            'botao' => $botao,
-            'acao' => $acao,
+            'tipo'      => $tipo,
+            'titulo'    => $titulo,
+            'assunto'   => $assunto,
+            'mensagem'  => $mensagem,
+            'link'      => $link,
+            'botao'     => $botao,
+            'acao'      => $acao,
             'acaoTexto' => $acaoTexto,
             'idPublico' => $idPublico,
-            'var' => $var,
-            'data' => $data,
-            'ip' => $ip,
-            'LINK' => $LINK,
-            'LINK_API' => $LINK_API,
+            'var'       => $var,
+            'data'      => $data,
+            'ip'        => $ip,
+            'LINK'      => $LINK,
+            'LINK_API'  => $LINK_API,
             'LINK_SITE' => $LINK_SITE,
-            'HOST' => $HOST,
+            'HOST'      => $HOST,
         ], 'hash_email_geral');
 
         ob_start();
@@ -930,8 +946,8 @@ if (!function_exists('object_key_exists')) {
     /**
      * Verifica se existe uma chave no objeto
      *
-     * @param string    $chave      Chave que deseja procurar
-     * @param mixed     $objeto     Objeto que deseja validar
+     * @param  string $chave  Chave que deseja procurar
+     * @param  mixed  $objeto Objeto que deseja validar
      * @return bool
      */
     function object_key_exists(string $chave, $objeto)
@@ -947,9 +963,9 @@ if (!function_exists('descriptografarDado')) {
     /**
      * Criptografa um array de dados ou uma string
      *
-     * @param   string|array    $valor  String com valor a criptografar ou um array ou uma lista de array
-     * @param   array           $lista  Lista de campos que devem ser criptografados quando o valor for um array
-     * @return  string|array            String quando o valor for uma string ou um array quando o valor for um array
+     * @param  string|array $valor String com valor a criptografar ou um array ou uma lista de array
+     * @param  array        $lista Lista de campos que devem ser criptografados quando o valor for um array
+     * @return string|array String quando o valor for uma string ou um array quando o valor for um array
      */
     function descriptografarDado(string|stdClass|array $valor, array $lista = [], ?string $chave = null): array|string
     {
@@ -1002,10 +1018,10 @@ if (!function_exists('criptografarDado')) {
     /**
      * Criptografa um array de dados ou uma string
      *
-     * @param   string|array    $valor          String com valor a criptografar ou um array ou uma lista de array
-     * @param   array           $criptografia   Lista de campos que devem ser criptografados quando o valor for um array
-     * @param   bool            $lista          Se o valor é uma lista
-     * @return  string|array                    String quando o valor for uma string ou um array quando o valor for um array
+     * @param  string|array $valor        String com valor a criptografar ou um array ou uma lista de array
+     * @param  array        $criptografia Lista de campos que devem ser criptografados quando o valor for um array
+     * @param  bool         $lista        Se o valor é uma lista
+     * @return string|array String quando o valor for uma string ou um array quando o valor for um array
      */
     function criptografarDado(string|stdClass|array $dado, array $criptografia = [], ?string $chave = null, bool $lista = false): array|string
     {
@@ -1059,9 +1075,9 @@ if (!function_exists('_criptografarDadoRodar')) {
 }
 if (!function_exists('base64Encode')) {
     /**
-     * @param string|array      $dado       Dado a ser criptografado
-     * @param null|string       $url        Se deve converter a hash para URL
-     * @return string                       Criptografia gerada
+     * @param  string|array $dado Dado a ser criptografado
+     * @param  null|string  $url  Se deve converter a hash para URL
+     * @return string       Criptografia gerada
      */
     function base64Encode(string | array $dado, bool $url = false)
     {
@@ -1070,8 +1086,8 @@ if (!function_exists('base64Encode')) {
 }
 if (!function_exists('base64Decode')) {
     /**
-     * @param string            $hash       Hash que deseja descriptografar
-     * @return string|array                 Conteúdo descriptografado
+     * @param  string       $hash Hash que deseja descriptografar
+     * @return string|array Conteúdo descriptografado
      */
     function base64Decode(?string $hash): array | string | bool
     {
@@ -1084,7 +1100,7 @@ if (!function_exists('base64Decode')) {
 if (!function_exists('arrayString')) {
     /**
      * Converte um Array para o padrão de string do sistema 1=valor 01|2=valor 02
-     * @param Array $array      Array a ser convertido
+     * @param array $array Array a ser convertido
      */
     function arrayString(array $array)
     {
@@ -1098,7 +1114,7 @@ if (!function_exists('arrayString')) {
 if (!function_exists('stringArray')) {
     /**
      * Converte uma string de array para um arrray PHP
-     * @param String $string      String a ser convertido
+     * @param string $string String a ser convertido
      */
     function arrayString(string $string)
     {
@@ -1120,8 +1136,8 @@ if (!function_exists('stringArray')) {
 }
 if (!function_exists('inKey')) {
     /**
-     * @param string|array      $lista      String ou array com a lista de item a validar. Ex.: data->br
-     * @param Array|StdClass    $item       Item que deseja validar
+     * @param string|array   $lista String ou array com a lista de item a validar. Ex.: data->br
+     * @param array|StdClass $item  Item que deseja validar
      */
     function inKey(string|array $lista, $item)
     {
@@ -1163,10 +1179,10 @@ if (!function_exists('sessao')) {
     /**
      * Seta ou pega uma sessão
      *
-     * @param null|string|array     $indice     Indice da sessão podendo usar . para pegar mais de um nível (20 no máximo) ou array para setar varios valores
-     * @param midex                 $valor      Valor para a sessão
-     * @param midex                 $padrao     Valor padrão caso não exista a sessão
-     * @param bool                  $flash      Se a sessão vai ser permanente ou se vai ser excluida depois de uso ou reload
+     * @param  null|string|array $indice Indice da sessão podendo usar . para pegar mais de um nível (20 no máximo) ou array para setar varios valores
+     * @param  midex             $valor  Valor para a sessão
+     * @param  midex             $padrao Valor padrão caso não exista a sessão
+     * @param  bool              $flash  Se a sessão vai ser permanente ou se vai ser excluida depois de uso ou reload
      * @return mixed
      */
     function sessao(null|string|array $indice = null, $valor = null, $padrao = null)
@@ -1280,9 +1296,9 @@ if (!function_exists('sessaoFlash')) {
     /**
      * Seta ou pega uma sessão flash
      *
-     * @param string     $indice     Indice da sessão
-     * @param string     $valor      Valor para a sessão
-     * @param string     $padrao     Valor padrão caso não exista a sessão
+     * @param string $indice Indice da sessão
+     * @param string $valor  Valor para a sessão
+     * @param string $padrao Valor padrão caso não exista a sessão
      */
     function sessaoFlash(string $indice = null, ?string $valor = null, ?string $padrao = null)
     {
@@ -1303,7 +1319,7 @@ if (!function_exists('sessaoFlash')) {
 if (!function_exists('sessaoDeletar')) {
     /**
      * Deleta um indice da sessão
-     * @param null|string|array     $indice     Indice da sessão podendo usar . para pegar mais de um nível (20 no máximo) ou array para deletar varios valores. Caso não passe um indice, será destruido todos os indices
+     * @param null|string|array $indice Indice da sessão podendo usar . para pegar mais de um nível (20 no máximo) ou array para deletar varios valores. Caso não passe um indice, será destruido todos os indices
      */
     function sessaoDeletar(null|string|array $indice = null): void
     {
@@ -1388,8 +1404,8 @@ if (!function_exists('sessaoDeletar')) {
 if (!function_exists('sessaoExiste')) {
     /**
      * Verifica se uma sessão existe
-     * @param string|array $indice      Indice da sessão podendo usar . para pegar mais de um nível ou array para várias
-     * @return bool                     True para se a sessão existir ou false
+     * @param  string|array $indice Indice da sessão podendo usar . para pegar mais de um nível ou array para várias
+     * @return bool         True para se a sessão existir ou false
      */
     function sessaoExiste(string|array $indice): bool
     {
@@ -1441,10 +1457,10 @@ if (!function_exists('montarSelect')) {
     /**
      * Conta um array para usar como select no padrão indice => valor
      *
-     * @param array         $lista      Array com uma lista de itens para ser adicionado no select
-     * @param null|string   $titulo     Valor inicial e vazio do select. Ex <option value="">Valor do titulo</option>
-     * @param null|string   $indice     Qual campo da $lista será o indice
-     * @param null|string   $valor      Qual campo da $lista será o valor
+     * @param  array       $lista  Array com uma lista de itens para ser adicionado no select
+     * @param  null|string $titulo Valor inicial e vazio do select. Ex <option value="">Valor do titulo</option>
+     * @param  null|string $indice Qual campo da $lista será o indice
+     * @param  null|string $valor  Qual campo da $lista será o valor
      * @return array
      */
     function montarSelect(array $lista, ?string $titulo = null, ?string $indice = null, ?string $valor = null): array
@@ -1471,7 +1487,7 @@ if (!function_exists('nomeUnico')) {
     /**
      * Gera uma hash md5 para usar como nome único
      *
-     * @return string   Hash gerada
+     * @return string Hash gerada
      */
     function nomeUnico(): string
     {
@@ -1482,8 +1498,8 @@ if (!function_exists('echoView')) {
     /**
      * Escapa os valores para impressão
      *
-     * @param mixed $valor  Valor a ser escapado
-     * @return string       Valor escapada
+     * @param  mixed  $valor Valor a ser escapado
+     * @return string Valor escapada
      */
     function echoView($valor): string
     {
@@ -1495,7 +1511,7 @@ if (!function_exists('object')) {
     /**
      * Concerte um Array em Object
      *
-     * @param array $array      Array que deseja converter
+     * @param  array    $array Array que deseja converter
      * @return stdClass
      */
     function object(array $array): stdClass|array
@@ -1508,9 +1524,9 @@ if (!function_exists('caixaCodigo')) {
     /**
      * Gera uma caixa de código, para funcinar deve importar o arquivo Caixa no JS e CSS
      *
-     * @param string        $codigo     Código que deve ser usado
-     * @param null|string   $arquivo    Nome do arquivo
-     * @param null|string   $linguagem  A linguagem que será usada podendo ser: js, css, stylus, php, dart, dockerfile, shell, json, plaintext, swift, yaml, xml, markdown, sql ou typescript
+     * @param string      $codigo    Código que deve ser usado
+     * @param null|string $arquivo   Nome do arquivo
+     * @param null|string $linguagem A linguagem que será usada podendo ser: js, css, stylus, php, dart, dockerfile, shell, json, plaintext, swift, yaml, xml, markdown, sql ou typescript
      */
     function caixaCodigo(string $codigo, ?string $arquivo = null, ?string $linguagem = null)
     {
@@ -1535,11 +1551,11 @@ if (!function_exists('imagemUsuario')) {
     /**
      * Pega a imagem do usuário
      *
-     * @param   null|string $tipo       Tipo de imagem sendo 1 para arquivo, 2 para Google e 3 para Facebook
-     * @param   null|string $arquivo    Arquivo de imagem
-     * @param   null|string $facebook   URL da imagem do Facebook
-     * @param   null|string $google     URL da imagem do Google
-     * @return  string                  URL da imagem
+     * @param  null|string $tipo     Tipo de imagem sendo 1 para arquivo, 2 para Google e 3 para Facebook
+     * @param  null|string $arquivo  Arquivo de imagem
+     * @param  null|string $facebook URL da imagem do Facebook
+     * @param  null|string $google   URL da imagem do Google
+     * @return string      URL da imagem
      */
     function imagemUsuario(?string $tipo = null, ?string $arquivo = null, ?string $facebook = null, ?string $google = null): string
     {
@@ -1558,11 +1574,11 @@ if (!function_exists('arquivoPublico')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param   string      $diretorio  Diret��rio que o arquivo pertence
-     * @param   string      $arquivo    Arquivo que deseja pegar
-     * @param   array       $parametro  Parametro para inserir como GET na URL
-     * @param   string      $padrao     Imagem padrão caso não tenha arquivo
-     * @return  string                  Url do arquivo
+     * @param  string $diretorio Diret��rio que o arquivo pertence
+     * @param  string $arquivo   Arquivo que deseja pegar
+     * @param  array  $parametro Parametro para inserir como GET na URL
+     * @param  string $padrao    Imagem padrão caso não tenha arquivo
+     * @return string Url do arquivo
      */
     function arquivoPublico(string $diretorio, string $arquivo, array $parametro = [], string $padrao = '')
     {
@@ -1592,8 +1608,8 @@ if (!function_exists('arquivoPublicoNome')) {
     /**
      * Pega o nome de um arquivo público
      *
-     * @param   string    $link     Link do arquivo público
-     * @return  string              Diretório e nome do arquivo
+     * @param  string $link Link do arquivo público
+     * @return string Diretório e nome do arquivo
      */
     function arquivoPublicoNome(string $link)
     {
@@ -1621,10 +1637,10 @@ if (!function_exists('arquivoPrivado')) {
     /**
      * Gera um link para um arquivo privado
      *
-     * @param   null|string     $id         ID do arquivo no banco (uuid)
-     * @param   array           $parametro  Parametro para inserir como GET na URL
-     * @param   string          $padrao     Arquivo padrão caso não tenha ID
-     * @return  string                      Url do arquivo
+     * @param  null|string $id        ID do arquivo no banco (uuid)
+     * @param  array       $parametro Parametro para inserir como GET na URL
+     * @param  string      $padrao    Arquivo padrão caso não tenha ID
+     * @return string      Url do arquivo
      */
     function arquivoPrivado(?string $id, array $parametro = [], string $padrao = '')
     {
@@ -1650,8 +1666,8 @@ if (!function_exists('arquivoPrivadoId')) {
     /**
      * Pega o ID de um link de arquivo privado
      *
-     * @param string    $link       Link do arquivo que deseja pegar o ID
-     * @return string               ID do arquivo
+     * @param  string $link Link do arquivo que deseja pegar o ID
+     * @return string ID do arquivo
      */
     function arquivoPrivadoId(string $link)
     {
@@ -1679,8 +1695,8 @@ if (!function_exists('arquivoPrivadoDado')) {
     /**
      * Pega os dados básicos de uma imagem privada pelo ID
      *
-     * @param   string          $id     ID da imagem que deseja pegar seus dados
-     * @return  bool|stdClass           Array com os dados
+     * @param  string        $id ID da imagem que deseja pegar seus dados
+     * @return bool|stdClass Array com os dados
      */
     function arquivoPrivadoDado(string $id)
     {
@@ -1702,7 +1718,7 @@ if (!function_exists('removerIndiceVazio')) {
     /**
      * Retorna um array apenas com os indices que tenham conteúdo
      *
-     * @param array $array Array que deseja limpar
+     * @param  array $array Array que deseja limpar
      * @return array
      */
     function removerIndiceVazio(array $array): array
@@ -1780,9 +1796,9 @@ if (!function_exists('porcentagem')) {
     /**
      * Calcula a porcentagem entre 2 número
      *
-     * @param   mixed   $quantidade     valor que deseja calcular
-     * @param   mixed   $total          Valor total para tirar a porcentagem
-     * @return  string                  Valor do calculo com 2 casas decimais
+     * @param  mixed  $quantidade valor que deseja calcular
+     * @param  mixed  $total      Valor total para tirar a porcentagem
+     * @return string Valor do calculo com 2 casas decimais
      */
     function porcentagem($valor, $total): string
     {
@@ -1796,9 +1812,9 @@ if (!function_exists('criarArquivo')) {
     /**
      * Cria um arquivo
      *
-     * @param   string  $path      Path do diretório completo com o nome do arquivo
-     * @param   string  $conteudo  Conteudo a ser salvo
-     * @return  bool
+     * @param  string $path     Path do diretório completo com o nome do arquivo
+     * @param  string $conteudo Conteudo a ser salvo
+     * @return bool
      */
     function criarArquivo($path, $conteudo): bool
     {
@@ -1838,17 +1854,17 @@ if (!function_exists('retornarPaginacao')) {
         $total = count($dado);
         return (object)[
             'status' => 'sucesso',
-            'dado' => (object)[
-                'lista' => $dado,
+            'dado'   => (object)[
+                'lista'    => $dado,
                 'registro' => (object)[
                     'inicio' => 1,
-                    'final' => $total,
-                    'atual' => $total,
-                    'total' => $total
+                    'final'  => $total,
+                    'atual'  => $total,
+                    'total'  => $total
                 ],
                 'pagina' => (object)[
-                    'total' => 1,
-                    'atual' => 1,
+                    'total'     => 1,
+                    'atual'     => 1,
                     'paginacao' => [1],
                 ]
             ]

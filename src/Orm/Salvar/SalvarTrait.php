@@ -175,7 +175,7 @@ trait SalvarTrait
             );
         }
         return [
-            'todos' => $listaTodosOsDados,
+            'todos'  => $listaTodosOsDados,
             'salvar' => $lista
         ];
     }

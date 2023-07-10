@@ -17,6 +17,7 @@ final class DetalheModel
         $dado->tarefa = $tarefa;
         return $dado;
     }
+
     private function calcularTempo($tempo)
     {
         if (empty($tempo)) {

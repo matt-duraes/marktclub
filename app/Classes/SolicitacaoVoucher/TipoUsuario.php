@@ -14,8 +14,8 @@ final class TipoUsuario extends Status
         protected null|string|int $valor = null
     ) {
         parent::__construct([
-            self::TITULAR => 'Titular',
-            self::DEPENDENTE => 'Dependente',
+            self::TITULAR     => 'Titular',
+            self::DEPENDENTE  => 'Dependente',
             self::FUNCIONARIO => 'Funcionario'
         ]);
     }

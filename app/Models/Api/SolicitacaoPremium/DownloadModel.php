@@ -19,10 +19,8 @@ final class DownloadModel extends ORM
     use ValidarEmpresaDownloadTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
-
     private array $campoInicial;
     private int $idEmpresa;
-
     private string $de;
     private string $ate;
 
@@ -55,6 +53,7 @@ final class DownloadModel extends ORM
         $this->salvarLogDownload($dado);
         return $this->montarRetornoDownload($dado);
     }
+
     private function salvarLogDownload(array $dado)
     {
         $Log = new LogDownloadEntity(
@@ -69,6 +68,7 @@ final class DownloadModel extends ORM
             mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
         }
     }
+
     private function montarRetornoDownload(array $dado): array
     {
         $i = 0;
@@ -110,6 +110,7 @@ final class DownloadModel extends ORM
             }
         }
     }
+
     private function converterCampoParaDownload()
     {
         $this->campoInicial = jsonDecode($this->request->campo, true, true);

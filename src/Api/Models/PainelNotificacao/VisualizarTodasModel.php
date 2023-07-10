@@ -9,7 +9,6 @@ use Throwable;
 final class VisualizarTodasModel extends ORM
 {
     protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
-
     private int $idUsuario;
     private array $lista;
 

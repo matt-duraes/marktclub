@@ -59,10 +59,10 @@ final class SalavipModel extends ORM implements
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->cod,
+                'id'      => $r->cod,
                 'empresa' => (new Empresa($r->empresa))->nome(),
-                'codigo' => $r->codigo,
-                'data' => $r->data_validacao
+                'codigo'  => $r->codigo,
+                'data'    => $r->data_validacao
             ];
         }
         return $retorno;

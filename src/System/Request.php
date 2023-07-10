@@ -10,6 +10,7 @@ use Route\Config as RouteConfig;
 final class Request
 {
     private Request|RequestPsr7 $request;
+
     public function __construct(
         private RouteConfig $route,
     ) {
@@ -144,7 +145,7 @@ final class Request
             return false;
         }
         $content = [
-            'secret' => env('RECAPTCHA_SECRET'),
+            'secret'   => env('RECAPTCHA_SECRET'),
             'response' => $captcha,
             'remoteip' => ip(),
         ];

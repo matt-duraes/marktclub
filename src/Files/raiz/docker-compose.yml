@@ -12,10 +12,10 @@ services:
         networks:
             - docker-rede
         depends_on:
-            - "mysql"
+            - "mariadb"
         restart: always
-    mysql:
-        image: mysql:8.0.33
+    mariadb:
+        image: mariadb:10.5.2
         container_name: db-{{nome}}
         ports:
             - "{{portaDb}}:3306"
@@ -25,7 +25,7 @@ services:
         networks:
             - docker-rede
         volumes:
-            - ./files/banco/mysql/:/var/lib/mysql
+            - ./files/banco/mariadb/:/var/lib/mysql
         restart: always
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -39,7 +39,7 @@ services:
         networks:
             - docker-rede
         depends_on:
-            - "mysql"
+            - "mariadb"
         restart: always
 networks:
     docker-rede:

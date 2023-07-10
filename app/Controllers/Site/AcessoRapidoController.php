@@ -17,6 +17,7 @@ final class AcessoRapidoController extends Controller
             ]
         );
     }
+
     public function sair()
     {
         sessao('TEMPLATE', 'site');

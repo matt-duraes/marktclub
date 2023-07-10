@@ -5,6 +5,7 @@ namespace System\Html\Postman\Models;
 final class GrupoDeletar
 {
     private string $path = ROOT . '/postman/';
+
     public function __construct($post)
     {
         $this->path .= $post['id'];
@@ -23,9 +24,10 @@ final class GrupoDeletar
             mensagemErro('Erro!', 'Não foi encontrado o diretório para deletar.');
         }
     }
+
     private function deletarDiretorioSubDiretorio($path): void
     {
-        $lista = array_diff(scandir($path), ['.','..']);
+        $lista = array_diff(scandir($path), ['.', '..']);
 
         foreach ($lista as $arquivo) {
             $temp = $path . '/' . $arquivo;

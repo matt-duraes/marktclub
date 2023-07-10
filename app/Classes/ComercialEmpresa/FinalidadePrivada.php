@@ -18,7 +18,7 @@ final class FinalidadePrivada extends FinalidadeSecundaria
                 self::BANCO      => 'Banco',
                 self::OUTRO      => 'Outro'
             ],
-            numero: [5,6,7]
+            numero: [5, 6, 7]
         );
     }
 }

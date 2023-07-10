@@ -10,13 +10,12 @@ final class Route
 {
     private static array $Route = [
         'rota' => [
-            'GET' => [],
-            'POST' => [],
-            'PUT' => [],
+            'GET'    => [],
+            'POST'   => [],
+            'PUT'    => [],
             'DELETE' => [],
         ]
     ];
-
     private static array $middleware = [
         'pre' => [],
         'pos' => []
@@ -25,7 +24,6 @@ final class Route
         'pre' => [],
         'pos' => []
     ];
-
     private static array $criptografia = [
         'lista' => [],
         'chave' => null
@@ -34,7 +32,6 @@ final class Route
         'lista' => [],
         'chave' => null
     ];
-
     private static string $nome;
     private static string $nomeGrupo = '';
     private static string $controller;
@@ -48,8 +45,8 @@ final class Route
     /**
      * Cria um grupo para as rotas
      *
-     * @param Closure   $callback   Função de retorno com o grupo
-     * @param bool      $encandear  Se será encandeado ou não o método
+     * @param Closure $callback  Função de retorno com o grupo
+     * @param bool    $encandear Se será encandeado ou não o método
      */
     public static function grupo(Closure $callback, bool $encandear = false)
     {
@@ -119,8 +116,8 @@ final class Route
     /**
      * Da um nome para o construtor ou para as rotas
      *
-     * @param string $nome Nome desejado
-     * @return Self
+     * @param  string $nome Nome desejado
+     * @return self
      */
     public static function nome(string $nome)
     {
@@ -142,10 +139,10 @@ final class Route
     /**
      * Lista de requestes desejados
      *
-     * @param  string|array  $request  Lista de request podendo ser "*" para qualquer parâmetro
-     *                                 ou uma lista em um array
-     * @param  null|string   $tipo     Tipo de request podendo ser get, post, put, json
-     *                                 ou files, caso null, pega padrão da rota
+     * @param string|array $request Lista de request podendo ser "*" para qualquer parâmetro
+     *                              ou uma lista em um array
+     * @param null|string  $tipo    Tipo de request podendo ser get, post, put, json
+     *                              ou files, caso null, pega padrão da rota
      */
     public static function request(string|array $request, ?string $tipo = null)
     {
@@ -169,12 +166,12 @@ final class Route
     /**
      * Middleware para ser executada antes ou depois da rota
      *
-     * @param string        $classe         Classe do middleware que deseja chamar
-     * @param string        $action         Action do middleware
-     * @param null|array    $parametro      Array com os dados do parametros
-     * @param null|array    $construtor     Array com os dados do contrutor
-     * @param bool          $pos            Passar true para chamar o middleware apos a rota
-     * @return Self
+     * @param  string     $classe     Classe do middleware que deseja chamar
+     * @param  string     $action     Action do middleware
+     * @param  null|array $parametro  Array com os dados do parametros
+     * @param  null|array $construtor Array com os dados do contrutor
+     * @param  bool       $pos        Passar true para chamar o middleware apos a rota
+     * @return self
      */
     public static function middleware(
         string $classe,
@@ -185,10 +182,10 @@ final class Route
     ) {
         $tipo = $pos ? 'pos' : 'pre';
         self::$middleware[$tipo][] = [
-            'classe' => $classe,
-            'action' => $action,
+            'classe'     => $classe,
+            'action'     => $action,
             'construtor' => !empty($construtor) ? $construtor : [],
-            'parametro' => !empty($parametro) ? $parametro : []
+            'parametro'  => !empty($parametro) ? $parametro : []
         ];
         return __CLASS__;
     }
@@ -196,9 +193,9 @@ final class Route
     /**
      * Middleware para ser executada antes ou depois da rota
      *
-     * @param   array           $lista      Classe com a constante que tem a lista de dados que são criptografados
-     * @param   null|string     $chave      Chave para descriptografar
-     * @return  Self
+     * @param  array       $lista Classe com a constante que tem a lista de dados que são criptografados
+     * @param  null|string $chave Chave para descriptografar
+     * @return self
      */
     public static function criptografia(array $lista, ?string $chave = null)
     {
@@ -212,19 +209,20 @@ final class Route
     /**
      * Controller que deseja usar
      *
-     * @param string $nome    Nome do controller que deseja usar
-     * @return Self
+     * @param  string $nome Nome do controller que deseja usar
+     * @return self
      */
     public static function controller(string $nome)
     {
         self::$controller = $nome;
         return __CLASS__;
     }
+
     /**
      * Action que deseja usar
      *
-     * @param string $nome    Nome da action que deseja usar
-     * @return Self
+     * @param  string $nome Nome da action que deseja usar
+     * @return self
      */
     public static function action(string $nome)
     {
@@ -249,7 +247,7 @@ final class Route
     /**
      * Cria uma rota VIEW
      *
-     * @param string $uri   URI desejada, passar array para multiplas rotas
+     * @param string $uri URI desejada, passar array para multiplas rotas
      */
     public static function view(string|array $uri): void
     {
@@ -259,10 +257,11 @@ final class Route
         }
         self::limparRota();
     }
+
     /**
      * Cria uma rota GET
      *
-     * @param string $uri   URI desejada, passar array para multiplas rotas
+     * @param string $uri URI desejada, passar array para multiplas rotas
      */
     public static function get(string|array $uri): void
     {
@@ -272,10 +271,11 @@ final class Route
         }
         self::limparRota();
     }
+
     /**
      * Cria uma rota POST
      *
-     * @param string $uri   URI desejada, passar array para multiplas rotas
+     * @param string $uri URI desejada, passar array para multiplas rotas
      */
     public static function post(string|array $uri): void
     {
@@ -285,10 +285,11 @@ final class Route
         }
         self::limparRota();
     }
+
     /**
      * Cria uma rota PUT
      *
-     * @param string $uri   URI desejada, passar array para multiplas rotas
+     * @param string $uri URI desejada, passar array para multiplas rotas
      */
     public static function put(string|array $uri): void
     {
@@ -298,10 +299,11 @@ final class Route
         }
         self::limparRota();
     }
+
     /**
      * Cria uma rota DELETE
      *
-     * @param string $uri   URI desejada, passar array para multiplas rotas
+     * @param string $uri URI desejada, passar array para multiplas rotas
      */
     public static function delete(string|array $uri): void
     {
@@ -347,6 +349,7 @@ final class Route
 
         return $rotaFinal;
     }
+
     public static function pegarTodasRotas()
     {
         return self::$Route;
@@ -376,6 +379,7 @@ final class Route
             self::$semGrupo = false;
         }
     }
+
     private static function setarRota(string $metodo, string $uri)
     {
         $metodoReal = $metodo;
@@ -404,14 +408,14 @@ final class Route
 
         $request = self::pegarRequest($metodoReal);
         self::$Route['rota'][$metodo][$url] = [
-            'uri' => $uri,
-            'metodo' => $metodoReal,
-            'middleware' => $middleware,
+            'uri'          => $uri,
+            'metodo'       => $metodoReal,
+            'middleware'   => $middleware,
             'criptografia' => !empty(self::$criptografia['lista']) ? self::$criptografia : self::$criptografiaGrupo,
-            'request' => $request,
-            'controller' => self::$controller,
-            'action' => self::$action,
-            'grupo' => self::$nomeGrupo
+            'request'      => $request,
+            'controller'   => self::$controller,
+            'action'       => self::$action,
+            'grupo'        => self::$nomeGrupo
         ];
     }
 

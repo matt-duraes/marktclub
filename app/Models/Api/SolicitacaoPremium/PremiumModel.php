@@ -19,7 +19,6 @@ final class PremiumModel extends ORM
     use WhereTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
-
     private int $idEmpresa;
     private string $de;
     private string $ate;
@@ -94,11 +93,6 @@ final class PremiumModel extends ORM
         return $this->colocarDadosPosteriores($retorno);
     }
 
-    /**
-     * @param $dado
-     *
-     * @return array
-     */
     private function colocarDadosPosteriores($dado): array
     {
         $livre = [];

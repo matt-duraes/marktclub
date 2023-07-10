@@ -41,12 +41,12 @@ $Doc
 --form 'data_nascimento=\"{{hash}}\"' \
 --form 'email_pessoal=\"{{hash}}\"' \
 --form 'telefone_pessoal=\"{{hash}}\"'")
-    ->preSucesso("{
-    \"status\": \"sucesso\",
-    \"dado\": {
-        \"link\": \"https://link_do_clube.com.br/login/api/b6590c38-3ad3-43af-98d7-f514a1b73c85\"
+    ->preSucesso('{
+    "status": "sucesso",
+    "dado": {
+        "link": "https://link_do_clube.com.br/login/api/b6590c38-3ad3-43af-98d7-f514a1b73c85"
     }
-}")
+}')
     ->preFalha();
 
 echo $Doc;

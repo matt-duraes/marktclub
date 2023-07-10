@@ -12,7 +12,7 @@ trait Retorno
     /**
      * Monta os dados de retorno do evento
      *
-     * @param array $evento A lista de eventos retornada pelo Google
+     * @param  array $evento A lista de eventos retornada pelo Google
      * @return array
      */
     public function pegarRetorno(array $evento): array
@@ -48,9 +48,9 @@ trait Retorno
             }
 
             $statusLista = [
-                'accepted' => 'sim',
+                'accepted'  => 'sim',
                 'tentative' => 'talvez',
-                'declined' => 'nao'
+                'declined'  => 'nao'
             ];
             $status = '';
             $convidado = [];
@@ -64,10 +64,10 @@ trait Retorno
                 $souEu = object_key_exists('self', $item) && $item->self == 1;
                 $convidadoStatus = in_array($item->responseStatus, array_keys($statusLista)) ? $statusLista[$item->responseStatus] : '';
                 $convidado[] = [
-                    'eu' => $souEu,
-                    'nome' => $nome,
+                    'eu'     => $souEu,
+                    'nome'   => $nome,
                     'imagem' => $this->pegarImagemPeloEmail($item->email),
-                    'email' => $item->email,
+                    'email'  => $item->email,
                     'status' => $convidadoStatus,
                 ];
                 if ($souEu) {
@@ -77,15 +77,15 @@ trait Retorno
 
             $video = [
                 'imagem' => '',
-                'nome' => '',
-                'link' => '',
+                'nome'   => '',
+                'link'   => '',
             ];
             foreach ($r->conferenceData->entryPoints ?? [] as $item) {
                 if ($item->entryPointType == 'video') {
                     $video = [
                         'imagem' => $r->conferenceData->conferenceSolution->iconUri,
-                        'nome' => $r->conferenceData->conferenceSolution->name,
-                        'link' => $item->uri,
+                        'nome'   => $r->conferenceData->conferenceSolution->name,
+                        'link'   => $item->uri,
                     ];
                     break;
                 }
@@ -94,9 +94,9 @@ trait Retorno
             $arquivo = [];
             foreach ($r->attachments ?? [] as $item) {
                 $arquivo[] = [
-                    'link' => $item->fileUrl,
+                    'link'   => $item->fileUrl,
                     'imagem' => $item->iconLink,
-                    'nome' => $item->title,
+                    'nome'   => $item->title,
                 ];
             }
 
@@ -108,31 +108,31 @@ trait Retorno
             }
 
             $retorno[] = [
-                'id' => $this->setarId($r->id),
-                'chamada' => $chamada,
-                'titulo' => $titulo,
+                'id'        => $this->setarId($r->id),
+                'chamada'   => $chamada,
+                'titulo'    => $titulo,
                 'descricao' => str_replace(PHP_EOL, '<br>', strip_tags($r->description ?? '', '<br>')),
-                'inicio' => $semana . ', ' . $dia . ' de ' . $mes . $hora,
-                'data' => [
+                'inicio'    => $semana . ', ' . $dia . ' de ' . $mes . $hora,
+                'data'      => [
                     'inicial' => $dataInicial,
-                    'final' => $dataFinal
+                    'final'   => $dataFinal
                 ],
                 'hora' => [
                     'inicial' => $horaInicial,
-                    'final' => $horaFinal
+                    'final'   => $horaFinal
                 ],
                 'local' => $r->location ?? '',
-                'dono' => [
-                    'eu' => $r->creator->email == $this->meuEmail(),
-                    'nome' => $dono,
-                    'email' => $r->creator->email,
+                'dono'  => [
+                    'eu'     => $r->creator->email == $this->meuEmail(),
+                    'nome'   => $dono,
+                    'email'  => $r->creator->email,
                     'imagem' => $this->pegarImagemPeloEmail($r->creator->email)
                 ],
-                'link' => $r->htmlLink,
+                'link'      => $r->htmlLink,
                 'convidado' => $convidado,
-                'video' => $video,
-                'arquivo' => $arquivo,
-                'status' => $status
+                'video'     => $video,
+                'arquivo'   => $arquivo,
+                'status'    => $status
             ];
         }
 

@@ -8,7 +8,7 @@ use Erro\Excecao;
 trait TabelaTrait
 {
     /**
-     * @param String        $tabela         Um namespace de um ORM ou o nome da tabela
+     * @param string $tabela Um namespace de um ORM ou o nome da tabela
      */
     protected function tabela(string $tabela)
     {

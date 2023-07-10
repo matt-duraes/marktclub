@@ -2,8 +2,8 @@
 
 $Painel = new PainelConfig\Filtrar('usuario_indicacao');
 $status = [
-    'indicado' => 'Indicado',
-    'ativado' => 'Ativado',
+    'indicado'  => 'Indicado',
+    'ativado'   => 'Ativado',
     'bloqueado' => 'Bloqueado'
 ];
 

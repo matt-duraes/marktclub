@@ -3,11 +3,10 @@
 namespace App\Models\Site\Pesquisa;
 
 use Erro\Excecao;
-use Helpers\ApiHelper;
 use Http\Request;
-use Http\Response;
+use App\Helpers\ClubeApiHelper;
 
-final class SalvarModel
+final class SalvarModel extends ClubeApiHelper
 {
     protected string $navegar;
     protected string $procura;
@@ -30,37 +29,30 @@ final class SalvarModel
         $this->sistema = $request->sistema;
     }
 
-
     /**
      * @return object|array
      * @throws Excecao
      */
     public function postSalvar(): object
     {
-        $api = new ApiHelper('enquete_satisfacao:salvar');
-
         $arraySistema = explode(',', $this->sistema);
 
         $sistema = [];
-        if ($arraySistema ?? false) {
-            foreach ($arraySistema as $r) {
-                array_push($sistema, $r);
-            }
+        foreach ($arraySistema as $r) {
+            array_push($sistema, $r);
         }
 
-        $api->body([
-                'navegar' => $this->navegar,
-                'procura' => $this->procura,
-                'suporte' => $this->suporte,
-                'comentario' => $this->comentario,
+        $this
+            ->body([
+                'navegar'     => $this->navegar,
+                'procura'     => $this->procura,
+                'suporte'     => $this->suporte,
+                'comentario'  => $this->comentario,
                 'atendimento' => $this->atendimento,
-                'sistemas' => json_encode($sistema)
+                'sistemas'    => json_encode($sistema)
             ])->post('/enquete/satisfacao')
             ->object();
 
         return mensagemSucesso([], 201);
     }
-
-
-
 }

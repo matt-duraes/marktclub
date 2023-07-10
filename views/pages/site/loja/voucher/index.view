@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOUCHER - {{$dado->parceiro->titulo}}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
+
+<div id="site">
+    <header>
+        <img src="{{sessao('CLUBE.link_logo')}}" height="80" alt="{{sessao('CLUBE.titulo')}}">
+        <img src="{!!$dado->parceiro->link_logo!!}" height="100" alt="{{$dado->parceiro->titulo}}">
+    </header>
+
+    <div class="qr_code">
+        <img src="{!!$dado->qr_code!!}" height="200">
+        <div class="codigo"><span>Código:</span>{{$dado->codigo}}</div>
+    </div>
+
+    <div class="nome">{{$dado->usuario->nome}}</div>
+    <div class="cpf">{{$dado->usuario->cpf}}</div>
+    <div class="bloco_data">
+        <div class="data">
+            <span>CRIADO EM</span>
+            <p>{{dataBr($dado->data_criacao)}}</p>
+        </div>
+        <div class="data">
+            <span>VALIDO ATÉ</span>
+            <p>{{dataBr($dado->data_vencimento)}}</p>
+        </div>
+    </div>
+    @ if( $dado->texto_desconto ):
+    <div class="texto">{{$dado->texto_desconto}}</div>
+    @ endif;
+    @ if( $dado->texto_voucher ):
+    <div class="texto">{{$dado->texto_voucher}}</div>
+    @ endif;
+    <div class="administrado">
+        <p>Administrado por:</p>
+        <figure><img src="{!!$dado->construtor->link_logo_marktclub!!}" height="40" alt="MARKT CLUB"></figure>
+        <p>{{$dado->texto_juridico}}</p>
+    </div>
+</div>
+
+</body>
+</html>

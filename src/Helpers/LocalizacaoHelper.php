@@ -9,7 +9,7 @@ final class LocalizacaoHelper
     /**
      * Busca os dados geográficos pelo IP do usuário
      *
-     * @param  string|null  $ip  IP do usuário ou null para tentar pegar IP automático
+     * @param  string|null $ip IP do usuário ou null para tentar pegar IP automático
      * @return array
      */
     public function pegarDadosPeloIp(string $ip = null): array
@@ -28,12 +28,12 @@ final class LocalizacaoHelper
         }
 
         return [
-            'pais' => $retorno['countryCode'] ?? '',
-            'estado' => $retorno['region'] ?? '',
-            'cidade' => $retorno['city'] ?? '',
-            'latitude' => $retorno['lat'] ?? '',
+            'pais'      => $retorno['countryCode'] ?? '',
+            'estado'    => $retorno['region'] ?? '',
+            'cidade'    => $retorno['city'] ?? '',
+            'latitude'  => $retorno['lat'] ?? '',
             'longitude' => $retorno['lon'] ?? '',
-            'provedor' => $retorno['isp'] ?? '',
+            'provedor'  => $retorno['isp'] ?? '',
         ];
     }
 
@@ -43,17 +43,17 @@ final class LocalizacaoHelper
      */
     private function mensagemErroApi(string $mensagem = ''): void
     {
-        mensagemErro('Erro na API', 'Não foi possível conectar com a API.', localhost: $mensagem);
+        mensagemErro('Erro', 'Ocorreu um erro, por favor, tente novamente.', localhost: $mensagem);
     }
 
     /**
-     * @param  string|int|null  $cep
+     * @param  string|int|null $cep
      * @return array
      * @throws Excecao
      */
     public function pegarEnderecoPeloCep(null|string|int $cep): array
     {
-        $ch = curl_init('https://brasilapi.com.br/api/cep/v1/' . preg_replace("/[^0-9]/", "", $cep));
+        $ch = curl_init('https://brasilapi.com.br/api/cep/v1/' . preg_replace('/[^0-9]/', '', $cep));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
@@ -63,11 +63,11 @@ final class LocalizacaoHelper
         }
         return [
             'logradouro' => $retorno['street'] ?? '',
-            'bairro' => $retorno['neighborhood'] ?? '',
-            'cidade' => $retorno['city'] ?? '',
-            'estado' => $retorno['state'] ?? '',
-            'cep' => array_key_exists('cep', $retorno) && !empty($retorno['cep']) ? soNumero($retorno['cep']) : '',
-            'pais' => array_key_exists('state', $retorno) && !empty($retorno['state']) ? 'BR' : '',
+            'bairro'     => $retorno['neighborhood'] ?? '',
+            'cidade'     => $retorno['city'] ?? '',
+            'estado'     => $retorno['state'] ?? '',
+            'cep'        => array_key_exists('cep', $retorno) && !empty($retorno['cep']) ? soNumero($retorno['cep']) : '',
+            'pais'       => array_key_exists('state', $retorno) && !empty($retorno['state']) ? 'BR' : '',
         ];
     }
 
@@ -93,8 +93,8 @@ final class LocalizacaoHelper
             'bairro' => '',
             'cidade' => '',
             'estado' => '',
-            'cep' => '',
-            'pais' => '',
+            'cep'    => '',
+            'pais'   => '',
         ];
 
         foreach ($retorno['results'] as $r) {
@@ -134,14 +134,14 @@ final class LocalizacaoHelper
     }
 
     /**
-     * @param  string|null  $pais
-     * @param  string|null  $titulo
-     * @param  string|null  $cep
-     * @param  string|null  $logradouro
-     * @param  string|null  $numero
-     * @param  string|null  $bairro
-     * @param  string|null  $cidade
-     * @param  string|null  $estado
+     * @param  string|null $pais
+     * @param  string|null $titulo
+     * @param  string|null $cep
+     * @param  string|null $logradouro
+     * @param  string|null $numero
+     * @param  string|null $bairro
+     * @param  string|null $cidade
+     * @param  string|null $estado
      * @return array|void
      * @throws Excecao
      */
@@ -213,14 +213,14 @@ final class LocalizacaoHelper
     }
 
     /**
-     * @param  string|null  $pais
-     * @param  string|null  $titulo
-     * @param  string|null  $cep
-     * @param  string|null  $logradouro
-     * @param  string|null  $numero
-     * @param  string|null  $bairro
-     * @param  string|null  $cidade
-     * @param  string|null  $estado
+     * @param  string|null $pais
+     * @param  string|null $titulo
+     * @param  string|null $cep
+     * @param  string|null $logradouro
+     * @param  string|null $numero
+     * @param  string|null $bairro
+     * @param  string|null $cidade
+     * @param  string|null $estado
      * @return bool|array
      * @throws Excecao
      */
@@ -278,13 +278,13 @@ final class LocalizacaoHelper
             return false;
         }
         return [
-            'latitude' => $dado['results'][0]['geometry']['location']['lat'],
+            'latitude'  => $dado['results'][0]['geometry']['location']['lat'],
             'longitude' => $dado['results'][0]['geometry']['location']['lng'],
         ];
     }
 
     /**
-     * @param $retorno
+     * @param       $retorno
      * @return bool
      */
     private function validarRetornoGeolocalizacaoDoGoogle($retorno): bool
@@ -296,9 +296,11 @@ final class LocalizacaoHelper
     }
 
     /**
-     * @param  string  $estado
-     * @param  string  $indice
-     * @param  string  $titulo
+     * Pega a lista de cidades pelo UF enviado
+     *
+     * @param  string  $estado UF do estado que deseja buscar as cidades
+     * @param  string  $indice Indice para o primeiro elemento (opcional)
+     * @param  string  $titulo Valor do primeiro elemento (opcional)
      * @return array
      * @throws Excecao
      */
@@ -308,33 +310,11 @@ final class LocalizacaoHelper
         string $titulo = ''
     ): array {
         $id = [
-            'RO' => 11,
-            'AC' => 12,
-            'AM' => 13,
-            'RR' => 14,
-            'PA' => 15,
-            'AP' => 16,
-            'TO' => 17,
-            'MA' => 21,
-            'PI' => 22,
-            'CE' => 23,
-            'RN' => 24,
-            'PB' => 25,
-            'PE' => 26,
-            'AL' => 27,
-            'SE' => 28,
-            'BA' => 29,
-            'MG' => 31,
-            'ES' => 32,
-            'RJ' => 33,
-            'SP' => 35,
-            'PR' => 41,
-            'SC' => 42,
-            'RS' => 43,
-            'MS' => 50,
-            'MT' => 51,
-            'GO' => 52,
-            'DF' => 53
+            'RO' => 11, 'AC' => 12, 'AM' => 13, 'RR' => 14, 'PA' => 15, 'AP' => 16,
+            'TO' => 17, 'MA' => 21, 'PI' => 22, 'CE' => 23, 'RN' => 24, 'PB' => 25,
+            'PE' => 26, 'AL' => 27, 'SE' => 28, 'BA' => 29, 'MG' => 31, 'ES' => 32,
+            'RJ' => 33, 'SP' => 35, 'PR' => 41, 'SC' => 42, 'RS' => 43, 'MS' => 50,
+            'MT' => 51, 'GO' => 52, 'DF' => 53
         ][strCaixaAlta($estado)] ?? '';
 
         $ch = curl_init();

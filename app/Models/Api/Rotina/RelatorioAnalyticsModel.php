@@ -8,15 +8,14 @@ use Modules\Data;
 final class RelatorioAnalyticsModel extends ORM
 {
     protected string $ormTabela = TABELA_ANALYTICS;
-
     private array $lista;
     private array $analytics;
     private string $dataAcesso;
 
     /**
-     * @param  null|Data   $data   Data que será processada
-     * @param  null|array  $lista  Lista caso já tenha a lista de dados no analytics,
-     *                     caso não tenha, será buscado pela data
+     * @param null|Data  $data  Data que será processada
+     * @param null|array $lista Lista caso já tenha a lista de dados no analytics,
+     *                          caso não tenha, será buscado pela data
      */
     public function __construct(
         ?Data $data = null
@@ -54,13 +53,13 @@ final class RelatorioAnalyticsModel extends ORM
                         'id_admin_empresa' => $r->empresa,
                         'quantidade_total' => 0,
                         'quantidade_unico' => 0,
-                        'data_acesso' => $data
+                        'data_acesso'      => $data
                     ],
-                    'loja' => [],
-                    'url' => [],
-                    'cliente' => [],
-                    'os' => [],
-                    'navegador' => [],
+                    'loja'        => [],
+                    'url'         => [],
+                    'cliente'     => [],
+                    'os'          => [],
+                    'navegador'   => [],
                     'dispositivo' => [],
                 ];
             }
@@ -92,9 +91,9 @@ final class RelatorioAnalyticsModel extends ORM
                 $analytics[$r->empresa]['loja'][$r->vinculo] = [
                     'id_admin_empresa' => $r->empresa,
                     'id_parceiro_loja' => $r->vinculo,
-                    'parceiro_nome' => $r->vinculo_nome,
-                    'quantidade' => 1,
-                    'data_acesso' => $data
+                    'parceiro_nome'    => $r->vinculo_nome,
+                    'quantidade'       => 1,
+                    'data_acesso'      => $data
                 ];
             } elseif ($eConvenio) {
                 $analytics[$r->empresa]['loja'][$r->vinculo]['quantidade']++;
@@ -104,9 +103,9 @@ final class RelatorioAnalyticsModel extends ORM
             if (!array_key_exists($r->url, $analytics[$r->empresa]['url'])) {
                 $analytics[$r->empresa]['url'][$r->url] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'url' => $r->url,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'url'              => $r->url,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['url'][$r->url]['quantidade']++;
@@ -115,12 +114,12 @@ final class RelatorioAnalyticsModel extends ORM
             // CLIENTE
             if (!array_key_exists($r->usuario, $analytics[$r->empresa]['cliente'])) {
                 $analytics[$r->empresa]['cliente'][$r->usuario] = [
-                    'id_admin_empresa' => $r->empresa,
+                    'id_admin_empresa'   => $r->empresa,
                     'id_usuario_cliente' => $r->usuario,
-                    'usuario_nome' => $r->usuario_nome,
-                    'usuario_cpf' => $r->usuario_cpf,
-                    'quantidade' => 1,
-                    'data_acesso' => $data
+                    'usuario_nome'       => $r->usuario_nome,
+                    'usuario_cpf'        => $r->usuario_cpf,
+                    'quantidade'         => 1,
+                    'data_acesso'        => $data
                 ];
             } else {
                 $analytics[$r->empresa]['cliente'][$r->usuario]['quantidade']++;
@@ -130,9 +129,9 @@ final class RelatorioAnalyticsModel extends ORM
             if (!array_key_exists($r->dispositivo, $analytics[$r->empresa]['dispositivo'])) {
                 $analytics[$r->empresa]['dispositivo'][$r->dispositivo] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'dispositivo' => $r->dispositivo,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'dispositivo'      => $r->dispositivo,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['dispositivo'][$r->dispositivo]['quantidade']++;
@@ -142,9 +141,9 @@ final class RelatorioAnalyticsModel extends ORM
             if (!array_key_exists($r->os, $analytics[$r->empresa]['os'])) {
                 $analytics[$r->empresa]['os'][$r->os] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'os' => $r->os,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'os'               => $r->os,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['os'][$r->os]['quantidade']++;
@@ -154,9 +153,9 @@ final class RelatorioAnalyticsModel extends ORM
             if (!array_key_exists($r->browser, $analytics[$r->empresa]['navegador'])) {
                 $analytics[$r->empresa]['navegador'][$r->browser] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'navegador' => $r->browser,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'navegador'        => $r->browser,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['navegador'][$r->browser]['quantidade']++;

@@ -25,7 +25,7 @@ class EnqueteModel extends ORM
     protected string $ormTabela = TABELA_ENQUETE;
 
     /**
-     * @param  Request|null  $request
+     * @param Request|null $request
      *
      * @throws Excecao
      */
@@ -37,7 +37,6 @@ class EnqueteModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void
@@ -106,7 +105,7 @@ class EnqueteModel extends ORM
     }
 
     /**
-     * @param  array  $solicitacoes
+     * @param array $solicitacoes
      *
      * @return array
      */

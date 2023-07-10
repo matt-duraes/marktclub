@@ -12,7 +12,6 @@ final class DeletarModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
     private array $usuario = [];
 
@@ -33,6 +32,7 @@ final class DeletarModel extends ORM
 
         $this->validarUsuarioPegarDependente($usuario);
     }
+
     public function cpf($cpf)
     {
         $usuario = $this
@@ -44,6 +44,7 @@ final class DeletarModel extends ORM
 
         $this->validarUsuarioPegarDependente($usuario);
     }
+
     private function pegarWhereParaDeletar(array $where)
     {
         if (!empty($this->ormWherePadrao)) {
@@ -64,6 +65,7 @@ final class DeletarModel extends ORM
 
         $this->setarUsuario($usuario);
     }
+
     private function pegarDependentes($titular)
     {
         $dependente = $this->where([
@@ -85,6 +87,7 @@ final class DeletarModel extends ORM
             $this->setarUsuario($r);
         }
     }
+
     private function setarUsuario($usuario)
     {
         if (empty($usuario->id)) {
@@ -93,22 +96,7 @@ final class DeletarModel extends ORM
 
         $id = $usuario->id;
 
-        unset($usuario->id);
-        unset($usuario->cod);
-        unset($usuario->empresa);
-        unset($usuario->id_admin_subempresa);
-        unset($usuario->titular);
-        unset($usuario->tipo);
-        unset($usuario->federacao);
-        unset($usuario->uf);
-        unset($usuario->cidade);
-        unset($usuario->data_criacao);
-        unset($usuario->data_atualizacao);
-        unset($usuario->data_acesso);
-        unset($usuario->data_password);
-        unset($usuario->data_online);
-        unset($usuario->data_upload_tabela);
-        unset($usuario->status);
+        unset($usuario->id, $usuario->cod, $usuario->empresa, $usuario->id_admin_subempresa, $usuario->titular, $usuario->tipo, $usuario->federacao, $usuario->uf, $usuario->cidade, $usuario->data_criacao, $usuario->data_atualizacao, $usuario->data_acesso, $usuario->data_password, $usuario->data_online, $usuario->data_upload_tabela, $usuario->status);
 
         $dado = [
             'status' => 4

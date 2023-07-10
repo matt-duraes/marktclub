@@ -29,5 +29,4 @@ $Doc
     ->paragrafo('Para parar a execução, você precisa baixar os conteiner, isso o GULP não faz, então caso cancele o GULP, os container irão continuar executando.')
     ->codigo('docker-compose down');
 
-
 echo $Doc;

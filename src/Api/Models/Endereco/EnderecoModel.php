@@ -18,7 +18,7 @@ final class EnderecoModel extends ORM implements ModelListarInterface
     protected string $ormTabela = TABELA_SISTEMA_ENDERECO;
     protected array $ormReplace = [
         'nome' => 'titulo',
-        'cod' => 'id_vinculo'
+        'cod'  => 'id_vinculo'
     ];
     private int $idUsuario;
 

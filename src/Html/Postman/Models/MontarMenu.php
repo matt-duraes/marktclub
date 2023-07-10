@@ -7,15 +7,18 @@ final class MontarMenu
     private array $lista = [];
     private string $menu = '';
     private int $temporario = 0;
+
     public function __construct()
     {
         $this->pegarListaRota();
         $this->criarHtmlMenu();
     }
+
     public function retorno()
     {
         return $this->menu;
     }
+
     private function criarHtmlMenu()
     {
         $this->menu .= $this->criarHtmlGrupo($this->lista['grupo']);
@@ -23,6 +26,7 @@ final class MontarMenu
             $this->menu .= $this->criarHtmlRequisicao($item);
         }
     }
+
     private function criarHtmlGrupo($lista)
     {
         if (empty($lista)) {
@@ -54,6 +58,7 @@ final class MontarMenu
         }
         return $html;
     }
+
     private function criarHtmlRequisicao($dado)
     {
         if (vazio($dado) || !object_key_exists('dado', $dado)) {
@@ -77,16 +82,18 @@ final class MontarMenu
             </div>
         ';
     }
+
     private function pegarListaRota()
     {
         $lista = $this->listarDiretorio(ROOT . '/postman');
         $grupo = $this->ordenarMenuGrupo($lista['grupo'] ?? []);
         $requisicao = $this->ordenarMenuRequisicao($lista['requisicao'] ?? []);
         $this->lista = [
-            'grupo' => $grupo,
+            'grupo'      => $grupo,
             'requisicao' => $requisicao
         ];
     }
+
     private function ordenarMenuGrupo($lista)
     {
         if (!is_array($lista)) {
@@ -100,13 +107,14 @@ final class MontarMenu
             $requisicao = $this->ordenarMenuRequisicao($r->lista['requisicao'] ?? []);
             $lista = array_merge($grupo, $requisicao);
             $retorno[] = (object)[
-                'tipo' => 'diretorio',
-                'nome' => $r->nome,
+                'tipo'  => 'diretorio',
+                'nome'  => $r->nome,
                 'lista' => !empty($lista) ? $lista : [(object)['tipo' => 'vazio']]
             ];
         }
         return $retorno;
     }
+
     private function ordenarMenuRequisicao($lista)
     {
         $get = $lista['GET'] ?? [];
@@ -125,6 +133,7 @@ final class MontarMenu
         }
         return $retorno;
     }
+
     private function listarDiretorio($path)
     {
         $lista = listarArquivoDiretorio($path);
@@ -133,8 +142,8 @@ final class MontarMenu
             $arquivo = $path . '/' . $item;
             if (!empty($arquivo) && is_dir($arquivo)) {
                 $retorno['grupo'][$item] = (object)[
-                    'tipo' => 'diretorio',
-                    'nome' => $item,
+                    'tipo'  => 'diretorio',
+                    'nome'  => $item,
                     'lista' => $this->listarDiretorio($arquivo)
                 ];
                 continue;
@@ -155,6 +164,7 @@ final class MontarMenu
         }
         return $retorno;
     }
+
     private function montarMenu($path)
     {
         if (!file_exists($path)) {

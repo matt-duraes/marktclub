@@ -18,21 +18,20 @@ final class ParceiroLojaController extends Controller implements
     {
         $Parceiro = new LojaEntity();
         $Parceiro->idSlug($id);
-
         return mensagemSucesso(
-            dado: pegarPropriedadeDaEntity(
+            pegarPropriedadeDaEntity(
                 $Parceiro,
                 lista: [
-                    'titulo', 'link_logo', 'texto_desconto', 'texto_procedimento', 'status'
+                    'titulo', 'link_logo', 'link_capa_mobile', 'link_capa_desktop', 'texto_desconto', 'url',
+                    'texto_voucher', 'texto_procedimento', 'texto_descricao', 'procedimento', 'favorito', 'status'
                 ]
             )
         );
     }
+
     public function getListar(Request $request): Response
     {
         $Parceiro = new LojaModel($request);
-        $dado = $Parceiro->pegarRetorno();
-
-        return mensagemSucesso($dado);
+        return mensagemSucesso($Parceiro->listarDados());
     }
 }

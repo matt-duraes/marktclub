@@ -96,7 +96,7 @@ class ContratacaoEntity extends Entity
     ';
 
     /**
-     * @param  SimulacaoEntity  $simulacaoEntity
+     * @param SimulacaoEntity $simulacaoEntity
      */
     public function __construct(
         protected readonly SimulacaoEntity $simulacaoEntity
@@ -106,7 +106,6 @@ class ContratacaoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     public function regraInsert(): void
     {
@@ -114,7 +113,6 @@ class ContratacaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     public function regraPosInsert(): void

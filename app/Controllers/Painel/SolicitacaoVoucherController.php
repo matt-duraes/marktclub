@@ -14,9 +14,9 @@ final class SolicitacaoVoucherController extends Controller
         $dado = $Api
             ->validar(mensagem: 'Erro ao gerar voucher', status: 500)
             ->body([
-                'id' => $parceiro,
+                'id'      => $parceiro,
                 'usuario' => $usuario,
-                'tipo' => 'loja'
+                'tipo'    => 'loja'
             ])
             ->post('/solicitacao-voucher')->object();
 

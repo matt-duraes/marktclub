@@ -9,7 +9,6 @@ final class Filtrar
 {
     private array $html = [];
     private array $camposAceitos = [];
-
     private array $replace = [];
 
     public function __construct(
@@ -42,6 +41,7 @@ final class Filtrar
     {
         return $this->html['nome'] ?? '';
     }
+
     public function pegarReplace()
     {
         return $this->replace;
@@ -93,33 +93,33 @@ final class Filtrar
         ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
-            'funcao' => 'input',
-            'nome' => $titulo,
-            'name' => $name,
-            'label' => $label,
-            'placeholder' => $placeholder,
-            'class' => $class,
-            'id' => $id,
-            'html' => $html,
-            'icone' => $icone,
-            'iconeCor' => $iconeCor,
-            'obrigatorio' => $obrigatorio,
-            'focus' => $focus,
-            'contador' => $contador,
-            'type' => $type,
-            'attr' => $attr,
-            'mascara' => $mascara,
-            'ajuda' => $ajuda,
-            'numero' => $numero,
-            'data' => $data,
-            'senha' => $senha,
-            'url' => $url,
+            'funcao'       => 'input',
+            'nome'         => $titulo,
+            'name'         => $name,
+            'label'        => $label,
+            'placeholder'  => $placeholder,
+            'class'        => $class,
+            'id'           => $id,
+            'html'         => $html,
+            'icone'        => $icone,
+            'iconeCor'     => $iconeCor,
+            'obrigatorio'  => $obrigatorio,
+            'focus'        => $focus,
+            'contador'     => $contador,
+            'type'         => $type,
+            'attr'         => $attr,
+            'mascara'      => $mascara,
+            'ajuda'        => $ajuda,
+            'numero'       => $numero,
+            'data'         => $data,
+            'senha'        => $senha,
+            'url'          => $url,
             'autocomplete' => $autocomplete,
-            'action' => $action,
-            'footer' => $footer,
-            'request' => $request,
-            'separador' => $separador,
-            'maximo' => $maximo
+            'action'       => $action,
+            'footer'       => $footer,
+            'request'      => $request,
+            'separador'    => $separador,
+            'maximo'       => $maximo
         ], $permissao);
     }
 
@@ -293,17 +293,17 @@ final class Filtrar
         $this->replace($name, $lista);
 
         return $this->adicionarNovoInput([
-            'funcao' => 'select',
-            'name' => $name,
-            'nome' => $titulo,
-            'lista' => $lista,
-            'label' => $label,
+            'funcao'      => 'select',
+            'name'        => $name,
+            'nome'        => $titulo,
+            'lista'       => $lista,
+            'label'       => $label,
             'placeholder' => $placeholder,
-            'id' => $id,
-            'class' => $class,
+            'id'          => $id,
+            'class'       => $class,
             'obrigatorio' => $obrigatorio,
-            'footer' => $footer,
-            'change' => $change
+            'footer'      => $footer,
+            'change'      => $change
         ], $permissao);
     }
 
@@ -320,14 +320,14 @@ final class Filtrar
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'switch',
-            'nome' => $titulo,
-            'name' => $name,
-            'label' => $label,
-            'class' => $class,
-            'id' => $id,
-            'ajuda' => $ajuda,
-            'html' => $html,
-            'attr' => $attr,
+            'nome'   => $titulo,
+            'name'   => $name,
+            'label'  => $label,
+            'class'  => $class,
+            'id'     => $id,
+            'ajuda'  => $ajuda,
+            'html'   => $html,
+            'attr'   => $attr,
         ], $permissao);
     }
 
@@ -346,16 +346,16 @@ final class Filtrar
     ) {
         return $this->adicionarNovoInput([
             'funcao' => 'checkbox',
-            'nome' => $titulo,
-            'name' => $name,
-            'label' => $label,
-            'value' => $value,
-            'check' => $check,
-            'class' => $class,
-            'id' => $id,
-            'ajuda' => $ajuda,
-            'html' => $html,
-            'attr' => $attr,
+            'nome'   => $titulo,
+            'name'   => $name,
+            'label'  => $label,
+            'value'  => $value,
+            'check'  => $check,
+            'class'  => $class,
+            'id'     => $id,
+            'ajuda'  => $ajuda,
+            'html'   => $html,
+            'attr'   => $attr,
         ], $permissao);
     }
 

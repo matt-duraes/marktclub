@@ -49,24 +49,24 @@ $Doc
 --form 'nome=\"2fEegzzPSzh9rVefNQXzjg3VGO8e9ZUsAgo+v9mElxXb4dEJ8KhjQoMJKfvksc5xi+ocKIJ1NfUy+o179==\"' \
 --form 'email_trabalho=\"8q0VVFGBL61g9/UlS5cAhFp/NCkctV3+SWFVCW+jK7TfQBH5vsRl12lo+dZCK/R2GHqMhg==\"' \
 --form 'cpf=\"R989iFupMyrKkjjbmslw61xdK3P55GbsoYwg4aCwSr+EfL8vyH3zoLRsPhjWGEYRCE3CbW/MrFoEWiO==\"'")
-    ->preSucesso("{
-    \"status\": \"sucesso\",
-    \"dado\": {
-        \"id\": \"afde9c97-77f3-4073-bfb9-41f53de9dd83\",
-        \"nome\": \"Nc+LeSnsdBvqPzamPi8yu3qoh5GXtSLX+HejMHM4742Irproh4nX89K4SrfQ7pM==\",
-        \"cpf\": \"Mb7raH0/e5vXakp91laLuNP288EMHeh0hkyNr6pfYoDI1EQQFoBUX0MgXy3gNjR==\",
-        \"email_trabalho\": \"pCPFPBcE60Rem8d5M/GRPhdi1abfiA9QOQC0/ZGDlyZKtvc4pKd5w==\",
-        \"primeiro_acesso\": \"sim\",
-        \"mudar_senha\": \"nao\",
-        \"status\": \"ativo\"
+    ->preSucesso('{
+    "status": "sucesso",
+    "dado": {
+        "id": "afde9c97-77f3-4073-bfb9-41f53de9dd83",
+        "nome": "Nc+LeSnsdBvqPzamPi8yu3qoh5GXtSLX+HejMHM4742Irproh4nX89K4SrfQ7pM==",
+        "cpf": "Mb7raH0/e5vXakp91laLuNP288EMHeh0hkyNr6pfYoDI1EQQFoBUX0MgXy3gNjR==",
+        "email_trabalho": "pCPFPBcE60Rem8d5M/GRPhdi1abfiA9QOQC0/ZGDlyZKtvc4pKd5w==",
+        "primeiro_acesso": "sim",
+        "mudar_senha": "nao",
+        "status": "ativo"
     }
-}")
-    ->preFalha("{
-    \"status\": \"erro\",
-    \"erro\": {
-        \"titulo\": \"Campo obrigatório!\",
-        \"mensagem\": \"O campo nome é obrigatório.\"
+}')
+    ->preFalha('{
+    "status": "erro",
+    "erro": {
+        "titulo": "Campo obrigatório!",
+        "mensagem": "O campo nome é obrigatório."
     }
-}");
+}');
 
 echo $Doc;

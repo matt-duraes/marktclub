@@ -18,6 +18,7 @@ final class UsuarioEquipeTest extends Tests
         $this->finalizarTeste();
         $this->bodySalvar = $this->criarBodyUsuario();
     }
+
     public function finalizarTeste()
     {
         $this->tabela(TABELA_USUARIO_EQUIPE)->resetar();
@@ -40,6 +41,7 @@ final class UsuarioEquipeTest extends Tests
         $this->idUsuario = array_key_exists('dado', $resposta) ? $resposta['dado']['id'] : '';
         return $this;
     }
+
     public function buscarUsuarioQueFoiSalvoTest()
     {
         $this->api('usuario_equipe:buscar');
@@ -53,6 +55,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceExiste('dado.id')
             ->checkIndiceIgual('dado.id', $this->idUsuario);
     }
+
     public function naoPodeAtualizarCpfDeUmUsuarioQueJaTemCpfTest()
     {
         $this->api('usuario_equipe:atualizar');
@@ -69,15 +72,16 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'Você não pode mudar o CPF desse usuário.');
     }
+
     public function naoPodeSalvarUmUsuarioComCpfDuplicadoTest()
     {
         $this->api('usuario_equipe:salvar');
 
         $body = $this->cryptEncode([
-            'nome' => $this->nomeCompleto(),
-            'cpf' => $this->bodySalvar['cpf'],
+            'nome'          => $this->nomeCompleto(),
+            'cpf'           => $this->bodySalvar['cpf'],
             'email_pessoal' => $this->email(),
-            'status' => 'inativo',
+            'status'        => 'inativo',
         ], lista: ['nome', 'email_pessoal', 'status']);
 
         $this
@@ -90,7 +94,6 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O CPF informado já está em uso por outro usuário.');
     }
-
 
     public function naoPodeSalvarUmUsuarioSemCpfTest()
     {
@@ -106,6 +109,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O campo CPF não pode ser vazio.');
     }
+
     public function naoPodeSalvarUmUsuarioSemEmailTrabalhoTest()
     {
         $this->api('usuario_equipe:salvar');
@@ -136,6 +140,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso');
     }
+
     public function listarUsuarioComTodosOsFiltrosTest()
     {
         $this->api('usuario_equipe:listar');
@@ -143,15 +148,15 @@ final class UsuarioEquipeTest extends Tests
             ->Curl
             ->loginPainel()
             ->json([
-                'pagina' => 1,
+                'pagina'     => 1,
                 'quantidade' => 20,
-                'empresa' => $this->idEmpresaMarktclub,
-                'pesquisa' => $this->bodySalvar['cpf'],
-                'nome' => $this->bodySalvar['nome'],
-                'email' => $this->bodySalvar['email_pessoal'],
-                'cpf' => $this->bodySalvar['cpf'],
-                'status' => $this->bodySalvar['status'],
-                'ordem' => 'mais-novo'
+                'empresa'    => $this->idEmpresaMarktclub,
+                'pesquisa'   => $this->bodySalvar['cpf'],
+                'nome'       => $this->bodySalvar['nome'],
+                'email'      => $this->bodySalvar['email_pessoal'],
+                'cpf'        => $this->bodySalvar['cpf'],
+                'status'     => $this->bodySalvar['status'],
+                'ordem'      => 'mais-novo'
             ])
             ->get('/usuario-equipe');
 
@@ -177,6 +182,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O campo pagina está inválido.');
     }
+
     public function naoPodeListarComOrdemInvalidaTest()
     {
         $this->api('usuario_equipe:listar');
@@ -185,7 +191,7 @@ final class UsuarioEquipeTest extends Tests
             ->loginPainel()
             ->json([
                 'pagina' => 1,
-                'ordem' => 'nao-existe'
+                'ordem'  => 'nao-existe'
             ])
             ->get('/usuario-equipe');
 
@@ -194,6 +200,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A ordem informada não é um valor válido.');
     }
+
     public function naoPodeListarUsuarioComUmStatusInvalidoTest()
     {
         $this->api('usuario_equipe:listar');
@@ -211,6 +218,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O Status informado não é um valor válido.');
     }
+
     public function deletarUsuarioBuscadoTest()
     {
         $this->api('usuario_equipe:deletar');
@@ -222,6 +230,7 @@ final class UsuarioEquipeTest extends Tests
         return $this
             ->checkStatus(204);
     }
+
     public function naoPodeAcharUsuarioDeletadoTest()
     {
         $this->api('usuario_equipe:buscar');
@@ -233,6 +242,7 @@ final class UsuarioEquipeTest extends Tests
         return $this
             ->checkStatus(404);
     }
+
     public function naoPodeBuscarUsuarioPeloIdTest()
     {
         $this->api('usuario_equipe:buscar');
@@ -245,6 +255,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkStatus(404)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
+
     public function naoPodeAtualizarUsuarioPeloIdTest()
     {
         $this->api('usuario_equipe:atualizar');
@@ -258,6 +269,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkStatus(404)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
+
     public function naoPodeDeletarUsuarioPeloIdTest()
     {
         $this->api('usuario_equipe:deletar');
@@ -270,6 +282,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkStatus(404)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
+
     public function mudarEmpresaDoUsuarioTest()
     {
         $this->api('usuario_equipe:atualizar');
@@ -282,6 +295,7 @@ final class UsuarioEquipeTest extends Tests
         return $this
             ->checkStatus(204);
     }
+
     public function naoPodeMudarEmpresaDoUsuarioParaUmaEmpresaInvalidaTest()
     {
         $this->api('usuario_equipe:atualizar');
@@ -295,6 +309,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkStatus(404)
             ->checkIndiceIgual('erro.mensagem', 'Nenhuma empresa encontrada.');
     }
+
     public function naoPodeMudarEmpresaDoUsuarioComCredentialTokenTest()
     {
         $this->api('usuario_equipe:atualizar');
@@ -307,6 +322,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkStatus(403)
             ->checkIndiceIgual('erro.mensagem', 'Nenhum usuário encontrado.');
     }
+
     public function listarTodosOsPerfilTest()
     {
         $this->api('usuario_equipe:listar');
@@ -318,6 +334,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
     }
+
     public function crairSelectTodosUsuarioTest()
     {
         $this->api('usuario_equipe:listar');
@@ -344,6 +361,7 @@ final class UsuarioEquipeTest extends Tests
             ->checkStatus(200)
             ->checkIndiceIgual('dado.senha', 1);
     }
+
     public function verificarSeEstaRetornandoErroAoValidarSenhaErradaTest()
     {
         $this->api('usuario_equipe:validar_senha');
@@ -366,20 +384,20 @@ final class UsuarioEquipeTest extends Tests
     private function criarBodyUsuario(array $campo = [])
     {
         $completo = [
-            'nome' => $this->nomeCompleto(),
-            'cpf' => $this->cpf(),
-            'genero' => $this->genero(),
-            'data_nascimento' => $this->dataPassada(),
-            'email_trabalho' => $this->email(),
-            'email_pessoal' => $this->email(),
+            'nome'              => $this->nomeCompleto(),
+            'cpf'               => $this->cpf(),
+            'genero'            => $this->genero(),
+            'data_nascimento'   => $this->dataPassada(),
+            'email_trabalho'    => $this->email(),
+            'email_pessoal'     => $this->email(),
             'telefone_trabalho' => $this->telefone(),
-            'telefone_pessoal' => $this->telefone(),
-            'permissao' => ["solicitacao_voucher_index"],
-            'senha' => $this->senha('Teste@1324'),
-            'status' => 'inativo',
-            'primeiro_acesso' => 'sim',
-            'mudar_senha' => 'sim',
-            'empresa' => $this->idEmpresaMarktclub
+            'telefone_pessoal'  => $this->telefone(),
+            'permissao'         => ['solicitacao_voucher_index'],
+            'senha'             => $this->senha('Teste@1324'),
+            'status'            => 'inativo',
+            'primeiro_acesso'   => 'sim',
+            'mudar_senha'       => 'sim',
+            'empresa'           => $this->idEmpresaMarktclub
         ];
 
         if (empty($campo)) {

@@ -37,7 +37,6 @@ final class CupomHelper
         }
 
         return $data['data'];
-
     }
 
     public function buscar($id)
@@ -51,7 +50,6 @@ final class CupomHelper
         }
 
         return $data['data'][0] ?? [];
-
     }
 
     private function curl(String $uri, array $data = []): array
@@ -79,12 +77,10 @@ final class CupomHelper
         return [
             'error' => true,
         ];
-
     }
 
     private function validarRetorno(array $response): array
     {
-
         if (!isset($response['requestInfo'])
             || !isset($response['requestInfo']['status'])
             || $response['requestInfo']['status'] != 'OK') {
@@ -93,7 +89,6 @@ final class CupomHelper
 
         $return = [];
         foreach ($response['coupons'] as $r) {
-
             $validate = new \DateTime(str_replace('/', '-', $r['vigency']));
             $validate = $validate->format('Y-m-d H:i:s');
             if ($validate <= date('Y-m-d H:i:s') || empty($r['store']['name'])) {
@@ -108,27 +103,26 @@ final class CupomHelper
             }
 
             $return[] = [
-                'id' => $r['id'],
+                'id'        => $r['id'],
                 'descricao' => $r['description'],
-                'cupom' => $cupom,
-                'tipo' => $tipo,
-                'desconto' => $r['discount'],
-                'parceiro' => [
-                    'id' => $r['store']['id'],
-                    'nome' => $r['store']['name'],
+                'cupom'     => $cupom,
+                'tipo'      => $tipo,
+                'desconto'  => $r['discount'],
+                'parceiro'  => [
+                    'id'     => $r['store']['id'],
+                    'nome'   => $r['store']['name'],
                     'imagem' => $r['store']['image'],
-                    'link' => $r['store']['link'],
-                    'slug' => (new TextoHelper())->valor($r['store']['name'])->slug('-')->r()
+                    'link'   => $r['store']['link'],
+                    'slug'   => (new TextoHelper())->valor($r['store']['name'])->slug('-')->r()
                 ],
                 'categoria' => [
-                    'id' => $r['category']['id'],
+                    'id'   => $r['category']['id'],
                     'name' => $r['category']['name'],
                 ],
-                'link' => $r['link'],
+                'link'     => $r['link'],
                 'validade' => $r['vigency'],
-                'novo' => $r['new'],
+                'novo'     => $r['new'],
             ];
-
         }
 
         if (empty($return)) {
@@ -137,9 +131,7 @@ final class CupomHelper
 
         return [
             'error' => false,
-            'data' => $return,
+            'data'  => $return,
         ];
-
     }
-
 }

@@ -44,7 +44,7 @@ final class LojaMaisAcessadaModel extends ORM
             if (!array_key_exists($r->id_parceiro_loja, $dado)) {
                 $dado[$r->id_parceiro_loja] = object([
                     'parceiro_nome' => $r->parceiro_nome,
-                    'quantidade' => 0,
+                    'quantidade'    => 0,
                 ]);
             }
             $dado[$r->id_parceiro_loja]->quantidade += $r->quantidade;
@@ -63,8 +63,8 @@ final class LojaMaisAcessadaModel extends ORM
         $i = 1;
         foreach ($dado as $r) {
             $retorno[] = [
-                'loja' => $r->parceiro_nome,
-                'total' => $r->quantidade,
+                'loja'        => $r->parceiro_nome,
+                'total'       => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
             if ($i >= 20) {

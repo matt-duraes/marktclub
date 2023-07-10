@@ -20,7 +20,7 @@ final class UploadGrupoController extends Controller implements
     ControllerDeletarInterface
 {
     /**
-     * @param  string  $id
+     * @param  string   $id
      * @return Response
      * @throws Excecao
      */
@@ -66,7 +66,7 @@ final class UploadGrupoController extends Controller implements
         $Grupo->salvar();
 
         return mensagemSucesso([
-            'id' => $Grupo->id,
+            'id'   => $Grupo->id,
             'nome' => $Grupo->nome,
         ], status: 201);
     }
@@ -88,7 +88,7 @@ final class UploadGrupoController extends Controller implements
     }
 
     /**
-     * @param  string  $id
+     * @param  string   $id
      * @return Response
      * @throws Excecao
      */
@@ -101,7 +101,7 @@ final class UploadGrupoController extends Controller implements
     }
 
     /**
-     * @param  string  $id
+     * @param  string   $id
      * @return Response
      * @throws Excecao
      */
@@ -113,7 +113,7 @@ final class UploadGrupoController extends Controller implements
     }
 
     /**
-     * @param  string  $id
+     * @param  string   $id
      * @return Response
      * @throws Excecao
      */

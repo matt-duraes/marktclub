@@ -48,7 +48,6 @@ final class EmpresaEntity extends Entity
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
         'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data'
     ];
-
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
         razao_social|Razão Social|vazio
@@ -60,9 +59,7 @@ final class EmpresaEntity extends Entity
         estado_principal|Estado principal|valido
         status|Status|vazio|valido
     ';
-
     protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
-
     protected int $id_usuario_equipe;
     public string $titulo;
     public Cnpj $cnpj;
@@ -115,10 +112,12 @@ final class EmpresaEntity extends Entity
         $this->status = new Status(Status::PROSPECCAO);
         $this->validarSeJaExisteCnpj();
     }
+
     protected function regraUpdate()
     {
         $this->validarSeJaExisteCnpj($this->prop('id'));
     }
+
     protected function regraSalvar()
     {
         $Equipe = new HelperModel();

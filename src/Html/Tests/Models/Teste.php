@@ -3,10 +3,10 @@
 function __executarTeste($listaTeste)
 {
     $retornoFinal = (object)[
-        'todos' => 0,
+        'todos'  => 0,
         'passou' => 0,
         'falhou' => 0,
-        'lista' => []
+        'lista'  => []
     ];
 
     foreach ($listaTeste as $arquivo) {
@@ -21,9 +21,9 @@ function __executarTeste($listaTeste)
 
         $listaTodos = (object)[
             'arquivo' => $arquivo,
-            'class' => $classNome . '::class',
-            'test' => (object)[
-                'todos' => [],
+            'class'   => $classNome . '::class',
+            'test'    => (object)[
+                'todos'  => [],
                 'passou' => [],
                 'falhou' => []
             ]
@@ -44,8 +44,8 @@ function __executarTeste($listaTeste)
                 $dado = $class->$metodo();
                 if (!($dado instanceof \Tests\Tests)) {
                     $erroNaoTest = (object)[
-                        'tipo' => 'erro_geral',
-                        'nome' => __converterNomeDoTeste($metodo),
+                        'tipo'     => 'erro_geral',
+                        'nome'     => __converterNomeDoTeste($metodo),
                         'mensagem' => 'O método ' . $metodo . ' não está retornando um \Tests\Tests'
                     ];
                     $listaTodos->test->todos[] = $erroNaoTest;
@@ -55,16 +55,16 @@ function __executarTeste($listaTeste)
                 $retorno = $dado->test();
                 $curl = $retorno->curl;
                 $resposta = [
-                    'tipo' => 'test',
-                    'nome' => __converterNomeDoTeste($metodo),
-                    'status' => $retorno->status,
-                    'metodo' => $retorno->metodo,
-                    'url' => $retorno->url,
-                    'json' => $curl ? $retorno->curl->json() : [],
-                    'body' => $curl ? $retorno->curl->body() : [],
+                    'tipo'      => 'test',
+                    'nome'      => __converterNomeDoTeste($metodo),
+                    'status'    => $retorno->status,
+                    'metodo'    => $retorno->metodo,
+                    'url'       => $retorno->url,
+                    'json'      => $curl ? $retorno->curl->json() : [],
+                    'body'      => $curl ? $retorno->curl->body() : [],
                     'parametro' => $curl ? $retorno->curl->parametro() : [],
-                    'header' => $curl ? $retorno->curl->header() : [],
-                    'resposta' => $curl ? $retorno->curl->object() : [],
+                    'header'    => $curl ? $retorno->curl->header() : [],
+                    'resposta'  => $curl ? $retorno->curl->object() : [],
                 ];
 
                 if (count($retorno->todos) > 0) {
@@ -84,12 +84,12 @@ function __executarTeste($listaTeste)
                 $retornoFinal->todos++;
                 $retornoFinal->falhou++;
                 $erroGeral = (object)[
-                    'tipo' => 'erro',
-                    'nome' => __converterNomeDoTeste($metodo),
+                    'tipo'     => 'erro',
+                    'nome'     => __converterNomeDoTeste($metodo),
                     'mensagem' => $th->getMessage(),
-                    'linha' => $th->getLine(),
-                    'arquivo' => $th->getFile(),
-                    'trace' => explode(PHP_EOL, $th->getTraceAsString())
+                    'linha'    => $th->getLine(),
+                    'arquivo'  => $th->getFile(),
+                    'trace'    => explode(PHP_EOL, $th->getTraceAsString())
                 ];
                 $listaTodos->test->todos[] = $erroGeral;
                 $listaTodos->test->falhou[] = $erroGeral;

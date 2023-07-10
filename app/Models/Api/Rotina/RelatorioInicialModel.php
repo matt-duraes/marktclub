@@ -7,6 +7,7 @@ use ORM\ORM;
 final class RelatorioInicialModel extends ORM
 {
     protected string $ormTabela = TABELA_ANALYTICS;
+
     // @codingStandardsIgnoreStart
     // Acesso Dia
     private string $sqlAcessoDiaInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_acesso_dia` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `quantidade_total` int(9) NOT NULL, `quantidade_unico` int(9) NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
@@ -14,36 +15,42 @@ final class RelatorioInicialModel extends ORM
     private string $sqlAcessoDiaQuery = 'INSERT INTO `analytics_acesso_dia` (`id`, `id_admin_empresa`, `quantidade_total`, `quantidade_unico`, `data_acesso`) VALUES ';
     private string $sqlAcessoDia = '';
     private int $sqlAcessoDiaId = 1;
+
     // Dispositivo
     private string $sqlDispositivoInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_dispositivo` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `quantidade` int(9) NOT NULL, `dispositivo` text COLLATE utf8mb4_unicode_ci NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlDispositivoFinal = 'ALTER TABLE `analytics_dispositivo` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_dispositivo` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;COMMIT;';
     private string $sqlDispositivoQuery = 'INSERT INTO `analytics_dispositivo` (`id`, `id_admin_empresa`, `quantidade`, `dispositivo`, `data_acesso`) VALUES ';
     private string $sqlDispositivo = '';
     private int $sqlDispositivoId = 1;
+
     // Loja
     private string $sqlLojaInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_loja` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `id_parceiro_loja` int(9) DEFAULT NULL, `parceiro_nome` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL, `quantidade` int(9) NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlLojaFinal = 'ALTER TABLE `analytics_loja` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_loja` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT; COMMIT;';
     private string $sqlLojaQuery = 'INSERT INTO `analytics_loja` (`id`, `id_admin_empresa`, `id_parceiro_loja`, `parceiro_nome`, `quantidade`, `data_acesso`) VALUES ';
     private string $sqlLoja = '';
     private int $sqlLojaId = 1;
+
     // Navegador
     private string $sqlNavegadorInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_navegador` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `quantidade` int(9) NOT NULL, `navegador` text COLLATE utf8mb4_unicode_ci NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlNavegadorFinal = 'ALTER TABLE `analytics_navegador` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_navegador` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT; COMMIT;';
     private string $sqlNavegadorQuery = 'INSERT INTO `analytics_navegador` (`id`, `id_admin_empresa`, `quantidade`, `navegador`, `data_acesso`) VALUES ';
     private string $sqlNavegador = '';
     private int $sqlNavegadorId = 1;
+
     // OS
     private string $sqlOsInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_os` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `quantidade` int(9) NOT NULL, `os` text COLLATE utf8mb4_unicode_ci NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlOsFinal = 'ALTER TABLE `analytics_os` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_os` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT; COMMIT;';
     private string $sqlOsQuery = 'INSERT INTO `analytics_os` (`id`, `id_admin_empresa`, `quantidade`, `os`, `data_acesso`) VALUES ';
     private string $sqlOs = '';
     private int $sqlOsId = 1;
+
     // Url
     private string $sqlUrlInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_pagina` (`id` int(9) NOT NULL, `id_admin_empresa` int(9) NOT NULL, `quantidade` int(9) NOT NULL, `url` text COLLATE utf8mb4_unicode_ci NOT NULL, `data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlUrlFinal = 'ALTER TABLE `analytics_pagina` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_pagina` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT; COMMIT;';
     private string $sqlUrlQuery = 'INSERT INTO `analytics_pagina` (`id`, `id_admin_empresa`, `quantidade`, `url`, `data_acesso`) VALUES ';
     private string $sqlUrl = '';
     private int $sqlUrlId = 1;
+
     // Usuario
     private string $sqlUsuarioInicio = 'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; START TRANSACTION; SET time_zone = "+00:00"; CREATE TABLE `analytics_usuario` (`id` int(9) NOT NULL,`id_admin_empresa` int(9) NOT NULL,`id_usuario_cliente` int(1) NOT NULL,`usuario_cpf` varchar(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,`usuario_nome` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,`quantidade` int(9) NOT NULL,`data_acesso` date NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
     private string $sqlUsuarioFinal = 'ALTER TABLE `analytics_usuario` ADD PRIMARY KEY (`id`); ALTER TABLE `analytics_usuario` MODIFY `id` int(9) NOT NULL AUTO_INCREMENT; COMMIT;';
@@ -71,11 +78,12 @@ final class RelatorioInicialModel extends ORM
             $lista[$data][] = $r;
         }
         foreach ($lista as $data => $json) {
-            $fp = fopen(DIRETORIO_PRIVADO . "/analytics/" . $data . ".json", "a+");
+            $fp = fopen(DIRETORIO_PRIVADO . '/analytics/' . $data . '.json', 'a+');
             fwrite($fp, json_encode($json));
             fclose($fp);
         }
     }
+
     private function pegarWhere(int $ano, ?int $cortar)
     {
         if ($cortar == 1) {
@@ -108,7 +116,6 @@ final class RelatorioInicialModel extends ORM
 
     private function montarDadoAnalytics($data, $lista)
     {
-
         $analyticsUnico = [];
         $analytics = [];
         foreach ($lista as $r) {
@@ -119,13 +126,13 @@ final class RelatorioInicialModel extends ORM
                         'id_admin_empresa' => $r->empresa,
                         'quantidade_total' => 0,
                         'quantidade_unico' => 0,
-                        'data_acesso' => $data
+                        'data_acesso'      => $data
                     ],
-                    'loja' => [],
-                    'url' => [],
-                    'cliente' => [],
-                    'os' => [],
-                    'navegador' => [],
+                    'loja'        => [],
+                    'url'         => [],
+                    'cliente'     => [],
+                    'os'          => [],
+                    'navegador'   => [],
                     'dispositivo' => [],
                 ];
             }
@@ -157,9 +164,9 @@ final class RelatorioInicialModel extends ORM
                 $analytics[$r->empresa]['loja'][$r->vinculo] = [
                     'id_admin_empresa' => $r->empresa,
                     'id_parceiro_loja' => $r->vinculo,
-                    'parceiro_nome' => $r->vinculo_nome,
-                    'quantidade' => 1,
-                    'data_acesso' => $data
+                    'parceiro_nome'    => $r->vinculo_nome,
+                    'quantidade'       => 1,
+                    'data_acesso'      => $data
                 ];
             } elseif ($eConvenio) {
                 $analytics[$r->empresa]['loja'][$r->vinculo]['quantidade']++;
@@ -169,9 +176,9 @@ final class RelatorioInicialModel extends ORM
             if (!array_key_exists($r->url, $analytics[$r->empresa]['url'])) {
                 $analytics[$r->empresa]['url'][$r->url] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'url' => $r->url,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'url'              => $r->url,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['url'][$r->url]['quantidade']++;
@@ -180,12 +187,12 @@ final class RelatorioInicialModel extends ORM
             // CLIENTE
             if (!array_key_exists($r->usuario, $analytics[$r->empresa]['cliente'])) {
                 $analytics[$r->empresa]['cliente'][$r->usuario] = [
-                    'id_admin_empresa' => $r->empresa,
+                    'id_admin_empresa'   => $r->empresa,
                     'id_usuario_cliente' => $r->usuario,
-                    'usuario_nome' => $r->usuario_nome,
-                    'usuario_cpf' => $r->usuario_cpf,
-                    'quantidade' => 1,
-                    'data_acesso' => $data
+                    'usuario_nome'       => $r->usuario_nome,
+                    'usuario_cpf'        => $r->usuario_cpf,
+                    'quantidade'         => 1,
+                    'data_acesso'        => $data
                 ];
             } else {
                 $analytics[$r->empresa]['cliente'][$r->usuario]['quantidade']++;
@@ -195,9 +202,9 @@ final class RelatorioInicialModel extends ORM
             if (!array_key_exists($r->dispositivo, $analytics[$r->empresa]['dispositivo'])) {
                 $analytics[$r->empresa]['dispositivo'][$r->dispositivo] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'dispositivo' => $r->dispositivo,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'dispositivo'      => $r->dispositivo,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['dispositivo'][$r->dispositivo]['quantidade']++;
@@ -207,9 +214,9 @@ final class RelatorioInicialModel extends ORM
             if (!array_key_exists($r->os, $analytics[$r->empresa]['os'])) {
                 $analytics[$r->empresa]['os'][$r->os] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'os' => $r->os,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'os'               => $r->os,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['os'][$r->os]['quantidade']++;
@@ -219,9 +226,9 @@ final class RelatorioInicialModel extends ORM
             if (!array_key_exists($r->browser, $analytics[$r->empresa]['navegador'])) {
                 $analytics[$r->empresa]['navegador'][$r->browser] = [
                     'id_admin_empresa' => $r->empresa,
-                    'quantidade' => 1,
-                    'navegador' => $r->browser,
-                    'data_acesso' => $data
+                    'quantidade'       => 1,
+                    'navegador'        => $r->browser,
+                    'data_acesso'      => $data
                 ];
             } else {
                 $analytics[$r->empresa]['navegador'][$r->browser]['quantidade']++;
@@ -229,6 +236,7 @@ final class RelatorioInicialModel extends ORM
         }
         $this->montarArquivoBanco($analytics);
     }
+
     private function montarArquivoBanco($analitics)
     {
         $sqlAcessoDia = [];
@@ -244,7 +252,7 @@ final class RelatorioInicialModel extends ORM
             $acessoTotal = $r['dia']['quantidade_total'];
             $acessoUnico = empty($r['dia']['quantidade_unico']) ? 1 : $r['dia']['quantidade_unico'];
             $sqlAcessoDia[] =
-                "(" . $this->sqlAcessoDiaId . "," . $empresa . "," . $acessoTotal . "," .
+                '(' . $this->sqlAcessoDiaId . ',' . $empresa . ',' . $acessoTotal . ',' .
                 $acessoUnico . ",'" . $r['dia']['data_acesso'] . "')";
 
             $this->sqlAcessoDiaId++;
@@ -255,7 +263,7 @@ final class RelatorioInicialModel extends ORM
                     $loja['parceiro_nome'] = 'Não identificado';
                 }
                 $sqlLoja[] =
-                    "(" . $this->sqlLojaId . "," . $empresa . "," . $loja['id_parceiro_loja'] . ",'" .
+                    '(' . $this->sqlLojaId . ',' . $empresa . ',' . $loja['id_parceiro_loja'] . ",'" .
                     addslashes($loja['parceiro_nome']) . "'," . $loja['quantidade'] . ",'" .
                     $loja['data_acesso'] . "')";
 
@@ -267,7 +275,7 @@ final class RelatorioInicialModel extends ORM
                     $cliente['usuario_nome'] = 'Não identificado';
                 }
                 $sqlCliente[] =
-                    "(" . $this->sqlUsuarioId . "," . $empresa . "," . $cliente['id_usuario_cliente'] . ",'" .
+                    '(' . $this->sqlUsuarioId . ',' . $empresa . ',' . $cliente['id_usuario_cliente'] . ",'" .
                     $cliente['usuario_cpf'] . "','" . addslashes($cliente['usuario_nome']) . "'," .
                     $cliente['quantidade'] . ",'" . $cliente['data_acesso'] . "')";
 
@@ -280,8 +288,8 @@ final class RelatorioInicialModel extends ORM
                     $dispositivo['dispositivo'] = 'Não identificado';
                 }
                 $sqlDispositivo[] =
-                    "(" . $this->sqlDispositivoId . "," . $empresa . "," . $dispositivo['quantidade'] . ",'" .
-                    addslashes($dispositivo['dispositivo']) . "','" .  $dispositivo['data_acesso'] . "')";
+                    '(' . $this->sqlDispositivoId . ',' . $empresa . ',' . $dispositivo['quantidade'] . ",'" .
+                    addslashes($dispositivo['dispositivo']) . "','" . $dispositivo['data_acesso'] . "')";
 
                 $this->sqlDispositivoId++;
             }
@@ -291,8 +299,8 @@ final class RelatorioInicialModel extends ORM
                     $navegador['navegador'] = 'Não identificado';
                 }
                 $sqlNavegador[] =
-                    "(" . $this->sqlNavegadorId . "," . $empresa . "," . $navegador['quantidade'] .
-                    ",'" . addslashes($navegador['navegador']) . "','" .  $navegador['data_acesso'] . "')";
+                    '(' . $this->sqlNavegadorId . ',' . $empresa . ',' . $navegador['quantidade'] .
+                    ",'" . addslashes($navegador['navegador']) . "','" . $navegador['data_acesso'] . "')";
 
                 $this->sqlNavegadorId++;
             }
@@ -301,8 +309,8 @@ final class RelatorioInicialModel extends ORM
                     $os['os'] = 'Não identificado';
                 }
                 $sqlOs[] =
-                    "(" . $this->sqlOsId . "," . $empresa . "," . $os['quantidade'] .
-                    ",'" . addslashes($os['os']) . "','" .  $os['data_acesso'] . "')";
+                    '(' . $this->sqlOsId . ',' . $empresa . ',' . $os['quantidade'] .
+                    ",'" . addslashes($os['os']) . "','" . $os['data_acesso'] . "')";
 
                 $this->sqlOsId++;
             }
@@ -310,8 +318,8 @@ final class RelatorioInicialModel extends ORM
                 if (empty($url['url'])) {
                     $os['url'] = 'Não identificado';
                 }
-                $sqlUrl[] = "(" . $this->sqlUrlId . "," . $empresa . "," . $url['quantidade'] . ",'" .
-                addslashes($url['url']) . "','" .  $url['data_acesso'] . "')";
+                $sqlUrl[] = '(' . $this->sqlUrlId . ',' . $empresa . ',' . $url['quantidade'] . ",'" .
+                addslashes($url['url']) . "','" . $url['data_acesso'] . "')";
 
                 $this->sqlUrlId++;
             }
@@ -364,9 +372,10 @@ final class RelatorioInicialModel extends ORM
         $sqlUrl = $this->sqlUrlInicio . ' ' . $this->sqlUrl . ' ' . $this->sqlUrlFinal;
         $this->salvarArquivoNoDiretorio('analytics_url', $sqlUrl);
     }
+
     private function salvarArquivoNoDiretorio($arquivo, $conteudo)
     {
-        $fp = fopen(DIRETORIO_PRIVADO . "/banco/" . $arquivo . ".sql", "w+");
+        $fp = fopen(DIRETORIO_PRIVADO . '/banco/' . $arquivo . '.sql', 'w+');
         fwrite($fp, preg_replace(['/\,$/', '/\,{2,}/'], ['', ''], $conteudo) . ';');
         fclose($fp);
     }

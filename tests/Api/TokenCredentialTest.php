@@ -7,10 +7,12 @@ use Tests\Tests;
 final class TokenCredentialTest extends Tests
 {
     private string $linkApi;
+
     public function __construct()
     {
         $this->linkApi = env('API_LINK', LINK_API);
     }
+
     public function criandoTokenComDadosCorretosTest()
     {
         $this->curl($this->linkApi);
@@ -40,6 +42,7 @@ final class TokenCredentialTest extends Tests
             )
             ->checkIndiceNaoExiste('dado.access_token');
     }
+
     public function naoPodeCriarTokenComClientIdErradoTest()
     {
         $this->curl($this->linkApi);
@@ -73,6 +76,7 @@ final class TokenCredentialTest extends Tests
             )
             ->checkIndiceNaoExiste('dado.access_token');
     }
+
     public function naoPodeCriarTokenComSecretIdErradoTest()
     {
         $this->curl($this->linkApi);
@@ -106,6 +110,7 @@ final class TokenCredentialTest extends Tests
             )
             ->checkIndiceNaoExiste('dado.access_token');
     }
+
     public function naoPodeCriarTokenComAudienceErradoTest()
     {
         $this->curl($this->linkApi);
@@ -149,11 +154,11 @@ final class TokenCredentialTest extends Tests
         string $scope = ''
     ) {
         return [
-            'client_id' => is_null($clientId) ? env('API_CLIENT_ID') : $clientId,
-            'secret_id' => is_null($secretId) ? env('API_SECRET_ID') : $secretId,
-            'audience' => is_null($audience) ? env('API_AUDIENCE') : $clientId,
+            'client_id'  => is_null($clientId) ? env('API_CLIENT_ID') : $clientId,
+            'secret_id'  => is_null($secretId) ? env('API_SECRET_ID') : $secretId,
+            'audience'   => is_null($audience) ? env('API_AUDIENCE') : $clientId,
             'grant_type' => 'client_credentials',
-            'scope' => $scope,
+            'scope'      => $scope,
         ];
     }
 }

@@ -8,7 +8,7 @@ final class PaginaStatusRetorno
     private $header;
 
     /**
-     * @param Int       $status         Status HTML da página de retorno podendo ser 400, 401, 403, 404, 500
+     * @param int $status Status HTML da página de retorno podendo ser 400, 401, 403, 404, 500
      */
     public function __construct(
         private int $status

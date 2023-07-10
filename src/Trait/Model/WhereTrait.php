@@ -12,14 +12,15 @@ trait WhereTrait
     /**
      * Seta um where manualmente
      *
-     * @param   array $where    Array com o where que deseja setar
-     * @return  self
+     * @param  array $where Array com o where que deseja setar
+     * @return self
      */
     private function setarWhereManual(array $where): self
     {
         $this->where[] = $where;
         return $this;
     }
+
     private function setarWhere(
         string $campo,
         string $condicao = '=',
@@ -56,6 +57,7 @@ trait WhereTrait
         $valor = $this->request->$campo;
         $this->validarTipoValor($campo, $valor, $tipo, $valido);
     }
+
     private function validarTipoValor(string $campo, $valor, string $tipo, bool $valido)
     {
         if (empty($tipo) || empty($valor) || !$valido) {
@@ -99,7 +101,7 @@ trait WhereTrait
         $valor = $this->request->$campo;
 
         if (in_array($tipo, ['cpf', 'telefone', 'cnpj'])) {
-            return preg_replace("/[^0-9]/", "", $valor);
+            return preg_replace('/[^0-9]/', '', $valor);
         } elseif (in_array($tipo, ['data', 'date'])) {
             return dataBanco($valor);
         } elseif (in_array($tipo, ['dataHora', 'dateTime'])) {

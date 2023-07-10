@@ -48,16 +48,17 @@ final class AppModel extends ORM implements
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
+
     protected function montarRetorno(array $dado): array
     {
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'nome' => $r->nome,
-                'dono' => $r->nome_fantasia,
+                'id'           => $r->uuid,
+                'nome'         => $r->nome,
+                'dono'         => $r->nome_fantasia,
                 'data_criacao' => $r->data_criacao,
-                'status' => (new Status($r->status))->indice()
+                'status'       => (new Status($r->status))->indice()
             ];
         }
         return $retorno;
@@ -111,24 +112,24 @@ final class AppModel extends ORM implements
             $appScope = jsonDecode($r->scope_permitido, true, true);
             $scope = array_merge($scope, $appScope);
             $retorno[] = (object)[
-                'id' => $r->uuid,
-                'nome' => $r->nome,
-                'descricao' => $r->descricao,
-                'chave_publica' => $r->chave_publica,
-                'chave_privada' => $r->chave_privada,
-                'client_id' => $r->client_id,
-                'secret_id' => $r->secret_id,
-                'audience' => $r->audience,
+                'id'                 => $r->uuid,
+                'nome'               => $r->nome,
+                'descricao'          => $r->descricao,
+                'chave_publica'      => $r->chave_publica,
+                'chave_privada'      => $r->chave_privada,
+                'client_id'          => $r->client_id,
+                'secret_id'          => $r->secret_id,
+                'audience'           => $r->audience,
                 'chave_publica_fake' => $r->chave_publica_fake,
                 'chave_privada_fake' => $r->chave_privada_fake,
-                'client_id_fake' => $r->client_id_fake,
-                'secret_id_fake' => $r->secret_id_fake,
-                'redirect_uri' => jsonDecode($r->redirect_uri, true, true),
+                'client_id_fake'     => $r->client_id_fake,
+                'secret_id_fake'     => $r->secret_id_fake,
+                'redirect_uri'       => jsonDecode($r->redirect_uri, true, true),
                 'authorization_code' => $r->authorization_code == 1 ? 'sim' : 'nao',
                 'client_credentials' => $r->client_credentials == 1 ? 'sim' : 'nao',
-                'refresh_token' => $r->refresh_token == 1 ? 'sim' : 'nao',
-                'scope' => $appScope,
-                'vida' => $r->tempo_vida
+                'refresh_token'      => $r->refresh_token == 1 ? 'sim' : 'nao',
+                'scope'              => $appScope,
+                'vida'               => $r->tempo_vida
             ];
         }
 

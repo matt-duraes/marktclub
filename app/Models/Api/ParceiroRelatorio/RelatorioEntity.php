@@ -18,13 +18,11 @@ final class RelatorioEntity extends Entity
     protected array $ormBuscar = [
         'id_admin_empresa', 'id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'
     ];
-
     protected string $ormValidarSalvar = '
         numero_transacao|Número de transação|obrigatorio|vazio|inteiro
         valor_venda|Valor de venda|obrigatorio|vazio|valido
         data_relatorio|Data do relatório|obrigatorio|vazio|valido
     ';
-
     protected int $id_admin_empresa;
     protected int $id_parceiro_loja;
 

@@ -8,7 +8,6 @@ final class DownloadModel
 {
     public string $arquivo;
     public string $link;
-
     private array $titulo;
 
     public function __construct(
@@ -31,6 +30,7 @@ final class DownloadModel
 
         $this->titulo = $titulo;
     }
+
     private function gerarArquivo()
     {
         $Excel = new ExcelHelper(border: true);

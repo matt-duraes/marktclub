@@ -53,8 +53,8 @@ foreach ($lista as $dado) {
     $mail->SMTPSecure = PHPMAILER::ENCRYPTION_STARTTLS;
     $mail->SMTPOptions = [
         'ssl' => [
-            'verify_peer' => false,
-            'verify_peer_name' => false,
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
             'allow_self_signed' => true,
         ],
     ];

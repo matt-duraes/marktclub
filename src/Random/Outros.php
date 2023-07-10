@@ -15,7 +15,7 @@ trait Outros
     /**
      * Pegar um valor aleatório do array passado
      *
-     * @param  array  $dado  Array com os campos desejados
+     * @param  array $dado Array com os campos desejados
      * @return mixed
      */
     public function random(array $dado): mixed

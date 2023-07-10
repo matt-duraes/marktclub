@@ -41,11 +41,11 @@ class Api
 
         $Curl = new CurlHelper($this->url);
         $token = $Curl->parametro([
-            'client_id' => $this->clientId,
+            'client_id'     => $this->clientId,
             'client_secret' => $this->clientSecret,
-            'audience' => $this->audience,
-            'grant_type' => 'client_credentials',
-            'scope' => $scope,
+            'audience'      => $this->audience,
+            'grant_type'    => 'client_credentials',
+            'scope'         => $scope,
         ])->post('/token')->object();
 
         if (existeErro($token, 'dado')) {

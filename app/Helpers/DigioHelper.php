@@ -75,6 +75,7 @@ final class DigioHelper
         $retorno = json_decode(curl_exec($ch), true);
         $this->usuario = is_array($retorno) ? $retorno : [];
     }
+
     private function validarRetornoUsuario()
     {
         $usuario = $this->usuario;
@@ -88,13 +89,14 @@ final class DigioHelper
             );
         }
     }
+
     private function montarUsuario()
     {
         $usuario = $this->usuario;
         $this->usuario = [
-            'nome' => $usuario['name'],
+            'nome'          => $usuario['name'],
             'email_pessoal' => $usuario['email'],
-            'documento' => $usuario['document']
+            'documento'     => $usuario['document']
         ];
     }
 }

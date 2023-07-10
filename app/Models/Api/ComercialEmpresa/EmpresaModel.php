@@ -65,13 +65,13 @@ final class EmpresaModel extends ORM implements ModelListarInterface
         foreach ($lista as $r) {
             $titulo = !empty($r->titulo) ? $r->titulo : $r->razao_social;
             $retorno[] = [
-                'id' => $r->cod,
-                'usuario' => $this->montarPerfil($r),
-                'titulo' => $titulo,
-                'cnpj' => $r->cnpj,
-                'data_criacao' => $r->data_criacao,
+                'id'                => $r->cod,
+                'usuario'           => $this->montarPerfil($r),
+                'titulo'            => $titulo,
+                'cnpj'              => $r->cnpj,
+                'data_criacao'      => $r->data_criacao,
                 'prospeccao_status' => $ProspeccaoStatus->indice($r->prospeccao_status),
-                'status' => $Status->indice($r->status)
+                'status'            => $Status->indice($r->status)
             ];
         }
 
@@ -86,13 +86,13 @@ final class EmpresaModel extends ORM implements ModelListarInterface
     {
         if (empty($r->usuario_uuid)) {
             return [
-                'nome' => 'Sem usuário',
+                'nome'   => 'Sem usuário',
                 'imagem' => imagemUsuario()
             ];
         }
         return [
-            'id' => $r->usuario_uuid,
-            'nome' => $r->usuario_nome_real,
+            'id'     => $r->usuario_uuid,
+            'nome'   => $r->usuario_nome_real,
             'perfil' => $r->usuario_nome_perfil,
             'imagem' => imagemUsuario(
                 $r->usuario_imagem_tipo,
@@ -158,6 +158,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
 
         return $where;
     }
+
     private function validarRequest()
     {
         $status = new Status($this->request->status);

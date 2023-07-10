@@ -74,13 +74,13 @@ final class HistoricoModel extends ORM
         $returno = [];
         foreach ($dado as $r) {
             $returno[] = [
-                'id' => $r->uuid,
-                'nome' => $r->nome_real,
-                'imagem' => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google),
+                'id'             => $r->uuid,
+                'nome'           => $r->nome_real,
+                'imagem'         => imagemUsuario($r->imagem_tipo, $r->imagem_arquivo, $r->imagem_facebook, $r->imagem_google),
                 'minha_mensagem' => $this->idUsuario == $r->id,
-                'acao' => (new Acao($r->acao))->indice(),
-                'mensagem' => $r->mensagem,
-                'data_criacao' => $r->data_criacao
+                'acao'           => (new Acao($r->acao))->indice(),
+                'mensagem'       => $r->mensagem,
+                'data_criacao'   => $r->data_criacao
             ];
         }
         return $returno;

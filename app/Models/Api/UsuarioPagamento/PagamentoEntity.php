@@ -21,7 +21,6 @@ final class PagamentoEntity extends Entity
         'id_admin_empresa', 'id_usuario_equipe', 'id_usuario_cliente', 'valor_debito', 'data_cobranca'
     ];
     protected array $ormSalvar = ['status'];
-
     public Data $data_pagamento;
     private int $idUsuario;
     private int $idEmpresa;
@@ -29,7 +28,6 @@ final class PagamentoEntity extends Entity
     protected int $id_usuario_cliente;
     protected int $id_usuario_equipe;
     protected int $id_admin_empresa;
-
     public Status $status;
 
     public function __construct(
@@ -44,6 +42,7 @@ final class PagamentoEntity extends Entity
         $this->setarUsuarioDoPagamento($usuario);
         $this->validarEmpresa();
     }
+
     private function setarUsuarioDoPagamento(?string $usuario): void
     {
         if (!$usuario) {

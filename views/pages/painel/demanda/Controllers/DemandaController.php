@@ -23,6 +23,7 @@ use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 final class DemandaController extends Controller
 {
     private ApiHelper $Api;
+
     public function __construct()
     {
         parent::__construct();
@@ -34,20 +35,22 @@ final class DemandaController extends Controller
         $quadro = (new ListaModel())->quadroTi();
         return $this->listar('Demanda da Tecnologia', Area::TECNOLOGIA, $quadro);
     }
+
     public function criacao()
     {
         $quadro = (new ListaModel())->quadroCriacao();
         return $this->listar('Demanda da criação', Area::CRIACAO, $quadro);
     }
+
     private function listar($titulo, $area, $quadro)
     {
         return view('painel.demanda.index', [
-            'app' => 'demanda-' . $area,
+            'app'       => 'demanda-' . $area,
             'appTitulo' => $titulo,
-            'area' => $area,
-            'quadro' => $quadro,
-            'Tipo' => new Tipo(),
-            'Area' => new DemandaTarefaTipo(),
+            'area'      => $area,
+            'quadro'    => $quadro,
+            'Tipo'      => new Tipo(),
+            'Area'      => new DemandaTarefaTipo(),
         ]);
     }
 
@@ -60,15 +63,14 @@ final class DemandaController extends Controller
             ->object();
 
         return view('painel.demanda.demanda', [
-            'r' => (new DetalheModel())->montarDado($demanda->dado),
-            'Tipo' => new DemandaTarefaTipo(),
+            'r'      => (new DetalheModel())->montarDado($demanda->dado),
+            'Tipo'   => new DemandaTarefaTipo(),
             'Status' => new Status()
         ]);
     }
 
     public function demandaSalvar(string $area)
     {
-
         $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
             ->get('/comercial-empresa/select')
@@ -76,13 +78,12 @@ final class DemandaController extends Controller
 
         return view('painel.demanda.demanda-salvar', [
             'empresa' => $empresa['dado'] ?? [],
-            'area' => $area
+            'area'    => $area
         ]);
     }
 
     public function demandaEditar(string $id)
     {
-
         $demanda = $this->Api->get('/demanda-dado/' . $id)->object();
 
         $empresa = $this->Api
@@ -95,9 +96,9 @@ final class DemandaController extends Controller
             ->array();
 
         return view('painel.demanda.demanda-editar', [
-            'r' => $demanda->dado,
-            'empresa' => $empresa['dado'] ?? [],
-            'equipe' => $equipe['dado'] ?? [],
+            'r'                 => $demanda->dado,
+            'empresa'           => $empresa['dado'] ?? [],
+            'equipe'            => $equipe['dado'] ?? [],
             'dataEntregaClasse' => $demanda->dado->com_prazo == 'sim' ? 'ativo' : ''
         ]);
     }
@@ -109,15 +110,14 @@ final class DemandaController extends Controller
             ->vazio('empresa', mensagem: 'Escolha uma empresa para continuar.')
             ->vazio('dono', mensagem: 'Escolha um dono da demanda para continuar.');
 
-
         $this->Api
             ->validar('Ocorre um erro ao editar sua demanda, por favor, tente novamente.')
             ->body([
-                'titulo' => $request->titulo,
-                'id_admin_empresa' => $request->empresa,
+                'titulo'            => $request->titulo,
+                'id_admin_empresa'  => $request->empresa,
                 'id_usuario_equipe' => $request->dono,
-                'com_prazo' => $request->com_prazo,
-                'data_entrega' => !empty($request->data_entrega) ? dataBanco($request->data_entrega) : '',
+                'com_prazo'         => $request->com_prazo,
+                'data_entrega'      => !empty($request->data_entrega) ? dataBanco($request->data_entrega) : '',
             ])
             ->put('/demanda-dado/' . $id);
 
@@ -148,6 +148,7 @@ final class DemandaController extends Controller
 
         return new response(status: 204);
     }
+
     public function postDemandaOrdenar(Request $request)
     {
         $i = 1;
@@ -165,9 +166,10 @@ final class DemandaController extends Controller
         $Tipo = new DemandaTarefaTipo();
         return view('painel.demanda.tarefa-salvar', [
             'tipoLista' => $Tipo->select('Escolha uma opção'),
-            'demanda' => $demanda
+            'demanda'   => $demanda
         ]);
     }
+
     public function postTarefaSalvar(Request $request)
     {
         $request
@@ -176,14 +178,13 @@ final class DemandaController extends Controller
             ->vazio('texto', mensagem: 'Digite o texto da tarefa para continuar.')
             ->vazio('tipo', mensagem: 'Escolha um tipo para a tarefa.');
 
-
         $tarefa = $this->Api
             ->validar('Erro ao salvar nova tarefa, por favor, tente novamente.')
             ->body([
-                'demanda' => $request->demanda,
-                'titulo' => $request->titulo,
-                'texto' => $request->getPost('texto', html: false),
-                'tipo' => $request->tipo,
+                'demanda'                  => $request->demanda,
+                'titulo'                   => $request->titulo,
+                'texto'                    => $request->getPost('texto', html: false),
+                'tipo'                     => $request->tipo,
                 'minuto_producao_estimada' => $request->minuto,
             ])
             ->post('/demanda-tarefa')->object();
@@ -202,9 +203,9 @@ final class DemandaController extends Controller
         $Tipo = new DemandaTarefaTipo();
 
         return view('painel.demanda.tarefa-editar', [
-            'demanda' => $demanda,
+            'demanda'   => $demanda,
             'tipoLista' => $Tipo->select('Escolha uma opção'),
-            'r' => $tarefa->dado
+            'r'         => $tarefa->dado
         ]);
     }
 
@@ -257,11 +258,10 @@ final class DemandaController extends Controller
             ->vazio('texto', mensagem: 'Você precisa passar um texto para a tarefa.')
             ->vazio('tipo', mensagem: 'Você precisa passar um tipo para a tarefa.');
 
-
         $dado = $this->Api->body([
-            'titulo' => $request->titulo,
-            'texto' => $request->getPost('texto', html: false),
-            'tipo' => $request->tipo,
+            'titulo'                   => $request->titulo,
+            'texto'                    => $request->getPost('texto', html: false),
+            'tipo'                     => $request->tipo,
             'minuto_producao_estimada' => $request->minuto
         ])->put('/demanda-tarefa/' . $id);
 
@@ -272,9 +272,9 @@ final class DemandaController extends Controller
 
         return new Response(status: 204);
     }
+
     public function postTarefaArquivo(Request $request, string $id)
     {
-
         $this->Api
             ->validar('Ocorre um erro ao atualizar lista de arquivos, por favor, tente novamente.')
             ->body([
@@ -287,7 +287,6 @@ final class DemandaController extends Controller
 
     public function deleteTarefa(string $id)
     {
-
         $this->Api
             ->validar('Erro ao deletar a tarefa, por favor, tente novamente.')
             ->delete('/demanda-tarefa/' . $id);
@@ -303,6 +302,7 @@ final class DemandaController extends Controller
 
         return new Response(status: 204);
     }
+
     public function postTarefaDeslike(Request $request, string $id)
     {
         $request->vazio('motivo', mensagem: 'O campo motivo é obrigatório!');
@@ -327,29 +327,31 @@ final class DemandaController extends Controller
             ->object()->dado;
 
         sessao('TRABALHO', [
-            'id' => $dado->id,
-            'tarefa' => $tarefa,
-            'demanda' => $demanda,
-            'iniciado' => true,
+            'id'         => $dado->id,
+            'tarefa'     => $tarefa,
+            'demanda'    => $demanda,
+            'iniciado'   => true,
             'minimizado' => false,
-            'data' => $dado->data_criacao,
-            'tempo' => $dado->tempo_trabalho,
-            'total' => $dado->tempo_total,
-            'area' => $area
+            'data'       => $dado->data_criacao,
+            'tempo'      => $dado->tempo_trabalho,
+            'total'      => $dado->tempo_total,
+            'area'       => $area
         ]);
 
         return mensagemSucesso([
-            'id' => $dado->id,
-            'tarefa' => $tarefa,
+            'id'           => $dado->id,
+            'tarefa'       => $tarefa,
             'data_criacao' => $dado->data_criacao,
-            'tempo' => $dado->tempo_trabalho,
-            'total' => $dado->tempo_total
+            'tempo'        => $dado->tempo_trabalho,
+            'total'        => $dado->tempo_total
         ]);
     }
+
     public function getTrabalhoMinimizar(string $acao)
     {
         sessao('TRABALHO.minimizado', $acao == 'sim');
     }
+
     public function getTrabalhoAtualizar(string $id)
     {
         $this->Api
@@ -359,6 +361,7 @@ final class DemandaController extends Controller
 
         return new Response(status: 204);
     }
+
     public function getTrabalhoParar(string $id)
     {
         $this->Api

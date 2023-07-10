@@ -50,11 +50,11 @@ final class PerfilController extends Controller
     public function dependente()
     {
         $dado[] = (object)[
-            'nome' => 'Nome do dependente',
+            'nome'    => 'Nome do dependente',
             'email'   => '',
             'cpf'     => '',
-            'usuario' =>  '',
-            'id' => ''
+            'usuario' => '',
+            'id'      => ''
         ];
 
         return view('perfil.dependente', [
@@ -64,14 +64,14 @@ final class PerfilController extends Controller
 
     public function carteira(): Response
     {
-
         $dado = (new CarteirinhaModel())->getDado();
 
         return view('perfil.carteira', [
             'dado' => $dado,
-            'logo'=> defined('CLUBE_LOGO')
+            'logo' => defined('CLUBE_LOGO')
         ]);
     }
+
     /*
     |--------------------------------------------------------------------------
     | SALVAR DADOS
@@ -79,7 +79,6 @@ final class PerfilController extends Controller
     */
     public function postSalvaDados(Request $request)
     {
-
         $Salvar = (new DadosModel())->postDado($request);
 
         return new Response($Salvar);
@@ -92,7 +91,6 @@ final class PerfilController extends Controller
     */
     public function postSalvaDependente(Request $request)
     {
-
         return (new DependenteModel())->postDado($request);
     }
 
@@ -103,7 +101,6 @@ final class PerfilController extends Controller
     */
     public function postDeletaDependente(Request $request)
     {
-
         return (new DependenteModel())->postDeleta($request);
     }
 
@@ -114,7 +111,6 @@ final class PerfilController extends Controller
     */
     public function postAlteraSenha(Request $request)
     {
-
         return (new SenhaModel())->postDado($request);
     }
 
@@ -125,7 +121,6 @@ final class PerfilController extends Controller
     */
     public function postSocial(Request $request)
     {
-
         if ($request->acao == 'imagem') {
             return (new DadosModel())->postImagemSocial($request);
         }
