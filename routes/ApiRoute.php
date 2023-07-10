@@ -479,7 +479,7 @@ Route
         Route
             ::nome('lojaMaisAcessada')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
-            ::request(['de', 'ate', '!empresa'], 'json')
+            ::request(['de', 'ate', '!estabelecimento', '!empresa'], 'json')
             ::get('/relatorio/loja-mais-acessada');
 
         Route

@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div id="lista_acesso_pagina" class="fw_grafico fw_grafico_pequeno">
+        <div id="lista_acesso_pagina" class="fw_grafico fw_grafico_medio">
             <div class="fw_grafico_titulo">Páginas mais acessadas</div>
             <div class="fw_grafico_bloco_lista">
                 <div class="loading_geral">
@@ -29,6 +29,15 @@
                 </div>
             </div>
         </div>
+        <div id="lista_acesso_usuario" class="fw_grafico fw_grafico_medio">
+            <div class="fw_grafico_titulo">Usuários com mais acesso</div>
+            <div class="fw_grafico_bloco_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+
         <div id="lista_acesso_parceiro" class="fw_grafico fw_grafico_pequeno">
             <div class="fw_grafico_titulo">Parceiros mais acessados</div>
             <div class="fw_grafico_bloco_lista">
@@ -37,14 +46,26 @@
                 </div>
             </div>
         </div>
-        <div id="lista_acesso_usuario" class="fw_grafico fw_grafico_pequeno">
-            <div class="fw_grafico_titulo">Usuários com mais acesso</div>
+
+        <div id="lista_acesso_parceiro_online" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Parceiros Online mais acessados</div>
             <div class="fw_grafico_bloco_lista">
                 <div class="loading_geral">
                     <p>Carregando grafico</p>
                 </div>
             </div>
         </div>
+
+        <div id="lista_acesso_parceiro_fisico" class="fw_grafico fw_grafico_pequeno">
+            <div class="fw_grafico_titulo">Parceiros Físicos mais acessados</div>
+            <div class="fw_grafico_bloco_lista">
+                <div class="loading_geral">
+                    <p>Carregando grafico</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="linha"></div>
 
         <div id="grafico_dispositivo" class="fw_grafico fw_grafico_pequeno">
             <div class="fw_grafico_titulo">Acesso por dispositivo</div>
