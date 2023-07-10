@@ -9,7 +9,6 @@ use Modules\Data;
 use Modules\Nome;
 use Modules\Email;
 use Modules\Genero;
-use Modules\DataHora;
 use Modules\Telefone;
 use Modules\EnderecoCep;
 use Modules\EnderecoEstado;
@@ -26,10 +25,10 @@ final class LeadEntity extends Entity
 
     protected string $ormTabela = TABELA_USUARIO_LEAD;
     protected array $ormBuscar = [
-        'nome' => 'nome_completo',
-        'cpf' => 'documento_cpf',
-        'rg' => 'documento_rg',
-        'siape' => 'documento_siape',
+        'nome'   => 'nome_completo',
+        'cpf'    => 'documento_cpf',
+        'rg'     => 'documento_rg',
+        'siape'  => 'documento_siape',
         'origem' => 'lead_origem',
         'email_trabalho', 'email_pessoal', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
         'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
@@ -37,11 +36,11 @@ final class LeadEntity extends Entity
         'trabalho_cargo', 'trabalho_data_inicio', 'cnpj_trabalho', 'status'
     ];
     protected array $ormInsert = [
-        'nome_completo' => '->nome',
-        'documento_cpf' => '->cpf',
-        'documento_rg' => '->rg',
+        'nome_completo'   => '->nome',
+        'documento_cpf'   => '->cpf',
+        'documento_rg'    => '->rg',
         'documento_siape' => '->siape',
-        'lead_origem' => '->origem',
+        'lead_origem'     => '->origem',
         'email_trabalho', 'email_pessoal', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
         'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
         'endereco_cidade', 'endereco_estado', 'genero', 'data_nascimento', 'lista_dependente', 'trabalho_empresa',
@@ -64,9 +63,7 @@ final class LeadEntity extends Entity
         termo_aceitar|Termo|dataDate|hoje
         termo_lgpd|Termo da LGPD|dataDate|hoje
     ';
-
     private int $idEmpresa;
-
     public Nome $nome;
     public Cpf $cpf;
     public Data $data_nascimento;
@@ -94,7 +91,6 @@ final class LeadEntity extends Entity
     public string $endereco_cidade;
     public int|string $endereco_numero;
     public int $id_admin_empresa;
-
     private bool $usuarioAprovado = false;
     private bool $usuarioRecusado = false;
 
@@ -121,6 +117,7 @@ final class LeadEntity extends Entity
         }
         $this->montarDependente();
     }
+
     private function montarDependente()
     {
         if (empty($this->lista_dependente)) {
@@ -171,6 +168,7 @@ final class LeadEntity extends Entity
             );
         }
     }
+
     protected function regraPosUpdate()
     {
         if ($this->usuarioAprovado) {
@@ -180,32 +178,33 @@ final class LeadEntity extends Entity
             $this->enviarEmailRecusado();
         }
     }
+
     private function salvarLeedComoUsuario()
     {
         $Cliente = new SalvarLeadModel();
         $Cliente->salvarLead([
-            'nome' => $this->nome->nome(),
-            'documento' => (int)$this->cpf->numero(),
-            'documento_rg' => $this->rg,
-            'siape' => $this->siape,
-            'email_trabalho' => $this->email_trabalho->email(),
-            'email_pessoal' => $this->email_pessoal->email(),
-            'email_funcional' => $this->email_funcional->email(),
-            'telefone_celular' => $this->telefone_pessoal->telefone(),
-            'telefone_fixo' => $this->telefone_trabalho->telefone(),
-            'endereco_cep' => (int)soNumero($this->endereco_cep),
-            'endereco_logradouro' => $this->endereco_logradouro,
-            'endereco_numero' => $this->endereco_numero,
+            'nome'                 => $this->nome->nome(),
+            'documento'            => (int)$this->cpf->numero(),
+            'documento_rg'         => $this->rg,
+            'siape'                => $this->siape,
+            'email_trabalho'       => $this->email_trabalho->email(),
+            'email_pessoal'        => $this->email_pessoal->email(),
+            'email_funcional'      => $this->email_funcional->email(),
+            'telefone_celular'     => $this->telefone_pessoal->telefone(),
+            'telefone_fixo'        => $this->telefone_trabalho->telefone(),
+            'endereco_cep'         => (int)soNumero($this->endereco_cep),
+            'endereco_logradouro'  => $this->endereco_logradouro,
+            'endereco_numero'      => $this->endereco_numero,
             'endereco_complemento' => $this->endereco_complemento,
-            'endereco_bairro' => $this->endereco_bairro,
-            'cidade' => $this->endereco_cidade,
-            'uf' => $this->endereco_estado->estado(),
-            'sexo' => $this->genero->numero(),
-            'aniversario' => $this->data_nascimento->date(),
-            'trabalho_orgao' => $this->trabalho_empresa->numero(),
-            'trabalho_cargo' => $this->trabalho_cargo->numero(),
+            'endereco_bairro'      => $this->endereco_bairro,
+            'cidade'               => $this->endereco_cidade,
+            'uf'                   => $this->endereco_estado->estado(),
+            'sexo'                 => $this->genero->numero(),
+            'aniversario'          => $this->data_nascimento->date(),
+            'trabalho_orgao'       => $this->trabalho_empresa->numero(),
+            'trabalho_cargo'       => $this->trabalho_cargo->numero(),
             'trabalho_data_inicio' => $this->trabalho_data_inicio->date(),
-            'lead_origem' => $this->origem->numero()
+            'lead_origem'          => $this->origem->numero()
         ]);
     }
 }

@@ -15,7 +15,7 @@ class SaudeSimulacaoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -33,7 +33,7 @@ class SaudeSimulacaoController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

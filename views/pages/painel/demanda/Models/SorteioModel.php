@@ -64,12 +64,12 @@ final class SorteioModel
         foreach ($this->listaNotificacao as $equipe) {
             $Api
                 ->body([
-                    'titulo' => 'Criou uma nova tarefa para você',
+                    'titulo'   => 'Criou uma nova tarefa para você',
                     'mensagem' => 'Foi criado uma nova tarefa para você, acesse a demanda e verifique o pedido.',
-                    'link' => LINK . '/demanda/criacao#demanda-' . $this->Demanda->dado->id,
-                    'botao' => 'Acessar painel',
-                    'dono' => sessao('USUARIO.id'),
-                    'equipe' => $equipe
+                    'link'     => LINK . '/demanda/criacao#demanda-' . $this->Demanda->dado->id,
+                    'botao'    => 'Acessar painel',
+                    'dono'     => sessao('USUARIO.id'),
+                    'equipe'   => $equipe
                 ])
                 ->post('/painel-notificacao');
         }

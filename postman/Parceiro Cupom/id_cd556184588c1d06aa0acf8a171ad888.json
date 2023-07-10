@@ -1,0 +1,1 @@
+{"id":"id_cd556184588c1d06aa0acf8a171ad888","token":"token","metodo":"GET","nome":"\/parceiro-cupom\/:id","uri":"{{LINK}}\/parceiro-cupom\/$PARCEIRO_CUPOM_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

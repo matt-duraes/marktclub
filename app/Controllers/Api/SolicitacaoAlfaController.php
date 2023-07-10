@@ -11,7 +11,7 @@ use Http\Response;
 class SolicitacaoAlfaController
 {
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

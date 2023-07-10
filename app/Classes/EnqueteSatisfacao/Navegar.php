@@ -13,7 +13,7 @@ final class Navegar extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::SIM => 'Fácil navegar',
+            self::SIM    => 'Fácil navegar',
             self::NAO    => 'Difícil navegar'
         ]);
     }

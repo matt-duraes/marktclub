@@ -19,11 +19,12 @@ final class ParcelaModel
         return (object)[
             'tipo'  => 'consignado',
             'lista' => (object)[
-                'titulo' => 'Com o Crédito Consignado SICOOB Judiciário, você tem as melhores taxas do mercado.',
+                'titulo'  => 'Com o Crédito Consignado SICOOB Judiciário, você tem as melhores taxas do mercado.',
                 'parcela' => $parcela,
             ]
         ];
     }
+
     public function listarCreditoPessoal(): stdClass
     {
         $parcela = [
@@ -37,11 +38,12 @@ final class ParcelaModel
         return (object)[
             'tipo'  => 'credito_pessoal',
             'lista' => (object)[
-                'titulo' => 'Agora você conta com uma linha de crédito feita especialmente para você.',
+                'titulo'    => 'Agora você conta com uma linha de crédito feita especialmente para você.',
                 'parcela'   => $parcela,
             ]
         ];
     }
+
     public function listarVeiculoZero(): stdClass
     {
         $parcela = [
@@ -61,6 +63,7 @@ final class ParcelaModel
             ]
         ];
     }
+
     public function listarVeiculoSeminovo(): stdClass
     {
         $parcela = [

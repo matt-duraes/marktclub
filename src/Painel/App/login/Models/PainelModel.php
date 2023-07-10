@@ -44,7 +44,7 @@ final class PainelModel
         $Api = new ApiHelper(token: true);
         $campo = $Api->headerJson()->get('/admin/campo-permitido')->array();
         $campo = array_key_exists('dado', $campo) ? $campo['dado'] : [
-            "usuario_cliente" => [
+            'usuario_cliente' => [
                 'nome', 'cpf', 'matricula', 'siape', 'genero', 'data_nascimento',
                 'email', 'telefone', 'endereco_estado',
                 'endereco_cidade', 'senha', 'status', 'primeiro_acesso', 'mudar_senha', 'estado_civil'
@@ -59,10 +59,10 @@ final class PainelModel
         $Api = new ApiHelper(token: true);
         $obrigatorio = $Api->headerJson()->get('/admin/campo-obrigatorio')->array();
         $obrigatorio = array_key_exists('dado', $obrigatorio) ? $obrigatorio['dado'] : [
-            "usuario_cliente" => [
-                "cpf",
-                "email",
-                "status"
+            'usuario_cliente' => [
+                'cpf',
+                'email',
+                'status'
             ]
         ];
 
@@ -73,10 +73,11 @@ final class PainelModel
     {
         $Api = new ApiHelper(token: true);
         $configuracao = $Api->headerJson()->get('/admin/configuracao')->array();
-        $configuracao = array_key_exists('dado', $configuracao) ? $configuracao['dado'] : ["perfil", "bloquear"];
+        $configuracao = array_key_exists('dado', $configuracao) ? $configuracao['dado'] : ['perfil', 'bloquear'];
 
         sessao('PAINEL.configuracao', $configuracao);
     }
+
     private function pegandoUploadGrupoDoPainel()
     {
         $Api = new ApiHelper(token: true);

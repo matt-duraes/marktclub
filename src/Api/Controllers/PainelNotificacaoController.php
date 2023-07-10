@@ -24,7 +24,7 @@ final class PainelNotificacaoController extends Controller implements
     ControllerBuscarInterface
 {
     /**
-     * @param  string  $id
+     * @param  string   $id
      * @return Response
      * @throws Excecao
      */
@@ -97,8 +97,8 @@ final class PainelNotificacaoController extends Controller implements
     }
 
     /**
-     * @param  string  $id
-     * @param  string  $mensagem
+     * @param  string       $id
+     * @param  string       $mensagem
      * @return EquipeEntity
      * @throws Excecao
      */

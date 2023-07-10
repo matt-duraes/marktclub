@@ -11,6 +11,7 @@ use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
+use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
@@ -73,16 +74,19 @@ final class RelatorioController extends Controller
             )
         );
     }
+
     public function getLojaMaisAcessada(Request $request)
     {
         $this->validarData($request);
         $Relatorio = new LojaMaisAcessadaModel(
             new Data($request->de),
             new Data($request->ate),
+            new Estabelecimento($request->estabelecimento),
             Empresa: $this->pegarEmpresa($request->empresa)
         );
         return mensagemSucesso($Relatorio->listarDado());
     }
+
     public function getPaginaMaisAcessada(Request $request)
     {
         $this->validarData($request);
@@ -105,6 +109,7 @@ final class RelatorioController extends Controller
 
         return mensagemSucesso($Relatorio->listarDado());
     }
+
     public function getNavegador(Request $request)
     {
         $this->validarData($request);
@@ -116,6 +121,7 @@ final class RelatorioController extends Controller
 
         return mensagemSucesso($Relatorio->listarDado());
     }
+
     public function getOs(Request $request)
     {
         $this->validarData($request);
@@ -139,6 +145,7 @@ final class RelatorioController extends Controller
         $dado = $Relatorio->pegarRelatorio();
         return mensagemSucesso($dado);
     }
+
     public function postAnalyticsDownload()
     {
         $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql.zip';

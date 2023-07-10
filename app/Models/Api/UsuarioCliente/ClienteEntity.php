@@ -25,15 +25,16 @@ final class ClienteEntity extends Entity
     use EntityUpdateTrait;
 
     protected array $ormSalvar = [
-        'documento' => '->cpf',
-        'sexo' => '->genero',
+        'documento'        => '->cpf',
+        'sexo'             => '->genero',
         'telefone_celular' => '->telefone_pessoal',
-        'telefone_fixo' => '->telefone_trabalho',
-        'aniversario' => '->data_nascimento',
-        'uf' => '->endereco_estado',
-        'cidade' => '->endereco_cidade',
-        'salt' => '->senha',
-        'trabalho_orgao' => '->trabalho_empresa',
+        'telefone_fixo'    => '->telefone_trabalho',
+        'aniversario'      => '->data_nascimento',
+        'uf'               => '->endereco_estado',
+        'cidade'           => '->endereco_cidade',
+        'salt'             => '->senha',
+        'imagem'           => '->imagem_google',
+        'trabalho_orgao'   => '->trabalho_empresa',
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
@@ -44,20 +45,21 @@ final class ClienteEntity extends Entity
         'id_admin_subempresa', 'cod', 'tipo'
     ];
     protected array $ormBuscar = [
-        'cpf' => 'documento',
-        'rg' => 'documento_rg',
-        'email' => ['email_trabalho', 'email_pessoal'],
-        'telefone_pessoal' => 'telefone_celular',
+        'cpf'               => 'documento',
+        'rg'                => 'documento_rg',
+        'email'             => ['email_trabalho', 'email_pessoal'],
+        'telefone_pessoal'  => 'telefone_celular',
         'telefone_trabalho' => 'telefone_fixo',
-        'genero' => 'sexo',
-        'data_nascimento' => 'aniversario',
-        'id_admin_empresa' => 'empresa',
-        'endereco_estado' => 'uf',
-        'endereco_cidade' => 'cidade',
-        'trabalho_empresa' => 'trabalho_orgao',
-        'senha' => 'salt',
-        'origem' => 'lead_origem',
-        'lead' => 'usuario_lead',
+        'genero'            => 'sexo',
+        'data_nascimento'   => 'aniversario',
+        'id_admin_empresa'  => 'empresa',
+        'endereco_estado'   => 'uf',
+        'endereco_cidade'   => 'cidade',
+        'trabalho_empresa'  => 'trabalho_orgao',
+        'senha'             => 'salt',
+        'origem'            => 'lead_origem',
+        'lead'              => 'usuario_lead',
+        'imagem_google'     => 'imagem',
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
@@ -81,12 +83,11 @@ final class ClienteEntity extends Entity
         status|Status|valido
     ';
     protected array $ormRetornoPadrao = ['id', 'nome', 'cpf'];
-
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     /**
-     * @param   null|Request    $request        Request para salvar um novo usuário
-     * @param   bool            $validarToken   Se vai validar o token e a empresa
+     * @param null|Request $request      Request para salvar um novo usuário
+     * @param bool         $validarToken Se vai validar o token e a empresa
      */
     public function __construct(
         private ?Request $request = null,
@@ -100,13 +101,14 @@ final class ClienteEntity extends Entity
         $this->validarEmpresa('empresa');
         $this->pegarCampoObrigatorio();
     }
+
     private function pegarCampoObrigatorio()
     {
         try {
             $Config = new ConfiguracaoEntity();
             $this->campoObrigatorio = $Config->campo_obrigatorio['usuario_cliente'] ?? [];
         } catch (\Throwable) {
-            $this->campoObrigatorio = ["cpf", "email", "status"];
+            $this->campoObrigatorio = ['cpf', 'email', 'status'];
         }
     }
 

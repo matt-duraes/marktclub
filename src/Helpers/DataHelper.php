@@ -33,7 +33,7 @@ final class DataHelper
     ];
 
     /**
-     * @param  string  $data  Data para ser convertida
+     * @param string $data Data para ser convertida
      */
     public function __construct(string $data = '')
     {
@@ -41,7 +41,7 @@ final class DataHelper
     }
 
     /**
-     * @param  string  $data  Data para ser convertida
+     * @param  string    $data Data para ser convertida
      * @throws Exception
      */
     public function valor(string $data = ''): DataHelper
@@ -56,7 +56,7 @@ final class DataHelper
     }
 
     /**
-     * @param  string  $data
+     * @param  string $data
      * @return bool
      */
     private function validarData(string $data): bool
@@ -87,7 +87,7 @@ final class DataHelper
     }
 
     /**
-     * @param  string  $formato  Formato que deseja retornar a data
+     * @param string $formato Formato que deseja retornar a data
      */
     public function formato(string $formato = 'Y-m-d H:i:s'): string
     {
@@ -146,7 +146,7 @@ final class DataHelper
     }
 
     /**
-     * @param  bool  $hora  Se a data deve retornar com H:i:s
+     * @param  bool   $hora Se a data deve retornar com H:i:s
      * @return string
      */
     public function extenso(bool $hora = false): string
@@ -187,8 +187,8 @@ final class DataHelper
     /**
      * Retorna a diferença de dias entre duas datas
      *
-     * @param  string  $data  Data que será usada para comparar
-     * @return  bool|int  Retorna false se der erro ou intenro com a diferença
+     * @param  string    $data Data que será usada para comparar
+     * @return bool|int  Retorna false se der erro ou intenro com a diferença
      * @throws Exception
      */
     public function diferencaDia(string $data): bool|int
@@ -205,8 +205,8 @@ final class DataHelper
     /**
      * Retorna a diferença de horas entre duas datas
      *
-     * @param  string  $data  Data que será usada para comparar
-     * @return  bool|int  Retorna false se der erro ou intenro com a diferença
+     * @param  string    $data Data que será usada para comparar
+     * @return bool|int  Retorna false se der erro ou intenro com a diferença
      * @throws Exception
      */
     public function diferencaHora(string $data): bool|int
@@ -236,8 +236,8 @@ final class DataHelper
     /**
      * Retorna a diferença de minutos entre duas datas
      *
-     * @param  string  $data  Data que será usada para comparar
-     * @return  bool|int  Retorna false se der erro ou um int com a diferença
+     * @param  string    $data Data que será usada para comparar
+     * @return bool|int  Retorna false se der erro ou um int com a diferença
      * @throws Exception
      */
     public function diferencaMinuto(string $data): bool|int
@@ -258,8 +258,8 @@ final class DataHelper
     /**
      * Retorna a diferença de segundos entre duas datas
      *
-     * @param  string  $data  Data que será usada para comparar
-     * @return  bool|int  Retorna false se der erro ou um int com a diferença
+     * @param  string    $data Data que será usada para comparar
+     * @return bool|int  Retorna false se der erro ou um int com a diferença
      * @throws Exception
      */
     public function diferencaSegundo(string $data): bool|int
@@ -279,7 +279,7 @@ final class DataHelper
     }
 
     /**
-     * @param  bool  $curto  True para data com padrão curto ou false para padrão normal
+     * @param  bool      $curto True para data com padrão curto ou false para padrão normal
      * @return string
      * @throws Exception
      */
@@ -360,8 +360,8 @@ final class DataHelper
     }
 
     /**
-     * @param  int     $numero  Número a ser adicionado
-     * @param  string  $tempo   Tipo de tempo a ser adicionado, por exemplo, segundos, minutos, horas, etc
+     * @param  int        $numero Número a ser adicionado
+     * @param  string     $tempo  Tipo de tempo a ser adicionado, por exemplo, segundos, minutos, horas, etc
      * @return DataHelper
      */
     public function adicionar(int $numero, string $tempo = ''): DataHelper
@@ -379,8 +379,8 @@ final class DataHelper
     }
 
     /**
-     * @param  int     $numero  Número a ser removido
-     * @param  string  $tempo   Tipo de tempo a ser removido, por exemplo, segundos, minutos, horas, etc
+     * @param  int        $numero Número a ser removido
+     * @param  string     $tempo  Tipo de tempo a ser removido, por exemplo, segundos, minutos, horas, etc
      * @return DataHelper
      */
     public function remover(int $numero, string $tempo = ''): DataHelper
@@ -400,7 +400,7 @@ final class DataHelper
     /**
      * Pega o último dia do mês
      *
-     * @return  DataHelper
+     * @return DataHelper
      * @throws Exception
      */
     public function ultimoDiaMes(): DataHelper
@@ -420,9 +420,9 @@ final class DataHelper
     /**
      * Gera um array com a lista de meses entre as datas informadas
      *
-     * @param   Date   $de   Data de começo da lista
-     * @param   Date   $ate  Data final da lista, se null, pega a data atual
-     * @return  array        Array com a lista de meses
+     * @param  Date  $de  Data de começo da lista
+     * @param  Date  $ate Data final da lista, se null, pega a data atual
+     * @return array Array com a lista de meses
      */
     public function listarMesAno(Data $de, Data $ate): array
     {
@@ -454,7 +454,7 @@ final class DataHelper
     /**
      * Pega o primeiro dia do mês
      *
-     * @return  DataHelper
+     * @return DataHelper
      * @throws Exception
      */
     public function primeiroDiaMes(): DataHelper
@@ -470,8 +470,8 @@ final class DataHelper
     }
 
     /**
-     * @param  string  $formato  Formato que deseja retornar a data
-     * @return  string  Data no formato definido
+     * @param  string $formato Formato que deseja retornar a data
+     * @return string Data no formato definido
      */
     public function r(string $formato = 'd/m/Y'): string
     {

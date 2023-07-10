@@ -12,8 +12,8 @@ use Http\Response;
 final class CupomController extends Controller
 {
     /**
-     * @param  Request      $request
-     * @param  string|null  $pesquisa
+     * @param Request     $request
+     * @param string|null $pesquisa
      *
      * @return Response
      * @throws Excecao
@@ -30,14 +30,13 @@ final class CupomController extends Controller
     }
 
     /**
-     * @param  string|null  $pesquisa
+     * @param string|null $pesquisa
      *
      * @return Response
      * @throws Excecao
      */
     public function index(string $pesquisa = null): Response
     {
-
         return view(
             'cupom.index',
             [
@@ -51,19 +50,19 @@ final class CupomController extends Controller
     }
 
     /**
-     * @param  string  $url
+     * @param string $url
      *
      * @return Response
      * @throws Excecao
      */
     public function detalhe(string $url): Response
     {
-        $dado  = (new BuscaModel())->listarDados($url);
+        $dado = (new BuscaModel())->listarDados($url);
 
         return view(
             'cupom.detalhe',
             [
-                'url' => $url,
+                'url'  => $url,
                 'dado' => $dado->lista
             ]
         );

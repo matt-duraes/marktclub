@@ -22,6 +22,7 @@ final class MenuModel extends ORM
 
         parent::__construct();
     }
+
     public function listarDados(): array
     {
         $lista = $this
@@ -41,9 +42,9 @@ final class MenuModel extends ORM
         $retorno = [];
         foreach ($lista as $r) {
             $dado = [
-                'id' => $r->uuid,
-                'titulo' => strNull($r->titulo),
-                'tipo' => self::TIPO[$r->tipo] ?? '',
+                'id'        => $r->uuid,
+                'titulo'    => strNull($r->titulo),
+                'tipo'      => self::TIPO[$r->tipo] ?? '',
                 'permissao' => jsonDecode($r->permissao, true, true)
             ];
             if (in_array($r->tipo, [2, 3])) {

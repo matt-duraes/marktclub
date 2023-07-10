@@ -32,15 +32,15 @@ $Doc
 --form 'audience=\"web\"' \
 --form 'grant_type=\"client_credentials\"' \
 --form 'scope=\"scope:teste01 scope:teste02 scope:teste03\"'")
-    ->preSucesso("{
-    \"status\": \"sucesso\",
-    \"dado\": {
-        \"access_token\": \"token_que_deve_ser_usado\",
-        \"scope\": \"scopes\",
-        \"expires_in\": \"tempo_de_vida\",
-        \"token_type\": \"Bearer\"
+    ->preSucesso('{
+    "status": "sucesso",
+    "dado": {
+        "access_token": "token_que_deve_ser_usado",
+        "scope": "scopes",
+        "expires_in": "tempo_de_vida",
+        "token_type": "Bearer"
     }
-}")
+}')
     ->preFalha();
 
 echo $Doc;

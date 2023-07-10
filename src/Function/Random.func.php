@@ -190,8 +190,8 @@ if (!function_exists('numeroAleatorio')) {
     /**
      * Gera um numero aleatorio
      *
-     * @param int $de   Numero de, padrão 1
-     * @param int $ate  Numero até, padrão 999
+     * @param  int $de  Numero de, padrão 1
+     * @param  int $ate Numero até, padrão 999
      * @return int
      */
     function numeroAleatorio(int $de = 1, int $ate = 999): int
@@ -235,7 +235,7 @@ if (!function_exists('cidadeAleatorio')) {
     /**
      * Gera uma cidade aleatória
      *
-     * @param string $estado    Estado que deseja buscar a cidade
+     * @param  string $estado Estado que deseja buscar a cidade
      * @return string
      */
     function cidadeAleatorio(string $estado = 'SP'): string
@@ -278,7 +278,7 @@ if (!function_exists('valorAleatorio')) {
     /**
      * Gera um valor aleatório pelo array passado
      *
-     * @param array $array Array com os valores que deseja pegar
+     * @param  array  $array Array com os valores que deseja pegar
      * @return string
      */
     function valorAleatorio(array $array): string

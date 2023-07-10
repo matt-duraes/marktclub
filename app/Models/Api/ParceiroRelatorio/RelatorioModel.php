@@ -15,8 +15,8 @@ final class RelatorioModel extends ORM
     use QuantidadeTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
-
     private int $idEmpresa;
+
     public function __construct(
         private Request $request
     ) {
@@ -45,6 +45,7 @@ final class RelatorioModel extends ORM
 
         return $dado;
     }
+
     private function montarDado($dado): array
     {
         if (empty($dado)) {
@@ -54,9 +55,9 @@ final class RelatorioModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'parceiro' => $r->parceiro_titulo,
-                'empresa' => $r->empresa_nome_fantasia,
+                'id'             => $r->uuid,
+                'parceiro'       => $r->parceiro_titulo,
+                'empresa'        => $r->empresa_nome_fantasia,
                 'data_relatorio' => $r->data_relatorio
             ];
         }

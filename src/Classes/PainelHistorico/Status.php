@@ -10,7 +10,7 @@ final class Status extends StatusStatus
     public const SEM_MENSAGEM = 'sem-mensagem';
 
     /**
-     * @param  string|int|null  $valor
+     * @param string|int|null $valor
      */
     public function __construct(
         protected null|string|int $valor = null

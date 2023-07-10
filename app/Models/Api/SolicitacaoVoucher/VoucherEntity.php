@@ -23,11 +23,10 @@ final class VoucherEntity extends Entity implements VoucherInterface
     use TextoTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
-
     protected array $ormBuscar = [
         'id_usuario_cliente' => 'usuario',
-        'id_admin_empresa' => 'empresa',
-        'id_vinculo' => 'vinculo',
+        'id_admin_empresa'   => 'empresa',
+        'id_vinculo'         => 'vinculo',
         'tipo', 'tipo_usuario', 'codigo', 'data_criacao', 'data_atualizacao', 'data_validacao',
         'data_vencimento', 'status'
     ];
@@ -37,23 +36,18 @@ final class VoucherEntity extends Entity implements VoucherInterface
         'vinculo' => '->id_vinculo',
         'titulo', 'tipo', 'tipo_usuario', 'codigo', 'data_vencimento', 'status'
     ];
-
     public Data $data_vencimento;
     public DataHora $data_validacao;
     public Status $status;
     public TipoUsuario $tipo_usuario;
-
     protected string $id_vinculo;
     protected int $id_usuario_cliente;
     protected int $id_admin_empresa;
-
     public string $texto_desconto = '';
     public string $texto_voucher = '';
     public string $texto_juridico = '';
     public string $texto_validar = '';
-
     public string $qr_code;
-
     public ConstrutorEntity $Construtor;
 
     public function __construct(

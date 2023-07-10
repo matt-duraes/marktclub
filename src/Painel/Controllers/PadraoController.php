@@ -16,18 +16,19 @@ abstract class PadraoController extends Controller
     /**
      * Converte o nome do app para o padrão real
      *
-     * @param   string  $app  App que deseja converter
-     * @return  string
+     * @param  string $app App que deseja converter
+     * @return string
      */
     protected function converterNomeApp(string $app): string
     {
         return str_replace('-', '_', $app);
     }
+
     /**
      * Converter um nome com padrao nome_aqui para NomeAqui
      *
-     * @param   string  $nome  Nome que deseja converter
-     * @return  string
+     * @param  string $nome Nome que deseja converter
+     * @return string
      */
     protected function converterNomeParaClass(string $nome): string
     {
@@ -89,36 +90,36 @@ abstract class PadraoController extends Controller
         }
 
         return (object)[
-            'titulo' => $config['titulo'] ?? '',
+            'titulo'    => $config['titulo'] ?? '',
             'permissao' => (object)[
-                'buscar' => $config['buscar'] ?? false,
-                'filtrar' => $config['filtrar'] ?? false,
-                'ordem' => $config['ordem'] ?? false,
-                'drag' => $Index->pegarDrag(),
-                'index' => $this->pegarPermissaoUsuario('index', $app, true),
-                'download' => $this->pegarPermissaoUsuario('download', $app, $config['download'] ?? false),
+                'buscar'     => $config['buscar'] ?? false,
+                'filtrar'    => $config['filtrar'] ?? false,
+                'ordem'      => $config['ordem'] ?? false,
+                'drag'       => $Index->pegarDrag(),
+                'index'      => $this->pegarPermissaoUsuario('index', $app, true),
+                'download'   => $this->pegarPermissaoUsuario('download', $app, $config['download'] ?? false),
                 'visualizar' => $permissaoVisualizar,
-                'add' => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
-                'editar' => $permissaoEditar,
-                'deletar' => $this->pegarPermissaoUsuario('deletar', $app, $config['deletar'] ?? false),
-                'historico' => $config['historico'] ?? false
+                'add'        => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
+                'editar'     => $permissaoEditar,
+                'deletar'    => $this->pegarPermissaoUsuario('deletar', $app, $config['deletar'] ?? false),
+                'historico'  => $config['historico'] ?? false
             ],
             'ordem' => $Index->pegarOrdem(),
-            'api' => (object)[
-                'uri' => $config['api']['uri'],
+            'api'   => (object)[
+                'uri'          => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
             ],
             'index' => (object)[
-                'app' => $appUso,
-                'grade' => $Index->pegarGrade(),
-                'replace' => $padrao ? $Index->pegarReplace() : [],
+                'app'          => $appUso,
+                'grade'        => $Index->pegarGrade(),
+                'replace'      => $padrao ? $Index->pegarReplace() : [],
                 'ultima_linha' => $padrao ? $Index->pegarUltimaLinha() : '',
-                'css' => $padrao ? $Index->pegarCss() : '',
-                'js' => $padrao ? $Index->pegarJs() : '',
-                'copiar' => $padrao ? $Index->pegarCopiar() : false,
+                'css'          => $padrao ? $Index->pegarCss() : '',
+                'js'           => $padrao ? $Index->pegarJs() : '',
+                'copiar'       => $padrao ? $Index->pegarCopiar() : false,
             ],
             'filtrar' => (object) [
-                'nome' => $Filtrar ? $Filtrar->pegarNome() : [],
+                'nome'  => $Filtrar ? $Filtrar->pegarNome() : [],
                 'valor' => $Filtrar ? $Filtrar->pegarReplace() : []
             ],
             'abrir' => $linkAbrir
@@ -136,10 +137,10 @@ abstract class PadraoController extends Controller
 
         return (object)[
             'permissao' => $Ajax->pegarPermissao(),
-            'rota' => $Ajax->pegarRota(),
-            'metodo' => $Ajax->pegarMetodo(),
-            'scope' => $Ajax->pegarScope(),
-            'request' => $Ajax->pegarRequest()
+            'rota'      => $Ajax->pegarRota(),
+            'metodo'    => $Ajax->pegarMetodo(),
+            'scope'     => $Ajax->pegarScope(),
+            'request'   => $Ajax->pegarRequest()
         ];
     }
 
@@ -158,31 +159,32 @@ abstract class PadraoController extends Controller
         $permissaoEditar = $this->pegarPermissaoUsuario('editar', $app, $config['editar'] ?? false);
 
         return (object)[
-            'titulo' => $config['titulo'] ?? '',
+            'titulo'    => $config['titulo'] ?? '',
             'permissao' => (object)[
-                'historico' => $config['historico'] ?? false,
+                'historico'  => $config['historico'] ?? false,
                 'visualizar' => $this->pegarPermissaoUsuario('visualizar', $app, $config['visualizar'] ?? false),
-                'status' => $this->pegarPermissaoUsuario('status', $app, $config['visualizar'] ?? false),
-                'editar' => $permissaoEditar,
+                'status'     => $this->pegarPermissaoUsuario('status', $app, $config['visualizar'] ?? false),
+                'editar'     => $permissaoEditar,
             ],
             'visualizar' => (object)[
-                'app' => $appUso,
+                'app'     => $appUso,
                 'replace' => $padrao ? $Visualizar->pegarReplace() : [],
-                'status' => $padrao ? $Visualizar->pegarStatus() : [],
-                'tipo' => $padrao ? $Visualizar->pegarTipo() : '',
-                'html' => $padrao ? $Visualizar->pegarHtml() : '',
-                'css' => $padrao ? $Visualizar->pegarCss() : '',
-                'js' => $padrao ? $Visualizar->pegarJs() : '',
+                'status'  => $padrao ? $Visualizar->pegarStatus() : [],
+                'tipo'    => $padrao ? $Visualizar->pegarTipo() : '',
+                'html'    => $padrao ? $Visualizar->pegarHtml() : '',
+                'css'     => $padrao ? $Visualizar->pegarCss() : '',
+                'js'      => $padrao ? $Visualizar->pegarJs() : '',
             ],
             'link' => (object)[
                 'editar' => $padrao ? $Visualizar->pegarLinkEditar() : ''
             ],
             'api' => (object)[
-                'uri' => $config['api']['uri'],
+                'uri'          => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
             ],
         ];
     }
+
     private function configAdd($app, $acao): stdClass
     {
         $config = $this->includeConfig('config', $app);
@@ -192,21 +194,21 @@ abstract class PadraoController extends Controller
         }
 
         return (object)[
-            'titulo' => $config['titulo'] ?? '',
-            'model' => $config['entity'] ?? '',
+            'titulo'    => $config['titulo'] ?? '',
+            'model'     => $config['entity'] ?? '',
             'permissao' => (object)[
-                'add' => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
+                'add'    => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
                 'editar' => $this->pegarPermissaoUsuario('editar', $app, $config['editar'] ?? false),
             ],
             'add' => (object) [
-                'app' => $this->pegarAppUsado($app, 'add'),
+                'app'  => $this->pegarAppUsado($app, 'add'),
                 'html' => $Add->pegarHtml(),
-                'css' => $Add->pegarCss(),
-                'js' => $Add->pegarJs(),
+                'css'  => $Add->pegarCss(),
+                'js'   => $Add->pegarJs(),
                 'link' => $Add->pegarLink()
             ],
             'api' => (object)[
-                'uri' => $config['api']['uri'],
+                'uri'          => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
             ],
         ];
@@ -232,21 +234,21 @@ abstract class PadraoController extends Controller
         }
         return $retorno;
     }
+
     private function configSalvar($app): stdClass
     {
         $config = $this->includeConfig('config', $app);
         $salvar = $this->includeConfig('salvar', $app);
-
 
         $campoSalvar = $this->pegarCamposPermitido($salvar['salvar'] ?? [], $app, 'salvar');
         $campoInsert = $this->pegarCamposPermitido($salvar['insert'] ?? [], $app, 'insert');
         $campoUpdate = $this->pegarCamposPermitido($salvar['update'] ?? [], $app, 'update');
 
         return (object)[
-            'model' => $config['entity'] ?? '',
+            'model'     => $config['entity'] ?? '',
             'permissao' => (object)[
-                'add' => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
-                'editar' => $this->pegarPermissaoUsuario('editar', $app, $config['editar'] ?? false),
+                'add'       => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
+                'editar'    => $this->pegarPermissaoUsuario('editar', $app, $config['editar'] ?? false),
                 'historico' => $config['historico'] ?? false
             ],
             'salvar' => (object)[
@@ -255,7 +257,7 @@ abstract class PadraoController extends Controller
                 'update' => $campoUpdate,
             ],
             'api' => (object)[
-                'uri' => $config['api']['uri'],
+                'uri'          => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
             ]
         ];
@@ -275,13 +277,13 @@ abstract class PadraoController extends Controller
 
         return (object) [
             'permissao' => (object)[
-                'index' => $this->pegarPermissaoUsuario('index', $app, true),
+                'index'   => $this->pegarPermissaoUsuario('index', $app, true),
                 'filtrar' => $config['filtrar'] ?? false,
             ],
             'filtrar' => (object)[
-                'app' => $appUso,
+                'app'   => $appUso,
                 'input' => $Filtrar->pegarInput(),
-                'nome' => $Filtrar->pegarNome(),
+                'nome'  => $Filtrar->pegarNome(),
                 'valor' => $Filtrar->pegarReplace()
             ]
         ];
@@ -301,17 +303,17 @@ abstract class PadraoController extends Controller
 
         return (object) [
             'permissao' => (object)[
-                'index' => $this->pegarPermissaoUsuario('index', $app, true),
+                'index'    => $this->pegarPermissaoUsuario('index', $app, true),
                 'download' => $this->pegarPermissaoUsuario('download', $app, $config['filtrar'] ?? false)
             ],
             'download' => (object)[
-                'app' => $appUso,
-                'html' => $Download->pegarHtml(),
-                'campo' => $Download->pegarCampo(),
+                'app'     => $appUso,
+                'html'    => $Download->pegarHtml(),
+                'campo'   => $Download->pegarCampo(),
                 'replace' => $Download->pegarReplace()
             ],
             'api' => (object)[
-                'uri' => $config['api']['uri'],
+                'uri'          => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
             ]
         ];
@@ -323,15 +325,15 @@ abstract class PadraoController extends Controller
         $deletar = $this->includeConfig('deletar', $app);
         return (object)[
             'permissao' => (object)[
-                'deletar' => $this->pegarPermissaoUsuario('deletar', $app, $config['deletar'] ?? false),
+                'deletar'   => $this->pegarPermissaoUsuario('deletar', $app, $config['deletar'] ?? false),
                 'historico' => $config['historico'] ?? false
             ],
             'deletar' => (object) [
                 'status' => isset($deletar['status']) && is_numeric($deletar['status']) ? (int) $deletar['status'] : null,
-                'campo' => isset($deletar['campo']) && is_numeric($deletar['campo']) ? (int) $deletar['campo'] : null,
+                'campo'  => isset($deletar['campo']) && is_numeric($deletar['campo']) ? (int) $deletar['campo'] : null,
             ],
             'api' => (object)[
-                'uri' => $config['api']['uri'],
+                'uri'          => $config['api']['uri'],
                 'criptografar' => $config['api']['criptografar'] ?? []
             ]
         ];
@@ -342,7 +344,7 @@ abstract class PadraoController extends Controller
         $config = $this->includeConfig('config', $app);
         return (object)[
             'permissao' => $this->pegarPermissaoUsuario('index', $app, true),
-            'model' => $config['model'] ?? '',
+            'model'     => $config['model'] ?? '',
         ];
     }
 
@@ -377,10 +379,10 @@ abstract class PadraoController extends Controller
     }
 
     /**
-     * @param String        $app        App da ação
-     * @param Null|String   $id         ID para relacionar
-     * @param String        $acao       Ação que está sendo executada
-     * @param Mixed         $dado       Dado que estão sendo manipulados
+     * @param string      $app  App da ação
+     * @param null|string $id   ID para relacionar
+     * @param string      $acao Ação que está sendo executada
+     * @param mixed       $dado Dado que estão sendo manipulados
      */
     protected function salvarHistorico(string $app, ?string $id = null, string $acao = '', $dado = ''): bool
     {
@@ -419,6 +421,7 @@ abstract class PadraoController extends Controller
         }
         return $retorno;
     }
+
     protected function pegarChavePublica(array $criptografia)
     {
         if (empty($criptografia)) {
@@ -428,6 +431,7 @@ abstract class PadraoController extends Controller
         $chave = $Api->get('/admin/chave-publica')->object();
         return $chave->dado->chave ?? '';
     }
+
     private function pegarChavePrivada()
     {
         $Api = new ApiHelper(token: true);
@@ -444,6 +448,7 @@ abstract class PadraoController extends Controller
         $dado = $this->tratarListaDeRetornoLaco($dado, $criptografia, $retorno, $chave);
         return is_array($dado) && $retorno == 'object' ? object($dado) : $dado;
     }
+
     private function tratarListaDeRetornoLaco($dado, $criptografia, $retorno, $chave)
     {
         $lista = [];

@@ -16,22 +16,18 @@ use App\Classes\UsuarioCliente\Helper as ClienteHelper;
 final class PontoEntity extends Entity
 {
     protected string $ormTabela = TABELA_PONTO_CVS;
-
     protected array $ormBuscar = [
         'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'voucher', 'status', 'data_atualizacao',
         'data_solicitacao', 'data_voucher', 'mensagem', 'pedido_codigo'
     ];
-
     protected array $ormInsert = [
         'uuid', 'id_usuario_cliente', 'ponto_solicitado', 'data_solicitacao', 'pedido_codigo'
     ];
     protected array $ormUpdate = ['voucher', 'data_voucher', 'mensagem'];
     protected array $ormSalvar = ['status'];
-
     protected string $ormValidarSalvar = '
         status|Status|obrigatorio|vazio|valido
     ';
-
     public string $nome;
     public Status $status;
     public DataHora $data_solicitacao;
@@ -50,7 +46,6 @@ final class PontoEntity extends Entity
     public string $usuario_status;
     public int $id_usuario_cliente;
     public array $usuario;
-
     public Email $email;
 
     public function __construct(
@@ -90,14 +85,14 @@ final class PontoEntity extends Entity
         if (in_array($this->usuario_status, ClienteHelper::STATUS_LIBERADO)) {
             $this->usuario = [
                 'matricula' => $this->usuario_matricula,
-                'id' => $this->usuario_cod,
-                'nome' => $this->usuario_nome,
-                'cpf' => strCpf($this->usuario_documento),
-                'email' => strEmail($this->usuario_email_pessoal),
-                'telefone' => strTelefone($telefone),
-                'credito' => $pontos->credito,
-                'debito' => $pontos->debito,
-                'saldo' => $pontos->saldo
+                'id'        => $this->usuario_cod,
+                'nome'      => $this->usuario_nome,
+                'cpf'       => strCpf($this->usuario_documento),
+                'email'     => strEmail($this->usuario_email_pessoal),
+                'telefone'  => strTelefone($telefone),
+                'credito'   => $pontos->credito,
+                'debito'    => $pontos->debito,
+                'saldo'     => $pontos->saldo
             ];
         }
     }
@@ -115,8 +110,8 @@ final class PontoEntity extends Entity
 
         $Cliente = new AtualizarUsuarioModel();
         $Cliente->atualizarUsuario([
-            'nome' => $this->nome,
-            'cpf' => $this->cpf,
+            'nome'          => $this->nome,
+            'cpf'           => $this->cpf,
             'email_pessoal' => $this->email->email(),
         ]);
 
@@ -197,9 +192,9 @@ final class PontoEntity extends Entity
         $assunto = "Voucher Solicitado - Matrícula $matricula";
 
         if (eLocalhost()) {
-            $email =  'ti@markt.club';
+            $email = 'ti@markt.club';
         } elseif (eHomologacao()) {
-            $assunto = "Mensagem de teste em Homologação: Ponto + Ação";
+            $assunto = 'Mensagem de teste em Homologação: Ponto + Ação';
         }
 
         $EmailCvs = new EmailHelper();
@@ -225,7 +220,7 @@ final class PontoEntity extends Entity
             acao: 'Voucher',
             cor: $Construtor->cor
         );
-        $EmailUsuario->sendGrid("Voucher Solicitado", $this->nome, $this->email->email(), deNome: $titulo);
+        $EmailUsuario->sendGrid('Voucher Solicitado', $this->nome, $this->email->email(), deNome: $titulo);
     }
 
     /*

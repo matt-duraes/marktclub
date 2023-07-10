@@ -3,12 +3,11 @@
 namespace Http;
 
 use Erro\Erro;
-use Route\Route;
 
 final class Historico
 {
     /**
-     * @param Int       $numero         Indice que deseja pegar a URL
+     * @param int $numero Indice que deseja pegar a URL
      */
     public function url(int $numero = 0): string
     {
@@ -22,7 +21,7 @@ final class Historico
     }
 
     /**
-     * @param Int       $numero         Indice que deseja pegar a URL
+     * @param int $numero Indice que deseja pegar a URL
      */
     public function uri(int $numero = 0): string
     {
@@ -36,7 +35,7 @@ final class Historico
     }
 
     /**
-     * @param String    $indice         Qual indice deseja pegar, podendo ser vazio para todos ou url e uri
+     * @param string $indice Qual indice deseja pegar, podendo ser vazio para todos ou url e uri
      */
     public function lista(string $indice = ''): array
     {
@@ -68,8 +67,8 @@ final class Historico
     }
 
     /**
-     * @param Int       $comeco         Indice que irá começar a deletar o histórico
-     * @param Int       $quantidade     Quantidade de históricos que devem ser deletados
+     * @param int $comeco     Indice que irá começar a deletar o histórico
+     * @param int $quantidade Quantidade de históricos que devem ser deletados
      */
     public function deletar(int $comeco = 0, int $quantidade = 1): bool
     {
@@ -133,8 +132,8 @@ final class Historico
         }
 
         $_SESSION['FW_HISTORICO'][] = [
-            'url' => $link,
-            'uri' => $uri,
+            'url'  => $link,
+            'uri'  => $uri,
             'data' => date('Y-m-d H:i:s')
         ];
         return true;

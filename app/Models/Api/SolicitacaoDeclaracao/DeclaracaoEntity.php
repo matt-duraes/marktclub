@@ -40,7 +40,6 @@ class DeclaracaoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     public function regraInsert(): void
     {

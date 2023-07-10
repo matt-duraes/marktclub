@@ -14,7 +14,7 @@ class PlanoSaude
     public ?float $valor;
 
     /**
-     * @param  AbstractOperadora  $operadora  Operadora de Saúde
+     * @param AbstractOperadora $operadora Operadora de Saúde
      */
     public function __construct(
         protected AbstractOperadora $operadora
@@ -25,7 +25,6 @@ class PlanoSaude
     }
 
     /**
-     * @return void
      */
     private function validarDados(): void
     {
@@ -69,7 +68,7 @@ class PlanoSaude
     }
 
     /**
-     * @param  Data  $dataNascimento  Data de Nascimento do individuo
+     * @param Data $dataNascimento Data de Nascimento do individuo
      *
      * @return float|null
      */

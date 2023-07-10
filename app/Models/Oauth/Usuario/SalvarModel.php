@@ -2,10 +2,10 @@
 
 namespace App\Models\Oauth\Usuario;
 
+use ORM\ORM;
+use Erro\Excecao;
 use App\Classes\ComercialEmpresa\Helper;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
-use Erro\Excecao;
-use ORM\ORM;
 
 final class SalvarModel extends ORM
 {
@@ -16,11 +16,11 @@ final class SalvarModel extends ORM
     private string $hash;
 
     /**
-     * @param  int     $empresa
-     * @param  string  $nome
-     * @param  int     $cpf
-     * @param  string  $email
-     * @param  string  $grupo
+     * @param int    $empresa
+     * @param string $nome
+     * @param int    $cpf
+     * @param string $email
+     * @param string $grupo
      *
      * @throws Excecao
      */
@@ -44,7 +44,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      */
     private function pegarLinkClube(): void
     {
@@ -57,7 +56,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarIdUsuario(): void
@@ -77,7 +75,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function atualizarUsuario(): void
@@ -106,7 +103,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function salvarUsuario(): void
@@ -138,7 +134,7 @@ final class SalvarModel extends ORM
     /**
      * Pega o link para fazer login
      *
-     * @return  string
+     * @return string
      */
     public function pegarLink(): string
     {

@@ -5,6 +5,8 @@
 
     @ if( $banner ):
         @view site/geral/banner.view
+    @ else:
+    <div id="bloco_scroll_top"></div>
     @ endif;
 
     @view site/geral/parceiro.view

@@ -30,6 +30,7 @@ final class Fw
         $this->html[] = '<div style="margin-top: ' . $margin . 'px"></div>';
         return $this;
     }
+
     public function paragrafo(string $texto)
     {
         $this->html[] = '<p class="paragrafo_geral">' . $texto . '</p>';
@@ -71,6 +72,7 @@ final class Fw
         $this->html[] = '</table>';
         return $this;
     }
+
     public function tr(array $lista)
     {
         $this->html[] = '<tr>';
@@ -84,6 +86,7 @@ final class Fw
         $this->html[] = '</tr>';
         return $this;
     }
+
     public function trTitulo(array $lista)
     {
         $this->html[] = '<tr class="tr_titulo">';
@@ -141,7 +144,7 @@ final class Fw
             $ultimo = array_pop($plugin);
             $nome = implode(', ', $plugin) . ' e ' . $ultimo;
             $css = '@system "' . implode('"' . PHP_EOL . '@system "', $plugin) . '"' .
-                PHP_EOL . '@system "' . $ultimo . '"' .  PHP_EOL;
+                PHP_EOL . '@system "' . $ultimo . '"' . PHP_EOL;
             $js = '// @system "' . implode('"' . PHP_EOL . '// @system "', $plugin) . '"' .
                 PHP_EOL . '// @system "' . $ultimo . '"' . PHP_EOL;
             $doPlugin = 'dos plugins';
@@ -171,6 +174,7 @@ final class Fw
         $this->html[] = '</div>';
         return $this;
     }
+
     public function blocoParametro(\Closure $callback)
     {
         $this->html[] = '<div class="parametro">';
@@ -183,6 +187,7 @@ final class Fw
         $this->html[] = '</div>';
         return $this;
     }
+
     public function blocoExemplo(\Closure $callback, string $tipo = 'php')
     {
         $this->html[] = '<div class="exemplo_geral exemplo_' . $tipo . '">';
@@ -197,22 +202,26 @@ final class Fw
         $this->html[] = '<div class="titulo">' . $titulo . '</div>';
         return $this;
     }
+
     public function subtitulo(string $subtitulo)
     {
         $this->html[] = '<div class="subtitulo">' . $subtitulo . '</div>';
         return $this;
     }
+
     public function link(string $texto, string $link, bool $self = true)
     {
         $target = $self ? '_self' : '_blank';
         $this->html[] = '<a class="link" href="' . $link . '" ' . $target . '>' . $texto . '</a>';
         return $this;
     }
+
     public function descricao(string $descricao)
     {
         $this->html[] = '<div class="descricao">' . $descricao . '</div>';
         return $this;
     }
+
     public function retorno($tipo, $descricao)
     {
         $this->html[] = '
@@ -225,6 +234,7 @@ final class Fw
         ';
         return $this;
     }
+
     public function throw($tipo, $descricao)
     {
         $this->html[] = '
@@ -237,6 +247,7 @@ final class Fw
         ';
         return $this;
     }
+
     public function parametro($tipo, $campo, $descricao)
     {
         $tipoHtml = '';
@@ -466,6 +477,7 @@ final class Fw
         $this->html[] = implode('', $lista);
         return $this;
     }
+
     private function converterValorParaParametroString($parametro)
     {
         if (empty($parametro)) {
@@ -495,6 +507,7 @@ final class Fw
         }
         return implode(', ', $retorno);
     }
+
     private function converterValorParaParametroValor($parametro)
     {
         if (empty($parametro)) {

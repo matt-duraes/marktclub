@@ -21,7 +21,6 @@ final class AnalyticsModel extends ORM
     use QuantidadeTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS;
-
     private int $idEmpresa;
     private ?int $idUsuario = null;
 
@@ -63,17 +62,17 @@ final class AnalyticsModel extends ORM
         $TipoUsuario = new TipoUsuario();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
+                'id'           => $r->uuid,
                 'usuario_tipo' => $TipoUsuario->indice($r->usuario_tipo),
-                'cpf' => $Crypt->encode($r->usuario_cpf),
-                'dispositivo' => $r->dispositivo,
-                'os' => $r->os,
-                'browser' => $r->browser,
-                'versao' => $r->versao,
-                'mobile' => $r->mobile == 1,
-                'tablet' => $r->tablet == 1,
-                'data' => $r->data_criacao,
-                'url' => $r->url,
+                'cpf'          => $Crypt->encode($r->usuario_cpf),
+                'dispositivo'  => $r->dispositivo,
+                'os'           => $r->os,
+                'browser'      => $r->browser,
+                'versao'       => $r->versao,
+                'mobile'       => $r->mobile == 1,
+                'tablet'       => $r->tablet == 1,
+                'data'         => $r->data_criacao,
+                'url'          => $r->url,
             ];
         }
 

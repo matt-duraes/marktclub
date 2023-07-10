@@ -11,8 +11,8 @@ final class CampanhaController extends Controller
     public function tematica()
     {
         return view('campanha.tematica', [
-            'banner' => (new BannerModel())->saude(),
-            'lista'        => (new ListarModel())->listarDados(),
+            'banner'        => (new BannerModel())->saude(),
+            'lista'         => (new ListarModel())->listarDados(),
             'tipo_campanha' => 2
         ]);
     }

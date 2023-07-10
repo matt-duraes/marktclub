@@ -30,8 +30,8 @@ final class UsuarioPagamentoController extends Controller
 
         $Api = new ApiHelper(token: true);
         $pagamento = $Api->body([
-            'data' => $data->date(),
-            'valor' => $valor->decimal(),
+            'data'    => $data->date(),
+            'valor'   => $valor->decimal(),
             'usuario' => $request->usuario
         ])->post('/usuario-pagamento')->object();
 
@@ -43,8 +43,8 @@ final class UsuarioPagamentoController extends Controller
         }
 
         return mensagemSucesso([
-            'id' => $pagamento->dado->id,
-            'data' => $pagamento->dado->data,
+            'id'    => $pagamento->dado->id,
+            'data'  => $pagamento->dado->data,
             'valor' => $pagamento->dado->valor,
         ], status: 201);
     }

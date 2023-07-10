@@ -9,16 +9,16 @@ trait ParceiroTrait
     /**
      * Pega uma entidade do parceiro
      *
-     * @param   null|string             $id             Uuid ou url do parceiro
-     * @param   bool                    $obrigatorio    Se o id deve ser obrigatório
-     * @param   null|string             $tituloVazio    Título para o erro caso esteja vazio
-     * @param   null|string             $MensagemVazio  Mensagem para o erro caso esteja vazio
-     * @param   null|string             $tituloErro     Título para o erro caso de algum problema
-     * @param   null|string             $mensagemErro   Mensagem para o erro caso de algum problema
-     * @return  bool|LojaEntity                         Retorna null para se o ID for vazio e obrigatorio
-     *                                                  false ou um LojaEntity
-     * @throws  Excesao                                 Erro caso o ID seja vazio e obrigatorio true
-     *                                                  ou se não achar o parceiro
+     * @param  null|string     $id            Uuid ou url do parceiro
+     * @param  bool            $obrigatorio   Se o id deve ser obrigatório
+     * @param  null|string     $tituloVazio   Título para o erro caso esteja vazio
+     * @param  null|string     $MensagemVazio Mensagem para o erro caso esteja vazio
+     * @param  null|string     $tituloErro    Título para o erro caso de algum problema
+     * @param  null|string     $mensagemErro  Mensagem para o erro caso de algum problema
+     * @return bool|LojaEntity Retorna null para se o ID for vazio e obrigatorio
+     *                         false ou um LojaEntity
+     * @throws Excesao         Erro caso o ID seja vazio e obrigatorio true
+     *                         ou se não achar o parceiro
      */
     private function pegarParceiro(
         ?string $id,

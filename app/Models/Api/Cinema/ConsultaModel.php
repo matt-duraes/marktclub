@@ -12,8 +12,8 @@ class ConsultaModel extends Entity
     protected string $ormTabela = TABELA_CINEMA_INGRESSO;
 
     /**
-     * @param  string  $uuidEmpresa
-     * @param  string  $uuidUsuario
+     * @param string $uuidEmpresa
+     * @param string $uuidUsuario
      *
      * @return array
      * @throws Excecao
@@ -23,7 +23,7 @@ class ConsultaModel extends Entity
         // phpcs:disable
         $semana = date(
             'Y-m-d',
-            strtotime("-" . date("w", strtotime(date('Y-m-d'))) . " days", strtotime(date('Y-m-d')))
+            strtotime('-' . date('w', strtotime(date('Y-m-d'))) . ' days', strtotime(date('Y-m-d')))
         );
         // phpcs:enable
 

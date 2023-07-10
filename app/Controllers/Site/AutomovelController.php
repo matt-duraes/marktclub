@@ -26,7 +26,7 @@ final class AutomovelController extends Controller
     }
 
     /**
-     * @param  string  $url
+     * @param string $url
      *
      * @return Response
      * @throws Excecao
@@ -43,8 +43,8 @@ final class AutomovelController extends Controller
     }
 
     /**
-     * @param  string  $montadora
-     * @param  string  $veiculo
+     * @param string $montadora
+     * @param string $veiculo
      *
      * @return Response
      * @throws Excecao
@@ -59,7 +59,6 @@ final class AutomovelController extends Controller
             ]
         );
     }
-
 
     /**
      * @return Response

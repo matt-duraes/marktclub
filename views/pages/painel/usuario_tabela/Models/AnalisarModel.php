@@ -41,7 +41,7 @@ final class AnalisarModel
             mensagemErro('Erro no arquivo!', 'Não foi possível ler o arquivo, por favor, tente novamente.');
         }
 
-        $obrigatorio = sessao('PAINEL.obrigatorio')['usuario_cliente'] ?? ["cpf", "status"];
+        $obrigatorio = sessao('PAINEL.obrigatorio')['usuario_cliente'] ?? ['cpf', 'status'];
 
         $listaEstado = (new ListaHelper())->uf()->r();
         $listaErro = [];
@@ -59,13 +59,13 @@ final class AnalisarModel
 
             if (count($registro) > 15) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'A linha tem mais colunas que o permitido.'
                 ];
                 continue;
             } elseif (count($registro) < 15) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'A linha tem menos colunas que o permitido.'
                 ];
                 continue;
@@ -90,25 +90,25 @@ final class AnalisarModel
             // Campo único obrigatório
             if (in_array('cpf', $obrigatorio) && empty($cpf)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'Campo CPF é obrigatório.'
                 ];
             }
             if (in_array('matricula', $obrigatorio) && empty($matricula)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'Campo matrícula é obrigatório.'
                 ];
             }
             if (in_array('siape', $obrigatorio) && empty($siape)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'Campo siape é obrigatório.'
                 ];
             }
             if (empty($nome)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'Campo nome é obrigatório.'
                 ];
             }
@@ -117,74 +117,74 @@ final class AnalisarModel
             $cpfValidar = !empty($cpf) ? str_pad($cpf, 11, 0, STR_PAD_LEFT) : '';
             if (!empty($cpf) && !validarCpf($cpfValidar)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo CPF está inválido (' . $cpf . ').'
                 ];
             }
             if (!empty($siape) && empty(soNumero($siape))) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo SIAPE está inválido (' . $siape . ').'
                 ];
             }
             if (!empty($telefoneCelular) && !ValidarTelefone($telefoneCelular)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo TELEFONE CELULAR está inválido (' . $telefoneCelular . ').'
                 ];
             }
             if (!empty($telefoneFixo) && !ValidarTelefone($telefoneFixo)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo TELEFONE FIXO está inválido (' . $telefoneFixo . ').'
                 ];
             }
             if (!empty($emailPessoal) && !validarEmail($emailPessoal)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo EMAIL PESSOAL está inválido (' . $emailPessoal . ').'
                 ];
             }
             if (!empty($emailTrabalho) && !validarEmail($emailTrabalho)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo EMAIL DE TRABALHO está inválido (' . $emailTrabalho . ').'
                 ];
             }
             if (!empty($enderecoEstado) && !in_array($enderecoEstado, $listaEstado)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo ENDEREÇO DO ESTADO está inválido (' . $enderecoEstado . ').'
                 ];
             }
             if (!empty($dataNascimento) && !validarDate($dataNascimento)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo DATA NASCIMENTO está inválido (' . $dataNascimento . ').'
                 ];
             }
             if (!empty($genero) && !in_array($genero, [1, 2, 'masculino', 'feminino', 'homem', 'mulher', 'm', 'f'])) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo GÊNERO está inválido (' . $genero . ').'
                 ];
             }
             if (!empty($federacao) && !in_array($federacao, $listaEstado) && $federacao != 'FU') {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo FEDERAÇÃO está inválido (' . $federacao . ').'
                 ];
             }
             if (!empty($matricula) && empty(soNumero($matricula))) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo MATRÍCULA está inválido (' . $matricula . ').'
                 ];
             }
 
             if (!empty($situacao) && !(new Situacao($situacao))->valido()) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'O campo SITUAÇÃO está inválido (' . $situacao . ').'
                 ];
             }
@@ -256,9 +256,9 @@ final class AnalisarModel
 
             if ($dado) {
                 $listaOk[] = [
-                    'linha' => $linha,
+                    'linha'  => $linha,
                     'titulo' => $titulo,
-                    'hash' => base64Encode($dado, true)
+                    'hash'   => base64Encode($dado, true)
                 ];
             }
         }
@@ -266,13 +266,13 @@ final class AnalisarModel
         if ($listaOk && !$listaErro) {
             return [
                 'status' => 'sucesso',
-                'dado' => $listaOk,
+                'dado'   => $listaOk,
             ];
         }
 
         return [
             'status' => 'erro',
-            'erro' => $listaErro
+            'erro'   => $listaErro
         ];
     }
 
@@ -288,7 +288,7 @@ final class AnalisarModel
             mensagemErro('Erro no arquivo!', 'Não foi possível ler o arquivo, por favor, tente novamente.');
         }
 
-        $obrigatorio = sessao('PAINEL.obrigatorio')['usuario_cliente'] ?? ["cpf", "status"];
+        $obrigatorio = sessao('PAINEL.obrigatorio')['usuario_cliente'] ?? ['cpf', 'status'];
 
         $listaErro = [];
         $listaOk = [];
@@ -305,13 +305,13 @@ final class AnalisarModel
 
             if (count($registro) > 1) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'A linha tem mais colunas que o permitido.'
                 ];
                 continue;
             } elseif (count($registro) < 1) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'A linha tem menos colunas que o permitido.'
                 ];
                 continue;
@@ -320,8 +320,8 @@ final class AnalisarModel
             $chave = is_string($registro[0]) ? trim($registro[0]) : '';
             if (empty($chave)) {
                 $listaErro[] = [
-                'linha' => $linha,
-                'mensagem' => 'A chave é obrigatória.'
+                    'linha'    => $linha,
+                    'mensagem' => 'A chave é obrigatória.'
                 ];
                 continue;
             }
@@ -331,17 +331,17 @@ final class AnalisarModel
 
             if (in_array('cpf', $obrigatorio) && !validarCpf($chave)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'A chave não é um CPF válido (' . $chave . ').'
                 ];
             } elseif (in_array('matricula', $obrigatorio) && empty($chave)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'A chave não é uma matrícula válida (' . $chave . ').'
                 ];
             } elseif (in_array('siape', $obrigatorio) && empty($chave)) {
                 $listaErro[] = [
-                    'linha' => $linha,
+                    'linha'    => $linha,
                     'mensagem' => 'A chave não é um SIAPE válido (' . $chave . ').'
                 ];
             }
@@ -360,9 +360,9 @@ final class AnalisarModel
             }
 
             $listaOk[] = [
-                'linha' => $linha,
+                'linha'  => $linha,
                 'titulo' => $titulo,
-                'hash' => base64Encode($dado, true)
+                'hash'   => base64Encode($dado, true)
             ];
         }
 
@@ -373,13 +373,13 @@ final class AnalisarModel
         if ($listaOk && !$listaErro) {
             return [
                 'status' => 'sucesso',
-                'dado' => $listaOk,
+                'dado'   => $listaOk,
             ];
         }
 
         return [
             'status' => 'erro',
-            'erro' => $listaErro
+            'erro'   => $listaErro
         ];
     }
 }

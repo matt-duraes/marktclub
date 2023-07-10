@@ -25,13 +25,6 @@
 
     "php.suggest.basic": false,
     "editor.formatOnSave": false,
-    "phpSniffer.run": "onType",
-    "phpSniffer.autoDetect": true,
-    "phpSniffer.standard": "PSR12",
-    "[php]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "wongjn.php-sniffer"
-    },
     "[html]": {
         "editor.suggest.insertMode": "replace",
         "gitlens.codeLens.scopes": [
@@ -74,12 +67,5 @@
         "*.styl": "sass",
         "*.view": "html"
     },
-
-    "php-docblocker.returnVoid": false,
-    "php-docblocker.alignParams": true,
-    "php-docblocker.alignReturn": true,
-    "php-docblocker.paramDescription": true,
-    "php-docblocker.returnDescription": true,
-    "php-docblocker.varDescription": true,
-    "php-docblocker.useShortNames": true
+    "task.problemMatchers.neverPrompt": false
 }

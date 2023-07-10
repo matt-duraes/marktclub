@@ -7,6 +7,7 @@ use League\OAuth2\Client\Provider\GenericProvider;
 final class FenaeLoginHelper
 {
     private GenericProvider $provider;
+
     public function __construct()
     {
         $link = env('FENAE_REDIRECT_URI_BASE');

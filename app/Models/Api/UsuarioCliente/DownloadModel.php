@@ -24,8 +24,8 @@ final class DownloadModel extends ORM
     use ValidarEmpresaDownloadTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct(
         private ?Request $request = null
     ) {
@@ -47,6 +47,7 @@ final class DownloadModel extends ORM
         $this->salvarLogDownload($dado);
         return $this->montarRetornoDownload($dado, $campo);
     }
+
     private function salvarLogDownload(array $dado)
     {
         $Log = new LogDownloadEntity(
@@ -61,10 +62,12 @@ final class DownloadModel extends ORM
             $this->erroDownloadPadrao();
         }
     }
+
     private function erroDownloadPadrao()
     {
         mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
     }
+
     private function montarRetornoDownload(array $dado, array $campo): array
     {
         $i = 0;
@@ -138,6 +141,7 @@ final class DownloadModel extends ORM
         }
         return $retorno;
     }
+
     private function validarCamposAceito(): void
     {
         $camposAceito = [

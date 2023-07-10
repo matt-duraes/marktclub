@@ -7,8 +7,8 @@ if (!function_exists('iconeTv')) {
     /**
      * Gera um icone de TV
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeTv(int $tamanho = 24): string
     {
@@ -22,8 +22,8 @@ if (!function_exists('iconeTablet')) {
     /**
      * Gera um icone de Tablet
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeTablet(int $tamanho = 24): string
     {
@@ -37,8 +37,8 @@ if (!function_exists('iconeTelefone')) {
     /**
      * Gera um icone de telefone
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeTelefone(int $tamanho = 24): string
     {
@@ -52,8 +52,8 @@ if (!function_exists('iconePc')) {
     /**
      * Gera um icone do PC
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconePc(int $tamanho = 24): string
     {
@@ -67,8 +67,8 @@ if (!function_exists('iconeUsuario')) {
     /**
      * Gera um icone de usuário
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeUsuario(int $tamanho = 11): string
     {
@@ -82,8 +82,8 @@ if (!function_exists('iconeUsuarioGrupo')) {
     /**
      * Gera um icone de usuário em grupo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeUsuarioGrupo(int $tamanho = 11): string
     {
@@ -97,8 +97,8 @@ if (!function_exists('iconeUsuarioAdd')) {
     /**
      * Gera um icone de add usuário
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeUsuarioAdd(int $tamanho = 11): string
     {
@@ -112,8 +112,8 @@ if (!function_exists('iconeMensagem')) {
     /**
      * Gera um icone de mensagem
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeMensagem(int $tamanho = 11): string
     {
@@ -127,8 +127,8 @@ if (!function_exists('iconeAdd')) {
     /**
      * Gera um icone de ADD
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeAdd(int $tamanho = 11): string
     {
@@ -142,8 +142,8 @@ if (!function_exists('iconeEditar')) {
     /**
      * Gera um icone de Editar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeEditar(int $tamanho = 16): string
     {
@@ -157,8 +157,8 @@ if (!function_exists('iconeRenomear')) {
     /**
      * Gera um icone de renomear
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeRenomear(int $tamanho = 35): string
     {
@@ -172,8 +172,8 @@ if (!function_exists('iconeDeletar')) {
     /**
      * Gera um icone de deletar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeDeletar(int $tamanho = 22): string
     {
@@ -187,8 +187,8 @@ if (!function_exists('iconeListaMista')) {
     /**
      * Gera um icone de lista mista
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeListaMista(int $tamanho = 18): string
     {
@@ -202,8 +202,8 @@ if (!function_exists('iconeListaLista')) {
     /**
      * Gera um icone de lista
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeListaLista(int $tamanho = 18): string
     {
@@ -217,8 +217,8 @@ if (!function_exists('iconeListaQuadro')) {
     /**
      * Gera um icone de lista quadrada
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeListaQuadro(int $tamanho = 18): string
     {
@@ -232,8 +232,8 @@ if (!function_exists('iconeOrdemNovo')) {
     /**
      * Gera um icone de ordem novo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOrdemNovo(int $tamanho = 18): string
     {
@@ -247,8 +247,8 @@ if (!function_exists('iconeOrdemVelho')) {
     /**
      * Gera um icone de ordem velho
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOrdemVelho(int $tamanho = 18): string
     {
@@ -262,8 +262,8 @@ if (!function_exists('iconeOrdemAscendente')) {
     /**
      * Gera um icone de ordem ascendente
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOrdemAscendente(int $tamanho = 16): string
     {
@@ -277,8 +277,8 @@ if (!function_exists('iconeOrdemDescendente')) {
     /**
      * Gera um icone de ordem descendente
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOrdemDescendente(int $tamanho = 16): string
     {
@@ -292,8 +292,8 @@ if (!function_exists('iconeCriarPasta')) {
     /**
      * Gera um icone de criar pasta
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeCriarPasta(int $tamanho = 15): string
     {
@@ -307,8 +307,8 @@ if (!function_exists('iconeRemoverPasta')) {
     /**
      * Gera um icone de remover pasta
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeRemoverPasta(int $tamanho = 15): string
     {
@@ -322,8 +322,8 @@ if (!function_exists('iconePasta')) {
     /**
      * Gera um icone de pasta
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconePasta(int $tamanho = 20): string
     {
@@ -337,8 +337,8 @@ if (!function_exists('iconePastaAberta')) {
     /**
      * Gera um icone de pasta aberta
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconePastaAberta(int $tamanho = 20): string
     {
@@ -352,8 +352,8 @@ if (!function_exists('iconeMenu')) {
     /**
      * Gera um icone de menu
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeMenu(int $tamanho = 26): string
     {
@@ -367,8 +367,8 @@ if (!function_exists('iconeFechar')) {
     /**
      * Gera um icone de fechar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFechar(int $tamanho = 12): string
     {
@@ -382,8 +382,8 @@ if (!function_exists('iconeVoltar')) {
     /**
      * Gera um icone de voltar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeVoltar(int $tamanho = 12): string
     {
@@ -397,8 +397,8 @@ if (!function_exists('iconeEmail')) {
     /**
      * Gera um icone de email
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeEmail(int $tamanho = 30): string
     {
@@ -412,8 +412,8 @@ if (!function_exists('iconeEmailErro')) {
     /**
      * Gera um icone de email de erro
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeEmailErro(int $tamanho = 30): string
     {
@@ -427,8 +427,8 @@ if (!function_exists('iconeApple')) {
     /**
      * Gera um icone da Apple
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeApple(int $tamanho = 24): string
     {
@@ -442,8 +442,8 @@ if (!function_exists('iconeAndroid')) {
     /**
      * Gera um icone do Android
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeAndroid(int $tamanho = 24): string
     {
@@ -457,8 +457,8 @@ if (!function_exists('iconeGoogle')) {
     /**
      * Gera um icone do Google
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeGoogle(int $tamanho = 14): string
     {
@@ -472,8 +472,8 @@ if (!function_exists('iconeGithub')) {
     /**
      * Gera um icone do Github
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeGithub(int $tamanho = 15): string
     {
@@ -487,8 +487,8 @@ if (!function_exists('iconeFacebook')) {
     /**
      * Gera um icone do Facebook
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFacebook(int $tamanho = 15): string
     {
@@ -502,8 +502,8 @@ if (!function_exists('iconeWhatsapp')) {
     /**
      * Gera um icone do WhatsApp
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeWhatsapp(int $tamanho = 15): string
     {
@@ -517,8 +517,8 @@ if (!function_exists('iconeYoutube')) {
     /**
      * Gera um icone do YouTube
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeYoutube(int $tamanho = 15): string
     {
@@ -532,8 +532,8 @@ if (!function_exists('iconeTwitter')) {
     /**
      * Gera um icone do Twitter
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeTwitter(int $tamanho = 18): string
     {
@@ -547,8 +547,8 @@ if (!function_exists('iconePinterest')) {
     /**
      * Gera um icone do Pinterest
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconePinterest(int $tamanho = 19): string
     {
@@ -562,8 +562,8 @@ if (!function_exists('iconeTwitch')) {
     /**
      * Gera um icone da Twitch
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeTwitch(int $tamanho = 17): string
     {
@@ -577,8 +577,8 @@ if (!function_exists('iconeVimeo')) {
     /**
      * Gera um icone do Vimeo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeVimeo(int $tamanho = 15): string
     {
@@ -592,8 +592,8 @@ if (!function_exists('iconeInstagram')) {
     /**
      * Gera um icone do Instagram
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeInstagram(int $tamanho = 17): string
     {
@@ -607,8 +607,8 @@ if (!function_exists('iconeImagem')) {
     /**
      * Gera um icone de imagem
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeImagem(int $tamanho = 15): string
     {
@@ -622,8 +622,8 @@ if (!function_exists('iconeAmigo')) {
     /**
      * Gera um icone de amigo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeAmigo(int $tamanho = 9)
     {
@@ -637,8 +637,8 @@ if (!function_exists('iconeConfig')) {
     /**
      * Gera um icone de configuração
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeConfig(int $tamanho = 18): string
     {
@@ -652,8 +652,8 @@ if (!function_exists('iconeOpcao')) {
     /**
      * Gera um icone de opção
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOpcao(int $tamanho = 12): string
     {
@@ -667,8 +667,8 @@ if (!function_exists('iconeBuscar')) {
     /**
      * Gera um icone de buscar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeBuscar(int $tamanho = 17): string
     {
@@ -682,8 +682,8 @@ if (!function_exists('iconeFiltrar')) {
     /**
      * Gera um icone de filtrar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFiltrar(int $tamanho = 16): string
     {
@@ -697,8 +697,8 @@ if (!function_exists('iconeOrdenar')) {
     /**
      * Gera um icone de ordernar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOrdenar(int $tamanho = 18): string
     {
@@ -713,8 +713,8 @@ if (!function_exists('iconeNotificacao')) {
     /**
      * Gera um icone de notificação
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeNotificacao(int $tamanho = 30): string
     {
@@ -728,8 +728,8 @@ if (!function_exists('iconeNotificacaoLimpar')) {
     /**
      * Gera um icone de limpar notificação
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeNotificacaoLimpar(int $tamanho = 12): string
     {
@@ -743,8 +743,8 @@ if (!function_exists('iconeImpressora')) {
     /**
      * Gera um icone de impressora
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeImpressora(int $tamanho = 20): string
     {
@@ -758,8 +758,8 @@ if (!function_exists('iconeFlechaCima')) {
     /**
      * Gera um icone de flexa para cima
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFlechaCima(int $tamanho = 20): string
     {
@@ -773,8 +773,8 @@ if (!function_exists('iconeFlechaBaixo')) {
     /**
      * Gera um icone de flecha para baixo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFlechaBaixo(int $tamanho = 20): string
     {
@@ -788,8 +788,8 @@ if (!function_exists('iconeFlechaEsquerda')) {
     /**
      * Gera um icone de flecha para esquerda
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFlechaEsquerda(int $tamanho = 10): string
     {
@@ -803,8 +803,8 @@ if (!function_exists('iconeFlechaDireita')) {
     /**
      * Gera um icone de flexa para direita
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFlechaDireita(int $tamanho = 10): string
     {
@@ -819,8 +819,8 @@ if (!function_exists('iconeSetaBaixo')) {
     /**
      * Gera um icone de seta para baixo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeSetaBaixo(int $tamanho = 5)
     {
@@ -834,8 +834,8 @@ if (!function_exists('iconeSetaCima')) {
     /**
      * Gera um icone de seta para cima
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeSetaCima(int $tamanho = 5)
     {
@@ -849,8 +849,8 @@ if (!function_exists('iconeSetaEsquerda')) {
     /**
      * Gera um icone de seta para esquerda
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeSetaEsquerda(int $tamanho = 5)
     {
@@ -864,8 +864,8 @@ if (!function_exists('iconeSetaDireita')) {
     /**
      * Gera um icone de seta para direita
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeSetaDireita(int $tamanho = 5)
     {
@@ -880,8 +880,8 @@ if (!function_exists('iconeBug')) {
     /**
      * Gera um icone de bug
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeBug(int $tamanho = 15): string
     {
@@ -895,8 +895,8 @@ if (!function_exists('iconeConsole')) {
     /**
      * Gera um icone de console
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeConsole(int $tamanho = 22): string
     {
@@ -910,8 +910,8 @@ if (!function_exists('iconeAcessorio')) {
     /**
      * Gera um icone de acessorio
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeAcessorio(int $tamanho = 15): string
     {
@@ -925,8 +925,8 @@ if (!function_exists('iconeJogo')) {
     /**
      * Gera um icone de jogo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeJogo(int $tamanho = 21): string
     {
@@ -940,8 +940,8 @@ if (!function_exists('iconeCarta')) {
     /**
      * Gera um icone de carta
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeCarta(int $tamanho = 18): string
     {
@@ -955,8 +955,8 @@ if (!function_exists('iconeFigure')) {
     /**
      * Gera um icone de figure
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFigure(int $tamanho = 19): string
     {
@@ -970,8 +970,8 @@ if (!function_exists('iconeOutro')) {
     /**
      * Gera um icone de outro
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOutro(int $tamanho = 18): string
     {
@@ -985,8 +985,8 @@ if (!function_exists('iconeCor')) {
     /**
      * Gera um icone de cor
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeCor(int $tamanho = 18): string
     {
@@ -1000,8 +1000,8 @@ if (!function_exists('iconeSenha')) {
     /**
      * Gera um icone de senha
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeSenha(int $tamanho = 14): string
     {
@@ -1015,8 +1015,8 @@ if (!function_exists('iconeSair')) {
     /**
      * Gera um icone de sair
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeSair(int $tamanho = 16): string
     {
@@ -1030,8 +1030,8 @@ if (!function_exists('iconeBloquear')) {
     /**
      * Gera um icone de bloquear
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeBloquear(int $tamanho = 14): string
     {
@@ -1045,8 +1045,8 @@ if (!function_exists('iconeAsc')) {
     /**
      * Gera um icone de ordem asc
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeAsc(int $tamanho = 11): string
     {
@@ -1060,8 +1060,8 @@ if (!function_exists('iconeDesc')) {
     /**
      * Gera um icone de ordem desc
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeDesc(int $tamanho = 11): string
     {
@@ -1075,8 +1075,8 @@ if (!function_exists('iconeDrag')) {
     /**
      * Gera um icone de drag and drop
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeDrag(int $tamanho = 10): string
     {
@@ -1090,8 +1090,8 @@ if (!function_exists('iconeCopiar')) {
     /**
      * Gera um icone de copiar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeCopiar(int $tamanho = 15): string
     {
@@ -1105,8 +1105,8 @@ if (!function_exists('iconeCalendario')) {
     /**
      * Gera um icone de calendario
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeCalendario(int $tamanho = 20): string
     {
@@ -1120,8 +1120,8 @@ if (!function_exists('iconeLink')) {
     /**
      * Gera um icone de link
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeLink(int $tamanho = 20): string
     {
@@ -1135,8 +1135,8 @@ if (!function_exists('iconeCheck')) {
     /**
      * Gera um icone de check
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeCheck(int $tamanho = 14): string
     {
@@ -1150,8 +1150,8 @@ if (!function_exists('iconeUncheck')) {
     /**
      * Gera um icone de uncheck
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeUncheck(int $tamanho = 22): string
     {
@@ -1165,8 +1165,8 @@ if (!function_exists('iconeHome')) {
     /**
      * Gera um icone de home
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeHome(int $tamanho = 22): string
     {
@@ -1180,8 +1180,8 @@ if (!function_exists('iconeLoadingBola')) {
     /**
      * Gera um icone de loading de bola
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeLoadingBola(int $tamanho = 34): string
     {
@@ -1195,8 +1195,8 @@ if (!function_exists('iconeDinheiro')) {
     /**
      * Gera um icone de dinheiro
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeDinheiro(int $tamanho = 26): string
     {
@@ -1210,8 +1210,8 @@ if (!function_exists('iconeAnexo')) {
     /**
      * Gera um icone de anexo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeAnexo(int $tamanho = 20): string
     {
@@ -1225,8 +1225,8 @@ if (!function_exists('iconeUpload')) {
     /**
      * Gera um icone de upload
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeUpload(int $tamanho = 19): string
     {
@@ -1240,8 +1240,8 @@ if (!function_exists('iconeDownload')) {
     /**
      * Gera um icone de download
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeDownload(int $tamanho = 19): string
     {
@@ -1255,8 +1255,8 @@ if (!function_exists('iconeOlhoAberto')) {
     /**
      * Gera um icone de olho aberto
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOlhoAberto(int $tamanho = 20): string
     {
@@ -1270,8 +1270,8 @@ if (!function_exists('iconeOlhoFechado')) {
     /**
      * Gera um icone de olho fechado
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeOlhoFechado(int $tamanho = 20): string
     {
@@ -1285,8 +1285,8 @@ if (!function_exists('iconeGps')) {
     /**
      * Gera um icone de GPS
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeGps(int $tamanho = 20): string
     {
@@ -1300,8 +1300,8 @@ if (!function_exists('iconeAnexo')) {
     /**
      * Gera um icone de anexo
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeAnexo(int $tamanho = 20): string
     {
@@ -1315,8 +1315,8 @@ if (!function_exists('iconeMais')) {
     /**
      * Gera um icone de mais
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeMais(int $tamanho = 15): string
     {
@@ -1330,8 +1330,8 @@ if (!function_exists('iconeMenos')) {
     /**
      * Gera um icone de menos
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeMenos(int $tamanho = 3)
     {
@@ -1345,8 +1345,8 @@ if (!function_exists('iconePlay')) {
     /**
      * Gera um icone de play
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconePlay(int $tamanho = 20)
     {
@@ -1360,8 +1360,8 @@ if (!function_exists('iconePause')) {
     /**
      * Gera um icone de pause
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconePause(int $tamanho = 20)
     {
@@ -1375,8 +1375,8 @@ if (!function_exists('iconeLike')) {
     /**
      * Gera um icone de like
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeLike(int $tamanho = 20)
     {
@@ -1390,8 +1390,8 @@ if (!function_exists('iconeDeslike')) {
     /**
      * Gera um icone de deslike
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeDeslike(int $tamanho = 20)
     {
@@ -1405,8 +1405,8 @@ if (!function_exists('iconeFixar')) {
     /**
      * Gera um icone de fixar
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFixar(int $tamanho = 20)
     {
@@ -1420,8 +1420,8 @@ if (!function_exists('iconeRelogio')) {
     /**
      * Gera um icone de relógio
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeRelogio(int $tamanho = 20)
     {

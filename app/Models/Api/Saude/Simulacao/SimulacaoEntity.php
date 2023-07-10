@@ -50,7 +50,7 @@ class SimulacaoEntity extends Entity
     ];
 
     /**
-     * @param  Request|null  $request
+     * @param Request|null $request
      */
     public function __construct(
         protected readonly ?Request $request = null

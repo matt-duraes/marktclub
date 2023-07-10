@@ -10,11 +10,11 @@ if (!function_exists('strCaixa')) {
     /**
      * Converte a string para a Caixa selecionada
      *
-     * @param   null|string $string     String a ser convertida
-     * @param   string      $tipo       Seta o tipo de caixa: "A": Caixa alta; "a": caixa baixa;
-     *                                  "Aa": Caixa alta na primeira letra; "Aa Aa": Caixa alta na primeira
-     *                                  letra de cada palavra
-     * @return  string                  String convertida
+     * @param  null|string $string String a ser convertida
+     * @param  string      $tipo   Seta o tipo de caixa: "A": Caixa alta; "a": caixa baixa;
+     *                             "Aa": Caixa alta na primeira letra; "Aa Aa": Caixa alta na primeira
+     *                             letra de cada palavra
+     * @return string      String convertida
      */
     function strCaixa(?string $string, string $tipo): string
     {
@@ -32,8 +32,8 @@ if (!function_exists('strCaixaAlta')) {
     /**
      * Converte a string para a Caixa Alta
      *
-     * @param   null|string     $string String a ser convertida
-     * @return  string                  String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strCaixaAlta(?string $string): string
     {
@@ -50,8 +50,8 @@ if (!function_exists('strCaixaAltaAlta')) {
     /**
      * Converte a string para a Caixa Alta para cada início de palavra
      *
-     * @param null|string $string String a ser convertida
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strCaixaAltaAlta(?string $string): string
     {
@@ -75,8 +75,8 @@ if (!function_exists('strCaixaBaixa')) {
     /**
      * Converte a string para a Caixa baixa
      *
-     * @param null|string $string String a ser convertida
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strCaixaBaixa(?string $string): string
     {
@@ -95,8 +95,8 @@ if (!function_exists('strDocumento')) {
     /**
      * Converte um CPF ou CNPJ para o padrão com pontos
      *
-     * @param null|string $string String a ser convertida
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strDocumento(?string $string): string
     {
@@ -122,8 +122,8 @@ if (!function_exists('strCpf')) {
     /**
      * Converte um CPF para o padrão com pontos
      *
-     * @param null|string $string String a ser convertida
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strCpf(?string $string): string
     {
@@ -141,8 +141,8 @@ if (!function_exists('strCnpj')) {
     /**
      * Converte um CNPJ para o padrão com pontos
      *
-     * @param null|string $string String a ser convertida
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strCnpj(?string $string): string
     {
@@ -160,10 +160,10 @@ if (!function_exists('strSlug')) {
     /**
      * Converte uma string para um slug
      *
-     * @param   string  $string     String a ser convertida
-     * @param   string  $slug       Caracter que será usado no lugar do espaço, - por padrão
-     * @param   bool    $espaco     Troca espaços por +
-     * @return  string              String convertida
+     * @param  string $string String a ser convertida
+     * @param  string $slug   Caracter que será usado no lugar do espaço, - por padrão
+     * @param  bool   $espaco Troca espaços por +
+     * @return string String convertida
      */
     function strSlug(string $string, string $slug = '-', bool $espaco = false): string
     {
@@ -183,9 +183,9 @@ if (!function_exists('strTelefone')) {
     /**
      * Converte uma string para um telefone
      *
-     * @param null|string $string String a ser convertida
-     * @param string $padrao Padrão quer será retornado o telefone usando x para fazer o replace dos numeros
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @param  string      $padrao Padrão quer será retornado o telefone usando x para fazer o replace dos numeros
+     * @return string      String convertida
      */
     function strTelefone(?string $string, string $padrao = ''): string
     {
@@ -204,10 +204,10 @@ if (!function_exists('strDinheiro')) {
     /**
      * Converte a string para o padrão de dinheiro
      *
-     * @param  null|string  $string  String a ser convertida
-     * @param  string       $moeda   Tipo de moeda será convertido podendo ser: "R$": Real (1.000,00);
-     *                               "$": Dolar (1000.00); R$ por padrão
-     * @return string                String convertida
+     * @param  null|string $string String a ser convertida
+     * @param  string      $moeda  Tipo de moeda será convertido podendo ser: "R$": Real (1.000,00);
+     *                             "$": Dolar (1000.00); R$ por padrão
+     * @return string      String convertida
      */
     function strDinheiro(?string $string, string $moeda = 'R$'): string
     {
@@ -233,8 +233,8 @@ if (!function_exists('strCep')) {
     /**
      * Converte a string para o padrão de CEP
      *
-     * @param null|string $string String a ser convertida
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strCep(?string $string): string
     {
@@ -258,8 +258,8 @@ if (!function_exists('strJson')) {
     /**
      * Converte uma string JSON para array
      *
-     * @param null|string $string String a ser convertida
-     * @return  string String convertida
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
      */
     function strJson(?string $string): string
     {
@@ -278,10 +278,10 @@ if (!function_exists('strCortar')) {
     /**
      * Corta uma string
      *
-     * @param int       $tamanho    Quantidade de caracter que deve ter a string
-     * @param string    $simbolo    Simbolo que ficaram no final da string cortada
-     * @param bool      $forca      Força o corte da string mesmo sem terminar a palavra
-     * @return string               Retorna a string cortada
+     * @param  int    $tamanho Quantidade de caracter que deve ter a string
+     * @param  string $simbolo Simbolo que ficaram no final da string cortada
+     * @param  bool   $forca   Força o corte da string mesmo sem terminar a palavra
+     * @return string Retorna a string cortada
      */
     function strCortar(string $string, int $tamanho, string $simbolo = '...', bool $forca = false)
     {
@@ -298,13 +298,13 @@ if (!function_exists('strCodigo')) {
     /**
      * Gera um código aleatório
      *
-     * @param   int         $tamanho        Quantidade de caracteres terá o código
-     * @param   bool        $minusculo      Se terá caracteres minusculos no código
-     * @param   bool        $maiusculo      Se terá caracteres maiusculos no código
-     * @param   bool        $numero         Se terá números no código
-     * @param   bool        $simbolo        Se terá caracteres especiais no código (!@#$%*-)
-     * @param   string      $outro          Outros caracteres que deseja usar
-     * @return  string                      String convertida
+     * @param  int    $tamanho   Quantidade de caracteres terá o código
+     * @param  bool   $minusculo Se terá caracteres minusculos no código
+     * @param  bool   $maiusculo Se terá caracteres maiusculos no código
+     * @param  bool   $numero    Se terá números no código
+     * @param  bool   $simbolo   Se terá caracteres especiais no código (!@#$%*-)
+     * @param  string $outro     Outros caracteres que deseja usar
+     * @return string String convertida
      */
     function strCodigo(
         int $tamanho = 8,
@@ -343,9 +343,9 @@ if (!function_exists('strNull')) {
     /**
      * Retorna vazio ou um padrão definido quando for null
      *
-     * @param   null|string $valor  Valor que deseja converter
-     * @param   string      $padrao Padrão que deseja retornar quando for null, vazio por padrão
-     * @return  string              String convertida
+     * @param  null|string $valor  Valor que deseja converter
+     * @param  string      $padrao Padrão que deseja retornar quando for null, vazio por padrão
+     * @return string      String convertida
      */
     function strNull($valor, $padrao = '')
     {
@@ -363,8 +363,8 @@ if (!function_exists('strInt')) {
     /**
      * Retorna o valor se for inteiro ou null se não for inteiro
      *
-     * @param   mixed       $inteiro  Valor que deseja validar
-     * @return  null|int              Valor inteiro em caso positivo ou null em caso falso
+     * @param  mixed    $inteiro Valor que deseja validar
+     * @return null|int Valor inteiro em caso positivo ou null em caso falso
      */
     function strInt($inteiro)
     {
@@ -377,8 +377,8 @@ if (!function_exists('strEmail')) {
     /**
      * Converter um e-mail para caixa baixa
      *
-     * @param   string  $email  E-mail que deseja converter
-     * @return  string          String convertida
+     * @param  string $email E-mail que deseja converter
+     * @return string String convertida
      */
     function strEmail($email)
     {
@@ -393,8 +393,8 @@ if (!function_exists('strConverterTextareaEmParagrafo')) {
     /**
      * Converte um texto de textarea para paragrafo colocar <p></p> em cada quebra de linha
      *
-     * @param   null|string  $texto  String a ser convertida
-     * @return  string               String convertida
+     * @param  null|string $texto String a ser convertida
+     * @return string      String convertida
      */
     function strConverterTextareaEmParagrafo(?string $texto = null)
     {
@@ -409,8 +409,8 @@ if (!function_exists('strDominio')) {
     /**
      * Converter um URL para seu domínio
      *
-     * @param   null|string  $texto  String a ser convertida
-     * @return  string               String convertida
+     * @param  null|string $texto String a ser convertida
+     * @return string      String convertida
      */
     function strDominio(?string $texto = null)
     {

@@ -33,6 +33,7 @@ final class ComercialRegraController extends Controller implements
 
         return $this->retornoPadrao($Regra);
     }
+
     public function postSalvar(Request $request): Response
     {
         $dado = $request->dado();
@@ -57,6 +58,7 @@ final class ComercialRegraController extends Controller implements
 
         return new Response(status: 204);
     }
+
     public function deleteDeletar(string $id): Response
     {
         $Regra = new RegraEntity();

@@ -34,6 +34,7 @@ final class HelperModel extends ORM
             ->where(['uuid', $uuid])
             ->primeiro(campo: 'id_admin_empresa', padrao: 0);
     }
+
     public function pegarPermissaoPeloId(?int $id): array
     {
         if (empty($id)) {

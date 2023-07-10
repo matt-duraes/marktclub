@@ -21,10 +21,10 @@ final class ExcelHelper
     private Style $style;
 
     /**
-     * @param  string     $font      [optional] Fonte que será usada
-     * @param  int|float  $fontSize  [optional] Tamanho da fonte a será usada
-     * @param  bool       $border    [optional] Se a planilha terá borda
-     * @param  string     $path      [optional] Diretório base para de arquivo
+     * @param string    $font     [optional] Fonte que será usada
+     * @param int|float $fontSize [optional] Tamanho da fonte a será usada
+     * @param bool      $border   [optional] Se a planilha terá borda
+     * @param string    $path     [optional] Diretório base para de arquivo
      */
     public function __construct(
         private readonly string $font = 'Arial',
@@ -73,7 +73,7 @@ final class ExcelHelper
     /**
      * Coloca um título para o arquivo
      *
-     * @param  array  $titulo  Lista com os campos para a primeira linha do excel
+     * @param  array       $titulo Lista com os campos para a primeira linha do excel
      * @return ExcelHelper
      */
     public function titulo(array $titulo): ExcelHelper
@@ -108,7 +108,7 @@ final class ExcelHelper
     /**
      * Adicionar uma linha ao arquivo
      *
-     * @param  array  $dado  Dados para montar o excel
+     * @param  array       $dado Dados para montar o excel
      * @return ExcelHelper
      */
     public function linha(array $dado): ExcelHelper
@@ -118,7 +118,7 @@ final class ExcelHelper
     }
 
     /**
-     * @param  string|null  $nome  Nome do arquivo
+     * @param  string|null              $nome Nome do arquivo
      * @throws IOException
      * @throws InvalidArgumentException
      * @throws WriterNotOpenedException
@@ -139,12 +139,13 @@ final class ExcelHelper
     /**
      * Gera a planilha e força o download
      *
-     * @param  string|null  $nome  Nome do arquivo
+     * @param  string|null              $nome Nome do arquivo
      * @throws IOException
      * @throws InvalidArgumentException
      * @throws WriterNotOpenedException
      */
-    #[NoReturn] public function download(string $nome = null): void
+    #[NoReturn]
+    public function download(string $nome = null): void
     {
         if (empty($nome)) {
             $nome = md5(uniqid(time()));

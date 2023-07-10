@@ -7,7 +7,7 @@ $empresa = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')
     ->array()['dado'] ?? [];
 
-$parceiro = require "parceiro.php";
+$parceiro = require 'parceiro.php';
 
 $Painel = new PainelConfig\Add('parceiro_relatorio');
 

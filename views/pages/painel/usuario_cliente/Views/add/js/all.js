@@ -1,5 +1,5 @@
 // @template "painel"
-// @resource "painel/app_geral_add"
+// @painel "app_geral_add"
 
 window.addEventListener('load', () => {
     const selectEmpresa = document.querySelector('#input_empresa');

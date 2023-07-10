@@ -16,6 +16,7 @@ class CashbackModel extends ORM
     ) {
         parent::__construct();
     }
+
     public function pegarRetorno(): stdClass
     {
         $dado = $this
@@ -33,10 +34,10 @@ class CashbackModel extends ORM
         $Status = new Status();
         foreach ($lista as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'titulo' => $r->titulo,
+                'id'           => $r->uuid,
+                'titulo'       => $r->titulo,
                 'data_criacao' => $r->data_criacao,
-                'status' => $Status->indice($r->status)
+                'status'       => $Status->indice($r->status)
             ];
         }
         return $retorno;

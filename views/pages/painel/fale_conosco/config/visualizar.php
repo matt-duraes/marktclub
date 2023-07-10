@@ -32,6 +32,6 @@ return [
             'select,Mudar Status,status,' . painelSelectConfig(FaleConoscoHelper::STATUS_VALOR_TEXTO),
         ]
     ],
-    'app' => 'visualizar',
+    'app'       => 'visualizar',
     'historico' => true
 ];

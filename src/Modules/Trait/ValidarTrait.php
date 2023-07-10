@@ -11,7 +11,7 @@ trait ValidarTrait
     /**
      * Validar se o valor é vazio
      *
-     * @return  bool Retorna true para se for vazio ou false para não
+     * @return bool Retorna true para se for vazio ou false para não
      */
     public function vazio(): bool
     {
@@ -22,7 +22,7 @@ trait ValidarTrait
     /**
      * Validar se o valor é vazio
      *
-     * @return  bool Retorna true para se for valido ou false para não
+     * @return bool Retorna true para se for valido ou false para não
      */
     public function valido(): bool
     {

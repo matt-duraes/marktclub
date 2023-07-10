@@ -13,7 +13,6 @@ final class TrabalhoEntity extends Entity
     protected array $ormInsert = ['id_demanda_tarefa', 'id_usuario_equipe', 'minuto_trabalhado'];
     protected array $ormSalvar = ['status', 'data_trabalho', 'minuto_trabalhado'];
     protected array $ormBuscar = ['id_demanda_tarefa', 'data_trabalho', 'data_criacao'];
-
     protected int $id_demanda_tarefa;
     protected int $id_usuario_equipe;
     protected Status $status;
@@ -51,6 +50,7 @@ final class TrabalhoEntity extends Entity
         $this->data_trabalho = new DataHora(agora());
         $this->status = new Status(1);
     }
+
     protected function regraPosInsert()
     {
         $this->Tarefa->status = new DemandaTarefaStatus('andamento');
@@ -70,6 +70,7 @@ final class TrabalhoEntity extends Entity
             $this->minuto_trabalhado = $minuto;
         }
     }
+
     public function regraPosUpdate()
     {
         $acao = $this->acao;

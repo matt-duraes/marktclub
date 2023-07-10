@@ -5,14 +5,14 @@ $acao = $_POST['acao'] ?? 'vazio';
 
 $controller = [
     'POST' => [
-        'atualizar-nome-grupo' => 'GrupoRenomear',
+        'atualizar-nome-grupo'      => 'GrupoRenomear',
         'atualizar-nome-requisicao' => 'RequisicaoRenomear',
-        'buscar-requisicao' => 'RequisicaoBuscar',
-        'deletar-grupo' => 'GrupoDeletar',
-        'deletar-requisicao' => 'RequisicaoDeletar',
-        'requisicao-vazia' => 'RequisicaoVazia',
-        'requisicao' => 'RequisicaoEnviar',
-        'salvar' => 'RequisicaoSalvar',
+        'buscar-requisicao'         => 'RequisicaoBuscar',
+        'deletar-grupo'             => 'GrupoDeletar',
+        'deletar-requisicao'        => 'RequisicaoDeletar',
+        'requisicao-vazia'          => 'RequisicaoVazia',
+        'requisicao'                => 'RequisicaoEnviar',
+        'salvar'                    => 'RequisicaoSalvar',
     ],
     'GET' => [
         'vazio' => 'MontarMenu'
@@ -31,7 +31,7 @@ $Run = new $Classe($_POST);
 if ($metodo == 'POST') {
     echo jsonEncode([
         'status' => 'sucesso',
-        'dado' => $Run->retorno()
+        'dado'   => $Run->retorno()
     ]);
     exit();
 }

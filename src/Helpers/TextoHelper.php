@@ -5,7 +5,7 @@ namespace Helpers;
 final class TextoHelper
 {
     /**
-     * @param Mixed $valor Valor a ser convertido
+     * @param mixed $valor Valor a ser convertido
      */
     public function __construct(
         private $valor = ''
@@ -23,7 +23,7 @@ final class TextoHelper
     }
 
     /**
-     * @param Mixed $valor $valor Valor a ser convertido
+     * @param mixed $valor $valor Valor a ser convertido
      */
     public function valor($valor)
     {
@@ -68,7 +68,7 @@ final class TextoHelper
     }
 
     /**
-     * @param String $slug Caracter que será substituido por espaço
+     * @param string $slug Caracter que será substituido por espaço
      */
     public function slug(string $slug = '-', bool $espaco = false)
     {
@@ -103,7 +103,7 @@ final class TextoHelper
     /**
      * Remover todo o HTML da string exceto o especificado para ficar
      *
-     * @param null|string $tag  Lista de tags que não devem ser removidas. Ex. <a><p><i>
+     * @param  null|string $tag Lista de tags que não devem ser removidas. Ex. <a><p><i>
      * @return self
      */
     public function removerHtml(?string $tag = null): self
@@ -140,10 +140,10 @@ final class TextoHelper
     /**
      * Corta uma string
      *
-     * @param int       $tamanho    Quantidade de caracter que deve ter a string
-     * @param string    $simbolo    Simbolo que ficaram no final da string cortada
-     * @param bool      $forca      Força o corte da string mesmo sem terminar a palavra
-     * @return self                 Retorna a string cortada
+     * @param  int    $tamanho Quantidade de caracter que deve ter a string
+     * @param  string $simbolo Simbolo que ficaram no final da string cortada
+     * @param  bool   $forca   Força o corte da string mesmo sem terminar a palavra
+     * @return self   Retorna a string cortada
      */
     public function cortar(int $tamanho, string $simbolo = '...', bool $forca = false): self
     {
@@ -161,7 +161,7 @@ final class TextoHelper
     }
 
     /**
-     * @param String $tipo Seta o tipo de caixa: "A": Caixa alta; "a": caixa baixa; "Aa": Caixa alta na primeira letra; "Aa Aa": Caixa alta na primeira letra de cada palavra
+     * @param string $tipo Seta o tipo de caixa: "A": Caixa alta; "a": caixa baixa; "Aa": Caixa alta na primeira letra; "Aa Aa": Caixa alta na primeira letra de cada palavra
      */
     public function caixa($tipo = 'A')
     {
@@ -254,7 +254,7 @@ final class TextoHelper
     }
 
     /**
-     * @param String $padrao Padrão quer será retornado o telefone
+     * @param string $padrao Padrão quer será retornado o telefone
      */
     public function telefone(String $padrao = '')
     {
@@ -294,7 +294,7 @@ final class TextoHelper
     }
 
     /**
-     * @param String $moeda Tipo de moeda será convertido podendo ser: "R$": Real (1.000,00); "$": Dolar (1000.00)
+     * @param string $moeda Tipo de moeda será convertido podendo ser: "R$": Real (1.000,00); "$": Dolar (1000.00)
      */
     public function dinheiro(string $tipo = 'R$', string $prefix = '')
     {

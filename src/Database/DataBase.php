@@ -11,38 +11,47 @@ final class DataBase
      * @var string
      */
     public string $tabela;
+
     /**
      * @var string
      */
     public string $diretorio;
+
     /**
      * @var PDO
      */
     private PDO $db;
+
     /**
      * @var string
      */
     private string $banco;
+
     /**
      * @var array
      */
     private array $dado = [];
+
     /**
      * @var array
      */
     private array $lista = [];
+
     /**
      * @var array
      */
     private array $estrutura = [];
+
     /**
      * @var array
      */
     private array $propriedade = [];
+
     /**
      * @var array
      */
     private array $relacionado = [];
+
     /**
      * @var int
      */
@@ -65,7 +74,6 @@ final class DataBase
     }
 
     /**
-     * @return void
      */
     public function sistemaDeletar(): void
     {
@@ -74,7 +82,6 @@ final class DataBase
 
     /**
      * @param $acao
-     * @return void
      */
     private function executarCreate($acao): void
     {
@@ -99,7 +106,6 @@ final class DataBase
             print_r($th);
             exit();
         }
-
 
         if ($acao == 'deletar') {
             return;
@@ -153,7 +159,6 @@ final class DataBase
 
     /**
      * @param $dado
-     * @return void
      */
     public function insert($dado): void
     {
@@ -228,7 +233,6 @@ final class DataBase
     }
 
     /**
-     * @return void
      */
     public function sistemaRelacionar(): void
     {
@@ -242,7 +246,6 @@ final class DataBase
      */
 
     /**
-     * @return void
      */
     public function sistemaCriar(): void
     {
@@ -270,8 +273,8 @@ final class DataBase
             }
 
             $tamanho_lista = [
-                'BIGINT' => 11,
-                'CHAR' => 36,
+                'BIGINT'  => 11,
+                'CHAR'    => 36,
                 'VARCHAR' => 250,
                 'DECIMAL' => '10,2',
             ];
@@ -338,7 +341,6 @@ final class DataBase
     //doc
 
     /**
-     * @return void
      */
     private function resetar(): void
     {
@@ -350,17 +352,17 @@ final class DataBase
         }
 
         $this->dado = [
-            'campo' => '',
-            'titulo' => '',
-            'tipo' => 'varchar',
-            'tamanho' => '',
+            'campo'    => '',
+            'titulo'   => '',
+            'tipo'     => 'varchar',
+            'tamanho'  => '',
             'download' => '',
-            'null' => false,
-            'unico' => false,
-            'auto' => false,
+            'null'     => false,
+            'unico'    => false,
+            'auto'     => false,
             'primario' => false,
-            'zero' => false,
-            'validar' => false,
+            'zero'     => false,
+            'validar'  => false,
         ];
     }
 
@@ -369,7 +371,7 @@ final class DataBase
     /**
      * Cria um campo padrão de id sendo int(9) auto-incremento e único
      *
-     * @return  self
+     * @return self
      */
     public function id(): self
     {
@@ -385,7 +387,6 @@ final class DataBase
     /**
      * @param $campo
      * @param $tipo
-     * @return void
      */
     private function setarTipo($campo, $tipo): void
     {
@@ -399,7 +400,7 @@ final class DataBase
     /**
      * Cria um campo padrão de uuid sendo char(36) único
      *
-     * @return  DataBase
+     * @return DataBase
      */
     public function uuid(): DataBase
     {
@@ -414,8 +415,8 @@ final class DataBase
     /**
      * Cria um campo padrão de nome sendo varchar(80)
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function nome(string $nome): DataBase
     {
@@ -429,8 +430,8 @@ final class DataBase
     /**
      * Cria um campo padrão de data_criacao sendo datetime
      *
-     * @param  string  $nome  Nome do campo com padrão de data_criacao
-     * @return  DataBase
+     * @param  string   $nome Nome do campo com padrão de data_criacao
+     * @return DataBase
      */
     public function dataCriacao(string $nome = 'data_criacao'): DataBase
     {
@@ -443,8 +444,8 @@ final class DataBase
     /**
      * Cria um campo padrão de data_atualizacao sendo datatime
      *
-     * @param  string  $nome  Nome do campo com padrão de data_atualizacao
-     * @return  DataBase
+     * @param  string   $nome Nome do campo com padrão de data_atualizacao
+     * @return DataBase
      */
     public function dataAtualizacao(string $nome = 'data_atualizacao'): DataBase
     {
@@ -458,8 +459,8 @@ final class DataBase
     /**
      * Cria um campo padrão de e-mail sendo varchar(255) único
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function email(string $nome): DataBase
     {
@@ -474,8 +475,8 @@ final class DataBase
     /**
      * Cria um campo padrão de telefone sendo bigint(11)
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function telefone(string $nome): DataBase
     {
@@ -490,8 +491,8 @@ final class DataBase
     /**
      * Cria um campo padrão de dinheiro sendo decimal(10,2)
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function dinheiro(string $nome): DataBase
     {
@@ -505,8 +506,8 @@ final class DataBase
     /**
      * Cria um campo padrão de CPF sendo bigint(1)
      *
-     * @param  string  $nome  Nome do campo com padrão de documento_cpf
-     * @return  DataBase
+     * @param  string   $nome Nome do campo com padrão de documento_cpf
+     * @return DataBase
      */
     public function cpf(string $nome = 'documento_cpf'): DataBase
     {
@@ -522,8 +523,8 @@ final class DataBase
     /**
      * Cria um campo padrão de CNPJ sendo bigint(14)
      *
-     * @param  string  $nome  Nome do campo com padrão de documento_cnpj
-     * @return  DataBase
+     * @param  string   $nome Nome do campo com padrão de documento_cnpj
+     * @return DataBase
      */
     public function cnpj(string $nome = 'documento_cnpj'): DataBase
     {
@@ -539,8 +540,8 @@ final class DataBase
     /**
      * Cria um campo padrão de CEP sendo int(8) e adicionando zero a esquerda
      *
-     * @param  string  $nome  Nome do campo com padrão de endereco_cep
-     * @return  DataBase
+     * @param  string   $nome Nome do campo com padrão de endereco_cep
+     * @return DataBase
      */
     public function cep(string $nome = 'endereco_cep'): DataBase
     {
@@ -553,8 +554,8 @@ final class DataBase
     /**
      * Cria um campo padrão de imagem sendo char(36)
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function imagem(string $nome): DataBase
     {
@@ -572,8 +573,8 @@ final class DataBase
     /**
      * Cria um campo padrão de status sendo tinyint(1)
      *
-     * @param  string  $campo  Nome do campo com padrão de status
-     * @return  DataBase
+     * @param  string   $campo Nome do campo com padrão de status
+     * @return DataBase
      */
     public function status(string $campo = 'status'): DataBase
     {
@@ -588,10 +589,10 @@ final class DataBase
     /**
      * Campo para criação de slug para URL e afins
      *
-     * @param  string  $nome
-     * @param  string  $base   Qual campo ser��� usado como base, por exemplo, se existe um campo titulo, ele pegara o
-     *                         titulo e criar o slug
-     * @return  DataBase
+     * @param  string   $nome
+     * @param  string   $base Qual campo ser��� usado como base, por exemplo, se existe um campo titulo, ele pegara o
+     *                        titulo e criar o slug
+     * @return DataBase
      */
     public function slug(string $nome, string $base): DataBase
     {
@@ -605,8 +606,8 @@ final class DataBase
     /**
      * Campo do tipo varchar
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function varchar(string $nome): DataBase
     {
@@ -619,8 +620,8 @@ final class DataBase
     /**
      * Campo do tipo char
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function char(string $nome): DataBase
     {
@@ -633,8 +634,8 @@ final class DataBase
     /**
      * Campo do tipo datatime
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function datetime(string $nome): DataBase
     {
@@ -647,8 +648,8 @@ final class DataBase
     /**
      * Campo do tipo date
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function date(string $nome): DataBase
     {
@@ -661,8 +662,8 @@ final class DataBase
     /**
      * Campo do tipo time
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function time(string $nome): DataBase
     {
@@ -675,8 +676,8 @@ final class DataBase
     /**
      * Campo do tipo tinyint
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function tinyint(string $nome): DataBase
     {
@@ -689,8 +690,8 @@ final class DataBase
     /**
      * Campo do tipo int
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function int(string $nome): DataBase
     {
@@ -703,8 +704,8 @@ final class DataBase
     /**
      * Campo do tipo bigint
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function bigint(string $nome): DataBase
     {
@@ -717,8 +718,8 @@ final class DataBase
     /**
      * Campo do tipo decimal
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function decimal(string $nome): DataBase
     {
@@ -731,8 +732,8 @@ final class DataBase
     /**
      * Campo do tipo float
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function float(string $nome): DataBase
     {
@@ -745,8 +746,8 @@ final class DataBase
     /**
      * Campo do tipo text
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function text(string $nome): DataBase
     {
@@ -759,8 +760,8 @@ final class DataBase
     /**
      * Campo do tipo json
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function json(string $nome): DataBase
     {
@@ -779,8 +780,8 @@ final class DataBase
     /**
      * Campo do tipo lonttext
      *
-     * @param  string  $nome  Nome do campo
-     * @return  DataBase
+     * @param  string   $nome Nome do campo
+     * @return DataBase
      */
     public function longtext(string $nome): DataBase
     {
@@ -793,7 +794,7 @@ final class DataBase
     /**
      * Se o campo vai ter um valor null
      *
-     * @return  DataBase
+     * @return DataBase
      */
     public function null(): DataBase
     {
@@ -806,7 +807,7 @@ final class DataBase
     /**
      * Se o campo vai poder ter apenas valores únicos
      *
-     * @return  DataBase
+     * @return DataBase
      */
     public function unico(): DataBase
     {
@@ -819,7 +820,7 @@ final class DataBase
     /**
      * Se vai ser um campo auto incremente
      *
-     * @return  DataBase
+     * @return DataBase
      */
     public function auto(): DataBase
     {
@@ -832,7 +833,7 @@ final class DataBase
     /**
      * Se vai ser um campo primario
      *
-     * @return  DataBase
+     * @return DataBase
      */
     public function primario(): DataBase
     {
@@ -845,7 +846,7 @@ final class DataBase
     /**
      * Se o valor vai ter zero a esquerda para completar o tamanho do campo
      *
-     * @return  DataBase
+     * @return DataBase
      */
     public function zero(): DataBase
     {
@@ -858,8 +859,8 @@ final class DataBase
     /**
      * Coloca um valor padrão no campo
      *
-     * @param  mixed  $valor  Valor padrão para o campo
-     * @return  DataBase
+     * @param  mixed    $valor Valor padrão para o campo
+     * @return DataBase
      */
     public function padrao(mixed $valor): DataBase
     {
@@ -870,9 +871,9 @@ final class DataBase
     /**
      * Se o campo vai precisar ser validado antes de salvar
      *
-     * @param  string  $validar  Se o campo precisa ser validado podendo ser: cpf, cnpj, telefone, email, url,
+     * @param  string   $validar Se o campo precisa ser validado podendo ser: cpf, cnpj, telefone, email, url,
      *                           positivo, negativo
-     * @return  DataBase
+     * @return DataBase
      */
     public function validar(string $validar): DataBase
     {
@@ -883,8 +884,8 @@ final class DataBase
     /**
      * Um título para o campo, caso não sejá informado, pegará o nome do campo
      *
-     * @param  string  $titulo  Título para o campo
-     * @return  DataBase
+     * @param  string   $titulo Título para o campo
+     * @return DataBase
      */
     public function titulo(string $titulo): DataBase
     {
@@ -895,13 +896,13 @@ final class DataBase
     /**
      * Se o campo vai ter algum relacionamento
      *
-     * @param  string       $tabela  Nome da tabela que será relacionada
-     * @param  string       $campo   Nome do campo que será relacionado
-     * @param  null|string  $delete  Ação que será tomada quando o usuário foi deletado podendo ser: CASCADE, RESTRICT,
-     *                               SET NULL, NO ACTION
-     * @param  null|string  $update  Ação que será tomada quando o usuário foi deletado podendo ser: CASCADE, RESTRICT,
-     *                               SET NULL, NO ACTION
-     * @return  self
+     * @param  string      $tabela Nome da tabela que será relacionada
+     * @param  string      $campo  Nome do campo que será relacionado
+     * @param  null|string $delete Ação que será tomada quando o usuário foi deletado podendo ser: CASCADE, RESTRICT,
+     *                             SET NULL, NO ACTION
+     * @param  null|string $update Ação que será tomada quando o usuário foi deletado podendo ser: CASCADE, RESTRICT,
+     *                             SET NULL, NO ACTION
+     * @return self
      */
     public function relacionado(string $tabela, string $campo, ?string $delete = null, ?string $update = null): self
     {
@@ -917,7 +918,7 @@ final class DataBase
     }
 
     /**
-     * @param  string|null  $tipo
+     * @param  string|null $tipo
      * @return string
      */
     private function setarAcaoRelacionamento(?string $tipo): string
@@ -938,8 +939,8 @@ final class DataBase
     /**
      * Seta um tamanho para os campos que precisam de um tamanho específico
      *
-     * @param  int  $tamanho  Tamanho do campo
-     * @return  DataBase
+     * @param  int      $tamanho Tamanho do campo
+     * @return DataBase
      */
     public function tamanho(int $tamanho): DataBase
     {

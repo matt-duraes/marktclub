@@ -22,6 +22,7 @@ trait MontarRetornoTrait
 
         return $retorno;
     }
+
     private function processarItens($dado, &$retornoLista)
     {
         foreach ($dado as $key => $valor) {
@@ -30,6 +31,7 @@ trait MontarRetornoTrait
                 'titulo'   => $valor->parceiro->nome,
                 'texto'    => $valor->descricao,
                 'imagem'   => $valor->parceiro->imagem,
+                'tipo'     => 'cupom',
                 'validade' => $valor->validade
             ];
         }
@@ -48,5 +50,4 @@ trait MontarRetornoTrait
             'tipo'     => $lista->tipo
         ];
     }
-
 }

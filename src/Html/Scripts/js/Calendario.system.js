@@ -889,8 +889,8 @@ class Calendario {
 
         let blocoGeral = document.getElementById('bloco_fw_calendario');
         if (blocoGeral == null) {
-            this._erro = 'Não foi encontrado a DIV #bloco_fw_calendario.';
-            return false;
+            document.querySelector('body').insertAdjacentHTML('beforeend', '<div id="bloco_fw_calendario"></div>');
+            blocoGeral = document.getElementById('bloco_fw_calendario');
         }
         if (option.callback) {
             this._callback = option.callback;

@@ -9,6 +9,7 @@ final class RequisicaoRenomear
     private string $id;
     private string $pai;
     private string $nome;
+
     public function __construct($post)
     {
         $this->id = $post['id'];
@@ -19,10 +20,12 @@ final class RequisicaoRenomear
         $this->Requisicao = (new Requisicao($this->path, $this->pai, $this->id));
         $this->Requisicao->nome($this->nome)->salvar();
     }
+
     public function retorno()
     {
         return $this->Requisicao->requisicao;
     }
+
     private function verificarSeDiretorioExiste()
     {
         if (!empty($this->pai) && !is_dir($this->path . $this->pai)) {

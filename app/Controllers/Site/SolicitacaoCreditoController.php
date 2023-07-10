@@ -14,7 +14,7 @@ final class SolicitacaoCreditoController extends Controller
     {
         $operadora = $request->operadora;
 
-        if($operadora == 'sicoob-judiciario') {
+        if ($operadora == 'sicoob-judiciario') {
             return $this->simularSicoob($request);
         }
     }
@@ -32,7 +32,7 @@ final class SolicitacaoCreditoController extends Controller
     public function postSalvar(Request $request): Response
     {
         $operadora = $request->operadora;
-        if($operadora == 'sicoob-judiciario') {
+        if ($operadora == 'sicoob-judiciario') {
             return $this->salvarSicoob($request);
         }
     }

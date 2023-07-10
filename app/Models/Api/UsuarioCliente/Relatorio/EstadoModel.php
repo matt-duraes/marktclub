@@ -8,13 +8,14 @@ use Helpers\ListaHelper;
 final class EstadoModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct()
     {
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
         parent::__construct();
     }
+
     public function estado()
     {
         $where = [
@@ -41,16 +42,16 @@ final class EstadoModel extends ORM
 
         $relatorio = [];
         $relatorio['outro'] = [
-            'uf' => 'outro',
-            'total' => 0,
-            'ativo' => 0,
+            'uf'      => 'outro',
+            'total'   => 0,
+            'ativo'   => 0,
             'inativo' => 0
         ];
         foreach ($listaUf as $uf) {
             $relatorio[$uf] = [
-                'uf' => $uf,
-                'total' => 0,
-                'ativo' => 0,
+                'uf'      => $uf,
+                'total'   => 0,
+                'ativo'   => 0,
                 'inativo' => 0
             ];
         }
@@ -59,9 +60,9 @@ final class EstadoModel extends ORM
         foreach ($dado as $r) {
             if (empty($r->uf)) {
                 $relatorio['outro'] = [
-                    'uf' => 'outro',
-                    'total' => $r->ativo + $r->inativo,
-                    'ativo' => $r->ativo,
+                    'uf'      => 'outro',
+                    'total'   => $r->ativo + $r->inativo,
+                    'ativo'   => $r->ativo,
                     'inativo' => $r->inativo
                 ];
                 $total += $r->ativo + $r->inativo;
@@ -71,9 +72,9 @@ final class EstadoModel extends ORM
             }
             $total += $r->total;
             $relatorio[$r->uf] = [
-                'uf' => $r->uf,
-                'total' => $r->total,
-                'ativo' => $r->ativo,
+                'uf'      => $r->uf,
+                'total'   => $r->total,
+                'ativo'   => $r->ativo,
                 'inativo' => $r->inativo
             ];
         }

@@ -21,7 +21,6 @@ final class CriarAssociacaoModel
         $this->salvarTarefa('nao-definido', 'Novo site para associação', $texto);
     }
 
-
     public function id()
     {
         return $this->Demanda->dado->id;

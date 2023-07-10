@@ -111,9 +111,6 @@
         color: $branco
         border-radius: 4px
 
-.favorito_marcado
-    fill: red
-
 .bloco_geral_ul
     width: 100%
     li
@@ -161,7 +158,7 @@
         texto()
         text-align: center
         margin-top: 5px
-    a
+    .botao
         margin-top: 20px
 
 .bloco_geral_imagem_direita
@@ -241,6 +238,7 @@
     width: 100%
     flexRow()
     margin-bottom: 10px
+    align-items: center
     h1
         titulo()
         flexGrow()
@@ -282,36 +280,6 @@
     text-align: center
     align-items: center
 
-.bloco_geral_article
-    maxWidth()
-    flexRow()
-    spaceBetween()
-    flex-wrap: wrap
-    .article_fake
-    article
-        width: calc((100% / 3) - 15px)
-    .article_fake
-        background-color: transparent
-        box-shadow: none
-
-@media screen and (max-width:900px)
-    .bloco_geral_article
-        .article_fake
-        article
-            width: calc(50% - 20px)
-            min-height: 250px
-            &:nth-child(even)
-                margin-left: 30px
-
-@media screen and (max-width:600px)
-    .bloco_geral_article
-        justify-content: center
-        .article_fake
-        article
-            width: 100%
-            &:nth-child(even)
-                margin-left: 0
-
 .article_favoritos
     justify-content: flex-start
     .parceiro_favorito
@@ -328,13 +296,27 @@
         width: 100%
         margin-bottom: 20px
 .botao_fixo_bottom
+    width: 100%
+    max-width: 240px
+    height: 60px
+    line-height: 60px
     position: fixed
     bottom: 42px
-    right: 100px
-
+    left: calc((100% / 2) - 120px + 150px)
+    opacity: 1
+    transition: opacity .3s ease-out, bottom .3s ease-out
+    overflow: hidden
+    &.fechar
+        bottom: 0
+        opacity: 0
+@media screen and (max-width: 1250px)
+    .botao_fixo_bottom
+        left: calc((100% / 2) - 120px)
 @media screen and (max-width: 600px)
     .botao_fixo_bottom
-        right: 20px
+        max-width: calc(100% - 40px)
+        left: 20px
+        bottom: 20px
 
 [data-anime-botao]
     opacity: 0

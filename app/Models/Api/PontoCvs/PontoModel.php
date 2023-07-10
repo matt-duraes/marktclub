@@ -76,15 +76,15 @@ final class PontoModel extends ORM
         $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'usuario_nome' => $r->nome,
-                'usuario_email' => $r->email_pessoal,
-                'ponto' => strNull($r->ponto_solicitado),
-                'mensagem' => strNull($r->mensagem),
-                'voucher' => strNull($r->voucher),
+                'id'               => $r->uuid,
+                'usuario_nome'     => $r->nome,
+                'usuario_email'    => $r->email_pessoal,
+                'ponto'            => strNull($r->ponto_solicitado),
+                'mensagem'         => strNull($r->mensagem),
+                'voucher'          => strNull($r->voucher),
                 'data_solicitacao' => dataHoraBr($r->data_solicitacao),
-                'data_voucher' => dataHoraBr($r->data_voucher),
-                'status' => $Status->indice($r->status)
+                'data_voucher'     => dataHoraBr($r->data_voucher),
+                'status'           => $Status->indice($r->status)
             ];
         }
         return $retorno;

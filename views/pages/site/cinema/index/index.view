@@ -2,6 +2,7 @@
 <div id="bloco_cinema">
 
     @view site/geral/banner.view
+
     <div class="bloco_atencao_geral">
         <p>Agora você pode comprar ingressos para o cinema com até 30% de desconto em vários cinemas do país
         </p>
@@ -17,12 +18,12 @@
                 <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
                 <div class="linha cor_bg"></div>
             </article>
-            @ endforeach:
+            @ endforeach;
         @ endif;
     </div>
-    <section class="bloco_simulacao container_scroll">
+    <div class="container_scroll bloco_botao">
         <a class="botao_geral_cor cor_bg" href="https://afiliados.easylive.com.br/?aid=5">COMPRAR INGRESSO</a>
-	</section>
+    </div>
     <a href="https://afiliados.easylive.com.br/?aid=5" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">COMPRAR INGRESSO</a>
 </div>
 

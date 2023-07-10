@@ -3,7 +3,6 @@
 namespace Helpers;
 
 use Erro\Excecao;
-use Helpers\TextoHelper;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -12,23 +11,22 @@ final class UploadHelper
 {
     private string $nomeReal;
     private string $extensao;
-
     private string $diretorioFinal;
     private ?Image $imagem = null;
 
     /**
      * Manipula arquivos de upload
      *
-     * @param   null|UploadedFile       $arquivo        Arquivo do UploadedFile para manipular
-     * @param   string                  $diretorio      Diretório que deseja salvar o arquivo
-     * @param   array                   $ext            Extensões aceitas
-     * @param   array                   $mimeType       MimeTypes aceitos
-     * @param   null|string             $nome           Nome para o arquivo, caso não seja passado, pega o nome real do arquivo
-     * @param   null|int                $nomeMaximo     Número de caracteres máximo para o nome
-     * @param   bool                    $nomeForcar     Força salvar com o nome mesmo que já exista um arquivo com o mesmo nome
-     * @param   null|int                $mbMaximo       MB máximo do arquivo
-     * @param   array                   $mensagem       Mensagem personalidas de erro
-     * @param   string                  $path           Path do diretório raiz
+     * @param null|UploadedFile $arquivo    Arquivo do UploadedFile para manipular
+     * @param string            $diretorio  Diretório que deseja salvar o arquivo
+     * @param array             $ext        Extensões aceitas
+     * @param array             $mimeType   MimeTypes aceitos
+     * @param null|string       $nome       Nome para o arquivo, caso não seja passado, pega o nome real do arquivo
+     * @param null|int          $nomeMaximo Número de caracteres máximo para o nome
+     * @param bool              $nomeForcar Força salvar com o nome mesmo que já exista um arquivo com o mesmo nome
+     * @param null|int          $mbMaximo   MB máximo do arquivo
+     * @param array             $mensagem   Mensagem personalidas de erro
+     * @param string            $path       Path do diretório raiz
      */
     public function __construct(
         private ?UploadedFile $arquivo,
@@ -83,13 +81,14 @@ final class UploadHelper
     {
         return $this->extensao;
     }
+
     /**
      * Valida se a imagem tem o tamanho informado
      *
-     * @param   int   $width    A largura que a imagem deve ter
-     * @param   int   $height   A altura que a imagem deve ter
-     * @param   bool  $erro     true para retornar uma exceção ou false para retornar bool
-     * @return  bool            Retorna true para se a imagem tiver válida
+     * @param  int  $width  A largura que a imagem deve ter
+     * @param  int  $height A altura que a imagem deve ter
+     * @param  bool $erro   true para retornar uma exceção ou false para retornar bool
+     * @return bool Retorna true para se a imagem tiver válida
      */
     public function validarTamanho(int $width, int $height, bool $erro = true): bool
     {
@@ -101,6 +100,7 @@ final class UploadHelper
         }
         return $validar;
     }
+
     public function tamanho()
     {
         if ($this->verificarSeArquivoEImagem()) {
@@ -110,6 +110,7 @@ final class UploadHelper
         }
         return round(($tamanho / 1000) / 1000, 2);
     }
+
     public function largura()
     {
         if (!$this->verificarSeArquivoEImagem()) {
@@ -120,6 +121,7 @@ final class UploadHelper
         }
         return $this->imagem->width();
     }
+
     public function altura()
     {
         if (!$this->verificarSeArquivoEImagem()) {
@@ -142,11 +144,11 @@ final class UploadHelper
     }
 
     /**
-     * @param Mixed     $width          Largura que a imagem deve ficar
-     * @param Mixed     $height         Altura que a imagem deve ficar
-     * @param Mixed     $top            Margin para o topo onde deve começar a cortar a imagem
-     * @param Mixed     $left           Margin para a esquerda onde deve começar a cortar a imagem
-     * @param Int       $sobra          Valor a ser somado ao tamanho da imagem por questões de erro
+     * @param mixed $width  Largura que a imagem deve ficar
+     * @param mixed $height Altura que a imagem deve ficar
+     * @param mixed $top    Margin para o topo onde deve começar a cortar a imagem
+     * @param mixed $left   Margin para a esquerda onde deve começar a cortar a imagem
+     * @param int   $sobra  Valor a ser somado ao tamanho da imagem por questões de erro
      */
     public function cortar($width, $height, $top = null, $left = null, int $sobra = 0): self
     {
@@ -186,8 +188,8 @@ final class UploadHelper
     }
 
     /**
-     * @param ?int     $width      Tamanho que a imagem deve ficar
-     * @param ?int     $height     Altura que a imagem deve ficar
+     * @param ?int $width  Tamanho que a imagem deve ficar
+     * @param ?int $height Altura que a imagem deve ficar
      */
     public function redimencionar(?int $width = null, ?int $height = null): self
     {
@@ -225,16 +227,19 @@ final class UploadHelper
         $this->validarSeArquivoExiste();
         return $this->nome;
     }
+
     public function diretorio(): string
     {
         $this->validarSeArquivoExiste();
         return $this->diretorio;
     }
+
     public function path(): string
     {
         $this->validarSeArquivoExiste();
         return $this->path;
     }
+
     public function validarSeArquivoExiste()
     {
         if (!file_exists($this->diretorioFinal . '/' . $this->nome)) {
@@ -262,6 +267,7 @@ final class UploadHelper
             );
         }
     }
+
     private function passarArquivoPeloAntiVirus()
     {
         if (eLocalhost()) {
@@ -366,7 +372,7 @@ final class UploadHelper
 
         return [
             'tamanho' => round($bytes, $precision),
-            'medida' => $units[$pow]
+            'medida'  => $units[$pow]
         ];
     }
 
@@ -450,55 +456,55 @@ final class UploadHelper
     private $mimeTypeLista = [
         'psd' => 'image/vnd.adobe.photoshop',
         'avi' => 'video/x-msvideo',
-        'ai' => [
+        'ai'  => [
             'application/postscript', 'application/pdf'
         ],
         'csv' => [
             'text/comma-separated-values', 'text/csv', 'application/vnd.ms-excel', 'text/x-comma-separated-values'
         ],
-        'cdr' => 'application/cdr',
-        'doc' => 'application/msword',
-        'dot' => 'application/msword',
+        'cdr'  => 'application/cdr',
+        'doc'  => 'application/msword',
+        'dot'  => 'application/msword',
         'docx' => [
             'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         ],
-        'eps' => 'application/postscript',
-        'gif' => 'image/gif',
-        'gz' => 'application/gzip',
+        'eps'  => 'application/postscript',
+        'gif'  => 'image/gif',
+        'gz'   => 'application/gzip',
         'gtar' => 'application/x-gtar',
-        'ico' => 'image/x-icon',
-        'jpe' => 'image/jpeg',
+        'ico'  => 'image/x-icon',
+        'jpe'  => 'image/jpeg',
         'jpeg' => 'image/jpeg',
-        'jpg' => 'image/jpeg',
+        'jpg'  => 'image/jpeg',
         'midi' => 'audio/midi',
-        'mid' => 'audio/midi',
-        'mov' => 'video/quicktime',
-        'mp3' => 'audio/mpeg',
+        'mid'  => 'audio/midi',
+        'mov'  => 'video/quicktime',
+        'mp3'  => 'audio/mpeg',
         'mpeg' => 'video/mpeg',
-        'mpg' => 'video/mpeg',
-        'ogg' => 'application/ogg',
-        'pdf' => 'application/pdf',
-        'png' => 'image/png',
-        'pps' => 'application/mspowerpoint',
-        'ppt' => [
+        'mpg'  => 'video/mpeg',
+        'ogg'  => 'application/ogg',
+        'pdf'  => 'application/pdf',
+        'png'  => 'image/png',
+        'pps'  => 'application/mspowerpoint',
+        'ppt'  => [
             'application/mspowerpoint', 'application/vnd.ms-powerpoint'
         ],
         'pptx' => [
             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
             'application/mspowerpoint', 'application/vnd.ms-powerpoint'
         ],
-        'ppz' => 'application/mspowerpoint',
-        'pot' => 'application/mspowerpoint',
-        'rar' => 'application/x-rar-compressed',
-        'svg' => 'image/svg+xml',
-        'tar' => 'application/x-tar',
+        'ppz'  => 'application/mspowerpoint',
+        'pot'  => 'application/mspowerpoint',
+        'rar'  => 'application/x-rar-compressed',
+        'svg'  => 'image/svg+xml',
+        'tar'  => 'application/x-tar',
         'tiff' => 'image/tiff',
-        'tif' => 'image/tiff',
-        'tgz' => 'application/x-compressed',
-        'txt' => 'text/plain',
-        'xla' => 'application/msexcel',
-        'xlc' => 'application/vnd.ms-excel',
-        'xls' => [
+        'tif'  => 'image/tiff',
+        'tgz'  => 'application/x-compressed',
+        'txt'  => 'text/plain',
+        'xla'  => 'application/msexcel',
+        'xlc'  => 'application/vnd.ms-excel',
+        'xls'  => [
             'application/msexcel', 'application/excel', 'application/vnd.ms-excel'
         ],
         'xlsx' => [

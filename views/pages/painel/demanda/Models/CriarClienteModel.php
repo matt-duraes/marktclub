@@ -14,7 +14,6 @@ final class CriarClienteModel
 
     private stdClass $Demanda;
     private array $listaNotificacao = [];
-
     private string $usuarioInfra = '8fd85f9f7cc21d6e33399681d6e5fca7';
     private string $usuarioDns = '8fd85f9f7cc21d6e33399681d6e5fca7';
     private string $usuarioBancoDados = '8fd85f9f7cc21d6e33399681d6e5fca7';
@@ -131,6 +130,7 @@ final class CriarClienteModel
             tempo: 60
         );
     }
+
     private function rodarScriptSubirConvenio()
     {
         $this->salvarTarefa(
@@ -181,12 +181,12 @@ final class CriarClienteModel
         foreach ($this->listaNotificacao as $equipe) {
             $Api
                 ->body([
-                    'titulo' => 'Criou uma nova tarefa para você',
+                    'titulo'   => 'Criou uma nova tarefa para você',
                     'mensagem' => 'Foi criado uma nova tarefa para você, acesse a demanda e verifique o pedido.',
-                    'link' => LINK . '/demanda/tecnologia#demanda-' . $this->Demanda->dado->id,
-                    'botao' => 'Acessar painel',
-                    'dono' => sessao('USUARIO.id'),
-                    'equipe' => $equipe
+                    'link'     => LINK . '/demanda/tecnologia#demanda-' . $this->Demanda->dado->id,
+                    'botao'    => 'Acessar painel',
+                    'dono'     => sessao('USUARIO.id'),
+                    'equipe'   => $equipe
                 ])
                 ->post('/painel-notificacao');
         }
