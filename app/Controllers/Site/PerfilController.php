@@ -34,7 +34,6 @@ final class PerfilController extends Controller
         ]);
     }
 
-
     public function postBuscarCep(Request $request): Response
     {
         $cep = (new LocalizacaoHelper())->pegarEnderecoPeloCep($request->cep);

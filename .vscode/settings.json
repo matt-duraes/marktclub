@@ -25,6 +25,12 @@
 
     "php.suggest.basic": false,
     "editor.formatOnSave": false,
+    "php-cs-fixer.executablePath": "${workspaceFolder}/php-cs-fixer.phar",
+    "php-cs-fixer.config": ".php-cs-fixer.php;.php-cs-fixer.dist.php;.php_cs;.php_cs.dist",
+    "[php]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "junstyle.php-cs-fixer"
+    },
     "[html]": {
         "editor.suggest.insertMode": "replace",
         "gitlens.codeLens.scopes": [
@@ -67,5 +73,12 @@
         "*.styl": "sass",
         "*.view": "html"
     },
-    "task.problemMatchers.neverPrompt": false
+
+    "php-docblocker.returnVoid": false,
+    "php-docblocker.alignParams": true,
+    "php-docblocker.alignReturn": true,
+    "php-docblocker.paramDescription": true,
+    "php-docblocker.returnDescription": true,
+    "php-docblocker.varDescription": true,
+    "php-docblocker.useShortNames": true
 }

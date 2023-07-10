@@ -37,7 +37,6 @@ final class RelatorioEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraSalvar(): void
@@ -47,7 +46,6 @@ final class RelatorioEntity extends Entity
     }
 
     /**
-     * @return void
      */
     protected function regraPosBuscar(): void
     {

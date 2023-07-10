@@ -26,7 +26,7 @@ final class PremiumModel extends ORM
     private bool $mesAtual = false;
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      */
     public function __construct(
         protected readonly Request $request
@@ -57,7 +57,7 @@ final class PremiumModel extends ORM
     }
 
     /**
-     * @param  array  $dado
+     * @param array $dado
      *
      * @return array
      */

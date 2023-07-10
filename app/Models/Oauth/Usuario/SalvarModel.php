@@ -16,11 +16,11 @@ final class SalvarModel extends ORM
     private string $hash;
 
     /**
-     * @param  int     $empresa
-     * @param  string  $nome
-     * @param  int     $cpf
-     * @param  string  $email
-     * @param  string  $grupo
+     * @param int    $empresa
+     * @param string $nome
+     * @param int    $cpf
+     * @param string $email
+     * @param string $grupo
      *
      * @throws Excecao
      */
@@ -44,7 +44,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      */
     private function pegarLinkClube(): void
     {
@@ -57,7 +56,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarIdUsuario(): void
@@ -77,7 +75,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function atualizarUsuario(): void
