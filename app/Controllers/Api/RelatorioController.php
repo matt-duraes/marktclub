@@ -11,6 +11,7 @@ use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
+use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
@@ -80,6 +81,7 @@ final class RelatorioController extends Controller
         $Relatorio = new LojaMaisAcessadaModel(
             new Data($request->de),
             new Data($request->ate),
+            new Estabelecimento($request->estabelecimento),
             Empresa: $this->pegarEmpresa($request->empresa)
         );
         return mensagemSucesso($Relatorio->listarDado());
