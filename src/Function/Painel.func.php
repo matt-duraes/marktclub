@@ -224,6 +224,7 @@ if (!function_exists('painelAppVisualizar')) {
                 $titulo = '';
                 $link = '';
                 $notificar = [];
+                $fechar = false;
                 require ROOT . '/src/Html/Painel/appHistorico.php';
             }
             return;

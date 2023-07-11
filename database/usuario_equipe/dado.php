@@ -18,8 +18,9 @@ $permissao = json_encode([
     'solicitacao_premium_index', 'solicitacao_premium_download', 'solicitacao_premium_empresa',
     'solicitacao_salavip_index', 'solicitacao_salavip_download', 'comercial_empresa_index',
     'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
-    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_atendimento_index',
-    'demanda_tecnologia', 'demanda_criacao', 'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
+    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',
+    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
+    'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [

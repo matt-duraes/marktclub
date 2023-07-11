@@ -156,12 +156,12 @@ final class AppController extends PadraoController
     public function visualizar(string $app, string $uuid)
     {
         $appReal = $this->converterNomeApp($app);
-        if (is_dir(ROOT . '/views/pages/painel/' . $appReal . '/routes')) {
+        $path = ROOT . '/views/pages/painel/' . $appReal;
+        if (is_dir($path . '/routes') && !file_exists($path . '/config/visualizar.php')) {
             throw new Excecao(status: 404);
         }
 
         $config = $this->config($appReal, 'visualizar');
-
         if (!$config->permissao->visualizar) {
             throw new Excecao(status: 403);
         }
