@@ -196,7 +196,8 @@ if (!function_exists('painelHistorico')) {
         bool $boxShadow = true,
         string $titulo = '',
         string $link = '',
-        array $notificar = []
+        array $notificar = [],
+        bool $fechar = false
     ) {
         $r = (object)[
             'id' => $id

@@ -165,7 +165,7 @@ async function monitorarSistema() {
     // PHP CS FIXER
     watch(['**/*.php', '!**/*Route.php']).on('change', async path => {
         const time = new Date().getTime();
-        consoleHeader();
+        consoleHeader('php-fix');
         await phpCsFixer(path);
         consoleFooter(time);
     });
@@ -173,7 +173,7 @@ async function monitorarSistema() {
     // CSS
     watch('./views/pages/**/*.styl').on('change', async path => {
         const time = new Date().getTime();
-        consoleHeader();
+        consoleHeader('styl');
         await cssUnico(path, browserSync);
         consoleFooter(time);
     });
@@ -181,45 +181,36 @@ async function monitorarSistema() {
     // JS
     watch('./views/pages/**/*.js').on('change', async path => {
         const time = new Date().getTime();
-        consoleHeader();
+        consoleHeader('js');
         await jsUnico(path);
         browserSync.reload();
         consoleFooter(time);
     });
 
     // HTML
-    watch('./views/pages/**/*.view').on('change', async path => {
+    watch(['./views/pages/**/*.view', './src/Painel/App/**/*.view']).on('change', async path => {
         const time = new Date().getTime();
-        consoleHeader();
+        consoleHeader('view');
         await htmlUnico(path);
         browserSync.reload();
         consoleFooter(time);
     });
-    watch(['./src/Painel/App/**/*.view', './views/templates/**/*.view', './resources/php/**/*.php']).on(
-        'change',
-        async () => {
-            const time = new Date().getTime();
-            consoleHeader();
-            await htmlTodos();
-            browserSync.reload();
-            consoleFooter(time);
-        }
-    );
-    watch(['./src/**/*.php', '!./src/Database/tabela.php']).on('change', () => {
-        browserSync.reload();
-    });
+    // watch(['./resources/php/**/*.php', './src/**/*.php', '!./src/Database/tabela.php']).on('change', async () => {
+    //     browserSync.reload();
+    // });
 
     // IMAGEM
     watch(['./views/images/**/*']).on('all', async () => {
         const time = new Date().getTime();
-        consoleHeader();
+        consoleHeader('imagem');
         await imagemTodos();
         consoleFooter(time);
     });
 }
 
-function consoleHeader() {
-    console.log('Processando ... ');
+function consoleHeader(acao) {
+    acao = acao == undefined ? '' : acao;
+    console.log('Processando ' + acao + ' ... ');
 }
 
 function consoleFooter(time) {

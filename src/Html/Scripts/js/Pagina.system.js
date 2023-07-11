@@ -211,7 +211,11 @@ class Pagina {
 }
 document.querySelector('body').insertAdjacentHTML('afterbegin', '<div id="bloco_fw_pagina"></div>');
 document.getElementById('bloco_fw_pagina').addEventListener('click', e => {
-    if (e.target.classList.contains('fw_pagina_box_fechar')) {
+    if (
+        e.target.classList.contains('fw_pagina_box_fechar') ||
+        e.target.classList.contains('pagina_fechar') ||
+        e.target.closest('.pagina_fechar')
+    ) {
         Pagina.staticFechar();
     }
 });

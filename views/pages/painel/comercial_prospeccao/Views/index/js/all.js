@@ -1,4 +1,6 @@
 // @template "painel"
+// @painel "historico"
+// @painel "contato"
 
 window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
@@ -10,7 +12,7 @@ window.addEventListener('load', () => {
     const blocoAvaliacao = document.getElementById('bloco_avaliacao');
     const blocoMinuta = document.getElementById('bloco_minuta');
 
-    const htmlZero = '<div class="item_zero">Sem itens<br> no momento</div>';
+    const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
 
     listaItem.forEach(item => {
         const botaoAtendimento = item.querySelector('.botao_item_atendimento');
@@ -21,6 +23,29 @@ window.addEventListener('load', () => {
         const botaoProximo = item.querySelector('.botao_item_proximo');
         const id = item.getAttribute('data-id');
 
+        const PaginaContato = new Pagina(
+            'contato-' + id,
+            LINK + '/comercial-prospeccao/contato/' + id,
+            {},
+            true,
+            true,
+            contatoLoad
+        );
+        botaoAtendimento.addEventListener('click', () => {
+            PaginaContato.abrir();
+        });
+
+        const PaginaHistorico = new Pagina(
+            'historico-' + id,
+            LINK + '/historico/comercial-empresa/' + id,
+            {},
+            true,
+            true,
+            historicoLoad
+        );
+        botaoHistorico.addEventListener('click', () => {
+            PaginaHistorico.abrir();
+        });
         botaoCancelar.addEventListener('click', () => {
             cancelarContrato(item, id);
         });
@@ -126,9 +151,10 @@ window.addEventListener('load', () => {
 
         Loading.show();
 
+        const status = destino.getAttribute('data-prospeccao');
         const body = new FormData();
         body.append('id', id);
-        body.append('prospeccao', destino.getAttribute('data-prospeccao'));
+        body.append('prospeccao', status);
 
         const resposta = await fetch(LINK + '/comercial-prospeccao/atualizar-prospeccao', {
             method: 'POST',
@@ -141,14 +167,31 @@ window.addEventListener('load', () => {
             return;
         }
 
-        const blocoZero = destino.querySelector('.item_zero');
+        const blocoZero = destino.querySelector('.tarefa_zero');
         if (blocoZero) {
             blocoZero.parentNode.removeChild(blocoZero);
         }
+        const botaoAnterior = item.querySelector('.botao_item_anterior');
+        const botaoProximo = item.querySelector('.botao_item_proximo');
+        botaoAnterior.classList.remove('display_none');
+        botaoProximo.classList.remove('display_none');
+        if (status == 'abordagem') {
+            botaoAnterior.classList.add('display_none');
+        } else if (status == 'minuta') {
+            botaoProximo.classList.add('display_none');
+        }
         destino.appendChild(item);
         adicionarBlocoZero(atual);
+        adicionarNumeroItem(atual);
+        adicionarNumeroItem(destino);
     };
 
+    const adicionarNumeroItem = bloco => {
+        const blocoColuna = bloco.closest('.bloco_coluna');
+        const quantidade = blocoColuna.querySelectorAll('.bloco_kambam_item').length;
+        const blocoNumero = blocoColuna.querySelector('header h1 span');
+        blocoNumero.innerText = '(' + quantidade + ')';
+    };
     const adicionarBlocoZero = bloco => {
         if (bloco.querySelectorAll('.bloco_kambam_item').length == 0) {
             bloco.insertAdjacentHTML('afterbegin', htmlZero);
