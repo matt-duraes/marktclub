@@ -45,33 +45,33 @@ if (!function_exists('formInput')) {
     /**
      * Gera um Input padrão
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   int|array       $contador       Quantidade de caracteres que o input vai ter, array para 2 valores
-     * @param   string|array    $type           O type do input, array para 2 types
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string|array    $mascara        Mascara para o input, array para 2 mascaras
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool|array      $numero         Se o input vai puxar o teclado numérico, array para 2 inputs
-     * @param   bool|array      $data           Se o input vai ser do tipo data, array para 2 inputs
-     * @param   bool|array      $senha          Se o input será do tipo password, array para 2 inputs
-     * @param   bool            $url            Se o input será uma URL, não pode ter 2 input
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @param   null|int|array  $maximo         Valor maximo para o input, array para 2 inputs
-     * @return  string                          HTML com o código do input
+     * @param  string|array   $name         Name do input, array para 2 inputs
+     * @param  string         $label        Label do input
+     * @param  mixed          $value        Valor do input, array para 2 valores
+     * @param  string|array   $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string         $class        Class para o bloco geral
+     * @param  string         $id           ID para o bloco geral
+     * @param  string         $html         Html de complemento para o input
+     * @param  string         $icone        Icone sem cor para o input
+     * @param  string         $iconeCor     Icone com cor para o input
+     * @param  bool|array     $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool           $focus        Se vai focar o input
+     * @param  int|array      $contador     Quantidade de caracteres que o input vai ter, array para 2 valores
+     * @param  string|array   $type         O type do input, array para 2 types
+     * @param  array          $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string|array   $mascara      Mascara para o input, array para 2 mascaras
+     * @param  string         $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool|array     $numero       Se o input vai puxar o teclado numérico, array para 2 inputs
+     * @param  bool|array     $data         Se o input vai ser do tipo data, array para 2 inputs
+     * @param  bool|array     $senha        Se o input será do tipo password, array para 2 inputs
+     * @param  bool           $url          Se o input será uma URL, não pode ter 2 input
+     * @param  bool           $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string         $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array          $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool           $footer       Se o input vai ter um footer
+     * @param  string         $separador    Um separador quando tiver 2 inputs
+     * @param  null|int|array $maximo       Valor maximo para o input, array para 2 inputs
+     * @return string         HTML com o código do input
      */
     function formInput(
         string|array $name,
@@ -543,17 +543,17 @@ if (!function_exists('formSelect')) {
     /**
      * Gera um select padrão
      *
-     * @param string    $name           Name do select
-     * @param array     $lista          Lista de opções do select ['indice_1' => 'Nome 01', 'indice_2' => 'Nome 02']
-     * @param string    $label          Label do select
-     * @param string    $placeholder    Placeholder do select
-     * @param midex     $value          Valor inicial do select
-     * @param string    $id             ID para o select
-     * @param string    $class          Classe para o box do select
-     * @param bool      $obrigatorio    Se o select é obrigatório
-     * @param bool      $footer         Se o select vai ter um footer
-     * @param bool      $change         Nome da funcao onchange
-     * @return string                   HTML com o código do select
+     * @param  string $name        Name do select
+     * @param  array  $lista       Lista de opções do select ['indice_1' => 'Nome 01', 'indice_2' => 'Nome 02']
+     * @param  string $label       Label do select
+     * @param  string $placeholder Placeholder do select
+     * @param  midex  $value       Valor inicial do select
+     * @param  string $id          ID para o select
+     * @param  string $class       Classe para o box do select
+     * @param  bool   $obrigatorio Se o select é obrigatório
+     * @param  bool   $footer      Se o select vai ter um footer
+     * @param  bool   $change      Nome da funcao onchange
+     * @return string HTML com o código do select
      */
     function formSelect(
         $name,
@@ -641,29 +641,29 @@ if (!function_exists('formInputSelect')) {
 }
 if (!function_exists('formAutocomplete')) {
     /**
-     * @param string|Array $name Name do input, array para 2 inputs
-     * @param string $label Label do input
-     * @param Mixed $value Valor do input, array para 2 valores
-     * @param string|Array $placeholder Placeholder do input, array para 2 placeholders
-     * @param string $class Class para o bloco geral
-     * @param string $id ID para o bloco geral
-     * @param string $html Html de complemento para o input
-     * @param string $icone Icone sem cor para o input
-     * @param string $iconeCor Icone com cor para o input
-     * @param bool|Array $obrigatorio Se o input vai ser obrigatório, array para 2 inputs
-     * @param bool $focus Se vai focar o input
-     * @param Int|Array $contador Quantidade de caracteres que o input vai ter, array para 2 valores
-     * @param string|Array $type O type do input, array para 2 types
-     * @param string|Array $attr Atributos para o input, array para passar atributos para 2 inputs
-     * @param string|Array $mascara Mascara para o input, array para 2 mascaras
-     * @param string $ajuda Icone de ajuda com um texto de ajuda
-     * @param bool|Array $numero Se o input vai puxar o teclado numérico, array para 2 inputs
-     * @param bool|Array $data Se o input vai ser do tipo data, array para 2 inputs
-     * @param bool $url Se o input será uma URL, não pode ter 2 input
-     * @param string $action Action que será disparado via Ajax ao digitar no autocomplete
-     * @param array $request Caso o action precise enviar valores de outros inputs
-     * @param bool $footer Se o input vai ter um footer
-     * @param string $separador Um separador quando tiver 2 inputs
+     * @param string|array $name        Name do input, array para 2 inputs
+     * @param string       $label       Label do input
+     * @param mixed        $value       Valor do input, array para 2 valores
+     * @param string|array $placeholder Placeholder do input, array para 2 placeholders
+     * @param string       $class       Class para o bloco geral
+     * @param string       $id          ID para o bloco geral
+     * @param string       $html        Html de complemento para o input
+     * @param string       $icone       Icone sem cor para o input
+     * @param string       $iconeCor    Icone com cor para o input
+     * @param bool|array   $obrigatorio Se o input vai ser obrigatório, array para 2 inputs
+     * @param bool         $focus       Se vai focar o input
+     * @param int|array    $contador    Quantidade de caracteres que o input vai ter, array para 2 valores
+     * @param string|array $type        O type do input, array para 2 types
+     * @param string|array $attr        Atributos para o input, array para passar atributos para 2 inputs
+     * @param string|array $mascara     Mascara para o input, array para 2 mascaras
+     * @param string       $ajuda       Icone de ajuda com um texto de ajuda
+     * @param bool|array   $numero      Se o input vai puxar o teclado numérico, array para 2 inputs
+     * @param bool|array   $data        Se o input vai ser do tipo data, array para 2 inputs
+     * @param bool         $url         Se o input será uma URL, não pode ter 2 input
+     * @param string       $action      Action que será disparado via Ajax ao digitar no autocomplete
+     * @param array        $request     Caso o action precise enviar valores de outros inputs
+     * @param bool         $footer      Se o input vai ter um footer
+     * @param string       $separador   Um separador quando tiver 2 inputs
      */
     function formAutocomplete(
         string | array $name,
@@ -700,28 +700,28 @@ if (!function_exists('formNumero')) {
     /**
      * Gera um Input para número
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   int|array       $contador       Quantidade de caracteres que o input vai ter, array para 2 valores
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string|array    $mascara        Mascara para o input, array para 2 mascaras
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @param   null|int|array  $maximo         Valor máximo que pode ter no input
-     * @return  string                          HTML com o código do input
+     * @param  string|array   $name         Name do input, array para 2 inputs
+     * @param  string         $label        Label do input
+     * @param  mixed          $value        Valor do input, array para 2 valores
+     * @param  string|array   $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string         $class        Class para o bloco geral
+     * @param  string         $id           ID para o bloco geral
+     * @param  string         $html         Html de complemento para o input
+     * @param  string         $icone        Icone sem cor para o input
+     * @param  string         $iconeCor     Icone com cor para o input
+     * @param  bool|array     $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool           $focus        Se vai focar o input
+     * @param  int|array      $contador     Quantidade de caracteres que o input vai ter, array para 2 valores
+     * @param  array          $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string|array   $mascara      Mascara para o input, array para 2 mascaras
+     * @param  string         $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool           $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string         $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  bool           $footer       Se o input vai ter um footer
+     * @param  array          $request      Caso o action precise enviar valores de outros inputs
+     * @param  string         $separador    Um separador quando tiver 2 inputs
+     * @param  null|int|array $maximo       Valor máximo que pode ter no input
+     * @return string         HTML com o código do input
      */
     function formNumero(
         string | array $name,
@@ -780,26 +780,26 @@ if (!function_exists('formCpf')) {
     /**
      * Gera um Input para CPF
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders, por padrão 000.000.000-00
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @param   null|int|array  $maximo         Valor maximo para o input, array para 2 inputs
-     * @return  string                          HTML com o código do input
+     * @param  string|array   $name         Name do input, array para 2 inputs
+     * @param  string         $label        Label do input
+     * @param  mixed          $value        Valor do input, array para 2 valores
+     * @param  string|array   $placeholder  Placeholder do input, array para 2 placeholders, por padrão 000.000.000-00
+     * @param  string         $class        Class para o bloco geral
+     * @param  string         $id           ID para o bloco geral
+     * @param  string         $html         Html de complemento para o input
+     * @param  string         $icone        Icone sem cor para o input
+     * @param  string         $iconeCor     Icone com cor para o input
+     * @param  bool|array     $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool           $focus        Se vai focar o input
+     * @param  array          $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string         $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool           $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string         $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array          $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool           $footer       Se o input vai ter um footer
+     * @param  string         $separador    Um separador quando tiver 2 inputs
+     * @param  null|int|array $maximo       Valor maximo para o input, array para 2 inputs
+     * @return string         HTML com o código do input
      */
     function formCpf(
         string | array $name,
@@ -855,26 +855,26 @@ if (!function_exists('formCnpj')) {
     /**
      * Gera um Input para CNPJ
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @param   null|int|array  $maximo         Valor maximo para o input, array para 2 inputs
-     * @return  string                          HTML com o código do input
+     * @param  string|array   $name         Name do input, array para 2 inputs
+     * @param  string         $label        Label do input
+     * @param  mixed          $value        Valor do input, array para 2 valores
+     * @param  string|array   $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string         $class        Class para o bloco geral
+     * @param  string         $id           ID para o bloco geral
+     * @param  string         $html         Html de complemento para o input
+     * @param  string         $icone        Icone sem cor para o input
+     * @param  string         $iconeCor     Icone com cor para o input
+     * @param  bool|array     $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool           $focus        Se vai focar o input
+     * @param  array          $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string         $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool           $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string         $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array          $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool           $footer       Se o input vai ter um footer
+     * @param  string         $separador    Um separador quando tiver 2 inputs
+     * @param  null|int|array $maximo       Valor maximo para o input, array para 2 inputs
+     * @return string         HTML com o código do input
      */
     function formCnpj(
         string | array $name,
@@ -931,22 +931,22 @@ if (!function_exists('formSenha')) {
     /**
      * Gera um Input para senha
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   int|array       $contador       Quantidade de caracteres que o input vai ter, array para 2 valores
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @return  string                          HTML com o código do input
+     * @param  string|array $name        Name do input, array para 2 inputs
+     * @param  string       $label       Label do input
+     * @param  mixed        $value       Valor do input, array para 2 valores
+     * @param  string|array $placeholder Placeholder do input, array para 2 placeholders
+     * @param  string       $class       Class para o bloco geral
+     * @param  string       $id          ID para o bloco geral
+     * @param  string       $html        Html de complemento para o input
+     * @param  string       $icone       Icone sem cor para o input
+     * @param  string       $iconeCor    Icone com cor para o input
+     * @param  bool|array   $obrigatorio Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool         $focus       Se vai focar o input
+     * @param  int|array    $contador    Quantidade de caracteres que o input vai ter, array para 2 valores
+     * @param  array        $attr        Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string       $ajuda       Icone de ajuda com um texto de ajuda
+     * @param  bool         $footer      Se o input vai ter um footer
+     * @return string       HTML com o código do input
      */
     function formSenha(
         string | array $name,
@@ -976,26 +976,26 @@ if (!function_exists('formEmail')) {
     /**
      * Gera um Input para email
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   int|array       $contador       Quantidade de caracteres que o input vai ter, array para 2 valores
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @return  string                          HTML com o código do input
+     * @param  string|array $name         Name do input, array para 2 inputs
+     * @param  string       $label        Label do input
+     * @param  mixed        $value        Valor do input, array para 2 valores
+     * @param  string|array $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string       $class        Class para o bloco geral
+     * @param  string       $id           ID para o bloco geral
+     * @param  string       $html         Html de complemento para o input
+     * @param  string       $icone        Icone sem cor para o input
+     * @param  string       $iconeCor     Icone com cor para o input
+     * @param  bool|array   $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool         $focus        Se vai focar o input
+     * @param  int|array    $contador     Quantidade de caracteres que o input vai ter, array para 2 valores
+     * @param  array        $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string       $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool         $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string       $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array        $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool         $footer       Se o input vai ter um footer
+     * @param  string       $separador    Um separador quando tiver 2 inputs
+     * @return string       HTML com o código do input
      */
     function formEmail(
         string | array $name,
@@ -1028,25 +1028,25 @@ if (!function_exists('formTelefone')) {
     /**
      * Gera um Input para telefone
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @return  string                          HTML com o código do input
+     * @param  string|array $name         Name do input, array para 2 inputs
+     * @param  string       $label        Label do input
+     * @param  mixed        $value        Valor do input, array para 2 valores
+     * @param  string|array $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string       $class        Class para o bloco geral
+     * @param  string       $id           ID para o bloco geral
+     * @param  string       $html         Html de complemento para o input
+     * @param  string       $icone        Icone sem cor para o input
+     * @param  string       $iconeCor     Icone com cor para o input
+     * @param  bool|array   $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool         $focus        Se vai focar o input
+     * @param  array        $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string       $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool         $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string       $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array        $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool         $footer       Se o input vai ter um footer
+     * @param  string       $separador    Um separador quando tiver 2 inputs
+     * @return string       HTML com o código do input
      */
     function formTelefone(
         string | array $name,
@@ -1078,24 +1078,24 @@ if (!function_exists('formUrl')) {
     /**
      * Gera um Input para URL
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @return  string                          HTML com o código do input
+     * @param  string|array $name         Name do input, array para 2 inputs
+     * @param  string       $label        Label do input
+     * @param  mixed        $value        Valor do input, array para 2 valores
+     * @param  string|array $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string       $class        Class para o bloco geral
+     * @param  string       $id           ID para o bloco geral
+     * @param  string       $html         Html de complemento para o input
+     * @param  string       $icone        Icone sem cor para o input
+     * @param  string       $iconeCor     Icone com cor para o input
+     * @param  bool|array   $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool         $focus        Se vai focar o input
+     * @param  array        $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string       $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool         $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string       $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array        $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool         $footer       Se o input vai ter um footer
+     * @return string       HTML com o código do input
      */
     function formUrl(
         string | array $name,
@@ -1126,25 +1126,25 @@ if (!function_exists('formData')) {
     /**
      * Gera um Input para data
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @return  string                          HTML com o código do input
+     * @param  string|array $name         Name do input, array para 2 inputs
+     * @param  string       $label        Label do input
+     * @param  mixed        $value        Valor do input, array para 2 valores
+     * @param  string|array $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string       $class        Class para o bloco geral
+     * @param  string       $id           ID para o bloco geral
+     * @param  string       $html         Html de complemento para o input
+     * @param  string       $icone        Icone sem cor para o input
+     * @param  string       $iconeCor     Icone com cor para o input
+     * @param  bool|array   $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool         $focus        Se vai focar o input
+     * @param  array        $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string       $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool         $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string       $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array        $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool         $footer       Se o input vai ter um footer
+     * @param  string       $separador    Um separador quando tiver 2 inputs
+     * @return string       HTML com o código do input
      */
     function formData(
         string | array $name,
@@ -1183,25 +1183,25 @@ if (!function_exists('formDataHora')) {
     /**
      * Gera um Input com data e hora
      *
-     * @param   string|array    $name           Name do input, array para 2 inputs
-     * @param   string          $label          Label do input
-     * @param   mixed           $value          Valor do input, array para 2 valores
-     * @param   string|array    $placeholder    Placeholder do input, array para 2 placeholders
-     * @param   string          $class          Class para o bloco geral
-     * @param   string          $id             ID para o bloco geral
-     * @param   string          $html           Html de complemento para o input
-     * @param   string          $icone          Icone sem cor para o input
-     * @param   string          $iconeCor       Icone com cor para o input
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório, array para 2 inputs
-     * @param   bool            $focus          Se vai focar o input
-     * @param   array           $attr           Atributos para o input, array duplo para mandar attr para 2 inputs
-     * @param   string          $ajuda          Icone de ajuda com um texto de ajuda
-     * @param   bool            $autocomplete   Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
-     * @param   string          $action         Action que será disparado via Ajax ao digitar no autocomplete
-     * @param   array           $request        Caso o action precise enviar valores de outros inputs
-     * @param   bool            $footer         Se o input vai ter um footer
-     * @param   string          $separador      Um separador quando tiver 2 inputs
-     * @return  string                          HTML com o código do input
+     * @param  string|array $name         Name do input, array para 2 inputs
+     * @param  string       $label        Label do input
+     * @param  mixed        $value        Valor do input, array para 2 valores
+     * @param  string|array $placeholder  Placeholder do input, array para 2 placeholders
+     * @param  string       $class        Class para o bloco geral
+     * @param  string       $id           ID para o bloco geral
+     * @param  string       $html         Html de complemento para o input
+     * @param  string       $icone        Icone sem cor para o input
+     * @param  string       $iconeCor     Icone com cor para o input
+     * @param  bool|array   $obrigatorio  Se o input vai ser obrigatório, array para 2 inputs
+     * @param  bool         $focus        Se vai focar o input
+     * @param  array        $attr         Atributos para o input, array duplo para mandar attr para 2 inputs
+     * @param  string       $ajuda        Icone de ajuda com um texto de ajuda
+     * @param  bool         $autocomplete Se o input vai ser do tipo autocomplete, não pode ter 2 inputs
+     * @param  string       $action       Action que será disparado via Ajax ao digitar no autocomplete
+     * @param  array        $request      Caso o action precise enviar valores de outros inputs
+     * @param  bool         $footer       Se o input vai ter um footer
+     * @param  string       $separador    Um separador quando tiver 2 inputs
+     * @return string       HTML com o código do input
      */
     function formDataHora(
         string | array $name,
@@ -1234,16 +1234,16 @@ if (!function_exists('formTextarea')) {
     /**
      * Gera um textarea padrão
      *
-     * @param   string  $name           Nome do input
-     * @param   string  $label          Label do input
-     * @param   mixed   $value          Valor do input
-     * @param   string  $placeholder    Placeholder do input
-     * @param   string  $class          Class para o box do input
-     * @param   string  $id             ID para o box do input
-     * @param   string  $html           Html para complementar o input
-     * @param   bool    $obrigatorio    Se o input vai ser obrigatório
-     * @param   array   $attr           Lista de atributos para o input
-     * @return  string                  HTML com o código do textarea
+     * @param  string $name        Nome do input
+     * @param  string $label       Label do input
+     * @param  mixed  $value       Valor do input
+     * @param  string $placeholder Placeholder do input
+     * @param  string $class       Class para o box do input
+     * @param  string $id          ID para o box do input
+     * @param  string $html        Html para complementar o input
+     * @param  bool   $obrigatorio Se o input vai ser obrigatório
+     * @param  array  $attr        Lista de atributos para o input
+     * @return string HTML com o código do textarea
      */
     function formTextarea(
         $name,
@@ -1293,16 +1293,16 @@ if (!function_exists('formCheckbox')) {
     /**
      * Gera um checkbox padrão
      *
-     * @param   null|string $name       Name do checkbox
-     * @param   bool        $check      Se o checkbox está marcado ou não
-     * @param   string      $label      Label do checkbox
-     * @param   mixed       $value      Valor do checkbox
-     * @param   string      $class      Class para o box do checkbox
-     * @param   string      $id         ID para o box do checkbox
-     * @param   string      $ajuda      Icone de ajuda com um texto de ajuda
-     * @param   string      $html       Html para o checkbox
-     * @param   array       $attr       Atributos para o checkbox
-     * @return  string                  HTML com o código do checkbox
+     * @param  null|string $name  Name do checkbox
+     * @param  bool        $check Se o checkbox está marcado ou não
+     * @param  string      $label Label do checkbox
+     * @param  mixed       $value Valor do checkbox
+     * @param  string      $class Class para o box do checkbox
+     * @param  string      $id    ID para o box do checkbox
+     * @param  string      $ajuda Icone de ajuda com um texto de ajuda
+     * @param  string      $html  Html para o checkbox
+     * @param  array       $attr  Atributos para o checkbox
+     * @return string      HTML com o código do checkbox
      */
     function formCheckbox(
         ?string $name = null,
@@ -1353,16 +1353,16 @@ if (!function_exists('formSwitch')) {
     /**
      * Gera um botão de switch padrão
      *
-     * @param   string      $name       Name do switch
-     * @param   string      $label      Label do switch
-     * @param   bool        $check      Se o switch está ativo ou não
-     * @param   string      $value      Valor do checkbox
-     * @param   string      $class      Class para o box do checkbox
-     * @param   string      $id         ID para o box do checkbox
-     * @param   string      $ajuda      Icone de ajuda com um texto de ajuda
-     * @param   string      $html       Html para o checkbox
-     * @param   array       $attr       Atributos para o checkbox
-     * @return  string                  HTML com o código do botão
+     * @param  string $name  Name do switch
+     * @param  string $label Label do switch
+     * @param  bool   $check Se o switch está ativo ou não
+     * @param  string $value Valor do checkbox
+     * @param  string $class Class para o box do checkbox
+     * @param  string $id    ID para o box do checkbox
+     * @param  string $ajuda Icone de ajuda com um texto de ajuda
+     * @param  string $html  Html para o checkbox
+     * @param  array  $attr  Atributos para o checkbox
+     * @return string HTML com o código do botão
      */
     function formSwitch(
         string $name,
@@ -1411,12 +1411,12 @@ if (!function_exists('formCor')) {
     /**
      * Gera um bloco de cor padrão
      *
-     * @param   string      $name       Name do input
-     * @param   array       $label      Label para o bloco
-     * @param   string      $value      Valor do input. Ex: #FF0000
-     * @param   string      $class      Class para o box do checkbox
-     * @param   string      $id         ID para o box do checkbox
-     * @return  string                  HTML com o código do bloco de cor
+     * @param  string $name  Name do input
+     * @param  array  $label Label para o bloco
+     * @param  string $value Valor do input. Ex: #FF0000
+     * @param  string $class Class para o box do checkbox
+     * @param  string $id    ID para o box do checkbox
+     * @return string HTML com o código do bloco de cor
      */
     function formCor(
         string $name,
@@ -1450,16 +1450,16 @@ if (!function_exists('formTag')) {
     /**
      * Gera um input de tag ou lista de urls
      *
-     * @param   string      $name           Name do input
-     * @param   array       $label          Label para o bloco
-     * @param   string      $value          Valor da tag podendo ser um array ou json
-     * @param   string      $placeholder    Placeholder do input
-     * @param   string      $class          Class para o box do checkbox
-     * @param   string      $id             ID para o box do checkbox
-     * @param   string      $tipo           Se vai ser do tipo tag ou url
-     * @param   bool        $focus          Se vai focar o input
-     * @param   bool        $espaco         Se vai adicionar a tag após um espaço
-     * @return  string                      HTML com o código da tag
+     * @param  string $name        Name do input
+     * @param  array  $label       Label para o bloco
+     * @param  string $value       Valor da tag podendo ser um array ou json
+     * @param  string $placeholder Placeholder do input
+     * @param  string $class       Class para o box do checkbox
+     * @param  string $id          ID para o box do checkbox
+     * @param  string $tipo        Se vai ser do tipo tag ou url
+     * @param  bool   $focus       Se vai focar o input
+     * @param  bool   $espaco      Se vai adicionar a tag após um espaço
+     * @return string HTML com o código da tag
      */
     function formTag(
         string $name,
@@ -1514,20 +1514,20 @@ if (!function_exists('formEditor')) {
     /**
      * Gera um editor de texto padrão
      *
-     * @param   string    $name                 Name do editor
-     * @param   string    $tipo                 Tipo do editor que pode ser classico ou balao, balao como padrão
-     * @param   string    $label                Label do editor
-     * @param   string    $placeholder          Placeholder do editor
-     * @param   string    $value                Valor inicial do editor
-     * @param   string    $diretorioImagem      Diretório para as imagens
-     * @param   string    $diretorioArquivo     Diretório para os arquivos
-     * @param   string    $bar                  Campos que terão na barra podendo ser: heading, bold, italic, underline, Strikethrough, fontColor, fontBackgroundColor, alignment, link, removeFormat, fwimage, fwfile, mediaEmbed, insertTable, codeBlock, horizontalLine, blockQuote, indent, outdent, numberedList e bulletedList - Passar valores separador por espaço. Ex.: bold italic | fontColor
-     * @param   string    $barBalao             Campos que terão no balão podendo ser os mesmos do $bar
-     * @param   string    $id                   ID para o bloco geral
-     * @param   string    $class                Class para o bloco geral
-     * @param   bool      $obrigatorio          Se o editor é obrigatório
-     * @param   bool      $footer               Se o editor vai ter um footer
-     * @return  string                          HTML com o código do editor
+     * @param  string $name             Name do editor
+     * @param  string $tipo             Tipo do editor que pode ser classico ou balao, balao como padrão
+     * @param  string $label            Label do editor
+     * @param  string $placeholder      Placeholder do editor
+     * @param  string $value            Valor inicial do editor
+     * @param  string $diretorioImagem  Diretório para as imagens
+     * @param  string $diretorioArquivo Diretório para os arquivos
+     * @param  string $bar              Campos que terão na barra podendo ser: heading, bold, italic, underline, Strikethrough, fontColor, fontBackgroundColor, alignment, link, removeFormat, fwimage, fwfile, mediaEmbed, insertTable, codeBlock, horizontalLine, blockQuote, indent, outdent, numberedList e bulletedList - Passar valores separador por espaço. Ex.: bold italic | fontColor
+     * @param  string $barBalao         Campos que terão no balão podendo ser os mesmos do $bar
+     * @param  string $id               ID para o bloco geral
+     * @param  string $class            Class para o bloco geral
+     * @param  bool   $obrigatorio      Se o editor é obrigatório
+     * @param  bool   $footer           Se o editor vai ter um footer
+     * @return string HTML com o código do editor
      */
     function formEditor(
         string $name,
@@ -1544,7 +1544,6 @@ if (!function_exists('formEditor')) {
         bool $obrigatorio = false,
         bool $footer = true
     ): string {
-
         $labelHtml = !empty($label) ? '<label class="editor_label">' . $label . '</label>' : '';
 
         $obrigatorio = !empty($obrigatorio) ? 'input_obrigatorio' : '';
@@ -1601,15 +1600,15 @@ if (!function_exists('formImagem')) {
     /**
      * Gera um bloco de imagem
      *
-     * @param   string|array    $name           Name do input
-     * @param   string          $diretorio      Diretório da imagem
-     * @param   null|string     $value          Valor do input
-     * @param   null|string     $class          Class para o bloco geral
-     * @param   null|string     $id             ID para o bloco geral
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório
-     * @param   string          $tipo           Tipo do bloco da imagem podendo ser quadrado ou redondo
-     * @param   int             $height         Altura em pixel do bloco de imagem
-     * @return  string                          HTML com o código do bloco
+     * @param  string|array $name        Name do input
+     * @param  string       $diretorio   Diretório da imagem
+     * @param  null|string  $value       Valor do input
+     * @param  null|string  $class       Class para o bloco geral
+     * @param  null|string  $id          ID para o bloco geral
+     * @param  bool|array   $obrigatorio Se o input vai ser obrigatório
+     * @param  string       $tipo        Tipo do bloco da imagem podendo ser quadrado ou redondo
+     * @param  int          $height      Altura em pixel do bloco de imagem
+     * @return string       HTML com o código do bloco
      */
     function formImagem(
         string $name,
@@ -1678,13 +1677,13 @@ if (!function_exists('formArquivoLista')) {
     /**
      * Gera um bloco de arquivos em lista
      *
-     * @param   string|array    $name           Name do input
-     * @param   string          $diretorio      Diretório do arquivo
-     * @param   array           $value          Valor do input
-     * @param   null|string     $class          Class para o bloco geral
-     * @param   null|string     $id             ID para o bloco geral
-     * @param   bool|array      $obrigatorio    Se o input vai ser obrigatório
-     * @return  string                          HTML com o código do bloco
+     * @param  string|array $name        Name do input
+     * @param  string       $diretorio   Diretório do arquivo
+     * @param  array        $value       Valor do input
+     * @param  null|string  $class       Class para o bloco geral
+     * @param  null|string  $id          ID para o bloco geral
+     * @param  bool|array   $obrigatorio Se o input vai ser obrigatório
+     * @return string       HTML com o código do bloco
      */
     function formArquivoLista(
         string $name,
@@ -1718,7 +1717,7 @@ if (!function_exists('formArquivoLista')) {
                 ';
             }
 
-            $figureBg = $eUmaImagem ? 'style="background-image: url(' .  $arquivo->link . ')"' : '';
+            $figureBg = $eUmaImagem ? 'style="background-image: url(' . $arquivo->link . ')"' : '';
             $figureExtensaoHtml = !$eUmaImagem ? '<p>' . $arquivo->extensao . '</p>' : '';
 
             $attrGaleria = '';

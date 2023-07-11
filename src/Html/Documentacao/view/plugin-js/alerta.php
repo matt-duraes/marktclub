@@ -59,7 +59,6 @@ if(resposta) {
 }', true);
     });
 
-
 $Doc
     ->bloco(function () use ($Doc) {
         $Doc

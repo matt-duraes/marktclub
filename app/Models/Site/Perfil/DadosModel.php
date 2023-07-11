@@ -3,28 +3,14 @@
 namespace App\Models\Site\Perfil;
 
 use Erro\Excecao;
-use Helpers\ApiHelper;
-use Helpers\SocialHelper;
-use Helpers\CryptHelper;
 use Http\Request;
 use Http\Response;
+use Helpers\SocialHelper;
+use App\Helpers\ClubeApiHelper;
 
-final class DadosModel
+final class DadosModel extends ClubeApiHelper
 {
     protected string $chave;
-
-    /**
-     * @throws Excecao
-     */
-    public function __construct()
-    {
-        $Curl = new ApiHelper('admin:chave_publica');
-        $chave = $Curl
-            ->get('/admin/chave-publica')
-            ->object()->dado->chave ?? '';
-        $this->chave = $chave;
-    }
-
 
     /**
      * @return object|array
@@ -32,49 +18,42 @@ final class DadosModel
      */
     public function getDado(): object|array
     {
-        $id = '5595203c-f7b1-4211-9981-bf09eb236b35';
-        $Api = new ApiHelper('usuario_cliente:buscar');
-
-        $dado = $Api->validar('Página não encontrada!', status: 404)
-            ->get('/usuario-cliente/' . $id)
+        $dado = $this
+            ->validar('Página não encontrada!', status: 404)
+            ->get('/usuario-cliente/' . $this->idUsuario)
             ->object();
         return $this->montarRetorno($dado);
     }
 
     /**
-     * @param  $dado
+     * @param $dado
      *
      * @return object|array
      * @throws Excecao
      */
     private function montarRetorno($dado): object|array
     {
-        $Curl = new ApiHelper('admin:chave_privada');
-        $chave = $Curl->get('/admin/chave-privada')
-            ->object()->dado->chave ?? '';
-        $Crypt = new CryptHelper(chavePrivada: $chave);
-
         $retorno = [];
         if ($dado->dado) {
             $r = $dado->dado;
             $retorno = (object)[
                 'id'                   => $r->id,
-                'nome'                 => $Crypt->decode($r->nome) ?? '',
-                'cpf'                  => $Crypt->decode($r->cpf) ?? '',
-                'email_pessoal'        => $Crypt->decode($r->email_pessoal) ?? '',
-                'email_trabalho'       => $Crypt->decode($r->email_trabalho) ?? '',
-                'telefone_trabalho'    => $Crypt->decode($r->telefone_trabalho) ?? '',
-                'telefone_pessoal'     => $Crypt->decode($r->telefone_pessoal) ?? '',
-                'estado_civil'         => $Crypt->decode($r->estado_civil) ?? '',
-                'genero'               => $Crypt->decode($r->genero) ?? '',
-                'data_nascimento'      => $Crypt->decode($r->data_nascimento) ?? '',
-                'endereco_cep'         => $Crypt->decode($r->endereco_cep) ?? '',
-                'endereco_logradouro'  => $Crypt->decode($r->endereco_logradouro) ?? '',
-                'endereco_numero'      => $Crypt->decode($r->endereco_numero) ?? '',
-                'endereco_complemento' => $Crypt->decode($r->endereco_complemento) ?? '',
-                'endereco_bairro'      => $Crypt->decode($r->endereco_bairro) ?? '',
-                'endereco_cidade'      => $Crypt->decode($r->endereco_cidade) ?? '',
-                'endereco_estado'      => $Crypt->decode($r->endereco_estado) ?? ''
+                'nome'                 => $this->Crypt->decode($r->nome) ?? '',
+                'cpf'                  => $this->Crypt->decode($r->cpf) ?? '',
+                'email_pessoal'        => $this->Crypt->decode($r->email_pessoal) ?? '',
+                'email_trabalho'       => $this->Crypt->decode($r->email_trabalho) ?? '',
+                'telefone_trabalho'    => $this->Crypt->decode($r->telefone_trabalho) ?? '',
+                'telefone_pessoal'     => $this->Crypt->decode($r->telefone_pessoal) ?? '',
+                'estado_civil'         => $this->Crypt->decode($r->estado_civil) ?? '',
+                'genero'               => $this->Crypt->decode($r->genero) ?? '',
+                'data_nascimento'      => $this->Crypt->decode($r->data_nascimento) ?? '',
+                'endereco_cep'         => $this->Crypt->decode($r->endereco_cep) ?? '',
+                'endereco_logradouro'  => $this->Crypt->decode($r->endereco_logradouro) ?? '',
+                'endereco_numero'      => $this->Crypt->decode($r->endereco_numero) ?? '',
+                'endereco_complemento' => $this->Crypt->decode($r->endereco_complemento) ?? '',
+                'endereco_bairro'      => $this->Crypt->decode($r->endereco_bairro) ?? '',
+                'endereco_cidade'      => $this->Crypt->decode($r->endereco_cidade) ?? '',
+                'endereco_estado'      => $this->Crypt->decode($r->endereco_estado) ?? ''
             ];
         }
 
@@ -82,72 +61,64 @@ final class DadosModel
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
      */
     public function postDado(Request $request): Response
     {
-        $Crypt = new CryptHelper(chavePublica: $this->chave);
-        $Api = new ApiHelper('usuario_cliente:atualizar');
-
-        $id = '5595203c-f7b1-4211-9981-bf09eb236b35';
-
-        $salvar = $Api->body([
-            'nome'                 => $Crypt->encode($request->nome),
-            'data_nascimento'      => $Crypt->encode($request->data_nascimento),
-            'genero'               => $Crypt->encode($request->genero),
-            'estado_civil'         => $Crypt->encode($request->estado_civil),
-            'email_pessoal'        => $Crypt->encode($request->email_pessoal),
-            'email_trabalho'       => $Crypt->encode($request->email_trabalho),
-            'telefone_trabalho'    => $Crypt->encode($request->telefone_trabalho),
-            'telefone_pessoal'     => $Crypt->encode($request->telefone_pessoal),
-            'endereco_estado'      => $Crypt->encode($request->endereco_estado),
-            'endereco_cep'         => $Crypt->encode($request->endereco_cep),
-            'endereco_logradouro'  => $Crypt->encode($request->endereco_logradouro),
-            'endereco_bairro'      => $Crypt->encode($request->endereco_bairro),
-            'endereco_numero'      => $Crypt->encode($request->endereco_numero),
-            'endereco_complemento' => $Crypt->encode($request->endereco_complemento),
-            'endereco_cidade'      => $Crypt->encode($request->endereco_cidade)
-        ])->put('/usuario-cliente/' . $id);
-
-        respostaJson(
-            $salvar,
-            'Ocorre um erro ao atualizar seus dados, por favor, tente novamente.'
-        );
+        $this
+            ->validar('Ocorre um erro ao atualizar seus dados, por favor, tente novamente.')
+            ->body([
+                'nome'                 => $this->Crypt->encode($request->nome),
+                'data_nascimento'      => $this->Crypt->encode($request->data_nascimento),
+                'genero'               => $this->Crypt->encode($request->genero),
+                'estado_civil'         => $this->Crypt->encode($request->estado_civil),
+                'email_pessoal'        => $this->Crypt->encode($request->email_pessoal),
+                'email_trabalho'       => $this->Crypt->encode($request->email_trabalho),
+                'telefone_trabalho'    => $this->Crypt->encode($request->telefone_trabalho),
+                'telefone_pessoal'     => $this->Crypt->encode($request->telefone_pessoal),
+                'endereco_estado'      => $this->Crypt->encode($request->endereco_estado),
+                'endereco_cep'         => $this->Crypt->encode($request->endereco_cep),
+                'endereco_logradouro'  => $this->Crypt->encode($request->endereco_logradouro),
+                'endereco_bairro'      => $this->Crypt->encode($request->endereco_bairro),
+                'endereco_numero'      => $this->Crypt->encode($request->endereco_numero),
+                'endereco_complemento' => $this->Crypt->encode($request->endereco_complemento),
+                'endereco_cidade'      => $this->Crypt->encode($request->endereco_cidade)
+            ])
+            ->put('/usuario-cliente/' . $this->idUsuario);
 
         return new Response(status: 204);
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
      */
-    public function postImagemSocial(Request $request)
+    public function postImagemSocial(Request $request): Response
     {
         $imagem = $this->pegarIdRedeSocial($request);
-        $Crypt = new CryptHelper(chavePublica: $this->chave);
-        $id = '5595203c-f7b1-4211-9981-bf09eb236b35';
-
-        $dadosApi = (new ApiHelper())
-        ->body([
-            'foto_perfil' => $imagem ? $Crypt->encode($imagem) : null,
-        ])
-        ->put('/usuario-cliente/' . $id);
-
-        if($imagem) {
-            sessao('USUARIO.imagem', $imagem);
-            return mensagemSucesso([
-                'imagem' => $imagem
-            ], status: 201);
+        if (empty($imagem)) {
+            mensagemErro('Campo obrigatório!', 'Não existe imagem para ser atualizada.');
         }
+
+        $this
+            ->body([
+                'foto_perfil' => $this->Crypt->encode($imagem),
+            ])
+            ->put('/usuario-cliente/' . $this->idUsuario);
+
+        sessao('USUARIO.imagem', $imagem);
+        return mensagemSucesso([
+            'imagem' => $imagem
+        ], status: 201);
     }
 
     /**
-     * @param  $request
+     * @param $request
      *
      * @return Response|void
      * @throws Excecao
@@ -167,8 +138,8 @@ final class DadosModel
     }
 
     /**
-     * @param  SocialHelper  $Social
-     * @param                $rede
+     * @param SocialHelper $Social
+     * @param              $rede
      *
      * @return Response
      * @throws Excecao

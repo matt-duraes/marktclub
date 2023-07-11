@@ -44,9 +44,9 @@ final class RegraModel extends ORM implements ModelListarInterface
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'titulo' => $r->titulo,
-                'texto' => $r->texto,
+                'id'           => $r->uuid,
+                'titulo'       => $r->titulo,
+                'texto'        => $r->texto,
                 'data_criacao' => $r->data_criacao,
             ];
         }

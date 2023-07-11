@@ -46,10 +46,6 @@
                 <i>@iconeCashbackHome(22)</i>
                 Extrato do Silium
             </a>
-            <a href="@route(cinema.extrato)">
-                <i>@iconeCinemaHome(22)</i>
-                Extrato do Cinema
-            </a>
             <a href="@route(site.indiqueAmigo)">
                 <i>@iconeIndiqueAmigoOutline(22)</i>
                 Indique um amigo
@@ -183,6 +179,10 @@
             <a class="footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</a>
             <a class="footer" href="@route('loja.detalhe')/sala-vip-do-aeroporto-internacional-de-brasilia-presidente-juscelino-kubitschek-1">Sala VIP</a>
             <a class="footer" href="@route('site.sosmulher')">SOS Mulher</a>
+
+            <div class="linha"></div>
+
+            <a href="@route('sair.sair')" class="sair">Sair do clube</a>
 
             <div class="resto"></div>
         </div>

@@ -19,9 +19,9 @@ final class AgendaController extends Controller
     {
         return view('painel.agenda.index', [
             'appTitulo' => '',
-            'app' => 'agenda',
-            'agenda' => true,
-            'logado' => (new SocialHelper(rede: 'google'))->logado([
+            'app'       => 'agenda',
+            'agenda'    => true,
+            'logado'    => (new SocialHelper(rede: 'google'))->logado([
                 'https://www.googleapis.com/auth/calendar.events'
             ])
         ]);
@@ -33,6 +33,7 @@ final class AgendaController extends Controller
         $this->atualizarIdGoogle($Social->uuid());
         return mensagemSucesso(['logado' => true], status: 201);
     }
+
     private function atualizarIdGoogle($id)
     {
         $idUsuario = sessao('USUARIO.google');

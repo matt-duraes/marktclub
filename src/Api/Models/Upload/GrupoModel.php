@@ -14,7 +14,7 @@ final class GrupoModel extends ORM
     protected string $ormTabela = TABELA_UPLOAD_GRUPO;
 
     /**
-     * @param $grupo
+     * @param          $grupo
      * @return array
      * @throws Excecao
      */
@@ -32,7 +32,7 @@ final class GrupoModel extends ORM
     }
 
     /**
-     * @param  array  $dado
+     * @param  array $dado
      * @return array
      */
     private function montarGrupo(array $dado): array
@@ -40,7 +40,7 @@ final class GrupoModel extends ORM
         $lista = [];
         foreach ($dado as $r) {
             $lista[] = (object)[
-                'id' => $r->uuid,
+                'id'   => $r->uuid,
                 'nome' => $r->nome
             ];
         }
@@ -50,7 +50,7 @@ final class GrupoModel extends ORM
     /**
      * Pega a lista dos pais do grupo
      *
-     * @param  int|string  $grupo  Id ou uuid do grupo atual
+     * @param  int|string $grupo Id ou uuid do grupo atual
      * @return array
      * @throws Excecao
      */
@@ -71,7 +71,7 @@ final class GrupoModel extends ORM
             }
 
             $lista[] = (object)[
-                'id' => $dado['uuid'],
+                'id'   => $dado['uuid'],
                 'nome' => $dado['nome'],
             ];
 
@@ -85,7 +85,7 @@ final class GrupoModel extends ORM
     }
 
     /**
-     * @param $grupo
+     * @param        $grupo
      * @return mixed
      */
     private function pegarIdGrupo($grupo): mixed
@@ -106,8 +106,8 @@ final class GrupoModel extends ORM
     /**
      * Valida se grupo atual faz parte do grupo inicial
      *
-     * @param  string  $grupoInicial  Uuid do grupo incial
-     * @param  string  $grupoAtual    Uuid do grupo atual
+     * @param  string  $grupoInicial Uuid do grupo incial
+     * @param  string  $grupoAtual   Uuid do grupo atual
      * @return bool
      * @throws Excecao
      */
@@ -143,7 +143,7 @@ final class GrupoModel extends ORM
     /**
      * Lista toda a arvore de diretorio do grupo
      *
-     * @param  string  $grupo  Uuid do grupo
+     * @param  string  $grupo Uuid do grupo
      * @return array
      * @throws Excecao
      */
@@ -155,15 +155,15 @@ final class GrupoModel extends ORM
         }
         return [
             [
-                'id' => $diretorio->uuid,
-                'nome' => $diretorio->nome,
+                'id'    => $diretorio->uuid,
+                'nome'  => $diretorio->nome,
                 'lista' => $this->listarTodaArvoreSubDiretorio($diretorio->id)
             ]
         ];
     }
 
     /**
-     * @param $id
+     * @param          $id
      * @return array
      * @throws Excecao
      */
@@ -173,8 +173,8 @@ final class GrupoModel extends ORM
         $lista = [];
         foreach ($dado as $r) {
             $lista[] = [
-                'id' => $r->uuid,
-                'nome' => $r->nome,
+                'id'    => $r->uuid,
+                'nome'  => $r->nome,
                 'lista' => $this->listarTodaArvoreSubDiretorio($r->id)
             ];
         }

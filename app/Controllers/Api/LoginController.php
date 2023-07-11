@@ -6,9 +6,9 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
-use App\Models\Api\ApiApp\AppEntity;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginApi\DigioModel;
+use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\LoginClube\LoginClubeModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
@@ -44,6 +44,7 @@ final class LoginController extends Controller
         $Login = new LoginApiModel($request->dado());
         return $Login->link();
     }
+
     public function loginApiOk($hash)
     {
         $dado = base64Decode($hash);
@@ -67,8 +68,6 @@ final class LoginController extends Controller
     */
     public function postLoginClube(Request $request)
     {
-
-
         $Login = new LoginClubeModel(
             login: $request->login,
             senha: $request->senha,
@@ -100,18 +99,7 @@ final class LoginController extends Controller
         }
 
         $Usuario = $Login->pegarUsuario();
-        $payload = criptografarDado(
-            dado: [
-                'sub' => $Usuario->id,
-                'name' => $Usuario->nome->nome(),
-                'picture' => $Usuario->imagem,
-                'email' => $Usuario->email->email(),
-                'email_verified' => 'nao',
-                'create_at' => $Usuario->data_criacao->date(),
-                'updated_at' => $Usuario->data_atualizacao->date(),
-            ],
-            criptografia: ['name', 'picture', 'email']
-        );
+        $payload = (new PayloadModel($Usuario))->payload;
 
         return $this->criarToken(
             body: $payload,
@@ -144,7 +132,7 @@ final class LoginController extends Controller
 
         return new Response(json: [
             'status' => 'sucesso',
-            'dado' => $token
+            'dado'   => $token
         ], status: 201);
     }
 
@@ -205,7 +193,7 @@ final class LoginController extends Controller
 
         return new Response(json: [
             'status' => 'sucesso',
-            'dado' => $token
+            'dado'   => $token
         ], status: 201);
     }
 }

@@ -7,16 +7,16 @@ use ORM\ORM;
 final class FaixaEtariaModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct()
     {
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
         parent::__construct();
     }
+
     public function pegarRelatorio()
     {
-
         $where = [
             ['status', 'in', [1, 2]],
             ['empresa', $this->idEmpresa],
@@ -63,38 +63,38 @@ final class FaixaEtariaModel extends ORM
             'total' => $total,
             'lista' => [
                 [
-                    'faixa' => 'Sem dados',
-                    'total' => $semDado,
+                    'faixa'       => 'Sem dados',
+                    'total'       => $semDado,
                     'porcentagem' => $semDado == 0 ? 0 : number_format(($semDado * 100) / $total, 2, '.')
                 ],
                 [
-                    'faixa' => 'Até 20 anos',
-                    'total' => $ate20,
+                    'faixa'       => 'Até 20 anos',
+                    'total'       => $ate20,
                     'porcentagem' => $ate20 == 0 ? 0 : number_format(($ate20 * 100) / $total, 2, '.')
                 ],
                 [
-                    'faixa' => 'Até 30 anos',
-                    'total' => $ate30,
+                    'faixa'       => 'Até 30 anos',
+                    'total'       => $ate30,
                     'porcentagem' => $ate30 == 0 ? 0 : number_format(($ate30 * 100) / $total, 2, '.')
                 ],
                 [
-                    'faixa' => 'Até 40 anos',
-                    'total' => $ate40,
+                    'faixa'       => 'Até 40 anos',
+                    'total'       => $ate40,
                     'porcentagem' => $ate40 == 0 ? 0 : number_format(($ate40 * 100) / $total, 2, '.')
                 ],
                 [
-                    'faixa' => 'Até 50 anos',
-                    'total' => $ate50,
+                    'faixa'       => 'Até 50 anos',
+                    'total'       => $ate50,
                     'porcentagem' => $ate50 == 0 ? 0 : number_format(($ate50 * 100) / $total, 2, '.')
                 ],
                 [
-                    'faixa' => 'Até 60 anos',
-                    'total' => $ate60,
+                    'faixa'       => 'Até 60 anos',
+                    'total'       => $ate60,
                     'porcentagem' => $ate60 == 0 ? 0 : number_format(($ate60 * 100) / $total, 2, '.')
                 ],
                 [
-                    'faixa' => 'Mais de 60 anos',
-                    'total' => $mais60,
+                    'faixa'       => 'Mais de 60 anos',
+                    'total'       => $mais60,
                     'porcentagem' => $mais60 == 0 ? 0 : number_format(($mais60 * 100) / $total, 2, '.')
                 ],
             ]

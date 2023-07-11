@@ -5,6 +5,7 @@ namespace App\Middlewares\Api;
 final class TokenProvMiddleware
 {
     private string $token;
+
     public function __construct()
     {
         $header = getallheaders();
@@ -13,6 +14,7 @@ final class TokenProvMiddleware
             $_SERVER['HTTP_AUTHORIZATION'] ??
             '';
     }
+
     public function token(): bool
     {
         if (empty($this->token)) {

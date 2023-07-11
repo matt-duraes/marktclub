@@ -4,9 +4,9 @@
     @view site/geral/banner.view
 
     @if(TIPO_USUARIO == 'indicado'):
-        <div class="bloco_atencao_geral">
-            <p>Você está utilizando uma versão limitada do clube</p>
-        </div>
+    <div class="bloco_atencao_geral">
+        <p>Você está utilizando uma versão limitada do clube</p>
+    </div>
     @endif
 
     <div class="bloco">
@@ -38,34 +38,40 @@
     </div>
 
     <div class="bloco">
-        <div class="bloco">
-            <header class="titulo_geral">
-                <h1>LOJAS FAVORITAS</h1>
-                <a class="cor_color" href="">Ver todas as lojas</a>
-            </header>
-            @php
-                $lista = $loja_nova;
-            @end
-            @view site/geral/parceiroFavorito.view
-
+        @ if( $loja_favorita->lista ):
+        <header class="titulo_geral">
+            <h1>LOJAS FAVORITAS</h1>
+            <a class="cor_color" href="@route(loja.index)?favorito=sim">Ver mais</a>
+        </header>
+        @php
+            $lista = $loja_favorita;
+        @end
+        @view site/geral/parceiro.view
+        @ else:
+        <div class="bloco_geral_sem_resultado bloco_favorito_zero">
+            <i>@iconeFavoritoMarcado(60)</i>
+            <p>Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas?</p>
+            <div class="botao botao_geral_cor cor_bg" id="botao_favorito_tutorial">Salvar lojas favoritas</div>
         </div>
+        @ endif;
     </div>
 
     <div class="bloco">
         <header class="titulo_geral">
             <h1>LOJAS NOVAS</h1>
-            <a class="cor_color" href="">Ver todas as lojas</a>
+            <a class="cor_color" href="@route('loja.index')?ordem=mais-novo">Veja mais</a>
         </header>
         @php
             $lista = $loja_nova;
         @end
         @view site/geral/parceiro.view
+
     </div>
 
     <div class="bloco">
         <header class="titulo_geral">
             <h1>PROMOÇÕES</h1>
-            <a class="cor_color" href="">Ver todas as promoções</a>
+            <a class="cor_color" href="">Veja mais</a>
         </header>
         <section class="bloco_promocao">
             <article class="promocao"><a href=""></a></article>

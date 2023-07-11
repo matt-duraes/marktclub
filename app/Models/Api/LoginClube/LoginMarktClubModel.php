@@ -8,6 +8,7 @@ use App\Models\Api\UsuarioCliente\ClienteEntity;
 final class LoginMarktClubModel extends LoginPadraoModel
 {
     public ClienteEntity $Usuario;
+
     public function __construct(
         private string $login,
         private string $senha,
@@ -42,6 +43,7 @@ final class LoginMarktClubModel extends LoginPadraoModel
 
         $this->Usuario = $Usuario;
     }
+
     protected function pegarWhere(): array
     {
         $where = [[

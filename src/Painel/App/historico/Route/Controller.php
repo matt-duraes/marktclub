@@ -16,7 +16,7 @@ final class Controller extends ControllerSystem
         return view(
             arquivo: 'historico',
             var: [
-                'id' => sessao('HISTORICO_ID'),
+                'id'       => sessao('HISTORICO_ID'),
                 'location' => $request->chave('location', 1)
             ]
         );

@@ -13,8 +13,8 @@ class ApiHelper extends CurlHelper
     /**
      * Passar scope caso queira autenticar a requisição
      *
-     * @param  string|null  $scope  Scope que deseja acessar
-     * @param  string|bool  $token  Passe um token para ser usado ou true para usar o token da sessão
+     * @param  string|null $scope Scope que deseja acessar
+     * @param  string|bool $token Passe um token para ser usado ou true para usar o token da sessão
      * @throws Excecao
      */
     public function __construct(string $scope = null, string|bool $token = false)
@@ -26,6 +26,7 @@ class ApiHelper extends CurlHelper
         $this->apiHelper = true;
 
         parent::__construct(env('API_LINK', LINK_API));
+
         if (!empty($scope)) {
             $this->autenticar($scope);
         } elseif (is_bool($token) && $token) {
@@ -36,17 +37,17 @@ class ApiHelper extends CurlHelper
     }
 
     /**
-     * @param  string  $scope  Scope que deseja acessar
+     * @param  string  $scope Scope que deseja acessar
      * @throws Excecao
      */
     private function autenticar(string $scope): void
     {
         $token = $this->body([
-            'client_id' => $this->clientId,
-            'secret_id' => $this->secretId,
-            'audience' => $this->audience,
+            'client_id'  => $this->clientId,
+            'secret_id'  => $this->secretId,
+            'audience'   => $this->audience,
             'grant_type' => 'client_credentials',
-            'scope' => $scope
+            'scope'      => $scope
         ])->post('/token')->array();
 
         $this->resetar();

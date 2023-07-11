@@ -2,41 +2,39 @@
 
 namespace Painel\Relatorio\Models;
 
-use stdClass;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
-use PHPUnit\Framework\Constraint\IsInfinite;
 
 final class MontarRelatorioModel
 {
     private array $cor = [
 
-        'verde' => '#4bc0c0',
-        'azul' => '#36a2eb',
-        'vermelho' => '#fa1142',
-        'roxo' => '#9966ff',
-        'laranja' => '#ff9f40',
-        'amarelo' => '#ffce56',
-        'rosa' => '#f4999a',
-        'ciano' => '#8dd3c8',
-        'marrom' => '#a5771b',
-        'verde_escuro' => '#056e2c',
-        'azul_escuro' => '#086eb3',
+        'verde'           => '#4bc0c0',
+        'azul'            => '#36a2eb',
+        'vermelho'        => '#fa1142',
+        'roxo'            => '#9966ff',
+        'laranja'         => '#ff9f40',
+        'amarelo'         => '#ffce56',
+        'rosa'            => '#f4999a',
+        'ciano'           => '#8dd3c8',
+        'marrom'          => '#a5771b',
+        'verde_escuro'    => '#056e2c',
+        'azul_escuro'     => '#086eb3',
         'vermelho_escuro' => '#c70505',
-        'roxo_escuro' => '#5500ff',
-        'verde_claro' => '#b2e089',
-        'azul_claro' => '#80ccff',
-        'vermelho_claro' => '#ff5959',
-        'roxo_claro' => '#b793ff',
+        'roxo_escuro'     => '#5500ff',
+        'verde_claro'     => '#b2e089',
+        'azul_claro'      => '#80ccff',
+        'vermelho_claro'  => '#ff5959',
+        'roxo_claro'      => '#b793ff',
     ];
 
     public function montarPizza(array $dado, string $label): array
     {
         $retorno = [
             'label' => [],
-            'data' => [
+            'data'  => [
                 'dado' => [],
-                'cor' => []
+                'cor'  => []
             ]
         ];
         $i = 0;
@@ -66,7 +64,7 @@ final class MontarRelatorioModel
     {
         $retorno = [
             'label' => [],
-            'data' => []
+            'data'  => []
         ];
 
         $campoValor = array_values($campo);
@@ -75,8 +73,8 @@ final class MontarRelatorioModel
         $cor = array_values($this->cor);
         foreach ($campoValor as $val) {
             $retorno['data'][$i] = [
-                'dado' => [],
-                'cor' => $cor[$i],
+                'dado'  => [],
+                'cor'   => $cor[$i],
                 'label' => $val
             ];
             $i++;
@@ -102,7 +100,6 @@ final class MontarRelatorioModel
         $menor = 9999999999;
         $diaMaior = '';
         $diaMenor = '';
-
 
         foreach ($dado as $r) {
             $totalAtual = $r->total;
@@ -132,15 +129,15 @@ final class MontarRelatorioModel
     {
         $relatorio = [
             'total' => [
-                'usuario' => $dado->usuario,
+                'usuario'   => $dado->usuario,
                 'bloqueado' => $dado->bloqueado,
             ],
             'Ativo' => [
-                'numero' => 0,
+                'numero'      => 0,
                 'porcentagem' => 0
             ],
             'Inativo' => [
-                'numero' => 0,
+                'numero'      => 0,
                 'porcentagem' => 0
             ]
         ];

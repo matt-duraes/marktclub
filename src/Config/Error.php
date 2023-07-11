@@ -15,7 +15,6 @@ set_error_handler('errorHandler');
 
 /**
  * @param $retorno
- * @return void
  */
 #[NoReturn] function imprimirErro($retorno): void
 {
@@ -44,7 +43,6 @@ set_error_handler('errorHandler');
 
 /**
  * @param $error
- * @return void
  */
 #[NoReturn] function exceptionHandler($error): void
 {
@@ -61,11 +59,10 @@ set_error_handler('errorHandler');
 }
 
 /**
- * @param  int     $tipo
- * @param  string  $mensagem
- * @param  string  $arquivo
- * @param  int     $linha
- * @return void
+ * @param int    $tipo
+ * @param string $mensagem
+ * @param string $arquivo
+ * @param int    $linha
  */
 #[NoReturn] function errorHandler(int $tipo, string $mensagem, string $arquivo, int $linha): void
 {

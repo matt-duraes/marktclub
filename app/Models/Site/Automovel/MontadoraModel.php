@@ -2,11 +2,11 @@
 
 namespace App\Models\Site\Automovel;
 
-use App\Models\Site\ListarInterface;
-use Helpers\ApiHelper;
 use stdClass;
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\ListarInterface;
 
-final class MontadoraModel extends ApiHelper implements ListarInterface
+final class MontadoraModel extends ClubeApiHelper implements ListarInterface
 {
     use MontarRetornoTrait;
 

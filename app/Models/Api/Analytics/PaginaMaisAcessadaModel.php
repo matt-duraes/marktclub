@@ -43,7 +43,7 @@ final class PaginaMaisAcessadaModel extends ORM
             $total += $r->quantidade;
             if (!array_key_exists($r->url, $dado)) {
                 $dado[$r->url] = object([
-                    'url' => $r->url,
+                    'url'        => $r->url,
                     'quantidade' => 0,
                 ]);
             }
@@ -63,8 +63,8 @@ final class PaginaMaisAcessadaModel extends ORM
         $i = 1;
         foreach ($dado as $r) {
             $retorno[] = [
-                'pagina' => empty($r->url) ? '/' : $r->url,
-                'total' => $r->quantidade,
+                'pagina'      => empty($r->url) ? '/' : $r->url,
+                'total'       => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
             if ($i >= 20) {

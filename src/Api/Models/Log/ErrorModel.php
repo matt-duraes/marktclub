@@ -58,13 +58,13 @@ final class ErrorModel extends ORM
         $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'mensagem' => $r->mensagem,
-                'quantidade' => $r->quantidade,
-                'status_http' => $r->status_http,
-                'data_criacao' => $r->data_criacao,
+                'id'               => $r->uuid,
+                'mensagem'         => $r->mensagem,
+                'quantidade'       => $r->quantidade,
+                'status_http'      => $r->status_http,
+                'data_criacao'     => $r->data_criacao,
                 'data_atualizacao' => $r->data_atualizacao,
-                'status' => $Status->indice($r->status)
+                'status'           => $Status->indice($r->status)
             ];
         }
         return $retorno;

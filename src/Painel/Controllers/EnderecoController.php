@@ -49,20 +49,21 @@ final class EnderecoController extends Controller
         $dado = $Api
             ->validar('Ocorreu um erro ao listar endereço, por favor, tente novamente.')
             ->json([
-                'tabela' => $request->tabela,
-                'local' => $request->local,
-                'vinculo' => $request->id,
-                'pagina' => $request->pagina,
+                'tabela'     => $request->tabela,
+                'local'      => $request->local,
+                'vinculo'    => $request->id,
+                'pagina'     => $request->pagina,
                 'quantidade' => $request->quantidade,
-                'pais' => $request->pais,
-                'estado' => $request->estado,
-                'titulo' => $request->titulo
+                'pais'       => $request->pais,
+                'estado'     => $request->estado,
+                'titulo'     => $request->titulo
             ])
             ->get('/endereco')
             ->object();
 
         return mensagemSucesso($dado);
     }
+
     public function postSalvarEndereco(Request $request)
     {
         $Api = new ApiHelper(token: true);
@@ -74,6 +75,7 @@ final class EnderecoController extends Controller
 
         return new Response(status: 204);
     }
+
     public function postAtualizarEndereco(Request $request, string $id)
     {
         $Api = new ApiHelper(token: true);

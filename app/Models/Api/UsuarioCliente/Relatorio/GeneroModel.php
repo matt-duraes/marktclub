@@ -7,13 +7,14 @@ use ORM\ORM;
 final class GeneroModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private int $idEmpresa;
+
     public function __construct()
     {
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
         parent::__construct();
     }
+
     public function pegarRelatorio()
     {
         $where = [
@@ -45,40 +46,40 @@ final class GeneroModel extends ORM
         $lista = [];
         if ($dado->masculino > 0) {
             $lista[] = [
-                'genero' => 'Masculino',
-                'total' => $dado->masculino,
+                'genero'      => 'Masculino',
+                'total'       => $dado->masculino,
                 'porcentagem' => $dado->masculino == 0 ? 0
                     : number_format(($dado->masculino * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->feminino > 0) {
             $lista[] = [
-                'genero' => 'feminino',
-                'total' => $dado->feminino,
+                'genero'      => 'feminino',
+                'total'       => $dado->feminino,
                 'porcentagem' => $dado->feminino == 0 ? 0
                     : number_format(($dado->feminino * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->outro > 0) {
             $lista[] = [
-                'genero' => 'Outro',
-                'total' => $dado->outro,
+                'genero'      => 'Outro',
+                'total'       => $dado->outro,
                 'porcentagem' => $dado->outro == 0 ? 0
                     : number_format(($dado->outro * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->nao_informado > 0) {
             $lista[] = [
-                'genero' => 'Não informado',
-                'total' => $dado->nao_informado,
+                'genero'      => 'Não informado',
+                'total'       => $dado->nao_informado,
                 'porcentagem' => $dado->nao_informado == 0 ? 0
                     : number_format(($dado->nao_informado * 100) / $dado->total, 2, '.'),
             ];
         }
         if ($dado->sem_dado > 0) {
             $lista[] = [
-                'genero' => 'Sem dado',
-                'total' => $dado->sem_dado,
+                'genero'      => 'Sem dado',
+                'total'       => $dado->sem_dado,
                 'porcentagem' => $dado->sem_dado == 0 ? 0
                     : number_format(($dado->sem_dado * 100) / $dado->total, 2, '.'),
             ];

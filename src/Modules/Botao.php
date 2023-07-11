@@ -8,7 +8,11 @@ final class Botao implements ModuleInterface
 {
     use ValidarTrait;
 
+    public const SIM = 'sim';
+    public const NAO = 'nao';
+
     private string|int $numero = '';
+
     public function __toString()
     {
         return $this->valor();
@@ -18,8 +22,8 @@ final class Botao implements ModuleInterface
     /**
      * Gera um modulo de botão
      *
-     * @param  null|int|string   $valor  Valor podendo ser string sendo sim ou nao ou um int com
-     *                                   valor 1 para sim ou vazio para nao
+     * @param null|int|string $valor Valor podendo ser string sendo sim ou nao ou um int com
+     *                               valor 1 para sim ou vazio para nao
      */
     public function __construct(
         private null|int|string $valor,
@@ -57,7 +61,7 @@ final class Botao implements ModuleInterface
     /**
      * Pegar o numero do botão
      *
-     * @return string|int   Retorna 1 para sim e vazio para não
+     * @return string|int Retorna 1 para sim e vazio para não
      */
     public function numero(): string|int
     {
@@ -74,6 +78,7 @@ final class Botao implements ModuleInterface
     {
         return $this->valor == 'sim' ? 'sim' : 'nao';
     }
+
     // doc
     /**
      * Pegar o valor do botão como boolean

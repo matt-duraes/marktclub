@@ -11,9 +11,9 @@ trait DemandaTrait
         $Api = new ApiHelper(token: true);
         $this->Demanda = $Api->body([
             'empresa' => $this->empresa,
-            'titulo' => $titulo,
-            'tipo' => $tipo,
-            'area' => $area
+            'titulo'  => $titulo,
+            'tipo'    => $tipo,
+            'area'    => $area
         ])->post('/demanda-dado')->object();
     }
 

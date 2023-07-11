@@ -80,9 +80,9 @@ final class Request extends Psr7Request
     /**
      * Pega os dados da request quando eles foream enviados via JSON
      *
-     * @param  string  $indice    Indice que será acessado
-     * @param  bool    $purifier  Se true, o retorno será purificado
-     * @param  bool    $html      Se true, o retorno irá limpar qualquer tag HTML
+     * @param string $indice   Indice que será acessado
+     * @param bool   $purifier Se true, o retorno será purificado
+     * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
      * @return string|array Array com a lista de dados recebidos pela request ou o valor do insice
      */
@@ -108,10 +108,10 @@ final class Request extends Psr7Request
 
     // doc
     /**
-     * @param  array   $lista
-     * @param  string  $indice
-     * @param  bool    $purifier
-     * @param  bool    $html
+     * @param array  $lista
+     * @param string $indice
+     * @param bool   $purifier
+     * @param bool   $html
      *
      * @return array|string
      */
@@ -187,7 +187,7 @@ final class Request extends Psr7Request
 
     // doc
     /**
-     * @param  string  $input
+     * @param string $input
      *
      * @return array
      */
@@ -225,7 +225,6 @@ final class Request extends Psr7Request
 
     // doc
     /**
-     * @return void
      */
     private function setarPropriedadesPublicas(): void
     {
@@ -240,7 +239,7 @@ final class Request extends Psr7Request
 
     // doc
     /**
-     * @param  string  $propriedade
+     * @param string $propriedade
      *
      * @return mixed
      */
@@ -292,12 +291,12 @@ final class Request extends Psr7Request
     /**
      * Verifica se um parâmetro foi enviado na request
      *
-     * @param  string       $parametro  Parametro que deseja validar
-     * @param  string|null  $titulo     Título caso deseja retornar um erro
-     * @param  string|null  $mensagem   Mensagem caso deseja retornar um erro
+     * @param string      $parametro Parametro que deseja validar
+     * @param string|null $titulo    Título caso deseja retornar um erro
+     * @param string|null $mensagem  Mensagem caso deseja retornar um erro
      *
      * @return bool|self True caso o parâmetro exista ou self se tive passado mensagem de erro
-     * @throws Excecao Erro caso o campo parametro não exista e tenha passado uma mensagem de erro
+     * @throws Excecao   Erro caso o campo parametro não exista e tenha passado uma mensagem de erro
      */
     public function existe(string $parametro, string $titulo = null, string $mensagem = null): bool|self
     {
@@ -315,12 +314,12 @@ final class Request extends Psr7Request
     /**
      * Verifica que um parâmetro não foi enviado ou se ele está vazio
      *
-     * @param  string       $parametro  Parametro que deseja validar
-     * @param  string|null  $titulo     Título caso deseja retornar um erro
-     * @param  string|null  $mensagem   Mensagem caso deseja retornar um erro
+     * @param string      $parametro Parametro que deseja validar
+     * @param string|null $titulo    Título caso deseja retornar um erro
+     * @param string|null $mensagem  Mensagem caso deseja retornar um erro
      *
      * @return bool|self True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
-     * @throws Excecao Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
+     * @throws Excecao   Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
      */
     public function vazio(string $parametro, string $titulo = null, string $mensagem = null): bool|self
     {
@@ -339,12 +338,12 @@ final class Request extends Psr7Request
     /**
      * Verifica que um parâmetro é uma data valida
      *
-     * @param  string       $parametro  Parametro que deseja validar
-     * @param  string|null  $titulo     Título caso deseja retornar um erro
-     * @param  string|null  $mensagem   Mensagem caso deseja retornar um erro
+     * @param string      $parametro Parametro que deseja validar
+     * @param string|null $titulo    Título caso deseja retornar um erro
+     * @param string|null $mensagem  Mensagem caso deseja retornar um erro
      *
      * @return bool|self True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
-     * @throws Excecao Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
+     * @throws Excecao   Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
      */
     public function validarData(string $parametro, string $titulo = null, string $mensagem = null): bool|self
     {
@@ -363,12 +362,12 @@ final class Request extends Psr7Request
     /**
      * Verifica que um parâmetro é uma date valida
      *
-     * @param  string       $parametro  Parametro que deseja validar
-     * @param  string|null  $titulo     Título caso deseja retornar um erro
-     * @param  string|null  $mensagem   Mensagem caso deseja retornar um erro
+     * @param string      $parametro Parametro que deseja validar
+     * @param string|null $titulo    Título caso deseja retornar um erro
+     * @param string|null $mensagem  Mensagem caso deseja retornar um erro
      *
      * @return bool|self True caso não exista ou esteja vazio ou self se tive passado mensagem de erro
-     * @throws Excecao Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
+     * @throws Excecao   Erro caso o campo esteja vazio e tenha passado uma mensagem de erro
      */
     public function validarDate(string $parametro, string $titulo = null, string $mensagem = null): bool|self
     {
@@ -387,10 +386,10 @@ final class Request extends Psr7Request
     /**
      * Pega uma chave específica da request
      *
-     * @param  string  $indice  Indice do item que deseja retornar
-     * @param  mixed   $padrao  Valor padrão caso o indice não exista
+     * @param string $indice Indice do item que deseja retornar
+     * @param mixed  $padrao Valor padrão caso o indice não exista
      *
-     * @return mixed O indice achado ou o valor padrão informado
+     * @return mixed   O indice achado ou o valor padrão informado
      * @throws Excecao Caso o indice não exista e não tenha sido passado um valor padrão, irá disparar uma Excecao
      */
     public function chave(string $indice, mixed $padrao = null): mixed
@@ -410,10 +409,10 @@ final class Request extends Psr7Request
     /**
      * Pega a lista de dados selecionada pelo usuário
      *
-     * @param  array  $lista  Lista de indices que serão retornados
-     * @param  bool   $erro   Se o sistema deve retornar uma erro quando um indice não existir
+     * @param array $lista Lista de indices que serão retornados
+     * @param bool  $erro  Se o sistema deve retornar uma erro quando um indice não existir
      *
-     * @return array Array com a lista de dados recebidos pela request
+     * @return array   Array com a lista de dados recebidos pela request
      * @throws Excecao Caso $erro for true e não exista um indice da lista
      */
     public function lista(array $lista, bool $erro = true): array
@@ -445,11 +444,11 @@ final class Request extends Psr7Request
     /**
      * O contrário da lista, aqui você indica os dados que não quer achar
      *
-     * @param  array  $lista  Lista de indices que serão removidos
-     * @param  bool   $erro   Se o sistema deve retornar uma erro quando um indice não existir
+     * @param array $lista Lista de indices que serão removidos
+     * @param bool  $erro  Se o sistema deve retornar uma erro quando um indice não existir
      *
      * @return array Array com a lista de dados recebidos pela request
-     * @throws Erro Caso $erro for true e não exista um indice da lista
+     * @throws Erro  Caso $erro for true e não exista um indice da lista
      */
     public function exeto(array $lista, bool $erro = true): array
     {
@@ -485,9 +484,9 @@ final class Request extends Psr7Request
     /**
      * Pegar o mesmo valor do $_GET
      *
-     * @param  string  $indice    Indice que será acessado
-     * @param  bool    $purifier  Se true, o retorno será purificado
-     * @param  bool    $html      Se true, o retorno irá limpar qualquer tag HTML
+     * @param string $indice   Indice que será acessado
+     * @param bool   $purifier Se true, o retorno será purificado
+     * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
      * @return array Array com a lista de dados recebidos pela request ou o valor do indice
      */
@@ -500,9 +499,9 @@ final class Request extends Psr7Request
     /**
      * Pega o mesmo valor do $_POST
      *
-     * @param  string  $indice    Indice que será acessado
-     * @param  bool    $purifier  Se true, o retorno será purificado
-     * @param  bool    $html      Se true, o retorno irá limpar qualquer tag HTML
+     * @param string $indice   Indice que será acessado
+     * @param bool   $purifier Se true, o retorno será purificado
+     * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
      * @return array|string|bool Array com a lista de dados recebidos pela request ou o valor do indice
      */
@@ -530,9 +529,9 @@ final class Request extends Psr7Request
     /**
      * Pegar a request igual o $_POST mas quando for usado o método PUT
      *
-     * @param  string  $indice    Indice que será acessado
-     * @param  bool    $purifier  Se true, o retorno será purificado
-     * @param  bool    $html      Se true, o retorno irá limpar qualquer tag HTML
+     * @param string $indice   Indice que será acessado
+     * @param bool   $purifier Se true, o retorno será purificado
+     * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
      * @return array|string|bool Array com a lista de dados recebidos pela request ou o valor do indice
      */
@@ -566,7 +565,7 @@ final class Request extends Psr7Request
     /**
      * Pegar o mesmo valor do $_FILES
      *
-     * @param  string  $indice  Indice que será acessado
+     * @param string $indice Indice que será acessado
      *
      * @return UploadedFile|array|bool|null Array com a lista de arquivos recebidos pela request ou UploadedFile do
      *                                      Symfony caso passa um indice ou null caso não ache o indice
@@ -585,9 +584,9 @@ final class Request extends Psr7Request
     /**
      * Pegar o headers recebidos pelo request
      *
-     * @param  string  $indice    Indice que será acessado
-     * @param  bool    $purifier  Se true, o retorno será purificado
-     * @param  bool    $html      Se true, o retorno irá limpar qualquer tag HTML
+     * @param string $indice   Indice que será acessado
+     * @param bool   $purifier Se true, o retorno será purificado
+     * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
      * @return array|string Array com a lista de header recebidos pela request ou o valor do indice
      */
@@ -599,9 +598,9 @@ final class Request extends Psr7Request
     /**
      * Pega os cookies recebidos pela request
      *
-     * @param  string  $indice    Indice que será acessado
-     * @param  bool    $purifier  Se true, o retorno será purificado
-     * @param  bool    $html      Se true, o retorno irá limpar qualquer tag HTML
+     * @param string $indice   Indice que será acessado
+     * @param bool   $purifier Se true, o retorno será purificado
+     * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
      * @return array|string Array com a lista de cookies recebidos pela request ou o valor do indice
      */
@@ -613,9 +612,9 @@ final class Request extends Psr7Request
     /**
      * Pega o $_SERVER recebido pela request
      *
-     * @param  string  $indice    Indice que será acessado
-     * @param  bool    $purifier  Se true, o retorno será purificado
-     * @param  bool    $html      Se true, o retorno irá limpar qualquer tag HTML
+     * @param string $indice   Indice que será acessado
+     * @param bool   $purifier Se true, o retorno será purificado
+     * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
      * @return array|string Array com a lista de dados recebidos pela request ou o valor do indice
      */

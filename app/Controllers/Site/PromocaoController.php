@@ -9,9 +9,9 @@ final class PromocaoController extends Controller
     public function index()
     {
         return view('promocao.index', [
-            'menu' => 'promocao',
+            'menu'         => 'promocao',
             'tituloPagina' => 'Promoções',
-            'lista' => [1,2,3,4,5,6]
+            'lista'        => [1, 2, 3, 4, 5, 6]
         ]);
     }
 }

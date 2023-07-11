@@ -2,11 +2,11 @@
 
 namespace App\Models\Site\Automovel;
 
-use App\Models\Site\ListarInterface;
-use Helpers\ApiHelper;
 use stdClass;
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\ListarInterface;
 
-final class ModeloModel extends ApiHelper implements ListarInterface
+final class ModeloModel extends ClubeApiHelper implements ListarInterface
 {
     public function __construct(
         protected ?string $url = null

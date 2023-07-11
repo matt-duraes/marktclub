@@ -13,7 +13,7 @@ trait ValidarEmpresaDownloadTrait
     /**
      * Mudar o ID da empresa se tiver pemissão
      *
-     * @param   int     $id     ID da empresa
+     * @param int $id ID da empresa
      */
     public function setarIdEmpresaManual(int $id)
     {
@@ -28,7 +28,7 @@ trait ValidarEmpresaDownloadTrait
     /**
      * Seta o id da empresa pelo uuid do usuário
      *
-     * @param  string   $usuario  Uuid do usuário
+     * @param string $usuario Uuid do usuário
      */
     private function setarIdEmpresa(string $usuario): void
     {
@@ -39,19 +39,19 @@ trait ValidarEmpresaDownloadTrait
     /**
      * Seta o id do usuário pelo uuid do usuário
      *
-     * @param  string  $usuario  Uuid do usuário
+     * @param string $usuario Uuid do usuário
      */
     private function setarIdUsuario(string $usuario): void
     {
         $Equipe = new HelperModel();
         $this->idUsuario = $Equipe->pegarIdPeloUuid($usuario);
     }
+
     /**
      * Faz a validação para pegar apenas registros da empresa ou todas se for Markt Club e o usuário tenha permissão
      *
-     * @param   string  $campoEmpresa   Se o campo da empresa é o id_admin_empresa ou empresa
-     * @return void
-     * @throws Excecao  Retorna uma Excecao caso não exista token
+     * @param  string  $campoEmpresa Se o campo da empresa é o id_admin_empresa ou empresa
+     * @throws Excecao Retorna uma Excecao caso não exista token
      */
     private function validarEmpresa(string $usuario, string $campoEmpresa = 'id_admin_empresa'): void
     {
@@ -102,6 +102,7 @@ trait ValidarEmpresaDownloadTrait
             mensagemErro('Empresa inválida!', 'Não foi encontrado uma empresa pelo código enviado.', error: $e);
         }
     }
+
     private function verificarSePodeMudarEmpresa(): bool
     {
         $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
@@ -118,7 +119,7 @@ trait ValidarEmpresaDownloadTrait
     /**
      * Pega o Where padrão para as buscas concatenando com o where da empresa
      *
-     * @param   array $where    Where que deseja colocar padrão
+     * @param array $where Where que deseja colocar padrão
      */
     private function setarWherePadrao(array $where = []): void
     {

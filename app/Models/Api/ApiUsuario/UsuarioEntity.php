@@ -11,12 +11,11 @@ final class UsuarioEntity extends Entity
 {
     protected string $ormTabela = TABELA_AUTH_USUARIO;
     protected array $ormBuscar = [
-        'nome' => 'nome_usuario',
+        'nome'  => 'nome_usuario',
         'senha' => 'salt',
         'id_api_app', 'login_usuario'
     ];
     protected array $ormUpdate = ['salt' => '->senha'];
-
     public Nome $nome;
     public Senha $senha;
     protected array $id_api_app;

@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\LoginApi\Trait;
 
-use Modules\Cpf;
 use App\Classes\UsuarioCliente\Helper;
 
 trait UsuarioTrait
@@ -28,12 +27,12 @@ trait UsuarioTrait
         $hoje = hoje();
 
         $dado = [
-            'tipo' => 1,
+            'tipo'             => 1,
             'data_atualizacao' => $agora,
-            'data_dado' => $hoje,
-            'hash' => $this->hash,
-            'hash_data' => agora(),
-            'status' => 1
+            'data_dado'        => $hoje,
+            'hash'             => $this->hash,
+            'hash_data'        => agora(),
+            'status'           => 1
         ];
 
         if (
@@ -54,22 +53,23 @@ trait UsuarioTrait
             mensagemErro('Erro ao atualizar!', 'Ocorreu um erro ao atualizar o usuário.', status: 500);
         }
     }
+
     private function salvarNovoUsuario()
     {
         $agora = agora();
         $hoje = hoje();
 
         $dado = [
-            'cod' => uuid(),
-            'tipo' => 1,
+            'cod'              => uuid(),
+            'tipo'             => 1,
             'data_atualizacao' => $agora,
-            'data_dado' => $hoje,
-            'empresa' => $this->idEmpresa,
-            'data_criacao' => $agora,
-            'primeiro_acesso' => 1,
-            'hash' => $this->hash,
-            'hash_data' => agora(),
-            'status' => 1
+            'data_dado'        => $hoje,
+            'empresa'          => $this->idEmpresa,
+            'data_criacao'     => $agora,
+            'primeiro_acesso'  => 1,
+            'hash'             => $this->hash,
+            'hash_data'        => agora(),
+            'status'           => 1
         ];
 
         if (

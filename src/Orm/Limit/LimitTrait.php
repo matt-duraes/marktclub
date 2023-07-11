@@ -7,9 +7,9 @@ trait LimitTrait
     /**
      * Limit para a busca
      *
-     * @param   int     $inicio         Valor inicial para o LIMIT
-     * @param   int     $quantidade     Quando de registros a serem buscados
-     * @return  self
+     * @param  int  $inicio     Valor inicial para o LIMIT
+     * @param  int  $quantidade Quando de registros a serem buscados
+     * @return self
      */
     protected function limit(int $inicio, int $quantidade): self
     {
@@ -20,9 +20,9 @@ trait LimitTrait
     /**
      * Pagina atual que deseja buscar
      *
-     * @param   int       $pagina         Página atual da busca
-     * @param   int       $quantidade     Quantidade de registro por página
-     * @return  self
+     * @param  int  $pagina     Página atual da busca
+     * @param  int  $quantidade Quantidade de registro por página
+     * @return self
      */
     protected function pagina(int $pagina, int $quantidade = 20): self
     {

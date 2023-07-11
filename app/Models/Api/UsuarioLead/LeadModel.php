@@ -66,13 +66,13 @@ final class LeadModel extends ORM
             }
 
             $retorno[] = object([
-                'id' => $r->uuid,
-                'nome' => strNull($r->nome_completo),
-                'cpf' => strCpf($r->documento_cpf),
-                'email' => strNull($email),
+                'id'           => $r->uuid,
+                'nome'         => strNull($r->nome_completo),
+                'cpf'          => strCpf($r->documento_cpf),
+                'email'        => strNull($email),
                 'data_criacao' => $r->data_criacao,
-                'origem' => $Origem->indice($r->lead_origem),
-                'status' => $Status->indice($r->status)
+                'origem'       => $Origem->indice($r->lead_origem),
+                'status'       => $Status->indice($r->status)
             ]);
         }
         return $retorno;
@@ -128,7 +128,7 @@ final class LeadModel extends ORM
                 ['email_funcional', 'like', $pesquisa . '%']
             ];
 
-            $cpfPesquisa = preg_replace("/[^0-9]/", "", $pesquisa);
+            $cpfPesquisa = preg_replace('/[^0-9]/', '', $pesquisa);
             if (!empty($cpfPesquisa)) {
                 $wherePesquisa[] = ['documento_cpf', 'like', $cpfPesquisa . '%'];
             }

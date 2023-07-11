@@ -13,54 +13,67 @@ final class GrupoEntity extends Entity
      * @var array
      */
     public array $equipe = [];
+
     /**
      * @var string
      */
     public string $diretorio;
+
     /**
      * @var int
      */
     public int $id_upload_grupo;
+
     /**
      * @var int
      */
     public int $id_usuario_equipe;
+
     /**
      * @var array
      */
     public array $extensao;
+
     /**
      * @var string|null
      */
     public ?string $privado;
+
     /**
      * @var string
      */
     protected string $ormTabela = TABELA_UPLOAD_GRUPO;
+
     /**
      * @var array|string[]
      */
     protected array $ormBuscar = ['id_upload_grupo', 'id_usuario_equipe', 'nome', 'extensao', 'diretorio', 'privado'];
+
     /**
      * @var array|string[]
      */
     protected array $ormInsert = ['id_upload_grupo', 'id_usuario_equipe', 'extensao', 'diretorio', 'local', 'privado'];
+
     /**
      * @var array|string[]
      */
     protected array $ormSalvar = ['nome'];
+
     /**
      * @var array
      */
     private array $raiz = [];
+
     /**
      * @var array
      */
     private array $pai = [];
+
     /**
      * @var array
      */
     private array $filho = [];
+
     /**
      * @var array
      */
@@ -69,8 +82,8 @@ final class GrupoEntity extends Entity
     /**
      * Busca ao setar o diretório e subdiretorio
      *
-     * @param  null|string  $grupo  Grupo pai
-     * @param  null|string  $nome   Nome do grupo
+     * @param null|string $grupo Grupo pai
+     * @param null|string $nome  Nome do grupo
      */
     public function __construct(
         protected ?string $grupo = null,
@@ -80,7 +93,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     protected function regraSalvar(): void
     {
@@ -91,7 +103,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */
@@ -118,7 +129,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraInsert(): void
@@ -129,7 +139,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarPai(): void
@@ -149,7 +158,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */
@@ -161,7 +169,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraPosBuscar(): void
@@ -172,7 +179,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarRaiz(): void
@@ -198,7 +204,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     private function setarValorDaRaiz(): void
     {
@@ -213,7 +218,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */
@@ -225,7 +229,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */
@@ -240,8 +243,7 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @param  string|array  $id
-     * @return void
+     * @param  string|array $id
      * @throws Excecao
      */
     private function pegarListaDeArquivoDoGrupo(string|array $id): void
@@ -260,7 +262,6 @@ final class GrupoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     protected function regraPosDestruir(): void
     {

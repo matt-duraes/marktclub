@@ -46,6 +46,7 @@ final class DownloadModel extends ORM
         $this->salvarLogDownload($dado);
         return $this->montarRetornoDownload($dado);
     }
+
     private function salvarLogDownload(array $dado)
     {
         $Log = new LogDownloadEntity(
@@ -60,6 +61,7 @@ final class DownloadModel extends ORM
             mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
         }
     }
+
     private function montarRetornoDownload(array $dado): array
     {
         $i = 0;
@@ -102,6 +104,7 @@ final class DownloadModel extends ORM
         }
         return;
     }
+
     private function converterCampoParaDownload()
     {
         $campo = array_flip(jsonDecode($this->request->campo, true, true));

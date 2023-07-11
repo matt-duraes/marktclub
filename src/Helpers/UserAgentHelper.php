@@ -11,35 +11,38 @@ final class UserAgentHelper
     private bool $mobile;
     private bool $tablet;
 
-
     public function dispositivo()
     {
         return $this->dispositivo;
     }
+
     public function os()
     {
         return $this->os;
     }
+
     public function navegador()
     {
         return $this->navegador;
     }
+
     public function versao()
     {
         return $this->versao;
     }
+
     public function mobile()
     {
         return $this->mobile;
     }
+
     public function tablet()
     {
         return $this->tablet;
     }
 
-
     /**
-     * @param null|string $userAgente User agent que deseja converter, deixar como null para pegar o user atual
+     * @param  null|string $userAgente User agent que deseja converter, deixar como null para pegar o user atual
      * @return array
      */
     public function __construct(?string $userAgent = null)
@@ -66,11 +69,11 @@ final class UserAgentHelper
         ) {
             $this->tratar([
                 'dispositivo' => $browscap->device_type,
-                'os' => $os,
-                'navegador' => $navegador,
-                'versao' => $versao,
-                'mobile' => $browscap->ismobiledevice ?? false,
-                'tablet' => $browscap->istablet ?? false,
+                'os'          => $os,
+                'navegador'   => $navegador,
+                'versao'      => $versao,
+                'mobile'      => $browscap->ismobiledevice ?? false,
+                'tablet'      => $browscap->istablet ?? false,
             ]);
             return;
         }
@@ -356,11 +359,11 @@ final class UserAgentHelper
 
         return [
             'dispositivo' => $dispositivo,
-            'os' => $os,
-            'navegador' => $browser ?: null,
-            'versao' => $version ?: null,
-            'mobile' => $mobile,
-            'tablet' => $tablet
+            'os'          => $os,
+            'navegador'   => $browser ?: null,
+            'versao'      => $version ?: null,
+            'mobile'      => $mobile,
+            'tablet'      => $tablet
         ];
     }
 }

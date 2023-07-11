@@ -17,6 +17,7 @@ final class SolicitacaoPremiumController extends Controller implements Controlle
         $Premium = new PremiumModel($request);
         return mensagemSucesso($Premium->listarDados());
     }
+
     public function postDownload(Request $request)
     {
         $Voucher = new DownloadModel($request);

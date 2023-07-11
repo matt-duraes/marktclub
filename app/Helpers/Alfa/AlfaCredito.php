@@ -13,26 +13,32 @@ class AlfaCredito
      * @var string Link da API
      */
     private string $link;
+
     /**
      * @var string Id da API
      */
     private string $client_id;
+
     /**
      * @var string Secret da API
      */
     private string $client_secret;
+
     /**
      * @var string Usuário da API
      */
     private string $usuario;
+
     /**
      * @var string Senha da API
      */
     private string $senha;
+
     /**
      * @var array|null Lista de CPFs para bypassar a validação (SOMENTE PARA FINALIDADE DE TESTE)
      */
     private ?array $bypass = null;
+
     /**
      * @var SolicitacaoEntity Entidade da solicitação de crédito
      */
@@ -77,13 +83,13 @@ class AlfaCredito
         if (!empty(env('ALFA_API_BANCO_BYPASS')) && is_string(env('ALFA_API_BANCO_BYPASS'))) {
             $this->bypass = explode(
                 ',',
-                preg_replace("/[^0-9]/", '', env('ALFA_API_BANCO_BYPASS'))
+                preg_replace('/[^0-9]/', '', env('ALFA_API_BANCO_BYPASS'))
             );
         }
     }
 
     /**
-     * @return bool Se FALSE não foi possível enviar. Se TRUE enviado com sucesso.
+     * @return bool    Se FALSE não foi possível enviar. Se TRUE enviado com sucesso.
      * @throws Excecao Caso de erro na requisição
      */
     public function enviarSolicitacao(): bool
@@ -115,7 +121,7 @@ class AlfaCredito
     }
 
     /**
-     * @return array Mensagem da solicitação pronta para envio
+     * @return array   Mensagem da solicitação pronta para envio
      * @throws Excecao
      */
     private function criarMensagemSolicitacao(): array

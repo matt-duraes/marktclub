@@ -7,8 +7,8 @@ use Erro\Erro;
 trait MudouTrait
 {
     /**
-     * @param Null|String   $propriedade    Propriedade que deseja verificar, caso não informado,
-     *                                          buscara mudança na Entity inteira
+     * @param null|string $propriedade Propriedade que deseja verificar, caso não informado,
+     *                                 buscara mudança na Entity inteira
      */
     protected function mudou(?string $propriedade = null)
     {

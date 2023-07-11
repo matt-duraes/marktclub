@@ -1,4 +1,6 @@
 // @template "site"
+// @resource "site/loja/busca"
+// @resource "site/loja/favorito"
 
 window.addEventListener('load', () => {
     const url = document.getElementById('input_loja_url').value;

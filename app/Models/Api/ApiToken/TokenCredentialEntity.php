@@ -23,15 +23,14 @@ final class TokenCredentialEntity extends Entity
 
         return [
             'access_token' => $jwt,
-            'scope' => implode(' ', $scope),
-            'expires_in' => $app->tempo_vida,
-            'token_type' => 'Bearer',
+            'scope'        => implode(' ', $scope),
+            'expires_in'   => $app->tempo_vida,
+            'token_type'   => 'Bearer',
         ];
     }
 
     private function criarJwt(AppEntity $app, $audience, $scope)
     {
-
         $criado = time();
         $vencimento = time() + $app->tempo_vida;
 
@@ -47,14 +46,14 @@ final class TokenCredentialEntity extends Entity
         }
 
         $payload = [
-            'iss' => LINK,
-            'sub' => $Usuario->login_usuario,
-            'aud' => $audience,
-            'iat' => $criado,
-            'exp' => $vencimento,
-            'azp' => $app->client_id,
+            'iss'   => LINK,
+            'sub'   => $Usuario->login_usuario,
+            'aud'   => $audience,
+            'iat'   => $criado,
+            'exp'   => $vencimento,
+            'azp'   => $app->client_id,
             'scope' => implode(' ', $scope),
-            'gty' => 'client-credentials',
+            'gty'   => 'client-credentials',
         ];
 
         try {

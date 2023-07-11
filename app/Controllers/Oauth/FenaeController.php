@@ -61,7 +61,7 @@ final class FenaeController extends Controller
     public function delogarPelaFenae()
     {
         $this->limparLogin();
-        return new Response(url: env("FENAE_LOGOUT_CLUBE"), status: 302);
+        return new Response(url: env('FENAE_LOGOUT_CLUBE'), status: 302);
     }
 
     /**
@@ -74,6 +74,7 @@ final class FenaeController extends Controller
         $this->limparLogin();
         return new Response(url: $url, status: 302);
     }
+
     public function usuarioDeslogou()
     {
         return new Response(url: env('FENAE_CLUBE'));
@@ -89,6 +90,7 @@ final class FenaeController extends Controller
             cookieDeletar('MKCLTI');
         }
     }
+
     private function limparTemporario()
     {
         if (cookieExiste('MKCTC')) {

@@ -1,4 +1,3 @@
 @template "site"
-
 @view site/loja/geral/busca.view
 @view site/geral/detalhe.view

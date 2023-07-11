@@ -14,8 +14,8 @@ final class Suporte extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::SIM => 'Já pediu ajuda ao suporte',
-            self::NAO    => 'Não pediu ajuda ao suporte',
+            self::SIM      => 'Já pediu ajuda ao suporte',
+            self::NAO      => 'Não pediu ajuda ao suporte',
             self::NUNCA    => 'Nunca precisou pedir'
         ]);
     }

@@ -13,7 +13,7 @@ class CinemaController
     use ClienteTrait;
 
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -35,7 +35,7 @@ class CinemaController
     }
 
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao

@@ -18,6 +18,7 @@ final class UrlLogoutModel
         $this->setarCookie();
         $this->pegarIdToken();
     }
+
     private function setarCookie(): void
     {
         cookie('MKCLOE', base64Encode($this->provider->getState()), minuto: 10);

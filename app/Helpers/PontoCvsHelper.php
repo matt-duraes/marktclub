@@ -21,9 +21,9 @@ final class PontoCvsHelper
     /**
      * Valida se o usuário tem a quantidade de pontos desejada
      *
-     * @param   int     $ponto  Quantidade de ponto solicitada
-     * @param   int     $cpf    CPF do usuário
-     * @return  bool
+     * @param  int  $ponto Quantidade de ponto solicitada
+     * @param  int  $cpf   CPF do usuário
+     * @return bool
      */
     public function validarQuantidadePonto(int $ponto, int $cpf): bool
     {
@@ -39,8 +39,8 @@ final class PontoCvsHelper
     /**
      * Valida se o usuário é um usuário valido no banco
      *
-     * @param   int     $cpf    CPF do usuário
-     * @return  bool
+     * @param  int  $cpf CPF do usuário
+     * @return bool
      */
     public function validarUsuario(int $cpf): bool
     {
@@ -53,8 +53,8 @@ final class PontoCvsHelper
 
     /**
      * Busca a quantidade de pontos do usuário
-     * @param   int     $cpf    CPF do usuário
-     * @return  stdClass|null      Classe de pontos ou null quando der erro
+     * @param  int           $cpf CPF do usuário
+     * @return stdClass|null Classe de pontos ou null quando der erro
      */
     public function buscarPontos(int $cpf): stdClass|null
     {
@@ -68,8 +68,8 @@ final class PontoCvsHelper
 
     /**
      * Busca o extrato do usuário
-     * @param   int     $cpf    CPF do usuário
-     * @return  array|null      Array com extratos ou null quando der erro
+     * @param  int        $cpf CPF do usuário
+     * @return array|null Array com extratos ou null quando der erro
      */
     public function buscarExtrato(int $cpf): array|null
     {
@@ -83,9 +83,9 @@ final class PontoCvsHelper
 
     /**
      * Envia a solicitação do usuário
-     * @param   int     $cpf    CPF do usuário
-     * @param   int     $ponto    Pontos solicitados
-     * @return  string     Numero da solicitacao
+     * @param  int    $cpf   CPF do usuário
+     * @param  int    $ponto Pontos solicitados
+     * @return string Numero da solicitacao
      */
     public function enviarSolicitacaoPonto(int $cpf, int $ponto): string
     {
@@ -98,9 +98,9 @@ final class PontoCvsHelper
 
     /**
      * Busca a solicitação pelo codigo
-     * @param   int     $codigo    Codigo da solicitação
+     * @param int $codigo Codigo da solicitação
      *
-     * @return  stdClass|string      Classe de pontos ou mensagem de erro
+     * @return stdClass|string Classe de pontos ou mensagem de erro
      */
     public function buscarSolicitacao(int $codigo): stdClass|string
     {
@@ -121,7 +121,7 @@ final class PontoCvsHelper
         $Curl = new CurlHelper($this->link);
         $dado = $Curl
             ->header([
-                'Content-Type' => 'application/json; charset=utf-8;',
+                'Content-Type'  => 'application/json; charset=utf-8;',
                 'Authorization' => 'Basic ' . base64_encode($this->login . ':' . $this->senha)
             ])
             ->parametro(['cpf' => $cpf])
@@ -177,13 +177,13 @@ final class PontoCvsHelper
         $Curl = new CurlHelper($this->link);
         $dado = $Curl
             ->header([
-                'Content-Type' => 'application/json;charset=utf-8;',
+                'Content-Type'  => 'application/json;charset=utf-8;',
                 'Authorization' => 'Basic ' . base64_encode($this->login . ':' . $this->senha)
             ])
             ->parametro([
-                'matricula' => "$usuario->matricula",
-                'tipo_socio' => $usuario->tipo_socio == "SOCIO" ? 1 : 2,
-                'premio' => $usuario->tipo_socio == "SOCIO" ? 34 : 35,
+                'matricula'  => "$usuario->matricula",
+                'tipo_socio' => $usuario->tipo_socio == 'SOCIO' ? 1 : 2,
+                'premio'     => $usuario->tipo_socio == 'SOCIO' ? 34 : 35,
                 'quantidade' => $quantidade,
             ])->post('/bonus/solicita')->object();
 
@@ -201,7 +201,7 @@ final class PontoCvsHelper
         $Curl = new CurlHelper($this->link);
         $dado = $Curl
             ->header([
-                'Content-Type' => 'application/json; charset=utf-8;',
+                'Content-Type'  => 'application/json; charset=utf-8;',
                 'Authorization' => 'Basic ' . base64_encode($this->login . ':' . $this->senha)
             ])
             ->parametro(['pedido_codigo' => $codigo])

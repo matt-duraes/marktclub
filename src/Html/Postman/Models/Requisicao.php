@@ -7,6 +7,7 @@ final class Requisicao
     public array $requisicao = [];
     private string $path;
     private string $id;
+
     public function __construct(
         ?string $path = null,
         ?string $pai = null,
@@ -30,21 +31,21 @@ final class Requisicao
     private function montarRequisicao(array $dado)
     {
         $this->requisicao = [
-            'id' => $this->id,
-            'token' => $dado['token'] ?? 'sem_token',
-            'metodo' => $dado['metodo'] ?? 'GET',
-            'nome' => $dado['nome'] ?? 'Temporario',
-            'uri' => $dado['uri'] ?? '{{LINK}}/',
-            'parametro' => jsonDecode($dado['parametro'] ?? [], true, true),
-            'body' => jsonDecode($dado['body'] ?? [], true, true),
-            'header' => jsonDecode($dado['header'] ?? [], true, true),
-            'variavel' => jsonDecode($dado['variavel'] ?? [], true, true),
-            'json' => jsonDecode($dado['json'] ?? [], true, true),
+            'id'           => $this->id,
+            'token'        => $dado['token'] ?? 'sem_token',
+            'metodo'       => $dado['metodo'] ?? 'GET',
+            'nome'         => $dado['nome'] ?? 'Temporario',
+            'uri'          => $dado['uri'] ?? '{{LINK}}/',
+            'parametro'    => jsonDecode($dado['parametro'] ?? [], true, true),
+            'body'         => jsonDecode($dado['body'] ?? [], true, true),
+            'header'       => jsonDecode($dado['header'] ?? [], true, true),
+            'variavel'     => jsonDecode($dado['variavel'] ?? [], true, true),
+            'json'         => jsonDecode($dado['json'] ?? [], true, true),
             'documentacao' => [
-                'status' => $dado['documentacao']['status'] ?? false,
-                'descricao' => $dado['documentacao']['descricao'] ?? '',
+                'status'     => $dado['documentacao']['status'] ?? false,
+                'descricao'  => $dado['documentacao']['descricao'] ?? '',
                 'requisicao' => $dado['documentacao']['requisicao'] ?? '',
-                'resposta' => $dado['documentacao']['resposta'] ?? '',
+                'resposta'   => $dado['documentacao']['resposta'] ?? '',
             ]
         ];
     }
@@ -62,61 +63,73 @@ final class Requisicao
         $this->requisicao['nome'] = $this->setarNome($nome);
         return $this;
     }
+
     public function token(string $token)
     {
         $this->requisicao['token'] = $token;
         return $this;
     }
+
     public function metodo(string $metodo)
     {
         $this->requisicao['metodo'] = $metodo;
         return $this;
     }
+
     public function uri(string $uri)
     {
         $this->requisicao['uri'] = $uri;
         return $this;
     }
+
     public function parametro(array $parametro)
     {
         $this->requisicao['parametro'] = $parametro;
         return $this;
     }
+
     public function body(array $body)
     {
         $this->requisicao['body'] = $body;
         return $this;
     }
+
     public function header(array $header)
     {
         $this->requisicao['header'] = $header;
         return $this;
     }
+
     public function variavel(array $variavel)
     {
         $this->requisicao['variavel'] = $variavel;
         return $this;
     }
+
     public function json(array $json)
     {
         $this->requisicao['json'] = $json;
         return $this;
     }
+
     public function documentacao(bool $documentacao)
     {
         $this->requisicao['documentacao']['status'] = $documentacao;
         return $this;
     }
+
     public function descriaco(string $descriaco)
     {
         $this->requisicao['documentacao']['descricao'] = $descriaco;
         return $this;
     }
+
     public function requisicao(string $requisicao)
     {
         $this->requisicao['documentacao']['requisicao'] = $requisicao;
         return $this;
     }
+
     public function resposta(string $resposta)
     {
         $this->requisicao['documentacao']['resposta'] = $resposta;
@@ -129,6 +142,7 @@ final class Requisicao
             mensagemErro('Erro!', 'Ocorreu um erro ao salvar o arquivo.');
         }
     }
+
     public function deletar()
     {
         unlink($this->path);

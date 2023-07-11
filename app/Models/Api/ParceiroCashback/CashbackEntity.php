@@ -4,9 +4,7 @@ namespace App\Models\Api\ParceiroCashback;
 
 use ORM\Entity;
 use Modules\Decimal;
-use Helpers\UploadHelper;
 use App\Classes\StatusGeral\Status;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class CashbackEntity extends Entity
 {
@@ -21,7 +19,6 @@ final class CashbackEntity extends Entity
         'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
         'status', 'link_site', 'imagem'
     ];
-
     public string $titulo;
     public string $texto_descricao;
     public string $texto_restricao;

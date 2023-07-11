@@ -16,13 +16,11 @@ final class ArquivoEntity extends Entity
     protected array $ormInsert = ['id_admin_empresa', 'id_usuario_equipe', 'arquivo'];
     protected array $ormSalvar = ['status'];
     protected array $ormBuscar = ['id_usuario_equipe', 'arquivo', 'status'];
-
     protected int $id_admin_empresa;
     protected int $id_usuario_equipe;
     public string $arquivo;
     public string $link;
     public Status $status;
-
     private EquipeEntity $Equipe;
     public array $dono;
     public Botao $vencido;

@@ -13,16 +13,16 @@ trait ReadTrait
     protected function paginacaoZero()
     {
         return (object)[
-            'lista' => [],
+            'lista'    => [],
             'registro' => (object) [
                 'inicio' => 0,
-                'final' => 0,
-                'atual' => 0,
-                'total' => 0
+                'final'  => 0,
+                'atual'  => 0,
+                'total'  => 0
             ],
             'pagina' => (object) [
-                'total' => 0,
-                'atual' => 0,
+                'total'     => 0,
+                'atual'     => 0,
                 'paginacao' => []
             ],
         ];
@@ -31,9 +31,9 @@ trait ReadTrait
     /**
      * Conta a quantidade de registro
      *
-     * @param   array $where    Where para a busca
-     * @return  int             Quantidade de registros encontrados
-     * @throws  Excecao         Exceção caso ocorra um erro de PDO
+     * @param  array   $where Where para a busca
+     * @return int     Quantidade de registros encontrados
+     * @throws Excecao Exceção caso ocorra um erro de PDO
      */
     protected function contar(array $where = []): int
     {
@@ -59,11 +59,11 @@ trait ReadTrait
     /**
      * Faz uma busca e monta um select da busca
      *
-     * @param   string                              $indice     Indice que deve ser usado no retorno
-     * @param   string                              $valor      Valor que deve ser usado no retorno
-     * @param   array                               $where      Array com uma busca caso queira filtrar
-     * @param   null|string|array|OrderInterface    $order      Ordem caso não queira usar a ordem padrão que é $valor ASC
-     * @return  array                                           Array com a lista com o formato $indice => $valor
+     * @param  string                           $indice Indice que deve ser usado no retorno
+     * @param  string                           $valor  Valor que deve ser usado no retorno
+     * @param  array                            $where  Array com uma busca caso queira filtrar
+     * @param  null|string|array|OrderInterface $order  Ordem caso não queira usar a ordem padrão que é $valor ASC
+     * @return array                            Array com a lista com o formato $indice => $valor
      */
     public function pegarSelect(
         string $indice,
@@ -84,7 +84,7 @@ trait ReadTrait
     /**
      * Verifica se um registro existe
      *
-     * @param array $where  Where com a condição para a busca
+     * @param  array $where Where com a condição para a busca
      * @return bool
      */
     public function existe(array $where): bool
@@ -103,9 +103,9 @@ trait ReadTrait
     /**
      * Pega o primeiro registro da busca
      *
-     * @param string        $campo          Campo que deseja pegar na requisição, caso não passe o indice, pegar o indice 0
-     * @param mixed         $padrao         Padrão caso não exista o campo
-     * @param string        $retorno        Tipo de retorno podendo ser object ou array
+     * @param  string $campo   Campo que deseja pegar na requisição, caso não passe o indice, pegar o indice 0
+     * @param  mixed  $padrao  Padrão caso não exista o campo
+     * @param  string $retorno Tipo de retorno podendo ser object ou array
      * @return mixed
      */
     protected function primeiro(string $campo = '', $padrao = null, string $retorno = 'object')
@@ -116,11 +116,11 @@ trait ReadTrait
     /**
      * Executa a busca no banco
      *
-     * @param   null|int      $indice         Indice que quer pegar da requisição
-     * @param   string        $campo          Campo que deseja pegar na requisição, caso não passe o indice, pegar o indice 0
-     * @param   mixed         $padrao         Padrão caso não exista o campo
-     * @param   string        $retorno        Tipo de retorno podendo ser object ou array
-     * @return  mixed
+     * @param  null|int $indice  Indice que quer pegar da requisição
+     * @param  string   $campo   Campo que deseja pegar na requisição, caso não passe o indice, pegar o indice 0
+     * @param  mixed    $padrao  Padrão caso não exista o campo
+     * @param  string   $retorno Tipo de retorno podendo ser object ou array
+     * @return mixed
      */
     protected function read(?int $indice = null, string $campo = '', $padrao = null, string $retorno = 'object')
     {
@@ -159,9 +159,9 @@ trait ReadTrait
     /**
      * Buscar no banco usando uma string para a busca
      *
-     * @param string    $query      Query para a busca
-     * @param array     $valor      Valores para a query informada
-     * @param string    $retorno    Tipo de retorno podendo ser object ou array
+     * @param  string         $query   Query para a busca
+     * @param  array          $valor   Valores para a query informada
+     * @param  string         $retorno Tipo de retorno podendo ser object ou array
      * @return stdClass|array
      */
     protected function readTexto(string $query, array $valor = [], string $retorno = 'object'): stdClass | array
@@ -204,8 +204,8 @@ trait ReadTrait
     /**
      * Cria um select para a busca
      *
-     * @param   string        $select         Select que deseja passar
-     * @return  self
+     * @param  string $select Select que deseja passar
+     * @return self
      */
     protected function select(string $select = '')
     {
@@ -225,11 +225,12 @@ trait ReadTrait
             "SELECT {{CAMPO}} FROM `{$this->ormTabela}`";
         return $this;
     }
+
     /**
      * Cria um select em forma de texto, cuidado ao usá-lo
      *
-     * @param   string  $select Select que deseja usar
-     * @return  self
+     * @param  string $select Select que deseja usar
+     * @return self
      */
     protected function selectTexto(string $select)
     {
@@ -244,10 +245,10 @@ trait ReadTrait
     /**
      * Campos permitidos na busca
      *
-     * @param   string|array    $campo      Lista com os campos que devem ser buscados podendo ser uma lista simples ["campo_1", "campo_2"] ou um array composto onde o primeiro indice é o campo e o segundo é a alias [["campo_1", "nome_campo_1"], ["campo_2", "campo_nome_2"]]
-     * @param   null|string     $as         Alias padrão para o as, por exemplo, $as = usuario: campo1 vira usuario_campo1, campo2 vira usuario_campo2, etc
-     * @param   null|array      $replace    Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
-     * @return  self
+     * @param  string|array $campo   Lista com os campos que devem ser buscados podendo ser uma lista simples ["campo_1", "campo_2"] ou um array composto onde o primeiro indice é o campo e o segundo é a alias [["campo_1", "nome_campo_1"], ["campo_2", "campo_nome_2"]]
+     * @param  null|string  $as      Alias padrão para o as, por exemplo, $as = usuario: campo1 vira usuario_campo1, campo2 vira usuario_campo2, etc
+     * @param  null|array   $replace Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
+     * @return self
      */
     protected function campo(array $campo, ?string $as = null, ?array $replace = null): self
     {
@@ -281,12 +282,13 @@ trait ReadTrait
         $this->ormCampo[] = implode(', ', $lista);
         return $this;
     }
+
     /**
      * Faz um count de um campo da tabela
      *
-     * @param  string       $campo  Campo da tabela que deseja fazer o count
-     * @param  null|string  $as     Alias para campo, começar com ! para ser exatamente esse nome ou vazio
-     *                              para ser o próprio campo
+     * @param string      $campo Campo da tabela que deseja fazer o count
+     * @param null|string $as    Alias para campo, começar com ! para ser exatamente esse nome ou vazio
+     *                           para ser o próprio campo
      */
     public function count(string $campo, string $as = null): self
     {
@@ -295,6 +297,7 @@ trait ReadTrait
         $this->ormCampo[] = 'count(' . $campo . ')' . $as;
         return $this;
     }
+
     private function setarStringCampo($campo, $as)
     {
         $as = $this->setarValorAlias($campo, $as);
@@ -307,6 +310,7 @@ trait ReadTrait
         return 'JSON_EXTRACT(`' . $this->ormTabelaAtual . '`.`'
             . $campo . '`, \'$.' . implode('.', $explode) . '\')' . $as;
     }
+
     private function setarValorAlias(string $campo, ?string $as)
     {
         if (empty($as)) {
@@ -321,8 +325,8 @@ trait ReadTrait
     /**
      * Campos em texto simples, muito cuidado ao usá-lo
      *
-     * @param   string   $campo  Campos no formato: campo_1, campo_2
-     * @return  self
+     * @param  string $campo Campos no formato: campo_1, campo_2
+     * @return self
      */
     protected function campoTexto(string $campo)
     {
@@ -394,16 +398,16 @@ trait ReadTrait
         $registroInicio = (($paginaAtual - 1) * $paginaQuantidade) + 1;
 
         return (object)[
-            'lista' => $lista,
+            'lista'    => $lista,
             'registro' => (object) [
                 'inicio' => $registroAtual == 0 ? 0 : $registroInicio,
-                'final' => $registroAtual == 0 ? 0 : $registroInicio + $registroAtual - 1,
-                'atual' => $registroAtual == 0 ? 0 : $registroAtual,
-                'total' => (int) $total,
+                'final'  => $registroAtual == 0 ? 0 : $registroInicio + $registroAtual - 1,
+                'atual'  => $registroAtual == 0 ? 0 : $registroAtual,
+                'total'  => (int) $total,
             ],
             'pagina' => (object) [
-                'total' => $paginaTotal,
-                'atual' => $paginaAtual,
+                'total'     => $paginaTotal,
+                'atual'     => $paginaAtual,
                 'paginacao' => $paginacao,
             ]
         ];

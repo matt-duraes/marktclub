@@ -89,7 +89,7 @@ final class ErrorEntity extends Entity
         $this
             ->dado([
                 'data_atualizacao' => agora(),
-                'quantidade' => $quantidade + 1
+                'quantidade'       => $quantidade + 1
             ])->where(['id', $id])
             ->update();
     }

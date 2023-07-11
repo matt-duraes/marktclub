@@ -7,72 +7,76 @@
 @resource "site/loja/busca"
 
 #bloco_pagina_perfil
-	width: 100%
-	max-width: $maxWidth
-	espacoBottomPadrao()
-	.conteudo
-		padding: 0px 20px
-	.conteudo .foto
-		flexRow()
-	.conteudo .foto figure
-		width: 150px
-		height: 150px
-		flexRow()
-		padding-bottom: 20px
-		backgroundCoverCenterNotRepeat()
-		border-radius: 50%
-		boxShadow()
-	.conteudo .foto .legenda
-		alignItemStart()
-		justify-content: center
-		margin-left: 20px
-	.conteudo .foto .legenda article
-		flexCol()
-		h1
-			texto()
-			text-transform: capitalize
-		p
-			texto()
-			color: #666
-		p:nth-child(1)
-			margin-top: 10px
-	.conteudo .foto .legenda .google
-		display: flex
-		height: 40px
-		texto()
-		blocoShadow()
-		espacoVerticalPadrao()
-		cursor: pointer
-		.texto, i
-			height: 100%
-			flexCenter()
-			padding: 0px 14px
-		.texto
-			flexCenter()
-			padding: 0px
-			font-dize: 1em
-			color: #808080
-		.logo_google
-			width: 40px
-			height: 100%
-			flexCenter()
-		.logo_google img
-			width: 25px
-	.conteudo form
-		width: 100%
-		flexCol()
-		max-width: 700px
-		espacoTopPadrao()
-		button
-			width: 200px
-		p
-			subTitulo()
-		fieldset
-			width: 100%
-			flexCol()
-			blocoShadow()
-			margin-bottom: 20px
-			background-color: $branco
+    width: 100%
+    max-width: $maxWidth
+    espacoBottomPadrao()
+    .conteudo
+        padding: 0px 20px
+        flexCol()
+        align-items: center
+    .conteudo .foto
+        flexRow()
+        justify-content: center
+    .conteudo .foto figure
+        width: 150px
+        height: 150px
+        flexRow()
+        padding-bottom: 20px
+        backgroundCoverCenterNotRepeat()
+        border-radius: 50%
+        boxShadow()
+    .conteudo .foto .legenda
+        alignItemStart()
+        justify-content: center
+        margin-left: 20px
+    .conteudo .foto .legenda article
+        flexCol()
+        h1
+            texto()
+            text-transform: capitalize
+        p
+            texto()
+            color: #666
+        p:nth-child(1)
+            margin-top: 10px
+    .conteudo .foto .legenda .google
+        display: flex
+        height: 40px
+        texto()
+        blocoShadow()
+        espacoVerticalPadrao()
+        cursor: pointer
+        .texto, i
+            height: 100%
+            flexCenter()
+            padding: 0px 14px
+        .texto
+            flexCenter()
+            padding: 0px
+            font-dize: 1em
+            color: #808080
+        .logo_google
+            width: 40px
+            height: 100%
+            flexCenter()
+        .logo_google img
+            width: 25px
+    .conteudo form
+        width: 100%
+        flexCol()
+        max-width: 700px
+        espacoTopPadrao()
+        align-items: center
+        button
+            width: 200px
+        p
+            subTitulo()
+        fieldset
+            width: 100%
+            flexCol()
+            blocoShadow()
+            margin-bottom: 20px
+            background-color: $branco
 
 @media screen and (max-width: 900px)
     .form_geral .bloco_input

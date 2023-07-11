@@ -22,7 +22,7 @@ class CreditoModel extends ORM
     protected string $ormTabela = TABELA_SOLICITACAO_CREDITO;
 
     /**
-     * @param  Request|null  $request
+     * @param Request|null $request
      *
      * @throws Excecao
      */
@@ -34,7 +34,6 @@ class CreditoModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void
@@ -108,7 +107,7 @@ class CreditoModel extends ORM
     }
 
     /**
-     * @param  array  $solicitacoes
+     * @param array $solicitacoes
      *
      * @return array
      */
@@ -141,9 +140,9 @@ class CreditoModel extends ORM
     }
 
     /**
-     * @param  string  $codigo
+     * @param string $codigo
      *
-     * @return bool Caso exista solicitação retorna TRUE. Do contrário FALSE.
+     * @return bool    Caso exista solicitação retorna TRUE. Do contrário FALSE.
      * @throws Excecao
      */
     public function verificarExisteCodigo(string $codigo): bool

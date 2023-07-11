@@ -4,6 +4,7 @@ namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
 use Modules\Data;
+use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Analytics\Trait\WhereTrait;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
@@ -18,6 +19,7 @@ final class LojaMaisAcessadaModel extends ORM
     public function __construct(
         protected Data $de,
         protected Data $ate,
+        protected Estabelecimento $estabelecimento,
         private ?EmpresaEntity $Empresa = null
     ) {
         parent::__construct();
@@ -35,6 +37,15 @@ final class LojaMaisAcessadaModel extends ORM
         return $this->montarDado($lista);
     }
 
+    private function pegarWhere()
+    {
+        $where = $this->pegarWherePadrao();
+        if ($this->estabelecimento->valido()) {
+            $where[] = ['parceiro_estabelecimento', $this->estabelecimento->numero()];
+        }
+        return $where;
+    }
+
     private function montarDado($lista)
     {
         $dado = [];
@@ -44,7 +55,7 @@ final class LojaMaisAcessadaModel extends ORM
             if (!array_key_exists($r->id_parceiro_loja, $dado)) {
                 $dado[$r->id_parceiro_loja] = object([
                     'parceiro_nome' => $r->parceiro_nome,
-                    'quantidade' => 0,
+                    'quantidade'    => 0,
                 ]);
             }
             $dado[$r->id_parceiro_loja]->quantidade += $r->quantidade;
@@ -63,8 +74,8 @@ final class LojaMaisAcessadaModel extends ORM
         $i = 1;
         foreach ($dado as $r) {
             $retorno[] = [
-                'loja' => $r->parceiro_nome,
-                'total' => $r->quantidade,
+                'loja'        => $r->parceiro_nome,
+                'total'       => $r->quantidade,
                 'porcentagem' => porcentagem($r->quantidade, $total)
             ];
             if ($i >= 20) {

@@ -18,10 +18,10 @@ class RoboHelper
     private string $metodo;
 
     /**
-     * @param Array     $cookie         Cookie para o Robo
-     * @param Array     $historico      Histórico para o Robo
-     * @param Int       $timeout        Timeout que o Crawler vai esperar por resposta
-     * @param String    $userAgent      UserAgent que o Crawler irá se passar
+     * @param array  $cookie    Cookie para o Robo
+     * @param array  $historico Histórico para o Robo
+     * @param int    $timeout   Timeout que o Crawler vai esperar por resposta
+     * @param string $userAgent UserAgent que o Crawler irá se passar
      */
     public function __construct(
         array $cookie = [],
@@ -45,7 +45,7 @@ class RoboHelper
     }
 
     /**
-     * @param Array     $cookie     Array com a lista de Cookie que precisa ser setada
+     * @param array $cookie Array com a lista de Cookie que precisa ser setada
      */
     private function montarCookie(array $cookie): ?CookieJar
     {
@@ -94,6 +94,7 @@ class RoboHelper
     {
         return $this->Client->getResponse()->getStatusCode();
     }
+
     public function metodo(): string
     {
         return $this->metodo;
@@ -106,15 +107,15 @@ class RoboHelper
         $array = [];
         foreach ($Cookie as $r) {
             $array[] = [
-                'name' => $r->getName(),
-                'value' => $r->getValue(),
-                'expires' => $r->getExpiresTime(),
-                'path' => $r->getPath(),
-                'domain' => $r->getDomain(),
-                'secure' => $r->isSecure(),
-                'httpOnly' => $r->isHttpOnly(),
+                'name'         => $r->getName(),
+                'value'        => $r->getValue(),
+                'expires'      => $r->getExpiresTime(),
+                'path'         => $r->getPath(),
+                'domain'       => $r->getDomain(),
+                'secure'       => $r->isSecure(),
+                'httpOnly'     => $r->isHttpOnly(),
                 'encodedValue' => $r->getRawValue(),
-                'sameSite' => $r->getSameSite(),
+                'sameSite'     => $r->getSameSite(),
             ];
         }
         return $array;
@@ -129,8 +130,8 @@ class RoboHelper
     /**
      * Faz uma requisição usando método GET
      *
-     * @param string    $link   Link que dese ser enviado
-     * @param array     $dado   Dado para ser enviado na query
+     * @param string $link Link que dese ser enviado
+     * @param array  $dado Dado para ser enviado na query
      */
     public function get(string $link, array $dado = []): self
     {
@@ -155,12 +156,14 @@ class RoboHelper
         $this->requisicao($link, metodo: 'GET');
         return $this;
     }
+
     public function post(string $link, array $dado = [])
     {
         $this->metodo = 'POST';
         $this->requisicao($link, $dado, 'POST');
         return $this;
     }
+
     private function requisicao(
         string $link,
         array $dado = [],
@@ -182,8 +185,8 @@ class RoboHelper
     /**
      * Pega um elemento
      *
-     * @param string    $elemento   Seletor CSS do elemento que deseja pegar
-     * @param int       $indice     Pela apenas 1 elemento pelo indice informado
+     * @param  string $elemento Seletor CSS do elemento que deseja pegar
+     * @param  int    $indice   Pela apenas 1 elemento pelo indice informado
      * @return self
      */
     public function elemento(string $elemento, ?int $indice = null): self
@@ -201,7 +204,7 @@ class RoboHelper
     /**
      * Pega um elemento pai do elemento do this elemento
      *
-     * @param string $elemento  Seletor CSS do elemento pai
+     * @param  string $elemento Seletor CSS do elemento pai
      * @return self
      */
     public function pai(string $elemento): self
@@ -228,6 +231,7 @@ class RoboHelper
             return false;
         }
     }
+
     /*
     |--------------------------------------------------------------------------
     | TRATA FORMULÁRIOS
@@ -245,8 +249,8 @@ class RoboHelper
     /**
      * Pega ou seta um valor do formulário
      *
-     * @param array     $dado       Array com a propriedade e valor a ser setado
-     * @param string    $indice     Indice para pegar um valor
+     * @param  array                  $dado   Array com a propriedade e valor a ser setado
+     * @param  string                 $indice Indice para pegar um valor
      * @return string|array|bool|self
      */
     public function form(?array $dado = null, ?string $indice = null): string|array|bool|RoboHelper
@@ -292,7 +296,7 @@ class RoboHelper
     /**
      * Pega um atributo do this elemento
      *
-     * @param string $atributo  Atributo que deseja pegar
+     * @param  string       $atributo Atributo que deseja pegar
      * @return string|array String quando for passado o indice do elemento ou array com a lista de todos os elementos
      */
     public function attr(string $atributo): string|array
@@ -401,7 +405,7 @@ class RoboHelper
     /**
      * Verifica se o texto existe no body
      *
-     * @param string $texto Texto que deseja buscar
+     * @param  string $texto Texto que deseja buscar
      * @return bool
      */
     public function textoExiste(string $texto): bool
@@ -413,7 +417,7 @@ class RoboHelper
     /**
      * Pega ou seta um HTML
      *
-     * @param ?string    $html       Html para ser inserido
+     * @param ?string $html Html para ser inserido
      */
     public function html(?string $html = null): self|string|false
     {
@@ -451,7 +455,7 @@ class RoboHelper
     /**
      * Clica em um link pelo texto do link
      *
-     * @param string        $texto      Texto do link que deseja clicar
+     * @param string $texto Texto do link que deseja clicar
      */
     public function clickLink($texto)
     {

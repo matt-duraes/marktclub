@@ -14,42 +14,28 @@ require_once ROOT . '/views/pages/painel/comercial_prospeccao/Routes/ComercialPr
 |--------------------------------------------------------------------------
 */
 
-Route
-    ::middleware(
-        classe: App\Middlewares\Painel\AuthMiddleware::class,
-        action: 'logado',
-    )
+Route::middleware(
+    classe: App\Middlewares\Painel\AuthMiddleware::class,
+    action: 'logado',
+)
 
     // INDEX
-    ::nome('index')
-    ::controller(App\Controllers\Painel\IndexController::class)
-    ::grupo(function () {
+    ::nome('index')::controller(App\Controllers\Painel\IndexController::class)::grupo(function () {
         Route::nome('index')::view('/');
     }, true)
 
     // DASHBOARD
-    ::nome('dashboard')
-    ::controller(App\Controllers\Painel\DashboardController::class)
-    ::grupo(function () {
+    ::nome('dashboard')::controller(App\Controllers\Painel\DashboardController::class)::grupo(function () {
         Route::nome('index')::view('/dashboard');
     }, true)
 
     // SISTEMA DE PAGAMENTO USUARIO
-    ::controller(App\Controllers\Painel\SolicitacaoVoucherController::class)
-    ::grupo(function () {
-        Route
-            ::nome('voucher')
-            ::view('/solicitacao-voucher/gerar/{parceiro}/{usuario}');
+    ::controller(App\Controllers\Painel\SolicitacaoVoucherController::class)::grupo(function () {
+        Route::nome('voucher')::view('/solicitacao-voucher/gerar/{parceiro}/{usuario}');
     }, true)
     // SISTEMA DE PAGAMENTO USUARIO
-    ::controller(App\Controllers\Painel\UsuarioPagamentoController::class)
-    ::grupo(function () {
-        Route
-            ::nome('salvar')
-            ::request(['hash_validacao', 'data', 'valor', 'usuario'])
-            ::post('/usuario-pagamento');
+    ::controller(App\Controllers\Painel\UsuarioPagamentoController::class)::grupo(function () {
+        Route::nome('salvar')::request(['hash_validacao', 'data', 'valor', 'usuario'])::post('/usuario-pagamento');
 
-        Route
-            ::nome('deletar')
-            ::delete('/usuario-pagamento/{id}');
+        Route::nome('deletar')::delete('/usuario-pagamento/{id}');
     });

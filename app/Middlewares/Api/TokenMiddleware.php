@@ -28,7 +28,6 @@ final class TokenMiddleware
     }
 
     /**
-     * @return void
      */
     private function validarTokenEnviado(): void
     {
@@ -48,7 +47,6 @@ final class TokenMiddleware
     /**
      * @param $mensagem
      *
-     * @return void
      * @throws Excecao
      */
     private function erroToken($mensagem): void
@@ -62,7 +60,6 @@ final class TokenMiddleware
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarBody(): void

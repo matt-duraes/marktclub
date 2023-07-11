@@ -15,9 +15,9 @@ final class Status extends StatusStatus
         parent::__construct(
             lista: [
                 self::CONCLUIDO => 'Concluído',
-                self::PREMIUM => 'Premium'
+                self::PREMIUM   => 'Premium'
             ],
-            numero: [4,5]
+            numero: [4, 5]
         );
     }
 }
