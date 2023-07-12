@@ -120,6 +120,7 @@ Route
             ::nome('index')
             ::view('/cinema');
     });
+
 Route
     ::nome('loja')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -219,6 +220,12 @@ Route
         Route
             ::nome('simulacao')
             ::view('/saude/simulacao/{url}');
+
+        Route
+            ::nome('valorSimulacao')
+            ::request(['!operadora','!acomodacao', '!regiaoSelecionada', '!planoSelecionado', '!dtNascimentoTitular', '!dtNascimentoDependentes'])
+            ::post('/saude/simulacao');
+
         Route
             ::nome('contratacao')
             ::view('/saude/contratacao/{simulacao}');

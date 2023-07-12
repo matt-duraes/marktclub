@@ -8,6 +8,11 @@
 
 window.addEventListener('load', () => {
     const parent = document.querySelector('body');
+    const operadora = document.querySelector('#operadora').value;
+    let regiaoSelecionada = '';
+    let planoSelecionado = '';
+    let acomodacao = '';
+
     parent.addEventListener('click', function (event) {
         if (event.target.classList.contains('remove')) {
             const linhaDependente = event.target.closest('.linha_dependente');
@@ -43,14 +48,13 @@ window.addEventListener('load', () => {
     const rjInput = document.querySelector('#bloco_tipo_amil .botao_input.amil_s60qc_rj');
     const jundiaiInput = document.querySelector('#bloco_tipo_amil .botao_input.amil_s60qc_jundiai');
     const spInput = document.querySelector('#bloco_tipo_amil .botao_input.amil_s60qc_sp');
-
     const regiaoInputsAmil = document.getElementsByName('regiao');
     regiaoInputsAmil.forEach(function (regiaoInput) {
         regiaoInput.addEventListener('change', function () {
             let valor = this.value;
             let blocoTipoAmil = document.getElementById('bloco_tipo_amil');
             blocoTipoAmil.style.display = 'flex';
-
+            regiaoSelecionada = valor;
             if (valor == 'brasilia') {
                 rjInput.style.display = 'none';
                 jundiaiInput.style.display = 'none';
@@ -81,7 +85,13 @@ window.addEventListener('load', () => {
                 'amil_s60qc_jundiai',
                 'amil_s60qc_sp',
             ];
+            planoSelecionado = valor;
             let individual = ['amil_s80qp', 'amil_s380qp', 'amil_s450qp', 'amil_s750r1', 'amil_s750r2'];
+            if (planoSelecionado.includes(individual) == true) {
+                acomodacao = 'individual';
+            } else {
+                acomodacao = 'coletivo';
+            }
 
             if (valor && coletivo.includes(valor) && acomodacaoInputAmil) {
                 acomodacaoInputAmil.value = 'coletivo';
@@ -102,4 +112,33 @@ window.addEventListener('load', () => {
             }, 200);
         });
     }
+
+    const fazerSimulacao = document.querySelector('#fazerSimulacao');
+    fazerSimulacao.addEventListener('click', async e => {
+        let dtNascimentoTitular = document.querySelector('#input_data_nascimento').value;
+        let dependentes = document.querySelectorAll('input#input_dependente.input_geral.input_data');
+        let dtNascimentoDependentes = [];
+
+        dependentes.forEach(dataDependente => {
+            dtNascimentoDependentes.push(dataDependente.value);
+        });
+        dtNascimentoDependentes.shift();
+        alert(acomodacao);
+        const resposta = await ajaxPost(
+            LINK + '/saude/simulacao',
+            {
+                operadora,
+                regiaoSelecionada,
+                planoSelecionado,
+                dtNascimentoTitular,
+                dtNascimentoDependentes,
+                acomodacao,
+            },
+            ''
+        );
+
+        if (false === resposta) {
+            return;
+        }
+    });
 });

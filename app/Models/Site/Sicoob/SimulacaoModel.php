@@ -34,7 +34,7 @@ final class SimulacaoModel extends ClubeApiHelper
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
             ->parametro([
-                'operadora' => 1,
+                'operadora' => 'sicoob-judiciario',
                 'tipo'      => $this->tipo,
                 'valor'     => $this->valor,
                 'parcelas'  => $this->prazo,

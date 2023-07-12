@@ -1,7 +1,6 @@
 @template "site"
 
 <div id="bloco_simulacao">
-
 @ if( $operadora == 'unimed-vitoria' ):
     @view site/plano_saude/unimedvitoria/simulacao.view
 @ endif;
@@ -18,3 +17,5 @@
 <input type="hidden" name="operadora" id="operadora" value="{{$operadora}}">
 
 </div>
+@view site/plano_saude/geral/voltarDetalhe.view
+

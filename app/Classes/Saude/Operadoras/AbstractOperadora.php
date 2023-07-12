@@ -54,7 +54,7 @@ abstract class AbstractOperadora implements OperadoraInterface
         return [
             'data_nascimento' => $this->dataNascimento,
             'acomodacao'      => $this->acomodacao,
-            'acomodacoes'     => $this->acomodacoes,
+            'acomodacoes'     => ($this->plano !== null) ? $this->acomodacoes[$this->plano] : $this->acomodacoes,
             'plano'           => $this->plano,
             'regiao'          => $this->regiao,
         ];

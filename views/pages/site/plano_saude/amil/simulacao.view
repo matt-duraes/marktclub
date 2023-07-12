@@ -123,12 +123,12 @@
                         <header>
                             <h1>PREENCHA AS INFORMAÇÕES</h1>
                         </header>
-                        @? formData(name: 'data_nascimento', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                        @? formData(name: 'data_nascimento', placeholder: 'Data de nascimento Titular', label: 'Data de nascimento', class: 'data_nascimento', id: 'data_nascimento_titular' ,value: '')
                         <div class="dependente">
                             <p>Dependentes</p>
                             <div class="linha_dependente default">
                                 <div class="remove">@iconeFechar()</div>
-                                @? formData(name: 'dependente', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento', value: '')
+                                @? formData(name: 'dependente', placeholder: 'Digite a data de nascimento. Ex: 00/00/0000', label: 'Data de nascimento', class: 'data_nascimento data_dependente', value: '')
                             </div>
                             <div class="adicionaDependente">
                                 <p>Adicionar Dependente</p>
@@ -137,7 +137,7 @@
 
                         <div class="bloco_botao">
                             <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
-                            <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
+                            <div id="fazerSimulacao" class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
                         </div>
                     </div>
                 </div>

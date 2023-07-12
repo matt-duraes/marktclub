@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Site;
 
+use App\Helpers\ClubeApiHelper;
 use Http\Request;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
@@ -99,6 +100,24 @@ final class PlanoSaudeController extends Controller
         return view('plano_saude.unimedSeguro', [
             'menu' => 'saude'
         ]);
+    }
+
+    public function postvalorSimulacao(Request $request)
+    {
+        $teste = ((new ClubeApiHelper()))
+        ->validar(status: 404)
+        ->body([
+            'operadora'        => $request->operadora,
+            'regiao'           => $request->regiaoSelecionada,
+            'plano'            => $request->planoSelecionado,
+            'data_nascimento'  => $request->dtNascimentoTitular,
+            'dependentes'      => $request->dtNascimentoDependentes,
+            'acomodacao'       => $request->acomodacao
+        ])
+        ->post('/saude/simulacao')
+        ->object()->dado;
+
+        ppe($teste);
     }
 
     public function simulacao($url = null)
