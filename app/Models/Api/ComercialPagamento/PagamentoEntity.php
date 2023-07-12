@@ -17,6 +17,7 @@ final class PagamentoEntity extends Entity
         EmpresaEntity $Empresa,
         protected Dinheiro $valor
     ) {
+        parent::__construct();
         $this->id_admin_empresa = $Empresa->get('id');
         $this->id_usuario_equipe = TOKEN['usuario']->get('id');
         $this->salvar();
