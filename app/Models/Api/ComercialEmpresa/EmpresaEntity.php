@@ -22,10 +22,10 @@ use App\Classes\ComercialEmpresa\TipoPagamento;
 use App\Classes\ComercialEmpresa\CadastroUsuario;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 use App\Classes\ComercialEmpresa\ContratoRenovacao;
-use App\Models\Api\PagamentoEntity\PagamentoEntity;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
 use App\Models\Api\ComercialFatura\UltimaFaturaModel;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
+use App\Models\Api\ComercialPagamento\PagamentoEntity;
 use App\Models\Api\ComercialEmpresa\Trait\ValidarEmpresaAtivaTrait;
 
 final class EmpresaEntity extends Entity
