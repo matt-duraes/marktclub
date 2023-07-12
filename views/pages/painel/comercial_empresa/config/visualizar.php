@@ -62,10 +62,12 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
     $Painel->bloco(titulo: 'Comunicação', callback: function () use ($Painel) {
         $Painel
-            ->linha('comunicacao_email', 'E-mail')
-            ->array('email_dia', 'Dias para disparo')
-            ->linha('comunicacao_whatsapp', 'WhatsApp')
-            ->linha('comunicacao_rede_social', 'Rede Social')
+            ->checked('comunicacao_email', 'E-mail')
+            ->linha('email_dia', 'Dias para disparo')
+            ->checked('comunicacao_whatsapp', 'WhatsApp')
+            ->linha('whatsapp_dia', 'Dias para disparo')
+            ->checked('comunicacao_rede_social', 'Rede Social')
+            ->linha('rede_social_dia', 'Dias para disparo')
         ;
     });
     $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {

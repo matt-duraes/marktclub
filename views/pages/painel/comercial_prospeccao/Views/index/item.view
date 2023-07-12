@@ -3,7 +3,7 @@
         <figure style="background-image: url({!!$r->usuario->imagem!!});" data-ajuda="{{$r->usuario->nome}}"></figure>
         <h1>{{$r->titulo}}</h1>
     </header>
-    <a class="botao_link" href="{{LINK}}/app/visualizar/comercial-prospeccao/{{$r->id}}">ver empresa</a>
+    <a class="botao_link" href="{{LINK}}/app/visualizar/comercial-prospeccao/{{$r->id}}">ver prospecção</a>
     <p class="data">{{$r->data_criacao}}</p>
     <div class="bloco">
         <i class="icone botao_item_atendimento" data-ajuda="Dados de contato">@iconeTelefone(19)</i>

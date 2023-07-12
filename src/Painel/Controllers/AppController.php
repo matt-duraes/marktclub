@@ -13,8 +13,9 @@ final class AppController extends PadraoController
     public function index(Request $request, string $app): Response
     {
         $appReal = $this->converterNomeApp($app);
-        if (is_dir(ROOT . '/views/pages/painel/' . $appReal . '/routes')) {
-            mensagemStatus(404, localhost: 'Esse APP tem um Route próprio.');
+        $path = ROOT . '/views/pages/painel/' . $appReal;
+        if (is_dir($path . '/routes') && !file_exists($path . '/config/index.php')) {
+            throw new Excecao(status: 404);
         }
 
         $config = $this->config($appReal, 'index');
@@ -344,10 +345,18 @@ final class AppController extends PadraoController
             throw new Excecao(status: 404);
         }
 
-        $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
-        $dado = $this->validarRetornoApi($dado, true);
-        if ($dado instanceof Response) {
-            return $dado;
+        $nomeClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
+            . '\\Models\SalvarModel';
+
+        if (class_exists($nomeClass) && method_exists($nomeClass, 'buscar')) {
+            $SalvarModel = new $nomeClass();
+            $dado = $SalvarModel->buscar($uuid);
+        } else {
+            $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
+            $dado = $this->validarRetornoApi($dado, true);
+            if ($dado instanceof Response) {
+                return $dado;
+            }
         }
         return view(
             arquivo: $config->add->app . '.add',

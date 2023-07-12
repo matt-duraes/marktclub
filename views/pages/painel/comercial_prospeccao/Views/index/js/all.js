@@ -50,7 +50,7 @@ window.addEventListener('load', () => {
             cancelarContrato(item, id);
         });
         botaoConcluir.addEventListener('click', () => {
-            concluirContrato(item, id);
+            concluirContrato(id);
         });
         botaoAnterior.addEventListener('click', () => {
             moverParaBlocoAnterior(item, id);
@@ -71,11 +71,11 @@ window.addEventListener('load', () => {
         }
         atualizarStatusContrato(item, id, 'inativo');
     };
-    concluirContrato = async (item, id) => {
+    concluirContrato = async id => {
         if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', true))) {
             return;
         }
-        atualizarStatusContrato(item, id, 'ativo');
+        window.location.assign(LINK + '/app/editar/comercial-empresa/' + id);
     };
     const atualizarStatusContrato = async (item, id, status) => {
         Loading.show();

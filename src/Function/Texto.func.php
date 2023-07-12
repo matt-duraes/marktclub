@@ -269,6 +269,22 @@ if (!function_exists('strJson')) {
         return (new \Helpers\TextoHelper())->valor($string)->json()->r();
     }
 }
+if (!function_exists('strImplodeVirgula')) {
+    // doc
+    /**
+     * Retorna uma string separada por virgule e um "e" no último implode
+     *
+     * @param  null|array $array Array que deseja converter
+     * @return string     String convertida
+     */
+    function strImplodeVirgula(?array $array): string
+    {
+        if (is_null($array)) {
+            return '';
+        }
+        return (new \Helpers\TextoHelper())->valor($array)->implodeVirgula()->r();
+    }
+}
 
 if (!function_exists('strCortar')) {
     // doc

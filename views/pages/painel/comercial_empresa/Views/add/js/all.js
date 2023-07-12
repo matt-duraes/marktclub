@@ -40,6 +40,9 @@ window.addEventListener('load', () => {
     const finalidadeMudou = () => {
         const valor = inputFinalidadePrincipal.value;
         buscarListaFinalidadeSecundaria(valor);
+        if (!blocoDataEleicao) {
+            return;
+        }
         if (valor == 'publica') {
             blocoDataEleicao.classList.remove('display_none');
             return;
@@ -47,53 +50,73 @@ window.addEventListener('load', () => {
         blocoDataEleicao.classList.add('display_none');
         inputDataEleicao.value = '';
     };
-    const buscarListaFinalidadeSecundaria = async tipo => {
+    const buscarListaFinalidadeSecundaria = async (tipo, valor) => {
         formSelectLoading(inputFinalidadeSecundaria);
-        const body = new FormData();
-        body.append('classe', 'finalidade_secundaria');
-        body.append('tipo', tipo);
-
-        const resposta = await fetch(LINK + '/app/classe/comercial-empresa', {
-            method: 'POST',
-            body,
+        const resposta = await ajaxPost(LINK + '/app/classe/comercial-empresa', {
+            classe: 'finalidade_secundaria',
+            tipo,
         });
-        const json = await respostaJson(resposta, 'Ocorreu um erro ao pegar lista de finalidade secundária.');
-        if (false === json) {
+        if (false === resposta) {
             formSelectOption(inputFinalidadeSecundaria, { '': 'Ocorreu um erro ao buscar lista' }, '');
             return;
         }
-        formSelectOption(inputFinalidadeSecundaria, json.dado, '');
+        formSelectOption(inputFinalidadeSecundaria, resposta.dado, valor);
     };
-
-    inputProdutoClube.addEventListener('change', () => {
-        mudarDisplay(inputProdutoClube, [blocoTipoSite]);
-    });
-    inputComunicacaoEmail.addEventListener('change', () => {
-        mudarDisplay(inputComunicacaoEmail, [blocoEmailDisparo, blocoEmailDia]);
-    });
-    inputComunicacaoWhatsapp.addEventListener('change', () => {
-        mudarDisplay(inputComunicacaoWhatsapp, [blocoWhatsappDia]);
-    });
-    inputComunicacaoRedeSocial.addEventListener('change', () => {
-        mudarDisplay(inputComunicacaoRedeSocial, [blocoRedeSocialDia]);
-    });
-    inputProdutoIos.addEventListener('change', () => {
-        if (!inputProdutoIos.checked) {
-            return;
+    if (inputFinalidadePrincipal.value != '') {
+        buscarListaFinalidadeSecundaria(inputFinalidadePrincipal.value, inputFinalidadeSecundaria.value);
+    }
+    if (inputProdutoClube) {
+        inputProdutoClube.addEventListener('change', () => {
+            mudarDisplay(inputProdutoClube, [blocoTipoSite]);
+        });
+    }
+    if (inputComunicacaoEmail) {
+        inputComunicacaoEmail.addEventListener('change', () => {
+            mudarDisplay(inputComunicacaoEmail, [blocoEmailDisparo, blocoEmailDia]);
+        });
+        if (inputComunicacaoEmail.checked) {
+            mudarDisplay(inputComunicacaoEmail, [blocoEmailDisparo, blocoEmailDia]);
         }
-        inputProdutoWebview.checked = false;
-    });
-    inputProdutoAndroid.addEventListener('change', () => {
-        if (!inputProdutoAndroid.checked) {
-            return;
+    }
+    if (inputComunicacaoWhatsapp) {
+        inputComunicacaoWhatsapp.addEventListener('change', () => {
+            mudarDisplay(inputComunicacaoWhatsapp, [blocoWhatsappDia]);
+        });
+        if (inputComunicacaoWhatsapp.checked) {
+            mudarDisplay(inputComunicacaoWhatsapp, [blocoWhatsappDia]);
         }
-        inputProdutoWebview.checked = false;
-    });
-    inputProdutoWebview.addEventListener('change', () => {
-        if (!inputProdutoWebview.checked) {
-            return;
+    }
+    if (inputComunicacaoRedeSocial) {
+        inputComunicacaoRedeSocial.addEventListener('change', () => {
+            mudarDisplay(inputComunicacaoRedeSocial, [blocoRedeSocialDia]);
+        });
+        if (inputComunicacaoRedeSocial.checked) {
+            mudarDisplay(inputComunicacaoRedeSocial, [blocoRedeSocialDia]);
         }
-        inputProdutoIos.checked = false;
-        inputProdutoAndroid.checked = false;
-    });
+    }
+    if (inputProdutoIos) {
+        inputProdutoIos.addEventListener('change', () => {
+            if (!inputProdutoIos.checked) {
+                return;
+            }
+            inputProdutoWebview.checked = false;
+        });
+    }
+    if (inputProdutoAndroid) {
+        inputProdutoAndroid.addEventListener('change', () => {
+            if (!inputProdutoAndroid.checked) {
+                return;
+            }
+            inputProdutoWebview.checked = false;
+        });
+    }
+    if (inputProdutoWebview) {
+        inputProdutoWebview.addEventListener('change', () => {
+            if (!inputProdutoWebview.checked) {
+                return;
+            }
+            inputProdutoIos.checked = false;
+            inputProdutoAndroid.checked = false;
+        });
+    }
 });

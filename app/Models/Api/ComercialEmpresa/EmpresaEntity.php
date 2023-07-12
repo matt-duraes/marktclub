@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Cpf;
 use Modules\Cnpj;
 use Modules\Data;
+use Modules\Nome;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Dinheiro;
@@ -22,9 +23,12 @@ use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 use App\Classes\ComercialEmpresa\ContratoRenovacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
+use App\Models\Api\ComercialEmpresa\Trait\ValidarEmpresaAtivaTrait;
 
 final class EmpresaEntity extends Entity
 {
+    use ValidarEmpresaAtivaTrait;
+
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
     protected array $ormBuscar = [
         'finalidade_principal' => 'finalidade_empresa',
@@ -50,13 +54,12 @@ final class EmpresaEntity extends Entity
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
-        razao_social|Razão Social|vazio
-        cnpj|CNPJ|vazio|valido
+        finalidade_principal|Finalidade principal|vazio|valido
+        finalidade_secundaria|Finalidade principal|vazio|valido
+        id_usuario_equipe|Responsável pelo contrato|vazio|int>0
         responsavel_nome|Nome do responsável|vazio|valido
-        responsavel_cpf|CPF do responsável|valido
         responsavel_telefone|Telefone do responsável|vazio|valido
         responsavel_email|E-mail do responsável|vazio|valido
-        estado_principal|Estado principal|valido
         status|Status|vazio|valido
     ';
     protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
@@ -69,7 +72,7 @@ final class EmpresaEntity extends Entity
     public string $slug;
     public ProspeccaoStatus $prospeccao_status;
     public Status $status;
-    public string $responsavel_nome;
+    public Nome $responsavel_nome;
     public Cpf $responsavel_cpf;
     public Email $responsavel_email;
     public Telefone $responsavel_telefone;
@@ -120,6 +123,18 @@ final class EmpresaEntity extends Entity
 
     protected function regraSalvar()
     {
+        if ($this->status->indice() == Status::ATIVO) {
+            $this->validarEmpresaAtiva();
+        }
+        $this->setarUsuarioEquipe();
+    }
+
+    private function setarUsuarioEquipe()
+    {
+        if (!$this->propriedadeExiste('equipe')) {
+            $this->id_usuario_equipe = array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->get('id') : null;
+            return;
+        }
         $Equipe = new HelperModel();
         $this->id_usuario_equipe = $Equipe->pegarIdPeloUuid($this->equipe);
     }
@@ -141,7 +156,7 @@ final class EmpresaEntity extends Entity
 
     private function validarSeJaExisteCnpj(?int $id = null)
     {
-        if (!$this->cnpj->valido()) {
+        if (!$this->propriedadeExiste('cnpj') || !$this->cnpj->valido()) {
             return;
         }
 
