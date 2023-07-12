@@ -497,7 +497,7 @@ final class DataBase
     public function dinheiro(string $nome): DataBase
     {
         $this->setarTipo($nome, 'DECIMAL');
-        $this->dado['tamanho'] = '10,2';
+        $this->dado['tamanho'] = '20,2';
         return $this;
     }
 

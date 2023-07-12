@@ -1,0 +1,3 @@
+<div class="bloco_historico_popup fw_pagina_box_fechar">
+    @php painelHistorico($id, $app, fechar: true)
+</div>

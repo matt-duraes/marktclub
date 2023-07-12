@@ -13,8 +13,9 @@ final class AppController extends PadraoController
     public function index(Request $request, string $app): Response
     {
         $appReal = $this->converterNomeApp($app);
-        if (is_dir(ROOT . '/views/pages/painel/' . $appReal . '/routes')) {
-            mensagemStatus(404, localhost: 'Esse APP tem um Route próprio.');
+        $path = ROOT . '/views/pages/painel/' . $appReal;
+        if (is_dir($path . '/routes') && !file_exists($path . '/config/index.php')) {
+            throw new Excecao(status: 404);
         }
 
         $config = $this->config($appReal, 'index');
@@ -31,10 +32,13 @@ final class AppController extends PadraoController
 
         $indexClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
             . '\\Models\IndexModel';
+        if (class_exists($indexClass) && method_exists($indexClass, 'filtro')) {
+            $filtro = (new $indexClass())->filtro($filtro);
+        }
 
         if (class_exists($indexClass) && method_exists($indexClass, 'buscar')) {
-            $VisualizarModel = new $indexClass();
-            $dado = $VisualizarModel->buscar(pagina: $pagina, pesquisa: $pesquisa, filtro: $filtro, ordem: $ordem);
+            $Buscar = new $indexClass();
+            $dado = $Buscar->buscar(pagina: $pagina, pesquisa: $pesquisa, filtro: $filtro, ordem: $ordem);
         } else {
             $parametro = [
                 'pagina' => $pagina
@@ -61,8 +65,8 @@ final class AppController extends PadraoController
         }
 
         if (class_exists($indexClass) && method_exists($indexClass, 'retorno')) {
-            $VisualizarModel = new $indexClass();
-            $dado = $VisualizarModel->retorno(dado: $dado);
+            $Retorno = new $indexClass();
+            $dado = $Retorno->retorno(dado: $dado);
         }
 
         return view(
@@ -156,12 +160,12 @@ final class AppController extends PadraoController
     public function visualizar(string $app, string $uuid)
     {
         $appReal = $this->converterNomeApp($app);
-        if (is_dir(ROOT . '/views/pages/painel/' . $appReal . '/routes')) {
+        $path = ROOT . '/views/pages/painel/' . $appReal;
+        if (is_dir($path . '/routes') && !file_exists($path . '/config/visualizar.php')) {
             throw new Excecao(status: 404);
         }
 
         $config = $this->config($appReal, 'visualizar');
-
         if (!$config->permissao->visualizar) {
             throw new Excecao(status: 403);
         }
@@ -170,8 +174,8 @@ final class AppController extends PadraoController
             . '\\Models\VisualizarModel';
 
         if (class_exists($visualizarClass) && method_exists($visualizarClass, 'buscar')) {
-            $VisualizarModel = new $visualizarClass();
-            $dado = $VisualizarModel->buscar($uuid);
+            $Buscar = new $visualizarClass();
+            $dado = $Buscar->buscar($uuid);
         } else {
             $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
             if ($dado->status() == 404) {
@@ -344,10 +348,18 @@ final class AppController extends PadraoController
             throw new Excecao(status: 404);
         }
 
-        $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
-        $dado = $this->validarRetornoApi($dado, true);
-        if ($dado instanceof Response) {
-            return $dado;
+        $nomeClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
+            . '\\Models\SalvarModel';
+
+        if (class_exists($nomeClass) && method_exists($nomeClass, 'buscar')) {
+            $SalvarModel = new $nomeClass();
+            $dado = $SalvarModel->buscar($uuid);
+        } else {
+            $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
+            $dado = $this->validarRetornoApi($dado, true);
+            if ($dado instanceof Response) {
+                return $dado;
+            }
         }
         return view(
             arquivo: $config->add->app . '.add',

@@ -23,6 +23,17 @@ final class Cnpj implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero();
+    }
+
+    // doc
+    /**
      * Modulo para CNPJ
      *
      * @param null|string $cnpj CNPJ para o modulo

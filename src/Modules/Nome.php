@@ -27,6 +27,17 @@ final class Nome implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->nome;
+    }
+
+    // doc
+    /**
      * Gera um modulo de nome
      *
      * @param null|string $nome Valor do nome para o modulo

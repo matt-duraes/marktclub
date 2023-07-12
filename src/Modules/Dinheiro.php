@@ -23,6 +23,17 @@ final class Dinheiro implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->decimal();
+    }
+
+    // doc
+    /**
      * Modulo para Dinheiro
      *
      * @param null|string $dinheiro Valor para o modulo

@@ -23,6 +23,17 @@ final class Email implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->email;
+    }
+
+    // doc
+    /**
      * Modulo para e-mail
      *
      * @param null|string $email Valor para o modulo

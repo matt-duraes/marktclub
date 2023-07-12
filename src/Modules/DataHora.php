@@ -26,6 +26,17 @@ final class DataHora implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->date();
+    }
+
+    // doc
+    /**
      * Modulo para DataHora
      *
      * @param null|string $data Data para o modulo

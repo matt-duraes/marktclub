@@ -48,6 +48,7 @@ exports.htmlUnico = function (path) {
         const nome = arquivo
             .replace(/views\/pages\//, '')
             .replace(/\/index\.view$/, '.php')
+            .replace(/src\/Painel\/App\//, 'painel/')
             .replace(/.view$/, '.php')
             .replace(/\/Views/, '')
             .replace(/\//g, '_')

@@ -21,7 +21,7 @@ return [
             'solicitacao_premium'   => ['titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']],
             'solicitacao_salavip'   => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
             'comercial_empresa'     => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
-            'comercial_prospeccao'  => ['titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar']],
+            'comercial_prospeccao'  => ['titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']],
             'comercial_atendimento' => ['titulo' => 'Comercial Atendimento', 'permissao' => ['comercial_atendimento_index' => 'Comercial Atendimento']],
             'comercial_regra'       => ['titulo' => 'Comercial Regra de Negócio', 'acao' => ['index', 'add', 'visualizar', 'editar', 'deletar']],
             'demanda'               => ['titulo' => 'Demanda', 'permissao' => ['demanda_tecnologia' => 'Tecnologia', 'demanda_criacao' => 'Criação']],
