@@ -55,6 +55,17 @@ final class Senha implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return '';
+    }
+
+    // doc
+    /**
      * Modulo para senha
      *
      * @param null|string $senha Senha do usuário

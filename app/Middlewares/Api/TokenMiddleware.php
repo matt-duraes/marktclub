@@ -2,11 +2,11 @@
 
 namespace App\Middlewares\Api;
 
-use App\Models\Api\ApiToken\ValidarTokenAuthorizationEntity;
-use App\Models\Api\ApiToken\ValidarTokenCredentialModel;
+use Throwable;
 use Erro\Excecao;
 use Helpers\JwtHelper;
-use Throwable;
+use App\Models\Api\ApiToken\ValidarTokenCredentialModel;
+use App\Models\Api\ApiToken\ValidarTokenAuthorizationEntity;
 
 final class TokenMiddleware
 {

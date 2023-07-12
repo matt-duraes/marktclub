@@ -23,6 +23,17 @@ final class EnderecoEstado implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->estado;
+    }
+
+    // doc
+    /**
      * Modulo para Estado
      *
      * @param null|string $estado Estado para o modulo

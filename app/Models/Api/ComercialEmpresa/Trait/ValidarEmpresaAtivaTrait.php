@@ -2,6 +2,8 @@
 
 namespace App\Models\Api\ComercialEmpresa\Trait;
 
+use App\Classes\ComercialEmpresa\FinalidadePrincipal;
+
 trait ValidarEmpresaAtivaTrait
 {
     private function validarEmpresaAtiva()
@@ -22,6 +24,8 @@ trait ValidarEmpresaAtivaTrait
             tipo_pagamento|Tipo de pagamento|vazio|valido
             contrato_data|Data do contrato|vazio|valido
             contrato_prazo|Prazo do contrato|vazio|valido
+            contrato_dia_fechamento|Dia de fechamento|vazio|valido
+            contrato_dia_pagamento|Dia de pagamento|vazio|valido
             contrato_renovacao|Tipo de renovação do contrato|vazio|valido
             razao_social|Razão Social|vazio
             cnpj|CNPJ|vazio|valido
@@ -32,6 +36,21 @@ trait ValidarEmpresaAtivaTrait
             estado_principal|Estado principal|valido
             status|Status|vazio|valido
         ';
+
+        if (
+            $this->finalidade_principal->indice() == FinalidadePrincipal::PUBLICA &&
+            (!$this->propriedadeExiste('data_eleicao') || !$this->data_eleicao->valido())
+        ) {
+            mensagemErro('Campo obrigatório!', 'O campo Data da eleição é obrigatório.');
+        }
+
+        if (
+            $this->propriedadeExiste('produto_clube') &&
+            (!$this->propriedadeExiste('tipo_site') || !$this->tipo_site->valido())
+        ) {
+            mensagemErro('Campo obrigatório!', 'O campo Tipo de site do clube é obrigatório.');
+        }
+
         $this->validarComunicacao('email');
         $this->validarComunicacao('whatsapp');
         $this->validarComunicacao('rede_social');
@@ -54,7 +73,11 @@ trait ValidarEmpresaAtivaTrait
             mensagemErro('Campo obrigatório!', 'O campo ' . $campo . ' é obrigatório.');
         }
 
-        if ($tipo == 'email' && !$this->propriedadeExiste('email_disparo') || !$this->email_disparo->valido()) {
+        if (
+            $tipo == 'email' &&
+            $this->comunicacao_email->bool() &&
+            (!$this->propriedadeExiste('email_disparo') || !$this->email_disparo->valido())
+        ) {
             mensagemErro('Campo obrigatório!', 'O campo quem dispara o e-mail é obrigatório.');
         }
     }

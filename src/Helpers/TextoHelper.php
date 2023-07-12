@@ -123,7 +123,7 @@ final class TextoHelper
      */
     public function implodeVirgula(): self
     {
-        if (!$this->validar() || !is_array($this->valor)) {
+        if (!$this->validar() || !is_array($this->valor) || empty($this->valor)) {
             return $this;
         }
         $valor = $this->valor;

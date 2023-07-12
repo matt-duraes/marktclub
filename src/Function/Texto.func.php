@@ -279,7 +279,7 @@ if (!function_exists('strImplodeVirgula')) {
      */
     function strImplodeVirgula(?array $array): string
     {
-        if (is_null($array)) {
+        if (is_null($array) || empty($array)) {
             return '';
         }
         return (new \Helpers\TextoHelper())->valor($array)->implodeVirgula()->r();

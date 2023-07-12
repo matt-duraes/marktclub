@@ -35,8 +35,8 @@ final class TokenController extends Controller implements
                 ['client_credentials', 1],
                 ['status', 1]
             ]);
-        } catch (\Throwable) {
-            mensagemStatus(403);
+        } catch (\Throwable $e) {
+            mensagemStatus(403, localhost: $e->getMessage());
         }
 
         $Token = new TokenCredentialEntity();

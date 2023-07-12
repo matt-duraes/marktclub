@@ -25,6 +25,17 @@ final class Inteiro implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero();
+    }
+
+    // doc
+    /**
      * Gera um modulo de gênero
      *
      * @param null|int|string $genero Valor do Genero podendo ser string ou int quando vier do banco
@@ -37,13 +48,12 @@ final class Inteiro implements ModuleInterface
             $this->valido = false;
             $this->numero = '';
             return;
-        } elseif (!is_int($numero)) {
+        } elseif (!preg_match('/^[0-9\-]{1,}$/', $numero)) {
             $this->valido = false;
             $this->numero = '';
             return;
         }
-
-        $this->valor = $numero;
+        $this->valor = (int)$numero;
     }
 
     // doc
@@ -54,6 +64,6 @@ final class Inteiro implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return $this->numero;
+        return (int)$this->numero;
     }
 }

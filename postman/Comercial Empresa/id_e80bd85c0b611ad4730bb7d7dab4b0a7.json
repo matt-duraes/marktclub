@@ -1,0 +1,1 @@
+{"id":"id_e80bd85c0b611ad4730bb7d7dab4b0a7","token":"token","metodo":"GET","nome":"\/comercial-empresa\/:id","uri":"{{LINK}}\/comercial-empresa\/$EMPRESA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

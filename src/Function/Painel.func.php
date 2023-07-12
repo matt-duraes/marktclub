@@ -644,6 +644,8 @@ if (!function_exists('painelValorFormatar')) {
             $valor = strEmail($valor);
         } elseif ($formatar == 'datahora') {
             $valor = dataHoraBr($valor);
+        } elseif ($formatar == 'dinheiro') {
+            $valor = strDinheiro($valor);
         }
         return $valor;
     }

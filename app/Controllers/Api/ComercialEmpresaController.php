@@ -57,12 +57,27 @@ final class ComercialEmpresaController extends Controller implements
     public function postSalvar(Request $request): Response
     {
         $Empresa = new EmpresaEntity();
-        $Empresa->set(lista: $request->dado());
+        $Empresa->set(lista: $this->pegarDadoRequest($request, 'getPost'));
         $Empresa->salvar();
 
         return $this->retornoPadrao($Empresa, 201);
     }
 
+    public function putAtualizar(Request $request, string $id): Response
+    {
+        $Empresa = new EmpresaEntity();
+        $Empresa->uuid($id);
+        $Empresa->set(lista: $this->pegarDadoRequest($request, 'getPut'));
+        $Empresa->salvar();
+
+        return new Response(status: 204);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
     private function retornoPadrao(EmpresaEntity $Empresa, int $status = 200): Response
     {
         return mensagemSucesso(
@@ -70,15 +85,15 @@ final class ComercialEmpresaController extends Controller implements
                 $Empresa,
                 lista: [
                     'equipe', 'finalidade_principal', 'finalidade_secundaria', 'imagem',
-                    'titulo', 'nome_fantasia', 'razao_social', 'slug',
+                    'titulo', 'nome_fantasia', 'razao_social', 'slug', 'valor_pago', 'cobrar_aposentado',
                     'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-                    'tipo_pagamento', 'valor_pago', 'renda_media', 'valor_pib', 'produto_clube',
-                    'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
-                    'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
-                    'contrato_data', 'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario',
+                    'tipo_pagamento', 'contrato_valor', 'contrato_valor_minimo', 'renda_media',
+                    'valor_pib', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'produto_webview',
+                    'produto_api', 'cnpj', 'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia',
+                    'rede_social_dia', 'contrato_data', 'contrato_prazo', 'contrato_renovacao', 'tipo_site',
                     'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo',
                     'prospeccao_status', 'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro',
-                    'restricao_lista'
+                    'restricao_lista', 'contrato_dia_pagamento', 'cadastro_usuario', 'contrato_dia_fechamento'
                 ]
             ),
             criptografar: Helper::CRIPTOGRAFAR,
@@ -86,13 +101,18 @@ final class ComercialEmpresaController extends Controller implements
         );
     }
 
-    public function putAtualizar(Request $request, string $id): Response
+    private function pegarDadoRequest(Request $request, string $metodo): array
     {
-        $Empresa = new EmpresaEntity();
-        $Empresa->uuid($id);
-        $Empresa->set(lista: $request->dado());
-        $Empresa->salvar();
-
-        return new Response(status: 204);
+        $dado = $request->dado();
+        if (array_key_exists('observacao_ti', $dado)) {
+            $dado['observacao_ti'] = $request->$metodo('observacao_ti', html: false);
+        }
+        if (array_key_exists('observacao_comunicacao', $dado)) {
+            $dado['observacao_comunicacao'] = $request->$metodo('observacao_comunicacao', html: false);
+        }
+        if (array_key_exists('observacao_financeiro', $dado)) {
+            $dado['observacao_financeiro'] = $request->$metodo('observacao_financeiro', html: false);
+        }
+        return $dado;
     }
 }

@@ -23,6 +23,17 @@ final class Telefone implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero();
+    }
+
+    // doc
+    /**
      * Modulo para telefone
      *
      * @param null|string $telefone Telefone pra o modulo

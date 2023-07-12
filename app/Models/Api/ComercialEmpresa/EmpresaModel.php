@@ -105,7 +105,9 @@ final class EmpresaModel extends ORM implements ModelListarInterface
 
     private function pegarWhere()
     {
-        $where = [];
+        $where = [
+            ['id_admin_empresa', 'null']
+        ];
         // CNPJ
         $cnpj = new Cnpj($this->request->cnpj);
         if ($cnpj->valido()) {

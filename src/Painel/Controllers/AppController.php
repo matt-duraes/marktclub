@@ -32,10 +32,13 @@ final class AppController extends PadraoController
 
         $indexClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
             . '\\Models\IndexModel';
+        if (class_exists($indexClass) && method_exists($indexClass, 'filtro')) {
+            $filtro = (new $indexClass())->filtro($filtro);
+        }
 
         if (class_exists($indexClass) && method_exists($indexClass, 'buscar')) {
-            $VisualizarModel = new $indexClass();
-            $dado = $VisualizarModel->buscar(pagina: $pagina, pesquisa: $pesquisa, filtro: $filtro, ordem: $ordem);
+            $Buscar = new $indexClass();
+            $dado = $Buscar->buscar(pagina: $pagina, pesquisa: $pesquisa, filtro: $filtro, ordem: $ordem);
         } else {
             $parametro = [
                 'pagina' => $pagina
@@ -62,8 +65,8 @@ final class AppController extends PadraoController
         }
 
         if (class_exists($indexClass) && method_exists($indexClass, 'retorno')) {
-            $VisualizarModel = new $indexClass();
-            $dado = $VisualizarModel->retorno(dado: $dado);
+            $Retorno = new $indexClass();
+            $dado = $Retorno->retorno(dado: $dado);
         }
 
         return view(
@@ -171,8 +174,8 @@ final class AppController extends PadraoController
             . '\\Models\VisualizarModel';
 
         if (class_exists($visualizarClass) && method_exists($visualizarClass, 'buscar')) {
-            $VisualizarModel = new $visualizarClass();
-            $dado = $VisualizarModel->buscar($uuid);
+            $Buscar = new $visualizarClass();
+            $dado = $Buscar->buscar($uuid);
         } else {
             $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
             if ($dado->status() == 404) {
