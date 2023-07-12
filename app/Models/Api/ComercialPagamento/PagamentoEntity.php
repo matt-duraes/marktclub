@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\PagamentoEntity;
+namespace App\Models\Api\ComercialPagamento;
 
 use ORM\Entity;
 use Modules\Dinheiro;
