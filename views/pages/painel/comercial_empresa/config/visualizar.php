@@ -45,7 +45,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->linha('tipo_pagamento', 'Tipo de pagamento')
             ->dinheiro('valor_usuario', 'Valor por usuário', vazio: false)
-            ->dinheiro('valor_pago', 'Valor da fatura')
+            ->dinheiro('valor_pago', 'Última fatura')
             ->data('contrato_data', 'Data do contrato')
             ->linha('contrato_prazo', 'Prazo do contrato')
             ->linha('contrato_renovacao', 'Tipo de renovação');
