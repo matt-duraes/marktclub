@@ -3,6 +3,7 @@
 // @system "Alerta"
 // @system "Mascara"
 // @system "Form"
+// @resource "site/login/slide"
 
 window.addEventListener('load', () => {
     const inputLogin = document.getElementById('input_login');
@@ -34,6 +35,16 @@ window.addEventListener('load', () => {
         window.location.assign(resposta.dado.link);
     };
 
+    /*
+    |--------------------------------------------------------------------------
+    | SLIDE
+    |--------------------------------------------------------------------------
+    */
+    if (document.querySelector('.area-slide')) {
+        const slide = new SlideNav('.area-slide', '.embrulho-slide');
+        slide.init();
+        slide.addControl('.controle-slide');
+    }
     /*
     |--------------------------------------------------------------------------
     | CATEGORIA
@@ -188,4 +199,194 @@ window.addEventListener('load', () => {
     };
 
     animarContador();
+
+    /*
+    |--------------------------------------------------------------------------
+    | CALCULADORA
+    |--------------------------------------------------------------------------
+    */
+
+    function limparFormulario() {
+        let formularios = document.querySelectorAll('form fieldset input');
+        formularios.forEach(formulario => (formulario.value = ''));
+    }
+
+    document.getElementById('abrir').addEventListener('click', () => {
+        const containerConteudo = document.querySelector('.container .conteudo');
+        containerConteudo.style.animation = 'abrirCalculadora 1s ease forwards';
+
+        const blocoCalculadoraConteudo = document.querySelector('.bloco_calculadora .container .conteudo');
+        blocoCalculadoraConteudo.classList.remove('esconde');
+
+        document.getElementById('abrir').classList.add('esconde');
+
+        const fecharCalculadora = document.querySelector('.bloco_calculadora .container .fechar');
+        fecharCalculadora.classList.remove('esconde');
+
+        const conteudoBody = document.body.getBoundingClientRect().top;
+        const conteudoRect = document
+            .querySelector('#bloco_login .bloco_calculadora .container .conteudo')
+            .getBoundingClientRect().top;
+
+        window.scrollTo({
+            top: conteudoRect - conteudoBody,
+            behavior: 'smooth',
+        });
+    });
+
+    document.getElementById('fechar').addEventListener('click', () => {
+        const containerConteudo = document.querySelector('.container .conteudo');
+        containerConteudo.style.animation = 'fecharCalculadora 1s ease forwards';
+
+        const targetElement = document.querySelector('#bloco_login .bloco_calculadora .container .topo');
+        const targetOffset = targetElement.offsetTop;
+
+        const resultado = document.querySelector('.resultado');
+        if (resultado) {
+            resultado.style.animation = 'fecharResultado 1s ease forwards';
+            setTimeout(() => {
+                resultado.remove();
+            }, 1000);
+        }
+
+        const abrir = document.getElementById('abrir');
+        abrir.classList.remove('esconde');
+
+        window.scrollTo({
+            top: targetOffset - 100,
+            behavior: 'smooth',
+        });
+
+        const fecharCalculadora = document.querySelector('.bloco_calculadora .container .fechar');
+        fecharCalculadora.classList.add('esconde');
+
+        setTimeout(() => {
+            const blocoCalculadoraConteudo = document.querySelector('.bloco_calculadora .container .conteudo');
+            blocoCalculadoraConteudo.classList.add('esconde');
+            limparFormulario();
+        }, 1000);
+    });
+
+    document.querySelector('body').addEventListener('click', function (e) {
+        if (e.target.id === 'calcular') {
+            e.preventDefault();
+
+            const form = e.target.closest('form');
+            const link = form.getAttribute('action');
+
+            const academia = document.querySelector('input[name=academia]', form).value;
+            const escola_creche = document.querySelector('input[name=escola_creche]', form).value;
+            const farmacia = document.querySelector('input[name=farmacia]', form).value;
+            const eletroeletronico = document.querySelector('input[name=eletroeletronico]', form).value;
+            const idioma = document.querySelector('input[name=idioma]', form).value;
+            const restaurante = document.querySelector('input[name=restaurante]', form).value;
+
+            Loading.show();
+
+            const data = {
+                ajax: true,
+                academia,
+                escola_creche,
+                farmacia,
+                eletroeletronico,
+                idioma,
+                restaurante,
+            };
+
+            fetch(link, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(resposta => {
+                    if (resposta.erro === false) {
+                        const blocoCalculadoraConteudo = document.querySelector(
+                            '.bloco_calculadora .container .conteudo'
+                        );
+                        blocoCalculadoraConteudo.classList.add('esconde');
+
+                        const container = document.querySelector('.bloco_calculadora .container');
+                        container.innerHTML += `
+                            <div class="resultado">
+                            <h2>
+                                <span>Você economizará em média</span>
+                            </h2>
+                            <strong class="color_cor">R$ ${resposta.resultado} ao ano</strong>
+                            <div class="novamente">
+                                <p>Calcular novamente</p>
+                            </div>
+                            </div>
+                        `;
+
+                        const conteudoBody = document.body.getBoundingClientRect().top;
+                        const resultadoRect = document
+                            .querySelector('#bloco_login .bloco_calculadora .container .resultado')
+                            .getBoundingClientRect().top;
+
+                        window.scrollTo({
+                            top: resultadoRect - conteudoBody,
+                            behavior: 'smooth',
+                        });
+                        limparFormulario();
+                    } else {
+                        Alerta.mensagem(resposta.titulo, resposta.texto);
+                    }
+                })
+                .catch(error => {
+                    Alerta.mensagem('Erro', error.message);
+                })
+                .finally(() => {
+                    Loading.hide();
+                });
+
+            return false;
+        }
+    });
+
+    document.querySelector('body').addEventListener('click', function (e) {
+        if (e.target.classList.contains('novamente')) {
+            const blocoCalculadoraConteudo = document.querySelector('.bloco_calculadora .container .conteudo');
+            blocoCalculadoraConteudo.classList.remove('esconde');
+
+            const abrir = document.getElementById('abrir');
+            abrir.classList.add('esconde');
+
+            const resultado = document.querySelector('.bloco_calculadora .container .resultado');
+            if (resultado) {
+                resultado.remove();
+            }
+
+            const fecharCalculadora = document.querySelector('.bloco_calculadora .container .fechar');
+            fecharCalculadora.classList.remove('esconde');
+
+            const conteudoBody = document.body.getBoundingClientRect().top;
+            const conteudoRect = document
+                .querySelector('#bloco_login .bloco_calculadora .container .conteudo')
+                .getBoundingClientRect().top;
+
+            window.scrollTo({
+                top: conteudoRect - conteudoBody,
+                behavior: 'smooth',
+            });
+        }
+    });
+
+    const navbarToggler = document.querySelector('#header_principal div.navbar_hamburguer');
+    const navbarMenu = document.querySelector('#header_principal nav .menu');
+    const navbarFechar = document.querySelector('#header_principal nav .menu .fechar');
+
+    navbarToggler.addEventListener('click', () => {
+        navbarMenu.classList.toggle('show');
+        document.body.classList.toggle('show');
+    });
+
+    if (navbarFechar) {
+        navbarFechar.addEventListener('click', () => {
+            navbarMenu.classList.toggle('show');
+            document.body.classList.toggle('show');
+        });
+    }
 });

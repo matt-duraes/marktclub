@@ -15,7 +15,9 @@
                     $primeiro =  true;
                 @end
                 @foreach ($temMais as $r) :
-                    <i class="{{$primeiro ? 'cor_bg hover' : ''}}" data-id="{{ $r['id']}}" >{!! $r['icone']!!}</i>
+                    <i class="{{$primeiro ? 'cor_bg hover' : ''}}" data-id="{{ $r['id']}}">
+                        <span>{!!$r['icone']!!}</span>
+                    </i>
                     @php
                         $primeiro =  false;
                     @end
@@ -30,7 +32,9 @@
                 @foreach ($temMais as $r) :
 
                     <article class="cartao {{$primeiro ? 'categoria_atual' : '' }}" id="{{$r['id']}}">
-                        <i data-font="{{$r['icone']}}"></i>
+                        <i>
+                            <span>{!!$r['icone']!!}</span>
+                        </i>
                         <div class="item">
                             <header>
                                 <h1 class="cor_color">
@@ -51,7 +55,7 @@
 
                             <footer>
                                 <h2 class="cor_bg">
-                                    {{$r['desconto']}}
+                                    {!!$r['desconto']!!}
                                 </h2>
                                 @if (array_key_exists('observacao', $r)) :
                                     <p>
@@ -70,3 +74,62 @@
         </section>
     @endif;
 @endif;
+
+<section id="carrousel">
+    <div class="controle-embrulho">
+        <div class="controle-slide">
+            @php
+                $primeiro =  true;
+            @end
+            @foreach ($temMais as $r) :
+                <div class="area-icone">
+                    <i>
+                        <span>{!!$r['icone']!!}</span>
+                    </i>
+                </div>
+                @php
+                    $primeiro =  false;
+                @end
+            @endforeach;
+        </div>
+    </div>
+    <div class="embrulho-slide">
+        <div class="area-slide">
+            @php
+                $primeiro =  true;
+            @end
+            @foreach ($temMais as $r) :
+                <div class="item-slide">
+                    <header>
+                        <h1 class="cor_color">
+                            {{$r['titulo']}}
+                        </h1>
+                        <p>
+                            {!!$r['texto']!!}
+                        </p>
+                    </header>
+
+                    <div class="parceiro">
+                        @foreach ($r['parceiro'] as $parceiro) :
+                            <div class="imagem">
+                                <figure style="background-image: url({{$parceiro->imagem}})"></figure>
+                            </div>
+                        @endforeach;
+                    </div>
+
+                    <footer>
+                        <h2 class="cor_bg">{!!$r['desconto']!!}</h2>
+                        @if (array_key_exists('observacao', $r)) :
+                            <p>
+                                {{$r['observacao']}}
+                            </p>
+                        @endif;
+                    </footer>
+                </div>
+                @php
+                    $primeiro =  false;
+                @end
+            @endforeach;
+        </div>
+    </div>
+</section>

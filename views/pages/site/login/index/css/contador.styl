@@ -1,0 +1,162 @@
+#bloco_login .bloco_contador
+    width: calc(100vw + 2000px)
+    position: relative
+    padding: 300px 0 150px 0
+    z-index: 1
+    border-radius: 0 0 50% 50%
+    overflow: hidden
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    figure, .bg
+        width: 1920px
+        height: 1000px
+        top: 0
+        position: absolute
+    figure
+        background-size: cover
+        background-attachment: fixed
+    .bg
+        opacity: 0.6
+    h1
+        max-width: 700px
+        font-size: 4em
+        color: #FFF
+        text-align: center
+        font-weight: bold
+        margin: 40px 0 40px 0
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2)
+        z-index: 3
+    .bloco
+        width: 30%
+        max-width: 690px
+        height: 150px
+        position: relative
+        background: #FFF
+        border-radius: 100px
+        display: flex
+        justify-content: center
+        align-items: center
+        z-index: 3
+        &::after
+            content: ' '
+            width: calc(100% - 22px)
+            height: calc(100% - 20px)
+            border: 1px solid #CCC
+            position: absolute
+            top: 10px
+            left: 10px
+            border-radius: 89px
+    .bloco .item
+        width: 50%
+        text-align: center
+    .bloco .item:first-child
+        border-right: 1px solid #ccc
+    .bloco .item span
+        font-size: 1.4em
+    .bloco .item p
+        font-size: 3.5em
+        font-weight: bold
+    h2
+        font-size: 2.8em
+        color: #FFF
+        padding: 40px 0
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4)
+        z-index: 3
+    h3
+        font-size: 2.4em
+        color: #FFF
+        padding: 20px 0
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4)
+        z-index: 3
+    a
+        height: 50px
+        line-height: 50px
+        background: #FFF
+        padding: 0 80px
+        color: #FFF
+        font-size: 2em
+        font-weight: bold
+        border-radius: 25px
+        z-index: 3
+
+//midia queries bloco bloco_contador//
+@media screen and (max-width: 700px)
+    #bloco_login .bloco_contador h1,
+    #bloco_login .bloco_contador h2
+        display: none
+    #bloco_login .bloco_contador
+        margin-top: 0px
+        padding: 40px 0 40px 0
+    #bloco_login .bloco_contador .bloco
+        align-items: center
+        flex-direction: column
+        height: auto
+        background: transparent
+    #bloco_login .bloco_contador .bloco .item:first-child
+        margin-bottom: 20px
+    #bloco_login .bloco_contador .bloco::after
+        display: none
+    #bloco_login .bloco_contador .bloco .item
+        width: calc(30% - 20px)
+        height: 90px
+        border: 1px solid #ccc
+        border-radius: 90px
+        background: #fff
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        box-shadow: 0px 0px 0px 5px #FFF
+    #bloco_login .bloco_contador a,
+    #bloco_login .bloco_contador h3
+        display: none
+    #titulo_link-cadastro
+        font-size: 2.1em
+        padding: 20px 0
+        display: block
+    #bloco_login .span_mobile
+        z-index: 2
+        font-size: 1.8rem
+        display: flex
+        padding: 25px
+        font-weight: bold
+        text-align: center
+    #bloco_login .span_mobile span
+        font-size: 1em
+    #bloco_login .a_mobile
+        height: 50px
+        display: flex
+        align-items: center
+        background: #fff
+        padding: 0 80px
+        font-size: 2em
+        font-weight: bold
+        border-radius: 25px
+        z-index: 2
+        a
+            font-size: 1em
+            color: #fff
+
+//bloco contador//
+.contador1
+    animation: counter 3s forwards ease-in-out
+    counter-reset: lojas var(--lojas)
+.contador1::after
+    content: counter(lojas)
+@keyframes counter
+    from
+        --lojas: 0
+    to
+        --lojas: 15000
+.contador2
+    animation: par 3s forwards ease-in-out
+    counter-reset: parcerias var(--parcerias)
+.contador2::after
+    content: counter(parcerias)
+@keyframes par
+    from
+        --parcerias: 0
+    to
+        --parcerias: 1400

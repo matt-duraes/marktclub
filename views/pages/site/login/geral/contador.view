@@ -42,4 +42,24 @@
         @endif;
 </section>
 
+
+<div class="span_mobile">
+    <span>Nenhum outro oferece<br> tantas opções </span>
+</div>
+@if (CLUBE_ID == 'b45839ad9fe077f22c6f10e32c5dbe88') :
+    <h3 id="titulo_link-cadastro">Ainda não é sóci@?</h3>
+    <section class="a_mobile cor_bg">
+        <a href="#" target="_blank" rel="noopener" rel="noreferrer">Associe-se agora</a>
+    </section>
+@elseif (CLUBE_ID == '2dbd9e375eeabfbe859365dae0798f49') :
+    <section class="a_mobile cor_bg">
+        <a href="#" rel="noopener" rel="noreferrer">Seja Cliente</a>
+    </section>
+@else:
+    <section class="a_mobile cor_bg">
+        <a href="#" target="_blank" rel="noopener" rel="noreferrer">Faça
+            parte</a>
+    </section>
+@endif
+
 <hr noshade>

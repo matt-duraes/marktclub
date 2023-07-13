@@ -2,13 +2,35 @@
 @system "Form"
 @system "Alerta"
 @system "Loading"
+@import "banner"
+@import "contador"
+@import "calculadora"
+@import "cashback"
+@import "extensao"
+@import "categoria"
+@import "app"
+@import "contato"
+
+.linha_topo
+    width: 100%
+    height: 12px
+
+#conteudo_principal
+    width: 100%
+    alignItemCenter()
+    directionColumn()
+
+#carrousel,
+.span_mobile,
+.a_mobile
+    display: none
 
 #bloco_login
     width: 100%
     min-height: 100vh
     flexCenter()
     directionColumn()
-    padding: 20px
+    padding-top: 20px
     form
         width: 100%
         max-width: 500px
@@ -32,623 +54,6 @@
         text-align: center
         textoFontSize()
         cursor: pointer
-    .bloco_banner
-        width: 100%
-        padding: 180px 0 50px 0
-        position: relative
-        margin-bottom: 50px
-        display: flex
-        justify-content: center
-        .bg
-            width: 100%
-            height: 100%
-            position: absolute
-            top: 0
-            left: 0
-            z-index: 1
-            opacity: 0.5
-            background-color: #F6F6F6
-        .degrade
-            width: 100%
-            height: 70%
-            position: absolute
-            bottom: 0
-            left: 0
-            z-index: 2
-            background-image: linear-gradient(rgba(246, 246, 246, 0), rgba(246, 246, 246, 1))
-        .lista
-            width: calc(100% - 40px)
-            max-width: 1300px
-            position: relative
-            display: grid
-            grid-template-columns: 640px 20px 640px
-            grid-template-rows: 310px 20px 310px
-            z-index: 3
-            overflow: hidden
-        .lista figure
-            border-radius: 15px
-            overflow: hidden
-            background-position: center center
-            background-size: cover
-            overflow: hidden
-        .lista figure:nth-child(1)
-            grid-column-start: 1
-            grid-column-end: 1
-            grid-row-start: 1
-            grid-row-end: 4
-        .lista figure:nth-child(2)
-            grid-column-start: 3
-            grid-column-end: 3
-            grid-row-start: 1
-            grid-row-end: 1
-        .lista figure:nth-child(3)
-            grid-column-start: 3
-            grid-column-end: 3
-            grid-row-start: 3
-            grid-row-end: 3
-            grid-row-end: -1
-        .lista .banner_01:nth-of-type(1)
-            grid-column-start: 1
-            grid-column-end: -1
-            grid-row-start: 1
-            grid-row-end: -1
-    #banner_secundario
-        width: 100%
-        display: flex
-        justify-content: center
-        .imagem
-            width: calc(100% - 40px)
-            position: relative
-            border-radius: 20px
-            overflow: hidden
-            z-index: 2
-            figure
-                height: 100%
-                background-size: cover
-                background-repeat: no-repeat
-                background-position: center center
-                img
-                    width: 100%
-                    visibility:hidden
-    // CATEGORIA
-    .bloco_categoria
-        width: calc(100% - 40px)
-        max-width: 1000px
-        position: relative
-        display: flex
-        align-items: flex-start
-        justify-content: space-between
-        flex-direction: row
-        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05)
-        background: #FFF
-        padding: 80px 120px
-        border-radius: 20px
-        overflow: hidden
-        z-index: 2
-        // Icone
-        .icone
-            width: 40%
-            display: grid
-            grid-template-columns: repeat(2, 1fr)
-            grid-gap: 1px
-            overflow: hidden
-            margin-right: 80px
-            border-radius: 10px
-            border: 1px solid #CCC
-        .icone i
-            position: relative
-            height: 130px
-            font-size: 4.5em
-            color: #CCC
-            cursor: pointer
-            &::before
-                content: ''
-                position: absolute
-                top: -1px
-                right: -1px
-                bottom: -1px
-                left: -1px
-                background-color: #ddd
-            &::after
-                display: flex
-                align-items: center
-                justify-content: center
-                position: relative
-                background-color: #fff
-            &.hover::after
-                background-color: #FF6F00
-                color: #FFF
-        // Conteúdo
-        .conteudo
-            max-width: 350px
-            height: 500px
-            flex-grow: 1
-            flex-basis: 0%
-            position: relative
-            display: flex
-        .conteudo article
-            width: 100%
-            height: 500px
-            background: #FFF
-            display: flex
-            position: absolute
-            top: 0
-            left: 0
-            flex-direction: column
-            align-items: center
-            opacity: 0
-            transition: opacity 0.3s ease-out
-            display: none
-            &.animacao_atual
-                opacity: 0
-                z-index: 1
-            &.categoria_atual
-                opacity: 1
-                display: flex
-            &.animacao_proximo
-                opacity: 1
-                z-index: 2
-        .conteudo article i
-            font-size: 5em
-            color: #CCC
-            display: none
-        .conteudo article .item
-            width: 100%
-            display: flex
-            flex-direction: column
-            align-items: center
-            flex-grow: 1
-            flex-basis: 0%
-        .conteudo article .item header h1
-            width: 100%
-            text-align: center
-            font-size: 3.5em
-            font-weight: bold
-        .conteudo article .item header p
-            width: 100%
-            line-height: 1.5em
-            text-align: center
-            font-size: 1.7em
-            margin: 10px 0 40px 0
-            color: #666
-        .conteudo article .item .parceiro
-            width: 100%
-            display: flex
-            flex-direction: row
-            flex-wrap: wrap
-            flex-grow: 1
-            flex-basis: 0%
-        .conteudo article .item .parceiro .imagem
-            width: calc((100% / 2) - 10px)
-            height: 100px
-            border-radius: 3px
-            padding: 10px
-            margin: 0 10px 10px 0
-            overflow: hidden
-        .conteudo article .item .parceiro figure
-            width: 100%
-            max-width: 110px
-            height: 100%
-            margin: 0 auto
-            background-size: 70%
-            background-position: center center
-            background-repeat: no-repeat
-            background-color: #fff
-            z-index: 1
-        .conteudo article .item footer
-            margin-top: 40px
-        .conteudo article .item footer h2
-            height: auto
-            line-height: 1.5em
-            color: #fff
-            font-weight: bold
-            padding: 10px 40px
-            border-radius: 20px
-            font-size: 2em
-            text-align: center
-        .conteudo article .item footer p
-            width: 100%
-            text-align: center
-            margin-top: 20px
-            font-size: 1.6em
-            color: #666
-    .bloco_contador
-        width: calc(100vw + 2000px)
-        position: relative
-        padding: 300px 0 150px 0
-        z-index: 1
-        border-radius: 0 0 50% 50%
-        overflow: hidden
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: center
-        figure, .bg
-            width: 1920px
-            height: 1000px
-            top: 0
-            position: absolute
-        figure
-            background-size: cover
-            background-attachment: fixed
-        .bg
-            opacity: 0.6
-        h1
-            max-width: 700px
-            font-size: 4em
-            color: #FFF
-            text-align: center
-            font-weight: bold
-            margin: 40px 0 40px 0
-            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2)
-            z-index: 3
-        .bloco
-            width: 30%
-            max-width: 690px
-            height: 150px
-            position: relative
-            background: #FFF
-            border-radius: 100px
-            display: flex
-            justify-content: center
-            align-items: center
-            z-index: 3
-            &::after
-                content: ' '
-                width: calc(100% - 22px)
-                height: calc(100% - 20px)
-                border: 1px solid #CCC
-                position: absolute
-                top: 10px
-                left: 10px
-                border-radius: 89px
-        .bloco .item
-            width: 50%
-            text-align: center
-        .bloco .item:first-child
-            border-right: 1px solid #ccc
-        .bloco .item span
-            font-size: 1.4em
-        .bloco .item p
-            font-size: 3.5em
-            font-weight: bold
-        h2
-            font-size: 2.8em
-            color: #FFF
-            padding: 40px 0
-            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4)
-            z-index: 3
-        h3
-            font-size: 2.4em
-            color: #FFF
-            padding: 20px 0
-            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4)
-            z-index: 3
-        a
-            height: 50px
-            line-height: 50px
-            background: #FFF
-            padding: 0 80px
-            color: #FFF
-            font-size: 2em
-            font-weight: bold
-            border-radius: 25px
-            z-index: 3
-    .bloco_calculadora
-        width: 100%
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: center
-        margin-top: 0px
-        padding-top: 40px
-        background-size: contain
-        position: relative
-        .bg
-            width: 100%
-            height: 220px
-            position: absolute
-            top: 0px
-            background-size: contain
-        button
-            width: 150px
-            height: 40px
-            align-items: center
-            justify-content: center
-            color: #FFFFFF
-            font-size: 1.8em
-            line-height: 40px
-            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05)
-            border-bottom-left-radius: 10px
-            border-bottom-right-radius: 10px
-        .container
-            width: 100%
-            max-width: 700px
-            display: flex
-            align-items: center
-            justify-content: space-around
-            flex-direction: column
-            position: relative
-            padding: 40px
-            background-color: #FFFFFF
-            border-radius: 20px
-        .container .topo
-            width: 100%
-            max-width: 500px
-            display: flex
-            align-items: center
-            justify-content: space-around
-        .container .topo .img_calculadora
-            width: 100px
-            height: 100px
-            mask-repeat: no-repeat
-            -webkit-mask-repeat: no-repeat
-            mask-size: contain
-            -webkit-mask-size: contain
-        .container .topo .texto
-            width: 100%
-            max-width: 400px
-            display: flex
-            align-items: center
-            justify-content: center
-            flex-direction: column
-        .container .topo .texto h2
-            font-size: 1.8em
-            line-height: 1.5em
-            font-weight: bold
-            text-align: center
-        .container .topo .texto p
-            color: #666
-            text-align: center
-            font-size: 1.2em
-            line-height: 1.5em
-        .container  .fechar
-            width: 100%
-            max-width: 200px
-            height: 50px
-            display: flex
-            align-items: center
-            justify-content:center
-            position: absolute
-            bottom: 0
-            color: #FFF
-            font-size: 1.8em
-            line-height: 1.5em
-            border-top-left-radius: 10px
-            border-top-right-radius: 10px
-            cursor: pointer
-        .container .conteudo
-            display: flex
-            flex-direction: column
-            align-items: center
-            position: relative
-            padding: 20px
-            padding-bottom: 0px
-            overflow: hidden
-            animation: abrirCalculadora .3s linear forwards
-            h2
-                width: 100%
-                max-width: 500px
-                margin-top: 20px
-                font-size: 2.2em
-                color: #666666
-                text-align: center
-            h2 span
-                color: #333333
-                font-weight: bold
-            form
-                width: calc(100% + 20px)
-                display: flex
-                align-items: center
-                justify-content: center
-                margin-top: 20px
-                flex-wrap: wrap
-                padding-bottom: 30px
-                button
-                    height: 50px
-                    margin-top: 40px
-                    color: #FFFFFF
-                    background-color: #333
-                    font-size: 1.5em
-                    line-height: 1.5em
-                    text-align: center
-                    font-weight: bold
-                    border-radius: 10px
-                fieldset
-                    width: calc((100% / 3) - 0px)
-                    display: flex
-                    flex-wrap: wrap
-                    align-items: center
-                    justify-content: center
-                    flex-direction: column
-                fieldset label
-                    color: #333333
-                    font-size: 1.9em
-                    line-height: 1.5em
-                    margin-top: 30px
-                fieldset input
-                    height: 40px
-                    border-radius: 3px
-                    color: #333333
-                    background-color: #EEE
-                    font-size: 1.5em
-                    line-height: 1.5em
-                    font-weight: bold
-                    text-align: center
-        .container .resultado
-            display: flex
-            flex-direction: column
-            align-items: center
-            position: relative
-            overflow: hidden
-            h2
-                width: 100%
-                max-width: 500px
-                margin-top: 20px
-                font-size: 2.2em
-                color: #666666
-                text-align: center
-            h2 span
-                color: #333333
-                font-weight: bold
-                padding: 20px 20px 0px 20px
-            strong
-                font-size: 2.5em
-                font-weight: bold
-                background-color: #eee
-                padding: 20px
-                border-radius: 8px
-                margin: 20px 0px
-            .novamente
-                padding: 20px
-                margin-top: 20px
-                margin-bottom: 80px
-                border: 1px solid #333333
-                border-radius: 3px
-                cursor: pointer
-                &:hover
-                    background: #333
-                &:hover > p
-                    color: #FFF
-            .novamente p
-                color: #333333
-                font-size: 1.5em
-                text-align: center
-        .esconde
-            display: none !important
-        .mostra
-            display: flex !important
-    .bloco_cashback
-        width: 100%
-        display: flex
-        flex-direction: row
-        justify-content: center
-        align-items: center
-        margin-top: 0px
-        padding-top: 40px
-        header
-            width: 620px
-            display: flex
-            padding-right: 80px
-            flex-direction: column
-            align-items: flex-end
-        header h1
-            width: 100%
-            max-width: 300px
-            font-size: 4em
-            font-weight: bold
-            text-align: center
-        header p
-            width: 100%
-            max-width: 300px
-            margin-top: 20px
-            font-size: 2.2em
-            line-height: 1.5em
-            color: #333
-            text-align: center
-        .imagem
-            width: 620px
-            height: 560px
-            position: relative
-        .imagem .desconto_5
-            position: absolute
-            top: 420px
-            left: 20px
-            z-index: 3
-        .imagem .desconto_7
-            position: absolute
-            top: 116px
-            left: 25px
-            z-index: 1
-        .imagem .desconto_10
-            position: absolute
-            top: 20px
-            left: 390px
-            z-index: 3
-        .imagem .pc
-            position: absolute
-            top: 70px
-            left: 40px
-            z-index: 2
-        .imagem .logo
-            position: absolute
-            z-index: 3
-            top: 180px
-            left: 315px
-    .bloco_saibamais
-        width: 100%
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: center
-        margin: 40px 0
-        padding: 80px 0
-        background-color: white
-        .box_quebra_cabeca
-            width: calc(100% - 40px)
-            max-width: 700px
-            display: flex
-            align-items: center
-            justify-content: space-between
-        .box_quebra_cabeca figure
-            width: 150px
-            height: 150px
-            mask-repeat: no-repeat
-            -webkit-mask-repeat: no-repeat
-            mask-size: contain
-            -webkit-mask-size: contain
-        .box_quebra_cabeca .texto_quebra_cabeca
-            max-width: 480px
-            text-align: center
-            display: flex
-            align-items: center
-            flex-direction: column
-            font-size: 1.5rem
-            line-height: 1.5em
-        .box_quebra_cabeca .texto_quebra_cabeca p
-            color: #333
-        .box_quebra_cabeca .botao_quebra_cabeca
-            width: 250px
-            flexCenter()
-            border-radius: 25px
-            color: white
-            margin-top: 15px
-            padding: 0 40px
-            height: 50px
-    .app
-        width: calc(100% - 40px)
-        display: flex
-        max-width: 800px
-        padding: 60px 0
-        justify-content: space-between
-        figure
-            position: relative
-        .qr_code
-            position: absolute
-            display: flex
-            flex-direction: column
-            align-items: center
-            top: 60px
-            left: 0px
-            right: 0px
-            margin: 0px
-            justify-content: space-around
-        .img_celular_app
-            width: 130px
-            height: 130px
-            mask-repeat: no-repeat
-            -webkit-mask-repeat: no-repeat
-            mask-size: contain
-            -webkit-mask-size: contain
-            mask-position: center
-            -webkit-mask-position: center
-        .qr_code img
-            margin-top: 50px
-        .qr_code h1
-            margin-top: 25px
-            font-weight: bold
-            font-size: 1.5rem
-            color: #333
     .duvida
         width: 100%
         display: flex
@@ -665,147 +70,201 @@
             font-size: 2rem
             text-align: center
             cursor: pointer
-// EXTENSÃO SAIBA MAIS
-.span_baixar
-    margin-top: 7px
-    font-size: 1.5em
-.escanei
+// footer //
+#bloco_footer
     display: flex
-    align-items: center
-    flex-direction: column
-
-    figure .celularmobile
-        margin: 30px
-        width: 245px
-        display: flex
-#bloco_login .app .bloco_esquerdo
-    width: 280px
-    justify-content: center
-    flex-direction: column
-    display: flex
-    align-items: center
-    h1
-        font-size: 2rem
-        text-align: center
-        font-weight: bold
-    h2
-        font-size: 1em
-        line-height: 1.5em
-        text-align: center
-    span
-        font-size: 1em
-        line-height: 1.5em
-        text-align: center
-    p
-        text-align: center
-        color: #333
-        font-size: 2em
-        line-height: 1.5em
-        margin-top: 20px
-        margin-bottom: 35px
-    .link_app
+    justify-content: space-between
+    margin: 30px
+    width: 100%
+    max-width: 1000px
+    margin-bottom: 100px
+    section
         width: 100%
         display: flex
+        justify-content: flex-end
+        padding: 2px
+        margin-top: 20px
+        margin-bottom: 20px
+    section:first-child
         flex-direction: column
-        align-items: center
         text-align: center
-        border: 1px solid #EEE
-        background-color: white
-        padding: 10px
-        border-radius: 10px
+        margin-right: 30px
+    section ul
+        display: flex
+        flex-direction: column
+        margin-bottom: 20px
+        font-size: 1.1em
+    section ul li
+        margin-top: 15px
+        display: flex
+        flex-direction: row
+        align-items: center
+    section ul li a
+        font-size: 1.5rem
+        margin-right: 15px
+    section ul li a svg
+        fill: $corClube
+    section ul li .link_container
+        font-size: unset
+        display: flex
+        justify-content: center
+        align-items: center
+        figure
+            margin-right: 15px
+    section ul li
+    section ul li span
+        font-size: 1.5em
         color: #333
-        font-size: 3em
-        box-shadow: 0 4px 5px rgba(0,0,0,.1)
-        a
-            width: 100%
-            height: 100%
-            display: none
-            position: absolute
-            top: 0px
-            right: 0px
-            left: 0px
-            bottom: 0px
-    .plataforma
-        margin: 25px
-        font-size: 20px
-        color: #333
-    .mobileicon
-        margin-right: 10px
-        width: 25px
-    .mobiletexto
-        margin-left: 10px
-        span
-            font-size: 10px
-        h3
-            font-size: 20px
-        h2
-            font-size: 24px
-    .box_apple
-        width: 180px
-        height: 55px
-        margin-bottom: 10px
-        background-color: black
-        cursor: pointer
-        background: url(../../images/login/apple.png) no-repeat center top
-        background-size: cover
-        position: relative
-    .box_google_link
-        width: unset !important
-        height: unset !important
-    .box_link_app a
-        width: unset
-        height: unset
-        display: block
-        position: unset
-    .box_google
-        width: 180px
-        height: 55px
-        background-color: black
-        cursor: pointer
-        background: url(../../images/login/google.png) no-repeat center top
-        background-size: cover
-        margin-bottom: 25px
-        position: relative
-//MEU PARCEIRO//
-.meu_parceiro
+    p
+        display: flex
+
+#bloco_footer .ul_icones_mobile
+    display: none
+
+#bloco_footer .contato_mobile
+    display: none
+
+#bloco_footer .clube_centralizado
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+
+.bloco_copyright
     display: flex
     width: 100%
-    margin-top: 40px
-    padding: 60px 100px
-    max-width: 1100px
-    background-color: #fff
-    border-radius: 15px 15px 0px 0px
-    justify-content: space-between
-    .item
+    flex-direction: column
+    background-color: #f6f6f6
+    justify-content: space-evenly
+    align-items: center
+    border-width: 5px
+    border-top-style: solid
+    padding: 50px 0px
+    .copyright
+        margin-bottom: 20px
+    .copyright span
         display: flex
-        flex-direction: column
-        align-items: center
         justify-content: center
-    img
-        height: 100px
-        width: 350px
-    a
-        border-radius: 25px
-        color: white
-        height: 40px
-        line-height: 40px
+        font-size: 1.5em
+        margin: inherit
+        color: #666
+    .span_direitos
         display: flex
-        margin-top: 30px
-        padding: 0 50px
-        align-items: center
-        justify-content: center
-        font-size: 1.8em
-    h1
-        font-size: 20px
-        font-weight: bold
         text-align: center
-        font-size: 2rem
-    h2
-        font-size: 1.5rem
-        text-align: center
-        color: #333
-        margin-top: 30px
+        color: #999
+        font-size: 1.5em
+.icone_footer
+    width: 25px
+    height: 25px
+    mask-repeat: no-repeat
+    -webkit-mask-repeat: no-repeat
+    mask-size: contain
+    -webkit-mask-size: contain
+    &.interrogacao
+        -webkit-mask-image: url(../images/login/INTERROGACAO.svg)
+        mask-image: url(../images/login/INTERROGACAO.svg)
+    &.localizacao
+        -webkit-mask-image: url(../images/login/localizacao.svg)
+        mask-image: url(../images/login/localizacao.svg)
+    &.horario
+        -webkit-mask-image: url(../images/login/HORARIO.svg)
+        mask-image: url(../images/login/HORARIO.svg)
+    &.email
+        -webkit-mask-image: url(../images/login/EMAIL.svg)
+        mask-image: url(../images/login/EMAIL.svg)
+    &.whatsapp
+        -webkit-mask-image: url(../images/login/WHATSAPP.svg)
+        mask-image: url(../images/login/WHATSAPP.svg)
+    &.telefone
+        -webkit-mask-image: url(../images/login/TELEFONE.svg)
+        mask-image: url(../images/login/TELEFONE.svg)
+
 .alguma_duvida
     display: flex
     padding: 20px
     margin-left: 20px
+
+@media screen and (max-width: 1040px)
+    #banner_secundario
+        margin-top: 150px
+@media screen and (max-width: 700px)
+    #bloco_login .duvida
+        display: none
+    #bloco_login .form_formulario label
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        height: 40px
+        border-color: 50px black
+        border-radius: 6px
+//bloco_footer//
+@media screen and (max-width: 700px)
+    #bloco_footer
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        width: 80%
+    #bloco_footer section
+        margin: 0px
+    #bloco_footer section:first-child
+        display: none
+    #bloco_footer section ul
+        width: 100%
+        margin: 0px
+
+
+@media screen and (max-width: 700px)
+    #bloco_login .botao_enviar
+        width: 100px
+        color: #fff
+        height: 35px
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: 3px
+@media screen and (max-width: 700px)
+    #bloco_footer .ul_icones_mobile
+        display: flex
+        width: 100%
+        justify-content: flex-start
+        font-size: 25px
+        ul, li
+            display: flex
+            flex-direction: row
+            width: 60%
+            padding: 25px 0px 10px
+        ul, li a i svg
+            fill: $corClube
+
+.mostra_mobile
+    display:none
+@media screen and (max-width:700px)
+    #bloco_login .formulario_mobile
+        display: flex
+@media screen and (max-width:1000px)
+    #bloco_footer section ul span
+        margin-right: 30px
+@media screen and (max-width: 850px)
+    #bloco_footer
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        width: 80%
+    #bloco_footer .contato_mobile
+        display: flex
+        width: 100%
+        padding: 65px 0px 43px
+        font-size: 2.5rem
+    #bloco_footer section
+        margin: 0px
+    #bloco_footer section:first-child
+        display: none
+    #bloco_footer section ul
+        width: 100%
+        margin: 0px
+@media scren and (max-width: 800px)
+    #bloco_footer .contato_mobile
+        display: flex
+        width: 100%
+        padding: 65px 0 43px
+        font-size: 1.5rem

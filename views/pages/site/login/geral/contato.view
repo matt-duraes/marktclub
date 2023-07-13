@@ -16,15 +16,15 @@
 </section>
 
 <section class="mostra_mobile formulario_mobile">
-    <h1 class="color_cor">Entre em contato </h1>
+    <h1 class="cor_color">Entre em contato </h1>
     <form action="@route('post.index.contato')" class="form_geral" method="post">
         <input type="hidden" name="hash" value="uuid()">
         <input type="hidden" name="validacao" value="{{ uuid() }}">
-        <input type="text" id="nome" name="nome" placeholder="Qual seu nome?" required>
-        <input type="text" id="email" name="email" placeholder="Qual seu email" required>
-        <input type="text" id="telefone" name="telefone" data-mascara="telefone" placeholder="Qual seu telefone" required>
-        <textarea cols="30" rows="10" placeholder="Digite uma breve mensagem" name="mensagem"></textarea>
+        @? formInput(name: 'nome', placeholder: 'Qual seu nome?', label: 'Qual seu nome?', value: '')
+        @? formEmail(name: 'email', placeholder: 'Qual seu email?', label: 'Qual seu email?', value: '')
+        @? formTelefone(name: 'telefone', label: 'Qual seu telefone?', placeholder: 'Qual seu telefone?', value: '')
+        @? formTextarea(name: 'mensagem', label: 'Digite uma breve mensagem', placeholder: 'Digite uma breve mensagem')
         <div style="margin-bottom: 20px" id="captcha1" class="g-recaptcha" data-sitekey="6LdvI7UZAAAAACBAtfCkp0x4pXws09pkQPRm325T"></div>
-        <button class="bg_cor botao_enviar" id="indicar_parceiro">Enviar</button>
+        <button class="cor_bg botao_enviar" id="indicar_parceiro">Enviar</button>
     </form>
 </section>

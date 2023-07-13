@@ -24,6 +24,7 @@
     <div id="site">
         @dir "/include/login_header.view"
         [[VIEW]]
+        @dir "/include/login_footer.view"
     </div>
 
     <form action="/" method="post">

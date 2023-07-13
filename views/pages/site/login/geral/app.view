@@ -20,10 +20,11 @@
     </div>
 
     <figure>
-        <img class="celularmobile" src="{!!LINK_PADRAO!!}//images/login/celular.png">
+        <img class="celularmobile" src="{!!LINK_PADRAO!!}/images/login/celular.png">
         <div class="qr_code">
             <img src="https://chart.apis.google.com/chart?cht=qr&chl=@route('get.index.qrcode_app')&chs=200x200" alt="">
-            <figure class="img_celular_app cor_bg"></figure>
+            <figure class="img_celular_app cor_bg" style="-webkit-mask-image: url({!!LINK_PADRAO!!}/images/login/celular-app.svg);
+            mask-image: url({!!LINK_PADRAO!!}/images/login/celular-app.svg);"></figure>
             <h1>ESCANEIE</h1>
             <span class="span_baixar cor_color">PARA BAIXAR</span>
         </div>
