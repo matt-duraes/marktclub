@@ -108,9 +108,9 @@ window.addEventListener('load', () => {
         const blocoProximo = document.getElementById(idProximo);
 
         categoriaAtual.classList.remove('hover');
-        categoriaAtual.classList.remove('bg_cor');
+        categoriaAtual.classList.remove('cor_bg');
         categoriaProximo.classList.add('hover');
-        categoriaProximo.classList.add('bg_cor');
+        categoriaProximo.classList.add('cor_bg');
 
         blocoAtual.classList.add('animacao_atual');
         blocoProximo.style.display = 'flex';

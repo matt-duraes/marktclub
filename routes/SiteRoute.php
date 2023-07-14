@@ -12,6 +12,18 @@ Route
             ::nome('index')
             ::view('/login');
         Route
+            ::nome('comoFunciona')
+            ::view('/login/como-funciona-escolha');
+        Route
+            ::nome('comoFuncionaDependente')
+            ::view('/login/como-funciona');
+        Route
+            ::nome('comoFuncionaCFM')
+            ::view('/login/como-funciona-cfm');
+        Route
+            ::nome('comoFuncionaFuncionario')
+            ::view('/login/como-funciona-funcionario');
+        Route
             ::nome('logar')
             ::request(['login', 'senha'])
             ::post('/login');

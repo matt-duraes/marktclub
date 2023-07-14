@@ -1,0 +1,215 @@
+@template "login"
+
+.tutorial__ativar
+    width: 100%
+    flexCenter()
+    directionColumn()
+    position: relative
+    margin-top: 180px
+
+.tutorial__ativar .ativar
+    width: 100%
+    flexCenter()
+    directionColumn()
+    margin-top: 50px
+    z-index: 9999
+
+.tutorial__ativar .ativar--centralizar
+    width: 100%
+    max-width: 1000px
+    flexCenter()
+    directionColumn()
+
+.tutorial__ativar .ativar--texto
+    width: 100%
+    max-width: 700px
+    flexCol()
+
+.tutorial__ativar .ativar--texto h1.inicio
+    font-size: 2.5em
+    line-height: 1.5em
+    font-weight: 400
+    color: $branco
+    text-align: center
+
+.tutorial__ativar .ativar--texto h1.segundo
+    font-size: 3.5em
+    line-height: 1.5em
+    font-weight: 700
+    color: $branco
+    margin-bottom: 50px
+    text-align: center
+
+.tutorial__ativar .ativar--texto span
+    color: $branco
+    font-size: 1em
+    font-weight: 700
+
+.tutorial__ativar .ativar--texto span.alfa
+    color: #eaa700
+
+.tutorial__ativar .ativar--link
+    width: 100%
+    max-width: 700px
+    flexCenter()
+    directionColumn()
+
+.tutorial__ativar .ativar--link h1.inicio
+    font-size: 2em
+    line-height: 1.5em
+    font-weight: 400
+    color: $branco
+    text-align: center
+
+.tutorial__ativar .ativar--link .link
+    width: 100%
+    max-width: 700px
+    flexCenter()
+    background-color: $branco
+    border-top-left-radius: 10px
+    border-top-right-radius: 10px
+    padding: 20px
+
+.tutorial__ativar .ativar--link .link a
+    line-height: 1.5em
+    font-weight: 700
+
+.tutorial__ativar .ativar--tutorial
+    width: 100%
+    flexCenter()
+    directionColumn()
+
+.tutorial__ativar .ativar--tutorial header
+    width: 100%
+    max-width: 700px
+    flexCenter()
+    directionColumn()
+    position: relative
+    background-color: $branco
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1)
+    margin-top: 20px
+
+.tutorial__ativar .ativar--tutorial header .banner
+    width: 100%
+    height: 20px
+
+.tutorial__ativar .ativar--tutorial header .banner figure
+    width: auto
+    height: 20px
+    background-size: cover
+    background-position: center center
+
+.tutorial__ativar .ativar--tutorial header .centralizar
+    width: 100%
+    max-width: 1000px
+    alignItemCenter()
+    justify-content: space-between
+    position: relative
+    padding: 20px 10px
+
+.tutorial__ativar .ativar--tutorial header .esquerdo
+    alignItemCenter()
+    directionColumn()
+    justify-content: space-between
+
+.tutorial__ativar .ativar--tutorial header .esquerdo p
+    font-size: 1.5em
+    line-height: 1.5em
+    color: #333
+
+.tutorial__ativar .ativar--tutorial header .esquerdo p.login
+    font-size: 1.5em
+    line-height: 1.5em
+    color: $branco
+    padding: 8px 40px
+    margin-left: 20px
+    border-radius: 3px
+
+.tutorial__ativar .ativar--tutorial header .esquerdo .primeiro_passo
+    position: absolute
+    top: 50%
+    right: 35%
+
+.tutorial__ativar .ativar--tutorial .passo
+    width: 100%
+    flexCenter()
+    directionColumn()
+    position: relative
+    background-color: #fafafa
+    padding-top: 50px
+    margin-top: -4px
+
+.tutorial__ativar .ativar--tutorial .passo .print
+    margin-top: 50px
+
+@media screen and (max-width: 800px)
+    .tutorial__ativar .ativar--link
+        padding: 0 10px
+
+    .tutorial__ativar .ativar--tutorial header .centralizar
+        padding-left: 20px
+        padding-right: 20px
+
+    .tutorial__ativar .ativar--tutorial header .centralizar .logo figure img
+        height: 20px
+
+    .tutorial__ativar .ativar--tutorial header .esquerdo p.login
+        padding: 5px 10px
+        font-size: 1.2em
+
+    .tutorial__ativar .ativar--tutorial header .esquerdo .primeiro_passo
+        top: 75%
+        right: 20px
+        z-index: 9999
+
+    .tutorial__ativar .ativar--tutorial header .esquerdo .primeiro_passo img
+        height: 70px
+
+    .tutorial__ativar .ativar--tutorial .passo
+        padding-left: 10px
+        padding-right: 10px
+
+    .tutorial__ativar .ativar--tutorial .passo:first-of-type
+        padding-top: 80px
+
+    .tutorial__ativar .ativar--tutorial .passo .print img
+        width: 100%
+
+
+@media screen and (max-width: 500px)
+    .tutorial__ativar .ativar--tutorial .passo
+        padding-left: 10px
+        padding-right: 10px
+
+    .tutorial__ativar .ativar--tutorial .passo figure img
+        width: 100%
+        height: auto
+
+    .tutorial__ativar .ativar--tutorial header .centralizar .logo figure img
+        width: auto
+
+    .tutorial__ativar .ativar--tutorial header .centralizar
+        padding-left: 5px
+        padding-right: 5px
+
+
+
+.botao_escolha
+    width: 100%
+    flexCenter()
+    color: $branco
+    margin-bottom: 50px
+
+
+.botao_escolha a
+    height: 50px
+    line-height: 50px
+    font-size: 2em
+    border: 1px solid $branco
+    border-radius: 5px
+    padding: 0 25px
+    margin: 10px
+
+@media screen and (max-width: 700px)
+    .botao_escolha
+        directionColumn()

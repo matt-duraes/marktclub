@@ -7,7 +7,7 @@
 	<title>VOUCHER - {!! $dado->voucher->titulo !!}</title>
     <link rel="shortcut icon" type="image" href="{!!LINK_PADRAO!!}/images/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
+
     @CSS
 </head>
 
@@ -28,7 +28,7 @@
             </div>
         @ endif;
 
-        <section class="container bg_cor">
+        <section class="container cor_bg">
             <div class="imagem">
                 <img src="{!! $dado->voucher->imagem->qrcode !!}" alt="codigo">
             </div>
@@ -77,7 +77,7 @@
 
 
         <section class="termo">
-            @ if (!in_array(CLUBE_ID, ['c3b3159ff6e9e937b954bf7eaca06aac', '2879077062aaa01f2c0862a7f108971d', 'dbbe96804930940e3c2f68f8794fcf2f', '1c3b51e4a59ae2e157adaf3e502d22ad', 'c3b3159ff6e9e937b954bf7eaca06aac', 'afac6330ef2337e096e2e57ceeb7206b', '9e0a3da675156380c20929856059a31b', 'f1fbde0562dc08274d6d7ae0277a14c3', '211b8e74e634a517f6f37338b6270728', 'a1d776a3f802f45d340e8b6c24beb8b8'])) : 
+            @ if (!in_array(CLUBE_ID, ['c3b3159ff6e9e937b954bf7eaca06aac', '2879077062aaa01f2c0862a7f108971d', 'dbbe96804930940e3c2f68f8794fcf2f', '1c3b51e4a59ae2e157adaf3e502d22ad', 'c3b3159ff6e9e937b954bf7eaca06aac', 'afac6330ef2337e096e2e57ceeb7206b', '9e0a3da675156380c20929856059a31b', 'f1fbde0562dc08274d6d7ae0277a14c3', '211b8e74e634a517f6f37338b6270728', 'a1d776a3f802f45d340e8b6c24beb8b8'])) :
                 <article class="imagem">
                     <p>Administrado por:</p>
                     <figure>

@@ -23,6 +23,11 @@ final class LoginController extends Controller
         ], status: 201);
     }
 
+    public function comoFunciona(): Response
+    {
+        return view('como_funciona.index');
+    }
+
     public function sair(): Response
     {
         sessaoDestruir();

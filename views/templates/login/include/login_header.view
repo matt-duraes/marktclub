@@ -24,7 +24,7 @@
                 <p>FAQ</p>
                 <div class="borda cor_bg"></div>
             </a>
-            <a href="https://clube.marktclub.com.br/login/como-funciona-escolha" target="_blank" class="botao">
+            <a href="{!!route('login.comoFunciona')!!}" target="_blank" class="botao">
                 <i class="cor_color">@iconeComoFunciona</i>
                 <p>Como Funciona</p>
                 <div class="borda cor_bg"></div>

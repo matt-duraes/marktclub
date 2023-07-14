@@ -47,6 +47,9 @@ define('MENU_FEDERAL_SAUDE', true);
 define('MENU_CONSULTORIA', true);
 
 define('MENU_HOVER', isset($menu) ? $menu : '');
+define('LINK_ANDROID', true);
+define('LINK_APPLE', true);
+
 
 
 $temMais = [];

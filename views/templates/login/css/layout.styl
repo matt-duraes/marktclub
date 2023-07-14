@@ -200,3 +200,121 @@ body
         color: #666
     #header_principal .logo_mobile
         margin-top: 20px
+
+
+
+// footer //
+#bloco_footer
+    display: flex
+    justify-content: space-between
+    margin: 30px
+    width: 100%
+    max-width: 1000px
+    margin-bottom: 100px
+    section
+        width: 100%
+        display: flex
+        justify-content: flex-end
+        padding: 2px
+        margin-top: 20px
+        margin-bottom: 20px
+    section:first-child
+        flex-direction: column
+        text-align: center
+        margin-right: 30px
+    section ul
+        display: flex
+        flex-direction: column
+        margin-bottom: 20px
+        font-size: 1.1em
+    section ul li
+        margin-top: 15px
+        display: flex
+        flex-direction: row
+        align-items: center
+    section ul li a
+        font-size: 1.5rem
+        margin-right: 15px
+    section ul li a svg
+        fill: $corClube
+    section ul li .link_container
+        font-size: unset
+        display: flex
+        justify-content: center
+        align-items: center
+        figure
+            margin-right: 15px
+    section ul li
+    section ul li span
+        font-size: 1.5em
+        color: #333
+    p
+        display: flex
+
+#bloco_footer .ul_icones_mobile
+    display: none
+
+#bloco_footer .contato_mobile
+    display: none
+
+#bloco_footer .clube_centralizado
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+
+//bloco_footer//
+@media screen and (max-width: 700px)
+    #bloco_footer
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        width: 80%
+    #bloco_footer section
+        margin: 0px
+    #bloco_footer section:first-child
+        display: none
+    #bloco_footer section ul
+        width: 100%
+        margin: 0px
+
+@media screen and (max-width: 700px)
+    #bloco_footer .ul_icones_mobile
+        display: flex
+        width: 100%
+        justify-content: flex-start
+        font-size: 25px
+        ul, li
+            display: flex
+            flex-direction: row
+            width: 60%
+            padding: 25px 0px 10px
+        ul, li a i svg
+            fill: $corClube
+
+@media screen and (max-width:1000px)
+    #bloco_footer section ul span
+        margin-right: 30px
+@media screen and (max-width: 850px)
+    #bloco_footer
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        width: 80%
+    #bloco_footer .contato_mobile
+        display: flex
+        width: 100%
+        padding: 65px 0px 43px
+        font-size: 2.5rem
+    #bloco_footer section
+        margin: 0px
+    #bloco_footer section:first-child
+        display: none
+    #bloco_footer section ul
+        width: 100%
+        margin: 0px
+@media scren and (max-width: 800px)
+    #bloco_footer .contato_mobile
+        display: flex
+        width: 100%
+        padding: 65px 0 43px
+        font-size: 1.5rem
