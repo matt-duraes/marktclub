@@ -28,6 +28,12 @@ final class LoginController extends Controller
         return view('como_funciona.index');
     }
 
+    public function comoFuncionaCFM(): Response
+    {
+        return view('como_funciona_cfm.index');
+    }
+
+
     public function sair(): Response
     {
         sessaoDestruir();

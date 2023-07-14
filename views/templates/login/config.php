@@ -47,8 +47,8 @@ define('MENU_FEDERAL_SAUDE', true);
 define('MENU_CONSULTORIA', true);
 
 define('MENU_HOVER', isset($menu) ? $menu : '');
-define('LINK_ANDROID', true);
-define('LINK_APPLE', true);
+define('LINK_APPLE', 'https://apps.apple.com/br/app/clube-markt-club/id1559238977');
+define('LINK_ANDROID', 'https://play.google.com/store/apps/details?id=com.temvantagens.marktclub&amp;hl=pt_BR&amp;gl=US');
 
 
 
