@@ -38,6 +38,11 @@ final class LoginController extends Controller
         return view('como_funciona_dependente.index');
     }
 
+    public function comoFuncionaFuncionario(): Response
+    {
+        return view('como_funciona_funcionario.index');
+    }
+
 
     public function sair(): Response
     {
