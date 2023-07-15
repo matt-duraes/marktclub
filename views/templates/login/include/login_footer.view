@@ -109,7 +109,7 @@
 
 </footer>
 @ if (CLUBE_ID ==  'c3b3159ff6e9e937b954bf7eaca06aac' || CLUBE_ID ==  '2879077062aaa01f2c0862a7f108971d' || CLUBE_ID ==  'dbbe96804930940e3c2f68f8794fcf2f' || CLUBE_ID ==  '1c3b51e4a59ae2e157adaf3e502d22ad' ||CLUBE_ID ==  'c3b3159ff6e9e937b954bf7eaca06aac' || CLUBE_ID ==  'afac6330ef2337e096e2e57ceeb7206b' ||  CLUBE_ID ==  '9e0a3da675156380c20929856059a31b' || CLUBE_ID ==  'f1fbde0562dc08274d6d7ae0277a14c3' || CLUBE_ID ==  '211b8e74e634a517f6f37338b6270728' || CLUBE_ID ==  'a1d776a3f802f45d340e8b6c24beb8b8'):
-    <div class="bloco_copyright border_cor">
+    <div class="bloco_copyright cor_border">
         <div class="copyright">
             @ if (CLUBE_ID == 'afac6330ef2337e096e2e57ceeb7206b' || CLUBE_ID == 'a1d776a3f802f45d340e8b6c24beb8b8') :
                 <span>Todos os direitos reservados.</span>
