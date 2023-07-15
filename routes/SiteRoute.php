@@ -24,6 +24,9 @@ Route
             ::nome('comoFuncionaFuncionario')
             ::view('/login/como-funciona-funcionario');
         Route
+            ::nome('faq')
+            ::view('/login/faq');
+        Route
             ::nome('logar')
             ::request(['login', 'senha'])
             ::post('/login');

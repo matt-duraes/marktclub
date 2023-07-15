@@ -43,6 +43,10 @@ final class LoginController extends Controller
         return view('como_funciona_funcionario.index');
     }
 
+    public function faq(): Response
+    {
+        return view('faq.index');
+    }
 
     public function sair(): Response
     {
