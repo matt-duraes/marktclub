@@ -479,7 +479,7 @@ Route
         Route
             ::nome('lojaMaisAcessada')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
-            ::request(['de', 'ate', '!empresa'], 'json')
+            ::request(['de', 'ate', '!estabelecimento', '!empresa'], 'json')
             ::get('/relatorio/loja-mais-acessada');
 
         Route
@@ -1335,8 +1335,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                'data_nascimento', '!dependentes', 'operadora',
-                'acomodacao', '!regiao', '!plano'
+                '!data_nascimento', '!dependentes', '!operadora',
+                '!acomodacao', '!regiao', '!plano',
             ])
             ::post('/saude/simulacao');
     });

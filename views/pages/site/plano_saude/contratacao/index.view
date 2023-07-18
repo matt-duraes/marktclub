@@ -34,32 +34,33 @@
             </div>
         </div>
         <div class="bloco_conteudo">
-            <form method="post" class="bloco_scroll">
-                <input type="hidden" name="simulacao" id="simulacao" value="{{$simulacao}}">
+            <form method="post" id="formulario_contratacao"  class="bloco_scroll">
+                <input type="hidden" name="id_simulacao" id="simulacao" value="{{$simulacao}}">
                 <fieldset class="conteudo" id="dados">
                     <div class="contratacao form_geral">
                         <header>
                             <h1>DADOS PESSOAIS</h1>
                         </header>
+                        <form action="">
                         <div class="form_input_dupla">
-                            @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: '')
-                            @? formInput(name: 'naturalidade', placeholder: 'Digite um naturalidade', label: 'Digite a naturalidade', class: 'naturalidade', value: '')
+                            @? formInput(name: 'nome', placeholder: 'Digite um nome', obrigatorio: true ,label: 'Digite um nome', class: 'nome', value: '')
+                            @? formInput(name: 'naturalidade', placeholder: 'Digite um naturalidade', obrigatorio: true, label: 'Digite a naturalidade', class: 'naturalidade', value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formCpf(name: 'cpf', placeholder: 'CPF', label: 'CPF', class: 'cpf', value: '')
-                            @? formData(name: 'data_nascimento', placeholder: 'Data de nascimento', label: 'Data de nascimento',  value: '')
+                            @? formCpf(name: 'cpf', placeholder: 'CPF', label: 'CPF', obrigatorio: true,class: 'cpf', value: '')
+                            @? formData(name: 'data_nascimento', placeholder: 'Data de nascimento', obrigatorio: true,label: 'Data de nascimento',  value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formSelect(name: 'genero', placeholder: 'Gênero', label: 'Gênero', class: 'busca_genero', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um gênero')->genero()->r(), value: '')
-                            @? formSelect(name: 'estado_civil', placeholder: 'Estado Civil', label: 'Estado Civil', class: 'busca_estado_civil', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado civil')->estadoCivil()->r(), value: '')
+                            @? formSelect(name: 'genero', placeholder: 'Gênero', label: 'Gênero', obrigatorio: true, class: 'busca_genero', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um gênero')->genero()->r(), value: '')
+                            @? formSelect(name: 'estado_civil', placeholder: 'Estado Civil', obrigatorio: true, label: 'Estado Civil', class: 'busca_estado_civil', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado civil')->estadoCivil()->r(), value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formInput(name: 'peso', placeholder: 'Digite o peso', label: 'Digite o peso',  value: '')
-                            @? formInput(name: 'altura', placeholder: 'Digite a altura', label: 'Digite a altura',  value: '')
+                            @? formInput(name: 'peso', obrigatorio: true, placeholder: 'Digite o peso', label: 'Digite o peso',  value: '')
+                            @? formInput(name: 'altura', obrigatorio: true, placeholder: 'Digite a altura', label: 'Digite a altura',  value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formInput(name: 'rg', placeholder: 'Digite o rg', label: 'Digite o rg',  value: '')
-                            @? formInput(name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor', label: 'Digite o orgão expedidor',  value: '')
+                            @? formInput(name: 'rg', placeholder: 'Digite o rg',obrigatorio: true, label: 'Digite o rg',  value: '')
+                            @? formInput(name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor',obrigatorio: true, label: 'Digite o orgão expedidor',  value: '')
                         </div>
                         <div class="bloco_botao">
                             <div></div>
@@ -76,13 +77,13 @@
                             <h2>Dados do responsável</h2>
                             @? formSwitch(name: 'responsavel', label: 'Eu sou o responsável', check: false)
                             <div class="form_input_dupla">
-                                @? formInput(name: 'responsavel_nome', placeholder: 'Digite o nome do responsável', label: 'Digite um nome', class: 'nome_responsavel', value: '')
+                                @? formInput(name: 'responsavel_nome', placeholder: 'Digite o nome do responsável', obrigatorio: true,label: 'Digite um nome', class: 'nome_responsavel', value: '')
 
-                                @? formCpf(name: 'responsavel_cpf', placeholder: 'CPF', label: 'CPF do responsável', class: 'cpf', value: '')
+                                @? formCpf(name: 'responsavel_cpf', placeholder: 'CPF', label: 'CPF do responsável', class: 'cpf', obrigatorio: true,value: '')
                             </div>
                             <div class="form_input_dupla">
-                                @? formInput(name: 'responsavel_rg', placeholder: 'Digite o rg', label: 'Digite o rg do responsável',  value: '')
-                                @? formInput(name: 'responsavel_orgao_expedidor', placeholder: 'Digite um orgão expedidor', label: 'Digite o orgão expedidor do responsável',  value: '')
+                                @? formInput(name: 'responsavel_rg', placeholder: 'Digite o rg', label: 'Digite o rg do responsável',obrigatorio: true,  value: '')
+                                @? formInput(name: 'responsavel_orgao_expedidor', placeholder: 'Digite um orgão expedidor', obrigatorio: true, label: 'Digite o orgão expedidor do responsável',  value: '')
                             </div>
                         </div>
                         <div class="bloco_botao">
@@ -97,13 +98,13 @@
                         <header>
                             <h1>CONTATO</h1>
                         </header>
-                        @? formEmail(name: 'emailpessoal', label: 'E-mail pessoal', class: 'email', placeholder: 'Digite seu e-mail pessoal', value: '')
+                        @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', obrigatorio: true, class: 'email', placeholder: 'Digite seu e-mail pessoal', value: '')
                         <div class="form_input_dupla">
-                            @? formTelefone(name: 'telefoneCelular', label: 'Telefone celular', class: 'celular', placeholder: 'Digite seu telefone celular', value: '')
-                            @? formTelefone(name: 'telefoneResidencial', label: 'Telefone residencial', class: 'residencial', placeholder: 'Digite seu telefone residencial', value: '')
+                            @? formTelefone(name: 'telefone_celular', label: 'Telefone celular', obrigatorio: true,class: 'celular', placeholder: 'Digite seu telefone celular', value: '')
+                            @? formTelefone(name: 'telefone_residencial', label: 'Telefone residencial', class: 'residencial', placeholder: 'Digite seu telefone residencial', value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formTelefone(name: 'telefoneComercial', label: 'Telefone comercial', class: 'comercial', placeholder: 'Digite seu telefone comercial', value: '')
+                            @? formTelefone(name: 'telefone_comercial', label: 'Telefone comercial', obrigatorio: true,class: 'comercial', placeholder: 'Digite seu telefone comercial', value: '')
                             @? formInput(name: 'ramal', placeholder: 'Digite o ramal', label: 'Digite o ramal',  value: '')
                         </div>
                         <div class="bloco_botao">
@@ -119,22 +120,21 @@
                             <h1>ENDEREÇO</h1>
                         </header>
                         <div class="form_input_dupla">
-                            @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP', value: '')
-                            @? formInput(name: 'bairro', placeholder: 'Bairro', label: 'Bairro', value: '')
+                            @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP', obrigatorio: true, value: '')
+                            @? formInput(name: 'bairro', placeholder: 'Bairro', obrigatorio: true, label: 'Bairro', value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formInput(name: 'logradouro', placeholder: 'Logradouro', label: 'Logradouro', value: '')
-                            @? formInput(name: 'numero', placeholder: 'Número', label: 'Número', value: '')
+                            @? formInput(name: 'logradouro', placeholder: 'Logradouro', obrigatorio: true, label: 'Logradouro', value: '')
+                            @? formInput(name: 'numero', placeholder: 'Número', obrigatorio: true,label: 'Número', value: '')
                         </div>
                             @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: '')
                         <div class="form_input_dupla">
-                            @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', value: '')
-                            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: '')
+                            @? formInput(name: 'cidade', placeholder: 'Cidade', obrigatorio: true, label: 'Cidade', value: '')
+                            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado',obrigatorio: true, lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: '')
                         </div>
-
                         <div class="bloco_botao">
                             <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
-                            <button class="botao_geral_cor cor_bg" data-simulacao="11c93e77-976b-49bd-a6e2-95b781c4b10c" id="enviarSimulacao">Tenho Interesse</button>
+                            <button type="submit" class="botao_geral_cor cor_bg" data-simulacao='' id="enviarSimulacao">Tenho Interesse</button>
                         </div>
                     </div>
                 </fieldset>

@@ -35,7 +35,6 @@ function adicionarEventoSimularConsignado() {
         let json;
         try {
             json = await resposta.json();
-            console.log(json);
         } catch (error) {
             json = {};
         }
@@ -107,7 +106,6 @@ function adicionarEventoPopupRegulamento() {
     botaoPopupRegulamento.forEach(modelo => {
         const tipo = modelo.getAttribute('data-tipo');
         const PaginaDetalhe = new Pagina(tipo, '/sicoob-regulamento/' + tipo, {}, true, true, carregarFuncoesBusca);
-
         modelo.addEventListener('click', () => {
             PaginaDetalhe.abrir();
         });

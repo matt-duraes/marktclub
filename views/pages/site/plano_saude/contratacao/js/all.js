@@ -28,3 +28,31 @@ document.querySelectorAll('input[type=checkbox][name=responsavel]').forEach(func
         }
     });
 });
+const idSimulacao = document.getElementById('simulacao').value;
+const form = document.getElementById('formulario_contratacao');
+const enviarSimulacao = document.querySelector('#enviarSimulacao');
+
+form.addEventListener('submit', async event => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const resposta = await fetch(LINK + '/saude/contratacao/' + idSimulacao, {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (false === resposta) {
+        return;
+    }
+    Loading.show();
+    if (resposta === false) {
+        Alerta.notificacao('Formulário não enviado', false);
+        return;
+    }
+    setTimeout(teste, 3000);
+});
+
+const teste = () => {
+    Loading.hide();
+    Alerta.notificacao('Dados enviados para contratação', true);
+    return;
+};

@@ -27,7 +27,3 @@ function abrirModal(clicado) {
     botaoAuxilio[id] = new Pagina('Preços Plano de Saúde -' + local, url);
     botaoAuxilio[id].abrir();
 }
-
-const buscarDados = () => {
-    console.log('123');
-};

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // @template "site"
 // @system "Alerta"
 // @system "Form"
@@ -101,44 +102,51 @@ window.addEventListener('load', () => {
         });
     });
 
-    const botaoEnviarSimulacao = document.querySelector('#enviar_contratacao');
-    if (botaoEnviarSimulacao) {
-        botaoEnviarSimulacao.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            let simulacao = botaoEnviarSimulacao.getAttribute('data-simulacao');
-            setTimeout(function () {
-                window.location.assign(document.querySelector('#LINK').value + '/saude/contratacao/' + simulacao);
-            }, 200);
-        });
-    }
-
     const fazerSimulacao = document.querySelector('#fazerSimulacao');
-    fazerSimulacao.addEventListener('click', async e => {
-        let dtNascimentoTitular = document.querySelector('#input_data_nascimento').value;
-        let dependentes = document.querySelectorAll('input#input_dependente.input_geral.input_data');
-        let dtNascimentoDependentes = [];
+    let dtNascimentoTitular = document.querySelector('#input_data_nascimento').value;
+    let dependentes = document.querySelectorAll('input#input_dependente.input_geral.input_data');
+    let dtNascimentoDependentes = [];
 
+    fazerSimulacao.addEventListener('click', async e => {
         dependentes.forEach(dataDependente => {
             dtNascimentoDependentes.push(dataDependente.value);
         });
-        dtNascimentoDependentes.shift();
-        alert(acomodacao);
-        const resposta = await ajaxPost(
-            LINK + '/saude/simulacao',
-            {
-                operadora,
-                regiaoSelecionada,
-                planoSelecionado,
-                dtNascimentoTitular,
-                dtNascimentoDependentes,
-                acomodacao,
-            },
-            ''
-        );
+        if (dtNascimentoDependentes != '') {
+            dtNascimentoDependentes.shift();
+        }
 
-        if (false === resposta) {
+        const query = `&operadora=${operadora}&
+        regiaoSelecionada=${regiaoSelecionada}&
+        planoSelecionado=${planoSelecionado}&
+        dtNascimentoTitular=${dtNascimentoTitular}&
+        dtNascimentoDependentes=${dtNascimentoDependentes}&
+        acomodacao=${acomodacao}`;
+
+        const resposta = await ajaxGet(LINK + '/saude/realizar-simulacao?' + query);
+        if (resposta === false) {
             return;
         }
+
+        buscarSimulacao(resposta.dado);
     });
+    const buscarSimulacao = dado => {
+        const { data_simulacao, valor_titular, valor_dependentes, valor_total } = dado;
+        $('.preco_titular').innerHTML = valor_titular;
+        $('.preco_dependente').innerHTML = valor_dependentes;
+        $('.preco_total').innerHTML = valor_total;
+        enviarSimulacao(data_simulacao);
+    };
+    const enviarSimulacao = data_simulacao => {
+        const botaoEnviarSimulacao = document.querySelector('#enviar_contratacao');
+        if (botaoEnviarSimulacao) {
+            botaoEnviarSimulacao.addEventListener('click', function (e) {
+                e.preventDefault();
+                setTimeout(function () {
+                    window.location.assign(
+                        document.querySelector('#LINK').value + '/saude/contratacao/' + data_simulacao
+                    );
+                }, 200);
+            });
+        }
+    };
 });

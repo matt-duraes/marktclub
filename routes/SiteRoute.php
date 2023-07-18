@@ -220,15 +220,25 @@ Route
         Route
             ::nome('simulacao')
             ::view('/saude/simulacao/{url}');
-
         Route
-            ::nome('valorSimulacao')
+            ::nome('realizarSimulacao')
             ::request(['!operadora','!acomodacao', '!regiaoSelecionada', '!planoSelecionado', '!dtNascimentoTitular', '!dtNascimentoDependentes'])
-            ::post('/saude/simulacao');
-
+            ::get('/saude/realizar-simulacao');
         Route
             ::nome('contratacao')
             ::view('/saude/contratacao/{simulacao}');
+        Route
+            ::nome('realizarContratacao')
+            ::request([
+                'id_simulacao','nome','naturalidade','cpf','data_nascimento',
+                'genero','estado_civil','peso','altura','rg','orgao_expedidor',
+                'responsavel','responsavel_nome','responsavel_cpf','responsavel_rg',
+                'responsavel_orgao_expedidor','email_pessoal','telefone_celular',
+                '!telefone_residencial','telefone_comercial','!ramal', 'cep', 'bairro',
+                'logradouro', 'numero', '!complemento', 'cidade', 'estado'
+            ])
+            ::post('/saude/contratacao/{idSimulacao}');
+
     });
 Route
     ::nome('farmacia')
@@ -276,7 +286,7 @@ Route
     ::controller(App\Controllers\Site\SolicitacaoCreditoController::class)
     ::grupo(function () {
         Route
-            ::nome('simulacao')
+            ::nome('realizarSimulacao')
             ::request([
                 'tipo', 'valor', 'prazo', 'operadora'
             ])

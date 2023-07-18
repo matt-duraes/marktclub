@@ -102,7 +102,10 @@ final class SalvarModel extends ORM
         }
     }
 
-    private function salvarUsuario()
+    /**
+     * @throws Excecao
+     */
+    private function salvarUsuario(): void
     {
         $agora = agora();
         $hoje = hoje();
@@ -113,7 +116,6 @@ final class SalvarModel extends ORM
             'nome'             => $this->nome,
             'documento'        => (int)soNumero($this->cpf),
             'email_pessoal'    => strCaixaBaixa($this->email),
-            'nome'             => $this->nome,
             'grupo'            => strCaixaBaixa($this->grupo),
             'data_criacao'     => $agora,
             'data_atualizacao' => $agora,
@@ -127,16 +129,6 @@ final class SalvarModel extends ORM
         if (!$dado) {
             mensagemStatus(401, localhost: 'Não foi possível salvar usuário.');
         }
-    }
-
-    private function pegarLinkClube()
-    {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar([
-            ['empresa', $this->empresa],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ]);
-        $this->linkClube = $Construtor->link_clube;
     }
 
     /**

@@ -113,7 +113,6 @@
 
                             <div class="bloco_botao">
                                 <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
-                                <div class="botao_geral_cor cor_bg botao_passa_passo_proximo">Continuar</div>
                             </div>
                         </div>
                     </div>
@@ -147,17 +146,17 @@
                             <h1>RESULTADO DA SIMULAÇÃO</h1>
                         </header>
                         <div class="resultado_dependente">
-                            <p>Total</p>
-                            <p class="valor">R$ xxx,xx</p>
+                            <p>Titular</p>
+                            <p class="valor preco_titular">R$</p>
                         </div>
                         <div class="coluna">
                             <div class="resultado_dependente">
-                                <p>Total</p>
-                                <p class="valor">R$ xxx,xx</p>
+                                <p>Dependentes</p>
+                                <p class="valor preco_dependente">R$</p>
                             </div>
                             <div class="resultado_dependente">
                                 <p>Total</p>
-                                <p class="valor">R$ xxx,xx</p>
+                                <p class="valor preco_total">R$</p>
                             </div>
                         </div>
                         <div class="aviso">
@@ -168,7 +167,7 @@
 
                         <div class="bloco_botao">
                             <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
-                            <button class="botao_geral_cor cor_bg" data-simulacao="11c93e77-976b-49bd-a6e2-95b781c4b10c" id="enviar_contratacao">Finalizar</button>
+                            <button class="botao_geral_cor cor_bg" data-simulacao='' id="enviar_contratacao">Finalizar</button>
                         </div>
                     </div>
                 </div>

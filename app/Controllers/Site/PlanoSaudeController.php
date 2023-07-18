@@ -102,22 +102,29 @@ final class PlanoSaudeController extends Controller
         ]);
     }
 
-    public function postvalorSimulacao(Request $request)
+    public function getRealizarSimulacao(Request $request)
     {
-        $teste = ((new ClubeApiHelper()))
-        ->validar(status: 404)
-        ->body([
-            'operadora'        => $request->operadora,
-            'regiao'           => $request->regiaoSelecionada,
-            'plano'            => $request->planoSelecionado,
-            'data_nascimento'  => $request->dtNascimentoTitular,
-            'dependentes'      => $request->dtNascimentoDependentes,
-            'acomodacao'       => $request->acomodacao
-        ])
-        ->post('/saude/simulacao')
-        ->object()->dado;
-
-        ppe($teste);
+        // ((new ClubeApiHelper()))
+        // ->body([
+        // 'operadora'        => $request->operadora,
+        // 'regiao'           => $request->regiaoSelecionada,
+        // 'plano'            => $request->planoSelecionado,
+        // 'data_nascimento'  => $request->dtNascimentoTitular,
+        // 'dependentes'      => $request->dtNascimentoDependentes,
+        // 'acomodacao'       => $request->acomodacao
+        // ])
+        // ->post('/saude/simulacao')
+        // ->object();
+        $valor_titular = 12;
+        $valor_dependentes = [12, 10];
+        $valor_total = $valor_titular + array_sum($valor_dependentes);
+        $data_simulacao = uuid();
+        return mensagemSucesso([
+            'data_simulacao'              => $data_simulacao,
+            'valor_titular'               => $valor_titular,
+            'valor_dependentes'           => array_sum($valor_dependentes),
+            'valor_total'                 => $valor_total
+        ]);
     }
 
     public function simulacao($url = null)
@@ -134,5 +141,41 @@ final class PlanoSaudeController extends Controller
             'menu'      => 'saude',
             'simulacao' => $simulacao
         ]);
+    }
+
+    public function postRealizarContratacao(Request $request, string $idSimulacao)
+    {
+        $teste = ((new ClubeApiHelper()))
+        ->body([
+            'id_simulacao'                         => $request->id_simulacao,
+            'nome'                                 => $request->nome,
+            'naturalidade'                         => $request->naturalidade,
+            'documento_cpf'                        => $request->cpf,
+            'data_nascimento'                      => $request->data_nascimento,
+            'sexo'                                 => $request->genero,
+            'estado_civil'                         => $request->estado_civil,
+            'peso'                                 => $request->peso,
+            'altura'                               => $request->altura,
+            'documento_rg'                         => $request->rg,
+            'orgao_expedidor'                      => $request->orgao_expedidor,
+            'filiacao'                             => $request->responsavel,
+            'nome_responsavel'                     => $request->responsavel_nome,
+            'cpf_responsavel'                      => $request->responsavel_cpf,
+            'rg_responsavel'                       => $request->responsavel_rg,
+            'email'                                => $request->email_pessoal,
+            'telefone_celular'                     => $request->telefone_celular,
+            'telefone_residencial'                 => $request->telefone_residencial,
+            'telefone_comercial'                   => $request->telefone_comercial,
+            'ramal'                                => $request->ramal,
+            'cep'                                  => $request->cep,
+            'bairro'                               => $request->bairro,
+            'endereco'                             => $request->logradouro,
+            'numero'                               => $request->numero,
+            'complemento'                          => $request->complemento,
+            'cidade'                               => $request->cidade,
+            'estado'                               => $request->estado,
+        ])
+        ->post('/saude/contratacao')
+        ->object();
     }
 }

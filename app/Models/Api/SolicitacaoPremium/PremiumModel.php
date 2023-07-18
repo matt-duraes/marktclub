@@ -93,6 +93,11 @@ final class PremiumModel extends ORM
         return $this->colocarDadosPosteriores($retorno);
     }
 
+    /**
+     * @param $dado
+     *
+     * @return array
+     */
     private function colocarDadosPosteriores($dado): array
     {
         $livre = [];
