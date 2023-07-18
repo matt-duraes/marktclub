@@ -51,7 +51,10 @@ abstract class AbstractOperadora implements OperadoraInterface
     ])]
     public function pegarDados(): array
     {
-        $acomodacoes = ($this->plano !== null) ? $this->acomodacoes[$this->plano->indice()] : $this->acomodacoes;
+        $acomodacoes = $this->acomodacoes;
+        if ($this->plano !== null) {
+            $acomodacoes = $this->acomodacoes[$this->plano->indice()] ?? $this->acomodacoes;
+        }
         return [
             'data_nascimento' => $this->dataNascimento,
             'acomodacao'      => $this->acomodacao,
