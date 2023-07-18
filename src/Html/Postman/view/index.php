@@ -145,15 +145,17 @@
                 </div>
             </div>
             <div class="bloco_resposta_lista">
-                <div class="titulo"><p>Resposta:</p><span class="bloco_codigo_html"></span></div>
+                <div class="titulo"><p>Requisição:</p><span class="bloco_codigo_html"></span></div>
                 <ul class="bloco_resposta_botao display_none">
                     <li class="tipo_resposta botao_resposta_body ativo" data-id="bloco_resposta_body">Body</li>
                     <li class="tipo_resposta botao_resposta_json" data-id="bloco_resposta_json">Json</li>
                     <li class="tipo_resposta botao_resposta_html" data-id="bloco_resposta_html">HTML</li>
+                    <li class="tipo_resposta botao_resposta_requisicao" data-id="bloco_resposta_requisicao">Requisição</li>
                 </ul>
                 <div class="bloco_resposta bloco_resposta_body ativo"></div>
                 <pre class="bloco_resposta bloco_resposta_json"></pre>
                 <iframe class="bloco_resposta bloco_resposta_html"></iframe>
+                <pre class="bloco_resposta bloco_resposta_requisicao"></pre>
             </div>
         </div>
     </div>
