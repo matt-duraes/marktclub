@@ -94,7 +94,6 @@ trait SalvarTrait
     {
         $explode = explode('->', $propriedade);
         unset($explode[0]);
-
         $quantidade = count($explode);
         $valorTemporario = '';
         for ($i = 1; $i <= $quantidade; $i++) {
@@ -136,7 +135,6 @@ trait SalvarTrait
             $valor = preg_replace('/^\!/', '', $val);
 
             $propriedadeReal = preg_replace('/^\-\>/', '', $val);
-
             if (is_numeric($indice)) {
                 $indice = $valor;
                 $valor = $this->ormPegarValorPropriedade(
@@ -146,7 +144,6 @@ trait SalvarTrait
             } else {
                 $valor = $this->ormMontarDadoOutroValor($valor);
             }
-
             try {
                 $propriedadeReal = $this->$propriedadeReal ?? null;
             } catch (\Throwable) {
@@ -162,18 +159,19 @@ trait SalvarTrait
             ) {
                 continue;
             }
-
             if (!$valor instanceof Vazio && !is_null($valor) && $this->ormVerificarSePodeSalvarCampo($indice, $valor, $dadoAtual)) {
                 $lista[$indice] = $valor;
             }
             $listaTodosOsDados[$indice] = $valor;
         }
+
         if (empty($lista) && $this->ormAcao == 'insert') {
             throw new Excecao(
                 titulo: 'Erro ao salvar!',
                 mensagem: 'Você precisa passar pelo menos uma informação para salvar.'
             );
         }
+
         return [
             'todos'  => $listaTodosOsDados,
             'salvar' => $lista
