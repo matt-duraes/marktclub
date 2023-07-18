@@ -11,6 +11,7 @@ final class RequisicaoEnviar
     private array $variavel;
     private string $link;
     private CryptHelper $Crypt;
+    private array $requisicao = [];
 
     public function __construct($post)
     {
@@ -42,6 +43,7 @@ final class RequisicaoEnviar
         $dado = $this->enviarCurl($metodo, $uri, $body, $parametro, $json, $this->header);
         $retorno['retorno'] = $dado->retorno;
         $retorno['codigo_html'] = $dado->status;
+        $retorno['requisicao'] = $this->requisicao;
         $this->retorno = $retorno;
     }
 
@@ -70,6 +72,8 @@ final class RequisicaoEnviar
             $link .= str_contains($link, '?') ? '&' . $parametroFinal : '?' . $parametroFinal;
         }
 
+        $requestBody = [];
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $metodo);
@@ -77,9 +81,11 @@ final class RequisicaoEnviar
         if ($body) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+            $requestBody = $body;
         } elseif ($json) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, jsonEncode($json));
+            $requestBody = $json;
         }
         if ($header) {
             $headerFinal = [];
@@ -93,6 +99,13 @@ final class RequisicaoEnviar
         $erro = curl_error($ch);
         $info = curl_getinfo($ch);
         curl_close($ch);
+
+        $this->requisicao = [
+            'link' => $link,
+            'body' => $requestBody,
+            'header' => $header,
+            'metodo' => $metodo
+        ];
 
         return (object)[
             'retorno' => $retorno,

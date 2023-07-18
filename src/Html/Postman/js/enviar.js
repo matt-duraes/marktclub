@@ -17,6 +17,7 @@ const enviarRequisicao = async e => {
     const blocoRespostaJson = bloco.querySelector('.bloco_resposta_json');
     const blocoRespostaBody = bloco.querySelector('.bloco_resposta_body');
     const blocoRespostaHtml = bloco.querySelector('.bloco_resposta_html');
+    const blocoRespostaRequisicao = bloco.querySelector('.bloco_resposta_requisicao');
     const blocoStatusHtml = bloco.querySelector('.bloco_codigo_html');
     const blocoBotao = bloco.querySelector('.bloco_resposta_botao');
     const blocoBotaoAtivo = blocoBotao.querySelector('.ativo');
@@ -33,6 +34,7 @@ const enviarRequisicao = async e => {
 
     blocoRespostaJson.innerHTML = '';
     blocoRespostaBody.innerHTML = '';
+    blocoRespostaRequisicao.innerHTML = '';
     blocoRespostaHtml.removeAttribute('srcdoc');
     blocoBotao.classList.add('display_none');
     blocoStatusHtml.classList.remove('erro');
@@ -41,6 +43,7 @@ const enviarRequisicao = async e => {
     blocoRespostaJson.classList.remove('ativo');
     blocoRespostaBody.classList.remove('ativo');
     blocoRespostaHtml.classList.remove('ativo');
+    blocoRespostaRequisicao.classList.remove('ativo');
 
     const resposta = await mandarRequisicao(bloco, 'requisicao');
     bloco.classList.remove('loading');
@@ -64,9 +67,13 @@ const enviarRequisicao = async e => {
         blocoRespostaHtml.classList.add('ativo');
         json = 'Resposta não é um json';
     }
-
+    let requisicao = resposta.dado.requisicao || '';
+    if (requisicao != '') {
+        requisicao = JSON.stringify(requisicao, null, 2);
+    }
     blocoRespostaBody.innerHTML = body;
     blocoRespostaJson.innerHTML = json;
+    blocoRespostaRequisicao.innerHTML = requisicao;
     blocoRespostaHtml.setAttribute('srcdoc', pegarHtmlIframe(resposta.dado.retorno));
     const erro = resposta.dado.codigo_html >= 400 ? 'erro' : 'sucesso';
     blocoStatusHtml.classList.add(erro);
@@ -93,7 +100,11 @@ const criarVariaveis = (bloco, resposta) => {
         }
         let valorTemp = json;
         valor.value.split('.').forEach(item => {
-            valorTemp = valorTemp[item];
+            try {
+                valorTemp = valorTemp[item];
+            } catch (e) {
+                valorTemp = undefined;
+            }
         });
         if (typeof valorTemp == 'string' || typeof valorTemp == 'number') {
             variavelLocal[chave] = valorTemp;

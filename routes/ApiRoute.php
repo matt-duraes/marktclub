@@ -1131,25 +1131,25 @@ Route
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
                 'status', 'area', 'ordem'
             ], 'json')
             ::get('/demanda-dado');
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:buscar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:buscar'])
             ::get('/demanda-dado/{id}');
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request([
                 'empresa', 'titulo', 'tipo', 'area'
             ])
             ::post('/demanda-dado');
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
             ::request([
                 '!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
                 '!data_entrega', '!com_prazo', '!status', '!ordem'
@@ -1157,7 +1157,7 @@ Route
             ::put('/demanda-dado/{id}');
         Route
             ::nome('cancelar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
             ::request(['motivo'])
             ::post('/demanda-dado/cancelar/{id}');
     });
@@ -1169,33 +1169,33 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
         'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
     ])
     ::post('/demanda-tarefa');
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
             ::get('/demanda-tarefa/{id}');
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
                 'titulo', 'texto', 'tipo', 'minuto_producao_estimada'
             ])
             ::put('/demanda-tarefa/{id}');
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::delete('/demanda-tarefa/{id}');
         Route
             ::nome('like')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::post('/demanda-tarefa/like/{id}');
         Route
             ::nome('deslike')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::request(['motivo'])
             ::post('/demanda-tarefa/deslike/{id}');
     });
@@ -1207,12 +1207,12 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_trabalho:salvar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_trabalho:salvar'])
             ::request(['tarefa'])
             ::post('/demanda-trabalho');
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_trabalho:atualizar'])
+            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_trabalho:atualizar'])
             ::request(['acao'])
             ::put('/demanda-trabalho/{id}');
     });
