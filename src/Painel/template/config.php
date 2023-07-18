@@ -35,24 +35,24 @@ define('USUARIO_MARKTCLUB', sessao('USUARIO.marktclub', padrao: 'nao'));
 define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
 define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
 
-try {
-    $Api = new \Helpers\ApiHelper(token: true);
-    $notificacaoNova = $Api
-        ->json([
-            'pagina' => 1,
-            'novo'   => 'sim'
-        ])->get('/painel-notificacao')->object()->dado ?? [];
-    $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel())
-        ->tratarRetorno($notificacaoNova->lista ?? []);
-    $notificacaoNumeroNova = $notificacaoNova->registro->total ?? 0;
-    $notificacaoNumeroNovaVisualizada = $Api->json(
-        ['pagina' => 1, 'clicado' => 'nao']
-    )->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
-} catch (\Throwable) {
+// try {
+//     $Api = new \Helpers\ApiHelper(token: true);
+//     $notificacaoNova = $Api
+//         ->json([
+//             'pagina' => 1,
+//             'novo'   => 'sim'
+//         ])->get('/painel-notificacao')->object()->dado ?? [];
+//     $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel())
+//         ->tratarRetorno($notificacaoNova->lista ?? []);
+//     $notificacaoNumeroNova = $notificacaoNova->registro->total ?? 0;
+//     $notificacaoNumeroNovaVisualizada = $Api->json(
+//         ['pagina' => 1, 'clicado' => 'nao']
+//     )->get('/painel-notificacao')->object()->dado->registro->total ?? 0;
+// } catch (\Throwable) {
     $notificacaoNova = [];
     $notificacaoNumeroNova = 0;
     $notificacaoNumeroNovaVisualizada = 0;
-}
+// }
 
 define('TRABALHO_AREA', sessao('TRABALHO.area', padrao: false));
 define('TRABALHO_INICIADO', sessao('TRABALHO.iniciado', padrao: false));

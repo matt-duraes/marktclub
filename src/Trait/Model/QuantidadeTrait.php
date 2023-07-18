@@ -24,13 +24,13 @@ trait QuantidadeTrait
         if (empty($valor) && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo quantidade é obrigatório.');
         } elseif (empty($valor)) {
-            return 50;
+            return 20;
         }
 
         $validar = preg_match('/^[1-9]{1}[0-9]{0,}$/', $valor);
         if (!$validar && $valido) {
             mensagemErro('Campo inválido!', 'O campo quantidade está inválido.');
         }
-        return !$validar ? 50 : $valor;
+        return !$validar ? 20 : $valor;
     }
 }

@@ -61,7 +61,7 @@ final class Senha implements ModuleInterface
      */
     public function banco(): mixed
     {
-        return '';
+        return $this->mudouSenha ? $this->senha : '';
     }
 
     // doc
