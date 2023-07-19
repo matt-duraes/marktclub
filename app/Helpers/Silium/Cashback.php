@@ -34,14 +34,17 @@ class Cashback
         'Cell, Phone & Fax'           => 'Celulares, Telefones e Fax',
         'Other'                       => 'Outros'
     ];
+
     /**
      * @var string Link da API
      */
     private string $link;
+
     /**
      * @var string Client Id da API
      */
     private string $clientId;
+
     /**
      * @var string Secret Id da API
      */

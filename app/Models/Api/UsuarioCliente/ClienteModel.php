@@ -37,7 +37,6 @@ final class ClienteModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarCampoDoRequest(): void
