@@ -21,9 +21,12 @@ class SaudeContratacaoController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $SaudeContratacao = new ContratacaoEntity(new SimulacaoEntity());
-        $SaudeContratacao->set(lista: $request->dado());
-        $SaudeContratacao->salvar();
-        return mensagemSucesso($SaudeContratacao->retorno(), 201);
+        $SimulacaoEntity = new SimulacaoEntity();
+        $SimulacaoEntity->uuid($request->getPost('id_simulacao'));
+
+        $ContratacaoEntity = new ContratacaoEntity($SimulacaoEntity);
+        $ContratacaoEntity->set(lista: $request->dado());
+        $ContratacaoEntity->salvar();
+        return mensagemSucesso([], 201);
     }
 }
