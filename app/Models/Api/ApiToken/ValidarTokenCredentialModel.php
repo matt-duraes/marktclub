@@ -37,15 +37,15 @@ final class ValidarTokenCredentialModel
             $this->erro403('ValidarTokenCredential - Audience do APP é invalido.');
         }
 
-        // try {
+        try {
             $Empresa = new EmpresaEntity();
-        $Empresa->buscar([
-            ['id', $App->id_admin_empresa],
-            ['status', 'in', [1, 2]]
-        ]);
-        // } catch (\Throwable $e) {
-        //     $this->erro403('ValidarTokenCredential - Não foi encontrado uma empresa.', $e);
-        // }
+            $Empresa->buscar([
+                ['id', $App->id_admin_empresa],
+                ['status', 'in', [1, 2]]
+            ]);
+        } catch (\Throwable $e) {
+            $this->erro403('ValidarTokenCredential - Não foi encontrado uma empresa.', $e);
+        }
 
         $Usuario = [];
 
