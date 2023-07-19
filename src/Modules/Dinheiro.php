@@ -8,6 +8,9 @@ final class Dinheiro implements ModuleInterface
 {
     use ValidarTrait;
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->dinheiro();
@@ -15,17 +18,20 @@ final class Dinheiro implements ModuleInterface
 
     /**
      * Pega o valor padrão independente do tipo de modulo
+     *
+     * @return string
      */
-    public function valor()
+    public function valor(): string
     {
         return $this->dinheiro();
     }
 
     // doc
+
     /**
      * Modulo para Dinheiro
      *
-     * @param null|string $dinheiro Valor para o modulo
+     * @param string|null $dinheiro Valor para o modulo
      */
     public function __construct(
         private ?string $dinheiro
@@ -44,6 +50,7 @@ final class Dinheiro implements ModuleInterface
     }
 
     // doc
+
     /**
      * Pega o valor como dinheiro, por exemplo: 1.000,00
      *
@@ -51,10 +58,13 @@ final class Dinheiro implements ModuleInterface
      */
     public function dinheiro(): string
     {
-        return empty($this->dinheiro) ? '' : number_format($this->dinheiro, 2, ',', '.');
+        return empty($this->dinheiro)
+            ? ''
+            : 'R$ ' . number_format($this->dinheiro, 2, ',', '.');
     }
 
     // doc
+
     /**
      * Pega o valor em formato decimal
      *
@@ -65,12 +75,17 @@ final class Dinheiro implements ModuleInterface
         return $this->dinheiro;
     }
 
+    /**
+     * @return bool
+     */
     private function validarDinheiro(): bool
     {
         return preg_match('/^[0-9\.\,]{0,}(\.|\,){1}[0-9]{1,2}$/', $this->dinheiro);
     }
 
-    private function setarValor()
+    /**
+     */
+    private function setarValor(): void
     {
         $dinheiro = str_replace(',', '.', $this->dinheiro);
         $explode = explode('.', $dinheiro);
