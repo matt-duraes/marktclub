@@ -8,7 +8,6 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Data;
-use Modules\Dinheiro;
 use ORM\Entity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -47,7 +46,7 @@ final class SaudeSimulacaoController extends Controller implements
 
         $dependentes = jsonDecode($propriedadesEntity['valor_dependentes'], true, true);
         foreach ($dependentes as $key => $valor) {
-            $dependentes[$key] = (new Dinheiro($valor))->dinheiro();
+            $dependentes[$key] = $valor;
         }
 
         $propriedadesEntity['data_nascimento'] = (new Data($propriedadesEntity['data_nascimento']))->data();
