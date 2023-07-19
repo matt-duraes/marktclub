@@ -6,7 +6,7 @@ use Erro\Excecao;
 use Modules\Data;
 use Tests\Tests;
 
-class SaudeSimulacaoTest extends Tests
+final class SaudeSimulacaoTest extends Tests
 {
     private string $idSimulacao = '32dd2783-daf2-4cf4-be78-6f43e3f801c5';
 
@@ -42,7 +42,7 @@ class SaudeSimulacaoTest extends Tests
         $dataNascimento = (new Data($this->dataPassada()))->data();
 
         $dependentes = [];
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $dependentes[] = (new Data($this->dataPassada()))->data();
         }
 

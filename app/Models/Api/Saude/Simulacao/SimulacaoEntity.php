@@ -96,6 +96,14 @@ class SimulacaoEntity extends Entity
             $dependentes = explode(',', $this->request->getPost('dependentes'));
             $this->quantidade_dependentes = count($dependentes);
 
+            (new ValidarHelper())
+                ->valor(
+                    $this->quantidade_dependentes,
+                    'Quantidade de Dependentes',
+                    'Só é permitido no máximo 4 Dependentes'
+                )
+                ->tamanho('<=', 4, 'numero');
+
             $contador = 1;
             for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
                 (new ValidarHelper())
