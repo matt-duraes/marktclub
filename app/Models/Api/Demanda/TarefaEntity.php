@@ -19,7 +19,6 @@ final class TarefaEntity extends Entity
         'minuto_producao_estimada', 'titulo', 'texto', 'status', 'tipo', 'id_usuario_equipe', 'minuto_producao_real',
         'data_producao_inicio', 'data_producao_final', 'id_demanda_dado', 'like'
     ];
-
     protected array $ormInsert = [
         'id_demanda_dado'
     ];
@@ -33,7 +32,6 @@ final class TarefaEntity extends Entity
         tipo|Tipo|valido
         minuto_producao_estimada|Tempo de produção|int
     ';
-
     public Status $status;
     public int $id_demanda_dado;
     public int $id_usuario_equipe;
@@ -99,6 +97,7 @@ final class TarefaEntity extends Entity
             $this->data_producao_final = new DataHora(agora());
         }
     }
+
     protected function regraPosUpdate()
     {
         if ($this->status->indice() == 'andamento') {
@@ -132,6 +131,7 @@ final class TarefaEntity extends Entity
             mensagemErro('Erro!', 'Não foi encontrado nenhuma demanda pelo id enviado.', status: 404);
         }
     }
+
     private function pegarUsuarioEquipe($id)
     {
         try {

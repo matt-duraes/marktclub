@@ -15,10 +15,10 @@ final class ContratoPrazo extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::INDETERMINADO => 'Indeterminado',
-            self::DOZE_MESES => '12 meses',
+            self::INDETERMINADO      => 'Indeterminado',
+            self::DOZE_MESES         => '12 meses',
             self::VINTE_QUADRO_MESES => '24 meses',
-            self::TRINTA_SEIS_MESES => '36 meses'
+            self::TRINTA_SEIS_MESES  => '36 meses'
         ]);
     }
 }

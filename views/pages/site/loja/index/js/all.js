@@ -1,2 +1,3 @@
 // @template "site"
-// @resource "site/favoritar"
+// @resource "site/loja/favorito"
+// @resource "site/loja/busca"

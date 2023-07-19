@@ -5,6 +5,7 @@ namespace Erro\Retorno;
 abstract class SolucaoGeral
 {
     protected array $retorno;
+
     protected function pegarSolucaoGeral($mensagem): array
     {
         $retorno = $this->retorno;
@@ -16,8 +17,8 @@ abstract class SolucaoGeral
             $sugestao = $retorno['sugestao'];
             return [
                 'titulo' => $sugestao['titulo'],
-                'texto' => $sugestao['texto'],
-                'lista' => $sugestao['sugestao']
+                'texto'  => $sugestao['texto'],
+                'lista'  => $sugestao['sugestao']
             ];
         } elseif (preg_match('/^Undefined property\:/', $mensagem) && preg_match('/\:\:\$/', $mensagem)) {
             $explode = explode('::', $mensagem);
@@ -27,7 +28,7 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'A propriedade ' . $propriedade . ' não foi definida.',
-                'texto' => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>'
+                'texto'  => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>'
                     . $classe . '</strong> ou foi definida com erro de digitação.',
                 'lista' => [
                     'O nome <strong>' . $propriedade . '</strong> está digitado de maneira incorreta.',
@@ -43,8 +44,8 @@ abstract class SolucaoGeral
             $variavel = $explode[0];
             return [
                 'titulo' => 'A variável não foi definida.',
-                'texto' => 'A variável ' . $variavel . ' não foi definida antes do seu uso.',
-                'lista' => [
+                'texto'  => 'A variável ' . $variavel . ' não foi definida antes do seu uso.',
+                'lista'  => [
                     'Defina a variável <strong>' . $variavel . '</strong> antes do seu uso.',
                     'Remova a variável <strong>' . $variavel . '</strong> caso não for mais usá-la.'
                 ]
@@ -52,7 +53,7 @@ abstract class SolucaoGeral
         } elseif (preg_match('/^preg_match\(\)\: Compilation failed\: /', $mensagem)) {
             return [
                 'titulo' => 'Falha na função preg_match.',
-                'texto' => 'Existe um erro na expressão regular da sua função preg_match.'
+                'texto'  => 'Existe um erro na expressão regular da sua função preg_match.'
             ];
         } elseif (preg_match('/^Undefined property\:/', $mensagem) && preg_match('/\:\:\$/', $mensagem)) {
             $explode = explode('::', $mensagem);
@@ -62,7 +63,7 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'A propriedade ' . $propriedade . ' não foi definida.',
-                'texto' => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>'
+                'texto'  => 'A propriedade <strong>' . $propriedade . '</strong> não foi definida na class <strong>'
                     . $classe . '</strong> ou foi definida com erro de digitação.',
                 'lista' => [
                     'O nome <strong>' . $propriedade . '</strong> está digitado de maneira incorreta.',
@@ -75,7 +76,7 @@ abstract class SolucaoGeral
         } elseif (preg_match('/^preg_match\(\)\: Compilation failed\: /', $mensagem)) {
             return [
                 'titulo' => 'Falha na função preg_match.',
-                'texto' => 'Existe um erro na expressão regular da sua função preg_match.'
+                'texto'  => 'Existe um erro na expressão regular da sua função preg_match.'
             ];
         } elseif (
             preg_match(
@@ -85,8 +86,8 @@ abstract class SolucaoGeral
         ) {
             return [
                 'titulo' => 'Função view não encontrada.',
-                'texto' => 'Você tentou chamar a função view mas ela não foi encontrada.',
-                'lista' => [
+                'texto'  => 'Você tentou chamar a função view mas ela não foi encontrada.',
+                'lista'  => [
                     'A função <strong>view</strong> só pode ser chamada de um controller.',
                     'Verifique se você estendeu o <strong>\Controller\Controller</strong> a sua controller.',
                 ]
@@ -99,8 +100,8 @@ abstract class SolucaoGeral
         ) {
             return [
                 'titulo' => 'Função html não encontrada.',
-                'texto' => 'Você tentou chamar a função html mas ela não foi encontrada.',
-                'lista' => [
+                'texto'  => 'Você tentou chamar a função html mas ela não foi encontrada.',
+                'lista'  => [
                     'A função <strong>html</strong> só pode ser chamada de um controller.',
                     'Verifique se você estendeu o <strong>\Controller\Controller</strong> a sua controller.',
                 ]
@@ -114,8 +115,8 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'A constante ' . $variavel . ' não foi definida.',
-                'texto' => 'Nem sempre este erro indica que o problema é uma constante não declarada, podem ter outros problemas relacionados a esse erro.',
-                'lista' => [
+                'texto'  => 'Nem sempre este erro indica que o problema é uma constante não declarada, podem ter outros problemas relacionados a esse erro.',
+                'lista'  => [
                     '<strong>' . $variavel . '</strong> pode ser uma constante não declarada.',
                     '<strong>' . $variavel . '</strong> pode ser uma string que não foi colocada entre aspas.',
                     '<strong>' . $variavel . '</strong> pode ser uma variável ao qual você esqueceu de colocar o $ (sifrão).',
@@ -128,8 +129,8 @@ abstract class SolucaoGeral
             $classe = count($classe) == 1 ? $classe[0] : end($classe);
             return [
                 'titulo' => 'A classe ' . $classe . ' não foi encontrada.',
-                'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
-                'lista' => [
+                'texto'  => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
+                'lista'  => [
                     'Você não colocou ou colocou errado o "<strong>use</strong>" da classe <strong>'
                         . $classe . '</strong>.',
                     'Você não colocou ou colocou errado o "<strong>namespace</strong>" da classe <strong>'
@@ -153,8 +154,8 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Não foi encontrado o método ' . $metodo . ' na classe ' . $classe . '.',
-                'texto' => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
-                'lista' => [
+                'texto'  => 'Nem sempre este erro indica que o problema está no arquivo indicado, as vezes o problema pode está na própria classe.',
+                'lista'  => [
                     'Você digitou o nome errado do método.',
                     'Você não criou o método "<strong>' . $metodo . '</strong>" na classe "<strong>'
                         . $classe . '</strong>".'
@@ -169,8 +170,8 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Sem permissão para acessar o método ' . $metodo . ' na classe ' . $classe . '.',
-                'texto' => 'Métodos privados não podem ser acessador de outro local a não ser a própria classe "<strong>' . $classe . '</strong>".',
-                'lista' => [
+                'texto'  => 'Métodos privados não podem ser acessador de outro local a não ser a própria classe "<strong>' . $classe . '</strong>".',
+                'lista'  => [
                     'Tente mudar a visibilidade do método.',
                     'Mude a sua regra de negócios para chamar o conteúdo do método "<strong>'
                         . $metodo . '</strong>" de outra forma.'
@@ -185,7 +186,7 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Sem permissão para acessar o método ' . $metodo . ' na classe ' . $classe . '.',
-                'texto' => 'Métodos protegidos não podem ser acessador de outro local a não
+                'texto'  => 'Métodos protegidos não podem ser acessador de outro local a não
                     ser a própria classe ou de classes herdadas.',
                 'lista' => [
                     'Tente mudar a visibilidade do método.',
@@ -201,8 +202,8 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Sem permissão para acessar a propriedade ' . $propriedade . ' da classe ' . $classe . '.',
-                'texto' => 'Propriedades privadas não podem ser acessador de outro local a não ser a própria classe.',
-                'lista' => [
+                'texto'  => 'Propriedades privadas não podem ser acessador de outro local a não ser a própria classe.',
+                'lista'  => [
                     'Tente mudar a visibilidade da propriedade.',
                     'Mude a sua regra de negócios para chamar o conteúdo da propriedade "<strong>'
                         . $propriedade . '</strong>" de outra forma.'
@@ -216,8 +217,8 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Sem permissão para acessar a propriedade ' . $propriedade . ' da classe ' . $classe . '.',
-                'texto' => 'Propriedades protegidas não podem ser acessador de outro local a não ser a própria classe ou de classes herdadas.',
-                'lista' => [
+                'texto'  => 'Propriedades protegidas não podem ser acessador de outro local a não ser a própria classe ou de classes herdadas.',
+                'lista'  => [
                     'Tente mudar a visibilidade da propriedade.',
                     'Mude a sua regra de negócios para chamar o conteúdo da propriedade "<strong>'
                         . $propriedade . '</strong>" de outra forma.'
@@ -226,13 +227,13 @@ abstract class SolucaoGeral
         } elseif (preg_match('/^syntax error, unexpected token/', $mensagem)) {
             return [
                 'titulo' => 'Erro de sintaxe.',
-                'texto' => 'Existe um erro de sintaxe no código, as vezes, esse erro acontece em <strong>linhas anteriores</strong> a informada pelo sistema, procure por erros como falta de ";" (ponto e virgula), string, funções ou métodos aberto mas não fechados entre outros erros de digitação tanto na linha informada como nas anteriores.',
+                'texto'  => 'Existe um erro de sintaxe no código, as vezes, esse erro acontece em <strong>linhas anteriores</strong> a informada pelo sistema, procure por erros como falta de ";" (ponto e virgula), string, funções ou métodos aberto mas não fechados entre outros erros de digitação tanto na linha informada como nas anteriores.',
             ];
         } elseif (preg_match('/^Too few arguments to function/', $mensagem)) {
             return [
                 'titulo' => 'Erro nos parametros.',
-                'texto' => 'Você deixou de passar algum parâmetro obrigatório para a função/método.',
-                'lista' => [
+                'texto'  => 'Você deixou de passar algum parâmetro obrigatório para a função/método.',
+                'lista'  => [
                     'Verifique os parâmetros passados para ver se batem com os parâmetros da função/método.',
                     'Transforme o parâmetro da função/método como opcional.'
                 ]
@@ -247,16 +248,16 @@ abstract class SolucaoGeral
 
             return [
                 'titulo' => 'Não foi encontrado a função ' . $funcao . '.',
-                'texto' => 'A função <strong>' . $funcao . '</strong> não foi criada no sistema.',
-                'lista' => [
+                'texto'  => 'A função <strong>' . $funcao . '</strong> não foi criada no sistema.',
+                'lista'  => [
                     'Verifique se você digitou o nome da função corretamente.'
                 ]
             ];
         } elseif ($mensagem == 'Using $this when not in object context') {
             return [
                 'titulo' => 'Uso incorreto do $this.',
-                'texto' => 'Você está tentando usar o <strong>$this</strong> fora do contexto de uma classe.',
-                'lista' => [
+                'texto'  => 'Você está tentando usar o <strong>$this</strong> fora do contexto de uma classe.',
+                'lista'  => [
                     'Removar o <strong>$this</strong> e instacie a classe para usar o método/propriedade.'
                 ]
             ];
@@ -275,8 +276,8 @@ abstract class SolucaoGeral
             $dir = pathinfo($arquivo, PATHINFO_DIRNAME) ?? '';
             return [
                 'titulo' => 'Falha ao incluir arquivo',
-                'texto' => 'Não foi possível fazer a inclusão do arquivo <strong>' . $arquivo . '</strong>.',
-                'lista' => [
+                'texto'  => 'Não foi possível fazer a inclusão do arquivo <strong>' . $arquivo . '</strong>.',
+                'lista'  => [
                     'Verifique se o nome <strong>' . $nome . '</strong> está digitado de maneira correta.',
                     'Verifique se o diretório <strong>' . $dir . '</strong> está digitado de maneira correta.'
                 ]

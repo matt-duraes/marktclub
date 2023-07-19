@@ -11,55 +11,48 @@ use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 use App\Classes\ParceiroLoja\Estabelecimento;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
-class LojaModel extends ORM
+class LojaModel extends ORM implements ModelListarInterface
 {
     use EmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
+    private int $idEmpresa;
+    private array $favorito = [];
 
     public function __construct(
         private ?Request $request
     ) {
         parent::__construct();
+        $this->validarEmpresa('empresa');
         $this->validarRequest();
     }
-    public function pegarRetorno(): stdClass
+
+    public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo([
-                'cod', 'titulo', 'url', 'desconto', 'imagem', 'banner', 'favorito',
-                'desconto_texto', 'procedimento_texto', 'status', 'descricao'
-            ])
+            ->campo(['cod', 'titulo', 'url', 'tipo', 'desconto', 'imagem', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem(new Ordem()))
-            ->where($this->pegarWhere())
-            ->read();
+            ->tabela(TABELA_PARCEIRO_FAVORITO)
+            ->campo([['id_parceiro_loja', '!favorito']]);
 
-        $dado->lista = $this->montarRetorno($dado->lista);
-        return $dado;
-    }
+        if ($this->request->favorito == 'sim') {
+            $dado->join('id_parceiro_loja', 'id');
+        } else {
+            $dado->leftJoin('id_parceiro_loja', 'id');
+        }
 
-    public function pegarRetornoFavorito(): stdClass
-    {
-        $dado = $this
-            ->campo([
-                'cod', 'titulo', 'url', 'desconto', 'imagem', 'favorito',
-                'desconto_texto', 'procedimento_texto', 'status', 'descricao', 'banner'
-            ])
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new Ordem()))
-            ->where($this->pegarWhere())
-            ->where([
-                'AND',
-                ['favorito', 1],
-            ])
-            ->read();
+        $dado = $dado->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
@@ -69,20 +62,18 @@ class LojaModel extends ORM
     {
         $retorno = [];
         $Status = new Status();
+        $Tipo = new Tipo();
 
         foreach ($lista as $r) {
             $retorno[] = [
-                'id' => $r->cod,
-                'titulo' => $r->titulo,
+                'id'       => $r->cod,
+                'titulo'   => $r->titulo,
                 'desconto' => $r->desconto,
-                'imagem' => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
-                'url' => $r->url,
-                'favorito' => $r->favorito,
-                'desconto_texto' => $r->desconto_texto,
-                'procedimento_texto' => $r->procedimento_texto,
-                'status' => $Status->indice($r->status),
-                'descricao' => $r->descricao,
-                'banner' => LINK_ARQUIVO . '/parceiro/' . $r->banner
+                'imagem'   => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
+                'url'      => $r->url,
+                'tipo'     => $Tipo->indice($r->tipo),
+                'favorito' => !empty($r->favorito) ? 'sim' : 'nao',
+                'status'   => $Status->indice($r->status)
             ];
         }
         return $retorno;
@@ -103,9 +94,13 @@ class LojaModel extends ORM
             mensagemErro('Erro!', 'O campo status não é um valor válido.');
         }
     }
+
     protected function pegarWhere(): array
     {
-        $where = $this->ormWherePadrao ? [$this->ormWherePadrao] : [];
+        $where = [
+            ['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%']
+        ];
+
         $tipo = new Tipo($this->request->tipo);
         if ($tipo->valido()) {
             $where[] = ['tipo', $tipo->numero()];
@@ -117,7 +112,9 @@ class LojaModel extends ORM
         }
 
         $status = new Status($this->request->status);
-        if ($status->valido()) {
+        if ($this->idEmpresa != 1 || !$status->valido()) {
+            $where[] = ['status', (new Status(Status::CONCLUIDO))->numero()];
+        } elseif ($status->valido()) {
             $where[] = ['status', $status->numero()];
         }
         return $where;

@@ -2,8 +2,6 @@
 
 namespace App\Classes\Saude\Operadoras;
 
-use App\Classes\Saude\Plano;
-use App\Classes\Saude\Regiao;
 use Modules\Data;
 
 class Unimed extends AbstractOperadora
@@ -25,7 +23,7 @@ class Unimed extends AbstractOperadora
     }
 
     /**
-     * @param  Data|null  $dataNascimento  Data de Nascimento (opcional)
+     * @param Data|null $dataNascimento Data de Nascimento (opcional)
      *
      * @return float|null Valor da simulação, NULL caso error ao simular
      */

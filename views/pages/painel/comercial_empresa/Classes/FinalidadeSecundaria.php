@@ -11,6 +11,7 @@ use App\Classes\ComercialEmpresa\FinalidadePublica;
 final class FinalidadeSecundaria implements PainelClasseInterface
 {
     private array $lista;
+
     public function __construct(
         private Request $request
     ) {

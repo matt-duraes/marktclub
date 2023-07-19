@@ -22,29 +22,29 @@ $Doc
     ->preExemplo("curl --location --request GET '{{LINK}}/convenio-parceiro/destaque?categoria=alimentacao&quantidade=20&ordem=titulo-z-a' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{TOKEN}}'")
-    ->preSucesso("{
-    \"status\": \"sucesso\",
-    \"dado\": {
-        \"lista\": [
+    ->preSucesso('{
+    "status": "sucesso",
+    "dado": {
+        "lista": [
             {
-                \"id\": \"430d03455f8a53fd2f5c3e45e9e06154\",
-                \"titulo\": \"Parceiro teste 04\",
-                \"url\": \"parceiro-teste-04\",
-                \"imagem\": \"http://localhost.com:8000/convenios/parceiro.png\",
-                \"categoria\": \"saude\",
-                \"desconto\": \"10% de desconto\"
+                "id": "430d03455f8a53fd2f5c3e45e9e06154",
+                "titulo": "Parceiro teste 04",
+                "url": "parceiro-teste-04",
+                "imagem": "http://localhost.com:8000/convenios/parceiro.png",
+                "categoria": "saude",
+                "desconto": "10% de desconto"
             },
             {
-                \"id\": \"86e1b9af92abbbab7a733c3b4bfea5ae\",
-                \"titulo\": \"Parceiro teste 03\",
-                \"url\": \"parceiro-teste-03\",
-                \"imagem\": \"http://localhost.com:8000/convenios/parceiro.png\",
-                \"categoria\": \"alimentacao\",
-                \"desconto\": \"10% de desconto\"
+                "id": "86e1b9af92abbbab7a733c3b4bfea5ae",
+                "titulo": "Parceiro teste 03",
+                "url": "parceiro-teste-03",
+                "imagem": "http://localhost.com:8000/convenios/parceiro.png",
+                "categoria": "alimentacao",
+                "desconto": "10% de desconto"
             }
         ]
     }
-}")
+}')
     ->preFalha();
 
 echo $Doc;

@@ -22,7 +22,6 @@ final class IndicacaoEntity extends Entity
         'id_usuario_cliente', 'id_admin_empresa', 'hash', 'nome', 'email', 'telefone', 'status'
     ];
     protected array $ormUpdate = ['status'];
-
     public Email $email;
     public Telefone $telefone;
     public array $quem_indicou = [];
@@ -31,7 +30,6 @@ final class IndicacaoEntity extends Entity
     public Status $status;
     protected int $id_admin_empresa;
     protected string $hash;
-
     protected int $id_usuario_cliente;
     private int $idEmpresa;
 
@@ -83,9 +81,9 @@ final class IndicacaoEntity extends Entity
         }
 
         $this->usuario_ativo = [
-            'id' => $Usuario->id,
-            'nome' => $Usuario->nome,
-            'cpf' => $Usuario->cpf->cpf(),
+            'id'    => $Usuario->id,
+            'nome'  => $Usuario->nome,
+            'cpf'   => $Usuario->cpf->cpf(),
             'email' => $Usuario->email->email()
         ];
     }
@@ -103,9 +101,9 @@ final class IndicacaoEntity extends Entity
         }
 
         $this->quem_indicou = [
-            'id' => $Usuario->id,
-            'nome' => $Usuario->nome,
-            'cpf' => $Usuario->cpf->cpf(),
+            'id'    => $Usuario->id,
+            'nome'  => $Usuario->nome,
+            'cpf'   => $Usuario->cpf->cpf(),
             'email' => $Usuario->email->email()
         ];
     }

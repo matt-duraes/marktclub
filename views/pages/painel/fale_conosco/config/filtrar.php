@@ -11,10 +11,10 @@ return [
         'select, name:status, label:Status, lista:' . painelSelectConfig($status)
     ],
     'nome' => [
-        'nome' => 'Nome',
-        'email' => 'E-mail',
+        'nome'     => 'Nome',
+        'email'    => 'E-mail',
         'telefone' => 'Telefone',
-        'status' => 'Status'
+        'status'   => 'Status'
     ],
     'valor' => [
         'status' => FaleConoscoHelper::STATUS_VALOR_TEXTO

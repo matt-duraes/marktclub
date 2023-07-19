@@ -90,9 +90,9 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ajuda: Senha::MENSAGEM_FORCA_4
             )
             ->select(name: 'status', label: 'Status', lista: [
-                '' => 'Escolha uma opção',
-                'ativo' => 'Ativo',
-                'inativo' => 'Inativo',
+                ''          => 'Escolha uma opção',
+                'ativo'     => 'Ativo',
+                'inativo'   => 'Inativo',
                 'bloqueado' => 'Bloqueado'
             ])
             ->switch(name: 'primeiro_acesso', label: 'Primeiro acesso?')

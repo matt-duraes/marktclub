@@ -48,6 +48,7 @@ final class Requisicao
             </article>
         ';
     }
+
     private function montarBody($titulo, $lista)
     {
         if (!is_array($lista) || empty($lista)) {
@@ -62,6 +63,7 @@ final class Requisicao
             </div>
         ';
     }
+
     private function montarObservacao()
     {
         if (empty($this->observacao)) {
@@ -73,6 +75,7 @@ final class Requisicao
             </div>
         ';
     }
+
     private function montarErro()
     {
         $this->erro[] = [500, 'Erro interno por alguma falha ou instabilidade.'];
@@ -91,6 +94,7 @@ final class Requisicao
         ';
         return $html;
     }
+
     private function montarPre()
     {
         if (empty($this->pre)) {
@@ -109,21 +113,25 @@ final class Requisicao
         $this->titulo = '<h1>' . $titulo . '</h1>';
         return $this;
     }
+
     public function descricao($descricao)
     {
         $this->descricao = '<p>' . $descricao . '</p>';
         return $this;
     }
+
     public function status($status)
     {
         $this->status = '<div class="status"><p>Status de retorno</p><strong>' . $status . '</strong></div>';
         return $this;
     }
+
     public function scope($scope)
     {
         $this->scope = '<div class="scope"><p>Scope:</p><strong>' . $scope . '</strong></div>';
         return $this;
     }
+
     public function metodo($metodo)
     {
         if (empty($this->id)) {
@@ -155,6 +163,7 @@ final class Requisicao
         $this->criptografar = $campo;
         return $this;
     }
+
     public function retorno($campo, string $descricao)
     {
         $this->retorno[] = '
@@ -178,6 +187,7 @@ final class Requisicao
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }
+
     public function body(
         $campo,
         ?string $exemplo = null,
@@ -190,6 +200,7 @@ final class Requisicao
         $this->blocoBody('body', $campo, $exemplo, $descricao, $tipo, $tamanho, $obrigatorio);
         return $this;
     }
+
     public function raw(
         $campo,
         ?string $exemplo = null,
@@ -220,6 +231,7 @@ final class Requisicao
         $this->blocoBody('header', 'Authorization', 'access_token_aqui', 'O access_token criado pela rota POST /token');
         return $this;
     }
+
     public function headerJson()
     {
         $this->blocoBody('header', 'Content-Type', 'application/json');
@@ -263,16 +275,19 @@ final class Requisicao
             </div>
         ';
     }
+
     public function observacao($observacao)
     {
         $this->observacao[] = '<p>' . $observacao . '</p>';
         return $this;
     }
+
     public function erro(int $status, string $mensagem)
     {
         $this->erro[] = [$status, $mensagem];
         return $this;
     }
+
     public function erro400()
     {
         $this->erro[] = [
@@ -283,11 +298,13 @@ final class Requisicao
         ];
         return $this;
     }
+
     public function erro401()
     {
         $this->erro[] = [401, 'Você não enviou um Token para essa requisição.'];
         return $this;
     }
+
     public function erro403()
     {
         $this->erro[] = [
@@ -296,32 +313,36 @@ final class Requisicao
         ];
         return $this;
     }
+
     public function pre(string $titulo, string $pre)
     {
         $this->pre[] = [preg_replace('/\:$/', '', $titulo), $pre];
         return $this;
     }
+
     public function preExemplo(string $pre)
     {
         $this->pre[] = ['Exemplo', str_replace('{{LINK}}', LINK_HOMOLOGACAO, $pre)];
         return $this;
     }
+
     public function preSucesso(string $pre)
     {
         $this->pre[] = ['Sucesso', $pre];
         return $this;
     }
+
     public function preFalha(?string $pre = null)
     {
         if (empty($pre)) {
-            $pre = "{
-    \"status\": \"erro\",
-    \"erro\": {
-        \"titulo\": \"Título do erro\",
-        \"mensagem\": \"Descrição do erro.\",
-        \"codigo\": \"Código do erro podendo ser opcional\"
+            $pre = '{
+    "status": "erro",
+    "erro": {
+        "titulo": "Título do erro",
+        "mensagem": "Descrição do erro.",
+        "codigo": "Código do erro podendo ser opcional"
     }
-}";
+}';
         }
         $this->pre[] = ['Falha', $pre];
         return $this;

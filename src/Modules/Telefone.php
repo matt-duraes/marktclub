@@ -7,6 +7,7 @@ use Modules\Trait\ValidarTrait;
 final class Telefone implements ModuleInterface
 {
     use ValidarTrait;
+
     public function __toString()
     {
         return $this->telefone();

@@ -8,6 +8,7 @@ final class RequisicaoBuscar
     private string $path = ROOT . '/postman/';
     private string $id;
     private string $pai;
+
     public function __construct($post)
     {
         $this->id = $post['id'];
@@ -15,6 +16,7 @@ final class RequisicaoBuscar
 
         $this->Requisicao = (new Requisicao($this->path, $this->pai, $this->id));
     }
+
     public function retorno()
     {
         return $this->Requisicao->requisicao;

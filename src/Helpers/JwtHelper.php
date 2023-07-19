@@ -16,8 +16,8 @@ final class JwtHelper
     private string $chavePrivada;
 
     /**
-     * @param  string|null  $chave  Nome do arquivo da chave RSA
-     * @param  string|null  $hash   Hash quando for usar RS256
+     * @param  string|null $chave Nome do arquivo da chave RSA
+     * @param  string|null $hash  Hash quando for usar RS256
      * @throws Excecao
      */
     public function __construct(
@@ -61,9 +61,9 @@ final class JwtHelper
     /**
      * Cria um token JWT
      *
-     * @param  array  $payload  Array com os dados que deseja colocar no body do JWT
-     * @return  string  String com o JWT
-     * @throws  Excecao
+     * @param  array   $payload Array com os dados que deseja colocar no body do JWT
+     * @return string  String com o JWT
+     * @throws Excecao
      */
     public function encode(array $payload): string
     {
@@ -78,8 +78,8 @@ final class JwtHelper
     /**
      * Valida se um JWT é valido
      *
-     * @param  string  $jwt  JWT que deseja validar
-     * @return  bool
+     * @param  string $jwt JWT que deseja validar
+     * @return bool
      */
     public function validar(string $jwt): bool
     {
@@ -94,9 +94,9 @@ final class JwtHelper
     /**
      * Pega o body do JWT
      *
-     * @param  string  $jwt  JWT que deseja retornar
-     * @return  array  Array do body
-     * @throws  Excecao
+     * @param  string  $jwt JWT que deseja retornar
+     * @return array   Array do body
+     * @throws Excecao
      */
     public function decode(string $jwt): array
     {
@@ -118,8 +118,8 @@ final class JwtHelper
     /**
      * Pega o header do JWT
      *
-     * @param  string  $jwt  JWT que deseja pegar o header
-     * @return  array  Array com o header
+     * @param  string $jwt JWT que deseja pegar o header
+     * @return array  Array com o header
      */
     public function header(string $jwt): array
     {

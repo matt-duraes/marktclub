@@ -10,7 +10,6 @@ final class Genero implements ModuleInterface
 
     private array $listaValores = [1 => 'masculino', 2 => 'feminino', 3 => 'outro', 4 => 'nao-informar'];
     private array $listaIndiceNome = ['masculino' => 'Masculino', 'feminino' => 'Feminino', 'outro' => 'Outro', 'nao-informar' => 'Não informado'];
-
     private string $valor = '';
     private string|int $numero;
 
@@ -31,7 +30,7 @@ final class Genero implements ModuleInterface
     /**
      * Gera um modulo de gênero
      *
-     * @param null|int|string   $genero         Valor do Genero podendo ser string ou int quando vier do banco
+     * @param null|int|string $genero Valor do Genero podendo ser string ou int quando vier do banco
      */
     public function __construct(
         private null|int|string $genero = null,
@@ -71,8 +70,8 @@ final class Genero implements ModuleInterface
     /**
      * Pega um array com a lista de valores válidos no formato indice => nome
      *
-     * @param   null|string $titulo     Um titulo para o select
-     * @return  array                   Array com os dados
+     * @param  null|string $titulo Um titulo para o select
+     * @return array       Array com os dados
      */
     public function select(?string $titulo = null): array
     {

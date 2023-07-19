@@ -41,8 +41,8 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->replace('status', [
-    'indicado' => 'Indicado',
-    'ativado' => 'Ativado',
+    'indicado'  => 'Indicado',
+    'ativado'   => 'Ativado',
     'bloqueado' => 'Bloqueado'
 ]);
 

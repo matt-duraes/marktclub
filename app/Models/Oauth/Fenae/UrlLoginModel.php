@@ -16,13 +16,15 @@ final class UrlLoginModel
         $this->setarProvider();
         $this->criarCookie();
     }
+
     private function criarCookie(): void
     {
         cookie('MKCTC', base64Encode([
             'state' => $this->provider->getState(),
-            'pkce' => $this->provider->getPkceCode()
+            'pkce'  => $this->provider->getPkceCode()
         ]), minuto: 10);
     }
+
     public function pegarUrlLogin(): string
     {
         return $this->authorizationUrl;

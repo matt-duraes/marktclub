@@ -9,10 +9,10 @@ trait PaginaTrait
     /**
      * Pega a página da request
      *
-     * @param   bool    $obrigatorio    Se é obrigatório ter uma página no request
-     * @param   bool    $valido         Se a página deve ser um número valido
-     * @return  int                     O número da página
-     * @throws  Excecao                 Uma exeção com o erro
+     * @param  bool    $obrigatorio Se é obrigatório ter uma página no request
+     * @param  bool    $valido      Se a página deve ser um número valido
+     * @return int     O número da página
+     * @throws Excecao Uma exeção com o erro
      */
     protected function pegarPagina(bool $obrigatorio = true, bool $valido = true): int
     {

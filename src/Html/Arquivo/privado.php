@@ -18,7 +18,6 @@ $download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
 $Grupo = new GrupoEntity();
 $Grupo->id($Arquivo->id_upload_grupo);
 
-
 $equipe = array_key_exists('USUARIO_PAINEL', $_SESSION) && array_key_exists('id', $_SESSION['USUARIO_PAINEL']) ?
     $_SESSION['USUARIO_PAINEL']['id'] : '';
 

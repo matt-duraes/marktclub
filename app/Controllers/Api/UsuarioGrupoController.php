@@ -28,6 +28,7 @@ final class UsuarioGrupoController extends Controller implements
         $Grupo = new SelectModel($request);
         return mensagemSucesso($Grupo->listarDados());
     }
+
     public function getBuscar(string $id): Response
     {
         validarUuid($id);

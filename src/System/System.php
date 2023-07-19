@@ -5,9 +5,6 @@ namespace System\System;
 use Erro\Erro;
 use Erro\Excecao;
 use Http\Response;
-use System\System\Request;
-use System\System\Controller;
-use System\System\Middleware;
 use Route\Config as RouteConfig;
 use Controller\ControllerInterface;
 

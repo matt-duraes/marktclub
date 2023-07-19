@@ -7,6 +7,7 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use ORM\Entity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerSalvarInterface;
 
@@ -15,7 +16,7 @@ class SaudeSimulacaoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -24,16 +25,30 @@ class SaudeSimulacaoController extends Controller implements
     {
         $SimulacaoEntity = new SimulacaoEntity();
         $SimulacaoEntity->uuid($id);
+        return $this->retornoPadrao($SimulacaoEntity);
+    }
+
+    /**
+     * @param Entity $entity
+     * @param int    $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoPadrao(Entity $entity, int $status = 200): Response
+    {
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($SimulacaoEntity, lista: [
-                'data_nascimento', 'quantidade_dependentes', 'operadora', 'acomodacao',
-                'regiao', 'valor_titular', 'valor_dependentes', 'valor_total', 'plano', 'status'
-            ])
+            pegarPropriedadeDaEntity($entity, lista: [
+                'data_nascimento', 'quantidade_dependentes', 'operadora',
+                'acomodacao', 'regiao', 'valor_titular', 'valor_dependentes',
+                'valor_total', 'plano', 'status'
+            ]),
+            $status
         );
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -42,6 +57,6 @@ class SaudeSimulacaoController extends Controller implements
     {
         $SimulacaoEntity = new SimulacaoEntity($request);
         $SimulacaoEntity->salvar();
-        return mensagemSucesso($SimulacaoEntity->retorno(), 201);
+        return $this->retornoPadrao($SimulacaoEntity, 201);
     }
 }

@@ -7,11 +7,11 @@ use Throwable;
 final class CryptHelper
 {
     /**
-     * @param  string|null  $chave         Chave para criptografar, ENV('CRYPT_HASH') por padrão
-     * @param  string|null  $cifra
-     * @param  string|null  $chavePublica  Chave pública caso queira usar RSA
-     * @param  string|null  $chavePrivada  Chave privada caso queira usar RSA
-     * @param  bool         $url           Se vai converter o encode em URL
+     * @param string|null $chave        Chave para criptografar, ENV('CRYPT_HASH') por padrão
+     * @param string|null $cifra
+     * @param string|null $chavePublica Chave pública caso queira usar RSA
+     * @param string|null $chavePrivada Chave privada caso queira usar RSA
+     * @param bool        $url          Se vai converter o encode em URL
      */
     public function __construct(
         private ?string $chave = null,
@@ -34,8 +34,8 @@ final class CryptHelper
     /**
      * Criptografa os dados enviados
      *
-     * @param  mixed  $dados  Dados a serem criptografado
-     * @return  string|bool
+     * @param  mixed       $dados Dados a serem criptografado
+     * @return string|bool
      */
     public function encode(mixed $dados): string|bool
     {
@@ -51,7 +51,7 @@ final class CryptHelper
     /**
      * Criptografa os dados enviados
      *
-     * @param  mixed  $dados  Dados a serem criptografado
+     * @param  mixed       $dados Dados a serem criptografado
      * @return string|bool
      */
     private function encodeRsa(mixed $dados): string|bool
@@ -100,7 +100,7 @@ final class CryptHelper
     /**
      * Descriptografa o hash enviado
      *
-     * @param  string  $hash  Hash que deve ser descriptografado
+     * @param  string            $hash Hash que deve ser descriptografado
      * @return array|string|bool
      */
     public function decode(string $hash): array|string|bool
@@ -129,7 +129,7 @@ final class CryptHelper
     /**
      * Descriptografa o hash enviado
      *
-     * @param  string  $hash  Hash que deve ser descriptografado
+     * @param  string            $hash Hash que deve ser descriptografado
      * @return array|string|bool
      */
     private function decodeRsa(string $hash): array|string|bool
@@ -143,7 +143,7 @@ final class CryptHelper
     /**
      * Descriptografa o hash enviado
      *
-     * @param  string  $hash  Hash que deve ser descriptografado
+     * @param  string            $hash Hash que deve ser descriptografado
      * @return array|string|bool
      */
     private function decodeChave(string $hash): array|string|bool
@@ -174,13 +174,13 @@ final class CryptHelper
     /**
      * Gera um par de chave pública e privada
      *
-     * @param  int  $bits  Quantidade de bits da chave
+     * @param  int   $bits Quantidade de bits da chave
      * @return array Array com a chave privada e publica ['privada' => '', 'publica' => '']
      */
     public function gerarChave(int $bits = 2048): array
     {
         $certificado = openssl_pkey_new([
-            'digest_alg' => 'sha512',
+            'digest_alg'       => 'sha512',
             'private_key_bits' => $bits,
             'private_key_type' => OPENSSL_KEYTYPE_RSA
         ]);

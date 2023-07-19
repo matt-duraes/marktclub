@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Controllers\Site;
+
+use Http\Request;
+use Http\Response;
+use Helpers\AuthHelper;
+use Controller\Controller;
+use App\Models\Site\Login\LogarModel;
+
+final class LoginController extends Controller
+{
+    public function index(): Response
+    {
+        return view('login.index');
+    }
+
+    public function postLogar(Request $request): Response
+    {
+        new LogarModel($request->login, $request->senha);
+        return mensagemSucesso([
+            'link' => (new AuthHelper())->location()
+        ], status: 201);
+    }
+
+    public function sair(): Response
+    {
+        sessaoDestruir();
+        cookieDeletar('CLT');
+        return new Response(url: LINK . '/login');
+    }
+}

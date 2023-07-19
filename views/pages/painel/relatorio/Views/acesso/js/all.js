@@ -64,8 +64,10 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const listaAcessoUsuario = document.querySelector('#lista_acesso_usuario .fw_grafico_bloco_lista');
-    const listaAcessoParceiro = document.querySelector('#lista_acesso_parceiro .fw_grafico_bloco_lista');
     const listaAcessoPagina = document.querySelector('#lista_acesso_pagina .fw_grafico_bloco_lista');
+    const listaAcessoParceiro = document.querySelector('#lista_acesso_parceiro .fw_grafico_bloco_lista');
+    const listaAcessoParceiroOnline = document.querySelector('#lista_acesso_parceiro_online .fw_grafico_bloco_lista');
+    const listaAcessoParceiroFisico = document.querySelector('#lista_acesso_parceiro_fisico .fw_grafico_bloco_lista');
 
     const buscarMaisAcessado = async local => {
         const de = inputDe.value;
@@ -73,12 +75,20 @@ window.addEventListener('load', () => {
         const empresa = inputEmpresa ? inputEmpresa.value : '';
 
         let bloco, loading;
+        let uri = '';
         if (local == 'usuario') {
             bloco = listaAcessoUsuario;
             loading = document.querySelector('#lista_acesso_usuario');
         } else if (local == 'loja') {
             bloco = listaAcessoParceiro;
             loading = document.querySelector('#lista_acesso_parceiro');
+        } else if (local == 'loja-online') {
+            bloco = listaAcessoParceiroOnline;
+            loading = document.querySelector('#lista_acesso_parceiro_online');
+            uri = '&estabelecimento=online';
+        } else if (local == 'loja-fisico') {
+            bloco = listaAcessoParceiroFisico;
+            loading = document.querySelector('#lista_acesso_parceiro_fisico');
         } else if (local == 'pagina') {
             bloco = listaAcessoPagina;
             loading = document.querySelector('#lista_acesso_pagina');
@@ -87,7 +97,7 @@ window.addEventListener('load', () => {
         loading.classList.add('loading');
 
         const resposta = await fetch(
-            LINK + `/relatorio/mais-acessado?local=${local}&de=${de}&ate=${ate}&empresa=${empresa}`,
+            LINK + `/relatorio/mais-acessado?local=${local}&de=${de}&ate=${ate}&empresa=${empresa}${uri}`,
             {
                 method: 'GET',
                 headers: {
@@ -112,8 +122,9 @@ window.addEventListener('load', () => {
         carregarListaMaisAcesso(json.dado, bloco, local);
     };
     buscarMaisAcessado('usuario');
-    buscarMaisAcessado('loja');
     buscarMaisAcessado('pagina');
+    buscarMaisAcessado('loja-online');
+    buscarMaisAcessado('loja-fisica');
 
     const carregarListaMaisAcesso = (data, bloco, local) => {
         let html = `<div class="scroll">`;

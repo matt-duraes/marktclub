@@ -4,7 +4,6 @@ namespace App\Models\Api\EmailAutomatico;
 
 use ORM\ORM;
 use Helpers\EmailHelper;
-use App\Models\Api\EmailAutomatico\Trait\ErroTrait;
 use App\Models\Api\EmailAutomatico\Trait\EmailTrait;
 
 final class UltimoAcessoModel extends ORM
@@ -12,7 +11,6 @@ final class UltimoAcessoModel extends ORM
     use EmailTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private array $idEmpresa;
     private array $dadoParaEnvio;
 
@@ -57,12 +55,12 @@ final class UltimoAcessoModel extends ORM
         foreach ($empresa as $r) {
             $this->idEmpresa[] = $r->empresa;
             $this->dadoParaEnvio[$r->empresa] = (object)[
-                'titulo' => $r->titulo,
-                'link_site' => $r->link_site,
+                'titulo'     => $r->titulo,
+                'link_site'  => $r->link_site,
                 'link_login' => $r->link_login,
-                'link_logo' => LINK_ARQUIVO . '/construtor/' . $r->logo,
-                'cor' => $r->cor,
-                'usuario' => []
+                'link_logo'  => LINK_ARQUIVO . '/construtor/' . $r->logo,
+                'cor'        => $r->cor,
+                'usuario'    => []
             ];
         }
     }
@@ -104,8 +102,8 @@ final class UltimoAcessoModel extends ORM
                 continue;
             }
             $this->dadoParaEnvio[$r->empresa]->usuario[] = (object)[
-                'id' => $r->cod,
-                'nome' => $r->nome,
+                'id'    => $r->cod,
+                'nome'  => $r->nome,
                 'email' => $email
             ];
         }
@@ -140,6 +138,7 @@ final class UltimoAcessoModel extends ORM
             );
         }
     }
+
     private function mandarEmailParaCadaEmpresa($tituloClube, $cor, $linkSite, $linkLogin, $linkLogo, $usuario, $loja)
     {
         $assunto = 'Sentimos sua Falta';
@@ -162,6 +161,7 @@ final class UltimoAcessoModel extends ORM
             sleep(1);
         }
     }
+
     private function montarMensagemLoja($loja, $linkSite)
     {
         if (empty($loja)) {
@@ -187,14 +187,14 @@ final class UltimoAcessoModel extends ORM
     public function pegarUltimosSeisLojas($idEmpresa)
     {
         $parceiro = $this->readTexto(
-            "
+            '
                 SELECT
                     `titulo`, `imagem`, `url`, `desconto`
-                FROM " . TABELA_PARCEIRO_LOJA . "
+                FROM ' . TABELA_PARCEIRO_LOJA . '
                 WHERE `empresa` LIKE ? AND `status` = ?
                 ORDER BY `data_publicacao` DESC
                 LIMIT 0, 6
-            ",
+            ',
             ['%"' . $idEmpresa . '"%', 4]
         );
         return $parceiro;

@@ -34,11 +34,11 @@ $Painel->coluna(callback: function () use ($Painel) {
 
 // Lista de status
 $Painel->replace(campo: 'tipo', lista: [
-    'voucher' => 'Voucher',
+    'voucher'    => 'Voucher',
     'declaracao' => 'Declaração',
 ]);
 $Painel->replace(campo: 'status', lista: [
-    'criado' => 'Criado',
+    'criado'   => 'Criado',
     'validado' => 'Validado',
 ]);
 

@@ -39,10 +39,10 @@ abstract class ORM
     use TabelaTrait;
 
     /**
-     * @param Array         $option         Option aceitos pelo PDO
-     * @param Array         $conn           Option para a conexao podendo ser:
-     *                                          host, banco, usuario e senha.
-     *                                          Caso não informa, será usado o ENV
+     * @param array $option Option aceitos pelo PDO
+     * @param array $conn   Option para a conexao podendo ser:
+     *                      host, banco, usuario e senha.
+     *                      Caso não informa, será usado o ENV
      */
     public function __construct(array $option = [], array $conn = [])
     {
@@ -103,7 +103,7 @@ abstract class ORM
     }
 
     /**
-     * @param Array     $dado       Array com os dados que deseja salvar no formado: ['campo_tabela' => 'valor']
+     * @param array $dado Array com os dados que deseja salvar no formado: ['campo_tabela' => 'valor']
      */
     protected function dado(array $dado)
     {
@@ -122,17 +122,17 @@ abstract class ORM
         if (SISTEMA != 'producao') {
             echo '<pre>';
             print_r([
-                'query' => $this->ormMontarQueryString(),
-                'mysql' => $this->ormMontarQueryReal(),
+                'query'  => $this->ormMontarQueryString(),
+                'mysql'  => $this->ormMontarQueryReal(),
                 'select' => $this->ormSelect,
-                'where' => $this->ormWhereDado,
+                'where'  => $this->ormWhereDado,
                 'having' => $this->ormHavingDado,
-                'value' => $this->ormCondicaoValue,
-                'limit' => $this->ormLimit,
-                'order' => $this->ormOrder,
-                'group' => $this->ormGroup,
-                'campo' => implode(', ', $this->ormCampo),
-                'join' => $this->ormJoin,
+                'value'  => $this->ormCondicaoValue,
+                'limit'  => $this->ormLimit,
+                'order'  => $this->ormOrder,
+                'group'  => $this->ormGroup,
+                'campo'  => implode(', ', $this->ormCampo),
+                'join'   => $this->ormJoin,
             ]);
             exit();
         }
@@ -272,15 +272,15 @@ abstract class ORM
             }
 
             $array[$r->Field] = (object) [
-                'campo' => $r->Field,
-                'tipo' => $tipo,
-                'tamanho' => (int) $tamanho,
+                'campo'       => $r->Field,
+                'tipo'        => $tipo,
+                'tamanho'     => (int) $tamanho,
                 'obrigatorio' => ($r->Null == 'YES') ? false : true,
-                'padrao' => $r->Default,
-                'download' => strstr($comentario, '{download}') ? true : false,
-                'titulo' => $titulo,
-                'validar' => $validar,
-                'slug' => $slug
+                'padrao'      => $r->Default,
+                'download'    => strstr($comentario, '{download}') ? true : false,
+                'titulo'      => $titulo,
+                'validar'     => $validar,
+                'slug'        => $slug
             ];
         }
         return $array;

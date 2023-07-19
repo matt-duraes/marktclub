@@ -41,19 +41,19 @@ final class TarefaModel extends ORM
         $Perfil = new PerfilModel();
         foreach ($lista as $r) {
             $retorno[] = object([
-                'id' => $r->uuid,
-                'titulo' => $r->titulo,
-                'texto' => $r->texto,
-                'dev' => $this->pegarUsuarioEquipe($r->id_usuario_equipe),
-                'tipo' => $Tipo->indice($r->tipo),
-                'data_criacao' => $r->data_criacao,
-                'data_atualizacao' => $r->data_atualizacao,
-                'data_producao_inicio' => $r->data_producao_inicio,
-                'data_producao_final' => $r->data_producao_final,
+                'id'                       => $r->uuid,
+                'titulo'                   => $r->titulo,
+                'texto'                    => $r->texto,
+                'dev'                      => $this->pegarUsuarioEquipe($r->id_usuario_equipe),
+                'tipo'                     => $Tipo->indice($r->tipo),
+                'data_criacao'             => $r->data_criacao,
+                'data_atualizacao'         => $r->data_atualizacao,
+                'data_producao_inicio'     => $r->data_producao_inicio,
+                'data_producao_final'      => $r->data_producao_final,
                 'minuto_producao_estimada' => $r->minuto_producao_estimada,
-                'minuto_producao_real' => $r->minuto_producao_real,
-                'teste' => $Perfil->pegarLista(jsonDecode($r->like, true, true)),
-                'status' => $Status->indice($r->status)
+                'minuto_producao_real'     => $r->minuto_producao_real,
+                'teste'                    => $Perfil->pegarLista(jsonDecode($r->like, true, true)),
+                'status'                   => $Status->indice($r->status)
             ]);
         }
         return $retorno;

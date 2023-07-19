@@ -19,7 +19,6 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
     use QuantidadeTrait;
 
     protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
-
     private int $idUsuario;
 
     public function __construct(
@@ -82,15 +81,15 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
         $retorno = [];
         foreach ($lista as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'dono' => $Perfil->pegarDado($r->id_usuario_dono, true),
-                'titulo' => $r->titulo,
-                'mensagem' => $r->mensagem,
-                'link' => $r->link,
-                'botao' => $r->botao,
-                'target' => $r->target == '_blank' ? '_blank' : '_self',
+                'id'           => $r->uuid,
+                'dono'         => $Perfil->pegarDado($r->id_usuario_dono, true),
+                'titulo'       => $r->titulo,
+                'mensagem'     => $r->mensagem,
+                'link'         => $r->link,
+                'botao'        => $r->botao,
+                'target'       => $r->target == '_blank' ? '_blank' : '_self',
                 'data_criacao' => $r->data_criacao,
-                'status' => $Status->indice($r->status)
+                'status'       => $Status->indice($r->status)
             ];
         }
         return $retorno;

@@ -34,7 +34,7 @@ final class LoginFormModel
     */
     private function validarDadosDeLogin(): void
     {
-        $login = preg_replace("/[^0-9]/", "", $this->login);
+        $login = preg_replace('/[^0-9]/', '', $this->login);
         if (empty($this->login)) {
             mensagemErro(titulo: 'Campo obrigatório!', mensagem: 'Você deve digitar seu login para continuar.');
         } elseif (empty($login)) {

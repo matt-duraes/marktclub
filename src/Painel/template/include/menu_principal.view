@@ -1,0 +1,41 @@
+@php
+    $Menu = new \PainelModel\Template\MenuModel;
+    $menuLista = $Menu->montarMenu(isset($app) ? $app : '');
+@end
+<div id="bloco_menu_principal">
+    @ foreach( $menuLista as $rMenu ):
+
+        @ if( $rMenu->tipo == 'titulo' ):
+
+        <h2>{{$rMenu->titulo}}</h2>
+
+        @ elseif( $rMenu->tipo == 'menu' ):
+
+        <a class="menu_hover {!!$rMenu->pagina ? 'pagina_atual' : ''!!}" href="{!!$rMenu->url!!}">
+            <div class="botao">
+                <i>{!!$rMenu->icone!!}</i>
+                <p>{{$rMenu->titulo}}</p>
+            </div>
+        </a>
+
+        @ elseif( $rMenu->tipo == 'dropdown' ):
+
+        <div class="menu {!!$rMenu->aberto ? 'aberto' : ''!!}">
+            <div class="botao">
+                <i>{!!$rMenu->icone!!}</i>
+                <p>{{$rMenu->titulo}}</p>
+                <div class="mais">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            @ foreach( $rMenu->lista as $rSubMenu ):
+            <a class="menu_hover {!!$rSubMenu->pagina ? 'pagina_atual' : ''!!}" href="{!!$rSubMenu->url!!}"><p>{{$rSubMenu->titulo}}</p></a>
+            @ endforeach;
+        </div>
+
+        @ endif;
+
+    @ endforeach;
+    <div class="footer"></div>
+</div>

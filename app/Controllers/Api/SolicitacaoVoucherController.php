@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Api;
 
-use ORM\Entity;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
@@ -39,6 +38,7 @@ final class SolicitacaoVoucherController extends Controller implements
 
         return $this->retornoSucesso($Voucher, 201);
     }
+
     private function retornoSucesso(VoucherInterface $Voucher, int $status = 200)
     {
         return mensagemSucesso(
@@ -46,8 +46,8 @@ final class SolicitacaoVoucherController extends Controller implements
                 $Voucher,
                 lista: [
                     'id',
-                    'Usuario' => ['id', 'nome', 'cpf'],
-                    'Parceiro' => ['id', 'titulo', 'link_logo'],
+                    'Usuario'    => ['id', 'nome', 'cpf'],
+                    'Parceiro'   => ['id', 'titulo', 'link_logo'],
                     'Construtor' => ['id', 'link_logo', 'link_logo_marktclub'],
                     'codigo', 'data_criacao', 'data_vencimento', 'data_validacao', 'qr_code', 'texto_desconto',
                     'texto_voucher', 'texto_juridico', 'texto_validar', 'status'

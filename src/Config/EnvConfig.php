@@ -10,22 +10,26 @@ final class EnvConfig
      * @var string
      */
     private string $root = __DIR__ . '/../..';
+
     /**
      * Env principal do projeto
      *
      * @var array
      */
     private array $envProducao = [];
+
     /**
      * Env que está vinculado ao domínio do APP
      *
      * @var array
      */
     private array $envUso = [];
+
     /**
      * @var string
      */
     private string $host = '';
+
     /**
      * Tipo do APP que está rodando podendo ser PRODUCAO, HOMOLOGACAO E LOCALHOST
      *
@@ -99,8 +103,7 @@ final class EnvConfig
     }
 
     /**
-     * @param  string  $arquivo
-     * @return void
+     * @param string $arquivo
      */
     private function setTipoArquivo(string $arquivo): void
     {

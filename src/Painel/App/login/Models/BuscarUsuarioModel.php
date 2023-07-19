@@ -40,12 +40,14 @@ final class BuscarUsuarioModel
             $this->erroGeral('Erro ao buscar usuário.', $e);
         }
     }
+
     private function validarSeUsuarioPodeLogar()
     {
         if ($this->usuario->status != StatusEquipe::ATIVO) {
             $this->erroGeral('Usuário não está ativo.');
         }
     }
+
     private function remontarSessaoUsuario()
     {
         $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
@@ -58,19 +60,19 @@ final class BuscarUsuarioModel
         $email = !empty($emailTrabalho) ? $emailTrabalho : $emailPessoal;
 
         sessao('USUARIO', [
-            'id' => $body->id,
-            'empresa' => $body->empresa,
-            'nome' => $Crypt->decode($body->nome),
-            'email' => $email,
-            'imagem' => $Crypt->decode($body->imagem),
-            'cpf' => $cpf,
-            'google' => $Crypt->decode($body->google ?? ''),
-            'facebook' => $Crypt->decode($body->facebook ?? ''),
+            'id'        => $body->id,
+            'empresa'   => $body->empresa,
+            'nome'      => $Crypt->decode($body->nome),
+            'email'     => $email,
+            'imagem'    => $Crypt->decode($body->imagem),
+            'cpf'       => $cpf,
+            'google'    => $Crypt->decode($body->google ?? ''),
+            'facebook'  => $Crypt->decode($body->facebook ?? ''),
             'marktclub' => $body->marktclub,
             'permissao' => $body->permissao,
-            'gerente' => $body->gerente,
-            'admin' => $body->admin,
-            'dev' => in_array($cpf, jsonDecode(env('DEV_DOCUMENTO', []), true, true))
+            'gerente'   => $body->gerente,
+            'admin'     => $body->admin,
+            'dev'       => in_array($cpf, jsonDecode(env('DEV_DOCUMENTO', []), true, true))
         ]);
     }
 
@@ -85,22 +87,24 @@ final class BuscarUsuarioModel
             $this->erroGeral('Erro ao buscar empresa.', $e);
         }
     }
+
     private function validarSeEmpresaPodeLogar()
     {
         if (!in_array($this->empresa->status, [StatusEmpresa::ATIVO, StatusEmpresa::PROSPECCAO])) {
             $this->erroGeral('Empresa não está ativa.');
         }
     }
+
     private function montarDadoEmpresa()
     {
         $empresa = $this->empresa;
         $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
         sessao('EMPRESA', [
-            'id' => $empresa->id,
-            'nome' => $Crypt->decode($empresa->nome_fantasia),
-            'cnpj' => $Crypt->decode($empresa->cnpj),
+            'id'     => $empresa->id,
+            'nome'   => $Crypt->decode($empresa->nome_fantasia),
+            'cnpj'   => $Crypt->decode($empresa->cnpj),
             'imagem' => $Crypt->decode($empresa->imagem),
-            'slug' => $Crypt->decode($empresa->slug),
+            'slug'   => $Crypt->decode($empresa->slug),
             'status' => $empresa->status
         ]);
     }

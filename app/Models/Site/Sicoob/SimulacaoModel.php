@@ -2,12 +2,13 @@
 
 namespace App\Models\Site\Sicoob;
 
+use stdClass;
 use Erro\Excecao;
-use Helpers\ApiHelper;
 use Http\Request;
 use Http\Response;
+use App\Helpers\ClubeApiHelper;
 
-final class SimulacaoModel
+final class SimulacaoModel extends ClubeApiHelper
 {
     protected string $tipo;
     protected string $valor;
@@ -24,20 +25,19 @@ final class SimulacaoModel
         $this->prazo = $request->prazo;
     }
 
-
     /**
-     * @return object|array
+     * @return Response
      * @throws Excecao
      */
-    public function getSimulacao(): object
+    public function getSimulacao(): Response
     {
-        $api = new ApiHelper('solicitacao_credito:simular');
-
-        $dado = $api->validar('Página não encontrada!', status: 404)->parametro([
+        $dado = $this
+            ->validar('Página não encontrada!', status: 404)
+            ->parametro([
                 'operadora' => 1,
-                'tipo' => $this->tipo,
-                'valor' => $this->valor,
-                'parcelas' => $this->prazo,
+                'tipo'      => $this->tipo,
+                'valor'     => $this->valor,
+                'parcelas'  => $this->prazo,
             ])->get('/solicitar-credito')
             ->object();
 
@@ -47,24 +47,16 @@ final class SimulacaoModel
     }
 
     /**
-     * @param  $dado
-     *
-     * @return object|array
-     * @throws Excecao
+     * @param  stdClass $dado
+     * @return stdClass
      */
-    private function montarRetorno($dado): object|array
+    private function montarRetorno(stdClass $dado): stdClass
     {
-        $retorno = [];
-        if ($dado) {
-            $retorno = (object)[
-                'valor' => $dado->valor,
-                'parcelas' => $dado->parcelas,
-                'valor_parcelas' => $dado->valor_parcelas,
-                'tipo' => $dado->tipo
-            ];
-        }
-
-        return $retorno;
+        return (object)[
+            'valor'          => $dado->valor,
+            'parcelas'       => $dado->parcelas,
+            'valor_parcelas' => $dado->valor_parcelas,
+            'tipo'           => $dado->tipo
+        ];
     }
-
 }

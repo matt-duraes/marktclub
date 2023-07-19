@@ -67,7 +67,7 @@ class Amil extends AbstractOperadora
     }
 
     /**
-     * @param  Data|null  $dataNascimento  Data de Nascimento (opcional)
+     * @param Data|null $dataNascimento Data de Nascimento (opcional)
      *
      * @return float|null Valor da simulação, NULL caso error ao simular
      */
@@ -459,7 +459,7 @@ class Amil extends AbstractOperadora
             ];
         }
 
-        /*if (!array_key_exists($this->regiao->indice(), $this->valores)) {
+        if (!array_key_exists($this->regiao->indice(), $this->valores)) {
             return null;
         } elseif (!array_key_exists($this->plano->indice(), $this->valores[$this->regiao->indice()])) {
             return null;
@@ -470,7 +470,7 @@ class Amil extends AbstractOperadora
             )
         ) {
             return null;
-        }*/
-        return $this->valores[$this->regiao->indice()][$this->plano->indice()][$this->acomodacao] ?? null;
+        }
+        return $this->valores[$this->regiao->indice()][$this->plano->indice()][$this->acomodacao];
     }
 }

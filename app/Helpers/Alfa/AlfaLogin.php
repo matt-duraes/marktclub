@@ -12,22 +12,27 @@ class AlfaLogin
      * @var string Link da API
      */
     private string $link;
+
     /**
      * @var string Usuário da API
      */
     private string $usuario;
+
     /**
      * @var string Senha da API
      */
     private string $senha;
+
     /**
      * @var string Token de usuário
      */
     private string $token;
+
     /**
      * @var string Função na API
      */
     private string $funcao = '';
+
     /**
      * @var string[] Lista de CNPJs bloqueados
      */
@@ -68,7 +73,7 @@ class AlfaLogin
         if (!empty(env('ALFA_API_LOGIN_BLOQUEADOS')) && is_string(env('ALFA_API_LOGIN_BLOQUEADOS'))) {
             $this->cnpjBloqueado = explode(
                 ',',
-                preg_replace("/[^0-9]/", '', env('ALFA_API_LOGIN_BLOQUEADOS'))
+                preg_replace('/[^0-9]/', '', env('ALFA_API_LOGIN_BLOQUEADOS'))
             );
         }
 
@@ -77,7 +82,6 @@ class AlfaLogin
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function criarToken(): void
@@ -95,7 +99,6 @@ class AlfaLogin
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarFuncao(): void
@@ -118,7 +121,7 @@ class AlfaLogin
     }
 
     /**
-     * @param  string  $cpf  CPF para validar
+     * @param string $cpf CPF para validar
      *
      * @return array
      * @throws Excecao
@@ -148,7 +151,7 @@ class AlfaLogin
             && array_key_exists('cnpj', $usuario['results'][0]['empresa'])
             && !in_array(
                 preg_replace(
-                    "/[^0-9]/",
+                    '/[^0-9]/',
                     '',
                     $usuario['results'][0]['empresa']['cnpj']
                 ),

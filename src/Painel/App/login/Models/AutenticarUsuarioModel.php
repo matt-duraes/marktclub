@@ -31,12 +31,13 @@ final class AutenticarUsuarioModel
         $body = $Jwt->decode($this->token->id_token);
         $Crypt = new CryptHelper(chavePrivada: $this->chavePrivada);
         $this->body = [
-            'id' => $body['sub'],
-            'nome' => $Crypt->decode($body['name']),
-            'email' => $Crypt->decode($body['email']),
+            'id'     => $body['sub'],
+            'nome'   => $Crypt->decode($body['name']),
+            'email'  => $Crypt->decode($body['email']),
             'imagem' => $Crypt->decode($body['picture']),
         ];
     }
+
     public function autenticarUsuario()
     {
         (new AuthHelper())->criar($this->body);
@@ -46,7 +47,7 @@ final class AutenticarUsuarioModel
         cookie('FWT', base64Encode(
             [
                 'token' => $this->token->refresh_token,
-                'data' => agora()
+                'data'  => agora()
             ],
             true
         ));

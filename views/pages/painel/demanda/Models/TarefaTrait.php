@@ -16,9 +16,9 @@ trait TarefaTrait
         $Api = new ApiHelper(token: true);
         $dado = [
             'demanda' => $this->Demanda->dado->id,
-            'tipo' => $tipo,
-            'titulo' => $titulo,
-            'texto' => $texto
+            'tipo'    => $tipo,
+            'titulo'  => $titulo,
+            'texto'   => $texto
         ];
         if (!empty($tempo)) {
             $dado['minuto_producao_estimada'] = $tempo;

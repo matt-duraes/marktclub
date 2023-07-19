@@ -15,7 +15,7 @@ final class FinalidadePublica extends FinalidadeSecundaria
                 self::EMBAIXADA  => 'Embaixada',
                 self::CONSELHO   => 'Conselho de classe'
             ],
-            numero: [1,2,3,4]
+            numero: [1, 2, 3, 4]
         );
     }
 }

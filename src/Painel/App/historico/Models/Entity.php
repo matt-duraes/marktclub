@@ -8,7 +8,6 @@ use App\Models\Painel\AppGeral\AppGeralEntity;
 final class Entity extends AppGeralEntity
 {
     protected string $ormTabela = TABELA_PAINEL_HISTORICO;
-
     protected array $ormBuscar = ['id'];
     protected array $ormInsert = [
         'id_usuario_equipe',
@@ -25,11 +24,11 @@ final class Entity extends AppGeralEntity
     ];
 
     /**
-     * @param Null|String       $app                Nome do APP que foi usado
-     * @param Null|String       $relacionamento     O uuid do item que está sendo relacionado
-     * @param Null|String       $acao               A ação que está sendo tomada. Ex.: insert, update, delete, email_enviado...
-     * @param Null|String       $texto              Texto para o histórico
-     * @param Null|Array        $dado               Dado que foram salvos
+     * @param null|string $app            Nome do APP que foi usado
+     * @param null|string $relacionamento O uuid do item que está sendo relacionado
+     * @param null|string $acao           A ação que está sendo tomada. Ex.: insert, update, delete, email_enviado...
+     * @param null|string $texto          Texto para o histórico
+     * @param null|array  $dado           Dado que foram salvos
      */
     public function __construct(
         protected ?string $app = null,

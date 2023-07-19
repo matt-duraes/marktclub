@@ -13,7 +13,6 @@ class Loading {
         });
     }
     static async _totalHtml() {
-        // document.querySelector('body').style.overflow = 'hidden';
         document.getElementById('bloco_fw_loading').innerHTML = `
             <div id="fw_loading_total">
                 <div id="fw_loading_total_bg"></div>

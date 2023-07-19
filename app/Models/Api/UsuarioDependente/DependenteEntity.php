@@ -22,11 +22,10 @@ final class DependenteEntity extends Entity
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     protected array $ormInsert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
-        'documento' => '->cpf',
+        'documento'     => '->cpf',
         'email_pessoal' => '->email',
-        'empresa' => '->idEmpresa'
+        'empresa'       => '->idEmpresa'
     ];
-
     public Nome $nome;
     public Cpf $cpf;
     public Email $email;
@@ -36,7 +35,6 @@ final class DependenteEntity extends Entity
     protected TipoUsuario $tipo;
     protected Data $data_email;
     protected Status $status;
-
     private int $idEmpresa;
 
     public function __construct()
@@ -84,7 +82,6 @@ final class DependenteEntity extends Entity
         $this->cpfJaExiste();
         $this->emailJaExiste();
 
-
         $this->cod = uuid();
         $this->tipo = new TipoUsuario(TipoUsuario::DEPENDENTE);
         $this->data_email = new Data(hoje());
@@ -112,10 +109,10 @@ final class DependenteEntity extends Entity
     {
         if (
             $this->contar([
-            ['empresa', $this->idEmpresa],
-            ['tipo', 2],
-            ['titular', $this->titular],
-            ['status', 'in', Helper::STATUS_LIBERADO]
+                ['empresa', $this->idEmpresa],
+                ['tipo', 2],
+                ['titular', $this->titular],
+                ['status', 'in', Helper::STATUS_LIBERADO]
             ]) >= 5
         ) {
             mensagemErro('Erro!', 'Cada usuário só pode ter 5 dependentes.');
@@ -138,28 +135,30 @@ final class DependenteEntity extends Entity
             mensagemErro('Campo inválido!', 'O e-mail informado não é válido.');
         }
     }
+
     private function cpfJaExiste()
     {
         if (
             $this->existe([
-            ['empresa', $this->idEmpresa],
-            ['documento', $this->cpf->numero()]
+                ['empresa', $this->idEmpresa],
+                ['documento', $this->cpf->numero()]
             ])
         ) {
             mensagemErro('CPF duplicado!', 'O CPF informado já está em uso por outro usuário.');
         }
     }
+
     private function emailJaExiste()
     {
         if (
             $this->existe([
-            ['empresa', $this->idEmpresa],
-            [
-                'OR',
-                ['email_pessoal', $this->email->email()],
-                ['email_trabalho', $this->email->email()],
-                ['email_funcional', $this->email->email()],
-            ]
+                ['empresa', $this->idEmpresa],
+                [
+                    'OR',
+                    ['email_pessoal', $this->email->email()],
+                    ['email_trabalho', $this->email->email()],
+                    ['email_funcional', $this->email->email()],
+                ]
             ])
         ) {
             mensagemErro('E-mail duplicado!', 'O e-mail informado já está em uso por outro usuário.');

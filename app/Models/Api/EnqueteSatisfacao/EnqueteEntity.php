@@ -5,7 +5,6 @@ namespace App\Models\Api\EnqueteSatisfacao;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use Http\Request;
 use ORM\Entity;
-use Helpers\ValidarHelper;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Navegar;
 use App\Classes\EnqueteSatisfacao\Procura;
@@ -25,9 +24,9 @@ class EnqueteEntity extends Entity
     public Status $status;
     protected string $ormTabela = TABELA_ENQUETE;
     protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa',
+        'id_admin_empresa'  => '->idEmpresa',
         'id_usuario_equipe' => '->idUsuario',
-        'status'     => 1
+        'status'            => 1
     ];
     protected array $ormBuscar = [
         'navegar', 'procura', 'suporte', 'comentario',
@@ -44,7 +43,6 @@ class EnqueteEntity extends Entity
         atendimento|Atendimento|valido
     ';
 
-
     public function __construct(
         private readonly ?Request $request = null
     ) {
@@ -53,14 +51,12 @@ class EnqueteEntity extends Entity
     }
 
     /**
-     * @return void
      */
     public function regraInsert(): void
     {
         $this->validarRequest();
         //TODO - inserir aqui usuário
         $this->setarUsuarioSeExistir('5595203c-f7b1-4211-9981-bf09eb236b35');
-
     }
 
     /*
@@ -79,7 +75,6 @@ class EnqueteEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

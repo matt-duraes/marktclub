@@ -5,7 +5,6 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Api\ApiUsuario\UsuarioModel;
 use App\Models\Api\ApiUsuario\UsuarioEntity;
 use System\Interface\ControllerSelectInterface;
 

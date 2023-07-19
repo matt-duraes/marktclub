@@ -85,6 +85,7 @@ final class LoginController extends Controller
         cookieDeletar('FWT');
         return new Response(url: route('login.index'));
     }
+
     public function bloquear(): Response
     {
         (new AuthHelper())->deletar();

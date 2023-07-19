@@ -38,6 +38,7 @@ final class RespostaModel
         $this->validarRetorno($retorno);
         return $this->pegarRetorno([$retorno]);
     }
+
     private function validarValorPresenca(): void
     {
         if (!in_array($this->request->confirmar, ['sim', 'nao', 'talvez'])) {
@@ -45,6 +46,7 @@ final class RespostaModel
         }
         return;
     }
+
     private function criarListaDeConvidado()
     {
         $evento = $this->Cliente->get('/primary/events/' . $this->pegarId($this->request->id))->array();
@@ -63,12 +65,13 @@ final class RespostaModel
             'attendees' => $convidado
         ];
     }
+
     private function pegarValorDaPresenca()
     {
         return [
-            'sim' => 'accepted',
+            'sim'    => 'accepted',
             'talvez' => 'tentative',
-            'nao' => 'declined'
+            'nao'    => 'declined'
         ][$this->request->confirmar];
     }
 

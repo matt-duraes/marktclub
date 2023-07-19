@@ -14,7 +14,6 @@ final class SorteioEntity extends Entity
         'data_sorteio', 'usuario_sorteado', 'hash'
     ];
     protected array $ormUpdate = ['data_sorteio', 'hash', 'usuario_sorteado', 'status'];
-
     public array $usuario_sorteado;
     public string $hash;
     protected array $lista_usuario;
@@ -41,6 +40,7 @@ final class SorteioEntity extends Entity
         $this->setarUsuarioVencedores();
         $this->setarPropriedadesParaSortear();
     }
+
     private function validarRegrasParaSorteio(): void
     {
         if ($this->status->indice() != 'ativo') {
@@ -58,6 +58,7 @@ final class SorteioEntity extends Entity
         }
         return;
     }
+
     private function setarUsuarioVencedores()
     {
         $listaUsuario = $this->lista_usuario;
@@ -68,6 +69,7 @@ final class SorteioEntity extends Entity
         }
         $this->usuario_sorteado = $usuario;
     }
+
     private function setarPropriedadesParaSortear()
     {
         $this->data_sorteio = new DataHora(agora());

@@ -12,11 +12,11 @@ final class ConstrutorEntity extends Entity
 {
     protected string $ormTabela = TABELA_CONSTRUTOR_NOVO;
     protected array $ormBuscar = [
-        'id_admin_empresa' => 'empresa',
-        'link_clube' => 'link_site',
-        'menu_turismo' => 'menu_turismo_clube',
+        'id_admin_empresa'    => 'empresa',
+        'link_clube'          => 'link_site',
+        'menu_turismo'        => 'menu_turismo_clube',
         'menu_sicoob_credito' => 'menu_credito',
-        'menu_automovel' => 'menu_carro',
+        'menu_automovel'      => 'menu_carro',
         'logo', 'titulo', 'cor', 'classe_login', 'contato_telefone', 'contato_email', 'contato_whatsapp',
         'link_app_android', 'link_app_ios', 'favicon', 'header_tag', 'header_descricao', 'menu_convenio',
         'menu_convenio_mapa', 'menu_cinema', 'menu_turismo', 'menu_promocao', 'menu_sicoob_credito',
@@ -25,10 +25,8 @@ final class ConstrutorEntity extends Entity
         'menu_carteiria', 'menu_salavip', 'api_status', 'status'
     ];
     protected array $ormRetornoPadrao = ['id', 'link_logo', 'link_logo_marktclub'];
-
     protected string $favicon;
     protected string $logo;
-
     public string $titulo;
     public string $link_clube;
     public string $link_favicon;

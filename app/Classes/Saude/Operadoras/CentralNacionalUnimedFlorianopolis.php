@@ -3,7 +3,6 @@
 namespace App\Classes\Saude\Operadoras;
 
 use App\Classes\Saude\Plano;
-use App\Classes\Saude\Regiao;
 use Modules\Data;
 
 class CentralNacionalUnimedFlorianopolis extends AbstractOperadora
@@ -37,7 +36,7 @@ class CentralNacionalUnimedFlorianopolis extends AbstractOperadora
     }
 
     /**
-     * @param  Data|null  $dataNascimento  Data de Nascimento (opcional)
+     * @param Data|null $dataNascimento Data de Nascimento (opcional)
      *
      * @return float|null Valor da simulação, NULL caso error ao simular
      */
@@ -75,11 +74,11 @@ class CentralNacionalUnimedFlorianopolis extends AbstractOperadora
             Plano::NACIONAL => ['enfermaria' => 4, 'apartamento' => 5]
         ];
 
-        /*if (!array_key_exists($this->plano->indice(), $listaTipoAcomodacao)) {
+        if (!array_key_exists($this->plano->indice(), $listaTipoAcomodacao)) {
             return null;
         } elseif (!array_key_exists($this->acomodacao, $listaTipoAcomodacao[$this->plano->indice()])) {
             return null;
-        }*/
-        return $this->valores[$listaTipoAcomodacao[$this->plano->indice()][$this->acomodacao]] ?? null;
+        }
+        return $this->valores[$listaTipoAcomodacao[$this->plano->indice()][$this->acomodacao]];
     }
 }

@@ -37,7 +37,7 @@ final class TermoLgpdController extends Controller
             'link' => $dado['link'],
             'hash' => base64Encode($dado, true),
             'logo' => $Construtor->link_logo,
-            'cor' => $Construtor->cor
+            'cor'  => $Construtor->cor
         ]);
     }
 

@@ -8,6 +8,7 @@ final class RequisicaoSalvar
     private string $path = ROOT . '/postman/';
     private string $id;
     private string $pai;
+
     public function __construct($post)
     {
         $json = jsonDecode($post['json'], true, true);
@@ -32,10 +33,12 @@ final class RequisicaoSalvar
             ->resposta($post['resposta'])
             ->salvar();
     }
+
     public function retorno()
     {
         return $this->Requisicao->requisicao;
     }
+
     private function verificarSeDiretorioExiste()
     {
         if (!empty($this->pai) && !is_dir($this->path . $this->pai)) {

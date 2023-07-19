@@ -41,6 +41,7 @@ final class StopBurrice
             ->in(self::$ROOT);
         self::validarRetorno('Existe PP/PPE/VDE', $arquivo);
     }
+
     public static function consoleLog(): void
     {
         $arquivo = (new Finder())

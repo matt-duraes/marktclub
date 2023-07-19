@@ -28,8 +28,8 @@ final class SalvarModel
     /**
      * Envia um novo evento para salvar
      *
-     * @param Request   $request    Request que o usuário envio
-     * @param string    $token      Token do Google
+     * @param  Request $request Request que o usuário envio
+     * @param  string  $token   Token do Google
      * @return array
      */
     public function salvarEvento()
@@ -40,7 +40,7 @@ final class SalvarModel
         $retorno = $this->Cliente
             ->json($dado)
             ->parametro([
-                'sendUpdates' => 'all',
+                'sendUpdates'           => 'all',
                 'conferenceDataVersion' => '1'
             ])
             ->post('/primary/events')

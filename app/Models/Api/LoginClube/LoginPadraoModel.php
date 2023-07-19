@@ -5,7 +5,9 @@ namespace App\Models\Api\LoginClube;
 abstract class LoginPadraoModel
 {
     abstract protected function validarDadosDeLogin(): void;
+
     abstract protected function buscarUsuarioPeloLoginSenha(): void;
+
     abstract protected function pegarWhere(): array;
 
     protected function usuarioNaoEncontrado(): void

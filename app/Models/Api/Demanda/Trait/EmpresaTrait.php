@@ -12,8 +12,8 @@ trait EmpresaTrait
         $Empresa->id($id);
 
         return [
-            'id' => $Empresa->id,
-            'nome' => $Empresa->nome_fantasia,
+            'id'     => $Empresa->id,
+            'nome'   => $Empresa->nome_fantasia,
             'imagem' => $Empresa->imagem
         ];
     }

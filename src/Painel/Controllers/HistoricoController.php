@@ -25,19 +25,19 @@ final class HistoricoController extends Controller
         $dado = $Api
             ->validar('Ocorreu um erro ao salvar seu histórico.')
             ->body([
-                'relacionado' => [$request->relacionado],
-                'app' => [$request->app],
-                'acao' => 'mensagem',
-                'mensagem' => $request->mensagem,
+                'relacionado'      => [$request->relacionado],
+                'app'              => [$request->app],
+                'acao'             => 'mensagem',
+                'mensagem'         => $request->mensagem,
                 'notificar_titulo' => base64Decode($request->titulo),
-                'notificar_link' => base64Decode($request->link),
+                'notificar_link'   => base64Decode($request->link),
                 'notificar_equipe' => base64Decode($request->notificar)
             ])
             ->post('/painel-historico')
             ->object();
 
         return mensagemSucesso([
-            'id' => $dado->dado->id,
+            'id'       => $dado->dado->id,
             'mensagem' => $dado->dado->mensagem
         ], status: 201);
     }
@@ -65,18 +65,18 @@ final class HistoricoController extends Controller
         $dado = $Api
             ->validar('Erro ao buscar lista de histórico')
             ->json([
-                'data_de' => $request->data_de,
-                'data_ate' => $request->data_ate,
-                'pagina' => $request->pagina,
-                'app' => $request->app,
+                'data_de'     => $request->data_de,
+                'data_ate'    => $request->data_ate,
+                'pagina'      => $request->pagina,
+                'app'         => $request->app,
                 'relacionado' => $request->relacionado,
-                'pesquisa' => $request->pesquisa
+                'pesquisa'    => $request->pesquisa
             ])
             ->get('/painel-historico')
             ->object();
 
         return mensagemSucesso([
-            'lista' => $this->montarDado($dado->dado->lista),
+            'lista'  => $this->montarDado($dado->dado->lista),
             'pagina' => $dado->dado->pagina->total
         ]);
     }
@@ -93,25 +93,25 @@ final class HistoricoController extends Controller
             if (!in_array($hash, $dataLista)) {
                 $dataLista[] = $hash;
                 $retorno[] = [
-                    'tipo' => $hash == $hoje ? 'hoje' : 'data',
-                    'hash' => $hash,
+                    'tipo'   => $hash == $hoje ? 'hoje' : 'data',
+                    'hash'   => $hash,
                     'social' => $DataHelper->valor($r->data_criacao)->social(),
-                    'data' => $DataHelper->valor($r->data_criacao)->extenso()
+                    'data'   => $DataHelper->valor($r->data_criacao)->extenso()
                 ];
             }
             $mensagem = preg_replace(
                 "/((https?:\/\/)[a-zA-Z\.\:0-9\/\-\_\?\=\&]{1,})/",
-                "<a href=\"" . LINK . "/app/redirecionar?url=$0\" target=\"_blank\" rel=\"noopener noreferrer\">$0</a>",
+                '<a href="' . LINK . '/app/redirecionar?url=$0" target="_blank" rel="noopener noreferrer">$0</a>',
                 $r->mensagem
             );
             $retorno[] = [
-                'id' => $r->id,
-                'tipo' => 'mensagem',
-                'nome' => $r->nome,
-                'imagem' => $r->imagem,
+                'id'             => $r->id,
+                'tipo'           => 'mensagem',
+                'nome'           => $r->nome,
+                'imagem'         => $r->imagem,
                 'minha_mensagem' => $r->minha_mensagem,
-                'mensagem' => nl2br($mensagem),
-                'hora' => $DataHelper->valor($r->data_criacao)->formato('H:i')
+                'mensagem'       => nl2br($mensagem),
+                'hora'           => $DataHelper->valor($r->data_criacao)->formato('H:i')
             ];
         }
         return $retorno;

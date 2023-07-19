@@ -13,21 +13,21 @@ final class AtualizarUsuarioModel extends ORM
         $cpf = $dado['cpf'];
         if (
             !$this->existe([
-            ['documento', $cpf],
-            [
-                'OR',
-                ['empresa', 198],
+                ['documento', $cpf],
                 [
-                    ['empresa', 1],
-                    ['tipo', 3]
+                    'OR',
+                    ['empresa', 198],
+                    [
+                        ['empresa', 1],
+                        ['tipo', 3]
+                    ]
                 ]
-            ]
             ])
         ) {
             mensagemErro('Erro!', 'Seu Usuário não foi encontrado.');
         }
 
-        if (empty($dado["nome"])) {
+        if (empty($dado['nome'])) {
             unset($dado['nome']);
         }
 

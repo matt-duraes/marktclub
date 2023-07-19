@@ -1,9 +1,34 @@
 <?php
 
 use Route\Route;
+use App\Middlewares\Site\AuthMiddleware;
 
 Route
+    ::nome('login')
+    ::middleware(AuthMiddleware::class, 'deslogado')
+    ::controller(App\Controllers\Site\LoginController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/login');
+        Route
+            ::nome('logar')
+            ::request(['login', 'senha'])
+            ::post('/login');
+    });
+
+Route
+    ::nome('sair')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\LoginController::class)
+    ::grupo(function () {
+        Route
+            ::nome('sair')
+            ::view('/sair');
+    });
+Route
     ::nome('index')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\IndexController::class)
     ::grupo(function () {
         Route
@@ -12,6 +37,7 @@ Route
     });
 Route
     ::nome('acessoRapido')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\AcessoRapidoController::class)
     ::grupo(function () {
         Route
@@ -23,6 +49,7 @@ Route
     });
 Route
     ::nome('cupom')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CupomController::class)
     ::grupo(function () {
         Route
@@ -38,6 +65,7 @@ Route
     });
 Route
     ::nome('cashback')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CashbackController::class)
     ::grupo(function () {
         Route
@@ -60,6 +88,7 @@ Route
 
 Route
     ::nome('turismo')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\TurismoController::class)
     ::grupo(function () {
         Route
@@ -84,53 +113,50 @@ Route
     });
 Route
     ::nome('cinema')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CinemaController::class)
     ::grupo(function () {
         Route
             ::nome('index')
             ::view('/cinema');
-        Route
-            ::nome('extrato')
-            ::view('/cinema/extrato');
     });
 Route
     ::nome('loja')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\LojaController::class)
     ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::request(['!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem'])
+            ::get('/convenios/buscar');
         Route
             ::nome('index')
             ::view('/convenios');
         Route
-            ::nome('busca')
-            ::request(['!estado', '!categoria', '!tag', '!estabelecimento', '!pesquisa', '!ordem'])
-            ::view('/convenios/buscar/{!pesquisa}');
-        Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
-            ::nome('confirmar')
-            ::view('/convenios/confirmar/{url}');
+            ::nome('voucher')
+            ::view('/convenios/voucher/{url}');
         Route
             ::nome('proxima')
             ::view('/convenios/mapa');
         Route
-            ::nome('abrirMapaModal')
-            ::view('/convenios/mapa-modal');
-        Route
-            ::nome('buscaMapa')
-            ::request(['!categoria', '!pesquisa', 'latitude', 'longitude', 'raio'])
-            ::post('/convenios/mapa-listar');
-        Route
-            ::nome('melhorIdade')
-            ::view('/convenios/melhor-idade');
+            ::nome('subcategoria')
+            ::request(['categoria'])
+            ::post('/convenios/subcategoria');
         Route
             ::nome('favorito')
-            ::request(['uuid','acao'])
+            ::request(['id'])
             ::post('/convenios/favorito');
+        Route
+            ::nome('favorito')
+            ::delete('/convenios/favorito/{id}');
     });
 
 Route
     ::nome('voucher')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\VoucherController::class)
     ::grupo(function () {
         Route
@@ -140,6 +166,7 @@ Route
 
 Route
     ::nome('salavip')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SalaVipController::class)
     ::grupo(function () {
         Route
@@ -148,6 +175,7 @@ Route
     });
 Route
     ::nome('odontologico')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\OdontologicoController::class)
     ::grupo(function () {
         Route
@@ -156,6 +184,7 @@ Route
     });
 Route
     ::nome('planosaude')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PlanoSaudeController::class)
     ::grupo(function () {
         Route
@@ -182,7 +211,7 @@ Route
             ::view('/saude/amil');
         Route
             ::nome('precoAmil')
-            ::request(['id','!local'])
+            ::request(['id', '!local'])
             ::view('/saude/abrir-tabela-preco');
         Route
             ::nome('unimedSeguro')
@@ -196,6 +225,7 @@ Route
     });
 Route
     ::nome('farmacia')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\FarmaciaController::class)
     ::grupo(function () {
         Route
@@ -210,6 +240,7 @@ Route
     });
 Route
     ::nome('sicoob')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SicoobController::class)
     ::grupo(function () {
         Route
@@ -232,9 +263,9 @@ Route
             ::view('/sicoob-regulamento/{url}');
     });
 
-
 Route
     ::nome('solicitacao_credito')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SolicitacaoCreditoController::class)
     ::grupo(function () {
         Route
@@ -253,6 +284,7 @@ Route
 
 Route
     ::nome('automovel')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\AutomovelController::class)
     ::grupo(function () {
         Route
@@ -265,7 +297,7 @@ Route
             ::nome('modelo')
             ::view('/automovel/{montadora}/{veiculo}');
 
-            Route
+        Route
             ::nome('voucher')
             ::view('/automovel-voucher/{url}');
         Route
@@ -275,6 +307,7 @@ Route
 
 Route
     ::nome('termo')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\TermoController::class)
     ::grupo(function () {
         Route
@@ -290,6 +323,7 @@ Route
 
 Route
     ::nome('alfa')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\AlfaController::class)
     ::grupo(function () {
         Route
@@ -314,6 +348,7 @@ Route
 
 Route
     ::nome('site')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SiteController::class)
     ::grupo(function () {
         Route
@@ -347,6 +382,7 @@ Route
 
 Route
     ::nome('promocao')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PromocaoController::class)
     ::grupo(function () {
         Route
@@ -356,6 +392,7 @@ Route
 
 Route
     ::nome('perfil')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PerfilController::class)
     ::grupo(function () {
         Route
@@ -394,10 +431,15 @@ Route
         Route
             ::nome('carteira')
             ::view('/perfil/carteira');
+        Route
+            ::nome('buscarCep')
+            ::request(['cep'])
+            ::post('/perfil/buscar-cep');
     });
 
 Route
     ::nome('preferencia')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PreferenciaController::class)
     ::grupo(function () {
         Route
@@ -410,6 +452,7 @@ Route
 
 Route
     ::nome('campanha')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CampanhaController::class)
     ::grupo(function () {
         Route
@@ -422,6 +465,7 @@ Route
 
 Route
     ::nome('regulamento')
+    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\RegulamentoController::class)
     ::grupo(function () {
         Route

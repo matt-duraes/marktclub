@@ -26,6 +26,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
     }
+
     public function naoPodeListaComDataInicialComMaisDeSeteDiasTest()
     {
         $this->fazerRequisicao(dataRemover(hoje(), 10, 'dias'), $this->ate);
@@ -35,6 +36,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'Você deve fazer uma busca com no máximo 7 dias de diferênça.');
     }
+
     public function naoPodeListaComDataFinalComMaisDeSeteDiasTest()
     {
         $this->fazerRequisicao($this->de, dataAdicionar(hoje(), 10, 'dias'));
@@ -44,6 +46,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'Você deve fazer uma busca com no máximo 7 dias de diferênça.');
     }
+
     public function naoPodeListarComDataFinalMenorQueDataInicialTest()
     {
         $this->fazerRequisicao(hoje(), dataRemover(hoje(), 1, 'dia'));
@@ -53,6 +56,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data final da busca deve ser maior ou igual a data de começo.');
     }
+
     public function naoPodeListarComDataInicialESemDataFinalTest()
     {
         $this->fazerRequisicao(de: $this->de);
@@ -62,6 +66,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data final da busca é obrigatória.');
     }
+
     public function naoPodeListarComPaginacaoComDataInicialESemDataFinalTest()
     {
         $this->fazerRequisicao(de: $this->de, pagina: 1);
@@ -71,6 +76,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data final da busca é obrigatória.');
     }
+
     public function naoPodeListarComDataFinalESemDataInicialTest()
     {
         $this->fazerRequisicao(ate: $this->ate);
@@ -80,6 +86,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de começo da busca é obrigatória.');
     }
+
     public function naoPodeListarComPaginacaoComDataFinalESemDataInicialTest()
     {
         $this->fazerRequisicao(ate: $this->ate, pagina: 1);
@@ -89,6 +96,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de começo da busca é obrigatória.');
     }
+
     public function naoPodeListarSemPaginacaoESemDataTest()
     {
         $this->fazerRequisicao();
@@ -98,6 +106,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'A data de começo da busca é obrigatória.');
     }
+
     public function podeListarSemDataMasComPaginacaoTest()
     {
         $this->fazerRequisicao(pagina: 1);
@@ -115,6 +124,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
     }
+
     public function podeListarSemPaginacaoSemUsuarioEComDatasTest()
     {
         $this->fazerRequisicao(de: $this->de, ate: $this->ate, usuario: $this->idUsuario);
@@ -123,6 +133,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
     }
+
     public function naoPodeListarComUsuarioInvalidoTest()
     {
         $this->fazerRequisicao(pagina: 1, usuario: uuid());
@@ -132,6 +143,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'Usuario buscado não foi encontrado.');
     }
+
     public function podeListarComPaginacaoEQuantidadeTest()
     {
         $this->fazerRequisicao(pagina: 1, quantidade: 5);
@@ -140,6 +152,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
     }
+
     public function naoPodeListaComPaginacaoErradaTest()
     {
         $this->fazerRequisicao(pagina: 'teste_erro');
@@ -149,6 +162,7 @@ final class AnalyticsUsuarioTest extends Tests
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O campo pagina está inválido.');
     }
+
     public function naoPodeListaComQuantidadeErradaTest()
     {
         $this->fazerRequisicao(pagina: 1, quantidade: 'teste_erro');

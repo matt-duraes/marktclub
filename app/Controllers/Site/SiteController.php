@@ -2,10 +2,10 @@
 
 namespace App\Controllers\Site;
 
-use Controller\Controller;
 use Erro\Excecao;
-use Http\Response;
 use Http\Request;
+use Http\Response;
+use Controller\Controller;
 use App\Models\Site\SosMulher\ListarModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
 use App\Models\Site\ConstrutorModel;
@@ -40,7 +40,6 @@ final class SiteController extends Controller
         return view('pesquisa.index', [
             'sistemaConhece' => $listaConhece
         ]);
-
     }
 
     /**
@@ -65,9 +64,9 @@ final class SiteController extends Controller
     public function sosmulher(): Response
     {
         return view('sosmulher.index', [
-            'parceiro' => [1, 2, 3],
+            'parceiro'     => [1, 2, 3],
             'parceiroTipo' => 'sosmulher',
-            'dado'        => (new ListarModel())->listarDados(),
+            'dado'         => (new ListarModel())->listarDados(),
             'lista'        => (new ListarModel())->listarRelacionado(),
         ]);
     }
@@ -78,8 +77,6 @@ final class SiteController extends Controller
      */
     public function indiqueAmigo(): Response
     {
-        define('CLUBE_FINALIDADE', 1);
-
         $texto = <<<HTML
             <p>O que você acha de liberar um acesso por 48h para um amigo?</p>
             <p>
@@ -178,5 +175,4 @@ final class SiteController extends Controller
     {
         return view('indicar_parceiro.index');
     }
-
 }

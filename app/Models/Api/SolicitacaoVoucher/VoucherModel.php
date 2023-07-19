@@ -49,13 +49,13 @@ final class VoucherModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->cod,
-                'parceiro' => $r->titulo,
-                'tipo' => $Tipo->indice($r->tipo),
-                'tipo_usuario' => $TipoUsuario->indice($r->tipo_usuario),
+                'id'              => $r->cod,
+                'parceiro'        => $r->titulo,
+                'tipo'            => $Tipo->indice($r->tipo),
+                'tipo_usuario'    => $TipoUsuario->indice($r->tipo_usuario),
                 'data_vencimento' => $r->data_vencimento,
-                'data_criacao' => $r->data_criacao,
-                'status' => $Status->indice($r->status)
+                'data_criacao'    => $r->data_criacao,
+                'status'          => $Status->indice($r->status)
             ];
         }
         return $retorno;

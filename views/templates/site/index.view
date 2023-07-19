@@ -6,7 +6,6 @@
 
     <meta name="robots" content="noindex,nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <link rel="icon" href="{!!LINK_PADRAO!!}/images/favicon.png" type="image/png">
 
@@ -41,9 +40,10 @@
     <form action="/" method="post">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
         <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
-        <input type="hidden" name="CORCLUBE" id="CORCLUBE" value="{!!COR!!}">
+        <input type="hidden" name="CORCLUBE" id="CORCLUBE" value="{!!CLUBE_COR!!}">
     </form>
 
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>

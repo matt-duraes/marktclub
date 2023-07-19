@@ -96,6 +96,7 @@ final class DocumentacaoController extends Controller
             // @codingStandardsIgnoreEnd
         );
     }
+
     public function postMostrarChavePublica(Request $request)
     {
         $this->validarSenhaParaContinuar($request->senha);
@@ -115,6 +116,7 @@ final class DocumentacaoController extends Controller
             // @codingStandardsIgnoreEnd
         );
     }
+
     public function postMostrarChavePrivada(Request $request)
     {
         $this->validarSenhaParaContinuar($request->senha);
@@ -155,16 +157,17 @@ final class DocumentacaoController extends Controller
 
         $app = $Usuario->pegarApp();
         sessao('DOCUMENTACAO', [
-            'app' => $app,
-            'scope' => $this->pegarTodoScopeUsuario($app),
+            'app'     => $app,
+            'scope'   => $this->pegarTodoScopeUsuario($app),
             'usuario' => (object)[
-                'id' => $Usuario->id,
+                'id'   => $Usuario->id,
                 'nome' => $Usuario->nome
             ]
         ]);
 
         return new Response(status: 201);
     }
+
     private function pegarTodoScopeUsuario($app)
     {
         $lista = $app->lista;
@@ -201,10 +204,10 @@ final class DocumentacaoController extends Controller
 
         $app = $Usuario->pegarApp();
         sessao('DOCUMENTACAO', [
-            'app' => $app,
-            'scope' => $this->pegarTodoScopeUsuario($app),
+            'app'     => $app,
+            'scope'   => $this->pegarTodoScopeUsuario($app),
             'usuario' => (object)[
-                'id' => $Usuario->id,
+                'id'   => $Usuario->id,
                 'nome' => $Usuario->nome
             ]
         ]);
@@ -271,6 +274,7 @@ final class DocumentacaoController extends Controller
         }
         return view(arquivo: 'documentacao.login');
     }
+
     public function postLogin(Request $request)
     {
         if (sessaoExiste('DOCUMENTACAO')) {
@@ -293,10 +297,10 @@ final class DocumentacaoController extends Controller
 
         $app = $Usuario->pegarApp();
         sessao('DOCUMENTACAO', [
-            'app' => $Usuario->pegarApp(),
-            'scope' => $this->pegarTodoScopeUsuario($app),
+            'app'     => $Usuario->pegarApp(),
+            'scope'   => $this->pegarTodoScopeUsuario($app),
             'usuario' => (object)[
-                'id' => $Usuario->id,
+                'id'   => $Usuario->id,
                 'nome' => $Usuario->nome
             ]
         ]);

@@ -32,14 +32,14 @@ final class Api extends ApiHelper
 
         $CurlLogin = new ApiHelper('login:painel');
         $token = $CurlLogin->body([
-            'login' => $Crypt->encode($login),
-            'senha' => $Crypt->encode($senha),
-            'facebook' => '',
-            'google' => '',
-            'scope' => '',
-            'audience' => $this->audience,
+            'login'        => $Crypt->encode($login),
+            'senha'        => $Crypt->encode($senha),
+            'facebook'     => '',
+            'google'       => '',
+            'scope'        => '',
+            'audience'     => $this->audience,
             'redirect_uri' => $this->redirectUri,
-            'state' => uuid()
+            'state'        => uuid()
         ])->post('/login/painel')->array();
 
         if (array_key_exists('status', $token) && $token['status'] == 'sucesso') {
@@ -69,6 +69,7 @@ final class Api extends ApiHelper
         $this->curl('GET', $url);
         return $this;
     }
+
     public function delete(string $url): self
     {
         $this->curl('DELETE', $url);

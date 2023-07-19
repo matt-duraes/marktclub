@@ -16,8 +16,8 @@ use Modules\ModuleInterface;
 final class ValidarHelper
 {
     /**
-     * @param Mixed     $valor   Valor a ser validado
-     * @param Array     $dado    Array com lista de dados a serem verificados
+     * @param mixed $valor Valor a ser validado
+     * @param array $dado  Array com lista de dados a serem verificados
      */
     public function __construct(
         private $valor = null,
@@ -28,9 +28,9 @@ final class ValidarHelper
     }
 
     /**
-     * @param Mixed         $valor      Valor a ser verificado
-     * @param Null|String   $campo      Nome do campo a ser verificado
-     * @param Null|String   $mensagem   Mensagem caso ocorra um erro
+     * @param mixed       $valor    Valor a ser verificado
+     * @param null|string $campo    Nome do campo a ser verificado
+     * @param null|string $mensagem Mensagem caso ocorra um erro
      */
     public function valor($valor, string $campo = null, string $mensagem = null)
     {
@@ -56,13 +56,13 @@ final class ValidarHelper
 
     /**
      * Valida dados em formato de string
-     * @param String $dado      Dado com os campos a serem validados seguindo o padrão:
-     *                          campo|Nome do campo ou !Mensagem|comando 01|comando 02.
-     *                          Fora todos os campos normais, existe os "mágicos" a seguir:
-     *                          inArray:01=Campo01,02=campo02,03=campo03 ou Campo01,campo02,campo03 = arrayString(['Campo 01', ...])
-     *                          arrayKey:Igual o inArray e verifica se valor existe na chave do array
-     *                          (string|numeric|array|int|decimal|float)?((> | >= | = | == | != | < | <= )[0-9]+)? para validar tipo e/ou tamanho
-     *                          reg:/^expressao aqui$/
+     * @param string $dado Dado com os campos a serem validados seguindo o padrão:
+     *                     campo|Nome do campo ou !Mensagem|comando 01|comando 02.
+     *                     Fora todos os campos normais, existe os "mágicos" a seguir:
+     *                     inArray:01=Campo01,02=campo02,03=campo03 ou Campo01,campo02,campo03 = arrayString(['Campo 01', ...])
+     *                     arrayKey:Igual o inArray e verifica se valor existe na chave do array
+     *                     (string|numeric|array|int|decimal|float)?((> | >= | = | == | != | < | <= )[0-9]+)? para validar tipo e/ou tamanho
+     *                     reg:/^expressao aqui$/
      */
     public function validar(string $dado)
     {
@@ -158,26 +158,26 @@ final class ValidarHelper
         $lista = [
             'string' => [
                 '<=' => 'O campo ' . $campo . ' deve ter ' . $tamanho . ' ' . $caracterTexto . ' ou menos.',
-                '<' => 'O campo ' . $campo . ' deve ter menos de ' . $tamanho . ' ' . $caracterTexto . '.',
+                '<'  => 'O campo ' . $campo . ' deve ter menos de ' . $tamanho . ' ' . $caracterTexto . '.',
                 '>=' => 'O campo ' . $campo . ' deve ter ' . $tamanho . ' ' . $caracterTexto . ' ou mais.',
-                '>' => 'O campo ' . $campo . ' deve ter mais de ' . $tamanho . ' ' . $caracterTexto . '.',
-                '=' => 'O campo ' . $campo . ' deve ter exatamente ' . $tamanho . ' ' . $caracterTexto . '.',
+                '>'  => 'O campo ' . $campo . ' deve ter mais de ' . $tamanho . ' ' . $caracterTexto . '.',
+                '='  => 'O campo ' . $campo . ' deve ter exatamente ' . $tamanho . ' ' . $caracterTexto . '.',
                 '!=' => 'O campo ' . $campo . ' não pode ter ' . $tamanho . ' ' . $caracterTexto . '.',
             ],
             'numeric' => [
                 '<=' => 'O campo ' . $campo . ' deve ser menor ou igual a ' . $tamanho . '.',
-                '<' => 'O campo ' . $campo . ' deve ser menor que ' . $tamanho . '.',
+                '<'  => 'O campo ' . $campo . ' deve ser menor que ' . $tamanho . '.',
                 '>=' => 'O campo ' . $campo . ' deve ser maior ou igual a ' . $tamanho . '.',
-                '>' => 'O campo ' . $campo . ' deve ser maior que ' . $tamanho . '.',
-                '=' => 'O campo ' . $campo . ' deve ser igual a' . $tamanho . '.',
+                '>'  => 'O campo ' . $campo . ' deve ser maior que ' . $tamanho . '.',
+                '='  => 'O campo ' . $campo . ' deve ser igual a' . $tamanho . '.',
                 '!=' => 'O campo ' . $campo . ' deve ser diferente de ' . $tamanho . '.',
             ],
             'array' => [
                 '<=' => 'O campo ' . $campo . ' deve ter ' . $tamanho . ' ' . $indiceTexto . ' ou menos.',
-                '<' => 'O campo ' . $campo . ' deve ter menos de ' . $tamanho . ' ' . $indiceTexto . '.',
+                '<'  => 'O campo ' . $campo . ' deve ter menos de ' . $tamanho . ' ' . $indiceTexto . '.',
                 '>=' => 'O campo ' . $campo . ' deve ter ' . $tamanho . ' ' . $indiceTexto . ' ou mais.',
-                '>' => 'O campo ' . $campo . ' deve ter mais de ' . $tamanho . ' ' . $indiceTexto . '.',
-                '=' => 'O campo ' . $campo . ' deve ter exatamente ' . $tamanho . ' ' . $indiceTexto . '.',
+                '>'  => 'O campo ' . $campo . ' deve ter mais de ' . $tamanho . ' ' . $indiceTexto . '.',
+                '='  => 'O campo ' . $campo . ' deve ter exatamente ' . $tamanho . ' ' . $indiceTexto . '.',
                 '!=' => 'O campo ' . $campo . ' não pode ter ' . $tamanho . ' ' . $indiceTexto . '.',
             ]
         ];
@@ -268,6 +268,7 @@ final class ValidarHelper
         $this->isTrue();
         return $this;
     }
+
     public function isTrue(): self
     {
         $valor = $this->valor;
@@ -276,11 +277,13 @@ final class ValidarHelper
         }
         $this->setarErro(928);
     }
+
     public function false(): self
     {
         $this->isFalse();
         return $this;
     }
+
     public function isFalse(): self
     {
         $valor = $this->valor;
@@ -462,7 +465,7 @@ final class ValidarHelper
 
     /**
      * Verifica se existe um valor no array = in_array
-     * @param Array     $array  Array que deseja comparar
+     * @param array $array Array que deseja comparar
      */
     public function inArray(array $array): self
     {
@@ -475,7 +478,7 @@ final class ValidarHelper
 
     /**
      * Verifica se existe uma chave no array = array_key_exists
-     * @param Array     $array  Array que deseja comparar
+     * @param array $array Array que deseja comparar
      */
     public function arrayKey(array $array): self
     {
@@ -503,7 +506,7 @@ final class ValidarHelper
 
     /**
      * Se o valor é diferente do array = array_diff
-     * @param Array     $array  Array que deseja comparar
+     * @param array $array Array que deseja comparar
      */
     public function diff(array $array): self
     {
@@ -558,8 +561,8 @@ final class ValidarHelper
 
     /**
      * Verifica se o valor é igual ao comparado
-     * @param Mixed     $comparacao         Valor a ser comparado
-     * @param Bool      $exato              True para validar o tipo (===)
+     * @param mixed $comparacao Valor a ser comparado
+     * @param bool  $exato      True para validar o tipo (===)
      */
     public function igual($comparacao, bool $exato = true): self
     {
@@ -578,8 +581,8 @@ final class ValidarHelper
 
     /**
      * Verifica se o valor é diferente ao comparado
-     * @param Mixed     $comparacao         Valor a ser comparado
-     * @param Bool      $exato              True para validar o tipo (===)
+     * @param mixed $comparacao Valor a ser comparado
+     * @param bool  $exato      True para validar o tipo (===)
      */
     public function diferente($comparacao, bool $exato = true): self
     {
@@ -604,9 +607,9 @@ final class ValidarHelper
     /**
      * Valida o tamanho de uma string ou valores numericos
      *
-     * @param string            $operador       Qual o operador será usado podendo ser: >=, >, <=, <, == ou !=
-     * @param null|int|string   $comparador     O tamanho que o número ou string deve ter ou o texto para comparar
-     * @param null|string       $tipo           Tipo de dado a ser comparado podendo ser texto, numero, data ou hora
+     * @param string          $operador   Qual o operador será usado podendo ser: >=, >, <=, <, == ou !=
+     * @param null|int|string $comparador O tamanho que o número ou string deve ter ou o texto para comparar
+     * @param null|string     $tipo       Tipo de dado a ser comparado podendo ser texto, numero, data ou hora
      */
     public function tamanho(string $operador, null|int|string $comparador, ?string $tipo = null): self
     {
@@ -654,6 +657,7 @@ final class ValidarHelper
         }
         return $this;
     }
+
     private function eUmaData($data)
     {
         return preg_match('/^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $data) ||
@@ -667,10 +671,11 @@ final class ValidarHelper
                 $data
             );
     }
+
     private function eUmaHora($hora)
     {
-        return preg_match("/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/", $hora) ||
-            preg_match("/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9])$/", $hora);
+        return preg_match('/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/', $hora) ||
+            preg_match('/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9])$/', $hora);
     }
 
     /*
@@ -704,6 +709,7 @@ final class ValidarHelper
 
         return $this;
     }
+
     public function date(): self
     {
         $valor = $this->valor instanceof Data ? $this->valor : new Data($this->valor);
@@ -770,7 +776,7 @@ final class ValidarHelper
         if (
             !empty($valor) &&
             !preg_match(
-                "/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/",
+                '/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/',
                 $valor
             )
         ) {
@@ -791,7 +797,7 @@ final class ValidarHelper
         if (
             !empty($valor) &&
             !preg_match(
-                "/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9])$/",
+                '/^([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9])$/',
                 $valor
             )
         ) {
@@ -864,7 +870,7 @@ final class ValidarHelper
 
     /**
      * Verifica se o valor bate com uma expressão regular
-     * @param String    $expressao      Expressão regular a ser verificada
+     * @param string $expressao Expressão regular a ser verificada
      */
     public function reg(string $expressao): self
     {

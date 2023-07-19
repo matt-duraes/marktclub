@@ -73,6 +73,16 @@ exports.buildCopiarComposerConfig = async () => {
     }
     return src(['./src/Files/raiz/composer.json']).pipe(plumber()).pipe(dest('./'));
 };
+exports.buildArquivoConfigVsCode = async () => {
+    await fsCriarDiretorio('./.vscode');
+    return src(['./src/Files/vscode/settings.json']).pipe(plumber()).pipe(dest('./.vscode'));
+};
+exports.buildArquivoConfigGithub = async () => {
+    await fsCriarDiretorio('./.github');
+    await fsCriarDiretorio('./.github/ISSUE_TEMPLATE');
+    await fsCopiar('./src/Files/github/pull_request_template.md', './.github/pull_request_template.md');
+    return src(['./src/Files/github/bug_template.yml']).pipe(plumber()).pipe(dest('./.github/ISSUE_TEMPLATE'));
+};
 
 exports.buildComposerInstall = () => {
     return src(['./']).pipe(exec('composer install'));
@@ -170,6 +180,7 @@ exports.buildArquivosRaiz = () => {
         './src/Files/raiz/.chave_privada',
         './src/Files/raiz/.editorconfig',
         './src/Files/raiz/.php-cs-fixer.dist.php',
+        './src/Files/raiz/php-cs-fixer.phar',
         './src/Files/raiz/captainhook.json',
     ])
         .pipe(plumber())

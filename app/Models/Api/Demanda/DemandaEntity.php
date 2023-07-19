@@ -14,7 +14,6 @@ use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
-use App\Models\Api\Demanda\CancelarTarefaModel;
 
 final class DemandaEntity extends Entity
 {
@@ -40,7 +39,6 @@ final class DemandaEntity extends Entity
         status|Status|vazio|valido
         data_entrega|Data da entrega|valido
     ';
-
     public array $arquivo = [];
     public array $dono = [];
     public array $equipe = [];
@@ -53,11 +51,9 @@ final class DemandaEntity extends Entity
     public Data $data_entrega;
     public DataHora $data_entrega_real;
     public int $ordem;
-
     public int $id_admin_empresa;
     public Status $status;
     public int $id_usuario_equipe;
-
     public string $titulo;
     public string|array $empresa;
     public Tipo $tipo;
@@ -152,6 +148,7 @@ final class DemandaEntity extends Entity
         }
         return false;
     }
+
     private function verificarSeSouDono()
     {
         $Equipe = TOKEN['usuario'];
@@ -174,6 +171,7 @@ final class DemandaEntity extends Entity
         $this->ordem = 999;
         $this->pegarIdEmpresa();
     }
+
     protected function regraSalvar()
     {
         if ($this->com_prazo->valor() == 'sim' && $this->data_entrega->vazio()) {

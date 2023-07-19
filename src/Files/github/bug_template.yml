@@ -1,0 +1,62 @@
+name: Relatório de Erro
+description: Arquivo de relatório de erro
+title: "[BUG]: "
+labels: [ "bug", "triage" ]
+assignees:
+    - c0destep
+body:
+    -   type: markdown
+        attributes:
+            value: |
+                Obrigado por reservar um tempo para preencher este relatório de erro!
+    -   type: input
+        id: contact
+        attributes:
+            label: Detalhes do contato
+            description: Como podemos entrar em contato com você se precisarmos de mais informações?
+            placeholder: ex. email@example.com
+        validations:
+            required: false
+    -   type: textarea
+        id: what-happened
+        attributes:
+            label: O que aconteceu?
+            description: Diga-nos também, o que você esperava que acontecesse?
+            placeholder: Conte-nos o que você viu!
+            value: "Aconteceu um erro!"
+        validations:
+            required: true
+    -   type: dropdown
+        id: version
+        attributes:
+            label: Versão
+            description: Qual versão do nosso software você está executando?
+            options:
+                - 1.0.2 (Default)
+                - 1.0.3 (Edge)
+        validations:
+            required: true
+    -   type: dropdown
+        id: browsers
+        attributes:
+            label: Em quais navegadores você está vendo o problema?
+            multiple: true
+            options:
+                - Firefox
+                - Chrome
+                - Safari
+                - Microsoft Edge
+    -   type: textarea
+        id: logs
+        attributes:
+            label: Saída de registro relevante
+            description: Copie e cole qualquer saída de log relevante. Isso será formatado automaticamente em código, portanto, não há necessidade de crases.
+            render: shell
+    -   type: checkboxes
+        id: terms
+        attributes:
+            label: Código de Conduta
+            description: Ao enviar este problema, você concorda em seguir nosso [Código de Conduta](https://marktclub.com.br)
+            options:
+                -   label: Eu concordo em seguir o Código de Conduta deste projeto
+                    required: true
