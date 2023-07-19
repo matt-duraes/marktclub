@@ -91,26 +91,26 @@ class SimulacaoEntity extends Entity
         };
 
         $dependentes = [];
-        if (is_array($this->request->getPost('dependentes')) && !empty($this->request->getPost('dependentes'))) {
+        if (!empty($this->request->getPost('dependentes'))) {
             $dependentes = explode(',', $this->request->getPost('dependentes'));
             $this->quantidade_dependentes = count($dependentes);
 
             $contador = 1;
-            for ($i = 0; $i <= $this->quantidade_dependentes; $i++) {
+            for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
                 (new ValidarHelper())
                     ->valor($dependentes[$i], 'Dependente ' . $contador)
                     ->obrigatorio()
-                    ->date();
+                    ->data();
                 $contador++;
             }
         }
 
-        $contador = 1;
         $valor_titular = $planoSaude->valor;
         $valor_dependentes = [];
         $valor_total = $valor_titular;
         if ($this->quantidade_dependentes > 0) {
-            for ($i = 0; $i <= $this->quantidade_dependentes; $i++) {
+            $contador = 1;
+            for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
                 $valor = $planoSaude->simularValor(new Data($dependentes[$i]));
                 $valor_dependentes['dependente-' . $contador] = $valor;
                 $valor_total = $valor_total + $valor;
