@@ -112,7 +112,7 @@ class SimulacaoEntity extends Entity
             $contador = 1;
             for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
                 $valor = $planoSaude->simularValor(new Data($dependentes[$i]));
-                $valor_dependentes['dependente-' . $contador] = $valor;
+                $valor_dependentes['dependente-' . $contador] = (new Dinheiro((string)$valor))->dinheiro();
                 $valor_total = $valor_total + $valor;
                 $contador++;
             }
