@@ -3,7 +3,7 @@
 namespace App\Models\Api\Trait;
 
 use Http\Request;
-use App\Models\Api\UsuarioEquipe\HelperModel;
+use Helpers\OrmHelper;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait ValidarEmpresaDownloadTrait
@@ -32,8 +32,11 @@ trait ValidarEmpresaDownloadTrait
      */
     private function setarIdEmpresa(string $usuario): void
     {
-        $Equipe = new HelperModel();
-        $this->idEmpresa = $Equipe->pegarIdDaEmpresaPeloUuid($usuario);
+        $this->idEmpresa = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarCampoPor(
+            campo: 'id_admin_empresa',
+            where: ['uuid', $usuario],
+            padrao: 0
+        );
     }
 
     /**
@@ -43,8 +46,7 @@ trait ValidarEmpresaDownloadTrait
      */
     private function setarIdUsuario(string $usuario): void
     {
-        $Equipe = new HelperModel();
-        $this->idUsuario = $Equipe->pegarIdPeloUuid($usuario);
+        $this->idUsuario = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($usuario);
     }
 
     /**
@@ -106,8 +108,11 @@ trait ValidarEmpresaDownloadTrait
     private function verificarSePodeMudarEmpresa(): bool
     {
         $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
-        $Equipe = new HelperModel();
-        $usuarioPermissao = $Equipe->pegarPermissaoPeloId($this->idUsuario);
+        $usuarioPermissao = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarCampoPor(
+            campo: 'permissao',
+            where: ['id', $this->idUsuario],
+            padrao: []
+        );
 
         return
             !empty($this->idUsuario) &&

@@ -25,7 +25,6 @@ const {
     buildBaixandoUpdate,
     buildCopiandoUpdate,
     buildLimparFramework,
-    buildDefineTabela,
     buildPaginaExemplo,
     buildArquivoErro,
     buildCorrigindoComposer,
@@ -89,7 +88,7 @@ exports.install = series(
     ),
     copiandoArquivoDeErro,
     criandoPaginaExemplo,
-    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem, criarArquivoDaTabela),
+    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
     copiandoArquivosCSS
 );
 
@@ -98,7 +97,7 @@ exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
 exports.build = series(
-    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem, criarArquivoDaTabela),
+    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
     copiandoArquivosCSS
 );
 exports.composerBugfix = series(corrigindoBugDoComposer);
@@ -195,9 +194,6 @@ async function monitorarSistema() {
         browserSync.reload();
         consoleFooter(time);
     });
-    // watch(['./resources/php/**/*.php', './src/**/*.php', '!./src/Database/tabela.php']).on('change', async () => {
-    //     browserSync.reload();
-    // });
 
     // IMAGEM
     watch(['./views/images/**/*']).on('all', async () => {
@@ -232,9 +228,6 @@ function executandoComposerInstall() {
 
 function copiandoArquivoParaDocker() {
     return buildDocker();
-}
-function criarArquivoDaTabela() {
-    return buildDefineTabela();
 }
 function criandoDiretorios() {
     return buildDiretorios();

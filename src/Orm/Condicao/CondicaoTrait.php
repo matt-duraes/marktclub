@@ -16,7 +16,7 @@ trait CondicaoTrait
             return $this;
         }
 
-        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->ormReplace);
+        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->campoReplace);
 
         $propriedade = 'orm' . ucfirst($tipo) . 'Dado';
         $this->ormAdicionarAndACondicao($tipo);

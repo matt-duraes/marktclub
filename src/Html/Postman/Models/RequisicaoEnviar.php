@@ -101,8 +101,8 @@ final class RequisicaoEnviar
         curl_close($ch);
 
         $this->requisicao = [
-            'link' => $link,
-            'body' => $requestBody,
+            'link'   => $link,
+            'body'   => $requestBody,
             'header' => $header,
             'metodo' => $metodo
         ];

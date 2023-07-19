@@ -14,7 +14,7 @@ trait GroupTrait
             $this;
         }
 
-        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->ormReplace);
+        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->campoReplace);
         if ($replace && array_key_exists($campo, $replace)) {
             $campo = $replace[$campo];
         }

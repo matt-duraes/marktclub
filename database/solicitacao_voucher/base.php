@@ -2,7 +2,7 @@
 
 return (new \DataBase\DataBase())
     ->id()
-    ->char('cod')->tamanho(36)
+    ->cod()
     ->int('empresa')->tamanho(9)
     ->int('usuario')->tamanho(9)
     ->varchar('titulo')->null()

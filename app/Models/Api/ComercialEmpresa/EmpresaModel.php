@@ -6,6 +6,7 @@ use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Modules\Cnpj;
+use Helpers\OrmHelper;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ComercialEmpresa\Ordem;
@@ -13,7 +14,6 @@ use System\Trait\Model\QuantidadeTrait;
 use App\Classes\ComercialEmpresa\Helper;
 use App\Classes\ComercialEmpresa\Status;
 use System\Interface\ModelListarInterface;
-use App\Models\Api\UsuarioEquipe\HelperModel;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 
 final class EmpresaModel extends ORM implements ModelListarInterface
@@ -151,8 +151,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
         $usuario = $this->request->usuario;
         $idEquipe = '';
         if (!empty($usuario)) {
-            $Equipe = new HelperModel();
-            $idEquipe = $Equipe->pegarIdPeloUuid($usuario);
+            $idEquipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($usuario);
         }
         if (!empty($idEquipe)) {
             $where[] = ['id_usuario_equipe', $idEquipe];

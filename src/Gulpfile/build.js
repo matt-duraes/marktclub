@@ -7,30 +7,12 @@ const {
     fsCriarDiretorio,
     fsDeletarDiretorio,
     fsCopiar,
-    fsListarDiretorio,
 } = require('./arquivo.js');
 const exec = require('gulp-exec');
 const replace = require('gulp-replace');
 const plumber = require('gulp-plumber');
 const { mensagemErro, mensagemSucesso } = require('./mensagem.js');
 let config;
-
-exports.buildDefineTabela = async () => {
-    const lista = await fsListarDiretorio('./database');
-    let conteudo = '<?php\n\n';
-    let quantidade = lista.length;
-    let i, diretorio, tabela, arquivo;
-    for (i = 0; i < quantidade; i++) {
-        diretorio = lista[i];
-        arquivo = await fsListarDiretorio('./database/' + diretorio);
-        tabela = arquivo.find(e => /^tabela\-/.test(e));
-        tabela = tabela == undefined ? diretorio : tabela.replace('tabela-', '');
-        conteudo += `define("TABELA_${diretorio.toUpperCase()}", "${tabela}");\n`;
-    }
-
-    await fsRemoverArquivoSeExistir('./files/banco/tabela.php');
-    await fsCriarArquivo('./files/banco/tabela.php', conteudo);
-};
 
 exports.buildGit = () => {
     if (config == undefined) {
