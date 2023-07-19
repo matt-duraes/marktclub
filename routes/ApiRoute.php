@@ -1331,6 +1331,7 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:buscar'])
             ::get('/saude/simulacao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
@@ -1353,9 +1354,9 @@ Route
                 'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
                 'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
                 'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
-                'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
-                'ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
-                'complemento'
+                'email', 'telefone_celular', '!telefone_residencial', '!telefone_comercial',
+                '!ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
+                '!complemento'
             ])
             ::post('/saude/contratacao');
     });

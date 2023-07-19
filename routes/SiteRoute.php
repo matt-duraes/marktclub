@@ -222,7 +222,7 @@ Route
             ::view('/saude/simulacao/{url}');
         Route
             ::nome('realizarSimulacao')
-            ::request(['!operadora','!acomodacao', '!regiaoSelecionada', '!planoSelecionado', '!dtNascimentoTitular', '!dtNascimentoDependentes'])
+            ::request(['operadora','acomodacao', 'regiaoSelecionada', 'planoSelecionado', 'dtNascimentoTitular', '!dtNascimentoDependentes'])
             ::get('/saude/realizar-simulacao');
         Route
             ::nome('contratacao')

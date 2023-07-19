@@ -28,9 +28,9 @@ class SimulacaoEntity extends Entity
     public Operadora $operadora;
     public int $acomodacao;
     public Regiao $regiao;
-    public Dinheiro $valorTitular;
-    public string $valorDependentes;
-    public Dinheiro $valorTotal;
+    public Dinheiro $valor_titular;
+    public string $valor_dependentes;
+    public Dinheiro $valor_total;
     public Plano $plano;
     public Status $status;
     protected ?int $idEmpresa;
@@ -106,21 +106,21 @@ class SimulacaoEntity extends Entity
         }
 
         $contador = 1;
-        $valorTitular = $planoSaude->valor;
-        $valorDependentes = [];
-        $valorTotal = $valorTitular;
+        $valor_titular = $planoSaude->valor;
+        $valor_dependentes = [];
+        $valor_total = $valor_titular;
         if ($this->quantidade_dependentes > 0) {
             for ($i = 0; $i <= $this->quantidade_dependentes; $i++) {
                 $valor = $planoSaude->simularValor(new Data($dependentes[$i]));
-                $valorDependentes['dependente-' . $contador] = $valor;
-                $valorTotal = $valorTotal + $valor;
+                $valor_dependentes['dependente-' . $contador] = $valor;
+                $valor_total = $valor_total + $valor;
                 $contador++;
             }
         }
 
         $this->acomodacao = $planoSaude->codigoAcomodacao;
-        $this->valorTitular = new Dinheiro((string)$valorTitular);
-        $this->valorDependentes = jsonEncode($valorDependentes);
-        $this->valorTotal = new Dinheiro((string)$valorTotal);
+        $this->valor_titular = new Dinheiro((string)$valor_titular);
+        $this->valor_dependentes = jsonEncode($valor_dependentes);
+        $this->valor_total = new Dinheiro((string)$valor_total);
     }
 }

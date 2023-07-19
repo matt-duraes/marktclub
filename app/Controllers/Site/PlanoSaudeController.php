@@ -7,6 +7,7 @@ use Http\Request;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\OperadoraModel;
+use Http\Response;
 
 final class PlanoSaudeController extends Controller
 {
@@ -104,27 +105,19 @@ final class PlanoSaudeController extends Controller
 
     public function getRealizarSimulacao(Request $request)
     {
-        // ((new ClubeApiHelper()))
-        // ->body([
-        // 'operadora'        => $request->operadora,
-        // 'regiao'           => $request->regiaoSelecionada,
-        // 'plano'            => $request->planoSelecionado,
-        // 'data_nascimento'  => $request->dtNascimentoTitular,
-        // 'dependentes'      => $request->dtNascimentoDependentes,
-        // 'acomodacao'       => $request->acomodacao
-        // ])
-        // ->post('/saude/simulacao')
-        // ->object();
-        $valor_titular = 12;
-        $valor_dependentes = [12, 10];
-        $valor_total = $valor_titular + array_sum($valor_dependentes);
-        $data_simulacao = uuid();
-        return mensagemSucesso([
-            'data_simulacao'              => $data_simulacao,
-            'valor_titular'               => $valor_titular,
-            'valor_dependentes'           => array_sum($valor_dependentes),
-            'valor_total'                 => $valor_total
-        ]);
+        $dado = ((new ClubeApiHelper()))
+        ->body([
+            'operadora'        => $request->operadora,
+            'regiao'           => $request->regiaoSelecionada,
+            'plano'            => $request->planoSelecionado,
+            'data_nascimento'  => $request->dtNascimentoTitular,
+            'dependentes'      => $request->dtNascimentoDependentes,
+            'acomodacao'       => $request->acomodacao
+        ])
+        ->post('/saude/simulacao')
+        ->object();
+
+        return new Response(json:$dado);
     }
 
     public function simulacao($url = null)

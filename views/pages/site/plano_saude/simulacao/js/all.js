@@ -103,11 +103,12 @@ window.addEventListener('load', () => {
     });
 
     const fazerSimulacao = document.querySelector('#fazerSimulacao');
-    let dtNascimentoTitular = document.querySelector('#input_data_nascimento').value;
-    let dependentes = document.querySelectorAll('input#input_dependente.input_geral.input_data');
-    let dtNascimentoDependentes = [];
 
     fazerSimulacao.addEventListener('click', async e => {
+        let dtNascimentoTitular = document.querySelector('#input_data_nascimento').value;
+        let dependentes = document.querySelectorAll('input#input_dependente.input_geral.input_data');
+        let dtNascimentoDependentes = [];
+        alert(dtNascimentoTitular);
         dependentes.forEach(dataDependente => {
             dtNascimentoDependentes.push(dataDependente.value);
         });
@@ -115,13 +116,7 @@ window.addEventListener('load', () => {
             dtNascimentoDependentes.shift();
         }
 
-        const query = `&operadora=${operadora}&
-        regiaoSelecionada=${regiaoSelecionada}&
-        planoSelecionado=${planoSelecionado}&
-        dtNascimentoTitular=${dtNascimentoTitular}&
-        dtNascimentoDependentes=${dtNascimentoDependentes}&
-        acomodacao=${acomodacao}`;
-
+        const query = `&operadora=${operadora}&regiaoSelecionada=${regiaoSelecionada}&planoSelecionado=${planoSelecionado}&dtNascimentoTitular=${dtNascimentoTitular}&dtNascimentoDependentes=${dtNascimentoDependentes}&acomodacao=${acomodacao}`;
         const resposta = await ajaxGet(LINK + '/saude/realizar-simulacao?' + query);
         if (resposta === false) {
             return;
