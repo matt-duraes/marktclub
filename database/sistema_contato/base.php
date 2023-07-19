@@ -3,7 +3,7 @@
 return (new \DataBase\DataBase())
     ->id()
     ->uuid()
-    ->varchar('cod')->tamanho('36')
+    ->cod()
     ->varchar('tabela')->tamanho(100)
     ->nome('contato')->null()
     ->int('local')->tamanho(1)->null()

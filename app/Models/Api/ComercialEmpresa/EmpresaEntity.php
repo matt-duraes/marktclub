@@ -12,10 +12,10 @@ use Modules\Email;
 use Modules\Inteiro;
 use Modules\Dinheiro;
 use Modules\Telefone;
+use Helpers\OrmHelper;
 use Modules\EnderecoEstado;
 use App\Classes\ComercialEmpresa\Status;
 use App\Classes\ComercialEmpresa\TipoSite;
-use App\Models\Api\UsuarioEquipe\HelperModel;
 use App\Classes\ComercialEmpresa\EmailDisparo;
 use App\Classes\ComercialEmpresa\ContratoPrazo;
 use App\Classes\ComercialEmpresa\TipoPagamento;
@@ -161,8 +161,7 @@ final class EmpresaEntity extends Entity
             $this->id_usuario_equipe = array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->get('id') : null;
             return;
         }
-        $Equipe = new HelperModel();
-        $this->id_usuario_equipe = $Equipe->pegarIdPeloUuid($this->equipe);
+        $this->id_usuario_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
     }
 
     protected function regraPosBuscar()
@@ -173,8 +172,7 @@ final class EmpresaEntity extends Entity
 
         $this->valor_pago = new UltimaFaturaModel(Empresa: $this);
 
-        $Equipe = new HelperModel();
-        $this->equipe = $Equipe->pegarUuidPeloId($this->id_usuario_equipe);
+        $this->equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_equipe);
     }
 
     protected function getId()

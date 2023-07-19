@@ -5,10 +5,10 @@ namespace App\Models\Api\ComercialRegra;
 use ORM\ORM;
 use stdClass;
 use Http\Request;
+use Helpers\OrmHelper;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
-use App\Models\Api\ComercialEmpresa\HelperModel;
 
 final class RegraModel extends ORM implements ModelListarInterface
 {
@@ -62,7 +62,7 @@ final class RegraModel extends ORM implements ModelListarInterface
         }
         $empresa = $this->request->empresa;
         if (!empty($empresa)) {
-            $where[] = ['id_comercial_empresa', 'json', (new HelperModel())->pegarIdPeloUuid($empresa)];
+            $where[] = ['id_comercial_empresa', 'json', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($empresa)];
         }
         return $where;
     }

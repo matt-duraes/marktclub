@@ -3,10 +3,12 @@
 namespace App\Models\Api\UsuarioEquipe;
 
 use Modules\Botao;
+use Helpers\OrmHelper;
 
 final class PerfilModel
 {
     private array $usuarioVazio;
+    private array $listaUsuario = [];
 
     public function __construct()
     {
@@ -30,26 +32,39 @@ final class PerfilModel
     {
         if (empty($id)) {
             return $vazio ? $this->usuarioVazio : [];
-        }
-        try {
-            $Equipe = new EquipeEntity();
-            if (is_int($id)) {
-                $Equipe->id($id);
-            } elseif (in_array(strlen($id), [32, 36])) {
-                $Equipe->uuid($id);
-            } else {
-                return $vazio ? $this->usuarioVazio : [];
-            }
-            return [
-                'id'      => $Equipe->id,
-                'perfil'  => $Equipe->perfil,
-                'nome'    => $Equipe->nome->nome(),
-                'imagem'  => $Equipe->imagem,
-                'gerente' => $Equipe->gerente->valor()
-            ];
-        } catch (\Throwable) {
+        } elseif (array_key_exists($id, $this->listaUsuario)) {
+            return $this->listaUsuario[$id];
+        } elseif (is_int($id)) {
+            $where = ['id', $id];
+        } elseif (in_array(strlen($id), [32, 36])) {
+            $where = ['uuid', $id];
+        } else {
             return $vazio ? $this->usuarioVazio : [];
         }
+
+        $equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUltimoRegistro(
+            where: $where,
+            campo: [
+                'uuid', 'perfil', 'nome', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook',
+                'imagem_google', 'gerente'
+            ],
+            retorno: 'object'
+        );
+
+        $dado = [
+            'id'      => $equipe->uuid,
+            'perfil'  => $equipe->nome_perfil,
+            'nome'    => $equipe->nome_real,
+            'imagem'  => imagemUsuario(
+                $equipe->imagem_tipo,
+                $equipe->imagem_arquivo,
+                $equipe->imagem_facebook,
+                $equipe->imagem_google
+            ),
+            'gerente' => $equipe->gerente == 1 ? 'sim' : 'nao'
+        ];
+        $this->listaUsuario[$id] = $dado;
+        return $dado;
     }
 
     /**

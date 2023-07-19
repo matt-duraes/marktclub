@@ -2,7 +2,7 @@
 
 return (new \DataBase\DataBase())
     ->id()
-    ->char('cod')->tamanho(36)
+    ->cod()
     ->int('id_usuario_equipe')->relacionado(TABELA_USUARIO_EQUIPE, 'id')->null()
     ->int('id_admin_empresa')->null()
     ->nome('titulo')->null()

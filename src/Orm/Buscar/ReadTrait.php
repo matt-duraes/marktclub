@@ -261,7 +261,7 @@ trait ReadTrait
 
         $as = !empty($as) && str_contains($as, '!') ? substr($as, 1) : $as;
 
-        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->ormReplace);
+        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->campoReplace);
         $lista = [];
         foreach ($campo as $val) {
             if (is_string($val)) {

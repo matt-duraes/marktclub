@@ -3,7 +3,7 @@
 namespace App\Models\Api\UsuarioEquipe;
 
 use ORM\ORM;
-use App\Models\Api\ComercialEmpresa\HelperModel;
+use Helpers\OrmHelper;
 
 final class MudarEmpresaModel extends ORM
 {
@@ -14,8 +14,7 @@ final class MudarEmpresaModel extends ORM
         parent::__construct();
         $idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario'])
             ? TOKEN['usuario']->get('id') : 0;
-        $idEmpresa = (new HelperModel())->pegarIdPeloUuid($empresa);
-
+        $idEmpresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA, false))->pegarIdPeloUuid($empresa);
         $this->validarIdUsuarioEmpresa($idUsuario, $idEmpresa);
         $this->atualizarEmpresa($idUsuario, $idEmpresa);
     }

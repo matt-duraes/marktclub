@@ -9,21 +9,46 @@ $ROOT = __DIR__ . '/../../../../';
 */
 $listaDiretorio = array_diff(scandir($ROOT . 'database'), ['.', '..']);
 $listaDefine = [];
+$listaReplace = [];
 
 foreach ($listaDiretorio as $diretorio) {
-    if (file_exists($ROOT . '/database/' . $diretorio . '/base.php')) {
-        $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $diretorio, inicio: 'tabela-');
-        $tabelaReal = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $diretorio;
-        $nomeDefine = 'TABELA_' . mb_strtoupper($diretorio, 'UTF-8');
-        $listaDefine[] = 'define("' . $nomeDefine . '", "' . $tabelaReal . '");';
-        if (!defined($nomeDefine)) {
-            define($nomeDefine, $tabelaReal);
-        }
+    if (!file_exists($ROOT . '/database/' . $diretorio . '/base.php')) {
+        continue;
     }
+    $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $diretorio, inicio: 'tabela-');
+    $tabelaReal = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $diretorio;
+    $nomeDefine = 'TABELA_' . mb_strtoupper($diretorio, 'UTF-8');
+    $listaDefine[] = 'define("' . $nomeDefine . '", "' . $tabelaReal . '");';
+    if (!defined($nomeDefine)) {
+        define($nomeDefine, $tabelaReal);
+    }
+
+    $Database = include $ROOT . '/database/' . $diretorio . '/base.php';
+    $Database->diretorio = $diretorio;
+    $Database->tabela = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $diretorio;
+    $replace = $Database->replace;
+    if ($replace) {
+        $listaReplace[$Database->tabela] = $replace;
+    }
+}
+if ($listaReplace) {
+    $replaceTabela = [];
+    foreach ($listaReplace as $tabela => $parametro) {
+        $replaceCampo = [];
+        foreach ($parametro as $ind => $val) {
+            $replaceCampo[] = "'{$ind}' => '{$val}'";
+        }
+        $replaceTabela[] = "'{$tabela}' => [" . PHP_EOL . '        '
+            . implode(',' . PHP_EOL . '        ', $replaceCampo) . PHP_EOL . '    ]';
+    }
+
+    $replaceHtml = '<?php' . PHP_EOL . PHP_EOL . 'return [' . PHP_EOL . '    '
+        . implode(',' . PHP_EOL . '    ', $replaceTabela) . PHP_EOL . '];' . PHP_EOL;
+    file_put_contents(ROOT . '/database/replace.php', $replaceHtml);
 }
 
 if ($listaDefine) {
-    file_put_contents(ROOT . '/files/banco/tabela.php', '<?php ' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $listaDefine));
+    file_put_contents(ROOT . '/database/tabela.php', '<?php ' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $listaDefine));
 }
 
 /*

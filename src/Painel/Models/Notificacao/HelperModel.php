@@ -2,7 +2,7 @@
 
 namespace PainelModel\Notificacao;
 
-final class HelperModel
+final class RetornoModel
 {
     public function tratarRetorno($lista)
     {
