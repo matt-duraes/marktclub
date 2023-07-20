@@ -26,6 +26,12 @@ class IndicacaoParceiroEntity extends Entity
         'id_admin_empresa',  'id_usuario_cliente', 'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
     ];
 
+    protected string $ormValidarSalvar = '
+        parceiro|Parceiro|obrigatorio|vazio
+        telefone|Telefone|vazio|valido
+        email|Email|vazio|valido
+    ';
+
     public int $idUsuario;
     public int $idEmpresa;
     public string $parceiro;
@@ -36,7 +42,7 @@ class IndicacaoParceiroEntity extends Entity
     public Tipo $tipo;
 
     public function __construct(
-        private readonly ?Request $request = null
+        protected readonly ?Request $request = null
     ) {
 
         parent::__construct();
@@ -50,36 +56,11 @@ class IndicacaoParceiroEntity extends Entity
      */
     public function regraInsert(): void
     {
-        $this->validarRequest();
         $this->id_admin_empresa = $this->idEmpresa;
         $this->id_usuario_cliente = $this->idUsuario;
         $this->status = new Status(Status::CRIADA);
     }
 
-    /**
-     * @throws Excecao
-     */
-    private function validarRequest(): void
-    {
-        $validarHelper = new ValidarHelper();
-
-        $this->tipo = new Tipo($this->tipo ?? '');
-        $this->parceiro = $this->parceiro ?? '';
-        $this->telefone = new Telefone($this->telefone ?? '');
-        $this->email = new Email($this->email ?? '');
-
-        $validarHelper
-            ->valor($this->parceiro, 'Parceiro', 'Digite o nome do parceiro que deseja indicar.')
-            ->obrigatorio()
-            ->vazio()
-            ->valor($this->telefone, 'Telefone', 'Digite o telefone do parceiro que deseja indicar.')
-            ->obrigatorio()
-            ->valido()
-            ->valor($this->email, 'Email', 'Digite o email do parceiro que deseja indicar.')
-            ->obrigatorio()
-            ->valido();
-
-    }
 
 
 }

@@ -36,7 +36,7 @@ class ContatoEntity extends Entity
     ];
 
     public function __construct(
-        private readonly ?Request $request = null
+        protected readonly ?Request $request = null
     ) {
         parent::__construct();
 
