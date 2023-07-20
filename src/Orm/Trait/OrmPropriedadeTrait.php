@@ -11,7 +11,6 @@ trait OrmPropriedadeTrait
     protected string $ormTabela;
     private string $ormTabelaAtual;
     protected array $ormWherePadrao = [];
-    private array $campoReplace = [];
     private int $ormUltimoId = 0;
     private array $ormDado;
     private int $ormCondicaoNumero = 0;

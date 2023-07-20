@@ -1014,7 +1014,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:select'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
             ::request(['!titulo', '!empresa'], 'json')
             ::get('/comercial-subempresa/select');
     });

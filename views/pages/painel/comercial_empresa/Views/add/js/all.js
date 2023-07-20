@@ -64,11 +64,17 @@ window.addEventListener('load', () => {
     };
     if (inputFinalidadePrincipal.value != '') {
         buscarListaFinalidadeSecundaria(inputFinalidadePrincipal.value, inputFinalidadeSecundaria.value);
+        if (inputFinalidadePrincipal.value == 'publica') {
+            blocoDataEleicao.classList.remove('display_none');
+        }
     }
     if (inputProdutoClube) {
         inputProdutoClube.addEventListener('change', () => {
             mudarDisplay(inputProdutoClube, [blocoTipoSite]);
         });
+        if (inputProdutoClube.checked) {
+            mudarDisplay(inputProdutoClube, [blocoTipoSite]);
+        }
     }
     if (inputComunicacaoEmail) {
         inputComunicacaoEmail.addEventListener('change', () => {

@@ -94,9 +94,9 @@ final class RelatorioController extends Controller
         }
 
         $uri = [
-            'usuario' => 'usuario-mais-acesso',
-            'pagina'  => 'pagina-mais-acessada',
-            'loja'    => 'loja-mais-acessada'
+            'usuario'     => 'usuario-mais-acesso',
+            'pagina'      => 'pagina-mais-acessada',
+            'loja'        => 'loja-mais-acessada'
         ];
 
         $body = [
@@ -105,6 +105,8 @@ final class RelatorioController extends Controller
         ];
         if ($request->empresa) {
             $body['empresa'] = $request->empresa;
+        } elseif ($local == 'loja' && !empty($request->estabelecimento)) {
+            $body['estabelecimento'] = $request->estabelecimento;
         }
 
         $Api = new ApiHelper(token: true);

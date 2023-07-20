@@ -64,19 +64,18 @@ abstract class ORM
             $senha,
             $option
         );
-        $this->montarReplace();
     }
 
-    private function montarReplace()
+    private function pegarReplace(): array
     {
         if (!file_exists(ROOT . '/database/replace.php')) {
-            return;
+            return [];
         }
         $replace = require ROOT . '/database/replace.php';
-        if (!array_key_exists($this->ormTabela, $replace)) {
-            return;
+        if (!array_key_exists($this->ormTabelaAtual, $replace)) {
+            return [];
         }
-        $this->campoReplace = $replace[$this->ormTabela];
+        return $replace[$this->ormTabelaAtual];
     }
 
     private function ormCriarValorUnico($campo, $valor, $tamanho, $numero = 0)

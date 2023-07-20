@@ -48,7 +48,7 @@ ajax = async (link, metodo, body, erro, opcao) => {
             const [indice, valor] = valores;
             lista.push(indice + '=' + encodeURI(valor));
         });
-        lista = lista.split('&');
+        lista = lista.join('&');
         link = link.includes('?') ? link + '&' + lista : link + '?' + lista;
     }
     opcao.method = metodo;
