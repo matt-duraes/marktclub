@@ -23,7 +23,7 @@ final class ConfiguracaoEntity extends Entity
         parent::__construct();
 
         try {
-            $this->buscar(['id_admin_empresa', TOKEN['empresa']->get('id')]);
+            $this->buscar(['id_admin_empresa', TOKEN['empresa']->id]);
         } catch (\Throwable) {
             $this->buscar(['id_admin_empresa', 0]);
         }

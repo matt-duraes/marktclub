@@ -11,7 +11,7 @@ final class StatusModel extends ORM
 
     public function __construct()
     {
-        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->id : 1;
         parent::__construct();
     }
 

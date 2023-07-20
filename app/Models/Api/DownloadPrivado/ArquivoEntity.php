@@ -50,7 +50,7 @@ final class ArquivoEntity extends Entity
     {
         $this->gerarArquivo();
         $this->pegarUsuario();
-        $this->id_admin_empresa = TOKEN['empresa']->get('id');
+        $this->id_admin_empresa = TOKEN['empresa']->id;
         $this->id_usuario_equipe = $this->Equipe->get('id');
         $this->status = new Status(Status::NOVO);
     }

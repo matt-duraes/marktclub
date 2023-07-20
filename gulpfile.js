@@ -28,6 +28,7 @@ const {
     buildPaginaExemplo,
     buildArquivoErro,
     buildCorrigindoComposer,
+    buildCopiarIndex,
 } = require('./src/Gulpfile/build.js');
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
@@ -97,7 +98,7 @@ exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
 exports.build = series(
-    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
+    parallel(copiandoArquivoIndex, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
     copiandoArquivosCSS
 );
 exports.composerBugfix = series(corrigindoBugDoComposer);
@@ -277,6 +278,9 @@ function preparandoCSSParaProducao() {
 
 function copiandoArquivosJS() {
     return jsTodos();
+}
+function copiandoArquivoIndex() {
+    return buildCopiarIndex();
 }
 
 function preparandoJSParaProducao() {

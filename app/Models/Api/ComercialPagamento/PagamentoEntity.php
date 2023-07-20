@@ -19,7 +19,7 @@ final class PagamentoEntity extends Entity
     ) {
         parent::__construct();
         $this->id_admin_empresa = $Empresa->get('id');
-        $this->id_usuario_equipe = TOKEN['usuario']->get('id');
+        $this->id_usuario_equipe = TOKEN['usuario']->id;
         $this->salvar();
     }
 }

@@ -27,7 +27,14 @@ return [
         'cod' => 'uuid'
     ],
     'usuario_novo' => [
-        'cod' => 'uuid'
+        'cod'         => 'uuid',
+        'empresa'     => 'id_admin_empresa',
+        'titular'     => 'id_usuario_cliente',
+        'documento'   => 'cpf',
+        'sexo'        => 'genero',
+        'aniversario' => 'data_nascimento',
+        'cidade'      => 'endereco_cidade',
+        'uf'          => 'endereco_estado'
     ],
     'usuario_indicacao' => [
         'cod' => 'uuid'

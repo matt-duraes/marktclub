@@ -99,7 +99,7 @@ final class LoginController extends Controller
         }
 
         $Usuario = $Login->pegarUsuario();
-        $payload = (new PayloadModel($Usuario))->payload;
+        $payload = (new PayloadModel($Usuario, 'web'))->payload;
 
         return $this->criarToken(
             body: $payload,

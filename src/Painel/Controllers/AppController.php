@@ -52,7 +52,6 @@ final class AppController extends PadraoController
             if (!empty($filtro) && is_array($filtro)) {
                 $parametro = array_merge($parametro, $filtro);
             }
-
             $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
             $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
             $dado = $this->validarRetornoApi($dado, true);

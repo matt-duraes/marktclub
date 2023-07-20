@@ -109,7 +109,7 @@ final class UsuarioEquipeController extends Controller implements
 
     public function postValidarSenha(Request $request)
     {
-        $id = TOKEN['usuario']->get('id');
+        $id = TOKEN['usuario']->id;
 
         $senha = $request->senha;
         if (!defined('TOKEN')) {

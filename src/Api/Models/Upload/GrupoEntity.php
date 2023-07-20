@@ -135,7 +135,7 @@ final class GrupoEntity extends Entity
     {
         $this->pegarPai();
         $this->id_upload_grupo = $this->pai['id'];
-        $this->id_usuario_equipe = TOKEN['usuario']->get('id');
+        $this->id_usuario_equipe = TOKEN['usuario']->id;
     }
 
     /**

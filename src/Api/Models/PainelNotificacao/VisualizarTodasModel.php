@@ -16,7 +16,7 @@ final class VisualizarTodasModel extends ORM
     {
         parent::__construct();
         try {
-            $this->idUsuario = TOKEN['usuario']->get('id');
+            $this->idUsuario = TOKEN['usuario']->id;
         } catch (Throwable) {
             mensagemStatus(404);
         }
