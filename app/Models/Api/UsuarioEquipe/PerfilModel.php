@@ -45,7 +45,7 @@ final class PerfilModel
         $equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUltimoRegistro(
             where: $where,
             campo: [
-                'uuid', 'perfil', 'nome', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook',
+                'uuid', 'nome_perfil', 'nome_real', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook',
                 'imagem_google', 'gerente'
             ],
             retorno: 'object'
