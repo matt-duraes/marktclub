@@ -2,12 +2,16 @@
 
 namespace App\Models\Api\LoginPainel;
 
+use stdClass;
 use Http\Request;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use Modules\Senha;
+use App\Classes\LoginPainel\PegarEquipeTrait;
 
 final class LoginFormModel
 {
-    private EquipeEntity $Usuario;
+    use PegarEquipeTrait;
+
+    private stdClass $Usuario;
 
     /**
      * Faz o login normal do usuário com usuario e senha
@@ -22,7 +26,7 @@ final class LoginFormModel
         $this->buscarUsuarioPeloLoginSenha();
     }
 
-    public function pegarUsuario(): EquipeEntity
+    public function pegarUsuario(): stdClass
     {
         return $this->Usuario;
     }
@@ -47,18 +51,18 @@ final class LoginFormModel
     private function buscarUsuarioPeloLoginSenha(): void
     {
         $documento = preg_replace('/[^0-9]/', '', $this->login);
-        $Usuario = new EquipeEntity(validarToken: false);
-        try {
-            $Usuario->buscar(where: [
-                ['documento_cpf', $documento],
-                ['status', 1]
-            ]);
-        } catch (\Throwable) {
+        $Usuario = $this->pegarEquipe([
+            ['documento_cpf', $documento],
+            ['status', 1]
+        ]);
+
+        if (vazio($Usuario)) {
             password_verify($this->senha, '$2y$11$gqvgsZOatns5gStLVwaz8uANvVsSvSvq4WS8OH5lz2tJaXcO1h23O');
             $this->UsuarioNaoEncontrado();
         }
 
-        if (!$Usuario->senha->validarSenha($this->senha)) {
+        $Senha = new Senha($Usuario->salt);
+        if (!$Senha->validarSenha($this->senha)) {
             $this->UsuarioNaoEncontrado();
         }
 

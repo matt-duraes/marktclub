@@ -158,7 +158,7 @@ final class EmpresaEntity extends Entity
     private function setarUsuarioEquipe()
     {
         if (!$this->propriedadeExiste('equipe')) {
-            $this->id_usuario_equipe = array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->get('id') : null;
+            $this->id_usuario_equipe = array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->id : null;
             return;
         }
         $this->id_usuario_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);

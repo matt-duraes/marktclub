@@ -18,7 +18,7 @@ class CupomModel extends ORM
     public function __construct()
     {
         parent::__construct();
-        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->id : 1;
     }
 
     /**

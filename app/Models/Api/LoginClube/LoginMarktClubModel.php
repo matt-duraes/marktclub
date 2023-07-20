@@ -2,12 +2,16 @@
 
 namespace App\Models\Api\LoginClube;
 
+use stdClass;
+use Modules\Senha;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Classes\LoginClube\PegarClienteTrait;
 
 final class LoginMarktClubModel extends LoginPadraoModel
 {
-    public ClienteEntity $Usuario;
+    use PegarClienteTrait;
+
+    public stdClass $Usuario;
 
     public function __construct(
         private string $login,
@@ -29,15 +33,14 @@ final class LoginMarktClubModel extends LoginPadraoModel
 
     protected function buscarUsuarioPeloLoginSenha(): void
     {
-        $Usuario = new ClienteEntity(validarToken: false);
-        try {
-            $Usuario->buscar(where: $this->pegarWhere());
-        } catch (\Throwable) {
+        $Usuario = $this->pegarCliente($this->pegarWhere());
+        if (vazio($Usuario)) {
             password_verify($this->senha, '$2y$11$gqvgsZOatns5gStLVwaz8uANvVsSvSvq4WS8OH5lz2tJaXcO1h23O');
             $this->UsuarioNaoEncontrado();
         }
 
-        if (!$Usuario->senha->validarSenha($this->senha)) {
+        $Senha = new Senha($Usuario->salt);
+        if (!$Senha->validarSenha($this->senha)) {
             $this->UsuarioNaoEncontrado();
         }
 

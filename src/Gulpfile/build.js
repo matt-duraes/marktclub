@@ -14,6 +14,15 @@ const plumber = require('gulp-plumber');
 const { mensagemErro, mensagemSucesso } = require('./mensagem.js');
 let config;
 
+exports.buildCopiarIndex = () => {
+    if (config == undefined) {
+        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
+    }
+    return src('./src/Files/public/index.php')
+        .pipe(plumber())
+        .pipe(dest('./' + config.public));
+};
+
 exports.buildGit = () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));

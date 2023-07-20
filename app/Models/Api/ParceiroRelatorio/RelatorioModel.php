@@ -21,7 +21,7 @@ final class RelatorioModel extends ORM
         private Request $request
     ) {
         parent::__construct();
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->idEmpresa = TOKEN['empresa']->id;
     }
 
     public function listarDado(): stdClass

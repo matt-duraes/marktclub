@@ -49,7 +49,7 @@ final class LoginModel extends Entity
 
         parent::__construct();
 
-        $this->idEmpresa = !empty($idEmpresa) ? $idEmpresa : TOKEN['empresa']->get('id');
+        $this->idEmpresa = !empty($idEmpresa) ? $idEmpresa : TOKEN['empresa']->id;
         $this->hash = uuid();
 
         $this->buscarLinkClube();

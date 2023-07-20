@@ -33,7 +33,7 @@ final class UsuarioTabelaModel extends ORM
 
         $Configuracao = new ConfiguracaoEntity();
         $this->obrigatorio = $Configuracao->campo_obrigatorio['usuario_cliente'] ?? ['cpf'];
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->idEmpresa = TOKEN['empresa']->id;
     }
 
     public function retorno()

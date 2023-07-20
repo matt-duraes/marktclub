@@ -3,13 +3,17 @@
 namespace App\Models\Api\ApiToken;
 
 use Helpers\JwtHelper;
-use App\Models\Api\ApiApp\AppEntity;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use App\Models\Api\ApiToken\Trait\ScopeTrait;
+use App\Models\Api\ApiToken\Trait\TokenTrait;
+use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ApiToken\Trait\PegarEmpresaTrait;
 
 final class ValidarTokenCredentialModel
 {
-    use Trait\ScopeTrait;
-    use Trait\TokenTrait;
+    use ScopeTrait;
+    use TokenTrait;
+    use PegarAppTrait;
+    use PegarEmpresaTrait;
 
     public function validar(string $token): bool
     {
@@ -26,29 +30,21 @@ final class ValidarTokenCredentialModel
         $audience = $dado['aud'];
         $scope = explode(' ', $dado['scope']);
 
-        try {
-            $App = new AppEntity();
-            $App->buscar(['client_id', $clitenId]);
-        } catch (\Throwable $e) {
-            $this->erro403('ValidarTokenCredential - Erro ao buscar o APP.', $e);
-        }
-
+        $App = $this->pegarApp(['client_id', $clitenId]);
         if ($App->audience != $audience) {
             $this->erro403('ValidarTokenCredential - Audience do APP é invalido.');
         }
 
-        try {
-            $Empresa = new EmpresaEntity();
-            $Empresa->buscar([
-                ['id', $App->id_admin_empresa],
-                ['status', 'in', [1, 2]]
-            ]);
-        } catch (\Throwable $e) {
-            $this->erro403('ValidarTokenCredential - Não foi encontrado uma empresa.', $e);
+        $Empresa = $this->pegarEmpresa([
+            ['id', $App->id_admin_empresa],
+            ['status', 'in', [1, 2]]
+        ]);
+
+        if (vazio($Empresa)) {
+            $this->erro403('ValidarTokenCredential - Não foi encontrado uma empresa.');
         }
 
-        $Usuario = [];
-
+        $Usuario = (object)[];
         $this->validarScope($scope, $App->scope_permitido);
         $this->criarDefinesDoToken($token, $App, $Empresa, $Usuario, $scope, $dado['gty']);
 

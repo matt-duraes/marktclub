@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use App\Classes\SolicitacaoCredito\Operadora;
-use App\Classes\SolicitacaoCredito\Status;
-use App\Classes\SolicitacaoCredito\Tipo;
+use ORM\Entity;
 use Erro\Excecao;
-use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Dinheiro;
-use ORM\Entity;
+use Helpers\ValidarHelper;
+use App\Classes\SolicitacaoCredito\Tipo;
+use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\SolicitacaoCredito\Operadora;
 
 class CreditoEntity extends Entity
 {
@@ -53,7 +53,7 @@ class CreditoEntity extends Entity
         private readonly ?Request $request = null
     ) {
         parent::__construct();
-        $this->empresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+        $this->empresa = defined('TOKEN') ? TOKEN['empresa']->id : 1;
     }
 
     /*

@@ -265,10 +265,14 @@ trait ReadTrait
         $lista = [];
         foreach ($campo as $val) {
             if (is_string($val)) {
+                $asTemp = $as;
                 if ($replace && array_key_exists($val, $replace)) {
+                    if (empty($as)) {
+                        $asTemp = '!`' . $val . '`';
+                    }
                     $val = $replace[$val];
                 }
-                $lista[] = $this->setarStringCampo($val, $as);
+                $lista[] = $this->setarStringCampo($val, $asTemp);
                 continue;
             } elseif (is_array($val) && count($val) == 2) {
                 $lista[] = $this->setarStringCampo($val[0], $val[1]);
@@ -279,6 +283,7 @@ trait ReadTrait
                 mensagem: 'Lista de campos da busca com formato inválido.'
             );
         }
+
         $this->ormCampo[] = implode(', ', $lista);
         return $this;
     }
