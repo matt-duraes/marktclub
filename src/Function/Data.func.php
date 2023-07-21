@@ -59,7 +59,7 @@ if (!function_exists('dataBr')) {
      *
      * @param null|string $data Data a ser convertida
      *
-     * @return string      Data no formato d/m/Y
+     * @return string Data no formato d/m/Y
      */
     function dataBr(?string $data): string
     {
@@ -78,7 +78,7 @@ if (!function_exists('dataHoraBr')) {
      *
      * @param null|string $data Data a ser convertida
      *
-     * @return string      Data no formato d/m/Y H:i:s
+     * @return string Data no formato d/m/Y H:i:s
      */
     function dataHoraBr(?string $data): string
     {
@@ -97,7 +97,7 @@ if (!function_exists('dataBanco')) {
      *
      * @param null|string $data Data a ser convertida
      *
-     * @return string      Data no formato Y-m-d
+     * @return string Data no formato Y-m-d
      */
     function dataBanco(?string $data): string
     {
@@ -116,7 +116,7 @@ if (!function_exists('dataHoraBanco')) {
      *
      * @param null|string $data Data a ser convertida
      *
-     * @return string      Data no formato Y-m-d H:i:s
+     * @return string Data no formato Y-m-d H:i:s
      */
     function dataHoraBanco(?string $data): string
     {
@@ -137,7 +137,7 @@ if (!function_exists('dataMesAno')) {
      *
      * @param null|string $data Data a ser convertida
      *
-     * @return string      Data no formato m/Y
+     * @return string Data no formato m/Y
      */
     function dataMesAno(string $data): string
     {
@@ -154,7 +154,7 @@ if (!function_exists('dataAnoMes')) {
      *
      * @param null|string $data Data a ser convertida
      *
-     * @return string      Data no formato Y-m
+     * @return string Data no formato Y-m
      */
     function dataAnoMes(string $data): string
     {
@@ -321,7 +321,7 @@ if (!function_exists('dataSocial')) {
      * @param null|string $data  Data a ser convertida
      * @param bool        $curto True para data com padrão curto ou false para padrão normal
      *
-     * @return string      Data com o formato social
+     * @return string Data com o formato social
      */
     function dataSocial(?string $data, bool $curto = false): string
     {
@@ -342,7 +342,7 @@ if (!function_exists('dataIdade')) {
      *
      * @param string|null $data Data a ser convertida
      *
-     * @return int|bool Retorna a idade em inteiro ou false caso a data enviada seja inválida
+     * @return int|bool  Retorna a idade em inteiro ou false caso a data enviada seja inválida
      * @throws Exception
      */
     function dataIdade(string $data = null): int|bool

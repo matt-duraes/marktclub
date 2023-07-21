@@ -35,7 +35,7 @@ abstract class AbstractOperadora implements OperadoraInterface
     /**
      * @param Data $dataNascimento Data de Nascimento
      *
-     * @return int|null Idade, NULL caso valor inválido
+     * @return int|null  Idade, NULL caso valor inválido
      * @throws Exception
      */
     protected function pegarIdade(Data $dataNascimento): ?int

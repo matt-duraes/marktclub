@@ -61,7 +61,6 @@ class SimulacaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Exception
      */
     public function regraInsert(): void

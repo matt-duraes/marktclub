@@ -70,7 +70,6 @@ class CreditoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     private function validarRequest(): void
     {
@@ -108,7 +107,6 @@ class CreditoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     public function simularCredito(): void
     {
@@ -116,14 +114,13 @@ class CreditoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     private function retornarValorParcelas(): void
     {
         $valorParcelas = match ($this->tipo->indice()) {
-            Tipo::CONSIGNADO => $this->jurosConsignado()->calcularParcelas(),
-            Tipo::CREDITO_PESSOAL => $this->jurosCreditoPessoal()->calcularParcelas(),
-            Tipo::VEICULO_NOVO => $this->jurosVeiculoNovo()->calcularParcelas(),
+            Tipo::CONSIGNADO       => $this->jurosConsignado()->calcularParcelas(),
+            Tipo::CREDITO_PESSOAL  => $this->jurosCreditoPessoal()->calcularParcelas(),
+            Tipo::VEICULO_NOVO     => $this->jurosVeiculoNovo()->calcularParcelas(),
             Tipo::VEICULO_SEMINOVO => $this->jurosVeiculoSeminovo()->calcularParcelas()
         };
 
@@ -137,7 +134,7 @@ class CreditoEntity extends Entity
     {
         return match ($this->operadora->indice()) {
             Operadora::SICOOB => $this->calcularParcelasNaSicoob(),
-            default => 0
+            default           => 0
         };
     }
 
@@ -153,7 +150,7 @@ class CreditoEntity extends Entity
 
         return match ($this->tipo->indice()) {
             Tipo::CONSIGNADO => $this->calcularSeguroSicoob($valorParcelas),
-            default => $valorParcelas
+            default          => $valorParcelas
         };
     }
 

@@ -18,7 +18,7 @@ class SolicitacaoCreditoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param string $id
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -27,19 +27,6 @@ class SolicitacaoCreditoController extends Controller implements
     {
         $CreditoEntity = new CreditoEntity($request);
         $CreditoEntity->simularCredito();
-        return $this->retornoSucesso($CreditoEntity, 201);
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getBuscar(string $id): Response
-    {
-        $CreditoEntity = new CreditoEntity();
-        $CreditoEntity->uuid($id);
         return $this->retornoSucesso($CreditoEntity);
     }
 
@@ -56,12 +43,25 @@ class SolicitacaoCreditoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $creditoEntity,
                 lista: [
-                    'operadora', 'tipo', 'valor', 'parcelas', 'valor_parcelas',
-                    'observacao', 'status'
+                    'codigo', 'operadora', 'tipo', 'valor', 'parcelas',
+                    'valor_parcelas', 'observacao', 'status', 'data_criacao'
                 ]
             ),
             $status
         );
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getBuscar(string $id): Response
+    {
+        $CreditoEntity = new CreditoEntity();
+        $CreditoEntity->uuid($id);
+        return $this->retornoSucesso($CreditoEntity);
     }
 
     /**
