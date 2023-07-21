@@ -4,6 +4,7 @@ namespace App\Classes\Saude\Operadoras;
 
 use App\Classes\Saude\Plano;
 use App\Classes\Saude\Regiao;
+use Exception;
 use Modules\Data;
 
 class Amil extends AbstractOperadora
@@ -70,6 +71,7 @@ class Amil extends AbstractOperadora
      * @param Data|null $dataNascimento Data de Nascimento (opcional)
      *
      * @return float|null Valor da simulação, NULL caso error ao simular
+     * @throws Exception
      */
     public function simularValor(Data $dataNascimento = null): ?float
     {
