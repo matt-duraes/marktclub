@@ -3,7 +3,6 @@
 namespace App\Models\Api\Saude\Contratacao;
 
 use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Saude\Documento\DocumentoEntity;
 use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
@@ -24,7 +23,7 @@ class ContratacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public int $id_simulacao;
+    public string $id_simulacao;
     public Cpf $documento_cpf;
     public string $documento_rg;
     public string $orgao_expedidor;
@@ -33,8 +32,8 @@ class ContratacaoEntity extends Entity
     public EstadoCivil $estado_civil;
     public string $naturalidade;
     public Genero $sexo;
-    public float $peso;
-    public float $altura;
+    public string $peso;
+    public string $altura;
     public string $filiacao;
     public Cpf $cpf_responsavel;
     public string $rg_responsavel;
@@ -75,41 +74,34 @@ class ContratacaoEntity extends Entity
         estado_civil|Estado Civil|obrigatorio|vazio|valido
         naturalidade|Naturalidade|obrigatorio|vazio
         sexo|Gênero|obrigatorio|vazio|valido
-        peso|Peso|vazio
-        altura|Altura|vazio
-        filiacao|Filiação|vazio
+        peso|Peso|obrigatorio|vazio
+        altura|Altura|obrigatorio|vazio
+        filiacao|Filiação|obrigatorio|vazio
         cpf_responsavel|CPF Responsável|vazio|valido
         rg_responsavel|RG Responsável|vazio
         nome_responsavel|Nome Responsável|vazio|valido
-        email|E-mail|vazio|valido
+        email|E-mail|obrigatorio|vazio|valido
         telefone_celular|Telefone Celular|obrigatorio|vazio|valido
         telefone_residencial|Telefone Residencial|vazio|valido
         telefone_comercial|Telefone Comercial|vazio|valido
-        ramal|Ramal|vazio
+        ramal|Ramal|obrigatorio
         endereco|Endereço|obrigatorio|vazio
         cep|CEP|obrigatorio|vazio|valido
         estado|Estado|obrigatorio|valido
         cidade|Cidade|obrigatorio|vazio
         bairro|Bairro|obrigatorio|vazio
-        numero|Númerp|obrigatorio|vazio
-        complemento|Complemento|vazio
+        numero|Número|obrigatorio|vazio
+        complemento|Complemento|obrigatorio
     ';
 
     /**
      * @param SimulacaoEntity $simulacaoEntity
      */
     public function __construct(
-        protected readonly SimulacaoEntity $simulacaoEntity
+        private readonly SimulacaoEntity $simulacaoEntity
     ) {
         $this->validarEmpresa();
         parent::__construct();
-    }
-
-    /**
-     */
-    public function regraInsert(): void
-    {
-        $this->simulacaoEntity->uuid($this->id_simulacao);
     }
 
     /**
@@ -117,9 +109,6 @@ class ContratacaoEntity extends Entity
      */
     public function regraPosInsert(): void
     {
-        $this->simulacaoEntity->status = new Status(Status::ENVIADO);
-        $this->simulacaoEntity->salvar();
-
         if (
             !object_key_exists('operadora', $this->simulacaoEntity)
             || $this->simulacaoEntity->operadora !== (new Operadora(Operadora::CENTRAL_NACIONAL_UNIMED))->numero()
