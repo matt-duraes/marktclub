@@ -36,52 +36,55 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha um status'));
     });
 });
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldsetCheckbox(
-        titulo: 'Permissões',
-        todos: 'Marcar todas as permissões',
-        mais: 1,
-        callback: function () use ($Painel) {
-            $permissao = sessao('PAINEL.permissao.montar');
-            foreach ($permissao as $ind => $dado) {
-                $titulo = $dado['titulo'] ?? '';
-                if (!empty($titulo)) {
-                    $Painel->html('<h4>' . $titulo . '</h4>');
-                }
-                if (array_key_exists('acao', $dado)) {
-                    foreach ($dado['acao'] as $acao) {
-                        if ($acao == 'index') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Listar', value: $ind . '_index');
-                        } elseif ($acao == 'visualizar') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Visualizar', value: $ind . '_visualizar');
-                        } elseif ($acao == 'download') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Download', value: $ind . '_download');
-                        } elseif ($acao == 'add') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Salvar', value: $ind . '_add');
-                        } elseif ($acao == 'editar') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Editar', value: $ind . '_editar');
-                        } elseif ($acao == 'deletar') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Deletar', value: $ind . '_deletar');
-                        } elseif ($acao == 'status') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Mudar status', value: $ind . '_status');
-                        } elseif ($acao == 'empresa') {
-                            $Painel->checkbox(
-                                name: 'permissao[]',
-                                label: 'Todas as empresas',
-                                value: $ind . '_empresa'
-                            );
-                        } elseif ($acao == 'analytics') {
-                            $Painel->checkbox(name: 'permissao[]', label: 'Analytics', value: $ind . '_analytics');
-                        }
+
+$permissaoUsuario = sessao('USUARIO.permissao');
+if (!in_array('usuario_equipe_permissao', $permissaoUsuario) || sessao('USUARIO.cpf') == '014.951.801-31') {
+    $Painel->coluna(callback: function () use ($Painel) {
+        $Painel->fieldsetCheckbox(
+            titulo: 'Permissões',
+            todos: 'Marcar todas as permissões',
+            mais: 1,
+            callback: function () use ($Painel) {
+                $permissao = sessao('PAINEL.permissao.montar');
+                foreach ($permissao as $ind => $dado) {
+                    $titulo = $dado['titulo'] ?? '';
+                    if (!empty($titulo)) {
+                        $Painel->html('<h4>' . $titulo . '</h4>');
                     }
-                } elseif (array_key_exists('permissao', $dado)) {
-                    foreach ($dado['permissao'] as $permissaoFinal => $nomePermissao) {
-                        $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissaoFinal);
+                    if (array_key_exists('acao', $dado)) {
+                        foreach ($dado['acao'] as $acao) {
+                            if ($acao == 'index') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Listar', value: $ind . '_index');
+                            } elseif ($acao == 'visualizar') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Visualizar', value: $ind . '_visualizar');
+                            } elseif ($acao == 'download') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Download', value: $ind . '_download');
+                            } elseif ($acao == 'add') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Salvar', value: $ind . '_add');
+                            } elseif ($acao == 'editar') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Editar', value: $ind . '_editar');
+                            } elseif ($acao == 'deletar') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Deletar', value: $ind . '_deletar');
+                            } elseif ($acao == 'status') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Mudar status', value: $ind . '_status');
+                            } elseif ($acao == 'empresa') {
+                                $Painel->checkbox(
+                                    name: 'permissao[]',
+                                    label: 'Todas as empresas',
+                                    value: $ind . '_empresa'
+                                );
+                            } elseif ($acao == 'analytics') {
+                                $Painel->checkbox(name: 'permissao[]', label: 'Analytics', value: $ind . '_analytics');
+                            }
+                        }
+                    } elseif (array_key_exists('permissao', $dado)) {
+                        foreach ($dado['permissao'] as $permissaoFinal => $nomePermissao) {
+                            $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissaoFinal);
+                        }
                     }
                 }
             }
-        }
-    );
-});
-
+        );
+    });
+}
 return $Painel;

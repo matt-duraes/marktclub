@@ -10,6 +10,17 @@ return [
             'usuario_indicacao'     => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_lead'          => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_equipe'        => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
+            'usuario_equipe'        => [
+                'titulo'    => 'Equipe',
+                'permissao' => [
+                    'usuario_equipe_index'            => 'Listar',
+                    'usuario_equipe_add'              => 'Salvar',
+                    'usuario_equipe_editar'           => 'Editar',
+                    'usuario_equipe_deletar'          => 'Deletar',
+                    'usuario_equipe_empresa'          => 'Todas as empresas',
+                    'usuario_equipe_permissao'        => 'Todas as permissões',
+                ]
+            ],
             'publicacao_noticia'    => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_relatorio'    => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_cashback'     => ['titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
