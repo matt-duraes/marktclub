@@ -25,7 +25,7 @@ final class PayloadModel
         $email = !empty($Usuario->email_pessoal) ? $Usuario->email_pessoal : $Usuario->email_trabalho;
         $this->payload = criptografarDado(
             dado: [
-                'sub'             => $Usuario->id,
+                'sub'             => $Usuario->uuid,
                 'name'            => $Usuario->nome,
                 'picture'         => $Usuario->imagem,
                 'document'        => $Usuario->cpf,
@@ -54,7 +54,7 @@ final class PayloadModel
         $email = !empty($Usuario->email_pessoal) ? $Usuario->email_pessoal : $Usuario->email_trabalho;
         $this->payload = criptografarDado(
             dado: [
-                'sub'            => $Usuario->id,
+                'sub'            => $Usuario->uuid,
                 'name'           => $Usuario->nome_real,
                 'picture'        => $imagem,
                 'email'          => $email,
