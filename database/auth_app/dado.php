@@ -54,6 +54,9 @@ $scope = [
     'parceiro_cashback:salvar', 'parceiro_cashback:atualizar', 'parceiro_cashback:listar',
     'parceiro_cashback:buscar', 'parceiro_cashback:deletar',
 
+    'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
+    'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
+
     'parceiro_loja:listar', 'parceiro_loja:buscar',
 
     'parceiro_subcategoria:listar',

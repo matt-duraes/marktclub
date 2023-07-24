@@ -143,7 +143,7 @@ return [
         'titulo'           => 'PARCEIROS',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["parceiro_relatorio_index","parceiro_cashback_index"]'
+        'permissao'        => '["parceiro_relatorio_index","parceiro_cashback_index","parceiro_easylive_index"]'
     ],
     [
         'id'               => '++',
@@ -168,6 +168,18 @@ return [
         'menu'             => ['parceiro-cashback'],
         'status'           => 1,
         'permissao'        => '["parceiro_cashback_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Easylive',
+        'url'              => '/app/parceiro-easylive',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M7,13V8.6c0-0.4,0.4-0.8,0.8-0.8h14.4c0.4,0,0.8,0.4,0.8,0.8V13c-1.1,0-2,0.9-2,2s0.9,2,2,2v4.4c0,0.4-0.4,0.8-0.8,0.8H7.8c-0.4,0-0.8-0.4-0.8-0.8V17c1.1,0,2-0.9,2-2S8.1,13,7,13z M16.6,9.4h-8v2.4c1.2,0.6,2,1.8,2,3.2s-0.8,2.6-2,3.2v2.4h8V9.4z M18.2,9.4v11.2h3.2v-2.4c-1.2-0.6-2-1.8-2-3.2s0.8-2.6,2-3.2V9.4H18.2z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['parceiro-easylive'],
+        'status'           => 1,
+        'permissao'        => '["parceiro_easylive_index"]'
     ],
     [
         'id'               => '++',

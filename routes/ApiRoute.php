@@ -823,6 +823,35 @@ Route
             ::nome('buscar')
             ::get('/parceiro-loja/{id}');
     });
+Route
+    ::nome('parceiro_easylive')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\ParceiroEasyliveController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_easylive:listar'])
+            ::request(['pagina', '!tipo', '!ordem', '!status'], 'json')
+            ::get('/parceiro-easylive');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_easylive:buscar'])
+            ::get('/parceiro-easylive/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_easylive:salvar'])
+            ::request(['titulo', 'tipo', 'imagem', 'data_validade', 'empresa', 'status'])
+            ::post('/parceiro-easylive');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_easylive:atualizar'])
+            ::request(['!titulo', '!tipo', '!imagem', '!data_validade', '!empresa', '!status'])
+            ::put('/parceiro-easylive/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_easylive:deletar'])
+            ::delete('/parceiro-easylive/{id}');
+    });
 
 Route
     ::nome('parceiro_favorito')

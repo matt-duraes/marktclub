@@ -40,6 +40,7 @@ define('TABELA_PAINEL_NOTIFICACAO', 'painel_notificacao');
 define('TABELA_PARCEIRO_ACESSADO', 'parceiro_acessado');
 define('TABELA_PARCEIRO_CASHBACK', 'cashback_programa');
 define('TABELA_PARCEIRO_CUPOM_BLOQUEADO', 'cupom_bloqueio');
+define('TABELA_PARCEIRO_EASYLIVE', 'parceiro_easylive');
 define('TABELA_PARCEIRO_FAVORITO', 'parceiro_favorito');
 define('TABELA_PARCEIRO_LOJA', 'parceiro_novo');
 define('TABELA_PARCEIRO_SUBCATEGORIA', 'tag_novo');
