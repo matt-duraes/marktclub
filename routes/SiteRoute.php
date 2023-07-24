@@ -303,6 +303,12 @@ Route
         Route
             ::nome('declaracao')
             ::view('/automovel-declaracao/{url}');
+        Route
+            ::nome('indicacao')
+            ::request([
+                'veiculo', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+            ])
+            ::post('/automovel-indicacao');
     });
 
 Route

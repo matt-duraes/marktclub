@@ -8,44 +8,26 @@ use App\Models\Site\ListarInterface;
 
 final class VeiculoModel extends ClubeApiHelper implements ListarInterface
 {
-    public function listarDados(): stdClass
-    {
-        return $this->montarRetorno();
+    use MontarRetornoTrait;
+
+    public string $tipo = 'modelo';
+
+    public function __construct(
+        protected ?string $url = null
+    ) {
+        parent::__construct(scope: '');
     }
 
-    private function montarRetorno(): stdClass
+    public function listarDados(): stdClass
     {
-        return (object)[
-            'tipo'  => 'veiculo',
-            'lista' => [
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Veículo 01',
-                    'link'   => route('automovel.modelo') . '/modelo/veiculo',
-                    'imagem' => 'https://arquivo.marktclub.com.br/carro/21d2e08eaa1fbda5dae0138c160f710b.png',
-                    'de'     => 'Carta bônus de:',
-                    'por'    => 'R$ 200,00',
-                    'tipo'   => 'veiculo'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Veículo 02',
-                    'link'   => route('automovel.modelo') . '/modelo/veiculo',
-                    'imagem' => 'https://arquivo.marktclub.com.br/carro/2a5f98e0f7dcfbc5a8daf2c2b9e3d0b6.png',
-                    'de'     => 'De: R$ 200,00',
-                    'por'    => 'Por: R$ 150,00',
-                    'tipo'   => 'veiculo'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Veículo 03',
-                    'link'   => route('automovel.modelo') . '/modelo/veiculo',
-                    'imagem' => 'https://arquivo.marktclub.com.br/carro/bdb9fa3b66a6c9884125b2be674afd48.png',
-                    'de'     => 'De: R$ 200,00',
-                    'por'    => 'Por: R$ 150,00',
-                    'tipo'   => 'veiculo'
-                ]
-            ]
-        ];
+
+        $apiHelper = new ApiHelper('automovel_modelo:listar');
+
+        $dado = $apiHelper->json([
+                    'pagina' => 1,
+                    'montadora' => $this->url
+                ])->get('/automovel-modelo')->object();
+
+        return $this->montarRetorno($dado);
     }
 }

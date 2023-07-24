@@ -1495,3 +1495,131 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:buscar'])
             ::get('/parceiro-indicacao/{id}');
     });
+
+Route
+    ::nome('automovel_indicacao')
+    ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_automovel:salvar'])
+            ::request([
+                'produto', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+            ])
+            ::post('/automovel/indicacao');
+    });
+
+Route
+    ::nome('automovel_montadora')
+    ::controller(App\Controllers\Api\AutomovelMontadoraController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:listar'])
+            ::request(['pagina', '!quantidade', '!pesquisa', '!titulo', '!tipo', '!ordem', '!status'], 'json')
+            ::get('/automovel-montadora');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:buscar'])
+            ::get('/automovel-montadora/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:salvar'])
+            ::request(['tipo', 'valor', 'status', '!data_vencimento'])
+            ::post('/automovel-montadora');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:atualizar'])
+            ::request(['!tipo', '!valor', '!status', '!data_vencimento'])
+            ::put('/automovel-montadora/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:deletar'])
+            ::delete('/automovel-montadora/{id}');
+    });
+
+Route
+    ::nome('automovel_modelo')
+    ::controller(App\Controllers\Api\AutomovelModeloController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
+            ::request(['pagina', '!quantidade', '!montadora', '!titulo', '!imagem', '!url', '!tipo', '!ordem', '!status'], 'json')
+            ::get('/automovel-modelo');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:buscar'])
+            ::get('/automovel-modelo/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:salvar'])
+            ::request(['tipo', 'montadora', 'titulo', 'imagem', 'url',  'status'])
+            ::post('/automovel-modelo');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
+            ::request(['!tipo', '!montadora', '!titulo', '!imagem', '!url',  '!status', '!data_vencimento'])
+            ::put('/automovel-modelo/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:deletar'])
+            ::delete('/automovel-modelo/{id}');
+    });
+
+Route
+    ::nome('automovel_versao')
+    ::controller(App\Controllers\Api\AutomovelVersaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
+            ::request(['pagina', '!quantidade', '!vinculo', '!titulo', '!detalhe', '!tipo', '!ordem', '!status'], 'json')
+            ::get('/automovel-versao');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:buscar'])
+            ::get('/automovel-versao/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
+            ::request(['titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status'])
+            ::post('/automovel-versao');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
+            ::request(['!tipo', '!detalhe', '!titulo', '!cor', '!valor', '!valor_off', '!status', '!data_vencimento'])
+            ::put('/automovel-versao/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:deletar'])
+            ::delete('/automovel-versao/{id}');
+    });
+
+
+Route
+    ::nome('automovel')
+    ::controller(App\Controllers\Api\AutomovelController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel:listar'])
+            ::request(['pagina', '!url', '!quantidade', '!vinculo', '!ordem', '!status'], 'json')
+            ::get('/automovel');
+    });
