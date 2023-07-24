@@ -200,6 +200,10 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
             ::delete('/usuario-cliente/{id}');
+        Route
+            ::nome('apple')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:apple'])
+            ::delete('/usuario-cliente/apple');
     });
 
 Route

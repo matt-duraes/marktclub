@@ -1,8 +1,9 @@
 <?php
 
 $permissao = json_encode([
-    'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_editar', 'usuario_cliente_visualizar',
-    'usuario_cliente_deletar', 'usuario_cliente_download', 'usuario_cliente_empresa', 'usuario_cliente_analytics',
+    'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_editar',
+    'usuario_cliente_apple', 'usuario_cliente_deletar', 'usuario_cliente_download',
+    'usuario_cliente_empresa', 'usuario_cliente_analytics', 'usuario_cliente_visualizar',
     'usuario_grupo_index', 'usuario_grupo_add', 'usuario_grupo_editar', 'usuario_grupo_deletar',
     'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar', 'usuario_indicacao_index',
     'usuario_indicacao_visualizar', 'usuario_indicacao_status', 'usuario_lead_index', 'usuario_lead_visualizar',

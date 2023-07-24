@@ -29,7 +29,7 @@ return [
         'titulo'           => 'Usuário',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["usuario_cliente_index","usuario_equipe_index","usuario_indicacao_index","usuario_lead_index"]'
+        'permissao'        => '["usuario_cliente_index","usuario_equipe_index","usuario_indicacao_index","usuario_lead_index","usuario_cliente_apple"]'
     ],
     [
         'id'               => '++',
@@ -42,6 +42,18 @@ return [
         'menu'             => ['usuario-cliente'],
         'status'           => 1,
         'permissao'        => '["usuario_cliente_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Apple',
+        'url'              => '/usuario-apple',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M18.8,11.6c-0.4,0-0.9,0.1-1.6,0.3c0.1,0-0.7,0.3-0.9,0.3c-0.5,0.2-0.8,0.2-1.2,0.2c-0.4,0-0.8-0.1-1.2-0.2c-0.1,0-0.3-0.1-0.5-0.2c-0.1,0-0.3-0.1-0.4-0.2c-0.6-0.2-0.9-0.3-1.2-0.3c-1,0-2,0.6-2.6,1.6c-1.2,2-0.5,5.7,1.2,8.1c0.9,1.3,1.4,1.8,1.6,1.8c0.2,0,0.3-0.1,0.7-0.2c0.1,0,0.1,0,0.2-0.1c0.9-0.4,1.5-0.6,2.5-0.6c0.9,0,1.5,0.2,2.4,0.5c0.1,0,0.1,0,0.2,0.1c0.4,0.2,0.5,0.2,0.7,0.2c0.3,0,0.7-0.4,1.6-1.7c0.2-0.4,0.5-0.7,0.6-1.1c-0.1-0.1-0.2-0.2-0.4-0.3c-1.2-1.1-1.9-2.6-1.9-4.4c0-1.5,0.5-2.7,1.3-3.8C19.6,11.7,19.2,11.7,18.8,11.6z M19,9.8c0.6,0,2.5,0.2,3.7,2c-0.1,0.1-2.2,1.3-2.2,3.8c0,3,2.7,4,2.7,4c0,0.1-0.4,1.4-1.4,2.8c-0.8,1.2-1.7,2.4-3.1,2.5c-1.3,0-1.8-0.8-3.3-0.8c-1.5,0-2,0.8-3.3,0.8c-1.3,0-2.3-1.3-3.2-2.5c-1.7-2.5-3-7-1.3-10.1c0.9-1.5,2.4-2.5,4.1-2.5c1.3,0,2.5,0.9,3.3,0.9C15.9,10.7,17.3,9.7,19,9.8z M17.9,8.2c-0.7,0.8-1.9,1.5-3,1.4c-0.2-1.1,0.4-2.3,1.1-3.1C16.8,5.7,18,5,19,5C19.1,6.2,18.6,7.3,17.9,8.2z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['usuario-apple'],
+        'status'           => 1,
+        'permissao'        => '["usuario_cliente_apple"]'
     ],
     [
         'id'               => '++',

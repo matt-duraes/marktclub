@@ -4,12 +4,24 @@ return [
     [
         'id_admin_empresa' => 1,
         'permissao'        => json_encode([
-            'usuario_cliente'       => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download', 'empresa', 'analytics']],
+            'usuario_cliente'       => [
+                'titulo' => 'Cliente',
+                'permissao' => [
+                    'usuario_cliente_index' => 'Listar',
+                    'usuario_cliente_add' => 'Salvar',
+                    'usuario_cliente_editar' => 'Editar',
+                    'usuario_cliente_visualizar' => 'Visualizar',
+                    'usuario_cliente_deletar' => 'Deletar',
+                    'usuario_cliente_download' => 'Download',
+                    'usuario_cliente_empresa' => 'Todas as empresas',
+                    'usuario_cliente_analytics' => 'Analytics',
+                    'usuario_cliente_apple' => 'Apple',
+                ]
+            ],
             'usuario_grupo'         => ['titulo' => 'Grupo', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'usuario_dependente'    => ['titulo' => 'Dependente', 'acao' => ['index', 'add', 'deletar']],
             'usuario_indicacao'     => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_lead'          => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
-            'usuario_equipe'        => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
             'usuario_equipe'        => [
                 'titulo'    => 'Equipe',
                 'permissao' => [

@@ -38,7 +38,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $permissaoUsuario = sessao('USUARIO.permissao');
-if (!in_array('usuario_equipe_permissao', $permissaoUsuario) || sessao('USUARIO.cpf') == '014.951.801-31') {
+if (in_array('usuario_equipe_permissao', $permissaoUsuario) || sessao('USUARIO.cpf') == '014.951.801-31') {
     $Painel->coluna(callback: function () use ($Painel) {
         $Painel->fieldsetCheckbox(
             titulo: 'Permissões',

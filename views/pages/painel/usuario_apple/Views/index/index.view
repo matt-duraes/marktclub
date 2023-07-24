@@ -1,0 +1,9 @@
+@template "painel"
+
+<div id="bloco_usuario_apple">
+    <div class="bloco_dado">
+        <p>Login: <span>012.345.678-90</span></p>
+        <p>Senha: <span>Teste@1324</span></p>
+    </div>
+    <div class="botao" id="botao_salvar_apple">SALVAR USUÁRIO</div>
+</div>
