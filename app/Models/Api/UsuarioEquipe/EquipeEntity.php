@@ -169,6 +169,19 @@ final class EquipeEntity extends Entity
             $this->status = new Status('inativo');
         }
 
+        if (!$this->propriedadeExiste('permissao') || empty($this->permissao)) {
+            $this->permissao = [
+                'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_editar',
+                'usuario_cliente_visualizar', 'usuario_cliente_deletar', 'usuario_dependente_index',
+                'usuario_dependente_add', 'usuario_dependente_deletar', 'usuario_indicacao_index',
+                'usuario_indicacao_visualizar', 'usuario_indicacao_status', 'usuario_lead_index',
+                'usuario_lead_visualizar', 'usuario_lead_status', 'usuario_equipe_index',
+                'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_deletar',
+                'relatorio_acesso_index', 'relatorio_usuario_index', 'tabela_usuario_salvar',
+                'tabela_usuario_bloquear', 'solicitacao_voucher_index', 'solicitacao_voucher_visualizar'
+            ];
+        }
+
         $perfil = $this->nome->primeiroNome();
         $this->perfil = $this->criarPerfilValido(strSlug($perfil, '.'));
     }

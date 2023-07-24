@@ -203,7 +203,7 @@ Route
         Route
             ::nome('apple')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:apple'])
-            ::delete('/usuario-cliente/apple');
+            ::post('/usuario-cliente/apple');
     });
 
 Route

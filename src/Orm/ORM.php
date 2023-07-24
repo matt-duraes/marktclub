@@ -117,7 +117,7 @@ abstract class ORM
     /**
      * @param array $dado Array com os dados que deseja salvar no formado: ['campo_tabela' => 'valor']
      */
-    protected function dado(array $dado)
+    protected function dado(array $dado, ?array $replace = null)
     {
         if (empty($dado)) {
             throw new Excecao(
@@ -125,6 +125,18 @@ abstract class ORM
                 mensagem: 'Você precisa enviar um array no método dado.'
             );
         }
+
+        $replace = is_array($replace) ? array_flip($replace) : array_flip($this->pegarReplace());
+        if (is_array($replace) && $replace) {
+            foreach ($dado as $ind => $val) {
+                if (!array_key_exists($ind, $replace)) {
+                    continue;
+                }
+                $dado[$replace[$ind]] = $val;
+                unset($dado[$ind]);
+            }
+        }
+
         $this->ormDado = $dado;
         return $this;
     }

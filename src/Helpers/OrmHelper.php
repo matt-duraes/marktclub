@@ -166,4 +166,21 @@ final class OrmHelper extends ORM
         }
         return $valor;
     }
+
+    public function pegarListaCampo(
+        array $where,
+        string $campo,
+        string $erroMensagem = null,
+        string $erroTitulo = null
+    ): array {
+        $lista = $this->campo([$campo])->where($where)->read();
+        if (empty($lista) && !empty($erroMensagem)) {
+            mensagemErro(empty($erroTitulo) ? 'Erro!' : $erroTitulo, $erroMensagem);
+        }
+        $retorno = [];
+        foreach ($lista as $r) {
+            $retorno[] = $r->$campo;
+        }
+        return $retorno;
+    }
 }
