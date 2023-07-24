@@ -15,6 +15,7 @@ class SiliumDepositoModel extends ORM
     use ValidarEmpresaTrait;
 
     private const SALDO_MINIMO = 10000;
+
     protected string $ormTabela = '';
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
@@ -109,7 +110,6 @@ class SiliumDepositoModel extends ORM
     }
 
     /**
-     * @return void
      */
     private function validarRequest(): void
     {

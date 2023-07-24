@@ -28,7 +28,7 @@ class SiliumComissaoModel extends ORM
     protected ?int $idUsuario;
 
     /**
-     * @param  Request|null  $request
+     * @param Request|null $request
      */
     public function __construct(
         protected readonly ?Request $request = null
@@ -38,7 +38,7 @@ class SiliumComissaoModel extends ORM
     }
 
     /**
-     * @param  array|int|string|null  $id  Lista de Id's
+     * @param array|int|string|null $id Lista de Id's
      *
      * @return int|float Saldo Total
      * @throws Excecao
@@ -127,7 +127,7 @@ class SiliumComissaoModel extends ORM
     }
 
     /**
-     * @param  array  $extrato
+     * @param array $extrato
      *
      * @return array
      */
@@ -157,7 +157,7 @@ class SiliumComissaoModel extends ORM
     }
 
     /**
-     * @param  string  $datas
+     * @param string $datas
      *
      * @return array
      * @throws Excecao
@@ -182,7 +182,7 @@ class SiliumComissaoModel extends ORM
     }
 
     /**
-     * @param  array  $comissao
+     * @param array $comissao
      *
      * @return array
      * @throws Excecao
@@ -229,8 +229,8 @@ class SiliumComissaoModel extends ORM
     }
 
     /**
-     * @param  array|int|string            $id
-     * @param  StatusInterface|int|string  $status
+     * @param array|int|string           $id
+     * @param StatusInterface|int|string $status
      *
      * @return array
      * @throws Excecao

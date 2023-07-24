@@ -102,6 +102,10 @@ $scope = [
 
     'parceiro-cupom:buscar', 'parceiro-cupom:listar',
 
+    "contato:salvar", "contato:listar", "contato:buscar",
+
+    "mensagem_indicacao_parceiro:salvar", "mensagem_indicacao_parceiro:listar", "mensagem_indicacao_parceiro:buscar",
+
     "automovel_montadora:listar", "automovel_montadora:salvar", "automovel_montadora:buscar",
 
     "automovel_modelo:listar", "automovel_modelo:salvar", "automovel_modelo:buscar",

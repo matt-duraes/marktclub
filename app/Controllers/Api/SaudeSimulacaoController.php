@@ -7,10 +7,12 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Data;
+use ORM\Entity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class SaudeSimulacaoController extends Controller implements
+final class SaudeSimulacaoController extends Controller implements
     ControllerBuscarInterface,
     ControllerSalvarInterface
 {
@@ -24,12 +26,33 @@ class SaudeSimulacaoController extends Controller implements
     {
         $SimulacaoEntity = new SimulacaoEntity();
         $SimulacaoEntity->uuid($id);
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity($SimulacaoEntity, lista: [
-                'data_nascimento', 'quantidade_dependentes', 'operadora', 'acomodacao',
-                'regiao', 'valor_titular', 'valor_dependentes', 'valor_total', 'plano', 'status'
-            ])
-        );
+        return $this->retornoPadrao($SimulacaoEntity);
+    }
+
+    /**
+     * @param Entity $entity
+     * @param int    $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoPadrao(Entity $entity, int $status = 200): Response
+    {
+        $propriedadesEntity = pegarPropriedadeDaEntity($entity, lista: [
+            'data_nascimento', 'quantidade_dependentes', 'operadora',
+            'acomodacao', 'regiao', 'valor_titular', 'valor_dependentes',
+            'valor_total', 'plano', 'status'
+        ]);
+
+        $dependentes = jsonDecode($propriedadesEntity['valor_dependentes'], true, true);
+        foreach ($dependentes as $key => $valor) {
+            $dependentes[$key] = $valor;
+        }
+
+        $propriedadesEntity['data_nascimento'] = (new Data($propriedadesEntity['data_nascimento']))->data();
+        $propriedadesEntity['valor_dependentes'] = $dependentes;
+
+        return mensagemSucesso($propriedadesEntity, $status);
     }
 
     /**
@@ -42,6 +65,6 @@ class SaudeSimulacaoController extends Controller implements
     {
         $SimulacaoEntity = new SimulacaoEntity($request);
         $SimulacaoEntity->salvar();
-        return mensagemSucesso($SimulacaoEntity->retorno(), 201);
+        return $this->retornoPadrao($SimulacaoEntity, 201);
     }
 }

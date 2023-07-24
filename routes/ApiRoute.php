@@ -1331,6 +1331,7 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:buscar'])
             ::get('/saude/simulacao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
@@ -1353,9 +1354,9 @@ Route
                 'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
                 'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
                 'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
-                'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
-                'ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
-                'complemento'
+                'email', 'telefone_celular', '!telefone_residencial', '!telefone_comercial',
+                '!ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
+                '!complemento'
             ])
             ::post('/saude/contratacao');
     });
@@ -1372,17 +1373,20 @@ Route
                 'operadora', 'tipo', 'valor', 'parcelas'
             ])
             ::get('/solicitar-credito');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:buscar'])
             ::get('/solicitacao-credito/{id}');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
             ::request([
-                'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!tipo', '!operadora', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/solicitacao-credito');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
@@ -1442,12 +1446,59 @@ Route
             ::post('/publicidade');
     });
 
+Route
+    ::nome('contato')
+    ::controller(App\Controllers\Api\ContatoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:salvar'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', 'url', '!descoberta_site'
+            ])
+            ::post('/contato');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/contato');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:buscar'])
+            ::get('/contato/{id}');
+    });
 
+Route
+    ::nome('indicacao')
+    ::controller(App\Controllers\Api\IndicacaoParceiroController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:salvar'])
+            ::request([
+                'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
+            ])
+            ::post('/parceiro/indicacao');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:listar'])
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/parceiro-indicacao');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:buscar'])
+            ::get('/parceiro-indicacao/{id}');
+    });
 
 Route
     ::nome('automovel_indicacao')
     ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
-    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('salvar')
@@ -1457,8 +1508,6 @@ Route
             ])
             ::post('/automovel/indicacao');
     });
-
-
 
 Route
     ::nome('automovel_montadora')
@@ -1494,8 +1543,6 @@ Route
             ::delete('/automovel-montadora/{id}');
     });
 
-
-
 Route
     ::nome('automovel_modelo')
     ::controller(App\Controllers\Api\AutomovelModeloController::class)
@@ -1529,8 +1576,6 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:deletar'])
             ::delete('/automovel-modelo/{id}');
     });
-
-
 
 Route
     ::nome('automovel_versao')
@@ -1577,5 +1622,4 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel:listar'])
             ::request(['pagina', '!url', '!quantidade', '!vinculo', '!ordem', '!status'], 'json')
             ::get('/automovel');
-
     });
