@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\UsuarioCliente\Helper;
+use App\Models\Api\UsuarioCliente\AppleModel;
 use App\Models\Api\UsuarioCliente\ClienteModel;
 use App\Models\Api\UsuarioCliente\DeletarModel;
 use System\Interface\ControllerBuscarInterface;
@@ -121,5 +122,11 @@ final class UsuarioClienteController extends Controller implements
             status: $status,
             criptografar: Helper::CRIPTOGRAFAR
         );
+    }
+
+    public function postApple()
+    {
+        new AppleModel();
+        return mensagemSucesso(['id' => uuid()], status: 201);
     }
 }

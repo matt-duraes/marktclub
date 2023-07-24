@@ -7,9 +7,15 @@ use stdClass;
 
 final class OrmHelper extends ORM
 {
-    public function __construct(string $tabela)
+    /**
+     * Orm para buscar registros
+     *
+     * @param string $tabela Tabela que deseja buscar
+     * @param bool   $livre  Se vai poder usar fora da API
+     */
+    public function __construct(string $tabela, bool $livre = false)
     {
-        if (ROUTE_DIRETORIO != 'Api') {
+        if ((!defined('ROUTE_DIRETORIO') || ROUTE_DIRETORIO != 'Api') && false === $livre) {
             mensagemStatus(401);
         }
         $this->ormTabela = $tabela;
@@ -159,5 +165,22 @@ final class OrmHelper extends ORM
             mensagemErro(titulo: !empty($titulo) ? $titulo : 'Erro!', mensagem: $mensagem);
         }
         return $valor;
+    }
+
+    public function pegarListaCampo(
+        array $where,
+        string $campo,
+        string $erroMensagem = null,
+        string $erroTitulo = null
+    ): array {
+        $lista = $this->campo([$campo])->where($where)->read();
+        if (empty($lista) && !empty($erroMensagem)) {
+            mensagemErro(empty($erroTitulo) ? 'Erro!' : $erroTitulo, $erroMensagem);
+        }
+        $retorno = [];
+        foreach ($lista as $r) {
+            $retorno[] = $r->$campo;
+        }
+        return $retorno;
     }
 }

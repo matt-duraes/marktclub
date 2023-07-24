@@ -5,7 +5,7 @@ $scope = [
 
     'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
     'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
-    'usuario_cliente:download',
+    'usuario_cliente:download', 'usuario_cliente:apple',
 
     'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
 
@@ -53,6 +53,9 @@ $scope = [
 
     'parceiro_cashback:salvar', 'parceiro_cashback:atualizar', 'parceiro_cashback:listar',
     'parceiro_cashback:buscar', 'parceiro_cashback:deletar',
+
+    'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
+    'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
     'parceiro_loja:listar', 'parceiro_loja:buscar',
 

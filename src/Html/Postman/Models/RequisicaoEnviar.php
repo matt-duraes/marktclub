@@ -3,6 +3,8 @@
 namespace System\Html\Postman\Models;
 
 use Helpers\CryptHelper;
+use Order\OrderInterface;
+use Status\StatusInterface;
 
 final class RequisicaoEnviar
 {
@@ -125,12 +127,25 @@ final class RequisicaoEnviar
             $ind = $r[1];
             $val = $r[2];
 
+            $class = false;
+            if (class_exists($val)) {
+                $class = new $val();
+            }
+            if ($class instanceof StatusInterface || $class instanceof OrderInterface) {
+                $valor = array_keys($class->select(null));
+                $retorno[$ind] = $valor[rand(0, count($valor) - 1)];
+                continue;
+            }
+
             if (!str_starts_with($val, '$')) {
                 $retorno[$ind] = $this->pegarValor($tipo, $val);
                 continue;
             }
-
-            if ($val == '$uuid') {
+            if (str_starts_with($val, '$aleatorio=')) {
+                $explode = explode(',', preg_replace('/^\$aleatorio\=/', '', $val));
+                $retorno[$ind] = $explode[rand(0, count($explode) - 1)];
+                continue;
+            } elseif ($val == '$uuid') {
                 $retorno[$ind] = uuid();
                 continue;
             } elseif ($val == '$hoje') {

@@ -1,16 +1,18 @@
 <?php
 
 $permissao = json_encode([
-    'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_editar', 'usuario_cliente_visualizar',
-    'usuario_cliente_deletar', 'usuario_cliente_download', 'usuario_cliente_empresa', 'usuario_cliente_analytics',
+    'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_editar',
+    'usuario_cliente_apple', 'usuario_cliente_deletar', 'usuario_cliente_download',
+    'usuario_cliente_empresa', 'usuario_cliente_analytics', 'usuario_cliente_visualizar',
     'usuario_grupo_index', 'usuario_grupo_add', 'usuario_grupo_editar', 'usuario_grupo_deletar',
     'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar', 'usuario_indicacao_index',
     'usuario_indicacao_visualizar', 'usuario_indicacao_status', 'usuario_lead_index', 'usuario_lead_visualizar',
     'usuario_lead_status', 'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar',
-    'usuario_equipe_deletar', 'usuario_equipe_empresa', 'publicacao_noticia_index', 'publicacao_noticia_add',
-    'publicacao_noticia_editar', 'publicacao_noticia_deletar', 'parceiro_relatorio_index',
+    'usuario_equipe_permissao', 'usuario_equipe_deletar', 'usuario_equipe_empresa', 'publicacao_noticia_index',
+    'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar', 'parceiro_relatorio_index',
     'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
+    'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
     'relatorio_acesso_index', 'relatorio_acesso_empresa', 'relatorio_usuario_index', 'relatorio_usuario_empresa',
     'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa', 'tabela_usuario_salvar', 'tabela_usuario_bloquear',
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
