@@ -1445,3 +1445,53 @@ Route
             ])
             ::post('/publicidade');
     });
+
+Route
+    ::nome('contato')
+    ::controller(App\Controllers\Api\ContatoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:salvar'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', 'url', '!descoberta_site'
+            ])
+            ::post('/contato');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/contato');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:buscar'])
+            ::get('/contato/{id}');
+    });
+
+Route
+    ::nome('indicacao')
+    ::controller(App\Controllers\Api\IndicacaoParceiroController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:salvar'])
+            ::request([
+                'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
+            ])
+            ::post('/parceiro/indicacao');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:listar'])
+            ::request([
+                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/parceiro-indicacao');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:buscar'])
+            ::get('/parceiro-indicacao/{id}');
+    });
