@@ -1373,17 +1373,20 @@ Route
                 'operadora', 'tipo', 'valor', 'parcelas'
             ])
             ::get('/solicitar-credito');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:buscar'])
             ::get('/solicitacao-credito/{id}');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
             ::request([
-                'pagina', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!tipo', '!operadora', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/solicitacao-credito');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
