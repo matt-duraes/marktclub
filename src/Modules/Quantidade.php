@@ -30,6 +30,17 @@ final class Quantidade implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero();
+    }
+
+    // doc
+    /**
      * Gera um modulo de gênero
      *
      * @param null|int|string $genero Valor do Genero podendo ser string ou int quando vier do banco
@@ -40,15 +51,14 @@ final class Quantidade implements ModuleInterface
         if (empty($numero)) {
             $this->vazio = true;
             $this->valido = false;
-            $this->numero = 20;
+            $this->numero = '';
             return;
-        } elseif (!preg_match('/^[1-9]{1}[0-9]{0,}$/', $numero)) {
+        } elseif (!preg_match('/^[0-9\-]{1,}$/', $numero)) {
             $this->valido = false;
-            $this->numero = 20;
+            $this->numero = '';
             return;
         }
-
-        $this->valor = $numero;
+        $this->valor = (int)$numero;
     }
 
     // doc
@@ -59,6 +69,6 @@ final class Quantidade implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return $this->numero;
+        return (int)$this->numero;
     }
 }

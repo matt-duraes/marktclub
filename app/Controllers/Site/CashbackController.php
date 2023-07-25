@@ -9,6 +9,7 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\ParceiroCashback\Ordem;
+use App\Models\Site\Cashback\BuscarModel;
 use App\Models\Site\Cashback\ListarModel;
 
 final class CashbackController extends Controller
@@ -28,6 +29,7 @@ final class CashbackController extends Controller
             categoria: $request->categoria,
             ordem: new Ordem($request->ordem)
         );
+
         return view(
             'cashback.index',
             [
@@ -46,15 +48,19 @@ final class CashbackController extends Controller
      */
     public function detalhe(string $url): Response
     {
+        $Dado = new BuscarModel($url);
         $Lista = new ListarModel(
             pagina: new Pagina(1),
             quantidade: new Quantidade(3)
         );
+
         return view(
             'cashback.detalhe',
             [
-                'menu'         => 'cashback',
-                'lista'        => $Lista->listarDados()
+                'menu'  => 'cashback',
+                'dado'  => $Dado->buscarDados(),
+                'lista' => $Lista->listarDados(),
+                'tipo'  => 'cashback'
             ]
         );
     }

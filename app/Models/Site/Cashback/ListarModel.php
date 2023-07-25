@@ -5,6 +5,7 @@ namespace App\Models\Site\Cashback;
 use stdClass;
 use Modules\Pagina;
 use Modules\Quantidade;
+use Order\OrderInterface;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\StatusGeral\Status;
 use App\Models\Site\ListarInterface;
@@ -28,11 +29,11 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             ->json($this->pegarWhere())
             ->get('/parceiro-cashback')
             ->object();
-        ppe($dado);
+
         return (object)[
             'tipo'      => 'cashback',
-            'lista'     => $this->montarLista($dado->dado->lista),
-            'paginacao' => $dado->dado->pagina,
+            'lista'     => $this->montarLista($dado->dado->lista ?? []),
+            'paginacao' => $dado->dado->pagina ?? [],
         ];
     }
 
@@ -46,7 +47,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             'quantidade' => $quantidade->padrao()
         ];
         $ordem = $this->ordem;
-        if ($ordem->valido()) {
+        if ($ordem instanceof OrderInterface && $ordem->valido()) {
             $where['ordem'] = $ordem->valor();
         }
         if (!empty($this->categoria)) {
@@ -60,16 +61,18 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
 
     private function montarLista($dado)
     {
+        $retorno = [];
         foreach ($dado as $r) {
             $retorno[] =
                 (object)[
                     'id'       => $r->id,
                     'titulo'   => $r->titulo,
-                    'link'     => route('cashback.detalhe') . $r->url,
-                    // 'imagem'   => $r->link_logo,
-                    // 'desconto' => $r->desconto,
+                    'link'     => route('cashback.detalhe') . '/' . $r->url,
+                    'imagem'   => $r->imagem,
+                    'desconto' => $r->comissao_minima,
                     'tipo'     => 'cashback'
                 ];
         }
+        return $retorno;
     }
 }
