@@ -14,7 +14,7 @@ return [
     ],
     [
         'uuid'      => '0493d060-44ba-470b-a0a2-7211ba138d8c',
-        'nome'      => 'Cashback',
-        'diretorio' => 'cashback',
+        'nome'      => 'Parceiro',
+        'diretorio' => 'parceiro',
     ],
 ];
