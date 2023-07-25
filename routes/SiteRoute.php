@@ -303,6 +303,12 @@ Route
         Route
             ::nome('declaracao')
             ::view('/automovel-declaracao/{url}');
+        Route
+            ::nome('indicacao')
+            ::request([
+                'veiculo', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+            ])
+            ::post('/automovel-indicacao');
     });
 
 Route
@@ -372,6 +378,12 @@ Route
         Route
             ::nome('abrirModalPopupImagem')
             ::view('/enquete-imagem/{id}');
+        Route
+            ::nome('ajuda')
+            ::get('/ajuda');
+        Route
+            ::nome('indiqueParceiro')
+            ::get('/indique-um-parceiro');
     });
 
 Route
@@ -425,6 +437,10 @@ Route
         Route
             ::nome('carteira')
             ::view('/perfil/carteira');
+        Route
+            ::nome('buscarCep')
+            ::request(['cep'])
+            ::post('/perfil/buscar-cep');
     });
 
 Route
@@ -461,4 +477,16 @@ Route
         Route
             ::nome('sorteio')
             ::view('/regulamento-sorteio');
+    });
+
+Route
+    ::nome('indicacao')
+    ::controller(App\Controllers\Site\IndicacaoParceiroController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::request([
+                'parceiro', 'telefone', 'email', 'mensagem'
+            ])
+            ::post('/indicacao/salvar');
     });

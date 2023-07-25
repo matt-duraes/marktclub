@@ -5,10 +5,12 @@ namespace App\Controllers\Site;
 use App\Models\Site\Automovel\ModeloModel;
 use App\Models\Site\Automovel\MontadoraModel;
 use App\Models\Site\Automovel\VeiculoModel;
+use App\Models\Site\Automovel\SalvarIndicacaoModel;
 use App\Models\Site\BannerModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
+use Http\Request;
 
 final class AutomovelController extends Controller
 {
@@ -37,7 +39,7 @@ final class AutomovelController extends Controller
             'automovel.veiculo',
             [
                 'menu'  => 'automovel',
-                'lista' => (new VeiculoModel())->listarDados(),
+                'lista' => (new VeiculoModel($url))->listarDados(),
             ]
         );
     }
@@ -51,11 +53,14 @@ final class AutomovelController extends Controller
      */
     public function modelo(string $montadora, string $veiculo): Response
     {
+        $lista = (new ModeloModel())->listarDados();
+
         return view(
             'automovel.modelo',
             [
                 'menu'  => 'automovel',
-                'lista' => (new ModeloModel())->listarDados()
+                'dado'  => $lista->dado ?? [],
+                'lista' => $lista ?? []
             ]
         );
     }
@@ -84,5 +89,20 @@ final class AutomovelController extends Controller
             'default' => $default,
             'esconde' => $esconde
         ]);
+    }
+
+    /**
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postIndicacao(Request $request): Response
+    {
+        $indicacao = new SalvarIndicacaoModel($request);
+        $indicacao = $indicacao->postSalvar();
+
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
     }
 }

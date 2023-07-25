@@ -2,10 +2,10 @@
 
 namespace App\Models\Oauth\Usuario;
 
-use ORM\ORM;
-use Erro\Excecao;
 use App\Classes\ComercialEmpresa\Helper;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use Erro\Excecao;
+use ORM\ORM;
 
 final class SalvarModel extends ORM
 {

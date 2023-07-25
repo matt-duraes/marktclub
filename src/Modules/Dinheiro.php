@@ -8,20 +8,6 @@ final class Dinheiro implements ModuleInterface
 {
     use ValidarTrait;
 
-    public function __toString()
-    {
-        return $this->dinheiro();
-    }
-
-    /**
-     * Pega o valor padrão independente do tipo de modulo
-     */
-    public function valor()
-    {
-        return $this->dinheiro();
-    }
-
-    // doc
     /**
      * Valor que deve ser enviado para o banco de dados
      *
@@ -36,10 +22,10 @@ final class Dinheiro implements ModuleInterface
     /**
      * Modulo para Dinheiro
      *
-     * @param null|string $dinheiro Valor para o modulo
+     * @param string|null $dinheiro Valor para o modulo
      */
     public function __construct(
-        private ?string $dinheiro
+        private ?string $dinheiro = null
     ) {
         if (empty($this->dinheiro)) {
             $this->vazio = true;
@@ -54,34 +40,19 @@ final class Dinheiro implements ModuleInterface
         $this->setarValor();
     }
 
-    // doc
     /**
-     * Pega o valor como dinheiro, por exemplo: 1.000,00
-     *
-     * @return string Valor em formato de dinheiro
+     * @return bool
      */
-    public function dinheiro(): string
-    {
-        return empty($this->dinheiro) ? '' : number_format($this->dinheiro, 2, ',', '.');
-    }
-
-    // doc
-    /**
-     * Pega o valor em formato decimal
-     *
-     * @return float|string Valor em formato float
-     */
-    public function decimal(): float|string
-    {
-        return $this->dinheiro;
-    }
-
     private function validarDinheiro(): bool
     {
-        return preg_match('/^[0-9\.\,]{0,}(\.|\,){1}[0-9]{1,2}$/', $this->dinheiro);
+        return preg_match('/^[0-9]+(?:\.[0-9]+)?$/', $this->dinheiro) === 1;
     }
 
-    private function setarValor()
+    // doc
+
+    /**
+     */
+    private function setarValor(): void
     {
         $dinheiro = str_replace(',', '.', $this->dinheiro);
         $explode = explode('.', $dinheiro);
@@ -90,5 +61,49 @@ final class Dinheiro implements ModuleInterface
         $valor = implode('', $explode);
 
         $this->dinheiro = number_format($valor . '.' . $centavo, 2, '.', '');
+    }
+
+    // doc
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->dinheiro();
+    }
+
+    // doc
+
+    /**
+     * Pega o valor como dinheiro, por exemplo: 1.000,00
+     *
+     * @return string Valor em formato de dinheiro
+     */
+    public function dinheiro(): string
+    {
+        return empty($this->dinheiro)
+            ? ''
+            : 'R$ ' . number_format($this->dinheiro, 2, ',', '.');
+    }
+
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     *
+     * @return string
+     */
+    public function valor(): string
+    {
+        return $this->dinheiro();
+    }
+
+    /**
+     * Pega o valor em formato decimal
+     *
+     * @return float|string Valor em formato float
+     */
+    public function decimal(): float|string
+    {
+        return $this->dinheiro;
     }
 }

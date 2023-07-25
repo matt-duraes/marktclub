@@ -7,20 +7,29 @@
                 <span class="texto_inativo">Procedimento</span>
                 <span class="texto_ativo cor_color">Procedimento</span>
             </button>
-            <button class="botao" data-id="bloco_endereco">
-                <span class="texto_inativo">Endereço</span>
-                <span class="texto_ativo cor_color">Endereço</span>
-            </button>
+            @if(!empty($dado->endereco->concessionaria)):
+                <a  href="{{$dado->endereco->concessionaria}}" target="_blank" class="botao" data-id="bloco_endereco">
+                    <span class="texto_inativo">Endereço</span>
+                    <span class="texto_ativo cor_color">Endereço</span>
+                </a>
+            @else:
+                <button class="botao" data-id="bloco_endereco">
+                    <span class="texto_inativo">Endereço</span>
+                    <span class="texto_ativo cor_color">Endereço</span>
+                </button>
+            @endif;
         </div>
 
         <div id="bloco_procedimento" class="conteudo">
             @if(TIPO_USUARIO != 'indicado'):
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit reiciendis neque rerum doloremque distinctio molestiae ea veritatis laudantium consequatur, sed doloribus odit temporibus deleniti sit atque soluta voluptate libero rem. Voluptatem fuga beatae nostrum explicabo vel, eos impedit exercitationem quaerat ea qui placeat commodi ipsam facilis quam, iusto quos ex!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, quasi asperiores obcaecati ad optio necessitatibus. Culpa laborum dicta mollitia soluta!</p>
-                <a class="botao_pequeno_cor cor_bg" href="#">Link</a>
-                <div class="bloco_atencao_geral">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt vero non doloremque voluptates ex at eius iste ea a saepe in rerum harum, voluptate repellat! Hic ut dolores repellendus animi?</p>
+                <div class="bloco_geral_ul">
+                    <p>{!!$dado->procedimento->geral!!}</p>
                 </div>
+                @ if(!empty($dado->procedimento->individual)):
+                <div class="bloco_atencao_geral">
+                    <p>{{$dado->procedimento->individual}}</p>
+                </div>
+                @ endif;
             @else
                 <div class="bloco_atencao_geral">
                     <p>Apenas associados possuem acesso a esse recurso</p>
@@ -29,8 +38,11 @@
         </div>
 
         <div id="bloco_endereco" class="conteudo display_none">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum mollitia consequuntur officiis deleniti nulla minima maiores, laudantium assumenda soluta maxime omnis, ipsam quod. Maxime ut perspiciatis, natus quaerat sit ratione?</p>
-            <a class="botao_geral_cor cor_bg" href="#">Como chegar</a>
+            @ ifforeach ($dado->endereco->lista as $r_e):
+            <h1>{{$r_e->titulo}}</h1>
+            <p>{{$r_e->completo}}</p>
+            <a class="botao_geral_cor cor_bg"  target="_blank" href="{{$r_e->mapa->link}}">Como chegar</a>
+            @endifforeach;
         </div>
 
     </div>

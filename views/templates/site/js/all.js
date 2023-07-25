@@ -4,9 +4,11 @@
 // @system "Form"
 // @system "SwipeEvent"
 // @system "Alerta"
+// @system "Loading"
 // @import "menu_principal"
 // @import "menu_perfil"
-// @import "pesquisa_satisfacao"
+// @import "ajuda"
+
 const LINK = document.querySelector('#LINK').value || '';
 
 const blocoScrollTop = $('#bloco_scroll_top');

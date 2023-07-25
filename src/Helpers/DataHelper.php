@@ -29,11 +29,13 @@ final class DataHelper
         9  => 'Setembro',
         10 => 'Outubro',
         11 => 'Novembro',
-        12 => 'Dezembro',
+        12 => 'Dezembro'
     ];
 
     /**
      * @param string $data Data para ser convertida
+     *
+     * @throws Exception
      */
     public function __construct(string $data = '')
     {
@@ -41,7 +43,8 @@ final class DataHelper
     }
 
     /**
-     * @param  string    $data Data para ser convertida
+     * @param string $data Data para ser convertida
+     *
      * @throws Exception
      */
     public function valor(string $data = ''): DataHelper
@@ -56,7 +59,8 @@ final class DataHelper
     }
 
     /**
-     * @param  string $data
+     * @param string $data
+     *
      * @return bool
      */
     private function validarData(string $data): bool
@@ -81,6 +85,9 @@ final class DataHelper
         // @phpcs:enable
     }
 
+    /**
+     * @return string
+     */
     public function date(): string
     {
         return $this->formato('Y-m-d');
@@ -95,10 +102,12 @@ final class DataHelper
             return '';
         }
 
-        $data = $this->retorno;
-        return $data->format($formato);
+        return $this->retorno->format($formato);
     }
 
+    /**
+     * @return bool
+     */
     private function validar(): bool
     {
         if (!$this->retorno instanceof DateTime) {
@@ -109,21 +118,33 @@ final class DataHelper
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function dateTime(): string
     {
         return $this->formato();
     }
 
+    /**
+     * @return string
+     */
     public function data(): string
     {
         return $this->formato('d/m/Y');
     }
 
+    /**
+     * @return string
+     */
     public function dataHora(): string
     {
         return $this->formato('d/m/Y H:i:s');
     }
 
+    /**
+     * @return string
+     */
     public function nomeSemana(): string
     {
         if (!$this->validar()) {
@@ -146,7 +167,8 @@ final class DataHelper
     }
 
     /**
-     * @param  bool   $hora Se a data deve retornar com H:i:s
+     * @param bool $hora Se a data deve retornar com H:i:s
+     *
      * @return string
      */
     public function extenso(bool $hora = false): string
@@ -174,6 +196,9 @@ final class DataHelper
         return $string;
     }
 
+    /**
+     * @return string
+     */
     public function nomeMes(): string
     {
         if (!$this->validar()) {
@@ -187,7 +212,8 @@ final class DataHelper
     /**
      * Retorna a diferença de dias entre duas datas
      *
-     * @param  string    $data Data que será usada para comparar
+     * @param string $data Data que será usada para comparar
+     *
      * @return bool|int  Retorna false se der erro ou intenro com a diferença
      * @throws Exception
      */
@@ -205,7 +231,8 @@ final class DataHelper
     /**
      * Retorna a diferença de horas entre duas datas
      *
-     * @param  string    $data Data que será usada para comparar
+     * @param string $data Data que será usada para comparar
+     *
      * @return bool|int  Retorna false se der erro ou intenro com a diferença
      * @throws Exception
      */
@@ -224,19 +251,25 @@ final class DataHelper
     }
 
     /**
+     * @param $data
+     * @param $comparacao
+     * @param $valor
+     *
+     * @return mixed
      * @throws Exception
      */
-    private function retornarDiferenca($data, $comparacao, $valor)
+    private function retornarDiferenca($data, $comparacao, $valor): mixed
     {
-        $data = $data instanceof DateTime ? $data : new DateTime($data);
-        $comparacao = $comparacao instanceof DateTime ? $comparacao : new DateTime($comparacao);
-        return $data <= $comparacao ? $valor : -$valor;
+        $data = ($data instanceof DateTime) ? $data : new DateTime($data);
+        $comparacao = ($comparacao instanceof DateTime) ? $comparacao : new DateTime($comparacao);
+        return ($data <= $comparacao) ? $valor : -$valor;
     }
 
     /**
      * Retorna a diferença de minutos entre duas datas
      *
-     * @param  string    $data Data que será usada para comparar
+     * @param string $data Data que será usada para comparar
+     *
      * @return bool|int  Retorna false se der erro ou um int com a diferença
      * @throws Exception
      */
@@ -258,7 +291,8 @@ final class DataHelper
     /**
      * Retorna a diferença de segundos entre duas datas
      *
-     * @param  string    $data Data que será usada para comparar
+     * @param string $data Data que será usada para comparar
+     *
      * @return bool|int  Retorna false se der erro ou um int com a diferença
      * @throws Exception
      */
@@ -279,7 +313,8 @@ final class DataHelper
     }
 
     /**
-     * @param  bool      $curto True para data com padrão curto ou false para padrão normal
+     * @param bool $curto True para data com padrão curto ou false para padrão normal
+     *
      * @return string
      * @throws Exception
      */
@@ -299,6 +334,11 @@ final class DataHelper
         return $this->socialGrande($data);
     }
 
+    /**
+     * @param $data
+     *
+     * @return string
+     */
     private function socialCurto($data): string
     {
         if ($data->y > 0) {
@@ -318,6 +358,11 @@ final class DataHelper
         }
     }
 
+    /**
+     * @param $data
+     *
+     * @return string
+     */
     private function socialGrande($data): string
     {
         if ($data->y == 1) {
@@ -348,9 +393,9 @@ final class DataHelper
     }
 
     /**
-     * @return false
+     * @return bool|int
      */
-    public function idade(): bool
+    public function idade(): bool|int
     {
         if (!$this->validar()) {
             return false;
@@ -360,8 +405,9 @@ final class DataHelper
     }
 
     /**
-     * @param  int        $numero Número a ser adicionado
-     * @param  string     $tempo  Tipo de tempo a ser adicionado, por exemplo, segundos, minutos, horas, etc
+     * @param int    $numero Número a ser adicionado
+     * @param string $tempo  Tipo de tempo a ser adicionado, por exemplo, segundos, minutos, horas, etc
+     *
      * @return DataHelper
      */
     public function adicionar(int $numero, string $tempo = ''): DataHelper
@@ -374,13 +420,13 @@ final class DataHelper
         $date = $this->retorno;
 
         $this->retorno = date_add($date, date_interval_create_from_date_string($add));
-
         return $this;
     }
 
     /**
-     * @param  int        $numero Número a ser removido
-     * @param  string     $tempo  Tipo de tempo a ser removido, por exemplo, segundos, minutos, horas, etc
+     * @param int    $numero Número a ser removido
+     * @param string $tempo  Tipo de tempo a ser removido, por exemplo, segundos, minutos, horas, etc
+     *
      * @return DataHelper
      */
     public function remover(int $numero, string $tempo = ''): DataHelper
@@ -393,7 +439,6 @@ final class DataHelper
         $date = $this->retorno;
 
         $this->retorno = date_sub($date, date_interval_create_from_date_string($sub));
-
         return $this;
     }
 
@@ -420,9 +465,11 @@ final class DataHelper
     /**
      * Gera um array com a lista de meses entre as datas informadas
      *
-     * @param  Date  $de  Data de começo da lista
-     * @param  Date  $ate Data final da lista, se null, pega a data atual
-     * @return array Array com a lista de meses
+     * @param Data $de  Data de começo da lista
+     * @param Data $ate Data final da lista, se null, pega a data atual
+     *
+     * @return array     Array com a lista de meses
+     * @throws Exception
      */
     public function listarMesAno(Data $de, Data $ate): array
     {
@@ -438,9 +485,11 @@ final class DataHelper
                 . ' de ' . $data->format('Y');
 
             if ($remover) {
-                $inicio = date_sub($data, date_interval_create_from_date_string('1 month'))->format('Y-m-d');
+                $inicio = date_sub($data, date_interval_create_from_date_string('1 month'))
+                    ->format('Y-m-d');
             } else {
-                $inicio = date_add($data, date_interval_create_from_date_string('1 month'))->format('Y-m-d');
+                $inicio = date_add($data, date_interval_create_from_date_string('1 month'))
+                    ->format('Y-m-d');
             }
             if ($break) {
                 break;
@@ -470,7 +519,8 @@ final class DataHelper
     }
 
     /**
-     * @param  string $formato Formato que deseja retornar a data
+     * @param string $formato Formato que deseja retornar a data
+     *
      * @return string Data no formato definido
      */
     public function r(string $formato = 'd/m/Y'): string

@@ -6,31 +6,39 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Perfil\{DadosModel,  SenhaModel, CarteirinhaModel};
+use Helpers\LocalizacaoHelper;
 
 final class PerfilController extends Controller
 {
     public function index()
     {
+        $Perfil = (new DadosModel())->getDado();
         return view('perfil.index', [
             'dado' => (object)[
-                'nome'                 => 'Nome do usuário',
-                'data_nascimento'      => '',
-                'genero'               => '',
-                'estado_civil'         => '',
-                'email_pessoal'        => '',
-                'email_trabalho'       => '',
-                'telefone_trabalho'    => '',
-                'telefone_pessoal'     => '',
-                'endereco_cep'         => '',
-                'endereco_bairro'      => '',
-                'endereco_logradouro'  => '',
-                'endereco_numero'      => '',
-                'endereco_complemento' => '',
-                'endereco_cidade'      => '',
-                'endereco_estado'      => '',
-                'endereco_estado'      => ''
+                'nome'                 => $Perfil->nome,
+                'data_nascimento'      => $Perfil->data_nascimento,
+                'genero'               => $Perfil->genero,
+                'estado_civil'         => $Perfil->estado_civil,
+                'email_pessoal'        => $Perfil->email_pessoal,
+                'email_trabalho'       => $Perfil->email_trabalho,
+                'telefone_trabalho'    => $Perfil->telefone_trabalho,
+                'telefone_pessoal'     => $Perfil->telefone_pessoal,
+                'endereco_cep'         => $Perfil->endereco_cep,
+                'endereco_bairro'      => $Perfil->endereco_bairro,
+                'endereco_logradouro'  => $Perfil->endereco_logradouro,
+                'endereco_numero'      => $Perfil->endereco_numero,
+                'endereco_complemento' => $Perfil->endereco_complemento,
+                'endereco_cidade'      => $Perfil->endereco_cidade,
+                'endereco_estado'      => $Perfil->endereco_estado,
             ]
         ]);
+    }
+
+    public function postBuscarCep(Request $request): Response
+    {
+        $cep = (new LocalizacaoHelper())->pegarEnderecoPeloCep($request->cep);
+
+        return mensagemSucesso($cep);
     }
 
     public function senha()
