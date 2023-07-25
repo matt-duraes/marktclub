@@ -13,9 +13,7 @@ final class MontadoraEntity extends Entity
     public Tipo $tipo;
     public UploadHelper|string $bg;
     public UploadHelper|string $bg_banner;
-
     protected string $ormTabela = TABELA_CARRO_MENU;
-
     protected array $ormBuscar = [
         'uuid', 'cod_parceiro', 'documento', 'tipo', 'titulo', 'bg',
         'bg_banner', 'link_concessionaria', 'procedimento', 'empresa', 'ordem'

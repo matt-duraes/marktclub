@@ -3,19 +3,14 @@
 namespace App\Models\Api\GeralEndereco;
 
 use ORM\ORM;
-use stdClass;
 use Erro\Excecao;
-use Http\Request;
-use System\Trait\Model\PaginaTrait;
-use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
 
 final class EnderecoModel extends ORM
 {
     protected string $ormTabela = TABELA_SISTEMA_ENDERECO;
     protected array $ormReplace = [
         'nome' => 'titulo',
-        'cod' => 'id_vinculo'
+        'cod'  => 'id_vinculo'
     ];
     private int $idUsuario;
 
@@ -26,7 +21,6 @@ final class EnderecoModel extends ORM
     ) {
         parent::__construct();
     }
-
 
     /**
      * @throws Excecao
@@ -73,23 +67,22 @@ final class EnderecoModel extends ORM
 
         $retorno = [];
         foreach ($dado as $r) {
-
             $retorno[] = [
-                'id' => $r->uuid,
-                'titulo' => $r->nome,
-                'completo' => $this->formataEnderecoCompleto($r),
-                'cep' => strCep($r->cep),
-                'logradouro' => $r->logradouro,
-                'numero' => $r->numero,
+                'id'          => $r->uuid,
+                'titulo'      => $r->nome,
+                'completo'    => $this->formataEnderecoCompleto($r),
+                'cep'         => strCep($r->cep),
+                'logradouro'  => $r->logradouro,
+                'numero'      => $r->numero,
                 'complemento' => $r->complemento,
-                'referencia' => $r->referencia,
-                'bairro' => $r->bairro,
-                'cidade' => $r->cidade,
-                'estado' => $r->estado,
-                'mapa' => (object)[
-                    'latitude' => $r->latitude,
+                'referencia'  => $r->referencia,
+                'bairro'      => $r->bairro,
+                'cidade'      => $r->cidade,
+                'estado'      => $r->estado,
+                'mapa'        => (object)[
+                    'latitude'  => $r->latitude,
                     'longitude' => $r->longitude,
-                    'link' => 'https://www.google.com.br/maps/dir//' . $r->latitude . "," . $r->longitude
+                    'link'      => 'https://www.google.com.br/maps/dir//' . $r->latitude . ',' . $r->longitude
                 ],
                 'principal' => $r->principal == 1 ? true : false
             ];
@@ -100,23 +93,22 @@ final class EnderecoModel extends ORM
 
     private function formataEnderecoCompleto($endereco)
     {
-
         $completo = $endereco->logradouro;
 
         if(!empty($endereco->numero)):
-            $completo .= ', '.$endereco->numero;
+            $completo .= ', ' . $endereco->numero;
         endif;
         if(!empty($endereco->complemento)):
-            $completo .= ', '.$endereco->complemento;
+            $completo .= ', ' . $endereco->complemento;
         endif;
         if(!empty($endereco->referencia)):
-            $completo .= ', '.$endereco->referencia;
+            $completo .= ', ' . $endereco->referencia;
         endif;
         if(!empty($endereco->bairro)):
-            $completo .= ' - '.$endereco->bairro;
+            $completo .= ' - ' . $endereco->bairro;
         endif;
         if(!empty($endereco->cidade)):
-            $completo .= ', '.$endereco->cidade;
+            $completo .= ', ' . $endereco->cidade;
         endif;
         if(!empty($endereco->estado)):
             $completo .= !empty($endereco->cidade) ? '/' : ' - ';
@@ -124,7 +116,7 @@ final class EnderecoModel extends ORM
         endif;
 
         if(!empty($endereco->cep)):
-            $completo .= ' - CEP: '.strCep($endereco->cep);
+            $completo .= ' - CEP: ' . strCep($endereco->cep);
         endif;
 
         return $completo;

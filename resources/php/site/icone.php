@@ -511,7 +511,6 @@ if (!function_exists('iconeMenos')) {
     }
 }
 
-
 if (!function_exists('iconeFaleConosco')) {
     // doc
     // exemplo
@@ -519,8 +518,8 @@ if (!function_exists('iconeFaleConosco')) {
     /**
      * Gera um icone de fale conosco
      *
-     * @param   int     $tamanho    Altura do atributo height do svg
-     * @return  string              SVG do icone
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
      */
     function iconeFaleConosco(int $tamanho = 24)
     {

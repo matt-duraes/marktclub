@@ -3,7 +3,6 @@
 namespace App\Models\Api\Contato;
 
 use App\Classes\Contato\Status;
-use Erro\Erro;
 use Erro\Excecao;
 use Http\Request;
 use Modules\Email;
@@ -17,8 +16,6 @@ class ContatoEntity extends Entity
     use ConstrutorTrait;
 
     protected string $ormTabela = TABELA_MENSAGEM_CONTATO_NOVO;
-
-
     public Nome $nome;
     public Email $email;
     public Telefone $telefone;
@@ -27,7 +24,6 @@ class ContatoEntity extends Entity
     public string $url;
     public int $idEmpresa;
     public Status $status;
-
     protected array $ormBuscar = [
         'id_admin_empresa', 'nome', 'email', 'telefone', 'mensagem',  'descoberta_site'
     ];
@@ -39,7 +35,6 @@ class ContatoEntity extends Entity
         protected readonly ?Request $request = null
     ) {
         parent::__construct();
-
     }
 
     /**
@@ -53,5 +48,4 @@ class ContatoEntity extends Entity
         $this->status = new Status(Status::CRIADA);
         unset($this->url);
     }
-
 }

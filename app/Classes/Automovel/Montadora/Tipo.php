@@ -10,10 +10,10 @@ final class Tipo extends Status
         protected null|string|int $valor = null
     ) {
         parent::__construct([
-            'automovel' => 'Automóvel',
-            'parceiro' => 'Parceiro',
-            'moto' => 'Moto',
-            'Aluguel' => 'Aluguel',
+            'automovel'         => 'Automóvel',
+            'parceiro'          => 'Parceiro',
+            'moto'              => 'Moto',
+            'Aluguel'           => 'Aluguel',
             'montadora_vinculo' => 'Montadora para vínculo'
         ]);
     }

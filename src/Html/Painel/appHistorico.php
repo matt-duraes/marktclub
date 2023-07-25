@@ -1,5 +1,8 @@
 <div id="bloco_historico_view" class="<?= $classe ?>">
     <header>
+        <?php if($fechar): ?>
+        <div class="fechar pagina_fechar mobile"><?= iconeVoltar(12) ?></div>
+        <?php endif; ?>
         <h1>HISTÓRICO</h1>
         <form action="">
             <input type="text" name="pesquisa" id="input_historico_pesquisa" placeholder="Pesquisa">
@@ -8,6 +11,9 @@
             <input type="text" data-mascara="00/00/0000" class="input_data input_data_ate" id="input_historico_data_ate" placeholder="00/00/000">
             <div class="botao" id="botao_buscar_historico">BUSCAR</div>
         </form>
+        <?php if($fechar): ?>
+        <div class="fechar pagina_fechar desktop"><?= iconeFechar(12) ?></div>
+        <?php endif; ?>
     </header>
     <div class="add_fake" id="bloco_historico_add_fake"></div>
     <form action="" class="add form_geral" id="bloco_historico_add">

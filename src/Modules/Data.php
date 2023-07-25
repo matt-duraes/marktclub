@@ -26,6 +26,17 @@ final class Data implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->date();
+    }
+
+    // doc
+    /**
      * Modulo para Data
      *
      * @param null|string $data Data para o modulo

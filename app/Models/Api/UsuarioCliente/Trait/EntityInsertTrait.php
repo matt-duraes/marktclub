@@ -3,8 +3,8 @@
 namespace App\Models\Api\UsuarioCliente\Trait;
 
 use Modules\Botao;
+use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Status;
-use App\Models\Api\ComercialSubempresa\HelperModel;
 
 trait EntityInsertTrait
 {
@@ -26,8 +26,7 @@ trait EntityInsertTrait
         if (empty($this->subempresa)) {
             return;
         }
-        $SubempresaHelper = new HelperModel();
-        $idSubempresa = $SubempresaHelper->pegarIdPeloUuid($this->subempresa, $this->idEmpresa);
+        $idSubempresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->subempresa);
         if (empty($idSubempresa)) {
             mensagemErro('Campo inválido!', 'Não foi encontrado nenhuma subempresa pelo código enviado', status: 404);
         }

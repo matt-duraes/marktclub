@@ -158,11 +158,10 @@ final class SiteController extends Controller
      */
     public function getAjuda(): Response
     {
-
         $construtor = (new ConstrutorModel())->montaPermissaoMenuAjuda();
 
         return view('ajuda.index', [
-            'menu' => $construtor,
+            'menu'  => $construtor,
             'email' => defined('CONTATO_EMAIL') ?? ''
         ]);
     }

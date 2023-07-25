@@ -2,11 +2,14 @@
 
 namespace App\Models\Api\LoginPainel;
 
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use stdClass;
+use App\Classes\LoginPainel\PegarEquipeTrait;
 
 final class LoginFacebookModel
 {
-    private EquipeEntity $Usuario;
+    use PegarEquipeTrait;
+
+    private stdClass $Usuario;
 
     public function __construct(private string $id)
     {
@@ -18,13 +21,11 @@ final class LoginFacebookModel
 
     private function buscarUsuarioPeloFacebook()
     {
-        $Equipe = new EquipeEntity(validarToken: false);
-        try {
-            $Equipe->buscar([
-                ['id_facebook', $this->id],
-                ['status', 1]
-            ]);
-        } catch (\Throwable $e) {
+        $Usuario = $this->pegarEquipe([
+            ['id_facebook', $this->id],
+            ['status', 1]
+        ]);
+        if (vazio($Usuario)) {
             mensagemErro(
                 titulo: 'Conta inválida!',
                 mensagem: 'Não existe usuário vinculado a sua conta do Facebook.',
@@ -32,10 +33,10 @@ final class LoginFacebookModel
             );
         }
 
-        $this->Usuario = $Equipe;
+        $this->Usuario = $Usuario;
     }
 
-    public function pegarUsuario(): EquipeEntity
+    public function pegarUsuario(): stdClass
     {
         return $this->Usuario;
     }

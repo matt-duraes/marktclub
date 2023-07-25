@@ -27,6 +27,17 @@ final class EstadoCivil implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero();
+    }
+
+    // doc
+    /**
      * Gera um modulo de estado civil
      *
      * @param null|int|string $estadoCivil Valor do estado civil podendo ser string ou int quando vier do banco
@@ -99,7 +110,7 @@ final class EstadoCivil implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return $this->numero;
+        return (int)$this->numero;
     }
 
     private function validarEstadoCivil(): bool

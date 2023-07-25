@@ -115,6 +115,27 @@ final class TextoHelper
         return $this;
     }
 
+    // doc
+    /**
+     * Retorna uma string separada por virgule e um "e" no último implode
+     *
+     * @return self
+     */
+    public function implodeVirgula(): self
+    {
+        if (!$this->validar() || !is_array($this->valor) || empty($this->valor)) {
+            return $this;
+        }
+        $valor = $this->valor;
+        if (count($valor) == 1) {
+            $this->valor = $valor[0];
+            return $this;
+        }
+        $ultimo = array_pop($valor);
+        $this->valor = implode(', ', $valor) . ' e ' . $ultimo;
+        return $this;
+    }
+
     public function removerAcento()
     {
         if (!$this->validar()) {

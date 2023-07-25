@@ -18,12 +18,13 @@ trait MontarRetornoTrait
 
         return $retorno;
     }
+
     private function processarItens($dado, &$retornoLista)
     {
         $rota = '';
-        if($this->tipo == 'montadora') {
+        if ($this->tipo == 'montadora') {
             $rota = route('automovel.veiculo');
-        } elseif($this->tipo == 'modelo') {
+        } elseif ($this->tipo == 'modelo') {
             $rota = route('automovel.modelo');
         }
 
@@ -32,13 +33,11 @@ trait MontarRetornoTrait
                 'id'       => $valor->id,
                 'titulo'   => $valor->titulo,
                 'texto'    => '',
-                'link'    => $rota . '/' . $valor->url->valor,
+                'link'     => $rota . '/' . $valor->url->valor,
                 'imagem'   => $valor->imagem->link,
-                'de'   => '',
-                'por'   => '',
+                'de'       => '',
+                'por'      => '',
             ];
         }
     }
-
-
 }

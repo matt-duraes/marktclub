@@ -13,21 +13,21 @@ require_once __DIR__ . '/../src/Config/Ini.php';
 require_once __DIR__ . '/../src/Config/Error.php';
 require_once __DIR__ . '/../src/Config/Diretorio.php';
 
-if (file_exists(__DIR__ . '/../files/banco/tabela.php')) {
-    require_once __DIR__ . '/../files/banco/tabela.php';
+if (file_exists(__DIR__ . '/../database/tabela.php')) {
+    require_once __DIR__ . '/../database/tabela.php';
 }
 
 header('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
 header('X-Frame-Options: DENY');
 
-$__securityPolicy = env('SECURITY_POLICY', "");
+$__securityPolicy = env('SECURITY_POLICY', '');
 if (!empty($__securityPolicy)) {
     header('Content-Security-Policy: ' . $__securityPolicy);
     header('X-Content-Security-Policy: ' . $__securityPolicy);
 }
 unset($__securityPolicy);
 
-$__permissionPolicy = env('PERMISSION_POLICY', "");
+$__permissionPolicy = env('PERMISSION_POLICY', '');
 if (!empty($__permissionPolicy)) {
     header('Permissions-Policy: ' . $__permissionPolicy);
 }

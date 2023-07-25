@@ -1,0 +1,1 @@
+{"id":"id_c608636db51ce89e8826cea9abffbe65","token":"token","metodo":"POST","nome":"\/login\/api","uri":"{{LINK}}\/login\/api","parametro":[],"body":[["cript",true,"nome","$nomeCompleto",""],["cript",true,"cpf","$cpf",""],["cript",true,"email_pessoal","$email",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

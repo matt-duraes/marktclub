@@ -26,7 +26,7 @@ final class NotificacaoModel extends ORM implements ModelListarInterface
     ) {
         parent::__construct();
         try {
-            $this->idUsuario = TOKEN['usuario']->get('id');
+            $this->idUsuario = TOKEN['usuario']->id;
         } catch (Throwable) {
             mensagemStatus(404);
         }

@@ -160,6 +160,7 @@ const adicionarDadoAoRequest = (bloco, resposta, vazio) => {
     const botaoRespostaJson = bloco.querySelector('.botao_resposta_json');
     const botaoRespostaBody = bloco.querySelector('.botao_resposta_body');
     const botaoRespostaHtml = bloco.querySelector('.botao_resposta_html');
+    const botaoRespostaRequisicao = bloco.querySelector('.botao_resposta_requisicao');
 
     const inputToken = bloco.querySelector('.input_token');
     const blocoMetodo = bloco.querySelector('.bloco_metodo');
@@ -188,6 +189,7 @@ const adicionarDadoAoRequest = (bloco, resposta, vazio) => {
     botaoRespostaJson.addEventListener('click', mudarTipoResposta);
     botaoRespostaBody.addEventListener('click', mudarTipoResposta);
     botaoRespostaHtml.addEventListener('click', mudarTipoResposta);
+    botaoRespostaRequisicao.addEventListener('click', mudarTipoResposta);
 
     inputToken.value = resposta.token;
     if (!blocoMetodo.classList.contains('inativo')) {

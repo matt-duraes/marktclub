@@ -4,15 +4,19 @@ namespace App\Models\Api\ApiToken;
 
 use ORM\Entity;
 use App\Classes\ApiToken\Tipo;
-use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ApiToken\Trait\PegarEquipeTrait;
+use App\Models\Api\ApiToken\Trait\PegarClienteTrait;
+use App\Models\Api\ApiToken\Trait\PegarEmpresaTrait;
 
 final class ValidarTokenAuthorizationEntity extends Entity
 {
     use TokenTrait;
+    use PegarAppTrait;
+    use PegarEmpresaTrait;
+    use PegarClienteTrait;
+    use PegarEquipeTrait;
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
     protected array $ormBuscar = ['id_api_app', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'];
@@ -25,24 +29,28 @@ final class ValidarTokenAuthorizationEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $App = new AppEntity();
-        $App->id($this->id_api_app);
-
-        $tipo = $this->tipo->indice();
-        if (!array_key_exists($tipo, (new Tipo())->select())) {
+        $tipoUsuario = $this->tipo->indice();
+        if (!array_key_exists($tipoUsuario, (new Tipo())->select())) {
             mensagemStatus(404);
         }
 
-        if ($tipo == Tipo::CLUBE) {
-            $Usuario = new ClienteEntity(validarToken: false);
-            $Usuario->uuid($this->id_usuario);
-        } elseif ($tipo == Tipo::PAINEL) {
-            $Usuario = new EquipeEntity(validarToken: false);
-            $Usuario->uuid($this->id_usuario);
+        $App = $this->pegarApp(['id', $this->id_api_app]);
+
+        $whereUsuario = ['uuid', $this->id_usuario];
+        if (preg_match('/^[0-9]{1,}$/', $this->id_usuario)) {
+            $whereUsuario = ['id', $this->id_usuario];
         }
 
-        $Empresa = new EmpresaEntity();
-        $Empresa->id($Usuario->id_admin_empresa);
+        if ($tipoUsuario == Tipo::CLUBE) {
+            $Usuario = $this->pegarCliente($whereUsuario);
+        } elseif ($tipoUsuario == Tipo::PAINEL) {
+            $Usuario = $this->pegarEquipe($whereUsuario);
+        }
+        $where = ['id', $App->id_admin_empresa];
+        if (!vazio($Usuario)) {
+            $where = ['id', $Usuario->id_admin_empresa];
+        }
+        $Empresa = $this->pegarEmpresa($where);
 
         $this->criarDefinesDoToken(
             $this->access_token,

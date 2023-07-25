@@ -25,7 +25,7 @@ class ContatoModel extends ORM implements ModelListarInterface
     protected string $ormTabela = TABELA_MENSAGEM_CONTATO_NOVO;
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @throws Excecao
      */
@@ -38,7 +38,6 @@ class ContatoModel extends ORM implements ModelListarInterface
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void
@@ -108,7 +107,7 @@ class ContatoModel extends ORM implements ModelListarInterface
     }
 
     /**
-     * @param  array  $dados
+     * @param array $dados
      *
      * @return array
      */
@@ -123,13 +122,13 @@ class ContatoModel extends ORM implements ModelListarInterface
         $retorno = [];
         foreach ($dados as $items) {
             $retorno[] = [
-                'id'           => $items->uuid,
-                'nome'         => $items->nome,
-                'telefone'     => $items->telefone,
-                'email'        => $items->email,
-                'mensagem'     => $items->mensagem,
+                'id'              => $items->uuid,
+                'nome'            => $items->nome,
+                'telefone'        => $items->telefone,
+                'email'           => $items->email,
+                'mensagem'        => $items->mensagem,
                 'descoberta_site' => $items->descoberta_site,
-                'empresa' => [
+                'empresa'         => [
                     'nome' => $items->empresa_nome_fantasia
                 ],
                 'status'       => $Status->indice($items->status),

@@ -12,7 +12,7 @@ final class AutomovelController extends Controller implements
     ControllerListarInterface
 {
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

@@ -26,7 +26,7 @@ class IndicacaoParceiroModel extends ORM implements ModelListarInterface
     protected string $ormTabela = TABELA_MENSAGEM_INDICACAO_NOVO;
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @throws Excecao
      */
@@ -39,7 +39,6 @@ class IndicacaoParceiroModel extends ORM implements ModelListarInterface
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void
@@ -112,7 +111,7 @@ class IndicacaoParceiroModel extends ORM implements ModelListarInterface
     }
 
     /**
-     * @param  array  $dados
+     * @param array $dados
      *
      * @return array
      */
@@ -131,7 +130,7 @@ class IndicacaoParceiroModel extends ORM implements ModelListarInterface
                 'id'            => $items->uuid,
                 'usuario_nome'  => $items->nome,
                 'usuario_email' => $items->email_pessoal,
-                'empresa' => [
+                'empresa'       => [
                     'nome' => $items->empresa_nome_fantasia
                 ],
                 'parceiro'      => strNull($items->parceiro),

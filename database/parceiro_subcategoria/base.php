@@ -2,7 +2,7 @@
 
 return (new \DataBase\DataBase())
     ->id()
-    ->char('cod')->tamanho(36)
+    ->cod()
     ->json('empresa')
     ->int('categoria')->tamanho(2)
     ->varchar('titulo')

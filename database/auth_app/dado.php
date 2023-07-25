@@ -5,7 +5,7 @@ $scope = [
 
     'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
     'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
-    'usuario_cliente:download',
+    'usuario_cliente:download', 'usuario_cliente:apple',
 
     'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
 
@@ -53,6 +53,9 @@ $scope = [
 
     'parceiro_cashback:salvar', 'parceiro_cashback:atualizar', 'parceiro_cashback:listar',
     'parceiro_cashback:buscar', 'parceiro_cashback:deletar',
+
+    'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
+    'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
     'parceiro_loja:listar', 'parceiro_loja:buscar',
 
@@ -102,17 +105,17 @@ $scope = [
 
     'parceiro-cupom:buscar', 'parceiro-cupom:listar',
 
-    "contato:salvar", "contato:listar", "contato:buscar",
+    'contato:salvar', 'contato:listar', 'contato:buscar',
 
-    "mensagem_indicacao_parceiro:salvar", "mensagem_indicacao_parceiro:listar", "mensagem_indicacao_parceiro:buscar",
+    'mensagem_indicacao_parceiro:salvar', 'mensagem_indicacao_parceiro:listar', 'mensagem_indicacao_parceiro:buscar',
 
-    "automovel_montadora:listar", "automovel_montadora:salvar", "automovel_montadora:buscar",
+    'automovel_montadora:listar', 'automovel_montadora:salvar', 'automovel_montadora:buscar',
 
-    "automovel_modelo:listar", "automovel_modelo:salvar", "automovel_modelo:buscar",
+    'automovel_modelo:listar', 'automovel_modelo:salvar', 'automovel_modelo:buscar',
 
-    "automovel_versao:listar", "automovel_versao:salvar", "automovel_versao:buscar",
+    'automovel_versao:listar', 'automovel_versao:salvar', 'automovel_versao:buscar',
 
-    "automovel:listar"
+    'automovel:listar'
 ];
 
 return [

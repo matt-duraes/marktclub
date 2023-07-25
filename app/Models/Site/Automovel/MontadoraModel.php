@@ -22,8 +22,8 @@ final class MontadoraModel extends ClubeApiHelper implements ListarInterface
         $apiHelper = new ApiHelper('automovel_montadora:listar');
 
         $dado = $apiHelper->json([
-                    'pagina' => 1
-                ])->get('/automovel-montadora')->object();
+            'pagina' => 1
+        ])->get('/automovel-montadora')->object();
 
         return $this->montarRetorno($dado);
     }

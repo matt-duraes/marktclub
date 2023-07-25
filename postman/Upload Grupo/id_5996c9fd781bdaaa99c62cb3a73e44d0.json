@@ -1,0 +1,1 @@
+{"id":"id_5996c9fd781bdaaa99c62cb3a73e44d0","token":"painel","metodo":"PUT","nome":"\/upload-grupo\/:id","uri":"{{LINK}}\/upload-grupo\/$UPLOAD_GRUPO_ID","parametro":[],"body":[["texto",true,"nome","$nome",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

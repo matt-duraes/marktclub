@@ -2,20 +2,20 @@
 
 namespace ApiController;
 
-use ApiModel\PainelNotificacao\NotificacaoEntity;
-use ApiModel\PainelNotificacao\NotificacaoModel;
-use ApiModel\PainelNotificacao\VisualizarTodasModel;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
-use Controller\Controller;
+use Throwable;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
 use System\Classes\PainelNotificacao\Status;
-use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use Throwable;
+use ApiModel\PainelNotificacao\NotificacaoModel;
+use ApiModel\PainelNotificacao\NotificacaoEntity;
+use System\Interface\ControllerAtualizarInterface;
+use ApiModel\PainelNotificacao\VisualizarTodasModel;
 
 final class PainelNotificacaoController extends Controller implements
     ControllerSalvarInterface,
@@ -36,16 +36,7 @@ final class PainelNotificacaoController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Notificacao,
-                lista: [
-                    'id',
-                    'dono',
-                    'titulo',
-                    'mensagem',
-                    'link',
-                    'botao',
-                    'target',
-                    'status'
-                ]
+                lista: ['id', 'dono', 'titulo', 'mensagem', 'link', 'botao', 'target', 'status']
             )
         );
     }

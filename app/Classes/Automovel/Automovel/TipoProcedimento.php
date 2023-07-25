@@ -15,7 +15,7 @@ final class TipoProcedimento extends StatusStatus
     ) {
         parent::__construct([
             self::DECLARACAO => 'Declaração',
-            self::VOUCHER => 'Voucher',
+            self::VOUCHER    => 'Voucher',
             self::CARTABONUS => 'Carta Bônus',
         ]);
     }

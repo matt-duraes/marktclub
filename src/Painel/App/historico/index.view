@@ -1,9 +1,0 @@
-@php painelPopup(titulo: 'Histórico', action: LINK . '/historico/salvar', method: 'POST', id: 'bloco_historico', fechar: false)
-
-<input type="hidden" name="historico_atualizar_id" id="input_historico_atualizar_id" value="<?=$id?>">
-<input type="hidden" name="historico_location" id="input_historico_location" value="<?=$location?>">
-
-@? formTextarea(name: 'historico_atualizar_texto', label: 'Digite seu histórico', placeholder: 'Digite seu histórico')
-<p>Aperte Shift+Enter para quebrar a linha.</p>
-
-@php painelPopupEnd(botao: 'SALVAR', id: 'botao_historico_atualizar', form: true)

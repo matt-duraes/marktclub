@@ -53,14 +53,13 @@ final class AutomovelController extends Controller
      */
     public function modelo(string $montadora, string $veiculo): Response
     {
-
         $lista = (new ModeloModel())->listarDados();
 
         return view(
             'automovel.modelo',
             [
                 'menu'  => 'automovel',
-                'dado' => $lista->dado ?? [],
+                'dado'  => $lista->dado ?? [],
                 'lista' => $lista ?? []
             ]
         );
@@ -92,7 +91,6 @@ final class AutomovelController extends Controller
         ]);
     }
 
-
     /**
      *
      * @return Response
@@ -107,5 +105,4 @@ final class AutomovelController extends Controller
             'status' => 'sucesso'
         ], status: 201);
     }
-
 }
