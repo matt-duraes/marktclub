@@ -2,9 +2,10 @@
 
 namespace App\Models\Oauth\Usuario;
 
-use ORM\ORM;
 use App\Classes\ComercialEmpresa\Helper;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use Erro\Excecao;
+use ORM\ORM;
 
 final class SalvarModel extends ORM
 {
@@ -14,12 +15,21 @@ final class SalvarModel extends ORM
     private string $linkClube;
     private string $hash;
 
+    /**
+     * @param int    $empresa
+     * @param string $nome
+     * @param int    $cpf
+     * @param string $email
+     * @param string $grupo
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private int $empresa,
-        private string $nome,
-        private int $cpf,
-        private string $email,
-        private string $grupo
+        private readonly int $empresa,
+        private readonly string $nome,
+        private readonly int $cpf,
+        private readonly string $email,
+        private readonly string $grupo
     ) {
         parent::__construct();
 
@@ -33,7 +43,22 @@ final class SalvarModel extends ORM
         $this->salvarUsuario();
     }
 
-    private function pegarIdUsuario()
+    /**
+     */
+    private function pegarLinkClube(): void
+    {
+        $Construtor = new ConstrutorEntity();
+        $Construtor->buscar([
+            ['empresa', $this->empresa],
+            ['status', 'in', Helper::STATUS_LIBERADO]
+        ]);
+        $this->linkClube = $Construtor->link_clube;
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function pegarIdUsuario(): void
     {
         $usuario = $this
             ->campo(['id', 'email_pessoal'])
@@ -46,10 +71,13 @@ final class SalvarModel extends ORM
             return;
         }
         $this->idUsuario = $usuario->id;
-        $this->emailUsuario = $usuario->email_pessoal;
+        $this->emailUsuario = $usuario->email_pessoal ?? '';
     }
 
-    private function atualizarUsuario()
+    /**
+     * @throws Excecao
+     */
+    private function atualizarUsuario(): void
     {
         $agora = agora();
         $hoje = hoje();
@@ -74,7 +102,10 @@ final class SalvarModel extends ORM
         }
     }
 
-    private function salvarUsuario()
+    /**
+     * @throws Excecao
+     */
+    private function salvarUsuario(): void
     {
         $agora = agora();
         $hoje = hoje();
@@ -85,7 +116,6 @@ final class SalvarModel extends ORM
             'nome'             => $this->nome,
             'documento'        => (int)soNumero($this->cpf),
             'email_pessoal'    => strCaixaBaixa($this->email),
-            'nome'             => $this->nome,
             'grupo'            => strCaixaBaixa($this->grupo),
             'data_criacao'     => $agora,
             'data_atualizacao' => $agora,
@@ -99,16 +129,6 @@ final class SalvarModel extends ORM
         if (!$dado) {
             mensagemStatus(401, localhost: 'Não foi possível salvar usuário.');
         }
-    }
-
-    private function pegarLinkClube()
-    {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar([
-            ['empresa', $this->empresa],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ]);
-        $this->linkClube = $Construtor->link_clube;
     }
 
     /**

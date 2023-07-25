@@ -8,6 +8,7 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Site\SosMulher\ListarModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
+use App\Models\Site\ConstrutorModel;
 
 final class SiteController extends Controller
 {
@@ -149,5 +150,29 @@ final class SiteController extends Controller
     public function regulamento_campanha(): Response
     {
         return view('regulamento.campanha');
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function getAjuda(): Response
+    {
+
+        $construtor = (new ConstrutorModel())->montaPermissaoMenuAjuda();
+
+        return view('ajuda.index', [
+            'menu' => $construtor,
+            'email' => defined('CONTATO_EMAIL') ?? ''
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function getIndiqueParceiro(): Response
+    {
+        return view('indicar_parceiro.index');
     }
 }

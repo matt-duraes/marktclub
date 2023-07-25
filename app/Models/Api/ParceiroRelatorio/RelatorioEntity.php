@@ -2,11 +2,12 @@
 
 namespace App\Models\Api\ParceiroRelatorio;
 
-use ORM\Entity;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use App\Models\Api\ParceiroLoja\LojaEntity;
+use Erro\Excecao;
 use Modules\Data;
 use Modules\Dinheiro;
-use App\Models\Api\ParceiroLoja\LojaEntity;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use ORM\Entity;
 
 final class RelatorioEntity extends Entity
 {
@@ -28,20 +29,25 @@ final class RelatorioEntity extends Entity
     public function __construct(
         public ?EmpresaEntity $Empresa = null,
         public ?LojaEntity $Parceiro = null,
-        public ?int $numero_transacao = null,
+        public int|string|null $numero_transacao = null,
         public ?Dinheiro $valor_venda = null,
         public ?Data $data_relatorio = null
     ) {
         parent::__construct();
     }
 
-    protected function regraSalvar()
+    /**
+     * @throws Excecao
+     */
+    protected function regraSalvar(): void
     {
         $this->id_admin_empresa = $this->Empresa->get('id');
         $this->id_parceiro_loja = $this->Parceiro->get('id');
     }
 
-    protected function regraPosBuscar()
+    /**
+     */
+    protected function regraPosBuscar(): void
     {
         $this->Empresa = new EmpresaEntity();
         $this->Empresa->id($this->id_admin_empresa);
