@@ -755,11 +755,15 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:atualizar'])
             ::request([
-                'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro',
-                'comissao_minima', 'comissao_maxima', 'status', 'empresa',
-                'link_site', 'imagem'
+                '!titulo', '!texto_descricao', '!texto_restricao', '!texto_outro',
+                '!comissao_minima', '!comissao_maxima', '!status', '!empresa',
+                '!link_site', '!imagem'
             ])
             ::put('/parceiro-cashback/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:deletar'])
+            ::delete('/parceiro-cashback/{id}');
     });
 
 Route

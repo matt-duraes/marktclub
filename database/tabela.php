@@ -38,7 +38,7 @@ define('TABELA_PAINEL_LOG_DOWNLOAD', 'painel_log_download');
 define('TABELA_PAINEL_MENU', 'painel_menu');
 define('TABELA_PAINEL_NOTIFICACAO', 'painel_notificacao');
 define('TABELA_PARCEIRO_ACESSADO', 'parceiro_acessado');
-define('TABELA_PARCEIRO_CASHBACK', 'cashback_programa');
+define('TABELA_PARCEIRO_CASHBACK', 'parceiro_cashback');
 define('TABELA_PARCEIRO_CUPOM_BLOQUEADO', 'cupom_bloqueio');
 define('TABELA_PARCEIRO_EASYLIVE', 'parceiro_easylive');
 define('TABELA_PARCEIRO_FAVORITO', 'parceiro_favorito');

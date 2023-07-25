@@ -1,0 +1,1 @@
+{"id":"id_cb80c6e050d01900b58cd1c6c1b2ea92","token":"painel","metodo":"PUT","nome":"\/parceiro-cashback\/:id","uri":"{{LINK}}\/parceiro-cashback\/$PARCEIRO_CASHBACK_ID","parametro":[],"body":[["texto",true,"titulo","Titulo novo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}
