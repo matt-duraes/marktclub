@@ -5,6 +5,7 @@ namespace ApiModel\Upload;
 use Erro\Erro;
 use ORM\Entity;
 use Erro\Excecao;
+use Modules\Botao;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
 
 final class GrupoEntity extends Entity
@@ -37,7 +38,7 @@ final class GrupoEntity extends Entity
     /**
      * @var string|null
      */
-    public ?string $privado;
+    public Botao $privado;
 
     /**
      * @var string
@@ -58,11 +59,6 @@ final class GrupoEntity extends Entity
      * @var array|string[]
      */
     protected array $ormSalvar = ['nome'];
-
-    /**
-     * @var array
-     */
-    private array $raiz = [];
 
     /**
      * @var array
@@ -135,6 +131,9 @@ final class GrupoEntity extends Entity
     {
         $this->pegarPai();
         $this->id_upload_grupo = $this->pai['id'];
+        $this->extensao = jsonDecode($this->pai['extensao'], true, true);
+        $this->diretorio = $this->pai['diretorio'];
+        $this->privado = new Botao($this->pai['privado']);
         $this->id_usuario_equipe = TOKEN['usuario']->id;
     }
 
@@ -154,7 +153,7 @@ final class GrupoEntity extends Entity
                 localhost: 'Não foi possível pegar o diretório pai.'
             );
         }
-        $this->pai = $this->campo(['id'])->where($where)->primeiro(retorno: 'array');
+        $this->pai = $this->campo(['id', 'diretorio', 'extensao', 'privado'])->where($where)->primeiro(retorno: 'array');
     }
 
     /**
@@ -173,48 +172,7 @@ final class GrupoEntity extends Entity
      */
     protected function regraPosBuscar(): void
     {
-        $this->pegarRaiz();
-        $this->setarValorDaRaiz();
         $this->equipe = (new PerfilModel())->pegarDado($this->id_usuario_equipe);
-    }
-
-    /**
-     * @throws Excecao
-     */
-    private function pegarRaiz(): void
-    {
-        if (empty($this->id_upload_grupo)) {
-            return;
-        }
-
-        $id = $this->id_upload_grupo;
-        for ($i = 0; $i < 100; ++$i) {
-            $dado = $this->campo(['id_upload_grupo', 'extensao', 'diretorio', 'privado'])->where(['id', $id])->primeiro(
-                retorno: 'array'
-            );
-            if (!array_key_exists('id_upload_grupo', $dado)) {
-                return;
-            } elseif (empty($dado['id_upload_grupo'])) {
-                $this->raiz = $dado;
-                return;
-            }
-            $id = $dado['id_upload_grupo'];
-        }
-        return;
-    }
-
-    /**
-     */
-    private function setarValorDaRaiz(): void
-    {
-        $raiz = $this->raiz;
-        if (!$raiz) {
-            return;
-        }
-
-        $this->extensao = jsonDecode($raiz['extensao'], true, true);
-        $this->diretorio = $raiz['diretorio'];
-        $this->privado = $raiz['privado'];
     }
 
     /**
