@@ -24,7 +24,7 @@ final class MontadoraModel extends ORM
     protected string $link_arquivo;
 
     /**
-     * @param Request|null $request
+     * @param  Request|null $request
      * @throws Excecao
      */
     public function __construct(
@@ -76,7 +76,7 @@ final class MontadoraModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid','cod_parceiro', 'imagem', 'bg', 'titulo', 'tipo', 'data_criacao'])
+            ->campo(['uuid', 'cod_parceiro', 'imagem', 'bg', 'titulo', 'tipo', 'data_criacao'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order(new Ordem($this->request->ordem))
             ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'cod_parceiro')
@@ -119,7 +119,7 @@ final class MontadoraModel extends ORM
     }
 
     /**
-     * @param array $dado
+     * @param  array $dado
      * @return array
      */
     protected function montarRetorno(array $dado): array
@@ -131,19 +131,19 @@ final class MontadoraModel extends ORM
 
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
+                'id'     => $r->uuid,
                 'titulo' => $r->titulo,
-                'tipo' => $Tipo->indice($r->tipo),
+                'tipo'   => $Tipo->indice($r->tipo),
                 'imagem' => [
-                    'link' => $this->link_arquivo . '/carro/' . $r->imagem,
+                    'link'  => $this->link_arquivo . '/carro/' . $r->imagem,
                     'valor' => $r->imagem,
                 ],
                 'imagem_background' => [
-                    'link' => $this->link_arquivo . '/carro/' . $r->bg,
-                    'valor' =>$r->bg,
+                    'link'  => $this->link_arquivo . '/carro/' . $r->bg,
+                    'valor' => $r->bg,
                 ],
                 'url' => [
-                    'link' => $this->link_site . '/automoveis/' . $r->url,
+                    'link'  => $this->link_site . '/automoveis/' . $r->url,
                     'valor' => $r->url,
                 ],
                 'status' => $Status->indice($r->status)
@@ -154,14 +154,13 @@ final class MontadoraModel extends ORM
 
     public function validarPermissao($url)
     {
-
         $busca = $this->campo(['uuid'])->where(['link', $url])
             ->tabela(TABELA_PARCEIRO_LOJA)->join('cod', 'cod_parceiro')->where([
                 ['status', 4],
                 ['empresa', 'like', '%"' . $this->idEmpresa . '"%'],
             ])->read()[0] ?? [];
 
-        if($busca) {
+        if ($busca) {
             return true;
         }
 
@@ -172,6 +171,4 @@ final class MontadoraModel extends ORM
     {
         return $this->campo(['uuid'])->where(['link',  $url])->read()[0]->uuid ?? '';
     }
-
-
 }

@@ -32,14 +32,14 @@ trait ValidarEmpresaTrait
     private function setarIdEmpresa(): void
     {
         $this->verificarSeExisteToken();
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->idEmpresa = TOKEN['empresa']->id;
     }
 
     private function setarIdUsuario(): void
     {
         $this->verificarSeExisteToken();
-        $this->idUsuario = array_key_exists('usuario', TOKEN) && is_object(TOKEN['usuario']) ?
-            TOKEN['usuario']->get('id') : null;
+        $this->idUsuario = array_key_exists('usuario', TOKEN) && !vazio(TOKEN['usuario']) ?
+            TOKEN['usuario']->id : null;
     }
 
     /**

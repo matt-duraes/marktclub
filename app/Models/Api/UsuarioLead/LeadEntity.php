@@ -102,7 +102,7 @@ final class LeadEntity extends Entity
             mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioLeed\LeedEntity');
         }
 
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->idEmpresa = TOKEN['empresa']->id;
         $this->ormWherePadrao = ['id_admin_empresa', $this->idEmpresa];
     }
 

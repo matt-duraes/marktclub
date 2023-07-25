@@ -1,0 +1,1 @@
+{"id":"id_e8532e4c08bba8276ca814bd396b6262","token":"painel","metodo":"GET","nome":"\/upload-grupo\/:id","uri":"{{LINK}}\/upload-grupo\/$UPLOAD_GRUPO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

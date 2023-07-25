@@ -1,0 +1,1 @@
+{"id":"id_74cfbf6b14cc9c73101eff9340f0de23","token":"painel","metodo":"DELETE","nome":"\/upload-grupo\/:id","uri":"{{LINK}}\/upload-grupo\/$UPLOAD_GRUPO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

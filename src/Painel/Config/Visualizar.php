@@ -239,6 +239,22 @@ final class Visualizar
         return $this;
     }
 
+    public function dinheiro(
+        array|string $campo,
+        string $nome,
+        ?string $permissao = null,
+        bool $vazio = true
+    ): self {
+        $this->adicionarCampo($campo, [
+            'funcao'   => 'linha',
+            'campo'    => $campo,
+            'nome'     => $nome,
+            'formatar' => 'dinheiro',
+            'vazio'    => $vazio
+        ], $permissao);
+        return $this;
+    }
+
     public function linha(
         array|string $campo,
         string $nome,

@@ -9,6 +9,7 @@ use Controller\Controller;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\ParceiroCashback\CashbackModel;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\ParceiroCashback\CashbackEntity;
@@ -17,7 +18,8 @@ final class ParceiroCashbackController extends Controller implements
     ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerBuscarInterface,
-    ControllerAtualizarInterface
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function getListar(Request $request): Response
     {
@@ -63,6 +65,15 @@ final class ParceiroCashbackController extends Controller implements
         $Cashback->uuid($id);
         $Cashback->set(lista: $request->dado());
         $Cashback->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id): Response
+    {
+        $Cashback = new CashbackEntity();
+        $Cashback->uuid($id);
+        $Cashback->destruir();
 
         return new Response(status: 204);
     }

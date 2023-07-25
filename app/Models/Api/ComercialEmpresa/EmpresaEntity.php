@@ -6,14 +6,16 @@ use ORM\Entity;
 use Modules\Cpf;
 use Modules\Cnpj;
 use Modules\Data;
+use Modules\Nome;
 use Modules\Botao;
 use Modules\Email;
+use Modules\Inteiro;
 use Modules\Dinheiro;
 use Modules\Telefone;
+use Helpers\OrmHelper;
 use Modules\EnderecoEstado;
 use App\Classes\ComercialEmpresa\Status;
 use App\Classes\ComercialEmpresa\TipoSite;
-use App\Models\Api\UsuarioEquipe\HelperModel;
 use App\Classes\ComercialEmpresa\EmailDisparo;
 use App\Classes\ComercialEmpresa\ContratoPrazo;
 use App\Classes\ComercialEmpresa\TipoPagamento;
@@ -21,42 +23,50 @@ use App\Classes\ComercialEmpresa\CadastroUsuario;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 use App\Classes\ComercialEmpresa\ContratoRenovacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
+use App\Models\Api\ComercialFatura\UltimaFaturaModel;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
+use App\Models\Api\ComercialPagamento\PagamentoEntity;
+use App\Models\Api\ComercialEmpresa\Trait\ValidarEmpresaAtivaTrait;
 
 final class EmpresaEntity extends Entity
 {
+    use ValidarEmpresaAtivaTrait;
+
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
     protected array $ormBuscar = [
         'finalidade_principal' => 'finalidade_empresa',
         'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
         'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'tipo_pagamento', 'valor_pago', 'renda_media', 'valor_pib', 'produto_clube',
+        'id_usuario_equipe', 'tipo_pagamento', 'renda_media', 'valor_pib', 'produto_clube',
         'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
         'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
         'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
-        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data'
+        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
+        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
+        'contrato_dia_fechamento'
     ];
     protected array $ormSalvar = [
         'finalidade_empresa' => '->finalidade_principal',
         'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
         'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'tipo_pagamento', 'valor_pago', 'renda_media', 'valor_pib', 'produto_clube',
+        'id_usuario_equipe', 'tipo_pagamento', 'renda_media', 'valor_pib', 'produto_clube',
         'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
         'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
         'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
-        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data'
+        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
+        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
+        'contrato_dia_fechamento'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
-        razao_social|Razão Social|vazio
-        cnpj|CNPJ|vazio|valido
+        finalidade_principal|Finalidade principal|vazio|valido
+        finalidade_secundaria|Finalidade principal|vazio|valido
+        id_usuario_equipe|Responsável pelo contrato|vazio|int>0
         responsavel_nome|Nome do responsável|vazio|valido
-        responsavel_cpf|CPF do responsável|valido
         responsavel_telefone|Telefone do responsável|vazio|valido
         responsavel_email|E-mail do responsável|vazio|valido
-        estado_principal|Estado principal|valido
         status|Status|vazio|valido
     ';
     protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
@@ -69,7 +79,7 @@ final class EmpresaEntity extends Entity
     public string $slug;
     public ProspeccaoStatus $prospeccao_status;
     public Status $status;
-    public string $responsavel_nome;
+    public Nome $responsavel_nome;
     public Cpf $responsavel_cpf;
     public Email $responsavel_email;
     public Telefone $responsavel_telefone;
@@ -79,9 +89,14 @@ final class EmpresaEntity extends Entity
     public Botao $produto_site;
     public Botao $produto_webview;
     public Botao $produto_api;
+    public Botao $cobrar_aposentado;
     public string $site;
     public TipoPagamento $tipo_pagamento;
-    public Dinheiro $valor_pago;
+    public UltimaFaturaModel $valor_pago;
+    public Dinheiro $contrato_valor;
+    public Dinheiro $contrato_valor_minimo;
+    public Inteiro $contrato_dia_pagamento;
+    public Inteiro $contrato_dia_fechamento;
     public Dinheiro $renda_media;
     public Dinheiro $valor_pib;
     public EnderecoEstado $estado_principal;
@@ -105,6 +120,7 @@ final class EmpresaEntity extends Entity
     public string $observacao_comunicacao;
     public string $observacao_financeiro;
     public array $restricao_lista;
+    private bool $atualizarValor = false;
 
     protected function regraInsert()
     {
@@ -120,8 +136,32 @@ final class EmpresaEntity extends Entity
 
     protected function regraSalvar()
     {
-        $Equipe = new HelperModel();
-        $this->id_usuario_equipe = $Equipe->pegarIdPeloUuid($this->equipe);
+        if ($this->status->indice() == Status::ATIVO) {
+            $this->validarEmpresaAtiva();
+        }
+        if (
+            $this->propriedadeExiste('contrato_valor') &&
+            $this->prop('contrato_valor') != $this->contrato_valor->decimal()
+        ) {
+            $this->atualizarValor = true;
+        }
+        $this->setarUsuarioEquipe();
+    }
+
+    protected function regraPosSalvar()
+    {
+        if ($this->atualizarValor) {
+            new PagamentoEntity(Empresa: $this, valor: $this->contrato_valor);
+        }
+    }
+
+    private function setarUsuarioEquipe()
+    {
+        if (!$this->propriedadeExiste('equipe')) {
+            $this->id_usuario_equipe = array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->id : null;
+            return;
+        }
+        $this->id_usuario_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
     }
 
     protected function regraPosBuscar()
@@ -130,8 +170,9 @@ final class EmpresaEntity extends Entity
             $this->imagem = arquivoPublico('empresa', 'padrao.png');
         }
 
-        $Equipe = new HelperModel();
-        $this->equipe = $Equipe->pegarUuidPeloId($this->id_usuario_equipe);
+        $this->valor_pago = new UltimaFaturaModel(Empresa: $this);
+
+        $this->equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_equipe);
     }
 
     protected function getId()
@@ -141,7 +182,7 @@ final class EmpresaEntity extends Entity
 
     private function validarSeJaExisteCnpj(?int $id = null)
     {
-        if (!$this->cnpj->valido()) {
+        if (!$this->propriedadeExiste('cnpj') || !$this->cnpj->valido()) {
             return;
         }
 

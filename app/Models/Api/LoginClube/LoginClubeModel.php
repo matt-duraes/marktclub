@@ -2,18 +2,20 @@
 
 namespace App\Models\Api\LoginClube;
 
+use stdClass;
 use Http\Request;
 use App\Classes\ApiToken\Tipo;
-use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\AdminConstrutor\ClubeModel;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\ApiToken\Trait\PegarAppTrait;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 
 final class LoginClubeModel
 {
-    private ClienteEntity $Usuario;
+    use PegarAppTrait;
+
+    private stdClass $Usuario;
     private int $idEmpresa;
     public array $token;
     public array $construtor;
@@ -67,9 +69,8 @@ final class LoginClubeModel
 
     private function criarToken()
     {
-        $payload = (new PayloadModel($this->Usuario))->payload;
-        $App = new AppEntity();
-        $App->uuid(env('API_CLUBE_ID'));
+        $App = $this->pegarApp(['uuid', env('API_CLUBE_ID')]);
+        $payload = (new PayloadModel($this->Usuario, $App->audience))->payload;
 
         $Token = new TokenAuthorizationEntity();
         $this->token = $Token->criarToken(

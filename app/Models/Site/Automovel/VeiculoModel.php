@@ -20,13 +20,12 @@ final class VeiculoModel extends ClubeApiHelper implements ListarInterface
 
     public function listarDados(): stdClass
     {
-
         $apiHelper = new ApiHelper('automovel_modelo:listar');
 
         $dado = $apiHelper->json([
-                    'pagina' => 1,
-                    'montadora' => $this->url
-                ])->get('/automovel-modelo')->object();
+            'pagina'    => 1,
+            'montadora' => $this->url
+        ])->get('/automovel-modelo')->object();
 
         return $this->montarRetorno($dado);
     }

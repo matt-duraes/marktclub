@@ -22,12 +22,11 @@ final class AutomovelMontadoraController extends Controller implements
     ControllerAtualizarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
      */
-
     public function getBuscar(string $id): Response
     {
         validarUuid($id);
@@ -42,7 +41,7 @@ final class AutomovelMontadoraController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -57,7 +56,7 @@ final class AutomovelMontadoraController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -72,7 +71,7 @@ final class AutomovelMontadoraController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -94,7 +93,7 @@ final class AutomovelMontadoraController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao

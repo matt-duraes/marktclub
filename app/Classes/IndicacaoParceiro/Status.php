@@ -15,8 +15,8 @@ class Status extends StatusStatus
     ) {
         parent::__construct([
             self::CRIADA       => 'Criada',
-            self::ANDAMENTO => 'Andamento',
-            self::CONCLUIDA  => 'Concluída'
+            self::ANDAMENTO    => 'Andamento',
+            self::CONCLUIDA    => 'Concluída'
         ]);
     }
 }

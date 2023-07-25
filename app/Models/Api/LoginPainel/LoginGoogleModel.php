@@ -2,11 +2,14 @@
 
 namespace App\Models\Api\LoginPainel;
 
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use stdClass;
+use App\Classes\LoginPainel\PegarEquipeTrait;
 
 final class LoginGoogleModel
 {
-    private EquipeEntity $Usuario;
+    use PegarEquipeTrait;
+
+    private stdClass $Usuario;
 
     public function __construct(
         private string $id
@@ -17,26 +20,24 @@ final class LoginGoogleModel
         $this->buscarUsuarioPeloGoogle();
     }
 
-    public function pegarUsuario(): EquipeEntity
+    public function pegarUsuario(): stdClass
     {
         return $this->Usuario;
     }
 
     private function buscarUsuarioPeloGoogle()
     {
-        $Equipe = new EquipeEntity(validarToken: false);
-        try {
-            $Equipe->buscar([
-                ['id_google', $this->id],
-                ['status', 1]
-            ]);
-        } catch (\Throwable) {
+        $Usuario = $this->pegarEquipe([
+            ['id_google', $this->id],
+            ['status', 1]
+        ]);
+        if (vazio($Usuario)) {
             mensagemErro(
                 titulo: 'Conta inválida!',
                 mensagem: 'Não existe usuário vinculado a sua conta do Google.',
                 status: 400
             );
         }
-        $this->Usuario = $Equipe;
+        $this->Usuario = $Usuario;
     }
 }

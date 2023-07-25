@@ -5,7 +5,6 @@ namespace App\Models\Site\Automovel;
 use Erro\Excecao;
 use Helpers\ApiHelper;
 use Http\Request;
-use Http\Response;
 
 final class SalvarIndicacaoModel
 {
@@ -30,7 +29,6 @@ final class SalvarIndicacaoModel
         $this->mensagem = $request->mensagem;
     }
 
-
     /**
      * @return object|array
      * @throws Excecao
@@ -40,18 +38,15 @@ final class SalvarIndicacaoModel
         $api = new ApiHelper('mensagem_indicacao_automovel:salvar');
 
         $api->body([
-                'produto' => $this->veiculo,
-                'modelo' => $this->modelo,
-                'versao' => $this->versao,
-                'cor' => $this->cor,
-                'cidade' => $this->cidade,
-                'mensagem' => $this->mensagem
-            ])->post('/automovel/indicacao')
+            'produto'  => $this->veiculo,
+            'modelo'   => $this->modelo,
+            'versao'   => $this->versao,
+            'cor'      => $this->cor,
+            'cidade'   => $this->cidade,
+            'mensagem' => $this->mensagem
+        ])->post('/automovel/indicacao')
             ->object();
 
         return mensagemSucesso([], 201);
     }
-
-
-
 }

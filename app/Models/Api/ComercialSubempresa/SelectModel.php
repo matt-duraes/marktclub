@@ -36,7 +36,7 @@ final class SelectModel extends ORM
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
         }
-        $idEmpresa = TOKEN['empresa']->get('id');
+        $idEmpresa = TOKEN['empresa']->id;
         if ($idEmpresa == 1 && !$this->request->vazio('empresa')) {
             $idEmpresa = $this->where(['cod', $this->request->empresa])->primeiro('id');
         }

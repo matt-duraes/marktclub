@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use App\Classes\SolicitacaoCredito\Operadora;
-use App\Classes\SolicitacaoCredito\Status;
-use App\Classes\SolicitacaoCredito\Tipo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\Entity;
 use Erro\Excecao;
-use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Dinheiro;
-use ORM\Entity;
+use Helpers\ValidarHelper;
+use App\Classes\SolicitacaoCredito\Tipo;
+use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\SolicitacaoCredito\Operadora;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class CreditoEntity extends Entity
 {

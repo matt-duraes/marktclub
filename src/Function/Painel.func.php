@@ -196,7 +196,8 @@ if (!function_exists('painelHistorico')) {
         bool $boxShadow = true,
         string $titulo = '',
         string $link = '',
-        array $notificar = []
+        array $notificar = [],
+        bool $fechar = false
     ) {
         $r = (object)[
             'id' => $id
@@ -223,6 +224,7 @@ if (!function_exists('painelAppVisualizar')) {
                 $titulo = '';
                 $link = '';
                 $notificar = [];
+                $fechar = false;
                 require ROOT . '/src/Html/Painel/appHistorico.php';
             }
             return;
@@ -642,6 +644,8 @@ if (!function_exists('painelValorFormatar')) {
             $valor = strEmail($valor);
         } elseif ($formatar == 'datahora') {
             $valor = dataHoraBr($valor);
+        } elseif ($formatar == 'dinheiro') {
+            $valor = strDinheiro($valor);
         }
         return $valor;
     }

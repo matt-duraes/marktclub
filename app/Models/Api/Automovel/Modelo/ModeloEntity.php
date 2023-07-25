@@ -10,9 +10,7 @@ final class ModeloEntity extends Entity
 {
     public string $tipo;
     public UploadHelper|string $imagem;
-
     protected string $ormTabela = TABELA_CARRO;
-
     protected array $ormBuscar = [
         'uuid', 'montadora', 'titulo', 'imagem', 'url', 'tipo'
     ];

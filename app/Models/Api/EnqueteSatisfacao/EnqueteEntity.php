@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\EnqueteSatisfacao;
 
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use Http\Request;
 use ORM\Entity;
+use Http\Request;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Navegar;
 use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Suporte;
 use App\Classes\EnqueteSatisfacao\Atendimento;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 class EnqueteEntity extends Entity
 {
@@ -47,7 +47,7 @@ class EnqueteEntity extends Entity
         private readonly ?Request $request = null
     ) {
         parent::__construct();
-        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->id : 1;
     }
 
     /**

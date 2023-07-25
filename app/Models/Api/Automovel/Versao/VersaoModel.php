@@ -23,7 +23,7 @@ final class VersaoModel extends ORM
     protected string $link_arquivo;
 
     /**
-     * @param Request|null $request
+     * @param  Request|null $request
      * @throws Excecao
      */
     public function __construct(
@@ -72,7 +72,7 @@ final class VersaoModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid',  'vinculo', 'titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status' ,'data_criacao'])
+            ->campo(['uuid',  'vinculo', 'titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status', 'data_criacao'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order(new Ordem($this->request->ordem))
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -104,7 +104,7 @@ final class VersaoModel extends ORM
     }
 
     /**
-     * @param array $dado
+     * @param  array $dado
      * @return array
      */
     protected function montarRetorno(array $dado): array
@@ -114,26 +114,25 @@ final class VersaoModel extends ORM
         $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'titulo' => $r->titulo,
+                'id'      => $r->uuid,
+                'titulo'  => $r->titulo,
                 'detalhe' => $r->detalhe,
-                'valor' => [
-                    'de' =>  preg_match('/[a-zA-Z]/', $r->valor) == 0 ? 'R$ ' . strDinheiro($r->valor) : $r->valor,
+                'valor'   => [
+                    'de'  => preg_match('/[a-zA-Z]/', $r->valor) == 0 ? 'R$ ' . strDinheiro($r->valor) : $r->valor,
                     'por' => preg_match('/[a-zA-Z]/', $r->valor_off) == 0 ? 'R$ ' . strDinheiro($r->valor_off) : $r->valor_off
                 ],
-                'cor' => $r->cor,
-                'tipo' => $r->tipo,
+                'cor'    => $r->cor,
+                'tipo'   => $r->tipo,
                 'status' => $Status->indice($r->status)
             ];
         }
         return $retorno;
     }
 
-
     public function pegarVersaoPeloVinculo(String $vinculo = null)
     {
         $dado = $this
-            ->campo(['uuid',  'vinculo', 'titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status' ,'data_criacao'])
+            ->campo(['uuid',  'vinculo', 'titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status', 'data_criacao'])
             ->where([
                 ['vinculo',  $vinculo],
                 ['status',  1]

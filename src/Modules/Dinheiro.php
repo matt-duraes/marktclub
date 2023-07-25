@@ -9,6 +9,17 @@ final class Dinheiro implements ModuleInterface
     use ValidarTrait;
 
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->decimal();
+    }
+
+    // doc
+    /**
      * Modulo para Dinheiro
      *
      * @param string|null $dinheiro Valor para o modulo
