@@ -415,10 +415,11 @@ return [
         -    Clique em "GERAR VOUCHER" no botão ao lado;
         -    Dirija-se à uma concessionária VOLVO portando o voucher e documentos e apresentar no ato da compra na concessionária.
         Não perca tempo, aproveite e boas compras!',
-        'destaque'        => ['1', '2', '66'],
-        'empresa'         => ['1', '2', '66'],
-        'tipo'            => 3,
-        'estabelecimento' => 1,
-        'status'          => 4
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 3,
+        'estabelecimento'     => 1,
+        'procedimento'        => 2,
+        'status'              => 4
     ],
 ];
