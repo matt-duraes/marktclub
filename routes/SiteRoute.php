@@ -222,7 +222,7 @@ Route
             ::view('/saude/simulacao/{url}');
         Route
             ::nome('realizarSimulacao')
-            ::request(['operadora','acomodacao', 'regiaoSelecionada', 'planoSelecionado', 'dtNascimentoTitular', '!dtNascimentoDependentes'])
+            ::request(['!operadora','!acomodacao', '!regiaoSelecionada', '!planoSelecionado', '!dtNascimentoTitular', '!dtNascimentoDependentes'])
             ::get('/saude/realizar-simulacao');
         Route
             ::nome('contratacao')
@@ -237,7 +237,7 @@ Route
                 '!telefone_residencial','telefone_comercial','!ramal', 'cep', 'bairro',
                 'logradouro', 'numero', '!complemento', 'cidade', 'estado'
             ])
-            ::post('/saude/contratacao/{idSimulacao}');
+            ::post('/saude/contratacao/{id_simulacao}');
 
     });
 Route

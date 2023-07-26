@@ -48,11 +48,13 @@ form.addEventListener('submit', async event => {
         Alerta.notificacao('Formulário não enviado', false);
         return;
     }
-    setTimeout(teste, 3000);
+    setTimeout(mensagemSucesso, 3000);
 });
 
-const teste = () => {
+const mensagemSucesso = () => {
     Loading.hide();
     Alerta.notificacao('Dados enviados para contratação', true);
-    return;
+    setTimeout(() => {
+        window.location.assign(LINK + '/saude');
+    }, 5000);
 };

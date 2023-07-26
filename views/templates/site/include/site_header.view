@@ -151,7 +151,7 @@
             </a>
             @endif
             @if(MENU_SEGURO_DE_VIDA):
-            <a class="{!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.index') ?>">
+            <a  id="plano_saude" class="{!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.index') ?>">
                 <i>@iconeSaude</i>
                 Plano de Saúde
             </a>

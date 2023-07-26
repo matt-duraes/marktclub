@@ -136,11 +136,11 @@ final class PlanoSaudeController extends Controller
         ]);
     }
 
-    public function postRealizarContratacao(Request $request, string $idSimulacao)
+    public function postRealizarContratacao(Request $request, string $id_simulacao)
     {
-        $teste = ((new ClubeApiHelper()))
+        ((new ClubeApiHelper()))
         ->body([
-            'id_simulacao'                         => $request->id_simulacao,
+            'id'                                   => $request->id_simulacao,
             'nome'                                 => $request->nome,
             'naturalidade'                         => $request->naturalidade,
             'documento_cpf'                        => $request->cpf,
@@ -170,5 +170,7 @@ final class PlanoSaudeController extends Controller
         ])
         ->post('/saude/contratacao')
         ->object();
+
+        return mensagemSucesso([], 200);
     }
 }
