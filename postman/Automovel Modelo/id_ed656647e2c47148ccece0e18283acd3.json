@@ -1,0 +1,1 @@
+{"id":"id_ed656647e2c47148ccece0e18283acd3","token":"token","metodo":"GET","nome":"\/automovel-modelo\/:id","uri":"{{LINK}}\/automovel-modelo\/$AUTOMOVEL_MODELO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

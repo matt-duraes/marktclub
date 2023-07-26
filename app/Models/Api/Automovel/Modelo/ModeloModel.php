@@ -2,67 +2,57 @@
 
 namespace App\Models\Api\Automovel\Modelo;
 
-use Erro\Excecao;
-use Http\Request;
 use ORM\ORM;
 use stdClass;
-use App\Classes\Automovel\Modelo\Ordem;
-use App\Classes\Automovel\Modelo\Status;
+use Erro\Excecao;
+use Http\Request;
+use Modules\Pagina;
+use Helpers\OrmHelper;
+use Modules\Quantidade;
 use System\Trait\Model\OrdemTrait;
+use App\Classes\StatusGeral\Status;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\Automovel\Modelo\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\ParceiroLoja\Status as StatusParceiro;
 
 final class ModeloModel extends ORM
 {
+    use ValidarEmpresaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
     use PaginaTrait;
 
-    protected string $ormTabela = TABELA_CARRO;
-    protected int $idEmpresa;
-    protected string $link_arquivo;
+    protected string $ormTabela = TABELA_AUTOMOVEL_MODELO;
+    private int $idEmpresa;
+    private stdClass $dadoParceiro;
 
     /**
      * @param  Request|null $request
      * @throws Excecao
      */
     public function __construct(
-        protected ?Request $request = null
+        private Pagina $pagina,
+        private Quantidade $quantidade = new Quantidade(20),
+        private ?string $parceiro = null,
+        private Status $status = new Status(null),
+        private Ordem $ordem = new Ordem(null)
     ) {
         parent::__construct();
-
-        if (defined('TOKEN')) {
-            $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
-            $this->link_arquivo = LINK_ARQUIVO;
-            $this->link_site = LINK_SITE;
-        }
-
-        if (is_null($request)) {
-            return;
-        }
-        $this->validarRequest();
+        $this->validarEmpresa();
+        $this->validarCampos();
+        $this->pegarParceiro();
     }
 
-    /**
-     * @throws Excecao
-     */
-    private function validarRequest(): void
+    private function validarCampos()
     {
-        $pagina = $this->request->pagina;
-        $quantidade = $this->request->quantidade;
-        $ordem = new Ordem($this->request->ordem);
-        $status = new Status($this->request->status);
-
-        if (!validarPagina($pagina)) {
-            mensagemErro('Dado inválido!', 'O campo página não é um valor válido.');
-        } elseif (!empty($quantidade) && !validarPagina($quantidade)) {
-            mensagemErro('Dado inválido!', 'O campo quantidade não é um valor válido.');
-        } elseif (!empty($quantidade) && $quantidade > 50) {
-            mensagemErro('Dado inválido!', 'O campo quantidade deve ser menor ou igual a 50.');
-        } elseif (!$ordem->vazio() && !$ordem->valido()) {
-            mensagemErro('Dado inválido!', 'O campo ordem não é um valor válido.');
-        } elseif (!$status->vazio() && !$status->valido()) {
-            mensagemErro('Dado inválido!', 'O campo status não é um valor válido.');
+        if ($this->pagina->vazio()) {
+            mensagemErro('Campo obrigatório!', 'O campo pagina é obrigatório.');
+        } elseif (!$this->pagina->valido()) {
+            mensagemErro('Campo obrigatório!', 'O campo pagina não é valido.');
+        } elseif (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
+            mensagemErro('Campo obrigatório!', 'O campo quantidade não é valido.');
         }
     }
 
@@ -72,12 +62,20 @@ final class ModeloModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'montadora', 'titulo', 'imagem', 'url', 'status', 'data_criacao'])
+            ->campo(['uuid', 'titulo', 'imagem', 'url', 'status', 'data_criacao'])
             ->where($this->pegarWhere(), obrigatorio: false)
-            ->order(new Ordem($this->request->ordem))
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->read();
+            ->order($this->pegarOrdem())
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade());
 
+        if (vazio($this->dadoParceiro)) {
+            $dado
+                ->tabela(TABELA_PARCEIRO_LOJA)
+                ->campo(['titulo', 'status'], 'parceiro')
+                ->join('id', 'id_parceiro_loja')
+                ->order('titulo');
+        }
+
+        $dado = $dado->read();
         $dado->lista = $this->montarRetorno($dado->lista);
 
         return $dado;
@@ -89,23 +87,35 @@ final class ModeloModel extends ORM
     protected function pegarWhere(): array
     {
         $where = [];
-
-        $montadora = $this->request->montadora;
-        if (!empty($montadora)) {
-            $where[] = ['montadora', $montadora];
+        if (!vazio($this->dadoParceiro)) {
+            $where[] = ['id_parceiro_loja', $this->dadoParceiro->id];
         }
-
-        $titulo = $this->request->titulo;
-        if (!empty($titulo)) {
-            $where[] = ['titulo', $titulo];
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
         }
-
-        $status = new Status($this->request->status);
-        if ($status->valido()) {
-            $where[] = ['status', $status->numero()];
-        }
-
         return $where;
+    }
+
+    private function pegarParceiro()
+    {
+        if (empty($this->parceiro)) {
+            $this->dadoParceiro = (object)[];
+            return;
+        }
+        $this->dadoParceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))
+            ->pegarUltimoRegistro(
+                campo: ['id', 'status'],
+                where: [
+                    ['id_admin_empresa', 'json', '"' . $this->idEmpresa . '"'],
+                    [
+                        'OR',
+                        ['uuid', $this->parceiro],
+                        ['url', $this->parceiro]
+                    ]
+                ],
+                retorno: 'object',
+                erroMensagem: 'Não foi encontrado um parceiro pelo código'
+            );
     }
 
     /**
@@ -115,24 +125,26 @@ final class ModeloModel extends ORM
     protected function montarRetorno(array $dado): array
     {
         $retorno = [];
-
         $Status = new Status();
-
+        $parceiroAtivo = false;
+        if (!vazio($this->dadoParceiro)) {
+            $parceiroAtivo = (new StatusParceiro())->indice($this->dadoParceiro->status) == StatusParceiro::CONCLUIDO;
+        }
         foreach ($dado as $r) {
-            $retorno[] = [
+            $dado = [
                 'id'        => $r->uuid,
                 'titulo'    => $r->titulo,
-                'montadora' => $r->montadora,
-                'imagem'    => [
-                    'link'  => $this->link_arquivo . '/carro/' . $r->imagem,
-                    'valor' => $r->imagem,
-                ],
-                'url' => [
-                    'link'  => $this->link_site . '/automovel/' . $r->montadora . '/' . $r->url,
-                    'valor' => $r->montadora . '/' . $r->url,
-                ],
-                'status' => $Status->indice($r->status)
+                'link_logo' => arquivoPrivado($r->imagem),
+                'url'       => $r->url
             ];
+            if (object_key_exists('parceiro_titulo', $r)) {
+                $dado['parceiro'] = $r->parceiro_titulo;
+                $dado['status'] = (new StatusParceiro())->indice($r->parceiro_status) == StatusParceiro::CONCLUIDO
+                    ? $Status->indice($r->status) : Status::INATIVO;
+            } else {
+                $dado['status'] = $parceiroAtivo ? $Status->indice($r->status) : Status::INATIVO;
+            }
+            $retorno[] = (object)$dado;
         }
         return $retorno;
     }

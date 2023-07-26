@@ -99,7 +99,6 @@ $Painel->coluna(callback: function () use ($Painel) {
 
 $Painel->include('dependente', campo: 'dependente');
 $Painel->include('pagamento', campo: 'pagamento');
-$Painel->include('dependente', campo: 'dependente');
 $Painel->include('analytics', campo: 'analytics');
 
 $Painel->css('painel_usuario_cliente_visualizar');

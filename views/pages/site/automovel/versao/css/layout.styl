@@ -1,13 +1,15 @@
 @system "Form"
 @template "site"
 @resource "site/mixim"
-@resource "site/automovel/mensagem"
 @resource "site/variavel"
+@resource "site/tab"
 @resource "site/loja/parceiro"
+@resource "site/automovel/mensagem"
 
-#bloco_veiculo
-    width: 100%
+#bloco_modelo
     maxWidth()
+    .bloco_procedimento
+        espacoBottomPadrao()
 
 @media screen and (max-width: 550px)
     .busca_automovel .duplo_label
@@ -19,3 +21,4 @@
         display: flex
         align-items: inherit
         margin-top: 10px
+

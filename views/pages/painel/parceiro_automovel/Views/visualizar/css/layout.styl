@@ -1,0 +1,19 @@
+@template "painel"
+@painel "app_geral_visualizar"
+
+#bloco_versao_add
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 10000
+    flexCol()
+    background: rgba(0,0,0,.7)
+    align-items: center
+    opacity: 0
+    transition: opacity .3s ease-out
+    &.ativo
+        opacity: 1
+    .conteudo
+        max-width: 800px

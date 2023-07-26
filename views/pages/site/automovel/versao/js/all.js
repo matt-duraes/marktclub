@@ -1,6 +1,5 @@
-// @system "Form"
 // @template "site"
+// @system "Form"
 // @system "Alerta"
-// @system "Icone"
 // @system "Pagina"
-// @system "Funcao"
+// @resource "site/tab"
