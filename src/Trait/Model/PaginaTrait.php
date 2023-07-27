@@ -3,6 +3,7 @@
 namespace System\Trait\Model;
 
 use Erro\Excecao;
+use Modules\Pagina;
 
 trait PaginaTrait
 {
@@ -17,8 +18,12 @@ trait PaginaTrait
     protected function pegarPagina(bool $obrigatorio = true, bool $valido = true): int
     {
         $valor = '';
-        if (property_exists($this, 'request')) {
+        if (property_exists($this, 'request') && $this->request->existe('pagina')) {
             $valor = $this->request->pagina;
+        } elseif (property_exists($this, 'pagina') && $this->pagina instanceof Pagina) {
+            $valor = $this->pagina->numero();
+        } elseif (property_exists($this, 'pagina')) {
+            $valor = $this->pagina;
         }
 
         if (empty($valor) && $obrigatorio) {

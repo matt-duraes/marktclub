@@ -18,7 +18,7 @@ class ContatoController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -32,7 +32,7 @@ class ContatoController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -42,13 +42,13 @@ class ContatoController extends Controller implements
         $Contato = new ContatoModel($request);
         return mensagemSucesso($Contato->listarDados());
     }
-    /**
-    * @param  ContatoEntity  $contatoEntity
-    *
-    * @return Response
-    * @throws Excecao
-    */
 
+    /**
+     * @param ContatoEntity $contatoEntity
+    *
+     * @return Response
+     * @throws Excecao
+    */
     public function postSalvar(Request $request): Response
     {
         $Contato = new ContatoEntity();
@@ -58,10 +58,9 @@ class ContatoController extends Controller implements
         return $this->retornoSucesso($Contato, 201);
     }
 
-
     /**
-     * @param  ContatoEntity  $contatoEntity
-     * @param  int            $status
+     * @param ContatoEntity $contatoEntity
+     * @param int           $status
      *
      * @return Response
      * @throws Excecao

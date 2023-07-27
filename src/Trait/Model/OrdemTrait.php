@@ -18,8 +18,7 @@ trait OrdemTrait
      * @throws Excecao               Uma exeção com o erro
      */
     protected function pegarOrdem(
-        OrderInterface $ordem,
-        ?string $tabela = '',
+        ?OrderInterface $ordem = null,
         bool $obrigatorio = false,
         bool $valido = true
     ): string|OrderInterface {
@@ -27,8 +26,20 @@ trait OrdemTrait
         if (property_exists($this, 'request') && !empty($this->request->ordem)) {
             $valor = $this->request->ordem;
         }
-        $tabela = !empty($tabela) ? '`' . $tabela . '`.' : '';
-        $ordem->valor($valor);
+
+        if (property_exists($this, 'request') && $this->request->existe('ordem')) {
+            $valor = $this->request->ordem;
+        } elseif (property_exists($this, 'ordem') && $this->ordem instanceof OrderInterface) {
+            $valor = $this->ordem;
+        } elseif (property_exists($this, 'ordem')) {
+            $valor = $this->ordem;
+        }
+
+        if ($valor instanceof OrderInterface) {
+            $ordem = $valor;
+        } elseif ($ordem instanceof OrderInterface && is_string($valor)) {
+            $ordem->valor($valor);
+        }
 
         if ($ordem->vazio() && $obrigatorio) {
             mensagemErro('Campo obrigatório!', 'O campo ordem é obrigatório.');

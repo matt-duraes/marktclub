@@ -1,0 +1,22 @@
+<div id="bloco_contato" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>Contato</h1>
+        <i class="botao pagina_fechar">@iconeFechar</i>
+    </header>
+    <form class="conteudo_pagina_popup form_geral">
+        <h2>Dados do contato</h2>
+        @ foreach( $contato as $ind => $val ):
+        <p><strong>{{$ind}}</strong>: {{$val}}</p>
+        @ endforeach;
+
+        <h3>Fez uma ligação para o contato?</h3>
+        <p>Salve um histórico com o conteúdo da ligação para ficar registrado.</p>
+        <input type="hidden" id="input_contato_geral_id" value="{!!$id!!}">
+        <input type="hidden" id="input_contato_geral_app" value="{!!$app!!}">
+        @? formTextarea(name: 'contato_geral_historico', placeholder: 'Digite um histórico', label: '')
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="flex"></div>
+        <div class="button salvar" id="botao_contato_geral_salvar">SALVAR</div>
+    </div>
+</div>

@@ -3,25 +3,13 @@
 namespace ORM;
 
 use Erro\Erro;
-use Modules\Cpf;
 use Erro\Excecao;
-use Modules\Cnpj;
-use Modules\Data;
-use Modules\Nome;
 use Modules\Botao;
-use Modules\Email;
 use Modules\Senha;
-use Modules\Genero;
-use Modules\Decimal;
 use Modules\DataHora;
-use Modules\Dinheiro;
-use Modules\Telefone;
 use ReflectionObject;
 use ReflectionProperty;
-use Modules\EnderecoCep;
-use Modules\EstadoCivil;
 use ORM\Trait\MudouTrait;
-use Modules\EnderecoEstado;
 use ORM\Buscar\BuscarTrait;
 use ORM\Salvar\SalvarTrait;
 use Status\StatusInterface;
@@ -259,36 +247,8 @@ abstract class Entity extends ORM
 
     protected function ormPegarValorModule(ModuleInterface $valor)
     {
-        if ($valor instanceof Email) {
-            return $valor->email();
-        } elseif ($valor instanceof Nome) {
-            return $valor->nome();
-        } elseif ($valor instanceof Genero) {
-            return $valor->numero();
-        } elseif ($valor instanceof EstadoCivil) {
-            return $valor->numero();
-        } elseif ($valor instanceof Data) {
-            return $valor->date();
-        } elseif ($valor instanceof DataHora) {
-            return $valor->date();
-        } elseif ($valor instanceof Senha) {
-            return $valor->senha();
-        } elseif ($valor instanceof Telefone) {
-            return $valor->numero();
-        } elseif ($valor instanceof Cpf) {
-            return $valor->numero();
-        } elseif ($valor instanceof Botao) {
-            return $valor->numero();
-        } elseif ($valor instanceof Cnpj) {
-            return $valor->numero();
-        } elseif ($valor instanceof EnderecoCep) {
-            return $valor->numero();
-        } elseif ($valor instanceof EnderecoEstado) {
-            return $valor->estado();
-        } elseif ($valor instanceof Dinheiro) {
-            return $valor->decimal();
-        } elseif ($valor instanceof Decimal) {
-            return $valor->decimal();
+        if ($valor instanceof ModuleInterface) {
+            return $valor->banco();
         }
         return null;
     }
@@ -560,40 +520,18 @@ abstract class Entity extends ORM
             return $valor;
         }
 
+        $classNome = str_starts_with($nome, 'Modules\\') && class_exists($nome) ? new $nome(null) : $nome;
+
         $valor = is_null($valor) ? '' : $valor;
-        if ($nome == 'Modules\Email') {
-            $valor = new Email(email: $valor);
-        } elseif ($nome == 'Modules\Data') {
-            $valor = new Data(data: $valor);
-        } elseif ($nome == 'Modules\DataHora') {
-            $valor = new DataHora(data: $valor);
-        } elseif ($nome == 'Modules\Nome') {
-            $valor = new Nome(nome: $valor);
-        } elseif ($nome == 'Modules\Senha' && $this->propriedadeExiste($indice)) {
+        if ($nome == 'Modules\Senha' && $this->propriedadeExiste($indice)) {
             $this->$indice->mudarSenha($valor);
             $valor = $this->$indice;
         } elseif ($nome == 'Modules\Senha') {
             $valor = new Senha(senha: $valor);
-        } elseif ($nome == 'Modules\Telefone') {
-            $valor = new Telefone(telefone: $valor);
-        } elseif ($nome == 'Modules\Cnpj') {
-            $valor = new Cnpj(cnpj: $valor);
-        } elseif ($nome == 'Modules\Cpf') {
-            $valor = new Cpf(cpf: $valor);
         } elseif ($nome == 'Modules\Botao') {
             $valor = new Botao(valor: in_array($valor, [1, 'sim']) ? 'sim' : 'nao');
-        } elseif ($nome == 'Modules\Genero') {
-            $valor = new Genero(genero: $valor);
-        } elseif ($nome == 'Modules\EstadoCivil') {
-            $valor = new EstadoCivil(estadoCivil: $valor);
-        } elseif ($nome == 'Modules\EnderecoCep') {
-            $valor = new EnderecoCep(cep: $valor);
-        } elseif ($nome == 'Modules\EnderecoEstado') {
-            $valor = new EnderecoEstado(estado: $valor);
-        } elseif ($nome == 'Modules\Dinheiro') {
-            $valor = new Dinheiro(dinheiro: $valor);
-        } elseif ($nome == 'Modules\Decimal') {
-            $valor = new Decimal(decimal: $valor);
+        } elseif ($classNome instanceof ModuleInterface) {
+            $valor = new $nome($valor);
         } elseif ($nome == 'array') {
             $valor = jsonDecode($valor, true, true);
         } elseif ($nome == 'int') {

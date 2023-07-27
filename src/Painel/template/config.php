@@ -42,7 +42,7 @@ try {
             'pagina' => 1,
             'novo'   => 'sim'
         ])->get('/painel-notificacao')->object()->dado ?? [];
-    $notificacaoNova->lista = (new \PainelModel\Notificacao\HelperModel())
+    $notificacaoNova->lista = (new \PainelModel\Notificacao\RetornoModel())
         ->tratarRetorno($notificacaoNova->lista ?? []);
     $notificacaoNumeroNova = $notificacaoNova->registro->total ?? 0;
     $notificacaoNumeroNovaVisualizada = $Api->json(

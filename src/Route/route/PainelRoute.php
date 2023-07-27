@@ -148,9 +148,24 @@ Route
 
     // HISTORICO
     ::controller(HistoricoController::class)::grupo(function () {
-        Route::nome('salvar')::rotaNaoUnica()::request(['app', 'relacionado', 'mensagem', '!titulo', '!link', '!notificar'])::post('/historico');
-        Route::nome('listar')::rotaNaoUnica()::request(['pagina', 'app', 'relacionado', '!pesquisa', '!data_de', '!data_ate'])::get('/historico');
-        Route::nome('deletar')::rotaNaoUnica()::delete('/historico/{id}');
+        Route
+            ::nome('index')
+            ::rotaNaoUnica()
+            ::view('/historico/{app}/{id}');
+        Route
+            ::nome('salvar')
+            ::rotaNaoUnica()
+            ::request(['app', 'relacionado', 'mensagem', '!titulo', '!link', '!notificar'])
+            ::post('/historico');
+        Route
+            ::nome('listar')
+            ::rotaNaoUnica()
+            ::request(['pagina', 'app', 'relacionado', '!pesquisa', '!data_de', '!data_ate'])
+            ::get('/historico');
+        Route
+            ::nome('deletar')
+            ::rotaNaoUnica()
+            ::delete('/historico/{id}');
     }, true)
 
     // ENDERECO

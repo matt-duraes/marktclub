@@ -16,15 +16,14 @@ final class ModeloModel extends ClubeApiHelper implements ListarInterface
 
     public function listarDados(): stdClass
     {
-
         $apiHelper = new ApiHelper('automovel:listar');
 
         $dado = $apiHelper->json([
-                    'pagina' => 1,
-                    'url' => $this->url
-                ])->get('/automovel')->object();
+            'pagina' => 1,
+            'url'    => $this->url
+        ])->get('/automovel')->object();
 
-        if(!property_exists($dado, 'dado')) {
+        if (!property_exists($dado, 'dado')) {
             mensagemStatus(404);
         }
         return $this->montarRetorno($dado->dado);
@@ -52,23 +51,23 @@ final class ModeloModel extends ClubeApiHelper implements ListarInterface
     private function criarVersao($valor, $dado): stdClass
     {
         return (object) [
-            'id' => $valor->id,
+            'id'     => $valor->id,
             'titulo' => $valor->titulo,
-            'link' => '',
+            'link'   => '',
             'imagem' => $dado->lista[0]->imagem,
-            'de' => $valor->valor->de,
-            'por' => $valor->valor->por
+            'de'     => $valor->valor->de,
+            'por'    => $valor->valor->por
         ];
     }
 
     private function criarItem($valor): stdClass
     {
         return (object) [
-            'id' => $valor->id,
-            'titulo' => $valor->titulo,
+            'id'           => $valor->id,
+            'titulo'       => $valor->titulo,
             'procedimento' => $valor->procedimento,
-            'desconto' => $valor->desconto,
-            'endereco' => $valor->endereco
+            'desconto'     => $valor->desconto,
+            'endereco'     => $valor->endereco
         ];
     }
 }

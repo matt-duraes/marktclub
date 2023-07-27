@@ -4,15 +4,39 @@ return [
     [
         'id_admin_empresa' => 1,
         'permissao'        => json_encode([
-            'usuario_cliente'       => ['titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar', 'download', 'empresa', 'analytics']],
+            'usuario_cliente'       => [
+                'titulo'    => 'Cliente',
+                'permissao' => [
+                    'usuario_cliente_index'      => 'Listar',
+                    'usuario_cliente_add'        => 'Salvar',
+                    'usuario_cliente_editar'     => 'Editar',
+                    'usuario_cliente_visualizar' => 'Visualizar',
+                    'usuario_cliente_deletar'    => 'Deletar',
+                    'usuario_cliente_download'   => 'Download',
+                    'usuario_cliente_empresa'    => 'Todas as empresas',
+                    'usuario_cliente_analytics'  => 'Analytics',
+                    'usuario_cliente_apple'      => 'Apple',
+                ]
+            ],
             'usuario_grupo'         => ['titulo' => 'Grupo', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'usuario_dependente'    => ['titulo' => 'Dependente', 'acao' => ['index', 'add', 'deletar']],
             'usuario_indicacao'     => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_lead'          => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
-            'usuario_equipe'        => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
+            'usuario_equipe'        => [
+                'titulo'    => 'Equipe',
+                'permissao' => [
+                    'usuario_equipe_index'            => 'Listar',
+                    'usuario_equipe_add'              => 'Salvar',
+                    'usuario_equipe_editar'           => 'Editar',
+                    'usuario_equipe_deletar'          => 'Deletar',
+                    'usuario_equipe_empresa'          => 'Todas as empresas',
+                    'usuario_equipe_permissao'        => 'Todas as permissões',
+                ]
+            ],
             'publicacao_noticia'    => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_relatorio'    => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_cashback'     => ['titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
+            'parceiro_easylive'     => ['titulo' => 'Easylive', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'relatorio_acesso'      => ['titulo' => 'Relatório Acesso', 'permissao' => ['relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas']],
             'relatorio_usuario'     => ['titulo' => 'Relatório de usuário', 'permissao' => ['relatorio_usuario_index' => 'Relatório de usuário', 'relatorio_usuario_empresa' => 'Todas as empresas']],
             'relatorio_loja_venda'  => ['titulo' => 'Relatório de vendas', 'permissao' => ['relatorio_loja_venda_index' => 'Relatório de vendas', 'relatorio_loja_venda_empresa' => 'Todas as empresas']],
@@ -21,7 +45,7 @@ return [
             'solicitacao_premium'   => ['titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']],
             'solicitacao_salavip'   => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
             'comercial_empresa'     => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
-            'comercial_prospeccao'  => ['titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar']],
+            'comercial_prospeccao'  => ['titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']],
             'comercial_atendimento' => ['titulo' => 'Comercial Atendimento', 'permissao' => ['comercial_atendimento_index' => 'Comercial Atendimento']],
             'comercial_regra'       => ['titulo' => 'Comercial Regra de Negócio', 'acao' => ['index', 'add', 'visualizar', 'editar', 'deletar']],
             'demanda'               => ['titulo' => 'Demanda', 'permissao' => ['demanda_tecnologia' => 'Tecnologia', 'demanda_criacao' => 'Criação']],

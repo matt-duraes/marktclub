@@ -23,6 +23,17 @@ final class Decimal implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->decimal();
+    }
+
+    // doc
+    /**
      * Modulo para decimal [0-9]{1,}.[0-9]{2}
      *
      * @param null|string $decimal Valor para o modulo

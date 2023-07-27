@@ -23,6 +23,17 @@ final class Cpf implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero();
+    }
+
+    // doc
+    /**
      * Modulo para CPF
      *
      * @param null|string $cpf CPF para o modulo

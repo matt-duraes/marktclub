@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\Automovel\Versao;
 
-use Helpers\UploadHelper;
 use Http\Request;
 use ORM\Entity;
 use App\Classes\Automovel\Automovel\TipoProcedimento;
@@ -10,9 +9,7 @@ use App\Classes\Automovel\Automovel\TipoProcedimento;
 final class VersaoEntity extends Entity
 {
     public string $tipo;
-
     protected string $ormTabela = TABELA_CARRO_MODELO;
-
     protected array $ormBuscar = [
         'uuid', 'titulo', 'vinculo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status'
     ];
@@ -25,9 +22,7 @@ final class VersaoEntity extends Entity
         tipo|Tipo|obrigatorio|vazio
         valor|Valor|obrigatorio|vazio
     ';
-
     public string $uuid;
-
     public string $titulo;
     public string $vinculo;
 
@@ -36,7 +31,6 @@ final class VersaoEntity extends Entity
     ) {
         parent::__construct();
     }
-
 
     protected function regraPosBuscar()
     {

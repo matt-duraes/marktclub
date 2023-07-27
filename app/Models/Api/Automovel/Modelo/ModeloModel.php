@@ -23,7 +23,7 @@ final class ModeloModel extends ORM
     protected string $link_arquivo;
 
     /**
-     * @param Request|null $request
+     * @param  Request|null $request
      * @throws Excecao
      */
     public function __construct(
@@ -109,7 +109,7 @@ final class ModeloModel extends ORM
     }
 
     /**
-     * @param array $dado
+     * @param  array $dado
      * @return array
      */
     protected function montarRetorno(array $dado): array
@@ -120,15 +120,15 @@ final class ModeloModel extends ORM
 
         foreach ($dado as $r) {
             $retorno[] = [
-                'id' => $r->uuid,
-                'titulo' => $r->titulo,
+                'id'        => $r->uuid,
+                'titulo'    => $r->titulo,
                 'montadora' => $r->montadora,
-                'imagem' => [
-                    'link' => $this->link_arquivo . '/carro/' . $r->imagem,
-                    'valor' =>  $r->imagem,
+                'imagem'    => [
+                    'link'  => $this->link_arquivo . '/carro/' . $r->imagem,
+                    'valor' => $r->imagem,
                 ],
                 'url' => [
-                    'link' => $this->link_site . '/automovel/'. $r->montadora . '/' . $r->url,
+                    'link'  => $this->link_site . '/automovel/' . $r->montadora . '/' . $r->url,
                     'valor' => $r->montadora . '/' . $r->url,
                 ],
                 'status' => $Status->indice($r->status)

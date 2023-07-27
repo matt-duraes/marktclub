@@ -5,10 +5,15 @@ namespace App\Controllers\Api;
 use ORM\Entity;
 use Http\Request;
 use Http\Response;
+use Modules\Pagina;
+use Modules\Quantidade;
 use Controller\Controller;
+use App\Classes\StatusGeral\Status;
+use App\Classes\ParceiroCashback\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\ParceiroCashback\CashbackModel;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\ParceiroCashback\CashbackEntity;
@@ -17,18 +22,25 @@ final class ParceiroCashbackController extends Controller implements
     ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerBuscarInterface,
-    ControllerAtualizarInterface
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function getListar(Request $request): Response
     {
-        $Cashback = new CashbackModel($request);
+        $Cashback = new CashbackModel(
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            empresa: $request->empresa,
+            status: new Status($request->status),
+            ordem: new Ordem($request->ordem)
+        );
         return mensagemSucesso($Cashback->pegarRetorno());
     }
 
     public function getBuscar(string $id): Response
     {
         $Cashback = new CashbackEntity();
-        $Cashback->uuid($id);
+        $Cashback->idSlug($id);
 
         return $this->retornoSucesso($Cashback);
     }
@@ -49,8 +61,8 @@ final class ParceiroCashbackController extends Controller implements
                 Entity: $Entity,
                 lista: [
                     'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro',
-                    'imagem', 'comissao', 'comissao_minima', 'comissao_maxima', 'link_site',
-                    'link_usuario', 'empresa', 'status'
+                    'imagem', 'link_logo', 'comissao', 'comissao_minima', 'comissao_maxima', 'link_site',
+                    'link_usuario', 'empresa', 'url', 'status'
                 ]
             ),
             status: $status
@@ -63,6 +75,15 @@ final class ParceiroCashbackController extends Controller implements
         $Cashback->uuid($id);
         $Cashback->set(lista: $request->dado());
         $Cashback->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id): Response
+    {
+        $Cashback = new CashbackEntity();
+        $Cashback->uuid($id);
+        $Cashback->destruir();
 
         return new Response(status: 204);
     }

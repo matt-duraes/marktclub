@@ -398,14 +398,14 @@ return [
         'status'              => 4
     ],
     [
-        'cod' => '259c44ede5b4302d2c65a2bc8ea0d16f',
+        'cod'                 => '259c44ede5b4302d2c65a2bc8ea0d16f',
         'categoria_principal' => '7',
-        'categoria_todas' => '["7"]',
-        'titulo' => 'VOLVO',
-        'url' => 'volvo',
-        'imagem' => '6abfbe8cb35fc871001df2950ed9989d.png',
-        'desconto' => 'Desconto de até 6%',
-        'desconto_texto' => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.
+        'categoria_todas'     => '["7"]',
+        'titulo'              => 'VOLVO',
+        'url'                 => 'volvo',
+        'imagem'              => '6abfbe8cb35fc871001df2950ed9989d.png',
+        'desconto'            => 'Desconto de até 6%',
+        'desconto_texto'      => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.
         Fique atento!
         -	A responsabilidade pela oferta, condições, formas de pagamento e serviços é da VOLVO;
         -	A disponibilidade dos veículos desta campanha é limitada, podendo variar de acordo com cada modelo, configuração, cor e ano;
@@ -415,10 +415,11 @@ return [
         -    Clique em "GERAR VOUCHER" no botão ao lado;
         -    Dirija-se à uma concessionária VOLVO portando o voucher e documentos e apresentar no ato da compra na concessionária.
         Não perca tempo, aproveite e boas compras!',
-        'destaque' => ["1", "2", "66"],
-        'empresa' => ["1", "2", "66"],
-        'tipo' => 3,
-        'estabelecimento' => 1,
-        'status' => 4
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 3,
+        'estabelecimento'     => 1,
+        'procedimento'        => 2,
+        'status'              => 4
     ],
 ];

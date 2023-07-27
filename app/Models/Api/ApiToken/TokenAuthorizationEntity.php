@@ -2,12 +2,12 @@
 
 namespace App\Models\Api\ApiToken;
 
+use stdClass;
 use ORM\Entity;
 use Modules\DataHora;
 use Helpers\JwtHelper;
 use App\Classes\ApiToken\Tipo;
 use App\Classes\StatusGeral\Status;
-use App\Models\Api\ApiApp\AppEntity;
 
 final class TokenAuthorizationEntity extends Entity
 {
@@ -41,7 +41,7 @@ final class TokenAuthorizationEntity extends Entity
     protected Tipo $tipo;
 
     public function criarToken(
-        AppEntity $app,
+        stdClass $app,
         array $body,
         array $scope,
         string $audience,
@@ -49,7 +49,7 @@ final class TokenAuthorizationEntity extends Entity
         string $state,
         ?Tipo $tipo = null
     ) {
-        if ($app->id != env('API_CLUBE_ID') && !in_array($redirectUri, $app->redirect_uri)) {
+        if ($app->id != env('API_CLUBE_ID') && !in_array($redirectUri, (array)$app->redirect_uri)) {
             mensagemErro('Erro!', 'Redirect Uri não está autorizado a criar token.', 403);
         } elseif (empty($audience)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o audience do app.');
@@ -79,7 +79,7 @@ final class TokenAuthorizationEntity extends Entity
 
     private function salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo)
     {
-        $idApp = $app->get('id');
+        $idApp = $app->id;
         $this->id_usuario = $body['sub'];
         $this->id_api_app = $idApp;
         $this->redirect_uri = $redirectUri;

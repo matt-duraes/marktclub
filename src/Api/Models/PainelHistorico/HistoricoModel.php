@@ -20,7 +20,7 @@ final class HistoricoModel extends ORM
         protected Request $request
     ) {
         parent::__construct();
-        $this->idUsuario = TOKEN['usuario']->get('id');
+        $this->idUsuario = TOKEN['usuario']->id;
     }
 
     /**

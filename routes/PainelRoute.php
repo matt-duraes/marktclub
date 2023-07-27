@@ -7,6 +7,7 @@ require_once ROOT . '/views/pages/painel/album_galeria/Routes/AlbumRoute.php';
 require_once ROOT . '/views/pages/painel/relatorio/Routes/RelatorioRoute.php';
 require_once ROOT . '/views/pages/painel/usuario_tabela/Routes/TabelaRoute.php';
 require_once ROOT . '/views/pages/painel/comercial_prospeccao/Routes/ComercialProspeccaoRoute.php';
+require_once ROOT . '/views/pages/painel/usuario_apple/Routes/UsuarioAppleRoute.php';
 
 /*
 |--------------------------------------------------------------------------

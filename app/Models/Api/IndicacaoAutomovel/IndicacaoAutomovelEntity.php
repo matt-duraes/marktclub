@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\IndicacaoAutomovel;
 
-use Erro\Erro;
 use ORM\Entity;
 use Erro\Excecao;
 use Http\Request;
@@ -12,11 +11,9 @@ use App\Classes\IndicacaoAutomovel\Status;
 class IndicacaoAutomovelEntity extends Entity
 {
     protected string $ormTabela = TABELA_MENSAGEM_CARRO_NOVO;
-
     protected array $ormSalvar = [
         'id_admin_empresa',  'id_usuario_cliente', 'produto', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
     ];
-
     public int $idUsuario;
     public int $idEmpresa;
     public string $produto;
@@ -29,11 +26,9 @@ class IndicacaoAutomovelEntity extends Entity
     public function __construct(
         private readonly ?Request $request = null
     ) {
-
         parent::__construct();
         $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
-        $this->idUsuario =  1;
-
+        $this->idUsuario = 1;
     }
 
     /**
@@ -80,8 +75,5 @@ class IndicacaoAutomovelEntity extends Entity
             ->valor($this->mensagem, 'Mensagem', 'Digite uma mensagem.')
             ->obrigatorio()
             ->vazio();
-
     }
-
-
 }

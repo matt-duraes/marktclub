@@ -2,11 +2,9 @@
 
 namespace App\Models\Api\ApiToken\Trait;
 
+use stdClass;
 use App\Classes\ApiToken\Tipo;
-use App\Models\Api\ApiApp\AppEntity;
 use App\Models\Api\ApiToken\PayloadModel;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 
 trait TokenTrait
@@ -14,12 +12,21 @@ trait TokenTrait
     /**
      * Criar a define do token
      *
-     * @param string                     $token   Token que o usuário usou
-     * @param AppEntity                  $App     App do token
-     * @param EquipeEntity|ClienteEntity $Usuario Usuário dependendo do tipo do token
+     * @param string   $token   Token que o usuário usou
+     * @param stdClass $App     App que está em uso
+     * @param stdClass $Empresa Empresa que está em uso
+     * @param stdClass $Usuario Usuário que está em uso
+     * @param array    $scope   Scope em uso
+     * @param string   $tipo    Tipo de token
      */
-    public function criarDefinesDoToken(string $token, AppEntity $App, $Empresa, $Usuario, array $scope, string $tipo)
-    {
+    public function criarDefinesDoToken(
+        string $token,
+        stdClass $App,
+        stdClass $Empresa,
+        stdClass $Usuario,
+        array $scope,
+        string $tipo
+    ) {
         define('TOKEN', [
             'token'   => $token,
             'scope'   => $scope,
@@ -31,15 +38,15 @@ trait TokenTrait
     }
 
     public function criarImplicitToken(
-        AppEntity $App,
-        EquipeEntity|ClienteEntity $Usuario,
+        stdClass $App,
+        stdClass $Usuario,
         array $scope,
         string $audience,
         string $redirectUri,
         string $state,
         Tipo $tipo
     ) {
-        $payload = (new PayloadModel($Usuario))->payload;
+        $payload = (new PayloadModel($Usuario, $App->audience))->payload;
 
         $Token = new TokenAuthorizationEntity();
         return $Token->criarToken(

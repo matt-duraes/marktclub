@@ -594,7 +594,9 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             }
 
             $valor = $Entity->$campo;
-            if ($valor instanceof \ORM\Entity && empty($valor->id)) {
+            if ($valor instanceof \System\Interface\ApiRetornoInterface) {
+                $valor = $valor->retorno();
+            } elseif ($valor instanceof \ORM\Entity && empty($valor->id)) {
                 $campo = strCaixaBaixa($campo);
                 $valor = null;
             } elseif ($valor instanceof \ORM\Entity) {

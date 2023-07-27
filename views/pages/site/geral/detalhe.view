@@ -1,10 +1,14 @@
 @ if($dado):
 <div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
-    <div class="bloco_topo">
+    <div class="bloco_parceiro_header">
         <section class="bloco_banner">
+            @ if( !empty($dado->capa_desktop) ):
             <figure class="banner desktop"><img src="{{$dado->capa_desktop}}"></figure>
+            @ endif;
+            @ if( !empty($dado->capa_mobile) ):
             <figure class="banner mobile"><img src="{{$dado->capa_mobile}}"></figure>
-            <figure class="logo"><img src="{{$dado->logo}}"></figure>
+            @ endif;
+            <figure class="logo {!!empty($dado->capa_desktop) && empty($dado->capa_mobile) ? 'vazio' : ''!!}"><img src="{{$dado->logo}}"></figure>
         </section>
         <header class="bloco_header">
             <h1>{{$dado->titulo}}</h1>

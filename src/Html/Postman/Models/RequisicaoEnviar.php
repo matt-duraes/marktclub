@@ -3,6 +3,8 @@
 namespace System\Html\Postman\Models;
 
 use Helpers\CryptHelper;
+use Order\OrderInterface;
+use Status\StatusInterface;
 
 final class RequisicaoEnviar
 {
@@ -11,6 +13,7 @@ final class RequisicaoEnviar
     private array $variavel;
     private string $link;
     private CryptHelper $Crypt;
+    private array $requisicao = [];
 
     public function __construct($post)
     {
@@ -42,6 +45,7 @@ final class RequisicaoEnviar
         $dado = $this->enviarCurl($metodo, $uri, $body, $parametro, $json, $this->header);
         $retorno['retorno'] = $dado->retorno;
         $retorno['codigo_html'] = $dado->status;
+        $retorno['requisicao'] = $this->requisicao;
         $this->retorno = $retorno;
     }
 
@@ -70,6 +74,8 @@ final class RequisicaoEnviar
             $link .= str_contains($link, '?') ? '&' . $parametroFinal : '?' . $parametroFinal;
         }
 
+        $requestBody = [];
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $metodo);
@@ -77,9 +83,11 @@ final class RequisicaoEnviar
         if ($body) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+            $requestBody = $body;
         } elseif ($json) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, jsonEncode($json));
+            $requestBody = $json;
         }
         if ($header) {
             $headerFinal = [];
@@ -93,6 +101,13 @@ final class RequisicaoEnviar
         $erro = curl_error($ch);
         $info = curl_getinfo($ch);
         curl_close($ch);
+
+        $this->requisicao = [
+            'link'   => $link,
+            'body'   => $requestBody,
+            'header' => $header,
+            'metodo' => $metodo
+        ];
 
         return (object)[
             'retorno' => $retorno,
@@ -112,12 +127,25 @@ final class RequisicaoEnviar
             $ind = $r[1];
             $val = $r[2];
 
+            $class = false;
+            if (class_exists($val)) {
+                $class = new $val();
+            }
+            if ($class instanceof StatusInterface || $class instanceof OrderInterface) {
+                $valor = array_keys($class->select(null));
+                $retorno[$ind] = $valor[rand(0, count($valor) - 1)];
+                continue;
+            }
+
             if (!str_starts_with($val, '$')) {
                 $retorno[$ind] = $this->pegarValor($tipo, $val);
                 continue;
             }
-
-            if ($val == '$uuid') {
+            if (str_starts_with($val, '$aleatorio=')) {
+                $explode = explode(',', preg_replace('/^\$aleatorio\=/', '', $val));
+                $retorno[$ind] = $explode[rand(0, count($explode) - 1)];
+                continue;
+            } elseif ($val == '$uuid') {
                 $retorno[$ind] = uuid();
                 continue;
             } elseif ($val == '$hoje') {

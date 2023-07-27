@@ -156,7 +156,7 @@ trait BuscarTrait
             $campo[] = 'cod';
         }
 
-        $busca = $this->where($where)->order('id', 'DESC')->campo($campo);
+        $busca = $this->where($where)->order('id', 'DESC')->limit(0, 1)->campo($campo);
         if (!empty($this->ormRelacionado)) {
             foreach ($this->ormRelacionado as $r) {
                 $r = (object)$r;

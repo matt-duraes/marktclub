@@ -32,19 +32,19 @@ final class ConstrutorModel
 
         $construtor = (object) [
             'saude' => (object) [
-                'cnu' => true,
-                'seguros' => true,
-                'vitoria' => true,
+                'cnu'                 => true,
+                'seguros'             => true,
+                'vitoria'             => true,
                 'unimedflorianopolis' => true,
-                'amil' => true,
+                'amil'                => true,
             ],
             'menu' => (object) [
-                'automovel' => true,
-                'saude' => true,
-                'credito' => true,
+                'automovel'    => true,
+                'saude'        => true,
+                'credito'      => true,
                 'credito_alfa' => true,
-                'turismo' => true,
-                'cinema' => true,
+                'turismo'      => true,
+                'cinema'       => true,
             ]
         ];
 
@@ -81,10 +81,10 @@ final class ConstrutorModel
         $unimedflorianopolis = $saude->unimedflorianopolis ?? false;
 
         return (object)[
-            'cnu' => $cnu,
-            'seguros' => $seguros,
-            'vitoria' => $vitoria,
-            'amil' => $amil,
+            'cnu'                 => $cnu,
+            'seguros'             => $seguros,
+            'vitoria'             => $vitoria,
+            'amil'                => $amil,
             'unimedflorianopolis' => $unimedflorianopolis,
         ];
     }
@@ -106,12 +106,12 @@ final class ConstrutorModel
         }
 
         return (object)[
-            'automovel' => $menu->automovel ?? false,
-            'saude' => $menu->saude ?? false,
-            'credito' => $menu->credito ?? false,
+            'automovel'    => $menu->automovel ?? false,
+            'saude'        => $menu->saude ?? false,
+            'credito'      => $menu->credito ?? false,
             'credito_alfa' => $menu->credito_alfa ?? false,
-            'turismo' =>$menu->turismo ?? false,
-            'cinema' => $menu->cinema ?? false
+            'turismo'      => $menu->turismo ?? false,
+            'cinema'       => $menu->cinema ?? false
         ];
     }
 }

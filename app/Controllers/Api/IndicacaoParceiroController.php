@@ -18,7 +18,7 @@ class IndicacaoParceiroController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-     * @param  string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -32,7 +32,7 @@ class IndicacaoParceiroController extends Controller implements
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return Response
      * @throws Excecao
@@ -44,10 +44,10 @@ class IndicacaoParceiroController extends Controller implements
     }
 
     /**
-    * @param  IndicacaoParceiroEntity  $indicacaoParceiroEntity
+     * @param IndicacaoParceiroEntity $indicacaoParceiroEntity
     *
-    * @return Response
-    * @throws Excecao
+     * @return Response
+     * @throws Excecao
     */
     public function postSalvar(Request $request): Response
     {
@@ -58,10 +58,9 @@ class IndicacaoParceiroController extends Controller implements
         return $this->retornoSucesso($IndicacaoParceiro, 201);
     }
 
-
     /**
-     * @param  IndicacaoParceiroEntity  $indicacaoParceiroEntity
-     * @param  int            $status
+     * @param IndicacaoParceiroEntity $indicacaoParceiroEntity
+     * @param int                     $status
      *
      * @return Response
      * @throws Excecao

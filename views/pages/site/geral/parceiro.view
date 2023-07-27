@@ -20,7 +20,7 @@
         </header>
         @ if( $r->tipo == 'cashback' ):
         <p>Receba de volta</p>
-        <p class="destaque cor_color">{{$r->desconto}}</p>
+        <p class="destaque cor_color">{{$r->desconto}}%</p>
         <p>Revertido em pontos SILIUM</p>
 
         @ elseif( $r->tipo == 'cupom' ):

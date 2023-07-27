@@ -35,8 +35,8 @@ final class TokenController extends Controller implements
                 ['client_credentials', 1],
                 ['status', 1]
             ]);
-        } catch (\Throwable) {
-            mensagemStatus(403);
+        } catch (\Throwable $e) {
+            mensagemStatus(403, localhost: $e->getMessage());
         }
 
         $Token = new TokenCredentialEntity();
@@ -52,25 +52,14 @@ final class TokenController extends Controller implements
 
     private function criarRefreshToken($request): Response
     {
-        try {
-            $App = new AppEntity();
-            $App->buscar([
-                ['client_id', $request->client_id],
-                ['secret_id', $request->secret_id],
-                ['client_credentials', 1],
-                ['status', 1]
-            ]);
-        } catch (\Throwable $e) {
-            (new RefreshTokenModel())->tokenVencido($e, 'Não foi possível encontrar o APP');
-        }
-
         $Token = new RefreshTokenModel(
-            App: $App,
+            clientId: $request->client_id,
+            secretId: $request->secret_id,
             refreshToken: $request->refresh_token,
             scope: $request->scope
         );
-
         $retorno = $Token->pegarToken();
+
         if ($Token->clube) {
             $retorno = [
                 'token' => $retorno,

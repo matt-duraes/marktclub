@@ -20,6 +20,17 @@ final class Botao implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero;
+    }
+
+    // doc
+    /**
      * Gera um modulo de botão
      *
      * @param null|int|string $valor Valor podendo ser string sendo sim ou nao ou um int com

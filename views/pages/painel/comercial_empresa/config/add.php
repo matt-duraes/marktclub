@@ -1,7 +1,6 @@
 <?php
 
 use Helpers\ApiHelper;
-use App\Classes\ComercialEmpresa\Status;
 use App\Classes\ComercialEmpresa\TipoSite;
 use App\Classes\ComercialEmpresa\EmailDisparo;
 use App\Classes\ComercialEmpresa\ContratoPrazo;
@@ -93,10 +92,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->switch(name: 'produto_site', label: 'Site pré-moldado')
             ->switch(name: 'produto_api', label: 'API de login')
-            ->select(
+            ->hidden(
                 name: 'status',
-                label: 'Status',
-                lista: (new Status())->select('Escolha uma opção'),
                 acao: 'editar'
             );
     });
@@ -108,6 +105,11 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo pagamento',
                 lista: (new TipoPagamento())->select('Escolha uma opção')
             )
+            ->numero(name: 'contrato_valor', label: 'Valor do contrato', placeholder: 'Valor do contrato', mascara: 'dinheiro')
+            ->numero(name: 'contrato_valor_minimo', label: 'Valor mínimo do contrato', placeholder: 'Valor mínimo do contrato', mascara: 'dinheiro')
+            ->numero(name: 'contrato_dia_pagamento', label: 'Dia do pagamento', placeholder: 'Dia do pagamento', ajuda: 'Dia do Mês que o cliente deve pagar')
+            ->numero(name: 'contrato_dia_fechamento', label: 'Dia do fechamento', placeholder: 'Dia do fechamento', ajuda: 'Dia que o sistema deve fazer a contagem de usuário')
+            ->switch(name: 'cobrar_aposentado', label: 'Irá cobrar aposentado?')
             ->data(name: 'contrato_data', label: 'Data do contrato', placeholder: 'Data do início do contrato')
             ->select(
                 name: 'contrato_prazo',

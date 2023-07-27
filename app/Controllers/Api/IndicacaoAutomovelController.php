@@ -13,10 +13,10 @@ class IndicacaoAutomovelController extends Controller implements
     ControllerSalvarInterface
 {
     /**
-    * @param  IndicacaoAutomovelEntity  $indicacaoAutomovelEntity
+     * @param IndicacaoAutomovelEntity $indicacaoAutomovelEntity
     *
-    * @return Response
-    * @throws Excecao
+     * @return Response
+     * @throws Excecao
     */
     public function postSalvar(Request $request): Response
     {
@@ -27,10 +27,9 @@ class IndicacaoAutomovelController extends Controller implements
         return $this->retornoSucesso($IndicacaoAutomovel, 201);
     }
 
-
     /**
-     * @param  IndicacaoAutomovelEntity  $indicacaoAutomovelEntity
-     * @param  int            $status
+     * @param IndicacaoAutomovelEntity $indicacaoAutomovelEntity
+     * @param int                      $status
      *
      * @return Response
      * @throws Excecao

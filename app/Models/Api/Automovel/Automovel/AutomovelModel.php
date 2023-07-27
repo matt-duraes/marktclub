@@ -15,7 +15,6 @@ use App\Models\Api\GeralEndereco\EnderecoModel;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use App\Models\Api\SelectGeralModel;
 
 final class AutomovelModel extends ORM
 {
@@ -28,7 +27,7 @@ final class AutomovelModel extends ORM
     protected string $link_arquivo;
 
     /**
-     * @param Request|null $request
+     * @param  Request|null $request
      * @throws Excecao
      */
     public function __construct(
@@ -76,7 +75,6 @@ final class AutomovelModel extends ORM
      */
     public function listarDados(): stdClass
     {
-
         if ($this->request->url == 'honda-email') :
             return mensagemStatus(404);
         endif;
@@ -101,7 +99,6 @@ final class AutomovelModel extends ORM
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
-
     }
 
     /**
@@ -125,7 +122,7 @@ final class AutomovelModel extends ORM
     }
 
     /**
-     * @param array $dado
+     * @param  array $dado
      * @return array
      */
     protected function montarRetorno(array $dado): array
@@ -136,7 +133,6 @@ final class AutomovelModel extends ORM
         $TipoProcedimento = new TipoProcedimento();
 
         foreach ($dado as $r) {
-
             $uuid_montadora = (new MontadoraModel())->pegarUuidPelaUrl($r->link);
 
             $pagamento_tipo = 'de-por';
@@ -150,25 +146,24 @@ final class AutomovelModel extends ORM
                 local: 2
             ))->listarDados();
 
-
             $versao = (new VersaoModel())->pegarVersaoPeloVinculo($r->uuid);
 
             $retorno[] = [
-                'id' => $r->uuid,
-                'titulo' => $r->titulo,
+                'id'           => $r->uuid,
+                'titulo'       => $r->titulo,
                 'procedimento' => (object)[
-                    'texto' => $r->procedimento,
-                    'geral' => $r->procedimento,
+                    'texto'      => $r->procedimento,
+                    'geral'      => $r->procedimento,
                     'individual' => !empty($r->texto) ? $r->texto : '',
-                    'tipo' => $TipoProcedimento->indice($r->documento),
+                    'tipo'       => $TipoProcedimento->indice($r->documento),
                 ],
                 'desconto' => (object)[
                     'tipo' => $pagamento_tipo,
                 ],
-                'imagem' => $this->link_arquivo . '/carro/' . $r->imagem,
+                'imagem'   => $this->link_arquivo . '/carro/' . $r->imagem,
                 'endereco' => (object)[
                     'concessionaria' => !empty($r->link_concessionaria) ? $r->link_concessionaria : '',
-                    'lista' =>  $listaEndereco ?? [],
+                    'lista'          => $listaEndereco ?? [],
                 ],
                 'versao' => (object)$versao
             ];

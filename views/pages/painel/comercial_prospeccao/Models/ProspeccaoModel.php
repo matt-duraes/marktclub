@@ -18,7 +18,7 @@ final class ProspeccaoModel
         $this->Crypt = new CryptHelper(chavePrivada: $chave);
     }
 
-    public function buscarProspeccao($prospeccao)
+    public function listar($prospeccao)
     {
         $dado = $this->Api
             ->json([
@@ -34,10 +34,10 @@ final class ProspeccaoModel
             return [];
         }
 
-        return $this->montarDado($dado['dado']['lista']);
+        return $this->montarLista($dado['dado']['lista']);
     }
 
-    private function montarDado($dado)
+    private function montarLista($dado)
     {
         $retorno = [];
         foreach ($dado as $r) {
@@ -55,5 +55,25 @@ final class ProspeccaoModel
             ];
         }
         return $retorno;
+    }
+
+    public function buscar(string $id)
+    {
+        $dado = (new ApiHelper(token: true))
+            ->validar('Erro ao buscar empresa, por favor, tente novamente.')
+            ->get('/comercial-empresa/' . $id)
+            ->object()->dado;
+
+        return $this->montarBusca($dado);
+    }
+
+    private function montarBusca($dado)
+    {
+        return (object)[
+            'id'                   => $dado->id,
+            'responsavel_nome'     => $this->Crypt->decode($dado->responsavel_nome),
+            'responsavel_email'    => $this->Crypt->decode($dado->responsavel_email),
+            'responsavel_telefone' => $this->Crypt->decode($dado->responsavel_telefone),
+        ];
     }
 }

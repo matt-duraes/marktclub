@@ -10,6 +10,14 @@ use Controller\Controller;
 
 final class HistoricoController extends Controller
 {
+    public function index($app, $id)
+    {
+        return view('painel.historico.index', [
+            'app' => $app,
+            'id'  => $id
+        ]);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SALVAR

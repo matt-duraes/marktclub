@@ -28,6 +28,17 @@ final class Genero implements ModuleInterface
 
     // doc
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return mixed
+     */
+    public function banco(): mixed
+    {
+        return $this->numero();
+    }
+
+    // doc
+    /**
      * Gera um modulo de gênero
      *
      * @param null|int|string $genero Valor do Genero podendo ser string ou int quando vier do banco
@@ -100,7 +111,7 @@ final class Genero implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return $this->numero;
+        return (int)$this->numero;
     }
 
     private function validarGenero(): bool

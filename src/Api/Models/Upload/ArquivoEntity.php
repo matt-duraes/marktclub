@@ -86,7 +86,7 @@ final class ArquivoEntity extends Entity
      */
     protected function regraInsert()
     {
-        $this->id_usuario_equipe = TOKEN['usuario']->get('id');
+        $this->id_usuario_equipe = TOKEN['usuario']->id;
         $this->subirImagem(md5(uniqid(time())));
         $this->nome = $this->arquivo->nomeReal();
         $this->status = new Status(Status::ATIVO);
