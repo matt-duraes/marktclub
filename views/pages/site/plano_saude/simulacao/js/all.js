@@ -172,7 +172,6 @@ window.addEventListener('load', () => {
         blocoScroll.className = 'bloco_scroll passo_' + novoNumero;
     };
 
-    //mostrar unimed vitoria
     ativarElementos.addEventListener('click', e => {
         if (e.target.classList.contains('remove')) {
             const linhaDependente = e.target.closest('.linha_dependente');

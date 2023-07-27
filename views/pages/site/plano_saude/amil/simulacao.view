@@ -160,7 +160,6 @@
                                 <p>Adicionar Dependente</p>
                             </div>
                         </div>
-
                         <div class="bloco_botao">
                             <div class="botao_geral_cor cinza botao_passa_passo_anterior">Voltar</div>
                             <div id="fazerSimulacao" class="continuar_datas botao_geral_cor cor_bg botao_passa_passo_proximo">
