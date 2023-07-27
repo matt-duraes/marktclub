@@ -1,0 +1,33 @@
+
+<div class="bloco_fieldset" id="bloco_versao">
+    <h2>Versões</h2>
+    <div class="bloco_linha_unica">
+        <div class="botao_link botao_add" id="botao_versao_abrir">Adicionar Versão</div>
+        @ ifforeach( $dado->versao as $r )
+        <div class="versao linha_dado" data-id="{{$r->id}}">
+            <div class="linha">{{$r->titulo}}</div>
+            <i class="botao_editar">@iconeEditar(11)</i>
+            <i class="botao_deletar">@iconeFechar(11)</i>
+        </div>
+        @endifforeach;
+    </div>
+</div>
+
+
+<div id="bloco_versao_add" class="display_none">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>VERSÕES</h1>
+            <i class="fechar" id="botao_versao_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <form action="/" class="form_geral">
+                @? formInput(name: 'versao_titulo', label: 'Título', placeholder: 'Título para a versão', obrigatorio: true)
+                @? formInput(name: 'versao_cor', label: 'Cor', placeholder: 'Cor da versão')
+                @? formNumero(name: 'versao_valor_de', label: 'Valor de', placeholder: 'Valor de', mascara: 'dinheiro')
+                @? formNumero(name: 'versao_valor_por', label: 'Valor por', placeholder: 'Valor por', mascara: 'dinheiro', obrigatorio: true)
+                <div class="botao" id="botao_versao_salvar">Salvar</div>
+            </form>
+        </div>
+    </div>
+</div>

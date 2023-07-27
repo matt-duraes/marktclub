@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Classes\ParceiroEasylive\Tipo;
 
 $Painel = new PainelConfig\Index('parceiro_easylive');

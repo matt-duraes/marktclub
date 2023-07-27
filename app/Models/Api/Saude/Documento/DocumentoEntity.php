@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\Saude\Documento;
 
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use ORM\Entity;
 

@@ -7,6 +7,8 @@ use Order\Order;
 final class Ordem extends Order
 {
     public const FAVORITO = 'favorito';
+    public const TITULO_AZ = 'titulo-a-z';
+    public const TITULO_ZA = 'titulo-z-a';
 
     public function __construct(
         protected ?string $valor = null

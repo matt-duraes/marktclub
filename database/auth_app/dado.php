@@ -109,13 +109,8 @@ $scope = [
 
     'mensagem_indicacao_parceiro:salvar', 'mensagem_indicacao_parceiro:listar', 'mensagem_indicacao_parceiro:buscar',
 
-    'automovel_montadora:listar', 'automovel_montadora:salvar', 'automovel_montadora:buscar',
-
     'automovel_modelo:listar', 'automovel_modelo:salvar', 'automovel_modelo:buscar',
-
     'automovel_versao:listar', 'automovel_versao:salvar', 'automovel_versao:buscar',
-
-    'automovel:listar'
 ];
 
 return [
