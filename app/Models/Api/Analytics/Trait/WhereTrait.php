@@ -21,7 +21,7 @@ trait WhereTrait
         if ($this->Empresa instanceof EmpresaEntity && $podeMudarEmpresa) {
             $where[] = ['id_admin_empresa', $this->Empresa->get('id')];
         } elseif (!$podeMudarEmpresa) {
-            $where[] = ['id_admin_empresa', TOKEN['empresa']->get('id')];
+            $where[] = ['id_admin_empresa', TOKEN['empresa']->id];
         }
         return $where;
     }

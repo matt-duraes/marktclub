@@ -26,7 +26,7 @@ final class LogDownloadEntity extends Entity
             mensagemStatus(401, localhost: 'Token não foi encontrado no Painel\LogDownloadEntity');
         }
 
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->idEmpresa = TOKEN['empresa']->id;
         $this->idUsuario = $this->pegarIdUsuario($usuario);
 
         $this->ormWherePadrao = ['id_admin_empresa', $this->idEmpresa];

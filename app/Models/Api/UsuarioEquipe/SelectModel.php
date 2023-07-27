@@ -78,7 +78,7 @@ final class SelectModel extends ORM
         $where = [
             ['id_admin_empresa', $this->idEmpresa]
         ];
-        if (defined('TOKEN') && TOKEN['empresa']->get('id') == 1) {
+        if (defined('TOKEN') && TOKEN['empresa']->id == 1) {
             $where = [
                 'OR',
                 ['id_admin_empresa', $this->idEmpresa],

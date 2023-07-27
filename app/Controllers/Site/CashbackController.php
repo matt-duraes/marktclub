@@ -3,10 +3,14 @@
 namespace App\Controllers\Site;
 
 use Erro\Excecao;
+use Http\Request;
 use Http\Response;
+use Modules\Pagina;
+use Modules\Quantidade;
 use Controller\Controller;
+use App\Classes\ParceiroCashback\Ordem;
+use App\Models\Site\Cashback\BuscarModel;
 use App\Models\Site\Cashback\ListarModel;
-use App\Models\Site\Cashback\RelacionadoModel;
 
 final class CashbackController extends Controller
 {
@@ -16,14 +20,21 @@ final class CashbackController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function index(string $pesquisa = null): Response
+    public function index(Request $request): Response
     {
+        $Lista = new ListarModel(
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            pesquisa: $request->pesquisa,
+            categoria: $request->categoria,
+            ordem: new Ordem($request->ordem)
+        );
+
         return view(
             'cashback.index',
             [
                 'menu'  => 'cashback',
-                'lista' => (new ListarModel())->listarDados(),
-                'tipo'  => 'cashback'
+                'lista' => $Lista->listarDados()
             ]
         );
     }
@@ -37,12 +48,19 @@ final class CashbackController extends Controller
      */
     public function detalhe(string $url): Response
     {
+        $Dado = new BuscarModel($url);
+        $Lista = new ListarModel(
+            pagina: new Pagina(1),
+            quantidade: new Quantidade(3)
+        );
+
         return view(
             'cashback.detalhe',
             [
-                'menu'         => 'cashback',
-                'lista'        => (new RelacionadoModel())->listarDados(),
-                'tipo'         => 'cashback'
+                'menu'  => 'cashback',
+                'dado'  => $Dado->buscarDados(),
+                'lista' => $Lista->listarDados(),
+                'tipo'  => 'cashback'
             ]
         );
     }

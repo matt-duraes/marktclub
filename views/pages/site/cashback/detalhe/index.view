@@ -1,17 +1,18 @@
 @template "site"
 <div id="bloco_cashback_detalhe">
-    <div class="header_detalhe">
-        <figure class="logo_cashback"><img src="https://arquivo.marktclub.com.br/parceiro/65c3d3b6716418d6425dfa858214a963.jpg" alt=""></figure>
-        <div class="texto_cashback">
-            <h1>NOME LOJA</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus id modi tenetur exercitationem, voluptatem optio atque eos neque officia enim quam in fugit pariatur, iure asperiores earum labore alias! Eum.
-            Optio aliquid nam, sapiente odio, fuga laborum cupiditate error dolorum consequuntur animi in molestiae nemo porro eos hic laboriosam dolores nostrum eum, deserunt esse facere corporis voluptatem quisquam ex. Molestiae.
-            Excepturi architecto fugit temporibus. </p>
+    <div class="bloco_parceiro_header ">
+        <section class="bloco_banner">
+            <figure class="logo"><img src="{{$dado->logo}}"></figure>
+        </section>
+        <header class="bloco_header">
+            <h1>{{$dado->titulo}}</h1>
+            <p>{{$dado->texto_descricao}}</p>
             @if(TIPO_USUARIO != 'indicado'):
-                <a href="" class="botao_pequeno_borda cor_border">Regulamento do SILIUM</a>
+            <a href="" class="botao_pequeno_borda cor_border">Regulamento do SILIUM</a>
             @endif
-        </div>
+        </header>
     </div>
+
     <div class="bloco_passo_a_passo">
         <div class="descricao_passo_a_passo">
             <div class="imagem_redonda">
@@ -45,16 +46,21 @@
         <h1>Receba de volta</h1>
         @if(TIPO_USUARIO != 'indicado'):
             <div class="bloco_acessar">
-                <p>10% em SILIUM</p>
+                <p>{{$dado->desconto}}% em SILIUM</p>
                 <a class="botao_geral_cor cor_bg botao" target="_blank" rel="nofollow noopener">Acessar parceiro para acumular pontos</a>
             </div>
+            @ if( !empty($dado->texto_outro) ):
+            <p>{{$dado->texto_outro}}</p>
+            @ endif;
+
+            @ if( !empty($dado->texto_restricao) ):
             <div class="atencao bloco_atencao_geral">
-                <p>Não contempla venda de produtos ofertados via hostsites, apralelos ao site principal.
-                    Os pontos referentes à compras via boletos bancários serão computados apenas após o
-                    pagamento do mesmo</p>
+                <p>{{$dado->texto_restricao}}</p>
             </div>
+            @ endif;
         @else
             <div class="bloco_atencao_geral">
+                <p>{{$dado->desconto}}% em SILIUM</p>
                 <p>Apenas associados possuem acesso a esse recurso</p>
             </div>
         @endif

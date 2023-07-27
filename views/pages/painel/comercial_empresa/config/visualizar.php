@@ -44,8 +44,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Financeiro', callback: function () use ($Painel) {
         $Painel
             ->linha('tipo_pagamento', 'Tipo de pagamento')
-            ->linha('valor_usuario', 'Valor por usuário', vazio: false)
-            ->linha('valor_cobranca', 'Valor a cobrar')
+            ->dinheiro('valor_usuario', 'Valor por usuário', vazio: false)
+            ->dinheiro('valor_pago', 'Última fatura')
             ->data('contrato_data', 'Data do contrato')
             ->linha('contrato_prazo', 'Prazo do contrato')
             ->linha('contrato_renovacao', 'Tipo de renovação');
@@ -62,16 +62,18 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
     $Painel->bloco(titulo: 'Comunicação', callback: function () use ($Painel) {
         $Painel
-            ->linha('comunicacao_email', 'E-mail')
-            ->array('email_dia', 'Dias para disparo')
-            ->linha('comunicacao_whatsapp', 'WhatsApp')
-            ->linha('comunicacao_rede_social', 'Rede Social')
+            ->checked('comunicacao_email', 'E-mail')
+            ->linha('email_dia', 'Dias para disparo')
+            ->checked('comunicacao_whatsapp', 'WhatsApp')
+            ->linha('whatsapp_dia', 'Dias para disparo')
+            ->checked('comunicacao_rede_social', 'Rede Social')
+            ->linha('rede_social_dia', 'Dias para disparo')
         ;
     });
     $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
         $Painel
-            ->linha('renda_media', 'Renda média')
-            ->linha('valor_pib', 'Valor do PIB')
+            ->dinheiro('renda_media', 'Renda média')
+            ->dinheiro('valor_pib', 'Valor do PIB')
             ->linha('status', 'Status');
     });
 });

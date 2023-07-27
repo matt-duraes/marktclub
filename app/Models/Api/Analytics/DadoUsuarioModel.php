@@ -30,7 +30,7 @@ final class DadoUsuarioModel extends ORM
             $this->idEmpresa = $this->Empresa->get('id');
             return;
         }
-        $this->idEmpresa = TOKEN['empresa']->get('id');
+        $this->idEmpresa = TOKEN['empresa']->id;
     }
 
     public function listarDados(): array

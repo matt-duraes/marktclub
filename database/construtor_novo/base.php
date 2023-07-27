@@ -2,7 +2,7 @@
 
 return (new \DataBase\DataBase())
     ->id()
-    ->char('cod')->tamanho(36)->unico()
+    ->cod()
     ->int('empresa')->tamanho(9)
     ->varchar('titulo')->tamanho(100)
     ->imagem('logo')

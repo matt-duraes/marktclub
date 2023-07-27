@@ -5,6 +5,7 @@ namespace App\Classes\Saude\Operadoras;
 use App\Classes\Saude\Interface\OperadoraInterface;
 use App\Classes\Saude\Plano;
 use App\Classes\Saude\Regiao;
+use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use Modules\Data;
 
@@ -19,6 +20,8 @@ abstract class AbstractOperadora implements OperadoraInterface
      * @param string      $acomodacao     Acomodação
      * @param Plano|null  $plano          Plano de Saúde
      * @param Regiao|null $regiao         Região
+     *
+     * @throws Exception
      */
     public function __construct(
         protected readonly Data $dataNascimento,
@@ -32,7 +35,8 @@ abstract class AbstractOperadora implements OperadoraInterface
     /**
      * @param Data $dataNascimento Data de Nascimento
      *
-     * @return int|null Idade, NULL caso valor inválido
+     * @return int|null  Idade, NULL caso valor inválido
+     * @throws Exception
      */
     protected function pegarIdade(Data $dataNascimento): ?int
     {

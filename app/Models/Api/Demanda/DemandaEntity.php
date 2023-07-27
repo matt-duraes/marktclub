@@ -113,7 +113,7 @@ final class DemandaEntity extends Entity
             return false;
         }
 
-        $id = $Equipe->get('id');
+        $id = $Equipe->id;
         if ($this->id_usuario_equipe == $id) {
             return true;
         }
@@ -155,7 +155,7 @@ final class DemandaEntity extends Entity
         if (!($Equipe instanceof EquipeEntity)) {
             return false;
         }
-        return $this->id_usuario_equipe == $Equipe->get('id');
+        return $this->id_usuario_equipe == $Equipe->id;
     }
 
     /*
@@ -167,7 +167,7 @@ final class DemandaEntity extends Entity
     {
         $this->com_prazo = new Botao('nao');
         $this->status = new Status(1);
-        $this->id_usuario_equipe = TOKEN['usuario']->get('id');
+        $this->id_usuario_equipe = TOKEN['usuario']->id;
         $this->ordem = 999;
         $this->pegarIdEmpresa();
     }

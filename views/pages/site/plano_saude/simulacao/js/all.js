@@ -4,7 +4,6 @@
 // @system "Form"
 // @system "Loading"
 // @system "Mascara"
-// @resource "site/passo_passo"
 // @resource "site/dependente"
 
 window.addEventListener('load', () => {
@@ -14,10 +13,169 @@ window.addEventListener('load', () => {
     let planoSelecionado = '';
     let acomodacao = '';
 
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+        }
+    });
+
+    const listaGeral = document.querySelectorAll('.bloco_passo_passo_geral');
+
+    if (listaGeral.length == 0) {
+        return;
+    }
+
+    listaGeral.forEach((bloco, i) => {
+        const blocoConteudo = bloco.querySelector('.bloco_conteudo');
+        const conteudoLista = bloco.querySelectorAll('.bloco_conteudo .conteudo');
+        const quantidadeConteudo = conteudoLista.length - 1;
+        const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
+        blocoConteudo.classList.add('bloco_conteudo_item_' + conteudoLista.length);
+
+        conteudoLista.forEach((conteudo, i2) => {
+            let id = conteudo.getAttribute('id') || '';
+            if (id == '') {
+                id = 'id_passo_passo_' + i + '_' + i2;
+                conteudo.setAttribute('id', id);
+            }
+            const item = itemLista[i2];
+            item.setAttribute('data-id', id);
+            item.setAttribute('data-numero', i2);
+
+            let linha;
+            if (i2 == 0) {
+                linha = '</div><div class="linha_direita"></div>';
+                item.classList.add('atual');
+                const bola = item.querySelector('.bola');
+                const numero = item.querySelector('span');
+                const texto = item.querySelector('p');
+                bola.classList.add('cor_border');
+                numero.classList.add('cor_color');
+                texto.classList.add('cor_color');
+            } else if (i2 == quantidadeConteudo) {
+                linha = '<div class="linha_esquerda">';
+            } else {
+                linha = '<div class="linha_esquerda"></div><div class="linha_direita"></div>';
+            }
+            item.insertAdjacentHTML('afterbegin', linha);
+        });
+        bloco.classList.add('carregado');
+    });
+
+    // ANTERIOR
+    const botaoAnterior = document.querySelectorAll('.botao_passa_passo_anterior');
+    if (botaoAnterior.length > 0) {
+        botaoAnterior.forEach(botao => {
+            botao.addEventListener('click', () => {
+                botaoFazerSimulacao.classList.remove('fazer_simulacao');
+                irParaPassoAnterior(botao);
+            });
+        });
+    }
+    const irParaPassoAnterior = botao => {
+        const bloco = botao.closest('.bloco_passo_passo_geral');
+        const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
+        const itemAtual = bloco.querySelector('.bloco_progresso .item.atual');
+        const numero = parseInt(itemAtual.getAttribute('data-numero')) - 1;
+        const novoNumero = parseInt(numero) + 1;
+
+        montarNovoItem(bloco, itemLista, numero, novoNumero);
+    };
+
+    // PROXIMO
+    let botaoFazerSimulacao = $('#fazerSimulacao');
+    const botaoProximo = document.querySelectorAll('.botao_passa_passo_proximo');
+    if (botaoProximo.length > 0) {
+        botaoProximo.forEach(botao => {
+            botao.addEventListener('click', e => {
+                let teste = e.target.id;
+                if (teste == 'fazerSimulacao') {
+                    let dataNascimento = document.querySelector('#input_data_nascimento');
+                    if (typeof dataNascimento.value == 'undefined' || dataNascimento.value == '') {
+                        Alerta.notificacao('Preencha os campos obrigatórios', false);
+                        return;
+                    }
+                    fazerSimulacao();
+                    irParaProximoPasso(botao);
+                } else {
+                    irParaProximoPasso(botao);
+                }
+            });
+        });
+    }
+
+    const irParaProximoPasso = botao => {
+        const bloco = botao.closest('.bloco_passo_passo_geral');
+        const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
+        const itemAtual = bloco.querySelector('.bloco_progresso .item.atual');
+        const numero = parseInt(itemAtual.getAttribute('data-numero')) + 1;
+        const novoNumero = parseInt(numero) + 1;
+
+        montarNovoItem(bloco, itemLista, numero, novoNumero);
+    };
+
+    const montarNovoItem = (bloco, lista, numero, novoNumero) => {
+        const atual = lista[numero];
+
+        let jaFoiAtual = false;
+        let blocoBola, blocoNumero, blocoTexto, blocoLinhaEsquerda, blocoLinhaDireita;
+        lista.forEach(item => {
+            blocoBola = item.querySelector('.bola');
+            blocoNumero = item.querySelector('.bola span');
+            blocoTexto = item.querySelector('p');
+            blocoLinhaEsquerda = item.querySelector('.linha_esquerda');
+            blocoLinhaDireita = item.querySelector('.linha_direita');
+
+            if (item == atual) {
+                item.classList.add('atual');
+                item.classList.remove('concluido');
+
+                blocoBola.classList.add('cor_border');
+                blocoNumero.classList.add('cor_color');
+                blocoTexto.classList.add('cor_color');
+                if (blocoLinhaEsquerda) {
+                    blocoLinhaEsquerda.classList.add('cor_bg');
+                }
+                if (blocoLinhaDireita) {
+                    blocoLinhaDireita.classList.remove('cor_bg');
+                }
+                jaFoiAtual = true;
+            } else if (jaFoiAtual) {
+                item.classList.remove('atual');
+                item.classList.remove('concluido');
+
+                blocoBola.classList.remove('cor_border');
+                blocoNumero.classList.remove('cor_color');
+                blocoTexto.classList.remove('cor_color');
+                if (blocoLinhaEsquerda) {
+                    blocoLinhaEsquerda.classList.remove('cor_bg');
+                }
+                if (blocoLinhaDireita) {
+                    blocoLinhaDireita.classList.remove('cor_bg');
+                }
+            } else {
+                item.classList.add('concluido');
+                item.classList.remove('atual');
+
+                blocoBola.classList.add('cor_border');
+                blocoNumero.classList.add('cor_color');
+                blocoTexto.classList.add('cor_color');
+                if (blocoLinhaEsquerda) {
+                    blocoLinhaEsquerda.classList.add('cor_bg');
+                }
+                if (blocoLinhaDireita) {
+                    blocoLinhaDireita.classList.add('cor_bg');
+                }
+            }
+        });
+        const blocoScroll = bloco.querySelector('.bloco_scroll');
+        blocoScroll.className = 'bloco_scroll passo_' + novoNumero;
+    };
+
     //mostrar unimed vitoria
     ativarElementos.addEventListener('click', e => {
-        if (e.target.classList.contains('remover')) {
-            const linhaDependente = event.target.closest('.linha_dependente');
+        if (e.target.classList.contains('remove')) {
+            const linhaDependente = e.target.closest('.linha_dependente');
             linhaDependente.remove();
         }
     });
@@ -29,7 +187,6 @@ window.addEventListener('load', () => {
             let valor = this.value;
             let blocoCentralPlano = $('#bloco_central_plano');
             blocoCentralPlano.style.display = 'flex';
-
             let enfermaria30 = $('.botao_input.enfermaria_30');
             let enfermaria50 = $('.botao_input.enfermaria_50');
             let apartamento = $('.botao_input.apartamento');
@@ -132,33 +289,6 @@ window.addEventListener('load', () => {
         definirAcomodacao();
     }
 
-    const fazerSimulacao = $('#fazerSimulacao');
-    fazerSimulacao.addEventListener('click', async e => {
-        // recebe dados das data de nascimento e trata eles para envio
-        let dtNascimentoTitular = $('#input_data_nascimento').value;
-        let dependentes = $$('input#input_dependente.input_geral.input_data');
-        let dtNascimentoDependentes = Array.from(dependentes, dataDependente => dataDependente.value);
-
-        // deixa operadora com padrão para recebimento
-        let operadoraSelecionada = operadora;
-        switch (operadora) {
-            case 'unimed-florianopolis':
-                operadoraSelecionada = operadora.replace('-', '_');
-                break;
-            case 'unimed-vitoria':
-                operadoraSelecionada = 'unimed';
-                break;
-        }
-
-        // monstagem de query para envio de simulação
-        const query = `&operadora=${operadoraSelecionada}&regiaoSelecionada=${regiaoSelecionada}&planoSelecionado=${planoSelecionado}&dtNascimentoTitular=${dtNascimentoTitular}&dtNascimentoDependentes=${dtNascimentoDependentes}&acomodacao=${acomodacao}`;
-        const resposta = await ajaxGet(LINK + '/saude/realizar-simulacao?' + query);
-        if (resposta === false) {
-            return;
-        }
-        buscarSimulacao(resposta.dado);
-    });
-
     const buscarSimulacao = dado => {
         // destructuring na resposta.dado para evitar repetição de dado.valor
         const { id, valor_titular, valor_dependentes, valor_total } = dado;
@@ -187,4 +317,28 @@ window.addEventListener('load', () => {
             });
         }
     };
+    async function fazerSimulacao() {
+        let dtNascimentoTitular = $('#input_data_nascimento').value;
+        let dependentes = $$('input#input_dependente.input_geral.input_data');
+        let dtNascimentoDependentes = Array.from(dependentes, dataDependente => dataDependente.value);
+
+        // deixa operadora com padrão para recebimento
+        let operadoraSelecionada = operadora;
+        switch (operadora) {
+            case 'unimed-florianopolis':
+                operadoraSelecionada = operadora.replace('-', '_');
+                break;
+            case 'unimed-vitoria':
+                operadoraSelecionada = 'unimed';
+                break;
+        }
+
+        // monstagem de query para envio de simulação
+        const query = `&operadora=${operadoraSelecionada}&regiaoSelecionada=${regiaoSelecionada}&planoSelecionado=${planoSelecionado}&dtNascimentoTitular=${dtNascimentoTitular}&dtNascimentoDependentes=${dtNascimentoDependentes}&acomodacao=${acomodacao}`;
+        const resposta = await ajaxGet(LINK + '/saude/realizar-simulacao?' + query);
+        if (resposta === false) {
+            return;
+        }
+        buscarSimulacao(resposta.dado);
+    }
 });

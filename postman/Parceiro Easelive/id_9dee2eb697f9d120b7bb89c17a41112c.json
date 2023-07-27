@@ -1,0 +1,1 @@
+{"id":"id_9dee2eb697f9d120b7bb89c17a41112c","token":"painel","metodo":"DELETE","nome":"\/parceiro-easylive\/:id","uri":"{{LINK}}\/parceiro-easylive\/$EASELIVE_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

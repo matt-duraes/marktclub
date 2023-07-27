@@ -4,13 +4,13 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Helpers\OrmHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\DemandaModel;
 use App\Models\Api\Demanda\DemandaEntity;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -74,9 +74,7 @@ final class DemandaDadoController extends Controller implements
             $dado['id_admin_empresa'] = $Empresa->get('id');
         }
         if ($request->existe('id_usuario_equipe')) {
-            $Equipe = new EquipeEntity(validarToken: false);
-            $Equipe->uuid($request->id_usuario_equipe);
-            $dado['id_usuario_equipe'] = $Equipe->get('id');
+            $dado['id_usuario_equipe'] = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($request->id_usuario_equipe);
         }
 
         $Demanda = new DemandaEntity();

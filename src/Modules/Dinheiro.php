@@ -9,32 +9,23 @@ final class Dinheiro implements ModuleInterface
     use ValidarTrait;
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->dinheiro();
-    }
-
-    /**
-     * Pega o valor padrão independente do tipo de modulo
+     * Valor que deve ser enviado para o banco de dados
      *
-     * @return string
+     * @return mixed
      */
-    public function valor(): string
+    public function banco(): mixed
     {
-        return $this->dinheiro();
+        return $this->decimal();
     }
 
     // doc
-
     /**
      * Modulo para Dinheiro
      *
      * @param string|null $dinheiro Valor para o modulo
      */
     public function __construct(
-        private ?string $dinheiro
+        private ?string $dinheiro = null
     ) {
         if (empty($this->dinheiro)) {
             $this->vazio = true;
@@ -47,6 +38,39 @@ final class Dinheiro implements ModuleInterface
             return;
         }
         $this->setarValor();
+    }
+
+    /**
+     * @return bool
+     */
+    private function validarDinheiro(): bool
+    {
+        return preg_match('/^[0-9]+(?:\.[0-9]+)?$/', $this->dinheiro) === 1;
+    }
+
+    // doc
+
+    /**
+     */
+    private function setarValor(): void
+    {
+        $dinheiro = str_replace(',', '.', $this->dinheiro);
+        $explode = explode('.', $dinheiro);
+
+        $centavo = array_pop($explode);
+        $valor = implode('', $explode);
+
+        $this->dinheiro = number_format($valor . '.' . $centavo, 2, '.', '');
+    }
+
+    // doc
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->dinheiro();
     }
 
     // doc
@@ -63,7 +87,15 @@ final class Dinheiro implements ModuleInterface
             : 'R$ ' . number_format($this->dinheiro, 2, ',', '.');
     }
 
-    // doc
+    /**
+     * Pega o valor padrão independente do tipo de modulo
+     *
+     * @return string
+     */
+    public function valor(): string
+    {
+        return $this->dinheiro();
+    }
 
     /**
      * Pega o valor em formato decimal
@@ -73,26 +105,5 @@ final class Dinheiro implements ModuleInterface
     public function decimal(): float|string
     {
         return $this->dinheiro;
-    }
-
-    /**
-     * @return bool
-     */
-    private function validarDinheiro(): bool
-    {
-        return preg_match('/^[0-9\.\,]{0,}(\.|\,){1}[0-9]{1,2}$/', $this->dinheiro);
-    }
-
-    /**
-     */
-    private function setarValor(): void
-    {
-        $dinheiro = str_replace(',', '.', $this->dinheiro);
-        $explode = explode('.', $dinheiro);
-
-        $centavo = array_pop($explode);
-        $valor = implode('', $explode);
-
-        $this->dinheiro = number_format($valor . '.' . $centavo, 2, '.', '');
     }
 }

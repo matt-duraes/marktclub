@@ -1,0 +1,40 @@
+<div class="bloco_popup_geral medio">
+    <header class="popup_header">
+        <h1>Precisando de alguma ajuda?</h1>
+        <i class="botao_fechar_popup">@iconeFechar</i>
+    </header>
+    <div class="popup_conteudo centralizado">
+        <!-- CONTEÚDO AQUI -->
+        <form id="formulario_pesquisa" action="" class="form_geral bloco_ajuda_geral" method="post">
+            <header>
+                <p>Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento que funciona das 9h às 19h, de segunda à sexta. Caso não tenha encontrado o convênio que procura, pode nos indicar! Teremos prazer em fechar uma nova parceria.
+                </p>
+            </header>
+            <fieldset>
+                @if ($email):
+                    <a>{{$email}}</a>
+                    <p>ou</p>
+                @endif;?>
+                @if ($menu->automovel):
+                    <a href="@route('automovel.index)">INDICAR UMA CONCESSIONÁRIA</a>
+                @endif;?>
+                @if ($menu->saude):
+                    <a href="@route('planosaude.index')">FAZER COTAÇÃO DE PLANO DE SAÚDE</a>
+                @endif;?>
+                @if ($menu->credito):
+                    <a href="@route('sicoob.index')">CRÉDITO SICOOB</a>
+                @endif;?>
+                @if ($menu->credito_alfa):
+                    <a href="@route('alfa.credito')">SOLICITAR CONSIGNADO</a>
+                @endif;?>
+                @if ($menu->cinema):
+                    <a href="@route(('cinema.index')">COMPRAR INGRESSOS PARA O CINEMA</a>
+                @endif;?>
+                @if ($menu->turismo):
+                    <a href="@route(('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
+                @endif;?>
+            </fieldset>
+            <p class="fechar botao_fechar_popup">NÃO PRECISO DE ATENDIMENTO</p>
+        </form>
+    </div>
+</div>

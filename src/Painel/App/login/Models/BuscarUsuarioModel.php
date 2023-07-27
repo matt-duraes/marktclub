@@ -104,7 +104,7 @@ final class BuscarUsuarioModel
             'nome'   => $Crypt->decode($empresa->nome_fantasia),
             'cnpj'   => $Crypt->decode($empresa->cnpj),
             'imagem' => $Crypt->decode($empresa->imagem),
-            'slug'   => $Crypt->decode($empresa->slug),
+            'slug'   => $empresa->slug,
             'status' => $empresa->status
         ]);
     }

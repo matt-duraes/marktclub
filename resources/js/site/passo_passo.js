@@ -53,6 +53,7 @@ const botaoAnterior = document.querySelectorAll('.botao_passa_passo_anterior');
 if (botaoAnterior.length > 0) {
     botaoAnterior.forEach(botao => {
         botao.addEventListener('click', () => {
+            botaoFazerSimulacao.classList.remove('fazer_simulacao');
             irParaPassoAnterior(botao);
         });
     });
@@ -68,11 +69,22 @@ const irParaPassoAnterior = botao => {
 };
 
 // PROXIMO
+let botaoFazerSimulacao = $('#fazerSimulacao');
 const botaoProximo = document.querySelectorAll('.botao_passa_passo_proximo');
 if (botaoProximo.length > 0) {
     botaoProximo.forEach(botao => {
-        botao.addEventListener('click', () => {
-            irParaProximoPasso(botao);
+        botao.addEventListener('click', e => {
+            let teste = e.target.id;
+            if (teste == 'fazerSimulacao') {
+                let dataNascimento = document.querySelector('#input_data_nascimento');
+                if (typeof dataNascimento.value == 'undefined' || dataNascimento.value == '') {
+                    Alerta.notificacao('Preencha os campos obrigatórios', false);
+                    return;
+                }
+                irParaProximoPasso(botao);
+            } else {
+                irParaProximoPasso(botao);
+            }
         });
     });
 }

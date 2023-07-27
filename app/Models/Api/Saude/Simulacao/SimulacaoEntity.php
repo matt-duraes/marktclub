@@ -13,6 +13,7 @@ use App\Classes\Saude\PlanoSaude;
 use App\Classes\Saude\Regiao;
 use App\Classes\Saude\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Exception;
 use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Data;
@@ -59,6 +60,9 @@ class SimulacaoEntity extends Entity
         parent::__construct();
     }
 
+    /**
+     * @throws Exception
+     */
     public function regraInsert(): void
     {
         if ($this->request === null) {

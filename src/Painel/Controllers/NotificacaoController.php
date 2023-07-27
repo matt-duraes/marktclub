@@ -6,7 +6,7 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
-use PainelModel\Notificacao\HelperModel;
+use PainelModel\Notificacao\RetornoModel;
 
 final class NotificacaoController extends Controller
 {
@@ -30,7 +30,7 @@ final class NotificacaoController extends Controller
             ])
             ->get('/painel-notificacao')->object();
 
-        $notificacao->dado->lista = (new HelperModel())->tratarRetorno($notificacao->dado->lista);
+        $notificacao->dado->lista = (new RetornoModel())->tratarRetorno($notificacao->dado->lista);
         return mensagemSucesso($notificacao->dado);
     }
 

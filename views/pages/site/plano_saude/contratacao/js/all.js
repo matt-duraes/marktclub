@@ -9,6 +9,12 @@
 // @system "Mascara"
 // @resource "site/passo_passo"
 
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+    }
+});
+
 document.querySelectorAll('input[type=checkbox][name=responsavel]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
         if (this.checked) {

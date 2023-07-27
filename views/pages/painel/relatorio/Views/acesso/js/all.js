@@ -25,27 +25,18 @@ window.addEventListener('load', () => {
         const empresa = inputEmpresa ? inputEmpresa.value : '';
 
         graficoAcesso.classList.add('loading');
-        const resposta = await fetch(LINK + `/relatorio/acesso-dia?de=${de}&ate=${ate}&empresa=${empresa}`, {
-            method: 'GET',
+        const resposta = await ajaxGet(LINK + `/relatorio/acesso-dia`, { de, ate, empresa }, undefined, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
 
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
-
         graficoAcesso.classList.remove('loading');
-
-        if (resposta.status != 200 || json.dado == undefined) {
+        if (resposta.dado == undefined) {
             return;
         }
 
-        carregarAcessoPorPagina(json.dado);
+        carregarAcessoPorPagina(resposta.dado);
     };
     buscarAcessoPorPagina();
     const carregarAcessoPorPagina = data => {
@@ -75,7 +66,7 @@ window.addEventListener('load', () => {
         const empresa = inputEmpresa ? inputEmpresa.value : '';
 
         let bloco, loading;
-        let uri = '';
+        let estabelecimento = '';
         if (local == 'usuario') {
             bloco = listaAcessoUsuario;
             loading = document.querySelector('#lista_acesso_usuario');
@@ -85,50 +76,54 @@ window.addEventListener('load', () => {
         } else if (local == 'loja-online') {
             bloco = listaAcessoParceiroOnline;
             loading = document.querySelector('#lista_acesso_parceiro_online');
-            uri = '&estabelecimento=online';
+            estabelecimento = 'online';
+            local = 'loja';
         } else if (local == 'loja-fisico') {
             bloco = listaAcessoParceiroFisico;
             loading = document.querySelector('#lista_acesso_parceiro_fisico');
+            estabelecimento = 'fisico';
+            local = 'loja';
         } else if (local == 'pagina') {
             bloco = listaAcessoPagina;
             loading = document.querySelector('#lista_acesso_pagina');
         }
 
         loading.classList.add('loading');
-
-        const resposta = await fetch(
-            LINK + `/relatorio/mais-acessado?local=${local}&de=${de}&ate=${ate}&empresa=${empresa}${uri}`,
+        const resposta = await ajaxGet(
+            LINK + `/relatorio/mais-acessado`,
             {
-                method: 'GET',
+                local,
+                de,
+                ate,
+                empresa,
+                estabelecimento,
+            },
+            undefined,
+            {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }
         );
 
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
-
         loading.classList.remove('loading');
 
-        if (resposta.status != 200 || json.dado == undefined) {
+        if (resposta.dado == undefined) {
             return;
         }
 
-        carregarListaMaisAcesso(json.dado, bloco, local);
+        carregarListaMaisAcesso(resposta.dado, bloco, local);
     };
     buscarMaisAcessado('usuario');
     buscarMaisAcessado('pagina');
+    buscarMaisAcessado('loja');
     buscarMaisAcessado('loja-online');
-    buscarMaisAcessado('loja-fisica');
+    buscarMaisAcessado('loja-fisico');
 
     const carregarListaMaisAcesso = (data, bloco, local) => {
         let html = `<div class="scroll">`;
         data.forEach(item => {
+            ppe(item);
             html += `
                 <div class="linha">
                     <div class="item">${item[local]}</div>
@@ -165,30 +160,29 @@ window.addEventListener('load', () => {
         }
         bloco.classList.add('loading');
 
-        const resposta = await fetch(
-            LINK + `/relatorio/dispositivo?tipo=${tipo}&de=${de}&ate=${ate}&empresa=${empresa}`,
+        const resposta = await ajaxGet(
+            LINK + `/relatorio/dispositivo`,
             {
-                method: 'GET',
+                tipo,
+                de,
+                ate,
+                empresa,
+            },
+            undefined,
+            {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }
         );
 
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
-
         bloco.classList.remove('loading');
 
-        if (resposta.status != 200 || json.dado == undefined) {
+        if (resposta.dado == undefined) {
             return;
         }
 
-        carregarGraficoDispositivo(json.dado, tipo);
+        carregarGraficoDispositivo(resposta.dado, tipo);
     };
     buscarPorDispositivo('dispositivo');
     buscarPorDispositivo('navegador');
@@ -227,6 +221,8 @@ window.addEventListener('load', () => {
 
         buscarMaisAcessado('usuario');
         buscarMaisAcessado('loja');
+        buscarMaisAcessado('loja-online');
+        buscarMaisAcessado('loja-fisico');
         buscarMaisAcessado('pagina');
 
         buscarPorDispositivo('dispositivo');

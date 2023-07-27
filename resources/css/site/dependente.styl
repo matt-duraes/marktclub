@@ -25,18 +25,21 @@
         espacoTopPadrao()
         espacoBottomPadrao()
         border: 1px solid #EEE
-        position: relative
+        display: flex
         &.default
             display: none
     .dependente .linha_dependente .remove
-        position: absolute
-        right: 20px
-        top: 10px
-        fill: $branco
-        padding: 8px
-        border-radius: 5px
-        cursor: pointer
-        background-color: $vermelho3
+            fill: #fff;
+            border-radius: 5px;
+            height: 35px;
+            cursor: pointer;
+            width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f00;
+            margin-top: 33px;
+            margin-left: 20px;
     .dependente .linha_dependente .bloco_input
         margin-top: 30px
 

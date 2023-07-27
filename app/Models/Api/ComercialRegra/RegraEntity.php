@@ -3,7 +3,7 @@
 namespace App\Models\Api\ComercialRegra;
 
 use ORM\Entity;
-use App\Models\Api\ComercialEmpresa\HelperModel;
+use Helpers\OrmHelper;
 
 final class RegraEntity extends Entity
 {
@@ -26,11 +26,11 @@ final class RegraEntity extends Entity
 
     protected function regraSalvar()
     {
-        $this->id_comercial_empresa = (new HelperModel())->mudarListaUuidParaId($this->empresa);
+        $this->id_comercial_empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaUuidParaId($this->empresa);
     }
 
     protected function regraPosBuscar()
     {
-        $this->empresa = (new HelperModel())->mudarListaIdParaUuid($this->id_comercial_empresa);
+        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid($this->id_comercial_empresa);
     }
 }

@@ -1,0 +1,1 @@
+{"id":"id_ad48ea854b64b602ce2d75b3bbcf0a53","token":"painel","metodo":"GET","nome":"\/painel-notificacao","uri":"{{LINK}}\/painel-notificacao","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"pagina","1",""],["texto",true,"novo","sim",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

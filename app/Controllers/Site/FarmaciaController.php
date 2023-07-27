@@ -31,6 +31,7 @@ final class FarmaciaController extends Controller
             quantidade: new Inteiro(3),
             tipo: new Tipo(Tipo::FARMACIA)
         );
+
         return view(
             'farmacia.detalhe',
             [

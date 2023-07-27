@@ -57,6 +57,11 @@ final class DataBase
      */
     private int $contador = 0;
 
+    /**
+     * @var array
+     */
+    public array $replace = [];
+
     public function __construct()
     {
         if (SISTEMA != 'LOCALHOST') {
@@ -239,6 +244,17 @@ final class DataBase
         $this->executarCreate('relacionar');
     }
 
+    /**
+     * Faz o replace do campo do banco para o nome futuro
+     *
+     * @param string $nome Nome futuro do campo
+     */
+    public function replace(string $nome)
+    {
+        $this->replace[$this->dado['campo']] = $nome;
+        return $this;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RESETA
@@ -410,6 +426,15 @@ final class DataBase
         return $this;
     }
 
+    public function cod(): DataBase
+    {
+        $this->setarTipo('cod', 'CHAR');
+        $this->dado['tamanho'] = 36;
+        $this->dado['unico'] = true;
+        $this->replace('uuid');
+        return $this;
+    }
+
     //doc
 
     /**
@@ -497,7 +522,7 @@ final class DataBase
     public function dinheiro(string $nome): DataBase
     {
         $this->setarTipo($nome, 'DECIMAL');
-        $this->dado['tamanho'] = '10,2';
+        $this->dado['tamanho'] = '20,2';
         return $this;
     }
 

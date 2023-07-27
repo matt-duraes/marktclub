@@ -15,7 +15,9 @@ final class UsuarioEntity extends Entity
         'senha' => 'salt',
         'id_api_app', 'login_usuario'
     ];
-    protected array $ormUpdate = ['salt' => '->senha'];
+    protected array $ormUpdate = [
+        'salt' => '->senha'
+    ];
     public Nome $nome;
     public Senha $senha;
     protected array $id_api_app;
