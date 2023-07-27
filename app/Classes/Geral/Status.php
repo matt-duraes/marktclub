@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\StatusGeral;
+namespace App\Classes\Geral;
 
 use Status\Status as StatusStatus;
 

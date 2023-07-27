@@ -5,7 +5,7 @@ namespace App\Models\Site\Automovel;
 use stdClass;
 use Modules\Dinheiro;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 final class BuscarModel extends ClubeApiHelper
 {

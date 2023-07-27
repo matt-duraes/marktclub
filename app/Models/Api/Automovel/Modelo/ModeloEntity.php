@@ -6,7 +6,7 @@ use ORM\Entity;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Helpers\UploadHelper;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\Automovel\Versao\VersaoModel;
 use App\Classes\ParceiroLoja\Status as StatusParceiro;

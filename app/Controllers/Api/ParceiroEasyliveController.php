@@ -5,7 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Classes\ParceiroEasylive\Tipo;
 use App\Classes\ParceiroEasylive\Ordem;
 use App\Models\Api\ParceiroEasylive\LojaModel;

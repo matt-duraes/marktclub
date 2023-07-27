@@ -2,7 +2,7 @@
 
 namespace Painel\ParceiroEasylive\Models;
 
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use System\Interface\PainelIndexFiltroInterface;
 
 final class IndexModel implements PainelIndexFiltroInterface

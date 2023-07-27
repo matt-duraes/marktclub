@@ -7,7 +7,7 @@ use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Classes\Automovel\Modelo\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;

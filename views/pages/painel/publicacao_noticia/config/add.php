@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 $Painel = new PainelConfig\Add(app: 'publicidade_noticia', acao: $acao);
 $diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';

@@ -4,7 +4,7 @@ namespace App\Models\Api\ParceiroEasylive;
 
 use ORM\Entity;
 use Modules\Data;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Classes\ParceiroEasylive\Tipo;
 
 final class LojaEntity extends Entity

@@ -4,7 +4,7 @@ namespace App\Models\Site\Automovel;
 
 use stdClass;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Models\Site\ListarInterface;
 
 final class ListarModel extends ClubeApiHelper implements ListarInterface

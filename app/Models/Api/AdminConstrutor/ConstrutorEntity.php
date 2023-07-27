@@ -6,7 +6,7 @@ use ORM\Entity;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 final class ConstrutorEntity extends Entity
 {

@@ -10,7 +10,7 @@ use Modules\Pagina;
 use Helpers\OrmHelper;
 use Modules\Quantidade;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\Automovel\Modelo\Ordem;
 use System\Trait\Model\QuantidadeTrait;

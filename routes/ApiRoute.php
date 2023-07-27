@@ -824,6 +824,10 @@ Route
     ::controller(App\Controllers\Api\ParceiroLojaController::class)
     ::grupo(function () {
         Route
+            ::nome('select')
+            ::request(['!tipo', '!titulo'], 'json')
+            ::get('/parceiro-loja/select');
+        Route
             ::nome('listar')
             ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status', '!ordem', '!favorito'], 'json')
             ::get('/parceiro-loja');
@@ -1567,7 +1571,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:salvar'])
-            ::request(['tipo', 'montadora', 'titulo', 'imagem', 'url',  'status'])
+            ::request(['titulo', 'parceiro', 'imagem', 'status'])
             ::post('/automovel-modelo');
 
         Route
