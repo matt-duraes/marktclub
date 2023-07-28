@@ -2,9 +2,9 @@
 
 namespace App\Models\Api\Publicidade;
 
+use App\Classes\Geral\Status;
 use App\Classes\ParceiroLoja\Status as StatusLoja;
 use App\Classes\Publicidade\Tipo;
-use App\Classes\StatusGeral\Status;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
@@ -49,7 +49,7 @@ class PublicidadeModel extends ORM
             ->campo([
                 'imagem', 'url'
             ], 'parceiro')
-            ->join('id', 'empresa')
+            ->join('id', 'id_admin_empresa')
             ->where([
                 //['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%'],
                 ['status', (new StatusLoja(StatusLoja::CONCLUIDO))->numero()]
@@ -72,7 +72,7 @@ class PublicidadeModel extends ORM
             $where[] = ['tipo', $Tipo->numero()];
         }
 
-        $Status = new Tipo($this->request->status);
+        $Status = new Status($this->request->status);
         if ($Status->valido()) {
             $where[] = ['status', $Status->numero()];
         }

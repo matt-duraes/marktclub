@@ -5,7 +5,7 @@ use DataBase\DataBase;
 return (new DataBase())
     ->id()
     ->uuid()
-    ->int('empresa')->tamanho(9)->replace('id_admin_empresa')
+    ->int('id_admin_empresa')->tamanho(9)
     ->varchar('titulo')->tamanho(256)
     ->varchar('imagem')->tamanho(256)
     ->varchar('link')->tamanho(256)

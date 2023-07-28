@@ -29,8 +29,8 @@ class DeclaracaoEntity extends Entity
     protected array $ormSalvar = [
         'vinculo', 'tipo', 'status'
     ];
-    protected string $idEmpresa;
-    protected string $idUsuario;
+    protected ?int $idEmpresa;
+    protected ?int $idUsuario;
 
     public function __construct(
         private readonly ?Request $request = null

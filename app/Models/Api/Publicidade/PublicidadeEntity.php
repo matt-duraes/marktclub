@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\Publicidade;
 
+use App\Classes\Geral\Status;
 use App\Classes\Publicidade\Tipo;
-use App\Classes\StatusGeral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\UploadHelper;
 use ORM\Entity;

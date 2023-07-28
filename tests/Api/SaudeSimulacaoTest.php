@@ -51,7 +51,7 @@ final class SaudeSimulacaoTest extends Tests
             ->Curl
             ->body([
                 'data_nascimento' => $dataNascimento,
-                'dependentes'     => ',',
+                'dependentes'     => implode(',', $dependentes),
                 'operadora'       => 'unimed',
                 'regiao'          => '',
                 'plano'           => '',
