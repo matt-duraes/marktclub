@@ -9,7 +9,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 
-class SiliumController extends Controller
+final class SiliumController extends Controller
 {
     /**
      * @param string $id
