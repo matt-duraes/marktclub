@@ -57,8 +57,8 @@ final class AutomovelController extends Controller
         return view(
             arquivo: 'automovel.versao',
             var: [
-                'menu' => 'automovel',
-                'dado' => $Buscar->buscarDados(),
+                'menu'     => 'automovel',
+                'dado'     => $Buscar->buscarDados(),
                 'endereco' => []
             ]
         );

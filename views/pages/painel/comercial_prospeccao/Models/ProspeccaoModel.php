@@ -42,12 +42,7 @@ final class ProspeccaoModel
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = (object)[
-                'id'      => $r['id'],
-                'usuario' => (object)[
-                    'id'     => $r['usuario']['id'] ?? '',
-                    'nome'   => $this->Crypt->decode($r['usuario']['nome']),
-                    'imagem' => $this->Crypt->decode($r['usuario']['imagem'])
-                ],
+                'id'           => $r['id'],
                 'titulo'       => $this->Crypt->decode($r['titulo']),
                 'cnpj'         => strCnpj($this->Crypt->decode($r['cnpj'])),
                 'data_criacao' => dataBr($r['data_criacao']),
