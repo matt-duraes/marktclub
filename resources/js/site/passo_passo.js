@@ -76,17 +76,7 @@ if (botaoProximo.length > 0) {
         });
     });
 }
-const verificarCampos = botao => {
-    let dtNascimento = document.querySelector('input[name=data_nascimento]').value;
-    let botaoContinuar = document.querySelector('#fazerSimulacao');
 
-    botaoContinuar.addEventListener('click', e => {
-        if (dtNascimento == '') {
-            return;
-        }
-        irParaProximoPasso(botao);
-    });
-};
 const irParaProximoPasso = botao => {
     const bloco = botao.closest('.bloco_passo_passo_geral');
     const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
