@@ -2,7 +2,9 @@
 
 namespace App\Models\Api\Publicidade;
 
+use App\Classes\ParceiroLoja\Status as StatusLoja;
 use App\Classes\Publicidade\Tipo;
+use App\Classes\StatusGeral\Status;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
@@ -15,12 +17,13 @@ use System\Trait\Model\QuantidadeTrait;
 
 class PublicidadeModel extends ORM
 {
+    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
-    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_PUBLICIDADE;
+    private ?int $idEmpresa;
 
     public function __construct(
         protected readonly Request $request
@@ -38,19 +41,18 @@ class PublicidadeModel extends ORM
         $dado = $this
             ->campo([
                 'uuid', 'titulo', 'imagem', 'target',
-                'link', 'tipo', 'data_criacao'
+                'link', 'tipo', 'status', 'data_criacao'
             ], 'publicidade')
-            ->where($this->pegarWhere(), false)
+            ->where($this->pegarWhere())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order('ordem')
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->campo([
                 'imagem', 'url'
             ], 'parceiro')
-            ->join('id', TABELA_PARCEIRO_LOJA)
+            ->join('id', 'empresa')
             ->where([
-                ['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%'],
-                ['status', '4'],
+                //['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%'],
+                ['status', (new StatusLoja(StatusLoja::CONCLUIDO))->numero()]
             ])
             ->read();
 
@@ -68,6 +70,11 @@ class PublicidadeModel extends ORM
         $Tipo = new Tipo($this->request->tipo);
         if ($Tipo->valido()) {
             $where[] = ['tipo', $Tipo->numero()];
+        }
+
+        $Status = new Tipo($this->request->status);
+        if ($Status->valido()) {
+            $where[] = ['status', $Status->numero()];
         }
 
         $dataCriacaoDe = $this->request->data_criacao_de;
@@ -96,43 +103,43 @@ class PublicidadeModel extends ORM
         }
 
         $Construtor = new ConstrutorEntity();
-        $Construtor->idSlug($this->idEmpresa);
+        $Construtor->buscar([
+            ['empresa', $this->idEmpresa]
+        ]);
 
         $Tipo = new Tipo();
+        $Status = new Status();
 
         $retorno = [];
         foreach ($publicidades as $publicidade) {
             $retorno[] = [
-                'uuid'         => $publicidade->uuid,
-                'titulo'       => $publicidade->titulo,
+                'uuid'         => $publicidade->publicidade_uuid,
+                'titulo'       => $publicidade->publicidade_titulo,
                 'target'       => ($publicidade->publicidade_target === '_self') ? 'interno' : 'externo',
-                'imagem'       => [
-                    'pequena' => LINK_ARQUIVO . '/publicidade/' . $publicidade->publicidade_imagem,
-                    'grande'  => LINK_ARQUIVO . '/publicidade/' . $publicidade->publicidade_imagem,
-                ],
+                'imagem'       => arquivoPrivado($publicidade->publicidade_imagem),
                 'parceiro'     => [
-                    'imagem' => LINK_ARQUIVO . '/parceiro/' . $publicidade->parceiro_imagem,
-                    'url'    => $publicidade->parceiro_url,
+                    'imagem' => arquivoPrivado($publicidade->parceiro_imagem),
+                    'url'    => $publicidade->parceiro_url
                 ],
                 'link'         => [
                     'link'   => str_replace(
                         'clube.marktclub.com.br',
                         $Construtor->link_clube,
-                        (string)$publicidade->publicidade_link
+                        $publicidade->publicidade_link
                     ),
-                    'target' => $publicidade->publicidade_target,
+                    'target' => $publicidade->publicidade_target
                 ],
                 'url'          => [
                     'link'   => str_replace(
                         'clube.marktclub.com.br',
                         $Construtor->link_clube,
-                        (string)$publicidade->publicidade_link
+                        $publicidade->publicidade_link
                     ),
-                    'target' => $publicidade->publicidade_target,
+                    'target' => $publicidade->publicidade_target
                 ],
-                'tipo'         => $Tipo->indice($publicidade->tipo),
-                'status'       => $publicidade->status,
-                'data_criacao' => dataHoraBr($publicidade->data_criacao)
+                'tipo'         => $Tipo->indice($publicidade->publicidade_tipo),
+                'status'       => $Status->indice($publicidade->publicidade_status),
+                'data_criacao' => dataHoraBr($publicidade->publicidade_data_criacao)
             ];
         }
         return $retorno;
@@ -154,6 +161,10 @@ class PublicidadeModel extends ORM
         $Tipo = new Tipo($this->request->tipo);
         if (!$Tipo->vazio() && !$Tipo->valido()) {
             mensagemErro('Campo inválido!', 'O Tipo informado não é válido.');
+        }
+        $Status = new Status($this->request->status);
+        if (!$Status->vazio() && !$Status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
     }
 }

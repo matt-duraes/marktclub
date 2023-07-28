@@ -21,8 +21,8 @@ final class SaudeSimulacaoTest extends Tests
      */
     public function buscarSimulacaoTest(): SaudeSimulacaoTest
     {
+        $this->api('saude_simulacao:buscar');
         $this
-            ->api('saude_simulacao:buscar')
             ->Curl
             ->get('/saude/simulacao/' . $this->idSimulacao);
 
@@ -46,12 +46,12 @@ final class SaudeSimulacaoTest extends Tests
             $dependentes[] = (new Data($this->dataPassada()))->data();
         }
 
+        $this->api('saude_simulacao:salvar');
         $this
-            ->api('saude_simulacao:salvar')
             ->Curl
             ->body([
                 'data_nascimento' => $dataNascimento,
-                'dependentes'     => implode(',', $dependentes),
+                'dependentes'     => ',',
                 'operadora'       => 'unimed',
                 'regiao'          => '',
                 'plano'           => '',
