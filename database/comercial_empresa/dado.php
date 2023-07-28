@@ -159,6 +159,8 @@ return [
         'contrato_dia_fechamento' => 1,
         'contrato_dia_pagamento'  => 10,
         'cobrar_aposentado'       => 1,
+        'finalidade_empresa'      => 1,
+        'finalidade_secundaria'   => 1,
         'status'                  => 3
     ],
     [
@@ -179,6 +181,8 @@ return [
         'contrato_dia_fechamento' => 1,
         'contrato_dia_pagamento'  => 10,
         'cobrar_aposentado'       => 1,
+        'finalidade_empresa'      => 1,
+        'finalidade_secundaria'   => 1,
         'status'                  => 3
     ],
     [
@@ -199,6 +203,8 @@ return [
         'contrato_dia_fechamento' => 1,
         'contrato_dia_pagamento'  => 10,
         'cobrar_aposentado'       => 1,
+        'finalidade_empresa'      => 1,
+        'finalidade_secundaria'   => 1,
         'status'                  => 3
     ],
     [
