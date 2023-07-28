@@ -1,13 +1,11 @@
 <div class="bloco_parceiro bloco_geral_article">
 @ if($lista):
     @ foreach( $lista->lista as $r ):
-    <article class="parceiro" data-url="{{$r->id}}">
-        @ if( in_array($lista->tipo, ['cupom']) ):
-            <div class="link_cupom_parceiro" data-id="{!!$r->id!!}"></div>
-        @else:
-            <a class="link_cupom_parceiro" href="{!!$r->link!!}"></a>
+    <article class="parceiro botao_abrir_parceiro" data-url="{{$r->id}}">
+        @ if( !in_array($lista->tipo, ['cupom', 'automovel-versao']) ):
+            <a href="{!!$r->link!!}"></a>
         @endif;
-        @if( in_array($r->tipo, ['veiculo', 'modelo', 'operadora', 'sosmulher']) ):
+        @if( in_array($r->tipo, ['automovel-versao', 'automovel-modelo', 'operadora', 'sosmulher']) ):
             <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
         @else:
             <figure class="logo"><img src="{!!$r->imagem!!}" alt=""></figure>

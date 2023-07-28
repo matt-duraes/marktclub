@@ -1,7 +1,7 @@
 <?php
 
 use Helpers\ApiHelper;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 $empresa = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')

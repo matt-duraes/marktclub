@@ -241,3 +241,36 @@
             bgDegradeVermelho()
             border: none
             color: #FFF
+
+#bloco_app_visualizar .bloco_fieldset .bloco_linha_unica
+    width: 100%
+    flexCol()
+    align-items: flex-start
+    .botao_add
+        margin-bottom: 20px
+    .linha_dado
+        width: calc(100% - 40px)
+        position: relative
+        flexRow()
+        align-items: center
+        margin-left: 20px
+        border: 1px solid #DDD
+        border-bottom: none
+        &:last-child
+            border-bottom: 1px solid #DDD
+    .linha_dado .linha
+        flexGrow()
+        padding: 5px 10px
+    .linha_dado i
+        width: 30px
+        height: 30px
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #999
+        cursor: pointer
+        border-radius: 50%
+        margin: 5px 5px 5px 0
+        &:hover
+            background: #EEE
+            fill: #666

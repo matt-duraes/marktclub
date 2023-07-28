@@ -4,7 +4,7 @@ namespace App\Models\Api\ParceiroCashback;
 
 use ORM\Entity;
 use Modules\Decimal;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 final class CashbackEntity extends Entity
 {

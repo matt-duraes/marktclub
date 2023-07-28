@@ -7,7 +7,7 @@ use stdClass;
 use Http\Request;
 use App\Classes\ApiApp\Ordem;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;

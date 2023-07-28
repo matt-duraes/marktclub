@@ -306,11 +306,11 @@ Route
             ::nome('index')
             ::view('/automoveis');
         Route
-            ::nome('veiculo')
+            ::nome('modelo')
             ::view('/automoveis/{url}');
         Route
-            ::nome('modelo')
-            ::view('/automovel/{montadora}/{veiculo}');
+            ::nome('versao')
+            ::view('/automovel/{url}');
 
         Route
             ::nome('voucher')

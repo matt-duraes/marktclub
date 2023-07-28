@@ -50,6 +50,8 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             $link = route('loja.detalhe');
             if ($r->tipo == Tipo::FARMACIA) {
                 $link = route('farmacia.detalhe');
+            } elseif ($r->tipo == Tipo::AUTOMOVEL) {
+                $link = route('automovel.modelo');
             }
             $retorno[] = (object)[
                 'id'       => $r->id,
