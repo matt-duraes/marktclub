@@ -1212,9 +1212,9 @@ Route
             ::nome('salvar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
-        'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
-    ])
-    ::post('/demanda-tarefa');
+                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
+            ])
+            ::post('/demanda-tarefa');
         Route
             ::nome('buscar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
@@ -1346,16 +1346,18 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
-            ::request([
-                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
-            ], 'json')
-            ::get('/solicitacao-declaracao');
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
             ::get('/solicitacao-declaracao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
+            ::request([
+                'pagina', '!ordem', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/solicitacao-declaracao');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
@@ -1473,13 +1475,15 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicidade:buscar'])
             ::get('/publicidade/{id}');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicidade:listar'])
             ::request([
-                'pagina', '!quantidade', '!tipo', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!quantidade', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/publicidade');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicidade:salvar'])
@@ -1577,7 +1581,7 @@ Route
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
-            ::request(['!tipo', '!montadora', '!titulo', '!imagem', '!url',  '!status', '!data_vencimento'])
+            ::request(['!tipo', '!montadora', '!titulo', '!imagem', '!url', '!status', '!data_vencimento'])
             ::put('/automovel-modelo/{id}');
 
         Route
@@ -1594,7 +1598,8 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
-            ::request(['pagina', '!quantidade', '!vinculo', '!titulo', '!detalhe', '!tipo', '!ordem', '!status'], 'json')
+            ::request(['pagina', '!quantidade', '!vinculo', '!titulo', '!detalhe', '!tipo', '!ordem', '!status'],
+                'json')
             ::get('/automovel-versao');
 
         Route

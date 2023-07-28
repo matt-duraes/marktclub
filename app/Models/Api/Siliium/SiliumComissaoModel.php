@@ -68,13 +68,13 @@ class SiliumComissaoModel extends ORM
     }
 
     /**
-     * @return array[] [['empresa', $this->idEmpresa],['usuario', $this->idUsuario],['status', 1]]
+     * @return array[] [['id_admin_empresa', $this->idEmpresa],['id_usuario', $this->idUsuario],['status', 1]]
      */
     private function pegarWherePadrao(): array
     {
         return [
-            ['empresa', $this->idEmpresa],
-            ['usuario', $this->idUsuario],
+            ['id_admin_empresa', $this->idEmpresa],
+            ['id_usuario', $this->idUsuario],
             ['status', 1]
         ];
     }
@@ -111,8 +111,8 @@ class SiliumComissaoModel extends ORM
                 'uuid', 'comissao_usuario', 'data_compra', 'moeda', 'status'
             ])
             ->where([
-                ['empresa', $this->idEmpresa],
-                ['usuario', $this->idUsuario]
+                ['id_admin_empresa', $this->idEmpresa],
+                ['id_usuario', $this->idUsuario]
             ])
             ->order([
                 ['status', 'ASC'],
@@ -206,7 +206,7 @@ class SiliumComissaoModel extends ORM
             $arr = [
                 'uuid'             => uuid(),
                 'id_venda'         => $item->id_venda,
-                'usuario'          => $ClienteEntity->get('uuid'),
+                'usuario'          => $ClienteEntity->id,
                 'empresa'          => $empresa,
                 'programa'         => $item->programa,
                 'comissao_usuario' => number_format($comissao, 2, '.', ''),
