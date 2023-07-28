@@ -7,6 +7,14 @@
 @resource "site/passo_passo"
 @resource "site/dependente"
 
+.bloco_botao_voltar
+    width: 100%
+    max-width: $maxWidth
+    padding: 20px
+    display: flex
+.bloco_botao_voltar .botao_voltar
+    width: 200px
+    border: 1px solid $corClube
 #bloco_simulacao
     width: 100%
     max-width: $maxWidth
@@ -16,6 +24,9 @@
     max-width: $maxWidth
     espacoTopPadrao()
     #bloco_tipo_amil
+        display: flex
+        justify-content: center
+        align-items: center
     #bloco_central_plano
         display: none
         espacoTopPadrao()
@@ -60,14 +71,19 @@
     .resultado_dependente
         flexCenter()
         margin: 10px 0px
+    .valor_dependente
+        display: none
     .resultado_dependente p
         height: 100%
+        min-width: 170px
         texto()
         flexCenter()
         color: $branco
         border: 1px solid #ff6f00
         background-color: $corClube
         padding: 10px 20px
+    .preco_dependente
+        background-color: red
     .resultado_dependente .valor
         width: auto
         texto()
@@ -84,8 +100,17 @@
     width: 210px
     height: 50px
     margin-top: 10px
-
-
+#bloco_tipo_amil .planos_brasilia
+    display: none
+#bloco_tipo_amil .planos_sao_paulo
+    display: none
+#bloco_tipo_amil .planos_rio_de_janeiro
+    display: none
+.plano_ativo
+    display: flex !important
+    flex-wrap: wrap !important
+.plano_inativo
+    display: none !important
 @media screen and (max-width: 900px)
     #bloco_simulacao_saude #bloco_tipo_amil
         espacoBottomPadrao()

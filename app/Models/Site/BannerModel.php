@@ -34,7 +34,7 @@ final class BannerModel
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
                     'target' => '_self',
-                    'link'   => route('loja.index')
+                    'link'   => route('loja.index'),
                 ],
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
