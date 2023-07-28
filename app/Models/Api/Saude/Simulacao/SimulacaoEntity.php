@@ -76,7 +76,6 @@ class SimulacaoEntity extends Entity
         $this->regiao = new Regiao($this->request->getPost('regiao'));
         $this->plano = new Plano($this->request->getPost('plano'));
         $this->status = new Status(Status::REGISTRADO);
-
         $planoSaude = match ($this->operadora->indice()) {
             Operadora::UNIMED => new PlanoSaude(
                 new Unimed($this->data_nascimento, $acomodacao)

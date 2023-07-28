@@ -233,7 +233,6 @@ fwMascaraAcaoDinheiro = function (input, tecla) {
     let posicaoFinal = input.selectionEnd;
 
     let novoNumero = tecla;
-    console.log(novoNumero);
 
     let valorTemporario = input.value;
     let valorTemporarioTamanho = valorTemporario.length;

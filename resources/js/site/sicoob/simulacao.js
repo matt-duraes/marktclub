@@ -1,17 +1,21 @@
-const formulario = document.querySelector('#formulario_emprestimo');
-const botaoSimularConsignado = document.querySelector('#botao_fazer_simulacao');
-const botaoContratarConsignado = document.querySelector('#enviar_solicitacao');
-const botaoPopupRegulamento = document.querySelectorAll('.abrirModalRegulamento');
-const botaoFechar = document.querySelectorAll('.botao_fechar_popup');
-const botaoVoltar = document.querySelector('.bloco_credito_geral_simulacao .bloco_credito .bloco_botao .cinza');
+// @template "login"
+// @system "Loading"
+// @system "Alerta"
+// @system "Mascara"
+// @system "Form"
+
+const botaoSimularConsignado = $('#botao_fazer_simulacao');
+const botaoContratarConsignado = $('#enviar_solicitacao');
+const botaoPopupRegulamento = $$('.abrirModalRegulamento');
+const botaoFechar = $$('.botao_fechar_popup');
+const botaoVoltar = $('.bloco_credito_geral_simulacao .bloco_credito .bloco_botao .cinza');
 
 function adicionarEventoSimularConsignado() {
     botaoSimularConsignado.addEventListener('click', async e => {
         e.preventDefault();
-
-        const tipo = formulario.querySelector('input[name=tipo_financiamento]').value;
-        const valor = formulario.querySelector('input[name=financiamento]').value;
-        const prazo = formulario.querySelector('input[name=parcela]').value;
+        const tipo = $('#formulario_emprestimo input[name=tipo_financiamento]').value;
+        const valor = $('#formulario_emprestimo input[name=financiamento]').value;
+        const prazo = $('#formulario_emprestimo input[name=parcela]').value.slice(0, 2);
 
         if (valor === '') {
             Alerta.mensagem('Campo obrigatório!', 'Digite o valor que deseja simular.');
@@ -21,17 +25,12 @@ function adicionarEventoSimularConsignado() {
             return false;
         }
 
-        Loading.show();
         const query = `&tipo=${tipo}&valor=${valor}&prazo=${prazo}`;
 
-        const resposta = await fetch('/credito/simulacao?operadora=sicoob-judiciario' + query, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        Loading.hide();
+        const resposta = await ajaxGet('/credito/simulacao?operadora=sicoob-judiciario' + query);
+        if (false === resposta) {
+            return;
+        }
 
         let json;
         try {
@@ -42,9 +41,9 @@ function adicionarEventoSimularConsignado() {
 
         if (resposta.status === 200) {
             irParaProximoPasso(botaoSimularConsignado);
-            document.querySelector('.valor_emprestimo').innerHTML = json.dado.lista.valor;
-            document.querySelector('.valor_prazo').innerHTML = json.dado.lista.parcelas;
-            document.querySelector('#simulacao_valor').innerHTML = 'R$ ' + json.dado.lista.valor_parcelas;
+            $('.valor_emprestimo').innerHTML = json.dado.lista.valor;
+            $('.valor_prazo').innerHTML = json.dado.lista.parcelas;
+            $('#simulacao_valor').innerHTML = 'R$ ' + json.dado.lista.valor_parcelas;
             return;
         }
 
@@ -107,7 +106,6 @@ function adicionarEventoPopupRegulamento() {
     botaoPopupRegulamento.forEach(modelo => {
         const tipo = modelo.getAttribute('data-tipo');
         const PaginaDetalhe = new Pagina(tipo, '/sicoob-regulamento/' + tipo, {}, true, true, carregarFuncoesBusca);
-
         modelo.addEventListener('click', () => {
             PaginaDetalhe.abrir();
         });

@@ -9,6 +9,7 @@ const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
 const { phpCsFixer } = require('./src/Gulpfile/php.js');
+
 const {
     buildCopiarComposerConfig,
     buildComposerInstall,
