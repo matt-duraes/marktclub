@@ -11,12 +11,13 @@ return [
         'cod' => 'uuid'
     ],
     'parceiro_novo' => [
-        'cod' => 'uuid'
+        'cod'     => 'uuid',
+        'empresa' => 'id_admin_empresa'
     ],
     'tag_novo' => [
         'cod' => 'uuid'
     ],
-    'sistema_contato' => [
+    'contato' => [
         'cod' => 'uuid'
     ],
     'endereco_novo' => [

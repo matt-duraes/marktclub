@@ -1,0 +1,49 @@
+@template "site"
+
+<div id="bloco_modelo">
+    <div class="bloco_tab_geral bloco_procedimento">
+        <div class="bloco_botao">
+            <button class="botao ativo" data-id="bloco_procedimento">
+                <span class="texto_inativo">Procedimento</span>
+                <span class="texto_ativo cor_color">Procedimento</span>
+            </button>
+            @if(!empty($dado->endereco)):
+                <a  href="{{$dado->endereco}}" target="_blank" class="botao" data-id="bloco_endereco">
+                    <span class="texto_inativo">Endereço</span>
+                    <span class="texto_ativo cor_color">Endereço</span>
+                </a>
+            @else:
+                <button class="botao" data-id="bloco_endereco">
+                    <span class="texto_inativo">Endereço</span>
+                    <span class="texto_ativo cor_color">Endereço</span>
+                </button>
+            @endif;
+        </div>
+
+        <div id="bloco_procedimento" class="conteudo">
+            @if(TIPO_USUARIO != 'indicado'):
+                <div class="bloco_geral_ul">
+                    <p>{!!$dado->texto_procedimento!!}</p>
+                </div>
+            @else
+                <div class="bloco_atencao_geral">
+                    <p>Apenas associados possuem acesso a esse recurso</p>
+                </div>
+            @endif
+        </div>
+
+        <div id="bloco_endereco" class="conteudo display_none">
+            @ ifforeach ($endereco->lista ?? [] as $r_e):
+            <h1>{{$r_e->titulo}}</h1>
+            <p>{{$r_e->completo}}</p>
+            <a class="botao_geral_cor cor_bg"  target="_blank" href="{{$r_e->mapa->link}}">Como chegar</a>
+            @endifforeach;
+        </div>
+
+    </div>
+
+    @php $lista = (object)['lista' => $dado->versao, 'tipo' => 'automovel-versao'];
+    @view site/geral/parceiro.view
+
+    @view site/automovel/geral/mensagem.view
+</div>

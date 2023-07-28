@@ -4,7 +4,7 @@ namespace App\Models\Site\Cashback;
 
 use stdClass;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 final class BuscarModel extends ClubeApiHelper
 {

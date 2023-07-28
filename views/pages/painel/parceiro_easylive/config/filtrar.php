@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Classes\ParceiroEasylive\Tipo;
 
 $tipo = (new Tipo())->select('Escolha um tipo');

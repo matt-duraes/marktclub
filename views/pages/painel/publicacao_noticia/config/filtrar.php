@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 $Painel = new PainelConfig\Filtrar('publicacao_noticia');
 

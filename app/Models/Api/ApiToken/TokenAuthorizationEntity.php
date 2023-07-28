@@ -7,7 +7,7 @@ use ORM\Entity;
 use Modules\DataHora;
 use Helpers\JwtHelper;
 use App\Classes\ApiToken\Tipo;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 
 final class TokenAuthorizationEntity extends Entity
 {
