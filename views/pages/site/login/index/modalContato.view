@@ -1,0 +1,40 @@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<div class="bloco_popup_geral medio">
+
+    <header class="popup_header">
+        <h1>ENTRAR EM CONTATO</h1>
+        <i class="botao_fechar_popup">@iconeFechar</i>
+    </header>
+    <div class="popup_conteudo centralizado">
+        <form id="formulario_contato" action="" class="form_geral bloco_conteudo_geral centralizado" method="post">
+            <header class="coluna texto">
+                <p>Gostaria de divulgar a sua marca ou está querendo tirar alguma dúvida?<br>
+                Basta preencher o formulário abaixo que entramos em contato</p>
+            </header>
+
+            <fieldset class="texto">
+                <input type="hidden" name="hash" value="uuid()">
+                <input type="hidden" name="validacao" value="{{ uuid() }}">
+                <label>
+                    @? formInput(name: 'nome', placeholder: 'Qual o seu nome?', label: '', class: 'busca_nome', value: '')
+                </label>
+                <label>
+                    @? formTelefone(name: 'telefone', placeholder: 'Você tem o telefone do parceiro?', label: '', class: 'busca_telefone', value: '')
+                </label>
+                <label>
+                    @? formEmail(name: 'email', label: 'E-mail do parceiro', placeholder: 'Você tem o e-mail do parceiro?', value: '')
+                </label>
+            </fieldset>
+
+            <fieldset class="texto">
+                <h1 class="texto">MENSAGEM</h1>
+                <label class="label_mensagem">
+                    @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
+                </label>
+            </fieldset>
+
+            <button id="botao_enviar_contato" class="botao_enviar_contato botao_geral_cor cor_bg">ENVIAR</button>
+        </form>
+    </div>
+
+</div>

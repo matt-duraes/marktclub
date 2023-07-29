@@ -12,7 +12,7 @@
 
 </section>
 <section class="duvida cor_bg">
-    <a data-href="@route('index.popup_formulario_contato')" class="botao_popup_contato">Alguma dúvida ?</a>
+    <a data-href="@route('index.popup_formulario_contato')" class="abrirModalContato">Alguma dúvida ?</a>
 </section>
 
 <section class="mostra_mobile formulario_mobile">

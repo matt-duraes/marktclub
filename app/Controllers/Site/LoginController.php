@@ -5,8 +5,10 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Http\Response;
 use Helpers\AuthHelper;
+use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
 final class LoginController extends Controller
 {
@@ -46,6 +48,53 @@ final class LoginController extends Controller
     public function faq(): Response
     {
         return view('faq.index');
+    }
+
+    public function abrirModalContato()
+    {
+        return view('login.index.modalContato');
+    }
+
+    public function postContato(Request $request): Response
+    {
+        $contato = new SalvarContatoModel($request);
+        $contato = $contato->postSalvar();
+
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
+    }
+
+    public function ativar()
+    {
+        return view('ativar_cadastro.index', [
+            'ativacao' => 'siape',
+            'id_admin_empresa' => 1,
+            'dependente' => false,
+            'matricula' => false,
+            'genero'    => (new ListaHelper())->add('', 'Escolha uma opção')->genero()->r(),
+            'ddi'    => (new ListaHelper())->add('', 'Escolha uma opção')->ddi()->r(),
+            'uf' => (new ListaHelper())->add('UF')->uf()->r(),
+            'client_id' => ''
+        ]);
+    }
+
+    public function postBuscarUsuario(Request $request): Response
+    {
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
+    }
+
+    public function postAtivar(Request $request): Response
+    {
+        return new Response(json: [
+            'status' => 'sucesso',
+            'empresa' => 1,
+            'limite' => 1,
+            'liberacao_dependente' => 1,
+            'tipo' => 1
+        ], status: 201);
     }
 
     public function sair(): Response

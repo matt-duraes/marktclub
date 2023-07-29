@@ -3,7 +3,9 @@
 // @system "Alerta"
 // @system "Mascara"
 // @system "Form"
+// @system "Pagina"
 // @resource "site/login/slide"
+// @import "contato"
 
 window.addEventListener('load', () => {
     const inputLogin = document.getElementById('input_login');

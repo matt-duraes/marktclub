@@ -131,3 +131,6 @@
 @ endif;
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<input type="hidden" name="RECAPTCHA_SITE" id="RECAPTCHA_SITE" value="{{env('RECAPTCHA_SITE')}}">
+<input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">

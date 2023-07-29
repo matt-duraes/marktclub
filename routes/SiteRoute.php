@@ -30,6 +30,28 @@ Route
             ::nome('logar')
             ::request(['login', 'senha'])
             ::post('/login');
+        Route
+            ::nome('abrirModalContato')
+            ::view('/contato');
+        Route
+            ::nome('contato')
+            ::request(['hash', 'validacao',  'nome', 'email', 'telefone', 'mensagem'])
+            ::post('/contato');
+        Route
+            ::nome('ativar')
+            ::view('/ativar');
+        Route
+            ::nome('buscarUsuario')
+            ::request(['client_id', 'pesquisa', 'tipo', 'captcha'])
+            ::post('/auth/buscar-usuario');
+        Route
+            ::nome('ativar')
+            ::request(['dado', 'client_id', 'scope', 'redirect_uri', 'state'])
+            ::post('/auth/ativar');
+        Route
+            ::nome('ativar')
+            ::request(['nome_completo', 'email_pessoal', 'documento_cpf', 'sexo', 'titular', 'empresa', 'client_id'])
+            ::post('/auth/salvar-dependente');
     });
 
 Route

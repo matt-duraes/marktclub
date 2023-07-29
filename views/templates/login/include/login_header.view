@@ -9,7 +9,7 @@
     </div>
     <nav>
         <div class="menu">
-            <a href="#" class="botao">
+            <a href="{!!route('login.ativar')!!}" class="botao">
                 <i class="cor_color">@iconePrimeiroAcesso</i>
                 <p>Primeiro Acesso</p>
                 <div class="borda cor_bg"></div>
