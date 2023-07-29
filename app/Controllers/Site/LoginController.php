@@ -103,9 +103,30 @@ final class LoginController extends Controller
             'client_id' => '',
             'tipo' => '',
             'indicacao' => false,
-            'link_cadastro' => 'markt.club',
+            'link_cadastro' => 'https://markt.club',
             'dependente' => false
         ]);
+    }
+
+    public function postEnviarCodigo(Request $request): Response
+    {
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
+    }
+
+    public function postValidarCodigo(Request $request): Response
+    {
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
+    }
+
+    public function postNovaSenha(Request $request): Response
+    {
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
     }
 
     public function sair(): Response

@@ -8,35 +8,6 @@
 // @import "contato"
 
 window.addEventListener('load', () => {
-    const inputLogin = document.getElementById('input_login');
-    const inputSenha = document.getElementById('input_senha');
-    const botaoLogin = document.getElementById('botao_fazer_login');
-
-    if (inputLogin) {
-        inputLogin.addEventListener('keydown', e => {
-            if (e.key == 'Enter') {
-                fazerLogin();
-            }
-        });
-        inputSenha.addEventListener('keydown', e => {
-            if (e.key == 'Enter') {
-                fazerLogin();
-            }
-        });
-        botaoLogin.addEventListener('click', () => {
-            fazerLogin();
-        });
-    }
-    const fazerLogin = async () => {
-        const login = inputLogin.value;
-        const senha = inputSenha.value;
-        const resposta = await ajaxPost(LINK + '/login', { login, senha }, 'Erro ao fazer o login, tente novamente.');
-        if (false === resposta) {
-            return;
-        }
-        window.location.assign(resposta.dado.link);
-    };
-
     /*
     |--------------------------------------------------------------------------
     | SLIDE

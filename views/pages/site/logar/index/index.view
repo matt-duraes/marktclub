@@ -32,26 +32,26 @@
 
             <div class="bloco_login login">
                 @ if ($tipo === 'ANABB') :
-                    @? formInput(name: 'email_cpf', label: 'Digite sua matrícula', placeholder: 'Digite sua matrícula')
+                    @? formInput(name: 'email_cpf', id: 'input_login', label: 'Digite sua matrícula', placeholder: 'Digite sua matrícula')
                 @ elseif (in_array($client_id, ['Nz1lc1dKkXuW14buEullpa']) && (false === $dependente)) :
-                    @? formCpf(name: 'cpf', label: 'Digite seu cpf', placeholder: 'Digite seu cpf')
+                    @? formCpf(name: 'cpf', id: 'input_login', label: 'Digite seu cpf', placeholder: 'Digite seu cpf')
                 @ elseif ($client_id == 'KPrsQbkiB6PIDoAW0Ri47g'  && (false === $dependente)) :
                     @php
                         $txt_indicacao = !$indicacao ? 'DIGITE SEU CÓDIGO ABERT'  : 'DIGITE SEU E-MAIL';
                     @end
                     @? formInput(label: $txt_indicacao, placeholder: $txt_indicacao)
                 @ elseif ($client_id == 'KPrsQbkiB6PIDoAW0Ri47g'  && (true === $dependente)) :
-                    @? formInput(name: 'email_cpf', label: 'Digite seu e-mail ou cpf', placeholder: 'Digite seu e-mail ou cpf', id: 'input_login_recuperar_senha')
+                    @? formInput(name: 'email_cpf', id: 'input_login', label: 'Digite seu e-mail ou cpf', placeholder: 'Digite seu e-mail ou cpf', id: 'input_login_recuperar_senha')
                 @ else :
                     @php
                         $txt_indicacao = !$indicacao ? 'DIGITE SEU E-MAIL OU CPF' : 'DIGITE SEU E-MAIL';
                     @end
-                    @? formInput(name: 'email_cpf', label: 'Digite seu e-mail ou cpf', placeholder: 'Digite seu e-mail ou cpf')
+                    @? formInput(name: 'email_cpf', id: 'input_login', label: 'Digite seu e-mail ou cpf', placeholder: 'Digite seu e-mail ou cpf')
                 @ endif;
             </div>
             @ if (!$indicacao) :
                 <div class="bloco_login senha">
-                    @? formSenha(name: 'password', label: 'Digite sua senha', placeholder: 'Digite sua senha')
+                    @? formSenha(name: 'password', id: 'input_senha', label: 'Digite sua senha', placeholder: 'Digite sua senha')
                 </div>
             @ endif;
 
@@ -59,14 +59,11 @@
 
             @if ($tipo === 'ANABB') :
                 <div class="botao">
-                    <button class="enviar" id="botao_anabb" type="button">LOGAR</button>
+                    <button class="enviar" id="botao_fazer_login" type="button">LOGAR</button>
                 </div>
             @else :
                 <div class="botao">
-                    @php
-                        $id_indicacao = !$indicacao ? 'botao_senha' : 'botao_login';
-                    @end
-                    <button class="enviar" id="{{$id_indicacao}}" type="button">LOGAR</button>
+                    <button class="enviar"  id="botao_fazer_login">LOGAR</button>
                 </div>
             @endif;
             <div class="link_acao">
@@ -74,7 +71,7 @@
                     <button class="botao_texto" tabindex="-1" type="button" id="botao_ir_codigo">Esqueceu sua senha?</button>
                 @endif;
                 @if ($link_cadastro && !$indicacao) :
-                    <a class="botao_texto" tabindex="-1" href="{{$link_cadastro}}">Não tem cadastro?</a>
+                    <a class="botao_texto" tabindex="-1" href="{!!$link_cadastro!!}">Não tem cadastro?</a>
                 @endif;
             </div>
 
@@ -97,7 +94,7 @@
 
     </div>
     <div class="auth_bloco_geral_site" id="auth_bloco_codigo">
-        <form id="auth_form_codigo" autocomplete="off" class="auth_form_geral" action="{{LINK}}/auth/enviar-codigo" method="post">
+        <form id="auth_form_codigo" autocomplete="off" class="auth_form_geral form_geral" action="{!!route('login.enviarCodigo')!!}" method="post">
             <div class="auth_loading"><span></span></div>
 
 
@@ -122,7 +119,7 @@
     </div>
 
     <div class="auth_bloco_geral_site" id="auth_bloco_validar_codigo">
-        <form id="auth_form_validar_codigo" autocomplete="off" class="auth_form_geral" action="{{LINK}}/auth/validar-codigo" method="get">
+        <form id="auth_form_validar_codigo" autocomplete="off" class="auth_form_geral form_geral" action="{!!route('login.validarCodigo')!!}" method="get">
             <div class="auth_loading"><span></span></div>
 
 
@@ -151,7 +148,7 @@
     </div>
 
     <div class="auth_bloco_geral_site" id="auth_bloco_nova_senha">
-        <form id="auth_form_nova_senha" autocomplete="off" class="auth_form_geral" action="{{LINK}}/auth/nova-senha" method="post">
+        <form id="auth_form_nova_senha" autocomplete="off" class="auth_form_geral form_geral" action="{{LINK}}/auth/nova-senha" method="post">
             <div class="auth_loading"><span></span></div>
 
             <legend>NOVA SENHA</legend>
@@ -170,13 +167,11 @@
             <input type="text" class="input_hidden">
             <input type="password" class="input_hidden">
 
-            <div class="bloco_input nova_senha">
-                <label>NOVA SENHA</label>
-                <input type="password" autocomplete="off" value="">
+            <div class="nova_senha">
+                @? formSenha(name: 'password', id: 'input_senha', label: 'Digite a sua nova senha', placeholder: 'Digite a sua nova senha')
             </div>
-            <div class="bloco_input repetir_senha">
-                <label>REPETIR NOVA SENHA</label>
-                <input type="password" autocomplete="off" value="">
+            <div class="repetir_senha">
+                @? formSenha(name: 'password', id: 'input_senha', label: 'Repita e confirme a nova senha', placeholder: 'Repita e confirme a nova senha')
             </div>
 
             <div class="botao botao_centralizado">

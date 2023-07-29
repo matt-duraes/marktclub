@@ -55,6 +55,19 @@ Route
         Route
             ::nome('logarUsuario')
             ::view('/auth/login');
+        Route
+            ::nome('enviarCodigo')
+            ::request(['captcha', 'login', 'client_id'])
+            ::post('/auth/enviar-codigo');
+        Route
+            ::nome('validarCodigo')
+            ::request(['login', 'client_id', 'codigo'])
+            ::post('/auth/validar-codigo');
+        Route
+            ::nome('novaSenha')
+            ::request(['login', 'client_id', 'codigo', 'nova_senha', 'repetir_senha'])
+            ::post('/auth/nova-senha');
+
     });
 
 Route

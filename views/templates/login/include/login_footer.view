@@ -27,14 +27,14 @@
             @if (!empty(CONTATO_TELEFONE)) :
                 <li>
                     <a href="#">
-                        <figure class="icone_footer telefone cor_bg"></figure>
+                        <figure class="icone_footer telefone">@iconeTelefoneLoja</figure>
                     </a>
                     <span>{{CONTATO_TELEFONE}}</span>
                 </li>
             @elseif (!empty(CONTATO_TELEFONE)) :
                 <li>
                     <a href="#">
-                        <figure class="icone_footer telefone cor_bg"></figure>
+                        <figure class="icone_footer telefone">@iconeTelefoneLoja</figure>
                     </a>
                     <span>{{str_replace('(apenas WhatsApp)', '', CONTATO_WHATSAPP)}}</span>
                 </li>
@@ -43,7 +43,7 @@
             @if (!empty(CONTATO_WHATSAPP)) :
                 <li>
                     <a href="https://wa.me/55{{str_replace('(apenas WhatsApp)', '', soNumero(CONTATO_WHATSAPP))}} ">
-                        <figure class="icone_footer whatsapp cor_bg"></figure>
+                        <figure class="icone_footer whatsapp">@iconeWhatsapp</figure>
                     </a>
 
                     <span>{{CONTATO_WHATSAPP}} </span>
@@ -53,7 +53,7 @@
             @if (!empty(CONTATO_EMAIL)) :
                 <li>
                     <a href="#" target="_blank">
-                        <figure class="icone_footer email cor_bg"></figure>
+                        <figure class="icone_footer email">@iconeEmail(15)</figure>
                     </a>
                     <span> {{CONTATO_EMAIL}} </span>
                 </li>
@@ -62,7 +62,7 @@
             @if (!empty(CONTATO_HORARIO)) :
                 <li>
                     <a>
-                        <figure class="icone_footer horario cor_bg"></figure>
+                        <figure class="icone_footer horario">@iconeFaq(20)</figure>
                     </a>
 
                     <span>{{CONTATO_HORARIO}} </span>
@@ -75,7 +75,7 @@
         <ul>
             <li class="como_funciona">
                 <a class="link_container" href="{!!route('login.comoFunciona')!!}">
-                    <figure class="icone_footer interrogacao cor_bg"></figure>
+                    <figure class="icone_footer interrogacao">@iconeComoFunciona</figure>
                     <span>Como Funciona</span>
                 </a>
             </li>
