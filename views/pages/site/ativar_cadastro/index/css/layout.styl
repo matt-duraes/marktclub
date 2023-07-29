@@ -7,13 +7,6 @@
 ::-webkit-input-placeholder
     color: #D0D0D0
 
-.input_hidden
-	width: 1px
-	height: 1px
-	position: absolute
-	top: -99999px
-	left: -99999px
-	opacity: 0
 
 .auth_bloco_geral_site
     width: 100%
@@ -177,9 +170,8 @@
     width: 100%
     margin-top: 20px
     border-top: 1px solid #DDD
-    display: flex
+    flexWrap()
     flex-direction: row
-    flex-wrap: wrap
 .auth_bloco_geral_site .auth_form_geral .dependente p
     font-size: 1.3em
     &:first-of-type
@@ -259,8 +251,7 @@
     position: relative
     font-size: 1.3em
     padding-left: 30px
-    display: flex
-    align-items: center
+    alignItemCenter()
     cursor: pointer
 .auth_bloco_geral_site .auth_form_geral .termo label::after
     width: 20px
@@ -399,9 +390,7 @@
             width: 100%
             max-width: 250px
             height: 40px
-            display: flex
-            align-items: center
-            justify-content: center
+            flexCenter()
             margin: 20px auto
             background-color: #23b9a9
             color: #fff
@@ -423,9 +412,7 @@
             width: 100%
             max-width: 250px
             height: 40px
-            display: flex
-            align-items: center
-            justify-content: center
+            flexCenter()
             margin: 20px auto
             background-color: #23b9a9
             color: #fff

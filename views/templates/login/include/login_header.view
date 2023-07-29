@@ -36,7 +36,7 @@
 
         <input type="hidden" name="login" id="input_login" value="01234567890">
         <input type="hidden" name="senha" id="input_senha" value="Teste@1324">
-        <a href="#" id="botao_fazer_login" class="entrar cor_bg">Entrar</a>
+        <a href="{!!route('login.logarUsuario')!!}" id="botao_fazer_login" class="entrar cor_bg">Entrar</a>
         <div class="navbar_hamburguer">
             @iconeMenuMobile()
         </div>

@@ -74,7 +74,7 @@
     <section>
         <ul>
             <li class="como_funciona">
-                <a class="link_container" href="@('index.como_funciona')">
+                <a class="link_container" href="{!!route('login.comoFunciona')!!}">
                     <figure class="icone_footer interrogacao cor_bg"></figure>
                     <span>Como Funciona</span>
                 </a>
@@ -82,7 +82,7 @@
             @if (!empty(CONTATO_ENDERECO)) :
                 <li>
                     <a>
-                        <figure class="icone_footer localizacao cor_bg"></figure>
+                        <figure class="icone_footer localizacao"> @iconeMapa</figure>
                     </a>
                     <span>{{CONTATO_ENDERECO}} </span>
                 </li>

@@ -39,7 +39,7 @@ Route
             ::post('/contato');
         Route
             ::nome('ativar')
-            ::view('/ativar');
+            ::view('/auth/ativar');
         Route
             ::nome('buscarUsuario')
             ::request(['client_id', 'pesquisa', 'tipo', 'captcha'])
@@ -52,6 +52,9 @@ Route
             ::nome('ativar')
             ::request(['nome_completo', 'email_pessoal', 'documento_cpf', 'sexo', 'titular', 'empresa', 'client_id'])
             ::post('/auth/salvar-dependente');
+        Route
+            ::nome('logarUsuario')
+            ::view('/auth/login');
     });
 
 Route

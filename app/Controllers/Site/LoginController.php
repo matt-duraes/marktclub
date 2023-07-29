@@ -97,6 +97,17 @@ final class LoginController extends Controller
         ], status: 201);
     }
 
+    public function logarUsuario()
+    {
+        return view('logar.index', [
+            'client_id' => '',
+            'tipo' => '',
+            'indicacao' => false,
+            'link_cadastro' => 'markt.club',
+            'dependente' => false
+        ]);
+    }
+
     public function sair(): Response
     {
         sessaoDestruir();
