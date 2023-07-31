@@ -118,6 +118,10 @@ class SimulacaoEntity extends Entity
             }
         }
 
+        if ($planoSaude->valor === null) {
+            mensagemErro('Erro ao tentar simular', 'A Região/Plano não foi encontrado');
+        }
+
         $valor_titular = $planoSaude->valor;
         $valor_dependentes = [];
         $valor_total = $valor_titular;
