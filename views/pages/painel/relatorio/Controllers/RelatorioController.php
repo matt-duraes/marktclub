@@ -105,7 +105,8 @@ final class RelatorioController extends Controller
         ];
         if ($request->empresa) {
             $body['empresa'] = $request->empresa;
-        } elseif ($local == 'loja' && !empty($request->estabelecimento)) {
+        }
+        if ($local == 'loja' && !empty($request->estabelecimento)) {
             $body['estabelecimento'] = $request->estabelecimento;
         }
 
