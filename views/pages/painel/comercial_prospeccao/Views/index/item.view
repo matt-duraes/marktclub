@@ -1,6 +1,5 @@
 <article class="bloco_kambam_item" data-id="{!!$r->id!!}">
     <header>
-        <figure style="background-image: url({!!$r->usuario->imagem!!});" data-ajuda="{{$r->usuario->nome}}"></figure>
         <h1>{{$r->titulo}}</h1>
     </header>
     <a class="botao_link" href="{{LINK}}/app/visualizar/comercial-prospeccao/{{$r->id}}">ver prospecção</a>

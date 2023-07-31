@@ -2,13 +2,17 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\Automovel\ModeloModel;
-use App\Models\Site\Automovel\MontadoraModel;
-use App\Models\Site\Automovel\VeiculoModel;
-use App\Models\Site\BannerModel;
-use Controller\Controller;
 use Erro\Excecao;
+use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use App\Models\Site\BannerModel;
+use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Models\Site\Automovel\BuscarModel;
+use App\Models\Site\Automovel\ListarModel;
+use App\Models\Site\Loja\ListarModel as LojaModel;
+use App\Models\Site\Automovel\SalvarIndicacaoModel;
 
 final class AutomovelController extends Controller
 {
@@ -18,9 +22,14 @@ final class AutomovelController extends Controller
      */
     public function index(): Response
     {
+        $Listar = new LojaModel(
+            tipo: new Tipo(Tipo::AUTOMOVEL),
+            ordem: new Ordem(Ordem::TITULO_AZ)
+        );
+
         return view('automovel.index', [
             'menu'   => 'automovel',
-            'lista'  => (new MontadoraModel())->listarDados(),
+            'lista'  => $Listar->listarDados(),
             'banner' => (new BannerModel())->automovel()
         ]);
     }
@@ -31,31 +40,26 @@ final class AutomovelController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function veiculo(string $url): Response
-    {
-        return view(
-            'automovel.veiculo',
-            [
-                'menu'  => 'automovel',
-                'lista' => (new VeiculoModel())->listarDados(),
-            ]
-        );
-    }
-
-    /**
-     * @param string $montadora
-     * @param string $veiculo
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function modelo(string $montadora, string $veiculo): Response
+    public function modelo(string $url): Response
     {
         return view(
             'automovel.modelo',
             [
                 'menu'  => 'automovel',
-                'lista' => (new ModeloModel())->listarDados()
+                'lista' => (new ListarModel($url))->listarDados(),
+            ]
+        );
+    }
+
+    public function versao(string $url): Response
+    {
+        $Buscar = new BuscarModel($url);
+        return view(
+            arquivo: 'automovel.versao',
+            var: [
+                'menu'     => 'automovel',
+                'dado'     => $Buscar->buscarDados(),
+                'endereco' => []
             ]
         );
     }
@@ -84,5 +88,20 @@ final class AutomovelController extends Controller
             'default' => $default,
             'esconde' => $esconde
         ]);
+    }
+
+    /**
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postIndicacao(Request $request): Response
+    {
+        $indicacao = new SalvarIndicacaoModel($request);
+        $indicacao = $indicacao->postSalvar();
+
+        return new Response(json: [
+            'status' => 'sucesso'
+        ], status: 201);
     }
 }

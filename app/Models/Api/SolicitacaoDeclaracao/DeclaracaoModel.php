@@ -72,11 +72,13 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'tipo', 'status', 'data_criacao'])
+            ->campo([
+                'uuid', 'tipo', 'status', 'data_criacao'
+            ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->where($this->pegarWhere(), false)
+            ->where($this->pegarWhere())
             ->order($this->pegarOrdem(new Ordem()))
-            ->tabela('parceiro_novo')
+            ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('cod', 'vinculo')
             ->campo(['titulo'])
             ->read();
@@ -117,27 +119,27 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     }
 
     /**
-     * @param array $dados
+     * @param array $declaracoes
      *
      * @return array
      */
-    protected function montarRetorno(array $dados): array
+    protected function montarRetorno(array $declaracoes): array
     {
-        if (empty($dados)) {
-            return [];
+        if (empty($declaracoes)) {
+            return $declaracoes;
         }
 
         $Status = new Status();
         $Tipo = new Tipo();
 
         $retorno = [];
-        foreach ($dados as $items) {
+        foreach ($declaracoes as $declaracao) {
             $retorno[] = [
-                'id'           => $items->uuid,
-                'parceiro'     => $items->titulo,
-                'tipo'         => $Tipo->indice($items->tipo),
-                'status'       => $Status->indice($items->status),
-                'data_criacao' => dataHoraBr($items->data_criacao)
+                'uuid'         => $declaracao->uuid,
+                'titulo'       => $declaracao->titulo,
+                'tipo'         => $Tipo->indice($declaracao->tipo),
+                'status'       => $Status->indice($declaracao->status),
+                'data_criacao' => dataHoraBr($declaracao->data_criacao)
             ];
         }
         return $retorno;

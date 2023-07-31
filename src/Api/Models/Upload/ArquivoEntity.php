@@ -2,7 +2,7 @@
 
 namespace ApiModel\Upload;
 
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Erro\Erro;
 use Erro\Excecao;

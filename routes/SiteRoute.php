@@ -120,6 +120,7 @@ Route
             ::nome('index')
             ::view('/cinema');
     });
+
 Route
     ::nome('loja')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -220,8 +221,24 @@ Route
             ::nome('simulacao')
             ::view('/saude/simulacao/{url}');
         Route
+            ::nome('realizarSimulacao')
+            ::request(['!operadora','!acomodacao', '!regiaoSelecionada', '!planoSelecionado', '!dtNascimentoTitular', '!dtNascimentoDependentes'])
+            ::get('/saude/realizar-simulacao');
+        Route
             ::nome('contratacao')
             ::view('/saude/contratacao/{simulacao}');
+        Route
+            ::nome('realizarContratacao')
+            ::request([
+                'id_simulacao','nome','naturalidade','cpf','data_nascimento',
+                'genero','estado_civil','peso','altura','rg','orgao_expedidor',
+                'responsavel','responsavel_nome','responsavel_cpf','responsavel_rg',
+                'responsavel_orgao_expedidor','email_pessoal','telefone_celular',
+                '!telefone_residencial','telefone_comercial','!ramal', 'cep', 'bairro',
+                'logradouro', 'numero', '!complemento', 'cidade', 'estado'
+            ])
+            ::post('/saude/contratacao/{id_simulacao}');
+
     });
 Route
     ::nome('farmacia')
@@ -269,7 +286,7 @@ Route
     ::controller(App\Controllers\Site\SolicitacaoCreditoController::class)
     ::grupo(function () {
         Route
-            ::nome('simulacao')
+            ::nome('realizarSimulacao')
             ::request([
                 'tipo', 'valor', 'prazo', 'operadora'
             ])
@@ -291,11 +308,11 @@ Route
             ::nome('index')
             ::view('/automoveis');
         Route
-            ::nome('veiculo')
+            ::nome('modelo')
             ::view('/automoveis/{url}');
         Route
-            ::nome('modelo')
-            ::view('/automovel/{montadora}/{veiculo}');
+            ::nome('versao')
+            ::view('/automovel/{url}');
 
         Route
             ::nome('voucher')
@@ -303,6 +320,12 @@ Route
         Route
             ::nome('declaracao')
             ::view('/automovel-declaracao/{url}');
+        Route
+            ::nome('indicacao')
+            ::request([
+                'veiculo', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+            ])
+            ::post('/automovel-indicacao');
     });
 
 Route
@@ -372,6 +395,12 @@ Route
         Route
             ::nome('abrirModalPopupImagem')
             ::view('/enquete-imagem/{id}');
+        Route
+            ::nome('ajuda')
+            ::get('/ajuda');
+        Route
+            ::nome('indiqueParceiro')
+            ::get('/indique-um-parceiro');
     });
 
 Route
@@ -425,6 +454,10 @@ Route
         Route
             ::nome('carteira')
             ::view('/perfil/carteira');
+        Route
+            ::nome('buscarCep')
+            ::request(['cep'])
+            ::post('/perfil/buscar-cep');
     });
 
 Route
@@ -461,4 +494,16 @@ Route
         Route
             ::nome('sorteio')
             ::view('/regulamento-sorteio');
+    });
+
+Route
+    ::nome('indicacao')
+    ::controller(App\Controllers\Site\IndicacaoParceiroController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::request([
+                'parceiro', 'telefone', 'email', 'mensagem'
+            ])
+            ::post('/indicacao/salvar');
     });

@@ -9,6 +9,7 @@ const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
 const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
 const { phpCsFixer } = require('./src/Gulpfile/php.js');
+
 const {
     buildCopiarComposerConfig,
     buildComposerInstall,
@@ -97,8 +98,11 @@ exports.install = series(
 exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
-exports.build = series(
-    parallel(copiandoArquivoIndex, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
+exports.build = parallel(
+    copiandoArquivoIndex,
+    copiandoArquivosJS,
+    copiandoArquivosHtml,
+    copiandoArquivosDeImagem,
     copiandoArquivosCSS
 );
 exports.composerBugfix = series(corrigindoBugDoComposer);

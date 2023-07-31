@@ -3,7 +3,7 @@
 return (new \DataBase\DataBase())
     ->id()
     ->cod()
-    ->json('empresa')
+    ->json('empresa')->replace('id_admin_empresa')
     ->json('destaque')
     ->int('categoria_principal')->tamanho(2)
     ->json('categoria_todas')

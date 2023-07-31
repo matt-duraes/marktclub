@@ -1,5 +1,6 @@
 <?php
 
+use Helpers\DataHelper;
 use Modules\Data;
 
 if (!function_exists('dataAdicionar')) {
@@ -10,10 +11,11 @@ if (!function_exists('dataAdicionar')) {
     /**
      * Adiciona um valor para a data enviada
      *
-     * @param  string $data    Data a ser convertida
-     * @param  int    $numero  Número a ser adicionado
-     * @param  string $tempo   Tipo de tempo a ser adicionado, por exemplo, segundos, mimutos, horas, etc
-     * @param  string $formato Formato de retorno da data
+     * @param string $data    Data a ser convertida
+     * @param int    $numero  Número a ser adicionado
+     * @param string $tempo   Tipo de tempo a ser adicionado, por exemplo, segundos, mimutos, horas, etc
+     * @param string $formato Formato de retorno da data
+     *
      * @return string Data com o formato passado em $formato, Y-m-d como padrão
      */
     function dataAdicionar(string $data, int $numero, string $tempo, string $formato = 'Y-m-d'): string
@@ -21,7 +23,7 @@ if (!function_exists('dataAdicionar')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->adicionar($numero, $tempo)->formato($formato);
+        return (new DataHelper())->valor($data)->adicionar($numero, $tempo)->formato($formato);
     }
 }
 if (!function_exists('dataRemover')) {
@@ -32,10 +34,11 @@ if (!function_exists('dataRemover')) {
     /**
      * Remove um valor para a data enviada
      *
-     * @param  string $data    Data a ser convertida
-     * @param  int    $numero  Número a ser removido
-     * @param  string $tempo   Tipo de tempo a ser removido, por exemplo, segundos, mimutos, horas, etc
-     * @param  string $formato Formato de retorno da data
+     * @param string $data    Data a ser convertida
+     * @param int    $numero  Número a ser removido
+     * @param string $tempo   Tipo de tempo a ser removido, por exemplo, segundos, mimutos, horas, etc
+     * @param string $formato Formato de retorno da data
+     *
      * @return string Data com o formato passado em $formato, Y-m-d como padrão
      */
     function dataRemover(string $data, int $numero, string $tempo, string $formato = 'Y-m-d'): string
@@ -43,7 +46,7 @@ if (!function_exists('dataRemover')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->remover($numero, $tempo)->formato($formato);
+        return (new DataHelper())->valor($data)->remover($numero, $tempo)->formato($formato);
     }
 }
 
@@ -54,15 +57,16 @@ if (!function_exists('dataBr')) {
     /**
      * Converte a data enviada para padrão d/m/Y
      *
-     * @param  null|string $data Data a ser convertida
-     * @return string      Data no formato d/m/Y
+     * @param null|string $data Data a ser convertida
+     *
+     * @return string Data no formato d/m/Y
      */
     function dataBr(?string $data): string
     {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->formato('d/m/Y');
+        return (new DataHelper())->valor($data)->formato('d/m/Y');
     }
 }
 if (!function_exists('dataHoraBr')) {
@@ -72,15 +76,16 @@ if (!function_exists('dataHoraBr')) {
     /**
      * Converte a data enviada para padrão d/m/Y H:i:s
      *
-     * @param  null|string $data Data a ser convertida
-     * @return string      Data no formato d/m/Y H:i:s
+     * @param null|string $data Data a ser convertida
+     *
+     * @return string Data no formato d/m/Y H:i:s
      */
     function dataHoraBr(?string $data): string
     {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->formato('d/m/Y H:i:s');
+        return (new DataHelper())->valor($data)->formato('d/m/Y H:i:s');
     }
 }
 if (!function_exists('dataBanco')) {
@@ -90,15 +95,16 @@ if (!function_exists('dataBanco')) {
     /**
      * Converte a data enviada para padrão Y-m-d
      *
-     * @param  null|string $data Data a ser convertida
-     * @return string      Data no formato Y-m-d
+     * @param null|string $data Data a ser convertida
+     *
+     * @return string Data no formato Y-m-d
      */
     function dataBanco(?string $data): string
     {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->formato('Y-m-d');
+        return (new DataHelper())->valor($data)->formato('Y-m-d');
     }
 }
 if (!function_exists('dataHoraBanco')) {
@@ -108,15 +114,16 @@ if (!function_exists('dataHoraBanco')) {
     /**
      * Converte a data enviada para padrão Y-m-d H:i:s
      *
-     * @param  null|string $data Data a ser convertida
-     * @return string      Data no formato Y-m-d H:i:s
+     * @param null|string $data Data a ser convertida
+     *
+     * @return string Data no formato Y-m-d H:i:s
      */
     function dataHoraBanco(?string $data): string
     {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->formato('Y-m-d H:i:s');
+        return (new DataHelper())->valor($data)->formato('Y-m-d H:i:s');
     }
 }
 
@@ -128,12 +135,13 @@ if (!function_exists('dataMesAno')) {
     /**
      * Converte a data enviada para padrão m/Y
      *
-     * @param  null|string $data Data a ser convertida
-     * @return string      Data no formato m/Y
+     * @param null|string $data Data a ser convertida
+     *
+     * @return string Data no formato m/Y
      */
     function dataMesAno(string $data): string
     {
-        return (new \Helpers\DataHelper())->valor($data)->formato('m/Y');
+        return (new DataHelper())->valor($data)->formato('m/Y');
     }
 }
 if (!function_exists('dataAnoMes')) {
@@ -144,12 +152,13 @@ if (!function_exists('dataAnoMes')) {
     /**
      * Converte a data enviada para padrão Y-m
      *
-     * @param  null|string $data Data a ser convertida
-     * @return string      Data no formato Y-m
+     * @param null|string $data Data a ser convertida
+     *
+     * @return string Data no formato Y-m
      */
     function dataAnoMes(string $data): string
     {
-        return (new \Helpers\DataHelper())->valor($data)->formato('Y-m');
+        return (new DataHelper())->valor($data)->formato('Y-m');
     }
 }
 
@@ -161,7 +170,8 @@ if (!function_exists('dataNomeMes')) {
     /**
      * Retorna o nome do mês da data enviada
      *
-     * @param  string $data Data a ser convertida
+     * @param string $data Data a ser convertida
+     *
      * @return string Nome do mês
      */
     function dataNomeMes(string $data)
@@ -169,7 +179,7 @@ if (!function_exists('dataNomeMes')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->nomeMes();
+        return (new DataHelper())->valor($data)->nomeMes();
     }
 }
 
@@ -181,7 +191,8 @@ if (!function_exists('dataNomeSemana')) {
     /**
      * Retorna o nome da semana da data enviada
      *
-     * @param  string $data Data a ser convertida
+     * @param string $data Data a ser convertida
+     *
      * @return string Nome da semana
      */
     function dataNomeSemana(string $data): string
@@ -189,7 +200,7 @@ if (!function_exists('dataNomeSemana')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->nomeSemana();
+        return (new DataHelper())->valor($data)->nomeSemana();
     }
 }
 
@@ -201,7 +212,8 @@ if (!function_exists('dataExtenso')) {
     /**
      * Converte a data para versão em entenso
      *
-     * @param  string $data Data a ser convertida
+     * @param string $data Data a ser convertida
+     *
      * @return string Data por extenso
      */
     function dataExtenso(string $data)
@@ -209,7 +221,7 @@ if (!function_exists('dataExtenso')) {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->extenso();
+        return (new DataHelper())->valor($data)->extenso();
     }
 }
 
@@ -221,8 +233,9 @@ if (!function_exists('dataDiferencaDia')) {
     /**
      * Retorna a diferença de dias entre duas datas
      *
-     * @param  string   $dataInicial Primeira data a ser comparada
-     * @param  string   $dataFinal   Segunda data a ser comparada
+     * @param string $dataInicial Primeira data a ser comparada
+     * @param string $dataFinal   Segunda data a ser comparada
+     *
      * @return int|bool Número de dias ou false em caso de erro
      */
     function dataDiferencaDia(string $dataInicial, string $dataFinal): int|bool
@@ -230,7 +243,7 @@ if (!function_exists('dataDiferencaDia')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaDia($dataFinal);
+        return (new DataHelper())->valor($dataInicial)->diferencaDia($dataFinal);
     }
 }
 if (!function_exists('dataDiferencaHora')) {
@@ -241,8 +254,9 @@ if (!function_exists('dataDiferencaHora')) {
     /**
      * Retorna a diferença de horas entre duas datas
      *
-     * @param  string   $dataInicial Primeira data a ser comparada
-     * @param  string   $dataFinal   Segunda data a ser comparada
+     * @param string $dataInicial Primeira data a ser comparada
+     * @param string $dataFinal   Segunda data a ser comparada
+     *
      * @return int|bool Número de dias ou false em caso de erro
      */
     function dataDiferencaHora(string $dataInicial, string $dataFinal): int|bool
@@ -250,7 +264,7 @@ if (!function_exists('dataDiferencaHora')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaHora($dataFinal);
+        return (new DataHelper())->valor($dataInicial)->diferencaHora($dataFinal);
     }
 }
 if (!function_exists('dataDiferencaMinuto')) {
@@ -261,8 +275,9 @@ if (!function_exists('dataDiferencaMinuto')) {
     /**
      * Retorna a diferença de minutos entre duas datas
      *
-     * @param  string   $dataInicial Primeira data a ser comparada
-     * @param  string   $dataFinal   Segunda data a ser comparada
+     * @param string $dataInicial Primeira data a ser comparada
+     * @param string $dataFinal   Segunda data a ser comparada
+     *
      * @return int|bool Número de dias ou false em caso de erro
      */
     function dataDiferencaMinuto(string $dataInicial, string $dataFinal): int|bool
@@ -270,7 +285,7 @@ if (!function_exists('dataDiferencaMinuto')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaMinuto($dataFinal);
+        return (new DataHelper())->valor($dataInicial)->diferencaMinuto($dataFinal);
     }
 }
 if (!function_exists('dataDiferencaSegundo')) {
@@ -281,8 +296,9 @@ if (!function_exists('dataDiferencaSegundo')) {
     /**
      * Retorna a diferença de dias entre duas datas
      *
-     * @param  string   $dataInicial Primeira data a ser comparada
-     * @param  string   $dataFinal   Segunda data a ser comparada
+     * @param string $dataInicial Primeira data a ser comparada
+     * @param string $dataFinal   Segunda data a ser comparada
+     *
      * @return int|bool Número de dias ou false em caso de erro
      */
     function dataDiferencaSegundo(string $dataInicial, string $dataFinal): int|bool
@@ -290,7 +306,7 @@ if (!function_exists('dataDiferencaSegundo')) {
         if (is_null($dataInicial) || is_null($dataFinal)) {
             return false;
         }
-        return (new \Helpers\DataHelper())->valor($dataInicial)->diferencaSegundo($dataFinal);
+        return (new DataHelper())->valor($dataInicial)->diferencaSegundo($dataFinal);
     }
 }
 
@@ -302,16 +318,17 @@ if (!function_exists('dataSocial')) {
     /**
      * Converte a data enviada para o padrão de rede social
      *
-     * @param  null|string $data  Data a ser convertida
-     * @param  bool        $curto True para data com padrão curto ou false para padrão normal
-     * @return string      Data com o formato social
+     * @param null|string $data  Data a ser convertida
+     * @param bool        $curto True para data com padrão curto ou false para padrão normal
+     *
+     * @return string Data com o formato social
      */
     function dataSocial(?string $data, bool $curto = false): string
     {
         if (is_null($data)) {
             return '';
         }
-        return (new \Helpers\DataHelper())->valor($data)->social($curto);
+        return (new DataHelper())->valor($data)->social($curto);
     }
 }
 
@@ -323,15 +340,17 @@ if (!function_exists('dataIdade')) {
     /**
      * Pega a idade pela data enviada
      *
-     * @param  string   $data Data a ser convertida
-     * @return int|bool Retorna a idade em inteiro ou false caso a data enviada seja inválida
+     * @param string|null $data Data a ser convertida
+     *
+     * @return int|bool  Retorna a idade em inteiro ou false caso a data enviada seja inválida
+     * @throws Exception
      */
-    function dataIdade(string $data): int|bool
+    function dataIdade(string $data = null): int|bool
     {
         if (is_null($data)) {
             return false;
         }
-        return (new \Helpers\DataHelper())->valor($data)->idade();
+        return (new DataHelper())->valor($data)->idade();
     }
 }
 
@@ -343,8 +362,9 @@ if (!function_exists('dataUltimoDiaMes')) {
     /**
      * Pega o último dia do mês
      *
-     * @param  string      $data    Data a ser usada
-     * @param  string      $formato Formato de retorno da data
+     * @param string $data    Data a ser usada
+     * @param string $formato Formato de retorno da data
+     *
      * @return string|bool Retorna o último dia do mês
      */
     function dataUltimoDiaMes(string $data, string $formato = 'Y-m-d'): string|bool
@@ -352,7 +372,7 @@ if (!function_exists('dataUltimoDiaMes')) {
         if (empty($data)) {
             return false;
         }
-        return (new \Helpers\DataHelper())->valor($data)->ultimoDiaMes()->r($formato);
+        return (new DataHelper())->valor($data)->ultimoDiaMes()->r($formato);
     }
 }
 if (!function_exists('dataPrimeiroDiaMes')) {
@@ -363,8 +383,9 @@ if (!function_exists('dataPrimeiroDiaMes')) {
     /**
      * Pega o primeiro dia do mês
      *
-     * @param  string      $data    Data a ser usada
-     * @param  string      $formato Formato de retorno da data
+     * @param string $data    Data a ser usada
+     * @param string $formato Formato de retorno da data
+     *
      * @return string|bool Retorna o primeiro dia do mês
      */
     function dataPrimeiroDiaMes(string $data, string $formato = 'Y-m-d'): string|bool
@@ -372,7 +393,7 @@ if (!function_exists('dataPrimeiroDiaMes')) {
         if (empty($data)) {
             return false;
         }
-        return (new \Helpers\DataHelper())->valor($data)->primeiroDiaMes()->r($formato);
+        return (new DataHelper())->valor($data)->primeiroDiaMes()->r($formato);
     }
 }
 if (!function_exists('dataListarMesAno')) {
@@ -383,12 +404,13 @@ if (!function_exists('dataListarMesAno')) {
     /**
      * Gera um array com a lista entre os meses informados
      *
-     * @param  string $de  Data inicial da lista
-     * @param  string $ate Data final da lista
+     * @param string $de  Data inicial da lista
+     * @param string $ate Data final da lista
+     *
      * @return array
      */
     function dataListarMesAno(string $de, string $ate): array
     {
-        return (new \Helpers\DataHelper())->listarMesAno(new Data($de), new Data($ate));
+        return (new DataHelper())->listarMesAno(new Data($de), new Data($ate));
     }
 }

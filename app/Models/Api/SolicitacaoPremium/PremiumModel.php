@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\SolicitacaoPremium;
 
-use ORM\ORM;
-use Erro\Excecao;
-use Http\Request;
 use App\Classes\SolicitacaoPremium\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
 use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Http\Request;
+use ORM\ORM;
 
 final class PremiumModel extends ORM
 {

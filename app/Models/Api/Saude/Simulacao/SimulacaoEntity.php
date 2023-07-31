@@ -13,6 +13,7 @@ use App\Classes\Saude\PlanoSaude;
 use App\Classes\Saude\Regiao;
 use App\Classes\Saude\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Exception;
 use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Data;
@@ -28,9 +29,9 @@ class SimulacaoEntity extends Entity
     public Operadora $operadora;
     public int $acomodacao;
     public Regiao $regiao;
-    public Dinheiro $valorTitular;
-    public string $valorDependentes;
-    public Dinheiro $valorTotal;
+    public Dinheiro $valor_titular;
+    public string $valor_dependentes;
+    public Dinheiro $valor_total;
     public Plano $plano;
     public Status $status;
     protected ?int $idEmpresa;
@@ -59,6 +60,9 @@ class SimulacaoEntity extends Entity
         parent::__construct();
     }
 
+    /**
+     * @throws Exception
+     */
     public function regraInsert(): void
     {
         if ($this->request === null) {
@@ -72,7 +76,6 @@ class SimulacaoEntity extends Entity
         $this->regiao = new Regiao($this->request->getPost('regiao'));
         $this->plano = new Plano($this->request->getPost('plano'));
         $this->status = new Status(Status::REGISTRADO);
-
         $planoSaude = match ($this->operadora->indice()) {
             Operadora::UNIMED => new PlanoSaude(
                 new Unimed($this->data_nascimento, $acomodacao)
@@ -92,36 +95,45 @@ class SimulacaoEntity extends Entity
         };
 
         $dependentes = [];
-        if (is_array($this->request->getPost('dependentes')) && !empty($this->request->getPost('dependentes'))) {
+        if (!empty($this->request->getPost('dependentes'))) {
             $dependentes = explode(',', $this->request->getPost('dependentes'));
             $this->quantidade_dependentes = count($dependentes);
 
+            (new ValidarHelper())
+                ->valor(
+                    $this->quantidade_dependentes,
+                    'Quantidade de Dependentes',
+                    'Só é permitido no máximo 4 Dependentes'
+                )
+                ->tamanho('<=', 4, 'numero');
+
             $contador = 1;
-            for ($i = 0; $i <= $this->quantidade_dependentes; $i++) {
+            for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
                 (new ValidarHelper())
-                    ->valor($dependentes[$i], 'Dependente ' . $contador)
+                    ->valor(new Data($dependentes[$i]), 'Dependente ' . $contador)
                     ->obrigatorio()
-                    ->date();
+                    ->vazio()
+                    ->valido();
                 $contador++;
             }
         }
 
-        $contador = 1;
-        $valorTitular = $planoSaude->valor;
-        $valorDependentes = [];
-        $valorTotal = $valorTitular;
+        $valor_titular = $planoSaude->valor;
+        $valor_dependentes = [];
+        $valor_total = $valor_titular;
         if ($this->quantidade_dependentes > 0) {
-            for ($i = 0; $i <= $this->quantidade_dependentes; $i++) {
+            $contador = 1;
+            for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
                 $valor = $planoSaude->simularValor(new Data($dependentes[$i]));
-                $valorDependentes['dependente-' . $contador] = $valor;
-                $valorTotal = $valorTotal + $valor;
+                $valor_dependentes['dependente-' . $contador] = (new Dinheiro((string)$valor))->dinheiro();
+                $valor_total = $valor_total + $valor;
                 $contador++;
             }
         }
 
         $this->acomodacao = $planoSaude->codigoAcomodacao;
-        $this->valorTitular = new Dinheiro((string)$valorTitular);
-        $this->valorDependentes = jsonEncode($valorDependentes);
-        $this->valorTotal = new Dinheiro((string)$valorTotal);
+        $this->valor_titular = new Dinheiro((string)$valor_titular);
+        $this->valor_dependentes = jsonEncode($valor_dependentes);
+        $this->valor_total = new Dinheiro((string)$valor_total);
     }
 }
