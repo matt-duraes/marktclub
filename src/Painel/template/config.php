@@ -27,6 +27,8 @@ $ordemStatus = $config->permissao->ordem ?? false;
 
 $app = $app ?? '';
 define('EMPRESA_ID', sessao('EMPRESA.id', padrao: ''));
+define('EMPRESA_NOME', sessao('EMPRESA.nome', padrao: ''));
+define('EMPRESA_SLUG', sessao('EMPRESA.slug', padrao: ''));
 define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));
@@ -34,6 +36,7 @@ define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));
 define('USUARIO_MARKTCLUB', sessao('USUARIO.marktclub', padrao: 'nao'));
 define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
 define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
+define('PAINEL_LOGO', sessao('EMPRESA.imagem'));
 
 try {
     $Api = new \Helpers\ApiHelper(token: true);
