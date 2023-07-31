@@ -39,8 +39,5 @@
         "gulp-uglify-es": "^3.0.0",
         "open": "^8.2.1",
         "yargs": "^17.2.1"
-    },
-    "dependencies": {
-        "imask": "^7.1.2"
     }
 }

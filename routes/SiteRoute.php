@@ -34,6 +34,10 @@ Route
         Route
             ::nome('index')
             ::view('/');
+        Route
+            ::nome('promocoes')
+            ::request(['!tipo'])
+            ::get('/promocoes');
     });
 Route
     ::nome('acessoRapido')
@@ -308,11 +312,11 @@ Route
             ::nome('index')
             ::view('/automoveis');
         Route
-            ::nome('veiculo')
+            ::nome('modelo')
             ::view('/automoveis/{url}');
         Route
-            ::nome('modelo')
-            ::view('/automovel/{montadora}/{veiculo}');
+            ::nome('versao')
+            ::view('/automovel/{url}');
 
         Route
             ::nome('voucher')

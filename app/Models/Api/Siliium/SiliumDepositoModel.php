@@ -7,7 +7,10 @@ use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\ValidarHelper;
 use Http\Request;
+use Modules\Cpf;
 use Modules\Data;
+use Modules\Dinheiro;
+use Modules\Nome;
 use ORM\ORM;
 
 class SiliumDepositoModel extends ORM
@@ -16,7 +19,7 @@ class SiliumDepositoModel extends ORM
 
     private const SALDO_MINIMO = 10000;
 
-    protected string $ormTabela = '';
+    protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
 
@@ -35,12 +38,12 @@ class SiliumDepositoModel extends ORM
     {
         $extrato = $this
             ->campo([
-                'uuid', 'banco', 'agencia', 'conta', 'tipo_conta', 'documento',
+                'uuid', 'banco', 'agencia', 'conta', 'tipo_conta', 'documento_cpf',
                 'nome', 'valor', 'data_deposito', 'status', 'data_criacao'
             ])
             ->where([
-                ['empresa', $this->idEmpresa],
-                ['usuario', $this->idUsuario]
+                ['id_admin_empresa', $this->idEmpresa],
+                ['id_usuario', $this->idUsuario]
             ])
             ->read();
 
@@ -54,13 +57,13 @@ class SiliumDepositoModel extends ORM
                     'conta'         => $transacao->conta,
                     'tipo_conta'    => (new TipoConta($transacao->tipo_conta))->indice(),
                     'titular'       => $transacao->nome,
-                    'documento_cpf' => $transacao->documento
+                    'documento_cpf' => (new Cpf($transacao->documento_cpf))->cpf()
                 ],
                 'data'   => [
                     'solicitado' => (new Data($transacao->data_criacao))->data(),
                     'deposito'   => empty($transacao->data_deposito) ?: (new Data($transacao->data_deposito))->data()
                 ],
-                'valor'  => number_format($transacao->valor, 2, ',', '.'),
+                'valor'  => (new Dinheiro($transacao->valor))->dinheiro(),
                 'status' => $transacao->status
             ];
         }
@@ -74,6 +77,8 @@ class SiliumDepositoModel extends ORM
      */
     public function realizarSaque(): array
     {
+        $this->validarRequest();
+
         $SiliumComissaoModel = new SiliumComissaoModel();
         $saldo = $SiliumComissaoModel->pegarSaldo();
 
@@ -81,23 +86,21 @@ class SiliumDepositoModel extends ORM
             mensagemErro('Saldo insuficiente', 'Seu saldo está abaixo de ' . self::SALDO_MINIMO);
         }
 
-        $this->validarRequest();
-
         $comissao = $SiliumComissaoModel->comissaoDisponivel();
         $valor = $SiliumComissaoModel->pegarSaldo($comissao);
         $transacao = [
-            'uuid'       => uuid(),
-            'empresa'    => $this->idEmpresa,
-            'usuario'    => $this->idUsuario,
-            'comissao'   => $comissao,
-            'valor'      => $valor,
-            'banco'      => $this->request->banco,
-            'agencia'    => $this->request->agencia,
-            'conta'      => $this->request->conta,
-            'tipo_conta' => $this->request->tipo_conta,
-            'documento'  => (int)soNumero($this->request->documento_cpf),
-            'nome'       => $this->request->titular,
-            'status'     => 1
+            'uuid'             => uuid(),
+            'id_admin_empresa' => $this->idEmpresa,
+            'id_usuario'       => $this->idUsuario,
+            'nome'             => (new Nome($this->request->getPost('titular')))->valor(),
+            'documento_cpf'    => (new Cpf($this->request->getPost('documento_cpf')))->valor(),
+            'banco'            => $this->request->getPost('banco'),
+            'agencia'          => $this->request->getPost('agencia'),
+            'conta'            => $this->request->getPost('conta'),
+            'tipo_conta'       => (new TipoConta($this->request->getPost('tipo_conta')))->numero(),
+            'comissao'         => $comissao,
+            'valor'            => $valor,
+            'status'           => 1
         ];
 
         $dados = $this
@@ -109,30 +112,33 @@ class SiliumDepositoModel extends ORM
         return $dados;
     }
 
-    /**
-     */
     private function validarRequest(): void
     {
+        $tipoConta = new TipoConta($this->request->getPost('tipo_conta'));
+        $nomeTitular = new Nome($this->request->getPost('titular'));
+        $cpf = new Cpf($this->request->getPost('documento_cpf'));
+
         (new ValidarHelper())
-            ->valor($this->request->titular, 'Nome do Titular')
+            ->valor($nomeTitular, 'Nome do Titular')
             ->obrigatorio()
             ->vazio()
-            ->valor($this->request->documento_cpf, 'CPF do Titular')
+            ->valido()
+            ->valor($cpf, 'CPF do Titular')
             ->obrigatorio()
             ->vazio()
-            ->cpf()
-            ->valor($this->request->banco, 'Nome/Número do banco')
+            ->valido()
+            ->valor($this->request->getPost('banco'), 'Nome/Número do banco')
             ->obrigatorio()
             ->vazio()
-            ->valor($this->request->agencia, 'Número da agência')
+            ->valor($this->request->getPost('agencia'), 'Número da agência')
             ->obrigatorio()
             ->vazio()
-            ->valor($this->request->conta, 'Número da Conta')
+            ->valor($this->request->getPost('conta'), 'Número da Conta')
             ->obrigatorio()
             ->vazio()
-            ->valor($this->request->tipo_conta, 'Tipo de conta')
+            ->valor($tipoConta, 'Tipo de conta')
             ->obrigatorio()
             ->vazio()
-            ->inArray((new TipoConta())->listarNumero());
+            ->valido();
     }
 }

@@ -98,8 +98,11 @@ exports.install = series(
 exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
-exports.build = series(
-    parallel(copiandoArquivoIndex, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
+exports.build = parallel(
+    copiandoArquivoIndex,
+    copiandoArquivosJS,
+    copiandoArquivosHtml,
+    copiandoArquivosDeImagem,
     copiandoArquivosCSS
 );
 exports.composerBugfix = series(corrigindoBugDoComposer);

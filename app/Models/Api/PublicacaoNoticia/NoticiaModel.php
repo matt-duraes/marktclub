@@ -10,7 +10,7 @@ use Order\OrderInterface;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use App\Classes\PublicacaoNoticia\Ordem;

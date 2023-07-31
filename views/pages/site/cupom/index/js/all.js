@@ -46,15 +46,15 @@ const cupomDetalhe = () => {
 };
 
 window.addEventListener('load', () => {
-    const cupomLista = document.querySelectorAll('#bloco_cupom article');
+    const cupomLista = document.querySelectorAll('#bloco_cupom article.botao_abrir_parceiro');
 
     if (!cupomLista) {
         return;
     }
 
     cupomLista.forEach(cupom => {
-        const id = cupom.getAttribute('data-id');
-        const PaginaCupom = new Pagina('cupom - ' + id, '/cupom/' + id, {}, true, true, cupomDetalhe);
+        const url = cupom.getAttribute('data-url');
+        const PaginaCupom = new Pagina('cupom - ' + url, '/cupom/' + url, {}, true, true, cupomDetalhe);
 
         cupom.addEventListener('click', () => {
             PaginaCupom.abrir();

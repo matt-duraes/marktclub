@@ -68,14 +68,22 @@
 
     </div>
 
+
     <div class="bloco">
         <header class="titulo_geral">
             <h1>PROMOÇÕES</h1>
             <a class="cor_color" href="">Veja mais</a>
         </header>
         <section class="bloco_promocao">
-            <article class="promocao"><a href=""></a></article>
-            <article class="promocao"><a href=""></a></article>
+            @foreach($promocoes as $valor)
+            <article class="promocao">
+                <a href="{{$valor->link->link}}" target="{{$valor->target}}">
+                <figure>
+                    <img src="{{$valor->imagem}}" alt="">
+                </figure>
+                </a>
+            </article>
+            @endforeach
         </section>
     </div>
 

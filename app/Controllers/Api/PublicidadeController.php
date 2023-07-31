@@ -8,7 +8,6 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use ORM\Entity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -32,19 +31,19 @@ class PublicidadeController extends Controller implements
     }
 
     /**
-     * @param Entity $Entity Entidade da Publicidade
-     * @param int    $status Status code que deverá ser retornado
+     * @param PublicidadeEntity $PublicidadeEntity Entidade da Publicidade
+     * @param int               $status            Status code que deverá ser retornado
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoPadrao(Entity $Entity, int $status = 200): Response
+    private function retornoPadrao(PublicidadeEntity $PublicidadeEntity, int $status = 200): Response
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
-                $Entity,
+                $PublicidadeEntity,
                 lista: [
-                    'titulo', 'imagem', 'target', 'link', 'tipo'
+                    'titulo', 'imagem', 'target', 'link', 'tipo', 'status'
                 ]
             ),
             $status

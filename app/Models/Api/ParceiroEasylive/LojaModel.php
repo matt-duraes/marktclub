@@ -5,7 +5,7 @@ namespace App\Models\Api\ParceiroEasylive;
 use ORM\ORM;
 use stdClass;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroEasylive\Tipo;
 use App\Classes\ParceiroEasylive\Ordem;

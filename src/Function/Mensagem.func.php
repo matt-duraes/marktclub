@@ -47,6 +47,46 @@ if (!function_exists('mensagemErro')) {
         throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: $status);
     }
 }
+if (!function_exists('mensagemErroVazio')) {
+    // doc
+    /**
+     * Retorna uma exceção do sistema baseado nos dados informados
+     *
+     * @param  string         $campo     Campo que está validando
+     * @param  null|int       $status    Status de erro que deseja retornar podendo ser 400, 401, 403, 404 ou 500
+     * @param  null|Throwable $error     Throwable do erro original para debugar em localhost
+     * @param  null|string    $localhost Mensagem para ser exibida em localhost
+     * @throws Excecao        Gera uma excecao do sistema
+     */
+    function mensagemErroVazio(
+        string $campo,
+        ?int $status = null,
+        ?Throwable $error = null,
+        ?string $localhost = null
+    ): void {
+        mensagemErro('Campo obrigatório!', 'O campo ' . $campo . ' é obrigatório.', $status, $error, $localhost);
+    }
+}
+if (!function_exists('mensagemErroValido')) {
+    // doc
+    /**
+     * Retorna uma exceção do sistema baseado nos dados informados
+     *
+     * @param  string         $campo     Campo que está validando
+     * @param  null|int       $status    Status de erro que deseja retornar podendo ser 400, 401, 403, 404 ou 500
+     * @param  null|Throwable $error     Throwable do erro original para debugar em localhost
+     * @param  null|string    $localhost Mensagem para ser exibida em localhost
+     * @throws Excecao        Gera uma excecao do sistema
+     */
+    function mensagemErroValido(
+        string $campo,
+        ?int $status = null,
+        ?Throwable $error = null,
+        ?string $localhost = null
+    ): void {
+        mensagemErro('Campo inválido!', 'O campo ' . $campo . ' está inválido.', $status, $error, $localhost);
+    }
+}
 
 if (!function_exists('mensagemStatus')) {
     // doc

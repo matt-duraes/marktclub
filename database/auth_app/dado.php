@@ -115,7 +115,7 @@ $scope = [
 
     'automovel_versao:listar', 'automovel_versao:salvar', 'automovel_versao:buscar',
 
-    'automovel:listar'
+    'automovel:listar', 'publicidade:buscar', 'publicidade:listar', 'publicidade:salvar',
 ];
 
 return [

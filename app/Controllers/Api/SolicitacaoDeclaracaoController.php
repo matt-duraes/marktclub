@@ -27,7 +27,6 @@ class SolicitacaoDeclaracaoController extends Controller implements
     {
         $Declaracao = new DeclaracaoEntity();
         $Declaracao->uuid($id);
-
         return $this->retornoSucesso($Declaracao);
     }
 
@@ -73,7 +72,6 @@ class SolicitacaoDeclaracaoController extends Controller implements
     {
         $Declaracao = new DeclaracaoEntity($request);
         $Declaracao->salvar();
-
         return $this->retornoSucesso($Declaracao, 201);
     }
 }

@@ -110,9 +110,10 @@ class SimulacaoEntity extends Entity
             $contador = 1;
             for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
                 (new ValidarHelper())
-                    ->valor($dependentes[$i], 'Dependente ' . $contador)
+                    ->valor(new Data($dependentes[$i]), 'Dependente ' . $contador)
                     ->obrigatorio()
-                    ->data();
+                    ->vazio()
+                    ->valido();
                 $contador++;
             }
         }

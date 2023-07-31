@@ -5,7 +5,7 @@ namespace App\Models\Api\PublicacaoNoticia;
 use ORM\Entity;
 use Modules\Botao;
 use Modules\DataHora;
-use App\Classes\StatusGeral\Status;
+use App\Classes\Geral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class NoticiaEntity extends Entity

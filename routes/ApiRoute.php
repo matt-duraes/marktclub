@@ -824,6 +824,10 @@ Route
     ::controller(App\Controllers\Api\ParceiroLojaController::class)
     ::grupo(function () {
         Route
+            ::nome('select')
+            ::request(['!tipo', '!titulo'], 'json')
+            ::get('/parceiro-loja/select');
+        Route
             ::nome('listar')
             ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status', '!ordem', '!favorito'], 'json')
             ::get('/parceiro-loja');
@@ -1208,9 +1212,9 @@ Route
             ::nome('salvar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
-        'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
-    ])
-    ::post('/demanda-tarefa');
+                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
+            ])
+            ::post('/demanda-tarefa');
         Route
             ::nome('buscar')
             // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
@@ -1342,16 +1346,18 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
-            ::request([
-                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
-            ], 'json')
-            ::get('/solicitacao-declaracao');
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
             ::get('/solicitacao-declaracao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
+            ::request([
+                'pagina', '!ordem', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/solicitacao-declaracao');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
@@ -1469,13 +1475,15 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicidade:buscar'])
             ::get('/publicidade/{id}');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicidade:listar'])
             ::request([
-                'pagina', '!quantidade', '!tipo', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!quantidade', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/publicidade');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicidade:salvar'])
@@ -1549,40 +1557,6 @@ Route
     });
 
 Route
-    ::nome('automovel_montadora')
-    ::controller(App\Controllers\Api\AutomovelMontadoraController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:listar'])
-            ::request(['pagina', '!quantidade', '!pesquisa', '!titulo', '!tipo', '!ordem', '!status'], 'json')
-            ::get('/automovel-montadora');
-
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:buscar'])
-            ::get('/automovel-montadora/{id}');
-
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:salvar'])
-            ::request(['tipo', 'valor', 'status', '!data_vencimento'])
-            ::post('/automovel-montadora');
-
-        Route
-            ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:atualizar'])
-            ::request(['!tipo', '!valor', '!status', '!data_vencimento'])
-            ::put('/automovel-montadora/{id}');
-
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel_montadora:deletar'])
-            ::delete('/automovel-montadora/{id}');
-    });
-
-Route
     ::nome('automovel_modelo')
     ::controller(App\Controllers\Api\AutomovelModeloController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -1590,7 +1564,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
-            ::request(['pagina', '!quantidade', '!montadora', '!titulo', '!imagem', '!url', '!tipo', '!ordem', '!status'], 'json')
+            ::request(['pagina', '!quantidade', '!parceiro', '!ordem', '!status'], 'json')
             ::get('/automovel-modelo');
 
         Route
@@ -1601,13 +1575,13 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:salvar'])
-            ::request(['tipo', 'montadora', 'titulo', 'imagem', 'url',  'status'])
+            ::request(['titulo', 'parceiro', 'imagem', 'status'])
             ::post('/automovel-modelo');
 
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
-            ::request(['!tipo', '!montadora', '!titulo', '!imagem', '!url',  '!status', '!data_vencimento'])
+            ::request(['!tipo', '!montadora', '!titulo', '!imagem', '!url', '!status', '!data_vencimento'])
             ::put('/automovel-modelo/{id}');
 
         Route
@@ -1624,7 +1598,8 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
-            ::request(['pagina', '!quantidade', '!vinculo', '!titulo', '!detalhe', '!tipo', '!ordem', '!status'], 'json')
+            ::request(['pagina', '!quantidade', '!vinculo', '!titulo', '!detalhe', '!tipo', '!ordem', '!status'],
+                'json')
             ::get('/automovel-versao');
 
         Route
