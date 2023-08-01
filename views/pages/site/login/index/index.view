@@ -1,12 +1,19 @@
 @template "login"
 
-<div id="bloco_login">
-    <form action="" class="form_geral">
-        <h1>LOGIN</h1>
-        <p>Digite seu login e senha para continuar.</p>
+<main id="conteudo_principal">
+    <div id="bloco_login">
+        @view site/login/geral/banner.view
+        @view site/login/geral/categoria.view
+        @view site/login/geral/contador.view
+        @view site/login/geral/calculadora.view
 
-        @? formCpf(name: 'login', placeholder: 'Digite seu CPF')
-        @? formSenha(name: 'senha', placeholder: 'Digite sua senha')
-        <div class="botao" id="botao_fazer_login">FAZER LOGIN</div>
-    </form>
-</div>
+
+        @ if(MENU_CASHBACK):
+            @view site/login/geral/cashback.view
+        @ endif;
+        @view site/login/geral/extensao.view
+        @view site/login/geral/app.view
+        @view site/login/geral/contato.view
+
+    </div>
+</main>

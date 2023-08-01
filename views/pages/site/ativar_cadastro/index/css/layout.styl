@@ -1,0 +1,505 @@
+@template "login"
+@system "Form"
+@system "Alerta"
+@system "Loading"
+@resource "site/mixim"
+
+::-webkit-input-placeholder
+    color: #D0D0D0
+
+
+.auth_bloco_geral_site
+    width: 100%
+    padding: 20px 0
+    margin: 140px auto
+    flexCenter()
+    directionColumn()
+.auth_bloco_geral_site .auth_form_geral h2
+        width: 100%
+        font-size: 1.4em
+        margin-top: 20px
+.auth_bloco_geral_site .auth_form_geral .senha .dica ul li
+    color: #666
+    font-size: 1.3em
+    list-style: disc
+    margin-left: 20px
+    line-height: 20px
+.auth_bloco_geral_site .auth_form_geral .senha .dica
+    margin: 10px 0
+    width: 100%
+    margin-top: 20px
+.auth_bloco_geral_site .auth_form_geral .senha .dica p
+    font-size: 1.5em
+    margin-bottom: 5px
+.auth_bloco_geral_site .auth_form_geral
+    width: 100%
+    max-width: 1000px
+    spaceBetween()
+    flex-direction: row
+    flex-wrap: wrap
+    position: relative
+    margin-top: 20px
+    margin-bottom: 20px
+    box-shadow: 0 3px 5px rgba(0,0,0,.1)
+    background-color: #FFF
+    border-radius: 4px
+    padding: 20px
+    overflow: hidden
+.auth_bloco_geral_site .auth_form_geral .auth_loading
+    width: 100%
+    height: 6px
+    top: 0
+    left: 0
+    position: absolute
+.auth_bloco_geral_site .auth_form_geral .auth_loading span
+    position: absolute
+    top: 0
+    left: 0
+    height: 6px
+    background-color: #4AA9E9
+.auth_bloco_geral_site .auth_form_geral > header
+    width: 100%
+    border-left: 3px solid #4AA9E9
+    padding-left: 10px
+    margin: 20px 0
+.auth_bloco_geral_site .auth_form_geral legend
+    width: 100%
+    font-size: 1.8em
+    margin-bottom: 5px
+    color: #111
+    font-weight: 300
+.auth_bloco_geral_site .auth_form_geral p
+    width: 100%
+    line-height: 1.5em
+    font-size: 1.4em
+    color: #666
+    margin: 0
+.auth_bloco_geral_site .auth_form_geral .auth_erro_texto
+    width: 100%
+    height: 40px
+    position: relative
+    font-size: 1.4em
+    color: red
+.auth_bloco_geral_site .auth_form_geral .auth_erro_texto span
+    width: 100%
+    position: absolute
+    left: 0
+    bottom: 0
+.auth_bloco_geral_site .auth_form_geral .contato_telefone
+    width: 100%
+    spaceBetween()
+    flex-direction: row
+    .ddi
+        margin-right: 10px
+    &.linha
+        width: calc(50% - 10px)
+    &.linha .telefone
+        max-width: 100%
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container
+    width: 100%
+    height: 60px
+    position: relative
+    margin-bottom: 10px
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container label
+    position: absolute
+    left: 10px
+    top: 30px
+    font-size: 1.2em
+    padding: 0 5px
+    background: #FFF
+    color: #888
+    z-index: 2
+    transition: font-size .1s ease-out, top .1s ease-out, left .1s ease-out
+    cursor: pointer
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container.ativo label
+    font-size: 1em
+    top: 6px
+    left: 8px
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container label span
+    color: #F00
+    font-weight: bold
+    margin-left: 4px
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container input
+    width: 100%
+    height: 50px
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container.ativo input:focus
+    border-color: #4AA9E9
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container select
+    width: 100%
+    height: 50px
+    position: absolute
+    left: 0
+    bottom: 0
+    padding: 0 10px
+    font-size: 1.4em
+    border: 1px solid #CCC
+    background: url(../../images/api/select_padrao.png) no-repeat right center
+    border-radius: 3px
+    z-index: 3
+    cursor: pointer
+.auth_bloco_geral_site .auth_form_geral .bloco_input_container.ativo select
+    z-index: 1
+.auth_bloco_geral_site .auth_form_geral .bloco_buscar
+    width: 100%
+    margin-top: 20px
+    flexCol()
+.auth_bloco_geral_site .auth_form_geral .bloco_buscar .bloco_input_container
+    max-width: 240px
+.auth_bloco_geral_site .auth_form_geral .bloco_buscar .captcha
+    margin-bottom: 10px
+.auth_bloco_geral_site .auth_form_geral .bloco_buscar .botao_buscar
+    width: 100%
+    max-width: 150px
+    height: 50px
+    line-height: 50px
+    background-color: #23B9A9
+    color: #FFF
+    border: none
+    font-size: 1.2em
+    text-align: center
+    border-radius: 3px
+    cursor: pointer
+.auth_bloco_geral_site .auth_form_geral .bloco
+    width: calc(50% - 10px)
+.auth_bloco_geral_site .auth_form_geral .bloco.dados_pessoais
+    flex-wrap: wrap
+    justify-content: space-between
+.auth_bloco_geral_site .auth_form_geral .senha
+.auth_bloco_geral_site .auth_form_geral .endereco
+.auth_bloco_geral_site .auth_form_geral .dependente
+    width: 100%
+    margin-top: 20px
+    border-top: 1px solid #DDD
+    flexWrap()
+    flex-direction: row
+.auth_bloco_geral_site .auth_form_geral .dependente p
+    font-size: 1.3em
+    &:first-of-type
+        margin-top: 10px
+    &:last-of-type
+        margin-bottom: 10px
+    span
+        font-size: 0.8em
+        color: #666
+.auth_bloco_geral_site .auth_form_geral .senha
+    padding-bottom: 15px
+.auth_bloco_geral_site .auth_form_geral .bloco,
+.auth_bloco_geral_site .auth_form_geral .endereco
+.auth_bloco_geral_site .auth_form_geral .senha
+.auth_bloco_geral_site .auth_form_geral .dependente
+    display: none
+.auth_bloco_geral_site .auth_form_geral .cpf
+.auth_bloco_geral_site .auth_form_geral .nascimento
+.auth_bloco_geral_site .auth_form_geral .sexo
+    max-width: calc(50% - 10px)
+.auth_bloco_geral_site .auth_form_geral .estado_civil
+    width: calc(50% - 10px)
+.auth_bloco_geral_site .auth_form_geral .telefone
+    max-width: calc(50% - 10px)
+.auth_bloco_geral_site .auth_form_geral .sindicato
+    max-width: 200px
+.auth_bloco_geral_site .auth_form_geral .endereco .bloco_input_container
+    margin-right: 20px
+.auth_bloco_geral_site .auth_form_geral .endereco .cep
+    max-width: 140px
+.auth_bloco_geral_site .auth_form_geral .endereco .logradouro
+    max-width: 300px
+.auth_bloco_geral_site .auth_form_geral .endereco .numero
+    max-width: 100px
+.auth_bloco_geral_site .auth_form_geral .endereco .complemento
+    max-width: 380px
+.auth_bloco_geral_site .auth_form_geral .endereco .bairro
+    max-width: 250px
+.auth_bloco_geral_site .auth_form_geral .endereco .cidade,
+.auth_bloco_geral_site .auth_form_geral .endereco .estado
+    max-width: 200px
+.auth_bloco_geral_site .auth_form_geral .dependente article
+    width: 100%
+    display: flex
+    margin-top: 20px
+.auth_bloco_geral_site .auth_form_geral .dependente .adiciona_dependente
+    margin-top: 20px
+    text-decoration: underline
+    line-height: 1.5em
+    cursor: pointer
+.auth_bloco_geral_site .auth_form_geral .dependente .bloco_input_container
+.auth_bloco_geral_site .auth_form_geral .senha .bloco_input_container
+    max-width: 200px
+    margin-right: 20px
+.auth_bloco_geral_site .auth_form_geral .contato
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-between
+.auth_bloco_geral_site .auth_form_geral .botao
+    width: 100%
+    margin-top: 20px
+    display: none
+    flex-direction: row
+    justify-content: flex-end
+    align-items: flex-end
+    &.between
+        justify-content: space-between
+        align-items: center
+.auth_bloco_geral_site .auth_form_geral .termo
+    flex-grow: 1
+    flex-basis: 0%
+    position: relative
+    display: flex
+    flex-direction: row
+.auth_bloco_geral_site .auth_form_geral .termo label
+    min-height: 20px
+    position: relative
+    font-size: 1.3em
+    padding-left: 30px
+    alignItemCenter()
+    cursor: pointer
+.auth_bloco_geral_site .auth_form_geral .termo label::after
+    width: 20px
+    height: 20px
+    content: " "
+    background: #CCC
+    border-radius: 50%
+    position: absolute
+    left: 0
+.auth_bloco_geral_site .auth_form_geral .termo input:checked + label::after
+    background: #23b9a9 url(../../images/api/icon_checked.png) no-repeat center center
+    background-size: 8px auto
+    color: #FFF
+.auth_bloco_geral_site .auth_form_geral .termo .botao_termo
+    height: 20px
+    line-height: 20px
+    margin-left: 5px
+    font-size: 1.3em
+    cursor: pointer
+    &:hover
+        text-decoration: underline
+.auth_bloco_geral_site .auth_form_geral .botao.botao_recuperar
+    justify-content: flex-end
+    margin-top: 10px
+.auth_bloco_geral_site .auth_form_geral .botao button.senha
+    font-size: 1.2em
+    color: #4AA9E9
+    border: none
+    cursor: pointer
+    font-weight: bold
+.auth_bloco_geral_site .auth_form_geral .botao button.enviar
+    width: 100%
+    max-width: 150px
+    height: 50px
+    line-height: 50px
+    background-color: #23B9A9
+    color: #FFF
+    border: none
+    font-size: 1.2em
+    border-radius: 3px
+    cursor: pointer
+.auth_bloco_geral_site .auth_form_geral .bloco_ativar
+    width: 100%
+    margin-top: 20px
+    display: flex
+    flex-direction: column
+    text-align: center
+.auth_bloco_geral_site .auth_form_geral .bloco_ativar a
+    width: 100%
+    height: 30px
+    line-height: 30px
+    font-size: 1.4em
+    background-color: #4AA9E9
+    color: #FFF
+    border-radius: 3px
+.auth_bloco_geral_site .voltar
+    width: 100%
+    max-width: 180px
+    height: 30px
+    line-height: 30px
+    margin: 20px 0
+    border-radius: 3px
+    border: 1px solid #DDD
+    color: #999
+    text-align: center
+    text-decoration: none
+    font-size: 1.2em
+    cursor: pointer
+
+#bloco_termo
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    background: rgba(0,0,0,.7)
+    z-index: 100
+    display: none
+    justify-content: center
+    align-items: flex-start
+    .conteudo
+        width: calc(100% - 40px)
+        max-width: 500px
+        position: relative
+        background: #FFF
+        border-radius: 3px
+        margin: 20px 0
+        padding: 10px 20px 20px 20px
+    .conteudo .fechar
+        width: 30px
+        height: 30px
+        position: absolute
+        background: url(../../images/api/fechar.png) no-repeat
+        background-size: 10px auto
+        position: absolute
+        right: 0
+        top: 25px
+        cursor: pointer
+    .conteudo h1
+        height: 40px
+        line-height: 40px
+        margin-bottom: 20px
+        font-size: 1.8em
+        border-bottom: 1px solid #EEE
+    .conteudo p
+        line-height: 1.5em
+        font-size: 1.4em
+        margin: 10px 0
+
+
+.auth_bloco_geral_site .auth_form_geral#auth_form_adicionar_dependente
+    display: none
+    width: 100%
+    align-content: center
+    justify-content: center
+    .botao_coluna
+        width: 100%
+        align-content: center
+        justify-content: center
+        flex-direction: column
+        .adicionar_dependente
+            width: 100%
+            max-width: 250px
+            height: 40px
+            display: flex
+            align-items: center
+            justify-content: center
+            margin: 20px auto
+            background-color: #3333FF
+            color: #fff
+            border: none
+            font-size: 1.3em
+            border-radius: 3px
+            cursor: pointer
+        .efetuar_login
+            width: 100%
+            max-width: 250px
+            height: 40px
+            flexCenter()
+            margin: 20px auto
+            background-color: #23b9a9
+            color: #fff
+            border: none
+            font-size: 1.3em
+            border-radius: 3px
+            cursor: pointer
+        .limite_dependente
+            display: none
+            font-size: 1.5em
+            line-height: 1.5em
+            color: #FF0000
+            text-align: center
+    .dependente_conteudo
+        display: none
+        width: 100%
+        margin-top: 20px
+        .post_botao_salvar_dependente
+            width: 100%
+            max-width: 250px
+            height: 40px
+            flexCenter()
+            margin: 20px auto
+            background-color: #23b9a9
+            color: #fff
+            border: none
+            font-size: 1.3em
+            border-radius: 3px
+            cursor: pointer
+
+@media screen and (max-width:900px)
+    .auth_bloco_geral_site
+        margin: 0px auto
+    .auth_bloco_geral_site .auth_form_geral
+        border-radius: 0
+        display: flex
+        flex-direction: column
+        border: none
+        margin: 0
+        box-shadow: none
+    .auth_bloco_geral_site .auth_form_geral .bloco_buscar
+        flex-direction: column
+    .auth_bloco_geral_site .auth_form_geral .bloco_buscar .bloco_input_container
+        max-width: 100%
+    .auth_bloco_geral_site .auth_form_geral .bloco_buscar .botao_buscar
+        max-width: 100%
+        margin: 10px 0 0 0
+    .auth_bloco_geral_site .auth_form_geral .bloco,
+    .auth_bloco_geral_site .auth_form_geral .data,
+    .auth_bloco_geral_site .auth_form_geral .estado_civil
+        width: 100%
+    .auth_bloco_geral_site .auth_form_geral .cpf,
+    .auth_bloco_geral_site .auth_form_geral .data,
+    .auth_bloco_geral_site .auth_form_geral .sexo,
+    .auth_bloco_geral_site .auth_form_geral .telefone,
+    .auth_bloco_geral_site .auth_form_geral .sindicato,
+    .auth_bloco_geral_site .auth_form_geral .endereco .bloco_input_container,
+    .auth_bloco_geral_site .auth_form_geral .endereco .cep,
+    .auth_bloco_geral_site .auth_form_geral .endereco .logradouro,
+    .auth_bloco_geral_site .auth_form_geral .endereco .numero,
+    .auth_bloco_geral_site .auth_form_geral .endereco .bairro,
+    .auth_bloco_geral_site .auth_form_geral .endereco .cidade,
+    .auth_bloco_geral_site .auth_form_geral .endereco .estado
+    .auth_bloco_geral_site .auth_form_geral .senha .bloco_input_container
+    .auth_bloco_geral_site .auth_form_geral .dependente .bloco_input_container
+    .auth_bloco_geral_site .auth_form_geral .botao.between
+        max-width: 100%
+    .auth_bloco_geral_site .auth_form_geral .botao.between
+        flex-direction: column
+        align-items: flex-start
+        .termo
+            margin-bottom: 10px
+    .auth_bloco_geral_site .auth_form_geral .dependente article
+        flex-direction: column
+        border-bottom: 1px solid #CCC
+        padding-bottom: 20px
+    .auth_bloco_geral_site .auth_form_geral .endereco .bloco_input_container
+    .auth_bloco_geral_site .auth_form_geral .senha .bloco_input_container
+        margin-right: 0
+    .auth_bloco_geral_site .auth_form_geral .botao button.enviar
+        max-width: 100%
+        height: 50px
+        line-height: 50px
+    .auth_bloco_geral_site .auth_form_geral .bloco_siape .bloco_input_container
+        max-width: calc(100% - 110px)
+    .auth_bloco_geral_site .auth_form_geral .bloco_siape .botao_buscar
+        max-width: 100px
+    .auth_bloco_geral_site .voltar
+        width: calc(100% - 40px)
+        max-width: 760px
+        height: 40px
+        line-height: 40px
+    .auth_bloco_geral_site .auth_form_geral p
+        width: 100%
+        padding: 0
+    .auth_bloco_geral_site#auth_bloco_login.fechar .auth_form_geral
+        transition: margin-left 0s ease-out, opacity 0s ease-out
+    .auth_bloco_geral_site#auth_bloco_login.abrir .auth_form_geral
+        transition: margin-left 0s ease-out, opacity 0s ease-out
+    .auth_bloco_geral_site#auth_bloco_recuperar_senha.abrir .auth_form_geral
+        transition: margin-left 0s ease-out, opacity 0s ease-out
+    .auth_bloco_geral_site#auth_bloco_recuperar_senha.fechar .auth_form_geral
+        transition: margin-left 0s ease-out, opacity 0s ease-out
+    .auth_bloco_geral_site#auth_bloco_login.abrir
+        display: flex
+    .auth_bloco_geral_site#auth_bloco_login.fechar
+        display: none
+    .auth_bloco_geral_site#auth_bloco_recuperar_senha.abrir
+        display: flex
+    .auth_bloco_geral_site#auth_bloco_recuperar_senha
+        display: none
+

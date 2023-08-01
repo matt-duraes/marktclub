@@ -1,0 +1,15 @@
+<section class="bloco_cashback">
+    <header>
+        <h1 class="cor_color">Sistema de cashback</h1>
+        <p>Compre e ganhe parte do seu dinheiro de volta com pontos Silium</p>
+    </header>
+    <div class="imagem">
+        <figure class="desconto_5 layer" data-speed="5"><img src="{!!LINK_PADRAO!!}/images/login/cashback_5.png"></figure>
+        <figure class="desconto_7 layer" data-speed="-2"><img src="{!!LINK_PADRAO!!}/images/login/cashback_7.png"></figure>
+        <figure class="desconto_10 layer" data-speed="3"><img src="{!!LINK_PADRAO!!}/images/login/cashback_10.png"></figure>
+        <figure class="pc layer" data-speed="2"><img src="{!!LINK_PADRAO!!}/images/login/cashback_pc.png"></figure>
+        <figure class="logo layer" data-speed="5"><img src="{!!LINK_PADRAO!!}/images/login/cashback_logo.png"></figure>
+    </div>
+    <a class="alguma_duvida" data-href="@route('index.popup_formulario_contato')" class="botao_popup_contato">
+    </a>
+</section>

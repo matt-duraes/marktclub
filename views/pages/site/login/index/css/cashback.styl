@@ -1,0 +1,132 @@
+#bloco_login .bloco_cashback
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    margin-top: 0px
+    padding-top: 40px
+    header
+        width: 620px
+        display: flex
+        padding-right: 80px
+        flex-direction: column
+        align-items: flex-end
+    header h1
+        width: 100%
+        max-width: 300px
+        font-size: 4em
+        font-weight: bold
+        text-align: center
+    header p
+        width: 100%
+        max-width: 300px
+        margin-top: 20px
+        font-size: 2.2em
+        line-height: 1.5em
+        color: #333
+        text-align: center
+    .imagem
+        width: 620px
+        height: 560px
+        position: relative
+    .imagem .desconto_5
+        position: absolute
+        top: 420px
+        left: 20px
+        z-index: 3
+    .imagem .desconto_7
+        position: absolute
+        top: 116px
+        left: 25px
+        z-index: 1
+    .imagem .desconto_10
+        position: absolute
+        top: 20px
+        left: 390px
+        z-index: 3
+    .imagem .pc
+        position: absolute
+        top: 70px
+        left: 40px
+        z-index: 2
+    .imagem .logo
+        position: absolute
+        z-index: 3
+        top: 180px
+        left: 315px
+
+/**************midia queries cashback************/
+@media screen and (max-width: 1100px)
+    #bloco_login .bloco_cashback .imagem
+        width: 560px
+        height: 479px
+    #bloco_login .bloco_cashback .imagem .desconto_5
+        top: 300px
+        left: 0px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .desconto_7
+        top: 80px
+        left: 0px
+    #bloco_login .bloco_cashback .imagem .desconto_10
+        left: 210px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .pc
+        z-index: 1
+        left: 10px
+    #bloco_login .bloco_cashback .imagem .pc img
+        width: 70%
+        margin-left: 20px
+    #bloco_login .bloco_cashback .imagem .logo
+        z-index: 2
+        top: 180px
+        left: 245px
+    #bloco_login .bloco_cashback .imagem .logo img
+        width: 140px
+@media screen and (max-width: 790px)
+    #bloco_login .bloco_cashback
+        align-items: center
+        background: none
+        flex-direction: column
+        margin-top: 40px
+    #bloco_login .bloco_cashback .imagem
+        display flex
+        width: 350px
+        position: absolute
+        margin-top: 50px
+    #bloco_login .bloco_cashback header
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        padding-right: 0px
+    #bloco_login .bloco_cashback header h1
+        display: flex
+        flex-direction: column
+        text-align: center
+    #bloco_login .bloco_cashback header p
+        display: flex
+        margin-top: 500px
+        font-weight: bold
+    #bloco_login .bloco_cashback .imagem .desconto_5
+        top: 300px
+        left: 0px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .desconto_7
+        top: 80px
+        left: 0px
+    #bloco_login .bloco_cashback .imagem .desconto_10
+        left: 210px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .pc
+        z-index: 1
+        left: 10px
+    #bloco_login .bloco_cashback .imagem .pc img
+        width: 70%
+        margin-left: 20px
+    #bloco_login .bloco_cashback .imagem .logo
+        z-index: 2
+        top: 143px
+        left: 220px
+    #bloco_login .bloco_cashback .imagem .logo img
+        width: 140px

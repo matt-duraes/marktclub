@@ -1,0 +1,42 @@
+<div class="linha_topo cor_bg"></div>
+<header id="header_principal">
+    <figure class="logo">
+        <a href="{{LINK}}"><img class="logo_mobile " src="{{CLUBE_LOGO}}" alt="Logo do CLUBE DE VANTAGENS MARKT CLUB"></a>
+    </figure>
+    <div class="display_none display_mobile">
+        <h1 class="cor_color"> As melhores<br> marcas do mundo</h1>
+        <h3>Esperando por você! </h3>
+    </div>
+    <nav>
+        <div class="menu">
+            <a href="{!!route('login.ativar')!!}" class="botao">
+                <i class="cor_color">@iconePrimeiroAcesso</i>
+                <p>Primeiro Acesso</p>
+                <div class="borda cor_bg"></div>
+            </a>
+            <a class="botao app" href="#baixar-app">
+                <i class="cor_color">@iconeBaixarApp()</i>
+                <p>Baixe o App</p>
+                <div class="borda cor_bg"></div>
+            </a>
+            <a href="{!!route('login.faq')!!}" target="_blank" class="botao">
+                <i  class="cor_color">@iconeFaq()</i>
+                <p>FAQ</p>
+                <div class="borda cor_bg"></div>
+            </a>
+            <a href="{!!route('login.comoFunciona')!!}" target="_blank" class="botao">
+                <i class="cor_color">@iconeComoFunciona</i>
+                <p>Como Funciona</p>
+                <div class="borda cor_bg"></div>
+            </a>
+            <div class="fechar">
+                @iconeFechar()
+            </div>
+        </div>
+
+        <a href="{!!route('login.logarUsuario')!!}" class="entrar cor_bg">Entrar</a>
+        <div class="navbar_hamburguer">
+            @iconeMenuMobile()
+        </div>
+    </nav>
+</header>

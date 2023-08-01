@@ -1,0 +1,281 @@
+.bloco_calculadora
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    margin-top: 0px
+    padding-top: 40px
+    background-size: contain
+    position: relative
+    .bg
+        width: 100%
+        height: 220px
+        position: absolute
+        top: 0px
+        background-size: contain
+    button
+        width: 150px
+        height: 40px
+        align-items: center
+        justify-content: center
+        color: #FFFFFF
+        font-size: 1.8em
+        line-height: 40px
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05)
+        border-bottom-left-radius: 10px
+        border-bottom-right-radius: 10px
+    .container
+        width: 100%
+        max-width: 700px
+        display: flex
+        align-items: center
+        justify-content: space-around
+        flex-direction: column
+        position: relative
+        padding: 40px
+        background-color: #FFFFFF
+        border-radius: 20px
+    .container .topo
+        width: 100%
+        max-width: 500px
+        display: flex
+        align-items: center
+        justify-content: space-around
+    .container .topo .img_calculadora
+        width: 100px
+        height: 100px
+        mask-repeat: no-repeat
+        -webkit-mask-repeat: no-repeat
+        mask-size: contain
+        -webkit-mask-size: contain
+    .container .topo .texto
+        width: 100%
+        max-width: 400px
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+    .container .topo .texto h2
+        font-size: 1.8em
+        line-height: 1.5em
+        font-weight: bold
+        text-align: center
+    .container .topo .texto h2 span
+        font-size: 1em
+    .container .topo .texto p
+        color: #666
+        text-align: center
+        font-size: 1.2em
+        line-height: 1.5em
+    .container  .fechar
+        width: 100%
+        max-width: 200px
+        height: 50px
+        display: flex
+        align-items: center
+        justify-content:center
+        position: absolute
+        bottom: 0
+        color: #FFF
+        border-top-left-radius: 10px
+        border-top-right-radius: 10px
+        cursor: pointer
+    .container  .fechar p
+        font-size: 1.8em
+        line-height: 1.5em
+    .container .conteudo
+        display: flex
+        flex-direction: column
+        align-items: center
+        position: relative
+        padding: 20px
+        padding-bottom: 0px
+        overflow: hidden
+        animation: abrirCalculadora .3s linear forwards
+        h2
+            width: 100%
+            max-width: 500px
+            margin-top: 20px
+            font-size: 2.2em
+            color: #666666
+            text-align: center
+        h2 span
+            font-size: 1em
+            color: #333333
+            font-weight: bold
+        form
+            width: calc(100% + 20px)
+            display: flex
+            align-items: center
+            justify-content: center
+            margin-top: 20px
+            flex-wrap: wrap
+            padding-bottom: 30px
+            button
+                height: 50px
+                margin-top: 40px
+                color: #FFFFFF
+                background-color: #333
+                font-size: 1.5em
+                line-height: 1.5em
+                text-align: center
+                font-weight: bold
+                border-radius: 10px
+            fieldset
+                width: calc((100% / 3) - 0px)
+                display: flex
+                flex-wrap: wrap
+                align-items: center
+                justify-content: center
+                flex-direction: column
+            fieldset label
+                color: #333333
+                font-size: 1.9em
+                line-height: 1.5em
+                margin-top: 30px
+            fieldset input
+                height: 40px
+                border-radius: 3px
+                color: #333333
+                background-color: #EEE
+                font-size: 1.5em
+                line-height: 1.5em
+                font-weight: bold
+                text-align: center
+    .container .resultado
+        display: flex
+        flex-direction: column
+        align-items: center
+        position: relative
+        overflow: hidden
+        h2
+            width: 100%
+            max-width: 500px
+            margin-top: 20px
+            font-size: 2.2em
+            color: #666666
+            text-align: center
+        h2 span
+            color: #333333
+            font-weight: bold
+            padding: 20px 20px 0px 20px
+        strong
+            font-size: 2.5em
+            font-weight: bold
+            background-color: #eee
+            padding: 20px
+            border-radius: 8px
+            margin: 20px 0px
+        .novamente
+            padding: 20px
+            margin-top: 20px
+            margin-bottom: 80px
+            border: 1px solid #333333
+            border-radius: 3px
+            cursor: pointer
+            &:hover
+                background: #333
+            &:hover > p
+                color: #FFF
+        .novamente p
+            color: #333333
+            font-size: 1.5em
+            text-align: center
+    .esconde
+        display: none !important
+    .mostra
+        display: flex !important
+
+@media screen and (max-width:740px)
+    #bloco_login .bloco_calculadora
+        padding-left: 20px
+        padding-right: 30px
+@media screen and (max-width: 720px)
+    #bloco_login .bloco_calculadora h2
+        line-height: 1.2em
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset
+        width: calc((100% / 2) - 0px)
+@media screen and (max-width: 700px)
+    #bloco_login .bloco_calculadora .bg
+        display: none
+    #bloco_login .bloco_calculadora .container .topo
+        flex-direction: column
+    #bloco_login .bloco_calculadora .container .topo .texto h2
+        line-height: 1.2em
+        margin-bottom: 20px
+    #bloco_login .bloco_calculadora .container .topo .img_calculadora
+        width: 90px
+@media screen and (max-width: 680px)
+    #bloco_login .bloco_calculadora .container .conteudo form
+        flex-direction: column
+        width: calc(100% + 0px)
+        fieldset
+            width: 100%
+            display: grid
+            grid-template-columns: repeat(2, 1fr)
+            grid-column-gap: 10px
+            grid-row-gap: 1em
+            margin-top: 10px
+        fieldset label
+            margin-top: 0
+        fieldset input
+            width: 100%
+            padding-left: 10px
+
+@media screen and (max-width: 450px)
+    #bloco_login .bloco_calculadora .container
+        padding: 20px
+    #bloco_login .bloco_calculadora .container .conteudo
+        padding: 0
+    #bloco_login .bloco_calculadora .container .conteudo form
+        display: flex
+        padding-bottom: 50px
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        width: 100%
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset label
+        font-size: 1.5em
+        margin-top: 0px
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset input
+        max-width: 110px
+
+
+@-webkit-keyframes abrirCalculadora
+    from
+        max-height: 0px
+    to
+        max-height: 1000px
+
+@keyframes abrirCalculadora
+    from
+        max-height: 0px
+    to
+        max-height: 1000px
+
+
+@-webkit-keyframes fecharCalculadora
+    from
+        max-height: 1000px
+    to
+        max-height: 0px
+        padding-top: 0
+        padding-bottom: 0
+
+@keyframes fecharCalculadora
+    from
+        max-height: 1000px
+    to
+        max-height: 0px
+        padding-top: 0
+        padding-bottom: 0
+
+
+@keyframes fecharResultado
+    from
+        max-height: 1000px
+    to
+        max-height: 0px
+
