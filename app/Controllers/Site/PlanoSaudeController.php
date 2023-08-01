@@ -2,35 +2,21 @@
 
 namespace App\Controllers\Site;
 
-use App\Helpers\ClubeApiHelper;
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
+use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\OperadoraModel;
-use Http\Response;
+use App\Models\Site\Saude\SimulacaoViewModel;
 
 final class PlanoSaudeController extends Controller
 {
-    private $location = false;
-
     public function index()
     {
         return view('plano_saude.index', [
             'lista' => (new OperadoraModel())->listarDados()
         ]);
-    }
-
-    private function defineLocation($construtor)
-    {
-        if (defined('CLUBE_ID') !== 'federal' && $this->location === false) {
-            if ($construtor->vitoria && !$construtor->cnu && !$construtor->seguros) {
-                $this->location = route('planosaude.unimedVitoria');
-            } elseif ($construtor->cnu && !$construtor->vitoria && !$construtor->seguros) {
-                $this->location = route('planosaude.centralnacional');
-            } elseif ($construtor->seguros && !$construtor->vitoria && !$construtor->cnu) {
-                $this->location = route('planosaude.unimedSeguro');
-            }
-        }
     }
 
     public function unimedVitoria()
@@ -124,7 +110,8 @@ final class PlanoSaudeController extends Controller
     {
         return view('plano_saude.simulacao', [
             'menu'      => 'saude',
-            'operadora' => $url
+            'operadora' => $url,
+            'Simulacao' => new SimulacaoViewModel($url)
         ]);
     }
 
