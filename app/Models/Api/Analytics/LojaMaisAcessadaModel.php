@@ -30,7 +30,7 @@ final class LojaMaisAcessadaModel extends ORM
     {
         $lista = $this
             ->campo(['quantidade', 'parceiro_nome', 'id_parceiro_loja'])
-            ->where($this->pegarWherePadrao())
+            ->where($this->pegarWhere())
             ->order('quantidade', 'DESC')
             ->read();
 

@@ -1,4 +1,4 @@
-function inicializarPassoAPasso() {
+const executarPassoPasso = () => {
     const listaGeral = document.querySelectorAll('.bloco_passo_passo_geral');
 
     if (listaGeral.length == 0) {
@@ -11,7 +11,6 @@ function inicializarPassoAPasso() {
         const quantidadeConteudo = conteudoLista.length - 1;
         const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
         blocoConteudo.classList.add('bloco_conteudo_item_' + conteudoLista.length);
-
         conteudoLista.forEach((conteudo, i2) => {
             let id = conteudo.getAttribute('id') || '';
             if (id == '') {
@@ -41,49 +40,53 @@ function inicializarPassoAPasso() {
         });
         bloco.classList.add('carregado');
     });
+};
+executarPassoPasso();
 
-    // Restante do código...
-}
-
-window.addEventListener('load', () => {
-    inicializarPassoAPasso();
-});
-// ANTERIOR
-const botaoAnterior = document.querySelectorAll('.botao_passa_passo_anterior');
-if (botaoAnterior.length > 0) {
-    botaoAnterior.forEach(botao => {
-        botao.addEventListener('click', () => {
-            irParaPassoAnterior(botao);
-        });
-    });
-}
-const irParaPassoAnterior = botao => {
-    const bloco = botao.closest('.bloco_passo_passo_geral');
-    const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
-    const itemAtual = bloco.querySelector('.bloco_progresso .item.atual');
+const irParaPassoAnterior = () => {
+    const itemLista = $$('.bloco_progresso .item');
+    const itemAtual = $('.bloco_progresso .item.atual');
     const numero = parseInt(itemAtual.getAttribute('data-numero')) - 1;
     const novoNumero = parseInt(numero) + 1;
-
+    const bloco = $('.bloco_passo_passo_geral');
     montarNovoItem(bloco, itemLista, numero, novoNumero);
 };
 
-// PROXIMO
-const botaoProximo = document.querySelectorAll('.botao_passa_passo_proximo');
-if (botaoProximo.length > 0) {
-    botaoProximo.forEach(botao => {
-        botao.addEventListener('click', () => {
-            irParaProximoPasso(botao);
-        });
-    });
-}
+pegarBlocoPassoAnterior = () => {
+    const itemAtual = $('.bloco_progresso .item.atual');
+    const numero = parseInt(itemAtual.getAttribute('data-numero')) - 1;
+    if (numero < 0) {
+        return null;
+    }
+    const itemAnterior = $('.bloco_progresso .item[data-numero="' + numero + '"]');
+    if (!itemAnterior) {
+        return null;
+    }
+    return $('#' + itemAnterior.getAttribute('data-id'));
+};
+pegarBlocoProximoPasso = () => {
+    const itemAtual = $('.bloco_progresso .item.atual');
+    const numero = parseInt(itemAtual.getAttribute('data-numero')) + 1;
+    if (numero > $$('.bloco_progresso .item').length) {
+        return null;
+    }
+    const itemAnterior = $('.bloco_progresso .item[data-numero="' + numero + '"]');
+    if (!itemAnterior) {
+        return null;
+    }
+    return $('#' + itemAnterior.getAttribute('data-id'));
+};
+pegarBlocoPassoAtual = () => {
+    const itemAtual = $('.bloco_progresso .item.atual');
+    return $('#' + itemAtual.getAttribute('data-id'));
+};
 
-const irParaProximoPasso = botao => {
-    const bloco = botao.closest('.bloco_passo_passo_geral');
-    const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
-    const itemAtual = bloco.querySelector('.bloco_progresso .item.atual');
+const irParaProximoPasso = () => {
+    const itemLista = $$('.bloco_progresso .item');
+    const itemAtual = $('.bloco_progresso .item.atual');
     const numero = parseInt(itemAtual.getAttribute('data-numero')) + 1;
     const novoNumero = parseInt(numero) + 1;
-
+    const bloco = $('.bloco_passo_passo_geral');
     montarNovoItem(bloco, itemLista, numero, novoNumero);
 };
 
