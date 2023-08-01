@@ -9,6 +9,7 @@ const blocoRegiao = $('#bloco_regiao');
 const blocoPlano = $('#bloco_plano');
 const blocoSimulacao = $('#bloco_simulacao');
 const blocoResultado = $('#bloco_resultado');
+const blocoAcomodacao = $('#bloco_acomodacao');
 
 const blocoListaDependente = $('#bloco_lista_dependente');
 const botaoAdicionarDependente = $('#botao_adicionar_dependente');
@@ -34,6 +35,9 @@ window.addEventListener('load', () => {
     }
     if (blocoPlano) {
         carregarPlano();
+    }
+    if (blocoAcomodacao) {
+        carregarAcomodacao();
     }
 });
 
@@ -65,12 +69,46 @@ botaoVoltar.forEach(botao => {
         if (blocoAnterior == blocoPlano) {
             limparBotaoPlano();
         }
+        if (blocoAtual == blocoAcomodacao) {
+            limparBlocoAcomodacao();
+            limparBotaoAcomodacao();
+        }
+        if (blocoAnterior == blocoAcomodacao) {
+            limparBotaoPlano();
+        }
         if (blocoAtual == blocoSimulacao) {
             limparSimulacao();
         }
         irParaPassoAnterior();
     });
 });
+
+/*
+|--------------------------------------------------------------------------
+| ACOMODAÇÃO
+|--------------------------------------------------------------------------
+*/
+const limparBlocoAcomodacao = () => {
+    adicionarClassLista($$('.bloco_escolher_acomodacao'), 'display_none');
+};
+const limparBotaoAcomodacao = () => {
+    removerClassLista($$('.botao_escolher_acomodacao'), 'ativo');
+};
+const carregarAcomodacao = () => {
+    const lista = $$('.botao_escolher_acomodacao');
+    lista.forEach(botao => {
+        botao.addEventListener('click', () => {
+            escolherAcomodacao(botao, botao.getAttribute('data-acomodacao'));
+        });
+    });
+};
+const escolherAcomodacao = (botao, acomodacao) => {
+    const blocoProximo = pegarBlocoProximoPasso();
+    if (blocoProximo == blocoPlano) {
+        botao.classList.add('ativo');
+        abrirBlocoRegiao(acomodacao);
+    }
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -96,6 +134,15 @@ const escolherRegiao = (botao, regiao) => {
     }
 };
 
+const abrirBlocoRegiao = acomodacao => {
+    const blocoEscolhido = blocoAcomodacao.querySelector('.' + acomodacao);
+    if (!blocoEscolhido) {
+        Alerta.notificacao('Erro ao escolher acomodação, por favor, tente novamente.');
+        return;
+    }
+    blocoEscolhido.classList.remove('display_none');
+    irParaProximoPasso();
+};
 /*
 |--------------------------------------------------------------------------
 | PLANO
@@ -210,11 +257,26 @@ const pegarRegiao = () => {
     return bloco.getAttribute('data-regiao');
 };
 const pegarPlano = () => {
-    return '';
+    if (!blocoPlano) {
+        return '';
+    }
+    const bloco = blocoPlano.querySelector('.botao_escolher_plano.ativo');
+    if (!bloco) {
+        return '';
+    }
+    return bloco.getAttribute('data-plano');
 };
 const pegarAcomodacao = () => {
-    return '';
+    if (!blocoAcomodacao) {
+        return '';
+    }
+    const bloco = blocoAcomodacao.querySelector('.botao_escolher_acomodacao.ativo');
+    if (!bloco) {
+        return '';
+    }
+    return bloco.getAttribute('data-acomodacao');
 };
+
 /*
 |--------------------------------------------------------------------------
 | RESULTADO

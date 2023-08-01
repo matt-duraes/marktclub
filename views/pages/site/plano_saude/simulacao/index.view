@@ -27,6 +27,17 @@
                     @ endforeach;
                 </div>
             </div>
+                @ elseif( $passo->tipo == 'regiao'):
+            <div class="conteudo passo_{{$passo->numero}}" id="bloco_acomodacao">
+                <header>
+                    <h1>ESCOLHA A ACOMODAÇÃO</h1>
+                </header>
+                <div class="botao_selecao">
+                    <!-- @ foreach( $Simulacao->acomodacao() as $ind => $val ): -->
+                    <div class="botao botao_geral_borda botao_escolher_acomodacao" data-acomodacao="amil">amil</div>
+                    <!-- @ endforeach; -->
+                </div>
+            </div>
                 @ elseif( $passo->tipo == 'plano' ):
             <div class="conteudo passo_{{$passo->numero}}" id="bloco_plano">
                 <header>
