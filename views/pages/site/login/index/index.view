@@ -1,19 +1,21 @@
 @template "login"
-
-<main id="conteudo_principal">
-    <div id="bloco_login">
-        @view site/login/geral/banner.view
-        @view site/login/geral/categoria.view
-        @view site/login/geral/contador.view
-        @view site/login/geral/calculadora.view
-
-
-        @ if(MENU_CASHBACK):
-            @view site/login/geral/cashback.view
-        @ endif;
-        @view site/login/geral/extensao.view
-        @view site/login/geral/app.view
-        @view site/login/geral/contato.view
-
+<div id="bloco_login">
+    <div class="display_none mobile">
+        <h1>As melhores<br> marcas do mundo</h1>
+        <p>Esperando por você!</p>
     </div>
-</main>
+
+    @view site/login/geral/banner.view
+    @view site/login/geral/categoria.view
+    @view site/login/geral/contador.view
+    @view site/login/geral/calculadora.view
+
+
+    @ if(MENU_CASHBACK):
+        @view site/login/geral/cashback.view
+    @ endif;
+
+    @view site/login/geral/extensao.view
+    @view site/login/geral/app.view
+    @view site/login/geral/contato.view
+</div>
