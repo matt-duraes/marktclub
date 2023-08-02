@@ -1,12 +1,12 @@
 @template "site"
 
-<div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
-    <div class="bloco_topo">
-        <section class="bloco_banner">
-            <figure class="banner desktop"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
-            <figure class="banner mobile"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
-            <figure class="logo"><img src="https://clube.marktclub.com.br/images/denuncia_index_capa_parceiro.png"></figure>
-        </section>
+<div id="bloco_sos" class="bloco_loja_detalhe">
+    <section class="bloco_banner">
+        <figure class="banner desktop"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
+        <figure class="banner mobile"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
+    </section>
+    <div class="bloco_informacoes">
+        <figure class="logo"><img src="https://clube.marktclub.com.br/images/denuncia_index_capa_parceiro.png"></figure>
         <header class="bloco_header">
             <h1>{{$dado->descricao->titulo}}</h1>
             <p>{{$dado->descricao->subtitulo}}</p>
@@ -28,15 +28,14 @@
         <p>{{$dado->aviso->texto}}</p>
     </div>
     <div class="bloco_botao">
-        <a href="" target="_blank" rel="nofollow noopener"  class="botao destaque botao_geral_cor cor_bg">
+        <a href="" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
             <i>@iconeTelefone(17)</i>
-            Ligar
+            <p>Ligar</p>
         </a>
-        <a href="" target="_blank" rel="nofollow noopener"  class="botao destaque botao_geral_cor cor_bg">
+        <a href="" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
             <i>@iconeTelefone(17)</i>
-            Chat
+            <p>Chat</p>
         </a>
 
     </div>
-    @view site/geral/relacionado.view
 </div>

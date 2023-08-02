@@ -89,14 +89,14 @@ final class PlanoSaudeController extends Controller
         ]);
     }
 
-    public function getRealizarSimulacao(Request $request)
+    public function postRealizarSimulacao(Request $request, $url = null)
     {
         $dado = ((new ClubeApiHelper()))
         ->body([
-            'operadora'        => $request->operadora,
-            'regiao'           => $request->regiaoSelecionada,
-            'plano'            => $request->planoSelecionado,
-            'data_nascimento'  => $request->dtNascimentoTitular,
+            'operadora'        => $request->$url,
+            'regiao'           => $request->regiao,
+            'plano'            => $request->plano,
+            'data_nascimento'  => $request->dataNascimento,
             'dependentes'      => $request->dtNascimentoDependentes,
             'acomodacao'       => $request->acomodacao
         ])

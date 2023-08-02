@@ -5,37 +5,57 @@
 @resource "site/loja/parceiro"
 @resource "site/loja/relacionado"
 @resource "site/loja/detalhe"
-
-
-#bloco_loja_confirmar
-    max-width: 700px
-    .conteudo_confirmar
-        flexCol()
-        align-items: center
-        padding: 20px
-    .conteudo_confirmar h1
-        titulo()
-    .conteudo_confirmar p
-        texto()
-    .conteudo_confirmar a
-        margin-top: 30px
-
-.bloco_botao .botao
-    width: 200px
-
-.bloco_botao .destaque
-    padding: 0px
-
-@media screen and ( max-width: 900px)
-    .bloco_botao .botao
-        max-width: 250px
-
-@media screen and ( max-width: 600px )
-    .bloco_desconto_procedimento
-        flex-direction: column
-    .bloco_desconto_procedimento .bloco
+#bloco_sos
+    width: 100%
+    max-width: $maxWidth
+.bloco_banner
+    width: 100%
+    img
         width: 100%
-    .bloco_botao .botao
-        width: 200px
-        &:first-child
-            margin-top: 20px
+    .desktop
+        display: block
+    .mobile
+        display: none
+
+.bloco_informacoes
+    blocoShadow()
+    width: 100%
+    margin: 20px 0px
+    display: flex
+    align-items: center
+    .logo
+        img
+            border-radius: 50%
+            width: 100px
+    .bloco_header
+        flex: 1
+        text-align: center
+        p
+            texto()
+        h1
+            titulo()
+
+.bloco_atencao_geral
+    text-align: center
+#bloco_sos .bloco_botao
+    margin-top: 30px
+    flexCenter()
+    gap: 20px
+    .botao_sos
+        width: 150px
+        height: 40px
+        border-radius: 5px
+        gap: 20px
+        flexCenter()
+        svg, p
+            texto()
+
+@media screen and (max-width: 630px)
+    .bloco_informacoes
+        flexCol()
+@media screen and (max-width: 375px)
+    #bloco_sos .bloco_botao
+        flex-direction: column
+        margin-left: 10px
+        .botao_sos
+            width: 100%

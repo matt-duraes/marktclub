@@ -220,11 +220,11 @@ if (botaoSimulacaoContinuar) {
 }
 const buscarValorSimulacao = async () => {
     const body = {
-        titular: inputDataTitular.value,
+        dataNascimento: inputDataTitular.value,
         regiao: pegarRegiao(),
         plano: pegarPlano(),
         acomodacao: pegarAcomodacao(),
-        dependente: [],
+        dependentes: [],
     };
     const dependente = [];
     $$('#bloco_lista_dependente .bloco_input input').forEach(input => {
@@ -233,15 +233,19 @@ const buscarValorSimulacao = async () => {
         }
     });
     if (dependente.length > 0) {
-        body.dependente = dependente;
+        body.dependentes = dependente;
     }
-    const resposta = { dado: '' };
+    // const resposta = { dado: '' };
     Loading.show();
-    // const resposta = await ajaxPost(LINK + '/', body, 'Erro ao fazer a simulação, por favor, tente novamente.');
+    const resposta = await ajaxPost(
+        LINK + '/saude/realizar-simulacao',
+        body,
+        'Erro ao fazer a simulação, por favor, tente novamente.'
+    );
     Loading.hide();
-    // if (!resposta) {
-    //     return;
-    // }
+    if (!resposta) {
+        return;
+    }
     if (pegarBlocoProximoPasso() == blocoResultado) {
         abrirBlocoResultado(resposta.dado);
     }
