@@ -3,12 +3,11 @@
 namespace App\Models\Api\Saude\Simulacao;
 
 use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\Amil;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimed;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis;
-use App\Classes\Saude\Operadoras\Unimed;
-use App\Classes\Saude\Operadoras\UnimedSeguro;
-use App\Classes\Saude\Plano;
+use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Classes\Saude\Operadoras\CentralNacionalUnimed\CentralNacionalUnimed;
+use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
+use App\Classes\Saude\Operadoras\Unimed\Unimed;
+use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 use App\Classes\Saude\PlanoSaude;
 use App\Classes\Saude\Regiao;
 use App\Classes\Saude\Status;
@@ -28,11 +27,11 @@ class SimulacaoEntity extends Entity
     public int $quantidade_dependentes;
     public Operadora $operadora;
     public int $acomodacao;
-    public Regiao $regiao;
+    public string $regiao;
     public Dinheiro $valor_titular;
     public string $valor_dependentes;
     public Dinheiro $valor_total;
-    public Plano $plano;
+    public string $plano;
     public Status $status;
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
@@ -69,34 +68,38 @@ class SimulacaoEntity extends Entity
             return;
         }
 
-        $acomodacao = $this->request->getPost('acomodacao');
         $this->quantidade_dependentes = 0;
         $this->data_nascimento = new Data($this->request->getPost('data_nascimento'));
         $this->operadora = new Operadora($this->request->getPost('operadora'));
-        $this->regiao = new Regiao($this->request->getPost('regiao'));
-        $this->plano = new Plano($this->request->getPost('plano'));
+        $this->regiao = $this->request->getPost('regiao');
+        $this->plano = $this->request->getPost('plano');
         $this->status = new Status(Status::REGISTRADO);
+
+        $acomodacao = $this->request->getPost('acomodacao');
         $planoSaude = match ($this->operadora->indice()) {
             Operadora::UNIMED => new PlanoSaude(
-                new Unimed($this->data_nascimento, $acomodacao)
+                new Unimed($this->data_nascimento, acomodacaoSelecionada: $acomodacao)
             ),
             Operadora::UNIMED_SEGURO => new PlanoSaude(
-                new UnimedSeguro($this->data_nascimento, $acomodacao)
+                new UnimedSeguro($this->data_nascimento, acomodacaoSelecionada: $acomodacao)
             ),
             Operadora::CENTRAL_NACIONAL_UNIMED => new PlanoSaude(
-                new CentralNacionalUnimed($this->data_nascimento, $acomodacao, $this->plano, $this->regiao)
+                new CentralNacionalUnimed($this->data_nascimento, $this->regiao, $this->plano, $acomodacao)
             ),
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => new PlanoSaude(
-                new CentralNacionalUnimedFlorianopolis($this->data_nascimento, $acomodacao, $this->plano)
+                new CentralNacionalUnimedFlorianopolis(
+                    $this->data_nascimento,
+                    planoSelecionado: $this->plano,
+                    acomodacaoSelecionada: $acomodacao
+                )
             ),
             Operadora::AMIL => new PlanoSaude(
-                new Amil($this->data_nascimento, $acomodacao, $this->plano, $this->regiao)
+                new Amil($this->data_nascimento, $this->regiao, $this->plano)
             )
         };
 
-        $dependentes = [];
-        if (!empty($this->request->getPost('dependentes'))) {
-            $dependentes = explode(',', $this->request->getPost('dependentes'));
+        $dependentes = $this->request->getPost('dependentes');
+        if (!empty($dependentes)) {
             $this->quantidade_dependentes = count($dependentes);
 
             (new ValidarHelper())
@@ -131,7 +134,7 @@ class SimulacaoEntity extends Entity
             }
         }
 
-        $this->acomodacao = $planoSaude->codigoAcomodacao;
+        $this->acomodacao = $planoSaude->codigoAcomodacao ?? '0';
         $this->valor_titular = new Dinheiro((string)$valor_titular);
         $this->valor_dependentes = jsonEncode($valor_dependentes);
         $this->valor_total = new Dinheiro((string)$valor_total);

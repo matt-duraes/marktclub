@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Classes\Saude\Operadoras;
+namespace App\Classes\Saude\Operadoras\Unimed;
 
+use App\Classes\Saude\Operadoras\AbstractOperadora;
 use Modules\Data;
 
 class Unimed extends AbstractOperadora

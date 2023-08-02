@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Classes\Saude\Operadoras;
+namespace App\Classes\Saude\Operadoras\CentralNacionalUnimed;
 
+use App\Classes\Saude\Operadoras\AbstractOperadora;
 use App\Classes\Saude\Plano;
 use App\Classes\Saude\Regiao;
 use Modules\Data;
