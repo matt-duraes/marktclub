@@ -28,12 +28,12 @@
         <p>{{$dado->aviso->texto}}</p>
     </div>
     <div class="bloco_botao">
-        <a href="" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
-            <i>@iconeTelefone(17)</i>
+        <a href="tel:180" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
+            <i>@iconeTelefone(19)</i>
             <p>Ligar</p>
         </a>
-        <a href="" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
-            <i>@iconeTelefone(17)</i>
+        <a href="https://mdh-chat.metasix.solutions/livechat?mode=popout" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
+            <i>@iconeEmail(17)</i>
             <p>Chat</p>
         </a>
 

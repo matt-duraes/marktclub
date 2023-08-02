@@ -49,10 +49,16 @@
         flexCenter()
         svg, p
             texto()
+    .sos_ligar
+        display: none
 
 @media screen and (max-width: 630px)
     .bloco_informacoes
         flexCol()
+@media screen and (max-width: 500px)
+    #bloco_sos .bloco_botao .sos_ligar
+        display: flex
+
 @media screen and (max-width: 375px)
     #bloco_sos .bloco_botao
         flex-direction: column
