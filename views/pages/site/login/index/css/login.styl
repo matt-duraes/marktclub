@@ -1,0 +1,122 @@
+#bloco_form_buscar
+#bloco_form_login
+    max-width: 500px
+#bloco_form_ativar
+    max-width: 800px
+
+.bloco_form_login
+    width: calc(100% - 40px)
+    max-height: calc(100vh - 40px)
+    margin: 20px
+    overflow-y: auto
+    overflow-x: hidden
+    blocoShadow()
+    .conteudo
+        flexRow()
+        flex-wrap: wrap
+        justify-content: space-between
+    header
+        width: 100%
+        margin-bottom: 30px
+    header h1
+        titulo()
+        color: $corClube
+    header p
+        texto()
+    .bloco_input
+        width: 100%
+        margin-top: 10px
+    .bloco_botao
+        width: 100%
+        flexRow()
+        justify-content: flex-end
+        margin-top: 10px
+    .bloco_botao .botao
+        botaoPadraoGrande()
+        background-color: $corClube
+        color: #FFF
+    .bloco_link
+        width: 100%
+        border-top: 1px solid #DDD
+        flexRow()
+        justify-content: center
+        margin-top: 30px
+        padding-top: 30px
+    .bloco_link .botao
+        texto()
+        color: $corAzul
+        margin: 0 10px
+        cursor: pointer
+    h2
+        width: 100%
+        texto()
+    ul
+        width: 100%
+        list-style: circle
+        list-style-position: inside
+        padding-left: 10px
+    ul li
+        width: 100%
+        margin: 5px 0
+    .texto_pequeno
+        font-size: 1.2rem
+        color: #999
+    .bloco
+        width: calc(50% - 10px)
+        flexCol()
+    .lista
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        justify-content: space-between
+    .lista .bloco_input
+        width: calc(50% - 10px)
+    .linha
+        width: 100%
+        height: 1px
+        background-color: #DDD
+        margin: 25px 0 30px
+
+#bloco_form_login
+    .bloco_ativar
+        width: 100%
+        flexCenter()
+    .bloco_ativar .ativar
+        background-color: $corClube
+        margin-top: 20px
+        color: #FFF
+        texto()
+        padding: 7px 20px
+        border-radius: 4px
+        cursor: pointer
+
+#bloco_form_ativar
+    .bloco_senha
+        margin-top: 10px
+    .texto_senha
+        margin-top: 10px
+    .bloco_cep
+        width: 150px
+    .bloco_logradouro
+        width: calc(100% - 170px)
+    .bloco_numero
+        width: 200px
+    .bloco_complemento
+        width: calc(100% - 220px)
+    .bloco_bairro
+    .bloco_estado
+    .bloco_cidade
+        width: calc((100% / 3) - 13.3px)
+    .bloco_termo
+        margin-top: 40px
+    .termo
+        flexRow()
+        flexGrow()
+        align-items: center
+        padding-right: 40px
+    .termo .botao_termo
+        texto()
+        padding-left: 10px
+        cursor: pointer
+        &:hover
+            text-decoration: underline

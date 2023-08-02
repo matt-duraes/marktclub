@@ -1,0 +1,1472 @@
+// BANNER
+#bloco_login .bloco_banner
+    width: 100%
+    padding: 150px 0 50px 0
+    position: relative
+    margin-bottom: 50px
+    justifyCenter()
+    .bg
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 1
+        opacity: 0.5
+        background-color: #F6F6F6
+    .degrade
+        width: 100%
+        height: 70%
+        position: absolute
+        bottom: 0
+        left: 0
+        z-index: 2
+        background-image: linear-gradient(rgba(246, 246, 246, 0), rgba(246, 246, 246, 1))
+    .lista
+        width: calc(100% - 40px)
+        max-width: 1300px
+        position: relative
+        display: grid
+        grid-template-columns: 640px 20px 640px
+        grid-template-rows: 310px 20px 310px
+        z-index: 3
+        overflow: hidden
+    .lista figure
+        border-radius: 15px
+        overflow: hidden
+        background-position: center center
+        background-size: cover
+        overflow: hidden
+    .lista figure:nth-child(1)
+        grid-column-start: 1
+        grid-column-end: 1
+        grid-row-start: 1
+        grid-row-end: 4
+    .lista figure:nth-child(2)
+        grid-column-start: 3
+        grid-column-end: 3
+        grid-row-start: 1
+        grid-row-end: 1
+    .lista figure:nth-child(3)
+        grid-column-start: 3
+        grid-column-end: 3
+        grid-row-start: 3
+        grid-row-end: 3
+        grid-row-end: -1
+    .lista .banner_01:nth-of-type(1)
+        grid-column-start: 1
+        grid-column-end: -1
+        grid-row-start: 1
+        grid-row-end: -1
+
+#bloco_login #banner_secundario
+    width: 100%
+    justifyCenter()
+    .imagem
+        width: calc(100% - 40px)
+        position: relative
+        border-radius: 20px
+        overflow: hidden
+        z-index: 2
+    .imagem figure
+        height: 100%
+        background-size: cover
+        background-repeat: no-repeat
+        background-position: center center
+    .imagem img
+        width: 100%
+        visibility:hidden
+
+@media screen and (max-width: 700px)
+    #bloco_login #banner_secundario
+        display: none
+    #bloco_login .bloco_banner
+        margin-bottom: 10px
+    #banner_mobile
+        display: flex
+        margin-bottom: 30px
+        figure
+            height: 100%
+            background-size: contain
+            background-repeat: no-repeat
+            background-position: 100% 100%
+            img
+                width: 100%
+                opacity: 0
+
+@media screen and (max-width: 1340px)
+    #bloco_login .bloco_banner .lista
+        max-width: 1000px
+        grid-template-columns: 490px 20px 490px
+        grid-template-rows: 230px 20px 230px
+
+@media screen and (max-width: 1040px)
+    #bloco_login .bloco_banner
+        display: none
+
+// CATEGORIA
+#bloco_login .bloco_categoria
+    width: calc(100% - 40px)
+    max-width: 1000px
+    position: relative
+    alignItemStart()
+    flex-direction: row
+    justify-content: space-between
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05)
+    background: #FFF
+    padding: 80px 120px
+    border-radius: 20px
+    overflow: hidden
+    z-index: 2
+    .icone
+        width: 40%
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        grid-gap: 1px
+        overflow: hidden
+        margin-right: 80px
+        border-radius: 10px
+        border: 1px solid #CCC
+        position: relative
+    .icone i
+        flexCenter()
+        position: relative
+        height: 130px
+        font-size: 4.5em
+        color: #CCC
+        cursor: pointer
+        &::before
+            content: ''
+            flexCenter()
+            position: absolute
+            top: -1px
+            right: -1px
+            bottom: -1px
+            left: -1px
+            background-color: #ddd
+    .icone i span
+        z-index: 2
+        fill: #ccc
+    .icone i::after
+        width: 100%
+        height: 130px
+        flexCenter()
+        content: ''
+        position: absolute
+        background-color: #fff
+    .icone i.hover::after
+        background-color: $corClube
+        color: #FFF
+    .icone i.hover span
+        fill: #FFF
+    // Conteúdo
+    .conteudo
+        max-width: 350px
+        height: 500px
+        flex-grow: 1
+        flex-basis: 0%
+        position: relative
+        display: flex
+    .conteudo article
+        width: 100%
+        height: 500px
+        background: #FFF
+        alignItemCenter()
+        directionColumn()
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        transition: opacity 0.3s ease-out
+        display: none
+        &.animacao_atual
+            opacity: 0
+            z-index: 1
+        &.categoria_atual
+            opacity: 1
+            display: flex
+        &.animacao_proximo
+            opacity: 1
+            z-index: 2
+    .conteudo article i
+        font-size: 5em
+        color: #CCC
+        display: none
+    .conteudo article .item
+        width: 100%
+        alignItemCenter()
+        directionColumn()
+        flex-grow: 1
+        flex-basis: 0%
+    .conteudo article .item header h1
+        width: 100%
+        text-align: center
+        font-size: 3.5em
+        font-weight: bold
+        color: $corClube
+    .conteudo article .item header p
+        width: 100%
+        line-height: 1.5em
+        text-align: center
+        font-size: 1.7em
+        margin: 10px 0 40px 0
+        color: #666
+    .conteudo article .item .parceiro
+        width: 100%
+        flexWrap()
+        flexGrow()
+        flex-direction: row
+    .conteudo article .item .parceiro .imagem
+        width: calc((100% / 2) - 10px)
+        height: 100px
+        border-radius: 3px
+        padding: 10px
+        margin: 0 10px 10px 0
+        overflow: hidden
+    .conteudo article .item .parceiro figure
+        width: 100%
+        max-width: 110px
+        height: 100%
+        margin: 0 auto
+        background-size: 70%
+        background-position: center center
+        background-repeat: no-repeat
+        background-color: #fff
+        z-index: 1
+    .conteudo article .item footer
+        margin-top: 40px
+    .conteudo article .item footer h2
+        height: auto
+        line-height: 1.5em
+        color: #fff
+        font-weight: bold
+        padding: 10px 40px
+        border-radius: 20px
+        font-size: 2em
+        text-align: center
+        color: $corClube
+    .conteudo article .item footer p
+        width: 100%
+        text-align: center
+        margin-top: 20px
+        font-size: 1.6em
+        color: #666
+
+@media screen and (max-width: 1040px)
+    #bloco_login .bloco_categoria
+        margin-top: 150px
+        padding: 80px 50px
+        .item-slide .parceiro figure
+            background-size: 60%
+        .conteudo article .item header h1
+            font-size: 3em
+        .item-slide .parceiro .imagem
+            height: 90px
+
+@media screen and (max-width: 700px)
+    #bloco_login .bloco_categoria
+        display: none
+    #bloco_login .bloco_categoria .icone
+        width: 50%
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        margin-right: 100px
+        border: 1px solid #ccc
+        border-radius: 10px
+        overflow: hidden
+    #bloco_login #carrousel
+        width: 100%
+        display: flex
+        flex-direction: column
+        z-index: 1
+    .controle-slide
+        display: grid
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr))
+        justify-items: center
+        align-items: center
+        margin-bottom: 20px
+    .controle-slide  i
+        font-size: 3rem
+        color: #e1e1e1
+        transition: .4s
+        transform: scale(.5)
+        cursor: pointer
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -khtml-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+    .controle-slide  i svg
+        fill: #ccc
+    .controle-slide .area-icone.active i
+        color: inherit
+        transform: scale(1)
+    .controle-slide .area-icone.active i svg
+        fill: $corClube
+    .controle-slide&:nth-child(1) i
+        position: relative
+        top: 5
+        font-size: 3rem
+    .controle-slide&:nth-child(2) i
+        position: relative
+        top: 6
+        font-size: 2.5rem
+    .controle-slide&:nth-child(3) i
+        font-size: 2.7rem
+    .area-icone
+        visibility: hidden
+        width: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+    .embrulho-slide
+        overflow: hidden
+    .controle-embrulho
+        overflow: hidden
+        transition: .4s
+    .area-slide
+        display: flex
+        margin-bottom: 50px
+        justify-content: flex-start
+        align-items: center
+        margin-left: 7vw
+    .item-slide
+        flex-shrink: 0
+        background-color: #fff
+        width: 80vw
+        height: 350px
+        margin-bottom: 50px
+        padding: 30px
+        border-radius: 10px
+        margin: 0px 10px
+        opacity: 0.8
+        transition: .4s
+    .item-slide.active
+        opacity: 1
+    .item-slide header h1
+        width: 100%
+        text-align: center
+        font-size: 2.5em
+        font-weight: 700
+    .item-slide header p
+        width: 100%
+        line-height: 1.5em
+        text-align: center
+        font-size: 1.4em
+        color: #666
+        margin: 5px 0 10px 0
+    .item-slide footer h2
+        height: 40px
+        line-height: 40px
+        border-radius: 25px
+        color: #fff
+        font-weight: 700
+        padding: 0 20px
+        font-size: 1.2em
+        background-color: $corClube
+        text-align: center
+    .item-slide footer p
+        width: 100%
+        text-align: center
+        margin-top: 20px
+        font-size: 1.6em
+        color: #666
+    .item-slide .parceiro
+        width: 100%
+        line-height: 1.5em
+        text-align: center
+        font-size: 1em
+        color: #666
+    .item-slide .parceiro
+        width: 100%
+        display: flex
+        flex-direction: row
+        flex-grow: 1
+        flex-basis: 0%
+        margin-top: 20px auto
+    .item-slide .parceiro .imagem
+        width: calc((100% / 2) - 10px)
+        height: 100px
+        border-radius: 3px
+        padding: 10px
+        margin: 0 10px 10px 0
+        overflow: hidden
+    .item-slide .parceiro figure
+        width: 100%
+        max-width: 110px
+        height: 100%
+        margin: 0 auto
+        background-size: 70%
+        background-position: center center
+        background-repeat: no-repeat
+        background-color: #fff
+        z-index: 1
+
+@media screen and (max-width: 530px )
+    .item-slide .imagem figure
+        background-size: 80%
+
+@media screen and (max-width: 450px)
+    .item-slide
+        height: 370px
+@media screen and (max-width: 386px)
+    .item-slide
+        height: 440px
+
+// CONTADOR
+#bloco_login .bloco_contador
+    width: calc(100vw + 2000px)
+    position: relative
+    padding: 300px 0 150px 0
+    z-index: 1
+    border-radius: 0 0 50% 50%
+    overflow: hidden
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    figure, .bg
+        width: 1920px
+        height: 1000px
+        top: 0
+        position: absolute
+        background-color: $corClube
+    figure
+        background-size: cover
+        background-attachment: fixed
+    .bg
+        opacity: 0.6
+    h1
+        max-width: 700px
+        font-size: 4em
+        color: #FFF
+        text-align: center
+        font-weight: bold
+        margin: 40px 0 40px 0
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2)
+        z-index: 3
+    .bloco
+        width: 30%
+        max-width: 690px
+        height: 150px
+        position: relative
+        background: #FFF
+        border-radius: 100px
+        display: flex
+        justify-content: center
+        align-items: center
+        z-index: 3
+        &::after
+            content: ' '
+            width: calc(100% - 22px)
+            height: calc(100% - 20px)
+            border: 1px solid #CCC
+            position: absolute
+            top: 10px
+            left: 10px
+            border-radius: 89px
+    .bloco .item
+        width: 50%
+        text-align: center
+    .bloco .item:first-child
+        border-right: 1px solid #ccc
+    .bloco .item span
+        font-size: 1.4em
+    .bloco .item p
+        font-size: 3.5em
+        color: $corClube
+        font-weight: bold
+    h2
+        font-size: 2.8em
+        color: #FFF
+        padding: 40px 0
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4)
+        z-index: 3
+    h3
+        font-size: 2.4em
+        color: #FFF
+        padding: 20px 0
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4)
+        z-index: 3
+    a
+        height: 50px
+        line-height: 50px
+        background: #FFF
+        padding: 0 80px
+        color: #FFF
+        font-size: 2em
+        font-weight: bold
+        border-radius: 25px
+        z-index: 3
+        color: $corClube
+
+//midia queries bloco bloco_contador//
+@media screen and (max-width: 700px)
+    #bloco_login .bloco_contador h1,
+    #bloco_login .bloco_contador h2
+        display: none
+    #bloco_login .bloco_contador
+        margin-top: 0px
+        padding: 40px 0 40px 0
+    #bloco_login .bloco_contador .bloco
+        align-items: center
+        flex-direction: column
+        height: auto
+        background: transparent
+    #bloco_login .bloco_contador .bloco .item:first-child
+        margin-bottom: 20px
+    #bloco_login .bloco_contador .bloco::after
+        display: none
+    #bloco_login .bloco_contador .bloco .item
+        width: calc(30% - 20px)
+        height: 90px
+        border: 1px solid #ccc
+        border-radius: 90px
+        background: #fff
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        box-shadow: 0px 0px 0px 5px #FFF
+    #bloco_login .bloco_contador a,
+    #bloco_login .bloco_contador h3
+        display: none
+    #titulo_link-cadastro
+        font-size: 2.1em
+        padding: 20px 0
+        display: block
+    #bloco_login .span_mobile
+        z-index: 2
+        font-size: 1.8rem
+        display: flex
+        padding: 25px
+        font-weight: bold
+        text-align: center
+    #bloco_login .span_mobile span
+        font-size: 1em
+    #bloco_login .a_mobile
+        height: 50px
+        display: flex
+        align-items: center
+        background: #fff
+        padding: 0 80px
+        font-size: 2em
+        font-weight: bold
+        border-radius: 25px
+        z-index: 2
+        color: $corClube
+        a
+            font-size: 1em
+            color: #fff
+
+//bloco contador//
+.contador1
+    animation: counter 3s forwards ease-in-out
+    counter-reset: lojas var(--lojas)
+.contador1::after
+    content: counter(lojas)
+@keyframes counter
+    from
+        --lojas: 0
+    to
+        --lojas: 15000
+.contador2
+    animation: par 3s forwards ease-in-out
+    counter-reset: parcerias var(--parcerias)
+.contador2::after
+    content: counter(parcerias)
+@keyframes par
+    from
+        --parcerias: 0
+    to
+        --parcerias: 1400
+
+//MEU PARCEIRO//
+.meu_parceiro
+    display: flex
+    width: 100%
+    margin-top: 40px
+    padding: 60px 100px
+    max-width: 1100px
+    background-color: #fff
+    border-radius: 15px 15px 0px 0px
+    justify-content: space-between
+    .item
+        flexCenter()
+        directionColumn()
+    a
+        flexCenter()
+        border-radius: 25px
+        color: white
+        height: 40px
+        line-height: 40px
+        margin-top: 30px
+        padding: 0 50px
+        font-size: 1.8em
+        color: $corClube
+    .item h1
+        font-size: 20px
+        font-weight: bold
+        text-align: center
+        font-size: 3.5rem
+        color: $corClube
+    .item h2
+        font-size: 2rem
+        text-align: center
+        color: #333
+        margin-top: 30px
+
+#bloco_login .formulario_mobile
+    width: 100%
+    height: auto
+    max-width: 500px
+    display: none
+    flex-direction: column
+    align-items: center
+    padding: 20px
+    margin: 40px 0
+    justify-content: space-around
+    h1
+        font-weight: bold
+        text-align: center
+        font-size: 2rem
+        padding-bottom: 20px
+        color: $corClube
+    form
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        height: auto
+        justify-content: space-around
+    form .botao_enviar
+        width: 100%
+        max-width: 250px
+        height: 40px
+        font-size: 1.8rem
+        color: #fff
+        border-radius: 6px
+        margin-top: 20px
+        background-color: $corClube
+
+
+@media screen and (max-width: 900px)
+    .meu_parceiro
+        flex-direction: column-reverse
+        padding: 40px
+        border-radius: 0px
+    .meu_parceiro h2
+        display: none
+    .meu_parceiro h1
+        margin-bottom: 40px
+
+#formulario_contato
+    button
+        background-color: $corClube
+        color: #FFF
+        margin-top: 10px
+
+.meu_parceiro
+    display: flex
+    width: 100%
+    margin-top: 40px
+    padding: 60px 100px
+    max-width: 1100px
+    background-color: #fff
+    border-radius: 15px 15px 0px 0px
+    justify-content: space-between
+    .item
+        flexCenter()
+        directionColumn()
+    a
+        flexCenter()
+        border-radius: 25px
+        color: white
+        height: 40px
+        line-height: 40px
+        margin-top: 30px
+        padding: 0 50px
+        font-size: 1.8em
+        color: $corClube
+    .item h1
+        font-size: 20px
+        font-weight: bold
+        text-align: center
+        font-size: 3.5rem
+        color: $corClube
+    .item h2
+        font-size: 2rem
+        text-align: center
+        color: #333
+        margin-top: 30px
+
+#bloco_login .formulario_mobile
+    width: 100%
+    height: auto
+    max-width: 500px
+    display: none
+    flex-direction: column
+    align-items: center
+    padding: 20px
+    margin: 40px 0
+    justify-content: space-around
+    h1
+        font-weight: bold
+        text-align: center
+        font-size: 2rem
+        padding-bottom: 20px
+        color: $corClube
+    form
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        height: auto
+        justify-content: space-around
+    form .botao_enviar
+        width: 100%
+        max-width: 250px
+        height: 40px
+        font-size: 1.8rem
+        color: #fff
+        border-radius: 6px
+        margin-top: 20px
+        background-color: $corClube
+
+@media screen and (max-width: 900px)
+    .meu_parceiro
+        flex-direction: column-reverse
+        padding: 40px
+        border-radius: 0px
+    .meu_parceiro h2
+        display: none
+    .meu_parceiro h1
+        margin-bottom: 40px
+
+#formulario_contato
+    button
+        background-color: $corClube
+        color: #FFF
+        margin-top: 10px
+
+// CALCULADORA
+.bloco_calculadora
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    margin-top: 0px
+    padding-top: 40px
+    background-size: contain
+    position: relative
+    .bg
+        width: 100%
+        height: 220px
+        position: absolute
+        top: 0px
+        background-size: contain
+    button
+        width: 150px
+        height: 40px
+        align-items: center
+        justify-content: center
+        color: #FFFFFF
+        font-size: 1.8em
+        line-height: 40px
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05)
+        border-bottom-left-radius: 10px
+        border-bottom-right-radius: 10px
+    .container
+        width: 100%
+        max-width: 700px
+        display: flex
+        align-items: center
+        justify-content: space-around
+        flex-direction: column
+        position: relative
+        padding: 40px
+        background-color: #FFFFFF
+        border-radius: 20px
+    .container .topo
+        width: 100%
+        max-width: 500px
+        display: flex
+        align-items: center
+        justify-content: space-around
+    .container .topo .img_calculadora
+        width: 100px
+        height: 100px
+        mask-repeat: no-repeat
+        -webkit-mask-repeat: no-repeat
+        mask-size: contain
+        -webkit-mask-size: contain
+        background-color: $corClube
+    .container .topo .texto
+        width: 100%
+        max-width: 400px
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+    .container .topo .texto h2
+        font-size: 1.8em
+        line-height: 1.5em
+        font-weight: bold
+        text-align: center
+        color: $corClube
+    .container .topo .texto h2 span
+        font-size: 1em
+    .container .topo .texto p
+        color: #666
+        text-align: center
+        font-size: 1.2em
+        line-height: 1.5em
+    .container  .fechar
+        width: 100%
+        max-width: 200px
+        height: 50px
+        display: flex
+        align-items: center
+        justify-content:center
+        position: absolute
+        bottom: 0
+        color: #FFF
+        border-top-left-radius: 10px
+        border-top-right-radius: 10px
+        cursor: pointer
+    .container  .fechar p
+        font-size: 1.8em
+        line-height: 1.5em
+    .container .conteudo
+        display: flex
+        flex-direction: column
+        align-items: center
+        position: relative
+        padding: 20px
+        padding-bottom: 0px
+        overflow: hidden
+        animation: abrirCalculadora .3s linear forwards
+        h2
+            width: 100%
+            max-width: 500px
+            margin-top: 20px
+            font-size: 2.2em
+            color: #666666
+            text-align: center
+        h2 span
+            font-size: 1em
+            color: #333333
+            font-weight: bold
+        form
+            width: calc(100% + 20px)
+            display: flex
+            align-items: center
+            justify-content: center
+            margin-top: 20px
+            flex-wrap: wrap
+            padding-bottom: 30px
+            button
+                height: 50px
+                margin-top: 40px
+                color: #FFFFFF
+                background-color: #333
+                font-size: 1.5em
+                line-height: 1.5em
+                text-align: center
+                font-weight: bold
+                border-radius: 10px
+            fieldset
+                width: calc((100% / 3) - 0px)
+                display: flex
+                flex-wrap: wrap
+                align-items: center
+                justify-content: center
+                flex-direction: column
+            fieldset label
+                color: #333333
+                font-size: 1.9em
+                line-height: 1.5em
+                margin-top: 30px
+            fieldset input
+                height: 40px
+                border-radius: 3px
+                color: #333333
+                background-color: #EEE
+                font-size: 1.5em
+                line-height: 1.5em
+                font-weight: bold
+                text-align: center
+    .container .resultado
+        display: flex
+        flex-direction: column
+        align-items: center
+        position: relative
+        overflow: hidden
+        h2
+            width: 100%
+            max-width: 500px
+            margin-top: 20px
+            font-size: 2.2em
+            color: #666666
+            text-align: center
+        h2 span
+            color: #333333
+            font-weight: bold
+            padding: 20px 20px 0px 20px
+        strong
+            font-size: 2.5em
+            font-weight: bold
+            background-color: #eee
+            padding: 20px
+            border-radius: 8px
+            margin: 20px 0px
+        .novamente
+            padding: 20px
+            margin-top: 20px
+            margin-bottom: 80px
+            border: 1px solid #333333
+            border-radius: 3px
+            cursor: pointer
+            &:hover
+                background: #333
+            &:hover > p
+                color: #FFF
+        .novamente p
+            color: #333333
+            font-size: 1.5em
+            text-align: center
+    .esconde
+        display: none !important
+    .mostra
+        display: flex !important
+
+@media screen and (max-width:740px)
+    #bloco_login .bloco_calculadora
+        padding-left: 20px
+        padding-right: 30px
+@media screen and (max-width: 720px)
+    #bloco_login .bloco_calculadora h2
+        line-height: 1.2em
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset
+        width: calc((100% / 2) - 0px)
+@media screen and (max-width: 700px)
+    #bloco_login .bloco_calculadora .bg
+        display: none
+    #bloco_login .bloco_calculadora .container .topo
+        flex-direction: column
+    #bloco_login .bloco_calculadora .container .topo .texto h2
+        line-height: 1.2em
+        margin-bottom: 20px
+    #bloco_login .bloco_calculadora .container .topo .img_calculadora
+        width: 90px
+@media screen and (max-width: 680px)
+    #bloco_login .bloco_calculadora .container .conteudo form
+        flex-direction: column
+        width: calc(100% + 0px)
+        fieldset
+            width: 100%
+            display: grid
+            grid-template-columns: repeat(2, 1fr)
+            grid-column-gap: 10px
+            grid-row-gap: 1em
+            margin-top: 10px
+        fieldset label
+            margin-top: 0
+        fieldset input
+            width: 100%
+            padding-left: 10px
+
+@media screen and (max-width: 450px)
+    #bloco_login .bloco_calculadora .container
+        padding: 20px
+    #bloco_login .bloco_calculadora .container .conteudo
+        padding: 0
+    #bloco_login .bloco_calculadora .container .conteudo form
+        display: flex
+        padding-bottom: 50px
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        width: 100%
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset label
+        font-size: 1.5em
+        margin-top: 0px
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset input
+        max-width: 110px
+
+@-webkit-keyframes abrirCalculadora
+    from
+        max-height: 0px
+    to
+        max-height: 1000px
+
+@keyframes abrirCalculadora
+    from
+        max-height: 0px
+    to
+        max-height: 1000px
+
+@-webkit-keyframes fecharCalculadora
+    from
+        max-height: 1000px
+    to
+        max-height: 0px
+        padding-top: 0
+        padding-bottom: 0
+
+@keyframes fecharCalculadora
+    from
+        max-height: 1000px
+    to
+        max-height: 0px
+        padding-top: 0
+        padding-bottom: 0
+
+@keyframes fecharResultado
+    from
+        max-height: 1000px
+    to
+        max-height: 0px
+
+// CASHBACK
+#bloco_login .bloco_cashback
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    margin-top: 0px
+    padding-top: 40px
+    header
+        width: 620px
+        display: flex
+        padding-right: 80px
+        flex-direction: column
+        align-items: flex-end
+    header h1
+        width: 100%
+        max-width: 300px
+        font-size: 4em
+        font-weight: bold
+        text-align: center
+        color: $corClube
+    header p
+        width: 100%
+        max-width: 300px
+        margin-top: 20px
+        font-size: 2.2em
+        line-height: 1.5em
+        color: #333
+        text-align: center
+    .imagem
+        width: 620px
+        height: 560px
+        position: relative
+    .imagem .desconto_5
+        position: absolute
+        top: 420px
+        left: 20px
+        z-index: 3
+    .imagem .desconto_7
+        position: absolute
+        top: 116px
+        left: 25px
+        z-index: 1
+    .imagem .desconto_10
+        position: absolute
+        top: 20px
+        left: 390px
+        z-index: 3
+    .imagem .pc
+        position: absolute
+        top: 70px
+        left: 40px
+        z-index: 2
+    .imagem .logo
+        position: absolute
+        z-index: 3
+        top: 180px
+        left: 315px
+
+/**************midia queries cashback************/
+@media screen and (max-width: 1100px)
+    #bloco_login .bloco_cashback .imagem
+        width: 560px
+        height: 479px
+    #bloco_login .bloco_cashback .imagem .desconto_5
+        top: 300px
+        left: 0px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .desconto_7
+        top: 80px
+        left: 0px
+    #bloco_login .bloco_cashback .imagem .desconto_10
+        left: 210px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .pc
+        z-index: 1
+        left: 10px
+    #bloco_login .bloco_cashback .imagem .pc img
+        width: 70%
+        margin-left: 20px
+    #bloco_login .bloco_cashback .imagem .logo
+        z-index: 2
+        top: 180px
+        left: 245px
+    #bloco_login .bloco_cashback .imagem .logo img
+        width: 140px
+@media screen and (max-width: 790px)
+    #bloco_login .bloco_cashback
+        align-items: center
+        background: none
+        flex-direction: column
+        margin-top: 40px
+    #bloco_login .bloco_cashback .imagem
+        display flex
+        width: 350px
+        position: absolute
+        margin-top: 50px
+    #bloco_login .bloco_cashback header
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        padding-right: 0px
+    #bloco_login .bloco_cashback header h1
+        display: flex
+        flex-direction: column
+        text-align: center
+    #bloco_login .bloco_cashback header p
+        display: flex
+        margin-top: 500px
+        font-weight: bold
+    #bloco_login .bloco_cashback .imagem .desconto_5
+        top: 300px
+        left: 0px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .desconto_7
+        top: 80px
+        left: 0px
+    #bloco_login .bloco_cashback .imagem .desconto_10
+        left: 210px
+        z-index: 2
+    #bloco_login .bloco_cashback .imagem .pc
+        z-index: 1
+        left: 10px
+    #bloco_login .bloco_cashback .imagem .pc img
+        width: 70%
+        margin-left: 20px
+    #bloco_login .bloco_cashback .imagem .logo
+        z-index: 2
+        top: 143px
+        left: 220px
+    #bloco_login .bloco_cashback .imagem .logo img
+        width: 140px
+
+// EXTENSAO
+#bloco_login .bloco_extensao
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    margin: 40px 0
+    padding: 80px 0
+    background-color: white
+    .box_quebra_cabeca
+        width: calc(100% - 40px)
+        max-width: 700px
+        display: flex
+        align-items: center
+        justify-content: space-between
+    .box_quebra_cabeca figure
+        width: 150px
+        height: 150px
+        mask-repeat: no-repeat
+        -webkit-mask-repeat: no-repeat
+        mask-size: contain
+        -webkit-mask-size: contain
+        background-color: $corClube
+    .box_quebra_cabeca .texto_quebra_cabeca
+        max-width: 480px
+        text-align: center
+        display: flex
+        align-items: center
+        flex-direction: column
+        font-size: 1.5rem
+        line-height: 1.5em
+    .box_quebra_cabeca .texto_quebra_cabeca p
+        color: #333
+        font-size: 2.1rem
+    .box_quebra_cabeca .botao_quebra_cabeca
+        width: 250px
+        flexCenter()
+        border-radius: 25px
+        color: white
+        margin-top: 15px
+        padding: 0 40px
+        height: 50px
+        font-size: 1.8rem
+        background-color: $corClube
+
+.span_baixar
+    margin-top: 7px
+    font-size: 1.5em
+.escanei
+    display: flex
+    align-items: center
+    flex-direction: column
+    figure .celularmobile
+        margin: 30px
+        width: 245px
+        display: flex
+
+@media screen and (max-width: 700px)
+    #bloco_login .bloco_extensao
+        display: none
+
+// APP
+#bloco_login .app
+    width: calc(100% - 40px)
+    display: flex
+    max-width: 800px
+    padding: 60px 0
+    justify-content: space-between
+    figure
+        position: relative
+    .qr_code
+        position: absolute
+        display: flex
+        flex-direction: column
+        align-items: center
+        top: 60px
+        left: 0px
+        right: 0px
+        margin: 0px
+        justify-content: space-around
+    .img_celular_app
+        width: 130px
+        height: 130px
+        mask-repeat: no-repeat
+        -webkit-mask-repeat: no-repeat
+        mask-size: contain
+        -webkit-mask-size: contain
+        mask-position: center
+        -webkit-mask-position: center
+        background-color: $corClube
+    .qr_code img
+        margin-top: 50px
+    .qr_code h1
+        margin-top: 25px
+        font-weight: bold
+        font-size: 1.5rem
+        color: #333
+    .qr_code .span_baixar
+        color: $corClube
+
+#bloco_login .app .bloco_esquerdo
+    width: 280px
+    justify-content: center
+    flex-direction: column
+    display: flex
+    align-items: center
+    h1
+        font-size: 2rem
+        text-align: center
+        font-weight: bold
+        color: $corClube
+    h2
+        font-size: 1em
+        line-height: 1.5em
+        text-align: center
+    span
+        font-size: 1em
+        line-height: 1.5em
+        text-align: center
+    p
+        text-align: center
+        color: #333
+        font-size: 2em
+        line-height: 1.5em
+        margin-top: 20px
+        margin-bottom: 35px
+    .link_app
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        text-align: center
+        border: 1px solid #EEE
+        background-color: white
+        padding: 10px
+        border-radius: 10px
+        color: #333
+        font-size: 3em
+        box-shadow: 0 4px 5px rgba(0,0,0,.1)
+        a
+            width: 100%
+            height: 100%
+            display: none
+            position: absolute
+            top: 0px
+            right: 0px
+            left: 0px
+            bottom: 0px
+    .plataforma
+        margin: 25px
+        font-size: 20px
+        color: #333
+    .mobileicon
+        margin-right: 10px
+        width: 25px
+    .mobiletexto
+        margin-left: 10px
+        span
+            font-size: 10px
+        h3
+            font-size: 20px
+        h2
+            font-size: 24px
+    .box_apple
+        width: 180px
+        height: 55px
+        margin-bottom: 10px
+        background-color: black
+        cursor: pointer
+        background: url(../../images/login/apple.png) no-repeat center top
+        background-size: cover
+        position: relative
+    .box_google_link
+        width: unset !important
+        height: unset !important
+    .box_link_app a
+        width: unset
+        height: unset
+        display: block
+        position: unset
+    .box_google
+        width: 180px
+        height: 55px
+        background-color: black
+        cursor: pointer
+        background: url(../../images/login/google.png) no-repeat center top
+        background-size: cover
+        margin-bottom: 25px
+        position: relative
+
+@media screen and (max-width: 700px)
+    #bloco_login .app
+        flex-direction: column
+        align-items: center
+        justify-content: center
+    #bloco_login .app figure
+        display: none
+    #bloco_login .app .bloco_esquerdo .link_app
+        .box_apple
+        .box_google
+            cursor: pointer
+        a
+            display: block
+    #bloco_login .baixe_app
+        position: relative
+        padding: 0px 0px 30px
+    #bloco_login .app_mobile
+        position: relative
+        margin-bottom: 10px
+    #bloco_login .item_mobile
+        display: flex
+        flex-direction: column
+        justify-content: flex-end
+    #bloco_login .faturamento_mobile
+        order: 3
+    #bloco_login .parceiro_mobile
+        width: max(50%,200px)
+        height: unset
+
+// GERAL
+#carrousel,
+.span_mobile,
+.a_mobile
+    display: none
+
+#bloco_login
+    width: 100%
+    min-height: 100vh
+    flexCenter()
+    directionColumn()
+    form
+        width: 100%
+        max-width: 500px
+        blocoShadow()
+        flexCol()
+    form > h1
+        width: 100%
+        titulo()
+        font-weight: bold
+    form > p
+        width: 100%
+        texto()
+        margin-bottom: 15px
+    form .botao
+        height: 50px
+        line-height: 50px
+        background-color: #CCC
+        color: #333
+        border-radius: 5px
+        margin-top: 15px
+        text-align: center
+        textoFontSize()
+        cursor: pointer
+    .duvida
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 60px 0
+        background-color: $corClube
+        a
+            border-radius: 6px
+            color: #fff
+            width: 300px
+            height: 60px
+            line-height: 60px
+            border: 1px solid #fff
+            font-size: 2rem
+            text-align: center
+            cursor: pointer
+
+@media screen and (max-width: 1040px)
+    #banner_secundario
+        margin-top: 150px
+@media screen and (max-width: 700px)
+    #bloco_login .duvida
+        display: none
+    #bloco_login .form_formulario label
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        height: 40px
+        border-color: 50px black
+        border-radius: 6px
+
+
+@media screen and (max-width: 700px)
+    #bloco_login .botao_enviar
+        width: 100px
+        color: #fff
+        height: 35px
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: 3px
+
+.mostra_mobile
+    display:none
+@media screen and (max-width:700px)
+    #bloco_login .formulario_mobile
+        display: flex

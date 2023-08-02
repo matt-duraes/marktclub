@@ -37,7 +37,7 @@
                         </i>
                         <div class="item">
                             <header>
-                                <h1 class="cor_color">
+                                <h1>
                                     {{$r['titulo']}}
                                 </h1>
                                 <p>
@@ -54,7 +54,7 @@
                             </div>
 
                             <footer>
-                                <h2 class="cor_bg">
+                                <h2>
                                     {!!$r['desconto']!!}
                                 </h2>
                                 @if (array_key_exists('observacao', $r)) :
@@ -101,7 +101,7 @@
             @foreach ($temMais as $r) :
                 <div class="item-slide">
                     <header>
-                        <h1 class="cor_color">
+                        <h1>
                             {{$r['titulo']}}
                         </h1>
                         <p>
@@ -118,7 +118,7 @@
                     </div>
 
                     <footer>
-                        <h2 class="cor_bg">{!!$r['desconto']!!}</h2>
+                        <h2>{!!$r['desconto']!!}</h2>
                         @if (array_key_exists('observacao', $r)) :
                             <p>
                                 {{$r['observacao']}}

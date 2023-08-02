@@ -12,14 +12,22 @@ Route
             ::nome('index')
             ::view('/login');
         Route
-            ::nome('comoFunciona')
-            ::view('/login/como-funciona-escolha');
+            ::nome('login')
+            ::view('/login/login');
         Route
-            ::nome('comoFuncionaDependente')
+            ::nome('login')
+            ::request(['login', 'senha'])
+            ::post('/login/login');
+
+        Route
+            ::nome('comoFunciona')
             ::view('/login/como-funciona');
         Route
-            ::nome('comoFuncionaCFM')
-            ::view('/login/como-funciona-cfm');
+            ::nome('comoFuncionaDependente')
+            ::view('/login/como-funciona-dependente');
+        Route
+            ::nome('comoFuncionaMedico')
+            ::view('/login/como-funciona-medico');
         Route
             ::nome('comoFuncionaFuncionario')
             ::view('/login/como-funciona-funcionario');
@@ -27,47 +35,26 @@ Route
             ::nome('faq')
             ::view('/login/faq');
         Route
-            ::nome('logar')
-            ::request(['login', 'senha'])
-            ::post('/login');
-        Route
-            ::nome('abrirModalContato')
+            ::nome('contato')
             ::view('/contato');
         Route
             ::nome('contato')
-            ::request(['hash', 'validacao',  'nome', 'email', 'telefone', 'mensagem'])
+            ::request(['hash_validacao_captcha', 'nome', 'email', 'telefone', 'mensagem'])
             ::post('/contato');
         Route
-            ::nome('ativar')
-            ::view('/auth/ativar');
+            ::nome('buscarConta')
+            ::view('/login/buscar-conta');
         Route
-            ::nome('buscarUsuario')
-            ::request(['client_id', 'pesquisa', 'tipo', 'captcha'])
-            ::post('/auth/buscar-usuario');
-        Route
-            ::nome('ativar')
-            ::request(['dado', 'client_id', 'scope', 'redirect_uri', 'state'])
-            ::post('/auth/ativar');
+            ::nome('buscarConta')
+            ::request(['hash_validacao_captcha', 'usuario'])
+            ::post('/login/buscar-conta');
         Route
             ::nome('ativar')
-            ::request(['nome_completo', 'email_pessoal', 'documento_cpf', 'sexo', 'titular', 'empresa', 'client_id'])
-            ::post('/auth/salvar-dependente');
+            ::view('/login/ativar');
         Route
-            ::nome('logarUsuario')
-            ::view('/auth/login');
-        Route
-            ::nome('enviarCodigo')
-            ::request(['captcha', 'login', 'client_id'])
-            ::post('/auth/enviar-codigo');
-        Route
-            ::nome('validarCodigo')
-            ::request(['login', 'client_id', 'codigo'])
-            ::post('/auth/validar-codigo');
-        Route
-            ::nome('novaSenha')
-            ::request(['login', 'client_id', 'codigo', 'nova_senha', 'repetir_senha'])
-            ::post('/auth/nova-senha');
-
+            ::nome('ativar')
+            ::request(['hash_validacao_captcha', 'hash', 'nome', 'email'])
+            ::post('/login/ativar');
     });
 
 Route

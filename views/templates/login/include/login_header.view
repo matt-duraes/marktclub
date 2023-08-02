@@ -5,32 +5,32 @@
     <nav id="menu_principal">
         <div class="background" id="bloco_menu_mobile">
             <div class="conteudo">
-                <a href="{!!route('login.ativar')!!}" class="botao">
-                    <i class="cor_color">@iconePrimeiroAcesso</i>
+                <div class="botao_fazer_login entrar_mobile">Entrar</div>
+                <div class="botao" id="botao_ativar_conta_home">
+                    <i>@iconePrimeiroAcesso</i>
                     <p>Primeiro Acesso</p>
                     <div class="borda"></div>
-                </a>
-                <a class="botao app" href="#baixar-app">
-                    <i class="cor_color">@iconeBaixarApp()</i>
+                </div>
+                <div class="botao app">
+                    <i>@iconeBaixarApp()</i>
                     <p>Baixe o App</p>
                     <div class="borda"></div>
-                </a>
+                </div>
                 <a href="{!!route('login.faq')!!}" target="_blank" class="botao">
-                    <i  class="cor_color">@iconeFaq()</i>
+                    <i>@iconeFaq()</i>
                     <p>FAQ</p>
                     <div class="borda"></div>
                 </a>
                 <a href="{!!route('login.comoFunciona')!!}" target="_blank" class="botao">
-                    <i class="cor_color">@iconeComoFunciona</i>
+                    <i>@iconeComoFunciona</i>
                     <p>Como Funciona</p>
                     <div class="borda"></div>
                 </a>
-                <a href="{!!route('login.logarUsuario')!!}" class="entrar_mobile">Entrar</a>
             </div>
         </div>
         <i class="botao_mobile" id="botao_abrir_menu">
             @iconeMenuMobile()
         </i>
-        <a href="{!!route('login.logarUsuario')!!}" class="entrar">Entrar</a>
+        <div class="botao_fazer_login entrar">Entrar</div>
     </nav>
 </header>

@@ -5,17 +5,17 @@
         <p>Esperando por você!</p>
     </div>
 
-    @view site/login/geral/banner.view
-    @view site/login/geral/categoria.view
-    @view site/login/geral/contador.view
-    @view site/login/geral/calculadora.view
+    @view site/login/index/include/banner.view
+    @view site/login/index/include/categoria.view
+    @view site/login/index/include/contador.view
+    @view site/login/index/include/calculadora.view
 
 
     @ if(MENU_CASHBACK):
-        @view site/login/geral/cashback.view
+        @view site/login/index/include/cashback.view
     @ endif;
 
-    @view site/login/geral/extensao.view
-    @view site/login/geral/app.view
-    @view site/login/geral/contato.view
+    @view site/login/index/include/extensao.view
+    @view site/login/index/include/app.view
+    @view site/login/index/include/contato.view
 </div>

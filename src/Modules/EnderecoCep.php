@@ -39,7 +39,7 @@ final class EnderecoCep implements ModuleInterface
      * @param null|string $cep CEP para o modulo
      */
     public function __construct(
-        private ?string $cep
+        private ?string $cep = null
     ) {
         if (empty($this->cep)) {
             $this->vazio = true;

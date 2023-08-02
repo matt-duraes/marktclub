@@ -51,16 +51,15 @@
             @endif;
         </ul>
     </div>
+    <div class="bloco_copyright">
+        <p>Administrado por:</p>
+        <a href="http://marktclub.com.br" target="_blank" rel="noopener noreferrer"><img src="{{LINK_PADRAO}}/images/logo_marktclub.png" alt="[Administrado por MARKTCLUB]" height="40"></a>
+        <p class="copy">
+            @2011/{{date('Y')}} Todos os direitos reservados é de uso exclusivo {{str_replace('https://', '', LINK_PADRAO)}}<br>
+            Proibida reprodução ou utilização e qualquer titulo sob as penas da lei.
+        </p>
+    </div>
 </footer>
-
-<div class="bloco_copyright">
-    <p>Administrado por:</p>
-    <a href="http://marktclub.com.br" target="_blank"><img src="{{LINK_PADRAO}}/images/marktclub.png" alt="[Administrado por MARKTCLUB]" height="20" /></a>
-    <p class="copy">
-        @2011/{{date('Y')}} Todos os direitos reservados é de uso exclusivo {{LINK}}<br>
-        Proibida reprodução ou utilização e qualquer titulo sob as penas da lei.
-    </p>
-</div>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 

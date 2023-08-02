@@ -3,11 +3,11 @@
     <div class="container">
         <div class="topo">
 
-            <figure class="img_calculadora cor_bg"
+            <figure class="img_calculadora"
             style="mask-image: url({!!LINK_PADRAO!!}/images/login/calculadora.svg);
             -webkit-mask-image: url({!!LINK_PADRAO!!}/images/login/calculadora.svg)"></figure>
             <div class="texto">
-                <h2 class="cor_color">Economia Familiar</h2>
+                <h2>Economia Familiar</h2>
                 <p>Saiba quanto você pode economizar em média ao ano com nossos descontos</p>
             </div>
         </div>
