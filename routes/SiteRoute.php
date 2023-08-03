@@ -4,6 +4,46 @@ use Route\Route;
 use App\Middlewares\Site\AuthMiddleware;
 
 Route
+    ::nome('faq')
+    ::middleware(AuthMiddleware::class, 'deslogado')
+    ::controller(App\Controllers\Site\FaqController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/login/faq');
+    });
+Route
+    ::nome('comoFunciona')
+    ::middleware(AuthMiddleware::class, 'deslogado')
+    ::controller(App\Controllers\Site\ComoFuncionaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/login/como-funciona');
+        Route
+            ::nome('dependente')
+            ::view('/login/como-funciona-dependente');
+        Route
+            ::nome('medico')
+            ::view('/login/como-funciona-medico');
+        Route
+            ::nome('funcionario')
+            ::view('/login/como-funciona-funcionario');
+    });
+Route
+    ::nome('contato')
+    ::middleware(AuthMiddleware::class, 'deslogado')
+    ::controller(App\Controllers\Site\ContatoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/login/contato');
+        Route
+            ::nome('salvar')
+            ::request(['hash_validacao_captcha', 'nome', 'email', 'telefone', 'mensagem'])
+            ::post('/login/contato');
+    });
+Route
     ::nome('login')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
@@ -18,29 +58,6 @@ Route
             ::nome('login')
             ::request(['login', 'senha'])
             ::post('/login/login');
-
-        Route
-            ::nome('comoFunciona')
-            ::view('/login/como-funciona');
-        Route
-            ::nome('comoFuncionaDependente')
-            ::view('/login/como-funciona-dependente');
-        Route
-            ::nome('comoFuncionaMedico')
-            ::view('/login/como-funciona-medico');
-        Route
-            ::nome('comoFuncionaFuncionario')
-            ::view('/login/como-funciona-funcionario');
-        Route
-            ::nome('faq')
-            ::view('/login/faq');
-        Route
-            ::nome('contato')
-            ::view('/contato');
-        Route
-            ::nome('contato')
-            ::request(['hash_validacao_captcha', 'nome', 'email', 'telefone', 'mensagem'])
-            ::post('/contato');
         Route
             ::nome('buscarConta')
             ::view('/login/buscar-conta');

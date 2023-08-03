@@ -9,6 +9,8 @@
 @resource "site/variavel"
 @resource "site/geral"
 
+@import "login"
+
 body
     background-color: #F6F6F6
     font-family: 'Inter', sans-serif
@@ -68,6 +70,7 @@ body
         background-color: $corClube
         opacity: 0
         transition: opacity .3s ease-out, bottom .3s ease-out
+    .conteudo .botao.hover .borda
     .conteudo .botao:hover .borda
         opacity: 1
         bottom: 0

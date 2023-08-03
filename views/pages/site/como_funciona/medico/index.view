@@ -45,41 +45,4 @@
             </div>
         </div>
     </div>
-    <footer class="footer cor_bg" >
-        <div class="footer--imagem" style="background-image: url(https://clube.marktclub.com.br/images/tutorial/footer.png)">
-            <figure class="celular"><img src="https://clube.marktclub.com.br/images/tutorial/footer_celular.png"></figure>
-            <div class="esquerdo">
-                <h1 class="cor_color">Baixe o <br> Aplicativo</h1>
-                <p>E tenha todos os benefícios <br> na palma da sua mão.</p>
-                <div class="botao_aplicativo">
-                    <div class="aplicativo">
-                        <a class="apple" href="{{LINK_APPLE}}" target="_blank">
-                            <div class="imagem">
-                                <img src="https://clube.marktclub.com.br/images/tutorial/apple.svg" alt="Aplicativo disponível na app Store">
-                            </div>
-                            <div class="texto">
-                                <p><span>Disponível na <br></span> Apple Store</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="aplicativo">
-                        <a class="android" href="{{LINK_ANDROID}}" target="_blank">
-                            <div class="imagem">
-                                <img src="https://clube.marktclub.com.br/images/tutorial/googlePlay.svg" alt="Aplicativo disponível na Google Play">
-                            </div>
-                            <div class="texto">
-                                <p><span>Disponível na <br></span> Google Play</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer--contato">
-            <h1>POSSUI ALGUMA DÚVIDA?</h1>
-            <p>Whatsapp: (61) 99354-6881 (apenas WhatsApp)</p>
-            <p>E-mail: atendimento@temmaisvantagens.com.br</p>
-        </div>
-        <a href="https://clube.marktclub.com.br" class="link voltar_inicio cor_color">VOLTAR AO SITE</a>
-    </footer>
 </section>

@@ -11,17 +11,17 @@
                     <p>Primeiro Acesso</p>
                     <div class="borda"></div>
                 </div>
-                <div class="botao app">
+                <div class="botao app" id="botao_baixar_app">
                     <i>@iconeBaixarApp()</i>
                     <p>Baixe o App</p>
                     <div class="borda"></div>
                 </div>
-                <a href="{!!route('login.faq')!!}" target="_blank" class="botao">
+                <a href="{!!route('faq.index')!!}" class="botao {{$menu == 'faq' ? 'hover' : ''}}">
                     <i>@iconeFaq()</i>
                     <p>FAQ</p>
                     <div class="borda"></div>
                 </a>
-                <a href="{!!route('login.comoFunciona')!!}" target="_blank" class="botao">
+                <a href="{!!route('comoFunciona.index')!!}" class="botao {{$menu == 'ajuda' ? 'hover' : ''}}">
                     <i>@iconeComoFunciona</i>
                     <p>Como Funciona</p>
                     <div class="borda"></div>
