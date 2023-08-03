@@ -1,7 +1,220 @@
 @system "Resetar"
+@system "Pagina"
+@system "Form"
+@system "Animacao"
+@system "Loading"
+@system "Alerta"
+
 @resource "site/mixim"
+@resource "site/variavel"
+@resource "site/geral"
+
+@import "login"
 
 body
     background-color: #F6F6F6
     font-family: 'Inter', sans-serif
     color: #495057
+
+#site
+    width: 100%
+    border-top: 10px solid $corClube
+    min-height: 100vh
+    flexCenter()
+    directionColumn()
+    overflow: hidden
+
+#header_principal
+    width: 100%
+    max-width: 1300px
+    padding: 0 20px
+    top: 0
+    padding: 40px 20px 0
+    display: flex
+    flex-direction: row
+    align-items: center
+    z-index: 3
+    position: absolute
+    figure
+        flex-grow: 1
+        flex-basis: 0%
+    figure img
+        height: 60px
+#menu_principal
+    display: flex
+    flex-direction: row
+    align-items: center
+    .conteudo
+        flexRow()
+    .conteudo .botao
+        position: relative
+        flexCol()
+        align-items: center
+        cursor: pointer
+        padding: 0 12px 10px 12px
+    .conteudo .botao i
+        height: 30px
+        font-size: 3em
+        overflow: hidden
+        fill: $corClube
+    .conteudo .botao p
+        textoFontSize()
+        color: #666
+        margin-top: 5px
+    .conteudo .botao .borda
+        width: calc(100% - 24px)
+        height: 3px
+        position: absolute
+        bottom: -10px
+        left: 12px
+        background-color: $corClube
+        opacity: 0
+        transition: opacity .3s ease-out, bottom .3s ease-out
+    .conteudo .botao.hover .borda
+    .conteudo .botao:hover .borda
+        opacity: 1
+        bottom: 0
+    .entrar_mobile
+        width: calc(100% - 60px)
+        margin: 30px
+        display: none
+        height: 50px
+        line-height: 50px
+        border-radius: 5px
+        background-color: $corClube
+        color: #FFF
+        textoFontSize()
+        justify-content: center
+        cursor: pointer
+    .botao_mobile
+        width: 40px
+        height: 40px
+        flexCenter()
+        fill: #666
+        cursor: pointer
+        display: none
+        position: absolute
+        left: 20px
+    .entrar
+        height: 40px
+        line-height: 40px
+        padding: 0 25px
+        color: #FFF
+        background-color: $corClube
+        textoFontSize()
+        margin-left: 40px
+        border-radius: 3px
+        cursor: pointer
+@media screen and (max-width: 1040px)
+    #menu_principal
+        width: 100%
+        position: fixed
+        bottom: 0
+        left: 0
+        background: #FFF
+        padding: 20px 20px 13px 20px
+        box-shadow: 0 -4px 5px rgba(0,0,0,.1)
+        justify-content: center
+        .background
+            width: 100%
+            height: 100%
+            position: fixed
+            top: 0
+            left: 0
+            background: rgba(0,0,0,.7)
+            display: none
+            z-index: 1000
+            opacity: 0
+            transition: opacity .3s ease-out
+            &.animar
+                opacity: 1
+            &.aberto
+                display: flex
+        .conteudo
+            width: 100%
+            height: 100vh
+            max-width: 300px
+            background: #FFF
+            overflow-y: auto
+            box-shadow: 0 5px 5px rgba(0,0,0,.5)
+            flexCol()
+            margin-left: -100px
+            transition: margin-left .3s ease-out, opacity .3s ease-out
+            opacity: 0
+        .background.animar .conteudo
+            margin-left: 0
+            opacity: 1
+        .conteudo .botao
+            border-top: 1px solid #DDD
+            padding: 20px
+            &:last-child
+                border-bottom: 1px solid #DDD
+        .conteudo .botao .borda
+            display: none
+        .entrar_mobile
+            display: flex
+        .botao_mobile
+            display: flex
+
+#conteudo_principal
+    width: 100%
+    flexCol()
+
+#bloco_footer
+    width: 100%
+    flexCol()
+    align-items: center
+    background-color: #FFF
+    padding: 50px 20px
+    .centralizar
+        width: 100%
+        max-width: 1000px
+        flexRow()
+    ul
+        max-width: calc(50% - 30px)
+        display: flex
+        flex-direction: column
+        margin-right: 60px
+        &:last-child
+            margin-right: 0
+    ul li
+        margin-top: 15px
+        flexRow()
+        align-items: center
+    ul li a
+        flexRow()
+        align-items: center
+    ul li i
+        width: 30px
+        height: 30px
+        fill: $corClube
+        flexCenter()
+        margin-right: 10px
+    ul li p
+        max-width: 300px
+        texto()
+@media screen and (max-width: 800px)
+    #bloco_footer
+        padding-bottom: 120px
+        .centralizar
+            flexCol()
+        ul
+            max-width: 100%
+            margin-right: 0
+        ul li p
+            max-width: 100%
+#bloco_footer .bloco_copyright
+    width: 100%
+    max-width: 1000px
+    padding-top: 30px
+    margin-top: 50px
+    border-top: 1px solid #DDD
+    flexCol()
+    p
+        font-size: 1.3rem
+        color: #999
+    a
+        margin-top: 10px
+    .copy
+        line-height: 1.5em
+        margin-top: 30px

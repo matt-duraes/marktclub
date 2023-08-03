@@ -1,9 +1,10 @@
 <?php
 
-use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Plano;
 use App\Classes\Saude\Regiao;
 use App\Classes\Saude\Status;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\RegiaoAmil;
 
 return [
     [
@@ -15,7 +16,7 @@ return [
         'operadora'              => valorAleatorio((new Operadora())->listarNumero()),
         'acomodacao'             => 'enfermaria',
         'plano'                  => valorAleatorio((new Plano())->listarNumero()),
-        'regiao'                 => valorAleatorio((new Regiao())->listarNumero()),
+        'regiao'                 => valorAleatorio((new RegiaoAmil())->listarNumero()),
         'valor_titular'          => number_format(numeroAleatorio(1, 1000), 2, ',', '.'),
         'valor_dependentes'      => '[]',
         'valor_total'            => number_format(numeroAleatorio(1, 1000), 2, ',', '.'),
@@ -30,7 +31,7 @@ return [
         'operadora'              => valorAleatorio((new Operadora())->listarNumero()),
         'acomodacao'             => 'enfermaria',
         'plano'                  => valorAleatorio((new Plano())->listarNumero()),
-        'regiao'                 => valorAleatorio((new Regiao())->listarNumero()),
+        'regiao'                 => valorAleatorio((new RegiaoAmil())->listarNumero()),
         'valor_titular'          => number_format(numeroAleatorio(1, 1000), 2, ',', '.'),
         'valor_dependentes'      => '[]',
         'valor_total'            => number_format(numeroAleatorio(1, 1000), 2, ',', '.'),

@@ -14,25 +14,25 @@
                 @if ($email):
                     <a>{{$email}}</a>
                     <p>ou</p>
-                @endif;?>
+                @endif;
                 @if ($menu->automovel):
                     <a href="@route('automovel.index)">INDICAR UMA CONCESSIONÁRIA</a>
-                @endif;?>
+                @endif;
                 @if ($menu->saude):
                     <a href="@route('planosaude.index')">FAZER COTAÇÃO DE PLANO DE SAÚDE</a>
-                @endif;?>
+                @endif;
                 @if ($menu->credito):
                     <a href="@route('sicoob.index')">CRÉDITO SICOOB</a>
-                @endif;?>
+                @endif;
                 @if ($menu->credito_alfa):
                     <a href="@route('alfa.credito')">SOLICITAR CONSIGNADO</a>
-                @endif;?>
+                @endif;
                 @if ($menu->cinema):
                     <a href="@route(('cinema.index')">COMPRAR INGRESSOS PARA O CINEMA</a>
-                @endif;?>
+                @endif;
                 @if ($menu->turismo):
                     <a href="@route(('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
-                @endif;?>
+                @endif;
             </fieldset>
             <p class="fechar botao_fechar_popup">NÃO PRECISO DE ATENDIMENTO</p>
         </form>

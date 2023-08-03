@@ -46,6 +46,7 @@ exports.htmlUnico = function (path) {
     return new Promise(async resolve => {
         const arquivo = path;
         const nome = arquivo
+            .replace(/views\/templates\//, 'templates/')
             .replace(/views\/pages\//, '')
             .replace(/\/index\.view$/, '.php')
             .replace(/src\/Painel\/App\//, 'painel/')
