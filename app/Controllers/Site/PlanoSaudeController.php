@@ -15,7 +15,8 @@ final class PlanoSaudeController extends Controller
     public function index()
     {
         return view('plano_saude.index', [
-            'lista' => (new OperadoraModel())->listarDados()
+            'menu'   => 'saude',
+            'lista'  => (new OperadoraModel())->listarDados()
         ]);
     }
 

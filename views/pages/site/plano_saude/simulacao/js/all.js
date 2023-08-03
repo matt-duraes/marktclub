@@ -40,7 +40,6 @@ window.addEventListener('load', () => {
         carregarAcomodacao();
     }
 });
-
 $('body').addEventListener('keydown', e => {
     if (e.key == 'Tab') {
         e.preventDefault();
@@ -88,6 +87,7 @@ botaoVoltar.forEach(botao => {
 | ACOMODAÇÃO
 |--------------------------------------------------------------------------
 */
+
 const limparBlocoAcomodacao = () => {
     adicionarClassLista($$('.bloco_escolher_acomodacao'), 'display_none');
 };

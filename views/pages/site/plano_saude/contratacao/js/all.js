@@ -18,16 +18,13 @@ document.addEventListener('keydown', function (e) {
 });
 
 // autopreenchimento
-document.querySelectorAll('input[type=checkbox][name=responsavel]').forEach(function (checkbox) {
+$$('input[type=checkbox][name=responsavel]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
         if (this.checked) {
-            document.querySelector('input[name=responsavel_nome]').value =
-                document.querySelector('input[name=nome]').value;
-            document.querySelector('input[name=responsavel_cpf]').value =
-                document.querySelector('input[name=cpf]').value;
-            document.querySelector('input[name=responsavel_rg]').value = document.querySelector('input[name=rg]').value;
-            document.querySelector('input[name=responsavel_orgao_expedidor]').value =
-                document.querySelector('input[name=orgao_expedidor]').value;
+            $('input[name=responsavel_nome]').value = $('input[name=nome]').value;
+            $('input[name=responsavel_cpf]').value = $('input[name=cpf]').value;
+            $('input[name=responsavel_rg]').value = $('input[name=rg]').value;
+            $('input[name=responsavel_orgao_expedidor]').value = $('input[name=orgao_expedidor]').value;
         } else {
             document
                 .querySelectorAll('#seguro-contratacao .formulario-contratacao .elemento-formulario.responsavel input')
@@ -41,7 +38,7 @@ document.querySelectorAll('input[type=checkbox][name=responsavel]').forEach(func
 /** TESTANDO */
 
 function inicializarPassoAPasso() {
-    const listaGeral = document.querySelectorAll('.bloco_passo_passo_geral');
+    const listaGeral = $$('.bloco_passo_passo_geral');
     if (listaGeral.length == 0) {
         return;
     }
@@ -89,7 +86,7 @@ function inicializarPassoAPasso() {
 inicializarPassoAPasso();
 
 // ANTERIOR
-const botaoAnterior = document.querySelectorAll('.botao_passa_passo_anterior');
+const botaoAnterior = $$('.botao_passa_passo_anterior');
 if (botaoAnterior.length > 0) {
     botaoAnterior.forEach(botao => {
         botao.addEventListener('click', () => {
@@ -116,90 +113,44 @@ const acaoProximo = botaoProximo => {
         });
     });
 };
-const botaoProximo = document.querySelectorAll('.botao_passa_passo_proximo');
+const botaoProximo = $$('.botao_passa_passo_proximo');
+
 if (botaoProximo.length > 0) {
     acaoProximo(botaoProximo);
 }
-const verificarPreenchidos = botao => {
-    let dados = document.querySelectorAll('#dados .input_obrigatorio');
-    let responsavel = document.querySelectorAll('#responsavel .input_obrigatorio');
-    let contato = document.querySelectorAll('#contato .input_obrigatorio');
-    let endereco = document.querySelectorAll('#endereco .input_obrigatorio');
-    let pagina = document.querySelector('#formulario_contratacao');
 
-    if (
-        !pagina.classList.contains('passo_1') ||
-        !pagina.classList.contains('passo_2') ||
-        !pagina.classList.contains('passo_3') ||
-        !pagina.classList.contains('passo_4')
-    ) {
-        let campos = 0;
-        dados.forEach(dado => {
-            if (dado.value != '') {
-                campos += 1;
-            }
-        });
-        if (campos < dados.length) {
-            Alerta.notificacao('Preencha os campos obrigatórios', false);
-            return;
+const verificarDados = (dados, botao) => {
+    let campos = 0;
+    dados.forEach(dado => {
+        if (dado.value != '') {
+            campos += 1;
         }
-        irParaProximoPasso(botao);
+    });
+
+    if (campos < dados.length) {
+        Alerta.notificacao('Preencha os campos obrigatórios', false);
+        return;
     }
+    irParaProximoPasso(botao);
+};
+
+const verificarPreenchidos = botao => {
+    let dados = $$('#dados .input_obrigatorio');
+    let responsavel = $$('#responsavel .input_obrigatorio');
+    let contato = $$('#contato .input_obrigatorio');
+    let endereco = $$('#endereco .input_obrigatorio');
+    let pagina = $('#formulario_contratacao');
 
     if (pagina.classList.contains('passo_1')) {
-        let campos = 0;
-        dados.forEach(dado => {
-            if (dado.value != '') {
-                campos += 1;
-            }
-        });
-        if (campos < dados.length) {
-            Alerta.notificacao('Preencha os campos obrigatórios', false);
-            return;
-        }
-        irParaProximoPasso(botao);
-    }
-
-    if (pagina.classList.contains('passo_2')) {
-        let campos = 0;
-        responsavel.forEach(dado => {
-            if (dado.value != '') {
-                campos += 1;
-            }
-        });
-        if (campos < responsavel.length) {
-            Alerta.notificacao('Preencha os campos obrigatórios', false);
-            return;
-        }
-        irParaProximoPasso(botao);
-    }
-
-    if (pagina.classList.contains('passo_3')) {
-        let campos = 0;
-        contato.forEach(dado => {
-            if (dado.value != '') {
-                campos += 1;
-            }
-        });
-        if (campos < contato.length) {
-            Alerta.notificacao('Preencha os campos obrigatórios', false);
-            return;
-        }
-        irParaProximoPasso(botao);
-    }
-
-    if (pagina.classList.contains('passo_4')) {
-        let campos = 0;
-        endereco.forEach(dado => {
-            if (dado.value != '') {
-                campos += 1;
-            }
-        });
-        if (campos < endereco.length) {
-            Alerta.notificacao('Preencha os campos obrigatórios', false);
-            return;
-        }
-        irParaProximoPasso(botao);
+        verificarDados(dados, botao);
+    } else if (pagina.classList.contains('passo_2')) {
+        verificarDados(responsavel, botao);
+    } else if (pagina.classList.contains('passo_3')) {
+        verificarDados(contato, botao);
+    } else if (pagina.classList.contains('passo_4')) {
+        verificarDados(endereco, botao);
+    } else {
+        verificarDados(dados, botao);
     }
 };
 
@@ -274,7 +225,7 @@ const montarNovoItem = (bloco, lista, numero, novoNumero) => {
 // Faz a simulação
 const idSimulacao = document.getElementById('simulacao').value;
 const form = document.getElementById('formulario_contratacao');
-const enviarSimulacao = document.querySelector('#enviarSimulacao');
+const enviarSimulacao = $('#enviarSimulacao');
 
 form.addEventListener('submit', async event => {
     event.preventDefault();

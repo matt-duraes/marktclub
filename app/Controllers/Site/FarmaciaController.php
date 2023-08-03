@@ -25,6 +25,11 @@ final class FarmaciaController extends Controller
         ]);
     }
 
+    /**
+     * Acessa a página de detalhes de cada farmácia
+     *
+     * @param string $url
+     */
     public function detalhe(string $url)
     {
         $Listar = new ListarModel(
