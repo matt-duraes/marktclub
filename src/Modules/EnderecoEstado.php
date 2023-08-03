@@ -8,6 +8,36 @@ final class EnderecoEstado implements ModuleInterface
 {
     use ValidarTrait;
 
+    private array $listaIndiceNome = [
+        'AC' => 'Acre',
+        'AL' => 'Alagoas',
+        'AP' => 'Amapá',
+        'AM' => 'Amazonas',
+        'BA' => 'Bahia',
+        'CE' => 'Ceará',
+        'DF' => 'Distrito Federal',
+        'ES' => 'Espírito Santo',
+        'GO' => 'Goiás',
+        'MA' => 'Maranhão',
+        'MT' => 'Mato Grosso',
+        'MS' => 'Mato Grosso do Sul',
+        'MG' => 'Minas Gerais',
+        'PA' => 'Pará',
+        'PB' => 'Paraíba',
+        'PR' => 'Paraná',
+        'PE' => 'Pernambuco',
+        'PI' => 'Piauí',
+        'RJ' => 'Rio de Janeiro',
+        'RN' => 'Rio Grande do Norte',
+        'RS' => 'Rio Grande do Sul',
+        'RO' => 'Rondônia',
+        'RR' => 'Roraima',
+        'SC' => 'Santa Catarina',
+        'SP' => 'São Paulo',
+        'SE' => 'Sergipe',
+        'TO' => 'Tocantins'
+    ];
+
     public function __toString()
     {
         return $this->estado;
@@ -39,7 +69,7 @@ final class EnderecoEstado implements ModuleInterface
      * @param null|string $estado Estado para o modulo
      */
     public function __construct(
-        private ?string $estado
+        private ?string $estado = null
     ) {
         if (empty($this->estado)) {
             $this->vazio = true;
@@ -74,5 +104,19 @@ final class EnderecoEstado implements ModuleInterface
             'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
         ];
         return in_array($estado, $lista);
+    }
+
+    /**
+     * Pega um array com a lista de valores válidos no formato indice => nome
+     *
+     * @param  null|string $titulo Um titulo para o select
+     * @return array       Array com os dados
+     */
+    public function select(?string $titulo = null): array
+    {
+        if (!empty($titulo)) {
+            return ['' => $titulo] + $this->listaIndiceNome;
+        }
+        return $this->listaIndiceNome;
     }
 }

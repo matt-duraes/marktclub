@@ -2,32 +2,5 @@
 @system "Form"
 @system "Alerta"
 @system "Loading"
-
-#bloco_login
-    width: 100%
-    min-height: 100vh
-    flexCenter()
-    padding: 20px
-    form
-        width: 100%
-        max-width: 500px
-        blocoShadow()
-        flexCol()
-    form > h1
-        width: 100%
-        titulo()
-        font-weight: bold
-    form > p
-        width: 100%
-        texto()
-        margin-bottom: 15px
-    form .botao
-        height: 50px
-        line-height: 50px
-        background-color: #CCC
-        color: #333
-        border-radius: 5px
-        margin-top: 15px
-        text-align: center
-        textoFontSize()
-        cursor: pointer
+@import "index"
+@resource "site/popup"

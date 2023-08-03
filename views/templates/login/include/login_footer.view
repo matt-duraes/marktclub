@@ -1,0 +1,67 @@
+<footer id="bloco_footer">
+    <div class="centralizar">
+        <ul>
+            @ if (!empty(CONTATO_TELEFONE)) :
+            <li>
+                <i class="icone_footer telefone">@iconeTelefoneLoja</i>
+                <p>{{CONTATO_TELEFONE}}</p>
+            </li>
+            @ elseif (!empty(CONTATO_TELEFONE)) :
+            <li>
+                <i class="icone_footer telefone">@iconeTelefoneLoja</i>
+                <p>{{str_replace('(apenas WhatsApp)', '', CONTATO_WHATSAPP)}}</p>
+            </li>
+            @ endif;
+
+            @ if (!empty(CONTATO_WHATSAPP)) :
+            <li>
+                <a href="https://wa.me/55{{str_replace('(apenas WhatsApp)', '', soNumero(CONTATO_WHATSAPP))}} ">
+                    <i class="icone_footer whatsapp">@iconeWhatsapp</i>
+                    <p>{{CONTATO_WHATSAPP}}</p>
+                </a>
+            </li>
+            @endif;
+
+            @if (!empty(CONTATO_EMAIL)) :
+            <li>
+                <i class="icone_footer email">@iconeEmail(15)</i>
+                <p> {{CONTATO_EMAIL}}</p>
+            </li>
+            @endif;
+
+            @if (!empty(CONTATO_HORARIO)) :
+            <li>
+                <i class="icone_footer horario">@iconeFaq(20)</i>
+                <p>{{CONTATO_HORARIO}}</p>
+            </li>
+            @endif;
+        </ul>
+        <ul>
+            <li class="como_funciona">
+                <a class="link_container" href="{!!route('login.comoFunciona')!!}">
+                    <i class="icone_footer interrogacao">@iconeComoFunciona</i>
+                    <p>Como Funciona</p>
+                </a>
+            </li>
+            @if (!empty(CONTATO_ENDERECO)) :
+            <li>
+                <i class="icone_footer localizacao"> @iconeMapa</i>
+                <p>{{CONTATO_ENDERECO}} </p>
+            </li>
+            @endif;
+        </ul>
+    </div>
+    <div class="bloco_copyright">
+        <p>Administrado por:</p>
+        <a href="http://marktclub.com.br" target="_blank" rel="noopener noreferrer"><img src="{{LINK_PADRAO}}/images/logo_marktclub.png" alt="[Administrado por MARKTCLUB]" height="40"></a>
+        <p class="copy">
+            @2011/{{date('Y')}} Todos os direitos reservados é de uso exclusivo {{str_replace('https://', '', LINK_PADRAO)}}<br>
+            Proibida reprodução ou utilização e qualquer titulo sob as penas da lei.
+        </p>
+    </div>
+</footer>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<input type="hidden" name="RECAPTCHA_SITE" id="RECAPTCHA_SITE" value="{{env('RECAPTCHA_SITE')}}">
+<input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">

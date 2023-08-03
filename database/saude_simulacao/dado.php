@@ -1,9 +1,10 @@
 <?php
 
-use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Plano;
 use App\Classes\Saude\Regiao;
 use App\Classes\Saude\Status;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\RegiaoAmil;
 
 return [
     [

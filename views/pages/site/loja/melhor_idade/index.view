@@ -71,7 +71,7 @@
                     </div>
                     <div class="botao_footer">
                         <button class="voltar botao_trocar_anterior" data-proximo="#primeiro">Voltar</button>
-                        <button class="color_cor border_cor botao_trocar_proximo" id="botaoAvancar">Avançar</button>
+                        <button class="color_cor cor_border botao_trocar_proximo" id="botaoAvancar">Avançar</button>
                     </div>
                 </article>
             </fieldset>
