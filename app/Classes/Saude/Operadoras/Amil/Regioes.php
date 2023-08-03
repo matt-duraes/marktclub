@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Classes\Saude;
+namespace App\Classes\Saude\Operadoras\Amil;
 
-use Status\Status;
 use App\Classes\Saude\Interface\RegiaoInterface;
+use Status\Status;
 
-class RegiaoAmil extends Status implements RegiaoInterface
+class Regioes extends Status implements RegiaoInterface
 {
     public const BRASILIA = 'brasilia';
     public const RIO_DE_JANEIRO = 'rio_de_janeiro';

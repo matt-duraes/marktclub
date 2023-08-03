@@ -2,6 +2,6 @@
 
 namespace App\Classes\Saude\Interface;
 
-interface PlanoInteface
+interface PlanoInterface
 {
 }
