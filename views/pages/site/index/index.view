@@ -58,25 +58,21 @@
 
     <div class="bloco">
         <header class="titulo_geral">
-            <h1>LOJAS NOVAS</h1>
+            <h1>MAIS UTILIZADAS</h1>
+        </header>
+        @php
+            $lista = $loja_nova;
+        @end
+        @view site/geral/parceiro.view
+    </div>
+    <div class="bloco">
+        <header class="titulo_geral">
+            <h1>NOVAS LOJAS</h1>
             <a class="cor_color" href="@route('loja.index')?ordem=mais-novo">Veja mais</a>
         </header>
         @php
             $lista = $loja_nova;
         @end
         @view site/geral/parceiro.view
-
     </div>
-
-    <div class="bloco">
-        <header class="titulo_geral">
-            <h1>PROMOÇÕES</h1>
-            <a class="cor_color" href="">Veja mais</a>
-        </header>
-        <section class="bloco_promocao">
-            <article class="promocao"><a href=""></a></article>
-            <article class="promocao"><a href=""></a></article>
-        </section>
-    </div>
-
 </div>

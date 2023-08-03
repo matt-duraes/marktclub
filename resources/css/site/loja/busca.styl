@@ -1,61 +1,88 @@
-.busca_convenio
+.bloco_buscar_geral
     width: 100%
-    max-width: 1130px
-    blocoShadow()
-    border-radius: 15px
-    margin-bottom: 40px
-    form
+    max-width: $maxWidth
+    boxShadow()
+    background-color: rgba(0,0,0,0)
+    transition: background-color .3s ease-out
+
+.bloco_buscar_geral .buscar
+    width: 100%
+    flexRow()
+    align-items: center
+    cursor: pointer
+    padding: 20px
+    background-color: #FFF
+    border-radius: 10px
+    z-index: 1
+    p
+        subTitulo()
+        flexGrow()
+        color: #666
+    .botao
+        background-color: $corClube
+        color: #FFF
+        botaoPadraoGrande()
+
+.bloco_buscar_geral form
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    background-color: rgba(0,0,0,0)
+    opacity: 1
+    transition: background-color .3s ease-out
+    z-index: 10000
+    .conteudo
         width: 100%
+        background: #FFF
+        margin-top: -200px
+        opacity: 0
+        padding: 10px 20px 30px
+        display: flex
+        flex-direction: column
+        align-items: center
+        box-shadow: 0 5px 10px rgba(0,0,0,.3)
+        transition: margin-top .3s ease-out, opacity .3s ease-out
+        z-index: 2
+    .centralizar
+        width: 100%
+        max-width: 1000px
         flexCol()
-    form legend
-        titulo()
-    form fieldset
+    header
         width: 100%
         flexRow()
-    form fieldset .busca_estado
-        max-width: 100px
-        margin-right: 20px
-    form fieldset .busca_categoria
+        align-items: center
+    header h1
+        titulo()
         flexGrow()
+    header i
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+    fieldset
+        width: 100%
+        flexRow()
+    fieldset .bloco_input
         margin-right: 20px
-    form fieldset .busca_tag
-        max-width: 220px
-        margin-right: 20px
-    form fieldset .busca_estabelecimento
-        max-width: 230px
-    form fieldset .busca_pesquisa
-        flexGrow()
-        margin-right: 20px
-    form fieldset .busca_ordem
-        max-width: 180px
-        margin-right: 20px
-    form fieldset button
-        width: 180px
+        &:last-child
+            margin-right: 0
+    button
         margin-top: 20px
-
-@media screen and (max-width: 900px)
-    .busca_convenio form fieldset
-        flex-wrap:  wrap
-    .form_geral .bloco_input
-        width: calc((100% / 2) - 15px)
-@media screen and (max-width: 700px)
-    .busca_convenio form fieldset
-        flex-direction: column
-        .busca_estado,
-        .busca_categoria,
-        .busca_tag,
-        .busca_estabelecimento,
-        .busca_pesquisa,
-        .busca_ordem
-            max-width: 100%
-            width: 100%
+.bloco_buscar_geral.ativo form
+    opacity: 1
+    background-color: rgba(0,0,0,.3)
+    .conteudo
+        opacity: 1
+        margin-top: 0
 
 .buscar_convenio_lista
     width: 100%
     max-width: 1130px
     flexRow()
     flex-wrap: wrap
-    margin-top: 10px
+    margin-top: 20px
     h2
         width: 100%
         font-size: 1.3rem
