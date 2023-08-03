@@ -480,9 +480,19 @@ class Amil extends AbstractOperadora
     /**
      * @return array Planos disponíveis na região
      */
-    public function pegarPlanos(): array
+    public function pegarPlanos(bool $semNomes = true): array
     {
-        return $this->planos;
+        if ($semNomes) {
+            return $this->planos;
+        }
+        $Planos = new Planos();
+        $planosRetorno = [];
+        foreach ($this->planos as $regiao => $planos) {
+            foreach ($planos as $plano) {
+                $planosRetorno[$regiao][$plano] = $Planos->nome($plano);
+            }
+        }
+        return $planosRetorno;
     }
 
     /**
@@ -503,7 +513,7 @@ class Amil extends AbstractOperadora
         ) {
             return self::ACOMODACAO_COLETIVA;
         }
-        return [];
+        return '';
     }
 
     /**
@@ -511,11 +521,6 @@ class Amil extends AbstractOperadora
      */
     public function pegarRegioes(): array
     {
-        $Regioes = new Regioes();
-        $regioes = [];
-        foreach ($Regioes->listarNumero() as $key) {
-            $regioes[] = $Regioes->indice($key);
-        }
-        return $regioes;
+        return (new Regioes())->select();
     }
 }

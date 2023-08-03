@@ -3,14 +3,21 @@
 namespace App\Classes\Saude\Operadoras\UnimedSeguro;
 
 use App\Classes\Saude\Operadoras\AbstractOperadora;
+use Exception;
 use Modules\Data;
 
 class UnimedSeguro extends AbstractOperadora
 {
+    private const ACOMODACAO_BASICO = 'basico';
+    private const ACOMODACAO_PRATICO = 'pratico';
+    private const ACOMODACAO_VERSATIL = 'versatil';
     protected array $acomodacoes = [
-        'basico'   => 3,
-        'pratico'  => 4,
-        'versatil' => 5
+        self::ACOMODACAO_BASICO, self::ACOMODACAO_PRATICO, self::ACOMODACAO_VERSATIL
+    ];
+    protected array $acomodacaoCodigo = [
+        self::ACOMODACAO_BASICO   => 3,
+        self::ACOMODACAO_PRATICO  => 4,
+        self::ACOMODACAO_VERSATIL => 5
     ];
 
     /**
@@ -18,16 +25,17 @@ class UnimedSeguro extends AbstractOperadora
      */
     public function pegarCodigoAcomodacao(): ?int
     {
-        if (!array_key_exists($this->acomodacao, $this->acomodacoes)) {
+        if (!array_key_exists($this->acomodacaoSelecionada, $this->acomodacoes)) {
             return null;
         }
-        return $this->acomodacoes[$this->acomodacao];
+        return $this->acomodacoes[$this->acomodacaoSelecionada];
     }
 
     /**
      * @param Data|null $dataNascimento Data de Nascimento (opcional)
      *
      * @return float|null Valor da simulação, NULL caso error ao simular
+     * @throws Exception
      */
     public function simularValor(Data $dataNascimento = null): ?float
     {
@@ -36,30 +44,86 @@ class UnimedSeguro extends AbstractOperadora
         }
 
         if ($this->idade <= 18) {
-            $this->valores = ['basico' => 302.96, 'pratico' => 402.57, 'versatil' => 484.41];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 302.96, self::ACOMODACAO_PRATICO => 402.57,
+                self::ACOMODACAO_VERSATIL => 484.41
+            ];
         } elseif ($this->idade >= 19 && $this->idade <= 23) {
-            $this->valores = ['basico' => 365.27, 'pratico' => 488.18, 'versatil' => 577.25];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 365.27, self::ACOMODACAO_PRATICO => 488.18,
+                self::ACOMODACAO_VERSATIL => 577.25
+            ];
         } elseif ($this->idade >= 24 && $this->idade <= 28) {
-            $this->valores = ['basico' => 421.29, 'pratico' => 565.10, 'versatil' => 667.54];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 421.29, self::ACOMODACAO_PRATICO => 565.10,
+                self::ACOMODACAO_VERSATIL => 667.54
+            ];
         } elseif ($this->idade >= 29 && $this->idade <= 33) {
-            $this->valores = ['basico' => 479.93, 'pratico' => 645.61, 'versatil' => 767.32];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 479.93, self::ACOMODACAO_PRATICO => 645.61,
+                self::ACOMODACAO_VERSATIL => 767.32
+            ];
         } elseif ($this->idade >= 34 && $this->idade <= 38) {
-            $this->valores = ['basico' => 552.27, 'pratico' => 742.55, 'versatil' => 882.94];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 552.27, self::ACOMODACAO_PRATICO => 742.55,
+                self::ACOMODACAO_VERSATIL => 882.94
+            ];
         } elseif ($this->idade >= 39 && $this->idade <= 43) {
-            $this->valores = ['basico' => 650.44, 'pratico' => 865.98, 'versatil' => 1039.89];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 650.44, self::ACOMODACAO_PRATICO => 865.98,
+                self::ACOMODACAO_VERSATIL => 1039.89
+            ];
         } elseif ($this->idade >= 44 && $this->idade <= 48) {
-            $this->valores = ['basico' => 758.29, 'pratico' => 1003.56, 'versatil' => 1212.32];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 758.29, self::ACOMODACAO_PRATICO => 1003.56,
+                self::ACOMODACAO_VERSATIL => 1212.32
+            ];
         } elseif ($this->idade >= 49 && $this->idade <= 53) {
-            $this->valores = ['basico' => 1016.58, 'pratico' => 1354.63, 'versatil' => 1640.57];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 1016.58, self::ACOMODACAO_PRATICO => 1354.63,
+                self::ACOMODACAO_VERSATIL => 1640.57
+            ];
         } elseif ($this->idade >= 54 && $this->idade <= 58) {
-            $this->valores = ['basico' => 1372.30, 'pratico' => 1828.17, 'versatil' => 2218.28];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 1372.30, self::ACOMODACAO_PRATICO => 1828.17,
+                self::ACOMODACAO_VERSATIL => 2218.28
+            ];
         } elseif ($this->idade >= 59) {
-            $this->valores = ['basico' => 1805.72, 'pratico' => 2415.49, 'versatil' => 2901.35];
+            $this->valores = [
+                self::ACOMODACAO_BASICO   => 1805.72, self::ACOMODACAO_PRATICO => 2415.49,
+                self::ACOMODACAO_VERSATIL => 2901.35
+            ];
         }
 
-        if (!array_key_exists($this->acomodacao, $this->valores)) {
+        if (!array_key_exists($this->acomodacaoSelecionada, $this->valores)) {
             return null;
         }
-        return $this->valores[$this->acomodacao];
+        return $this->valores[$this->acomodacaoSelecionada];
+    }
+
+    /**
+     * @param bool $all Pegar todas as acomodações independente do plano selecionado
+     *
+     * @return array|string Acomodações disponíveis no plano
+     */
+    public function pegarAcomodacoes(bool $all = false): array|string
+    {
+        return $this->acomodacoes;
+    }
+
+    /**
+     * @return array Regiões disponíveis
+     */
+    public function pegarRegioes(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array Planos disponíveis na região
+     */
+    public function pegarPlanos(): array
+    {
+        return [];
     }
 }

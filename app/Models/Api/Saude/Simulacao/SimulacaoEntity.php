@@ -9,7 +9,6 @@ use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacio
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
 use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 use App\Classes\Saude\PlanoSaude;
-use App\Classes\Saude\Regiao;
 use App\Classes\Saude\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Exception;
@@ -23,13 +22,13 @@ class SimulacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public Data $data_nascimento;
+    public Data $titular;
     public int $quantidade_dependentes;
     public Operadora $operadora;
     public int $acomodacao;
     public string $regiao;
     public Dinheiro $valor_titular;
-    public string $valor_dependentes;
+    public string $dependentes;
     public Dinheiro $valor_total;
     public string $plano;
     public Status $status;
@@ -41,12 +40,12 @@ class SimulacaoEntity extends Entity
         'id_usuario'       => '->idUsuario'
     ];
     protected array $ormBuscar = [
-        'data_nascimento', 'quantidade_dependentes', 'operadora', 'acomodacao',
-        'regiao', 'valor_titular', 'valor_dependentes', 'valor_total', 'plano', 'status'
+        'titular', 'quantidade_dependentes', 'operadora', 'acomodacao',
+        'regiao', 'valor_titular', 'dependentes', 'valor_total', 'plano', 'status'
     ];
     protected array $ormSalvar = [
-        'data_nascimento', 'quantidade_dependentes', 'operadora', 'acomodacao',
-        'regiao', 'valor_titular', 'valor_dependentes', 'valor_total', 'plano', 'status'
+        'titular', 'quantidade_dependentes', 'operadora', 'acomodacao',
+        'regiao', 'valor_titular', 'dependentes', 'valor_total', 'plano', 'status'
     ];
 
     /**
@@ -69,7 +68,7 @@ class SimulacaoEntity extends Entity
         }
 
         $this->quantidade_dependentes = 0;
-        $this->data_nascimento = new Data($this->request->getPost('data_nascimento'));
+        $this->titular = new Data($this->request->getPost('titular'));
         $this->operadora = new Operadora($this->request->getPost('operadora'));
         $this->regiao = $this->request->getPost('regiao');
         $this->plano = $this->request->getPost('plano');
@@ -78,27 +77,27 @@ class SimulacaoEntity extends Entity
         $acomodacao = $this->request->getPost('acomodacao');
         $planoSaude = match ($this->operadora->indice()) {
             Operadora::UNIMED => new PlanoSaude(
-                new Unimed($this->data_nascimento, acomodacaoSelecionada: $acomodacao)
+                new Unimed($this->titular, acomodacaoSelecionada: $acomodacao)
             ),
             Operadora::UNIMED_SEGURO => new PlanoSaude(
-                new UnimedSeguro($this->data_nascimento, acomodacaoSelecionada: $acomodacao)
+                new UnimedSeguro($this->titular, acomodacaoSelecionada: $acomodacao)
             ),
             Operadora::CENTRAL_NACIONAL_UNIMED => new PlanoSaude(
-                new CentralNacionalUnimed($this->data_nascimento, $this->regiao, $this->plano, $acomodacao)
+                new CentralNacionalUnimed($this->titular, $this->regiao, $this->plano, $acomodacao)
             ),
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => new PlanoSaude(
                 new CentralNacionalUnimedFlorianopolis(
-                    $this->data_nascimento,
+                    $this->titular,
                     planoSelecionado: $this->plano,
                     acomodacaoSelecionada: $acomodacao
                 )
             ),
             Operadora::AMIL => new PlanoSaude(
-                new Amil($this->data_nascimento, $this->regiao, $this->plano)
+                new Amil($this->titular, $this->regiao, $this->plano)
             )
         };
 
-        $dependentes = $this->request->getPost('dependentes');
+        $dependentes = jsonDecode($this->request->getPost('dependentes'), true, true);
         if (!empty($dependentes)) {
             $this->quantidade_dependentes = count($dependentes);
 
@@ -127,8 +126,10 @@ class SimulacaoEntity extends Entity
         if ($this->quantidade_dependentes > 0) {
             $contador = 1;
             for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
-                $valor = $planoSaude->simularValor(new Data($dependentes[$i]));
-                $valor_dependentes['dependente-' . $contador] = (new Dinheiro((string)$valor))->dinheiro();
+                $dataNascimento = new Data($dependentes[$i]);
+                $valor = $planoSaude->simularValor($dataNascimento);
+                $valor_dependentes['dependente' . $contador]['data_nascimento'] = $dataNascimento->date();
+                $valor_dependentes['dependente' . $contador]['valor'] = (new Dinheiro((string)$valor))->dinheiro();
                 $valor_total = $valor_total + $valor;
                 $contador++;
             }
@@ -136,7 +137,7 @@ class SimulacaoEntity extends Entity
 
         $this->acomodacao = $planoSaude->codigoAcomodacao ?? '0';
         $this->valor_titular = new Dinheiro((string)$valor_titular);
-        $this->valor_dependentes = jsonEncode($valor_dependentes);
+        $this->dependentes = jsonEncode($valor_dependentes);
         $this->valor_total = new Dinheiro((string)$valor_total);
     }
 }

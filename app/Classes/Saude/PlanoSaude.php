@@ -33,17 +33,17 @@ class PlanoSaude
                     'Região',
                     'Região não encontrada ou inválida'
                 )
-                ->inArray($this->operadora->pegarDados()['regioes'])
                 ->obrigatorio()
                 ->vazio()
+                ->inArray(array_keys($this->operadora->pegarDados()['regioes']))
                 ->valor(
                     $this->operadora->pegarDados()['plano'],
                     'Plano',
                     'Plano não encontrado ou inválido'
                 )
-                ->inArray($this->operadora->pegarDados()['planos'])
                 ->obrigatorio()
-                ->vazio();
+                ->vazio()
+                ->inArray($this->operadora->pegarDados()['planos']);
         }
 
         (new ValidarHelper())
@@ -56,7 +56,7 @@ class PlanoSaude
             ->obrigatorio()
             ->vazio()
             ->valor(
-                $this->operadora->pegarDados()['data_nascimento'],
+                $this->operadora->pegarDados()['titular'],
                 'Data de Nascimento',
                 'Data de Nascimento não é um formato válido'
             )

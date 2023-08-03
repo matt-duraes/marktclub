@@ -16,7 +16,7 @@ abstract class AbstractOperadora implements OperadoraInterface
     protected array|int $valores;
 
     /**
-     * @param Data        $dataNascimento        Data de nascimento do titular
+     * @param Data|null   $titular               Data de nascimento do titular
      * @param string|null $regiaoSelecionada     Região do plano
      * @param string|null $planoSelecionado      Plano de saúde
      * @param string|null $acomodacaoSelecionada Acomodação do plano
@@ -24,13 +24,16 @@ abstract class AbstractOperadora implements OperadoraInterface
      * @throws Exception
      */
     public function __construct(
-        protected readonly Data $dataNascimento,
+        protected readonly ?Data $titular = null,
         protected readonly ?string $regiaoSelecionada = null,
         protected readonly ?string $planoSelecionado = null,
-        protected ?string $acomodacaoSelecionada = null
+        protected string|null $acomodacaoSelecionada = null
     ) {
+        if ($this->titular === null) {
+            return;
+        }
         $this->acomodacaoSelecionada = $this->acomodacaoSelecionada ?? $this->pegarAcomodacoes();
-        $this->idade = $this->pegarIdade($this->dataNascimento);
+        $this->idade = $this->pegarIdade($this->titular);
     }
 
     /**
@@ -55,24 +58,24 @@ abstract class AbstractOperadora implements OperadoraInterface
      * @return array
      */
     #[ArrayShape([
-        'data_nascimento' => "\\Modules\\Data",
-        'regiao'          => 'string|null',
-        'regioes'         => 'array',
-        'plano'           => 'string|null',
-        'planos'          => 'array',
-        'acomodacao'      => 'string|null',
-        'acomodacoes'     => 'array'
+        'titular'     => "\\Modules\\Data",
+        'regiao'      => 'string|null',
+        'regioes'     => 'array',
+        'plano'       => 'string|null',
+        'planos'      => 'array',
+        'acomodacao'  => 'string|null',
+        'acomodacoes' => 'array'
     ])]
     public function pegarDados(): array
     {
         return [
-            'data_nascimento' => $this->dataNascimento,
-            'regiao'          => $this->regiaoSelecionada,
-            'regioes'         => $this->pegarRegioes(),
-            'plano'           => $this->planoSelecionado,
-            'planos'          => $this->pegarPlanos()[$this->regiaoSelecionada] ?? [],
-            'acomodacao'      => $this->acomodacaoSelecionada,
-            'acomodacoes'     => is_string($this->pegarAcomodacoes())
+            'titular'     => $this->titular,
+            'regiao'      => $this->regiaoSelecionada,
+            'regioes'     => $this->pegarRegioes(),
+            'plano'       => $this->planoSelecionado,
+            'planos'      => $this->pegarPlanos()[$this->regiaoSelecionada] ?? [],
+            'acomodacao'  => $this->acomodacaoSelecionada,
+            'acomodacoes' => is_string($this->pegarAcomodacoes())
                 ? [$this->pegarAcomodacoes()]
                 : $this->pegarAcomodacoes()
         ];

@@ -311,4 +311,30 @@ class CentralNacionalUnimed extends AbstractOperadora
         }
         return $this->valores[$this->regiao->indice()][$this->plano->indice()][$this->acomodacao];
     }
+
+    /**
+     * @param bool $all Pegar todas as acomodações independente do plano selecionado
+     *
+     * @return array|string Acomodações disponíveis no plano
+     */
+    public function pegarAcomodacoes(bool $all = false): array|string
+    {
+        // TODO: Implement pegarAcomodacoes() method.
+    }
+
+    /**
+     * @return array Regiões disponíveis
+     */
+    public function pegarRegioes(): array
+    {
+        // TODO: Implement pegarRegioes() method.
+    }
+
+    /**
+     * @return array Planos disponíveis na região
+     */
+    public function pegarPlanos(): array
+    {
+        // TODO: Implement pegarPlanos() method.
+    }
 }
