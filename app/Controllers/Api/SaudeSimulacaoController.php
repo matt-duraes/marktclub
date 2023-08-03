@@ -8,7 +8,6 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Data;
-use ORM\Entity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerSalvarInterface;
 
@@ -30,27 +29,27 @@ final class SaudeSimulacaoController extends Controller implements
     }
 
     /**
-     * @param Entity $entity
-     * @param int    $status
+     * @param SimulacaoEntity $simulacaoEntity
+     * @param int             $status
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoPadrao(Entity $entity, int $status = 200): Response
+    private function retornoPadrao(SimulacaoEntity $simulacaoEntity, int $status = 200): Response
     {
-        $propriedadesEntity = pegarPropriedadeDaEntity($entity, lista: [
-            'data_nascimento', 'quantidade_dependentes', 'operadora',
-            'acomodacao', 'regiao', 'valor_titular', 'valor_dependentes',
+        $propriedadesEntity = pegarPropriedadeDaEntity($simulacaoEntity, lista: [
+            'titular', 'quantidade_dependentes', 'operadora',
+            'acomodacao', 'regiao', 'valor_titular', 'dependentes',
             'valor_total', 'plano', 'status'
         ]);
 
-        $dependentes = jsonDecode($propriedadesEntity['valor_dependentes'], true, true);
-        foreach ($dependentes as $key => $valor) {
-            $dependentes[$key] = $valor;
+        $dependentes = jsonDecode($propriedadesEntity['dependentes'], true, true);
+        foreach ($dependentes as $key => $value) {
+            $dependentes[$key]['data_nascimento'] = (new Data($value['data_nascimento']))->data();
         }
 
-        $propriedadesEntity['data_nascimento'] = (new Data($propriedadesEntity['data_nascimento']))->data();
-        $propriedadesEntity['valor_dependentes'] = $dependentes;
+        $propriedadesEntity['titular'] = (new Data($propriedadesEntity['titular']))->data();
+        $propriedadesEntity['dependentes'] = $dependentes;
 
         return mensagemSucesso($propriedadesEntity, $status);
     }
