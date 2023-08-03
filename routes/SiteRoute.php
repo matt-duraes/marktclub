@@ -4,6 +4,46 @@ use Route\Route;
 use App\Middlewares\Site\AuthMiddleware;
 
 Route
+    ::nome('faq')
+    ::middleware(AuthMiddleware::class, 'deslogado')
+    ::controller(App\Controllers\Site\FaqController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/login/faq');
+    });
+Route
+    ::nome('comoFunciona')
+    ::middleware(AuthMiddleware::class, 'deslogado')
+    ::controller(App\Controllers\Site\ComoFuncionaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/login/como-funciona');
+        Route
+            ::nome('dependente')
+            ::view('/login/como-funciona-dependente');
+        Route
+            ::nome('medico')
+            ::view('/login/como-funciona-medico');
+        Route
+            ::nome('funcionario')
+            ::view('/login/como-funciona-funcionario');
+    });
+Route
+    ::nome('contato')
+    ::middleware(AuthMiddleware::class, 'deslogado')
+    ::controller(App\Controllers\Site\ContatoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/login/contato');
+        Route
+            ::nome('salvar')
+            ::request(['hash_validacao_captcha', 'nome', 'email', 'telefone', 'mensagem'])
+            ::post('/login/contato');
+    });
+Route
     ::nome('login')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
@@ -12,62 +52,26 @@ Route
             ::nome('index')
             ::view('/login');
         Route
-            ::nome('comoFunciona')
-            ::view('/login/como-funciona-escolha');
+            ::nome('login')
+            ::view('/login/login');
         Route
-            ::nome('comoFuncionaDependente')
-            ::view('/login/como-funciona');
-        Route
-            ::nome('comoFuncionaCFM')
-            ::view('/login/como-funciona-cfm');
-        Route
-            ::nome('comoFuncionaFuncionario')
-            ::view('/login/como-funciona-funcionario');
-        Route
-            ::nome('faq')
-            ::view('/login/faq');
-        Route
-            ::nome('logar')
+            ::nome('login')
             ::request(['login', 'senha'])
-            ::post('/login');
+            ::post('/login/login');
         Route
-            ::nome('abrirModalContato')
-            ::view('/contato');
+            ::nome('buscarConta')
+            ::view('/login/buscar-conta');
         Route
-            ::nome('contato')
-            ::request(['hash', 'validacao',  'nome', 'email', 'telefone', 'mensagem'])
-            ::post('/contato');
-        Route
-            ::nome('ativar')
-            ::view('/auth/ativar');
-        Route
-            ::nome('buscarUsuario')
-            ::request(['client_id', 'pesquisa', 'tipo', 'captcha'])
-            ::post('/auth/buscar-usuario');
+            ::nome('buscarConta')
+            ::request(['hash_validacao_captcha', 'usuario'])
+            ::post('/login/buscar-conta');
         Route
             ::nome('ativar')
-            ::request(['dado', 'client_id', 'scope', 'redirect_uri', 'state'])
-            ::post('/auth/ativar');
+            ::view('/login/ativar');
         Route
             ::nome('ativar')
-            ::request(['nome_completo', 'email_pessoal', 'documento_cpf', 'sexo', 'titular', 'empresa', 'client_id'])
-            ::post('/auth/salvar-dependente');
-        Route
-            ::nome('logarUsuario')
-            ::view('/auth/login');
-        Route
-            ::nome('enviarCodigo')
-            ::request(['captcha', 'login', 'client_id'])
-            ::post('/auth/enviar-codigo');
-        Route
-            ::nome('validarCodigo')
-            ::request(['login', 'client_id', 'codigo'])
-            ::post('/auth/validar-codigo');
-        Route
-            ::nome('novaSenha')
-            ::request(['login', 'client_id', 'codigo', 'nova_senha', 'repetir_senha'])
-            ::post('/auth/nova-senha');
-
+            ::request(['hash_validacao_captcha', 'hash', 'nome', 'email'])
+            ::post('/login/ativar');
     });
 
 Route

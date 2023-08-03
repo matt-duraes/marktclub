@@ -1,0 +1,14 @@
+<form id="bloco_form_buscar" class="bloco_form_login form_geral" action="/" method="post">
+    <div class="conteudo">
+        <header>
+            <h1>BUSCAR CONTA</h1>
+            <p>Preencha os campos abaixo para buscar sua conta</p>
+        </header>
+
+        @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Digite seu CPF')
+
+        <div class="bloco_botao">
+            <div class="botao" id="botao_buscar_usuario">Buscar</div>
+        </div>
+    </div>
+</div>

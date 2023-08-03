@@ -1,9 +1,5 @@
 @template "login"
 
-@php
-$alfa = CLUBE_ID == '2dbd9e375eeabfbe859365dae0798f49' ? 'alfa' : '';
-@end
-
 <div class="tutorial__ativar cor_bg" id="ativar" >
     <div class="ativar">
         <div class="ativar--centralizar">
@@ -12,9 +8,9 @@ $alfa = CLUBE_ID == '2dbd9e375eeabfbe859365dae0798f49' ? 'alfa' : '';
                 <h1 class="segundo"><span>Você é médico, funcionário ou dependente?</span></h1>
             </article>
             <div class="botao_escolha">
-                <a href="{!!route('login.comoFuncionaCFM')!!}">SOU MÉDICO</a>
-                <a href="{!!route('login.comoFuncionaDependente')!!}">SOU DEPENDENTE</a>
-                <a href="{!!route('login.comoFuncionaFuncionario')!!}">SOU FUNCIONÁRIO</a>
+                <a href="{!!route('comoFunciona.medico')!!}">SOU MÉDICO</a>
+                <a href="{!!route('comoFunciona.dependente')!!}">SOU DEPENDENTE</a>
+                <a href="{!!route('comoFunciona.funcionario')!!}">SOU FUNCIONÁRIO</a>
             </div>
         </div>
     </div>

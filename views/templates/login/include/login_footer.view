@@ -1,134 +1,65 @@
 <footer id="bloco_footer">
-    <section>
-        <div>
-            <img src="{{CLUBE_LOGO}}" height="70px" alt="Logo do {{CLUBE_TITULO}}">
-        </div>
-        <ul class="ul_icones clube_centralizado">
-            @if (!empty(CLUBE_FACEBOOK)) :
-                <li><a href="https://facebook.com/{{CLUBE_FACEBOOK}}"> <i class="cor_color" >@iconeFacebook()</i></a></li>
-            @endif;
-            @if (!empty(CONTATO_WHATSAPP)) :
-                <li><a href="https://wa.me/55{{str_replace('(apenas WhatsApp)', '', soNumero(CONTATO_WHATSAPP))}}"> <i class="cor_color" >@iconeWhatsapp()</i></a></li>
-            @endif;
-            @if (!empty(CLUBE_TWITTER)) :
-                <li><a href="https://twitter.com/{{CLUBE_TWITTER}}"> <i class="cor_color" >@iconeTwitter()</i></a></li>
-            @endif;
-            @if (!empty(CLUBE_INSTAGRAM)) :
-                <li><a href="https://instagram.com/{{CLUBE_INSTAGRAM}}"> <i class="cor_color" >@iconeInstagram()</i></a></li>
-            @endif;
-        </ul>
-    </section>
-
-    <h1 class="contato_mobile"> Contato</h1>
-
-    <section>
+    <div class="centralizar">
         <ul>
+            @ if (!empty(CONTATO_TELEFONE)) :
+            <li>
+                <i class="icone_footer telefone">@iconeTelefoneLoja</i>
+                <p>{{CONTATO_TELEFONE}}</p>
+            </li>
+            @ elseif (!empty(CONTATO_TELEFONE)) :
+            <li>
+                <i class="icone_footer telefone">@iconeTelefoneLoja</i>
+                <p>{{str_replace('(apenas WhatsApp)', '', CONTATO_WHATSAPP)}}</p>
+            </li>
+            @ endif;
 
-            @if (!empty(CONTATO_TELEFONE)) :
-                <li>
-                    <a href="#">
-                        <figure class="icone_footer telefone">@iconeTelefoneLoja</figure>
-                    </a>
-                    <span>{{CONTATO_TELEFONE}}</span>
-                </li>
-            @elseif (!empty(CONTATO_TELEFONE)) :
-                <li>
-                    <a href="#">
-                        <figure class="icone_footer telefone">@iconeTelefoneLoja</figure>
-                    </a>
-                    <span>{{str_replace('(apenas WhatsApp)', '', CONTATO_WHATSAPP)}}</span>
-                </li>
-            @endif;
-
-            @if (!empty(CONTATO_WHATSAPP)) :
-                <li>
-                    <a href="https://wa.me/55{{str_replace('(apenas WhatsApp)', '', soNumero(CONTATO_WHATSAPP))}} ">
-                        <figure class="icone_footer whatsapp">@iconeWhatsapp</figure>
-                    </a>
-
-                    <span>{{CONTATO_WHATSAPP}} </span>
-                </li>
+            @ if (!empty(CONTATO_WHATSAPP)) :
+            <li>
+                <a href="https://wa.me/55{{str_replace('(apenas WhatsApp)', '', soNumero(CONTATO_WHATSAPP))}} ">
+                    <i class="icone_footer whatsapp">@iconeWhatsapp</i>
+                    <p>{{CONTATO_WHATSAPP}}</p>
+                </a>
+            </li>
             @endif;
 
             @if (!empty(CONTATO_EMAIL)) :
-                <li>
-                    <a href="#" target="_blank">
-                        <figure class="icone_footer email">@iconeEmail(15)</figure>
-                    </a>
-                    <span> {{CONTATO_EMAIL}} </span>
-                </li>
+            <li>
+                <i class="icone_footer email">@iconeEmail(15)</i>
+                <p> {{CONTATO_EMAIL}}</p>
+            </li>
             @endif;
 
             @if (!empty(CONTATO_HORARIO)) :
-                <li>
-                    <a>
-                        <figure class="icone_footer horario">@iconeFaq(20)</figure>
-                    </a>
-
-                    <span>{{CONTATO_HORARIO}} </span>
-                </li>
+            <li>
+                <i class="icone_footer horario">@iconeFaq(20)</i>
+                <p>{{CONTATO_HORARIO}}</p>
+            </li>
             @endif;
         </ul>
-    </section>
-
-    <section>
         <ul>
             <li class="como_funciona">
                 <a class="link_container" href="{!!route('login.comoFunciona')!!}">
-                    <figure class="icone_footer interrogacao">@iconeComoFunciona</figure>
-                    <span>Como Funciona</span>
+                    <i class="icone_footer interrogacao">@iconeComoFunciona</i>
+                    <p>Como Funciona</p>
                 </a>
             </li>
             @if (!empty(CONTATO_ENDERECO)) :
-                <li>
-                    <a>
-                        <figure class="icone_footer localizacao"> @iconeMapa</figure>
-                    </a>
-                    <span>{{CONTATO_ENDERECO}} </span>
-                </li>
+            <li>
+                <i class="icone_footer localizacao"> @iconeMapa</i>
+                <p>{{CONTATO_ENDERECO}} </p>
+            </li>
             @endif;
         </ul>
-    </section>
-    <div class="ul_icones_mobile">
-        <ul>
-            @ if (!empty(CLUBE_FACEBOOK)) :
-                <li><a href="https://facebook.com/{{CLUBE_FACEBOOK}} "> <i class="cor_color">@iconeFacebook()</i></a></li>
-            @ endif;
-            @ if (!empty(CONTATO_WHATSAPP)) :
-                <li><a href="https://wa.me/55{{CONTATO_WHATSAPP}} "> <i class="cor_color">@iconeWhatsapp()</i></a></li>
-            @ endif;
-            @ if (!empty(CLUBE_TWITTER)) :
-                <li><a href="https://twitter.com/{{CLUBE_TWITTER}} "> <i class="cor_color">@iconeTwitter()</i></a></li>
-            @ endif;
-            @ if (!empty(CLUBE_INSTAGRAM)) :
-                <li><a href="https://instagram.com/{{CLUBE_INSTAGRAM}} "> <i class="cor_color">@iconeInstagram()</i></a></li>
-            @ endif;
-        </ul>
     </div>
-
-
+    <div class="bloco_copyright">
+        <p>Administrado por:</p>
+        <a href="http://marktclub.com.br" target="_blank" rel="noopener noreferrer"><img src="{{LINK_PADRAO}}/images/logo_marktclub.png" alt="[Administrado por MARKTCLUB]" height="40"></a>
+        <p class="copy">
+            @2011/{{date('Y')}} Todos os direitos reservados é de uso exclusivo {{str_replace('https://', '', LINK_PADRAO)}}<br>
+            Proibida reprodução ou utilização e qualquer titulo sob as penas da lei.
+        </p>
+    </div>
 </footer>
-@ if (CLUBE_ID ==  'c3b3159ff6e9e937b954bf7eaca06aac' || CLUBE_ID ==  '2879077062aaa01f2c0862a7f108971d' || CLUBE_ID ==  'dbbe96804930940e3c2f68f8794fcf2f' || CLUBE_ID ==  '1c3b51e4a59ae2e157adaf3e502d22ad' ||CLUBE_ID ==  'c3b3159ff6e9e937b954bf7eaca06aac' || CLUBE_ID ==  'afac6330ef2337e096e2e57ceeb7206b' ||  CLUBE_ID ==  '9e0a3da675156380c20929856059a31b' || CLUBE_ID ==  'f1fbde0562dc08274d6d7ae0277a14c3' || CLUBE_ID ==  '211b8e74e634a517f6f37338b6270728' || CLUBE_ID ==  'a1d776a3f802f45d340e8b6c24beb8b8'):
-    <div class="bloco_copyright cor_border">
-        <div class="copyright">
-            @ if (CLUBE_ID == 'afac6330ef2337e096e2e57ceeb7206b' || CLUBE_ID == 'a1d776a3f802f45d340e8b6c24beb8b8') :
-                <span>Todos os direitos reservados.</span>
-            @ else :
-                <span>Administrado por:</span>
-            @ endif;
-            @ if (CLUBE_ID == '4583bbca67ce1b8de0df54bd45287625' || CLUBE_ID == 'fad83027c9bc050e8edbf60c7315675e' || CLUBE_ID == '485ef0a6d7aec30877b19c57431b525b' || CLUBE_ID == 'b0492bc3a0f1d775720aa95460539a87') :
-                <a href="http://marktclub.com.br" target="_blank">
-                    <img src="{{LINK_PADRAO}}/images/logo_unajud.png" alt="[Administrado por MARKTCLUB]" height="20" />
-                </a>
-            @ else :
-                <a href="http://marktclub.com.br" target="_blank"><img src="{{LINK_PADRAO}}/images/marktclub.png" alt="[Administrado por MARKTCLUB]" height="20" /></a>
-            @ endif;
-        </div>
-        <span class="span_direitos">@2011/{{date('Y')}} Todos os direitos reservados é de uso exclusivo
-            {{LINK}}
-            <br>Proibida reprodução ou utilização e qualquer titulo sob as penas da lei.</span>
-    </div>
-@ endif;
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 

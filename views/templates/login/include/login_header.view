@@ -1,42 +1,36 @@
-<div class="linha_topo cor_bg"></div>
 <header id="header_principal">
     <figure class="logo">
         <a href="{{LINK}}"><img class="logo_mobile " src="{{CLUBE_LOGO}}" alt="Logo do CLUBE DE VANTAGENS MARKT CLUB"></a>
     </figure>
-    <div class="display_none display_mobile">
-        <h1 class="cor_color"> As melhores<br> marcas do mundo</h1>
-        <h3>Esperando por você! </h3>
-    </div>
-    <nav>
-        <div class="menu">
-            <a href="{!!route('login.ativar')!!}" class="botao">
-                <i class="cor_color">@iconePrimeiroAcesso</i>
-                <p>Primeiro Acesso</p>
-                <div class="borda cor_bg"></div>
-            </a>
-            <a class="botao app" href="#baixar-app">
-                <i class="cor_color">@iconeBaixarApp()</i>
-                <p>Baixe o App</p>
-                <div class="borda cor_bg"></div>
-            </a>
-            <a href="{!!route('login.faq')!!}" target="_blank" class="botao">
-                <i  class="cor_color">@iconeFaq()</i>
-                <p>FAQ</p>
-                <div class="borda cor_bg"></div>
-            </a>
-            <a href="{!!route('login.comoFunciona')!!}" target="_blank" class="botao">
-                <i class="cor_color">@iconeComoFunciona</i>
-                <p>Como Funciona</p>
-                <div class="borda cor_bg"></div>
-            </a>
-            <div class="fechar">
-                @iconeFechar()
+    <nav id="menu_principal">
+        <div class="background" id="bloco_menu_mobile">
+            <div class="conteudo">
+                <div class="botao_fazer_login entrar_mobile">Entrar</div>
+                <div class="botao" id="botao_ativar_conta_home">
+                    <i>@iconePrimeiroAcesso</i>
+                    <p>Primeiro Acesso</p>
+                    <div class="borda"></div>
+                </div>
+                <div class="botao app" id="botao_baixar_app">
+                    <i>@iconeBaixarApp()</i>
+                    <p>Baixe o App</p>
+                    <div class="borda"></div>
+                </div>
+                <a href="{!!route('faq.index')!!}" class="botao {{$menu == 'faq' ? 'hover' : ''}}">
+                    <i>@iconeFaq()</i>
+                    <p>FAQ</p>
+                    <div class="borda"></div>
+                </a>
+                <a href="{!!route('comoFunciona.index')!!}" class="botao {{$menu == 'ajuda' ? 'hover' : ''}}">
+                    <i>@iconeComoFunciona</i>
+                    <p>Como Funciona</p>
+                    <div class="borda"></div>
+                </a>
             </div>
         </div>
-
-        <a href="{!!route('login.logarUsuario')!!}" class="entrar cor_bg">Entrar</a>
-        <div class="navbar_hamburguer">
+        <i class="botao_mobile" id="botao_abrir_menu">
             @iconeMenuMobile()
-        </div>
+        </i>
+        <div class="botao_fazer_login entrar">Entrar</div>
     </nav>
 </header>

@@ -23,7 +23,9 @@
 <body>
     <div id="site">
         @dir "/include/login_header.view"
-        [[VIEW]]
+        <main id="conteudo_principal">
+            [[VIEW]]
+        </main>
         @dir "/include/login_footer.view"
     </div>
 
