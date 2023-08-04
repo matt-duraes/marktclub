@@ -488,9 +488,9 @@ final class Request extends Psr7Request
      * @param bool   $purifier Se true, o retorno será purificado
      * @param bool   $html     Se true, o retorno irá limpar qualquer tag HTML
      *
-     * @return array Array com a lista de dados recebidos pela request ou o valor do indice
+     * @return array|string Array com a lista de dados recebidos pela request ou o valor do indice
      */
-    public function getGet(string $indice = '', bool $purifier = true, bool $html = true): array
+    public function getGet(string $indice = '', bool $purifier = true, bool $html = true): array|string
     {
         return $this->purifier($this->psr7Request->query->all(), $indice, $purifier, $html);
     }
