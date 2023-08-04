@@ -4,13 +4,13 @@ namespace App\Models\Api\Saude\Simulacao;
 
 use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimed\CentralNacionalUnimed;
 use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
 use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 use App\Classes\Saude\PlanoSaude;
 use App\Classes\Saude\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use DateTime;
 use Exception;
 use Helpers\ValidarHelper;
 use Http\Request;
@@ -118,11 +118,20 @@ class SimulacaoEntity extends Entity
 
             $contador = 1;
             for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
+                $data = new Data($dependentes[$i]);
+
                 (new ValidarHelper())
-                    ->valor(new Data($dependentes[$i]), 'Dependente ' . $contador)
+                    ->valor($data, "{$contador}° Dependente")
                     ->obrigatorio()
                     ->vazio()
                     ->valido();
+
+                if ((new DateTime())->diff((new DateTime($data->date())))->days < 0) {
+                    mensagemErro(
+                        'Data de Nascimento',
+                        "Data de Nascimento do {$contador}° Dependente não é válida"
+                    );
+                }
                 $contador++;
             }
         }
