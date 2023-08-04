@@ -839,7 +839,10 @@ Route
             ::get('/parceiro-loja/select');
         Route
             ::nome('listar')
-            ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status', '!ordem', '!favorito'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!categoria', '!subcategoria', '!estabelecimento',
+                '!pesquisa', '!tipo', '!status', '!ordem', '!favorito'
+            ], 'json')
             ::get('/parceiro-loja');
         Route
             ::nome('buscar')

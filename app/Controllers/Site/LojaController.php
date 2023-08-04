@@ -16,7 +16,9 @@ use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
+use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Procedimento;
+use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
 
 final class LojaController extends Controller
@@ -48,7 +50,11 @@ final class LojaController extends Controller
             quantidade: new Inteiro(24),
             favorito: new Botao($request->favorito),
             tipo: new Tipo(Tipo::LOJA),
-            ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito')
+            ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito'),
+            categoria: new Categoria($request->categoria),
+            subcategoria: $request->subcategoria,
+            estabelecimento: new Estabelecimento($request->estabelecimento),
+            pesquisa: $request->pesquisa
         );
 
         $Filtro = new FiltroModel($request);
