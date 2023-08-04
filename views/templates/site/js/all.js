@@ -10,6 +10,7 @@
 // @import "ajuda"
 
 const LINK = document.querySelector('#LINK').value || '';
+const body = $('body');
 
 // const blocoScrollTop = $('#bloco_scroll_top');
 // if (blocoScrollTop) {

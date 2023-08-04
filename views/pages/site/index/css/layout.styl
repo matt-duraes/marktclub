@@ -3,66 +3,48 @@
 @resource "site/loja/parceiro"
 @import "favorito"
 
-#bloco_faq_favorito
-    max-width: 600px
-    .conteudo
-        width: 100%
+.bloco_historico
+    width: 100%
+    flexRow()
+    overflow-x: auto
+    overflow-y: hidden
+    margin-bottom: 20px
+    .item
+        width: 70px
         flexCol()
-        padding: 20px
-        align-items: center
-    .conteudo p
-        width: 100%
-        texto()
-    .conteudo .parceiro
-        width: 100%
-        max-width: 400px
-        background-color: #EEE
-        padding: 20px
-        margin: 30px 0
-    .conteudo .parceiro .dado
-        width: 100%
-        blocoShadow()
-        position: relative
-        flexCol()
-    .conteudo .parceiro .dado i
-        fill: #FF6C60
-        width: 80px
-        height: 80px
+        margin-right: 20px
+        cursor: pointer
+    .item figure
+        width: 70px
+        height: 70px
+        border: 3px solid $corClube
         border-radius: 50%
         flexCenter()
-        position: absolute
-        top: -10px
-        right: -10px
-    .conteudo .parceiro .dado i .click
+    .item.visto figure
+        border-color: #CCC
+    .item figure span
+        width: 60px
+        height: 60px
+        flexCenter()
+        overflow: hidden
+        border-radius: 50%
+        position: relative
+        padding: 10px
+        background-color: #FFF
+    .item figure img
         width: 100%
         height: 100%
-        border: 1px solid #FF6C60
-        position: absolute
-        border-radius: 50%
-        animation: animar_click 1.8s infinite .4s ease-out
-    .conteudo .parceiro .dado .bola
-        width: 100px
-        height: 100px
-        background-color: #EEE
-        border-radius: 50%
-        margin: 20px auto
-    .conteudo .parceiro .dado .titulo
+        max-width: 100%
+        max-height: 100%
+        z-index: 1
+    .item .nome
         width: 100%
-        max-width: 200px
-        height: 30px
-        background-color: #EEE
-        margin-top: 30px
-    .conteudo .parceiro .dado .desconto
-        width: 100%
-        max-width: 120px
-        height: 20px
-        background-color: #EEE
-        margin-top: 10px
-    .conteudo a
-        margin-top: 20px
-        botaoPadraoGrande()
-        background-color: $corClube
-        color: #FFF
+        height: 1.5em
+        line-height: 1.5em
+        margin-top: 5px
+        text-align: center
+        font-size: 1.2em
+        overflow: hidden
 
 #bloco_index
     maxWidth()
@@ -84,12 +66,6 @@
             display: none
     .final
         padding: 20px 0px
-@media screen and (max-width: 425px)
-    .bloco .bloco_promocao
-        flex-direction: column
-        article
-            width: 100%
-            margin-bottom: 20px
 
 @media screen and (max-width: 450px)
     .bloco_geral_imagem_esquerda
@@ -107,11 +83,3 @@
         margin-right: 0px
         padding-left: 20px
         padding-top: 0px
-
-@keyframes animar_click
-    from
-        width: 100%
-        height: 100%
-    to
-        width: 0
-        height: 0

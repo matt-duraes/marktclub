@@ -1,6 +1,63 @@
 @template "site"
 <div id="bloco_index">
 
+    <div class="bloco_historico">
+        <div class="item visto">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/6abfbe8cb35fc871001df2950ed9989d.png" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/4e9d9c62b31e9644666cffa1429bee19.jpg" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/73a15d1ae615bf0e6371a4e42972ae4a.jpg" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/6abfbe8cb35fc871001df2950ed9989d.png" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/4e9d9c62b31e9644666cffa1429bee19.jpg" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/73a15d1ae615bf0e6371a4e42972ae4a.jpg" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/6abfbe8cb35fc871001df2950ed9989d.png" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/4e9d9c62b31e9644666cffa1429bee19.jpg" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+        <div class="item">
+            <figure>
+                <span><img src="https://arquivo.marktclub.com.br/parceiro/73a15d1ae615bf0e6371a4e42972ae4a.jpg" alt=""></span>
+            </figure>
+            <div class="nome">Parceiro...</div>
+        </div>
+    </div>
+
     @view site/geral/banner.view
 
     @if(TIPO_USUARIO == 'indicado'):

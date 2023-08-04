@@ -1,5 +1,5 @@
 // @template "site"
-// @resource "site/loja/busca"
+// @resource "site/busca"
 // @resource "site/loja/favorito"
 
 window.addEventListener('load', () => {

@@ -1,6 +1,6 @@
-<div class="bloco_buscar_geral" id="bloco_buscar">
+<div class="bloco_buscar_geral bloco_buscar_loja" id="bloco_buscar">
     <div class="buscar" id="botao_buscar_abrir">
-        <p>Busque por uma loja</p>
+        <p>Busque uma loja</p>
         <div class="botao">Buscar</div>
     </div>
 
@@ -8,8 +8,9 @@
         <div class="conteudo">
             <div class="centralizar">
                 <header>
+                    <i class="mobile botao_buscar_fechar">@iconeVoltar</i>
                     <h1>Busque por uma loja</h1>
-                    <i id="botao_buscar_fechar">@iconeFechar</i>
+                    <i class="desktop botao_buscar_fechar">@iconeFechar</i>
                 </header>
                 <fieldset>
                     @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $Busca->estado ?? '')
