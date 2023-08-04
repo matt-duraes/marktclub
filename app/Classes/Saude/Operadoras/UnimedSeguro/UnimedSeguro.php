@@ -25,10 +25,10 @@ class UnimedSeguro extends AbstractOperadora
      */
     public function pegarCodigoAcomodacao(): ?int
     {
-        if (!array_key_exists($this->acomodacaoSelecionada, $this->acomodacoes)) {
+        if (!in_array($this->acomodacaoSelecionada, $this->acomodacoes)) {
             return null;
         }
-        return $this->acomodacoes[$this->acomodacaoSelecionada];
+        return $this->acomodacaoCodigo[$this->acomodacaoSelecionada];
     }
 
     /**
@@ -120,9 +120,11 @@ class UnimedSeguro extends AbstractOperadora
     }
 
     /**
+     * @param bool $semNomes *
+     *
      * @return array Planos disponíveis na região
      */
-    public function pegarPlanos(): array
+    public function pegarPlanos(bool $semNomes = true): array
     {
         return [];
     }

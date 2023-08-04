@@ -77,23 +77,30 @@ class SimulacaoEntity extends Entity
         $acomodacao = $this->request->getPost('acomodacao');
         $planoSaude = match ($this->operadora->indice()) {
             Operadora::UNIMED => new PlanoSaude(
-                new Unimed($this->titular, acomodacaoSelecionada: $acomodacao)
+                new Unimed(
+                    titular: $this->titular,
+                    acomodacaoSelecionada: $acomodacao
+                )
             ),
             Operadora::UNIMED_SEGURO => new PlanoSaude(
-                new UnimedSeguro($this->titular, acomodacaoSelecionada: $acomodacao)
-            ),
-            Operadora::CENTRAL_NACIONAL_UNIMED => new PlanoSaude(
-                new CentralNacionalUnimed($this->titular, $this->regiao, $this->plano, $acomodacao)
+                new UnimedSeguro(
+                    titular: $this->titular,
+                    acomodacaoSelecionada: $acomodacao
+                )
             ),
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => new PlanoSaude(
                 new CentralNacionalUnimedFlorianopolis(
-                    $this->titular,
+                    titular: $this->titular,
                     planoSelecionado: $this->plano,
                     acomodacaoSelecionada: $acomodacao
                 )
             ),
             Operadora::AMIL => new PlanoSaude(
-                new Amil($this->titular, $this->regiao, $this->plano)
+                new Amil(
+                    titular: $this->titular,
+                    regiaoSelecionada: $this->regiao,
+                    planoSelecionado: $this->plano
+                )
             )
         };
 
@@ -135,9 +142,9 @@ class SimulacaoEntity extends Entity
             }
         }
 
-        $this->acomodacao = $planoSaude->codigoAcomodacao ?? '0';
-        $this->valor_titular = new Dinheiro((string)$valor_titular);
+        $this->acomodacao = $planoSaude->codigoAcomodacao ?? 0;
+        $this->valor_titular = new Dinheiro(number_format($valor_titular, 2, thousands_separator: ''));
         $this->dependentes = jsonEncode($valor_dependentes);
-        $this->valor_total = new Dinheiro((string)$valor_total);
+        $this->valor_total = new Dinheiro(number_format($valor_total, 2, thousands_separator: ''));
     }
 }
