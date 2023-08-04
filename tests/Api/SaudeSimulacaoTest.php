@@ -37,25 +37,113 @@ final class SaudeSimulacaoTest extends Tests
      * @return SaudeSimulacaoTest
      * @throws Excecao
      */
-    public function realizarSimulacaoTest(): SaudeSimulacaoTest
+    public function realizarSimulacaoAmilTest(): SaudeSimulacaoTest
     {
-        $dataNascimento = (new Data($this->dataPassada()))->data();
-
-        $dependentes = [];
-        for ($i = 0; $i < 4; $i++) {
-            $dependentes[] = (new Data($this->dataPassada()))->data();
-        }
+        $titular = (new Data($this->dataPassada()))->data();
 
         $this->api('saude_simulacao:salvar');
         $this
             ->Curl
             ->body([
-                'data_nascimento' => $dataNascimento,
-                'dependentes'     => implode(',', $dependentes),
-                'operadora'       => 'unimed',
-                'regiao'          => '',
-                'plano'           => '',
-                'acomodacao'      => 'enfermaria'
+                'titular'     => $titular,
+                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'operadora'   => 'amil',
+                'regiao'      => 'sao_paulo',
+                'plano'       => 'amil_s80qc',
+                'acomodacao'  => ''
+            ])
+            ->post('/saude/simulacao');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return array
+     */
+    private function gerarDependentes(): array
+    {
+        $dependentes = [];
+        for ($i = 0; $i < 4; $i++) {
+            $dependentes[] = (new Data($this->dataPassada()))->data();
+        }
+        return $dependentes;
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function realizarSimulacaoUnimedFloripaTest(): SaudeSimulacaoTest
+    {
+        $titular = (new Data($this->dataPassada()))->data();
+
+        $this->api('saude_simulacao:salvar');
+        $this
+            ->Curl
+            ->body([
+                'titular'     => $titular,
+                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'operadora'   => 'unimed_florianopolis',
+                'regiao'      => '',
+                'plano'       => 'regional',
+                'acomodacao'  => 'enfermaria-30'
+            ])
+            ->post('/saude/simulacao');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function realizarSimulacaoUnimedSeguroTest(): SaudeSimulacaoTest
+    {
+        $titular = (new Data($this->dataPassada()))->data();
+
+        $this->api('saude_simulacao:salvar');
+        $this
+            ->Curl
+            ->body([
+                'titular'     => $titular,
+                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'operadora'   => 'unimed_seguro',
+                'regiao'      => '',
+                'plano'       => '',
+                'acomodacao'  => $this->random(['basico', 'versatil', 'pratico'])
+            ])
+            ->post('/saude/simulacao');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function realizarSimulacaoUnimedTest(): SaudeSimulacaoTest
+    {
+        $titular = (new Data($this->dataPassada()))->data();
+
+        $this->api('saude_simulacao:salvar');
+        $this
+            ->Curl
+            ->body([
+                'titular'     => $titular,
+                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'operadora'   => 'unimed',
+                'regiao'      => '',
+                'plano'       => '',
+                'acomodacao'  => $this->random(['enfermaria', 'apartamento'])
             ])
             ->post('/saude/simulacao');
 
