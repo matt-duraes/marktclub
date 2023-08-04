@@ -251,13 +251,6 @@ class CentralNacionalUnimedFlorianopolis extends AbstractOperadora
         if ($semNomes) {
             return $this->planos;
         }
-        $Planos = new Planos();
-        $planosRetorno = [];
-        foreach ($this->planos as $regiao => $planos) {
-            foreach ($planos as $plano) {
-                $planosRetorno[$regiao][$plano] = $Planos->nome($plano);
-            }
-        }
-        return $planosRetorno;
+        return (new Planos())->select();
     }
 }
