@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
         botao.classList.add('loading');
         const bloco = botao.closest('.parceiro');
         const acao = botao.classList.contains('favorito_marcado') ? 'desmarcar' : 'marcar';
-        const id = bloco.getAttribute('data-id');
+        const id = bloco.getAttribute('data-url');
 
         if (acao == 'marcar') {
             salvarFavorito(botao, id);

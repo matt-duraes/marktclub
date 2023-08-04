@@ -5,6 +5,8 @@ namespace App\Classes\Saude;
 use App\Classes\Saude\Operadoras\AbstractOperadora;
 use App\Classes\Saude\Operadoras\Amil\Amil;
 use App\Classes\Saude\Operadoras\CentralNacionalUnimed\CentralNacionalUnimed;
+use DateTime;
+use Exception;
 use Helpers\ValidarHelper;
 use Modules\Data;
 
@@ -24,6 +26,9 @@ class PlanoSaude
         $this->valor = $this->operadora->simularValor();
     }
 
+    /**
+     * @throws Exception
+     */
     private function validarDados(): void
     {
         if (($this->operadora instanceof Amil) || ($this->operadora instanceof CentralNacionalUnimed)) {
@@ -63,6 +68,10 @@ class PlanoSaude
             ->obrigatorio()
             ->vazio()
             ->valido();
+
+        if ((new DateTime($this->operadora->pegarDados()['titular']->date()))->diff((new DateTime()))->invert === 1) {
+            mensagemErro('Data de Nascimento', 'Data de Nascimento não é válida');
+        }
     }
 
     /**

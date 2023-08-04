@@ -9,7 +9,7 @@ Route
     ::controller(App\Controllers\Site\FaqController::class)
     ::grupo(function () {
         Route
-            ::nome('index')
+            ::nome('cfm')
             ::view('/login/faq');
     });
 Route
@@ -95,6 +95,15 @@ Route
             ::nome('promocoes')
             ::request(['!tipo'])
             ::get('/promocoes');
+    });
+Route
+    ::nome('faq')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\FaqController::class)
+    ::grupo(function () {
+        Route
+            ::nome('favorito')
+            ::view('/faq/favorito');
     });
 Route
     ::nome('acessoRapido')

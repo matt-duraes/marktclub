@@ -3,10 +3,10 @@
 namespace App\Models\Site\Saude;
 
 use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimed\CentralNacionalUnimed;
 use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
 use App\Classes\Saude\Operadoras\Amil\Amil;
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
+use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 
 final class SimulacaoViewModel
 {
@@ -20,7 +20,7 @@ final class SimulacaoViewModel
         $passos = match ($this->operadora) {
             Operadora::AMIL                            => ['Região', 'Plano', 'Simulação', 'Resultado'],
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
-            Operadora::CENTRAL_NACIONAL_UNIMED         => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
+            Operadora::UNIMED_SEGURO                   => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
             Operadora::UNIMED                          => ['Acomodação', 'Simulação', 'Resultado'],
             default                                    => []
         };
@@ -44,8 +44,10 @@ final class SimulacaoViewModel
     public function acomodacao()
     {
         return match ($this->operadora) {
-            Operadora::UNIMED => (new Unimed())->pegarAcomodacoes(),
-            default           => []
+            Operadora::UNIMED                          => (new Unimed())->pegarAcomodacoes(),
+            Operadora::UNIMED_SEGURO                   => (new UnimedSeguro())->pegarAcomodacoes(),
+            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarAcomodacoes(),
+            default                                    => []
         };
     }
 
@@ -54,7 +56,7 @@ final class SimulacaoViewModel
         return match ($this->operadora) {
             Operadora::AMIL                            => (new Amil())->pegarPlanos(false),
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarPlanos(false),
-            Operadora::CENTRAL_NACIONAL_UNIMED         => (new CentralNacionalUnimed())->pegarPlanos(false),
+            Operadora::UNIMED_SEGURO                   => (new UnimedSeguro())->pegarPlanos(false),
             Operadora::UNIMED                          => (new Unimed())->pegarPlanos(false),
             default                                    => []
         };
@@ -64,8 +66,6 @@ final class SimulacaoViewModel
     {
         return match ($this->operadora) {
             Operadora::AMIL                            => (new Amil())->pegarRegioes(),
-            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarRegioes(),
-            Operadora::CENTRAL_NACIONAL_UNIMED         => (new CentralNacionalUnimed())->pegarRegioes(),
             default                                    => []
         };
     }
@@ -75,7 +75,6 @@ final class SimulacaoViewModel
         $passoPasso = match ($this->operadora) {
             Operadora::AMIL                            => ['regiao', 'plano', 'simulacao', 'resultado'],
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['plano', 'acomodacao', 'simulacao', 'resultado'],
-            Operadora::CENTRAL_NACIONAL_UNIMED         => ['regiao', 'plano', 'simulacao', 'resultado'],
             Operadora::UNIMED                          => ['acomodacao', 'simulacao', 'resultado'],
             default                                    => []
         };

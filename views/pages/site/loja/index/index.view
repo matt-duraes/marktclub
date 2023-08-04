@@ -1,8 +1,8 @@
 @template "site"
 
-<div id="bloco_loja_index">
-    @view site/loja/geral/busca.view
+@view site/loja/geral/busca.view
 
+<div id="bloco_loja_index">
     @ if( $banner ):
         @view site/geral/banner.view
     @ else:

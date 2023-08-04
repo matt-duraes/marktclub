@@ -1,28 +1,41 @@
-<div class="busca_convenio">
-    <form action="@route(get.loja.buscar)" method="get" class="form_geral">
-        <legend>Busque por um convênio</legend>
-        <fieldset>
-            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $Busca->estado ?? '')
-            @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: (new App\Classes\ParceiroLoja\Categoria)->select('Escolha uma categoria'), change: 'mudarCategoria', value: $Busca->categoria ?? '')
-            @? formSelect(name: 'subcategoria', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Escolha uma categoria'], value: $Busca->subcategoria ?? '')
-            @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: (new App\Classes\ParceiroLoja\Estabelecimento)->select('Escolha um tipo'), value: $Busca->estabelecimento ?? '')
-        </fieldset>
-        <fieldset>
-            @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->pesquisa ?? '')
-            @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\ParceiroLoja\Ordem)->select(), value: $Busca->ordem ?? '')
-            <button class="botao_geral_cor cor_bg">Buscar</button>
-        </fieldset>
-    </form>
-    @ if( isset($Busca) && $Busca->uso ):
-    <div class="buscar_convenio_lista">
-        <h2>Filtros:</h2>
-        @ foreach( $Busca->uso as $r ):
-        <div class="item" data-indice="{{$r['indice']}}" data-valor="{{$r['valor']}}">
-            <div class="nome">{{$r['nome']}}</div>
-            <div class="valor">{{$r['valor_real']}}</div>
-            <div class="remover">@iconeFechar(10)</div>
-        </div>
-        @ endforeach;
+<div class="bloco_buscar_geral bloco_buscar_loja" id="bloco_buscar">
+    <div class="buscar" id="botao_buscar_abrir">
+        <p>Busque uma loja</p>
+        <div class="botao">Buscar</div>
     </div>
-    @ endif;
+
+    <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="form_geral display_none">
+        <div class="conteudo">
+            <div class="centralizar">
+                <header>
+                    <i class="mobile botao_buscar_fechar">@iconeVoltar</i>
+                    <h1>Busque por uma loja</h1>
+                    <i class="desktop botao_buscar_fechar">@iconeFechar</i>
+                </header>
+                <fieldset>
+                    @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $Busca->estado ?? '')
+                    @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: (new App\Classes\ParceiroLoja\Categoria)->select('Escolha uma categoria'), change: 'mudarCategoria', value: $Busca->categoria ?? '')
+                    @? formSelect(name: 'subcategoria', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Escolha uma categoria'], value: $Busca->subcategoria ?? '')
+                    @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: (new App\Classes\ParceiroLoja\Estabelecimento)->select('Escolha um tipo'), value: $Busca->estabelecimento ?? '')
+                </fieldset>
+                <fieldset>
+                    @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->pesquisa ?? '')
+                    @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\ParceiroLoja\Ordem)->select(), value: $Busca->ordem ?? '')
+                    <button class="botao_geral_cor cor_bg">Buscar</button>
+                </fieldset>
+            </div>
+        </div>
+    </form>
 </div>
+@ if( isset($Busca) && $Busca->uso ):
+<div class="buscar_convenio_lista">
+    <h2>Filtros:</h2>
+    @ foreach( $Busca->uso as $r ):
+    <div class="item" data-indice="{{$r['indice']}}" data-valor="{{$r['valor']}}">
+        <div class="nome">{{$r['nome']}}</div>
+        <div class="valor">{{$r['valor_real']}}</div>
+        <div class="remover">@iconeFechar(10)</div>
+    </div>
+    @ endforeach;
+</div>
+@ endif;

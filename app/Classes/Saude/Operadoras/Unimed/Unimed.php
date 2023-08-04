@@ -10,6 +10,7 @@ class Unimed extends AbstractOperadora
 {
     private const ACOMODACAO_ENFERMARIA = 'enfermaria';
     private const ACOMODACAO_APARTAMENTO = 'apartamento';
+
     protected array $acomodacoes = [
         self::ACOMODACAO_ENFERMARIA, self::ACOMODACAO_APARTAMENTO
     ];
@@ -88,9 +89,11 @@ class Unimed extends AbstractOperadora
     }
 
     /**
+     * @param bool $semNomes *
+     *
      * @return array Planos disponíveis na região
      */
-    public function pegarPlanos(): array
+    public function pegarPlanos(bool $semNomes = true): array
     {
         return [];
     }

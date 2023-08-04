@@ -27,7 +27,7 @@ abstract class AbstractOperadora implements OperadoraInterface
         protected readonly ?Data $titular = null,
         protected readonly ?string $regiaoSelecionada = null,
         protected readonly ?string $planoSelecionado = null,
-        protected string|null $acomodacaoSelecionada = null
+        protected ?string $acomodacaoSelecionada = null
     ) {
         if ($this->titular === null) {
             return;
@@ -87,9 +87,11 @@ abstract class AbstractOperadora implements OperadoraInterface
     abstract public function pegarRegioes(): array;
 
     /**
+     * @param bool $semNomes Deseja retornar com seus devidos nomes
+     *
      * @return array Planos disponíveis na região
      */
-    abstract public function pegarPlanos(): array;
+    abstract public function pegarPlanos(bool $semNomes = true): array;
 
     /**
      * @return int|null Código da Acomodação para o Banco de Dados, NULL caso não encontrado há acomodação
