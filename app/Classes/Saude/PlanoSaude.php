@@ -69,7 +69,7 @@ class PlanoSaude
             ->vazio()
             ->valido();
 
-        if ((new DateTime())->diff((new DateTime($this->operadora->pegarDados()['titular']->date())))->days < 0) {
+        if ((new DateTime($this->operadora->pegarDados()['titular']->date()))->diff((new DateTime()))->invert === 1) {
             mensagemErro('Data de Nascimento', 'Data de Nascimento não é válida');
         }
     }

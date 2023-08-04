@@ -126,7 +126,7 @@ class SimulacaoEntity extends Entity
                     ->vazio()
                     ->valido();
 
-                if ((new DateTime())->diff((new DateTime($data->date())))->days < 0) {
+                if ((new DateTime($data->date()))->diff((new DateTime()))->invert === 1) {
                     mensagemErro(
                         'Data de Nascimento',
                         "Data de Nascimento do {$contador}° Dependente não é válida"
