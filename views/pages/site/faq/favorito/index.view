@@ -1,7 +1,7 @@
 <div class="bloco_popup_geral" id="bloco_faq_favorito">
     <header class="popup_header">
         <h1>Salvar favoritos</h1>
-        <i class="botao_fechar_popup">@iconeFechar</i>
+        <i id="botao_faq_favorito_fechar">@iconeFechar</i>
     </header>
     <div class="popup_conteudo">
         <div class="conteudo">

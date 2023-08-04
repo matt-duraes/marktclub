@@ -10,6 +10,8 @@ use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Site\ListarInterface;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Estabelecimento;
 
 final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
@@ -19,6 +21,10 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         private Botao $favorito = new Botao(Botao::NAO),
         private Tipo $tipo = new Tipo(),
         private Ordem $ordem = new Ordem(),
+        private Categoria $categoria = new Categoria(null),
+        private ?string $subcategoria = null,
+        private Estabelecimento $estabelecimento = new Estabelecimento(null),
+        private ?string $pesquisa = null
     ) {
         parent::__construct();
     }
@@ -86,6 +92,18 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         $tipo = $this->tipo;
         if ($tipo->valido()) {
             $where['tipo'] = $tipo->numero();
+        }
+        if ($this->categoria->valido()) {
+            $where['categoria'] = $this->categoria->indice();
+        }
+        if (!empty($this->subcategoria)) {
+            $where['subcategoria'] = $this->subcategoria;
+        }
+        if ($this->estabelecimento->valido()) {
+            $where['estabelecimento'] = $this->estabelecimento->indice();
+        }
+        if (!empty($this->pesquisa)) {
+            $where['pesquisa'] = $this->pesquisa;
         }
         return $where;
     }

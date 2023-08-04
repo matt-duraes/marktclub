@@ -50,6 +50,8 @@ final class FiltroModel extends ClubeApiHelper
     public ?string $pesquisa = null;
     public ?string $ordem = null;
     public bool $existe = false;
+    public bool $favorito = false;
+    public bool $mapa = false;
 
     public function __construct(
         private Request $request
