@@ -6,6 +6,16 @@ use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
+    ::nome('samsung')
+    ::controller(App\Controllers\Api\SamsungController::class)
+    ::grupo(function() {
+        Route
+            ::nome('validar')
+            ::request(['code'], 'get')
+            ::post('/_v/private/user/validate');
+    });
+
+Route
     ::nome('downloadRestrito')
     ::controller(App\Controllers\Api\DownloadRestritoController::class)
     ::grupo(function () {
