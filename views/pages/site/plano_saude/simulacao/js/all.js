@@ -10,7 +10,7 @@ const blocoPlano = $('#bloco_plano');
 const blocoSimulacao = $('#bloco_simulacao');
 const blocoResultado = $('#bloco_resultado');
 const blocoAcomodacao = $('#bloco_acomodacao');
-
+const blocoOperadora = $('#operadora');
 const blocoListaDependente = $('#bloco_lista_dependente');
 const botaoAdicionarDependente = $('#botao_adicionar_dependente');
 const inputDataTitular = $('#input_data_titular');
@@ -20,6 +20,7 @@ const botaoContratar = $('#botao_contratar');
 
 const blocoValorLista = $('#bloco_valor_lista');
 const blocoValorTotal = $('#bloco_valor_total');
+const blocoValorTitular = $('#bloco_valor_titular');
 
 const blocoDependentePadrao = $('#bloco_dependente_padrao');
 blocoDependentePadrao.removeAttribute('id');
@@ -73,7 +74,8 @@ botaoVoltar.forEach(botao => {
             limparBotaoAcomodacao();
         }
         if (blocoAnterior == blocoAcomodacao) {
-            limparBotaoPlano();
+            limparBotaoAcomodacao();
+            limparBlocoAcomodacao();
         }
         if (blocoAtual == blocoSimulacao) {
             limparSimulacao();
@@ -104,9 +106,9 @@ const carregarAcomodacao = () => {
 };
 const escolherAcomodacao = (botao, acomodacao) => {
     const blocoProximo = pegarBlocoProximoPasso();
-    if (blocoProximo == blocoPlano) {
+    if (blocoProximo) {
         botao.classList.add('ativo');
-        abrirBlocoRegiao(acomodacao);
+        abrirBlocoSimulacao(acomodacao);
     }
 };
 
@@ -219,12 +221,14 @@ if (botaoSimulacaoContinuar) {
     botaoSimulacaoContinuar.addEventListener('click', validarSimulacao);
 }
 const buscarValorSimulacao = async () => {
+    const operadora = blocoOperadora.getAttribute('data-operadora');
     const body = {
-        dataNascimento: inputDataTitular.value,
+        titular: inputDataTitular.value,
         regiao: pegarRegiao(),
         plano: pegarPlano(),
         acomodacao: pegarAcomodacao(),
         dependentes: [],
+        operadora: operadora,
     };
     const dependente = [];
     $$('#bloco_lista_dependente .bloco_input input').forEach(input => {
@@ -292,21 +296,20 @@ const limparResultado = () => {
 const abrirBlocoResultado = dado => {
     limparResultado();
     irParaProximoPasso();
-
-    adicionarLinhaValor(blocoResultadoDependentePadrao, '27/07/1987', '200');
-    adicionarLinhaValor(blocoResultadoDependentePadrao, '27/07/1987', '200');
-    // dado.dependente.forEach(dependente => {
-    // adicionarLinhaValor(blocoResultadoDependentePadrao, '27/07/1987', '200');
-    // });
-
-    adicionarLinhaValor(blocoResultadoTitularPadrao, '27/07/1987', '200,00');
-    blocoValorTotal.innerText = 'R$ 600,00';
-    botaoContratar.setAttribute('href', '');
+    let dependentes = Object.values(dado.dependentes);
+    dependentes.forEach(dependente => {
+        let valor = dependente.valor;
+        let dataNascimento = dependente.data_nascimento;
+        adicionarLinhaValor(blocoResultadoDependentePadrao, dataNascimento, valor);
+    });
+    adicionarLinhaValor(blocoResultadoTitularPadrao, dado.titular, dado.valor_titular);
+    blocoValorTotal.innerText = `${dado.valor_total}`;
+    botaoContratar.setAttribute('href', `${dado.id}`);
 };
 const adicionarLinhaValor = (bloco, data, valor) => {
     const clone = bloco.cloneNode(true);
     clone.querySelector('.data').innerText = data;
-    clone.querySelector('.valor').innerText = 'R$ ' + valor;
+    clone.querySelector('.valor').innerText = valor;
 
     blocoValorLista.prepend(clone);
 };

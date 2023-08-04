@@ -1,5 +1,4 @@
 @template "site"
-
 <div id="bloco_simulacao_saude" class="bloco_passo_passo_geral">
     <div class="bloco_progresso">
         @ foreach( $Simulacao->opcao() as $r ):
@@ -12,8 +11,7 @@
         </div>
         @ endforeach;
     </div>
-
-    <div class="bloco_conteudo">
+    <div class="bloco_conteudo" id="operadora" data-operadora="{{$operadora}}">
         <div class="bloco_scroll">
             @ foreach($Simulacao->passoPasso() as $passo)
                 @ if( $passo->tipo == 'regiao' ):
@@ -27,15 +25,15 @@
                     @ endforeach;
                 </div>
             </div>
-                @ elseif( $passo->tipo == 'regiao'):
+                @ elseif( $passo->tipo == 'acomodacao'):
             <div class="conteudo passo_{{$passo->numero}}" id="bloco_acomodacao">
                 <header>
                     <h1>ESCOLHA A ACOMODAÇÃO</h1>
                 </header>
                 <div class="botao_selecao">
-                    <!-- @ foreach( $Simulacao->acomodacao() as $ind => $val ): -->
-                    <div class="botao botao_geral_borda botao_escolher_acomodacao" data-acomodacao="amil">amil</div>
-                    <!-- @ endforeach; -->
+                    @ foreach( $Simulacao->acomodacao() as $val ):
+                    <div class="botao botao_geral_borda botao_escolher_acomodacao" data-acomodacao="{{$val}}">{{$val}}</div>
+                    @ endforeach;
                 </div>
             </div>
                 @ elseif( $passo->tipo == 'plano' ):
@@ -98,7 +96,7 @@
                 </div>
                 <div class="bloco_botao">
                     <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
-                    <a href="" class="botao_geral_cor cor_bg" id="botao_contratar">Contratar</a>
+                    <a href="@route('saude.contratacao')/" class="botao_geral_cor cor_bg" id="botao_contratar">Contratar</a>
                 </div>
             </div>
                 @ endif;

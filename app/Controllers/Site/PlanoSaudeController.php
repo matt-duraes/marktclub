@@ -94,11 +94,11 @@ final class PlanoSaudeController extends Controller
     {
         $dado = ((new ClubeApiHelper()))
         ->body([
-            'operadora'        => $request->$url,
+            'operadora'        => $request->operadora,
             'regiao'           => $request->regiao,
             'plano'            => $request->plano,
-            'data_nascimento'  => $request->dataNascimento,
-            'dependentes'      => $request->dtNascimentoDependentes,
+            'titular'          => $request->titular,
+            'dependentes'      => $request->dependentes,
             'acomodacao'       => $request->acomodacao
         ])
         ->post('/saude/simulacao')
@@ -109,10 +109,14 @@ final class PlanoSaudeController extends Controller
 
     public function simulacao($url = null)
     {
+        $operadora = ($url == 'unimed-vitoria') ? 'unimed' : $url;
+        if ($operadora == 'central-nacional-unimed-florianopoli') {
+            $operadora = str_replace('-', '_', $url);
+        }
         return view('plano_saude.simulacao', [
             'menu'      => 'saude',
-            'operadora' => $url,
-            'Simulacao' => new SimulacaoViewModel($url)
+            'operadora' => $operadora,
+            'Simulacao' => new SimulacaoViewModel($operadora)
         ]);
     }
 
