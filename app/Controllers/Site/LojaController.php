@@ -11,7 +11,6 @@ use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Helpers\ClubeApiHelper;
-use App\Models\Site\BannerModel;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Loja\BuscarModel;
@@ -57,7 +56,7 @@ final class LojaController extends Controller
             'menu'   => 'loja',
             'Busca'  => $Filtro,
             'lista'  => $Lista->listarDados(),
-            'banner' => $Filtro->existe ? [] : (new BannerModel())->loja()
+            'banner' => []
         ]);
     }
 

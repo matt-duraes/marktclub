@@ -46,7 +46,7 @@ abstract class AbstractOperadora implements OperadoraInterface
     /**
      * @param Data $dataNascimento Data de Nascimento
      *
-     * @return int Idade
+     * @return int       Idade
      * @throws Exception
      */
     protected function pegarIdade(Data $dataNascimento): int
@@ -58,7 +58,7 @@ abstract class AbstractOperadora implements OperadoraInterface
      * @return array
      */
     #[ArrayShape([
-        'titular'     => "\\Modules\\Data",
+        'titular'     => '\\Modules\\Data',
         'regiao'      => 'string|null',
         'regioes'     => 'array',
         'plano'       => 'string|null',

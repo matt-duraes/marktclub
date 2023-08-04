@@ -54,6 +54,7 @@ final class FiltroModel extends ClubeApiHelper
     public function __construct(
         private Request $request
     ) {
+        parent::__construct();
         $this->link = route('loja.index');
         $this->montarDado();
     }

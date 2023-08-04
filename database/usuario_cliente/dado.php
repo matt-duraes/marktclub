@@ -50,7 +50,7 @@ return [
         'tipo'              => 1,
         'nome'              => 'Usuário de Teste',
         'documento'         => '01234567890',
-        'email_pessoal'     => emailAleatorio(),
+        'email_pessoal'     => 'teste@markt.club',
         'salt'              => password('Teste@1324'),
         'status'            => 1
     ],
@@ -86,6 +86,17 @@ return [
         'email_pessoal'  => emailAleatorio(),
         'salt'           => password('Teste@1324'),
         'status'         => 1
+    ],
+    [
+        'cod'              => uuid(),
+        'empresa'          => 1,
+        'tipo'             => 1,
+        'nome'             => 'André Rodrigues',
+        'email_trabalho'   => 'andre@markt.club',
+        'telefone_celular' => '61981777773',
+        'documento'        => 1495180131,
+        'salt'             => password('Teste@1324'),
+        'status'           => 1
     ],
     [
         'id'             => 100,

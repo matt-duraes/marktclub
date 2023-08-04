@@ -8,8 +8,8 @@
             @ if( !empty($dado->capa_mobile) ):
             <figure class="banner mobile"><img src="{{$dado->capa_mobile}}"></figure>
             @ endif;
-            <figure class="logo {!!empty($dado->capa_desktop) && empty($dado->capa_mobile) ? 'vazio' : ''!!}"><img src="{{$dado->logo}}"></figure>
         </section>
+        <figure class="logo {!!empty($dado->capa_desktop) && empty($dado->capa_mobile) ? 'vazio' : ''!!}"><img src="{{$dado->logo}}"></figure>
         <header class="bloco_header">
             <h1>{{$dado->titulo}}</h1>
             <p>{{$dado->texto_descricao}}</p>
