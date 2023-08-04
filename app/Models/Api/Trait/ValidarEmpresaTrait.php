@@ -39,7 +39,7 @@ trait ValidarEmpresaTrait
     {
         $this->verificarSeExisteToken();
         $this->idUsuario = array_key_exists('usuario', TOKEN) && !vazio(TOKEN['usuario']) ?
-            TOKEN['usuario']->id : null;
+            TOKEN['usuario']->id : 1;
     }
 
     /**

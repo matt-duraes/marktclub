@@ -46,7 +46,7 @@ final class SimulacaoViewModel
         return match ($this->operadora) {
             Operadora::UNIMED                          => (new Unimed())->pegarAcomodacoes(),
             Operadora::UNIMED_SEGURO                   => (new UnimedSeguro())->pegarAcomodacoes(),
-            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarAcomodacoes(),
+            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarAcomodacoes(true),
             default                                    => []
         };
     }

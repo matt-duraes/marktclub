@@ -59,6 +59,7 @@ botaoVoltar.forEach(botao => {
     botao.addEventListener('click', () => {
         const blocoAtual = pegarBlocoPassoAtual();
         const blocoAnterior = pegarBlocoPassoAnterior();
+
         if (blocoAnterior == blocoRegiao) {
             limparRegiao();
         }
@@ -169,6 +170,9 @@ const escolherPlano = botao => {
     if (pegarBlocoProximoPasso() == blocoSimulacao) {
         abrirBlocoSimulacao();
     }
+    if (pegarBlocoProximoPasso() == blocoAcomodacao) {
+        abrirBlocoAcomodacao();
+    }
 };
 const abrirBlocoPlano = regiao => {
     const blocoEscolhido = blocoPlano.querySelector('.' + regiao);
@@ -274,6 +278,12 @@ const pegarPlano = () => {
     }
     return bloco.getAttribute('data-plano');
 };
+
+const abrirBlocoAcomodacao = () => {
+    limparSimulacao();
+    irParaProximoPasso();
+};
+
 const pegarAcomodacao = () => {
     if (!blocoAcomodacao) {
         return '';
