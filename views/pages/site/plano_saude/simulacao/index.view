@@ -1,21 +1,121 @@
 @template "site"
 
-<div id="bloco_simulacao">
-@ if( $operadora == 'unimed-vitoria' ):
-    @view site/plano_saude/unimedvitoria/simulacao.view
-@ endif;
-@ if( $operadora == 'unimed-florianopolis' ):
-    @view site/plano_saude/unimedflorianopolis/simulacao.view
-@ endif;
-@ if( $operadora == 'amil' ):
-    @view site/plano_saude/amil/simulacao.view
-@ endif;
-@ if( $operadora == 'unimed-seguros' ):
-    @view site/plano_saude/unimedSeguro/simulacao.view
-@ endif;
+<div id="bloco_simulacao_saude" class="bloco_passo_passo_geral">
+    <div class="bloco_progresso">
+        @ foreach( $Simulacao->opcao() as $r ):
+        <div class="item">
+            <div class="bola">
+                <span>{{$r->numero}}</span>
+                <div class="cor_fill check">@iconeCheck()</div>
+            </div>
+            <p>{{$r->titulo}}</p>
+        </div>
+        @ endforeach;
+    </div>
 
-<input type="hidden" name="operadora" id="operadora" value="{{$operadora}}">
+    <div class="bloco_conteudo">
+        <div class="bloco_scroll">
+            @ foreach($Simulacao->passoPasso() as $passo)
+                @ if( $passo->tipo == 'regiao' ):
+            <div class="conteudo passo_{{$passo->numero}}" id="bloco_regiao">
+                <header>
+                    <h1>ESCOLHA A REGIÃO</h1>
+                </header>
+                <div class="botao_selecao">
+                    @ foreach( $Simulacao->regiao() as $ind => $val ):
+                    <div class="botao botao_geral_borda botao_escolher_regiao" data-regiao="{{$ind}}">{{$val}}</div>
+                    @ endforeach;
+                </div>
+            </div>
+                @ elseif( $passo->tipo == 'plano' ):
+            <div class="conteudo passo_{{$passo->numero}}" id="bloco_plano">
+                <header>
+                    <h1>ESCOLHA SEU PLANO</h1>
+                </header>
+                @ foreach( $Simulacao->plano() as $regiao => $lista ):
+                <div class="bloco_escolher_plano {{$regiao}} botao_selecao display_none">
+                    @ foreach( $lista as $ind => $val ):
+                    <div class="botao botao_geral_borda botao_escolher_plano" data-plano="{{$ind}}">{{$val}}</div>
+                    @ endforeach;
+                </div>
+                @ endforeach;
+                <div class="bloco_botao">
+                    <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
+                    <div class="flex"></div>
+                </div>
+            </div>
+                @ elseif( $passo->tipo == 'simulacao' ):
+            <form class="form_geral bloco_simulacao conteudo passo_{{$passo->numero}}" id="bloco_simulacao">
+                <header>
+                    <h1>PREENCHA AS INFORMAÇÕES</h1>
+                </header>
+                <div class="conteudo_menor">
+                    @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Data de nascimento do titular', obrigatorio: true)
+                    <h2>Dependentes</h2>
+                    <p>Adicione os seus dependentes para fazer a simulação</p>
+                    <div class="botao" id="botao_adicionar_dependente">Adicionar Dependente</div>
+                    <div class="bloco_dependente" id="bloco_lista_dependente">
+                    </div>
+                </div>
+                <div class="bloco_botao">
+                    <div class="botao_geral_cor botao_geral_voltar cinza">Voltar</div>
+                    <div class="botao_geral_cor cor_bg" id="botao_simulacao_continuar">Continuar</div>
+                </div>
+            </form>
+                @ elseif( $passo->tipo == 'resultado' ):
+            <div class="conteudo bloco_resultado passo_{{$passo->numero}}" id="bloco_resultado">
+                <header>
+                    <h1>RESULTADO DA SIMULAÇÃO</h1>
+                </header>
+                <div class="conteudo_menor">
+                    <div class="bloco_valor" id="bloco_valor_lista">
 
+                    </div>
+
+                    <div class="resultado total">
+                        <div class="dado">
+                            <p class="data">Total</p>
+                            <div class="linha"></div>
+                            <p class="valor" id="bloco_valor_total"></p>
+                        </div>
+                    </div>
+
+                    <div class="atencao">
+                        <p>Gostou dos valores?</p>
+                        <p>Preencha nosso formulário e um especialista irá entrar em contato, fique tranquilo que o preenchimento do formulário não implica em contratação, é apenas para um melhor atendimento.</p>
+                    </div>
+                </div>
+                <div class="bloco_botao">
+                    <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
+                    <a href="" class="botao_geral_cor cor_bg" id="botao_contratar">Contratar</a>
+                </div>
+            </div>
+                @ endif;
+            @ endforeach;
+        </div>
+    </div>
 </div>
-@view site/plano_saude/geral/voltarDetalhe.view
 
+<div class="display_none">
+    <div class="linha_dependente" id="bloco_dependente_padrao">
+        @? formData(name: 'dependente', placeholder: 'Data de nascimento do dependente', label: 'Data de nascimento do dependente', class: 'data_nascimento data_dependente', obrigatorio: true, value: '')
+        <div class="remover">@iconeFechar()</div>
+    </div>
+
+    <div class="resultado" id="bloco_resultado_titular_padrao">
+        <h2>Titular</h2>
+        <div class="dado">
+            <p class="data"></p>
+            <div class="linha"></div>
+            <p class="valor"></p>
+        </div>
+    </div>
+    <div class="resultado" id="bloco_resultado_dependente_padrao">
+        <h2>Dependente</h2>
+        <div class="dado">
+            <p class="data"></p>
+            <div class="linha"></div>
+            <p class="valor"></p>
+        </div>
+    </div>
+</div>

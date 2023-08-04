@@ -1824,6 +1824,9 @@ if (!function_exists('criarArquivo')) {
         if (!$arquivo) {
             return false;
         }
+        if (is_array($conteudo) || is_object($conteudo)) {
+            $conteudo = jsonEncode($conteudo);
+        }
         fwrite($arquivo, $conteudo);
         fclose($arquivo);
         return true;

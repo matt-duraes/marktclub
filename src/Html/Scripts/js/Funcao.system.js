@@ -39,7 +39,14 @@ ajax = async (link, metodo, body, erro, opcao) => {
         const dado = new FormData();
         Object.entries(body).forEach(valores => {
             const [indice, valor] = valores;
-            dado.append(indice, valor);
+            if (Array.isArray(valor)) {
+                valor.forEach(val => {
+                    const ind = indice + '[]';
+                    dado.append(ind, val);
+                });
+            } else {
+                dado.append(indice, valor);
+            }
         });
         opcao.body = dado;
     } else if (body != undefined && body instanceof Object && (metodo == 'GET' || metodo == 'PUT')) {

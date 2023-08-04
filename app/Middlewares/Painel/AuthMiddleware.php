@@ -51,7 +51,6 @@ final class AuthMiddleware
                 refreshToken: $this->token['token']
             );
             new LoginAutorizadoModel(Login: $Login);
-
             return true;
         } catch (\Throwable) {
             return $this->usuarioNaoLogado();
