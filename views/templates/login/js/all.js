@@ -15,6 +15,8 @@ const loadingLogin = () => {
     const botaoAtivar = $('#botao_ativar_conta');
     const botaoFazerLogin = $('#botao_fazer_login');
 
+    inputLogin.focus();
+
     botaoAtivar.addEventListener('click', () => {
         PaginaBuscar.abrir();
     });
@@ -62,15 +64,19 @@ const loadingLogin = () => {
 
 const loadingBuscar = () => {
     const botaoBuscar = $('#botao_buscar_usuario');
-    const PaginaAtivar = new Pagina('ativar-conta', LINK + '/login/ativar', { id: '123' }, true, false, loadingAtivar);
+    const inputBuscar = $('#input_buscar');
 
+    inputBuscar.focus();
+
+    const PaginaAtivar = new Pagina('ativar-conta', LINK + '/login/ativar', { id: '123' }, true, false, loadingAtivar);
     botaoBuscar.addEventListener('click', () => {
         PaginaAtivar.abrir();
     });
 };
 
 const loadingAtivar = () => {
-    //
+    const inputNome = $('#input_nome');
+    inputNome.focus();
 };
 
 const PaginaLogin = new Pagina('login', LINK + '/login/login', {}, true, true, loadingLogin);
