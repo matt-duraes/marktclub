@@ -1,6 +1,6 @@
 @template "site"
+@view site/cashback/geral/busca.view
 
 <div id="bloco_cashback">
-    @view site/cashback/geral/busca.view
     @view site/geral/parceiro.view
 </div>
