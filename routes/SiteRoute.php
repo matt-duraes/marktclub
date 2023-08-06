@@ -13,6 +13,15 @@ Route
             ::view('/login/faq');
     });
 Route
+    ::nome('faq')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\FaqController::class)
+    ::grupo(function () {
+        Route
+            ::nome('favorito')
+            ::view('/faq/favorito');
+    });
+Route
     ::nome('comoFunciona')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\ComoFuncionaController::class)
@@ -91,15 +100,6 @@ Route
         Route
             ::nome('index')
             ::view('/');
-    });
-Route
-    ::nome('faq')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\FaqController::class)
-    ::grupo(function () {
-        Route
-            ::nome('favorito')
-            ::view('/faq/favorito');
     });
 Route
     ::nome('acessoRapido')
@@ -205,9 +205,6 @@ Route
         Route
             ::nome('voucher')
             ::view('/convenios/voucher/{url}');
-        Route
-            ::nome('proxima')
-            ::view('/convenios/mapa');
         Route
             ::nome('subcategoria')
             ::request(['categoria'])

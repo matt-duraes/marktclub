@@ -841,7 +841,8 @@ Route
             ::nome('listar')
             ::request([
                 'pagina', '!quantidade', '!categoria', '!subcategoria', '!estabelecimento',
-                '!pesquisa', '!tipo', '!status', '!ordem', '!favorito'
+                '!pesquisa', '!tipo', '!status', '!ordem', '!favorito', '!mais_acessado',
+                '!latitude', '!longitude'
             ], 'json')
             ::get('/parceiro-loja');
         Route

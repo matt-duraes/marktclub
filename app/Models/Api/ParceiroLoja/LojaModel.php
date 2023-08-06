@@ -29,6 +29,7 @@ class LojaModel extends ORM implements ModelListarInterface
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     private int $idEmpresa;
     private array $favorito = [];
+    private array $idMaisAcessado = [];
 
     public function __construct(
         private ?Request $request
@@ -43,17 +44,23 @@ class LojaModel extends ORM implements ModelListarInterface
         $dado = $this
             ->campo(['cod', 'titulo', 'url', 'tipo', 'desconto', 'imagem', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->where($this->pegarWhere(), obrigatorio: false)
-            ->order($this->pegarOrdem(new Ordem()))
+            ->where($this->pegarWhere(), obrigatorio: false);
+        //Ordem
+        if (!empty($this->idMaisAcessado)) {
+            $dado->orderTexto('FIELD(`' . $this->ormTabela . '`.`id`, ' . implode(',', $this->idMaisAcessado) . ')');
+        } else {
+            $dado->order($this->pegarOrdem(new Ordem()));
+        }
+
+        // Favorito
+        $dado
             ->tabela(TABELA_PARCEIRO_FAVORITO)
             ->campo([['id_parceiro_loja', '!favorito']]);
-
         if ($this->request->favorito == 'sim') {
             $dado->join('id_parceiro_loja', 'id');
         } else {
             $dado->leftJoin('id_parceiro_loja', 'id');
         }
-
         $dado = $dado->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -134,6 +141,11 @@ class LojaModel extends ORM implements ModelListarInterface
         $estabelecimento = new Estabelecimento($this->request->estabelecimento);
         if ($estabelecimento->valido()) {
             $where[] = ['estabelecimento', $estabelecimento->numero()];
+        }
+
+        if (!empty($this->request->mais_acessado)) {
+            $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
+            $where[] = ['id', 'in', $this->idMaisAcessado];
         }
 
         $status = new Status($this->request->status);

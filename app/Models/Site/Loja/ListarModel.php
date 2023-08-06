@@ -24,7 +24,10 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         private Categoria $categoria = new Categoria(null),
         private ?string $subcategoria = null,
         private Estabelecimento $estabelecimento = new Estabelecimento(null),
-        private ?string $pesquisa = null
+        private ?string $pesquisa = null,
+        private ?float $latitude = null,
+        private ?float $longitude = null,
+        private ?string $acessado = null
     ) {
         parent::__construct();
     }
@@ -43,8 +46,8 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
 
         return (object)[
             'tipo'      => $this->tipo->indice(),
-            'lista'     => $this->montarLista($dado->dado->lista),
-            'paginacao' => $dado->dado->pagina,
+            'lista'     => $this->montarLista($dado->dado->lista ?? []),
+            'paginacao' => $dado->dado->pagina ?? [],
         ];
     }
 
@@ -104,6 +107,15 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         }
         if (!empty($this->pesquisa)) {
             $where['pesquisa'] = $this->pesquisa;
+        }
+        if (!empty($this->latitude)) {
+            $where['latitude'] = $this->latitude;
+        }
+        if (!empty($this->longitude)) {
+            $where['longitude'] = $this->longitude;
+        }
+        if ($this->acessado == 'sim') {
+            $where['acessado'] = 'sim';
         }
         return $where;
     }

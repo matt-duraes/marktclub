@@ -29,7 +29,10 @@ final class AppleModel extends ORM
     private function pegarListaEmpresa()
     {
         $Empresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $this->listaIdEmpresa = $Empresa->pegarListaCampo(['status', 'in', HelperEmpresa::STATUS_LIBERADO], campo: 'id');
+        $this->listaIdEmpresa = $Empresa->pegarListaCampo(
+            where: ['status', 'in', HelperEmpresa::STATUS_LIBERADO],
+            campo: 'id'
+        );
     }
 
     private function montarListaUsuarioPadrao()

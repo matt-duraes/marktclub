@@ -32,15 +32,16 @@ final class FiltroModel extends ClubeApiHelper
             'indice' => 'pesquisa',
             'nome'   => 'Pesquisa'
         ],
-        'favorito' => [
-            'indice' => 'favorito',
-            'nome'   => 'Só favoritos'
-        ],
-        'ordem' => [
+        'favorito'  => true,
+        'latitude'  => true,
+        'longitude' => true,
+        'acessado'  => true,
+        'ordem'     => [
             'indice' => 'ordem',
             'nome'   => 'Ordem'
         ],
     ];
+    private array $card = ['favorito', 'latitude', 'longitude', 'acessado'];
     public string $link;
     public array $uso = [];
     public ?string $estado = null;
@@ -51,7 +52,9 @@ final class FiltroModel extends ClubeApiHelper
     public ?string $ordem = null;
     public bool $existe = false;
     public bool $favorito = false;
+    public bool $acessado = false;
     public bool $mapa = false;
+    public bool $tutorialMapa = false;
 
     public function __construct(
         private Request $request
@@ -84,14 +87,28 @@ final class FiltroModel extends ClubeApiHelper
             }
 
             $retorno[] = $ind . '=' . $val;
+            if (in_array($ind, $this->card)) {
+                continue;
+            }
+            $valor = str_replace(['"', "'", '\\', '/', '|'], '', $val);
             $uso = $dado[$ind];
             $uso['valor_real'] = $valorReal;
-            $valor = str_replace(['"', "'", '\\', '/', '|'], '', $val);
             $uso['valor'] = $valor;
             $this->uso[] = $uso;
             $this->$ind = $valor;
         }
         $this->link .= '?' . implode('&', $retorno);
+        if (array_key_exists('favorito', $lista)) {
+            $this->favorito = true;
+        } elseif (array_key_exists('acessado', $lista)) {
+            $this->acessado = true;
+        } elseif (array_key_exists('latitude', $lista) && array_key_exists('longitude', $lista)) {
+            $this->mapa = true;
+        }
+        if ($this->mapa && !cookieExiste('TUTORIAL_MAPA')) {
+            $this->tutorialMapa = true;
+            // cookie('TUTORIAL_MAPA', true);
+        }
     }
 
     private function pegarValorReal($indice, $valor)

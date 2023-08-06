@@ -54,7 +54,10 @@ final class LojaController extends Controller
             categoria: new Categoria($request->categoria),
             subcategoria: $request->subcategoria,
             estabelecimento: new Estabelecimento($request->estabelecimento),
-            pesquisa: $request->pesquisa
+            pesquisa: $request->pesquisa,
+            latitude: $request->latitude,
+            longitude: $request->longitude,
+            acessado: $request->acessado
         );
 
         $Filtro = new FiltroModel($request);
