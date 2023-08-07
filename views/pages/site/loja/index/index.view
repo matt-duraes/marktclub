@@ -8,20 +8,23 @@
     @ endif;
 
     <div class="bloco_especial {{$Busca->uso ? 'separar' : ''}}">
-        <div class="conteudo">
-            <div class="item {{$Busca->mapa ? 'hover' : ''}} botao_loja_proxima">
-                <i>@iconeMapa(25)</i>
-                <p>Lojas próximas</p>
+        <div class="scroll">
+            <div class="conteudo">
+                <div class="item cartao {{$Busca->mapa ? 'hover' : ''}} botao_loja_proxima">
+                    <i>@iconeMapa(25)</i>
+                    <p>Lojas próximas</p>
+                </div>
+                <a href="@route('loja.index')?favorito=sim" class="{{$Busca->favorito ? 'hover' : ''}} cartao item">
+                    <i>@iconeFavorito(22)</i>
+                    <p>Meus favoritos</p>
+                </a>
+                <a href="@route('loja.index')?acessado=sim" class="{{$Busca->acessado ? 'hover' : ''}} cartao item">
+                    <i>@iconePromocao(20)</i>
+                    <p>Mais acessados</p>
+                </a>
             </div>
-            <a href="@route('loja.index')?favorito=sim" class="{{$Busca->favorito ? 'hover' : ''}} item">
-                <i>@iconeFavorito(22)</i>
-                <p>Meus favoritos</p>
-            </a>
-            <a href="@route('loja.index')?acessado=sim" class="{{$Busca->acessado ? 'hover' : ''}} item">
-                <i>@iconePromocao(20)</i>
-                <p>Mais acessados</p>
-            </a>
         </div>
+        <div class="flex_grow"></div>
         @ if( $Busca->mapa ):
         <div class="mapa item" id="botao_visualizar_mapa">
             <i>@iconeMapaPapel(20)</i>

@@ -86,16 +86,30 @@
     .conteudo
         opacity: 1
         margin-top: 0
+@media screen and (max-width: 1250px)
+    .bloco_buscar_geral form
+        width: 100%
+        padding-top: 70px
+@media screen and (max-width: 600px)
+    .bloco_buscar_geral form button
+        height: 50px
+        line-height: 50px
 
 .buscar_convenio_lista
     width: 100%
     max-width: 1130px
-    flexRow()
-    flex-wrap: wrap
+    flexCol()
     margin-top: 20px
     h2
         width: 100%
         font-size: 1.3rem
+    .scroll
+        width: 100%
+        overflow-x: auto
+        scrollBarHide()
+    .conteudo
+        width: 100%
+        flexRow()
     .item
         flexCol()
         position: relative
@@ -103,6 +117,7 @@
         border: 1px solid #DDD
         padding: 5px 50px 5px 5px
         border-radius: 5px
+        justify-content: center
     .item .nome
         font-size: 1.3rem
         color: #666

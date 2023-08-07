@@ -31,6 +31,9 @@
 
         @ elseif( in_array($r->tipo, ['loja', 'farmacia']) ):
         <p>{{$r->desconto}}</p>
+        @ endif;
+
+        @ if( in_array($r->tipo, ['loja', 'farmacia', 'automovel']) ):
         <div class="bloco_favorito botao_favorito {!!$r->favorito == 'sim' ? 'favorito_marcado' : ''!!}" data-url="{{$r->id}}">
             <i class="marcado">@iconeFavoritoMarcado</i>
             <i class="desmarcado">@iconeFavorito</i>
