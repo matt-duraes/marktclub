@@ -55,6 +55,8 @@ final class FiltroModel extends ClubeApiHelper
     public bool $acessado = false;
     public bool $mapa = false;
     public bool $tutorialMapa = false;
+    public float $latitude = 0;
+    public float $longitude = 0;
 
     public function __construct(
         private Request $request
@@ -103,6 +105,8 @@ final class FiltroModel extends ClubeApiHelper
         } elseif (array_key_exists('acessado', $lista)) {
             $this->acessado = true;
         } elseif (array_key_exists('latitude', $lista) && array_key_exists('longitude', $lista)) {
+            $this->latitude = $lista['latitude'];
+            $this->longitude = $lista['longitude'];
             $this->mapa = true;
         }
         if ($this->mapa && !cookieExiste('TUTORIAL_MAPA')) {

@@ -57,7 +57,7 @@ final class LojaController extends Controller
             pesquisa: $request->pesquisa,
             latitude: $request->latitude,
             longitude: $request->longitude,
-            acessado: $request->acessado
+            acessado: new Botao($request->acessado)
         );
 
         $Filtro = new FiltroModel($request);

@@ -23,7 +23,7 @@ final class MaisAcessadoModel extends ORM
     {
         $this->lista = $this->campo(['id_parceiro_loja', 'quantidade'])->where([
             ['id_admin_empresa', $empresa],
-            ['data_acesso', 'between', [dataRemover(hoje(), 7, 'dias'), hoje() . ' 23:59:59']]
+            ['data_acesso', 'between', [dataRemover(hoje(), 20, 'dias'), hoje() . ' 23:59:59']]
         ])->read();
     }
 

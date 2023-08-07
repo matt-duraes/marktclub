@@ -31,4 +31,7 @@
     </div>
 
     @view site/geral/parceiro.view
+    @ if( $Busca->mapa ):
+    @view site/loja/mapa/index.view
+    @ endif;
 </div>

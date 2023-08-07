@@ -474,4 +474,21 @@ return [
         'procedimento'        => 2,
         'status'              => 4
     ],
+    [
+        'cod'                 => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1"]',
+        'titulo'              => 'Parceiro Mapa',
+        'url'                 => 'parceiro-mapa',
+        'imagem'              => '6abfbe8cb35fc871001df2950ed9989d.png',
+        'desconto'            => 'Desconto de até 6%',
+        'desconto_texto'      => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.',
+        'procedimento_texto'  => 'Para aplicação do benefício, basta clicar em abrir site no botão ao lado e seguir as instruções.',
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
+        'estabelecimento'     => 1,
+        'procedimento'        => 1,
+        'status'              => 4
+    ],
 ];
