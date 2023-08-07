@@ -18,7 +18,6 @@
         border-top: 1px solid #DDD
 
 #bloco_loja_index .bloco_especial
-    width: 100%
     maxWidth()
     flexRow()
     margin: -20px 0 20px
@@ -26,9 +25,13 @@
     &.separar
         border-top: 1px solid #DDD
         padding-top: 20px
+    .scroll
+        overflow-x: auto
+        scrollBarHide()
+    .flex_grow
+        flexGrow()
     .conteudo
         flexRow()
-        flexGrow()
     .item
         border: 1px solid #999
         background-color: $corBody
@@ -65,7 +68,22 @@
         cursor: pointer
     .mapa i
         fill: $corClube
-
+@media screen and (max-width: 900px)
+    #bloco_loja_index .bloco_especial
+        flex-wrap: wrap
+        .scroll
+            width: 100%
+        .cartao
+            flexGrow()
+            min-width: 200px
+        .cartao i
+            margin: 0 20px
+        .cartao p
+            width: 100px
+        .mapa
+            width: 100%
+            margin-top: 20px
+            flexCenter()
 #bloco_loja_mapa
     width: calc(100vw - 310px)
     height: 100vh
@@ -106,12 +124,20 @@
         z-index: 1
 body.body_scroll_hidden #bloco_loja_mapa .mapa
     right: 10px
+@media screen and (max-width: 1250px)
+    #bloco_loja_mapa
+        width: 100%
+    body.body_scroll_hidden #bloco_loja_mapa .mapa
+        width: calc(100% - 10px)
+        right: 10px
 
 #bloco_loja_mapa .parceiro_previa
     width: calc(100% - 300px)
     position: fixed
     bottom: -100px
+    right: 0
     opacity: 0
+    padding: 0 20px
     z-index: 2
     flexRow()
     justify-content: center
@@ -157,5 +183,11 @@ body.body_scroll_hidden #bloco_loja_mapa .mapa
         margin-top: 20px
         color: #FFF
 body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
-    width: calc(100% - 470px)
-    right: 90px
+    width: calc(100% - 310px)
+    right: 10px
+@media screen and (max-width: 1250px)
+    #bloco_loja_mapa .parceiro_previa
+        width: 100%
+    body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
+        width: calc(100% - 10px)
+        right: 10px

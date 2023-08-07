@@ -11,16 +11,17 @@ final class PayloadModel
 
     public function __construct(
         private stdClass $Usuario,
-        string $audience
+        string $audience,
+        ?string $chavePublica = null
     ) {
         if ($audience == 'clube') {
-            $this->montarCliente($Usuario);
+            $this->montarCliente($Usuario, $chavePublica);
         } elseif ($audience == 'web') {
-            $this->montarEquipe($Usuario);
+            $this->montarEquipe($Usuario, $chavePublica);
         }
     }
 
-    private function montarCliente(stdClass $Usuario)
+    private function montarCliente(stdClass $Usuario, ?string $chavePublica)
     {
         $email = !empty($Usuario->email_pessoal) ? $Usuario->email_pessoal : $Usuario->email_trabalho;
         $this->payload = criptografarDado(
@@ -39,11 +40,12 @@ final class PayloadModel
                 'create_at'       => $Usuario->data_criacao,
                 'updated_at'      => $Usuario->data_atualizacao,
             ],
-            criptografia: ['name', 'picture', 'document', 'email']
+            criptografia: ['name', 'picture', 'document', 'email'],
+            chave: $chavePublica
         );
     }
 
-    private function montarEquipe(stdClass $Usuario)
+    private function montarEquipe(stdClass $Usuario, ?string $chavePublica)
     {
         $imagem = imagemUsuario(
             $Usuario->imagem_tipo,
@@ -62,7 +64,8 @@ final class PayloadModel
                 'create_at'      => $Usuario->data_criacao,
                 'updated_at'     => $Usuario->data_atualizacao,
             ],
-            criptografia: ['name', 'picture', 'email']
+            criptografia: ['name', 'picture', 'email'],
+            chave: $chavePublica
         );
     }
 }

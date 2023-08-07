@@ -3,8 +3,8 @@
 namespace App\Models\Site\Cashback;
 
 use stdClass;
-use App\Helpers\ClubeApiHelper;
 use App\Classes\Geral\Status;
+use App\Helpers\ClubeApiHelper;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -37,6 +37,7 @@ final class BuscarModel extends ClubeApiHelper
             'texto_outro'     => $r->texto_outro,
             'texto_restricao' => $r->texto_restricao,
             'desconto'        => $r->comissao_minima,
+            'link'            => $r->link_site . '&clickref=' . sessao('USUARIO.id'),
             'url'             => $r->url
         ];
     }

@@ -108,6 +108,7 @@ window.addEventListener('load', () => {
             MAPA.latitude = centroDoMapa.lat();
             MAPA.longitude = centroDoMapa.lng();
             botaoAtualizar.classList.remove('display_none');
+            fecharPreviaMapa();
         });
         carregarPontos();
     }

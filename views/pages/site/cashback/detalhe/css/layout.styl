@@ -1,6 +1,7 @@
 @system "Form"
 @template "site"
-@resource "site/loja/busca"
+@resource "site/busca"
+@resource "site/cashback/busca"
 @resource "site/variavel"
 @resource "site/loja/parceiro"
 @resource "site/loja/relacionado"
@@ -8,6 +9,7 @@
 
 #bloco_cashback_detalhe
     maxWidth()
+    margin-top: 30px
 
 #bloco_cashback_detalhe .header_detalhe
     blocoShadow()
@@ -34,30 +36,43 @@
 
 #bloco_cashback_detalhe .bloco_passo_a_passo
     width: 100%
-    espacoBottomPadrao()
-    flexRow()
-    justify-content: space-between
-    .bola
-        width: 50px
-        height: 50px
-        border-radius: 50%
-        top: 0
-        bottom: 0
-        margin: auto -15px auto - 15px
-        z-index: 2
-        background-color: #FFF
-        boxShadow()
-        flexCenter()
+    margin: -20px 0 10px
+    .scroll
+        width: 100%
+        overflow-x: auto
+        scrollBarHide()
+        padding: 20px 0
+    .conteudo
+        width: 100%
+        flexRow()
+        position: relative
     .descricao_passo_a_passo
-        flex-grow: 1
-        flex-basis: 0%
+        width: 25%
+        min-width: 200px
+        margin-right: 20px
         flexCol()
         blocoShadow()
+        position: relative
         align-items: center
+        &:last-child
+            margin-right: 0
     .descricao_passo_a_passo p
         texto()
         text-align: center
         margin-top: 20px
+    .bola
+        width: 50px
+        height: 50px
+        border-radius: 50%
+        z-index: 2
+        position: absolute
+        right: -34px
+        top: 0
+        bottom: 0
+        margin: auto
+        background-color: #FFF
+        boxShadow()
+        flexCenter()
 
 #bloco_cashback_detalhe .bloco_dado
     padding-bottom: 20px
@@ -71,11 +86,3 @@
         margin-left: 20px
     .atencao
         margin-top: 20px
-
-@media screen and (max-width: 600px)
-    #bloco_cashback_detalhe .header_detalhe
-        flex-direction: column
-    #bloco_cashback_detalhe .bloco_passo_a_passo
-        flex-direction: column
-    #bloco_cashback_detalhe .bloco_passo_a_passo .bola
-        margin: 10px auto
