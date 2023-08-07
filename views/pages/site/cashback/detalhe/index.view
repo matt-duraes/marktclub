@@ -1,4 +1,6 @@
 @template "site"
+@view site/cashback/geral/busca.view
+
 <div id="bloco_cashback_detalhe">
     <div class="bloco_parceiro_header ">
         <figure class="logo vazio"><img src="{{$dado->logo}}"></figure>
@@ -12,32 +14,36 @@
     </div>
 
     <div class="bloco_passo_a_passo">
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
+        <div class="scroll">
+            <div class="conteudo">
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Acesse o site do parceiro pelo Clube para ativar.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Escolha e compre os produtos que possuam cashback.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Receba o % de retorno em pontos SILIUM em até 30 dias.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Acompanhe seu saldo e as regras de resgate. Você pode transformar SILIUM em $ na conta!</p>
+                </div>
             </div>
-            <p>Acesse o site do parceiro pelo Clube para ativar.</p>
-        </div>
-        <div class="bola">@iconeSetaDireita(20)</div>
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
-            </div>
-            <p>Escolha e compre os produtos que possuam cashback.</p>
-        </div>
-        <div class="bola">@iconeSetaDireita(20)</div>
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
-            </div>
-            <p>Receba o % de retorno em pontos SILIUM em até 30 dias.</p>
-        </div>
-        <div class="bola">@iconeSetaDireita(20)</div>
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
-            </div>
-            <p>Acompanhe seu saldo e as regras de resgate. Você pode transformar SILIUM em $ na conta!</p>
         </div>
     </div>
     <div class="bloco_dado bloco_titulo_texto">
