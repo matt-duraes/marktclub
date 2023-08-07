@@ -10,6 +10,7 @@ class Unimed extends AbstractOperadora
 {
     private const ACOMODACAO_ENFERMARIA = 'enfermaria';
     private const ACOMODACAO_APARTAMENTO = 'apartamento';
+
     protected array $acomodacoes = [
         self::ACOMODACAO_ENFERMARIA, self::ACOMODACAO_APARTAMENTO
     ];

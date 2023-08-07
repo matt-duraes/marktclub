@@ -9,7 +9,7 @@
 
     <div class="bloco_especial {{$Busca->uso ? 'separar' : ''}}">
         <div class="conteudo">
-            <div class="item {{$Busca->mapa ? 'hover' : ''}}">
+            <div class="item {{$Busca->mapa ? 'hover' : ''}} botao_loja_proxima">
                 <i>@iconeMapa(25)</i>
                 <p>Lojas próximas</p>
             </div>
@@ -17,14 +17,25 @@
                 <i>@iconeFavorito(22)</i>
                 <p>Meus favoritos</p>
             </a>
+            <a href="@route('loja.index')?acessado=sim" class="{{$Busca->acessado ? 'hover' : ''}} item">
+                <i>@iconePromocao(20)</i>
+                <p>Mais acessados</p>
+            </a>
         </div>
         @ if( $Busca->mapa ):
-        <div class="mapa item">
+        <div class="mapa item" id="botao_visualizar_mapa">
             <i>@iconeMapaPapel(20)</i>
             <p>Visualizar mapa</p>
+        </div>
+        <div class="mapa item display_none" id="botao_visualizar_lista">
+            <i>@iconeListaMista(18)</i>
+            <p>Visualizar lista</p>
         </div>
         @ endif;
     </div>
 
     @view site/geral/parceiro.view
+    @ if( $Busca->mapa ):
+    @view site/loja/mapa/index.view
+    @ endif;
 </div>

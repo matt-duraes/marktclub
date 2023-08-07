@@ -64,7 +64,7 @@
                 Acesso Rápido
             </a>
 
-            @ if( MENU_LOJA || MENU_LOJA_PROXIMA || MENU_CUPOM || MENU_CASHBACK || MENU_EXTENSAO || MENU_PROMOCAO):
+            @ if( MENU_LOJA || MENU_LOJA_PROXIMA || MENU_CUPOM || MENU_CASHBACK || MENU_EXTENSAO):
             <div class="categoria">DESCONTOS</div>
 
             @ if( MENU_LOJA ):
@@ -158,13 +158,6 @@
             @endif
 
             @endif
-
-            @ if( MENU_PROMOCAO ):
-            <a class="{!!MENU_HOVER == 'promocao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(promocao.index)">
-                <i>@iconePromocaoHome</i>
-                Promoções
-            </a>
-            @ endif;
 
             @ if( MENU_EXTENSAO ):
             <a class="{!!MENU_HOVER == 'extensao' ? 'cor_bg pagina_atual' : ''!!}" target="_blank" href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc">

@@ -115,6 +115,9 @@ window.addEventListener('load', () => {
     */
     const botaoLogin = $$('.botao_fazer_login');
     const abrirPaginaLogin = () => {
+        if (blocoMenuMobile.classList.contains('aberto')) {
+            fecharMenu();
+        }
         PaginaLogin.abrir();
     };
     botaoLogin.forEach(botao => {
@@ -127,6 +130,9 @@ window.addEventListener('load', () => {
     */
     const botaoAtivar = $('#botao_ativar_conta_home');
     botaoAtivar.addEventListener('click', () => {
+        if (blocoMenuMobile.classList.contains('aberto')) {
+            fecharMenu();
+        }
         PaginaBuscar.abrir();
     });
 

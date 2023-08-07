@@ -15,6 +15,8 @@ use App\Classes\ParceiroLoja\Estabelecimento;
 
 final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
+    private array $mapa = [];
+
     public function __construct(
         private Inteiro $pagina = new Inteiro(1),
         private Inteiro $quantidade = new Inteiro(20),
@@ -24,7 +26,10 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         private Categoria $categoria = new Categoria(null),
         private ?string $subcategoria = null,
         private Estabelecimento $estabelecimento = new Estabelecimento(null),
-        private ?string $pesquisa = null
+        private ?string $pesquisa = null,
+        private ?float $latitude = null,
+        private ?float $longitude = null,
+        private Botao $acessado = new Botao(Botao::NAO)
     ) {
         parent::__construct();
     }
@@ -40,18 +45,17 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             ->json($this->pegarWhere())
             ->get('/parceiro-loja')
             ->object();
-
         return (object)[
             'tipo'      => $this->tipo->indice(),
-            'lista'     => $this->montarLista($dado->dado->lista),
-            'paginacao' => $dado->dado->pagina,
+            'lista'     => $this->montarLista($dado->dado->lista ?? []),
+            'mapa'      => $this->mapa,
+            'paginacao' => $dado->dado->pagina ?? [],
         ];
     }
 
     private function montarLista(array $dado): array
     {
         $retorno = [];
-
         foreach ($dado as $r) {
             $link = route('loja.detalhe');
             if ($r->tipo == Tipo::FARMACIA) {
@@ -59,15 +63,24 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             } elseif ($r->tipo == Tipo::AUTOMOVEL) {
                 $link = route('automovel.modelo');
             }
-            $retorno[] = (object)[
+            $link = $link . '/' . $r->url;
+
+            $dado = [
                 'id'       => $r->id,
                 'titulo'   => $r->titulo,
-                'link'     => $link . '/' . $r->url,
+                'link'     => $link,
                 'imagem'   => $r->imagem,
                 'desconto' => $r->desconto,
                 'favorito' => $r->favorito,
                 'tipo'     => $r->tipo,
             ];
+            foreach ($r->geolocalizacao ?? [] as $mapa) {
+                $this->mapa[] = (object)array_merge($dado, [
+                    'latitude'  => $mapa->latitude,
+                    'longitude' => $mapa->longitude
+                ]);
+            }
+            $retorno[] = (object)$dado;
         }
         return $retorno;
     }
@@ -104,6 +117,15 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         }
         if (!empty($this->pesquisa)) {
             $where['pesquisa'] = $this->pesquisa;
+        }
+        if (!empty($this->latitude)) {
+            $where['latitude'] = $this->latitude;
+        }
+        if (!empty($this->longitude)) {
+            $where['longitude'] = $this->longitude;
+        }
+        if ($this->acessado->valido() && $this->acessado->valor() == Botao::SIM) {
+            $where['mais_acessado'] = 'sim';
         }
         return $where;
     }
