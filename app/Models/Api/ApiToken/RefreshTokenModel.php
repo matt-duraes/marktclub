@@ -48,7 +48,8 @@ final class RefreshTokenModel extends ORM implements TokenInterface
             audience: $this->App->audience,
             redirectUri: $this->App->redirect_uri[0] ?? '',
             state: $this->tokenAtual->state_cliente,
-            tipo: new Tipo($this->tokenAtual->tipo)
+            tipo: new Tipo($this->tokenAtual->tipo),
+            chave: $this->App->chave_publica
         );
     }
 

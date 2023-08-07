@@ -44,9 +44,10 @@ trait TokenTrait
         string $audience,
         string $redirectUri,
         string $state,
-        Tipo $tipo
+        Tipo $tipo,
+        ?string $chave = null
     ) {
-        $payload = (new PayloadModel($Usuario, $App->audience))->payload;
+        $payload = (new PayloadModel($Usuario, $App->audience, $chave))->payload;
 
         $Token = new TokenAuthorizationEntity();
         return $Token->criarToken(

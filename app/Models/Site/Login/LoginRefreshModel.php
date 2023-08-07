@@ -16,7 +16,7 @@ final class LoginRefreshModel
             mensagemStatus(401);
         }
         $this->gerarRefreshToken();
-        new AuthModel($this->token, $this->clube);
+        new AuthModel($this->token, $this->clube, true);
     }
 
     private function gerarRefreshToken()
