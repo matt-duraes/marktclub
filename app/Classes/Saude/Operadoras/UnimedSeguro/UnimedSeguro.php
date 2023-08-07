@@ -11,6 +11,7 @@ class UnimedSeguro extends AbstractOperadora
     private const ACOMODACAO_BASICO = 'basico';
     private const ACOMODACAO_PRATICO = 'pratico';
     private const ACOMODACAO_VERSATIL = 'versatil';
+
     protected array $acomodacoes = [
         self::ACOMODACAO_BASICO, self::ACOMODACAO_PRATICO, self::ACOMODACAO_VERSATIL
     ];

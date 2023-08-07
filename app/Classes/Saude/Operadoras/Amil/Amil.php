@@ -10,6 +10,7 @@ class Amil extends AbstractOperadora
 {
     private const ACOMODACAO_INDIVIDUAL = 'individual';
     private const ACOMODACAO_COLETIVA = 'coletivo';
+
     protected array $planos = [
         Regioes::BRASILIA       => [
             Planos::AMIL_S80QC, Planos::AMIL_S80QP, Planos::AMIL_S380QC,

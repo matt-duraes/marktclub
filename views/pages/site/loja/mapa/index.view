@@ -1,27 +1,30 @@
-<div id="bloco_loja_mapa">
+<div id="bloco_loja_mapa" class="display_none">
     <div id="botao_atualizar_mapa" class="atualizar display_none">Buscar nessa região</div>
     <div id="bloco_google_maps" class="mapa"></div>
     <input type="hidden" id="input_loja_latitude" value="{{$Busca->latitude}}">
     <input type="hidden" id="input_loja_longetude" value="{{$Busca->longitude}}">
+    <div class="parceiro_previa display_none" id="bloco_parceiro_previa">
+        <figure></figure>
+        <div class="dado">
+            <header>
+                <h1></h1>
+                <i class="fechar">@iconeFechar</i>
+            </header>
+            <p class="desconto"></p>
+            <a href="">Acessar loja</a>
+        </div>
+    </div>
     <div class="lista">
         @ foreach( $lista->mapa ?? [] as $r):
         <article
             data-latitude="{!!$r->latitude!!}"
-            data-latitude="{!!$r->longitude!!}"
-            data-id="{!!$r->id!!}"
-            id="bloco_mapa_loja_{!!$r->id!!}"
+            data-longitude="{!!$r->longitude!!}"
+            data-imagem="{!!$r->imagem!!}"
+            data-link="{!!$r->link!!}"
+            data-titulo="{{$r->titulo}}"
+            data-desconto="{{$r->desconto}}"
             class="novo display_none"
-        >
-            <figure>{!!$r->imagem!!}</figure>
-            <div class="dado">
-                <header>
-                    <h1>{{$r->titulo}}</h1>
-                    <i>@iconeFechar</i>
-                </header>
-                <p>{{$r->desconto}}</p>
-                <a href="{!!$r->link!!}">Acessar loja</a>
-            </div>
-        </article>
+        ></article>
         @ endforeach;
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="bloco_parceiro bloco_geral_article display_none">
+<div class="bloco_parceiro bloco_geral_article">
     @ if(isset($lista) && count($lista->lista) > 0):
         @ foreach( $lista->lista as $r ):
     <article class="parceiro botao_abrir_parceiro" data-url="{{$r->id}}">

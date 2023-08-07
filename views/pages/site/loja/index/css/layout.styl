@@ -6,7 +6,7 @@
 
 #bloco_loja_index
     width: 100%
-    min-height: calc(100vh - 190px)
+    min-height: 100vh
     flexCol()
     align-items: center
     margin-top: 40px
@@ -89,6 +89,14 @@
         bottom: 10px
         margin: auto
         cursor: pointer
+    .icone_mapa
+        width: 60px
+        height: 60px
+        border-radius: 50%
+        overflow: hidden
+        padding: 10px
+        box-shadow: 0 0 5px rgba(0,0,0,.5)
+        background-color: #FFF
     .mapa
         width: 100%
         height: 100%
@@ -96,3 +104,47 @@
         top: 0
         left: 0
         z-index: 1
+#bloco_loja_mapa .parceiro_previa
+    width: calc(100% - 300px)
+    position: fixed
+    bottom: -100px
+    right: 0
+    opacity: 0
+    z-index: 2
+    background: #FFF
+    box-shadow: 0 -5px 8px rgba(0,0,0,.2)
+    flexRow()
+    padding: 20px
+    transition: opacity .3s ease-out, bottom .3s ease-out
+    &.ativo
+        opacity: 1
+        bottom: 0
+    figure
+        height: 100px
+    figure img
+        max-width: 100%
+        max-height: 100%
+    .dado
+        flexCol()
+        flexGrow()
+        padding-left: 30px
+        align-items: flex-start
+    .dado header
+        width: 100%
+        flexRow()
+    .dado header h1
+        flexGrow()
+        titulo()
+        align-items: center
+    .dado header i
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+    .dado p
+        texto()
+    .dado a
+        botaoPadraoGrande()
+        background-color: $corClube
+        margin-top: 20px
+        color: #FFF
