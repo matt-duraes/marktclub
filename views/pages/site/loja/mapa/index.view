@@ -4,14 +4,16 @@
     <input type="hidden" id="input_loja_latitude" value="{{$Busca->latitude}}">
     <input type="hidden" id="input_loja_longetude" value="{{$Busca->longitude}}">
     <div class="parceiro_previa display_none" id="bloco_parceiro_previa">
-        <figure></figure>
-        <div class="dado">
-            <header>
-                <h1></h1>
-                <i class="fechar">@iconeFechar</i>
-            </header>
-            <p class="desconto"></p>
-            <a href="">Acessar loja</a>
+        <div class="conteudo">
+            <figure></figure>
+            <div class="dado">
+                <header>
+                    <h1></h1>
+                    <i class="fechar">@iconeFechar</i>
+                </header>
+                <p class="desconto"></p>
+                <a href="">Acessar loja</a>
+            </div>
         </div>
     </div>
     <div class="lista">

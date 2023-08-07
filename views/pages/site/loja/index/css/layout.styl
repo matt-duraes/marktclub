@@ -102,23 +102,31 @@
         height: 100%
         position: absolute
         top: 0
-        left: 0
+        right: 0
         z-index: 1
+body.body_scroll_hidden #bloco_loja_mapa .mapa
+    right: 10px
+
 #bloco_loja_mapa .parceiro_previa
     width: calc(100% - 300px)
     position: fixed
     bottom: -100px
-    right: 0
     opacity: 0
     z-index: 2
-    background: #FFF
-    box-shadow: 0 -5px 8px rgba(0,0,0,.2)
     flexRow()
-    padding: 20px
+    justify-content: center
     transition: opacity .3s ease-out, bottom .3s ease-out
     &.ativo
         opacity: 1
         bottom: 0
+    .conteudo
+        width: 100%
+        max-width: 1000px
+        border-radius: 15px 15px 0 0
+        background: #FFF
+        box-shadow: 0 -5px 8px rgba(0,0,0,.2)
+        flexRow()
+        padding: 20px
     figure
         height: 100px
     figure img
@@ -148,3 +156,6 @@
         background-color: $corClube
         margin-top: 20px
         color: #FFF
+body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
+    width: calc(100% - 470px)
+    right: 90px

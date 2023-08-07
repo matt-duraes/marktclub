@@ -5,7 +5,7 @@
     position: relative
     background-color: rgba(0,0,0,0)
     transition: background-color .3s ease-out
-    z-index: 2
+    z-index: 100
 
 .bloco_buscar_geral .buscar
     width: 100%
@@ -26,19 +26,22 @@
         botaoPadraoGrande()
 
 .bloco_buscar_geral form
-    width: 100vw
+    width: calc(100vw - 290px)
     height: 100vh
     position: fixed
     top: 0
-    left: 0
-    padding-bottom: 20px
+    right: 0
+    padding: 0 20px 30px
     background-color: rgba(0,0,0,0)
     opacity: 1
+    flexCol()
+    align-items: center
     transition: background-color .3s ease-out
     z-index: 10000
     overflow-y: auto
     .conteudo
         width: 100%
+        max-width: $maxWidth
         background: #FFF
         margin-top: -200px
         opacity: 0
@@ -48,6 +51,7 @@
         align-items: center
         box-shadow: 0 5px 10px rgba(0,0,0,.3)
         transition: margin-top .3s ease-out, opacity .3s ease-out
+        border-radius: 0 0 15px 15px
         z-index: 2
     .centralizar
         width: 100%

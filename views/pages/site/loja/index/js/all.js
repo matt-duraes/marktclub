@@ -52,6 +52,9 @@ window.addEventListener('load', () => {
 
 window.addEventListener('load', () => {
     const blocoMapa = $('#bloco_loja_mapa');
+    if (!blocoMapa) {
+        return false;
+    }
     const blocoParceiro = $('#bloco_loja_index .bloco_parceiro');
     const botaoMapa = $('#botao_visualizar_mapa');
     const botaoLista = $('#botao_visualizar_lista');
