@@ -26,7 +26,7 @@
 
                 <input type="hidden" id="input_pagamento_usuario" value="{{$dado->id}}">
                 @? formData(name: 'pagamento_data', label: 'Data da cobrança', placeholder: 'Data da cobrança')
-                @? formInput(name: 'pagamento_valor', label: 'Valor', placeholder: 'Valor', mascara: 'dinheiro')
+                @? formDinheiro(name: 'pagamento_valor', label: 'Valor', placeholder: 'Valor')
 
                 <div class="botao" id="botao_pagamento_salvar">Salvar</div>
             </form>

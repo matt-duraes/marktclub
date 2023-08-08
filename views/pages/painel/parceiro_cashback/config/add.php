@@ -16,8 +16,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
             ->input(name: 'titulo', label: 'Título')
-            ->input(name: 'comissao_minima', label: 'Comissão minima', mascara: 'dinheiro')
-            ->input(name: 'comissao_maxima', label: 'Comissão maxima', mascara: 'dinheiro')
+            ->dinheiro(name: 'comissao_minima', label: 'Comissão minima')
+            ->dinheiro(name: 'comissao_maxima', label: 'Comissão maxima')
             ->url(name: 'link_site', label: 'Link', placeholder: 'Digite um link')
             ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha uma opção'));
     });

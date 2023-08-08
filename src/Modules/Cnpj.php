@@ -18,7 +18,7 @@ final class Cnpj implements ModuleInterface
      */
     public function valor()
     {
-        return $this->cnpj();
+        return $this->numero();
     }
 
     // doc
