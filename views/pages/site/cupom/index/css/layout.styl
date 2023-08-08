@@ -1,13 +1,13 @@
 @template "site"
 @system "Alerta"
-@resource "site/loja/busca"
+@resource "site/busca"
 @resource "site/loja/parceiro"
 
 #bloco_cupom
     maxWidth()
 
 #bloco_cupom .atencao
-    margin-bottom: 40px
+    margin: 20px 0
 
 #bloco_popup_detalhe
     max-width: 700px
@@ -65,3 +65,9 @@
         margin: 40px 0
     a
         margin-bottom: 10px
+
+@media screen and (max-width: 650px)
+    #bloco_buscar
+        .busca_pesquisa
+            max-width: 100%
+            margin-right: 0

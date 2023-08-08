@@ -10,7 +10,7 @@ return [
         'comissao_minima'  => '1.44',
         'comissao_maxima'  => '3.55',
         'url'              => 'aliexpress',
-        'link_site'        => 'https://google.com',
+        'link_site'        => 'https://google.com?teste=1',
         'imagem'           => 1,
         'status'           => 1
     ],
@@ -23,7 +23,7 @@ return [
         'comissao_minima'  => '1.44',
         'comissao_maxima'  => '3.55',
         'url'              => 'brastemp',
-        'link_site'        => 'https://google.com',
+        'link_site'        => 'https://google.com?teste=1',
         'imagem'           => 1,
         'status'           => 1
     ],
@@ -36,7 +36,7 @@ return [
         'comissao_minima'  => '1.44',
         'comissao_maxima'  => '3.55',
         'url'              => 'carrefour',
-        'link_site'        => 'https://google.com',
+        'link_site'        => 'https://google.com?teste=1',
         'imagem'           => 1,
         'status'           => 1
     ],

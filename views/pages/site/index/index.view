@@ -69,9 +69,7 @@
             <a class="cor_color" href="@route(loja.index)?favorito=sim">Ver mais</a>
         </header>
         @php $lista = $loja_favorita;
-        @ if( $loja_favorita->lista ):
-            @view site/geral/parceiro.view
-        @ endif;
+        @view site/geral/parceiro.view
     </div>
     <div class="bloco_geral_sem_resultado bloco_favorito_zero {{$loja_favorita->lista ? 'display_none' : ''}}" id="bloco_favorito_faq">
         <i>@iconeFavoritoMarcado(60)</i>
@@ -84,7 +82,7 @@
             <h1>MAIS UTILIZADAS</h1>
         </header>
         @php
-            $lista = $loja_nova;
+            $lista = $mais_utilizada;
         @end
         @view site/geral/parceiro.view
     </div>

@@ -12,6 +12,20 @@
 
 @import "login"
 
+*::-webkit-scrollbar
+    width: 10px
+
+*::-webkit-scrollbar-track
+    background: transparent
+
+*::-webkit-scrollbar-thumb
+    background: transparent
+    border-radius: 15px
+    height: 150px
+
+*:hover::-webkit-scrollbar-thumb
+    background: #cfcfcf
+
 body
     background-color: #F6F6F6
     font-family: 'Inter', sans-serif
@@ -19,6 +33,8 @@ body
 
 .body_scroll_hidden
     overflow: hidden
+.fw_pagina_body
+    padding-right: 10px
 
 #site
     width: 100%

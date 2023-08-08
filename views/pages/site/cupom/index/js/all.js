@@ -4,6 +4,7 @@
 // @system "Icone"
 // @system "Pagina"
 // @system "Funcao"
+// @resource "site/busca"
 
 const cupomDetalhe = () => {
     const inputCodigo = document.getElementById('input_cupom_valor');

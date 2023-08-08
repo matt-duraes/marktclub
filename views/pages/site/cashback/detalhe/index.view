@@ -1,45 +1,49 @@
 @template "site"
+@view site/cashback/geral/busca.view
+
 <div id="bloco_cashback_detalhe">
     <div class="bloco_parceiro_header ">
-        <section class="bloco_banner">
-            <figure class="logo"><img src="{{$dado->logo}}"></figure>
-        </section>
+        <figure class="logo vazio"><img src="{{$dado->logo}}"></figure>
         <header class="bloco_header">
             <h1>{{$dado->titulo}}</h1>
             <p>{{$dado->texto_descricao}}</p>
             @if(TIPO_USUARIO != 'indicado'):
-            <a href="" class="botao_pequeno_borda cor_border">Regulamento do SILIUM</a>
+            <a href="" data-botao="Regulamento" class="botao_pequeno_borda cor_border botao_contar_click">Regulamento do SILIUM</a>
             @endif
         </header>
     </div>
 
     <div class="bloco_passo_a_passo">
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
+        <div class="scroll">
+            <div class="conteudo">
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Acesse o site do parceiro pelo Clube para ativar.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Escolha e compre os produtos que possuam cashback.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Receba o % de retorno em pontos SILIUM em até 30 dias.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_passo_a_passo">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Acompanhe seu saldo e as regras de resgate. Você pode transformar SILIUM em $ na conta!</p>
+                </div>
             </div>
-            <p>Acesse o site do parceiro pelo Clube para ativar.</p>
-        </div>
-        <div class="bola">@iconeSetaDireita(20)</div>
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
-            </div>
-            <p>Escolha e compre os produtos que possuam cashback.</p>
-        </div>
-        <div class="bola">@iconeSetaDireita(20)</div>
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
-            </div>
-            <p>Receba o % de retorno em pontos SILIUM em até 30 dias.</p>
-        </div>
-        <div class="bola">@iconeSetaDireita(20)</div>
-        <div class="descricao_passo_a_passo">
-            <div class="imagem_redonda">
-                @iconeLojaHome()
-            </div>
-            <p>Acompanhe seu saldo e as regras de resgate. Você pode transformar SILIUM em $ na conta!</p>
         </div>
     </div>
     <div class="bloco_dado bloco_titulo_texto">
@@ -47,7 +51,7 @@
         @if(TIPO_USUARIO != 'indicado'):
             <div class="bloco_acessar">
                 <p>{{$dado->desconto}}% em SILIUM</p>
-                <a class="botao_geral_cor cor_bg botao" target="_blank" rel="nofollow noopener">Acessar parceiro para acumular pontos</a>
+                <a class="botao_geral_cor cor_bg botao botao_contar_click" data-botao="Acessar" href="{!!$dado->link!!}" target="_blank" rel="nofollow noopener">Acessar parceiro para acumular pontos</a>
             </div>
             @ if( !empty($dado->texto_outro) ):
             <p>{{$dado->texto_outro}}</p>

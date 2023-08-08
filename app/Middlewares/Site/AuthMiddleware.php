@@ -4,7 +4,7 @@ namespace App\Middlewares\Site;
 
 use Http\Response;
 use Helpers\AuthHelper;
-use App\Models\Login\LoginRefreshModel;
+use App\Models\Site\Login\LoginRefreshModel;
 
 final class AuthMiddleware
 {

@@ -7,10 +7,15 @@ use Helpers\CryptHelper;
 
 trait CryptTrait
 {
-    private function setarCrypt()
+    private function setarCrypt(?string $token = null)
     {
-        $publica = (new ApiHelper('admin:chave_publica'))->get('/admin/chave-publica')->object()->dado->chave ?? '';
-        $privada = (new ApiHelper('admin:chave_privada'))->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        if (empty($token)) {
+            $publica = (new ApiHelper('admin:chave_publica'))->get('/admin/chave-publica')->object()->dado->chave ?? '';
+            $privada = (new ApiHelper('admin:chave_privada'))->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        } else {
+            $publica = (new ApiHelper(token: $token))->get('/admin/chave-publica')->object()->dado->chave ?? '';
+            $privada = (new ApiHelper(token: $token))->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        }
         $this->Crypt = new CryptHelper(chavePublica: $publica, chavePrivada: $privada);
     }
 }

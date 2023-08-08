@@ -1,13 +1,26 @@
 @template "site"
 
 <div id="bloco_cupom">
-    <div class="busca_convenio">
-        <form action="@route(cupom.buscar)" method="get" class="form_geral">
-            <legend>Busque por um Cupom</legend>
-            <fieldset>
-                @? formInput(name: 'pesquisa', placeholder: 'Busque por um cupom', label: 'Pesquisa', class: 'busca_pesquisa', value: $pesquisa)
-                <button id="buscar_cupom" class="botao_geral_cor cor_bg">Buscar</button>
-            </fieldset>
+    <div class="bloco_buscar_geral bloco_buscar_loja" id="bloco_buscar">
+        <div class="buscar" id="botao_buscar_abrir">
+            <p>Busque um cupom</p>
+            <div class="botao">Buscar</div>
+        </div>
+
+        <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="form_geral display_none">
+            <div class="conteudo">
+                <div class="centralizar">
+                    <header>
+                        <i class="mobile botao_buscar_fechar">@iconeVoltar</i>
+                        <h1>Busque por uma loja</h1>
+                        <i class="desktop botao_buscar_fechar">@iconeFechar</i>
+                    </header>
+                    <fieldset>
+                        @? formInput(name: 'pesquisa', placeholder: 'Busque por um cupom', label: 'Pesquisa', class: 'busca_pesquisa', value: $pesquisa)
+                        <button class="botao_geral_cor cor_bg">Buscar</button>
+                    </fieldset>
+                </div>
+            </div>
         </form>
     </div>
 

@@ -2,8 +2,10 @@
     width: 100%
     max-width: $maxWidth
     boxShadow()
+    position: relative
     background-color: rgba(0,0,0,0)
     transition: background-color .3s ease-out
+    z-index: 100
 
 .bloco_buscar_geral .buscar
     width: 100%
@@ -23,20 +25,23 @@
         color: #FFF
         botaoPadraoGrande()
 
-.bloco_buscar_geral form
-    width: 100vw
+#form_buscar
+    width: calc(100vw - 300px)
     height: 100vh
     position: fixed
     top: 0
-    left: 0
-    padding-bottom: 20px
+    right: 0
+    padding: 0 20px 30px
     background-color: rgba(0,0,0,0)
     opacity: 1
+    flexCol()
+    align-items: center
     transition: background-color .3s ease-out
     z-index: 10000
     overflow-y: auto
     .conteudo
         width: 100%
+        max-width: $maxWidth
         background: #FFF
         margin-top: -200px
         opacity: 0
@@ -46,6 +51,7 @@
         align-items: center
         box-shadow: 0 5px 10px rgba(0,0,0,.3)
         transition: margin-top .3s ease-out, opacity .3s ease-out
+        border-radius: 0 0 15px 15px
         z-index: 2
     .centralizar
         width: 100%
@@ -74,22 +80,37 @@
             margin-right: 0
     button
         margin-top: 20px
-.bloco_buscar_geral.ativo form
+#form_buscar.ativo
     opacity: 1
     background-color: rgba(0,0,0,.3)
     .conteudo
         opacity: 1
         margin-top: 0
+body.body_scroll_hidden #form_buscar
+    padding-right: 30px
+@media screen and (max-width: 1250px)
+    #form_buscar
+        width: 100%
+@media screen and (max-width: 600px)
+    #form_buscar button
+        height: 50px
+        line-height: 50px
 
 .buscar_convenio_lista
     width: 100%
     max-width: 1130px
-    flexRow()
-    flex-wrap: wrap
+    flexCol()
     margin-top: 20px
     h2
         width: 100%
         font-size: 1.3rem
+    .scroll
+        width: 100%
+        overflow-x: auto
+        scrollBarHide()
+    .conteudo
+        width: 100%
+        flexRow()
     .item
         flexCol()
         position: relative
@@ -97,6 +118,7 @@
         border: 1px solid #DDD
         padding: 5px 50px 5px 5px
         border-radius: 5px
+        justify-content: center
     .item .nome
         font-size: 1.3rem
         color: #666
@@ -114,3 +136,12 @@
         border-radius: 50%
         &:hover
             background-color: #EEE
+
+@media screen and (max-width: 650px)
+    #bloco_buscar
+        fieldset
+            flex-wrap: wrap
+        button
+            width: 100%
+            height: 50px
+            line-height: 50px

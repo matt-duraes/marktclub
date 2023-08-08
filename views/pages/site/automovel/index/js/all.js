@@ -1,6 +1,7 @@
 // @template "site"
 // @system "Loading"
 // @system "Alerta"
+// @resource "site/loja/favorito"
 
 window.addEventListener('load', () => {
     const formulario = document.getElementById('formulario_indica_automovel');

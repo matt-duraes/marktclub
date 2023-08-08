@@ -14,6 +14,7 @@
 @resource "site/ajuda"
 @resource "site/form"
 
+$corBody = #F8F9FA
 $hoverBranco = #F8F9FA
 $menuWidth = 300px
 
@@ -47,7 +48,7 @@ $menuWidth = 300px
 body
     font-family: 'Inter', sans-serif
     color: #495057
-    background-color: #f8f9fa
+    background-color: $corBody
     &::-webkit-scrollbar-track
         background: #DDD
     ::-webkit-scrollbar-thumb
@@ -106,6 +107,9 @@ a
         a
             margin-top: 20px
 
+#bloco_template_buscar
+    z-index: 100
+
 #header_principal
     width: 100%
     background-color: #FFF
@@ -139,7 +143,7 @@ a
     position: fixed
     top: 0
     left: 0
-    z-index: 11
+    z-index: 4
     flexCol()
     .bg
         width: 100%
@@ -251,7 +255,7 @@ a
         subTituloMaiusculo()
         textoCorClara()
         font-weight: 500
-    .conteudo .menu a
+    .conteudo .menu .botao
         width: calc(100% - 40px)
         margin: 10px 20px
         padding: 10px
@@ -259,23 +263,24 @@ a
         border-radius: 8px
         texto()
         align-items: center
+        cursor: pointer
         &:hover
             background-color: $hoverBranco
-    .conteudo .menu a i
+    .conteudo .menu .botao i
         width: 30px
         height: 30px
         flexCenter()
         margin-right: 20px
-    .conteudo .menu a.footer
+    .conteudo .menu .botao.footer
         margin: 2px 20px
-    .conteudo .menu a.sair
+    .conteudo .menu .botao.sair
         height: 40px
         left: 40px
         padding: 0 10px
-        border: 1px solid #DDD
+        border: 1px solid #CCC
         justify-content: center
-        font-size: 1.2rem
-        color: #999
+        font-size: 1.4rem
+        color: #666
         &:hover
             background: rgba(255,255,255, 0)
     .conteudo .menu .linha
@@ -318,11 +323,13 @@ a
 
 #conteudo_principal
     flexCol()
-    width: calc(100% - $menuWidth)
+    width: calc(100% - 300px)
+    position: relative
     min-height: calc(100vh - 150px)
     margin-left: $menuWidth
     align-items: center
     padding: 20px 20px 60px
+    z-index: 1
 @media screen and (max-width:1250px)
     #conteudo_principal
         width: 100%
@@ -336,13 +343,15 @@ a
     flexCol()
 
 #rodape_principal
-    width: calc(100% - $menuWidth)
+    width: calc(100% - 300px)
     margin-left: $menuWidth
     flexRow()
+    position: relative
     flex-wrap: wrap
     justify-content: center
     background-color: #FFF
     padding: 60px 20px 40px
+    z-index: 3
     .bloco
         width: calc((100% / 3) - 40px)
         max-width: 350px

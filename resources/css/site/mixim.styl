@@ -1,4 +1,17 @@
 $corClube = var(--cor-clube)
+
+scrollBarHide()
+    &::-webkit-scrollbar
+        width: 0
+        height: 0
+    &::-webkit-scrollbar-track
+        background: #CCC
+    &::-webkit-scrollbar-thumb
+        background: #CCC
+        border-radius: 0
+        height: 0
+        width: 0
+
 maxWidth()
     width: 100%
     max-width: $maxWidth
@@ -146,6 +159,16 @@ botaoPadraoGrande()
     padding: 0 20px
     text-align: center
     cursor: pointer
+botaoPadraoDestaque()
+    min-height: 70px
+    line-height: 1.5em
+    border-radius: 5px
+    textoFontSize()
+    padding: 10px 25px
+    text-align: center
+    cursor: pointer
+    flexRow()
+    align-items: center
 
 blocoAvisoGrande()
     espacoTopPadrao()

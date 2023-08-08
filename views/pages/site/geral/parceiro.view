@@ -31,6 +31,9 @@
 
         @ elseif( in_array($r->tipo, ['loja', 'farmacia']) ):
         <p>{{$r->desconto}}</p>
+        @ endif;
+
+        @ if( in_array($r->tipo, ['loja', 'farmacia', 'automovel']) ):
         <div class="bloco_favorito botao_favorito {!!$r->favorito == 'sim' ? 'favorito_marcado' : ''!!}" data-url="{{$r->id}}">
             <i class="marcado">@iconeFavoritoMarcado</i>
             <i class="desmarcado">@iconeFavorito</i>
@@ -42,15 +45,17 @@
         @ endforeach:
     <div class="article_fake"></div>
     <div class="article_fake"></div>
-    @ elseif(isset($Busca) && $Busca->uso):
+    @ elseif(isset($Busca) && $Busca->existe):
     <div class="bloco_geral_sem_resultado">
         <h1>Sem lojas por sua busca</h1>
         <i>@iconeBuscar(50)</i>
         <p>Não encontramos nenhuma loja pela busca, tente fazer uma nova busca ou limpar a busca atual</p>
         <a href="@route('loja.index')" class="botao botao_geral_cor cor_bg">Limpar busca</a>
         <p>Caso não ache a loja que procura, nos indique a loja deseja</p>
-        <a href="" class="botao botao_geral_borda">Indicar um parceiro</a>
+        <a href="" class="botao botao_geral_borda">Indicar uma loja</a>
     </div>
-    @ else:
+    @else
+    <div class="article_fake"></div>
+    <div class="article_fake"></div>
     @ endif;
 </div>

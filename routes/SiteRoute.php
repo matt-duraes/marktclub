@@ -13,6 +13,15 @@ Route
             ::view('/login/faq');
     });
 Route
+    ::nome('faq')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\FaqController::class)
+    ::grupo(function () {
+        Route
+            ::nome('favorito')
+            ::view('/faq/favorito');
+    });
+Route
     ::nome('comoFunciona')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\ComoFuncionaController::class)
@@ -95,15 +104,6 @@ Route
             ::nome('promocoes')
             ::request(['!tipo'])
             ::get('/promocoes');
-    });
-Route
-    ::nome('faq')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\FaqController::class)
-    ::grupo(function () {
-        Route
-            ::nome('favorito')
-            ::view('/faq/favorito');
     });
 Route
     ::nome('acessoRapido')
@@ -209,9 +209,6 @@ Route
         Route
             ::nome('voucher')
             ::view('/convenios/voucher/{url}');
-        Route
-            ::nome('proxima')
-            ::view('/convenios/mapa');
         Route
             ::nome('subcategoria')
             ::request(['categoria'])
@@ -440,6 +437,15 @@ Route
     });
 
 Route
+    ::nome('sosmulher')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\SosMulherController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/sos-mulher');
+    });
+Route
     ::nome('site')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SiteController::class)
@@ -453,9 +459,6 @@ Route
                 'navegar', 'procura', 'suporte', 'comentario', 'atendimento', 'sistema'
             ])
             ::post('/pesquisa-de-satisfacao');
-        Route
-            ::nome('sosmulher')
-            ::view('/sos-mulher');
         Route
             ::nome('indiqueAmigo')
             ::view('/indique-um-amigo');

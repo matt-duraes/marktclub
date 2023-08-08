@@ -1,41 +1,51 @@
 @template "site"
 
-<div id="bloco_sos" class="bloco_loja_detalhe">
-    <section class="bloco_banner">
-        <figure class="banner desktop"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
-        <figure class="banner mobile"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
-    </section>
-    <div class="bloco_informacoes">
-        <figure class="logo"><img src="https://clube.marktclub.com.br/images/denuncia_index_capa_parceiro.png"></figure>
+<div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
+    <div class="bloco_topo">
+        <section class="bloco_banner">
+            <figure class="banner desktop"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
+            <figure class="banner mobile"><img src="https://clube.marktclub.com.br/images/denuncia_index_banner_parceiro.png"></figure>
+            <figure class="logo"><img src="https://clube.marktclub.com.br/images/denuncia_index_capa_parceiro.png"></figure>
+        </section>
         <header class="bloco_header">
-            <h1>{{$dado->descricao->titulo}}</h1>
-            <p>{{$dado->descricao->subtitulo}}</p>
+            <h1>PRECISA DE AJUDA?</h1>
+            <p>Atenção! Esta página é voltada ao suporte à mulher. Em caso de emergência, ligue para o 180</p>
         </header>
     </div>
 
-    <div class="bloco_desconto_procedimento">
-        <div class="bloco bloco_titulo_texto">
-            <h1>{{$dado->como_utilizar->titulo}}</h1>
-            <p>{{$dado->como_utilizar->texto}}</p>
-        </div>
-        <div class="bloco bloco_titulo_texto">
-            <h1>{{$dado->atendimento->titulo}}</h1>
-            <p>{{$dado->atendimento->texto}}</p>
-        </div>
+    <div class="bloco bloco_titulo_texto">
+        <h1>Quer conversar agora?</h1>
+        <p>
+            Utilize um dos canais de comunicação disponíveis abaixo para ser redirecionada
+            ao chat do Ministério dos Direitos Humanos ou ligar para a Central de atendimento
+            a mulher, onde você receberá auxílio de profissionais capacitados. Ao entrar em
+            contato por esses campos você encontrará uma forma mais silenciosa e segura
+            para conversar.
+        </p>
     </div>
 
-    <div class="bloco_atencao_geral">
-        <p>{{$dado->aviso->texto}}</p>
+    <div class="atencao bloco_atencao_geral">
+        <p>
+            Atenção: Os canais acima não são do Markt Club. Você será redirecionado para o
+            órgão responsável pelo atendimento e violações de direitos humanos.
+        </p>
     </div>
     <div class="bloco_botao">
-        <a href="tel:180" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
-            <i>@iconeTelefone(19)</i>
-            <p>Ligar</p>
+        <a href="" target="_blank" rel="nofollow noopener"  class="botao destaque botao_geral_cor cor_bg">
+            <i>@iconeTelefone(17)</i>
+            Ligar
         </a>
-        <a href="https://mdh-chat.metasix.solutions/livechat?mode=popout" target="_blank" rel="nofollow noopener"  class="cor_bg botao_sos">
-            <i>@iconeEmail(17)</i>
-            <p>Chat</p>
+        <a href="" target="_blank" rel="nofollow noopener"  class="botao destaque botao_geral_cor cor_bg">
+            <i>@iconeTelefone(17)</i>
+            Chat
         </a>
 
+    <div class="bloco bloco_titulo_texto">
+        <h1>Busque orientação</h1>
+        <p>
+            Utilize o botão ENCONTRAR PARCEIROS para visualizar empresas parceiras que disponibilizam
+            serviço de atendimento psicológico on-line com valores mais acessíveis.
+        </p>
     </div>
+    @view site/geral/relacionado.view
 </div>
