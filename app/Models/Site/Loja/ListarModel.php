@@ -19,7 +19,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
 
     public function __construct(
         private Inteiro $pagina = new Inteiro(1),
-        private Inteiro $quantidade = new Inteiro(20),
+        private Inteiro $quantidade = new Inteiro(50),
         private Botao $favorito = new Botao(Botao::NAO),
         private Tipo $tipo = new Tipo(),
         private Ordem $ordem = new Ordem(),

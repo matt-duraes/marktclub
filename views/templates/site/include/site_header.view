@@ -75,7 +75,7 @@
             @ endif;
 
             @ if( MENU_LOJA_PROXIMA ):
-            <div class="botao {!!MENU_HOVER == 'loja-proxima' ? 'cor_bg pagina_atual' : ''!!}">
+            <div class="botao botao_loja_proxima {!!MENU_HOVER == 'loja-proxima' ? 'cor_bg pagina_atual' : ''!!}">
                 <i>@iconeLojaProximaHome</i>
                 Lojas próximas
             </div>
@@ -169,7 +169,7 @@
 
             <a class="botao footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</a>
             <a class="botao footer" href="@route('loja.detalhe')/sala-vip-do-aeroporto-internacional-de-brasilia-presidente-juscelino-kubitschek-1">Sala VIP</a>
-            <a class="botao footer" href="@route('site.sosmulher')">SOS Mulher</a>
+            <a class="botao footer" href="@route('sosmulher.index')">SOS Mulher</a>
 
             <div class="linha"></div>
 
