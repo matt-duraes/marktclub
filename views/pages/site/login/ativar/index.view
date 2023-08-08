@@ -7,8 +7,8 @@
 
         <div class="bloco">
             <h2>Dados pessoais</h2>
-            @? formInput(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true)
             @? formInput(name: 'nome', label: 'Nome', placeholder: 'Nome completo', obrigatorio: true)
+            @? formInput(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true)
             <div class="lista">
                 @? formData(name: 'data_nascimento', label: 'Data nascimento', placeholder: 'Data nascimento', obrigatorio: true)
                 @? formSelect(name: 'genero', label: 'Gênero', placeholder: 'Gênero', lista: (new \Modules\Genero)->select('Escolha um gênero'))

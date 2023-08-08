@@ -20,7 +20,7 @@ final class SimulacaoViewModel
         $passos = match ($this->operadora) {
             Operadora::AMIL                            => ['Região', 'Plano', 'Simulação', 'Resultado'],
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
-            Operadora::UNIMED_SEGURO                   => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
+            Operadora::UNIMED_SEGURO                   => ['Acomodação', 'Simulação', 'Resultado'],
             Operadora::UNIMED                          => ['Acomodação', 'Simulação', 'Resultado'],
             default                                    => []
         };
@@ -76,6 +76,7 @@ final class SimulacaoViewModel
             Operadora::AMIL                            => ['regiao', 'plano', 'simulacao', 'resultado'],
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['plano', 'acomodacao', 'simulacao', 'resultado'],
             Operadora::UNIMED                          => ['acomodacao', 'simulacao', 'resultado'],
+            Operadora::UNIMED_SEGURO                   => ['acomodacao', 'simulacao', 'resultado'],
             default                                    => []
         };
         return $this->montarPassoPasso($passoPasso);

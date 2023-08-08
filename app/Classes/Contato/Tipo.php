@@ -13,7 +13,7 @@ class Tipo extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::AUTENTICADO       => 'Logado',
+            self::AUTENTICADO         => 'Logado',
             self::SEM_AUTENTICACAO    => 'Sem login',
         ]);
     }

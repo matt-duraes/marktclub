@@ -5,15 +5,34 @@
 
 .bloco_historico
     width: 100%
-    flexRow()
-    overflow-x: auto
-    overflow-y: hidden
     margin-bottom: 20px
+    position: relative
+    .seta
+        width: 30px
+        height: 30px
+        background: #FFF
+        position: absolute
+        boxShadow()
+        top: 20px
+        border-radius: 50%
+        flexCenter()
+        z-index: 2
+    .seta.anterior
+        left: 10px
+    .seta.proximo
+        right: 10px
+    .conteudo
+        width: 100%
+        overflow-x: auto
+        overflow-y: hidden
+        flexRow()
     .item
         width: 70px
         flexCol()
         margin-right: 20px
         cursor: pointer
+        &:last-child
+            margin-right: 0
     .item figure
         width: 70px
         height: 70px

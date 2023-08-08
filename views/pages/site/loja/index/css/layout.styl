@@ -11,3 +11,53 @@
     margin-top: 40px
     .banner
         margin-bottom: 40px
+    .bloco_geral_sem_resultado
+        padding-top: 60px
+        border-top: 1px solid #DDD
+
+#bloco_loja_index .bloco_especial
+    width: 100%
+    maxWidth()
+    flexRow()
+    margin: -20px 0 20px
+    &.separar
+        border-top: 1px solid #DDD
+        padding-top: 20px
+    .conteudo
+        flexRow()
+        flexGrow()
+    .item
+        border: 1px solid #999
+        flexRow()
+        border-radius: 5px
+        align-items: center
+        padding: 10px
+        cursor: pointer
+    .item i
+        margin-right: 10px
+        fill: #666
+    .item p
+        texto()
+    .item:hover
+        border-color: $corClube
+    .item:hover i
+        fill: $corClube
+    .item:hover p
+        color: $corClube
+    .item.hover
+        border-color: $corClube
+        background-color: $corClube
+    .item.hover i
+        fill: #FFF
+    .item.hover p
+        color: #FFF
+    .conteudo .item
+        margin-right: 20px
+        &:last-child
+            margin-right: 0
+    .mapa
+        border: 1px solid $corClube
+        color: $corClube
+        cursor: pointer
+    .mapa i
+        fill: $corClube

@@ -113,6 +113,9 @@ final class PlanoSaudeController extends Controller
         if ($operadora == 'central-nacional-unimed-florianopolis') {
             $operadora = str_replace('-', '_', $url);
         }
+        if ($operadora == 'unimed-seguros') {
+            $operadora = str_replace('-', '_', $url);
+        }
         return view('plano_saude.simulacao', [
             'menu'      => 'saude',
             'operadora' => $operadora,

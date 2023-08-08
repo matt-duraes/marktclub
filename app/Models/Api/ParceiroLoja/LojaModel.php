@@ -5,11 +5,13 @@ namespace App\Models\Api\ParceiroLoja;
 use ORM\ORM;
 use stdClass;
 use Http\Request;
+use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Tipo;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Categoria;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
 use App\Classes\ParceiroLoja\Estabelecimento;
@@ -106,6 +108,29 @@ class LojaModel extends ORM implements ModelListarInterface
             $where[] = ['tipo', $tipo->numero()];
         }
 
+        $categoria = new Categoria($this->request->categoria);
+        if ($categoria->valido()) {
+            $where[] = [
+                'OR',
+                ['categoria_principal', $categoria->numero()],
+                ['categoria_todas', 'like', '%"' . $categoria->numero() . '"%']
+            ];
+        }
+
+        $tag = $this->pegarIdSubCategoria();
+        if (!empty($tag)) {
+            $where[] = ['tag_lista', 'like', '%"' . $tag . '"%'];
+        }
+
+        $pesquisa = $this->request->pesquisa;
+        if (!empty($pesquisa)) {
+            $where[] = [
+                'OR',
+                ['titulo', 'like', '%' . $pesquisa . '%'],
+                ['tag', 'like', '%' . $pesquisa . '%']
+            ];
+        }
+
         $estabelecimento = new Estabelecimento($this->request->estabelecimento);
         if ($estabelecimento->valido()) {
             $where[] = ['estabelecimento', $estabelecimento->numero()];
@@ -118,5 +143,14 @@ class LojaModel extends ORM implements ModelListarInterface
             $where[] = ['status', $status->numero()];
         }
         return $where;
+    }
+
+    private function pegarIdSubCategoria()
+    {
+        $tag = $this->request->subcategoria;
+        if (empty($tag)) {
+            return '';
+        }
+        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['url', $tag]);
     }
 }

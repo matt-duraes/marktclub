@@ -1,70 +1,39 @@
 @template "site"
 <div id="bloco_index">
-
-    <div class="bloco_historico">
-        <div class="item visto">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/6abfbe8cb35fc871001df2950ed9989d.png" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/4e9d9c62b31e9644666cffa1429bee19.jpg" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/73a15d1ae615bf0e6371a4e42972ae4a.jpg" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/6abfbe8cb35fc871001df2950ed9989d.png" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/4e9d9c62b31e9644666cffa1429bee19.jpg" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/73a15d1ae615bf0e6371a4e42972ae4a.jpg" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/6abfbe8cb35fc871001df2950ed9989d.png" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/4e9d9c62b31e9644666cffa1429bee19.jpg" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-        <div class="item">
-            <figure>
-                <span><img src="https://arquivo.marktclub.com.br/parceiro/73a15d1ae615bf0e6371a4e42972ae4a.jpg" alt=""></span>
-            </figure>
-            <div class="nome">Parceiro...</div>
-        </div>
-    </div>
-
-    @view site/geral/banner.view
-
     @if(TIPO_USUARIO == 'indicado'):
     <div class="bloco_atencao_geral">
         <p>Você está utilizando uma versão limitada do clube</p>
     </div>
     @endif
+
+    <div class="bloco_historico">
+        <i class="seta anterior display_none">@iconeSetaEsquerda(18)</i>
+        <div class="conteudo scrollbar_hidden bloco_scrollbar_item">
+            @ laco(10)
+            <div class="item">
+                <figure>
+                    <span><img src="https://arquivo.marktclub.com.br/parceiro/6abfbe8cb35fc871001df2950ed9989d.png" alt=""></span>
+                </figure>
+                <div class="nome">Parceiro...</div>
+            </div>
+            <div class="item">
+                <figure>
+                    <span><img src="https://arquivo.marktclub.com.br/parceiro/4e9d9c62b31e9644666cffa1429bee19.jpg" alt=""></span>
+                </figure>
+                <div class="nome">Parceiro...</div>
+            </div>
+            <div class="item">
+                <figure>
+                    <span><img src="https://arquivo.marktclub.com.br/parceiro/73a15d1ae615bf0e6371a4e42972ae4a.jpg" alt=""></span>
+                </figure>
+                <div class="nome">Parceiro...</div>
+            </div>
+            @ endlaco;
+        </div>
+        <i class="seta proximo display_none">@iconeSetaDireita(18)</i>
+    </div>
+
+    @view site/geral/banner.view
 
     <div class="bloco">
         <div class="bloco_geral_imagem_esquerda">
@@ -104,12 +73,10 @@
             @view site/geral/parceiro.view
         @ endif;
     </div>
-    <div class="bloco {{$loja_favorita->lista ? 'display_none' : ''}}" id="bloco_faq_favorito">
-        <div class="bloco_geral_sem_resultado bloco_favorito_zero">
-            <i>@iconeFavoritoMarcado(60)</i>
-            <p>Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas?</p>
-            <div class="botao botao_geral_cor cor_bg" id="botao_favorito_tutorial">Salvar lojas favoritas</div>
-        </div>
+    <div class="bloco_geral_sem_resultado bloco_favorito_zero {{$loja_favorita->lista ? 'display_none' : ''}}" id="bloco_favorito_faq">
+        <i>@iconeFavoritoMarcado(60)</i>
+        <p>Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas?</p>
+        <div class="botao botao_geral_cor cor_bg" id="botao_favorito_tutorial">Salvar lojas favoritas</div>
     </div>
 
     <div class="bloco">

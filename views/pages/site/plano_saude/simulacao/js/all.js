@@ -14,7 +14,7 @@ const blocoOperadora = $('#operadora');
 const blocoListaDependente = $('#bloco_lista_dependente');
 const botaoAdicionarDependente = $('#botao_adicionar_dependente');
 const inputDataTitular = $('#input_data_titular');
-
+const blocoBotaoVoltarAcomodacao = $('#bloco_botao_acomodacao');
 const botaoSimulacaoContinuar = $('#botao_simulacao_continuar');
 const botaoContratar = $('#botao_contratar');
 
@@ -59,7 +59,13 @@ botaoVoltar.forEach(botao => {
     botao.addEventListener('click', () => {
         const blocoAtual = pegarBlocoPassoAtual();
         const blocoAnterior = pegarBlocoPassoAnterior();
-
+        if (blocoAtual == blocoResultado) {
+            $('#bloco_valor_lista').innerHTML = '';
+        }
+        if (blocoAtual == blocoRegiao) {
+            limparRegiao();
+            limparBotaoRegiao();
+        }
         if (blocoAnterior == blocoRegiao) {
             limparRegiao();
         }
@@ -91,12 +97,52 @@ botaoVoltar.forEach(botao => {
 |--------------------------------------------------------------------------
 */
 
+const blocoAtual = pegarBlocoPassoAtual();
+const abrirBlocoAcomodacao = planoSelecionado => {
+    limparSimulacao();
+    irParaProximoPasso();
+    let plano = planoSelecionado.getAttribute('data-plano');
+    const acomodacoes = $$('#bloco_acomodacao .botao_escolher_acomodacao');
+    if (plano == 'regional') {
+        acomodacoes.forEach(acomodacao => {
+            let dataAcomodacao = acomodacao.getAttribute('data-acomodacao');
+            if (dataAcomodacao == 'enfermaria' || dataAcomodacao == 'apartamento') {
+                acomodacao.classList.add('display_none');
+            }
+            if (dataAcomodacao == 'enfermaria-30' || dataAcomodacao == 'enfermaria-50') {
+                acomodacao.classList.remove('display_none');
+            }
+        });
+    }
+    if (plano == 'nacional' || plano == 'estadual') {
+        acomodacoes.forEach(acomodacao => {
+            let dataAcomodacao = acomodacao.getAttribute('data-acomodacao');
+            if (dataAcomodacao == 'enfermaria' || dataAcomodacao == 'apartamento') {
+                acomodacao.classList.remove('display_none');
+            }
+            if (dataAcomodacao == 'enfermaria-30' || dataAcomodacao == 'enfermaria-50') {
+                acomodacao.classList.add('display_none');
+            }
+        });
+    }
+};
+
+const operadora = blocoOperadora.getAttribute('data-operadora');
+if (operadora == 'unimed' || operadora == 'unimed_seguros') {
+    $('.bloco_botao_acomodacao').classList.add('display_none');
+}
+
 const limparBlocoAcomodacao = () => {
     adicionarClassLista($$('.bloco_escolher_acomodacao'), 'display_none');
 };
 const limparBotaoAcomodacao = () => {
     removerClassLista($$('.botao_escolher_acomodacao'), 'ativo');
 };
+
+const mostrarBotaoVoltar = () => {
+    removerClassLista($('#blocoBotaoVoltarAcomodacao'), 'display_none');
+};
+
 const carregarAcomodacao = () => {
     const lista = $$('.botao_escolher_acomodacao');
     lista.forEach(botao => {
@@ -118,6 +164,7 @@ const escolherAcomodacao = (botao, acomodacao) => {
 | REGIAO
 |--------------------------------------------------------------------------
 */
+
 const limparRegiao = () => {
     removerClassLista($$('.botao_escolher_regiao'), 'ativo');
 };
@@ -146,11 +193,16 @@ const abrirBlocoRegiao = acomodacao => {
     blocoEscolhido.classList.remove('display_none');
     irParaProximoPasso();
 };
+
 /*
 |--------------------------------------------------------------------------
 | PLANO
 |--------------------------------------------------------------------------
 */
+
+if (operadora == 'central_nacional_unimed_florianopolis') {
+    $('.botao_voltar_plano').classList.add('display_none');
+}
 const limparBlocoPlano = () => {
     adicionarClassLista($$('.bloco_escolher_plano'), 'display_none');
 };
@@ -167,11 +219,12 @@ const carregarPlano = () => {
 };
 const escolherPlano = botao => {
     botao.classList.add('ativo');
+
     if (pegarBlocoProximoPasso() == blocoSimulacao) {
         abrirBlocoSimulacao();
     }
     if (pegarBlocoProximoPasso() == blocoAcomodacao) {
-        abrirBlocoAcomodacao();
+        abrirBlocoAcomodacao(botao);
     }
 };
 const abrirBlocoPlano = regiao => {
@@ -189,14 +242,17 @@ const abrirBlocoPlano = regiao => {
 | SIMULAÇÃO
 |--------------------------------------------------------------------------
 */
+
 const limparSimulacao = () => {
     blocoListaDependente.innerHTML = '';
     formValue(inputDataTitular, '');
 };
+
 const abrirBlocoSimulacao = () => {
     limparSimulacao();
     irParaProximoPasso();
 };
+
 const validarSimulacao = async () => {
     if (inputDataTitular.value == '') {
         Alerta.notificacao('Digite a sua data de nascimento para continuar.', false);
@@ -221,9 +277,11 @@ const validarSimulacao = async () => {
     }
     buscarValorSimulacao();
 };
+
 if (botaoSimulacaoContinuar) {
     botaoSimulacaoContinuar.addEventListener('click', validarSimulacao);
 }
+
 const buscarValorSimulacao = async () => {
     const operadora = blocoOperadora.getAttribute('data-operadora');
     const body = {
@@ -258,6 +316,7 @@ const buscarValorSimulacao = async () => {
         abrirBlocoResultado(resposta.dado);
     }
 };
+
 const pegarRegiao = () => {
     if (!blocoRegiao) {
         return '';
@@ -268,6 +327,7 @@ const pegarRegiao = () => {
     }
     return bloco.getAttribute('data-regiao');
 };
+
 const pegarPlano = () => {
     if (!blocoPlano) {
         return '';
@@ -277,11 +337,6 @@ const pegarPlano = () => {
         return '';
     }
     return bloco.getAttribute('data-plano');
-};
-
-const abrirBlocoAcomodacao = () => {
-    limparSimulacao();
-    irParaProximoPasso();
 };
 
 const pegarAcomodacao = () => {
@@ -300,9 +355,11 @@ const pegarAcomodacao = () => {
 | RESULTADO
 |--------------------------------------------------------------------------
 */
+
 const limparResultado = () => {
     //
 };
+
 const abrirBlocoResultado = dado => {
     limparResultado();
     irParaProximoPasso();
@@ -314,13 +371,13 @@ const abrirBlocoResultado = dado => {
     });
     adicionarLinhaValor(blocoResultadoTitularPadrao, dado.titular, dado.valor_titular);
     blocoValorTotal.innerText = `${dado.valor_total}`;
-    botaoContratar.setAttribute('href', `${dado.id}`);
+    botaoContratar.setAttribute('href', `/saude/simulacao/${dado.id}`);
 };
+
 const adicionarLinhaValor = (bloco, data, valor) => {
     const clone = bloco.cloneNode(true);
     clone.querySelector('.data').innerText = data;
     clone.querySelector('.valor').innerText = valor;
-
     blocoValorLista.prepend(clone);
 };
 
@@ -329,12 +386,14 @@ const adicionarLinhaValor = (bloco, data, valor) => {
 | DEPENDENTE
 |--------------------------------------------------------------------------
 */
+
 botaoAdicionarDependente.addEventListener('click', () => {
     const clone = blocoDependentePadrao.cloneNode(true);
     blocoListaDependente.prepend(clone);
     clone.querySelector('input').focus();
     fwMascaraLoading(blocoListaDependente);
 });
+
 if (blocoListaDependente) {
     blocoListaDependente.addEventListener('click', e => {
         if (e.target.classList.contains('.remover') || e.target.closest('.remover')) {
@@ -349,11 +408,13 @@ if (blocoListaDependente) {
 | GERAL
 |--------------------------------------------------------------------------
 */
+
 const removerClassLista = (lista, classe) => {
     lista.forEach(item => {
         item.classList.remove(classe);
     });
 };
+
 const adicionarClassLista = (lista, classe) => {
     lista.forEach(item => {
         item.classList.add(classe);

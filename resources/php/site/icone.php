@@ -527,7 +527,6 @@ if (!function_exists('iconeFaleConosco')) {
     }
 }
 
-
 if (!function_exists('iconeBaixarApp')) {
     // doc
     // exemplo
@@ -543,7 +542,6 @@ if (!function_exists('iconeBaixarApp')) {
         return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M9 2V4H5L4.999 14H18.999L19 4H15V2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H9ZM18.999 16H4.999L5 20H19L18.999 16ZM17 17V19H15V17H17ZM13 2V7H16L12 11L8 7H11V2H13Z"></path></svg>';
     }
 }
-
 
 if (!function_exists('iconeFaq')) {
     // doc
@@ -561,8 +559,6 @@ if (!function_exists('iconeFaq')) {
     }
 }
 
-
-
 if (!function_exists('iconeComoFunciona')) {
     // doc
     // exemplo
@@ -579,7 +575,6 @@ if (!function_exists('iconeComoFunciona')) {
     }
 }
 
-
 if (!function_exists('iconePrimeiroAcesso')) {
     // doc
     // exemplo
@@ -593,5 +588,11 @@ if (!function_exists('iconePrimeiroAcesso')) {
     function iconePrimeiroAcesso(int $tamanho = 24)
     {
         return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM17.7929 19.9142L21.3284 16.3787L22.7426 17.7929L17.7929 22.7426L14.2574 19.2071L15.6716 17.7929L17.7929 19.9142Z"></path></svg>';
+    }
+}
+if (!function_exists('iconeMapaPapel')) {
+    function iconeMapaPapel(int $tamanho = 24)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M0,4.5L10.5,0l9,4.5L29,0.4c0.4-0.2,0.8,0,1,0.4C30,0.9,30,1,30,1.1v24.4L19.5,30l-9-4.5L1,29.6c-0.4,0.2-0.8,0-1-0.4C0,29.1,0,29,0,28.9V4.5z M21,26.1l6-2.6v-19l-6,2.6V26.1z M18,25.9V7.1l-6-3v18.8L18,25.9z M9,22.9v-19L3,6.5v19L9,22.9z"/></svg>';
     }
 }
