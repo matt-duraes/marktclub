@@ -290,6 +290,58 @@ final class Add
         ], $acao);
     }
 
+    public function dinheiro(
+        string | array $name,
+        string $label = '',
+        string | array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool | array $obrigatorio = false,
+        bool $focus = false,
+        null | int | array $contador = null,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        bool $footer = true,
+        array $request = [],
+        string $separador = '',
+        null|int|array $maximo = null,
+        ?string $acao = null,
+        ?string $permissao = null
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao'       => 'input',
+            'name'         => $name,
+            'label'        => $label,
+            'placeholder'  => $placeholder,
+            'class'        => $class,
+            'id'           => $id,
+            'html'         => $html,
+            'icone'        => $icone,
+            'iconeCor'     => $iconeCor,
+            'obrigatorio'  => $obrigatorio,
+            'focus'        => $focus,
+            'contador'     => $contador,
+            'type'         => 'text',
+            'attr'         => $attr,
+            'mascara'      => 'dinheiro',
+            'ajuda'        => $ajuda,
+            'numero'       => true,
+            'autocomplete' => $autocomplete,
+            'action'       => $action,
+            'footer'       => $footer,
+            'request'      => $request,
+            'separador'    => $separador,
+            'maximo'       => $maximo,
+            'formatar'     => 'dinheiro',
+            'permissao'    => $permissao
+        ], $acao);
+    }
+
     public function url(
         string | array $name,
         string $label = '',

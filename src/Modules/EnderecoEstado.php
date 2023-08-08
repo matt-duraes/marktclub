@@ -93,7 +93,7 @@ final class EnderecoEstado implements ModuleInterface
      */
     public function estado(): string
     {
-        return $this->estado;
+        return $this->listaIndiceNome[$this->estado] ?? '';
     }
 
     private function validarEstado(): bool
