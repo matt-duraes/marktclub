@@ -2,64 +2,42 @@
 @template "site"
 @resource "site/variavel"
 @resource "site/loja/detalhe"
+@resource "site/parceiro_header"
 
-#bloco_sos
-    width: 100%
-    max-width: $maxWidth
-.bloco_banner
-    width: 100%
-    img
+#bloco_sos_mulher
+    .atencao
+        margin-top: 20px
+    .bloco_logo
         width: 100%
-    .desktop
-        display: block
-    .mobile
-        display: none
-
-.bloco_informacoes
-    blocoShadow()
-    width: 100%
-    margin: 20px 0px
-    display: flex
-    align-items: center
-    .logo
-        img
-            border-radius: 50%
-            width: 100px
-    .bloco_header
-        flex: 1
-        text-align: center
-        p
-            texto()
-        h1
-            titulo()
-
-.bloco_atencao_geral
-    text-align: center
-#bloco_sos .bloco_botao
-    margin-top: 30px
-    flexCenter()
-    gap: 20px
-    .botao_sos
-        width: 150px
+        flexRow()
+        justify-content: center
+        margin: 30px 0 20px
+    .bloco_logo a
+        blocoShadow()
+        margin: 0 10px
+    .bloco_whatsapp
+        texto()
+        flexRow()
+        align-items: center
+        background: $corClube
+        border-radius: 4px
+        padding: 10px 20px
+        color: #FFF
+        fill: #FFF
+        margin-bottom: 40px
+    .bloco_whatsapp i
+        width: 40px
         height: 40px
-        border-radius: 5px
-        gap: 20px
         flexCenter()
-        svg, p
-            texto()
-    .sos_ligar
-        display: none
-
-@media screen and (max-width: 630px)
-    .bloco_informacoes
-        flexCol()
-@media screen and (max-width: 500px)
-    #bloco_sos .bloco_botao .sos_ligar
-        display: flex
-
-@media screen and (max-width: 375px)
-    #bloco_sos .bloco_botao
-        flex-direction: column
-        margin-left: 10px
-        .botao_sos
-            width: 100%
+        margin-right: 15px
+    .bloco_whatsapp p
+        texto()
+        max-width: 350px
+    .botao_loja
+        botaoPadraoDestaque()
+        background: $corClube
+        color: #FFF
+        margin: 30px 0 80px
+        fill: #FFF
+    .botao_loja svg
+        margin-right: 10px

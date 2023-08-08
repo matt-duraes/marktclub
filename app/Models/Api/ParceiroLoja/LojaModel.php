@@ -180,6 +180,8 @@ class LojaModel extends ORM implements ModelListarInterface
 
         if (!empty($this->request->mais_acessado)) {
             $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
+        }
+        if (!empty($this->idMaisAcessado)) {
             $where[] = ['id', 'in', $this->idMaisAcessado];
         }
 
