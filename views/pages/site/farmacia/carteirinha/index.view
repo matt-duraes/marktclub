@@ -6,11 +6,11 @@
             </figure>
             <div class="borda_meio"></div>
             <div class="bloco_cpf">
-                <h1>{{$carteira->cpf}}</h1>
+                <h1>012.345.678-90</h1>
             </div>
         </div>
         <div class="bloco_nome">
-            <h1>{{$carteira->nome}}</h1>
+            <h1>Usuario teste</h1>
         </div>
     </div>
 </div>

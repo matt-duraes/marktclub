@@ -78,7 +78,6 @@
                             @? formSwitch(name: 'responsavel', label: 'Eu sou o responsável', check: false)
                             <div class="form_input_dupla">
                                 @? formInput(name: 'responsavel_nome', placeholder: 'Digite o nome do responsável', obrigatorio: true,label: 'Digite um nome', class: 'nome_responsavel', value: '')
-
                                 @? formCpf(name: 'responsavel_cpf', placeholder: 'CPF', label: 'CPF do responsável', class: 'cpf', obrigatorio: true,value: '')
                             </div>
                             <div class="form_input_dupla">

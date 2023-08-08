@@ -116,9 +116,9 @@ class PublicidadeModel extends ORM
                 'uuid'         => $publicidade->publicidade_uuid,
                 'titulo'       => $publicidade->publicidade_titulo,
                 'target'       => ($publicidade->publicidade_target === '_self') ? 'interno' : 'externo',
-                'imagem'       => arquivoPrivado($publicidade->publicidade_imagem),
+                'imagem'       => $publicidade->publicidade_imagem,
                 'parceiro'     => [
-                    'imagem' => arquivoPrivado($publicidade->parceiro_imagem),
+                    'imagem' => $publicidade->parceiro_imagem,
                     'url'    => $publicidade->parceiro_url
                 ],
                 'link'         => [

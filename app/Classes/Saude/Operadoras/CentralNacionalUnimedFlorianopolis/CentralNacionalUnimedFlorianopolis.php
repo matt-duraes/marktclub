@@ -13,6 +13,7 @@ class CentralNacionalUnimedFlorianopolis extends AbstractOperadora
     private const ACOMODACAO_APARTAMENTO = 'apartamento';
     private const ACOMODACAO_ENFERMARIA_30 = 'enfermaria-30';
     private const ACOMODACAO_ENFERMARIA_50 = 'enfermaria-50';
+
     protected array $planos = [
         Planos::REGIONAL, Planos::ESTADUAL, Planos::NACIONAL
     ];

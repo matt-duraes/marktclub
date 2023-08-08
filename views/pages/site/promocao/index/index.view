@@ -1,10 +1,11 @@
 @template "site"
 
 <div id="bloco_promocao">
-    @ ifforeach($lista as $r):
+    @foreach($promocoes as $dado):
     <article>
-        <figure style="background-image: url(https://arquivo.marktclub.com.br/publicidade/467e8626bbf4e88d5e0a12b2ac5a7b64.png)"></figure>
-        <a class="botao_geral_cor" href="@route(loja.index)" target="_self" >ACESSAR PARCEIRO</a>
+        <figure style="background-image: url({{$dado->imagem}})"></figure>
+        <a class="botao_geral_cor" href="{{$dado->link->link}}" target="_self" >ACESSAR PARCEIRO</a>
     </article>
-    @ endifforeach;
+    @endforeach;
 </div>
+

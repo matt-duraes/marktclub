@@ -57,7 +57,7 @@
                     <div class="observacao">*Para pessoas com idade de 36 anos</div>
                 </div>
                 @if(TIPO_USUARIO != 'indicado'):
-                    <a href="" class="botao_geral_cor cor_bg">Fazer cotação</a>
+                    <a href="@route('planosaude.index')" class="botao_geral_cor cor_bg">Fazer cotação</a>
                 @endif
             </div>
         </div>

@@ -1,5 +1,4 @@
 @template "site"
-
 <div id="bloco_simulacao_saude" class="bloco_passo_passo_geral">
     <div class="bloco_progresso">
         @ foreach( $Simulacao->opcao() as $r ):
@@ -12,8 +11,7 @@
         </div>
         @ endforeach;
     </div>
-
-    <div class="bloco_conteudo">
+    <div class="bloco_conteudo" id="operadora" data-operadora="{{$operadora}}">
         <div class="bloco_scroll">
             @ foreach($Simulacao->passoPasso() as $passo)
                 @ if( $passo->tipo == 'regiao' ):
@@ -27,19 +25,40 @@
                     @ endforeach;
                 </div>
             </div>
+                @ elseif( $passo->tipo == 'acomodacao'):
+            <div class="conteudo passo_{{$passo->numero}}" id="bloco_acomodacao">
+                <header>
+                    <h1>ESCOLHA A ACOMODAÇÃO</h1>
+                </header>
+                <div class="botao_selecao">
+                    @ foreach( $Simulacao->acomodacao() as $val ):
+                    <div class="botao botao_geral_borda botao_escolher_acomodacao" data-acomodacao="{{$val}}">{{$val}}</div>
+                    @ endforeach;
+                </div>
+                <div class="bloco_botao bloco_botao_acomodacao">
+                    <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
+                    <div class="flex"></div>
+                </div>
+            </div>
                 @ elseif( $passo->tipo == 'plano' ):
             <div class="conteudo passo_{{$passo->numero}}" id="bloco_plano">
                 <header>
                     <h1>ESCOLHA SEU PLANO</h1>
                 </header>
                 @ foreach( $Simulacao->plano() as $regiao => $lista ):
-                <div class="bloco_escolher_plano {{$regiao}} botao_selecao display_none">
-                    @ foreach( $lista as $ind => $val ):
-                    <div class="botao botao_geral_borda botao_escolher_plano" data-plano="{{$ind}}">{{$val}}</div>
-                    @ endforeach;
-                </div>
+                    @if ($operadora == 'amil'):
+                        <div class="bloco_escolher_plano {{$regiao}} botao_selecao display_none">
+                            @ foreach( $lista as $ind => $val ):
+                                <div class="botao botao_geral_borda botao_escolher_plano " data-plano="{{$ind}}">{{$val}}</div>
+                            @ endforeach;
+                        </div>
+                    @else
+                        <div class="bloco_escolher_plano {{$regiao}} botao_selecao">
+                            <div class="botao botao_geral_borda botao_escolher_plano" data-plano="{{$regiao}}">{{$lista}}</div>
+                        </div>
+                    @endif
                 @ endforeach;
-                <div class="bloco_botao">
+                <div class="bloco_botao botao_voltar_plano display_none">
                     <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
                     <div class="flex"></div>
                 </div>
@@ -86,8 +105,8 @@
                     </div>
                 </div>
                 <div class="bloco_botao">
-                    <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
-                    <a href="" class="botao_geral_cor cor_bg" id="botao_contratar">Contratar</a>
+                    <div class="botao_geral_cor cinza botao_geral_voltar" id="voltar_simulacao">Voltar</div>
+                    <a href="@route('saude.contratacao')/" class="botao_geral_cor cor_bg" id="botao_contratar">Contratar</a>
                 </div>
             </div>
                 @ endif;
