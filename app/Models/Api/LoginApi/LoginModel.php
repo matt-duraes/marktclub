@@ -175,7 +175,7 @@ final class LoginModel extends Entity
             'email_trabalho'   => $emailTrabalho->email(),
             'telefone_celular' => $telefonePessoal->numero(),
             'telefone_fixo'    => $telefoneTrabalho->numero(),
-            'uf'               => $enderecoEstado->estado(),
+            'uf'               => $enderecoEstado->uf(),
             'cidade'           => $enderecoCidade,
             'federacao'        => $federacao,
             'salavip'          => $salavip,
