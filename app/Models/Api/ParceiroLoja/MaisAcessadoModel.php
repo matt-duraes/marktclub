@@ -59,7 +59,7 @@ final class MaisAcessadoModel extends ORM
         $i = 0;
         foreach ($this->lista as $id) {
             if ($i > $quantidade) {
-                return;
+                break;
             }
             $retorno[] = $id;
             $i++;
