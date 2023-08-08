@@ -433,6 +433,15 @@ Route
     });
 
 Route
+    ::nome('sosmulher')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\SosMulherController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/sos-mulher');
+    });
+Route
     ::nome('site')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SiteController::class)
@@ -446,9 +455,6 @@ Route
                 'navegar', 'procura', 'suporte', 'comentario', 'atendimento', 'sistema'
             ])
             ::post('/pesquisa-de-satisfacao');
-        Route
-            ::nome('sosmulher')
-            ::view('/sos-mulher');
         Route
             ::nome('indiqueAmigo')
             ::view('/indique-um-amigo');

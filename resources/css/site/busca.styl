@@ -25,8 +25,8 @@
         color: #FFF
         botaoPadraoGrande()
 
-.bloco_buscar_geral form
-    width: calc(100vw - 290px)
+#form_buscar
+    width: calc(100vw - 300px)
     height: 100vh
     position: fixed
     top: 0
@@ -80,18 +80,19 @@
             margin-right: 0
     button
         margin-top: 20px
-.bloco_buscar_geral.ativo form
+#form_buscar.ativo
     opacity: 1
     background-color: rgba(0,0,0,.3)
     .conteudo
         opacity: 1
         margin-top: 0
+body.body_scroll_hidden #form_buscar
+    padding-right: 30px
 @media screen and (max-width: 1250px)
-    .bloco_buscar_geral form
+    #form_buscar
         width: 100%
-        padding-top: 70px
 @media screen and (max-width: 600px)
-    .bloco_buscar_geral form button
+    #form_buscar button
         height: 50px
         line-height: 50px
 

@@ -1,41 +1,44 @@
 @system "Form"
 @template "site"
 @resource "site/variavel"
-@resource "site/loja/busca"
-@resource "site/loja/parceiro"
-@resource "site/loja/relacionado"
 @resource "site/loja/detalhe"
+@resource "site/parceiro_header"
 
-
-#bloco_loja_confirmar
-    max-width: 700px
-    .conteudo_confirmar
-        flexCol()
-        align-items: center
-        padding: 20px
-    .conteudo_confirmar h1
-        titulo()
-    .conteudo_confirmar p
-        texto()
-    .conteudo_confirmar a
-        margin-top: 30px
-
-.bloco_botao .botao
-    width: 200px
-
-.bloco_botao .destaque
-    padding: 0px
-
-@media screen and ( max-width: 900px)
-    .bloco_botao .botao
-        max-width: 250px
-
-@media screen and ( max-width: 600px )
-    .bloco_desconto_procedimento
-        flex-direction: column
-    .bloco_desconto_procedimento .bloco
+#bloco_sos_mulher
+    .atencao
+        margin-top: 20px
+    .bloco_logo
         width: 100%
-    .bloco_botao .botao
-        width: 200px
-        &:first-child
-            margin-top: 20px
+        flexRow()
+        justify-content: center
+        margin: 30px 0 20px
+    .bloco_logo a
+        blocoShadow()
+        margin: 0 10px
+    .bloco_whatsapp
+        texto()
+        flexRow()
+        align-items: center
+        background: $corClube
+        border-radius: 4px
+        padding: 10px 20px
+        color: #FFF
+        fill: #FFF
+        margin-bottom: 40px
+    .bloco_whatsapp i
+        width: 40px
+        height: 40px
+        flexCenter()
+        margin-right: 15px
+    .bloco_whatsapp p
+        texto()
+        max-width: 350px
+    .botao_loja
+        botaoPadraoDestaque()
+        background: $corClube
+        color: #FFF
+        margin: 30px 0 80px
+        fill: #FFF
+    .botao_loja svg
+        margin-right: 10px
+

@@ -1,14 +1,16 @@
 window.addEventListener('load', () => {
     const botaoBuscarAbrir = $('#botao_buscar_abrir');
     const botaoBuscarFechar = $$('.botao_buscar_fechar');
-    const blocoBuscar = $('#bloco_buscar');
     const formBuscar = $('#form_buscar');
+    const blocoBuscarTemplate = $('#bloco_template_buscar');
+
+    blocoBuscarTemplate.appendChild(formBuscar);
 
     botaoBuscarAbrir.addEventListener('click', () => {
         body.classList.add('body_scroll_hidden');
         formBuscar.classList.remove('display_none');
         setTimeout(() => {
-            blocoBuscar.classList.add('ativo');
+            formBuscar.classList.add('ativo');
         }, 40);
     });
     formBuscar.addEventListener('click', e => {
@@ -23,7 +25,7 @@ window.addEventListener('load', () => {
     });
 
     const fecharBusca = () => {
-        blocoBuscar.classList.remove('ativo');
+        formBuscar.classList.remove('ativo');
         setTimeout(() => {
             body.classList.remove('body_scroll_hidden');
             formBuscar.classList.add('display_none');

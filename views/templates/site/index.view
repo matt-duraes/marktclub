@@ -36,6 +36,7 @@
             @dir "/include/site_footer.view"
         @endif;
     </div>
+    <div id="bloco_template_buscar"></div>
 
     <form action="/" method="post">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
