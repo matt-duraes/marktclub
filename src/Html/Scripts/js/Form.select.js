@@ -22,6 +22,8 @@ const formValue = (input, valor) => {
     if (bloco.classList.contains('input_select')) {
         formSelectValue(input, valor);
         return;
+    } else if (bloco.classList.contains('input_url')) {
+        valor = valor.replace(/^(http:\/\/|https:\/\/)/i, '');
     }
     input.value = valor;
 };

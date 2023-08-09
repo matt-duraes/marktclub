@@ -1016,13 +1016,13 @@ fwFormLoading = bloco => {
         };
 
         inputUrlLista.forEach(inputUrl => {
-            inputUrl.addEventListener('keyup', e => {
+            inputUrl.addEventListener('keyup', () => {
                 const valor = inputUrl.value;
                 if (valor.replace(/^(http:\/\/|https:\/\/)/i, '') != '') {
                     removerProtocoloUrl(inputUrl);
                 }
             });
-            inputUrl.addEventListener('change', e => {
+            inputUrl.addEventListener('change', () => {
                 removerProtocoloUrl(inputUrl);
             });
             removerProtocoloUrl(inputUrl);

@@ -36,7 +36,7 @@ return [
             ]
         ]),
         'imagem'           => imagemUsuario(),
-        'data_expiracao'  => dataFuturaAleatorio(),
+        'data_expiracao'   => dataFuturaAleatorio(),
         'status'           => 1
     ],
     [
@@ -67,7 +67,7 @@ return [
             ]
         ]),
         'imagem'           => imagemUsuario(),
-        'data_expiracao'  => dataFuturaAleatorio(),
+        'data_expiracao'   => dataFuturaAleatorio(),
         'status'           => -1
     ],
     [
@@ -98,7 +98,7 @@ return [
             ]
         ]),
         'imagem'           => imagemUsuario(),
-        'data_expiracao'  => dataFuturaAleatorio(),
+        'data_expiracao'   => dataFuturaAleatorio(),
         'status'           => 1
     ],
     [
@@ -129,7 +129,7 @@ return [
             ]
         ]),
         'imagem'           => imagemUsuario(),
-        'data_expiracao'  => dataFuturaAleatorio(),
+        'data_expiracao'   => dataFuturaAleatorio(),
         'status'           => -1
     ],
     [
@@ -160,7 +160,7 @@ return [
             ]
         ]),
         'imagem'           => imagemUsuario(),
-        'data_expiracao'  => dataFuturaAleatorio(),
+        'data_expiracao'   => dataFuturaAleatorio(),
         'status'           => 1
     ]
 ];
