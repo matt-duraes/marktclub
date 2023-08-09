@@ -18,7 +18,7 @@ final class Cpf implements ModuleInterface
      */
     public function valor()
     {
-        return $this->cpf();
+        return $this->numero();
     }
 
     // doc

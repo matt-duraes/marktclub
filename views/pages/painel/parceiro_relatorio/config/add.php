@@ -20,7 +20,7 @@ $Painel->coluna(callback: function () use ($Painel, $parceiro, $empresa) {
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
             ->numero(name: 'numero_transacao', label: 'Número de transações')
-            ->input(name: 'valor_venda', label: 'Valor de vendas', mascara: 'dinheiro')
+            ->dinheiro(name: 'valor_venda', label: 'Valor de vendas')
             ->data(name: 'data_relatorio', label: 'Data do relatório');
     });
 });

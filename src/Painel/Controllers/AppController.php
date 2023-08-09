@@ -360,6 +360,7 @@ final class AppController extends PadraoController
                 return $dado;
             }
         }
+
         return view(
             arquivo: $config->add->app . '.add',
             var: [

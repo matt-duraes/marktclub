@@ -3,10 +3,9 @@
 namespace Tests\Api;
 
 use Erro\Excecao;
-use Modules\Data;
-use Tests\Tests;
+use Tests\Api\Token\Clube;
 
-final class SaudeSimulacaoTest extends Tests
+final class SaudeSimulacaoTest extends Clube
 {
     private string $idSimulacao = '32dd2783-daf2-4cf4-be78-6f43e3f801c5';
 
@@ -39,13 +38,13 @@ final class SaudeSimulacaoTest extends Tests
      */
     public function realizarSimulacaoAmilTest(): SaudeSimulacaoTest
     {
-        $titular = (new Data($this->dataPassada()))->data();
+        $dataNascimento = $this->dataPassada();
 
         $this->api('saude_simulacao:salvar');
         $this
             ->Curl
             ->body([
-                'titular'     => $titular,
+                'titular'     => $dataNascimento,
                 'dependentes' => jsonEncode($this->gerarDependentes()),
                 'operadora'   => 'amil',
                 'regiao'      => 'sao_paulo',
@@ -66,8 +65,9 @@ final class SaudeSimulacaoTest extends Tests
     private function gerarDependentes(): array
     {
         $dependentes = [];
-        for ($i = 0; $i < 4; $i++) {
-            $dependentes[] = (new Data($this->dataPassada()))->data();
+        $dependenteNumero = $this->numero(1, 4);
+        for ($i = 0; $i < $dependenteNumero; $i++) {
+            $dependentes[] = $this->dataPassada();
         }
         return $dependentes;
     }
@@ -78,7 +78,7 @@ final class SaudeSimulacaoTest extends Tests
      */
     public function realizarSimulacaoUnimedFloripaTest(): SaudeSimulacaoTest
     {
-        $titular = (new Data($this->dataPassada()))->data();
+        $titular = $this->dataPassada();
 
         $this->api('saude_simulacao:salvar');
         $this
@@ -105,7 +105,7 @@ final class SaudeSimulacaoTest extends Tests
      */
     public function realizarSimulacaoUnimedSeguroTest(): SaudeSimulacaoTest
     {
-        $titular = (new Data($this->dataPassada()))->data();
+        $titular = $this->dataPassada();
 
         $this->api('saude_simulacao:salvar');
         $this
@@ -132,14 +132,15 @@ final class SaudeSimulacaoTest extends Tests
      */
     public function realizarSimulacaoUnimedTest(): SaudeSimulacaoTest
     {
-        $titular = (new Data($this->dataPassada()))->data();
+        $titular = $this->dataPassada();
 
-        $this->api('saude_simulacao:salvar');
-        $this
+        $dependente = $this->gerarDependentes();
+        $dado = $this
             ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'titular'     => $titular,
-                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'dependentes' => jsonEncode($dependente),
                 'operadora'   => 'unimed',
                 'regiao'      => '',
                 'plano'       => '',
@@ -147,9 +148,17 @@ final class SaudeSimulacaoTest extends Tests
             ])
             ->post('/saude/simulacao');
 
+        $dependenteNumero = count($dependente);
+        $dependenteCriado = count($dado->object()->dado->dependentes ?? []);
+
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
+            ->checkIgual(
+                $dependenteNumero,
+                $dependenteCriado,
+                'O número de dependente deveria ser ' . $dependenteNumero . ' mas foi ' . $dependenteCriado . '.'
+            )
             ->checkIndiceExiste('dado.id');
     }
 }

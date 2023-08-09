@@ -87,11 +87,22 @@ final class EnderecoEstado implements ModuleInterface
 
     // doc
     /**
-     * Pega o Estado do modulo
+     * Pega o Estado do modulo por extenso
      *
      * @return string Retorna o estado
      */
     public function estado(): string
+    {
+        return $this->listaIndiceNome[$this->estado] ?? '';
+    }
+
+    // doc
+    /**
+     * Pega o Estado do modulo como UF
+     *
+     * @return string Retorna o estado
+     */
+    public function uf(): string
     {
         return $this->estado;
     }

@@ -42,7 +42,7 @@
 
                         <form action="" class="form_geral">
 
-                            @? formInput(name: 'valor', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', mascara: 'dinheiro', class: 'busca_valor', value: '')
+                            @? formDinheiro(name: 'valor', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor', value: '')
                             @? formSelect(name: 'prazo', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', lista: $parcela, value: '')
 
                         </form>

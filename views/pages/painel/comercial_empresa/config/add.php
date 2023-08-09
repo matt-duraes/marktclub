@@ -68,8 +68,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Responsável pelo contrato',
                 lista: $equipe['dado'] ?? []
             )
-            ->input(name: 'renda_media', label: 'Renda média', placeholder: 'Renda média', mascara: 'dinheiro')
-            ->input(name: 'valor_pib', label: 'Valor do PIB', placeholder: 'Valor do PIB', mascara: 'dinheiro')
+            ->dinheiro(name: 'renda_media', label: 'Renda média', placeholder: 'Renda média')
             ->select(name: 'estado_principal', label: 'Estado principal', lista: 'estado');
     });
 
@@ -103,10 +102,25 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->select(
                 name: 'tipo_pagamento',
                 label: 'Tipo pagamento',
-                lista: (new TipoPagamento())->select('Escolha uma opção')
+                lista: (new TipoPagamento())->select('Escolha uma opção'),
+                change: 'tipoPagamento'
             )
-            ->numero(name: 'contrato_valor', label: 'Valor do contrato', placeholder: 'Valor do contrato', mascara: 'dinheiro')
-            ->numero(name: 'contrato_valor_minimo', label: 'Valor mínimo do contrato', placeholder: 'Valor mínimo do contrato', mascara: 'dinheiro')
+            ->dinheiro(
+                name: 'contrato_valor_minimo',
+                label: 'Valor mínimo do contrato',
+                placeholder: 'Valor mínimo do contrato',
+                id: 'bloco_valor_minimo',
+                class: 'display_none'
+            )
+            ->numero(
+                name: 'contrato_usuario_minimo',
+                label: 'Número minimo de usuário',
+                placeholder: 'Número minimo de usuário',
+                mascara: 'numero',
+                id: 'bloco_usuario_minimo',
+                class: 'display_none'
+            )
+            ->dinheiro(name: 'contrato_valor', label: 'Valor do contrato', placeholder: 'Valor do contrato')
             ->numero(name: 'contrato_dia_pagamento', label: 'Dia do pagamento', placeholder: 'Dia do pagamento', ajuda: 'Dia do Mês que o cliente deve pagar')
             ->numero(name: 'contrato_dia_fechamento', label: 'Dia do fechamento', placeholder: 'Dia do fechamento', ajuda: 'Dia que o sistema deve fazer a contagem de usuário')
             ->switch(name: 'cobrar_aposentado', label: 'Irá cobrar aposentado?')

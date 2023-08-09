@@ -4,8 +4,10 @@ namespace App\Models\Api\Popup;
 
 use App\Classes\Popup\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Helpers\UploadHelper;
 use Modules\DataHora;
 use ORM\Entity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PopupEntity extends Entity
 {
@@ -16,31 +18,40 @@ class PopupEntity extends Entity
     public string $subtitulo;
     public string $texto;
     public string $formulario;
-    public string $imagem;
-    public DataHora $data_vencimento;
+    public UploadedFile|UploadHelper|string $imagem;
+    public DataHora $data_expiracao;
     public Status $status;
     protected string $ormTabela = TABELA_POPUP;
+    protected array $ormInsert = [
+        'id_admin_empresa' => '->idEmpresa'
+    ];
     protected array $ormBuscar = [
-        'slug', 'titulo', 'subtitulo', 'data_criacao', 'status'
+        'slug', 'titulo', 'subtitulo', 'texto', 'formulario', 'imagem',
+        'data_criacao', 'data_expiracao', 'status'
     ];
     protected array $ormSalvar = [
-        'slug', 'titulo', 'subtitulo', 'texto', 'formulario',
-        'imagem', 'status', 'data_vencimento'
+        'slug', 'titulo', 'subtitulo', 'texto', 'formulario', 'imagem',
+        'data_expiracao', 'status'
     ];
     protected string $ormValidarSalvar = '
-        slug|Slug|obrigatorio
-        titulo|Título|obrigatorio
-        subtitulo|Subtítulo|vazio
-        texto|Conteúdo|obrigatorio
-        formulario|Formulário|vazio
-        imagem|Imagem|vazio
-        data_vencimento|Data de Expiração|vazio|valido
+        titulo|Título|obrigatorio|vazio
+        subtitulo|Subtítulo
+        texto|Conteúdo|obrigatorio|vazio
+        formulario|Formulário
+        imagem|Imagem
+        data_expiracao|Data de Expiração|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
+    protected ?int $idEmpresa;
 
     public function __construct()
     {
-        parent::__construct();
         $this->validarEmpresa();
+        parent::__construct();
+    }
+
+    public function regraInsert(): void
+    {
+        $this->slug = strSlug($this->titulo);
     }
 }

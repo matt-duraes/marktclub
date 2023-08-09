@@ -18,7 +18,7 @@ final class EnderecoCep implements ModuleInterface
      */
     public function valor()
     {
-        return $this->cep();
+        return $this->numero();
     }
 
     // doc

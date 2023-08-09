@@ -87,13 +87,14 @@ final class ComercialEmpresaController extends Controller implements
                     'equipe', 'finalidade_principal', 'finalidade_secundaria', 'imagem',
                     'titulo', 'nome_fantasia', 'razao_social', 'slug', 'valor_pago', 'cobrar_aposentado',
                     'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-                    'tipo_pagamento', 'contrato_valor', 'contrato_valor_minimo', 'renda_media',
+                    'tipo_pagamento', 'contrato_valor', 'contrato_valor_minimo', 'contrato_usuario_minimo',
                     'valor_pib', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'produto_webview',
                     'produto_api', 'cnpj', 'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia',
                     'rede_social_dia', 'contrato_data', 'contrato_prazo', 'contrato_renovacao', 'tipo_site',
                     'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo',
                     'prospeccao_status', 'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro',
-                    'restricao_lista', 'contrato_dia_pagamento', 'cadastro_usuario', 'contrato_dia_fechamento'
+                    'restricao_lista', 'contrato_dia_pagamento', 'cadastro_usuario', 'contrato_dia_fechamento',
+                    'renda_media',
                 ]
             ),
             criptografar: Helper::CRIPTOGRAFAR,

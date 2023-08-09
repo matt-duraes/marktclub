@@ -2,6 +2,8 @@
 
 namespace App\Models\Api\ComercialEmpresa\Trait;
 
+use Modules\Botao;
+use App\Classes\ComercialEmpresa\TipoPagamento;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
 
 trait ValidarEmpresaAtivaTrait
@@ -20,7 +22,6 @@ trait ValidarEmpresaAtivaTrait
             cadastro_usuario|Como será o cadastro|vazio|valido
             id_usuario_equipe|Responsável pelo contrato|vazio|int>0
             renda_media|Renda média|vazio|valido
-            valor_pib|Valor do PIB|vazio|valido
             tipo_pagamento|Tipo de pagamento|vazio|valido
             contrato_data|Data do contrato|vazio|valido
             contrato_prazo|Prazo do contrato|vazio|valido
@@ -30,7 +31,6 @@ trait ValidarEmpresaAtivaTrait
             razao_social|Razão Social|vazio
             cnpj|CNPJ|vazio|valido
             responsavel_nome|Nome do responsável|vazio|valido
-            responsavel_cpf|CPF do responsável|valido
             responsavel_telefone|Telefone do responsável|vazio|valido
             responsavel_email|E-mail do responsável|vazio|valido
             estado_principal|Estado principal|valido
@@ -46,9 +46,25 @@ trait ValidarEmpresaAtivaTrait
 
         if (
             $this->propriedadeExiste('produto_clube') &&
+            $this->produto_clube->valor() == Botao::SIM &&
             (!$this->propriedadeExiste('tipo_site') || !$this->tipo_site->valido())
         ) {
             mensagemErro('Campo obrigatório!', 'O campo Tipo de site do clube é obrigatório.');
+        }
+
+        $pagamentoMisto = $this->propriedadeExiste('tipo_pagamento')
+            && $this->tipo_pagamento->indice() == TipoPagamento::MISTO;
+        if (
+            $pagamentoMisto &&
+            (!$this->propriedadeExiste('contrato_valor_minimo') || !$this->contrato_valor_minimo->valido())
+        ) {
+            mensagemErro('Campo obrigatório!', 'O campo Valor mínimo do contrato é obrigatório.');
+        }
+        if (
+            $pagamentoMisto &&
+            (!$this->propriedadeExiste('contrato_usuario_minimo') || !$this->contrato_usuario_minimo->valido())
+        ) {
+            mensagemErro('Campo obrigatório!', 'O campo Número mínimo de usuário é obrigatório.');
         }
 
         $this->validarComunicacao('email');

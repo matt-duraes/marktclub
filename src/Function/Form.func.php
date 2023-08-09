@@ -225,6 +225,8 @@ if (!function_exists('formInput')) {
                 $valuePrincipal = strCpf($valuePrincipal);
             } elseif ($mascaraPrincipal == '00.000.000/0000-00') {
                 $valuePrincipal = strCnpj($valuePrincipal);
+            } elseif ($mascaraPrincipal == 'dinheiro') {
+                $valuePrincipal = strDinheiro($valuePrincipal);
             }
 
             if ($mascaraSecundaria == '00/00/0000') {
@@ -237,6 +239,11 @@ if (!function_exists('formInput')) {
                 $valueSecundario = strCpf($valueSecundario);
             } elseif ($mascaraSecundaria == '00.000.000/0000-00') {
                 $valueSecundario = strCnpj($valueSecundario);
+            } elseif ($mascaraSecundaria == 'dinheiro') {
+                $valuePrincipal = strDinheiro($valueSecundario);
+            }
+            if ($url) {
+                $valuePrincipal = str_replace(['https://', 'http://'], '', $valuePrincipal);
             }
 
             $attrInput[] = 'value="' . $valuePrincipal . '"';
@@ -472,7 +479,9 @@ if (!function_exists('formInput')) {
 
         $urlHtml = '';
         if ($url) {
-            $urlHtml = '<div class="input_http">https://</div>';
+            $valueTemp = $value[0];
+            $http = str_starts_with($valueTemp, 'http://') ? 'http://' : 'https://';
+            $urlHtml = '<div class="input_http">' . $http . '</div>';
             $classBloco[] = 'bloco_url';
             $classInput[] = 'input_url';
             if (is_array($name)) {
@@ -1756,5 +1765,61 @@ if (!function_exists('formArquivoLista')) {
                 </div>
             </div>
         ';
+    }
+
+    function formDinheiro(
+        string|array $name,
+        string $label = '',
+        $value = '',
+        string|array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool|array $obrigatorio = false,
+        bool $focus = false,
+        null|int|array $contador = null,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        bool $footer = true,
+        array $request = [],
+        string $separador = '',
+        null|int|array $maximo = null,
+    ): string {
+        $mascara = 'dinheiro';
+        if (is_array($name)) {
+            $mascara = [];
+            foreach ($name as $val) {
+                $mascara[] = 'dinheiro';
+            }
+        }
+        return formInput(
+            name: $name,
+            label: $label,
+            value: $value,
+            placeholder: $placeholder,
+            class: $class,
+            id: $id,
+            html: $html,
+            icone: $icone,
+            iconeCor: $iconeCor,
+            obrigatorio: $obrigatorio,
+            focus: $focus,
+            contador: $contador,
+            type: 'text',
+            attr: $attr,
+            mascara: $mascara,
+            ajuda: $ajuda,
+            numero: true,
+            autocomplete: $autocomplete,
+            action: $action,
+            footer: $footer,
+            request: $request,
+            separador: $separador,
+            maximo: $maximo,
+        );
     }
 }

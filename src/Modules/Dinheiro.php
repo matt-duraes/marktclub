@@ -82,9 +82,7 @@ final class Dinheiro implements ModuleInterface
      */
     public function dinheiro(): string
     {
-        return empty($this->dinheiro)
-            ? ''
-            : 'R$ ' . number_format($this->dinheiro, 2, ',', '.');
+        return empty($this->dinheiro) ? '' : number_format($this->dinheiro, 2, ',', '.');
     }
 
     /**
@@ -94,7 +92,7 @@ final class Dinheiro implements ModuleInterface
      */
     public function valor(): string
     {
-        return $this->dinheiro();
+        return $this->decimal();
     }
 
     /**
