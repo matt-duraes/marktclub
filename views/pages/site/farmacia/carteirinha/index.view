@@ -3,14 +3,15 @@
     <div class="bloco_carteirinha">
         <div class="bloco_info">
             <figure>
+                <h1>teste</h1>
             </figure>
             <div class="borda_meio"></div>
             <div class="bloco_cpf">
-                <h1>012.345.678-90</h1>
+                <h1>{{$cpf}}</h1>
             </div>
         </div>
         <div class="bloco_nome">
-            <h1>Usuario teste</h1>
+            <h1>{{$nome}}</h1>
         </div>
     </div>
 </div>

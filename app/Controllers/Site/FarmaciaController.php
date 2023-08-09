@@ -9,7 +9,6 @@ use App\Classes\ParceiroLoja\Tipo;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\Procedimento;
-use App\Helpers\ClubeApiHelper;
 
 final class FarmaciaController extends Controller
 {
@@ -55,17 +54,11 @@ final class FarmaciaController extends Controller
 
     public function carteirinha()
     {
-        $dado = ((new ClubeApiHelper()))
-        ->body([
-            'id'        => sessao('CLUBE.id'),
-
-        ])
-        ->get('/saude/simulacao')
-        ->object();
         return view(
             'farmacia.carteirinha',
             [
-                'carteira' => $dado
+                'nome' => sessao('USUARIO.nome'),
+                'cpf'  => sessao('USUARIO.cpf'),
             ]
         );
     }
