@@ -2,16 +2,23 @@
 
 namespace Tests\Api\Token;
 
-use Tests\Tests;
+use Erro\Excecao;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
+use Tests\Tests;
 
 abstract class Clube extends Tests
 {
-    public function pegarToken()
+    /**
+     * @return string
+     * @throws Excecao
+     */
+    public function pegarToken(): string
     {
         $Curl = new ApiHelper('admin:chave_publica');
-        $chave = $Curl->get('/admin/chave-publica')->object()->dado->chave ?? '';
+        $chave = $Curl
+            ->get('/admin/chave-publica')
+            ->object()->dado->chave ?? '';
 
         $Crypt = new CryptHelper(chavePublica: $chave);
 

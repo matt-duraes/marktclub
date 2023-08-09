@@ -1,33 +1,33 @@
 <?php
 
 return [
-    'empresa_novo' => [
+    'empresa_novo'        => [
         'cod' => 'uuid'
     ],
-    'construtor_novo' => [
+    'construtor_novo'     => [
         'cod' => 'uuid'
     ],
-    'cupom_bloqueio' => [
+    'cupom_bloqueio'      => [
         'cod' => 'uuid'
     ],
-    'parceiro_novo' => [
+    'parceiro_novo'       => [
         'cod'     => 'uuid',
         'empresa' => 'id_admin_empresa'
     ],
-    'tag_novo' => [
+    'tag_novo'            => [
         'cod' => 'uuid'
     ],
-    'contato' => [
+    'contato'             => [
         'cod' => 'uuid'
     ],
-    'endereco_novo' => [
+    'endereco_novo'       => [
         'cod'  => 'id_vinculo',
         'nome' => 'titulo'
     ],
     'solicitacao_voucher' => [
         'cod' => 'uuid'
     ],
-    'usuario_novo' => [
+    'usuario_novo'        => [
         'cod'         => 'uuid',
         'empresa'     => 'id_admin_empresa',
         'titular'     => 'id_usuario_cliente',
@@ -37,7 +37,7 @@ return [
         'cidade'      => 'endereco_cidade',
         'uf'          => 'endereco_estado'
     ],
-    'usuario_indicacao' => [
+    'usuario_indicacao'   => [
         'cod' => 'uuid'
     ]
 ];

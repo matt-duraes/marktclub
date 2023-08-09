@@ -2,12 +2,16 @@
 
 namespace Tests\Api;
 
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Operadoras\Amil\Planos as PlanosAmil;
+use App\Classes\Saude\Operadoras\Amil\Regioes as RegioesAmil;
+use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\Planos as PlanosFloripa;
 use Erro\Excecao;
 use Tests\Api\Token\Clube;
 
 final class SaudeSimulacaoTest extends Clube
 {
-    private string $idSimulacao = '32dd2783-daf2-4cf4-be78-6f43e3f801c5';
+    private string $idSimulacao;
 
     public function __construct()
     {
@@ -18,7 +22,57 @@ final class SaudeSimulacaoTest extends Clube
      * @return SaudeSimulacaoTest
      * @throws Excecao
      */
-    public function buscarSimulacaoTest(): SaudeSimulacaoTest
+    public function realizarSimulacaoAmilTest(): SaudeSimulacaoTest
+    {
+        $dependentes = $this->gerarDependentes();
+        $qtdDependentes = count($dependentes);
+
+        $this->api('saude_simulacao:salvar');
+        $simulacao = $this
+            ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
+            ->body([
+                'titular'     => $this->dataPassada(),
+                'dependentes' => jsonEncode($dependentes),
+                'operadora'   => Operadora::AMIL,
+                'regiao'      => RegioesAmil::SAO_PAULO,
+                'plano'       => PlanosAmil::AMIL_S80QC,
+                'acomodacao'  => ''
+            ])
+            ->post('/saude/simulacao')
+            ->array()['dado'] ?? [];
+
+        $this->idSimulacao = $simulacao['id'];
+        $qtdDependentesSalvos = count($simulacao['dependentes']);
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIgual(
+                $qtdDependentes,
+                $qtdDependentesSalvos,
+                "Foram gerados $qtdDependentes dependentes, e $qtdDependentesSalvos foram simulados."
+            )
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return array
+     */
+    private function gerarDependentes(): array
+    {
+        $dependentes = [];
+        for ($i = 0; $i < $this->numero(1, 4); $i++) {
+            $dependentes[] = $this->dataPassada();
+        }
+        return $dependentes;
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function buscarSimulacaoAmilTest(): SaudeSimulacaoTest
     {
         $this->api('saude_simulacao:buscar');
         $this
@@ -36,67 +90,56 @@ final class SaudeSimulacaoTest extends Clube
      * @return SaudeSimulacaoTest
      * @throws Excecao
      */
-    public function realizarSimulacaoAmilTest(): SaudeSimulacaoTest
+    public function realizarSimulacaoUnimedFloripaTest(): SaudeSimulacaoTest
     {
-        $dataNascimento = $this->dataPassada();
+        $dependentes = $this->gerarDependentes();
+        $qtdDependentes = count($dependentes);
 
         $this->api('saude_simulacao:salvar');
-        $this
+        $simulacao = $this
             ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'titular'     => $dataNascimento,
-                'dependentes' => jsonEncode($this->gerarDependentes()),
-                'operadora'   => 'amil',
-                'regiao'      => 'sao_paulo',
-                'plano'       => 'amil_s80qc',
-                'acomodacao'  => ''
+                'titular'     => $this->dataPassada(),
+                'dependentes' => jsonEncode($dependentes),
+                'operadora'   => Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA,
+                'regiao'      => '',
+                'plano'       => PlanosFloripa::REGIONAL,
+                'acomodacao'  => 'enfermaria-30'
             ])
-            ->post('/saude/simulacao');
+            ->post('/saude/simulacao')
+            ->array()['dado'] ?? [];
+
+        $this->idSimulacao = $simulacao['id'];
+        $qtdDependentesSalvos = count($simulacao['dependentes']);
 
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
+            ->checkIgual(
+                $qtdDependentes,
+                $qtdDependentesSalvos,
+                "Foram gerados $qtdDependentes dependentes, e $qtdDependentesSalvos foram simulados."
+            )
             ->checkIndiceExiste('dado.id');
-    }
-
-    /**
-     * @return array
-     */
-    private function gerarDependentes(): array
-    {
-        $dependentes = [];
-        $dependenteNumero = $this->numero(1, 4);
-        for ($i = 0; $i < $dependenteNumero; $i++) {
-            $dependentes[] = $this->dataPassada();
-        }
-        return $dependentes;
     }
 
     /**
      * @return SaudeSimulacaoTest
      * @throws Excecao
      */
-    public function realizarSimulacaoUnimedFloripaTest(): SaudeSimulacaoTest
+    public function buscarSimulacaoFloripaTest(): SaudeSimulacaoTest
     {
-        $titular = $this->dataPassada();
-
-        $this->api('saude_simulacao:salvar');
+        $this->api('saude_simulacao:buscar');
         $this
             ->Curl
-            ->body([
-                'titular'     => $titular,
-                'dependentes' => jsonEncode($this->gerarDependentes()),
-                'operadora'   => 'unimed_florianopolis',
-                'regiao'      => '',
-                'plano'       => 'regional',
-                'acomodacao'  => 'enfermaria-30'
-            ])
-            ->post('/saude/simulacao');
+            ->get('/saude/simulacao/' . $this->idSimulacao);
 
         return $this
-            ->checkStatus(201)
+            ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.id');
+            ->checkIndiceExiste('dado')
+            ->checkIndiceIgual('dado.id', $this->idSimulacao);
     }
 
     /**
@@ -105,25 +148,54 @@ final class SaudeSimulacaoTest extends Clube
      */
     public function realizarSimulacaoUnimedSeguroTest(): SaudeSimulacaoTest
     {
-        $titular = $this->dataPassada();
+        $dependentes = $this->gerarDependentes();
+        $qtdDependentes = count($dependentes);
 
         $this->api('saude_simulacao:salvar');
-        $this
+        $simulacao = $this
             ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'titular'     => $titular,
-                'dependentes' => jsonEncode($this->gerarDependentes()),
-                'operadora'   => 'unimed_seguro',
+                'titular'     => $this->dataPassada(),
+                'dependentes' => jsonEncode($dependentes),
+                'operadora'   => Operadora::UNIMED_SEGURO,
                 'regiao'      => '',
                 'plano'       => '',
                 'acomodacao'  => $this->random(['basico', 'versatil', 'pratico'])
             ])
-            ->post('/saude/simulacao');
+            ->post('/saude/simulacao')
+            ->array()['dado'] ?? [];
+
+        $this->idSimulacao = $simulacao['id'];
+        $qtdDependentesSalvos = count($simulacao['dependentes']);
 
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
+            ->checkIgual(
+                $qtdDependentes,
+                $qtdDependentesSalvos,
+                "Foram gerados $qtdDependentes dependentes, e $qtdDependentesSalvos foram simulados."
+            )
             ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function buscarSimulacaoUnimedSeguroTest(): SaudeSimulacaoTest
+    {
+        $this->api('saude_simulacao:buscar');
+        $this
+            ->Curl
+            ->get('/saude/simulacao/' . $this->idSimulacao);
+
+        return $this
+            ->checkStatus(200)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado')
+            ->checkIndiceIgual('dado.id', $this->idSimulacao);
     }
 
     /**
@@ -132,33 +204,53 @@ final class SaudeSimulacaoTest extends Clube
      */
     public function realizarSimulacaoUnimedTest(): SaudeSimulacaoTest
     {
-        $titular = $this->dataPassada();
+        $dependentes = $this->gerarDependentes();
+        $qtdDependentes = count($dependentes);
 
-        $dependente = $this->gerarDependentes();
-        $dado = $this
+        $this->api('saude_simulacao:salvar');
+        $simulacao = $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'titular'     => $titular,
-                'dependentes' => jsonEncode($dependente),
-                'operadora'   => 'unimed',
+                'titular'     => $this->dataPassada(),
+                'dependentes' => jsonEncode($dependentes),
+                'operadora'   => Operadora::UNIMED,
                 'regiao'      => '',
                 'plano'       => '',
                 'acomodacao'  => $this->random(['enfermaria', 'apartamento'])
             ])
-            ->post('/saude/simulacao');
+            ->post('/saude/simulacao')
+            ->array()['dado'] ?? [];
 
-        $dependenteNumero = count($dependente);
-        $dependenteCriado = count($dado->object()->dado->dependentes ?? []);
+        $this->idSimulacao = $simulacao['id'];
+        $qtdDependentesSalvos = count($simulacao['dependentes']);
 
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIgual(
-                $dependenteNumero,
-                $dependenteCriado,
-                'O número de dependente deveria ser ' . $dependenteNumero . ' mas foi ' . $dependenteCriado . '.'
+                $qtdDependentes,
+                $qtdDependentesSalvos,
+                "Foram gerados $qtdDependentes dependentes, e $qtdDependentesSalvos foram simulados."
             )
             ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function buscarSimulacaoUnimedTest(): SaudeSimulacaoTest
+    {
+        $this->api('saude_simulacao:buscar');
+        $this
+            ->Curl
+            ->get('/saude/simulacao/' . $this->idSimulacao);
+
+        return $this
+            ->checkStatus(200)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado')
+            ->checkIndiceIgual('dado.id', $this->idSimulacao);
     }
 }
