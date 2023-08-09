@@ -86,10 +86,10 @@ Route
 Route
     ::nome('sair')
     ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\LoginController::class)
+    ::controller(App\Controllers\Site\SairController::class)
     ::grupo(function () {
         Route
-            ::nome('sair')
+            ::nome('index')
             ::view('/sair');
     });
 Route
@@ -208,7 +208,7 @@ Route
             ::view('/convenios/{url}');
         Route
             ::nome('confirmar')
-            ::view('/convenios/confirmar/{url}');
+            ::get('/convenios/confirmar/{url}');
         Route
             ::nome('voucher')
             ::view('/convenios/voucher/{url}');

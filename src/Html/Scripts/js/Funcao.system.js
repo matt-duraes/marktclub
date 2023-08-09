@@ -2,6 +2,9 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 const ppe = console.log.bind(console);
 
+const FW_BLOCO_LINK_SAIR = document.getElementById('LINK_SAIR');
+const FW_LINK_SAIR = FW_BLOCO_LINK_SAIR ? FW_BLOCO_LINK_SAIR.value : '';
+
 const link = () => {
     return window.location.href.replace('://', ':||').split('/')[0].replace(':||', '://');
 };
@@ -75,11 +78,15 @@ ajax = async (link, metodo, body, erro, opcao) => {
         }
         return false;
     }
-    if (!(json instanceof Object) || json.status == undefined) {
+    const respostaJson = json instanceof Object;
+    if (!respostaJson || json.status == undefined) {
         if (mensagemErro != '') {
             Alerta.notificacao(mensagemErro, false);
         }
         return false;
+    } else if (json.status == 'erro' && json.codigo != undefined && json.codigo == 4001 && FW_LINK_SAIR != '') {
+        window.location.replace(FW_LINK_SAIR);
+        return;
     } else if (json.status != 'sucesso') {
         if (typeof erro === 'string' && erro == '') {
             return false;

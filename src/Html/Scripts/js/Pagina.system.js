@@ -16,6 +16,9 @@ class Pagina {
         this._historico = historico !== undefined ? historico : true;
         this._fechar = fechar !== undefined ? fechar : true;
 
+        const blocoSair = document.getElementById('LINK_SAIR');
+        this._linkSair = blocoSair ? blocoSair.value : '';
+
         this._montarRequest(request);
         this._link = link;
         this._linkAtual = linkExplode[0];

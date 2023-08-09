@@ -28,17 +28,17 @@ window.addEventListener('load', () => {
     const PaginaConfirmar = new Pagina(
         'loja-confirmar-' + url,
         LINK + '/convenios/confirmar/' + url,
-        {},
+        undefined,
         true,
         true,
         loadingConfirmarLoja
     );
     const abrirBoxConfirmacao = () => {
-        podeAbrirDireto = true;
+        // podeAbrirDireto = true;
         PaginaConfirmar.abrir();
     };
 
-    setTimeout(() => {
-        podeAbrirDireto = true;
-    }, 30000);
+    // setTimeout(() => {
+    //     podeAbrirDireto = true;
+    // }, 30000);
 });

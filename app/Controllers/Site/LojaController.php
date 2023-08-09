@@ -97,7 +97,7 @@ final class LojaController extends Controller
         ]);
     }
 
-    public function confirmar(string $url): Response
+    public function getConfirmar(string $url): Response
     {
         return view('loja.confirmar', [
             'dado'         => (new BuscarModel($url))->buscarDados(),
