@@ -9,6 +9,9 @@ class Status extends StatusStatus
     public const ATIVO = 'ativo';
     public const INATIVO = 'inativo';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

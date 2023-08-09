@@ -36,30 +36,121 @@ final class SaudeSimulacaoTest extends Clube
      * @return SaudeSimulacaoTest
      * @throws Excecao
      */
-    public function realizarSimulacaoTest(): SaudeSimulacaoTest
+    public function realizarSimulacaoAmilTest(): SaudeSimulacaoTest
     {
         $dataNascimento = $this->dataPassada();
 
+        $this->api('saude_simulacao:salvar');
+        $this
+            ->Curl
+            ->body([
+                'titular'     => $dataNascimento,
+                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'operadora'   => 'amil',
+                'regiao'      => 'sao_paulo',
+                'plano'       => 'amil_s80qc',
+                'acomodacao'  => ''
+            ])
+            ->post('/saude/simulacao');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return array
+     */
+    private function gerarDependentes(): array
+    {
         $dependentes = [];
         $dependenteNumero = $this->numero(1, 4);
         for ($i = 0; $i < $dependenteNumero; $i++) {
             $dependentes[] = $this->dataPassada();
         }
+        return $dependentes;
+    }
 
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function realizarSimulacaoUnimedFloripaTest(): SaudeSimulacaoTest
+    {
+        $titular = $this->dataPassada();
+
+        $this->api('saude_simulacao:salvar');
+        $this
+            ->Curl
+            ->body([
+                'titular'     => $titular,
+                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'operadora'   => 'unimed_florianopolis',
+                'regiao'      => '',
+                'plano'       => 'regional',
+                'acomodacao'  => 'enfermaria-30'
+            ])
+            ->post('/saude/simulacao');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function realizarSimulacaoUnimedSeguroTest(): SaudeSimulacaoTest
+    {
+        $titular = $this->dataPassada();
+
+        $this->api('saude_simulacao:salvar');
+        $this
+            ->Curl
+            ->body([
+                'titular'     => $titular,
+                'dependentes' => jsonEncode($this->gerarDependentes()),
+                'operadora'   => 'unimed_seguro',
+                'regiao'      => '',
+                'plano'       => '',
+                'acomodacao'  => $this->random(['basico', 'versatil', 'pratico'])
+            ])
+            ->post('/saude/simulacao');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SaudeSimulacaoTest
+     * @throws Excecao
+     */
+    public function realizarSimulacaoUnimedTest(): SaudeSimulacaoTest
+    {
+        $titular = $this->dataPassada();
+
+        $dependente = $this->gerarDependentes();
         $dado = $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'data_nascimento' => $dataNascimento,
-                'dependentes'     => implode(',', $dependentes),
-                'operadora'       => 'unimed',
-                'regiao'          => '',
-                'plano'           => '',
-                'acomodacao'      => 'enfermaria'
+                'titular'     => $titular,
+                'dependentes' => jsonEncode($dependente),
+                'operadora'   => 'unimed',
+                'regiao'      => '',
+                'plano'       => '',
+                'acomodacao'  => $this->random(['enfermaria', 'apartamento'])
             ])
             ->post('/saude/simulacao');
 
+        $dependenteNumero = count($dependente);
         $dependenteCriado = count($dado->object()->dado->dependentes ?? []);
+
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')

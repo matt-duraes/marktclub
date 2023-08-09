@@ -100,6 +100,10 @@ Route
         Route
             ::nome('index')
             ::view('/');
+        Route
+            ::nome('promocoes')
+            ::request(['!tipo'])
+            ::get('/promocoes');
     });
 Route
     ::nome('acessoRapido')
@@ -262,7 +266,7 @@ Route
             ::view('/saude/unimed-vitoria');
         Route
             ::nome('unimedflorianopolis')
-            ::view('/saude/unimed-florianopolis');
+            ::view('/saude/central-nacional-unimed-florianopolis');
         Route
             ::nome('tabela')
             ::request(['id'])
@@ -282,14 +286,14 @@ Route
             ::view('/saude/unimed-seguro');
         Route
             ::nome('simulacao')
-            ::view('/saude/simulacao/{url}');
+            ::view('/saude/plano-simulacao/{url}');
         Route
             ::nome('realizarSimulacao')
-            ::request(['!operadora','!acomodacao', '!regiaoSelecionada', '!planoSelecionado', '!dtNascimentoTitular', '!dtNascimentoDependentes'])
-            ::get('/saude/realizar-simulacao');
+            ::request(['!operadora','!titular','!regiao','!plano','!acomodacao','!dependentes'])
+            ::post('/saude/realizar-simulacao');
         Route
             ::nome('contratacao')
-            ::view('/saude/contratacao/{simulacao}');
+            ::view('/saude/simulacao/{simulacao}');
         Route
             ::nome('realizarContratacao')
             ::request([

@@ -89,9 +89,11 @@ class Unimed extends AbstractOperadora
     }
 
     /**
+     * @param bool $semNomes *
+     *
      * @return array Planos disponíveis na região
      */
-    public function pegarPlanos(): array
+    public function pegarPlanos(bool $semNomes = true): array
     {
         return [];
     }
