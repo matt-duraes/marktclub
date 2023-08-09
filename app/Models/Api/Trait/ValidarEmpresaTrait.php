@@ -2,8 +2,10 @@
 
 namespace App\Models\Api\Trait;
 
-use Http\Request;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Erro\Excecao;
+use Http\Request;
+use Throwable;
 
 trait ValidarEmpresaTrait
 {
@@ -14,7 +16,7 @@ trait ValidarEmpresaTrait
      *
      * @param int $id ID da empresa
      */
-    public function setarIdEmpresaManual(int $id)
+    public function setarIdEmpresaManual(int $id): void
     {
         if (!$this->verificarSePodeMudarEmpresa()) {
             return;
@@ -25,28 +27,25 @@ trait ValidarEmpresaTrait
     }
 
     /**
-     * Verifica se existe token e seta a empresa
-     *
-     * @throws Excecao Retorna uma Excecao caso não exista token
+     * @return bool
      */
-    private function setarIdEmpresa(): void
+    private function verificarSePodeMudarEmpresa(): bool
     {
-        $this->verificarSeExisteToken();
-        $this->idEmpresa = TOKEN['empresa']->id;
-    }
-
-    private function setarIdUsuario(): void
-    {
-        $this->verificarSeExisteToken();
-        $this->idUsuario = array_key_exists('usuario', TOKEN) && !vazio(TOKEN['usuario']) ?
-            TOKEN['usuario']->id : 1;
+        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
+        $usuarioPermissao = TOKEN['usuario']->permissao ?? [];
+        return
+            !empty($this->idUsuario)
+            && !empty($scope)
+            && !empty($usuarioPermissao)
+            && in_array($scope . '_empresa', $usuarioPermissao);
     }
 
     /**
      * Faz a validação para pegar apenas registros da empresa ou todas se for Markt Club e o usuário tenha permissão
      *
-     * @param  string  $campoEmpresa Se o campo da empresa é o id_admin_empresa ou empresa
-     * @throws Excecao Retorna uma Excecao caso não exista token
+     * @param string $campoEmpresa Se o campo da empresa é o id_admin_empresa ou empresa
+     *
+     * @throws Excecao
      */
     private function validarEmpresa(string $campoEmpresa = 'id_admin_empresa'): void
     {
@@ -57,25 +56,60 @@ trait ValidarEmpresaTrait
         $this->setarWherePadrao();
     }
 
-    private function verificarSeExisteToken()
+    /**
+     * Verifica se existe token e seta a empresa
+     *
+     * @throws Excecao
+     */
+    private function setarIdEmpresa(): void
+    {
+        $this->verificarSeExisteToken();
+        $this->idEmpresa = TOKEN['empresa']->id;
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function verificarSeExisteToken(): void
     {
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
         }
     }
 
-    private function setaPropriedadeInicial(string $campoEmpresa)
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function setarIdUsuario(): void
     {
-        $this->nomeCampoEmpresa = in_array(
-            $campoEmpresa,
-            ['empresa', 'id_admin_empresa']
-        ) ? $campoEmpresa : 'id_admin_empresa';
+        $this->verificarSeExisteToken();
+        $this->idUsuario = array_key_exists('usuario', TOKEN) && !vazio(TOKEN['usuario'])
+            ? TOKEN['usuario']->id
+            : null;
+    }
+
+    /**
+     * @param string $campoEmpresa
+     *
+     * @return void
+     */
+    private function setaPropriedadeInicial(string $campoEmpresa): void
+    {
+        $this->nomeCampoEmpresa = in_array($campoEmpresa, ['empresa', 'id_admin_empresa'])
+            ? $campoEmpresa
+            : 'id_admin_empresa';
 
         $this->whereEmpresa = $this->idEmpresa;
         $this->ormWherePadrao = [$this->nomeCampoEmpresa, $this->idEmpresa];
     }
 
-    private function setarValoresReais()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function setarValoresReais(): void
     {
         if ($this->idEmpresa != 1 || empty($this->idUsuario)) {
             return;
@@ -86,10 +120,10 @@ trait ValidarEmpresaTrait
         }
 
         if (
-            !property_exists($this, 'request') ||
-            !($this->request instanceof Request) ||
-            !$this->request->existe('empresa') ||
-            $this->request->vazio('empresa')
+            !property_exists($this, 'request')
+            || !($this->request instanceof Request)
+            || !$this->request->existe('empresa')
+            || $this->request->vazio('empresa')
         ) {
             $this->whereEmpresa = null;
             $this->ormWherePadrao = [];
@@ -100,20 +134,9 @@ trait ValidarEmpresaTrait
             $Empresa = new EmpresaEntity();
             $Empresa->uuid($this->request->empresa);
             $this->whereEmpresa = $Empresa->get('id');
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             mensagemErro('Empresa inválida!', 'Não foi encontrado uma empresa pelo código enviado.', error: $e);
         }
-    }
-
-    private function verificarSePodeMudarEmpresa(): bool
-    {
-        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
-        $usuarioPermissao = TOKEN['usuario']->permissao ?? [];
-        return
-            !empty($this->idUsuario) &&
-            !empty($scope) &&
-            !empty($usuarioPermissao) &&
-            in_array($scope . '_empresa', $usuarioPermissao);
     }
 
     /**
