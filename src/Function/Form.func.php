@@ -242,7 +242,7 @@ if (!function_exists('formInput')) {
             } elseif ($mascaraSecundaria == 'dinheiro') {
                 $valuePrincipal = strDinheiro($valueSecundario);
             }
-            if($url) {
+            if ($url) {
                 $valuePrincipal = str_replace(['https://', 'http://'], '', $valuePrincipal);
             }
 
@@ -481,7 +481,7 @@ if (!function_exists('formInput')) {
         if ($url) {
             $valueTemp = $value[0];
             $http = str_starts_with($valueTemp, 'http://') ? 'http://' : 'https://';
-            $urlHtml = '<div class="input_http">'.$http.'</div>';
+            $urlHtml = '<div class="input_http">' . $http . '</div>';
             $classBloco[] = 'bloco_url';
             $classInput[] = 'input_url';
             if (is_array($name)) {
