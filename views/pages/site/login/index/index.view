@@ -1,12 +1,21 @@
 @template "login"
-
 <div id="bloco_login">
-    <form action="" class="form_geral">
-        <h1>LOGIN</h1>
-        <p>Digite seu login e senha para continuar.</p>
+    <div class="display_none mobile">
+        <h1>As melhores<br> marcas do mundo</h1>
+        <p>Esperando por você!</p>
+    </div>
 
-        @? formCpf(name: 'login', placeholder: 'Digite seu CPF')
-        @? formSenha(name: 'senha', placeholder: 'Digite sua senha')
-        <div class="botao" id="botao_fazer_login">FAZER LOGIN</div>
-    </form>
+    @view site/login/index/include/banner.view
+    @view site/login/index/include/categoria.view
+    @view site/login/index/include/contador.view
+    @view site/login/index/include/calculadora.view
+
+
+    @ if(MENU_CASHBACK):
+        @view site/login/index/include/cashback.view
+    @ endif;
+
+    @view site/login/index/include/extensao.view
+    @view site/login/index/include/app.view
+    @view site/login/index/include/contato.view
 </div>

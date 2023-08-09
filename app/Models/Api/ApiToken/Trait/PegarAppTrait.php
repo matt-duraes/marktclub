@@ -12,7 +12,7 @@ trait PegarAppTrait
         $App = $App->pegarPrimeiroRegistro(
             where: $where,
             campo: [
-                'id', 'uuid', 'audience', 'id_admin_empresa', 'scope_permitido', 'chave_publica', 'chave_privada',
+                'id', 'uuid', 'audience', 'id_admin_empresa', 'tempo_vida', 'scope_permitido', 'chave_publica', 'chave_privada',
                 'redirect_uri', 'client_id'
             ],
             retorno: 'object'

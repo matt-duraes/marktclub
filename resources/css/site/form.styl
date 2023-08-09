@@ -1,0 +1,38 @@
+.form_geral
+    .bloco_input input:focus ~ .borda
+    .bloco_input textarea:focus ~ .borda
+        border-color: $corClube
+    .bloco_input label
+        color: $corClube
+    .bloco_input .input_ajuda
+        background-color: $corClube
+    label .input_ajuda
+        background-color: $corClube
+    .option li
+        &.hover
+        &.selected.hover
+            background-color: $corClube
+            background-color: $corClube
+    input:checked ~ label::after
+        background-color: $corClube
+    input:checked ~ label::after
+        background: $corClube
+    input:checked ~ label span
+        background-color: $corClube
+.form_geral .form_bloco .bloco_input_select.input_focus
+    .input_conteudo::after
+        border: 2px solid $corClube
+    .input_conteudo .input_select_linha
+        background-color: $corClube
+#fw_form_select
+#bloco_geral_autocomplete
+    .option
+        border: 1px solid #DDD
+        background: #FFF
+        box-shadow: 0 4px 5px rgba(0,0,0,.3)
+    .option li
+        color: #666
+    .option li.hover
+    .option li.selected.hover
+        background-color: $corClube
+        color: #FFF

@@ -1,0 +1,40 @@
+@template "login"
+
+<div class="bloco_faq">
+    <article>
+        <h1>Quem pode acessar?</h1>
+        <p>Todos os médicos em dia com as suas obrigações junto ao seu Conselho Regional de Medicina, bem como seus dependentes. Também podem ter acesso todos os funcionários dos Conselhos de Medicina e seus dependentes.</p>
+    </article>
+    <article>
+        <h1>Tem custo para o médico, funcionário e seus dependentes?</h1>
+        <p>Não. O Clube CFM + Benefícios é um portal oferecido gratuitamente aos médicos, seus dependentes e aos funcionários dos Conselhos de Medicina.</p>
+    </article>
+    <article>
+        <h1>Como faz para acessar?</h1>
+        <p>Siga os passados descritos no botão "Como Funciona" na página principal do portal cfmmais.cfm.org.br</p>
+    </article>
+    <article>
+        <h1>O médico e funcionario acessam com o seu Login do CRM, mas e o dependente?</h1>
+        <p>O médico deve acessar o CFM + Benefícios e, na página interna, clicar no botão do MENU localizado ao lado esquerdo da página chamado "ADICIONAR DEPENDENTES". Após ser adicionado, o dependente poderá seguir o processo de ativação da conta, conforme explicado no botão "Como Funciona" da página principal do CFM + Benefícios.</p>
+    </article>
+    <article>
+        <h1>Como os funcionários do Conselho de Medicina irão acessar?</h1>
+        <p>Basta clicar em login, escolher a opção "SOU FUNCIONÁRIO" e preencher seu cadastro positivo.</p>
+    </article>
+    <article>
+        <h1>O CFM ganha alguma coisa quando você consome no Portal?</h1>
+        <p>Não. Uma das prerrogativas é que tudo que está sendo ofertado no portal tenha o máximo de desconto possível. </p>
+    </article>
+    <article>
+        <h1>O que o lojista precisa fazer para oferecer seus produtos no portal CFM + Benefícios?</h1>
+        <p>Basta acessar o portal meuparceiro.com.br e cadastrar a sua empresa. Não tem custo algum e você só precisar oferecer condições realmente relevantes e que um consumidor comum não consiga acessar sem ser pelo convênio/parceria do CFM + Benefícios.</p>
+    </article>
+    <article>
+        <h1>Como utilizar os benefícios?</h1>
+        <p>Os descontos são oferecidos apenas na área restrita do portal em que os médicos em dia com o seu Conselho Regional de Medicina e seus familiares poderão consultar as vantagens e usufruir dos benefícios. Ao acessar, basta procurar a empresa que gostaria de usar o convênio, ler com atenção o texto em “Procedimento”. Lá você encontra todas as informações que precisa para usar da forma correta os benefícios da parceria.</p>
+    </article>
+    <article>
+        <h1>Em caso de dúvida, como eu faço?</h1>
+        <p>Basta descer a barra de rolagem até o final da página e verificar qual canal de atendimento você gostaria de ser atendido e se atentar aos horários de funcionamento da Central. Temos uma equipe pronta para ajudar.</p>
+    </article>
+</div>

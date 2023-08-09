@@ -36,6 +36,7 @@
             @dir "/include/site_footer.view"
         @endif;
     </div>
+    <div id="bloco_template_buscar"></div>
 
     <form action="/" method="post">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
@@ -47,7 +48,6 @@
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://unpkg.com/imask"></script>
 
     @JS
     <div id="bloco_fw_calendario"></div>

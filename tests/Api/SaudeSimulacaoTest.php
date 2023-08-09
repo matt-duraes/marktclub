@@ -3,10 +3,9 @@
 namespace Tests\Api;
 
 use Erro\Excecao;
-use Modules\Data;
-use Tests\Tests;
+use Tests\Api\Token\Clube;
 
-final class SaudeSimulacaoTest extends Tests
+final class SaudeSimulacaoTest extends Clube
 {
     private string $idSimulacao = '32dd2783-daf2-4cf4-be78-6f43e3f801c5';
 
@@ -39,16 +38,17 @@ final class SaudeSimulacaoTest extends Tests
      */
     public function realizarSimulacaoTest(): SaudeSimulacaoTest
     {
-        $dataNascimento = (new Data($this->dataPassada()))->data();
+        $dataNascimento = $this->dataPassada();
 
         $dependentes = [];
-        for ($i = 0; $i < 4; $i++) {
-            $dependentes[] = (new Data($this->dataPassada()))->data();
+        $dependenteNumero = $this->numero(1, 4);
+        for ($i = 0; $i < $dependenteNumero; $i++) {
+            $dependentes[] = $this->dataPassada();
         }
 
-        $this->api('saude_simulacao:salvar');
-        $this
+        $dado = $this
             ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'data_nascimento' => $dataNascimento,
                 'dependentes'     => implode(',', $dependentes),
@@ -59,9 +59,15 @@ final class SaudeSimulacaoTest extends Tests
             ])
             ->post('/saude/simulacao');
 
+        $dependenteCriado = count($dado->object()->dado->dependentes ?? []);
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
+            ->checkIgual(
+                $dependenteNumero,
+                $dependenteCriado,
+                'O número de dependente deveria ser ' . $dependenteNumero . ' mas foi ' . $dependenteCriado . '.'
+            )
             ->checkIndiceExiste('dado.id');
     }
 }

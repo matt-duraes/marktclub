@@ -474,4 +474,38 @@ return [
         'procedimento'        => 2,
         'status'              => 4
     ],
+    [
+        'cod'                 => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1"]',
+        'titulo'              => 'Parceiro Mapa 01',
+        'url'                 => 'parceiro-mapa-01',
+        'imagem'              => '6abfbe8cb35fc871001df2950ed9989d.png',
+        'desconto'            => 'Desconto de até 6%',
+        'desconto_texto'      => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.',
+        'procedimento_texto'  => 'Para aplicação do benefício, basta clicar em abrir site no botão ao lado e seguir as instruções.',
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
+        'estabelecimento'     => 1,
+        'procedimento'        => 1,
+        'status'              => 4
+    ],
+    [
+        'cod'                 => '4b08f0dd-ef65-4269-bb57-007346f23890',
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1"]',
+        'titulo'              => 'Parceiro Mapa 02',
+        'url'                 => 'parceiro-mapa-02',
+        'imagem'              => 'c700e81160f65b498eeb4bc0190f01de.png',
+        'desconto'            => 'Desconto de até 6%',
+        'desconto_texto'      => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.',
+        'procedimento_texto'  => 'Para aplicação do benefício, basta clicar em abrir site no botão ao lado e seguir as instruções.',
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
+        'estabelecimento'     => 1,
+        'procedimento'        => 1,
+        'status'              => 4
+    ],
 ];

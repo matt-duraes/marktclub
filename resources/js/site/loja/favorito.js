@@ -1,4 +1,7 @@
 window.addEventListener('load', () => {
+    const blocoFavorito = $('#bloco_favorito');
+    const blocoFavoritoLista = $('#bloco_favorito .bloco_parceiro');
+    const blocoFavoritoFaq = $('#bloco_favorito_faq');
     const botaoFavorito = $$('.botao_favorito');
     botaoFavorito.forEach(botao => {
         botao.addEventListener('click', () => {
@@ -13,7 +16,7 @@ window.addEventListener('load', () => {
         botao.classList.add('loading');
         const bloco = botao.closest('.parceiro');
         const acao = botao.classList.contains('favorito_marcado') ? 'desmarcar' : 'marcar';
-        const id = bloco.getAttribute('data-id');
+        const id = bloco.getAttribute('data-url');
 
         if (acao == 'marcar') {
             salvarFavorito(botao, id);
@@ -30,6 +33,9 @@ window.addEventListener('load', () => {
             Alerta.notificacao('Erro ao salvar favorito, por favor, tente novamente.', false);
             return;
         }
+        if (blocoFavorito) {
+            adicionarBlocoFavorito(botao.closest('.parceiro'), id);
+        }
     };
     const deletaFavorito = async (botao, id) => {
         botao.classList.remove('favorito_marcado');
@@ -40,6 +46,55 @@ window.addEventListener('load', () => {
             Alerta.notificacao('Erro ao deletar favorito, por favor, tente novamente.', false);
             return;
         }
-        botao.classList.remove('favorito_marcado');
+        if (blocoFavorito) {
+            removerBlocoFavorito(id);
+        }
+    };
+    const adicionarBlocoFavorito = (bloco, id) => {
+        if (
+            !blocoFavorito ||
+            blocoFavorito.querySelectorAll('.parceiro').length >= 3 ||
+            blocoFavorito.querySelector('.parceiro[data-url="' + id + '"]')
+        ) {
+            return;
+        }
+        if (blocoFavorito.classList.contains('display_none')) {
+            blocoFavorito.classList.remove('display_none');
+            blocoFavoritoFaq.classList.add('display_none');
+        }
+        const clone = bloco.cloneNode(true);
+        blocoFavoritoLista.prepend(clone);
+        const botao = clone.querySelector('.botao_favorito');
+        botao.addEventListener('click', () => {
+            executarFavorito(botao);
+        });
+    };
+    const removerBlocoFavorito = id => {
+        if (!blocoFavorito) {
+            return;
+        }
+        const bloco = blocoFavorito.querySelector('.parceiro[data-url="' + id + '"]');
+        if (!bloco) {
+            return;
+        }
+        bloco.parentNode.removeChild(bloco);
+        removerFavoritoOutroLugar(id);
+        if (blocoFavorito.querySelectorAll('.parceiro').length > 0) {
+            return;
+        }
+        blocoFavorito.classList.add('display_none');
+        blocoFavoritoFaq.classList.remove('display_none');
+    };
+    const removerFavoritoOutroLugar = id => {
+        const lista = $$('.parceiro[data-url="' + id + '"]');
+        if (lista.length == 0) {
+            return;
+        }
+        lista.forEach(loja => {
+            const botao = loja.querySelector('.botao_favorito');
+            if (botao) {
+                botao.classList.remove('favorito_marcado');
+            }
+        });
     };
 });

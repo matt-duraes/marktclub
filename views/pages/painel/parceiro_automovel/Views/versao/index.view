@@ -24,8 +24,7 @@
             <form action="/" class="form_geral">
                 @? formInput(name: 'versao_titulo', label: 'Título', placeholder: 'Título para a versão', obrigatorio: true)
                 @? formInput(name: 'versao_cor', label: 'Cor', placeholder: 'Cor da versão')
-                @? formNumero(name: 'versao_valor_de', label: 'Valor de', placeholder: 'Valor de', mascara: 'dinheiro')
-                @? formNumero(name: 'versao_valor_por', label: 'Valor por', placeholder: 'Valor por', mascara: 'dinheiro', obrigatorio: true)
+                @? formDinheiro(name: ['versao_valor_de', 'versao_valor_por'], separador: '/', label: 'Valor de/por', placeholder: ['Valor de', 'Valor por'])
                 <div class="botao" id="botao_versao_salvar">Salvar</div>
             </form>
         </div>

@@ -4,3 +4,4 @@
 // @system "Icone"
 // @system "Pagina"
 // @system "Funcao"
+// @resource "site/busca"

@@ -19,6 +19,10 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
+        $MaisUtilizada = new ListarModel(
+            quantidade: new Inteiro(3),
+            acessado: new Botao(Botao::SIM)
+        );
         $LojaNova = new ListarModel(
             quantidade: new Inteiro(3),
             ordem: new Ordem(Ordem::MAIS_NOVO)
@@ -30,10 +34,11 @@ final class IndexController extends Controller
         );
 
         return view('index', [
-            'menu'          => 'home',
-            'loja_nova'     => $LojaNova->listarDados(),
-            'loja_favorita' => $LojaFavorita->listarDados(),
-            'banner'        => (new BannerModel())->index(),
+            'menu'           => 'home',
+            'mais_utilizada' => $MaisUtilizada->listarDados(),
+            'loja_nova'      => $LojaNova->listarDados(),
+            'loja_favorita'  => $LojaFavorita->listarDados(),
+            'banner'         => (new BannerModel())->index(),
         ]);
     }
 }

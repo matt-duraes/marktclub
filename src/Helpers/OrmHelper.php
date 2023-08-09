@@ -170,10 +170,19 @@ final class OrmHelper extends ORM
     public function pegarListaCampo(
         array $where,
         string $campo,
+        string $order = null,
+        int $quantidade = null,
         string $erroMensagem = null,
         string $erroTitulo = null
     ): array {
-        $lista = $this->campo([$campo])->where($where)->read();
+        $lista = $this->campo([$campo])->where($where);
+        if (!empty($order)) {
+            $lista->order($order);
+        }
+        if (!empty($quantidade)) {
+            $lista->limit(0, $quantidade);
+        }
+        $lista = $lista->read();
         if (empty($lista) && !empty($erroMensagem)) {
             mensagemErro(empty($erroTitulo) ? 'Erro!' : $erroTitulo, $erroMensagem);
         }

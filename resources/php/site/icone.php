@@ -526,3 +526,79 @@ if (!function_exists('iconeFaleConosco')) {
         return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M19.9381 8H21C22.1046 8 23 8.89543 23 10V14C23 15.1046 22.1046 16 21 16H19.9381C19.446 19.9463 16.0796 23 12 23V21C15.3137 21 18 18.3137 18 15V9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9V16H3C1.89543 16 1 15.1046 1 14V10C1 8.89543 1.89543 8 3 8H4.06189C4.55399 4.05369 7.92038 1 12 1C16.0796 1 19.446 4.05369 19.9381 8ZM3 10V14H4V10H3ZM20 10V14H21V10H20ZM7.75944 15.7849L8.81958 14.0887C9.74161 14.6662 10.8318 15 12 15C13.1682 15 14.2584 14.6662 15.1804 14.0887L16.2406 15.7849C15.0112 16.5549 13.5576 17 12 17C10.4424 17 8.98882 16.5549 7.75944 15.7849Z"></path></svg>';
     }
 }
+
+if (!function_exists('iconeBaixarApp')) {
+    // doc
+    // exemplo
+    // echo iconeBaixarApp
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeBaixarApp(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M9 2V4H5L4.999 14H18.999L19 4H15V2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H9ZM18.999 16H4.999L5 20H19L18.999 16ZM17 17V19H15V17H17ZM13 2V7H16L12 11L8 7H11V2H13Z"></path></svg>';
+    }
+}
+
+if (!function_exists('iconeFaq')) {
+    // doc
+    // exemplo
+    // echo iconeFaq
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeFaq(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M5.76282 17H20V5H4V18.3851L5.76282 17ZM6.45455 19L2 22.5V4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.45455ZM11 14H13V16H11V14ZM8.56731 8.81346C8.88637 7.20919 10.302 6 12 6C13.933 6 15.5 7.567 15.5 9.5C15.5 11.433 13.933 13 12 13H11V11H12C12.8284 11 13.5 10.3284 13.5 9.5C13.5 8.67157 12.8284 8 12 8C11.2723 8 10.6656 8.51823 10.5288 9.20577L8.56731 8.81346Z"></path></svg>';
+    }
+}
+
+if (!function_exists('iconeComoFunciona')) {
+    // doc
+    // exemplo
+    // echo iconeComoFunciona
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeComoFunciona(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM13 13.3551V14H11V12.5C11 11.9477 11.4477 11.5 12 11.5C12.8284 11.5 13.5 10.8284 13.5 10C13.5 9.17157 12.8284 8.5 12 8.5C11.2723 8.5 10.6656 9.01823 10.5288 9.70577L8.56731 9.31346C8.88637 7.70919 10.302 6.5 12 6.5C13.933 6.5 15.5 8.067 15.5 10C15.5 11.5855 14.4457 12.9248 13 13.3551Z"></path></svg>';
+    }
+}
+
+if (!function_exists('iconePrimeiroAcesso')) {
+    // doc
+    // exemplo
+    // echo iconePrimeiroAcesso
+    /**
+     * Gera um icone com o símbolo de soma "+"
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconePrimeiroAcesso(int $tamanho = 24)
+    {
+        return '<svg class="cor_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="' . $tamanho . '"><path d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM17.7929 19.9142L21.3284 16.3787L22.7426 17.7929L17.7929 22.7426L14.2574 19.2071L15.6716 17.7929L17.7929 19.9142Z"></path></svg>';
+    }
+}
+if (!function_exists('iconeMapaPapel')) {
+    function iconeMapaPapel(int $tamanho = 24)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M0,4.5L10.5,0l9,4.5L29,0.4c0.4-0.2,0.8,0,1,0.4C30,0.9,30,1,30,1.1v24.4L19.5,30l-9-4.5L1,29.6c-0.4,0.2-0.8,0-1-0.4C0,29.1,0,29,0,28.9V4.5z M21,26.1l6-2.6v-19l-6,2.6V26.1z M18,25.9V7.1l-6-3v18.8L18,25.9z M9,22.9v-19L3,6.5v19L9,22.9z"/></svg>';
+    }
+}
+if (!function_exists('iconePromocao')) {
+    function iconePromocao(int $tamanho = 24)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve"><path d="M8,0.1C6.6-0.3,5.1,0.3,4.4,1.6L3.6,3.2C3.5,3.4,3.4,3.5,3.2,3.6L1.6,4.4C0.3,5.1-0.3,6.6,0.1,8l0.5,1.7c0.1,0.2,0.1,0.4,0,0.6L0.1,12c-0.5,1.4,0.2,2.9,1.5,3.6l1.6,0.8c0.2,0.1,0.3,0.2,0.4,0.4l0.8,1.6c0.7,1.3,2.2,1.9,3.6,1.5l1.7-0.5c0.2-0.1,0.4-0.1,0.6,0l1.7,0.5c1.4,0.5,2.9-0.2,3.6-1.5l0.8-1.6c0.1-0.2,0.2-0.3,0.4-0.4l1.6-0.8c1.3-0.7,1.9-2.2,1.5-3.6l-0.5-1.7c-0.1-0.2-0.1-0.4,0-0.6L19.9,8c0.5-1.4-0.2-2.9-1.5-3.6l-1.6-0.8c-0.2-0.1-0.3-0.2-0.4-0.4l-0.8-1.6c-0.7-1.3-2.2-1.9-3.6-1.5l-1.7,0.5c-0.2,0.1-0.4,0.1-0.6,0L8,0.1z M6.2,2.5C6.4,2.1,6.9,1.9,7.4,2l1.7,0.5c0.6,0.2,1.2,0.2,1.8,0L12.6,2c0.5-0.2,1,0.1,1.2,0.5l0.8,1.6c0.3,0.6,0.7,1,1.3,1.3l1.6,0.8c0.4,0.2,0.6,0.7,0.5,1.2l-0.5,1.7c-0.2,0.6-0.2,1.2,0,1.8l0.5,1.7c0.2,0.5-0.1,1-0.5,1.2l-1.6,0.8c-0.6,0.3-1,0.7-1.3,1.3l-0.8,1.6c-0.2,0.4-0.7,0.6-1.2,0.5l-1.7-0.5c-0.6-0.2-1.2-0.2-1.8,0L7.4,18c-0.5,0.2-1-0.1-1.2-0.5l-0.8-1.6c-0.3-0.6-0.7-1-1.3-1.3l-1.6-0.8c-0.4-0.2-0.6-0.7-0.5-1.2l0.5-1.7c0.2-0.6,0.2-1.2,0-1.8L2,7.4c-0.2-0.5,0.1-1,0.5-1.2l1.6-0.8c0.6-0.3,1-0.7,1.3-1.3L6.2,2.5z M6.1,10l3.1,3.1L14.3,8l-1-1L9.2,11l-2-2L6.1,10z"/></svg>';
+    }
+}

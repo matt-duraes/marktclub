@@ -26,7 +26,7 @@
 
                         <form method="post" id="formulario_emprestimo" class="form_geral">
                             <input type="hidden" name="tipo_financiamento" value="{{$dado->tipo}}">
-                            @? formInput(name: 'financiamento', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor', mascara: 'dinheiro', value: '')
+                            @? formDinheiro(name: 'financiamento', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', class: 'busca_valor')
                             @? formSelect(name: 'parcela', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', lista: $dado->lista->parcela)
 
                         </form>

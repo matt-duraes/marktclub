@@ -2,6 +2,9 @@
 // @painel "app_geral_add"
 
 window.addEventListener('load', () => {
+    const inputTipoPagamento = document.getElementById('input_tipo_pagamento');
+    const inputValorMinimo = document.getElementById('input_contrato_valor_minimo');
+    const inputUsuarioMinimo = document.getElementById('input_contrato_usuario_minimo');
     const inputFinalidadePrincipal = document.getElementById('input_finalidade_principal');
     const inputFinalidadeSecundaria = document.getElementById('input_finalidade_secundaria');
     const inputComunicacaoEmail = document.getElementById('input_comunicacao_email');
@@ -19,10 +22,14 @@ window.addEventListener('load', () => {
     const blocoEmailDisparo = document.getElementById('bloco_email_disparo');
     const blocoWhatsappDia = document.getElementById('bloco_whatsapp_dia');
     const blocoRedeSocialDia = document.getElementById('bloco_rede_social_dia');
+    const blocoValorMinimo = document.getElementById('bloco_valor_minimo');
+    const blocoUsuarioMinimo = document.getElementById('bloco_usuario_minimo');
 
     formSelectChange = funcao => {
         if (funcao == 'finalidadePrincipal') {
             finalidadeMudou();
+        } else if (funcao == 'tipoPagamento') {
+            tipoPagamentoMudou();
         }
     };
 
@@ -36,6 +43,22 @@ window.addEventListener('load', () => {
             }
         });
     };
+
+    const tipoPagamentoMudou = () => {
+        const valor = inputTipoPagamento.value;
+        if (valor == 'misto') {
+            blocoValorMinimo.classList.remove('display_none');
+            blocoUsuarioMinimo.classList.remove('display_none');
+            return;
+        }
+        formValue(inputValorMinimo, '');
+        formValue(inputUsuarioMinimo, '');
+        blocoValorMinimo.classList.add('display_none');
+        blocoUsuarioMinimo.classList.add('display_none');
+    };
+    if (inputTipoPagamento) {
+        tipoPagamentoMudou();
+    }
 
     const finalidadeMudou = () => {
         const valor = inputFinalidadePrincipal.value;

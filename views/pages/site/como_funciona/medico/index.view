@@ -1,0 +1,48 @@
+@template "login"
+
+<section class="tutorial">
+    <div class="tutorial__ativar cor_bg" id="ativar">
+        <div class="ativar">
+            <div class="ativar--centralizar">
+                <article class="ativar--texto">
+                    <h1 class="inicio">Para começar a utilizar basta seguir</h1>
+                    <h1 class="segundo"><span class="">NOSSO PASSO-A-PASSO</span></h1>
+                </article>
+            </div>
+            <div class="ativar--tutorial cor_border">
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_01.png"></figure>
+                    <header>
+                        <div class="centralizar">
+                            <div class="logo">
+                                <figure><img src="{{LINK_ARQUIVO}}/construtor/logo_marktclub_tem_mais.png" height="60" alt=""></figure>
+                            </div>
+                            <div class="esquerdo">
+                                <p class="login cor_bg">Entrar</p>
+                            </div>
+                        </div>
+                        <div class="banner">
+                            <figure style="background-image: url(https://clube.marktclub.com.br/images/tutorial/barra_banner.png)"></figure>
+                        </div>
+                    </header>
+                </div>
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_02.png"></figure>
+                    <figure class="print"><img src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_02.png"></figure>
+                </div>
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_03.png"></figure>
+                    <figure class="print"><img src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_03.png"></figure>
+                </div>
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_04.png"></figure>
+                    <figure class="print"><img src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_04.png"></figure>
+                </div>
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_05.png"></figure>
+                    <figure class="print"><img src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_05.png"></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

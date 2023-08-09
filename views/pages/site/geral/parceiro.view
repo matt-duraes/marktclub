@@ -1,6 +1,6 @@
 <div class="bloco_parceiro bloco_geral_article">
-@ if($lista):
-    @ foreach( $lista->lista as $r ):
+    @ if(isset($lista) && count($lista->lista) > 0):
+        @ foreach( $lista->lista as $r ):
     <article class="parceiro botao_abrir_parceiro" data-url="{{$r->id}}">
         @ if( !in_array($lista->tipo, ['cupom', 'automovel-versao']) ):
             <a href="{!!$r->link!!}"></a>
@@ -31,6 +31,9 @@
 
         @ elseif( in_array($r->tipo, ['loja', 'farmacia']) ):
         <p>{{$r->desconto}}</p>
+        @ endif;
+
+        @ if( in_array($r->tipo, ['loja', 'farmacia', 'automovel']) ):
         <div class="bloco_favorito botao_favorito {!!$r->favorito == 'sim' ? 'favorito_marcado' : ''!!}" data-url="{{$r->id}}">
             <i class="marcado">@iconeFavoritoMarcado</i>
             <i class="desmarcado">@iconeFavorito</i>
@@ -39,12 +42,20 @@
 
         <div class="linha cor_bg"></div>
     </article>
-    @ endforeach:
+        @ endforeach:
     <div class="article_fake"></div>
     <div class="article_fake"></div>
-    @ elseif(isset($busca) && $busca)
-    <div class="sem_parceiro">
-        <i>@iconeImagem</i>
+    @ elseif(isset($Busca) && $Busca->existe):
+    <div class="bloco_geral_sem_resultado">
+        <h1>Sem lojas por sua busca</h1>
+        <i>@iconeBuscar(50)</i>
+        <p>Não encontramos nenhuma loja pela busca, tente fazer uma nova busca ou limpar a busca atual</p>
+        <a href="@route('loja.index')" class="botao botao_geral_cor cor_bg">Limpar busca</a>
+        <p>Caso não ache a loja que procura, nos indique a loja deseja</p>
+        <a href="" class="botao botao_geral_borda">Indicar uma loja</a>
     </div>
-@ endif;
+    @else
+    <div class="article_fake"></div>
+    <div class="article_fake"></div>
+    @ endif;
 </div>

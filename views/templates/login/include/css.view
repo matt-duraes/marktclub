@@ -1,0 +1,3 @@
+<style>
+    :root{ --cor-clube: {{CLUBE_COR}} !important;}
+</style>

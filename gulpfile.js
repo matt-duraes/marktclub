@@ -167,7 +167,7 @@ async function monitorarSistema() {
     }
 
     // PHP CS FIXER
-    watch(['**/*.php', '!**/*Route.php']).on('change', async path => {
+    watch(['**/*.php', '!./files/**/*.php', '!**/*Route.php']).on('change', async path => {
         const time = new Date().getTime();
         consoleHeader('php-fix');
         await phpCsFixer(path);
@@ -175,7 +175,7 @@ async function monitorarSistema() {
     });
 
     // CSS
-    watch('./views/pages/**/*.styl').on('change', async path => {
+    watch(['./views/**/*.styl', './src/Painel/templates/**/*.styl']).on('change', async path => {
         const time = new Date().getTime();
         consoleHeader('styl');
         await cssUnico(path, browserSync);
@@ -183,7 +183,7 @@ async function monitorarSistema() {
     });
 
     // JS
-    watch('./views/pages/**/*.js').on('change', async path => {
+    watch(['./views/**/*.js', './src/Painel/templates/**/*.js']).on('change', async path => {
         const time = new Date().getTime();
         consoleHeader('js');
         await jsUnico(path);
@@ -192,13 +192,16 @@ async function monitorarSistema() {
     });
 
     // HTML
-    watch(['./views/pages/**/*.view', './src/Painel/App/**/*.view']).on('change', async path => {
-        const time = new Date().getTime();
-        consoleHeader('view');
-        await htmlUnico(path);
-        browserSync.reload();
-        consoleFooter(time);
-    });
+    watch(['./views/**/*.view', './src/Painel/App/**/*.view', './src/Painel/templates/**/*.view']).on(
+        'change',
+        async path => {
+            const time = new Date().getTime();
+            consoleHeader('view');
+            await htmlUnico(path);
+            browserSync.reload();
+            consoleFooter(time);
+        }
+    );
 
     // IMAGEM
     watch(['./views/images/**/*']).on('all', async () => {

@@ -18,7 +18,7 @@ final class Telefone implements ModuleInterface
      */
     public function valor()
     {
-        return $this->telefone();
+        return $this->numero();
     }
 
     // doc

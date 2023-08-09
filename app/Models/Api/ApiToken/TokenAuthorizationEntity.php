@@ -6,8 +6,8 @@ use stdClass;
 use ORM\Entity;
 use Modules\DataHora;
 use Helpers\JwtHelper;
-use App\Classes\ApiToken\Tipo;
 use App\Classes\Geral\Status;
+use App\Classes\ApiToken\Tipo;
 
 final class TokenAuthorizationEntity extends Entity
 {
@@ -56,8 +56,7 @@ final class TokenAuthorizationEntity extends Entity
         } elseif (empty($state)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o state do usuário.');
         }
-
-        $tempoVida = 3600;
+        $tempoVida = $app->tempo_vida ?? 3600;
         $scope = $this->pegarScope($scope, $app->scope_permitido);
         $jwt = $this->criarJwt($body, $app, $audience, $scope, $tempoVida);
 

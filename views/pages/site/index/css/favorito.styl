@@ -1,0 +1,70 @@
+
+#bloco_faq_favorito
+    max-width: 600px
+    .conteudo
+        width: 100%
+        flexCol()
+        padding: 20px
+        align-items: center
+    .conteudo p
+        width: 100%
+        texto()
+    .conteudo .parceiro
+        width: 100%
+        max-width: 400px
+        background-color: #EEE
+        padding: 20px
+        margin: 30px 0
+    .conteudo .parceiro .dado
+        width: 100%
+        blocoShadow()
+        position: relative
+        flexCol()
+    .conteudo .parceiro .dado i
+        fill: #FF6C60
+        width: 80px
+        height: 80px
+        border-radius: 50%
+        flexCenter()
+        position: absolute
+        top: -10px
+        right: -10px
+    .conteudo .parceiro .dado i .click
+        width: 100%
+        height: 100%
+        border: 1px solid #FF6C60
+        position: absolute
+        border-radius: 50%
+        animation: animar_click 1.8s infinite .4s ease-out
+    .conteudo .parceiro .dado .bola
+        width: 100px
+        height: 100px
+        background-color: #EEE
+        border-radius: 50%
+        margin: 20px auto
+    .conteudo .parceiro .dado .titulo
+        width: 100%
+        max-width: 200px
+        height: 30px
+        background-color: #EEE
+        margin-top: 30px
+    .conteudo .parceiro .dado .desconto
+        width: 100%
+        max-width: 120px
+        height: 20px
+        background-color: #EEE
+        margin-top: 10px
+    .conteudo a
+        margin-top: 20px
+        botaoPadraoGrande()
+        background-color: $corClube
+        color: #FFF
+
+
+@keyframes animar_click
+    from
+        width: 100%
+        height: 100%
+    to
+        width: 0
+        height: 0

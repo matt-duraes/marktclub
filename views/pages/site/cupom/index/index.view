@@ -1,19 +1,32 @@
 @template "site"
 
 <div id="bloco_cupom">
-    <div class="busca_convenio">
-        <form action="@route(cupom.buscar)" method="get" class="form_geral">
-            <legend>Busque por um Cupom</legend>
-            <fieldset>
-                @? formInput(name: 'pesquisa', placeholder: 'Busque por um cupom', label: 'Pesquisa', class: 'busca_pesquisa', value: $pesquisa)
-                <button id="buscar_cupom" class="botao_geral_cor cor_bg">Buscar</button>
-            </fieldset>
+    <div class="bloco_buscar_geral bloco_buscar_loja" id="bloco_buscar">
+        <div class="buscar" id="botao_buscar_abrir">
+            <p>Busque um cupom</p>
+            <div class="botao">Buscar</div>
+        </div>
+
+        <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="form_geral display_none">
+            <div class="conteudo">
+                <div class="centralizar">
+                    <header>
+                        <i class="mobile botao_buscar_fechar">@iconeVoltar</i>
+                        <h1>Busque por uma loja</h1>
+                        <i class="desktop botao_buscar_fechar">@iconeFechar</i>
+                    </header>
+                    <fieldset>
+                        @? formInput(name: 'pesquisa', placeholder: 'Busque por um cupom', label: 'Pesquisa', class: 'busca_pesquisa', value: $pesquisa)
+                        <button class="botao_geral_cor cor_bg">Buscar</button>
+                    </fieldset>
+                </div>
+            </div>
         </form>
     </div>
 
     <div class="atencao bloco_titulo_texto">
         <p>Seja bem-vindo à nossa página de CUPONS.</p>
-        <p>Esta página foi feita em parceria com a empresa Lomadee. Empresa especializada em gestão de descontos sazonais, que proporcionam ofertas de marcas e itens específicos em várias lojas do Brasil e do mundo.</p>
+        <p>Aqui você encontra descontos sazonais que proporcionam vantagens no consumo de marcas e itens específicos em várias lojas do Brasil e do mundo.”</p>
         <p>Todos os cupons são testados, mas cada um tem prazo de validade e sua quantidade é LIMITADA. Antes de efetuar a compra, verifique se o desconto está sendo aplicado. Caso tenha alguma dúvida ou precise de suporte, estamos à disposição em todos os nossos canais de atendimento.</p>
         <p>Boas compras!</p>
     </div>

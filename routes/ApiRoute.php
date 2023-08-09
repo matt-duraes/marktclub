@@ -839,7 +839,11 @@ Route
             ::get('/parceiro-loja/select');
         Route
             ::nome('listar')
-            ::request(['pagina', '!quantidade', '!estabelecimento', '!tipo', '!status', '!ordem', '!favorito'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!categoria', '!subcategoria', '!estabelecimento',
+                '!pesquisa', '!tipo', '!status', '!ordem', '!favorito', '!mais_acessado',
+                '!latitude', '!longitude'
+            ], 'json')
             ::get('/parceiro-loja');
         Route
             ::nome('buscar')
@@ -1095,14 +1099,14 @@ Route
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
                 '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone', '!responsavel_cpf',
-                '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!valor_pib', '!produto_clube',
+                '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
                 '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
                 '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
-                '!cobrar_aposentado'
+                '!contrato_usuario_minimo', '!cobrar_aposentado'
             ])
             ::post('/comercial-empresa');
         Route
@@ -1111,14 +1115,14 @@ Route
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
                 '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone', '!responsavel_cpf',
-                '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!valor_pib', '!produto_clube',
+                '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
                 '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
                 '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
-                '!cobrar_aposentado'
+                '!contrato_usuario_minimo', '!cobrar_aposentado'
             ])
             ::put('/comercial-empresa/{id}');
     });
@@ -1391,7 +1395,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                '!data_nascimento', '!dependentes', '!operadora',
+                '!titular', '!dependentes', '!operadora',
                 '!acomodacao', '!regiao', '!plano',
             ])
             ::post('/saude/simulacao');

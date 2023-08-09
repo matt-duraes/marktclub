@@ -1,0 +1,40 @@
+@template "login"
+
+<section class="tutorial">
+    <div class="tutorial__ativar" id="ativar" style="background-color:#FF6F00">
+        <div class="ativar">
+            <div class="ativar--centralizar">
+                <article class="ativar--texto">
+                    <h1 class="inicio">Para começar a utilizar basta seguir</h1>
+                    <h1 class="segundo"><span class="">NOSSO PASSO-A-PASSO</span></h1>
+                </article>
+            </div>
+            <div class="ativar--tutorial" style="border-top: 5px solid #FF6F00">
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_01.png"></figure>
+                    <header>
+                        <div class="centralizar">
+                            <div class="logo">
+                                <figure><img src="{{CLUBE_LOGO}}" height="60" alt=""></figure>
+                            </div>
+                            <div class="esquerdo">
+                                <p class="login" style="background-color:#FF6F00">Entrar</p>
+                            </div>
+                        </div>
+                        <div class="banner">
+                            <figure style="background-image: url(https://clube.marktclub.com.br/images/tutorial/barra_banner.png)"></figure>
+                        </div>
+                    </header>
+                </div>
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_06.png"></figure>
+                    <figure class="print"><img src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_06.png"></figure>
+                </div>
+                <div class="passo">
+                    <figure><img height="80" src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_titulo_07.png"></figure>
+                    <figure class="print"><img src="https://clube.marktclub.com.br/images/tutorial/ajuda_cfm_07.png"></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

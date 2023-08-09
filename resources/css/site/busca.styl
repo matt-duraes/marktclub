@@ -1,0 +1,147 @@
+.bloco_buscar_geral
+    width: 100%
+    max-width: $maxWidth
+    boxShadow()
+    position: relative
+    background-color: rgba(0,0,0,0)
+    transition: background-color .3s ease-out
+    z-index: 100
+
+.bloco_buscar_geral .buscar
+    width: 100%
+    flexRow()
+    align-items: center
+    cursor: pointer
+    padding: 10px 20px
+    background-color: #FFF
+    border-radius: 10px
+    z-index: 1
+    p
+        subTitulo()
+        flexGrow()
+        color: #666
+    .botao
+        background-color: $corClube
+        color: #FFF
+        botaoPadraoGrande()
+
+#form_buscar
+    width: calc(100vw - 300px)
+    height: 100vh
+    position: fixed
+    top: 0
+    right: 0
+    padding: 0 20px 30px
+    background-color: rgba(0,0,0,0)
+    opacity: 1
+    flexCol()
+    align-items: center
+    transition: background-color .3s ease-out
+    z-index: 10000
+    overflow-y: auto
+    .conteudo
+        width: 100%
+        max-width: $maxWidth
+        background: #FFF
+        margin-top: -200px
+        opacity: 0
+        padding: 10px 20px 30px
+        display: flex
+        flex-direction: column
+        align-items: center
+        box-shadow: 0 5px 10px rgba(0,0,0,.3)
+        transition: margin-top .3s ease-out, opacity .3s ease-out
+        border-radius: 0 0 15px 15px
+        z-index: 2
+    .centralizar
+        width: 100%
+        max-width: 1000px
+        flexCol()
+    header
+        width: 100%
+        flexRow()
+        align-items: center
+    header h1
+        titulo()
+        flexGrow()
+    header i
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        &.mobile
+            margin-right: 10px
+    fieldset
+        width: 100%
+        flexRow()
+    fieldset .bloco_input
+        margin-right: 20px
+        &:last-child
+            margin-right: 0
+    button
+        margin-top: 20px
+#form_buscar.ativo
+    opacity: 1
+    background-color: rgba(0,0,0,.3)
+    .conteudo
+        opacity: 1
+        margin-top: 0
+body.body_scroll_hidden #form_buscar
+    padding-right: 30px
+@media screen and (max-width: 1250px)
+    #form_buscar
+        width: 100%
+@media screen and (max-width: 600px)
+    #form_buscar button
+        height: 50px
+        line-height: 50px
+
+.buscar_convenio_lista
+    width: 100%
+    max-width: 1130px
+    flexCol()
+    margin-top: 20px
+    h2
+        width: 100%
+        font-size: 1.3rem
+    .scroll
+        width: 100%
+        overflow-x: auto
+        scrollBarHide()
+    .conteudo
+        width: 100%
+        flexRow()
+    .item
+        flexCol()
+        position: relative
+        margin: 10px 10px 0 0
+        border: 1px solid #DDD
+        padding: 5px 50px 5px 5px
+        border-radius: 5px
+        justify-content: center
+    .item .nome
+        font-size: 1.3rem
+        color: #666
+    .item .valor
+        font-size: 1.4rem
+        color: #333
+        margin-top: 5px
+    .item .remover
+        width: 30px
+        height: 30px
+        position: absolute
+        right: 5px
+        flexCenter()
+        cursor: pointer
+        border-radius: 50%
+        &:hover
+            background-color: #EEE
+
+@media screen and (max-width: 650px)
+    #bloco_buscar
+        fieldset
+            flex-wrap: wrap
+        button
+            width: 100%
+            height: 50px
+            line-height: 50px

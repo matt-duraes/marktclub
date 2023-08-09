@@ -1,85 +1,41 @@
-.busca_convenio
-    width: 100%
-    max-width: 1130px
-    blocoShadow()
-    border-radius: 15px
-    margin-bottom: 40px
-    form
+.bloco_buscar_loja
+    .busca_estado
         width: 100%
-        flexCol()
-    form legend
-        titulo()
-    form fieldset
-        width: 100%
-        flexRow()
-    form fieldset .busca_estado
         max-width: 100px
-        margin-right: 20px
-    form fieldset .busca_categoria
-        flexGrow()
-        margin-right: 20px
-    form fieldset .busca_tag
-        max-width: 220px
-        margin-right: 20px
-    form fieldset .busca_estabelecimento
-        max-width: 230px
-    form fieldset .busca_pesquisa
-        flexGrow()
-        margin-right: 20px
-    form fieldset .busca_ordem
-        max-width: 180px
-        margin-right: 20px
-    form fieldset button
-        width: 180px
-        margin-top: 20px
-
-@media screen and (max-width: 900px)
-    .busca_convenio form fieldset
-        flex-wrap:  wrap
-    .form_geral .bloco_input
-        width: calc((100% / 2) - 15px)
-@media screen and (max-width: 700px)
-    .busca_convenio form fieldset
-        flex-direction: column
-        .busca_estado,
-        .busca_categoria,
-        .busca_tag,
-        .busca_estabelecimento,
-        .busca_pesquisa,
-        .busca_ordem
-            max-width: 100%
+    .busca_ordem
+        width: 200px
+        max-width: 200px
+@media screen and (max-width: 800px)
+    .bloco_buscar_loja
+        fieldset
+            flex-wrap: wrap
+        .bloco_input.busca_categoria
+            width: calc(100% - 120px)
+            margin-right: 0
+        .busca_tag
+        .busca_estabelecimento
+            width: calc(50% - 10px)
+            max-width: calc(50% - 10px)
+        .busca_pesquisa
+            width: calc(100% - 180px)
+            max-width: calc(100% - 180px)
+        .bloco_input.busca_ordem
+            width: 160px
+            max-width: 160px
+            margin-right: 0
+        button
             width: 100%
-
-.buscar_convenio_lista
-    width: 100%
-    max-width: 1130px
-    flexRow()
-    flex-wrap: wrap
-    margin-top: 10px
-    h2
-        width: 100%
-        font-size: 1.3rem
-    .item
-        flexCol()
-        position: relative
-        margin: 10px 10px 0 0
-        border: 1px solid #DDD
-        padding: 5px 50px 5px 5px
-        border-radius: 5px
-    .item .nome
-        font-size: 1.3rem
-        color: #666
-    .item .valor
-        font-size: 1.4rem
-        color: #333
-        margin-top: 5px
-    .item .remover
-        width: 30px
-        height: 30px
-        position: absolute
-        right: 5px
-        flexCenter()
-        cursor: pointer
-        border-radius: 50%
-        &:hover
-            background-color: #EEE
+@media screen and (max-width: 500px)
+    .bloco_buscar_loja
+        .bloco_input.busca_tag
+        .busca_estabelecimento
+            width: 100%
+            max-width: 100%
+            margin-right: 0
+        .bloco_input.busca_pesquisa
+            width: 100%
+            max-width: 100%
+            margin-right: 0
+        .bloco_input.busca_ordem
+            width: 100%
+            max-width: 100%

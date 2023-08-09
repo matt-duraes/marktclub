@@ -113,7 +113,7 @@ trait ValidarEmpresaDownloadTrait
             where: ['id', $this->idUsuario],
             padrao: []
         );
-        if(!empty($usuarioPermissao) && is_string($usuarioPermissao)) {
+        if (!empty($usuarioPermissao) && is_string($usuarioPermissao)) {
             $usuarioPermissao = jsonDecode($usuarioPermissao);
         }
         return
