@@ -7,11 +7,40 @@ use Tests\Tests;
 
 class PopupTest extends Tests
 {
-    private string $idPopup = 'd461df84-2acd-41fe-a07a-30c4fe554a0b';
+    private string $idPopup;
 
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * @return PopupTest
+     * @throws Excecao
+     */
+    public function salvarPopupTest(): PopupTest
+    {
+        $this->api('popup:salvar');
+        $popup = $this
+            ->Curl
+            ->body([
+                'titulo'         => 'venha conferir a melhor',
+                'subtitulo'      => 'opa mais e mais',
+                'texto'          => 'Aqui vc tera o mejor do melhor sempre',
+                'formulario'     => '[]',
+                'imagem'         => 'https://via.placeholder.com/500.png',
+                'data_expiracao' => '31/12/2012 12:12:12',
+                'status'         => 'ativo'
+            ])
+            ->post('/popup')
+            ->array()['dado'] ?? [];
+
+        $this->idPopup = $popup['id'];
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado');
     }
 
     /**
@@ -36,32 +65,6 @@ class PopupTest extends Tests
      * @return PopupTest
      * @throws Excecao
      */
-    public function salvarPopupTest(): PopupTest
-    {
-        $this->api('popup:salvar');
-        $this
-            ->Curl
-            ->body([
-                'titulo'         => 'venha conferir a melhor',
-                'subtitulo'      => 'opa mais e mais',
-                'texto'          => 'Aqui vc tera o mejor do melhor sempre',
-                'formulario'     => '[]',
-                'imagem'         => 'https://via.placeholder.com/500.png',
-                'data_expiracao' => '31/12/2012 12:12:12',
-                'status'         => 'ativo'
-            ])
-            ->post('/popup');
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado');
-    }
-
-    /**
-     * @return PopupTest
-     * @throws Excecao
-     */
     public function atualizarPopupTest(): PopupTest
     {
         $this->api('popup:atualizar');
@@ -71,7 +74,8 @@ class PopupTest extends Tests
                 'subtitulo' => 'opa mais e mais',
                 'status'    => 'inativo'
             ])
-            ->put('/popup/' . $this->idPopup);
+            ->put('/popup/' . $this->idPopup)
+            ->array()['dado'] ?? [];
 
         return $this
             ->checkStatus(200)
