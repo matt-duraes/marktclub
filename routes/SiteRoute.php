@@ -349,6 +349,7 @@ Route
         Route
             ::nome('abrirModalRegulamento')
             ::view('/sicoob-regulamento/{url}');
+
     });
 
 Route
@@ -359,13 +360,13 @@ Route
         Route
             ::nome('realizarSimulacao')
             ::request([
-                'tipo', 'valor', 'prazo', 'operadora'
+                'tipo', 'valor', 'parcelas', 'operadora'
             ])
             ::get('/credito/simulacao');
         Route
             ::nome('salvar')
             ::request([
-                'tipo', 'valor', 'prazo', 'operadora'
+                'tipo', 'valor', 'parcelas', 'operadora'
             ])
             ::post('/credito/salvar');
     });
