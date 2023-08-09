@@ -288,6 +288,10 @@ Route
             ::nome('simulacao')
             ::view('/saude/plano-simulacao/{url}');
         Route
+            ::nome('buscarCep')
+            ::request(['cep'])
+            ::post('/saude/buscar-cep');
+        Route
             ::nome('realizarSimulacao')
             ::request(['!operadora','!titular','!regiao','!plano','!acomodacao','!dependentes'])
             ::post('/saude/realizar-simulacao');
