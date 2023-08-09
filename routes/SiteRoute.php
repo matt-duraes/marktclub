@@ -207,6 +207,9 @@ Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
+            ::nome('confirmar')
+            ::view('/convenios/confirmar/{url}');
+        Route
             ::nome('voucher')
             ::view('/convenios/voucher/{url}');
         Route

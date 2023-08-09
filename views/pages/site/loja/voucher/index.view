@@ -24,7 +24,7 @@
     </div>
 
     <div class="nome">{{$dado->usuario->nome}}</div>
-    <div class="cpf">{{$dado->usuario->cpf}}</div>
+    <div class="cpf">{{strCpf($dado->usuario->cpf)}}</div>
     <div class="bloco_data">
         <div class="data">
             <span>CRIADO EM</span>
