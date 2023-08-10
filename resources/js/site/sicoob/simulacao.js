@@ -8,7 +8,7 @@ const botaoSimularConsignado = $('#botao_fazer_simulacao');
 const botaoContratarConsignado = $('#enviar_solicitacao');
 const botaoPopupRegulamento = $$('.abrirModalRegulamento');
 const botaoFechar = $$('.botao_fechar_popup');
-const botaoVoltar = $('.botao_passa_passo_anterior');
+const botaoVoltar = $('.bloco_credito .botao_passa_passo_anterior');
 
 function adicionarEventoSimularConsignado() {
     botaoSimularConsignado.addEventListener('click', async e => {
@@ -39,16 +39,17 @@ function adicionarEventoSimularConsignado() {
         Loading.hide();
     });
 }
-// if (botaoVoltar) {
-//     botaoVoltar.addEventListener('click', () => {
-//         let passoElemento = $('.bloco_scroll');
-//         let numeroAtual = passoElemento.classList.slice(-1);
-//         numeroAtual = parseInt(numeroAtual);
-//         passoElemento.classList.remove(`passo_${numeroAtual}`);
-//         let novoNumero = numeroAtual - 1;
-//         passoElemento.class.add(`passo_${novoNumero}`);
-//     });
-// }
+
+if (botaoVoltar) {
+    botaoVoltar.addEventListener('click', () => {
+        const itemLista = $$('.bloco_progresso .item');
+        const itemAtual = $('.bloco_progresso .item.atual');
+        const numero = parseInt(itemAtual.getAttribute('data-numero')) - 1;
+        const novoNumero = parseInt(numero) + 1;
+        const bloco = $('.bloco_passo_passo_geral');
+        montarNovoItem(bloco, itemLista, numero, novoNumero);
+    });
+}
 
 function adicionarEventoContratarConsignado() {
     botaoContratarConsignado.addEventListener('click', async e => {
@@ -91,11 +92,14 @@ function adicionarEventoContratarConsignado() {
             });
     });
 }
+
 const redirecionarUsuario = () => {
     Alerta.mensagem('Sucesso', 'Sua simulação foi enviada, em breve entraremos em contato');
     location.href = LINK + '/credito/sicoob';
 };
+
 const mensagemErro = () => {};
+
 function limparFormulario(formulario) {
     const inputs = formulario.querySelectorAll('input');
 
