@@ -68,7 +68,6 @@ trait ValidarEmpresaTrait
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function verificarSeExisteToken(): void
@@ -79,7 +78,6 @@ trait ValidarEmpresaTrait
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function setarIdUsuario(): void
@@ -93,7 +91,6 @@ trait ValidarEmpresaTrait
     /**
      * @param string $campoEmpresa
      *
-     * @return void
      */
     private function setaPropriedadeInicial(string $campoEmpresa): void
     {
@@ -106,7 +103,6 @@ trait ValidarEmpresaTrait
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function setarValoresReais(): void

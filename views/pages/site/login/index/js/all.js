@@ -402,14 +402,7 @@ window.addEventListener('load', () => {
         });
     };
 
-    const paginaContato = new Pagina(
-        'Entre em Contato',
-        document.querySelector('#LINK').value + '/contato',
-        {},
-        true,
-        true,
-        carregarFuncaoContato
-    );
+    const paginaContato = new Pagina('Entre em Contato', LINK + '/contato', {}, true, true, carregarFuncaoContato);
     const botaoPopupContato = document.querySelector('.abrirModalContato');
 
     if (botaoPopupContato) {

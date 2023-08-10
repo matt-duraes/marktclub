@@ -1,5 +1,4 @@
 carregarAlbumEditar = () => {
-    const LINK = document.getElementById('LINK').value;
     const form = document.getElementById('bloco_editar_imagem');
     const botaoFechar = form.querySelectorAll('.botao_fechar_popup');
     const botaoEditar = form.querySelector('#botao_editar_imagem');

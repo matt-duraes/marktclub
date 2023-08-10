@@ -2,8 +2,6 @@ const blocoRecaptcha = document.getElementById('RECAPTCHA');
 const RECAPTCHA = blocoRecaptcha.value;
 blocoRecaptcha.parentNode.removeChild(blocoRecaptcha);
 
-const blocoLink = document.getElementById('LINK');
-const LINK = blocoLink.value;
 blocoLink.parentNode.removeChild(blocoLink);
 
 const inputLogin = document.querySelector('#input_cpf');

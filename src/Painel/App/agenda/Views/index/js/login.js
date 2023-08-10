@@ -1,6 +1,4 @@
 window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value;
-
     const botaoSincronizarAgenda = document.querySelector('#botao_sincronizar_agenda');
     if (!botaoSincronizarAgenda) {
         return;

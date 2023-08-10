@@ -1,7 +1,6 @@
 // @template "site"
 // @system "Alerta"
 // @system "Pagina"
-// @system "Funcao"
 // @system "Form"
 // @system "Mascara"
 // @resource "site/tab"
@@ -17,7 +16,7 @@ window.onload = function () {
 
     const PaginaBuscaCashback = new Pagina(
         'Busca',
-        document.querySelector('#LINK').value + '/cashback/resgatar',
+        LINK + '/cashback/resgatar',
         {},
         true,
         true,

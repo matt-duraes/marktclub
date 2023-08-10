@@ -19,7 +19,6 @@ window.onload = function () {
 };
 
 function abrirModal(clicado) {
-    const LINK = document.getElementById('LINK').value;
     const botaoAuxilio = {};
     const id = clicado.getAttribute('data-id');
     const local = clicado.getAttribute('data-local');

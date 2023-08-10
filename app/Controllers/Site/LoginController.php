@@ -86,11 +86,4 @@ final class LoginController extends Controller
             'status' => 'sucesso'
         ], status: 201);
     }
-
-    public function sair(): Response
-    {
-        sessaoDestruir();
-        cookieDeletar('CLT');
-        return new Response(url: LINK . '/login');
-    }
 }

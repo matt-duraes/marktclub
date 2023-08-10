@@ -42,6 +42,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
+            ->validar(login: true)
             ->json($this->pegarWhere())
             ->get('/parceiro-loja')
             ->object();

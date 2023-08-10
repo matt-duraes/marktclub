@@ -68,14 +68,14 @@ class PopupTest extends Tests
     public function atualizarPopupTest(): PopupTest
     {
         $this->api('popup:atualizar');
-            $this
-                ->Curl
-                ->body([
-                    'subtitulo' => 'opa mais e mais',
-                    'status'    => 'inativo'
-                ])
-                ->put('/popup/' . $this->idPopup)
-                ->array()['dado'] ?? [];
+        $this
+            ->Curl
+            ->body([
+                'subtitulo' => 'opa mais e mais',
+                'status'    => 'inativo'
+            ])
+            ->put('/popup/' . $this->idPopup)
+            ->array()['dado'] ?? [];
 
         return $this
             ->checkStatus(200)

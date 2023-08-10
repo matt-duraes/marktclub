@@ -3,7 +3,6 @@
 // @system "Alerta"
 // @system "Icone"
 // @system "Pagina"
-// @system "Funcao"
 // @resource "site/busca"
 
 const cupomDetalhe = () => {

@@ -3,34 +3,42 @@
 // @resource "site/loja/favorito"
 
 window.addEventListener('load', () => {
-    const url = ''; // document.getElementById('input_loja_url').value;
-    const botaoDeclaracao = document.getElementById('botao_abrir_declaracao');
-    const botaoVoucher = document.getElementById('botao_abrir_voucher');
+    const url = $('#input_loja_url').value;
+    const botaoConfirmar = $$('.botao_confirmar_abrir');
 
     let podeAbrirDireto = false;
-
-    if (botaoDeclaracao) {
-        botaoDeclaracao.addEventListener('click', e => {
-            abrirBoxConfirmacao(e);
+    if (botaoConfirmar.length > 0) {
+        botaoConfirmar.forEach(botao => {
+            botao.addEventListener('click', e => {
+                if (podeAbrirDireto) {
+                    return;
+                }
+                e.preventDefault();
+                abrirBoxConfirmacao();
+            });
         });
     }
-    if (botaoVoucher) {
-        botaoVoucher.addEventListener('click', e => {
-            abrirBoxConfirmacao(e);
-        });
-    }
 
-    const PaginaConfirmar = new Pagina('loja-confirmar-' + url, LINK + '/convenios/confirmar/' + url);
-    const abrirBoxConfirmacao = e => {
-        if (podeAbrirDireto) {
-            return;
-        }
-        e.preventDefault();
-        podeAbrirDireto = true;
+    const loadingConfirmarLoja = () => {
+        const botao = $('#bloco_loja_confirmar a');
+        botao.addEventListener('click', () => {
+            PaginaConfirmar.fechar();
+        });
+    };
+    const PaginaConfirmar = new Pagina(
+        'loja-confirmar-' + url,
+        LINK + '/convenios/confirmar/' + url,
+        undefined,
+        true,
+        true,
+        loadingConfirmarLoja
+    );
+    const abrirBoxConfirmacao = () => {
+        // podeAbrirDireto = true;
         PaginaConfirmar.abrir();
     };
 
-    setTimeout(() => {
-        podeAbrirDireto = true;
-    }, 20000);
+    // setTimeout(() => {
+    //     podeAbrirDireto = true;
+    // }, 30000);
 });

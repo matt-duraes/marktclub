@@ -1,6 +1,4 @@
 window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value;
-
     /*
     |--------------------------------------------------------------------------
     | HEADER

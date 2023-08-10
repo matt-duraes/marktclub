@@ -1,12 +1,8 @@
-// @system "Funcao"
 // @system "Loading"
 // @system "Alerta"
 // @system "Mascara"
 // @system "Form"
 // @system "Pagina"
-
-const LINK = $('#LINK').value;
-const body = $('body');
 
 const loadingLogin = () => {
     const inputLogin = $('#input_login');

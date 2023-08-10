@@ -1,8 +1,6 @@
 // @template "painel"
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
-
     const botaoSalvar = document.getElementById('botao_salvar_geral');
 
     const inputPerfil = document.querySelector('#bloco_app_add input[name=perfil]');

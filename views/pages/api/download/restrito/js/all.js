@@ -2,8 +2,6 @@
 // @system "Alerta"
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
-
     const blocoEnviarCodigo = document.getElementById('bloco_enviar_codigo');
     const blocoValidarCodigo = document.getElementById('bloco_validar_codigo');
     const blocoDownload = document.getElementById('bloco_download');

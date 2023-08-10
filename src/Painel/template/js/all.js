@@ -5,7 +5,6 @@
 // @system "Pagina"
 // @system "Mascara"
 // @system "Calendario"
-// @system "Funcao"
 // @system "Editor"
 // @system "SwipeEvent"
 // @system "ArquivoUpload"
@@ -25,9 +24,6 @@
 // @import "trabalho"
 // @import "menu"
 // @import "relogar"
-
-const blocoLink = document.getElementById('LINK');
-const LINK = blocoLink.value;
 
 window.addEventListener('load', () => {
     historicoLoad();

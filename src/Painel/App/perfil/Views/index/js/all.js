@@ -1,7 +1,6 @@
 // @template "painel"
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
     const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
     const facebookAppId = document.getElementById('FACEBOOK_APP_ID').value;
 

@@ -1,0 +1,49 @@
+#bloco_login_relogar
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    padding: 20px
+    background-color: rgba(0,0,0,.7)
+    flexCol()
+    align-items: center
+    z-index: 10009
+    opacity: 0
+    transition: opacity .3s ease-out
+    .conteudo
+        width: 100%
+        max-width: 500px
+        blocoShadow()
+        margin-top: -200px
+        opacity: 0
+        padding: 20px 20px 10px
+        transition: opacity .3s ease-out, margin-top .3s ease-out
+    .conteudo header
+        width: 100%
+        margin-bottom: 30px
+    .conteudo h1
+        titulo()
+        color: $corClube
+    .conteudo p
+        max-width: 300px
+        texto()
+        color: #666
+    .conteudo .bloco_botao
+        width: 100%
+        flexRow()
+        margin-top: 20px
+        justify-content: space-between
+    .conteudo .bloco_botao a
+        botaoPadraoGrande()
+        background-color: #CCC
+        color: #333
+    .conteudo .bloco_botao button
+        botaoPadraoGrande()
+        color: #FFF
+        background-color: $corClube
+#bloco_login_relogar.ativo
+    opacity: 1
+    .conteudo
+        margin-top: 0
+        opacity: 1

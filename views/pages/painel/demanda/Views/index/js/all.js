@@ -45,7 +45,6 @@ moverItemDemanda = (destino, item) => {
 };
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
     const area = document.querySelector('#input_area').value || '';
     /*
     |--------------------------------------------------------------------------

@@ -239,8 +239,8 @@ final class TextoHelper
         if (!$this->validar()) {
             return $this;
         }
-        $valor = preg_replace('/[^0-9]/', '', $this->valor);
-        if (!empty($valor) && strlen($valor) == 11) {
+        $valor = str_pad(preg_replace('/[^0-9]/', '', $this->valor), 11, '0', STR_PAD_LEFT);
+        if (validarCpf($valor)) {
             $valor = substr($valor, 0, 3) . '.' . substr($valor, 3, 3) . '.' . substr($valor, 6, 3) . '-' . substr($valor, 9, 2);
         }
         $this->valor = $valor;

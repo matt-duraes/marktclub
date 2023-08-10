@@ -6,7 +6,6 @@
     display: flex
     background-color: #FFF
     box-shadow: 0 4px 5px rgba(0,0,0,.2)
-    overflow: hidden
     border-radius: 3px
     display: flex
     flex-direction: column
@@ -16,7 +15,7 @@
         height: 50px
         line-height: 50px
         padding: 0 10px
-        border-bottom: 1px solid #EEE
+        boxShadow()
         background-color: #FFF
         display: flex
         flex-direction: row
@@ -37,35 +36,26 @@
         cursor: default
     .conteudo_pagina_popup
         width: 100%
-        max-height: calc(100vh - 150px)
-        padding: 10px 20px 20px 20px
+        max-height: calc(100vh - 90px)
         overflow-y: auto
         overflow-x: hidden
         flex-direction: column
+        &.footer
+            max-height: calc(100vh - 170px)
     .footer_pagina_popup
         width: 100%
-        border-top: 1px solid #EEE
-        padding: 10px 20px
+        box-shadow: 0 -4px 5px rgba(40,40,40,.1)
+        padding: 15px 20px
         display: flex
         flex-direction: row
+        justify-content: center
         z-index: 10
         bottom: 0
         .flex
             height: 40px
             flexGrow()
-        .button
-            height: 40px
-            line-height: 40px
-            border-radius: 20px
+        .botao
+            botaoPadraoGrande()
+            background-color: $corClube
             color: #FFF
-            padding: 0 25px
-            font-size: 1.2rem
-        .button.enviar
-            background: $corClube
-        .button.voltar
-            background: #CCC
-        .button.erro
-            bgDegradeVermelho()
-        .button.ok
-            padding: 0
 

@@ -53,6 +53,15 @@ Route
             ::post('/login/contato');
     });
 Route
+    ::nome('loginGeral')
+    ::controller(App\Controllers\Site\LoginController::class)
+    ::grupo(function() {
+        Route
+            ::nome('login')
+            ::request(['login', 'senha'])
+            ::post('/login/login');
+    });
+Route
     ::nome('login')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
@@ -63,10 +72,6 @@ Route
         Route
             ::nome('login')
             ::view('/login/login');
-        Route
-            ::nome('login')
-            ::request(['login', 'senha'])
-            ::post('/login/login');
         Route
             ::nome('buscarConta')
             ::view('/login/buscar-conta');
@@ -86,10 +91,10 @@ Route
 Route
     ::nome('sair')
     ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\LoginController::class)
+    ::controller(App\Controllers\Site\SairController::class)
     ::grupo(function () {
         Route
-            ::nome('sair')
+            ::nome('index')
             ::view('/sair');
     });
 Route
@@ -206,6 +211,9 @@ Route
         Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
+        Route
+            ::nome('confirmar')
+            ::get('/convenios/confirmar/{url}');
         Route
             ::nome('voucher')
             ::view('/convenios/voucher/{url}');

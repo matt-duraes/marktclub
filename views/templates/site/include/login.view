@@ -1,0 +1,15 @@
+<div id="bloco_login_relogar" class="display_none">
+    <form class="conteudo form_geral">
+        <header>
+            <h1>REFAÇA SEU LOGIN</h1>
+            <p>Seu login expirou, refaça seu login para continuar a navegar</p>
+        </header>
+
+        @? formInput(name: 'relogar_login', label: 'Login', placeholder: 'Digite seu login para relogar')
+        @? formSenha(name: 'relogar_senha', label: 'Senha', placeholder: 'Digite sua senha para relogar')
+        <div class="bloco_botao">
+            <a href="@route(sair.index)">Sair</a>
+            <button id="botao_refazer_login">Refazer Login</button>
+        </div>
+    </form>
+</div>

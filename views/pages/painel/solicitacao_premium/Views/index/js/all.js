@@ -1,7 +1,6 @@
 // @template "painel"
 window.addEventListener('load', () => {
     const APP = document.getElementById('APP').value;
-    const LINK = document.getElementById('LINK').value;
 
     const hashDeletar = document.querySelector('#input_hash_deletar_hash').value;
     const hashOrdem = document.querySelector('#input_hash_ordem_hash').value;

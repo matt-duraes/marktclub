@@ -39,6 +39,8 @@ final class Controller
         $metodoHttpRota = $this->route->rotaUso()['metodo'];
         $metodoHttpRequest = $this->request->metodo();
 
+        define('VIEW', $metodoHttpRota == 'VIEW');
+
         $action = $this->route->rotaUso()['action'];
         if ($metodoHttpRota == 'VIEW' && $metodoHttpRequest == 'GET') {
             $metodo = $action;
