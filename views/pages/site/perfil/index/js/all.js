@@ -6,7 +6,6 @@
 // @system "Mascara"
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
     const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
 
     const botaoSalvar = document.getElementById('botao_salvar_dados_perfil');

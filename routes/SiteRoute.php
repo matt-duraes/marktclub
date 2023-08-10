@@ -53,6 +53,15 @@ Route
             ::post('/login/contato');
     });
 Route
+    ::nome('loginGeral')
+    ::controller(App\Controllers\Site\LoginController::class)
+    ::grupo(function() {
+        Route
+            ::nome('login')
+            ::request(['login', 'senha'])
+            ::post('/login/login');
+    });
+Route
     ::nome('login')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
@@ -63,10 +72,6 @@ Route
         Route
             ::nome('login')
             ::view('/login/login');
-        Route
-            ::nome('login')
-            ::request(['login', 'senha'])
-            ::post('/login/login');
         Route
             ::nome('buscarConta')
             ::view('/login/buscar-conta');

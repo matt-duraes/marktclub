@@ -92,7 +92,7 @@ window.addEventListener('load', () => {
     const botaoAbrirPesquisaSatisfacao = document.getElementById('abrePesquisaSatisfacao');
     const paginaPesquisaSatisfacao = new Pagina(
         'Pesquisa de satisfação',
-        document.querySelector('#LINK').value + '/pesquisa-de-satisfacao',
+        LINK + '/pesquisa-de-satisfacao',
         {},
         true,
         true,

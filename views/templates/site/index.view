@@ -38,6 +38,8 @@
     </div>
     <div id="bloco_template_buscar"></div>
 
+    @dir "/include/login.view"
+
     <form action="/" method="post">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
         <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">

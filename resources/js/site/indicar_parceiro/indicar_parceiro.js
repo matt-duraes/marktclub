@@ -81,7 +81,7 @@ window.addEventListener('load', () => {
     const botaoAbrirIndiqueParceiro = document.getElementById('abreIndiqueParceiro');
     const paginaIndiqueParceiro = new Pagina(
         'Indicar um Parceiro',
-        document.querySelector('#LINK').value + '/indique-um-parceiro',
+        LINK + '/indique-um-parceiro',
         {},
         true,
         true,

@@ -1,6 +1,5 @@
 window.addEventListener('load', () => {
     const APP = document.getElementById('APP').value;
-    const LINK = document.getElementById('LINK').value;
     const linkVoltar = document.getElementById('LINK_VOLTAR').value;
 
     const form = document.querySelector('#bloco_app_add');

@@ -110,22 +110,6 @@ class CurlHelper
         return $this;
     }
 
-    private function logado(bool $login, $ajax)
-    {
-        if (!$login) {
-            return;
-        }
-        $status = $this->status();
-        if (!in_array($status, [401, 403])) {
-            return;
-        } elseif (METODO == 'GET' && !$ajax) {
-            header('LOCATION: ' . route('sair.index'));
-            exit();
-        }
-        $this->erroValidar = true;
-        mensagemErro('Usuario deslogado!', 'O usuário deslogou por algum motivo, faça o login novamente.', status: 401, codigo: 4001);
-    }
-
     /**
      * Seta os parâmetros da URL
      *

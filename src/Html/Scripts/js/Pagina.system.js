@@ -16,9 +16,6 @@ class Pagina {
         this._historico = historico !== undefined ? historico : true;
         this._fechar = fechar !== undefined ? fechar : true;
 
-        const blocoSair = document.getElementById('LINK_SAIR');
-        this._linkSair = blocoSair ? blocoSair.value : '';
-
         this._montarRequest(request);
         this._link = link;
         this._linkAtual = linkExplode[0];
@@ -78,11 +75,36 @@ class Pagina {
     }
     async _abrirInterno(historico) {
         this._abrirAnimacaoInicial();
-        if (!(await this._carregarAjax(historico))) {
-            this.fechar();
+        const body = this._request != undefined ? this._request : undefined;
+        const resposta = await fetch(this._link, body);
+
+        if (resposta.status > 399) {
+            this._validarErroRequest(resposta, resposta.status);
             return false;
         }
+        this._carregarPagina(await resposta.text(), historico);
         return true;
+    }
+
+    async _validarErroRequest(resposta, status) {
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (error) {
+            json = {};
+        }
+        if (
+            (status == 401 || status == 403) &&
+            json instanceof Object &&
+            json.erro != undefined &&
+            json.erro.codigo != undefined &&
+            json.erro.codigo == 4001 &&
+            FW_BLOCO_LOGIN
+        ) {
+            Pagina.staticFechar();
+            fwLogin();
+            return;
+        }
     }
 
     /**
@@ -126,29 +148,6 @@ class Pagina {
         setTimeout(() => {
             blocoGeral.classList.add('fw_pagina_animacao');
         }, 20);
-    }
-
-    _carregarAjax(historico) {
-        const self = this;
-        return fetch(this._link, this._request)
-            .then(response => {
-                if (response.status == 200) {
-                    return response
-                        .text()
-                        .then(html => {
-                            self._carregarPagina(html, historico);
-                            return true;
-                        })
-                        .catch(() => {
-                            return false;
-                        });
-                } else {
-                    return false;
-                }
-            })
-            .catch(() => {
-                return false;
-            });
     }
 
     async _carregarPagina(html, historico) {

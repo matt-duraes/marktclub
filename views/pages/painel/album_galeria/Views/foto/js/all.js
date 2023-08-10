@@ -7,7 +7,6 @@
 // @import "editar"
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
     const blocoGeral = document.getElementById('bloco_galeria_index');
     const hashUpload = blocoGeral.querySelector('#id_hash_upload_hash').value;
     const hashListar = blocoGeral.querySelector('#id_hash_listar_hash').value;

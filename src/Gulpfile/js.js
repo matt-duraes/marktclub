@@ -171,10 +171,13 @@ function processarJs(path, destino) {
         let listaImport = pegarListaImports(conteudo, dirBase);
         if (listaImport) {
             listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
+            listaImport.unshift('src/Html/Scripts/js/Alerta.system.js', 'src/Html/Scripts/js/Funcao.system.js');
             listaImport.push(path);
         } else {
-            listaImport = [path];
+            listaImport = ['src/Html/Scripts/js/Alerta.system.js', 'src/Html/Scripts/js/Funcao.system.js', path];
         }
+
+        listaImport = removerImportDuplicado(listaImport);
 
         if (!(await arquivoExiste(listaImport))) {
             return;
@@ -208,6 +211,15 @@ function processarJs(path, destino) {
             .on('end', resolve)
             .on('error', reject);
     });
+}
+function removerImportDuplicado(path) {
+    const arquivo = [];
+    path.forEach(function (item) {
+        if (arquivo.indexOf(item) < 0) {
+            arquivo.push(item);
+        }
+    });
+    return arquivo;
 }
 // Pegar lista de imports
 function pegarListaImports(conteudo, path) {

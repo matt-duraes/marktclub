@@ -2,8 +2,6 @@
 // @system "Grafico"
 
 window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value;
-
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
     const inputEmpresa = document.querySelector('#input_relatorio_empresa');
 

@@ -2,8 +2,9 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 const ppe = console.log.bind(console);
 
-const FW_BLOCO_LINK_SAIR = document.getElementById('LINK_SAIR');
-const FW_LINK_SAIR = FW_BLOCO_LINK_SAIR ? FW_BLOCO_LINK_SAIR.value : '';
+const FW_BLOCO_LOGIN = $('#bloco_login_relogar');
+const LINK = $('#LINK') ? $('#LINK').value : undefined;
+const BODY = $('body');
 
 const link = () => {
     return window.location.href.replace('://', ':||').split('/')[0].replace(':||', '://');
@@ -84,8 +85,14 @@ ajax = async (link, metodo, body, erro, opcao) => {
             Alerta.notificacao(mensagemErro, false);
         }
         return false;
-    } else if (json.status == 'erro' && json.codigo != undefined && json.codigo == 4001 && FW_LINK_SAIR != '') {
-        window.location.replace(FW_LINK_SAIR);
+    } else if (
+        json.status == 'erro' &&
+        json.erro != undefined &&
+        json.erro.codigo != undefined &&
+        json.erro.codigo == 4001 &&
+        FW_BLOCO_LOGIN
+    ) {
+        fwLogin();
         return;
     } else if (json.status != 'sucesso') {
         if (typeof erro === 'string' && erro == '') {
@@ -98,6 +105,16 @@ ajax = async (link, metodo, body, erro, opcao) => {
         return false;
     }
     return json;
+};
+
+const fwLogin = () => {
+    if (!FW_BLOCO_LOGIN) {
+        return;
+    }
+    FW_BLOCO_LOGIN.classList.remove('display_none');
+    setTimeout(() => {
+        FW_BLOCO_LOGIN.classList.add('ativo');
+    }, 40);
 };
 
 /*

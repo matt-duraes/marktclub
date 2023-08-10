@@ -1,9 +1,8 @@
 window.addEventListener('load', () => {
-    const usuario = document.querySelector('#USUARIO').value;
-    const linkBase = document.querySelector('#LINK').value;
+    const usuario = $('#USUARIO').value;
     setTimeout(() => {
         const memoria = navigator.deviceMemory;
-        const link = linkBase + '/turismo/abrir/' + usuario + '/' + memoria;
+        const link = LINK + '/turismo/abrir/' + usuario + '/' + memoria;
         window.location.replace(link);
     }, 1000);
 });

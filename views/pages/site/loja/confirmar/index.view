@@ -21,7 +21,7 @@
         @ if( $dado->procedimento == $procedimento::VOUCHER ):
         <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao botao_contar_click" data-botao="Confirmar Voucher">GERAR VOUCHER</a>
         @ elseif ($dado->procedimento == $procedimento::WEBSITE):
-        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao botao_contar_click" data-botao="Confirmar abrir Site">Abrir Site<i>@iconeLink()</i></a>
+        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao botao_contar_click" data-botao="Confirmar abrir Site">Abrir Site</a>
         @ endif
     </div>
 </div>

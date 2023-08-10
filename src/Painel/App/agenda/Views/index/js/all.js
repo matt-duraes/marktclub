@@ -10,8 +10,6 @@ window.addEventListener('load', () => {
     if (!blocoAgendaSemana) {
         return;
     }
-
-    const LINK = document.querySelector('#LINK').value;
     const usuarioEmail = document.querySelector('#USUARIO_EMAIL').value;
     const usuarioImagem = document.querySelector('#USUARIO_IMAGEM').value;
     const blocoAgendaConteudo = document.querySelector('#bloco_agenda_conteudo');
