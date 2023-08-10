@@ -71,7 +71,6 @@ function adicionarEventoContratarConsignado() {
 
         const dadosRecebidos = () => {
             return new Promise((resolve, reject) => {
-                // Simulando uma requisição assíncrona
                 if (resposta) {
                     resolve();
                 } else {
