@@ -9,6 +9,7 @@ use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\OperadoraModel;
 use App\Models\Site\Saude\SimulacaoViewModel;
+use Helpers\LocalizacaoHelper;
 
 final class PlanoSaudeController extends Controller
 {
@@ -129,6 +130,12 @@ final class PlanoSaudeController extends Controller
             'menu'      => 'saude',
             'simulacao' => $simulacao
         ]);
+    }
+
+    public function postBuscarCep(Request $request): Response
+    {
+        $cep = (new LocalizacaoHelper())->pegarEnderecoPeloCep($request->cep);
+        return mensagemSucesso($cep);
     }
 
     public function postRealizarContratacao(Request $request, string $id_simulacao)

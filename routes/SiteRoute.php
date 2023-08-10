@@ -296,6 +296,10 @@ Route
             ::nome('simulacao')
             ::view('/saude/plano-simulacao/{url}');
         Route
+            ::nome('buscarCep')
+            ::request(['cep'])
+            ::post('/saude/buscar-cep');
+        Route
             ::nome('realizarSimulacao')
             ::request(['!operadora','!titular','!regiao','!plano','!acomodacao','!dependentes'])
             ::post('/saude/realizar-simulacao');
@@ -353,6 +357,7 @@ Route
         Route
             ::nome('abrirModalRegulamento')
             ::view('/sicoob-regulamento/{url}');
+
     });
 
 Route
@@ -363,13 +368,13 @@ Route
         Route
             ::nome('realizarSimulacao')
             ::request([
-                'tipo', 'valor', 'prazo', 'operadora'
+                'tipo', 'valor', 'parcelas', 'operadora'
             ])
             ::get('/credito/simulacao');
         Route
             ::nome('salvar')
             ::request([
-                'tipo', 'valor', 'prazo', 'operadora'
+                'tipo', 'valor', 'parcelas', 'operadora'
             ])
             ::post('/credito/salvar');
     });

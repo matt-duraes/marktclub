@@ -370,14 +370,14 @@ const abrirBlocoResultado = dado => {
         adicionarLinhaValor(blocoResultadoDependentePadrao, dataNascimento, valor);
     });
     adicionarLinhaValor(blocoResultadoTitularPadrao, dado.titular, dado.valor_titular);
-    blocoValorTotal.innerText = `${dado.valor_total}`;
+    blocoValorTotal.innerText = `R$ ${dado.valor_total}`;
     botaoContratar.setAttribute('href', `/saude/simulacao/${dado.id}`);
 };
 
 const adicionarLinhaValor = (bloco, data, valor) => {
     const clone = bloco.cloneNode(true);
     clone.querySelector('.data').innerText = data;
-    clone.querySelector('.valor').innerText = valor;
+    clone.querySelector('.valor').innerText = 'R$ ' + valor;
     blocoValorLista.prepend(clone);
 };
 

@@ -252,3 +252,47 @@ const mensagemSucesso = () => {
         window.location.assign(LINK + '/saude');
     }, 5000);
 };
+
+let cepAtual = '';
+
+const atualizarEnderecoPeloCep = endereco => {
+    document.querySelector('#formulario_contratacao input[name=logradouro]').value = `${endereco.logradouro}`;
+    document.querySelector('#formulario_contratacao input[name=cidade]').value = `${endereco.cidade}`;
+    document.querySelector('#formulario_contratacao input[name=bairro]').value = `${endereco.bairro}`;
+    document.querySelector('#formulario_contratacao input[name=estado]').value = `${endereco.estado}`;
+};
+
+const inputCep = document.querySelector('#input_cep');
+
+inputCep.addEventListener('blur', () => {
+    const cep = inputCep.value;
+    if (cep == cepAtual || cep == '') {
+        return;
+    }
+    cepAtual = cep;
+    Loading.show();
+    buscarEnderecoPeloCep(cep);
+    Loading.hide();
+});
+
+async function buscarEnderecoPeloCep(cep) {
+    let body = new FormData();
+    body.append('cep', cep.replace(/[^0-9]/g, ''));
+
+    const resposta = await fetch(LINK + '/saude/buscar-cep', {
+        method: 'POST',
+        body,
+    });
+
+    let json;
+    try {
+        json = await resposta.json();
+    } catch (error) {
+        json = {};
+    }
+    if (json.status == 'erro') {
+        Alerta.notificacao('CEP inválido. Endereço não encontrado.', false);
+        return;
+    }
+    atualizarEnderecoPeloCep(json.dado);
+}

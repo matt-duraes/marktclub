@@ -55,11 +55,11 @@
                             @? formSelect(name: 'estado_civil', placeholder: 'Estado Civil', obrigatorio: true, label: 'Estado Civil', class: 'busca_estado_civil', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado civil')->estadoCivil()->r(), value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formInput(name: 'peso', obrigatorio: true, placeholder: 'Digite o peso', label: 'Digite o peso',  value: '')
-                            @? formInput(name: 'altura', obrigatorio: true, placeholder: 'Digite a altura', label: 'Digite a altura',  value: '', class: 'altura_contratacao')
+                            @? formInput(name: 'peso', obrigatorio: true, placeholder: 'Digite o peso', label: 'Digite o peso', value: '')
+                            @? formInput(name: 'altura', obrigatorio: true, placeholder: 'Digite a altura', label: 'Digite a altura', mascara: '0.00', value: '', class: 'altura_contratacao')
                         </div>
                         <div class="form_input_dupla">
-                            @? formInput(name: 'rg', placeholder: 'Digite o rg',obrigatorio: true, label: 'Digite o rg',  value: '')
+                            @? formInput(name: 'rg', placeholder: 'Digite o rg',obrigatorio: true, mascara: '0.000.000',label: 'Digite o rg',  value: '')
                             @? formInput(name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor',obrigatorio: true, label: 'Digite o orgão expedidor',  value: '', class: 'tirar_tab')
                         </div>
                         <div class="bloco_botao">
@@ -119,7 +119,7 @@
                             <h1>ENDEREÇO</h1>
                         </header>
                         <div class="form_input_dupla">
-                            @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP', obrigatorio: true, value: '')
+                            @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP',mascara: '00000-000', obrigatorio: true, value: '')
                             @? formInput(name: 'bairro', placeholder: 'Bairro', obrigatorio: true, label: 'Bairro', value: '')
                         </div>
                         <div class="form_input_dupla">
