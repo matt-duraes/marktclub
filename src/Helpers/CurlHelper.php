@@ -27,7 +27,7 @@ class CurlHelper
     private string $erroMensagem = '';
     private int $erroStatus = 400;
     private bool $erroRetorno = true;
-    private bool $erroLogin = true;
+    private bool $erroLogin = false;
 
     public function __construct(
         private readonly ?string $url = null
