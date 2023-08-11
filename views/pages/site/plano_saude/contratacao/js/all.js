@@ -248,9 +248,9 @@ form.addEventListener('submit', async event => {
 const mensagemSucesso = () => {
     Loading.hide();
     Alerta.notificacao('Dados enviados para contratação', true);
-    setTimeout(() => {
-        window.location.assign(LINK + '/saude');
-    }, 5000);
+    // setTimeout(() => {
+    //     window.location.assign(LINK + '/saude');
+    // }, 5000);
 };
 
 let cepAtual = '';
@@ -259,7 +259,10 @@ const atualizarEnderecoPeloCep = endereco => {
     document.querySelector('#formulario_contratacao input[name=logradouro]').value = `${endereco.logradouro}`;
     document.querySelector('#formulario_contratacao input[name=cidade]').value = `${endereco.cidade}`;
     document.querySelector('#formulario_contratacao input[name=bairro]').value = `${endereco.bairro}`;
-    document.querySelector('#formulario_contratacao input[name=estado]').value = `${endereco.estado}`;
+    const estado = document.querySelector('#formulario_contratacao input[name=estado]');
+    formValue(estado, `${endereco.estado}`);
+
+    Loading.hide();
 };
 
 const inputCep = document.querySelector('#input_cep');
@@ -272,7 +275,6 @@ inputCep.addEventListener('blur', () => {
     cepAtual = cep;
     Loading.show();
     buscarEnderecoPeloCep(cep);
-    Loading.hide();
 });
 
 async function buscarEnderecoPeloCep(cep) {
