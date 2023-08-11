@@ -9,11 +9,11 @@
             <h2>Antes de continuar, confirme o procedimento de utilização, desconto e possíveis restrições da loja</h2>
             <div class="bloco">
                 <h3>Descontos</h3>
-                <p>Desconto de 25% vitalicio sem carência, no serviço de telemedicina da Doutor AcessoFideliadde de apenas 6 meses.</p>
+                <p>{!!$dado->texto_desconto!!}</p>
             </div>
             <div class="bloco">
                 <h3>Procedimento</h3>
-                <p>Desconto de 25% vitalicio sem carência, no serviço de telemedicina da Doutor AcessoFideliadde de apenas 6 meses.</p>
+                <p>{!!$dado->texto_procedimento!!}</p>
             </div>
         </div>
     </div>
