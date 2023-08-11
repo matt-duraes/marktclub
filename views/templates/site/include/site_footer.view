@@ -53,12 +53,12 @@
         <header>
             <h1>Indicações</h1>
         </header>
-        <a class="dado">
-            <i>@iconeIndiqueAmigo(19)</i>
+        <a class="dado" href="@route(site.indiqueAmigo)">
+            <i>@iconeIndiqueAmigoOutline(20)</i>
             Indicar um amigo
         </a>
         <a class="dado" id="abreAjuda">
-            <i>@iconeFaleConosco(19)</i>
+            <i>@iconeFaleConosco(20)</i>
             Fale Conosco
         </a>
         <a class="dado" id="abreIndiqueParceiro">
