@@ -9,17 +9,6 @@ final class Dinheiro implements ModuleInterface
     use ValidarTrait;
 
     /**
-     * Valor que deve ser enviado para o banco de dados
-     *
-     * @return mixed
-     */
-    public function banco(): mixed
-    {
-        return $this->decimal();
-    }
-
-    // doc
-    /**
      * Modulo para Dinheiro
      *
      * @param string|null $dinheiro Valor para o modulo
@@ -40,6 +29,8 @@ final class Dinheiro implements ModuleInterface
         $this->setarValor();
     }
 
+    // doc
+
     /**
      * @return bool
      */
@@ -48,19 +39,33 @@ final class Dinheiro implements ModuleInterface
         return preg_match('/^[0-9]+(?:\.[0-9]+)?$/', $this->dinheiro) === 1;
     }
 
+    private function setarValor(): void
+    {
+        $this->dinheiro = number_format($this->dinheiro, 2, '.', '');
+    }
+
     // doc
 
     /**
+     * Valor que deve ser enviado para o banco de dados
+     *
+     * @return string|float
      */
-    private function setarValor(): void
+    public function banco(): string|float
     {
-        $dinheiro = str_replace(',', '.', $this->dinheiro);
-        $explode = explode('.', $dinheiro);
+        return $this->decimal();
+    }
 
-        $centavo = array_pop($explode);
-        $valor = implode('', $explode);
+    // doc
 
-        $this->dinheiro = number_format($valor . '.' . $centavo, 2, '.', '');
+    /**
+     * Pega o valor em formato decimal
+     *
+     * @return float|string Valor em formato float
+     */
+    public function decimal(): float|string
+    {
+        return $this->dinheiro;
     }
 
     // doc
@@ -72,8 +77,6 @@ final class Dinheiro implements ModuleInterface
     {
         return $this->dinheiro();
     }
-
-    // doc
 
     /**
      * Pega o valor como dinheiro, por exemplo: 1.000,00
@@ -93,15 +96,5 @@ final class Dinheiro implements ModuleInterface
     public function valor(): string
     {
         return $this->decimal();
-    }
-
-    /**
-     * Pega o valor em formato decimal
-     *
-     * @return float|string Valor em formato float
-     */
-    public function decimal(): float|string
-    {
-        return $this->dinheiro;
     }
 }

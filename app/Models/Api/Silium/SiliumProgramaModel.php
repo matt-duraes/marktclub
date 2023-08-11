@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\Siliium;
+namespace App\Models\Api\Silium;
 
 use ORM\ORM;
 
