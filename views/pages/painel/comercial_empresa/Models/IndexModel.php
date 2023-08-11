@@ -9,7 +9,7 @@ final class IndexModel implements PainelIndexFiltroInterface
 {
     public function filtro(array $filtro): array
     {
-        if (!array_key_exists('status', $filtro) || empty($filtro['status'])) {
+        if (!array_key_exists('status', $filtro)) {
             $filtro['status'] = Status::ATIVO;
         }
         return $filtro;
