@@ -3,8 +3,9 @@
 namespace App\Models\Site\IndicacaoParceiro;
 
 use Erro\Excecao;
-use App\Helpers\ClubeApiHelper;
 use Http\Request;
+use Http\Response;
+use App\Helpers\ClubeApiHelper;
 
 final class SalvarModel extends ClubeApiHelper
 {
@@ -26,21 +27,20 @@ final class SalvarModel extends ClubeApiHelper
     }
 
     /**
-     * @return object|array
+     * @return Response
      * @throws Excecao
      */
-    public function postSalvar(): object
+    public function postSalvar(): Response
     {
         $this
-        ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.')
+        ->validar('Ocorre um erro ao indicar o parceiro, por favor, tente novamente.')
         ->body([
             'parceiro' => $this->parceiro,
             'telefone' => $this->telefone,
             'email'    => $this->email,
             'mensagem' => $this->mensagem,
-            'tipo'     => 2
-        ])
-        ->post('/parceiro/indicacao')
+            'tipo'     => 'clube'
+        ])->post('/parceiro/indicacao')
         ->object();
 
         return mensagemSucesso([], 201);

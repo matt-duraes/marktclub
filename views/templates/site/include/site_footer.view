@@ -53,7 +53,7 @@
         <header>
             <h1>Indicações</h1>
         </header>
-        <a class="dado" id="abreIndiqueParceiro">
+        <a class="dado">
             <i>@iconeIndiqueAmigo(19)</i>
             Indicar um amigo
         </a>
@@ -61,7 +61,7 @@
             <i>@iconeFaleConosco(19)</i>
             Fale Conosco
         </a>
-        <a class="dado" href="">
+        <a class="dado" id="abreIndiqueParceiro">
             <i>@iconeLojaHome(15)</i>
             Indicar um parceiro
         </a>

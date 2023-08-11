@@ -1,10 +1,9 @@
-<div class="bloco_popup_geral medio">
-    <header class="popup_header">
+<div class="bloco_pagina_popup medio">
+    <header class="header_pagina_popup">
         <h1>Precisando de alguma ajuda?</h1>
         <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
-    <div class="popup_conteudo centralizado">
-        <!-- CONTEÚDO AQUI -->
+    <div class="conteudo_pagina_popup centralizado">
         <form id="formulario_pesquisa" action="" class="form_geral bloco_ajuda_geral" method="post">
             <header>
                 <p>Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento que funciona das 9h às 19h, de segunda à sexta. Caso não tenha encontrado o convênio que procura, pode nos indicar! Teremos prazer em fechar uma nova parceria.
