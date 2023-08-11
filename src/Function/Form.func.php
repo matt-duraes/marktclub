@@ -479,7 +479,7 @@ if (!function_exists('formInput')) {
 
         $urlHtml = '';
         if ($url) {
-            $valueTemp = $value[0];
+            $valueTemp = $value[0] ?? '';
             $http = str_starts_with($valueTemp, 'http://') ? 'http://' : 'https://';
             $urlHtml = '<div class="input_http">' . $http . '</div>';
             $classBloco[] = 'bloco_url';
