@@ -1,14 +1,14 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
+use Route\Route;
 
 Route
     ::nome('samsung')
     ::controller(App\Controllers\Api\SamsungController::class)
-    ::grupo(function() {
+    ::grupo(function () {
         Route
             ::nome('validar')
             ::request(['code'], 'get')
@@ -1415,10 +1415,10 @@ Route
             ::request([
                 'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
                 'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
-                'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
-                'email', 'telefone_celular', '!telefone_residencial', '!telefone_comercial',
+                '!filiacao', '!cpf_responsavel', '!rg_responsavel', '!nome_responsavel',
+                'email', 'telefone_celular', '!telefone_residencial', 'telefone_comercial',
                 '!ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
-                '!complemento'
+                '!complemento', '!status'
             ])
             ::post('/saude/contratacao');
     });
@@ -1467,6 +1467,7 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:buscar'])
             ::get('/enquete-satisfacao/{id}');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
@@ -1474,6 +1475,7 @@ Route
                 'pagina', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/enquete-satisfacao');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:salvar'])
@@ -1522,6 +1524,7 @@ Route
                 'nome', 'email', 'telefone', 'mensagem', 'url', '!descoberta_site'
             ])
             ::post('/contato');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
@@ -1529,6 +1532,7 @@ Route
                 'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/contato');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['contato:buscar'])
@@ -1547,6 +1551,7 @@ Route
                 'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
             ])
             ::post('/parceiro/indicacao');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:listar'])
@@ -1554,6 +1559,7 @@ Route
                 'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
             ], 'json')
             ::get('/parceiro-indicacao');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:buscar'])
@@ -1642,7 +1648,6 @@ Route
             ::delete('/automovel-versao/{id}');
     });
 
-
 Route
     ::nome('automovel')
     ::controller(App\Controllers\Api\AutomovelController::class)
@@ -1653,4 +1658,28 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel:listar'])
             ::request(['pagina', '!url', '!quantidade', '!vinculo', '!ordem', '!status'], 'json')
             ::get('/automovel');
+    });
+
+Route
+    ::nome('silium')
+    ::controller(App\Controllers\Api\SiliumController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('saldo')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium:saldo'])
+            ::get('/silium/saldo');
+
+        Route
+            ::nome('extrato')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium:extrato'])
+            ::get('/silium/extrato');
+
+        Route
+            ::nome('saque')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium:saque'])
+            ::request([
+                'titular', 'documento_cpf', 'banco', 'agencia', 'conta', 'tipo_conta'
+            ])
+            ::post('/silium/saque');
     });

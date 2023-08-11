@@ -130,6 +130,7 @@ const verificarDados = (dados, botao) => {
         Alerta.notificacao('Preencha os campos obrigatórios', false);
         return;
     }
+
     irParaProximoPasso(botao);
 };
 

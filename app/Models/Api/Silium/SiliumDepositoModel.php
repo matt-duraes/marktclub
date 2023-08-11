@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\Siliium;
+namespace App\Models\Api\Silium;
 
 use App\Classes\Silium\TipoConta;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -9,9 +9,11 @@ use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Cpf;
 use Modules\Data;
+use Modules\DataHora;
 use Modules\Dinheiro;
 use Modules\Nome;
 use ORM\ORM;
+use Status\StatusInterface;
 
 class SiliumDepositoModel extends ORM
 {
@@ -23,6 +25,11 @@ class SiliumDepositoModel extends ORM
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
 
+    /**
+     * @param Request|null $request
+     *
+     * @throws Excecao
+     */
     public function __construct(
         protected readonly ?Request $request = null
     ) {
@@ -99,7 +106,7 @@ class SiliumDepositoModel extends ORM
             'conta'            => $this->request->getPost('conta'),
             'tipo_conta'       => (new TipoConta($this->request->getPost('tipo_conta')))->numero(),
             'comissao'         => $comissao,
-            'valor'            => $valor,
+            'valor'            => (new Dinheiro($valor))->decimal(),
             'status'           => 1
         ];
 
@@ -107,9 +114,8 @@ class SiliumDepositoModel extends ORM
             ->dado($transacao)
             ->insert();
 
-        $SiliumComissaoModel->atualizarStatus($dados['id'], 2);
-
-        return $dados;
+        $this->atualizarStatus($dados['id'], 2);
+        return $this->montarRetorno($dados);
     }
 
     private function validarRequest(): void
@@ -140,5 +146,37 @@ class SiliumDepositoModel extends ORM
             ->obrigatorio()
             ->vazio()
             ->valido();
+    }
+
+    /**
+     * @param array|int|string           $id
+     * @param StatusInterface|int|string $status
+     *
+     * @return array
+     * @throws Excecao
+     */
+    public function atualizarStatus(array|int|string $id, StatusInterface|int|string $status): array
+    {
+        return $this
+            ->dado([
+                'status' => ($status instanceof StatusInterface) ? $status->numero() : $status
+            ])
+            ->where((is_array($id) && !empty($id)) ? ['id', 'in', $id] : ['id', $id])
+            ->update();
+    }
+
+    /**
+     * @param array $dados
+     *
+     * @return array
+     */
+    private function montarRetorno(array $dados): array
+    {
+        $dados['documento_cpf'] = (new Cpf($dados['documento_cpf']))->cpf();
+        $dados['tipo_conta'] = (new TipoConta($dados['tipo_conta']))->indice();
+        $dados['valor'] = (new Dinheiro($dados['valor']))->dinheiro();
+        $dados['data_criacao'] = (new DataHora($dados['data_criacao']))->data();
+        $dados['data_atualizacao'] = (new DataHora($dados['data_atualizacao']))->data();
+        return $dados;
     }
 }

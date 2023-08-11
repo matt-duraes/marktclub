@@ -59,7 +59,10 @@ window.addEventListener('load', () => {
         document.querySelector('#bloco_pagina_perfil form input[name=logradouro]').value = `${endereco.logradouro}`;
         document.querySelector('#bloco_pagina_perfil form input[name=cidade]').value = `${endereco.cidade}`;
         document.querySelector('#bloco_pagina_perfil form input[name=bairro]').value = `${endereco.bairro}`;
-        document.querySelector('#bloco_pagina_perfil form input[name=estado]').value = `${endereco.estado}`;
+        const estado = $('#bloco_pagina_perfil form input[name=estado]');
+        formValue(estado, `${endereco.estado}`);
+
+        Loading.hide();
     };
     let cepAtual = '';
     inputCep.addEventListener('blur', () => {
@@ -70,7 +73,6 @@ window.addEventListener('load', () => {
         cepAtual = cep;
         Loading.show();
         buscarEnderecoPeloCep(cep);
-        Loading.hide();
     });
 
     const acaoParaAtualizarDado = async () => {

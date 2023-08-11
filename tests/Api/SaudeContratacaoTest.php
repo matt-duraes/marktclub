@@ -49,10 +49,10 @@ final class SaudeContratacaoTest extends Clube
             'sexo'                 => $this->genero(),
             'peso'                 => 75.4,
             'altura'               => 1.80,
-            'filiacao'             => 'mae',
-            'cpf_responsavel'      => $this->cpf(),
-            'rg_responsavel'       => $this->rg(),
-            'nome_responsavel'     => $this->nomeCompleto(),
+            'filiacao'             => '',
+            'cpf_responsavel'      => '',
+            'rg_responsavel'       => '',
+            'nome_responsavel'     => '',
             'email'                => $this->email(),
             'telefone_celular'     => $this->telefoneCelular(),
             'telefone_residencial' => $this->telefoneFixo(),
@@ -64,7 +64,8 @@ final class SaudeContratacaoTest extends Clube
             'cidade'               => $this->cidade($this->estado()),
             'bairro'               => $this->bairro(),
             'numero'               => 1,
-            'complemento'          => $this->complemento()
+            'complemento'          => '',
+            'status'               => 1
         ];
     }
 }

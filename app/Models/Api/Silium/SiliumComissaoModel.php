@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\Siliium;
+namespace App\Models\Api\Silium;
 
 use App\Helpers\Silium\Cashback;
 use App\Models\Api\ParceiroCashback\CashbackEntity;
@@ -10,6 +10,7 @@ use App\Models\Api\UsuarioCliente\ClienteModel;
 use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
+use Modules\Dinheiro;
 use ORM\ORM;
 use Status\StatusInterface;
 use System\Trait\Model\OrdemTrait;
@@ -29,6 +30,8 @@ class SiliumComissaoModel extends ORM
 
     /**
      * @param Request|null $request
+     *
+     * @throws Excecao
      */
     public function __construct(
         protected readonly ?Request $request = null
@@ -118,7 +121,7 @@ class SiliumComissaoModel extends ORM
                 ['status', 'ASC'],
                 ['id', 'ASC']
             ])
-            ->tabela(TABELA_CASHBACK_PROGRAMA)
+            ->tabela(TABELA_PARCEIRO_CASHBACK)
             ->campo(['titulo'])
             ->join('programa', 'programa')
             ->read();
@@ -142,12 +145,12 @@ class SiliumComissaoModel extends ORM
             $retorno[] = [
                 'uuid'     => $item->uuid,
                 'programa' => $item->titulo,
-                'data'     => [
-                    'compra' => (new Data($item->data_compra))->data(),
+                'data'     => (object)[
+                    'compra' => (new Data($item->data_compra))->data()
                 ],
                 'ponto'    => round($item->comissao_usuario * 100),
                 'comissao' => (object)[
-                    'valor' => number_format($item->comissao_usuario, 2, ',', '.'),
+                    'valor' => (new Dinheiro($item->comissao_usuario))->decimal(),
                     'moeda' => $item->moeda,
                 ],
                 'status'   => $item->status
@@ -209,11 +212,11 @@ class SiliumComissaoModel extends ORM
                 'usuario'          => $ClienteEntity->id,
                 'empresa'          => $empresa,
                 'programa'         => $item->programa,
-                'comissao_usuario' => number_format($comissao, 2, '.', ''),
-                'comissao_total'   => number_format($item->comissao_usuario, 2, '.', ''),
-                'valor_compra'     => number_format($item->valor_compra, 2, '.', ''),
+                'comissao_usuario' => (new Dinheiro($comissao))->decimal(),
+                'comissao_total'   => (new Dinheiro($item->comissao_usuario))->decimal(),
+                'valor_compra'     => (new Dinheiro($item->valor_compra))->decimal(),
                 'moeda'            => $item->moeda,
-                'data_compra'      => $item->data_compra,
+                'data_compra'      => (new Data($item->data_compra))->date(),
                 'status'           => 1
             ];
 
