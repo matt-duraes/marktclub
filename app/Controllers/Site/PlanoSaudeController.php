@@ -172,7 +172,6 @@ final class PlanoSaudeController extends Controller
         ])
         ->post('/saude/contratacao')
         ->object();
-
         return mensagemSucesso([], 200);
     }
 }
