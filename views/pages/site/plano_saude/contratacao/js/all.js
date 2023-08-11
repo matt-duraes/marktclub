@@ -243,16 +243,11 @@ form.addEventListener('submit', async event => {
         Alerta.notificacao('Formulário não enviado', false);
         return;
     }
-    setTimeout(mensagemSucesso, 3000);
-});
-
-const mensagemSucesso = () => {
     Loading.hide();
-    Alerta.notificacao('Dados enviados para contratação', true);
-    // setTimeout(() => {
-    //     window.location.assign(LINK + '/saude');
-    // }, 5000);
-};
+
+    await Alerta.mensagem('Dados enviados para contratação', 'Em breve entraremos em contato', true);
+    location.href = LINK + '/saude';
+});
 
 let cepAtual = '';
 
