@@ -18,10 +18,10 @@ function adicionarEventoSimularConsignado() {
         const parcelas = $('#formulario_emprestimo input[name=parcela]').value.slice(0, 2);
 
         if (valor === '') {
-            Alerta.mensagem('Campo obrigatório!', 'Digite o valor que deseja simular.');
+            Alerta.mensagem('Campo obrigatório!', 'Digite o valor que deseja simular.', '!');
             return false;
         } else if (parcelas === '') {
-            Alerta.mensagem('Campo obrigatório!', 'Escolha a quantidade de parcelas que deseja simular.');
+            Alerta.mensagem('Campo obrigatório!', 'Escolha a quantidade de parcelas que deseja simular.', '!');
             return false;
         }
 
@@ -69,35 +69,15 @@ function adicionarEventoContratarConsignado() {
             'Erro ao fazer a requisição, por favor, tente novamente.'
         );
 
-        const dadosRecebidos = () => {
-            return new Promise((resolve, reject) => {
-                if (resposta) {
-                    resolve();
-                } else {
-                    reject();
-                }
-            });
-        };
+        if (false === resposta) {
+            Alerta.notificacao('Não foi possível completar a sua solicitação, tente novamente, em breve.', false);
+            return;
+        }
 
-        dadosRecebidos()
-            .then(() => {
-                Alerta.mensagem('Solicitação feita', 'Em breve entraremos em contato');
-                setTimeout(() => {
-                    location.href = LINK + '/credito/sicoob';
-                }, 3000);
-            })
-            .catch(() => {
-                mensagemErro('Não foi possível completar a sua solicitação, tente novamente, em breve.');
-            });
+        await Alerta.mensagem('Solicitação feita', 'Em breve entraremos em contato', true);
+        location.href = LINK + '/credito/sicoob';
     });
 }
-
-const redirecionarUsuario = () => {
-    Alerta.mensagem('Sucesso', 'Sua simulação foi enviada, em breve entraremos em contato');
-    location.href = LINK + '/credito/sicoob';
-};
-
-const mensagemErro = () => {};
 
 function limparFormulario(formulario) {
     const inputs = formulario.querySelectorAll('input');
