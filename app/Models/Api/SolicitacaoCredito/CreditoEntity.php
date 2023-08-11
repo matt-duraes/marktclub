@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use ORM\Entity;
+use App\Classes\SolicitacaoCredito\Operadora;
+use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\SolicitacaoCredito\Tipo;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Dinheiro;
-use Helpers\ValidarHelper;
-use App\Classes\SolicitacaoCredito\Tipo;
-use App\Classes\SolicitacaoCredito\Status;
-use App\Classes\SolicitacaoCredito\Operadora;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\Entity;
 
 class CreditoEntity extends Entity
 {
@@ -37,7 +37,7 @@ class CreditoEntity extends Entity
     public Dinheiro $valor;
     public string $parcelas;
     public Dinheiro $valor_parcelas;
-    public string $observacao;
+    public ?string $observacao;
     public Status $status;
     protected string $ormTabela = TABELA_SOLICITACAO_CREDITO;
     protected array $ormInsert = [
@@ -69,15 +69,13 @@ class CreditoEntity extends Entity
         parent::__construct();
     }
 
-    /**
-     */
     private function validarRequest(): void
     {
-        $this->operadora = new Operadora($this->request->operadora ?? '');
-        $this->tipo = new Tipo($this->request->tipo ?? '');
-        $this->valor = new Dinheiro($this->request->valor ?? '0');
-        $this->parcelas = $this->request->parcelas ?? 0;
-        $this->observacao = $this->request->observacao ?? '';
+        $this->operadora = new Operadora($this->request->operadora);
+        $this->tipo = new Tipo($this->request->tipo);
+        $this->valor = new Dinheiro($this->request->valor);
+        $this->parcelas = $this->request->parcelas;
+        $this->observacao = $this->request->observacao;
         $this->status = new Status(Status::CRIADA);
 
         (new ValidarHelper())
@@ -106,21 +104,17 @@ class CreditoEntity extends Entity
             ->tamanho('<=', $prazoMaximo, 'numero');
     }
 
-    /**
-     */
     public function simularCredito(): void
     {
         $this->retornarValorParcelas();
     }
 
-    /**
-     */
     private function retornarValorParcelas(): void
     {
         $valorParcelas = match ($this->tipo->indice()) {
-            Tipo::CONSIGNADO       => $this->jurosConsignado()->calcularParcelas(),
-            Tipo::CREDITO_PESSOAL  => $this->jurosCreditoPessoal()->calcularParcelas(),
-            Tipo::VEICULO_NOVO     => $this->jurosVeiculoNovo()->calcularParcelas(),
+            Tipo::CONSIGNADO => $this->jurosConsignado()->calcularParcelas(),
+            Tipo::CREDITO_PESSOAL => $this->jurosCreditoPessoal()->calcularParcelas(),
+            Tipo::VEICULO_NOVO => $this->jurosVeiculoNovo()->calcularParcelas(),
             Tipo::VEICULO_SEMINOVO => $this->jurosVeiculoSeminovo()->calcularParcelas()
         };
 
@@ -134,7 +128,7 @@ class CreditoEntity extends Entity
     {
         return match ($this->operadora->indice()) {
             Operadora::SICOOB => $this->calcularParcelasNaSicoob(),
-            default           => 0
+            default => 0
         };
     }
 
@@ -150,7 +144,7 @@ class CreditoEntity extends Entity
 
         return match ($this->tipo->indice()) {
             Tipo::CONSIGNADO => $this->calcularSeguroSicoob($valorParcelas),
-            default          => $valorParcelas
+            default => $valorParcelas
         };
     }
 

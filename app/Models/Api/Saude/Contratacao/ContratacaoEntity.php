@@ -3,6 +3,7 @@
 namespace App\Models\Api\Saude\Contratacao;
 
 use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Saude\Documento\DocumentoEntity;
 use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
@@ -35,27 +36,37 @@ class ContratacaoEntity extends Entity
     public string $peso;
     public string $altura;
     public string $filiacao;
-    public Cpf $cpf_responsavel;
-    public string $rg_responsavel;
-    public Nome $nome_responsavel;
+    public ?Cpf $cpf_responsavel;
+    public ?string $rg_responsavel;
+    public ?Nome $nome_responsavel;
     public Email $email;
     public Telefone $telefone_celular;
-    public Telefone $telefone_residencial;
+    public ?Telefone $telefone_residencial;
     public Telefone $telefone_comercial;
-    public string $ramal;
+    public ?string $ramal;
     public string $endereco;
     public EnderecoCep $cep;
     public EnderecoEstado $estado;
     public string $cidade;
     public string $bairro;
     public int $numero;
-    public string $complemento;
+    public ?string $complemento;
+    public Status $status;
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
-        'id_usuario'       => '->idUsuario'
+        'id_usuario'       => '->idUsuario',
+        'status'           => 1
+    ];
+    protected array $ormBuscar = [
+        'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+        'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
+        'filiacao', 'cpf_responsavel', 'rg_responsavel', 'nome_responsavel',
+        'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+        'ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
+        'complemento', 'status'
     ];
     protected array $ormSalvar = [
         'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
@@ -76,26 +87,28 @@ class ContratacaoEntity extends Entity
         sexo|Gênero|obrigatorio|vazio|valido
         peso|Peso|obrigatorio|vazio
         altura|Altura|obrigatorio|vazio
-        filiacao|Filiação|obrigatorio|vazio
-        cpf_responsavel|CPF Responsável|vazio|valido
-        rg_responsavel|RG Responsável|vazio
-        nome_responsavel|Nome Responsável|vazio|valido
+        filiacao|Filiação
+        cpf_responsavel|CPF Responsável
+        rg_responsavel|RG Responsável
+        nome_responsavel|Nome Responsável|valido
         email|E-mail|obrigatorio|vazio|valido
         telefone_celular|Telefone Celular|obrigatorio|vazio|valido
-        telefone_residencial|Telefone Residencial|vazio|valido
-        telefone_comercial|Telefone Comercial|vazio|valido
-        ramal|Ramal|obrigatorio
+        telefone_residencial|Telefone Residencial
+        telefone_comercial|Telefone Comercial|obrigatorio|vazio|valido
+        ramal|Ramal
         endereco|Endereço|obrigatorio|vazio
         cep|CEP|obrigatorio|vazio|valido
         estado|Estado|obrigatorio|valido
         cidade|Cidade|obrigatorio|vazio
         bairro|Bairro|obrigatorio|vazio
         numero|Número|obrigatorio|vazio
-        complemento|Complemento|obrigatorio
+        complemento|Complemento
     ';
 
     /**
      * @param SimulacaoEntity $simulacaoEntity
+     *
+     * @throws Excecao
      */
     public function __construct(
         private readonly SimulacaoEntity $simulacaoEntity
