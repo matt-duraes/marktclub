@@ -13,6 +13,8 @@ window.addEventListener('load', () => {
     const inputValorDe = $('#input_versao_valor_de');
     const inputValorAte = $('#input_versao_valor_por');
 
+    let idEditar;
+
     botaoAbrir.addEventListener('click', () => {
         abrirBloco();
     });
@@ -46,8 +48,8 @@ window.addEventListener('load', () => {
         const id = linha.getAttribute('data-id');
     };
     const editarVersao = linha => {
-        const id = linha.getAttribute('data-id');
-        formValue(inputTitulo, 'Teste');
+        idEditar = linha.getAttribute('data-id');
+        formValue(inputTitulo, '');
         formValue(inputCor, '');
         formValue(inputValorDe, '');
         formValue(inputValorAte, '');
@@ -70,4 +72,11 @@ window.addEventListener('load', () => {
             formValue(inputValorAte, '');
         }, 300);
     };
+
+    botaoSalvar.addEventListener('click', () => {
+        if (inputTitulo.value == '') {
+            Alerta.notificacao('O título da versão é obrigatório.', false);
+            return;
+        }
+    });
 });
