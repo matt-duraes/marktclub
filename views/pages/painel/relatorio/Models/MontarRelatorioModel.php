@@ -129,7 +129,7 @@ final class MontarRelatorioModel
     {
         $relatorio = [
             'total' => [
-                'usuario'   => $dado->usuario,
+                'usuario'   => $dado->total,
                 'bloqueado' => $dado->bloqueado,
             ],
             'Ativo' => [

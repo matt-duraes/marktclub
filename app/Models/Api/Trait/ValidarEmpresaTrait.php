@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Trait;
 
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Throwable;
 use Erro\Excecao;
 use Http\Request;
-use Throwable;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait ValidarEmpresaTrait
 {
@@ -33,11 +33,15 @@ trait ValidarEmpresaTrait
     {
         $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
         $usuarioPermissao = TOKEN['usuario']->permissao ?? [];
+        $usuarioIdEmpresa = TOKEN['usuario']->id_admin_empresa ?? 0;
+
         return
             !empty($this->idUsuario)
             && !empty($scope)
             && !empty($usuarioPermissao)
-            && in_array($scope . '_empresa', $usuarioPermissao);
+            && in_array($scope . '_empresa', $usuarioPermissao)
+            && !empty($usuarioIdEmpresa)
+            && $usuarioIdEmpresa == 1;
     }
 
     /**
