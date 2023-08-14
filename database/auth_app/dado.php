@@ -112,8 +112,10 @@ $scope = [
     'automovel_montadora:listar', 'automovel_montadora:salvar', 'automovel_montadora:buscar',
 
     'automovel_modelo:listar', 'automovel_modelo:salvar', 'automovel_modelo:buscar',
+    'automovel_modelo:atualizar', 'automovel_modelo:deletar',
 
     'automovel_versao:listar', 'automovel_versao:salvar', 'automovel_versao:buscar',
+    'automovel_versao:atualizar', 'automovel_versao:deletar',
 
     'automovel:listar', 'publicidade:buscar', 'publicidade:listar', 'publicidade:salvar',
 ];

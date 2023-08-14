@@ -122,11 +122,17 @@ final class AppController extends PadraoController
         }
 
         $metodo = $config->metodo;
-        if (!in_array($metodo, ['get', 'post', 'put'])) {
+        if (!in_array($metodo, ['get', 'post', 'put', 'delete'])) {
             mensagemStatus(400);
         }
 
         $dado = $request->exeto(['indice'], erro: false);
+        $rotaApi = $config->rota;
+        if (preg_match('/\/\{id\}$/', $rotaApi) && array_key_exists('id', $dado)) {
+            $rotaApi = preg_replace('/\/\{id\}$/', '/' . $dado['id'], $rotaApi);
+            unset($dado['id']);
+        }
+
         if ($dado) {
             foreach (array_keys($dado) as $ind) {
                 if (!in_array($ind, $config->request)) {
@@ -135,13 +141,13 @@ final class AppController extends PadraoController
             }
         }
 
-        $Api = (new ApiHelper(token: true))->headerJson();
+        $Api = (new ApiHelper(token: true));
         if ($dado && $metodo == 'get') {
             $Api->json($dado);
         } elseif ($dado) {
             $Api->body($dado);
         }
-        $dado = $Api->$metodo($config->rota);
+        $dado = $Api->$metodo($rotaApi);
 
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {

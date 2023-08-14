@@ -1598,7 +1598,7 @@ Route
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
-            ::request(['!tipo', '!montadora', '!titulo', '!imagem', '!url', '!status', '!data_vencimento'])
+            ::request(['!titulo', '!parceiro', '!imagem', '!status'])
             ::put('/automovel-modelo/{id}');
 
         Route
@@ -1615,27 +1615,22 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
-            ::request(['pagina', '!quantidade', '!vinculo', '!titulo', '!detalhe', '!tipo', '!ordem', '!status'],
-                'json')
+            ::request(['pagina', '!quantidade', '!modelo', '!ordem', '!status'], 'json')
             ::get('/automovel-versao');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:buscar'])
             ::get('/automovel-versao/{id}');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
-            ::request(['titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status'])
+            ::request(['modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ::post('/automovel-versao');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
-            ::request(['!tipo', '!detalhe', '!titulo', '!cor', '!valor', '!valor_off', '!status', '!data_vencimento'])
+            ::request(['!titulo', '!cor', '!valor_de', '!valor_por', '!status'])
             ::put('/automovel-versao/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:deletar'])
