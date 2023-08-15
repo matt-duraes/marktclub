@@ -52,6 +52,7 @@ final class StopBurrice
             ->name('*.js')
             ->notPath('gulpfile.js')
             ->contains('console.log(')
+            ->contains('/(\ |\;)ppe\(/')
             ->in('resources')
             ->in('views');
         self::validarRetorno('Existe console.log', $arquivo);
