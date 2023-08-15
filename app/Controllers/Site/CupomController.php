@@ -2,12 +2,12 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\Cupom\ListarModel;
-use App\Models\Site\Cupom\BuscaModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use App\Models\Site\Cupom\BuscaModel;
+use App\Models\Site\Cupom\ListarModel;
 
 final class CupomController extends Controller
 {
@@ -18,15 +18,12 @@ final class CupomController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function buscar(Request $request, string $pesquisa = null): Response
+    public function buscar(Request $request): Response
     {
-        if ($pesquisa) {
-            return $this->index($pesquisa);
-        }
         if (empty($request->pesquisa)) {
             return new Response(url: route('cupom.index'));
         }
-        return new Response(url: route('cupom.buscar') . '/' . strSlug($request->pesquisa));
+        return new Response(url: route('cupom.index') . '?pesquisa=' . $request->pesquisa);
     }
 
     /**

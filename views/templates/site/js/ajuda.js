@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
         });
     };
 
-    const botaoAbrirPesquisaSatisfacao = document.getElementById('abreAjuda');
+    const botaoAbrirPesquisaSatisfacao = document.getElementById('botao_abrir_ajuda');
     const paginaPesquisaSatisfacao = new Pagina('Ajuda', LINK + '/ajuda', {}, true, true, carregarFuncaoAjuda);
 
     botaoAbrirPesquisaSatisfacao.addEventListener('click', () => {

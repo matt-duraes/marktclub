@@ -72,6 +72,7 @@ if (!function_exists('formInput')) {
      * @param  string         $separador    Um separador quando tiver 2 inputs
      * @param  null|int|array $maximo       Valor maximo para o input, array para 2 inputs
      * @return string         HTML com o código do input
+     * @return mixed          $local Valor para o localhost
      */
     function formInput(
         string|array $name,
@@ -100,10 +101,15 @@ if (!function_exists('formInput')) {
         array $request = [],
         string $separador = '',
         null|int|array $maximo = null,
+        mixed $local = ''
     ): string {
         $idBloco = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
 
         $focusHtml = $focus ? 'autofocus' : '';
+
+        if (eLocalhost() && empty($value)) {
+            $value = $local;
+        }
 
         $classBloco = [];
         $classInput = [];
@@ -574,8 +580,12 @@ if (!function_exists('formSelect')) {
         string $class = '',
         bool $obrigatorio = false,
         bool $footer = true,
-        string $change = ''
+        string $change = '',
+        mixed $local = ''
     ): string {
+        if (eLocalhost() && empty($value)) {
+            $value = $local;
+        }
         $valueTexto = (is_string($value) || is_numeric($value)) && !empty($value) && array_key_exists($value, $lista)
             ? $lista[$value] : '';
         if (is_array($valueTexto)) {
@@ -697,9 +707,37 @@ if (!function_exists('formAutocomplete')) {
         string $action = '',
         bool $footer = true,
         array $request = [],
-        string $separador = ''
+        string $separador = '',
+        mixed $local = ''
     ): string {
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, $contador, $type, $attr, $mascara, $ajuda, $numero, $data, false, $url, true, $action, $footer, $request, $separador);
+        return formInput(
+            $name,
+            $label,
+            $value,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            $contador,
+            $type,
+            $attr,
+            $mascara,
+            $ajuda,
+            $numero,
+            $data,
+            false,
+            $url,
+            true,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            local: $local
+        );
     }
 }
 if (!function_exists('formNumero')) {
@@ -754,6 +792,7 @@ if (!function_exists('formNumero')) {
         array $request = [],
         string $separador = '',
         null|int|array $maximo = null,
+        mixed $local = ''
     ): string {
         return formInput(
             name: $name,
@@ -778,6 +817,7 @@ if (!function_exists('formNumero')) {
             request: $request,
             separador: $separador,
             maximo: $maximo,
+            local: $local
         );
     }
 }
@@ -830,6 +870,7 @@ if (!function_exists('formCpf')) {
         array $request = [],
         string $separador = '',
         null|int|array $maximo = null,
+        mixed $local = ''
     ): string {
         return formInput(
             name: $name,
@@ -853,6 +894,7 @@ if (!function_exists('formCpf')) {
             request: $request,
             separador: $separador,
             maximo: $maximo,
+            local: $local
         );
     }
 }
@@ -905,6 +947,7 @@ if (!function_exists('formCnpj')) {
         array $request = [],
         string $separador = '',
         null|int|array $maximo = null,
+        mixed $local = ''
     ): string {
         return formInput(
             name: $name,
@@ -928,6 +971,7 @@ if (!function_exists('formCnpj')) {
             request: $request,
             separador: $separador,
             maximo: $maximo,
+            local: $local
         );
     }
 }
@@ -972,10 +1016,38 @@ if (!function_exists('formSenha')) {
         null | int | array $contador = null,
         string | array $attr = [],
         string $ajuda = '',
-        bool $footer = true
+        bool $footer = true,
+        mixed $local = ''
     ): string {
         $senha = is_array($name) ? [true, true] : true;
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, $contador, 'password', $attr, '', $ajuda, false, false, $senha, false, false, '', $footer, [], '');
+        return formInput(
+            $name,
+            $label,
+            $value,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            $contador,
+            'password',
+            $attr,
+            '',
+            $ajuda,
+            false,
+            false,
+            $senha,
+            false,
+            false,
+            '',
+            $footer,
+            [],
+            '',
+            local: $local
+        );
     }
 }
 if (!function_exists('formEmail')) {
@@ -1025,9 +1097,37 @@ if (!function_exists('formEmail')) {
         string $action = '',
         array $request = [],
         bool $footer = true,
-        string $separador = ''
+        string $separador = '',
+        mixed $local = ''
     ) {
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, $contador, 'email', $attr, '', $ajuda, false, false, false, false, $autocomplete, $action, $footer, $request, $separador);
+        return formInput(
+            $name,
+            $label,
+            $value,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            $contador,
+            'email',
+            $attr,
+            '',
+            $ajuda,
+            false,
+            false,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            local: $local
+        );
     }
 }
 if (!function_exists('formTelefone')) {
@@ -1075,9 +1175,37 @@ if (!function_exists('formTelefone')) {
         string $action = '',
         array $request = [],
         bool $footer = true,
-        string $separador = ''
+        string $separador = '',
+        mixed $local = ''
     ): string {
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, 'telefone', $ajuda, true, false, false, false, $autocomplete, $action, $footer, $request, $separador);
+        return formInput(
+            $name,
+            $label,
+            $value,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            null,
+            'text',
+            $attr,
+            'telefone',
+            $ajuda,
+            true,
+            false,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            local: $local
+        );
     }
 }
 if (!function_exists('formUrl')) {
@@ -1123,9 +1251,37 @@ if (!function_exists('formUrl')) {
         bool $autocomplete = false,
         string $action = '',
         array $request = [],
-        bool $footer = true
+        bool $footer = true,
+        mixed $local = ''
     ): string {
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'url', $attr, '', $ajuda, false, false, false, true, $autocomplete, $action, $footer, $request, '');
+        return formInput(
+            $name,
+            $label,
+            $value,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            null,
+            'url',
+            $attr,
+            '',
+            $ajuda,
+            false,
+            false,
+            false,
+            true,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            '',
+            local: $local
+        );
     }
 }
 if (!function_exists('formData')) {
@@ -1173,7 +1329,8 @@ if (!function_exists('formData')) {
         string $action = '',
         array $request = [],
         bool $footer = true,
-        string $separador = ''
+        string $separador = '',
+        mixed $local = ''
     ): string {
         $attr = array_merge(['data-calendario' => 'data'], $attr);
 
@@ -1182,7 +1339,34 @@ if (!function_exists('formData')) {
             $placeholder = is_array($name) ? ['00/00/0000', '00/00/0000'] : '00/00/0000';
         }
 
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, $mascara, $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador);
+        return formInput(
+            $name,
+            $label,
+            $value,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            null,
+            'text',
+            $attr,
+            $mascara,
+            $ajuda,
+            true,
+            true,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            local: $local
+        );
     }
 }
 if (!function_exists('formDataHora')) {
@@ -1230,10 +1414,38 @@ if (!function_exists('formDataHora')) {
         string $action = '',
         array $request = [],
         bool $footer = true,
-        string $separador = ''
+        string $separador = '',
+        mixed $local = ''
     ): string {
         $attr = array_merge(['data-calendario' => 'datahora'], $attr);
-        return formInput($name, $label, $value, $placeholder, $class, $id, $html, $icone, $iconeCor, $obrigatorio, $focus, null, 'text', $attr, '00/00/0000 00:00:00', $ajuda, true, true, false, false, $autocomplete, $action, $footer, $request, $separador);
+        return formInput(
+            $name,
+            $label,
+            $value,
+            $placeholder,
+            $class,
+            $id,
+            $html,
+            $icone,
+            $iconeCor,
+            $obrigatorio,
+            $focus,
+            null,
+            'text',
+            $attr,
+            '00/00/0000 00:00:00',
+            $ajuda,
+            true,
+            true,
+            false,
+            false,
+            $autocomplete,
+            $action,
+            $footer,
+            $request,
+            $separador,
+            local: $local
+        );
     }
 }
 if (!function_exists('formTextarea')) {
@@ -1264,8 +1476,13 @@ if (!function_exists('formTextarea')) {
         string $html = '',
         bool $obrigatorio = false,
         array $attr = [],
-        ?int $numeroLinha = null
+        ?int $numeroLinha = null,
+        mixed $local = ''
     ): string {
+        if (eLocalhost() && empty($value)) {
+            $value = $local;
+        }
+
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
         $obrigatorio = $obrigatorio ? 'input_obrigatorio' : '';
         $footer = formFooter(true);
@@ -1432,8 +1649,12 @@ if (!function_exists('formCor')) {
         string $label = '',
         string $value = '',
         string $class = '',
-        string $id = ''
+        string $id = '',
+        mixed $local = ''
     ) {
+        if (eLocalhost() && empty($value)) {
+            $value = $local;
+        }
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
         $label = !empty($label) ? '<label for="input_' . $name . '_texto">' . $label . '</label>' : '';
 
@@ -1479,8 +1700,12 @@ if (!function_exists('formTag')) {
         string $id = '',
         string $tipo = 'tag',
         bool $focus = false,
-        bool $espaco = false
+        bool $espaco = false,
+        string|array $local = ''
     ) {
+        if (eLocalhost() && empty($value)) {
+            $value = $local;
+        }
         $input = formInput(
             name: '',
             label: $label,
@@ -1551,8 +1776,12 @@ if (!function_exists('formEditor')) {
         string $id = '',
         string $class = '',
         bool $obrigatorio = false,
-        bool $footer = true
+        bool $footer = true,
+        mixed $local = ''
     ): string {
+        if (eLocalhost() && empty($value)) {
+            $value = $local;
+        }
         $labelHtml = !empty($label) ? '<label class="editor_label">' . $label . '</label>' : '';
 
         $obrigatorio = !empty($obrigatorio) ? 'input_obrigatorio' : '';

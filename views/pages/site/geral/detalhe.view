@@ -20,13 +20,14 @@
     <div class="bloco_desconto_procedimento">
         <div class="bloco bloco_titulo_texto">
             <h1>Descontos</h1>
-            <p>{!!$dado->texto_desconto!!}</p>
+            <div class="texto_destaque">{!!$dado->texto_desconto!!}</div>
         </div>
         <div class="bloco bloco_titulo_texto">
             <h1>Procedimentos</h1>
-            <p>{!!$dado->texto_procedimento!!} </p>
+            <div class="texto_destaque">{!!$dado->texto_procedimento!!}</div>
         </div>
     </div>
+
     @ if(TIPO_USUARIO != 'indicado'):
     <div class="bloco_botao">
         @ if( $tipo == 'farmacia' ):

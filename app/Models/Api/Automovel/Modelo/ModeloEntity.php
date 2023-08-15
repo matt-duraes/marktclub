@@ -21,12 +21,13 @@ final class ModeloEntity extends Entity
     ];
     public string $imagem;
     public int $id_parceiro_loja;
-    public string $link_logo;
+    public string $link_imagem;
     public string $titulo;
     public string $texto;
     public Status $status;
     public string $url;
     public string $procedimento;
+    public string $texto_procedimento;
     protected LojaEntity $Parceiro;
     public array $versao;
     public string $parceiro;
@@ -43,8 +44,9 @@ final class ModeloEntity extends Entity
     {
         $this->pegarParceiro($this->id_parceiro_loja);
         $this->setarStatusModelo();
-        $this->link_logo = arquivoPrivado($this->imagem);
+        $this->link_imagem = arquivoPrivado($this->imagem);
         $this->procedimento = $this->Parceiro->procedimento;
+        $this->texto_procedimento = $this->Parceiro->texto_procedimento;
         $this->pegarListaVersao();
     }
 

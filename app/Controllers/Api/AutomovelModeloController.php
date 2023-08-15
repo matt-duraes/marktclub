@@ -71,7 +71,7 @@ final class AutomovelModeloController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Modelo,
                 lista: [
-                    'titulo', 'link_logo', 'versao', 'url', 'status'
+                    'titulo', 'procedimento', 'texto_procedimento', 'link_imagem', 'versao', 'url', 'status'
                 ]
             ),
             status: $status,

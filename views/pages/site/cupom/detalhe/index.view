@@ -1,9 +1,10 @@
-<div id="bloco_popup_detalhe" class="bloco_popup_geral">
-    <header class="popup_header">
+<div id="bloco_popup_detalhe" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <i class="fechar mobile">@iconeVoltar</i>
         <h1>CUPOM</h1>
-        <i class="fechar">@iconeFechar</i>
+        <i class="fechar desktop">@iconeFechar</i>
     </header>
-    <div class="popup_conteudo">
+    <div class="conteudo_pagina_popup">
         <div class="conteudo">
             <input type="hidden" id="input_cupom_url" value="{{$dado->url}}">
             <figure><img src="{{$dado->imagem}}"></figure>

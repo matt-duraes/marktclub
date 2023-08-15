@@ -4,6 +4,7 @@ namespace App\Models\Site\Loja;
 
 use stdClass;
 use App\Helpers\ClubeApiHelper;
+use App\Helpers\Site\TextoHelper;
 use App\Classes\ParceiroLoja\Status;
 
 final class BuscarModel extends ClubeApiHelper
@@ -28,12 +29,13 @@ final class BuscarModel extends ClubeApiHelper
 
     private function montarRetorno($r): stdClass
     {
+        $Texto = new TextoHelper();
         return (object)[
             'id'                 => $r->id,
             'titulo'             => $r->titulo,
             'logo'               => $r->link_logo,
-            'texto_desconto'     => nl2br($r->texto_desconto),
-            'texto_procedimento' => nl2br($r->texto_procedimento),
+            'texto_desconto'     => $Texto->destaque($r->texto_desconto),
+            'texto_procedimento' => $Texto->destaque($r->texto_procedimento),
             'texto_descricao'    => nl2br($r->texto_descricao),
             'procedimento'       => $r->procedimento,
             'capa_desktop'       => $r->link_capa_desktop,
