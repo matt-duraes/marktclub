@@ -48,7 +48,6 @@ final class UsuarioTabelaModel extends ORM
     /**
      * @param $request
      *
-     * @return void
      * @throws Excecao
      */
     public function salvarUsuario($request): void
@@ -147,7 +146,6 @@ final class UsuarioTabelaModel extends ORM
     /**
      * @param $usuario
      *
-     * @return void
      * @throws Excecao
      */
     private function atualizarUsuarioExistente($usuario): void
@@ -336,7 +334,6 @@ final class UsuarioTabelaModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function inserirUsuarioNovo(): void
@@ -365,7 +362,6 @@ final class UsuarioTabelaModel extends ORM
     /**
      * @param $hash
      *
-     * @return void
      * @throws Excecao
      */
     public function bloquearUsuario($hash): void

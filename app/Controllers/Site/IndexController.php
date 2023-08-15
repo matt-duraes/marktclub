@@ -7,7 +7,6 @@ use Http\Response;
 use Modules\Botao;
 use Modules\Inteiro;
 use Controller\Controller;
-use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Loja\ListarModel;

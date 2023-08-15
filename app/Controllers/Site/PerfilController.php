@@ -30,6 +30,7 @@ final class PerfilController extends Controller
                 'endereco_complemento' => $Perfil->endereco_complemento,
                 'endereco_cidade'      => $Perfil->endereco_cidade,
                 'endereco_estado'      => $Perfil->endereco_estado,
+                'imagem'               => $Perfil->imagem
             ]
         ]);
     }
