@@ -1,6 +1,5 @@
 <?php
 
-
 define("TABELA_ANALYTICS", "analytics");
 define("TABELA_ANALYTICS_ACESSO_DIA", "analytics_acesso_dia");
 define("TABELA_ANALYTICS_DADO_USUARIO", "analytics_dado_usuario");

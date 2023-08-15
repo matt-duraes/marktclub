@@ -34,11 +34,11 @@ window.addEventListener('load', () => {
         loadingConfirmarLoja
     );
     const abrirBoxConfirmacao = () => {
-        // podeAbrirDireto = true;
+        podeAbrirDireto = true;
         PaginaConfirmar.abrir();
     };
 
-    // setTimeout(() => {
-    //     podeAbrirDireto = true;
-    // }, 30000);
+    setTimeout(() => {
+        podeAbrirDireto = true;
+    }, 30000);
 });

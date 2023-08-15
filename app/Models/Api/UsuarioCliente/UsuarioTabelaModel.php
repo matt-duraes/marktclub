@@ -2,18 +2,19 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Email;
-use Modules\Genero;
-use Modules\Telefone;
-use Helpers\CryptHelper;
-use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Helpers\CryptHelper;
+use Helpers\ListaHelper;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\ORM;
 
 final class UsuarioTabelaModel extends ORM
 {
@@ -36,12 +37,21 @@ final class UsuarioTabelaModel extends ORM
         $this->idEmpresa = TOKEN['empresa']->id;
     }
 
-    public function retorno()
+    /**
+     * @return array
+     */
+    public function retorno(): array
     {
         return $this->retorno;
     }
 
-    public function salvarUsuario($request)
+    /**
+     * @param $request
+     *
+     * @return void
+     * @throws Excecao
+     */
+    public function salvarUsuario($request): void
     {
         $request = (new CryptHelper())->decode($request);
         $this->request = $request;
@@ -53,13 +63,14 @@ final class UsuarioTabelaModel extends ORM
             return;
         }
 
-        $where = $this->pegarWhereParaBuscar();
-
-        $usuario = $this->campo([
-            'id', 'cod', 'nome', 'documento', 'siape', 'telefone_celular', 'telefone_fixo', 'email_pessoal',
-            'email_trabalho', 'uf', 'cidade', 'aniversario', 'sexo', 'status', 'grupo', 'matricula', 'situacao',
-            'federacao'
-        ])->where($where)->primeiro();
+        $usuario = $this
+            ->campo([
+                'id', 'cod', 'nome', 'documento', 'siape', 'telefone_celular', 'telefone_fixo', 'email_pessoal',
+                'email_trabalho', 'uf', 'cidade', 'aniversario', 'sexo', 'status', 'grupo', 'matricula', 'situacao',
+                'federacao'
+            ])
+            ->where($this->pegarWhereParaBuscar())
+            ->primeiro();
 
         $this->dado = [
             'status'             => 2,
@@ -73,16 +84,75 @@ final class UsuarioTabelaModel extends ORM
         ];
 
         if (is_object($usuario) && object_key_exists('cod', $usuario)) {
-            return $this->atualizarUsuarioExistente($usuario);
+            $this->atualizarUsuarioExistente($usuario);
         } elseif (is_array($usuario) && empty($usuario)) {
-            return $this->inserirUsuarioNovo();
+            $this->inserirUsuarioNovo();
         }
         $this->retorno[] = [false, 'Ocorreu um erro ao buscar usuário.'];
-        return;
     }
 
-    private function atualizarUsuarioExistente($usuario)
+    /**
+     * @return bool
+     */
+    private function validarCampoObrigatorio(): bool
     {
+        $usuario = $this->request;
+        $obrigatorio = $this->obrigatorio;
+
+        if (!array_key_exists('nome', $usuario) || empty($usuario['nome'])) {
+            $this->retorno[] = [false, 'Você precisa enviar um nome válido.'];
+            return false;
+        } elseif (
+            in_array('cpf', $obrigatorio)
+            && (!array_key_exists('cpf', $usuario) || !validarCpf($usuario['cpf']))
+        ) {
+            $this->retorno[] = [false, 'Você precisa enviar um CPF válido.'];
+            return false;
+        } elseif (
+            in_array('matricula', $obrigatorio)
+            && (!array_key_exists('matricula', $usuario) || empty(soNumero($usuario['matricula'])))
+        ) {
+            $this->retorno[] = [false, 'Você precisa enviar uma matrícula válida.'];
+            return false;
+        } elseif (
+            in_array('siape', $obrigatorio)
+            && (!array_key_exists('siape', $usuario) || empty(soNumero($usuario['siape'])))
+        ) {
+            $this->retorno[] = [false, 'Você precisa enviar um SIAPE válido.'];
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return array[]
+     */
+    private function pegarWhereParaBuscar(): array
+    {
+        $usuario = $this->request;
+        $obrigatorio = $this->obrigatorio;
+
+        $where = [['empresa', $this->idEmpresa]];
+        if (in_array('cpf', $obrigatorio)) {
+            $where[] = ['documento', $usuario['cpf']];
+        } elseif (in_array('matricula', $obrigatorio)) {
+            $where[] = ['matricula', $usuario['matricula']];
+        } elseif (in_array('siape', $obrigatorio)) {
+            $where[] = ['siape', $usuario['siape']];
+        }
+
+        return $where;
+    }
+
+    /**
+     * @param $usuario
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function atualizarUsuarioExistente($usuario): void
+    {
+        $dado = [];
         if (in_array($usuario->status, [1, 2])) {
             $dado = $this->montarWhereAtualizandoCampoVazio($usuario);
             $dado['status'] = $usuario->status;
@@ -90,31 +160,24 @@ final class UsuarioTabelaModel extends ORM
             $dado = $this->montarWhereComTodosOsCampos($usuario);
         }
 
-        $salvar = $this->dado($dado)->where(['id', $usuario->id])->update();
+        $salvar = $this
+            ->dado($dado)
+            ->where(['id', $usuario->id])
+            ->update();
 
         if (existeErro($salvar, 'id')) {
             $this->retorno[] = [false, 'Ocorreu um erro ao atualizar o usuário.'];
             return;
         }
         $this->retorno[] = [true, 204];
-        return;
     }
 
-    private function inserirUsuarioNovo()
-    {
-        $dado = $this->montarWhereComTodosOsCampos([]);
-
-        $salvar = $this->dado($dado)->insert();
-        if (existeErro($salvar, 'id')) {
-            $this->retorno[] = [false, 'Ocorreu um erro ao salvar o usuário.'];
-            return;
-        }
-
-        $this->retorno[] = [true, 201];
-        return;
-    }
-
-    private function montarWhereAtualizandoCampoVazio($usuario)
+    /**
+     * @param $usuario
+     *
+     * @return array
+     */
+    private function montarWhereAtualizandoCampoVazio($usuario): array
     {
         $request = $this->request;
 
@@ -153,15 +216,16 @@ final class UsuarioTabelaModel extends ORM
             $dado['data_email'] = hoje();
         }
         if (
-            empty($usuario->uf) &&
-            array_key_exists('endereco_estado', $request) &&
-            !empty($request['endereco_estado']) && in_array($request['endereco_estado'], $listaUf)
+            empty($usuario->uf)
+            && array_key_exists('endereco_estado', $request)
+            && !empty($request['endereco_estado']) && in_array($request['endereco_estado'], $listaUf)
         ) {
             $dado['uf'] = strCaixaAlta($request['endereco_estado']);
         }
         if (
-            empty($usuario->cidade) &&
-            array_key_exists('endereco_cidade', $request) && !empty($request['endereco_cidade'])
+            empty($usuario->cidade)
+            && array_key_exists('endereco_cidade', $request)
+            && !empty($request['endereco_cidade'])
         ) {
             $dado['cidade'] = strCaixaAltaAlta($request['endereco_cidade']);
         }
@@ -187,7 +251,12 @@ final class UsuarioTabelaModel extends ORM
         return $dado;
     }
 
-    private function montarWhereComTodosOsCampos($usuario)
+    /**
+     * @param $usuario
+     *
+     * @return array
+     */
+    private function montarWhereComTodosOsCampos($usuario): array
     {
         $request = $this->request;
 
@@ -207,9 +276,13 @@ final class UsuarioTabelaModel extends ORM
             $dado['nome'] = $Nome->nome();
         }
         if (
-            (!is_object($usuario) || !object_key_exists('documento', $usuario) || !validarCpf($usuario->documento)) &&
-            !$Cpf->vazio() &&
-            $Cpf->valido()
+            (
+                !is_object($usuario)
+                || !object_key_exists('documento', $usuario)
+                || !validarCpf($usuario->documento)
+            )
+            && !$Cpf->vazio()
+            && $Cpf->valido()
         ) {
             $dado['documento'] = (int)$Cpf->numero();
         }
@@ -244,8 +317,8 @@ final class UsuarioTabelaModel extends ORM
             $dado['sexo'] = $Genero->numero();
         }
         if (
-            array_key_exists('federacao', $request) &&
-            (in_array($request['federacao'], $listaUf) || $request['federacao'] == 'FU')
+            array_key_exists('federacao', $request)
+            && (in_array($request['federacao'], $listaUf) || $request['federacao'] == 'FU')
         ) {
             $dado['federacao'] = strCaixaAlta($request['federacao']);
         }
@@ -262,51 +335,25 @@ final class UsuarioTabelaModel extends ORM
         return $dado;
     }
 
-    private function pegarWhereParaBuscar()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function inserirUsuarioNovo(): void
     {
-        $usuario = $this->request;
-        $obrigatorio = $this->obrigatorio;
+        $dado = $this->montarWhereComTodosOsCampos([]);
 
-        $where = [['empresa', $this->idEmpresa]];
-        if (in_array('cpf', $obrigatorio)) {
-            $where[] = ['documento', $usuario['cpf']];
-        } elseif (in_array('matricula', $obrigatorio)) {
-            $where[] = ['matricula', $usuario['matricula']];
-        } elseif (in_array('siape', $obrigatorio)) {
-            $where[] = ['siape', $usuario['siape']];
+        $salvar = $this
+            ->dado($dado)
+            ->insert();
+
+        if (existeErro($salvar, 'id')) {
+            $this->retorno[] = [false, 'Ocorreu um erro ao salvar o usuário.'];
+            return;
         }
 
-        return $where;
-    }
-
-    private function validarCampoObrigatorio()
-    {
-        $usuario = $this->request;
-        $obrigatorio = $this->obrigatorio;
-
-        if (!array_key_exists('nome', $usuario) || empty($usuario['nome'])) {
-            $this->retorno[] = [false, 'Você precisa enviar um nome válido.'];
-            return false;
-        } elseif (
-            in_array('cpf', $obrigatorio) &&
-            (!array_key_exists('cpf', $usuario) || !validarCpf($usuario['cpf']))
-        ) {
-            $this->retorno[] = [false, 'Você precisa enviar um CPF válido.'];
-            return false;
-        } elseif (
-            in_array('matricula', $obrigatorio) &&
-            (!array_key_exists('matricula', $usuario) || empty(soNumero($usuario['matricula'])))
-        ) {
-            $this->retorno[] = [false, 'Você precisa enviar uma matrícula válida.'];
-            return false;
-        } elseif (
-            in_array('siape', $obrigatorio) &&
-            (!array_key_exists('siape', $usuario) || empty(soNumero($usuario['siape'])))
-        ) {
-            $this->retorno[] = [false, 'Você precisa enviar um SIAPE válido.'];
-            return false;
-        }
-        return true;
+        $this->retorno[] = [true, 201];
+        return;
     }
 
     /*
@@ -314,7 +361,14 @@ final class UsuarioTabelaModel extends ORM
     | BLOQUEAR USUÁRIO
     |--------------------------------------------------------------------------
     */
-    public function bloquearUsuario($hash)
+
+    /**
+     * @param $hash
+     *
+     * @return void
+     * @throws Excecao
+     */
+    public function bloquearUsuario($hash): void
     {
         $chave = (new CryptHelper())->decode($hash);
         if (!array_key_exists('chave', $chave) || empty($chave['chave'])) {
@@ -343,12 +397,15 @@ final class UsuarioTabelaModel extends ORM
             return;
         }
 
-        $salvar = $this->dado([
-            'status'           => 3,
-            'data_atualizacao' => agora()
-        ])->where(['id', $usuario->id])->update();
+        $salvar = $this
+            ->dado([
+                'status'           => 3,
+                'data_atualizacao' => agora()
+            ])
+            ->where(['id', $usuario->id])
+            ->update();
 
-        if (!is_array($salvar) || existeErro($salvar, 'id')) {
+        if (existeErro($salvar, 'id')) {
             $this->retorno[] = [false, 'Ocorreu um erro ao salvar o usuário.'];
             return;
         }

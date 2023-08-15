@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models\Api\Siliium;
+namespace App\Models\Api\Silium;
 
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
 use ORM\Entity;
@@ -31,6 +32,8 @@ class SiliumComissaoEntity extends Entity
 
     /**
      * @param Request|null $request
+     *
+     * @throws Excecao
      */
     public function __construct(
         protected readonly ?Request $request = null
