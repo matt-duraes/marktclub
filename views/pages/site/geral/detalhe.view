@@ -54,7 +54,7 @@
         @ endif;
 
         @ if( $dado->procedimento != $procedimento::WEBSITE ):
-        <a href="" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao branco botao_geral_cor" data-botao="Abrir site secundario"><i>@iconeSiteParceiro()</i> Abrir Site</a>
+        <a href="" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao branco botao_geral_cor" data-botao="Abrir site secundario"><i>@iconeSiteCliente()</i> Abrir Site</a>
         @ endif;
 
     </div>
