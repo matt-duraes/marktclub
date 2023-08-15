@@ -140,7 +140,6 @@ final class ClienteEntity extends Entity
     /**
      * @param $valor
      *
-     * @return void
      * @throws Excecao
      */
     public function setEmpresa($valor): void
