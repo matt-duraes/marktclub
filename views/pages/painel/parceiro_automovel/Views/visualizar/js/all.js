@@ -122,9 +122,6 @@ window.addEventListener('load', () => {
         if (titulo == '') {
             Alerta.notificacao('O campo título é obrigatório.', false);
             return;
-        } else if (cor == '') {
-            Alerta.notificacao('O campo cor é obrigatório.', false);
-            return;
         } else if (valorPor == '') {
             Alerta.notificacao('O campo valor por é obrigatório.', false);
             return;
