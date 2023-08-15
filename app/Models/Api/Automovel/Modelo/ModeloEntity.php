@@ -5,12 +5,10 @@ namespace App\Models\Api\Automovel\Modelo;
 use ORM\Entity;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Helpers\UploadHelper;
 use App\Classes\Geral\Status;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\Automovel\Versao\VersaoModel;
 use App\Classes\ParceiroLoja\Status as StatusParceiro;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ModeloEntity extends Entity
 {
@@ -21,7 +19,7 @@ final class ModeloEntity extends Entity
     protected array $ormSalvar = [
         'id_parceiro_loja', 'titulo', 'imagem', 'url', 'texto', 'status'
     ];
-    public UploadedFile|UploadHelper|string $imagem;
+    public string $imagem;
     public int $id_parceiro_loja;
     public string $link_logo;
     public string $titulo;
@@ -31,20 +29,33 @@ final class ModeloEntity extends Entity
     public string $procedimento;
     protected LojaEntity $Parceiro;
     public array $versao;
+    public string $parceiro;
+
+    public function regraSalvar()
+    {
+        if ($this->propriedadeExiste('parceiro') && !empty($this->parceiro)) {
+            $this->pegarParceiro($this->parceiro);
+            $this->id_parceiro_loja = $this->Parceiro->get('id');
+        }
+    }
 
     protected function regraPosBuscar()
     {
-        $this->pegarParceiro();
+        $this->pegarParceiro($this->id_parceiro_loja);
         $this->setarStatusModelo();
         $this->link_logo = arquivoPrivado($this->imagem);
         $this->procedimento = $this->Parceiro->procedimento;
         $this->pegarListaVersao();
     }
 
-    private function pegarParceiro()
+    private function pegarParceiro($id)
     {
         $this->Parceiro = new LojaEntity();
-        $this->Parceiro->id($this->id_parceiro_loja);
+        if (is_int($id)) {
+            $this->Parceiro->id($id);
+            return;
+        }
+        $this->Parceiro->uuid($id, mensagem: 'Parceiro não encontrado.');
     }
 
     private function setarStatusModelo()
@@ -60,7 +71,7 @@ final class ModeloEntity extends Entity
         $VersaoModel = new VersaoModel(
             pagina: new Pagina(1),
             quantidade: new Quantidade(50),
-            modelo: $this->id
+            modelo: $this->prop('id')
         );
         $this->versao = $VersaoModel->listarDados()->lista ?? [];
     }
