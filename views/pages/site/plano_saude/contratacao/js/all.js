@@ -120,6 +120,7 @@ if (botaoProximo.length > 0) {
 
 const verificarDados = (dados, botao) => {
     let campos = 0;
+
     dados.forEach(dado => {
         if (dado.value != '') {
             campos += 1;
@@ -130,6 +131,7 @@ const verificarDados = (dados, botao) => {
         Alerta.notificacao('Preencha os campos obrigatórios', false);
         return;
     }
+
     irParaProximoPasso(botao);
 };
 
@@ -234,24 +236,16 @@ form.addEventListener('submit', async event => {
         body: formData,
     });
 
-    if (false === resposta) {
-        return;
-    }
     Loading.show();
     if (resposta === false) {
         Alerta.notificacao('Formulário não enviado', false);
         return;
     }
-    setTimeout(mensagemSucesso, 3000);
-});
-
-const mensagemSucesso = () => {
     Loading.hide();
-    Alerta.notificacao('Dados enviados para contratação', true);
-    setTimeout(() => {
-        window.location.assign(LINK + '/saude');
-    }, 5000);
-};
+
+    await Alerta.mensagem('Dados enviados para contratação', 'Em breve entraremos em contato', true);
+    location.href = LINK + '/saude';
+});
 
 let cepAtual = '';
 
@@ -259,7 +253,10 @@ const atualizarEnderecoPeloCep = endereco => {
     document.querySelector('#formulario_contratacao input[name=logradouro]').value = `${endereco.logradouro}`;
     document.querySelector('#formulario_contratacao input[name=cidade]').value = `${endereco.cidade}`;
     document.querySelector('#formulario_contratacao input[name=bairro]').value = `${endereco.bairro}`;
-    document.querySelector('#formulario_contratacao input[name=estado]').value = `${endereco.estado}`;
+    const estado = document.querySelector('#formulario_contratacao input[name=estado]');
+    formValue(estado, `${endereco.estado}`);
+
+    Loading.hide();
 };
 
 const inputCep = document.querySelector('#input_cep');
@@ -272,7 +269,6 @@ inputCep.addEventListener('blur', () => {
     cepAtual = cep;
     Loading.show();
     buscarEnderecoPeloCep(cep);
-    Loading.hide();
 });
 
 async function buscarEnderecoPeloCep(cep) {

@@ -1,10 +1,10 @@
-<div class="bloco_popup_geral medio">
-    <header class="popup_header">
+<div class="bloco_pagina_popup medio">
+    <header class="header_pagina_popup">
         <h1>Indicação</h1>
         <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
-    <div class="popup_conteudo centralizado">
-        <form id="formulario_indica_parceiro" action="" class="form_geral bloco_conteudo_geral centralizado" method="post">
+    <div class="conteudo_pagina_popup centralizado">
+        <form id="formulario_indica_parceiro" action="" class="form_geral" method="post">
             <header class="coluna texto">
                 <p>Não achou o parceiro que procurava ou quer indicar um parceiro?</p>
                 <p>Preencha os campos abaixo e envie sua sugestão.</p>
@@ -29,8 +29,9 @@
                     @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
                 </label>
             </fieldset>
-
-            <button id="botao_enviar_indicacao" class="botao_enviar_indicacao botao_geral_cor cor_bg">ENVIAR</button>
+            <div class="footer_pagina_popup noshadow">
+                <button id="botao_enviar_indicacao" class="botao_enviar_indicacao botao_geral_cor cor_bg">ENVIAR</button>
+            </div>
         </form>
     </div>
 

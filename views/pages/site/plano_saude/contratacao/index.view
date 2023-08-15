@@ -43,7 +43,7 @@
                         </header>
                         <form action="">
                         <div class="form_input_dupla">
-                            @? formInput(name: 'nome', placeholder: 'Digite um nome', obrigatorio: true ,label: 'Digite um nome', class: 'nome', value: '')
+                            @? formInput(name: 'nome', placeholder: 'Digite um nome e sobrenome', obrigatorio: true ,label: 'Digite um nome', class: 'nome', value: '')
                             @? formInput(name: 'naturalidade', placeholder: 'Digite um naturalidade', obrigatorio: true, label: 'Digite a naturalidade', class: 'naturalidade', value: '')
                         </div>
                         <div class="form_input_dupla">

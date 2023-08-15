@@ -39,7 +39,12 @@ class IndicacaoParceiroEntity extends Entity
         protected readonly ?Request $request = null
     ) {
         parent::__construct();
-        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->get('id') : 1;
+
+        if (!defined('TOKEN')) {
+            mensagemStatus(401);
+        }
+
+        $this->idEmpresa = TOKEN['empresa']->id;
         $this->idUsuario = 1;
     }
 

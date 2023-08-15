@@ -9,3 +9,5 @@
 // @import "ajuda"
 // @import "login"
 // @import "mapa"
+// @import "pesquisa_satisfacao"
+// @import "indicar_parceiro"
