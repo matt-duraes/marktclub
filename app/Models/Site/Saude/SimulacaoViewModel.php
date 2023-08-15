@@ -3,9 +3,10 @@
 namespace App\Models\Site\Saude;
 
 use App\Classes\Saude\Operadora;
-use App\Classes\Saude\RegiaoAmil;
-use App\Classes\Saude\PlanoAmilBrasilia;
-use App\Classes\Saude\PlanoAmilSaoPaulo;
+use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
+use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Classes\Saude\Operadoras\Unimed\Unimed;
+use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 
 final class SimulacaoViewModel
 {
@@ -16,9 +17,14 @@ final class SimulacaoViewModel
 
     public function opcao()
     {
-        if ($this->operadora == Operadora::AMIL) {
-            return $this->montarOpcao(['Região', 'Plano', 'Simulação', 'Resultado']);
-        }
+        $passos = match ($this->operadora) {
+            Operadora::AMIL                            => ['Região', 'Plano', 'Simulação', 'Resultado'],
+            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
+            Operadora::UNIMED_SEGURO                   => ['Acomodação', 'Simulação', 'Resultado'],
+            Operadora::UNIMED                          => ['Acomodação', 'Simulação', 'Resultado'],
+            default                                    => []
+        };
+        return $this->montarOpcao($passos);
     }
 
     private function montarOpcao($lista)
@@ -35,28 +41,45 @@ final class SimulacaoViewModel
         return $retorno;
     }
 
+    public function acomodacao()
+    {
+        return match ($this->operadora) {
+            Operadora::UNIMED                          => (new Unimed())->pegarAcomodacoes(),
+            Operadora::UNIMED_SEGURO                   => (new UnimedSeguro())->pegarAcomodacoes(),
+            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarAcomodacoes(true),
+            default                                    => []
+        };
+    }
+
     public function plano()
     {
-        if ($this->operadora == Operadora::AMIL) {
-            return [
-                RegiaoAmil::BRASILIA  => (new PlanoAmilBrasilia())->select(),
-                RegiaoAmil::SAO_PAULO => (new PlanoAmilSaoPaulo())->select(),
-            ];
-        }
+        return match ($this->operadora) {
+            Operadora::AMIL                            => (new Amil())->pegarPlanos(false),
+            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarPlanos(false),
+            Operadora::UNIMED_SEGURO                   => (new UnimedSeguro())->pegarPlanos(false),
+            Operadora::UNIMED                          => (new Unimed())->pegarPlanos(false),
+            default                                    => []
+        };
     }
 
     public function regiao()
     {
-        if ($this->operadora == Operadora::AMIL) {
-            return (new RegiaoAmil())->select();
-        }
+        return match ($this->operadora) {
+            Operadora::AMIL                            => (new Amil())->pegarRegioes(),
+            default                                    => []
+        };
     }
 
     public function passoPasso()
     {
-        if ($this->operadora == Operadora::AMIL) {
-            return $this->montarPassoPasso(['regiao', 'plano', 'simulacao', 'resultado']);
-        }
+        $passoPasso = match ($this->operadora) {
+            Operadora::AMIL                            => ['regiao', 'plano', 'simulacao', 'resultado'],
+            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['plano', 'acomodacao', 'simulacao', 'resultado'],
+            Operadora::UNIMED                          => ['acomodacao', 'simulacao', 'resultado'],
+            Operadora::UNIMED_SEGURO                   => ['acomodacao', 'simulacao', 'resultado'],
+            default                                    => []
+        };
+        return $this->montarPassoPasso($passoPasso);
     }
 
     private function montarPassoPasso($lista)

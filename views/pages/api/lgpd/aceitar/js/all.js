@@ -1,10 +1,7 @@
 // @system "Alerta"
 // @system "Loading"
-// @system "Funcao"
 
 window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value;
-
     const inputTermo = document.querySelector('#input_termo');
     const inputHash = document.querySelector('#input_hash').value;
     const botaoAceitarTermo = document.querySelector('#botao_aceitar_termo');

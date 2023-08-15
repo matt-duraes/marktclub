@@ -4,13 +4,13 @@ namespace App\Models\Api\Saude\Simulacao;
 
 use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimed\CentralNacionalUnimed;
 use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
 use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 use App\Classes\Saude\PlanoSaude;
 use App\Classes\Saude\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use DateTime;
 use Exception;
 use Helpers\ValidarHelper;
 use Http\Request;
@@ -77,23 +77,30 @@ class SimulacaoEntity extends Entity
         $acomodacao = $this->request->getPost('acomodacao');
         $planoSaude = match ($this->operadora->indice()) {
             Operadora::UNIMED => new PlanoSaude(
-                new Unimed($this->titular, acomodacaoSelecionada: $acomodacao)
+                new Unimed(
+                    titular: $this->titular,
+                    acomodacaoSelecionada: $acomodacao
+                )
             ),
             Operadora::UNIMED_SEGURO => new PlanoSaude(
-                new UnimedSeguro($this->titular, acomodacaoSelecionada: $acomodacao)
-            ),
-            Operadora::CENTRAL_NACIONAL_UNIMED => new PlanoSaude(
-                new CentralNacionalUnimed($this->titular, $this->regiao, $this->plano, $acomodacao)
+                new UnimedSeguro(
+                    titular: $this->titular,
+                    acomodacaoSelecionada: $acomodacao
+                )
             ),
             Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => new PlanoSaude(
                 new CentralNacionalUnimedFlorianopolis(
-                    $this->titular,
+                    titular: $this->titular,
                     planoSelecionado: $this->plano,
                     acomodacaoSelecionada: $acomodacao
                 )
             ),
             Operadora::AMIL => new PlanoSaude(
-                new Amil($this->titular, $this->regiao, $this->plano)
+                new Amil(
+                    titular: $this->titular,
+                    regiaoSelecionada: $this->regiao,
+                    planoSelecionado: $this->plano
+                )
             )
         };
 
@@ -111,13 +118,26 @@ class SimulacaoEntity extends Entity
 
             $contador = 1;
             for ($i = 0; $i < $this->quantidade_dependentes; $i++) {
+                $data = new Data($dependentes[$i]);
+
                 (new ValidarHelper())
-                    ->valor(new Data($dependentes[$i]), 'Dependente ' . $contador)
+                    ->valor($data, "{$contador}° Dependente")
                     ->obrigatorio()
                     ->vazio()
                     ->valido();
+
+                if ((new DateTime($data->date()))->diff((new DateTime()))->invert === 1) {
+                    mensagemErro(
+                        'Data de Nascimento',
+                        "Data de Nascimento do {$contador}° Dependente não é válida"
+                    );
+                }
                 $contador++;
             }
+        }
+
+        if ($planoSaude->valor === null) {
+            mensagemErro('Erro ao tentar simular', 'A Região/Plano não foi encontrado');
         }
 
         $valor_titular = $planoSaude->valor;
@@ -135,9 +155,9 @@ class SimulacaoEntity extends Entity
             }
         }
 
-        $this->acomodacao = $planoSaude->codigoAcomodacao ?? '0';
-        $this->valor_titular = new Dinheiro((string)$valor_titular);
+        $this->acomodacao = $planoSaude->codigoAcomodacao ?? 0;
+        $this->valor_titular = new Dinheiro(number_format($valor_titular, 2, thousands_separator: ''));
         $this->dependentes = jsonEncode($valor_dependentes);
-        $this->valor_total = new Dinheiro((string)$valor_total);
+        $this->valor_total = new Dinheiro(number_format($valor_total, 2, thousands_separator: ''));
     }
 }

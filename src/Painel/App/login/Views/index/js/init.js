@@ -2,10 +2,6 @@ const blocoRecaptcha = document.getElementById('RECAPTCHA');
 const RECAPTCHA = blocoRecaptcha.value;
 blocoRecaptcha.parentNode.removeChild(blocoRecaptcha);
 
-const blocoLink = document.getElementById('LINK');
-const LINK = blocoLink.value;
-blocoLink.parentNode.removeChild(blocoLink);
-
 const inputLogin = document.querySelector('#input_cpf');
 const inputSenha = document.querySelector('#input_passe');
 const hash = document.querySelector('input[name=form_system_hash]').value;

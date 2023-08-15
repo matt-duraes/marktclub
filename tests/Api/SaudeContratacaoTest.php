@@ -3,9 +3,9 @@
 namespace Tests\Api;
 
 use Erro\Excecao;
-use Tests\Tests;
+use Tests\Api\Token\Clube;
 
-final class SaudeContratacaoTest extends Tests
+final class SaudeContratacaoTest extends Clube
 {
     private string $idSimulacao = '32dd2783-daf2-4cf4-be78-6f43e3f801c5';
 
@@ -22,6 +22,7 @@ final class SaudeContratacaoTest extends Tests
     {
         $this->api('saude_contratacao:salvar');
         $this->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->pegarDadosFicticios())
             ->post('/saude/contratacao');
 

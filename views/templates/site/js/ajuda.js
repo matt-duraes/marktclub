@@ -9,14 +9,7 @@ window.addEventListener('load', () => {
     };
 
     const botaoAbrirPesquisaSatisfacao = document.getElementById('abreAjuda');
-    const paginaPesquisaSatisfacao = new Pagina(
-        'Ajuda',
-        document.querySelector('#LINK').value + '/ajuda',
-        {},
-        true,
-        true,
-        carregarFuncaoAjuda
-    );
+    const paginaPesquisaSatisfacao = new Pagina('Ajuda', LINK + '/ajuda', {}, true, true, carregarFuncaoAjuda);
 
     botaoAbrirPesquisaSatisfacao.addEventListener('click', () => {
         paginaPesquisaSatisfacao.abrir();

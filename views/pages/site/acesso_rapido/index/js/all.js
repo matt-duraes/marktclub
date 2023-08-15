@@ -2,7 +2,6 @@
 // @system "Alerta"
 // @system "Icone"
 // @system "Pagina"
-// @system "Funcao"
 // @system "Form"
 // @system "Galeria"
 // @system "Calendario"

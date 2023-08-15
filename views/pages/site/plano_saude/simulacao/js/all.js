@@ -9,16 +9,18 @@ const blocoRegiao = $('#bloco_regiao');
 const blocoPlano = $('#bloco_plano');
 const blocoSimulacao = $('#bloco_simulacao');
 const blocoResultado = $('#bloco_resultado');
-
+const blocoAcomodacao = $('#bloco_acomodacao');
+const blocoOperadora = $('#operadora');
 const blocoListaDependente = $('#bloco_lista_dependente');
 const botaoAdicionarDependente = $('#botao_adicionar_dependente');
 const inputDataTitular = $('#input_data_titular');
-
+const blocoBotaoVoltarAcomodacao = $('#bloco_botao_acomodacao');
 const botaoSimulacaoContinuar = $('#botao_simulacao_continuar');
 const botaoContratar = $('#botao_contratar');
 
 const blocoValorLista = $('#bloco_valor_lista');
 const blocoValorTotal = $('#bloco_valor_total');
+const blocoValorTitular = $('#bloco_valor_titular');
 
 const blocoDependentePadrao = $('#bloco_dependente_padrao');
 blocoDependentePadrao.removeAttribute('id');
@@ -35,8 +37,10 @@ window.addEventListener('load', () => {
     if (blocoPlano) {
         carregarPlano();
     }
+    if (blocoAcomodacao) {
+        carregarAcomodacao();
+    }
 });
-
 $('body').addEventListener('keydown', e => {
     if (e.key == 'Tab') {
         e.preventDefault();
@@ -55,6 +59,13 @@ botaoVoltar.forEach(botao => {
     botao.addEventListener('click', () => {
         const blocoAtual = pegarBlocoPassoAtual();
         const blocoAnterior = pegarBlocoPassoAnterior();
+        if (blocoAtual == blocoResultado) {
+            $('#bloco_valor_lista').innerHTML = '';
+        }
+        if (blocoAtual == blocoRegiao) {
+            limparRegiao();
+            limparBotaoRegiao();
+        }
         if (blocoAnterior == blocoRegiao) {
             limparRegiao();
         }
@@ -65,6 +76,14 @@ botaoVoltar.forEach(botao => {
         if (blocoAnterior == blocoPlano) {
             limparBotaoPlano();
         }
+        if (blocoAtual == blocoAcomodacao) {
+            limparBlocoAcomodacao();
+            limparBotaoAcomodacao();
+        }
+        if (blocoAnterior == blocoAcomodacao) {
+            limparBotaoAcomodacao();
+            limparBlocoAcomodacao();
+        }
         if (blocoAtual == blocoSimulacao) {
             limparSimulacao();
         }
@@ -74,9 +93,78 @@ botaoVoltar.forEach(botao => {
 
 /*
 |--------------------------------------------------------------------------
+| ACOMODAÇÃO
+|--------------------------------------------------------------------------
+*/
+
+const blocoAtual = pegarBlocoPassoAtual();
+const abrirBlocoAcomodacao = planoSelecionado => {
+    limparSimulacao();
+    irParaProximoPasso();
+    let plano = planoSelecionado.getAttribute('data-plano');
+    const acomodacoes = $$('#bloco_acomodacao .botao_escolher_acomodacao');
+    if (plano == 'regional') {
+        acomodacoes.forEach(acomodacao => {
+            let dataAcomodacao = acomodacao.getAttribute('data-acomodacao');
+            if (dataAcomodacao == 'enfermaria' || dataAcomodacao == 'apartamento') {
+                acomodacao.classList.add('display_none');
+            }
+            if (dataAcomodacao == 'enfermaria-30' || dataAcomodacao == 'enfermaria-50') {
+                acomodacao.classList.remove('display_none');
+            }
+        });
+    }
+    if (plano == 'nacional' || plano == 'estadual') {
+        acomodacoes.forEach(acomodacao => {
+            let dataAcomodacao = acomodacao.getAttribute('data-acomodacao');
+            if (dataAcomodacao == 'enfermaria' || dataAcomodacao == 'apartamento') {
+                acomodacao.classList.remove('display_none');
+            }
+            if (dataAcomodacao == 'enfermaria-30' || dataAcomodacao == 'enfermaria-50') {
+                acomodacao.classList.add('display_none');
+            }
+        });
+    }
+};
+
+const operadora = blocoOperadora.getAttribute('data-operadora');
+if (operadora == 'unimed' || operadora == 'unimed_seguros') {
+    $('.bloco_botao_acomodacao').classList.add('display_none');
+}
+
+const limparBlocoAcomodacao = () => {
+    adicionarClassLista($$('.bloco_escolher_acomodacao'), 'display_none');
+};
+const limparBotaoAcomodacao = () => {
+    removerClassLista($$('.botao_escolher_acomodacao'), 'ativo');
+};
+
+const mostrarBotaoVoltar = () => {
+    removerClassLista($('#blocoBotaoVoltarAcomodacao'), 'display_none');
+};
+
+const carregarAcomodacao = () => {
+    const lista = $$('.botao_escolher_acomodacao');
+    lista.forEach(botao => {
+        botao.addEventListener('click', () => {
+            escolherAcomodacao(botao, botao.getAttribute('data-acomodacao'));
+        });
+    });
+};
+const escolherAcomodacao = (botao, acomodacao) => {
+    const blocoProximo = pegarBlocoProximoPasso();
+    if (blocoProximo) {
+        botao.classList.add('ativo');
+        abrirBlocoSimulacao(acomodacao);
+    }
+};
+
+/*
+|--------------------------------------------------------------------------
 | REGIAO
 |--------------------------------------------------------------------------
 */
+
 const limparRegiao = () => {
     removerClassLista($$('.botao_escolher_regiao'), 'ativo');
 };
@@ -96,11 +184,25 @@ const escolherRegiao = (botao, regiao) => {
     }
 };
 
+const abrirBlocoRegiao = acomodacao => {
+    const blocoEscolhido = blocoAcomodacao.querySelector('.' + acomodacao);
+    if (!blocoEscolhido) {
+        Alerta.notificacao('Erro ao escolher acomodação, por favor, tente novamente.');
+        return;
+    }
+    blocoEscolhido.classList.remove('display_none');
+    irParaProximoPasso();
+};
+
 /*
 |--------------------------------------------------------------------------
 | PLANO
 |--------------------------------------------------------------------------
 */
+
+if (operadora == 'central_nacional_unimed_florianopolis') {
+    $('.botao_voltar_plano').classList.add('display_none');
+}
 const limparBlocoPlano = () => {
     adicionarClassLista($$('.bloco_escolher_plano'), 'display_none');
 };
@@ -117,8 +219,12 @@ const carregarPlano = () => {
 };
 const escolherPlano = botao => {
     botao.classList.add('ativo');
+
     if (pegarBlocoProximoPasso() == blocoSimulacao) {
         abrirBlocoSimulacao();
+    }
+    if (pegarBlocoProximoPasso() == blocoAcomodacao) {
+        abrirBlocoAcomodacao(botao);
     }
 };
 const abrirBlocoPlano = regiao => {
@@ -136,14 +242,17 @@ const abrirBlocoPlano = regiao => {
 | SIMULAÇÃO
 |--------------------------------------------------------------------------
 */
+
 const limparSimulacao = () => {
     blocoListaDependente.innerHTML = '';
     formValue(inputDataTitular, '');
 };
+
 const abrirBlocoSimulacao = () => {
     limparSimulacao();
     irParaProximoPasso();
 };
+
 const validarSimulacao = async () => {
     if (inputDataTitular.value == '') {
         Alerta.notificacao('Digite a sua data de nascimento para continuar.', false);
@@ -168,16 +277,20 @@ const validarSimulacao = async () => {
     }
     buscarValorSimulacao();
 };
+
 if (botaoSimulacaoContinuar) {
     botaoSimulacaoContinuar.addEventListener('click', validarSimulacao);
 }
+
 const buscarValorSimulacao = async () => {
+    const operadora = blocoOperadora.getAttribute('data-operadora');
     const body = {
         titular: inputDataTitular.value,
         regiao: pegarRegiao(),
         plano: pegarPlano(),
         acomodacao: pegarAcomodacao(),
-        dependente: [],
+        dependentes: [],
+        operadora: operadora,
     };
     const dependente = [];
     $$('#bloco_lista_dependente .bloco_input input').forEach(input => {
@@ -186,19 +299,24 @@ const buscarValorSimulacao = async () => {
         }
     });
     if (dependente.length > 0) {
-        body.dependente = dependente;
+        body.dependentes = dependente;
     }
-    const resposta = { dado: '' };
+    // const resposta = { dado: '' };
     Loading.show();
-    // const resposta = await ajaxPost(LINK + '/', body, 'Erro ao fazer a simulação, por favor, tente novamente.');
+    const resposta = await ajaxPost(
+        LINK + '/saude/realizar-simulacao',
+        body,
+        'Erro ao fazer a simulação, por favor, tente novamente.'
+    );
     Loading.hide();
-    // if (!resposta) {
-    //     return;
-    // }
+    if (!resposta) {
+        return;
+    }
     if (pegarBlocoProximoPasso() == blocoResultado) {
         abrirBlocoResultado(resposta.dado);
     }
 };
+
 const pegarRegiao = () => {
     if (!blocoRegiao) {
         return '';
@@ -209,39 +327,57 @@ const pegarRegiao = () => {
     }
     return bloco.getAttribute('data-regiao');
 };
+
 const pegarPlano = () => {
-    return '';
+    if (!blocoPlano) {
+        return '';
+    }
+    const bloco = blocoPlano.querySelector('.botao_escolher_plano.ativo');
+    if (!bloco) {
+        return '';
+    }
+    return bloco.getAttribute('data-plano');
 };
+
 const pegarAcomodacao = () => {
-    return '';
+    if (!blocoAcomodacao) {
+        return '';
+    }
+    const bloco = blocoAcomodacao.querySelector('.botao_escolher_acomodacao.ativo');
+    if (!bloco) {
+        return '';
+    }
+    return bloco.getAttribute('data-acomodacao');
 };
+
 /*
 |--------------------------------------------------------------------------
 | RESULTADO
 |--------------------------------------------------------------------------
 */
+
 const limparResultado = () => {
     //
 };
+
 const abrirBlocoResultado = dado => {
     limparResultado();
     irParaProximoPasso();
-
-    adicionarLinhaValor(blocoResultadoDependentePadrao, '27/07/1987', '200');
-    adicionarLinhaValor(blocoResultadoDependentePadrao, '27/07/1987', '200');
-    // dado.dependente.forEach(dependente => {
-    // adicionarLinhaValor(blocoResultadoDependentePadrao, '27/07/1987', '200');
-    // });
-
-    adicionarLinhaValor(blocoResultadoTitularPadrao, '27/07/1987', '200,00');
-    blocoValorTotal.innerText = 'R$ 600,00';
-    botaoContratar.setAttribute('href', '');
+    let dependentes = Object.values(dado.dependentes);
+    dependentes.forEach(dependente => {
+        let valor = dependente.valor;
+        let dataNascimento = dependente.data_nascimento;
+        adicionarLinhaValor(blocoResultadoDependentePadrao, dataNascimento, valor);
+    });
+    adicionarLinhaValor(blocoResultadoTitularPadrao, dado.titular, dado.valor_titular);
+    blocoValorTotal.innerText = `R$ ${dado.valor_total}`;
+    botaoContratar.setAttribute('href', `/saude/simulacao/${dado.id}`);
 };
+
 const adicionarLinhaValor = (bloco, data, valor) => {
     const clone = bloco.cloneNode(true);
     clone.querySelector('.data').innerText = data;
     clone.querySelector('.valor').innerText = 'R$ ' + valor;
-
     blocoValorLista.prepend(clone);
 };
 
@@ -250,12 +386,14 @@ const adicionarLinhaValor = (bloco, data, valor) => {
 | DEPENDENTE
 |--------------------------------------------------------------------------
 */
+
 botaoAdicionarDependente.addEventListener('click', () => {
     const clone = blocoDependentePadrao.cloneNode(true);
     blocoListaDependente.prepend(clone);
     clone.querySelector('input').focus();
     fwMascaraLoading(blocoListaDependente);
 });
+
 if (blocoListaDependente) {
     blocoListaDependente.addEventListener('click', e => {
         if (e.target.classList.contains('.remover') || e.target.closest('.remover')) {
@@ -270,11 +408,13 @@ if (blocoListaDependente) {
 | GERAL
 |--------------------------------------------------------------------------
 */
+
 const removerClassLista = (lista, classe) => {
     lista.forEach(item => {
         item.classList.remove(classe);
     });
 };
+
 const adicionarClassLista = (lista, classe) => {
     lista.forEach(item => {
         item.classList.add(classe);

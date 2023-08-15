@@ -97,6 +97,14 @@ final class LojaController extends Controller
         ]);
     }
 
+    public function getConfirmar(string $url): Response
+    {
+        return view('loja.confirmar', [
+            'dado'         => (new BuscarModel($url))->buscarDados(),
+            'procedimento' => new Procedimento()
+        ]);
+    }
+
     public function voucher(string $url)
     {
         $dado = (new ClubeApiHelper())

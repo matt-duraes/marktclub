@@ -71,7 +71,7 @@ class ArquivoUpload {
         body.append('grupo_inicial', this._grupoInicial);
         body.append('grupo_atual', this._grupoAtual);
 
-        const resposta = await fetch(this._LINK + '/upload/criar-diretorio', {
+        const resposta = await fetch(LINK + '/upload/criar-diretorio', {
             method: 'POST',
             body,
         });
@@ -106,7 +106,7 @@ class ArquivoUpload {
         body.append('grupo_inicial', this._grupoInicial);
         body.append('grupo_atual', this._grupoAtual);
 
-        const resposta = await fetch(this._LINK + '/upload/renomear-diretorio', {
+        const resposta = await fetch(LINK + '/upload/renomear-diretorio', {
             method: 'POST',
             body,
         });
@@ -154,7 +154,7 @@ class ArquivoUpload {
         body.append('grupo_atual', this._grupoAtual);
         body.append('grupo_inicial', this._grupoInicial);
 
-        const resposta = await fetch(this._LINK + '/upload/renomear', {
+        const resposta = await fetch(LINK + '/upload/renomear', {
             method: 'POST',
             body,
         });
@@ -192,7 +192,7 @@ class ArquivoUpload {
         body.append('grupo_inicial', this._grupoInicial);
         body.append('grupo_atual', this._grupoAtual);
 
-        const resposta = await fetch(this._LINK + '/upload/deletar', {
+        const resposta = await fetch(LINK + '/upload/deletar', {
             method: 'POST',
             body,
         });
@@ -392,7 +392,7 @@ class ArquivoUpload {
                 body.append(ind, val);
             });
         }
-        const resposta = await fetch(this._LINK + '/upload/buscar', {
+        const resposta = await fetch(LINK + '/upload/buscar', {
             body,
             method: 'POST',
         });
@@ -555,7 +555,7 @@ class ArquivoUpload {
 
         this._loadingShow();
 
-        const resposta = await fetch(this._LINK + '/upload/deletar-diretorio', {
+        const resposta = await fetch(LINK + '/upload/deletar-diretorio', {
             body,
             method: 'POST',
         });
@@ -695,7 +695,7 @@ class ArquivoUpload {
             body.append('id[]', item.getAttribute('data-id'));
         });
 
-        const resposta = await fetch(this._LINK + '/upload/mover', {
+        const resposta = await fetch(LINK + '/upload/mover', {
             method: 'POST',
             body,
         });
@@ -751,7 +751,7 @@ class ArquivoUpload {
         body.append('grupo_inicial', this._grupoInicial);
 
         const bloco = await this._htmlNovoArquivo(true);
-        const resposta = await fetch(this._LINK + '/upload/salvar', {
+        const resposta = await fetch(LINK + '/upload/salvar', {
             method: 'POST',
             body,
         });
@@ -1005,7 +1005,6 @@ class ArquivoUpload {
             this._multiplo = true === multiplo;
 
             this._body = body;
-            this._LINK = document.querySelector('#LINK').value;
             resolve(true);
         });
     }
@@ -1013,7 +1012,7 @@ class ArquivoUpload {
         return new Promise(async resolve => {
             const body = new FormData();
             body.append('grupo', this._grupoInicial);
-            const resposta = await fetch(this._LINK + '/upload/extensao', {
+            const resposta = await fetch(LINK + '/upload/extensao', {
                 method: 'POST',
                 body,
             });
@@ -1030,7 +1029,7 @@ class ArquivoUpload {
             const body = new FormData();
             body.append('grupo', this._grupoInicial);
 
-            const resposta = await fetch(this._LINK + '/upload/estrutura-diretorio', {
+            const resposta = await fetch(LINK + '/upload/estrutura-diretorio', {
                 method: 'POST',
                 body,
             });

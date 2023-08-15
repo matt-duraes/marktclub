@@ -6,11 +6,11 @@
             </figure>
             <div class="borda_meio"></div>
             <div class="bloco_cpf">
-                <h1>{{$carteira->cpf}}</h1>
+                <h1>{{$cpf}}</h1>
             </div>
         </div>
         <div class="bloco_nome">
-            <h1>{{$carteira->nome}}</h1>
+            <h1>{{$nome}}</h1>
         </div>
     </div>
 </div>

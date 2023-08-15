@@ -1,4 +1,3 @@
-// @system "Funcao"
 // @system "Pagina"
 // @system "Loading"
 // @system "Form"
@@ -8,7 +7,5 @@
 // @import "menu_principal"
 // @import "menu_perfil"
 // @import "ajuda"
+// @import "login"
 // @import "mapa"
-
-const LINK = document.querySelector('#LINK').value || '';
-const body = $('body');

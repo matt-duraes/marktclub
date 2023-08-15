@@ -167,13 +167,13 @@
 
             <div class="linha"></div>
 
-            <a class="botao footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</a>
+            <a class="botao footer" href="@route('site.pesquisa')" id="abrePesquisaSatisfacao">Pesquisa de satisfação</a>
             <a class="botao footer" href="@route('loja.detalhe')/sala-vip-do-aeroporto-internacional-de-brasilia-presidente-juscelino-kubitschek-1">Sala VIP</a>
             <a class="botao footer" href="@route('sosmulher.index')">SOS Mulher</a>
 
             <div class="linha"></div>
 
-            <a href="@route('sair.sair')" class="botao sair">Sair do clube</a>
+            <a href="@route('sair.index')" class="botao sair">Sair do clube</a>
 
             <div class="resto"></div>
         </div>

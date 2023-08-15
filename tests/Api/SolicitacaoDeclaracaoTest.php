@@ -4,28 +4,11 @@ namespace Tests\Api;
 
 use App\Classes\SolicitacaoDeclaracao\Tipo;
 use Erro\Excecao;
-use Tests\Tests;
+use Tests\Api\Token\Clube;
 
-class SolicitacaoDeclaracaoTest extends Tests
+class SolicitacaoDeclaracaoTest extends Clube
 {
-    private string $idSolicitacaoDeclaracao = 'abc58a05-14f8-49ee-bf9c-40cffeacc9d8';
-
-    /**
-     * @return SolicitacaoDeclaracaoTest
-     * @throws Excecao
-     */
-    public function buscarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
-    {
-        $this->api('solicitacao_declaracao:buscar');
-        $this
-            ->Curl
-            ->get('/solicitacao-declaracao/' . $this->idSolicitacaoDeclaracao);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceIgual('dado.id', $this->idSolicitacaoDeclaracao);
-    }
+    private string $idSolicitacaoDeclaracao;
 
     /**
      * @return SolicitacaoDeclaracaoTest
@@ -56,20 +39,41 @@ class SolicitacaoDeclaracaoTest extends Tests
      * @return SolicitacaoDeclaracaoTest
      * @throws Excecao
      */
-    public function salvarSimulacoesDeCreditoTest(): SolicitacaoDeclaracaoTest
+    public function salvarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
     {
         $this->api('solicitacao_declaracao:salvar');
-        $this
+        $solicitacao = $this
             ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'url'  => 'parceiro-normal',
                 'tipo' => Tipo::CONVENIO
             ])
-            ->post('/solicitacao-declaracao');
+            ->post('/solicitacao-declaracao')
+            ->array()['dado'] ?? [];
+
+        $this->idSolicitacaoDeclaracao = $solicitacao['id'];
 
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SolicitacaoDeclaracaoTest
+     * @throws Excecao
+     */
+    public function buscarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
+    {
+        $this->api('solicitacao_declaracao:buscar');
+        $this
+            ->Curl
+            ->get('/solicitacao-declaracao/' . $this->idSolicitacaoDeclaracao);
+
+        return $this
+            ->checkStatus(200)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceIgual('dado.id', $this->idSolicitacaoDeclaracao);
     }
 }

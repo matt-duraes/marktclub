@@ -12,7 +12,8 @@ return [
     ],
     'parceiro_novo' => [
         'cod'     => 'uuid',
-        'empresa' => 'id_admin_empresa'
+        'empresa' => 'id_admin_empresa',
+        'site'    => 'link_site'
     ],
     'tag_novo' => [
         'cod' => 'uuid'

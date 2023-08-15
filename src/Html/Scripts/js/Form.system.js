@@ -55,7 +55,6 @@ fwFormJsonParse = json => {
 | IMAGEM
 |--------------------------------------------------------------------------
 */
-const LINK_FORM = document.querySelector('#LINK') ? document.querySelector('#LINK').value : '';
 let GaleriaFormImagem;
 /**
  * Verifica se existe form de imagem

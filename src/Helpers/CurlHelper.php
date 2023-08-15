@@ -27,6 +27,7 @@ class CurlHelper
     private string $erroMensagem = '';
     private int $erroStatus = 400;
     private bool $erroRetorno = true;
+    private bool $erroLogin = false;
 
     public function __construct(
         private readonly ?string $url = null
@@ -83,14 +84,18 @@ class CurlHelper
      * @param  string|null $titulo   Título de erro padrão caso a resposta não tenha
      * @param  int|null    $status   Status HTML em caso de erro
      * @param  bool        $retorno  Se pode mostar o retorno de erro ou obriga a usar o da mensagem
+     * @param  bool        $login    Se erro 401 ou 403 redireciona o usuário para o login
+     * @param  bool        $ajax     Tratar o GET como ajax em caso de erro do login
      * @return CurlHelper
      */
     public function validar(
         string $mensagem = null,
         string $titulo = null,
         int $status = null,
-        bool $retorno = true
+        bool $retorno = true,
+        bool $login = false
     ): self {
+        $this->erroLogin = $login;
         $this->erroValidar = true;
         $this->erroRetorno = $retorno;
         if (!empty($mensagem)) {
@@ -346,7 +351,18 @@ class CurlHelper
         $this->retornoInfo = $retornoInfo;
         curl_close($ch);
 
-        if ($this->erroValidar) {
+        $tokenInvalido = $this->erroLogin && in_array($this->status(), [401, 403]) && !empty(route('sair.index'));
+        if ($tokenInvalido && defined('VIEW') && VIEW) {
+            header('LOCATION: ' . route('sair.index'));
+            exit();
+        } elseif ($tokenInvalido) {
+            mensagemErro(
+                'Usuário deslogado!',
+                'O usuário foi deslogado, por favor, faça o login novamente.',
+                status: 401,
+                codigo: 4001
+            );
+        } elseif ($this->erroValidar) {
             respostaJson($this, $this->erroMensagem, $this->erroTitulo, $this->erroStatus, $this->erroRetorno);
         }
 

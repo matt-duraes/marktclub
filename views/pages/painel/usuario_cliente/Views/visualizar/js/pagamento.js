@@ -4,8 +4,6 @@ window.addEventListener('load', () => {
         return;
     }
 
-    const LINK = document.querySelector('#LINK').value;
-
     const blocoGerenciarPagamento = document.querySelector('#bloco_pagamento_visualizar');
     const blocoPagamento = document.querySelector('#bloco_pagamento_lista');
     const botaoFecharPagamento = document.querySelector('#botao_pagamento_visualizar_fechar');

@@ -53,6 +53,15 @@ Route
             ::post('/login/contato');
     });
 Route
+    ::nome('loginGeral')
+    ::controller(App\Controllers\Site\LoginController::class)
+    ::grupo(function() {
+        Route
+            ::nome('login')
+            ::request(['login', 'senha'])
+            ::post('/login/login');
+    });
+Route
     ::nome('login')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
@@ -63,10 +72,6 @@ Route
         Route
             ::nome('login')
             ::view('/login/login');
-        Route
-            ::nome('login')
-            ::request(['login', 'senha'])
-            ::post('/login/login');
         Route
             ::nome('buscarConta')
             ::view('/login/buscar-conta');
@@ -86,10 +91,10 @@ Route
 Route
     ::nome('sair')
     ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\LoginController::class)
+    ::controller(App\Controllers\Site\SairController::class)
     ::grupo(function () {
         Route
-            ::nome('sair')
+            ::nome('index')
             ::view('/sair');
     });
 Route
@@ -100,6 +105,10 @@ Route
         Route
             ::nome('index')
             ::view('/');
+        Route
+            ::nome('promocoes')
+            ::request(['!tipo'])
+            ::get('/promocoes');
     });
 Route
     ::nome('acessoRapido')
@@ -203,6 +212,9 @@ Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
+            ::nome('confirmar')
+            ::get('/convenios/confirmar/{url}');
+        Route
             ::nome('voucher')
             ::view('/convenios/voucher/{url}');
         Route
@@ -262,7 +274,7 @@ Route
             ::view('/saude/unimed-vitoria');
         Route
             ::nome('unimedflorianopolis')
-            ::view('/saude/unimed-florianopolis');
+            ::view('/saude/central-nacional-unimed-florianopolis');
         Route
             ::nome('tabela')
             ::request(['id'])
@@ -282,14 +294,18 @@ Route
             ::view('/saude/unimed-seguro');
         Route
             ::nome('simulacao')
-            ::view('/saude/simulacao/{url}');
+            ::view('/saude/plano-simulacao/{url}');
+        Route
+            ::nome('buscarCep')
+            ::request(['cep'])
+            ::post('/saude/buscar-cep');
         Route
             ::nome('realizarSimulacao')
-            ::request(['!operadora','!acomodacao', '!regiaoSelecionada', '!planoSelecionado', '!dtNascimentoTitular', '!dtNascimentoDependentes'])
-            ::get('/saude/realizar-simulacao');
+            ::request(['!operadora','!titular','!regiao','!plano','!acomodacao','!dependentes'])
+            ::post('/saude/realizar-simulacao');
         Route
             ::nome('contratacao')
-            ::view('/saude/contratacao/{simulacao}');
+            ::view('/saude/simulacao/{simulacao}');
         Route
             ::nome('realizarContratacao')
             ::request([
@@ -341,6 +357,7 @@ Route
         Route
             ::nome('abrirModalRegulamento')
             ::view('/sicoob-regulamento/{url}');
+
     });
 
 Route
@@ -351,13 +368,13 @@ Route
         Route
             ::nome('realizarSimulacao')
             ::request([
-                'tipo', 'valor', 'prazo', 'operadora'
+                'tipo', 'valor', 'parcelas', 'operadora'
             ])
             ::get('/credito/simulacao');
         Route
             ::nome('salvar')
             ::request([
-                'tipo', 'valor', 'prazo', 'operadora'
+                'tipo', 'valor', 'parcelas', 'operadora'
             ])
             ::post('/credito/salvar');
     });

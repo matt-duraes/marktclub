@@ -30,7 +30,7 @@ window.addEventListener('load', () => {
         const idPopupEnquete = hashPopupEnquete.getAttribute('data-popup-enquete');
         const PaginaBuscaPopupEnquete = new Pagina(
             'Busca',
-            document.querySelector('#LINK').value + '/enquete-popup/' + idPopupEnquete,
+            LINK + '/enquete-popup/' + idPopupEnquete,
             {},
             true,
             true,
@@ -56,7 +56,7 @@ window.addEventListener('load', () => {
         const idPopupEnquete = hashPopupImagem.getAttribute('data-popup-imagem');
         const PaginaBuscaPopupEnquete = new Pagina(
             'Busca',
-            document.querySelector('#LINK').value + '/enquete-imagem/' + idPopupEnquete,
+            LINK + '/enquete-imagem/' + idPopupEnquete,
             {},
             true,
             true,

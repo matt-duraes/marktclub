@@ -8,87 +8,74 @@ const botaoSimularConsignado = $('#botao_fazer_simulacao');
 const botaoContratarConsignado = $('#enviar_solicitacao');
 const botaoPopupRegulamento = $$('.abrirModalRegulamento');
 const botaoFechar = $$('.botao_fechar_popup');
-const botaoVoltar = $('.bloco_credito_geral_simulacao .bloco_credito .bloco_botao .cinza');
+const botaoVoltar = $('.bloco_credito .botao_passa_passo_anterior');
 
 function adicionarEventoSimularConsignado() {
     botaoSimularConsignado.addEventListener('click', async e => {
         e.preventDefault();
         const tipo = $('#formulario_emprestimo input[name=tipo_financiamento]').value;
-        const valor = $('#formulario_emprestimo input[name=financiamento]').value;
-        const prazo = $('#formulario_emprestimo input[name=parcela]').value.slice(0, 2);
+        const valor = $('#formulario_emprestimo input[name=financiamento]').value.replace('.', '').replace(',', '.');
+        const parcelas = $('#formulario_emprestimo input[name=parcela]').value.slice(0, 2);
 
         if (valor === '') {
-            Alerta.mensagem('Campo obrigatório!', 'Digite o valor que deseja simular.');
+            Alerta.mensagem('Campo obrigatório!', 'Digite o valor que deseja simular.', '!');
             return false;
-        } else if (prazo === '') {
-            Alerta.mensagem('Campo obrigatório!', 'Escolha a quantidade de parcelas que deseja simular.');
+        } else if (parcelas === '') {
+            Alerta.mensagem('Campo obrigatório!', 'Escolha a quantidade de parcelas que deseja simular.', '!');
             return false;
         }
 
-        const query = `&tipo=${tipo}&valor=${valor}&prazo=${prazo}`;
+        const query = `&tipo=${tipo}&valor=${valor}&parcelas=${parcelas}`;
 
-        const resposta = await ajaxGet('/credito/simulacao?operadora=sicoob-judiciario' + query);
-        if (false === resposta) {
+        const resposta = await ajaxGet('/credito/simulacao?operadora=sicoob' + query);
+        if (!resposta) {
             return;
         }
 
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
-
-        if (resposta.status === 200) {
-            irParaProximoPasso(botaoSimularConsignado);
-            $('.valor_emprestimo').innerHTML = json.dado.lista.valor;
-            $('.valor_prazo').innerHTML = json.dado.lista.parcelas;
-            $('#simulacao_valor').innerHTML = 'R$ ' + json.dado.lista.valor_parcelas;
-            return;
-        }
-
-        Alerta.notificacao(
-            json.erro.mensagem !== undefined
-                ? json.erro.mensagem
-                : 'Ocorreu um erro ao simular, por favor, tente novamente.',
-            false
-        );
-
+        irParaProximoPasso(botaoSimularConsignado);
+        $('.valor_emprestimo').innerHTML = resposta.dado.valor;
+        $('.valor_prazo').innerHTML = resposta.dado.parcelas;
+        $('#simulacao_valor').innerHTML = 'R$ ' + resposta.dado.valor_parcelas;
         Loading.hide();
+    });
+}
+
+if (botaoVoltar) {
+    botaoVoltar.addEventListener('click', () => {
+        const itemLista = $$('.bloco_progresso .item');
+        const itemAtual = $('.bloco_progresso .item.atual');
+        const numero = parseInt(itemAtual.getAttribute('data-numero')) - 1;
+        const novoNumero = parseInt(numero) + 1;
+        const bloco = $('.bloco_passo_passo_geral');
+        montarNovoItem(bloco, itemLista, numero, novoNumero);
     });
 }
 
 function adicionarEventoContratarConsignado() {
     botaoContratarConsignado.addEventListener('click', async e => {
         e.preventDefault();
-        const tipo = formulario.querySelector('input[name=tipo_financiamento]').value;
-        const valor = formulario.querySelector('input[name=financiamento]').value;
-        const prazo = formulario.querySelector('input[name=parcela]').value;
+        const tipo = $('input[name=tipo_financiamento]').value;
+        const valor = $('input[name=financiamento]').value.replace('.', '').replace(',', '.');
+        const parcelas = $('input[name=parcela]').value.slice(0, 2);
 
-        const body = new FormData();
-        body.append('tipo', tipo);
-        body.append('valor', valor);
-        body.append('prazo', prazo);
-        body.append('operadora', 'sicoob-judiciario');
+        const resposta = await ajaxPost(
+            LINK + '/credito/salvar',
+            {
+                tipo: tipo,
+                valor: valor,
+                operadora: 'sicoob',
+                parcelas: parcelas,
+            },
+            'Erro ao fazer a requisição, por favor, tente novamente.'
+        );
 
-        const resposta = await fetch('/credito/salvar', {
-            method: 'POST',
-            body,
-        });
-
-        if (resposta.status !== 201) {
-            Alerta.notificacao(
-                json.erro.mensagem !== undefined
-                    ? json.erro.mensagem
-                    : 'Ocorreu um erro ao salvar a contratação, por favor, tente novamente.',
-                false
-            );
+        if (false === resposta) {
+            Alerta.notificacao('Não foi possível completar a sua solicitação, tente novamente, em breve.', false);
             return;
         }
-        const botaoVoltar = document.querySelector('.bloco_credito_geral_simulacao .bloco_credito .bloco_botao .cinza');
-        irParaPassoAnterior(botaoVoltar);
-        limparFormulario(formulario);
-        Alerta.notificacao('Envio do formulário com sucesso!', true);
+
+        await Alerta.mensagem('Solicitação feita', 'Em breve entraremos em contato', true);
+        location.href = LINK + '/credito/sicoob';
     });
 }
 
@@ -117,12 +104,6 @@ function adicionarEventoFechar() {
         fecha.addEventListener('click', () => {
             Pagina.staticFechar();
         });
-    });
-}
-
-function adicionarEventoVoltar() {
-    botaoVoltar.addEventListener('click', () => {
-        irParaPassoAnterior(botaoVoltar);
     });
 }
 

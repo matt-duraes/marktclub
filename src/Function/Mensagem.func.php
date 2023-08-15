@@ -20,7 +20,8 @@ if (!function_exists('mensagemErro')) {
         string $mensagem,
         ?int $status = null,
         ?Throwable $error = null,
-        ?string $localhost = null
+        ?string $localhost = null,
+        int $codigo = 0
     ): void {
         $eLocalhost = defined('SISTEMA') && SISTEMA == 'LOCALHOST';
         if ($eLocalhost && !empty($localhost)) {
@@ -44,7 +45,7 @@ if (!function_exists('mensagemErro')) {
         }
         $status = is_int($status) && in_array($status, [400, 401, 403, 404]) ? $status : 400;
 
-        throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: $status);
+        throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: $status, codigo: $codigo);
     }
 }
 if (!function_exists('mensagemErroVazio')) {

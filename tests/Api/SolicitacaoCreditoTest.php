@@ -5,11 +5,11 @@ namespace Tests\Api;
 use App\Classes\SolicitacaoCredito\Operadora;
 use App\Classes\SolicitacaoCredito\Tipo;
 use Erro\Excecao;
-use Tests\Tests;
+use Tests\Api\Token\Clube;
 
-final class SolicitacaoCreditoTest extends Tests
+final class SolicitacaoCreditoTest extends Clube
 {
-    private string $idSolicitacaoCredito = 'c9c6d7cd-27d3-471c-b7e0-73fc7026368d';
+    private string $idSolicitacaoCredito;
 
     /**
      * @return SolicitacaoCreditoTest
@@ -31,23 +31,6 @@ final class SolicitacaoCreditoTest extends Tests
         return $this
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
-    }
-
-    /**
-     * @return SolicitacaoCreditoTest
-     * @throws Excecao
-     */
-    public function buscarSimulacaoDeCreditoTest(): SolicitacaoCreditoTest
-    {
-        $this->api('solicitacao_credito:buscar');
-        $this
-            ->Curl
-            ->get('/solicitacao-credito/' . $this->idSolicitacaoCredito);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceIgual('dado.id', $this->idSolicitacaoCredito);
     }
 
     /**
@@ -81,8 +64,9 @@ final class SolicitacaoCreditoTest extends Tests
     public function salvarSimulacoesDeCreditoTest(): SolicitacaoCreditoTest
     {
         $this->api('solicitacao_credito:salvar');
-        $this
+        $simulacao = $this
             ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'operadora'      => Operadora::SICOOB,
                 'tipo'           => Tipo::CONSIGNADO,
@@ -91,11 +75,31 @@ final class SolicitacaoCreditoTest extends Tests
                 'valor_parcelas' => '',
                 'status'         => ''
             ])
-            ->post('/solicitacao-credito');
+            ->post('/solicitacao-credito')
+            ->array()['dado'] ?? [];
+
+        $this->idSolicitacaoCredito = $simulacao['id'];
 
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @return SolicitacaoCreditoTest
+     * @throws Excecao
+     */
+    public function buscarSimulacaoDeCreditoTest(): SolicitacaoCreditoTest
+    {
+        $this->api('solicitacao_credito:buscar');
+        $this
+            ->Curl
+            ->get('/solicitacao-credito/' . $this->idSolicitacaoCredito);
+
+        return $this
+            ->checkStatus(200)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceIgual('dado.id', $this->idSolicitacaoCredito);
     }
 }

@@ -1,11 +1,9 @@
 // @system "Loading"
 // @system "Form"
-// @system "Funcao"
 // @system "Loading"
 // @system "Alerta"
 
 window.addEventListener('load', () => {
-    const LINK = document.getElementById('LINK').value;
     const download = document.getElementById('input_download').value;
     const inputSenha = document.getElementById('input_senha');
     const botaoSenha = document.getElementById('botao_validar_senha');

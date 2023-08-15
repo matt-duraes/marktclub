@@ -6,7 +6,7 @@
         <figure class="logo vazio"><img src="{{$dado->logo}}"></figure>
         <header class="bloco_header">
             <h1>{{$dado->titulo}}</h1>
-            <p>{{$dado->texto_descricao}}</p>
+            <p>{!!$dado->texto_descricao!!}</p>
             @if(TIPO_USUARIO != 'indicado'):
             <a href="" data-botao="Regulamento" class="botao_pequeno_borda cor_border botao_contar_click">Regulamento do SILIUM</a>
             @endif
@@ -54,12 +54,12 @@
                 <a class="botao_geral_cor cor_bg botao botao_contar_click" data-botao="Acessar" href="{!!$dado->link!!}" target="_blank" rel="nofollow noopener">Acessar parceiro para acumular pontos</a>
             </div>
             @ if( !empty($dado->texto_outro) ):
-            <p>{{$dado->texto_outro}}</p>
+            <p>{!!$dado->texto_outro!!}</p>
             @ endif;
 
             @ if( !empty($dado->texto_restricao) ):
             <div class="atencao bloco_atencao_geral">
-                <p>{{$dado->texto_restricao}}</p>
+                <p>{!!$dado->texto_restricao!!}</p>
             </div>
             @ endif;
         @else

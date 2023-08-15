@@ -33,14 +33,7 @@ const blocoAtualizarSenha = () => {
     };
 };
 
-const paginaSenha = new Pagina(
-    'Alterar senha',
-    document.querySelector('#LINK').value + '/perfil/senha',
-    undefined,
-    true,
-    true,
-    blocoAtualizarSenha
-);
+const paginaSenha = new Pagina('Alterar senha', LINK + '/perfil/senha', undefined, true, true, blocoAtualizarSenha);
 
 window.addEventListener('load', () => {
     const botaoAbrir = document.getElementById('botao_config_alterar_senha');

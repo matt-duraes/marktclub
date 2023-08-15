@@ -9,13 +9,15 @@ use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\OperadoraModel;
 use App\Models\Site\Saude\SimulacaoViewModel;
+use Helpers\LocalizacaoHelper;
 
 final class PlanoSaudeController extends Controller
 {
     public function index()
     {
         return view('plano_saude.index', [
-            'lista' => (new OperadoraModel())->listarDados()
+            'menu'   => 'saude',
+            'lista'  => (new OperadoraModel())->listarDados()
         ]);
     }
 
@@ -89,15 +91,15 @@ final class PlanoSaudeController extends Controller
         ]);
     }
 
-    public function getRealizarSimulacao(Request $request)
+    public function postRealizarSimulacao(Request $request, $url = null)
     {
         $dado = ((new ClubeApiHelper()))
         ->body([
             'operadora'        => $request->operadora,
-            'regiao'           => $request->regiaoSelecionada,
-            'plano'            => $request->planoSelecionado,
-            'data_nascimento'  => $request->dtNascimentoTitular,
-            'dependentes'      => $request->dtNascimentoDependentes,
+            'regiao'           => $request->regiao,
+            'plano'            => $request->plano,
+            'titular'          => $request->titular,
+            'dependentes'      => $request->dependentes,
             'acomodacao'       => $request->acomodacao
         ])
         ->post('/saude/simulacao')
@@ -108,10 +110,17 @@ final class PlanoSaudeController extends Controller
 
     public function simulacao($url = null)
     {
+        $operadora = ($url == 'unimed-vitoria') ? 'unimed' : $url;
+        if ($operadora == 'central-nacional-unimed-florianopolis') {
+            $operadora = str_replace('-', '_', $url);
+        }
+        if ($operadora == 'unimed-seguros') {
+            $operadora = str_replace('-', '_', $url);
+        }
         return view('plano_saude.simulacao', [
             'menu'      => 'saude',
-            'operadora' => $url,
-            'Simulacao' => new SimulacaoViewModel($url)
+            'operadora' => $operadora,
+            'Simulacao' => new SimulacaoViewModel($operadora)
         ]);
     }
 
@@ -121,6 +130,12 @@ final class PlanoSaudeController extends Controller
             'menu'      => 'saude',
             'simulacao' => $simulacao
         ]);
+    }
+
+    public function postBuscarCep(Request $request): Response
+    {
+        $cep = (new LocalizacaoHelper())->pegarEnderecoPeloCep($request->cep);
+        return mensagemSucesso($cep);
     }
 
     public function postRealizarContratacao(Request $request, string $id_simulacao)

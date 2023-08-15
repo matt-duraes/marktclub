@@ -8,9 +8,9 @@ class Operadora extends Status
 {
     public const AMIL = 'amil';
     public const CENTRAL_NACIONAL_UNIMED = 'central_nacional_unimed';
-    public const CENTRAL_NACIONAL_UNIMED_FLORIPA = 'unimed_florianopolis';
+    public const CENTRAL_NACIONAL_UNIMED_FLORIPA = 'central_nacional_unimed_florianopolis';
     public const UNIMED = 'unimed';
-    public const UNIMED_SEGURO = 'unimed_seguro';
+    public const UNIMED_SEGURO = 'unimed_seguros';
 
     public function __construct(
         protected string|int|null $valor = null

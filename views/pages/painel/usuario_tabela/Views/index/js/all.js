@@ -2,8 +2,6 @@
 // @system "Icone"
 
 window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value;
-
     const blocoAcao = document.querySelector('#TABELA_ACAO');
     const acao = blocoAcao.value;
     blocoAcao.parentNode.removeChild(blocoAcao);

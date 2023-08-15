@@ -17,10 +17,9 @@ final class BuscarModel extends ClubeApiHelper
     public function buscarDados(): stdClass
     {
         $dado = $this
-            ->validar(mensagem: 'Página não encontrada', status: 404)
+            ->validar(mensagem: 'Página não encontrada', status: 404, login: true)
             ->get('/parceiro-loja/' . $this->url)
             ->object();
-
         if ($dado->dado->status != Status::CONCLUIDO) {
             mensagemStatus(404);
         }
@@ -39,6 +38,7 @@ final class BuscarModel extends ClubeApiHelper
             'procedimento'       => $r->procedimento,
             'capa_desktop'       => $r->link_capa_desktop,
             'capa_mobile'        => $r->link_capa_mobile,
+            'link'               => $r->link_site,
             'url'                => $r->url,
             'endereco'           => '',
         ];

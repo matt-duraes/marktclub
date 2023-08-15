@@ -133,6 +133,10 @@ class LojaModel extends ORM implements ModelListarInterface
         if (!$estabelecimento->vazio() && !$estabelecimento->valido()) {
             mensagemErro('Erro!', 'O campo estabelecimento não é um valor válido.');
         }
+        $categoria = new Categoria($this->request->categoria);
+        if (!$categoria->vazio() && !$categoria->valido()) {
+            mensagemErro('Erro!', 'O campo categoria não é um valor válido.');
+        }
         $status = new Status($this->request->status);
         if (!$status->vazio() && !$status->valido()) {
             mensagemErro('Erro!', 'O campo status não é um valor válido.');
