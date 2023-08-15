@@ -1,9 +1,9 @@
-<div class="bloco_popup_geral medio">
-    <header class="popup_header">
+<div class="bloco_pagina_popup medio">
+    <header class="header_pagina_popup">
         <h1>Pesquisa de Satisfação</h1>
         <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
-    <div class="popup_conteudo centralizado">
+    <div class="conteudo_pagina_popup centralizado">
         <!-- CONTEÚDO AQUI -->
         <form id="formulario_pesquisa" action="" class="form_geral bloco_quiz_geral" method="post">
             <header>
@@ -88,7 +88,9 @@
                 <p>Escreva alguma mensagem se desejar?</p>
                 @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
             </fieldset>
-            <button class="botao_geral_cor" id="botao_envia_pesquisa">Enviar Pesquisa</button>
+            <div class="footer_pagina_popup noshadow">
+                <button class="botao_geral_cor" id="botao_envia_pesquisa">Enviar Pesquisa</button>
+            </div>
         </form>
     </div>
 </div>
