@@ -78,8 +78,6 @@ function inicializarPassoAPasso() {
         });
         bloco.classList.add('carregado');
     });
-
-    // Restante do código...
 }
 
 inicializarPassoAPasso();
@@ -288,6 +286,7 @@ async function buscarEnderecoPeloCep(cep) {
     }
     if (json.status == 'erro') {
         Alerta.notificacao('CEP inválido. Endereço não encontrado.', false);
+        Loading.hide();
         return;
     }
     atualizarEnderecoPeloCep(json.dado);
