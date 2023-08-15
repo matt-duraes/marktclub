@@ -90,7 +90,7 @@ class ContratacaoEntity extends Entity
         filiacao|Filiação
         cpf_responsavel|CPF Responsável
         rg_responsavel|RG Responsável
-        nome_responsavel|Nome Responsável|valido
+        nome_responsavel|Nome Responsável
         email|E-mail|obrigatorio|vazio|valido
         telefone_celular|Telefone Celular|obrigatorio|vazio|valido
         telefone_residencial|Telefone Residencial

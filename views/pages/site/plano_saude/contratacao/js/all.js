@@ -120,6 +120,7 @@ if (botaoProximo.length > 0) {
 
 const verificarDados = (dados, botao) => {
     let campos = 0;
+
     dados.forEach(dado => {
         if (dado.value != '') {
             campos += 1;
@@ -235,9 +236,6 @@ form.addEventListener('submit', async event => {
         body: formData,
     });
 
-    if (false === resposta) {
-        return;
-    }
     Loading.show();
     if (resposta === false) {
         Alerta.notificacao('Formulário não enviado', false);
