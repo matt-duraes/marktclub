@@ -37,7 +37,7 @@ class SaudeContratacaoController extends Controller implements
                 'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
                 'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
                 'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
-                'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+                'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
                 'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
                 'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'status'
             ]),

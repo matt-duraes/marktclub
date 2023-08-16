@@ -152,7 +152,7 @@ final class PlanoSaudeController extends Controller
                 'responsavel_cpf'             => $request->responsavel_cpf,
                 'responsavel_rg'              => $request->responsavel_rg,
                 'responsavel_orgao_expedidor' => $request->responsavel_orgao_expedidor,
-                'email'                       => $request->email_pessoal,
+                'email_pessoal'               => $request->email_pessoal,
                 'telefone_celular'            => $request->telefone_celular,
                 'telefone_residencial'        => $request->telefone_residencial,
                 'telefone_comercial'          => $request->telefone_comercial,

@@ -9,9 +9,9 @@ use Http\Request;
 use Modules\Data;
 use Modules\Dinheiro;
 use Helpers\ValidarHelper;
-use App\Classes\Saude\Status;
 use App\Classes\Saude\Operadora;
 use App\Classes\Saude\PlanoSaude;
+use App\Classes\SaudeSimulacao\Status;
 use App\Classes\Saude\Operadoras\Amil\Amil;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
@@ -67,12 +67,14 @@ class SimulacaoEntity extends Entity
             return;
         }
 
+        new NovaSimulacaoModel($this->idUsuario);
+
         $this->quantidade_dependentes = 0;
         $this->titular = new Data($this->request->getPost('titular'));
         $this->operadora = new Operadora($this->request->getPost('operadora'));
         $this->regiao = $this->request->getPost('regiao');
         $this->plano = $this->request->getPost('plano');
-        $this->status = new Status(Status::REGISTRADO);
+        $this->status = new Status(Status::NOVO);
 
         $acomodacao = $this->request->getPost('acomodacao');
         $planoSaude = match ($this->operadora->indice()) {
@@ -159,5 +161,10 @@ class SimulacaoEntity extends Entity
         $this->valor_titular = new Dinheiro(number_format($valor_titular, 2, thousands_separator: ''));
         $this->dependentes = jsonEncode($valor_dependentes);
         $this->valor_total = new Dinheiro(number_format($valor_total, 2, thousands_separator: ''));
+    }
+
+    protected function getId()
+    {
+        return $this->prop('id');
     }
 }

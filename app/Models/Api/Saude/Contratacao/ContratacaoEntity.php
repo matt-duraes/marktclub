@@ -14,16 +14,15 @@ use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
 use App\Classes\Saude\Status;
-use App\Classes\Saude\Operadora;
-use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\Saude\Documento\DocumentoEntity;
 use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
+use App\Classes\SaudeSimulacao\Status as SaudeSimulacaoStatus;
 
 class ContratacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    protected int $id_saude_simulacao;
     public string $id_simulacao;
     public Cpf $documento_cpf;
     public string $documento_rg;
@@ -36,24 +35,24 @@ class ContratacaoEntity extends Entity
     public string $peso;
     public string $altura;
     public Nome $nome_mae;
-    public ?Cpf $responsavel_cpf;
-    public ?string $responsavel_rg;
-    public ?Nome $responsavel_nome;
-    public Email $email;
+    public Cpf $responsavel_cpf;
+    public string $responsavel_rg;
+    public Nome $responsavel_nome;
+    public Email $email_pessoal;
     public Telefone $telefone_celular;
-    public ?Telefone $telefone_residencial;
+    public Telefone $telefone_residencial;
     public Telefone $telefone_comercial;
-    public ?string $telefone_comercial_ramal;
+    public string $telefone_comercial_ramal;
     public string $endereco_logradouro;
     public EnderecoCep $endereco_cep;
     public EnderecoEstado $endereco_estado;
     public string $endereco_cidade;
     public string $endereco_bairro;
     public int $endereco_numero;
-    public ?string $endereco_complemento;
+    public string $endereco_complemento;
     public Status $status;
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    protected int $idEmpresa;
+    protected int $idUsuario;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
@@ -61,18 +60,18 @@ class ContratacaoEntity extends Entity
         'status'             => 1
     ];
     protected array $ormBuscar = [
-        'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+        'id_saude_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
         'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
         'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
-        'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+        'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
         'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
         'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'status'
     ];
     protected array $ormSalvar = [
-        'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+        'id_saude_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
         'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
         'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
-        'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+        'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
         'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
         'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'status'
     ];
@@ -91,7 +90,7 @@ class ContratacaoEntity extends Entity
         responsavel_cpf|CPF Responsável|obrigatorio|vazio|valido
         responsavel_rg|RG Responsável|obrigatorio|vazio
         responsavel_nome|Nome Responsável|obrigatorio|vazio|valido
-        email|E-mail|obrigatorio|vazio|valido
+        email_pessoal|E-mail|obrigatorio|vazio|valido
         telefone_celular|Telefone Celular|obrigatorio|vazio|valido
         telefone_residencial|Telefone Residencial|valido
         telefone_comercial|Telefone Comercial|obrigatorio|vazio|valido
@@ -110,28 +109,20 @@ class ContratacaoEntity extends Entity
      * @throws Excecao
      */
     public function __construct(
-        private readonly SimulacaoEntity $simulacaoEntity
+        private readonly SimulacaoEntity $Simulacao
     ) {
         $this->validarEmpresa();
         parent::__construct();
     }
 
-    /**
-     * @throws Excecao
-     */
-    public function regraPosInsert(): void
+    protected function regraInsert()
     {
-        if (
-            !object_key_exists('operadora', $this->simulacaoEntity)
-            || $this->simulacaoEntity->operadora !== (new Operadora(Operadora::CENTRAL_NACIONAL_UNIMED))->numero()
-        ) {
-            return;
-        }
+        $this->id_saude_simulacao = $this->Simulacao->get('id');
+    }
 
-        (new DocumentoEntity($this->id_simulacao, new TipoUsuario(TipoUsuario::TITULAR)))->salvar();
-
-        for ($i = 0; $i < $this->simulacaoEntity->quantidade_dependentes; $i++) {
-            (new DocumentoEntity($this->id_simulacao, new TipoUsuario(TipoUsuario::DEPENDENTE)))->salvar();
-        }
+    protected function regraPosInsert()
+    {
+        $this->Simulacao->status = new SaudeSimulacaoStatus(SaudeSimulacaoStatus::ENVIADO);
+        $this->Simulacao->salvar();
     }
 }
