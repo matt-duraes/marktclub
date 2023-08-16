@@ -163,4 +163,10 @@ botaoContratarEnviar.addEventListener('click', async () => {
     if (false === resposta) {
         return;
     }
+    await Alerta.mensagem(
+        'Solicitação enviada',
+        'Seus dados foram enviados com sucesso. Em média, o tempo de retorno do parceiro está sendo em 72 horas.',
+        true
+    );
+    window.location.assign(LINK + '/saude');
 });

@@ -70,7 +70,7 @@ class ContratacaoEntity extends Entity
     ];
     protected array $ormSalvar = [
         'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
-        'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
+        'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
         'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
         'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
         'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
