@@ -389,7 +389,15 @@ const respostaJson = (resposta, mensagem) => {
 | ENDEREÇO
 |--------------------------------------------------------------------------
 */
-const buscarEnderecoPeloCep = (inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado) => {
+const buscarEnderecoPeloCep = (
+    inputCep,
+    inputLogradouro,
+    inputNumero,
+    inputBairro,
+    inputCidade,
+    inputEstado,
+    browser
+) => {
     inputCep.addEventListener('formChange', async () => {
         const cep = inputCep.value;
         Loading.show();
@@ -410,7 +418,11 @@ const buscarEnderecoPeloCep = (inputCep, inputLogradouro, inputNumero, inputBair
             inputNumero.focus();
         }
         if (dado.estado != '' && inputCidade.classList.contains('input_select_value')) {
-            buscarCidadePeloEstado(inputCidade, dado.estado, dado.cidade);
+            if (browser == undefined) {
+                buscarCidadePeloEstado(inputCidade, dado.estado, dado.cidade, 'Escolha uma cidade');
+            } else {
+                buscarCidadePeloEstadoViaBrowser(inputCidade, dado.estado, dado.cidade, 'Escolha uma cidade');
+            }
         } else if (inputCidade.classList.contains('input_select_value')) {
             formSelectOption(inputCidade, { '': 'Escolha um estado' });
         } else {
@@ -419,19 +431,42 @@ const buscarEnderecoPeloCep = (inputCep, inputLogradouro, inputNumero, inputBair
     });
 };
 
-buscarCidadePeloEstado = async (inputCidade, estado, valor) => {
+buscarCidadePeloEstado = async (inputCidade, estado, valor, titulo) => {
     if (estado == '') {
         formSelectOption(inputCidade, { '': 'Escolha um estado' });
         return;
     }
     formSelectLoading(inputCidade);
-    const resposta = await ajaxPost(
-        LINK + '/__endereco-cidade',
-        { estado },
-        'Ocorreu um erro ao buscar a lista de cidade, por favor, tente novamente.'
-    );
+    const resposta = await ajaxPost(LINK + '/__endereco-cidade', { estado, titulo }, '');
     if (false === resposta) {
+        buscarCidadePeloEstadoViaBrowser(inputCidade, estado, valor, titulo);
         return;
     }
     formSelectOption(inputCidade, resposta.dado, valor);
+};
+
+buscarCidadePeloEstadoViaBrowser = async (inputCidade, estado, valor, titulo) => {
+    if (estado == '') {
+        formSelectOption(inputCidade, { '': titulo == undefined || titulo == '' ? 'Escolha um estado' : titulo });
+        return;
+    }
+    formSelectLoading(inputCidade);
+    const resposta = await fetch(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + estado + '/municipios',
+        {
+            method: 'GET',
+        }
+    );
+    const cidade = {};
+    try {
+        const json = await resposta.json();
+        if (titulo != undefined && titulo != '') {
+            cidade[''] = titulo;
+        }
+        json.forEach(item => {
+            const nome = item.nome;
+            cidade[nome] = nome;
+        });
+    } catch (error) {}
+    formSelectOption(inputCidade, cidade, valor);
 };
