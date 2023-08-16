@@ -3,12 +3,12 @@
 namespace App\Controllers\Site;
 
 use Http\Request;
-use Http\Response;
 use Controller\Controller;
 use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\OperadoraModel;
 use App\Models\Site\Saude\SimulacaoViewModel;
+use App\Models\Site\Saude\FazerSimulacaoModel;
 
 final class PlanoSaudeController extends Controller
 {
@@ -90,21 +90,10 @@ final class PlanoSaudeController extends Controller
         ]);
     }
 
-    public function postRealizarSimulacao(Request $request, $url = null)
+    public function postRealizarSimulacao(Request $request)
     {
-        $dado = ((new ClubeApiHelper()))
-        ->body([
-            'operadora'        => $request->operadora,
-            'regiao'           => $request->regiao,
-            'plano'            => $request->plano,
-            'titular'          => $request->titular,
-            'dependentes'      => $request->dependentes,
-            'acomodacao'       => $request->acomodacao
-        ])
-        ->post('/saude/simulacao')
-        ->object();
-
-        return new Response(json:$dado);
+        $Simulacao = new FazerSimulacaoModel($request);
+        return mensagemSucesso($Simulacao->simulacao, 201);
     }
 
     public function simulacao($url = null)
@@ -152,7 +141,7 @@ final class PlanoSaudeController extends Controller
                 'responsavel_cpf'             => $request->responsavel_cpf,
                 'responsavel_rg'              => $request->responsavel_rg,
                 'responsavel_orgao_expedidor' => $request->responsavel_orgao_expedidor,
-                'email'                       => $request->email_pessoal,
+                'email_pessoal'               => $request->email_pessoal,
                 'telefone_celular'            => $request->telefone_celular,
                 'telefone_residencial'        => $request->telefone_residencial,
                 'telefone_comercial'          => $request->telefone_comercial,

@@ -72,8 +72,11 @@ require_once __DIR__ . '/../src/Config/Autoload.php';
 $requestUri = array_key_exists('REQUEST_URI', $_SERVER) ? explode('/', $_SERVER['REQUEST_URI']) : [];
 $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
 
-if ($requestUri == '__endereco' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST') {
-    require_once __DIR__ . '/../src/Html/Endereco/index.php';
+if ($requestUri == '__endereco-cep' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST') {
+    require_once __DIR__ . '/../src/Html/Endereco/cep.php';
+    exit();
+} elseif ($requestUri == '__endereco-cidade' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST') {
+    require_once __DIR__ . '/../src/Html/Endereco/cidade.php';
     exit();
 } elseif ($requestUri == '__postman' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../src/Html/Postman/index.php';
