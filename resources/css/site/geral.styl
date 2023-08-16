@@ -245,6 +245,10 @@
     padding: 10px
     border: 1px dashed #f00
     borderRadius()
+    h1
+        titulo()
+    h2
+        subTitulo()
     p
         texto()
 .bloco_atencao_geral_icone
@@ -333,8 +337,10 @@
 .form_input_dupla
     width: 100%
     spaceBetween()
-    .bloco_input:nth-child(1)
+    .bloco_input
         margin-right: 20px
+        &:last-child
+            margin-right: 0
 
 .bloco_regulamento
     width: 100%

@@ -4,7 +4,7 @@
         <div class="botao">Buscar</div>
     </div>
 
-    <form action="@route(get.cashback.buscar)" method="get" id="form_buscar" class="form_geral display_none">
+    <form action="@route(cashback.buscar)" method="get" id="form_buscar" class="form_geral display_none">
         <div class="conteudo">
             <div class="centralizar">
                 <header>

@@ -8,7 +8,7 @@
                 <span class="texto_ativo cor_color">Procedimento</span>
             </button>
             @if(!empty($dado->endereco)):
-                <a  href="{{$dado->endereco}}" target="_blank" class="botao" data-id="bloco_endereco">
+                <a  href="{{$dado->endereco}}" target="_blank" rel="noopener noreferrer" class="botao" data-id="bloco_endereco">
                     <span class="texto_inativo">Endereço</span>
                     <span class="texto_ativo cor_color">Endereço</span>
                 </a>
@@ -22,9 +22,7 @@
 
         <div id="bloco_procedimento" class="conteudo">
             @if(TIPO_USUARIO != 'indicado'):
-                <div class="bloco_geral_ul">
-                    <p>{!!$dado->texto_procedimento!!}</p>
-                </div>
+                <div class="texto_destaque">{!!$dado->texto_procedimento!!}</div>
             @else
                 <div class="bloco_atencao_geral">
                     <p>Apenas associados possuem acesso a esse recurso</p>

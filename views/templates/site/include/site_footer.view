@@ -57,7 +57,7 @@
             <i>@iconeIndiqueAmigoOutline(20)</i>
             Indicar um amigo
         </a>
-        <a class="dado" id="abreAjuda">
+        <a class="dado" id="botao_abrir_ajuda">
             <i>@iconeFaleConosco(20)</i>
             Fale Conosco
         </a>

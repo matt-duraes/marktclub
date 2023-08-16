@@ -2,11 +2,9 @@ window.addEventListener('load', () => {
     const inputCategoria = $('#input_categoria');
     const inputSubcategoria = $('#input_subcategoria');
 
-    formSelectChange = acao => {
-        if (acao == 'mudarCategoria') {
-            buscarSubCategoria(inputCategoria.value);
-        }
-    };
+    inputCategoria.addEventListener('formChange', () => {
+        buscarSubCategoria(inputCategoria.value);
+    });
 
     const buscarSubCategoria = async (categoria, valor) => {
         if (categoria == '') {

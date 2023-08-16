@@ -126,6 +126,24 @@ const fwLogin = () => {
 | não deixa de ser necessário a validação no backend
 |
 */
+const validarInputObrigatorio = bloco => {
+    return new Promise(resolve => {
+        const lista = bloco.querySelectorAll('.input_obrigatorio');
+        const quantidade = lista.length;
+        let i = 0;
+        let item;
+        let valido = true;
+        for (; i < quantidade; ++i) {
+            item = lista[i];
+            if (item.value == '') {
+                Alerta.notificacao('O campo "' + item.getAttribute('placeholder') + '" é obrigatório.', false);
+                valido = false;
+                return false;
+            }
+        }
+        resolve(valido);
+    });
+};
 const validarJson = function (json) {
     if (typeof json == 'string') {
         try {
@@ -364,4 +382,56 @@ const respostaJson = (resposta, mensagem) => {
         }
         return resolve(false);
     });
+};
+
+/*
+|--------------------------------------------------------------------------
+| ENDEREÇO
+|--------------------------------------------------------------------------
+*/
+const buscarEnderecoPeloCep = (inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado) => {
+    inputCep.addEventListener('formChange', async () => {
+        const cep = inputCep.value;
+        Loading.show();
+        const resposta = await ajaxPost(LINK + '/__endereco-cep', { cep }, '');
+        Loading.hide();
+
+        formSelectOption(inputCidade, { '': 'Escolha um estado' });
+        if (false === resposta || resposta.dado == undefined) {
+            return;
+        }
+        const dado = resposta.dado;
+        formValue(inputLogradouro, dado.logradouro);
+        formValue(inputBairro, dado.bairro);
+        formValue(inputCidade, dado.cidade);
+        formValue(inputEstado, dado.estado);
+
+        if (dado.logradouro != '') {
+            inputNumero.focus();
+        }
+        if (dado.estado != '' && inputCidade.classList.contains('input_select_value')) {
+            buscarCidadePeloEstado(inputCidade, dado.estado, dado.cidade);
+        } else if (inputCidade.classList.contains('input_select_value')) {
+            formSelectOption(inputCidade, { '': 'Escolha um estado' });
+        } else {
+            formValue(inputCidade, '');
+        }
+    });
+};
+
+buscarCidadePeloEstado = async (inputCidade, estado, valor) => {
+    if (estado == '') {
+        formSelectOption(inputCidade, { '': 'Escolha um estado' });
+        return;
+    }
+    formSelectLoading(inputCidade);
+    const resposta = await ajaxPost(
+        LINK + '/__endereco-cidade',
+        { estado },
+        'Ocorreu um erro ao buscar a lista de cidade, por favor, tente novamente.'
+    );
+    if (false === resposta) {
+        return;
+    }
+    formSelectOption(inputCidade, resposta.dado, valor);
 };

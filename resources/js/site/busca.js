@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     blocoBuscarTemplate.appendChild(formBuscar);
 
     botaoBuscarAbrir.addEventListener('click', () => {
-        body.classList.add('body_scroll_hidden');
+        BODY.classList.add('body_scroll_hidden');
         formBuscar.classList.remove('display_none');
         setTimeout(() => {
             formBuscar.classList.add('ativo');
@@ -27,7 +27,7 @@ window.addEventListener('load', () => {
     const fecharBusca = () => {
         formBuscar.classList.remove('ativo');
         setTimeout(() => {
-            body.classList.remove('body_scroll_hidden');
+            BODY.classList.remove('body_scroll_hidden');
             formBuscar.classList.add('display_none');
         }, 300);
     };

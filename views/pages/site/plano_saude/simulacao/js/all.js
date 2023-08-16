@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
         carregarAcomodacao();
     }
 });
-$('body').addEventListener('keydown', e => {
+BODY.addEventListener('keydown', e => {
     if (e.key == 'Tab') {
         e.preventDefault();
         if (e.target.tagName.toUpperCase() == 'INPUT') {

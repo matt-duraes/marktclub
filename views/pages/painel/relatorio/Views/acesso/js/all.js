@@ -122,7 +122,6 @@ window.addEventListener('load', () => {
     const carregarListaMaisAcesso = (data, bloco, local) => {
         let html = `<div class="scroll">`;
         data.forEach(item => {
-            ppe(item);
             html += `
                 <div class="linha">
                     <div class="item">${item[local]}</div>

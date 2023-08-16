@@ -8,9 +8,11 @@
 const cupomDetalhe = () => {
     const inputCodigo = document.getElementById('input_cupom_valor');
     const botaoCopiar = document.getElementById('botao_cupom_copiar');
-    const botaoFechar = document.querySelector('#bloco_popup_detalhe .fechar');
-    botaoFechar.addEventListener('click', () => {
-        Pagina.staticFechar();
+    const botaoFechar = $$('#bloco_popup_detalhe .fechar');
+    botaoFechar.forEach(botao => {
+        botao.addEventListener('click', () => {
+            Pagina.staticFechar();
+        });
     });
 
     if (!inputCodigo) {

@@ -28,7 +28,7 @@ window.addEventListener('load', () => {
             fecharBlocoPagamento();
         }
     });
-    document.querySelector('body').addEventListener('keydown', e => {
+    BODY.addEventListener('keydown', e => {
         if (e.key == 'Escape') {
             fecharBlocoPagamento();
         }
