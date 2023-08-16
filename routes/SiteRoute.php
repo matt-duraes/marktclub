@@ -363,9 +363,8 @@ Route
             ::nome('veiculoSeminovo')
             ::view('/credito/sicoob-veiculo-seminovo');
         Route
-            ::nome('abrirModalRegulamento')
-            ::view('/sicoob-regulamento/{url}');
-
+            ::nome('regulamento')
+            ::view('/sicoob-regulamento/{tipo}');
     });
 
 Route
@@ -376,13 +375,13 @@ Route
         Route
             ::nome('realizarSimulacao')
             ::request([
-                'tipo', 'valor', 'parcelas', 'operadora'
+                'tipo', 'valor_total', 'parcela', 'operadora'
             ])
-            ::get('/credito/simulacao');
+            ::post('/credito/simulacao');
         Route
             ::nome('salvar')
             ::request([
-                'tipo', 'valor', 'parcelas', 'operadora'
+                'tipo', 'valor_total', 'parcela', 'operadora'
             ])
             ::post('/credito/salvar');
     });

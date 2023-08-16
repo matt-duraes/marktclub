@@ -62,7 +62,7 @@ define('TABELA_SISTEMA_DOWNLOAD', 'sistema_download');
 define('TABELA_SISTEMA_ENDERECO', 'endereco_novo');
 define('TABELA_SISTEMA_MENSAGERIA', 'sistema_mensageria');
 define('TABELA_SOLICITACAO_CODIGO', 'solicitacao_codigo');
-define('TABELA_SOLICITACAO_CREDITO', 'solicitacao_credito');
+define('TABELA_SOLICITACAO_CREDITO', 'solicitacao_credito_novo');
 define('TABELA_SOLICITACAO_DECLARACAO', 'solicitacao_declaracao');
 define('TABELA_SOLICITACAO_VOUCHER', 'solicitacao_voucher');
 define('TABELA_UPLOAD_ARQUIVO', 'upload_arquivo');

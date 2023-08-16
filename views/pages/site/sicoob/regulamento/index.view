@@ -1,11 +1,12 @@
 
-<div class="bloco_popup_geral medio">
-    <header class="popup_header">
-		<h1 class="h1_voltar">REGULAMENTO</h1>
-        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+<div class="bloco_pagina_popup medio">
+    <header class="header_pagina_popup">
+        <i class="fechar mobile pagina_fechar">@iconeVoltar</i>
+        <h1>REGULAMENTO</h1>
+        <i class="fechar desktop pagina_fechar">@iconeFechar</i>
     </header>
 
-    <div class="popup_conteudo voucher">
+    <div class="conteudo_pagina_popup">
         <article class="bloco_regulamento">
             @ if($tipo == 'veiculo-0'):
                 <p>Financiamento limitado a 70% do valor do veículo novo (Nota Fiscal).</p>

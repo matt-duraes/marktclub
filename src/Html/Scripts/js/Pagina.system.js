@@ -79,6 +79,7 @@ class Pagina {
         const resposta = await fetch(this._link, body);
 
         if (resposta.status > 399) {
+            Pagina.staticFechar();
             this._validarErroRequest(resposta, resposta.status);
             return false;
         }

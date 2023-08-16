@@ -1,3 +1,35 @@
+@system "Form"
+@system "Alerta"
+@system "Loading"
+@system "Pagina"
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/passo_passo"
+
+#bloco_credito_sicoob
+    maxWidth()
+    flexCenter()
+    flexCol()
+    .bloco_geral_banner
+        espacoBottomPadrao()
+
+.bloco_credito_index
+    maxWidth()
+    .banner
+        espacoBottomPadrao()
+    .bloco_escolha
+        espacoBottomPadrao()
+        padding: 40px 20px 50px
+    .bloco_escolha p
+        max-width: 400px
+    .bloco_escolha .bloco_botao
+        width: 100%
+        flexRow()
+        justify-content: center
+        margin-top: 30px
+    .bloco_escolha .bloco_botao .botao
+        margin: 0 10px
 
 .bloco_credito_geral_simulacao
     maxWidth()
@@ -64,9 +96,9 @@
             flexCol()
             margin: 10px auto
             border-radius: 3px
-            border: 1px solid #009900
+            border: 1px solid $corVermelho
         .resultado_valor p
-            color: #009900
+            color: $corVermelho
             font-weight: bold
             font-size: 1.8em !important
             padding: 5px  10px
@@ -85,12 +117,20 @@
         titulo()
     p
         width: 100%
-        max-width: 500px
-        text-align: center
         texto()
+    p span
+        texto()
+    > p
+        max-width: 500px
     form
         width: 100%
         espacoVerticalPadrao()
+    .atencao
+        margin-top: 40px
+    .atencao h2 span
+        texto()
+        font-weight: bold
+        color: $corVermelho
     .bloco_botao
         width: calc(100% - 40px)
         flexRow()
