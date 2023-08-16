@@ -68,7 +68,7 @@ final class VersaoModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'valor_de', 'valor_por', 'status'])
+            ->campo(['uuid', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ->where($this->pegarWhere())
             ->order($this->pegarOrdem())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -108,6 +108,7 @@ final class VersaoModel extends ORM
                 'titulo'    => $r->titulo,
                 'valor_de'  => $r->valor_de,
                 'valor_por' => $r->valor_por,
+                'cor'       => $r->cor,
                 'status'    => $Status->indice($r->status)
             ];
         }

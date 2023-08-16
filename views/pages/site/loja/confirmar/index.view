@@ -9,11 +9,11 @@
             <h2>Antes de continuar, confirme o procedimento de utilização, desconto e possíveis restrições da loja</h2>
             <div class="bloco">
                 <h3>Descontos</h3>
-                <p>{!!$dado->texto_desconto!!}</p>
+                <div class="texto_destaque">{!!$dado->texto_desconto!!}</div>
             </div>
             <div class="bloco">
                 <h3>Procedimento</h3>
-                <p>{!!$dado->texto_procedimento!!}</p>
+                <div class="texto_destaque">{!!$dado->texto_procedimento!!}</div>
             </div>
         </div>
     </div>

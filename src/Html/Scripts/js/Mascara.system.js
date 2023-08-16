@@ -292,6 +292,9 @@ fwMascaraFocusEvento = function () {
     fwMascaraMascaraEvento(this, 'focus');
 };
 fwMascaraBlurEvento = function () {
+    if (this.value != fwMascaraValorAtual) {
+        this.dispatchEvent(new Event('formChange'));
+    }
     fwMascaraMascaraEvento(this, 'blur');
 };
 fwMascaraMascaraEvento = function (input, tipo) {

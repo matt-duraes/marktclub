@@ -7,7 +7,7 @@
             <div class="botao">Buscar</div>
         </div>
 
-        <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="form_geral display_none">
+        <form action="@route(cupom.buscar)" method="get" id="form_buscar" class="form_geral display_none">
             <div class="conteudo">
                 <div class="centralizar">
                     <header>

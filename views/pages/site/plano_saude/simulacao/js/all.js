@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
         carregarAcomodacao();
     }
 });
-$('body').addEventListener('keydown', e => {
+BODY.addEventListener('keydown', e => {
     if (e.key == 'Tab') {
         e.preventDefault();
         if (e.target.tagName.toUpperCase() == 'INPUT') {
@@ -363,13 +363,11 @@ const limparResultado = () => {
 const abrirBlocoResultado = dado => {
     limparResultado();
     irParaProximoPasso();
-    let dependentes = Object.values(dado.dependentes);
-    dependentes.forEach(dependente => {
-        let valor = dependente.valor;
-        let dataNascimento = dependente.data_nascimento;
-        adicionarLinhaValor(blocoResultadoDependentePadrao, dataNascimento, valor);
+    const listaDependente = Object.values(dado.dependente);
+    listaDependente.forEach(dependente => {
+        adicionarLinhaValor(blocoResultadoDependentePadrao, dependente.data, dependente.valor);
     });
-    adicionarLinhaValor(blocoResultadoTitularPadrao, dado.titular, dado.valor_titular);
+    adicionarLinhaValor(blocoResultadoTitularPadrao, dado.titular.data, dado.titular.valor);
     blocoValorTotal.innerText = `R$ ${dado.valor_total}`;
     botaoContratar.setAttribute('href', `/saude/simulacao/${dado.id}`);
 };

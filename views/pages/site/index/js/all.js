@@ -42,7 +42,7 @@ class Historico {
         if (bloco) {
             return;
         }
-        document.querySelector('body').insertAdjacentHTML(
+        BODY.insertAdjacentHTML(
             'beforeend',
             `
                 <div id="fw_historico" class="fw_historico_hide">

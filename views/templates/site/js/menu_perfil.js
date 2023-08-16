@@ -1,7 +1,6 @@
 window.addEventListener('load', () => {
     const botaoMenu = document.getElementById('botao_menu_perfil');
     const blocoMenu = document.getElementById('bloco_menu_perfil');
-    const body = document.querySelector('body');
 
     botaoMenu.addEventListener('click', () => {
         if (blocoMenu.classList.contains('ativo')) {
@@ -10,7 +9,7 @@ window.addEventListener('load', () => {
         }
         abrirMenu();
     });
-    body.addEventListener('click', e => {
+    BODY.addEventListener('click', e => {
         const eMenu = e.target.classList.contains('bloco_geral_sub_menu') || e.target.closest('.bloco_geral_sub_menu');
         if (blocoMenu.classList.contains('ativo') && !eMenu) {
             fecharMenu();

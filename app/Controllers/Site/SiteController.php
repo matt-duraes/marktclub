@@ -6,8 +6,6 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Site\ConstrutorModel;
-use App\Models\Site\SosMulher\ListarModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
 
 final class SiteController extends Controller
@@ -55,20 +53,6 @@ final class SiteController extends Controller
         return new Response(json: [
             'status' => 'sucesso'
         ], status: 201);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function sosmulher(): Response
-    {
-        return view('sosmulher.index', [
-            'parceiro'     => [1, 2, 3],
-            'parceiroTipo' => 'sosmulher',
-            'dado'         => (new ListarModel())->listarDados(),
-            'lista'        => (new ListarModel())->listarRelacionado(),
-        ]);
     }
 
     /**
@@ -158,12 +142,7 @@ final class SiteController extends Controller
      */
     public function getAjuda(): Response
     {
-        $construtor = (new ConstrutorModel())->montaPermissaoMenuAjuda();
-
-        return view('ajuda.index', [
-            'menu'  => $construtor,
-            'email' => defined('CONTATO_EMAIL') ?? ''
-        ]);
+        return view('ajuda.index');
     }
 
     /**

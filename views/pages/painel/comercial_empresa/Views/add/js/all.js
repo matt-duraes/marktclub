@@ -25,14 +25,6 @@ window.addEventListener('load', () => {
     const blocoValorMinimo = document.getElementById('bloco_valor_minimo');
     const blocoUsuarioMinimo = document.getElementById('bloco_usuario_minimo');
 
-    formSelectChange = funcao => {
-        if (funcao == 'finalidadePrincipal') {
-            finalidadeMudou();
-        } else if (funcao == 'tipoPagamento') {
-            tipoPagamentoMudou();
-        }
-    };
-
     const mudarDisplay = (input, bloco) => {
         const checked = input.checked;
         bloco.forEach(item => {
@@ -44,6 +36,9 @@ window.addEventListener('load', () => {
         });
     };
 
+    inputTipoPagamento.addEventListener('formChange', () => {
+        tipoPagamentoMudou();
+    });
     const tipoPagamentoMudou = () => {
         const valor = inputTipoPagamento.value;
         if (valor == 'misto') {
@@ -60,6 +55,9 @@ window.addEventListener('load', () => {
         tipoPagamentoMudou();
     }
 
+    inputFinalidadePrincipal.addEventListener('formChange', () => {
+        finalidadeMudou();
+    });
     const finalidadeMudou = () => {
         const valor = inputFinalidadePrincipal.value;
         buscarListaFinalidadeSecundaria(valor);

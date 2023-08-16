@@ -5,8 +5,8 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Site\Perfil\{DadosModel,  SenhaModel, CarteirinhaModel};
 use Helpers\LocalizacaoHelper;
+use App\Models\Site\Perfil\{DadosModel,  SenhaModel, CarteirinhaModel};
 
 final class PerfilController extends Controller
 {
@@ -30,6 +30,7 @@ final class PerfilController extends Controller
                 'endereco_complemento' => $Perfil->endereco_complemento,
                 'endereco_cidade'      => $Perfil->endereco_cidade,
                 'endereco_estado'      => $Perfil->endereco_estado,
+                'imagem'               => $Perfil->imagem
             ]
         ]);
     }
@@ -37,7 +38,6 @@ final class PerfilController extends Controller
     public function postBuscarCep(Request $request): Response
     {
         $cep = (new LocalizacaoHelper())->pegarEnderecoPeloCep($request->cep);
-
         return mensagemSucesso($cep);
     }
 

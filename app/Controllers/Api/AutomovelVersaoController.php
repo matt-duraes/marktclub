@@ -55,8 +55,6 @@ final class AutomovelVersaoController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        validarUuid($id);
-
         $Versao = new VersaoEntity();
         $Versao->uuid($id);
         $Versao->set(lista: $request->dado());

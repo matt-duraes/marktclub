@@ -53,15 +53,15 @@
         <header>
             <h1>Indicações</h1>
         </header>
-        <a class="dado" id="abreIndiqueParceiro">
-            <i>@iconeIndiqueAmigo(19)</i>
+        <a class="dado" href="@route(site.indiqueAmigo)">
+            <i>@iconeIndiqueAmigoOutline(20)</i>
             Indicar um amigo
         </a>
-        <a class="dado" id="abreAjuda">
-            <i>@iconeFaleConosco(19)</i>
+        <a class="dado" id="botao_abrir_ajuda">
+            <i>@iconeFaleConosco(20)</i>
             Fale Conosco
         </a>
-        <a class="dado" href="">
+        <a class="dado" id="abreIndiqueParceiro">
             <i>@iconeLojaHome(15)</i>
             Indicar um parceiro
         </a>

@@ -16,9 +16,10 @@ window.addEventListener('load', () => {
     const inputValorPor = $('#input_versao_valor_por');
     const inputStatus = $('#input_versao_status');
 
-    let idEditar;
+    let idVersao = '';
 
     botaoAbrir.addEventListener('click', () => {
+        idVersao = '';
         abrirBloco();
     });
     botaoFechar.addEventListener('click', () => {
@@ -74,8 +75,8 @@ window.addEventListener('load', () => {
         formValue(inputValorDe, valorBr(resposta.dado.valor_de));
         formValue(inputValorPor, valorBr(resposta.dado.valor_por));
         inputStatus.checked = resposta.dado.status == 'ativo';
-
-        abrirBloco(id);
+        idVersao = id;
+        abrirBloco();
     };
     const valorBr = valor => {
         if (valor == '' || valor == undefined) {
@@ -112,12 +113,12 @@ window.addEventListener('load', () => {
     botaoSalvar.addEventListener('click', () => {
         salvarNovaVersao();
     });
-    const salvarNovaVersao = async id => {
+    const salvarNovaVersao = async () => {
         const titulo = inputTitulo.value;
         const cor = inputCor.value;
         const valorDe = inputValorDe.value.replace(/\./g, '').replace(',', '.');
         const valorPor = inputValorPor.value.replace(/\./g, '').replace(',', '.');
-        const status = inputStatus.value;
+        const status = inputStatus.checked ? 'ativo' : 'inativo';
 
         if (titulo == '') {
             Alerta.notificacao('O campo título é obrigatório.', false);
@@ -127,21 +128,23 @@ window.addEventListener('load', () => {
             return;
         }
 
-        const acao = id == undefined ? 'versao-salvar' : 'versao-atualizar';
+        const acao = idVersao == '' ? 'versao-salvar' : 'versao-atualizar';
         const request = {
-            modelo: modeloId,
             indice: acao,
             titulo,
             cor,
-            // eslint-disable-next-line camelcase
+            /* eslint-disable */
             valor_de: valorDe,
-            // eslint-disable-next-line camelcase
             valor_por: valorPor,
+            /* eslint-enable */
             status,
         };
-        if (id != undefined) {
-            request.id = id;
+        if (idVersao != '') {
+            request.id = idVersao;
+        } else {
+            request.modelo = modeloId;
         }
+
         Loading.show();
         const resposta = await ajaxPost(
             LINK + '/app/ajax/parceiro-automovel',
@@ -152,19 +155,27 @@ window.addEventListener('load', () => {
         if (false === resposta) {
             return;
         }
-        if (id == undefined) {
+        if (idVersao == '') {
             Alerta.notificacao('Versão salva com sucesso!', true);
             fecharBloco();
             adicionarNovoBloco(resposta.dado.id, resposta.dado.titulo);
             return;
         }
         Alerta.notificacao('Versão atualizada com sucesso!', true);
-        atualizarBlocoExistente(id, titulo);
+        atualizarBlocoExistente(idVersao, titulo);
+        fecharBloco();
     };
     const adicionarNovoBloco = (id, titulo) => {
         const clone = blocoModelo.cloneNode(true);
         clone.setAttribute('data-id', id);
         clone.querySelector('.linha').innerText = titulo;
         blocoLista.appendChild(clone);
+    };
+    const atualizarBlocoExistente = (id, titulo) => {
+        const linha = $('#bloco_versao_lista .versao[data-id="' + id + '"] .linha');
+        if (!linha) {
+            return;
+        }
+        linha.innerText = titulo;
     };
 });

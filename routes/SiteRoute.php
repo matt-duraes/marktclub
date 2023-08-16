@@ -4,6 +4,15 @@ use Route\Route;
 use App\Middlewares\Site\AuthMiddleware;
 
 Route
+    ::nome('endereco')
+    ::controller(App\Controllers\Site\EnderecoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('enderecoPorCep')
+            ::post('/endereco/por-cep/{cep}');
+    });
+
+Route
     ::nome('faq')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\FaqController::class)
@@ -12,6 +21,7 @@ Route
             ::nome('cfm')
             ::view('/login/faq');
     });
+
 Route
     ::nome('faq')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -21,6 +31,7 @@ Route
             ::nome('favorito')
             ::view('/faq/favorito');
     });
+
 Route
     ::nome('comoFunciona')
     ::middleware(AuthMiddleware::class, 'deslogado')
@@ -296,10 +307,6 @@ Route
             ::nome('simulacao')
             ::view('/saude/plano-simulacao/{url}');
         Route
-            ::nome('buscarCep')
-            ::request(['cep'])
-            ::post('/saude/buscar-cep');
-        Route
             ::nome('realizarSimulacao')
             ::request(['!operadora','!titular','!regiao','!plano','!acomodacao','!dependentes'])
             ::post('/saude/realizar-simulacao');
@@ -311,12 +318,13 @@ Route
             ::request([
                 'id_simulacao','nome','naturalidade','cpf','data_nascimento',
                 'genero','estado_civil','peso','altura','rg','orgao_expedidor',
-                'responsavel','responsavel_nome','responsavel_cpf','responsavel_rg',
+                'nome_mae','responsavel_nome','responsavel_cpf','responsavel_rg',
                 'responsavel_orgao_expedidor','email_pessoal','telefone_celular',
-                '!telefone_residencial','telefone_comercial','!ramal', 'cep', 'bairro',
-                'logradouro', 'numero', '!complemento', 'cidade', 'estado'
+                'telefone_residencial','telefone_comercial','telefone_comercial_ramal',
+                'endereco_cep', 'endereco_bairro', 'endereco_logradouro', 'endereco_numero',
+                'endereco_complemento', 'endereco_cidade', 'endereco_estado'
             ])
-            ::post('/saude/contratacao/{id_simulacao}');
+            ::post('/saude/contratacao');
 
     });
 Route
@@ -512,7 +520,7 @@ Route
             ::request([
                 'nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho',
                 '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro',
-                'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade'
+                'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade', '!imagem'
             ])
             ::post('/perfil/salvar-dados');
         Route

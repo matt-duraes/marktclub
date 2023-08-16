@@ -67,7 +67,7 @@ window.addEventListener('load', () => {
             PaginaBuscaPopupEnquete.abrir();
         }, 2000);
 
-        document.querySelector('body').addEventListener('click', function (event) {
+        BODY.addEventListener('click', function (event) {
             if (event.target.classList.contains('abreRegulamentoPopup')) {
                 document.querySelector('.regulamento_texto').classList.add('mostra');
             }

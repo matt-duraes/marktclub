@@ -167,7 +167,7 @@
 
             <div class="linha"></div>
 
-            <a class="botao footer" href="@route('site.pesquisa')" id="abrePesquisaSatisfacao">Pesquisa de satisfação</a>
+            <div class="botao footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</div>
             <a class="botao footer" href="@route('loja.detalhe')/sala-vip-do-aeroporto-internacional-de-brasilia-presidente-juscelino-kubitschek-1">Sala VIP</a>
             <a class="botao footer" href="@route('sosmulher.index')">SOS Mulher</a>
 
