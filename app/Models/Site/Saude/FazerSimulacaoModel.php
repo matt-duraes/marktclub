@@ -25,7 +25,6 @@ final class FazerSimulacaoModel extends ClubeApiHelper
     /**
      * @param $request
      *
-     * @return void
      * @throws Excecao
      */
     private function salvarSimulacao($request): void
@@ -48,7 +47,6 @@ final class FazerSimulacaoModel extends ClubeApiHelper
     /**
      * @param $dado
      *
-     * @return void
      */
     private function montarSimulacao($dado): void
     {

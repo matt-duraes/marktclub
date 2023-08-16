@@ -24,7 +24,7 @@ final class SimulacaoViewModel
     public function opcao(): array
     {
         $passos = match ($this->operadora) {
-            Operadora::AMIL => ['Região', 'Plano', 'Simulação', 'Resultado'],
+            Operadora::AMIL            => ['Região', 'Plano', 'Simulação', 'Resultado'],
             Operadora::CNU_FLORIANOPIS => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
             Operadora::UNIMED_SEGURO, Operadora::UNIMED => ['Acomodação', 'Simulação', 'Resultado'],
             default => []
@@ -57,10 +57,10 @@ final class SimulacaoViewModel
     public function acomodacao(): array|string
     {
         return match ($this->operadora) {
-            Operadora::UNIMED => (new Unimed())->pegarAcomodacoes(),
-            Operadora::UNIMED_SEGURO => (new UnimedSeguro())->pegarAcomodacoes(),
+            Operadora::UNIMED          => (new Unimed())->pegarAcomodacoes(),
+            Operadora::UNIMED_SEGURO   => (new UnimedSeguro())->pegarAcomodacoes(),
             Operadora::CNU_FLORIANOPIS => (new CNUFlorianopolis())->pegarAcomodacoes(true),
-            default => []
+            default                    => []
         };
     }
 
@@ -70,11 +70,11 @@ final class SimulacaoViewModel
     public function plano(): array
     {
         return match ($this->operadora) {
-            Operadora::AMIL => (new Amil())->pegarPlanos(false),
+            Operadora::AMIL            => (new Amil())->pegarPlanos(false),
             Operadora::CNU_FLORIANOPIS => (new CNUFlorianopolis())->pegarPlanos(false),
-            Operadora::UNIMED_SEGURO => (new UnimedSeguro())->pegarPlanos(false),
-            Operadora::UNIMED => (new Unimed())->pegarPlanos(false),
-            default => []
+            Operadora::UNIMED_SEGURO   => (new UnimedSeguro())->pegarPlanos(false),
+            Operadora::UNIMED          => (new Unimed())->pegarPlanos(false),
+            default                    => []
         };
     }
 
@@ -85,7 +85,7 @@ final class SimulacaoViewModel
     {
         return match ($this->operadora) {
             Operadora::AMIL => (new Amil())->pegarRegioes(),
-            default => []
+            default         => []
         };
     }
 
@@ -95,7 +95,7 @@ final class SimulacaoViewModel
     public function passoPasso(): array
     {
         $passoPasso = match ($this->operadora) {
-            Operadora::AMIL => ['regiao', 'plano', 'simulacao', 'resultado'],
+            Operadora::AMIL            => ['regiao', 'plano', 'simulacao', 'resultado'],
             Operadora::CNU_FLORIANOPIS => ['plano', 'acomodacao', 'simulacao', 'resultado'],
             Operadora::UNIMED, Operadora::UNIMED_SEGURO => ['acomodacao', 'simulacao', 'resultado'],
             default => []
