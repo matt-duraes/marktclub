@@ -1529,7 +1529,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:salvar'])
             ::request([
-                'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+                'id_saude_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
                 'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
                 'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
                 'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',

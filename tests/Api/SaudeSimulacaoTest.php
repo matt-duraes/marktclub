@@ -5,7 +5,7 @@ namespace Tests\Api;
 use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Planos as PlanosAmil;
 use App\Classes\Saude\Operadoras\Amil\Regioes as RegioesAmil;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\Planos as PlanosFloripa;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanosCNUFlorianopolis;
 use Erro\Excecao;
 use Tests\Api\Token\Clube;
 
@@ -32,18 +32,18 @@ final class SaudeSimulacaoTest extends Clube
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'titular'     => $this->dataPassada(),
-                'dependentes' => jsonEncode($dependentes),
-                'operadora'   => Operadora::AMIL,
-                'regiao'      => RegioesAmil::SAO_PAULO,
-                'plano'       => PlanosAmil::AMIL_S80QC,
-                'acomodacao'  => ''
+                'titular'          => $this->dataPassada(),
+                'lista_dependente' => jsonEncode($dependentes),
+                'operadora'        => Operadora::AMIL,
+                'regiao'           => RegioesAmil::SAO_PAULO,
+                'plano'            => PlanosAmil::AMIL_S80QC,
+                'acomodacao'       => ''
             ])
             ->post('/saude/simulacao')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idSimulacao = $simulacao['id'];
-        $qtdDependentesSalvos = count($simulacao['dependentes']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
 
         return $this
             ->checkStatus(201)
@@ -90,7 +90,7 @@ final class SaudeSimulacaoTest extends Clube
      * @return SaudeSimulacaoTest
      * @throws Excecao
      */
-    public function realizarSimulacaoUnimedFloripaTest(): SaudeSimulacaoTest
+    public function realizarSimulacaoCNUFlorianopolisTest(): SaudeSimulacaoTest
     {
         $dependentes = $this->gerarDependentes();
         $qtdDependentes = count($dependentes);
@@ -100,18 +100,18 @@ final class SaudeSimulacaoTest extends Clube
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'titular'     => $this->dataPassada(),
-                'dependentes' => jsonEncode($dependentes),
-                'operadora'   => Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA,
-                'regiao'      => '',
-                'plano'       => PlanosFloripa::REGIONAL,
-                'acomodacao'  => 'enfermaria-30'
+                'titular'          => $this->dataPassada(),
+                'lista_dependente' => jsonEncode($dependentes),
+                'operadora'        => Operadora::CNU_FLORIANOPIS,
+                'regiao'           => '',
+                'plano'            => PlanosCNUFlorianopolis::REGIONAL,
+                'acomodacao'       => 'enfermaria-30'
             ])
             ->post('/saude/simulacao')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idSimulacao = $simulacao['id'];
-        $qtdDependentesSalvos = count($simulacao['dependentes']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
 
         return $this
             ->checkStatus(201)
@@ -156,18 +156,18 @@ final class SaudeSimulacaoTest extends Clube
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'titular'     => $this->dataPassada(),
-                'dependentes' => jsonEncode($dependentes),
-                'operadora'   => Operadora::UNIMED_SEGURO,
-                'regiao'      => '',
-                'plano'       => '',
-                'acomodacao'  => $this->random(['basico', 'versatil', 'pratico'])
+                'titular'          => $this->dataPassada(),
+                'lista_dependente' => jsonEncode($dependentes),
+                'operadora'        => Operadora::UNIMED_SEGURO,
+                'regiao'           => '',
+                'plano'            => '',
+                'acomodacao'       => $this->random(['basico', 'versatil', 'pratico'])
             ])
             ->post('/saude/simulacao')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idSimulacao = $simulacao['id'];
-        $qtdDependentesSalvos = count($simulacao['dependentes']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
 
         return $this
             ->checkStatus(201)
@@ -212,18 +212,18 @@ final class SaudeSimulacaoTest extends Clube
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'titular'     => $this->dataPassada(),
-                'dependentes' => jsonEncode($dependentes),
-                'operadora'   => Operadora::UNIMED,
-                'regiao'      => '',
-                'plano'       => '',
-                'acomodacao'  => $this->random(['enfermaria', 'apartamento'])
+                'titular'          => $this->dataPassada(),
+                'lista_dependente' => jsonEncode($dependentes),
+                'operadora'        => Operadora::UNIMED,
+                'regiao'           => '',
+                'plano'            => '',
+                'acomodacao'       => $this->random(['enfermaria', 'apartamento'])
             ])
             ->post('/saude/simulacao')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idSimulacao = $simulacao['id'];
-        $qtdDependentesSalvos = count($simulacao['dependentes']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
 
         return $this
             ->checkStatus(201)

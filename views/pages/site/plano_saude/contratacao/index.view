@@ -34,7 +34,7 @@
         </div>
         <div class="bloco_conteudo">
             <form method="post" id="formulario_contratacao"  class="bloco_scroll">
-                <input type="hidden" name="id_simulacao" id="input_id_simulacao" value="{{$simulacao}}">
+                <input type="hidden" name="id_saude_simulacao" id="input_id_simulacao" value="{{$simulacao}}">
                 <fieldset class="conteudo" id="dados">
                     <div class="contratacao form_geral" id="bloco_dado_pessoal">
                         <header>

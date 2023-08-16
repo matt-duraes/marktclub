@@ -127,7 +127,7 @@ botaoContratarEnviar.addEventListener('click', async () => {
         LINK + '/saude/contratacao',
         {
             /* eslint-disable camelcase */
-            id_simulacao: idSimulacao,
+            id_saude_simulacao: idSimulacao,
             data_nascimento: inputDataNascimento.value,
             estado_civil: inputEstadoCivil.value,
             orgao_expedidor: inputOrgaoExpedidor.value,

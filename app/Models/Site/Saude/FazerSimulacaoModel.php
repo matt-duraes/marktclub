@@ -2,13 +2,19 @@
 
 namespace App\Models\Site\Saude;
 
-use Http\Request;
 use App\Helpers\ClubeApiHelper;
+use Erro\Excecao;
+use Http\Request;
 
 final class FazerSimulacaoModel extends ClubeApiHelper
 {
     public array $simulacao = [];
 
+    /**
+     * @param Request $request
+     *
+     * @throws Excecao
+     */
     public function __construct(
         Request $request
     ) {
@@ -16,7 +22,13 @@ final class FazerSimulacaoModel extends ClubeApiHelper
         $this->salvarSimulacao($request);
     }
 
-    private function salvarSimulacao($request)
+    /**
+     * @param $request
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function salvarSimulacao($request): void
     {
         $dado = $this
             ->body([
@@ -33,11 +45,16 @@ final class FazerSimulacaoModel extends ClubeApiHelper
         $this->montarSimulacao($dado->dado);
     }
 
-    private function montarSimulacao($dado)
+    /**
+     * @param $dado
+     *
+     * @return void
+     */
+    private function montarSimulacao($dado): void
     {
         $this->simulacao = [
-            'id'      => $dado->id,
-            'titular' => [
+            'id'          => $dado->id,
+            'titular'     => [
                 'data'  => dataBr($dado->titular),
                 'valor' => strDinheiro($dado->valor_titular),
             ],
@@ -46,7 +63,12 @@ final class FazerSimulacaoModel extends ClubeApiHelper
         ];
     }
 
-    private function montarDependente($lista)
+    /**
+     * @param $lista
+     *
+     * @return array
+     */
+    private function montarDependente($lista): array
     {
         $retorno = [];
         foreach ($lista as $r) {

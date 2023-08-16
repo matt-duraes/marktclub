@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis;
+namespace App\Classes\Saude\Operadoras\CNUFlorianopolis;
 
 use App\Classes\Saude\Interface\PlanoInterface;
 use Status\Status;

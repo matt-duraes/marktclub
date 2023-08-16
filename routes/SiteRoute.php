@@ -316,7 +316,7 @@ Route
         Route
             ::nome('realizarContratacao')
             ::request([
-                'id_simulacao','nome','naturalidade','cpf','data_nascimento',
+                'id_saude_simulacao','nome','naturalidade','cpf','data_nascimento',
                 'genero','estado_civil','peso','altura','rg','orgao_expedidor',
                 'nome_mae','responsavel_nome','responsavel_cpf','responsavel_rg',
                 'responsavel_orgao_expedidor','email_pessoal','telefone_celular',
