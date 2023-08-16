@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\Saude\Simulacao;
 
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
-use App\Classes\Saude\Operadoras\Unimed\Unimed;
-use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
-use App\Classes\Saude\PlanoSaude;
-use App\Classes\Saude\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use DateTime;
 use Exception;
-use Helpers\ValidarHelper;
+use ORM\Entity;
 use Http\Request;
 use Modules\Data;
 use Modules\Dinheiro;
-use ORM\Entity;
+use Helpers\ValidarHelper;
+use App\Classes\Saude\Status;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\PlanoSaude;
+use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\Saude\Operadoras\Unimed\Unimed;
+use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
+use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
 
 class SimulacaoEntity extends Entity
 {
@@ -36,8 +36,8 @@ class SimulacaoEntity extends Entity
     protected ?int $idUsuario;
     protected string $ormTabela = TABELA_SAUDE_SIMULACAO;
     protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa',
-        'id_usuario'       => '->idUsuario'
+        'id_admin_empresa'   => '->idEmpresa',
+        'id_usuario_cliente' => '->idUsuario'
     ];
     protected array $ormBuscar = [
         'titular', 'quantidade_dependentes', 'operadora', 'acomodacao',

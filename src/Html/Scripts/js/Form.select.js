@@ -432,16 +432,8 @@ const fwFormBlocoSelectFechar = async () => {
         inputValue.value = '';
     }
 
-    const change = inputTexto.getAttribute('data-onchange') || '';
-    const id = inputTexto.getAttribute('id');
-    if (
-        change &&
-        typeof formSelectChange == 'function' &&
-        typeof selectChange[id] == 'string' &&
-        change == selectChange[id] &&
-        fwFormSelectValorAtual != inputTexto.value
-    ) {
-        formSelectChange(change);
+    if (fwFormSelectValorAtual != inputTexto.value) {
+        inputValue.dispatchEvent(new Event('formChange'));
     }
 
     await fwFormSelectObrigatorio(fwFormSelectAbertoAtual);

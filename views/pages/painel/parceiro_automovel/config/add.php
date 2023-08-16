@@ -1,8 +1,8 @@
 <?php
 
 use Helpers\ApiHelper;
-use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\Geral\Status;
+use App\Classes\ParceiroLoja\Tipo;
 
 $empresa = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')
@@ -23,7 +23,7 @@ $Painel->coluna(callback: function () use ($Painel, $Loja) {
     });
     $Painel->fieldset('Dados', function () use ($Painel, $Loja) {
         $Painel
-            ->input(name: 'Modelo', label: 'Modelo')
+            ->input(name: 'titulo', label: 'Modelo')
             ->select(name: 'parceiro', label: 'Parceiro', lista: $Loja)
             ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha uma opção'));
     });

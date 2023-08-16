@@ -9,8 +9,8 @@ use Http\Request;
 use Modules\Pagina;
 use Helpers\OrmHelper;
 use Modules\Quantidade;
-use System\Trait\Model\OrdemTrait;
 use App\Classes\Geral\Status;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\Automovel\Versao\Ordem;
 use System\Trait\Model\QuantidadeTrait;
@@ -33,7 +33,7 @@ final class VersaoModel extends ORM
     public function __construct(
         private Pagina $pagina = new Pagina(null),
         private Quantidade $quantidade = new Quantidade(null),
-        private ?string $modelo = null,
+        private null|int|string $modelo = null,
         private Status $status = new Status(null),
         private Ordem $ordem = new Ordem(null)
     ) {
@@ -56,16 +56,10 @@ final class VersaoModel extends ORM
 
     private function pegarModelo()
     {
-        $this->dadoModelo = (new OrmHelper(TABELA_AUTOMOVEL_MODELO))
-            ->pegarUltimoRegistro(
-                where: [
-                    'OR',
-                    ['url', $this->modelo],
-                    ['uuid', $this->modelo]
-                ],
-                campo: ['url'],
-                retorno: 'object'
-            );
+        if (!empty($this->modelo) && is_int($this->modelo)) {
+            return;
+        }
+        $this->modelo = (new OrmHelper(TABELA_AUTOMOVEL_MODELO))->pegarIdPeloUuid($this->modelo);
     }
 
     /**
@@ -74,7 +68,7 @@ final class VersaoModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'valor_de', 'valor_por', 'imagem', 'status'])
+            ->campo(['uuid', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ->where($this->pegarWhere())
             ->order($this->pegarOrdem())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -91,7 +85,7 @@ final class VersaoModel extends ORM
     protected function pegarWhere(): array
     {
         $where = [
-            ['modelo', $this->dadoModelo->url]
+            ['id_automovel_modelo', $this->modelo]
         ];
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
@@ -114,7 +108,7 @@ final class VersaoModel extends ORM
                 'titulo'    => $r->titulo,
                 'valor_de'  => $r->valor_de,
                 'valor_por' => $r->valor_por,
-                'link_logo' => arquivoPrivado($r->imagem),
+                'cor'       => $r->cor,
                 'status'    => $Status->indice($r->status)
             ];
         }

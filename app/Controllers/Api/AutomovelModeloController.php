@@ -11,12 +11,18 @@ use App\Classes\Geral\Status;
 use App\Classes\Automovel\Modelo\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\Automovel\Modelo\ModeloModel;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\Automovel\Modelo\ModeloEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 final class AutomovelModeloController extends Controller implements
     ControllerBuscarInterface,
-    ControllerListarInterface
+    ControllerListarInterface,
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     /**
      * @param string $id
@@ -50,59 +56,14 @@ final class AutomovelModeloController extends Controller implements
         return mensagemSucesso($Modelo->listarDados());
     }
 
-    // /**
-    //  * @param Request $request
-    //  *
-    //  * @return Response
-    //  * @throws Excecao
-    //  */
-    // public function postSalvar(Request $request): Response
-    // {
-    //     $Modelo = new ModeloEntity($request);
-    //     $Modelo->set(lista: $request->dado());
-    //     $Modelo->salvar();
+    public function postSalvar(Request $request): Response
+    {
+        $Modelo = new ModeloEntity();
+        $Modelo->set(lista: $request->dado());
+        $Modelo->salvar();
 
-    //     return $this->retornoSucesso($Modelo, 201);
-    // }
-
-    // /**
-    //  * @param Request $request
-    //  *
-    //  * @return Response
-    //  * @throws Excecao
-    //  */
-    // public function putAtualizar(Request $request, string $id): Response
-    // {
-    //     validarUuid($id);
-
-    //     $Modelo = new ModeloEntity($request);
-    //     $Modelo->buscar([
-    //         ['uuid', $id],
-    //         ['status', 'in', Helper::STATUS_LIBERADO]
-    //     ]);
-
-    //     $Modelo->set(lista: $request->dado());
-    //     $Modelo->salvar();
-
-    //     return new Response(status: 204);
-    // }
-
-    // /**
-    //  * @param Request $request
-    //  *
-    //  * @return Response
-    //  * @throws Excecao
-    //  */
-    // public function deleteDeletar(string $id): Response
-    // {
-    //     validarUuid($id);
-
-    //     $Modelo = new ModeloEntity();
-    //     $Modelo->id($id);
-    //     $Modelo->destruir();
-
-    //     return new Response(status: 204);
-    // }
+        return $this->retornoSucesso($Modelo, 201);
+    }
 
     private function retornoSucesso(ModeloEntity $Modelo, int $status = 200)
     {
@@ -110,10 +71,29 @@ final class AutomovelModeloController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Modelo,
                 lista: [
-                    'titulo', 'link_logo', 'versao', 'url', 'status'
+                    'titulo', 'procedimento', 'texto_procedimento', 'link_imagem', 'versao', 'url', 'status'
                 ]
             ),
             status: $status,
         );
+    }
+
+    public function putAtualizar(Request $request, string $id): Response
+    {
+        $Modelo = new ModeloEntity();
+        $Modelo->uuid($id);
+        $Modelo->set(lista: $request->dado());
+        $Modelo->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id): Response
+    {
+        $Modelo = new ModeloEntity();
+        $Modelo->uuid($id);
+        $Modelo->destruir();
+
+        return new Response(status: 204);
     }
 }

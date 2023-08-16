@@ -72,7 +72,10 @@ require_once __DIR__ . '/../src/Config/Autoload.php';
 $requestUri = array_key_exists('REQUEST_URI', $_SERVER) ? explode('/', $_SERVER['REQUEST_URI']) : [];
 $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
 
-if ($requestUri == '__postman' && SISTEMA == 'LOCALHOST') {
+if ($requestUri == '__endereco' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST') {
+    require_once __DIR__ . '/../src/Html/Endereco/index.php';
+    exit();
+} elseif ($requestUri == '__postman' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../src/Html/Postman/index.php';
     exit();
 } elseif ($requestUri == '__base' && SISTEMA == 'LOCALHOST') {

@@ -9,7 +9,6 @@ use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\OperadoraModel;
 use App\Models\Site\Saude\SimulacaoViewModel;
-use Helpers\LocalizacaoHelper;
 
 final class PlanoSaudeController extends Controller
 {
@@ -124,7 +123,7 @@ final class PlanoSaudeController extends Controller
         ]);
     }
 
-    public function contratacao($simulacao = null)
+    public function contratacao(string $simulacao)
     {
         return view('plano_saude.contratacao', [
             'menu'      => 'saude',
@@ -132,46 +131,43 @@ final class PlanoSaudeController extends Controller
         ]);
     }
 
-    public function postBuscarCep(Request $request): Response
+    public function postRealizarContratacao(Request $request)
     {
-        $cep = (new LocalizacaoHelper())->pegarEnderecoPeloCep($request->cep);
-        return mensagemSucesso($cep);
-    }
+        $dado = (new ClubeApiHelper())
+            ->validar('Erro ao salvar contratação, por favor, tente novamente.', login: true)
+            ->body([
+                'id_simulacao'                => $request->id_simulacao,
+                'nome'                        => $request->nome,
+                'naturalidade'                => $request->naturalidade,
+                'documento_cpf'               => $request->cpf,
+                'data_nascimento'             => $request->data_nascimento,
+                'genero'                      => $request->genero,
+                'estado_civil'                => $request->estado_civil,
+                'peso'                        => $request->peso,
+                'altura'                      => $request->altura,
+                'documento_rg'                => $request->rg,
+                'orgao_expedidor'             => $request->orgao_expedidor,
+                'nome_mae'                    => $request->nome_mae,
+                'responsavel_nome'            => $request->responsavel_nome,
+                'responsavel_cpf'             => $request->responsavel_cpf,
+                'responsavel_rg'              => $request->responsavel_rg,
+                'responsavel_orgao_expedidor' => $request->responsavel_orgao_expedidor,
+                'email'                       => $request->email_pessoal,
+                'telefone_celular'            => $request->telefone_celular,
+                'telefone_residencial'        => $request->telefone_residencial,
+                'telefone_comercial'          => $request->telefone_comercial,
+                'telefone_comercial_ramal'    => $request->telefone_comercial_ramal,
+                'endereco_cep'                => $request->endereco_cep,
+                'endereco_bairro'             => $request->endereco_bairro,
+                'endereco_logradouro'         => $request->endereco_logradouro,
+                'endereco_numero'             => $request->endereco_numero,
+                'endereco_complemento'        => $request->endereco_complemento,
+                'endereco_cidade'             => $request->endereco_cidade,
+                'endereco_estado'             => $request->endereco_estado
+            ])
+            ->post('/saude/contratacao')
+            ->object();
 
-    public function postRealizarContratacao(Request $request, string $id_simulacao)
-    {
-        $dado = ((new ClubeApiHelper()))
-        ->body([
-            'id_simulacao'                                   => $request->id_simulacao,
-            'nome'                                           => $request->nome,
-            'naturalidade'                                   => $request->naturalidade,
-            'documento_cpf'                                  => $request->cpf,
-            'data_nascimento'                                => $request->data_nascimento,
-            'sexo'                                           => $request->genero,
-            'estado_civil'                                   => $request->estado_civil,
-            'peso'                                           => $request->peso,
-            'altura'                                         => $request->altura,
-            'documento_rg'                                   => $request->rg,
-            'orgao_expedidor'                                => $request->orgao_expedidor,
-            'filiacao'                                       => $request->responsavel,
-            'nome_responsavel'                               => $request->responsavel_nome,
-            'cpf_responsavel'                                => $request->responsavel_cpf,
-            'rg_responsavel'                                 => $request->responsavel_rg,
-            'email'                                          => $request->email_pessoal,
-            'telefone_celular'                               => $request->telefone_celular,
-            'telefone_residencial'                           => $request->telefone_residencial,
-            'telefone_comercial'                             => $request->telefone_comercial,
-            'ramal'                                          => $request->ramal,
-            'cep'                                            => $request->cep,
-            'bairro'                                         => $request->bairro,
-            'endereco'                                       => $request->logradouro,
-            'numero'                                         => $request->numero,
-            'complemento'                                    => $request->complemento,
-            'cidade'                                         => $request->cidade,
-            'estado'                                         => $request->estado,
-        ])
-        ->post('/saude/contratacao')
-        ->object();
-        return mensagemSucesso([], 200);
+        return mensagemSucesso($dado, status: 201);
     }
 }

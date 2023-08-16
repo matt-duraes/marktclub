@@ -4,8 +4,9 @@ namespace App\Models\Site\Automovel;
 
 use stdClass;
 use Modules\Dinheiro;
-use App\Helpers\ClubeApiHelper;
 use App\Classes\Geral\Status;
+use App\Helpers\ClubeApiHelper;
+use App\Helpers\Site\TextoHelper;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -30,18 +31,18 @@ final class BuscarModel extends ClubeApiHelper
 
     private function montarRetorno($r): stdClass
     {
+        $Texto = new TextoHelper();
         return (object)[
             'id'                 => $r->id,
             'titulo'             => $r->titulo,
-            'logo'               => $r->link_logo,
-            'versao'             => $this->montarVersao($r->versao),
-            'endereco'           => '',
-            'texto_procedimento' => '',
+            'versao'             => $this->montarVersao($r->versao, $r->link_imagem),
+            'texto_procedimento' => $Texto->destaque($r->texto_procedimento),
+            'procedimento'       => $r->procedimento,
             'endereco'           => '',
         ];
     }
 
-    private function montarVersao($dado)
+    private function montarVersao($dado, $imagem)
     {
         $retorno = [];
         foreach ($dado as $r) {
@@ -53,7 +54,8 @@ final class BuscarModel extends ClubeApiHelper
                 'titulo'      => $r->titulo,
                 'valor_de'    => (new Dinheiro($r->valor_de))->dinheiro(),
                 'valor_por'   => (new Dinheiro($r->valor_por))->dinheiro(),
-                'imagem'      => $r->link_logo,
+                'cor'         => $r->cor,
+                'imagem'      => $imagem,
                 'tipo'        => 'automovel-versao'
             ];
         }

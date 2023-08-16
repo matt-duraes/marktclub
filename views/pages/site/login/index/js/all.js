@@ -235,7 +235,7 @@ window.addEventListener('load', () => {
         }, 1000);
     });
 
-    document.querySelector('body').addEventListener('click', function (e) {
+    BODY.addEventListener('click', function (e) {
         if (e.target.id === 'calcular') {
             e.preventDefault();
 
@@ -243,7 +243,7 @@ window.addEventListener('load', () => {
             const link = form.getAttribute('action');
 
             const academia = document.querySelector('input[name=academia]', form).value;
-            const escola_creche = document.querySelector('input[name=escola_creche]', form).value;
+            const escolaCreche = document.querySelector('input[name=escola_creche]', form).value;
             const farmacia = document.querySelector('input[name=farmacia]', form).value;
             const eletroeletronico = document.querySelector('input[name=eletroeletronico]', form).value;
             const idioma = document.querySelector('input[name=idioma]', form).value;
@@ -254,7 +254,8 @@ window.addEventListener('load', () => {
             const data = {
                 ajax: true,
                 academia,
-                escola_creche,
+                // eslint-disable-next-line camelcase
+                escola_creche: escolaCreche,
                 farmacia,
                 eletroeletronico,
                 idioma,
@@ -314,7 +315,7 @@ window.addEventListener('load', () => {
         }
     });
 
-    document.querySelector('body').addEventListener('click', function (e) {
+    BODY.addEventListener('click', function (e) {
         if (e.target.classList.contains('novamente')) {
             const blocoCalculadoraConteudo = document.querySelector('.bloco_calculadora .container .conteudo');
             blocoCalculadoraConteudo.classList.remove('esconde');

@@ -4,105 +4,69 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Modules\Pagina;
 use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Classes\Automovel\Versao\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\Automovel\Versao\VersaoModel;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\Automovel\Versao\VersaoEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 final class AutomovelVersaoController extends Controller implements
-    ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerDeletarInterface,
-    ControllerAtualizarInterface
+    ControllerAtualizarInterface,
+    ControllerBuscarInterface
 {
-    /**
-     * @param string $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getBuscar(string $id): Response
-    {
-        validarUuid($id);
-
-        $Versao = new VersaoEntity();
-        $Versao->buscar([
-            ['uuid', $id],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ]);
-
-        return $this->retornoSucesso($Versao);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
     public function getListar(Request $request): Response
     {
-        $Versao = new VersaoModel($request);
-
+        $Versao = new VersaoModel(
+            pagina: new Pagina($request->pagina),
+            modelo: $request->modelo,
+            status: new Status($request->status),
+            ordem: new Ordem($request->ordem)
+        );
         $dado = $Versao->listarDados();
 
         return mensagemSucesso($dado);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
+    public function getBuscar(string $id): Response
+    {
+        $Versao = new VersaoEntity();
+        $Versao->uuid($id);
+
+        return $this->retornoSucesso($Versao, 200);
+    }
+
     public function postSalvar(Request $request): Response
     {
-        $Versao = new VersaoEntity($request);
+        $Versao = new VersaoEntity();
         $Versao->set(lista: $request->dado());
         $Versao->salvar();
 
         return $this->retornoSucesso($Versao, 201);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
     public function putAtualizar(Request $request, string $id): Response
     {
-        validarUuid($id);
-
-        $Versao = new VersaoEntity($request);
-        $Versao->buscar([
-            ['uuid', $id],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ]);
-
+        $Versao = new VersaoEntity();
+        $Versao->uuid($id);
         $Versao->set(lista: $request->dado());
         $Versao->salvar();
 
         return new Response(status: 204);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
     public function deleteDeletar(string $id): Response
     {
-        validarUuid($id);
-
         $Versao = new VersaoEntity();
-        $Versao->id($id);
+        $Versao->uuid($id);
         $Versao->destruir();
 
         return new Response(status: 204);
@@ -114,7 +78,7 @@ final class AutomovelVersaoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Versao,
                 lista: [
-                    'titulo', 'vinculo', 'detalhe', 'valor', 'valor_off', 'tipo', 'status'
+                    'titulo', 'cor', 'valor_de', 'valor_por', 'status'
                 ]
             ),
             status: $status,

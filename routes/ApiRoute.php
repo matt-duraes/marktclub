@@ -1,9 +1,9 @@
 <?php
 
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('samsung')
@@ -1398,8 +1398,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                '!titular', '!dependentes', '!operadora',
-                '!acomodacao', '!regiao', '!plano',
+                '!titular', '!dependentes', '!operadora', '!acomodacao', '!regiao', '!plano',
             ])
             ::post('/saude/simulacao');
     });
@@ -1414,11 +1413,11 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:salvar'])
             ::request([
                 'id_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
-                'data_nascimento', 'estado_civil', 'naturalidade', 'sexo', 'peso', 'altura',
-                '!filiacao', '!cpf_responsavel', '!rg_responsavel', '!nome_responsavel',
-                'email', 'telefone_celular', '!telefone_residencial', 'telefone_comercial',
-                '!ramal', 'endereco', 'cep', 'estado', 'cidade', 'bairro', 'numero',
-                '!complemento', '!status'
+                'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
+                'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
+                'email', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
+                'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
+                'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento'
             ])
             ::post('/saude/contratacao');
     });
@@ -1604,7 +1603,7 @@ Route
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
-            ::request(['!tipo', '!montadora', '!titulo', '!imagem', '!url', '!status', '!data_vencimento'])
+            ::request(['!titulo', '!parceiro', '!imagem', '!status'])
             ::put('/automovel-modelo/{id}');
 
         Route
@@ -1621,27 +1620,22 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
-            ::request(['pagina', '!quantidade', '!vinculo', '!titulo', '!detalhe', '!tipo', '!ordem', '!status'],
-                'json')
+            ::request(['pagina', '!quantidade', '!modelo', '!ordem', '!status'], 'json')
             ::get('/automovel-versao');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:buscar'])
             ::get('/automovel-versao/{id}');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
-            ::request(['titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status'])
+            ::request(['modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ::post('/automovel-versao');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
-            ::request(['!tipo', '!detalhe', '!titulo', '!cor', '!valor', '!valor_off', '!status', '!data_vencimento'])
+            ::request(['!titulo', '!cor', '!valor_de', '!valor_por', '!status'])
             ::put('/automovel-versao/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:deletar'])

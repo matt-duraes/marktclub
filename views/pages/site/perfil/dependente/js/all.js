@@ -7,7 +7,7 @@
 // @resource "site/dependente"
 
 window.addEventListener('load', () => {
-    document.querySelector('body').addEventListener('click', function (event) {
+    BODY.addEventListener('click', function (event) {
         if (event.target.classList.contains('remove')) {
             const linhaDependente = event.target.closest('.linha_dependente');
             linhaDependente.remove();

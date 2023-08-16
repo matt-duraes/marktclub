@@ -3,7 +3,7 @@
 $Painel = new PainelConfig\Visualizar('parceiro_automovel');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Dados pessoais', callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Dados do modelo', callback: function () use ($Painel) {
         $Painel
             ->linha('titulo', 'Modelo');
     });

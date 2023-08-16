@@ -4,20 +4,19 @@ namespace App\Models\Api\ParceiroCashback;
 
 use ORM\Entity;
 use Modules\Decimal;
+use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
 
 final class CashbackEntity extends Entity
 {
     protected string $ormTabela = TABELA_PARCEIRO_CASHBACK;
     protected array $ormSalvar = [
-        'id_admin_empresa' => '->empresa',
         'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
-        'status', 'link_site', 'imagem', 'url'
+        'status', 'link_site', 'imagem', 'url', 'id_admin_empresa'
     ];
     protected array $ormBuscar = [
-        'empresa' => 'id_admin_empresa',
         'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
-        'status', 'link_site', 'imagem', 'url'
+        'status', 'link_site', 'imagem', 'url', 'id_admin_empresa'
     ];
     public string $titulo;
     public string $texto_descricao;
@@ -31,14 +30,21 @@ final class CashbackEntity extends Entity
     public string $imagem;
     public string $link_logo;
     public string $url;
+    protected array $id_admin_empresa;
 
     public function __construct()
     {
         parent::__construct();
     }
 
+    protected function regraSalvar()
+    {
+        $this->id_admin_empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaUuidParaId($this->empresa);
+    }
+
     protected function regraPosBuscar()
     {
         $this->link_logo = arquivoPrivado($this->imagem);
+        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid($this->id_admin_empresa);
     }
 }
