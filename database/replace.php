@@ -18,9 +18,6 @@ return [
     'tag_novo' => [
         'cod' => 'uuid'
     ],
-    'saude_simulacao' => [
-        'id_usuario' => 'id_usuario_cliente'
-    ],
     'contato' => [
         'cod' => 'uuid'
     ],

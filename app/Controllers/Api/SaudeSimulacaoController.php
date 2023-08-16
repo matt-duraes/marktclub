@@ -2,14 +2,13 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Modules\Data;
+use Controller\Controller;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
 
 final class SaudeSimulacaoController extends Controller implements
     ControllerBuscarInterface,
@@ -37,21 +36,12 @@ final class SaudeSimulacaoController extends Controller implements
      */
     private function retornoPadrao(SimulacaoEntity $simulacaoEntity, int $status = 200): Response
     {
-        $propriedadesEntity = pegarPropriedadeDaEntity($simulacaoEntity, lista: [
-            'titular', 'quantidade_dependentes', 'operadora',
-            'acomodacao', 'regiao', 'valor_titular', 'dependentes',
+        $Simulacao = pegarPropriedadeDaEntity($simulacaoEntity, lista: [
+            'titular', 'quantidade_dependente', 'operadora',
+            'acomodacao', 'regiao', 'valor_titular', 'lista_dependente',
             'valor_total', 'plano', 'status'
         ]);
-
-        $dependentes = jsonDecode($propriedadesEntity['dependentes'], true, true);
-        foreach ($dependentes as $key => $value) {
-            $dependentes[$key]['data_nascimento'] = (new Data($value['data_nascimento']))->data();
-        }
-
-        $propriedadesEntity['titular'] = (new Data($propriedadesEntity['titular']))->data();
-        $propriedadesEntity['dependentes'] = $dependentes;
-
-        return mensagemSucesso($propriedadesEntity, $status);
+        return mensagemSucesso($Simulacao, $status);
     }
 
     /**
