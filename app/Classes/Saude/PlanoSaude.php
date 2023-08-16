@@ -2,13 +2,12 @@
 
 namespace App\Classes\Saude;
 
-use App\Classes\Saude\Operadoras\AbstractOperadora;
-use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimed\CentralNacionalUnimed;
 use DateTime;
 use Exception;
-use Helpers\ValidarHelper;
 use Modules\Data;
+use Helpers\ValidarHelper;
+use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Classes\Saude\Operadoras\AbstractOperadora;
 
 class PlanoSaude
 {
@@ -31,7 +30,7 @@ class PlanoSaude
      */
     private function validarDados(): void
     {
-        if (($this->operadora instanceof Amil) || ($this->operadora instanceof CentralNacionalUnimed)) {
+        if ($this->operadora instanceof Amil) {
             (new ValidarHelper())
                 ->valor(
                     $this->operadora->pegarDados()['regiao'],

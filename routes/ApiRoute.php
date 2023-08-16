@@ -1398,7 +1398,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                '!titular', '!dependentes', '!operadora', '!acomodacao', '!regiao', '!plano',
+                '!titular', '!lista_dependente', '!operadora', '!acomodacao', '!regiao', '!plano',
             ])
             ::post('/saude/simulacao');
     });
