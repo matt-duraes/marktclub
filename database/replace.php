@@ -18,23 +18,6 @@ return [
     'tag_novo' => [
         'cod' => 'uuid'
     ],
-    'saude_contratacao' => [
-        'id_usuario'       => 'id_usuario_cliente',
-        'id_simulacao'     => 'id_saude_simulacao',
-        'sexo'             => 'genero',
-        'filiacao'         => 'nome_mae',
-        'cpf_responsavel'  => 'responsavel_cpf',
-        'rg_responsavel'   => 'responsavel_rg',
-        'nome_responsavel' => 'responsavel_nome',
-        'ramal'            => 'telefone_comercial_ramal',
-        'endereco'         => 'endereco_logradouro',
-        'cep'              => 'endereco_cep',
-        'estado'           => 'endereco_estado',
-        'cidade'           => 'endereco_cidade',
-        'bairro'           => 'endereco_bairro',
-        'numero'           => 'endereco_numero',
-        'complemento'      => 'endereco_complemento'
-    ],
     'saude_simulacao' => [
         'id_usuario' => 'id_usuario_cliente'
     ],
