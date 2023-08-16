@@ -29,9 +29,9 @@ return $Painel
     })
     ->grupo('versao-atualizar', function () use ($Painel) {
         $Painel
-            ->request(['id', 'modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
+            ->request(['id', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ->permissao('parceiro_automovel_editar')
             ->scope('automovel_versao:atualizar')
-            ->metodo('post')
+            ->metodo('put')
             ->rota('/automovel-versao/{id}');
     });
