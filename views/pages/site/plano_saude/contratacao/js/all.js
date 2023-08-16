@@ -111,13 +111,15 @@ botaoContatoProximo.addEventListener('click', async () => {
 });
 
 // ENDERECO
-buscarEnderecoPeloCep(inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado);
+buscarEnderecoPeloCep(inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado, true);
 inputEstado.addEventListener('formChange', () => {
-    buscarCidadePeloEstado(inputCidade, inputEstado.value);
+    buscarCidadePeloEstadoViaBrowser(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
 });
 botaoEnderecoAnterior.addEventListener('click', () => {
     irParaPassoAnterior(botaoEnderecoAnterior);
 });
+
+// ENVIAR
 botaoContratarEnviar.addEventListener('click', async () => {
     if (!validarInputObrigatorio(blocoEndereco)) {
         return;
