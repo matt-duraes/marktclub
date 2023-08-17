@@ -21,12 +21,11 @@ final class DependenteModel extends ClubeApiHelper
     /**
      * @throws Excecao
      */
-    public function getDado()
+    public function listarDependente()
     {
         $dado = $this
-            ->validar('Página não encontrada!', status: 404)
             ->json([
-                'usuario' => $this->idUsuario
+                'usuario' => sessao('USUARIO.id')
             ])
             ->get('/usuario-dependente')
             ->object();
@@ -37,44 +36,26 @@ final class DependenteModel extends ClubeApiHelper
     /**
      * @param Request $request
      *
-     * @return Response
+     * @return array
      * @throws Excecao
      */
-    public function postDado(Request $request): Response
+    public function salvarDependente(Request $request): array
     {
-        $salvar = $this
-            ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.')
+        $dado = $this
+            ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.', login: true)
             ->body([
                 'nome'    => $this->Crypt->encode($request->nome),
                 'email'   => $this->Crypt->encode($request->email),
                 'cpf'     => $this->Crypt->encode($request->cpf),
-                'usuario' => $this->idUsuario
+                'usuario' => sessao('USUARIO.id')
             ])
             ->post('/usuario-dependente')
-            ->object();
-        return $this->montarRetornoPostDado($salvar);
-    }
+            ->object()->dado;
 
-    /**
-     * @param $dado
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    private function montarRetornoPostDado($dado): Response
-    {
-        $retorno = [];
-        if ($dado->dado) {
-            $r = $dado->dado;
-            $retorno = (object)[
-                'id'   => $r->id,
-                'nome' => $this->Crypt->decode($r->nome),
-            ];
-        }
-        return mensagemSucesso([
-            'id'   => $retorno->id,
-            'nome' => $retorno->nome
-        ], 201);
+        return [
+            'id'   => $dado->id,
+            'nome' => $this->Crypt->decode($dado->nome),
+        ];
     }
 
     /**
@@ -83,9 +64,10 @@ final class DependenteModel extends ClubeApiHelper
      * @return Response
      * @throws Excecao
      */
-    public function postDeletar(Request $request): Response
+    public function deletarDependente(Request $request): Response
     {
         $this
+            ->validar('Erro ao deletar dependente, por favor, tente novamente.', login: true)
             ->delete('/usuario-dependente/' . $request->id);
         return new Response(status: 204);
     }

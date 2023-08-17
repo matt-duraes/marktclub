@@ -2,15 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\Api\SolicitacaoCredito\CreditoEntity;
-use App\Models\Api\SolicitacaoCredito\CreditoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Inteiro;
+use Modules\Dinheiro;
+use Controller\Controller;
+use App\Classes\SolicitacaoCredito\Tipo;
+use App\Classes\SolicitacaoCredito\Operadora;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\SolicitacaoCredito\CreditoModel;
+use App\Models\Api\SolicitacaoCredito\ParcelaModel;
+use App\Models\Api\SolicitacaoCredito\CreditoEntity;
+use App\Models\Api\SolicitacaoCredito\SimulacaoModel;
 
 class SolicitacaoCreditoController extends Controller implements
     ControllerBuscarInterface,
@@ -23,11 +29,31 @@ class SolicitacaoCreditoController extends Controller implements
      * @return Response
      * @throws Excecao
      */
-    public function getSimular(Request $request): Response
+    public function getSimulacao(Request $request): Response
     {
-        $CreditoEntity = new CreditoEntity($request);
-        $CreditoEntity->simularCredito();
-        return $this->retornoSucesso($CreditoEntity);
+        $valor = new Dinheiro($request->valor_total);
+        $Credito = new SimulacaoModel(
+            operadora: new Operadora($request->operadora),
+            tipo: new Tipo($request->tipo),
+            valor_total: $valor,
+            parcela: new Inteiro($request->parcela)
+        );
+
+        return mensagemSucesso([
+            'parcela'       => $request->parcela,
+            'valor_parcela' => $Credito->valorParcela->decimal(),
+            'valor_total'   => $valor->decimal(),
+        ]);
+    }
+
+    public function getParcela(Request $request): Response
+    {
+        $Parcela = new ParcelaModel(
+            operadora: new Operadora($request->operadora),
+            tipo: new Tipo($request->tipo),
+            titulo: $request->titulo
+        );
+        return mensagemSucesso($Parcela->listaParcela);
     }
 
     /**
@@ -43,8 +69,8 @@ class SolicitacaoCreditoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $creditoEntity,
                 lista: [
-                    'codigo', 'operadora', 'tipo', 'valor', 'parcelas',
-                    'valor_parcelas', 'observacao', 'status', 'data_criacao'
+                    'operadora', 'tipo', 'valor_total', 'parcela',
+                    'valor_parcela', 'data_criacao', 'status'
                 ]
             ),
             $status
@@ -84,9 +110,10 @@ class SolicitacaoCreditoController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $CreditoEntity = new CreditoEntity($request);
-        $CreditoEntity->salvar();
+        $Credito = new CreditoEntity();
+        $Credito->set(lista: $request->dado());
+        $Credito->salvar();
 
-        return $this->retornoSucesso($CreditoEntity, 201);
+        return $this->retornoSucesso($Credito, 201);
     }
 }

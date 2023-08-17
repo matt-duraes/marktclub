@@ -11,9 +11,9 @@ final class AcessoRapidoController extends Controller
     {
         sessao('TEMPLATE', 'melhor-idade');
         return view(
-            'acesso_rapido.index',
-            [
-                'menu' => 'acessorapido'
+            arquivo: 'acesso_rapido.index',
+            var: [
+                'sem_home' => true
             ]
         );
     }

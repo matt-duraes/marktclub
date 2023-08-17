@@ -3,7 +3,11 @@
         <a href="@route(acessoRapido.index)"><img src="{{CLUBE_LOGO}}"></a>
     </figure>
     <div class="bloco_botao">
+        @ if( !isset($sem_home) ):
         <a class="botao_geral_cor cor_bg" href="@route(acessoRapido.index)">Voltar para home</a>
+        @else:
+        <div></div>
+        @ endif;
         <a class="botao_geral_borda cor_border" href="@route(acessoRapido.sair)">Voltar para navegação normal</a>
     </div>
 </header>

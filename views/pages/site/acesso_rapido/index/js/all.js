@@ -1,8 +1,1 @@
 // @template "site"
-// @system "Alerta"
-// @system "Icone"
-// @system "Pagina"
-// @system "Form"
-// @system "Galeria"
-// @system "Calendario"
-// @system "Mascara"

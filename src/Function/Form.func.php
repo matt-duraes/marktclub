@@ -606,7 +606,6 @@ if (!function_exists('formSelect')) {
                     $classeInterna = $val[1] ?? '';
                     $val = $val[0];
                 }
-                $ind = is_int($ind) ? $val : $ind;
                 $option[] = '<li class="' . $classeInterna . ' " data-value="' . $ind . '">' . $val . '</li>';
             }
         }
@@ -2017,6 +2016,7 @@ if (!function_exists('formArquivoLista')) {
         array $request = [],
         string $separador = '',
         null|int|array $maximo = null,
+        mixed $local = ''
     ): string {
         $mascara = 'dinheiro';
         if (is_array($name)) {
@@ -2049,6 +2049,7 @@ if (!function_exists('formArquivoLista')) {
             request: $request,
             separador: $separador,
             maximo: $maximo,
+            local: $local
         );
     }
 }

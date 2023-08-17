@@ -61,7 +61,7 @@ executarPassoPasso();
 
 // DADO PESSOAL
 botaoDadoPessoalProximo.addEventListener('click', async () => {
-    if (!(await validarInputObrigatorio(blocoDadoPessoal))) {
+    if (!(await validarInput(blocoDadoPessoal))) {
         return;
     }
     if (inputNome.value.trim().split(' ').length < 2) {
@@ -76,7 +76,7 @@ botaoResponsavelAnterior.addEventListener('click', () => {
     irParaPassoAnterior(botaoResponsavelAnterior);
 });
 botaoResponsavelProximo.addEventListener('click', async () => {
-    if (!(await validarInputObrigatorio(blocoResponsavel))) {
+    if (!(await validarInput(blocoResponsavel))) {
         return;
     }
     irParaProximoPasso(botaoResponsavelProximo);
@@ -104,7 +104,7 @@ botaoContatoAnterior.addEventListener('click', () => {
     irParaPassoAnterior(botaoContatoAnterior);
 });
 botaoContatoProximo.addEventListener('click', async () => {
-    if (!(await validarInputObrigatorio(blocoContato))) {
+    if (!(await validarInput(blocoContato))) {
         return;
     }
     irParaProximoPasso(botaoContatoProximo);
@@ -121,7 +121,7 @@ botaoEnderecoAnterior.addEventListener('click', () => {
 
 // ENVIAR
 botaoContratarEnviar.addEventListener('click', async () => {
-    if (!validarInputObrigatorio(blocoEndereco)) {
+    if (!validarInput(blocoEndereco)) {
         return;
     }
     Loading.show();

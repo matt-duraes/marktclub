@@ -1,0 +1,151 @@
+@system "Form"
+@system "Alerta"
+@system "Loading"
+@system "Pagina"
+@template "site"
+@resource "site/variavel"
+@resource "site/banner"
+@resource "site/passo_passo"
+
+#bloco_credito_sicoob
+    maxWidth()
+    flexCenter()
+    flexCol()
+    .bloco_geral_banner
+        espacoBottomPadrao()
+
+.bloco_credito_index
+    maxWidth()
+    .banner
+        espacoBottomPadrao()
+    .bloco_escolha
+        espacoBottomPadrao()
+        padding: 40px 20px 50px
+    .bloco_escolha p
+        max-width: 400px
+    .bloco_escolha .bloco_botao
+        width: 100%
+        flexRow()
+        justify-content: center
+        margin-top: 30px
+    .bloco_escolha .bloco_botao .botao
+        margin: 0 10px
+
+.bloco_credito_geral_simulacao
+    maxWidth()
+    flexCenter()
+    flexCol()
+    .formulario_contratacao
+        width: 100%
+        espacoVerticalPadrao()
+        flexCenter()
+        directionColumn()
+    .formulario_contratacao .coluna_divisoria
+        width: 100%
+        max-width: 500px
+        spaceBetween()
+        margin-top: 10px
+        color: #666
+        h1
+            bold()
+        h1,  p, p span
+            textoMobile()
+    .disclaimer
+        maxWidth()
+        espacoTopPadrao()
+        padding: 0px 20px
+        p
+            disclaimerFontSize()
+            color: #666
+            text-align: left
+    .aviso_resultado
+        width: 100%
+        flexCenter()
+        directionColumn()
+        espacoVerticalPadrao()
+    #resultado_simulacao
+        flexCenter()
+        flexCol()
+        .resultado
+            espacoTopPadrao()
+        .resultado h2
+            color: #333
+            texto()
+        .aviso_resultado
+            espacoBottomPadrao()
+        .aviso_resultado h2
+            color: #333
+            texto()
+        .aviso_resultado p
+            texto()
+            max-width: 300px
+            texto()
+            font-size: 1.5em
+            border-radius: 8px
+            background: #FA5252
+            color: $branco
+            padding: 5px  10px
+        .aviso_resultado span
+            font-size: 1em
+            line-height: 1.5em
+        .resultado_valor
+            width: 100%
+            max-width: 200px
+            height: 50px
+            flexCenter()
+            flexCol()
+            margin: 10px auto
+            border-radius: 3px
+            border: 1px solid $corVermelho
+        .resultado_valor p
+            color: $corVermelho
+            font-weight: bold
+            font-size: 1.8em !important
+            padding: 5px  10px
+
+.bloco_credito_geral_simulacao .bloco_credito
+    width: 100%
+    height: 100%
+    max-width: 700px
+    flexCol()
+    align-items: center
+    position: relative
+    padding: 20px 20px 75px 20px
+    h1
+        width: 100%
+        text-align: center
+        titulo()
+    p
+        width: 100%
+        texto()
+    p span
+        texto()
+    > p
+        max-width: 500px
+    form
+        width: 100%
+        espacoVerticalPadrao()
+    .atencao
+        margin-top: 40px
+    .atencao h2 span
+        texto()
+        font-weight: bold
+        color: $corVermelho
+    .bloco_botao
+        width: calc(100% - 40px)
+        flexRow()
+        position: absolute
+        bottom: 20px
+        justify-content: space-between
+    .bloco_botao .cinza
+        background-color: #DDD
+
+
+@media screen and (max-width: 650px)
+    .bloco_credito_geral_simulacao .bloco_credito
+        width: calc(100% - 100px)
+        max-width: 100%
+
+@media screen and (max-width: 460px)
+    .bloco_credito_geral_simulacao .bloco_credito
+        width: 100%
