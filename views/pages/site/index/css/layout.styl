@@ -230,14 +230,14 @@
         margin-left: 4px
 
 .fw_historico_figure
-    max-width: 100vw
-    max-height: 100vh
+    max-width: calc(100vw - 210px)
+    max-height: calc(100vh - 80px)
     position: fixed
     background-image: url("../images/plugins/galeria/grade_photoshop.svg")
     z-index: 2
-    .fw_historico_img
-        max-width: 100vw
-        max-height: 100vh
+    img
+        max-width: calc(100vw - 210px)
+        max-height: calc(100vh - 80px)
         float: left
 
 #fw_historico_figure.fw_historico_animar_centro_esquerda
@@ -284,7 +284,7 @@
     height: 50px
     line-height: 50px
     position: fixed
-    bottom: 10px
+    bottom: 20px
     color: #FFF
     padding: 0 20px
     border-radius: 25px
@@ -292,7 +292,6 @@
     background-color: #63b4e4
     overflow: hidden
     z-index: 4
-    display: none
 
 @media screen and (max-width:1000px)
     #fw_historico .fw_historico_seta
