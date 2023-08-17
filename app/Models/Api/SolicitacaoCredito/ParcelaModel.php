@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use App\Classes\SolicitacaoCredito\Tipo;
 use App\Classes\SolicitacaoCredito\Operadora;
+use App\Classes\SolicitacaoCredito\Tipo;
 
 final class ParcelaModel
 {
@@ -19,8 +19,8 @@ final class ParcelaModel
     public array $listaParcela;
 
     public function __construct(
-        private Operadora $operadora,
-        private Tipo $tipo,
+        private readonly Operadora $operadora,
+        private readonly Tipo $tipo,
         string $titulo = null
     ) {
         $this
@@ -32,14 +32,17 @@ final class ParcelaModel
         }
 
         match ($this->tipo->indice()) {
-            Tipo::CONSIGNADO       => $this->setarListaFixa('1,59'),
-            Tipo::CREDITO_PESSOAL  => $this->setarListaCreditoPessoal(),
-            Tipo::VEICULO_NOVO     => $this->setarListaFixa('2,10'),
+            Tipo::CONSIGNADO => $this->setarListaFixa('1,59'),
+            Tipo::CREDITO_PESSOAL => $this->setarListaCreditoPessoal(),
+            Tipo::VEICULO_NOVO => $this->setarListaFixa('2,10'),
             Tipo::VEICULO_SEMINOVO => $this->setarListaFixa('3,50')
         };
     }
 
-    private function setarListaFixa($juros)
+    /**
+     * @param string $juros
+     */
+    private function setarListaFixa(string $juros): void
     {
         $i = 2;
         $this->listaParcela[1] = '1 mês - ' . $juros . '% a.m.';
@@ -48,7 +51,7 @@ final class ParcelaModel
         }
     }
 
-    private function setarListaCreditoPessoal()
+    private function setarListaCreditoPessoal(): void
     {
         $i = 2;
         $this->listaParcela[1] = '1 mês - 1,59% a.m.';

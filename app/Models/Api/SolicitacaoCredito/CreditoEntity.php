@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use ORM\Entity;
-use Http\Request;
-use Modules\Inteiro;
-use Modules\Dinheiro;
-use App\Classes\SolicitacaoCredito\Tipo;
-use App\Classes\SolicitacaoCredito\Status;
 use App\Classes\SolicitacaoCredito\Operadora;
+use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\SolicitacaoCredito\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Modules\Dinheiro;
+use Modules\Inteiro;
+use ORM\Entity;
 
 class CreditoEntity extends Entity
 {
@@ -47,7 +47,7 @@ class CreditoEntity extends Entity
     ';
 
     /**
-     * @param Request|null $request
+     * @throws Excecao
      */
     public function __construct()
     {
@@ -55,7 +55,7 @@ class CreditoEntity extends Entity
         parent::__construct();
     }
 
-    protected function regraInsert()
+    protected function regraInsert(): void
     {
         $this->status = new Status(Status::NOVO);
 

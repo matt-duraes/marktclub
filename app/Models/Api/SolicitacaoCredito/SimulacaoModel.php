@@ -2,10 +2,11 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use Modules\Inteiro;
-use Modules\Dinheiro;
-use App\Classes\SolicitacaoCredito\Tipo;
 use App\Classes\SolicitacaoCredito\Operadora;
+use App\Classes\SolicitacaoCredito\Tipo;
+use Erro\Excecao;
+use Modules\Dinheiro;
+use Modules\Inteiro;
 
 final class SimulacaoModel
 {
@@ -19,15 +20,22 @@ final class SimulacaoModel
             Tipo::VEICULO_SEMINOVO => 3.5
         ]
     ];
-
-    private Float $juros;
     public Dinheiro $valorParcela;
+    private float $juros;
 
+    /**
+     * @param Operadora $operadora
+     * @param Tipo      $tipo
+     * @param Dinheiro  $valor_total
+     * @param Inteiro   $parcela
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private Operadora $operadora,
-        private Tipo $tipo,
-        private Dinheiro $valor_total,
-        private Inteiro $parcela
+        private readonly Operadora $operadora,
+        private readonly Tipo $tipo,
+        private readonly Dinheiro $valor_total,
+        private readonly Inteiro $parcela
     ) {
         $this
             ->validarOperadora()
@@ -41,9 +49,9 @@ final class SimulacaoModel
     private function setarValorParcela(): void
     {
         $valorParcela = match ($this->tipo->indice()) {
-            Tipo::CONSIGNADO       => $this->jurosConsignado()->calcularParcela(),
-            Tipo::CREDITO_PESSOAL  => $this->jurosCreditoPessoal()->calcularParcela(),
-            Tipo::VEICULO_NOVO     => $this->jurosVeiculoNovo()->calcularParcela(),
+            Tipo::CONSIGNADO => $this->jurosConsignado()->calcularParcela(),
+            Tipo::CREDITO_PESSOAL => $this->jurosCreditoPessoal()->calcularParcela(),
+            Tipo::VEICULO_NOVO => $this->jurosVeiculoNovo()->calcularParcela(),
             Tipo::VEICULO_SEMINOVO => $this->jurosVeiculoSeminovo()->calcularParcela()
         };
 
@@ -57,7 +65,7 @@ final class SimulacaoModel
     {
         return match ($this->operadora->indice()) {
             Operadora::SICOOB => $this->calcularParcelaNaSicoob(),
-            default           => 0
+            default => 0
         };
     }
 
@@ -73,12 +81,12 @@ final class SimulacaoModel
 
         return match ($this->tipo->indice()) {
             Tipo::CONSIGNADO => $this->calcularSeguroSicoob($valorParcela),
-            default          => $valorParcela
+            default => $valorParcela
         };
     }
 
     /**
-     * @param float $valorParcelas
+     * @param float $valorParcela
      *
      * @return float
      */
