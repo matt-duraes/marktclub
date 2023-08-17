@@ -126,7 +126,7 @@ const fwLogin = () => {
 | não deixa de ser necessário a validação no backend
 |
 */
-const validarInputObrigatorio = bloco => {
+const validarInput = bloco => {
     return new Promise(resolve => {
         const lista = bloco.querySelectorAll('.input_obrigatorio');
         const quantidade = lista.length;

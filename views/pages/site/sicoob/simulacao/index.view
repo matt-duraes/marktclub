@@ -1,0 +1,72 @@
+@template "site"
+<div id="bloco_credito_sicoob">
+    <div class="bloco_credito_geral_simulacao">
+        <div class="bloco_geral bloco_passo_passo_geral">
+            <div class="bloco_progresso">
+                <div class="item">
+                    <div class="bola">
+                        <span>1</span>
+                        <div class="cor_fill check">@iconeCheck()</div>
+                    </div>
+                    <p>Simulação<br>empréstimo</p>
+                </div>
+                <div class="item">
+                    <div class="bola">
+                        <span>2</span>
+                        <div class="cor_fill check"> @iconeCheck()</div>
+                    </div>
+                    <p>Valor da simulação</p>
+                </div>
+            </div>
+            <div class="bloco_conteudo">
+                <div class="bloco_scroll">
+                    <div class="conteudo">
+                        <div class="bloco_credito">
+                            <h1>DADOS DO EMPRÉSTIMO</h1>
+                            <p>Preencha os campos abaixo para fazer sua simulação</p>
+
+                            <form method="post" id="form_empresatimo" class="form_geral">
+                                <input type="hidden" id="input_tipo" value="{!!$tipo!!}">
+                                @? formDinheiro(local: '100.000,00', name: 'valor', placeholder: 'Qual o valor desejado?', label: 'Qual o valor desejado?', obrigatorio: true, class: 'busca_valor')
+                                @? formSelect(local: 10, name: 'parcela', placeholder: 'Qual o prazo desejado?', label: 'Qual o prazo desejado?', obrigatorio: true, lista: $parcela)
+
+                            </form>
+                            <button class="botao_geral_cor_auto_height botao_link_underline" id="botao_abrir_regulamento">Abrir Regulamento</button>
+                            <div class="bloco_botao">
+                                <a href="@route('sicoob.index')" class="botao_geral_cor cinza">Voltar</a>
+                                <div class="botao_geral_cor cor_bg" id="botao_fazer_simulacao">Continuar</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="conteudo" id="resultado_simulacao">
+                        <div class="bloco_credito">
+                            <header>
+                                <h1>SIMULAÇÃO</h1>
+                                <p>Valor da parcela com seguro:</p>
+                            </header>
+                            <div class="resultado">
+                                <div class="resultado_valor">
+                                    <p id="resposta_valor_parcela"></p>
+                                </div>
+                            </div>
+
+                            <div class="atencao bloco_atencao_geral">
+                                <h2>Para um empréstimo de <span id="resposta_valor_total"></span> em <span id="resposta_parcela"></span> vezes</h2>
+                                <p>*Taxas em condições especiais que poderão ser alteradas sem aviso prévio.</p>
+                            </div>
+
+                            <div class="bloco_botao">
+                                <div class="botao_geral_cor cinza" id="botao_refazer_simulacao">Voltar</div>
+                                <div class="botao_geral_cor cor_bg" id="botao_enviar_simulacao">Contratar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <p>* As taxas utilizadas são para condições especiais e podem ser alteradas sem aviso prévio</p>
+        </div>
+    </div>
+</div>

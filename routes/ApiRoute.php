@@ -1428,12 +1428,15 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('simular')
+            ::nome('simulacao')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
-            ::request([
-                'operadora', 'tipo', 'valor', 'parcelas'
-            ])
-            ::get('/solicitar-credito');
+            ::request(['operadora', 'tipo', 'valor_total', 'parcela'], 'json')
+            ::get('/solicitacao-credito/simulacao');
+        Route
+            ::nome('parcela')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
+            ::request(['operadora', 'tipo', 'titulo'], 'json')
+            ::get('/solicitacao-credito/parcela');
 
         Route
             ::nome('buscar')
@@ -1452,7 +1455,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
             ::request([
-                'operadora', 'tipo', 'valor', 'parcelas', '!valor_parcelas', '!status'
+                'operadora', 'tipo', 'valor_total', 'parcela'
             ])
             ::post('/solicitacao-credito');
     });

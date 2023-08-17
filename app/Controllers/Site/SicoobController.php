@@ -3,8 +3,10 @@
 namespace App\Controllers\Site;
 
 use Controller\Controller;
+use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
-use App\Models\Site\Sicoob\ParcelaModel;
+use App\Classes\SolicitacaoCredito\Tipo;
+use App\Classes\SolicitacaoCredito\Operadora;
 
 final class SicoobController extends Controller
 {
@@ -16,47 +18,49 @@ final class SicoobController extends Controller
         ]);
     }
 
+    public function simulacao(string $tipo)
+    {
+        $parcela = ((new ClubeApiHelper()))
+            ->json([
+                'operadora' => Operadora::SICOOB,
+                'tipo'      => $tipo,
+                'titulo'    => 'Escolha uma parcela'
+            ])
+            ->get('/solicitacao-credito/parcela')
+            ->array()['dado'] ?? [];
+
+        return view('sicoob.simulacao', [
+            'menu'    => 'sicoob',
+            'tipo'    => $tipo,
+            'banner'  => (new BannerModel())->sicoob(),
+            'parcela' => $parcela
+        ]);
+    }
+
     public function consignado()
     {
-        return view('sicoob.consignado', [
-            'menu'   => 'sicoob',
-            'banner' => (new BannerModel())->sicoob(),
-            'dado'   => (new ParcelaModel())->listarConsignado()
-        ]);
+        return $this->simulacao(Tipo::CONSIGNADO);
     }
 
     public function creditoPessoal()
     {
-        return view('sicoob.credito_pessoal', [
-            'menu'   => 'sicoob',
-            'banner' => (new BannerModel())->sicoob(),
-            'dado'   => (new ParcelaModel())->listarCreditoPessoal()
-        ]);
+        return $this->simulacao(Tipo::CREDITO_PESSOAL);
     }
 
     public function veiculoZero()
     {
-        return view('sicoob.veiculo_zero', [
-            'menu'   => 'sicoob',
-            'banner' => (new BannerModel())->sicoob(),
-            'dado'   => (new ParcelaModel())->listarVeiculoZero()
-        ]);
+        return $this->simulacao(Tipo::VEICULO_NOVO);
     }
 
     public function veiculoSeminovo()
     {
-        return view('sicoob.veiculo_seminovo', [
-            'menu'   => 'sicoob',
-            'banner' => (new BannerModel())->sicoob(),
-            'dado'   => (new ParcelaModel())->listarVeiculoSeminovo()
-        ]);
+        return $this->simulacao(Tipo::VEICULO_SEMINOVO);
     }
 
-    public function abrirModalRegulamento($url = null)
+    public function regulamento(string $tipo)
     {
-        return view('sicoob.index.modalRegulamento', [
-            'menu' => 'sicoob',
-            'tipo' => $url
+        return view('sicoob.regulamento', [
+            'tipo' => $tipo
         ]);
     }
 }
