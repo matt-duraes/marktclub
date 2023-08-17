@@ -6,32 +6,9 @@
     </div>
     @endif
 
-    <div class="bloco_historico" id="bloco_historico">
+    <div class="bloco_historico">
         <i class="seta anterior display_none">@iconeSetaEsquerda(18)</i>
-        <div class="conteudo scrollbar_hidden bloco_scrollbar_item">
-            @ laco(2)
-            <div class="item">
-                <figure>
-                    <span><img src="https://arquivo.marktclub.com.br/parceiro/b9994388644c6d04bea5495a3ed1fe72.png" alt=""></span>
-                </figure>
-                <div class="nome">Parceiro...</div>
-                <div class="lista">
-                    <img src="https://arquivo.marktclub.com.br/publicidade/0ae0826f5dd931e49c7796aa24bd618e.png" alt="">
-                    <img src="https://arquivo.marktclub.com.br/publicidade/8863ad96a201ded0de113aa224420ed5.jpg" alt="">
-                </div>
-            </div>
-            <div class="item">
-                <figure>
-                    <span><img src="https://arquivo.marktclub.com.br/parceiro/2a9eafaf7ce7401c7bd65357899bb5cb.png" alt=""></span>
-                </figure>
-                <div class="nome">Parceiro...</div>
-                <div class="lista">
-                    <img src="https://arquivo.marktclub.com.br/publicidade/575e638d5ad7a19ec4c29980080854a3.png" alt="">
-                    <img src="https://arquivo.marktclub.com.br/publicidade/4d551cb9b66fefca6ed1757f23d24e38.png" alt="">
-                    <img src="https://arquivo.marktclub.com.br/publicidade/2b3f3ae86a18370c1882ff2836958214.png" alt="">
-                </div>
-            </div>
-            @ endlaco;
+        <div class="conteudo scrollbar_hidden bloco_scrollbar_item" id="bloco_historico">
         </div>
         <i class="seta proximo display_none">@iconeSetaDireita(18)</i>
     </div>

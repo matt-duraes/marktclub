@@ -116,10 +116,15 @@ Route
         Route
             ::nome('index')
             ::view('/');
+    });
+Route
+    ::nome('historico')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\HistoricoController::class)
+    ::grupo(function () {
         Route
-            ::nome('promocoes')
-            ::request(['!tipo'])
-            ::get('/promocoes');
+            ::nome('buscar')
+            ::post('/historico');
     });
 Route
     ::nome('acessoRapido')

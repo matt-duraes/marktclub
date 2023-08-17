@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('load', () => {
-    new Historico($$('#bloco_historico .item'), '.lista img');
+    new Historico($('#bloco_historico'), LINK + '/historico');
 });
 
 class Historico {
@@ -31,23 +31,114 @@ class Historico {
      * @param {elemento} botao Qual vai ser o elemento que abrirá a foto, caso não informe, será o figure
      * @param {string} download Link para download da imagem caso queira abilitar essa opção
      */
-    constructor(botao, imagem) {
-        this.setarEventoPadrao = false;
-        this.imagem = imagem;
-        this.carregarHtml();
-        this.setarBloco();
-        this.setarEventoGeral();
-        this.recarregarEventoBotao(botao);
+    constructor(bloco, link) {
+        this.blocoDestino = bloco;
+        bloco.classList.add('fw_historico_destino');
+        this.link = link;
+        this.montarClasse();
     }
-    carregarHtml() {
-        const bloco = document.querySelector('#fw_bloco_historico');
-        if (bloco) {
+    async montarClasse() {
+        await this.carregarHtml();
+        await this.setarBloco();
+        await this.carregarMascara();
+        if (!(await this.buscarHistorico())) {
             return;
         }
-        this.setarEventoPadrao = true;
-        BODY.insertAdjacentHTML(
-            'beforeend',
-            `
+        if (!(await this.adicionarHistorico())) {
+            return;
+        }
+        this.setarEventoGeral();
+        this.recarregarEventoBotao();
+    }
+    async adicionarHistorico() {
+        return new Promise(resolve => {
+            if (this.historico.length == 0) {
+                this.blocoDestino.innerHTML = '';
+                resolve(false);
+                return;
+            }
+            let html = '';
+            let htmlVisto = '';
+            const listaIdAtivo = [];
+            this.historico.forEach(item => {
+                const quantidadeImagem = item.imagem.length;
+                let quantidadeVisto = 0;
+
+                if (quantidadeImagem == 0) {
+                    return;
+                }
+                const idParceiro = 'p_' + item.id;
+                listaIdAtivo.push(idParceiro);
+
+                let imagemHtml = '';
+                item.imagem.forEach(imagem => {
+                    const idImagem = 'i_' + imagem.id;
+                    listaIdAtivo.push(idImagem);
+                    const classeImagem = '';
+                    if (localStorage.getItem(idImagem)) {
+                        quantidadeVisto++;
+                        classeImagem = 'fw_historico_visto';
+                    }
+                    imagemHtml += `<img class="${classeImagem}" data-link="${imagem.link}" src="${imagem.imagem}">`;
+                });
+
+                const classe = quantidadeImagem == quantidadeVisto ? 'fw_historico_visto' : '';
+                const htmlTemp = `
+                    <div class="fw_historico_item_geral fw_historico_item ${classe}">
+                        <figure class="fw_historico_parceiro">
+                            <span><img src="${item.logo}" alt=""></span>
+                        </figure>
+                        <div class="fw_historico_nome">${item.titulo}</div>
+                        <div class="fw_historico_imagem_lista">
+                            ${imagemHtml}
+                        </div>
+                    </div>
+                `;
+                if (quantidadeImagem == quantidadeVisto) {
+                    htmlVisto += htmlTemp;
+                } else {
+                    html += htmlTemp;
+                }
+            });
+            this.blocoDestino.innerHTML = html + htmlVisto;
+            resolve(true);
+        });
+    }
+    limparItemLocalStorage(id) {
+        let i = 0;
+        for (; i < localStorage.length; ++i) {
+            const key = localStorage.key(i);
+            if (!id.includes(key)) {
+                localStorage.removeItem(key);
+            }
+        }
+    }
+    async buscarHistorico() {
+        return new Promise(async resolve => {
+            const resposta = await fetch(this.link, { method: 'POST' });
+            try {
+                const json = await resposta.json();
+                if (json.status != 'sucesso') {
+                    resolve(false);
+                    return;
+                }
+                this.historico = json.dado;
+                resolve(true);
+            } catch (error) {
+                resolve(false);
+            }
+        });
+    }
+    carregarHtml() {
+        return new Promise(resolve => {
+            const bloco = document.querySelector('#fw_bloco_historico');
+            if (bloco) {
+                resolve(true);
+                return;
+            }
+            BODY.insertAdjacentHTML(
+                'beforeend',
+                `
                 <div id="fw_historico" class="fw_historico_hide">
                     <div class="fw_historico_loading"></div>
                     <div class="fw_historico_pausar_continuar" id="fw_historico_pausar"><svg height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path style="fill-rule:evenodd;clip-rule:evenodd;" d="M40,20c0,11-9,20-20,20S0,31,0,20S9,0,20,0S40,9,40,20L40,20z M10.4,9.8c0-1.1,0.9-1.9,1.9-1.9h4.2 c1.1,0,1.9,0.9,1.9,1.9v20.3c0,1.1-0.9,1.9-1.9,1.9h-4.2c-1.1,0-1.9-0.9-1.9-1.9L10.4,9.8z M23.5,7.9c-1.1,0-1.9,0.9-1.9,1.9v20.3 c0,1.1,0.9,1.9,1.9,1.9h4.2c1.1,0,1.9-0.9,1.9-1.9V9.8c0-1.1-0.9-1.9-1.9-1.9H23.5z"/></svg></div>
@@ -65,22 +156,40 @@ class Historico {
                     <a id="fw_historico_link" href="" target="">CLIQUE AQUI</a>
                 </div>
             `
-        );
+            );
+            resolve(true);
+        });
     }
     setarBloco() {
-        this.blocoHistorico = document.querySelector('#fw_historico');
-        this.blocoLoading = document.querySelector('#fw_historico .fw_historico_loading');
-        this.botaoAnterior = document.querySelector('#fw_historico_anterior');
-        this.botaoProximo = document.querySelector('#fw_historico_proximo');
-        this.botaoPausar = document.querySelector('#fw_historico_pausar');
-        this.botaoContinuar = document.querySelector('#fw_historico_continuar');
-        this.botaoFechar = document.querySelector('#fw_historico_fechar');
-        this.blocoImagem = document.querySelector('#fw_historico .fw_historico_img');
+        return new Promise(resolve => {
+            this.blocoHistorico = document.querySelector('#fw_historico');
+            this.blocoLoading = document.querySelector('#fw_historico .fw_historico_loading');
+            this.botaoAnterior = document.querySelector('#fw_historico_anterior');
+            this.botaoProximo = document.querySelector('#fw_historico_proximo');
+            this.botaoPausar = document.querySelector('#fw_historico_pausar');
+            this.botaoContinuar = document.querySelector('#fw_historico_continuar');
+            this.botaoFechar = document.querySelector('#fw_historico_fechar');
+            this.blocoImagem = document.querySelector('#fw_historico .fw_historico_img');
+            resolve(true);
+        });
+    }
+    carregarMascara() {
+        return new Promise(resolve => {
+            let mascara = '';
+            let i = 0;
+            for (; i < 20; ++i) {
+                mascara += `
+                    <div class="fw_historico_item_geral fw_historico_mascara">
+                        <figure class="fw_historico_parceiro"></figure>
+                        <div class="fw_historico_nome"></div>
+                    </div>
+                `;
+            }
+            this.blocoDestino.innerHTML = mascara;
+            resolve(true);
+        });
     }
     setarEventoGeral() {
-        if (!this.setarEventoPadrao) {
-            return;
-        }
         this.blocoHistorico.addEventListener('click', e => {
             if (e.target.getAttribute('id') == 'fw_historico') {
                 this.fecharImagem();
@@ -132,10 +241,8 @@ class Historico {
         }
         bloco.classList.remove('fw_historico_animar_pausar');
     }
-    recarregarEventoBotao(botao) {
-        if (botao.length == 0) {
-            return;
-        }
+    recarregarEventoBotao() {
+        const botao = this.blocoDestino.querySelectorAll('.fw_historico_item');
         this.parceiroLista = botao;
         botao.forEach((item, i) => {
             item.setAttribute('id', 'botao_historico_item_' + i);
@@ -148,7 +255,7 @@ class Historico {
     }
     abrirImagem(item) {
         this.parceiroAtual = item;
-        const imagem = item.querySelectorAll(this.imagem);
+        const imagem = item.querySelectorAll('.fw_historico_imagem_lista img');
         this.show(this.blocoHistorico);
         setTimeout(() => {
             this.blocoHistorico.classList.add('fw_historico_abrir');
@@ -189,8 +296,8 @@ class Historico {
         this.loadingLista = listaSpan;
         for (i = 0; i <= ativo; ++i) {
             if (i == ativo) {
-                listaSpan[0].classList.add('fw_historico_animar');
-                this.adicionarEventoFimAnimacao(listaSpan[0]);
+                listaSpan[i].classList.add('fw_historico_animar');
+                this.adicionarEventoFimAnimacao(listaSpan[i]);
                 return;
             }
             listaSpan[i].classList.add('fw_historico_visto');

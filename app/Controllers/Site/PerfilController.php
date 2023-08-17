@@ -6,7 +6,10 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use Helpers\LocalizacaoHelper;
-use App\Models\Site\Perfil\{DadosModel,  SenhaModel, CarteirinhaModel, DependenteModel};
+use App\Models\Site\Perfil\DadosModel;
+use App\Models\Site\Perfil\SenhaModel;
+use App\Models\Site\Perfil\DependenteModel;
+use App\Models\Site\Perfil\CarteirinhaModel;
 
 final class PerfilController extends Controller
 {
@@ -46,13 +49,28 @@ final class PerfilController extends Controller
         return view('perfil.senha');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | DEPENDENTE
+    |--------------------------------------------------------------------------
+    */
     public function dependente()
     {
-        $dado = (new DependenteModel())->getDado();
-
+        $dado = (new DependenteModel())->listarDependente();
         return view('perfil.dependente', [
             'dado' => $dado
         ]);
+    }
+
+    public function postSalvaDependente(Request $request)
+    {
+        return mensagemSucesso((new DependenteModel())->salvarDependente($request), 201);
+    }
+
+    public function postDeletaDependente(Request $request)
+    {
+        (new DependenteModel())->deletarDependente($request);
+        return new Response(status: 204);
     }
 
     public function carteira(): Response
@@ -75,27 +93,6 @@ final class PerfilController extends Controller
         $Salvar = (new DadosModel())->postDado($request);
 
         return new Response($Salvar);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | SALVAR DEPENDENTE
-    |--------------------------------------------------------------------------
-    */
-    public function postSalvaDependente(Request $request)
-    {
-        return (new DependenteModel())->postDado($request);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | DELETAR DEPENDENTE
-    |--------------------------------------------------------------------------
-    */
-    public function postDeletaDependente(Request $request)
-    {
-        (new DependenteModel())->postDeletar($request);
-        return new Response(status: 204);
     }
 
     /*

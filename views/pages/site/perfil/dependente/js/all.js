@@ -7,6 +7,9 @@
 // @resource "site/dependente"
 
 window.addEventListener('load', () => {
+    const blocoDependente = document.querySelector('#bloco_pagina_dependente table tbody');
+    const blocoZero = document.querySelector('.zero');
+
     BODY.addEventListener('click', function (event) {
         if (event.target.classList.contains('remove')) {
             const linhaDependente = event.target.closest('.linha_dependente');
@@ -20,10 +23,13 @@ window.addEventListener('load', () => {
         salvarDependente();
     });
 
+    const inputNome = $('input[name=dependente_nome]');
+    const inputCpf = $('input[name=dependente_cpf]');
+    const inputEmail = $('input[name=dependente_email]');
     const salvarDependente = async () => {
-        const nomeDependente = $('input[name=dependente_nome]').value;
-        const cpfDependente = $('input[name=dependente_cpf]').value;
-        const emailDependente = $('input[name=dependente_email]').value;
+        const nomeDependente = inputNome.value;
+        const cpfDependente = inputCpf.value;
+        const emailDependente = inputEmail.value;
         if (nomeDependente.trim().split(' ').length < 2) {
             Alerta.notificacao('Digite seu nome completo para continuar.', false);
             return;
@@ -35,32 +41,30 @@ window.addEventListener('load', () => {
                 cpf: cpfDependente,
                 email: emailDependente,
             },
-            ''
+            'Ocorreu um erro ao salvar o dependente, por favor, tente novamente.'
         );
-        if (resposta.status != 'sucesso') {
-            Alerta.notificacao('Não foi possível cadastrar o dependente, preencha os campos corretamente', false);
-        }
-
-        if (resposta.status == 'sucesso') {
-            await Alerta.mensagem('Dependente Cadastrado', 'Seu dependente foi cadastrado com sucesso', true);
-            adicionarNovoDependente(resposta.dado.id, resposta.dado.nome, true);
+        if (false === resposta) {
             return;
         }
+
+        await Alerta.mensagem('Dependente Cadastrado', 'Seu dependente foi cadastrado com sucesso', true);
+        formValue(inputNome, '');
+        formValue(inputCpf, '');
+        formValue(inputEmail, '');
+        adicionarNovoDependente(resposta.dado.id, resposta.dado.nome, true);
     };
 
-    const blocoDependente = document.querySelector('#bloco_pagina_dependente table tbody');
     const adicionarNovoDependente = (id, nome) => {
-        const blocoZero = document.querySelector('.zero');
-        if (blocoZero) {
-            blocoZero.style.display = 'none';
+        if (!blocoZero.classList.contains('display_none')) {
+            blocoZero.classList.add('display_none');
         }
 
         blocoDependente.insertAdjacentHTML(
             'beforeend',
             `
-                <tr class="hover">
+                <tr class="hover dependente" data-id="${id}">
                     <td>${nome}</td>
-                    <td class="deletar botao_deletar_dependente"  data-id="${id}">
+                    <td class="deletar botao_deletar_dependente">
                         <p>
                             Deletar
                         </p>
@@ -78,27 +82,33 @@ window.addEventListener('load', () => {
             ) {
                 return;
             }
-
-            const id = e.target.closest('.deletar').getAttribute('data-id');
             const resposta = await Alerta.confirmar(
                 'Deletar dependente',
                 'Tem certeza que deseja deletar esse dependente? Essa ação não poderá ser desfeita.',
                 false
             );
 
-            if (resposta) {
-                deletarDependente(id);
+            if (false === resposta) {
+                return;
             }
+
+            const bloco = e.target.closest('.dependente');
+            const id = bloco.getAttribute('data-id');
+
+            deletarDependente(bloco, id);
         });
     }
-    const deletarDependente = async id => {
+    const deletarDependente = async (bloco, id) => {
         const resposta = await ajaxPost(LINK + '/perfil/deletar-dependente', { id });
-        if (resposta) {
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
-            Alerta.notificacao('Dependente deletado com sucesso!', true);
+        if (false === resposta) {
             return;
+        }
+
+        bloco.parentNode.removeChild(bloco);
+        Alerta.notificacao('Dependente deletado com sucesso!', true);
+
+        if (blocoDependente.querySelectorAll('.dependente').length == 0) {
+            blocoZero.classList.remove('display_none');
         }
     };
 });
