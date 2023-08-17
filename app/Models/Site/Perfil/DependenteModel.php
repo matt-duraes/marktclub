@@ -52,7 +52,6 @@ final class DependenteModel extends ClubeApiHelper
             ])
             ->post('/usuario-dependente')
             ->object();
-
         return $this->montarRetornoPostDado($salvar);
     }
 
@@ -72,7 +71,6 @@ final class DependenteModel extends ClubeApiHelper
                 'nome' => $this->Crypt->decode($r->nome),
             ];
         }
-
         return mensagemSucesso([
             'id'   => $retorno->id,
             'nome' => $retorno->nome
@@ -85,10 +83,9 @@ final class DependenteModel extends ClubeApiHelper
      * @return Response
      * @throws Excecao
      */
-    public function postDeleta(Request $request): Response
+    public function postDeletar(Request $request): Response
     {
         $this
-            ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.')
             ->delete('/usuario-dependente/' . $request->id);
         return new Response(status: 204);
     }

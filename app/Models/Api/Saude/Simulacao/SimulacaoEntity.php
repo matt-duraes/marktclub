@@ -2,25 +2,27 @@
 
 namespace App\Models\Api\Saude\Simulacao;
 
+use App\Classes\Saude\Interface\PlanoInterface;
+use App\Classes\Saude\Interface\RegiaoInterface;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
+use App\Classes\Saude\Operadoras\Amil\Regioes as RegiaoAmil;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCnuFlorianopolis;
+use App\Classes\Saude\Operadoras\Unimed\Unimed;
+use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
+use App\Classes\Saude\PlanoSaude;
+use App\Classes\SaudeSimulacao\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Erro;
+use Erro\Excecao;
 use Exception;
-use ORM\Entity;
+use Helpers\ValidarHelper;
 use Http\Request;
 use Modules\Data;
 use Modules\Dinheiro;
-use Helpers\ValidarHelper;
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\PlanoSaude;
-use App\Classes\SaudeSimulacao\Status;
-use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\Saude\Interface\PlanoInterface;
-use App\Classes\Saude\Operadoras\Unimed\Unimed;
-use App\Classes\Saude\Interface\RegiaoInterface;
-use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
-use App\Classes\Saude\Operadoras\Amil\Regioes as RegiaoAmil;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\Planos as PlanoCnuFlorianopolis;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
+use ORM\Entity;
 
 class SimulacaoEntity extends Entity
 {
@@ -33,8 +35,8 @@ class SimulacaoEntity extends Entity
     public Dinheiro $valor_titular;
     public array $lista_dependente;
     public Dinheiro $valor_total;
-    public null|int|string|PlanoInterface $plano;
-    public null|int|string|RegiaoInterface $regiao = null;
+    public PlanoInterface|string|int|null $plano = null;
+    public RegiaoInterface|string|int|null $regiao = null;
     public Status $status;
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
@@ -54,6 +56,8 @@ class SimulacaoEntity extends Entity
 
     /**
      * @param Request|null $request
+     *
+     * @throws Excecao
      */
     public function __construct(
         protected readonly ?Request $request = null
@@ -62,10 +66,35 @@ class SimulacaoEntity extends Entity
         parent::__construct();
     }
 
-    public function regraPosBuscar()
+    /**
+     * @throws Erro|Excecao
+     */
+    public function regraPosBuscar(): void
     {
         $this->setarPlano($this->prop('plano'));
         $this->setarRegiao($this->prop('regiao'));
+    }
+
+    /**
+     * @param mixed $plano Plano escolhido
+     */
+    private function setarPlano(mixed $plano): void
+    {
+        if ($this->operadora->indice() === Operadora::AMIL) {
+            $this->plano = new PlanoAmil($plano);
+        } elseif ($this->operadora->indice() === Operadora::CNU_FLORIANOPIS) {
+            $this->plano = new PlanoCnuFlorianopolis($plano);
+        }
+    }
+
+    /**
+     * @param mixed $regiao Região escolhida
+     */
+    private function setarRegiao(mixed $regiao): void
+    {
+        if ($this->operadora->indice() === Operadora::AMIL) {
+            $this->regiao = new RegiaoAmil($regiao);
+        }
     }
 
     /**
@@ -76,14 +105,15 @@ class SimulacaoEntity extends Entity
         if ($this->request === null) {
             return;
         }
+
         new NovaSimulacaoModel($this->idUsuario);
-        $this->lista_dependente = jsonDecode($this->request->lista_dependente, true, true);
+        $this->lista_dependente = jsonDecode($this->request->getPost('lista_dependente'));
         $this->quantidade_dependente = count($this->lista_dependente);
         $this->titular = new Data($this->request->getPost('titular'));
         $this->operadora = new Operadora($this->request->getPost('operadora'));
+        $this->status = new Status(Status::NOVO);
         $regiao = $this->request->getPost('regiao');
         $plano = $this->request->getPost('plano');
-        $this->status = new Status(Status::NOVO);
 
         $acomodacao = $this->request->getPost('acomodacao');
         $planoSaude = match ($this->operadora->indice()) {
@@ -99,8 +129,8 @@ class SimulacaoEntity extends Entity
                     acomodacaoSelecionada: $acomodacao
                 )
             ),
-            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => new PlanoSaude(
-                new CentralNacionalUnimedFlorianopolis(
+            Operadora::CNU_FLORIANOPIS => new PlanoSaude(
+                new CNUFlorianopolis(
                     titular: $this->titular,
                     planoSelecionado: $plano,
                     acomodacaoSelecionada: $acomodacao
@@ -142,26 +172,13 @@ class SimulacaoEntity extends Entity
         $this->valor_total = new Dinheiro(number_format($valor_total, 2, thousands_separator: ''));
     }
 
-    private function setarPlano(mixed $plano)
-    {
-        if ($this->operadora->indice() == Operadora::AMIL) {
-            $this->plano = new PlanoAmil($plano);
-        } elseif ($this->operadora->indice() == Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA) {
-            $this->plano = new PlanoCnuFlorianopolis($plano);
-        }
-    }
-
-    private function setarRegiao(mixed $regiao)
-    {
-        if ($this->operadora->indice() == Operadora::AMIL) {
-            $this->regiao = new RegiaoAmil($regiao);
-        }
-    }
-
-    private function validarDataNascimentoDependente()
+    /**
+     * @throws Excecao
+     */
+    private function validarDataNascimentoDependente(): void
     {
         foreach ($this->lista_dependente as $data) {
-            $mensagemDataErro = "A data de nascimento {$data} do dependente é invalida.";
+            $mensagemDataErro = "A data de nascimento $data do dependente é invalida.";
             (new ValidarHelper())
                 ->valor($data, $mensagemDataErro)
                 ->obrigatorio()
@@ -169,15 +186,17 @@ class SimulacaoEntity extends Entity
                 ->valido();
 
             if (dataBanco($data) > hoje()) {
-                mensagemErro(
-                    'Data de Nascimento',
-                    $mensagemDataErro
-                );
+                mensagemErro('Data de Nascimento', $mensagemDataErro);
             }
         }
     }
 
-    protected function getId()
+    /**
+     * @return mixed
+     * @throws Erro
+     * @throws Excecao
+     */
+    protected function getId(): mixed
     {
         return $this->prop('id');
     }

@@ -1,0 +1,1 @@
+{"id":"id_8e11c0896dded97975ff6b4b25b8a59a","token":"token","metodo":"GET","nome":"\/saude\/simulacao\/:id","uri":"{{LINK}}\/saude\/simulacao\/$SIMULACAO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

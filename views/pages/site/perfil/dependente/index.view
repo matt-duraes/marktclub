@@ -9,7 +9,7 @@
                 <strong>sem custo</strong></p>
                 <div class="dependente">
                     <div class="linha_dependente">
-                        @? formInput(name: 'dependente_nome', placeholder: 'Digite o nome do dependente', label: 'Nome do dependente', value: '')
+                        @? formInput(name: 'dependente_nome', placeholder: 'Digite o nome do dependente', focus: true, label: 'Nome do dependente', value: '')
                         @? formCpf(name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF',  obrigatorio: true)
                         @? formInput(name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
                     </div>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
         @ if(!$dado):
-        <div class="zero">
+        <div class="zero atencao bloco_atencao_geral">
             <i>@iconeDependente(30)</i>
             <p>Sem dependentes no momento</p>
         </div>
