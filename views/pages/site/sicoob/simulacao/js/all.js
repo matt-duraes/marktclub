@@ -21,6 +21,8 @@ const respostaValorTotal = $('#resposta_valor_total');
 const respostaParcela = $('#resposta_parcela');
 
 const tipo = $('#input_tipo').value;
+let valorTotal = 0;
+let numeroParcela = 0;
 /*
 |--------------------------------------------------------------------------
 | REGULAMENTO
@@ -31,17 +33,24 @@ botaoAbrirRegulamento.addEventListener('click', () => {
     PaginaDetalhe.abrir();
 });
 
+/*
+|--------------------------------------------------------------------------
+| SIMULAÇÃO
+|--------------------------------------------------------------------------
+*/
 botaoFazerSimulacao.addEventListener('click', async () => {
     if (!(await validarInput(formEmprestimo))) {
         return;
     }
+    const valorTemp = inputValor.value.replace(/\./g, '').replace(',', '.');
+    const parcelaTemp = inputParcela.value;
     const resposta = await ajaxPost(
         LINK + '/credito/simulacao',
         {
             tipo,
             // eslint-disable-next-line camelcase
-            valor_total: inputValor.value.replace(/\./g, '').replace(',', '.'),
-            parcela: inputParcela.value,
+            valor_total: valorTemp,
+            parcela: parcelaTemp,
             operadora: 'sicoob',
         },
         'Erro ao fazer simulação, por favor, tente novamente.'
@@ -49,6 +58,9 @@ botaoFazerSimulacao.addEventListener('click', async () => {
     if (false === resposta) {
         return;
     }
+
+    valorTotal = valorTemp;
+    numeroParcela = parcelaTemp;
 
     respostaValorTotal.innerText = 'R$ ' + resposta.dado.valor_total;
     respostaValorParcela.innerText = 'R$ ' + resposta.dado.valor_parcela;
@@ -58,4 +70,34 @@ botaoFazerSimulacao.addEventListener('click', async () => {
 });
 botaoRefazerSimulacao.addEventListener('click', () => {
     irParaPassoAnterior(botaoRefazerSimulacao);
+});
+
+/*
+|--------------------------------------------------------------------------
+| CONTRATAR
+|--------------------------------------------------------------------------
+*/
+botaoEnviarSimulacao.addEventListener('click', async () => {
+    const resposta = await ajaxPost(
+        LINK + '/credito/salvar',
+        {
+            tipo,
+            // eslint-disable-next-line camelcase
+            valor_total: valorTotal,
+            parcela: numeroParcela,
+            operadora: 'sicoob',
+        },
+        'Erro ao fazer contratação, por favor, tente novamente.'
+    );
+    if (false === resposta) {
+        return;
+    }
+
+    await Alerta.mensagem(
+        'Solicitação enviada',
+        'Sua solicitação foi enviada com sucesso!<br>O Sicoob Judiciário entrará em contato em breve.',
+        true
+    );
+
+    window.location.replace(LINK + '/credito/sicoob');
 });

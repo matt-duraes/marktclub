@@ -8,7 +8,7 @@
 
     <div class="conteudo_pagina_popup">
         <article class="bloco_regulamento">
-            @ if($tipo == 'veiculo-0'):
+            @ if($tipo == 'veiculo_novo'):
                 <p>Financiamento limitado a 70% do valor do veículo novo (Nota Fiscal).</p>
                 <p>Registro Detran, Gravame e Seguro.</p>
                 <p class="bold">*Taxa exclusiva para cadastro positivo.</p>
@@ -17,11 +17,11 @@
                 <p>Exclusivo para novos contratos. Parcela limitada até 30% da renda.</p>
                 <p>Este empréstimo abrange diversas finalidades. Solicite a sua proposta, que entraremos em contato para encontrar a melhor forma de atender a sua necessidade.</p>
                 <p class="bold">*Taxa exclusiva para cadastro positivo.</p>
-            @ elseif($tipo == 'credito-pessoal'):
+            @ elseif($tipo == 'credito_pessoal'):
                 <p>Garantias: CCB (Cédula de Crédito Bancário) ou Aval.</p>
                 <p>Este empréstimo abrange diversas finalidades. Solicite a sua proposta, que entraremos em contato para encontrar a melhor forma de atender a sua necessidade.</p>
                 <p class="bold">*Taxa exclusiva para cadastro positivo.</p>
-            @ elseif($tipo == 'veiculo-seminovo'):
+            @ elseif($tipo == 'veiculo_seminovo'):
                 <p>Garantias: Alienação do veículo e seguro.</p>
                 <p>Veículos com até 05 anos de uso.</p>
                 <p>Financiamento limitado a 70% do valor da tabela FIPE.</p>

@@ -33,7 +33,7 @@
                             </form>
                             <button class="botao_geral_cor_auto_height botao_link_underline" id="botao_abrir_regulamento">Abrir Regulamento</button>
                             <div class="bloco_botao">
-                                <div></div>
+                                <a href="@route('sicoob.index')" class="botao_geral_cor cinza">Voltar</a>
                                 <div class="botao_geral_cor cor_bg" id="botao_fazer_simulacao">Continuar</div>
                             </div>
                         </div>

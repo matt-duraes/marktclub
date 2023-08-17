@@ -497,16 +497,6 @@ Route
     });
 
 Route
-    ::nome('promocao')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\PromocaoController::class)
-    ::grupo(function () {
-        Route
-            ::nome('index')
-            ::view('/promocao');
-    });
-
-Route
     ::nome('perfil')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PerfilController::class)

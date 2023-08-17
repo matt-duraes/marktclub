@@ -14,7 +14,6 @@
         <a href="@route(cashback.index)">Cashback</a>
         <a href="@route('automovel.index)">Automóveis</a>
         <a href="@route('cinema.index')">Ingressos de cinema</a>
-        <a href="@route('promocao.index')">Promoções</a>
         <a href="@route('perfil.dependente')">Dependente</a>
         <a href="@route('perfil.alteraSenha')">Alterar Senha</a>
         <a href="@route('edita.dados')">Alterar dados pessoais</a>
