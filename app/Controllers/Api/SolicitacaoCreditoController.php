@@ -40,9 +40,9 @@ class SolicitacaoCreditoController extends Controller implements
         );
 
         return mensagemSucesso([
-            'parcela' => $request->getJson('parcela'),
+            'parcela'       => $request->getJson('parcela'),
             'valor_parcela' => $Credito->valorParcela->decimal(),
-            'valor_total' => $valor->decimal()
+            'valor_total'   => $valor->decimal()
         ]);
     }
 

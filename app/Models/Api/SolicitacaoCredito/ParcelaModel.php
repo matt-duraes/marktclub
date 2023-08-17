@@ -32,9 +32,9 @@ final class ParcelaModel
         }
 
         match ($this->tipo->indice()) {
-            Tipo::CONSIGNADO => $this->setarListaFixa('1,59'),
-            Tipo::CREDITO_PESSOAL => $this->setarListaCreditoPessoal(),
-            Tipo::VEICULO_NOVO => $this->setarListaFixa('2,10'),
+            Tipo::CONSIGNADO       => $this->setarListaFixa('1,59'),
+            Tipo::CREDITO_PESSOAL  => $this->setarListaCreditoPessoal(),
+            Tipo::VEICULO_NOVO     => $this->setarListaFixa('2,10'),
             Tipo::VEICULO_SEMINOVO => $this->setarListaFixa('3,50')
         };
     }
