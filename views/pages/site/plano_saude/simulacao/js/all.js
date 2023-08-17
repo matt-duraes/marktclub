@@ -200,7 +200,7 @@ const abrirBlocoRegiao = acomodacao => {
 |--------------------------------------------------------------------------
 */
 
-if (operadora == 'central_nacional_unimed_florianopolis') {
+if (operadora == 'cnu_florianopolis') {
     $('.botao_voltar_plano').classList.add('display_none');
 }
 const limparBlocoPlano = () => {
