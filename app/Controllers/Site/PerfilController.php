@@ -6,7 +6,7 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use Helpers\LocalizacaoHelper;
-use App\Models\Site\Perfil\{DadosModel,  SenhaModel, CarteirinhaModel};
+use App\Models\Site\Perfil\{DadosModel,  SenhaModel, CarteirinhaModel, DependenteModel};
 
 final class PerfilController extends Controller
 {
@@ -48,13 +48,7 @@ final class PerfilController extends Controller
 
     public function dependente()
     {
-        $dado[] = (object)[
-            'nome'    => 'Nome do dependente',
-            'email'   => '',
-            'cpf'     => '',
-            'usuario' => '',
-            'id'      => ''
-        ];
+        $dado = (new DependenteModel())->getDado();
 
         return view('perfil.dependente', [
             'dado' => $dado
@@ -100,7 +94,8 @@ final class PerfilController extends Controller
     */
     public function postDeletaDependente(Request $request)
     {
-        return (new DependenteModel())->postDeleta($request);
+        (new DependenteModel())->postDeletar($request);
+        return new Response(status: 204);
     }
 
     /*

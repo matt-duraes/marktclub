@@ -49,6 +49,7 @@ window.addEventListener('load', () => {
             json = {};
         }
         if (json.status == 'erro') {
+            Loading.hide();
             Alerta.notificacao('CEP inválido. Endereço não encontrado.', false);
             return;
         }
