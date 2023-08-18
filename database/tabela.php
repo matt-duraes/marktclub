@@ -25,6 +25,7 @@ define('TABELA_COMERCIAL_FATURA', 'comercial_fatura');
 define('TABELA_COMERCIAL_PAGAMENTO', 'comercial_pagamento');
 define('TABELA_COMERCIAL_REGRA', 'comercial_regra');
 define('TABELA_COMERCIAL_RESTRICAO', 'comercial_restricao');
+define('TABELA_COMUNICACAO_HISTORICO', 'comunicacao_historico');
 define('TABELA_CONSTRUTOR_NOVO', 'construtor_novo');
 define('TABELA_DEMANDA_DADO', 'demanda_dado');
 define('TABELA_DEMANDA_TAREFA', 'demanda_tarefa');
