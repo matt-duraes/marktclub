@@ -68,6 +68,9 @@ $scope = [
 
     'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
+    'comunicacao_historico:listar', 'comunicacao_historico:buscar', 'comunicacao_historico:salvar',
+    'comunicacao_historico:atualizar', 'comunicacao_historico:deletar',
+
     'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',
 
     'app_usuario:listar', 'app_usuario:buscar', 'app_usuario:salvar', 'app_usuario:atualizar',

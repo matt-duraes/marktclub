@@ -47,6 +47,11 @@ final class HistoricoController extends Controller
                         'link'   => 'https://google.com',
                         'imagem' => 'https://arquivo.marktclub.com.br/publicidade/2b3f3ae86a18370c1882ff2836958214.png'
                     ],
+                    [
+                        'id'     => 6,
+                        'link'   => 'https://google.com',
+                        'imagem' => 'https://arquivo.marktclub.com.br/publicidade/2b3f3ae86a18370c1882ff2836958214.png'
+                    ],
                 ]
             ],
         ]);
