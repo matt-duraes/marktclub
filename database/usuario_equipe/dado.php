@@ -15,6 +15,10 @@ $permissao = json_encode([
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
     'parceiro_automovel_visualizar',
+
+    'comunicacao_historico_index', 'comunicacao_historico_add', 'comunicacao_historico_editar',
+    'comunicacao_historico_deletar',
+
     'relatorio_acesso_index', 'relatorio_acesso_empresa', 'relatorio_usuario_index', 'relatorio_usuario_empresa',
     'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa', 'tabela_usuario_salvar', 'tabela_usuario_bloquear',
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
