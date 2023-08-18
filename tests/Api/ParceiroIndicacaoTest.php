@@ -2,27 +2,34 @@
 
 namespace Tests\Api;
 
+use App\Classes\ParceiroIndicacao\Status;
 use Tests\Api\Token\Clube;
 
-class IndicacaoNovoParceiroTest extends Clube
+class ParceiroIndicacaoTest extends Clube
 {
-    private array $statusValidos = ['pendente', 'visualizado'];
+    private array $statusValidos;
     private string $idIndicacaoNovoParceiro;
 
-    public function salvarIndicacaoNovoParceiroTest(): IndicacaoNovoParceiroTest
+    public function __construct()
     {
-        $this->api('indicacao_novo_parceiro:salvar');
+        parent::__construct();
+        $this->statusValidos = array_keys((new Status())->select());
+    }
+
+    public function salvarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
+    {
+        $this->api('parceiro_indicacao:salvar');
         $dado = $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'nome_indicado'     => $this->nomeCompleto(),
-                'email_indicado'    => $this->email(),
-                'telefone_indicado' => $this->telefone(),
+                'nome'              => $this->nomeCompleto(),
+                'email'             => $this->email(),
+                'telefone'          => $this->telefone(),
                 'mensagem'          => 'Mensagem de teste',
                 'status'            => valorAleatorio($this->statusValidos)
             ])
-            ->post('/indicacao-novo-parceiro')
+            ->post('/parceiro-indicacao')
             ->array();
 
         $this->idIndicacaoNovoParceiro = $dado['dado']['id'];
@@ -32,16 +39,16 @@ class IndicacaoNovoParceiroTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
-    public function listarIndicacoesNovoParceiroTest(): IndicacaoNovoParceiroTest
+    public function listarIndicacoesNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('indicacao_novo_parceiro:listar');
+        $this->api('parceiro_indicacao:listar');
         $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->parametro([
                 'pagina' => 1
             ])
-            ->get('/indicacao-novo-parceiro');
+            ->get('/parceiro-indicacao');
 
         return $this
             ->checkStatus(200)
@@ -49,41 +56,41 @@ class IndicacaoNovoParceiroTest extends Clube
             ->checkIndiceExiste('dado.lista');
     }
 
-    public function buscarIndicacaoNovoParceiroTest(): IndicacaoNovoParceiroTest
+    public function buscarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('indicacao_novo_parceiro:buscar');
+        $this->api('parceiro_indicacao:buscar');
         $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
-            ->get('/indicacao-novo-parceiro/' . $this->idIndicacaoNovoParceiro);
+            ->get('/parceiro-indicacao/' . $this->idIndicacaoNovoParceiro);
 
         return $this
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');
     }
 
-    public function editarStatusIndicacaoNovoParceiroTest(): IndicacaoNovoParceiroTest
+    public function editarStatusIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('indicacao_novo_parceiro:atualizarStatus');
+        $this->api('parceiro_indicacao:atualizarStatus');
         $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'status' => valorAleatorio($this->statusValidos)
             ])
-            ->put('/indicacao-novo-parceiro/' . $this->idIndicacaoNovoParceiro);
+            ->put('/parceiro-indicacao/' . $this->idIndicacaoNovoParceiro);
 
         return $this
             ->checkStatus(204);
     }
 
-    public function deletarIndicacaoNovoParceiroTest(): IndicacaoNovoParceiroTest
+    public function deletarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('indicacao_novo_parceiro:deletar');
+        $this->api('parceiro_indicacao:deletar');
         $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
-            ->delete('/indicacao-novo-parceiro/' . $this->idIndicacaoNovoParceiro);
+            ->delete('/parceiro-indicacao/' . $this->idIndicacaoNovoParceiro);
 
         return $this
             ->checkStatus(204);

@@ -1,13 +1,13 @@
 <?php
 
-use App\Classes\IndicacaoNovoParceiro\Status;
+use App\Classes\ParceiroIndicacao\Status;
 
 return [
     [
         'uuid'              => uuid(),
-        'nome_indicado'     => nomeAleatorio(),
-        'telefone_indicado' => telefoneAleatorio(),
-        'email_indicado'    => emailAleatorio(),
+        'nome'              => nomeCompletoAleatorio(),
+        'telefone'          => telefoneAleatorio(),
+        'email'             => emailAleatorio(),
         'mensagem'          => 'Mensagem de Exemplo',
         'status'            => valorAleatorio((new Status())->listarNumero())
     ]

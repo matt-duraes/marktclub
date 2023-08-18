@@ -1,24 +1,27 @@
 <?php
 
-namespace App\Models\Api\IndicacaoNovoParceiro;
+namespace App\Models\Api\ParceiroIndicacao;
 
-use App\Classes\IndicacaoNovoParceiro\Status;
-use Http\Request;
+use App\Classes\ParceiroIndicacao\Status;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
 use System\Interface\ModelListarInterface;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class IndicacaoNovoParceiroModel extends ORM implements ModelListarInterface
+class ParceiroIndicacaoModel extends ORM implements ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $ormTabela = TABELA_INDICACAO_NOVO_PARCEIRO;
+    protected string $ormTabela = TABELA_PARCEIRO_INDICACAO;
 
     public function __construct(
-        protected ?Request $request = null
+        private Pagina $pagina,
+        private Quantidade $quantidade,
+        private ?Status $status = null
     ) {
         parent::__construct();
     }
@@ -26,7 +29,6 @@ class IndicacaoNovoParceiroModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dados = $this
-            ->select()
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
         $dados->lista = $this->montarRetorno($dados->lista);
@@ -40,12 +42,13 @@ class IndicacaoNovoParceiroModel extends ORM implements ModelListarInterface
         foreach ($dados as $dado) {
             $retorno[$dado->id] = [
                 'id'                => $dado->uuid,
-                'nome_indicado'     => $dado->nome_indicado,
-                'telefone_indicado' => $dado->telefone_indicado,
-                'email_indicado'    => $dado->email_indicado,
+                'nome'              => $dado->nome,
+                'telefone'          => $dado->telefone,
+                'email'             => $dado->email,
                 'mensagem'          => $dado->mensagem,
-                'status'            => (new Status())->nome($dado->status),
+                'status'            => (new Status())->indice($dado->status),
                 'data_criacao'      => $dado->data_criacao,
+                'data_atualizacao'  => $dado->data_atualizacao,
             ];
         }
         return $retorno;

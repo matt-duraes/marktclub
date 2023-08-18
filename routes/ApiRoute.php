@@ -1689,33 +1689,6 @@ Route
     });
 
 Route
-    ::nome('indicacao')
-    ::controller(App\Controllers\Api\IndicacaoParceiroController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:salvar'])
-            ::request([
-                'parceiro', 'telefone', 'email', 'mensagem', 'tipo'
-            ])
-            ::post('/parceiro/indicacao');
-
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:listar'])
-            ::request([
-                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
-            ], 'json')
-            ::get('/parceiro-indicacao');
-
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_parceiro:buscar'])
-            ::get('/parceiro-indicacao/{id}');
-    });
-
-Route
     ::nome('automovel_indicacao')
     ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
     ::grupo(function () {
@@ -1829,31 +1802,31 @@ Route
     });
 
 Route
-    ::nome('indicacao_novo_parceiro')
-    ::controller(App\Controllers\Api\IndicacaoNovoParceiroController::class)
+    ::nome('parceiro_indicacao')
+    ::controller(App\Controllers\Api\ParceiroIndicacaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:listar'])
             ::request(['pagina', '!quantidade'])
-            ::get('/indicacao-novo-parceiro');
+            ::get('/parceiro-indicacao');
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:buscar'])
-            ::get('/indicacao-novo-parceiro/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:buscar'])
+            ::get('/parceiro-indicacao/{id}');
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:salvar'])
-            ::request(['nome_indicado', 'email_indicado', 'telefone_indicado', 'mensagem', 'status'])
-            ::post('/indicacao-novo-parceiro');
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:salvar'])
+            ::request(['nome', 'email', 'telefone', 'mensagem', 'status'])
+            ::post('/parceiro-indicacao');
         Route
             ::nome('atualizarStatus')
-            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:atualizarStatus'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:atualizarStatus'])
             ::request(['status'])
-            ::put('/indicacao-novo-parceiro/{id}');
+            ::put('/parceiro-indicacao/{id}');
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:deletar'])
-            ::delete('/indicacao-novo-parceiro/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:deletar'])
+            ::delete('/parceiro-indicacao/{id}');
     });
