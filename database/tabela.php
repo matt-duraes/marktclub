@@ -48,6 +48,7 @@ define('TABELA_PARCEIRO_CASHBACK', 'parceiro_cashback');
 define('TABELA_PARCEIRO_CUPOM_BLOQUEADO', 'cupom_bloqueio');
 define('TABELA_PARCEIRO_EASYLIVE', 'parceiro_easylive');
 define('TABELA_PARCEIRO_FAVORITO', 'parceiro_favorito');
+define('TABELA_PARCEIRO_INDICACAO', 'parceiro_indicacao');
 define('TABELA_PARCEIRO_LOJA', 'parceiro_novo');
 define('TABELA_PARCEIRO_SUBCATEGORIA', 'tag_novo');
 define('TABELA_PONTO_CVS', 'ponto_cvs');
