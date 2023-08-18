@@ -1797,3 +1797,33 @@ Route
             ])
             ::post('/silium/saque');
     });
+
+Route
+    ::nome('indicacao_novo_parceiro')
+    ::controller(App\Controllers\Api\IndicacaoNovoParceiroController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:listar'])
+            ::request(['pagina', '!quantidade'])
+            ::get('/indicacao-novo-parceiro');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:buscar'])
+            ::get('/indicacao-novo-parceiro/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:salvar'])
+            ::request(['nome_indicado', 'email_indicado', 'telefone_indicado', 'mensagem', 'status'])
+            ::post('/indicacao-novo-parceiro');
+        Route
+            ::nome('atualizarStatus')
+            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:atualizarStatus'])
+            ::request(['status'])
+            ::put('/indicacao-novo-parceiro/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['indicacao_novo_parceiro:deletar'])
+            ::delete('/indicacao-novo-parceiro/{id}');
+    });

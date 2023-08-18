@@ -120,6 +120,8 @@ $scope = [
     'automovel:listar', 'publicidade:buscar', 'publicidade:listar', 'publicidade:salvar',
 
     'silium:saldo', 'silium:extrato', 'silium:saque',
+
+    'indicacao_novo_parceiro:listar', 'indicacao_novo_parceiro:buscar', 'indicacao_novo_parceiro:salvar', 'indicacao_novo_parceiro:atualizarStatus', 'indicacao_novo_parceiro:deletar'
 ];
 
 return [

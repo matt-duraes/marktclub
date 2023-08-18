@@ -32,6 +32,7 @@ define('TABELA_DEMANDA_TRABALHO', 'demanda_trabalho');
 define('TABELA_DOWNLOAD_PRIVADO', 'download_privado');
 define('TABELA_EMAIL_AUTOMATICO', 'email_automatico');
 define('TABELA_ENQUETE', 'enquete');
+define('TABELA_INDICACAO_NOVO_PARCEIRO', 'indicacao_novo_parceiro');
 define('TABELA_LOG_ERRO', 'log_erro');
 define('TABELA_MENSAGEM_CARRO_NOVO', 'mensagem_carro_novo');
 define('TABELA_MENSAGEM_CONTATO_NOVO', 'mensagem_contato_novo');
