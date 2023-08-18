@@ -5,9 +5,11 @@ namespace App\Models\Api\ComunicacaoHistorico;
 use ORM\ORM;
 use stdClass;
 use Modules\Data;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Models\Site\ListarInterface;
@@ -29,6 +31,7 @@ final class HistoricoModel extends ORM implements ListarInterface
         private Data $dataInicio = new Data(null),
         private Data $dataFinal = new Data(null),
         private Status $status = new Status(null),
+        private Botao $publicado = new Botao(null),
         private Ordem $ordem = new Ordem(null),
     ) {
         parent::__construct();
@@ -69,6 +72,13 @@ final class HistoricoModel extends ORM implements ListarInterface
         $retorno = [];
         $Status = new Status();
         foreach ($dado as $r) {
+            $statusAtual = $Status->indice($r->status);
+            $publicado = (new Publicado(
+                new Data($r->data_inicio),
+                new Data($r->data_final),
+                $statusAtual == Status::ATIVO
+            ))->indice();
+
             $retorno[] = [
                 'id'          => $r->uuid,
                 'titulo'      => $r->titulo,
@@ -78,7 +88,8 @@ final class HistoricoModel extends ORM implements ListarInterface
                 ],
                 'data_inicio' => $r->data_inicio,
                 'data_final'  => $r->data_final,
-                'status'      => $Status->indice($r->status)
+                'publicado'   => $publicado,
+                'status'      => $statusAtual
             ];
         }
         return $retorno;
@@ -87,16 +98,31 @@ final class HistoricoModel extends ORM implements ListarInterface
     private function pegarWhere(): array
     {
         $where = [];
+        $publicadoVazio = $this->publicado->vazio();
+        if (!$publicadoVazio && $this->publicado->valor() == 'sim') {
+            $where[] = [
+                ['data_inicio', '<=', hoje()],
+                ['data_final', '>=', hoje()],
+                ['status', 1]
+            ];
+        } elseif (!$publicadoVazio && $this->publicado->valor() == 'nao') {
+            $where[] = [
+                'OR',
+                ['data_inicio', '>', hoje()],
+                ['data_final', '<', hoje()],
+                ['status', '!=', 1]
+            ];
+        }
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'like', $this->titulo . '%'];
         }
-        if ($this->dataInicio->valido()) {
-            $where[] = ['data_inicio', '>=', $this->dataInicio->date()];
+        if ($this->dataInicio->valido() && $publicadoVazio) {
+            $where[] = ['data_inicio', '<=', $this->dataInicio->date()];
         }
-        if ($this->dataFinal->valido()) {
-            $where[] = ['data_final', '<=', $this->dataFinal->date()];
+        if ($this->dataFinal->valido() && $publicadoVazio) {
+            $where[] = ['data_final', '>=', $this->dataFinal->date()];
         }
-        if ($this->status->valido()) {
+        if ($this->status->valido() && $publicadoVazio) {
             $where[] = ['status', $this->status->numero()];
         }
         return $where;

@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use Http\Request;
 use Modules\Data;
 use Http\Response;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
@@ -34,6 +35,7 @@ final class ComunicacaoHistoricoController extends Controller implements
             dataInicio: new Data($request->data_inicio),
             dataFinal: new Data($request->data_final),
             status: new Status($request->status),
+            publicado: new Botao($request->publicado),
             ordem: new Ordem($request->ordem)
         );
         return mensagemSucesso(
@@ -55,7 +57,7 @@ final class ComunicacaoHistoricoController extends Controller implements
         $Historico->set(lista: $request->dado());
         $Historico->salvar();
 
-        return $this->retornoPadrao($Historico);
+        return $this->retornoPadrao($Historico, 201);
     }
 
     private function retornoPadrao(HistoricoEntity $Historico, int $status = 200)
@@ -64,7 +66,8 @@ final class ComunicacaoHistoricoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Historico,
                 lista: [
-                    'id', 'empresa', 'parceiro', 'titulo', 'data_inicio', 'data_final', 'data_criacao', 'status'
+                    'id', 'empresa', 'parceiro', 'titulo', 'imagem', 'data_inicio',
+                    'data_final', 'data_criacao', 'publicado', 'status'
                 ]
             ),
             status: $status

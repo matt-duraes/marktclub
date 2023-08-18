@@ -519,7 +519,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:listar'])
-            ::request(['pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!status', '!ordem'], 'json')
+            ::request(['pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status', '!ordem'], 'json')
             ::get('/comunicacao-historico');
         Route
             ::nome('buscar')

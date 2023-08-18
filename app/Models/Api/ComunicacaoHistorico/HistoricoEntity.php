@@ -6,13 +6,14 @@ use ORM\Entity;
 use Modules\Data;
 use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 
 final class HistoricoEntity extends Entity
 {
     protected string $ormTabela = TABELA_COMUNICACAO_HISTORICO;
     protected array $ormBuscar = [
         'titulo', 'data_inicio', 'data_final', 'id_parceiro_loja', 'id_admin_empresa',
-        'status', 'imagem'
+        'data_criacao', 'status', 'imagem'
     ];
     protected array $ormSalvar = [
         'titulo', 'data_inicio', 'data_final', 'id_parceiro_loja', 'id_admin_empresa',
@@ -28,6 +29,7 @@ final class HistoricoEntity extends Entity
     public Data $data_final;
     public string $imagem;
     public string $link_imagem;
+    public Publicado $publicado;
 
     protected function regraSalvar()
     {
@@ -40,5 +42,11 @@ final class HistoricoEntity extends Entity
         $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid($this->id_admin_empresa);
         $this->parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarUuidPeloId($this->id_parceiro_loja);
         $this->link_imagem = arquivoPrivado($this->imagem);
+
+        $this->publicado = new Publicado(
+            $this->data_inicio,
+            $this->data_final,
+            $this->status->indice() == Status::ATIVO
+        );
     }
 }
