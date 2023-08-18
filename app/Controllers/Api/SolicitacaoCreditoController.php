@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\SolicitacaoCredito\Operadora;
+use App\Classes\SolicitacaoCredito\Tipo;
+use App\Models\Api\SolicitacaoCredito\CreditoEntity;
+use App\Models\Api\SolicitacaoCredito\CreditoModel;
+use App\Models\Api\SolicitacaoCredito\ParcelaModel;
+use App\Models\Api\SolicitacaoCredito\SimulacaoModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Modules\Inteiro;
 use Modules\Dinheiro;
-use Controller\Controller;
-use App\Classes\SolicitacaoCredito\Tipo;
-use App\Classes\SolicitacaoCredito\Operadora;
+use Modules\Inteiro;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\SolicitacaoCredito\CreditoModel;
-use App\Models\Api\SolicitacaoCredito\ParcelaModel;
-use App\Models\Api\SolicitacaoCredito\CreditoEntity;
-use App\Models\Api\SolicitacaoCredito\SimulacaoModel;
 
 class SolicitacaoCreditoController extends Controller implements
     ControllerBuscarInterface,
@@ -31,29 +31,48 @@ class SolicitacaoCreditoController extends Controller implements
      */
     public function getSimulacao(Request $request): Response
     {
-        $valor = new Dinheiro($request->valor_total);
+        $valor = new Dinheiro($request->getJson('valor_total'));
         $Credito = new SimulacaoModel(
-            operadora: new Operadora($request->operadora),
-            tipo: new Tipo($request->tipo),
+            operadora: new Operadora($request->getJson('operadora')),
+            tipo: new Tipo($request->getJson('tipo')),
             valor_total: $valor,
-            parcela: new Inteiro($request->parcela)
+            parcela: new Inteiro($request->getJson('parcela'))
         );
 
         return mensagemSucesso([
-            'parcela'       => $request->parcela,
+            'parcela'       => $request->getJson('parcela'),
             'valor_parcela' => $Credito->valorParcela->decimal(),
-            'valor_total'   => $valor->decimal(),
+            'valor_total'   => $valor->decimal()
         ]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getParcela(Request $request): Response
     {
         $Parcela = new ParcelaModel(
-            operadora: new Operadora($request->operadora),
-            tipo: new Tipo($request->tipo),
-            titulo: $request->titulo
+            operadora: new Operadora($request->getJson('operadora')),
+            tipo: new Tipo($request->getJson('tipo')),
+            titulo: $request->getJson('titulo')
         );
         return mensagemSucesso($Parcela->listaParcela);
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getBuscar(string $id): Response
+    {
+        $CreditoEntity = new CreditoEntity();
+        $CreditoEntity->uuid($id);
+        return $this->retornoSucesso($CreditoEntity);
     }
 
     /**
@@ -75,19 +94,6 @@ class SolicitacaoCreditoController extends Controller implements
             ),
             $status
         );
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getBuscar(string $id): Response
-    {
-        $CreditoEntity = new CreditoEntity();
-        $CreditoEntity->uuid($id);
-        return $this->retornoSucesso($CreditoEntity);
     }
 
     /**
@@ -113,7 +119,6 @@ class SolicitacaoCreditoController extends Controller implements
         $Credito = new CreditoEntity();
         $Credito->set(lista: $request->dado());
         $Credito->salvar();
-
         return $this->retornoSucesso($Credito, 201);
     }
 }

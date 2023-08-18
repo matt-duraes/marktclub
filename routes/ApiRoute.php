@@ -1579,6 +1579,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
             ::request(['operadora', 'tipo', 'valor_total', 'parcela'], 'json')
             ::get('/solicitacao-credito/simulacao');
+
         Route
             ::nome('parcela')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
