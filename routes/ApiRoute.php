@@ -512,6 +512,36 @@ Route
     });
 
 Route
+    ::nome('comunicacaoHistorico')
+    ::controller(App\Controllers\Api\ComunicacaoHistoricoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:listar'])
+            ::request(['pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!status', '!ordem'], 'json')
+            ::get('/comunicacao-historico');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:buscar'])
+            ::get('/comunicacao-historico/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:salvar'])
+            ::request(['titulo', 'data_inicio', 'data_final', 'parceiro', 'status', 'empresa', 'imagem'])
+            ::post('/comunicacao-historico');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:atualizar'])
+            ::request(['!titulo', '!data_inicio', '!data_final', '!parceiro', '!status', '!empresa', '!imagem'])
+            ::put('/comunicacao-historico/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:deletar'])
+            ::delete('/comunicacao-historico/{id}');
+    });
+
+Route
     ::nome('relatorio')
     ::controller(App\Controllers\Api\RelatorioController::class)
     ::middleware(TokenMiddleware::class, 'token')

@@ -33,6 +33,7 @@ return [
                     'usuario_equipe_permissao'        => 'Todas as permissões',
                 ]
             ],
+            'comunicacao_historico' => ['titulo' => 'Histórico', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'publicacao_noticia'    => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_relatorio'    => ['titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_cashback'     => ['titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']],
