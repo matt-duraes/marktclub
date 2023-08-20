@@ -941,18 +941,27 @@ Route
 
 Route
     ::nome('construtor')
-    ::controller(App\Controllers\Api\ConstrutorController::class)
+    ::controller(App\Controllers\Api\ConstrutorClubeController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('clube')
-            ::middleware(TokenMiddleware::class, 'scope', ['construtor:clube'])
-            ::get('/construtor/clube/{id}');
-
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:listar'])
+            ::get('/construtor-clube');
         Route
-            ::nome('pagina')
-            ::middleware(TokenMiddleware::class, 'scope', ['construtor:pagina'])
-            ::get('/construtor/pagina/{url}');
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:buscar'])
+            ::get('/construtor-clube/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:buscar'])
+            ::request([])
+            ::post('/construtor-clube');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:buscar'])
+            ::request([])
+            ::post('/construtor-clube/{id}');
     });
 
 Route
