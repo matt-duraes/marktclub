@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Classes\Publicidade;
+namespace App\Classes\ComunicacaoPublicidade;
 
 use Status\Status;
 
 class Tipo extends Status
 {
-    public const PROMOCAO = 'promocao';
+    public const HISTORICO = 'historico';
     public const AUTOMOVEL = 'automovel';
-    public const PARCEIRO = 'parceiro';
+    public const LOGIN = 'login';
+    public const HOME = 'home';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::PROMOCAO  => 'Promoção',
+            self::HISTORICO => 'Historico',
             self::AUTOMOVEL => 'Automóvel',
-            self::PARCEIRO  => 'Parceiro'
+            self::HOME      => 'Home',
         ]);
     }
 }

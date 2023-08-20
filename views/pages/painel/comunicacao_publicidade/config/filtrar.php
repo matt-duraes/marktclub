@@ -2,7 +2,7 @@
 
 use App\Classes\Geral\Status;
 
-$Painel = new PainelConfig\Filtrar('comunicacao-historico');
+$Painel = new PainelConfig\Filtrar('comunicacao-publicidade');
 
 $Painel
     ->input(name: 'titulo', titulo: 'Título', label: 'Título', placeholder: 'Digite um título')

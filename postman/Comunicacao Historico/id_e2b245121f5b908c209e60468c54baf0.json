@@ -1,1 +1,0 @@
-{"id":"id_e2b245121f5b908c209e60468c54baf0","token":"token","metodo":"DELETE","nome":"\/comunicacao-historico\/:id","uri":"{{LINK}}\/comunicacao-historico\/$COMUNICACAO_HISTORICO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

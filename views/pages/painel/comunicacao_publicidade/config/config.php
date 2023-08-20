@@ -12,7 +12,7 @@ return [
     'deletar'    => true,
     'historico'  => false,
     'api'        => [
-        'scope'        => 'comunicacao_historico',
-        'uri'          => '/comunicacao-historico'
+        'scope'        => 'comunicacao_publicidade',
+        'uri'          => '/comunicacao-publicidade'
     ]
 ];

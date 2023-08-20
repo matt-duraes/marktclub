@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\ComunicacaoHistorico\Models;
+namespace Painel\ComunicacaoPublicidade\Models;
 
 use System\Interface\PainelIndexFiltroInterface;
 

@@ -10,16 +10,17 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
-use App\Classes\ComunicacaoHistorico\Ordem;
+use App\Classes\ComunicacaoPublicidade\Tipo;
+use App\Classes\ComunicacaoPublicidade\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\ComunicacaoHistorico\HistoricoModel;
-use App\Models\Api\ComunicacaoHistorico\HistoricoEntity;
+use App\Models\Api\ComunicacaoPublicidade\PublicidadeModel;
+use App\Models\Api\ComunicacaoPublicidade\PublicidadeEntity;
 
-final class ComunicacaoHistoricoController extends Controller implements
+final class ComunicacaoPublicidadeController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface,
     ControllerSalvarInterface,
@@ -28,7 +29,7 @@ final class ComunicacaoHistoricoController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-        $Historico = new HistoricoModel(
+        $Publicidade = new PublicidadeModel(
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
             titulo: $request->titulo,
@@ -36,38 +37,39 @@ final class ComunicacaoHistoricoController extends Controller implements
             dataFinal: new Data($request->data_final),
             status: new Status($request->status),
             publicado: new Botao($request->publicado),
+            tipo: new Tipo($request->tipo),
             ordem: new Ordem($request->ordem)
         );
         return mensagemSucesso(
-            $Historico->listarDados()
+            $Publicidade->listarDados()
         );
     }
 
     public function getBuscar(string $id): Response
     {
-        $Historico = new HistoricoEntity();
-        $Historico->uuid($id);
+        $Publicidade = new PublicidadeEntity();
+        $Publicidade->uuid($id);
 
-        return $this->retornoPadrao($Historico);
+        return $this->retornoPadrao($Publicidade);
     }
 
     public function postSalvar(Request $request): Response
     {
-        $Historico = new HistoricoEntity();
-        $Historico->set(lista: $request->dado());
-        $Historico->salvar();
+        $Publicidade = new PublicidadeEntity();
+        $Publicidade->set(lista: $request->dado());
+        $Publicidade->salvar();
 
-        return $this->retornoPadrao($Historico, 201);
+        return $this->retornoPadrao($Publicidade, 201);
     }
 
-    private function retornoPadrao(HistoricoEntity $Historico, int $status = 200)
+    private function retornoPadrao(PublicidadeEntity $Publicidade, int $status = 200)
     {
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
-                $Historico,
+                $Publicidade,
                 lista: [
-                    'id', 'empresa', 'parceiro', 'titulo', 'imagem', 'data_inicio',
-                    'data_final', 'data_criacao', 'publicado', 'status'
+                    'id', 'parceiro', 'titulo', 'imagem_desktop', 'imagem_mobile', 'data_inicio', 'data_final',
+                    'data_criacao', 'link', 'tipo', 'publicado', 'status'
                 ]
             ),
             status: $status
@@ -76,19 +78,19 @@ final class ComunicacaoHistoricoController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Historico = new HistoricoEntity();
-        $Historico->uuid($id);
-        $Historico->set(lista: $request->dado());
-        $Historico->salvar();
+        $Publicidade = new PublicidadeEntity();
+        $Publicidade->uuid($id);
+        $Publicidade->set(lista: $request->dado());
+        $Publicidade->salvar();
 
         return new Response(status: 204);
     }
 
     public function deleteDeletar(string $id): Response
     {
-        $Historico = new HistoricoEntity();
-        $Historico->uuid($id);
-        $Historico->destruir();
+        $Publicidade = new PublicidadeEntity();
+        $Publicidade->uuid($id);
+        $Publicidade->destruir();
 
         return new Response(status: 204);
     }

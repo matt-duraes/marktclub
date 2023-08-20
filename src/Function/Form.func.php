@@ -1870,6 +1870,7 @@ if (!function_exists('formImagem')) {
         if (!empty($value)) {
             $blocoClass .= ' fw_form_imagem_galeria';
             $value = validarUrl($value) ? arquivoPrivadoId($value) : $value;
+
             $imagem = arquivoPrivado($value);
             $imagemCss = 'style="background-image: url(' . $imagem . ')"';
             $botaoDisplay = '';
