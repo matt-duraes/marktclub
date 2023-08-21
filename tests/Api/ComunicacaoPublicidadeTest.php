@@ -44,6 +44,7 @@ class ComunicacaoPublicidadeTest extends Clube
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('erro.mensagem', 'A data de inicio não pode ser maior que a data final.')
             ->checkIndiceIgual('status', 'erro');
     }
 
@@ -62,6 +63,7 @@ class ComunicacaoPublicidadeTest extends Clube
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('erro.mensagem', 'O campo Status não é um valor válido.')
             ->checkIndiceIgual('status', 'erro');
     }
 
