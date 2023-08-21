@@ -47,6 +47,7 @@ final class PublicidadeEntity extends Entity
         $this->id_parceiro_loja = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarIdPeloUuid($idParceiro);
         $this->imagem_desktop = arquivoPrivadoId($this->imagem_desktop);
         $this->imagem_mobile = arquivoPrivadoId($this->imagem_mobile);
+        $this->validarDataInicioMenorQueFinal();
     }
 
     protected function regraPosBuscar()
@@ -73,5 +74,12 @@ final class PublicidadeEntity extends Entity
             'logo'   => LINK_ARQUIVO . '/convenio/' . $Parceiro['imagem'],
             'titulo' => $Parceiro['titulo']
         ];
+    }
+
+    private function validarDataInicioMenorQueFinal(): void
+    {
+        if ($this->data_inicio->date() > $this->data_final->date()) {
+            mensagemErro('Data Inválida!', 'A data de inicio não pode ser maior que a data final.');
+        }
     }
 }

@@ -32,11 +32,31 @@ class ParceiroIndicacaoTest extends Clube
             ->post('/parceiro-indicacao')
             ->array();
 
-        $this->idIndicacaoNovoParceiro = $dado['dado']['id'];
+        $this->idIndicacaoNovoParceiro = $dado['dado']['id'] ?? '';
 
         return $this
             ->checkStatus(201)
+            ->checkIndiceExiste('dado.id')
             ->checkIndiceIgual('status', 'sucesso');
+    }
+
+    public function salvarIndidicacaoNovoParceiroSemNomeTest(): ParceiroIndicacaoTest
+    {
+        $this->api('parceiro_indicacao:salvar');
+        $this
+            ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
+            ->body([
+                'email'             => $this->email(),
+                'telefone'          => $this->telefone(),
+                'mensagem'          => 'Mensagem de teste',
+                'status'            => valorAleatorio($this->statusValidos)
+            ])
+            ->post('/parceiro-indicacao');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('status', 'erro');
     }
 
     public function listarIndicacoesNovoParceiroTest(): ParceiroIndicacaoTest
