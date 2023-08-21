@@ -74,8 +74,8 @@ class CreditoModel extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'codigo', 'operadora', 'tipo', 'valor', 'parcelas',
-                'valor_parcelas', 'observacao', 'status', 'data_criacao'
+                'uuid', 'operadora', 'tipo', 'valor_total', 'parcela',
+                'valor_parcela', 'status', 'data_criacao'
             ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), false)
@@ -139,34 +139,16 @@ class CreditoModel extends ORM
         $retorno = [];
         foreach ($solicitacoes as $solicitacao) {
             $retorno[] = [
-                'uuid'           => $solicitacao->uuid,
-                'codigo'         => $solicitacao->codigo,
-                'operadora'      => $Operadora->indice($solicitacao->operadora),
-                'tipo'           => $Tipo->indice($solicitacao->tipo),
-                'valor'          => (new Dinheiro((string)$solicitacao->valor))->dinheiro(),
-                'parcelas'       => $solicitacao->parcelas,
-                'valor_parcelas' => (new Dinheiro((string)$solicitacao->valor_parcelas))->dinheiro(),
-                'observacao'     => $solicitacao->observacao,
-                'status'         => $Status->indice($solicitacao->status),
-                'data_criacao'   => dataHoraBr($solicitacao->data_criacao)
+                'uuid'          => $solicitacao->uuid,
+                'operadora'     => $Operadora->indice($solicitacao->operadora),
+                'tipo'          => $Tipo->indice($solicitacao->tipo),
+                'valor_total'   => (new Dinheiro((string)$solicitacao->valor_total))->dinheiro(),
+                'parcela'       => $solicitacao->parcela,
+                'valor_parcela' => (new Dinheiro((string)$solicitacao->valor_parcela))->dinheiro(),
+                'status'        => $Status->indice($solicitacao->status),
+                'data_criacao'  => dataHoraBr($solicitacao->data_criacao)
             ];
         }
         return $retorno;
-    }
-
-    /**
-     * @param string $codigo
-     *
-     * @return bool    Caso exista solicitação retorna TRUE. Do contrário FALSE.
-     * @throws Excecao
-     */
-    public function verificarExisteCodigo(string $codigo): bool
-    {
-        $solicitacaoCredito = $this
-            ->tabela($this->ormTabela)
-            ->campo(['uuid', 'codigo'])
-            ->where(['codigo', '=', $codigo])
-            ->read();
-        return !empty($solicitacaoCredito);
     }
 }

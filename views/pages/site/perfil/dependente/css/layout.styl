@@ -6,24 +6,23 @@
 @resource "site/variavel"
 @resource "site/loja/busca"
 @resource "site/tabela"
-@resource "site/dependente"
 
-#bloco_pagina_dependente
-    width: 100%
-    max-width: $maxWidth
-    margin-bottom: 60px
-    .bloco_titulo_texto form
-        width: 100%
-        flexCol()
-        espacoTopPadrao()
-        p
-            subTitulo()
-        p strong
-            font-size: 1em
-            bold()
 .zero
     width: 100%
     max-width: $maxWidth
     flexCenter()
     height: 150px
     flexCol()
+.bloco_titulo_texto{
+    padding-bottom: 40px
+    width: 100%
+}
+.bloco_titulo_texto .bloco_geral_dependente p{
+    texto()
+}
+div#bloco_pagina_dependente {
+    width: 100%
+}
+div#bloco_pagina_dependente #botao_cadastra_dependente {
+    margin-top: 20px
+}
