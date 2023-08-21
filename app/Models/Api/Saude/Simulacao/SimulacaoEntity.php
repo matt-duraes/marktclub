@@ -107,7 +107,7 @@ class SimulacaoEntity extends Entity
         }
 
         new NovaSimulacaoModel($this->idUsuario);
-        $this->lista_dependente = jsonDecode($this->request->getPost('lista_dependente'));
+        $this->lista_dependente = jsonDecode($this->request->getPost('lista_dependente'), true, true);
         $this->quantidade_dependente = count($this->lista_dependente);
         $this->titular = new Data($this->request->getPost('titular'));
         $this->operadora = new Operadora($this->request->getPost('operadora'));
