@@ -95,6 +95,27 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 1,
+        'titulo'           => 'COMUNICAÇÃO',
+        'ordem'            => '++',
+        'status'           => 1,
+        'permissao'        => '["comunicacao_publicidade_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Publicidade',
+        'url'              => '/app/comunicacao-publicidade',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,6c5,0,9,4.1,9,9s-4,9-9,9s-9-4-9-9h1.8c0,4,3.2,7.2,7.2,7.2s7.2-3.2,7.2-7.2S19,7.8,15,7.8c-2.4,0-4.7,1.3-5.9,3.1h2.3v1.8H6V7.3h1.8v2.3C9.4,7.4,12,6,15,6z M15.9,10.5v4.1l2.9,2.9l-1.3,1.3l-3.4-3.4v-4.9H15.9z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['comunicacao-publicidade'],
+        'status'           => 1,
+        'permissao'        => '["comunicacao_publicidade_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 1,
         'titulo'           => 'COMERCIAL',
         'ordem'            => '++',
         'status'           => 1,

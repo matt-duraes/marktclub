@@ -68,6 +68,9 @@ $scope = [
 
     'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
+    'comunicacao_publicidade:listar', 'comunicacao_publicidade:buscar', 'comunicacao_publicidade:salvar',
+    'comunicacao_publicidade:atualizar', 'comunicacao_publicidade:deletar',
+
     'app_api:listar', 'app_api:buscar', 'app_api:salvar', 'app_api:atualizar', 'app_api:deletar',
 
     'app_usuario:listar', 'app_usuario:buscar', 'app_usuario:salvar', 'app_usuario:atualizar',
@@ -115,11 +118,11 @@ $scope = [
     'automovel_modelo:atualizar', 'automovel_modelo:deletar',
 
     'automovel_versao:listar', 'automovel_versao:salvar', 'automovel_versao:buscar',
-    'automovel_versao:atualizar', 'automovel_versao:deletar',
-
-    'automovel:listar', 'publicidade:buscar', 'publicidade:listar', 'publicidade:salvar',
+    'automovel_versao:atualizar', 'automovel_versao:deletar', 'automovel:listar',
 
     'silium:saldo', 'silium:extrato', 'silium:saque',
+
+    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar', 'parceiro_indicacao:atualizarStatus', 'parceiro_indicacao:deletar'
 ];
 
 return [

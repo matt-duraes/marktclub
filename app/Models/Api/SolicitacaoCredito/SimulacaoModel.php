@@ -2,10 +2,11 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use Modules\Inteiro;
-use Modules\Dinheiro;
-use App\Classes\SolicitacaoCredito\Tipo;
 use App\Classes\SolicitacaoCredito\Operadora;
+use App\Classes\SolicitacaoCredito\Tipo;
+use Erro\Excecao;
+use Modules\Dinheiro;
+use Modules\Inteiro;
 
 final class SimulacaoModel
 {
@@ -20,14 +21,22 @@ final class SimulacaoModel
         ]
     ];
 
-    private Float $juros;
     public Dinheiro $valorParcela;
+    private float $juros;
 
+    /**
+     * @param Operadora $operadora
+     * @param Tipo      $tipo
+     * @param Dinheiro  $valor_total
+     * @param Inteiro   $parcela
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private Operadora $operadora,
-        private Tipo $tipo,
-        private Dinheiro $valor_total,
-        private Inteiro $parcela
+        private readonly Operadora $operadora,
+        private readonly Tipo $tipo,
+        private readonly Dinheiro $valor_total,
+        private readonly Inteiro $parcela
     ) {
         $this
             ->validarOperadora()
@@ -78,7 +87,7 @@ final class SimulacaoModel
     }
 
     /**
-     * @param float $valorParcelas
+     * @param float $valorParcela
      *
      * @return float
      */

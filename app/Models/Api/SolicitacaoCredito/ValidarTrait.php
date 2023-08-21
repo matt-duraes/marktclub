@@ -2,9 +2,15 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
+use Erro\Excecao;
+
 trait ValidarTrait
 {
-    private function validarOperadora()
+    /**
+     * @return $this
+     * @throws Excecao
+     */
+    private function validarOperadora(): static
     {
         if (!$this->operadora->valido()) {
             mensagemErro('Campo inválido!', 'A operadora enviada não é válida.');
@@ -12,7 +18,11 @@ trait ValidarTrait
         return $this;
     }
 
-    private function validarTipo()
+    /**
+     * @return $this
+     * @throws Excecao
+     */
+    private function validarTipo(): static
     {
         if (!$this->tipo->valido()) {
             mensagemErro('Campo inválido!', 'O tipo de crédito enviado não é válido.');
@@ -20,7 +30,11 @@ trait ValidarTrait
         return $this;
     }
 
-    private function validarValor()
+    /**
+     * @return $this
+     * @throws Excecao
+     */
+    private function validarValor(): static
     {
         if (!$this->valor_total->valido()) {
             mensagemErro('Campo inválido!', 'O valor para o crédito não é válido.');
@@ -28,7 +42,11 @@ trait ValidarTrait
         return $this;
     }
 
-    private function validarParcela()
+    /**
+     * @return $this
+     * @throws Excecao
+     */
+    private function validarParcela(): static
     {
         if (!$this->parcela->valido()) {
             mensagemErro('Campo inválido!', 'A quantidade de parcelas para o crédito não é válida.');

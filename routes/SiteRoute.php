@@ -116,10 +116,15 @@ Route
         Route
             ::nome('index')
             ::view('/');
+    });
+Route
+    ::nome('historico')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\HistoricoController::class)
+    ::grupo(function () {
         Route
-            ::nome('promocoes')
-            ::request(['!tipo'])
-            ::get('/promocoes');
+            ::nome('buscar')
+            ::post('/historico');
     });
 Route
     ::nome('acessoRapido')
@@ -316,7 +321,7 @@ Route
         Route
             ::nome('realizarContratacao')
             ::request([
-                'id_simulacao','nome','naturalidade','cpf','data_nascimento',
+                'id_saude_simulacao','nome','naturalidade','cpf','data_nascimento',
                 'genero','estado_civil','peso','altura','rg','orgao_expedidor',
                 'nome_mae','responsavel_nome','responsavel_cpf','responsavel_rg',
                 'responsavel_orgao_expedidor','email_pessoal','telefone_celular',

@@ -20,13 +20,13 @@ final class SolicitacaoCreditoTest extends Clube
         $this->api('solicitacao_credito:simular');
         $this
             ->Curl
-            ->parametro([
-                'operadora' => 'sicoob',
-                'tipo'      => 'consignado',
-                'valor'     => '10000.00',
-                'parcelas'  => 96
+            ->json([
+                'operadora'   => Operadora::SICOOB,
+                'tipo'        => Tipo::CONSIGNADO,
+                'valor_total' => number_format($this->numero(), 2, thousands_separator: ''),
+                'parcela'     => $this->numero(1, 96)
             ])
-            ->get('/solicitar-credito');
+            ->get('/solicitacao-credito/simulacao');
 
         return $this
             ->checkStatus(200)
@@ -68,12 +68,10 @@ final class SolicitacaoCreditoTest extends Clube
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'operadora'      => Operadora::SICOOB,
-                'tipo'           => Tipo::CONSIGNADO,
-                'valor'          => '15000.00',
-                'parcelas'       => 12,
-                'valor_parcelas' => '',
-                'status'         => ''
+                'operadora'   => Operadora::SICOOB,
+                'tipo'        => Tipo::CONSIGNADO,
+                'valor_total' => number_format($this->numero(1, 50000), 2, thousands_separator: ''),
+                'parcela'     => 12
             ])
             ->post('/solicitacao-credito')
             ->array()['dado'] ?? [];

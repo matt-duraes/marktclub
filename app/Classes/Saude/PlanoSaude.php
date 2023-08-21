@@ -2,12 +2,12 @@
 
 namespace App\Classes\Saude;
 
+use App\Classes\Saude\Operadoras\AbstractOperadora;
+use App\Classes\Saude\Operadoras\Amil\Amil;
 use DateTime;
 use Exception;
-use Modules\Data;
 use Helpers\ValidarHelper;
-use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Classes\Saude\Operadoras\AbstractOperadora;
+use Modules\Data;
 
 class PlanoSaude
 {
@@ -16,6 +16,8 @@ class PlanoSaude
 
     /**
      * @param AbstractOperadora $operadora Operadora de Saúde
+     *
+     * @throws Exception
      */
     public function __construct(
         protected AbstractOperadora $operadora

@@ -3,31 +3,41 @@
 namespace App\Models\Site\Saude;
 
 use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis\CentralNacionalUnimedFlorianopolis;
 use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
 use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 
 final class SimulacaoViewModel
 {
+    /**
+     * @param string $operadora
+     */
     public function __construct(
         private readonly string $operadora
     ) {
     }
 
-    public function opcao()
+    /**
+     * @return array
+     */
+    public function opcao(): array
     {
         $passos = match ($this->operadora) {
-            Operadora::AMIL                            => ['Região', 'Plano', 'Simulação', 'Resultado'],
-            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
-            Operadora::UNIMED_SEGURO                   => ['Acomodação', 'Simulação', 'Resultado'],
-            Operadora::UNIMED                          => ['Acomodação', 'Simulação', 'Resultado'],
-            default                                    => []
+            Operadora::AMIL            => ['Região', 'Plano', 'Simulação', 'Resultado'],
+            Operadora::CNU_FLORIANOPIS => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
+            Operadora::UNIMED_SEGURO, Operadora::UNIMED => ['Acomodação', 'Simulação', 'Resultado'],
+            default => []
         };
         return $this->montarOpcao($passos);
     }
 
-    private function montarOpcao($lista)
+    /**
+     * @param $lista
+     *
+     * @return array
+     */
+    private function montarOpcao($lista): array
     {
         $i = 1;
         $retorno = [];
@@ -41,48 +51,64 @@ final class SimulacaoViewModel
         return $retorno;
     }
 
-    public function acomodacao()
+    /**
+     * @return array|string
+     */
+    public function acomodacao(): array|string
     {
         return match ($this->operadora) {
-            Operadora::UNIMED                          => (new Unimed())->pegarAcomodacoes(),
-            Operadora::UNIMED_SEGURO                   => (new UnimedSeguro())->pegarAcomodacoes(),
-            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarAcomodacoes(true),
-            default                                    => []
+            Operadora::UNIMED          => (new Unimed())->pegarAcomodacoes(),
+            Operadora::UNIMED_SEGURO   => (new UnimedSeguro())->pegarAcomodacoes(),
+            Operadora::CNU_FLORIANOPIS => (new CNUFlorianopolis())->pegarAcomodacoes(true),
+            default                    => []
         };
     }
 
-    public function plano()
+    /**
+     * @return array
+     */
+    public function plano(): array
     {
         return match ($this->operadora) {
-            Operadora::AMIL                            => (new Amil())->pegarPlanos(false),
-            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => (new CentralNacionalUnimedFlorianopolis())->pegarPlanos(false),
-            Operadora::UNIMED_SEGURO                   => (new UnimedSeguro())->pegarPlanos(false),
-            Operadora::UNIMED                          => (new Unimed())->pegarPlanos(false),
-            default                                    => []
+            Operadora::AMIL            => (new Amil())->pegarPlanos(false),
+            Operadora::CNU_FLORIANOPIS => (new CNUFlorianopolis())->pegarPlanos(false),
+            Operadora::UNIMED_SEGURO   => (new UnimedSeguro())->pegarPlanos(false),
+            Operadora::UNIMED          => (new Unimed())->pegarPlanos(false),
+            default                    => []
         };
     }
 
-    public function regiao()
+    /**
+     * @return array
+     */
+    public function regiao(): array
     {
         return match ($this->operadora) {
-            Operadora::AMIL                            => (new Amil())->pegarRegioes(),
-            default                                    => []
+            Operadora::AMIL => (new Amil())->pegarRegioes(),
+            default         => []
         };
     }
 
-    public function passoPasso()
+    /**
+     * @return array
+     */
+    public function passoPasso(): array
     {
         $passoPasso = match ($this->operadora) {
-            Operadora::AMIL                            => ['regiao', 'plano', 'simulacao', 'resultado'],
-            Operadora::CENTRAL_NACIONAL_UNIMED_FLORIPA => ['plano', 'acomodacao', 'simulacao', 'resultado'],
-            Operadora::UNIMED                          => ['acomodacao', 'simulacao', 'resultado'],
-            Operadora::UNIMED_SEGURO                   => ['acomodacao', 'simulacao', 'resultado'],
-            default                                    => []
+            Operadora::AMIL            => ['regiao', 'plano', 'simulacao', 'resultado'],
+            Operadora::CNU_FLORIANOPIS => ['plano', 'acomodacao', 'simulacao', 'resultado'],
+            Operadora::UNIMED, Operadora::UNIMED_SEGURO => ['acomodacao', 'simulacao', 'resultado'],
+            default => []
         };
         return $this->montarPassoPasso($passoPasso);
     }
 
-    private function montarPassoPasso($lista)
+    /**
+     * @param $lista
+     *
+     * @return array
+     */
+    private function montarPassoPasso($lista): array
     {
         $retorno = [];
         $i = 1;

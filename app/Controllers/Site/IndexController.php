@@ -7,9 +7,9 @@ use Http\Response;
 use Modules\Botao;
 use Modules\Inteiro;
 use Controller\Controller;
-use App\Models\Site\BannerModel;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Comunicacao\BannerModel;
 
 final class IndexController extends Controller
 {
@@ -38,7 +38,7 @@ final class IndexController extends Controller
             'mais_utilizada' => $MaisUtilizada->listarDados(),
             'loja_nova'      => $LojaNova->listarDados(),
             'loja_favorita'  => $LojaFavorita->listarDados(),
-            'banner'         => (new BannerModel())->index(),
+            'banner'         => (new BannerModel())->home(),
         ]);
     }
 }

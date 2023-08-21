@@ -19,13 +19,22 @@ class ClubeApiHelper extends ApiHelper
 
     private function setarCryptHelper()
     {
-        if (!sessaoExiste('CRYPT_HELPER_CHAVE')) {
+        if (!sessaoExiste('CRYPT_CHAVE_PUBLICA')) {
             $chave = $this
                 ->get('/admin/chave-publica')
                 ->object()->dado->chave ?? '';
-            sessao('CRYPT_HELPER_CHAVE', $chave);
+            sessao('CRYPT_CHAVE_PUBLICA', $chave);
+        }
+        if (!sessaoExiste('CRYPT_CHAVE_PRIVADA')) {
+            $chave = $this
+                ->get('/admin/chave-privada')
+                ->object()->dado->chave ?? '';
+            sessao('CRYPT_CHAVE_PRIVADA', $chave);
         }
 
-        $this->Crypt = new CryptHelper(chavePublica: sessao('CRYPT_HELPER_CHAVE'));
+        $this->Crypt = new CryptHelper(
+            chavePublica: sessao('CRYPT_CHAVE_PUBLICA'),
+            chavePrivada: sessao('CRYPT_CHAVE_PRIVADA')
+        );
     }
 }

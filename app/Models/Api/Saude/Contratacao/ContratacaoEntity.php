@@ -2,28 +2,26 @@
 
 namespace App\Models\Api\Saude\Contratacao;
 
-use ORM\Entity;
-use Modules\Cpf;
-use Erro\Excecao;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Email;
-use Modules\Genero;
-use Modules\Telefone;
-use Modules\EnderecoCep;
-use Modules\EstadoCivil;
-use Modules\EnderecoEstado;
 use App\Classes\Saude\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
 use App\Classes\SaudeSimulacao\Status as SaudeSimulacaoStatus;
+use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\EnderecoCep;
+use Modules\EnderecoEstado;
+use Modules\EstadoCivil;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
 
 class ContratacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected int $id_saude_simulacao;
-    public string $id_simulacao;
     public Cpf $documento_cpf;
     public string $documento_rg;
     public string $orgao_expedidor;
@@ -51,6 +49,7 @@ class ContratacaoEntity extends Entity
     public int $endereco_numero;
     public string $endereco_complemento;
     public Status $status;
+    protected int $id_saude_simulacao;
     protected int $idEmpresa;
     protected int $idUsuario;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
@@ -89,6 +88,7 @@ class ContratacaoEntity extends Entity
         nome_mae|Nome da mãe|obrigatorio|vazio|valido
         responsavel_cpf|CPF Responsável|obrigatorio|vazio|valido
         responsavel_rg|RG Responsável|obrigatorio|vazio
+        responsavel_orgao_expedidor|Orgão Expedidor Responsável|obrigatorio|vazio
         responsavel_nome|Nome Responsável|obrigatorio|vazio|valido
         email_pessoal|E-mail|obrigatorio|vazio|valido
         telefone_celular|Telefone Celular|obrigatorio|vazio|valido
@@ -104,7 +104,7 @@ class ContratacaoEntity extends Entity
     ';
 
     /**
-     * @param SimulacaoEntity $simulacaoEntity
+     * @param SimulacaoEntity $Simulacao
      *
      * @throws Excecao
      */
@@ -115,12 +115,18 @@ class ContratacaoEntity extends Entity
         parent::__construct();
     }
 
-    protected function regraInsert()
+    /**
+     * @throws Excecao
+     */
+    protected function regraInsert(): void
     {
         $this->id_saude_simulacao = $this->Simulacao->get('id');
     }
 
-    protected function regraPosInsert()
+    /**
+     * @throws Excecao
+     */
+    protected function regraPosInsert(): void
     {
         $this->Simulacao->status = new SaudeSimulacaoStatus(SaudeSimulacaoStatus::ENVIADO);
         $this->Simulacao->salvar();

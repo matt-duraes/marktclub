@@ -7,6 +7,9 @@
 // @resource "site/dependente"
 
 window.addEventListener('load', () => {
+    const blocoDependente = document.querySelector('#bloco_pagina_dependente table tbody');
+    const blocoZero = document.querySelector('.zero');
+
     BODY.addEventListener('click', function (event) {
         if (event.target.classList.contains('remove')) {
             const linhaDependente = event.target.closest('.linha_dependente');
@@ -15,72 +18,55 @@ window.addEventListener('load', () => {
     });
 
     const botaoSalvar = document.querySelector('#botao_cadastra_dependente');
-    botaoSalvar.addEventListener('click', async e => {
+    botaoSalvar.addEventListener('click', e => {
         e.preventDefault();
-        await salvarDependente();
+        salvarDependente();
     });
 
+    const inputNome = $('input[name=dependente_nome]');
+    const inputCpf = $('input[name=dependente_cpf]');
+    const inputEmail = $('input[name=dependente_email]');
     const salvarDependente = async () => {
-        const colunas = document.querySelectorAll('#bloco_pagina_dependente .dependente .linha_dependente.normal');
-
-        for (let i = 0; i < colunas.length; i++) {
-            const coluna = colunas[i];
-
-            const nomeDependente = coluna.querySelector('input[name=dependente_nome]').value;
-            const cpfDependente = coluna.querySelector('input[name=dependente_cpf]').value;
-            const emailDependente = coluna.querySelector('input[name=dependente_email]').value;
-
-            if (nomeDependente !== '' || cpfDependente !== '' || emailDependente !== '') {
-                const body = new FormData();
-                body.append('nome', nomeDependente);
-                body.append('cpf', cpfDependente);
-                body.append('email', emailDependente);
-
-                const resposta = await fetch(`${LINK}/perfil/salvar-dependentes`, {
-                    method: 'POST',
-                    body,
-                });
-
-                let json;
-                try {
-                    json = await resposta.json();
-                } catch (error) {
-                    json = {};
-                }
-
-                Loading.hide();
-
-                if (resposta.status == 201 && json.dado.id !== '' && json.dado.nome !== '') {
-                    adicionarNovoDependente(json.dado.id, json.dado.nome, true);
-                    return;
-                }
-
-                Alerta.notificacao(
-                    json.erro != undefined && json.erro.mensagem != undefined
-                        ? json.erro.mensagem
-                        : 'Ocorreu um erro ao salvar dependente, tente novamente.',
-                    false
-                );
-            }
+        const nomeDependente = inputNome.value;
+        const cpfDependente = inputCpf.value;
+        const emailDependente = inputEmail.value;
+        if (nomeDependente.trim().split(' ').length < 2) {
+            Alerta.notificacao('Digite seu nome completo para continuar.', false);
+            return;
         }
+        const resposta = await ajaxPost(
+            LINK + '/perfil/salvar-dependentes',
+            {
+                nome: nomeDependente,
+                cpf: cpfDependente,
+                email: emailDependente,
+            },
+            'Ocorreu um erro ao salvar o dependente, por favor, tente novamente.'
+        );
+        if (false === resposta) {
+            return;
+        }
+
+        await Alerta.mensagem('Dependente Cadastrado', 'Seu dependente foi cadastrado com sucesso', true);
+        formValue(inputNome, '');
+        formValue(inputCpf, '');
+        formValue(inputEmail, '');
+        adicionarNovoDependente(resposta.dado.id, resposta.dado.nome, true);
     };
 
-    const blocoDependente = document.querySelector('#bloco_pagina_dependente table tbody');
-    const adicionarNovoDependente = (id, nome, fechar) => {
-        const blocoZero = document.querySelector('.zero');
-        if (blocoZero) {
-            blocoZero.style.display = 'none';
+    const adicionarNovoDependente = (id, nome) => {
+        if (!blocoZero.classList.contains('display_none')) {
+            blocoZero.classList.add('display_none');
         }
 
         blocoDependente.insertAdjacentHTML(
             'beforeend',
             `
-                <tr class="hover">
+                <tr class="hover dependente" data-id="${id}">
                     <td>${nome}</td>
-                    <td class="deletar">
-                        <p data-id="${id}" >
+                    <td class="deletar botao_deletar_dependente">
+                        <p>
                             Deletar
-                            <i class="botao_deletar botao_deletar_dependente">${Icone.fechar(8)}</i>
                         </p>
                     </td>
                 </tr>
@@ -96,49 +82,33 @@ window.addEventListener('load', () => {
             ) {
                 return;
             }
-
-            const id = e.target.closest('.deletar').getAttribute('data-id');
             const resposta = await Alerta.confirmar(
                 'Deletar dependente',
                 'Tem certeza que deseja deletar esse dependente? Essa ação não poderá ser desfeita.',
                 false
             );
 
-            if (resposta) {
-                deletarDependente(id);
+            if (false === resposta) {
+                return;
             }
+
+            const bloco = e.target.closest('.dependente');
+            const id = bloco.getAttribute('data-id');
+
+            deletarDependente(bloco, id);
         });
     }
-
-    const deletarDependente = async id => {
-        const body = new FormData();
-        body.append('id', id);
-
-        const resposta = await fetch(LINK + '/perfil/deletar-dependente', {
-            method: 'POST',
-            body,
-        });
-
-        if (resposta.status == 204) {
-            Alerta.notificacao('Dependente deletado com sucesso!', true);
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+    const deletarDependente = async (bloco, id) => {
+        const resposta = await ajaxPost(LINK + '/perfil/deletar-dependente', { id });
+        if (false === resposta) {
             return;
         }
 
-        let json;
-        try {
-            json = await resposta.json();
-        } catch (error) {
-            json = {};
-        }
+        bloco.parentNode.removeChild(bloco);
+        Alerta.notificacao('Dependente deletado com sucesso!', true);
 
-        Alerta.notificacao(
-            json.erro != undefined && json.erro.mensagem != undefined
-                ? json.erro.mensagem
-                : 'Ocorreu um erro ao deletar dependente, por favor, tente novamente.',
-            false
-        );
+        if (blocoDependente.querySelectorAll('.dependente').length == 0) {
+            blocoZero.classList.remove('display_none');
+        }
     };
 });

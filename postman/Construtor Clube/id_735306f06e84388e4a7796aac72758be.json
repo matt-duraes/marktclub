@@ -1,0 +1,1 @@
+{"id":"id_735306f06e84388e4a7796aac72758be","token":"token","metodo":"POST","nome":"\/construtor-clube","uri":"{{LINK}}\/construtor-clube","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$CONSTRUTOR_CLUBE_ID","dado.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

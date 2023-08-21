@@ -2,17 +2,20 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\Entity;
-use Http\Request;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityBuscarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityInsertTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntitySalvarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityUpdateTrait;
 use App\Models\Api\UsuarioCliente\Trait\PropriedadeEntityTrait;
+use Erro\Erro;
+use Erro\Excecao;
+use Http\Request;
+use ORM\Entity;
+use Throwable;
 
 final class ClienteEntity extends Entity
 {
@@ -88,10 +91,12 @@ final class ClienteEntity extends Entity
     /**
      * @param null|Request $request      Request para salvar um novo usuário
      * @param bool         $validarToken Se vai validar o token e a empresa
+     *
+     * @throws Excecao
      */
     public function __construct(
-        private ?Request $request = null,
-        private bool $validarToken = true
+        private readonly ?Request $request = null,
+        private readonly bool $validarToken = true
     ) {
         parent::__construct();
         if (!$validarToken) {
@@ -102,27 +107,42 @@ final class ClienteEntity extends Entity
         $this->pegarCampoObrigatorio();
     }
 
-    private function pegarCampoObrigatorio()
+    private function pegarCampoObrigatorio(): void
     {
         try {
             $Config = new ConfiguracaoEntity();
             $this->campoObrigatorio = $Config->campo_obrigatorio['usuario_cliente'] ?? [];
-        } catch (\Throwable) {
+        } catch (Throwable) {
             $this->campoObrigatorio = ['cpf', 'email', 'status'];
         }
     }
 
-    public function getId()
+    /**
+     * @return mixed
+     * @throws Excecao
+     * @throws Erro
+     */
+    public function getId(): mixed
     {
         return $this->prop('id');
     }
 
-    public function getCpf()
+    /**
+     * @return mixed
+     * @throws Erro
+     * @throws Excecao
+     */
+    public function getCpf(): mixed
     {
         return $this->prop('documento');
     }
 
-    public function setEmpresa($valor)
+    /**
+     * @param $valor
+     *
+     * @throws Excecao
+     */
+    public function setEmpresa($valor): void
     {
         $this->Empresa = new EmpresaEntity();
         $this->Empresa->uuid($valor, mensagem: 'Empresa enviada não foi encontrada.');

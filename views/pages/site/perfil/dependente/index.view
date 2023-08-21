@@ -9,9 +9,9 @@
                 <strong>sem custo</strong></p>
                 <div class="dependente">
                     <div class="linha_dependente">
-                        @? formInput(name: 'dependente_nome', placeholder: 'Digite o nome do dependente', label: 'Nome do dependente', value: '')
-                        @? formCpf(name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF',  obrigatorio: true)
-                        @? formInput(name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
+                        @? formInput(local: 'André Rodrigues', name: 'dependente_nome', placeholder: 'Digite o nome do dependente', focus: true, label: 'Nome do dependente', value: '')
+                        @? formCpf(local: '227.789.470-27', name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF',  obrigatorio: true)
+                        @? formInput(local: 'andrerodrigues@andrerodrigues.com', name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
                     </div>
                 </div>
                 <button id="botao_cadastra_dependente" class="botao_geral_cor cor_bg">Cadastrar dependente</button>
@@ -29,9 +29,9 @@
             </thead>
             <tbody>
                 @ ifforeach( $dado as $r ):
-                <tr class="hover">
+                <tr class="hover dependente" data-id="{{$r->id}}">
                     <td>{{$r->nome}}</td>
-                    <td class="deletar botao_deletar_dependente" data-id="{{$r->id}}">
+                    <td class="deletar botao_deletar_dependente">
                         <p>
                             Deletar
                         </p>
@@ -40,11 +40,10 @@
                 @endifforeach;
             </tbody>
         </table>
-        @ if(!$dado):
-        <div class="zero">
+
+        <div class="zero atencao bloco_atencao_geral {!! $dado ? 'display_none' : '' !!}">
             <i>@iconeDependente(30)</i>
             <p>Sem dependentes no momento</p>
         </div>
-        @endif;
     </div>
 </div>

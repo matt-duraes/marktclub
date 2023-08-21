@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Classes\Saude\Operadoras\CentralNacionalUnimedFlorianopolis;
+namespace App\Classes\Saude\Operadoras\CNUFlorianopolis;
 
 use App\Classes\Saude\Operadoras\AbstractOperadora;
 use App\Classes\Saude\Operadoras\Amil\Regioes;
 use Exception;
 use Modules\Data;
 
-class CentralNacionalUnimedFlorianopolis extends AbstractOperadora
+class CNUFlorianopolis extends AbstractOperadora
 {
     private const ACOMODACAO_ENFERMARIA = 'enfermaria';
     private const ACOMODACAO_APARTAMENTO = 'apartamento';

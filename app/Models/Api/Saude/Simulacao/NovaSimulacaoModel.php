@@ -2,13 +2,17 @@
 
 namespace App\Models\Api\Saude\Simulacao;
 
-use ORM\ORM;
 use App\Classes\SaudeSimulacao\Status;
+use ORM\ORM;
+use Throwable;
 
 final class NovaSimulacaoModel extends ORM
 {
     protected string $ormTabela = TABELA_SAUDE_SIMULACAO;
 
+    /**
+     * @param int $idUsuario
+     */
     public function __construct(int $idUsuario)
     {
         parent::__construct();
@@ -23,7 +27,7 @@ final class NovaSimulacaoModel extends ORM
                     ['status', $Status->numero(Status::NOVO)]
                 ])
                 ->update();
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return;
         }
     }

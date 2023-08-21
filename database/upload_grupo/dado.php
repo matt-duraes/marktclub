@@ -17,4 +17,9 @@ return [
         'nome'      => 'Parceiro',
         'diretorio' => 'parceiro',
     ],
+    [
+        'uuid'      => 'd55fc9dc-e2c0-4294-b50d-d6730d234521',
+        'nome'      => 'Comunicação',
+        'diretorio' => 'comunicacao',
+    ],
 ];

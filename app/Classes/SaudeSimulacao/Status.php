@@ -18,12 +18,12 @@ class Status extends StatusStatus
             self::NOVO           => 'Novo',
             self::ENVIADO        => 'Enviado',
             self::CANCELADO      => 'Cancelado',
-            self::NOVA_SIMULACAO => 'Nova Simulacao',
+            self::NOVA_SIMULACAO => 'Nova Simulacao'
         ], [
             self::NOVO           => 'azul',
             self::ENVIADO        => 'verde',
             self::CANCELADO      => 'cinza',
-            self::NOVA_SIMULACAO => 'cinza',
+            self::NOVA_SIMULACAO => 'cinza'
         ]);
     }
 }

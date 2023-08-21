@@ -12,7 +12,6 @@ use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\AdminConstrutor\ConstrutorEntity;
 
 final class DependenteEntity extends Entity
@@ -66,8 +65,8 @@ final class DependenteEntity extends Entity
             cadastro, clique no botão abaixo:',
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             botaoTexto: 'Ativar cadastro',
-            botaoLink: $link . '/login/ativar',
-            logo: $Construtor->logo,
+            botaoLink: $link . '/login#ativar',
+            logo: $Construtor->link_logo,
             acao: 'Cadastro de dependente',
             cor: $Construtor->cor
         );
@@ -90,19 +89,24 @@ final class DependenteEntity extends Entity
 
     private function pegarTitular()
     {
-        $Cliente = new ClienteEntity();
-        $Cliente->buscar([
-            ['cod', $this->usuario],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ], false);
-
-        if (empty($Cliente->id)) {
-            mensagemErro('Erro!', 'Não foi possível encontrar o usuário para vincular o dependente.');
-        } elseif ($Cliente->tipo->indice() == TipoUsuario::DEPENDENTE) {
-            mensagemErro('Erro!', 'Um dependente não pode adicionar outros dependentes.');
+        if (empty($this->usuario)) {
+            mensagemErro('Campo obrigatório!', 'Você deve passar o titular do dependente para salvar.');
         }
 
-        $this->titular = $Cliente->get('id');
+        $usuario = $this
+            ->campo(['id', 'tipo'])
+            ->where([
+                ['cod', $this->usuario],
+                ['status', 'in', Helper::STATUS_LIBERADO]
+            ])
+            ->primeiro();
+
+        if (empty($usuario)) {
+            mensagemErro('Erro!', 'Não foi possível encontrar o usuário para vincular o dependente.');
+        } elseif ((new TipoUsuario($usuario->tipo))->indice() == TipoUsuario::DEPENDENTE) {
+            mensagemErro('Erro!', 'Um dependente não pode adicionar outros dependentes.');
+        }
+        $this->titular = $usuario->id;
     }
 
     private function validarNumeroDependentes()
