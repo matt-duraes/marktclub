@@ -1528,25 +1528,65 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
-            ::get('/solicitacao-declaracao/{id}');
-
-        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
             ::request([
-                'pagina', '!ordem', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!quantidade', '!empresa', '!ordem', '!data_criacao_de', '!data_criacao_ate', '!status'
             ], 'json')
             ::get('/solicitacao-declaracao');
-
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
+            ::get('/solicitacao-declaracao/{id}');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
-                'url', 'tipo'
+                'parceiro', 'modelo', 'versao', 'status'
             ])
             ::post('/solicitacao-declaracao');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:atualizar'])
+            ::request([
+                'status'
+            ])
+            ::put('/solicitacao-declaracao/{id}');
+    });
+Route
+    ::nome('solicitacao_cheque_bonus')
+    ::controller(App\Controllers\Api\SolicitacaoChequeBonusController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:listar'])
+            ::request([
+                'pagina', '!quantidade', '!empresa', '!ordem', '!data_criacao_de', '!data_criacao_ate', '!status'
+            ], 'json')
+            ::get('/solicitacao-cheque-bonus');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:buscar'])
+            ::get('/solicitacao-cheque-bonus/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:salvar'])
+            ::request([
+                'automovel', 'tipo_usuario', 'nome', 'email_pessoal', 'telefone_celular', 'estado_civil',
+                'rg', 'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
+                'endereco_complemento', 'endereco_cidade', 'endereco_estado', 'dependente_nome',
+                'dependente_email_pessoal', 'dependente_rg', 'dependente_documento',
+                'dependente_grau_parentesco', 'dependente_data_nascimento'
+            ])
+            ::post('/solicitacao-cheque-bonus');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:atualizar'])
+            ::request([
+                'status'
+            ])
+            ::put('/solicitacao-cheque-bonus/{id}');
     });
 
 Route

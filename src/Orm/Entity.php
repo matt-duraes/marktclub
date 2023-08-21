@@ -52,7 +52,7 @@ abstract class Entity extends ORM
     private array $ormListaAliasReal = [];
     private array $ormPropriedadeSetada = [];
     protected array $ormRetornoPadrao = [];
-    protected bool $entityExiste = false;
+    protected bool $ormEntityExiste = false;
     protected $ormCampoBanco = [];
 
     /**

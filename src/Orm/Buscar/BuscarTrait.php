@@ -177,7 +177,7 @@ trait BuscarTrait
             return;
         }
 
-        $this->entityExiste = true;
+        $this->ormEntityExiste = true;
 
         $nova = empty($this->ormEntityId);
         $this->ormEntityId = $busca['id'];

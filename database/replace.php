@@ -26,6 +26,15 @@ return [
         'cod'  => 'id_vinculo',
         'nome' => 'titulo'
     ],
+    'solicitacao_cheque_bonus' => [
+        'cod' => 'uuid'
+    ],
+    'solicitacao_declaracao' => [
+        'cod'     => 'uuid',
+        'usuario' => 'id_usuario_cliente',
+        'empresa' => 'id_admin_empresa',
+        'vinculo' => 'id_parceiro_loja'
+    ],
     'solicitacao_voucher' => [
         'cod' => 'uuid'
     ],

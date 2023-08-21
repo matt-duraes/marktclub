@@ -20,6 +20,7 @@ class Historico {
         await this.setarBloco();
         await this.carregarMascara();
         if (!(await this.buscarHistorico())) {
+            this.blocoDestino.parentNode.removeChild(this.blocoDestino);
             return;
         }
         if (!(await this.adicionarHistorico())) {
@@ -102,6 +103,10 @@ class Historico {
             try {
                 const json = await resposta.json();
                 if (json.status != 'sucesso') {
+                    resolve(false);
+                    return;
+                }
+                if (json.dado.length == 0) {
                     resolve(false);
                     return;
                 }
