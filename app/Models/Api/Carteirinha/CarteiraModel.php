@@ -40,7 +40,7 @@ class CarteiraModel extends ORM
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo(['cod', 'nome_fantasia'], 'empresa')
-            ->tabela(TABELA_CONSTRUTOR_NOVO)
+            ->tabela(TABELA_CONSTRUTOR_CLUBE)
             ->join('empresa', 'id_admin_empresa')
             ->campo(['cod', 'logo'], 'empresa')
             ->read();

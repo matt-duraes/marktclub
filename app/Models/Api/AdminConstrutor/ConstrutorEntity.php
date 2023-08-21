@@ -10,13 +10,12 @@ use App\Classes\Geral\Status;
 
 final class ConstrutorEntity extends Entity
 {
-    protected string $ormTabela = TABELA_CONSTRUTOR_NOVO;
+    protected string $ormTabela = TABELA_CONSTRUTOR_CLUBE;
     protected array $ormBuscar = [
         'id_admin_empresa'    => 'empresa',
         'link_clube'          => 'link_site',
         'menu_turismo'        => 'menu_turismo_clube',
         'menu_sicoob_credito' => 'menu_credito',
-        'menu_automovel'      => 'menu_carro',
         'logo', 'titulo', 'cor', 'classe_login', 'contato_telefone', 'contato_email', 'contato_whatsapp',
         'link_app_android', 'link_app_ios', 'favicon', 'header_tag', 'header_descricao', 'menu_convenio',
         'menu_convenio_mapa', 'menu_cinema', 'menu_turismo', 'menu_promocao', 'menu_sicoob_credito',
