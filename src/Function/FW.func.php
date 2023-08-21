@@ -1673,6 +1673,9 @@ if (!function_exists('arquivoPrivadoId')) {
      */
     function arquivoPrivadoId(string $link)
     {
+        if (validarUuid($link, false)) {
+            return $link;
+        }
         $cifra = 'AES-256-CBC';
         $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
 

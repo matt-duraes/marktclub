@@ -1,1 +1,0 @@
-{"id":"id_6bd561e81768b5b0d58e9af5ad98a1c3","token":"token","metodo":"GET","nome":"\/comunicacao-historico\/:id","uri":"{{LINK}}\/comunicacao-historico\/$COMUNICACAO_HISTORICO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

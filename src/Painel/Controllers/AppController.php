@@ -515,6 +515,7 @@ final class AppController extends PadraoController
         $lista = [];
         foreach ($dado as $ind => $val) {
             if (empty($val)) {
+                $lista[$ind] = '';
                 continue;
             }
             $lista[$ind] = validarData($val) ? dataBanco($val) : $val;
@@ -538,7 +539,9 @@ final class AppController extends PadraoController
         $nome = $config->filtrar->nome;
         $valor = $config->filtrar->valor;
         foreach ($filtro as $ind => $val) {
-            if (is_array($val)) {
+            if (empty($val)) {
+                continue;
+            } elseif (is_array($val)) {
                 $val = count($val) . ' item(s)';
             } elseif (isset($valor[$ind][$val])) {
                 $val = $valor[$ind][$val];

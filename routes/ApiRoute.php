@@ -512,33 +512,42 @@ Route
     });
 
 Route
-    ::nome('comunicacaoHistorico')
-    ::controller(App\Controllers\Api\ComunicacaoHistoricoController::class)
+    ::nome('comunicacaoPublicidade')
+    ::controller(App\Controllers\Api\ComunicacaoPublicidadeController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:listar'])
-            ::request(['pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!status', '!ordem'], 'json')
-            ::get('/comunicacao-historico');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:listar'])
+            ::request([
+                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final',
+                '!tipo', '!publicado', '!status', '!ordem'
+            ], 'json')
+            ::get('/comunicacao-publicidade');
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:buscar'])
-            ::get('/comunicacao-historico/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:buscar'])
+            ::get('/comunicacao-publicidade/{id}');
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:salvar'])
-            ::request(['titulo', 'data_inicio', 'data_final', 'parceiro', 'status', 'empresa', 'imagem'])
-            ::post('/comunicacao-historico');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:salvar'])
+            ::request([
+                'titulo', 'link', 'data_inicio', 'data_final', 'parceiro', 'status',
+                'imagem_desktop', 'imagem_mobile', 'tipo'
+            ])
+            ::post('/comunicacao-publicidade');
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:atualizar'])
-            ::request(['!titulo', '!data_inicio', '!data_final', '!parceiro', '!status', '!empresa', '!imagem'])
-            ::put('/comunicacao-historico/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
+            ::request([
+                '!titulo', '!link', '!data_inicio', '!data_final', '!parceiro', '!status',
+                '!imagem_desktop', '!imagem_mobile', '!tipo'
+            ])
+            ::put('/comunicacao-publicidade/{id}');
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_historico:deletar'])
-            ::delete('/comunicacao-historico/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:deletar'])
+            ::delete('/comunicacao-publicidade/{id}');
     });
 
 Route
@@ -932,18 +941,27 @@ Route
 
 Route
     ::nome('construtor')
-    ::controller(App\Controllers\Api\ConstrutorController::class)
+    ::controller(App\Controllers\Api\ConstrutorClubeController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('clube')
-            ::middleware(TokenMiddleware::class, 'scope', ['construtor:clube'])
-            ::get('/construtor/clube/{id}');
-
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:listar'])
+            ::get('/construtor-clube');
         Route
-            ::nome('pagina')
-            ::middleware(TokenMiddleware::class, 'scope', ['construtor:pagina'])
-            ::get('/construtor/pagina/{url}');
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:buscar'])
+            ::get('/construtor-clube/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:buscar'])
+            ::request([])
+            ::post('/construtor-clube');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor:buscar'])
+            ::request([])
+            ::post('/construtor-clube/{id}');
     });
 
 Route
@@ -1633,33 +1651,6 @@ Route
                 'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
             ])
             ::post('/enquete/satisfacao');
-    });
-
-Route
-    ::nome('publicidade')
-    ::controller(App\Controllers\Api\PublicidadeController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['publicidade:buscar'])
-            ::get('/publicidade/{id}');
-
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['publicidade:listar'])
-            ::request([
-                'pagina', '!quantidade', '!tipo', '!status', '!data_criacao_de', '!data_criacao_ate'
-            ], 'json')
-            ::get('/publicidade');
-
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['publicidade:salvar'])
-            ::request([
-                'titulo', 'imagem', 'target', 'link', 'tipo'
-            ])
-            ::post('/publicidade');
     });
 
 Route

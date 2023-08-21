@@ -1,5 +1,6 @@
 // @template "site"
 // @system "Historico"
+// @system "Banner"
 // @resource "site/loja/favorito"
 
 const loadingFavoritoFaq = () => {
@@ -21,4 +22,9 @@ window.addEventListener('load', () => {
 
 window.addEventListener('load', () => {
     new Historico($('#bloco_historico'), LINK + '/historico');
+});
+
+const BannerHome = new Banner({
+    bloco: '#bloco_home_principal',
+    elemento: 'figure',
 });

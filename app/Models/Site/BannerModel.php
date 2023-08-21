@@ -2,7 +2,9 @@
 
 namespace App\Models\Site;
 
-final class BannerModel
+use App\Helpers\ClubeApiHelper;
+
+final class BannerModel extends ClubeApiHelper
 {
     /**
      * @return object
