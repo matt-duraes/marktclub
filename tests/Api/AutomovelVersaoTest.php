@@ -9,6 +9,7 @@ class AutomovelVersaoTest extends Clube
 {
     private string $idAutomovel;
     private array $IDsModelo;
+
     public function __construct()
     {
         parent::__construct();
@@ -25,7 +26,7 @@ class AutomovelVersaoTest extends Clube
             ->post('/automovel-versao')
             ->array();
 
-        $this->idAutomovel = $dado['dado']['id'] ?? "";
+        $this->idAutomovel = $dado['dado']['id'] ?? '';
 
         return $this
             ->checkStatus(201)
@@ -142,12 +143,12 @@ class AutomovelVersaoTest extends Clube
     private function getBody()
     {
         return [
-            'titulo' => nomeCompletoAleatorio(),
-            'cor' => 'VERMELHO',
-            'valor_de' => rand(10000, 20000),
+            'titulo'    => nomeCompletoAleatorio(),
+            'cor'       => 'VERMELHO',
+            'valor_de'  => rand(10000, 20000),
             'valor_por' => rand(5000, 10000),
-            'status' => valorAleatorio(array_keys((New Status())->select())),
-            'modelo' => valorAleatorio($this->IDsModelo)
+            'status'    => valorAleatorio(array_keys((new Status())->select())),
+            'modelo'    => valorAleatorio($this->IDsModelo)
         ];
     }
 }
