@@ -28,7 +28,10 @@ final class BannerModel extends ClubeApiHelper
     private function montarRetorno($dado)
     {
         if (!$dado) {
-            return [];
+            return (object)[
+                'desktop' => [],
+                'mobile'  => []
+            ];
         }
         $desktop = [];
         $mobile = [];
