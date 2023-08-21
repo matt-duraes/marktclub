@@ -5,7 +5,8 @@ return [
         'cod' => 'uuid'
     ],
     'construtor_novo' => [
-        'cod' => 'uuid'
+        'cod'     => 'uuid',
+        'empresa' => 'id_admin_empresa'
     ],
     'cupom_bloqueio' => [
         'cod' => 'uuid'
