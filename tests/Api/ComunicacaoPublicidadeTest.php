@@ -24,6 +24,7 @@ class ComunicacaoPublicidadeTest extends Clube
 
         return $this
             ->checkStatus(201)
+            ->checkIndiceExiste('dado.id')
             ->checkIndiceIgual('status', 'sucesso');
     }
 
