@@ -95,9 +95,9 @@ $scope = [
     'saude_contratacao:salvar',
 
     'solicitacao_declaracao:listar', 'solicitacao_declaracao:buscar', 'solicitacao_declaracao:salvar',
+    'solicitacao_declaracao:atualizar',
 
     'solicitacao_credito:listar', 'solicitacao_credito:buscar', 'solicitacao_credito:salvar',
-
     'solicitacao_credito:simular',
 
     'carteirinha:buscar',

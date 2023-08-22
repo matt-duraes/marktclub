@@ -42,7 +42,7 @@ final class Data implements ModuleInterface
      * @param null|string $data Data para o modulo
      */
     public function __construct(
-        private ?string $data
+        private ?string $data = null
     ) {
         $eData = is_string($this->data) && preg_match(
             "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{4}$/",

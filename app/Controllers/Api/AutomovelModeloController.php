@@ -3,7 +3,9 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Modules\Data;
 use Http\Response;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
@@ -49,6 +51,9 @@ final class AutomovelModeloController extends Controller implements
         $Modelo = new ModeloModel(
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
+            publicado: new Botao($request->publicado),
+            dataInicio: new Data($request->data_inicio),
+            dataFinal: new Data($request->data_final),
             parceiro: $request->parceiro,
             status: new Status($request->status),
             ordem: new Ordem($request->ordem),
@@ -71,7 +76,8 @@ final class AutomovelModeloController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Modelo,
                 lista: [
-                    'titulo', 'procedimento', 'texto_procedimento', 'link_imagem', 'versao', 'url', 'status'
+                    'parceiro', 'titulo', 'procedimento', 'texto_procedimento', 'imagem', 'versao',
+                    'data_inicio', 'data_final', 'url', 'status'
                 ]
             ),
             status: $status,

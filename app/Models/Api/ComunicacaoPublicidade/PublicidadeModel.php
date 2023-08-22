@@ -102,7 +102,7 @@ final class PublicidadeModel extends ORM implements ListarInterface
                 'id'          => $r->uuid,
                 'titulo'      => $r->titulo,
                 'parceiro'    => [
-                    'id'     => $r->parceiro_cod,
+                    'id'     => $r->parceiro_uuid,
                     'titulo' => $r->parceiro_titulo,
                     'url'    => $r->parceiro_url,
                     'tipo'   => $TipoParceiro->indice($r->parceiro_tipo),

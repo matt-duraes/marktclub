@@ -108,10 +108,10 @@ final class DadosModel extends ClubeApiHelper
 
         $this
             ->body([
-                'foto_perfil' => $this->Crypt->encode($imagem),
+                'imagem_google' => $imagem
             ])
-            ->put('/usuario-cliente/' . $this->idUsuario);
-
+            ->put('/usuario-cliente/' . $this->idUsuario)
+            ->object();
         sessao('USUARIO.imagem', $imagem);
         return mensagemSucesso([
             'imagem' => $imagem

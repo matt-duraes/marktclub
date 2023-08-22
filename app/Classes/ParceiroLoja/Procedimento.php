@@ -9,6 +9,7 @@ final class Procedimento extends Status
     public const VOUCHER = 'voucher';
     public const WEBSITE = 'website';
     public const DECLARACAO = 'declaracao';
+    public const CHEQUE_BONUS = 'cheque-bonus';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -16,7 +17,8 @@ final class Procedimento extends Status
         parent::__construct([
             self::VOUCHER      => 'Voucher',
             self::WEBSITE      => 'Website',
-            self::DECLARACAO   => 'Declaração'
+            self::DECLARACAO   => 'Declaração',
+            self::CHEQUE_BONUS => 'Cheque-Bônus'
         ]);
     }
 }

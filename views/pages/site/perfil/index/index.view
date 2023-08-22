@@ -6,8 +6,9 @@
             <div class="legenda">
                 <article>
                     <h1>{{$dado->nome}}</h1>
-                    <p>Usuários desde: 18/06/2018</p>
-                    <p>Ultimo acesso: 14/03/2023</p>
+                    <!--Aguardando liberação desses dados na api-->
+                    <!-- <p>Usuário desde: 18/06/2018</p>
+                    <p>Ultimo acesso: 14/03/2023</p> -->
                 <article>
                 <button id="botao_vincular_google" type="button" class="google">
                     <div class="logo_google">

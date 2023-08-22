@@ -4,6 +4,7 @@ namespace PainelConfig;
 
 use Order\OrderInterface;
 use Status\StatusInterface;
+use Modules\ModuleInterface;
 
 final class Index
 {
@@ -292,9 +293,10 @@ final class Index
         return $this->copiar;
     }
 
-    public function replace(string $campo, array|StatusInterface $lista)
+    public function replace(string $campo, array|StatusInterface|ModuleInterface $lista)
     {
-        $this->replace[$campo] = $lista instanceof StatusInterface ? $lista->select(null) : $lista;
+        $this->replace[$campo] = $lista instanceof StatusInterface || $lista instanceof ModuleInterface
+            ? $lista->select(null) : $lista;
     }
 
     public function pegarReplace()

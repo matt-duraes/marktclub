@@ -42,7 +42,7 @@ final class DataHora implements ModuleInterface
      * @param null|string $data Data para o modulo
      */
     public function __construct(
-        private ?string $data
+        private ?string $data = null
     ) {
         $eData = is_string($this->data) && preg_match(
             // @codingStandardsIgnoreStart

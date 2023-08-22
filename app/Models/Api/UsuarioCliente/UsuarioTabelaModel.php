@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
+use ORM\ORM;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Modules\Genero;
+use Modules\Telefone;
+use Helpers\CryptHelper;
+use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\CryptHelper;
-use Helpers\ListaHelper;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Telefone;
-use ORM\ORM;
 
 final class UsuarioTabelaModel extends ORM
 {
@@ -27,6 +27,9 @@ final class UsuarioTabelaModel extends ORM
     private array $retorno = [];
     private array $request;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
         parent::__construct();
@@ -52,7 +55,8 @@ final class UsuarioTabelaModel extends ORM
      */
     public function salvarUsuario($request): void
     {
-        $request = (new CryptHelper())->decode($request);
+        $request = (new CryptHelper())
+            ->decode($request);
         $this->request = $request;
 
         if (!is_array($request) || !$request) {
@@ -64,7 +68,7 @@ final class UsuarioTabelaModel extends ORM
 
         $usuario = $this
             ->campo([
-                'id', 'cod', 'nome', 'documento', 'siape', 'telefone_celular', 'telefone_fixo', 'email_pessoal',
+                'id', 'uuid', 'nome', 'documento', 'siape', 'telefone_celular', 'telefone_fixo', 'email_pessoal',
                 'email_trabalho', 'uf', 'cidade', 'aniversario', 'sexo', 'status', 'grupo', 'matricula', 'situacao',
                 'federacao'
             ])
@@ -82,10 +86,12 @@ final class UsuarioTabelaModel extends ORM
             'primeiro_acesso'    => 1
         ];
 
-        if (is_object($usuario) && object_key_exists('cod', $usuario)) {
+        if (is_object($usuario) && object_key_exists('id', $usuario)) {
             $this->atualizarUsuarioExistente($usuario);
+            return;
         } elseif (is_array($usuario) && empty($usuario)) {
             $this->inserirUsuarioNovo();
+            return;
         }
         $this->retorno[] = [false, 'Ocorreu um erro ao buscar usuário.'];
     }
@@ -163,7 +169,7 @@ final class UsuarioTabelaModel extends ORM
             ->where(['id', $usuario->id])
             ->update();
 
-        if (existeErro($salvar, 'id')) {
+        if (!is_array($salvar) || !array_key_exists('id', $salvar)) {
             $this->retorno[] = [false, 'Ocorreu um erro ao atualizar o usuário.'];
             return;
         }
@@ -245,7 +251,6 @@ final class UsuarioTabelaModel extends ORM
         if (array_key_exists('matricula', $request) && !empty($request['matricula'])) {
             $dado['matricula'] = $request['matricula'];
         }
-
         return $dado;
     }
 
@@ -350,16 +355,11 @@ final class UsuarioTabelaModel extends ORM
         }
 
         $this->retorno[] = [true, 201];
-        return;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | BLOQUEAR USUÁRIO
-    |--------------------------------------------------------------------------
-    */
-
     /**
+     * Bloquear Usuário
+     *
      * @param $hash
      *
      * @throws Excecao

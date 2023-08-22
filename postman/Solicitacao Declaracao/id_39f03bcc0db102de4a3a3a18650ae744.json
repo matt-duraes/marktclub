@@ -1,0 +1,1 @@
+{"id":"id_39f03bcc0db102de4a3a3a18650ae744","token":"painel","metodo":"PUT","nome":"\/solicitacao-declaracao\/:id","uri":"{{LINK}}\/solicitacao-declaracao\/$SOLICITACAO_DECLARACAO_ID","parametro":[],"body":[["texto",true,"status","enviado-empresa",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

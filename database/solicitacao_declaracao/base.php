@@ -4,11 +4,12 @@ use DataBase\DataBase;
 
 return (new DataBase())
     ->id()
-    ->uuid()
-    ->int('id_admin_empresa')
-    ->int('id_usuario')
-    ->char('vinculo')->tamanho(36)
-    ->tinyint('tipo')->tamanho(1)
-    ->status()
+    ->cod()
+    ->int('usuario')->relacionado(TABELA_USUARIO_CLIENTE, 'id')->replace('id_usuario_cliente')
+    ->int('empresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')->replace('id_admin_empresa')
+    ->int('vinculo')->relacionado(TABELA_PARCEIRO_LOJA, 'id')->replace('id_parceiro_loja')
+    ->varchar('modelo')->tamanho(100)->null()
+    ->varchar('versao')->tamanho(100)->null()
     ->dataCriacao()
-    ->dataAtualizacao();
+    ->dataAtualizacao()
+    ->status();

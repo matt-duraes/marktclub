@@ -1,0 +1,33 @@
+<?php
+
+use DataBase\DataBase;
+
+return (new DataBase())
+    ->id()
+    ->cod()
+    ->int('id_usuario_cliente')->relacionado(TABELA_USUARIO_CLIENTE, 'id')
+    ->int('id_admin_empresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')
+    ->int('id_automovel_versao')->relacionado(TABELA_AUTOMOVEL_VERSAO, 'id')
+    ->int('tipo_usuario')->tamanho(1)
+    ->nome('nome')
+    ->email('email_pessoal')
+    ->varchar('rg')->tamanho(50)
+    ->int('estado_civil')->tamanho(1)
+    ->telefone('telefone_celular')
+    ->date('data_nascimento')
+    ->cep()
+    ->varchar('endereco_logradouro')->tamanho(100)
+    ->varchar('endereco_numero')->tamanho(50)
+    ->varchar('endereco_complemento')->null()->tamanho(100)
+    ->varchar('endereco_bairro')->tamanho(100)
+    ->varchar('endereco_cidade')->tamanho(100)
+    ->char('endereco_estado')->tamanho(2)
+    ->nome('dependente_nome')
+    ->email('dependente_email_pessoal')
+    ->varchar('dependente_rg')->tamanho(50)
+    ->cpf('dependente_documento')
+    ->int('dependente_grau_parentesco')->tamanho(1)
+    ->date('dependente_data_nascimento')
+    ->dataCriacao()
+    ->dataAtualizacao()
+    ->status();

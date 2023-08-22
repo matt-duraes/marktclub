@@ -28,31 +28,18 @@ final class ArquivoModel extends ORM
         }
         $dado = $this
             ->campo([
-                'uuid',
-                'nome',
-                'extensao',
-                'tamanho',
-                'largura',
-                'altura',
-                'data_criacao'
+                'uuid', 'nome', 'extensao', 'tamanho',
+                'largura', 'altura', 'data_criacao'
             ])
             ->where($where)
             ->order('id', 'DESC')
             ->tabela(TABELA_USUARIO_EQUIPE)
             ->leftJoin('id', 'id_usuario_equipe')
-            ->campo(
-                [
-                    'nome_real',
-                    'nome_perfil',
-                    'uuid',
-                    'imagem_tipo',
-                    'imagem_arquivo',
-                    'imagem_facebook',
-                    'imagem_google'
-                ],
-                'usuario'
-            )
-            ->pagina($pagina, 20)
+            ->campo([
+                'nome_real', 'nome_perfil', 'uuid', 'imagem_tipo',
+                'imagem_arquivo', 'imagem_facebook', 'imagem_google'
+            ], 'usuario')
+            ->pagina($pagina)
             ->read();
 
         $dado->lista = $this->montarDado($dado->lista);
@@ -60,7 +47,8 @@ final class ArquivoModel extends ORM
     }
 
     /**
-     * @param        $dado
+     * @param $dado
+     *
      * @return array
      */
     private function montarDado($dado): array
@@ -69,11 +57,11 @@ final class ArquivoModel extends ORM
         $Perfil = new PerfilModel();
         foreach ($dado as $r) {
             $lista[] = (object)[
-                'id'     => $r->uuid,
-                'equipe' => $Perfil->montarUsuario(
+                'id'       => $r->uuid,
+                'equipe'   => $Perfil->montarUsuario(
                     $r->usuario_uuid,
-                    $r->usuario_nome_perfil,
-                    $r->usuario_nome_real,
+                    $r->usuario_nome_perfil ?? '',
+                    $r->usuario_nome_real ?? '',
                     $r->usuario_imagem_tipo,
                     $r->usuario_imagem_facebook,
                     $r->usuario_imagem_google,
@@ -92,19 +80,28 @@ final class ArquivoModel extends ORM
     }
 
     /**
+     * @param             $arquivo
+     * @param GrupoEntity $Grupo
+     *
      * @throws Excecao
      */
-    public function moverArquivos($arquivo, GrupoEntity $Grupo)
+    public function moverArquivos($arquivo, GrupoEntity $Grupo): void
     {
         $idGrupo = $Grupo->get('id');
 
         foreach ($arquivo as $uuid) {
-            $arquivo = $this->campo(['id', 'arquivo'])->where(['uuid', $uuid])->primeiro();
+            $arquivo = $this
+                ->campo(['id', 'arquivo'])
+                ->where(['uuid', $uuid])
+                ->primeiro();
             if (!$arquivo) {
                 $this->erroMoverArquivo();
             }
 
-            $salvar = $this->dado(['id_upload_grupo' => $idGrupo])->where(['id', $arquivo->id])->update();
+            $salvar = $this
+                ->dado(['id_upload_grupo' => $idGrupo])
+                ->where(['id', $arquivo->id])
+                ->update();
             if (!array_key_exists('id', $salvar)) {
                 $this->erroMoverArquivo();
             }
@@ -114,7 +111,7 @@ final class ArquivoModel extends ORM
     /**
      * @throws Excecao
      */
-    private function erroMoverArquivo()
+    private function erroMoverArquivo(): void
     {
         mensagemErro('Erro!', 'Ocorreu um erro em mover um ou mais arquivos.');
     }
@@ -127,6 +124,9 @@ final class ArquivoModel extends ORM
         if (empty($grupo)) {
             return [];
         }
-        return $this->campo(['arquivo'])->where(['id_upload_grupo', 'in', $grupo])->read();
+        return $this
+            ->campo(['arquivo'])
+            ->where(['id_upload_grupo', 'in', $grupo])
+            ->read();
     }
 }

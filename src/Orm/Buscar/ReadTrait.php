@@ -267,8 +267,9 @@ trait ReadTrait
             if (is_string($val)) {
                 $asTemp = $as;
                 if ($replace && array_key_exists($val, $replace)) {
-                    if (empty($as)) {
-                        $asTemp = '!`' . $val . '`';
+                    $asTemp = '!`' . $val . '`';
+                    if (!empty($as)) {
+                        $asTemp = '!`' . $as . '_' . $val . '`';
                     }
                     $val = $replace[$val];
                 }
@@ -283,7 +284,6 @@ trait ReadTrait
                 mensagem: 'Lista de campos da busca com formato inválido.'
             );
         }
-
         $this->ormCampo[] = implode(', ', $lista);
         return $this;
     }

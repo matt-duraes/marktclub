@@ -12,5 +12,6 @@ class Ordem extends Order
         $this->tabela(TABELA_SOLICITACAO_DECLARACAO);
         $this->maisNovo();
         $this->maisVelho();
+        $this->status();
     }
 }

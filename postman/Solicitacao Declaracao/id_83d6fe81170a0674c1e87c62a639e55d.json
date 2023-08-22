@@ -1,0 +1,1 @@
+{"id":"id_83d6fe81170a0674c1e87c62a639e55d","token":"painel","metodo":"GET","nome":"\/solicitacao-declaracao\/:id","uri":"{{LINK}}\/solicitacao-declaracao\/$SOLICITACAO_DECLARACAO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}
