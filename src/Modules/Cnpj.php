@@ -39,7 +39,7 @@ final class Cnpj implements ModuleInterface
      * @param null|string $cnpj CNPJ para o modulo
      */
     public function __construct(
-        private ?string $cnpj,
+        private ?string $cnpj = null,
     ) {
         $this->colocarZero();
         if (empty($this->cnpj)) {

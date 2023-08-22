@@ -43,7 +43,7 @@ final class Nome implements ModuleInterface
      * @param null|string $nome Valor do nome para o modulo
      */
     public function __construct(
-        private ?string $nome
+        private ?string $nome = null
     ) {
         if (empty($this->nome)) {
             $this->nome = '';

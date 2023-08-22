@@ -28,7 +28,7 @@ class DeclaracaoEntity extends Entity
     protected string $ormValidarInsert = '
         id_parceiro_loja|Parceiro|obrigatorio|vazio
     ';
-    protected string $ormValidarSalvar = '
+    protected string $ormValidarUpdate = '
         status|Status|obrigatorio|vazio|valido
     ';
     protected int $idEmpresa;

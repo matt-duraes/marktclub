@@ -1531,7 +1531,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
             ::request([
-                'pagina', '!quantidade', '!empresa', '!ordem', '!data_criacao_de', '!data_criacao_ate', '!status'
+                'pagina', '!quantidade', '!empresa', '!ordem', 'publicado',
+                '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/solicitacao-declaracao');
         Route
@@ -1542,7 +1543,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
-                'parceiro', 'modelo', 'versao', 'status'
+                'parceiro', '!modelo', '!versao'
             ])
             ::post('/solicitacao-declaracao');
         Route
@@ -1721,7 +1722,7 @@ Route
     });
 
 Route
-    ::nome('automovel_indicacao')
+    ::nome('solicitacao_automovel')
     ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
     ::grupo(function () {
         Route
@@ -1741,7 +1742,9 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
-            ::request(['pagina', '!quantidade', '!parceiro', '!ordem', '!status'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!publicado', '!data_inicio', '!data_final', '!parceiro', '!ordem', '!status'
+            ], 'json')
             ::get('/automovel-modelo');
 
         Route
@@ -1752,13 +1755,13 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:salvar'])
-            ::request(['titulo', 'parceiro', 'imagem', 'status'])
+            ::request(['titulo', 'parceiro', 'imagem', 'data_inicio', 'data_final', 'status'])
             ::post('/automovel-modelo');
 
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
-            ::request(['!titulo', '!parceiro', '!imagem', '!status'])
+            ::request(['!titulo', '!parceiro', '!imagem', '!data_inicio', '!data_final', '!status'])
             ::put('/automovel-modelo/{id}');
 
         Route

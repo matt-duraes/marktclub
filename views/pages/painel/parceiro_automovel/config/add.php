@@ -4,9 +4,6 @@ use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
 use App\Classes\ParceiroLoja\Tipo;
 
-$empresa = (new ApiHelper(token: true))
-    ->get('/comercial-empresa/select')
-    ->array()['dado'] ?? [];
 $Loja = (new ApiHelper(token: true))
     ->json([
         'titulo' => 'Escolha um parceiro',
@@ -24,7 +21,9 @@ $Painel->coluna(callback: function () use ($Painel, $Loja) {
     $Painel->fieldset('Dados', function () use ($Painel, $Loja) {
         $Painel
             ->input(name: 'titulo', label: 'Modelo')
-            ->select(name: 'parceiro', label: 'Parceiro', lista: $Loja)
+            ->select(name: 'parceiro->id', label: 'Parceiro', lista: $Loja)
+            ->data(name: 'data_inicio', label: 'Publicar em', separador: 'até', placeholder: 'Publicar em')
+            ->data(name: 'data_final', label: 'Remover em', separador: 'até', placeholder: 'Remover em')
             ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha uma opção'));
     });
 });

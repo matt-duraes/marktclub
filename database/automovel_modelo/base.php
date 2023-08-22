@@ -10,4 +10,6 @@ return (new \DataBase\DataBase())
     ->imagem('imagem')->null()
     ->dataCriacao()
     ->dataAtualizacao()
+    ->date('data_inicio')
+    ->date('data_final')
     ->status();

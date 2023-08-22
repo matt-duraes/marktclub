@@ -2,6 +2,6 @@
 
 return [
     'salvar' => [
-        'imagem', 'titulo', 'parceiro', 'status'
+        'imagem', 'titulo', 'parceiro', 'data_inicio', 'data_final', 'status'
     ]
 ];

@@ -34,7 +34,7 @@ final class Contar implements ModuleInterface
      *                               valor 1 para sim ou vazio para nao
      */
     public function __construct(
-        private null|int|string $valor,
+        private null|int|string $valor = null,
     ) {
         if (!is_numeric($valor) && empty($valor)) {
             $this->valido = false;

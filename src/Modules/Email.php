@@ -39,7 +39,7 @@ final class Email implements ModuleInterface
      * @param null|string $email Valor para o modulo
      */
     public function __construct(
-        private ?string $email,
+        private ?string $email = null,
     ) {
         if (empty($this->email)) {
             $this->vazio = true;

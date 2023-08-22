@@ -39,7 +39,7 @@ final class Cpf implements ModuleInterface
      * @param null|string $cpf CPF para o modulo
      */
     public function __construct(
-        private ?string $cpf
+        private ?string $cpf = null
     ) {
         $this->colocarZero();
         if (empty($this->cpf)) {

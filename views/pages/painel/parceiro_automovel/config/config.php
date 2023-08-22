@@ -11,7 +11,7 @@ return [
     'deletar'    => true,
     'historico'  => true,
     'api'        => [
-        'scope' => 'automovel-modelo',
+        'scope' => 'automovel_modelo',
         'uri'   => '/automovel-modelo'
     ]
 ];
