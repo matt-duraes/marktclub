@@ -97,6 +97,9 @@ $scope = [
     'solicitacao_declaracao:listar', 'solicitacao_declaracao:buscar', 'solicitacao_declaracao:salvar',
     'solicitacao_declaracao:atualizar',
 
+    'solicitacao_cheque_bonus:listar', 'solicitacao_cheque_bonus:buscar', 'solicitacao_cheque_bonus:salvar',
+    'solicitacao_cheque_bonus:atualizar',
+
     'solicitacao_credito:listar', 'solicitacao_credito:buscar', 'solicitacao_credito:salvar',
     'solicitacao_credito:simular',
 
