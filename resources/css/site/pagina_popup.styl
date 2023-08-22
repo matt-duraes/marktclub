@@ -3,9 +3,10 @@
 
 .bloco_popup_geral
     overflow: scroll
-    height: 100vh
+    height: 95vh
     background-color: #FFF
-    padding: 20px
+    padding: 20px 20px 0px 38px;
+    margin: 20px
     .popup_header
         display: flex
         align-items: center
@@ -27,3 +28,18 @@
         border: 1px solid #ff6c60
         fill: #ff6c60
         transition: 0.5s
+
+@media screen and (max-width: 375px)
+    .bloco_popup_geral .popup_header
+        height: 70px
+        margin-bottom: 20px
+        h1
+            padding-left: 0px
+        i
+            height: 40px
+    #pesquisa_satisfacao .bloco_quiz_geral
+        padding: 0px
+        text-align: center
+    .bloco_quiz_geral fieldset .pergunta .botao_input,
+    .bloco_quiz_geral fieldset .pergunta.checkbox .botao_input
+        width: 100%

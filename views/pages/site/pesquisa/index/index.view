@@ -1,9 +1,9 @@
-<div class="bloco_pagina_popup medio">
-    <header class="header_pagina_popup">
+<div class="bloco_popup_geral medio">
+    <header class="popup_header">
         <h1>Pesquisa de Satisfação</h1>
         <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
-    <div class="conteudo_pagina_popup centralizado">
+    <div class="conteudo_pagina_popup centralizado" id="pesquisa_satisfacao">
         <!-- CONTEÚDO AQUI -->
         <form id="formulario_pesquisa" action="" class="form_geral bloco_quiz_geral" method="post">
             <header>
