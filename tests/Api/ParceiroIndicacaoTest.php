@@ -40,7 +40,7 @@ class ParceiroIndicacaoTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
-    public function salvarIndidicacaoNovoParceiroSemNomeTest(): ParceiroIndicacaoTest
+    public function naoPodeSalvarSemNomeTest(): ParceiroIndicacaoTest
     {
         $this->api('parceiro_indicacao:salvar');
         $this
@@ -56,6 +56,7 @@ class ParceiroIndicacaoTest extends Clube
 
         return $this
             ->checkStatus(400)
+            ->checkIndiceIgual('erro.mensagem', "Erro no parâmetro enviado. Falta o parametro: 'nome'.")
             ->checkIndiceIgual('status', 'erro');
     }
 

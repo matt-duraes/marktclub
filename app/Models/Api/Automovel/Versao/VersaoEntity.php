@@ -13,6 +13,13 @@ final class VersaoEntity extends Entity
     protected array $ormBuscar = ['titulo', 'cor', 'valor_de', 'valor_por', 'status'];
     protected array $ormInsert = ['id_automovel_modelo'];
     protected array $ormSalvar = ['titulo', 'cor', 'valor_de', 'valor_por', 'status'];
+    protected string $ormValidarInsert = '
+        titulo|Título|vazio|obrigatorio
+        cor|Cor|obrigatorio
+        modelo|Modelo|vazio|obrigatorio
+        valor_por|Valor por|vazio|obrigatorio|valido
+        status|Status|vazio|obrigatorio|valido
+    ';
     public string $modelo;
     public string $titulo;
     public string $cor;
@@ -23,6 +30,11 @@ final class VersaoEntity extends Entity
 
     protected function regraInsert()
     {
-        $this->id_automovel_modelo = (new OrmHelper(TABELA_AUTOMOVEL_MODELO))->pegarIdPeloUuid($this->modelo);
+        $OrmHelper = new OrmHelper(TABELA_AUTOMOVEL_MODELO);
+        $this->id_automovel_modelo = $OrmHelper->pegarIdPeloUuid(
+            $this->modelo,
+            erroTitulo: 'Não encontrado!',
+            erroMensagem: 'O modelo passado não foi encontrado.'
+        );
     }
 }
