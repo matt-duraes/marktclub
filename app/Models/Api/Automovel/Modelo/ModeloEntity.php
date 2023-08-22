@@ -22,6 +22,16 @@ final class ModeloEntity extends Entity
     protected array $ormSalvar = [
         'id_parceiro_loja', 'titulo', 'imagem', 'url', 'texto', 'data_inicio', 'data_final', 'status'
     ];
+    protected string $ormValidarInsert = '
+        titulo|Título|obrigatorio|vazio
+        parceiro|Parceiro|obrigatorio|vazio
+        status|Status|obrigatorio|vazio|valido
+    ';
+    protected string $ormValidarUpdate = '
+        titulo|Título|vazio
+        parceiro|Parceiro|vazio
+        status|Status|vazio|valido
+    ';
     public string $imagem;
     public int $id_parceiro_loja;
     public string $titulo;
@@ -71,9 +81,10 @@ final class ModeloEntity extends Entity
     public function regraSalvar()
     {
         if (is_string($this->parceiro) && !empty($this->parceiro)) {
-            $this->id_parceiro_loja = $this->ormParceiro->pegarIdPeloUuid($this->parceiro);
+            $this->id_parceiro_loja = $this->ormParceiro->pegarIdPeloUuid($this->parceiro, "Parceiro não encontrado.", "Não encontrado");
         }
         $this->imagem = arquivoPrivadoId($this->imagem);
+        $this->validarDataInicioMenorQueFinal();
     }
 
     /*
@@ -115,5 +126,12 @@ final class ModeloEntity extends Entity
             modelo: $this->prop('id')
         );
         $this->versao = $VersaoModel->listarDados()->lista ?? [];
+    }
+
+    private function validarDataInicioMenorQueFinal(): void
+    {
+        if ($this->data_inicio->date() > $this->data_final->date()) {
+            mensagemErro('Data Inválida!', 'A data de inicio não pode ser maior que a data final.');
+        }
     }
 }
