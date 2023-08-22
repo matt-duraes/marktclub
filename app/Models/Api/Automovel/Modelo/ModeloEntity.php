@@ -81,7 +81,7 @@ final class ModeloEntity extends Entity
     public function regraSalvar()
     {
         if (is_string($this->parceiro) && !empty($this->parceiro)) {
-            $this->id_parceiro_loja = $this->ormParceiro->pegarIdPeloUuid($this->parceiro, "Parceiro não encontrado.", "Não encontrado");
+            $this->id_parceiro_loja = $this->ormParceiro->pegarIdPeloUuid($this->parceiro, 'Parceiro não encontrado.', 'Não encontrado');
         }
         $this->imagem = arquivoPrivadoId($this->imagem);
         $this->validarDataInicioMenorQueFinal();
