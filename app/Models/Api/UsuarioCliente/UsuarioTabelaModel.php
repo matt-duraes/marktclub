@@ -27,6 +27,9 @@ final class UsuarioTabelaModel extends ORM
     private array $retorno = [];
     private array $request;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
         parent::__construct();
@@ -52,7 +55,8 @@ final class UsuarioTabelaModel extends ORM
      */
     public function salvarUsuario($request): void
     {
-        $request = (new CryptHelper())->decode($request);
+        $request = (new CryptHelper())
+            ->decode($request);
         $this->request = $request;
 
         if (!is_array($request) || !$request) {
@@ -353,13 +357,9 @@ final class UsuarioTabelaModel extends ORM
         $this->retorno[] = [true, 201];
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | BLOQUEAR USUÁRIO
-    |--------------------------------------------------------------------------
-    */
-
     /**
+     * Bloquear Usuário
+     *
      * @param $hash
      *
      * @throws Excecao

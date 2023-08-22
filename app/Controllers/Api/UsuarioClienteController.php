@@ -62,7 +62,7 @@ final class UsuarioClienteController extends Controller implements
                 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
                 'primeiro_acesso', 'possui_senha', 'mudar_senha', 'situacao', 'contrato_siape',
                 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'pagamento',
-                'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'lead', 'origem', 'status'
+                'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'lead', 'origem', 'status', 'data_criacao'
             ]),
             $status,
             Helper::CRIPTOGRAFAR
