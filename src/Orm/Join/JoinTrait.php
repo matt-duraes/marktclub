@@ -141,6 +141,12 @@ trait JoinTrait
         } elseif ($this->ormTabela == $this->ormTabelaAtual) {
             throw new Excecao(titulo: 'Campo incorreto!', mensagem: 'Você deve mudar a tabela para o Join.');
         }
+
+        $replaceCampo = array_flip($this->pegarReplace($this->ormTabelaAtual));
+        $replaceRelacao = array_flip($this->pegarReplace($tabela));
+        $campo = array_key_exists($campo, $replaceCampo) ? $replaceCampo[$campo] : $campo;
+        $relacao = array_key_exists($relacao, $replaceRelacao) ? $replaceRelacao[$relacao] : $relacao;
+
         $this->ormJoin[] = $tipo . " JOIN `{$this->ormTabelaAtual}` ON `{$this->ormTabelaAtual}`.`{$campo}` {$condicao} `{$tabela}`.`{$relacao}`";
         return $this;
     }

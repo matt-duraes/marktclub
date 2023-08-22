@@ -2,11 +2,13 @@
 
 namespace Modules;
 
+use Modules\Trait\SelectTrait;
 use Modules\Trait\ValidarTrait;
 
 final class Genero implements ModuleInterface
 {
     use ValidarTrait;
+    use SelectTrait;
 
     private array $listaValores = [1 => 'masculino', 2 => 'feminino', 3 => 'outro', 4 => 'nao-informar'];
     private array $listaIndiceNome = ['masculino' => 'Masculino', 'feminino' => 'Feminino', 'outro' => 'Outro', 'nao-informar' => 'Não informado'];
@@ -75,21 +77,6 @@ final class Genero implements ModuleInterface
 
         $this->numero = '';
         $this->genero = '';
-    }
-
-    // doc
-    /**
-     * Pega um array com a lista de valores válidos no formato indice => nome
-     *
-     * @param  null|string $titulo Um titulo para o select
-     * @return array       Array com os dados
-     */
-    public function select(?string $titulo = null): array
-    {
-        if (!empty($titulo)) {
-            return ['' => $titulo] + $this->listaIndiceNome;
-        }
-        return $this->listaIndiceNome;
     }
 
     // doc

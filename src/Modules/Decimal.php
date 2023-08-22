@@ -39,7 +39,7 @@ final class Decimal implements ModuleInterface
      * @param null|string $decimal Valor para o modulo
      */
     public function __construct(
-        private ?string $decimal
+        private ?string $decimal = null
     ) {
         if (empty($this->decimal)) {
             $this->vazio = true;

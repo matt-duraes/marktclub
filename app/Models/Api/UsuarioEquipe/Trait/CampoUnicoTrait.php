@@ -19,7 +19,7 @@ trait CampoUnicoTrait
             ['id_admin_empresa', $this->idEmpresa]
         ];
 
-        if ($this->entityExiste) {
+        if ($this->ormEntityExiste) {
             $where[] = ['id', '!=', $this->prop('id')];
         }
 
@@ -46,7 +46,7 @@ trait CampoUnicoTrait
             ['id_admin_empresa', $this->idEmpresa]
         ];
 
-        if ($this->entityExiste) {
+        if ($this->ormEntityExiste) {
             $where[] = ['id', '!=', $this->prop('id')];
         }
 
@@ -68,7 +68,7 @@ trait CampoUnicoTrait
             ['id_admin_empresa', $this->idEmpresa]
         ];
 
-        if ($this->entityExiste) {
+        if ($this->ormEntityExiste) {
             $where[] = ['id', '!=', $this->prop('id')];
         }
 

@@ -2,15 +2,18 @@
 
 namespace Modules;
 
+use Modules\Trait\SelectTrait;
 use Modules\Trait\ValidarTrait;
 
 final class Botao implements ModuleInterface
 {
     use ValidarTrait;
+    use SelectTrait;
 
     public const SIM = 'sim';
     public const NAO = 'nao';
 
+    private array $listaIndiceNome = ['sim' => 'Sim', 'nao' => 'Não'];
     private string|int $numero = '';
 
     public function __toString()
@@ -37,7 +40,7 @@ final class Botao implements ModuleInterface
      *                               valor 1 para sim ou vazio para nao
      */
     public function __construct(
-        private null|int|string $valor,
+        private null|int|string $valor = null,
     ) {
         if (empty($this->valor)) {
             $this->vazio = true;

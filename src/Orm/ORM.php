@@ -66,16 +66,17 @@ abstract class ORM
         );
     }
 
-    private function pegarReplace(): array
+    private function pegarReplace(string $tabela = null): array
     {
         if (!file_exists(ROOT . '/database/replace.php')) {
             return [];
         }
         $replace = require ROOT . '/database/replace.php';
-        if (!array_key_exists($this->ormTabelaAtual, $replace)) {
+        $tabela = !empty($tabela) ? $tabela : $this->ormTabelaAtual;
+        if (!array_key_exists($tabela, $replace)) {
             return [];
         }
-        return $replace[$this->ormTabelaAtual];
+        return $replace[$tabela];
     }
 
     private function ormCriarValorUnico($campo, $valor, $tamanho, $numero = 0)

@@ -10,15 +10,15 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Solicitacao\Status;
-use App\Classes\SolicitacaoDeclaracao\Ordem;
+use App\Classes\SolicitacaoChequeBonus\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoModel;
-use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoEntity;
+use App\Models\Api\SolicitacaoChequeBonus\DeclaracaoModel;
+use App\Models\Api\SolicitacaoChequeBonus\DeclaracaoEntity;
 
-class SolicitacaoDeclaracaoController extends Controller implements
+class SolicitacaoChequeBonusController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,

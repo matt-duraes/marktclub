@@ -39,7 +39,7 @@ final class Telefone implements ModuleInterface
      * @param null|string $telefone Telefone pra o modulo
      */
     public function __construct(
-        private ?string $telefone
+        private ?string $telefone = null
     ) {
         if (empty($this->telefone)) {
             $this->telefone = '';
