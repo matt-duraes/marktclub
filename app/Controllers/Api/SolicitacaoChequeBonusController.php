@@ -15,8 +15,8 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\SolicitacaoChequeBonus\DeclaracaoModel;
-use App\Models\Api\SolicitacaoChequeBonus\DeclaracaoEntity;
+use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusModel;
+use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusEntity;
 
 class SolicitacaoChequeBonusController extends Controller implements
     ControllerBuscarInterface,
@@ -32,7 +32,7 @@ class SolicitacaoChequeBonusController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Declaracao = new DeclaracaoModel(
+        $ChequeBonus = new ChequeBonusModel(
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
             dataCriacaoDe: new Data($request->data_criacao_de),
@@ -41,7 +41,7 @@ class SolicitacaoChequeBonusController extends Controller implements
             empresa: $request->empresa,
             ordem: new Ordem($request->ordem)
         );
-        return mensagemSucesso($Declaracao->listarDados());
+        return mensagemSucesso($ChequeBonus->listarDados());
     }
 
     /**
@@ -52,9 +52,9 @@ class SolicitacaoChequeBonusController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        $Declaracao = new DeclaracaoEntity();
-        $Declaracao->uuid($id);
-        return $this->retornoSucesso($Declaracao);
+        $ChequeBonus = new ChequeBonusEntity();
+        $ChequeBonus->uuid($id);
+        return $this->retornoSucesso($ChequeBonus);
     }
 
     /**
@@ -65,25 +65,18 @@ class SolicitacaoChequeBonusController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Declaracao = new DeclaracaoEntity();
-        $Declaracao->set(lista: $request->dado());
-        $Declaracao->salvar();
+        $ChequeBonus = new ChequeBonusEntity();
+        $ChequeBonus->set(lista: $request->dado());
+        $ChequeBonus->salvar();
 
-        return $this->retornoSucesso($Declaracao, 201);
+        return $this->retornoSucesso($ChequeBonus, 201);
     }
 
-    /**
-     * @param DeclaracaoEntity $Declaracao
-     * @param int              $status
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    private function retornoSucesso(DeclaracaoEntity $Declaracao, int $status = 200): Response
+    private function retornoSucesso(ChequeBonusEntity $ChequeBonus, int $status = 200): Response
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
-                $Declaracao,
+                $ChequeBonus,
                 lista: [
                     'id', 'parceiro', 'usuario', 'modelo', 'versao', 'data_criacao', 'data_atualizacao', 'status'
                 ]
@@ -94,10 +87,10 @@ class SolicitacaoChequeBonusController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Declaracao = new DeclaracaoEntity();
-        $Declaracao->uuid($id);
-        $Declaracao->status = new Status($request->status);
-        $Declaracao->salvar();
+        $ChequeBonus = new ChequeBonusEntity();
+        $ChequeBonus->uuid($id);
+        $ChequeBonus->status = new Status($request->status);
+        $ChequeBonus->salvar();
 
         return new Response(status: 204);
     }
