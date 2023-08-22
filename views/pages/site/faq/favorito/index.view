@@ -1,9 +1,9 @@
-<div class="bloco_popup_geral" id="bloco_faq_favorito">
-    <header class="popup_header">
+<div class="bloco_pagina_popup" id="bloco_faq_favorito">
+    <header class="header_pagina_popup">
         <h1>Salvar favoritos</h1>
         <i id="botao_faq_favorito_fechar">@iconeFechar</i>
     </header>
-    <div class="popup_conteudo">
+    <div class="conteudo_pagina_popup">
         <div class="conteudo">
             <p>Salve as lojas que você mais gosta nos seus favoritos, para isso, basta marcar o coração nas lojas que deseja como no exemplo abaixo:</p>
             <div class="parceiro">
