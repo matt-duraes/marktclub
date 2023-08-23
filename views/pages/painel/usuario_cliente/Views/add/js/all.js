@@ -8,12 +8,12 @@ window.addEventListener('load', () => {
     const grupoInicial = selectGrupo ? selectGrupo.value : '';
     const empresaInicial = selectEmpresa ? selectEmpresa.value : '';
 
-    formSelectChange = change => {
-        if (change == 'mudarEmpresa' && selectGrupo) {
+    selectEmpresa.addEventListener('formChange', () => {
+        if (selectGrupo) {
             buscarGrupoEmpresa(selectEmpresa.value);
             buscarSubempresa(selectEmpresa.value);
         }
-    };
+    });
 
     const buscarGrupoEmpresa = async (empresa, valor) => {
         const body = new FormData();
