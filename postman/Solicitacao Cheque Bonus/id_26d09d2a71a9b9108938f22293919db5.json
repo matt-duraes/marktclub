@@ -1,0 +1,1 @@
+{"id":"id_26d09d2a71a9b9108938f22293919db5","token":"painel","metodo":"PUT","nome":"\/solicitacao-cheque-bonus\/:id","uri":"{{LINK}}\/solicitacao-cheque-bonus\/$SOLICITACAO_CHEQUE_BONUS_ID","parametro":[],"body":[["texto",true,"status","enviado-empresa",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

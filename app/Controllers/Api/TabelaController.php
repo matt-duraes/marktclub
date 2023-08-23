@@ -19,7 +19,6 @@ final class TabelaController extends Controller implements
             $Usuario->salvarUsuario($item);
         }
         $retorno = $Usuario->retorno();
-
         return mensagemSucesso([
             'retorno' => $retorno,
             'tipo'    => 'salvar'

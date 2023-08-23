@@ -48,8 +48,7 @@ final class SiteController extends Controller
     public function postPesquisa(Request $request): Response
     {
         $pesquisa = new SalvarPesquisaModel($request);
-        $pesquisa = $pesquisa->postSalvar();
-
+        $pesquisa = $pesquisa->salvarPesquisa($request);
         return new Response(json: [
             'status' => 'sucesso'
         ], status: 201);

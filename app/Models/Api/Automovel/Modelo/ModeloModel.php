@@ -5,17 +5,19 @@ namespace App\Models\Api\Automovel\Modelo;
 use ORM\ORM;
 use stdClass;
 use Erro\Excecao;
-use Http\Request;
+use Modules\Data;
+use Modules\Botao;
 use Modules\Pagina;
 use Helpers\OrmHelper;
 use Modules\Quantidade;
-use System\Trait\Model\OrdemTrait;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\Automovel\Modelo\Ordem;
 use System\Trait\Model\QuantidadeTrait;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\ParceiroLoja\Status as StatusParceiro;
+use App\Classes\ParceiroLoja\Status as ParceiroStatus;
 
 final class ModeloModel extends ORM
 {
@@ -26,16 +28,14 @@ final class ModeloModel extends ORM
 
     protected string $ormTabela = TABELA_AUTOMOVEL_MODELO;
     private int $idEmpresa;
-    private stdClass $dadoParceiro;
 
-    /**
-     * @param  Request|null $request
-     * @throws Excecao
-     */
     public function __construct(
         private Pagina $pagina,
         private Quantidade $quantidade = new Quantidade(20),
-        private ?string $parceiro = null,
+        private Botao $publicado = new Botao(null),
+        private Data $dataInicio = new Data(null),
+        private Data $dataFinal = new Data(null),
+        private null|int|string $parceiro = null,
         private Status $status = new Status(null),
         private Ordem $ordem = new Ordem(null)
     ) {
@@ -53,6 +53,16 @@ final class ModeloModel extends ORM
             mensagemErro('Campo obrigatório!', 'O campo pagina não é valido.');
         } elseif (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
             mensagemErro('Campo obrigatório!', 'O campo quantidade não é valido.');
+        } elseif (!$this->publicado->vazio() && !$this->publicado->valido()) {
+            mensagemErro('Campo obrigatório!', 'O campo publicado não é valido.');
+        } elseif (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+            mensagemErro('Campo obrigatório!', 'O campo data de início não é valida.');
+        } elseif (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+            mensagemErro('Campo obrigatório!', 'O campo data de início não é valida.');
+        } elseif (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo obrigatório!', 'O campo status não é valido.');
+        } elseif (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo obrigatório!', 'O campo ordem não é valido.');
         }
     }
 
@@ -62,60 +72,22 @@ final class ModeloModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'imagem', 'url', 'status', 'data_criacao'])
+            ->campo([
+                'uuid', 'titulo', 'imagem', 'url', 'status', 'data_criacao', 'data_inicio', 'data_final'
+            ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem())
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade());
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->tabela(TABELA_PARCEIRO_LOJA)
+            ->where($this->pegarWhereLoja(), obrigatorio: false)
+            ->campo(['uuid', 'titulo', 'status'], 'parceiro')
+            ->join('id', 'id_parceiro_loja')
+            ->order('titulo')
+            ->read();
 
-        if (vazio($this->dadoParceiro)) {
-            $dado
-                ->tabela(TABELA_PARCEIRO_LOJA)
-                ->campo(['titulo', 'status'], 'parceiro')
-                ->join('id', 'id_parceiro_loja')
-                ->order('titulo');
-        }
-
-        $dado = $dado->read();
         $dado->lista = $this->montarRetorno($dado->lista);
 
         return $dado;
-    }
-
-    /**
-     * @return array
-     */
-    protected function pegarWhere(): array
-    {
-        $where = [];
-        if (!vazio($this->dadoParceiro)) {
-            $where[] = ['id_parceiro_loja', $this->dadoParceiro->id];
-        }
-        if ($this->status->valido()) {
-            $where[] = ['status', $this->status->numero()];
-        }
-        return $where;
-    }
-
-    private function pegarParceiro()
-    {
-        if (empty($this->parceiro)) {
-            $this->dadoParceiro = (object)[];
-            return;
-        }
-        $this->dadoParceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))
-            ->pegarUltimoRegistro(
-                campo: ['id', 'status'],
-                where: [
-                    ['id_admin_empresa', 'json', '"' . $this->idEmpresa . '"'],
-                    [
-                        'OR',
-                        ['uuid', $this->parceiro],
-                        ['url', $this->parceiro]
-                    ]
-                ],
-                retorno: 'object',
-                erroMensagem: 'Não foi encontrado um parceiro pelo código'
-            );
     }
 
     /**
@@ -126,26 +98,81 @@ final class ModeloModel extends ORM
     {
         $retorno = [];
         $Status = new Status();
-        $parceiroAtivo = false;
-        if (!vazio($this->dadoParceiro)) {
-            $parceiroAtivo = (new StatusParceiro())->indice($this->dadoParceiro->status) == StatusParceiro::CONCLUIDO;
-        }
+        $ParceiroStatus = new ParceiroStatus();
         foreach ($dado as $r) {
-            $dado = [
+            $dataInicio = new Data($r->data_inicio);
+            $dataFinal = new Data($r->data_final);
+            $retorno[] = (object)[
                 'id'        => $r->uuid,
                 'titulo'    => $r->titulo,
-                'link_logo' => arquivoPrivado($r->imagem),
-                'url'       => $r->url
+                'parceiro'  => [
+                    'id'     => $r->parceiro_uuid,
+                    'titulo' => $r->parceiro_titulo,
+                ],
+                'imagem'       => arquivoPrivado($r->imagem),
+                'url'          => $r->url,
+                'data_inicio'  => $dataInicio->date(),
+                'data_final'   => $dataFinal->date(),
+                'data_criacao' => $r->data_criacao,
+                'publicado'    => (new Publicado(
+                    $dataInicio,
+                    $dataFinal,
+                    $ParceiroStatus->indice($r->parceiro_status) == $ParceiroStatus::CONCLUIDO
+                ))->indice(),
+                'status' => $Status->indice($r->status)
             ];
-            if (object_key_exists('parceiro_titulo', $r)) {
-                $dado['parceiro'] = $r->parceiro_titulo;
-                $dado['status'] = (new StatusParceiro())->indice($r->parceiro_status) == StatusParceiro::CONCLUIDO
-                    ? $Status->indice($r->status) : Status::INATIVO;
-            } else {
-                $dado['status'] = $parceiroAtivo ? $Status->indice($r->status) : Status::INATIVO;
-            }
-            $retorno[] = (object)$dado;
         }
         return $retorno;
+    }
+
+    /**
+     * @return array
+     */
+    protected function pegarWhere(): array
+    {
+        $where = [];
+        $publicado = $this->publicado->valido();
+
+        if (is_int($this->parceiro)) {
+            $where[] = ['id_parceiro_loja', $this->parceiro];
+        }
+        if ($this->status->valido() && !$publicado) {
+            $where[] = ['status', $this->status->numero()];
+        }
+
+        if ($publicado && $this->publicado->valor() == Botao::SIM) {
+            $where[] = [
+                ['data_inicio', '<=', hoje()],
+                ['data_final', '>=', hoje()],
+                ['status', (new Status(Status::ATIVO))->numero()]
+            ];
+        } elseif ($publicado && $this->publicado->valor() == Botao::NAO) {
+            $where[] = [
+                'OR',
+                ['data_inicio', '>', hoje()],
+                ['data_final', '<', hoje()],
+                ['status', '!=', (new Status(Status::ATIVO))->numero()]
+            ];
+        }
+        return $where;
+    }
+
+    private function pegarWhereLoja(): array
+    {
+        if (!$this->publicado->valido()) {
+            return [];
+        }
+        if ($this->publicado->valor() == Botao::SIM) {
+            return ['status', (new ParceiroStatus(ParceiroStatus::CONCLUIDO))->numero()];
+        }
+        return ['status', '!=', (new ParceiroStatus(ParceiroStatus::CONCLUIDO))->numero()];
+    }
+
+    private function pegarParceiro()
+    {
+        if (!validarUuid($this->parceiro, false)) {
+            return;
+        }
+        $this->parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarIdPeloUuid($this->parceiro);
     }
 }

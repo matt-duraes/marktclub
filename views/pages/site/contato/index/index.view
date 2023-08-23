@@ -1,5 +1,5 @@
 <div class="bloco_popup_geral medio">
-    <header class="popup_header">
+    <header class="header_pagina_popup">
         <h1>ENTRAR EM CONTATO</h1>
         <i class="botao_fechar_popup">@iconeFechar</i>
     </header>

@@ -2,7 +2,6 @@
 
 namespace Tests\Api;
 
-use App\Classes\SolicitacaoDeclaracao\Tipo;
 use Erro\Excecao;
 use Tests\Api\Token\Clube;
 
@@ -22,7 +21,6 @@ class SolicitacaoDeclaracaoTest extends Clube
             ->json([
                 'pagina'           => 1,
                 'ordem'            => '',
-                'tipo'             => '',
                 'status'           => '',
                 'data_criacao_de'  => '',
                 'data_criacao_ate' => ''
@@ -46,17 +44,17 @@ class SolicitacaoDeclaracaoTest extends Clube
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'url'  => 'parceiro-normal',
-                'tipo' => Tipo::CONVENIO
+                'url'  => 'parceiro-normal'
             ])
             ->post('/solicitacao-declaracao')
             ->array()['dado'] ?? [];
 
-        $this->idSolicitacaoDeclaracao = $solicitacao['id'];
+        $this->idSolicitacaoDeclaracao = $solicitacao['id'] ?? '';
 
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
+            ->checkDiferente($this->idSolicitacaoDeclaracao, '')
             ->checkIndiceExiste('dado.id');
     }
 

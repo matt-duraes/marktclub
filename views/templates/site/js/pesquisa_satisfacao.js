@@ -3,6 +3,7 @@ window.addEventListener('load', () => {
         const formulario = document.getElementById('formulario_pesquisa');
 
         const botaoEnviar = document.querySelector('#botao_envia_pesquisa');
+
         botaoEnviar.addEventListener('click', async e => {
             e.preventDefault();
             const navegar = formulario.querySelector('input[name=navegar]:checked');
@@ -16,46 +17,29 @@ window.addEventListener('load', () => {
             sistemaInputs.forEach(function (input) {
                 sistema.push(input.value);
             });
+            validarCampos(navegar, procura, suporte, atendimento, sistema);
 
-            validateAndSubmitForm(navegar, procura, suporte, atendimento, sistema);
+            const resposta = await ajaxPost(
+                LINK + '/pesquisa-de-satisfacao',
+                {
+                    navegar: navegar.value,
+                    procura: procura.value,
+                    suporte: suporte.value,
+                    comentario: comentario,
+                    atendimento: atendimento.value,
+                    sistema: sistema,
+                },
+                'Não foi possível enviar a pesquisa, tente novamente mais tarde'
+            );
 
-            const body = new FormData();
-            body.append('navegar', navegar.value);
-            body.append('procura', procura.value);
-            body.append('suporte', suporte.value);
-            body.append('comentario', comentario);
-            body.append('atendimento', atendimento.value);
-            body.append('sistema', sistema.value);
-
-            const resposta = await fetch('/pesquisa-de-satisfacao', {
-                method: 'POST',
-                body,
-            });
-
-            let json;
-            try {
-                json = await resposta.json();
-            } catch (error) {
-                json = {};
-            }
-
-            if (resposta.status === 201) {
-                Alerta.notificacao(
+            if (resposta.status === 'sucesso') {
+                await Alerta.mensagem(
+                    'Pesquisa enviada',
                     'Obrigado pelo seu feedback. Sua resposta será analizada para melhorias do seu clube.',
                     true
                 );
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-                return;
+                window.location.assign(LINK + '/index');
             }
-
-            Alerta.notificacao(
-                json.erro.mensagem !== undefined
-                    ? json.erro.mensagem
-                    : 'Ocorreu um erro ao simular, por favor, tente novamente.',
-                false
-            );
         });
 
         const botaoFechar = document.querySelectorAll('.botao_fechar_popup');
@@ -66,26 +50,22 @@ window.addEventListener('load', () => {
         });
     };
 
-    const validateAndSubmitForm = (navegar, procura, suporte, atendimento, sistema) => {
-        if (navegar === null) {
-            Alerta.notificacao('Selecione se o clube é fácil de navegar ou não', false);
-            return;
-        }
-        if (procura === null) {
-            Alerta.notificacao('Selecione se você geralmente acha o que procura', false);
-            return;
-        }
-        if (suporte === null) {
-            Alerta.notificacao('Selecione como foi sua experiência com o suporte', false);
-            return;
-        }
-        if (atendimento === null) {
-            Alerta.notificacao('Avalie a qualidade do atendimento', false);
-            return;
-        }
-        if (sistema.length === 0) {
-            Alerta.notificacao('Marque os sistemas que você conhece', false);
-            return;
+    const validarCampos = (navegar, procura, suporte, atendimento, sistema) => {
+        const campos = [
+            { valor: navegar, mensagem: 'Selecione se o clube é fácil de navegar ou não' },
+            { valor: procura, mensagem: 'Selecione se você geralmente acha o que procura' },
+            { valor: suporte, mensagem: 'Selecione como foi sua experiência com o suporte' },
+            { valor: atendimento, mensagem: 'Avalie a qualidade do atendimento' },
+        ];
+        for (const campo of campos) {
+            if (campo.valor === null) {
+                Alerta.notifcacao(campo.mensagem, false);
+                return;
+            }
+            if (sistema.length === 0) {
+                Alerta.notificacao('Marque os sistemas que você conhece', false);
+                return;
+            }
         }
     };
 

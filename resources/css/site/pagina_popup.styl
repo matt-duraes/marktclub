@@ -1,45 +1,68 @@
-#bloco_fw_pagina .fw_pagina_conteudo
-    overflow: scroll
-
-.bloco_popup_geral
-    overflow: scroll
-    height: 95vh
+.bloco_pagina_popup
+    width: calc(100% - 40px)
+    max-width: 700px
+    position: relative
+    margin: 20px 0
+    display: flex
     background-color: #FFF
-    padding: 20px 20px 0px 38px;
-    margin: 20px
-    .popup_header
-        display: flex
-        align-items: center
-        justify-content: space-between
-        height: 40px
-    .popup_header h1
-        padding-left: 20px
-        titulo()
-    .popup_header i
-        height: 100%
-        width: 50px
-        border-radius: 5px
-        cursor: pointer
-        flexCenter()
-        background-color: #ff6c60
-        fill: white
-    .popup_header i:hover
-        background-color: white
-        border: 1px solid #ff6c60
-        fill: #ff6c60
-        transition: 0.5s
-
-@media screen and (max-width: 375px)
-    .bloco_popup_geral .popup_header
-        height: 70px
-        margin-bottom: 20px
-        h1
-            padding-left: 0px
-        i
-            height: 40px
-    #pesquisa_satisfacao .bloco_quiz_geral
-        padding: 0px
-        text-align: center
-    .bloco_quiz_geral fieldset .pergunta .botao_input,
-    .bloco_quiz_geral fieldset .pergunta.checkbox .botao_input
+    box-shadow: 0 4px 5px rgba(0,0,0,.2)
+    border-radius: 3px
+    display: flex
+    flex-direction: column
+    overflow: hidden
+    .header_pagina_popup
         width: 100%
+        height: 50px
+        line-height: 50px
+        padding: 0 10px
+        boxShadow()
+        background-color: #FFF
+        display: flex
+        flex-direction: row
+        align-items: center
+        z-index: 10
+    .header_pagina_popup i
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+        cursor: pointer
+    .header_pagina_popup h1
+        flexGrow()
+        font-size: 1.6rem
+        color: #666
+        padding: 0 20px 0 10px
+        text-transform: uppercase
+        cursor: default
+    .conteudo_pagina_popup
+        width: 100%
+        max-height: calc(100vh - 90px)
+        overflow-y: auto
+        overflow-x: hidden
+        flex-direction: column
+        &.footer
+            max-height: calc(100vh - 170px)
+    .conteudo_pagina_popup.centralizado
+        margin: 20px auto
+        flexCenter()
+        flexCol()
+    .conteudo_pagina_popup.centralizado fieldset
+        margin-top: 10px
+    .footer_pagina_popup
+        width: 100%
+        box-shadow: 0 -4px 5px rgba(40,40,40,.1)
+        padding: 15px 20px
+        display: flex
+        flex-direction: row
+        justify-content: center
+        z-index: 10
+        bottom: 0
+        &.noshadow
+            box-shadow: none
+        .flex
+            height: 40px
+            flexGrow()
+        .botao
+            botaoPadraoGrande()
+            background-color: $corClube
+            color: #FFF
