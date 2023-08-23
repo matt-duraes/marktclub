@@ -2,7 +2,6 @@
 
 namespace Tests\Api;
 
-use App\Classes\Geral\Publicado;
 use Erro\Excecao;
 use Modules\Botao;
 use Tests\Api\Token\Clube;
