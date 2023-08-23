@@ -3,7 +3,7 @@
 
 <h3>Domínio</h3>
 <div class="bloco">
-    @? formSelect(name: 'dominio_tipo', label: 'Tipo de domínio', placeholder: 'Tipo de domínio', lista: ['' => 'Escolha uma opção', 'dominio' => 'Domínio próprio', 'subdominio' => 'Subdomínio próprio', 'temvantagens' => 'temvantagens.com.br', 'temmaisvantagens' => 'temmaisvantagens.com.br'], obrigatorio: true, class: 'tipo_dominio', change: 'mudar_tipo_dominio')
+    @? formSelect(name: 'dominio_tipo', label: 'Tipo de domínio', placeholder: 'Tipo de domínio', lista: ['' => 'Escolha uma opção', 'dominio' => 'Domínio próprio', 'subdominio' => 'Subdomínio próprio', 'temvantagens' => 'temvantagens.com.br', 'temmaisvantagens' => 'temmaisvantagens.com.br'], obrigatorio: true, class: 'tipo_dominio')
 
     <div class="sub_dominio display_none" id="bloco_dominio_sub">
         <p>https://</p>
