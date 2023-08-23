@@ -78,7 +78,10 @@ class SolicitacaoChequeBonusController extends Controller implements
             pegarPropriedadeDaEntity(
                 $ChequeBonus,
                 lista: [
-                    'id', 'parceiro', 'usuario', 'modelo', 'versao', 'data_criacao', 'data_atualizacao', 'status'
+                    'id', 'automovel', 'usuario', 'dependente', 'tipo_usuario', 'nome', 'email_pessoal',
+                    'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
+                    'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'rg',
+                    'data_criacao', 'data_atualizacao', 'data_termo', 'status'
                 ]
             ),
             $status

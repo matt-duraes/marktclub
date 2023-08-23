@@ -28,6 +28,7 @@ return (new DataBase())
     ->cpf('dependente_documento')
     ->int('dependente_grau_parentesco')->tamanho(1)
     ->date('dependente_data_nascimento')
+    ->date('data_termo')
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();

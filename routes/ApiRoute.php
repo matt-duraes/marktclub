@@ -1576,9 +1576,9 @@ Route
             ::request([
                 'automovel', 'tipo_usuario', 'nome', 'email_pessoal', 'telefone_celular', 'estado_civil',
                 'rg', 'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
-                'endereco_complemento', 'endereco_cidade', 'endereco_estado', 'dependente_nome',
+                'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'dependente_nome',
                 'dependente_email_pessoal', 'dependente_rg', 'dependente_documento',
-                'dependente_grau_parentesco', 'dependente_data_nascimento'
+                'dependente_grau_parentesco', 'dependente_data_nascimento', 'data_termo'
             ])
             ::post('/solicitacao-cheque-bonus');
         Route
