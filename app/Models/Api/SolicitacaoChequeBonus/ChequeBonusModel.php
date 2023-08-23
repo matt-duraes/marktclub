@@ -15,7 +15,7 @@ use System\Interface\ModelListarInterface;
 use App\Classes\SolicitacaoChequeBonus\Ordem;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class DeclaracaoModel extends ORM implements ModelListarInterface
+final class ChequeBonusModel extends ORM implements ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;

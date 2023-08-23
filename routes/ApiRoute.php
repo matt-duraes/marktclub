@@ -195,7 +195,7 @@ Route
                 'pagina', '!quantidade', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
                 '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
-                '!endereco_estado', '!federacao'
+                '!endereco_estado', '!federacao', '!siape'
             ], 'json')
             ::get('/usuario-cliente');
 
@@ -1853,7 +1853,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:salvar'])
-            ::request(['nome', 'email', 'telefone', 'mensagem', 'status'])
+            ::request(['nome', 'email', 'telefone', 'mensagem'])
             ::post('/parceiro-indicacao');
         Route
             ::nome('atualizarStatus')

@@ -2,6 +2,7 @@
 
 return [
     [
+        'uuid'                => 'dc68285f-65e2-4db9-b37c-d216cf4ddd97',
         'id_automovel_modelo' => 1,
         'titulo'              => 'S90 01',
         'valor_de'            => '200000.00',
