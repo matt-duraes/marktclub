@@ -79,7 +79,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
         ];
         // CNPJ
         $cnpj = new Cnpj($this->request->cnpj);
-        if ($cnpj->valido()) {
+        if (!$cnpj->vazio()) {
             $where[] = ['cnpj', $cnpj->numero()];
         }
         // STATUS

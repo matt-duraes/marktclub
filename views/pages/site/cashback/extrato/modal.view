@@ -2,7 +2,7 @@
 <div class="modal_mapa bloco_popup_geral medio">
     <?php  include ROOT . '/resources/php/site/icone.php'; ?>
 
-    <header class="popup_header">
+    <header class="header_pagina_popup">
         <h1>RESGATAR</h1>
         <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
     </header>
