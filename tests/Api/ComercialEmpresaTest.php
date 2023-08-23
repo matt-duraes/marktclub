@@ -19,6 +19,35 @@ class ComercialEmpresaTest extends Tests
     private string $cnpjValido;
     private string $idComercialEmpresa;
 
+    private function getBody(array $array = []): array
+    {
+        return array_merge([
+            'titulo'                => $this->cryptEncode('Empresa de teste'),
+            'cnpj'                  => $this->cryptEncode(cnpjAleatorio()),
+            'finalidade_principal'  => FinalidadePrincipal::PRIVADA,
+            'finalidade_secundaria' => valorAleatorio(array_keys((new FinalidadeSecundaria())->select())),
+            'site'                  => 'https://google.com',
+            'responsavel_nome'      => $this->cryptEncode(nomeCompletoAleatorio()),
+            'responsavel_email'     => $this->cryptEncode(emailAleatorio()),
+            'responsavel_telefone'  => $this->cryptEncode(telefoneAleatorio())
+        ], $array);
+    }
+
+    private function getBodyStatusAtivo(array $array = []): array
+    {
+        return array_merge($array, [
+            'cadastro_usuario'        => valorAleatorio(array_keys((new CadastroUsuario())->select())),
+            'renda_media'             => $this->cryptEncode(rand(1000, 1000000)),
+            'tipo_pagamento'          => TipoPagamento::FIXO,
+            'contrato_data'           => $this->hoje(),
+            'contrato_prazo'          => valorAleatorio(array_keys((new ContratoPrazo())->select())),
+            'contrato_dia_fechamento' => rand(1, 31),
+            'contrato_dia_pagamento'  => rand(1, 31),
+            'contrato_renovacao'      => valorAleatorio(array_keys((new ContratoRenovacao())->select())),
+            'razao_social'            => $this->cryptEncode('razão social teste'),
+        ]);
+    }
+
     public function listarTodosComercialEmpresaTest(): ComercialEmpresaTest
     {
         $this->api('comercial_empresa:listar');
@@ -115,14 +144,14 @@ class ComercialEmpresaTest extends Tests
     }
 
     public function salvarComFinalidadePublicaTest(): ComercialEmpresaTest
-
     {
         $this->api('comercial_empresa:salvar');
         $dado = $this
             ->Curl
             ->loginPainel()
-            ->body($this->getBody([
-                'finalidade_principal' => FinalidadePrincipal::PUBLICA]
+            ->body($this->getBody(
+                [
+                    'finalidade_principal' => FinalidadePrincipal::PUBLICA]
             ))
             ->post('/comercial-empresa')
             ->array()['dado'];
@@ -173,7 +202,7 @@ class ComercialEmpresaTest extends Tests
             ->Curl
             ->loginPainel()
             ->body($this->getBodyStatusAtivo([
-                'status' => Status::ATIVO,
+                'status'       => Status::ATIVO,
                 'data_eleicao' => $this->dataPassada()
             ]))
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
@@ -226,7 +255,7 @@ class ComercialEmpresaTest extends Tests
             ->loginPainel()
             ->body($this->getBodyStatusAtivo([
                 'produto_clube' => Botao::SIM,
-                'tipo_site' => valorAleatorio(array_keys((new TipoSite())->select()))
+                'tipo_site'     => valorAleatorio(array_keys((new TipoSite())->select()))
             ]))
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
 
@@ -277,7 +306,7 @@ class ComercialEmpresaTest extends Tests
             ->Curl
             ->loginPainel()
             ->body([
-                'status' => Status::ATIVO,
+                'status'                => Status::ATIVO,
                 'contrato_valor_minimo' => $this->cryptEncode(rand(1000, 1000000))
             ])
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
@@ -295,9 +324,9 @@ class ComercialEmpresaTest extends Tests
             ->Curl
             ->loginPainel()
             ->body($this->getBodyStatusAtivo([
-                'status' => Status::ATIVO,
+                'status'                  => Status::ATIVO,
                 'contrato_usuario_minimo' => rand(1, 100),
-                'contrato_valor_minimo' => $this->cryptEncode(rand(1000, 1000000))
+                'contrato_valor_minimo'   => $this->cryptEncode(rand(1000, 1000000))
             ]))
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
 
@@ -330,7 +359,7 @@ class ComercialEmpresaTest extends Tests
             ->loginPainel()
             ->body([
                 'comunicacao_email' => Botao::SIM,
-                'email_dia' => [1, 2, 3]
+                'email_dia'         => [1, 2, 3]
             ])
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
 
@@ -348,8 +377,8 @@ class ComercialEmpresaTest extends Tests
             ->loginPainel()
             ->body($this->getBodyStatusAtivo([
                 'comunicacao_email' => Botao::SIM,
-                'email_dia' => [1, 2, 3],
-                'email_disparo' => valorAleatorio(array_keys((new EmailDisparo())->select()))
+                'email_dia'         => [1, 2, 3],
+                'email_disparo'     => valorAleatorio(array_keys((new EmailDisparo())->select()))
             ]))
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
 
@@ -365,7 +394,7 @@ class ComercialEmpresaTest extends Tests
             ->loginPainel()
             ->body($this->getBodyStatusAtivo([
                 'comunicacao_whatsapp' => Botao::SIM,
-                'whatsapp_dia' => [1, 2, 3]
+                'whatsapp_dia'         => [1, 2, 3]
             ]))
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
 
@@ -381,40 +410,11 @@ class ComercialEmpresaTest extends Tests
             ->loginPainel()
             ->body($this->getBodyStatusAtivo([
                 'comunicacao_rede_social' => Botao::SIM,
-                'rede_social_dia' => [1, 2, 3]
+                'rede_social_dia'         => [1, 2, 3]
             ]))
             ->put('/comercial-empresa/' . $this->idComercialEmpresa);
 
         return $this
             ->checkStatus(204);
-    }
-
-    private function getBody(array $array = []): array
-    {
-        return array_merge([
-            'titulo' => $this->cryptEncode('Empresa de teste'),
-            'cnpj' => $this->cryptEncode(cnpjAleatorio()),
-            'finalidade_principal' => FinalidadePrincipal::PRIVADA,
-            'finalidade_secundaria' => valorAleatorio(array_keys((new FinalidadeSecundaria())->select())),
-            'site' => 'https://google.com',
-            'responsavel_nome' => $this->cryptEncode(nomeCompletoAleatorio()),
-            'responsavel_email' => $this->cryptEncode(emailAleatorio()),
-            'responsavel_telefone' => $this->cryptEncode(telefoneAleatorio())
-        ], $array);
-    }
-
-    private function getBodyStatusAtivo(array $array = []): array
-    {
-        return array_merge($array, [
-            'cadastro_usuario' => valorAleatorio(array_keys((new CadastroUsuario())->select())),
-            'renda_media' => $this->cryptEncode(rand(1000, 1000000)),
-            'tipo_pagamento' => TipoPagamento::FIXO,
-            'contrato_data' => $this->hoje(),
-            'contrato_prazo' => valorAleatorio(array_keys((new ContratoPrazo())->select())),
-            'contrato_dia_fechamento' => rand(1, 31),
-            'contrato_dia_pagamento' => rand(1, 31),
-            'contrato_renovacao' => valorAleatorio(array_keys((new ContratoRenovacao())->select())),
-            'razao_social' => $this->cryptEncode('razão social teste'),
-        ]);
     }
 }
