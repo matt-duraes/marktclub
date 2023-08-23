@@ -16,19 +16,23 @@ class ParceiroIndicacaoTest extends Clube
         $this->statusValidos = array_keys((new Status())->select());
     }
 
+    private function getBody()
+    {
+        return [
+            'nome'              => $this->nomeCompleto(),
+            'email'             => $this->email(),
+            'telefone'          => $this->telefone(),
+            'mensagem'          => 'Mensagem de teste',
+        ];
+    }
+
     public function salvarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
         $this->api('parceiro_indicacao:salvar');
         $dado = $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
-            ->body([
-                'nome'              => $this->nomeCompleto(),
-                'email'             => $this->email(),
-                'telefone'          => $this->telefone(),
-                'mensagem'          => 'Mensagem de teste',
-                'status'            => valorAleatorio($this->statusValidos)
-            ])
+            ->body($this->getBody())
             ->post('/parceiro-indicacao')
             ->array();
 
@@ -43,20 +47,57 @@ class ParceiroIndicacaoTest extends Clube
     public function naoPodeSalvarSemNomeTest(): ParceiroIndicacaoTest
     {
         $this->api('parceiro_indicacao:salvar');
+
+        $body = $this->getBody();
+        unset($body['nome']);
+
         $this
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
-            ->body([
-                'email'             => $this->email(),
-                'telefone'          => $this->telefone(),
-                'mensagem'          => 'Mensagem de teste',
-                'status'            => valorAleatorio($this->statusValidos)
-            ])
+            ->body($body)
             ->post('/parceiro-indicacao');
 
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', "Erro no parâmetro enviado. Falta o parametro: 'nome'.")
+            ->checkIndiceIgual('status', 'erro');
+    }
+
+    public function naoPodeSalvarSemEmailTest(): ParceiroIndicacaoTest
+    {
+        $this->api('parceiro_indicacao:salvar');
+
+        $body = $this->getBody();
+        unset($body['email']);
+
+        $this
+            ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
+            ->body($body)
+            ->post('/parceiro-indicacao');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('erro.mensagem', "Erro no parâmetro enviado. Falta o parametro: 'email'.")
+            ->checkIndiceIgual('status', 'erro');
+    }
+
+    public function naoPodeEnviarSemTelefoneTest(): ParceiroIndicacaoTest
+    {
+        $this->api('parceiro_indicacao:salvar');
+
+        $body = $this->getBody();
+        unset($body['telefone']);
+
+        $this
+            ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
+            ->body($body)
+            ->post('/parceiro-indicacao');
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('erro.mensagem', "Erro no parâmetro enviado. Falta o parametro: 'telefone'.")
             ->checkIndiceIgual('status', 'erro');
     }
 
@@ -103,6 +144,23 @@ class ParceiroIndicacaoTest extends Clube
 
         return $this
             ->checkStatus(204);
+    }
+
+    public function naoPodeEditarStatusInvalidoTest(): ParceiroIndicacaoTest
+    {
+        $this->api('parceiro_indicacao:atualizarStatus');
+        $this
+            ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
+            ->body([
+                'status' => 'STATUS INVALIDO'
+            ])
+            ->put('/parceiro-indicacao/' . $this->idIndicacaoNovoParceiro);
+
+        return $this
+            ->checkStatus(400)
+            ->checkIndiceIgual('erro.mensagem', 'O campo Status não é um valor válido.')
+            ->checkIndiceIgual('status', 'erro');
     }
 
     public function deletarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest

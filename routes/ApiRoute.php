@@ -1853,7 +1853,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:salvar'])
-            ::request(['nome', 'email', 'telefone', 'mensagem', 'status'])
+            ::request(['nome', 'email', 'telefone', 'mensagem'])
             ::post('/parceiro-indicacao');
         Route
             ::nome('atualizarStatus')
