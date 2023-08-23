@@ -65,7 +65,7 @@
 <div class="bloco bloco_grupo display_none" id="bloco_criacao_video">
     <h2>VÍDEO</h2>
     <h3>Tamanho do vídeo a ser criado</h3>
-    @? formSelect(name: 'video_formato', label: 'Formato do vídeo', placeholder: 'Formato do vídeo', lista: ['' => 'Escolha uma opção', 'horizontal' => '16:9 Horizontal - celular deitado', 'vertical' => '9:16 Vertical - celular em pé', 'outro' => 'Outro'], change: 'criacao_video_formato', obrigatorio: 1)
+    @? formSelect(name: 'video_formato', label: 'Formato do vídeo', placeholder: 'Formato do vídeo', lista: ['' => 'Escolha uma opção', 'horizontal' => '16:9 Horizontal - celular deitado', 'vertical' => '9:16 Vertical - celular em pé', 'outro' => 'Outro'] obrigatorio: 1)
     @? formNumero(name: ['video_largura', 'video_altura'], separador: 'por', label: 'Dimensão do peça', placeholder: ['Largura', 'Altura'], mascara: ['numero', 'numero'], class: 'display_none', id: 'bloco_criacao_video_dimensao', obrigatorio: 1)
     @? formEditor(name: 'video_texto', label: 'Descrição', placeholder: 'Descreva a demanda para o vídeo', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
 </div>

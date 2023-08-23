@@ -169,17 +169,15 @@ const demandaSalvar = () => {
     inputDominioTipo.addEventListener('formChange', () => {
         mudarTipoDominio();
     });
-    // formSelectChange = acao => {
-    //     if (acao == 'mudar_tipo_dominio') {
-    //         mudarTipoDominio();
-    //     } else if (acao == 'criacao_video_formato') {
-    //         monitorarFormatoVideo();
-    //     } else if (acao == 'motivacao_outro') {
-    //         motivacaoOutro();
-    //     } else if (acao == 'entrega_outro') {
-    //         entregaOutro();
-    //     }
-    // };
+    inputVideoFormato.addEventListener('formChange', () => {
+        monitorarFormatoVideo();
+    });
+    inputSorteioMotivacao.addEventListener('formChange', () => {
+        motivacaoOutro();
+    });
+    inputSorteioPremioEntrega.addEventListener('formChange', () => {
+        entregaOutro();
+    });
 
     /*
     |--------------------------------------------------------------------------
