@@ -1,236 +1,238 @@
-<div class="bloco_pagina_popup">
+<div class="bloco_pagina_popup" id="bloco_preco_regiao">
     <header class="header_pagina_popup">
         <h1>Preços do Plano de Saúde</h1>
         <i class="botao_fechar_popup fechar">@iconeFechar</i>
     </header>
     <div class="conteudo_pagina_popup bloco_tabela_geral">
-        <table>
-            <thead>
-                <tr class="titulo_table">
-                    <th colspan="11">SÃO PAULO</th>
-                </tr>
-                <tr class="titulo_table">
-                    <th>Nome do <br>Produto</th>
-                    <th>Amil Fácil S60QC<br> - Jundiaí</th>
-                    <th>Amil S60 <br>QC<br>SP</th>
-                    <th>Amil Fácil S80<br>QC</th>
-                    <th>Amil Fácil S80<br>QP</th>
-                    <th>Amil S380<br>QP</th>
-                    <th>Amil S380<br>QC</th>
-                    <th>Amil S450<br>QC</th>
-                    <th>Amil S450<br>QP</th>
-                    <th>Amil S580<br>QP</th>
-                    <th>Amil <br>S750<br>R1</th>
-                    <th>Amil <br>S750<br>R2</th>
-                </tr>
-                <tr class="titulo_table">
-                    <th>Registro ANS </th>
-                    <th>485.435<br>/20-7</th>
-                    <th>485.443<br>/20-8</th>
-                    <th>485.432<br>/20-2</th>
-                    <th>485.430<br>/20-6</th>
-                    <th>485.428<br>/20-4</th>
-                    <th>485.426<br>/20-8</th>
-                    <th>485.424<br>/20-1</th>
-                    <th>485.422<br>/20-5</th>
-                    <th>491.832<br>/22-1</th>
-                    <th>485.420<br>/20-9</th>
-                    <th>485.420<br>/20-9</th>
-                </tr>
-                <tr class="titulo_table">
-                    <th>REEMBOLSO</th>
-                    <th>Não</th>
-                    <th>Não</th>
-                    <th>Não</th>
-                    <th>Não</th>
-                    <th>Sim</th>
-                    <th>Sim</th>
-                    <th>Sim</th>
-                    <th>Sim</th>
-                    <th>Sim</th>
-                    <th>Sim</th>
-                    <th>Sim</th>
-                </tr>
-                <tr class="titulo_table">
-                    <th>Segmentação</th>
-                    <th colspan="11">Ambulatorial, Hospitalar com Obstetrícia</th>
-                </tr>
-                <tr class="titulo_table">
-                    <th>Abragência</th>
-                    <th>Grupo <br>de <br> Municípios</th>
-                    <th>Grupo <br>de <br> Municípios</th>
-                    <th>Grupo <br>de <br> Municípios</th>
-                    <th>Grupo <br>de <br> Municípios</th>
-                    <th>Nacional</th>
-                    <th>Nacional</th>
-                    <th>Nacional</th>
-                    <th>Nacional</th>
-                    <th>Nacional</th>
-                    <th>Nacional</th>
-                    <th>Nacional</th>
-                </tr>
-                <tr class="titulo_table">
-                    <th>Acomodação</th>
-                    <th>Coletivo</th>
-                    <th>Coletivo</th>
-                    <th>Coletivo</th>
-                    <th>Individual</th>
-                    <th>Coletivo</th>
-                    <th>Individual</th>
-                    <th>Coletivo</th>
-                    <th>Individual</th>
-                    <th>Individual</th>
-                    <th>Individual</th>
-                    <th>Individual</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>0 a 18</td>
-                    <td>177,42</td>
-                    <td>144,63</td>
-                    <td>309,50</td>
-                    <td>334,27</td>
-                    <td>384,88</td>
-                    <td>427,24</td>
-                    <td>420,72</td>
-                    <td>467,02</td>
-                    <td>520,51</td>
-                    <td>620,97</td>
-                    <td>627,14</td>
-                </tr>
-                <tr>
-                    <td>19 a 23</td>
-                    <td>240,92</td>
-                    <td>196,40</td>
-                    <td>362,12</td>
-                    <td>391,09</td>
-                    <td>450,30</td>
-                    <td>499,87</td>
-                    <td>492,25</td>
-                    <td>546,40</td>
-                    <td>609,00</td>
-                    <td>726,54</td>
-                    <td>733,76</td>
-                </tr>
-                <tr>
-                    <td>24 a 28</td>
-                    <td>282,83</td>
-                    <td>230,54</td>
-                    <td>441,78</td>
-                    <td>477,11</td>
-                    <td>549,37</td>
-                    <td>609,83</td>
-                    <td>600,53</td>
-                    <td>666,61</td>
-                    <td>742,97</td>
-                    <td>886,38</td>
-                    <td>895,20</td>
-                </tr>
-                <tr>
-                    <td>29 a 33</td>
-                    <td>282,83</td>
-                    <td>230,54</td>
-                    <td>530,13</td>
-                    <td>572,54</td>
-                    <td>659,24</td>
-                    <td>731,79</td>
-                    <td>720,65</td>
-                    <td>799,94</td>
-                    <td>891,57</td>
-                    <td>1063,66</td>
-                    <td>1074,22</td>
-                </tr>
-                <tr>
-                    <td>34 a 38</td>
-                    <td>282,83</td>
-                    <td>230,54</td>
-                    <td>556,64</td>
-                    <td>601,18</td>
-                    <td>692,22</td>
-                    <td>768,37</td>
-                    <td>756,69</td>
-                    <td>839,93</td>
-                    <td>936,15</td>
-                    <td>1116,85</td>
-                    <td>1127,93</td>
-                </tr>
-                <tr>
-                    <td>39 a 43</td>
-                    <td>315,93</td>
-                    <td>257,52</td>
-                    <td>612,30</td>
-                    <td>661,28</td>
-                    <td>761,42</td>
-                    <td>845,21</td>
-                    <td>832,35</td>
-                    <td>923,93</td>
-                    <td>1.029,76</td>
-                    <td>1.228,52</td>
-                    <td>1.240,73</td>
-                </tr>
-                <tr>
-                    <td>44 a 48</td>
-                    <td>436,28</td>
-                    <td>355,65</td>
-                    <td>765,38</td>
-                    <td>826,62</td>
-                    <td>951,77</td>
-                    <td>1.056,52</td>
-                    <td>1.040,44</td>
-                    <td>1.154,91</td>
-                    <td>1.287,20</td>
-                    <td>1.535,66</td>
-                    <td>1.550,93</td>
-                </tr>
-                <tr>
-                    <td>49 a 53</td>
-                    <td>520,92</td>
-                    <td>424,63</td>
-                    <td>841,92</td>
-                    <td>909,27</td>
-                    <td>1.046,96</td>
-                    <td>1.162,17</td>
-                    <td>1.144,48</td>
-                    <td>1.270,41</td>
-                    <td>1.415,92</td>
-                    <td>1.689,22</td>
-                    <td>1.706,00</td>
-                </tr>
-                <tr>
-                    <td>54 a 58</td>
-                    <td>749,08</td>
-                    <td>610,63</td>
-                    <td>1.052,39</td>
-                    <td>1.136,58</td>
-                    <td>1.308,69</td>
-                    <td>1.452,71</td>
-                    <td>1.430,61</td>
-                    <td>1.588,01</td>
-                    <td>1.769,90</td>
-                    <td>2.111,53</td>
-                    <td>2.132,51</td>
-                </tr>
-                <tr>
-                    <td>59 ou mais</td>
-                    <td>1.062,19</td>
-                    <td>865,87</td>
-                    <td>1.841,70</td>
-                    <td>1.989,03</td>
-                    <td>2.290,24</td>
-                    <td>2.542,24</td>
-                    <td>2.503,55</td>
-                    <td>2.779,01</td>
-                    <td>3.097,33</td>
-                    <td>3.695,19</td>
-                    <td>3.731,88</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="texto">
-            <p>
-                ** Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.
-            </p>
+        <div class="conteudo_real">
+            <table>
+                <thead>
+                    <tr class="titulo_table">
+                        <th colspan="11">SÃO PAULO</th>
+                    </tr>
+                    <tr class="titulo_table">
+                        <th>Nome do <br>Produto</th>
+                        <th>Amil Fácil S60QC<br> - Jundiaí</th>
+                        <th>Amil S60 <br>QC<br>SP</th>
+                        <th>Amil Fácil S80<br>QC</th>
+                        <th>Amil Fácil S80<br>QP</th>
+                        <th>Amil S380<br>QP</th>
+                        <th>Amil S380<br>QC</th>
+                        <th>Amil S450<br>QC</th>
+                        <th>Amil S450<br>QP</th>
+                        <th>Amil S580<br>QP</th>
+                        <th>Amil <br>S750<br>R1</th>
+                        <th>Amil <br>S750<br>R2</th>
+                    </tr>
+                    <tr class="titulo_table">
+                        <th>Registro ANS </th>
+                        <th>485.435<br>/20-7</th>
+                        <th>485.443<br>/20-8</th>
+                        <th>485.432<br>/20-2</th>
+                        <th>485.430<br>/20-6</th>
+                        <th>485.428<br>/20-4</th>
+                        <th>485.426<br>/20-8</th>
+                        <th>485.424<br>/20-1</th>
+                        <th>485.422<br>/20-5</th>
+                        <th>491.832<br>/22-1</th>
+                        <th>485.420<br>/20-9</th>
+                        <th>485.420<br>/20-9</th>
+                    </tr>
+                    <tr class="titulo_table">
+                        <th>REEMBOLSO</th>
+                        <th>Não</th>
+                        <th>Não</th>
+                        <th>Não</th>
+                        <th>Não</th>
+                        <th>Sim</th>
+                        <th>Sim</th>
+                        <th>Sim</th>
+                        <th>Sim</th>
+                        <th>Sim</th>
+                        <th>Sim</th>
+                        <th>Sim</th>
+                    </tr>
+                    <tr class="titulo_table">
+                        <th>Segmentação</th>
+                        <th colspan="11">Ambulatorial, Hospitalar com Obstetrícia</th>
+                    </tr>
+                    <tr class="titulo_table">
+                        <th>Abragência</th>
+                        <th>Grupo <br>de <br> Municípios</th>
+                        <th>Grupo <br>de <br> Municípios</th>
+                        <th>Grupo <br>de <br> Municípios</th>
+                        <th>Grupo <br>de <br> Municípios</th>
+                        <th>Nacional</th>
+                        <th>Nacional</th>
+                        <th>Nacional</th>
+                        <th>Nacional</th>
+                        <th>Nacional</th>
+                        <th>Nacional</th>
+                        <th>Nacional</th>
+                    </tr>
+                    <tr class="titulo_table">
+                        <th>Acomodação</th>
+                        <th>Coletivo</th>
+                        <th>Coletivo</th>
+                        <th>Coletivo</th>
+                        <th>Individual</th>
+                        <th>Coletivo</th>
+                        <th>Individual</th>
+                        <th>Coletivo</th>
+                        <th>Individual</th>
+                        <th>Individual</th>
+                        <th>Individual</th>
+                        <th>Individual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0 a 18</td>
+                        <td>177,42</td>
+                        <td>144,63</td>
+                        <td>309,50</td>
+                        <td>334,27</td>
+                        <td>384,88</td>
+                        <td>427,24</td>
+                        <td>420,72</td>
+                        <td>467,02</td>
+                        <td>520,51</td>
+                        <td>620,97</td>
+                        <td>627,14</td>
+                    </tr>
+                    <tr>
+                        <td>19 a 23</td>
+                        <td>240,92</td>
+                        <td>196,40</td>
+                        <td>362,12</td>
+                        <td>391,09</td>
+                        <td>450,30</td>
+                        <td>499,87</td>
+                        <td>492,25</td>
+                        <td>546,40</td>
+                        <td>609,00</td>
+                        <td>726,54</td>
+                        <td>733,76</td>
+                    </tr>
+                    <tr>
+                        <td>24 a 28</td>
+                        <td>282,83</td>
+                        <td>230,54</td>
+                        <td>441,78</td>
+                        <td>477,11</td>
+                        <td>549,37</td>
+                        <td>609,83</td>
+                        <td>600,53</td>
+                        <td>666,61</td>
+                        <td>742,97</td>
+                        <td>886,38</td>
+                        <td>895,20</td>
+                    </tr>
+                    <tr>
+                        <td>29 a 33</td>
+                        <td>282,83</td>
+                        <td>230,54</td>
+                        <td>530,13</td>
+                        <td>572,54</td>
+                        <td>659,24</td>
+                        <td>731,79</td>
+                        <td>720,65</td>
+                        <td>799,94</td>
+                        <td>891,57</td>
+                        <td>1063,66</td>
+                        <td>1074,22</td>
+                    </tr>
+                    <tr>
+                        <td>34 a 38</td>
+                        <td>282,83</td>
+                        <td>230,54</td>
+                        <td>556,64</td>
+                        <td>601,18</td>
+                        <td>692,22</td>
+                        <td>768,37</td>
+                        <td>756,69</td>
+                        <td>839,93</td>
+                        <td>936,15</td>
+                        <td>1116,85</td>
+                        <td>1127,93</td>
+                    </tr>
+                    <tr>
+                        <td>39 a 43</td>
+                        <td>315,93</td>
+                        <td>257,52</td>
+                        <td>612,30</td>
+                        <td>661,28</td>
+                        <td>761,42</td>
+                        <td>845,21</td>
+                        <td>832,35</td>
+                        <td>923,93</td>
+                        <td>1.029,76</td>
+                        <td>1.228,52</td>
+                        <td>1.240,73</td>
+                    </tr>
+                    <tr>
+                        <td>44 a 48</td>
+                        <td>436,28</td>
+                        <td>355,65</td>
+                        <td>765,38</td>
+                        <td>826,62</td>
+                        <td>951,77</td>
+                        <td>1.056,52</td>
+                        <td>1.040,44</td>
+                        <td>1.154,91</td>
+                        <td>1.287,20</td>
+                        <td>1.535,66</td>
+                        <td>1.550,93</td>
+                    </tr>
+                    <tr>
+                        <td>49 a 53</td>
+                        <td>520,92</td>
+                        <td>424,63</td>
+                        <td>841,92</td>
+                        <td>909,27</td>
+                        <td>1.046,96</td>
+                        <td>1.162,17</td>
+                        <td>1.144,48</td>
+                        <td>1.270,41</td>
+                        <td>1.415,92</td>
+                        <td>1.689,22</td>
+                        <td>1.706,00</td>
+                    </tr>
+                    <tr>
+                        <td>54 a 58</td>
+                        <td>749,08</td>
+                        <td>610,63</td>
+                        <td>1.052,39</td>
+                        <td>1.136,58</td>
+                        <td>1.308,69</td>
+                        <td>1.452,71</td>
+                        <td>1.430,61</td>
+                        <td>1.588,01</td>
+                        <td>1.769,90</td>
+                        <td>2.111,53</td>
+                        <td>2.132,51</td>
+                    </tr>
+                    <tr>
+                        <td>59 ou mais</td>
+                        <td>1.062,19</td>
+                        <td>865,87</td>
+                        <td>1.841,70</td>
+                        <td>1.989,03</td>
+                        <td>2.290,24</td>
+                        <td>2.542,24</td>
+                        <td>2.503,55</td>
+                        <td>2.779,01</td>
+                        <td>3.097,33</td>
+                        <td>3.695,19</td>
+                        <td>3.731,88</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="texto">
+                <p>
+                    ** Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.
+                </p>
+            </div>
         </div>
     </div>
 </div>

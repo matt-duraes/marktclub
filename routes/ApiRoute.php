@@ -1576,9 +1576,9 @@ Route
             ::request([
                 'automovel', 'tipo_usuario', 'nome', 'email_pessoal', 'telefone_celular', 'estado_civil',
                 'rg', 'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
-                'endereco_complemento', 'endereco_cidade', 'endereco_estado', 'dependente_nome',
+                'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'dependente_nome',
                 'dependente_email_pessoal', 'dependente_rg', 'dependente_documento',
-                'dependente_grau_parentesco', 'dependente_data_nascimento'
+                'dependente_grau_parentesco', 'dependente_data_nascimento', 'data_termo'
             ])
             ::post('/solicitacao-cheque-bonus');
         Route
@@ -1723,15 +1723,15 @@ Route
 
 Route
     ::nome('solicitacao_automovel')
-    ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
+    ::controller(App\Controllers\Api\SolicitacaoAutomovelController::class)
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_automovel:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:salvar'])
             ::request([
-                'produto', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+                'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor', 'mensagem'
             ])
-            ::post('/automovel/indicacao');
+            ::post('/solicitacao-automovel');
     });
 
 Route

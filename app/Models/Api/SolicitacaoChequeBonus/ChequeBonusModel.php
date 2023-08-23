@@ -12,6 +12,7 @@ use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\SolicitacaoChequeBonus\Ordem;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
@@ -40,7 +41,7 @@ final class ChequeBonusModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid'])
+            ->campo(['uuid', 'tipo_usuario', 'nome', 'dependente_nome', 'data_criacao', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -58,9 +59,17 @@ final class ChequeBonusModel extends ORM implements ModelListarInterface
     private function montarDado($dado)
     {
         $retorno = [];
+        $TipoUsuario = new TipoUsuario();
+        $Status = new Status();
         foreach ($dado as $r) {
+            $tipo = $TipoUsuario->indice($r->tipo_usuario);
+            $nome = $tipo == $TipoUsuario::TITULAR ? $r->nome : $r->dependente_nome;
             $retorno[] = (object)[
-                'id' => $r->uuid,
+                'id'           => $r->uuid,
+                'nome'         => $nome,
+                'tipo_usuario' => $tipo,
+                'data_criacao' => $r->data_criacao,
+                'status'       => $Status->indice($r->status)
             ];
         }
         return $retorno;

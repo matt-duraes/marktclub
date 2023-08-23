@@ -20,6 +20,7 @@ final class SamsungController extends Controller
                 'user_name_partner'     => $Validar->userName,
                 'user_password_partner' => $Validar->password,
                 'user_token_partner'    => $Validar->token,
+                'auth_samsung'          => $Validar->auth
             ]
         );
     }
