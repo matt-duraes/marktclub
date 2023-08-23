@@ -9,6 +9,10 @@ window.addEventListener('load', () => {
         abrirMenu();
     });
     botaoMenu.addEventListener('click', () => {
+        if (blocoMenu.classList.contains('ativo')) {
+            fecharMenu();
+            return;
+        }
         abrirMenu();
     });
     blocoMenu.addEventListener('swiped-left', () => {

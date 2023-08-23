@@ -89,9 +89,9 @@ final class PlanoSaudeController extends Controller
     public function precoAmil(Request $request): Response
     {
         $views = [
-            'rio_de_janeiro'   => 'planosaude.geral.modalrio',
-            'sao_paulo'        => 'planosaude.geral.modalsp',
-            'distrito_federal' => 'planosaude.geral.modaldf',
+            'rio_de_janeiro'   => 'plano_saude.geral.modalrio',
+            'sao_paulo'        => 'plano_saude.geral.modalsp',
+            'distrito_federal' => 'plano_saude.geral.modaldf',
         ];
 
         if (isset($views[$request->local])) {
