@@ -16,19 +16,27 @@ use Tests\Tests;
 
 class ComercialEmpresaTest extends Tests
 {
-    private array $cnpjValidos;
+    private string $cnpjValido;
     private string $idComercialEmpresa;
 
     public function listarTodosComercialEmpresaTest(): ComercialEmpresaTest
     {
         $this->api('comercial_empresa:listar');
-        $this
+        $dado = $this
             ->Curl
             ->loginPainel()
             ->json([
                 'pagina' => 1
             ])
-            ->get('/comercial-empresa');
+            ->get('/comercial-empresa')
+            ->array()['dado'];
+
+        foreach ($dado['lista'] as $r) {
+            if (!empty($r['cnpj'])) {
+                $this->cnpjValido = $r['cnpj'];
+                break;
+            }
+        }
 
         return $this
             ->checkStatus(200)
@@ -39,21 +47,14 @@ class ComercialEmpresaTest extends Tests
     public function listarPorStatusValidosTest(): ComercialEmpresaTest
     {
         $this->api('comercial_empresa:listar');
-        $dado = $this
+        $this
             ->Curl
             ->loginPainel()
             ->json([
                 'pagina' => 1,
                 'status' => valorAleatorio(array_keys((new Status())->select()))
             ])
-            ->get('/comercial-empresa')
-            ->array()['dado'];
-
-        foreach ($dado['lista'] as $comercial) {
-            if(!empty($comercial['cnpj'])) {
-                $this->cnpjValidos[] = $comercial['cnpj'];
-            }
-        }
+            ->get('/comercial-empresa');
 
         return $this
             ->checkStatus(200)
@@ -68,7 +69,7 @@ class ComercialEmpresaTest extends Tests
             ->loginPainel()
             ->json([
                 'pagina' => 1,
-                'cnpj'   => valorAleatorio($this->cnpjValidos)
+                'cnpj'   => $this->cnpjValido
             ])
             ->get('/comercial-empresa');
 
