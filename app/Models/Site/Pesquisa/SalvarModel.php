@@ -8,48 +8,33 @@ use App\Helpers\ClubeApiHelper;
 
 final class SalvarModel extends ClubeApiHelper
 {
-    protected string $navegar;
-    protected string $procura;
-    protected string $suporte;
-    protected string $comentario;
-    protected string $atendimento;
-    protected string $sistema;
-
     /**
+     * @param Request $request
+     *
      * @throws Excecao
      */
     public function __construct(
-        protected ?Request $request = null
+        protected readonly ?Request $request = null
     ) {
-        $this->navegar = $request->navegar;
-        $this->procura = $request->procura;
-        $this->suporte = $request->suporte;
-        $this->comentario = $request->comentario;
-        $this->atendimento = $request->atendimento;
-        $this->sistema = $request->sistema;
+        parent::__construct();
+        $this->salvarPesquisa($this->request);
     }
 
     /**
      * @return object|array
      * @throws Excecao
      */
-    public function postSalvar(): object
+    public function salvarPesquisa($request): object
     {
-        $arraySistema = explode(',', $this->sistema);
-
-        $sistema = [];
-        foreach ($arraySistema as $r) {
-            array_push($sistema, $r);
-        }
-
+        $sistema = implode(',', $request->sistema);
         $this
             ->body([
-                'navegar'     => $this->navegar,
-                'procura'     => $this->procura,
-                'suporte'     => $this->suporte,
-                'comentario'  => $this->comentario,
-                'atendimento' => $this->atendimento,
-                'sistemas'    => json_encode($sistema)
+                'navegar'     => $request->navegar,
+                'procura'     => $request->procura,
+                'suporte'     => $request->suporte,
+                'comentario'  => $request->comentario,
+                'atendimento' => $request->atendimento,
+                'sistemas'    => $sistema
             ])->post('/enquete/satisfacao')
             ->object();
 

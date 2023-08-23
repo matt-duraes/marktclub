@@ -83,12 +83,19 @@
         width: 100%
 
 @media screen and (max-width: 425px)
+    #bloco_pagina_perfil .conteudo
+        padding: 0px
     #bloco_pagina_perfil .conteudo .foto
-        flexCenter()
-        flexCol()
+        width: 100%
+        align-items: center
         blocoShadow()
+        flexCol()
         .legenda
             margin-top: 20px
+            margin-left: 0px
             text-align: center
         .legenda h1
             titulo()
+@media screen and (max-width: 320px)
+    .form_input_dupla
+        flex-direction: column

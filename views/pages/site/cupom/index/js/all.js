@@ -57,7 +57,6 @@ window.addEventListener('load', () => {
     cupomLista.forEach(cupom => {
         const url = cupom.getAttribute('data-url');
         const PaginaCupom = new Pagina('cupom - ' + url, '/cupom/' + url, {}, true, true, cupomDetalhe);
-
         cupom.addEventListener('click', () => {
             PaginaCupom.abrir();
         });

@@ -1,5 +1,5 @@
 <div class="bloco_popup_geral medio" id="popup_enquete">
-    <header class="popup_header">
+    <header class="header_pagina_popup">
         <h1>Título do Popup</h1>
         <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
     </header>

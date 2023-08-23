@@ -21,6 +21,10 @@ window.addEventListener('load', () => {
 
     const loadingConfirmarLoja = () => {
         const botao = $('#bloco_loja_confirmar a');
+        const botaoFechar = $('.botao_fechar_popup');
+        botaoFechar.addEventListener('click', () => {
+            PaginaConfirmar.fechar();
+        });
         botao.addEventListener('click', () => {
             PaginaConfirmar.fechar();
         });

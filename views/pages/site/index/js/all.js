@@ -9,6 +9,7 @@ const loadingFavoritoFaq = () => {
         PaginaFavorito.fechar();
     });
 };
+
 const PaginaFavorito = new Pagina('faq-favorito', LINK + '/faq/favorito', {}, true, true, loadingFavoritoFaq);
 
 window.addEventListener('load', () => {
