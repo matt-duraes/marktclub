@@ -1723,15 +1723,15 @@ Route
 
 Route
     ::nome('solicitacao_automovel')
-    ::controller(App\Controllers\Api\IndicacaoAutomovelController::class)
+    ::controller(App\Controllers\Api\SolicitacaoAutomovelController::class)
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['mensagem_indicacao_automovel:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:salvar'])
             ::request([
-                'produto', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+                'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor', 'mensagem'
             ])
-            ::post('/automovel/indicacao');
+            ::post('/solicitacao-automovel');
     });
 
 Route

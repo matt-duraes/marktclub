@@ -4,6 +4,7 @@ namespace App\Models\Api\ParceiroEasylive;
 
 use ORM\Entity;
 use Modules\Data;
+use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
 use App\Classes\ParceiroEasylive\Tipo;
 
@@ -11,12 +12,10 @@ final class LojaEntity extends Entity
 {
     protected string $ormTabela = TABELA_PARCEIRO_EASYLIVE;
     protected array $ormSalvar = [
-        'id_admin_empresa' => '->empresa',
-        'titulo', 'tipo', 'data_validade', 'status', 'imagem'
+        'id_admin_empresa', 'titulo', 'tipo', 'data_validade', 'status', 'imagem'
     ];
     protected array $ormBuscar = [
-        'empresa' => 'id_admin_empresa',
-        'titulo', 'tipo', 'data_validade', 'status', 'imagem'
+        'id_admin_empresa', 'titulo', 'tipo', 'data_validade', 'status', 'imagem'
     ];
     public string $titulo;
     public Tipo $tipo;
@@ -24,10 +23,17 @@ final class LojaEntity extends Entity
     public Status $status;
     public string $imagem;
     public array $empresa;
+    protected array $id_admin_empresa;
     public string $link_imagem;
+
+    protected function regraSalvar()
+    {
+        $this->id_admin_empresa = (new OrmHelper($this->ormTabela))->mudarListaUuidParaId($this->empresa);
+    }
 
     protected function regraPosBuscar()
     {
+        $this->empresa = (new OrmHelper($this->ormTabela))->mudarListaIdParaUuid($this->id_admin_empresa);
         $this->link_imagem = arquivoPrivado($this->imagem);
     }
 }
