@@ -3,6 +3,7 @@
 namespace Tests\Api;
 
 use Erro\Excecao;
+use Modules\Botao;
 use Tests\Api\Token\Clube;
 
 class SolicitacaoDeclaracaoTest extends Clube
@@ -20,10 +21,7 @@ class SolicitacaoDeclaracaoTest extends Clube
             ->Curl
             ->json([
                 'pagina'           => 1,
-                'ordem'            => '',
-                'status'           => '',
-                'data_criacao_de'  => '',
-                'data_criacao_ate' => ''
+                'publicado'        => valorAleatorio([Botao::NAO, Botao::SIM])
             ])
             ->get('/solicitacao-declaracao');
 
@@ -44,7 +42,7 @@ class SolicitacaoDeclaracaoTest extends Clube
             ->Curl
             ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'url'  => 'parceiro-normal'
+                'parceiro' => '4502e7e8-9359-470e-9588-0a1501449675'
             ])
             ->post('/solicitacao-declaracao')
             ->array()['dado'] ?? [];
@@ -54,7 +52,6 @@ class SolicitacaoDeclaracaoTest extends Clube
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkDiferente($this->idSolicitacaoDeclaracao, '')
             ->checkIndiceExiste('dado.id');
     }
 
@@ -67,6 +64,7 @@ class SolicitacaoDeclaracaoTest extends Clube
         $this->api('solicitacao_declaracao:buscar');
         $this
             ->Curl
+            ->header(['Authorization' => $this->pegarToken()])
             ->get('/solicitacao-declaracao/' . $this->idSolicitacaoDeclaracao);
 
         return $this

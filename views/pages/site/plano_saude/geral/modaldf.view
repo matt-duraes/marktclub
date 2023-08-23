@@ -1,9 +1,9 @@
-<div class="bloco_popup_geral">
-    <header class="popup_header">
+<div class="bloco_pagina_popup" id="bloco_preco_regiao">
+    <header class="header_pagina_popup">
         <h1>Preços do Plano de Saúde</h1>
-        <i class="fechar">@iconeFechar</i>
+        <i class="botao_fechar_popup fechar">@iconeFechar</i>
     </header>
-    <div class="popup_conteudo bloco_tabela_geral">
+    <div class="conteudo_pagina_popup bloco_tabela_geral">
         <table>
             <thead>
                 <tr>

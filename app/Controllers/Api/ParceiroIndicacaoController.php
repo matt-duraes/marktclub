@@ -54,6 +54,7 @@ class ParceiroIndicacaoController extends Controller implements
         $Parceiro = new ParceiroIndicacaoEntity();
 
         $Parceiro->set(lista: $request->dado());
+        $Parceiro->set('status', Status::NOVO);
         $Parceiro->salvar();
 
         return mensagemSucesso(
@@ -73,7 +74,7 @@ class ParceiroIndicacaoController extends Controller implements
         $Parceiro = new ParceiroIndicacaoEntity();
 
         $Parceiro->uuid($id);
-        $Parceiro->set('status', $request->dado('status')['status'], );
+        $Parceiro->set('status', $request->dado('status')['status']);
         $Parceiro->salvar();
 
         return new Response(status: 204);

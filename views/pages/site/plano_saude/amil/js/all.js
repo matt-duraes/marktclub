@@ -19,10 +19,26 @@ window.onload = function () {
 };
 
 function abrirModal(clicado) {
-    const botaoAuxilio = {};
     const id = clicado.getAttribute('data-id');
     const local = clicado.getAttribute('data-local');
-    const url = `${LINK}/saude/abrir-tabela-preco?id=${id}&local=${local}`;
-    botaoAuxilio[id] = new Pagina('Preços Plano de Saúde -' + local, url);
-    botaoAuxilio[id].abrir();
+
+    const loadingConfirmarLoja = () => {
+        const botao = $('#bloco_loja_confirmar a');
+        const botaoFechar = $('.botao_fechar_popup');
+        botaoFechar.addEventListener('click', () => {
+            PaginaConfirmar.fechar();
+        });
+        botao.addEventListener('click', () => {
+            PaginaConfirmar.fechar();
+        });
+    };
+    const PaginaConfirmar = new Pagina(
+        'Plano de Saúde-' + id,
+        LINK + `/saude/abrir-tabela-preco?id=${id}&local=${local}`,
+        undefined,
+        true,
+        true,
+        loadingConfirmarLoja
+    );
+    PaginaConfirmar.abrir();
 }

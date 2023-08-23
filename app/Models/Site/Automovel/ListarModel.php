@@ -3,8 +3,8 @@
 namespace App\Models\Site\Automovel;
 
 use stdClass;
-use App\Helpers\ClubeApiHelper;
 use App\Classes\Geral\Status;
+use App\Helpers\ClubeApiHelper;
 use App\Models\Site\ListarInterface;
 
 final class ListarModel extends ClubeApiHelper implements ListarInterface
@@ -41,7 +41,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
                 'titulo'   => $r->titulo,
                 'texto'    => '',
                 'link'     => route('automovel.versao') . '/' . $r->url,
-                'imagem'   => $r->link_logo,
+                'imagem'   => $r->imagem,
                 'tipo'     => 'automovel-modelo'
             ];
         }

@@ -184,12 +184,11 @@
         <header>
             <h1>Reembolso</h1>
         </header>
-        <div class="bloco_tabela_geral">
+        <div class="bloco_tabela_geral ">
             <table class="tabela_amil_reembolso">
                 <thead>
                     <tr>
-                        <th colspan="2"></th>
-                        <th colspan="4">LINHA AMIL - MULTIPLOS</th>
+                        <th colspan="6">LINHA AMIL - MULTIPLOS</th>
                     </tr>
                     <tr>
                         <th>Grupo de procedimentos</th>
@@ -275,14 +274,14 @@
         </div>
     </div>
 
-    <div class="bloco_auxilio_ressarcimento bloco_plano_saude">
+    <div class="bloco_auxilio_ressarcimento bloco_plano_saude ">
         <header>
             <h1>Auxílio Ressarcimento</h1>
             <p>Você sabia que pode receber um auxílio ressarcimento de acordo com sua faixa salarial e
             idade? Veja a tabela abaixo:
             </p>
         </header>
-        <div class="bloco_tabela_geral">
+        <div class="bloco_tabela_geral ">
         <table>
             <thead>
                 <tr>
@@ -415,7 +414,7 @@
             </table>
         </div>
     </div>
-    <div class="bloco_plano_saude">
+    <div class="bloco_plano_saude bloco_titulo_texto_centralizado">
         <header>
             <h1>Preços de Coparticipação</h1>
         </header>

@@ -447,7 +447,7 @@ return [
         'cod'                 => '7e759ba8-6043-48c4-81ff-0e1f78df17d6',
         'categoria_principal' => '7',
         'categoria_todas'     => '["7"]',
-        'titulo'              => 'VOLVO',
+        'titulo'              => 'VOLVO - Voucher',
         'url'                 => 'volvo',
         'imagem'              => '6abfbe8cb35fc871001df2950ed9989d.png',
         'site'                => 'https://google.com',
@@ -466,7 +466,7 @@ return [
         'empresa'             => ['1', '2', '66'],
         'tipo'                => 2,
         'estabelecimento'     => 1,
-        'procedimento'        => 2,
+        'procedimento'        => 1,
         'status'              => 4
     ],
     [
@@ -474,7 +474,7 @@ return [
         'cod'                 => '9ee16428-8456-46dd-bfff-92f1a8fc685f',
         'categoria_principal' => '7',
         'categoria_todas'     => '["7"]',
-        'titulo'              => 'Honda',
+        'titulo'              => 'Honda - Declaracao',
         'url'                 => 'honda',
         'imagem'              => '6abfbe8cb35fc871001df2950ed9989d.png',
         'site'                => 'https://google.com',
@@ -493,7 +493,34 @@ return [
         'empresa'             => ['1', '2', '66'],
         'tipo'                => 2,
         'estabelecimento'     => 1,
-        'procedimento'        => 2,
+        'procedimento'        => 3,
+        'status'              => 4
+    ],
+    [
+        'id'                  => 1002,
+        'cod'                 => '9ee16428-8456-46dd-bfff-92f1a8fc685d',
+        'categoria_principal' => '7',
+        'categoria_todas'     => '["7"]',
+        'titulo'              => 'Chevrolet - Cheque Bonus',
+        'url'                 => 'chevrolet',
+        'imagem'              => '6abfbe8cb35fc871001df2950ed9989d.png',
+        'site'                => 'https://google.com',
+        'desconto'            => 'Desconto de até 6%',
+        'desconto_texto'      => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.
+        Fique atento!
+        -	A responsabilidade pela oferta, condições, formas de pagamento e serviços é da VOLVO;
+        -	A disponibilidade dos veículos desta campanha é limitada, podendo variar de acordo com cada modelo, configuração, cor e ano;
+        -	Os descontos também valem para seus parentes de 1º grau (pais, filhos e cônjuge).',
+        'procedimento_texto' => 'Para aplicação do benefício, basta clicar em abrir site no botão ao lado e seguir as instruções:
+        -    Escolha o modelo que gostaria de adquirir;
+        -    Clique em "GERAR VOUCHER" no botão ao lado;
+        -    Dirija-se à uma concessionária VOLVO portando o voucher e documentos e apresentar no ato da compra na concessionária.
+        Não perca tempo, aproveite e boas compras!',
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 2,
+        'estabelecimento'     => 1,
+        'procedimento'        => 4,
         'status'              => 4
     ],
     [
