@@ -14,6 +14,7 @@ final class ValidarModel extends ORM
     public string $userName;
     public string $password;
     public string $token;
+    public string $auth;
 
     public function __construct(string $code)
     {
@@ -23,6 +24,7 @@ final class ValidarModel extends ORM
         $this->password = env('SAMSUNG_PASSWORD', '');
         $this->token = env('SAMSUNG_TOKEN', '');
         $this->tokenDecript = env('SAMSUNG_TOKEN_DECRIPT', '');
+        $this->auth = env('SAMSUNG_AUTH', '');
 
         $this->descriptografarCode($code);
         $this->buscarUsuario();
@@ -65,6 +67,7 @@ final class ValidarModel extends ORM
     {
         return [
             'userExistis' => false,
+            'userActive'  => false,
             'urlRedirect' => null,
             'partner'     => 'Partner Markt Club',
             'message'     => 'Usuário não está cadastrado em nossa base.'
@@ -82,12 +85,17 @@ final class ValidarModel extends ORM
 
     private function json()
     {
-        return [
-            'email'      => $this->email,
-            'fullName'   => $this->usuario['nome'],
-            'expireUser' => dataAdicionar(hoje(), 10, 'dias'),
-            'utmCode'    => ''
-        ];
+        $Jwt = new JwtHelper(hash: $this->tokenDecript);
+        try {
+            return $Jwt->encode([
+                'email'      => $this->email,
+                'fullName'   => $this->usuario['nome'],
+                'expireUser' => dataAdicionar(hoje(), 10, 'dias'),
+                'utmCode'    => ''
+            ]);
+        } catch (\Throwable) {
+            return '';
+        }
     }
 
     public function validar()
