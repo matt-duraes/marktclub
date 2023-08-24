@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
+use Helpers\OrmHelper;
 use ORM\Entity;
 use Modules\Data;
 use Modules\Botao;
@@ -48,7 +49,11 @@ final class LojaEntity extends Entity
         $this->link_logo = !empty($this->imagem) ? LINK_ARQUIVO . '/parceiro/' . $this->imagem : '';
         $this->link_capa_desktop = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
         $this->link_capa_mobile = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
-        $this->favorito = new Botao('nao');
+
+        $favorito = (new OrmHelper(TABELA_PARCEIRO_FAVORITO))
+            ->existe(['id_parceiro_loja', $this->getId()]);
+
+        $this->favorito = new Botao($favorito ? Botao::SIM : Botao::NAO);
     }
 
     protected function getId()
