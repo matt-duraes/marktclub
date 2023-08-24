@@ -14,7 +14,7 @@ class ParceiroFavoritoTest extends Clube
         $dado = $this
             ->Curl
             ->json([
-                'pagina' => 1,
+                'pagina'   => 1,
                 'favorito' => 'nao'
             ])
             ->get('/parceiro-loja')
@@ -49,15 +49,15 @@ class ParceiroFavoritoTest extends Clube
         $dado = $this
             ->Curl
             ->json([
-                'pagina' => 1,
+                'pagina'     => 1,
                 'quantidade' => 100,
-                'favorito' => 'sim',
+                'favorito'   => 'sim',
             ])
             ->get('/parceiro-loja')
-            ->array()['dado'] ?? "";
+            ->array()['dado'] ?? '';
 
         foreach ($dado['lista'] as $i => $d) {
-            if($d['id'] == $this->idParceiro) {
+            if ($d['id'] == $this->idParceiro) {
                 $this
                     ->checkIndiceIgual('dado.lista.' . $i . '.favorito', 'sim');
             }
@@ -85,15 +85,15 @@ class ParceiroFavoritoTest extends Clube
         $dado = $this
             ->Curl
             ->json([
-                'pagina' => 1,
+                'pagina'     => 1,
                 'quantidade' => 100,
-                'favorito' => 'sim',
+                'favorito'   => 'sim',
             ])
             ->get('/parceiro-loja')
-            ->array()['dado'] ?? "";
+            ->array()['dado'] ?? '';
 
         foreach ($dado['lista'] as $i => $d) {
-            if($d['id'] == $this->idParceiro) {
+            if ($d['id'] == $this->idParceiro) {
                 $this
                     ->checkIndiceDiferente('dado.lista.' . $i . '.favorito', 'sim');
             }
