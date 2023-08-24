@@ -18,7 +18,7 @@ class ParceiroEasyliveTest extends Tests
             'data_validade' => '2021-12-31',
             'status'        => 'ativo',
             'imagem'        => 'imagem.jpg',
-            'empresa'       => [1, 2]
+            'empresa'       => ['14afa776394ada4be23be6acf7e3259e']
         ], $array);
     }
 
@@ -31,9 +31,9 @@ class ParceiroEasyliveTest extends Tests
                 'pagina' => 1
             ])
             ->get('/parceiro-easylive')
-            ->array()['dado'];
+            ->array()['dado'] ?? '';
 
-        $this->idParceiro[] = $dado['lista'][0]['id'];
+        $this->idParceiro[] = $dado['lista'][0]['id'] ?? '';
 
         return $this
             ->checkStatus(200)
@@ -74,7 +74,6 @@ class ParceiroEasyliveTest extends Tests
         $this->api('parceiro_easylive:salvar');
         $this
             ->Curl
-            ->loginPainel()
             ->body($this->getBody())
             ->post('/parceiro-easylive');
 
@@ -94,9 +93,9 @@ class ParceiroEasyliveTest extends Tests
                 'imagem' => ''
             ]))
             ->post('/parceiro-easylive')
-            ->array()['dado'];
+            ->array()['dado'] ?? '';
 
-        $this->idParceiro[] = $dado['id'];
+        $this->idParceiro[] = $dado['id'] ?? '';
 
         return $this
             ->checkStatus(201)
@@ -114,9 +113,9 @@ class ParceiroEasyliveTest extends Tests
                 'data_validade' => ''
             ]))
             ->post('/parceiro-easylive')
-            ->array()['dado'];
+            ->array()['dado'] ?? '';
 
-        $this->idParceiro[] = $dado['id'];
+        $this->idParceiro[] = $dado['id'] ?? '';
 
         return $this
             ->checkStatus(201)

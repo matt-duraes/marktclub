@@ -28,12 +28,12 @@ final class LojaEntity extends Entity
 
     protected function regraSalvar()
     {
-        $this->id_admin_empresa = (new OrmHelper($this->ormTabela))->mudarListaUuidParaId($this->empresa);
+        $this->id_admin_empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaUuidParaId($this->empresa);
     }
 
     protected function regraPosBuscar()
     {
-        $this->empresa = (new OrmHelper($this->ormTabela))->mudarListaIdParaUuid($this->id_admin_empresa);
+        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid($this->id_admin_empresa);
         $this->link_imagem = arquivoPrivado($this->imagem);
     }
 }
