@@ -427,7 +427,7 @@ Route
             ::request([
                 'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor', 'mensagem'
             ])
-            ::post('/automovel-indicacao');
+            ::post('/automovel/solicitacao');
     });
 
 Route

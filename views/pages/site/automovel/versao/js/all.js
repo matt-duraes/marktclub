@@ -6,6 +6,7 @@
 // @resource "site/tab"
 // @resource "site/loja/cheque_bonus"
 // @resource "site/loja/declaracao"
+// @resource "site/automovel/solicitacao"
 
 const declaracaoParceiro = $('#input_declaracao_parceiro').value;
 const declaracaoModelo = $('#input_declaracao_modelo').value;

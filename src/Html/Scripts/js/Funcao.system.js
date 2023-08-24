@@ -93,7 +93,7 @@ ajax = async (link, metodo, body, erro, opcao) => {
         FW_BLOCO_LOGIN
     ) {
         fwLogin();
-        return;
+        return false;
     } else if (json.status != 'sucesso') {
         if (typeof erro === 'string' && erro == '') {
             return false;
@@ -115,6 +115,16 @@ const fwLogin = () => {
     setTimeout(() => {
         FW_BLOCO_LOGIN.classList.add('ativo');
     }, 40);
+};
+
+const limparFormulario = form => {
+    const lista = form.querySelectorAll('.input_select_value, .input_geral');
+    if (lista.length == 0) {
+        return;
+    }
+    lista.forEach(item => {
+        formValue(item, '');
+    });
 };
 
 /*
@@ -381,6 +391,30 @@ const respostaJson = (resposta, mensagem) => {
             );
         }
         return resolve(false);
+    });
+};
+
+const adicionarEventoEnter = (lista, callback) => {
+    if (!Array.isArray(lista)) {
+        lista = [lista];
+    }
+    lista.forEach(input => {
+        input.addEventListener('keydown', e => {
+            if (e.key == 'Enter') {
+                e.preventDefault();
+                callback();
+            }
+        });
+    });
+};
+const adicionarEvento = (evento, lista, callback) => {
+    if (!Array.isArray(lista)) {
+        lista = [lista];
+    }
+    lista.forEach(input => {
+        input.addEventListener(evento, () => {
+            callback();
+        });
     });
 };
 

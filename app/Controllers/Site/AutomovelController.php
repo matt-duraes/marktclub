@@ -11,8 +11,8 @@ use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Automovel\BuscarModel;
 use App\Models\Site\Automovel\ListarModel;
+use App\Models\Site\Automovel\SolicitacaoModel;
 use App\Models\Site\Loja\ListarModel as LojaModel;
-use App\Models\Site\Automovel\SalvarIndicacaoModel;
 
 final class AutomovelController extends Controller
 {
@@ -65,44 +65,19 @@ final class AutomovelController extends Controller
         );
     }
 
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function abrirModalModeloVoucher($url = null): Response
+    public function postSolicitacao(Request $request): Response
     {
-        return view('automovel.detalheAutomovel.modalVoucher');
-    }
+        $Solicitacao = new SolicitacaoModel(
+            enderecoEstado: $request->endereco_estado,
+            enderecoCidade: $request->endereco_cidade,
+            montadora: $request->montadora,
+            modelo: $request->modelo,
+            versao: $request->versao,
+            cor: $request->cor,
+            mensagem: $request->mensagem
+        );
+        $Solicitacao->salvar();
 
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function abrirModalModeloDeclaracao($url = null): Response
-    {
-        $perfil = 'titular';
-        $default = $perfil == 'titular' ? '' : 'esconde';
-        $esconde = $perfil == 'dependente' ? '' : 'esconde';
-
-        return view('automovel.detalheAutomovel.modalDeclaracao', [
-            'perfil'  => 'titular',
-            'default' => $default,
-            'esconde' => $esconde
-        ]);
-    }
-
-    /**
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function postIndicacao(Request $request): Response
-    {
-        $indicacao = new SalvarIndicacaoModel($request);
-        $indicacao = $indicacao->postSalvar();
-
-        return new Response(json: [
-            'status' => 'sucesso'
-        ], status: 201);
+        return mensagemSucesso([], status: 201);
     }
 }

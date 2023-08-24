@@ -1724,6 +1724,7 @@ Route
 Route
     ::nome('solicitacao_automovel')
     ::controller(App\Controllers\Api\SolicitacaoAutomovelController::class)
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('salvar')
