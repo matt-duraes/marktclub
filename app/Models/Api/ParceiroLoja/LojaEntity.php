@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use Helpers\OrmHelper;
 use ORM\Entity;
 use Modules\Data;
 use Modules\Botao;
