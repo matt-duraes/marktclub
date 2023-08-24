@@ -8,7 +8,6 @@ use Http\Response;
 use Modules\Botao;
 use Modules\Inteiro;
 use Helpers\ApiHelper;
-use Helpers\ListaHelper;
 use Controller\Controller;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
@@ -18,6 +17,7 @@ use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Procedimento;
+use App\Models\Site\Loja\ChequeBonusModel;
 use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
 
@@ -168,25 +168,16 @@ final class LojaController extends Controller
         ]);
     }
 
-    /**
-     * @return Response
-     */
-    public function melhorIdade(): Response
+    public function chequeBonus(string $id)
     {
-        $categoria = ['alimentacao', 'saude', 'veiculo'];
-        $alimentacaoTag = [
-            'bares', 'restaurante', 'churrascarias', 'doces', 'sanduiches', 'suplementos', 'cafes'
-        ];
-        $veiculoTag = ['concessionarias', 'locadoras', 'pneus', 'oficinas'];
-        $saudeTag = ['academia', 'visao', 'esportes', 'spas'];
-        $estados = (new ListaHelper())->estado()->r();
+        return view('loja.cheque_bonus', ['id' => $id]);
+    }
 
-        return view('loja.melhor_idade', [
-            'alimentacaoTag' => $alimentacaoTag,
-            'veiculoTag'     => $veiculoTag,
-            'saudeTag'       => $saudeTag,
-            'categoria'      => $categoria,
-            'estados'        => $estados
-        ]);
+    public function postChequeBonus(Request $request)
+    {
+        $ChequeBonus = new ChequeBonusModel($request);
+        $ChequeBonus->salvar();
+
+        return new Response(status: 201);
     }
 }

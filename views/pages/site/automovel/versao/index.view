@@ -1,6 +1,7 @@
 @template "site"
 
 <div id="bloco_modelo">
+    <input type="hidden" id="input_tipo_procedimento" value="{{$dado->procedimento}}">
     <div class="bloco_tab_geral bloco_procedimento">
         <div class="bloco_botao">
             <button class="botao ativo" data-id="bloco_procedimento">

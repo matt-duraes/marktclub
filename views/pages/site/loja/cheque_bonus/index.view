@@ -1,0 +1,66 @@
+<div class="bloco_pagina_popup" id="bloco_cheque_bonus">
+    <header class="header_pagina_popup">
+        <h1>Cheque bonus</h1>
+        <i class="pagina_fechar">@iconeFechar</i>
+    </header>
+    <div class="conteudo_pagina_popup">
+        <form class="conteudo form_geral">
+            <h2>Confirme seus dados</h2>
+            <p>Selecione se a carta-bônus será destinada ao titular ou um dependente</p>
+
+            <input type="hidden" id="input_automovel" value="{!!$id!!}">
+            @? formSelect(name: 'cheque_tipo_usuario', label: 'Destinatário', placeholder: 'Destinatário', class: 'bloco_tipo_usuario', lista:['' => 'Escolha uma opção', 'titular' => 'Titular', 'dependente' => 'Dependente'])
+
+            <div class="bloco display_none" id="bloco_dependente">
+                <h2>Dados do dependente</h2>
+                <p>Digite os dados do seu depêndente</p>
+                @? formInput(name: 'cheque_dependente_nome', label: 'Nome', placeholder: 'Digite o nome do dependente', local: 'João Rodrigues', obrigatorio: true)
+                @? formEmail(name: 'cheque_dependente_email', label: 'E-mail', placeholder: 'Digite o e-mail do dependente', local: 'dependente@gmail.com', obrigatorio: true)
+                @? formCpf(name: 'cheque_dependente_cpf', label: 'CPF', placeholder: 'Digite o CPF do dependente', local: '95963022134', obrigatorio: true)
+                @? formInput(name: 'cheque_dependente_rg', label: 'RG', placeholder: 'Digite o RG do dependente', local: '123 SSP-DF', obrigatorio: true)
+                <div class="grupo">
+                    @? formSelect(name: 'cheque_dependente_grau_parentesco', label: 'Grau de parêntesco', placeholder: 'Grau de parêntesco', lista: (new \App\Classes\UsuarioCliente\GrauParentesco())->select('Escolha uma opção'), local: 'filho', obrigatorio: true)
+                    @? formData(name: 'cheque_dependente_data_nascimento', label: 'Data de nascimento', placeholder: 'Digite a data de nascimento do dependente', local: '10/10/2000', obrigatorio: true)
+                </div>
+            </div>
+
+            <div class="bloco display_none" id="bloco_titular">
+                <h2>Seus dados</h2>
+                <p>Digite seus dados pessoais</p>
+                @? formInput(name: 'nome', label: 'Nome', placeholder: 'Digite seu nome', local: 'André Rodrigues')
+                @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', placeholder: 'Digite seu e-mail pessoal', local: 'teste@markt.club')
+                <div class="grupo">
+                    @? formSelect(name: 'cheque_estado_civil', label: 'Estado civil', placeholder: 'Estado civil', lista: (new \Modules\EstadoCivil())->select('Escolha uma opção'), local: 'casado', obrigatorio: true)
+                    @? formInput(name: 'cheque_rg', label: 'RG', placeholder: 'Digite seu RG', local: '123 SSP-DF', obrigatorio: true)
+                </div>
+                <div class="grupo">
+                    @? formTelefone(name: 'cheque_telefone_celular', label: 'Celular', placeholder: 'Digite seu celular', local: '(61) 98123-1234', obrigatorio: true)
+                    @? formData(name: 'cheque_data_nascimento', label: 'Data de nascimento', placeholder: 'Digite sua data de nascimento', local: '10/10/2000', obrigatorio: true)
+                </div>
+            </div>
+
+            <div class="bloco display_none" id="bloco_endereco">
+                <h2>Seu endereço</h2>
+                <p>Digite seu endereço residencial atual</p>
+                <div class="grupo">
+                    @? formInput(name: 'cheque_endereco_cep', label: 'CEP', placeholder: 'Digite seu CEP', numero: true, mascara: '00000-000', local: '71735-303', obrigatorio: true)
+                </div>
+                @? formInput(name: 'cheque_endereco_logradouro', label: 'Logradouro', placeholder: 'Digite seu logradouro', local: 'SMPW Quadra 3 Conjunto 3', obrigatorio: true)
+                <div class="grupo">
+                    @? formInput(name: 'cheque_endereco_numero', label: 'Número', placeholder: 'Digite o número', local: '4', obrigatorio: true)
+                    @? formInput(name: 'cheque_endereco_complemento', label: 'Complemento', placeholder: 'Digite o complemento', local: 'Casa E', obrigatorio: true)
+                </div>
+                <div class="grupo">
+                    @? formInput(name: 'cheque_endereco_bairro', label: 'Bairro', placeholder: 'Digite o bairro', local: 'Park Way', obrigatorio: true)
+                    @? formSelect(name: 'cheque_endereco_estado', label: 'Estado', placeholder: 'Estado', lista: (new \Helpers\ListaHelper())->add('', 'Escolha um estado')->estado()->r(), local: 'DF', obrigatorio: true)
+                    @? formSelect(name: 'cheque_endereco_cidade', label: 'Cidade', placeholder: 'Cidade', lista: ['' => 'Escolha um estado'], obrigatorio: true)
+                </div>
+            </div>
+            <div class="bloco display_none" id="bloco_termo">
+                @? formCheckbox(name: 'termo', label: 'Autorizo a inclusão/autorização e compartilhamento dos meus dados cadastrado com o parceiro para a criação do cheque bônus.')
+                @? formCheckbox(name: 'atualizar', label: 'Gostaria de atualizar seus dados pessoais com os dados informados?')
+            </div>
+            <div class="botao display_none" id="botao_solicitar_cheque_bonus">Solicitar Cheque Bônus</div>
+        </form>
+    </div>
+</div>

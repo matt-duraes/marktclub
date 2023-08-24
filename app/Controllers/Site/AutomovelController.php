@@ -51,7 +51,7 @@ final class AutomovelController extends Controller
         );
     }
 
-    public function versao(string $url): Response
+    public function versao(string $loja, string $url): Response
     {
         $Buscar = new BuscarModel($url);
         return view(
@@ -59,6 +59,7 @@ final class AutomovelController extends Controller
             var: [
                 'menu'     => 'automovel',
                 'dado'     => $Buscar->buscarDados(),
+                'loja'     => $loja,
                 'endereco' => []
             ]
         );

@@ -1,8 +1,11 @@
 <div class="bloco_parceiro bloco_geral_article">
     @ if(isset($lista) && count($lista->lista) > 0):
         @ foreach( $lista->lista as $r ):
+
     <article class="parceiro botao_abrir_parceiro" data-url="{{$r->id}}">
-        @ if( !in_array($lista->tipo, ['cupom', 'automovel-versao']) ):
+        @ if( $lista->tipo == 'automovel-versao' && $dado->procedimento_voucher ):
+            <a href="@route('loja.voucher')/{{$loja}}" target="_blank" rel="noopener noreferrer"></a>
+        @ elseif( !in_array($lista->tipo, ['cupom', 'automovel-versao']) ):
             <a href="{!!$r->link!!}"></a>
         @endif;
         @if( in_array($r->tipo, ['automovel-versao', 'automovel-modelo', 'operadora', 'sosmulher']) ):
@@ -16,6 +19,22 @@
                 <p>{{$r->texto}}</p>
             @ endif;
         </header>
+
+        @ if( $r->tipo == 'automovel-versao'):
+        <div class="margem"></div>
+        @ endif;
+        @ if( $r->tipo == 'automovel-versao' && $dado->procedimento_cheque_bonus):
+        <span>Cheque bônus de:</span>
+        <p class="valor_destaque">{{$r->valor_por}}</p>
+        @ elseif( $r->tipo == 'automovel-versao' && !empty($r->valor_de)):
+        <span>de:</span>
+        <p class="valor">{{$r->valor_de}}</p>
+        <span>por:</span>
+        <p class="valor_destaque">{{$r->valor_por}}</p>
+        @ elseif( $r->tipo == 'automovel-versao'):
+        <p class="valor_destaque">{{$r->valor_por}}</p>
+        @ endif;
+
         @ if( $r->tipo == 'cashback' ):
         <p>Receba de volta</p>
         <p class="destaque cor_color">{{$r->desconto}}%</p>
@@ -42,7 +61,9 @@
 
         <div class="linha cor_bg"></div>
     </article>
+
         @ endforeach:
+
     <div class="article_fake"></div>
     <div class="article_fake"></div>
     @ elseif(isset($Busca) && $Busca->existe):
