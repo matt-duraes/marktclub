@@ -74,14 +74,11 @@ class SolicitacaoChequeBonusTest extends Tests
     public function salvarNovaSolicitacaoTipoUsuarioNaoDependenteTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:salvar');
-        $dado = $this
+        $this
             ->Curl
             ->loginPainel()
             ->body($this->getBody())
-            ->post('/solicitacao-cheque-bonus')
-            ->array()['dado'] ?? '';
-
-        $this->idSolicitacao = $dado['id'] ?? '';
+            ->post('/solicitacao-cheque-bonus');
 
         return $this
             ->checkStatus(201)
