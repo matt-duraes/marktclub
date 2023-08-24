@@ -58,7 +58,7 @@ class ComercialEmpresaTest extends Tests
                 'pagina' => 1
             ])
             ->get('/comercial-empresa')
-            ->array()['dado'] ?? "";
+            ->array()['dado'] ?? '';
 
         foreach ($dado['lista'] as $r) {
             if (!empty($r['cnpj'])) {
@@ -154,9 +154,9 @@ class ComercialEmpresaTest extends Tests
                     'finalidade_principal' => FinalidadePrincipal::PUBLICA]
             ))
             ->post('/comercial-empresa')
-            ->array()['dado'] ?? "";
+            ->array()['dado'] ?? '';
 
-        $this->idComercialEmpresa = $dado['id'] ?? "";
+        $this->idComercialEmpresa = $dado['id'] ?? '';
 
         return $this
             ->checkStatus(201)
@@ -222,9 +222,9 @@ class ComercialEmpresaTest extends Tests
                 'produto_clube' => Botao::SIM
             ]))
             ->post('/comercial-empresa')
-            ->array()['dado'] ?? "";
+            ->array()['dado'] ?? '';
 
-        $this->idComercialEmpresa = $dado['id'] ?? "";
+        $this->idComercialEmpresa = $dado['id'] ?? '';
 
         return $this
             ->checkStatus(201)
@@ -275,9 +275,9 @@ class ComercialEmpresaTest extends Tests
                 'tipo_pagamento' => TipoPagamento::MISTO
             ]))
             ->post('/comercial-empresa')
-            ->array()['dado'] ?? "";
+            ->array()['dado'] ?? '';
 
-        $this->idComercialEmpresa = $dado['id'] ?? "";
+        $this->idComercialEmpresa = $dado['id'] ?? '';
 
         return $this
             ->checkStatus(201)
