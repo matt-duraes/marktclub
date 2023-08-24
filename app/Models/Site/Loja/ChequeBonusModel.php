@@ -67,7 +67,7 @@ final class ChequeBonusModel extends ClubeApiHelper
                 ->put('/usuario-cliente/' . sessao('USUARIO.id'));
         } catch (\Throwable $e) {
             if (eLocalhost()) {
-                ppe($e);
+                mensagemErro('Erro!', $e->getMessage());
             }
         }
     }

@@ -6,10 +6,10 @@ use Status\Status as StatusStatus;
 
 final class GrauParentesco extends StatusStatus
 {
-    public const PAI = 'ativo';
-    public const MAE = 'inativo';
-    public const CONJUGE = 'bloqueado';
-    public const FILHO = 'indicacao';
+    public const PAI = 'pai';
+    public const MAE = 'mae';
+    public const CONJUGE = 'conjuge';
+    public const FILHO = 'filho';
 
     public function __construct(
         protected string|int|null $valor = null

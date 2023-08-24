@@ -106,6 +106,8 @@ final class ChequeBonusEntity extends Entity
             mensagemErro('Campo obrigatório!', 'O campo tipo de usuário é obrigatório.');
         } elseif ($this->data_termo->date() != hoje()) {
             mensagemErro('Campo inválido!', 'A data do termo está inválida.');
+        } elseif ($this->data_nascimento->date() >= hoje()) {
+            mensagemErro('Campo inválido!', 'A data de nascimento está inválida.');
         }
         $this->id_automovel_versao = (new OrmHelper(TABELA_AUTOMOVEL_VERSAO))->pegarIdPeloUuid(
             $this->automovel,
@@ -120,13 +122,17 @@ final class ChequeBonusEntity extends Entity
     {
         if ($this->tipo_usuario->indice() == TipoUsuario::DEPENDENTE) {
             $this->ormValidarSalvar .= '
-                dependente_nome|Nome do dependente|obrigatorio|vazio|valido
-                dependente_email_pessoal|E-mail do dependente|obrigatorio|vazio|valido
+                dependente_nome|Nome do dependente|obrigatorio|vazio|valido|valido
+                dependente_email_pessoal|E-mail do dependente|obrigatorio|vazio|valido|valido
                 dependente_rg|RG do dependente|obrigatorio|vazio
                 dependente_cpf|CPF do dependente|obrigatorio|vazio
                 dependente_grau_parentesco|Grau de parêntesco do dependente|obrigatorio|vazio
                 dependente_data_nascimento|Data de nascimento do dependente|obrigatorio|vazio
             ';
+
+            if ($this->dependente_data_nascimento->date() > hoje()) {
+                mensagemErro('Campo inválido!', 'A data de nascimento do dependente está inválida.');
+            }
         }
     }
 
