@@ -49,11 +49,7 @@ final class LojaEntity extends Entity
         $this->link_logo = !empty($this->imagem) ? LINK_ARQUIVO . '/parceiro/' . $this->imagem : '';
         $this->link_capa_desktop = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
         $this->link_capa_mobile = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
-
-        $favorito = (new OrmHelper(TABELA_PARCEIRO_FAVORITO))
-            ->existe(['id_parceiro_loja', $this->getId()]);
-
-        $this->favorito = new Botao($favorito ? Botao::SIM : Botao::NAO);
+        $this->favorito = new Botao('nao');
     }
 
     protected function getId()

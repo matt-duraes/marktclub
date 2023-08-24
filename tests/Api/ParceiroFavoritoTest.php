@@ -15,6 +15,7 @@ class ParceiroFavoritoTest extends Clube
             ->Curl
             ->json([
                 'pagina' => 1,
+                'favorito' => 'nao'
             ])
             ->get('/parceiro-loja')
             ->array()['dado'];
@@ -45,14 +46,26 @@ class ParceiroFavoritoTest extends Clube
     public function verificarSeFavoritouTest(): ParceiroFavoritoTest
     {
         $this->api('parceiro_loja:buscar');
-        $this
+        $dado = $this
             ->Curl
-            ->get('/parceiro-loja/' . $this->idParceiro);
+            ->json([
+                'pagina' => 1,
+                'quantidade' => 100,
+                'favorito' => 'sim',
+            ])
+            ->get('/parceiro-loja')
+            ->array()['dado'] ?? "";
+
+        foreach ($dado['lista'] as $i => $d) {
+            if($d['id'] == $this->idParceiro) {
+                $this
+                    ->checkIndiceIgual('dado.lista.' . $i . '.favorito', 'sim');
+            }
+        }
 
         return $this
             ->checkStatus(200)
-            ->checkIndiceExiste('dado.favorito')
-            ->checkIndiceIgual('dado.favorito', 'sim');
+            ->checkIndiceExiste('dado.lista');
     }
 
     public function deletaFavoritoTest(): ParceiroFavoritoTest
@@ -69,13 +82,24 @@ class ParceiroFavoritoTest extends Clube
     public function verificaSeDeletouFavoritoTest(): ParceiroFavoritoTest
     {
         $this->api('parceiro_loja:buscar');
-        $this
+        $dado = $this
             ->Curl
-            ->get('/parceiro-loja/' . $this->idParceiro);
+            ->json([
+                'pagina' => 1,
+                'quantidade' => 100,
+                'favorito' => 'sim',
+            ])
+            ->get('/parceiro-loja')
+            ->array()['dado'] ?? "";
+
+        foreach ($dado['lista'] as $i => $d) {
+            if($d['id'] == $this->idParceiro) {
+                $this
+                    ->checkIndiceDiferente('dado.lista.' . $i . '.favorito', 'sim');
+            }
+        }
 
         return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado.favorito')
-            ->checkIndiceIgual('dado.favorito', 'nao');
+            ->checkStatus(200);
     }
 }
