@@ -31,7 +31,8 @@ return [
         'nome' => 'titulo'
     ],
     'solicitacao_cheque_bonus' => [
-        'cod' => 'uuid'
+        'cod'                  => 'uuid',
+        'dependente_documento' => 'dependente_cpf'
     ],
     'solicitacao_declaracao' => [
         'cod'     => 'uuid',

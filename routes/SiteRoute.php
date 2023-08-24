@@ -248,8 +248,8 @@ Route
             ::post('/convenios/cheque-bonus');
         Route
             ::nome('declaracao')
-            ::request(['id'])
-            ::post('/convenios/declaracao/{id}');
+            ::request(['parceiro', 'modelo', 'versao'])
+            ::post('/convenios/declaracao');
         Route
             ::nome('subcategoria')
             ::request(['categoria'])

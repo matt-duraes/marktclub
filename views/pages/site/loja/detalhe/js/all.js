@@ -1,8 +1,10 @@
 // @template "site"
 // @resource "site/busca"
 // @resource "site/loja/favorito"
+// @resource "site/loja/declaracao"
 
 window.addEventListener('load', () => {
+    const parceiroId = $('#input_loja_id').value;
     const url = $('#input_loja_url').value;
     const botaoConfirmar = $$('.botao_confirmar_abrir');
 
@@ -45,4 +47,16 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         podeAbrirDireto = true;
     }, 30000);
+
+    /*
+    |--------------------------------------------------------------------------
+    | DECLARAÇÃO
+    |--------------------------------------------------------------------------
+    */
+    const botaoDeclaracao = $('#botao_salvar_declaracao');
+    if (botaoDeclaracao) {
+        botaoDeclaracao.addEventListener('click', () => {
+            salvarDeclaracao(parceiroId);
+        });
+    }
 });

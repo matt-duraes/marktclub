@@ -16,6 +16,7 @@ use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Site\Loja\DeclaracaoModel;
 use App\Classes\ParceiroLoja\Procedimento;
 use App\Models\Site\Loja\ChequeBonusModel;
 use App\Classes\ParceiroLoja\Estabelecimento;
@@ -65,6 +66,7 @@ final class LojaController extends Controller
             'menu'   => 'loja',
             'Busca'  => $Filtro,
             'lista'  => $Lista->listarDados(),
+            'todos'  => empty($request->dado()),
             'banner' => []
         ]);
     }
@@ -178,6 +180,18 @@ final class LojaController extends Controller
         $ChequeBonus = new ChequeBonusModel($request);
         $ChequeBonus->salvar();
 
-        return new Response(status: 201);
+        return mensagemSucesso([], status: 201);
+    }
+
+    public function postDeclaracao(Request $request)
+    {
+        $Declaracao = new DeclaracaoModel(
+            parceiro: $request->parceiro,
+            modelo: $request->modelo,
+            versao: $request->versao
+        );
+        $Declaracao->salvar();
+
+        return mensagemSucesso([], status: 201);
     }
 }

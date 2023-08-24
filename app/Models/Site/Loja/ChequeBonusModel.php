@@ -75,7 +75,7 @@ final class ChequeBonusModel extends ClubeApiHelper
     public function salvar()
     {
         $this
-            ->validar('Erro ao salvar solicitação, por favor, tente novamente.')
+            ->validar('Erro ao solicitar seu cheque bônus, por favor, tente novamente.')
             ->body($this->body)
             ->post('/solicitacao-cheque-bonus');
 

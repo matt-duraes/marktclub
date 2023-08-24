@@ -58,7 +58,6 @@
             </div>
             <div class="bloco display_none" id="bloco_termo">
                 @? formCheckbox(name: 'termo', label: 'Autorizo a inclusão/autorização e compartilhamento dos meus dados cadastrado com o parceiro para a criação do cheque bônus.')
-                @? formCheckbox(name: 'atualizar', label: 'Gostaria de atualizar seus dados pessoais com os dados informados?')
             </div>
             <div class="botao display_none" id="botao_solicitar_cheque_bonus">Solicitar Cheque Bônus</div>
         </form>

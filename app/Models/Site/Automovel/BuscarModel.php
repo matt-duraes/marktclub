@@ -36,6 +36,9 @@ final class BuscarModel extends ClubeApiHelper
         return (object)[
             'id'                        => $r->id,
             'titulo'                    => $r->titulo,
+            'parceiro'                  => (object)[
+                'id' => $r->parceiro->id,
+            ],
             'versao'                    => $this->montarVersao($r->versao, $r->imagem),
             'texto_procedimento'        => $Texto->destaque($r->texto_procedimento),
             'procedimento'              => $r->procedimento,
