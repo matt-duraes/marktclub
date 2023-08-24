@@ -13,11 +13,12 @@ class UsuarioDependentesTest extends Tests
     {
         return [
             'usuario' => $this->idUsuario,
-            'nome' => $this->cryptEncode(nomeCompletoAleatorio()),
-            'cpf' => $this->cryptEncode(cpfAleatorio()),
-            'email' => $this->cryptEncode(emailAleatorio()),
+            'nome'    => $this->cryptEncode(nomeCompletoAleatorio()),
+            'cpf'     => $this->cryptEncode(cpfAleatorio()),
+            'email'   => $this->cryptEncode(emailAleatorio()),
         ];
     }
+
     public function buscarDependentesDoUsuarioTest(): UsuarioDependentesTest
     {
         $this->api('usuario_dependente:listar');
@@ -41,9 +42,9 @@ class UsuarioDependentesTest extends Tests
             ->loginPainel()
             ->body($this->getBody())
             ->post('/usuario-dependente')
-            ->array()['dado'] ?? "";
+            ->array()['dado'] ?? '';
 
-        $this->idDependentes[] = $dado['id'] ?? "";
+        $this->idDependentes[] = $dado['id'] ?? '';
 
         return $this
             ->checkStatus(201)
@@ -118,7 +119,7 @@ class UsuarioDependentesTest extends Tests
                 ->post('/usuario-dependente')
                 ->array();
 
-            if(array_key_exists('erro', $dado)) {
+            if (array_key_exists('erro', $dado)) {
                 $this
                     ->checkStatus(400)
                     ->checkIndiceIgual('status', 'erro')
