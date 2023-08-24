@@ -234,6 +234,23 @@ Route
             ::nome('voucher')
             ::view('/convenios/voucher/{url}');
         Route
+            ::nome('chequeBonus')
+            ::view('/convenios/cheque-bonus/{id}');
+        Route
+            ::nome('chequeBonus')
+            ::request([
+                'tipo_usuario', 'dependente_nome', 'dependente_email', 'dependente_cpf', 'dependente_rg',
+                'dependente_grau_parentesco', 'dependente_data_nascimento', 'estado_civil', 'telefone_celular',
+                'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'automovel',
+                'endereco_complemento', 'endereco_bairro', 'endereco_estado', 'endereco_cidade', 'rg',
+                'atualizar', 'data_termo', 'nome', 'email_pessoal'
+            ])
+            ::post('/convenios/cheque-bonus');
+        Route
+            ::nome('declaracao')
+            ::request(['parceiro', 'modelo', 'versao'])
+            ::post('/convenios/declaracao');
+        Route
             ::nome('subcategoria')
             ::request(['categoria'])
             ::post('/convenios/subcategoria');
@@ -404,20 +421,13 @@ Route
             ::view('/automoveis/{url}');
         Route
             ::nome('versao')
-            ::view('/automovel/{url}');
-
+            ::view('/automovel/{loja}/{url}');
         Route
-            ::nome('voucher')
-            ::view('/automovel-voucher/{url}');
-        Route
-            ::nome('declaracao')
-            ::view('/automovel-declaracao/{url}');
-        Route
-            ::nome('indicacao')
+            ::nome('solicitacao')
             ::request([
-                'veiculo', 'modelo', 'versao', 'cor', 'cidade', 'mensagem'
+                'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor', 'mensagem'
             ])
-            ::post('/automovel-indicacao');
+            ::post('/automovel/solicitacao');
     });
 
 Route

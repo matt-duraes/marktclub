@@ -4,16 +4,17 @@ bodyFormSelect.insertAdjacentHTML('beforeend', `<div id="fw_form_select"></div>`
 let selectChange = {};
 let fwFormSelectAbertoAtual, fwFormSelectListaTexto, fwFormSelectValorAtual;
 
-const formValue = (input, valor) => {
+const formValue = (input, valor, obrigatorio) => {
+    obrigatorio = obrigatorio == undefined ? false : true;
     const bloco = input.closest('.bloco_input');
     if (!bloco) {
         return;
     }
     const mensagemFooter = bloco.querySelector('.input_mensagem');
-    if (input.classList.contains('input_obrigatorio') && mensagemFooter && valor == '') {
+    if (obrigatorio && input.classList.contains('input_obrigatorio') && mensagemFooter && valor == '') {
         mensagemFooter.innerText = 'Campo obrigatório';
         mensagemFooter.classList.add('ativo');
-    } else if (mensagemFooter && valor != '') {
+    } else if (mensagemFooter && (!obrigatorio || valor != '')) {
         mensagemFooter.innerText = '';
         mensagemFooter.classList.remove('ativo');
         input.classList.remove('input_obrigatorio_ativo');

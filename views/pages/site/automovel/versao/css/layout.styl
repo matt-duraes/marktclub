@@ -11,3 +11,40 @@
     maxWidth()
     .bloco_procedimento
         espacoBottomPadrao()
+
+#bloco_cheque_bonus .conteudo
+    width: 100%
+    padding: 20px
+    flexCol()
+    align-items: center
+    h2
+        subTitulo()
+        color: $corClube
+    > p
+        texto()
+    .bloco_tipo_usuario
+        margin-bottom: 30px
+    .bloco
+        width: 100%
+        flexCol()
+        margin-bottom: 20px
+        padding-top: 20px
+        border-top: 1px solid #DDD
+    .bloco > p
+        texto()
+        margin-bottom: 10px
+        color: #999
+    .bloco .grupo
+        width: 100%
+        flexRow()
+    .bloco .grupo .bloco_input
+        margin-right: 20px
+        &:last-child
+            margin-right: 0
+    .bloco .input_checkbox
+        margin-bottom: 20px
+    .botao
+        botaoPadraoGrande()
+        background: $corClube
+        color: #FFF
+        margin-bottom: 10px

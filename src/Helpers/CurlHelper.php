@@ -378,6 +378,7 @@ class CurlHelper
         $this->parametro = [];
         $this->body = [];
         $this->json = [];
+        $this->header = [];
 
         return $this;
     }

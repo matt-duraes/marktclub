@@ -170,9 +170,15 @@ final class ModeloModel extends ORM
 
     private function pegarParceiro()
     {
-        if (!validarUuid($this->parceiro, false)) {
+        $Loja = new OrmHelper(TABELA_PARCEIRO_LOJA);
+        if (validarUuid($this->parceiro, false)) {
+            $this->parceiro = $Loja->pegarIdPeloUuid($this->parceiro);
             return;
         }
-        $this->parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarIdPeloUuid($this->parceiro);
+        $this->parceiro = $Loja->pegarCampoPor(
+            campo: 'id',
+            where: ['url', $this->parceiro],
+            padrao: 0
+        );
     }
 }

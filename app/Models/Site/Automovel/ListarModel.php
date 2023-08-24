@@ -3,7 +3,7 @@
 namespace App\Models\Site\Automovel;
 
 use stdClass;
-use App\Classes\Geral\Status;
+use Modules\Botao;
 use App\Helpers\ClubeApiHelper;
 use App\Models\Site\ListarInterface;
 
@@ -20,9 +20,9 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this->json([
-            'pagina'   => 1,
-            'parceiro' => $this->url,
-            'status'   => Status::ATIVO
+            'pagina'    => 1,
+            'parceiro'  => $this->url,
+            'publicado' => Botao::SIM
         ])->get('/automovel-modelo')->object();
 
         return (object)[
@@ -40,7 +40,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
                 'id'       => $r->id,
                 'titulo'   => $r->titulo,
                 'texto'    => '',
-                'link'     => route('automovel.versao') . '/' . $r->url,
+                'link'     => route('automovel.versao') . '/' . $this->url . '/' . $r->url,
                 'imagem'   => $r->imagem,
                 'tipo'     => 'automovel-modelo'
             ];

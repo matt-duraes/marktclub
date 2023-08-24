@@ -41,4 +41,14 @@ return [
         'data_final'       => dataFuturaAleatorio(),
         'status'           => 1
     ],
+    [
+        'id'               => 5,
+        'uuid'             => uuid(),
+        'id_parceiro_loja' => 1002,
+        'titulo'           => 'S10',
+        'url'              => 's10',
+        'data_inicio'      => dataPassadaAleatorio(),
+        'data_final'       => dataFuturaAleatorio(),
+        'status'           => 1
+    ],
 ];

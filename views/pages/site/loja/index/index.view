@@ -10,6 +10,10 @@
     <div class="bloco_especial {{$Busca->uso ? 'separar' : ''}}">
         <div class="scroll">
             <div class="conteudo">
+                <a class="item {{$todos ? 'hover' : ''}}" href="@route('loja.index')">
+                    <i>@iconeLojaHome(20)</i>
+                    <p>Todas as lojas</p>
+                </a>
                 <div class="item cartao {{$Busca->mapa ? 'hover' : ''}} botao_loja_proxima">
                     <i>@iconeMapa(25)</i>
                     <p>Lojas próximas</p>
