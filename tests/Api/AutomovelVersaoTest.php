@@ -26,7 +26,7 @@ class AutomovelVersaoTest extends Clube
             ->post('/automovel-versao')
             ->array();
 
-        $this->idAutomovel = $dado['dado']['id'] ?? '';
+        $this->idAutomovel = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)

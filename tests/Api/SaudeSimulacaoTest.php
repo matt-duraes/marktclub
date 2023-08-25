@@ -42,8 +42,8 @@ final class SaudeSimulacaoTest extends Clube
             ->post('/saude/simulacao')
             ->array();
 
-        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
-        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? 'sem-id';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente'] ?? []);
 
         return $this
             ->checkStatus(201)
@@ -110,8 +110,8 @@ final class SaudeSimulacaoTest extends Clube
             ->post('/saude/simulacao')
             ->array();
 
-        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
-        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? 'sem-id';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente'] ?? []);
 
         return $this
             ->checkStatus(201)
@@ -166,8 +166,8 @@ final class SaudeSimulacaoTest extends Clube
             ->post('/saude/simulacao')
             ->array();
 
-        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
-        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? 'sem-id';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente'] ?? []);
 
         return $this
             ->checkStatus(201)
@@ -222,8 +222,8 @@ final class SaudeSimulacaoTest extends Clube
             ->post('/saude/simulacao')
             ->array();
 
-        $this->idSimulacao = $simulacao['dado']['id'] ?? '';
-        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente']);
+        $this->idSimulacao = $simulacao['dado']['id'] ?? 'sem-id';
+        $qtdDependentesSalvos = count($simulacao['dado']['lista_dependente'] ?? []);
 
         return $this
             ->checkStatus(201)

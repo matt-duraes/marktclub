@@ -45,9 +45,9 @@ class SolicitacaoDeclaracaoTest extends Clube
                 'parceiro' => '4502e7e8-9359-470e-9588-0a1501449675'
             ])
             ->post('/solicitacao-declaracao')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idSolicitacaoDeclaracao = $solicitacao['id'] ?? '';
+        $this->idSolicitacaoDeclaracao = $solicitacao['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)

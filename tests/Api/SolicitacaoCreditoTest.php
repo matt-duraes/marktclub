@@ -74,9 +74,9 @@ final class SolicitacaoCreditoTest extends Clube
                 'parcela'     => 12
             ])
             ->post('/solicitacao-credito')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idSolicitacaoCredito = $simulacao['id'];
+        $this->idSolicitacaoCredito = $simulacao['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)

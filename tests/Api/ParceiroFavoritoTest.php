@@ -10,22 +10,8 @@ class ParceiroFavoritoTest extends Clube
 
     public function __construct()
     {
-        $this->api('parceiro_loja:buscar');
-        $dado = $this
-            ->Curl
-            ->json([
-                'pagina'   => 1,
-                'favorito' => 'nao'
-            ])
-            ->get('/parceiro-loja')
-            ->array()['dado'];
-
-        $arrayParceiros = [];
-        foreach ($dado['lista'] as $d) {
-            $arrayParceiros[] = $d['id'] ?? '';
-        }
-
-        $this->idParceiro = valorAleatorio($arrayParceiros);
+        parent::__construct();
+        $this->getIdParceiro();
     }
 
     public function adicionarFavoritoTest(): ParceiroFavoritoTest
@@ -54,9 +40,9 @@ class ParceiroFavoritoTest extends Clube
                 'favorito'   => 'sim',
             ])
             ->get('/parceiro-loja')
-            ->array()['dado'] ?? '';
+            ->array()['dado']['lista'] ?? [];
 
-        foreach ($dado['lista'] as $i => $d) {
+        foreach ($dado as $i => $d) {
             if ($d['id'] == $this->idParceiro) {
                 $this
                     ->checkIndiceIgual('dado.lista.' . $i . '.favorito', 'sim');
@@ -90,9 +76,9 @@ class ParceiroFavoritoTest extends Clube
                 'favorito'   => 'sim',
             ])
             ->get('/parceiro-loja')
-            ->array()['dado'] ?? '';
+            ->array()['dado']['lista'] ?? [];
 
-        foreach ($dado['lista'] as $i => $d) {
+        foreach ($dado as $i => $d) {
             if ($d['id'] == $this->idParceiro) {
                 $this
                     ->checkIndiceDiferente('dado.lista.' . $i . '.favorito', 'sim');
@@ -101,5 +87,27 @@ class ParceiroFavoritoTest extends Clube
 
         return $this
             ->checkStatus(200);
+    }
+
+    private function getIdParceiro(): void
+    {
+        $this->api('parceiro_loja:buscar');
+        $dado = $this
+            ->Curl
+            ->json([
+                'pagina'   => 1,
+                'favorito' => 'nao'
+            ])
+            ->get('/parceiro-loja')
+            ->array()['dado']['lista'] ?? [];
+
+        $arrayParceiros = [];
+        foreach ($dado as $d) {
+            if (!empty($d['id'])) {
+                $arrayParceiros[] = $d['id'];
+            }
+        }
+
+        $this->idParceiro = !empty($arrayParceiros) ? valorAleatorio($arrayParceiros) : 'sem-id';
     }
 }

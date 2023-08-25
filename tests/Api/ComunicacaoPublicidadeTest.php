@@ -20,7 +20,7 @@ class ComunicacaoPublicidadeTest extends Clube
             ->post('/comunicacao-publicidade')
         ->array();
 
-        $this->idComunicacaoPublicidade = $dado['dado']['id'] ?? '';
+        $this->idComunicacaoPublicidade = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)

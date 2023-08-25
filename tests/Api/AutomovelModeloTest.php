@@ -14,20 +14,9 @@ class AutomovelModeloTest extends Clube
     public function __construct()
     {
         parent::__construct();
-        $this->idsParceiros = $this->getIdParceiros();
-        $this->statusValidos = array_keys((new Status())->select());
-    }
-
-    private function getBody(): array
-    {
-        return [
-            'titulo'      => nomeCompletoAleatorio(),
-            'parceiro'    => valorAleatorio($this->idsParceiros),
-            'imagem'      => 'asdsdsd',
-            'data_inicio' => $this->dataPassada(),
-            'data_final'  => $this->dataFutura(),
-            'status'      => valorAleatorio($this->statusValidos)
-        ];
+        $this->getIdParceiros();
+        $this->getStatusValidos();
+        $this->Curl->header(['Authorization' => $this->pegarToken()]);
     }
 
     public function salvarModeloTest(): AutomovelModeloTest
@@ -35,12 +24,11 @@ class AutomovelModeloTest extends Clube
         $this->api('automovel_modelo:salvar');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBody())
             ->post('/automovel-modelo')
             ->array();
 
-        $this->idModelo = $dado['dado']['id'] ?? '';
+        $this->idModelo = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -57,7 +45,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -76,7 +63,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -95,7 +81,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -114,7 +99,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -134,7 +118,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -149,7 +132,6 @@ class AutomovelModeloTest extends Clube
         $this->api('automovel_modelo:buscar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/automovel-modelo/' . $this->idModelo);
 
         return $this
@@ -163,7 +145,6 @@ class AutomovelModeloTest extends Clube
         $this->api('automovel_modelo:atualizar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBody())
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -179,7 +160,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -192,7 +172,6 @@ class AutomovelModeloTest extends Clube
         $this->api('automovel_modelo:atualizar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body(['status' => 'inativo'])
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -208,7 +187,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -225,7 +203,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -242,7 +219,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -259,7 +235,6 @@ class AutomovelModeloTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -273,14 +248,13 @@ class AutomovelModeloTest extends Clube
         $this->api('automovel_modelo:deletar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->delete('/automovel-modelo/' . $this->idModelo);
 
         return $this
             ->checkStatus(204);
     }
 
-    private function getIdParceiros(): array
+    private function getIdParceiros(): void
     {
         $this->api('');
         $dado = $this
@@ -290,13 +264,29 @@ class AutomovelModeloTest extends Clube
                 'pagina' => 1
             ])
             ->get('/parceiro-loja')
-            ->array();
+            ->array()['dado']['lista'] ?? [];
 
-        $ids = [];
-        foreach ($dado['dado']['lista'] as $parceiro) {
-            $ids[] = $parceiro['id'];
+        foreach ($dado as $parceiro) {
+            if (!empty($parceiro['id'])) {
+                $this->idsParceiros[] = $parceiro['id'];
+            }
         }
+    }
 
-        return $ids;
+    private function getStatusValidos(): void
+    {
+        $this->statusValidos = array_keys((new Status())->select());
+    }
+
+    private function getBody(): array
+    {
+        return [
+            'titulo'      => nomeCompletoAleatorio(),
+            'parceiro'    => !empty($this->idsParceiros) ? valorAleatorio($this->idsParceiros) : '',
+            'imagem'      => 'asdsdsd',
+            'data_inicio' => $this->dataPassada(),
+            'data_final'  => $this->dataFutura(),
+            'status'      => valorAleatorio($this->statusValidos)
+        ];
     }
 }

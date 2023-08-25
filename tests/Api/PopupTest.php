@@ -33,9 +33,9 @@ class PopupTest extends Tests
                 'status'         => 'ativo'
             ])
             ->post('/popup')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idPopup = $popup['id'];
+        $this->idPopup = $popup['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -74,8 +74,7 @@ class PopupTest extends Tests
                 'subtitulo' => 'opa mais e mais',
                 'status'    => 'inativo'
             ])
-            ->put('/popup/' . $this->idPopup)
-            ->array()['dado'] ?? [];
+            ->put('/popup/' . $this->idPopup);
 
         return $this
             ->checkStatus(200)

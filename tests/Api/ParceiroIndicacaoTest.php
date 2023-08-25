@@ -36,7 +36,7 @@ class ParceiroIndicacaoTest extends Clube
             ->post('/parceiro-indicacao')
             ->array();
 
-        $this->idIndicacaoNovoParceiro = $dado['dado']['id'] ?? '';
+        $this->idIndicacaoNovoParceiro = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
