@@ -1691,7 +1691,7 @@ Route
             ::request([
                 'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
             ])
-            ::post('/enquete/satisfacao');
+            ::post('/enquete-satisfacao');
     });
 
 Route
