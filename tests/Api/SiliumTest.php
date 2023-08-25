@@ -2,15 +2,21 @@
 
 namespace Tests\Api;
 
-use App\Classes\Silium\TipoConta;
 use Erro\Excecao;
 use Tests\Api\Token\Clube;
+use App\Classes\Silium\TipoConta;
 
 class SiliumTest extends Clube
 {
     public function __construct()
     {
         parent::__construct();
+        $this
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->tabela(TABELA_SILIUM_COMISSAO)
+            ->resetar();
+
+        $this->pegarToken('91122519095', 'Teste@1324');
     }
 
     /**
@@ -19,10 +25,8 @@ class SiliumTest extends Clube
      */
     public function pegarSaldoTest(): SiliumTest
     {
-        $this->api('silium:saldo');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/silium/saldo');
 
         return $this
@@ -37,10 +41,8 @@ class SiliumTest extends Clube
      */
     public function retirarExtratoTest(): SiliumTest
     {
-        $this->api('silium:extrato');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/silium/extrato');
 
         return $this
@@ -55,10 +57,8 @@ class SiliumTest extends Clube
      */
     public function realizarSaqueTest(): SiliumTest
     {
-        $this->api('silium:saque');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'titular'       => $this->nomeCompleto(),
                 'documento_cpf' => $this->cpf(),

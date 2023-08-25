@@ -6,13 +6,32 @@
     .banner
     .atencao
         espacoBottomPadrao()
-
-@media screen and (max-width: 580px)
-    .bloco_credito_index .bloco_escolha .bloco_botao
+.bloco_credito_index .bloco_escolha
+        padding-bottom: 20px
+    .bloco_botao
+        margin-top: 20px
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        gap: 20px
+@media screen and (max-width: 800px)
+    .bloco_botao a
+        width: calc(( 100% / 2) - 40px)
+@media screen and (max-width: 550px)
+    .bloco_credito_index .bloco_escolha
         flex-direction: column
-        .botao
-            margin-bottom: 20px
-    #bloco_sicoob
-        .bloco_escolha
-            padding-top: 0px
-            padding-bottom: 0px
+        .bloco_botao
+            flex-direction: column
+            width: 100%
+        .bloco_botao a
+            width: 70%
+            margin: auto
+@media screen and (max-width: 425px)
+    .bloco_credito_index .bloco_escolha
+        flex-direction: column
+        .bloco_botao
+            flex-direction: column
+            width: 100%
+        .bloco_botao a
+            width: 100%
+

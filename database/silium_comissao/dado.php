@@ -27,5 +27,32 @@ return [
         'moeda'            => 'R$',
         'data_compra'      => dataPassadaAleatorio(),
         'status'           => 1
-    ]
+    ],
+    [
+        'uuid'             => uuid(),
+        'id_admin_empresa' => 1,
+        'id_usuario'       => 110,
+        'comissao_usuario' => 7000,
+        'moeda'            => 'R$',
+        'data_compra'      => dataPassadaAleatorio(),
+        'status'           => 1
+    ],
+    [
+        'uuid'             => uuid(),
+        'id_admin_empresa' => 1,
+        'id_usuario'       => 110,
+        'comissao_usuario' => 3000,
+        'moeda'            => 'R$',
+        'data_compra'      => dataPassadaAleatorio(),
+        'status'           => 1
+    ],
+    [
+        'uuid'             => uuid(),
+        'id_admin_empresa' => 1,
+        'id_usuario'       => 110,
+        'comissao_usuario' => 3000,
+        'moeda'            => 'R$',
+        'data_compra'      => dataPassadaAleatorio(),
+        'status'           => 1
+    ],
 ];
