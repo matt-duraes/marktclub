@@ -173,7 +173,7 @@ return [
         'tipo'              => '1',
         'nome_perfil'       => 'Codestep',
         'nome_real'         => 'Codestep Engine',
-        'documento_cpf'     => '01234567890',
+        'documento_cpf'     => '12345678900',
         'email_pessoal'     => null,
         'email_trabalho'    => 'lucas.alves@markt.club',
         'telefone_pessoal'  => null,
