@@ -21,6 +21,12 @@ class Status extends StatusStatus
             self::ENVIADO_USUARIO => 'Enviado p/ Usuário',
             self::PROBLEMA        => 'Problema',
             self::FINALIZADO      => 'Finalizado'
+        ], [
+            self::NOVO            => 'verde',
+            self::ENVIADO_EMPRESA => 'amarelo',
+            self::ENVIADO_USUARIO => 'laranja',
+            self::PROBLEMA        => 'vermelho',
+            self::FINALIZADO      => 'azul'
         ]);
     }
 }
