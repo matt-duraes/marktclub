@@ -18,6 +18,17 @@ final class CashbackEntity extends Entity
         'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
         'status', 'link_site', 'imagem', 'url', 'id_admin_empresa'
     ];
+    protected string $ormValidarInsert = '
+        titulo|Título|obrigatorio|vazio
+        texto_descricao|Texto descrição|obrigatorio|vazio
+        texto_restricao|Texto restrição|obrigatorio|vazio
+        texto_outro|Texto outro|obrigatorio|vazio
+        comissao_minima|Comissão mínima|obrigatorio|vazio|valido
+        comissao_maxima|Comissão máxima|obrigatorio|vazio|valido
+        status|Status|obrigatorio|vazio|valido
+        link_site|Link site|obrigatorio|vazio
+        imagem|Imagem|obrigatorio|vazio
+    ';
     public string $titulo;
     public string $texto_descricao;
     public string $texto_restricao;
