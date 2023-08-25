@@ -1,4 +1,4 @@
-<div class="bloco_pagina_popup" id="bloco_faq_favorito">
+<div class="bloco_pagina_popup">
     <header class="header_pagina_popup">
         <h1>Pesquisa de Satisfação</h1>
         <i class="botao_fechar_popup">@iconeFechar</i>
@@ -7,7 +7,7 @@
         <div class="conteudo">
             <form id="formulario_pesquisa" action="" class="form_geral bloco_quiz_geral" method="post">
                 <fieldset>
-                    <p>É fácil navegar no seu Clube de Vantagens?*</p>
+                    <p>É fácil navegar no Clube de Vantagens?*</p>
                     <div class="pergunta">
                         <div class="botao_input">
                             <input id="navegar" name="navegar" type="radio" value="sim">
@@ -85,8 +85,8 @@
                     <p>Escreva alguma mensagem se desejar?</p>
                     @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
                 </fieldset>
-                <div class="footer_pagina_popup noshadow">
-                    <button class="botao_geral_cor" id="botao_envia_pesquisa">Enviar Pesquisa</button>
+                <div class="footer_pagina_popup" id="footer_pesquisa">
+                    <button class="botao_geral_cor cor_bg" id="botao_envia_pesquisa">Enviar Pesquisa</button>
                 </div>
             </form>
         </div>
