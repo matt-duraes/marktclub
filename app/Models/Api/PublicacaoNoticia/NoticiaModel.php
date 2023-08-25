@@ -4,13 +4,15 @@ namespace App\Models\Api\PublicacaoNoticia;
 
 use ORM\ORM;
 use stdClass;
-use Http\Request;
 use Modules\Data;
+use Modules\Botao;
+use Modules\Pagina;
+use Modules\Quantidade;
 use Order\OrderInterface;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
-use System\Trait\Model\OrdemTrait;
 use App\Classes\Geral\Status;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use App\Classes\PublicacaoNoticia\Ordem;
@@ -26,16 +28,20 @@ final class NoticiaModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
-    private Status $status;
-    private Data $dataPublicacaoDe;
-    private Data $dataPublicacaoAte;
 
     public function __construct(
-        private Request $request
+        private Pagina $pagina = new Pagina(null),
+        private Quantidade $quantidade = new Quantidade(null),
+        private ?string $pesquisa = null,
+        private Data $data_inicio_de = new Data(null),
+        private Data $data_inicio_ate = new Data(null),
+        private Botao $publicado = new Botao(null),
+        private Ordem $ordem = new Ordem(null),
+        private Status $status = new Status(null)
     ) {
         parent::__construct();
+        $this->validarDado();
         $this->validarEmpresa();
-        $this->validarRequest();
     }
 
     public function listarDados(): stdClass
@@ -43,11 +49,11 @@ final class NoticiaModel extends ORM implements
         $dado = $this
             ->campo([
                 'uuid', 'titulo_grande', 'titulo_pequeno', 'texto_grande', 'texto_pequeno',
-                'data_publicacao_inicio', 'imagem_grande', 'imagem_pequena', 'url', 'status'
+                'data_inicio', 'imagem_grande', 'imagem_pequena', 'url', 'status'
             ])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new Ordem()))
+            ->order($this->pegarOrdem())
             ->read();
 
         $dado->lista = $this->montardado($dado->lista);
@@ -98,32 +104,23 @@ final class NoticiaModel extends ORM implements
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
-        if ($this->dataPublicacaoDe->valido() && $this->dataPublicacaoAte->valido()) {
+        if ($this->data_inicio_de->eDate() && $this->data_inicio_ate->eDate()) {
             $where[] = [
-                'data_publicacao_inicio',
+                'data_inicio',
                 'between',
-                [$this->dataPublicacaoDe->date(), $this->dataPublicacaoAte->date()]
+                [$this->data_inicio_de->date(), $this->data_inicio_ate->date()]
             ];
-        } elseif ($this->dataPublicacaoDe->valido()) {
-            $where[] = ['data_publicacao_inicio', '>=', $this->dataPublicacaoDe->date()];
-        } elseif ($this->dataPublicacaoAte->valido()) {
-            $where[] = ['data_publicacao_inicio', '<=', $this->dataPublicacaoAte->date()];
+        } elseif ($this->data_inicio_de->eDate()) {
+            $where[] = ['data_inicio', '>=', $this->data_inicio_de->date()];
+        } elseif ($this->data_inicio_ate->valido()) {
+            $where[] = ['data_inicio', '<=', $this->data_inicio_ate->date()];
         }
         return $where;
     }
 
-    private function validarRequest()
+    private function validarDado()
     {
-        $this->status = new Status($this->request->status);
-        $this->dataPublicacaoDe = new Data($this->request->data_publicacao_de);
-        $this->dataPublicacaoAte = new Data($this->request->data_publicacao_ate);
-        $ordem = new Ordem($this->request->ordem);
-
-        $this
-            ->validarCampoModulo('ordem', $ordem)
-            ->validarCampoModulo('status', $this->status)
-            ->validarCampoModulo('data de publicação inicial', $this->dataPublicacaoDe)
-            ->validarCampoModulo('data de publicação final', $this->dataPublicacaoAte);
+        //
     }
 
     private function validarCampoModulo(string $campo, ModuleInterface|OrderInterface|StatusInterface $modulo)

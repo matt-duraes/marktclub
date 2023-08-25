@@ -127,7 +127,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa',
-                '!data_publicacao_de', '!data_publicacao_ate', '!status'
+                '!data_inicio_de', '!data_inicio_ate', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
 
@@ -141,10 +141,10 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:salvar'])
             ::request([
                 'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
-                'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
-                'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
-                'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
-                'permissao_site', 'permissao_banner', 'status'
+                'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
+                'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
+                'data_atualizado', 'permissao_restrita', 'permissao_site', 'permissao_banner',
+                'header_titulo', 'header_descriacao', 'header_tag', 'status'
             ])
             ::post('/publicacao-noticia');
 
@@ -154,9 +154,9 @@ Route
             ::request([
                 '!titulo_grande', '!titulo_pequeno', '!subtitulo', '!texto_grande', '!texto_pequeno',
                 '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
-                '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_publicacao_inicio',
-                '!data_publicacao_final', '!data_publicacao_atualizacao', '!permissao_restrita',
-                '!permissao_site', '!permissao_banner', '!status'
+                '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_inicio', '!data_final',
+                '!data_atualizado', '!permissao_restrita', '!permissao_site', '!permissao_banner',
+                '!header_titulo', '!header_descriacao', '!header_tag', '!status'
             ])
             ::put('/publicacao-noticia/{id}');
 

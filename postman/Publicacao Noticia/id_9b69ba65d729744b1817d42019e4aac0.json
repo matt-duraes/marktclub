@@ -1,0 +1,1 @@
+{"id":"id_9b69ba65d729744b1817d42019e4aac0","token":"painel","metodo":"DELETE","nome":"\/publicacao-noticia\/:id","uri":"{{LINK}}\/publicacao-noticia\/$PUBLICACAO_NOTICIA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

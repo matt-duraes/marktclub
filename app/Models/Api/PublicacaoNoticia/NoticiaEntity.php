@@ -20,22 +20,22 @@ final class NoticiaEntity extends Entity
     protected array $ormSalvar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
-        'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
-        'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
-        'permissao_site', 'permissao_banner', 'status'
+        'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
+        'data_atualizado', 'permissao_restrita', 'header_titulo', 'header_descricao',
+        'header_tag', 'permissao_site', 'permissao_banner', 'status'
     ];
     protected array $ormBuscar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
-        'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
-        'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
-        'permissao_site', 'permissao_banner', 'url', 'status'
+        'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
+        'data_atualizado', 'permissao_restrita', 'header_titulo', 'header_descricao',
+        'header_tag', 'permissao_site', 'permissao_banner', 'status', 'url'
     ];
     protected string $ormValidarSalvar = '
         titulo_grande|Título grande|obrigatorio|vazio
-        data_publicacao_inicio|Data de início da publicação|obrigatorio|vazio|valido
-        data_publicacao_final|Data final da publicação|valido
-        data_publicacao_atualizacao|Data de atualização da publicação|valido
+        data_inicio|Data de início da publicação|obrigatorio|vazio|valido
+        data_final|Data final da publicação|valido
+        data_atualizado|Data de atualização da publicação|valido
         texto_grande|Texto grande|obrigatorio|vazio
         status|Status|obrigatorio|vazio|valido
     ';
@@ -53,15 +53,18 @@ final class NoticiaEntity extends Entity
     public string $fonte_link;
     public string $autor_noticia;
     public string $url;
-    public DataHora $data_publicacao_inicio;
-    public DataHora $data_publicacao_final;
-    public DataHora $data_publicacao_atualizacao;
+    public DataHora $data_inicio;
+    public DataHora $data_final;
+    public DataHora $data_atualizado;
     public Botao $permissao_restrita;
     public Botao $permissao_site;
     public Botao $permissao_banner;
     public Status $status;
+    public string $header_titulo;
+    public string $header_descricao;
+    public array $header_tag;
     private int $idEmpresa;
-    private ?int $idUsuario;
+    private int $idUsuario;
 
     public function __construct()
     {

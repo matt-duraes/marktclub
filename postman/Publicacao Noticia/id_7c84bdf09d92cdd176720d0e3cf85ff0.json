@@ -1,0 +1,1 @@
+{"id":"id_7c84bdf09d92cdd176720d0e3cf85ff0","token":"painel","metodo":"PUT","nome":"\/publicacao-noticia\/:id","uri":"{{LINK}}\/publicacao-noticia\/$PUBLICACAO_NOTICIA_ID","parametro":[],"body":[["texto",true,"titulo_pequeno","",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}
