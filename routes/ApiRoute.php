@@ -1845,7 +1845,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:listar'])
-            ::request(['pagina', '!quantidade'])
+            ::request(['pagina', '!quantidade'], 'json')
             ::get('/parceiro-indicacao');
         Route
             ::nome('buscar')
@@ -1857,8 +1857,8 @@ Route
             ::request(['nome', 'email', 'telefone', 'mensagem'])
             ::post('/parceiro-indicacao');
         Route
-            ::nome('atualizarStatus')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:atualizarStatus'])
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:atualizar'])
             ::request(['status'])
             ::put('/parceiro-indicacao/{id}');
         Route
