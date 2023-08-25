@@ -5,20 +5,20 @@ return [
         'cod' => 'uuid'
     ],
     'construtor_novo' => [
-        'cod' => 'uuid',
+        'cod'     => 'uuid',
         'empresa' => 'id_admin_empresa'
     ],
     'cupom_bloqueio' => [
         'cod' => 'uuid'
     ],
     'parceiro_novo' => [
-        'cod' => 'uuid',
-        'empresa' => 'id_admin_empresa',
-        'site' => 'link_site',
-        'texto' => 'texto_descricao',
-        'desconto_texto' => 'texto_desconto',
+        'cod'                => 'uuid',
+        'empresa'            => 'id_admin_empresa',
+        'site'               => 'link_site',
+        'texto'              => 'texto_descricao',
+        'desconto_texto'     => 'texto_desconto',
         'procedimento_texto' => 'texto_procedimento',
-        'voucher_texto' => 'texto_voucher'
+        'voucher_texto'      => 'texto_voucher'
     ],
     'tag_novo' => [
         'cod' => 'uuid'
@@ -27,15 +27,15 @@ return [
         'cod' => 'uuid'
     ],
     'endereco_novo' => [
-        'cod' => 'id_vinculo',
+        'cod'  => 'id_vinculo',
         'nome' => 'titulo'
     ],
     'solicitacao_cheque_bonus' => [
-        'cod' => 'uuid',
+        'cod'                  => 'uuid',
         'dependente_documento' => 'dependente_cpf'
     ],
     'solicitacao_declaracao' => [
-        'cod' => 'uuid',
+        'cod'     => 'uuid',
         'usuario' => 'id_usuario_cliente',
         'empresa' => 'id_admin_empresa',
         'vinculo' => 'id_parceiro_loja'
@@ -44,14 +44,14 @@ return [
         'cod' => 'uuid'
     ],
     'usuario_novo' => [
-        'cod' => 'uuid',
-        'empresa' => 'id_admin_empresa',
-        'titular' => 'id_usuario_cliente',
-        'documento' => 'cpf',
-        'sexo' => 'genero',
+        'cod'         => 'uuid',
+        'empresa'     => 'id_admin_empresa',
+        'titular'     => 'id_usuario_cliente',
+        'documento'   => 'cpf',
+        'sexo'        => 'genero',
         'aniversario' => 'data_nascimento',
-        'cidade' => 'endereco_cidade',
-        'uf' => 'endereco_estado'
+        'cidade'      => 'endereco_cidade',
+        'uf'          => 'endereco_estado'
     ],
     'usuario_indicacao' => [
         'cod' => 'uuid'

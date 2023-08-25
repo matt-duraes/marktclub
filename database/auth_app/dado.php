@@ -129,7 +129,7 @@ $scope = [
 
     'silium:saldo', 'silium:extrato', 'silium:saque',
 
-    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar', 'parceiro_indicacao:atualizarStatus', 'parceiro_indicacao:deletar'
+    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar', 'parceiro_indicacao:atualizar', 'parceiro_indicacao:deletar'
 ];
 
 return [

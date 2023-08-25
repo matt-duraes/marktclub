@@ -95,7 +95,7 @@ class ParceiroIndicacaoTest extends Clube
     {
         $this
             ->Curl
-            ->parametro([
+            ->json([
                 'pagina' => 1
             ])
             ->get('/parceiro-indicacao');

@@ -11,6 +11,7 @@ use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -18,6 +19,7 @@ use System\Interface\ControllerSalvarInterface;
 class ParceiroIndicacaoController extends Controller implements
     ControllerListarInterface,
     ControllerSalvarInterface,
+    ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
     /**
@@ -69,12 +71,12 @@ class ParceiroIndicacaoController extends Controller implements
     /**
      * @throws Excecao
      */
-    public function putAtualizarStatus(string $id, Request $request): Response
+    public function putAtualizar(Request $request, string $id): Response
     {
         $Parceiro = new ParceiroIndicacaoEntity();
 
         $Parceiro->uuid($id);
-        $Parceiro->set('status', $request->dado('status')['status']);
+        $Parceiro->set(lista: $request->dado());
         $Parceiro->salvar();
 
         return new Response(status: 204);
