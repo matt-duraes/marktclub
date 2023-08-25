@@ -11,13 +11,18 @@ final class SolicitacaoCreditoTest extends Clube
 {
     private string $idSolicitacaoCredito;
 
+    public function __construct()
+    {
+        $this->pegarToken();
+        parent::__construct();
+    }
+
     /**
      * @return SolicitacaoCreditoTest
      * @throws Excecao
      */
     public function realizarSimulacaoDeCreditoTest(): SolicitacaoCreditoTest
     {
-        $this->api('solicitacao_credito:simular');
         $this
             ->Curl
             ->json([
@@ -39,7 +44,6 @@ final class SolicitacaoCreditoTest extends Clube
      */
     public function listarSimulacoesDeCreditoTest(): SolicitacaoCreditoTest
     {
-        $this->api('solicitacao_credito:listar');
         $this
             ->Curl
             ->json([
@@ -63,10 +67,8 @@ final class SolicitacaoCreditoTest extends Clube
      */
     public function salvarSimulacoesDeCreditoTest(): SolicitacaoCreditoTest
     {
-        $this->api('solicitacao_credito:salvar');
         $simulacao = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'operadora'   => Operadora::SICOOB,
                 'tipo'        => Tipo::CONSIGNADO,
@@ -90,7 +92,6 @@ final class SolicitacaoCreditoTest extends Clube
      */
     public function buscarSimulacaoDeCreditoTest(): SolicitacaoCreditoTest
     {
-        $this->api('solicitacao_credito:buscar');
         $this
             ->Curl
             ->get('/solicitacao-credito/' . $this->idSolicitacaoCredito);

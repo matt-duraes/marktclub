@@ -14,14 +14,13 @@ class AutomovelModeloTest extends Clube
     public function __construct()
     {
         parent::__construct();
+        $this->pegarToken();
         $this->getIdParceiros();
         $this->getStatusValidos();
-        $this->Curl->header(['Authorization' => $this->pegarToken()]);
     }
 
     public function salvarModeloTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
         $dado = $this
             ->Curl
             ->body($this->getBody())
@@ -38,8 +37,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmParceiroInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['parceiro'] = 'PARCEIRO ERRADO';
 
@@ -56,8 +53,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmStatusInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['status'] = 'STATUS INVALIDO';
 
@@ -74,8 +69,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmParceiroVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['parceiro'] = '';
 
@@ -92,8 +85,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmNomeVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['titulo'] = '';
 
@@ -110,8 +101,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarDataInicioMaiorQueFinalTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['data_final'] = $this->dataPassada();
         $body['data_inicio'] = $this->dataFutura();
@@ -129,7 +118,6 @@ class AutomovelModeloTest extends Clube
 
     public function buscarModeloTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:buscar');
         $this
             ->Curl
             ->get('/automovel-modelo/' . $this->idModelo);
@@ -142,7 +130,6 @@ class AutomovelModeloTest extends Clube
 
     public function atualizarTudoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $this
             ->Curl
             ->body($this->getBody())
@@ -154,7 +141,6 @@ class AutomovelModeloTest extends Clube
 
     public function atualizarSemStatusTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         unset($body['status']);
 
@@ -169,7 +155,6 @@ class AutomovelModeloTest extends Clube
 
     public function atualizarApenasOStatusTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $this
             ->Curl
             ->body(['status' => 'inativo'])
@@ -181,7 +166,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComStatusInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['status'] = 'STATUS INVALIDO';
 
@@ -197,7 +181,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComParceiroInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['parceiro'] = 'PARCEIRO INVALIDO';
 
@@ -213,7 +196,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComStatusVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['status'] = '';
 
@@ -229,7 +211,6 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComParceiroVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['parceiro'] = '';
 
@@ -245,7 +226,6 @@ class AutomovelModeloTest extends Clube
 
     public function deletarModeloTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:deletar');
         $this
             ->Curl
             ->delete('/automovel-modelo/' . $this->idModelo);
@@ -256,15 +236,13 @@ class AutomovelModeloTest extends Clube
 
     private function getIdParceiros(): void
     {
-        $this->api('');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->json([
                 'pagina' => 1
             ])
             ->get('/parceiro-loja')
-            ->array()['dado']['lista'] ?? [];
+            ->array()['dado']['lista'] ?? "";
 
         foreach ($dado as $parceiro) {
             if (!empty($parceiro['id'])) {

@@ -10,12 +10,16 @@ class ComunicacaoPublicidadeTest extends Clube
 {
     private string $idComunicacaoPublicidade;
 
+    public function __construct()
+    {
+        $this->pegarToken();
+        parent::__construct();
+    }
+
     public function salvarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
-        $this->api('comunicacao_publicidade:salvar');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBodyPadrao())
             ->post('/comunicacao-publicidade')
         ->array();
@@ -30,15 +34,12 @@ class ComunicacaoPublicidadeTest extends Clube
 
     public function naoPodeSalvarDataInicioMaiorTest(): ComunicacaoPublicidadeTest
     {
-        $this->api('comunicacao_publicidade:salvar');
-
         $body = $this->getBodyPadrao();
         $body['data_inicio'] = $this->dataFutura();
         $body['data_final'] = $this->dataPassada();
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/comunicacao-publicidade');
 
@@ -50,14 +51,11 @@ class ComunicacaoPublicidadeTest extends Clube
 
     public function naoPodeSalvarSatausInvalidoTest(): ComunicacaoPublicidadeTest
     {
-        $this->api('comunicacao_publicidade:salvar');
-
         $body = $this->getBodyPadrao();
         $body['status'] = valorAleatorio(array_values((new Status())->select()));
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/comunicacao-publicidade');
 
@@ -69,10 +67,8 @@ class ComunicacaoPublicidadeTest extends Clube
 
     public function listarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
-        $this->api('comunicacao_publicidade:listar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->json([
                 'pagina' => 1
             ])
@@ -85,10 +81,8 @@ class ComunicacaoPublicidadeTest extends Clube
 
     public function buscarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
-        $this->api('comunicacao_publicidade:buscar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/comunicacao-publicidade/' . $this->idComunicacaoPublicidade);
 
         return $this
@@ -98,10 +92,8 @@ class ComunicacaoPublicidadeTest extends Clube
 
     public function atualizarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
-        $this->api('comunicacao_publicidade:atualizar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBodyPadrao())
             ->put('/comunicacao-publicidade/' . $this->idComunicacaoPublicidade);
 
@@ -111,10 +103,8 @@ class ComunicacaoPublicidadeTest extends Clube
 
     public function deletarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
-        $this->api('comunicacao_publicidade:deletar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->delete('/comunicacao-publicidade/' . $this->idComunicacaoPublicidade);
 
         return $this

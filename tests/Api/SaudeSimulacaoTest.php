@@ -15,6 +15,7 @@ final class SaudeSimulacaoTest extends Clube
 
     public function __construct()
     {
+        $this->pegarToken();
         parent::__construct();
     }
 
@@ -27,10 +28,8 @@ final class SaudeSimulacaoTest extends Clube
         $dependentes = $this->gerarDependentes();
         $qtdDependentes = count($dependentes);
 
-        $this->api('saude_simulacao:salvar');
         $simulacao = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'titular'          => $this->dataPassada(),
                 'lista_dependente' => jsonEncode($dependentes),
@@ -74,7 +73,6 @@ final class SaudeSimulacaoTest extends Clube
      */
     public function buscarSimulacaoAmilTest(): SaudeSimulacaoTest
     {
-        $this->api('saude_simulacao:buscar');
         $this
             ->Curl
             ->get('/saude/simulacao/' . $this->idSimulacao);
@@ -95,10 +93,8 @@ final class SaudeSimulacaoTest extends Clube
         $dependentes = $this->gerarDependentes();
         $qtdDependentes = count($dependentes);
 
-        $this->api('saude_simulacao:salvar');
         $simulacao = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'titular'          => $this->dataPassada(),
                 'lista_dependente' => jsonEncode($dependentes),
@@ -130,7 +126,6 @@ final class SaudeSimulacaoTest extends Clube
      */
     public function buscarSimulacaoFloripaTest(): SaudeSimulacaoTest
     {
-        $this->api('saude_simulacao:buscar');
         $this
             ->Curl
             ->get('/saude/simulacao/' . $this->idSimulacao);
@@ -151,10 +146,8 @@ final class SaudeSimulacaoTest extends Clube
         $dependentes = $this->gerarDependentes();
         $qtdDependentes = count($dependentes);
 
-        $this->api('saude_simulacao:salvar');
         $simulacao = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'titular'          => $this->dataPassada(),
                 'lista_dependente' => jsonEncode($dependentes),
@@ -186,7 +179,6 @@ final class SaudeSimulacaoTest extends Clube
      */
     public function buscarSimulacaoUnimedSeguroTest(): SaudeSimulacaoTest
     {
-        $this->api('saude_simulacao:buscar');
         $this
             ->Curl
             ->get('/saude/simulacao/' . $this->idSimulacao);
@@ -207,10 +199,8 @@ final class SaudeSimulacaoTest extends Clube
         $dependentes = $this->gerarDependentes();
         $qtdDependentes = count($dependentes);
 
-        $this->api('saude_simulacao:salvar');
         $simulacao = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'titular'          => $this->dataPassada(),
                 'lista_dependente' => jsonEncode($dependentes),
@@ -242,7 +232,6 @@ final class SaudeSimulacaoTest extends Clube
      */
     public function buscarSimulacaoUnimedTest(): SaudeSimulacaoTest
     {
-        $this->api('saude_simulacao:buscar');
         $this
             ->Curl
             ->get('/saude/simulacao/' . $this->idSimulacao);

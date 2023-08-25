@@ -10,13 +10,18 @@ class SolicitacaoDeclaracaoTest extends Clube
 {
     private string $idSolicitacaoDeclaracao;
 
+    public function __construct()
+    {
+        $this->pegarToken();
+        parent::__construct();
+    }
+
     /**
      * @return SolicitacaoDeclaracaoTest
      * @throws Excecao
      */
     public function listarSolicitacoesDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
     {
-        $this->api('solicitacao_declaracao:listar');
         $this
             ->Curl
             ->json([
@@ -37,10 +42,8 @@ class SolicitacaoDeclaracaoTest extends Clube
      */
     public function salvarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
     {
-        $this->api('solicitacao_declaracao:salvar');
         $solicitacao = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'parceiro' => '4502e7e8-9359-470e-9588-0a1501449675'
             ])
@@ -61,10 +64,8 @@ class SolicitacaoDeclaracaoTest extends Clube
      */
     public function buscarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
     {
-        $this->api('solicitacao_declaracao:buscar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/solicitacao-declaracao/' . $this->idSolicitacaoDeclaracao);
 
         return $this

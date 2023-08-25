@@ -10,13 +10,13 @@ class ParceiroFavoritoTest extends Clube
 
     public function __construct()
     {
+        $this->pegarToken();
         parent::__construct();
         $this->getIdParceiro();
     }
 
     public function adicionarFavoritoTest(): ParceiroFavoritoTest
     {
-        $this->api('parceiro_favorito:salvar');
         $this
             ->Curl
             ->body([
@@ -31,7 +31,6 @@ class ParceiroFavoritoTest extends Clube
 
     public function verificarSeFavoritouTest(): ParceiroFavoritoTest
     {
-        $this->api('parceiro_loja:buscar');
         $dado = $this
             ->Curl
             ->json([
@@ -56,7 +55,6 @@ class ParceiroFavoritoTest extends Clube
 
     public function deletaFavoritoTest(): ParceiroFavoritoTest
     {
-        $this->api('parceiro_favorito:deletar');
         $this
             ->Curl
             ->delete('/parceiro-favorito/' . $this->idParceiro);
@@ -67,7 +65,6 @@ class ParceiroFavoritoTest extends Clube
 
     public function verificaSeDeletouFavoritoTest(): ParceiroFavoritoTest
     {
-        $this->api('parceiro_loja:buscar');
         $dado = $this
             ->Curl
             ->json([
@@ -91,7 +88,6 @@ class ParceiroFavoritoTest extends Clube
 
     private function getIdParceiro(): void
     {
-        $this->api('parceiro_loja:buscar');
         $dado = $this
             ->Curl
             ->json([
