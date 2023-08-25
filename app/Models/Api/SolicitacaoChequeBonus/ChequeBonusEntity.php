@@ -29,7 +29,7 @@ final class ChequeBonusEntity extends Entity
         'estado_civil', 'rg', 'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'data_termo',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
         'endereco_estado', 'dependente_nome', 'dependente_email_pessoal', 'dependente_rg',
-        'dependente_documento', 'dependente_grau_parentesco', 'dependente_data_nascimento',
+        'dependente_cpf', 'dependente_grau_parentesco', 'dependente_data_nascimento',
         'status', 'email_pessoal', 'telefone_celular', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormInsert = [
@@ -37,7 +37,7 @@ final class ChequeBonusEntity extends Entity
         'estado_civil', 'rg', 'data_nascimento', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
         'endereco_estado', 'dependente_nome', 'dependente_email_pessoal', 'dependente_rg',
-        'dependente_documento', 'dependente_grau_parentesco', 'dependente_data_nascimento',
+        'dependente_cpf', 'dependente_grau_parentesco', 'dependente_data_nascimento',
         'email_pessoal', 'telefone_celular', 'data_termo'
     ];
     protected array $ormSalvar = ['status'];
@@ -82,7 +82,7 @@ final class ChequeBonusEntity extends Entity
     public Nome $dependente_nome;
     public Email $dependente_email_pessoal;
     public string $dependente_rg;
-    public Cpf $dependente_documento;
+    public Cpf $dependente_cpf;
     public GrauParentesco $dependente_grau_parentesco;
     public Data $dependente_data_nascimento;
     public Status $status;
@@ -125,9 +125,9 @@ final class ChequeBonusEntity extends Entity
                 dependente_nome|Nome do dependente|obrigatorio|vazio|valido|valido
                 dependente_email_pessoal|E-mail do dependente|obrigatorio|vazio|valido|valido
                 dependente_rg|RG do dependente|obrigatorio|vazio
-                dependente_documento|CPF do dependente|obrigatorio|vazio|valido
-                dependente_grau_parentesco|Grau de parêntesco do dependente|obrigatorio|vazio|valido
-                dependente_data_nascimento|Data de nascimento do dependente|obrigatorio|vazio|valido
+                dependente_cpf|CPF do dependente|obrigatorio|vazio
+                dependente_grau_parentesco|Grau de parêntesco do dependente|obrigatorio|vazio
+                dependente_data_nascimento|Data de nascimento do dependente|obrigatorio|vazio
             ';
 
             if ($this->dependente_data_nascimento->date() > hoje()) {
@@ -171,7 +171,7 @@ final class ChequeBonusEntity extends Entity
             'nome'            => $this->dependente_nome->nome(),
             'email_pessoal'   => $this->dependente_email_pessoal->email(),
             'rg'              => $this->dependente_rg,
-            'cpf'             => $this->dependente_documento->cpf(),
+            'cpf'             => $this->dependente_cpf->cpf(),
             'grau_parentesco' => $this->dependente_grau_parentesco->indice(),
             'data_nascimento' => $this->dependente_data_nascimento->date()
         ];

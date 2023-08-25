@@ -378,8 +378,18 @@ class CurlHelper
         $this->parametro = [];
         $this->body = [];
         $this->json = [];
+        $this->limparHeader();
 
         return $this;
+    }
+
+    private function limparHeader()
+    {
+        $token = $this->header['Authorization'] ?? $this->header['authorization'] ?? '';
+        $this->header = [];
+        if (!empty($token)) {
+            $this->header = ['Authorization' => $token];
+        }
     }
 
     /**

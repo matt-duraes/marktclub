@@ -7,6 +7,7 @@ use Modules\Dinheiro;
 use App\Classes\Geral\Status;
 use App\Helpers\ClubeApiHelper;
 use App\Helpers\Site\TextoHelper;
+use App\Classes\ParceiroLoja\Procedimento;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -33,12 +34,18 @@ final class BuscarModel extends ClubeApiHelper
     {
         $Texto = new TextoHelper();
         return (object)[
-            'id'                 => $r->id,
-            'titulo'             => $r->titulo,
-            'versao'             => $this->montarVersao($r->versao, $r->imagem),
-            'texto_procedimento' => $Texto->destaque($r->texto_procedimento),
-            'procedimento'       => $r->procedimento,
-            'endereco'           => '',
+            'id'                        => $r->id,
+            'titulo'                    => $r->titulo,
+            'parceiro'                  => (object)[
+                'id' => $r->parceiro->id,
+            ],
+            'versao'                    => $this->montarVersao($r->versao, $r->imagem),
+            'texto_procedimento'        => $Texto->destaque($r->texto_procedimento),
+            'procedimento'              => $r->procedimento,
+            'procedimento_cheque_bonus' => $r->procedimento == Procedimento::CHEQUE_BONUS,
+            'procedimento_declaracao'   => $r->procedimento == Procedimento::DECLARACAO,
+            'procedimento_voucher'      => $r->procedimento == Procedimento::VOUCHER,
+            'endereco'                  => '',
         ];
     }
 

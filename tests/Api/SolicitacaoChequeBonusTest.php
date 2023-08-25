@@ -2,11 +2,11 @@
 
 namespace Tests\Api;
 
-use App\Classes\Solicitacao\Status;
-use App\Classes\UsuarioCliente\GrauParentesco;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use Modules\EstadoCivil;
 use Tests\Tests;
+use Modules\EstadoCivil;
+use App\Classes\Solicitacao\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\GrauParentesco;
 
 class SolicitacaoChequeBonusTest extends Tests
 {
@@ -36,7 +36,7 @@ class SolicitacaoChequeBonusTest extends Tests
             'dependente_nome'            => '',
             'dependente_email_pessoal'   => '',
             'dependente_rg'              => '',
-            'dependente_documento'       => '',
+            'dependente_cpf'             => '',
             'dependente_grau_parentesco' => '',
             'dependente_data_nascimento' => '',
         ], $array);
@@ -49,7 +49,7 @@ class SolicitacaoChequeBonusTest extends Tests
             'dependente_nome'            => nomeCompletoAleatorio(),
             'dependente_email_pessoal'   => emailAleatorio(),
             'dependente_rg'              => rgAleatorio(),
-            'dependente_documento'       => cpfAleatorio(),
+            'dependente_cpf'             => cpfAleatorio(),
             'dependente_grau_parentesco' => valorAleatorio(array_keys((new GrauParentesco())->select())),
             'dependente_data_nascimento' => $this->dataPassada()
         ];

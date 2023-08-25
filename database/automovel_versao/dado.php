@@ -58,4 +58,18 @@ return [
         'valor_por'           => '210000.00',
         'status'              => 1
     ],
+    [
+        'id_automovel_modelo' => 5,
+        'titulo'              => 'S10 01',
+        'valor_de'            => '200000.00',
+        'valor_por'           => '190000.00',
+        'status'              => 1
+    ],
+    [
+        'id_automovel_modelo' => 5,
+        'titulo'              => 'S10 02',
+        'valor_de'            => '220000.00',
+        'valor_por'           => '210000.00',
+        'status'              => 1
+    ],
 ];

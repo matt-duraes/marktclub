@@ -26,12 +26,6 @@ $scope = [
 
     'tabela_usuario:salvar', 'tabela_usuario:bloquear',
 
-    'solicitacao_premium:listar', 'solicitacao_premium:download',
-    'solicitacao_voucher:listar', 'solicitacao_voucher:buscar', 'solicitacao_voucher:download',
-    'solicitacao_voucher:salvar',
-
-    'solicitacao_salavip:listar', 'solicitacao_salavip:download',
-
     'voucher:salvar', 'voucher:verificar', 'voucher:validar',
 
     'relatorio_analytics:listar', 'relatorio_analytics:download',
@@ -102,6 +96,16 @@ $scope = [
 
     'solicitacao_credito:listar', 'solicitacao_credito:buscar', 'solicitacao_credito:salvar',
     'solicitacao_credito:simular',
+
+    'solicitacao_premium:listar', 'solicitacao_premium:download',
+
+    'solicitacao_voucher:listar', 'solicitacao_voucher:buscar', 'solicitacao_voucher:download',
+    'solicitacao_voucher:salvar',
+
+    'solicitacao_salavip:listar', 'solicitacao_salavip:download',
+
+    'solicitacao_automovel:listar', 'solicitacao_automovel:buscar', 'solicitacao_automovel:salvar',
+    'solicitacao_automovel:atualizar',
 
     'carteirinha:buscar',
 
