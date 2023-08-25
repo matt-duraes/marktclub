@@ -11,6 +11,7 @@ final class SaudeContratacaoTest extends Clube
 
     public function __construct()
     {
+        $this->pegarToken();
         parent::__construct();
     }
 
@@ -20,9 +21,7 @@ final class SaudeContratacaoTest extends Clube
      */
     public function realizarContratacaoTest(): SaudeContratacaoTest
     {
-        $this->api('saude_contratacao:salvar');
         $this->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->pegarDadosFicticios())
             ->post('/saude/contratacao');
 

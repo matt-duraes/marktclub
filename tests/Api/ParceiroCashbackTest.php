@@ -48,9 +48,9 @@ class ParceiroCashbackTest extends Tests
             ->Curl
             ->body($this->getBody())
             ->post('/parceiro-cashback')
-            ->array()['dado'] ?? '';
+            ->array();
 
-        $this->idParceiro = $dado['id'] ?? '';
+        $this->idParceiro = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
