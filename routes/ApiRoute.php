@@ -1531,14 +1531,15 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
             ::request([
-                'pagina', '!quantidade', '!empresa', '!ordem', 'publicado',
-                '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!empresa', '!ordem', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/solicitacao-declaracao');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
             ::get('/solicitacao-declaracao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
@@ -1546,6 +1547,7 @@ Route
                 'parceiro', '!modelo', '!versao'
             ])
             ::post('/solicitacao-declaracao');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:atualizar'])
@@ -1566,10 +1568,12 @@ Route
                 'pagina', '!quantidade', '!empresa', '!ordem', '!data_criacao_de', '!data_criacao_ate', '!status'
             ], 'json')
             ::get('/solicitacao-cheque-bonus');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:buscar'])
             ::get('/solicitacao-cheque-bonus/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:salvar'])
@@ -1581,6 +1585,7 @@ Route
                 'dependente_data_nascimento', 'data_termo'
             ])
             ::post('/solicitacao-cheque-bonus');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:atualizar'])
@@ -1781,20 +1786,24 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
             ::request(['pagina', '!quantidade', '!modelo', '!ordem', '!status'], 'json')
             ::get('/automovel-versao');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:buscar'])
             ::get('/automovel-versao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
             ::request(['modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ::post('/automovel-versao');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
             ::request(['!titulo', '!cor', '!valor_de', '!valor_por', '!status'])
             ::put('/automovel-versao/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:deletar'])
@@ -1847,20 +1856,24 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:listar'])
             ::request(['pagina', '!quantidade'], 'json')
             ::get('/parceiro-indicacao');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:buscar'])
             ::get('/parceiro-indicacao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:salvar'])
             ::request(['nome', 'email', 'telefone', 'mensagem'])
             ::post('/parceiro-indicacao');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:atualizar'])
             ::request(['status'])
             ::put('/parceiro-indicacao/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:deletar'])
