@@ -2,9 +2,9 @@
 
 namespace Tests\Api;
 
+use Tests\Tests;
 use App\Classes\Geral\Status;
 use App\Classes\ParceiroEasylive\Tipo;
-use Tests\Tests;
 
 class ParceiroEasyliveTest extends Tests
 {
@@ -33,7 +33,7 @@ class ParceiroEasyliveTest extends Tests
             ->get('/parceiro-easylive')
             ->array()['dado'];
 
-        $this->idParceiro[] = $dado['lista'][0]['id'];
+        $this->idParceiro[] = $dado['lista'][0]['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(200)
@@ -94,9 +94,9 @@ class ParceiroEasyliveTest extends Tests
                 'imagem' => ''
             ]))
             ->post('/parceiro-easylive')
-            ->array()['dado'];
+            ->array();
 
-        $this->idParceiro[] = $dado['id'];
+        $this->idParceiro[] = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -114,9 +114,9 @@ class ParceiroEasyliveTest extends Tests
                 'data_validade' => ''
             ]))
             ->post('/parceiro-easylive')
-            ->array()['dado'];
+            ->array();
 
-        $this->idParceiro[] = $dado['id'];
+        $this->idParceiro[] = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)

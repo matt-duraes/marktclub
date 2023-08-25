@@ -2,18 +2,19 @@
 
 namespace Tests\Api;
 
-use App\Classes\Geral\Status;
 use Tests\Api\Token\Clube;
+use App\Classes\Geral\Status;
 
 class AutomovelVersaoTest extends Clube
 {
     private string $idAutomovel;
-    private array $IDsModelo;
+    private array $idModelo;
 
     public function __construct()
     {
         parent::__construct();
-        $this->IDsModelo = $this->getListaModelos();
+        $this->getListaModelos();
+        $this->Curl->header(['Authorization' => $this->pegarToken()]);
     }
 
     public function salvarAutomovelTest(): AutomovelVersaoTest
@@ -21,7 +22,6 @@ class AutomovelVersaoTest extends Clube
         $this->api('automovel_versao:salvar');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBody())
             ->post('/automovel-versao')
             ->array();
@@ -43,7 +43,6 @@ class AutomovelVersaoTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-versao')
             ->array();
@@ -64,7 +63,6 @@ class AutomovelVersaoTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-versao');
 
@@ -80,7 +78,6 @@ class AutomovelVersaoTest extends Clube
         $this->api('automovel_versao:buscar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/automovel-versao/' . $this->idAutomovel);
 
         return $this
@@ -99,7 +96,6 @@ class AutomovelVersaoTest extends Clube
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-versao/' . $this->idAutomovel);
 
@@ -112,32 +108,26 @@ class AutomovelVersaoTest extends Clube
         $this->api('automovel_versao:deletar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->delete('/automovel-versao/' . $this->idAutomovel);
 
         return $this
             ->checkStatus(204);
     }
 
-    private function getListaModelos(): array
+    private function getListaModelos(): void
     {
-        $IDsModelo = [];
-
         $this->api('automovel_modelo:listar');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->json([
                 'pagina' => 1,
             ])
             ->get('/automovel-modelo')
             ->array();
 
-        foreach ($dado['dado']['lista'] as $modelo) {
-            $IDsModelo[] = $modelo['id'];
+        foreach ($dado['dado']['lista'] ?? [] as $modelo) {
+            $this->idModelo[] = $modelo['id'];
         }
-
-        return $IDsModelo;
     }
 
     private function getBody()
@@ -148,7 +138,7 @@ class AutomovelVersaoTest extends Clube
             'valor_de'  => rand(10000, 20000),
             'valor_por' => rand(5000, 10000),
             'status'    => valorAleatorio(array_keys((new Status())->select())),
-            'modelo'    => valorAleatorio($this->IDsModelo)
+            'modelo'    => !empty($this->idModelo) ? valorAleatorio($this->idModelo) : ''
         ];
     }
 }
