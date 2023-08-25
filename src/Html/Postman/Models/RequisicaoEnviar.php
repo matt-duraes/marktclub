@@ -27,7 +27,9 @@ final class RequisicaoEnviar
         $this->variavel = jsonDecode($post['variavel'], true, true);
         $this->header = $header;
 
-        $chave = file_get_contents(ROOT . '/.chave_publica');
+        $chaveNome = env('POSTMAN_CHAVE_PUBLICA', '');
+        $chaveNome = !empty($chaveNome) ? $chaveNome : '.chave_publica';
+        $chave = file_get_contents(ROOT . '/' . $chaveNome);
         $this->Crypt = new CryptHelper(chavePublica: $chave);
         $this->link = env('POSTMAN_API_LINK', '');
 

@@ -94,9 +94,9 @@ class SolicitacaoChequeBonusTest extends Tests
             ->loginPainel()
             ->body($this->getBody($this->getArrayDependete()))
             ->post('/solicitacao-cheque-bonus')
-            ->array()['dado'] ?? '';
+            ->array();
 
-        $this->idSolicitacao = $dado['id'] ?? '';
+        $this->idSolicitacao = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
