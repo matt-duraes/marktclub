@@ -204,7 +204,7 @@ final class PontoEntity extends Entity
             mensagem: "Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel!<br>
             O Usuário de Matrícula: $matricula, solicitou a quantia de $this->ponto_solicitado pontos.",
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
-            logo: $Construtor->logo,
+            logo: $Construtor->link_logo,
             acao: 'Voucher',
             cor: $Construtor->cor
         );
@@ -216,7 +216,7 @@ final class PontoEntity extends Entity
             assunto: 'Você Solicitou um novo Voucher',
             mensagem: 'Olá <strong>' . $this->nome . '</strong>, recebemos sua solicitação de um novo voucher! Logo estarão disponíveis na aba histórico as informações: número do cartão, código e vencimento, para que possa realizar as suas compras. Pedimos que acompanhe pela plataforma.',
             posMensagem: 'Em caso de dúvidas, entre em contato.',
-            logo: $Construtor->logo,
+            logo: $Construtor->link_logo,
             acao: 'Voucher',
             cor: $Construtor->cor
         );

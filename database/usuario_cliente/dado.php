@@ -111,5 +111,18 @@ return [
         'email_pessoal'  => emailAleatorio(),
         'salt'           => password('Teste@1324'),
         'status'         => 1
+    ],
+    [
+        'id'             => 110,
+        'cod'            => '0ab2712a-625f-4588-85e4-33aa68288915',
+        'empresa'        => 1,
+        'tipo'           => 1,
+        'nome'           => 'Usuário Silium',
+        'email_trabalho' => emailAleatorio(),
+        'telefone_fixo'  => telefoneAleatorio(),
+        'documento'      => 91122519095,
+        'email_pessoal'  => emailAleatorio(),
+        'salt'           => password('Teste@1324'),
+        'status'         => 1
     ]
 ];
