@@ -24,11 +24,11 @@ $permissao = json_encode([
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
     'solicitacao_voucher_empresa', 'solicitacao_premium_index', 'solicitacao_premium_visualizar',
     'solicitacao_premium_index', 'solicitacao_premium_download', 'solicitacao_premium_empresa',
-    'solicitacao_salavip_index', 'solicitacao_salavip_download', 'comercial_empresa_index',
-    'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
-    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',
-    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
-    'log_erro_visualizar', 'log_erro_status'
+    'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_declaracao_index',
+    'solicitacao_declaracao_status', 'comercial_empresa_index', 'comercial_empresa_visualizar',
+    'comercial_empresa_editar', 'comercial_prospeccao_index', 'comercial_prospeccao_add',
+    'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar', 'comercial_atendimento_index',
+    'demanda_tecnologia', 'demanda_criacao', 'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [
@@ -167,15 +167,15 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '1125',
+        'id'                => '3060',
         'uuid'              => 'a014996d75cb01f470dfc21c1f60c6d3',
         'id_admin_empresa'  => '1',
-        'tipo'              => '3',
-        'nome_perfil'       => 'brian.luca',
-        'nome_real'         => 'Brian Luca',
-        'documento_cpf'     => '07413202158',
+        'tipo'              => '1',
+        'nome_perfil'       => 'Codestep',
+        'nome_real'         => 'Codestep Engine',
+        'documento_cpf'     => '01234567890',
         'email_pessoal'     => null,
-        'email_trabalho'    => 'brian.luca@markt.club',
+        'email_trabalho'    => 'lucas.alves@markt.club',
         'telefone_pessoal'  => null,
         'telefone_trabalho' => null,
         'imagem_arquivo'    => null,
@@ -183,6 +183,7 @@ return [
         'imagem_google'     => 'https://lh3.googleusercontent.com/a-/ACNPEu-xUX6zA-hZissHFCJPq8k6uFQfX5u1EBEu31vP=s384-c',
         'imagem_tipo'       => '2',
         'permissao'         => $permissao,
+        'salt'              => password('Teste@3060'),
         'desenvolvedor'     => '1',
         'gerente'           => '1',
         'admin'             => '1',
