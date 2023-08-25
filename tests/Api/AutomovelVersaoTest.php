@@ -12,21 +12,20 @@ class AutomovelVersaoTest extends Clube
 
     public function __construct()
     {
+        $this->pegarToken();
         parent::__construct();
         $this->getListaModelos();
-        $this->Curl->header(['Authorization' => $this->pegarToken()]);
     }
 
     public function salvarAutomovelTest(): AutomovelVersaoTest
     {
-        $this->api('automovel_versao:salvar');
         $dado = $this
             ->Curl
             ->body($this->getBody())
             ->post('/automovel-versao')
             ->array();
 
-        $this->idAutomovel = $dado['dado']['id'] ?? '';
+        $this->idAutomovel = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -36,8 +35,6 @@ class AutomovelVersaoTest extends Clube
 
     public function naoSalvarComModeloValidoTest(): AutomovelVersaoTest
     {
-        $this->api('automovel_versao:salvar');
-
         $body = $this->getBody();
         $body['modelo'] = 'MODELO ERRADO';
 
@@ -56,8 +53,6 @@ class AutomovelVersaoTest extends Clube
 
     public function naoSalvarComValorPorVazioTest(): AutomovelVersaoTest
     {
-        $this->api('automovel_versao:salvar');
-
         $body = $this->getBody();
         $body['valor_por'] = '';
 
@@ -75,7 +70,6 @@ class AutomovelVersaoTest extends Clube
 
     public function buscarAutomovelTest(): AutomovelVersaoTest
     {
-        $this->api('automovel_versao:buscar');
         $this
             ->Curl
             ->get('/automovel-versao/' . $this->idAutomovel);
@@ -89,8 +83,6 @@ class AutomovelVersaoTest extends Clube
 
     public function atualizarAutomovelTest(): AutomovelVersaoTest
     {
-        $this->api('automovel_versao:atualizar');
-
         $body = $this->getBody();
         unset($body['modelo']);
 
@@ -116,7 +108,6 @@ class AutomovelVersaoTest extends Clube
 
     private function getListaModelos(): void
     {
-        $this->api('automovel_modelo:listar');
         $dado = $this
             ->Curl
             ->json([
