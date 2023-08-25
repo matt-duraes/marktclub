@@ -44,6 +44,7 @@ botaoFazerSimulacao.addEventListener('click', async () => {
     }
     const valorTemp = inputValor.value.replace(/\./g, '').replace(',', '.');
     const parcelaTemp = inputParcela.value;
+    Loading.show();
     const resposta = await ajaxPost(
         LINK + '/credito/simulacao',
         {
@@ -55,6 +56,7 @@ botaoFazerSimulacao.addEventListener('click', async () => {
         },
         'Erro ao fazer simulação, por favor, tente novamente.'
     );
+    Loading.hide();
     if (false === resposta) {
         return;
     }
