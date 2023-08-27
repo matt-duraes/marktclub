@@ -76,7 +76,7 @@ final class PublicacaoNoticiaController extends Controller implements
                     'imagem_social', 'arquivo', 'fonte_noticia', 'fonte_link', 'autor_noticia',
                     'url', 'data_inicio', 'data_final', 'data_atualizada', 'permissao_restrita',
                     'permissao_site', 'status', 'header_titulo', 'header_descricao', 'header_tag',
-                    'tipo', 'local',
+                    'tipo', 'local', 'publicado'
                 ]
             ),
             status: $status

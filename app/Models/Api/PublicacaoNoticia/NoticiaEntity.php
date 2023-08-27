@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Botao;
 use Modules\DataHora;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use App\Classes\PublicacaoNoticia\Tipo;
 use App\Classes\PublicacaoNoticia\Local;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -69,11 +70,22 @@ final class NoticiaEntity extends Entity
     public Tipo $tipo;
     public Local $local;
     private int $idEmpresa;
-    private int $idUsuario;
+    private ?int $idUsuario;
+    public Publicado $publicado;
 
     public function __construct()
     {
         parent::__construct();
         $this->validarEmpresa();
+        $this->ormWherePadrao = ['id_admin_empresa', $this->idEmpresa];
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->publicado = new Publicado(
+            $this->data_inicio,
+            $this->data_final,
+            $this->status->indice() == Status::ATIVO
+        );
     }
 }
