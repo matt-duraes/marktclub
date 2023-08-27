@@ -12,9 +12,12 @@ use Order\OrderInterface;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\PublicacaoNoticia\Tipo;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\PublicacaoNoticia\Local;
 use App\Classes\PublicacaoNoticia\Ordem;
 use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -36,6 +39,8 @@ final class NoticiaModel extends ORM implements
         private Data $data_inicio_de = new Data(null),
         private Data $data_inicio_ate = new Data(null),
         private Botao $publicado = new Botao(null),
+        private Local $local = new Local(null),
+        private Tipo $tipo = new Tipo(null),
         private Ordem $ordem = new Ordem(null),
         private Status $status = new Status(null)
     ) {
@@ -49,7 +54,7 @@ final class NoticiaModel extends ORM implements
         $dado = $this
             ->campo([
                 'uuid', 'titulo_grande', 'titulo_pequeno', 'texto_grande', 'texto_pequeno',
-                'data_inicio', 'imagem_grande', 'imagem_pequena', 'url', 'status'
+                'data_inicio', 'data_final', 'imagem_grande', 'imagem_pequena', 'url', 'status'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -81,18 +86,26 @@ final class NoticiaModel extends ORM implements
             $imagem = '';
             if (!empty($r->imagem_pequena)) {
                 $imagem = $r->imagem_pequena;
-            } elseif (!empty($r->imagem_pequena)) {
+            } elseif (!empty($r->imagem_grande)) {
                 $imagem = $r->imagem_grande;
             }
 
+            $statusIndice = $Status->indice($r->status);
+            $publicado = new Publicado(
+                new Data($r->data_inicio),
+                new Data($r->data_final),
+                $statusIndice == Status::ATIVO
+            );
+
             $retorno[] = [
-                'id'                     => $r->uuid,
-                'titulo'                 => $titulo,
-                'texto'                  => $texto,
-                'imagem'                 => $imagem,
-                'data_publicacao_inicio' => $r->data_publicacao_inicio,
-                'url'                    => $r->url,
-                'status'                 => $Status->indice($r->status)
+                'id'          => $r->uuid,
+                'titulo'      => $titulo,
+                'texto'       => $texto,
+                'imagem'      => $imagem,
+                'data_inicio' => $r->data_inicio,
+                'url'         => $r->url,
+                'publicado'   => $publicado->indice(),
+                'status'      => $statusIndice
             ];
         }
         return $retorno;
@@ -101,19 +114,52 @@ final class NoticiaModel extends ORM implements
     private function pegarWhere()
     {
         $where = $this->ormWherePadrao;
-        if ($this->status->valido()) {
+        $publicado = $this->publicado->valido();
+
+        if ($this->status->valido() && !$publicado) {
             $where[] = ['status', $this->status->numero()];
         }
-        if ($this->data_inicio_de->eDate() && $this->data_inicio_ate->eDate()) {
+        if ($this->data_inicio_de->eDate() && $this->data_inicio_ate->eDate() && !$publicado) {
             $where[] = [
                 'data_inicio',
                 'between',
-                [$this->data_inicio_de->date(), $this->data_inicio_ate->date()]
+                [$this->data_inicio_de->date(), $this->data_inicio_ate->date() . ' 23:59:59']
             ];
-        } elseif ($this->data_inicio_de->eDate()) {
+        } elseif ($this->data_inicio_de->eDate() && !$publicado) {
             $where[] = ['data_inicio', '>=', $this->data_inicio_de->date()];
-        } elseif ($this->data_inicio_ate->valido()) {
-            $where[] = ['data_inicio', '<=', $this->data_inicio_ate->date()];
+        } elseif ($this->data_inicio_ate->valido() && !$publicado) {
+            $where[] = ['data_inicio', '<=', $this->data_inicio_ate->date() . ' 23:59:59'];
+        }
+        if ($this->tipo->valido()) {
+            $where[] = ['tipo', $this->tipo->numero()];
+        }
+        if ($this->local->valido()) {
+            $where[] = ['local', $this->local->numero()];
+        }
+
+        if ($publicado && $this->publicado->valor() == Botao::SIM) {
+            $where[] = [
+                [
+                    'OR',
+                    ['data_inicio', 'null'],
+                    ['data_inicio', ''],
+                    ['data_inicio', '<=', hoje() . ' 23:59:59'],
+                ],
+                [
+                    'OR',
+                    ['data_final', 'null'],
+                    ['data_final', ''],
+                    ['data_final', '>=', hoje()],
+                ],
+                ['status', (new Status(Status::ATIVO))->numero()]
+            ];
+        } elseif ($publicado && $this->publicado->valor() == Botao::NAO) {
+            $where[] = [
+                'OR',
+                ['data_inicio', '>', hoje()],
+                ['data_final', '<', hoje()],
+                ['status', '!=', (new Status(Status::ATIVO))->numero()]
+            ];
         }
         return $where;
     }

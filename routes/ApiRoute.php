@@ -126,7 +126,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa',
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!local', '!tipo', '!publicado',
                 '!data_inicio_de', '!data_inicio_ate', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
@@ -143,8 +143,8 @@ Route
                 'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
                 'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
                 'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
-                'data_atualizado', 'permissao_restrita', 'permissao_site', 'permissao_banner',
-                'header_titulo', 'header_descriacao', 'header_tag', 'status'
+                'data_atualizada', 'permissao_restrita', 'permissao_site', 'header_titulo',
+                'header_descricao', 'header_tag', 'local', 'tipo', 'status'
             ])
             ::post('/publicacao-noticia');
 
@@ -155,8 +155,8 @@ Route
                 '!titulo_grande', '!titulo_pequeno', '!subtitulo', '!texto_grande', '!texto_pequeno',
                 '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
                 '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_inicio', '!data_final',
-                '!data_atualizado', '!permissao_restrita', '!permissao_site', '!permissao_banner',
-                '!header_titulo', '!header_descriacao', '!header_tag', '!status'
+                '!data_atualizada', '!permissao_restrita', '!permissao_site', '!header_titulo',
+                '!header_descricao', '!header_tag', '!local', '!tipo', '!status'
             ])
             ::put('/publicacao-noticia/{id}');
 

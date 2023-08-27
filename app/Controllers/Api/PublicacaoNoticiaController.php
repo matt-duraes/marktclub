@@ -10,6 +10,8 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
+use App\Classes\PublicacaoNoticia\Tipo;
+use App\Classes\PublicacaoNoticia\Local;
 use App\Classes\PublicacaoNoticia\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
@@ -35,6 +37,8 @@ final class PublicacaoNoticiaController extends Controller implements
             data_inicio_de: new Data($request->data_inicio_de),
             data_inicio_ate: new Data($request->data_inicio_ate),
             publicado: new Botao($request->publicado),
+            local: new Local($request->local),
+            tipo: new Tipo($request->tipo),
             ordem: new Ordem($request->ordem),
             status: new Status($request->status)
         );
@@ -52,8 +56,10 @@ final class PublicacaoNoticiaController extends Controller implements
 
     public function postSalvar(Request $request): Response
     {
+        $dado = $request->dado();
+        $dado['texto_grande'] = $request->getPost('texto_grande', html: false);
         $Noticia = new NoticiaEntity();
-        $Noticia->set(lista: $request->dado());
+        $Noticia->set(lista: $dado);
         $Noticia->salvar();
 
         return $this->retornoSucesso($Noticia, 201);
@@ -65,7 +71,12 @@ final class PublicacaoNoticiaController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Noticia,
                 lista: [
-
+                    'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande',
+                    'texto_pequeno', 'imagem_grande', 'imagem_pequena', 'imagem_galeria',
+                    'imagem_social', 'arquivo', 'fonte_noticia', 'fonte_link', 'autor_noticia',
+                    'url', 'data_inicio', 'data_final', 'data_atualizada', 'permissao_restrita',
+                    'permissao_site', 'status', 'header_titulo', 'header_descricao', 'header_tag',
+                    'tipo', 'local',
                 ]
             ),
             status: $status

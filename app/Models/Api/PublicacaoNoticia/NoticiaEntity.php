@@ -6,6 +6,8 @@ use ORM\Entity;
 use Modules\Botao;
 use Modules\DataHora;
 use App\Classes\Geral\Status;
+use App\Classes\PublicacaoNoticia\Tipo;
+use App\Classes\PublicacaoNoticia\Local;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class NoticiaEntity extends Entity
@@ -21,22 +23,24 @@ final class NoticiaEntity extends Entity
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
-        'data_atualizado', 'permissao_restrita', 'header_titulo', 'header_descricao',
-        'header_tag', 'permissao_site', 'permissao_banner', 'status'
+        'data_atualizada', 'permissao_restrita', 'header_titulo', 'header_descricao',
+        'header_tag', 'permissao_site', 'tipo', 'local', 'status'
     ];
     protected array $ormBuscar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
-        'data_atualizado', 'permissao_restrita', 'header_titulo', 'header_descricao',
-        'header_tag', 'permissao_site', 'permissao_banner', 'status', 'url'
+        'data_atualizada', 'permissao_restrita', 'header_titulo', 'header_descricao',
+        'header_tag', 'permissao_site', 'tipo', 'local', 'status', 'url'
     ];
     protected string $ormValidarSalvar = '
         titulo_grande|Título grande|obrigatorio|vazio
         data_inicio|Data de início da publicação|obrigatorio|vazio|valido
         data_final|Data final da publicação|valido
-        data_atualizado|Data de atualização da publicação|valido
+        data_atualizada|Data de atualização da publicação|valido
         texto_grande|Texto grande|obrigatorio|vazio
+        local|Local|obrigatorio|valido
+        tipo|Tipo|obrigatorio|valido
         status|Status|obrigatorio|vazio|valido
     ';
     public string $titulo_grande;
@@ -55,14 +59,15 @@ final class NoticiaEntity extends Entity
     public string $url;
     public DataHora $data_inicio;
     public DataHora $data_final;
-    public DataHora $data_atualizado;
+    public DataHora $data_atualizada;
     public Botao $permissao_restrita;
     public Botao $permissao_site;
-    public Botao $permissao_banner;
     public Status $status;
     public string $header_titulo;
     public string $header_descricao;
     public array $header_tag;
+    public Tipo $tipo;
+    public Local $local;
     private int $idEmpresa;
     private int $idUsuario;
 
