@@ -101,7 +101,7 @@ final class NoticiaModel extends ORM implements
                 'id'          => $r->uuid,
                 'titulo'      => $titulo,
                 'texto'       => $texto,
-                'imagem'      => $imagem,
+                'imagem'      => !empty($imagem) ? arquivoPrivado($imagem) : '',
                 'data_inicio' => $r->data_inicio,
                 'url'         => $r->url,
                 'publicado'   => $publicado->indice(),
