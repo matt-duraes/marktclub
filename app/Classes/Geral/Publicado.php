@@ -15,7 +15,13 @@ final class Publicado extends StatusStatus
         protected Data $final,
         protected bool $ativo
     ) {
-        $this->valor = $inicio->date() <= hoje() && $final->date() >= hoje() && $ativo ? 'sim' : 'nao';
+        $dataInicio = $inicio->date();
+        $dataFinal = $final->date();
+        $this->valor =
+            (empty($dataInicio) || $dataInicio <= hoje()) &&
+            (empty($dataFinal) || $dataFinal >= hoje()) &&
+            $ativo ? 'sim' : 'nao';
+
         parent::__construct([
             self::SIM   => 'Sim',
             self::NAO   => 'Não'
