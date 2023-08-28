@@ -64,12 +64,12 @@ class EnqueteSatisfacaoTest extends Clube
     private function getBody(array $array = []): array
     {
         return array_merge([
-            'navegar' => valorAleatorio(array_keys((new Navegar())->select())),
-            'procura' => valorAleatorio(array_keys((new Procura())->select())),
-            'suporte' => valorAleatorio(array_keys((new Suporte())->select())),
+            'navegar'     => valorAleatorio(array_keys((new Navegar())->select())),
+            'procura'     => valorAleatorio(array_keys((new Procura())->select())),
+            'suporte'     => valorAleatorio(array_keys((new Suporte())->select())),
             'atendimento' => valorAleatorio(array_keys((new Atendimento())->select())),
-            'sistemas' => [1, 2, 3],
-            'comentario' => 'Teste de comentário'
+            'sistemas'    => [1, 2, 3],
+            'comentario'  => 'Teste de comentário'
         ], $array);
     }
 }
