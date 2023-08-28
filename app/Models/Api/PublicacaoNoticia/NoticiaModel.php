@@ -4,15 +4,20 @@ namespace App\Models\Api\PublicacaoNoticia;
 
 use ORM\ORM;
 use stdClass;
-use Http\Request;
 use Modules\Data;
+use Modules\Botao;
+use Modules\Pagina;
+use Modules\Quantidade;
 use Order\OrderInterface;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
-use System\Trait\Model\OrdemTrait;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\PublicacaoNoticia\Tipo;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\PublicacaoNoticia\Local;
 use App\Classes\PublicacaoNoticia\Ordem;
 use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -26,16 +31,22 @@ final class NoticiaModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
-    private Status $status;
-    private Data $dataPublicacaoDe;
-    private Data $dataPublicacaoAte;
 
     public function __construct(
-        private Request $request
+        private Pagina $pagina = new Pagina(null),
+        private Quantidade $quantidade = new Quantidade(null),
+        private ?string $pesquisa = null,
+        private Data $data_inicio_de = new Data(null),
+        private Data $data_inicio_ate = new Data(null),
+        private Botao $publicado = new Botao(null),
+        private Local $local = new Local(null),
+        private Tipo $tipo = new Tipo(null),
+        private Ordem $ordem = new Ordem(null),
+        private Status $status = new Status(null)
     ) {
         parent::__construct();
+        $this->validarDado();
         $this->validarEmpresa();
-        $this->validarRequest();
     }
 
     public function listarDados(): stdClass
@@ -43,11 +54,11 @@ final class NoticiaModel extends ORM implements
         $dado = $this
             ->campo([
                 'uuid', 'titulo_grande', 'titulo_pequeno', 'texto_grande', 'texto_pequeno',
-                'data_publicacao_inicio', 'imagem_grande', 'imagem_pequena', 'url', 'status'
+                'data_inicio', 'data_final', 'imagem_grande', 'imagem_pequena', 'url', 'status'
             ])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new Ordem()))
+            ->order($this->pegarOrdem())
             ->read();
 
         $dado->lista = $this->montardado($dado->lista);
@@ -75,18 +86,26 @@ final class NoticiaModel extends ORM implements
             $imagem = '';
             if (!empty($r->imagem_pequena)) {
                 $imagem = $r->imagem_pequena;
-            } elseif (!empty($r->imagem_pequena)) {
+            } elseif (!empty($r->imagem_grande)) {
                 $imagem = $r->imagem_grande;
             }
 
+            $statusIndice = $Status->indice($r->status);
+            $publicado = new Publicado(
+                new Data($r->data_inicio),
+                new Data($r->data_final),
+                $statusIndice == Status::ATIVO
+            );
+
             $retorno[] = [
-                'id'                     => $r->uuid,
-                'titulo'                 => $titulo,
-                'texto'                  => $texto,
-                'imagem'                 => $imagem,
-                'data_publicacao_inicio' => $r->data_publicacao_inicio,
-                'url'                    => $r->url,
-                'status'                 => $Status->indice($r->status)
+                'id'          => $r->uuid,
+                'titulo'      => $titulo,
+                'texto'       => $texto,
+                'imagem'      => !empty($imagem) ? arquivoPrivado($imagem) : '',
+                'data_inicio' => $r->data_inicio,
+                'url'         => $r->url,
+                'publicado'   => $publicado->indice(),
+                'status'      => $statusIndice
             ];
         }
         return $retorno;
@@ -95,35 +114,59 @@ final class NoticiaModel extends ORM implements
     private function pegarWhere()
     {
         $where = $this->ormWherePadrao;
-        if ($this->status->valido()) {
+        $publicado = $this->publicado->valido();
+
+        if ($this->status->valido() && !$publicado) {
             $where[] = ['status', $this->status->numero()];
         }
-        if ($this->dataPublicacaoDe->valido() && $this->dataPublicacaoAte->valido()) {
+        if ($this->data_inicio_de->eDate() && $this->data_inicio_ate->eDate() && !$publicado) {
             $where[] = [
-                'data_publicacao_inicio',
+                'data_inicio',
                 'between',
-                [$this->dataPublicacaoDe->date(), $this->dataPublicacaoAte->date()]
+                [$this->data_inicio_de->date(), $this->data_inicio_ate->date() . ' 23:59:59']
             ];
-        } elseif ($this->dataPublicacaoDe->valido()) {
-            $where[] = ['data_publicacao_inicio', '>=', $this->dataPublicacaoDe->date()];
-        } elseif ($this->dataPublicacaoAte->valido()) {
-            $where[] = ['data_publicacao_inicio', '<=', $this->dataPublicacaoAte->date()];
+        } elseif ($this->data_inicio_de->eDate() && !$publicado) {
+            $where[] = ['data_inicio', '>=', $this->data_inicio_de->date()];
+        } elseif ($this->data_inicio_ate->valido() && !$publicado) {
+            $where[] = ['data_inicio', '<=', $this->data_inicio_ate->date() . ' 23:59:59'];
+        }
+        if ($this->tipo->valido()) {
+            $where[] = ['tipo', $this->tipo->numero()];
+        }
+        if ($this->local->valido()) {
+            $where[] = ['local', $this->local->numero()];
+        }
+
+        if ($publicado && $this->publicado->valor() == Botao::SIM) {
+            $where[] = [
+                [
+                    'OR',
+                    ['data_inicio', 'null'],
+                    ['data_inicio', ''],
+                    ['data_inicio', '<=', hoje() . ' 23:59:59'],
+                ],
+                [
+                    'OR',
+                    ['data_final', 'null'],
+                    ['data_final', ''],
+                    ['data_final', '>=', hoje()],
+                ],
+                ['status', (new Status(Status::ATIVO))->numero()]
+            ];
+        } elseif ($publicado && $this->publicado->valor() == Botao::NAO) {
+            $where[] = [
+                'OR',
+                ['data_inicio', '>', hoje()],
+                ['data_final', '<', hoje()],
+                ['status', '!=', (new Status(Status::ATIVO))->numero()]
+            ];
         }
         return $where;
     }
 
-    private function validarRequest()
+    private function validarDado()
     {
-        $this->status = new Status($this->request->status);
-        $this->dataPublicacaoDe = new Data($this->request->data_publicacao_de);
-        $this->dataPublicacaoAte = new Data($this->request->data_publicacao_ate);
-        $ordem = new Ordem($this->request->ordem);
-
-        $this
-            ->validarCampoModulo('ordem', $ordem)
-            ->validarCampoModulo('status', $this->status)
-            ->validarCampoModulo('data de publicação inicial', $this->dataPublicacaoDe)
-            ->validarCampoModulo('data de publicação final', $this->dataPublicacaoAte);
+        //
     }
 
     private function validarCampoModulo(string $campo, ModuleInterface|OrderInterface|StatusInterface $modulo)

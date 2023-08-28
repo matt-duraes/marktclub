@@ -36,9 +36,11 @@ window.addEventListener('load', () => {
         });
     };
 
-    inputTipoPagamento.addEventListener('formChange', () => {
-        tipoPagamentoMudou();
-    });
+    if (inputTipoPagamento) {
+        inputTipoPagamento.addEventListener('formChange', () => {
+            tipoPagamentoMudou();
+        });
+    }
     const tipoPagamentoMudou = () => {
         const valor = inputTipoPagamento.value;
         if (valor == 'misto') {
