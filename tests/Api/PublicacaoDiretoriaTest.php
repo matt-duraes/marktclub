@@ -20,7 +20,7 @@ class PublicacaoDiretoriaTest extends Clube
         return array_merge([
             'nome'   => nomeCompletoAleatorio(),
             'texto'  => 'Texto da publicação',
-            'cargo'  => 'Cargo da publicação',
+            'cargo'  => 'Cargo',
             'imagem' => 'imagem',
             'status' => valorAleatorio(array_keys((new Status())->select()))
         ], $array);
@@ -86,13 +86,12 @@ class PublicacaoDiretoriaTest extends Clube
             ->checkIndiceIgual('erro.mensagem', 'O campo Nome não é um valor válido.');
     }
 
-    public function naoPodeSalvarComParametrosVaziosTest(): PublicacaoDiretoriaTest
+    public function naoPodeSalvarComNomeVaziosTest(): PublicacaoDiretoriaTest
     {
         $this
             ->Curl
             ->body($this->getBody([
-                'nome'   => '',
-                'status' => ''
+                'nome'   => ''
             ]))
             ->post('/publicacao-diretoria');
 
@@ -100,6 +99,19 @@ class PublicacaoDiretoriaTest extends Clube
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceIgual('erro.mensagem', 'O campo Nome não pode ser vazio.');
+    }
+
+    public function atualizarApenasOStatusTest(): PublicacaoDiretoriaTest
+    {
+        $this
+            ->Curl
+            ->body([
+                'status' => valorAleatorio(array_keys((new Status())->select()))
+            ])
+            ->put('/publicacao-diretoria/' . $this->idPublicacao);
+
+        return $this
+            ->checkStatus(204);
     }
 
     public function buscarPublicacaoTest(): PublicacaoDiretoriaTest
