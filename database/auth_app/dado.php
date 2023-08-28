@@ -60,6 +60,12 @@ $scope = [
     'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
     'publicacao_noticia:buscar', 'publicacao_noticia:deletar',
 
+    'publicacao_pagina:salvar', 'publicacao_pagina:atualizar', 'publicacao_pagina:listar',
+    'publicacao_pagina:buscar',
+
+    'publicacao_diretoria:salvar', 'publicacao_diretoria:atualizar', 'publicacao_diretoria:listar',
+    'publicacao_diretoria:buscar', 'publicacao_diretoria:deletar',
+
     'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
     'comunicacao_publicidade:listar', 'comunicacao_publicidade:buscar', 'comunicacao_publicidade:salvar',
@@ -129,7 +135,7 @@ $scope = [
 
     'silium:saldo', 'silium:extrato', 'silium:saque',
 
-    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar', 'parceiro_indicacao:atualizarStatus', 'parceiro_indicacao:deletar'
+    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar', 'parceiro_indicacao:atualizar', 'parceiro_indicacao:deletar'
 ];
 
 return [

@@ -1,0 +1,1 @@
+{"id":"id_d303186d97d1c59b652463c17dded1f6","token":"painel","metodo":"GET","nome":"\/publicacao-diretoria\/:id","uri":"{{LINK}}\/publicacao-diretoria\/$PUBLICACAO_DIRETORIA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

@@ -12,6 +12,7 @@ class ParceiroIndicacaoTest extends Clube
 
     public function __construct()
     {
+        $this->pegarToken();
         parent::__construct();
         $this->statusValidos = array_keys((new Status())->select());
     }
@@ -28,15 +29,13 @@ class ParceiroIndicacaoTest extends Clube
 
     public function salvarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:salvar');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBody())
             ->post('/parceiro-indicacao')
             ->array();
 
-        $this->idIndicacaoNovoParceiro = $dado['dado']['id'] ?? '';
+        $this->idIndicacaoNovoParceiro = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -46,14 +45,11 @@ class ParceiroIndicacaoTest extends Clube
 
     public function naoPodeSalvarSemNomeTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:salvar');
-
         $body = $this->getBody();
         unset($body['nome']);
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/parceiro-indicacao');
 
@@ -65,14 +61,11 @@ class ParceiroIndicacaoTest extends Clube
 
     public function naoPodeSalvarSemEmailTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:salvar');
-
         $body = $this->getBody();
         unset($body['email']);
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/parceiro-indicacao');
 
@@ -84,14 +77,11 @@ class ParceiroIndicacaoTest extends Clube
 
     public function naoPodeEnviarSemTelefoneTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:salvar');
-
         $body = $this->getBody();
         unset($body['telefone']);
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/parceiro-indicacao');
 
@@ -103,11 +93,9 @@ class ParceiroIndicacaoTest extends Clube
 
     public function listarIndicacoesNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:listar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
-            ->parametro([
+            ->json([
                 'pagina' => 1
             ])
             ->get('/parceiro-indicacao');
@@ -120,10 +108,8 @@ class ParceiroIndicacaoTest extends Clube
 
     public function buscarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:buscar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/parceiro-indicacao/' . $this->idIndicacaoNovoParceiro);
 
         return $this
@@ -133,10 +119,8 @@ class ParceiroIndicacaoTest extends Clube
 
     public function editarStatusIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:atualizarStatus');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'status' => valorAleatorio($this->statusValidos)
             ])
@@ -148,10 +132,8 @@ class ParceiroIndicacaoTest extends Clube
 
     public function naoPodeEditarStatusInvalidoTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:atualizarStatus');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
                 'status' => 'STATUS INVALIDO'
             ])
@@ -165,10 +147,8 @@ class ParceiroIndicacaoTest extends Clube
 
     public function deletarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
-        $this->api('parceiro_indicacao:deletar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->delete('/parceiro-indicacao/' . $this->idIndicacaoNovoParceiro);
 
         return $this

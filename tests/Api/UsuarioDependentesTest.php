@@ -42,9 +42,9 @@ class UsuarioDependentesTest extends Tests
             ->loginPainel()
             ->body($this->getBody())
             ->post('/usuario-dependente')
-            ->array()['dado'] ?? '';
+            ->array();
 
-        $this->idDependentes[] = $dado['id'] ?? '';
+        $this->idDependentes[] = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -108,7 +108,7 @@ class UsuarioDependentesTest extends Tests
 
     public function naoPodeAdicionar6DependentesTest(): UsuarioDependentesTest
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $this->api('usuario_dependente:salvar');
             $body = $this->getBody();
 
@@ -126,7 +126,7 @@ class UsuarioDependentesTest extends Tests
                     ->checkIndiceIgual('erro.mensagem', 'Cada usuário só pode ter 5 dependentes.');
                 break;
             }
-            $this->idDependentes[] = $dado['dado']['id'];
+            $this->idDependentes[] = $dado['dado']['id'] ?? 'sem-id';
         }
         return $this;
     }

@@ -58,18 +58,22 @@ class ComercialEmpresaTest extends Tests
                 'pagina' => 1
             ])
             ->get('/comercial-empresa')
-            ->array()['dado'] ?? '';
+            ->array()['dado']['lista'] ?? [];
 
-        foreach ($dado['lista'] as $r) {
+        foreach ($dado as $i => $r) {
             if (!empty($r['cnpj'])) {
                 $this->cnpjValido = $r['cnpj'];
+                $this->checkIndiceExiste('dado.lista.' . $i . '.cnpj');
                 break;
             }
         }
 
+        $this->cnpjValido = $this->cnpjValido ?? 'sem-cnpj';
+
         return $this
             ->checkStatus(200)
             ->checkIndiceExiste('dado')
+            ->checkIndiceExiste('dado.lista')
             ->checkIndiceIgual('status', 'sucesso');
     }
 
@@ -154,9 +158,9 @@ class ComercialEmpresaTest extends Tests
                     'finalidade_principal' => FinalidadePrincipal::PUBLICA]
             ))
             ->post('/comercial-empresa')
-            ->array()['dado'] ?? '';
+            ->array();
 
-        $this->idComercialEmpresa = $dado['id'] ?? '';
+        $this->idComercialEmpresa = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -222,9 +226,9 @@ class ComercialEmpresaTest extends Tests
                 'produto_clube' => Botao::SIM
             ]))
             ->post('/comercial-empresa')
-            ->array()['dado'] ?? '';
+            ->array();
 
-        $this->idComercialEmpresa = $dado['id'] ?? '';
+        $this->idComercialEmpresa = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -275,9 +279,9 @@ class ComercialEmpresaTest extends Tests
                 'tipo_pagamento' => TipoPagamento::MISTO
             ]))
             ->post('/comercial-empresa')
-            ->array()['dado'] ?? '';
+            ->array();
 
-        $this->idComercialEmpresa = $dado['id'] ?? '';
+        $this->idComercialEmpresa = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)

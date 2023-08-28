@@ -8,9 +8,13 @@ $permissao = json_encode([
     'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar', 'usuario_indicacao_index',
     'usuario_indicacao_visualizar', 'usuario_indicacao_status', 'usuario_lead_index', 'usuario_lead_visualizar',
     'usuario_lead_status', 'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar',
-    'usuario_equipe_permissao', 'usuario_equipe_deletar', 'usuario_equipe_empresa', 'publicacao_noticia_index',
-    'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar', 'parceiro_relatorio_index',
-    'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
+    'usuario_equipe_permissao', 'usuario_equipe_deletar', 'usuario_equipe_empresa',
+
+    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
+    'publicacao_pagina_index', 'publicacao_pagina_add', 'publicacao_pagina_editar',
+    'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar', 'publicacao_diretoria_deletar',
+
+    'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
@@ -24,11 +28,11 @@ $permissao = json_encode([
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
     'solicitacao_voucher_empresa', 'solicitacao_premium_index', 'solicitacao_premium_visualizar',
     'solicitacao_premium_index', 'solicitacao_premium_download', 'solicitacao_premium_empresa',
-    'solicitacao_salavip_index', 'solicitacao_salavip_download', 'comercial_empresa_index',
-    'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
-    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',
-    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
-    'log_erro_visualizar', 'log_erro_status'
+    'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_declaracao_index',
+    'solicitacao_declaracao_status', 'comercial_empresa_index', 'comercial_empresa_visualizar',
+    'comercial_empresa_editar', 'comercial_prospeccao_index', 'comercial_prospeccao_add',
+    'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar', 'comercial_atendimento_index',
+    'demanda_tecnologia', 'demanda_criacao', 'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [
@@ -167,15 +171,15 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '1125',
+        'id'                => '3060',
         'uuid'              => 'a014996d75cb01f470dfc21c1f60c6d3',
         'id_admin_empresa'  => '1',
-        'tipo'              => '3',
-        'nome_perfil'       => 'brian.luca',
-        'nome_real'         => 'Brian Luca',
-        'documento_cpf'     => '07413202158',
+        'tipo'              => '1',
+        'nome_perfil'       => 'Codestep',
+        'nome_real'         => 'Codestep Engine',
+        'documento_cpf'     => '12345678900',
         'email_pessoal'     => null,
-        'email_trabalho'    => 'brian.luca@markt.club',
+        'email_trabalho'    => 'lucas.alves@markt.club',
         'telefone_pessoal'  => null,
         'telefone_trabalho' => null,
         'imagem_arquivo'    => null,
@@ -183,6 +187,7 @@ return [
         'imagem_google'     => 'https://lh3.googleusercontent.com/a-/ACNPEu-xUX6zA-hZissHFCJPq8k6uFQfX5u1EBEu31vP=s384-c',
         'imagem_tipo'       => '2',
         'permissao'         => $permissao,
+        'salt'              => password('Teste@3060'),
         'desenvolvedor'     => '1',
         'gerente'           => '1',
         'admin'             => '1',

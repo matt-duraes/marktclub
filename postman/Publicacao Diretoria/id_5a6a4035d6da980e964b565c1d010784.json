@@ -1,0 +1,1 @@
+{"id":"id_5a6a4035d6da980e964b565c1d010784","token":"painel","metodo":"DELETE","nome":"\/publicacao-diretoria","uri":"{{LINK}}\/publicacao-diretoria\/$PUBLICACAO_DIRETORIA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

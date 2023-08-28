@@ -14,33 +14,20 @@ class AutomovelModeloTest extends Clube
     public function __construct()
     {
         parent::__construct();
-        $this->idsParceiros = $this->getIdParceiros();
-        $this->statusValidos = array_keys((new Status())->select());
-    }
-
-    private function getBody(): array
-    {
-        return [
-            'titulo'      => nomeCompletoAleatorio(),
-            'parceiro'    => valorAleatorio($this->idsParceiros),
-            'imagem'      => 'asdsdsd',
-            'data_inicio' => $this->dataPassada(),
-            'data_final'  => $this->dataFutura(),
-            'status'      => valorAleatorio($this->statusValidos)
-        ];
+        $this->pegarToken();
+        $this->getIdParceiros();
+        $this->getStatusValidos();
     }
 
     public function salvarModeloTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBody())
             ->post('/automovel-modelo')
             ->array();
 
-        $this->idModelo = $dado['dado']['id'] ?? '';
+        $this->idModelo = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
@@ -50,14 +37,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmParceiroInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['parceiro'] = 'PARCEIRO ERRADO';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -69,14 +53,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmStatusInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['status'] = 'STATUS INVALIDO';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -88,14 +69,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmParceiroVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['parceiro'] = '';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -107,14 +85,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarComUmNomeVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['titulo'] = '';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -126,15 +101,12 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeSalvarDataInicioMaiorQueFinalTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:salvar');
-
         $body = $this->getBody();
         $body['data_final'] = $this->dataPassada();
         $body['data_inicio'] = $this->dataFutura();
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->post('/automovel-modelo');
 
@@ -146,10 +118,8 @@ class AutomovelModeloTest extends Clube
 
     public function buscarModeloTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:buscar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/automovel-modelo/' . $this->idModelo);
 
         return $this
@@ -160,10 +130,8 @@ class AutomovelModeloTest extends Clube
 
     public function atualizarTudoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($this->getBody())
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -173,13 +141,11 @@ class AutomovelModeloTest extends Clube
 
     public function atualizarSemStatusTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         unset($body['status']);
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -189,10 +155,8 @@ class AutomovelModeloTest extends Clube
 
     public function atualizarApenasOStatusTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body(['status' => 'inativo'])
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -202,13 +166,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComStatusInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['status'] = 'STATUS INVALIDO';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -219,13 +181,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComParceiroInvalidoTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['parceiro'] = 'PARCEIRO INVALIDO';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -236,13 +196,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComStatusVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['status'] = '';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -253,13 +211,11 @@ class AutomovelModeloTest extends Clube
 
     public function naoPodeAtualizarComParceiroVazioTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:atualizar');
         $body = $this->getBody();
         $body['parceiro'] = '';
 
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body($body)
             ->put('/automovel-modelo/' . $this->idModelo);
 
@@ -270,33 +226,45 @@ class AutomovelModeloTest extends Clube
 
     public function deletarModeloTest(): AutomovelModeloTest
     {
-        $this->api('automovel_modelo:deletar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->delete('/automovel-modelo/' . $this->idModelo);
 
         return $this
             ->checkStatus(204);
     }
 
-    private function getIdParceiros(): array
+    private function getIdParceiros(): void
     {
-        $this->api('');
         $dado = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->json([
                 'pagina' => 1
             ])
             ->get('/parceiro-loja')
-            ->array();
+            ->array()['dado']['lista'] ?? '';
 
-        $ids = [];
-        foreach ($dado['dado']['lista'] as $parceiro) {
-            $ids[] = $parceiro['id'];
+        foreach ($dado as $parceiro) {
+            if (!empty($parceiro['id'])) {
+                $this->idsParceiros[] = $parceiro['id'];
+            }
         }
+    }
 
-        return $ids;
+    private function getStatusValidos(): void
+    {
+        $this->statusValidos = array_keys((new Status())->select());
+    }
+
+    private function getBody(): array
+    {
+        return [
+            'titulo'      => nomeCompletoAleatorio(),
+            'parceiro'    => !empty($this->idsParceiros) ? valorAleatorio($this->idsParceiros) : '',
+            'imagem'      => 'asdsdsd',
+            'data_inicio' => $this->dataPassada(),
+            'data_final'  => $this->dataFutura(),
+            'status'      => valorAleatorio($this->statusValidos)
+        ];
     }
 }

@@ -126,8 +126,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa',
-                '!data_publicacao_de', '!data_publicacao_ate', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!local', '!tipo', '!publicado',
+                '!data_inicio_de', '!data_inicio_ate', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
 
@@ -142,9 +142,9 @@ Route
             ::request([
                 'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
                 'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
-                'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_publicacao_inicio',
-                'data_publicacao_final', 'data_publicacao_atualizacao', 'permissao_restrita',
-                'permissao_site', 'permissao_banner', 'status'
+                'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
+                'data_atualizada', 'permissao_restrita', 'permissao_site', 'header_titulo',
+                'header_descricao', 'header_tag', 'local', 'tipo', 'status'
             ])
             ::post('/publicacao-noticia');
 
@@ -154,9 +154,9 @@ Route
             ::request([
                 '!titulo_grande', '!titulo_pequeno', '!subtitulo', '!texto_grande', '!texto_pequeno',
                 '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
-                '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_publicacao_inicio',
-                '!data_publicacao_final', '!data_publicacao_atualizacao', '!permissao_restrita',
-                '!permissao_site', '!permissao_banner', '!status'
+                '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_inicio', '!data_final',
+                '!data_atualizada', '!permissao_restrita', '!permissao_site', '!header_titulo',
+                '!header_descricao', '!header_tag', '!local', '!tipo', '!status'
             ])
             ::put('/publicacao-noticia/{id}');
 
@@ -164,6 +164,81 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:deletar'])
             ::delete('/publicacao-noticia/{id}');
+    });
+
+Route
+    ::nome('publicacao_pagina')
+    ::controller(App\Controllers\Api\PublicacaoPaginaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa'
+            ], 'json')
+            ::get('/publicacao-pagina');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:buscar'])
+            ::get('/publicacao-pagina/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:salvar'])
+            ::request([
+                'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag'
+            ])
+            ::post('/publicacao-pagina');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!header_titulo', '!header_descricao', '!header_tag'
+            ])
+            ::put('/publicacao-pagina/{id}');
+    });
+
+Route
+    ::nome('publicacao_diretoria')
+    ::controller(App\Controllers\Api\PublicacaoDiretoriaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!status'
+            ], 'json')
+            ::get('/publicacao-diretoria');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:buscar'])
+            ::get('/publicacao-diretoria/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:salvar'])
+            ::request([
+                'nome', 'cargo', 'texto', 'imagem', 'status'
+            ])
+            ::post('/publicacao-diretoria');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:atualizar'])
+            ::request([
+                '!nome', '!cargo', '!texto', '!imagem', '!status'
+            ])
+            ::put('/publicacao-diretoria/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:deletar'])
+            ::delete('/publicacao-diretoria/{id}');
     });
 
 Route
@@ -1531,14 +1606,15 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
             ::request([
-                'pagina', '!quantidade', '!empresa', '!ordem', 'publicado',
-                '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!empresa', '!ordem', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/solicitacao-declaracao');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:buscar'])
             ::get('/solicitacao-declaracao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
@@ -1546,6 +1622,7 @@ Route
                 'parceiro', '!modelo', '!versao'
             ])
             ::post('/solicitacao-declaracao');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:atualizar'])
@@ -1566,10 +1643,12 @@ Route
                 'pagina', '!quantidade', '!empresa', '!ordem', '!data_criacao_de', '!data_criacao_ate', '!status'
             ], 'json')
             ::get('/solicitacao-cheque-bonus');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:buscar'])
             ::get('/solicitacao-cheque-bonus/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:salvar'])
@@ -1581,6 +1660,7 @@ Route
                 'dependente_data_nascimento', 'data_termo'
             ])
             ::post('/solicitacao-cheque-bonus');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:atualizar'])
@@ -1691,7 +1771,7 @@ Route
             ::request([
                 'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
             ])
-            ::post('/enquete/satisfacao');
+            ::post('/enquete-satisfacao');
     });
 
 Route
@@ -1781,20 +1861,24 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
             ::request(['pagina', '!quantidade', '!modelo', '!ordem', '!status'], 'json')
             ::get('/automovel-versao');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:buscar'])
             ::get('/automovel-versao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
             ::request(['modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ::post('/automovel-versao');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
             ::request(['!titulo', '!cor', '!valor_de', '!valor_por', '!status'])
             ::put('/automovel-versao/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:deletar'])
@@ -1845,22 +1929,26 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:listar'])
-            ::request(['pagina', '!quantidade'])
+            ::request(['pagina', '!quantidade'], 'json')
             ::get('/parceiro-indicacao');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:buscar'])
             ::get('/parceiro-indicacao/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:salvar'])
             ::request(['nome', 'email', 'telefone', 'mensagem'])
             ::post('/parceiro-indicacao');
+
         Route
-            ::nome('atualizarStatus')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:atualizarStatus'])
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:atualizar'])
             ::request(['status'])
             ::put('/parceiro-indicacao/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:deletar'])

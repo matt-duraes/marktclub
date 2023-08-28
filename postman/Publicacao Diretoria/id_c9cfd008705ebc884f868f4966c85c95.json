@@ -1,0 +1,1 @@
+{"id":"id_c9cfd008705ebc884f868f4966c85c95","token":"painel","metodo":"PUT","nome":"\/publicacao-diretoria\/:id","uri":"{{LINK}}\/publicacao-diretoria\/$PUBLICACAO_DIRETORIA_ID","parametro":[],"body":[["texto",true,"nome","Nome atualizado",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

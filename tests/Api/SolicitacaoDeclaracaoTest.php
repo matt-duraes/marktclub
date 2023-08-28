@@ -2,13 +2,23 @@
 
 namespace Tests\Api;
 
+use App\Classes\Solicitacao\Status;
 use Erro\Excecao;
-use Modules\Botao;
 use Tests\Api\Token\Clube;
 
 class SolicitacaoDeclaracaoTest extends Clube
 {
     private string $idSolicitacaoDeclaracao;
+    private string $idParceiro = '4502e7e8-9359-470e-9588-0a1501449675';
+
+    /**
+     * @throws Excecao
+     */
+    public function __construct()
+    {
+        $this->pegarToken();
+        parent::__construct();
+    }
 
     /**
      * @return SolicitacaoDeclaracaoTest
@@ -16,12 +26,10 @@ class SolicitacaoDeclaracaoTest extends Clube
      */
     public function listarSolicitacoesDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
     {
-        $this->api('solicitacao_declaracao:listar');
         $this
             ->Curl
             ->json([
-                'pagina'           => 1,
-                'publicado'        => valorAleatorio([Botao::NAO, Botao::SIM])
+                'pagina' => 1
             ])
             ->get('/solicitacao-declaracao');
 
@@ -37,22 +45,21 @@ class SolicitacaoDeclaracaoTest extends Clube
      */
     public function salvarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
     {
-        $this->api('solicitacao_declaracao:salvar');
         $solicitacao = $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->body([
-                'parceiro' => '4502e7e8-9359-470e-9588-0a1501449675'
+                'parceiro' => $this->idParceiro
             ])
             ->post('/solicitacao-declaracao')
-            ->array()['dado'] ?? [];
+            ->array();
 
-        $this->idSolicitacaoDeclaracao = $solicitacao['id'] ?? '';
+        $this->idSolicitacaoDeclaracao = $solicitacao['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.id');
+            ->checkIndiceExiste('dado.id')
+            ->checkIndiceIgual('dado.parceiro.id', $this->idParceiro);
     }
 
     /**
@@ -61,15 +68,30 @@ class SolicitacaoDeclaracaoTest extends Clube
      */
     public function buscarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
     {
-        $this->api('solicitacao_declaracao:buscar');
         $this
             ->Curl
-            ->header(['Authorization' => $this->pegarToken()])
             ->get('/solicitacao-declaracao/' . $this->idSolicitacaoDeclaracao);
 
         return $this
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceIgual('dado.id', $this->idSolicitacaoDeclaracao);
+    }
+
+    /**
+     * @return SolicitacaoDeclaracaoTest
+     * @throws Excecao
+     */
+    public function atualizarSolicitacaoDeDeclaracaoTest(): SolicitacaoDeclaracaoTest
+    {
+        $this
+            ->Curl
+            ->body([
+                'status' => Status::FINALIZADO
+            ])
+            ->put('/solicitacao-declaracao/' . $this->idSolicitacaoDeclaracao);
+
+        return $this
+            ->checkStatus(204);
     }
 }
