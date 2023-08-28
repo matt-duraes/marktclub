@@ -9,7 +9,7 @@
                 <strong>sem custo</strong></p>
                 <div class="dependente">
                     <div class="linha_dependente">
-                        @? formInput( name: 'dependente_nome', placeholder: 'Digite o nome do dependente', focus: true, label: 'Nome do dependente', value: '')
+                        @? formInput( name: 'dependente_nome', placeholder: 'Digite o nome do dependente', focus: true ,label: 'Nome do dependente', value: '')
                         @? formCpf( name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF',  obrigatorio: true)
                         @? formInput( name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
                     </div>
@@ -19,7 +19,7 @@
         </form>
     </div>
 
-    <div class="bloco_tabela_geral">
+    <div class="bloco_tabela_geral" id="tabela_dependente">
         <table>
             <thead>
                 <tr>
@@ -42,8 +42,10 @@
         </table>
 
         <div class="zero atencao bloco_atencao_geral {!! $dado ? 'display_none' : '' !!}">
-            <i>@iconeDependente(30)</i>
-            <p>Sem dependentes no momento</p>
+            <div class="container_adicionar_dependente" id="acessar_cadastro">
+                <i>@iconeDependente(30)</i>
+                <p>Sem dependentes no momento</p>
+            </div>
         </div>
     </div>
 </div>

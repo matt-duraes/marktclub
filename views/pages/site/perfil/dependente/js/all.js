@@ -17,6 +17,14 @@ window.addEventListener('load', () => {
         }
     });
 
+    const acessarCadastrar = document.querySelector('#acessar_cadastro');
+    const campoPreenchimento = document.querySelector('#input_dependente_nome');
+
+    acessarCadastrar.addEventListener('click', function () {
+        campoPreenchimento.scrollIntoView({ behavior: 'smooth' });
+        campoPreenchimento.focus();
+    });
+
     const botaoSalvar = document.querySelector('#botao_cadastra_dependente');
     botaoSalvar.addEventListener('click', e => {
         e.preventDefault();
