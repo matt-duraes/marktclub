@@ -1061,6 +1061,10 @@ Route
         Route
             ::nome('buscar')
             ::get('/parceiro-loja/{id}');
+        Route
+            ::nome('destaque')
+            ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
+            ::get('/parceiro-loja/destaque');
     });
 
 Route
@@ -1807,12 +1811,30 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!data_criacao_de', '!data_criacao_ate', '!status'
+            ], 'json')
+            ::get('/solicitacao-automovel');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:buscar'])
+            ::get('/solicitacao-automovel/{id}');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:salvar'])
             ::request([
                 'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor', 'mensagem'
             ])
             ::post('/solicitacao-automovel');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:atualizar'])
+            ::request([
+                'status'
+            ])
+            ::put('/solicitacao-automovel/{id}');
     });
 
 Route
