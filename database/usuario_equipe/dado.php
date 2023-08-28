@@ -12,7 +12,8 @@ $permissao = json_encode([
 
     'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
     'publicacao_pagina_index', 'publicacao_pagina_add', 'publicacao_pagina_editar',
-    'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar', 'publicacao_diretoria_deletar',
+    'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar',
+    'publicacao_diretoria_deletar',
 
     'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
@@ -29,10 +30,11 @@ $permissao = json_encode([
     'solicitacao_voucher_empresa', 'solicitacao_premium_index', 'solicitacao_premium_visualizar',
     'solicitacao_premium_index', 'solicitacao_premium_download', 'solicitacao_premium_empresa',
     'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_declaracao_index',
-    'solicitacao_declaracao_status', 'comercial_empresa_index', 'comercial_empresa_visualizar',
-    'comercial_empresa_editar', 'comercial_prospeccao_index', 'comercial_prospeccao_add',
-    'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar', 'comercial_atendimento_index',
-    'demanda_tecnologia', 'demanda_criacao', 'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
+    'solicitacao_declaracao_visualizar', 'solicitacao_declaracao_status', 'comercial_empresa_index',
+    'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
+    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',
+    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
+    'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [

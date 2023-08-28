@@ -1,10 +1,6 @@
 <?php
 
-use App\Models\Api\ParceiroLoja\LojaEntity;
-
 $Painel = new PainelConfig\Filtrar('solicitacao_declaracao');
-
-$Parceiro = new LojaEntity();
 
 $Painel
     ->bloco(function () use ($Painel) {
