@@ -167,6 +167,81 @@ Route
     });
 
 Route
+    ::nome('publicacao_pagina')
+    ::controller(App\Controllers\Api\PublicacaoPaginaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!status'
+            ], 'json')
+            ::get('/publicacao-pagina');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:buscar'])
+            ::get('/publicacao-pagina/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:salvar'])
+            ::request([
+                'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'status'
+            ])
+            ::post('/publicacao-pagina');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!header_titulo', '!header_descricao', '!header_tag', '!status'
+            ])
+            ::put('/publicacao-pagina/{id}');
+    });
+
+Route
+    ::nome('publicacao_diretoria')
+    ::controller(App\Controllers\Api\PublicacaoDiretoriaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!status'
+            ], 'json')
+            ::get('/publicacao-noticia');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:buscar'])
+            ::get('/publicacao-diretoria/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:salvar'])
+            ::request([
+                'nome', 'cargo', 'texto', 'imagem', 'status'
+            ])
+            ::post('/publicacao-diretoria');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:atualizar'])
+            ::request([
+                '!nome', '!cargo', '!texto', '!imagem', '!status'
+            ])
+            ::put('/publicacao-diretoria/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:deletar'])
+            ::delete('/publicacao-diretoria/{id}');
+    });
+
+Route
     ::nome('usuario_cliente_download')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
