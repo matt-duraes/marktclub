@@ -244,7 +244,8 @@ Route
             ::request([
                 'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente',
-                '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo', '!endereco_estado', '!federacao'
+                '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo', '!endereco_estado', '!federacao',
+                '!siape', '!origem'
             ])
             ::post('/usuario-cliente/download');
     });
