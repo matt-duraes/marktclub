@@ -1061,6 +1061,10 @@ Route
         Route
             ::nome('buscar')
             ::get('/parceiro-loja/{id}');
+        Route
+            ::nome('destaque')
+            ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
+            ::get('/parceiro-loja/destaque');
     });
 
 Route
