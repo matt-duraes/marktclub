@@ -185,14 +185,6 @@ Route
             ::get('/publicacao-pagina/{id}');
 
         Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:salvar'])
-            ::request([
-                'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag'
-            ])
-            ::post('/publicacao-pagina');
-
-        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:atualizar'])
             ::request([
@@ -920,13 +912,13 @@ Route
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro-cupom:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
             ::request(['!pesquisa'], 'json')
             ::get('/parceiro-cupom');
 
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro-cupom:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:buscar'])
             ::get('/parceiro-cupom/{id}');
     });
 
@@ -1046,11 +1038,13 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request(['!tipo', '!titulo'], 'json')
             ::get('/parceiro-loja/select');
 
         Route
             ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request([
                 'pagina', '!quantidade', '!categoria', '!subcategoria', '!estabelecimento',
                 '!pesquisa', '!tipo', '!status', '!ordem', '!favorito', '!mais_acessado',
@@ -1060,9 +1054,11 @@ Route
 
         Route
             ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
             ::get('/parceiro-loja/{id}');
         Route
             ::nome('destaque')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:destaque'])
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
             ::get('/parceiro-loja/destaque');
     });
