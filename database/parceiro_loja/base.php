@@ -28,6 +28,8 @@ return (new \DataBase\DataBase())
     ->int('limite_voucher')->tamanho(5)->null()
     ->int('prazo_voucher')->tamanho(5)->null()
     ->date('prazo_voucher_fixo')->null()
+    ->date('data_publicacao')->null()
+    ->json('estado')->null()
     ->status()->null()
     ->varchar('descricao')->tamanho(255)->null()
     ->int('favorito')->tamanho(1)->null();

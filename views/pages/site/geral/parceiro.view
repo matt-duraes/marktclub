@@ -53,6 +53,16 @@
         @ endif;
 
         @ if( in_array($r->tipo, ['loja', 'farmacia', 'automovel']) ):
+
+        @ if( !empty($r->estado) ):
+        <div class="bloco_estado">
+            <p><i>@iconeMapa(15)</i>{{$r->estado}}</p>
+        </div>
+        @ endif;
+        @ if( $r->novo ):
+        <div class="bloco_novo"><i>@iconeNovo(20)</i></div>
+        @ endif;
+
         <div class="bloco_favorito botao_favorito {!!$r->favorito == 'sim' ? 'favorito_marcado' : ''!!}" data-url="{{$r->id}}">
             <i class="marcado">@iconeFavoritoMarcado</i>
             <i class="desmarcado">@iconeFavorito</i>

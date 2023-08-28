@@ -5,6 +5,7 @@ namespace App\Models\Site\Loja;
 use stdClass;
 use Modules\Botao;
 use Modules\Inteiro;
+use Helpers\ListaHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
@@ -57,6 +58,8 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     private function montarLista(array $dado): array
     {
         $retorno = [];
+        $dataNovo = dataRemover(hoje(), 1, 'mes');
+        $listaEstado = (new ListaHelper())->estado()->r();
         foreach ($dado as $r) {
             $link = route('loja.detalhe');
             if ($r->tipo == Tipo::FARMACIA) {
@@ -66,6 +69,18 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             }
             $link = $link . '/' . $r->url;
 
+            $estadoArray = jsonDecode($r->estado, true, true);
+            $estadoNumero = count($estadoArray);
+            $estado = '';
+            if (in_array('GR', $estadoArray)) {
+                $estado = 'Internacional';
+            } elseif ($estadoNumero == 27) {
+                $estado = 'Nacional';
+            } elseif ($estadoNumero == 1 && array_key_exists($estadoArray[0], $listaEstado)) {
+                $estado = $listaEstado[$estadoArray[0]];
+            } elseif ($estadoNumero > 1) {
+                $estado = $estadoNumero . ' estados';
+            }
             $dado = [
                 'id'       => $r->id,
                 'titulo'   => $r->titulo,
@@ -73,8 +88,11 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
                 'imagem'   => $r->imagem,
                 'desconto' => $r->desconto,
                 'favorito' => $r->favorito,
+                'novo'     => !empty($r->data_publicacao) && $r->data_publicacao > $dataNovo ? 'sim' : 'nao',
+                'estado'   => $estado,
                 'tipo'     => $r->tipo,
             ];
+
             foreach ($r->geolocalizacao ?? [] as $mapa) {
                 $this->mapa[] = (object)array_merge($dado, [
                     'latitude'  => $mapa->latitude,

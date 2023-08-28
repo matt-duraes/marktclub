@@ -1,5 +1,7 @@
 <?php
 
+$estado = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+
 return [
     [
         'id'                  => 2,
@@ -19,6 +21,8 @@ return [
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'destaque'            => ['2'],
         'empresa'             => ['2'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => $estado,
         'tipo'                => 1,
         'status'              => 4
     ],
@@ -40,6 +44,8 @@ return [
         'procedimento'        => 1,
         'destaque'            => ['66'],
         'empresa'             => ['66'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => $estado,
         'tipo'                => 1,
         'status'              => 4
     ],
@@ -60,6 +66,8 @@ return [
         'procedimento'        => 1,
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => $estado,
         'tipo'                => 1,
         'status'              => 4
     ],
@@ -78,6 +86,8 @@ return [
         'desconto_texto'      => 'Texto de desconto do parceiro',
         'procedimento_texto'  => 'Texto de procedimento do parceiro',
         'voucher_texto'       => 'Texto para o voucher do parceiro',
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => $estado,
         'procedimento'        => 2,
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
@@ -102,6 +112,8 @@ return [
         'procedimento'        => 1,
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => $estado,
         'limite_voucher'      => 1,
         'tipo'                => 1,
         'status'              => 4
@@ -125,6 +137,8 @@ return [
         'procedimento'        => 1,
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => [$estado[rand(0, 26)]],
         'limite_voucher'      => 10,
         'prazo_voucher'       => 5,
         'tipo'                => 1,
@@ -149,6 +163,8 @@ return [
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => [$estado[rand(0, 26)]],
         'tipo'                => 1,
         'status'              => 4
     ],
@@ -171,6 +187,8 @@ return [
         'procedimento'        => 3,
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => [$estado[rand(0, 26)]],
         'prazo_voucher_fixo'  => '2040-01-01',
         'tipo'                => 1,
         'status'              => 4
@@ -194,6 +212,8 @@ return [
         'destaque'            => ['1', '2', '66'],
         'empresa'             => ['1', '2', '66'],
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => [$estado[rand(0, 26)]],
         'tipo'                => 1,
         'status'              => 4
     ],
@@ -217,6 +237,8 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'data_publicacao'     => hoje(),
+        'estado'              => [$estado[rand(0, 26)]],
         'tipo'                => 1,
         'status'              => 5
     ],
@@ -240,6 +262,8 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'data_publicacao'     => hoje(),
+        'estado'              => [$estado[rand(0, 26)]],
         'tipo'                => 1,
         'status'              => 5
     ],
@@ -263,6 +287,8 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'data_publicacao'     => hoje(),
+        'estado'              => [$estado[rand(0, 26)]],
         'tipo'                => 1,
         'status'              => 5
     ],
@@ -286,6 +312,8 @@ return [
         'empresa'             => ['1', '1967'],
         'prazo_voucher'       => 5,
         'limite_voucher'      => 5,
+        'data_publicacao'     => hoje(),
+        'estado'              => [$estado[rand(0, 26)]],
         'tipo'                => 1,
         'status'              => 5
     ],
@@ -309,6 +337,8 @@ return [
         'procedimento'        => 1,
         'prazo_voucher'       => 5,
         'limite_voucher'      => 3,
+        'data_publicacao'     => hoje(),
+        'estado'              => [$estado[rand(0, 26)]],
         'tipo'                => 1,
         'status'              => 5
     ],
