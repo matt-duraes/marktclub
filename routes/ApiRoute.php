@@ -1046,11 +1046,13 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request(['!tipo', '!titulo'], 'json')
             ::get('/parceiro-loja/select');
 
         Route
             ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request([
                 'pagina', '!quantidade', '!categoria', '!subcategoria', '!estabelecimento',
                 '!pesquisa', '!tipo', '!status', '!ordem', '!favorito', '!mais_acessado',
@@ -1060,9 +1062,11 @@ Route
 
         Route
             ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
             ::get('/parceiro-loja/{id}');
         Route
             ::nome('destaque')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
             ::get('/parceiro-loja/destaque');
     });
