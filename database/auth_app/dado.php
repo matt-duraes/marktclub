@@ -60,8 +60,7 @@ $scope = [
     'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
     'publicacao_noticia:buscar', 'publicacao_noticia:deletar',
 
-    'publicacao_pagina:salvar', 'publicacao_pagina:atualizar', 'publicacao_pagina:listar',
-    'publicacao_pagina:buscar',
+    'publicacao_pagina:atualizar', 'publicacao_pagina:listar', 'publicacao_pagina:buscar',
 
     'publicacao_diretoria:salvar', 'publicacao_diretoria:atualizar', 'publicacao_diretoria:listar',
     'publicacao_diretoria:buscar', 'publicacao_diretoria:deletar',
@@ -119,10 +118,10 @@ $scope = [
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
 
-    'parceiro-loja:listar', 'parceiro-loja:buscar', 'parceiro-loja:destaque', 'parceiro-loja:salvar',
-    'parceiro-loja:atualizar', 'parceiro-loja:deletar',
+    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:destaque', 'parceiro_loja:salvar',
+    'parceiro_loja:atualizar', 'parceiro_loja:deletar',
 
-    'parceiro-cupom:buscar', 'parceiro-cupom:listar',
+    'parceiro_cupom:buscar', 'parceiro_cupom:listar',
 
     'contato:salvar', 'contato:listar', 'contato:buscar',
 
