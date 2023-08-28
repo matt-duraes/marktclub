@@ -8,9 +8,13 @@ $permissao = json_encode([
     'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar', 'usuario_indicacao_index',
     'usuario_indicacao_visualizar', 'usuario_indicacao_status', 'usuario_lead_index', 'usuario_lead_visualizar',
     'usuario_lead_status', 'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar',
-    'usuario_equipe_permissao', 'usuario_equipe_deletar', 'usuario_equipe_empresa', 'publicacao_noticia_index',
-    'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar', 'parceiro_relatorio_index',
-    'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
+    'usuario_equipe_permissao', 'usuario_equipe_deletar', 'usuario_equipe_empresa',
+
+    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
+    'publicacao_pagina_index', 'publicacao_pagina_add', 'publicacao_pagina_editar',
+    'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar', 'publicacao_diretoria_deletar',
+
+    'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',

@@ -32,7 +32,8 @@ final class NoticiaEntity extends Entity
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
         'data_atualizada', 'permissao_restrita', 'header_titulo', 'header_descricao',
-        'header_tag', 'permissao_site', 'tipo', 'local', 'status', 'url'
+        'header_tag', 'permissao_site', 'tipo', 'local', 'status', 'data_criacao',
+        'data_atualizacao', 'url'
     ];
     protected string $ormValidarSalvar = '
         titulo_grande|Título grande|obrigatorio|vazio
