@@ -119,6 +119,9 @@ $scope = [
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
 
+    'parceiro-loja:listar', 'parceiro-loja:buscar', 'parceiro-loja:destaque', 'parceiro-loja:salvar',
+    'parceiro-loja:atualizar', 'parceiro-loja:deletar',
+
     'parceiro-cupom:buscar', 'parceiro-cupom:listar',
 
     'contato:salvar', 'contato:listar', 'contato:buscar',
