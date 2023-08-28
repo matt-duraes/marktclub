@@ -1,6 +1,8 @@
 <?php
 
 use App\Classes\Geral\Status;
+use App\Classes\PublicacaoNoticia\Tipo;
+use App\Classes\PublicacaoNoticia\Local;
 
 $Painel = new PainelConfig\Add(app: 'publicidade_noticia', acao: $acao);
 $diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
@@ -22,8 +24,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->input(
                 name: 'titulo_pequeno',
-                label: 'Título secundário',
-                placeholder: 'Digite um título secundário',
+                label: 'Título pequeno',
+                placeholder: 'Digite um título pequeno',
                 contador: 80
             )
             ->input(
@@ -32,6 +34,19 @@ $Painel->coluna(callback: function () use ($Painel) {
                 placeholder: 'Digite um texto pequeno',
                 contador: 120
             );
+    });
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('SEO', function () use ($Painel) {
+        $Painel
+            ->input(
+                name: 'header_titulo',
+                label: 'Título',
+                placeholder: 'Digite um título',
+                contador: 65
+            )
+            ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição', contador: 155)
+            ->tag(name: 'header_tag', label: 'Tags', placeholder: 'Digite sua tags');
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
@@ -53,19 +68,19 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados de publicação', function () use ($Painel) {
         $Painel
             ->dataHora(
-                name: 'data_publicacao_inicio',
+                name: 'data_inicio',
                 label: 'Data de publição',
                 placeholder: 'Digite a data de publicação',
                 obrigatorio: true
             )
             ->dataHora(
-                name: 'data_publicacao_final',
+                name: 'data_final',
                 label: 'Data de remoção',
                 placeholder: 'Digite a data de remoção',
                 ajuda: 'Colocar uma data caso queira que essa notícia saia do site no dia e hora desejado.'
             )
             ->dataHora(
-                name: 'data_publicacao_atualizacao',
+                name: 'data_atualizada',
                 label: 'Data de atualiação',
                 placeholder: 'Digite uma data de atualização',
                 ajuda: 'Colocar uma data caso queira que aparece que essa notícia foi atualizada.'
@@ -75,11 +90,22 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->switch(name: 'permissao_restrita', label: 'Aparecer na área restrita')
             ->switch(name: 'permissao_site', label: 'Aparecer no site')
-            ->switch(name: 'permissao_banner', label: 'Aparecer no banner')
+            ->select(
+                name: 'local',
+                label: 'Local',
+                placeholder: 'Escolha um local',
+                lista: (new Local())->select('Escolha uma opção')
+            )
+            ->select(
+                name: 'tipo',
+                label: 'Tipo',
+                placeholder: 'Escolha um tipo de notícia',
+                lista: (new Tipo())->select('Escolha uma opção')
+            )
             ->select(
                 name: 'status',
-                label: 'status',
-                placeholder: 'Escolha uma opção',
+                label: 'Status',
+                placeholder: 'Escolha um status',
                 lista: (new Status())->select('Escolha uma opção')
             );
     });

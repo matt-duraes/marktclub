@@ -2,7 +2,7 @@
 
 use App\Classes\Geral\Status;
 
-$Painel = new PainelConfig\Filtrar('publicacao_noticia');
+$Painel = new PainelConfig\Filtrar('publicacao_pagina');
 
 $Painel
     ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha uma opção'));
