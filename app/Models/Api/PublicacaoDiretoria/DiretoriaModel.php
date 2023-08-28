@@ -40,7 +40,7 @@ final class DiretoriaModel extends ORM implements
     {
         $dado = $this
             ->campo([
-                'uuid', 'nome', 'texto', 'imagem', 'data_criacao', 'status'
+                'uuid', 'nome', 'texto', 'cargo', 'imagem', 'data_criacao', 'status'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -64,6 +64,7 @@ final class DiretoriaModel extends ORM implements
                 'id'           => $r->uuid,
                 'nome'         => $r->nome,
                 'texto'        => $r->texto,
+                'cargo'        => $r->cargo,
                 'data_criacao' => $r->data_criacao,
                 'imagem'       => !empty($r->imagem) ? arquivoPrivado($r->imagem) : '',
                 'status'       => $Status->indice($r->status)

@@ -4,11 +4,14 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\ParceiroLoja\LojaModel;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\ParceiroLoja\SelectModel;
+use App\Models\Api\ParceiroLoja\DestaqueModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSelectInterface;
@@ -46,6 +49,16 @@ final class ParceiroLojaController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Parceiro = new LojaModel($request);
+        return mensagemSucesso($Parceiro->listarDados());
+    }
+
+    public function getDestaque(Request $request)
+    {
+        $Parceiro = new DestaqueModel(
+            categoria: new Categoria($request->categoria),
+            subcategoria: $request->subcategoria,
+            quantidade: new Quantidade($request->quantidade)
+        );
         return mensagemSucesso($Parceiro->listarDados());
     }
 }
