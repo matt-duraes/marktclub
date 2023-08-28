@@ -175,7 +175,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa'
             ], 'json')
             ::get('/publicacao-pagina');
 
@@ -188,7 +188,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:salvar'])
             ::request([
-                'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'status'
+                'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag'
             ])
             ::post('/publicacao-pagina');
 
@@ -196,7 +196,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:atualizar'])
             ::request([
-                '!titulo', '!texto', '!header_titulo', '!header_descricao', '!header_tag', '!status'
+                '!titulo', '!texto', '!header_titulo', '!header_descricao', '!header_tag'
             ])
             ::put('/publicacao-pagina/{id}');
     });

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Notícias',
+    'titulo'     => 'Diretoria',
     'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
@@ -12,7 +12,7 @@ return [
     'download'   => false,
     'historico'  => false,
     'api'        => [
-        'scope' => 'publicacao_noticia',
-        'uri'   => '/publicacao-noticia'
+        'scope' => 'publicacao_diretoria',
+        'uri'   => '/publicacao-diretoria'
     ]
 ];

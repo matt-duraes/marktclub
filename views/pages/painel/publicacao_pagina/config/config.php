@@ -1,18 +1,18 @@
 <?php
 
 return [
-    'titulo'     => 'Notícias',
+    'titulo'     => 'Páginas',
     'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => false,
     'add'        => true,
     'editar'     => true,
-    'deletar'    => true,
+    'deletar'    => false,
     'download'   => false,
     'historico'  => false,
     'api'        => [
-        'scope' => 'publicacao_noticia',
-        'uri'   => '/publicacao-noticia'
+        'scope' => 'publicacao_pagina',
+        'uri'   => '/publicacao-pagina'
     ]
 ];

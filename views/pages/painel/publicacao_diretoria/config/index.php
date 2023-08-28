@@ -1,10 +1,10 @@
 <?php
 
 use App\Classes\Geral\Status;
-use App\Classes\PublicacaoNoticia\Ordem;
+use App\Classes\PublicacaoDiretoria\Ordem;
 
-$Painel = new PainelConfig\Index('publicacao_noticia', new Ordem());
+$Painel = new PainelConfig\Index('publicacao_diretoria', new Ordem());
 return $Painel
-    ->campo('titulo', 'Título', 'grande')
-    ->campo('data_inicio', 'Publicada em', 'pequeno', formatar: 'data')
+    ->campo('nome', 'Nome', 'grande')
+    ->dataCriacao()
     ->status('status', 'Status', new Status());

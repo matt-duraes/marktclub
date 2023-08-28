@@ -7,7 +7,6 @@ use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
-use App\Classes\Geral\Status;
 use App\Classes\PublicacaoPagina\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
@@ -28,8 +27,7 @@ final class PublicacaoPaginaController extends Controller implements
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
             pesquisa: $request->pesquisa,
-            ordem: new Ordem($request->ordem),
-            status: new Status($request->status)
+            ordem: new Ordem($request->ordem)
         );
 
         return mensagemSucesso($Pagina->listarDados());
@@ -38,7 +36,7 @@ final class PublicacaoPaginaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Pagina = new PaginaEntity();
-        $Pagina->idSlug($id);
+        $Pagina->uuid($id);
 
         return $this->retornoSucesso($Pagina);
     }
@@ -61,7 +59,7 @@ final class PublicacaoPaginaController extends Controller implements
                 $Pagina,
                 lista: [
                     'titulo', 'texto', 'data_criacao', 'data_atualizacao', 'header_titulo',
-                    'header_descricao', 'header_tag', 'url', 'status'
+                    'header_descricao', 'header_tag'
                 ]
             ),
             status: $status

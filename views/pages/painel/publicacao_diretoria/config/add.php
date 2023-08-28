@@ -1,107 +1,25 @@
 <?php
 
 use App\Classes\Geral\Status;
-use App\Classes\PublicacaoNoticia\Tipo;
-use App\Classes\PublicacaoNoticia\Local;
 
-$Painel = new PainelConfig\Add(app: 'publicidade_noticia', acao: $acao);
+$Painel = new PainelConfig\Add(app: 'publicidade_diretoria', acao: $acao);
 $diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
 $diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
 
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Dados principais', function () use ($Painel) {
+$Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
+    $Painel->fieldset('Imagem', function () use ($Painel, $diretorioImagem) {
+        $Painel->imagem(name: 'imagem', diretorio: $diretorioImagem);
+    });
+    $Painel->fieldset('Dados principais', function () use ($Painel, $diretorioImagem) {
         $Painel
             ->input(
-                name: 'titulo_grande',
-                label: 'Título grande',
-                placeholder: 'Digite um título',
-                contador: 200,
+                name: 'nome',
+                label: 'Nome',
+                placeholder: 'Digite um nome',
+                contador: 80,
                 obrigatorio: true
             )
-            ->input(name: 'subtitulo', label: 'Subtítulo', placeholder: 'Digite um subtítulo', contador: 200);
-    });
-    $Painel->fieldset('Dados secundários', function () use ($Painel) {
-        $Painel
-            ->input(
-                name: 'titulo_pequeno',
-                label: 'Título pequeno',
-                placeholder: 'Digite um título pequeno',
-                contador: 80
-            )
-            ->input(
-                name: 'texto_pequeno',
-                label: 'Texto pequeno',
-                placeholder: 'Digite um texto pequeno',
-                contador: 120
-            );
-    });
-});
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('SEO', function () use ($Painel) {
-        $Painel
-            ->input(
-                name: 'header_titulo',
-                label: 'Título',
-                placeholder: 'Digite um título',
-                contador: 65
-            )
-            ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição', contador: 155)
-            ->tag(name: 'header_tag', label: 'Tags', placeholder: 'Digite sua tags');
-    });
-});
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Fonte', function () use ($Painel) {
-        $Painel->div(class: 'bloco_row', callback: function () use ($Painel) {
-            $Painel
-                ->input(name: 'autor_noticia', label: 'Autor da notícia', placeholder: 'Digite um autor', contador: 100)
-                ->input(
-                    name: 'fonte_noticia',
-                    label: 'Fonte da notícia',
-                    placeholder: 'Digite uma fonte',
-                    contador: 100
-                )
-                ->url(name: 'fonte_link', label: 'Link da fonte', placeholder: 'Digite um link');
-        });
-    });
-});
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Dados de publicação', function () use ($Painel) {
-        $Painel
-            ->dataHora(
-                name: 'data_inicio',
-                label: 'Data de publição',
-                placeholder: 'Digite a data de publicação',
-                obrigatorio: true
-            )
-            ->dataHora(
-                name: 'data_final',
-                label: 'Data de remoção',
-                placeholder: 'Digite a data de remoção',
-                ajuda: 'Colocar uma data caso queira que essa notícia saia do site no dia e hora desejado.'
-            )
-            ->dataHora(
-                name: 'data_atualizada',
-                label: 'Data de atualiação',
-                placeholder: 'Digite uma data de atualização',
-                ajuda: 'Colocar uma data caso queira que aparece que essa notícia foi atualizada.'
-            );
-    });
-    $Painel->fieldset('Permissões', function () use ($Painel) {
-        $Painel
-            ->switch(name: 'permissao_restrita', label: 'Aparecer na área restrita')
-            ->switch(name: 'permissao_site', label: 'Aparecer no site')
-            ->select(
-                name: 'local',
-                label: 'Local',
-                placeholder: 'Escolha um local',
-                lista: (new Local())->select('Escolha uma opção')
-            )
-            ->select(
-                name: 'tipo',
-                label: 'Tipo',
-                placeholder: 'Escolha um tipo de notícia',
-                lista: (new Tipo())->select('Escolha uma opção')
-            )
+            ->input(name: 'cargo', label: 'Cargo', placeholder: 'Digite um cargo', contador: 100)
             ->select(
                 name: 'status',
                 label: 'Status',
@@ -111,22 +29,10 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
-$Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
-    $Painel->fieldset('Imagem principais', function () use ($Painel, $diretorioImagem) {
-        $Painel->imagem(name: 'imagem_grande', diretorio: $diretorioImagem);
-    });
-    $Painel->fieldset('Imagem secundária', function () use ($Painel, $diretorioImagem) {
-        $Painel->imagem(name: 'imagem_pequena', diretorio: $diretorioImagem);
-    });
-    $Painel->fieldset('Imagem social', function () use ($Painel, $diretorioImagem) {
-        $Painel->imagem(name: 'imagem_social', diretorio: $diretorioImagem);
-    });
-});
-
 $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
-    $Painel->fieldset('Texto principal', function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
+    $Painel->fieldset('Texto', function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
         $Painel->editorBalao(
-            name: 'texto_grande',
+            name: 'texto',
             label: 'Texto',
             placeholder: 'Digite seu texto',
             diretorioImagem: $diretorioImagem,

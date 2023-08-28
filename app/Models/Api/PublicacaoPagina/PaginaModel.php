@@ -6,7 +6,6 @@ use ORM\ORM;
 use stdClass;
 use Modules\Pagina;
 use Modules\Quantidade;
-use App\Classes\Geral\Status;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\PublicacaoPagina\Ordem;
@@ -28,8 +27,7 @@ final class PaginaModel extends ORM implements
         private Pagina $pagina = new Pagina(null),
         private Quantidade $quantidade = new Quantidade(null),
         private ?string $pesquisa = null,
-        private Ordem $ordem = new Ordem(null),
-        private Status $status = new Status(null)
+        private Ordem $ordem = new Ordem(null)
     ) {
         parent::__construct();
         $this->validarDado();
@@ -40,7 +38,7 @@ final class PaginaModel extends ORM implements
     {
         $dado = $this
             ->campo([
-                'uuid', 'titulo', 'texto', 'data_criacao', 'url', 'status'
+                'uuid', 'titulo', 'texto', 'data_criacao'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -57,7 +55,6 @@ final class PaginaModel extends ORM implements
             return [];
         }
 
-        $Status = new Status();
         $retorno = [];
         foreach ($lista as $r) {
             $retorno[] = [
@@ -65,8 +62,6 @@ final class PaginaModel extends ORM implements
                 'titulo'       => $r->titulo,
                 'texto'        => $r->texto,
                 'data_criacao' => $r->data_criacao,
-                'url'          => $r->url,
-                'status'       => $Status->indice($r->status)
             ];
         }
         return $retorno;
@@ -75,9 +70,8 @@ final class PaginaModel extends ORM implements
     private function pegarWhere()
     {
         $where = $this->ormWherePadrao;
-
-        if ($this->status->valido()) {
-            $where[] = ['status', $this->status->numero()];
+        if (!empty($this->pesquisa)) {
+            $where[] = ['titulo', 'like', '%' . $this->pesquisa . '%'];
         }
         return $where;
     }

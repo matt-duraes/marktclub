@@ -10,6 +10,4 @@ return (new \DataBase\DataBase())
     ->varchar('header_descricao')->tamanho(155)->null()
     ->json('header_tag')->null()
     ->dataCriacao()
-    ->dataAtualizacao()
-    ->slug('url', 'titulo')
-    ->status();
+    ->dataAtualizacao();

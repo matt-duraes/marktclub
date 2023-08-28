@@ -3,7 +3,6 @@
 namespace App\Models\Api\PublicacaoPagina;
 
 use ORM\Entity;
-use App\Classes\Geral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class PaginaEntity extends Entity
@@ -15,21 +14,17 @@ final class PaginaEntity extends Entity
         'id_admin_empresa'  => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'status'
+        'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag'
     ];
     protected array $ormBuscar = [
-        'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'status',
-        'data_criacao', 'data_atualizacao', 'url'
+        'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'data_criacao', 'data_atualizacao'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
         texto|Texto|obrigatorio|vazio
-        status|Status|obrigatorio|vazio|valido
     ';
     public string $titulo;
     public string $texto;
-    public string $url;
-    public Status $status;
     public string $header_titulo;
     public string $header_descricao;
     public array $header_tag;
