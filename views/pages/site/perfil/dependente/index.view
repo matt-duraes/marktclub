@@ -2,48 +2,46 @@
 
 <div id="bloco_pagina_dependente">
 
-    <div class="bloco_titulo_texto">
-        <form action="#" method="post" class="form_geral bloco_geral_dependente">
-            <div class="bloco_geral_dependente">
-                <p>Utilize o formulário abaixo para cadastrar até 5 dependentes, totalmente
-                <strong>sem custo</strong></p>
-                <div class="dependente">
-                    <div class="linha_dependente">
-                        @? formInput( name: 'dependente_nome', placeholder: 'Digite o nome do dependente', focus: true, label: 'Nome do dependente', value: '')
-                        @? formCpf( name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF',  obrigatorio: true)
-                        @? formInput( name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
-                    </div>
+    <form action="/" method="post" class="form_geral" id="bloco_dependente">
+        <header>
+            <h1>Cadastre seus dependentes</h1>
+            <p>Utilize o formulário abaixo para cadastrar até 5 dependentes, totalmente <strong>sem custo</strong> para você e seus dependentes.</p>
+        </header>
+        <div class="bloco_grupo">
+            @? formInput(name: 'dependente_nome', placeholder: 'Digite o nome do dependente', label: 'Nome do dependente', obrigatorio: true)
+            @? formCpf(name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF', obrigatorio: true)
+            @? formInput(name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
+        </div>
+        <div class="bloco_botao">
+            <div></div>
+            <button id="botao_cadastra_dependente" class="botao_geral_cor cor_bg">Cadastrar dependente</button>
+        </div>
+    </form>
+
+    <div class="bloco_tabela_geral bloco_dependente {!! $dado ? 'display_none' : '' !!}" id="bloco_dependente_zero">
+        <div class="scroll">
+            <div class="conteudo">
+                <div class="linha titulo">
+                    <div class="td nome">Nome</div>
+                    <div class="td status">Status</div>
+                    <div class="td deletar">Deletar</div>
                 </div>
-                <button id="botao_cadastra_dependente" class="botao_geral_cor cor_bg">Cadastrar dependente</button>
+                <div class="bloco_lista">
+                    @ ifforeach( $dado as $r ):
+                    <div class="linha">
+                        <div class="td nome">{{$r->nome}}</div>
+                        <div class="td status"><p class="ativo">Status</p><span>Reenviar convite</span></div>
+                        <div class="td deletar"><i class="botao_deletar_dependente">@iconeFechar</i></div>
+                    </div>
+                    @endifforeach;
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 
-    <div class="bloco_tabela_geral">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Deletar</th>
-                </tr>
-            </thead>
-            <tbody>
-                @ ifforeach( $dado as $r ):
-                <tr class="hover dependente" data-id="{{$r->id}}">
-                    <td>{{$r->nome}}</td>
-                    <td class="deletar botao_deletar_dependente">
-                        <p>
-                            Deletar
-                        </p>
-                    </td>
-                </tr>
-                @endifforeach;
-            </tbody>
-        </table>
-
-        <div class="zero atencao bloco_atencao_geral {!! $dado ? 'display_none' : '' !!}">
-            <i>@iconeDependente(30)</i>
-            <p>Sem dependentes no momento</p>
-        </div>
+    <div class="bloco_geral_sem_resultado atencao bloco_zero {{!$dado ? 'display_none' : ''}}" id="bloco_dependente_zero">
+        <i>@iconeDependente(60)</i>
+        <h1>Sem dependentes no momento</h1>
+        <p>Use o formulário acima para cadastrar até 5 dependentes</p>
     </div>
 </div>

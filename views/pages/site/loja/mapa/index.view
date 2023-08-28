@@ -1,4 +1,4 @@
-<div id="bloco_loja_mapa" class="display_none">
+<div id="bloco_loja_mapa">
     <div id="botao_atualizar_mapa" class="atualizar display_none">Buscar nessa região</div>
     <div id="bloco_google_maps" class="mapa"></div>
     <input type="hidden" id="input_loja_latitude" value="{{$Busca->latitude}}">
