@@ -71,7 +71,9 @@ final class PublicacaoPaginaController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
-        $dado['texto'] = $request->getPut('texto', html: false);
+        if (!$request->vazio('texto')) {
+            $dado['texto'] = $request->getPut('texto', html: false);
+        }
 
         $Pagina = new PaginaEntity();
         $Pagina->idSlug($id);

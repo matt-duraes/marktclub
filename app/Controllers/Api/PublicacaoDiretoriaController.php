@@ -62,8 +62,7 @@ final class PublicacaoDiretoriaController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Diretoria,
                 lista: [
-                    'titulo', 'texto', 'data_criacao', 'data_atualizacao', 'header_titulo',
-                    'header_descricao', 'header_tag', 'url', 'status'
+                    'nome', 'texto', 'cargo', 'data_criacao', 'data_atualizacao', 'imagem', 'status'
                 ]
             ),
             status: $status
@@ -73,7 +72,9 @@ final class PublicacaoDiretoriaController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
-        $dado['texto'] = $request->getPut('texto', html: false);
+        if (!$request->vazio('texto')) {
+            $dado['texto'] = $request->getPut('texto', html: false);
+        }
 
         $Diretoria = new DiretoriaEntity();
         $Diretoria->idSlug($id);

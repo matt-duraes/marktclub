@@ -86,7 +86,9 @@ final class PublicacaoNoticiaController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
-        $dado['texto_grande'] = $request->getPut('texto_grande', html: false);
+        if (!$request->vazio('texto_grande')) {
+            $dado['texto_grande'] = $request->getPut('texto_grande', html: false);
+        }
 
         $Noticia = new NoticiaEntity();
         $Noticia->idSlug($id);

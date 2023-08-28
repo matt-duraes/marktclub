@@ -141,7 +141,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:salvar'])
             ::request([
                 'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
-                'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
+                'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
                 'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
                 'data_atualizada', 'permissao_restrita', 'permissao_site', 'header_titulo',
                 'header_descricao', 'header_tag', 'local', 'tipo', 'status'
@@ -212,7 +212,7 @@ Route
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!status'
             ], 'json')
-            ::get('/publicacao-noticia');
+            ::get('/publicacao-diretoria');
 
         Route
             ::nome('buscar')

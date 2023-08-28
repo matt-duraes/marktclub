@@ -16,10 +16,10 @@ final class DiretoriaEntity extends Entity
         'id_admin_empresa'  => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'nome', 'texto', 'imagem', 'ordem', 'status'
+        'nome', 'texto', 'cargo', 'imagem', 'ordem', 'status'
     ];
     protected array $ormBuscar = [
-        'nome', 'texto', 'imagem', 'ordem', 'status'
+        'nome', 'texto', 'cargo', 'imagem', 'ordem', 'imagem', 'data_criacao', 'data_atualizacao', 'status'
     ];
     protected string $ormValidarSalvar = '
         nome|Nome|obrigatorio|vazio|valido
@@ -28,6 +28,7 @@ final class DiretoriaEntity extends Entity
     public Nome $nome;
     public string $texto;
     public string $imagem;
+    public string $cargo;
     public Status $status;
     private int $idEmpresa;
 
@@ -36,6 +37,11 @@ final class DiretoriaEntity extends Entity
         parent::__construct();
         $this->validarEmpresa();
         $this->ormWherePadrao = ['id_admin_empresa', $this->idEmpresa];
+    }
+
+    protected function regraSalvar()
+    {
+        $this->imagem = arquivoPrivadoId($this->imagem);
     }
 
     protected function regraPosBuscar()

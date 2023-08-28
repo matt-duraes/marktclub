@@ -18,7 +18,8 @@ final class PaginaEntity extends Entity
         'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'status'
     ];
     protected array $ormBuscar = [
-        'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'status', 'url'
+        'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag', 'status',
+        'data_criacao', 'data_atualizacao', 'url'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
