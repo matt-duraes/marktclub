@@ -49,6 +49,7 @@ return [
             'parceiro_automovel'     => [
                 'titulo' => 'Automóvel', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar']
             ],
+            'parceiro_indicacao'     => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
             'relatorio_acesso'       => [
                 'titulo' => 'Relatório Acesso', 'permissao' => [
                     'relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas'
@@ -78,7 +79,7 @@ return [
                 'titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']
             ],
             'solicitacao_salavip'    => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
-            'solicitacao_declaracao' => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
+            'solicitacao_declaracao' => ['titulo' => 'Declaração', 'acao' => ['index', 'status']],
             'comercial_empresa'      => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
             'comercial_prospeccao'   => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']

@@ -19,7 +19,8 @@ $permissao = json_encode([
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
-    'parceiro_automovel_visualizar',
+    'parceiro_automovel_visualizar', 'parceiro_indicacao_index', 'parceiro_indicacao_visualizar',
+    'parceiro_indicacao_status',
 
     'comunicacao_publicidade_index', 'comunicacao_publicidade_add', 'comunicacao_publicidade_editar',
     'comunicacao_publicidade_deletar',
@@ -30,11 +31,10 @@ $permissao = json_encode([
     'solicitacao_voucher_empresa', 'solicitacao_premium_index', 'solicitacao_premium_visualizar',
     'solicitacao_premium_index', 'solicitacao_premium_download', 'solicitacao_premium_empresa',
     'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_declaracao_index',
-    'solicitacao_declaracao_visualizar', 'solicitacao_declaracao_status', 'comercial_empresa_index',
-    'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
-    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',
-    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
-    'log_erro_visualizar', 'log_erro_status'
+    'solicitacao_declaracao_status', 'comercial_empresa_index', 'comercial_empresa_visualizar',
+    'comercial_empresa_editar', 'comercial_prospeccao_index', 'comercial_prospeccao_add',
+    'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar', 'comercial_atendimento_index',
+    'demanda_tecnologia', 'demanda_criacao', 'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [
