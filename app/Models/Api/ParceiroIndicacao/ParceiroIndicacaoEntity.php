@@ -45,7 +45,8 @@ class ParceiroIndicacaoEntity extends Entity
      */
     public function __construct()
     {
-        $this->validarEmpresa();
+        $this->setarIdEmpresa();
+        $this->setarIdUsuario();
         parent::__construct();
     }
 

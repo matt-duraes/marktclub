@@ -72,6 +72,6 @@ $Painel->coluna(callback: function () use ($Painel) {
         );
 });
 
-$Painel->replace(campo: 'status', lista: (new Status())->select());
+//$Painel->replace(campo: 'status', lista: (new Status())->select());
 
 return $Painel;
