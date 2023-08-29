@@ -6,17 +6,21 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
-    public const AGUARDANDO = 'aguardando';
-    public const ANDAMENTO = 'andamento';
-    public const CONCLUIDA = 'concluida';
+    public const NOVO = 'novo';
+    public const VISUALIZADA = 'visualizada';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::AGUARDANDO  => 'Aguardando',
-            self::ANDAMENTO   => 'Em andamento',
-            self::CONCLUIDA   => 'Concluida'
+            self::NOVO        => 'Novo',
+            self::VISUALIZADA => 'Visualizada'
+        ], [
+            self::NOVO        => 'azul',
+            self::VISUALIZADA => 'verde'
         ]);
     }
 }

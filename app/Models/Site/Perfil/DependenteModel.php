@@ -6,6 +6,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use App\Helpers\ClubeApiHelper;
+use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 
 final class DependenteModel extends ClubeApiHelper
@@ -30,7 +31,22 @@ final class DependenteModel extends ClubeApiHelper
             ->get('/usuario-dependente')
             ->object();
 
-        return $dado->dado ?? [];
+        return $this->montarDado($dado->dado ?? []);
+    }
+
+    private function montarDado($dado)
+    {
+        $retorno = [];
+        $Status = new Status();
+        foreach ($dado as $r) {
+            $retorno[] = (object)[
+                'id'           => $r->id,
+                'nome'         => $r->nome,
+                'status'       => $r->status,
+                'status_texto' => $Status->nome($r->status)
+            ];
+        }
+        return $retorno;
     }
 
     /**
@@ -53,8 +69,10 @@ final class DependenteModel extends ClubeApiHelper
             ->object()->dado;
 
         return [
-            'id'   => $dado->id,
-            'nome' => $this->Crypt->decode($dado->nome),
+            'id'           => $dado->id,
+            'nome'         => $this->Crypt->decode($dado->nome),
+            'status'       => $dado->status,
+            'status_texto' => (new Status($dado->status))->nome()
         ];
     }
 
@@ -64,11 +82,10 @@ final class DependenteModel extends ClubeApiHelper
      * @return Response
      * @throws Excecao
      */
-    public function deletarDependente(Request $request): Response
+    public function deletarDependente(Request $request): void
     {
         $this
             ->validar('Erro ao deletar dependente, por favor, tente novamente.', login: true)
             ->delete('/usuario-dependente/' . $request->id);
-        return new Response(status: 204);
     }
 }

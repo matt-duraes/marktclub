@@ -38,7 +38,7 @@ final class UsuarioDependenteController extends Controller implements
         $Usuario->salvar();
 
         return mensagemSucesso(
-            dado: pegarPropriedadeDaEntity($Usuario, lista: ['nome', 'email', 'cpf']),
+            dado: pegarPropriedadeDaEntity($Usuario, lista: ['nome', 'email', 'cpf', 'status']),
             status: 201,
             criptografar: Helper::CRIPTOGRAFAR
         );

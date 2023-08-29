@@ -15,6 +15,7 @@
 
     @view site/geral/banner.view
 
+    @ if( !empty($plano_saude) ):
     <div class="bloco">
         <div class="bloco_geral_imagem_esquerda">
             <div class="bloco_plano">
@@ -31,17 +32,18 @@
                     <p class="apartir">Apartir</p>
                     <div class="preco">
                         <div class="sifrao">R$</div>
-                        <div class="real">240,00</div>
+                        <div class="real">{{$plano_saude}}</div>
                         <div class="asterisco">*</div>
                     </div>
-                    <div class="observacao">*Para pessoas com idade de 36 anos</div>
+                    <div class="observacao">*Para pessoas com idade de até 18 anos</div>
                 </div>
                 @if(TIPO_USUARIO != 'indicado'):
-                    <a href="@route('planosaude.index')" class="botao_geral_cor cor_bg">Fazer cotação</a>
+                    <a href="@route('planosaude.index')" class="botao_geral_cor cor_bg">Veja valores</a>
                 @endif
             </div>
         </div>
     </div>
+    @ endif;
 
     <div class="bloco {{$loja_favorita->lista ? '' : 'display_none'}}" id="bloco_favorito">
         <header class="titulo_geral">

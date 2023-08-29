@@ -34,7 +34,8 @@ final class PerfilController extends Controller
                 'endereco_cidade'      => $Perfil->endereco_cidade,
                 'endereco_estado'      => $Perfil->endereco_estado,
                 'imagem'               => $Perfil->imagem,
-            ]
+            ],
+            'menu' => 'alterar_dados'
         ]);
     }
 
@@ -46,7 +47,12 @@ final class PerfilController extends Controller
 
     public function senha()
     {
-        return view('perfil.senha');
+        return view(
+            'perfil.senha',
+            [
+                'menu' => 'alterar_senha',
+            ]
+        );
     }
 
     /*
@@ -58,7 +64,8 @@ final class PerfilController extends Controller
     {
         $dado = (new DependenteModel())->listarDependente();
         return view('perfil.dependente', [
-            'dado' => $dado
+            'menu'         => 'adicionar_dependentes',
+            'dado'         => $dado
         ]);
     }
 

@@ -1,8 +1,47 @@
 #bloco_form_buscar
 #bloco_form_login
+#bloco_escolha_login
     max-width: 500px
 #bloco_form_ativar
     max-width: 800px
+
+#bloco_escolha_login
+    flexCol()
+    align-items: center
+    position: relative
+    .fechar
+        width: 30px
+        height: 30px
+        flexCenter()
+        position: absolute
+        top: 10px
+        fill: #666
+        cursor: pointer
+        &.esquerda
+            left: 15px
+        &.direita
+            right: 15px
+    .icone
+        width: 80px
+        height: 80px
+        border-radius: 50%
+        border: 1px solid #CCC
+        flexCenter()
+        fill: #CCC
+        margin: 20px 0
+    h1
+        titulo()
+        color: $corClube
+    p
+        texto()
+        margin-bottom: 30px
+    .botao
+        width: 100%
+        max-width: 250px
+        botaoPadraoGrande()
+        background-color: $corClube
+        color: #FFF
+        margin-bottom: 15px
 
 .bloco_form_login
     width: calc(100% - 40px)

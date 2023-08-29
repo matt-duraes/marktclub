@@ -1,5 +1,8 @@
 window.addEventListener('load', () => {
     const botaoMenu = document.getElementById('botao_menu_mobile');
+    if (!botaoMenu) {
+        return;
+    }
     const botaoSwiped = document.getElementById('botao_swiped_esquerdo');
 
     const blocoMenu = document.getElementById('menu_principal');
@@ -35,18 +38,17 @@ window.addEventListener('load', () => {
             blocoMenu.classList.add('menu_fechado');
         }, 300);
     };
+    const posicionarMenuPrincipal = () => {
+        const blocoMenuPrincipal = document.querySelector('#menu_principal');
+        const blocoScroll = blocoMenuPrincipal.querySelector('.conteudo');
+        const menuAtual = blocoMenuPrincipal.querySelector('.pagina_atual');
+        if (!menuAtual) {
+            return;
+        }
+        const posicaoMenu = menuAtual.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        const menuTop = posicaoMenu - windowHeight + windowHeight / 2;
+        blocoScroll.scrollTop = menuTop;
+    };
+    posicionarMenuPrincipal();
 });
-
-const posicionarMenuPrincipal = () => {
-    const blocoMenuPrincipal = document.querySelector('#menu_principal');
-    const blocoScroll = blocoMenuPrincipal.querySelector('.conteudo');
-    const menuAtual = blocoMenuPrincipal.querySelector('.pagina_atual');
-    if (!menuAtual) {
-        return;
-    }
-    const posicaoMenu = menuAtual.getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
-    const menuTop = posicaoMenu - windowHeight + windowHeight / 2;
-    blocoScroll.scrollTop = menuTop;
-};
-posicionarMenuPrincipal();

@@ -2,23 +2,23 @@
 
 <div id="bloco_pagina_dependente">
 
-    <form action="/" method="post" class="form_geral" id="bloco_dependente">
+    <form action="/" method="post" class="form_geral" id="form_dependente">
         <header>
             <h1>Cadastre seus dependentes</h1>
             <p>Utilize o formulário abaixo para cadastrar até 5 dependentes, totalmente <strong>sem custo</strong> para você e seus dependentes.</p>
         </header>
         <div class="bloco_grupo">
-            @? formInput(name: 'dependente_nome', placeholder: 'Digite o nome do dependente', label: 'Nome do dependente', obrigatorio: true)
-            @? formCpf(name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite um CPF', obrigatorio: true)
-            @? formInput(name: 'dependente_email', label: 'E-mail', placeholder: 'Digite um email', obrigatorio: true)
+            @? formInput(name: 'dependente_nome', placeholder: 'Digite o nome do dependente', label: 'Nome do dependente', obrigatorio: true, local: nomeCompletoAleatorio())
+            @? formCpf(name: 'dependente_cpf', label: 'CPF', placeholder: 'Digite o CPF do dependente', obrigatorio: true, local: cpfAleatorio())
+            @? formInput(name: 'dependente_email', label: 'E-mail', placeholder: 'Digite o e-mail do dependente', obrigatorio: true, local: emailAleatorio())
         </div>
         <div class="bloco_botao">
             <div></div>
-            <button id="botao_cadastra_dependente" class="botao_geral_cor cor_bg">Cadastrar dependente</button>
+            <div id="botao_cadastrar_dependente" class="botao_geral_cor cor_bg">Cadastrar dependente</div>
         </div>
     </form>
 
-    <div class="bloco_tabela_geral bloco_dependente {!! $dado ? 'display_none' : '' !!}" id="bloco_dependente_zero">
+    <div class="bloco_tabela_geral bloco_dependente {!! !$dado ? 'display_none' : '' !!}" id="bloco_dependente">
         <div class="scroll">
             <div class="conteudo">
                 <div class="linha titulo">
@@ -26,11 +26,16 @@
                     <div class="td status">Status</div>
                     <div class="td deletar">Deletar</div>
                 </div>
-                <div class="bloco_lista">
+                <div class="bloco_lista" id="bloco_dependente_lista">
                     @ ifforeach( $dado as $r ):
-                    <div class="linha">
+                    <div class="linha" data-id="{!!$r->id!!}">
                         <div class="td nome">{{$r->nome}}</div>
-                        <div class="td status"><p class="ativo">Status</p><span>Reenviar convite</span></div>
+                        <div class="td status">
+                            <p class="{{$r->status}}">{{$r->status_texto}}</p>
+                            @ if( $r->status == 'inativo' ):
+                            <span>Reenviar convite</span>
+                            @ endif;
+                        </div>
                         <div class="td deletar"><i class="botao_deletar_dependente">@iconeFechar</i></div>
                     </div>
                     @endifforeach;
@@ -39,9 +44,17 @@
         </div>
     </div>
 
-    <div class="bloco_geral_sem_resultado atencao bloco_zero {{!$dado ? 'display_none' : ''}}" id="bloco_dependente_zero">
+    <div class="bloco_geral_sem_resultado atencao bloco_zero {{ $dado ? 'display_none' : '' }}" id="bloco_dependente_zero">
         <i>@iconeDependente(60)</i>
         <h1>Sem dependentes no momento</h1>
         <p>Use o formulário acima para cadastrar até 5 dependentes</p>
+    </div>
+</div>
+
+<div class="display_none">
+    <div class="linha" id="bloco_dependente_linha">
+        <div class="td nome"></div>
+        <div class="td status"><p class="inativo">Status</p><span>Reenviar convite</span></div>
+        <div class="td deletar"><i class="botao_deletar_dependente">@iconeFechar</i></div>
     </div>
 </div>

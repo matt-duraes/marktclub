@@ -536,15 +536,15 @@ Route
             ::post('/perfil/alterar-senha');
         Route
             ::nome('dependente')
-            ::view('/perfil/adicionar-dependente');
+            ::view('/perfil/dependente');
         Route
             ::nome('salvaDependente')
             ::request(['nome', 'email', 'cpf'])
-            ::post('/perfil/salvar-dependentes');
+            ::post('/perfil/dependente-salvar');
         Route
             ::nome('deletaDependente')
             ::request(['id'])
-            ::post('/perfil/deletar-dependente');
+            ::post('/perfil/dependente-deletar');
         Route
             ::nome('social')
             ::request(['id', 'token', 'rede', 'code', 'acao'])
@@ -556,19 +556,6 @@ Route
             ::nome('buscarCep')
             ::request(['cep'])
             ::post('/perfil/buscar-cep');
-    });
-
-Route
-    ::nome('preferencia')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\PreferenciaController::class)
-    ::grupo(function () {
-        Route
-            ::nome('index')
-            ::view('/preferencias');
-        Route
-            ::nome('boasVindas')
-            ::view('/preferencias/boas-vindas');
     });
 
 Route

@@ -1,17 +1,11 @@
 window.addEventListener('load', () => {
-    const carregarFuncaoAjuda = () => {
-        const botaoFechar = document.querySelectorAll('.botao_fechar_popup');
-        botaoFechar.forEach(fecha => {
-            fecha.addEventListener('click', () => {
-                Pagina.staticFechar();
-            });
-        });
-    };
+    const botaoAbrirAjuda = document.getElementById('botao_abrir_ajuda');
+    if (!botaoAbrirAjuda) {
+        return;
+    }
+    const paginaAjuda = new Pagina('Ajuda', LINK + '/ajuda');
 
-    const botaoAbrirPesquisaSatisfacao = document.getElementById('botao_abrir_ajuda');
-    const paginaPesquisaSatisfacao = new Pagina('Ajuda', LINK + '/ajuda', {}, true, true, carregarFuncaoAjuda);
-
-    botaoAbrirPesquisaSatisfacao.addEventListener('click', () => {
-        paginaPesquisaSatisfacao.abrir();
+    botaoAbrirAjuda.addEventListener('click', () => {
+        paginaAjuda.abrir();
     });
 });

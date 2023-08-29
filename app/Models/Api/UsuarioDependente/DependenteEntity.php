@@ -33,7 +33,7 @@ final class DependenteEntity extends Entity
     protected string $cod;
     protected TipoUsuario $tipo;
     protected Data $data_email;
-    protected Status $status;
+    public Status $status;
     private int $idEmpresa;
 
     public function __construct()

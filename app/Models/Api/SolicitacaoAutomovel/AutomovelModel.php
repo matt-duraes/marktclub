@@ -32,13 +32,11 @@ final class AutomovelModel extends ORM implements ModelListarInterface
         protected Ordem $ordem = new Ordem(null)
     ) {
         parent::__construct();
-        $this->validarDado();
     }
 
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
             ->read();
@@ -52,13 +50,17 @@ final class AutomovelModel extends ORM implements ModelListarInterface
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = (object)[
-                'id' => $r->uuid,
+                'id'              => $r->uuid,
+                'endereco_estado' => $r->endereco_estado,
+                'endereco_cidade' => $r->endereco_cidade,
+                'montadora'       => $r->montadora,
+                'modelo'          => $r->modelo,
+                'versao'          => $r->versao,
+                'cor'             => $r->cor,
+                'mensagem'        => $r->mensagem,
+                'status'          => (new Status($r->status))->indice(),
             ];
         }
         return $retorno;
-    }
-
-    private function validarDado()
-    {
     }
 }

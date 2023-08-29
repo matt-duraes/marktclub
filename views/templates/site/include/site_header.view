@@ -22,35 +22,46 @@
             <figure style="background-image: url({{USUARIO_IMAGEM}})"></figure>
             <div class="nome">{{USUARIO_NOME}}</div>
             <div class="email">{{USUARIO_EMAIL}}</div>
+            @ if( MENU_PERFIL ):
             <i class="abrir" id="botao_menu_perfil">@iconeOpcao(15)</i>
+            @ endif;
         </div>
 
+        @ if( MENU_PERFIL ):
         <div class="bloco_geral_sub_menu desktop display_none" id="bloco_menu_perfil">
-            <a href="@route(perfil.index)">
+            @ if( !API ):
+            <a class="botao {!!MENU_HOVER == 'perfil-dado' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.index)">
                 <i>@iconeUsuarioOutline(22)</i>
                 Alterar Dados
             </a>
-            <a href="@route(perfil.senha)">
+            <a class="botao {!!MENU_HOVER == 'perfil-senha' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.senha)">
                 <i>@iconeSenhaOutline(22)</i>
                 Alterar Senha
             </a>
-            <a href="@route(preferencia.index)">
-                <i>@iconePreferenciaOutline(22)</i>
-                Preferências
-            </a>
-            <a href="@route(perfil.dependente)">
+            @ endif;
+
+            @ if( MENU_DEPENDENTE ):
+            <a class="botao {!!MENU_HOVER == 'perfil-dependente' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)">
                 <i>@iconeDependenteOutline(22)</i>
                 Adicionar dependentes
             </a>
-            <a href="@route(cashback.extrato)">
+            @ endif;
+
+            @ if( MENU_CASHBACK ):
+            <a class="botao {!!MENU_HOVER == 'perfil-silium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.extrato)">
                 <i>@iconeCashbackHome(22)</i>
                 Extrato do Silium
             </a>
-            <a href="@route(site.indiqueAmigo)">
+            @ endif;
+
+            @ if( MENU_INDICACAO ):
+            <a class="botao {!!MENU_HOVER == 'perfil-indicacao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(site.indiqueAmigo)">
                 <i>@iconeIndiqueAmigoOutline(22)</i>
                 Indique um amigo
             </a>
+            @ endif;
         </div>
+        @ endif;
 
         <div class="menu">
             <div class="categoria">PRINCIPAL</div>
@@ -59,12 +70,14 @@
                 Início
             </a>
 
+            @ if( MENU_ACESSO_RAPIDO ):
             <a class="botao {!!MENU_HOVER == 'acesso-rapido' ? 'cor_bg pagina_atual' : ''!!}" href="@route(acessoRapido.index)">
                 <i>@iconeAcessoRapido(25)</i>
                 Acesso Rápido
             </a>
+            @ endif;
 
-            @ if( MENU_LOJA || MENU_LOJA_PROXIMA || MENU_CUPOM || MENU_CASHBACK || MENU_EXTENSAO):
+            @ if( MENU_LOJA || MENU_LOJA_PROXIMA || MENU_CUPOM || MENU_CASHBACK):
             <div class="categoria">DESCONTOS</div>
 
             @ if( MENU_LOJA ):
@@ -102,7 +115,7 @@
             </a>
             @ endif;
 
-            @ if( MENU_CREDITO_AUTOMOVEL ):
+            @ if( MENU_AUTOMOVEL ):
             <a class="botao {!!MENU_HOVER == 'automovel' ? 'cor_bg pagina_atual' : ''!!}" href="@route(automovel.index)">
                 <i>@iconeAutomovelHome</i>
                 Automóvel
@@ -132,48 +145,42 @@
 
             @ if( MENU_CREDITO_SICOOB ):
             <div class="categoria">CRÉDITO</div>
-
             <a class="botao {!!MENU_HOVER == 'sicoob' ? 'cor_bg pagina_atual' : ''!!}" href="@route(sicoob.index)">
                 <i>@iconeSicoobHome</i>
                 Crédito
             </a>
             @ endif;
 
-            @if(MENU_ODONTOLOGICO || MENU_SEGURO_DE_VIDA || MENU_MEDICAMENTO || MENU_FEDERAL_SAUDE):
+            @if(MENU_ODONTOLOGIA):
             <div class="categoria">SAÚDE</div>
-            @if(MENU_ODONTOLOGICO):
             <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
                 <i>@iconeDentista</i>
                 Plano Odontológico
             </a>
             @endif
-            @if(MENU_SEGURO_DE_VIDA):
-            <a class="botao {!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.index') ?>">
-                <i>@iconeSaude</i>
-                Plano de Saúde
-            </a>
-            @endif
 
-            @endif
-
-            @ if( MENU_EXTENSAO ):
             <div class="categoria">OUTROS</div>
             <a class="botao {!!MENU_HOVER == 'extensao' ? 'cor_bg pagina_atual' : ''!!}" target="_blank" href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc">
                 <i>@iconeExtensaoHome</i>
                 Extensão
             </a>
-            @ endif;
 
+            <div class="mobile" id="bloco_perfil_mobile">
+                <div class="categoria">PERFIL</div>
+            </div>
 
             <div class="linha"></div>
 
             <div class="botao footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</div>
+            @ if( MENU_SALAVIP ):
             <a class="botao footer" href="@route('loja.detalhe')/sala-vip-do-aeroporto-internacional-de-brasilia-presidente-juscelino-kubitschek-1">Sala VIP</a>
+            @ endif;
             <a class="botao footer" href="@route('sosmulher.index')">SOS Mulher</a>
 
+            @ if( MENU_SAIR ):
             <div class="linha"></div>
-
             <a href="@route('sair.index')" class="botao sair">Sair do clube</a>
+            @ endif;
 
             <div class="resto"></div>
         </div>

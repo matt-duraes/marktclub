@@ -1,4 +1,8 @@
 window.addEventListener('load', () => {
+    const botaoAbrirIndiqueParceiro = document.getElementById('abreIndiqueParceiro');
+    if (!botaoAbrirIndiqueParceiro) {
+        return;
+    }
     const carregarFuncaoIndicarParceiro = () => {
         const formulario = document.getElementById('formulario_indica_parceiro');
 
@@ -78,7 +82,6 @@ window.addEventListener('load', () => {
         }
     };
 
-    const botaoAbrirIndiqueParceiro = document.getElementById('abreIndiqueParceiro');
     const paginaIndiqueParceiro = new Pagina(
         'Indicar um Parceiro',
         LINK + '/indique-um-parceiro',

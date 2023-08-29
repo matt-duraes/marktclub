@@ -229,6 +229,18 @@ return [
     [
         'id'               => '++',
         'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Indicação',
+        'url'              => '/app/parceiro-indicacao',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.6,11.8h-0.9c0.4-1.8,0.1-2.9-0.4-3.5c-0.6-0.9-1.7-1.3-2.7-1.3c-0.4,0-0.7,0.3-0.8,0.7c-0.4,2.8-1.2,4.1-4.8,4.1H7.8c-0.2,0-0.4,0.1-0.6,0.2C7.1,12.2,7,12.4,7,12.6v9.6c0,0.2,0.1,0.4,0.2,0.6C7.4,22.9,7.6,23,7.8,23h12.8c0.6,0,1.2-0.3,1.7-0.7c0.4-0.4,0.7-1.1,0.7-1.7v-6.4c0-0.6-0.3-1.2-0.7-1.7C21.8,12.1,21.2,11.8,20.6,11.8L20.6,11.8z M8.6,13.4h1.6v8H8.6V13.4zM21.4,20.6c0,0.4-0.4,0.8-0.8,0.8h-8.8v-8c3.6-0.2,4.9-2,5.5-4.7v0c0.3,0.1,0.6,0.2,0.8,0.5c0.4,0.6,0.4,1.7-0.2,3.1c-0.1,0.2-0.1,0.5,0.1,0.7c0.1,0.2,0.4,0.3,0.7,0.3h2c0.4,0,0.8,0.4,0.8,0.8L21.4,20.6z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['parceiro-indicacao'],
+        'status'           => 1,
+        'permissao'        => '["parceiro_indicacao_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
         'tipo'             => 1,
         'titulo'           => 'PUBLICAÇÕES',
         'ordem'            => '++',
@@ -405,6 +417,18 @@ return [
         'menu'             => ['solicitacao-declaracao'],
         'status'           => 1,
         'permissao'        => '["solicitacao_declaracao_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Automóvel',
+        'url'              => '/app/solicitacao-automovel',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.6,20.6H9.4v0.8c0,0.4-0.4,0.8-0.8,0.8H7.8c-0.4,0-0.8-0.4-0.8-0.8v-8l2-4.6c0.3-0.6,0.8-1,1.5-1h9.1c0.6,0,1.2,0.4,1.5,1l2,4.6v8c0,0.4-0.4,0.8-0.8,0.8h-0.8c-0.4,0-0.8-0.4-0.8-0.8V20.6z M21.4,15H8.6v4h12.8V15z M8.7,13.4h12.5l-1.7-4h-9.1L8.7,13.4z M10.6,18.2c-0.7,0-1.2-0.5-1.2-1.2s0.5-1.2,1.2-1.2c0.7,0,1.2,0.5,1.2,1.2S11.3,18.2,10.6,18.2z M19.4,18.2c-0.7,0-1.2-0.5-1.2-1.2s0.5-1.2,1.2-1.2s1.2,0.5,1.2,1.2S20.1,18.2,19.4,18.2z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['solicitacao-automovel'],
+        'status'           => 1,
+        'permissao'        => '["solicitacao_automovel_index"]'
     ],
     [
         'id'               => '++',
