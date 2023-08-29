@@ -1428,3 +1428,18 @@ if (!function_exists('iconeRelogio')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,30C6.7,30,0,23.3,0,15C0,6.7,6.7,0,15,0c8.3,0,15,6.7,15,15C30,23.3,23.3,30,15,30z M15,27c6.6,0,12-5.4,12-12c0-6.6-5.4-12-12-12C8.4,3,3,8.4,3,15C3,21.6,8.4,27,15,27z M16.5,15h6v3h-9V7.5h3V15z"/></svg>';
     }
 }
+if (!function_exists('iconeEstrela')) {
+    // doc
+    // exemplo
+    // echo iconeEstrela
+    /**
+     * Gera um icone de uma estrela
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeEstrela(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 19" style="enable-background:new 0 0 20 19;" xml:space="preserve"><path d="M10,15.5L3.8,19l1.4-6.9L0,7.3l7-0.8L10,0l3,6.4l7,0.8l-5.2,4.8l1.4,6.9L10,15.5z M10,13.5l3.7,2.1l-0.8-4.2L16,8.5L11.8,8L10,4.2L8.2,8L4,8.5l3.1,2.9l-0.8,4.2L10,13.5z"/></svg>';
+    }
+}

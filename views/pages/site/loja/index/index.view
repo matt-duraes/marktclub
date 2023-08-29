@@ -30,11 +30,11 @@
         </div>
         <div class="flex_grow"></div>
         @ if( $Busca->mapa ):
-        <div class="mapa item" id="botao_visualizar_mapa">
+        <div class="mapa item display_none" id="botao_visualizar_mapa">
             <i>@iconeMapaPapel(20)</i>
             <p>Visualizar mapa</p>
         </div>
-        <div class="mapa item display_none" id="botao_visualizar_lista">
+        <div class="mapa item" id="botao_visualizar_lista">
             <i>@iconeListaMista(18)</i>
             <p>Visualizar lista</p>
         </div>

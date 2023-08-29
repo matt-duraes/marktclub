@@ -45,7 +45,7 @@ class LojaModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['id', 'cod', 'titulo', 'url', 'tipo', 'desconto', 'imagem', 'status'])
+            ->campo(['id', 'cod', 'titulo', 'url', 'tipo', 'desconto', 'estado', 'data_publicacao', 'imagem', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false);
         //Ordem
@@ -96,14 +96,16 @@ class LojaModel extends ORM implements ModelListarInterface
 
         foreach ($lista as $r) {
             $retorno[$r->id] = [
-                'id'        => $r->cod,
-                'titulo'    => $r->titulo,
-                'desconto'  => $r->desconto,
-                'imagem'    => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
-                'url'       => $r->url,
-                'tipo'      => $Tipo->indice($r->tipo),
-                'favorito'  => !empty($r->favorito) ? 'sim' : 'nao',
-                'status'    => $Status->indice($r->status)
+                'id'              => $r->cod,
+                'titulo'          => $r->titulo,
+                'desconto'        => $r->desconto,
+                'imagem'          => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
+                'url'             => $r->url,
+                'tipo'            => $Tipo->indice($r->tipo),
+                'data_publicacao' => $r->data_publicacao,
+                'estado'          => $r->estado,
+                'favorito'        => !empty($r->favorito) ? 'sim' : 'nao',
+                'status'          => $Status->indice($r->status)
             ];
         }
         if (object_key_exists('latitude', $lista[0])) {

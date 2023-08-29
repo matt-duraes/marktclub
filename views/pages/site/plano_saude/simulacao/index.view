@@ -101,12 +101,12 @@
 
                     <div class="atencao bloco_atencao_geral">
                         <h2>Gostou dos valores?</h2>
-                        <p>Preencha nosso formulário e um especialista irá entrar em contato, fique tranquilo que o preenchimento do formulário não implica em contratação, é apenas para um melhor atendimento.</p>
+                        <p>Preencha nosso formulário e um especialista entrará em contato. Fique tranquilo, porque o preenchimento do formulário não implica na contratação, sendo apenas uma ferramenta para tirar eventuais dúvidas e o atendimento acontecer da melhor forma possível.</p>
                     </div>
                 </div>
                 <div class="bloco_botao">
                     <div class="botao_geral_cor cinza botao_geral_voltar" id="voltar_simulacao">Voltar</div>
-                    <a href="@route('saude.contratacao')/" class="botao_geral_cor cor_bg" id="botao_contratar">Contratar</a>
+                    <a href="@route('saude.contratacao')/" class="botao_geral_cor cor_bg" id="botao_contratar">Prosseguir</a>
                 </div>
             </div>
                 @ endif;

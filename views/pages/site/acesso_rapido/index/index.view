@@ -2,7 +2,7 @@
 
 <div class="conteudo_principal">
     <section class="info_acesso">
-        <h1>Boas-vindas, {{USUARIO_NOME}}</h1>
+        <h1>Bem-vindo(a), {{USUARIO_NOME}}</h1>
         <p>O que você deseja fazer hoje? Selecione uma das opções abaixo.</p>
     </section>
     <nav>
