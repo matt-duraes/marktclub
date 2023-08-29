@@ -7,47 +7,30 @@
 // @resource "site/dependente"
 
 window.addEventListener('load', () => {
-    const blocoDependente = document.querySelector('#bloco_pagina_dependente table tbody');
-    const blocoZero = document.querySelector('.zero');
+    const form = $('#form_dependente');
 
-    BODY.addEventListener('click', function (event) {
-        if (event.target.classList.contains('remove')) {
-            const linhaDependente = event.target.closest('.linha_dependente');
-            linhaDependente.remove();
-        }
-    });
+    const blocoDependente = $('#bloco_dependente');
+    const blocoDependenteLista = $('#bloco_dependente_lista');
+    const blocoDependenteZero = $('#bloco_dependente_zero');
+    const blocoDependenteLinha = $('#bloco_dependente_linha');
+    blocoDependenteLinha.removeAttribute('id');
 
-    const acessarCadastrar = document.querySelector('#acessar_cadastro');
-    const campoPreenchimento = document.querySelector('#input_dependente_nome');
+    const inputNome = $('#input_dependente_nome');
+    const inputCpf = $('#input_dependente_cpf');
+    const inputEmail = $('#input_dependente_email');
 
-    acessarCadastrar.addEventListener('click', function () {
-        campoPreenchimento.scrollIntoView({ behavior: 'smooth' });
-        campoPreenchimento.focus();
-    });
+    const botaoSalvar = $('#botao_cadastrar_dependente');
 
-    const botaoSalvar = document.querySelector('#botao_cadastra_dependente');
-    botaoSalvar.addEventListener('click', e => {
-        e.preventDefault();
-        salvarDependente();
-    });
-
-    const inputNome = $('input[name=dependente_nome]');
-    const inputCpf = $('input[name=dependente_cpf]');
-    const inputEmail = $('input[name=dependente_email]');
     const salvarDependente = async () => {
-        const nomeDependente = inputNome.value;
-        const cpfDependente = inputCpf.value;
-        const emailDependente = inputEmail.value;
-        if (nomeDependente.trim().split(' ').length < 2) {
-            Alerta.notificacao('Digite seu nome completo para continuar.', false);
+        if (!(await validarInput(form))) {
             return;
         }
         const resposta = await ajaxPost(
-            LINK + '/perfil/salvar-dependentes',
+            LINK + '/perfil/dependente-salvar',
             {
-                nome: nomeDependente,
-                cpf: cpfDependente,
-                email: emailDependente,
+                nome: inputNome.value,
+                cpf: inputCpf.value,
+                email: inputEmail.value,
             },
             'Ocorreu um erro ao salvar o dependente, por favor, tente novamente.'
         );
@@ -55,68 +38,63 @@ window.addEventListener('load', () => {
             return;
         }
 
-        await Alerta.mensagem('Dependente Cadastrado', 'Seu dependente foi cadastrado com sucesso', true);
+        Alerta.notificacao('Dependente cadastrado com sucesso.', true);
+        adicionarHtmlDependente(resposta.dado);
+
+        monitorarLista();
         formValue(inputNome, '');
         formValue(inputCpf, '');
         formValue(inputEmail, '');
-        adicionarNovoDependente(resposta.dado.id, resposta.dado.nome, true);
+    };
+    const adicionarHtmlDependente = dado => {
+        const clone = blocoDependenteLinha.cloneNode(true);
+        clone.setAttribute('data-id', dado.id);
+        clone.querySelector('.nome').innerText = dado.nome;
+        clone.querySelector('.status p').innerText = dado.status;
+        blocoDependenteLista.appendChild(clone);
     };
 
-    const adicionarNovoDependente = (id, nome) => {
-        if (!blocoZero.classList.contains('display_none')) {
-            blocoZero.classList.add('display_none');
+    adicionarEventoEnter([inputNome, inputEmail, inputCpf], salvarDependente);
+    botaoSalvar.addEventListener('click', () => {
+        salvarDependente();
+    });
+
+    blocoDependenteLista.addEventListener('click', e => {
+        if (e.target.classList.contains('botao_deletar_dependente') || e.target.closest('.botao_deletar_dependente')) {
+            removerDependente(e.target.closest('.linha'));
         }
-
-        blocoDependente.insertAdjacentHTML(
-            'beforeend',
-            `
-                <tr class="hover dependente" data-id="${id}">
-                    <td>${nome}</td>
-                    <td class="deletar botao_deletar_dependente">
-                        <p>
-                            Deletar
-                        </p>
-                    </td>
-                </tr>
-            `
-        );
-    };
-
-    if (blocoDependente) {
-        blocoDependente.addEventListener('click', async e => {
-            if (
-                !e.target.classList.contains('botao_deletar_dependente') &&
-                !e.target.closest('.botao_deletar_dependente')
-            ) {
-                return;
-            }
-            const resposta = await Alerta.confirmar(
+    });
+    const removerDependente = async linha => {
+        if (
+            !(await Alerta.confirmar(
                 'Deletar dependente',
                 'Tem certeza que deseja deletar esse dependente? Essa ação não poderá ser desfeita.',
                 false
-            );
-
-            if (false === resposta) {
-                return;
-            }
-
-            const bloco = e.target.closest('.dependente');
-            const id = bloco.getAttribute('data-id');
-
-            deletarDependente(bloco, id);
-        });
-    }
-    const deletarDependente = async (bloco, id) => {
-        const resposta = await ajaxPost(LINK + '/perfil/deletar-dependente', { id });
+            ))
+        ) {
+            return;
+        }
+        const id = linha.getAttribute('data-id');
+        const resposta = await ajaxPost(
+            LINK + '/perfil/dependente-deletar',
+            { id },
+            'Erro ao deletar dependente, por favor, tente novamente.'
+        );
         if (false === resposta) {
             return;
         }
+        linha.remove();
+        monitorarLista();
+    };
 
-        bloco.parentNode.removeChild(bloco);
-        Alerta.notificacao('Dependente deletado com sucesso!', true);
-
-        if (blocoDependente.querySelectorAll('.dependente').length == 0) {
-            blocoZero.classList.remove('display_none');
+    const monitorarLista = () => {
+        const lista = blocoDependenteLista.querySelectorAll('.linha');
+        if (lista.length > 0) {
+            blocoDependenteZero.classList.add('display_none');
+            blocoDependente.classList.remove('display_none');
+            return;
         }
+        blocoDependenteZero.classList.remove('display_none');
+        blocoDependente.classList.add('display_none');
     };
 });
