@@ -117,6 +117,7 @@ $scope = [
     'popup:buscar', 'popup:salvar', 'popup:atualizar', 'popup:deletar',
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
+    'enquete_satisfacao:atualizar', 'enquete_satisfacao:deletar',
 
     'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:destaque', 'parceiro_loja:salvar',
     'parceiro_loja:atualizar', 'parceiro_loja:deletar',
@@ -137,7 +138,8 @@ $scope = [
 
     'silium:saldo', 'silium:extrato', 'silium:saque',
 
-    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar', 'parceiro_indicacao:atualizar', 'parceiro_indicacao:deletar'
+    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar',
+    'parceiro_indicacao:atualizar', 'parceiro_indicacao:deletar'
 ];
 
 return [
