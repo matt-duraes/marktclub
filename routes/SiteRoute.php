@@ -559,19 +559,6 @@ Route
     });
 
 Route
-    ::nome('preferencia')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\PreferenciaController::class)
-    ::grupo(function () {
-        Route
-            ::nome('index')
-            ::view('/preferencias');
-        Route
-            ::nome('boasVindas')
-            ::view('/preferencias/boas-vindas');
-    });
-
-Route
     ::nome('campanha')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CampanhaController::class)

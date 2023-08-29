@@ -33,7 +33,6 @@ final class IndexController extends Controller
             favorito: new Botao(Botao::SIM),
             ordem: new Ordem(Ordem::RANDOMICO)
         );
-
         return view('index', [
             'menu'           => 'home',
             'mais_utilizada' => $MaisUtilizada->listarDados(),
