@@ -16,6 +16,10 @@
     @ endif;
 
     @view site/login/index/include/extensao.view
+
+    @ if( MENU_BAIXAR_APP ):
     @view site/login/index/include/app.view
+    @ endif;
+
     @view site/login/index/include/contato.view
 </div>

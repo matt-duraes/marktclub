@@ -23,7 +23,12 @@ final class LoginController extends Controller
     */
     public function login()
     {
-        return view('login.login');
+        $api = sessao('CLUBE')->api;
+        $linkLogin = sessao('CLUBE')->link_login;
+        return view('login.login', [
+            'api'        => $api,
+            'link_login' => $linkLogin
+        ]);
     }
 
     public function postLogin(Request $request): Response

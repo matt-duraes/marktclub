@@ -5,32 +5,49 @@
     <nav id="menu_principal">
         <div class="background" id="bloco_menu_mobile">
             <div class="conteudo">
+                @ if( API && !DEPENDENTE ):
+                <a href="{!!LINK_LOGIN!!}" class="entrar_mobile">Entrar</a>
+                @else
                 <div class="botao_fazer_login entrar_mobile">Entrar</div>
+                @endif;
+
+                @ if( MENU_PRIMEIRO_ACESSO ):
                 <div class="botao" id="botao_ativar_conta_home">
                     <i>@iconePrimeiroAcesso</i>
                     <p>Primeiro Acesso</p>
                     <div class="borda"></div>
                 </div>
+                @ endif;
+                @ if( MENU_BAIXAR_APP ):
                 <div class="botao app" id="botao_baixar_app">
                     <i>@iconeBaixarApp()</i>
                     <p>Baixe o App</p>
                     <div class="borda"></div>
                 </div>
+                @ endif;
+                @ if( MENU_FAQ ):
                 <a href="{!!route('faq.cfm')!!}" class="botao {{$menu == 'faq' ? 'hover' : ''}}">
                     <i>@iconeFaq()</i>
                     <p>FAQ</p>
                     <div class="borda"></div>
                 </a>
+                @ endif;
+                @ if( MENU_COMO_FUNCIONA ):
                 <a href="{!!route('comoFunciona.index')!!}" class="botao {{$menu == 'ajuda' ? 'hover' : ''}}">
                     <i>@iconeComoFunciona</i>
                     <p>Como Funciona</p>
                     <div class="borda"></div>
                 </a>
+                @ endif;
             </div>
         </div>
         <i class="botao_mobile" id="botao_abrir_menu">
             @iconeMenuMobile()
         </i>
+        @ if( API && !DEPENDENTE ):
+        <a href="{!!LINK_LOGIN!!}" class="entrar">Entrar</a>
+        @else
         <div class="botao_fazer_login entrar">Entrar</div>
+        @ endif;
     </nav>
 </header>

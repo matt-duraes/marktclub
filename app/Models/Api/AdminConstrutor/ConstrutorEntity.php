@@ -18,10 +18,11 @@ final class ConstrutorEntity extends Entity
         'menu_sicoob_credito' => 'menu_credito',
         'logo', 'titulo', 'cor', 'classe_login', 'contato_telefone', 'contato_email', 'contato_whatsapp',
         'link_app_android', 'link_app_ios', 'favicon', 'header_tag', 'header_descricao', 'menu_convenio',
-        'menu_convenio_mapa', 'menu_cinema', 'menu_turismo', 'menu_promocao', 'menu_sicoob_credito',
+        'menu_convenio_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'contato_endereco',
         'menu_medicamento', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguros',
         'menu_cashback', 'menu_indicacao', 'menu_cupom', 'menu_odontologia', 'menu_premium', 'menu_dependente',
-        'menu_carteiria', 'menu_salavip', 'api_status', 'status'
+        'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
+        'horario_atendimento', 'menu_sair', 'status'
     ];
     protected array $ormRetornoPadrao = ['id', 'link_logo', 'link_logo_marktclub'];
     protected string $favicon;
@@ -33,18 +34,24 @@ final class ConstrutorEntity extends Entity
     public string $link_logo_marktclub;
     public string $link_app_android;
     public string $link_app_ios;
+    public string $link_login;
     public string $header_tag;
     public string $header_descricao;
     public string $cor;
     public int $id_admin_empresa;
+    public string $horario_atendimento;
+    public string $contato_endereco;
     public Telefone $contato_telefone;
     public Telefone $contato_whatsapp;
     public Email $contato_email;
+    public Botao $menu_faq;
+    public Botao $menu_como_funciona;
+    public Botao $menu_acesso_rapido;
     public Botao $menu_convenio;
     public Botao $menu_convenio_mapa;
     public Botao $menu_cinema;
     public Botao $menu_turismo;
-    public Botao $menu_promocao;
+    public Botao $menu_historico;
     public Botao $menu_sicoob_credito;
     public Botao $menu_medicamento;
     public Botao $menu_automovel;
@@ -57,8 +64,9 @@ final class ConstrutorEntity extends Entity
     public Botao $menu_odontologia;
     public Botao $menu_premium;
     public Botao $menu_dependente;
-    public Botao $menu_carteiria;
+    public Botao $menu_carteira;
     public Botao $menu_salavip;
+    public Botao $menu_sair;
     public Botao $api_status;
     public Status $status;
 
