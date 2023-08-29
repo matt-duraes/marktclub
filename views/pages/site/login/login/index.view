@@ -1,11 +1,13 @@
 @ if( $api ):
 <div id="bloco_escolha_login" class="bloco_form_login">
-    <i>@iconeUsuario(30)</i>
+    <i class="fechar esquerda mobile pagina_fechar">@iconeVoltar</i>
+    <i class="fechar direita desktop pagina_fechar">@iconeFechar</i>
+    <i class="icone">@iconeUsuario(30)</i>
     <h1>Escolha um tipo de login</h1>
     <p>Escolha entre as opções abaixo para fazer seu login</p>
 
-    <div class="botao">Sou associado</div>
-    <div class="botao">Sou dependente</div>
+    <a href="{{$link_login}}" class="botao">Sou associado</a>
+    <div class="botao" id="botao_abrir_dependente">Sou dependente</div>
 </div>
 @ endif;
 <form id="bloco_form_login" class="bloco_form_login form_geral {!!$api ? 'display_none' : ''!!}" action="/" method="post">

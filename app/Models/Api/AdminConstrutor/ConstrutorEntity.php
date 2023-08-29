@@ -21,7 +21,7 @@ final class ConstrutorEntity extends Entity
         'menu_convenio_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'contato_endereco',
         'menu_medicamento', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguros',
         'menu_cashback', 'menu_indicacao', 'menu_cupom', 'menu_odontologia', 'menu_premium', 'menu_dependente',
-        'menu_carteiria', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
+        'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
         'horario_atendimento', 'menu_sair', 'status'
     ];
     protected array $ormRetornoPadrao = ['id', 'link_logo', 'link_logo_marktclub'];
@@ -64,7 +64,7 @@ final class ConstrutorEntity extends Entity
     public Botao $menu_odontologia;
     public Botao $menu_premium;
     public Botao $menu_dependente;
-    public Botao $menu_carteiria;
+    public Botao $menu_carteira;
     public Botao $menu_salavip;
     public Botao $menu_sair;
     public Botao $api_status;

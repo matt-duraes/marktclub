@@ -1,4 +1,8 @@
 window.addEventListener('load', () => {
+    const botaoAbrirPesquisaSatisfacao = document.getElementById('abrePesquisaSatisfacao');
+    if (!botaoAbrirPesquisaSatisfacao) {
+        return;
+    }
     const carregarFuncaoPesquisaSatisfacao = () => {
         const formulario = document.getElementById('formulario_pesquisa');
 
@@ -69,7 +73,6 @@ window.addEventListener('load', () => {
         }
     };
 
-    const botaoAbrirPesquisaSatisfacao = document.getElementById('abrePesquisaSatisfacao');
     const paginaPesquisaSatisfacao = new Pagina(
         'Pesquisa de satisfação',
         LINK + '/pesquisa-de-satisfacao',

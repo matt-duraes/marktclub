@@ -10,6 +10,17 @@ const loadingLogin = () => {
 
     const botaoAtivar = $('#botao_ativar_conta');
     const botaoFazerLogin = $('#botao_fazer_login');
+    const botaoDependente = $('#botao_abrir_dependente');
+
+    const blocoLogin = $('#bloco_form_login');
+    const blocoEscolha = $('#bloco_escolha_login');
+    if (botaoDependente) {
+        botaoDependente.addEventListener('click', () => {
+            blocoLogin.classList.remove('display_none');
+            blocoEscolha.classList.add('display_none');
+            inputLogin.focus();
+        });
+    }
 
     inputLogin.focus();
 

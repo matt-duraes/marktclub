@@ -8,6 +8,7 @@ use Modules\Botao;
 use Modules\Inteiro;
 use Controller\Controller;
 use App\Classes\ParceiroLoja\Ordem;
+use App\Models\Site\Saude\HomeModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Comunicacao\BannerModel;
 
@@ -39,6 +40,7 @@ final class IndexController extends Controller
             'loja_nova'      => $LojaNova->listarDados(),
             'loja_favorita'  => $LojaFavorita->listarDados(),
             'banner'         => (new BannerModel())->home(),
+            'plano_saude'    => (new HomeModel())->valor
         ]);
     }
 }

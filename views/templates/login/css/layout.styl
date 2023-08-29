@@ -36,6 +36,14 @@ body
 .fw_pagina_body
     padding-right: 10px
 
+.mobile
+    display: none !important
+@media screen and (max-width: 1000px)
+    .mobile
+        display: flex !important
+    .desktop
+        display: none !important
+
 #site
     width: 100%
     border-top: 10px solid $corClube

@@ -60,7 +60,7 @@ final class ClubeModel
                 'odontologia'     => $Construtor->menu_odontologia->valor(),
                 'premium'         => $Construtor->menu_premium->valor(),
                 'dependente'      => $dependente,
-                'carteiria'       => $Construtor->menu_carteiria->valor(),
+                'carteira'        => $Construtor->menu_carteira->valor(),
                 'salavip'         => $Construtor->menu_salavip->valor(),
                 'sair'            => $Construtor->menu_sair->valor()
             ],
