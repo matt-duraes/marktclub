@@ -32,7 +32,6 @@ final class AutomovelModel extends ORM implements ModelListarInterface
         protected Ordem $ordem = new Ordem(null)
     ) {
         parent::__construct();
-        $this->validarDado();
     }
 
     public function listarDados(): stdClass
@@ -58,13 +57,10 @@ final class AutomovelModel extends ORM implements ModelListarInterface
                 'modelo'          => $r->modelo,
                 'versao'          => $r->versao,
                 'cor'             => $r->cor,
-                'mensagem'        => $r->mensagem
+                'mensagem'        => $r->mensagem,
+                'status'          => (new Status($r->status))->indice(),
             ];
         }
         return $retorno;
-    }
-
-    private function validarDado()
-    {
     }
 }
