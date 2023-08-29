@@ -79,7 +79,7 @@ return [
                 'titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']
             ],
             'solicitacao_salavip'    => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
-            'solicitacao_declaracao' => ['titulo' => 'Declaração', 'acao' => ['index', 'status']],
+            'solicitacao_declaracao' => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
             'comercial_empresa'      => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
             'comercial_prospeccao'   => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
