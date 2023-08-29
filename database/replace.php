@@ -4,11 +4,6 @@ return [
     'empresa_novo' => [
         'cod' => 'uuid'
     ],
-    'construtor_novo' => [
-        'cod'            => 'uuid',
-        'empresa'        => 'id_admin_empresa',
-        'menu_carteiria' => 'menu_carteira'
-    ],
     'cupom_bloqueio' => [
         'cod' => 'uuid'
     ],

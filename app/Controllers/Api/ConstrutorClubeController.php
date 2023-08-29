@@ -3,8 +3,8 @@
 namespace App\Controllers\Api;
 
 use Controller\Controller;
-use App\Models\Api\AdminConstrutor\ClubeModel;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ClubeModel;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class ConstrutorClubeController extends Controller
 {
@@ -12,7 +12,7 @@ final class ConstrutorClubeController extends Controller
     {
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar([
-            ['link_site', $url],
+            ['link_clube', strDominio($url)],
             ['status', 1]
         ]);
         $Clube = new ClubeModel($Construtor);
