@@ -25,6 +25,7 @@ window.addEventListener('load', () => {
         if (!(await validarInput(form))) {
             return;
         }
+        Loading.show();
         const resposta = await ajaxPost(
             LINK + '/perfil/dependente-salvar',
             {
@@ -34,6 +35,7 @@ window.addEventListener('load', () => {
             },
             'Ocorreu um erro ao salvar o dependente, por favor, tente novamente.'
         );
+        Loading.hide();
         if (false === resposta) {
             return;
         }
@@ -74,12 +76,14 @@ window.addEventListener('load', () => {
         ) {
             return;
         }
+        Loading.show();
         const id = linha.getAttribute('data-id');
         const resposta = await ajaxPost(
             LINK + '/perfil/dependente-deletar',
             { id },
             'Erro ao deletar dependente, por favor, tente novamente.'
         );
+        Loading.hide();
         if (false === resposta) {
             return;
         }
