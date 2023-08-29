@@ -104,7 +104,8 @@ final class SiteController extends Controller
 
         return view('indicar_amigo.index', [
             'tituloPagina' => 'Indique para um amigo',
-            'texto'        => $texto
+            'texto'        => $texto,
+            'menu'         => 'indicar_amigo'
         ]);
     }
 

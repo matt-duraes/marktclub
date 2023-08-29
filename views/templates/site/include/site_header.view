@@ -34,21 +34,17 @@
                 <i>@iconeSenhaOutline(22)</i>
                 Alterar Senha
             </a>
-            <a href="@route(preferencia.index)">
-                <i>@iconePreferenciaOutline(22)</i>
-                Preferências
-            </a>
             <a href="@route(perfil.dependente)">
                 <i>@iconeDependenteOutline(22)</i>
                 Adicionar dependentes
             </a>
-            <a href="@route(cashback.extrato)">
-                <i>@iconeCashbackHome(22)</i>
-                Extrato do Silium
-            </a>
             <a href="@route(site.indiqueAmigo)">
                 <i>@iconeIndiqueAmigoOutline(22)</i>
                 Indique um amigo
+            </a>
+            <a href="@route(cashback.extrato)">
+                <i>@iconeCashbackHome(22)</i>
+                Extrato do Silium
             </a>
         </div>
 
@@ -140,27 +136,46 @@
             @ endif;
 
             @if(MENU_ODONTOLOGICO || MENU_SEGURO_DE_VIDA || MENU_MEDICAMENTO || MENU_FEDERAL_SAUDE):
-            <div class="categoria">SAÚDE</div>
-            @if(MENU_ODONTOLOGICO):
-            <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
-                <i>@iconeDentista</i>
-                Plano Odontológico
+                <div class="categoria">SAÚDE</div>
+                @if(MENU_ODONTOLOGICO):
+                <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
+                    <i>@iconeDentista</i>
+                    Plano Odontológico
+                </a>
+                @endif
+                @if(MENU_SEGURO_DE_VIDA):
+                <a class="botao {!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.index') ?>">
+                    <i>@iconeSaude</i>
+                    Plano de Saúde
+                </a>
+                @endif
+            @endif
+            <div class="categoria">PERFIL</div>
+            <a class="botao mobile {!!MENU_HOVER == 'alterar_dados' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.index)">
+                <i>@iconeUsuarioOutline(22)</i>
+                Alterar Dados
             </a>
-            @endif
-            @if(MENU_SEGURO_DE_VIDA):
-            <a class="botao {!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.index') ?>">
-                <i>@iconeSaude</i>
-                Plano de Saúde
+            <a class="botao mobile {!!MENU_HOVER == 'alterar_senha' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.senha)">
+                <i>@iconeSenhaOutline(22)</i>
+                Alterar Senha
             </a>
-            @endif
-
-            @endif
-
+            <a class="botao mobile {!!MENU_HOVER == 'adicionar_dependentes' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)">
+                <i>@iconeDependenteOutline(22)</i>
+                Adicionar dependentes
+            </a>
+            <a class="botao mobile {!!MENU_HOVER == 'indicar_amigo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(site.indiqueAmigo)">
+                <i>@iconeIndiqueAmigoOutline(22)</i>
+                Indique um amigo
+            </a>
             @ if( MENU_EXTENSAO ):
             <div class="categoria">OUTROS</div>
             <a class="botao {!!MENU_HOVER == 'extensao' ? 'cor_bg pagina_atual' : ''!!}" target="_blank" href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc">
                 <i>@iconeExtensaoHome</i>
                 Extensão
+            </a>
+            <a class="botao mobile {!!MENU_HOVER == 'extrato_silium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.extrato)">
+                <i>@iconeCashbackHome(22)</i>
+                Extrato do Silium
             </a>
             @ endif;
 
