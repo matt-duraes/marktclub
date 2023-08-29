@@ -1,9 +1,9 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
+use Route\Route;
 
 Route
     ::nome('samsung')
@@ -1746,9 +1746,9 @@ Route
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:listar'])
             ::request([
-                'pagina', '!status', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!quantidade', '!ordem', '!status'
             ], 'json')
             ::get('/enquete-satisfacao');
 
@@ -1756,9 +1756,22 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:salvar'])
             ::request([
-                'navegar', 'procura', 'suporte', 'atendimento', 'sistemas', '!comentario',
+                'navegar', 'procura', 'suporte', 'atendimento', 'sistemas_clube', '!comentario'
             ])
             ::post('/enquete-satisfacao');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:atualizar'])
+            ::request([
+                '!status'
+            ])
+            ::put('/enquete-satisfacao/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:deletar'])
+            ::delete('/enquete-satisfacao/{id}');
     });
 
 Route

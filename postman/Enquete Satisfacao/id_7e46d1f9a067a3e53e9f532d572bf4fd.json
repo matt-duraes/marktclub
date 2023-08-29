@@ -1,0 +1,1 @@
+{"id":"id_7e46d1f9a067a3e53e9f532d572bf4fd","token":"token","metodo":"PUT","nome":"\/enquete-satisfacao\/:id","uri":"{{LINK}}\/enquete-satisfacao\/$ENQUETE_ID","parametro":[],"body":[["texto",true,"status","novo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}
