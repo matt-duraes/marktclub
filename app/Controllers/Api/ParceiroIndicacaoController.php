@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\ParceiroIndicacao\Ordem;
 use App\Classes\ParceiroIndicacao\Status;
 use App\Models\Api\ParceiroIndicacao\ParceiroIndicacaoEntity;
 use App\Models\Api\ParceiroIndicacao\ParceiroIndicacaoModel;
@@ -23,6 +24,9 @@ class ParceiroIndicacaoController extends Controller implements
     ControllerDeletarInterface
 {
     /**
+     * @param Request $request
+     *
+     * @return Response
      * @throws Excecao
      */
     public function getListar(Request $request): Response
@@ -30,25 +34,46 @@ class ParceiroIndicacaoController extends Controller implements
         $Parceiro = new ParceiroIndicacaoModel(
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
+            ordem: new Ordem($request->ordem),
             status: new Status($request->status)
         );
         return mensagemSucesso($Parceiro->listarDados());
     }
 
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
         $Parceiro = new ParceiroIndicacaoEntity();
         $Parceiro->uuid($id);
+        return $this->retornoSucesso($Parceiro);
+    }
 
+    /**
+     * @param ParceiroIndicacaoEntity $parceiroIndicacaoEntity
+     * @param int                     $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoSucesso(ParceiroIndicacaoEntity $parceiroIndicacaoEntity, int $status = 200): Response
+    {
         return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $Parceiro,
-                lista: ['nome', 'email', 'telefone', 'mensagem', 'status']
-            )
+            pegarPropriedadeDaEntity($parceiroIndicacaoEntity, lista: [
+                'nome', 'email', 'telefone', 'mensagem', 'status'
+            ]),
+            $status
         );
     }
 
     /**
+     * @param Request $request
+     *
+     * @return Response
      * @throws Excecao
      */
     public function postSalvar(Request $request): Response
@@ -56,19 +81,15 @@ class ParceiroIndicacaoController extends Controller implements
         $Parceiro = new ParceiroIndicacaoEntity();
 
         $Parceiro->set(lista: $request->dado());
-        $Parceiro->set('status', Status::NOVO);
         $Parceiro->salvar();
-
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $Parceiro,
-                lista: ['nome', 'email', 'telefone', 'mensagem', 'status']
-            ),
-            201
-        );
+        return $this->retornoSucesso($Parceiro, 201);
     }
 
     /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
      * @throws Excecao
      */
     public function putAtualizar(Request $request, string $id): Response
@@ -83,6 +104,9 @@ class ParceiroIndicacaoController extends Controller implements
     }
 
     /**
+     * @param string $id
+     *
+     * @return Response
      * @throws Excecao
      */
     public function deleteDeletar(string $id): Response

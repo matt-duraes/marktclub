@@ -3,6 +3,7 @@
 namespace Tests\Api;
 
 use App\Classes\ParceiroIndicacao\Status;
+use Erro\Excecao;
 use Tests\Api\Token\Clube;
 
 class ParceiroIndicacaoTest extends Clube
@@ -10,23 +11,20 @@ class ParceiroIndicacaoTest extends Clube
     private array $statusValidos;
     private string $idIndicacaoNovoParceiro;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
+        $this->statusValidos = array_keys((new Status())->select());
         $this->pegarToken();
         parent::__construct();
-        $this->statusValidos = array_keys((new Status())->select());
     }
 
-    private function getBody()
-    {
-        return [
-            'nome'              => $this->nomeCompleto(),
-            'email'             => $this->email(),
-            'telefone'          => $this->telefone(),
-            'mensagem'          => 'Mensagem de teste',
-        ];
-    }
-
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function salvarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
         $dado = $this
@@ -43,6 +41,23 @@ class ParceiroIndicacaoTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
+    /**
+     * @return array
+     */
+    private function getBody(): array
+    {
+        return [
+            'nome'     => $this->nomeCompleto(),
+            'email'    => $this->email(),
+            'telefone' => $this->telefone(),
+            'mensagem' => 'Mensagem de teste ' . $this->numero()
+        ];
+    }
+
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function naoPodeSalvarSemNomeTest(): ParceiroIndicacaoTest
     {
         $body = $this->getBody();
@@ -59,6 +74,10 @@ class ParceiroIndicacaoTest extends Clube
             ->checkIndiceIgual('status', 'erro');
     }
 
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function naoPodeSalvarSemEmailTest(): ParceiroIndicacaoTest
     {
         $body = $this->getBody();
@@ -75,6 +94,10 @@ class ParceiroIndicacaoTest extends Clube
             ->checkIndiceIgual('status', 'erro');
     }
 
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function naoPodeEnviarSemTelefoneTest(): ParceiroIndicacaoTest
     {
         $body = $this->getBody();
@@ -91,12 +114,19 @@ class ParceiroIndicacaoTest extends Clube
             ->checkIndiceIgual('status', 'erro');
     }
 
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function listarIndicacoesNovoParceiroTest(): ParceiroIndicacaoTest
     {
         $this
             ->Curl
             ->json([
-                'pagina' => 1
+                'pagina'     => 1,
+                'quantidade' => '',
+                'ordem'      => '',
+                'status'     => $this->random($this->statusValidos)
             ])
             ->get('/parceiro-indicacao');
 
@@ -106,6 +136,10 @@ class ParceiroIndicacaoTest extends Clube
             ->checkIndiceExiste('dado.lista');
     }
 
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function buscarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
         $this
@@ -114,9 +148,14 @@ class ParceiroIndicacaoTest extends Clube
 
         return $this
             ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso');
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceIgual('dado.id', $this->idIndicacaoNovoParceiro);
     }
 
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function editarStatusIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
         $this
@@ -130,6 +169,10 @@ class ParceiroIndicacaoTest extends Clube
             ->checkStatus(204);
     }
 
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function naoPodeEditarStatusInvalidoTest(): ParceiroIndicacaoTest
     {
         $this
@@ -145,6 +188,10 @@ class ParceiroIndicacaoTest extends Clube
             ->checkIndiceIgual('status', 'erro');
     }
 
+    /**
+     * @return ParceiroIndicacaoTest
+     * @throws Excecao
+     */
     public function deletarIndicacaoNovoParceiroTest(): ParceiroIndicacaoTest
     {
         $this
