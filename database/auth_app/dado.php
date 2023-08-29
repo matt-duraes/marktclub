@@ -85,6 +85,8 @@ $scope = [
     'comercial_regra:listar', 'comercial_regra:buscar', 'comercial_regra:salvar', 'comercial_regra:atualizar',
     'comercial_regra:deletar',
 
+    'construtor_clube:buscar',
+
     'log_erro:listar', 'log_erro:buscar', 'log_erro:atualizar',
 
     'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar',

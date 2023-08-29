@@ -10,6 +10,17 @@ const loadingLogin = () => {
 
     const botaoAtivar = $('#botao_ativar_conta');
     const botaoFazerLogin = $('#botao_fazer_login');
+    const botaoDependente = $('#botao_abrir_dependente');
+
+    const blocoLogin = $('#bloco_form_login');
+    const blocoEscolha = $('#bloco_escolha_login');
+    if (botaoDependente) {
+        botaoDependente.addEventListener('click', () => {
+            blocoLogin.classList.remove('display_none');
+            blocoEscolha.classList.add('display_none');
+            inputLogin.focus();
+        });
+    }
 
     inputLogin.focus();
 
@@ -139,19 +150,21 @@ window.addEventListener('load', () => {
     */
     const botaoBaixarApp = $('#botao_baixar_app');
     const blocoBaixarApp = $('#bloco_baixar_app');
-    botaoBaixarApp.addEventListener('click', e => {
-        if (!blocoBaixarApp) {
-            window.location.assign(LINK + '/login');
-            return;
-        }
-        if (blocoMenuMobile.classList.contains('animar')) {
-            fecharMenu();
-        }
-        const topo = blocoBaixarApp.getBoundingClientRect().top;
-        const resto = window.innerWidth > 1040 ? 200 : 0;
-        window.scrollTo({
-            top: window.scrollY + topo - resto,
-            behavior: 'smooth',
+    if (botaoBaixarApp) {
+        botaoBaixarApp.addEventListener('click', e => {
+            if (!blocoBaixarApp) {
+                window.location.assign(LINK + '/login');
+                return;
+            }
+            if (blocoMenuMobile.classList.contains('animar')) {
+                fecharMenu();
+            }
+            const topo = blocoBaixarApp.getBoundingClientRect().top;
+            const resto = window.innerWidth > 1040 ? 200 : 0;
+            window.scrollTo({
+                top: window.scrollY + topo - resto,
+                behavior: 'smooth',
+            });
         });
-    });
+    }
 });

@@ -1,32 +1,12 @@
 </main>
 
-@if(isset($popupSimples) && !empty($popupSimples)):
-<div id="hash_simples"></div>
-<div id="popup_campanha_simples">
-    <div class="campanha_conteudo">
-        <div class="fechar">@iconeFechar</div>
-        <div class="campanha_texto">
-            <img src="{{CLUBE_LOGO}}" alt="imagem">
-            <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h1>
-            <p>Explicabo, laudantium quisquam repellat quas corporis blanditiis, ab atque quibusdam dolor possimus, voluptatum officia tempora non sunt architecto. Quasi aliquid cupiditate quisquam.</p>
-        </div>
-    </div>
-</div>
-@endif;
-
-@if(isset($popupImagem) && !empty($popupImagem)):
-<div id="hash_imagem" data-popup-imagem="1"></div>
-@endif;
-
-@if(isset($popupEnquete) && !empty($popupEnquete)):
-<div id="hash_enquete" data-popup-enquete="1"></div>
-@endif;
-
 <footer id="rodape_principal">
+    @ if( !empty(CONTATO_TELEFONE) || !empty(CONTATO_WHATSAPP) || !empty(CONTATO_EMAIL) || !empty(CONTATO_HORARIO)):
     <section class="bloco">
         <header>
             <h1>Contato</h1>
         </header>
+        @ if( !empty(CONTATO_TELEFONE) ):
         <a class="dado mobile" href="tel:{{soNumero(CONTATO_TELEFONE)}}">
             <i>@iconeTelefoneLoja</i>
             {{CONTATO_TELEFONE}}
@@ -35,28 +15,42 @@
             <i>@iconeTelefoneLoja</i>
             {{CONTATO_TELEFONE}}
         </div>
+        @ endif;
+
+        @ if( !empty(CONTATO_WHATSAPP) ):
         <a class="dado" href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
             <i>@iconeWhatsapp(19)</i>
             {{CONTATO_WHATSAPP}}
         </a>
+        @ endif;
+
+        @ if( !empty(CONTATO_EMAIL) ):
         <div class="dado">
             <i>@iconeEmail(15)</i>
             {{CONTATO_EMAIL}}
         </div>
+        @ endif;
+
+        @ if( !empty(CONTATO_HORARIO) ):
         <div class="dado">
             <i>@iconeCalendario</i>
             {{CONTATO_HORARIO}}
         </div>
+        @ endif;
     </section>
+    @ endif;
 
     <section class="bloco">
         <header>
             <h1>Indicações</h1>
         </header>
+        @ if( MENU_INDICACAO ):
         <a class="dado" href="@route(site.indiqueAmigo)">
             <i>@iconeIndiqueAmigoOutline(20)</i>
             Indicar um amigo
         </a>
+        @ endif;
+
         <a class="dado" id="botao_abrir_ajuda">
             <i>@iconeFaleConosco(20)</i>
             Fale Conosco
@@ -83,14 +77,18 @@
 
     <div class="linha"></div>
 
+    @ if( MENU_BAIXAR_APP ):
     <p class="texto">Baixe o nosso aplicativo no seu smartphone e leve o {{CLUBE_TITULO}} com você</p>
     <div class="app">
-        <a href="#" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_apple.png" alt="Apple Store"></a>
-        <a href="#" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_google.png" alt="Google Play"></a>
+        <a href="{!!LINK_APP_IOS!!}" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_apple.png" alt="Apple Store"></a>
+        <a href="{!!LINK_APP_ANDROID!!}" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_google.png" alt="Google Play"></a>
     </div>
 
     <div class="linha"></div>
+    @ endif;
 
+    @ if( !empty(CONTATO_ENDERECO) ):
     <p class="texto">{{CONTATO_ENDERECO}}</p>
+    @ endif;
     <p class="texto">{{CLUBE_TITULO}} - &copy; 2011/{{date('Y')}} Todos os direitos reservados</p>
 </footer>

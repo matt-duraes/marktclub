@@ -1,5 +1,8 @@
 window.addEventListener('load', () => {
     const botaoMenu = document.getElementById('botao_menu_perfil');
+    if (!botaoMenu) {
+        return;
+    }
     const blocoMenu = document.getElementById('bloco_menu_perfil');
 
     botaoMenu.addEventListener('click', () => {
