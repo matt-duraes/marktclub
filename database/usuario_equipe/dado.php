@@ -19,7 +19,8 @@ $permissao = json_encode([
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
-    'parceiro_automovel_visualizar',
+    'parceiro_automovel_visualizar', 'parceiro_indicacao_index', 'parceiro_indicacao_visualizar',
+    'parceiro_indicacao_status',
 
     'comunicacao_publicidade_index', 'comunicacao_publicidade_add', 'comunicacao_publicidade_editar',
     'comunicacao_publicidade_deletar',

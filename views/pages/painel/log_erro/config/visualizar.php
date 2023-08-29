@@ -22,9 +22,9 @@ $Painel->coluna(callback: function () use ($Painel) {
             campo: 'status',
             texto: 'Finalizar erro',
             inArray: ['Novo'],
+            status: 'corrigido',
             mensagem: 'Tem certeza que deseja finalizar esse erro?',
-            cor: 'verde',
-            status: 'corrigido'
+            cor: 'verde'
         );
 });
 
