@@ -1,4 +1,14 @@
-<form id="bloco_form_login" class="bloco_form_login form_geral" action="/" method="post">
+@ if( $api ):
+<div id="bloco_escolha_login" class="bloco_form_login">
+    <i>@iconeUsuario(30)</i>
+    <h1>Escolha um tipo de login</h1>
+    <p>Escolha entre as opções abaixo para fazer seu login</p>
+
+    <div class="botao">Sou associado</div>
+    <div class="botao">Sou dependente</div>
+</div>
+@ endif;
+<form id="bloco_form_login" class="bloco_form_login form_geral {!!$api ? 'display_none' : ''!!}" action="/" method="post">
     <div class="conteudo">
         <header>
             <h1>FAÇA SEU LOGIN</h1>

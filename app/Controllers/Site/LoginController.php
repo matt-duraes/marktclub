@@ -23,7 +23,10 @@ final class LoginController extends Controller
     */
     public function login()
     {
-        return view('login.login');
+        $api = !sessao('CLUBE')->api;
+        return view('login.login', [
+            'api' => $api
+        ]);
     }
 
     public function postLogin(Request $request): Response

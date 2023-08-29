@@ -139,19 +139,21 @@ window.addEventListener('load', () => {
     */
     const botaoBaixarApp = $('#botao_baixar_app');
     const blocoBaixarApp = $('#bloco_baixar_app');
-    botaoBaixarApp.addEventListener('click', e => {
-        if (!blocoBaixarApp) {
-            window.location.assign(LINK + '/login');
-            return;
-        }
-        if (blocoMenuMobile.classList.contains('animar')) {
-            fecharMenu();
-        }
-        const topo = blocoBaixarApp.getBoundingClientRect().top;
-        const resto = window.innerWidth > 1040 ? 200 : 0;
-        window.scrollTo({
-            top: window.scrollY + topo - resto,
-            behavior: 'smooth',
+    if (botaoBaixarApp) {
+        botaoBaixarApp.addEventListener('click', e => {
+            if (!blocoBaixarApp) {
+                window.location.assign(LINK + '/login');
+                return;
+            }
+            if (blocoMenuMobile.classList.contains('animar')) {
+                fecharMenu();
+            }
+            const topo = blocoBaixarApp.getBoundingClientRect().top;
+            const resto = window.innerWidth > 1040 ? 200 : 0;
+            window.scrollTo({
+                top: window.scrollY + topo - resto,
+                behavior: 'smooth',
+            });
         });
-    });
+    }
 });

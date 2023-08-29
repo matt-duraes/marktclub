@@ -37,12 +37,14 @@
             @endif;
         </ul>
         <ul>
+            @ if( MENU_COMO_FUNCIONA ):
             <li class="como_funciona">
-                <a class="link_container" href="{!!route('login.comoFunciona')!!}">
+                <a class="link_container" href="{!!route('comoFunciona.index')!!}">
                     <i class="icone_footer interrogacao">@iconeComoFunciona</i>
                     <p>Como Funciona</p>
                 </a>
             </li>
+            @ endif;
             @if (!empty(CONTATO_ENDERECO)) :
             <li>
                 <i class="icone_footer localizacao"> @iconeMapa</i>
