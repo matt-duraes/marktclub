@@ -242,7 +242,7 @@ class AutomovelModeloTest extends Clube
                 'pagina' => 1
             ])
             ->get('/parceiro-loja')
-            ->array()['dado']['lista'] ?? '';
+            ->array()['dado']['lista'] ?? [];
 
         foreach ($dado as $parceiro) {
             if (!empty($parceiro['id'])) {

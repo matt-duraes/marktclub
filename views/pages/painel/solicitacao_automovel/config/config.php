@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Indicação',
+    'titulo'     => 'Automóvel',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,
@@ -12,7 +12,7 @@ return [
     'download'   => false,
     'historico'  => true,
     'api'        => [
-        'scope' => 'parceiro_indicacao',
-        'uri'   => '/parceiro-indicacao'
+        'scope' => 'solicitacao_automovel',
+        'uri'   => '/solicitacao-automovel'
     ]
 ];
