@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Helpers\AuthHelper;
 use Controller\Controller;
+use App\Models\Site\ClubeModel;
 use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
@@ -35,6 +36,7 @@ final class LoginController extends Controller
     {
         new LogarModel($request->login, $request->senha);
         $link = (new AuthHelper())->location();
+        new ClubeModel();
         return mensagemSucesso([
             'link' => str_contains($link, '/login') ? LINK : $link
         ], status: 201);

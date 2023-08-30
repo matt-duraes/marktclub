@@ -28,7 +28,8 @@ final class ConstrutorClubeController extends Controller implements
     {
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar([
-            ['link_clube', strDominio($url)],
+            // ['link_clube', strDominio($url)],
+            ['link_clube', 'clube.marktclub.com.br'],
             ['status', 1]
         ]);
         $Clube = new ClubeModel($Construtor);
