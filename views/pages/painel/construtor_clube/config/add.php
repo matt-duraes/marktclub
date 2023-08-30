@@ -1,0 +1,138 @@
+<?php
+
+use Helpers\ApiHelper;
+use App\Classes\Geral\Status;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+
+$Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Imagem', function () use ($Painel) {
+        $Painel
+            ->imagem('logo', '118e10b2-58cf-4708-9c1f-3e4392d2e675', label: 'Logo')
+            ->imagem('favicon', '118e10b2-58cf-4708-9c1f-3e4392d2e675', label: 'Favicon');
+    });
+
+    $Painel->fieldset('Dados do contrato', function () use ($Painel) {
+        $Painel
+            ->input(name: 'titulo', label: 'Título para o clube')
+            ->select(
+                name: 'empresa',
+                label: 'Empresa',
+                lista: (new ApiHelper(token: true))
+                    ->json(['titulo' => 'Escolha um cliente'])
+                    ->get('/comercial-empresa/select')
+                    ->array()['dado'] ?? []
+            )
+            ->cor(
+                name: 'cor',
+                label: 'Cor do clube',
+            )
+            ->select(
+                name: 'tipo_ativacao',
+                label: 'Tipo de ativação',
+                placeholder: 'Qual o tipo de ativação?',
+                lista: (new TipoAtivacao())->select('Escolha um tipo')
+            )
+            ->switch(
+                name: 'chat_status',
+                label: 'Vai ter chat?'
+            )
+            ->switch(
+                name: 'api_status',
+                label: 'O login é via API?'
+            )
+            ->select(
+                name: 'status',
+                label: 'Status',
+                lista: (new Status())->select('Escolha um status')
+            );
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Contato', function () use ($Painel) {
+        $Painel
+            ->telefone(name: 'contato_telefone', label: 'Telefone', placeholder: 'Digite o telefone de contato')
+            ->telefone(name: 'contato_whatsapp', label: 'WhatsApp', placeholder: 'Digite o WhatsApp de contato')
+            ->email(name: 'contato_email', label: 'E-mail', placeholder: 'Digite o e-mail de contato')
+            ->input(name: 'contato_horario', label: 'Horário de atendimento', placeholder: 'Digite o horário de atendimento')
+            ->input(name: 'contato_endereco', label: 'Endereço', placeholder: 'Digite o endereço de atendimento');
+    });
+    $Painel->fieldset('Liks', function () use ($Painel) {
+        $Painel
+            ->url(name: 'link_clube', label: 'Link do clube', placeholder: 'Link do clube')
+            ->url(name: 'link_login', label: 'Link do clube', placeholder: 'Link do clube')
+            ->url(name: 'link_cadastro', label: 'Link do clube', placeholder: 'Link do clube')
+            ->url(name: 'link_salavip', label: 'Link do clube', placeholder: 'Link do clube')
+            ->url(name: 'link_app_ios', label: 'Link do clube', placeholder: 'Link do clube')
+            ->url(name: 'link_app_android', label: 'Link do clube', placeholder: 'Link do clube');
+    });
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('SEO', function () use ($Painel) {
+        $Painel
+            ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição')
+            ->tag(name: 'header_tag', label: 'Tags', placeholder: 'Digite a lista de tag', tipo: 'texto');
+    });
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Menu Login',
+        mais: false,
+        callback: function () use ($Painel) {
+            $Painel->checkbox(name: 'menu_faq', label: 'FAQ');
+            $Painel->checkbox(name: 'menu_como_funciona', label: 'Como funciona');
+            $Painel->checkbox(name: 'menu_primeiro_acesso', label: 'Primeiro Acesso');
+        }
+    );
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Plano de saúde',
+        mais: false,
+        callback: function () use ($Painel) {
+            $Painel->checkbox(name: 'menu_saude_vitoria', label: 'Unimed Vitória');
+            $Painel->checkbox(name: 'menu_saude_amil', label: 'Amil');
+            $Painel->checkbox(name: 'menu_saude_seguro', label: 'Unimed Seguros');
+            $Painel->checkbox(name: 'menu_saude_cnu', label: 'Central Nacional Unimed');
+            $Painel->checkbox(name: 'menu_saude_florianopolis', label: 'Unimed Florianopolis');
+        }
+    );
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Descontos',
+        mais: false,
+        callback: function () use ($Painel) {
+            $Painel->checkbox(name: 'menu_loja', label: 'Loja');
+            $Painel->checkbox(name: 'menu_mapa', label: 'Mapa');
+            $Painel->checkbox(name: 'menu_cinema', label: 'Cinema');
+            $Painel->checkbox(name: 'menu_turismo', label: 'Turismo');
+            $Painel->checkbox(name: 'menu_farmacia', label: 'Farmacia');
+            $Painel->checkbox(name: 'menu_automovel', label: 'Automovel');
+            $Painel->checkbox(name: 'menu_cashback', label: 'Cashback');
+            $Painel->checkbox(name: 'menu_cupom', label: 'Cupom');
+            $Painel->checkbox(name: 'menu_premium', label: 'Loja Premium');
+            $Painel->checkbox(name: 'menu_credito_sicoob', label: 'Crédido Sicoob');
+        }
+    );
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Outros botões',
+        mais: false,
+        callback: function () use ($Painel) {
+            $Painel->checkbox(name: 'menu_acesso_rapido', label: 'Acesso rápido');
+            $Painel->checkbox(name: 'menu_sair', label: 'Botão de sair');
+            $Painel->checkbox(name: 'menu_historico', label: 'Historico');
+            $Painel->checkbox(name: 'menu_indicacao', label: 'Indicar amigo');
+            $Painel->checkbox(name: 'menu_odontologico', label: 'Odontologico');
+            $Painel->checkbox(name: 'menu_dependente', label: 'Dependente');
+            $Painel->checkbox(name: 'menu_carteira', label: 'Carteirinha');
+            $Painel->checkbox(name: 'menu_salavip', label: 'Salavip');
+        }
+    );
+});
+
+return $Painel;

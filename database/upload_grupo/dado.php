@@ -22,4 +22,9 @@ return [
         'nome'      => 'Comunicação',
         'diretorio' => 'comunicacao',
     ],
+    [
+        'uuid'      => '118e10b2-58cf-4708-9c1f-3e4392d2e675',
+        'nome'      => 'Clube',
+        'diretorio' => 'clube',
+    ],
 ];
