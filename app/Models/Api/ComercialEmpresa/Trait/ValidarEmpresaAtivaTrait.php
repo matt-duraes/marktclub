@@ -17,6 +17,7 @@ trait ValidarEmpresaAtivaTrait
     {
         $this->ormValidarSalvar = '
             titulo|Título|vazio
+            nome_fantasia|Nome fantasia|vazio
             finalidade_principal|Finalidade principal|vazio|valido
             finalidade_secundaria|Finalidade principal|vazio|valido
             cadastro_usuario|Como será o cadastro|vazio|valido
