@@ -25,16 +25,16 @@ class EnqueteEntity extends Entity
     public Status $status;
     protected string $ormTabela = TABELA_ENQUETE_SATISFACAO;
     protected array $ormBuscar = [
-        'navegar', 'procura', 'suporte', 'comentario',
-        'atendimento', 'sistemas_clube', 'status', 'data_criacao'
+        'navegar', 'procura', 'suporte', 'atendimento',
+        'comentario', 'sistemas_clube', 'status', 'data_criacao'
     ];
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario'
     ];
     protected array $ormSalvar = [
-        'navegar', 'procura', 'suporte', 'comentario',
-        'atendimento', 'sistemas_clube', 'status'
+        'navegar', 'procura', 'suporte', 'atendimento',
+        'comentario', 'sistemas_clube', 'status'
     ];
     protected string $ormValidarSalvar = '
         navegar|Navegar|obrigatorio|vazio|valido
