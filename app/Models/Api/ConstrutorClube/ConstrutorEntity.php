@@ -36,8 +36,8 @@ final class ConstrutorEntity extends Entity
         'menu_sair', 'menu_primeiro_acesso', 'chat_status', 'status'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo', 'logo_marktclub'];
-    protected int $id_admin_empresa;
     private OrmHelper $ormEmpresa;
+    public int $id_admin_empresa;
     public string $favicon;
     public string $logo;
     public string $logo_marktclub;

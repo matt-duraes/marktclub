@@ -20,7 +20,7 @@ final class ClubeModel
         $dependente = $Construtor->menu_dependente->valor();
         $linkAndroid = $Construtor->link_app_android;
         $linkIos = $Construtor->link_app_ios;
-        $horario = $Construtor->contato_atendimento;
+        $horario = $Construtor->contato_horario;
         $endereco = $Construtor->contato_endereco;
         $this->construtor = [
             'id'                      => $Construtor->id,
@@ -35,7 +35,7 @@ final class ClubeModel
             'link_app_android'        => $linkAndroid,
             'link_app_ios'            => $linkIos,
             'contato_endereco'        => !empty($endereco) ? $endereco : 'SIG Quadra 4 Lote 125, Bloco A Sala 10 - Asa Sul, Brasília/DF - CEP: 70610-440',
-            'contato_atendimento'     => !empty($horario) ? $horario : 'Seg. à Sex. das 9h às 18h',
+            'contato_horario'         => !empty($horario) ? $horario : 'Seg. à Sex. das 9h às 18h',
             'contato_telefone'        => $Construtor->contato_telefone->numero(),
             'contato_whatsapp'        => $Construtor->contato_whatsapp->numero(),
             'contato_email'           => $Construtor->contato_email->email(),
