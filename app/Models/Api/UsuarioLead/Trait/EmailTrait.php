@@ -4,7 +4,7 @@ namespace App\Models\Api\UsuarioLead\Trait;
 
 use Modules\Email;
 use Helpers\EmailHelper;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 trait EmailTrait
 {
@@ -20,7 +20,7 @@ trait EmailTrait
         }
 
         $Construtor = new ConstrutorEntity();
-        $Construtor->buscar(['empresa', $this->idEmpresa]);
+        $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
 
         $titulo = $Construtor->titulo . ' - Bem vindo!';
         $nome = $this->nome->nome();
@@ -38,7 +38,7 @@ trait EmailTrait
                 da América latina!',
             botaoTexto: 'ACESSAR SITE',
             botaoLink: $Construtor->link_clube,
-            logo: $Construtor->link_logo,
+            logo: $Construtor->logo,
             cor: $Construtor->cor
         );
         $Email->sendGrid($titulo, $nome, $email);
@@ -52,7 +52,7 @@ trait EmailTrait
         }
 
         $Construtor = new ConstrutorEntity();
-        $Construtor->buscar(['empresa', $this->idEmpresa]);
+        $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
 
         $titulo = $Construtor->titulo;
         $nome = $this->nome->nome();
@@ -64,7 +64,7 @@ trait EmailTrait
         $Email->mensagem(
             titulo: $titulo,
             mensagem: $mensagem,
-            logo: $Construtor->link_logo,
+            logo: $Construtor->logo,
             cor: $Construtor->cor
         );
         $Email->sendGrid($titulo, $nome, $email);

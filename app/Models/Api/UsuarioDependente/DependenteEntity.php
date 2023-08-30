@@ -12,7 +12,7 @@ use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class DependenteEntity extends Entity
 {
@@ -52,7 +52,7 @@ final class DependenteEntity extends Entity
             return;
         }
         $Construtor = new ConstrutorEntity();
-        $Construtor->buscar(['empresa', $this->idEmpresa]);
+        $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
 
         $link = $Construtor->link_clube;
         $titulo = $Construtor->titulo;
@@ -66,7 +66,7 @@ final class DependenteEntity extends Entity
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             botaoTexto: 'Ativar cadastro',
             botaoLink: $link . '/login#ativar',
-            logo: $Construtor->link_logo,
+            logo: $Construtor->logo,
             acao: 'Cadastro de dependente',
             cor: $Construtor->cor
         );

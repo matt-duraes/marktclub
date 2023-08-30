@@ -77,7 +77,7 @@
             </a>
             @ endif;
 
-            @ if( MENU_LOJA || MENU_LOJA_PROXIMA || MENU_CUPOM || MENU_CASHBACK):
+            @ if( MENU_LOJA || MENU_MAPA || MENU_CUPOM || MENU_CASHBACK):
             <div class="categoria">DESCONTOS</div>
 
             @ if( MENU_LOJA ):
@@ -87,14 +87,14 @@
             </a>
             @ endif;
 
-            @ if( MENU_LOJA_PROXIMA ):
+            @ if( MENU_MAPA ):
             <div class="botao botao_loja_proxima {!!MENU_HOVER == 'loja-proxima' ? 'cor_bg pagina_atual' : ''!!}">
                 <i>@iconeLojaProximaHome</i>
                 Lojas próximas
             </div>
             @ endif;
 
-            @if(MENU_MEDICAMENTO):
+            @if(MENU_FARMACIA):
             <a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
                 <i>@iconeMedicamento</i>
                 Farmácia
@@ -151,7 +151,7 @@
             </a>
             @ endif;
 
-            @if(MENU_ODONTOLOGIA):
+            @if(MENU_ODONTOLOGICO):
             <div class="categoria">SAÚDE</div>
             <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
                 <i>@iconeDentista</i>

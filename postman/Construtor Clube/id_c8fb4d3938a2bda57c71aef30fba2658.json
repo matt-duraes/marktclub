@@ -1,0 +1,1 @@
+{"id":"id_c8fb4d3938a2bda57c71aef30fba2658","token":"token","metodo":"DELETE","nome":"\/construtor-clube\/:id","uri":"{{LINK}}\/construtor-clube\/$CONSTRUTOR_CLUBE_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

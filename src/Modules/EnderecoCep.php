@@ -63,7 +63,7 @@ final class EnderecoCep implements ModuleInterface
      */
     public function cep(): string
     {
-        $cep = $this->cep;
+        $cep = str_pad($this->cep, 8, '0', STR_PAD_LEFT);
         return empty($cep) ? '' : substr($cep, 0, 5) . '-' . substr($cep, 5, 3);
     }
 
@@ -81,6 +81,6 @@ final class EnderecoCep implements ModuleInterface
     private function validarCep(): bool
     {
         $cep = preg_replace('/[^0-9]/', '', $this->cep);
-        return $cep >= 1000000 && $cep <= 99999999;
+        return preg_match('/^[0-9]{8}$/', $cep);
     }
 }
