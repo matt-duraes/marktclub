@@ -11,7 +11,7 @@ $permissao = json_encode([
     'usuario_equipe_permissao', 'usuario_equipe_deletar', 'usuario_equipe_empresa',
 
     'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
-    'publicacao_pagina_index', 'publicacao_pagina_add', 'publicacao_pagina_editar',
+    'publicacao_pagina_index', 'publicacao_pagina_editar',
     'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar',
     'publicacao_diretoria_deletar',
 

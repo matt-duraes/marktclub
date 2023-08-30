@@ -36,7 +36,7 @@ return [
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'publicacao_noticia'   => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'add', 'editar']],
+            'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'editar']],
             'publicacao_diretoria' => ['titulo' => 'Diretoria', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'parceiro_relatorio'     => [
