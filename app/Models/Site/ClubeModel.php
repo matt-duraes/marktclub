@@ -90,8 +90,8 @@ final class ClubeModel extends ApiHelper
         define('MENU_SAIR', $pagina->sair);
         define('MENU_PERFIL', !API || MENU_DEPENDENTE || MENU_CASHBACK || MENU_INDICACAO);
 
-        define('LINK_APP_ANDRIOD', $clube->link_app_android);
+        define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);
-        define('MENU_BAIXAR_APP', !empty(LINK_APP_ANDRIOD) || !empty(LINK_APP_IOS));
+        define('MENU_BAIXAR_APP', !empty(LINK_APP_ANDROID) || !empty(LINK_APP_IOS));
     }
 }
