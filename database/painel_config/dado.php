@@ -84,6 +84,10 @@ return [
                 'titulo' => 'Automóvel',
                 'acao'   => ['index', 'visualizar', 'status']
             ],
+            'solicitacao_cheque_bonus' => [
+                'titulo' => 'Cheque Bônus',
+                'acao'   => ['index', 'visualizar', 'status']
+            ],
             'comercial_empresa'      => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
             'comercial_prospeccao'   => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']

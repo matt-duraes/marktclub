@@ -33,6 +33,7 @@ $permissao = json_encode([
     'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_declaracao_index',
     'solicitacao_declaracao_visualizar', 'solicitacao_declaracao_status', 'comercial_empresa_index',
     'solicitacao_automovel_index', 'solicitacao_automovel_visualizar', 'solicitacao_automovel_status',
+    'solicitacao_cheque_bonus_index', 'solicitacao_cheque_bonus_visualizar', 'solicitacao_cheque_bonus_status',
     'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
     'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',
     'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
