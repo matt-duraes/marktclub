@@ -1,9 +1,9 @@
 <?php
 
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('samsung')
@@ -1016,6 +1016,53 @@ Route
             ::nome('clube')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
             ::get('/construtor-clube/clube/{url}');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
+            ::request(['pagina', '!quantidade', '!status'], 'json')
+            ::get('/construtor-clube');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
+            ::get('/construtor-clube/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:salvar'])
+            ::request([
+                'empresa', 'titulo', 'logo', 'favicon', 'header_tag', 'header_descricao',
+                'cor', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip', 'link_app_ios',
+                'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
+                'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
+                'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
+                'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel',
+                'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
+                'menu_saude_florianopolis', 'menu_cashback', 'menu_indicacao', 'menu_cupom',
+                'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira',
+                'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
+                'api_status', 'tipo_ativacao', 'status'
+            ])
+            ::post('/construtor-clube');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:atualizar'])
+            ::request([
+                '!empresa', '!titulo', '!logo', '!favicon', '!header_tag', '!header_descricao',
+                '!cor', '!link_clube', '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios',
+                '!link_app_android', '!contato_telefone', '!contato_whatsapp', '!contato_email',
+                '!contato_horario', '!contato_endereco', '!menu_faq', '!menu_como_funciona',
+                '!menu_sair', '!menu_acesso_rapido', '!menu_loja', '!menu_mapa', '!menu_cinema',
+                '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel',
+                '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
+                '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicacao', '!menu_cupom',
+                '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira',
+                '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
+                '!api_status', '!tipo_ativacao', '!status'
+            ])
+            ::put('/construtor-clube/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:deletar'])
+            ::delete('/construtor-clube/{id}');
     });
 
 Route

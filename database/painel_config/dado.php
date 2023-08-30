@@ -34,6 +34,7 @@ return [
                 ]
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'construtor_clube'        => ['titulo' => 'Clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'publicacao_noticia'   => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'add', 'editar']],
