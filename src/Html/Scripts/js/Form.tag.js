@@ -65,7 +65,6 @@ const fwFormTagAdicionarTag = (bloco, input, tipo) => {
     const valor = fwFormTagLimparValor(input.value, tipo).trim();
 
     input.value = '';
-    console.log(tipo);
     if (tipo == 'url' && !/^https\:\/\/[a-z\.\-]+\.[a-z\.\-]+/.test(valor)) {
         Alerta.notificacao('URL inválida!', false);
         return;
@@ -103,4 +102,5 @@ const fwFormTagLimparValor = (valor, tipo) => {
             .replace(/[^a-z0-9\.\/\?\=\:]/gi, '')
             .toLowerCase();
     }
+    return valor.replace(/[^A-Za-z0-9À-Úà-ú\ ]/g, '');
 };

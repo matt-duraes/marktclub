@@ -46,7 +46,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 contador: 65
             )
             ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição', contador: 155)
-            ->tag(name: 'header_tag', label: 'Tags', placeholder: 'Digite sua tags');
+            ->tag(name: 'header_tag', label: 'Tags', placeholder: 'Digite sua tags', tipo: 'texto', espaco: true);
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {

@@ -2,30 +2,26 @@
 
 namespace App\Models\Site\Perfil;
 
-use Erro\Excecao;
 use Http\Request;
-use Http\Response;
 use App\Helpers\ClubeApiHelper;
 
 final class SenhaModel extends ClubeApiHelper
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function postDado(Request $request): Response
+    public function __construct(Request $request)
     {
-        $this
-            ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.')
-            ->body([
-                'senha_atual'   => $this->Crypt->encode($request->senha_atual),
-                'senha_nova'    => $this->Crypt->encode($request->senha_nova),
-                'senha_repetir' => $this->Crypt->encode($request->genero),
-            ])
-            ->put('/usuario-cliente/' . $this->idUsuario);
+        parent::__construct();
+        $request
+            ->vazio('senha_atual', mensagem: 'O campo senha atual é obrigatório.')
+            ->vazio('senha_nova', mensagem: 'O campo nova senha é obrigatório.')
+            ->vazio('senha_repetir', mensagem: 'O campo repetir senha é obrigatório.');
 
-        return new Response(status: 204);
+        if ($request->senha_nova != $request->senha_repetir) {
+            mensagemErro('Campo inválido!', 'O campo nova senha e repetir senha devem ser iguais.');
+        }
+
+        $this
+            ->validar('Ocorre um erro ao atualizar sua senha, por favor, tente novamente.')
+            ->body(['senha'   => $this->Crypt->encode($request->senha_nova)])
+            ->put('/usuario-cliente/' . $this->idUsuario);
     }
 }

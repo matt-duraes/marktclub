@@ -21,5 +21,7 @@
     @view site/login/index/include/app.view
     @ endif;
 
+    @ if( MENU_MEU_PARCEIRO ):
     @view site/login/index/include/contato.view
+    @ endif;
 </div>

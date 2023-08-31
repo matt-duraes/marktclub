@@ -48,7 +48,7 @@ final class SolicitacaoVoucherController extends Controller implements
                     'id',
                     'Usuario'    => ['id', 'nome', 'cpf'],
                     'Parceiro'   => ['id', 'titulo', 'link_logo'],
-                    'Construtor' => ['id', 'link_logo', 'link_logo_marktclub'],
+                    'Construtor' => ['id', 'logo', 'logo_marktclub'],
                     'codigo', 'data_criacao', 'data_vencimento', 'data_validacao', 'qr_code', 'texto_desconto',
                     'texto_voucher', 'texto_juridico', 'texto_validar', 'status'
                 ],

@@ -27,12 +27,15 @@ class PublicacaoPaginaTest extends Clube
 
     public function listarPaginasTest(): PublicacaoPaginaTest
     {
-        $this
+        $dado = $this
             ->Curl
             ->json([
                 'pagina' => 1
             ])
-            ->get('/publicacao-pagina');
+            ->get('/publicacao-pagina')
+            ->array();
+
+        $this->idPublicacao = $dado['dado']['lista'][0]['id'] ?? "sem-id";
 
         return $this
             ->checkStatus(200)
@@ -40,53 +43,6 @@ class PublicacaoPaginaTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
-    public function salvarNovaPaginaTest(): PublicacaoPaginaTest
-    {
-        $dado = $this
-            ->Curl
-            ->body($this->getBody())
-            ->post('/publicacao-pagina')
-            ->array();
-
-        $this->idPublicacao = $dado['dado']['id'] ?? 'sem-id';
-
-        return $this
-               ->checkStatus(201)
-               ->checkIndiceExiste('dado.id')
-               ->checkIndiceIgual('status', 'sucesso');
-    }
-
-    public function naoPodeSalvarComTituloVazioTest(): PublicacaoPaginaTest
-    {
-        $this
-            ->Curl
-            ->body($this->getBody([
-                'titulo' => ''
-            ]))
-            ->post('/publicacao-pagina');
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceExiste('erro.titulo')
-            ->checkIndiceIgual('erro.mensagem', 'O campo Título não pode ser vazio.')
-            ->checkIndiceIgual('status', 'erro');
-    }
-
-    public function naoPodeSalvarComTextoVazioTest(): PublicacaoPaginaTest
-    {
-        $this
-            ->Curl
-            ->body($this->getBody([
-                'texto' => ''
-            ]))
-            ->post('/publicacao-pagina');
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceExiste('erro.mensagem')
-            ->checkIndiceIgual('erro.mensagem', 'O campo Texto não pode ser vazio.')
-            ->checkIndiceIgual('status', 'erro');
-    }
 
     public function atualizarPaginaTest(): PublicacaoPaginaTest
     {

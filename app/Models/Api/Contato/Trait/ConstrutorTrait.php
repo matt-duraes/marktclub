@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\Contato\Trait;
 
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 trait ConstrutorTrait
 {

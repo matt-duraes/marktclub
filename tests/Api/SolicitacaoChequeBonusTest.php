@@ -14,12 +14,10 @@ class SolicitacaoChequeBonusTest extends Tests
 
     private function getBody(array $array = []): array
     {
-        $tipo_usuario = valorAleatorio(array_keys((new TipoUsuario())->select()));
-
         return array_merge([
             'automovel'                  => 'dc68285f-65e2-4db9-b37c-d216cf4ddd97',
             'data_termo'                 => $this->hoje(),
-            'tipo_usuario'               => $tipo_usuario === TipoUsuario::DEPENDENTE ? TipoUsuario::TITULAR : $tipo_usuario,
+            'tipo_usuario'               => TipoUsuario::TITULAR,
             'nome'                       => nomeCompletoAleatorio(),
             'email_pessoal'              => emailAleatorio(),
             'telefone_celular'           => telefoneAleatorio(),

@@ -14,7 +14,7 @@ use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\LoginPainel\LoginFacebookModel;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
 

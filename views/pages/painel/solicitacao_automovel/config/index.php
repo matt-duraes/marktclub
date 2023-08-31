@@ -11,5 +11,4 @@ return $Painel
     ->campo('modelo', 'Modelo', 'normal')
     ->campo('versao', 'Versão', 'normal')
     ->campo('cor', 'Cor', 'normal')
-    ->campo('mensagem', 'Mensagem', 'grande')
     ->status('status', 'Status', new Status());
