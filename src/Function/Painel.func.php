@@ -727,8 +727,8 @@ if (!function_exists('painelInputLista')) {
             } elseif ($funcao == 'switch') {
                 $input['check'] = in_array($valor, [1, 'sim']);
             } elseif ($funcao == 'checkbox') {
-                $input['check'] = is_array($valor) && !empty($valor) && !empty($input['value'])
-                    && in_array($input['value'], $valor);
+                $input['check'] = (is_array($valor) && !empty($valor) && !empty($input['value'])
+                    && in_array($input['value'], $valor)) || (is_string($valor) && $valor == 'sim');
             } else {
                 $input['value'] = $valor;
             }

@@ -1,11 +1,13 @@
 <?php
 
-$Painel = new PainelConfig\Add(app: 'publicidade_pagina', acao: $acao);
-$diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
-$diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
+use Helpers\ApiHelper;
+use App\Classes\Geral\Status;
+use App\Classes\TextoClube\Tipo;
+
+$Painel = new PainelConfig\Add(app: 'texto_clube', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Título', function () use ($Painel) {
+    $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
             ->input(
                 name: 'titulo',
@@ -13,10 +15,15 @@ $Painel->coluna(callback: function () use ($Painel) {
                 placeholder: 'Digite um título',
                 contador: 200,
                 obrigatorio: true
+            )
+            ->select(name: 'tipo', label: 'Tipo', placeholder: 'Tipo', lista: (new Tipo())->select('Escolha um tipo'))
+            ->select(
+                name: 'status',
+                label: 'Status',
+                placeholder: 'Status',
+                lista: (new Status())->select('Escolha um status')
             );
     });
-});
-$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('SEO', function () use ($Painel) {
         $Painel
             ->input(
@@ -30,14 +37,14 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
-$Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
-    $Painel->fieldset('Texto principal', function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Texto', function () use ($Painel) {
         $Painel->editorBalao(
             name: 'texto',
             label: 'Texto',
             placeholder: 'Digite seu texto',
-            diretorioImagem: $diretorioImagem,
-            diretorioArquivo: $diretorioArquivo,
+            diretorioImagem: '4a813b55-cc1b-4d48-8368-091ea31926b2',
+            diretorioArquivo: '4a813b55-cc1b-4d48-8368-091ea31926b2',
             obrigatorio: true,
             // @codingStandardsIgnoreStart
             bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList',
@@ -45,6 +52,22 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorio
             barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat'
         );
     });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Empresas',
+        todos: 'Marcar todas as empresas',
+        mais: true,
+        callback: function () use ($Painel) {
+            $empresa = (new ApiHelper(token: true))
+                ->get('/comercial-empresa/select')
+                ->array()['dado'] ?? [];
+            foreach ($empresa as $id => $nome) {
+                $Painel->checkbox(name: 'empresa[]', label: $nome, value: $id);
+            }
+        }
+    );
 });
 
 return $Painel;

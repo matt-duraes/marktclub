@@ -62,7 +62,7 @@ final class ConstrutorClubeController extends Controller implements
         $Construtor->set(lista: $request->dado());
         $Construtor->salvar();
 
-        return $this->retornoPadrao($Construtor);
+        return $this->retornoPadrao($Construtor, 201);
     }
 
     private function retornoPadrao(ConstrutorEntity $Construtor, int $status = 200)

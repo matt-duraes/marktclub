@@ -26,5 +26,12 @@ return [
         'uuid'      => '118e10b2-58cf-4708-9c1f-3e4392d2e675',
         'nome'      => 'Clube',
         'diretorio' => 'clube',
+        'extensao'  => ['png']
+    ],
+    [
+        'uuid'      => '4a813b55-cc1b-4d48-8368-091ea31926b2',
+        'nome'      => 'Texto do Clube',
+        'diretorio' => 'texto_clube',
+        'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
     ],
 ];

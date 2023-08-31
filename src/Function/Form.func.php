@@ -1685,7 +1685,7 @@ if (!function_exists('formTag')) {
      * @param  string $placeholder Placeholder do input
      * @param  string $class       Class para o box do checkbox
      * @param  string $id          ID para o box do checkbox
-     * @param  string $tipo        Se vai ser do tipo tag ou url
+     * @param  string $tipo        Se vai ser do tipo tag, texto, ou url
      * @param  bool   $focus       Se vai focar o input
      * @param  bool   $espaco      Se vai adicionar a tag após um espaço
      * @return string HTML com o código da tag
@@ -1729,7 +1729,7 @@ if (!function_exists('formTag')) {
         $class = !empty($class) ? $class : '';
         $id = !empty($id) ? 'id="' . $id . '"' : '';
         $espaco = $espaco ? 'sim' : 'nao';
-        $tipo = in_array($tipo, ['tag', 'url']) ? $tipo : 'tag';
+        $tipo = in_array($tipo, ['tag', 'url', 'texto']) ? $tipo : 'tag';
 
         return '
             <div data-name="' . $name . '" data-tipo="' . $tipo . '" data-espaco="' . $espaco . '" class="fw_form fw_form_tag fw_form_tag_' . $tipo . $class . '" ' . $id . '>

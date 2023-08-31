@@ -1008,6 +1008,42 @@ Route
     });
 
 Route
+    ::nome('texto_clube')
+    ::controller(App\Controllers\Api\TextoClubeController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:listar'])
+            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!status'], 'json')
+            ::get('/texto-clube');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:buscar'])
+            ::get('/texto-clube/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:salvar'])
+            ::request([
+                'empresa', 'titulo', 'texto', 'header_titulo', 'header_descricao',
+                'header_tag', 'tipo', 'empresa', '!ordem', 'status'
+            ])
+            ::post('/texto-clube');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
+            ::request([
+                '!empresa', '!titulo', '!texto', '!header_titulo', '!header_descricao',
+                '!header_tag', '!tipo', '!empresa', '!ordem', '!status'
+            ])
+            ::put('/texto-clube/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:deletar'])
+            ::delete('/texto-clube/{id}');
+    });
+
+Route
     ::nome('construtor_clube')
     ::controller(App\Controllers\Api\ConstrutorClubeController::class)
     ::middleware(TokenMiddleware::class, 'token')

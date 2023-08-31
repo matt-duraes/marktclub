@@ -71,6 +71,7 @@ define('TABELA_SOLICITACAO_CODIGO', 'solicitacao_codigo');
 define('TABELA_SOLICITACAO_CREDITO', 'solicitacao_credito_novo');
 define('TABELA_SOLICITACAO_DECLARACAO', 'solicitacao_declaracao');
 define('TABELA_SOLICITACAO_VOUCHER', 'solicitacao_voucher');
+define('TABELA_TEXTO_CLUBE', 'texto_clube');
 define('TABELA_UPLOAD_ARQUIVO', 'upload_arquivo');
 define('TABELA_UPLOAD_GRUPO', 'upload_grupo');
 define('TABELA_USUARIO_CLIENTE', 'usuario_novo');

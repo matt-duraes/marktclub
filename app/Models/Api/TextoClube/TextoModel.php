@@ -1,28 +1,31 @@
 <?php
 
-namespace App\Models\Api\ConstrutorClube;
+namespace App\Models\Api\TextoClube;
 
 use ORM\ORM;
 use stdClass;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
 use App\Classes\Geral\Status;
+use App\Classes\TextoClube\Tipo;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
 
-final class ConstrutorModel extends ORM implements ModelListarInterface
+final class TextoModel extends ORM implements ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $ormTabela = TABELA_CONSTRUTOR_CLUBE;
+    protected string $ormTabela = TABELA_TEXTO_CLUBE;
 
     public function __construct(
         private Pagina $pagina = new Pagina(null),
         private Quantidade $quantidade = new Quantidade(null),
-        private ?string $pesquisa = null,
-        private Status $status = new Status(null)
+        private ?string $empresa = null,
+        private Tipo $tipo = new Tipo(null),
+        private Status $status = new Status(null),
     ) {
         parent::__construct();
     }
@@ -30,29 +33,25 @@ final class ConstrutorModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'data_criacao', 'status'])
+            ->campo(['uuid', 'titulo', 'tipo', 'data_criacao', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->join('id', 'id_admin_empresa')
-            ->campo(['uuid', 'titulo', 'nome_fantasia'], as: 'empresa')
             ->read();
-        $dado->lista = $this->montarRetorno($dado->lista);
+        $dado->lista = $this->montarDado($dado->lista);
+
         return $dado;
     }
 
-    private function montarRetorno($dado): array
+    private function montarDado($dado)
     {
         $retorno = [];
         $Status = new Status();
+        $Tipo = new Tipo();
         foreach ($dado as $r) {
             $retorno[] = [
                 'id'           => $r->uuid,
-                'empresa'      => [
-                    'id'     => $r->empresa_uuid,
-                    'titulo' => !empty($r->empresa_titulo) ? $r->empresa_titulo : $r->empresa_nome_fantasia,
-                ],
                 'titulo'       => $r->titulo,
+                'tipo'         => $Tipo->indice($r->tipo),
                 'data_criacao' => $r->data_criacao,
                 'status'       => $Status->indice($r->status)
             ];
@@ -63,8 +62,15 @@ final class ConstrutorModel extends ORM implements ModelListarInterface
     private function pegarWhere(): array
     {
         $where = [];
-        if (!empty($this->pesquisa)) {
-            $where[] = ['titulo', 'like', '%"' . $this->pesquisa . '"%'];
+        if (!empty($this->empresa)) {
+            $where[] = [
+                'id_admin_empresa',
+                'json',
+                (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa)
+            ];
+        }
+        if ($this->tipo->valido()) {
+            $where[] = ['tipo', $this->tipo->numero()];
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];

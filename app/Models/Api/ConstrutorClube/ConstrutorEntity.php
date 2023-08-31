@@ -97,6 +97,9 @@ final class ConstrutorEntity extends Entity
 
     protected function regraSalvar()
     {
+        if ($this->propriedadeExiste('link_clube') && !empty($this->link_clube)) {
+            $this->link_clube = preg_replace('/^https?\:\/\//', '', $this->link_clube);
+        }
         if ($this->propriedadeExiste('favicon') && !empty($this->favicon)) {
             $this->favicon = arquivoPrivadoId($this->favicon);
         }
@@ -110,6 +113,7 @@ final class ConstrutorEntity extends Entity
 
     protected function regraPosBuscar()
     {
+        $this->link_clube = 'https://' . $this->link_clube;
         $this->empresa = $this->ormEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->favicon = arquivoPrivado($this->favicon);
         $this->logo = arquivoPrivado($this->logo);

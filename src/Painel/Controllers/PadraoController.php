@@ -343,8 +343,12 @@ abstract class PadraoController extends Controller
     {
         $config = $this->includeConfig('config', $app);
         return (object)[
-            'permissao' => $this->pegarPermissaoUsuario('index', $app, true),
-            'model'     => $config['model'] ?? '',
+            'permissao' => (object)[
+                'salvar' => $this->pegarPermissaoUsuario('add', $app, true)
+            ],
+            'api' => (object)[
+                'uri'          => $config['api']['uri']
+            ]
         ];
     }
 

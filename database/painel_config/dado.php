@@ -40,6 +40,8 @@ return [
             'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'add', 'editar']],
             'publicacao_diretoria' => ['titulo' => 'Diretoria', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
+            'texto_clube' => ['titulo' => 'Texto do clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
+
             'parceiro_relatorio'     => [
                 'titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']
             ],

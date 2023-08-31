@@ -410,22 +410,26 @@ window.addEventListener('load', () => {
     const ordenarItens = async () => {
         const lista = document.querySelectorAll('#bloco_app_lista .bloco_lista .linha input[name=id]');
 
-        const body = new FormData();
+        const body = {
+            id: [],
+            pagina: paginaAtual,
+            /* eslint-disable */
+            form_system_hash: hashOrdem,
+            form_system_validacao: '',
+            /* eslint-enable */
+        };
         lista.forEach(item => {
-            body.append('id[]', item.value);
+            body.id.push(item.value);
         });
-        body.append('pagina', paginaAtual);
-        body.append('form_system_hash', hashOrdem);
-        body.append('form_system_validacao', '');
 
-        const response = await fetch(LINK + '/app/ordem/' + APP, {
-            method: 'POST',
+        const resposta = await ajaxPost(
+            LINK + '/app/ordem/' + APP,
             body,
-        });
-        if (response.status == 204) {
+            'Erro ao ordenar, por favor, tente novamente.'
+        );
+        if (false === resposta) {
             return;
         }
-        fetchNotificacaoErro(response, 'Ocorreu um erro ao atualizar a ordem');
     };
 
     const blocoOrdemExiste = document.querySelector('#bloco_app_lista .bloco_lista .linha .drag');

@@ -1,0 +1,1 @@
+{"id":"id_d99550a6a8973faab497d9a20d1f6dd4","token":"token","metodo":"PUT","nome":"\/texto-clube\/:id","uri":"{{LINK}}\/texto-clube\/$TEXTO_CLUBE_ID","parametro":[],"body":[["texto",true,"titulo","Teste de atualia\u00e7\u00e3o",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

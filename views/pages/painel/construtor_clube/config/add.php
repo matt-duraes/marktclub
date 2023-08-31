@@ -62,18 +62,18 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Liks', function () use ($Painel) {
         $Painel
             ->url(name: 'link_clube', label: 'Link do clube', placeholder: 'Link do clube')
-            ->url(name: 'link_login', label: 'Link do clube', placeholder: 'Link do clube')
-            ->url(name: 'link_cadastro', label: 'Link do clube', placeholder: 'Link do clube')
-            ->url(name: 'link_salavip', label: 'Link do clube', placeholder: 'Link do clube')
-            ->url(name: 'link_app_ios', label: 'Link do clube', placeholder: 'Link do clube')
-            ->url(name: 'link_app_android', label: 'Link do clube', placeholder: 'Link do clube');
+            ->url(name: 'link_login', label: 'Link de login', placeholder: 'Link de login')
+            ->url(name: 'link_cadastro', label: 'Link de cadastro', placeholder: 'Link de cadastro')
+            ->url(name: 'link_salavip', label: 'Link da salavip', placeholder: 'Link da salavip')
+            ->url(name: 'link_app_ios', label: 'Link do APP IOS', placeholder: 'Link do APP IOS')
+            ->url(name: 'link_app_android', label: 'Link do APP Android', placeholder: 'Link do APP Android');
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('SEO', function () use ($Painel) {
         $Painel
-            ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição')
-            ->tag(name: 'header_tag', label: 'Tags', placeholder: 'Digite a lista de tag', tipo: 'texto');
+            ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição', contador: 155)
+            ->tag(name: 'header_tag', label: 'Tags', tipo: 'texto', espaco: true, placeholder: 'Digite a lista de tag');
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
