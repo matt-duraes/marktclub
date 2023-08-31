@@ -13,6 +13,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ConstrutorClube\LinkClubeModel;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\ConstrutorClube\ConstrutorModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
@@ -28,8 +29,7 @@ final class ConstrutorClubeController extends Controller implements
     {
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar([
-            // ['link_clube', strDominio($url)],
-            ['link_clube', 'clube.marktclub.com.br'],
+            ['link_clube', (new LinkClubeModel($url))->url],
             ['status', 1]
         ]);
         $Clube = new ClubeModel($Construtor);
@@ -78,10 +78,10 @@ final class ConstrutorClubeController extends Controller implements
                     'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
                     'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel',
                     'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
-                    'menu_saude_florianopolis', 'menu_cashback', 'menu_indicacao', 'menu_cupom',
-                    'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira',
+                    'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
+                    'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                     'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                    'api_status', 'tipo_ativacao', 'status'
+                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status'
                 ]
             ),
             status: $status

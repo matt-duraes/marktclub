@@ -601,7 +601,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:salvar'])
             ::request([
                 'titulo', 'link', 'data_inicio', 'data_final', 'parceiro', 'status',
-                'imagem_desktop', 'imagem_mobile', 'tipo'
+                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem'
             ])
             ::post('/comunicacao-publicidade');
         Route
@@ -609,13 +609,18 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
             ::request([
                 '!titulo', '!link', '!data_inicio', '!data_final', '!parceiro', '!status',
-                '!imagem_desktop', '!imagem_mobile', '!tipo'
+                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem'
             ])
             ::put('/comunicacao-publicidade/{id}');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:deletar'])
             ::delete('/comunicacao-publicidade/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/comunicacao-publicidade/ordenar');
     });
 
 Route
@@ -1015,7 +1020,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:listar'])
-            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!status'], 'json')
+            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!ordem', '!status'], 'json')
             ::get('/texto-clube');
         Route
             ::nome('buscar')
@@ -1041,6 +1046,13 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:deletar'])
             ::delete('/texto-clube/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
+            ::request([
+                'id', 'pagina', '!quantidade'
+            ])
+            ::put('/texto-clube/ordenar');
     });
 
 Route
@@ -1072,10 +1084,10 @@ Route
                 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
                 'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel',
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
-                'menu_saude_florianopolis', 'menu_cashback', 'menu_indicacao', 'menu_cupom',
-                'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira',
+                'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
+                'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                'api_status', 'tipo_ativacao', 'status'
+                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status'
             ])
             ::post('/construtor-clube');
         Route
@@ -1089,10 +1101,10 @@ Route
                 '!menu_sair', '!menu_acesso_rapido', '!menu_loja', '!menu_mapa', '!menu_cinema',
                 '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel',
                 '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
-                '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicacao', '!menu_cupom',
-                '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira',
+                '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
+                '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira', '!menu_cupom',
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
-                '!api_status', '!tipo_ativacao', '!status'
+                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status'
             ])
             ::put('/construtor-clube/{id}');
         Route

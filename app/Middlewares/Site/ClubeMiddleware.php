@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Site;
+namespace App\Middlewares\Site;
 
 use Helpers\ApiHelper;
 
-final class ClubeModel extends ApiHelper
+final class ClubeMiddleware extends ApiHelper
 {
     private string $id;
 
@@ -12,20 +12,27 @@ final class ClubeModel extends ApiHelper
     {
         parent::__construct('construtor_clube:buscar');
         $this->id = env('CONSTRUTOR_VERSAO', '');
+    }
+
+    public function buscar(): bool
+    {
         $this->buscarClube();
         $this->montarDefine();
+        return true;
     }
 
     private function buscarClube()
     {
-        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE')) {
-            // return;
+        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE') && !eLocalhost()) {
+            return;
         }
-        $host = eLocalhost() ? 'clube.marktclub.com.br' : str_replace(['http://', 'https://', '/'], '', LINK);
+        $host = eLocalhost() ? 'clube.marktclub.com.br' : preg_replace('/^https\:\/\/(www.)?/', '', LINK);
+
         $dado = $this
             ->validar(status: 404)
             ->get('/construtor-clube/clube/' . $host)
             ->object();
+
         sessao('CLUBE_' . $this->id, true);
         sessao('CLUBE', $this->montarClube($dado->dado));
     }
@@ -40,12 +47,15 @@ final class ClubeModel extends ApiHelper
         }
         $dado->menu = (object)$menu;
         $dado->api = $dado->api == 'sim';
+        $dado->administrado = $dado->administrado == 'sim';
+        $dado->chat = $dado->chat == 'sim';
         return $dado;
     }
 
     private function montarDefine()
     {
         $clube = sessao('CLUBE');
+
         define('CLUBE_LOGO', $clube->logo);
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_TITULO', $clube->titulo);
@@ -64,6 +74,8 @@ final class ClubeModel extends ApiHelper
         define('CONTATO_ENDERECO', $clube->contato_endereco);
 
         define('API', $clube->api);
+        define('CHAT', $clube->chat);
+        define('ADMINISTRADO', $clube->administrado);
 
         $pagina = $clube->menu;
         define('MENU_ACESSO_RAPIDO', $pagina->acesso_rapido);
@@ -79,19 +91,28 @@ final class ClubeModel extends ApiHelper
         define('MENU_CREDITO_SICOOB', $pagina->credito_sicoob);
         define('MENU_FARMACIA', $pagina->farmacia);
         define('MENU_SAUDE', $pagina->saude_vitoria || $pagina->saude_amil || $pagina->saude_seguro || $pagina->saude_cnu || $pagina->saude_florianopolis);
+        define('MENU_SAUDE_VITORIA', $pagina->saude_vitoria);
+        define('MENU_SAUDE_AMIL', $pagina->saude_amil);
+        define('MENU_SAUDE_SEGURO', $pagina->saude_seguro);
+        define('MENU_SAUDE_SAUDE_CNU', $pagina->saude_cnu);
+        define('MENU_SAUDE_FLORIANOPOLIS', $pagina->saude_florianopolis);
         define('MENU_ODONTOLOGICO', $pagina->odontologico);
-        define('MENU_INDICACAO', $pagina->indicacao);
+        define('MENU_INDICAR_LOJA', $pagina->indicar_loja);
+        define('MENU_INDICAR_USUARIO', $pagina->indicar_usuario);
         define('MENU_HISTORICO', $pagina->historico);
         define('MENU_DEPENDENTE', $pagina->dependente);
         define('MENU_CARTEIRA', $pagina->carteira);
         define('MENU_PRIMEIRO_ACESSO', $pagina->primeiro_acesso);
         define('MENU_FAQ', $pagina->faq);
         define('MENU_COMO_FUNCIONA', $pagina->como_funciona);
+        define('MENU_MEU_PARCEIRO', $pagina->meu_parceiro);
         define('MENU_SAIR', $pagina->sair);
-        define('MENU_PERFIL', !API || MENU_DEPENDENTE || MENU_CASHBACK || MENU_INDICACAO);
+        define('MENU_PERFIL', !API || MENU_DEPENDENTE || MENU_CASHBACK || MENU_INDICAR_USUARIO);
 
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);
+        define('LINK_LOGIN', $clube->link_login);
+        define('LINK_ODONTOLOGICO', $clube->link_odontologico);
         define('MENU_BAIXAR_APP', !empty(LINK_APP_ANDROID) || !empty(LINK_APP_IOS));
     }
 }

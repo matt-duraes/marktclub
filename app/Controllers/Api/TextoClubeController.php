@@ -9,6 +9,8 @@ use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
 use App\Classes\TextoClube\Tipo;
+use App\Models\Api\OrdenarModel;
+use App\Classes\TextoClube\Ordem;
 use App\Models\Api\TextoClube\TextoModel;
 use App\Models\Api\TextoClube\TextoEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -31,6 +33,7 @@ final class TextoClubeController extends Controller implements
             quantidade: new Quantidade($request->quantidade),
             empresa: $request->empresa,
             tipo: new Tipo($request->tipo),
+            ordem: new Ordem($request->ordem),
             status: new Status($request->status)
         );
 
@@ -86,6 +89,18 @@ final class TextoClubeController extends Controller implements
         $Texto = new TextoEntity();
         $Texto->uuid($id);
         $Texto->destruir();
+
+        return new Response(status: 204);
+    }
+
+    public function putOrdenar(Request $request)
+    {
+        new OrdenarModel(
+            id: jsonDecode($request->id, true, true),
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            tabela: TABELA_TEXTO_CLUBE
+        );
 
         return new Response(status: 204);
     }

@@ -616,7 +616,7 @@ final class AppController extends PadraoController
     {
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'ordem');
-        if (!$config->permissao->salvar) {
+        if (!$config->permissao->editar) {
             throw new Excecao(status: 403);
         }
 
@@ -632,7 +632,7 @@ final class AppController extends PadraoController
         $dado = $Api->body([
             'id'     => $id,
             'pagina' => $pagina
-        ])->post($config->api->uri . '/ordenar');
+        ])->put($config->api->uri . '/ordenar');
 
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {

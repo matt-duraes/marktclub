@@ -44,7 +44,7 @@
         <header>
             <h1>Indicações</h1>
         </header>
-        @ if( MENU_INDICACAO ):
+        @ if( MENU_INDICAR_USUARIO ):
         <a class="dado" href="@route(site.indiqueAmigo)">
             <i>@iconeIndiqueAmigoOutline(20)</i>
             Indicar um amigo
@@ -55,10 +55,13 @@
             <i>@iconeFaleConosco(20)</i>
             Fale Conosco
         </a>
+
+        @ if( MENU_INDICAR_LOJA ):
         <a class="dado" id="abreIndiqueParceiro">
             <i>@iconeLojaHome(15)</i>
             Indicar um parceiro
         </a>
+        @ endif;
     </section>
 
     <section class="bloco">
@@ -69,10 +72,12 @@
             <i>@iconeTermoUso(19)</i>
             Termo de uso
         </a>
+        @ if( MENU_CASHBACK ):
         <a class="dado" href="@route(termo.termocashback)">
             <i>@iconeTermoUso(19)</i>
             Termo do Silium
         </a>
+        @ endif;
     </section>
 
     <div class="linha"></div>

@@ -61,7 +61,7 @@ final class ParceiroCashbackController extends Controller implements
                 Entity: $Entity,
                 lista: [
                     'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro',
-                    'imagem', 'link_logo', 'comissao', 'comissao_minima', 'comissao_maxima', 'link_site',
+                    'imagem', 'logo', 'comissao', 'comissao_minima', 'comissao_maxima', 'link_site',
                     'link_usuario', 'empresa', 'url', 'status'
                 ]
             ),

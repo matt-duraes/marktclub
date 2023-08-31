@@ -6,16 +6,36 @@
         <p>O que você deseja fazer hoje? Selecione uma das opções abaixo.</p>
     </section>
     <nav>
+        @ if( MENU_LOJA ):
         <a href="@route(loja.index)">Buscar lojas conveniadas</a>
+        @ endif;
+        @ if( MENU_MAPA ):
         <a class="botao_loja_proxima"> Lojas próximas</a>
+        @ endif;
+        @ if( MENU_TURISMO ):
         <a href="@route(turismo.index)">Passagem e hospedagem</a>
+        @ endif;
+        @ if( MENU_FARMACIA ):
         <a href="@route('farmacia.index')">Farmácias</a>
+        @ endif;
+        @ if( MENU_SAUDE ):
         <a href="@route('planosaude.index')">Plano de saúde</a>
+        @ endif;
+        @ if( MENU_CASHBACK ):
         <a href="@route(cashback.index)">Cashback</a>
+        @ endif;
+        @ if( MENU_AUTOMOVEL ):
         <a href="@route('automovel.index)">Automóveis</a>
+        @ endif;
+        @ if( MENU_CINEMA ):
         <a href="@route('cinema.index')">Ingressos de cinema</a>
+        @ endif;
+        @ if( MENU_DEPENDENTE ):
         <a href="@route('perfil.dependente')">Dependente</a>
+        @ endif;
+        @ if( !API ):
         <a href="@route('perfil.senha')">Alterar Senha</a>
         <a href="@route('perfil.index')">Alterar dados pessoais</a>
+        @ endif;
     </nav>
 </div>

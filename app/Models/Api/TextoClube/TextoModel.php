@@ -9,6 +9,8 @@ use Helpers\OrmHelper;
 use Modules\Quantidade;
 use App\Classes\Geral\Status;
 use App\Classes\TextoClube\Tipo;
+use App\Classes\TextoClube\Ordem;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
@@ -17,6 +19,7 @@ final class TextoModel extends ORM implements ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
+    use OrdemTrait;
 
     protected string $ormTabela = TABELA_TEXTO_CLUBE;
 
@@ -25,6 +28,7 @@ final class TextoModel extends ORM implements ModelListarInterface
         private Quantidade $quantidade = new Quantidade(null),
         private ?string $empresa = null,
         private Tipo $tipo = new Tipo(null),
+        private Ordem $ordem = new Ordem('ordem'),
         private Status $status = new Status(null),
     ) {
         parent::__construct();
@@ -36,6 +40,7 @@ final class TextoModel extends ORM implements ModelListarInterface
             ->campo(['uuid', 'titulo', 'tipo', 'data_criacao', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem())
             ->read();
         $dado->lista = $this->montarDado($dado->lista);
 

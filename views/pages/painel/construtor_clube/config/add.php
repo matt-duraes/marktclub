@@ -42,6 +42,10 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'api_status',
                 label: 'O login é via API?'
             )
+            ->switch(
+                name: 'administrado_status',
+                label: 'Administrado pelo Markt Club?'
+            )
             ->select(
                 name: 'status',
                 label: 'Status',
@@ -84,6 +88,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_faq', label: 'FAQ');
             $Painel->checkbox(name: 'menu_como_funciona', label: 'Como funciona');
             $Painel->checkbox(name: 'menu_primeiro_acesso', label: 'Primeiro Acesso');
+            $Painel->checkbox(name: 'menu_meu_parceiro', label: 'Meu Parceiro');
         }
     );
 });
@@ -115,6 +120,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_cupom', label: 'Cupom');
             $Painel->checkbox(name: 'menu_premium', label: 'Loja Premium');
             $Painel->checkbox(name: 'menu_credito_sicoob', label: 'Crédido Sicoob');
+            $Painel->checkbox(name: 'menu_indicar_loja', label: 'Indicar loja');
         }
     );
 });
@@ -126,7 +132,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_acesso_rapido', label: 'Acesso rápido');
             $Painel->checkbox(name: 'menu_sair', label: 'Botão de sair');
             $Painel->checkbox(name: 'menu_historico', label: 'Historico');
-            $Painel->checkbox(name: 'menu_indicacao', label: 'Indicar amigo');
+            $Painel->checkbox(name: 'menu_indicar_usuario', label: 'Indicar amigo');
             $Painel->checkbox(name: 'menu_odontologico', label: 'Odontologico');
             $Painel->checkbox(name: 'menu_dependente', label: 'Dependente');
             $Painel->checkbox(name: 'menu_carteira', label: 'Carteirinha');

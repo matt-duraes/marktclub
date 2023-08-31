@@ -1,42 +1,9 @@
 @system "Loading"
-@system "Pagina"
 @template "site"
 @system "Form"
 @resource "site/variavel"
-@resource "site/loja/busca"
+@resource "site/form_geral"
 
 #bloco_pagina_senha
     width: 100%
     max-width: 600px
-    .conteudo
-        max-width: 600px
-
-#bloco_pagina_senha .requisito
-    espacoVerticalPadrao()
-#bloco_pagina_senha .requisito p
-    subTituloMaiusculo()
-#bloco_pagina_senha .requisito ul
-    padding-left: 20px
-#bloco_pagina_senha form
-    width: 100%
-    flexCol()
-    max-width: 700px
-    p
-        subTitulo()
-    fieldset
-        espacoBottomPadrao()
-    button
-        width: 180px
-        alignSelfEnd()
-        margin-bottom: 10px
-
-
-@media screen and (max-width: 900px)
-    #bloco_pagina_senha form.form_geral .bloco_input
-        width: 100%
-
-@media screen and (max-width: 700px)
-    #bloco_pagina_senha form fieldset .form_input_dupla
-        directionColumn()
-        .bloco_input:nth-child(1)
-            margin-right: 0px

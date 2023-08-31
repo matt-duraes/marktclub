@@ -13,4 +13,5 @@ return (new \DataBase\DataBase())
     ->dataAtualizacao()
     ->date('data_inicio')
     ->date('data_final')
+    ->int('ordem')->tamanho(4)->padrao(9999)
     ->status();

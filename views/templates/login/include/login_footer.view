@@ -54,8 +54,10 @@
         </ul>
     </div>
     <div class="bloco_copyright">
+        @ if( ADMINISTRADO ):
         <p>Administrado por:</p>
         <a href="http://marktclub.com.br" target="_blank" rel="noopener noreferrer"><img src="{{LINK_PADRAO}}/images/logo_marktclub.png" alt="[Administrado por MARKTCLUB]" height="40"></a>
+        @ endif;
         <p class="copy">
             @2011/{{date('Y')}} Todos os direitos reservados é de uso exclusivo {{str_replace('https://', '', LINK_PADRAO)}}<br>
             Proibida reprodução ou utilização e qualquer titulo sob as penas da lei.
