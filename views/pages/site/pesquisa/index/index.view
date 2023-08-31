@@ -1,96 +1,128 @@
-<div class="bloco_pagina_popup">
-    <div id="pesquisa_satisfacao_popup">
-        <header class="header_pagina_popup">
-            <h1>Pesquisa de Satisfação</h1>
-            <i class="botao_fechar_popup">@iconeFechar</i>
-        </header>
-        <div class="conteudo_pagina_popup">
-            <div class="conteudo">
-                <form id="formulario_pesquisa" action="" class="form_geral bloco_quiz_geral" method="post">
-                    <fieldset>
-                        <p>É fácil navegar no Clube de Vantagens?*</p>
-                        <div class="pergunta">
-                            <div class="botao_input">
-                                <input id="navegar" name="navegar" type="radio" value="sim">
-                                <label for="navegar">Sim</label>
-                            </div>
-                            <div class="botao_input">
-                                <input id="nao_navegar" name="navegar" type="radio" value="nao">
-                                <label for="nao_navegar">Não</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <p>Você geralmente acha o que procura?*</p>
-                        <div class="pergunta">
-                            <div for="sim_procura" class="botao_input">
-                                <input id="sim_procura" name="procura" type="radio" value="sim">
-                                <label for="sim_procura">Sim</label>
-                            </div>
-                            <div for="nao_procura" class="botao_input">
-                                <input id="nao_procura" name="procura" type="radio" value="nao">
-                                <label for="nao_procura">Não</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <p>Você conseguiu ajuda/suporte quando precisou?*</p>
-                        <div class="pergunta">
-                            <div class="botao_input">
-                                <input id="sim_suporte" name="suporte" type="radio" value="sim">
-                                <label for="sim_suporte">Sim</label>
-                            </div>
-                            <div class="botao_input">
-                                <input id="nao_suporte" name="suporte" type="radio" value="nao">
-                                <label for="nao_suporte">Não</label>
-                            </div>
-                            <div class="botao_input">
-                                <input id="nunca_suporte" name="suporte" type="radio" value="nunca">
-                                <label for="nunca_suporte">Nunca precisei de suporte</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <p>Qual foi a qualidade no atendimento?*</p>
-                        <div class="pergunta">
-                            <div class="botao_input">
-                                <input id="otima" name="atendimento" type="radio" value="otimo">
-                                <label for="otima">Ótima</label>
-                            </div>
-                            <div class="botao_input">
-                                <input id="boa" name="atendimento" type="radio" value="bom">
-                                <label for="boa">Boa</label>
-                            </div>
-                            <div class="botao_input">
-                                <input id="ruim" name="atendimento" type="radio" value="ruim">
-                                <label for="ruim">Ruim</label>
-                            </div>
-                            <div class="botao_input">
-                                <input id="pessima" name="atendimento" type="radio" value="pessimo">
-                                <label for="pessima">Péssima</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <p>Quais destes sistemas do Clube você conhece?*</p>
-                        <div class="pergunta checkbox">
-                            @ifforeach($sistemaConhece as $c)
-                            <div for="{{ $c->name }}" class="botao_input">
-                                <input id="{{ $c->name }}" name="sistema" type="checkbox" value="{{ $c->valor }}">
-                                <label for="{{ $c->name }}">{{ $c->label }}</label>
-                            </div>
-                                @endifforeach;
-                            </div>
-                    </fieldset>
-                    <fieldset id="mensagem_pesquisa">
-                        <p>Escreva alguma mensagem se desejar?</p>
-                        @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
-                    </fieldset>
-                    <div class="footer_pagina_popup" id="footer_pesquisa">
-                        <button class="botao_geral_cor cor_bg" id="botao_envia_pesquisa">Enviar Pesquisa</button>
+<div class="bloco_pagina_popup" id="pesquisa_satisfacao_popup">
+    <header class="header_pagina_popup">
+        <h1>Pesquisa de Satisfação</h1>
+        <i class="pagina_fechar">@iconeFechar</i>
+    </header>
+    <div class="conteudo_pagina_popup">
+        <form id="formulario_pesquisa" action="" class="form_geral conteudo" method="post">
+            <fieldset>
+                <h2>É fácil navegar no Clube de Vantagens?*</h2>
+                <div class="pergunta">
+                    <div class="botao_input">
+                        <input id="navegar" name="navegar" type="radio" value="sim">
+                        <label for="navegar">Sim</label>
                     </div>
-                </form>
+                    <div class="botao_input">
+                        <input id="nao_navegar" name="navegar" type="radio" value="nao">
+                        <label for="nao_navegar">Não</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Você geralmente acha o que procura?*</h2>
+                <div class="pergunta">
+                    <div for="sim_procura" class="botao_input">
+                        <input id="sim_procura" name="procura" type="radio" value="sim">
+                        <label for="sim_procura">Sim</label>
+                    </div>
+                    <div for="nao_procura" class="botao_input">
+                        <input id="nao_procura" name="procura" type="radio" value="nao">
+                        <label for="nao_procura">Não</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Você conseguiu ajuda/suporte quando precisou?*</h2>
+                <div class="pergunta">
+                    <div class="botao_input">
+                        <input id="sim_suporte" name="suporte" type="radio" value="sim">
+                        <label for="sim_suporte">Sim</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="nao_suporte" name="suporte" type="radio" value="nao">
+                        <label for="nao_suporte">Não</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="nunca_suporte" name="suporte" type="radio" value="nunca">
+                        <label for="nunca_suporte">Nunca precisei de suporte</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Qual foi a qualidade no atendimento?*</h2>
+                <div class="pergunta">
+                    <div class="botao_input">
+                        <input id="otima" name="atendimento" type="radio" value="otimo">
+                        <label for="otima">Ótima</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="boa" name="atendimento" type="radio" value="bom">
+                        <label for="boa">Boa</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="ruim" name="atendimento" type="radio" value="ruim">
+                        <label for="ruim">Ruim</label>
+                    </div>
+                    <div class="botao_input">
+                        <input id="pessima" name="atendimento" type="radio" value="pessimo">
+                        <label for="pessima">Péssima</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Quais destes sistemas do Clube você conhece?*</h2>
+                <div class="pergunta checkbox">
+                    @ if( MENU_CINEMA ):
+                    <div class="botao_input">
+                        <input id="input_pesquisa_cinema" name="cinema" type="checkbox" value="Cinema">
+                        <label for="input_pesquisa_cinema">Cinema</label>
+                    </div>
+                    @ endif;
+                    @ if( MENU_MAPA ):
+                    <div class="botao_input">
+                        <input id="input_pesquisa_mapa" name="mapa" type="checkbox" value="Loja proxima">
+                        <label for="input_pesquisa_mapa">Lojas próximas</label>
+                    </div>
+                    @ endif;
+                    @ if( MENU_INDICAR_LOJA ):
+                    <div class="botao_input">
+                        <input id="input_pesquisa_indicacao_loja" name="indicacao_loja" type="checkbox" value="Indicação Loja">
+                        <label for="input_pesquisa_indicacao_loja">Indicação de Lojas</label>
+                    </div>
+                    @ endif;
+                    @ if( MENU_TURISMO ):
+                    <div class="botao_input">
+                        <input id="input_pesquisa_turismo" name="turismo" type="checkbox" value="Turismo">
+                        <label for="input_pesquisa_turismo">Turismo</label>
+                    </div>
+                    @ endif;
+                    @ if( MENU_SAUDE ):
+                    <div class="botao_input">
+                        <input id="input_pesquisa_saude" name="sistema" type="checkbox" value="Plano de saúde">
+                        <label for="input_pesquisa_saude">Plano de saúde</label>
+                    </div>
+                    @ endif;
+                    @ if( MENU_CREDITO_SICOOB ):
+                    <div class="botao_input">
+                        <input id="input_pesquisa_credito_sicoob" name="credito_sicoob" type="checkbox" value="Crédito Sicoob">
+                        <label for="input_pesquisa_credito_sicoob">Crédito do SICOOB</label>
+                    </div>
+                    @ endif;
+                    @ if( MENU_ODONTOLOGICO ):
+                    <div class="botao_input">
+                        <input id="input_pesquisa_" name="odontologico" type="checkbox" value="Plano Odontológico">
+                        <label for="input_pesquisa_">Plano Odontológico</label>
+                    </div>
+                    @ endif;
+                </div>
+            </fieldset>
+            <fieldset id="mensagem_pesquisa">
+                <h2>Escreva alguma mensagem se desejar?</h2>
+                @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
+            </fieldset>
+            <div class="footer_pagina_popup" id="footer_pesquisa">
+                <button class="botao_geral_cor cor_bg" id="botao_envia_pesquisa">Enviar Pesquisa</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

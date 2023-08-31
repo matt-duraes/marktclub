@@ -16,28 +16,7 @@ final class SiteController extends Controller
      */
     public function getPesquisa(): Response
     {
-        $listaConhece = [
-            (object)['name' => '0800', 'label' => '0800', 'valor' => '0800'],
-            (object)['name' => 'cinema', 'label' => 'Cinema', 'valor' => 'CINEMA'],
-            (object)['name' => 'lojaProxima', 'label' => 'Lojas Próximas', 'valor' => 'Lojas Próximas'],
-            (object)['name' => 'indicacaoLoja', 'label' => 'Indicação de Lojas', 'valor' => 'INDICACAO'],
-            (object)['name' => 'turismo', 'label' => 'Turismo', 'valor' => 'TURISMO'],
-            (object)['name' => 'saude', 'label' => 'Saúde', 'valor' => 'SAUDE'],
-            (object)['name' => 'credito', 'label' => 'Crédito', 'valor' => 'CREDITO ALFA'],
-            (object)['name' => 'odontologico', 'label' => 'Plano Odontológico', 'valor' => 'ODONTOLOGICO'],
-            (object)['name' => 'silium', 'label' => 'Cashback Silium', 'valor' => 'SILIUM'],
-            (object)['name' => 'lojas', 'label' => 'Lojas', 'valor' => 'CONVENIOS'],
-            (object)['name' => 'dependente', 'label' => 'Adicionar Dependentes', 'valor' => 'DEPENDENTES'],
-            (object)['name' => 'preferencia', 'label' => 'Preferências', 'valor' => 'PREFERENCIAS'],
-            (object)['name' => 'whatsapp', 'label' => 'Whatsapp', 'valor' => 'WHATSAPP'],
-            (object)['name' => 'promocao', 'label' => 'Promoção', 'valor' => 'PROMOCOES'],
-            (object)['name' => 'medicamento', 'label' => 'Medicamento', 'valor' => 'MEDICAMENTO'],
-            (object)['name' => 'nenhum', 'label' => 'Nenhum', 'valor' => 'NENHUM']
-        ];
-
-        return view('pesquisa.index', [
-            'sistemaConhece' => $listaConhece
-        ]);
+        return view('pesquisa.index');
     }
 
     /**
