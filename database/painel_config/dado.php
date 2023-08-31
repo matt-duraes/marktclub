@@ -37,7 +37,7 @@ return [
             'construtor_clube'        => ['titulo' => 'Clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'publicacao_noticia'   => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'add', 'editar']],
+            'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'editar']],
             'publicacao_diretoria' => ['titulo' => 'Diretoria', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'texto_clube' => ['titulo' => 'Texto do clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
@@ -85,6 +85,10 @@ return [
             'solicitacao_declaracao'  => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
             'solicitacao_automovel'   => [
                 'titulo' => 'Automóvel',
+                'acao'   => ['index', 'visualizar', 'status']
+            ],
+            'solicitacao_cheque_bonus' => [
+                'titulo' => 'Cheque Bônus',
                 'acao'   => ['index', 'visualizar', 'status']
             ],
             'comercial_empresa'      => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],

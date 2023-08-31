@@ -6,7 +6,7 @@ return [
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => false,
-    'add'        => true,
+    'add'        => false,
     'editar'     => true,
     'deletar'    => false,
     'download'   => false,
