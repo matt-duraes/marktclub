@@ -27,19 +27,18 @@ final class UsuarioEquipeTest extends Tests
     public function verificarSeEstaSalvandoUsuarioTest()
     {
         $this->api('usuario_equipe:salvar');
-        $this
+        $resposta = $this
             ->Curl
             ->loginPainel()
             ->body($this->bodySalvar)
-            ->post('/usuario-equipe');
+            ->post('/usuario-equipe')
+            ->array();
 
-        $this
+        $this->idUsuario = $resposta['dado']['id'] ?? 'sem-id';
+
+        return $this
             ->checkStatus(201)
             ->checkIndiceExiste('dado.id');
-
-        $resposta = $this->Curl->array();
-        $this->idUsuario = array_key_exists('dado', $resposta) ? $resposta['dado']['id'] : '';
-        return $this;
     }
 
     public function buscarUsuarioQueFoiSalvoTest()
@@ -87,7 +86,8 @@ final class UsuarioEquipeTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body($body)->post('/usuario-equipe');
+            ->body($body)
+            ->post('/usuario-equipe');
 
         return $this
             ->checkStatus(400)
@@ -384,14 +384,14 @@ final class UsuarioEquipeTest extends Tests
     private function criarBodyUsuario(array $campo = [])
     {
         $completo = [
-            'nome'              => $this->nomeCompleto(),
-            'cpf'               => $this->cpf(),
-            'genero'            => $this->genero(),
-            'data_nascimento'   => $this->dataPassada(),
-            'email_trabalho'    => $this->email(),
-            'email_pessoal'     => $this->email(),
-            'telefone_trabalho' => $this->telefone(),
-            'telefone_pessoal'  => $this->telefone(),
+            'nome'              => nomeCompletoAleatorio(),
+            'cpf'               => cpfAleatorio(),
+            'genero'            => generoAleatorio(),
+            'data_nascimento'   => dataPassadaAleatorio(),
+            'email_trabalho'    => emailAleatorio(),
+            'email_pessoal'     => emailAleatorio(),
+            'telefone_trabalho' => telefoneAleatorio(),
+            'telefone_pessoal'  => telefoneFixoAleatorio(),
             'permissao'         => ['solicitacao_voucher_index'],
             'senha'             => $this->senha('Teste@1324'),
             'status'            => 'inativo',
