@@ -52,6 +52,12 @@ class EnqueteModel extends ORM
                 'sistemas_clube', 'comentario', 'status', 'data_criacao'
             ])
             ->where($this->pegarWhere(), false)
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->join('id', 'id_usuario_cliente')
+            ->campo(['nome'], 'usuario')
+            ->tabela(TABELA_PARCEIRO_LOJA)
+            ->join('id', 'id_admin_empresa')
+            ->campo(['titulo'], 'parceiro')
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->read();
@@ -94,11 +100,17 @@ class EnqueteModel extends ORM
         $retorno = [];
         foreach ($respostas as $item) {
             $retorno[] = [
-                'uuid'           => $item->uuid,
+                'id'             => $item->uuid,
+                'parceiro'       => [
+                    'nome' => $item->parceiro_titulo
+                ],
+                'usuario'        => [
+                    'nome' => $item->usuario_nome
+                ],
                 'navegar'        => $Navegar->indice($item->navegar),
+                'procura'        => $Procura->indice($item->procura),
                 'suporte'        => $Suporte->indice($item->suporte),
                 'atendimento'    => $Atendimento->indice($item->atendimento),
-                'procura'        => $Procura->indice($item->procura),
                 'sistemas_clube' => $item->sistemas_clube,
                 'comentario'     => $item->comentario,
                 'status'         => $Status->indice($item->status),
