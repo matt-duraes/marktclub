@@ -98,7 +98,7 @@ return [
         'titulo'           => 'COMUNICAÇÃO',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["comunicacao_publicidade_index"]'
+        'permissao'        => '["comunicacao_publicidade_index","construtor_clube_index"]'
     ],
     [
         'id'               => '++',
@@ -106,11 +106,44 @@ return [
         'tipo'             => 3,
         'titulo'           => 'Publicidade',
         'url'              => '/app/comunicacao-publicidade',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,6c5,0,9,4.1,9,9s-4,9-9,9s-9-4-9-9h1.8c0,4,3.2,7.2,7.2,7.2s7.2-3.2,7.2-7.2S19,7.8,15,7.8c-2.4,0-4.7,1.3-5.9,3.1h2.3v1.8H6V7.3h1.8v2.3C9.4,7.4,12,6,15,6z M15.9,10.5v4.1l2.9,2.9l-1.3,1.3l-3.4-3.4v-4.9H15.9z"/></svg>',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M6.9,23.1c-0.5,0-0.9-0.4-0.9-0.9V7.8c0-0.5,0.4-0.9,0.9-0.9h16.2c0.5,0,0.9,0.4,0.9,0.9v14.4c0,0.5-0.4,0.9-0.9,0.9H6.9z M22.2,17.7v-9H7.8v12.6l9-9L22.2,17.7z M22.2,20.3l-5.4-5.4l-6.5,6.5h11.9V20.3z M11.4,14.1c-1,0-1.8-0.8-1.8-1.8c0-1,0.8-1.8,1.8-1.8s1.8,0.8,1.8,1.8C13.2,13.3,12.4,14.1,11.4,14.1z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['comunicacao-publicidade'],
         'status'           => 1,
         'permissao'        => '["comunicacao_publicidade_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Clube',
+        'url'              => '/app/construtor-clube',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M6.3,20c-0.4-0.7-0.8-1.5-1-2.3C6.3,17.2,7,16.2,7,15c0-1.2-0.7-2.2-1.6-2.7C5.8,10.7,6.7,9.2,7.9,8C8.8,8.6,10,8.7,11,8.1s1.6-1.7,1.5-2.8c1.7-0.4,3.4-0.4,5,0C17.4,6.4,18,7.5,19,8.1c1,0.6,2.2,0.5,3.1-0.1c0.6,0.6,1.1,1.3,1.5,2c0.4,0.7,0.8,1.5,1,2.3c-1,0.5-1.6,1.5-1.6,2.7c0,1.2,0.7,2.2,1.6,2.7c-0.4,1.6-1.3,3.1-2.5,4.3c-0.9-0.6-2.1-0.7-3.1-0.1c-1,0.6-1.6,1.7-1.5,2.8c-1.7,0.4-3.4,0.4-5,0c0.1-1.1-0.5-2.2-1.5-2.8c-1-0.6-2.2-0.5-3.1,0.1C7.3,21.4,6.8,20.7,6.3,20z M12,20.2c1.1,0.6,1.9,1.6,2.3,2.8c0.5,0,1,0,1.5,0c0.4-1.1,1.2-2.1,2.3-2.8c1.1-0.6,2.3-0.8,3.5-0.6c0.3-0.4,0.5-0.8,0.7-1.3C21.5,17.4,21,16.3,21,15s0.5-2.4,1.3-3.3c-0.1-0.2-0.2-0.4-0.3-0.7c-0.1-0.2-0.3-0.4-0.4-0.6c-1.2,0.2-2.4,0.1-3.5-0.6c-1.1-0.6-1.9-1.6-2.3-2.8c-0.5,0-1,0-1.5,0c-0.4,1.1-1.2,2.1-2.3,2.8c-1.1,0.6-2.3,0.8-3.5,0.6c-0.3,0.4-0.5,0.8-0.7,1.3C8.5,12.6,9,13.7,9,15s-0.5,2.4-1.3,3.3c0.1,0.2,0.2,0.4,0.3,0.7c0.1,0.2,0.3,0.4,0.4,0.6C9.7,19.4,10.9,19.6,12,20.2z M15,18c-1.7,0-3-1.3-3-3c0-1.7,1.3-3,3-3c1.7,0,3,1.3,3,3C18,16.7,16.7,18,15,18z M15,16c0.6,0,1-0.4,1-1c0-0.6-0.4-1-1-1c-0.6,0-1,0.4-1,1C14,15.6,14.4,16,15,16z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['construtor-clube'],
+        'status'           => 1,
+        'permissao'        => '["construtor_clube_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 1,
+        'titulo'           => 'TEXTO',
+        'ordem'            => '++',
+        'status'           => 1,
+        'permissao'        => '["texto_clube_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Texto',
+        'url'              => '/app/texto-clube',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M21.5,23.1h-13c-0.4,0-0.8-0.4-0.8-0.8V7.7c0-0.4,0.4-0.8,0.8-0.8h13c0.4,0,0.8,0.4,0.8,0.8v14.6 C22.3,22.7,21.9,23.1,21.5,23.1z M20.7,21.5v-13H9.3v13H20.7z M11,10.1h3.2v3.2H11V10.1z M11,15H19v1.6H11V15z M11,18.2H19v1.6H11 V18.2z M15.8,11H19v1.6h-3.2V11z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['texto-clube'],
+        'status'           => 1,
+        'permissao'        => '["texto_clube_index"]'
     ],
     [
         'id'               => '++',
@@ -265,7 +298,7 @@ return [
         'tipo'             => 3,
         'titulo'           => 'Página',
         'url'              => '/app/publicacao-pagina',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M21.5,23.1h-13c-0.4,0-0.8-0.4-0.8-0.8V7.7c0-0.4,0.4-0.8,0.8-0.8h13c0.4,0,0.8,0.4,0.8,0.8v14.6 C22.3,22.7,21.9,23.1,21.5,23.1z M20.7,21.5v-13H9.3v13H20.7z M11,10.1h3.2v3.2H11V10.1z M11,15H19v1.6H11V15z M11,18.2H19v1.6H11 V18.2z M15.8,11H19v1.6h-3.2V11z"/></svg>',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M17.3,8.8H9.6v12.4h10.9v-9.3h-3.1V8.8z M8,8c0-0.4,0.3-0.8,0.8-0.8h9.3l3.9,3.9L22,22c0,0.4-0.3,0.8-0.8,0.8H8.8C8.3,22.8,8,22.4,8,22V8z M14.2,14.2v-2.3h1.6v2.3h2.3v1.6h-2.3v2.3h-1.6v-2.3h-2.3v-1.6H14.2z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['publicacao-pagina'],
         'status'           => 1,
@@ -277,7 +310,7 @@ return [
         'tipo'             => 3,
         'titulo'           => 'Diretoria',
         'url'              => '/app/publicacao-diretoria',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M21.5,23.1h-13c-0.4,0-0.8-0.4-0.8-0.8V7.7c0-0.4,0.4-0.8,0.8-0.8h13c0.4,0,0.8,0.4,0.8,0.8v14.6 C22.3,22.7,21.9,23.1,21.5,23.1z M20.7,21.5v-13H9.3v13H20.7z M11,10.1h3.2v3.2H11V10.1z M11,15H19v1.6H11V15z M11,18.2H19v1.6H11 V18.2z M15.8,11H19v1.6h-3.2V11z"/></svg>',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15.3,16.6v1.6c-2.6,0-4.7,2.1-4.7,4.7H9C9,19.4,11.8,16.6,15.3,16.6z M15.3,15.8c-2.6,0-4.7-2.1-4.7-4.7s2.1-4.7,4.7-4.7S20,8.5,20,11.1S17.9,15.8,15.3,15.8z M15.3,14.2c1.7,0,3.1-1.4,3.1-3.1S17,7.9,15.3,7.9s-3.1,1.4-3.1,3.1S13.6,14.2,15.3,14.2z M20,22.5l-2.3,1.2l0.4-2.6l-1.9-1.8l2.6-0.4l1.2-2.3l1.2,2.3l2.6,0.4l-1.9,1.8l0.4,2.6L20,22.5z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['publicacao-diretoria'],
         'status'           => 1,

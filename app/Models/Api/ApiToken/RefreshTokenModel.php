@@ -8,9 +8,9 @@ use App\Classes\ApiToken\Tipo;
 use App\Classes\LoginClube\PegarClienteTrait;
 use App\Classes\LoginPainel\PegarEquipeTrait;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
-use App\Models\Api\AdminConstrutor\ClubeModel;
+use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ApiToken\Trait\PegarAppTrait;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class RefreshTokenModel extends ORM implements TokenInterface
 {

@@ -4,47 +4,47 @@
     @view site/geral/banner.view
 
     <div class="bloco_plano_saude">
-		<figure>
-			<img src="https://clube.marktclub.com.br/images/odontoprev.png" alt="">
-		</figure>
-		<header class="bloco_conteudo">
+        <figure>
+            <img src="https://clube.marktclub.com.br/images/odontoprev.png" alt="">
+        </figure>
+        <header class="bloco_conteudo">
             <p>Em parceria com a OdontoPrev oferecemos planos Odontológicos Coletivos por Adesão, sem carências,
                 com atendimento nacional, amplo rol de procedimentos e excelente custo-benefício.</p>
-		</header>
-		<div class="bloco_beneficio">
-			<header>
-				<h1>Vantagens exclusivas para você</h1>
-			</header>
-			<div class="bloco_vantagem">
-				<div class="icone_vantagem">
-					@iconeCashbackHome
-					<p>Menores preços do mercado</p>
-				</div>
-				<div class="icone_vantagem">
-					@iconeDependenteOutline
-					<p>Contrate para seus dependentes</p>
-				</div>
-				<div class="icone_vantagem">
-					@iconeMundo
-					<p>Ampla cobertura em todo o Brasil</p>
-				</div>
-			</div>
-		</div>
-	</div>
+        </header>
+        <div class="bloco_beneficio">
+            <header>
+                <h1>Vantagens exclusivas para você</h1>
+            </header>
+            <div class="bloco_vantagem">
+                <div class="icone_vantagem">
+                    @iconeCashbackHome
+                    <p>Menores preços do mercado</p>
+                </div>
+                <div class="icone_vantagem">
+                    @iconeDependenteOutline
+                    <p>Contrate para seus dependentes</p>
+                </div>
+                <div class="icone_vantagem">
+                    @iconeMundo
+                    <p>Ampla cobertura em todo o Brasil</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="bloco_plano_saude">
-		<header>
-			<h1>Explore a rede credenciada</h1>
-		</header>
-		<div class="lista_passo_a_passo">
-			<ul class="bloco_geral_ul">
+    <div class="bloco_plano_saude">
+        <header>
+            <h1>Explore a rede credenciada</h1>
+        </header>
+        <div class="lista_passo_a_passo">
+            <ul class="bloco_geral_ul">
                 <li>Próteses Simples (unitária);</li>
                 <li>Cirurgia e Radiografias;</li>
                 <li>Documentação e Radiografias Ortodônticas;</li>
                 <li>Restaurações;</li>
                 <li>O plano Integral tem abrangência nacional com rede credenciada de clínicas e dentistas distribuída em mais de 2.500 municípios.</li>
-			</ul>
-		</div>
+            </ul>
+        </div>
         <div class="preco">
             <h2>Valor por usuário:</h2>
             <p class="apenas">Apenas</p>
@@ -57,7 +57,7 @@
                 *A taxa só será cobrada no primeiro mês.</p>
         </div>
 
-		<div class="acessa_rede">
+        <div class="acessa_rede">
             <p>Acesse o botão abaixo e pesquise por Plano Integral Cerd</p>
             @if(TIPO_USUARIO != 'indicado'):
                 <div class="display_flex">
@@ -69,15 +69,15 @@
                 </div>
             @endif
 
-		</div>
-	</div>
+        </div>
+    </div>
 
-	<div class="bloco_plano_saude procedimento">
-		<header>
-			<h1>Procedimentos Cobertos</h1>
-		</header>
-		<div class="lista_passo_a_passo">
-			<ul class="bloco_geral_ul">
+    <div class="bloco_plano_saude procedimento">
+        <header>
+            <h1>Procedimentos Cobertos</h1>
+        </header>
+        <div class="lista_passo_a_passo">
+            <ul class="bloco_geral_ul">
                 <li>Cirurgias</li>
                 <li>Endodontia</li>
                 <li>Prevenção</li>
@@ -88,39 +88,39 @@
                 <li>Periodontia</li>
                 <li>Radiologia</li>
                 <li>Emergência</li>
-			</ul>
-		</div>
-	</div>
+            </ul>
+        </div>
+    </div>
 
-	<div class="bloco_plano_saude">
-		<header>
-			<h1>Valores e Datas</h1>
-		</header>
-		<div class="lista_passo_a_passo">
-			<ul class="bloco_geral_ul">
+    <div class="bloco_plano_saude">
+        <header>
+            <h1>Valores e Datas</h1>
+        </header>
+        <div class="lista_passo_a_passo">
+            <ul class="bloco_geral_ul">
                 <li><span>Vencimento da mensalidade</span>: todo dia 10 de cada mês.</li>
                 <li><span>*Vigência</span>: dia 1º do mês subsequente à contratação, respeitando a regra abaixo:</li>
                 <li class="recuo"><span>Data de corte para vigência dia 1º do mês subsequente</span>: dia 15 do mês anterior.</li>
-			</ul>
-		</div>
+            </ul>
+        </div>
         <p class="observacao">* Este plano tem permanência mínima de 12 meses.</p>
-	</div>
+    </div>
 
-	<div class="bloco_plano_saude">
-		<header>
-			<h1>Prazo de Processamento de Pedido</h1>
-		</header>
-		<div class="lista_passo_a_passo">
-			<ul class="bloco_geral_ul">
+    <div class="bloco_plano_saude">
+        <header>
+            <h1>Prazo de Processamento de Pedido</h1>
+        </header>
+        <div class="lista_passo_a_passo">
+            <ul class="bloco_geral_ul">
                 <li>Em até 05 (cinco) dias úteis você receberá um informativo de boas-vindas com as informações da sua contratação,
                     informações gerais sobre o plano contratado, data de início da vigência e a primeira fatura</li>
-			</ul>
-		</div>
-	</div>
+            </ul>
+        </div>
+    </div>
 
     @if(TIPO_USUARIO != 'indicado'):
         <section class="bloco_simulacao container_scroll">
-            <a href="#" target="_blank" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
+            <a href="{!!LINK_ODONTOLOGICO!!}" target="_blank" rel="noopener noreferrer" class="botao_geral_cor cor_bg">CONTRATAR AGORA</a>
         </section>
     @else:
         <div class="bloco_atencao_geral">
@@ -128,6 +128,6 @@
         </div>
     @endif
     @if(TIPO_USUARIO != 'indicado'):
-        <a href="#" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">CONTRATAR AGORA</a>
+        <a href="{!!LINK_ODONTOLOGICO!!}" target="_blank" rel="noopener noreferrer" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">CONTRATAR AGORA</a>
     @endif
 </div>

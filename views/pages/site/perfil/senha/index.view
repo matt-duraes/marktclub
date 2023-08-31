@@ -1,30 +1,24 @@
 @template "site"
 
-<div id="bloco_pagina_senha" class="bloco_titulo_texto">
-    <h1>Siga os passos abaixo para alterar a sua senha</h1>
-
-    <div class="conteudo">
-        <div class="requisito">
-            <p>Sua senha deve:</p>
-            <ul class="bloco_geral_ul">
-                <li>Ter pelo menos 8 caracteres</li>
-                <li>Ter pelo menos uma letra minúscula</li>
-                <li>Ter pelo menos uma letra maiúscula</li>
-                <li>Ter pelo menos um símbolo</li>
-                <li>Ter pelo menos um número</li>
-            </ul>
+<div id="bloco_pagina_senha">
+    <form action="/" method="post" class="form_geral" id="form_dependente">
+        <header>
+            <h1>Alterar senha</h1>
+            <p>Preencha os campos abaixo para resetar sua senha.</p>
+        </header>
+        <p>Sua senha deve ter:</p>
+        <ul class="bloco_geral_ul">
+            <li>Ter pelo menos 8 caracteres</li>
+            <li>Ter pelo menos uma letra minúscula</li>
+            <li>Ter pelo menos uma letra maiúscula</li>
+            <li>Ter pelo menos um símbolo</li>
+            <li>Ter pelo menos um número</li>
+        </ul>
+        @? formSenha(name: 'senha_atual', label: 'Senha atual', placeholder: 'Digite sua senha atual', obrigatorio: 1);
+        @? formSenha(name: ['senha_nova', 'senha_repetir'], label: 'Nova senha', placeholder: ['Digite sua senha nova', 'Repita sua nova senha'], obrigatorio: 1);
+        <div class="bloco_botao">
+            <div></div>
+            <div id="botao_salvar_senha" class="botao_geral_cor cor_bg">Cadastrar dependente</div>
         </div>
-        <form action="@route('post.perfil.alteraSenha')"  method="post" id="form_mudar_senha" class="form_geral">
-            <fieldset>
-                <p>Preencha os campos abaixo para resetar sua senha.</p>
-                @? formSenha(name: 'senha_atual', id: 'input_senha_atual', label: 'Senha atual', placeholder: 'Digite sua senha atual', attr: ['autocomplete' => 'current-password'], obrigatorio: 1);
-
-                <div class="form_input_dupla">
-                    @? formSenha(name: 'senha_nova', id: 'input_senha_nova', label: 'Nova senha', placeholder: 'Digite sua senha nova', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
-                    @? formSenha(name: 'senha_repetir', id: 'input_senha_repetir', label: 'Repetir senha', placeholder: 'Repitir a nova senha', attr: ['autocomplete' => 'new-password'], obrigatorio: 1);
-                </div>
-            </fieldset>
-            <button id="botao_salvar_senha" class="botao_geral_cor cor_bg">Resetar senha</button>
-        </form>
-    </div>
+    </form>
 </div>

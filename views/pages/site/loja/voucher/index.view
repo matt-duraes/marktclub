@@ -14,7 +14,7 @@
 
 <div id="site">
     <header>
-        <img src="{{sessao('CLUBE.link_logo')}}" height="80" alt="{{sessao('CLUBE.titulo')}}">
+        <img src="{{CLUBE_LOGO}}" height="80" alt="{{CLUBE_TITULO}}">
         <img src="{!!$dado->parceiro->link_logo!!}" height="100" alt="{{$dado->parceiro->titulo}}">
     </header>
 
@@ -43,7 +43,7 @@
     @ endif;
     <div class="administrado">
         <p>Administrado por:</p>
-        <figure><img src="{!!$dado->construtor->link_logo_marktclub!!}" height="40" alt="MARKT CLUB"></figure>
+        <figure><img src="{!!$dado->construtor->logo_marktclub!!}" height="40" alt="MARKT CLUB"></figure>
         <p>{{$dado->texto_juridico}}</p>
     </div>
 </div>

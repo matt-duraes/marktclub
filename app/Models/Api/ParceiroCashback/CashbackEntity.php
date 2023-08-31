@@ -39,7 +39,7 @@ final class CashbackEntity extends Entity
     public string $link_site;
     public Status $status;
     public string $imagem;
-    public string $link_logo;
+    public string $logo;
     public string $url;
     protected array $id_admin_empresa;
 
@@ -51,11 +51,14 @@ final class CashbackEntity extends Entity
     protected function regraSalvar()
     {
         $this->id_admin_empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaUuidParaId($this->empresa);
+        if ($this->propriedadeExiste('logo') && !empty($this->logo)) {
+            $this->logo = arquivoPrivadoId($this->logo);
+        }
     }
 
     protected function regraPosBuscar()
     {
-        $this->link_logo = arquivoPrivado($this->imagem);
+        $this->logo = arquivoPrivado($this->imagem);
         $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid($this->id_admin_empresa);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\LoginApi\Trait;
 
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 trait ConstrutorTrait
 {
@@ -10,7 +10,7 @@ trait ConstrutorTrait
     {
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar([
-            ['empresa', $this->idEmpresa],
+            ['id_admin_empresa', $this->idEmpresa],
             ['status', 'in', [1, 2]]
         ]);
         $this->linkClube = $Construtor->link_clube;

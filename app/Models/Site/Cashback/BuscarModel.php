@@ -34,7 +34,7 @@ final class BuscarModel extends ClubeApiHelper
         return (object)[
             'id'              => $r->id,
             'titulo'          => $r->titulo,
-            'logo'            => $r->link_logo,
+            'logo'            => $r->logo,
             'texto_descricao' => $r->texto_descricao,
             'texto_outro'     => $Texto->destaque($r->texto_outro),
             'texto_restricao' => $r->texto_restricao,

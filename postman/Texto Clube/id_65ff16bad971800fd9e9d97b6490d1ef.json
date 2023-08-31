@@ -1,0 +1,1 @@
+{"id":"id_65ff16bad971800fd9e9d97b6490d1ef","token":"token","metodo":"DELETE","nome":"\/texto-clube\/:id","uri":"{{LINK}}\/texto-clube\/$TEXTO_CLUBE_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

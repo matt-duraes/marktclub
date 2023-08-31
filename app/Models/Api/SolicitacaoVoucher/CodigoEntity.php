@@ -8,7 +8,7 @@ use Modules\DataHora;
 use App\Classes\SolicitacaoCodigo\Status;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\SolicitacaoVoucher\Trait\TextoTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\CodigoBuscarTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\CodigoInsertTrait;

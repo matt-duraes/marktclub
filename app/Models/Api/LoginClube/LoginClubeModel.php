@@ -6,9 +6,9 @@ use stdClass;
 use Http\Request;
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiToken\PayloadModel;
-use App\Models\Api\AdminConstrutor\ClubeModel;
+use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ApiToken\Trait\PegarAppTrait;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 
 final class LoginClubeModel
@@ -49,7 +49,7 @@ final class LoginClubeModel
         try {
             $Construtor = new ConstrutorEntity();
             $Construtor->buscar([
-                ['link_site', $redirectUri],
+                ['link_clube', $redirectUri],
                 ['status', 1]
             ]);
         } catch (\Throwable $e) {

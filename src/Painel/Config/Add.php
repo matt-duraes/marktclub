@@ -502,6 +502,7 @@ final class Add
         bool $obrigatorio = false,
         string $tipo = 'quadrado',
         int $height = 200,
+        string $label = null,
         ?string $acao = null,
         ?string $permissao = null
     ) {
@@ -511,6 +512,7 @@ final class Add
             'diretorio'   => $diretorio,
             'class'       => $class,
             'id'          => $id,
+            'label'       => $label,
             'obrigatorio' => $obrigatorio,
             'tipo'        => $tipo,
             'height'      => $height,
@@ -940,6 +942,24 @@ final class Add
         );
     }
 
+    public function cor(
+        string $name,
+        string $label = '',
+        string $class = '',
+        string $id = '',
+        string $acao = null,
+        string $permissao = null
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao'      => 'cor',
+            'name'        => $name,
+            'label'       => $label,
+            'id'          => $id,
+            'class'       => $class,
+            'permissao'   => $permissao
+        ], $acao);
+    }
+
     public function select(
         $name,
         string|array $lista,
@@ -1082,7 +1102,7 @@ final class Add
         $this->setarTitulo();
         $this->setarColuna();
 
-        if (!in_array($dado['funcao'], ['checkbox', 'switch', 'tag', 'hidden'])) {
+        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'hidden'])) {
             $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
         }
 

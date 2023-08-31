@@ -10,6 +10,7 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
+use App\Models\Api\OrdenarModel;
 use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\ComunicacaoPublicidade\Ordem;
 use System\Interface\ControllerBuscarInterface;
@@ -91,6 +92,18 @@ final class ComunicacaoPublicidadeController extends Controller implements
         $Publicidade = new PublicidadeEntity();
         $Publicidade->uuid($id);
         $Publicidade->destruir();
+
+        return new Response(status: 204);
+    }
+
+    public function putOrdenar(Request $request)
+    {
+        new OrdenarModel(
+            id: jsonDecode($request->id, true, true),
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            tabela: TABELA_COMUNICACAO_PUBLICIDADE
+        );
 
         return new Response(status: 204);
     }

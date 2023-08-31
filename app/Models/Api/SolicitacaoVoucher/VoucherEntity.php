@@ -10,7 +10,7 @@ use App\Classes\SolicitacaoVoucher\Status;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Classes\SolicitacaoVoucher\TipoUsuario;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\SolicitacaoVoucher\Trait\TextoTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\VoucherBuscarTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\VoucherInsertTrait;

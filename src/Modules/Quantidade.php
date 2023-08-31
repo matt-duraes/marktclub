@@ -17,7 +17,7 @@ final class Quantidade implements ModuleInterface
 
     public function padrao()
     {
-        return $this->vazio() ? 20 : $this->numero();
+        return 20;
     }
 
     /**
