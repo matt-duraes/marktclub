@@ -34,6 +34,9 @@ return [
                 ]
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'enquete_satisfacao'      => [
+                'titulo' => 'Pesquisa Satisfação', 'acao' => ['index', 'visualizar', 'deletar', 'status']
+            ],
             'construtor_clube'        => ['titulo' => 'Clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'publicacao_noticia'   => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
@@ -81,9 +84,9 @@ return [
             'solicitacao_premium'    => [
                 'titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']
             ],
-            'solicitacao_salavip'     => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
-            'solicitacao_declaracao'  => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
-            'solicitacao_automovel'   => [
+            'solicitacao_salavip'    => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
+            'solicitacao_declaracao' => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
+            'solicitacao_automovel'  => [
                 'titulo' => 'Automóvel',
                 'acao'   => ['index', 'visualizar', 'status']
             ],
