@@ -39,7 +39,7 @@ trait Endereco
 
     public function cep(): int
     {
-        return rand(1000000, 99999999);
+        return rand(10000000, 99999999);
     }
 
     public function cidade(string $estado = 'SP')
