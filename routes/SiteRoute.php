@@ -5,13 +5,13 @@ use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
 
 Route
-    ::nome('faq')
+    ::nome('faqLogin')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::middleware(ClubeMiddleware::class, 'buscar')
-    ::controller(App\Controllers\Site\FaqController::class)
+    ::controller(App\Controllers\Site\LoginController::class)
     ::grupo(function () {
         Route
-            ::nome('cfm')
+            ::nome('faq')
             ::view('/login/faq');
     });
 
@@ -36,14 +36,8 @@ Route
             ::nome('index')
             ::view('/login/como-funciona');
         Route
-            ::nome('dependente')
-            ::view('/login/como-funciona-dependente');
-        Route
-            ::nome('medico')
-            ::view('/login/como-funciona-medico');
-        Route
-            ::nome('funcionario')
-            ::view('/login/como-funciona-funcionario');
+            ::nome('detalhe')
+            ::view('/login/como-funciona-detalhe/{url}');
     });
 Route
     ::nome('contato')

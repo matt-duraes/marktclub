@@ -43,7 +43,7 @@ final class TextoClubeController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Texto = new TextoEntity();
-        $Texto->uuid($id);
+        $Texto->idSlug($id);
 
         return $this->retornoPadrao($Texto);
     }
