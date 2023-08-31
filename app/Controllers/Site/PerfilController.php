@@ -109,7 +109,8 @@ final class PerfilController extends Controller
     */
     public function postAlteraSenha(Request $request)
     {
-        return (new SenhaModel())->postDado($request);
+        new SenhaModel($request);
+        return new Response(status: 204);
     }
 
     /*

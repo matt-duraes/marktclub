@@ -15,7 +15,7 @@
     <div id="bloco-voucher">
         <header>
             <figure>
-                <img height="60" src="{!!$dado->construtor->link_logo!!}" alt="">
+                <img height="60" src="{!!$dado->construtor->logo!!}" alt="">
             </figure>
         </header>
 
@@ -75,7 +75,7 @@
             <article class="caixa-termo imagem">
                 <p>Administrado por:</p>
                 <figure>
-                    <img height="60" src="{!!$dado->construtor->link_logo_marktclub!!}" alt="MARKTCLUB">
+                    <img height="60" src="{!!$dado->construtor->logo_marktclub!!}" alt="MARKTCLUB">
                 </figure>
             </article>
             @ if( !empty($dado->texto_juridico) ):

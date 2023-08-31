@@ -1,6 +1,6 @@
 <header id="header_principal">
     <figure class="logo">
-        <a href="{{LINK}}"><img class="logo_mobile " src="{{CLUBE_LOGO}}" alt="Logo do CLUBE DE VANTAGENS MARKT CLUB"></a>
+        <a href="{{LINK}}"><img class="logo_mobile " src="{{CLUBE_LOGO}}" alt="CLUBE_TITULO"></a>
     </figure>
     <nav id="menu_principal">
         <div class="background" id="bloco_menu_mobile">

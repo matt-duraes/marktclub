@@ -4,7 +4,7 @@ namespace App\Models\Api\SolicitacaoVoucher\Trait;
 
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 trait VoucherBuscarTrait
 {
@@ -18,7 +18,7 @@ trait VoucherBuscarTrait
 
         $this->Construtor = new ConstrutorEntity();
         $this->Construtor->buscar([
-            ['empresa', $this->id_admin_empresa],
+            ['id_admin_empresa', $this->id_admin_empresa],
             ['status', 'in', [1, 2]]
         ]);
 

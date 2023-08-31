@@ -103,14 +103,21 @@ window.addEventListener('load', () => {
         let ArrayLista = [];
         listaInput.forEach(input => {
             if (input.classList.contains('fw_form_tag')) {
-                name = input.getAttribute('data-name') + '[]';
+                name = input.getAttribute('data-name');
+                nameArray = name + '[]';
                 lista = input.querySelectorAll('.fw_form_tag_item');
+                if (lista.length == 0) {
+                    if (retorno != 'array') {
+                        body.append(name, '');
+                    }
+                    return;
+                }
                 lista.forEach(item => {
                     value = item.querySelector('span').innerText;
                     if (retorno == 'array') {
                         body.push(value);
                     } else {
-                        body.append(name, value);
+                        body.append(nameArray, value);
                     }
                 });
                 return;

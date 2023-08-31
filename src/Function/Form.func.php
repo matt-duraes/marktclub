@@ -1685,7 +1685,7 @@ if (!function_exists('formTag')) {
      * @param  string $placeholder Placeholder do input
      * @param  string $class       Class para o box do checkbox
      * @param  string $id          ID para o box do checkbox
-     * @param  string $tipo        Se vai ser do tipo tag ou url
+     * @param  string $tipo        Se vai ser do tipo tag, texto, ou url
      * @param  bool   $focus       Se vai focar o input
      * @param  bool   $espaco      Se vai adicionar a tag após um espaço
      * @return string HTML com o código da tag
@@ -1729,7 +1729,7 @@ if (!function_exists('formTag')) {
         $class = !empty($class) ? $class : '';
         $id = !empty($id) ? 'id="' . $id . '"' : '';
         $espaco = $espaco ? 'sim' : 'nao';
-        $tipo = in_array($tipo, ['tag', 'url']) ? $tipo : 'tag';
+        $tipo = in_array($tipo, ['tag', 'url', 'texto']) ? $tipo : 'tag';
 
         return '
             <div data-name="' . $name . '" data-tipo="' . $tipo . '" data-espaco="' . $espaco . '" class="fw_form fw_form_tag fw_form_tag_' . $tipo . $class . '" ' . $id . '>
@@ -1844,6 +1844,7 @@ if (!function_exists('formImagem')) {
      * @param  null|string  $id          ID para o bloco geral
      * @param  bool|array   $obrigatorio Se o input vai ser obrigatório
      * @param  string       $tipo        Tipo do bloco da imagem podendo ser quadrado ou redondo
+     * @param  string       $label       Label para o bloco
      * @param  int          $height      Altura em pixel do bloco de imagem
      * @return string       HTML com o código do bloco
      */
@@ -1855,6 +1856,7 @@ if (!function_exists('formImagem')) {
         ?string $id = null,
         bool $obrigatorio = false,
         string $tipo = 'quadrado',
+        string $label = null,
         int $height = 200
     ) {
         $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
@@ -1892,14 +1894,17 @@ if (!function_exists('formImagem')) {
         $tipo = in_array($tipo, ['redondo', 'quadrado']) ? $tipo : 'quadrado';
         $blocoClass .= ' fw_form_tipo_' . $tipo;
 
+        $label = !empty($label) ? '<label class="fw_imagem_label">' . $label . '</label>' : '';
+        $labelExiste = !empty($label) ? 'fw_label_existe' : '';
         return '
             <div class="fw_form fw_form_imagem ' . $blocoClass . '" id="' . $blocoId . '" ' . $attrGaleria . ' data-diretorio="' . $diretorio . '">
                 <input type="hidden" name="' . $name . '" id="' . $inputId . '" value="' . $value . '">
+                ' . $label . '
                 <div class="fw_imagem_conteudo" style="width: ' . $widthFinal . '; height: ' . $heightFinal . '">
                     <div class="fw_imagem_icone ' . $iconeDisplay . '"><svg height="80" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 30" style="enable-background:new 0 0 40 30;" xml:space="preserve"><g transform="translate(0,-952.36218)"><path class="st0" d="M2.7,952.4c-1.5,0-2.7,1.2-2.7,2.6v24.7c0,1.5,1.2,2.6,2.7,2.6h34.7c1.5,0,2.7-1.2,2.7-2.6V955 c0-1.5-1.2-2.6-2.7-2.6H2.7z M2.7,954.1h34.7c0.5,0,0.9,0.4,0.9,0.9v18.5l-7.4-5.9c-0.3-0.2-0.7-0.3-1.1,0l-6.6,4.5l-8.8-7.1 c-0.2-0.1-0.4-0.2-0.7-0.2c-0.1,0-0.3,0.1-0.4,0.2l-11.5,7.9V955C1.8,954.5,2.2,954.1,2.7,954.1L2.7,954.1z M23.1,958.5 c-2,0-3.6,1.6-3.6,3.5s1.6,3.5,3.6,3.5s3.6-1.6,3.6-3.5S25.1,958.5,23.1,958.5z M23.1,960.3c1,0,1.8,0.8,1.8,1.8 c0,1-0.8,1.8-1.8,1.8c-1,0-1.8-0.8-1.8-1.8C21.3,961.1,22.1,960.3,23.1,960.3z M13.7,966.7l8.8,7.1c0.3,0.2,0.7,0.3,1.1,0l6.6-4.5 l8.1,6.4v4c0,0.5-0.4,0.9-0.9,0.9H2.7c-0.5,0-0.9-0.4-0.9-0.9v-4.8L13.7,966.7L13.7,966.7z"/></g></svg></div>
                     <figure class="fw_imagem_figure" ' . $imagemCss . '></figure>
                 </div>
-                <div class="fw_imagem_controle">
+                <div class="fw_imagem_controle ' . $labelExiste . '">
                     <div class="fw_imagem_icone fw_imagem_upload" data-ajuda="Enviar nova imagem">
                         <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
                     </div>

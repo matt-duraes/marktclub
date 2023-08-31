@@ -4,7 +4,7 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Controller\Controller;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
 
 final class TermoLgpdController extends Controller
@@ -26,7 +26,7 @@ final class TermoLgpdController extends Controller
         try {
             $Construtor = new ConstrutorEntity();
             $Construtor->buscar([
-                ['empresa', $dado['empresa']],
+                ['id_admin_empresa', $dado['empresa']],
                 ['status', 1]
             ]);
         } catch (\Throwable) {
@@ -36,7 +36,7 @@ final class TermoLgpdController extends Controller
         return view('lgpd.aceitar', [
             'link' => $dado['link'],
             'hash' => base64Encode($dado, true),
-            'logo' => $Construtor->link_logo,
+            'logo' => $Construtor->logo,
             'cor'  => $Construtor->cor
         ]);
     }

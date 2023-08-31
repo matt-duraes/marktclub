@@ -65,6 +65,8 @@ $scope = [
     'publicacao_diretoria:salvar', 'publicacao_diretoria:atualizar', 'publicacao_diretoria:listar',
     'publicacao_diretoria:buscar', 'publicacao_diretoria:deletar',
 
+    'texto_clube:salvar', 'texto_clube:atualizar', 'texto_clube:listar', 'texto_clube:buscar', 'texto_clube:deletar',
+
     'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
     'comunicacao_publicidade:listar', 'comunicacao_publicidade:buscar', 'comunicacao_publicidade:salvar',
@@ -85,7 +87,8 @@ $scope = [
     'comercial_regra:listar', 'comercial_regra:buscar', 'comercial_regra:salvar', 'comercial_regra:atualizar',
     'comercial_regra:deletar',
 
-    'construtor_clube:buscar',
+    'construtor_clube:buscar', 'construtor_clube:listar', 'construtor_clube:salvar', 'construtor_clube:atualizar',
+    'construtor_clube:deletar',
 
     'log_erro:listar', 'log_erro:buscar', 'log_erro:atualizar',
 

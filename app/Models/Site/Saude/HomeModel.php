@@ -10,19 +10,18 @@ final class HomeModel extends ClubeApiHelper
 
     public function __construct()
     {
-        $menu = (object)sessao('CLUBE.menu');
         $unimedVitoria = env('SAUDE_UNIMED_VITORIA', 0);
         $unimedSeguro = env('SAUDE_UNIMED_SEGURO', 0);
         $amil = env('SAUDE_AMIL', 0);
 
         $valor = 0;
-        if ($menu->saude_vitoria && $valor < $unimedVitoria) {
+        if (MENU_SAUDE_VITORIA && $valor < $unimedVitoria) {
             $valor = $unimedVitoria;
         }
-        if ($menu->saude_amil && $valor < $amil) {
+        if (MENU_SAUDE_AMIL && $valor < $amil) {
             $valor = $amil;
         }
-        if ($menu->saude_seguros && $valor < $unimedSeguro) {
+        if (MENU_SAUDE_SEGURO && $valor < $unimedSeguro) {
             $valor = $unimedSeguro;
         }
         if (!empty($valor)) {

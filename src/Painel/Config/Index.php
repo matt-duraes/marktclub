@@ -225,6 +225,7 @@ final class Index
     public function drag()
     {
         $this->drag = true;
+        return $this;
     }
 
     public function pegarLinkVisualizar()
