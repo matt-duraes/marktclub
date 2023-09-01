@@ -142,6 +142,39 @@ Route
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::request(['tabela', 'local', 'vinculo', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'], 'json')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
+            ::request([
+                '!pais', '!estado', '!cidade', 'tipo', 'local', 'vinculo', '!ordem'
+            ], 'json')
             ::get('/endereco');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:buscar'])
+            ::get('/endereco/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:salvar'])
+            ::request([
+                'vinculo', 'tipo', 'local', 'titulo', 'telefone', 'cep', 'logradouro', 'complemento',
+                'referencia', 'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude',
+                'longitude', 'principal'
+            ])
+            ::post('/endereco');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:atualizar'])
+            ::request([
+                '!vinculo', '!tipo', '!local', '!titulo', '!telefone', '!cep', '!logradouro', '!complemento',
+                '!referencia', '!numero', '!bairro', '!cidade', '!estado', '!pais', '!latitude',
+                '!longitude', '!principal'
+            ])
+            ::put('/endereco/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:deletar'])
+            ::delete('/endereco/{id}');
     });

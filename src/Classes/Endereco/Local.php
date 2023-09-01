@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\SistemaEndereco;
+namespace System\Classes\Endereco;
 
 use Status\Status;
 

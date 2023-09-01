@@ -1,0 +1,1 @@
+{"id":"id_8b76b435c3470c1ff8074a63863da155","token":"token","metodo":"PUT","nome":"\/endereco\/:id","uri":"{{LINK}}\/endereco\/$ENDERECO_ID","parametro":[],"body":[["texto",true,"principal","sim",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

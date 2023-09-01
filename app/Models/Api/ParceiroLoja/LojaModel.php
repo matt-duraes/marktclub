@@ -6,19 +6,19 @@ use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Helpers\OrmHelper;
+use App\Classes\Endereco\Local;
+use ApiModel\Endereco\RaioModel;
 use App\Classes\ParceiroLoja\Tipo;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
-use App\Classes\SistemaEndereco\Local;
 use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\SistemaEndereco\Tabela;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
 use App\Classes\ParceiroLoja\Estabelecimento;
-use App\Models\Api\SistemaEndereco\RaioModel;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\Endereco\Tipo as EnderecoTipo;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
 class LojaModel extends ORM implements ModelListarInterface
@@ -72,7 +72,7 @@ class LojaModel extends ORM implements ModelListarInterface
                 ->join('cod', 'cod')
                 ->campo(['latitude', 'longitude'])
                 ->where([
-                    ['tabela', Tabela::LOJA],
+                    ['tabela', EnderecoTipo::LOJA],
                     ['local', (new Local(Local::CLUBE))->numero()],
                     ['latitude', 'between', $Raio->latitude],
                     ['longitude', 'between', $Raio->longitude],

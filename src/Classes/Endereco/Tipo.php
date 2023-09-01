@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Classes\SistemaEndereco;
+namespace System\Classes\Endereco;
 
 use Status\Status;
 
-class Tabela extends Status
+class Tipo extends Status
 {
     public const LOJA = 'parceiro';
 

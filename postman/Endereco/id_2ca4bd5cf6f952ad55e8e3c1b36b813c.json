@@ -1,0 +1,1 @@
+{"id":"id_2ca4bd5cf6f952ad55e8e3c1b36b813c","token":"token","metodo":"DELETE","nome":"\/endereco\/:id","uri":"{{LINK}}\/endereco\/$ENDERECO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}
