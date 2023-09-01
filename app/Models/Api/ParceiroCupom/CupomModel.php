@@ -2,13 +2,12 @@
 
 namespace App\Models\Api\ParceiroCupom;
 
+use App\Classes\ParceiroCupom\Auditado;
 use App\Classes\ParceiroLoja\Categoria;
-use Modules\Botao;
 use stdClass;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
-use Http\Request;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
@@ -22,18 +21,18 @@ class CupomModel extends ORM
     public function __construct(
         private Pagina $pagina = new Pagina(null),
         private Quantidade $quantidade = new Quantidade(null),
-    )
-    {
+    ) {
         parent::__construct();
     }
 
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo([
-                'uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditoria'
-            ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'id_parceiro_loja'])
+            ->tabela(TABELA_PARCEIRO_LOJA)
+            ->join('id', 'id_parceiro_loja')
+            ->campo(['titulo'], 'parceiro')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -45,14 +44,15 @@ class CupomModel extends ORM
         $retorno = [];
         foreach ($dado as $item) {
             $retorno[] = [
-                'id' => $item->uuid,
+                'id'        => $item->uuid,
+                'parceiro'  => $item->parceiro_titulo,
                 'descricao' => $item->descricao,
-                'cupom' => $item->cupom,
-                'desconto' => $item->desconto,
+                'cupom'     => $item->cupom,
+                'desconto'  => $item->desconto,
                 'categoria' => (new Categoria($item->categoria))->indice(),
-                'link' => $item->link,
-                'validade' => $item->validade,
-                'auditoria' => (new Botao($item->auditoria))->valor(),
+                'link'      => $item->link,
+                'validade'  => $item->validade,
+                'auditado'  => (new Auditado($item->auditado))->indice(),
             ];
         }
         return $retorno;
