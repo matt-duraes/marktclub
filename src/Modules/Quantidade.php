@@ -21,6 +21,16 @@ final class Quantidade implements ModuleInterface
     }
 
     /**
+     * Pega o número passado ou o padrão casa o número seja vazio ou inválido
+     *
+     * @return int
+     */
+    public function numeroPadrao(): int
+    {
+        return $this->valido() ? $this->numero() : $this->padrao();
+    }
+
+    /**
      * Pega o valor padrão independente do tipo de modulo
      */
     public function valor()

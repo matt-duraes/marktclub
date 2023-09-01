@@ -43,8 +43,8 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         $quantidade = $this->quantidade;
         $where = [
             'status'     => Status::ATIVO,
-            'pagina'     => $pagina->padrao(),
-            'quantidade' => $quantidade->padrao()
+            'pagina'     => $pagina->numeroPadrao(),
+            'quantidade' => $quantidade->numeroPadrao()
         ];
         $ordem = $this->ordem;
         if ($ordem instanceof OrderInterface && $ordem->valido()) {
