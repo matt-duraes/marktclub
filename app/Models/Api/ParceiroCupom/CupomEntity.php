@@ -6,6 +6,7 @@ use App\Classes\ParceiroCupom\Auditado;
 use App\Classes\ParceiroLoja\Categoria;
 use Helpers\OrmHelper;
 use Modules\Data;
+use Modules\DataHora;
 use ORM\Entity;
 
 class CupomEntity extends Entity
@@ -28,7 +29,7 @@ class CupomEntity extends Entity
     public string $desconto;
     public Categoria $categoria;
     public string $link;
-    public Data $validade;
+    public DataHora $validade;
     public Auditado $auditado;
 
     protected function regraPosBuscar()
