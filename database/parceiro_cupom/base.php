@@ -10,6 +10,6 @@ return (new \DataBase\DataBase())
     ->int('categoria')->tamanho(2)
     ->varchar('link')->tamanho(50)->null()
     ->datetime('validade')
-    ->int('auditoria')->tamanho(2)
+    ->int('auditoria')->tamanho(2)->null()
     ->dataCriacao()
     ->dataAtualizacao();
