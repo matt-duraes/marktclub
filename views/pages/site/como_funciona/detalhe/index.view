@@ -1,0 +1,10 @@
+@template "login"
+
+<div id="bloco_como_funciona_detalhe">
+    <section class="conteudo">
+        <h1>{{$dado->titulo}}</h1>
+        <div class="texto fw_documento">
+            {!!$dado->texto!!}
+        </div>
+    </section>
+</div>

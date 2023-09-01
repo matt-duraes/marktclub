@@ -37,7 +37,7 @@ $Painel->coluna(callback: function () use ($Painel, $empresa) {
         mais: true,
         callback: function () use ($Painel, $empresa) {
             foreach ($empresa as $id => $nome) {
-                $Painel->checkbox(name: 'empresa[]', label: $nome ?? "sem nome fantasia", value: $id);
+                $Painel->checkbox(name: 'empresa[]', label: $nome ?? 'sem nome fantasia', value: $id);
             }
         }
     );

@@ -212,11 +212,12 @@ abstract class Order implements OrderInterface
         $valido = !$this->vazio() && $this->valido();
         if (!$valido && empty($this->padrao)) {
             return $padrao;
-        } elseif(!$valido) {
+        } elseif (!$valido) {
             return $this->lista[$this->padrao]['order'] ?? $padrao;
         }
         return $this->lista[$this->valor]['order'] ?? $this->lista[$this->padrao]['order'] ?? $padrao;
     }
+
     /**
      * Seta qual será o indice padrão
      *

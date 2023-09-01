@@ -62,6 +62,8 @@ final class ClubeMiddleware extends ApiHelper
         define('CLUBE_ID', $clube->id);
         define('CLUBE_COR', $clube->cor);
 
+        define('EMPRESA_ID', $clube->empresa);
+
         define('HEADER_TAG', is_array($clube->header_tag) ? implode(', ', $clube->header_tag) : '');
         define('HEADER_DESCRICAO', $clube->header_descricao);
 

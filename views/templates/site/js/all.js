@@ -4,6 +4,7 @@
 // @system "SwipeEvent"
 // @system "Alerta"
 // @system "Loading"
+// @system "Mascara"
 // @import "menu_principal"
 // @import "menu_perfil"
 // @import "ajuda"

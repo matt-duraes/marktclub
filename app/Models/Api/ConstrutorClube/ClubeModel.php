@@ -22,6 +22,7 @@ final class ClubeModel
         $linkIos = $Construtor->link_app_ios;
         $this->construtor = [
             'id'                      => $Construtor->id,
+            'empresa'                 => $Construtor->empresa,
             'titulo'                  => $Construtor->titulo,
             'cor'                     => $Construtor->cor,
             'logo'                    => $Construtor->logo,

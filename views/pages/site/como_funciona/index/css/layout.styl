@@ -1,2 +1,42 @@
 @template "login"
-@resource "site/como_funciona/index"
+
+#bloco_como_funciona
+    width: 100%
+    min-height: calc(100vh - 400px)
+    margin-top: 140px
+    padding: 0 20px 20px
+    z-index: 2
+    flexCol()
+    align-items: center
+    .conteudo
+        width: 100%
+        max-width: 1300px
+        blocoShadow()
+        padding: 40px 20px
+    header
+        margin-bottom: 40px
+    header h1
+        width: 100%
+        text-align: center
+        color: $corClube
+        titulo()
+    header p
+        width: 100%
+        text-align: center
+        texto()
+    .botao_escolha
+        width: 100%
+        flexRow()
+        justify-content: center
+        flex-wrap: wrap
+    .botao_escolha a
+        max-width: 200px
+        botaoPadraoGrande()
+        flexGrow()
+        background-color: $corClube
+        color: #FFF
+        margin: 10px
+
+@media screen and (max-width: 700px)
+    #bloco_como_funciona .botao_escolha a
+        max-width: 100%

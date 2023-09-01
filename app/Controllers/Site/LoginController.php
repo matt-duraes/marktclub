@@ -4,8 +4,10 @@ namespace App\Controllers\Site;
 
 use Http\Request;
 use Http\Response;
+use Helpers\ApiHelper;
 use Helpers\AuthHelper;
 use Controller\Controller;
+use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
@@ -67,7 +69,21 @@ final class LoginController extends Controller
 
     public function faq(): Response
     {
-        return view('faq.index');
+        try {
+            $lista = (new ApiHelper(scope: 'texto_clube:listar'))
+            ->json([
+                'empresa' => EMPRESA_ID,
+                'pagina'  => 1,
+                'tipo'    => Tipo::FAQ,
+                'status'  => 'ativo'
+            ])
+            ->get('/texto-clube')
+            ->object()->dado->lista;
+        } catch (\Throwable) {
+            $lista = [];
+        }
+
+        return view('login.faq', ['faq' => $lista]);
     }
 
     /*

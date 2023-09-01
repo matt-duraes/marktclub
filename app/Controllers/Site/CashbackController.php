@@ -91,17 +91,7 @@ final class CashbackController extends Controller
     public function extrato(): Response
     {
         return view('cashback.extrato', [
-            'menu'   => 'extrato_silium',
-            'saldo'  => 10000
+            'menu'   => 'extrato_silium'
         ]);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function abrirResgateCashback(): Response
-    {
-        return view('cashback.extrato.modal');
     }
 }

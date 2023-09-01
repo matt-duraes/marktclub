@@ -395,7 +395,7 @@ const respostaJson = (resposta, mensagem) => {
 };
 
 const adicionarEventoEnter = (lista, callback) => {
-    if (!Array.isArray(lista)) {
+    if (!('forEach' in lista)) {
         lista = [lista];
     }
     lista.forEach(input => {
@@ -408,7 +408,7 @@ const adicionarEventoEnter = (lista, callback) => {
     });
 };
 const adicionarEvento = (evento, lista, callback) => {
-    if (!Array.isArray(lista)) {
+    if (!('forEach' in lista)) {
         lista = [lista];
     }
     lista.forEach(input => {

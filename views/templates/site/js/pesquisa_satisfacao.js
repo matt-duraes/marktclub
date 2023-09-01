@@ -5,8 +5,9 @@ window.addEventListener('load', () => {
     }
     const carregarFuncaoPesquisaSatisfacao = () => {
         const formulario = document.getElementById('formulario_pesquisa');
-
         const botaoEnviar = document.querySelector('#botao_envia_pesquisa');
+
+        const PaginaFechar = new Pagina();
 
         botaoEnviar.addEventListener('click', async e => {
             e.preventDefault();
@@ -23,34 +24,31 @@ window.addEventListener('load', () => {
             });
             validarCampos(navegar, procura, suporte, atendimento, sistema);
 
+            Loading.show();
             const resposta = await ajaxPost(
                 LINK + '/pesquisa-de-satisfacao',
                 {
                     navegar: navegar.value,
                     procura: procura.value,
                     suporte: suporte.value,
-                    comentario: comentario,
+                    comentario: comentario.value,
                     atendimento: atendimento.value,
                     sistema: sistema,
                 },
                 'Não foi possível enviar a pesquisa, tente novamente mais tarde'
             );
 
-            if (resposta.status === 'sucesso') {
-                await Alerta.mensagem(
-                    'Pesquisa enviada',
-                    'Obrigado pelo seu feedback. Sua resposta será analizada para melhorias do seu clube.',
-                    true
-                );
-                window.location.assign(LINK + '/index');
+            Loading.hide();
+            if (false === resposta) {
+                return;
             }
-        });
 
-        const botaoFechar = document.querySelectorAll('.botao_fechar_popup');
-        botaoFechar.forEach(fecha => {
-            fecha.addEventListener('click', () => {
-                Pagina.staticFechar();
-            });
+            Alerta.mensagem(
+                'Pesquisa enviada',
+                'Obrigado pelo seu feedback. Sua resposta será analizada para melhorias do seu clube.',
+                true
+            );
+            PaginaFechar.fechar();
         });
     };
 

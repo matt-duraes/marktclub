@@ -14,5 +14,6 @@ return (new DataBase())
     ->int('tipo')->tamanho(2)
     ->dataCriacao()
     ->dataAtualizacao()
+    ->slug('url', 'titulo')
     ->int('ordem')->tamanho(4)->null()->padrao(9999)
     ->status();

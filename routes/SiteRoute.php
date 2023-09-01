@@ -5,13 +5,13 @@ use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
 
 Route
-    ::nome('faq')
+    ::nome('faqLogin')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::middleware(ClubeMiddleware::class, 'buscar')
-    ::controller(App\Controllers\Site\FaqController::class)
+    ::controller(App\Controllers\Site\LoginController::class)
     ::grupo(function () {
         Route
-            ::nome('cfm')
+            ::nome('faq')
             ::view('/login/faq');
     });
 
@@ -36,14 +36,8 @@ Route
             ::nome('index')
             ::view('/login/como-funciona');
         Route
-            ::nome('dependente')
-            ::view('/login/como-funciona-dependente');
-        Route
-            ::nome('medico')
-            ::view('/login/como-funciona-medico');
-        Route
-            ::nome('funcionario')
-            ::view('/login/como-funciona-funcionario');
+            ::nome('detalhe')
+            ::view('/login/como-funciona-detalhe/{url}');
     });
 Route
     ::nome('contato')
@@ -268,6 +262,13 @@ Route
         Route
             ::nome('favorito')
             ::delete('/convenios/favorito/{id}');
+
+        Route
+            ::nome('indicar')
+            ::request([
+                'nome', 'telefone', 'email', 'mensagem'
+            ])
+            ::post('/convenios/indicar');
     });
 
 Route
@@ -463,32 +464,6 @@ Route
     });
 
 Route
-    ::nome('alfa')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\AlfaController::class)
-    ::grupo(function () {
-        Route
-            ::nome('credito')
-            ::view('/credito/alfa');
-        Route
-            ::nome('veiculo')
-            ::view('/credito/alfa-veiculo');
-        Route
-            ::nome('portabilidade')
-            ::view('/credito/alfa-portabilidade');
-        Route
-            ::nome('consignado')
-            ::view('/credito/alfa-consignado');
-        Route
-            ::nome('corretoraAlfa')
-            ::view('/corretora-alfa');
-        Route
-            ::nome('consultoriaAlfa')
-            ::view('/consultoria/alfa');
-    });
-
-Route
     ::nome('sosmulher')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -601,17 +576,4 @@ Route
         Route
             ::nome('sorteio')
             ::view('/regulamento-sorteio');
-    });
-
-Route
-    ::nome('indicacao')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::controller(App\Controllers\Site\IndicacaoParceiroController::class)
-    ::grupo(function () {
-        Route
-            ::nome('salvar')
-            ::request([
-                'parceiro', 'telefone', 'email', 'mensagem'
-            ])
-            ::post('/indicacao/salvar');
     });
