@@ -13,13 +13,13 @@ class CupomEntity extends Entity
     protected string $ormTabela = TABELA_PARCEIRO_CUPOM;
     protected array $ormBuscar = [
         'id_parceiro_loja', 'descricao', 'cupom', 'desconto',
-        'categoria', 'link', 'validade', 'auditoria'
+        'categoria', 'link', 'validade', 'auditado'
     ];
     protected array $ormSalvar = [
-        'auditoria'
+        'auditado'
     ];
     protected string $ormValidarSalvar = '
-        auditoria|Auditoria|obrigatorio|vazio|valido
+        auditado|Auditado|obrigatorio|vazio|valido
     ';
     protected int $id_parceiro_loja;
     public array|string $parceiro;
@@ -29,7 +29,7 @@ class CupomEntity extends Entity
     public Categoria $categoria;
     public string $link;
     public Data $validade;
-    public Botao $auditoria;
+    public Botao $auditado;
 
     protected function regraPosBuscar()
     {

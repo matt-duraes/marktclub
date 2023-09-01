@@ -24,7 +24,7 @@ final class ParceiroCupomController extends Controller implements
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade)
         );
-        $listar = $CupomHelper->listarDados($request);
+        $listar = $CupomHelper->listarDados();
 
         return mensagemSucesso($listar);
     }
@@ -42,7 +42,9 @@ final class ParceiroCupomController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Cupom,
-                lista: ['parceiro', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditoria']));
+                lista: ['parceiro', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado']
+            )
+        );
     }
 
     public function putAtualizar(Request $request, string $id): Response

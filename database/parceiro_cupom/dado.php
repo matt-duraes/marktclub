@@ -9,6 +9,6 @@ return [
         'categoria' => 1,
         'link' => '',
         'validade' => '2021-12-31 23:59:59',
-        'auditoria' => 1,
+        'auditado' => 1,
     ]
 ];

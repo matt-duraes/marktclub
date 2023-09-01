@@ -933,7 +933,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
             ::request([
-                'auditoria'
+                'auditado'
             ])
             ::put('/parceiro-cupom/{id}');
     });
