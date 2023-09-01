@@ -33,14 +33,15 @@ final class ClubeMiddleware extends ApiHelper
         $dispositivo = (new UserAgentHelper());
         sessao('DISPOSITIVO_' . $this->id, true);
         sessao('DISPOSITIVO', (object)[
-            'tipo' => $dispositivo->dispositivo(),
-            'mobile' => $dispositivo->mobile(),
+            'tipo'      => $dispositivo->dispositivo(),
+            'mobile'    => $dispositivo->mobile(),
             'navegador' => $dispositivo->navegador(),
-            'os' => $dispositivo->os(),
-            'tablet' => $dispositivo->tablet(),
-            'versao' => $dispositivo->versao(),
+            'os'        => $dispositivo->os(),
+            'tablet'    => $dispositivo->tablet(),
+            'versao'    => $dispositivo->versao(),
         ]);
     }
+
     private function montarDispositivo()
     {
         $dispositivo = sessao('DISPOSITIVO');
@@ -51,6 +52,8 @@ final class ClubeMiddleware extends ApiHelper
         define('DISPOSITIVO_TABLET', $dispositivo->tablet);
         define('DISPOSITIVO_VERSAO', $dispositivo->versao);
         define('DISPOSITIVO_CRHOME', strcasecmp(DISPOSITIVO_NAVEGADOR, 'Chrome') == 0);
+        define('DISPOSITIVO_ANDROID', strcasecmp(DISPOSITIVO_OS, 'Android') == 0);
+        define('DISPOSITIVO_IOS', strcasecmp(DISPOSITIVO_OS, 'Ios') == 0);
     }
 
     private function buscarClube()

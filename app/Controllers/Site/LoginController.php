@@ -88,6 +88,23 @@ final class LoginController extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | APP
+    |--------------------------------------------------------------------------
+    */
+    public function app()
+    {
+        if (!MENU_BAIXAR_APP) {
+            mensagemStatus(404);
+        } elseif (DISPOSITIVO_IOS && !empty(LINK_APP_IOS)) {
+            return new Response(url: LINK_APP_IOS);
+        } elseif (DISPOSITIVO_ANDROID && !empty(LINK_APP_ANDROID)) {
+            return new Response(url: LINK_APP_ANDROID);
+        }
+        return view('login.app');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | CONTATO
     |--------------------------------------------------------------------------
     */

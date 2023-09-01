@@ -55,8 +55,8 @@
         <div class="botao_contar_click botao branco botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> Ver e-mail</div>
         @ endif;
 
-        @ if( $dado->procedimento != $procedimento::WEBSITE ):
-        <a href="" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao branco botao_geral_cor" data-botao="Abrir site secundario"><i>@iconeSiteCliente()</i> Abrir Site</a>
+        @ if( $dado->procedimento != $procedimento::WEBSITE && !empty($dado->link) ):
+        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao branco botao_geral_cor" data-botao="Abrir site secundario"><i>@iconeSiteCliente()</i> Abrir Site</a>
         @ endif;
 
     </div>

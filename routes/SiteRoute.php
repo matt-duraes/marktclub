@@ -89,6 +89,9 @@ Route
             ::nome('ativar')
             ::request(['hash_validacao_captcha', 'hash', 'nome', 'email'])
             ::post('/login/ativar');
+        Route
+            ::nome('app')
+            ::view('/login/app');
     });
 
 Route

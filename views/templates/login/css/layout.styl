@@ -81,7 +81,7 @@ body
     display: flex
     flex-direction: row
     align-items: center
-    z-index: 3
+    z-index: 4
     position: absolute
     figure
         flex-grow: 1
@@ -92,6 +92,7 @@ body
     display: flex
     flex-direction: row
     align-items: center
+    z-index: 4
     .conteudo
         flexRow()
     .conteudo .botao
@@ -154,6 +155,8 @@ body
         border-radius: 3px
         cursor: pointer
 @media screen and (max-width: 1040px)
+    #header_principal figure
+        text-align: center
     #menu_principal
         width: 100%
         position: fixed
