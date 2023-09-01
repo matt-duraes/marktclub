@@ -15,7 +15,9 @@
         @view site/login/index/include/cashback.view
     @ endif;
 
+    @ if( DISPOSITIVO_CRHOME ):
     @view site/login/index/include/extensao.view
+    @ endif;
 
     @ if( MENU_BAIXAR_APP ):
     @view site/login/index/include/app.view
