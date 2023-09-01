@@ -55,7 +55,10 @@ final class UserAgentHelper
             return;
         }
 
-        $browscap = get_browser($userAgent);
+        $browscap = null;
+        if(true === ini_get("browscap")) {
+            $browscap = get_browser($userAgent);
+        }
         $browscap = !is_object($browscap) ? (object)[] : $browscap;
 
         $os = $browscap->platform ?? '';

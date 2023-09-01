@@ -168,11 +168,13 @@
             @endif
             @endif
 
+            @ if( DISPOSITIVO_CRHOME ):
             <div class="categoria">OUTROS</div>
             <a class="botao {!!MENU_HOVER == 'extensao' ? 'cor_bg pagina_atual' : ''!!}" target="_blank" href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc">
                 <i>@iconeExtensaoHome</i>
                 Extensão
             </a>
+            @ endif;
 
             <div class="mobile" id="bloco_perfil_mobile">
                 <div class="categoria">PERFIL</div>
