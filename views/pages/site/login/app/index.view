@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="icon" href="{!!CLUBE_FAVICON!!}" type="image/png">
+
+    <title>APP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    @CSS
+
+</head>
+<body>
+<div id="site">
+    <figure><img src="{!!CLUBE_LOGO!!}" alt=""></figure>
+    <h1 class="plataforma"> Selecione abaixo a plataforma desejada</h1>
+    <div class="lista">
+        @ if( !empty(LINK_APP_IOS) ):
+        <a href="{!!LINK_APP_IOS!!}" target="_blank" rel="noopener noreferrer"><img src="{!!LINK!!}/images/login/apple.png" height="60" alt=""></a>
+        @ endif;
+        @ if( !empty(LINK_APP_ANDROID) ):
+        <a href="{!!LINK_APP_ANDROID!!}" target="_blank" rel="noopener noreferrer"><img src="{!!LINK!!}/images/login/google.png" height="60" alt=""></a></a>
+        @ endif;
+    </div>
+</div>
+</body>
+</html>

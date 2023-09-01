@@ -6,12 +6,12 @@
         <div class="link_app baixe_app">
             <h2 class="plataforma"> Selecione abaixo a plataforma desejada </h2>
             <div class="box_link_app">
-                <a href="#" target="_blank">
+                <a href="{!!LINK_APP_IOS!!}" target="_blank">
                     <div class="box_apple"></div>
                 </a>
             </div>
             <div class="box_link_app">
-                <a href="#" target="_blank">
+                <a href="{!!LINK_APP_ANDROID!!}" target="_blank">
                     <div class="box_google"></div>
                 </a>
             </div>
@@ -22,7 +22,7 @@
     <figure>
         <img class="celularmobile" src="{!!LINK_PADRAO!!}/images/login/celular.png">
         <div class="qr_code">
-            <img src="https://chart.apis.google.com/chart?cht=qr&chl=@route('get.index.qrcode_app')&chs=200x200" alt="">
+            <img src="https://chart.apis.google.com/chart?cht=qr&chl=@route('login.app')&chs=200x200" alt="">
             <figure class="img_celular_app" style="-webkit-mask-image: url({!!LINK_PADRAO!!}/images/login/celular-app.svg);
             mask-image: url({!!LINK_PADRAO!!}/images/login/celular-app.svg);"></figure>
             <h1>ESCANEIE</h1>
