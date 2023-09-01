@@ -20,24 +20,17 @@ final class SalvarModel extends ClubeApiHelper
         $this->salvarPesquisa($this->request);
     }
 
-    /**
-     * @return object|array
-     * @throws Excecao
-     */
-    public function salvarPesquisa($request): object
+    private function salvarPesquisa($request): void
     {
-        $sistema = implode(',', $request->sistema);
         $this
+            ->validar('Erro ao salvar a pesquisa, por favor, tente novamente.', login: true)
             ->body([
-                'navegar'     => $request->navegar,
-                'procura'     => $request->procura,
-                'suporte'     => $request->suporte,
-                'comentario'  => $request->comentario,
-                'atendimento' => $request->atendimento,
-                'sistemas'    => $sistema
-            ])->post('/enquete/satisfacao')
-            ->object();
-
-        return mensagemSucesso([], 201);
+                'navegar'           => $request->navegar,
+                'procura'           => $request->procura,
+                'suporte'           => $request->suporte,
+                'comentario'        => $request->comentario,
+                'atendimento'       => $request->atendimento,
+                'sistemas_clube'    => jsonEncode($request->sistema)
+            ])->post('/enquete-satisfacao');
     }
 }

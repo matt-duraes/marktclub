@@ -31,6 +31,7 @@ return [
         'menu_saude_florianopolis'  => 1,
         'menu_cashback'             => 1,
         'menu_indicar_usuario'      => 1,
+        'menu_indicar_loja'         => 1,
         'menu_cupom'                => 1,
         'menu_odontologico'         => 1,
         'menu_premium'              => 1,
@@ -39,6 +40,9 @@ return [
         'menu_salavip'              => 1,
         'menu_sair'                 => 1,
         'administrado_status'       => 1,
+        'chat_status'               => 1,
+        'menu_meu_parceiro'         => 1,
+        'tipo_ativacao'             => 1,
         'status'                    => 1
     ],
     [

@@ -13,16 +13,17 @@ final class SolicitacaoModel extends ClubeApiHelper
         private string $email,
         private string $mensagem
     ) {
+        parent::__construct();
         $this->salvar();
     }
 
     private function salvar(): void
     {
         $this
-            ->validar('Ocorre um erro ao indicar a loja, por favor, tente novamente.')
+            ->validar('Ocorre um erro ao indicar a loja, por favor, tente novamente.', login: true)
             ->body([
                 'nome'     => $this->nome,
-                'telefone' => $this->telefone,
+                'telefone' => soNumero($this->telefone),
                 'email'    => $this->email,
                 'mensagem' => $this->mensagem,
                 'usuario'  => $this->idUsuario,
