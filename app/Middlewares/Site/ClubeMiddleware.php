@@ -3,6 +3,7 @@
 namespace App\Middlewares\Site;
 
 use Helpers\ApiHelper;
+use Helpers\UserAgentHelper;
 
 final class ClubeMiddleware extends ApiHelper
 {
@@ -16,9 +17,40 @@ final class ClubeMiddleware extends ApiHelper
 
     public function buscar(): bool
     {
+        $this->buscarDispositivo();
+        $this->montarDispositivo();
         $this->buscarClube();
         $this->montarDefine();
         return true;
+    }
+
+    private function buscarDispositivo()
+    {
+        if (sessaoExiste('DISPOSITIVO_' . $this->id) && sessaoExiste('DISPOSITIVO') && !eLocalhost()) {
+            return;
+        }
+
+        $dispositivo = (new UserAgentHelper());
+        sessao('DISPOSITIVO_' . $this->id, true);
+        sessao('DISPOSITIVO', (object)[
+            'tipo' => $dispositivo->dispositivo(),
+            'mobile' => $dispositivo->mobile(),
+            'navegador' => $dispositivo->navegador(),
+            'os' => $dispositivo->os(),
+            'tablet' => $dispositivo->tablet(),
+            'versao' => $dispositivo->versao(),
+        ]);
+    }
+    private function montarDispositivo()
+    {
+        $dispositivo = sessao('DISPOSITIVO');
+        define('DISPOSITIVO_TIPO', $dispositivo->tipo);
+        define('DISPOSITIVO_MOBILE', $dispositivo->mobile);
+        define('DISPOSITIVO_NAVEGADOR', $dispositivo->navegador);
+        define('DISPOSITIVO_OS', $dispositivo->os);
+        define('DISPOSITIVO_TABLET', $dispositivo->tablet);
+        define('DISPOSITIVO_VERSAO', $dispositivo->versao);
+        define('DISPOSITIVO_CRHOME', strcasecmp(DISPOSITIVO_NAVEGADOR, 'Chrome') == 0);
     }
 
     private function buscarClube()
