@@ -1,1 +1,0 @@
-{"id":"id_a356f5f15c4a116e3e021f4f45cfb06c","token":"token","metodo":"PUT","nome":"\/parceiro-indicacao\/:id","uri":"{{LINK}}\/parceiro-indicacao\/4eeef3b2-ae0d-4228-bc15-fdb982aff887","parametro":[],"body":[["texto",true,"status","cancelado",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

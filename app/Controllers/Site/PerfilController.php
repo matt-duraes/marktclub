@@ -5,7 +5,6 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use Helpers\LocalizacaoHelper;
 use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
 use App\Models\Site\Perfil\DependenteModel;
@@ -15,34 +14,11 @@ final class PerfilController extends Controller
 {
     public function index()
     {
-        $Perfil = (new DadosModel())->getDado();
+        $dado = (new DadosModel())->getDado();
         return view('perfil.index', [
-            'dado' => (object)[
-                'nome'                 => $Perfil->nome,
-                'data_nascimento'      => $Perfil->data_nascimento,
-                'genero'               => $Perfil->genero,
-                'estado_civil'         => $Perfil->estado_civil,
-                'email_pessoal'        => $Perfil->email_pessoal,
-                'email_trabalho'       => $Perfil->email_trabalho,
-                'telefone_trabalho'    => $Perfil->telefone_trabalho,
-                'telefone_pessoal'     => $Perfil->telefone_pessoal,
-                'endereco_cep'         => $Perfil->endereco_cep,
-                'endereco_bairro'      => $Perfil->endereco_bairro,
-                'endereco_logradouro'  => $Perfil->endereco_logradouro,
-                'endereco_numero'      => $Perfil->endereco_numero,
-                'endereco_complemento' => $Perfil->endereco_complemento,
-                'endereco_cidade'      => $Perfil->endereco_cidade,
-                'endereco_estado'      => $Perfil->endereco_estado,
-                'imagem'               => $Perfil->imagem,
-            ],
+            'dado' => $dado,
             'menu' => 'alterar_dados'
         ]);
-    }
-
-    public function postBuscarCep(Request $request): Response
-    {
-        $cep = (new LocalizacaoHelper())->pegarEnderecoPeloCep($request->cep);
-        return mensagemSucesso($cep);
     }
 
     public function senha()
@@ -64,8 +40,8 @@ final class PerfilController extends Controller
     {
         $dado = (new DependenteModel())->listarDependente();
         return view('perfil.dependente', [
-            'menu'         => 'adicionar_dependentes',
-            'dado'         => $dado
+            'menu' => 'adicionar_dependentes',
+            'dado' => $dado
         ]);
     }
 

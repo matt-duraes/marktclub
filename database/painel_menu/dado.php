@@ -118,7 +118,7 @@ return [
         'tipo'             => 3,
         'titulo'           => 'Pesquisa Satisfação',
         'url'              => '/app/enquete-satisfacao',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"></path><path d="M17 2V4H20.0066C20.5552 4 21 4.44495 21 4.9934V21.0066C21 21.5552 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5551 3 21.0066V4.9934C3 4.44476 3.44495 4 3.9934 4H7V2H17ZM7 6H5V20H19V6H17V8H7V6ZM9 16V18H7V16H9ZM9 13V15H7V13H9ZM9 10V12H7V10H9ZM15 4H9V6H15V4Z"></path></svg>',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M19.4,6.1v1.8h2.7c0.5,0,0.9,0.4,0.9,0.9V23c0,0.5-0.4,0.9-0.9,0.9H7.9C7.4,23.9,7,23.5,7,23V8.8c0-0.5,0.4-0.9,0.9-0.9h2.7V6.1H19.4z M10.6,9.7H8.8v12.4h12.4V9.7h-1.8v1.8h-8.9V9.7z M12.3,18.6v1.8h-1.8v-1.8H12.3z M12.3,15.9v1.8h-1.8v-1.8H12.3zM12.3,13.2V15h-1.8v-1.8H12.3z M17.7,7.9h-5.3v1.8h5.3V7.9z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['enquete-satisfacao'],
         'status'           => 1,
@@ -274,18 +274,6 @@ return [
     [
         'id'               => '++',
         'id_admin_empresa' => 1,
-        'tipo'             => 3,
-        'titulo'           => 'Indicação',
-        'url'              => '/app/parceiro-indicacao',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.6,11.8h-0.9c0.4-1.8,0.1-2.9-0.4-3.5c-0.6-0.9-1.7-1.3-2.7-1.3c-0.4,0-0.7,0.3-0.8,0.7c-0.4,2.8-1.2,4.1-4.8,4.1H7.8c-0.2,0-0.4,0.1-0.6,0.2C7.1,12.2,7,12.4,7,12.6v9.6c0,0.2,0.1,0.4,0.2,0.6C7.4,22.9,7.6,23,7.8,23h12.8c0.6,0,1.2-0.3,1.7-0.7c0.4-0.4,0.7-1.1,0.7-1.7v-6.4c0-0.6-0.3-1.2-0.7-1.7C21.8,12.1,21.2,11.8,20.6,11.8L20.6,11.8z M8.6,13.4h1.6v8H8.6V13.4zM21.4,20.6c0,0.4-0.4,0.8-0.8,0.8h-8.8v-8c3.6-0.2,4.9-2,5.5-4.7v0c0.3,0.1,0.6,0.2,0.8,0.5c0.4,0.6,0.4,1.7-0.2,3.1c-0.1,0.2-0.1,0.5,0.1,0.7c0.1,0.2,0.4,0.3,0.7,0.3h2c0.4,0,0.8,0.4,0.8,0.8L21.4,20.6z"/></svg>',
-        'ordem'            => '++',
-        'menu'             => ['parceiro-indicacao'],
-        'status'           => 1,
-        'permissao'        => '["parceiro_indicacao_index"]'
-    ],
-    [
-        'id'               => '++',
-        'id_admin_empresa' => 1,
         'tipo'             => 1,
         'titulo'           => 'PUBLICAÇÕES',
         'ordem'            => '++',
@@ -413,7 +401,19 @@ return [
         'titulo'           => 'Solicitações',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["solicitacao_voucher_index", "solicitacao_salavip_index"]'
+        'permissao'        => '["solicitacao_voucher_index", "solicitacao_salavip_index", "solicitacao_loja_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Loja',
+        'url'              => '/app/solicitacao-loja',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.6,11.8h-0.9c0.4-1.8,0.1-2.9-0.4-3.5c-0.6-0.9-1.7-1.3-2.7-1.3c-0.4,0-0.7,0.3-0.8,0.7c-0.4,2.8-1.2,4.1-4.8,4.1H7.8c-0.2,0-0.4,0.1-0.6,0.2C7.1,12.2,7,12.4,7,12.6v9.6c0,0.2,0.1,0.4,0.2,0.6C7.4,22.9,7.6,23,7.8,23h12.8c0.6,0,1.2-0.3,1.7-0.7c0.4-0.4,0.7-1.1,0.7-1.7v-6.4c0-0.6-0.3-1.2-0.7-1.7C21.8,12.1,21.2,11.8,20.6,11.8L20.6,11.8z M8.6,13.4h1.6v8H8.6V13.4zM21.4,20.6c0,0.4-0.4,0.8-0.8,0.8h-8.8v-8c3.6-0.2,4.9-2,5.5-4.7v0c0.3,0.1,0.6,0.2,0.8,0.5c0.4,0.6,0.4,1.7-0.2,3.1c-0.1,0.2-0.1,0.5,0.1,0.7c0.1,0.2,0.4,0.3,0.7,0.3h2c0.4,0,0.8,0.4,0.8,0.8L21.4,20.6z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['solicitacao-loja'],
+        'status'           => 1,
+        'permissao'        => '["solicitacao_loja_index"]'
     ],
     [
         'id'               => '++',

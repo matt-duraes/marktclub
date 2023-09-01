@@ -18,7 +18,7 @@
         @? formSenha(name: ['senha_nova', 'senha_repetir'], label: 'Nova senha', placeholder: ['Digite sua senha nova', 'Repita sua nova senha'], obrigatorio: 1);
         <div class="bloco_botao">
             <div></div>
-            <div id="botao_salvar_senha" class="botao_geral_cor cor_bg">Cadastrar dependente</div>
+            <div id="botao_salvar_senha" class="botao_geral_cor cor_bg">Alterar senha</div>
         </div>
     </form>
 </div>

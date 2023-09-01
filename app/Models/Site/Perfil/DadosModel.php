@@ -22,7 +22,7 @@ final class DadosModel extends ClubeApiHelper
             ->validar('Página não encontrada!', status: 404)
             ->get('/usuario-cliente/' . $this->idUsuario)
             ->object();
-        return $this->montarRetorno($dado);
+        return $this->montarRetorno($dado->dado);
     }
 
     /**
@@ -31,34 +31,29 @@ final class DadosModel extends ClubeApiHelper
      * @return object|array
      * @throws Excecao
      */
-    private function montarRetorno($dado): object|array
+    private function montarRetorno($r): object|array
     {
-        $retorno = [];
-        if ($dado->dado) {
-            $r = $dado->dado;
-            $retorno = (object)[
-                'id'                   => $r->id,
-                'nome'                 => $this->Crypt->decode($r->nome) ?? '',
-                'cpf'                  => $this->Crypt->decode($r->cpf) ?? '',
-                'email_pessoal'        => $this->Crypt->decode($r->email_pessoal) ?? '',
-                'email_trabalho'       => $this->Crypt->decode($r->email_trabalho) ?? '',
-                'telefone_trabalho'    => $this->Crypt->decode($r->telefone_trabalho) ?? '',
-                'telefone_pessoal'     => $this->Crypt->decode($r->telefone_pessoal) ?? '',
-                'estado_civil'         => $this->Crypt->decode($r->estado_civil) ?? '',
-                'genero'               => $this->Crypt->decode($r->genero) ?? '',
-                'data_nascimento'      => $this->Crypt->decode($r->data_nascimento) ?? '',
-                'endereco_cep'         => $this->Crypt->decode($r->endereco_cep) ?? '',
-                'endereco_logradouro'  => $this->Crypt->decode($r->endereco_logradouro) ?? '',
-                'endereco_numero'      => $this->Crypt->decode($r->endereco_numero) ?? '',
-                'endereco_complemento' => $this->Crypt->decode($r->endereco_complemento) ?? '',
-                'endereco_bairro'      => $this->Crypt->decode($r->endereco_bairro) ?? '',
-                'endereco_cidade'      => $this->Crypt->decode($r->endereco_cidade) ?? '',
-                'endereco_estado'      => $this->Crypt->decode($r->endereco_estado) ?? '',
-                'imagem'               => $this->Crypt->decode($r->imagem) ?? ''
-            ];
-        }
-
-        return $retorno;
+        return (object)[
+            'id'                   => $r->id,
+            'nome'                 => $this->Crypt->decode($r->nome),
+            'cpf'                  => strCpf($this->Crypt->decode($r->cpf)),
+            'email_pessoal'        => $this->Crypt->decode($r->email_pessoal),
+            'email_trabalho'       => $this->Crypt->decode($r->email_trabalho),
+            'telefone_trabalho'    => strTelefone($this->Crypt->decode($r->telefone_trabalho)),
+            'telefone_pessoal'     => strTelefone($this->Crypt->decode($r->telefone_pessoal)),
+            'estado_civil'         => $this->Crypt->decode($r->estado_civil),
+            'genero'               => $this->Crypt->decode($r->genero),
+            'data_nascimento'      => dataBr($this->Crypt->decode($r->data_nascimento)),
+            'endereco_cep'         => strCep($this->Crypt->decode($r->endereco_cep)),
+            'endereco_logradouro'  => $this->Crypt->decode($r->endereco_logradouro),
+            'endereco_numero'      => $this->Crypt->decode($r->endereco_numero),
+            'endereco_complemento' => $this->Crypt->decode($r->endereco_complemento),
+            'endereco_bairro'      => $this->Crypt->decode($r->endereco_bairro),
+            'endereco_cidade'      => $this->Crypt->decode($r->endereco_cidade),
+            'endereco_estado'      => $this->Crypt->decode($r->endereco_estado),
+            'data_criacao'         => dataBr($r->data_criacao),
+            'imagem'               => $this->Crypt->decode($r->imagem)
+        ];
     }
 
     /**

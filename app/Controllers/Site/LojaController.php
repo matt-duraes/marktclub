@@ -19,6 +19,7 @@ use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Site\Loja\DeclaracaoModel;
 use App\Classes\ParceiroLoja\Procedimento;
 use App\Models\Site\Loja\ChequeBonusModel;
+use App\Models\Site\Loja\SolicitacaoModel;
 use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
 
@@ -191,6 +192,18 @@ final class LojaController extends Controller
             versao: $request->versao
         );
         $Declaracao->salvar();
+
+        return mensagemSucesso([], status: 201);
+    }
+
+    public function postIndicar(Request $request)
+    {
+        new SolicitacaoModel(
+            nome: $request->nome,
+            telefone: $request->telefone,
+            email: $request->email,
+            mensagem: $request->mensagem,
+        );
 
         return mensagemSucesso([], status: 201);
     }

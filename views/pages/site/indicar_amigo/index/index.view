@@ -1,25 +1,21 @@
 @template "site"
 
-<div id="bloco_pagina_indicacao" class="bloco_titulo_texto">
-    <h1>Indique para um amigo</h1>
+<div id="bloco_pagina_indicacao">
+    <form action="/" method="post" class="form_geral" id="form_dependente">
+        <header>
+            <h1>Indique para um amigo</h1>
+        </header>
+        <p>O que você acha de liberar um acesso por 30 dias para um amigo?</p>
+        <p>Isso mesmo, ele poderá acessar e usufruir de grande parte dos benefícios durante este período, conhecer melhor os benefícios de ser nosso cliente.</p>
+        <p>Basta colocar os dados do seu amigo, que a liberação do seu acesso será automática! Quando você indica, você também demonstra sua amizade!</p>
 
-    <div class="conteudo">
+        @? formInput(name: 'nome', placeholder: 'Digite o nome do seu amigo', label: 'Nome', local: 'André Rodrigues')
+        @? formEmail(name: 'email', placeholder: 'Digite o email do seu amigo', label: 'E-mail', local: 'andrerodrigues@andrerodrigues.com')
 
-        <section class="texto">
-            {!!$texto!!}
-        </section>
-
-        <div class="formulario_indicacao">
-            <form action="#" method="post" class="form_geral">
-                <fieldset>
-                    <legend>Informe os dados abaixo da pessoa a qual gostaria de indicar: </legend>
-
-                    @? formInput(name: 'nome', placeholder: 'Digite o nome', label: 'Digite o nome', class: 'input_form',  value: '')
-                    @? formEmail(name: 'email', placeholder: 'Digite o email', label: 'Digite o email', class: 'input_form',  value: '')
-                    <button class="botao_geral_cor cor_bg">Enviar</button>
-                </fieldset>
-            </form>
+        <div class="bloco_botao">
+            <div></div>
+            <div id="botao_indicar_enviar" class="botao_geral_cor cor_bg">Enviar</div>
         </div>
-    </div>
-
+    </form>
 </div>
+
