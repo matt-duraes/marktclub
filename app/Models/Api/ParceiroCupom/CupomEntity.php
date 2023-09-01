@@ -2,9 +2,9 @@
 
 namespace App\Models\Api\ParceiroCupom;
 
+use App\Classes\ParceiroCupom\Auditado;
 use App\Classes\ParceiroLoja\Categoria;
 use Helpers\OrmHelper;
-use Modules\Botao;
 use Modules\Data;
 use ORM\Entity;
 
@@ -29,7 +29,7 @@ class CupomEntity extends Entity
     public Categoria $categoria;
     public string $link;
     public Data $validade;
-    public Botao $auditado;
+    public Auditado $auditado;
 
     protected function regraPosBuscar()
     {
