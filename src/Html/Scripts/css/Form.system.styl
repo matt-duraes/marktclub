@@ -528,7 +528,7 @@ body.fw_body_hidden
 
 /* BOTÃO SWTICH */
 .form_geral .bloco_switch
-    margin-top: 20px
+    margin: 20px 0 10px
     position: relative
     display: flex
     user-select: none
@@ -959,6 +959,16 @@ body.fw_body_hidden
     display: flex
     flex-direction: column
     align-items: center
+    .fw_imagem_label
+        width: 100%
+        height: 30px
+        line-height: 30px
+        font-size: 1.6rem
+        font-weight: 300
+        color: #666
+        padding: 0 10px
+        border: 1px solid #EEE
+        border-bottom: none
     .fw_imagem_conteudo
         position: relative
         background: #EEE
@@ -1032,6 +1042,8 @@ body.fw_body_hidden
 .form_geral .fw_form_imagem.fw_form_tipo_quadrado
     .fw_imagem_controle
         top: 10px
+        &.fw_label_existe
+            top: 45px
 .form_geral .fw_form_imagem.fw_form_tipo_redondo
     .fw_imagem_conteudo
         border-radius: 50%

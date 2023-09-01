@@ -65,6 +65,8 @@ $scope = [
     'publicacao_diretoria:salvar', 'publicacao_diretoria:atualizar', 'publicacao_diretoria:listar',
     'publicacao_diretoria:buscar', 'publicacao_diretoria:deletar',
 
+    'texto_clube:salvar', 'texto_clube:atualizar', 'texto_clube:listar', 'texto_clube:buscar', 'texto_clube:deletar',
+
     'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',
 
     'comunicacao_publicidade:listar', 'comunicacao_publicidade:buscar', 'comunicacao_publicidade:salvar',
@@ -141,8 +143,8 @@ $scope = [
 
     'silium:saldo', 'silium:extrato', 'silium:saque',
 
-    'parceiro_indicacao:listar', 'parceiro_indicacao:buscar', 'parceiro_indicacao:salvar',
-    'parceiro_indicacao:atualizar', 'parceiro_indicacao:deletar'
+    'solicitacao_loja:listar', 'solicitacao_loja:buscar', 'solicitacao_loja:salvar',
+    'solicitacao_loja:atualizar', 'solicitacao_loja:deletar'
 ];
 
 return [

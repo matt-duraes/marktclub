@@ -35,10 +35,10 @@ final class UltimoAcessoModel extends ORM
         $empresa = $this->readTexto(
             "
                 SELECT
-                    {$tabelaConstrutor}.`empresa`, {$tabelaConstrutor}.`link_login`, {$tabelaConstrutor}.`link_site`,
+                    {$tabelaConstrutor}.`id_admin_empresa`, {$tabelaConstrutor}.`link_login`, {$tabelaConstrutor}.`link_clube`,
                     {$tabelaConstrutor}.`logo`, {$tabelaConstrutor}.`cor`, {$tabelaConstrutor}.`titulo`
                 FROM {$tabelaConstrutor}
-                INNER JOIN {$tabelaEmpresa} ON {$tabelaEmpresa}.`id` = {$tabelaConstrutor}.`empresa`
+                INNER JOIN {$tabelaEmpresa} ON {$tabelaEmpresa}.`id` = {$tabelaConstrutor}.`id_admin_empresa`
                 WHERE {$tabelaEmpresa}.`status` = ?
             ",
             [1]
@@ -55,12 +55,12 @@ final class UltimoAcessoModel extends ORM
         foreach ($empresa as $r) {
             $this->idEmpresa[] = $r->empresa;
             $this->dadoParaEnvio[$r->empresa] = (object)[
-                'titulo'     => $r->titulo,
-                'link_site'  => $r->link_site,
-                'link_login' => $r->link_login,
-                'link_logo'  => LINK_ARQUIVO . '/construtor/' . $r->logo,
-                'cor'        => $r->cor,
-                'usuario'    => []
+                'titulo'      => $r->titulo,
+                'link_clube'  => $r->link_clube,
+                'link_login'  => $r->link_login,
+                'logo'        => arquivoPrivado($r->logo),
+                'cor'         => $r->cor,
+                'usuario'     => []
             ];
         }
     }
@@ -130,9 +130,9 @@ final class UltimoAcessoModel extends ORM
             $this->mandarEmailParaCadaEmpresa(
                 $r->titulo,
                 $r->cor,
-                $r->link_site,
+                $r->link_clube,
                 $r->link_login,
-                $r->link_logo,
+                $r->logo,
                 $r->usuario,
                 $loja
             );

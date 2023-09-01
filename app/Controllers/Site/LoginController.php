@@ -4,9 +4,10 @@ namespace App\Controllers\Site;
 
 use Http\Request;
 use Http\Response;
+use Helpers\ApiHelper;
 use Helpers\AuthHelper;
 use Controller\Controller;
-use App\Models\Site\ClubeModel;
+use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
@@ -24,11 +25,9 @@ final class LoginController extends Controller
     */
     public function login()
     {
-        $api = sessao('CLUBE')->api;
-        $linkLogin = sessao('CLUBE')->link_login;
         return view('login.login', [
-            'api'        => $api,
-            'link_login' => $linkLogin
+            'api'        => API,
+            'link_login' => LINK_LOGIN
         ]);
     }
 
@@ -36,7 +35,6 @@ final class LoginController extends Controller
     {
         new LogarModel($request->login, $request->senha);
         $link = (new AuthHelper())->location();
-        new ClubeModel();
         return mensagemSucesso([
             'link' => str_contains($link, '/login') ? LINK : $link
         ], status: 201);
@@ -71,7 +69,21 @@ final class LoginController extends Controller
 
     public function faq(): Response
     {
-        return view('faq.index');
+        try {
+            $lista = (new ApiHelper(scope: 'texto_clube:listar'))
+            ->json([
+                'empresa' => EMPRESA_ID,
+                'pagina'  => 1,
+                'tipo'    => Tipo::FAQ,
+                'status'  => 'ativo'
+            ])
+            ->get('/texto-clube')
+            ->object()->dado->lista;
+        } catch (\Throwable) {
+            $lista = [];
+        }
+
+        return view('login.faq', ['faq' => $lista]);
     }
 
     /*

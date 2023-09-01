@@ -116,6 +116,18 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
+        'titulo'           => 'Pesquisa Satisfação',
+        'url'              => '/app/enquete-satisfacao',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M19.4,6.1v1.8h2.7c0.5,0,0.9,0.4,0.9,0.9V23c0,0.5-0.4,0.9-0.9,0.9H7.9C7.4,23.9,7,23.5,7,23V8.8c0-0.5,0.4-0.9,0.9-0.9h2.7V6.1H19.4z M10.6,9.7H8.8v12.4h12.4V9.7h-1.8v1.8h-8.9V9.7z M12.3,18.6v1.8h-1.8v-1.8H12.3z M12.3,15.9v1.8h-1.8v-1.8H12.3zM12.3,13.2V15h-1.8v-1.8H12.3z M17.7,7.9h-5.3v1.8h5.3V7.9z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['enquete-satisfacao'],
+        'status'           => 1,
+        'permissao'        => '["enquete_satisfacao_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
         'titulo'           => 'Clube',
         'url'              => '/app/construtor-clube',
         'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M6.3,20c-0.4-0.7-0.8-1.5-1-2.3C6.3,17.2,7,16.2,7,15c0-1.2-0.7-2.2-1.6-2.7C5.8,10.7,6.7,9.2,7.9,8C8.8,8.6,10,8.7,11,8.1s1.6-1.7,1.5-2.8c1.7-0.4,3.4-0.4,5,0C17.4,6.4,18,7.5,19,8.1c1,0.6,2.2,0.5,3.1-0.1c0.6,0.6,1.1,1.3,1.5,2c0.4,0.7,0.8,1.5,1,2.3c-1,0.5-1.6,1.5-1.6,2.7c0,1.2,0.7,2.2,1.6,2.7c-0.4,1.6-1.3,3.1-2.5,4.3c-0.9-0.6-2.1-0.7-3.1-0.1c-1,0.6-1.6,1.7-1.5,2.8c-1.7,0.4-3.4,0.4-5,0c0.1-1.1-0.5-2.2-1.5-2.8c-1-0.6-2.2-0.5-3.1,0.1C7.3,21.4,6.8,20.7,6.3,20z M12,20.2c1.1,0.6,1.9,1.6,2.3,2.8c0.5,0,1,0,1.5,0c0.4-1.1,1.2-2.1,2.3-2.8c1.1-0.6,2.3-0.8,3.5-0.6c0.3-0.4,0.5-0.8,0.7-1.3C21.5,17.4,21,16.3,21,15s0.5-2.4,1.3-3.3c-0.1-0.2-0.2-0.4-0.3-0.7c-0.1-0.2-0.3-0.4-0.4-0.6c-1.2,0.2-2.4,0.1-3.5-0.6c-1.1-0.6-1.9-1.6-2.3-2.8c-0.5,0-1,0-1.5,0c-0.4,1.1-1.2,2.1-2.3,2.8c-1.1,0.6-2.3,0.8-3.5,0.6c-0.3,0.4-0.5,0.8-0.7,1.3C8.5,12.6,9,13.7,9,15s-0.5,2.4-1.3,3.3c0.1,0.2,0.2,0.4,0.3,0.7c0.1,0.2,0.3,0.4,0.4,0.6C9.7,19.4,10.9,19.6,12,20.2z M15,18c-1.7,0-3-1.3-3-3c0-1.7,1.3-3,3-3c1.7,0,3,1.3,3,3C18,16.7,16.7,18,15,18z M15,16c0.6,0,1-0.4,1-1c0-0.6-0.4-1-1-1c-0.6,0-1,0.4-1,1C14,15.6,14.4,16,15,16z"/></svg>',
@@ -123,6 +135,27 @@ return [
         'menu'             => ['construtor-clube'],
         'status'           => 1,
         'permissao'        => '["construtor_clube_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 1,
+        'titulo'           => 'TEXTO',
+        'ordem'            => '++',
+        'status'           => 1,
+        'permissao'        => '["texto_clube_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Texto',
+        'url'              => '/app/texto-clube',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M21.5,23.1h-13c-0.4,0-0.8-0.4-0.8-0.8V7.7c0-0.4,0.4-0.8,0.8-0.8h13c0.4,0,0.8,0.4,0.8,0.8v14.6 C22.3,22.7,21.9,23.1,21.5,23.1z M20.7,21.5v-13H9.3v13H20.7z M11,10.1h3.2v3.2H11V10.1z M11,15H19v1.6H11V15z M11,18.2H19v1.6H11 V18.2z M15.8,11H19v1.6h-3.2V11z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['texto-clube'],
+        'status'           => 1,
+        'permissao'        => '["texto_clube_index"]'
     ],
     [
         'id'               => '++',
@@ -237,18 +270,6 @@ return [
         'menu'             => ['parceiro-automovel'],
         'status'           => 1,
         'permissao'        => '["parceiro_automovel_index"]'
-    ],
-    [
-        'id'               => '++',
-        'id_admin_empresa' => 1,
-        'tipo'             => 3,
-        'titulo'           => 'Indicação',
-        'url'              => '/app/parceiro-indicacao',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.6,11.8h-0.9c0.4-1.8,0.1-2.9-0.4-3.5c-0.6-0.9-1.7-1.3-2.7-1.3c-0.4,0-0.7,0.3-0.8,0.7c-0.4,2.8-1.2,4.1-4.8,4.1H7.8c-0.2,0-0.4,0.1-0.6,0.2C7.1,12.2,7,12.4,7,12.6v9.6c0,0.2,0.1,0.4,0.2,0.6C7.4,22.9,7.6,23,7.8,23h12.8c0.6,0,1.2-0.3,1.7-0.7c0.4-0.4,0.7-1.1,0.7-1.7v-6.4c0-0.6-0.3-1.2-0.7-1.7C21.8,12.1,21.2,11.8,20.6,11.8L20.6,11.8z M8.6,13.4h1.6v8H8.6V13.4zM21.4,20.6c0,0.4-0.4,0.8-0.8,0.8h-8.8v-8c3.6-0.2,4.9-2,5.5-4.7v0c0.3,0.1,0.6,0.2,0.8,0.5c0.4,0.6,0.4,1.7-0.2,3.1c-0.1,0.2-0.1,0.5,0.1,0.7c0.1,0.2,0.4,0.3,0.7,0.3h2c0.4,0,0.8,0.4,0.8,0.8L21.4,20.6z"/></svg>',
-        'ordem'            => '++',
-        'menu'             => ['parceiro-indicacao'],
-        'status'           => 1,
-        'permissao'        => '["parceiro_indicacao_index"]'
     ],
     [
         'id'               => '++',
@@ -380,7 +401,19 @@ return [
         'titulo'           => 'Solicitações',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["solicitacao_voucher_index", "solicitacao_salavip_index"]'
+        'permissao'        => '["solicitacao_voucher_index", "solicitacao_salavip_index", "solicitacao_loja_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Loja',
+        'url'              => '/app/solicitacao-loja',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.6,11.8h-0.9c0.4-1.8,0.1-2.9-0.4-3.5c-0.6-0.9-1.7-1.3-2.7-1.3c-0.4,0-0.7,0.3-0.8,0.7c-0.4,2.8-1.2,4.1-4.8,4.1H7.8c-0.2,0-0.4,0.1-0.6,0.2C7.1,12.2,7,12.4,7,12.6v9.6c0,0.2,0.1,0.4,0.2,0.6C7.4,22.9,7.6,23,7.8,23h12.8c0.6,0,1.2-0.3,1.7-0.7c0.4-0.4,0.7-1.1,0.7-1.7v-6.4c0-0.6-0.3-1.2-0.7-1.7C21.8,12.1,21.2,11.8,20.6,11.8L20.6,11.8z M8.6,13.4h1.6v8H8.6V13.4zM21.4,20.6c0,0.4-0.4,0.8-0.8,0.8h-8.8v-8c3.6-0.2,4.9-2,5.5-4.7v0c0.3,0.1,0.6,0.2,0.8,0.5c0.4,0.6,0.4,1.7-0.2,3.1c-0.1,0.2-0.1,0.5,0.1,0.7c0.1,0.2,0.4,0.3,0.7,0.3h2c0.4,0,0.8,0.4,0.8,0.8L21.4,20.6z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['solicitacao-loja'],
+        'status'           => 1,
+        'permissao'        => '["solicitacao_loja_index"]'
     ],
     [
         'id'               => '++',
@@ -441,6 +474,18 @@ return [
         'menu'             => ['solicitacao-automovel'],
         'status'           => 1,
         'permissao'        => '["solicitacao_automovel_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Cheque Bonús',
+        'url'              => '/app/solicitacao-cheque-bonus',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,18.6c2,0,3.6-1.6,3.6-3.6c0-2-1.6-3.6-3.6-3.6c-2,0-3.6,1.6-3.6,3.6C11.4,17,13,18.6,15,18.6z M23.1,7.8H6.9C6.4,7.8,6,8.2,6,8.7v12.6c0,0.5,0.4,0.9,0.9,0.9h16.2c0.5,0,0.9-0.4,0.9-0.9V8.7C24,8.2,23.6,7.8,23.1,7.8z M7.8,18.3v-6.6c1-0.3,1.8-1.1,2.1-2.1h10.2c0.3,1,1.1,1.8,2.1,2.1v6.6c-1,0.3-1.8,1.1-2.1,2.1H9.9C9.6,19.4,8.8,18.6,7.8,18.3z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['solicitacao-cheque-bonus'],
+        'status'           => 1,
+        'permissao'        => '["solicitacao_cheque_bonus_index"]'
     ],
     [
         'id'               => '++',

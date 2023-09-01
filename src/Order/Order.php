@@ -14,6 +14,7 @@ abstract class Order implements OrderInterface
     private string $tabela;
     private array $lista;
     protected ?string $valor;
+    private string $padrao = '';
 
     // doc
     /**
@@ -208,10 +209,24 @@ abstract class Order implements OrderInterface
     public function ordem(): string
     {
         $padrao = '`' . $this->tabela . '`.`id` DESC';
-        if ($this->vazio() || !$this->valido()) {
+        $valido = !$this->vazio() && $this->valido();
+        if (!$valido && empty($this->padrao)) {
             return $padrao;
+        } elseif (!$valido) {
+            return $this->lista[$this->padrao]['order'] ?? $padrao;
         }
-        return $this->lista[$this->valor]['order'] ?? $padrao;
+        return $this->lista[$this->valor]['order'] ?? $this->lista[$this->padrao]['order'] ?? $padrao;
+    }
+
+    /**
+     * Seta qual será o indice padrão
+     *
+     * @param string $indice Qual o indice padrão para quando não passar nada
+     */
+    public function padrao(string $indice): self
+    {
+        $this->padrao = $indice;
+        return $this;
     }
 
     public function listaParaPainel(): stdClass

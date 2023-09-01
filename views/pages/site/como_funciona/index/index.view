@@ -1,17 +1,15 @@
 @template "login"
 
-<div class="tutorial__ativar cor_bg" id="ativar" >
-    <div class="ativar">
-        <div class="ativar--centralizar">
-            <article class="ativar--texto">
-                <h1 class="inicio">Para começar, escolha a opção que deseja para continuar.</h1>
-                <h1 class="segundo"><span>Você é médico, funcionário ou dependente?</span></h1>
-            </article>
-            <div class="botao_escolha">
-                <a href="{!!route('comoFunciona.medico')!!}">SOU MÉDICO</a>
-                <a href="{!!route('comoFunciona.dependente')!!}">SOU DEPENDENTE</a>
-                <a href="{!!route('comoFunciona.funcionario')!!}">SOU FUNCIONÁRIO</a>
-            </div>
+<div id="bloco_como_funciona" >
+    <div class="conteudo">
+        <header>
+            <h1>Como podemos ajuda?</h1>
+            <p>Para começar, escolha a opção que deseja para continuar</p>
+        </header>
+        <div class="botao_escolha">
+            @ ifforeach( $lista as $r ):
+            <a href="{!!route('comoFunciona.detalhe')!!}/{!!$r->url!!}">{{$r->titulo}}</a>
+            @ endifforeach;
         </div>
     </div>
 </div>

@@ -44,35 +44,40 @@
         <header>
             <h1>Indicações</h1>
         </header>
-        @ if( MENU_INDICACAO ):
+        <a class="dado" id="botao_abrir_ajuda">
+            <i>@iconeFaleConosco(20)</i>
+            Fale Conosco
+        </a>
+
+        @ if( MENU_INDICAR_USUARIO ):
         <a class="dado" href="@route(site.indiqueAmigo)">
             <i>@iconeIndiqueAmigoOutline(20)</i>
             Indicar um amigo
         </a>
         @ endif;
 
-        <a class="dado" id="botao_abrir_ajuda">
-            <i>@iconeFaleConosco(20)</i>
-            Fale Conosco
-        </a>
-        <a class="dado" id="abreIndiqueParceiro">
+        @ if( MENU_INDICAR_LOJA ):
+        <a class="dado botao_indicar_loja">
             <i>@iconeLojaHome(15)</i>
             Indicar um parceiro
         </a>
+        @ endif;
     </section>
 
     <section class="bloco">
         <header>
             <h1>Termo</h1>
         </header>
-        <a class="dado" href="@route(termo.termosite)">
+        <a class="dado" href="@route(termo.termosite)" target="_blank" rel="noopener noreferrer">
             <i>@iconeTermoUso(19)</i>
             Termo de uso
         </a>
-        <a class="dado" href="@route(termo.termocashback)">
+        @ if( MENU_CASHBACK ):
+        <a class="dado" href="@route(termo.termocashback)" target="_blank" rel="noopener noreferrer">
             <i>@iconeTermoUso(19)</i>
             Termo do Silium
         </a>
+        @ endif;
     </section>
 
     <div class="linha"></div>

@@ -20,10 +20,9 @@ final class ClubeModel
         $dependente = $Construtor->menu_dependente->valor();
         $linkAndroid = $Construtor->link_app_android;
         $linkIos = $Construtor->link_app_ios;
-        $horario = $Construtor->contato_horario;
-        $endereco = $Construtor->contato_endereco;
         $this->construtor = [
             'id'                      => $Construtor->id,
+            'empresa'                 => $Construtor->empresa,
             'titulo'                  => $Construtor->titulo,
             'cor'                     => $Construtor->cor,
             'logo'                    => $Construtor->logo,
@@ -34,8 +33,8 @@ final class ClubeModel
             'link_salavip'            => $Construtor->link_salavip,
             'link_app_android'        => $linkAndroid,
             'link_app_ios'            => $linkIos,
-            'contato_endereco'        => !empty($endereco) ? $endereco : 'SIG Quadra 4 Lote 125, Bloco A Sala 10 - Asa Sul, Brasília/DF - CEP: 70610-440',
-            'contato_horario'         => !empty($horario) ? $horario : 'Seg. à Sex. das 9h às 18h',
+            'contato_endereco'        => $Construtor->contato_endereco,
+            'contato_horario'         => $Construtor->contato_horario,
             'contato_telefone'        => $Construtor->contato_telefone->numero(),
             'contato_whatsapp'        => $Construtor->contato_whatsapp->numero(),
             'contato_email'           => $Construtor->contato_email->email(),
@@ -61,7 +60,9 @@ final class ClubeModel
                 'saude_cnu'           => $Construtor->menu_saude_cnu->valor(),
                 'saude_florianopolis' => $Construtor->menu_saude_florianopolis->valor(),
                 'cashback'            => $Construtor->menu_cashback->valor(),
-                'indicacao'           => $Construtor->menu_indicacao->valor(),
+                'indicar_loja'        => $Construtor->menu_indicar_loja->valor(),
+                'indicar_usuario'     => $Construtor->menu_indicar_usuario->valor(),
+                'meu_parceiro'        => $Construtor->menu_meu_parceiro->valor(),
                 'cupom'               => $Construtor->menu_cupom->valor(),
                 'odontologico'        => $Construtor->menu_odontologico->valor(),
                 'premium'             => $Construtor->menu_premium->valor(),
@@ -71,6 +72,7 @@ final class ClubeModel
                 'sair'                => $Construtor->menu_sair->valor()
             ],
             'tipo_ativacao' => $Construtor->tipo_ativacao->indice(),
+            'administrado'  => $Construtor->administrado_status->valor(),
             'chat'          => $Construtor->chat_status->valor(),
             'api'           => $api
         ];

@@ -15,6 +15,7 @@ final class UsuarioLeadTest extends Tests
     {
         parent::__construct();
         $this->bodySalvar = $this->criarBodyLead();
+        $this->cpf = cpfAleatorio();
     }
 
     public function verificarSeEstaSalvandoLeadTest()
@@ -32,7 +33,7 @@ final class UsuarioLeadTest extends Tests
             ->checkIndiceExiste('dado.id');
 
         $resposta = $this->Curl->array();
-        $this->idLead = array_key_exists('dado', $resposta) ? $resposta['dado']['id'] : '';
+        $this->idLead = $resposta['dado']['id'] ?? 'sem-id';
         return $this;
     }
 
@@ -76,7 +77,8 @@ final class UsuarioLeadTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body($body)->post('/usuario-lead');
+            ->body($body)
+            ->post('/usuario-lead');
 
         return $this
             ->checkStatus(400)
@@ -93,7 +95,8 @@ final class UsuarioLeadTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body($body)->post('/usuario-lead');
+            ->body($body)
+            ->post('/usuario-lead');
 
         return $this
             ->checkStatus(400)
@@ -110,7 +113,8 @@ final class UsuarioLeadTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body($body)->post('/usuario-lead');
+            ->body($body)
+            ->post('/usuario-lead');
 
         return $this
             ->checkStatus(400)
@@ -239,7 +243,8 @@ final class UsuarioLeadTest extends Tests
             ->loginPainel()
             ->body([
                 'status' => $status
-            ])->put('/usuario-lead/' . $this->idLead)->status();
+            ])->put('/usuario-lead/' . $this->idLead)
+            ->status();
 
         $this->api('usuario_lead:buscar');
         $this
@@ -281,15 +286,13 @@ final class UsuarioLeadTest extends Tests
 
     public function salvarUsuarioNovoDepoisMudarStatusParaCadastradoTest()
     {
-        $this->cpf = $this->cpf();
-
         $dado = $this->cryptEncode([
-            'nome'             => $this->nomeCompleto(),
-            'email_pessoal'    => $this->email(),
-            'telefone_pessoal' => $this->telefone(),
+            'nome'             => nomeCompletoAleatorio(),
+            'email_pessoal'    => emailAleatorio(),
+            'telefone_pessoal' => telefoneAleatorio(),
             'cpf'              => $this->cpf,
-            'termo_aceitar'    => $this->hoje(),
-            'termo_lgpd'       => $this->hoje()
+            'termo_aceitar'    => hoje(),
+            'termo_lgpd'       => hoje()
         ], Helper::CRIPTOGRAFAR);
 
         $resposta = $this
@@ -298,7 +301,7 @@ final class UsuarioLeadTest extends Tests
             ->body($dado)
             ->post('/usuario-lead')->array();
 
-        $this->idLead = array_key_exists('dado', $resposta) ? $resposta['dado']['id'] : '';
+        $this->idLead = $resposta['dado']['id'] ?? 'sem-id';
 
         $this
             ->Curl
@@ -331,9 +334,7 @@ final class UsuarioLeadTest extends Tests
             ])
             ->get('/usuario-cliente')->array();
 
-        $cpf = array_key_exists('dado', $dado) &&
-            array_key_exists('lista', $dado['dado']) &&
-            array_key_exists(0, $dado['dado']['lista']) ? $dado['dado']['lista'][0]['cpf'] : '';
+        $cpf = $dado['dado']['lista'][0]['cpf'] ?? 'sem-id';
 
         return $this
             ->checkStatus(200)
@@ -418,31 +419,30 @@ final class UsuarioLeadTest extends Tests
     */
     private function criarBodyLead()
     {
-        $estado = $this->estado();
         return $this->cryptEncode([
-            'nome'                 => $this->nomeCompleto(),
-            'email_trabalho'       => $this->email(),
-            'email_pessoal'        => $this->email(),
-            'email_funcional'      => $this->email(),
-            'telefone_pessoal'     => $this->telefone(),
-            'telefone_trabalho'    => $this->telefone(),
-            'cpf'                  => $this->cpf(),
-            'rg'                   => $this->rg(),
-            'siape'                => $this->numero(100000, 999999),
-            'genero'               => $this->genero(),
-            'data_nascimento'      => $this->dataPassada(),
+            'nome'                 => nomeCompletoAleatorio(),
+            'email_trabalho'       => emailAleatorio(),
+            'email_pessoal'        => emailAleatorio(),
+            'email_funcional'      => emailAleatorio(),
+            'telefone_pessoal'     => telefoneAleatorio(),
+            'telefone_trabalho'    => telefoneAleatorio(),
+            'cpf'                  => cpfAleatorio(),
+            'rg'                   => rgAleatorio(),
+            'siape'                => numeroAleatorio(100000, 999999),
+            'genero'               => generoAleatorio(),
+            'data_nascimento'      => dataPassadaAleatorio(),
             'trabalho_empresa'     => 'marktclub',
             'trabalho_cargo'       => 'desenvolvedor',
-            'trabalho_data_inicio' => $this->dataPassada(),
-            'endereco_cep'         => $this->cep(),
-            'endereco_logradouro'  => $this->logradouro(),
-            'endereco_numero'      => $this->numero(),
-            'endereco_complemento' => $this->complemento(),
-            'endereco_bairro'      => $this->bairro(),
-            'endereco_cidade'      => $this->cidade($estado),
-            'endereco_estado'      => $estado,
-            'termo_aceitar'        => $this->hoje(),
-            'termo_lgpd'           => $this->hoje(),
+            'trabalho_data_inicio' => dataPassadaAleatorio(),
+            'endereco_cep'         => '69055695',
+            'endereco_logradouro'  => logradouroAleatorio(),
+            'endereco_numero'      => numeroAleatorio(),
+            'endereco_complemento' => complementoAleatorio(),
+            'endereco_bairro'      => bairroAleatorio(),
+            'endereco_cidade'      => cidadeAleatorio(),
+            'endereco_estado'      => estadoAleatorio(),
+            'termo_aceitar'        => hoje(),
+            'termo_lgpd'           => hoje(),
             'lista_dependente'     => []
         ], Helper::CRIPTOGRAFAR);
     }

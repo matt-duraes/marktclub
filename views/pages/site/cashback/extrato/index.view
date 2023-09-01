@@ -5,7 +5,7 @@
     <div class="conteudo">
 
         <figure>
-            <img src="https://clube.marktclub.com.br/images/logo_silium.png" alt="Logo Silium">
+            <img src="https://clube.marktclub.com.br/images/logo_silium.png" height="80" alt="Logo Silium">
         </figure>
 
         <section class="bloco_titulo_texto">
@@ -20,19 +20,19 @@
 
         <div class="saldo">
             <div class="saldo_conta">
-                <p>SALDO EM CONTA:</p><span>{{ $saldo }}</span>
+                <p>SALDO EM CONTA:</p><span>0</span>
             </div>
-            @ if($saldo >= 10000):
-                <div class="botao_resgata">
-                    <button class="botao">
-                        <span>SOLICITAR RESGATE</span>
-                    </button>
-                </div>
-            @ else:
-                <div class="saldo_zero">
-                    <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
-                </div>
-            @ endif;
+
+            <!-- <div class="botao_resgata">
+                <button class="botao">
+                    <span>SOLICITAR RESGATE</span>
+                </button>
+            </div> -->
+
+            <div class="saldo_zero">
+                <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
+            </div>
+
         </div>
 
         <div class="bloco_tab_geral bloco_procedimento">
@@ -59,30 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-label="Convênios">Fisioterapia</td>
-                                <td data-label="Pontos">10</td>
-                                <td data-label="Data">23/06/2013</td>
-                                <td data-label="Status">Em processamento</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Convênios">Acupuntura</td>
-                                <td data-label="Pontos">10</td>
-                                <td data-label="Data">23/10/2014</td>
-                                <td data-label="Status">Resgatado</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Convênios">Pisiquiátrica</td>
-                                <td data-label="Pontos">10</td>
-                                <td data-label="Data">23/10/2015</td>
-                                <td data-label="Status">Resgatado</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Convênios">Pet Shop</td>
-                                <td data-label="Pontos">13</td>
-                                <td data-label="Data">23/01/2019</td>
-                                <td data-label="Status">Resgatado</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -99,18 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-label="Conta">
-                                    Banco: 2222 </br>
-                                    Agência: 2222-22 </br>
-                                    Conta: 222222 </br>
-                                    Tipo de conta: Conta Corrente </br>
-                                    Titular: Fulano e ciclano </br>
-                                    CPF: 331.804.330-35 </br>
-                                </td>
-                                <td data-label="Valor">100,00</td>
-                                <td data-label="Status">Concluído</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>

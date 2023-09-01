@@ -15,8 +15,10 @@
         flexCol()
         align-items: center
     .conteudo .foto
+        width: 100%
+        max-width: 700px
         flexRow()
-        justify-content: center
+        margin-top: 20px
     .conteudo .foto figure
         width: 150px
         height: 150px
@@ -35,8 +37,9 @@
             texto()
             text-transform: capitalize
         p
-            texto()
+            font-size: 1.3rem
             color: #666
+            margin-top: 5px
         p:nth-child(1)
             margin-top: 10px
     .conteudo .foto .legenda .google
@@ -44,7 +47,7 @@
         height: 40px
         texto()
         blocoShadow()
-        espacoVerticalPadrao()
+        margin-top: 15px
         cursor: pointer
         .texto, i
             height: 100%

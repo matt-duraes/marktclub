@@ -2,29 +2,23 @@
 
 use Route\Route;
 use App\Middlewares\Site\AuthMiddleware;
+use App\Middlewares\Site\ClubeMiddleware;
 
 Route
-    ::nome('endereco')
-    ::controller(App\Controllers\Site\EnderecoController::class)
-    ::grupo(function () {
-        Route
-            ::nome('enderecoPorCep')
-            ::post('/endereco/por-cep/{cep}');
-    });
-
-Route
-    ::nome('faq')
+    ::nome('faqLogin')
     ::middleware(AuthMiddleware::class, 'deslogado')
-    ::controller(App\Controllers\Site\FaqController::class)
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::controller(App\Controllers\Site\LoginController::class)
     ::grupo(function () {
         Route
-            ::nome('cfm')
+            ::nome('faq')
             ::view('/login/faq');
     });
 
 Route
     ::nome('faq')
     ::middleware(AuthMiddleware::class, 'logado')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::controller(App\Controllers\Site\FaqController::class)
     ::grupo(function () {
         Route
@@ -35,24 +29,20 @@ Route
 Route
     ::nome('comoFunciona')
     ::middleware(AuthMiddleware::class, 'deslogado')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::controller(App\Controllers\Site\ComoFuncionaController::class)
     ::grupo(function () {
         Route
             ::nome('index')
             ::view('/login/como-funciona');
         Route
-            ::nome('dependente')
-            ::view('/login/como-funciona-dependente');
-        Route
-            ::nome('medico')
-            ::view('/login/como-funciona-medico');
-        Route
-            ::nome('funcionario')
-            ::view('/login/como-funciona-funcionario');
+            ::nome('detalhe')
+            ::view('/login/como-funciona-detalhe/{url}');
     });
 Route
     ::nome('contato')
     ::middleware(AuthMiddleware::class, 'deslogado')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::controller(App\Controllers\Site\ContatoController::class)
     ::grupo(function () {
         Route
@@ -65,6 +55,7 @@ Route
     });
 Route
     ::nome('loginGeral')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::controller(App\Controllers\Site\LoginController::class)
     ::grupo(function() {
         Route
@@ -74,6 +65,7 @@ Route
     });
 Route
     ::nome('login')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
     ::grupo(function () {
@@ -101,6 +93,7 @@ Route
 
 Route
     ::nome('sair')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SairController::class)
     ::grupo(function () {
@@ -110,6 +103,7 @@ Route
     });
 Route
     ::nome('index')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\IndexController::class)
     ::grupo(function () {
@@ -119,6 +113,7 @@ Route
     });
 Route
     ::nome('historico')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\HistoricoController::class)
     ::grupo(function () {
@@ -128,6 +123,7 @@ Route
     });
 Route
     ::nome('acessoRapido')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\AcessoRapidoController::class)
     ::grupo(function () {
@@ -140,6 +136,7 @@ Route
     });
 Route
     ::nome('cupom')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CupomController::class)
     ::grupo(function () {
@@ -156,6 +153,7 @@ Route
     });
 Route
     ::nome('cashback')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CashbackController::class)
     ::grupo(function () {
@@ -179,6 +177,7 @@ Route
 
 Route
     ::nome('turismo')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\TurismoController::class)
     ::grupo(function () {
@@ -204,6 +203,7 @@ Route
     });
 Route
     ::nome('cinema')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CinemaController::class)
     ::grupo(function () {
@@ -214,6 +214,7 @@ Route
 
 Route
     ::nome('loja')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\LojaController::class)
     ::grupo(function () {
@@ -261,10 +262,18 @@ Route
         Route
             ::nome('favorito')
             ::delete('/convenios/favorito/{id}');
+
+        Route
+            ::nome('indicar')
+            ::request([
+                'nome', 'telefone', 'email', 'mensagem'
+            ])
+            ::post('/convenios/indicar');
     });
 
 Route
     ::nome('voucher')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\VoucherController::class)
     ::grupo(function () {
@@ -275,6 +284,7 @@ Route
 
 Route
     ::nome('salavip')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SalaVipController::class)
     ::grupo(function () {
@@ -284,6 +294,7 @@ Route
     });
 Route
     ::nome('odontologico')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\OdontologicoController::class)
     ::grupo(function () {
@@ -293,6 +304,7 @@ Route
     });
 Route
     ::nome('planosaude')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PlanoSaudeController::class)
     ::grupo(function () {
@@ -351,6 +363,7 @@ Route
     });
 Route
     ::nome('farmacia')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\FarmaciaController::class)
     ::grupo(function () {
@@ -366,6 +379,7 @@ Route
     });
 Route
     ::nome('sicoob')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SicoobController::class)
     ::grupo(function () {
@@ -391,6 +405,7 @@ Route
 
 Route
     ::nome('solicitacao_credito')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SolicitacaoCreditoController::class)
     ::grupo(function () {
@@ -410,6 +425,7 @@ Route
 
 Route
     ::nome('automovel')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\AutomovelController::class)
     ::grupo(function () {
@@ -432,6 +448,7 @@ Route
 
 Route
     ::nome('termo')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\TermoController::class)
     ::grupo(function () {
@@ -447,32 +464,8 @@ Route
     });
 
 Route
-    ::nome('alfa')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\AlfaController::class)
-    ::grupo(function () {
-        Route
-            ::nome('credito')
-            ::view('/credito/alfa');
-        Route
-            ::nome('veiculo')
-            ::view('/credito/alfa-veiculo');
-        Route
-            ::nome('portabilidade')
-            ::view('/credito/alfa-portabilidade');
-        Route
-            ::nome('consignado')
-            ::view('/credito/alfa-consignado');
-        Route
-            ::nome('corretoraAlfa')
-            ::view('/corretora-alfa');
-        Route
-            ::nome('consultoriaAlfa')
-            ::view('/consultoria/alfa');
-    });
-
-Route
     ::nome('sosmulher')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SosMulherController::class)
     ::grupo(function () {
@@ -482,6 +475,7 @@ Route
     });
 Route
     ::nome('site')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\SiteController::class)
     ::grupo(function () {
@@ -513,6 +507,7 @@ Route
 
 Route
     ::nome('perfil')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PerfilController::class)
     ::grupo(function () {
@@ -560,6 +555,7 @@ Route
 
 Route
     ::nome('campanha')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\CampanhaController::class)
     ::grupo(function () {
@@ -573,22 +569,11 @@ Route
 
 Route
     ::nome('regulamento')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\RegulamentoController::class)
     ::grupo(function () {
         Route
             ::nome('sorteio')
             ::view('/regulamento-sorteio');
-    });
-
-Route
-    ::nome('indicacao')
-    ::controller(App\Controllers\Site\IndicacaoParceiroController::class)
-    ::grupo(function () {
-        Route
-            ::nome('salvar')
-            ::request([
-                'parceiro', 'telefone', 'email', 'mensagem'
-            ])
-            ::post('/indicacao/salvar');
     });

@@ -601,7 +601,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:salvar'])
             ::request([
                 'titulo', 'link', 'data_inicio', 'data_final', 'parceiro', 'status',
-                'imagem_desktop', 'imagem_mobile', 'tipo'
+                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem'
             ])
             ::post('/comunicacao-publicidade');
         Route
@@ -609,13 +609,18 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
             ::request([
                 '!titulo', '!link', '!data_inicio', '!data_final', '!parceiro', '!status',
-                '!imagem_desktop', '!imagem_mobile', '!tipo'
+                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem'
             ])
             ::put('/comunicacao-publicidade/{id}');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:deletar'])
             ::delete('/comunicacao-publicidade/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/comunicacao-publicidade/ordenar');
     });
 
 Route
@@ -1008,6 +1013,49 @@ Route
     });
 
 Route
+    ::nome('texto_clube')
+    ::controller(App\Controllers\Api\TextoClubeController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:listar'])
+            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!ordem', '!status'], 'json')
+            ::get('/texto-clube');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:buscar'])
+            ::get('/texto-clube/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:salvar'])
+            ::request([
+                'empresa', 'titulo', 'texto', 'header_titulo', 'header_descricao',
+                'header_tag', 'tipo', 'empresa', '!ordem', 'status'
+            ])
+            ::post('/texto-clube');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
+            ::request([
+                '!empresa', '!titulo', '!texto', '!header_titulo', '!header_descricao',
+                '!header_tag', '!tipo', '!empresa', '!ordem', '!status'
+            ])
+            ::put('/texto-clube/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:deletar'])
+            ::delete('/texto-clube/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
+            ::request([
+                'id', 'pagina', '!quantidade'
+            ])
+            ::put('/texto-clube/ordenar');
+    });
+
+Route
     ::nome('construtor_clube')
     ::controller(App\Controllers\Api\ConstrutorClubeController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -1036,10 +1084,10 @@ Route
                 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
                 'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel',
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
-                'menu_saude_florianopolis', 'menu_cashback', 'menu_indicacao', 'menu_cupom',
-                'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira',
+                'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
+                'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                'api_status', 'tipo_ativacao', 'status'
+                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status'
             ])
             ::post('/construtor-clube');
         Route
@@ -1053,10 +1101,10 @@ Route
                 '!menu_sair', '!menu_acesso_rapido', '!menu_loja', '!menu_mapa', '!menu_cinema',
                 '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel',
                 '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
-                '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicacao', '!menu_cupom',
-                '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira',
+                '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
+                '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira', '!menu_cupom',
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
-                '!api_status', '!tipo_ativacao', '!status'
+                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status'
             ])
             ::put('/construtor-clube/{id}');
         Route
@@ -1581,23 +1629,6 @@ Route
     });
 
 Route
-    ::nome('solicitacao_alfa')
-    ::controller(App\Controllers\Api\SolicitacaoAlfaController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::criptografia(App\Classes\SolicitacaoAlfa\Helper::CRIPTOGRAFAR)
-    ::grupo(function () {
-        Route
-            ::nome('solicitacao')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_alfa:solicitacao'])
-            ::request([
-                '!valor_emprestimo', '!prazo', '!valor_parcela_atual', '!quantidade_parcelas_restantes',
-                '!taxa', 'nome', 'documento_cpf', 'email', 'telefone_celular', '!telefone_fixo', 'orgao',
-                'observacao', '!data_simulacao', '!status', '!tipo'
-            ])
-            ::post('/alfa/solicitacao');
-    });
-
-Route
     ::nome('popup')
     ::controller(App\Controllers\Api\PopupController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -2002,39 +2033,39 @@ Route
     });
 
 Route
-    ::nome('parceiro_indicacao')
-    ::controller(App\Controllers\Api\ParceiroIndicacaoController::class)
+    ::nome('solicitacao_loja')
+    ::controller(App\Controllers\Api\SolicitacaoLojaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!status'
             ], 'json')
-            ::get('/parceiro-indicacao');
+            ::get('/solicitacao-loja');
 
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:buscar'])
-            ::get('/parceiro-indicacao/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:buscar'])
+            ::get('/solicitacao-loja/{id}');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:salvar'])
-            ::request(['nome', 'email', 'telefone', 'mensagem'])
-            ::post('/parceiro-indicacao');
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
+            ::request(['nome', 'email', 'telefone', 'mensagem', '!usuario', 'origem'])
+            ::post('/solicitacao-loja');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:atualizar'])
             ::request([
                 'status'
             ])
-            ::put('/parceiro-indicacao/{id}');
+            ::put('/solicitacao-loja/{id}');
 
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_indicacao:deletar'])
-            ::delete('/parceiro-indicacao/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:deletar'])
+            ::delete('/solicitacao-loja/{id}');
     });

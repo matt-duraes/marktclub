@@ -30,6 +30,21 @@ if (!function_exists('iconeTablet')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 19.2 24" style="enable-background:new 0 0 19.2 24;" xml:space="preserve"><path d="M2.4,2.4v19.2h14.4V2.4H2.4z M1.2,0H18c0.7,0,1.2,0.5,1.2,1.2v21.6c0,0.7-0.5,1.2-1.2,1.2H1.2C0.5,24,0,23.5,0,22.8V1.2C0,0.5,0.5,0,1.2,0z M9.6,18c0.7,0,1.2,0.5,1.2,1.2c0,0.7-0.5,1.2-1.2,1.2c-0.7,0-1.2-0.5-1.2-1.2C8.4,18.5,8.9,18,9.6,18z"/></svg>';
     }
 }
+if (!function_exists('iconeChat')) {
+    // doc
+    // exemplo
+    // echo iconeChat
+    /**
+     * Gera um icone de Chat
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeChat(int $tamanho = 24): string
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 18" style="enable-background:new 0 0 20 18;" xml:space="preserve"><path d="M0,6c0-3.3,2.7-6,6-6h8c3.3,0,6,2.7,6,6v12H6c-3.3,0-6-2.7-6-6V6z M18,16V6c0-2.2-1.8-4-4-4H6C3.8,2,2,3.8,2,6v6c0,2.2,1.8,4,4,4H18z M12,8h2v2h-2V8z M6,8h2v2H6V8z"/></svg>';
+    }
+}
 if (!function_exists('iconeTelefone')) {
     // doc
     // exemplo

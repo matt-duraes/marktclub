@@ -616,13 +616,33 @@ final class AppController extends PadraoController
     {
         $appReal = $this->converterNomeApp($app);
         $config = $this->config($appReal, 'ordem');
-        if (!$config->permissao) {
+        if (!$config->permissao->editar) {
             throw new Excecao(status: 403);
         }
-        $id = $request->chave('id', []);
-        // $Model = $this->getModel(app: $appReal, model: $config->model);
-        // $Model->ordenarLista($id, $request->chave('pagina', 1));
-        return new Response(status: 204);
+
+        $mensagemErro = 'Ocorreu um erro ao reordenar sua lista, por favor, tente novamente.';
+        $id = $request->id;
+        $pagina = $request->pagina;
+
+        if (empty($id) || empty($pagina)) {
+            mensagemErro('Erro!', $mensagemErro, 500);
+        }
+
+        $Api = new ApiHelper(token: true);
+        $dado = $Api->body([
+            'id'     => $id,
+            'pagina' => $pagina
+        ])->put($config->api->uri . '/ordenar');
+
+        $dado = $this->validarRetornoApi($dado);
+        if ($dado instanceof Response) {
+            return $dado;
+        }
+
+        if ($Api->status() == 204) {
+            return new Response(status: 204);
+        }
+        mensagemErro('Erro!', $mensagemErro, 500);
     }
 
     /*

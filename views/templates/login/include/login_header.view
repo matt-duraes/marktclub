@@ -26,14 +26,14 @@
                 </div>
                 @ endif;
                 @ if( MENU_FAQ ):
-                <a href="{!!route('faq.cfm')!!}" class="botao {{$menu == 'faq' ? 'hover' : ''}}">
+                <a href="{!!route('faqLogin.faq')!!}" class="botao {{$menu == 'faq' ? 'hover' : ''}}">
                     <i>@iconeFaq()</i>
                     <p>FAQ</p>
                     <div class="borda"></div>
                 </a>
                 @ endif;
                 @ if( MENU_COMO_FUNCIONA ):
-                <a href="{!!route('comoFunciona.index')!!}" class="botao {{$menu == 'ajuda' ? 'hover' : ''}}">
+                <a href="{!!route('comoFunciona.index')!!}" class="botao {{$menu == 'como-funciona' ? 'hover' : ''}}">
                     <i>@iconeComoFunciona</i>
                     <p>Como Funciona</p>
                     <div class="borda"></div>

@@ -21,6 +21,9 @@
 </head>
 
 <body>
+    <div id="bg_geral">
+        <div class="degrade"></div>
+    </div>
     <div id="site">
         @dir "/include/login_header.view"
         <main id="conteudo_principal">

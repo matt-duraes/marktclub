@@ -6,6 +6,7 @@ use App\Classes\ComunicacaoPublicidade\Ordem;
 
 $Painel = new PainelConfig\Index('comunicacao-publicidade', new Ordem());
 $Painel
+    ->drag()
     ->campo('titulo', 'Título', 'grande')
     ->campo('parceiro.titulo', 'Parceiro', 'normal')
     ->campo('data_inicio', 'Data de início', 'pequeno')

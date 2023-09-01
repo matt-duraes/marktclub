@@ -1,9 +1,5 @@
 <?php
 
-use App\Models\Site\ClubeModel;
-
-new ClubeModel();
-
 $USUARIO = sessao('USUARIO');
 
 define('USUARIO_NOME', $USUARIO['nome']);

@@ -1,27 +1,26 @@
 
 <div class="bloco_pagina_popup" id="bloco_loja_confirmar">
-    <header class="header_pagina_popup">
-        <h1>Procedimento</h1>
-        <i class="botao_fechar_popup fechar">@iconeFechar</i>
-    </header>
-    <div class="conteudo_pagina_popup footer">
-        <div class="conteudo">
-            <h2>Antes de continuar, confirme o procedimento de utilização, desconto e possíveis restrições da loja</h2>
-            <div class="bloco">
-                <h3>Descontos</h3>
-                <div class="texto_destaque">{!!$dado->texto_desconto!!}</div>
-            </div>
-            <div class="bloco">
-                <h3>Procedimento</h3>
-                <div class="texto_destaque">{!!$dado->texto_procedimento!!}</div>
-            </div>
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <header>
+            <h1>Procedimento</h1>
+            <p>Antes de continuar, confirme o procedimento de utilização, desconto e possíveis restrições da loja</p>
+            <i class="pagina_fechar fechar">@iconeFechar</i>
+        </header>
+        <div class="bloco">
+            <h3>Descontos</h3>
+            <div class="texto_destaque">{!!$dado->texto_desconto!!}</div>
         </div>
-    </div>
-    <div class="footer_pagina_popup">
-        @ if( $dado->procedimento == $procedimento::VOUCHER ):
-        <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao botao_contar_click" data-botao="Confirmar Voucher">GERAR VOUCHER</a>
-        @ elseif ($dado->procedimento == $procedimento::WEBSITE):
-        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao botao_contar_click" data-botao="Confirmar abrir Site">Abrir Site</a>
-        @ endif
+        <div class="bloco">
+            <h3>Procedimento</h3>
+            <div class="texto_destaque">{!!$dado->texto_procedimento!!}</div>
+        </div>
+        <div class="footer_pagina_popup">
+            <div></div>
+            @ if( $dado->procedimento == $procedimento::VOUCHER ):
+            <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao botao_contar_click" data-botao="Confirmar Voucher">GERAR VOUCHER</a>
+            @ elseif ($dado->procedimento == $procedimento::WEBSITE):
+            <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao botao_contar_click" data-botao="Confirmar abrir Site">Abrir Site</a>
+            @ endif
+        </div>
     </div>
 </div>

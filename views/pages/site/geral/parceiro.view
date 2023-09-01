@@ -82,8 +82,10 @@
         <i>@iconeBuscar(50)</i>
         <p>Não encontramos nenhuma loja pela busca, tente fazer uma nova busca ou limpar a busca atual</p>
         <a href="@route('loja.index')" class="botao botao_geral_cor cor_bg">Limpar busca</a>
+        @ if( MENU_INDICAR_LOJA ):
         <p>Caso não ache a loja que procura, nos indique a loja deseja</p>
-        <a href="" class="botao botao_geral_borda">Indicar uma loja</a>
+        <div class="botao botao_geral_borda botao_indicar_loja">Indicar uma loja</div>
+        @ endif;
     </div>
     @else
     <div class="article_fake"></div>

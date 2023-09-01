@@ -18,7 +18,6 @@ final class AuthModel
         $usuario = $this->pegarUsuario($token);
         (new AuthHelper())->criar($usuario);
 
-        sessao('CLUBE', $clube);
         sessao('TOKEN', $token['access_token']);
         sessao('TOKEN_EXPIRE', date('Y-m-d H:i:s', time() + $token['expires_in'] - 60));
         cookie('CLT', base64Encode(

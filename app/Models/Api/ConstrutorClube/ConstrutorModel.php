@@ -34,8 +34,8 @@ final class ConstrutorModel extends ORM implements ModelListarInterface
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->join('id_admin_empresa', 'id')
-            ->campo(['titulo', 'nome_fantasia'], as: 'empresa')
+            ->join('id', 'id_admin_empresa')
+            ->campo(['uuid', 'titulo', 'nome_fantasia'], as: 'empresa')
             ->read();
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
@@ -48,8 +48,11 @@ final class ConstrutorModel extends ORM implements ModelListarInterface
         foreach ($dado as $r) {
             $retorno[] = [
                 'id'           => $r->uuid,
+                'empresa'      => [
+                    'id'     => $r->empresa_uuid,
+                    'titulo' => !empty($r->empresa_titulo) ? $r->empresa_titulo : $r->empresa_nome_fantasia,
+                ],
                 'titulo'       => $r->titulo,
-                'clube'        => !empty($r->empresa_titulo) ? $r->empresa_titulo : $r->empresa_nome_fantasia,
                 'data_criacao' => $r->data_criacao,
                 'status'       => $Status->indice($r->status)
             ];

@@ -23,6 +23,7 @@ class ComercialEmpresaTest extends Tests
     {
         return array_merge([
             'titulo'                => $this->cryptEncode('Empresa de teste'),
+            'nome_fantasia'         => $this->cryptEncode('Nome fantasia teste'),
             'cnpj'                  => $this->cryptEncode(cnpjAleatorio()),
             'finalidade_principal'  => FinalidadePrincipal::PRIVADA,
             'finalidade_secundaria' => valorAleatorio(array_keys((new FinalidadeSecundaria())->select())),

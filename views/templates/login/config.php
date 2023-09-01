@@ -1,11 +1,6 @@
 <?php
 
-use App\Models\Site\ClubeModel;
-
-new ClubeModel();
-
 $menu = isset($menu) ? $menu : '';
-
 $temMais = [];
 /*
 |--------------------------------------------------------------------------

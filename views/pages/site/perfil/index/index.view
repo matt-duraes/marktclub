@@ -6,9 +6,12 @@
             <div class="legenda">
                 <article>
                     <h1>{{$dado->nome}}</h1>
-                    <!--Aguardando liberação desses dados na api-->
-                    <!-- <p>Usuário desde: 18/06/2018</p>
-                    <p>Ultimo acesso: 14/03/2023</p> -->
+                    @ if( !empty($dado->email_pessoal )):
+                    <p>{{$dado->email_pessoal}}</p>
+                    @ elseif( !empty($dado->email_trabalho )):
+                    <p>{{$dado->email_trabalho}}</p>
+                    @ endif;
+                    <p>Usuário desde: {{$dado->data_criacao}}</p>
                 <article>
                 <button id="botao_vincular_google" type="button" class="google">
                     <div class="logo_google">
@@ -48,8 +51,8 @@
                 </div>
                     @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: $dado->endereco_complemento)
                 <div class="form_input_dupla">
-                    @? formInput(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', value: $dado->endereco_cidade)
                     @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $dado->endereco_estado)
+                    @? formSelect(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', lista: ['' => 'Escolha um estado'], value: $dado->endereco_cidade)
                 </div>
             </fieldset>
             <button id="botao_salvar_dados_perfil" class="botao_geral_cor cor_bg">Atualizar</button>

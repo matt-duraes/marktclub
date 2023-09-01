@@ -54,7 +54,7 @@
             </a>
             @ endif;
 
-            @ if( MENU_INDICACAO ):
+            @ if( MENU_INDICAR_USUARIO ):
             <a class="botao {!!MENU_HOVER == 'perfil-indicacao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(site.indiqueAmigo)">
                 <i>@iconeIndiqueAmigoOutline(22)</i>
                 Indique um amigo
@@ -151,12 +151,21 @@
             </a>
             @ endif;
 
-            @if(MENU_ODONTOLOGICO):
+            @if(MENU_ODONTOLOGICO ||MENU_SAUDE):
             <div class="categoria">SAÚDE</div>
+            @if(MENU_ODONTOLOGICO):
             <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
                 <i>@iconeDentista</i>
                 Plano Odontológico
             </a>
+            @endif
+
+            @if(MENU_SAUDE):
+            <a class="botao {!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.index') ?>">
+                <i>@iconeSaude</i>
+                Plano de Saúde
+            </a>
+            @endif
             @endif
 
             <div class="categoria">OUTROS</div>

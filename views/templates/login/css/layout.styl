@@ -8,7 +8,7 @@
 @resource "site/mixim"
 @resource "site/variavel"
 @resource "site/geral"
-@resource "site/form"
+@resource "site/form_cor"
 
 @import "login"
 
@@ -27,7 +27,7 @@
     background: #cfcfcf
 
 body
-    background-color: #F6F6F6
+    background: #F6F6F6
     font-family: 'Inter', sans-serif
     color: #495057
 
@@ -44,6 +44,25 @@ body
     .desktop
         display: none !important
 
+#bg_geral
+    width: 100%
+    height: 740px
+    max-height: 100vh
+    position: absolute
+    top: 10px
+    left: 0
+    background: url(../images/login/bg_banner.png) repeat center center
+    z-index: 1
+    opacity: .7
+    .degrade
+        width: 100%
+        height: 70%
+        position: absolute
+        bottom: 0
+        left: 0
+        z-index: 2
+        background-image: linear-gradient(rgba(246, 246, 246, 0), rgba(246, 246, 246, 1))
+
 #site
     width: 100%
     border-top: 10px solid $corClube
@@ -51,6 +70,7 @@ body
     flexCenter()
     directionColumn()
     overflow: hidden
+    z-index: 2
 
 #header_principal
     width: 100%
@@ -196,6 +216,7 @@ body
     align-items: center
     background-color: #FFF
     padding: 50px 20px
+    z-index: 3
     .centralizar
         width: 100%
         max-width: 1000px

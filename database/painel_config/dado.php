@@ -34,11 +34,16 @@ return [
                 ]
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'enquete_satisfacao'      => [
+                'titulo' => 'Pesquisa Satisfação', 'acao' => ['index', 'visualizar', 'deletar', 'status']
+            ],
             'construtor_clube'        => ['titulo' => 'Clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'publicacao_noticia'   => ['titulo' => 'Notícia', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'add', 'editar']],
+            'publicacao_pagina'    => ['titulo' => 'Páginas', 'acao' => ['index', 'editar']],
             'publicacao_diretoria' => ['titulo' => 'Diretoria', 'acao' => ['index', 'add', 'editar', 'deletar']],
+
+            'texto_clube' => ['titulo' => 'Texto do clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
             'parceiro_relatorio'     => [
                 'titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']
@@ -50,7 +55,7 @@ return [
             'parceiro_automovel'     => [
                 'titulo' => 'Automóvel', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar']
             ],
-            'parceiro_indicacao'     => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
+            'solicitacao_loja'       => ['titulo' => 'Solicitação Loja', 'acao' => ['index', 'visualizar', 'status']],
             'relatorio_acesso'       => [
                 'titulo' => 'Relatório Acesso', 'permissao' => [
                     'relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas'
@@ -79,10 +84,14 @@ return [
             'solicitacao_premium'    => [
                 'titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']
             ],
-            'solicitacao_salavip'     => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
-            'solicitacao_declaracao'  => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
-            'solicitacao_automovel'   => [
+            'solicitacao_salavip'    => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
+            'solicitacao_declaracao' => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
+            'solicitacao_automovel'  => [
                 'titulo' => 'Automóvel',
+                'acao'   => ['index', 'visualizar', 'status']
+            ],
+            'solicitacao_cheque_bonus' => [
+                'titulo' => 'Cheque Bônus',
                 'acao'   => ['index', 'visualizar', 'status']
             ],
             'comercial_empresa'      => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
