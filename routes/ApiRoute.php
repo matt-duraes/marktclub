@@ -919,13 +919,23 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
-            ::request(['!pesquisa'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+            ], 'json')
             ::get('/parceiro-cupom');
 
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:buscar'])
             ::get('/parceiro-cupom/{id}');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
+            ::request([
+                'auditoria'
+            ])
+            ::put('/parceiro-cupom/{id}');
     });
 
 Route
