@@ -35,14 +35,13 @@ class PublicacaoPaginaTest extends Clube
             ->get('/publicacao-pagina')
             ->array();
 
-        $this->idPublicacao = $dado['dado']['lista'][0]['id'] ?? "sem-id";
+        $this->idPublicacao = $dado['dado']['lista'][0]['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(200)
             ->checkIndiceExiste('dado.lista')
             ->checkIndiceIgual('status', 'sucesso');
     }
-
 
     public function atualizarPaginaTest(): PublicacaoPaginaTest
     {

@@ -33,7 +33,7 @@ final class UsuarioLeadTest extends Tests
             ->checkIndiceExiste('dado.id');
 
         $resposta = $this->Curl->array();
-        $this->idLead = $resposta['dado']['id'] ?? "sem-id";
+        $this->idLead = $resposta['dado']['id'] ?? 'sem-id';
         return $this;
     }
 
@@ -434,7 +434,7 @@ final class UsuarioLeadTest extends Tests
             'trabalho_empresa'     => 'marktclub',
             'trabalho_cargo'       => 'desenvolvedor',
             'trabalho_data_inicio' => dataPassadaAleatorio(),
-            'endereco_cep'         => "69055695",
+            'endereco_cep'         => '69055695',
             'endereco_logradouro'  => logradouroAleatorio(),
             'endereco_numero'      => numeroAleatorio(),
             'endereco_complemento' => complementoAleatorio(),

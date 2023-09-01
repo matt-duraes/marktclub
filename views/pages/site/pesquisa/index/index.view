@@ -1,6 +1,6 @@
 <div class="bloco_pagina_popup" id="pesquisa_satisfacao_popup">
     <div class="conteudo_pagina_popup">
-        <form id="formulario_pesquisa" action="" class="form_geral form_popup conteudo" method="post">
+        <form id="formulario_pesquisa" action="" class="form_geral conteudo_popup conteudo" method="post">
             <header>
                 <h1>Pesquisa de satisfação</h1>
                 <p>Selecione os campos abaixo que gostaria para nos enviar sua opinião</p>

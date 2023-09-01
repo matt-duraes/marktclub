@@ -1,6 +1,6 @@
 <div class="bloco_pagina_popup">
     <div class="conteudo_pagina_popup">
-        <form id="form_indicar_loja" class="form_geral form_popup" method="post">
+        <form id="form_indicar_loja" class="form_geral conteudo_popup" method="post">
             <header>
                 <h1>Não achou o que procura?</h1>
                 <p>Preencha os campos abaixo e envie sua sugestão de loja.</p>
