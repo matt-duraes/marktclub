@@ -17,7 +17,17 @@ final class Pagina implements ModuleInterface
 
     public function padrao()
     {
-        return $this->vazio() ? 1 : $this->numero();
+        return 1;
+    }
+
+    /**
+     * Pega o número passado ou o padrão casa o número seja vazio ou inválido
+     *
+     * @return int
+     */
+    public function numeroPadrao(): int
+    {
+        return $this->valido() ? $this->numero() : $this->padrao();
     }
 
     /**
