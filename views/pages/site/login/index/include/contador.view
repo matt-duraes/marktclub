@@ -19,14 +19,17 @@
     </div>
 
     <h2>Nenhum outro oferece tantas opções</h2>
+    @ if( !empty(LINK_CADASTRO) ):
+    <a href="{!!LINK_CADASTRO!!}" target="_blank" rel="noopener" rel="noreferrer">Faça parte</a>
+    @ endif;
 
-    @if (CLUBE_FINALIDADE == 2) :
+    @if (CLUBE_FINALIDADE == 100) :
         @if (CLUBE_ID == '2dbd9e375eeabfbe859365dae0798f49') :
             <a href="#" rel="noopener" rel="noreferrer">Inscreva-se</a>
         @else:
-            <a href="#" target="_blank" rel="noopener" rel="noreferrer">Seja Cliente</a>
+            <a href="" target="_blank" rel="noopener" rel="noreferrer">Seja Cliente</a>
         @endif;
-    @elseif (CLUBE_FINALIDADE == 1) :
+    @elseif (CLUBE_FINALIDADE == 101) :
         @if (CLUBE_ID == 'b45839ad9fe077f22c6f10e32c5dbe88') :
             <h3>Ainda não é sóci@?</h3>
             <a href="#" target="_blank" rel="noopener" rel="noreferrer">
@@ -36,10 +39,8 @@
             <a href="#" target="_blank" rel="noopener" rel="noreferrer">
                 Filiar agora
             </a>
-            @endif;
-        @else :
-            <a href="#" target="_blank" rel="noopener" rel="noreferrer">Faça parte</a>
         @endif;
+    @endif;
 </section>
 
 

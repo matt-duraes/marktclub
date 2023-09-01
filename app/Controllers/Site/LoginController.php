@@ -9,6 +9,7 @@ use Helpers\AuthHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
 final class LoginController extends Controller
@@ -47,7 +48,11 @@ final class LoginController extends Controller
     */
     public function buscarConta()
     {
-        return view('login.buscar');
+        $TipoAtivacao = new TipoAtivacao();
+        return view('login.buscar', [
+            'tipoSiape'     => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
+            'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO
+        ]);
     }
 
     public function postBuscarConta(Request $request): Response

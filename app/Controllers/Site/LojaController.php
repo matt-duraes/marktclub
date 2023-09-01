@@ -83,6 +83,7 @@ final class LojaController extends Controller
     public function detalhe(string $url): Response
     {
         $Dado = new BuscarModel($url);
+        $dado = $Dado->buscarDados();
         $Lista = new ListarModel(
             quantidade: new Inteiro(3),
             ordem: new Ordem(Ordem::RANDOMICO)
@@ -90,8 +91,7 @@ final class LojaController extends Controller
 
         return view('loja.detalhe', [
             'menu'         => 'loja',
-            'dado'         => $Dado->buscarDados(),
-            'endereco'     => [],
+            'dado'         => $dado,
             'telefone'     => [],
             'email'        => [],
             'tipo'         => 'loja',

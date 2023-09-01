@@ -87,6 +87,7 @@ final class EnderecoModel extends ORM
                 'bairro'      => $r->bairro,
                 'cidade'      => $r->cidade,
                 'estado'      => $r->estado,
+                'pais'        => $r->pais,
                 'latitude'    => $r->latitude,
                 'longitude'   => $r->longitude,
                 'principal'   => (new Botao($r->principal))->valor()

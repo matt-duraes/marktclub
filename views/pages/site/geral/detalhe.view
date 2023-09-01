@@ -66,17 +66,15 @@
     </div>
     @endif
 
-    @if($dado->endereco)
-    <div class="bloco_mapa">
+    <div class="bloco_mapa display_none" id="bloco_mapa">
         <header>
             <h1>Endereços</h1>
             <div class="grow"></div>
-            <div class="botao botao_geral_cor cor_bg" id="botao_endereco">Buscar endereço <i>@iconeBusca(20)</i></div>
-            <a href="_blank" rel="nofollow noopener" id="como_chegar" class="botao destaque botao_geral_cor cor_bg">Como Chegar <i>@iconeMapa(20)</i></a>
+            <div class="botao display_none" id="botao_endereco_buscar">Buscar endereço <i>@iconeBusca(20)</i></div>
+            <a href="_blank" rel="nofollow noopener" id="botao_endereco_como_chegar" class="botao">Como Chegar <i>@iconeMapa(20)</i></a>
         </header>
-        <div class="mapa"></div>
+        <div class="mapa" id="bloco_endereco_mapa"></div>
     </div>
-    @endif
 
     @view site/geral/relacionado.view
 </div>

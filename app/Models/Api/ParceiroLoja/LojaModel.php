@@ -6,9 +6,9 @@ use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Helpers\OrmHelper;
-use App\Classes\Endereco\Local;
 use ApiModel\Endereco\RaioModel;
 use App\Classes\ParceiroLoja\Tipo;
+use System\Classes\Endereco\Local;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
@@ -18,8 +18,8 @@ use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
 use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\Endereco\Tipo as EnderecoTipo;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
+use System\Classes\Endereco\Tipo as EnderecoTipo;
 
 class LojaModel extends ORM implements ModelListarInterface
 {
