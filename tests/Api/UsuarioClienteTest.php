@@ -28,17 +28,17 @@ final class UsuarioClienteTest extends Tests
     public function verificarSeEstaSalvandoUsuarioTest()
     {
         $this->api('usuario_cliente:salvar');
-        $this
+        $resposta = $this
             ->Curl
             ->loginPainel()
-            ->body($this->bodySalvar)->post('/usuario-cliente');
+            ->body($this->bodySalvar)->post('/usuario-cliente')
+            ->array();
 
         $this
             ->checkStatus(201)
             ->checkIndiceExiste('dado.id');
 
-        $resposta = $this->Curl->array();
-        $this->idUsuario = array_key_exists('dado', $resposta) ? $resposta['dado']['id'] : '';
+        $this->idUsuario = $resposta['dado']['id'] ?? 'sem-id';
         return $this;
     }
 
@@ -78,9 +78,9 @@ final class UsuarioClienteTest extends Tests
         $this->api('usuario_cliente:salvar');
 
         $body = $this->cryptEncode([
-            'nome'          => $this->nomeCompleto(),
+            'nome'          => nomeCompletoAleatorio(),
             'cpf'           => $this->bodySalvar['cpf'],
-            'email_pessoal' => $this->email(),
+            'email_pessoal' => emailAleatorio(),
             'status'        => 'inativo',
         ], lista: ['nome', 'email_pessoal', 'status']);
 
@@ -100,8 +100,8 @@ final class UsuarioClienteTest extends Tests
         $this->api('usuario_cliente:salvar');
 
         $body = $this->cryptEncode([
-            'nome'          => $this->nomeCompleto(),
-            'cpf'           => $this->cpf(),
+            'nome'          => nomeCompletoAleatorio(),
+            'cpf'           => cpfAleatorio(),
             'email_pessoal' => $this->bodySalvar['email_pessoal'],
             'status'        => 'inativo',
         ], ['nome', 'cpf', 'status']);
@@ -122,8 +122,8 @@ final class UsuarioClienteTest extends Tests
         $this->api('usuario_cliente:salvar');
 
         $body = $this->cryptEncode([
-            'nome'           => $this->nomeCompleto(),
-            'cpf'            => $this->cpf(),
+            'nome'           => nomeCompletoAleatorio(),
+            'cpf'            => cpfAleatorio(),
             'email_trabalho' => $this->bodySalvar['email_trabalho'],
             'status'         => 'inativo',
         ], ['nome', 'cpf', 'status']);
@@ -173,9 +173,9 @@ final class UsuarioClienteTest extends Tests
         $this->api('usuario_cliente:salvar');
 
         $body = $this->cryptEncode([
-            'nome'           => $this->nomeCompleto(),
-            'cpf'            => $this->cpf(),
-            'email_trabalho' => $this->email(),
+            'nome'           => nomeCompletoAleatorio(),
+            'cpf'            => cpfAleatorio(),
+            'email_trabalho' => emailAleatorio(),
             'grupo'          => 'grupo_invalido',
             'status'         => 'inativo',
         ], Helper::CRIPTOGRAFAR);
@@ -197,9 +197,9 @@ final class UsuarioClienteTest extends Tests
         $this->api('usuario_cliente:salvar');
 
         $body = $this->cryptEncode([
-            'nome'             => $this->nomeCompleto(),
-            'cpf'              => $this->cpf(),
-            'email_trabalho'   => $this->email(),
+            'nome'             => nomeCompletoAleatorio(),
+            'cpf'              => cpfAleatorio(),
+            'email_trabalho'   => emailAleatorio(),
             'trabalho_empresa' => 'nome_invalido',
             'status'           => 'inativo',
         ], Helper::CRIPTOGRAFAR);
@@ -221,9 +221,9 @@ final class UsuarioClienteTest extends Tests
         $this->api('usuario_cliente:salvar');
 
         $body = $this->cryptEncode([
-            'nome'           => $this->nomeCompleto(),
-            'cpf'            => $this->cpf(),
-            'email_trabalho' => $this->email(),
+            'nome'           => nomeCompletoAleatorio(),
+            'cpf'            => cpfAleatorio(),
+            'email_trabalho' => emailAleatorio(),
             'trabalho_cargo' => 'nome_invalido',
             'status'         => 'inativo',
         ], Helper::CRIPTOGRAFAR);
@@ -434,7 +434,7 @@ final class UsuarioClienteTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body(['nome' => $this->cryptEncode($this->nomeCompleto())])
+            ->body(['nome' => $this->cryptEncode(nomeCompletoAleatorio())])
             ->put('/usuario-cliente/1');
 
         return $this
@@ -462,34 +462,33 @@ final class UsuarioClienteTest extends Tests
     */
     private function criarBodyUsuario(array $campo = [])
     {
-        $estado = $this->estado();
         $completo = [
-            'nome'                 => $this->nomeCompleto(),
-            'cpf'                  => $this->cpf(),
-            'matricula'            => $this->numero(100000, 999999),
-            'siape'                => $this->numero(100000, 999999),
-            'genero'               => $this->genero(),
-            'data_nascimento'      => $this->dataPassada(),
-            'email_trabalho'       => $this->email(),
-            'email_pessoal'        => $this->email(),
-            'telefone_trabalho'    => $this->telefoneFixo(),
-            'telefone_pessoal'     => $this->telefoneCelular(),
-            'senha'                => $this->senha(),
-            'primeiro_acesso'      => $this->simNao(),
-            'mudar_senha'          => $this->simNao(),
-            'estado_civil'         => $this->estadoCivil(),
-            'endereco_cep'         => $this->cep(),
-            'endereco_logradouro'  => $this->logradouro(),
-            'endereco_numero'      => $this->numero(),
-            'endereco_complemento' => $this->complemento(),
-            'endereco_bairro'      => $this->bairro(),
-            'endereco_estado'      => $estado,
-            'endereco_cidade'      => $this->cidade($estado),
+            'nome'                 => nomeCompletoAleatorio(),
+            'cpf'                  => cpfAleatorio(),
+            'matricula'            => numeroAleatorio(100000, 999999),
+            'siape'                => numeroAleatorio(100000, 999999),
+            'genero'               => generoAleatorio(),
+            'data_nascimento'      => dataPassadaAleatorio(),
+            'email_trabalho'       => emailAleatorio(),
+            'email_pessoal'        => emailAleatorio(),
+            'telefone_trabalho'    => telefoneFixoAleatorio(),
+            'telefone_pessoal'     => telefoneCelularAleatorio(),
+            'senha'                => senhaAleatorio(),
+            'primeiro_acesso'      => simNaoAleatorio(),
+            'mudar_senha'          => simNaoAleatorio(),
+            'estado_civil'         => estadoCivilAleatorio(),
+            'endereco_cep'         => cepAleatorio(),
+            'endereco_logradouro'  => logradouroAleatorio(),
+            'endereco_numero'      => numeroAleatorio(),
+            'endereco_complemento' => complementoAleatorio(),
+            'endereco_bairro'      => bairroAleatorio(),
+            'endereco_estado'      => estadoAleatorio(),
+            'endereco_cidade'      => cidadeAleatorio(),
             'situacao'             => $this->random(['ativo', 'aposentado']),
             'trabalho_empresa'     => 'marktclub',
             'trabalho_cargo'       => 'desenvolvedor',
             'tipo_pagamento'       => 'cartao-credito',
-            'trabalho_data_inicio' => $this->dataPassada(),
+            'trabalho_data_inicio' => dataPassadaAleatorio(),
             'grupo'                => 'teste-01',
             'status'               => $this->random(['ativo', 'inativo'])
         ];
