@@ -56,7 +56,7 @@ return [
                 'titulo' => 'Automóvel', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar']
             ],
             'parceiro_cupom' => [
-                'titulo' => 'Cupom', 'acao' => ['index', 'add', 'visualizar', 'deletar']
+                'titulo' => 'Cupom', 'acao' => ['index', 'status', 'visualizar', 'deletar']
             ],
             'solicitacao_loja'       => ['titulo' => 'Solicitação Loja', 'acao' => ['index', 'visualizar', 'status']],
             'relatorio_acesso'       => [

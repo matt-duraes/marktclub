@@ -29,7 +29,7 @@ class CupomModel extends ORM
     {
         $dado = $this
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'id_parceiro_loja'])
+            ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'status', 'id_parceiro_loja'])
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
@@ -52,7 +52,7 @@ class CupomModel extends ORM
                 'categoria' => (new Categoria($item->categoria))->indice(),
                 'link'      => $item->link,
                 'validade'  => $item->validade,
-                'auditado'  => (new Auditado($item->auditado))->indice(),
+                'status'    => (new Auditado($item->status))->indice(),
             ];
         }
         return $retorno;

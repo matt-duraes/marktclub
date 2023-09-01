@@ -44,7 +44,7 @@ final class ParceiroCupomController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Cupom,
-                lista: ['parceiro', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado']
+                lista: ['parceiro', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'status']
             )
         );
     }

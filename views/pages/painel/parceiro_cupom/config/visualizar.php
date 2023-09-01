@@ -20,20 +20,20 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('categoria', 'Categoria')
             ->linha('link', 'Link')
             ->dataHora('validade', 'Validade')
-            ->linha('auditado', 'Auditado');
+            ->linha('status', 'Status');
     });
 
     $Painel->status(
-        campo: 'auditado',
+        campo: 'status',
         texto: 'Auditado',
-        inArray: ['Não'],
+        inArray: ['Não auditado'],
         status: 'auditado',
         mensagem: 'Tem certeza que deseja marcar como auditado?',
         cor: 'vermelho'
     );
 });
 
-$Painel->replace('auditado', (new Auditado())->select());
+$Painel->replace('status', (new Auditado())->select());
 $Painel->replace('categoria', (new Categoria())->select());
 
 return $Painel;

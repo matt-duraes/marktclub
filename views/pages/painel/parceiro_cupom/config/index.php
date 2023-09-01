@@ -10,4 +10,4 @@ return $Painel
     ->campo('descricao', 'Descrição', 'grande')
     ->campo('cupom', 'Cupom', 'grande')
     ->campo('validade', 'Validade', 'grande')
-    ->status('auditado', 'auditado', new Auditado());
+    ->status('status', 'Status', new Auditado());

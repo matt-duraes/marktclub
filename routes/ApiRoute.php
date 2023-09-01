@@ -931,7 +931,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
             ::request([
-                'auditado'
+                'status'
             ])
             ::put('/parceiro-cupom/{id}');
         Route

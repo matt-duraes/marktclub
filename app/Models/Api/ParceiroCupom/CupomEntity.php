@@ -5,7 +5,6 @@ namespace App\Models\Api\ParceiroCupom;
 use App\Classes\ParceiroCupom\Auditado;
 use App\Classes\ParceiroLoja\Categoria;
 use Helpers\OrmHelper;
-use Modules\Data;
 use Modules\DataHora;
 use ORM\Entity;
 
@@ -14,13 +13,13 @@ class CupomEntity extends Entity
     protected string $ormTabela = TABELA_PARCEIRO_CUPOM;
     protected array $ormBuscar = [
         'id_parceiro_loja', 'descricao', 'cupom', 'desconto',
-        'categoria', 'link', 'validade', 'auditado'
+        'categoria', 'link', 'validade', 'status'
     ];
     protected array $ormSalvar = [
-        'auditado'
+        'status'
     ];
     protected string $ormValidarSalvar = '
-        auditado|Auditado|obrigatorio|vazio|valido
+        status|Status|obrigatorio|vazio|valido
     ';
     protected int $id_parceiro_loja;
     public array|string $parceiro;
@@ -30,7 +29,7 @@ class CupomEntity extends Entity
     public Categoria $categoria;
     public string $link;
     public DataHora $validade;
-    public Auditado $auditado;
+    public Auditado $status;
 
     protected function regraPosBuscar()
     {
@@ -47,18 +46,18 @@ class CupomEntity extends Entity
         if (!$parceiro) {
             return $this->parceiro = [
                 'id'     => '',
-                'nome' => 'Sem parceiro',
+                'nome'   => 'Sem parceiro',
                 'imagem' => '',
-                'site' => '',
-                'url' => ''
+                'site'   => '',
+                'url'    => ''
             ];
         }
         $this->parceiro = [
             'id'     => $parceiro->uuid,
-            'nome' => $parceiro->titulo,
+            'nome'   => $parceiro->titulo,
             'imagem' => $parceiro->imagem,
-            'site' => $parceiro->site,
-            'url' => $parceiro->url
+            'site'   => $parceiro->site,
+            'url'    => $parceiro->url
         ];
     }
 }

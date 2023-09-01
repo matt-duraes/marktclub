@@ -6,18 +6,18 @@ use Status\Status as StatusStatus;
 
 final class Auditado extends StatusStatus
 {
-    public const NAO = 'nao';
-    public const SIM = 'sim';
+    public const NAO_AUDITADO = 'nao-auditado';
+    public const AUDITADO = 'auditado';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::NAO => 'Não',
-            self::SIM => 'Sim'
+            self::NAO_AUDITADO => 'Não auditado',
+            self::AUDITADO => 'Auditado'
         ], [
-            self::NAO => 'vermelho',
-            self::SIM => 'verde'
+            self::NAO_AUDITADO => 'vermelho',
+            self::AUDITADO => 'verde'
         ]);
     }
 }
