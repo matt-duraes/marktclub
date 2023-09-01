@@ -923,12 +923,10 @@ Route
                 'pagina', '!quantidade', '!ordem', '!empresa', '!status'
             ], 'json')
             ::get('/parceiro-cupom');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:buscar'])
             ::get('/parceiro-cupom/{id}');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
@@ -936,6 +934,10 @@ Route
                 'auditado'
             ])
             ::put('/parceiro-cupom/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
+            ::delete('/parceiro-cupom/{id}');
     });
 
 Route

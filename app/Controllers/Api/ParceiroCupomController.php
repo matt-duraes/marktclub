@@ -11,12 +11,14 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 
 final class ParceiroCupomController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface,
-    ControllerAtualizarInterface
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function getListar(Request $request): Response
     {
@@ -54,6 +56,15 @@ final class ParceiroCupomController extends Controller implements
         $Cupom->uuid($id);
         $Cupom->set(lista: $request->dado());
         $Cupom->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id): Response
+    {
+        $Cupom = new CupomEntity();
+        $Cupom->uuid($id);
+        $Cupom->destruir();
 
         return new Response(status: 204);
     }
