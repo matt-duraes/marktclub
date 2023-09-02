@@ -63,12 +63,13 @@ window.addEventListener('load', () => {
         body.append('endereco_complemento', inputComplemento.value);
         body.append('endereco_cidade', inputCidade.value);
 
+        Loading.show();
         const resposta = await fetch(LINK + '/perfil/salvar-dados', {
             method: 'POST',
             body,
         });
+        Loading.hide();
 
-        botaoSalvar.classList.remove('aguarde');
         if (resposta.status == 204) {
             Alerta.notificacao('Dados alterados com sucesso!', true);
             return;
