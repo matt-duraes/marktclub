@@ -59,7 +59,7 @@
             <p><i>@iconeMapa(15)</i>{{$r->estado}}</p>
         </div>
         @ endif;
-        @ if( $r->novo ):
+        @ if( $r->novo == 'sim' ):
         <div class="bloco_novo"><i>@iconeNovo(20)</i></div>
         @ endif;
 
