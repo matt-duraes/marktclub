@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Erro\Erro;
+use Throwable;
+use ORM\Entity;
+use Erro\Excecao;
+use Http\Request;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityBuscarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityInsertTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntitySalvarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityUpdateTrait;
 use App\Models\Api\UsuarioCliente\Trait\PropriedadeEntityTrait;
-use Erro\Erro;
-use Erro\Excecao;
-use Http\Request;
-use ORM\Entity;
-use Throwable;
 
 final class ClienteEntity extends Entity
 {
@@ -28,16 +28,12 @@ final class ClienteEntity extends Entity
     use EntityUpdateTrait;
 
     protected array $ormSalvar = [
-        'documento'        => '->cpf',
-        'sexo'             => '->genero',
         'telefone_celular' => '->telefone_pessoal',
         'telefone_fixo'    => '->telefone_trabalho',
-        'aniversario'      => '->data_nascimento',
-        'uf'               => '->endereco_estado',
-        'cidade'           => '->endereco_cidade',
         'salt'             => '->senha',
         'imagem'           => '->imagem_google',
         'trabalho_orgao'   => '->trabalho_empresa',
+        'cpf', 'genero', 'data_nascimento', 'endereco_estado', 'endereco_cidade',
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
