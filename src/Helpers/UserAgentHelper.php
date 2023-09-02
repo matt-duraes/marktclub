@@ -56,7 +56,7 @@ final class UserAgentHelper
         }
 
         $browscap = null;
-        if(true === ini_get("browscap")) {
+        if (true === ini_get('browscap')) {
             $browscap = get_browser($userAgent);
         }
         $browscap = !is_object($browscap) ? (object)[] : $browscap;

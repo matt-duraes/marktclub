@@ -5,7 +5,7 @@ $scope = [
 
     'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
     'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
-    'usuario_cliente:download', 'usuario_cliente:apple',
+    'usuario_cliente:download', 'usuario_cliente:apple', 'usuario_cliente:ativar',
 
     'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
 
@@ -41,6 +41,8 @@ $scope = [
     'admin:chave_publica', 'admin:chave_privada',
 
     'convenio_parceiro:destaque',
+
+    'endereco:salvar', 'endereco:atualizar', 'endereco:listar', 'endereco:buscar', 'endereco:deletar',
 
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',

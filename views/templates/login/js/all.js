@@ -70,18 +70,43 @@ const loadingLogin = () => {
 };
 
 const loadingBuscar = () => {
+    const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
 
     inputBuscar.focus();
 
-    const PaginaAtivar = new Pagina('ativar-conta', LINK + '/login/ativar', { id: '123' }, true, false, loadingAtivar);
-    botaoBuscar.addEventListener('click', () => {
+    botaoBuscar.addEventListener('click', async () => {
+        if (!(await validarInput(form))) {
+            return;
+        }
+        Loading.show();
+        const resposta = await ajaxPost(
+            LINK + '/login/buscar-conta',
+            {
+                busca: inputBuscar.value,
+            },
+            'Ocorre um erro ao buscar o usuário, por favor, tente novamente.'
+        );
+        Loading.hide();
+        if (false == resposta) {
+            return;
+        }
+        const PaginaAtivar = new Pagina(
+            'ativar-conta',
+            `${LINK}/login/ativar?id=${resposta.dado.id}&cpf=${resposta.dado.cpf}`,
+            undefined,
+            true,
+            false,
+            loadingAtivar
+        );
         PaginaAtivar.abrir();
     });
 };
 
 const loadingAtivar = () => {
+    const id = $('#input_ativar_id').value;
+    const cpf = $('#input_ativar_cpf').value;
     const inputNome = $('#input_nome');
     inputNome.focus();
 };

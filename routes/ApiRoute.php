@@ -307,6 +307,11 @@ Route
             ::nome('apple')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:apple'])
             ::post('/usuario-cliente/apple');
+        Route
+            ::nome('ativar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
+            ::request(['chave', 'valor', '!empresa'])
+            ::post('/usuario-cliente/ativar');
     });
 
 Route

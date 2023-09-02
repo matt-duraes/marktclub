@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Classes\SistemaEndereco;
+namespace App\Classes\UsuarioCliente;
 
 use Status\Status;
 
-class Tabela extends Status
+final class Hash extends Status
 {
-    public const LOJA = 'parceiro';
+    public const ATIVAR = 'ativar';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::LOJA       => 'Parceiro Loja',
+            self::ATIVAR     => 'Ativar'
         ]);
     }
 }

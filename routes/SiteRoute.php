@@ -80,10 +80,11 @@ Route
             ::view('/login/buscar-conta');
         Route
             ::nome('buscarConta')
-            ::request(['hash_validacao_captcha', 'usuario'])
+            ::request(['busca'])
             ::post('/login/buscar-conta');
         Route
             ::nome('ativar')
+            ::request(['id', 'cpf'])
             ::view('/login/ativar');
         Route
             ::nome('ativar')
@@ -476,6 +477,19 @@ Route
             ::nome('index')
             ::view('/sos-mulher');
     });
+
+Route
+    ::nome('endereco')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\EnderecoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::request(['id', 'tipo'])
+            ::post('/endereco');
+    });
+
 Route
     ::nome('site')
     ::middleware(ClubeMiddleware::class, 'buscar')

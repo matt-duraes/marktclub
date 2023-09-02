@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\SistemaEndereco;
+namespace ApiModel\Endereco;
 
 final class RaioModel
 {

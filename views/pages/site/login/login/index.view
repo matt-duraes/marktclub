@@ -30,7 +30,9 @@
 
         <div class="bloco_link">
             <div class="botao" tabindex="-1" id="botao_esqueceu_senha">Esqueceu sua senha?</div>
-            <a class="botao" tabindex="-1" href="" target="_blank" rel="noopener noreferrer">Não tem cadastro?</a>
+            @ if( !empty(LINK_CADASTRO) ):
+            <a class="botao" tabindex="-1" href="{!!LINK_CADASTRO!!}" target="_blank" rel="noopener noreferrer">Não tem cadastro?</a>
+            @ endif;
         </div>
         <div class="bloco_ativar">
             <div class="ativar" id="botao_ativar_conta">Primeiro acesso</div>

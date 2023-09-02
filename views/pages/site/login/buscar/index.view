@@ -5,7 +5,13 @@
             <p>Preencha os campos abaixo para buscar sua conta</p>
         </header>
 
-        @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Digite seu CPF')
+        @ if( $tipoSiape ):
+        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu SIAPE');
+        @ elseif( $tipoMatricula ):
+        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite sua matrícula');
+        @ else:
+        @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
+        @ endif;
 
         <div class="bloco_botao">
             <div class="botao" id="botao_buscar_usuario">Buscar</div>
