@@ -476,6 +476,19 @@ Route
             ::nome('index')
             ::view('/sos-mulher');
     });
+
+Route
+    ::nome('endereco')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\EnderecoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::request(['id', 'tipo'])
+            ::post('/endereco');
+    });
+
 Route
     ::nome('site')
     ::middleware(ClubeMiddleware::class, 'buscar')

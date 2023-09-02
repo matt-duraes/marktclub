@@ -68,14 +68,21 @@
 
     <div class="bloco_mapa display_none" id="bloco_mapa">
         <header>
-            <h1>Endereços</h1>
+            <h1 class="esqueleto">Endereço</h1>
             <div class="grow"></div>
-            <div class="botao display_none" id="botao_endereco_buscar">Buscar endereço <i>@iconeBusca(20)</i></div>
-            <a href="_blank" rel="nofollow noopener" id="botao_endereco_como_chegar" class="botao">Como Chegar <i>@iconeMapa(20)</i></a>
+            <div class="botao esqueleto" id="botao_endereco_buscar">Buscar endereço <i>@iconeBusca(20)</i></div>
+            <a href="" target="_blank" rel="nofollow noopener" id="botao_endereco_link" class="botao esqueleto">Como Chegar <i>@iconeMapa(20)</i></a>
         </header>
-        <div class="mapa" id="bloco_endereco_mapa"></div>
+        <div class="endereco esqueleto" id="bloco_endereco_texto"></div>
+        <div class="mapa_falso esqueleto display_none"></div>
+        <div class="mapa" id="bloco_endereco_google_map"></div>
     </div>
 
     @view site/geral/relacionado.view
 </div>
 @ endif;
+
+<!-- prettier-ignore -->
+<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+    ({key: "AIzaSyA8KZjnZT3zrHwBxK3cnIhc1giasJ6U6LI", v: "weekly"});</script>

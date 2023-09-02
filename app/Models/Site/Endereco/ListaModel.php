@@ -14,6 +14,8 @@ final class ListaModel extends ClubeApiHelper
     public array $pais = [];
     public array $estado = [];
     public array $cidade = [];
+    public int $quantidade = 0;
+    public bool $existe = false;
     private array $busca = [];
 
     public function __construct(
@@ -21,6 +23,7 @@ final class ListaModel extends ClubeApiHelper
         private Tipo $tipo,
         private Local $local
     ) {
+        sleep(3);
         parent::__construct();
         $this->buscarDado();
         $this->montarEndereco();
@@ -79,9 +82,10 @@ final class ListaModel extends ClubeApiHelper
 
     private function setarEndereco($r)
     {
-        return (object)[
+        $this->quantidade++;
+        return [
             'id'        => $r->id,
-            'endereco'  => $r->completo,
+            'endereco'  => $r->titulo . ' - ' . $r->completo,
             'latitude'  => $r->latitude,
             'longitude' => $r->longitude,
             'link'      => 'https://www.google.com.br/maps/dir//' . $r->latitude . ',%20' . $r->longitude
@@ -90,6 +94,17 @@ final class ListaModel extends ClubeApiHelper
 
     private function enderecoPrincipal()
     {
-        $this->principal = $retorno[0] ?? [];
+        if (empty($this->endereco)) {
+            return;
+        }
+        $item = $this->endereco;
+        for ($i = 0; $i < 4; $i++) {
+            $item = reset($item);
+            if (array_key_exists('id', $item)) {
+                $this->existe = true;
+                $this->principal = $item;
+                break;
+            }
+        }
     }
 }
