@@ -6,11 +6,11 @@
         </header>
 
         @ if( $tipoSiape ):
-        @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Digite seu SIAPE');
+        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu SIAPE');
         @ elseif( $tipoMatricula ):
-        @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Digite sua matrícula');
+        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite sua matrícula');
         @ else:
-        @? formCpf(name: 'buscar', label: 'Buscar', placeholder: 'Digite seu CPF')
+        @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
         @ endif;
 
         <div class="bloco_botao">

@@ -2,22 +2,24 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\UsuarioCliente\Helper;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\UsuarioCliente\AppleModel;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\UsuarioCliente\ClienteModel;
-use App\Models\Api\UsuarioCliente\DeletarModel;
-use App\Models\Api\UsuarioCliente\DownloadModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\UsuarioCliente\Helper;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Api\UsuarioCliente\AppleModel;
+use App\Models\Api\UsuarioCliente\AtivarModel;
+use App\Models\Api\UsuarioCliente\ClienteModel;
+use App\Models\Api\UsuarioCliente\DeletarModel;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\UsuarioCliente\DownloadModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioClienteController extends Controller implements
     ControllerSalvarInterface,
@@ -160,5 +162,19 @@ final class UsuarioClienteController extends Controller implements
     {
         new AppleModel();
         return mensagemSucesso(['id' => uuid()], status: 201);
+    }
+
+    public function postAtivar(Request $request): Response
+    {
+        $Ativar = new AtivarModel(
+            chave: new TipoAtivacao($request->chave),
+            valor: $request->valor,
+            empresa: $request->empresa
+        );
+
+        return mensagemSucesso([
+            'id'  => $Ativar->id,
+            'cpf' => $Ativar->cpf->valor()
+        ], 201);
     }
 }

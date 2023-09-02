@@ -13,6 +13,16 @@ return [
         'status'            => 1
     ],
     [
+        'id'                => 104,
+        'cod'               => uuid(),
+        'empresa'           => 1,
+        'tipo'              => 1,
+        'nome'              => 'Usuário para ativar',
+        'documento'         => '44609809087',
+        'email_pessoal'     => emailAleatorio(),
+        'status'            => 2
+    ],
+    [
         'id'                => 2,
         'cod'               => '87cd8f94-601e-4e8e-b800-7f42a75fc0e1',
         'empresa'           => 1,

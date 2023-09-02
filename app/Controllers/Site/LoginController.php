@@ -57,14 +57,31 @@ final class LoginController extends Controller
 
     public function postBuscarConta(Request $request): Response
     {
-        return new Response(json: [
-            'status' => 'sucesso'
+        $buscar = (new ApiHelper('usuario_cliente:ativar'))
+            ->validar('Ocorreu um erro ao buscar seu usuário, por favor, tente novamente.')
+            ->body([
+                'chave'   => TIPO_ATIVACAO,
+                'valor'   => $request->busca,
+                'empresa' => EMPRESA_ID
+            ])
+            ->post('/usuario-cliente/ativar')
+            ->object();
+
+        return mensagemSucesso([
+            'id'  => $buscar->dado->id,
+            'cpf' => $buscar->dado->cpf
         ], status: 201);
     }
 
-    public function ativar(): Response
+    public function ativar(Request $request): Response
     {
-        return view('login.ativar');
+        if ($request->vazio('id') || $request->vazio('cpf')) {
+            mensagemStatus(404);
+        }
+        return view('login.ativar', [
+            'id'  => $request->id,
+            'cpf' => $request->cpf
+        ]);
     }
 
     public function postAtivar(Request $request): Response

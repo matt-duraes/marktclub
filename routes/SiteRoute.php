@@ -80,10 +80,11 @@ Route
             ::view('/login/buscar-conta');
         Route
             ::nome('buscarConta')
-            ::request(['hash_validacao_captcha', 'usuario'])
+            ::request(['busca'])
             ::post('/login/buscar-conta');
         Route
             ::nome('ativar')
+            ::request(['id', 'cpf'])
             ::view('/login/ativar');
         Route
             ::nome('ativar')
