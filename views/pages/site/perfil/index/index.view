@@ -15,7 +15,7 @@
                 <article>
                 <button id="botao_vincular_google" type="button" class="google">
                     <div class="logo_google">
-                        <img src="https://clube.marktclub.com.br/images/google.svg">
+                        @iconeGoogleColorido()
                     </div>
                     <span class="texto" id="foto_google">
                         Vincular foto

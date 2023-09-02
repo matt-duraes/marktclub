@@ -480,6 +480,21 @@ if (!function_exists('iconeGoogle')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M20.4,17.1V24H32c-0.5,2.9-3.5,8.6-11.6,8.6c-7,0-12.7-5.7-12.7-12.6c0-7,5.7-12.6,12.7-12.6 c4,0,6.6,1.7,8.1,3.1l5.5-5.2C30.5,2,25.9,0,20.4,0C9.1,0,0,8.9,0,20c0,11.1,9.1,20,20.4,20C32.2,40,40,31.9,40,20.5 c0-1.3-0.1-2.3-0.3-3.3H20.4L20.4,17.1z"/></svg>';
     }
 }
+if (!function_exists('iconeGoogleColorido')) {
+    // doc
+    // exemplo
+    // echo iconeGoogleColorido
+    /**
+     * Gera um icone do Google
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeGoogleColorido(int $tamanho = 14): string
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 19.5 20" style="enable-background:new 0 0 19.5 20;" xml:space="preserve"><path style="fill:#FBBC05;" d="M4.1,10c0-0.6,0.1-1.3,0.3-1.9L1,5.6C0.4,6.9,0,8.4,0,10c0,1.6,0.4,3.1,1,4.4l3.4-2.6C4.2,11.3,4.1,10.6,4.1,10z"/><path style="fill:#34A853;" d="M13.3,15c-0.9,0.6-2,0.9-3.3,0.9c-2.6,0-4.8-1.7-5.6-4.1L1,14.4c1.6,3.3,5,5.6,9,5.6c2.4,0,4.8-0.9,6.5-2.5L13.3,15z"/><path style="fill:#EA4335;" d="M1,5.6l3.4,2.6c0.8-2.4,3-4.1,5.6-4.1c1.4,0,2.7,0.5,3.7,1.3l2.9-2.9C14.8,1,12.5,0,10,0C6,0,2.7,2.3,1,5.6z"/><path style="fill:#4285F4;" d="M10,8.2V12h5.4c-0.3,1.3-1,2.3-2.1,3l3.2,2.5c1.8-1.7,3-4.2,3-7.5c0-0.6-0.1-1.2-0.2-1.8H10z"/></svg>';
+    }
+}
 if (!function_exists('iconeGithub')) {
     // doc
     // exemplo
