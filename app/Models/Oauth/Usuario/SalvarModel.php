@@ -47,7 +47,7 @@ final class SalvarModel extends ORM
      */
     private function pegarLinkClube(): void
     {
-        $this->linkClube = (new OrmHelper(TABELA_CONSTRUTOR_CLUBE))->pegarCampoPor(
+        $this->linkClube = (new OrmHelper(TABELA_CONSTRUTOR_CLUBE, livre: true))->pegarCampoPor(
             campo: 'link_clube',
             where: [
                 ['empresa', $this->empresa],
