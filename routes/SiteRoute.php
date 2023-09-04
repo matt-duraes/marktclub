@@ -116,6 +116,20 @@ Route
             ::view('/');
     });
 Route
+    ::nome('analytics')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\AnalyticsController::class)
+    ::grupo(function () {
+        Route
+            ::nome('pagina')
+            ::request(['uri', 'vinculo'])
+            ::post('/a/pagina');
+        Route
+            ::nome('click')
+            ::post('/a/acao');
+    });
+Route
     ::nome('historico')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')

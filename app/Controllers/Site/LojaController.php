@@ -63,6 +63,7 @@ final class LojaController extends Controller
         );
 
         $Filtro = new FiltroModel($request);
+
         return view('loja.index', [
             'menu'   => 'loja',
             'Busca'  => $Filtro,
