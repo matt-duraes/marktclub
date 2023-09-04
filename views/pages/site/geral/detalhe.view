@@ -67,7 +67,7 @@
     </div>
     @endif
 
-    <div class="bloco_mapa display_none" id="bloco_mapa">
+    <div class="bloco_mapa" id="bloco_mapa">
         <header>
             <h1 class="esqueleto">Endereço</h1>
             <div class="grow"></div>

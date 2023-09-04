@@ -4,12 +4,12 @@ namespace Helpers;
 
 final class UserAgentHelper
 {
-    private string $dispositivo;
-    private string $os;
-    private string $navegador;
-    private string $versao;
-    private bool $mobile;
-    private bool $tablet;
+    private string $dispositivo = 'Não identificado';
+    private string $os = 'Não identificado';
+    private string $navegador = 'Não identificado';
+    private string $versao = '0';
+    private bool $mobile = false;
+    private bool $tablet = false;
 
     public function dispositivo()
     {

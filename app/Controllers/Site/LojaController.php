@@ -47,6 +47,17 @@ final class LojaController extends Controller
      */
     public function index(Request $request): Response
     {
+        $Filtro = new FiltroModel($request);
+        return view('loja.index', [
+            'menu'   => 'loja',
+            'Busca'  => $Filtro,
+            'todos'  => empty($request->dado()),
+            'banner' => []
+        ]);
+    }
+
+    public function lista(Request $request)
+    {
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
             quantidade: new Inteiro(24),
@@ -62,15 +73,7 @@ final class LojaController extends Controller
             acessado: new Botao($request->acessado)
         );
 
-        $Filtro = new FiltroModel($request);
-
-        return view('loja.index', [
-            'menu'   => 'loja',
-            'Busca'  => $Filtro,
-            'lista'  => $Lista->listarDados(),
-            'todos'  => empty($request->dado()),
-            'banner' => []
-        ]);
+        return mensagemSucesso($Lista->listarDados());
     }
 
     /**
