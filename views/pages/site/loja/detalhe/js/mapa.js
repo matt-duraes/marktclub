@@ -12,7 +12,6 @@ window.addEventListener('load', async () => {
     const EsqueletoMapa = new Esqueleto(blocoMapa, '.esqueleto');
 
     const buscarEndereco = async () => {
-        EsqueletoMapa.show();
         const resposta = await ajaxPost(
             LINK + '/endereco',
             {
@@ -21,11 +20,12 @@ window.addEventListener('load', async () => {
             },
             ''
         );
-        EsqueletoMapa.hide();
+
         if (false == resposta || false === resposta.dado.existe) {
             blocoMapa.classList.add('display_none');
             return;
         }
+        blocoMapa.classList.remove('display_none');
         const dado = resposta.dado;
 
         if (dado.quantidade > 1) {
@@ -37,7 +37,7 @@ window.addEventListener('load', async () => {
         botaoLink.setAttribute('href', dado.principal.link);
         adicionarEndereco(dado.principal.latitude, dado.principal.longitude);
     };
-    buscarEndereco();
+    buscarEndereco(false);
     const setarFormulario = () => {
         botaoBuscar.classList.add('display_none');
     };
