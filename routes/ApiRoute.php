@@ -688,6 +688,16 @@ Route
 
         Route
             ::nome('analytics')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:salvar'])
+            ::request([
+                'vinculo', 'usuario_tipo', 'usuario_nome', 'usuario_cpf', 'hash', 'dispositivo',
+                'os', 'browser', 'versao', 'mobile', 'tablet', 'ip', 'agent', 'pais', 'estado',
+                'cidade', 'latitude', 'longitude', 'url'
+            ])
+            ::post('/relatorio/analytics');
+
+        Route
+            ::nome('analytics')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:listar'])
             ::request(['!pagina', '!quantidade', '!usuario', '!de', '!ate'], 'json')
             ::request(['!de', '!ate'], 'get')
