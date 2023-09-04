@@ -52,7 +52,7 @@
         </p>
     </div>
 
-    <a class="botao_loja" href="@route('loja.index')?categoria=outros&subcategoria=sos-mulher">
+    <a class="botao_loja" href="@route('loja.index')?subcategoria=sos-mulher">
         @iconeBuscar(20)
         ENCONTRAR PARCEIROS
     </a>
