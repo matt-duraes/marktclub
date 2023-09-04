@@ -244,6 +244,12 @@ Route
             ::nome('index')
             ::view('/convenios');
         Route
+            ::nome('listar')
+            ::request([
+                '!pagina', 'tipo', 'estado', 'categoria', 'subcategoria', 'estabelecimento', 'pesquisa', 'ordem'
+            ])
+            ::post('/convenios/listar');
+        Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route

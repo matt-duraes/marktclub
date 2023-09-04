@@ -48,6 +48,7 @@ final class LojaController extends Controller
     public function index(Request $request): Response
     {
         $Filtro = new FiltroModel($request);
+
         return view('loja.index', [
             'menu'   => 'loja',
             'Busca'  => $Filtro,
@@ -56,13 +57,13 @@ final class LojaController extends Controller
         ]);
     }
 
-    public function lista(Request $request)
+    public function postListar(Request $request)
     {
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
             quantidade: new Inteiro(24),
             favorito: new Botao($request->favorito),
-            tipo: new Tipo(Tipo::LOJA),
+            tipo: new Tipo($request->tipo),
             ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito'),
             categoria: new Categoria($request->categoria),
             subcategoria: $request->subcategoria,
@@ -72,7 +73,6 @@ final class LojaController extends Controller
             longitude: $request->longitude,
             acessado: new Botao($request->acessado)
         );
-
         return mensagemSucesso($Lista->listarDados());
     }
 
