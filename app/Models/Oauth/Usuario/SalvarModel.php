@@ -50,8 +50,8 @@ final class SalvarModel extends ORM
         $this->linkClube = (new OrmHelper(TABELA_CONSTRUTOR_CLUBE, livre: true))->pegarCampoPor(
             campo: 'link_clube',
             where: [
-                ['empresa', $this->empresa],
-                ['status', Status::ATIVO]
+                ['id_admin_empresa', $this->empresa],
+                ['status', (new Status(Status::ATIVO))->numero()]
             ]
         );
     }
