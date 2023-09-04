@@ -56,7 +56,7 @@ final class FenaeController extends Controller
             return new Response(url: $Login->pegarLink());
         } catch (\Throwable) {
             $this->limparTemporario();
-            return new Response(url: $Token->pegarLinkErro());
+            return new Response(url: env('FENAE_CLUBE') . '?erro=login-erro');
         }
     }
 
