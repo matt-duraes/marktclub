@@ -150,7 +150,7 @@ const salvarChequeBonus = () => {
         }
         Alerta.mensagem(
             'Solicitação enviada',
-            'O cheque bônus foi solicitado com sucesso e será encaminhada para seu e-mail após a emissão do documento.',
+            'A cheque bônus foi solicitada com sucesso e será encaminhada para seu e-mail após assinatura do documento, em até 8h úteis.',
             true
         );
         PaginaGeral.fechar();
