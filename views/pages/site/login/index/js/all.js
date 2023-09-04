@@ -207,7 +207,6 @@ window.addEventListener('load', () => {
         containerConteudo.style.animation = 'fecharCalculadora 1s ease forwards';
 
         const targetElement = document.querySelector('#bloco_login .bloco_calculadora .container .topo');
-        const targetOffset = targetElement.offsetTop;
 
         const resultado = document.querySelector('.resultado');
         if (resultado) {
@@ -220,11 +219,6 @@ window.addEventListener('load', () => {
         const abrir = document.getElementById('abrir');
         abrir.classList.remove('esconde');
 
-        // window.scrollTo({
-        //     top: targetOffset - 100,
-        //     behavior: 'smooth',
-        // });
-
         const fecharCalculadora = document.querySelector('.bloco_calculadora .container .fechar');
         fecharCalculadora.classList.add('esconde');
 
@@ -235,112 +229,75 @@ window.addEventListener('load', () => {
         }, 1000);
     });
 
-    BODY.addEventListener('click', function (e) {
-        if (e.target.id === 'calcular') {
-            e.preventDefault();
+    const botaoCalcular = $('#botao_calculadora');
+    const inputAcademia = $('#input_calculadora_academia');
+    const inputEscola = $('#input_calculadora_escola');
+    const inputFarmacia = $('#input_calculadora_farmacia');
+    const inputEletro = $('#input_calculadora_eletroeletronico');
+    const inputIdioma = $('#input_calculadora_idioma');
+    const inputRestaurante = $('#input_calculadora_restaurante');
+    const blocoCalculadoraResposta = $('#bloco_calculadora_resposta');
+    const blocoCalculadoraValor = $('#bloco_calculadora_valor');
+    const blocoCalculadoraForm = $('#bloco_calculadora_form');
+    const botaoCalculadoraResetar = $('#bloco_calculadora_resetar');
+    const blocoCalculadoraGeral = $('#bloco_calculadora_geral');
 
-            const form = e.target.closest('form');
-            const link = form.getAttribute('action');
+    if (botaoCalcular) {
+        botaoCalcular.addEventListener('click', e => {
+            calcularDesconto();
+        });
+    }
+    const calcularDesconto = () => {
+        let valor = 0;
+        valor += somarValorDesconto(inputAcademia, 10);
+        valor += somarValorDesconto(inputEscola, 20);
+        valor += somarValorDesconto(inputFarmacia, 8);
+        valor += somarValorDesconto(inputEletro, 5);
+        valor += somarValorDesconto(inputIdioma, 15);
+        valor += somarValorDesconto(inputRestaurante, 10);
 
-            const academia = document.querySelector('input[name=academia]', form).value;
-            const escolaCreche = document.querySelector('input[name=escola_creche]', form).value;
-            const farmacia = document.querySelector('input[name=farmacia]', form).value;
-            const eletroeletronico = document.querySelector('input[name=eletroeletronico]', form).value;
-            const idioma = document.querySelector('input[name=idioma]', form).value;
-            const restaurante = document.querySelector('input[name=restaurante]', form).value;
-
-            Loading.show();
-
-            const data = {
-                ajax: true,
-                academia,
-                // eslint-disable-next-line camelcase
-                escola_creche: escolaCreche,
-                farmacia,
-                eletroeletronico,
-                idioma,
-                restaurante,
-            };
-
-            fetch(link, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => response.json())
-                .then(resposta => {
-                    if (resposta.erro === false) {
-                        const blocoCalculadoraConteudo = document.querySelector(
-                            '.bloco_calculadora .container .conteudo'
-                        );
-                        blocoCalculadoraConteudo.classList.add('esconde');
-
-                        const container = document.querySelector('.bloco_calculadora .container');
-                        container.innerHTML += `
-                            <div class="resultado">
-                            <h2>
-                                <span>Você economizará em média</span>
-                            </h2>
-                            <strong class="color_cor">R$ ${resposta.resultado} ao ano</strong>
-                            <div class="novamente">
-                                <p>Calcular novamente</p>
-                            </div>
-                            </div>
-                        `;
-
-                        const conteudoBody = document.body.getBoundingClientRect().top;
-                        const resultadoRect = document
-                            .querySelector('#bloco_login .bloco_calculadora .container .resultado')
-                            .getBoundingClientRect().top;
-
-                        window.scrollTo({
-                            top: resultadoRect - conteudoBody,
-                            behavior: 'smooth',
-                        });
-                        limparFormulario();
-                    } else {
-                        Alerta.mensagem(resposta.titulo, resposta.texto);
-                    }
-                })
-                .catch(error => {
-                    Alerta.mensagem('Erro', error.message);
-                })
-                .finally(() => {
-                    Loading.hide();
-                });
-
-            return false;
+        if (valor == 0) {
+            Alerta.notificacao('Você deve passar o valor de pelo menos um item para fazer o calculo.', false);
+            return;
         }
-    });
 
-    BODY.addEventListener('click', function (e) {
-        if (e.target.classList.contains('novamente')) {
-            const blocoCalculadoraConteudo = document.querySelector('.bloco_calculadora .container .conteudo');
-            blocoCalculadoraConteudo.classList.remove('esconde');
+        valor = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(valor);
 
-            const abrir = document.getElementById('abrir');
-            abrir.classList.add('esconde');
+        blocoCalculadoraForm.classList.add('esconde');
+        blocoCalculadoraResposta.classList.remove('display_none');
+        blocoCalculadoraValor.innerText = valor;
 
-            const resultado = document.querySelector('.bloco_calculadora .container .resultado');
-            if (resultado) {
-                resultado.remove();
-            }
-
-            const fecharCalculadora = document.querySelector('.bloco_calculadora .container .fechar');
-            fecharCalculadora.classList.remove('esconde');
-
-            const conteudoBody = document.body.getBoundingClientRect().top;
-            const conteudoRect = document
-                .querySelector('#bloco_login .bloco_calculadora .container .conteudo')
-                .getBoundingClientRect().top;
-
-            // window.scrollTo({
-            //     top: conteudoRect - conteudoBody,
-            //     behavior: 'smooth',
-            // });
+        blocoCalculadoraGeral.scrollIntoView({ behavior: 'smooth' });
+        inputAcademia.value = '';
+        inputEscola.value = '';
+        inputFarmacia.value = '';
+        inputEletro.value = '';
+        inputIdioma.value = '';
+        inputRestaurante.value = '';
+    };
+    const somarValorDesconto = (input, porcentagem) => {
+        const valor = input.value.replace(/\./g, '').replace(',', '.');
+        if (!/^[0-9]{1,}\.[0-9]{2}$/.test(valor)) {
+            return 0;
         }
+        return valor * (porcentagem / 100);
+    };
+
+    botaoCalculadoraResetar.addEventListener('click', function () {
+        blocoCalculadoraForm.classList.remove('esconde');
+
+        const abrir = document.getElementById('abrir');
+        abrir.classList.add('esconde');
+
+        blocoCalculadoraResposta.classList.add('display_none');
+
+        const fecharCalculadora = document.querySelector('.bloco_calculadora .container .fechar');
+        fecharCalculadora.classList.remove('esconde');
     });
 
     const carregarFuncaoContato = () => {
