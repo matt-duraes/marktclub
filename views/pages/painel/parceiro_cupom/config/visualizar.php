@@ -2,6 +2,7 @@
 
 use App\Classes\ParceiroCupom\Auditado;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\Geral\Status;
 
 $Painel = new PainelConfig\Visualizar('parceiro_cupom');
 
@@ -20,11 +21,12 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('categoria', 'Categoria')
             ->linha('link', 'Link')
             ->dataHora('validade', 'Validade')
-            ->linha('status', 'Status');
+            ->linha('status', 'Status')
+            ->linha('auditado', 'Auditado');
     });
 
     $Painel->status(
-        campo: 'status',
+        campo: 'auditado',
         texto: 'Auditado',
         inArray: ['Não auditado'],
         status: 'auditado',
@@ -33,7 +35,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     );
 });
 
-$Painel->replace('status', (new Auditado())->select());
+$Painel->replace('auditado', (new Auditado())->select());
 $Painel->replace('categoria', (new Categoria())->select());
+$Painel->replace('status', (new Status())->select());
 
 return $Painel;

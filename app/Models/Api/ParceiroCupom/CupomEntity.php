@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ParceiroCupom;
 
+use App\Classes\Geral\Status;
 use App\Classes\ParceiroCupom\Auditado;
 use App\Classes\ParceiroLoja\Categoria;
 use Helpers\OrmHelper;
@@ -13,13 +14,14 @@ class CupomEntity extends Entity
     protected string $ormTabela = TABELA_PARCEIRO_CUPOM;
     protected array $ormBuscar = [
         'id_parceiro_loja', 'descricao', 'cupom', 'desconto',
-        'categoria', 'link', 'validade', 'status'
+        'categoria', 'link', 'validade', 'auditado', 'status'
     ];
     protected array $ormSalvar = [
-        'status'
+        'status', 'auditado'
     ];
     protected string $ormValidarSalvar = '
         status|Status|obrigatorio|vazio|valido
+        auditado|Auditado|obrigatorio|vazio|valido
     ';
     protected int $id_parceiro_loja;
     public array|string $parceiro;
@@ -29,7 +31,8 @@ class CupomEntity extends Entity
     public Categoria $categoria;
     public string $link;
     public DataHora $validade;
-    public Auditado $status;
+    public Status $status;
+    public Auditado $auditado;
 
     protected function regraPosBuscar()
     {

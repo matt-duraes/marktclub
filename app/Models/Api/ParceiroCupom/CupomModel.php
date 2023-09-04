@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ParceiroCupom;
 
+use App\Classes\Geral\Status;
 use App\Classes\ParceiroCupom\Auditado;
 use App\Classes\ParceiroLoja\Categoria;
 use stdClass;
@@ -29,7 +30,7 @@ class CupomModel extends ORM
     {
         $dado = $this
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'status', 'id_parceiro_loja'])
+            ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'status', 'id_parceiro_loja'])
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
@@ -52,7 +53,8 @@ class CupomModel extends ORM
                 'categoria' => (new Categoria($item->categoria))->indice(),
                 'link'      => $item->link,
                 'validade'  => $item->validade,
-                'status'    => (new Auditado($item->status))->indice(),
+                'status'    => (new Status($item->status))->indice(),
+                'auditado'  => (new Auditado($item->auditado))->indice(),
             ];
         }
         return $retorno;
