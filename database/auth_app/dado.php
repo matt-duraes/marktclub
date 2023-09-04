@@ -28,7 +28,7 @@ $scope = [
 
     'voucher:salvar', 'voucher:verificar', 'voucher:validar',
 
-    'relatorio_analytics:listar', 'relatorio_analytics:download',
+    'relatorio_analytics:listar', 'relatorio_analytics:download', 'relatorio_analytics:salvar',
 
     'relatorio_acesso:listar',
 
