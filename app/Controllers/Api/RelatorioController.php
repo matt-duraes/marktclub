@@ -7,6 +7,7 @@ use Modules\Data;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Api\Analytics\OsModel;
+use App\Models\Api\Analytics\SalvarModel;
 use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\LojaVendaModel;
@@ -139,6 +140,12 @@ final class RelatorioController extends Controller
     | ANALYTICS EXTERNO
     |--------------------------------------------------------------------------
     */
+    public function postAnalytics(Request $request)
+    {
+        new SalvarModel($request);
+        return mensagemSucesso(['id' => uuid()], status: 201);
+    }
+
     public function getAnalytics(Request $request)
     {
         $Relatorio = new AnalyticsModel($request);

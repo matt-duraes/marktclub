@@ -15,7 +15,7 @@ const salvarDeclaracao = async (parceiro, modelo, versao) => {
     }
     Alerta.mensagem(
         'Solicitação enviada',
-        'A declaração foi solicitada com sucesso e será encaminhada para seu e-mail após a emissão do documento.',
+        'A declaração foi solicitada com sucesso e será encaminhada para seu e-mail após assinatura do documento, em até 8h úteis.',
         true
     );
 };
