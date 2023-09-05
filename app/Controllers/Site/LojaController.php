@@ -9,6 +9,7 @@ use Modules\Botao;
 use Modules\Inteiro;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
@@ -47,11 +48,23 @@ final class LojaController extends Controller
      */
     public function index(Request $request): Response
     {
+        $Filtro = new FiltroModel($request);
+
+        return view('loja.index', [
+            'menu'   => 'loja',
+            'Busca'  => $Filtro,
+            'todos'  => empty($request->dado()),
+            'banner' => []
+        ]);
+    }
+
+    public function postListar(Request $request)
+    {
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
-            quantidade: new Inteiro(24),
+            quantidade: new Inteiro(3),
             favorito: new Botao($request->favorito),
-            tipo: new Tipo(Tipo::LOJA),
+            tipo: new Tipo($request->tipo),
             ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito'),
             categoria: new Categoria($request->categoria),
             subcategoria: $request->subcategoria,
@@ -59,18 +72,10 @@ final class LojaController extends Controller
             pesquisa: $request->pesquisa,
             latitude: $request->latitude,
             longitude: $request->longitude,
-            acessado: new Botao($request->acessado)
+            acessado: new Botao($request->acessado),
+            estado: new EnderecoEstado($request->estado)
         );
-
-        $Filtro = new FiltroModel($request);
-
-        return view('loja.index', [
-            'menu'   => 'loja',
-            'Busca'  => $Filtro,
-            'lista'  => $Lista->listarDados(),
-            'todos'  => empty($request->dado()),
-            'banner' => []
-        ]);
+        return mensagemSucesso($Lista->listarDados());
     }
 
     /**

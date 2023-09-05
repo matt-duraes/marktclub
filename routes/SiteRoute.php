@@ -238,11 +238,21 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::request(['!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem'])
+            ::request([
+                '!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem',
+                'latitude', 'longitude', 'acessado', 'favorito'
+            ])
             ::get('/convenios/buscar');
         Route
             ::nome('index')
             ::view('/convenios');
+        Route
+            ::nome('listar')
+            ::request([
+                '!pagina', 'tipo', 'latitude', 'longitude', 'acessado', 'favorito', 'estado', 'categoria',
+                'subcategoria', 'estabelecimento', 'pesquisa', 'ordem'
+            ])
+            ::post('/convenios/listar');
         Route
             ::nome('detalhe')
             ::view('/convenios/{url}');

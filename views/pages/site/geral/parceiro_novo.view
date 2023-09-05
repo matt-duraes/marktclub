@@ -1,0 +1,55 @@
+<div class="bloco_parceiro bloco_geral_article {{isset($Busca->mapa) && $Busca->mapa ? 'display_none' : ''}}" id="bloco_parceiro_lista">
+
+</div>
+<div class="bloco_geral_sem_resultado display_none" id="bloco_parceiro_zero">
+    <h1>Sem lojas por sua busca</h1>
+    <i>@iconeBuscar(50)</i>
+    <p>Não encontramos nenhuma loja pela busca, tente fazer uma nova busca ou limpar a busca atual</p>
+    <a href="@route('loja.index')" class="botao botao_geral_cor cor_bg">Limpar busca</a>
+    @ if( MENU_INDICAR_LOJA ):
+    <p>Caso não ache a loja que procura, nos indique a loja deseja</p>
+    <div class="botao botao_geral_borda botao_indicar_loja">Indicar uma loja</div>
+    @ endif;
+</div>
+<div class="bloco_parceiro bloco_geral_article display_none bloco_parceiro_loading" id="bloco_parceiro_loading">
+    @ laco(3)
+    <article class="parceiro">
+        <figure class="logo item_logo"><div class="esqueleto"></div></figure>
+        <header>
+            <h1 class="item_titulo esqueleto"></h1>
+        </header>
+        <p class="item_desconto esqueleto"></p>
+
+        <div class="bloco_estado esqueleto">
+        </div>
+
+        <div class="bloco_favorito esqueleto">
+        </div>
+    </article>
+    @ endlaco;
+</div>
+<div class="bloco_carregar_mais display_none" id="bloco_carregar_mais">
+    <div class="botao" id="botao_carregar_mais">Carregar mais</div>
+</div>
+<form class="display_none">
+    <article class="parceiro" id="parceiro_padrao_loja">
+        <a href="" class="item_link"></a>
+        <figure class="logo item_logo"></figure>
+        <header>
+            <h1 class="item_titulo"></h1>
+        </header>
+        <p class="item_desconto"></p>
+
+        <div class="bloco_estado display_none">
+            <p><i>@iconeMapa(15)</i><span class="item_estado"></span></p>
+        </div>
+        <div class="bloco_novo display_none item_novo"><i>@iconeNovo(20)</i></div>
+
+        <div class="bloco_favorito botao_favorito">
+            <i class="marcado">@iconeFavoritoMarcado</i>
+            <i class="desmarcado">@iconeFavorito</i>
+        </div>
+
+        <div class="linha cor_bg"></div>
+    </article>
+</form>
