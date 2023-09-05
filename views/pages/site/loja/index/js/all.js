@@ -15,11 +15,19 @@ const parceiroLoading = tipo => {
     const blocoErro = $('#bloco_parceiro_erro');
     const blocoZero = $('#bloco_parceiro_zero');
 
+    const blocoCarregarMais = $('#bloco_carregar_mais');
+    const botaoCarregarMais = $('#botao_carregar_mais');
+
     const loading = $$('.bloco_parceiro_loading article');
     loading.forEach(item => {
         const EsqueletoItem = new Esqueleto(item, '.esqueleto');
         EsqueletoItem.show();
     });
+
+    const inputLatitude = $('#input_latitude');
+    const inputLongitude = $('#input_longitude');
+    const inputAcessado = $('#input_acessado');
+    const inputFavorito = $('#input_favorito');
     const inputEstado = $('#input_estado');
     const inputCategoria = $('#input_categoria');
     const inputSubcategoria = $('#input_subcategoria');
@@ -30,11 +38,19 @@ const parceiroLoading = tipo => {
     let pagina = '';
     const buscarParceiro = async () => {
         blocoLoading.classList.remove('display_none');
+        blocoCarregarMais.classList.add('display_none');
+        if (pagina != '') {
+            pagina++;
+        }
         const resposta = await ajaxPost(
             LINK + '/convenios/listar',
             {
                 pagina,
                 tipo,
+                latitude: inputLatitude.value,
+                longitude: inputLongitude.value,
+                acessado: inputAcessado.value,
+                favorito: inputFavorito.value,
                 estado: inputEstado.value,
                 categoria: inputCategoria.value,
                 subcategoria: inputSubcategoria.value,
@@ -53,8 +69,15 @@ const parceiroLoading = tipo => {
         if (tipo == 'loja') {
             adicionarListaLoja(resposta.dado);
         }
+        pagina = resposta.dado.paginacao.atual;
+        if (resposta.dado.paginacao.total > resposta.dado.paginacao.atual) {
+            blocoCarregarMais.classList.remove('display_none');
+        }
     };
     buscarParceiro();
+    botaoCarregarMais.addEventListener('click', () => {
+        buscarParceiro();
+    });
 
     const adicionarListaLoja = parceiro => {
         if (parceiro.lista.length == 0 && pagina == '') {

@@ -12,6 +12,10 @@
                     <h1>Busque por uma loja</h1>
                     <i class="desktop botao_buscar_fechar">@iconeFechar</i>
                 </header>
+                <input type="hidden" id="input_latitude" name="latitude" value="{{$Busca->latitude ?? ''}}">
+                <input type="hidden" id="input_longitude" name="longitude" value="{{$Busca->longitude ?? ''}}">
+                <input type="hidden" id="input_acessado" name="acessado" value="{{$Busca->acessado ?? '' ? 'sim' : 'nao'}}">
+                <input type="hidden" id="input_favorito" name="favorito" value="{{$Busca->favorito ?? '' ? 'sim' : 'nao'}}">
                 <fieldset>
                     @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $Busca->estado ?? '')
                     @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: (new App\Classes\ParceiroLoja\Categoria)->select('Escolha uma categoria'), change: 'mudarCategoria', value: $Busca->categoria ?? '')

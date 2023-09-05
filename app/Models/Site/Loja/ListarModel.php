@@ -6,6 +6,7 @@ use stdClass;
 use Modules\Botao;
 use Modules\Inteiro;
 use Helpers\ListaHelper;
+use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
@@ -17,6 +18,8 @@ use App\Classes\ParceiroLoja\Estabelecimento;
 final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
     private array $mapa = [];
+    private array $where = [];
+    private bool $cache = false;
 
     public function __construct(
         private Inteiro $pagina = new Inteiro(1),
@@ -28,11 +31,61 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         private ?string $subcategoria = null,
         private Estabelecimento $estabelecimento = new Estabelecimento(null),
         private ?string $pesquisa = null,
-        private ?float $latitude = null,
-        private ?float $longitude = null,
-        private Botao $acessado = new Botao(Botao::NAO)
+        private null|string|float $latitude = null,
+        private null|string|float $longitude = null,
+        private Botao $acessado = new Botao(Botao::NAO),
+        private EnderecoEstado $estado = new EnderecoEstado(null)
     ) {
         parent::__construct();
+        $this->setarWhere();
+        $this->setarSessao();
+    }
+
+    private function setarSessao()
+    {
+        if (!sessaoExiste('LOJA')) {
+            $this->setarSessaoPadrao();
+        }
+        $sessao = sessao('LOJA');
+        $sessaoLista = $sessao['lista'];
+        $sessaoWhere = $sessao['where'];
+        $where = $this->where;
+        unset($sessaoWhere['pagina'], $where['pagina']);
+
+        // pp($sessaoWhere);
+        // pp($where);
+        // vde($sessaoWhere == $where);
+        if ($sessaoWhere == $where && !empty($sessaoLista) && $this->pagina->vazio()) {
+            $this->cache = true;
+            return;
+        } elseif ($this->pagina->vazio()) {
+            $this->setarSessaoPadrao();
+        }
+    }
+
+    private function setarSessaoPadrao()
+    {
+        sessao('LOJA', [
+            'where'     => $this->where,
+            'lista'     => [],
+            'mapa'      => [],
+            'paginacao' => [],
+            'registro'  => []
+        ]);
+    }
+
+    private function adicionarRegistroSessao($lista, $paginacao, $registro)
+    {
+        $sessao = sessao('LOJA');
+        $listaAtual = $sessao['lista'];
+        $mapaAtual = $sessao['mapa'];
+        sessao('LOJA', [
+            'where'     => $this->where,
+            'lista'     => array_merge($listaAtual, $lista),
+            'mapa'      => array_merge($mapaAtual, $this->mapa),
+            'paginacao' => $paginacao,
+            'registro'  => $registro
+        ]);
     }
 
     /*
@@ -42,16 +95,39 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     */
     public function listarDados(): stdClass
     {
+        if ($this->cache) {
+            return $this->pegarRegistroSessao();
+        }
+
         $dado = $this
             ->validar(login: true)
-            ->json($this->pegarWhere())
+            ->json($this->where)
             ->get('/parceiro-loja')
             ->object();
+
+        $lista = $this->montarLista($dado->dado->lista ?? []);
+        $paginacao = $dado->dado->pagina ?? [];
+        $registro = $dado->dado->registro ?? [];
+        $this->adicionarRegistroSessao($lista, $paginacao, $registro);
+
         return (object)[
             'tipo'      => $this->tipo->indice(),
-            'lista'     => $this->montarLista($dado->dado->lista ?? []),
+            'lista'     => $lista,
             'mapa'      => $this->mapa,
-            'paginacao' => $dado->dado->pagina ?? [],
+            'paginacao' => $paginacao,
+            'registro'  => $registro
+        ];
+    }
+
+    private function pegarRegistroSessao()
+    {
+        $sessao = sessao('LOJA');
+        return (object)[
+            'tipo'      => $this->tipo->indice(),
+            'lista'     => $sessao['lista'],
+            'mapa'      => $sessao['mapa'],
+            'paginacao' => $sessao['paginacao'],
+            'registro'  => $sessao['registro']
         ];
     }
 
@@ -104,7 +180,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         return $retorno;
     }
 
-    private function pegarWhere()
+    private function setarWhere()
     {
         $pagina = $this->pagina;
         $quantidade = $this->quantidade;
@@ -146,6 +222,9 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         if ($this->acessado->valido() && $this->acessado->valor() == Botao::SIM) {
             $where['mais_acessado'] = 'sim';
         }
-        return $where;
+        if ($this->estado->valido()) {
+            $where['estado'] = $this->estado->valor();
+        }
+        $this->where = $where;
     }
 }

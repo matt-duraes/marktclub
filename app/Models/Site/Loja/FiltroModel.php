@@ -80,7 +80,11 @@ final class FiltroModel extends ClubeApiHelper
         foreach ($lista as $ind => $val) {
             if (!in_array($ind, $permitido)) {
                 mensagemStatus(404);
-            } elseif (empty($val) || ($ind == 'subcategoria' && empty($this->request->categoria))) {
+            } elseif (
+                empty($val) ||
+                ($ind == 'subcategoria' && empty($this->request->categoria)) ||
+                (in_array($ind, ['acessado', 'favorito']) && $val == 'nao')
+            ) {
                 continue;
             }
             $valorReal = $this->pegarValorReal($ind, $val);
@@ -100,9 +104,9 @@ final class FiltroModel extends ClubeApiHelper
             $this->$ind = $valor;
         }
         $this->link .= '?' . implode('&', $retorno);
-        if (array_key_exists('favorito', $lista)) {
+        if (array_key_exists('favorito', $lista) && $lista['favorito'] == 'sim') {
             $this->favorito = true;
-        } elseif (array_key_exists('acessado', $lista)) {
+        } elseif (array_key_exists('acessado', $lista) && $lista['acessado'] == 'sim') {
             $this->acessado = true;
         } elseif (array_key_exists('latitude', $lista) && array_key_exists('longitude', $lista)) {
             $this->latitude = $lista['latitude'];

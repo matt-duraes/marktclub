@@ -28,6 +28,9 @@
     </article>
     @ endlaco;
 </div>
+<div class="bloco_carregar_mais display_none" id="bloco_carregar_mais">
+    <div class="botao" id="botao_carregar_mais">Carregar mais</div>
+</div>
 <form class="display_none">
     <article class="parceiro" id="parceiro_padrao_loja">
         <a href="" class="item_link"></a>

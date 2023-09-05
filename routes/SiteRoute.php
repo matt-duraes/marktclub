@@ -238,7 +238,10 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::request(['!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem'])
+            ::request([
+                '!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem',
+                'latitude', 'longitude', 'acessado', 'favorito'
+            ])
             ::get('/convenios/buscar');
         Route
             ::nome('index')
@@ -246,7 +249,8 @@ Route
         Route
             ::nome('listar')
             ::request([
-                '!pagina', 'tipo', 'estado', 'categoria', 'subcategoria', 'estabelecimento', 'pesquisa', 'ordem'
+                '!pagina', 'tipo', 'latitude', 'longitude', 'acessado', 'favorito', 'estado', 'categoria',
+                'subcategoria', 'estabelecimento', 'pesquisa', 'ordem'
             ])
             ::post('/convenios/listar');
         Route

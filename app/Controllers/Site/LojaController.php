@@ -9,6 +9,7 @@ use Modules\Botao;
 use Modules\Inteiro;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
@@ -61,7 +62,7 @@ final class LojaController extends Controller
     {
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
-            quantidade: new Inteiro(24),
+            quantidade: new Inteiro(3),
             favorito: new Botao($request->favorito),
             tipo: new Tipo($request->tipo),
             ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito'),
@@ -71,7 +72,8 @@ final class LojaController extends Controller
             pesquisa: $request->pesquisa,
             latitude: $request->latitude,
             longitude: $request->longitude,
-            acessado: new Botao($request->acessado)
+            acessado: new Botao($request->acessado),
+            estado: new EnderecoEstado($request->estado)
         );
         return mensagemSucesso($Lista->listarDados());
     }
