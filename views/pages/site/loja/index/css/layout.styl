@@ -5,6 +5,9 @@
 @resource "site/loja/parceiro"
 @system "Esqueleto"
 
+.bloco_parceiro_loading
+    position: relative
+    z-index: 2
 .bloco_parceiro_loading article
     figure .esqueleto
         width: 120px
@@ -18,18 +21,30 @@
 .bloco_carregar_mais
     width: 100%
     maxWidth()
+    position: relative
     flexCenter()
     margin-top: 20px
+    z-index: 6
+    &.bloco_carregar_mais_mapa
+        position: fixed
+        bottom: 20px
     .botao
+        width: 100%
+        max-width: 220px
         height: 60px
         line-height: 60px
         background-color: $corClube
         color: #FFF
         border-radius: 5px
-        padding: 0 40px
         margin-left: 20px
+        text-align: center
         textoFontSize()
         cursor: pointer
+        user-select: none
+    .botao.loading
+        background: #CCC
+        color: #333
+        cursor: progress
 
 #bloco_loja_index
     width: 100%
@@ -48,7 +63,7 @@
     maxWidth()
     flexRow()
     margin: -20px 0 20px
-    z-index: 2
+    z-index: 6
     &.separar
         border-top: 1px solid #DDD
         padding-top: 20px
@@ -93,6 +108,7 @@
         border: 1px solid $corClube
         color: $corClube
         cursor: pointer
+        position: relative
     .mapa i
         fill: $corClube
 @media screen and (max-width: 900px)
@@ -117,7 +133,8 @@
     position: fixed
     top: 0
     right: 0
-    z-index: 1
+    z-index: 5
+    background: #FFF
     .atualizar
         height: 30px
         line-height: 30px
@@ -158,14 +175,14 @@ body.body_scroll_hidden #bloco_loja_mapa .mapa
         width: calc(100% - 10px)
         right: 10px
 
-#bloco_loja_mapa .parceiro_previa
+#bloco_parceiro_previa
     width: calc(100% - 300px)
     position: fixed
     bottom: -100px
     right: 0
     opacity: 0
     padding: 0 20px
-    z-index: 2
+    z-index: 7
     flexRow()
     justify-content: center
     transition: opacity .3s ease-out, bottom .3s ease-out

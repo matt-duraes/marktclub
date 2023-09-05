@@ -17,7 +17,7 @@ final class Quantidade implements ModuleInterface
 
     public function padrao()
     {
-        return 20;
+        return 24;
     }
 
     /**

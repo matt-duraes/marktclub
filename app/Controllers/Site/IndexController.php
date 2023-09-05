@@ -4,11 +4,10 @@ namespace App\Controllers\Site;
 
 use Erro\Excecao;
 use Http\Response;
-use Modules\Botao;
-use Modules\Inteiro;
 use Controller\Controller;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Saude\HomeModel;
+use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Models\Site\Comunicacao\BannerModel;
 
@@ -21,17 +20,23 @@ final class IndexController extends Controller
     public function index(): Response
     {
         $MaisUtilizada = new ListarModel(
-            quantidade: new Inteiro(3),
-            acessado: new Botao(Botao::SIM)
+            Filtro: new FiltroModel([
+                'quantidade' => 3,
+                'acessado'   => 'sim'
+            ])
         );
         $LojaNova = new ListarModel(
-            quantidade: new Inteiro(3),
-            ordem: new Ordem(Ordem::MAIS_NOVO)
+            Filtro: new FiltroModel([
+                'quantidade' => 3,
+                'ordem'      => (new Ordem(Ordem::MAIS_NOVO))->valor()
+            ])
         );
         $LojaFavorita = new ListarModel(
-            quantidade: new Inteiro(3),
-            favorito: new Botao(Botao::SIM),
-            ordem: new Ordem(Ordem::RANDOMICO)
+            Filtro: new FiltroModel([
+                'quantidade' => 3,
+                'favorito'   => 'sim',
+                'ordem'      => (new Ordem(Ordem::RANDOMICO))->valor()
+            ])
         );
         return view('index', [
             'menu'           => 'home',

@@ -1,6 +1,10 @@
 window.addEventListener('load', () => {
     const inputCategoria = $('#input_categoria');
     const inputSubcategoria = $('#input_subcategoria');
+    const inputLatitude = $('#input_latitude');
+    const inputLongitude = $('#input_longitude');
+    const inputAcessado = $('#input_acessado');
+    const inputFavorito = $('#input_favorito');
 
     inputCategoria.addEventListener('formChange', () => {
         buscarSubCategoria(inputCategoria.value);
@@ -28,6 +32,10 @@ window.addEventListener('load', () => {
         lista.forEach(item => {
             parametro.push(item.getAttribute('data-indice') + '=' + item.getAttribute('data-valor'));
         });
+        parametro.push('latitude=' + inputLatitude.value);
+        parametro.push('longitude=' + inputLongitude.value);
+        parametro.push('acessado=' + inputAcessado.value);
+        parametro.push('favorito=' + inputFavorito.value);
         if (parametro.length == 0) {
             window.location.assign(LINK + '/convenios');
             return;

@@ -7,7 +7,7 @@
         @view site/geral/banner.view
     @ endif;
 
-    <div class="bloco_especial {{$Busca->uso ? 'separar' : ''}}">
+    <div class="bloco_especial {{$Busca->filtro ? 'separar' : ''}}">
         <div class="scroll">
             <div class="conteudo">
                 <a class="item {{$todos ? 'hover' : ''}}" href="@route('loja.index')">

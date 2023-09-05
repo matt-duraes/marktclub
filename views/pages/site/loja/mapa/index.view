@@ -2,20 +2,7 @@
     <div id="botao_atualizar_mapa" class="atualizar display_none">Buscar nessa região</div>
     <div id="bloco_google_maps" class="mapa"></div>
     <input type="hidden" id="input_loja_latitude" value="{{$Busca->latitude}}">
-    <input type="hidden" id="input_loja_longetude" value="{{$Busca->longitude}}">
-    <div class="parceiro_previa display_none" id="bloco_parceiro_previa">
-        <div class="conteudo">
-            <figure></figure>
-            <div class="dado">
-                <header>
-                    <h1></h1>
-                    <i class="fechar">@iconeFechar</i>
-                </header>
-                <p class="desconto"></p>
-                <a href="">Acessar loja</a>
-            </div>
-        </div>
-    </div>
+    <input type="hidden" id="input_loja_longitude" value="{{$Busca->longitude}}">
     <div class="lista">
         @ foreach( $lista->mapa ?? [] as $r):
         <article
@@ -28,6 +15,19 @@
             class="novo display_none"
         ></article>
         @ endforeach;
+    </div>
+</div>
+<div class="parceiro_previa display_none" id="bloco_parceiro_previa">
+    <div class="conteudo">
+        <figure></figure>
+        <div class="dado">
+            <header>
+                <h1></h1>
+                <i class="fechar">@iconeFechar</i>
+            </header>
+            <p class="desconto"></p>
+            <a href="">Acessar loja</a>
+        </div>
     </div>
 </div>
 <!-- prettier-ignore -->
