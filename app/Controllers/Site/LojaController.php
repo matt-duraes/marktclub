@@ -62,7 +62,7 @@ final class LojaController extends Controller
     {
         $Lista = new ListarModel(
             pagina: new Inteiro($request->pagina),
-            quantidade: new Inteiro(3),
+            quantidade: new Inteiro(24),
             favorito: new Botao($request->favorito),
             tipo: new Tipo($request->tipo),
             ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito'),
