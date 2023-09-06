@@ -23,172 +23,169 @@ const inputLongitude = $('#input_longitude');
 const latitude = inputLatitude ? inputLatitude.value : 0;
 const longitude = inputLongitude ? inputLongitude.value : 0;
 
-const parceiroLoading = tipo => {
-    const blocoLoja = $('#parceiro_padrao_loja');
-    blocoLoja.removeAttribute('id');
+const tipo = 'loja';
 
-    const blocoLoading = $('#bloco_parceiro_loading');
-    const blocoLista = $('#bloco_parceiro_lista');
+const blocoLoja = $('#parceiro_padrao_loja');
+blocoLoja.removeAttribute('id');
 
-    const blocoZero = $('#bloco_parceiro_zero');
+const blocoLoading = $('#bloco_parceiro_loading');
+const blocoLista = $('#bloco_parceiro_lista');
 
-    const botaoCarregarMais = $('#botao_carregar_mais');
+const blocoZero = $('#bloco_parceiro_zero');
 
-    const loading = $$('.bloco_parceiro_loading article');
-    loading.forEach(item => {
-        const EsqueletoItem = new Esqueleto(item, '.esqueleto');
-        EsqueletoItem.show();
-    });
+const botaoCarregarMais = $('#botao_carregar_mais');
 
-    const inputMapa = $('#input_mapa input');
-    const inputEstado = $('#input_estado');
-    const inputCidade = $('#input_cidade');
-    const inputCategoria = $('#input_categoria');
-    const inputSubcategoria = $('#input_subcategoria');
-    const inputEstabelecimento = $('#input_estabelecimento');
-    const inputPesquisa = $('#input_pesquisa');
-    const inputOrdem = $('#input_ordem');
-    const formBusca = $('#form_buscar');
+const loading = $$('.bloco_parceiro_loading article');
+loading.forEach(item => {
+    const EsqueletoItem = new Esqueleto(item, '.esqueleto');
+    EsqueletoItem.show();
+});
 
-    const carregarMapa = inputMapa && inputMapa.checked;
-    if (inputMapa) {
-        inputMapa.addEventListener('change', () => {
-            formSelectOption(inputCidade, { '': 'Escolha um estado primeiro' });
-            formValue(inputEstabelecimento, '');
-            formValue(inputOrdem, '');
-            formBusca.classList.toggle('busca_mapa');
-            if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value != '')) {
-                buscarGeolocalizacao();
-            }
-            if (inputMapa.checked && inputEstado.value != '') {
-                buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
-            }
-        });
-    }
-    const buscarGeolocalizacao = () => {
-        Loading.show();
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                Loading.hide();
-                inputLatitude.value = position.coords.latitude;
-                inputLongitude.value = position.coords.longitude;
-            },
-            e => {
-                Loading.hide();
-                if (e.message == 'User denied Geolocation') {
-                    Alerta.mensagem(
-                        'Localização bloqueada',
-                        'Você bloqueou a geolocalização, para poder mostrar as lojas próximas a você, precisamos que desbloquei sua localização e tente novamente.',
-                        '!'
-                    );
-                    return;
-                }
-                Alerta.mensagem(
-                    'Erro na localização',
-                    'Ocorreu um erro ao pegar sua localização, verifique suas permissões no navegador e tente novamente.',
-                    '!'
-                );
-            }
-        );
-    };
-    if (inputEstado) {
-        inputEstado.addEventListener('formChange', () => {
-            buscarCidadePeloEstado(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
-        });
-        if (inputEstado.value != '') {
+const inputMapa = $('#input_mapa input');
+const inputEstado = $('#input_estado');
+const inputCidade = $('#input_cidade');
+const inputCategoria = $('#input_categoria');
+const inputSubcategoria = $('#input_subcategoria');
+const inputEstabelecimento = $('#input_estabelecimento');
+const inputPesquisa = $('#input_pesquisa');
+const inputOrdem = $('#input_ordem');
+const formBusca = $('#form_buscar');
+
+const carregarMapa = inputMapa && inputMapa.checked;
+if (inputMapa) {
+    inputMapa.addEventListener('change', () => {
+        formSelectOption(inputCidade, { '': 'Escolha um estado primeiro' });
+        formValue(inputEstabelecimento, '');
+        formValue(inputOrdem, '');
+        formBusca.classList.toggle('busca_mapa');
+        if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value != '')) {
+            buscarGeolocalizacao();
+        }
+        if (inputMapa.checked && inputEstado.value != '') {
             buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
         }
-    }
-
-    let pagina = '';
-    const buscarParceiro = async () => {
-        if (botaoCarregarMais.classList.contains('loading')) {
-            return;
-        }
-        botaoCarregarMais.classList.add('loading');
-        blocoLoading.classList.remove('display_none');
-        if (pagina != '') {
-            pagina++;
-        }
-        const resposta = await ajaxPost(
-            LINK + '/convenios/listar',
-            {
-                pagina,
-                tipo,
-                latitude: inputLatitude.value,
-                longitude: inputLongitude.value,
-                acessado: inputAcessado.value,
-                favorito: inputFavorito.value,
-                estado: inputEstado.value,
-                cidade: inputCidade.value,
-                categoria: inputCategoria.value,
-                subcategoria: inputSubcategoria.value,
-                estabelecimento: inputEstabelecimento.value,
-                pesquisa: inputPesquisa.value,
-                ordem: inputOrdem.value,
-            },
-            ''
-        );
-
-        blocoLoading.classList.add('display_none');
-        botaoCarregarMais.classList.remove('loading');
-        if (false === resposta) {
-            if (pagina == 1 || pagina == '') {
-                blocoZero.classList.remove('display_none');
-            }
-            return;
-        }
-        if (tipo == 'loja') {
-            adicionarListaLoja(resposta.dado);
-        }
-        pagina = resposta.dado.paginacao.atual;
-        if (resposta.dado.paginacao.total > resposta.dado.paginacao.atual) {
-            blocoCarregarMais.classList.remove('display_none');
-        } else {
-            blocoCarregarMais.classList.add('display_none');
-        }
-    };
-    buscarParceiro();
-    botaoCarregarMais.addEventListener('click', () => {
-        buscarParceiro();
     });
-
-    const adicionarListaLoja = parceiro => {
-        if (parceiro.lista.length == 0 && (pagina == 1 || pagina == '')) {
-            blocoZero.classList.remove('display_none');
-            return;
-        }
-        const listaFake = $$('.article_fake');
-        listaFake.forEach(item => {
-            item.remove();
-        });
-        if (carregarMapa) {
-            carregarPontoMapa(parceiro.mapa);
-        }
-        parceiro.lista.forEach(item => {
-            const clone = blocoLoja.cloneNode(true);
-            const favorito = clone.querySelector('.botao_favorito');
-            favorito.setAttribute('dta-url', item.id);
-            if (item.favorito == 'sim') {
-                favorito.classList.add('favorito_marcado');
+}
+const buscarGeolocalizacao = () => {
+    Loading.show();
+    navigator.geolocation.getCurrentPosition(
+        position => {
+            Loading.hide();
+            inputLatitude.value = position.coords.latitude;
+            inputLongitude.value = position.coords.longitude;
+        },
+        e => {
+            Loading.hide();
+            if (e.message == 'User denied Geolocation') {
+                Alerta.mensagem(
+                    'Localização bloqueada',
+                    'Você bloqueou a geolocalização, para poder mostrar as lojas próximas a você, precisamos que desbloquei sua localização e tente novamente.',
+                    '!'
+                );
+                return;
             }
-            clone.querySelector('.item_link').setAttribute('href', item.link);
-            clone.querySelector('.item_logo').innerHTML = `<img src="${item.imagem}">`;
-            clone.querySelector('.item_titulo').innerText = item.titulo;
-            clone.querySelector('.item_desconto').innerText = item.desconto;
-            if (item.estado != '') {
-                clone.querySelector('.bloco_estado').classList.remove('display_none');
-                clone.querySelector('.item_estado').innerText = item.estado;
-            }
-
-            blocoLista.appendChild(clone);
-        });
-        blocoLista.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
-    };
+            Alerta.mensagem(
+                'Erro na localização',
+                'Ocorreu um erro ao pegar sua localização, verifique suas permissões no navegador e tente novamente.',
+                '!'
+            );
+        }
+    );
 };
-window.addEventListener('load', () => {
-    parceiroLoading('loja');
+if (inputEstado) {
+    inputEstado.addEventListener('formChange', () => {
+        buscarCidadePeloEstado(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
+    });
+    if (inputEstado.value != '') {
+        buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
+    }
+}
+
+let pagina = '';
+const buscarParceiro = async () => {
+    if (botaoCarregarMais.classList.contains('loading')) {
+        return;
+    }
+    botaoCarregarMais.classList.add('loading');
+    blocoLoading.classList.remove('display_none');
+    if (pagina != '') {
+        pagina++;
+    }
+    const resposta = await ajaxPost(
+        LINK + '/convenios/listar',
+        {
+            pagina,
+            tipo,
+            latitude: inputLatitude.value,
+            longitude: inputLongitude.value,
+            acessado: inputAcessado.value,
+            favorito: inputFavorito.value,
+            estado: inputEstado.value,
+            cidade: inputCidade.value,
+            categoria: inputCategoria.value,
+            subcategoria: inputSubcategoria.value,
+            estabelecimento: inputEstabelecimento.value,
+            pesquisa: inputPesquisa.value,
+            ordem: inputOrdem.value,
+        },
+        ''
+    );
+
+    blocoLoading.classList.add('display_none');
+    botaoCarregarMais.classList.remove('loading');
+    if (false === resposta) {
+        if (pagina == 1 || pagina == '') {
+            blocoZero.classList.remove('display_none');
+        }
+        return;
+    }
+    if (tipo == 'loja') {
+        adicionarListaLoja(resposta.dado);
+    }
+    pagina = resposta.dado.paginacao.atual;
+    if (resposta.dado.paginacao.total > resposta.dado.paginacao.atual) {
+        blocoCarregarMais.classList.remove('display_none');
+    } else {
+        blocoCarregarMais.classList.add('display_none');
+    }
+};
+buscarParceiro();
+botaoCarregarMais.addEventListener('click', () => {
+    buscarParceiro();
 });
+
+const adicionarListaLoja = parceiro => {
+    if (parceiro.lista.length == 0 && (pagina == 1 || pagina == '')) {
+        blocoZero.classList.remove('display_none');
+        return;
+    }
+    const listaFake = $$('.article_fake');
+    listaFake.forEach(item => {
+        item.remove();
+    });
+    if (carregarMapa) {
+        carregarPontoMapa(parceiro.mapa);
+    }
+    parceiro.lista.forEach(item => {
+        const clone = blocoLoja.cloneNode(true);
+        const favorito = clone.querySelector('.botao_favorito');
+        favorito.setAttribute('dta-url', item.id);
+        if (item.favorito == 'sim') {
+            favorito.classList.add('favorito_marcado');
+        }
+        clone.querySelector('.item_link').setAttribute('href', item.link);
+        clone.querySelector('.item_logo').innerHTML = `<img src="${item.imagem}">`;
+        clone.querySelector('.item_titulo').innerText = item.titulo;
+        clone.querySelector('.item_desconto').innerText = item.desconto;
+        if (item.estado != '') {
+            clone.querySelector('.bloco_estado').classList.remove('display_none');
+            clone.querySelector('.item_estado').innerText = item.estado;
+        }
+
+        blocoLista.appendChild(clone);
+    });
+    blocoLista.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
+};
 
 window.addEventListener('load', () => {
     if (!blocoMapa) {
@@ -235,7 +232,7 @@ window.addEventListener('load', () => {
         const { Map } = await google.maps.importLibrary('maps');
         const option = {
             scrollwheel: false,
-            zoom: 14,
+            zoom: 13,
             center: { lat: MAPA.latitude, lng: MAPA.longitude },
             disableDefaultUI: true,
             panControl: false,
@@ -252,6 +249,18 @@ window.addEventListener('load', () => {
         });
     }
     iniciarMapa();
+
+    botaoAtualizar.addEventListener('click', () => {
+        botaoAtualizar.classList.add('display_none');
+        const posicao = MAPA.mapa.getCenter();
+        MAPA.latitude = posicao.lat();
+        MAPA.longitude = posicao.lng();
+        iniciarMapa();
+        pagina = '';
+        inputLatitude.value = MAPA.latitude;
+        inputLongitude.value = MAPA.longitude;
+        buscarParceiro();
+    });
 });
 
 const carregarPontoMapa = async loja => {
