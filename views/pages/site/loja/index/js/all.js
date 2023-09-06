@@ -40,15 +40,65 @@ const parceiroLoading = tipo => {
         EsqueletoItem.show();
     });
 
-    const inputMapa = $('#input_mapa');
+    const inputMapa = $('#input_mapa input');
     const inputEstado = $('#input_estado');
+    const inputCidade = $('#input_cidade');
     const inputCategoria = $('#input_categoria');
     const inputSubcategoria = $('#input_subcategoria');
     const inputEstabelecimento = $('#input_estabelecimento');
     const inputPesquisa = $('#input_pesquisa');
     const inputOrdem = $('#input_ordem');
+    const formBusca = $('#form_buscar');
 
-    const carregarMapa = inputMapa && inputMapa.value == 'sim';
+    const carregarMapa = inputMapa && inputMapa.checked;
+    if (inputMapa) {
+        inputMapa.addEventListener('change', () => {
+            formSelectOption(inputCidade, { '': 'Escolha um estado primeiro' });
+            formValue(inputEstabelecimento, '');
+            formValue(inputOrdem, '');
+            formBusca.classList.toggle('busca_mapa');
+            if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value != '')) {
+                buscarGeolocalizacao();
+            }
+            if (inputMapa.checked && inputEstado.value != '') {
+                buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
+            }
+        });
+    }
+    const buscarGeolocalizacao = () => {
+        Loading.show();
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                Loading.hide();
+                inputLatitude.value = position.coords.latitude;
+                inputLongitude.value = position.coords.longitude;
+            },
+            e => {
+                Loading.hide();
+                if (e.message == 'User denied Geolocation') {
+                    Alerta.mensagem(
+                        'Localização bloqueada',
+                        'Você bloqueou a geolocalização, para poder mostrar as lojas próximas a você, precisamos que desbloquei sua localização e tente novamente.',
+                        '!'
+                    );
+                    return;
+                }
+                Alerta.mensagem(
+                    'Erro na localização',
+                    'Ocorreu um erro ao pegar sua localização, verifique suas permissões no navegador e tente novamente.',
+                    '!'
+                );
+            }
+        );
+    };
+    if (inputEstado) {
+        inputEstado.addEventListener('formChange', () => {
+            buscarCidadePeloEstado(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
+        });
+        if (inputEstado.value != '') {
+            buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
+        }
+    }
 
     let pagina = '';
     const buscarParceiro = async () => {
@@ -70,6 +120,7 @@ const parceiroLoading = tipo => {
                 acessado: inputAcessado.value,
                 favorito: inputFavorito.value,
                 estado: inputEstado.value,
+                cidade: inputCidade.value,
                 categoria: inputCategoria.value,
                 subcategoria: inputSubcategoria.value,
                 estabelecimento: inputEstabelecimento.value,
@@ -143,6 +194,8 @@ window.addEventListener('load', () => {
     if (!blocoMapa) {
         return false;
     }
+    const blocoLoja = $('#bloco_loja_index');
+    const blocoBusca = $('#bloco_buscar');
     const blocoParceiro = $('#bloco_loja_index .bloco_parceiro');
     const botaoMapa = $('#botao_visualizar_mapa');
     const botaoLista = $('#botao_visualizar_lista');
@@ -152,6 +205,8 @@ window.addEventListener('load', () => {
         blocoMapa.classList.remove('display_none');
         blocoParceiro.classList.add('display_none');
         blocoCarregarMais.classList.add('bloco_carregar_mais_mapa');
+        blocoLoja.classList.add('bloco_mapa');
+        blocoBusca.classList.add('display_none');
     });
     botaoLista.addEventListener('click', () => {
         botaoMapa.classList.remove('display_none');
@@ -159,6 +214,8 @@ window.addEventListener('load', () => {
         blocoMapa.classList.add('display_none');
         blocoParceiro.classList.remove('display_none');
         blocoCarregarMais.classList.remove('bloco_carregar_mais_mapa');
+        blocoLoja.classList.remove('bloco_mapa');
+        blocoBusca.classList.remove('display_none');
     });
 });
 

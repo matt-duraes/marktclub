@@ -2,14 +2,29 @@
 
 @view site/loja/geral/busca.view
 
-<div id="bloco_loja_index">
+<div id="bloco_loja_index" class="{{$Busca->mapa ? 'bloco_mapa' : ''}}">
     @ if( $banner ):
         @view site/geral/banner.view
     @ endif;
 
-    <div class="bloco_especial {{$Busca->filtro ? 'separar' : ''}}">
+    <div class="bloco_especial {{$Busca->filtro ? 'separar' : ''}}" id="bloco_especial">
         <div class="scroll">
             <div class="conteudo">
+                @ if( $Busca->mapa ):
+                <div class="item" id="botao_visualizar_lista">
+                    <i>@iconeListaMista(18)</i>
+                    <p>Visualizar lista</p>
+                </div>
+                <div class="item display_none" id="botao_visualizar_mapa">
+                    <i>@iconeMapaPapel(20)</i>
+                    <p>Visualizar mapa</p>
+                </div>
+                <div class="item busca botao_buscar_abrir">
+                    <i>@iconeBusca(18)</i>
+                    <p>Buscar loja</p>
+                </div>
+                <div class="borda"></div>
+                @ endif;
                 <a class="item {{$todos ? 'hover' : ''}}" href="@route('loja.index')">
                     <i>@iconeLojaHome(20)</i>
                     <p>Todas as lojas</p>
@@ -26,19 +41,9 @@
                     <i>@iconePromocao(20)</i>
                     <p>Mais acessados</p>
                 </a>
+                <div class="final"></div>
             </div>
         </div>
-        <div class="flex_grow"></div>
-        @ if( $Busca->mapa ):
-        <div class="mapa item display_none" id="botao_visualizar_mapa">
-            <i>@iconeMapaPapel(20)</i>
-            <p>Visualizar mapa</p>
-        </div>
-        <div class="mapa item" id="botao_visualizar_lista">
-            <i>@iconeListaMista(18)</i>
-            <p>Visualizar lista</p>
-        </div>
-        @ endif;
     </div>
 
     @view site/geral/parceiro_novo.view

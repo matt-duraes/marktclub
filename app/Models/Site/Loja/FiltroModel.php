@@ -2,6 +2,8 @@
 
 namespace App\Models\Site\Loja;
 
+use Helpers\ListaHelper;
+use Helpers\LocalizacaoHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Categoria;
@@ -51,7 +53,12 @@ final class FiltroModel extends ClubeApiHelper
 
     public function pegarWhere()
     {
-        return $this->where;
+        $where = $this->where;
+        if (array_key_exists('latitude', $where) || array_key_exists('longitude', $where)) {
+            unset($where['estado']);
+        }
+        unset($where['cidade']);
+        return $where;
     }
 
     private function tratarRequest()
@@ -62,6 +69,10 @@ final class FiltroModel extends ClubeApiHelper
         $retorno = [];
         $link = [];
 
+        if (array_key_exists('cidade', $dado)) {
+            unset($dado['latitude'], $dado['longitude']);
+        }
+
         foreach ($dado as $ind => $val) {
             if (
                 (!in_array($ind, $lista) || empty($val)) ||
@@ -69,7 +80,7 @@ final class FiltroModel extends ClubeApiHelper
             ) {
                 continue;
             }
-            if (in_array($ind, ['latitude', 'longitude'])) {
+            if (in_array($ind, ['latitude', 'longitude', 'cidade'])) {
                 $this->mapa = true;
             } elseif ($ind == 'acessado') {
                 $this->acessado = true;
@@ -81,15 +92,28 @@ final class FiltroModel extends ClubeApiHelper
             }
             $retorno[$ind] = $val;
             if (!in_array($ind, ['pagina', 'quantidade'])) {
-                $link[] = $ind . '=' . $val;
+                $link[] = $ind . '=' . urlencode($val);
             }
         }
         if (!empty($link)) {
             $this->link .= '?' . implode('&', $link);
         }
-
+        if (array_key_exists('cidade', $retorno)) {
+            $retorno = $this->pegarGeolocalizacao($retorno);
+        }
         $this->where = $retorno;
         $this->setarFiltro($retorno);
+    }
+
+    private function pegarGeolocalizacao($dado)
+    {
+        $Localizacao = new LocalizacaoHelper();
+        $geolocalicacao = $Localizacao->pegarGeolocalizacaoPeloEndereco(pais: 'BR', estado: $dado['estado'], cidade: $dado['cidade']);
+        $this->latitude = $geolocalicacao['latitude'];
+        $this->longitude = $geolocalicacao['longitude'];
+        $dado['latitude'] = $this->latitude;
+        $dado['longitude'] = $this->latitude;
+        return $dado;
     }
 
     private function setarFiltro($lista)
@@ -105,6 +129,8 @@ final class FiltroModel extends ClubeApiHelper
                 $valor = (new Estabelecimento($val))->nome();
             } elseif ($ind == 'ordem') {
                 $valor = (new Ordem($val))->nome();
+            } elseif ($ind == 'estado') {
+                $valor = (new ListaHelper())->estado()->r()[$val] ?? $val;
             } elseif ($ind == 'subcategoria') {
                 $valor = $this->buscarSubcategoria($val);
             }

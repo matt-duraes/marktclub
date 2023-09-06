@@ -240,7 +240,7 @@ Route
             ::nome('buscar')
             ::request([
                 '!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem',
-                '!latitude', '!longitude', '!acessado', '!favorito'
+                '!latitude', '!longitude', '!acessado', '!favorito', '!cidade'
             ])
             ::get('/convenios/buscar');
         Route
@@ -250,7 +250,7 @@ Route
             ::nome('listar')
             ::request([
                 '!pagina', 'tipo', '!latitude', '!longitude', '!acessado', '!favorito', 'estado', 'categoria',
-                'subcategoria', 'estabelecimento', 'pesquisa', 'ordem'
+                'subcategoria', 'estabelecimento', 'pesquisa', 'ordem', 'cidade'
             ])
             ::post('/convenios/listar');
         Route
