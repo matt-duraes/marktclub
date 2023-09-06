@@ -4,9 +4,9 @@ namespace App\Models\Site\Automovel;
 
 use stdClass;
 use Modules\Dinheiro;
+use Helpers\MarkdownHelper;
 use App\Classes\Geral\Status;
 use App\Helpers\ClubeApiHelper;
-use App\Helpers\Site\TextoHelper;
 use App\Classes\ParceiroLoja\Procedimento;
 
 final class BuscarModel extends ClubeApiHelper
@@ -32,7 +32,7 @@ final class BuscarModel extends ClubeApiHelper
 
     private function montarRetorno($r): stdClass
     {
-        $Texto = new TextoHelper();
+        $Texto = new MarkdownHelper();
         return (object)[
             'id'                        => $r->id,
             'titulo'                    => $r->titulo,
@@ -40,7 +40,7 @@ final class BuscarModel extends ClubeApiHelper
                 'id' => $r->parceiro->id,
             ],
             'versao'                    => $this->montarVersao($r->versao, $r->imagem),
-            'texto_procedimento'        => $Texto->destaque($r->texto_procedimento),
+            'texto_procedimento'        => $Texto->texto($r->texto_procedimento),
             'procedimento'              => $r->procedimento,
             'procedimento_cheque_bonus' => $r->procedimento == Procedimento::CHEQUE_BONUS,
             'procedimento_declaracao'   => $r->procedimento == Procedimento::DECLARACAO,

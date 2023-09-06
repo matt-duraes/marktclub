@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Site;
 
-use Modules\Inteiro;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Models\Site\Loja\BuscarModel;
+use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\Procedimento;
 
@@ -33,8 +33,8 @@ final class FarmaciaController extends Controller
     public function detalhe(string $url)
     {
         $Listar = new ListarModel(
-            quantidade: new Inteiro(3),
-            tipo: new Tipo(Tipo::FARMACIA)
+            tipo: new Tipo(Tipo::FARMACIA),
+            Filtro: new FiltroModel(['quantidade' => 3])
         );
 
         return view(
