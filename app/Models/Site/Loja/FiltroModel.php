@@ -131,9 +131,10 @@ final class FiltroModel extends ClubeApiHelper
                 $valor = $this->buscarSubcategoria($val);
             }
             $this->filtro[] = (object)[
-                'nome'   => $campo[$ind],
-                'indice' => $ind,
-                'valor'  => $valor
+                'nome'       => $campo[$ind],
+                'indice'     => $ind,
+                'valor_real' => $val,
+                'valor'      => $valor
             ];
         }
     }
