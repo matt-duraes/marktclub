@@ -2,12 +2,18 @@
 
 namespace Helpers;
 
-use Michelf\Markdown;
+use Parsedown;
 
 final class MarkdownHelper
 {
-    public function __construct(private ?string $texto = null)
-    {
+    /**
+     * Converter uma string Markdown em HTML
+     *
+     * @param string|null $texto Texto que deseja converter
+     */
+    public function __construct(
+        private ?string $texto = null
+    ) {
         if (empty($texto)) {
             $this->texto = '';
             return;
@@ -17,6 +23,7 @@ final class MarkdownHelper
     public function texto(string $texto = null)
     {
         $texto = !empty($texto) ? $texto : $this->texto;
-        return Markdown::defaultTransform($texto);
+        $Parsedown = new Parsedown();
+        return $Parsedown->text($texto);
     }
 }
