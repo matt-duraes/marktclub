@@ -15,7 +15,6 @@
         "google/apiclient": "^2",
         "intervention/image": "^2",
         "league/oauth2-client": "^2",
-        "michelf/php-markdown": "^2.0",
         "mpdf/mpdf": "^8",
         "phpmailer/phpmailer": "^6",
         "phpmussel/core": "^3",
@@ -24,7 +23,8 @@
         "symfony/css-selector": "^6",
         "symfony/http-client": "^6",
         "symfony/http-foundation": "^6",
-        "symfony/mime": "^6"
+        "symfony/mime": "^6",
+        "erusev/parsedown": "^1.7"
     },
     "require-dev": {
         "captainhook/captainhook": "^5",
