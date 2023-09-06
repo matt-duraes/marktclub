@@ -53,9 +53,10 @@ final class LojaController extends Controller
 
     public function postListar(Request $request)
     {
+        $Filtro = new FiltroModel($request->dado());
         $Lista = new ListarModel(
             tipo: new Tipo($request->tipo),
-            Filtro: new FiltroModel($request->dado())
+            Filtro: $Filtro
         );
         return mensagemSucesso($Lista->listarDados());
     }
