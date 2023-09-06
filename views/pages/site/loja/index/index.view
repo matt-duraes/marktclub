@@ -11,6 +11,7 @@
         <div class="scroll">
             <div class="conteudo">
                 <div class="bg">
+                    <div class="comeco"></div>
                     @ if( $Busca->mapa ):
                     <div class="item" id="botao_visualizar_lista">
                         <i>@iconeListaMista(18)</i>
