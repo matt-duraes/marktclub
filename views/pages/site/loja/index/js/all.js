@@ -5,6 +5,24 @@
 // @resource "site/busca"
 // @system "Esqueleto"
 
+const blocoMapa = $('#bloco_loja_mapa');
+const blocoCarregarMais = $('#bloco_carregar_mais');
+const botaoAtualizar = $('#botao_atualizar_mapa');
+const blocoPrevia = $('#bloco_parceiro_previa');
+const blocoPreviaFechar = $('#bloco_parceiro_previa .fechar');
+const blocoPreviaFigure = $('#bloco_parceiro_previa figure');
+const blocoPreviaTitulo = $('#bloco_parceiro_previa h1');
+const blocoPreviaDesconto = $('#bloco_parceiro_previa .desconto');
+const blocoPreviaLink = $('#bloco_parceiro_previa a');
+
+const inputAcessado = $('#input_acessado');
+const inputFavorito = $('#input_favorito');
+const inputLatitude = $('#input_latitude');
+const inputLongitude = $('#input_longitude');
+
+const latitude = inputLatitude ? inputLatitude.value : 0;
+const longitude = inputLongitude ? inputLongitude.value : 0;
+
 const parceiroLoading = tipo => {
     const blocoLoja = $('#parceiro_padrao_loja');
     blocoLoja.removeAttribute('id');
@@ -12,10 +30,8 @@ const parceiroLoading = tipo => {
     const blocoLoading = $('#bloco_parceiro_loading');
     const blocoLista = $('#bloco_parceiro_lista');
 
-    const blocoErro = $('#bloco_parceiro_erro');
     const blocoZero = $('#bloco_parceiro_zero');
 
-    const blocoCarregarMais = $('#bloco_carregar_mais');
     const botaoCarregarMais = $('#botao_carregar_mais');
 
     const loading = $$('.bloco_parceiro_loading article');
@@ -24,21 +40,73 @@ const parceiroLoading = tipo => {
         EsqueletoItem.show();
     });
 
-    const inputLatitude = $('#input_latitude');
-    const inputLongitude = $('#input_longitude');
-    const inputAcessado = $('#input_acessado');
-    const inputFavorito = $('#input_favorito');
+    const inputMapa = $('#input_mapa input');
     const inputEstado = $('#input_estado');
+    const inputCidade = $('#input_cidade');
     const inputCategoria = $('#input_categoria');
     const inputSubcategoria = $('#input_subcategoria');
     const inputEstabelecimento = $('#input_estabelecimento');
     const inputPesquisa = $('#input_pesquisa');
     const inputOrdem = $('#input_ordem');
+    const formBusca = $('#form_buscar');
+
+    const carregarMapa = inputMapa && inputMapa.checked;
+    if (inputMapa) {
+        inputMapa.addEventListener('change', () => {
+            formSelectOption(inputCidade, { '': 'Escolha um estado primeiro' });
+            formValue(inputEstabelecimento, '');
+            formValue(inputOrdem, '');
+            formBusca.classList.toggle('busca_mapa');
+            if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value != '')) {
+                buscarGeolocalizacao();
+            }
+            if (inputMapa.checked && inputEstado.value != '') {
+                buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
+            }
+        });
+    }
+    const buscarGeolocalizacao = () => {
+        Loading.show();
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                Loading.hide();
+                inputLatitude.value = position.coords.latitude;
+                inputLongitude.value = position.coords.longitude;
+            },
+            e => {
+                Loading.hide();
+                if (e.message == 'User denied Geolocation') {
+                    Alerta.mensagem(
+                        'Localização bloqueada',
+                        'Você bloqueou a geolocalização, para poder mostrar as lojas próximas a você, precisamos que desbloquei sua localização e tente novamente.',
+                        '!'
+                    );
+                    return;
+                }
+                Alerta.mensagem(
+                    'Erro na localização',
+                    'Ocorreu um erro ao pegar sua localização, verifique suas permissões no navegador e tente novamente.',
+                    '!'
+                );
+            }
+        );
+    };
+    if (inputEstado) {
+        inputEstado.addEventListener('formChange', () => {
+            buscarCidadePeloEstado(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
+        });
+        if (inputEstado.value != '') {
+            buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
+        }
+    }
 
     let pagina = '';
     const buscarParceiro = async () => {
+        if (botaoCarregarMais.classList.contains('loading')) {
+            return;
+        }
+        botaoCarregarMais.classList.add('loading');
         blocoLoading.classList.remove('display_none');
-        blocoCarregarMais.classList.add('display_none');
         if (pagina != '') {
             pagina++;
         }
@@ -52,6 +120,7 @@ const parceiroLoading = tipo => {
                 acessado: inputAcessado.value,
                 favorito: inputFavorito.value,
                 estado: inputEstado.value,
+                cidade: inputCidade.value,
                 categoria: inputCategoria.value,
                 subcategoria: inputSubcategoria.value,
                 estabelecimento: inputEstabelecimento.value,
@@ -62,8 +131,11 @@ const parceiroLoading = tipo => {
         );
 
         blocoLoading.classList.add('display_none');
+        botaoCarregarMais.classList.remove('loading');
         if (false === resposta) {
-            blocoErro.classList.remove('display_none');
+            if (pagina == 1 || pagina == '') {
+                blocoZero.classList.remove('display_none');
+            }
             return;
         }
         if (tipo == 'loja') {
@@ -72,6 +144,8 @@ const parceiroLoading = tipo => {
         pagina = resposta.dado.paginacao.atual;
         if (resposta.dado.paginacao.total > resposta.dado.paginacao.atual) {
             blocoCarregarMais.classList.remove('display_none');
+        } else {
+            blocoCarregarMais.classList.add('display_none');
         }
     };
     buscarParceiro();
@@ -80,9 +154,16 @@ const parceiroLoading = tipo => {
     });
 
     const adicionarListaLoja = parceiro => {
-        if (parceiro.lista.length == 0 && pagina == '') {
+        if (parceiro.lista.length == 0 && (pagina == 1 || pagina == '')) {
             blocoZero.classList.remove('display_none');
             return;
+        }
+        const listaFake = $$('.article_fake');
+        listaFake.forEach(item => {
+            item.remove();
+        });
+        if (carregarMapa) {
+            carregarPontoMapa(parceiro.mapa);
         }
         parceiro.lista.forEach(item => {
             const clone = blocoLoja.cloneNode(true);
@@ -102,6 +183,7 @@ const parceiroLoading = tipo => {
 
             blocoLista.appendChild(clone);
         });
+        blocoLista.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
     };
 };
 window.addEventListener('load', () => {
@@ -109,10 +191,11 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('load', () => {
-    const blocoMapa = $('#bloco_loja_mapa');
     if (!blocoMapa) {
         return false;
     }
+    const blocoLoja = $('#bloco_loja_index');
+    const blocoBusca = $('#bloco_buscar');
     const blocoParceiro = $('#bloco_loja_index .bloco_parceiro');
     const botaoMapa = $('#botao_visualizar_mapa');
     const botaoLista = $('#botao_visualizar_lista');
@@ -121,33 +204,32 @@ window.addEventListener('load', () => {
         botaoLista.classList.remove('display_none');
         blocoMapa.classList.remove('display_none');
         blocoParceiro.classList.add('display_none');
+        blocoCarregarMais.classList.add('bloco_carregar_mais_mapa');
+        blocoLoja.classList.add('bloco_mapa');
+        blocoBusca.classList.add('display_none');
     });
     botaoLista.addEventListener('click', () => {
         botaoMapa.classList.remove('display_none');
         botaoLista.classList.add('display_none');
         blocoMapa.classList.add('display_none');
         blocoParceiro.classList.remove('display_none');
+        blocoCarregarMais.classList.remove('bloco_carregar_mais_mapa');
+        blocoLoja.classList.remove('bloco_mapa');
+        blocoBusca.classList.remove('display_none');
     });
 });
+
+const MAPA = {
+    mapa: null,
+    latitude: parseFloat(latitude),
+    longitude: parseFloat(longitude),
+};
+
 window.addEventListener('load', () => {
     const blocoMapa = $('#bloco_google_maps');
     if (!blocoMapa) {
         return;
     }
-
-    const botaoAtualizar = $('#botao_atualizar_mapa');
-    const blocoPrevia = $('#bloco_parceiro_previa');
-    const blocoPreviaFechar = $('#bloco_parceiro_previa .fechar');
-    const blocoPreviaFigure = $('#bloco_parceiro_previa figure');
-    const blocoPreviaTitulo = $('#bloco_parceiro_previa h1');
-    const blocoPreviaDesconto = $('#bloco_parceiro_previa .desconto');
-    const blocoPreviaLink = $('#bloco_parceiro_previa a');
-
-    const MAPA = {
-        mapa: null,
-        latitude: parseFloat($('#input_loja_latitude').value || 0),
-        longitude: parseFloat($('#input_loja_longetude').value || 0),
-    };
 
     async function iniciarMapa() {
         const { Map } = await google.maps.importLibrary('maps');
@@ -168,62 +250,62 @@ window.addEventListener('load', () => {
             botaoAtualizar.classList.remove('display_none');
             fecharPreviaMapa();
         });
-        carregarPontos();
     }
     iniciarMapa();
+});
 
-    const carregarPontos = async () => {
-        const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
+const carregarPontoMapa = async loja => {
+    const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
 
-        const dado = [...document.querySelectorAll('#bloco_loja_mapa .lista article.novo')];
-        const markers = dado.map(item => {
-            const imagem = item.getAttribute('data-imagem');
-            const link = item.getAttribute('data-link');
-            const titulo = item.getAttribute('data-titulo');
-            const desconto = item.getAttribute('data-desconto');
+    const markers = loja.map(item => {
+        const imagem = item.imagem;
+        const link = item.link;
+        const titulo = item.titulo;
+        const desconto = item.desconto;
 
-            const icone = document.createElement('img');
-            icone.classList.add('icone_mapa');
-            icone.src = imagem;
+        const icone = document.createElement('img');
+        icone.classList.add('icone_mapa');
+        icone.src = imagem;
 
-            const marker = new google.maps.marker.AdvancedMarkerElement({
-                position: {
-                    lat: parseFloat(item.getAttribute('data-latitude')),
-                    lng: parseFloat(item.getAttribute('data-longitude')),
-                },
-                content: icone,
-            });
-
-            marker.addListener('click', () => {
-                abrirPreviaMapa(titulo, desconto, imagem, link);
-            });
-            return marker;
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+            position: {
+                lat: parseFloat(item.latitude),
+                lng: parseFloat(item.longitude),
+            },
+            content: icone,
         });
 
-        new markerClusterer.MarkerClusterer({ markers, map: MAPA.mapa });
-    };
+        marker.addListener('click', () => {
+            abrirPreviaMapa(titulo, desconto, imagem, link);
+        });
+        return marker;
+    });
 
-    const abrirPreviaMapa = (titulo, desconto, imagem, link) => {
-        blocoPreviaFigure.innerHTML = `<img src="${imagem}">`;
-        blocoPreviaTitulo.innerText = titulo;
-        blocoPreviaDesconto.innerText = desconto;
-        blocoPreviaLink.setAttribute('href', link);
-        blocoPrevia.classList.remove('display_none');
-        setTimeout(() => {
-            blocoPrevia.classList.add('ativo');
-        }, 40);
-    };
-    const fecharPreviaMapa = () => {
-        blocoPrevia.classList.remove('ativo');
-        setTimeout(() => {
-            blocoPrevia.classList.add('display_none');
-            blocoPreviaFigure.innerHTML = '';
-            blocoPreviaTitulo.innerText = '';
-            blocoPreviaDesconto.innerText = '';
-            blocoPreviaLink.removeAttribute('href');
-        }, 300);
-    };
+    new markerClusterer.MarkerClusterer({ markers, map: MAPA.mapa });
+};
+
+const abrirPreviaMapa = (titulo, desconto, imagem, link) => {
+    blocoPreviaFigure.innerHTML = `<img src="${imagem}">`;
+    blocoPreviaTitulo.innerText = titulo;
+    blocoPreviaDesconto.innerText = desconto;
+    blocoPreviaLink.setAttribute('href', link);
+    blocoPrevia.classList.remove('display_none');
+    setTimeout(() => {
+        blocoPrevia.classList.add('ativo');
+    }, 40);
+};
+const fecharPreviaMapa = () => {
+    blocoPrevia.classList.remove('ativo');
+    setTimeout(() => {
+        blocoPrevia.classList.add('display_none');
+        blocoPreviaFigure.innerHTML = '';
+        blocoPreviaTitulo.innerText = '';
+        blocoPreviaDesconto.innerText = '';
+        blocoPreviaLink.removeAttribute('href');
+    }, 300);
+};
+if (blocoPreviaFechar) {
     blocoPreviaFechar.addEventListener('click', () => {
         fecharPreviaMapa();
     });
-});
+}

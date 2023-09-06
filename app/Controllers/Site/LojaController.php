@@ -5,23 +5,17 @@ namespace App\Controllers\Site;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Modules\Botao;
-use Modules\Inteiro;
 use Helpers\ApiHelper;
 use Controller\Controller;
-use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
-use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
-use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Site\Loja\DeclaracaoModel;
 use App\Classes\ParceiroLoja\Procedimento;
 use App\Models\Site\Loja\ChequeBonusModel;
 use App\Models\Site\Loja\SolicitacaoModel;
-use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
 
 final class LojaController extends Controller
@@ -35,7 +29,7 @@ final class LojaController extends Controller
      */
     public function getBuscar(Request $request): Response
     {
-        $Filtro = new FiltroModel($request);
+        $Filtro = new FiltroModel($request->dado());
         return new Response(url: $Filtro->link);
     }
 
@@ -48,8 +42,7 @@ final class LojaController extends Controller
      */
     public function index(Request $request): Response
     {
-        $Filtro = new FiltroModel($request);
-
+        $Filtro = new FiltroModel($request->dado());
         return view('loja.index', [
             'menu'   => 'loja',
             'Busca'  => $Filtro,
@@ -61,19 +54,8 @@ final class LojaController extends Controller
     public function postListar(Request $request)
     {
         $Lista = new ListarModel(
-            pagina: new Inteiro($request->pagina),
-            quantidade: new Inteiro(24),
-            favorito: new Botao($request->favorito),
             tipo: new Tipo($request->tipo),
-            ordem: new Ordem(!empty($request->ordem) ? $request->ordem : 'favorito'),
-            categoria: new Categoria($request->categoria),
-            subcategoria: $request->subcategoria,
-            estabelecimento: new Estabelecimento($request->estabelecimento),
-            pesquisa: $request->pesquisa,
-            latitude: $request->latitude,
-            longitude: $request->longitude,
-            acessado: new Botao($request->acessado),
-            estado: new EnderecoEstado($request->estado)
+            Filtro: new FiltroModel($request->dado())
         );
         return mensagemSucesso($Lista->listarDados());
     }
@@ -91,8 +73,10 @@ final class LojaController extends Controller
         $Dado = new BuscarModel($url);
         $dado = $Dado->buscarDados();
         $Lista = new ListarModel(
-            quantidade: new Inteiro(3),
-            ordem: new Ordem(Ordem::RANDOMICO)
+            Filtro: new FiltroModel([
+                'quantidade' => 3,
+                'ordem'      => 'randomico'
+            ])
         );
 
         return view('loja.detalhe', [

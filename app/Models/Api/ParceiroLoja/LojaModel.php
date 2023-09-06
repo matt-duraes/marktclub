@@ -6,6 +6,7 @@ use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Helpers\OrmHelper;
+use Modules\EnderecoEstado;
 use ApiModel\Endereco\RaioModel;
 use App\Classes\ParceiroLoja\Tipo;
 use System\Classes\Endereco\Local;
@@ -189,6 +190,11 @@ class LojaModel extends ORM implements ModelListarInterface
         }
         if (!empty($this->idMaisAcessado)) {
             $where[] = ['id', 'in', $this->idMaisAcessado];
+        }
+
+        $estado = new EnderecoEstado($this->request->estado);
+        if ($estado->valido()) {
+            $where[] = ['estado', 'LIKE', '%"' . $estado->valor() . '"%'];
         }
 
         $status = new Status($this->request->status);

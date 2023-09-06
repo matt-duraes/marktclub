@@ -5,6 +5,29 @@
 @resource "site/loja/parceiro"
 @system "Esqueleto"
 
+#form_buscar
+    .bloco_mapa
+        width: 100%
+        margin: 20px 0 10px
+        border-left: 5px solid $corClube
+        padding-left: 15px
+    .bloco_mapa h2
+        texto()
+    .bloco_mapa .bloco_switch
+        margin-top: 10px
+        margin-bottom: 0
+    .busca_cidade
+        display: none
+#form_buscar.busca_mapa
+    .busca_cidade
+        display: flex
+    .busca_estabelecimento
+    .busca_ordem
+        display: none
+
+.bloco_parceiro_loading
+    position: relative
+    z-index: 2
 .bloco_parceiro_loading article
     figure .esqueleto
         width: 120px
@@ -18,18 +41,30 @@
 .bloco_carregar_mais
     width: 100%
     maxWidth()
+    position: relative
     flexCenter()
     margin-top: 20px
+    z-index: 6
+    &.bloco_carregar_mais_mapa
+        position: fixed
+        bottom: 20px
     .botao
+        width: 100%
+        max-width: 220px
         height: 60px
         line-height: 60px
         background-color: $corClube
         color: #FFF
         border-radius: 5px
-        padding: 0 40px
         margin-left: 20px
+        text-align: center
         textoFontSize()
         cursor: pointer
+        user-select: none
+    .botao.loading
+        background: #CCC
+        color: #333
+        cursor: progress
 
 #bloco_loja_index
     width: 100%
@@ -42,23 +77,28 @@
         z-index: 2
     .bloco_geral_sem_resultado
         padding-top: 60px
-        border-top: 1px solid #DDD
 
 #bloco_loja_index .bloco_especial
     maxWidth()
     flexRow()
     margin: -20px 0 20px
-    z-index: 2
+    z-index: 6
     &.separar
         border-top: 1px solid #DDD
         padding-top: 20px
     .scroll
+        min-width: 100%
         overflow-x: auto
         scrollBarHide()
-    .flex_grow
-        flexGrow()
     .conteudo
         flexRow()
+    .borda
+        width: 1px
+        min-width: 1px
+        height: 45px
+        background-color: #CCC
+        margin-right: 20px
+        position: relative
     .item
         border: 1px solid #999
         background-color: $corBody
@@ -72,6 +112,7 @@
         fill: #666
     .item p
         texto()
+        white-space: nowrap
     .item:hover
         border-color: $corClube
     .item:hover i
@@ -93,8 +134,45 @@
         border: 1px solid $corClube
         color: $corClube
         cursor: pointer
+        position: relative
     .mapa i
         fill: $corClube
+    .busca
+        display: none
+    .final
+        width: 1px
+        min-width: 1px
+        height: 20px
+        display: none
+
+#bloco_loja_index.bloco_mapa .bloco_especial
+    max-width: calc(100% - 340px)
+    border-top: none
+    position: fixed
+    top: 20px
+    margin-top: 0
+    padding-top: 0
+    right: 20px
+    .conteudo
+        justify-content: center
+    .busca
+        display: flex
+    .borda
+        background: #666
+
+@media screen and (max-width: 1250px)
+    #bloco_loja_index.bloco_mapa .bloco_especial
+        max-width: 100%
+        top: 80px
+        right: 0
+        .conteudo
+            justify-content: flex-start
+        .conteudo .item
+            &:first-child
+                margin-left: 20px
+        .conteudo .final
+            display: flex
+
 @media screen and (max-width: 900px)
     #bloco_loja_index .bloco_especial
         flex-wrap: wrap
@@ -111,13 +189,15 @@
             width: 100%
             margin-top: 20px
             flexCenter()
+
 #bloco_loja_mapa
     width: calc(100vw - 310px)
     height: 100vh
     position: fixed
     top: 0
     right: 0
-    z-index: 1
+    z-index: 5
+    background: #FFF
     .atualizar
         height: 30px
         line-height: 30px
@@ -158,14 +238,14 @@ body.body_scroll_hidden #bloco_loja_mapa .mapa
         width: calc(100% - 10px)
         right: 10px
 
-#bloco_loja_mapa .parceiro_previa
+#bloco_parceiro_previa
     width: calc(100% - 300px)
     position: fixed
     bottom: -100px
     right: 0
     opacity: 0
     padding: 0 20px
-    z-index: 2
+    z-index: 7
     flexRow()
     justify-content: center
     transition: opacity .3s ease-out, bottom .3s ease-out

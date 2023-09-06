@@ -1,10 +1,10 @@
-<div class="bloco_buscar_geral bloco_buscar_loja" id="bloco_buscar">
-    <div class="buscar" id="botao_buscar_abrir">
+<div class="bloco_buscar_geral bloco_buscar_loja {{$Busca->mapa ?? '' ? 'display_none' : ''}}" id="bloco_buscar">
+    <div class="buscar botao_buscar_abrir">
         <p>Busque uma loja</p>
         <div class="botao">Buscar</div>
     </div>
 
-    <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="form_geral display_none">
+    <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="{{$Busca->mapa ? 'busca_mapa' : ''}} form_geral display_none">
         <div class="conteudo">
             <div class="centralizar">
                 <header>
@@ -12,12 +12,17 @@
                     <h1>Busque por uma loja</h1>
                     <i class="desktop botao_buscar_fechar">@iconeFechar</i>
                 </header>
-                <input type="hidden" id="input_latitude" name="latitude" value="{{$Busca->latitude ?? ''}}">
-                <input type="hidden" id="input_longitude" name="longitude" value="{{$Busca->longitude ?? ''}}">
-                <input type="hidden" id="input_acessado" name="acessado" value="{{$Busca->acessado ?? '' ? 'sim' : 'nao'}}">
-                <input type="hidden" id="input_favorito" name="favorito" value="{{$Busca->favorito ?? '' ? 'sim' : 'nao'}}">
+                <div class="bloco_mapa">
+                    <h2>Gostaria de buscar apenas lojas próximas a você? Para isso, basta marcar o botão abaixo:</h2>
+                    @? formSwitch(name: '', id:'input_mapa', label: 'Buscar lojas próximas', check: $Busca->mapa)
+                </div>
+                <input type="hidden" id="input_latitude" value="{{$Busca->latitude ?? ''}}">
+                <input type="hidden" id="input_longitude" value="{{$Busca->longitude ?? ''}}">
+                <input type="hidden" id="input_acessado" value="{{$Busca->acessado ?? '' ? 'sim' : 'nao'}}">
+                <input type="hidden" id="input_favorito" value="{{$Busca->favorito ?? '' ? 'sim' : 'nao'}}">
                 <fieldset>
-                    @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('UF')->uf()->r(), value: $Busca->estado ?? '')
+                    @? formSelect(name: 'estado', placeholder: 'Estado', label: 'Estado', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estados')->estado()->r(), value: $Busca->estado ?? '')
+                    @? formSelect(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', class: 'busca_cidade', lista: ['' => 'Escolha um estado primeiro'], value: $Busca->cidade ?? '')
                     @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: (new App\Classes\ParceiroLoja\Categoria)->select('Escolha uma categoria'), change: 'mudarCategoria', value: $Busca->categoria ?? '')
                     @? formSelect(name: 'subcategoria', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Escolha uma categoria'], value: $Busca->subcategoria ?? '')
                     @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: (new App\Classes\ParceiroLoja\Estabelecimento)->select('Escolha um tipo'), value: $Busca->estabelecimento ?? '')
@@ -31,15 +36,15 @@
         </div>
     </form>
 </div>
-@ if( isset($Busca) && $Busca->uso ):
+@ if( isset($Busca) && !empty($Busca->filtro) && !$Busca->mapa ):
 <div class="buscar_convenio_lista">
     <h2>Filtros:</h2>
     <div class="scroll">
         <div class="conteudo">
-            @ foreach( $Busca->uso as $r ):
-            <div class="item" data-indice="{{$r['indice']}}" data-valor="{{$r['valor']}}">
-                <div class="nome">{{$r['nome']}}</div>
-                <div class="valor">{{$r['valor_real']}}</div>
+            @ foreach( $Busca->filtro as $r ):
+            <div class="item" data-indice="{{$r->indice}}" data-valor="{{$r->valor}}">
+                <div class="nome">{{$r->nome}}</div>
+                <div class="valor">{{$r->valor}}</div>
                 <div class="remover">@iconeFechar(10)</div>
             </div>
             @ endforeach;
