@@ -114,6 +114,9 @@ Route
         Route
             ::nome('index')
             ::view('/');
+        route
+            ::nome('buscar')
+            ::post('/home/buscar');
     });
 Route
     ::nome('analytics')

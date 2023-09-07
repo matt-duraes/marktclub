@@ -15,13 +15,13 @@ final class HomeModel extends ClubeApiHelper
         $amil = env('SAUDE_AMIL', 0);
 
         $valor = 0;
-        if (MENU_SAUDE_VITORIA && $valor < $unimedVitoria) {
+        if (MENU_SAUDE_VITORIA && ($valor == 0 || $valor > $unimedVitoria)) {
             $valor = $unimedVitoria;
         }
-        if (MENU_SAUDE_AMIL && $valor < $amil) {
+        if (MENU_SAUDE_AMIL && ($valor == 0 || $valor > $amil)) {
             $valor = $amil;
         }
-        if (MENU_SAUDE_SEGURO && $valor < $unimedSeguro) {
+        if (MENU_SAUDE_SEGURO && ($valor == 0 || $valor > $unimedSeguro)) {
             $valor = $unimedSeguro;
         }
         if (!empty($valor)) {

@@ -19,6 +19,15 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
+        return view('index', [
+            'menu'           => 'home',
+            'banner'         => (new BannerModel())->home(),
+            'plano_saude'    => (new HomeModel())->valor
+        ]);
+    }
+
+    public function postBuscar()
+    {
         $MaisUtilizada = new ListarModel(
             Filtro: new FiltroModel([
                 'quantidade' => 3,
@@ -38,13 +47,10 @@ final class IndexController extends Controller
                 'ordem'      => (new Ordem(Ordem::RANDOMICO))->valor()
             ])
         );
-        return view('index', [
-            'menu'           => 'home',
-            'mais_utilizada' => $MaisUtilizada->listarDados(),
-            'loja_nova'      => $LojaNova->listarDados(),
-            'loja_favorita'  => $LojaFavorita->listarDados(),
-            'banner'         => (new BannerModel())->home(),
-            'plano_saude'    => (new HomeModel())->valor
+        return mensagemSucesso([
+            'acessado'   => $MaisUtilizada->listarDados()->lista ?? [],
+            'novo'       => $LojaNova->listarDados()->lista ?? [],
+            'favorito'   => $LojaFavorita->listarDados()->lista ?? [],
         ]);
     }
 }

@@ -1,7 +1,7 @@
 // @template "site"
 // @resource "site/loja/favorito"
 // @resource "site/loja/busca"
-// @resource "site/busca"
+// @resource "site/loja/parceiro"
 // @resource "site/busca"
 // @system "Esqueleto"
 
@@ -25,9 +25,6 @@ const longitude = inputLongitude ? inputLongitude.value : 0;
 
 const tipo = 'loja';
 
-const blocoLoja = $('#parceiro_padrao_loja');
-blocoLoja.removeAttribute('id');
-
 const blocoLoading = $('#bloco_parceiro_loading');
 const blocoLista = $('#bloco_parceiro_lista');
 
@@ -35,7 +32,7 @@ const blocoZero = $('#bloco_parceiro_zero');
 
 const botaoCarregarMais = $('#botao_carregar_mais');
 
-const loading = $$('.bloco_parceiro_loading article');
+const loading = $$('.parceiro_esqueleto');
 loading.forEach(item => {
     const EsqueletoItem = new Esqueleto(item, '.esqueleto');
     EsqueletoItem.show();
@@ -140,7 +137,7 @@ const buscarParceiro = async () => {
         return;
     }
     if (tipo == 'loja') {
-        adicionarListaLoja(resposta.dado);
+        adicionarListaLoja(blocoLista, resposta.dado);
     }
     pagina = resposta.dado.paginacao.atual;
     if (resposta.dado.paginacao.total > resposta.dado.paginacao.atual) {
@@ -154,7 +151,7 @@ botaoCarregarMais.addEventListener('click', () => {
     buscarParceiro();
 });
 
-const adicionarListaLoja = parceiro => {
+const adicionarListaLoja = (bloco, parceiro) => {
     if (parceiro.lista.length == 0 && (pagina == 1 || pagina == '')) {
         blocoZero.classList.remove('display_none');
         return;
@@ -167,24 +164,9 @@ const adicionarListaLoja = parceiro => {
         carregarPontoMapa(parceiro.mapa);
     }
     parceiro.lista.forEach(item => {
-        const clone = blocoLoja.cloneNode(true);
-        const favorito = clone.querySelector('.botao_favorito');
-        favorito.setAttribute('dta-url', item.id);
-        if (item.favorito == 'sim') {
-            favorito.classList.add('favorito_marcado');
-        }
-        clone.querySelector('.item_link').setAttribute('href', item.link);
-        clone.querySelector('.item_logo').innerHTML = `<img src="${item.imagem}">`;
-        clone.querySelector('.item_titulo').innerText = item.titulo;
-        clone.querySelector('.item_desconto').innerText = item.desconto;
-        if (item.estado != '') {
-            clone.querySelector('.bloco_estado').classList.remove('display_none');
-            clone.querySelector('.item_estado').innerText = item.estado;
-        }
-
-        blocoLista.appendChild(clone);
+        adicionarParceiro(bloco, item);
     });
-    blocoLista.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
+    bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
 };
 
 window.addEventListener('load', () => {
