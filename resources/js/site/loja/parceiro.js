@@ -8,8 +8,8 @@ const adicionarParceiro = (bloco, item) => {
         return;
     }
     const clone = blocoClone.cloneNode(true);
+    clone.setAttribute('data-url', item.id);
     const favorito = clone.querySelector('.botao_favorito');
-    favorito.setAttribute('dta-url', item.id);
     if (item.favorito == 'sim') {
         favorito.classList.add('favorito_marcado');
     }

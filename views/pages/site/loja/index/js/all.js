@@ -1,6 +1,6 @@
 // @template "site"
-// @resource "site/loja/favorito"
 // @resource "site/loja/busca"
+// @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
 // @resource "site/busca"
 // @system "Esqueleto"
