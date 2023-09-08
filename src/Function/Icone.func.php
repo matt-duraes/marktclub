@@ -1050,7 +1050,7 @@ if (!function_exists('iconeSair')) {
      */
     function iconeSair(int $tamanho = 16): string
     {
-        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M11,29H3c-0.6,0-1-0.4-1-1V4c0-0.6,0.4-1,1-1h8c0.6,0,1,0.4,1,1s-0.4,1-1,1H4v22h7c0.6,0,1,0.4,1,1S11.6,29,11,29z M20,25  c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l6.3-6.3H8c-0.6,0-1-0.4-1-1s0.4-1,1-1h17.6l-6.3-6.3c-0.4-0.4-0.4-1,0-1.4  s1-0.4,1.4,0l8,8c0.1,0.1,0.2,0.2,0.2,0.3c0,0.1,0.1,0.2,0.1,0.4l0,0c0,0,0,0,0,0l0,0c0,0.1,0,0.3-0.1,0.4c0,0.1-0.1,0.2-0.2,0.3  l-8,8C20.5,24.9,20.3,25,20,25z"/></svg>';
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 20" style="enable-background:new 0 0 22 20;" xml:space="preserve"><path d="M5,9h8v2H5v3l-5-4l5-4V9z M4,16h2.7c1.4,1.2,3.3,2,5.3,2c4.4,0,8-3.6,8-8c0-4.4-3.6-8-8-8c-2,0-3.9,0.8-5.3,2H4c1.8-2.4,4.7-4,8-4c5.5,0,10,4.5,10,10c0,5.5-4.5,10-10,10C8.7,20,5.8,18.4,4,16z"/></svg>';
     }
 }
 if (!function_exists('iconeBloquear')) {
