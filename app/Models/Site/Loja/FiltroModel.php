@@ -69,7 +69,7 @@ final class FiltroModel extends ClubeApiHelper
         $retorno = [];
         $link = [];
 
-        if (array_key_exists('cidade', $dado)) {
+        if (array_key_exists('cidade', $dado) && !empty($dado['cidade'])) {
             unset($dado['latitude'], $dado['longitude']);
         }
 
