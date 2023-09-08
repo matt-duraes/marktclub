@@ -69,6 +69,10 @@ final class FiltroModel extends ClubeApiHelper
         $retorno = [];
         $link = [];
 
+        if (array_key_exists('cidade', $dado)) {
+            unset($dado['latitude'], $dado['longitude']);
+        }
+
         foreach ($dado as $ind => $val) {
             if (
                 (!in_array($ind, $lista) || empty($val)) ||
@@ -108,7 +112,11 @@ final class FiltroModel extends ClubeApiHelper
         $this->latitude = $geolocalicacao['latitude'];
         $this->longitude = $geolocalicacao['longitude'];
         $dado['latitude'] = $this->latitude;
-        $dado['longitude'] = $this->latitude;
+        $dado['longitude'] = $this->longitude;
+
+        $this->link .= str_contains($this->link, '?') ? '&' : '?';
+        $this->link .= 'latitude=' . $this->latitude . '&longitude=' . $this->longitude;
+
         return $dado;
     }
 

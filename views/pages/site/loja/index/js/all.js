@@ -266,9 +266,9 @@ const carregarPontoMapa = async loja => {
         const titulo = item.titulo;
         const desconto = item.desconto;
 
-        const icone = document.createElement('img');
+        const icone = document.createElement('figure');
         icone.classList.add('icone_mapa');
-        icone.src = imagem;
+        icone.style = `background-image: url(${imagem})`;
 
         const marker = new google.maps.marker.AdvancedMarkerElement({
             position: {
