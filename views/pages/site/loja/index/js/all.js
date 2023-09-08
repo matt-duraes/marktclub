@@ -48,6 +48,18 @@ const inputPesquisa = $('#input_pesquisa');
 const inputOrdem = $('#input_ordem');
 const formBusca = $('#form_buscar');
 
+const latitudeValor = inputLatitude.value;
+const longitudeValor = inputLongitude.value;
+const acessadoValor = inputAcessado.value;
+const favoritoValor = inputFavorito.value;
+const estadoValor = inputEstado.value;
+const cidadeValor = inputCidade.value;
+const categoriaValor = inputCategoria.value;
+const subcategoriaValor = inputSubcategoria.value;
+const estabelecimentoValor = inputEstabelecimento.value;
+const pesquisaValor = inputPesquisa.value;
+const ordemValor = inputOrdem.value;
+
 const carregarMapa = inputMapa && inputMapa.checked;
 if (inputMapa) {
     inputMapa.addEventListener('change', () => {
@@ -113,17 +125,17 @@ const buscarParceiro = async () => {
         {
             pagina,
             tipo,
-            latitude: inputLatitude.value,
-            longitude: inputLongitude.value,
-            acessado: inputAcessado.value,
-            favorito: inputFavorito.value,
-            estado: inputEstado.value,
-            cidade: inputCidade.value,
-            categoria: inputCategoria.value,
-            subcategoria: inputSubcategoria.value,
-            estabelecimento: inputEstabelecimento.value,
-            pesquisa: inputPesquisa.value,
-            ordem: inputOrdem.value,
+            latitude: latitudeValor,
+            longitude: longitudeValor,
+            acessado: acessadoValor,
+            favorito: favoritoValor,
+            estado: estadoValor,
+            cidade: cidadeValor,
+            categoria: categoriaValor,
+            subcategoria: subcategoriaValor,
+            estabelecimento: estabelecimentoValor,
+            pesquisa: pesquisaValor,
+            ordem: ordemValor,
         },
         ''
     );
