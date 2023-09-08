@@ -112,7 +112,6 @@ window.addEventListener('load', () => {
             // eslint-disable-next-line camelcase
             ux_mode: 'popup',
             callback: response => {
-                ppe(response);
                 vincularContaSocial(response.code);
             },
         });
