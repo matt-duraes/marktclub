@@ -1,8 +1,9 @@
 const bodyFormSelect = document.querySelector('body');
-bodyFormSelect.insertAdjacentHTML('beforeend', `<div id="fw_form_select"></div>`);
+bodyFormSelect.insertAdjacentHTML('beforeend', `<div id="fw_form_select" class="fw_form_hide"></div>`);
 
 let selectChange = {};
 let fwFormSelectAbertoAtual, fwFormSelectListaTexto, fwFormSelectValorAtual;
+const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 
 const formValue = (input, valor, obrigatorio) => {
     obrigatorio = obrigatorio == undefined ? false : true;
@@ -86,9 +87,11 @@ const formSelectOption = (select, lista, valor) => {
     if (valor != undefined) {
         formValue(select, valor);
     }
+    if (!fwFormBlocoGeralSelect.classList.contains('fw_form_hide') && fwFormSelectAbertoAtual) {
+        // Recarregar
+        fwFormSelectAbrirListaOption(fwFormSelectAbertoAtual, false, false, true);
+    }
 };
-
-const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 
 /**
  * Remove os acentos da string
@@ -353,7 +356,7 @@ const fwFormSelectPosicionarUl = select => {
     const alturaScroll = document.querySelector('html').scrollTop;
     const windowHeight = window.innerHeight;
 
-    fwFormBlocoGeralSelect.style.display = 'block';
+    fwFormBlocoGeralSelect.classList.remove('fw_form_hide');
     fwFormBlocoGeralSelect.style.width = posicaoSelect.width + 'px';
     fwFormBlocoGeralSelect.style.left = posicaoSelect.left + 'px';
 

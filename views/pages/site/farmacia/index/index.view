@@ -1,6 +1,7 @@
 @template "site"
 
 <div id="bloco_medicamento">
-@view site/geral/parceiro.view
+    @view site/geral/banner.view
+    @view site/geral/parceiro.view
 </div>
 

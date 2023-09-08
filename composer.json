@@ -10,6 +10,7 @@
         "ext-openssl": "*",
         "ext-pdo": "*",
         "box/spout": "^3",
+        "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4",
         "firebase/php-jwt": "^6",
         "google/apiclient": "^2",
@@ -23,8 +24,7 @@
         "symfony/css-selector": "^6",
         "symfony/http-client": "^6",
         "symfony/http-foundation": "^6",
-        "symfony/mime": "^6",
-        "erusev/parsedown": "^1.7"
+        "symfony/mime": "^6"
     },
     "require-dev": {
         "captainhook/captainhook": "^5",

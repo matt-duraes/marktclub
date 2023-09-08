@@ -6,8 +6,7 @@ $estado = $_POST['estado'] ?? '';
 if (empty($estado)) {
     exit();
 }
-mensagemStatus(404);
-exit();
+
 include ROOT . '/src/Helpers/LocalizacaoHelper.php';
 
 $Localizacao = new LocalizacaoHelper();

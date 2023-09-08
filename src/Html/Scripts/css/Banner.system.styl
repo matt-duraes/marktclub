@@ -1,0 +1,16 @@
+.fw_banner
+    .fw_banner_hide
+        display: none !important
+    .fw_banner_item
+        opacity: 0 !important
+        transition: opacity .3s ease-out
+    .fw_banner_atual
+        opacity: 1 !important
+        animation: fw_banner 8s forwards
+.fw_banner.fw_banner_pausar .fw_banner_atual
+    animation-play-state: paused
+@keyframes fw_banner
+    0%
+        font-weight: normal
+    100%
+        font-weight: normal
