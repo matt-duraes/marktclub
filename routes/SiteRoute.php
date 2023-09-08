@@ -586,7 +586,7 @@ Route
             ::post('/perfil/dependente-deletar');
         Route
             ::nome('social')
-            ::request(['id', 'token', 'rede', 'code', 'acao'])
+            ::request(['code'])
             ::post('/perfil/vincular-google');
         Route
             ::nome('carteira')

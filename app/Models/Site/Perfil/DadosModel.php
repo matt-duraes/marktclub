@@ -122,26 +122,10 @@ final class DadosModel extends ClubeApiHelper
     private function pegarIdRedeSocial($request)
     {
         $Social = new SocialHelper(
-            $request->rede,
-            $request->id,
-            $request->token,
-            $request->code
+            rede: 'google',
+            code: $request->code
         );
 
-        if ($request->acao == 'imagem') {
-            return $this->vincularImagem($Social, $request->rede);
-        }
-    }
-
-    /**
-     * @param SocialHelper $Social
-     * @param              $rede
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    private function vincularImagem(SocialHelper $Social, $rede)
-    {
-        return  ($rede == 'google') ? $Social->imagem() : '';
+        return $Social->imagem();
     }
 }
