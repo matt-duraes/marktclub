@@ -5,6 +5,15 @@
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
 
+const bannerDesktop = $('#bloco_banner_desktop');
+const bannerMobile = $('#bloco_banner_desktop');
+if (bannerDesktop) {
+    new Banner(bannerDesktop, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
+}
+if (bannerMobile) {
+    new Banner(bannerMobile, 'figure');
+}
+
 const loadingFavoritoFaq = () => {
     const botaoFechar = $('#botao_faq_favorito_fechar');
     botaoFechar.addEventListener('click', () => {
@@ -23,11 +32,6 @@ window.addEventListener('load', () => {
     }
 
     new Historico($('#bloco_historico'), LINK + '/historico');
-
-    const BannerHome = new Banner({
-        bloco: '#bloco_home_principal',
-        elemento: 'figure',
-    });
 
     const loading = $$('.parceiro_esqueleto');
     loading.forEach(item => {
