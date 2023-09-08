@@ -67,11 +67,15 @@ if (inputMapa) {
         formValue(inputEstabelecimento, '');
         formValue(inputOrdem, '');
         formBusca.classList.toggle('busca_mapa');
-        if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value != '')) {
+        if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value == '')) {
             buscarGeolocalizacao();
         }
         if (inputMapa.checked && inputEstado.value != '') {
             buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
+        }
+        if (!inputMapa.checked) {
+            inputLatitude.value = '';
+            inputLongitude.value = '';
         }
     });
 }
