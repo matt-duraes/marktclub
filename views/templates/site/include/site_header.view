@@ -60,6 +60,13 @@
                 Indique um amigo
             </a>
             @ endif;
+
+            @ if( MENU_SAIR ):
+            <a class="botao" href="@route(sair.index)">
+                <i>@iconeSair(17)</i>
+                Sair do clube
+            </a>
+            @ endif;
         </div>
         @ endif;
 
