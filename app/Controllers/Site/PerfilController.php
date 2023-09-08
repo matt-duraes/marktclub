@@ -96,8 +96,6 @@ final class PerfilController extends Controller
     */
     public function postSocial(Request $request)
     {
-        if ($request->acao == 'imagem') {
-            return (new DadosModel())->postImagemSocial($request);
-        }
+        return (new DadosModel())->postImagemSocial($request);
     }
 }
