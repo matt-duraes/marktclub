@@ -35,6 +35,11 @@ final class LoginController extends Controller
     public function postLogin(Request $request): Response
     {
         new LogarModel($request->login, $request->senha);
+        return $this->loginRealizado();
+    }
+
+    private function loginRealizado(): Response
+    {
         $link = (new AuthHelper())->location();
         return mensagemSucesso([
             'link' => str_contains($link, '/login') ? LINK : $link
@@ -106,6 +111,66 @@ final class LoginController extends Controller
         }
 
         return view('login.faq', ['faq' => $lista]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SENHA
+    |--------------------------------------------------------------------------
+    */
+    public function senha()
+    {
+        return view('login.senha');
+    }
+
+    public function postSenhaBuscar(Request $request)
+    {
+        $Api = (new ApiHelper(scope: 'usuario_cliente:senha'));
+        $dado = $Api
+            ->validar('Ocorreu um erro ao buscar seus dados, por favor, tente novamente.')
+            ->json([
+                'empresa' => EMPRESA_ID,
+                'cpf'     => $Api->Crypt->encode($request->cpf),
+            ])
+            ->get('/usuario-cliente/senha')
+            ->object();
+
+        return mensagemSucesso([
+            'id' => $dado->usuario
+        ]);
+    }
+
+    public function postSenhaValidar(Request $request)
+    {
+        $Api = (new ApiHelper(scope: 'usuario_cliente:senha'));
+        $dado = $Api
+            ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
+            ->json([
+                'usuario' => $request->usuario,
+                'codigo'  => $request->codigo,
+            ])
+            ->post('/usuario-cliente/senha')
+            ->object();
+
+        return mensagemSucesso([
+            'hash' => $dado->hash
+        ]);
+    }
+
+    public function putSenhaAlterar(Request $request)
+    {
+        $Api = (new ApiHelper(scope: 'usuario_cliente:senha'));
+        $Api
+            ->validar('Ocorreu um erro ao atualizar sua senha, por favor, tente novamente.')
+            ->json([
+                'senha'   => $request->senha,
+                'usuario' => $request->usuario,
+                'hash'    => $request->hash,
+            ])
+            ->put('/usuario-cliente/senha');
+
+        new LogarModel($request->cpf, $request->senha);
+        return $this->loginRealizado();
     }
 
     /*

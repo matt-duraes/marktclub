@@ -2,9 +2,12 @@
 
 namespace App\Controllers\Api;
 
+use Modules\Cpf;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Senha;
+use Modules\Inteiro;
 use Controller\Controller;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\ConstrutorClube\TipoAtivacao;
@@ -20,6 +23,9 @@ use App\Models\Api\UsuarioCliente\DownloadModel;
 use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
+use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
+use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
 
 final class UsuarioClienteController extends Controller implements
     ControllerSalvarInterface,
@@ -176,5 +182,45 @@ final class UsuarioClienteController extends Controller implements
             'id'  => $Ativar->id,
             'cpf' => $Ativar->cpf->valor()
         ], 201);
+    }
+
+    public function getSenha(Request $request)
+    {
+        $Usuario = new EnviarCodigoModel(
+            empresa: $request->empresa,
+            cpf: new Cpf($request->cpf)
+        );
+
+        return mensagemSucesso([
+            'id'      => uuid(),
+            'usuario' => $Usuario->id
+        ]);
+    }
+
+    public function postSenha(Request $request)
+    {
+        $Usuario = new ValidarCodigoModel(
+            usuario: $request->usuario,
+            codigo: new Inteiro($request->codigo)
+        );
+
+        return mensagemSucesso([
+            'id'      => uuid(),
+            'usuario' => $Usuario->hash
+        ]);
+    }
+
+    public function putSenha(Request $request)
+    {
+        $Usuario = new AlterarSenhaModel(
+            senha: new Senha($request->senha),
+            usuario: $request->usuario,
+            hash: $request->hash,
+        );
+
+        return mensagemSucesso([
+            'id'      => uuid(),
+            'token'   => $Usuario->token
+        ]);
     }
 }

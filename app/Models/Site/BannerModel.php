@@ -209,81 +209,18 @@ final class BannerModel extends ClubeApiHelper
     /**
      * @return object
      */
-    public function corretora(): object
-    {
-        return (object)[
-            'desktop' => [
-                (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
-                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub'
-                ]
-            ],
-            'mobile'  => [
-                (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/banner_alfa_corretora.png',
-                    'link'   => 'https://alfacorretora.com.br/home?utm_source=marketclub&utm_medium=marketclub&utm_campaign=marketclub'
-                ]
-            ]
-        ];
-    }
-
-    /**
-     * @return object
-     */
     public function odontologico(): object
     {
         return (object)[
             'desktop' => [
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/banner_topo_odonto_1.png',
-                    'link'   => '#'
-                ]
-            ],
-            'mobile'  => [
-                (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/banner_topo_odonto_1.png',
-                    'link'   => '#'
-                ]
-            ]
-        ];
-    }
-
-    /**
-     * @return object
-     */
-    public function consultoriaAlfa(): object
-    {
-        return (object)[
-            'desktop' => [
-                (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
-                    'link'   => route('alfa.consultoriaAlfa')
-                ]
-            ],
-            'mobile'  => [
-                (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
-                    'link'   => route('alfa.consultoriaAlfa')
-                ]
-            ]
-        ];
-    }
-
-    /**
-     * @return object
-     */
-    public function campanha(): object
-    {
-        return (object)[
-            'desktop' => [
-                (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'imagem' => LINK . '/images/site/banner_topo_odonto_1.png',
                     'link'   => ''
                 ]
             ],
             'mobile'  => [
                 (object)[
-                    'imagem' => 'https://clube.marktclub.com.br/images/consultoria_banner_semb2.png',
+                    'imagem' => LINK . '/images/site/banner_topo_odonto_1.png',
                     'link'   => ''
                 ]
             ]

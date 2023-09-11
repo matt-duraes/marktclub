@@ -1,0 +1,44 @@
+<form id="bloco_form_recuperar_senha" class="bloco_form_login form_geral" action="/" method="post">
+    <div class="conteudo">
+        <header>
+            <h1>NOVA SENHA</h1>
+            <p>Siga os passos abaixo para recuperar sua senha, caso não consiga, entre em contato com o atendimento</p>
+        </header>
+
+        <div class="bloco_geral bloco_buscar_usuario" id="bloco_cpf">
+            <p>Digite seu CPF para começar o processo de recuperação de senha</p>
+            @? formCpf(name: 'senha_cpf', label: 'CPF', obrigatorio: true, placeholder: 'Digite seu CPF', local: '01234567890')
+        </div>
+        <div class="bloco_geral bloco_usar_codigo display_none" id="bloco_codigo">
+            <p>Verifique seu e-mail e pegue o código de autorização, esse e-mail pode demorar alguns segundos para chegar.</p>
+            <div class="atencao bloco_atencao_geral"><p>Seu e-mail pode achar que nosso e-mail é um spam, por isso, verifique sua caixa de span ou lixo eletrônico</p></div>
+            <input type="text" id="input_codigo_1" placeholder="0" data-mascara="0">
+            <input type="text" id="input_codigo_2" placeholder="0" data-mascara="0">
+            <input type="text" id="input_codigo_3" placeholder="0" data-mascara="0">
+            <input type="text" id="input_codigo_4" placeholder="0" data-mascara="0">
+            <input type="text" id="input_codigo_5" placeholder="0" data-mascara="0">
+            <input type="text" id="input_codigo_6" placeholder="0" data-mascara="0">
+            <div class="separador"></div>
+            <div class="botao" id="bloco_reenviar_contador">Reenviar código em <span id="bloco_reenviar_numero">60</span> segundos</div>
+            <div class="botao display_none" id="botao_reenviar_codigo">Reenviar código</div>
+        </div>
+
+        <div class="bloco_geral bloco_nova_senha display_none" id="bloco_senha">
+            <p>Digite sua nova senha, lembre-se que ela deve ter o seguinte formato:</p>
+            <ul>
+                <li class="texto_pequeno">Ter pelo menos 8 caracteres</li>
+                <li class="texto_pequeno">Ter pelo menos uma letra minúscula</li>
+                <li class="texto_pequeno">Ter pelo menos uma letra maiúscula</li>
+                <li class="texto_pequeno">Ter pelo menos um símbolo</li>
+                <li class="texto_pequeno">Ter pelo menos um número</li>
+            </ul>
+            @? formSenha(name:['senha_nova', 'senha_repetir'], label: 'Senha', placeholder: ['Nova senha', 'Repetir senha'], obrigatorio: true)
+        </div>
+
+        <div class="bloco_botao">
+            <div class="botao" id="botao_enviar_codigo">Buscar</div>
+            <div class="botao display_none" id="botao_validar_codigo">Validar</div>
+            <div class="botao display_none" id="botao_alterar_senha">Alterar</div>
+        </div>
+    </div>
+</div>

@@ -83,6 +83,21 @@ Route
             ::request(['busca'])
             ::post('/login/buscar-conta');
         Route
+            ::nome('senha')
+            ::view('/login/senha');
+        Route
+            ::nome('senhaBuscar')
+            ::request(['cpf'])
+            ::post('/login/senha-buscar');
+        Route
+            ::nome('senhaValidar')
+            ::request(['codigo', 'usuario'])
+            ::post('/login/senha-validar');
+        Route
+            ::nome('senhaAlterar')
+            ::request(['cpf', 'senha', 'usuario', 'hash'])
+            ::post('/login/senha-alterar');
+        Route
             ::nome('ativar')
             ::request(['id', 'cpf'])
             ::view('/login/ativar');

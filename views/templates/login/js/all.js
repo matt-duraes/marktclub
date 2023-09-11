@@ -25,7 +25,7 @@ const loadingLogin = () => {
     inputLogin.focus();
 
     botaoAtivar.addEventListener('click', () => {
-        PaginaBuscar.abrir();
+        PaginaAtivarBuscar.abrir();
     });
     botaoFazerLogin.addEventListener('click', () => {
         fazerLogin();
@@ -69,7 +69,7 @@ const loadingLogin = () => {
     };
 };
 
-const loadingBuscar = () => {
+const loadingAtivarBuscar = () => {
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
@@ -112,7 +112,14 @@ const loadingAtivar = () => {
 };
 
 const PaginaLogin = new Pagina('login', LINK + '/login/login', {}, true, true, loadingLogin);
-const PaginaBuscar = new Pagina('buscar-conta', LINK + '/login/buscar-conta', {}, true, true, loadingBuscar);
+const PaginaAtivarBuscar = new Pagina(
+    'buscar-conta',
+    LINK + '/login/buscar-conta',
+    {},
+    true,
+    true,
+    loadingAtivarBuscar
+);
 
 window.addEventListener('load', () => {
     /*
@@ -165,7 +172,7 @@ window.addEventListener('load', () => {
         if (blocoMenuMobile.classList.contains('aberto')) {
             fecharMenu();
         }
-        PaginaBuscar.abrir();
+        PaginaAtivarBuscar.abrir();
     });
 
     /*

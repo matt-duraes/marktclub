@@ -312,6 +312,21 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
             ::request(['chave', 'valor', '!empresa'])
             ::post('/usuario-cliente/ativar');
+        Route
+            ::nome('senha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
+            ::request(['empresa', 'cpf'], 'json')
+            ::get('/usuario-cliente/senha');
+        Route
+            ::nome('senha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
+            ::request(['usuario', 'codigo'])
+            ::post('/usuario-cliente/senha');
+        Route
+            ::nome('senha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
+            ::request(['senha', 'usuario', 'hash'])
+            ::put('/usuario-cliente/senha');
     });
 
 Route
