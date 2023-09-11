@@ -11,20 +11,19 @@ use Modules\Email;
 use Modules\Genero;
 use Modules\Telefone;
 use Helpers\ApiHelper;
+use Helpers\CryptHelper;
 use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
 
 final class SalvarModel extends ApiHelper
 {
-    public function __construct(Request $request)
+    public function __construct(Request $request, CryptHelper $Crypt)
     {
         parent::__construct();
 
         $dado = $request->dado();
-        $Crypt = $this->Crypt;
-
-        $dado = (new ApiHelper('usuario_cliente:ativar'))
+        (new ApiHelper('usuario_cliente:ativar'))
             ->validar('Ocorreu um erro ao ativar seu usuário, por favor, tente novamente.')
             ->body([
                 'hash'                 => $dado['hash'],
@@ -48,6 +47,5 @@ final class SalvarModel extends ApiHelper
                 'endereco_cidade'      => $Crypt->encode($dado['endereco_cidade']),
             ])
             ->put('/usuario-cliente/ativar');
-        // ppe($dado->object());
     }
 }
