@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Api\UsuarioCliente;
+namespace App\Models\Api\UsuarioCliente\Ativar;
 
 use ORM\ORM;
-use Modules\Botao;
+use Modules\Cpf;
 use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Hash;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 
-final class AtivarModel extends ORM
+final class BuscarModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-    public string $id = '';
-    public Botao $cpf;
+    public string $hash = '';
+    public Cpf $cpf;
     private string $erroGeral = 'Não foi possível ativar seu usuário, procure o atendimento para verificar o motivo.';
 
     public function __construct(
@@ -21,7 +21,7 @@ final class AtivarModel extends ORM
         private ?string $empresa = null
     ) {
         parent::__construct();
-        $this->cpf = new Botao(Botao::NAO);
+        $this->cpf = new Cpf(null);
         $this->validarDado();
         $this->buscarUsuario();
     }
@@ -35,7 +35,7 @@ final class AtivarModel extends ORM
 
         $this->validarUsuario($usuario);
         $this->criarHash($usuario->id);
-        $this->validarCpf($usuario->cpf);
+        $this->cpf = new Cpf($usuario->cpf);
     }
 
     private function validarDado()
@@ -75,7 +75,7 @@ final class AtivarModel extends ORM
         } catch (\Throwable) {
             mensagemErro('Erro!', $this->erroGeral, codigo: 5000);
         }
-        $this->id = $hash;
+        $this->hash = $hash;
     }
 
     private function validarUsuario($usuario): void
@@ -125,13 +125,5 @@ final class AtivarModel extends ORM
             [$indice, $valor],
             ['id_admin_empresa', $empresa]
         ];
-    }
-
-    private function validarCpf($cpf)
-    {
-        if (validarCpf($cpf)) {
-            return;
-        }
-        $this->cpf = new Botao(Botao::SIM);
     }
 }

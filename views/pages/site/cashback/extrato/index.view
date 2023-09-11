@@ -5,7 +5,7 @@
     <div class="conteudo">
 
         <figure>
-            <img src="https://clube.marktclub.com.br/images/logo_silium.png" height="80" alt="Logo Silium">
+            <img src="{!!LINK!!}/images/site/logo_silium.png" height="80" alt="Logo Silium">
         </figure>
 
         <section class="bloco_titulo_texto">

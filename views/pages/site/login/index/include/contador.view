@@ -1,7 +1,7 @@
 
 <!-- CONTADOR -->
 <section class="bloco_contador" id="bloco_contador">
-    <figure style="background: url('https://clube.marktclub.com.br/images/login/bg_contador.jpg') no-repeat center center" class="imagem"></figure>
+    <figure style="background: url({!!LINK!!}/images/site/bg_contador.jpg) no-repeat center center" class="imagem"></figure>
     <div class="bg"></div>
 
     <h1>O Maior Clube de Vantagens da América Latina</h1>

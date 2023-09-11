@@ -3,6 +3,7 @@
         <header>
             <h1>BUSCAR CONTA</h1>
             <p>Preencha os campos abaixo para buscar sua conta</p>
+            <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
         @ if( $tipoSiape ):
