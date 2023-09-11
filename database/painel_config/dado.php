@@ -97,6 +97,14 @@ return [
                 'titulo' => 'Cheque Bônus',
                 'acao'   => ['index', 'visualizar', 'status']
             ],
+            'chatbot_perguntas' => [
+                'titulo' => 'Perguntas e respostas',
+                'acao' => ['index', 'add', 'editar', 'status']
+            ],
+            'chatbot_categoria' => [
+                'titulo' => 'Categorias',
+                'acao' => ['index', 'add', 'editar', 'status']
+            ],
             'comercial_empresa'      => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
             'comercial_prospeccao'   => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
