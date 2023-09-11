@@ -12,7 +12,6 @@ use Controller\Controller;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Models\Api\UsuarioCliente\AppleModel;
-use App\Models\Api\UsuarioCliente\AtivarModel;
 use App\Models\Api\UsuarioCliente\ClienteModel;
 use App\Models\Api\UsuarioCliente\DeletarModel;
 use System\Interface\ControllerBuscarInterface;
@@ -23,6 +22,8 @@ use App\Models\Api\UsuarioCliente\DownloadModel;
 use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
+use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
 use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
 use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
 use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
@@ -172,16 +173,23 @@ final class UsuarioClienteController extends Controller implements
 
     public function postAtivar(Request $request): Response
     {
-        $Ativar = new AtivarModel(
+        $Ativar = new BuscarModel(
             chave: new TipoAtivacao($request->chave),
             valor: $request->valor,
             empresa: $request->empresa
         );
 
         return mensagemSucesso([
-            'id'  => $Ativar->id,
-            'cpf' => $Ativar->cpf->valor()
+            'id'   => uuid(),
+            'hash' => $Ativar->hash,
+            'cpf'  => $Ativar->cpf->numero()
         ], 201);
+    }
+
+    public function putAtivar(Request $request): Response
+    {
+        new AtivarModel($request);
+        return new Response(status: 204);
     }
 
     public function getSenha(Request $request)
@@ -200,27 +208,24 @@ final class UsuarioClienteController extends Controller implements
     public function postSenha(Request $request)
     {
         $Usuario = new ValidarCodigoModel(
-            usuario: $request->usuario,
+            id: $request->usuario,
             codigo: new Inteiro($request->codigo)
         );
 
         return mensagemSucesso([
             'id'      => uuid(),
-            'usuario' => $Usuario->hash
+            'hash'    => $Usuario->hash
         ]);
     }
 
     public function putSenha(Request $request)
     {
-        $Usuario = new AlterarSenhaModel(
+        new AlterarSenhaModel(
             senha: new Senha($request->senha),
-            usuario: $request->usuario,
+            id: $request->usuario,
             hash: $request->hash,
         );
 
-        return mensagemSucesso([
-            'id'      => uuid(),
-            'token'   => $Usuario->token
-        ]);
+        return new Response(status: 204);
     }
 }

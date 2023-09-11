@@ -69,19 +69,14 @@ Route
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
     ::grupo(function () {
+        // LOGIN
         Route
             ::nome('index')
             ::view('/login');
         Route
             ::nome('login')
             ::view('/login/login');
-        Route
-            ::nome('buscarConta')
-            ::view('/login/buscar-conta');
-        Route
-            ::nome('buscarConta')
-            ::request(['busca'])
-            ::post('/login/buscar-conta');
+        // SENHA
         Route
             ::nome('senha')
             ::view('/login/senha');
@@ -97,14 +92,28 @@ Route
             ::nome('senhaAlterar')
             ::request(['cpf', 'senha', 'usuario', 'hash'])
             ::post('/login/senha-alterar');
+        // ATIVAR
         Route
-            ::nome('ativar')
-            ::request(['id', 'cpf'])
-            ::view('/login/ativar');
+            ::nome('ativarBuscar')
+            ::view('/login/ativar-buscar');
         Route
-            ::nome('ativar')
-            ::request(['hash_validacao_captcha', 'hash', 'nome', 'email'])
-            ::post('/login/ativar');
+            ::nome('ativarBuscar')
+            ::request(['busca'])
+            ::post('/login/ativar-buscar');
+        Route
+            ::nome('ativarSalvar')
+            ::request(['hash', 'cpf'])
+            ::view('/login/ativar-salvar');
+        Route
+            ::nome('ativarSalvar')
+            ::request([
+                'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
+                'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
+                'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
+                'endereco_estado', 'endereco_cidade'
+            ])
+            ::post('/login/ativar-salvar');
+        // APP
         Route
             ::nome('app')
             ::view('/login/app');

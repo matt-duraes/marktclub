@@ -57,11 +57,21 @@
     header
         width: 100%
         margin-bottom: 30px
+        position: relative
+        padding-right: 30px
     header h1
         titulo()
         color: $corClube
     header p
         texto()
+    header .fechar
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        position: absolute
+        top: 0
+        right: 0
     .bloco_input
         width: 100%
         margin-top: 10px
@@ -219,6 +229,8 @@
     .bloco_usar_codigo .botao
         texto()
         margin-top: 20px
+        &.reenviar
+            cursor: pointer
     .bloco_usar_codigo .botao span
         texto()
         font-weight: bold

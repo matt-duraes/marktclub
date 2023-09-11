@@ -313,6 +313,16 @@ Route
             ::request(['chave', 'valor', '!empresa'])
             ::post('/usuario-cliente/ativar');
         Route
+            ::nome('ativar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
+            ::request([
+                'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
+                'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
+                'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
+                'endereco_estado', 'endereco_cidade'
+            ])
+            ::put('/usuario-cliente/ativar');
+        Route
             ::nome('senha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
             ::request(['empresa', 'cpf'], 'json')

@@ -3,6 +3,7 @@
         <header>
             <h1>NOVA SENHA</h1>
             <p>Siga os passos abaixo para recuperar sua senha, caso não consiga, entre em contato com o atendimento</p>
+            <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
         <div class="bloco_geral bloco_buscar_usuario" id="bloco_cpf">
@@ -20,7 +21,7 @@
             <input type="text" id="input_codigo_6" placeholder="0" data-mascara="0">
             <div class="separador"></div>
             <div class="botao" id="bloco_reenviar_contador">Reenviar código em <span id="bloco_reenviar_numero">60</span> segundos</div>
-            <div class="botao display_none" id="botao_reenviar_codigo">Reenviar código</div>
+            <div class="botao reenviar display_none" id="botao_reenviar_codigo">Reenviar código</div>
         </div>
 
         <div class="bloco_geral bloco_nova_senha display_none" id="bloco_senha">

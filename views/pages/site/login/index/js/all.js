@@ -2,192 +2,141 @@
 // @resource "site/login/slide"
 // @system "Pagina"
 
-const loadingSenha = () => {
-    let usuario, hash;
-    const blocoCpf = $('#bloco_cpf');
-    const blocoCodigo = $('#bloco_codigo');
-    const blocoSenha = $('#bloco_senha');
+const loadingAtivarBuscar = () => {
+    const form = $('#bloco_form_buscar');
+    const botaoBuscar = $('#botao_buscar_usuario');
+    const inputBuscar = $('#input_buscar');
 
-    const inputSenhaNova = $('#input_senha_nova');
-    const inputSenhaRepetir = $('#input_senha_repetir');
+    inputBuscar.focus();
 
-    const inputCpf = $('#input_senha_cpf');
-    const inputCodigo1 = $('#input_codigo_1');
-    const inputCodigo2 = $('#input_codigo_2');
-    const inputCodigo3 = $('#input_codigo_3');
-    const inputCodigo4 = $('#input_codigo_4');
-    const inputCodigo5 = $('#input_codigo_5');
-    const inputCodigo6 = $('#input_codigo_6');
-
-    const blocoReenviarContador = $('#bloco_reenviar_contador');
-    const blocoReenviarNumero = $('#bloco_reenviar_numero');
-
-    const botaoReenviarCodigo = $('#botao_reenviar_codigo');
-    const botaoEnviarCodigo = $('#botao_enviar_codigo');
-    const botaoValidarCodigo = $('#botao_validar_codigo');
-    const botaoAlterarSenha = $('#botao_alterar_senha');
-
-    [botaoEnviarCodigo, botaoReenviarCodigo].forEach(botao => {
-        botao.addEventListener('click', async () => {
-            if (inputCpf.value == '') {
-                Alerta.notificacao('Digite seu CPF para continuar.', false);
-                return;
-            }
-            Loading.show();
-            const resposta = await ajaxPost(
-                LINK + '/login/senha-buscar',
-                {
-                    cpf: inputCpf,
-                },
-                'Erro ao buscar seu usuário, por favor, tente novamente.'
-            );
-            Loading.hide();
-            if (false === resposta) {
-                return;
-            }
-
-            usuario = resposta.dado.id;
-            codigoEnviado();
-        });
-    });
-
-    let contar, numero;
-    const codigoEnviado = () => {
-        blocoCpf.classList.add('display_none');
-        blocoCodigo.classList.remove('display_none');
-        botaoEnviarCodigo.classList.add('display_none');
-        botaoValidarCodigo.classList.remove('display_none');
-        blocoReenviarContador.classList.remove('display_none');
-        botaoReenviarCodigo.classList.add('display_none');
-        numero = 59;
-        blocoReenviarNumero.innerText = 60;
-        if (contar) {
-            clearInterval(contar);
-        }
-        contar = setInterval(() => {
-            if (numero == 1) {
-                blocoReenviarContador.classList.add('display_none');
-                botaoReenviarCodigo.classList.remove('display_none');
-                clearInterval(contar);
-                return;
-            }
-            blocoReenviarNumero.innerText = numero--;
-        }, 1000);
-    };
-
-    const inputCodigoLista = [inputCodigo1, inputCodigo2, inputCodigo3, inputCodigo4, inputCodigo5, inputCodigo6];
-    inputCodigoLista.forEach(input => {
-        input.addEventListener('paste', e => {
-            e.preventDefault();
-            const codigo = e.clipboardData.getData('text/plain').replace(/[^0-9]/g, '');
-            if (codigo == '') {
-                return;
-            }
-            const quantiade = codigo.length > 6 ? 6 : codigo.length;
-            let i = 0;
-            for (; i < quantiade; ++i) {
-                inputCodigoLista[i].value = codigo[i];
-            }
-            if (quantiade == 6) {
-                input.blur();
-                validarCodigo();
-                return;
-            }
-            inputCodigoLista[quantiade + 1].focus();
-        });
-        input.addEventListener('keyup', e => {
-            if (!/^[0-9]$/.test(e.key)) {
-                return;
-            }
-            let i = 0;
-            let enviar = true;
-            for (; i < 6; ++i) {
-                if (!/^[0-9]{1}$/.test(inputCodigoLista[i].value)) {
-                    enviar = false;
-                }
-                if (input == inputCodigoLista[i] && i < 5) {
-                    inputCodigoLista[i + 1].focus();
-                    break;
-                } else if (input == inputCodigoLista[i] && i == 5) {
-                    inputCodigo6.blur();
-                    if (enviar) {
-                        validarCodigo();
-                    }
-                }
-            }
-        });
-        input.addEventListener('focus', () => {
-            input.select();
-        });
-    });
-
-    botaoValidarCodigo.addEventListener('click', () => {
-        validarCodigo();
-    });
-    const validarCodigo = async () => {
-        const codigo =
-            inputCodigo1.value +
-            inputCodigo2.value +
-            inputCodigo3.value +
-            inputCodigo4.value +
-            inputCodigo5.value +
-            inputCodigo6.value;
-        if (!/^[0-9]{6}$/.test(codigo)) {
-            Alerta.notificacao('Seu código deve ter 6 números para continuar.', false);
+    botaoBuscar.addEventListener('click', async () => {
+        if (!(await validarInput(form))) {
             return;
         }
         Loading.show();
         const resposta = await ajaxPost(
-            LINK + '/login/senha-validar',
+            LINK + '/login/ativar-buscar',
             {
-                codigo,
-                usuario,
+                busca: inputBuscar.value,
             },
-            'Erro ao validar seu código, por favor, tente novamente.'
+            'Ocorre um erro ao buscar o usuário, por favor, tente novamente.'
         );
         Loading.hide();
-        if (false === resposta) {
+        if (false == resposta) {
             return;
         }
-        hash = resposta.dado.hash;
-        codigoValidado();
-    };
-    const codigoValidado = () => {
-        blocoCodigo.classList.add('display_none');
-        blocoSenha.classList.remove('display_none');
-        botaoValidarCodigo.classList.add('display_none');
-        botaoAlterarSenha.classList.remove('display_none');
-    };
+        const PaginaAtivar = new Pagina(
+            'ativar-conta',
+            `${LINK}/login/ativar-salvar?hash=${resposta.dado.hash}&cpf=${resposta.dado.cpf}`,
+            undefined,
+            true,
+            false,
+            loadingAtivar
+        );
+        PaginaAtivar.abrir();
+    });
+};
 
-    const alterarSenha = async () => {
-        if (inputSenhaNova.value == '') {
-            Alerta.notificacao('Digite sua nova senha para continuar.', false);
+const loadingAtivar = () => {
+    const hash = $('#input_ativar_hash_busca').value;
+    ppe(hash);
+    const cpf = $('#input_ativar_cpf_busca').value;
+
+    const form = $('#bloco_form_ativar');
+
+    const inputNome = $('#input_ativar_nome');
+    const inputCpf = $('#input_ativar_cpf');
+    const inputDataNascimento = $('#input_ativar_data_nascimento');
+    const inputGenero = $('#input_ativar_genero');
+    const inputEstadoCivil = $('#input_ativar_estado_civil');
+    const inputEmailPessoal = $('#input_ativar_email_pessoal');
+    const inputEmailTrabalho = $('#input_ativar_email_trabalho');
+    const inputTelefonePessoal = $('#input_ativar_telefone_pessoal');
+    const inputTelefoneTrabalho = $('#input_ativar_telefone_trabalho');
+    const inputEnderecoCep = $('#input_ativar_endereco_cep');
+    const inputEnderecoLogradouro = $('#input_ativar_endereco_logradouro');
+    const inputEnderecoNumero = $('#input_ativar_endereco_numero');
+    const inputEnderecoComplemento = $('#input_ativar_endereco_complemento');
+    const inputEnderecoBairro = $('#input_ativar_endereco_bairro');
+    const inputEnderecoEstado = $('#input_ativar_endereco_estado');
+    const inputEnderecoCidade = $('#input_ativar_endereco_cidade');
+    const inputSenhaNova = $('#input_ativar_senha_nova');
+    const inputSenhaRepetir = $('#input_ativar_senha_repetir');
+    const inputTermo = $('#input_ativar_termo');
+
+    buscarEnderecoPeloCep(
+        inputEnderecoCep,
+        inputEnderecoLogradouro,
+        inputEnderecoNumero,
+        inputEnderecoBairro,
+        inputEnderecoCidade,
+        inputEnderecoEstado,
+        true
+    );
+    inputEnderecoEstado.addEventListener('formChange', () => {
+        buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
+    });
+
+    const botaoSalvar = $('#botao_ativar_usuario');
+    inputNome.focus();
+
+    const salvarUsuario = async () => {
+        if (!(await validarInput(form))) {
             return;
         } else if (inputSenhaNova.value != inputSenhaRepetir.value) {
-            Alerta.notificacao('Você deve repetir sua senha para continuar.', false);
+            Alerta.notificacao('O campo repetir senha não é igual a senha digitada.', false);
+            return;
+        } else if (!inputTermo.checked) {
+            Alerta.notificacao('Você precisa aceitar os termos para continuar.', false);
             return;
         }
+
         Loading.show();
         const resposta = await ajaxPost(
-            LINK + '/login/senha-alterar',
+            LINK + '/login/ativar-salvar',
             {
-                senha: inputSenhaNova.value,
-                usuario,
                 hash,
+                nome: inputNome.value,
+                cpf: inputCpf ? inputCpf.value : cpf,
+                genero: inputGenero.value,
+                senha: inputSenhaNova.value,
+                termo: inputTermo.checked ? 'sim' : 'nao',
+                /* eslint-disable */
+                data_nascimento: inputDataNascimento.value,
+                estado_civil: inputEstadoCivil.value,
+                email_pessoal: inputEmailPessoal.value,
+                email_trabalho: inputEmailTrabalho.value,
+                telefone_pessoal: inputTelefonePessoal.value,
+                telefone_trabalho: inputTelefoneTrabalho.value,
+                endereco_cep: inputEnderecoCep.value,
+                endereco_logradouro: inputEnderecoLogradouro.value,
+                endereco_numero: inputEnderecoNumero.value,
+                endereco_complemento: inputEnderecoComplemento.value,
+                endereco_bairro: inputEnderecoBairro.value,
+                endereco_estado: inputEnderecoEstado.value,
+                endereco_cidade: inputEnderecoCidade.value,
+                /* eslint-enable */
             },
-            'Erro ao atualizar sua senha, por favor, tente novamente.'
+            'Erro ao ativar seu usuário, por favor, tente novamente.'
         );
-        if (false === resposta) {
+
+        if (false == resposta) {
             Loading.hide();
             return;
         }
-        window.location.replace(LINK);
+        window.location.replace(resposta.dado.link);
     };
-    adicionarEventoEnter([inputSenhaNova, inputSenhaRepetir], alterarSenha);
-    adicionarEvento('click', botaoAlterarSenha, alterarSenha);
+    botaoSalvar.addEventListener('click', salvarUsuario);
 };
-const paginaSenha = new Pagina('pagina-senha', LINK + '/login/senha', undefined, true, true, loadingSenha);
-paginaSenha.abrir();
+
+const PaginaAtivar = new Pagina(
+    'buscar-conta',
+    LINK + '/login/ativar-buscar',
+    undefined,
+    true,
+    true,
+    loadingAtivarBuscar
+);
 
 window.addEventListener('load', () => {
     /*

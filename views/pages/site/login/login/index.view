@@ -15,6 +15,7 @@
         <header>
             <h1>FAÇA SEU LOGIN</h1>
             <p>Digite seu e-mail ou CPF e sua senha para fazer login, caso não tenha senha, clique em "Primeiro acesso" para criar sua conta</p>
+            <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
         <input type="text" autocomplete="username" value="" class="input_hidden">

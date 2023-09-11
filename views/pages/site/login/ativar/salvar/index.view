@@ -5,13 +5,13 @@
             <p>Preencha seus dados para completar o cadastro</p>
         </header>
 
-        <input type="hidden" id="input_ativar_cpf" value="{{$cpf}}">
-        <input type="hidden" id="input_ativar_id" value="{{$id}}">
+        <input type="hidden" id="input_ativar_cpf_busca" value="{{$cpf}}">
+        <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
 
         <div class="bloco">
             <h2>Dados pessoais</h2>
             @? formInput(name: 'ativar_nome', label: 'Nome', placeholder: 'Nome completo', obrigatorio: true)
-            @ if( $cpf == 'sim' ):
+            @ if( !validarCpf($cpf) ):
             @? formInput(name: 'ativar_cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true)
             @ endif;
             <div class="lista">
@@ -25,8 +25,8 @@
             @? formEmail(name: 'ativar_email_pessoal', label: 'E-mail pessoal', placeholder: 'E-mail pessoal', obrigatorio: true)
             @? formEmail(name: 'ativar_email_trabalho', label: 'E-mail de trabalho', placeholder: 'E-mail de trabalho')
             <div class="lista">
-                @? formTelefone(name: 'ativar_telefone_pessoal', label: 'Telefone celular', placeholder: 'Telefone celular', obrigatorio: true)
-                @? formTelefone(name: 'ativar_telefone_trabalho', label: 'Telefone fixo', placeholder: 'Telefone fixo')
+                @? formTelefone(name: 'ativar_telefone_pessoal', label: 'Telefone pessoal', placeholder: 'Telefone pessoal', obrigatorio: true)
+                @? formTelefone(name: 'ativar_telefone_trabalho', label: 'Telefone de trabalho', placeholder: 'Telefone de trabalho')
             </div>
         </div>
 
@@ -56,13 +56,13 @@
         </ul>
 
         <div class="lista bloco_senha">
-            @? formSenha(name: 'senha_nova', label: 'Senha', placeholder: 'Senha', obrigatorio: true)
-            @? formSenha(name: 'senha_repetir', label: 'Confirmar Senha', placeholder: 'Confirmar senha', obrigatorio: true)
+            @? formSenha(name: 'ativar_senha_nova', label: 'Senha', placeholder: 'Senha', obrigatorio: true)
+            @? formSenha(name: 'ativar_senha_repetir', label: 'Confirmar Senha', placeholder: 'Confirmar senha', obrigatorio: true)
         </div>
 
         <div class="bloco_botao bloco_termo">
             <div class="termo">
-                @?formCheckbox(name: 'termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018')
+                @?formCheckbox(name: 'ativar_termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018')
                 <div class="botao_termo">(Ler termo)</div>
             </div>
             <div class="botao" id="botao_ativar_usuario">Salvar dados</div>

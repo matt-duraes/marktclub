@@ -9,6 +9,7 @@ use Helpers\AuthHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Ativar\SalvarModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
@@ -51,16 +52,16 @@ final class LoginController extends Controller
     | ATIVAR
     |--------------------------------------------------------------------------
     */
-    public function buscarConta()
+    public function ativarBuscar()
     {
         $TipoAtivacao = new TipoAtivacao();
-        return view('login.buscar', [
+        return view('login.ativar.buscar', [
             'tipoSiape'     => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
             'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO
         ]);
     }
 
-    public function postBuscarConta(Request $request): Response
+    public function postAtivarBuscar(Request $request): Response
     {
         $buscar = (new ApiHelper('usuario_cliente:ativar'))
             ->validar('Ocorreu um erro ao buscar seu usuário, por favor, tente novamente.')
@@ -73,25 +74,28 @@ final class LoginController extends Controller
             ->object();
 
         return mensagemSucesso([
-            'id'  => $buscar->dado->id,
-            'cpf' => $buscar->dado->cpf
+            'hash'  => $buscar->dado->hash,
+            'cpf'   => $buscar->dado->cpf
         ], status: 201);
     }
 
-    public function ativar(Request $request): Response
+    public function ativarSalvar(Request $request): Response
     {
-        if ($request->vazio('id') || $request->vazio('cpf')) {
+        if ($request->vazio('hash')) {
             mensagemStatus(404);
         }
-        return view('login.ativar', [
-            'id'  => $request->id,
-            'cpf' => $request->cpf
+
+        return view('login.ativar.salvar', [
+            'hash'  => $request->hash,
+            'cpf'   => $request->cpf
         ]);
     }
 
-    public function postAtivar(Request $request): Response
+    public function postAtivarSalvar(Request $request): Response
     {
-        return new Response(json: [], status: 201);
+        new SalvarModel($request);
+        new LogarModel($request->cpf, $request->senha);
+        return $this->loginRealizado();
     }
 
     public function faq(): Response
@@ -136,7 +140,7 @@ final class LoginController extends Controller
             ->object();
 
         return mensagemSucesso([
-            'id' => $dado->usuario
+            'id' => $dado->dado->usuario
         ]);
     }
 
@@ -145,7 +149,7 @@ final class LoginController extends Controller
         $Api = (new ApiHelper(scope: 'usuario_cliente:senha'));
         $dado = $Api
             ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
-            ->json([
+            ->body([
                 'usuario' => $request->usuario,
                 'codigo'  => $request->codigo,
             ])
@@ -153,17 +157,17 @@ final class LoginController extends Controller
             ->object();
 
         return mensagemSucesso([
-            'hash' => $dado->hash
+            'hash' => $dado->dado->hash
         ]);
     }
 
-    public function putSenhaAlterar(Request $request)
+    public function postSenhaAlterar(Request $request)
     {
         $Api = (new ApiHelper(scope: 'usuario_cliente:senha'));
         $Api
             ->validar('Ocorreu um erro ao atualizar sua senha, por favor, tente novamente.')
-            ->json([
-                'senha'   => $request->senha,
+            ->body([
+                'senha'   => $Api->Crypt->encode($request->senha),
                 'usuario' => $request->usuario,
                 'hash'    => $request->hash,
             ])

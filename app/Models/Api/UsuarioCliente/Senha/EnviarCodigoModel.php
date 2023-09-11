@@ -92,7 +92,7 @@ final class EnviarCodigoModel extends ORM
 
     private function criarCodigo()
     {
-        $codigo = strCodigo(tamanho: 6, minusculo: false, maiusculo: false);
+        $codigo = rand(100000, 999999);
         $this
             ->dado([
                 'codigo_valor' => $codigo,
@@ -112,7 +112,6 @@ final class EnviarCodigoModel extends ORM
                 'Você não tem e-mail cadastrado para recuperar sua senha, entre em contato com o atendimento para continuar.'
             );
         }
-        $email = 'andrerodrigues@andrerodrigues.com';
         $Email = new EmailHelper();
         $Email->sendGrid(
             titulo: 'Recuperar Senha',
