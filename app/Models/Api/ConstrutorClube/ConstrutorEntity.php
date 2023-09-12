@@ -23,7 +23,7 @@ final class ConstrutorEntity extends Entity
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_cupom', 'menu_odontologico',
         'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona',
         'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_primeiro_acesso',
-        'administrado_status', 'chat_status', 'status'
+        'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status', 'status'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -86,6 +86,9 @@ final class ConstrutorEntity extends Entity
     public Botao $menu_dependente;
     public Botao $menu_carteira;
     public Botao $menu_salavip;
+    public Botao $menu_show_internacional;
+    public Botao $menu_show_nacional;
+    public Botao $menu_corrida;
     public Botao $menu_sair;
     public Botao $api_status;
     public Botao $chat_status;

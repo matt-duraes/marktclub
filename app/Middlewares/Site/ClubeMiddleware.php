@@ -140,6 +140,9 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_HISTORICO', $pagina->historico);
         define('MENU_DEPENDENTE', $pagina->dependente);
         define('MENU_CARTEIRA', $pagina->carteira);
+        define('MENU_CORRIDA', $pagina->corrida);
+        define('MENU_SHOW_NACIONAL', $pagina->show_nacional);
+        define('MENU_SHOW_INTERNACIONAL', $pagina->show_internacional);
         define('MENU_PRIMEIRO_ACESSO', $pagina->primeiro_acesso);
         define('MENU_FAQ', $pagina->faq);
         define('MENU_COMO_FUNCIONA', $pagina->como_funciona);

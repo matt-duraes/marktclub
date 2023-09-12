@@ -258,6 +258,27 @@ Route
     });
 
 Route
+    ::nome('easylive')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\EasyliveController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::request(['tipo'])
+            ::post('/easylive/listar');
+        Route
+            ::nome('corrida')
+            ::view('/corrida');
+        Route
+            ::nome('nacional')
+            ::view('/show-nacional');
+        Route
+            ::nome('internacional')
+            ::view('/show-internacional');
+    });
+
+Route
     ::nome('loja')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
