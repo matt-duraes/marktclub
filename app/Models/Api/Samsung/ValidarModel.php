@@ -109,4 +109,18 @@ final class ValidarModel extends ORM
         }
         return $this->sucesso();
     }
+
+    public function pegarHeader()
+    {
+        $Jwt = new JwtHelper(hash: $this->tokenDecript);
+        try {
+            return $Jwt->encode([
+                'user_name_partner'     => $this->userName,
+                'user_password_partner' => $this->password,
+                'user_token_partner'    => $this->token,
+            ]);
+        } catch (\Throwable) {
+            return '';
+        }
+    }
 }
