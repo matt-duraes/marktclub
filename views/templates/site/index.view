@@ -53,6 +53,10 @@
 
     @JS
     <div id="bloco_fw_calendario"></div>
+
+    @ if( CHAT ):
+    <a class="botao_chat" href="https://wa.me/5561993546881" target="_blank" rel="noopener noreferrer">@iconeWhatsapp(30)</a>
+    @ endif;
 </body>
 
 </html>
