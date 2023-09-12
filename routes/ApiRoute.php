@@ -745,6 +745,12 @@ Route
             ::criptografia(['login', 'senha'])
             ::request(['login', 'senha', 'scope', 'redirect_uri', 'state'])
             ::post('/login/clube');
+        Route
+            ::nome('loginHash')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
+            ::criptografia(['login', 'senha'])
+            ::request(['hash', 'scope', 'redirect_uri', 'state'])
+            ::post('/login/hash');
 
         Route
             ::nome('loginPainel')
