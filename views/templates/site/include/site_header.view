@@ -84,8 +84,15 @@
             </a>
             @ endif;
 
-            @ if( MENU_LOJA || MENU_MAPA || MENU_CUPOM || MENU_CASHBACK):
+            @ if( MENU_LOJA || MENU_MAPA || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
             <div class="categoria">DESCONTOS</div>
+
+            @ if( MENU_PREMIUM ):
+            <a class="botao {!!MENU_HOVER == 'premium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.premium)">
+                <i>@iconePremium</i>
+                Premium
+            </a>
+            @ endif;
 
             @ if( MENU_LOJA ):
             <a class="botao {!!MENU_HOVER == 'loja' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.index)">
@@ -131,13 +138,32 @@
 
             @ endif;
 
-            @ if( MENU_CINEMA || MENU_TURISMO ):
+            @ if( MENU_CINEMA || MENU_TURISMO || MENU_CORRIDA || MENU_SHOW_NACIONAL || MENU_SHOW_INTERNACIONAL):
             <div class="categoria">DIVERSÃO</div>
 
             @ if( MENU_CINEMA ):
             <a class="botao {!!MENU_HOVER == 'cinema' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cinema.index)">
                 <i>@iconeCinemaHome</i>
                 Cinema
+            </a>
+            @ endif;
+
+            @ if( MENU_CORRIDA ):
+            <a class="botao {!!MENU_HOVER == 'easylive-corrida' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.corrida)">
+                <i>@iconeCorrida</i>
+                Corrida
+            </a>
+            @ endif;
+            @ if( MENU_SHOW_NACIONAL ):
+            <a class="botao {!!MENU_HOVER == 'easylive-show-nacional' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.nacional)">
+                <i>@iconeShow</i>
+                Show Nacional
+            </a>
+            @ endif;
+            @ if( MENU_SHOW_INTERNACIONAL ):
+            <a class="botao {!!MENU_HOVER == 'easylive-show-internacional' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.internacional)">
+                <i>@iconeShow</i>
+                Show Internacional
             </a>
             @ endif;
 

@@ -4,8 +4,8 @@ namespace App\Models\Api\ParceiroEasylive;
 
 use ORM\ORM;
 use stdClass;
-use System\Trait\Model\OrdemTrait;
 use App\Classes\Geral\Status;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroEasylive\Tipo;
 use App\Classes\ParceiroEasylive\Ordem;
@@ -82,12 +82,21 @@ final class LojaModel extends ORM implements ModelListarInterface
         $retorno = [];
         $Tipo = new Tipo();
         $Status = new Status();
+
+        $link = [
+            $Tipo::CORRIDA            => 'https://afiliados.easylive.com.br/?aid=5&category_id=220',
+            $Tipo::SHOW_NACIONAL      => 'https://afiliados.easylive.com.br/?aid=5&category_id=83',
+            $Tipo::SHOW_INTERNACIONAL => 'https://afiliados.easylive.com.br/?aid=5&category_id=84',
+            $Tipo::CINEMA             => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
+        ];
         foreach ($dado as $r) {
+            $tipo = $Tipo->indice($r->tipo);
             $retorno[] = [
                 'id'            => $r->uuid,
                 'titulo'        => $r->titulo,
-                'tipo'          => $Tipo->indice($r->tipo),
+                'tipo'          => $tipo,
                 'imagem'        => arquivoPrivado($r->imagem),
+                'link'          => $link[$tipo],
                 'data_validade' => $r->data_validade,
                 'status'        => $Status->indice($r->status)
             ];

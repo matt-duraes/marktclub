@@ -1,6 +1,24 @@
 <?php
 
 // https://remixicon.com
+if (!function_exists('iconePremium')) {
+    function iconePremium()
+    {
+        return '<svg height="19" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 18" style="enable-background:new 0 0 20 18;" xml:space="preserve"><path d="M2.1,5.9l1.2,10.2h13.4l1.2-10.2l-3.7,2.5L10,2.5L5.8,8.4L2.1,5.9z M1.4,3.2l3.9,2.6l3.9-5.5c0.3-0.4,0.9-0.5,1.3-0.2c0.1,0.1,0.2,0.1,0.2,0.2l3.9,5.5l3.9-2.6c0.4-0.3,1-0.2,1.3,0.3C20,3.7,20,3.9,20,4.1l-1.5,13C18.4,17.6,18,18,17.5,18H2.5c-0.5,0-0.9-0.4-0.9-0.8L0,4.1c-0.1-0.5,0.3-1,0.8-1C1,3.1,1.3,3.1,1.4,3.2z M10,12.4c-1,0-1.9-0.8-1.9-1.9c0-1,0.8-1.9,1.9-1.9c1,0,1.9,0.8,1.9,1.9C11.9,11.6,11,12.4,10,12.4z"/></svg>';
+    }
+}
+if (!function_exists('iconeCorrida')) {
+    function iconeCorrida()
+    {
+        return '<svg height="19" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 18" style="enable-background:new 0 0 22 18;" xml:space="preserve"><path d="M12,13.9V16h5v2H5v-2h5v-2.1C6.1,13.4,3,10.1,3,6V0h16v6C19,10.1,15.9,13.4,12,13.9z M5,2v4c0,3.3,2.7,6,6,6c3.3,0,6-2.7,6-6V2H5z M0,2h2v4H0V2z M20,2h2v4h-2V2z"/></svg>';
+    }
+}
+if (!function_exists('iconeShow')) {
+    function iconeShow()
+    {
+        return '<svg height="17" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 18" style="enable-background:new 0 0 20 18;" xml:space="preserve"><path d="M0,6.5V1c0-0.6,0.4-1,1-1h18c0.6,0,1,0.4,1,1v5.5c-1.4,0-2.5,1.1-2.5,2.5s1.1,2.5,2.5,2.5V17c0,0.6-0.4,1-1,1H1c-0.6,0-1-0.4-1-1v-5.5c1.4,0,2.5-1.1,2.5-2.5S1.4,6.5,0,6.5z M2,5c1.5,0.7,2.5,2.3,2.5,4s-1,3.3-2.5,4v3h16v-3c-1.5-0.7-2.5-2.3-2.5-4s1-3.3,2.5-4V2H2V5z M7,6h6v2H7V6z M7,10h6v2H7V10z"/></svg>';
+    }
+}
 if (!function_exists('iconeSiteHome')) {
     function iconeSiteHome()
     {
