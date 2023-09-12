@@ -64,7 +64,7 @@
 
     "editor.wordWrap": "off",
     "files.associations": {
-        "*.styl": "stylus",
+        "*.styl": "sass",
         "*.view": "html"
     },
     "task.problemMatchers.neverPrompt": false
