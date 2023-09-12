@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 define("TABELA_ANALYTICS", "analytics");
 define("TABELA_ANALYTICS_ACESSO_DIA", "analytics_acesso_dia");
