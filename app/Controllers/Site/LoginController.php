@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\AuthHelper;
+use Helpers\CryptHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
@@ -93,7 +94,7 @@ final class LoginController extends Controller
 
     public function postAtivarSalvar(Request $request): Response
     {
-        new SalvarModel($request);
+        new SalvarModel($request, $this->crypt());
         new LogarModel($request->cpf, $request->senha);
         return $this->loginRealizado();
     }
@@ -129,12 +130,13 @@ final class LoginController extends Controller
 
     public function postSenhaBuscar(Request $request)
     {
+        $Crypt = $this->crypt();
         $Api = (new ApiHelper(scope: 'usuario_cliente:senha'));
         $dado = $Api
             ->validar('Ocorreu um erro ao buscar seus dados, por favor, tente novamente.')
             ->json([
                 'empresa' => EMPRESA_ID,
-                'cpf'     => $Api->Crypt->encode($request->cpf),
+                'cpf'     => $Crypt->encode($request->cpf),
             ])
             ->get('/usuario-cliente/senha')
             ->object();
@@ -163,11 +165,12 @@ final class LoginController extends Controller
 
     public function postSenhaAlterar(Request $request)
     {
+        $Crypt = $this->crypt();
         $Api = (new ApiHelper(scope: 'usuario_cliente:senha'));
         $Api
             ->validar('Ocorreu um erro ao atualizar sua senha, por favor, tente novamente.')
             ->body([
-                'senha'   => $Api->Crypt->encode($request->senha),
+                'senha'   => $Crypt->encode($request->senha),
                 'usuario' => $request->usuario,
                 'hash'    => $request->hash,
             ])
@@ -212,5 +215,18 @@ final class LoginController extends Controller
         return new Response(json: [
             'status' => 'sucesso'
         ], status: 201);
+    }
+
+    public function crypt()
+    {
+        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
+        $publica = $Api
+            ->get('/admin/chave-publica')
+            ->object()->dado->chave ?? '';
+        $privada = $Api
+            ->get('/admin/chave-privada')
+            ->object()->dado->chave ?? '';
+
+        return new CryptHelper(chavePublica: $publica, chavePrivada: $privada);
     }
 }
