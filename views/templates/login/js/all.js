@@ -9,14 +9,7 @@
 
 const PaginaLogin = new Pagina('login', LINK + '/login/login', undefined, true, true, loadingLogin);
 const PaginaSenha = new Pagina('pagina-senha', LINK + '/login/senha', undefined, true, true, loadingSenha);
-const PaginaAtivar = new Pagina(
-    'buscar-conta',
-    LINK + '/login/ativar-buscar',
-    undefined,
-    true,
-    true,
-    loadingAtivarBuscar
-);
+const PaginaAtivar = new Pagina('ativar', LINK + '/login/ativar-buscar', undefined, true, true, loadingAtivarBuscar);
 
 window.addEventListener('load', () => {
     /*
