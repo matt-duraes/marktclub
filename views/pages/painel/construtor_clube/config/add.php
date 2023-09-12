@@ -112,7 +112,6 @@ $Painel->coluna(callback: function () use ($Painel) {
         callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_loja', label: 'Loja');
             $Painel->checkbox(name: 'menu_mapa', label: 'Mapa');
-            $Painel->checkbox(name: 'menu_cinema', label: 'Cinema');
             $Painel->checkbox(name: 'menu_turismo', label: 'Turismo');
             $Painel->checkbox(name: 'menu_farmacia', label: 'Farmacia');
             $Painel->checkbox(name: 'menu_automovel', label: 'Automovel');
@@ -121,6 +120,18 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_premium', label: 'Loja Premium');
             $Painel->checkbox(name: 'menu_credito_sicoob', label: 'Crédido Sicoob');
             $Painel->checkbox(name: 'menu_indicar_loja', label: 'Indicar loja');
+        }
+    );
+});
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Diversão',
+        mais: false,
+        callback: function () use ($Painel) {
+            $Painel->checkbox(name: 'menu_cinema', label: 'Cinema');
+            $Painel->checkbox(name: 'menu_corrida', label: 'Corrida');
+            $Painel->checkbox(name: 'menu_show_nacional', label: 'Show Nacional');
+            $Painel->checkbox(name: 'menu_show_internacional', label: 'Show Internacional');
         }
     );
 });

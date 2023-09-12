@@ -13,6 +13,6 @@ return [
         'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira',
         'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
         'menu_indicar_usuario', 'menu_indicar_loja', 'api_status', 'tipo_ativacao',
-        'administrado_status', 'status'
+        'administrado_status', 'status', 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional'
     ]
 ];
