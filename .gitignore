@@ -1,6 +1,7 @@
 /node_modules
 /vendor
 /public
+/.vscode/settings.json
 /files
 /error_log
 /package-lock.json
