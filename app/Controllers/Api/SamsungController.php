@@ -14,13 +14,11 @@ final class SamsungController extends Controller
     {
         new LogModel();
         $Validar = new ValidarModel($request->getGet('code'));
+        $token = $Validar->validar();
         return new Response(
-            json: $Validar->validar(),
+            json: $token,
             header: [
-                'user_name_partner'     => $Validar->userName,
-                'user_password_partner' => $Validar->password,
-                'user_token_partner'    => $Validar->token,
-                'auth_samsung'          => $Validar->token
+                'auth_samsung' => $token
             ]
         );
     }
