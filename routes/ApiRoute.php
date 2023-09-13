@@ -1107,7 +1107,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
-            ::request(['pagina', '!quantidade', '!status'], 'json')
+            ::request(['pagina', '!quantidade', '!pesquisa', '!status'], 'json')
             ::get('/construtor-clube');
         Route
             ::nome('buscar')
@@ -1128,7 +1128,7 @@ Route
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
-                'menu_corrida', 'menu_show_nacional', 'menu_show_internacional'
+                'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico'
             ])
             ::post('/construtor-clube');
         Route
@@ -1146,7 +1146,7 @@ Route
                 '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira', '!menu_cupom',
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
-                '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional'
+                '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico'
             ])
             ::put('/construtor-clube/{id}');
         Route

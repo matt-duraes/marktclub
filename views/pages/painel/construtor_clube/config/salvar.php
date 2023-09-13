@@ -7,7 +7,7 @@ return [
         'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
         'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
         'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
-        'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel',
+        'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'link_odontologico',
         'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
         'menu_saude_florianopolis', 'menu_cashback', 'menu_meu_parceiro', 'menu_cupom',
         'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira',

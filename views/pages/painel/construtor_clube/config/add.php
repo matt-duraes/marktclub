@@ -69,6 +69,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->url(name: 'link_login', label: 'Link de login', placeholder: 'Link de login')
             ->url(name: 'link_cadastro', label: 'Link de cadastro', placeholder: 'Link de cadastro')
             ->url(name: 'link_salavip', label: 'Link da salavip', placeholder: 'Link da salavip')
+            ->url(name: 'link_odontologico', label: 'Link do plano odontológico', placeholder: 'Link do plano odontológico')
             ->url(name: 'link_app_ios', label: 'Link do APP IOS', placeholder: 'Link do APP IOS')
             ->url(name: 'link_app_android', label: 'Link do APP Android', placeholder: 'Link do APP Android');
     });
