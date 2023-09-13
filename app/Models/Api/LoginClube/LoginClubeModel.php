@@ -10,6 +10,7 @@ use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ApiToken\Trait\PegarAppTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
 
 final class LoginClubeModel
 {
@@ -27,15 +28,17 @@ final class LoginClubeModel
      * @param Request $request Request da requisição
      */
     public function __construct(
-        private string $login,
-        private string $senha,
-        private string $redirectUri,
-        private string $state
+        private ?string $login = null,
+        private ?string $senha = null,
+        private ?string $redirectUri = null,
+        private ?string $state = null,
+        private ?string $hash = null,
     ) {
         $this->listaUriHomologacao = env('API_REDIRECT_URI_HOMOLOGACAO', []);
         $this->pegarConstrutor();
         $this->fazerLogin();
         $this->criarToken();
+        new UsuarioLogadoModel($this->Usuario->id);
     }
 
     private function pegarConstrutor()
@@ -64,7 +67,12 @@ final class LoginClubeModel
         if ($this->idEmpresa == 153) {
             return;
         }
-        $this->Usuario = (new LoginMarktClubModel($this->login, $this->senha, $this->idEmpresa))->Usuario;
+        $this->Usuario = (new LoginMarktClubModel(
+            login: $this->login,
+            senha: $this->senha,
+            hash: $this->hash,
+            empresa: $this->idEmpresa
+        ))->Usuario;
     }
 
     private function criarToken()

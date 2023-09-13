@@ -117,6 +117,9 @@ Route
         Route
             ::nome('app')
             ::view('/login/app');
+        Route
+            ::nome('api')
+            ::view('/login/api/{hash}');
     });
 
 Route

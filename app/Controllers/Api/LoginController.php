@@ -81,6 +81,20 @@ final class LoginController extends Controller
         ]);
     }
 
+    public function postLoginHash(Request $request)
+    {
+        $Login = new LoginClubeModel(
+            hash: $request->hash,
+            redirectUri: $request->redirect_uri,
+            state: $request->state
+        );
+
+        return mensagemSucesso([
+            'token' => $Login->token,
+            'clube' => $Login->construtor
+        ]);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | LOGIN PAINEL

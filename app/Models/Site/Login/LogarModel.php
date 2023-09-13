@@ -10,7 +10,6 @@ final class LogarModel
     use CryptTrait;
 
     private array $token;
-    private array $clube;
     private CryptHelper $Crypt;
 
     public function __construct(
@@ -20,7 +19,7 @@ final class LogarModel
         $this->validarDado();
         $this->setarCrypt();
         $this->fazerLogin();
-        new AuthModel($this->token, $this->clube);
+        new AuthModel($this->token);
     }
 
     private function validarDado()
@@ -46,6 +45,5 @@ final class LogarModel
             ->post('/login/clube')->array()['dado'];
 
         $this->token = $dado['token'];
-        $this->clube = $dado['clube'];
     }
 }

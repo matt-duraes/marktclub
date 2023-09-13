@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\LoginApi\Trait;
 
+use App\Classes\UsuarioCliente\Hash;
 use App\Classes\UsuarioCliente\Helper;
 
 trait UsuarioTrait
@@ -32,6 +33,7 @@ trait UsuarioTrait
             'data_dado'        => $hoje,
             'hash'             => $this->hash,
             'hash_data'        => agora(),
+            'hash_tipo'        => Hash::LOGIN,
             'status'           => 1
         ];
 
@@ -68,6 +70,7 @@ trait UsuarioTrait
             'data_criacao'     => $agora,
             'primeiro_acesso'  => 1,
             'hash'             => $this->hash,
+            'hash_tipo'        => Hash::LOGIN,
             'hash_data'        => agora(),
             'status'           => 1
         ];

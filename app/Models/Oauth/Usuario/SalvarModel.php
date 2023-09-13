@@ -6,6 +6,7 @@ use ORM\ORM;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
+use App\Classes\UsuarioCliente\Hash;
 
 final class SalvarModel extends ORM
 {
@@ -87,6 +88,7 @@ final class SalvarModel extends ORM
             'grupo'            => $this->grupo,
             'hash'             => $this->hash,
             'hash_data'        => agora(),
+            'hash_tipo'        => Hash::LOGIN,
             'data_atualizacao' => $agora,
             'status'           => 1
         ];
@@ -124,6 +126,7 @@ final class SalvarModel extends ORM
             'data_ativacao'    => $agora,
             'data_dado'        => $hoje,
             'hash'             => $this->hash,
+            'hash_tipo'        => Hash::LOGIN,
             'hash_data'        => $agora,
             'status'           => 1
         ])->insert();
