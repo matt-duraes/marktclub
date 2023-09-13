@@ -45,7 +45,6 @@ $permissao = json_encode([
     'solicitacao_cheque_bonus_index', 'solicitacao_cheque_bonus_visualizar', 'solicitacao_cheque_bonus_status',
 
     'chatbot_perguntas_index', 'chatbot_perguntas_add', 'chatbot_perguntas_status', 'chatbot_perguntas_editar',
-    'chatbot_categoria_index', 'chatbot_categoria_add', 'chatbot_categoria_editar', 'chatbot_categoria_status',
 
     'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
     'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',

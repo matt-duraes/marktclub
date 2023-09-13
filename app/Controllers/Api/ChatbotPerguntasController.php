@@ -27,7 +27,6 @@ class ChatbotPerguntasController extends Controller implements
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
             status: new Status($request->status),
-            categoria: $request->categoria,
             ordem: new Ordem($request->ordem)
         );
         return mensagemSucesso($Perguntas->listarDados());
@@ -71,26 +70,7 @@ class ChatbotPerguntasController extends Controller implements
 
     public function postPerguntar(Request $request)
     {
-        $Perguntas = new PerguntasEntity();
-        $ormHelper = new OrmHelper(TABELA_CHATBOT_CATEGORIA);
-
-        $idCategoria = $ormHelper
-            ->pegarPrimeiroRegistro(
-                where: ['categoria', $request->getPost('categoria')],
-                campo: ['id']
-            );
-
-        $Perguntas->buscar(
-            where: [
-                ['pergunta', $request->getPost('pergunta')],
-                ['categoria', $idCategoria['id']],
-                ['status', (new Status(Status::ATIVO))->numero()]
-            ],
-            mensagem: "Pergunta não encontrada, tente novamente!",
-            titulo: "Não encontrada"
-        );
-
-        return $this->retornoPadrao($Perguntas);
+        return new Response(status: 200);
     }
 
     private function retornoPadrao(PerguntasEntity $Regra, int $status = 200)

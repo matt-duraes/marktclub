@@ -25,7 +25,6 @@ class PerguntasModel extends ORM implements ListarInterface
         private readonly Pagina $pagina,
         private readonly Quantidade $quantidade = new Quantidade(null),
         private readonly Status $status = new Status(null),
-        private readonly ?string $categoria = null,
         private readonly Ordem $ordem = new Ordem(null),
     ) {
         parent::__construct();
@@ -34,12 +33,9 @@ class PerguntasModel extends ORM implements ListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'pergunta', 'resposta', 'status', 'data_criacao', 'data_atualizacao'])
+            ->campo(['uuid', 'pergunta', 'categoria', 'resposta', 'status', 'data_criacao', 'data_atualizacao'])
             ->order($this->pegarOrdem())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->tabela(TABELA_CHATBOT_CATEGORIA)
-            ->join('id', 'categoria')
-            ->campo(['categoria'], as: 'nome')
             ->where($this->pegarWhere(), false)
             ->read();
 
@@ -54,9 +50,6 @@ class PerguntasModel extends ORM implements ListarInterface
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
-        if($this->categoria) {
-            $where[] = ['categoria', $this->categoria];
-        }
         return $where;
     }
 
@@ -68,7 +61,7 @@ class PerguntasModel extends ORM implements ListarInterface
         foreach ($lista as $r) {
             $retorno[] = [
                 'id'                => $r->uuid,
-                'categoria'         => $r->nome_categoria,
+                'categoria'         => $r->categoria,
                 'pergunta'          => $r->pergunta,
                 'resposta'          => $r->resposta,
                 'data_criacao'      => $r->data_criacao,
