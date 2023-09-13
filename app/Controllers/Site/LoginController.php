@@ -11,6 +11,7 @@ use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Ativar\SalvarModel;
+use App\Models\Site\Login\LoginApiModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
@@ -40,9 +41,23 @@ final class LoginController extends Controller
         return $this->loginRealizado();
     }
 
-    private function loginRealizado(): Response
+    public function api(string $hash)
+    {
+        try {
+            new LoginApiModel($hash);
+        } catch (\Throwable) {
+            return new Response(url: LINK);
+        }
+        return $this->loginRealizado(true);
+    }
+
+    private function loginRealizado(bool $location = false): Response
     {
         $link = (new AuthHelper())->location();
+        if ($location) {
+            return new Response(url: $link);
+        }
+
         return mensagemSucesso([
             'link' => str_contains($link, '/login') ? LINK : $link
         ], status: 201);
@@ -217,7 +232,7 @@ final class LoginController extends Controller
         ], status: 201);
     }
 
-    public function crypt()
+    private function crypt()
     {
         $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
         $publica = $Api

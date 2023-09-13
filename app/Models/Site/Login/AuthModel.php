@@ -12,7 +12,7 @@ final class AuthModel
 
     private CryptHelper $Crypt;
 
-    public function __construct($token, $clube, bool $refresh = false)
+    public function __construct($token, bool $refresh = false)
     {
         $this->setarCrypt($refresh ? $token['access_token'] : null);
         $usuario = $this->pegarUsuario($token);
