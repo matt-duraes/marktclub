@@ -1,18 +1,37 @@
-<style>
-    .cor_bg_hover:hover, .cor_bg {
-        background-color: {{CLUBE_COR}} !important;
-        color: #FFF !important;
-        fill: #FFF !important;
-    }
-    .cor_color_hover:hover, .cor_color {
-        color: {{CLUBE_COR}} !important;
-    }
-    .cor_border_hover:hover, .cor_border{
-        border-color: {{CLUBE_COR}} !important;
-    }
-    .cor_fill_hover:hover, .cor_fill{
-        fill: {{CLUBE_COR}} !important;
-    }
 
-    :root{ --cor-clube: {{CLUBE_COR}} !important;}
+<style>
+    :root {
+        --cor-clube: {{CLUBE_COR}} !important;
+        --cor-body: #F8F9FA !important;
+        --cor-branco-preto: #FFFFFF !important;
+        --cor-branco-cinza: #FFFFFF !important;
+        --cor-cinza-cinza: #888 !important;
+        --cor-preto-branco: #333333 !important;
+        --hover-branco-preto: #F8F9FA !important;
+        --cor-box-shadow: rgba(0,0,0,.1) !important;
+    }
+    [data-theme="dark"] {
+        --cor-clube: {{CLUBE_COR}} !important;
+        --cor-body: #272928 !important;
+        --cor-branco-preto: #242625 !important;
+        --cor-branco-cinza: #444 !important;
+        --cor-cinza-cinza: #CCC !important;
+        --cor-preto-branco: #FFFFFF !important;
+        --hover-branco-preto: #222222 !important;
+        --cor-box-shadow: rgba(0,0,0,.5) !important;
+    }
+    @ if( tema() == 'sistema' ):
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --cor-clube: {{CLUBE_COR}} !important;
+            --cor-body: #272928 !important;
+            --cor-branco-preto: #242625 !important;
+            --cor-branco-cinza: #444 !important;
+            --cor-cinza-cinza: #CCC !important;
+            --cor-preto-branco: #FFFFFF !important;
+            --hover-branco-preto: #222222 !important;
+            --cor-box-shadow: rgba(0,0,0,.5) !important;
+        }
+    }
+    @ endif;
 </style>

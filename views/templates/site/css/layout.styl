@@ -1,3 +1,5 @@
+@import "variavel"
+
 @system "Resetar"
 @system "Pagina"
 @system "Form"
@@ -14,9 +16,8 @@
 @import "ajuda"
 @import "pesquisa"
 @import "conteudo_popup"
+@import "tema"
 
-$corBody = #F8F9FA
-$hoverBranco = #F8F9FA
 $menuWidth = 300px
 
 *::-webkit-scrollbar
@@ -48,7 +49,7 @@ $menuWidth = 300px
 
 body
     font-family: 'Inter', sans-serif
-    color: #495057
+    color: $corPretoBranco
     background-color: $corBody
     &::-webkit-scrollbar-track
         background: #DDD
@@ -93,7 +94,7 @@ a
     align-items: center
     justify-content: center
     boxShadow()
-    background-color: #FFF
+    background-color: $corBrancoPreto
     padding: 20px
     figure
         height: 70px
@@ -125,7 +126,7 @@ a
 
 #header_principal
     width: 100%
-    background-color: #FFF
+    background-color: $corBrancoPreto
     box-shadow: 0 5px 5px rgba(0,0,0,.1)
     position: fixed
     top: 0
@@ -174,7 +175,7 @@ a
         max-width: $menuWidth
         height: 100vh
         position: relative
-        background: #FFF
+        background: $corBrancoPreto
         overflow-y: auto
         z-index: 2
     .conteudo > figure
@@ -194,7 +195,7 @@ a
         border-radius: 5px
         transition: background-color .3s ease-out
     .conteudo .perfil.hover
-        background-color: $hoverBranco
+        background-color: $hoverBrancoPreto
     .conteudo .perfil a
         width: 100%
         height: 100%
@@ -229,10 +230,10 @@ a
             right: 0
             width: 30px
             height: 100%
-            background-image: linear-gradient(to right, rgba(255,255,255,0), #FFF)
+            background-image: linear-gradient(to right, rgba(255,255,255,0), $corBrancoPreto)
     .conteudo .perfil.hover .nome::after
     .conteudo .perfil.hover .email::after
-        background-image: linear-gradient(to right, rgba(255,255,255,0), $hoverBranco)
+        background-image: linear-gradient(to right, rgba(255,255,255,0), $hoverBrancoPreto)
     .conteudo .perfil i
         width: 20px
         height: 30px
@@ -243,10 +244,11 @@ a
         cursor: pointer
         border-radius: 4px
         z-index: 3
+        fill: $corPretoBranco
         &.abrir:hover
             width: 26px
             height: 36px
-            background: #DDD
+            background: $hoverBrancoPreto
             right: 22px
     .conteudo .bloco_geral_sub_menu
         width: 100%
@@ -259,6 +261,8 @@ a
         &.ativo
             opacity: 1
             margin-top: -15px
+        .botao i
+            fill: $corPretoBranco
     .conteudo .menu
         width: 100%
         flexCol()
@@ -278,12 +282,13 @@ a
         align-items: center
         cursor: pointer
         &:hover
-            background-color: $hoverBranco
+            background-color: $hoverBrancoPreto
     .conteudo .menu .botao i
         width: 30px
         height: 30px
         flexCenter()
         margin-right: 20px
+        fill: $corPretoBranco
     .conteudo .menu .botao.footer
         margin: 2px 20px
     .conteudo .menu .botao.sair
@@ -363,7 +368,7 @@ a
     position: relative
     flex-wrap: wrap
     justify-content: center
-    background-color: #FFF
+    background-color: $corBrancoPreto
     padding: 60px 20px 40px
     z-index: 3
     .bloco

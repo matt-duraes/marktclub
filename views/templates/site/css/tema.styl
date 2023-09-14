@@ -1,0 +1,37 @@
+#bloco_tema
+    max-width: 1000px
+    .scroll
+        overflow-x: auto
+    .bloco_escolha
+        width: 100%
+        flexRow()
+        justify-content: space-between
+        align-items: flex-start
+        margin-top: 30px
+    article
+        width: calc(25% - 20px)
+        min-width: 200px
+        flexCol()
+        align-items: center
+        cursor: pointer
+    article figure
+        max-width: 140px
+        border-radius: 20px
+        boxShadow()
+        overflow: hidden
+        flexCenter()
+        outline: 6px solid rgba(255,255,255,0)
+    article.hover figure
+        outline: 6px solid $corClube
+    article figure img
+        width: 100%
+    article h1
+        width: 100%
+        text-align: center
+        texto()
+        font-weight: bold
+        margin: 15px 0 5px
+    article p
+        width: 100%
+        text-align: center
+        texto()
