@@ -1,0 +1,33 @@
+<div class="bloco_pagina_popup" id="bloco_tema">
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <header>
+            <h1>Escolha um tema</h1>
+            <p>Agora você pode escolher um tema para seu clube</p>
+            <i class="pagina_fechar fechar">@iconeFechar</i>
+        </header>
+        <div class="scroll">
+            <div class="bloco_escolha">
+                <article class="{!!$tema == 'light' ? 'hover' : ''!!}" data-tema="light">
+                    <figure><img src="@LINK/images/site/tema_claro.png" alt=""></figure>
+                    <h1>Clara</h1>
+                    <p>Tema com cores claras</p>
+                </article>
+                <article class="{!!$tema == 'dark' ? 'hover' : ''!!}" data-tema="dark">
+                    <figure><img src="@LINK/images/site/tema_escuro.png" alt=""></figure>
+                    <h1>Escura</h1>
+                    <p>Tema com cores escurar</p>
+                </article>
+                <article class="{!!$tema == 'sistema' ? 'hover' : ''!!}" data-tema="sistema">
+                    <figure><img src="@LINK/images/site/tema_auto.png" alt=""></figure>
+                    <h1>Sistema</h1>
+                    <p>Mesmo tema do seu sistema</p>
+                </article>
+                <article class="{!!$tema == 'automatico' ? 'hover' : ''!!}" data-tema="automatico">
+                    <figure><img src="@LINK/images/site/tema_auto.png" alt=""></figure>
+                    <h1>Automático</h1>
+                    <p>Ajusta automaticamente dependendo do horário do dia</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

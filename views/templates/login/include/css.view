@@ -1,5 +1,4 @@
 
-
 <style>
     :root{
         --cor-clube: {{CLUBE_COR}} !important;
@@ -8,7 +7,7 @@
         --cor-preto-branco: #333333 !important;
         --hover-branco-preto: #F8F9FA !important;
     }
-    @media screen and (prefers-color-scheme: dark) {
+    html[data-theme="dark"] {
         :root{
             --cor-clube: {{CLUBE_COR}} !important;
             --cor-body: #272928 !important;

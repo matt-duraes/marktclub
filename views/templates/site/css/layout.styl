@@ -1,3 +1,5 @@
+@import "variavel"
+
 @system "Resetar"
 @system "Pagina"
 @system "Form"
@@ -14,12 +16,7 @@
 @import "ajuda"
 @import "pesquisa"
 @import "conteudo_popup"
-
-$corBody = var(--cor-body)
-$corClube = var(--cor-clube)
-$corBrancoPreto = var(--cor-branco-preto)
-$corPretoBranco = var(--cor-preto-branco)
-$hoverBrancoPreto = var(--hover-branco-preto)
+@import "tema"
 
 $menuWidth = 300px
 
@@ -264,6 +261,8 @@ a
         &.ativo
             opacity: 1
             margin-top: -15px
+        .botao i
+            fill: $corPretoBranco
     .conteudo .menu
         width: 100%
         flexCol()

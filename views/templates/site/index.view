@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="{!!tema()!!}">
 
 <head>
     <meta charset="UTF-8">
