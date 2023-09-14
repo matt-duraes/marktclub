@@ -1,18 +1,19 @@
-<style>
-    .cor_bg_hover:hover, .cor_bg {
-        background-color: {{CLUBE_COR}} !important;
-        color: #FFF !important;
-        fill: #FFF !important;
-    }
-    .cor_color_hover:hover, .cor_color {
-        color: {{CLUBE_COR}} !important;
-    }
-    .cor_border_hover:hover, .cor_border{
-        border-color: {{CLUBE_COR}} !important;
-    }
-    .cor_fill_hover:hover, .cor_fill{
-        fill: {{CLUBE_COR}} !important;
-    }
 
-    :root{ --cor-clube: {{CLUBE_COR}} !important;}
+<style>
+    :root{
+        --cor-clube: {{CLUBE_COR}} !important;
+        --cor-body: #F8F9FA !important;
+        --cor-branco-preto: #FFFFFF !important;
+        --cor-preto-branco: #333333 !important;
+        --hover-branco-preto: #F8F9FA !important;
+    }
+    @media screen and (prefers-color-scheme: dark) {
+        :root{
+            --cor-clube: {{CLUBE_COR}} !important;
+            --cor-body: #272928 !important;
+            --cor-branco-preto: #242625 !important;
+            --cor-preto-branco: #FFFFFF !important;
+            --hover-branco-preto: #222222 !important;
+        }
+    }
 </style>

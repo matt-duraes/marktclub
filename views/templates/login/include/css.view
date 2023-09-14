@@ -1,3 +1,20 @@
+
+
 <style>
-    :root{ --cor-clube: {{CLUBE_COR}} !important;}
+    :root{
+        --cor-clube: {{CLUBE_COR}} !important;
+        --cor-body: #F8F9FA !important;
+        --cor-branco-preto: #FFFFFF !important;
+        --cor-preto-branco: #333333 !important;
+        --hover-branco-preto: #F8F9FA !important;
+    }
+    @media screen and (prefers-color-scheme: dark) {
+        :root{
+            --cor-clube: {{CLUBE_COR}} !important;
+            --cor-body: #272928 !important;
+            --cor-branco-preto: #242625 !important;
+            --cor-preto-branco: #FFFFFF !important;
+            --hover-branco-preto: #222222 !important;
+        }
+    }
 </style>
