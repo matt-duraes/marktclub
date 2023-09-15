@@ -1,6 +1,5 @@
 @template "login"
 <div id="bloco_login">
-
     @view site/login/index/include/banner.view
     @view site/login/index/include/categoria.view
     @view site/login/index/include/contador.view

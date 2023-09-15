@@ -7,13 +7,22 @@ use App\Classes\ConstrutorClube\TipoAtivacao;
 $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Imagem', function () use ($Painel) {
+    $Painel->fieldset('Imagem Tema Light', function () use ($Painel) {
         $Painel
-            ->imagem('logo', '118e10b2-58cf-4708-9c1f-3e4392d2e675', label: 'Logo')
-            ->imagem('favicon', '118e10b2-58cf-4708-9c1f-3e4392d2e675', label: 'Favicon');
+            ->imagem('logo_principal', '118e10b2-58cf-4708-9c1f-3e4392d2e675');
     });
+    $Painel->fieldset('Imagem Tema Dark', function () use ($Painel) {
+        $Painel
+            ->imagem('logo_secundaria', '118e10b2-58cf-4708-9c1f-3e4392d2e675');
+    });
+    $Painel->fieldset('Imagem Favicon', function () use ($Painel) {
+        $Painel
+            ->imagem('favicon', '118e10b2-58cf-4708-9c1f-3e4392d2e675');
+    });
+});
 
-    $Painel->fieldset('Dados do contrato', function () use ($Painel) {
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Dados do clube', function () use ($Painel) {
         $Painel
             ->input(name: 'titulo', label: 'Título para o clube')
             ->select(
@@ -25,15 +34,24 @@ $Painel->coluna(callback: function () use ($Painel) {
                     ->array()['dado'] ?? []
             )
             ->cor(
-                name: 'cor',
-                label: 'Cor do clube',
+                name: 'cor_principal',
+                label: 'Cor do tema light',
+            )
+            ->cor(
+                name: 'cor_secundaria',
+                label: 'Cor do tema dark ',
             )
             ->select(
                 name: 'tipo_ativacao',
                 label: 'Tipo de ativação',
                 placeholder: 'Qual o tipo de ativação?',
                 lista: (new TipoAtivacao())->select('Escolha um tipo')
-            )
+            );
+    });
+    $Painel->fieldset('SEO e status', function () use ($Painel) {
+        $Painel
+            ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição', contador: 155)
+            ->tag(name: 'header_tag', label: 'Tags', tipo: 'texto', espaco: true, placeholder: 'Digite a lista de tag')
             ->switch(
                 name: 'chat_status',
                 label: 'Vai ter chat?'
@@ -72,13 +90,6 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->url(name: 'link_odontologico', label: 'Link do plano odontológico', placeholder: 'Link do plano odontológico')
             ->url(name: 'link_app_ios', label: 'Link do APP IOS', placeholder: 'Link do APP IOS')
             ->url(name: 'link_app_android', label: 'Link do APP Android', placeholder: 'Link do APP Android');
-    });
-});
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('SEO', function () use ($Painel) {
-        $Painel
-            ->input(name: 'header_descricao', label: 'Descrição', placeholder: 'Digite uma descrição', contador: 155)
-            ->tag(name: 'header_tag', label: 'Tags', tipo: 'texto', espaco: true, placeholder: 'Digite a lista de tag');
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
@@ -149,6 +160,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_dependente', label: 'Dependente');
             $Painel->checkbox(name: 'menu_carteira', label: 'Carteirinha');
             $Painel->checkbox(name: 'menu_salavip', label: 'Salavip');
+            $Painel->checkbox(name: 'menu_tema', label: 'Tema');
         }
     );
 });

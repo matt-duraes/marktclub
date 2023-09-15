@@ -3,6 +3,17 @@
 $Painel = new PainelConfig\Visualizar('solicitacao_automovel');
 
 $Painel->coluna(callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Usuario', callback: function () use ($Painel) {
+        $Painel
+            ->linha('usuario->nome', 'Nome')
+            ->linha('usuario->email', 'E-mail')
+            ->botao(
+                'usuario_link',
+                'Ver usuário',
+                link: LINK . '/app/visualizar/usuario-cliente/usuario->id',
+                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_VISUALIZAR
+            );
+    });
     $Painel->bloco(titulo: 'Endereço', callback: function () use ($Painel) {
         $Painel
            ->linha('endereco_estado', 'Estado')

@@ -14,7 +14,7 @@
 
 <div id="site">
     <header>
-        <img src="{{CLUBE_LOGO}}" height="80" alt="{{CLUBE_TITULO}}">
+        <img src="{{CLUBE_LOGO_PRINCIPAL}}" height="80" alt="{{CLUBE_TITULO}}">
         <img src="{!!$dado->parceiro->link_logo!!}" height="100" alt="{{$dado->parceiro->titulo}}">
     </header>
 
