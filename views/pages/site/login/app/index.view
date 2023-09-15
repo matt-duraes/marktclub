@@ -19,7 +19,7 @@
 </head>
 <body>
 <div id="site">
-    <figure><img src="{!!CLUBE_LOGO!!}" alt=""></figure>
+    <figure><img src="{!!CLUBE_LOGO_PRINCIPAL!!}" alt=""></figure>
     <h1 class="plataforma"> Selecione abaixo a plataforma desejada</h1>
     <div class="lista">
         @ if( !empty(LINK_APP_IOS) ):

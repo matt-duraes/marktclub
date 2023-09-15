@@ -7,7 +7,6 @@ return [
         'id_admin_empresa'          => 1,
         'titulo'                    => 'Markt Club',
         'link_clube'                => 'clube.marktclub.com.br',
-        'logo'                      => 'logo_marktclub_tem_mais.png',
         'cor'                       => '#FF6F00',
         'contato_telefone'          => '6132023003',
         'contato_whatsapp'          => '61912345678',
@@ -27,6 +26,10 @@ return [
         'menu_saude_vitoria'        => 1,
         'menu_saude_amil'           => 1,
         'menu_saude_seguro'         => 1,
+        'menu_tema'                 => 1,
+        'menu_corrida'              => 1,
+        'menu_show_nacional'        => 1,
+        'menu_show_internacional'   => 1,
         'menu_saude_cnu'            => 1,
         'menu_saude_florianopolis'  => 1,
         'menu_cashback'             => 1,
@@ -54,7 +57,6 @@ return [
         'id_admin_empresa'          => 2,
         'titulo'                    => 'Anafe Card',
         'link_clube'                => 'anafecard.com.br',
-        'logo'                      => '70ff785234195b33e0036ca434feaa3c.png',
         'cor'                       => '#004E7D',
         'menu_primeiro_acesso'      => 1,
         'menu_faq'                  => 1,
@@ -95,7 +97,6 @@ return [
         'id_admin_empresa' => 153,
         'titulo'           => 'Fenae',
         'link_clube'       => 'convenios.fenae.org.br',
-        'logo'             => 'a96542ac6f8df4c7acbc53d1aa29de3d.png',
         'cor'              => '#20409a',
         'status'           => 1
     ],
@@ -105,7 +106,6 @@ return [
         'id_admin_empresa' => 198,
         'titulo'           => 'CVS MAIS',
         'link_clube'       => 'clube.cvsmais.com.br',
-        'logo'             => 'logo_cvsmais_tem_mais.png',
         'cor'              => '#f00068',
         'status'           => 1
     ],
@@ -115,7 +115,6 @@ return [
         'id_admin_empresa' => 1967,
         'titulo'           => 'Clube D+',
         'link_clube'       => 'clubedmais.com.br',
-        'logo'             => 'logo_cvsmais_tem_mais.png',
         'cor'              => '#d9031c',
         'status'           => 1
     ],
@@ -125,7 +124,6 @@ return [
         'id_admin_empresa' => 82,
         'titulo'           => 'CLUBE DE VANTAGENS SINPOLDF',
         'link_clube'       => 'sinpoldf.temmaisvantagens.com.br',
-        'logo'             => '27e13bb65402e5c25978b225c9775814.png',
         'cor'              => '#f00068',
         'status'           => 1
     ]

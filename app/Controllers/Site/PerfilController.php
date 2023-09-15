@@ -62,7 +62,7 @@ final class PerfilController extends Controller
 
         return view('perfil.carteira', [
             'dado' => $dado,
-            'logo' => defined('CLUBE_LOGO')
+            'logo' => defined('CLUBE_LOGO_PRINCIPAL')
         ]);
     }
 

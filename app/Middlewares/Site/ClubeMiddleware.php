@@ -91,7 +91,8 @@ final class ClubeMiddleware extends ApiHelper
     {
         $clube = sessao('CLUBE');
 
-        define('CLUBE_LOGO', $clube->logo);
+        define('CLUBE_LOGO_PRINCIPAL', $clube->logo_principal);
+        define('CLUBE_LOGO_SECUNDARIA', $clube->logo_secundaria);
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_TITULO', $clube->titulo);
         define('CLUBE_ID', $clube->id);
@@ -145,6 +146,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_SHOW_INTERNACIONAL', $pagina->show_internacional);
         define('MENU_PRIMEIRO_ACESSO', $pagina->primeiro_acesso);
         define('MENU_FAQ', $pagina->faq);
+        define('MENU_TEMA', $pagina->tema);
         define('MENU_COMO_FUNCIONA', $pagina->como_funciona);
         define('MENU_MEU_PARCEIRO', $pagina->meu_parceiro);
         define('MENU_SAIR', $pagina->sair);
