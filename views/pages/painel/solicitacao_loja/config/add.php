@@ -1,7 +1,5 @@
 <?php
 
-use App\Classes\SolicitacaoLoja\Origem;
-
 $Painel = new PainelConfig\Add('solicitacao_loja');
 
 $Painel->coluna(callback: function () use ($Painel) {

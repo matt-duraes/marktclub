@@ -1,9 +1,9 @@
 <?php
 
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('samsung')
@@ -1123,12 +1123,12 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:salvar'])
             ::request([
-                'empresa', 'titulo', 'logo', 'favicon', 'header_tag', 'header_descricao',
-                'cor', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip', 'link_app_ios',
-                'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
+                'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'header_tag', 'header_descricao',
+                '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip',
+                'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
                 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
                 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
-                'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel',
+                'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'menu_tema',
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
@@ -1141,12 +1141,13 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!logo', '!favicon', '!header_tag', '!header_descricao',
-                '!cor', '!link_clube', '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios',
+                '!empresa', '!titulo', '!logo_principal', '!logo_secundaria', '!favicon', '!header_tag',
+                '!header_descricao', '!cor_principal', '!cor_secundaria', '!link_clube',
+                '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios',
                 '!link_app_android', '!contato_telefone', '!contato_whatsapp', '!contato_email',
                 '!contato_horario', '!contato_endereco', '!menu_faq', '!menu_como_funciona',
                 '!menu_sair', '!menu_acesso_rapido', '!menu_loja', '!menu_mapa', '!menu_cinema',
-                '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel',
+                '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel', '!menu_tema',
                 '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
                 '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
                 '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira', '!menu_cupom',

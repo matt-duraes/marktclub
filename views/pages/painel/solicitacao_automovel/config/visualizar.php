@@ -3,7 +3,7 @@
 $Painel = new PainelConfig\Visualizar('solicitacao_automovel');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: "Usuario", callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Usuario', callback: function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
             ->linha('usuario->email', 'E-mail')
