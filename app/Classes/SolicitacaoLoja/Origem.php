@@ -7,6 +7,7 @@ use Status\Status as StatusStatus;
 class Origem extends StatusStatus
 {
     public const CLUBE = 'clube';
+    public const PAINEL = 'painel';
 
     /**
      * @param string|int|null $valor
@@ -15,7 +16,8 @@ class Origem extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::CLUBE => 'Clube'
+            self::CLUBE  => 'Clube',
+            self::PAINEL => 'Painel'
         ]);
     }
 }

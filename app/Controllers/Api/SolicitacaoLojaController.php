@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\SolicitacaoLoja\Helper;
 use App\Classes\SolicitacaoLoja\Ordem;
 use App\Classes\SolicitacaoLoja\Status;
 use App\Models\Api\SolicitacaoLoja\SolicitacaoEntity;
@@ -39,7 +40,10 @@ class SolicitacaoLojaController extends Controller implements
             ordem: new Ordem($request->ordem),
             status: new Status($request->status)
         );
-        return mensagemSucesso($Solicitacao->listarDados());
+
+        $dado = $Solicitacao->listarDados();
+        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR, lista: true);
+        return mensagemSucesso($dado);
     }
 
     /**
@@ -67,9 +71,11 @@ class SolicitacaoLojaController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Solicitacao, lista: [
                 'nome', 'email', 'telefone', 'mensagem',
-                'origem', 'status', 'data_criacao', 'data_atualizacao'
+                'origem', 'status', 'quem_indicou',
+                'data_criacao', 'data_atualizacao'
             ]),
-            $status
+            $status,
+            Helper::CRIPTOGRAFAR
         );
     }
 

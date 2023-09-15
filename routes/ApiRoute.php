@@ -1,9 +1,9 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
+use Route\Route;
 
 Route
     ::nome('samsung')
@@ -2084,6 +2084,7 @@ Route
     ::nome('solicitacao_loja')
     ::controller(App\Controllers\Api\SolicitacaoLojaController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\SolicitacaoLoja\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('listar')
@@ -2101,7 +2102,9 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
-            ::request(['nome', 'email', 'telefone', 'mensagem', '!usuario', 'origem'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!origem', '!cpf'
+            ])
             ::post('/solicitacao-loja');
 
         Route
