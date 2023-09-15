@@ -63,6 +63,7 @@ final class AutomovelEntity extends Entity
     {
         $this->buscarUsuario();
     }
+
     private function buscarUsuario()
     {
         $Usuario = new DadoBaseModel($this->id_usuario_cliente);
@@ -76,5 +77,4 @@ final class AutomovelEntity extends Entity
             'imagem' => $Usuario->imagem,
         ];
     }
-
 }

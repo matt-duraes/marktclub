@@ -7,7 +7,7 @@ return [
         'id_admin_empresa'          => 1,
         'titulo'                    => 'Markt Club',
         'link_clube'                => 'clube.marktclub.com.br',
-        'cor'                       => '#FF6F00',
+        'cor_principal'             => '#FF6F00',
         'contato_telefone'          => '6132023003',
         'contato_whatsapp'          => '61912345678',
         'contato_email'             => 'atendimento@markt.club',
@@ -57,7 +57,7 @@ return [
         'id_admin_empresa'          => 2,
         'titulo'                    => 'Anafe Card',
         'link_clube'                => 'anafecard.com.br',
-        'cor'                       => '#004E7D',
+        'cor_principal'             => '#004E7D',
         'menu_primeiro_acesso'      => 1,
         'menu_faq'                  => 1,
         'menu_acesso_rapido'        => 1,
@@ -97,7 +97,7 @@ return [
         'id_admin_empresa' => 153,
         'titulo'           => 'Fenae',
         'link_clube'       => 'convenios.fenae.org.br',
-        'cor'              => '#20409a',
+        'cor_principal'    => '#20409a',
         'status'           => 1
     ],
     [
@@ -106,7 +106,7 @@ return [
         'id_admin_empresa' => 198,
         'titulo'           => 'CVS MAIS',
         'link_clube'       => 'clube.cvsmais.com.br',
-        'cor'              => '#f00068',
+        'cor_principal'    => '#f00068',
         'status'           => 1
     ],
     [
@@ -115,7 +115,7 @@ return [
         'id_admin_empresa' => 1967,
         'titulo'           => 'Clube D+',
         'link_clube'       => 'clubedmais.com.br',
-        'cor'              => '#d9031c',
+        'cor_principal'    => '#d9031c',
         'status'           => 1
     ],
     [
@@ -124,7 +124,7 @@ return [
         'id_admin_empresa' => 82,
         'titulo'           => 'CLUBE DE VANTAGENS SINPOLDF',
         'link_clube'       => 'sinpoldf.temmaisvantagens.com.br',
-        'cor'              => '#f00068',
+        'cor_principal'    => '#f00068',
         'status'           => 1
     ]
 ];
