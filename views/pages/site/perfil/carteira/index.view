@@ -1,5 +1,5 @@
 @CSS
-@php $logo = defined('CLUBE_LOGO')
+@php $logo = defined('CLUBE_LOGO_PRINCIPAL');
 
 <div id="bloco_carteirinha">
     <div class="bloco_frente" style="background: url({{$dado->imagem->frente}}); background-size: 100% 100%;">

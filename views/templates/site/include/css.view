@@ -1,7 +1,7 @@
 
 <style>
     :root {
-        --cor-clube: {{CLUBE_COR}} !important;
+        --cor-clube: {{CLUBE_COR_PRINCIPAL}} !important;
         --cor-body: #F8F9FA !important;
         --cor-branco-preto: #FFFFFF !important;
         --cor-branco-cinza: #FFFFFF !important;
@@ -11,7 +11,7 @@
         --cor-box-shadow: rgba(0,0,0,.1) !important;
     }
     [data-theme="dark"] {
-        --cor-clube: {{CLUBE_COR}} !important;
+        --cor-clube: {{CLUBE_COR_SECUNDARIA}} !important;
         --cor-body: #272928 !important;
         --cor-branco-preto: #242625 !important;
         --cor-branco-cinza: #444 !important;
@@ -23,7 +23,7 @@
     @ if( tema() == 'sistema' ):
     @media (prefers-color-scheme: dark) {
         :root {
-            --cor-clube: {{CLUBE_COR}} !important;
+            --cor-clube: {{CLUBE_COR_SECUNDARIA}} !important;
             --cor-body: #272928 !important;
             --cor-branco-preto: #242625 !important;
             --cor-branco-cinza: #444 !important;

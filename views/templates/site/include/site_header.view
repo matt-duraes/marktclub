@@ -4,7 +4,7 @@
     <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
     <figure>
         <a href="@route(index.index)">
-            <img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}">
+            <img src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
         </a>
     </figure>
 </header>
@@ -14,7 +14,7 @@
     <div class="conteudo">
         <figure>
             <a href="@route(index.index)">
-                <img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}">
+                <img src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
             </a>
         </figure>
         <div class="perfil" id="bloco_perfil">

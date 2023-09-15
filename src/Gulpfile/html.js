@@ -76,7 +76,6 @@ exports.htmlUnico = function (path) {
 */
 exports.htmlTodos = function () {
     return new Promise(async resolve => {
-        await fsDeletarDiretorio('files/build/views');
         await fsCriarDiretorio('files');
         await fsCriarDiretorio('files/build');
         await fsCriarDiretorio('files/build/views');
