@@ -45,7 +45,7 @@
     <form action="/" method="post">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
         <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
-        <input type="hidden" name="CLUBE_COR" id="CLUBE_COR" value="{!!CLUBE_COR!!}">
+        <input type="hidden" name="CLUBE_COR" id="CLUBE_COR" value="{!!CLUBE_COR_PRINCIPAL!!}">
     </form>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
