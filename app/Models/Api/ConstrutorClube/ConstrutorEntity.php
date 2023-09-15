@@ -15,19 +15,20 @@ final class ConstrutorEntity extends Entity
     protected string $ormTabela = TABELA_CONSTRUTOR_CLUBE;
     protected array $ormBuscar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
-        'menu_turismo', 'menu_credito_sicoob', 'logo', 'favicon', 'titulo', 'cor', 'tipo_ativacao',
+        'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'titulo', 'cor',
         'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
         'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_saude_florianopolis',
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_cupom', 'menu_odontologico',
         'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona',
-        'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_primeiro_acesso',
-        'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status', 'status'
+        'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_primeiro_acesso', 'menu_tema',
+        'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status',
+        'tipo_ativacao', 'status'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
-        'menu_turismo', 'menu_credito_sicoob', 'logo', 'favicon', 'titulo', 'cor', 'tipo_ativacao',
+        'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'titulo', 'cor',
         'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
         'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_saude_florianopolis',
@@ -35,13 +36,14 @@ final class ConstrutorEntity extends Entity
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_cupom', 'menu_odontologico',
         'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
         'menu_premium', 'menu_dependente', 'menu_sair', 'menu_primeiro_acesso', 'menu_meu_parceiro',
-        'administrado_status', 'chat_status', 'status'
+        'menu_tema', 'administrado_status', 'chat_status', 'tipo_ativacao', 'status'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
     public int $id_admin_empresa;
     public string $favicon;
-    public string $logo;
+    public string $logo_principal;
+    public string $logo_secundaria;
     public string $logo_marktclub;
     public string $titulo;
     public string $link_clube;
@@ -89,6 +91,7 @@ final class ConstrutorEntity extends Entity
     public Botao $menu_show_internacional;
     public Botao $menu_show_nacional;
     public Botao $menu_corrida;
+    public Botao $menu_tema;
     public Botao $menu_sair;
     public Botao $api_status;
     public Botao $chat_status;
@@ -111,8 +114,11 @@ final class ConstrutorEntity extends Entity
         if ($this->propriedadeExiste('favicon') && !empty($this->favicon)) {
             $this->favicon = arquivoPrivadoId($this->favicon);
         }
-        if ($this->propriedadeExiste('logo') && !empty($this->logo)) {
-            $this->logo = arquivoPrivadoId($this->logo);
+        if ($this->propriedadeExiste('logo_principal') && !empty($this->logo_principal)) {
+            $this->logo_principal = arquivoPrivadoId($this->logo_principal);
+        }
+        if ($this->propriedadeExiste('logo_secundaria') && !empty($this->logo_secundaria)) {
+            $this->logo_secundaria = arquivoPrivadoId($this->logo_secundaria);
         }
         if ($this->propriedadeExiste('empresa') && !empty($this->empresa)) {
             $this->id_admin_empresa = $this->ormEmpresa->pegarIdPeloUuid($this->empresa);
@@ -124,7 +130,8 @@ final class ConstrutorEntity extends Entity
         $this->link_clube = 'https://' . $this->link_clube;
         $this->empresa = $this->ormEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->favicon = arquivoPrivado($this->favicon);
-        $this->logo = arquivoPrivado($this->logo);
+        $this->logo_principal = arquivoPrivado($this->logo_principal);
+        $this->logo_secundaria = arquivoPrivado($this->logo_secundaria);
         $this->logo_marktclub = LINK_ARQUIVO . '/construtor/a2ca966d45780803f2497bd2a77b0e3b.png';
     }
 }
