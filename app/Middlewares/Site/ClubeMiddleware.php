@@ -33,14 +33,15 @@ final class ClubeMiddleware extends ApiHelper
         $dispositivo = (new UserAgentHelper());
         sessao('DISPOSITIVO_' . $this->id, true);
         sessao('DISPOSITIVO', (object)[
-            'tipo' => $dispositivo->dispositivo(),
-            'mobile' => $dispositivo->mobile(),
+            'tipo'      => $dispositivo->dispositivo(),
+            'mobile'    => $dispositivo->mobile(),
             'navegador' => $dispositivo->navegador(),
-            'os' => $dispositivo->os(),
-            'tablet' => $dispositivo->tablet(),
-            'versao' => $dispositivo->versao(),
+            'os'        => $dispositivo->os(),
+            'tablet'    => $dispositivo->tablet(),
+            'versao'    => $dispositivo->versao(),
         ]);
     }
+
     private function montarDispositivo()
     {
         $dispositivo = sessao('DISPOSITIVO');
