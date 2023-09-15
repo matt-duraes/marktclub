@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\SolicitacaoAutomovel;
 
+use App\Models\Api\UsuarioCliente\DadoBaseModel;
 use ORM\Entity;
 use Modules\EnderecoEstado;
 use App\Classes\Solicitacao\Status;
@@ -41,6 +42,7 @@ final class AutomovelEntity extends Entity
     public string $cor;
     public string $mensagem;
     public Status $status;
+    public array $usuario;
     private int $idUsuario;
     private int $idEmpresa;
 
@@ -56,4 +58,23 @@ final class AutomovelEntity extends Entity
         $this->id_admin_empresa = $this->idEmpresa;
         $this->status = new Status(Status::NOVO);
     }
+
+    protected function regraPosBuscar()
+    {
+        $this->buscarUsuario();
+    }
+    private function buscarUsuario()
+    {
+        $Usuario = new DadoBaseModel($this->id_usuario_cliente);
+        if (!$Usuario->existe) {
+            return;
+        }
+        $this->usuario = [
+            'id'     => $Usuario->id,
+            'nome'   => $Usuario->nome->nome(),
+            'email'  => $Usuario->email->email(),
+            'imagem' => $Usuario->imagem,
+        ];
+    }
+
 }
