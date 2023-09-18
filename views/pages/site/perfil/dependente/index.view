@@ -21,7 +21,7 @@
     <div class="bloco_tabela_geral bloco_dependente {!! !$dado ? 'display_none' : '' !!}" id="bloco_dependente">
         <div class="scroll">
             <div class="conteudo">
-                <div class="linha titulo">
+                <div class="linha titulo" id="bloco_titulo_tabela_dependente">
                     <div class="td nome">Nome</div>
                     <div class="td status">Status</div>
                     <div class="td deletar">Deletar</div>

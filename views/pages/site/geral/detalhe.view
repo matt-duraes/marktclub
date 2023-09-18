@@ -45,19 +45,22 @@
         @ endif
 
         @ if( $telefone && count($telefone) == 1):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> {{$telefone[0]}}</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> {{$telefone[0]}}</div>
         @ elseif( $telefone ):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> Ver telefone</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> Ver telefone</div>
         @ endif;
 
         @ if( $email && count($email) == 1 ):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> {{$email[0]}}</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> {{$email[0]}}</div>
         @ elseif( $email ):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> Ver e-mail</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> Ver e-mail</div>
         @ endif;
 
         @ if( $dado->procedimento != $procedimento::WEBSITE && !empty($dado->link) ):
-        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao branco botao_geral_cor" data-botao="Abrir site secundario"><i>@iconeSiteCliente()</i> Abrir Site</a>
+        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao botao_geral_cor" data-botao="Abrir site secundario">
+            Abrir Site
+            <i>@iconeSiteCliente()</i>
+        </a>
         @ endif;
 
     </div>
