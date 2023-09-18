@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\SolicitacaoDeclaracao;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\Solicitacao\Status;
+use App\Classes\SolicitacaoDeclaracao\Ordem;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Classes\SolicitacaoDeclaracao\Ordem;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class DeclaracaoModel extends ORM implements ModelListarInterface
 {
@@ -75,7 +75,7 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
                 'uuid', 'status', 'data_criacao', 'data_atualizacao'
             ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), false)
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
@@ -98,7 +98,9 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
         }
 
         if ($this->dataCriacaoDe->valido() && $this->dataCriacaoAte->valido()) {
-            $where[] = ['data_criacao', 'between', [$this->dataCriacaoDe->date(), $this->dataCriacaoAte->date() . ' 23:59:59']];
+            $where[] = [
+                'data_criacao', 'between', [$this->dataCriacaoDe->date(), $this->dataCriacaoAte->date() . ' 23:59:59']
+            ];
         } elseif ($this->dataCriacaoDe->valido()) {
             $where[] = ['data_criacao', '>=', $this->dataCriacaoDe->date()];
         } elseif ($this->dataCriacaoAte->valido()) {

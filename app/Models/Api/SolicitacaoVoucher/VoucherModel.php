@@ -2,15 +2,16 @@
 
 namespace App\Models\Api\SolicitacaoVoucher;
 
-use ORM\ORM;
-use stdClass;
-use Http\Request;
-use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\TipoUsuario;
 use App\Models\Api\SolicitacaoVoucher\Trait\ModelBuscarTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Http\Request;
+use ORM\ORM;
+use stdClass;
 
 final class VoucherModel extends ORM
 {
@@ -21,22 +22,34 @@ final class VoucherModel extends ORM
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
     private int $idEmpresa;
 
+    /**
+     * @param Request $request
+     *
+     * @throws Excecao
+     */
     public function __construct(
         protected Request $request
     ) {
-        parent::__construct();
         $this->validarEmpresa('empresa');
         $this->validarRequest();
+        parent::__construct();
     }
 
+    /**
+     * @return stdClass
+     */
     public function listarDados(): stdClass
     {
         $dado = $this->buscarVoucher();
-
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
 
+    /**
+     * @param array $dado
+     *
+     * @return array
+     */
     protected function montarRetorno(array $dado): array
     {
         if (!$dado) {

@@ -77,8 +77,8 @@ class CreditoModel extends ORM
                 'uuid', 'operadora', 'tipo', 'valor_total', 'parcela',
                 'valor_parcela', 'status', 'data_criacao'
             ])
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
