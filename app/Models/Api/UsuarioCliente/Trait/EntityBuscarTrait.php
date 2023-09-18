@@ -3,6 +3,7 @@
 namespace App\Models\Api\UsuarioCliente\Trait;
 
 use Modules\Botao;
+use Helpers\OrmHelper;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 
@@ -28,7 +29,20 @@ trait EntityBuscarTrait
             $this->grupo = strCaixaBaixa($this->grupo);
         }
 
+        $this->setarUuidEmpresaPeloId('id_admin_subempresa');
+
         $dataTermo = $this->data_termo->date();
         $this->termo = new Botao(!empty($dataTermo) && $dataTermo < '2000-01-01' ? 'sim' : 'nao');
+    }
+
+    private function setarUuidEmpresaPeloId($campo)
+    {
+        $id = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarUuidPeloId($this->$campo);
+        if ($campo == 'id_admin_subempresa') {
+            $this->subempresa = $id;
+            return;
+        }
+        $this->subempresa = $id;
     }
 }

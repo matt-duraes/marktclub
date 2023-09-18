@@ -137,6 +137,13 @@ return [
                     'lead', 'origem', 'empresa', 'subempresa', 'federacao', 'trabalho_empresa', 'trabalho_cargo',
                     'tipo_pagamento'
                 ]
+            ],
+            'usuario_equipe' => [
+                'geral' => [
+                    'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho', 'senha', 'status', 'primeiro_acesso',
+                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha', 'permissao',
+                    'empresa', 'subempresa'
+                ]
             ]
         ],
         'campo_obrigatorio' => [
@@ -177,10 +184,17 @@ return [
                 'geral'   => [
                     'nome', 'cpf', 'matricula', 'siape', 'genero', 'estado_civil', 'data_nascimento', 'email_trabalho',
                     'email_pessoal', 'telefone_celular', 'telefone_fixo', 'endereco_estado', 'endereco_cidade', 'senha',
-                    'status', 'primeiro_acesso', 'mudar_senha', 'data_upload'
+                    'status', 'primeiro_acesso', 'mudar_senha', 'data_upload', 'subempresa', 'grupo'
                 ],
                 'filtrar' => [
                     'nome', 'cpf', 'matricula', 'siape', 'data_upload', 'data_criacao_de', 'data_criacao_ate', 'status'
+                ]
+            ],
+            'usuario_equipe' => [
+                'geral' => [
+                    'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho', 'senha', 'status', 'primeiro_acesso',
+                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha', 'permissao',
+                    'subempresa'
                 ]
             ]
         ],

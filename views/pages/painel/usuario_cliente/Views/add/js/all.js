@@ -2,70 +2,62 @@
 // @painel "app_geral_add"
 
 window.addEventListener('load', () => {
-    const selectEmpresa = document.querySelector('#input_empresa');
-    const selectSubempresa = document.querySelector('#input_subempresa');
-    const selectGrupo = document.querySelector('#input_grupo');
-    const grupoInicial = selectGrupo ? selectGrupo.value : '';
-    const empresaInicial = selectEmpresa ? selectEmpresa.value : '';
+    const inputEmpresa = $('#input_empresa');
+    const inputSubempresa = $('#input_subempresa');
+    const inputGrupo = $('#input_grupo');
 
-    if (selectEmpresa) {
-        selectEmpresa.addEventListener('formChange', () => {
-            if (selectGrupo) {
-                buscarGrupoEmpresa(selectEmpresa.value);
-            }
-            if (selectSubempresa) {
-                buscarSubempresa(selectEmpresa.value);
-            }
-        });
-    }
-
-    const buscarGrupoEmpresa = async (empresa, valor) => {
-        const body = new FormData();
-        body.append('empresa', empresa);
-        body.append('titulo', 'Escolha um grupo');
-        body.append('indice', 'grupo');
-
-        formSelectLoading(selectGrupo);
-
-        const resposta = await fetch(LINK + '/app/ajax/usuario-cliente', {
-            method: 'POST',
-            body,
-        });
-
-        const json = await respostaJson(resposta, 'Ocorreu um erro para listar os grupos do usuário.');
-        if (false === json) {
-            return;
-        }
-
-        formSelectOption(selectGrupo, montarRetornoVazio(json.dado, 'Não existe subempresa cadastrada'), valor);
-    };
-
-    const buscarSubempresa = async empresa => {
-        if (!selectSubempresa) {
-            return;
-        }
-
-        const body = new FormData();
-        body.append('empresa', empresa);
-        body.append('titulo', 'Escolha uma subempresa');
-        body.append('indice', 'subempresa');
-
-        formSelectLoading(selectSubempresa);
-
-        const resposta = await fetch(LINK + '/app/ajax/usuario-cliente', {
-            method: 'POST',
-            body,
-        });
-        const json = await respostaJson(
-            resposta,
-            'Ocorre um erro ao buscar lista de subempresa, por favor, tente novamente.'
+    const buscarGrupo = async (empresa, valor) => {
+        formSelectLoading(inputGrupo);
+        const resposta = await ajaxPost(
+            LINK + '/app/ajax/usuario-cliente',
+            {
+                empresa,
+                titulo: 'Escolha um grupo',
+                indice: 'grupo',
+            },
+            'Ocorreu um erro para listar os grupos do usuário.'
         );
-        if (false === json) {
+
+        if (false === resposta) {
             return;
         }
 
-        formSelectOption(selectSubempresa, montarRetornoVazio(json.dado, 'Não existe subempresa cadastrada'), '');
+        formSelectOption(inputGrupo, montarRetornoVazio(resposta.dado, 'Não existe grupo cadastrado'), valor);
     };
+
+    const buscarSubempresa = async (empresa, valor) => {
+        formSelectLoading(inputSubempresa);
+        const resposta = await ajaxPost(
+            LINK + '/app/ajax/usuario-cliente',
+            {
+                empresa,
+                titulo: 'Escolha uma subempresa',
+                indice: 'subempresa',
+            },
+            ''
+        );
+        if (false === resposta) {
+            return;
+        }
+        formSelectOption(inputSubempresa, montarRetornoVazio(resposta.dado, 'Não existe subempresa cadastrada'), valor);
+    };
+
+    if (inputEmpresa) {
+        inputEmpresa.addEventListener('formChange', () => {
+            if (inputGrupo) {
+                buscarGrupo(inputEmpresa.value);
+            }
+            if (inputSubempresa) {
+                buscarSubempresa(inputEmpresa.value);
+            }
+        });
+        if (inputGrupo && inputGrupo.value != '') {
+            buscarGrupo(inputEmpresa.value, inputGrupo.value);
+        }
+        if (inputSubempresa && inputSubempresa.value != '') {
+            buscarSubempresa(inputEmpresa.value, inputSubempresa.value);
+        }
+    }
 
     const montarRetornoVazio = (lista, mensagem) => {
         let quantidade = 0;
@@ -80,15 +72,4 @@ window.addEventListener('load', () => {
         }
         return retorno;
     };
-
-    if (selectEmpresa && selectGrupo && empresaInicial != '') {
-        buscarGrupoEmpresa(empresaInicial, grupoInicial);
-    } else if (selectEmpresa && selectGrupo && grupoInicial == '') {
-        formSelectOption(selectGrupo, { '': 'Escolha uma empresa' });
-    } else if (selectGrupo) {
-        buscarGrupoEmpresa('', grupoInicial);
-    }
-    if (!selectEmpresa && selectSubempresa) {
-        buscarSubempresa('');
-    }
 });

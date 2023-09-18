@@ -294,7 +294,7 @@ Route
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google'
+                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
             ])
             ::put('/usuario-cliente/{id}');
 
@@ -526,7 +526,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf',
-                '!status', '!ordem', '!empresa'
+                '!status', '!ordem', '!empresa', '!subempresa'
             ], 'json')
             ::get('/usuario-equipe');
 
@@ -552,7 +552,7 @@ Route
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
-                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa'
+                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa', '!subempresa'
             ])
             ::post('/usuario-equipe');
 
@@ -563,7 +563,7 @@ Route
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!imagem_facebook',
-                '!imagem_google', '!id_facebook', '!id_google', '!perfil'
+                '!imagem_google', '!id_facebook', '!id_google', '!perfil', '!subempresa'
             ])
             ::put('/usuario-equipe/{id}');
 

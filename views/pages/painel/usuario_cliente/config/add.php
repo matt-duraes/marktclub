@@ -1,6 +1,7 @@
 <?php
 
 use Modules\Senha;
+use Helpers\ApiHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\Federacao;
@@ -50,23 +51,44 @@ $Painel->coluna(callback: function () use ($Painel) {
         $federacao = (new Federacao())->select('Escolha uma federação');
         $tipoPagamento = (new TipoPagamento())->select('Escolha um pagamento');
 
+        $grupoLista = ['' => 'Escolha uma empresa'];
+        $subempresaLista = ['' => 'Escolha uma empresa'];
+
+        if (sessao('EMPRESA.slug') == 'marktclub') {
+            $Painel
+                ->select(
+                    name: 'empresa->id',
+                    label: 'Empresa',
+                    lista: 'empresa',
+                    acao: 'add',
+                    permissao: Helper::PERMISSAO_EMPRESA
+                )
+                ->hidden(name: 'empresa->id', acao: 'editar', permissao: Helper::PERMISSAO_EMPRESA);
+        } else {
+            $grupoLista = (new ApiHelper(token: true))
+                ->json([
+                    'titulo'  => 'Escolha um grupo',
+                    'empresa' => sessao('USUARIO.empresa')
+                ])
+                ->get('/usuario-grupo/select')
+                ->array()['dado'] ?? [];
+
+            $subempresaLista = (new ApiHelper(token: true))
+                ->json([
+                    'titulo'  => 'Escolha uma subempresa',
+                    'empresa' => sessao('USUARIO.empresa')
+                ])
+                ->get('/comercial-subempresa/select')
+                ->array()['dado'] ?? [];
+        }
+
         $Painel
-            ->hidden(name: 'empresa->id', acao: 'editar', permissao: Helper::PERMISSAO_EMPRESA)
-            ->select(
-                name: 'empresa',
-                label: 'Empresa',
-                lista: 'empresa',
-                acao: 'add',
-                permissao: Helper::PERMISSAO_EMPRESA,
-                change: 'mudarEmpresa'
-            )
             ->select(
                 name: 'subempresa',
                 label: 'Subempresa',
-                lista: ['' => 'Escolha uma empresa'],
-                acao: 'add'
+                lista: $subempresaLista,
             )
-            ->select(name: 'grupo', label: 'Grupo', lista: ['' => 'Carregando'])
+            ->select(name: 'grupo', label: 'Grupo', lista: $grupoLista)
             ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $tipoPagamento)
             ->select(name: 'federacao', label: 'Federação', lista: $federacao);
     });
