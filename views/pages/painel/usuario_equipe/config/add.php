@@ -25,6 +25,12 @@ $Painel->coluna(callback: function () use ($Painel) {
             lista: 'empresa',
             acao: 'add',
             permissao: Helper::PERMISSAO_EMPRESA
+        )
+        ->select(
+            name: 'subempresa',
+            label: 'Subempresa',
+            lista: ['' => 'Escolha uma empresa'],
+            acao: 'add'
         );
         $Painel->senha(
             name: 'senha',
@@ -87,4 +93,7 @@ if (sessao('EMPRESA.slug') != 'marktclub' || in_array('usuario_equipe_permissao'
         );
     });
 }
+
+$Painel->js('painel_usuario_equipe_add');
+
 return $Painel;

@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
             return;
         }
 
-        formSelectOption(selectGrupo, montarRetornoVazio(json.dado, 'Não existe grupo cadastrado'), valor);
+        formSelectOption(selectGrupo, montarRetornoVazio(json.dado, 'Não existe subempresa cadastrada'), valor);
     };
 
     const buscarSubempresa = async empresa => {
