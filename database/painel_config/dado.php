@@ -56,45 +56,81 @@ return [
                 'titulo' => 'Automóvel', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar']
             ],
             'relatorio_acesso'         => [
-                'titulo' => 'Relatório Acesso', 'permissao' => [
-                    'relatorio_acesso_index' => 'Relatório de acesso', 'relatorio_acesso_empresa' => 'Todas as empresas'
+                'titulo'    => 'Relatório Acesso',
+                'permissao' => [
+                    'relatorio_acesso_index'   => 'Relatório de acesso',
+                    'relatorio_acesso_empresa' => 'Todas as empresas'
                 ]
             ],
             'relatorio_usuario'        => [
-                'titulo' => 'Relatório de usuário', 'permissao' => [
+                'titulo'    => 'Relatório de usuário',
+                'permissao' => [
                     'relatorio_usuario_index'   => 'Relatório de usuário',
                     'relatorio_usuario_empresa' => 'Todas as empresas'
                 ]
             ],
             'relatorio_loja_venda'     => [
-                'titulo' => 'Relatório de vendas', 'permissao' => [
+                'titulo'    => 'Relatório de vendas',
+                'permissao' => [
                     'relatorio_loja_venda_index'   => 'Relatório de vendas',
                     'relatorio_loja_venda_empresa' => 'Todas as empresas'
                 ]
             ],
             'tabela'                   => [
-                'titulo' => 'Tabela', 'permissao' => [
-                    'tabela_usuario_salvar' => 'Cadastrar usuário', 'tabela_usuario_bloquear' => 'Bloquear usuário'
+                'titulo'    => 'Tabela',
+                'permissao' => [
+                    'tabela_usuario_salvar'   => 'Cadastrar usuário',
+                    'tabela_usuario_bloquear' => 'Bloquear usuário'
                 ]
             ],
             'solicitacao_loja'         => [
-                'titulo' => 'Solicitação Loja', 'acao' => ['index', 'add', 'deletar', 'visualizar', 'status']
+                'titulo'    => 'Solicitação Loja',
+                'acao'      => ['index', 'add', 'deletar', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_loja_empresa' => 'Todas as empresas'
+                ]
             ],
             'solicitacao_voucher'      => [
-                'titulo' => 'Voucher', 'acao' => ['index', 'visualizar', 'download', 'empresa']
+                'titulo'    => 'Voucher',
+                'acao'      => ['index', 'visualizar', 'download', 'empresa'],
+                'permissao' => [
+                    'solicitacao_voucher_empresa' => 'Todas as empresas'
+                ]
             ],
             'solicitacao_premium'      => [
-                'titulo' => 'Voucher Premium', 'acao' => ['index', 'visualizar', 'download', 'empresa']
+                'titulo'    => 'Voucher Premium',
+                'acao'      => ['index', 'visualizar', 'download', 'empresa'],
+                'permissao' => [
+                    'solicitacao_premium_empresa' => 'Todas as empresas'
+                ]
             ],
-            'solicitacao_salavip'      => ['titulo' => 'Salavip', 'acao' => ['index', 'download']],
-            'solicitacao_declaracao'   => ['titulo' => 'Declaração', 'acao' => ['index', 'visualizar', 'status']],
+            'solicitacao_salavip'      => [
+                'titulo'    => 'Salavip',
+                'acao'      => ['index', 'download', 'empresa'],
+                'permissao' => [
+                    'solicitacao_salavip_empresa' => 'Todas as empresas'
+                ]
+            ],
+            'solicitacao_declaracao'   => [
+                'titulo'    => 'Declaração',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_declaracao_empresa' => 'Todas as empresas'
+                ]
+            ],
             'solicitacao_automovel'    => [
-                'titulo' => 'Automóvel',
-                'acao'   => ['index', 'visualizar', 'status']
+                'titulo'    => 'Automóvel',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_automovel_empresa' => 'Todas as empresas'
+                ]
             ],
             'solicitacao_cheque_bonus' => [
-                'titulo' => 'Cheque Bônus',
-                'acao'   => ['index', 'visualizar', 'status']
+                'titulo'    => 'Cheque Bônus',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_cheque_bonus_empresa' => 'Todas as empresas'
+                ]
             ],
             'comercial_empresa'        => [
                 'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
@@ -107,14 +143,18 @@ return [
                 'permissao' => ['comercial_atendimento_index' => 'Comercial Atendimento']
             ],
             'comercial_regra'          => [
-                'titulo' => 'Comercial Regra de Negócio', 'acao' => ['index', 'add', 'visualizar', 'editar', 'deletar']
+                'titulo' => 'Comercial Regra de Negócio',
+                'acao'   => ['index', 'add', 'visualizar', 'editar', 'deletar']
             ],
             'demanda'                  => [
-                'titulo' => 'Demanda', 'permissao' => [
+                'titulo'    => 'Demanda',
+                'permissao' => [
                     'demanda_tecnologia' => 'Tecnologia', 'demanda_criacao' => 'Criação'
                 ]
             ],
-            'log_erro'                 => ['titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']]
+            'log_erro'                 => [
+                'titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']
+            ]
         ]),
         'configuracao'      => ['agenda', 'perfil', 'bloquear'],
         'campo_permitido'   => [

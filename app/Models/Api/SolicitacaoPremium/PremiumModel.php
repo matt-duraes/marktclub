@@ -27,6 +27,8 @@ final class PremiumModel extends ORM
 
     /**
      * @param Request $request
+     *
+     * @throws Excecao
      */
     public function __construct(
         protected readonly Request $request
@@ -45,7 +47,7 @@ final class PremiumModel extends ORM
     {
         $dado = $this
             ->campo(['status'])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), false)
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('cod', 'vinculo')
             ->campo([

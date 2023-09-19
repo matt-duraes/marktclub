@@ -2,18 +2,20 @@
 
 namespace App\Models\Api\SolicitacaoVoucher;
 
-use ORM\ORM;
-use Http\Request;
-use System\Trait\Model\OrdemTrait;
-use System\Trait\Model\PaginaTrait;
-use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\Ordem;
 use App\Classes\SolicitacaoVoucher\Status;
-use App\Models\Api\Painel\LogDownloadEntity;
+use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Classes\SolicitacaoVoucher\TipoUsuario;
-use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\SolicitacaoVoucher\Trait\ModelWhereTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use Erro\Excecao;
+use Http\Request;
+use ORM\ORM;
+use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\PaginaTrait;
+use Throwable;
 
 final class DownloadModel extends ORM
 {
@@ -27,21 +29,54 @@ final class DownloadModel extends ORM
     private array $campoInicial;
     private int $idEmpresa;
 
+    /**
+     * @param Request $request
+     *
+     * @throws Excecao
+     */
     public function __construct(
         protected Request $request
     ) {
-        parent::__construct();
         $this->validarEmpresa($request->usuario, 'empresa');
         $this->validarRequest();
         $this->validarCamposAceito();
+        parent::__construct();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | DOWNLOAD
-    |--------------------------------------------------------------------------
-    */
-    public function download()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarCamposAceito(): void
+    {
+        $camposAceito = [
+            'empresa', 'codigo', 'data_criacao', 'data_validacao', 'data_vencimento', 'status',
+            'usuario_nome', 'usuario_cpf', 'parceiro', 'tipo_usuario', 'tipo'
+        ];
+
+        $listaCampos = jsonDecode($this->request->campo, true, true);
+        if (!$listaCampos) {
+            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
+        }
+
+        foreach ($listaCampos as $campo) {
+            if (!in_array($campo, $camposAceito)) {
+                mensagemErro(
+                    'Erro!',
+                    'Um ou mais campos não tem permissão para serem buscados.',
+                    status: 403,
+                    localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
+                );
+            }
+        }
+        return;
+    }
+
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function download(): array
     {
         $campo = $this->converterCampoParaDownload();
         $query = $this
@@ -69,7 +104,36 @@ final class DownloadModel extends ORM
         return $this->montarRetornoDownload($dado);
     }
 
-    private function salvarLogDownload(array $dado)
+    /**
+     * @return array
+     */
+    private function converterCampoParaDownload(): array
+    {
+        $this->campoInicial = jsonDecode($this->request->campo, true, true);
+        $campo = array_flip($this->campoInicial);
+        if (array_key_exists('empresa', $campo)) {
+            unset($campo['empresa']);
+        }
+        if (array_key_exists('parceiro', $campo)) {
+            unset($campo['parceiro']);
+            $campo['titulo'] = true;
+        }
+        if (array_key_exists('usuario_cpf', $campo)) {
+            unset($campo['usuario_cpf']);
+        }
+        if (array_key_exists('usuario_nome', $campo)) {
+            unset($campo['usuario_nome']);
+        }
+        return array_keys($campo);
+    }
+
+    /**
+     * @param array $dado
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function salvarLogDownload(array $dado): void
     {
         $Log = new LogDownloadEntity(
             app: 'solicitacao_voucher',
@@ -79,11 +143,16 @@ final class DownloadModel extends ORM
         );
         try {
             $Log->salvar();
-        } catch (\Throwable) {
+        } catch (Throwable) {
             mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
         }
     }
 
+    /**
+     * @param array $dado
+     *
+     * @return array
+     */
     private function montarRetornoDownload(array $dado): array
     {
         $i = 0;
@@ -111,50 +180,5 @@ final class DownloadModel extends ORM
             $i++;
         }
         return $retorno;
-    }
-
-    private function validarCamposAceito(): void
-    {
-        $camposAceito = [
-            'empresa', 'codigo', 'data_criacao', 'data_validacao', 'data_vencimento', 'status',
-            'usuario_nome', 'usuario_cpf', 'parceiro', 'tipo_usuario', 'tipo'
-        ];
-
-        $listaCampos = jsonDecode($this->request->campo, true, true);
-        if (!$listaCampos) {
-            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
-        }
-
-        foreach ($listaCampos as $campo) {
-            if (!in_array($campo, $camposAceito)) {
-                mensagemErro(
-                    'Erro!',
-                    'Um ou mais campos não tem permissão para serem buscados.',
-                    status: 403,
-                    localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
-                );
-            }
-        }
-        return;
-    }
-
-    private function converterCampoParaDownload()
-    {
-        $this->campoInicial = jsonDecode($this->request->campo, true, true);
-        $campo = array_flip($this->campoInicial);
-        if (array_key_exists('empresa', $campo)) {
-            unset($campo['empresa']);
-        }
-        if (array_key_exists('parceiro', $campo)) {
-            unset($campo['parceiro']);
-            $campo['titulo'] = true;
-        }
-        if (array_key_exists('usuario_cpf', $campo)) {
-            unset($campo['usuario_cpf']);
-        }
-        if (array_key_exists('usuario_nome', $campo)) {
-            unset($campo['usuario_nome']);
-        }
-        return array_keys($campo);
     }
 }

@@ -2,17 +2,18 @@
 
 namespace App\Models\Api\SolicitacaoAutomovel;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\Solicitacao\Status;
+use App\Classes\SolicitacaoAutomovel\Ordem;
+use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Classes\SolicitacaoAutomovel\Ordem;
 
 final class AutomovelModel extends ORM implements ModelListarInterface
 {
@@ -22,6 +23,15 @@ final class AutomovelModel extends ORM implements ModelListarInterface
 
     protected string $ormTabela = TABELA_SOLICITACAO_AUTOMOVEL;
 
+    /**
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Data        $dataCriacaoDe
+     * @param Data        $dataCriacaoAte
+     * @param Status      $status
+     * @param string|null $empresa
+     * @param Ordem       $ordem
+     */
     public function __construct(
         protected Pagina $pagina = new Pagina(null),
         protected Quantidade $quantidade = new Quantidade(null),
@@ -34,6 +44,10 @@ final class AutomovelModel extends ORM implements ModelListarInterface
         parent::__construct();
     }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $dado = $this
@@ -45,7 +59,12 @@ final class AutomovelModel extends ORM implements ModelListarInterface
         return $dado;
     }
 
-    private function montarDado($dado)
+    /**
+     * @param $dado
+     *
+     * @return array
+     */
+    private function montarDado($dado): array
     {
         $retorno = [];
         foreach ($dado as $r) {

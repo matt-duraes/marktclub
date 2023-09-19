@@ -4,22 +4,33 @@ $permissao = json_encode([
     'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_editar',
     'usuario_cliente_apple', 'usuario_cliente_deletar', 'usuario_cliente_download',
     'usuario_cliente_empresa', 'usuario_cliente_analytics', 'usuario_cliente_visualizar',
+
     'usuario_grupo_index', 'usuario_grupo_add', 'usuario_grupo_editar', 'usuario_grupo_deletar',
-    'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar', 'usuario_indicacao_index',
-    'usuario_indicacao_visualizar', 'usuario_indicacao_status', 'usuario_lead_index', 'usuario_lead_visualizar',
-    'usuario_lead_status', 'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar',
-    'usuario_equipe_permissao', 'usuario_equipe_deletar', 'usuario_equipe_empresa',
+
+    'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar',
+
+    'usuario_indicacao_index', 'usuario_indicacao_visualizar', 'usuario_indicacao_status',
+
+    'usuario_lead_index', 'usuario_lead_visualizar', 'usuario_lead_status',
+
+    'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_permissao',
+    'usuario_equipe_deletar', 'usuario_equipe_empresa',
 
     'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
+
     'publicacao_pagina_index', 'publicacao_pagina_editar',
+
     'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar',
     'publicacao_diretoria_deletar',
 
     'texto_clube_index', 'texto_clube_add', 'texto_clube_editar', 'texto_clube_deletar',
 
     'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
+
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
+
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
+
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
     'parceiro_automovel_visualizar',
 
@@ -31,21 +42,46 @@ $permissao = json_encode([
 
     'construtor_clube_index', 'construtor_clube_add', 'construtor_clube_editar', 'construtor_clube_deletar',
 
-    'relatorio_acesso_index', 'relatorio_acesso_empresa', 'relatorio_usuario_index', 'relatorio_usuario_empresa',
-    'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa', 'tabela_usuario_salvar', 'tabela_usuario_bloquear',
+    'relatorio_acesso_index', 'relatorio_acesso_empresa',
+
+    'relatorio_usuario_index', 'relatorio_usuario_empresa',
+
+    'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa',
+
+    'tabela_usuario_salvar', 'tabela_usuario_bloquear',
+
     'solicitacao_loja_index', 'solicitacao_loja_add', 'solicitacao_loja_deletar', 'solicitacao_loja_visualizar',
-    'solicitacao_loja_status', 'solicitacao_voucher_index', 'solicitacao_voucher_visualizar',
-    'solicitacao_voucher_download',
-    'solicitacao_voucher_empresa', 'solicitacao_premium_index', 'solicitacao_premium_visualizar',
-    'solicitacao_premium_index', 'solicitacao_premium_download', 'solicitacao_premium_empresa',
-    'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_declaracao_index',
-    'solicitacao_declaracao_visualizar', 'solicitacao_declaracao_status', 'comercial_empresa_index',
+    'solicitacao_loja_status', 'solicitacao_loja_empresa',
+
+    'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
+    'solicitacao_voucher_empresa',
+
+    'solicitacao_premium_index', 'solicitacao_premium_visualizar', 'solicitacao_premium_index',
+    'solicitacao_premium_download', 'solicitacao_premium_empresa',
+
+    'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_salavip_empresa',
+
+    'solicitacao_declaracao_index', 'solicitacao_declaracao_visualizar', 'solicitacao_declaracao_status',
+    'solicitacao_declaracao_empresa',
+
+    'comercial_empresa_index',
+
     'solicitacao_automovel_index', 'solicitacao_automovel_visualizar', 'solicitacao_automovel_status',
+    'solicitacao_automovel_empresa',
+
     'solicitacao_cheque_bonus_index', 'solicitacao_cheque_bonus_visualizar', 'solicitacao_cheque_bonus_status',
-    'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
-    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_prospeccao_visualizar',
-    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
-    'log_erro_visualizar', 'log_erro_status'
+    'solicitacao_cheque_bonus_empresa',
+
+    'comercial_empresa_visualizar', 'comercial_empresa_editar',
+
+    'comercial_prospeccao_index', 'comercial_prospeccao_add', 'comercial_prospeccao_editar',
+    'comercial_prospeccao_visualizar',
+
+    'comercial_atendimento_index',
+
+    'demanda_tecnologia', 'demanda_criacao',
+
+    'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [
