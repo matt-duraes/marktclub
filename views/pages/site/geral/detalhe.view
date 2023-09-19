@@ -39,9 +39,15 @@
         @ elseif ($dado->procedimento == $procedimento::DECLARACAO):
         <div id="botao_salvar_declaracao" class="botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Declaração">Solicitar Declaração <i>@iconeDeclaracao(17)</i></div>
         @ elseif ($dado->procedimento == $procedimento::VOUCHER):
-        <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Voucher">Gerar Voucher <i>@iconeVoucher(17)</i></a>
+        <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Voucher">
+            Gerar Voucher
+            <i>@iconeShow</i>
+        </a>
         @ elseif ($dado->procedimento == $procedimento::WEBSITE):
-        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Abrir Site">Abrir Site<i>@iconeLink()</i></a>
+        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Abrir Site">
+            Abrir Site
+            <i>@iconeExtensaoHome</i>
+        </a>
         @ endif
 
         @ if( $telefone && count($telefone) == 1):
@@ -59,7 +65,7 @@
         @ if( $dado->procedimento != $procedimento::WEBSITE && !empty($dado->link) ):
         <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao botao_geral_cor" data-botao="Abrir site secundario">
             Abrir Site
-            <i>@iconeSiteCliente()</i>
+            <i>@iconeExtensaoHome</i>
         </a>
         @ endif;
 

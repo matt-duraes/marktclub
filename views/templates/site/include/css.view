@@ -9,6 +9,7 @@
         --cor-preto-branco: #333333 !important;
         --hover-branco-preto: #F8F9FA !important;
         --cor-box-shadow: rgba(0,0,0,.1) !important;
+
     }
     [data-theme="dark"] {
         --cor-clube: {{CLUBE_COR}} !important;
