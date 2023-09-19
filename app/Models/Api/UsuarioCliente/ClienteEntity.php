@@ -101,6 +101,7 @@ final class ClienteEntity extends Entity
         }
 
         $this->validarEmpresa('empresa');
+        $this->validarSubempresa();
         $this->pegarCampoObrigatorio();
     }
 

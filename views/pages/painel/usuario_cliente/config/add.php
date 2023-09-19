@@ -54,7 +54,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         $grupoLista = ['' => 'Escolha uma empresa'];
         $subempresaLista = ['' => 'Escolha uma empresa'];
 
-        if (sessao('EMPRESA.slug') == 'marktclub') {
+        $empresaSlug = sessao('EMPRESA.slug');
+        if ($empresaSlug == 'marktclub') {
             $Painel
                 ->select(
                     name: 'empresa->id',
@@ -81,13 +82,21 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
         }
-
+        if (!empty(sessao('USUARIO.subempresa'))) {
+            $Painel->html(
+                html: '<input type="hidden" name="subempresa" id="input_subempresa" value="' . sessao('USUARIO.subempresa') . '">',
+                campo: 'subempresa',
+                acao: 'add'
+            );
+        } else {
+            $Painel
+                ->select(
+                    name: 'subempresa',
+                    label: 'Subempresa',
+                    lista: $subempresaLista,
+                );
+        }
         $Painel
-            ->select(
-                name: 'subempresa',
-                label: 'Subempresa',
-                lista: $subempresaLista,
-            )
             ->select(name: 'grupo', label: 'Grupo', lista: $grupoLista)
             ->select(name: 'tipo_pagamento', label: 'Tipo de pagamento', lista: $tipoPagamento)
             ->select(name: 'federacao', label: 'Federação', lista: $federacao);

@@ -60,6 +60,25 @@ trait ValidarEmpresaTrait
         $this->setarWherePadrao();
     }
 
+    private function validarSubempresa()
+    {
+        if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
+            return;
+        }
+        $id = TOKEN['usuario']->id_admin_subempresa ?? 0;
+        $this->idSubempresa = $id;
+        if (empty($id)) {
+            return;
+        }
+        $where = $this->ormWherePadrao;
+        $whereSubempresa = [['id_admin_subempresa', $id]];
+        if (empty($where)) {
+            $this->ormWherePadrao = $whereSubempresa;
+            return;
+        }
+        $this->ormWherePadrao = array_merge($where, $whereSubempresa);
+    }
+
     /**
      * Verifica se existe token e seta a empresa
      *
