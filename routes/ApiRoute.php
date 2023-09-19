@@ -919,13 +919,25 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
-            ::request(['!pesquisa'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+            ], 'json')
             ::get('/parceiro-cupom');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:buscar'])
             ::get('/parceiro-cupom/{id}');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
+            ::request([
+                '!status', '!auditado'
+            ])
+            ::put('/parceiro-cupom/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
+            ::delete('/parceiro-cupom/{id}');
     });
 
 Route
@@ -2068,4 +2080,75 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:deletar'])
             ::delete('/solicitacao-loja/{id}');
+    });
+
+Route
+    ::nome('chatbot_perguntas')
+    ::controller(App\Controllers\Api\ChatbotPerguntasController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:listar'])
+            ::request([
+                '!pagina', '!quantiade', '!status', '!ordem', '!categoria'
+            ], 'json')
+            ::get('/chatbot-perguntas');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:buscar'])
+            ::get('/chatbot-perguntas/{id}');
+        Route
+           ::nome('salvar')
+           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:salvar'])
+           ::request([
+               'categoria', 'pergunta', 'resposta', 'status'
+           ])
+           ::post('/chatbot-perguntas');
+       Route
+           ::nome('atualizar')
+           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:atualizar'])
+           ::request([
+               'categoria', 'pergunta', 'resposta', 'status'
+           ])
+           ::put('/chatbot-perguntas/{id}');
+       Route
+           ::nome('perguntar')
+           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:perguntar'])
+           ::request([
+               'categoria', 'pergunta'
+           ])
+           ::post('/chatbot-perguntas/perguntar');
+    });
+
+Route
+    ::nome('chatbot_categoria')
+    ::controller(App\Controllers\Api\ChatbotCategoriaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:listar'])
+            ::request([
+                '!pagina'
+            ], 'json')
+            ::get('/chatbot-categoria');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:buscar'])
+            ::get('/chatbot-categoria/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:salvar'])
+            ::request([
+                'categoria', 'status'
+            ])
+            ::post('/chatbot-categoria');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:atualizar'])
+            ::request([
+                'categoria', 'status'
+            ])
+            ::put('/chatbot-categoria/{id}');
     });

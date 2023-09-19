@@ -55,6 +55,9 @@ return [
             'parceiro_automovel'     => [
                 'titulo' => 'Automóvel', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar']
             ],
+            'parceiro_cupom' => [
+                'titulo' => 'Cupom', 'acao' => ['index', 'status', 'visualizar', 'deletar']
+            ],
             'solicitacao_loja'       => ['titulo' => 'Solicitação Loja', 'acao' => ['index', 'visualizar', 'status']],
             'relatorio_acesso'       => [
                 'titulo' => 'Relatório Acesso', 'permissao' => [
@@ -93,6 +96,10 @@ return [
             'solicitacao_cheque_bonus' => [
                 'titulo' => 'Cheque Bônus',
                 'acao'   => ['index', 'visualizar', 'status']
+            ],
+            'chatbot_perguntas' => [
+                'titulo' => 'Perguntas e respostas',
+                'acao' => ['index', 'add', 'editar', 'status']
             ],
             'comercial_empresa'      => ['titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']],
             'comercial_prospeccao'   => [
