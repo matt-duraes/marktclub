@@ -8,7 +8,6 @@
 @resource "site/geral"
 
 
-
 #bloco_pagina_cashback
     width: 100%
     flexCenter()
@@ -71,6 +70,20 @@
     overflow-x: hidden
     table
         box-shadow: none
+    table thead tr th
+        background: $corBoxShadow
+
+.bloco_tab_geral .bloco_botao
+    .botao.ativo, .botao:hover
+        background: $corBrancoCinza
+    .botao.ativo .texto_ativo,
+    .botao:hover .texto_ativo
+        color: $corClube
+
+[data-theme="dark"] .bloco_tab_geral .bloco_botao
+    .botao.ativo .texto_ativo,
+    .botao:hover .texto_ativo
+        color: $corPretoBranco
 
 .bloco_geral_banner figure
     background-size: 60% auto
