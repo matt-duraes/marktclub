@@ -1,0 +1,51 @@
+@template "site"
+
+<div id="bloco_samsung">
+    <div class="bloco_item_lista">
+        <div class="scroll">
+            <div class="conteudo">
+                <div class="descricao_item_lista">
+                    <div class="imagem_redonda">
+                        @iconeUsuarioOutline(25)
+                    </div>
+                    <p>Verifique seu e-mail cadastrado.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_item_lista">
+                    <div class="imagem_redonda">
+                        @iconeLojaHome()
+                    </div>
+                    <p>Acesse o site da Samsung pelo botão abaixo.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_item_lista">
+                    <div class="imagem_redonda">
+                        @iconeEmail(18)
+                    </div>
+                    <p>Digite o mesmo e-mail que está cadastro aqui no site da Samsung.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_item_lista">
+                    <div class="imagem_redonda">
+                        #123
+                    </div>
+                    <p>Insira o codigo que recebeu por e-mail no campo informado</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bloco_atencao_geral atencao">
+        <p>Desconto já aplicado no site de parceria. Não perca tempo, aproveite e boas compras!</p>
+        <p>O e-mail informado no site da Samsung deve ser o mesmo e-mail do seu cadastro.</p>
+    </div>
+    <div class="atualizar bloco_titulo_texto">
+        <p>
+            Seus e-mails cadastrados são:<br>
+            <strong>andre@markt.club</strong> / <strong>andre@markt.club</strong>
+        </p>
+        <div class="botao">Atualizar e-mail</div>
+    </div>
+    <div class="bloco_botao">
+        <a href="" target="_blank" rel="noopener noreferrer" class="botao_acessar">Acessar site</a>
+    </div>
+</div>

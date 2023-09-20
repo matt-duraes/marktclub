@@ -84,7 +84,7 @@
             </a>
             @ endif;
 
-            @ if( MENU_LOJA || MENU_MAPA || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
+            @ if( MENU_SAMSUNG || MENU_LOJA || MENU_MAPA || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
             <div class="categoria">DESCONTOS</div>
 
             @ if( MENU_PREMIUM ):
@@ -106,6 +106,13 @@
                 <i>@iconeLojaProximaHome</i>
                 Lojas próximas
             </div>
+            @ endif;
+
+            @ if( MENU_SAMSUNG ):
+            <a class="botao {!!MENU_HOVER == 'samsung' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('samsung.index') ?>">
+                <i>@iconeTelefone(20)</i>
+                Samsung
+            </a>
             @ endif;
 
             @if(MENU_FARMACIA):

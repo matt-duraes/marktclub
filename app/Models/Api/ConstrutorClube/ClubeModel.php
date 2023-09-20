@@ -68,6 +68,7 @@ final class ClubeModel
                 'cupom'               => $Construtor->menu_cupom->valor(),
                 'odontologico'        => $Construtor->menu_odontologico->valor(),
                 'premium'             => $Construtor->menu_premium->valor(),
+                'samsung'             => $Construtor->menu_samsung->valor(),
                 'corrida'             => $Construtor->menu_corrida->valor(),
                 'show_nacional'       => $Construtor->menu_show_nacional->valor(),
                 'show_internacional'  => $Construtor->menu_show_internacional->valor(),
