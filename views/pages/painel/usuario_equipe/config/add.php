@@ -39,14 +39,16 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ])
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
+            if (empty(sessao('USUARIO.subempresa'))) {
+                $Painel
+                    ->select(
+                        name: 'subempresa',
+                        label: 'Subempresa',
+                        lista: $subempresaLista,
+                    );
+            }
         }
-
         $Painel
-            ->select(
-                name: 'subempresa',
-                label: 'Subempresa',
-                lista: $subempresaLista
-            )
             ->senha(
                 name: 'senha',
                 label: 'Senha de acesso',

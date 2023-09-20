@@ -81,20 +81,14 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ])
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
-        }
-        if (!empty(sessao('USUARIO.subempresa'))) {
-            $Painel->html(
-                html: '<input type="hidden" name="subempresa" id="input_subempresa" value="' . sessao('USUARIO.subempresa') . '">',
-                campo: 'subempresa',
-                acao: 'add'
-            );
-        } else {
-            $Painel
-                ->select(
-                    name: 'subempresa',
-                    label: 'Subempresa',
-                    lista: $subempresaLista,
-                );
+            if (empty(sessao('USUARIO.subempresa'))) {
+                $Painel
+                    ->select(
+                        name: 'subempresa',
+                        label: 'Subempresa',
+                        lista: $subempresaLista,
+                    );
+            }
         }
         $Painel
             ->select(name: 'grupo', label: 'Grupo', lista: $grupoLista)
