@@ -35,6 +35,8 @@
     padding: 0 20px
     text-align: center
     cursor: pointer
+    background: $corClube
+    color: #FFF
 .botao_pequeno_cor
     height: 26px
     line-height: 26px
@@ -62,6 +64,7 @@
     padding: 10px
     text-align: center
     cursor: pointer
+    color: $corCinzaCinza
 .botao_geral_borda
     height: 45px
     line-height: 45px
@@ -128,7 +131,8 @@
         align-items: center
         padding: 0 20px
         &:hover
-            background-color: $hoverBrancoPreto
+            background-color: $corClube
+            color: #FFF
     a i
         alignItemCenter()
         margin-right: 10px
@@ -284,6 +288,30 @@
     .parceiro_favorito
         width: calc((100% / 3) - 20px)
         margin-right: 20px
+.cor_bg
+    background-color: $corClube
+    color: #FFF !important
+    fill: #FFF !important
+
+.cor_color_hover:hover, .cor_color
+    color: $corClube
+
+[data-theme="dark"] .bloco_parceiro article .bloco_favorito
+    position: absolute
+    top: 23px
+    right: 23px
+
+
+.form_geral .bloco_input label,
+.form_geral .bloco_input_footer .input_mensagem.ativo,
+.form_geral .bloco_input .input_geral.input_obrigatorio ~ label:after
+    background: $corBrancoCinza
+
+#fw_form_select .option, #bloco_geral_autocomplete .option
+    background: $corBrancoCinza !important
+#fw_form_select .option li, #bloco_geral_autocomplete .option li
+    color: $corPretoBranco !important
+
 @media screen and (max-width: 900px)
     .article_favoritos .parceiro_favorito
         width: calc(50% - 15px)
@@ -313,8 +341,9 @@
         left: calc((100% / 2) - 120px)
 @media screen and (max-width: 600px)
     .botao_fixo_bottom
-        max-width: calc(100% - 40px)
-        left: 20px
+        max-width: calc(100% - 80px)
+        left: 50%
+        transform: translateX(-50%)
         bottom: 20px
 
 [data-anime-botao]

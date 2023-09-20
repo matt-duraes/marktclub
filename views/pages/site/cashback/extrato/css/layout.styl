@@ -5,7 +5,7 @@
 @resource "site/variavel"
 @resource "site/tab"
 @resource "site/tabela"
-
+@resource "site/geral"
 
 
 #bloco_pagina_cashback
@@ -36,7 +36,7 @@
         bordaPadrao()
         button
             flexCenter()
-            color: #FFF
+            color: #444444
         button span
             texto()
     .saldo_conta
@@ -45,11 +45,11 @@
         height: 50px
         max-width: 250px
         margin-right: 10px
-        border: 1px solid #bebebe
+        border: 1px solid $corCinzaCinza
         bordaPadrao()
         p
             texto()
-            color: #bebebe
+            color:  $corCinzaCinza
         span
             texto()
             color: red
@@ -58,7 +58,7 @@
         width: 100%
         max-width: 740px
         padding: 10px
-        background: #bebebe
+        background: #444444
         flexCenter()
         color: #fff
         border-radius: 3px
@@ -67,8 +67,23 @@
 
 #bloco_pagina_cashback  .bloco_tabela_geral
     width: 100%
+    overflow-x: hidden
     table
         box-shadow: none
+    table thead tr th
+        background: $corBoxShadow
+
+.bloco_tab_geral .bloco_botao
+    .botao.ativo, .botao:hover
+        background: $corBrancoCinza
+    .botao.ativo .texto_ativo,
+    .botao:hover .texto_ativo
+        color: $corClube
+
+[data-theme="dark"] .bloco_tab_geral .bloco_botao
+    .botao.ativo .texto_ativo,
+    .botao:hover .texto_ativo
+        color: $corPretoBranco
 
 .bloco_geral_banner figure
     background-size: 60% auto
