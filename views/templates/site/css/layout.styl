@@ -58,7 +58,7 @@ body
 a
     cursor: pointer
 
-.botao_chat
+.botao_chat:not('#bloco_loja_mapa')
     width: 60px
     height: 60px
     flexCenter()
@@ -96,6 +96,8 @@ a
     boxShadow()
     background-color: $corBrancoPreto
     padding: 20px
+    #menu_principal
+        display: none
     figure
         height: 70px
         position: absolute

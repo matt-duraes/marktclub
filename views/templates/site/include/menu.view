@@ -1,15 +1,4 @@
-<div id="botao_swiped_esquerdo"></div>
 
-<header id="header_principal">
-    <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
-    <figure>
-        <a href="@route(index.index)">
-            <img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}">
-        </a>
-    </figure>
-</header>
-
-@ if(!$melhorIdade) :
 <nav id="menu_principal" class="menu_fechado">
     <div class="bg"></div>
     <div class="conteudo">
@@ -235,6 +224,3 @@
 
     </div>
 </nav>
-
-<main id="conteudo_principal">
-@endif
