@@ -59,13 +59,18 @@ final class BuscarUsuarioModel
         $emailTrabalho = $Crypt->decode($body->email_trabalho);
         $email = !empty($emailTrabalho) ? $emailTrabalho : $emailPessoal;
 
+        $imagem = $Crypt->decode($body->imagem);
+        if (empty($imagem)) {
+            $imagem = LINK . '/images/painel/usuario_padrao_preto.png';
+        }
+
         sessao('USUARIO', [
             'id'         => $body->id,
             'empresa'    => $body->empresa,
             'subempresa' => $body->subempresa,
             'nome'       => $Crypt->decode($body->nome),
             'email'      => $email,
-            'imagem'     => $Crypt->decode($body->imagem),
+            'imagem'     => $imagem,
             'cpf'        => $cpf,
             'google'     => $Crypt->decode($body->google ?? ''),
             'facebook'   => $Crypt->decode($body->facebook ?? ''),
