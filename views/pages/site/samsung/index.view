@@ -43,7 +43,7 @@
             Seus e-mails cadastrados são:<br>
             <strong>andre@markt.club</strong> / <strong>andre@markt.club</strong>
         </p>
-        <div class="botao">Atualizar e-mail</div>
+        <!-- <div class="botao">Atualizar e-mail</div> -->
     </div>
     <div class="bloco_botao">
         <a href="" target="_blank" rel="noopener noreferrer" class="botao_acessar">Acessar site</a>
