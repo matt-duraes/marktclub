@@ -33,7 +33,7 @@ final class ClienteEntity extends Entity
         'salt'             => '->senha',
         'imagem'           => '->imagem_google',
         'trabalho_orgao'   => '->trabalho_empresa',
-        'cpf', 'genero', 'data_nascimento', 'endereco_estado', 'endereco_cidade',
+        'id_admin_subempresa', 'cpf', 'genero', 'data_nascimento', 'endereco_estado', 'endereco_cidade',
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
@@ -41,7 +41,7 @@ final class ClienteEntity extends Entity
     ];
     protected array $ormInsert = [
         'empresa' => '->idEmpresa',
-        'id_admin_subempresa', 'cod', 'tipo'
+        'cod', 'tipo'
     ];
     protected array $ormBuscar = [
         'cpf'               => 'documento',
@@ -59,6 +59,7 @@ final class ClienteEntity extends Entity
         'origem'            => 'lead_origem',
         'lead'              => 'usuario_lead',
         'imagem_google'     => 'imagem',
+        'id_admin_subempresa',
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
@@ -100,6 +101,7 @@ final class ClienteEntity extends Entity
         }
 
         $this->validarEmpresa('empresa');
+        $this->validarSubempresa();
         $this->pegarCampoObrigatorio();
     }
 

@@ -24,7 +24,7 @@ final class ConstrutorEntity extends Entity
         'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona',
         'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_primeiro_acesso', 'menu_tema',
         'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status',
-        'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status'
+        'menu_samsung', 'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -37,7 +37,7 @@ final class ConstrutorEntity extends Entity
         'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
         'menu_premium', 'menu_dependente', 'menu_sair', 'menu_primeiro_acesso', 'menu_meu_parceiro',
         'cor_principal', 'cor_secundaria', 'menu_tema', 'administrado_status', 'chat_status',
-        'tipo_ativacao', 'status'
+        'menu_samsung', 'tipo_ativacao', 'status'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
@@ -94,6 +94,7 @@ final class ConstrutorEntity extends Entity
     public Botao $menu_show_nacional;
     public Botao $menu_corrida;
     public Botao $menu_tema;
+    public Botao $menu_samsung;
     public Botao $menu_sair;
     public Botao $api_status;
     public Botao $chat_status;

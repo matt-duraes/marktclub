@@ -156,12 +156,25 @@ final class Add
         $this->html('</div>');
     }
 
-    public function html(string $html)
+    /**
+     * Adiciona HTML
+     *
+     * @param string $html
+     * @param string|null $campo
+     * @param string|null $acao
+     * @param string|null $permissao
+     * @return void
+     */
+    public function html(string $html, string $campo = null, string $acao = null, string $permissao = null)
     {
+        if ((!empty($campo) || !empty($permissao)) && !$this->campoAceito($campo, $acao, $permissao)) {
+            return $this;
+        }
         $this->html[$this->coluna][$this->fieldset]['lista'][] = [
             'funcao' => 'html',
             'html'   => $html
         ];
+        return $this;
     }
 
     public function blocoCheckbox(
@@ -1137,6 +1150,7 @@ final class Add
     private function campoAceito($name, ?string $acao, ?string $permissao)
     {
         $usuarioPermissao = sessao('USUARIO.permissao');
+        $name = preg_replace('/\[\]$/', '', $name);
         if (
             (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
             (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) ||

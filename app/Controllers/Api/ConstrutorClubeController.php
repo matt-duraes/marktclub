@@ -81,6 +81,7 @@ final class ConstrutorClubeController extends Controller implements
                     'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                     'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                     'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status', 'header_descricao',
+                    'menu_corrida', 'menu_show_internacional', 'menu_show_nacional', 'menu_samsung',
                     'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status'
                 ]
             ),

@@ -1,6 +1,7 @@
 <?php
 
 use Modules\Senha;
+use Helpers\ApiHelper;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
 
@@ -19,21 +20,43 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->telefone(name: 'telefone_pessoal', label: 'Telefone pessoal');
     });
     $Painel->fieldset('Dados de acesso', callback: function () use ($Painel) {
-        $Painel->select(
-            'empresa->id',
-            label: 'Empresa',
-            lista: 'empresa',
-            acao: 'add',
-            permissao: Helper::PERMISSAO_EMPRESA
-        );
-        $Painel->senha(
-            name: 'senha',
-            label: 'Senha de acesso',
-            ajuda: Senha::MENSAGEM_FORCA_4
-        );
-        $Painel->switch(name: 'primeiro_acesso', label: 'Primeiro acesso?');
-        $Painel->switch(name: 'mudar_senha', label: 'Mudar senha ao logar?');
-        $Painel->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha um status'));
+        $subempresaLista = ['' => 'Escolha uma empresa'];
+        if (sessao('EMPRESA.slug') == 'marktclub') {
+            $Painel
+                ->select(
+                    name: 'empresa->id',
+                    label: 'Empresa',
+                    lista: 'empresa',
+                    acao: 'add',
+                    permissao: Helper::PERMISSAO_EMPRESA
+                )
+                ->hidden(name: 'empresa->id', acao: 'editar', permissao: Helper::PERMISSAO_EMPRESA);
+        } else {
+            $subempresaLista = (new ApiHelper(token: true))
+                ->json([
+                    'titulo'  => 'Escolha uma subempresa',
+                    'empresa' => sessao('USUARIO.empresa')
+                ])
+                ->get('/comercial-subempresa/select')
+                ->array()['dado'] ?? [];
+            if (empty(sessao('USUARIO.subempresa'))) {
+                $Painel
+                    ->select(
+                        name: 'subempresa',
+                        label: 'Subempresa',
+                        lista: $subempresaLista,
+                    );
+            }
+        }
+        $Painel
+            ->senha(
+                name: 'senha',
+                label: 'Senha de acesso',
+                ajuda: Senha::MENSAGEM_FORCA_4
+            )
+            ->switch(name: 'primeiro_acesso', label: 'Primeiro acesso?')
+            ->switch(name: 'mudar_senha', label: 'Mudar senha ao logar?')
+            ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha um status'));
     });
 });
 
@@ -87,4 +110,7 @@ if (sessao('EMPRESA.slug') != 'marktclub' || in_array('usuario_equipe_permissao'
         );
     });
 }
+
+$Painel->js('painel_usuario_equipe_add');
+
 return $Painel;

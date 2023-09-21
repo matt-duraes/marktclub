@@ -41,6 +41,7 @@ return [
         'menu_dependente'           => 1,
         'menu_carteira'             => 1,
         'menu_salavip'              => 1,
+        'menu_samsung'              => 1,
         'menu_corrida'              => 1,
         'menu_show_nacional'        => 1,
         'menu_show_internacional'   => 1,

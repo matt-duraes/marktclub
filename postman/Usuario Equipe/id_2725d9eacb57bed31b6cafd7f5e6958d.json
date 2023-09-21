@@ -1,0 +1,1 @@
+{"id":"id_2725d9eacb57bed31b6cafd7f5e6958d","token":"token","metodo":"GET","nome":"\/usuario-equipe\/:id","uri":"{{LINK}}\/usuario-equipe\/$USUARIO_EQUIPE_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}

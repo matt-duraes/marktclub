@@ -65,7 +65,7 @@ final class UsuarioClienteController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Usuario, lista: [
                 'Empresa' => ['id', 'nome_fantasia'],
-                'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
+                'subempresa', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
                 'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
                 'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',

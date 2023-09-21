@@ -199,6 +199,18 @@ Route
             ::nome('detalhe')
             ::view('/cupom/{url}');
     });
+
+Route
+    ::nome('samsung')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\SamsungController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/samsung');
+    });
+
 Route
     ::nome('cashback')
     ::middleware(ClubeMiddleware::class, 'buscar')

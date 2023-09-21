@@ -294,7 +294,7 @@ Route
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google'
+                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
             ])
             ::put('/usuario-cliente/{id}');
 
@@ -526,7 +526,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf',
-                '!status', '!ordem', '!empresa'
+                '!status', '!ordem', '!empresa', '!subempresa'
             ], 'json')
             ::get('/usuario-equipe');
 
@@ -552,7 +552,7 @@ Route
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
-                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa'
+                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa', '!subempresa'
             ])
             ::post('/usuario-equipe');
 
@@ -563,7 +563,7 @@ Route
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!imagem_facebook',
-                '!imagem_google', '!id_facebook', '!id_google', '!perfil'
+                '!imagem_google', '!id_facebook', '!id_google', '!perfil', '!subempresa'
             ])
             ::put('/usuario-equipe/{id}');
 
@@ -1126,7 +1126,7 @@ Route
                 'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'header_tag', 'header_descricao',
                 '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip',
                 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
-                'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
+                'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona', 'menu_samsung',
                 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
                 'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'menu_tema',
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
@@ -1143,7 +1143,7 @@ Route
             ::request([
                 '!empresa', '!titulo', '!logo_principal', '!logo_secundaria', '!favicon', '!header_tag',
                 '!header_descricao', '!cor_principal', '!cor_secundaria', '!link_clube',
-                '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios',
+                '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios', '!menu_samsung',
                 '!link_app_android', '!contato_telefone', '!contato_whatsapp', '!contato_email',
                 '!contato_horario', '!contato_endereco', '!menu_faq', '!menu_como_funciona',
                 '!menu_sair', '!menu_acesso_rapido', '!menu_loja', '!menu_mapa', '!menu_cinema',
