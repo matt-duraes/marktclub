@@ -9,6 +9,7 @@
         --cor-preto-branco: #333333 !important;
         --hover-branco-preto: #F8F9FA !important;
         --cor-box-shadow: rgba(0,0,0,.1) !important;
+        --cor-alerta: #F00;
 
     }
     [data-theme="dark"] {
@@ -20,6 +21,7 @@
         --cor-preto-branco: #FFFFFF !important;
         --hover-branco-preto: #222222 !important;
         --cor-box-shadow: rgba(0,0,0,.5) !important;
+        --cor-alerta: #FF0;
     }
     @ if( tema() == 'sistema' ):
     @media (prefers-color-scheme: dark) {
@@ -32,6 +34,7 @@
             --cor-preto-branco: #FFFFFF !important;
             --hover-branco-preto: #222222 !important;
             --cor-box-shadow: rgba(0,0,0,.5) !important;
+            --cor-alerta: #FF0;
         }
     }
     @ endif;
