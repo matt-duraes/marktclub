@@ -256,6 +256,7 @@
         subTitulo()
     p
         texto()
+
 .bloco_atencao_geral_icone
     width: 100%
     padding: 10px
@@ -264,7 +265,6 @@
     p
         texto()
         padding-left: 10px
-
 
 .bloco_titulo_texto
 .bloco_titulo_texto_centralizado
@@ -279,6 +279,7 @@
     > p
         texto()
         margin: 15px 0
+
 .bloco_titulo_texto_centralizado
     text-align: center
     align-items: center
@@ -288,19 +289,26 @@
     .parceiro_favorito
         width: calc((100% / 3) - 20px)
         margin-right: 20px
+
 .cor_bg
     background-color: $corClube
     color: #FFF !important
     fill: #FFF !important
 
+.pagina_atual
+    &:hover
+        background: $corClube !important
+    svg
+        fill: #FFF !important
+
 .cor_color_hover:hover, .cor_color
     color: $corClube
+
 
 [data-theme="dark"] .bloco_parceiro article .bloco_favorito
     position: absolute
     top: 23px
     right: 23px
-
 
 .form_geral .bloco_input label,
 .form_geral .bloco_input_footer .input_mensagem.ativo,
@@ -309,6 +317,7 @@
 
 #fw_form_select .option, #bloco_geral_autocomplete .option
     background: $corBrancoCinza !important
+
 #fw_form_select .option li, #bloco_geral_autocomplete .option li
     color: $corPretoBranco !important
 
@@ -388,3 +397,4 @@
 	top: -99999px
 	left: -99999px
 	opacity: 0
+
