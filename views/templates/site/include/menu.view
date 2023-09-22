@@ -1,21 +1,10 @@
-<div id="botao_swiped_esquerdo"></div>
 
-<header id="header_principal">
-    <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
-    <figure>
-        <a href="@route(index.index)">
-            <img src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
-        </a>
-    </figure>
-</header>
-
-@ if(!$melhorIdade) :
 <nav id="menu_principal" class="menu_fechado">
     <div class="bg"></div>
     <div class="conteudo">
         <figure>
             <a href="@route(index.index)">
-                <img src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
+                <img src="{{CLUBE_LOGO}}" alt="{{CLUBE_TITULO}}">
             </a>
         </figure>
         <div class="perfil" id="bloco_perfil">
@@ -88,7 +77,7 @@
             </a>
             @ endif;
 
-            @ if( MENU_SAMSUNG || MENU_LOJA || MENU_MAPA || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
+            @ if( MENU_LOJA || MENU_MAPA || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
             <div class="categoria">DESCONTOS</div>
 
             @ if( MENU_PREMIUM ):
@@ -110,13 +99,6 @@
                 <i>@iconeLojaProximaHome</i>
                 Lojas próximas
             </div>
-            @ endif;
-
-            @ if( MENU_SAMSUNG ):
-            <a class="botao {!!MENU_HOVER == 'samsung' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('samsung.index') ?>">
-                <i>@iconeTelefone(20)</i>
-                Samsung
-            </a>
             @ endif;
 
             @if(MENU_FARMACIA):
@@ -242,6 +224,3 @@
 
     </div>
 </nav>
-
-<main id="conteudo_principal">
-@endif

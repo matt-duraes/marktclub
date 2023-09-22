@@ -5,6 +5,18 @@ use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
 
 Route
+    ::nome('thema')
+    ::controller(App\Controllers\Site\TemaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/tema');
+        Route
+            ::nome('salvar')
+            ::request(['tema'])
+            ::post('/tema');
+    });
+Route
     ::nome('faqLogin')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::middleware(ClubeMiddleware::class, 'buscar')

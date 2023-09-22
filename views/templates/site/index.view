@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="{!!tema()!!}">
 
 <head>
     <meta charset="UTF-8">
@@ -58,6 +58,7 @@
 
     @ if( CHAT ):
     <a class="botao_chat" href="https://wa.me/5561993546881" target="_blank" rel="noopener noreferrer">@iconeWhatsapp(30)</a>
+
     @ endif;
 </body>
 
