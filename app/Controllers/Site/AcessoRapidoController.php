@@ -13,7 +13,7 @@ final class AcessoRapidoController extends Controller
         return view(
             arquivo: 'acesso_rapido.index',
             var: [
-                'sem_home' => true
+                'sem_home' => true,
             ]
         );
     }
