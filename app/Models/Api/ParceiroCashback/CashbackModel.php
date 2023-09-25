@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ParceiroCashback;
 
+use App\Classes\ParceiroCashback\Categoria;
 use ORM\ORM;
 use stdClass;
 use Modules\Pagina;
@@ -28,7 +29,9 @@ class CashbackModel extends ORM
         private Quantidade $quantidade,
         private ?string $empresa,
         private Status $status,
-        private Ordem $ordem
+        private Ordem $ordem,
+        private ?string $pesquisa,
+        private Categoria $categoria
     ) {
         parent::__construct();
         $this->validarEmpresa();
@@ -72,6 +75,15 @@ class CashbackModel extends ORM
         ];
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+        if ($this->pesquisa) {
+            $where[] = [
+                'OR',
+                ['titulo', 'like', "%{$this->pesquisa}%"]
+            ];
+        }
+        if ($this->categoria->valido()) {
+            $where[] = ['categoria', $this->categoria->numero()];
         }
         return $where;
     }
