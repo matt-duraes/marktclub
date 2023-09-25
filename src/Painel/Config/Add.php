@@ -159,11 +159,10 @@ final class Add
     /**
      * Adiciona HTML
      *
-     * @param string $html
+     * @param string      $html
      * @param string|null $campo
      * @param string|null $acao
      * @param string|null $permissao
-     * @return void
      */
     public function html(string $html, string $campo = null, string $acao = null, string $permissao = null)
     {

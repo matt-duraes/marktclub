@@ -3,44 +3,27 @@
 @resource "site/loja/busca"
 @resource "site/variavel"
 
-.conteudo_principal
+i, .categoria, .mobile, .linha, .resto, .botao_chat, .acesso_rapido_link
+    display: none
+
+.conteudo_principal_acesso_rapido
     max-width: $maxWidth
     margin: auto
+    width: 100%
 
-.conteudo_principal h1
-    titulo()
+.conteudo_principal_acesso_rapido
+    h1
+        titulo()
+    p,a, .botao_loja_proxima, .footer
+        texto()
 
-.conteudo_principal p,a
-    texto()
-
-.conteudo_principal header
-    height: 100px
-    display: flex
-    justify-content: space-between
-    align-items: center
-    max-width: $maxWidth
-    padding: 0px 20px 0px 20px
-    blocoShadow()
-    margin: 0px auto 25px auto
-
-.conteudo_principal header figure
-    width: 300px
-
-.conteudo_principal header figure img
-    width: 250px
-
-.conteudo_principal header a
-    background-color: $corClube
-    color: white !important
-
-.conteudo_principal .info_acesso
+.conteudo_principal_acesso_rapido .info_acesso
     margin-left: 25px
     margin-top: 50px
+    h1
+        bold()
 
-.conteudo_principal .info_acesso h1
-    bold()
-
-.conteudo_principal nav
+.conteudo_principal_acesso_rapido .links_acesso_rapido
     espacoTopPadrao()
     display: flex
     align-items: center
@@ -48,7 +31,7 @@
     width: 100%
     padding: 20px
 
-.conteudo_principal nav a
+.links_acesso_rapido .botao
     blocoShadow()
     width: calc((100% / 3) - 25px)
     height: 80px
@@ -56,42 +39,40 @@
     bold()
     flexCenter()
     margin: 6px 25px 6px 0px
-
-.conteudo_principal nav a:hover
-    border: 1px solid $corClube
-
+    &:hover
+        border: 1px solid $corClube
 
 @media screen and (max-width:1320px)
-    .conteudo_principal
+    .conteudo_principal_acesso_rapido
         width: 100%
         padding-left: 17px
-    .conteudo_principal nav a
+    .conteudo_principal_acesso_rapido .links_acesso_rapido .botao
         width: calc((100% / 2) - 25px)
 @media  screen and (max-width:630px)
     #conteudo_principal
         padding: 0px
-    #conteudo_principal .conteudo_principal
+    #conteudo_principal .conteudo_principal_acesso_rapido
             padding-left: 25px
             margin-top: 70px
-    #conteudo_principal .conteudo_principal nav a
+    #conteudo_principal .conteudo_principal_acesso_rapido .links_acesso_rapido .botao
             text-align: center
             width: calc(100% - 25px)
             margin-bottom: 25px
 
 @media screen and (max-width: 425px)
-    .conteudo_principal .info_acesso
+    .conteudo_principal_acesso_rapido .info_acesso
         padding-right: 30px
         text-align: center
-    .conteudo_principal .info_acesso nav a
+    .conteudo_principal_acesso_rapido .info_acesso .links_acesso_rapido .botao
         text-align: center
         width: calc(100% - 25px)
         margin-bottom: 25px
 @media screen and (max-width: 320px)
-    .conteudo_principal
+    .conteudo_principal_acesso_rapido
         padding-left: 0px
-    .conteudo_principal nav
+    .conteudo_principal_acesso_rapido .links_acesso_rapido
         flex-direction: column
         padding: 20px 0px
-        a
+        .botao
             width: 100%
             text-align: center
