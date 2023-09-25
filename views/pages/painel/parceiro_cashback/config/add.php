@@ -2,6 +2,7 @@
 
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
+use App\Classes\ParceiroCashback\Categoria;
 
 $empresa = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')
@@ -27,7 +28,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->textarea('texto_descricao', label: 'Descrição', placeholder: 'Digite uma descrição')
             ->textarea('texto_restricao', label: 'Restrições do parceiro', placeholder: 'Digite uma restrição')
-            ->textarea('texto_outro', label: 'Outros dados', placeholder: 'Outros dados');
+            ->textarea('texto_outro', label: 'Outros dados', placeholder: 'Outros dados')
+            ->select(name: 'categoria', label: 'Categoria', lista: (new Categoria())->select('Escolha uma opção'));
     });
 });
 $Painel->coluna(callback: function () use ($Painel, $empresa) {
