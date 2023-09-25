@@ -22,17 +22,15 @@ $menuWidth = 300px
 
 *::-webkit-scrollbar
     width: 10px
-
 *::-webkit-scrollbar-track
     background: transparent
-
 *::-webkit-scrollbar-thumb
     background: transparent
     border-radius: 15px
     height: 150px
-
 *:hover::-webkit-scrollbar-thumb
     background: #cfcfcf
+
 .fw_pagina_body
     padding-right: 10px
 .scrollbar_hidden
@@ -336,6 +334,20 @@ a
             opacity: 1
             margin-left: 0
 
+#menu_principal .conteudo figure
+    .tema_escuro
+        display: none
+[data-theme="dark"] #menu_principal .conteudo figure
+    &.cor_fundo
+        width: calc(100% - 20x)
+        background: #FFF
+        margin: 15px 10px
+        padding: 10px
+        border-radius: 10px
+    .tema_escuro
+        display: block
+    .tema_branco
+        display: none
 
 #botao_swiped_esquerdo
     width: 15px

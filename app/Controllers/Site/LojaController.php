@@ -110,8 +110,7 @@ final class LojaController extends Controller
                 'usuario' => sessao('USUARIO.id')
             ])
             ->post('/solicitacao-voucher')
-            ->object();
-        ppe($dado);
+            ->object()->dado;
 
         return view('loja.voucher', [
             'dado' => $dado
