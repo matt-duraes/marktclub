@@ -9,16 +9,17 @@
     </figure>
 </header>
 
+@ if(!$melhorIdade) :
 <nav id="menu_principal" class="menu_fechado">
     <div class="bg"></div>
     <div class="conteudo">
-        <figure>
+        <figure class="{{CLUBE_LOGO_CLASSE}}">
             <a href="@route(index.index)">
-                <img src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
+                <img class="tema_branco" src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
+                <img class="tema_escuro" src="{{CLUBE_LOGO_SECUNDARIA}}" alt="{{CLUBE_TITULO}}">
             </a>
         </figure>
         <div class="perfil" id="bloco_perfil">
-            <a href="@route(perfil.index)"></a>
             <figure style="background-image: url({{USUARIO_IMAGEM}})"></figure>
             <div class="nome">{{USUARIO_NOME}}</div>
             <div class="email">{{USUARIO_EMAIL}}</div>
@@ -29,6 +30,10 @@
 
         @ if( MENU_PERFIL ):
         <div class="bloco_geral_sub_menu desktop display_none" id="bloco_menu_perfil">
+            <a class="botao" id="botao_tema">
+                <i>@iconeTema</i>
+                Mudar Tema
+            </a>
             @ if( !API ):
             <a class="botao {!!MENU_HOVER == 'perfil-dado' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.index)">
                 <i>@iconeUsuarioOutline(22)</i>
@@ -235,7 +240,9 @@
 
             <div class="resto"></div>
         </div>
+
     </div>
 </nav>
 
 <main id="conteudo_principal">
+@endif

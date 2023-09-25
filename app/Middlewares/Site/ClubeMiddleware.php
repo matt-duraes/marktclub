@@ -92,7 +92,8 @@ final class ClubeMiddleware extends ApiHelper
         $clube = sessao('CLUBE');
 
         define('CLUBE_LOGO_PRINCIPAL', $clube->logo_principal);
-        define('CLUBE_LOGO_SECUNDARIA', $clube->logo_secundaria);
+        define('CLUBE_LOGO_SECUNDARIA', !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal);
+        define('CLUBE_LOGO_CLASSE', empty($clube->logo_secundaria) ? 'cor_fundo' : '');
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_TITULO', $clube->titulo);
         define('CLUBE_ID', $clube->id);

@@ -6,16 +6,6 @@ use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
-    ::nome('samsung')
-    ::controller(App\Controllers\Api\SamsungController::class)
-    ::grupo(function () {
-        Route
-            ::nome('validar')
-            ::request(['code'], 'get')
-            ::post('/_v/private/user/validate');
-    });
-
-Route
     ::nome('downloadRestrito')
     ::controller(App\Controllers\Api\DownloadRestritoController::class)
     ::grupo(function () {
@@ -115,6 +105,16 @@ Route
         Route
             ::nome('sair')
             ::view('/documentacao/sair');
+    });
+
+Route
+    ::nome('samsung')
+    ::controller(App\Controllers\Api\SamsungController::class)
+    ::grupo(function () {
+        Route
+            ::nome('validar')
+            ::request(['code'], 'get')
+            ::post('/_v/private/user/validate');
     });
 
 Route
@@ -854,6 +854,10 @@ Route
         Route
             ::nome('cinema')
             ::get('/pagina/cinema');
+
+        Route
+            ::nome('samsung')
+            ::get('/pagina/samsung');
     });
 
 Route

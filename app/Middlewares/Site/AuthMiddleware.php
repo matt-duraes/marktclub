@@ -67,12 +67,11 @@ final class AuthMiddleware
 
     private function usuarioNaoLogado()
     {
-        (new AuthHelper());
+        (new AuthHelper())->deletar();
         cookieDeletar('CLT');
         if (METODO == 'GET' && CONTENT_TYPE != 'application/json') {
             return new Response(url: LINK . '/login');
         }
-
         return new Response(json: [
             'status' => 'deslogado'
         ], status: 401);

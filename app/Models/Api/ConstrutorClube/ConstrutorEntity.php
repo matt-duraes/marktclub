@@ -39,7 +39,7 @@ final class ConstrutorEntity extends Entity
         'cor_principal', 'cor_secundaria', 'menu_tema', 'administrado_status', 'chat_status',
         'menu_samsung', 'tipo_ativacao', 'status'
     ];
-    protected array $ormRetornoPadrao = ['id', 'logo', 'logo_marktclub'];
+    protected array $ormRetornoPadrao = ['id', 'logo_principal', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
     public int $id_admin_empresa;
     public string $favicon;

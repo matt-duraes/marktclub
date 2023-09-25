@@ -36,7 +36,7 @@ final class UltimoAcessoModel extends ORM
             "
                 SELECT
                     {$tabelaConstrutor}.`id_admin_empresa`, {$tabelaConstrutor}.`link_login`, {$tabelaConstrutor}.`link_clube`,
-                    {$tabelaConstrutor}.`logo`, {$tabelaConstrutor}.`cor`, {$tabelaConstrutor}.`titulo`
+                    {$tabelaConstrutor}.`logo_principal`, {$tabelaConstrutor}.`cor_principal`, {$tabelaConstrutor}.`titulo`
                 FROM {$tabelaConstrutor}
                 INNER JOIN {$tabelaEmpresa} ON {$tabelaEmpresa}.`id` = {$tabelaConstrutor}.`id_admin_empresa`
                 WHERE {$tabelaEmpresa}.`status` = ?
@@ -58,8 +58,8 @@ final class UltimoAcessoModel extends ORM
                 'titulo'      => $r->titulo,
                 'link_clube'  => $r->link_clube,
                 'link_login'  => $r->link_login,
-                'logo'        => arquivoPrivado($r->logo),
-                'cor'         => $r->cor,
+                'logo'        => arquivoPrivado($r->logo_principal),
+                'cor'         => $r->cor_principal,
                 'usuario'     => []
             ];
         }
@@ -129,10 +129,10 @@ final class UltimoAcessoModel extends ORM
             $loja = $this->pegarUltimosSeisLojas($id);
             $this->mandarEmailParaCadaEmpresa(
                 $r->titulo,
-                $r->cor,
+                $r->cor_principal,
                 $r->link_clube,
                 $r->link_login,
-                $r->logo,
+                $r->logo_principal,
                 $r->usuario,
                 $loja
             );

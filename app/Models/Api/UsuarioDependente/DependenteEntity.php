@@ -66,9 +66,9 @@ final class DependenteEntity extends Entity
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             botaoTexto: 'Ativar cadastro',
             botaoLink: $link . '/login#ativar',
-            logo: $Construtor->logo,
+            logo: $Construtor->logo_principal,
             acao: 'Cadastro de dependente',
-            cor: $Construtor->cor
+            cor: $Construtor->cor_principal
         );
         $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
     }

@@ -81,6 +81,29 @@ final class BannerModel extends ClubeApiHelper
     /**
      * @return object
      */
+    public function samsung(): object
+    {
+        return (object)[
+            'desktop' => [
+                (object) [
+                    'imagem' => LINK . '/images/site/banner_samsung_desktop.png',
+                    'target' => '',
+                    'link'   => ''
+                ]
+            ],
+            'mobile' => [
+                (object) [
+                    'imagem' => LINK . '/images/site/banner_samsung_mobile.png',
+                    'target' => '',
+                    'link'   => ''
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return object
+     */
     public function turismo(): object
     {
         return (object)[

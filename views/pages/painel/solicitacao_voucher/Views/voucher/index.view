@@ -15,7 +15,7 @@
     <div id="bloco-voucher">
         <header>
             <figure>
-                <img height="60" src="{!!$dado->construtor->logo!!}" alt="">
+                <img height="60" src="{!!$dado->construtor->logo_principal!!}" alt="">
             </figure>
         </header>
 

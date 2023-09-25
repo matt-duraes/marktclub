@@ -13,13 +13,12 @@
     align-items: center
     cursor: pointer
     padding: 10px 20px
-    background-color: #FFF
+    background-color: $corBrancoCinza
     border-radius: 10px
     z-index: 1
     p
         subTitulo()
         flexGrow()
-        color: #666
     .botao
         background-color: $corClube
         color: #FFF
@@ -42,7 +41,7 @@
     .conteudo
         width: 100%
         max-width: $maxWidth
-        background: #FFF
+        background: $corBrancoPreto
         margin-top: -200px
         opacity: 0
         padding: 10px 20px 30px
@@ -69,6 +68,7 @@
         height: 30px
         flexCenter()
         cursor: pointer
+        fill: $corPretoBranco
         &.mobile
             margin-right: 10px
     fieldset
@@ -80,6 +80,7 @@
             margin-right: 0
     button
         margin-top: 20px
+        color: #FFF
 #form_buscar.ativo
     opacity: 1
     background-color: rgba(0,0,0,.3)
@@ -121,7 +122,7 @@ body.body_scroll_hidden #form_buscar
         justify-content: center
     .item .nome
         font-size: 1.3rem
-        color: #666
+        color: $corCinzaCinza
     .item .valor
         font-size: 1.4rem
         color: #333

@@ -25,6 +25,19 @@ final class DadosModel extends ClubeApiHelper
         return $this->montarRetorno($dado->dado);
     }
 
+    public function pegarListaEmail(): array
+    {
+        $email = $this->getDado();
+        $lista = [];
+        if (!empty($email->email_pessoal)) {
+            $lista[] = $email->email_pessoal;
+        }
+        if (!empty($email->email_trabalho)) {
+            $lista[] = $email->email_trabalho;
+        }
+        return $lista;
+    }
+
     /**
      * @param $dado
      *

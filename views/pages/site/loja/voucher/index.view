@@ -36,15 +36,15 @@
         </div>
     </div>
     @ if( $dado->texto_desconto ):
-    <div class="texto">{{$dado->texto_desconto}}</div>
+    <div class="texto">{!!$dado->texto_desconto!!}</div>
     @ endif;
     @ if( $dado->texto_voucher ):
-    <div class="texto">{{$dado->texto_voucher}}</div>
+    <div class="texto">{!!$dado->texto_voucher!!}</div>
     @ endif;
     <div class="administrado">
         <p>Administrado por:</p>
         <figure><img src="{!!$dado->construtor->logo_marktclub!!}" height="40" alt="MARKT CLUB"></figure>
-        <p>{{$dado->texto_juridico}}</p>
+        <p>{!!$dado->texto_juridico!!}</p>
     </div>
 </div>
 

@@ -1,5 +1,8 @@
 @template "site"
+@system "popup"
+@resource "site/banner"
 @resource "site/item_lista"
+@resource "site/pagina_popup"
 
 #bloco_samsung
     width: 100%
@@ -8,3 +11,23 @@
         text-align: center
     .atualizar
         margin: 20px 0
+        flexCol()
+        align-items: flex-start
+    .atualizar .zero
+        margin: 10px 0 15px
+    .atualizar p strong
+        texto()
+        font-weight: bold
+    .atualizar .botao
+        botaoPadraoPequeno()
+        background-color: $corClube
+        color: #FFF
+        margin-bottom: 10px
+    .bloco_botao
+        width: 100%
+        flexCol()
+        align-items: center
+    .bloco_botao a
+        botaoPadraoGrande()
+        background-color: $corClube
+        color: #FFF
