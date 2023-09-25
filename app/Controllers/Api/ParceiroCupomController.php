@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\ParceiroCupom\CupomEntity;
 use Http\Request;
 use Http\Response;
@@ -24,7 +25,9 @@ final class ParceiroCupomController extends Controller implements
     {
         $CupomHelper = new CupomModel(
             pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade)
+            quantidade: new Quantidade($request->quantidade),
+            pesquisa: $request->pesquisa,
+            categoria: new Categoria($request->categoria)
         );
         $listar = $CupomHelper->listarDados();
 

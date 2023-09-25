@@ -20,8 +20,10 @@ class CupomModel extends ORM
     protected string $ormTabela = TABELA_PARCEIRO_CUPOM;
 
     public function __construct(
+        private ?string $pesquisa,
+        private ?Categoria $categoria,
         private Pagina $pagina = new Pagina(null),
-        private Quantidade $quantidade = new Quantidade(null),
+        private Quantidade $quantidade = new Quantidade(null)
     ) {
         parent::__construct();
     }
@@ -31,6 +33,7 @@ class CupomModel extends ORM
         $dado = $this
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'status', 'id_parceiro_loja'])
+            ->where($this->pegarWhere())
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
@@ -38,6 +41,21 @@ class CupomModel extends ORM
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
+    }
+
+    private function pegarWhere()
+    {
+        $where = [];
+        if ($this->pesquisa) {
+            $where[] = [
+                'OR',
+                ['descricao', 'like', "%{$this->pesquisa}%"]
+            ];
+        }
+        if ($this->categoria->valido()) {
+            $where[] = ['categoria', $this->categoria->numero()];
+        }
+        return $where;
     }
 
     private function montarRetorno(array $dado): array

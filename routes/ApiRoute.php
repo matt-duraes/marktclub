@@ -970,7 +970,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status', '!pesquisa', "!categoria"
             ], 'json')
             ::get('/parceiro-cupom');
         Route
