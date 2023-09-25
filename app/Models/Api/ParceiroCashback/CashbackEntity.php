@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ParceiroCashback;
 
+use App\Classes\ParceiroCashback\Categoria;
 use ORM\Entity;
 use Modules\Decimal;
 use Helpers\OrmHelper;
@@ -12,11 +13,11 @@ final class CashbackEntity extends Entity
     protected string $ormTabela = TABELA_PARCEIRO_CASHBACK;
     protected array $ormSalvar = [
         'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
-        'status', 'link_site', 'imagem', 'url', 'id_admin_empresa'
+        'status', 'link_site', 'imagem', 'url', 'id_admin_empresa', 'categoria'
     ];
     protected array $ormBuscar = [
         'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro', 'comissao_minima', 'comissao_maxima',
-        'status', 'link_site', 'imagem', 'url', 'id_admin_empresa'
+        'status', 'link_site', 'imagem', 'url', 'id_admin_empresa', 'categoria'
     ];
     protected string $ormValidarInsert = '
         titulo|Título|obrigatorio|vazio
@@ -26,6 +27,7 @@ final class CashbackEntity extends Entity
         comissao_minima|Comissão mínima|obrigatorio|vazio|valido
         comissao_maxima|Comissão máxima|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
+        categoria|Categoria|obrigatorio|vazio|valido
         link_site|Link site|obrigatorio|vazio
         imagem|Imagem|obrigatorio|vazio
     ';
@@ -41,6 +43,7 @@ final class CashbackEntity extends Entity
     public string $imagem;
     public string $logo;
     public string $url;
+    public Categoria $categoria;
     protected array $id_admin_empresa;
 
     public function __construct()

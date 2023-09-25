@@ -65,7 +65,7 @@ final class ParceiroCashbackController extends Controller implements
                 lista: [
                     'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro',
                     'imagem', 'logo', 'comissao', 'comissao_minima', 'comissao_maxima', 'link_site',
-                    'link_usuario', 'empresa', 'url', 'status'
+                    'link_usuario', 'empresa', 'url', 'status', 'categoria'
                 ]
             ),
             status: $status

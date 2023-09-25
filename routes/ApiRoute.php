@@ -1014,7 +1014,7 @@ Route
             ::request([
                 'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro',
                 'comissao_minima', 'comissao_maxima', 'status', 'empresa',
-                'link_site', 'imagem'
+                'link_site', 'imagem', 'categoria'
             ])
             ::post('/parceiro-cashback');
 
@@ -1024,7 +1024,7 @@ Route
             ::request([
                 '!titulo', '!texto_descricao', '!texto_restricao', '!texto_outro',
                 '!comissao_minima', '!comissao_maxima', '!status', '!empresa',
-                '!link_site', '!imagem'
+                '!link_site', '!imagem', '!categoria'
             ])
             ::put('/parceiro-cashback/{id}');
 
