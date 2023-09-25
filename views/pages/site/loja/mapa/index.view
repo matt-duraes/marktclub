@@ -1,7 +1,4 @@
 <div id="bloco_loja_mapa">
-    @ if( CHAT ):
-        <a class="botao_chat_mapa" href="https://wa.me/5561993546881" target="_blank" rel="noopener noreferrer">@iconeWhatsapp(30)</a>
-    @ endif;
     <div id="botao_atualizar_mapa" class="atualizar display_none">Buscar nessa região</div>
     <div id="bloco_google_maps" class="mapa"></div>
     <input type="hidden" id="input_loja_latitude" value="{{$Busca->latitude}}">
