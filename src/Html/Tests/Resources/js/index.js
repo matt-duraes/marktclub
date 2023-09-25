@@ -1,39 +1,37 @@
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+const ppe = console.log.bind(console);
+
 window.addEventListener('load', () => {
-    const LINK = document.querySelector('#LINK').value;
-    const listaTeste = document.querySelectorAll('.input_teste');
-    const botaoMarcar = document.querySelector('#id_marcar');
-    botaoMarcar.addEventListener('change', () => {
-        const valor = botaoMarcar.checked;
-        listaTeste.forEach(item => {
-            item.checked = valor;
+    const listaTodos = $$('nav .todos input');
+    if (listaTodos.length == 0) {
+        return;
+    }
+    listaTodos.forEach(input => {
+        input.addEventListener('change', () => {
+            marcarDesmarcarTodos(input.closest('li').querySelectorAll('ul input'), input.checked);
         });
     });
+    const marcarDesmarcarTodos = (lista, valor) => {
+        lista.forEach(input => {
+            input.checked = valor;
+        });
+    };
 
-    listaTeste.forEach(item => {
-        item.addEventListener('change', () => {
-            const quantidade = document.querySelectorAll('.input_teste:checked').length;
-            if (quantidade == listaTeste.length) {
-                botaoMarcar.checked = true;
-            } else {
-                botaoMarcar.checked = false;
+    const listaItem = $$('nav ul li ul input');
+    listaItem.forEach(input => {
+        input.addEventListener('change', () => {
+            const blocoTodos = input.closest('.diretorio').querySelector('.todos input');
+            if (!input.checked) {
+                blocoTodos.checked = false;
+                return;
+            }
+            const bloco = input.closest('ul');
+            const total = bloco.querySelectorAll('input').length;
+            const ativo = bloco.querySelectorAll('input:checked').length;
+            if (total == ativo) {
+                blocoTodos.checked = true;
             }
         });
-    });
-
-    const botaoBuscar = document.querySelector('#botao_download');
-    botaoBuscar.addEventListener('click', () => {
-        const marcado = document.querySelectorAll('.input_teste:checked');
-        if (marcado.length == 0) {
-            return;
-        }
-
-        document.querySelector('#bloco_loading').classList.add('mostrar');
-
-        let teste = [];
-        marcado.forEach(item => {
-            teste.push(item.value);
-        });
-
-        window.location.assign(LINK + '/__tests/' + teste.join(','));
     });
 });

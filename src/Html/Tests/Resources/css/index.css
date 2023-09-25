@@ -1,86 +1,69 @@
-form {
-    width: calc(100% - 40px);
-    max-width: 600px;
+:root {
+    --verde: #169e91;
+}
+html {
+    font-size: 62.5%;
+}
+body {
+    background-color: #F6F6F6;
+    font-family: Arial, Helvetica, sans-serif;
+}
+nav {
+    width: 300px;
+    height: 100vh;
     background-color: #FFF;
-    border-radius: 4px;
-    box-shadow: 0 4px 5px rgba(0,0,0,.1);
-    margin: 40px 0;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.1);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+nav h1 {
+    font-size: 2rem;
+    padding: 20px 10px;
+}
+nav > ul > li {
+    margin-bottom: 10px;
+}
+nav ul li h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #EEE;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+nav ul li {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
-form .checkbox {
-    width: 100%;
+nav label {
     position: relative;
+    font-size: 1.6rem;
     display: flex;
     align-items: center;
-    cursor: pointer;
-    user-select: none;
-}
-form .checkbox label {
-    font-size: 1.4rem;
-    padding-left: 30px;
+    padding: 12px 15px;
     cursor: pointer;
 }
-form .checkbox input {
-    display: none;
-}
-form .checkbox i {
+nav label .check {
     width: 20px;
     height: 20px;
-    position: absolute;
-    left: 0;
+    border-radius: 5px;
     background-color: #CCC;
-    border-radius: 20px;
+    margin-right: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    fill: #CCC;
 }
-form .checkbox input:checked ~ i {
-    background-color: #169e91;
+nav label .check svg {
+    display: none;
     fill: #FFF;
 }
-form > .checkbox {
-    width: calc(100% - 40px);
-    margin: 20px;
+nav input:checked + label .check {
+    background-color: var(--verde);
 }
-form .conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    border-top: 1px solid #DDD;
-    padding: 0 10px;
+nav input:checked + label .check svg {
+    display: block;
 }
-form .conteudo p {
-    width: 100%;
-    padding: 20px 10px;
-    font-size: 1.6rem;
-    color: #999;
-}
-form .conteudo .checkbox {
-    width: calc(50% - 20px);
-    margin: 10px;
-}
-form .conteudo .checkbox label {
-    font-size: 1.6rem;
-}
-form .footer {
-    width: 100%;
-    padding: 20px;
-    border-top: 1px solid #DDD;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-form .footer .botao {
-    height: 50px;
-    line-height: 50px;
-    background-color: #169e91;
-    color: #FFF;
-    padding: 0 20px;
-    border-radius: 25px;
-    font-size: 1.4rem;
-    cursor: pointer;
+nav input {
+    display: none;
 }

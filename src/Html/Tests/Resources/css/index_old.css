@@ -1,0 +1,86 @@
+form {
+    width: calc(100% - 40px);
+    max-width: 600px;
+    background-color: #FFF;
+    border-radius: 4px;
+    box-shadow: 0 4px 5px rgba(0,0,0,.1);
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+}
+form .checkbox {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+form .checkbox label {
+    font-size: 1.4rem;
+    padding-left: 30px;
+    cursor: pointer;
+}
+form .checkbox input {
+    display: none;
+}
+form .checkbox i {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    background-color: #CCC;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    fill: #CCC;
+}
+form .checkbox input:checked ~ i {
+    background-color: #169e91;
+    fill: #FFF;
+}
+form > .checkbox {
+    width: calc(100% - 40px);
+    margin: 20px;
+}
+form .conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: 1px solid #DDD;
+    padding: 0 10px;
+}
+form .conteudo p {
+    width: 100%;
+    padding: 20px 10px;
+    font-size: 1.6rem;
+    color: #999;
+}
+form .conteudo .checkbox {
+    width: calc(50% - 20px);
+    margin: 10px;
+}
+form .conteudo .checkbox label {
+    font-size: 1.6rem;
+}
+form .footer {
+    width: 100%;
+    padding: 20px;
+    border-top: 1px solid #DDD;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+form .footer .botao {
+    height: 50px;
+    line-height: 50px;
+    background-color: #169e91;
+    color: #FFF;
+    padding: 0 20px;
+    border-radius: 25px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
