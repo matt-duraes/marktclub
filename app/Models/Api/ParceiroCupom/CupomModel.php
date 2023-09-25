@@ -2,124 +2,79 @@
 
 namespace App\Models\Api\ParceiroCupom;
 
+use App\Classes\Geral\Status;
+use App\Classes\ParceiroCupom\Auditado;
+use App\Classes\ParceiroLoja\Categoria;
+use stdClass;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
-use Erro\Excecao;
-use Http\Request;
-use App\Helpers\CupomHelper;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 class CupomModel extends ORM
 {
-    protected string $ormTabela = TABELA_PARCEIRO_CUPOM_BLOQUEADO;
-    public string $idEmpresa;
+    use PaginaTrait;
+    use QuantidadeTrait;
 
-    /**
-     * @throws Excecao
-     */
-    public function __construct()
-    {
+    protected string $ormTabela = TABELA_PARCEIRO_CUPOM;
+
+    public function __construct(
+        private ?string $pesquisa,
+        private ?Categoria $categoria,
+        private Pagina $pagina = new Pagina(null),
+        private Quantidade $quantidade = new Quantidade(null)
+    ) {
         parent::__construct();
-        $this->idEmpresa = defined('TOKEN') ? TOKEN['empresa']->id : 1;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return array
-     * @throws Excecao
-     */
-    public function listarDados(Request $request): array
+    public function listarDados(): stdClass
     {
-        $CupomHelper = new CupomHelper($request);
-        $dado = $CupomHelper->listar();
+        $dado = $this
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'status', 'id_parceiro_loja'])
+            ->where($this->pegarWhere())
+            ->tabela(TABELA_PARCEIRO_LOJA)
+            ->join('id', 'id_parceiro_loja')
+            ->campo(['titulo'], 'parceiro')
+            ->read();
 
-        if (!$dado) {
-            return [];
-        }
-
-        return $this->montarRetorno($dado);
-    }
-
-    /**
-     * @param  string  $id
-     * @return array
-     * @throws Excecao
-     */
-    public function buscarDados($id): array
-    {
-        $dado = (new CupomHelper())->buscar($id);
-
-        if (!is_array($dado) || !isset($dado['id'])) {
-            mensagemStatus(404);
-        }
-
-        $busca = $dado['cupom'];
-        $tipo = 1;
-        if ($dado['tipo'] == 'link') {
-            $busca = $dado['link'];
-            $tipo = 2;
-        }
-
-        if (!$this->validarLista($tipo, $busca)) {
-            mensagemStatus(404);
-        }
-
+        $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
 
-    /**
-     * @param array $dados
-     *
-     * @return array
-     */
-    protected function montarRetorno(array $lista): array
+    private function pegarWhere()
     {
-        $blackList = $this->listarBloqueado();
-        $parceiroBloqueado = [
-            6771 => 'oferbox',
-        ];
+        $where = [];
+        if ($this->pesquisa) {
+            $where[] = [
+                'OR',
+                ['descricao', 'like', "%{$this->pesquisa}%"]
+            ];
+        }
+        if ($this->categoria->valido()) {
+            $where[] = ['categoria', $this->categoria->numero()];
+        }
+        return $where;
+    }
 
+    private function montarRetorno(array $dado): array
+    {
         $retorno = [];
-        foreach ($lista as $r) {
-            $tipo = $r['tipo'];
-            $cupom = $r['cupom'];
-            $link = $r['link'];
-            $idParceiro = $r['parceiro']['id'] ?? '';
-            $nomeParceiro = $r['parceiro']['nome'] ?? '';
-            $categoriaParceiro = $r['categoria']['name'] ?? '';
-
-            if (!$this->validarLista($tipo, $cupom)) {
-                $parceiroBloqueado[$idParceiro] = $nomeParceiro;
-            }
-
-            if (in_array($this->idEmpresa, ['32']) && $categoriaParceiro == 'Turismo') {
-                $parceiroBloqueado[$idParceiro] = $nomeParceiro;
-            }
-
-            if (in_array($idParceiro, array_keys($parceiroBloqueado)) || ($tipo == 'cupom') && isset($blackList[$cupom]) || ($tipo == 'link' && isset($blackList[$link]))) {
-                continue;
-            }
-
-            $retorno[] = $r;
+        foreach ($dado as $item) {
+            $retorno[] = [
+                'id'        => $item->uuid,
+                'parceiro'  => $item->parceiro_titulo,
+                'descricao' => $item->descricao,
+                'cupom'     => $item->cupom,
+                'desconto'  => $item->desconto,
+                'categoria' => (new Categoria($item->categoria))->indice(),
+                'link'      => $item->link,
+                'validade'  => $item->validade,
+                'status'    => (new Status($item->status))->indice(),
+                'auditado'  => (new Auditado($item->auditado))->indice(),
+            ];
         }
         return $retorno;
-    }
-
-    public function listarBloqueado(): array
-    {
-        return $this->pegarSelect('valor', 'valor', ['data_vencimento', '>=', agora()]);
-    }
-
-    public function validarLista($tipo, $busca): bool
-    {
-        if ($tipo == 'link') {
-            $tipo = 2;
-        } elseif ($tipo == 'cupom') {
-            $tipo = 1;
-        }
-
-        return !$this->existe([
-            ['tipo', $tipo],
-            ['valor', $busca]
-        ]);
     }
 }

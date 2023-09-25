@@ -129,7 +129,7 @@ $scope = [
     'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:destaque', 'parceiro_loja:salvar',
     'parceiro_loja:atualizar', 'parceiro_loja:deletar',
 
-    'parceiro_cupom:buscar', 'parceiro_cupom:listar',
+    'parceiro_cupom:buscar', 'parceiro_cupom:listar', 'parceiro_cupom:atualizar',
 
     'contato:salvar', 'contato:listar', 'contato:buscar',
 
@@ -146,7 +146,11 @@ $scope = [
     'silium:saldo', 'silium:extrato', 'silium:saque',
 
     'solicitacao_loja:listar', 'solicitacao_loja:buscar', 'solicitacao_loja:salvar',
-    'solicitacao_loja:atualizar', 'solicitacao_loja:deletar'
+    'solicitacao_loja:atualizar', 'solicitacao_loja:deletar',
+
+    'chatbot_perguntas:salvar', 'chatbot_perguntas:atualizar', 'chatbot_perguntas:listar', 'chatbot_perguntas:buscar', 'chatbot_perguntas:perguntar',
+
+    'chatbot_categoria:salvar', 'chatbot_categoria:atualizar', 'chatbot_categoria:listar', 'chatbot_categoria:buscar',
 ];
 
 return [
