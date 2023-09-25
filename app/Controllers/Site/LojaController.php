@@ -46,6 +46,7 @@ final class LojaController extends Controller
         return view('loja.index', [
             'menu'   => 'loja',
             'Busca'  => $Filtro,
+            'mapa'   => $Filtro->mapa ?? false,
             'todos'  => empty($request->dado()),
             'banner' => []
         ]);
