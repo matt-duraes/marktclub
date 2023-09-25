@@ -274,6 +274,18 @@ return [
     [
         'id'               => '++',
         'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Cupom',
+        'url'              => '/app/parceiro-cupom',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.6,20.6H9.4v0.8c0,0.4-0.4,0.8-0.8,0.8H7.8c-0.4,0-0.8-0.4-0.8-0.8v-8l2-4.6c0.3-0.6,0.8-1,1.5-1h9.1c0.6,0,1.2,0.4,1.5,1l2,4.6v8c0,0.4-0.4,0.8-0.8,0.8h-0.8c-0.4,0-0.8-0.4-0.8-0.8V20.6z M21.4,15H8.6v4h12.8V15z M8.7,13.4h12.5l-1.7-4h-9.1L8.7,13.4z M10.6,18.2c-0.7,0-1.2-0.5-1.2-1.2s0.5-1.2,1.2-1.2c0.7,0,1.2,0.5,1.2,1.2S11.3,18.2,10.6,18.2z M19.4,18.2c-0.7,0-1.2-0.5-1.2-1.2s0.5-1.2,1.2-1.2s1.2,0.5,1.2,1.2S20.1,18.2,19.4,18.2z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['parceiro-cupom'],
+        'status'           => 1,
+        'permissao'        => '["parceiro_cupom_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
         'tipo'             => 1,
         'titulo'           => 'PUBLICAÇÕES',
         'ordem'            => '++',
@@ -486,6 +498,27 @@ return [
         'menu'             => ['solicitacao-cheque-bonus'],
         'status'           => 1,
         'permissao'        => '["solicitacao_cheque_bonus_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 1,
+        'titulo'           => 'CHAT-BOT',
+        'ordem'            => '++',
+        'status'           => 1,
+        'permissao'        => '["chatbot_perguntas_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Perguntas e Respostas',
+        'url'              => '/app/chatbot-perguntas',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,18.6c2,0,3.6-1.6,3.6-3.6c0-2-1.6-3.6-3.6-3.6c-2,0-3.6,1.6-3.6,3.6C11.4,17,13,18.6,15,18.6z M23.1,7.8H6.9C6.4,7.8,6,8.2,6,8.7v12.6c0,0.5,0.4,0.9,0.9,0.9h16.2c0.5,0,0.9-0.4,0.9-0.9V8.7C24,8.2,23.6,7.8,23.1,7.8z M7.8,18.3v-6.6c1-0.3,1.8-1.1,2.1-2.1h10.2c0.3,1,1.1,1.8,2.1,2.1v6.6c-1,0.3-1.8,1.1-2.1,2.1H9.9C9.6,19.4,8.8,18.6,7.8,18.3z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['chatbot-perguntas'],
+        'status'           => 1,
+        'permissao'        => '["chatbot_perguntas_index"]'
     ],
     [
         'id'               => '++',
