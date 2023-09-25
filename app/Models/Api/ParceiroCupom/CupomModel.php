@@ -33,7 +33,7 @@ class CupomModel extends ORM
         $dado = $this
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'status', 'id_parceiro_loja'])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), false)
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
             ->campo(['titulo'], 'parceiro')
