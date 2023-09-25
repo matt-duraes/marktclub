@@ -320,7 +320,18 @@ abstract class ORM
         $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $dado = $query->fetchAll();
-        return $dado[0] ?? [];
+        $dado = $dado[0] ?? [];
+
+        $replace = $this->pegarReplace();
+        if ($replace) {
+            foreach ($replace as $ind => $val) {
+                if (array_key_exists($ind, $dado)) {
+                    $dado[$val] = $dado[$ind];
+                    unset($dado[$ind]);
+                }
+            }
+        }
+        return $dado;
     }
 
     protected function ormDestruirPDO()

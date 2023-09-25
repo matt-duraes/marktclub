@@ -135,7 +135,7 @@ final class EnvConfig
             $url = $env['APP_URL'] ?? '';
             if (
                 !empty($url) &&
-                (is_string($url) && $url == $this->host) ||
+                (is_string($url) && ($url == $this->host || $url == '*')) ||
                 (is_array($url) && in_array($this->host, $url))
             ) {
                 $this->envUso = $env;

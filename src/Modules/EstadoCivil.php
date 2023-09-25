@@ -110,7 +110,7 @@ final class EstadoCivil implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return (int)$this->numero;
+        return !empty($this->numero) ? (int)$this->numero : '';
     }
 
     private function validarEstadoCivil(): bool

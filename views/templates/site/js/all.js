@@ -12,3 +12,5 @@
 // @import "mapa"
 // @import "pesquisa_satisfacao"
 // @import "indicar_parceiro"
+// @import "analytics"
+// @import "tema"

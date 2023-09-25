@@ -1,8 +1,7 @@
-<section class="bloco_calculadora">
+<section class="bloco_calculadora" id="bloco_calculadora_geral">
     <div class="bg" style="background-color: url({!!LINK_PADRAO!!}/images/login/bg_cashback.png) no-repeat center top"></div>
     <div class="container">
         <div class="topo">
-
             <figure class="img_calculadora"
             style="mask-image: url({!!LINK_PADRAO!!}/images/login/calculadora.svg);
             -webkit-mask-image: url({!!LINK_PADRAO!!}/images/login/calculadora.svg)"></figure>
@@ -11,44 +10,53 @@
                 <p>Saiba quanto você pode economizar em média ao ano com nossos descontos</p>
             </div>
         </div>
-        <div class="conteudo esconde">
+
+        <div class="resultado display_none" id="bloco_calculadora_resposta">
+            <h2>Você economizará em média</h2>
+            <strong class="color_cor"><span id="bloco_calculadora_valor"></span> ao ano</strong>
+            <div class="novamente" id="bloco_calculadora_resetar">
+                <p>Calcular novamente</p>
+            </div>
+        </div>
+
+        <div class="conteudo esconde" id="bloco_calculadora_form">
             <h2>
                 <span>Digite o valor médio ao ano</span> entre as categorias listadas abaixo e para calcular o desconto
             </h2>
             <form action="@route('post.index.calculadora')" method="post" id="calculadora">
                 <fieldset class="campos">
                     <label for="">Academia</label>
-                    <input type="text" name="academia" id="academia" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
+                    <input type="text" name="academia" id="input_calculadora_academia" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
                 </fieldset>
                 <fieldset class="campos">
                     <label for="">Escola/Creche</label>
-                    <input type="text" name="escola_creche" id="escola_creche" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
+                    <input type="text" name="escola_creche" id="input_calculadora_escola" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
                 </fieldset>
                 <fieldset class="campos">
                     <label for="">Farmácia</label>
-                    <input type="text" name="farmacia" id="farmacia" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
+                    <input type="text" name="farmacia" id="input_calculadora_farmacia" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
                 </fieldset>
                 <fieldset class="campos">
                     <label for="">Eletroeletrônico</label>
-                    <input type="text" name="eletroeletronico" id="eletroeletronico" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
+                    <input type="text" name="eletroeletronico" id="input_calculadora_eletroeletronico" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
                 </fieldset>
                 <fieldset class="campos">
                     <label for="">Idiomas</label>
-                    <input type="text" name="idioma" id="idioma" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
+                    <input type="text" name="idioma" id="input_calculadora_idioma" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
                 </fieldset>
                 <fieldset class="campos">
                     <label for="">Restaurante</label>
-                    <input type="text" name="restaurante" id="restaurante" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
+                    <input type="text" name="restaurante" id="input_calculadora_restaurante" data-mascara="dinheiro" inputmode="numeric" placeholder="R$ 0,00">
                 </fieldset>
 
-                <button id="calcular">Calcular</button>
+                <div class="botao" id="botao_calculadora">Calcular</div>
             </form>
         </div>
         <div id="fechar" class="fechar cor_bg esconde">
             <p>Fechar</p>
         </div>
     </div>
-    <button id="abrir" class="cor_bg">
+    <div id="abrir" class="botao cor_bg">
         Abrir
-    </button>
+    </div>
 </section>

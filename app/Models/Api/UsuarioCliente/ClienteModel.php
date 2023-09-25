@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
+use ORM\ORM;
+use stdClass;
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
-use Erro\Excecao;
-use Http\Request;
-use Modules\Data;
-use ORM\ORM;
-use stdClass;
 
 final class ClienteModel extends ORM
 {
@@ -22,6 +22,7 @@ final class ClienteModel extends ORM
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private int $idEmpresa;
+    private int $idSubempresa = 0;
 
     /**
      * @param Request|null $request
@@ -33,6 +34,7 @@ final class ClienteModel extends ORM
     ) {
         parent::__construct();
         $this->validarEmpresa('empresa');
+        $this->validarSubempresa();
         $this->validarCampoDoRequest();
     }
 

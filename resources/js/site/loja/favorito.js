@@ -1,11 +1,17 @@
 window.addEventListener('load', () => {
     const blocoFavorito = $('#bloco_favorito');
-    const blocoFavoritoLista = $('#bloco_favorito .bloco_parceiro');
+    const blocoFavoritoLista = $('#bloco_parceiro_favorito');
     const blocoFavoritoFaq = $('#bloco_favorito_faq');
-    const botaoFavorito = $$('.botao_favorito');
-    botaoFavorito.forEach(botao => {
-        botao.addEventListener('click', () => {
-            executarFavorito(botao);
+    const blocoParceiro = $$('.bloco_geral_article');
+    blocoParceiro.forEach(botao => {
+        botao.addEventListener('click', e => {
+            const target = e.target;
+            const botaoFavorito = target.classList.contains('botao_favorito')
+                ? target
+                : target.closest('.botao_favorito');
+            if (botaoFavorito) {
+                executarFavorito(botaoFavorito);
+            }
         });
     });
 

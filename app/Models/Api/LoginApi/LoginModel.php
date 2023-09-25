@@ -13,6 +13,7 @@ use Modules\Telefone;
 use Helpers\ListaHelper;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
+use App\Classes\UsuarioCliente\Hash;
 use App\Models\Api\LoginApi\Trait\LinkTrait;
 use App\Models\Api\LoginApi\Trait\UsuarioTrait;
 use App\Models\Api\LoginApi\Trait\TermoLgpdTrait;
@@ -181,6 +182,7 @@ final class LoginModel extends Entity
             'salavip'          => $salavip,
             'grupo'            => $grupo,
             'hash'             => $this->hash,
+            'hash_tipo'        => Hash::LOGIN,
             'hash_data'        => agora(),
             'status'           => 1
         ]);

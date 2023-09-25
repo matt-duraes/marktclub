@@ -1,0 +1,46 @@
+.bloco_item_lista
+    width: 100%
+    .scroll
+        width: 100%
+        overflow-x: auto
+        scrollBarHide()
+        padding: 20px 0
+    .conteudo
+        width: 100%
+        flexRow()
+        position: relative
+    .descricao_item_lista
+        width: 25%
+        min-width: 200px
+        margin-right: 20px
+        flexCol()
+        blocoShadow()
+        position: relative
+        align-items: center
+        &:last-child
+            margin-right: 0
+    .descricao_item_lista p
+        texto()
+        text-align: center
+        margin-top: 20px
+    .descricao_item_lista .imagem_redonda
+        width: 40px
+        height: 30px
+        flexCenter()
+        font-size: 1.6rem
+        fill: $corPretoBranco
+        color: $corPretoBranco
+    .bola
+        width: 50px
+        height: 50px
+        border-radius: 50%
+        z-index: 2
+        position: absolute
+        right: -34px
+        top: 0
+        bottom: 0
+        margin: auto
+        background-color: $corBrancoCinza
+        fill: $corPretoBranco
+        boxShadow()
+        flexCenter()

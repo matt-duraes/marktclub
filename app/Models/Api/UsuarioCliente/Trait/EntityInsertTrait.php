@@ -3,7 +3,6 @@
 namespace App\Models\Api\UsuarioCliente\Trait;
 
 use Modules\Botao;
-use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Status;
 
 trait EntityInsertTrait
@@ -14,23 +13,10 @@ trait EntityInsertTrait
         $this->mensagem = new Botao('sim');
 
         $this->validarCamposObrigatorioNoInsert();
-        $this->setarSubempresa();
 
         if (!$this->request->existe('status') || empty($this->request->status)) {
             $this->status = new Status(Status::INATIVO);
         }
-    }
-
-    private function setarSubempresa()
-    {
-        if (empty($this->subempresa)) {
-            return;
-        }
-        $idSubempresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->subempresa);
-        if (empty($idSubempresa)) {
-            mensagemErro('Campo inválido!', 'Não foi encontrado nenhuma subempresa pelo código enviado', status: 404);
-        }
-        $this->id_admin_subempresa = $idSubempresa;
     }
 
     private function validarCamposObrigatorioNoInsert()

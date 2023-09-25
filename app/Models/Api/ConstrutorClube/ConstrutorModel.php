@@ -64,7 +64,7 @@ final class ConstrutorModel extends ORM implements ModelListarInterface
     {
         $where = [];
         if (!empty($this->pesquisa)) {
-            $where[] = ['titulo', 'like', '%"' . $this->pesquisa . '"%'];
+            $where[] = ['titulo', 'like', '%' . $this->pesquisa . '%'];
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];

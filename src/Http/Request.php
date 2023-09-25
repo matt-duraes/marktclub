@@ -427,13 +427,13 @@ final class Request extends Psr7Request
         }
 
         $dados = [];
-        foreach ($this->dados as $campo => $valor) {
-            if (in_array($campo, $lista)) {
-                $dados[$campo] = $valor;
+        foreach ($lista as $indice) {
+            if (array_key_exists($indice, $this->dados)) {
+                $dados[$indice] = $this->dados[$indice];
             } elseif ($erro) {
                 throw new Excecao(
                     'Indice não encontrado!',
-                    'O indice "' . $campo . '" não existe na requisição enviada.'
+                    'O indice "' . $indice . '" não existe na requisição enviada.'
                 );
             }
         }

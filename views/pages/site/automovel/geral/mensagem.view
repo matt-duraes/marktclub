@@ -1,4 +1,4 @@
-<form id="form_solicitacao_automovel" class="busca_automovel form_geral" method="post">
+<form id="form_solicitacao_automovel" class="busca_automovel form_geral cinza" method="post">
     <h1>Não achou o que procura?</h1>
     <p>Nos mande uma mensagem com os dados do veículo que iremos tentar achar o melhor preço para você</p>
     <div class="bloco">

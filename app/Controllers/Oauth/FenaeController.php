@@ -43,16 +43,21 @@ final class FenaeController extends Controller
             $this->limparTemporario();
             return new Response(url: $Token->pegarLinkErro());
         }
-        $usuario = $Token->pegarUsuario();
-        $Login = new SalvarModel(
-            empresa: $this->idEmpresa,
-            nome: $usuario['nome'],
-            cpf: $usuario['cpf'],
-            email: $usuario['email'],
-            grupo: $usuario['grupo']
-        );
-        $this->limparTemporario();
-        return new Response(url: $Login->pegarLink());
+        try {
+            $usuario = $Token->pegarUsuario();
+            $Login = new SalvarModel(
+                empresa: $this->idEmpresa,
+                nome: $usuario['nome'],
+                cpf: $usuario['cpf'],
+                email: $usuario['email'],
+                grupo: $usuario['grupo']
+            );
+            $this->limparTemporario();
+            return new Response(url: $Login->pegarLink());
+        } catch (\Throwable) {
+            $this->limparTemporario();
+            return new Response(url: env('FENAE_CLUBE') . '?erro=login-erro');
+        }
     }
 
     /**

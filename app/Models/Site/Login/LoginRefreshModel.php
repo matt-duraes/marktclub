@@ -7,7 +7,6 @@ use Helpers\CurlHelper;
 final class LoginRefreshModel
 {
     private array $token;
-    private array $clube;
 
     public function __construct(
         private string $refreshToken
@@ -16,7 +15,7 @@ final class LoginRefreshModel
             mensagemStatus(401);
         }
         $this->gerarRefreshToken();
-        new AuthModel($this->token, $this->clube, true);
+        new AuthModel($this->token, true);
     }
 
     private function gerarRefreshToken()
@@ -34,11 +33,9 @@ final class LoginRefreshModel
         if (
             !is_array($dado) ||
             !array_key_exists('dado', $dado) ||
-            !array_key_exists('token', $dado['dado']) ||
-            !array_key_exists('clube', $dado['dado'])) {
+            !array_key_exists('token', $dado['dado'])) {
             mensagemStatus(401);
         }
         $this->token = $dado['dado']['token'];
-        $this->clube = $dado['dado']['clube'];
     }
 }

@@ -10,6 +10,7 @@
         "ext-openssl": "*",
         "ext-pdo": "*",
         "box/spout": "^3",
+        "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4",
         "firebase/php-jwt": "^6",
         "google/apiclient": "^2",

@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
 
             Alerta.mensagem(
                 'Indicação realizada',
-                `Você indica a empresa que gostaria de ter desconto exclusivo, e nós negociaremos o melhor para você!
+                `Você indica a empresa que gostaria de ter desconto exclusivo e nós negociaremos o melhor para você!
                 <br> Esse processo completo leva em torno de 90 dias.
                 <br> Para garantirmos exclusividade e segurança, fazemos pesquisa sobre o histórico no Reclame Aqui,
                 aprovação das condições de desconto e análise jurídica, mas não se preocupe que avisaremos por e-mail a finalização do processo.`,

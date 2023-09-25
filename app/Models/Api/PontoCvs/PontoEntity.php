@@ -204,9 +204,9 @@ final class PontoEntity extends Entity
             mensagem: "Olá <strong>Fabio Gomes</strong>, um novo voucher foi solicitado no painel!<br>
             O Usuário de Matrícula: $matricula, solicitou a quantia de $this->ponto_solicitado pontos.",
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
-            logo: $Construtor->logo,
+            logo: $Construtor->logo_principal,
             acao: 'Voucher',
-            cor: $Construtor->cor
+            cor: $Construtor->cor_principal
         );
         $EmailCvs->sendGrid($assunto, 'Fabio Gomes', $email, deNome: $titulo);
 
@@ -216,9 +216,9 @@ final class PontoEntity extends Entity
             assunto: 'Você Solicitou um novo Voucher',
             mensagem: 'Olá <strong>' . $this->nome . '</strong>, recebemos sua solicitação de um novo voucher! Logo estarão disponíveis na aba histórico as informações: número do cartão, código e vencimento, para que possa realizar as suas compras. Pedimos que acompanhe pela plataforma.',
             posMensagem: 'Em caso de dúvidas, entre em contato.',
-            logo: $Construtor->logo,
+            logo: $Construtor->logo_principal,
             acao: 'Voucher',
-            cor: $Construtor->cor
+            cor: $Construtor->cor_principal
         );
         $EmailUsuario->sendGrid('Voucher Solicitado', $this->nome, $this->email->email(), deNome: $titulo);
     }

@@ -32,6 +32,16 @@ abstract class Order implements OrderInterface
         return $this;
     }
 
+    /**
+     * Pegar o nome da ordem setada
+     *
+     * @return string
+     */
+    public function nome(): string
+    {
+        return $this->lista[$this->valor]['nome'] ?? $this->valor;
+    }
+
     // doc
     /**
      * Qual tabela pertence a ordem

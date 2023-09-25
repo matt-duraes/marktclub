@@ -38,8 +38,8 @@ trait EmailTrait
                 da América latina!',
             botaoTexto: 'ACESSAR SITE',
             botaoLink: $Construtor->link_clube,
-            logo: $Construtor->logo,
-            cor: $Construtor->cor
+            logo: $Construtor->logo_principal,
+            cor: $Construtor->cor_principal
         );
         $Email->sendGrid($titulo, $nome, $email);
     }
@@ -64,8 +64,8 @@ trait EmailTrait
         $Email->mensagem(
             titulo: $titulo,
             mensagem: $mensagem,
-            logo: $Construtor->logo,
-            cor: $Construtor->cor
+            logo: $Construtor->logo_principal,
+            cor: $Construtor->cor_principal
         );
         $Email->sendGrid($titulo, $nome, $email);
     }

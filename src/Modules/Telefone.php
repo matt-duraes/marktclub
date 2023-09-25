@@ -94,6 +94,6 @@ final class Telefone implements ModuleInterface
      */
     public function numero(): string|int
     {
-        return (int)$this->telefone;
+        return !empty($this->telefone) ? (int)$this->telefone : '';
     }
 }

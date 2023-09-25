@@ -62,7 +62,7 @@ final class PerfilController extends Controller
 
         return view('perfil.carteira', [
             'dado' => $dado,
-            'logo' => defined('CLUBE_LOGO')
+            'logo' => defined('CLUBE_LOGO_PRINCIPAL')
         ]);
     }
 
@@ -96,8 +96,6 @@ final class PerfilController extends Controller
     */
     public function postSocial(Request $request)
     {
-        if ($request->acao == 'imagem') {
-            return (new DadosModel())->postImagemSocial($request);
-        }
+        return (new DadosModel())->postImagemSocial($request);
     }
 }

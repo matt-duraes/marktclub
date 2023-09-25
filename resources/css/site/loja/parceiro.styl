@@ -35,12 +35,15 @@
         width: 100%
         position: relative
         flexCenter()
+        background-color: #FFF
     figure.logo
+        border-radius: 5px
+        background: #FFF
         height: 140px
         padding: 20px
     figure.completo
         height: 180px
-        padding: 20px 20px 0 20px
+        padding: 20px
     figure.logo img
         max-width: 100%
         max-height: 100px
@@ -59,13 +62,13 @@
     p
         font-size: 1.5rem
         line-height: 1.5em
-        color: #888
+        color: $corCinzaCinza
         margin-bottom: 10px
     p.destaque
         font-weight: bold
     span
         font-size: 1.2rem
-        color: #888
+        color: $corCinzaCinza
         margin-top: 2px
     p.valor
         margin-bottom: 0
@@ -103,7 +106,7 @@
         width: 30px
         height: 30px
         flexCenter()
-        fill: #666
+        fill: $corCinzaCinza
     .bloco_favorito
         width: 40px
         height: 40px
@@ -125,6 +128,18 @@
         display: none
     .bloco_favorito.favorito_marcado .marcado
         display: flex
+
+.parceiro_esqueleto
+    position: relative
+    figure .esqueleto
+        width: 120px
+        height: 120px
+    p
+        max-width: 100px
+        height: 20px
+    .bloco_estado
+        max-width: 150px
+        height: 30px
 
 @media screen and (max-width:900px)
     .bloco_geral_article

@@ -1,0 +1,13 @@
+<article class="parceiro parceiro_esqueleto">
+    <figure class="logo item_logo"><div class="esqueleto"></div></figure>
+    <header>
+        <h1 class="item_titulo esqueleto"></h1>
+    </header>
+    <p class="item_desconto esqueleto"></p>
+
+    <div class="bloco_estado esqueleto">
+    </div>
+
+    <div class="bloco_favorito esqueleto">
+    </div>
+</article>

@@ -2,7 +2,7 @@
 
 $estado = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
-return [
+$dado = [
     [
         'id'                  => 2,
         'cod'                 => '890713a200a9e45aa85e2ae67aa41e74',
@@ -590,3 +590,31 @@ return [
         'status'              => 4
     ],
 ];
+
+for ($i = 1; $i < 100; ++$i) {
+    $dado[] = [
+        'cod'                 => uuid(),
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1"]',
+        'titulo'              => 'Parceiro Automático ' . $i,
+        'url'                 => 'parceiro-automatico-' . $i,
+        'imagem'              => [
+            '6abfbe8cb35fc871001df2950ed9989d.png', 'c700e81160f65b498eeb4bc0190f01de.png',
+            '4e9d9c62b31e9644666cffa1429bee19.jpg', '73a15d1ae615bf0e6371a4e42972ae4a.jpg',
+            'ec47036a3f567706e6df17a0f6d1959a.jpg', 'a82055f1446026f37fda574d337fcf06.png',
+            '52cfc6409e8ecc3db661829269b0020b.png'
+        ][rand(0, 6)],
+        'site'                => 'https://google.com',
+        'desconto'            => 'Desconto de até 6%',
+        'desconto_texto'      => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.',
+        'procedimento_texto'  => 'Para aplicação do benefício, basta clicar em abrir site no botão ao lado e seguir as instruções.',
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
+        'estabelecimento'     => 1,
+        'procedimento'        => 1,
+        'status'              => 4
+    ];
+}
+
+return $dado;

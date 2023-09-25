@@ -52,6 +52,8 @@ final class ClubeMiddleware extends ApiHelper
         define('DISPOSITIVO_TABLET', $dispositivo->tablet);
         define('DISPOSITIVO_VERSAO', $dispositivo->versao);
         define('DISPOSITIVO_CRHOME', strcasecmp(DISPOSITIVO_NAVEGADOR, 'Chrome') == 0);
+        define('DISPOSITIVO_ANDROID', strcasecmp(DISPOSITIVO_OS, 'Android') == 0);
+        define('DISPOSITIVO_IOS', strcasecmp(DISPOSITIVO_OS, 'Ios') == 0);
     }
 
     private function buscarClube()
@@ -89,11 +91,14 @@ final class ClubeMiddleware extends ApiHelper
     {
         $clube = sessao('CLUBE');
 
-        define('CLUBE_LOGO', $clube->logo);
+        define('CLUBE_LOGO_PRINCIPAL', $clube->logo_principal);
+        define('CLUBE_LOGO_SECUNDARIA', !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal);
+        define('CLUBE_LOGO_CLASSE', empty($clube->logo_secundaria) ? 'cor_fundo' : '');
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_TITULO', $clube->titulo);
         define('CLUBE_ID', $clube->id);
-        define('CLUBE_COR', $clube->cor);
+        define('CLUBE_COR_PRINCIPAL', $clube->cor_principal);
+        define('CLUBE_COR_SECUNDARIA', $clube->cor_secundaria);
 
         define('EMPRESA_ID', $clube->empresa);
 
@@ -111,6 +116,7 @@ final class ClubeMiddleware extends ApiHelper
         define('API', $clube->api);
         define('CHAT', $clube->chat);
         define('ADMINISTRADO', $clube->administrado);
+        define('TIPO_ATIVACAO', $clube->tipo_ativacao);
 
         $pagina = $clube->menu;
         define('MENU_ACESSO_RAPIDO', $pagina->acesso_rapido);
@@ -137,8 +143,13 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_HISTORICO', $pagina->historico);
         define('MENU_DEPENDENTE', $pagina->dependente);
         define('MENU_CARTEIRA', $pagina->carteira);
+        define('MENU_SAMSUNG', $pagina->samsung);
+        define('MENU_CORRIDA', $pagina->corrida);
+        define('MENU_SHOW_NACIONAL', $pagina->show_nacional);
+        define('MENU_SHOW_INTERNACIONAL', $pagina->show_internacional);
         define('MENU_PRIMEIRO_ACESSO', $pagina->primeiro_acesso);
         define('MENU_FAQ', $pagina->faq);
+        define('MENU_TEMA', $pagina->tema);
         define('MENU_COMO_FUNCIONA', $pagina->como_funciona);
         define('MENU_MEU_PARCEIRO', $pagina->meu_parceiro);
         define('MENU_SAIR', $pagina->sair);
@@ -147,6 +158,7 @@ final class ClubeMiddleware extends ApiHelper
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);
         define('LINK_LOGIN', $clube->link_login);
+        define('LINK_CADASTRO', $clube->link_cadastro);
         define('LINK_ODONTOLOGICO', $clube->link_odontologico);
         define('MENU_BAIXAR_APP', !empty(LINK_APP_ANDROID) || !empty(LINK_APP_IOS));
     }

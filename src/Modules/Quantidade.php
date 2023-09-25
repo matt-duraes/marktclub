@@ -17,7 +17,17 @@ final class Quantidade implements ModuleInterface
 
     public function padrao()
     {
-        return 20;
+        return 24;
+    }
+
+    /**
+     * Pega o número passado ou o padrão casa o número seja vazio ou inválido
+     *
+     * @return int
+     */
+    public function numeroPadrao(): int
+    {
+        return $this->valido() ? $this->numero() : $this->padrao();
     }
 
     /**
@@ -69,6 +79,6 @@ final class Quantidade implements ModuleInterface
      */
     public function numero(): int|string
     {
-        return (int)$this->numero;
+        return !empty($this->numero) ? (int)$this->numero : '';
     }
 }

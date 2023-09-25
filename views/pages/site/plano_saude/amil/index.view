@@ -3,7 +3,7 @@
 <div class="bloco_saude">
     <div class="bloco_plano_saude">
         <figure>
-            <img src="https://clube.marktclub.com.br/images/logo_amil.png" alt="">
+            <img src="{!!LINK!!}/images/site/logo_amil.png" alt="">
         </figure>
         <div class="bloco_conteudo">
             <h1>AMIL</h1>

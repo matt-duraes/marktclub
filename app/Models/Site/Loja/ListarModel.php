@@ -3,36 +3,27 @@
 namespace App\Models\Site\Loja;
 
 use stdClass;
-use Modules\Botao;
-use Modules\Inteiro;
 use Helpers\ListaHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Site\ListarInterface;
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Estabelecimento;
 
 final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
     private array $mapa = [];
+    private array $where = [];
 
     public function __construct(
-        private Inteiro $pagina = new Inteiro(1),
-        private Inteiro $quantidade = new Inteiro(50),
-        private Botao $favorito = new Botao(Botao::NAO),
         private Tipo $tipo = new Tipo(),
-        private Ordem $ordem = new Ordem(),
-        private Categoria $categoria = new Categoria(null),
-        private ?string $subcategoria = null,
-        private Estabelecimento $estabelecimento = new Estabelecimento(null),
-        private ?string $pesquisa = null,
-        private ?float $latitude = null,
-        private ?float $longitude = null,
-        private Botao $acessado = new Botao(Botao::NAO)
+        private ?FiltroModel $Filtro = null
     ) {
         parent::__construct();
+        if ($Filtro instanceof FiltroModel) {
+            $this->where = $this->Filtro->pegarWhere();
+        }
+        $this->setarWhere();
     }
 
     /*
@@ -44,14 +35,20 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     {
         $dado = $this
             ->validar(login: true)
-            ->json($this->pegarWhere())
+            ->json($this->where)
             ->get('/parceiro-loja')
             ->object();
+
+        $lista = $this->montarLista($dado->dado->lista ?? []);
+        $paginacao = $dado->dado->pagina ?? [];
+        $registro = $dado->dado->registro ?? [];
+
         return (object)[
             'tipo'      => $this->tipo->indice(),
-            'lista'     => $this->montarLista($dado->dado->lista ?? []),
+            'lista'     => $lista,
             'mapa'      => $this->mapa,
-            'paginacao' => $dado->dado->pagina ?? [],
+            'paginacao' => $paginacao,
+            'registro'  => $registro
         ];
     }
 
@@ -104,48 +101,26 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         return $retorno;
     }
 
-    private function pegarWhere()
+    private function setarWhere()
     {
-        $pagina = $this->pagina;
-        $quantidade = $this->quantidade;
         $where = [
-            'status'     => Status::CONCLUIDO,
-            'pagina'     => $pagina->valido() ? $pagina->numero() : 1,
-            'quantidade' => $quantidade->valido() ? $quantidade->numero() : 20
+            'status' => Status::CONCLUIDO,
+            'tipo'   => $this->tipo->indice()
         ];
-        $favorito = $this->favorito;
-        if ($favorito->valido() && $favorito->valor() == Botao::SIM) {
-            $where['favorito'] = 'sim';
+        $where = array_merge($where, $this->where);
+        if (!array_key_exists('pagina', $where)) {
+            $where['pagina'] = 1;
         }
-        $ordem = $this->ordem;
-        if ($ordem->valido()) {
-            $where['ordem'] = $ordem->valor();
+        if (!array_key_exists('quantidade', $where)) {
+            $where['quantidade'] = 24;
         }
-        $tipo = $this->tipo;
-        if ($tipo->valido()) {
-            $where['tipo'] = $tipo->numero();
+        if (array_key_exists('acessado', $where)) {
+            $where['mais_acessado'] = $where['acessado'];
+            unset($where['acessado']);
         }
-        if ($this->categoria->valido()) {
-            $where['categoria'] = $this->categoria->indice();
+        if (!array_key_exists('ordem', $where)) {
+            $where['ordem'] = (new Ordem(Ordem::FAVORITO))->valor();
         }
-        if (!empty($this->subcategoria)) {
-            $where['subcategoria'] = $this->subcategoria;
-        }
-        if ($this->estabelecimento->valido()) {
-            $where['estabelecimento'] = $this->estabelecimento->indice();
-        }
-        if (!empty($this->pesquisa)) {
-            $where['pesquisa'] = $this->pesquisa;
-        }
-        if (!empty($this->latitude)) {
-            $where['latitude'] = $this->latitude;
-        }
-        if (!empty($this->longitude)) {
-            $where['longitude'] = $this->longitude;
-        }
-        if ($this->acessado->valido() && $this->acessado->valor() == Botao::SIM) {
-            $where['mais_acessado'] = 'sim';
-        }
-        return $where;
+        $this->where = $where;
     }
 }

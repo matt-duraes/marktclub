@@ -2,10 +2,11 @@
 
 namespace App\Models\Oauth\Usuario;
 
-use App\Classes\ComercialEmpresa\Helper;
-use App\Models\Api\AdminConstrutor\ConstrutorEntity;
-use Erro\Excecao;
 use ORM\ORM;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use App\Classes\Geral\Status;
+use App\Classes\UsuarioCliente\Hash;
 
 final class SalvarModel extends ORM
 {
@@ -47,12 +48,13 @@ final class SalvarModel extends ORM
      */
     private function pegarLinkClube(): void
     {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar([
-            ['empresa', $this->empresa],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ]);
-        $this->linkClube = $Construtor->link_clube;
+        $this->linkClube = (new OrmHelper(TABELA_CONSTRUTOR_CLUBE, livre: true))->pegarCampoPor(
+            campo: 'link_clube',
+            where: [
+                ['id_admin_empresa', $this->empresa],
+                ['status', (new Status(Status::ATIVO))->numero()]
+            ]
+        );
     }
 
     /**
@@ -86,6 +88,7 @@ final class SalvarModel extends ORM
             'grupo'            => $this->grupo,
             'hash'             => $this->hash,
             'hash_data'        => agora(),
+            'hash_tipo'        => Hash::LOGIN,
             'data_atualizacao' => $agora,
             'status'           => 1
         ];
@@ -123,6 +126,7 @@ final class SalvarModel extends ORM
             'data_ativacao'    => $agora,
             'data_dado'        => $hoje,
             'hash'             => $this->hash,
+            'hash_tipo'        => Hash::LOGIN,
             'hash_data'        => $agora,
             'status'           => 1
         ])->insert();

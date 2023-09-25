@@ -79,9 +79,9 @@ final class Contar implements ModuleInterface
      *
      * @return int
      */
-    public function numero(): int
+    public function numero(): int|string
     {
-        return (int)$this->numero;
+        return !empty($this->numero) ? (int)$this->numero : '';
     }
 
     // doc

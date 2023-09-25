@@ -28,7 +28,7 @@ class ApiHelper extends CurlHelper
         parent::__construct(env('API_LINK', LINK_API));
 
         if (!empty($scope)) {
-            $this->autenticar($scope);
+            $this->autenticar($scope . ' admin:chave_publica admin:chave_privada');
         } elseif (is_bool($token) && $token) {
             $this->header(['Authorization' => 'Bearer ' . sessao('TOKEN')]);
         } elseif (!empty($token)) {

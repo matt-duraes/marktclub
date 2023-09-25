@@ -2,22 +2,31 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\UsuarioCliente\Helper;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\UsuarioCliente\AppleModel;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\UsuarioCliente\ClienteModel;
-use App\Models\Api\UsuarioCliente\DeletarModel;
-use App\Models\Api\UsuarioCliente\DownloadModel;
-use Controller\Controller;
+use Modules\Cpf;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use System\Interface\ControllerAtualizarInterface;
+use Modules\Senha;
+use Modules\Inteiro;
+use Controller\Controller;
+use App\Classes\UsuarioCliente\Helper;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Api\UsuarioCliente\AppleModel;
+use App\Models\Api\UsuarioCliente\ClienteModel;
+use App\Models\Api\UsuarioCliente\DeletarModel;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\UsuarioCliente\DownloadModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
+use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
+use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
+use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
+use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
 
 final class UsuarioClienteController extends Controller implements
     ControllerSalvarInterface,
@@ -56,7 +65,7 @@ final class UsuarioClienteController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Usuario, lista: [
                 'Empresa' => ['id', 'nome_fantasia'],
-                'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
+                'subempresa', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
                 'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
                 'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
@@ -160,5 +169,63 @@ final class UsuarioClienteController extends Controller implements
     {
         new AppleModel();
         return mensagemSucesso(['id' => uuid()], status: 201);
+    }
+
+    public function postAtivar(Request $request): Response
+    {
+        $Ativar = new BuscarModel(
+            chave: new TipoAtivacao($request->chave),
+            valor: $request->valor,
+            empresa: $request->empresa
+        );
+
+        return mensagemSucesso([
+            'id'   => uuid(),
+            'hash' => $Ativar->hash,
+            'cpf'  => $Ativar->cpf->numero()
+        ], 201);
+    }
+
+    public function putAtivar(Request $request): Response
+    {
+        new AtivarModel($request);
+        return new Response(status: 204);
+    }
+
+    public function getSenha(Request $request)
+    {
+        $Usuario = new EnviarCodigoModel(
+            empresa: $request->empresa,
+            cpf: new Cpf($request->cpf)
+        );
+
+        return mensagemSucesso([
+            'id'      => uuid(),
+            'usuario' => $Usuario->id
+        ]);
+    }
+
+    public function postSenha(Request $request)
+    {
+        $Usuario = new ValidarCodigoModel(
+            id: $request->usuario,
+            codigo: new Inteiro($request->codigo)
+        );
+
+        return mensagemSucesso([
+            'id'      => uuid(),
+            'hash'    => $Usuario->hash
+        ]);
+    }
+
+    public function putSenha(Request $request)
+    {
+        new AlterarSenhaModel(
+            senha: new Senha($request->senha),
+            id: $request->usuario,
+            hash: $request->hash,
+        );
+
+        return new Response(status: 204);
     }
 }

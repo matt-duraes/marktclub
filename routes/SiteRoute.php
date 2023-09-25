@@ -5,6 +5,18 @@ use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
 
 Route
+    ::nome('thema')
+    ::controller(App\Controllers\Site\TemaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/tema');
+        Route
+            ::nome('salvar')
+            ::request(['tema'])
+            ::post('/tema');
+    });
+Route
     ::nome('faqLogin')
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::middleware(ClubeMiddleware::class, 'buscar')
@@ -69,26 +81,57 @@ Route
     ::middleware(AuthMiddleware::class, 'deslogado')
     ::controller(App\Controllers\Site\LoginController::class)
     ::grupo(function () {
+        // LOGIN
         Route
             ::nome('index')
             ::view('/login');
         Route
             ::nome('login')
             ::view('/login/login');
+        // SENHA
         Route
-            ::nome('buscarConta')
-            ::view('/login/buscar-conta');
+            ::nome('senha')
+            ::view('/login/senha');
         Route
-            ::nome('buscarConta')
-            ::request(['hash_validacao_captcha', 'usuario'])
-            ::post('/login/buscar-conta');
+            ::nome('senhaBuscar')
+            ::request(['cpf'])
+            ::post('/login/senha-buscar');
         Route
-            ::nome('ativar')
-            ::view('/login/ativar');
+            ::nome('senhaValidar')
+            ::request(['codigo', 'usuario'])
+            ::post('/login/senha-validar');
         Route
-            ::nome('ativar')
-            ::request(['hash_validacao_captcha', 'hash', 'nome', 'email'])
-            ::post('/login/ativar');
+            ::nome('senhaAlterar')
+            ::request(['cpf', 'senha', 'usuario', 'hash'])
+            ::post('/login/senha-alterar');
+        // ATIVAR
+        Route
+            ::nome('ativarBuscar')
+            ::view('/login/ativar-buscar');
+        Route
+            ::nome('ativarBuscar')
+            ::request(['busca'])
+            ::post('/login/ativar-buscar');
+        Route
+            ::nome('ativarSalvar')
+            ::request(['hash', 'cpf'])
+            ::view('/login/ativar-salvar');
+        Route
+            ::nome('ativarSalvar')
+            ::request([
+                'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
+                'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
+                'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
+                'endereco_estado', 'endereco_cidade'
+            ])
+            ::post('/login/ativar-salvar');
+        // APP
+        Route
+            ::nome('app')
+            ::view('/login/app');
+        Route
+            ::nome('api')
+            ::view('/login/api/{hash}');
     });
 
 Route
@@ -110,6 +153,23 @@ Route
         Route
             ::nome('index')
             ::view('/');
+        route
+            ::nome('buscar')
+            ::post('/home/buscar');
+    });
+Route
+    ::nome('analytics')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\AnalyticsController::class)
+    ::grupo(function () {
+        Route
+            ::nome('pagina')
+            ::request(['uri', 'vinculo'])
+            ::post('/a/pagina');
+        Route
+            ::nome('click')
+            ::post('/a/acao');
     });
 Route
     ::nome('historico')
@@ -151,6 +211,18 @@ Route
             ::nome('detalhe')
             ::view('/cupom/{url}');
     });
+
+Route
+    ::nome('samsung')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\SamsungController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/samsung');
+    });
+
 Route
     ::nome('cashback')
     ::middleware(ClubeMiddleware::class, 'buscar')
@@ -213,6 +285,27 @@ Route
     });
 
 Route
+    ::nome('easylive')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\EasyliveController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::request(['tipo'])
+            ::post('/easylive/listar');
+        Route
+            ::nome('corrida')
+            ::view('/corrida');
+        Route
+            ::nome('nacional')
+            ::view('/show-nacional');
+        Route
+            ::nome('internacional')
+            ::view('/show-internacional');
+    });
+
+Route
     ::nome('loja')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -220,11 +313,21 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::request(['!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem'])
+            ::request([
+                '!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem',
+                '!latitude', '!longitude', '!acessado', '!favorito', '!cidade'
+            ])
             ::get('/convenios/buscar');
         Route
             ::nome('index')
             ::view('/convenios');
+        Route
+            ::nome('listar')
+            ::request([
+                '!pagina', 'tipo', '!latitude', '!longitude', '!acessado', '!favorito', 'estado', 'categoria',
+                'subcategoria', 'estabelecimento', 'pesquisa', 'ordem', 'cidade'
+            ])
+            ::post('/convenios/listar');
         Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
@@ -473,6 +576,19 @@ Route
             ::nome('index')
             ::view('/sos-mulher');
     });
+
+Route
+    ::nome('endereco')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\EnderecoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::request(['id', 'tipo'])
+            ::post('/endereco');
+    });
+
 Route
     ::nome('site')
     ::middleware(ClubeMiddleware::class, 'buscar')
@@ -542,7 +658,7 @@ Route
             ::post('/perfil/dependente-deletar');
         Route
             ::nome('social')
-            ::request(['id', 'token', 'rede', 'code', 'acao'])
+            ::request(['code'])
             ::post('/perfil/vincular-google');
         Route
             ::nome('carteira')

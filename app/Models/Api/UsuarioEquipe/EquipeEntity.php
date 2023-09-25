@@ -11,6 +11,7 @@ use Modules\Email;
 use Modules\Senha;
 use Modules\Genero;
 use Modules\Telefone;
+use Helpers\OrmHelper;
 use Helpers\UploadHelper;
 use App\Classes\UsuarioEquipe\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -33,7 +34,7 @@ final class EquipeEntity extends Entity
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao',
         'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
-        'id_facebook', 'id_google', 'marktclub', 'gerente', 'admin'
+        'id_facebook', 'id_google', 'marktclub', 'gerente', 'admin', 'id_admin_subempresa'
     ];
     protected array $ormSalvar = [
         'nome_real'     => '->nome',
@@ -41,7 +42,7 @@ final class EquipeEntity extends Entity
         'salt'          => '->senha',
         'nome_perfil'   => '->perfil',
         'email_trabalho', 'email_pessoal', 'genero', 'telefone_pessoal', 'telefone_trabalho', 'status',
-        'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'marktclub', 'permissao', 'admin'
+        'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'marktclub', 'permissao', 'admin', 'id_admin_subempresa'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
@@ -69,6 +70,7 @@ final class EquipeEntity extends Entity
     public Botao $primeiro_acesso;
     public array $permissao;
     public int $id_admin_empresa;
+    public int $id_admin_subempresa;
     public Email $email_trabalho;
     public Email $email_pessoal;
     public Telefone $telefone_pessoal;
@@ -88,6 +90,7 @@ final class EquipeEntity extends Entity
     public string $id_google;
     public string $id_facebook;
     public EmpresaEntity $Empresa;
+    public string $subempresa;
     private int $idEmpresa;
 
     public function __construct(
@@ -130,6 +133,18 @@ final class EquipeEntity extends Entity
             $this->imagem_facebook,
             $this->imagem_google
         );
+        $this->setarUuidEmpresaPeloId('id_admin_subempresa');
+    }
+
+    private function setarUuidEmpresaPeloId($campo)
+    {
+        $id = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarUuidPeloId($this->$campo);
+        if ($campo == 'id_admin_subempresa') {
+            $this->subempresa = $id;
+            return;
+        }
+        $this->subempresa = $id;
     }
 
     /*
@@ -156,6 +171,30 @@ final class EquipeEntity extends Entity
         } elseif ($this->propriedadeExiste('senha') && !$this->senha->vazio() && !$this->senha->valido()) {
             mensagemErro('Senha inválida!', $this->senha->mensagem());
         }
+
+        $this->setarIdEmpresaPeloUuid('subempresa');
+    }
+
+    private function setarIdEmpresaPeloUuid($campo)
+    {
+        if (!$this->propriedadeExiste($campo)) {
+            return;
+        } elseif (empty($this->$campo)) {
+            if ($campo == 'subempresa') {
+                $this->id_admin_subempresa = 0;
+                return;
+            }
+            $this->id_admin_empresa = 0;
+            return;
+        }
+        $mensagemCampo = $campo == 'empresa' ? 'empresa' : 'subempresa';
+        $id = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarIdPeloUuid($this->$campo, 'Não foi possível pegar a ' . $mensagemCampo . ' pelo código enviado.');
+        if ($campo == 'subempresa') {
+            $this->id_admin_subempresa = $id;
+            return;
+        }
+        $this->id_admin_empresa = $id;
     }
 
     /*
