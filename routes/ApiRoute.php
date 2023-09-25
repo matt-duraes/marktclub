@@ -999,7 +999,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!categoria', '!empresa', '!status'
             ], 'json')
             ::get('/parceiro-cashback');
 

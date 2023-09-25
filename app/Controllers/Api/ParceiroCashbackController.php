@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\ParceiroCashback\Categoria;
 use ORM\Entity;
 use Http\Request;
 use Http\Response;
@@ -32,7 +33,9 @@ final class ParceiroCashbackController extends Controller implements
             quantidade: new Quantidade($request->quantidade),
             empresa: $request->empresa,
             status: new Status($request->status),
-            ordem: new Ordem($request->ordem)
+            ordem: new Ordem($request->ordem),
+            pesquisa: $request->pesquisa,
+            categoria: new Categoria($request->categoria)
         );
         return mensagemSucesso($Cashback->pegarRetorno());
     }

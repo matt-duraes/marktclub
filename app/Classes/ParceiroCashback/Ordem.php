@@ -10,7 +10,7 @@ final class Ordem extends Order
         protected ?string $valor = null
     ) {
         $this->tabela(TABELA_PARCEIRO_CASHBACK);
-        $this->campo('nome-a-z', 'Nome A-Z', 'nome', 'ASC');
-        $this->campo('nome-z-a', 'Nome Z-A', 'nome', 'DESC');
+        $this->campo('nome-a-z', 'Nome A-Z', 'titulo', 'ASC');
+        $this->campo('nome-z-a', 'Nome Z-A', 'titulo', 'DESC');
     }
 }
