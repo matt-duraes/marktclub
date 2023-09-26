@@ -4,12 +4,12 @@
     <div class="conteudo_geral">
         <section class="bloco_coluna">
             <header>
-                <h1>Abordagem <span>({!!count($abordagem)!!})</span></h1>
+                <h1>Pesquisa <span>({!!count($pesquisa)!!})</span></h1>
                 <div class="flex"></div>
                 <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
             </header>
-            <div class="conteudo" id="bloco_abordagem" data-prospeccao="abordagem">
-                @ifforeach($abordagem as $r):
+            <div class="conteudo" id="bloco_pesquisa" data-prospeccao="pesquisa">
+                @ifforeach($pesquisa as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
                 <div class="tarefa_zero">Sem itens<br> no momento</div>
