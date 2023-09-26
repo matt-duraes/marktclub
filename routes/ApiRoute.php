@@ -1474,15 +1474,17 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:salvar'])
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
-                '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone', '!responsavel_cpf',
-                '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
+                '!site', '!responsavel_nome', '!responsavel_cargo', '!responsavel_email', '!responsavel_telefone',
+                '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
                 '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
                 '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
-                '!contrato_usuario_minimo', '!cobrar_aposentado'
+                '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!contratou_concorrente',
+                '!qual_concorrente', '!origem', '!base_usuarios', '!canal_preferencia', '!data_apresentacao',
+                '!formato_reuniao'
             ])
             ::post('/comercial-empresa');
 
@@ -1491,15 +1493,17 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:atualizar'])
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
-                '!site', '!responsavel_nome', '!responsavel_email', '!responsavel_telefone', '!responsavel_cpf',
-                '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
+                '!site', '!responsavel_nome', '!responsavel_cargo', '!responsavel_email', '!responsavel_telefone',
+                '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
                 '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
                 '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
-                '!contrato_usuario_minimo', '!cobrar_aposentado'
+                '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!contratou_concorrente',
+                '!qual_concorrente', '!origem', '!base_usuarios', '!canal_preferencia', '!data_apresentacao',
+                '!formato_reuniao'
             ])
             ::put('/comercial-empresa/{id}');
     });
