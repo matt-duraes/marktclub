@@ -18,6 +18,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Dados do responsável', callback: function () use ($Painel) {
         $Painel
             ->linha('responsavel_nome', 'Nome')
+            ->linha('responsavel_cargo', 'Cargo')
             ->linha('responsavel_cpf', 'CPF')
             ->linha('responsavel_telefone', 'Telefone')
             ->linha('responsavel_email', 'E-mail');
