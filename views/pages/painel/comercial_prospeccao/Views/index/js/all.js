@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
 
-    const blocoAbordagem = document.getElementById('bloco_abordagem');
+    const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
     const blocoNegociacao = document.getElementById('bloco_negociacao');
     const blocoAvaliacao = document.getElementById('bloco_avaliacao');
@@ -115,10 +115,10 @@ window.addEventListener('load', () => {
     };
     const pegarBlocoAnterior = bloco => {
         const atual = bloco.getAttribute('data-prospeccao');
-        if (atual == 'abordagem') {
+        if (atual == 'pesquisa') {
             return false;
         } else if (atual == 'apresentacao') {
-            return blocoAbordagem;
+            return blocoPesquisa;
         } else if (atual == 'negociacao') {
             return blocoApresentacao;
         } else if (atual == 'avaliacao') {
@@ -129,7 +129,7 @@ window.addEventListener('load', () => {
     };
     const pegarBlocoProximo = bloco => {
         const atual = bloco.getAttribute('data-prospeccao');
-        if (atual == 'abordagem') {
+        if (atual == 'pesquisa') {
             return blocoApresentacao;
         } else if (atual == 'apresentacao') {
             return blocoNegociacao;
@@ -175,7 +175,7 @@ window.addEventListener('load', () => {
         const botaoProximo = item.querySelector('.botao_item_proximo');
         botaoAnterior.classList.remove('display_none');
         botaoProximo.classList.remove('display_none');
-        if (status == 'abordagem') {
+        if (status == 'pesquisa') {
             botaoAnterior.classList.add('display_none');
         } else if (status == 'minuta') {
             botaoProximo.classList.add('display_none');
