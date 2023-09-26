@@ -1,12 +1,12 @@
 <?php
 
-use App\Classes\SistemaEndereco\Local;
-use App\Classes\SistemaEndereco\Tabela;
+use System\Classes\Endereco\Tipo;
+use System\Classes\Endereco\Local;
 
 return [
     [
         'cod'        => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',
@@ -21,7 +21,7 @@ return [
     ],
     [
         'cod'        => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',
@@ -36,7 +36,7 @@ return [
     ],
     [
         'cod'        => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',
@@ -51,7 +51,7 @@ return [
     ],
     [
         'cod'        => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',
@@ -66,7 +66,7 @@ return [
     ],
     [
         'cod'        => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',
@@ -81,7 +81,7 @@ return [
     ],
     [
         'cod'        => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',
@@ -96,7 +96,7 @@ return [
     ],
     [
         'cod'        => 'dadfe939-4787-4f9e-96c6-79659605d3a0',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',
@@ -111,7 +111,7 @@ return [
     ],
     [
         'cod'        => '4b08f0dd-ef65-4269-bb57-007346f23890',
-        'tabela'     => Tabela::LOJA,
+        'tabela'     => Tipo::LOJA,
         'local'      => (new Local(Local::CLUBE))->numero(),
         'nome'       => nomeAleatorio(),
         'cep'        => '71735303',

@@ -6,20 +6,21 @@ use ORM\ORM;
 use stdClass;
 use Http\Request;
 use Helpers\OrmHelper;
+use Modules\EnderecoEstado;
+use ApiModel\Endereco\RaioModel;
 use App\Classes\ParceiroLoja\Tipo;
+use System\Classes\Endereco\Local;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
-use App\Classes\SistemaEndereco\Local;
 use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\SistemaEndereco\Tabela;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
 use App\Classes\ParceiroLoja\Estabelecimento;
-use App\Models\Api\SistemaEndereco\RaioModel;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
+use System\Classes\Endereco\Tipo as EnderecoTipo;
 
 class LojaModel extends ORM implements ModelListarInterface
 {
@@ -72,7 +73,7 @@ class LojaModel extends ORM implements ModelListarInterface
                 ->join('cod', 'cod')
                 ->campo(['latitude', 'longitude'])
                 ->where([
-                    ['tabela', Tabela::LOJA],
+                    ['tabela', EnderecoTipo::LOJA],
                     ['local', (new Local(Local::CLUBE))->numero()],
                     ['latitude', 'between', $Raio->latitude],
                     ['longitude', 'between', $Raio->longitude],
@@ -189,6 +190,11 @@ class LojaModel extends ORM implements ModelListarInterface
         }
         if (!empty($this->idMaisAcessado)) {
             $where[] = ['id', 'in', $this->idMaisAcessado];
+        }
+
+        $estado = new EnderecoEstado($this->request->estado);
+        if ($estado->valido()) {
+            $where[] = ['estado', 'LIKE', '%"' . $estado->valor() . '"%'];
         }
 
         $status = new Status($this->request->status);

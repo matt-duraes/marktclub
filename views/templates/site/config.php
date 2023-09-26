@@ -9,3 +9,4 @@ define('USUARIO_EMAIL', $USUARIO['email']);
 define('MENU_HOVER', isset($menu) ? $menu : '');
 
 include ROOT . '/resources/php/site/icone.php';
+include ROOT . '/resources/php/site/tema.php';

@@ -5,7 +5,7 @@
     <div class="conteudo">
 
         <figure>
-            <img src="https://clube.marktclub.com.br/images/logo_silium.png" height="80" alt="Logo Silium">
+            <img src="{!!LINK!!}/images/site/logo_silium.png" height="80" alt="Logo Silium">
         </figure>
 
         <section class="bloco_titulo_texto">
@@ -39,11 +39,11 @@
             <div class="bloco_botao">
                 <button class="botao ativo" data-id="bloco_nome_01">
                     <span class="texto_inativo">Extrato de compra</span>
-                    <span class="texto_ativo cor_color">Extrato de compra</span>
+                    <span class="texto_ativo">Extrato de compra</span>
                 </button>
                 <button class="botao" data-id="bloco_nome_02">
                     <span class="texto_inativo">Extrato de saque</span>
-                    <span class="texto_ativo cor_color">Extrato de saque</span>
+                    <span class="texto_ativo">Extrato de saque</span>
                 </button>
             </div>
 

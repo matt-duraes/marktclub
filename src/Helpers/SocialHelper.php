@@ -308,10 +308,14 @@ final class SocialHelper
 
     private function googleCriarTokenComAuthorizationCode($code)
     {
+        $redirectUri = env('GOOGLE_REDIRECT_URI', '');
+        if (empty($redirectUri)) {
+            $redirectUri = LINK;
+        }
         $client = new Google\Client([
             'client_id'     => env('GOOGLE_CLIENT_ID'),
             'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-            'redirect_uri'  => env('GOOGLE_REDIRECT_URI')
+            'redirect_uri'  => $redirectUri
         ]);
 
         $token = $client->fetchAccessTokenWithAuthCode($code);

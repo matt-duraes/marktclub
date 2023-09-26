@@ -12,7 +12,6 @@
         &.hover
         &.selected.hover
             background-color: $corClube
-            background-color: $corClube
     input:checked ~ label::after
         background-color: $corClube
     input:checked ~ label::after
@@ -24,6 +23,12 @@
         border: 2px solid $corClube
     .input_conteudo .input_select_linha
         background-color: $corClube
+
+.form_geral .bloco_input input, .form_geral .bloco_input textarea
+    color: $corPretoBranco
+.form_geral .bloco_input input::placeholder, .form_geral .bloco_input textarea
+        color: $corCinzaCinza
+
 #fw_form_select
 #bloco_geral_autocomplete
     .option
@@ -31,8 +36,15 @@
         background: #FFF
         box-shadow: 0 4px 5px rgba(0,0,0,.3)
     .option li
-        color: #666
+        color: $corCinzaCinza
     .option li.hover
     .option li.selected.hover
         background-color: $corClube
         color: #FFF
+
+.form_geral .bloco_switch label
+    color: $corCinzaCinza
+.form_geral .bloco_input label
+    background-color: $corBrancoPreto
+.form_geral.cinza .bloco_input label
+    background-color: $corBrancoCinza

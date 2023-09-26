@@ -39,6 +39,7 @@ trait SalvarTrait
         $this->ormPegarAcaoAoSalvar();
 
         $dado = $this->ormMontarDado();
+
         $this->ormValidarViaHelper($this->ormAcao);
 
         $deletarArquivo = [];
@@ -127,7 +128,6 @@ trait SalvarTrait
         if ($this->ormAcao == 'update') {
             $dadoAtual = $this->ormPegarTodosOsDadoPeloId($this->ormEntityId);
         }
-
         $listaTodosOsDados = [];
         $lista = [];
         foreach ($parametro as $ind => $val) {

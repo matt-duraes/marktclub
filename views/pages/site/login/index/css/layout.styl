@@ -760,7 +760,7 @@
         position: absolute
         top: 0px
         background-size: contain
-    button
+    .botao
         width: 150px
         height: 40px
         align-items: center
@@ -772,6 +772,8 @@
         box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05)
         border-bottom-left-radius: 10px
         border-bottom-right-radius: 10px
+        text-align: center
+        cursor: pointer
     .container
         width: 100%
         max-width: 700px
@@ -830,7 +832,7 @@
         border-top-left-radius: 10px
         border-top-right-radius: 10px
         cursor: pointer
-        background-color: $corClube
+        background: #999
     .container  .fechar p
         font-size: 1.8em
         line-height: 1.5em
@@ -861,12 +863,12 @@
             justify-content: center
             margin-top: 20px
             flex-wrap: wrap
-            padding-bottom: 30px
-            button
+            padding-bottom: 60px !important
+            .botao
                 height: 50px
                 margin-top: 40px
-                color: #FFFFFF
-                background-color: #333
+                color: #FFFFFF !important
+                background-color: $corClube !important
                 font-size: 1.5em
                 line-height: 1.5em
                 text-align: center
@@ -899,6 +901,7 @@
         align-items: center
         position: relative
         overflow: hidden
+        margin-top: 40px
         h2
             width: 100%
             max-width: 500px
@@ -906,17 +909,16 @@
             font-size: 2.2em
             color: #666666
             text-align: center
-        h2 span
-            color: #333333
-            font-weight: bold
-            padding: 20px 20px 0px 20px
         strong
-            font-size: 2.5em
-            font-weight: bold
+            font-size: 2.5rem
             background-color: #eee
             padding: 20px
             border-radius: 8px
             margin: 20px 0px
+        strong span
+            font-size: 2.5rem
+            font-weight: bold
+            color: $corClube
         .novamente
             padding: 20px
             margin-top: 20px

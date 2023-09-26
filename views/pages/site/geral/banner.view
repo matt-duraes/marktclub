@@ -1,13 +1,13 @@
 @ if( $banner->desktop ?? [] || $banner->mobile ?? []):
-<div class="bloco_geral_banner banner" id="bloco_home_principal">
+<div class="bloco_geral_banner banner">
     <div class="conteudo">
         @ if( count($banner->desktop ?? []) > 1 ):
-        <div class="seta anterior">@iconeSetaEsquerda(40)</div>
-        <div class="seta proximo">@iconeSetaDireita(40)</div>
+        <div class="seta anterior" id="botao_banner_anterior">@iconeSetaEsquerda(40)</div>
+        <div class="seta proximo" id="botao_banner_proximo">@iconeSetaDireita(40)</div>
         @ endif;
 
         @ if( $banner->desktop ?? [] ):
-        <div class="imagem banner_desktop">
+        <div class="imagem banner_desktop" id="bloco_banner_desktop">
             @ foreach( $banner->desktop as $r )
             <figure>
                 <img src="{!!$r->imagem!!}">

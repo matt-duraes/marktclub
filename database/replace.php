@@ -23,8 +23,9 @@ return [
         'cod' => 'uuid'
     ],
     'endereco_novo' => [
-        'cod'  => 'id_vinculo',
-        'nome' => 'titulo'
+        'cod'    => 'id_vinculo',
+        'tabela' => 'tipo',
+        'nome'   => 'titulo'
     ],
     'solicitacao_cheque_bonus' => [
         'cod'                  => 'uuid',
@@ -47,7 +48,8 @@ return [
         'sexo'        => 'genero',
         'aniversario' => 'data_nascimento',
         'cidade'      => 'endereco_cidade',
-        'uf'          => 'endereco_estado'
+        'uf'          => 'endereco_estado',
+        'hash'        => 'hash_valor'
     ],
     'usuario_indicacao' => [
         'cod' => 'uuid'

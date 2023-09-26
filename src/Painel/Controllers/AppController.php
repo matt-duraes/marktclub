@@ -308,6 +308,12 @@ final class AppController extends PadraoController
             throw new Erro(mensagem: 'Não existe uma lista de indices para salvar ou ela está vazia.');
         }
 
+        $nomeClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
+            . '\\Models\SalvarModel';
+        if (class_exists($nomeClass) && method_exists($nomeClass, 'body')) {
+            $lista = (new $nomeClass())->body($lista);
+        }
+
         $lista = $this->criptografarListaDado($lista, $requestCampo, $config->api->criptografar);
 
         $uri = $config->api->uri;

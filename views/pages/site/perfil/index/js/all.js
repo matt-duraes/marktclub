@@ -63,12 +63,13 @@ window.addEventListener('load', () => {
         body.append('endereco_complemento', inputComplemento.value);
         body.append('endereco_cidade', inputCidade.value);
 
+        Loading.show();
         const resposta = await fetch(LINK + '/perfil/salvar-dados', {
             method: 'POST',
             body,
         });
+        Loading.hide();
 
-        botaoSalvar.classList.remove('aguarde');
         if (resposta.status == 204) {
             Alerta.notificacao('Dados alterados com sucesso!', true);
             return;
@@ -111,7 +112,7 @@ window.addEventListener('load', () => {
             // eslint-disable-next-line camelcase
             ux_mode: 'popup',
             callback: response => {
-                vincularContaSocial('', '', response.code, 'google', acao);
+                vincularContaSocial(response.code);
             },
         });
         client.requestCode();
@@ -122,37 +123,23 @@ window.addEventListener('load', () => {
     | VINCULAR REDE SOCIAL
     |--------------------------------------------------------------------------
     */
-    const vincularContaSocial = async (id, token, code, rede, acao) => {
+    const vincularContaSocial = async code => {
         Loading.show();
+        const resposta = await ajaxPost(
+            LINK + '/perfil/vincular-google',
+            {
+                code,
+            },
+            'Erro ao vincular imagem, por favor, tente novamente.'
+        );
 
-        let body = new FormData();
-
-        body.append('id', id);
-        body.append('token', token);
-        body.append('code', code);
-        body.append('rede', rede);
-        body.append('acao', acao);
-
-        const response = await fetch(LINK + '/perfil/vincular-google', {
-            method: 'POST',
-            body,
-        });
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
         Loading.hide();
 
-        if (response.status != 201) {
-            Alerta.notificacao('Ocorreu um erro ao vincular sua conta, por favor, tente novamente.', false);
-            return;
-        } else if (response.status == 201 && acao == 'imagem') {
-            setarNovaImagem(json.dado.imagem);
-            Alerta.notificacao('Foto vinculada', true);
+        if (false === resposta) {
             return;
         }
-        oauth2Google('imagem');
+        setarNovaImagem(resposta.dado.imagem);
+        Alerta.notificacao('Foto vinculada com sucesso!', true);
+        return;
     };
 });

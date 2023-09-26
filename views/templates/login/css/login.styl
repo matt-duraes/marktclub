@@ -49,6 +49,7 @@
     margin: 20px
     overflow-y: auto
     overflow-x: hidden
+    background: white
     blocoShadow()
     .conteudo
         flexRow()
@@ -57,11 +58,21 @@
     header
         width: 100%
         margin-bottom: 30px
+        position: relative
+        padding-right: 30px
     header h1
         titulo()
         color: $corClube
     header p
         texto()
+    header .fechar
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        position: absolute
+        top: 0
+        right: 0
     .bloco_input
         width: 100%
         margin-top: 10px
@@ -159,3 +170,68 @@
         cursor: pointer
         &:hover
             text-decoration: underline
+
+#bloco_form_recuperar_senha
+    max-width: 500px
+    .bloco_geral
+        width: 100%
+        border-top: 1px solid #CCC
+        padding: 20px 0
+        flexCol()
+    .bloco_geral p
+        texto()
+    .bloco_geral ul
+        margin-top: 10px
+    .bloco_geral ul li
+        font-size: 1.5rem
+    .bloco_geral .bloco_input
+        margin: 30px 0 0
+    .bloco_geral .atencao
+        margin: 10px 0 20px
+    .bloco_geral .separador
+        width: 100%
+    .bloco_escolha
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        justify-content: center
+    .bloco_escolha h2
+        text-align: center
+        color: $corClube
+        font-weight: bold
+    .bloco_escolha p
+        texto()
+        text-align: center
+        margin-bottom: 20px
+    .bloco_escolha .botao
+        height: 40px
+        line-height: 40px
+        margin: 10px 10px 0 10px
+        border: 1px solid #CCC
+        border-radius: 5px
+        padding: 0 20px
+        textoFontSize()
+        cursor: pointer
+        &:hover
+            border-color: $corClube
+            color: $corClube
+    .bloco_usar_codigo
+        justify-content: center
+        flexRow()
+        flex-wrap: wrap
+    .bloco_usar_codigo > input
+        width: 45px
+        height: 45px
+        border: 1px solid #CCC
+        border-radius: 5px
+        text-align: center
+        textoFontSize()
+        margin: 20px 5px 0
+    .bloco_usar_codigo .botao
+        texto()
+        margin-top: 20px
+        &.reenviar
+            cursor: pointer
+    .bloco_usar_codigo .botao span
+        texto()
+        font-weight: bold

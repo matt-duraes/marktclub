@@ -91,6 +91,9 @@ final class AuthHelper
 
         $hash = uuid();
         $userAgent = md5($_SERVER['HTTP_USER_AGENT'] ?? 'unknown');
+        if (!array_key_exists('imagem', $usuario) || empty($usuario['imagem'])) {
+            $usuario['imagem'] = LINK . '/images/site/usuario_padrao_preto.png';
+        }
 
         sessao('AUTH_' . $local . '_' . $userAgent . '_HASH', $hash);
         sessao('AUTH_' . $local . '_' . $userAgent, $hash);

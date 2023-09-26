@@ -20,6 +20,10 @@ trait WhereTrait
             $where[] = $this->ormWherePadrao;
         }
 
+        if (!empty($this->idSubempresa)) {
+            $where[] = ['id_admin_subempresa', $this->idSubempresa];
+        }
+
         // Colocando para aparecer só quem tem data de ativação na FENAE
         if ($this->idEmpresa == 153) {
             $where[] = ['data_ativacao', 'notnull'];

@@ -2,8 +2,8 @@
 
 namespace App\Models\Site\Loja;
 
-use Http\Request;
 use Helpers\ListaHelper;
+use Helpers\LocalizacaoHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Categoria;
@@ -11,130 +11,145 @@ use App\Classes\ParceiroLoja\Estabelecimento;
 
 final class FiltroModel extends ClubeApiHelper
 {
-    private array $dado = [
-        'estado' => [
-            'indice' => 'estado',
-            'nome'   => 'Estado'
-        ],
-        'categoria' => [
-            'indice' => 'categoria',
-            'nome'   => 'Categoria'
-        ],
-        'subcategoria' => [
-            'indice' => 'subcategoria',
-            'nome'   => 'Subcategoria'
-        ],
-        'estabelecimento' => [
-            'indice' => 'estabelecimento',
-            'nome'   => 'Estabelecimento'
-        ],
-        'pesquisa' => [
-            'indice' => 'pesquisa',
-            'nome'   => 'Pesquisa'
-        ],
-        'favorito'  => true,
-        'latitude'  => true,
-        'longitude' => true,
-        'acessado'  => true,
-        'ordem'     => [
-            'indice' => 'ordem',
-            'nome'   => 'Ordem'
-        ],
+    private array $lista = [
+        'loja' => [
+            'lista'    => ['estado', 'cidade', 'categoria', 'subcategoria', 'estabelecimento', 'pesquisa', 'ordem'],
+            'especial' => ['favorito', 'latitude', 'longitude', 'acessado', 'mapa', 'pagina', 'quantidade'],
+            'filtro'   => [
+                'estado'          => 'Estado',
+                'cidade'          => 'Cidade',
+                'categoria'       => 'Categoria',
+                'subcategoria'    => 'Subcategoria',
+                'estabelecimento' => 'Estabelecimento',
+                'pesquisa'        => 'Pesquisa',
+                'ordem'           => 'Ordem',
+            ]
+        ]
     ];
-    private array $card = ['favorito', 'latitude', 'longitude', 'acessado'];
-    public string $link;
-    public array $uso = [];
-    public ?string $estado = null;
-    public ?string $categoria = null;
-    public ?string $subcategoria = null;
-    public ?string $estabelecimento = null;
-    public ?string $pesquisa = null;
-    public ?string $ordem = null;
-    public bool $existe = false;
-    public bool $favorito = false;
-    public bool $acessado = false;
+    private array $where = [];
+    public bool $cache = false;
+    public array $filtro = [];
     public bool $mapa = false;
-    public bool $tutorialMapa = false;
-    public float $latitude = 0;
-    public float $longitude = 0;
+    public bool $acessado = false;
+    public bool $favorito = false;
+    public string $estado = '';
+    public string $cidade = '';
+    public string $categoria = '';
+    public string $subcategoria = '';
+    public string $estabelecimento = '';
+    public string $pesquisa = '';
+    public string $ordem = '';
+    public string $latitude = '';
+    public string $longitude = '';
+    public string $link = '';
 
     public function __construct(
-        private Request $request
+        private array $dado = []
     ) {
         parent::__construct();
         $this->link = route('loja.index');
-        $this->montarDado();
+        $this->tratarRequest();
     }
 
-    private function montarDado()
+    public function pegarWhere()
     {
-        $lista = limparVazioDeArray($this->request->dado());
-        if (!$lista) {
-            return;
+        $where = $this->where;
+        if (array_key_exists('latitude', $where) || array_key_exists('longitude', $where)) {
+            unset($where['estado']);
         }
-        $this->existe = true;
-        $permitido = array_keys($this->dado);
+        unset($where['cidade']);
+        return $where;
+    }
+
+    private function tratarRequest()
+    {
         $dado = $this->dado;
+        $lista = array_merge($this->lista['loja']['lista'], $this->lista['loja']['especial']);
 
         $retorno = [];
-        foreach ($lista as $ind => $val) {
-            if (!in_array($ind, $permitido)) {
-                mensagemStatus(404);
-            } elseif (empty($val) || ($ind == 'subcategoria' && empty($this->request->categoria))) {
-                continue;
-            }
-            $valorReal = $this->pegarValorReal($ind, $val);
-            if (empty($valorReal)) {
-                continue;
-            }
+        $link = [];
 
-            $retorno[] = $ind . '=' . $val;
-            if (in_array($ind, $this->card)) {
+        if (array_key_exists('cidade', $dado) && !empty($dado['cidade'])) {
+            unset($dado['latitude'], $dado['longitude']);
+        }
+
+        foreach ($dado as $ind => $val) {
+            if (
+                (!in_array($ind, $lista) || empty($val)) ||
+                (in_array($ind, ['acessado', 'favorito']) && $val != 'sim')
+            ) {
                 continue;
             }
-            $valor = str_replace(['"', "'", '\\', '/', '|'], '', $val);
-            $uso = $dado[$ind];
-            $uso['valor_real'] = $valorReal;
-            $uso['valor'] = $valor;
-            $this->uso[] = $uso;
-            $this->$ind = $valor;
+            if (in_array($ind, ['latitude', 'longitude', 'cidade'])) {
+                $this->mapa = true;
+            } elseif ($ind == 'acessado') {
+                $this->acessado = true;
+            } elseif ($ind == 'favorito') {
+                $this->favorito = true;
+            }
+            if (!in_array($ind, ['acessado', 'favorito', 'pagina', 'quantidade'])) {
+                $this->$ind = $val;
+            }
+            $retorno[$ind] = $val;
+            if (!in_array($ind, ['pagina', 'quantidade'])) {
+                $link[] = $ind . '=' . urlencode($val);
+            }
         }
-        $this->link .= '?' . implode('&', $retorno);
-        if (array_key_exists('favorito', $lista)) {
-            $this->favorito = true;
-        } elseif (array_key_exists('acessado', $lista)) {
-            $this->acessado = true;
-        } elseif (array_key_exists('latitude', $lista) && array_key_exists('longitude', $lista)) {
-            $this->latitude = $lista['latitude'];
-            $this->longitude = $lista['longitude'];
-            $this->mapa = true;
+        if (!empty($link)) {
+            $this->link .= '?' . implode('&', $link);
         }
-        if ($this->mapa && !cookieExiste('TUTORIAL_MAPA')) {
-            $this->tutorialMapa = true;
-            // cookie('TUTORIAL_MAPA', true);
+        if (array_key_exists('cidade', $retorno)) {
+            $retorno = $this->pegarGeolocalizacao($retorno);
         }
+        $this->where = $retorno;
+        $this->setarFiltro($retorno);
     }
 
-    private function pegarValorReal($indice, $valor)
+    private function pegarGeolocalizacao($dado)
     {
-        if ($indice == 'estado') {
-            return (new ListaHelper())->estado()->r()[$valor] ?? $valor;
-        } elseif ($indice == 'categoria') {
-            return (new Categoria())->select()[$valor] ?? $valor;
-        } elseif ($indice == 'estabelecimento') {
-            return (new Estabelecimento())->select()[$valor] ?? $valor;
-        } elseif ($indice == 'ordem') {
-            return (new Ordem())->select()[$valor] ?? $valor;
-        } elseif ($indice == 'subcategoria') {
-            return $this->buscarSubcategoria($this->request->categoria, $valor);
-        }
-        return $valor;
+        $Localizacao = new LocalizacaoHelper();
+        $geolocalicacao = $Localizacao->pegarGeolocalizacaoPeloEndereco(pais: 'BR', estado: $dado['estado'], cidade: $dado['cidade']);
+        $this->latitude = $geolocalicacao['latitude'];
+        $this->longitude = $geolocalicacao['longitude'];
+        $dado['latitude'] = $this->latitude;
+        $dado['longitude'] = $this->longitude;
+
+        $this->link .= str_contains($this->link, '?') ? '&' : '?';
+        $this->link .= 'latitude=' . $this->latitude . '&longitude=' . $this->longitude;
+
+        return $dado;
     }
 
-    private function buscarSubcategoria($categoria, $subcategoria)
+    private function setarFiltro($lista)
+    {
+        $campo = $this->lista['loja']['filtro'];
+        foreach ($lista as $ind => $val) {
+            $valor = $val;
+            if (!array_key_exists($ind, $campo)) {
+                continue;
+            } elseif ($ind == 'categoria') {
+                $valor = (new Categoria($val))->nome();
+            } elseif ($ind == 'estabelecimento') {
+                $valor = (new Estabelecimento($val))->nome();
+            } elseif ($ind == 'ordem') {
+                $valor = (new Ordem($val))->nome();
+            } elseif ($ind == 'estado') {
+                $valor = (new ListaHelper())->estado()->r()[$val] ?? $val;
+            } elseif ($ind == 'subcategoria') {
+                $valor = $this->buscarSubcategoria($val);
+            }
+            $this->filtro[] = (object)[
+                'nome'       => $campo[$ind],
+                'indice'     => $ind,
+                'valor_real' => $val,
+                'valor'      => $valor
+            ];
+        }
+    }
+
+    private function buscarSubcategoria($subcategoria)
     {
         return $this
-            ->json(['categoria' => $categoria])
             ->get('/parceiro-subcategoria/select')
             ->array()['dado'][$subcategoria] ?? '';
     }

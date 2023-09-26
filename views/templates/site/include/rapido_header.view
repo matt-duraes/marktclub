@@ -1,6 +1,6 @@
 <header id="header_acesso_rapido">
     <figure>
-        <a href="@route(acessoRapido.index)"><img src="{{CLUBE_LOGO}}"></a>
+        <a href="@route(acessoRapido.index)"><img src="{{CLUBE_LOGO_PRINCIPAL}}"></a>
     </figure>
     <div class="bloco_botao">
         @ if( !isset($sem_home) ):

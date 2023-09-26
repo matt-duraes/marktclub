@@ -28,6 +28,7 @@ final class ErrorModel extends ORM
             ->where([
                 ['status', 1]
             ])
+            ->order('data_atualizacao', 'DESC')
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
         $dado->lista = $this->montarDado($dado->lista ?? []);

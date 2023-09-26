@@ -3,6 +3,7 @@
 return (new \DataBase\DataBase())
     ->id()
     ->uuid()
+    ->int('id_usuario_equipe')->tamanho(9)->relacionado(TABELA_USUARIO_EQUIPE, 'id')->null()
     ->char('hash')->tamanho(32)
     ->text('mensagem')->null()
     ->varchar('codigo')->null()

@@ -4,8 +4,7 @@
     @view site/geral/banner.view
 
     <div class="bloco_atencao_geral">
-        <p>Agora você pode comprar ingressos para o cinema com até 30% de desconto em vários cinemas do país
-        </p>
+        <p>Agora você pode comprar ingressos para o cinema com até 30% de desconto em vários cinemas do país</p>
     </div>
 
     <div class="bloco_parceiro bloco_geral_article">
@@ -13,7 +12,7 @@
             @ foreach( $lista->lista as $r ):
             <article class="parceiro">
                 @ if( in_array($lista->tipo, ['cinema']) ):
-                    <a class="link_cupom_parceiro" href="{!!$r->link!!}"></a>
+                    <a class="link_cupom_parceiro" target="_blank" rel="noopener noreferrer" href="{!!$r->link!!}"></a>
                 @ endif;
                 <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
                 <div class="linha cor_bg"></div>
@@ -22,7 +21,7 @@
         @ endif;
     </div>
     <div class="container_scroll bloco_botao">
-        <a class="botao_geral_cor cor_bg" href="https://afiliados.easylive.com.br/?aid=5">COMPRAR INGRESSO</a>
+        <a class="botao_geral_cor cor_bg" target="_blank" rel="noopener noreferrer" href="https://afiliados.easylive.com.br/?aid=5">COMPRAR INGRESSO</a>
     </div>
-    <a href="https://afiliados.easylive.com.br/?aid=5" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">COMPRAR INGRESSO</a>
+    <a href="https://afiliados.easylive.com.br/?aid=5" target="_blank" rel="noopener noreferrer" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">COMPRAR INGRESSO</a>
 </div>

@@ -36,8 +36,8 @@ final class TermoLgpdController extends Controller
         return view('lgpd.aceitar', [
             'link' => $dado['link'],
             'hash' => base64Encode($dado, true),
-            'logo' => $Construtor->logo,
-            'cor'  => $Construtor->cor
+            'logo' => $Construtor->logo_principal,
+            'cor'  => $Construtor->cor_principal
         ]);
     }
 

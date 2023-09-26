@@ -45,15 +45,18 @@
     </div>
     @ endif;
 
-    <div class="bloco {{$loja_favorita->lista ? '' : 'display_none'}}" id="bloco_favorito">
+    <div class="bloco" id="bloco_favorito">
         <header class="titulo_geral">
             <h1>LOJAS FAVORITAS</h1>
             <a class="cor_color" href="@route(loja.index)?favorito=sim">Ver mais</a>
         </header>
-        @php $lista = $loja_favorita;
-        @view site/geral/parceiro.view
+        <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_favorito">
+            @ laco(3)
+            @view site/geral/parceiro_loading.view
+            @ endlaco;
+        </div>
     </div>
-    <div class="bloco_geral_sem_resultado bloco_favorito_zero {{$loja_favorita->lista ? 'display_none' : ''}}" id="bloco_favorito_faq">
+    <div class="bloco_geral_sem_resultado bloco_favorito_zero display_none" id="bloco_favorito_faq">
         <i>@iconeFavoritoMarcado(60)</i>
         <p>Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas?</p>
         <div class="botao botao_geral_cor cor_bg" id="botao_favorito_tutorial">Salvar lojas favoritas</div>
@@ -64,19 +67,23 @@
             <h1>MAIS UTILIZADAS</h1>
             <a class="cor_color" href="@route('loja.index')?acessado=sim">Veja mais</a>
         </header>
-        @php
-            $lista = $mais_utilizada;
-        @end
-        @view site/geral/parceiro.view
+        <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_acessado">
+            @ laco(3)
+            @view site/geral/parceiro_loading.view
+            @ endlaco;
+        </div>
     </div>
     <div class="bloco">
         <header class="titulo_geral">
             <h1>NOVAS LOJAS</h1>
             <a class="cor_color" href="@route('loja.index')?ordem=mais-novo">Veja mais</a>
         </header>
-        @php
-            $lista = $loja_nova;
-        @end
-        @view site/geral/parceiro.view
+        <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_novo">
+            @ laco(3)
+            @view site/geral/parceiro_loading.view
+            @ endlaco;
+        </div>
     </div>
 </div>
+
+@view site/geral/parceiro_clone.view

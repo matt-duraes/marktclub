@@ -1,5 +1,6 @@
 @ if($dado):
 <div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
+    <input type="hidden" id="input_analytics_vinculo" value="{!!$dado->id!!}">
     <input type="hidden" id="input_loja_id" value="{!!$dado->id!!}">
     <input type="hidden" id="input_loja_url" value="{!!$dado->url!!}">
     <div class="bloco_parceiro_header">
@@ -38,25 +39,34 @@
         @ elseif ($dado->procedimento == $procedimento::DECLARACAO):
         <div id="botao_salvar_declaracao" class="botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Declaração">Solicitar Declaração <i>@iconeDeclaracao(17)</i></div>
         @ elseif ($dado->procedimento == $procedimento::VOUCHER):
-        <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Voucher">Gerar Voucher <i>@iconeVoucher(17)</i></a>
+        <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Voucher">
+            Gerar Voucher
+            <i>@iconeShow</i>
+        </a>
         @ elseif ($dado->procedimento == $procedimento::WEBSITE):
-        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Abrir Site">Abrir Site<i>@iconeLink()</i></a>
+        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_confirmar_abrir botao_contar_click botao destaque botao_geral_cor cor_bg" data-botao="Abrir Site">
+            Abrir Site
+            <i>@iconeExtensaoHome</i>
+        </a>
         @ endif
 
         @ if( $telefone && count($telefone) == 1):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> {{$telefone[0]}}</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> {{$telefone[0]}}</div>
         @ elseif( $telefone ):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> Ver telefone</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> Ver telefone</div>
         @ endif;
 
         @ if( $email && count($email) == 1 ):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> {{$email[0]}}</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> {{$email[0]}}</div>
         @ elseif( $email ):
-        <div class="botao_contar_click botao branco botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> Ver e-mail</div>
+        <div class="botao_contar_click botao botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> Ver e-mail</div>
         @ endif;
 
-        @ if( $dado->procedimento != $procedimento::WEBSITE ):
-        <a href="" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao branco botao_geral_cor" data-botao="Abrir site secundario"><i>@iconeSiteCliente()</i> Abrir Site</a>
+        @ if( $dado->procedimento != $procedimento::WEBSITE && !empty($dado->link) ):
+        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao botao_geral_cor" data-botao="Abrir site secundario">
+            Abrir Site
+            <i>@iconeExtensaoHome</i>
+        </a>
         @ endif;
 
     </div>
@@ -66,18 +76,23 @@
     </div>
     @endif
 
-    @if($dado->endereco)
-    <div class="bloco_mapa">
+    <div class="bloco_mapa display_none" id="bloco_mapa">
         <header>
-            <h1>Endereços</h1>
+            <h1 class="esqueleto">Endereço</h1>
             <div class="grow"></div>
-            <div class="botao botao_geral_cor cor_bg" id="botao_endereco">Buscar endereço <i>@iconeBusca(20)</i></div>
-            <a href="_blank" rel="nofollow noopener" id="como_chegar" class="botao destaque botao_geral_cor cor_bg">Como Chegar <i>@iconeMapa(20)</i></a>
+            <div class="botao esqueleto" id="botao_endereco_buscar">Buscar endereço <i>@iconeBusca(20)</i></div>
+            <a href="" target="_blank" rel="nofollow noopener" id="botao_endereco_link" class="botao esqueleto">Como Chegar <i>@iconeMapa(20)</i></a>
         </header>
-        <div class="mapa"></div>
+        <div class="endereco esqueleto" id="bloco_endereco_texto"></div>
+        <div class="mapa_falso esqueleto display_none"></div>
+        <div class="mapa" id="bloco_endereco_google_map"></div>
     </div>
-    @endif
 
     @view site/geral/relacionado.view
 </div>
 @ endif;
+
+<!-- prettier-ignore -->
+<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+    ({key: "AIzaSyA8KZjnZT3zrHwBxK3cnIhc1giasJ6U6LI", v: "weekly"});</script>

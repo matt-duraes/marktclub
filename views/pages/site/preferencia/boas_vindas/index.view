@@ -15,7 +15,7 @@
 
     <header id="header_preferencia">
         <figure>
-            <a href="@route(acessoRapido.index)"><img src="{{CLUBE_LOGO}}"></a>
+            <a href="@route(acessoRapido.index)"><img src="{{CLUBE_LOGO_PRINCIPAL}}"></a>
         </figure>
     </header>
 

@@ -1,10 +1,5 @@
 @template "login"
 <div id="bloco_login">
-    <div class="display_none mobile">
-        <h1>As melhores<br> marcas do mundo</h1>
-        <p>Esperando por você!</p>
-    </div>
-
     @view site/login/index/include/banner.view
     @view site/login/index/include/categoria.view
     @view site/login/index/include/contador.view

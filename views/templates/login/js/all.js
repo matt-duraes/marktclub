@@ -3,91 +3,13 @@
 // @system "Mascara"
 // @system "Form"
 // @system "Pagina"
+// @import "senha"
+// @import "login"
+// @import "ativar"
 
-const loadingLogin = () => {
-    const inputLogin = $('#input_login');
-    const inputSenha = $('#input_senha');
-
-    const botaoAtivar = $('#botao_ativar_conta');
-    const botaoFazerLogin = $('#botao_fazer_login');
-    const botaoDependente = $('#botao_abrir_dependente');
-
-    const blocoLogin = $('#bloco_form_login');
-    const blocoEscolha = $('#bloco_escolha_login');
-    if (botaoDependente) {
-        botaoDependente.addEventListener('click', () => {
-            blocoLogin.classList.remove('display_none');
-            blocoEscolha.classList.add('display_none');
-            inputLogin.focus();
-        });
-    }
-
-    inputLogin.focus();
-
-    botaoAtivar.addEventListener('click', () => {
-        PaginaBuscar.abrir();
-    });
-    botaoFazerLogin.addEventListener('click', () => {
-        fazerLogin();
-    });
-    inputLogin.addEventListener('keydown', e => {
-        if (e.key == 'Enter') {
-            e.preventDefault();
-            fazerLogin();
-        }
-    });
-    inputSenha.addEventListener('keydown', e => {
-        if (e.key == 'Enter') {
-            e.preventDefault();
-            fazerLogin();
-        }
-    });
-
-    const fazerLogin = async () => {
-        if (inputLogin.value == '') {
-            Alerta.notificacao('Digite seu login para continuar.', false);
-            return;
-        } else if (inputSenha.value == '') {
-            Alerta.notificacao('Digite sua senha para continuar.', false);
-            return;
-        }
-
-        Loading.show();
-        const resposta = await ajaxPost(
-            LINK + '/login/login',
-            {
-                login: inputLogin.value,
-                senha: inputSenha.value,
-            },
-            'Erro ao fazer seu login, por favor, tente novamente'
-        );
-        if (!resposta) {
-            Loading.hide();
-            return;
-        }
-        window.location.replace(resposta.dado.link);
-    };
-};
-
-const loadingBuscar = () => {
-    const botaoBuscar = $('#botao_buscar_usuario');
-    const inputBuscar = $('#input_buscar');
-
-    inputBuscar.focus();
-
-    const PaginaAtivar = new Pagina('ativar-conta', LINK + '/login/ativar', { id: '123' }, true, false, loadingAtivar);
-    botaoBuscar.addEventListener('click', () => {
-        PaginaAtivar.abrir();
-    });
-};
-
-const loadingAtivar = () => {
-    const inputNome = $('#input_nome');
-    inputNome.focus();
-};
-
-const PaginaLogin = new Pagina('login', LINK + '/login/login', {}, true, true, loadingLogin);
-const PaginaBuscar = new Pagina('buscar-conta', LINK + '/login/buscar-conta', {}, true, true, loadingBuscar);
+const PaginaLogin = new Pagina('login', LINK + '/login/login', undefined, true, true, loadingLogin);
+const PaginaSenha = new Pagina('pagina-senha', LINK + '/login/senha', undefined, true, true, loadingSenha);
+const PaginaAtivar = new Pagina('ativar', LINK + '/login/ativar-buscar', undefined, true, true, loadingAtivarBuscar);
 
 window.addEventListener('load', () => {
     /*
@@ -121,27 +43,31 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const botaoLogin = $$('.botao_fazer_login');
-    const abrirPaginaLogin = () => {
-        if (blocoMenuMobile.classList.contains('aberto')) {
-            fecharMenu();
-        }
-        PaginaLogin.abrir();
-    };
-    botaoLogin.forEach(botao => {
-        botao.addEventListener('click', abrirPaginaLogin);
-    });
+    if (botaoLogin) {
+        const abrirPaginaLogin = () => {
+            if (blocoMenuMobile.classList.contains('aberto')) {
+                fecharMenu();
+            }
+            PaginaLogin.abrir();
+        };
+        botaoLogin.forEach(botao => {
+            botao.addEventListener('click', abrirPaginaLogin);
+        });
+    }
     /*
     |--------------------------------------------------------------------------
     | ATIVAR
     |--------------------------------------------------------------------------
     */
     const botaoAtivar = $('#botao_ativar_conta_home');
-    botaoAtivar.addEventListener('click', () => {
-        if (blocoMenuMobile.classList.contains('aberto')) {
-            fecharMenu();
-        }
-        PaginaBuscar.abrir();
-    });
+    if (botaoAtivar) {
+        botaoAtivar.addEventListener('click', () => {
+            if (blocoMenuMobile.classList.contains('aberto')) {
+                fecharMenu();
+            }
+            PaginaAtivar.abrir();
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

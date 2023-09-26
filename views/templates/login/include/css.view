@@ -1,3 +1,6 @@
+
 <style>
-    :root{ --cor-clube: {{CLUBE_COR}} !important;}
+    :root{
+        --cor-clube: {{CLUBE_COR_PRINCIPAL}} !important;
+    }
 </style>

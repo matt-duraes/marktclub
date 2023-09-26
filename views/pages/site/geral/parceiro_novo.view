@@ -1,0 +1,36 @@
+<div class="bloco_parceiro bloco_geral_article {{isset($Busca->mapa) && $Busca->mapa ? 'display_none' : ''}}" id="bloco_parceiro_lista">
+
+</div>
+<div class="bloco_geral_sem_resultado display_none" id="bloco_parceiro_erro">
+    <i>@iconeFechar(50)</i>
+    <h1>Erro ao buscar</h1>
+    <p>Ocorreu um erro ao buscar as lojas, por favor tente novamente.</p>
+    @ if( isset($Busca) && $Busca->filtro ):
+    <a href="@route('loja.index')" class="botao botao_geral_cor cor_bg">Limpar busca</a>
+    @ endif;
+    @ if( CONTATO_WHATSAPP ):
+    <p>Caso o problema continue, entre em contato com o atendimento</p>
+    <a href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" class="botao botao_geral_borda" target="_blank" rel="noopener noreferrer">Entrar em contato</a>
+    @ endif;
+</div>
+<div class="bloco_geral_sem_resultado display_none" id="bloco_parceiro_zero">
+    <i>@iconeBuscar(50)</i>
+    <h1>Sem lojas por sua busca</h1>
+    <p>Não encontramos nenhuma loja pela busca, tente fazer uma nova busca ou limpar a busca atual</p>
+    @ if( isset($Busca) && $Busca->filtro ):
+    <a href="@route('loja.index')" class="botao botao_geral_cor cor_bg">Limpar busca</a>
+    @ endif;
+    @ if( MENU_INDICAR_LOJA ):
+    <p>Caso não ache a loja que procura, nos indique a loja deseja</p>
+    <div class="botao botao_geral_borda botao_indicar_loja">Indicar uma loja</div>
+    @ endif;
+</div>
+<div class="bloco_parceiro bloco_geral_article display_none bloco_parceiro_loading" id="bloco_parceiro_loading">
+    @ laco(3)
+    @view site/geral/parceiro_loading.view
+    @ endlaco;
+</div>
+<div class="bloco_carregar_mais {{isset($Busca) && $Busca->mapa ? 'bloco_carregar_mais_mapa' : ''}} display_none" id="bloco_carregar_mais">
+    <div class="botao" id="botao_carregar_mais">Carregar mais</div>
+</div>
+@view site/geral/parceiro_clone.view

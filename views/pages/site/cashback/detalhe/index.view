@@ -13,31 +13,31 @@
         </header>
     </div>
 
-    <div class="bloco_passo_a_passo">
+    <div class="bloco_item_lista">
         <div class="scroll">
             <div class="conteudo">
-                <div class="descricao_passo_a_passo">
+                <div class="descricao_item_lista">
                     <div class="imagem_redonda">
                         @iconeLojaHome()
                     </div>
                     <p>Acesse o site do parceiro pelo Clube para ativar.</p>
                     <div class="bola">@iconeSetaDireita(20)</div>
                 </div>
-                <div class="descricao_passo_a_passo">
+                <div class="descricao_item_lista">
                     <div class="imagem_redonda">
                         @iconeLojaHome()
                     </div>
                     <p>Escolha e compre os produtos que possuam cashback.</p>
                     <div class="bola">@iconeSetaDireita(20)</div>
                 </div>
-                <div class="descricao_passo_a_passo">
+                <div class="descricao_item_lista">
                     <div class="imagem_redonda">
                         @iconeLojaHome()
                     </div>
                     <p>Receba o % de retorno em pontos SILIUM em até 30 dias.</p>
                     <div class="bola">@iconeSetaDireita(20)</div>
                 </div>
-                <div class="descricao_passo_a_passo">
+                <div class="descricao_item_lista">
                     <div class="imagem_redonda">
                         @iconeLojaHome()
                     </div>

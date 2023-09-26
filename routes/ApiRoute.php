@@ -6,16 +6,6 @@ use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
-    ::nome('samsung')
-    ::controller(App\Controllers\Api\SamsungController::class)
-    ::grupo(function () {
-        Route
-            ::nome('validar')
-            ::request(['code'], 'get')
-            ::post('/_v/private/user/validate');
-    });
-
-Route
     ::nome('downloadRestrito')
     ::controller(App\Controllers\Api\DownloadRestritoController::class)
     ::grupo(function () {
@@ -115,6 +105,16 @@ Route
         Route
             ::nome('sair')
             ::view('/documentacao/sair');
+    });
+
+Route
+    ::nome('samsung')
+    ::controller(App\Controllers\Api\SamsungController::class)
+    ::grupo(function () {
+        Route
+            ::nome('validar')
+            ::request(['code'], 'get')
+            ::post('/_v/private/user/validate');
     });
 
 Route
@@ -294,7 +294,7 @@ Route
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google'
+                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
             ])
             ::put('/usuario-cliente/{id}');
 
@@ -307,6 +307,36 @@ Route
             ::nome('apple')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:apple'])
             ::post('/usuario-cliente/apple');
+        Route
+            ::nome('ativar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
+            ::request(['chave', 'valor', '!empresa'])
+            ::post('/usuario-cliente/ativar');
+        Route
+            ::nome('ativar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
+            ::request([
+                'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
+                'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
+                'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
+                'endereco_estado', 'endereco_cidade'
+            ])
+            ::put('/usuario-cliente/ativar');
+        Route
+            ::nome('senha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
+            ::request(['empresa', 'cpf'], 'json')
+            ::get('/usuario-cliente/senha');
+        Route
+            ::nome('senha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
+            ::request(['usuario', 'codigo'])
+            ::post('/usuario-cliente/senha');
+        Route
+            ::nome('senha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
+            ::request(['senha', 'usuario', 'hash'])
+            ::put('/usuario-cliente/senha');
     });
 
 Route
@@ -496,7 +526,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf',
-                '!status', '!ordem', '!empresa'
+                '!status', '!ordem', '!empresa', '!subempresa'
             ], 'json')
             ::get('/usuario-equipe');
 
@@ -522,7 +552,7 @@ Route
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
-                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa'
+                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa', '!subempresa'
             ])
             ::post('/usuario-equipe');
 
@@ -533,7 +563,7 @@ Route
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!imagem_facebook',
-                '!imagem_google', '!id_facebook', '!id_google', '!perfil'
+                '!imagem_google', '!id_facebook', '!id_google', '!perfil', '!subempresa'
             ])
             ::put('/usuario-equipe/{id}');
 
@@ -683,6 +713,16 @@ Route
 
         Route
             ::nome('analytics')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:salvar'])
+            ::request([
+                'vinculo', 'usuario_tipo', 'usuario_nome', 'usuario_cpf', 'hash', 'dispositivo',
+                'os', 'browser', 'versao', 'mobile', 'tablet', 'ip', 'agent', 'pais', 'estado',
+                'cidade', 'latitude', 'longitude', 'url'
+            ])
+            ::post('/relatorio/analytics');
+
+        Route
+            ::nome('analytics')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:listar'])
             ::request(['!pagina', '!quantidade', '!usuario', '!de', '!ate'], 'json')
             ::request(['!de', '!ate'], 'get')
@@ -705,6 +745,12 @@ Route
             ::criptografia(['login', 'senha'])
             ::request(['login', 'senha', 'scope', 'redirect_uri', 'state'])
             ::post('/login/clube');
+        Route
+            ::nome('loginHash')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
+            ::criptografia(['login', 'senha'])
+            ::request(['hash', 'scope', 'redirect_uri', 'state'])
+            ::post('/login/hash');
 
         Route
             ::nome('loginPainel')
@@ -808,6 +854,10 @@ Route
         Route
             ::nome('cinema')
             ::get('/pagina/cinema');
+
+        Route
+            ::nome('samsung')
+            ::get('/pagina/samsung');
     });
 
 Route
@@ -919,13 +969,25 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
-            ::request(['!pesquisa'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status', '!pesquisa', "!categoria"
+            ], 'json')
             ::get('/parceiro-cupom');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:buscar'])
             ::get('/parceiro-cupom/{id}');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
+            ::request([
+                '!status', '!auditado'
+            ])
+            ::put('/parceiro-cupom/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
+            ::delete('/parceiro-cupom/{id}');
     });
 
 Route
@@ -937,7 +999,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!categoria', '!empresa', '!status'
             ], 'json')
             ::get('/parceiro-cashback');
 
@@ -952,7 +1014,7 @@ Route
             ::request([
                 'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro',
                 'comissao_minima', 'comissao_maxima', 'status', 'empresa',
-                'link_site', 'imagem'
+                'link_site', 'imagem', 'categoria'
             ])
             ::post('/parceiro-cashback');
 
@@ -962,7 +1024,7 @@ Route
             ::request([
                 '!titulo', '!texto_descricao', '!texto_restricao', '!texto_outro',
                 '!comissao_minima', '!comissao_maxima', '!status', '!empresa',
-                '!link_site', '!imagem'
+                '!link_site', '!imagem', '!categoria'
             ])
             ::put('/parceiro-cashback/{id}');
 
@@ -1067,7 +1129,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
-            ::request(['pagina', '!quantidade', '!status'], 'json')
+            ::request(['pagina', '!quantidade', '!pesquisa', '!status'], 'json')
             ::get('/construtor-clube');
         Route
             ::nome('buscar')
@@ -1077,34 +1139,37 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:salvar'])
             ::request([
-                'empresa', 'titulo', 'logo', 'favicon', 'header_tag', 'header_descricao',
-                'cor', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip', 'link_app_ios',
-                'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
-                'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
+                'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'header_tag', 'header_descricao',
+                '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip',
+                'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
+                'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona', 'menu_samsung',
                 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
-                'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel',
+                'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'menu_tema',
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status'
+                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
+                'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico'
             ])
             ::post('/construtor-clube');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!logo', '!favicon', '!header_tag', '!header_descricao',
-                '!cor', '!link_clube', '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios',
+                '!empresa', '!titulo', '!logo_principal', '!logo_secundaria', '!favicon', '!header_tag',
+                '!header_descricao', '!cor_principal', '!cor_secundaria', '!link_clube',
+                '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios', '!menu_samsung',
                 '!link_app_android', '!contato_telefone', '!contato_whatsapp', '!contato_email',
                 '!contato_horario', '!contato_endereco', '!menu_faq', '!menu_como_funciona',
                 '!menu_sair', '!menu_acesso_rapido', '!menu_loja', '!menu_mapa', '!menu_cinema',
-                '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel',
+                '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel', '!menu_tema',
                 '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
                 '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
                 '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira', '!menu_cupom',
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
-                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status'
+                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
+                '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico'
             ])
             ::put('/construtor-clube/{id}');
         Route
@@ -1130,7 +1195,7 @@ Route
             ::request([
                 'pagina', '!quantidade', '!categoria', '!subcategoria', '!estabelecimento',
                 '!pesquisa', '!tipo', '!status', '!ordem', '!favorito', '!mais_acessado',
-                '!latitude', '!longitude'
+                '!latitude', '!longitude', '!estado'
             ], 'json')
             ::get('/parceiro-loja');
 
@@ -2036,6 +2101,7 @@ Route
     ::nome('solicitacao_loja')
     ::controller(App\Controllers\Api\SolicitacaoLojaController::class)
     ::middleware(TokenMiddleware::class, 'token')
+    ::criptografia(App\Classes\SolicitacaoLoja\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
             ::nome('listar')
@@ -2053,7 +2119,9 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
-            ::request(['nome', 'email', 'telefone', 'mensagem', '!usuario', 'origem'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!origem', '!cpf'
+            ])
             ::post('/solicitacao-loja');
 
         Route
@@ -2068,4 +2136,75 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:deletar'])
             ::delete('/solicitacao-loja/{id}');
+    });
+
+Route
+    ::nome('chatbot_perguntas')
+    ::controller(App\Controllers\Api\ChatbotPerguntasController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:listar'])
+            ::request([
+                '!pagina', '!quantiade', '!status', '!ordem', '!categoria'
+            ], 'json')
+            ::get('/chatbot-perguntas');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:buscar'])
+            ::get('/chatbot-perguntas/{id}');
+        Route
+           ::nome('salvar')
+           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:salvar'])
+           ::request([
+               'categoria', 'pergunta', 'resposta', 'status'
+           ])
+           ::post('/chatbot-perguntas');
+       Route
+           ::nome('atualizar')
+           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:atualizar'])
+           ::request([
+               'categoria', 'pergunta', 'resposta', 'status'
+           ])
+           ::put('/chatbot-perguntas/{id}');
+       Route
+           ::nome('perguntar')
+           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:perguntar'])
+           ::request([
+               'categoria', 'pergunta'
+           ])
+           ::post('/chatbot-perguntas/perguntar');
+    });
+
+Route
+    ::nome('chatbot_categoria')
+    ::controller(App\Controllers\Api\ChatbotCategoriaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:listar'])
+            ::request([
+                '!pagina'
+            ], 'json')
+            ::get('/chatbot-categoria');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:buscar'])
+            ::get('/chatbot-categoria/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:salvar'])
+            ::request([
+                'categoria', 'status'
+            ])
+            ::post('/chatbot-categoria');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:atualizar'])
+            ::request([
+                'categoria', 'status'
+            ])
+            ::put('/chatbot-categoria/{id}');
     });

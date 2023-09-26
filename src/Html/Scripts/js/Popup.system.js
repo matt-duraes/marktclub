@@ -1,110 +1,131 @@
+document
+    .querySelector('body')
+    .insertAdjacentHTML('afterbegin', '<div id="bloco_fw_popup" class="fw_popup_display_none"></div>');
+const blocoFwPopup = document.getElementById('bloco_fw_popup');
+const blocoFwPopupBody = document.querySelector('body');
 class Popup {
-    constructor() {
-        throw new Error('A class Popup não pode ser instanciada.');
-    }
-
-    static init(option) {
-        this._option = option;
-        this.LINK =
-            window.location.protocol +
-            '//' +
-            location.href.replace('http://', '').replace('https://', '').split('/')[0];
-        this._acaoAbrirPopup();
-        this._acaoFecharPopup();
-        this._acaoMudarUri();
-    }
-
-    static _acaoAbrirPopup() {
-        const option = this._option;
-        const botaoAbrir = option.abrir.botao;
-        const bloco = option.bloco;
-
-        if (botaoAbrir.length == undefined && typeof botaoAbrir === 'object') {
-            botaoAbrir.addEventListener('click', () => {
-                this._popupAbrir(true);
-            });
+    /**
+     * @param {string} titulo Título para o histório ao abrir
+     * @param {element} bloco Elemento
+     * @param {bool} fechar Se a página terá o botao de fechar
+     * @param {bool} historico Se o navegador vai monitorar o histórico para abrir e fechar a página
+     */
+    constructor(titulo, bloco, fechar, historico, callback) {
+        if (titulo == undefined || titulo == '') {
+            return;
         }
-        if (bloco.classList.contains('abrir_popup')) {
-            this._popupAbrir(false);
-        }
-    }
-    static _acaoFecharPopup() {
-        const option = this._option;
-        const bloco = option.bloco;
-        const blocoId = bloco.getAttribute('id') || '';
-        const botaoFechar = option.fechar.botao;
-        if (botaoFechar.length == undefined && typeof botaoFechar === 'object') {
-            botaoFechar.addEventListener('click', () => {
-                this._popupFechar(true);
-            });
-        } else if (botaoFechar.length > 0 && typeof botaoFechar === 'object') {
-            [].forEach.call(botaoFechar, botao => {
-                botao.addEventListener('click', () => {
-                    this._popupFechar(true);
-                });
-            });
-        }
+        const linkExplode = window.location.href.split('#');
+        this.linkAtual = linkExplode[0];
+        this.historico = historico !== undefined ? historico : true;
+        this.fechar = fechar !== undefined ? fechar : true;
 
-        document.querySelector('body').addEventListener('keydown', e => {
-            if (e.key == 'Escape') {
-                this._popupFechar(true);
-            }
-        });
-        if (blocoId != '') {
-            bloco.addEventListener('click', e => {
-                if (e.target.getAttribute('id') == blocoId) {
-                    this._popupFechar(true);
-                }
-            });
+        this.titulo = titulo;
+        this.callback = callback;
+        this.bloco = bloco;
+        this.bloco.classList.remove('display_none');
+        this.bloco.classList.add('fw_popup_conteudo');
+        this.bloco.classList.add('fw_popup_display_none');
+        this.ancoraAtual = linkExplode[1] || '';
+        this.ancora = this.criarSlug(titulo);
+        if (this.historico) {
+            this.verificarSeVaiAbrirAoCarregar();
+            this.monitorarTrocaDeUrl();
         }
     }
-    static _acaoMudarUri() {
-        const option = this._option;
-        const regAbrir = new RegExp('^' + option.abrir.uri.replace(/\//g, '\\/') + '$');
-        const regFechar = new RegExp('^' + option.fechar.uri.replace(/\//g, '\\/') + '$');
+    criarSlug(titulo) {
+        return titulo
+            .toString()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-');
+    }
+    verificarSeVaiAbrirAoCarregar() {
+        if (this.ancoraAtual != '' && this.ancoraAtual == this.ancora) {
+            this.abrirInterno(false);
+        }
+    }
+    monitorarTrocaDeUrl() {
+        const self = this;
         window.onpopstate = () => {
-            if (regFechar.test(document.location.pathname)) {
-                this._popupFechar(false);
-            } else if (regAbrir.test(document.location.pathname)) {
-                this._popupAbrir(false);
+            const url = window.location.href.split('#');
+            if (url.length == 1 && $('.fw_popup_animacao')) {
+                Popup.staticFechar();
+            } else if (self.ancora == url[1]) {
+                self.abrirInterno(false);
             }
         };
     }
 
-    static _popupAbrir(change) {
-        const option = this._option;
-        const bloco = option.bloco;
-        const display = option.display || 'flex';
-        const classe = option.display || 'popup_ativo';
-        const titulo = option.abrir.titulo;
-        const uri = option.abrir.uri;
+    /**
+     * Abre a página
+     */
+    abrir() {
+        this.abrirInterno(this.historico);
+    }
+    async abrirInterno(historico) {
+        blocoFwPopupBody.classList.add('fw_popup_body');
+        const clone = this.bloco.cloneNode(true);
+        clone.classList.remove('display_none');
+        clone.classList.remove('fw_popup_display_none');
+        clone.classList.add('fw_popup_conteudo_animacao');
 
-        document.querySelector('body').classList.add('body_hide');
+        const blocoAberto = blocoFwPopup.querySelector('.fw_popup_conteudo');
+        if (blocoAberto) {
+            const bloco = blocoFwPopup.querySelector('.fw_popup_conteudo');
+            bloco.classList.add('fw_popup_conteudo_animacao');
+            await new Promise(resolve => setTimeout(resolve, 300));
+            blocoFwPopup.innerHTML = '';
+        }
 
-        bloco.style.display = display;
+        blocoFwPopup.appendChild(clone);
+        blocoFwPopup.classList.remove('fw_popup_display_none');
         setTimeout(() => {
-            bloco.classList.add(classe);
-        }, 20);
+            blocoFwPopup.classList.add('fw_popup_animacao');
+            clone.classList.remove('fw_popup_conteudo_animacao');
+        }, 40);
+        if (this.callback) {
+            this.callback(clone);
+        }
 
-        if (change) {
-            history.pushState({}, titulo, this.LINK + uri);
+        if (historico) {
+            history.pushState({}, this.titulo, this.linkAtual + '#' + this.ancora);
         }
     }
-    static _popupFechar(change) {
-        const option = this._option;
-        const bloco = option.bloco;
-        const classe = option.display || 'popup_ativo';
-        const titulo = option.fechar.titulo;
-        const uri = option.fechar.uri;
 
-        bloco.classList.remove(classe);
-        setTimeout(() => {
-            document.querySelector('body').classList.remove('body_hide');
-            bloco.style.display = 'none';
-        }, 300);
+    /**
+     * Fecha a página
+     */
+    fechar() {
+        Popup.staticFechar();
+    }
+    static async staticFechar() {
+        blocoFwPopup.classList.remove('fw_popup_animacao');
+        const bloco = blocoFwPopup.querySelector('.fw_popup_conteudo');
+        bloco.classList.add('fw_popup_conteudo_animacao');
 
-        if (change) {
-            history.pushState({}, titulo, this.LINK + uri);
+        let url = window.location.href.split('#');
+        if (url.length > 1) {
+            const titulo = $('title') || '';
+            history.pushState({}, titulo, url[0]);
         }
+
+        setTimeout(() => {
+            blocoFwPopup.classList.add('fw_popup_display_none');
+            blocoFwPopup.innerHTML = '';
+            blocoFwPopupBody.classList.remove('fw_popup_body');
+        }, 300);
     }
 }
+blocoFwPopup.addEventListener('click', e => {
+    if (
+        e.target.classList.contains('popup_fechar') ||
+        e.target.closest('.popup_fechar') ||
+        e.target.getAttribute('id') == 'bloco_fw_popup'
+    ) {
+        Popup.staticFechar();
+    }
+});

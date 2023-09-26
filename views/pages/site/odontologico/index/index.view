@@ -5,7 +5,7 @@
 
     <div class="bloco_plano_saude">
         <figure>
-            <img src="https://clube.marktclub.com.br/images/odontoprev.png" alt="">
+            <img src="{!!LINK!!}/images/site/odontoprev.png" alt="">
         </figure>
         <header class="bloco_conteudo">
             <p>Em parceria com a OdontoPrev oferecemos planos Odontológicos Coletivos por Adesão, sem carências,

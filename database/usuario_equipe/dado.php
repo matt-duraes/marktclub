@@ -22,7 +22,6 @@ $permissao = json_encode([
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
     'parceiro_automovel_visualizar',
-    'solicitacao_loja_index', 'solicitacao_loja_visualizar', 'solicitacao_loja_status',
 
     'comunicacao_publicidade_index', 'comunicacao_publicidade_add', 'comunicacao_publicidade_editar',
     'comunicacao_publicidade_deletar',
@@ -34,7 +33,9 @@ $permissao = json_encode([
 
     'relatorio_acesso_index', 'relatorio_acesso_empresa', 'relatorio_usuario_index', 'relatorio_usuario_empresa',
     'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa', 'tabela_usuario_salvar', 'tabela_usuario_bloquear',
-    'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
+    'solicitacao_loja_index', 'solicitacao_loja_add', 'solicitacao_loja_deletar', 'solicitacao_loja_visualizar',
+    'solicitacao_loja_status', 'solicitacao_voucher_index', 'solicitacao_voucher_visualizar',
+    'solicitacao_voucher_download',
     'solicitacao_voucher_empresa', 'solicitacao_premium_index', 'solicitacao_premium_visualizar',
     'solicitacao_premium_index', 'solicitacao_premium_download', 'solicitacao_premium_empresa',
     'solicitacao_salavip_index', 'solicitacao_salavip_download', 'solicitacao_declaracao_index',

@@ -60,7 +60,7 @@ class SolicitacaoAutomovelController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Automovel,
                 lista: [
-                    'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor',
+                    'usuario', 'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor',
                     'data_criacao', 'data_atualizacao', 'mensagem', 'status'
                 ]
             ),

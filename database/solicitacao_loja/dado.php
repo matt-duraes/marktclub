@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 
 return [
@@ -9,7 +10,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ],
     [
@@ -18,7 +19,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ],
     [
@@ -27,7 +28,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ],
     [
@@ -36,7 +37,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ],
     [
@@ -45,7 +46,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ],
     [
@@ -54,7 +55,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ],
     [
@@ -63,7 +64,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ],
     [
@@ -72,7 +73,7 @@ return [
         'telefone' => telefoneAleatorio(),
         'email'    => emailAleatorio(),
         'mensagem' => 'Mensagem de Exemplo ' . numeroAleatorio(),
-        'origem'   => 1,
+        'origem'   => valorAleatorio((new Origem())->listarNumero()),
         'status'   => valorAleatorio((new Status())->listarNumero())
     ]
 ];

@@ -480,6 +480,21 @@ if (!function_exists('iconeGoogle')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path class="st0" d="M20.4,17.1V24H32c-0.5,2.9-3.5,8.6-11.6,8.6c-7,0-12.7-5.7-12.7-12.6c0-7,5.7-12.6,12.7-12.6 c4,0,6.6,1.7,8.1,3.1l5.5-5.2C30.5,2,25.9,0,20.4,0C9.1,0,0,8.9,0,20c0,11.1,9.1,20,20.4,20C32.2,40,40,31.9,40,20.5 c0-1.3-0.1-2.3-0.3-3.3H20.4L20.4,17.1z"/></svg>';
     }
 }
+if (!function_exists('iconeGoogleColorido')) {
+    // doc
+    // exemplo
+    // echo iconeGoogleColorido
+    /**
+     * Gera um icone do Google
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeGoogleColorido(int $tamanho = 14): string
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 19.5 20" style="enable-background:new 0 0 19.5 20;" xml:space="preserve"><path style="fill:#FBBC05;" d="M4.1,10c0-0.6,0.1-1.3,0.3-1.9L1,5.6C0.4,6.9,0,8.4,0,10c0,1.6,0.4,3.1,1,4.4l3.4-2.6C4.2,11.3,4.1,10.6,4.1,10z"/><path style="fill:#34A853;" d="M13.3,15c-0.9,0.6-2,0.9-3.3,0.9c-2.6,0-4.8-1.7-5.6-4.1L1,14.4c1.6,3.3,5,5.6,9,5.6c2.4,0,4.8-0.9,6.5-2.5L13.3,15z"/><path style="fill:#EA4335;" d="M1,5.6l3.4,2.6c0.8-2.4,3-4.1,5.6-4.1c1.4,0,2.7,0.5,3.7,1.3l2.9-2.9C14.8,1,12.5,0,10,0C6,0,2.7,2.3,1,5.6z"/><path style="fill:#4285F4;" d="M10,8.2V12h5.4c-0.3,1.3-1,2.3-2.1,3l3.2,2.5c1.8-1.7,3-4.2,3-7.5c0-0.6-0.1-1.2-0.2-1.8H10z"/></svg>';
+    }
+}
 if (!function_exists('iconeGithub')) {
     // doc
     // exemplo
@@ -1035,7 +1050,7 @@ if (!function_exists('iconeSair')) {
      */
     function iconeSair(int $tamanho = 16): string
     {
-        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M11,29H3c-0.6,0-1-0.4-1-1V4c0-0.6,0.4-1,1-1h8c0.6,0,1,0.4,1,1s-0.4,1-1,1H4v22h7c0.6,0,1,0.4,1,1S11.6,29,11,29z M20,25  c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l6.3-6.3H8c-0.6,0-1-0.4-1-1s0.4-1,1-1h17.6l-6.3-6.3c-0.4-0.4-0.4-1,0-1.4  s1-0.4,1.4,0l8,8c0.1,0.1,0.2,0.2,0.2,0.3c0,0.1,0.1,0.2,0.1,0.4l0,0c0,0,0,0,0,0l0,0c0,0.1,0,0.3-0.1,0.4c0,0.1-0.1,0.2-0.2,0.3  l-8,8C20.5,24.9,20.3,25,20,25z"/></svg>';
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 20" style="enable-background:new 0 0 22 20;" xml:space="preserve"><path d="M5,9h8v2H5v3l-5-4l5-4V9z M4,16h2.7c1.4,1.2,3.3,2,5.3,2c4.4,0,8-3.6,8-8c0-4.4-3.6-8-8-8c-2,0-3.9,0.8-5.3,2H4c1.8-2.4,4.7-4,8-4c5.5,0,10,4.5,10,10c0,5.5-4.5,10-10,10C8.7,20,5.8,18.4,4,16z"/></svg>';
     }
 }
 if (!function_exists('iconeBloquear')) {
@@ -1138,7 +1153,7 @@ if (!function_exists('iconeLink')) {
      * @param  int    $tamanho Altura do atributo height do svg
      * @return string SVG do icone
      */
-    function iconeLink(int $tamanho = 20): string
+    function iconeLink(int $tamanho): string
     {
         return '<svg height="' . $tamanho . '" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><switch><foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1"/><g i:extraneous="self"><g><path d="M5273.1,2400.1v-2c0-2.8-5-4-9.7-4s-9.7,1.3-9.7,4v2c0,1.8,0.7,3.6,2,4.9l5,4.9c0.3,0.3,0.4,0.6,0.4,1v6.4     c0,0.4,0.2,0.7,0.6,0.8l2.9,0.9c0.5,0.1,1-0.2,1-0.8v-7.2c0-0.4,0.2-0.7,0.4-1l5.1-5C5272.4,2403.7,5273.1,2401.9,5273.1,2400.1z      M5263.4,2400c-4.8,0-7.4-1.3-7.5-1.8v0c0.1-0.5,2.7-1.8,7.5-1.8c4.8,0,7.3,1.3,7.5,1.8C5270.7,2398.7,5268.2,2400,5263.4,2400z"/><path d="M5268.4,2410.3c-0.6,0-1,0.4-1,1c0,0.6,0.4,1,1,1h4.3c0.6,0,1-0.4,1-1c0-0.6-0.4-1-1-1H5268.4z"/><path d="M5272.7,2413.7h-4.3c-0.6,0-1,0.4-1,1c0,0.6,0.4,1,1,1h4.3c0.6,0,1-0.4,1-1C5273.7,2414.1,5273.3,2413.7,5272.7,2413.7z"/><path d="M5272.7,2417h-4.3c-0.6,0-1,0.4-1,1c0,0.6,0.4,1,1,1h4.3c0.6,0,1-0.4,1-1C5273.7,2417.5,5273.3,2417,5272.7,2417z"/></g><g><path d="M38.4,65.5H27.8c-8.5,0-15.5-7-15.5-15.5s6.9-15.5,15.5-15.5h10.6c2.7,0,4.9-2.2,4.9-4.9s-2.2-4.9-4.9-4.9H27.8     C13.9,24.7,2.5,36,2.5,50s11.4,25.3,25.3,25.3h10.6c2.7,0,4.9-2.2,4.9-4.9C43.3,67.7,41.1,65.5,38.4,65.5z"/><path d="M72.2,24.7H61.6c-2.7,0-4.9,2.2-4.9,4.9s2.2,4.9,4.9,4.9h10.6c8.5,0,15.5,7,15.5,15.5s-6.9,15.5-15.5,15.5H61.6     c-2.7,0-4.9,2.2-4.9,4.9c0,2.7,2.2,4.9,4.9,4.9h10.6c14,0,25.3-11.4,25.3-25.3S86.1,24.7,72.2,24.7z"/><path d="M23.6,50c0,2.7,2.2,4.9,4.9,4.9h43c2.7,0,4.9-2.2,4.9-4.9s-2.2-4.9-4.9-4.9h-43C25.8,45.1,23.6,47.3,23.6,50z"/></g></g></switch></svg>';
     }

@@ -47,6 +47,7 @@ trait PropriedadeEntityTrait
     public Genero $genero;
     public EstadoCivil $estado_civil;
     public int $id_admin_empresa;
+    public int $id_admin_subempresa;
     public Botao $primeiro_acesso;
     public Botao $mudar_senha;
     public Botao $lead;

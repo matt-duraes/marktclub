@@ -61,7 +61,7 @@ window.addEventListener('load', () => {
         ];
         for (const campo of campos) {
             if (campo.valor === null) {
-                Alerta.notifcacao(campo.mensagem, false);
+                Alerta.notificacao(campo.mensagem, false);
                 return;
             }
             if (sistema.length === 0) {

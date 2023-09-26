@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\SolicitacaoLoja;
 
-use ORM\ORM;
-use stdClass;
-use Erro\Excecao;
-use Modules\Pagina;
-use Modules\Quantidade;
-use System\Trait\Model\OrdemTrait;
-use System\Trait\Model\PaginaTrait;
 use App\Classes\SolicitacaoLoja\Ordem;
 use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
-use System\Trait\Model\QuantidadeTrait;
+use Erro\Excecao;
+use Modules\Pagina;
+use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
 use System\Interface\ModelListarInterface;
+use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 class SolicitacaoModel extends ORM implements
     ModelListarInterface
@@ -25,10 +25,10 @@ class SolicitacaoModel extends ORM implements
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
 
     /**
-     * @param Pagina          $pagina
-     * @param Quantidade|null $quantidade
-     * @param Ordem|null      $ordem
-     * @param Status|null     $status
+     * @param Pagina     $pagina
+     * @param Quantidade $quantidade
+     * @param Ordem      $ordem
+     * @param Status     $status
      */
     public function __construct(
         private readonly Pagina $pagina,
@@ -46,7 +46,10 @@ class SolicitacaoModel extends ORM implements
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'nome', 'origem', 'data_criacao', 'status'])
+            ->campo([
+                'uuid', 'nome', 'email', 'telefone',
+                'origem', 'status', 'data_criacao', 'data_atualizacao'
+            ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -76,15 +79,16 @@ class SolicitacaoModel extends ORM implements
     private function montarRetorno(array $dados): array
     {
         $retorno = [];
-        $Origem = new Origem();
-        $Status = new Status();
         foreach ($dados as $r) {
             $retorno[] = [
-                'id'           => $r->uuid,
-                'nome'         => $r->nome,
-                'origem'       => $Origem->indice($r->origem),
-                'data_criacao' => $r->data_criacao,
-                'status'       => $Status->indice($r->status),
+                'id'               => $r->uuid,
+                'nome'             => $r->nome,
+                'email'            => $r->email,
+                'telefone'         => $r->telefone,
+                'origem'           => (new Origem())->indice($r->origem),
+                'status'           => (new Status())->indice($r->status),
+                'data_criacao'     => $r->data_criacao,
+                'data_atualizacao' => $r->data_atualizacao
             ];
         }
         return $retorno;
