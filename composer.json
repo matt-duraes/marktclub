@@ -59,7 +59,7 @@
             "Status\\": "src/Status",
             "System\\": "src/",
             "Tests\\": [
-                "tests",
+                "tests/Backend",
                 "src/Tests"
             ]
         }

@@ -16,62 +16,56 @@
     </script>
 </head>
 <body>
-<nav>
-    <h1>Escolha os testes desejados</h1>
-    <ul>
-        <li class="diretorio">
-            <h2>Api</h2>
-            <div class="todos linha">
-                <input type="checkbox" id="todos_1">
-                <label for="todos_1">
-                    <div class="check"><?=$check?></div>
-                    Marcar todos
-                </label>
-            </div>
+    <div id="site">
+        <nav>
+            <h1>Escolha os testes desejados</h1>
             <ul>
-                <li>
-                    <input checked type="checkbox" id="todos_2">
-                    <label for="todos_2">
-                        <div class="check"><?=$check?></div>
-                        Usuario Cliente
-                    </label>
+                <?php $i = 0; ?>
+                <?php foreach($menu as $diretorio): ?>
+                    <?php $i++; ?>
+                <li class="bloco_diretorio">
+                    <h2><?= $diretorio->diretorio ?></h2>
+                    <div class="todos">
+                        <input class="input_diretorio" type="checkbox" id="todas_classes_<?=$i?>">
+                        <label for="todas_classes_<?=$i?>">
+                            <div class="check"><?=$check?></div>
+                            <p>Marcar todos</p>
+                        </label>
+                    </div>
+                    <ul>
+                        <?php foreach($diretorio->lista as $arquivo): ?>
+                            <?php $i++; ?>
+                        <li class="bloco_menu">
+                            <div class="grupo">
+                                <input class="input_classe" data-diretorio="<?= $diretorio->diretorio ?>" data-class="<?= $arquivo->class ?>" type="checkbox" id="todos_metodos_<?= $i ?>">
+                                <label for="todos_metodos_<?= $i ?>">
+                                    <div class="check"><?=$check?></div>
+                                    <p><?= $arquivo->nome ?></p>
+                                </label>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </li>
-                <li>
-                    <input type="checkbox" id="todos_3">
-                    <label for="todos_3">
-                        <div class="check"><?=$check?></div>
-                        Usuario Cliente
-                    </label>
-                </li>
+                <?php endforeach; ?>
             </ul>
-        </li>
-        <li class="diretorio">
-            <h2>Site</h2>
-            <div class="todos">
-                <input type="checkbox" id="todos_4">
-                <label for="todos_4">
-                    <div class="check"><?=$check?></div>
-                    Marcar todos
-                </label>
+        </nav>
+        <div class="bloco_retorno" id="bloco_retorno">
+            <div class="bloco_loading">
+                <p>Fazendo teste <span id="bloco_numero_atual">1</span> de <span id="bloco_numero_total">50</span></p>
+                <div class="botao botao_cancelar" id="botao_cancelar_teste">CANCELAR</div>
+                <div class="barra"><span></span></div>
             </div>
-            <ul>
-                <li>
-                    <input type="checkbox" id="todos_5">
-                    <label for="todos_5">
-                        <div class="check"><?=$check?></div>
-                        Usuario Cliente
-                    </label>
-                </li>
-                <li>
-                    <input type="checkbox" id="todos_6">
-                    <label for="todos_6">
-                        <div class="check"><?=$check?></div>
-                        Usuario Cliente
-                    </label>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+            <div class="scroll">
+                <div id="bloco_conteudo" class="conteudo">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="botao_acao botao_comecar" id="botao_fazer_teste">FAZER TESTE</div>
+    <form action="/">
+        <input type="text" name="LINK" id="LINK" value="<?=LINK?>">
+    </form>
 </body>
 </html>
