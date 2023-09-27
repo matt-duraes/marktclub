@@ -2,8 +2,9 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use ORM\ORM;
 
 final class SalvarLeadModel extends ORM
 {
@@ -12,12 +13,21 @@ final class SalvarLeadModel extends ORM
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private int $idEmpresa;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
-        parent::__construct();
         $this->validarEmpresa('empresa');
+        parent::__construct();
     }
 
+    /**
+     * @param array $dado
+     *
+     * @return false|void
+     * @throws Excecao
+     */
     public function salvarLead(array $dado)
     {
         $cpf = $dado['documento'];
@@ -55,7 +65,13 @@ final class SalvarLeadModel extends ORM
         }
     }
 
-    private function removerEmailJaExiste($email)
+    /**
+     * @param $email
+     *
+     * @return bool
+     * @throws Excecao
+     */
+    private function removerEmailJaExiste($email): bool
     {
         return $this->existe([
             ['empresa', $this->idEmpresa],
