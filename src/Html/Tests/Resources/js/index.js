@@ -89,16 +89,73 @@ window.addEventListener('load', () => {
             try {
                 adicionarJson(await resposta.json());
             } catch (error) {
-                adicionarErro(diretorio, classe);
+                adicionarErro(diretorio, classe, error);
             }
         }
         fecharLoading();
     };
-    const adicionarJson = json => {
-        ppe(json);
+    const adicionarJson = dado => {
+        let html = `
+            <article>
+                <header>
+                    <h1>${dado.arquivo}</h1>
+                    <p>${dado.class}</p>
+                </header>
+            `;
+        const falhou = pegarTeste(dado.test.falhou);
+        const passou = pegarTeste(dado.test.passou);
+        const todos = pegarTeste(dado.test.todos);
+
+        let teste = '';
+        let botao = '';
+        if (dado.test.todos.length > 0) {
+            botao += `<div class="botao botao_todos ativo">Todos</div>`;
+            teste += `<div class="bloco_teste todos">${todos}</div>`;
+        }
+        if (dado.test.passou.length > 0) {
+            botao += `<div class="botao botao_passou">Passou</div>`;
+            teste += `<div class="bloco_teste passou display_none">${passou}</div>`;
+        }
+        if (dado.test.falhou.length > 0) {
+            botao += `<div class="botao batao_falhou">Falhou</div>`;
+            teste += `<div class="bloco_teste falhou display_none">${falhou}</div>`;
+        }
+        html += `<div class="bloco_botao">${botao}</div>`;
+        html += teste;
+        html += `</article>`;
+        blocoConteudo.insertAdjacentHTML('afterbegin', html);
     };
-    const adicionarErro = (diretorio, classe) => {
-        ppe(diretorio, classe);
+    const pegarTeste = lista => {
+        let html = '';
+        lista.forEach(dado => {
+            let header = '';
+            if (dado.tipo == 'test') {
+                header = `
+                    <h2>${dado.nome}</h2>
+                    <div class="status">${dado.status}</div>
+                    <div class="linha"></div>
+                    <div class="metodo metodo_${dado.metodo}">${dado.metodo}</div>
+                    <p class="url">${dado.url}</p>
+                `;
+            } else {
+                header = `<h2>${dado.nome}</h2>`;
+            }
+            html += `
+                <div class="teste">
+                    <header>
+                        ${header}
+                    </header>
+                    <ul>
+
+                    </ul>
+                </div>
+            `;
+        });
+        return html;
+    };
+
+    const adicionarErro = (diretorio, classe, e) => {
+        ppe(diretorio, classe, e);
     };
 
     $('.input_classe').checked = true;

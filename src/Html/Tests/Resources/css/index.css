@@ -223,3 +223,9 @@ nav input {
     background-color: var(--verde);
     z-index: 5;
 }
+
+.bloco_retorno .conteudo .article {
+    width: 100%;
+    background-color: #FFF;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
+}
