@@ -2155,26 +2155,26 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:buscar'])
             ::get('/chatbot-perguntas/{id}');
         Route
-           ::nome('salvar')
-           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:salvar'])
-           ::request([
-               'categoria', 'pergunta', 'resposta', 'status'
-           ])
-           ::post('/chatbot-perguntas');
-       Route
-           ::nome('atualizar')
-           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:atualizar'])
-           ::request([
-               'categoria', 'pergunta', 'resposta', 'status'
-           ])
-           ::put('/chatbot-perguntas/{id}');
-       Route
-           ::nome('perguntar')
-           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:perguntar'])
-           ::request([
-               'categoria', 'pergunta'
-           ])
-           ::post('/chatbot-perguntas/perguntar');
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:salvar'])
+            ::request([
+                'categoria', 'pergunta', 'resposta', 'status'
+            ])
+            ::post('/chatbot-perguntas');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:atualizar'])
+            ::request([
+                'categoria', 'pergunta', 'resposta', 'status'
+            ])
+            ::put('/chatbot-perguntas/{id}');
+        Route
+            ::nome('perguntar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:perguntar'])
+            ::request([
+                'categoria', 'pergunta'
+            ])
+            ::post('/chatbot-perguntas/perguntar');
     });
 
 Route
@@ -2207,4 +2207,15 @@ Route
                 'categoria', 'status'
             ])
             ::put('/chatbot-categoria/{id}');
+    });
+
+Route
+    ::nome('drogaria_araujo')
+    ::controller(App\Controllers\Api\DrogariaAraujoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['drogaria_araujo:buscar'])
+            ::get('/empresas/{id}');
     });
