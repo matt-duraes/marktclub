@@ -28,7 +28,7 @@
                     <div class="todos">
                         <input class="input_diretorio" type="checkbox" id="todas_classes_<?=$i?>">
                         <label for="todas_classes_<?=$i?>">
-                            <div class="check"><?=$check?></div>
+                            <div class="check"><?=iconeCheck(12)?></div>
                             <p>Marcar todos</p>
                         </label>
                     </div>
@@ -39,7 +39,7 @@
                             <div class="grupo">
                                 <input class="input_classe" data-diretorio="<?= $diretorio->diretorio ?>" data-class="<?= $arquivo->class ?>" type="checkbox" id="todos_metodos_<?= $i ?>">
                                 <label for="todos_metodos_<?= $i ?>">
-                                    <div class="check"><?=$check?></div>
+                                    <div class="check"><?=iconeCheck(12)?></div>
                                     <p><?= $arquivo->nome ?></p>
                                 </label>
                             </div>
@@ -55,6 +55,17 @@
                 <p>Fazendo teste <span id="bloco_numero_atual">1</span> de <span id="bloco_numero_total">50</span></p>
                 <div class="botao botao_cancelar" id="botao_cancelar_teste">CANCELAR</div>
                 <div class="barra"><span></span></div>
+            </div>
+            <div class="bloco_header display_none">
+                <i class="passou display_none"><?= iconeCheck(16) ?></i>
+                <i class="falhou display_none"><?= iconeFechar(12) ?></i>
+                <p><strong class="numero"></strong> dos testes passaram</p>
+
+                <div class="grow"></div>
+
+                <div class="botao ativo">Todos</div>
+                <div class="botao">Passou</div>
+                <div class="botao">Falhou</div>
             </div>
             <div class="scroll">
                 <div id="bloco_conteudo" class="conteudo">

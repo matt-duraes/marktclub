@@ -96,7 +96,7 @@ window.addEventListener('load', () => {
     };
     const adicionarJson = dado => {
         let html = `
-            <article>
+            <article class="article">
                 <header>
                     <h1>${dado.arquivo}</h1>
                     <p>${dado.class}</p>
@@ -123,12 +123,14 @@ window.addEventListener('load', () => {
         html += `<div class="bloco_botao">${botao}</div>`;
         html += teste;
         html += `</article>`;
-        blocoConteudo.insertAdjacentHTML('afterbegin', html);
+        blocoConteudo.insertAdjacentHTML('beforeend', html);
     };
     const pegarTeste = lista => {
         let html = '';
         lista.forEach(dado => {
-            let header = '';
+            let header = '',
+                teste = '',
+                resposta = '';
             if (dado.tipo == 'test') {
                 header = `
                     <h2>${dado.nome}</h2>
@@ -137,6 +139,9 @@ window.addEventListener('load', () => {
                     <div class="metodo metodo_${dado.metodo}">${dado.metodo}</div>
                     <p class="url">${dado.url}</p>
                 `;
+                teste = pegarCadaMetodo(dado.test);
+                resposta = pegarResposta(dado);
+                ppe(resposta);
             } else {
                 header = `<h2>${dado.nome}</h2>`;
             }
@@ -146,12 +151,58 @@ window.addEventListener('load', () => {
                         ${header}
                     </header>
                     <ul>
-
+                        ${teste}
+                        ${resposta}
                     </ul>
                 </div>
             `;
         });
         return html;
+    };
+    const pegarCadaMetodo = teste => {
+        let html = '';
+        teste.forEach(dado => {
+            html += `<li class="linha_teste ${dado.status}"><span>${dado.status}</span><p>${dado.mensagem}</p></li>`;
+        });
+        return html;
+    };
+    const pegarResposta = dado => {
+        const header = JSON.stringify(dado.header) !== undefined ? JSON.stringify(dado.header, null, 2) : '';
+        const parametro = JSON.stringify(dado.parametro) !== undefined ? JSON.stringify(dado.parametro, null, 2) : '';
+        const body = JSON.stringify(dado.body) !== undefined ? JSON.stringify(dado.body, null, 2) : '';
+        const json = JSON.stringify(dado.json) !== undefined ? JSON.stringify(dado.json, null, 2) : '';
+        let resposta = dado.resposta;
+        if (typeof dado.resposta === 'object' && JSON.stringify(dado.resposta) !== undefined) {
+            resposta = JSON.stringify(dado.resposta, null, 2);
+        }
+
+        return `
+            <li class="linha_resposta">
+                <div class="botao_mostrar botao_mostrar_request">Mostrar request</div>
+                <ul class="display_none">
+                    <li class="pre">
+                        <span>Header</span>
+                        <pre>${header}</pre>
+                    </li>
+                    <li class="pre">
+                        <span>Parametros</span>
+                        <pre>${parametro}</pre>
+                    </li>
+                    <li class="pre">
+                        <span>Body</span>
+                        <pre>${body}</pre>
+                    </li>
+                    <li class="pre">
+                        <span>JSON</span>
+                        <pre>${json}</pre>
+                    </li>
+                    <li class="pre">
+                        <span>Resposta</span>
+                        <pre>${resposta}</pre>
+                    </li>
+                </ul>
+            </li>
+        `;
     };
 
     const adicionarErro = (diretorio, classe, e) => {

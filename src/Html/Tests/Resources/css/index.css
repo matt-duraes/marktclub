@@ -1,8 +1,7 @@
 :root {
     --verde: #169e91;
-}
-:root {
     --vermelho: #FF6C60;
+    --azul: #00aced;
 }
 html {
     font-size: 62.5%;
@@ -21,8 +20,7 @@ body {
     flex-direction: row;
 }
 nav {
-    width: 50%;
-    max-width: 400px;
+    width: 400px;
     height: 100vh;
     background-color: #FFF;
     box-shadow: 5px 5px 5px rgba(0,0,0,.1);
@@ -135,9 +133,8 @@ nav input {
     display: flex;
     flex-direction: column;
     position: relative;
-    flex-grow: 1;
-    flex-basis: 0%;
     height: 100vh;
+    width: calc(100% - 400px);
     z-index: 1;
 }
 .bloco_retorno .scroll {
@@ -145,8 +142,61 @@ nav input {
     padding: 20px 20px 100px;
     overflow-y: auto;
 }
-.bloco_retorno.carregando .scroll {
-    height: calc(100vh - 60px);
+.bloco_retorno .bloco_header {
+    width: calc(100% - 40px);
+    height: 60px;
+    position: relative;
+    text-align: center;
+    margin-left: 20px;
+    background-color: #FFF;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 5px 5px rgba(0,0,0,.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.bloco_retorno .bloco_header i {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    fill: #FFF;
+}
+.bloco_retorno .bloco_header i.passou {
+    background-color: var(--verde);
+}
+.bloco_retorno .bloco_header i.falhou {
+    background-color: var(--vermelho);
+}
+.bloco_retorno .bloco_header p {
+    font-size: 1.4rem;
+}
+.bloco_retorno .bloco_header p strong {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+.bloco_retorno .bloco_header .botao {
+    cursor: pointer;
+    height: 30px;
+    line-height: 28px;
+    padding: 0 20px;
+    border: 1px solid #CCC;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.bloco_retorno .bloco_header .botao.ativo {
+    border-color: var(--verde);
+    background-color: var(--verde);
+    color: #FFF;
+}
+.bloco_retorno .bloco_header .grow {
+    flex-basis: 0%;
+    flex-grow: 1;
 }
 .bloco_retorno .bloco_loading {
     width: 100%;
@@ -224,8 +274,158 @@ nav input {
     z-index: 5;
 }
 
-.bloco_retorno .conteudo .article {
+.article {
     width: 100%;
+    display: flex;
+    flex-direction: column;
     background-color: #FFF;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 5px rgba(0,0,0,.1);
+}
+.article > header {
+    padding: 20px;
+}
+.article > header h1 {
+    font-size: 2.4rem;
+}
+.article > header p {
+    font-size: 1.6rem;
+    margin-top: 5px;
+}
+.article .bloco_botao {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+.article .bloco_botao .botao {
+    cursor: pointer;
+    height: 30px;
+    line-height: 28px;
+    padding: 0 20px;
+    border: 1px solid #CCC;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.article .bloco_botao .botao.ativo {
+    border-color: var(--verde);
+    background-color: var(--verde);
+    color: #FFF;
+}
+.article .teste {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.article .teste:hover {
+    background-color: #F6F6F6;
+}
+.article .teste header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.article .teste header h2 {
+    flex-basis: 0%;
+    flex-grow: 1;
+    font-size: 1.8rem;
+}
+.article .teste header .status {
+    font-size: 1.4rem;
+    background-color: var(--azul);
+    color: #FFF;
+    padding: 10px 15px;
+    border-radius: 30px;
+}
+.article .teste header .linha {
+    width: 100%;
+    margin-top: 5px
+}
+.article .teste header .metodo {
+    font-size: 1.4rem;
+    margin-right: 10px;
+}
+.article .teste header .url {
+    width: 100%;
+    font-size: 1.4rem;
+    color: var(--azul);
+    flex-basis: 0%;
+    flex-grow: 1;
+}
+.article .teste ul {
+    width: 100%;
+    margin-top: 20px;
+}
+.article .teste ul .linha_teste {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0 10px 10px;
+    margin-left: 10px;
+    border-left: 1px solid var(--azul);
+}
+.article .teste ul .linha_teste span {
+    color: #FFF;
+    padding: 6px 15px;
+    font-size: 1.4rem;
+    border-radius: 20px;
+}
+.article .teste ul .linha_teste.passou span {
+    background-color: var(--verde);
+}
+.article .teste ul .linha_teste.falhou span {
+    background-color: var(--vermelho);
+}
+.article .teste ul .linha_teste p {
+    font-size: 1.4rem;
+    padding-left: 15px;
+}
+.article .teste ul .linha_teste p strong {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.article .teste ul .linha_resposta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 0 10px;
+}
+.article .teste ul .linha_resposta .botao_mostrar {
+    background-color: #DDD;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.article .teste ul .linha_resposta ul {
+    margin-top: 10px;
+}
+.article .teste ul .linha_resposta ul li {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.article .teste ul .linha_resposta ul li span {
+    margin: 10px 0 5px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #666;
+}
+.article .teste ul .linha_resposta ul li pre {
+    width: 100%;
+    line-height: 1.5em;
+    background-color: #333;
+    color: #FFF;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    overflow: auto;
 }
