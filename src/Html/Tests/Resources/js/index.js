@@ -86,10 +86,18 @@ window.addEventListener('load', () => {
                 method: 'POST',
                 body,
             });
+
+            const retorno = await resposta.text();
+            const json = JSON.parse(retorno);
+            const titulo = input.closest('.grupo').querySelector('label p').innerText || '';
             try {
-                adicionarJson(await resposta.json());
+                if (json) {
+                    adicionarJson(json);
+                } else {
+                    adicionarErro(titulo, diretorio + '\\' + classe, retorno, undefined);
+                }
             } catch (error) {
-                adicionarErro(diretorio, classe, error);
+                adicionarErro(titulo, diretorio + '\\' + classe, retorno, error);
             }
         }
         fecharLoading();
@@ -141,7 +149,6 @@ window.addEventListener('load', () => {
                 `;
                 teste = pegarCadaMetodo(dado.test);
                 resposta = pegarResposta(dado);
-                ppe(resposta);
             } else {
                 header = `<h2>${dado.nome}</h2>`;
             }
@@ -162,7 +169,7 @@ window.addEventListener('load', () => {
     const pegarCadaMetodo = teste => {
         let html = '';
         teste.forEach(dado => {
-            html += `<li class="linha_teste ${dado.status}"><span>${dado.status}</span><p>${dado.mensagem}</p></li>`;
+            html += `<li class="linha_teste ${dado.status} teste_${dado.status}"><span>${dado.status}</span><p>${dado.mensagem}</p></li>`;
         });
         return html;
     };
@@ -181,23 +188,23 @@ window.addEventListener('load', () => {
                 <div class="botao_mostrar botao_mostrar_request">Mostrar request</div>
                 <ul class="display_none">
                     <li class="pre">
-                        <span>Header</span>
+                        <span>Header:</span>
                         <pre>${header}</pre>
                     </li>
                     <li class="pre">
-                        <span>Parametros</span>
+                        <span>Parametros:</span>
                         <pre>${parametro}</pre>
                     </li>
                     <li class="pre">
-                        <span>Body</span>
+                        <span>Body:</span>
                         <pre>${body}</pre>
                     </li>
                     <li class="pre">
-                        <span>JSON</span>
+                        <span>JSON:</span>
                         <pre>${json}</pre>
                     </li>
                     <li class="pre">
-                        <span>Resposta</span>
+                        <span>Resposta:</span>
                         <pre>${resposta}</pre>
                     </li>
                 </ul>
@@ -205,8 +212,35 @@ window.addEventListener('load', () => {
         `;
     };
 
-    const adicionarErro = (diretorio, classe, e) => {
-        ppe(diretorio, classe, e);
+    const adicionarErro = (titulo, classe, retorno, e) => {
+        let erro = '';
+        if (e !== undefined) {
+            erro = `
+                <h2>Erro:</h2>
+                <pre>${e}</pre>
+            `;
+        }
+        let html = `
+            <article class="article">
+                <header>
+                    <h1>${titulo}</h1>
+                    <p>Tests\\${classe}</p>
+                </header>
+                <div class="bloco_erro teste_falhou">
+                    <h2>Resposta:</h2>
+                    <iframe srcdoc="${pegarHtmlIframe(retorno)}"></iframe>
+                    ${erro}
+                </div>
+            </article>
+        `;
+        blocoConteudo.insertAdjacentHTML('beforeend', html);
+    };
+    const pegarHtmlIframe = html => {
+        html = html.replace(/\"/g, '&quot;');
+        if (!html.includes('<html') || html.includes('PRE PRINT EXIT') || html.includes('VAR_DUMP EXIT')) {
+            return `<style>* {color: #FFF;}</style> ${html}`;
+        }
+        return html;
     };
 
     $('.input_classe').checked = true;
