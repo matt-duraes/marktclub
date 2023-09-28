@@ -10,5 +10,5 @@ final class Helper
         'responsavel_telefone', 'responsavel_cpf', 'valor_pago', 'renda_media', 'valor_pib', 'cnpj', 'contrato_valor',
         'contrato_valor_minimo'
     ];
-    public const STATUS_LIBERADO = [1, 3];
+    public const STATUS_LIBERADO = [1, 4];
 }
