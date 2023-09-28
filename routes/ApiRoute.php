@@ -1484,7 +1484,7 @@ Route
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
                 '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!contratou_concorrente',
                 '!qual_concorrente', '!origem', '!base_usuarios', '!canal_preferencia', '!data_apresentacao',
-                '!formato_reuniao'
+                '!formato_reuniao', '!previsao_retorno', '!motivo_standby'
             ])
             ::post('/comercial-empresa');
 
@@ -1503,7 +1503,7 @@ Route
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
                 '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!contratou_concorrente',
                 '!qual_concorrente', '!origem', '!base_usuarios', '!canal_preferencia', '!data_apresentacao',
-                '!formato_reuniao'
+                '!formato_reuniao', '!previsao_retorno', '!motivo_standby'
             ])
             ::put('/comercial-empresa/{id}');
     });
