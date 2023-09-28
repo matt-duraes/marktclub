@@ -133,7 +133,7 @@ return [
                 ]
             ],
             'comercial_empresa'        => [
-                'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
+                'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar', 'status']
             ],
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
