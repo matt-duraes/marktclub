@@ -1,14 +1,15 @@
 <?php
 
-return (new \DataBase\DataBase())
+use DataBase\DataBase;
+
+return (new DataBase())
     ->id()
     ->uuid()
     ->int('id_admin_empresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')
-    ->varchar('nome')->tamanho(100)
+    ->nome('nome')->tamanho(100)
     ->email('email')
     ->telefone('telefone')
-    ->text('mensagem')->null()
-    ->text('descoberta_site')->null()
+    ->longtext('mensagem')
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();

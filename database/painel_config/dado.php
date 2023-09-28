@@ -34,6 +34,7 @@ return [
                 ]
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'comunicacao_contato'     => ['titulo' => 'Contato', 'acao' => ['index', 'visualizar', 'status']],
             'enquete_satisfacao'      => [
                 'titulo' => 'Pesquisa Satisfação', 'acao' => ['index', 'visualizar', 'deletar', 'status']
             ],
@@ -138,10 +139,11 @@ return [
                     'tipo_pagamento'
                 ]
             ],
-            'usuario_equipe' => [
+            'usuario_equipe'  => [
                 'geral' => [
                     'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho', 'senha', 'status', 'primeiro_acesso',
-                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha', 'permissao',
+                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha',
+                    'permissao',
                     'empresa', 'subempresa'
                 ]
             ]
@@ -190,10 +192,11 @@ return [
                     'nome', 'cpf', 'matricula', 'siape', 'data_upload', 'data_criacao_de', 'data_criacao_ate', 'status'
                 ]
             ],
-            'usuario_equipe' => [
+            'usuario_equipe'  => [
                 'geral' => [
                     'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho', 'senha', 'status', 'primeiro_acesso',
-                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha', 'permissao',
+                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha',
+                    'permissao',
                     'subempresa'
                 ]
             ]

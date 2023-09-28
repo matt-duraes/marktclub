@@ -1,0 +1,1 @@
+{"id":"id_eb897016921a2dd4fd2f0631263d02cd","token":"token","metodo":"GET","nome":"\/comunicacao-contato\/:id","uri":"{{LINK}}\/comunicacao-contato\/$CONTATO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":""}}
