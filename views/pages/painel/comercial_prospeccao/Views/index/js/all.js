@@ -96,7 +96,9 @@ window.addEventListener('load', () => {
         if (!(await Alerta.confirmar('Cancelar contrato!', 'Tem certeza que deseja finalizar esse contrato?', '!'))) {
             return;
         }
-        atualizarStatusContrato(item, id, 'inativo');
+        await atualizarStatusContrato(item, id, 'inativo');
+
+        window.location.assign(LINK + '/app/editar/comercial-prospeccao/' + id);
     };
     concluirContrato = async id => {
         if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', '!'))) {
