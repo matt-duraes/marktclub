@@ -72,6 +72,15 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
-$Painel->js('painel_comercial_empresa_add');
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Standby', function () use ($Painel) {
+        $Painel
+            ->input(name: 'motivo_standby', label: 'Motivo do standby')
+            ->data(name: 'previsao_retorno', label: 'Previsão de retorno', placeholder: 'Previsão de retorno')
+            ->hidden(name: 'status');
+    });
+});
+
+$Painel->js('painel_comercial_prospeccao_add');
 
 return $Painel;

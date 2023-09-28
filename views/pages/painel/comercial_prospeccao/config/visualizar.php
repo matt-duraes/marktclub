@@ -49,6 +49,14 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->data('data_apresentacao', 'Data de apresentação')
             ->linha('formato_reuniao', 'Formato da reunião');
     });
+
+    $Painel->div(class: "bloco_standby", id: "asdasd", callback: function () use ($Painel) {
+        $Painel->bloco(titulo: 'Standby', callback: function () use ($Painel) {
+            $Painel
+                ->linha('motivo_standby', 'Motivo do standby')
+                ->data('previsao_retorno', 'Previsão de retorno');
+        });
+    });
 });
 
 $Painel
@@ -59,5 +67,7 @@ $Painel
     ->replace('finalidade_principal', (new FinalidadePrincipal())->select())
     ->replace('finalidade_secundaria', (new FinalidadeSecundaria())->select())
     ->replace('estado_principal', (new ListaHelper())->estado()->r());
+
+$Painel->js('painel_comercial_prospeccao_visualizar');
 
 return $Painel;

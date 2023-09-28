@@ -62,5 +62,7 @@ return (new \DataBase\DataBase())
     ->varchar('canal_preferencia')->tamanho(100)->null()
     ->varchar('data_apresentacao')->tamanho(100)->null()
     ->varchar('formato_reuniao')->tamanho(100)->null()
+    ->varchar('motivo_standby')->tamanho(100)->null()
+    ->date('previsao_retorno')->null()
     ->int('prospeccao_status')->tamanho(1)->null()
     ->status();

@@ -121,6 +121,8 @@ window.addEventListener('load', () => {
         newItem.dataset.status = item.dataset.status;
         setEvents(newItem);
 
+        window.location.assign(LINK + '/app/editar/comercial-prospeccao/' + id);
+
         blocoStandBy.appendChild(newItem);
         removerBlocoZero(blocoStandBy);
         adicionarNumeroItem(blocoStandBy);
