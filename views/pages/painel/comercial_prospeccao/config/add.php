@@ -73,6 +73,15 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Negociação', function () use ($Painel) {
+        $Painel
+            ->data(name: 'devolutiva', label: 'Devolutiva', placeholder: 'Devolutiva')
+            ->numero('nivel_decisao', 'Nível de decisão', maximo: 1)
+            ->numero('etapa_negociacao', 'Etapa', maximo: 1);
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Standby', function () use ($Painel) {
         $Painel
             ->input(name: 'motivo_standby', label: 'Motivo do standby')
