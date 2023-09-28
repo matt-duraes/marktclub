@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 use App\Classes\Geral\Status;
 
 class AutomovelVersaoTest extends Clube

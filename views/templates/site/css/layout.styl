@@ -56,7 +56,7 @@ body
 a
     cursor: pointer
 
-.botao_chat:not('#bloco_loja_mapa')
+.botao_chat
     width: 60px
     height: 60px
     flexCenter()
@@ -67,6 +67,8 @@ a
     bottom: 20px
     right: 20px
     z-index: 20
+    &.chat_mapa
+        right: 80px
 
 .body_scroll_hidden
     overflow: hidden

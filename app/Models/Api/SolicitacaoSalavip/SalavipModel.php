@@ -2,17 +2,18 @@
 
 namespace App\Models\Api\SolicitacaoSalavip;
 
+use App\Classes\SolicitacaoSalavip\Empresa;
+use App\Classes\SolicitacaoVoucher\Ordem;
+use App\Models\Api\SolicitacaoSalavip\Trait\ValidarRequestTrait;
+use App\Models\Api\SolicitacaoSalavip\Trait\WhereTrait;
+use Erro\Excecao;
+use Http\Request;
 use ORM\ORM;
 use stdClass;
-use Http\Request;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\SolicitacaoVoucher\Ordem;
-use System\Interface\ModelListarInterface;
-use App\Classes\SolicitacaoSalavip\Empresa;
-use App\Models\Api\SolicitacaoSalavip\Trait\WhereTrait;
-use App\Models\Api\SolicitacaoSalavip\Trait\ValidarRequestTrait;
 
 final class SalavipModel extends ORM implements
     ModelListarInterface
@@ -25,24 +26,28 @@ final class SalavipModel extends ORM implements
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
 
+    /**
+     * @param Request $request
+     */
     public function __construct(
         protected Request $request
     ) {
-        parent::__construct();
         $this->validarRequest();
+        parent::__construct();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | LISTAR
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'empresa', 'codigo', 'data_validacao'])
+            ->campo([
+                'cod', 'empresa', 'codigo', 'data_validacao'
+            ])
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->where($this->pegarWhere())
             ->order($this->pegarOrdem(new Ordem()))
             ->read();
 
@@ -50,6 +55,11 @@ final class SalavipModel extends ORM implements
         return $dado;
     }
 
+    /**
+     * @param array $dado
+     *
+     * @return array
+     */
     protected function montarRetorno(array $dado): array
     {
         if (!$dado) {

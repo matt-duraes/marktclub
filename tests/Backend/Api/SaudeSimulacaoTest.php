@@ -7,7 +7,7 @@ use App\Classes\Saude\Operadoras\Amil\Planos as PlanosAmil;
 use App\Classes\Saude\Operadoras\Amil\Regioes as RegioesAmil;
 use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanosCNUFlorianopolis;
 use Erro\Excecao;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 final class SaudeSimulacaoTest extends Clube
 {

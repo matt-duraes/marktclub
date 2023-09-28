@@ -3,7 +3,7 @@
 namespace Tests\Api;
 
 use Erro\Excecao;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 use App\Classes\Silium\TipoConta;
 
 class SiliumTest extends Clube

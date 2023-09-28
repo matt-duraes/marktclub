@@ -14,10 +14,10 @@ final class Auditado extends StatusStatus
     ) {
         parent::__construct([
             self::NAO_AUDITADO => 'Não auditado',
-            self::AUDITADO => 'Auditado'
+            self::AUDITADO     => 'Auditado'
         ], [
             self::NAO_AUDITADO => 'vermelho',
-            self::AUDITADO => 'verde'
+            self::AUDITADO     => 'verde'
         ]);
     }
 }

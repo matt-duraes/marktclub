@@ -14,7 +14,6 @@ final class AdminChaveTest extends Tests
 
     public function pegarChavePublicaTest()
     {
-        $teste = [];
         $this
             ->Curl
             ->get('/admin/chave-publica');

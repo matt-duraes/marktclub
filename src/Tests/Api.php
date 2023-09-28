@@ -8,6 +8,7 @@ use Helpers\CryptHelper;
 final class Api extends ApiHelper
 {
     private string $redirectUri;
+    private string $token = '';
 
     public function __construct(?string $scope = null, string|bool $token = false)
     {
@@ -17,8 +18,8 @@ final class Api extends ApiHelper
 
     public function loginPainel()
     {
-        if (sessaoExiste('TOKEN_LOGIN_PAINEL_TEST')) {
-            $this->header(['Authorization' => 'Bearer ' . sessao('TOKEN_LOGIN_PAINEL_TEST')]);
+        if (!empty($this->token)) {
+            $this->header(['Authorization' => 'Bearer ' . $this->token]);
             return $this;
         }
 
@@ -43,8 +44,8 @@ final class Api extends ApiHelper
         ])->post('/login/painel')->array();
 
         if (array_key_exists('status', $token) && $token['status'] == 'sucesso') {
-            sessao('TOKEN_LOGIN_PAINEL_TEST', $token['dado']['access_token']);
-            $this->header(['Authorization' => 'Bearer ' . $token['dado']['access_token']]);
+            $this->token = $token['dado']['access_token'];
+            $this->header(['Authorization' => 'Bearer ' . $this->token]);
             return $this;
         }
 

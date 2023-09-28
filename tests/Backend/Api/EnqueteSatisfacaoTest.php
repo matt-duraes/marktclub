@@ -7,7 +7,7 @@ use App\Classes\EnqueteSatisfacao\Navegar;
 use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Suporte;
 use Erro\Excecao;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 class EnqueteSatisfacaoTest extends Clube
 {

@@ -2,21 +2,23 @@
 
 namespace App\Models\Api\SolicitacaoChequeBonus;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\Solicitacao\Status;
+use App\Classes\SolicitacaoChequeBonus\Ordem;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\SolicitacaoChequeBonus\Ordem;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class ChequeBonusModel extends ORM implements ModelListarInterface
+final class ChequeBonusModel extends ORM implements
+    ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
@@ -25,23 +27,41 @@ final class ChequeBonusModel extends ORM implements ModelListarInterface
 
     protected string $ormTabela = TABELA_SOLICITACAO_CHEQUE_BONUS;
 
+    /**
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Data        $dataCriacaoDe
+     * @param Data        $dataCriacaoAte
+     * @param Status      $status
+     * @param string|null $empresa
+     * @param Ordem       $ordem
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private Pagina $pagina = new Pagina(null),
-        private Quantidade $quantidade = new Quantidade(null),
-        private Data $dataCriacaoDe = new Data(null),
-        private Data $dataCriacaoAte = new Data(null),
-        private Status $status = new Status(null),
-        private ?string $empresa = null,
-        private Ordem $ordem = new Ordem(null)
+        private readonly Pagina $pagina = new Pagina(null),
+        private readonly Quantidade $quantidade = new Quantidade(null),
+        private readonly Data $dataCriacaoDe = new Data(null),
+        private readonly Data $dataCriacaoAte = new Data(null),
+        private readonly Status $status = new Status(null),
+        private readonly ?string $empresa = null,
+        private readonly Ordem $ordem = new Ordem(null)
     ) {
         $this->validarEmpresa();
         parent::__construct();
     }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'tipo_usuario', 'nome', 'dependente_nome', 'data_criacao', 'status'])
+            ->campo([
+                'uuid', 'tipo_usuario', 'nome',
+                'dependente_nome', 'data_criacao', 'status'
+            ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -51,12 +71,20 @@ final class ChequeBonusModel extends ORM implements ModelListarInterface
         return $dado;
     }
 
-    private function pegarWhere()
+    /**
+     * @return array
+     */
+    private function pegarWhere(): array
     {
-        return [];
+        return $this->ormWherePadrao;
     }
 
-    private function montarDado($dado)
+    /**
+     * @param $dado
+     *
+     * @return array
+     */
+    private function montarDado($dado): array
     {
         $retorno = [];
         $TipoUsuario = new TipoUsuario();

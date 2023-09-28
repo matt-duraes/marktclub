@@ -4,7 +4,7 @@
 const atualizarEmail = bloco => {
     const botao = bloco.querySelector('.botao_atualizar_email');
     botao.addEventListener('click', () => {
-        ppe('teste');
+        //
     });
 };
 window.addEventListener('load', () => {

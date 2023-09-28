@@ -4,6 +4,7 @@ namespace App\Models\Api\SolicitacaoCredito;
 
 use App\Classes\SolicitacaoCredito\Operadora;
 use App\Classes\SolicitacaoCredito\Tipo;
+use Erro\Excecao;
 
 final class ParcelaModel
 {
@@ -18,6 +19,13 @@ final class ParcelaModel
 
     public array $listaParcela;
 
+    /**
+     * @param Operadora   $operadora
+     * @param Tipo        $tipo
+     * @param string|null $titulo
+     *
+     * @throws Excecao
+     */
     public function __construct(
         private readonly Operadora $operadora,
         private readonly Tipo $tipo,

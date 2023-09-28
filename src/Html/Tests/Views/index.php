@@ -1,19 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="robots" content="noindex,nofollow">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <title>TESTE</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes</title>
     <style>
         <?php
         include __DIR__ . '/../Resources/css/resetar.css';
-        include __DIR__ . '/../Resources/css/template.css';
         include __DIR__ . '/../Resources/css/index.css';
         ?>
     </style>
@@ -21,58 +14,78 @@
     <script>
         <?php include __DIR__ . '/../Resources/js/index.js'; ?>
     </script>
-
 </head>
-
 <body>
-
     <div id="site">
-        <div class="header">
-            <h1>TESTES</h1>
+        <nav>
+            <h1>Escolha os testes desejados</h1>
+            <ul>
+                <?php $i = 0; ?>
+                <?php foreach($menu as $diretorio): ?>
+                    <?php if(!isset($diretorio->lista) || empty($diretorio->lista)) continue; ?>
+                    <?php $i++; ?>
+                <li class="bloco_diretorio menu_fechado">
+                    <h2 class="botao_abrir_diretorio"><?= $diretorio->diretorio ?></h2>
+                    <div class="todos">
+                        <input class="input_diretorio" type="checkbox" id="todas_classes_<?=$i?>">
+                        <label for="todas_classes_<?=$i?>">
+                            <div class="check"><?=iconeCheck(12)?></div>
+                            <p>Marcar todos</p>
+                        </label>
+                    </div>
+                    <ul class="lista_teste">
+                        <?php foreach($diretorio->lista as $arquivo): ?>
+                            <?php $i++; ?>
+                        <li class="bloco_menu">
+                            <div class="grupo">
+                                <input class="input_classe" data-diretorio="<?= $diretorio->diretorio ?>" data-class="<?= $arquivo->class ?>" type="checkbox" id="todos_metodos_<?= $i ?>">
+                                <label for="todos_metodos_<?= $i ?>">
+                                    <div class="check"><?=iconeCheck(12)?></div>
+                                    <p><?= $arquivo->nome ?></p>
+                                </label>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
+        <div class="bloco_retorno" id="bloco_retorno">
+            <div class="bloco_loading display_none" id="bloco_loading">
+                <p><span id="bloco_nome_atual"></span> - <span id="bloco_numero_atual">1</span> de <span id="bloco_numero_total">50</span></p>
+                <div class="botao botao_cancelar" id="botao_cancelar_teste">CANCELAR</div>
+                <div class="barra"><span></span></div>
+            </div>
+            <div class="bloco_cancelar display_none" id="bloco_cancelar">
+                Aguardando o teste atual finalizar...
+            </div>
+
+            <div class="bloco_header display_none" id="bloco_header">
+                <i class="passou"><?= iconeLike(16) ?> <span id="bloco_numero_passou"></span></i>
+                <i class="falhou"><?= iconeDeslike(16) ?> <span id="bloco_numero_falhou"></span></i>
+
+                <div class="grow"></div>
+
+                <div class="botao ativo" id="botao_geral_todos">Todos</div>
+                <div class="botao" id="botao_geral_passou">Passou</div>
+                <div class="botao" id="botao_geral_falhou">Falhou</div>
+            </div>
+            <div class="bloco_ok display_none" id="bloco_ok">
+                <i><?= iconeLike(40) ?></i>
+                <h1>OK</h1>
+                <p>Todos os testes passaram com sucesso!</p>
+            </div>
+            <div class="scroll">
+                <div id="bloco_conteudo" class="conteudo">
+
+                </div>
+            </div>
         </div>
-        <?php
-        $lista = listarArquivoDiretorio(ROOT . '/tests/Api', final: 'Test', ext: ['php']);
-        if ($lista) :
-            ?>
-
-            <form action="<?= LINK; ?>/__tests" method="get" class="lista">
-                <input type="hidden" id="LINK" value="<?= LINK ?>">
-                <div class="checkbox">
-                    <input type="checkbox" id="id_marcar" value="marcar">
-                    <label for="id_marcar">Marcar/Desmarcar todos.</label>
-                    <i>
-                        <svg height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-                            <path d="M91,12.2c-4.2-3-10-1.9-13,2.3L42.1,65.8L20.9,44.6c-3.6-3.6-9.6-3.6-13.2,0c-3.6,3.6-3.6,9.6,0,13.2l29,29  c1.8,1.8,4.2,2.7,6.6,2.7c0,0,0,0,0.1,0c0,0,0.7,0,0.9,0c2.6-0.2,5.1-1.6,6.8-3.9l42.3-60.4C96.3,20.9,95.2,15.1,91,12.2z" />
-                        </svg>
-                    </i>
-                </div>
-
-                <div class="conteudo">
-                    <p>Selecione os testes que deseja executar:</p>
-                    <?php
-                        foreach ($lista as $val) :
-                            $val = preg_replace('/\.php$/', '', $val);
-                            $nome = trim(preg_replace(['/Test$/', '/([A-Z])/'], ['', ' $0'], $val));
-                            ?>
-                        <div class="checkbox">
-                            <input type="checkbox" class="input_teste" name="arquivo" id="id_<?= $val; ?>" value="<?= $val; ?>">
-                            <label for="id_<?= $val; ?>"><?= $nome; ?></label>
-                            <i>
-                                <svg height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-                                    <path d="M91,12.2c-4.2-3-10-1.9-13,2.3L42.1,65.8L20.9,44.6c-3.6-3.6-9.6-3.6-13.2,0c-3.6,3.6-3.6,9.6,0,13.2l29,29  c1.8,1.8,4.2,2.7,6.6,2.7c0,0,0,0,0.1,0c0,0,0.7,0,0.9,0c2.6-0.2,5.1-1.6,6.8-3.9l42.3-60.4C96.3,20.9,95.2,15.1,91,12.2z" />
-                                </svg>
-                            </i>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="footer">
-                    <div class="botao" id="botao_download">EXECUTAR</div>
-                </div>
-            </form>
-        <?php endif; ?>
-
     </div>
-
+    <div class="botao_acao botao_comecar" id="botao_fazer_teste">FAZER TESTE</div>
+    <form action="/">
+        <input type="text" name="LINK" id="LINK" value="<?=LINK?>">
+    </form>
 </body>
-
 </html>
