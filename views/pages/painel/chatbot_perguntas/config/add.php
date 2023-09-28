@@ -1,10 +1,8 @@
 <?php
 
 use App\Classes\Geral\Status;
-use Helpers\ApiHelper;
 
 $Painel = new PainelConfig\Add('chatbot_perguntas');
-
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados', function () use ($Painel) {

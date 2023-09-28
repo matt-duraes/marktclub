@@ -3,7 +3,6 @@
 namespace App\Models\Api\ChatbotPerguntas;
 
 use App\Classes\Geral\Status;
-use Helpers\OrmHelper;
 use ORM\Entity;
 
 class PerguntasEntity extends Entity

@@ -8,6 +8,7 @@ use Tests\Token\Clube;
 class ParceiroCupomTest extends Clube
 {
     private string $idCupom;
+
     public function __construct()
     {
         parent::__construct();
@@ -31,7 +32,7 @@ class ParceiroCupomTest extends Clube
             ->get('/parceiro-cupom')
             ->array();
 
-        $this->idCupom = $dado['dado']['lista'][0]['id'] ?? "sem-id";
+        $this->idCupom = $dado['dado']['lista'][0]['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(200)
@@ -43,10 +44,10 @@ class ParceiroCupomTest extends Clube
     {
         $dado = $this
             ->Curl
-            ->get("/parceiro-cupom/" . $this->idCupom)
+            ->get('/parceiro-cupom/' . $this->idCupom)
             ->array();
 
-        $this->statusCupom = $dado['dado']['status'] ?? "sem-status";
+        $this->statusCupom = $dado['dado']['status'] ?? 'sem-status';
 
         return $this
             ->checkStatus(200)
@@ -62,7 +63,7 @@ class ParceiroCupomTest extends Clube
             ->body([
                 'status' => Status::INATIVO
             ])
-            ->put("/parceiro-cupom/" . $this->idCupom);
+            ->put('/parceiro-cupom/' . $this->idCupom);
 
         return $this
             ->checkStatus(204);
@@ -72,7 +73,7 @@ class ParceiroCupomTest extends Clube
     {
         $this
             ->Curl
-            ->get("/parceiro-cupom/" . $this->idCupom);
+            ->get('/parceiro-cupom/' . $this->idCupom);
 
         return $this
             ->checkIndiceIgual('dado.status', Status::INATIVO);
@@ -85,7 +86,7 @@ class ParceiroCupomTest extends Clube
             ->body([
                 'auditado' => 'auditado'
             ])
-            ->put("/parceiro-cupom/" . $this->idCupom);
+            ->put('/parceiro-cupom/' . $this->idCupom);
 
         return $this
             ->checkStatus(204);
@@ -95,7 +96,7 @@ class ParceiroCupomTest extends Clube
     {
         $this
             ->Curl
-            ->get("/parceiro-cupom/" . $this->idCupom);
+            ->get('/parceiro-cupom/' . $this->idCupom);
 
         return $this
             ->checkIndiceIgual('dado.auditado', 'auditado');
