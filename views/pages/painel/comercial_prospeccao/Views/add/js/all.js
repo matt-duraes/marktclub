@@ -1,5 +1,4 @@
-// @template "painel"
-// @painel "app_geral_add"
+// @import "../../../../comercial_empresa/Views/add/js/all"
 
 window.addEventListener('load', () => {
     const input_standby = document.querySelector('#input_motivo_standby');
