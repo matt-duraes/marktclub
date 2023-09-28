@@ -50,11 +50,12 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('formato_reuniao', 'Formato da reunião');
     });
 
-    $Painel->div(class: "bloco_standby", id: "asdasd", callback: function () use ($Painel) {
+    $Painel->div(class: 'bloco_standby', id: 'asdasd', callback: function () use ($Painel) {
         $Painel->bloco(titulo: 'Standby', callback: function () use ($Painel) {
             $Painel
                 ->linha('motivo_standby', 'Motivo do standby')
-                ->data('previsao_retorno', 'Previsão de retorno');
+                ->data('previsao_retorno', 'Previsão de retorno')
+                ->hidden('status', id: 'hidden_status');
         });
     });
 });
