@@ -1,6 +1,6 @@
-<article class="bloco_kambam_item" data-id="{!!$r->id!!}">
+<article class="bloco_kambam_item" data-id="{!!$r->id!!}" data-status="{!!$r->status!!}">
     <header>
-        <h1>{{$r->titulo}}</h1>
+        <h1 class="titulo">{{$r->titulo}}</h1>
     </header>
     <a class="botao_link" href="{{LINK}}/app/visualizar/comercial-prospeccao/{{$r->id}}">ver prospecção</a>
     <p class="data">{{$r->data_criacao}}</p>
@@ -11,6 +11,7 @@
         <div class="linha"></div>
         <i class="inativar botao_item_cancelar" data-ajuda="Cancelar contrato">@iconeFechar(10)</i>
         <i class="ativar botao_item_concluir" data-ajuda="Concluir contrato">@iconeCheck(12)</i>
+        <i class="standby botao_item_standby" data-ajuda="Stand-by contrato">@iconeRelogio()</i>
 
         <div class="grow"></div>
 
