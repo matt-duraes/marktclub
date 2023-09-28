@@ -2,17 +2,17 @@
 
 namespace Tests\Api;
 
-use App\Classes\ComercialEmpresa\CadastroUsuario;
-use App\Classes\ComercialEmpresa\ContratoPrazo;
-use App\Classes\ComercialEmpresa\ContratoRenovacao;
+use Tests\Tests;
+use Modules\Botao;
+use App\Classes\ComercialEmpresa\Status;
+use App\Classes\ComercialEmpresa\TipoSite;
 use App\Classes\ComercialEmpresa\EmailDisparo;
+use App\Classes\ComercialEmpresa\ContratoPrazo;
+use App\Classes\ComercialEmpresa\TipoPagamento;
+use App\Classes\ComercialEmpresa\CadastroUsuario;
+use App\Classes\ComercialEmpresa\ContratoRenovacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
-use App\Classes\ComercialEmpresa\Status;
-use App\Classes\ComercialEmpresa\TipoPagamento;
-use App\Classes\ComercialEmpresa\TipoSite;
-use Modules\Botao;
-use Tests\Tests;
 
 class ComercialEmpresaTest extends Tests
 {

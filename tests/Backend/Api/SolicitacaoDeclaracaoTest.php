@@ -4,7 +4,7 @@ namespace Tests\Api;
 
 use App\Classes\Solicitacao\Status;
 use Erro\Excecao;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 class SolicitacaoDeclaracaoTest extends Clube
 {

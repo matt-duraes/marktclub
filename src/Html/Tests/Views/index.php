@@ -22,9 +22,10 @@
             <ul>
                 <?php $i = 0; ?>
                 <?php foreach($menu as $diretorio): ?>
+                    <?php if(!isset($diretorio->lista) || empty($diretorio->lista)) continue; ?>
                     <?php $i++; ?>
-                <li class="bloco_diretorio">
-                    <h2><?= $diretorio->diretorio ?></h2>
+                <li class="bloco_diretorio menu_fechado">
+                    <h2 class="botao_abrir_diretorio"><?= $diretorio->diretorio ?></h2>
                     <div class="todos">
                         <input class="input_diretorio" type="checkbox" id="todas_classes_<?=$i?>">
                         <label for="todas_classes_<?=$i?>">
@@ -32,7 +33,7 @@
                             <p>Marcar todos</p>
                         </label>
                     </div>
-                    <ul>
+                    <ul class="lista_teste">
                         <?php foreach($diretorio->lista as $arquivo): ?>
                             <?php $i++; ?>
                         <li class="bloco_menu">

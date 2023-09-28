@@ -3,7 +3,7 @@
 namespace Tests\Api;
 
 use App\Classes\Geral\Status;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 class ParceiroCupomTest extends Clube
 {

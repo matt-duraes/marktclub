@@ -10,7 +10,24 @@ window.addEventListener('load', () => {
     if (!inputClasse) {
         return;
     }
+    /*
+    |--------------------------------------------------------------------------
+    | ACAO ABRIR GRUPO
+    |--------------------------------------------------------------------------
+    */
+    const botaoAbrirDiretorio = $$('.botao_abrir_diretorio');
+    botaoAbrirDiretorio.forEach(botao => {
+        botao.addEventListener('click', () => {
+            const bloco = botao.closest('.bloco_diretorio');
+            bloco.classList.toggle('menu_fechado');
+        });
+    });
 
+    /*
+    |--------------------------------------------------------------------------
+    | ACAO PARA FAZER TESTE
+    |--------------------------------------------------------------------------
+    */
     inputDiretorio.forEach(input => {
         input.addEventListener('change', () => {
             const bloco = input.closest('.bloco_diretorio');
@@ -297,13 +314,6 @@ window.addEventListener('load', () => {
     const pegarHtmlIframe = html => {
         return html.replace(/\"/g, '&quot;');
     };
-
-    const inputTemp = $$('.input_classe');
-    inputTemp[4].checked = true;
-    $('.input_classe').checked = true;
-    setTimeout(() => {
-        executarTeste();
-    }, 100);
 
     botaoCancelar.addEventListener('click', () => {
         blocoLoading.classList.add('display_none');

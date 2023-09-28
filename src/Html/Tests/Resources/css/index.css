@@ -32,9 +32,6 @@ nav h1 {
     font-size: 2rem;
     padding: 20px 10px;
 }
-nav .menu_fechado ul {
-    display: none;
-}
 nav .grupo {
     width: 100%;
     display: flex;
@@ -82,6 +79,9 @@ nav ul li {
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+nav > ul > li.menu_fechado ul.lista_teste {
+    display: none;
 }
 nav ul li ul li {
     width: calc(100% - 25px);
