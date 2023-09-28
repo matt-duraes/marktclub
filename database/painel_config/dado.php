@@ -133,13 +133,13 @@ return [
                 ]
             ],
             'comercial_empresa'        => [
-                'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar', 'status']
+                'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
             ],
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
             ],
             'comercial_perdido'     => [
-                'titulo' => 'Comercial Perdidos', 'acao' => ['index', 'visualizar', 'editar']
+                'titulo' => 'Comercial Perdidos', 'acao' => ['index', 'visualizar', 'editar', 'status']
             ],
             'comercial_atendimento'    => [
                 'titulo'    => 'Comercial Atendimento',

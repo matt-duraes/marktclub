@@ -9,7 +9,7 @@ return [
     'ordem'      => true,
     'visualizar' => true,
     'add'        => false,
-    'editar'     => false,
+    'editar'     => true,
     'deletar'    => false,
     'download'   => false,
     'historico'  => false,

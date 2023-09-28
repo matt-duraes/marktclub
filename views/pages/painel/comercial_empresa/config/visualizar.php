@@ -76,17 +76,6 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->dinheiro('valor_pib', 'Valor do PIB')
             ->linha('status', 'Status');
     });
-
-    $Painel
-        ->status(
-            campo: 'status',
-            texto: 'Voltar para a prospecção',
-            inArray: ['Inativo'],
-            status: 'prospeccao',
-            mensagem: 'Tem certeza que deseja voltar para a prospecção?',
-            cor: 'verde'
-        );
-
 });
 
 $Painel

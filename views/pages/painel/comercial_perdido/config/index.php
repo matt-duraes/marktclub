@@ -3,7 +3,7 @@
 use App\Classes\ComercialEmpresa\Ordem;
 use App\Classes\ComercialEmpresa\Status;
 
-$Painel = new PainelConfig\Index('comercial_empresa', new Ordem());
+$Painel = new PainelConfig\Index('comercial_perdido', new Ordem());
 
 return $Painel
     ->campo('titulo', 'Título', 'normal')

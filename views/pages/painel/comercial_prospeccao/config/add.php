@@ -90,6 +90,12 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Contrato perdido', callback: function () use ($Painel) {
+        $Painel->input(id: "inpust_motivo_perdido", name: 'motivo_perdido', label: 'Motivo de perder');
+    });
+});
+
 $Painel->js('painel_comercial_prospeccao_add');
 
 return $Painel;

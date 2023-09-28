@@ -50,7 +50,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('formato_reuniao', 'Formato da reunião');
     });
 
-    $Painel->div(class: 'bloco_standby', id: 'asdasd', callback: function () use ($Painel) {
+    $Painel->div(class: 'bloco_standby', callback: function () use ($Painel) {
         $Painel->bloco(titulo: 'Standby', callback: function () use ($Painel) {
             $Painel
                 ->linha('motivo_standby', 'Motivo do standby')
@@ -58,6 +58,23 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ->hidden('status', id: 'hidden_status');
         });
     });
+
+    $Painel->div(class: 'bloco_perdido', callback: function () use ($Painel) {
+        $Painel->bloco(titulo: 'Motivo de perder', callback: function () use ($Painel) {
+            $Painel
+                ->linha('motivo_perdido', 'Motivo de perder');
+        });
+    });
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Voltar para a prospecção',
+            inArray: ['inativo'],
+            status: 'prospeccao',
+            mensagem: 'Tem certeza que deseja voltar para a prospecção?',
+            cor: 'verde'
+        );
 });
 
 $Painel
