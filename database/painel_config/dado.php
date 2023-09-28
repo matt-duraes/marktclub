@@ -138,6 +138,9 @@ return [
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
             ],
+            'comercial_perdido'     => [
+                'titulo' => 'Comercial Perdidos', 'acao' => ['index', 'visualizar', 'editar']
+            ],
             'comercial_atendimento'    => [
                 'titulo'    => 'Comercial Atendimento',
                 'permissao' => ['comercial_atendimento_index' => 'Comercial Atendimento']
