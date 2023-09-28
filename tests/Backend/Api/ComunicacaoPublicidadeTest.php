@@ -4,7 +4,7 @@ namespace Tests\Api;
 
 use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\Geral\Status;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 class ComunicacaoPublicidadeTest extends Clube
 {

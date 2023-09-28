@@ -3,7 +3,7 @@
 namespace Tests\Api;
 
 use Erro\Excecao;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 final class SaudeContratacaoTest extends Clube
 {

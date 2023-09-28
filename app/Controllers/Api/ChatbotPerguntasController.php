@@ -7,7 +7,6 @@ use App\Classes\Geral\Status;
 use App\Models\Api\ChatbotPerguntas\PerguntasEntity;
 use App\Models\Api\ChatbotPerguntas\PerguntasModel;
 use Controller\Controller;
-use Helpers\OrmHelper;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
@@ -18,8 +17,10 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
 class ChatbotPerguntasController extends Controller implements
-    ControllerSalvarInterface, ControllerBuscarInterface,
-    ControllerListarInterface, ControllerAtualizarInterface
+    ControllerSalvarInterface,
+    ControllerBuscarInterface,
+    ControllerListarInterface,
+    ControllerAtualizarInterface
 {
     public function getListar(Request $request): Response
     {
@@ -56,7 +57,7 @@ class ChatbotPerguntasController extends Controller implements
     {
         $dado = $request->dado();
 
-        if(!$request->vazio('resposta')) {
+        if (!$request->vazio('resposta')) {
             $dado['resposta'] = $request->getPut('resposta', html: false);
         }
 

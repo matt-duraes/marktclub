@@ -5,7 +5,7 @@ namespace Tests\Api;
 use App\Classes\SolicitacaoCredito\Operadora;
 use App\Classes\SolicitacaoCredito\Tipo;
 use Erro\Excecao;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 final class SolicitacaoCreditoTest extends Clube
 {

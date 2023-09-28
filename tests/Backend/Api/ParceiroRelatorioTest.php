@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 class ParceiroRelatorioTest extends Clube
 {

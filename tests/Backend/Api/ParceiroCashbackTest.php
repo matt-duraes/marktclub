@@ -17,7 +17,7 @@ class ParceiroCashbackTest extends Tests
             'texto_descricao' => 'Descrição do parceiro',
             'texto_restricao' => 'Restrição do parceiro',
             'texto_outro'     => 'Outro texto do parceiro',
-            'categoria' => valorAleatorio(array_keys((new Categoria())->select())),
+            'categoria'       => valorAleatorio(array_keys((new Categoria())->select())),
             'comissao_minima' => 2.8,
             'comissao_maxima' => 10000000,
             'status'          => Status::ATIVO,

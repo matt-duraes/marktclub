@@ -35,7 +35,6 @@ final class DownloadModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarCamposAceito(): void
@@ -93,7 +92,6 @@ final class DownloadModel extends ORM
     /**
      * @param array $dado
      *
-     * @return void
      * @throws Excecao
      */
     private function salvarLogDownload(array $dado): void

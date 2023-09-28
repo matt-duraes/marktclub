@@ -6,7 +6,7 @@ use App\Classes\Geral\Status;
 use App\Classes\PublicacaoNoticia\Local;
 use App\Classes\PublicacaoNoticia\Tipo;
 use Modules\Botao;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 class PublicacaoNoticiaTest extends Clube
 {

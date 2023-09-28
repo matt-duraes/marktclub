@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Api\Token;
+namespace Tests\Token;
 
 use Tests\Tests;
 use Erro\Excecao;

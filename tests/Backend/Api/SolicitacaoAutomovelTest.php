@@ -3,7 +3,7 @@
 namespace Tests\Api;
 
 use App\Classes\Solicitacao\Status;
-use Tests\Api\Token\Clube;
+use Tests\Token\Clube;
 
 class SolicitacaoAutomovelTest extends Clube
 {
