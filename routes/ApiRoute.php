@@ -1460,7 +1460,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request([
                 'pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario',
-                '!prospeccao_status', '!status', '!quantidade'
+                '!prospeccao_status', '!status', '!quantidade', '!ordem'
             ], 'json')
             ::get('/comercial-empresa');
 
