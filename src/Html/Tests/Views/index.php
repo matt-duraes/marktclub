@@ -51,21 +51,29 @@
             </ul>
         </nav>
         <div class="bloco_retorno" id="bloco_retorno">
-            <div class="bloco_loading">
-                <p>Fazendo teste <span id="bloco_numero_atual">1</span> de <span id="bloco_numero_total">50</span></p>
+            <div class="bloco_loading display_none" id="bloco_loading">
+                <p><span id="bloco_nome_atual"></span> - <span id="bloco_numero_atual">1</span> de <span id="bloco_numero_total">50</span></p>
                 <div class="botao botao_cancelar" id="botao_cancelar_teste">CANCELAR</div>
                 <div class="barra"><span></span></div>
             </div>
-            <div class="bloco_header display_none">
-                <i class="passou display_none"><?= iconeCheck(16) ?></i>
-                <i class="falhou display_none"><?= iconeFechar(12) ?></i>
-                <p><strong class="numero"></strong> dos testes passaram</p>
+            <div class="bloco_cancelar display_none" id="bloco_cancelar">
+                Aguardando o teste atual finalizar...
+            </div>
+
+            <div class="bloco_header display_none" id="bloco_header">
+                <i class="passou"><?= iconeLike(16) ?> <span id="bloco_numero_passou"></span></i>
+                <i class="falhou"><?= iconeDeslike(16) ?> <span id="bloco_numero_falhou"></span></i>
 
                 <div class="grow"></div>
 
-                <div class="botao ativo">Todos</div>
-                <div class="botao">Passou</div>
-                <div class="botao">Falhou</div>
+                <div class="botao ativo" id="botao_geral_todos">Todos</div>
+                <div class="botao" id="botao_geral_passou">Passou</div>
+                <div class="botao" id="botao_geral_falhou">Falhou</div>
+            </div>
+            <div class="bloco_ok display_none" id="bloco_ok">
+                <i><?= iconeLike(40) ?></i>
+                <h1>OK</h1>
+                <p>Todos os testes passaram com sucesso!</p>
             </div>
             <div class="scroll">
                 <div id="bloco_conteudo" class="conteudo">

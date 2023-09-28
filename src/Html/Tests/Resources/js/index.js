@@ -42,10 +42,19 @@ window.addEventListener('load', () => {
     */
     const botaoTestar = $('#botao_fazer_teste');
     const botaoCancelar = $('#botao_cancelar_teste');
-    const blocoRetorno = $('#bloco_retorno');
-    const blocoConteudo = $('#bloco_conteudo');
+    const blocoCancelar = $('#bloco_cancelar');
+    const blocoLoading = $('#bloco_loading');
+    const blocoHeader = $('#bloco_header');
+    const blocoOk = $('#bloco_ok');
+    const blocoNumeroPassou = $('#bloco_numero_passou');
+    const blocoNumeroFalhou = $('#bloco_numero_falhou');
     const blocoNumeroAtual = $('#bloco_numero_atual');
     const blocoNumeroTotal = $('#bloco_numero_total');
+    const blocoNomeAtual = $('#bloco_nome_atual');
+    const blocoConteudo = $('#bloco_conteudo');
+    const botaoGeralTodos = $('#botao_geral_todos');
+    const botaoGeralPassou = $('#botao_geral_passou');
+    const botaoGeralFalhou = $('#botao_geral_falhou');
 
     botaoTestar.addEventListener('click', () => {
         executarTeste();
@@ -60,9 +69,14 @@ window.addEventListener('load', () => {
             return;
         }
         fazendoTeste = true;
+        blocoHeader.classList.add('display_none');
+        blocoOk.classList.add('display_none');
         botaoTestar.classList.add('display_none');
-        blocoRetorno.classList.add('carregando');
+        blocoLoading.classList.remove('display_none');
         blocoConteudo.innerHTML = '';
+        botaoGeralTodos.classList.remove('ativo');
+        botaoGeralPassou.classList.remove('ativo');
+        botaoGeralFalhou.classList.remove('ativo');
 
         blocoNumeroTotal.innerText = quantidade;
 
@@ -73,9 +87,12 @@ window.addEventListener('load', () => {
                 fecharLoading();
                 return;
             }
-
-            blocoNumeroAtual.innerText = i + 1;
             input = lista[i];
+
+            const titulo = input.closest('.grupo').querySelector('label p').innerText || '';
+            blocoNomeAtual.innerText = titulo;
+            blocoNumeroAtual.innerText = i + 1;
+
             const classe = input.getAttribute('data-class');
             const diretorio = input.getAttribute('data-diretorio');
             const body = new FormData();
@@ -88,10 +105,18 @@ window.addEventListener('load', () => {
             });
 
             const retorno = await resposta.text();
-            const json = JSON.parse(retorno);
-            const titulo = input.closest('.grupo').querySelector('label p').innerText || '';
+            let json;
+            try {
+                json = JSON.parse(retorno);
+            } catch (error) {
+                json = undefined;
+            }
+
             try {
                 if (json) {
+                    if (json.test.falhou.length == 0) {
+                        input.checked = false;
+                    }
                     adicionarJson(json);
                 } else {
                     adicionarErro(titulo, diretorio + '\\' + classe, retorno, undefined);
@@ -103,8 +128,20 @@ window.addEventListener('load', () => {
         fecharLoading();
     };
     const adicionarJson = dado => {
+        let classe = 'article_todos';
+        const numeroTodos = dado.test.todos.length;
+        const numeroPassou = dado.test.passou.length;
+        const numeroFalhou = dado.test.falhou.length;
+        if (numeroPassou > 0) {
+            classe += ' article_passou';
+        }
+        if (numeroFalhou > 0) {
+            classe += ' article_falhou';
+        } else {
+            classe += ' display_none';
+        }
         let html = `
-            <article class="article">
+            <article class="article ${classe}">
                 <header>
                     <h1>${dado.arquivo}</h1>
                     <p>${dado.class}</p>
@@ -116,18 +153,19 @@ window.addEventListener('load', () => {
 
         let teste = '';
         let botao = '';
-        if (dado.test.todos.length > 0) {
-            botao += `<div class="botao botao_todos ativo">Todos</div>`;
-            teste += `<div class="bloco_teste todos">${todos}</div>`;
+        if (numeroTodos > 0) {
+            botao += `<div class="botao botao_interno_todos">Todos</div>`;
+            teste += `<div class="bloco_teste bloco_todos teste_numero_todos display_none">${todos}</div>`;
         }
-        if (dado.test.passou.length > 0) {
-            botao += `<div class="botao botao_passou">Passou</div>`;
-            teste += `<div class="bloco_teste passou display_none">${passou}</div>`;
+        if (numeroPassou > 0) {
+            botao += `<div class="botao botao_interno_passou">Passou</div>`;
+            teste += `<div class="bloco_teste bloco_passou display_none">${passou}</div>`;
         }
-        if (dado.test.falhou.length > 0) {
-            botao += `<div class="botao batao_falhou">Falhou</div>`;
-            teste += `<div class="bloco_teste falhou display_none">${falhou}</div>`;
+        if (numeroFalhou > 0) {
+            botao += `<div class="botao botao_interno_falhou ativo">Falhou</div>`;
+            teste += `<div class="bloco_teste bloco_falhou">${falhou}</div>`;
         }
+
         html += `<div class="bloco_botao">${botao}</div>`;
         html += teste;
         html += `</article>`;
@@ -149,6 +187,15 @@ window.addEventListener('load', () => {
                 `;
                 teste = pegarCadaMetodo(dado.test);
                 resposta = pegarResposta(dado);
+            } else if (dado.tipo == 'erro') {
+                header = `
+                    <h2>${dado.nome}</h2>
+                    <div class="linha"></div>
+                    <p class="mensagem">${dado.mensagem}</p>
+                    <p class="texto">Arquivo: ${dado.arquivo}</p>
+                    <p class="texto">Linha: ${dado.linha}</p>
+                `;
+                teste = pegarRespostaErro(dado);
             } else {
                 header = `<h2>${dado.nome}</h2>`;
             }
@@ -169,7 +216,7 @@ window.addEventListener('load', () => {
     const pegarCadaMetodo = teste => {
         let html = '';
         teste.forEach(dado => {
-            html += `<li class="linha_teste ${dado.status} teste_${dado.status}"><span>${dado.status}</span><p>${dado.mensagem}</p></li>`;
+            html += `<li class="linha_teste ${dado.status} teste_numero_${dado.status}"><span>${dado.status}</span><p>${dado.mensagem}</p></li>`;
         });
         return html;
     };
@@ -211,6 +258,18 @@ window.addEventListener('load', () => {
             </li>
         `;
     };
+    const pegarRespostaErro = dado => {
+        return `
+            <li class="linha_resposta linha_erro">
+                <ul class="teste_numero_falhou">
+                    <li class="pre">
+                        <span>Body:</span>
+                        <pre>${dado.trace}</pre>
+                    </li>
+                </ul>
+            </li>
+        `;
+    };
 
     const adicionarErro = (titulo, classe, retorno, e) => {
         let erro = '';
@@ -221,13 +280,13 @@ window.addEventListener('load', () => {
             `;
         }
         let html = `
-            <article class="article">
+            <article class="article article_todos article_falhou">
                 <header>
                     <h1>${titulo}</h1>
                     <p>Tests\\${classe}</p>
                 </header>
-                <div class="bloco_erro teste_falhou">
-                    <h2>Resposta:</h2>
+                <div class="bloco_erro bloco_todos bloco_falhou teste_numero_todos">
+                    <h2 class="teste_numero_falhou">Resposta:</h2>
                     <iframe srcdoc="${pegarHtmlIframe(retorno)}"></iframe>
                     ${erro}
                 </div>
@@ -236,24 +295,152 @@ window.addEventListener('load', () => {
         blocoConteudo.insertAdjacentHTML('beforeend', html);
     };
     const pegarHtmlIframe = html => {
-        html = html.replace(/\"/g, '&quot;');
-        if (!html.includes('<html') || html.includes('PRE PRINT EXIT') || html.includes('VAR_DUMP EXIT')) {
-            return `<style>* {color: #FFF;}</style> ${html}`;
-        }
-        return html;
+        return html.replace(/\"/g, '&quot;');
     };
 
+    const inputTemp = $$('.input_classe');
+    inputTemp[4].checked = true;
     $('.input_classe').checked = true;
     setTimeout(() => {
         executarTeste();
     }, 100);
 
     botaoCancelar.addEventListener('click', () => {
-        fecharLoading();
+        blocoLoading.classList.add('display_none');
+        blocoCancelar.classList.remove('display_none');
+        fazendoTeste = false;
     });
     const fecharLoading = () => {
         fazendoTeste = false;
+        setarDadoHeader();
+        blocoCancelar.classList.add('display_none');
         botaoTestar.classList.remove('display_none');
-        blocoRetorno.classList.remove('carregando');
+        blocoLoading.classList.add('display_none');
+    };
+    const setarDadoHeader = () => {
+        blocoHeader.classList.remove('display_none');
+        const passou = blocoConteudo.querySelectorAll('article.article .teste_numero_todos .teste_numero_passou');
+        const falhou = blocoConteudo.querySelectorAll('article.article .teste_numero_todos .teste_numero_falhou');
+        blocoNumeroPassou.innerText = passou.length;
+        blocoNumeroFalhou.innerText = falhou.length;
+        if (falhou.length == 0) {
+            blocoOk.classList.remove('display_none');
+            return;
+        }
+        botaoGeralFalhou.classList.add('ativo');
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACAO CLIQUE VISUALIZACAO
+    |--------------------------------------------------------------------------
+    */
+    botaoGeralTodos.addEventListener('click', () => {
+        mostrarListaErro('todos');
+    });
+    botaoGeralPassou.addEventListener('click', () => {
+        mostrarListaErro('passou');
+    });
+    botaoGeralFalhou.addEventListener('click', () => {
+        mostrarListaErro('falhou');
+    });
+    const mostrarListaErro = acao => {
+        botaoGeralTodos.classList.remove('ativo');
+        botaoGeralPassou.classList.remove('ativo');
+        botaoGeralFalhou.classList.remove('ativo');
+        if (acao == 'todos') {
+            botaoGeralTodos.classList.add('ativo');
+        } else if (acao == 'passou') {
+            botaoGeralPassou.classList.add('ativo');
+        } else if (acao == 'falhou') {
+            botaoGeralFalhou.classList.add('ativo');
+        }
+
+        const lista = $$('article.article');
+        const classe = 'article_' + acao;
+        lista.forEach(article => {
+            if (!article.classList.contains(classe)) {
+                article.classList.add('display_none');
+                return;
+            }
+            article.classList.remove('display_none');
+            const bloco = article.querySelector('.bloco_' + acao);
+            const blocoTodos = article.querySelector('.bloco_todos');
+            const blocoPassou = article.querySelector('.bloco_passou');
+            const blocoFalhou = article.querySelector('.bloco_falhou');
+            if (blocoTodos) {
+                blocoTodos.classList.add('display_none');
+            }
+            if (blocoPassou) {
+                blocoPassou.classList.add('display_none');
+            }
+            if (blocoFalhou) {
+                blocoFalhou.classList.add('display_none');
+            }
+            bloco.classList.remove('display_none');
+            const botao = article.querySelector('.botao_interno_' + acao);
+            const botaoTodos = article.querySelector('.botao_interno_todos');
+            const botaoPassou = article.querySelector('.botao_interno_passou');
+            const botaoFalhou = article.querySelector('.botao_interno_falhou');
+
+            if (botaoTodos) {
+                botaoTodos.classList.remove('ativo');
+            }
+            if (botaoPassou) {
+                botaoPassou.classList.remove('ativo');
+            }
+            if (botaoFalhou) {
+                botaoFalhou.classList.remove('ativo');
+            }
+            if (botao) {
+                botao.classList.add('ativo');
+            }
+        });
+    };
+
+    blocoConteudo.addEventListener('click', e => {
+        if (e.target.classList.contains('botao_mostrar_request') || e.target.closest('.botao_mostrar_request')) {
+            const bloco = e.target.closest('.linha_resposta').querySelector('ul');
+            if (bloco) {
+                bloco.classList.toggle('display_none');
+            }
+        } else if (e.target.classList.contains('botao_interno_todos') || e.target.closest('.botao_interno_todos')) {
+            mudarBlocoResposta(e.target.closest('article'), 'todos');
+        } else if (e.target.classList.contains('botao_interno_passou') || e.target.closest('.botao_interno_passou')) {
+            mudarBlocoResposta(e.target.closest('article'), 'passou');
+        } else if (e.target.classList.contains('botao_interno_falhou') || e.target.closest('.botao_interno_falhou')) {
+            mudarBlocoResposta(e.target.closest('article'), 'falhou');
+        }
+    });
+    const mudarBlocoResposta = (article, acao) => {
+        const botao = article.querySelector('.botao_interno_' + acao);
+        const botaoTodos = article.querySelector('.botao_interno_todos');
+        const botaoPassou = article.querySelector('.botao_interno_passou');
+        const botaoFalhou = article.querySelector('.botao_interno_falhou');
+        if (botaoTodos) {
+            botaoTodos.classList.remove('ativo');
+        }
+        if (botaoPassou) {
+            botaoPassou.classList.remove('ativo');
+        }
+        if (botaoFalhou) {
+            botaoFalhou.classList.remove('ativo');
+        }
+        botao.classList.add('ativo');
+
+        const bloco = article.querySelector('.bloco_' + acao);
+        const blocoTodos = article.querySelector('.bloco_todos');
+        const blocoPassou = article.querySelector('.bloco_passou');
+        const blocoFalhou = article.querySelector('.bloco_falhou');
+        if (blocoTodos) {
+            blocoTodos.classList.add('display_none');
+        }
+        if (blocoPassou) {
+            blocoPassou.classList.add('display_none');
+        }
+        if (blocoFalhou) {
+            blocoFalhou.classList.add('display_none');
+        }
+        bloco.classList.remove('display_none');
     };
 });

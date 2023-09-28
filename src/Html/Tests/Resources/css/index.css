@@ -158,19 +158,27 @@ nav input {
     padding: 0 20px;
 }
 .bloco_retorno .bloco_header i {
-    width: 30px;
     height: 30px;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 20px;
+    margin-right: 10px;
     fill: #FFF;
+    color: #FFF;
 }
 .bloco_retorno .bloco_header i.passou {
     background-color: var(--verde);
 }
 .bloco_retorno .bloco_header i.falhou {
     background-color: var(--vermelho);
+}
+.bloco_retorno .bloco_header i svg {
+    margin-right: 10px;
+}
+.bloco_retorno .bloco_header i span {
+    font-size: 1.8rem;
 }
 .bloco_retorno .bloco_header p {
     font-size: 1.4rem;
@@ -198,6 +206,40 @@ nav input {
     flex-basis: 0%;
     flex-grow: 1;
 }
+.bloco_retorno .bloco_ok {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+.bloco_retorno .bloco_ok i {
+    fill: #CCC;
+}
+.bloco_retorno .bloco_ok h1 {
+    color: #666;
+    font-size: 2.4rem;
+    margin: 30px 0 5px
+}
+.bloco_retorno .bloco_ok p {
+    font-size: 1.6rem;
+    line-height: 1.5em;
+    color: #666;
+    max-width: 200px;
+    text-align: center;
+}
+.bloco_retorno .bloco_cancelar {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    position: relative;
+    text-align: center;
+    color: #666;
+    font-size: 1.6rem;
+    background-color: #FFF;
+    box-shadow: 0 5px 5px rgba(0,0,0,.1);
+    padding: 0 20px;
+}
 .bloco_retorno .bloco_loading {
     width: 100%;
     height: 60px;
@@ -206,14 +248,11 @@ nav input {
     text-align: center;
     color: #666;
     background-color: #F6F6F6;
-    display: none;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-}
-.bloco_retorno.carregando .bloco_loading {
-    display: flex;
 }
 .bloco_loading p,
 .bloco_loading p span {
@@ -359,6 +398,16 @@ nav input {
     flex-basis: 0%;
     flex-grow: 1;
 }
+.article .teste header .mensagem {
+    width: 100%;
+    font-size: 1.4rem;
+    margin: 5px 0 20px;
+}
+.article .teste header .texto {
+    width: 100%;
+    font-size: 1.4rem;
+    margin-top: 5px;
+}
 .article .teste ul {
     width: 100%;
     margin-top: 20px;
@@ -397,6 +446,9 @@ nav input {
     flex-direction: column;
     align-items: flex-start;
     padding: 30px 0 10px;
+}
+.article .teste ul .linha_resposta.linha_erro {
+    padding-top: 0;
 }
 .article .teste ul .linha_resposta .botao_mostrar {
     background-color: #DDD;
