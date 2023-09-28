@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
     div_standby.childNodes.forEach((item) => {
         const p = item.querySelector('p');
 
-        if (p.querySelector('span') || status === 'standby') {
+        if (!p.querySelector('span') || status === 'standby') {
             blocoFieldset.style.display = '';
         }
     })
