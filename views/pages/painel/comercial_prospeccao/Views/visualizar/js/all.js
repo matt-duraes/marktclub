@@ -13,15 +13,31 @@ window.addEventListener('load', () => {
     blocoFieldsetPerdido.style.display = 'none';
 
     div_standby.childNodes.forEach((item) => {
+        if (item.nodeType === 3) {
+            return
+        }
+
         const p = item.querySelector('p');
 
-        if (!p.querySelector('span') || status === 'standby') {
+        if(!p) {
+            return
+        }
+
+        if (p.querySelector('span') || status === 'standby') {
             blocoFieldsetStandby.style.display = '';
         }
     })
 
     div_perdido.childNodes.forEach((item) => {
+        if (item.nodeType === 3) {
+            return
+        }
+
         const p = item.querySelector('p');
+
+        if(!p) {
+            return
+        }
 
         if (!p.querySelector('span') || status === 'inativo') {
             blocoFieldsetPerdido.style.display = '';
