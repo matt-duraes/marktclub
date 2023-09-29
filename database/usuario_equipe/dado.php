@@ -56,6 +56,9 @@ $permissao = json_encode([
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
     'solicitacao_voucher_empresa',
 
+    'solicitacao_credito_index', 'solicitacao_credito_visualizar', 'solicitacao_credito_status',
+    'solicitacao_credito_empresa',
+
     'solicitacao_premium_index', 'solicitacao_premium_visualizar', 'solicitacao_premium_index',
     'solicitacao_premium_download', 'solicitacao_premium_empresa',
 
