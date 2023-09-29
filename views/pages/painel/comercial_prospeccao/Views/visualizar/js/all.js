@@ -12,35 +12,24 @@ window.addEventListener('load', () => {
     const blocoFieldsetPerdido = div_perdido.parentNode.parentNode;
     blocoFieldsetPerdido.style.display = 'none';
 
-    div_standby.childNodes.forEach((item) => {
-        if (item.nodeType === 3) {
-            return
-        }
+    const removerDisplayNone = (div, statusEsperado) => {
+        div.childNodes.forEach((item) => {
+            if (item.nodeType === 3) {
+                return
+            }
 
-        const p = item.querySelector('p');
+            const p = item.querySelector('p');
 
-        if(!p) {
-            return
-        }
+            if(!p) {
+                return
+            }
 
-        if (p.querySelector('span') || status === 'standby') {
-            blocoFieldsetStandby.style.display = '';
-        }
-    })
+            if (!p.querySelector('span') || status === statusEsperado) {
+                div.style.display = '';
+            }
+        })
+    }
 
-    div_perdido.childNodes.forEach((item) => {
-        if (item.nodeType === 3) {
-            return
-        }
-
-        const p = item.querySelector('p');
-
-        if(!p) {
-            return
-        }
-
-        if (!p.querySelector('span') || status === 'inativo') {
-            blocoFieldsetPerdido.style.display = '';
-        }
-    })
+    removerDisplayNone(div_standby, 'standby');
+    removerDisplayNone(div_perdido, 'inativo');
 })
