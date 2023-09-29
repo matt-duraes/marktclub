@@ -90,7 +90,7 @@ class SolicitacaoCreditoController extends Controller implements
                 $creditoEntity,
                 lista: [
                     'operadora', 'tipo', 'valor_total', 'parcela',
-                    'valor_parcela', 'data_criacao', 'status', "usuario"
+                    'valor_parcela', 'data_criacao', 'status', 'usuario'
                 ]
             ),
             $status

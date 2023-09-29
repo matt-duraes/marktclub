@@ -139,7 +139,7 @@ class CreditoModel extends ORM
         $retorno = [];
         foreach ($solicitacoes as $solicitacao) {
             $retorno[] = [
-                'uuid'          => $solicitacao->uuid,
+                'id'            => $solicitacao->uuid,
                 'operadora'     => $Operadora->indice($solicitacao->operadora),
                 'tipo'          => $Tipo->indice($solicitacao->tipo),
                 'valor_total'   => (new Dinheiro((string)$solicitacao->valor_total))->dinheiro(),
