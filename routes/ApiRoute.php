@@ -1881,6 +1881,13 @@ Route
                 'operadora', 'tipo', 'valor_total', 'parcela'
             ])
             ::post('/solicitacao-credito');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:atualizar'])
+            ::request([
+                '!status'
+            ])
+            ::put('/solicitacao-credito/{id}');
     });
 
 Route

@@ -107,7 +107,7 @@ $scope = [
     'solicitacao_cheque_bonus:atualizar',
 
     'solicitacao_credito:listar', 'solicitacao_credito:buscar', 'solicitacao_credito:salvar',
-    'solicitacao_credito:simular',
+    'solicitacao_credito:simular', 'solicitacao_credito:atualizar',
 
     'solicitacao_premium:listar', 'solicitacao_premium:download',
 
