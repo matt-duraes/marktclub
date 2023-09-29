@@ -3,12 +3,12 @@
 use App\Classes\ComercialEmpresa\Helper;
 
 return [
-    'titulo'     => 'Prospecção',
+    'titulo'     => 'Negócios Perdidos',
     'buscar'     => false,
     'filtrar'    => false,
-    'ordem'      => false,
+    'ordem'      => true,
     'visualizar' => true,
-    'add'        => true,
+    'add'        => false,
     'editar'     => true,
     'deletar'    => false,
     'download'   => false,

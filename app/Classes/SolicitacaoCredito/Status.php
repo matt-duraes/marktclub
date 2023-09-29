@@ -19,6 +19,11 @@ class Status extends StatusStatus
             self::ENVIADO_PARCEIRO => 'Enviado para parceiro',
             self::CONTRATADO       => 'Contratado',
             self::CANCELADO        => 'Cancelado'
+        ], [
+            self::NOVO             => 'azul',
+            self::ENVIADO_PARCEIRO => 'amarelo',
+            self::CONTRATADO       => 'verde',
+            self::CANCELADO        => 'vermelho'
         ]);
     }
 }

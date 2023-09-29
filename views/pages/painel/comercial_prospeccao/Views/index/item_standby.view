@@ -1,0 +1,15 @@
+<article class="bloco_kambam_item" data-id="{!!$r->id!!}" data-status="{!!$r->status!!}">
+    <header>
+        <h1 class="titulo">{{$r->titulo ?? ""}}</h1>
+    </header>
+    <a class="botao_link botao_link_standby" href="{{LINK}}/app/visualizar/comercial-prospeccao/{{$r->id}}">ver prospecção</a>
+    <p class="status_standby">{{(new App\Classes\ComercialEmpresa\ProspeccaoStatus($r->status))->nome()}}</p>
+    <div class="bloco">
+        <p class="data data_standby">{{$r->data_criacao}}</p>
+
+        <div class="linha"></div>
+
+        <i class="inativar botao_item_cancelar" data-ajuda="Cancelar contrato">@iconeFechar(10)</i>
+        <i class="voltar botao_item_voltar_standby" data-ajuda="Voltar contrato">@iconeVoltar(12)</i>
+    </div>
+</article>

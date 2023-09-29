@@ -132,11 +132,21 @@ return [
                     'solicitacao_cheque_bonus_empresa' => 'Todas as empresas'
                 ]
             ],
+            'solicitacao_credito' => [
+                'titulo'    => 'Crédito',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_credito_empresa' => 'Todas as empresas'
+                ]
+            ],
             'comercial_empresa'        => [
                 'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
             ],
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
+            ],
+            'comercial_perdido'     => [
+                'titulo' => 'Comercial Perdidos', 'acao' => ['index', 'visualizar', 'editar', 'status']
             ],
             'comercial_atendimento'    => [
                 'titulo'    => 'Comercial Atendimento',

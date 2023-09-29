@@ -37,7 +37,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['cod', 'titulo', 'razao_social', 'cnpj', 'data_criacao', 'prospeccao_status', 'status'])
+            ->campo(['cod', 'titulo', 'razao_social', 'cnpj', 'data_criacao', 'data_atualizacao', 'prospeccao_status', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
@@ -60,6 +60,7 @@ final class EmpresaModel extends ORM implements ModelListarInterface
                 'titulo'            => $titulo,
                 'cnpj'              => $r->cnpj,
                 'data_criacao'      => $r->data_criacao,
+                'data_atualizacao'  => $r->data_atualizacao,
                 'prospeccao_status' => $ProspeccaoStatus->indice($r->prospeccao_status),
                 'status'            => $Status->indice($r->status)
             ];

@@ -18,14 +18,14 @@ final class ProspeccaoModel
         $this->Crypt = new CryptHelper(chavePrivada: $chave);
     }
 
-    public function listar($prospeccao)
+    public function listar($prospeccao = '', $status = Status::PROSPECCAO)
     {
         $dado = $this->Api
             ->json([
                 'pagina'            => 1,
                 'quantidade'        => 50,
                 'prospeccao_status' => $prospeccao,
-                'status'            => Status::PROSPECCAO
+                'status'            => $status
             ])
             ->get('/comercial-empresa')
             ->array();

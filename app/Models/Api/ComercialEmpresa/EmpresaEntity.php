@@ -2,6 +2,9 @@
 
 namespace App\Models\Api\ComercialEmpresa;
 
+use App\Classes\ComercialEmpresa\CanalPreferencia;
+use App\Classes\ComercialEmpresa\FormatoReuniao;
+use App\Classes\ComercialEmpresa\Origem;
 use ORM\Entity;
 use Modules\Cpf;
 use Modules\Cnpj;
@@ -36,7 +39,7 @@ final class EmpresaEntity extends Entity
     protected array $ormBuscar = [
         'finalidade_principal' => 'finalidade_empresa',
         'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
-        'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
         'id_usuario_equipe', 'tipo_pagamento', 'renda_media', 'produto_clube',
         'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
         'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
@@ -44,12 +47,14 @@ final class EmpresaEntity extends Entity
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
         'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
         'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento'
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente',
+        'origem', 'base_usuarios', 'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
+        'motivo_standby', 'motivo_perdido', 'devolutiva', 'nivel_decisao', 'etapa_negociacao'
     ];
     protected array $ormSalvar = [
         'finalidade_empresa' => '->finalidade_principal',
         'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
-        'site', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
         'id_usuario_equipe', 'tipo_pagamento', 'renda_media', 'produto_clube',
         'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
         'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
@@ -57,7 +62,9 @@ final class EmpresaEntity extends Entity
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
         'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
         'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento'
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente',
+        'origem', 'base_usuarios', 'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
+        'motivo_standby', 'motivo_perdido', 'devolutiva', 'nivel_decisao', 'etapa_negociacao'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
@@ -119,13 +126,27 @@ final class EmpresaEntity extends Entity
     public EmailDisparo $email_disparo;
     public string $observacao_ti;
     public string $observacao_comunicacao;
+    public Botao $parceiro_proprio;
+    public Botao $contratou_concorrente;
+    public string $qual_concorrente;
+    public Origem $origem;
+    public int $base_usuarios;
+    public CanalPreferencia $canal_preferencia;
+    public string $data_apresentacao;
+    public FormatoReuniao $formato_reuniao;
     public string $observacao_financeiro;
     public array $restricao_lista;
+    public string $previsao_retorno;
+    public string $motivo_standby;
+    public string $motivo_perdido;
+    public Data $devolutiva;
+    public int $nivel_decisao;
+    public int $etapa_negociacao;
     private bool $atualizarValor = false;
 
     protected function regraInsert()
     {
-        $this->prospeccao_status = new ProspeccaoStatus(ProspeccaoStatus::ABORDAGEM);
+        $this->prospeccao_status = new ProspeccaoStatus(ProspeccaoStatus::PESQUISA);
         $this->status = new Status(Status::PROSPECCAO);
         $this->validarSeJaExisteCnpj();
     }
@@ -158,7 +179,7 @@ final class EmpresaEntity extends Entity
 
     private function setarUsuarioEquipe()
     {
-        if (!$this->propriedadeExiste('equipe')) {
+        if (empty($this->equipe)) {
             $this->id_usuario_equipe = array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->id : null;
             return;
         }

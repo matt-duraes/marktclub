@@ -2,6 +2,7 @@
 
 namespace Painel\ComercialProspeccao\Controllers;
 
+use App\Classes\ComercialEmpresa\Status;
 use Http\Request;
 use Helpers\ApiHelper;
 use Controller\Controller;
@@ -17,12 +18,13 @@ final class ComercialProspeccaoController extends Controller
         return view('comercial_prospeccao.index', [
             'app'             => 'comercial-prospeccao',
             'appTitulo'       => 'Prospecção',
-            'abordagem'       => $Prospeccao->listar(ProspeccaoStatus::ABORDAGEM),
+            'pesquisa'        => $Prospeccao->listar(ProspeccaoStatus::PESQUISA),
             'apresentacao'    => $Prospeccao->listar(ProspeccaoStatus::APRESENTACAO),
             'negociacao'      => $Prospeccao->listar(ProspeccaoStatus::NEGOCIACAO),
             'avaliacao'       => $Prospeccao->listar(ProspeccaoStatus::AVALIACAO),
             'minuta'          => $Prospeccao->listar(ProspeccaoStatus::MINUTA),
-            'primeiro_status' => ProspeccaoStatus::ABORDAGEM,
+            'standby'         => $Prospeccao->listar(status: Status::STANDBY),
+            'primeiro_status' => ProspeccaoStatus::PESQUISA,
             'ultimo_status'   => ProspeccaoStatus::MINUTA
         ]);
     }

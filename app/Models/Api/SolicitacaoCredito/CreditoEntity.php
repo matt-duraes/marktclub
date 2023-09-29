@@ -6,6 +6,7 @@ use App\Classes\SolicitacaoCredito\Operadora;
 use App\Classes\SolicitacaoCredito\Status;
 use App\Classes\SolicitacaoCredito\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\DadoBaseModel;
 use Erro\Excecao;
 use Modules\Dinheiro;
 use Modules\Inteiro;
@@ -22,6 +23,7 @@ class CreditoEntity extends Entity
     public Dinheiro $valor_total;
     public Inteiro $parcela;
     public Status $status;
+    public array $usuario;
     protected string $ormTabela = TABELA_SOLICITACAO_CREDITO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
@@ -29,12 +31,13 @@ class CreditoEntity extends Entity
     ];
     protected array $ormBuscar = [
         'operadora', 'tipo', 'valor_total', 'parcela',
-        'valor_parcela', 'data_criacao', 'status'
+        'valor_parcela', 'data_criacao', 'status', 'id_usuario_cliente'
     ];
     protected array $ormSalvar = [
         'operadora', 'tipo', 'valor_total', 'parcela',
         'valor_parcela', 'status'
     ];
+    protected ?int $id_usuario_cliente;
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
     protected string $validarSalvar = '
@@ -66,5 +69,24 @@ class CreditoEntity extends Entity
             parcela: $this->parcela
         );
         $this->valor_parcela = $Simulacao->valorParcela;
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->buscarUsuario();
+    }
+
+    private function buscarUsuario()
+    {
+        $Usuario = new DadoBaseModel($this->id_usuario_cliente);
+        if (!$Usuario->existe) {
+            return;
+        }
+        $this->usuario = [
+            'id'     => $Usuario->id,
+            'nome'   => $Usuario->nome->nome(),
+            'email'  => $Usuario->email->email(),
+            'imagem' => $Usuario->imagem,
+        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Classes\SolicitacaoCredito\Operadora;
+use App\Classes\SolicitacaoCredito\Status;
 use App\Classes\SolicitacaoCredito\Tipo;
 use App\Models\Api\SolicitacaoCredito\CreditoEntity;
 use App\Models\Api\SolicitacaoCredito\CreditoModel;
@@ -89,7 +90,7 @@ class SolicitacaoCreditoController extends Controller implements
                 $creditoEntity,
                 lista: [
                     'operadora', 'tipo', 'valor_total', 'parcela',
-                    'valor_parcela', 'data_criacao', 'status'
+                    'valor_parcela', 'data_criacao', 'status', 'usuario'
                 ]
             ),
             $status
@@ -120,5 +121,15 @@ class SolicitacaoCreditoController extends Controller implements
         $Credito->set(lista: $request->dado());
         $Credito->salvar();
         return $this->retornoSucesso($Credito, 201);
+    }
+
+    public function putAtualizar(Request $request, string $id): Response
+    {
+        $Credito = new CreditoEntity();
+        $Credito->uuid($id);
+        $Credito->status = new Status($request->getPut('status'));
+        $Credito->salvar();
+
+        return new Response(status: 204);
     }
 }

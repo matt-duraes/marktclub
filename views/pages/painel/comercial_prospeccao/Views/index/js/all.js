@@ -6,19 +6,22 @@ window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
 
-    const blocoAbordagem = document.getElementById('bloco_abordagem');
+    const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
     const blocoNegociacao = document.getElementById('bloco_negociacao');
     const blocoAvaliacao = document.getElementById('bloco_avaliacao');
     const blocoMinuta = document.getElementById('bloco_minuta');
+    const blocoStandBy = document.getElementById('bloco_standby');
 
     const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
 
-    listaItem.forEach(item => {
+    const setEvents = (item) => {
         const botaoAtendimento = item.querySelector('.botao_item_atendimento');
         const botaoHistorico = item.querySelector('.botao_item_historico');
         const botaoCancelar = item.querySelector('.botao_item_cancelar');
         const botaoConcluir = item.querySelector('.botao_item_concluir');
+        const botaoStandBy = item.querySelector('.botao_item_standby');
+        const botaoVoltarStandBy = item.querySelector('.botao_item_voltar_standby');
         const botaoAnterior = item.querySelector('.botao_item_anterior');
         const botaoProximo = item.querySelector('.botao_item_proximo');
         const id = item.getAttribute('data-id');
@@ -31,9 +34,6 @@ window.addEventListener('load', () => {
             true,
             contatoLoad
         );
-        botaoAtendimento.addEventListener('click', () => {
-            PaginaContato.abrir();
-        });
 
         const PaginaHistorico = new Pagina(
             'historico-' + id,
@@ -43,40 +43,133 @@ window.addEventListener('load', () => {
             true,
             historicoLoad
         );
-        botaoHistorico.addEventListener('click', () => {
+
+        const adicionarEventoBotao = (botao, callback) => {
+            if (botao) {
+                botao.addEventListener('click', callback);
+            }
+        }
+
+        adicionarEventoBotao(botaoAtendimento, () => {
+            PaginaContato.abrir();
+        });
+
+        adicionarEventoBotao(botaoHistorico, () => {
             PaginaHistorico.abrir();
         });
-        botaoCancelar.addEventListener('click', () => {
+
+        adicionarEventoBotao(botaoCancelar, () => {
             cancelarContrato(item, id);
         });
-        botaoConcluir.addEventListener('click', () => {
+
+        adicionarEventoBotao(botaoConcluir, () => {
             concluirContrato(id);
         });
-        botaoAnterior.addEventListener('click', () => {
+
+        adicionarEventoBotao(botaoStandBy, () => {
+            colocarStandby(item, id);
+        });
+
+        adicionarEventoBotao(botaoAnterior, () => {
             moverParaBlocoAnterior(item, id);
         });
-        botaoProximo.addEventListener('click', () => {
+
+        adicionarEventoBotao(botaoProximo, () => {
             moverParaBlocoProximo(item, id);
         });
+
+        adicionarEventoBotao(botaoVoltarStandBy, () => {
+            voltarStandby(item, id);
+        });
+    }
+
+    listaItem.forEach(item => {
+        setEvents(item)
     });
 
     /*
     |--------------------------------------------------------------------------
-    | CANCELAR/CONCLUIR
+    | CANCELAR/CONCLUIR/STAND BY
     |--------------------------------------------------------------------------
     */
     cancelarContrato = async (item, id) => {
         if (!(await Alerta.confirmar('Cancelar contrato!', 'Tem certeza que deseja finalizar esse contrato?', '!'))) {
             return;
         }
-        atualizarStatusContrato(item, id, 'inativo');
+        await atualizarStatusContrato(item, id, 'inativo');
+
+        window.location.assign(LINK + '/app/editar/comercial-prospeccao/' + id);
     };
     concluirContrato = async id => {
-        if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', true))) {
+        if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', '!'))) {
             return;
         }
         window.location.assign(LINK + '/app/editar/comercial-empresa/' + id);
     };
+    colocarStandby = async (item, id) => {
+        if (!(await Alerta.confirmar('Colocar contrato em stand by!', 'Tem certeza que deseja colocar esse contrato em stand by?', '!'))) {
+            return;
+        }
+
+        await atualizarStatusContrato(item, id, 'standby');
+        const listaStadbyExemplo = document.getElementById('bloco_standby_exemplo');
+        const newItem = listaStadbyExemplo.cloneNode(true);
+
+        newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
+        newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
+        newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+        newItem.setAttribute('class', 'bloco_kambam_item')
+        newItem.dataset.id = id;
+        newItem.dataset.status = item.dataset.status;
+        setEvents(newItem);
+
+        window.location.assign(LINK + '/app/editar/comercial-prospeccao/' + id);
+
+        blocoStandBy.appendChild(newItem);
+        removerBlocoZero(blocoStandBy);
+        adicionarNumeroItem(blocoStandBy);
+    }
+    voltarStandby = async (item, id) => {
+        if (!(await Alerta.confirmar('Voltar contrato para prospecção!', 'Tem certeza que deseja voltar esse contrato para prospecção?', '!'))) {
+            return;
+        }
+        await atualizarStatusContrato(item, id, 'prospeccao');
+
+        const newItem = listaItem[0].cloneNode(true);
+
+        newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
+        newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
+        newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+        newItem.dataset.id = id;
+        newItem.dataset.status = item.dataset.status;
+        setEvents(newItem);
+
+        const status = item.getAttribute('data-status');
+        const bloco = pegarBlocoPeloStatus(status);
+
+        bloco.appendChild(newItem);
+        removerBlocoZero(bloco);
+        adicionarNumeroItem(blocoStandBy);
+        adicionarNumeroItem(bloco);
+    }
+
+    const pegarBlocoPeloStatus = (status) => {
+        switch (status) {
+            case 'pesquisa':
+                return blocoPesquisa;
+            case 'apresentacao':
+                return blocoApresentacao;
+            case 'negociacao':
+                return blocoNegociacao;
+            case 'avaliacao':
+                return blocoAvaliacao;
+            case 'minuta':
+                return blocoMinuta;
+            case 'standby':
+                return blocoStandBy;
+        }
+    }
+
     const atualizarStatusContrato = async (item, id, status) => {
         Loading.show();
 
@@ -115,30 +208,32 @@ window.addEventListener('load', () => {
     };
     const pegarBlocoAnterior = bloco => {
         const atual = bloco.getAttribute('data-prospeccao');
-        if (atual == 'abordagem') {
-            return false;
-        } else if (atual == 'apresentacao') {
-            return blocoAbordagem;
-        } else if (atual == 'negociacao') {
-            return blocoApresentacao;
-        } else if (atual == 'avaliacao') {
-            return blocoNegociacao;
-        } else if (atual == 'minuta') {
-            return blocoAvaliacao;
+        switch (atual) {
+            case 'pesquisa':
+                return false;
+            case 'apresentacao':
+                return blocoPesquisa;
+            case 'negociacao':
+                return blocoApresentacao;
+            case 'avaliacao':
+                return blocoNegociacao;
+            case 'minuta':
+                return blocoAvaliacao;
         }
     };
     const pegarBlocoProximo = bloco => {
         const atual = bloco.getAttribute('data-prospeccao');
-        if (atual == 'abordagem') {
-            return blocoApresentacao;
-        } else if (atual == 'apresentacao') {
-            return blocoNegociacao;
-        } else if (atual == 'negociacao') {
-            return blocoAvaliacao;
-        } else if (atual == 'avaliacao') {
-            return blocoMinuta;
-        } else if (atual == 'minuta') {
-            return false;
+        switch (atual) {
+            case 'pesquisa':
+                return blocoApresentacao;
+            case 'apresentacao':
+                return blocoNegociacao;
+            case 'negociacao':
+                return blocoAvaliacao;
+            case 'avaliacao':
+                return blocoMinuta;
+            case 'minuta':
+                return false;
         }
     };
 
@@ -175,7 +270,7 @@ window.addEventListener('load', () => {
         const botaoProximo = item.querySelector('.botao_item_proximo');
         botaoAnterior.classList.remove('display_none');
         botaoProximo.classList.remove('display_none');
-        if (status == 'abordagem') {
+        if (status == 'pesquisa') {
             botaoAnterior.classList.add('display_none');
         } else if (status == 'minuta') {
             botaoProximo.classList.add('display_none');
@@ -197,4 +292,11 @@ window.addEventListener('load', () => {
             bloco.insertAdjacentHTML('afterbegin', htmlZero);
         }
     };
+
+    const removerBlocoZero = bloco => {
+        const blocoZero = bloco.querySelector('.tarefa_zero');
+        if (blocoZero) {
+            blocoZero.parentNode.removeChild(blocoZero);
+        }
+    }
 });

@@ -56,6 +56,9 @@ $permissao = json_encode([
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',
     'solicitacao_voucher_empresa',
 
+    'solicitacao_credito_index', 'solicitacao_credito_visualizar', 'solicitacao_credito_status',
+    'solicitacao_credito_empresa',
+
     'solicitacao_premium_index', 'solicitacao_premium_visualizar', 'solicitacao_premium_index',
     'solicitacao_premium_download', 'solicitacao_premium_empresa',
 
@@ -71,17 +74,11 @@ $permissao = json_encode([
 
     'solicitacao_cheque_bonus_index', 'solicitacao_cheque_bonus_visualizar', 'solicitacao_cheque_bonus_status',
     'solicitacao_cheque_bonus_empresa',
-
-    'comercial_empresa_visualizar', 'comercial_empresa_editar',
-
-    'comercial_prospeccao_index', 'comercial_prospeccao_add', 'comercial_prospeccao_editar',
-    'comercial_prospeccao_visualizar',
-
-    'comercial_atendimento_index',
-
-    'demanda_tecnologia', 'demanda_criacao',
-
-    'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
+    'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
+    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_perdido_index', 'comercial_perdido_add',
+    'comercial_perdido_editar', 'comercial_perdido_visualizar', 'comercial_perdido_status', 'comercial_prospeccao_visualizar',
+    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
+    'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [
