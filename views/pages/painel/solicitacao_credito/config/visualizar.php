@@ -19,15 +19,15 @@ $Painel->coluna(callback: function () use ($Painel) {
             );
     });
 
-    $Painel->bloco('Solicitação', callback: function () use ($Painel) {
+    $Painel->bloco('Simulação', callback: function () use ($Painel) {
         $Painel
             ->linha('operadora', 'Operadora')
             ->linha('tipo', 'Tipo')
-            ->linha('valor_total', 'Valor total')
+            ->dinheiro('valor_total', 'Valor total')
             ->linha('parcela', 'Parcela')
-            ->linha('valor_parcela', 'Valor da parcela')
-            ->linha('status', 'Status')
-            ->linha('data_criacao', 'Data de criação', formatar: 'datahora');
+            ->dinheiro('valor_parcela', 'Valor da parcela')
+            ->dataHora('data_criacao', 'Data de criação')
+            ->linha('status', 'Status');
     });
 });
 
