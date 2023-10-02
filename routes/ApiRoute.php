@@ -1700,37 +1700,56 @@ Route
     });
 
 Route
-    ::nome('popup')
-    ::controller(App\Controllers\Api\PopupController::class)
+    ::nome('comunicacao_popup')
+    ::controller(App\Controllers\Api\ComunicacaoPopupController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['popup:buscar'])
-            ::get('/popup/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:buscar'])
+            ::get('/comunicacao-popup/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!titulo', '!empresa',
+                '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/comunicacao-popup');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['popup:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:salvar'])
             ::request([
-                'titulo', 'texto', '!subtitulo', '!formulario',
-                '!imagem', '!data_expiracao', '!status'
+                'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
+                '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
+                '!botao_target', '!status'
             ])
-            ::post('/popup');
+            ::post('/comunicacao-popup');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['popup:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:atualizar'])
             ::request([
-                '!titulo', '!texto', '!subtitulo', '!formulario',
-                '!imagem', '!data_expiracao', '!status'
+                '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
+                '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
+                '!botao_target', '!status'
             ])
-            ::put('/popup/{id}');
+            ::put('/comunicacao-popup/{id}');
 
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['popup:deletar'])
-            ::delete('/popup/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:deletar'])
+            ::delete('/comunicacao-popup/{id}');
+
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:ordenar'])
+            ::request([
+                'id', 'pagina', '!quantidade'
+            ])
+            ::put('/comunicacao-popup/ordenar');
     });
 
 Route
