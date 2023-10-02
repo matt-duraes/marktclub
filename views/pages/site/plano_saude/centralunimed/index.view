@@ -1,5 +1,5 @@
 @template "site"
 
 <div class="bloco_cnu">
-    <img src={!!LINK!!}/images/site/saude_comunicado_cnu.jpeg" alt="central nacional unimed">
+    <img src="{!!LINK!!}/images/site/saude_comunicado_cnu.jpeg" alt="central nacional unimed">
 </div>
