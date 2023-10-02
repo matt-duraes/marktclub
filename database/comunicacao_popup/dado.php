@@ -9,10 +9,7 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $titulo = 'Titulo do meu popup ' . $i;
     $seeds[] = [
         'uuid'             => uuid(),
-        'id_admin_empresa' => valorAleatorio([
-            1, 2, 4, 82, 153, 198, 223, 229,
-            1967, 1968, 1969, 1970, 1971
-        ]),
+        'id_admin_empresa' => rand(1, 50),
         'slug'             => strSlug($titulo),
         'imagem'           => null,
         'titulo'           => $titulo,
