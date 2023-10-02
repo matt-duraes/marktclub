@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use App\Classes\UsuarioLead\Helper;
 use Tests\Tests;
+use App\Classes\UsuarioLead\Helper;
 
 final class UsuarioLeadTest extends Tests
 {
@@ -13,42 +13,9 @@ final class UsuarioLeadTest extends Tests
 
     public function __construct()
     {
+        parent::__construct();
         $this->bodySalvar = $this->criarBodyLead();
         $this->cpf = cpfAleatorio();
-        parent::__construct();
-    }
-
-    /**
-     * @return bool|array|string
-     */
-    private function criarBodyLead(): bool|array|string
-    {
-        return $this->cryptEncode([
-            'nome'                 => nomeCompletoAleatorio(),
-            'email_trabalho'       => emailAleatorio(),
-            'email_pessoal'        => emailAleatorio(),
-            'email_funcional'      => emailAleatorio(),
-            'telefone_pessoal'     => telefoneAleatorio(),
-            'telefone_trabalho'    => telefoneAleatorio(),
-            'cpf'                  => cpfAleatorio(),
-            'rg'                   => rgAleatorio(),
-            'siape'                => numeroAleatorio(100000, 999999),
-            'genero'               => generoAleatorio(),
-            'data_nascimento'      => dataPassadaAleatorio(),
-            'trabalho_empresa'     => 'marktclub',
-            'trabalho_cargo'       => 'desenvolvedor',
-            'trabalho_data_inicio' => dataPassadaAleatorio(),
-            'endereco_cep'         => '69055695',
-            'endereco_logradouro'  => logradouroAleatorio(),
-            'endereco_numero'      => numeroAleatorio(),
-            'endereco_complemento' => complementoAleatorio(),
-            'endereco_bairro'      => bairroAleatorio(),
-            'endereco_cidade'      => cidadeAleatorio(),
-            'endereco_estado'      => estadoAleatorio(),
-            'termo_aceitar'        => hoje(),
-            'termo_lgpd'           => hoje(),
-            'lista_dependente'     => []
-        ], Helper::CRIPTOGRAFAR);
     }
 
     public function verificarSeEstaSalvandoLeadTest()
@@ -263,6 +230,11 @@ final class UsuarioLeadTest extends Tests
         return $this->mudarStatusDoLead('andamento');
     }
 
+    public function mudarStatusDeEmAndamentoParaSemInteresseTest()
+    {
+        return $this->mudarStatusDoLead('sem-interesse');
+    }
+
     private function mudarStatusDoLead($status)
     {
         $this->api('usuario_lead:atualizar');
@@ -284,11 +256,6 @@ final class UsuarioLeadTest extends Tests
             ->checkIgual($respostaStatus, 204)
             ->checkStatus(200)
             ->checkIndiceIgual('dado.status', $status);
-    }
-
-    public function mudarStatusDeEmAndamentoParaSemInteresseTest()
-    {
-        return $this->mudarStatusDoLead('sem-interesse');
     }
 
     public function naoPodeMudarStatusAposSalvarComoSemInteresseTest()
@@ -415,7 +382,7 @@ final class UsuarioLeadTest extends Tests
 
         return $this
             ->checkStatus(404)
-            ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
+            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
     }
 
     public function naoPodeAtualizarLeadPeloIdTest()
@@ -429,14 +396,8 @@ final class UsuarioLeadTest extends Tests
 
         return $this
             ->checkStatus(404)
-            ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
+            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | PRIVADOS
-    |--------------------------------------------------------------------------
-    */
 
     public function naoPodeDeletarLeadPeloIdTest()
     {
@@ -449,5 +410,40 @@ final class UsuarioLeadTest extends Tests
         return $this
             ->checkStatus(404)
             ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | PRIVADOS
+    |--------------------------------------------------------------------------
+    */
+    private function criarBodyLead()
+    {
+        return $this->cryptEncode([
+            'nome'                 => nomeCompletoAleatorio(),
+            'email_trabalho'       => emailAleatorio(),
+            'email_pessoal'        => emailAleatorio(),
+            'email_funcional'      => emailAleatorio(),
+            'telefone_pessoal'     => telefoneAleatorio(),
+            'telefone_trabalho'    => telefoneAleatorio(),
+            'cpf'                  => cpfAleatorio(),
+            'rg'                   => rgAleatorio(),
+            'siape'                => numeroAleatorio(100000, 999999),
+            'genero'               => generoAleatorio(),
+            'data_nascimento'      => dataPassadaAleatorio(),
+            'trabalho_empresa'     => 'marktclub',
+            'trabalho_cargo'       => 'desenvolvedor',
+            'trabalho_data_inicio' => dataPassadaAleatorio(),
+            'endereco_cep'         => '69055695',
+            'endereco_logradouro'  => logradouroAleatorio(),
+            'endereco_numero'      => numeroAleatorio(),
+            'endereco_complemento' => complementoAleatorio(),
+            'endereco_bairro'      => bairroAleatorio(),
+            'endereco_cidade'      => cidadeAleatorio(),
+            'endereco_estado'      => estadoAleatorio(),
+            'termo_aceitar'        => hoje(),
+            'termo_lgpd'           => hoje(),
+            'lista_dependente'     => []
+        ], Helper::CRIPTOGRAFAR);
     }
 }
