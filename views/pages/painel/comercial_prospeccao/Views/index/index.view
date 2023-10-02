@@ -3,9 +3,9 @@
 <!--Bloco do popup -->
 <div class="bloco_pagina_popup display_none" id="bloco_atualizar_email">
     <div class="conteudo_pagina_popup conteudo_popup">
-        <header>
+        <header class="header_motivo">
             <h1>Motivo Stand BY</h1>
-            <i class="popup_fechar fechar">@iconeFechar</i>
+            <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
         </header>
         <form id="form_motivo" class="form_geral">
             @? formInput(name: 'motivo', label: 'Motivo Stand BY', placeholder: 'Digite o motivo do stand by', value: '')
