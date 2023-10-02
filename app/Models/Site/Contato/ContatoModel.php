@@ -3,27 +3,19 @@
 namespace App\Models\Site\Contato;
 
 use Erro\Excecao;
-use Helpers\ApiHelper;
 use Http\Request;
+use Helpers\ApiHelper;
 use App\Classes\Contato\Tipo;
 
-final class SalvarModel extends ApiHelper
+final class ContatoModel extends ApiHelper
 {
-    protected string $nome;
-    protected string $telefone;
-    protected string $email;
-    protected string $mensagem;
-
     /**
      * @throws Excecao
      */
     public function __construct(
         protected ?Request $request = null
     ) {
-        $this->nome = $request->nome;
-        $this->telefone = $request->telefone;
-        $this->email = $request->email;
-        $this->mensagem = $request->mensagem;
+        parent::__construct();
     }
 
     /**
@@ -35,15 +27,13 @@ final class SalvarModel extends ApiHelper
         $this
         ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.')
         ->body([
-            'nome'     => $this->nome,
-            'telefone' => $this->telefone,
-            'email'    => $this->email,
-            'mensagem' => $this->mensagem,
-            'tipo'     => new Tipo(Tipo::SEM_AUTENTICACAO),
+            'nome'     => $this->request->nome,
+            'telefone' => $this->request->telefone,
+            'email'    => $this->request->email,
+            'mensagem' => $this->request->mensagem,
         ])
         ->post('/contato')
         ->object();
-
         return mensagemSucesso([], 201);
     }
 }
