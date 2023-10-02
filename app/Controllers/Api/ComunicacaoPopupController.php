@@ -2,19 +2,27 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\Api\Popup\PopupEntity;
+use App\Classes\ComunicacaoPopup\Ordem;
+use App\Classes\ComunicacaoPopup\Status;
+use App\Models\Api\ComunicacaoPopup\PopupEntity;
+use App\Models\Api\ComunicacaoPopup\PopupModel;
+use App\Models\Api\OrdenarModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Modules\DataHora;
+use Modules\Data;
+use Modules\Pagina;
+use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class PopupController extends Controller implements
+class ComunicacaoPopupController extends Controller implements
     ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
@@ -45,17 +53,35 @@ class PopupController extends Controller implements
      */
     private function retornoPadrao(PopupEntity $PopupEntity, int $status = 200): Response
     {
-        $dados = pegarPropriedadeDaEntity(
-            $PopupEntity,
-            lista: [
-                'slug', 'titulo', 'subtitulo', 'texto', 'formulario', 'imagem',
-                'data_criacao', 'data_expiracao', 'status'
-            ]
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($PopupEntity, lista: [
+                'id', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
+                'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
+                'botao_target', 'status'
+            ]),
+            $status
         );
-        $dados['formulario'] = jsonDecode($dados['formulario']);
-        $dados['data_criacao'] = (new DataHora($dados['data_criacao']))->data();
-        $dados['data_expiracao'] = (new DataHora($dados['data_expiracao']))->data();
-        return mensagemSucesso($dados, $status);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getListar(Request $request): Response
+    {
+        $PopupModel = new PopupModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->titulo,
+            $request->empresa,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
+        );
+        return mensagemSucesso($PopupModel->listarDados());
     }
 
     /**
@@ -89,7 +115,7 @@ class PopupController extends Controller implements
         );
         $PopupEntity->set(lista: $request->dado());
         $PopupEntity->salvar();
-        return $this->retornoPadrao($PopupEntity);
+        return new Response(status: 204);
     }
 
     /**
@@ -103,6 +129,23 @@ class PopupController extends Controller implements
         $PopupEntity = new PopupEntity();
         $PopupEntity->uuid($id);
         $PopupEntity->destruir();
+        return new Response(status: 204);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function putOrdenar(Request $request): Response
+    {
+        new OrdenarModel(
+            id: jsonDecode($request->id, true, true),
+            tabela: TABELA_COMUNICACAO_POPUP,
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade)
+        );
         return new Response(status: 204);
     }
 }

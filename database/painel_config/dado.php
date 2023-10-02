@@ -35,6 +35,13 @@ return [
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'comunicacao_contato'     => ['titulo' => 'Contato', 'acao' => ['index', 'visualizar', 'status']],
+            'comunicacao_popup'       => [
+                'titulo'    => 'Popup',
+                'acao'      => ['index', 'add', 'editar', 'deletar', 'status', 'empresa'],
+                'permissao' => [
+                    'comunicacao_popup_empresa' => 'Todas as empresas'
+                ]
+            ],
             'enquete_satisfacao'      => [
                 'titulo' => 'Pesquisa Satisfação', 'acao' => ['index', 'visualizar', 'deletar', 'status']
             ],
@@ -133,7 +140,7 @@ return [
                     'solicitacao_cheque_bonus_empresa' => 'Todas as empresas'
                 ]
             ],
-            'solicitacao_credito' => [
+            'solicitacao_credito'      => [
                 'titulo'    => 'Crédito',
                 'acao'      => ['index', 'visualizar', 'status', 'empresa'],
                 'permissao' => [
@@ -146,7 +153,7 @@ return [
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
             ],
-            'comercial_perdido'     => [
+            'comercial_perdido'        => [
                 'titulo' => 'Comercial Perdidos', 'acao' => ['index', 'visualizar', 'editar', 'status']
             ],
             'comercial_atendimento'    => [

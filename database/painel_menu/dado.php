@@ -128,6 +128,18 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
+        'titulo'           => 'Popup',
+        'url'              => '/app/comunicacao-popup',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M21 3C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21ZM20 11H4V19H20V11ZM20 5H4V9H20V5ZM19 6V8H15V6H19Z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['comunicacao-popup'],
+        'status'           => 1,
+        'permissao'        => '["comunicacao_popup_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
         'titulo'           => 'Pesquisa Satisfação',
         'url'              => '/app/enquete-satisfacao',
         'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M19.4,6.1v1.8h2.7c0.5,0,0.9,0.4,0.9,0.9V23c0,0.5-0.4,0.9-0.9,0.9H7.9C7.4,23.9,7,23.5,7,23V8.8c0-0.5,0.4-0.9,0.9-0.9h2.7V6.1H19.4z M10.6,9.7H8.8v12.4h12.4V9.7h-1.8v1.8h-8.9V9.7z M12.3,18.6v1.8h-1.8v-1.8H12.3z M12.3,15.9v1.8h-1.8v-1.8H12.3zM12.3,13.2V15h-1.8v-1.8H12.3z M17.7,7.9h-5.3v1.8h5.3V7.9z"/></svg>',
