@@ -102,7 +102,7 @@ $listaOrigem = (new Origem())->listarNumero();
 $listaCanalPreferencia = (new CanalPreferencia())->listarNumero();
 $listaFormatoReuniao = (new FormatoReuniao())->listarNumero();
 
-for ($i = 3; $i < 50; $i++) {
+for ($i = 2; $i <= 50; $i++) {
     $nome = $titulos[$i - 3] ?? nomeAleatorio();
     $slug = strtolower(preg_replace('/[ -]+/', '-', $nome));
     $status = valorAleatorio($listaStatus);
