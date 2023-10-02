@@ -1,3 +1,6 @@
+.bloco_hidden
+    display: none
+
 .bloco_kambam_index .bloco_coluna
     .conteudo article
         width: 100%
@@ -39,6 +42,9 @@
         padding: 0 10px 0 12px
         margin: 5px 0 10px
         overflow: hidden
+    .conteudo .data_standby
+        width: 50% !important
+        margin: 0px !important
     .conteudo article .botao_link
         background-color: $corLink
         color: #FFF
@@ -46,6 +52,13 @@
         padding: 1px 10px
         border-radius: 20px
         margin-left: 10px
+    .conteudo article .botao_link_standby
+        margin-bottom: 10px
+    .conteudo article .status_standby
+        margin-left: 10px
+        margin-bottom: 10px
+        font-size: 1.5rem
+        color: #333
     .conteudo article .bloco
         width: 100%
         flexRow()
@@ -61,6 +74,8 @@
         cursor: pointer
     .conteudo article .bloco .inativar
     .conteudo article .bloco .ativar
+    .conteudo article .bloco .standby
+    .conteudo article .bloco .voltar
         width: 27px
         height: 27px
         flexCenter()
@@ -76,6 +91,10 @@
         background-color: $corVermelho
     .conteudo article .bloco .ativar
         background-color: $corVerde
+    .conteudo article .bloco .standby
+        background-color: #fbbf24
+    .conteudo article .bloco .voltar
+        background-color: #3b82f6
     .conteudo article .bloco .grow
         flexGrow()
     .conteudo article .bloco .linha

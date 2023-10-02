@@ -13,8 +13,8 @@ $Painel
     ->numero(name: 'siape', titulo: 'SIAPE', label: 'SIAPE', placeholder: 'Digite um SIAPE')
     ->bloco(function () use ($Painel) {
         $Painel
-            ->select(name: 'origem', titulo: 'Origem', label: 'Origem', lista: (new Origem())->select())
-            ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select());
+            ->select(name: 'origem', lista: (new Origem())->select(), titulo: 'Origem', label: 'Origem')
+            ->select(name: 'status', lista: (new Status())->select(), titulo: 'Status', label: 'Status');
     });
 
 $Painel->replace('status', (new Status())->select());

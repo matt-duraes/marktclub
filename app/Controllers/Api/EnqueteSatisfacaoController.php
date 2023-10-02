@@ -67,7 +67,6 @@ final class EnqueteSatisfacaoController extends Controller implements
         $Enquete = new EnqueteEntity();
         $Enquete->set(lista: $request->dado());
         $Enquete->salvar();
-
         return $this->retornoSucesso($Enquete, 201);
     }
 
@@ -101,7 +100,6 @@ final class EnqueteSatisfacaoController extends Controller implements
         $Enquete->uuid($id);
         $Enquete->set(lista: $request->dado());
         $Enquete->salvar();
-
         return new Response(status: 204);
     }
 
@@ -116,7 +114,6 @@ final class EnqueteSatisfacaoController extends Controller implements
         $Enquete = new EnqueteEntity();
         $Enquete->uuid($id);
         $Enquete->destruir();
-
         return new Response(status: 204);
     }
 }

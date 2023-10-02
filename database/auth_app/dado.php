@@ -107,7 +107,7 @@ $scope = [
     'solicitacao_cheque_bonus:atualizar',
 
     'solicitacao_credito:listar', 'solicitacao_credito:buscar', 'solicitacao_credito:salvar',
-    'solicitacao_credito:simular',
+    'solicitacao_credito:simular', 'solicitacao_credito:atualizar',
 
     'solicitacao_premium:listar', 'solicitacao_premium:download',
 
@@ -121,7 +121,9 @@ $scope = [
 
     'carteirinha:buscar',
 
-    'popup:buscar', 'popup:salvar', 'popup:atualizar', 'popup:deletar',
+    'comunicacao_popup:buscar', 'comunicacao_popup:listar',
+    'comunicacao_popup:salvar', 'comunicacao_popup:atualizar', 'comunicacao_popup:deletar',
+    'comunicacao_popup:ordenar',
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
     'enquete_satisfacao:atualizar', 'enquete_satisfacao:deletar',
@@ -148,7 +150,8 @@ $scope = [
     'solicitacao_loja:listar', 'solicitacao_loja:buscar', 'solicitacao_loja:salvar',
     'solicitacao_loja:atualizar', 'solicitacao_loja:deletar',
 
-    'chatbot_perguntas:salvar', 'chatbot_perguntas:atualizar', 'chatbot_perguntas:listar', 'chatbot_perguntas:buscar', 'chatbot_perguntas:perguntar',
+    'chatbot_perguntas:salvar', 'chatbot_perguntas:atualizar', 'chatbot_perguntas:listar', 'chatbot_perguntas:buscar',
+    'chatbot_perguntas:perguntar',
 
     'chatbot_categoria:salvar', 'chatbot_categoria:atualizar', 'chatbot_categoria:listar', 'chatbot_categoria:buscar',
 ];
@@ -243,8 +246,7 @@ EwIDAQAB
         'authorization_code' => '1',
         'client_credentials' => '1',
         'refresh_token'      => '1',
-        'redirect_uri'       => '["localhost.com:4000",
-"localhost.com:8000"]',
+        'redirect_uri'       => '["localhost.com:4000","localhost.com:8000","127.0.0.1"]',
         'scope_permitido'    => $scope,
         'campo_permitido'    => '{"usuario:salvar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:atualizar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:buscar":["uuid","nome","cpf"],"usuario:listar":["uuid","nome","cpf"]}',
         'tempo_vida'         => '50000',

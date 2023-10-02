@@ -34,6 +34,14 @@ return [
                 ]
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'comunicacao_contato'     => ['titulo' => 'Contato', 'acao' => ['index', 'visualizar', 'status']],
+            'comunicacao_popup'       => [
+                'titulo'    => 'Popup',
+                'acao'      => ['index', 'add', 'editar', 'deletar', 'status', 'empresa'],
+                'permissao' => [
+                    'comunicacao_popup_empresa' => 'Todas as empresas'
+                ]
+            ],
             'enquete_satisfacao'      => [
                 'titulo' => 'Pesquisa Satisfação', 'acao' => ['index', 'visualizar', 'deletar', 'status']
             ],
@@ -132,11 +140,21 @@ return [
                     'solicitacao_cheque_bonus_empresa' => 'Todas as empresas'
                 ]
             ],
+            'solicitacao_credito'      => [
+                'titulo'    => 'Crédito',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_credito_empresa' => 'Todas as empresas'
+                ]
+            ],
             'comercial_empresa'        => [
                 'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
             ],
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
+            ],
+            'comercial_perdido'        => [
+                'titulo' => 'Comercial Perdidos', 'acao' => ['index', 'visualizar', 'editar', 'status']
             ],
             'comercial_atendimento'    => [
                 'titulo'    => 'Comercial Atendimento',
@@ -178,10 +196,11 @@ return [
                     'tipo_pagamento'
                 ]
             ],
-            'usuario_equipe' => [
+            'usuario_equipe'  => [
                 'geral' => [
                     'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho', 'senha', 'status', 'primeiro_acesso',
-                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha', 'permissao',
+                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha',
+                    'permissao',
                     'empresa', 'subempresa'
                 ]
             ]
@@ -230,10 +249,11 @@ return [
                     'nome', 'cpf', 'matricula', 'siape', 'data_upload', 'data_criacao_de', 'data_criacao_ate', 'status'
                 ]
             ],
-            'usuario_equipe' => [
+            'usuario_equipe'  => [
                 'geral' => [
                     'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho', 'senha', 'status', 'primeiro_acesso',
-                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha', 'permissao',
+                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha',
+                    'permissao',
                     'subempresa'
                 ]
             ]

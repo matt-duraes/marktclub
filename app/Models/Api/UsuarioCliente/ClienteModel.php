@@ -2,23 +2,27 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
-use stdClass;
-use Erro\Excecao;
-use Http\Request;
-use Modules\Data;
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
+use Modules\Genero;
+use ORM\ORM;
+use stdClass;
 
 final class ClienteModel extends ORM
 {
     use ValidarEmpresaTrait;
     use BuscarUsuarioTrait;
+
+    public const FINANCIAMENTO_SALDO = 1324;
+    public const FINANCIAMENTO_LIMITE = self::FINANCIAMENTO_SALDO * 2;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private int $idEmpresa;
@@ -151,5 +155,45 @@ final class ClienteModel extends ORM
             ->campo(['empresa'])
             ->where(['id', $id])
             ->read(0)->empresa ?? null;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return array
+     * @throws Excecao
+     */
+    public function buscarDependentesUsuario(string $id): array
+    {
+        $dependentes = $this
+            ->campo([
+                'cpf', 'matricula', 'nome', 'tipo', 'genero', 'aniversario', 'codigo_plano'
+            ])
+            ->where([
+                ['titular', $id]
+            ])
+            ->read();
+
+        $retorno = [];
+        foreach ($dependentes as $dependente) {
+            $retorno[] = [
+                'cpf'                    => $dependente->cpf,
+                'matricula'              => $dependente->matricula,
+                'nome'                   => $dependente->nome,
+                'tipo'                   => (new TipoUsuario($dependente->tipo))->indice(),
+                'sexo'                   => (new Genero($dependente->genero))->genero(),
+                'dataNascimento'         => (new Data($dependente->aniversario))->date(),
+                'saldoFinanciamento'     => self::FINANCIAMENTO_SALDO,
+                'limiteFinanciamento'    => self::FINANCIAMENTO_LIMITE,
+                'grupoCronicoDependente' => 'nao',
+                'cartao'                 => [
+                    'nome'   => $dependente->nome,
+                    'numero' => null
+                ],
+                'dependentes'            => null,
+                'codigoPlano'            => $dependente->codigo_plano
+            ];
+        }
+        return $retorno;
     }
 }

@@ -1,12 +1,15 @@
 <?php
 
-return (new \DataBase\DataBase())
+use DataBase\DataBase;
+
+return (new DataBase())
     ->id()
     ->cod()
     ->int('empresa')->tamanho(9)->replace('id_admin_empresa')
     ->int('id_admin_subempresa')->tamanho(9)->null()
     ->int('titular')->tamanho(11)->null()->replace('id_usuario_cliente')
     ->int('tipo')->tamanho(1)
+    ->int('codigo_plano')->tamanho(9)->null()
     ->nome('nome')->null()
     ->telefone('telefone_fixo')->null()
     ->telefone('telefone_celular')->null()

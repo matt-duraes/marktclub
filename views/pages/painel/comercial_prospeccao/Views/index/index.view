@@ -4,12 +4,12 @@
     <div class="conteudo_geral">
         <section class="bloco_coluna">
             <header>
-                <h1>Abordagem <span>({!!count($abordagem)!!})</span></h1>
+                <h1>Pesquisa <span>({!!count($pesquisa)!!})</span></h1>
                 <div class="flex"></div>
                 <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
             </header>
-            <div class="conteudo" id="bloco_abordagem" data-prospeccao="abordagem">
-                @ifforeach($abordagem as $r):
+            <div class="conteudo" id="bloco_pesquisa" data-prospeccao="pesquisa">
+                @ifforeach($pesquisa as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @elseforeach;
                 <div class="tarefa_zero">Sem itens<br> no momento</div>
@@ -69,5 +69,35 @@
             </div>
         </section>
 
+        <section class="bloco_coluna">
+            <header>
+                <h1>Stand-by <span>({!!count($standby)!!})</span></h1>
+            </header>
+            <div class="conteudo" id="bloco_standby" data-prospeccao="standby">
+                @ifforeach($standby as $r):
+                @view painel/comercial_prospeccao/index/item_standby.view
+                @elseforeach;
+                <div class="tarefa_zero">Sem itens<br> no momento</div>
+                @endif;
+            </div>
+        </section>
+
+        <!-- Bloco de exemplo para ser clonado -->
+        <article id="bloco_standby_exemplo" class="bloco_hidden bloco_kambam_item" data-id="" data-status="">
+            <header>
+                <h1 class="titulo"></h1>
+            </header>
+            .
+            <a class="botao_link botao_link_standby" href="">ver prospecção</a>
+            <p class="status_standby"></p>
+            <div class="bloco">
+                <p class="data data_standby"></p>
+
+                <div class="linha"></div>
+
+                <i class="inativar botao_item_cancelar" data-ajuda="Cancelar contrato">@iconeFechar(10)</i>
+                <i class="voltar botao_item_voltar_standby" data-ajuda="Voltar contrato">@iconeVoltar(12)</i>
+            </div>
+        </article>
     </div>
 </div>
