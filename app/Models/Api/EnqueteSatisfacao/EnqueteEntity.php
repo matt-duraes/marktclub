@@ -29,7 +29,6 @@ class EnqueteEntity extends Entity
         'comentario', 'sistemas_clube', 'status', 'data_criacao'
     ];
     protected array $ormInsert = [
-        'id_admin_empresa'   => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario'
     ];
     protected array $ormSalvar = [
@@ -42,7 +41,6 @@ class EnqueteEntity extends Entity
         suporte|Suporte|obrigatorio|vazio|valido
         atendimento|Atendimento|obrigatorio|vazio|valido
     ';
-    protected ?int $idEmpresa;
     protected ?int $idUsuario;
 
     /**
@@ -53,7 +51,7 @@ class EnqueteEntity extends Entity
     public function __construct(
         protected readonly ?Request $request = null
     ) {
-        $this->validarEmpresa();
+        $this->setarIdUsuario();
         parent::__construct();
     }
 

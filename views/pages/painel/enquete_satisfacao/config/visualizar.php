@@ -19,6 +19,16 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('comentario', 'Comentários')
             ->linha('status', 'Status');
     });
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Visualizado',
+            inArray: ['Novo'],
+            status: 'visualizada',
+            mensagem: 'Tem certeza que deseja alterar para visualizado?',
+            cor: 'verde'
+        );
 });
 
 $Painel->replace(campo: 'navegar', lista: (new Navegar())->select());

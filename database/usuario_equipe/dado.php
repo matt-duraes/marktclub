@@ -37,6 +37,8 @@ $permissao = json_encode([
     'comunicacao_publicidade_index', 'comunicacao_publicidade_add', 'comunicacao_publicidade_editar',
     'comunicacao_publicidade_deletar',
 
+    'comunicacao_contato_index', 'comunicacao_contato_visualizar', 'comunicacao_contato_status',
+
     'enquete_satisfacao_index', 'enquete_satisfacao_visualizar', 'enquete_satisfacao_deletar',
     'enquete_satisfacao_status',
 

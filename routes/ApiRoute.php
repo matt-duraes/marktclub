@@ -1931,30 +1931,38 @@ Route
     });
 
 Route
-    ::nome('contato')
-    ::controller(App\Controllers\Api\ContatoController::class)
+    ::nome('comunicacao_contato')
+    ::controller(App\Controllers\Api\ComunicacaoContatoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['contato:salvar'])
-            ::request([
-                'nome', 'email', 'telefone', 'mensagem', 'url', '!descoberta_site'
-            ])
-            ::post('/contato');
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:buscar'])
+            ::get('/comunicacao-contato/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:listar'])
             ::request([
-                'pagina', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!quantidade', '!ordem', '!data_criacao_de', '!data_criacao_ate', '!status'
             ], 'json')
-            ::get('/contato');
+            ::get('/comunicacao-contato');
 
         Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['contato:buscar'])
-            ::get('/contato/{id}');
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:salvar'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', 'url'
+            ])
+            ::post('/comunicacao-contato');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:atualizar'])
+            ::request([
+                '!status'
+            ])
+            ::put('/comunicacao-contato/{id}');
     });
 
 Route
@@ -2168,26 +2176,26 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:buscar'])
             ::get('/chatbot-perguntas/{id}');
         Route
-           ::nome('salvar')
-           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:salvar'])
-           ::request([
-               'categoria', 'pergunta', 'resposta', 'status'
-           ])
-           ::post('/chatbot-perguntas');
-       Route
-           ::nome('atualizar')
-           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:atualizar'])
-           ::request([
-               'categoria', 'pergunta', 'resposta', 'status'
-           ])
-           ::put('/chatbot-perguntas/{id}');
-       Route
-           ::nome('perguntar')
-           ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:perguntar'])
-           ::request([
-               'categoria', 'pergunta'
-           ])
-           ::post('/chatbot-perguntas/perguntar');
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:salvar'])
+            ::request([
+                'categoria', 'pergunta', 'resposta', 'status'
+            ])
+            ::post('/chatbot-perguntas');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:atualizar'])
+            ::request([
+                'categoria', 'pergunta', 'resposta', 'status'
+            ])
+            ::put('/chatbot-perguntas/{id}');
+        Route
+            ::nome('perguntar')
+            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:perguntar'])
+            ::request([
+                'categoria', 'pergunta'
+            ])
+            ::post('/chatbot-perguntas/perguntar');
     });
 
 Route

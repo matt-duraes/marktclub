@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Models\Api\Contato\Trait;
+namespace App\Models\Api\ComunicacaoContato\Trait;
 
+use App\Classes\Geral\Status;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 trait ConstrutorTrait
 {
-    private function buscarIdEmpresa()
+    private function buscarIdEmpresa(): void
     {
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar([
-            ['link_site', $this->url],
-            ['status', 1]
+            ['link_clube', $this->url],
+            ['status', (new Status(Status::ATIVO))->numero()]
         ]);
-
         $this->idEmpresa = $Construtor->id_admin_empresa;
     }
 }
