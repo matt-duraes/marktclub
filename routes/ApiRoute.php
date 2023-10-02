@@ -2229,3 +2229,14 @@ Route
             ])
             ::put('/chatbot-categoria/{id}');
     });
+
+Route
+    ::nome('drogaria_araujo')
+    ::controller(App\Controllers\Api\DrogariaAraujoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['drogaria_araujo:buscar'])
+            ::get('/empresas/{id}');
+    });
