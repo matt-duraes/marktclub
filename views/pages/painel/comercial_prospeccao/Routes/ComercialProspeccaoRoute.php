@@ -15,7 +15,7 @@ Route
             ::view('/comercial-prospeccao/contato/{id}');
         Route
             ::nome('atualizarStatus')
-            ::request(['status', 'id'])
+            ::request(['status', 'id', '!motivo_standby'])
             ::post('/comercial-prospeccao/atualizar-status');
         Route
             ::nome('atualizarProspeccao')
