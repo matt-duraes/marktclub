@@ -64,24 +64,24 @@ $Painel->coluna(callback: function () use ($Painel) {
             campo: 'status',
             texto: 'Colocar em andamento',
             inArray: ['Novo'],
-            mensagem: 'Tem certeza que deseja mudar o status para Em andamento? Essa ação não poderá ser desfeita.',
-            status: 'andamento'
+            status: 'andamento',
+            mensagem: 'Tem certeza que deseja mudar o status para Em andamento? Essa ação não poderá ser desfeita.'
         )
         ->status(
             campo: 'status',
             texto: 'Sem interesse',
             inArray: ['Em andamento'],
-            cor: 'vermelho',
+            status: 'sem-interesse',
             mensagem: 'Tem certeza que deseja dar baixa a esse Lead? Essa ação não poderá ser desfeita.',
-            status: 'sem-interesse'
+            cor: 'vermelho'
         )
         ->status(
             campo: 'status',
             texto: 'Cadastrar usuário',
             inArray: ['Em andamento'],
-            cor: 'verde',
+            status: 'cadastro-realizado',
             mensagem: 'Tem certeza que deseja cadastrar esse Lead na base? Essa ação não poderá ser desfeita.',
-            status: 'cadastro-realizado'
+            cor: 'verde'
         );
 });
 
