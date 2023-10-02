@@ -34,6 +34,10 @@
                 <i>@iconeTema</i>
                 Mudar Tema
             </a>
+            <a href="@route(perfil.carteira)" class="botao">
+                <i>@iconeCarteirinha</i>
+                Carteirinha
+            </a>
             @ if( !API ):
             <a class="botao {!!MENU_HOVER == 'perfil-dado' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.index)">
                 <i>@iconeUsuarioOutline(22)</i>

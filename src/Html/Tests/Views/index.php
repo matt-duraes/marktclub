@@ -22,7 +22,9 @@
             <ul>
                 <?php $i = 0; ?>
                 <?php foreach($menu as $diretorio): ?>
-                    <?php if(!isset($diretorio->lista) || empty($diretorio->lista)) continue; ?>
+                    <?php if(!isset($diretorio->lista) || empty($diretorio->lista)) {
+                        continue;
+                    } ?>
                     <?php $i++; ?>
                 <li class="bloco_diretorio menu_fechado">
                     <h2 class="botao_abrir_diretorio"><?= $diretorio->diretorio ?></h2>

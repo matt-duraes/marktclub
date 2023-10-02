@@ -6,12 +6,14 @@
     display: flex
     padding: 10px
     font-family: 'Inter', sans-serif
+
 .bloco_frente, .bloco_atras
     width: 450px
     height: 250px
     margin-right: 20px
     border-radius: 5px
-    box-shadow: 3px 2px 11px 3px rgba(0,0,0,.1)
+    box-shadow: 3px 2px 11px 3px rgba(0,0,0,.3)
+
 
 /*CARTEIRA SINPOLDF*/
 
@@ -23,108 +25,42 @@
     align-items: flex-end
     flex-direction: column
     color: white
+    box-sizing: border-box
+
+    p
+        color: white
+        font-weight: bold
+        margin-left: 20px
+        font-size: 0.73rem
     .um_bloco
         width: 100%
         height: 20%
-        p
-            color: white
-            font-weight: bold
-            margin-left: 8px
-            font-size: 0.73rem
+        margin: 0px
         .dados_carteirinha
-            width: 80%
+            width: 60%
             background-color: white
             border-radius: 5px
             margin-top: 5px
-            padding: 5px
+            padding: 4px 2px 4px 5px
             color: black
     .dois_blocos
         display: flex
         width: 100%
         height: 30%
         margin-top: 20px
-        p
-            color: white
-            font-weight: bold
-            margin-left: 8px
-            margin-top: 7px
-            font-size: 0.73rem
         .dados_carteirinha
             width: 70%
             background-color: white
             border-radius: 5px
             margin-top: 5px
-            height: 18px
-            text-align: center
-            padding: 2px
+            padding: 4px 2px 4px 5px
             color: black
         .data_filiacao_sinpol
-            width: 50%
+            width: 47%
         .matricula_sinpol
             width: 50%
             .dados_carteirinha
-                width: 80%
-                min-height: 15px
-#container_sinpol_fundo
-    height: 100%
-    margin-top: 25px
-    width: 100%
-    justifyCenter()
-    flex-direction: column
-    color: white
-    .um_bloco
-        width: 100%
-        height: 20%
-        .data_nascimento
-            width: 100%
-            height: 100%
-        p
-            color: white
-            font-weight: bold
-            margin-left: 16px
-            font-size: 0.73rem
-        .dados_carteirinha
-            width: 40%
-            margin-left: 16px
-            text-align: center
-            max-height: 18px
-            background-color: white
-            border-radius: 5px
-            margin-top: 3px
-            padding: 2px
-            height: 18px
-            color: black
-    .dois_blocos
-        display: flex
-        width: 100%
-        height: 30%
-        p
-            color: white
-            font-weight: bold
-            text-align center
-            margin-left: 8px
-            margin-top: 7px
-            font-size: 0.73rem
-            height: 18px
-        .dados_carteirinha
-            width: 80%
-            margin: auto
-            background-color: white
-            border-radius: 5px
-            margin-top: 5px
-            min-height: 8px
-            text-align center
-            padding: 2px
-            color: black
-        .rg
-            width: 50%
-        .cpf
-            width: 50%
-            .dados_carteirinha
-                width: 80%
-    .data_emissao
-        text-align: center
-        margin-top: 15px
+                width: 49%
 
 /*FIM SINPOLDF*/
 
@@ -246,6 +182,8 @@
     flexCol()
     font-size: 1.4em
     height: 100%
+    border-top: 13px solid #104580
+
 #carteirinha_sindfazenda .titulo_dados
     margin-bottom: 5px
     font-weight: bold
@@ -253,24 +191,22 @@
     color: #104580
 #carteirinha_sindfazenda .documento .titulo_dados
     font-size: 0.9rem
-    margin-left: 5px
 #carteirinha_sindfazenda .bloco_logo
     height: 20%
-    padding-top: 5px
+    padding-top: 15px
     margin: auto
 
 #carteirinha_sindfazenda .bloco_dado_duplo
     flexCol()
     justify-content: flex-end
-    margin-left: 20px
-    height: 40%
-
-#carteirinha_sindfazenda .bloco_dados
+    padding-left: 20px
+    height: 50%
+#carteirinha_sindfazenda .bloco_estado
     flexCol()
     justify-content: flex-end
-    height: 40%
+    height: 30%
     align-items: center
-    margin-right: 45px
+    padding-bottom: 20px
 
 /*FIM SINDFAZENDA*/
 
@@ -287,3 +223,11 @@
         align-items: flex-end
         justify-content: center
 
+
+
+@media screen and ( max-width: 425px)
+    #bloco_frente
+        width: 58vh
+        height: 90vw
+        transform: rotate(90deg) translateY(-100%)
+        transform-origin: top left
