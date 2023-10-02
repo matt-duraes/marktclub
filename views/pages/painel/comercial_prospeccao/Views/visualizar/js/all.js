@@ -2,17 +2,20 @@
 // @painel "app_geral_visualizar"
 
 window.addEventListener('load', () => {
-    const div_standby = document.querySelector('.bloco_standby');
-    const div_perdido = document.querySelector('.bloco_perdido');
+    const inputStatus = document.querySelector('#hidden_status');
+    const status = inputStatus.value
 
-    const blocoFieldsetStandby = div_standby.parentNode.parentNode;
-    const status = document.querySelector('#hidden_status').value;
+    const div_standby = inputStatus.parentNode;
+    const div_perdido = document.querySelector('#hidden_perdido').parentNode;
+
+    const blocoFieldsetStandby = div_standby.parentNode;
     blocoFieldsetStandby.style.display = 'none';
 
-    const blocoFieldsetPerdido = div_perdido.parentNode.parentNode;
+    const blocoFieldsetPerdido = div_perdido.parentNode;
     blocoFieldsetPerdido.style.display = 'none';
 
-    const removerDisplayNone = (div, statusEsperado) => {
+
+    const removerDisplayNone = (div, bloco, statusEsperado) => {
         div.childNodes.forEach((item) => {
             if (item.nodeType === 3) {
                 return
@@ -25,11 +28,11 @@ window.addEventListener('load', () => {
             }
 
             if (!p.querySelector('span') || status === statusEsperado) {
-                div.style.display = '';
+                bloco.style.display = '';
             }
         })
     }
 
-    removerDisplayNone(div_standby, 'standby');
-    removerDisplayNone(div_perdido, 'inativo');
+    removerDisplayNone(div_standby, blocoFieldsetStandby, 'standby');
+    removerDisplayNone(div_perdido, blocoFieldsetPerdido, 'inativo');
 })

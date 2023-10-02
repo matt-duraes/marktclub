@@ -50,20 +50,17 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('formato_reuniao', 'Formato da reunião');
     });
 
-    $Painel->div(class: 'bloco_standby', callback: function () use ($Painel) {
-        $Painel->bloco(titulo: 'Standby', callback: function () use ($Painel) {
-            $Painel
-                ->linha('motivo_standby', 'Motivo do standby')
-                ->data('previsao_retorno', 'Previsão de retorno')
-                ->hidden('status', id: 'hidden_status');
-        });
+    $Painel->bloco(titulo: 'Standby', callback: function () use ($Painel) {
+        $Painel
+            ->linha('motivo_standby', 'Motivo do standby')
+            ->data('previsao_retorno', 'Previsão de retorno')
+            ->hidden('status', id: 'hidden_status');
     });
 
-    $Painel->div(class: 'bloco_perdido', callback: function () use ($Painel) {
-        $Painel->bloco(titulo: 'Motivo de perder', callback: function () use ($Painel) {
-            $Painel
-                ->linha('motivo_perdido', 'Motivo de perder');
-        });
+    $Painel->bloco(titulo: 'Motivo de perder', callback: function () use ($Painel) {
+        $Painel
+            ->linha('motivo_perdido', 'Motivo de perder')
+            ->hidden('status', id: 'hidden_perdido');
     });
 
     $Painel
