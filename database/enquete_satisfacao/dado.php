@@ -7,13 +7,10 @@ use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
 
 $seeds = [];
-for ($i = 0; $i < env('QTD_SEEDS', 500); $i++) {
+for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $seeds[] = [
         'uuid'               => uuid(),
-        'id_usuario_cliente' => valorAleatorio([
-            1, 2, 3, 100, 104, 105, 110, 1126, 1127,
-            1128, 1129, 1130, 1131, 1132, 1133
-        ]),
+        'id_usuario_cliente' => 1,
         'navegar'            => valorAleatorio((new Navegar())->listarNumero()),
         'procura'            => valorAleatorio((new Procura())->listarNumero()),
         'suporte'            => valorAleatorio((new Suporte())->listarNumero()),
