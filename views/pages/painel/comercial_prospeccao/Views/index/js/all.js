@@ -6,7 +6,7 @@
 window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
-    const PopupAtualizar = new Popup('atualizar-dado', $('#bloco_atualizar_email'), true, true);
+    const PopupAtualizar = new Popup('atualizar-dado', $('#bloco_motivo'), true, true);
 
     const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
@@ -95,6 +95,17 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     cancelarContrato = async (item, id) => {
+        const h1_motivo = document.getElementById('h1_motivo');
+        const input_motivo = document.getElementById('input_motivo');
+        const label = input_motivo.parentNode.querySelector('label');
+        const botao = document.getElementById('botao_atualizar_motivo');
+
+        h1_motivo.textContent = "Cancelar contrato";
+        input_motivo.setAttribute('placeholder', "Digite o motivo para o cancelamento")
+        label.textContent = "Motivo para o cancelamento"
+        botao.textContent = "Cancelar"
+        botao.setAttribute('class', 'botao_cancelar')
+
         PopupAtualizar.abrir();
 
         const form_motivo = document.getElementById('form_motivo');
@@ -102,8 +113,9 @@ window.addEventListener('load', () => {
             e.preventDefault();
 
             const motivo = document.getElementById('input_motivo').value;
+
             await atualizarStatusContrato(item, id, 'inativo', motivo);
-            PopupAtualizar.fechar();
+            PopupAtualizar.fecharPopup();
         })
     };
     concluirContrato = async id => {
@@ -134,11 +146,11 @@ window.addEventListener('load', () => {
             newItem.dataset.status = item.dataset.status;
             setEvents(newItem);
 
+            PopupAtualizar.fecharPopup();
+
             blocoStandBy.appendChild(newItem);
             removerBlocoZero(blocoStandBy);
             adicionarNumeroItem(blocoStandBy);
-
-            PopupAtualizar.fechar();
         })
     }
     voltarStandby = async (item, id) => {
@@ -182,14 +194,17 @@ window.addEventListener('load', () => {
         }
     }
 
-    const atualizarStatusContrato = async (item, id, status, motivo_standby = false) => {
+    const atualizarStatusContrato = async (item, id, status, dados = false) => {
         Loading.show();
 
         const body = new FormData();
         body.append('id', id);
         body.append('status', status);
-        if (motivo_standby) {
-            body.append('motivo_standby', motivo_standby);
+        if (dados && status == 'standby') {
+            body.append('motivo_standby', dados);
+        }
+        if (dados && status == 'inativo') {
+            body.append('motivo_perdido', dados);
         }
         const resposta = await fetch(LINK + '/comercial-prospeccao/atualizar-status', {
             method: 'POST',

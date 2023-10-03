@@ -99,7 +99,7 @@ class Popup {
     /**
      * Fecha a página
      */
-    fechar() {
+    fecharPopup() {
         Popup.staticFechar();
     }
     static async staticFechar() {

@@ -52,6 +52,9 @@ final class ComercialProspeccaoController extends Controller
         if ($request->motivo_standby) {
             $body['motivo_standby'] = $request->motivo_standby;
         }
+        if ($request->motivo_perdido) {
+            $body['motivo_perdido'] = $request->motivo_perdido;
+        }
         (new ApiHelper(token: true))
             ->validar('Erro ao mudar status do contrato, por favor, tente novamente.')
             ->body($body)
