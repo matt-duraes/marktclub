@@ -72,6 +72,12 @@ class Popup {
         clone.classList.remove('display_none');
         clone.classList.remove('fw_popup_display_none');
         clone.classList.add('fw_popup_conteudo_animacao');
+        clone.removeAttribute('id');
+
+        const listaId = clone.querySelectorAll('*[id]');
+        for (const id of listaId) {
+            id.removeAttribute('id');
+        }
 
         const blocoAberto = blocoFwPopup.querySelector('.fw_popup_conteudo');
         if (blocoAberto) {

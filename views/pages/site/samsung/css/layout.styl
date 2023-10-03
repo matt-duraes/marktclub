@@ -1,4 +1,6 @@
 @template "site"
+@system "Alerta"
+@system "Loading"
 @system "Popup"
 @resource "site/banner"
 @resource "site/item_lista"
@@ -15,6 +17,8 @@
         align-items: flex-start
     .atualizar .zero
         margin: 10px 0 15px
+    .atualizar p span
+        texto()
     .atualizar p strong
         texto()
         font-weight: bold
@@ -28,6 +32,6 @@
         flexCol()
         align-items: center
     .bloco_botao a
-        botaoPadraoGrande()
+        botaoPadraoDestaque()
         background-color: $corClube
         color: #FFF
