@@ -13,54 +13,64 @@ final class OperadoraModel extends ClubeApiHelper implements ListarInterface
      */
     public function listarDados(): stdClass
     {
-        return $this->montarRetorno();
-    }
-
-    /**
-     * @return stdClass
-     */
-    private function montarRetorno(): stdClass
-    {
         return (object)[
             'tipo'  => 'operadora',
-            'lista' => [
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Amil',
-                    'link'   => route('planosaude.amil'),
-                    'imagem' => LINK . '/images/site/logo_amil.png',
-                    'tipo'   => 'operadora'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Unimed Vitória',
-                    'link'   => route('planosaude.unimedVitoria'),
-                    'imagem' => LINK . '/images/site/logo_unimed_vitoria.jpg',
-                    'tipo'   => 'operadora'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Central Nacional Unimed',
-                    'link'   => route('planosaude.centralnacional'),
-                    'imagem' => LINK . '/images/site/cnu_logo.png',
-                    'tipo'   => 'operadora'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Unimed - Florianópolis',
-                    'link'   => route('planosaude.unimedflorianopolis'),
-                    'imagem' => LINK . '/images/site/logo_unimed_florianopolis.jpg',
-                    'tipo'   => 'operadora'
-                ],
-                (object)[
-                    'id'     => uuid(),
-                    'titulo' => 'Unimed Seguros',
-                    'link'   => route('planosaude.unimedSeguro'),
-                    'imagem' => LINK . '/images/site/saude-unimed-seguro.png',
-                    'tipo'   => 'operadora'
-                ]
+            'lista' => $this->pegarListaAtiva()
+        ];
+    }
+
+    private function pegarListaAtiva()
+    {
+        $lista = [
+            (object)[
+                'id'     => uuid(),
+                'titulo' => 'Amil',
+                'link'   => route('planosaude.amil'),
+                'imagem' => LINK . '/images/site/logo_amil.png',
+                'tipo'   => 'operadora',
+                'status' => MENU_SAUDE_AMIL
+            ],
+            (object)[
+                'id'     => uuid(),
+                'titulo' => 'Unimed Vitória',
+                'link'   => route('planosaude.unimedVitoria'),
+                'imagem' => LINK . '/images/site/logo_unimed_vitoria.jpg',
+                'tipo'   => 'operadora',
+                'status' => MENU_SAUDE_VITORIA
+            ],
+            (object)[
+                'id'     => uuid(),
+                'titulo' => 'Central Nacional Unimed',
+                'link'   => route('planosaude.centralnacional'),
+                'imagem' => LINK . '/images/site/cnu_logo.png',
+                'tipo'   => 'operadora',
+                'status' => MENU_SAUDE_CNU
+            ],
+            (object)[
+                'id'     => uuid(),
+                'titulo' => 'Unimed - Florianópolis',
+                'link'   => route('planosaude.unimedflorianopolis'),
+                'imagem' => LINK . '/images/site/logo_unimed_florianopolis.jpg',
+                'tipo'   => 'operadora',
+                'status' => MENU_SAUDE_FLORIANOPOLIS
+            ],
+            (object)[
+                'id'     => uuid(),
+                'titulo' => 'Unimed Seguros',
+                'link'   => route('planosaude.unimedSeguro'),
+                'imagem' => LINK . '/images/site/saude-unimed-seguro.png',
+                'tipo'   => 'operadora',
+                'status' => MENU_SAUDE_SEGURO
             ]
         ];
+        $retorno = [];
+        foreach ($lista as $r) {
+            if ($r->status != 1) {
+                continue;
+            }
+            $retorno[] = $r;
+        }
+        return $retorno;
     }
 
     /**

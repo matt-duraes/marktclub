@@ -1,0 +1,19 @@
+@template "site"
+@resource "site/mixim"
+@resource "site/variavel"
+@resource "site/geral"
+@resource "site/regulamento/index"
+@system "Form"
+@system "Alerta"
+
+
+#bloco_regulamento form
+    width: 100%
+    max-width: 400px
+    flexCol()
+    align-items: center
+    .botao
+        botaoPadraoGrande()
+        background-color: $corVerde
+        color: #FFF
+        margin-top: 15px
