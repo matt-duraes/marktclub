@@ -96,7 +96,7 @@ final class ComercialEmpresaController extends Controller implements
                     'restricao_lista', 'contrato_dia_pagamento', 'cadastro_usuario', 'contrato_dia_fechamento',
                     'renda_media', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente', 'origem', 'base_usuarios',
                     'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby', 'motivo_standby',
-                    'motivo_perdido', 'devolutiva', 'nivel_decisao', 'etapa_negociacao'
+                    'motivo_perdido', 'devolutiva', 'etapa_negociacao'
                 ]
             ),
             criptografar: Helper::CRIPTOGRAFAR,
