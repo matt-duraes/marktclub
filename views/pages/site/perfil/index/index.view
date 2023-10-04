@@ -25,6 +25,14 @@
         </section>
         <form method="post" class="form_geral">
             <fieldset>
+                @php
+                $parceiro = (new \Helpers\ApiHelper(token: true))
+                    ->json(['titulo' => 'Escolha um parceiro'])
+                    ->get('/parceiro-loja/select')
+                    ->array()['dado'] ?? [];
+                @end
+
+                @? formSelect(name: 'teste', placeholder: 'Teste', label: 'Teste', lista: $parceiro)
                 <p>Dados pessoais</p>
                 @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: $dado->nome)
                 @? formData(name: 'data_nascimento', placeholder: 'Data de nascimento', label: 'Data de nascimento',  value: $dado->data_nascimento)

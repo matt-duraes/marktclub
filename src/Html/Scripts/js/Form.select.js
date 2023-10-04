@@ -377,6 +377,7 @@ const fwFormSelectSelecionarOption = (select, option) => {
     const blocoHover = option.querySelector('li.hover');
     const inputTexto = select.querySelector('.input_select_texto');
     const inputValue = select.querySelector('.input_select_value');
+
     if (!blocoHover || !select) {
         inputTexto.value = '';
         inputValue.value = '';
@@ -392,8 +393,8 @@ const fwFormSelectSelecionarOption = (select, option) => {
     blocoHover.classList.add('selected');
     blocoHover.classList.remove('hover');
 
-    let texto = blocoHover.innerText;
-    const value = blocoHover.getAttribute('data-value');
+    let texto = blocoHover.getAttribute('title').trim();
+    const value = blocoHover.getAttribute('data-value').trim();
     if (value == '') {
         texto = '';
     }
@@ -417,10 +418,8 @@ const fwFormBlocoSelectFechar = async () => {
     if (inputTexto.value != '') {
         let valorExiste = false;
         const valorTexto = inputTexto.value.trim();
-        const expressao = new RegExp('^' + valorTexto + '$', 'i');
-        const expressaoLimpa = new RegExp('^' + fwFormSelectRemoverAcento(valorTexto), 'i');
         for (const [key, value] of Object.entries(fwFormSelectListaTexto)) {
-            if (value != '' && (expressao.test(value) || expressaoLimpa.test(fwFormSelectRemoverAcento(value)))) {
+            if (value != '' && value == valorTexto) {
                 inputTexto.value = value;
                 inputValue.value = key;
                 valorExiste = true;

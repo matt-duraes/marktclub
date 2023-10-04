@@ -33,6 +33,7 @@ class SelectModel extends ORM
         if ($this->tipo->valido()) {
             $where[] = ['tipo', $this->tipo->numero()];
         }
+        $where[] = ['status', 'in', [4, 5]];
         return $where;
     }
 }
