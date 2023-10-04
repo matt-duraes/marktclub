@@ -75,7 +75,9 @@ class EnqueteModel extends ORM implements
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->join('id', 'id_usuario_cliente')
-            ->campo(['nome'], 'usuario')
+            ->campo([
+                'uuid', 'nome'
+            ], 'usuario')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -107,20 +109,26 @@ class EnqueteModel extends ORM implements
             return $respostas;
         }
 
+        $Navegar = new Navegar();
+        $Procura = new Procura();
+        $Suporte = new Suporte();
+        $Atendimento = new Atendimento();
+        $Status = new Status();
         $retorno = [];
         foreach ($respostas as $resposta) {
             $retorno[] = [
                 'id'               => $resposta->uuid,
                 'usuario'          => [
+                    'id'   => $resposta->usuario_uuid,
                     'nome' => $resposta->usuario_nome
                 ],
-                'navegar'          => (new Navegar())->indice($resposta->navegar),
-                'procura'          => (new Procura())->indice($resposta->procura),
-                'suporte'          => (new Suporte())->indice($resposta->suporte),
-                'atendimento'      => (new Atendimento())->indice($resposta->atendimento),
+                'navegar'          => $Navegar->indice($resposta->navegar),
+                'procura'          => $Procura->indice($resposta->procura),
+                'suporte'          => $Suporte->indice($resposta->suporte),
+                'atendimento'      => $Atendimento->indice($resposta->atendimento),
                 'sistemas_clube'   => $resposta->sistemas_clube,
                 'comentario'       => $resposta->comentario,
-                'status'           => (new Status())->indice($resposta->status),
+                'status'           => $Status->indice($resposta->status),
                 'data_criacao'     => $resposta->data_criacao,
                 'data_atualizacao' => $resposta->data_atualizacao
             ];

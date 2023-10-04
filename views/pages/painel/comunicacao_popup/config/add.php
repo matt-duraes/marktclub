@@ -13,7 +13,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->data(name: 'data_final', label: 'Data Final')
             ->select(
                 name: 'status',
-                lista: (new Status())->select('Selecione o status'),
+                lista: (new Status())->select('Escolha um status'),
                 label: 'Status'
             );
     });
@@ -23,7 +23,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->url(name: 'botao_link', label: 'Link do Botão')
             ->select(
                 name: 'botao_target',
-                lista: (new BotaoTarget())->select('Selecione o tipo'),
+                lista: (new BotaoTarget())->select('Escolha um tipo'),
                 label: 'Tipo de Link'
             );
     });

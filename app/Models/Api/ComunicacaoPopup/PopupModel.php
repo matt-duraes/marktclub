@@ -65,11 +65,11 @@ class PopupModel extends ORM
         if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
             mensagemErro('Campo inválido!', 'A data de final não está no formato válido.');
         }
-        if (!$this->status->vazio() && !$this->status->valido()) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
     }
 
@@ -88,9 +88,11 @@ class PopupModel extends ORM
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
-            ->tabela(TABELA_PARCEIRO_LOJA)
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
-            ->campo(['uuid', 'titulo'], 'parceiro')
+            ->campo([
+                'uuid', 'nome_fantasia'
+            ], 'empresa')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -113,9 +115,9 @@ class PopupModel extends ORM
                 'data_inicio', 'between', [$this->dataInicio->date(), $this->dataFinal->date()]
             ];
         } elseif ($this->dataInicio->valido()) {
-            $where[] = ['data_inicio', '>=', $this->dataInicio->date()];
+            $where[] = ['data_inicio', $this->dataInicio->date()];
         } elseif ($this->dataFinal->valido()) {
-            $where[] = ['data_inicio', '<=', $this->dataFinal->date()];
+            $where[] = ['data_final', $this->dataFinal->date()];
         }
 
         if ($this->status->valido()) {
@@ -136,13 +138,15 @@ class PopupModel extends ORM
             return $popups;
         }
 
+        $BotaoTarget = new BotaoTarget();
+        $Status = new Status();
         $retorno = [];
         foreach ($popups as $popup) {
             $retorno[] = [
                 'id'             => $popup->uuid,
-                'parceiro'       => [
-                    'id'     => $popup->parceiro_uuid,
-                    'titulo' => $popup->parceiro_titulo
+                'empresa'        => [
+                    'id'   => $popup->empresa_uuid,
+                    'nome' => $popup->empresa_nome_fantasia
                 ],
                 'slug'           => $popup->slug,
                 'imagem'         => arquivoPublico(LINK_ARQUIVO_PUBLICO, $popup->imagem ?? ''),
@@ -154,8 +158,8 @@ class PopupModel extends ORM
                 'data_final'     => $popup->data_final,
                 'botao_texto'    => $popup->botao_texto,
                 'botao_link'     => (new Link($popup->botao_link))->valor(),
-                'botao_target'   => (new BotaoTarget($popup->botao_target))->indice(),
-                'status'         => (new Status())->indice($popup->status)
+                'botao_target'   => $BotaoTarget->indice($popup->botao_target),
+                'status'         => $Status->indice($popup->status)
             ];
         }
         return $retorno;

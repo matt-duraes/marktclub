@@ -20,35 +20,56 @@ use System\Trait\Model\QuantidadeTrait;
 final class ChequeBonusModel extends ORM implements
     ModelListarInterface
 {
+    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
-    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_CHEQUE_BONUS;
+    protected ?int $idEmpresa;
 
     /**
      * @param Pagina      $pagina
      * @param Quantidade  $quantidade
-     * @param Data        $dataCriacaoDe
-     * @param Data        $dataCriacaoAte
-     * @param Status      $status
-     * @param string|null $empresa
      * @param Ordem       $ordem
+     * @param string|null $empresa
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
+     * @param Status      $status
      *
      * @throws Excecao
      */
     public function __construct(
-        private readonly Pagina $pagina = new Pagina(null),
-        private readonly Quantidade $quantidade = new Quantidade(null),
-        private readonly Data $dataCriacaoDe = new Data(null),
-        private readonly Data $dataCriacaoAte = new Data(null),
-        private readonly Status $status = new Status(null),
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $empresa = null,
-        private readonly Ordem $ordem = new Ordem(null)
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly Status $status = new Status()
     ) {
         $this->validarEmpresa();
+        $this->validarDados();
         parent::__construct();
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarDados(): void
+    {
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eData()) {
+            mensagemErro('Campo inválido!', 'A data início não está no formato válido.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eData()) {
+            mensagemErro('Campo inválido!', 'A data final não está no formato válido.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
     }
 
     /**
@@ -59,45 +80,65 @@ final class ChequeBonusModel extends ORM implements
     {
         $dado = $this
             ->campo([
-                'uuid', 'tipo_usuario', 'nome',
-                'dependente_nome', 'data_criacao', 'status'
+                'cod', 'tipo_usuario', 'nome',
+                'dependente_nome', 'status', 'data_criacao'
             ])
-            ->where($this->pegarWhere(), obrigatorio: false)
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem())
+            ->order($this->pegarOrdem(new Ordem()))
             ->read();
 
-        $dado->lista = $this->montarDado($dado->lista ?? []);
+        $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
 
     /**
      * @return array
      */
-    private function pegarWhere(): array
+    protected function pegarWhere(): array
     {
-        return $this->ormWherePadrao;
+        $where = $this->ormWherePadrao;
+
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
+        }
+
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
+        }
+
+        return $where;
     }
 
     /**
-     * @param $dado
+     * @param array $solicitacoes
      *
      * @return array
      */
-    private function montarDado($dado): array
+    private function montarRetorno(array $solicitacoes): array
     {
-        $retorno = [];
+        if (empty($solicitacoes)) {
+            return $solicitacoes;
+        }
+
         $TipoUsuario = new TipoUsuario();
         $Status = new Status();
-        foreach ($dado as $r) {
-            $tipo = $TipoUsuario->indice($r->tipo_usuario);
-            $nome = $tipo == $TipoUsuario::TITULAR ? $r->nome : $r->dependente_nome;
-            $retorno[] = (object)[
-                'id'           => $r->uuid,
+        $retorno = [];
+        foreach ($solicitacoes as $solicitacao) {
+            $tipo = $TipoUsuario->indice($solicitacao->tipo_usuario);
+            $nome = ($tipo === TipoUsuario::TITULAR) ? $solicitacao->nome : $solicitacao->dependente_nome;
+            $retorno[] = [
+                'id'           => $solicitacao->cod,
                 'nome'         => $nome,
                 'tipo_usuario' => $tipo,
-                'data_criacao' => $r->data_criacao,
-                'status'       => $Status->indice($r->status)
+                'status'       => $Status->indice($solicitacao->status),
+                'data_criacao' => $solicitacao->data_criacao
             ];
         }
         return $retorno;

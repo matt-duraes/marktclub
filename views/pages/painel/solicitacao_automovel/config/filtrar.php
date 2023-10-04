@@ -2,15 +2,9 @@
 
 use App\Classes\Solicitacao\Status;
 
-$Painel = new PainelConfig\Filtrar('solicitacao_declaracao');
+$Painel = new PainelConfig\Filtrar('solicitacao_automovel');
 
 $Painel
-    ->input(
-        name: 'titulo',
-        titulo: 'Nome do parceiro',
-        label: 'Nome do parceiro',
-        placeholder: 'Nome do parceiro'
-    )
     ->select(
         name: 'empresa',
         lista: 'empresa',
@@ -38,7 +32,7 @@ $Painel
         name: 'status',
         lista: (new Status())->select('Escolha um status'),
         titulo: 'Status',
-        label: 'Empresa',
+        label: 'Status',
         placeholder: 'Status'
     );
 

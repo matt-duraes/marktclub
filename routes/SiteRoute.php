@@ -563,6 +563,9 @@ Route
         Route
             ::nome('app')
             ::view('/termo-de-uso-app');
+        Route
+            ::nome('excluir')
+            ::view('/excluir-conta');
     });
 
 Route

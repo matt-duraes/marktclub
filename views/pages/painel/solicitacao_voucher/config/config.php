@@ -4,7 +4,7 @@ use App\Classes\SolicitacaoVoucher\Helper;
 
 return [
     'titulo'     => 'Vouchers',
-    'buscar'     => true,
+    'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,

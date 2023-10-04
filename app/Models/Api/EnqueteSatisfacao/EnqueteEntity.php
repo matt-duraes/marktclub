@@ -20,7 +20,7 @@ class EnqueteEntity extends Entity
     public Procura $procura;
     public Suporte $suporte;
     public Atendimento $atendimento;
-    public array $sistemas_clube;
+    public array|string $sistemas_clube;
     public string $comentario;
     public Status $status;
     protected string $ormTabela = TABELA_ENQUETE_SATISFACAO;

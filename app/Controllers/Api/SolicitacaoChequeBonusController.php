@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use Erro\Excecao;
-use Http\Request;
-use Modules\Data;
-use Http\Response;
-use Modules\Pagina;
-use Modules\Quantidade;
-use Controller\Controller;
 use App\Classes\Solicitacao\Status;
 use App\Classes\SolicitacaoChequeBonus\Ordem;
+use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusEntity;
+use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusModel;
+use Controller\Controller;
+use Erro\Excecao;
+use Http\Request;
+use Http\Response;
+use Modules\Data;
+use Modules\Pagina;
+use Modules\Quantidade;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusModel;
-use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusEntity;
 
 class SolicitacaoChequeBonusController extends Controller implements
     ControllerBuscarInterface,
@@ -24,26 +24,6 @@ class SolicitacaoChequeBonusController extends Controller implements
     ControllerSalvarInterface,
     ControllerAtualizarInterface
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getListar(Request $request): Response
-    {
-        $ChequeBonus = new ChequeBonusModel(
-            pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade),
-            dataCriacaoDe: new Data($request->data_criacao_de),
-            dataCriacaoAte: new Data($request->data_criacao_ate),
-            status: new Status($request->status),
-            empresa: $request->empresa,
-            ordem: new Ordem($request->ordem)
-        );
-        return mensagemSucesso($ChequeBonus->listarDados());
-    }
-
     /**
      * @param string $id
      *
@@ -58,6 +38,46 @@ class SolicitacaoChequeBonusController extends Controller implements
     }
 
     /**
+     * @param ChequeBonusEntity $ChequeBonus
+     * @param int               $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoSucesso(ChequeBonusEntity $ChequeBonus, int $status = 200): Response
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($ChequeBonus, lista: [
+                'id', 'automovel', 'usuario', 'dependente', 'tipo_usuario', 'nome', 'email_pessoal',
+                'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
+                'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'rg',
+                'data_criacao', 'data_atualizacao', 'data_termo', 'status'
+            ]),
+            $status
+        );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getListar(Request $request): Response
+    {
+        $ChequeBonus = new ChequeBonusModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->empresa,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
+        );
+        return mensagemSucesso($ChequeBonus->listarDados());
+    }
+
+    /**
      * @param Request $request
      *
      * @return Response
@@ -68,33 +88,22 @@ class SolicitacaoChequeBonusController extends Controller implements
         $ChequeBonus = new ChequeBonusEntity();
         $ChequeBonus->set(lista: $request->dado());
         $ChequeBonus->salvar();
-
         return $this->retornoSucesso($ChequeBonus, 201);
     }
 
-    private function retornoSucesso(ChequeBonusEntity $ChequeBonus, int $status = 200): Response
-    {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $ChequeBonus,
-                lista: [
-                    'id', 'automovel', 'usuario', 'dependente', 'tipo_usuario', 'nome', 'email_pessoal',
-                    'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
-                    'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'rg',
-                    'data_criacao', 'data_atualizacao', 'data_termo', 'status'
-                ]
-            ),
-            $status
-        );
-    }
-
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $ChequeBonus = new ChequeBonusEntity();
         $ChequeBonus->uuid($id);
-        $ChequeBonus->status = new Status($request->status);
+        $ChequeBonus->set(lista: $request->dado());
         $ChequeBonus->salvar();
-
         return new Response(status: 204);
     }
 }

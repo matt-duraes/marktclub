@@ -16,11 +16,9 @@ $Painel
     )
     ->bloco(function () use ($Painel) {
         $Painel
-            ->data(name: 'data_inicio', titulo: 'Data Início', label: 'Data de início')
-            ->data(name: 'data_final', titulo: 'Data Final', label: 'Data final');
+            ->data(name: 'data_inicio', titulo: 'Data Início', label: 'Data de início', placeholder: 'Data de início')
+            ->data(name: 'data_final', titulo: 'Data Final', label: 'Data final', placeholder: 'Data final');
     })
     ->select(name: 'status', lista: (new Status())->select('Escolha um status'), titulo: 'Status', label: 'Status');
-
-$Painel->replace('status', (new Status())->select());
 
 return $Painel;

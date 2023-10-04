@@ -135,7 +135,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_SAUDE_VITORIA', $pagina->saude_vitoria);
         define('MENU_SAUDE_AMIL', $pagina->saude_amil);
         define('MENU_SAUDE_SEGURO', $pagina->saude_seguro);
-        define('MENU_SAUDE_SAUDE_CNU', $pagina->saude_cnu);
+        define('MENU_SAUDE_CNU', $pagina->saude_cnu);
         define('MENU_SAUDE_FLORIANOPOLIS', $pagina->saude_florianopolis);
         define('MENU_ODONTOLOGICO', $pagina->odontologico);
         define('MENU_INDICAR_LOJA', $pagina->indicar_loja);

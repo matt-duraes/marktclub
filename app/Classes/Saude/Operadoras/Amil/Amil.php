@@ -129,7 +129,7 @@ class Amil extends AbstractOperadora
                     Planos::AMIL_S450QC => [self::ACOMODACAO_COLETIVA => 660.79],
                     Planos::AMIL_S450QP => [self::ACOMODACAO_INDIVIDUAL => 707.07],
                     Planos::AMIL_S750R1 => [self::ACOMODACAO_INDIVIDUAL => 735.73],
-                    Planos::AMIL_S750R2 => [self::ACOMODACAO_INDIVIDUAL => 906.50]
+                    Planos::AMIL_S750R2 => [self::ACOMODACAO_INDIVIDUAL => 743.04]
                 ],
                 Regioes::RIO_DE_JANEIRO => [
                     Planos::AMIL_S60QC_RJ => [self::ACOMODACAO_COLETIVA => 215.81],
@@ -183,14 +183,14 @@ class Amil extends AbstractOperadora
                 ],
                 Regioes::SAO_PAULO      => [
                     Planos::AMIL_S60QC_JUNDIAI => [self::ACOMODACAO_COLETIVA => 282.83],
-                    Planos::AMIL_S60QC_SP      => [self::ACOMODACAO_COLETIVA => 230, .4],
+                    Planos::AMIL_S60QC_SP      => [self::ACOMODACAO_COLETIVA => 230.54],
                     Planos::AMIL_S80QC         => [self::ACOMODACAO_COLETIVA => 441.78],
                     Planos::AMIL_S80QP         => [self::ACOMODACAO_INDIVIDUAL => 477.11],
                     Planos::AMIL_S380QC        => [self::ACOMODACAO_COLETIVA => 549.37],
                     Planos::AMIL_S380QP        => [self::ACOMODACAO_INDIVIDUAL => 609.83],
                     Planos::AMIL_S450QC        => [self::ACOMODACAO_COLETIVA => 600.53],
                     Planos::AMIL_S450QP        => [self::ACOMODACAO_INDIVIDUAL => 666.61],
-                    Planos::AMIL_S580QP        => [self::ACOMODACAO_INDIVIDUAL => 742, 97],
+                    Planos::AMIL_S580QP        => [self::ACOMODACAO_INDIVIDUAL => 742.97],
                     Planos::AMIL_S750R1        => [self::ACOMODACAO_INDIVIDUAL => 886.38],
                     Planos::AMIL_S750R2        => [self::ACOMODACAO_INDIVIDUAL => 895.20]
                 ]

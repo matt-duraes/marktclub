@@ -7,8 +7,9 @@ $Painel = new PainelConfig\Filtrar('solicitacao_premium');
 $Painel
     ->select(
         name: 'empresa',
-        label: 'Empresa',
         lista: 'empresa',
+        label: 'Empresa',
+        placeholder: 'Empresa',
         permissao: Helper::PERMISSAO_EMPRESA
     )
     ->bloco(function () use ($Painel) {

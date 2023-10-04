@@ -34,7 +34,13 @@ return [
                 ]
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'comunicacao_contato'     => ['titulo' => 'Contato', 'acao' => ['index', 'visualizar', 'status']],
+            'comunicacao_contato'     => [
+                'titulo'    => 'Contato',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'comunicacao_contato_empresa' => 'Todas as empresas'
+                ]
+            ],
             'comunicacao_popup'       => [
                 'titulo'    => 'Popup',
                 'acao'      => ['index', 'add', 'editar', 'deletar', 'status', 'empresa'],

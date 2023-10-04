@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Classes\SolicitacaoLoja\Helper;
 use App\Classes\SolicitacaoLoja\Ordem;
+use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 use App\Models\Api\SolicitacaoLoja\SolicitacaoEntity;
 use App\Models\Api\SolicitacaoLoja\SolicitacaoModel;
@@ -11,6 +12,7 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
@@ -26,26 +28,6 @@ class SolicitacaoLojaController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getListar(Request $request): Response
-    {
-        $Solicitacao = new SolicitacaoModel(
-            pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade),
-            ordem: new Ordem($request->ordem),
-            status: new Status($request->status)
-        );
-
-        $dado = $Solicitacao->listarDados();
-        $dado->lista = criptografarDado($dado->lista, Helper::CRIPTOGRAFAR, lista: true);
-        return mensagemSucesso($dado);
-    }
-
     /**
      * @param string $id
      *
@@ -70,13 +52,35 @@ class SolicitacaoLojaController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Solicitacao, lista: [
-                'nome', 'email', 'telefone', 'mensagem',
-                'origem', 'status', 'quem_indicou',
-                'data_criacao', 'data_atualizacao'
+                'nome', 'email', 'telefone', 'mensagem', 'origem',
+                'status', 'quem_indicou', 'data_criacao', 'data_atualizacao'
             ]),
             $status,
             Helper::CRIPTOGRAFAR
         );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getListar(Request $request): Response
+    {
+        $Solicitacao = new SolicitacaoModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->nome,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Origem($request->origem),
+            new Status($request->status)
+        );
+        $solicitacoes = $Solicitacao->listarDados();
+        $solicitacoes->lista = criptografarDado($solicitacoes->lista, Helper::CRIPTOGRAFAR, lista: true);
+        return mensagemSucesso($solicitacoes);
     }
 
     /**
@@ -106,7 +110,6 @@ class SolicitacaoLojaController extends Controller implements
         $Solicitacao->uuid($id);
         $Solicitacao->set(lista: $request->dado());
         $Solicitacao->salvar();
-
         return new Response(status: 204);
     }
 
@@ -121,7 +124,6 @@ class SolicitacaoLojaController extends Controller implements
         $Solicitacao = new SolicitacaoEntity();
         $Solicitacao->uuid($id);
         $Solicitacao->destruir();
-
         return new Response(status: 204);
     }
 }

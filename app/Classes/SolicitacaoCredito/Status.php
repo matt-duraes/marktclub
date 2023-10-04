@@ -16,7 +16,7 @@ class Status extends StatusStatus
     ) {
         parent::__construct([
             self::NOVO             => 'Novo',
-            self::ENVIADO_PARCEIRO => 'Enviado para parceiro',
+            self::ENVIADO_PARCEIRO => 'Enviado p/ Parceiro',
             self::CONTRATADO       => 'Contratado',
             self::CANCELADO        => 'Cancelado'
         ], [
