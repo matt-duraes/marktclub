@@ -263,6 +263,11 @@ function pegarListaImports(conteudo, path) {
                 retorno.push('src/Html/Scripts/js/DragDrop.interno.js');
             } else if (arquivo == 'src/Html/Scripts/js/Alerta.system.js') {
                 retorno.push('src/Html/Scripts/js/Player.system.js');
+            } else if (
+                arquivo == 'src/Html/Scripts/js/Pagina.system.js' ||
+                arquivo == 'src/Html/Scripts/js/Popup.system.js'
+            ) {
+                retorno.push('src/Html/Scripts/js/LoadingSistema.interno.js');
             } else if (arquivo == 'src/Html/Scripts/js/Grafico.system.js') {
                 retorno.push('src/Html/Scripts/js/Grafico.interno.js');
                 retorno.push('src/Html/Scripts/js/Grafico.realtime.js');
