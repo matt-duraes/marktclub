@@ -46,53 +46,63 @@ class UnimedSeguro extends AbstractOperadora
 
         if ($this->idade <= 18) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 302.96, self::ACOMODACAO_PRATICO => 402.57,
-                self::ACOMODACAO_VERSATIL => 484.41
+                self::ACOMODACAO_BASICO   => 332.14,
+                self::ACOMODACAO_PRATICO  => 441.34,
+                self::ACOMODACAO_VERSATIL => 531.06
             ];
         } elseif ($this->idade >= 19 && $this->idade <= 23) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 365.27, self::ACOMODACAO_PRATICO => 488.18,
-                self::ACOMODACAO_VERSATIL => 577.25
+                self::ACOMODACAO_BASICO   => 400.45,
+                self::ACOMODACAO_PRATICO  => 535.20,
+                self::ACOMODACAO_VERSATIL => 682.84
             ];
         } elseif ($this->idade >= 24 && $this->idade <= 28) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 421.29, self::ACOMODACAO_PRATICO => 565.10,
-                self::ACOMODACAO_VERSATIL => 667.54
+                self::ACOMODACAO_BASICO   => 461.86,
+                self::ACOMODACAO_PRATICO  => 619.52,
+                self::ACOMODACAO_VERSATIL => 731.82
             ];
         } elseif ($this->idade >= 29 && $this->idade <= 33) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 479.93, self::ACOMODACAO_PRATICO => 645.61,
-                self::ACOMODACAO_VERSATIL => 767.32
+                self::ACOMODACAO_BASICO   => 526.15,
+                self::ACOMODACAO_PRATICO  => 707.79,
+                self::ACOMODACAO_VERSATIL => 841.21
             ];
         } elseif ($this->idade >= 34 && $this->idade <= 38) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 552.27, self::ACOMODACAO_PRATICO => 742.55,
-                self::ACOMODACAO_VERSATIL => 882.94
+                self::ACOMODACAO_BASICO   => 605.45,
+                self::ACOMODACAO_PRATICO  => 814.06,
+                self::ACOMODACAO_VERSATIL => 967.97
             ];
         } elseif ($this->idade >= 39 && $this->idade <= 43) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 650.44, self::ACOMODACAO_PRATICO => 865.98,
-                self::ACOMODACAO_VERSATIL => 1039.89
+                self::ACOMODACAO_BASICO   => 713.08,
+                self::ACOMODACAO_PRATICO  => 949.37,
+                self::ACOMODACAO_VERSATIL => 1140.43
             ];
         } elseif ($this->idade >= 44 && $this->idade <= 48) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 758.29, self::ACOMODACAO_PRATICO => 1003.56,
-                self::ACOMODACAO_VERSATIL => 1212.32
+                self::ACOMODACAO_BASICO   => 831.31,
+                self::ACOMODACAO_PRATICO  => 1100.21,
+                self::ACOMODACAO_VERSATIL => 1329.07
             ];
         } elseif ($this->idade >= 49 && $this->idade <= 53) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 1016.58, self::ACOMODACAO_PRATICO => 1354.63,
-                self::ACOMODACAO_VERSATIL => 1640.57
+                self::ACOMODACAO_BASICO   => 1114.48,
+                self::ACOMODACAO_PRATICO  => 1485.08,
+                self::ACOMODACAO_VERSATIL => 1798.56
             ];
         } elseif ($this->idade >= 54 && $this->idade <= 58) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 1372.30, self::ACOMODACAO_PRATICO => 1828.17,
-                self::ACOMODACAO_VERSATIL => 2218.28
+                self::ACOMODACAO_BASICO   => 1504.45,
+                self::ACOMODACAO_PRATICO  => 2004.23,
+                self::ACOMODACAO_VERSATIL => 2431.90
             ];
         } elseif ($this->idade >= 59) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 1805.72, self::ACOMODACAO_PRATICO => 2415.49,
-                self::ACOMODACAO_VERSATIL => 2901.35
+                self::ACOMODACAO_BASICO   => 1979.60,
+                self::ACOMODACAO_PRATICO  => 2648.10,
+                self::ACOMODACAO_VERSATIL => 3180.75
             ];
         }
 
