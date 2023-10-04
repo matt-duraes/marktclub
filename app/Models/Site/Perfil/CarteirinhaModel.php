@@ -17,7 +17,6 @@ final class CarteirinhaModel extends ClubeApiHelper
             ->validar('Página não encontrada!', status: 404)
             ->get('/carteirinha/' . sessao('USUARIO.id'))
             ->object();
-
         return $this->montarRetorno($dado);
     }
 
