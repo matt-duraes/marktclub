@@ -48,8 +48,8 @@ final class EmpresaEntity extends Entity
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
         'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
         'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente',
-        'origem', 'base_usuarios', 'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome',
+        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
         'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
     ];
     protected array $ormSalvar = [
@@ -63,8 +63,8 @@ final class EmpresaEntity extends Entity
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
         'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
         'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente',
-        'origem', 'base_usuarios', 'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome',
+        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
         'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
     ];
     protected string $ormValidarSalvar = '
@@ -128,12 +128,12 @@ final class EmpresaEntity extends Entity
     public string $observacao_ti;
     public string $observacao_comunicacao;
     public Botao $parceiro_proprio;
-    public Botao $contratou_concorrente;
-    public string $qual_concorrente;
+    public Botao $concorrente_status;
+    public string $concorrente_nome;
     public Origem $origem;
-    public int $base_usuarios;
-    public CanalPreferencia $canal_preferencia;
-    public string $data_apresentacao;
+    public int $usuario_possivel;
+    public CanalPreferencia $contato_preferencial;
+    public Data $data_apresentacao;
     public FormatoReuniao $formato_reuniao;
     public string $observacao_financeiro;
     public array $restricao_lista;

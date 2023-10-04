@@ -94,8 +94,8 @@ final class ComercialEmpresaController extends Controller implements
                     'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo',
                     'prospeccao_status', 'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro',
                     'restricao_lista', 'contrato_dia_pagamento', 'cadastro_usuario', 'contrato_dia_fechamento',
-                    'renda_media', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente', 'origem', 'base_usuarios',
-                    'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby', 'motivo_standby',
+                    'renda_media', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome', 'origem', 'usuario_possivel',
+                    'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby', 'motivo_standby',
                     'motivo_perdido', 'devolutiva', 'etapa_negociacao'
                 ]
             ),

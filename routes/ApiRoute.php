@@ -1482,8 +1482,8 @@ Route
                 '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
                 '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
-                '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!contratou_concorrente',
-                '!qual_concorrente', '!origem', '!base_usuarios', '!canal_preferencia', '!data_apresentacao',
+                '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!concorrente_status',
+                '!concorrente_nome', '!origem', '!usuario_possivel', '!contato_preferencial', '!data_apresentacao',
                 '!formato_reuniao', '!previsao_retorno', '!motivo_standby', '!motivo_perdido', '!devolutiva',
                 '!nivel_decisao', '!etapa_negociacao'
             ])
@@ -1502,8 +1502,8 @@ Route
                 '!comunicacao_whatsapp', '!comunicacao_rede_social', '!email_disparo', '!prospeccao_status',
                 '!observacao_ti', '!observacao_comunicacao', '!observacao_financeiro', '!restricao_lista',
                 '!contrato_data', '!contrato_dia_pagamento', '!contrato_dia_fechamento', '!contrato_valor_minimo',
-                '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!contratou_concorrente',
-                '!qual_concorrente', '!origem', '!base_usuarios', '!canal_preferencia', '!data_apresentacao',
+                '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!concorrente_status',
+                '!concorrente_nome', '!origem', '!usuario_possivel', '!contato_preferencial', '!data_apresentacao',
                 '!formato_reuniao', '!previsao_retorno', '!motivo_standby', '!motivo_perdido', '!devolutiva',
                 '!nivel_decisao', '!etapa_negociacao'
             ])
