@@ -1,6 +1,7 @@
 // @template "painel"
 // @painel "historico"
 // @painel "contato"
+// @system "DragDrop"
 // @system "Popup"
 
 window.addEventListener('load', () => {
@@ -24,8 +25,6 @@ window.addEventListener('load', () => {
         const botaoConcluir = item.querySelector('.botao_item_concluir');
         const botaoStandBy = item.querySelector('.botao_item_standby');
         const botaoVoltarStandBy = item.querySelector('.botao_item_voltar_standby');
-        const botaoAnterior = item.querySelector('.botao_item_anterior');
-        const botaoProximo = item.querySelector('.botao_item_proximo');
         const id = item.getAttribute('data-id');
 
         const PaginaContato = new Pagina(
@@ -72,14 +71,6 @@ window.addEventListener('load', () => {
             colocarStandby(item, id);
         });
 
-        adicionarEventoBotao(botaoAnterior, () => {
-            moverParaBlocoAnterior(item, id);
-        });
-
-        adicionarEventoBotao(botaoProximo, () => {
-            moverParaBlocoProximo(item, id);
-        });
-
         adicionarEventoBotao(botaoVoltarStandBy, () => {
             voltarStandby(item, id);
         });
@@ -115,7 +106,7 @@ window.addEventListener('load', () => {
             const motivo = document.getElementById('input_motivo').value;
 
             await atualizarStatusContrato(item, id, 'inativo', motivo);
-            PopupAtualizar.fecharPopup();
+            PopupAtualizar.fechar();
         })
     };
     concluirContrato = async id => {
@@ -146,7 +137,7 @@ window.addEventListener('load', () => {
             newItem.dataset.status = item.dataset.status;
             setEvents(newItem);
 
-            PopupAtualizar.fecharPopup();
+            PopupAtualizar.fechar();
 
             blocoStandBy.appendChild(newItem);
             removerBlocoZero(blocoStandBy);
@@ -194,6 +185,48 @@ window.addEventListener('load', () => {
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | DRAG AND DROP
+    |--------------------------------------------------------------------------
+    */
+
+    const listaColuna = blocoProspeccao.querySelectorAll('.bloco_kambam_index .coluna_drop');
+    for (const item of listaColuna) {
+        new DragDrop()
+            .grupo('.bloco_kambam_index .coluna_drop')
+            .bloco(item)
+            .item('article')
+            .eventoMover(async e => {
+                manipularBlocoZero(e.to);
+            })
+            .eventoFim(e => {
+                atualizarStatusProspeccao(e.target, e.to, e.item);
+            })
+            .iniciar();
+    }
+
+    const manipularBlocoZero = atual => {
+        let blocoZero, quantidade;
+        for (const coluna of listaColuna) {
+            blocoZero = coluna.querySelector('.tarefa_zero');
+            quantidade = coluna.querySelectorAll('.bloco_kambam_item:not(.drag_drop_fantasma)').length;
+            if (quantidade == 0) {
+                blocoZero.classList.remove('display_none');
+                continue;
+            }
+            blocoZero.classList.add('display_none');
+        }
+        const blocoZeroAtual = atual.querySelector('.tarefa_zero');
+        blocoZeroAtual.classList.add('display_none');
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNÇÕES GERAIS
+    |--------------------------------------------------------------------------
+    */
+
     const atualizarStatusContrato = async (item, id, status, dados = false) => {
         Loading.show();
 
@@ -221,94 +254,24 @@ window.addEventListener('load', () => {
         adicionarBlocoZero(blocoAtual);
     };
 
-    /*
-    |--------------------------------------------------------------------------
-    | MOVER ITEM
-    |--------------------------------------------------------------------------
-    */
-    const moverParaBlocoAnterior = (item, id) => {
-        const blocoAtual = item.closest('.conteudo');
-        const blocoDestino = pegarBlocoAnterior(blocoAtual);
-        moverItem(blocoAtual, blocoDestino, item, id);
-    };
-    const moverParaBlocoProximo = (item, id) => {
-        const blocoAtual = item.closest('.conteudo');
-        const blocoDestino = pegarBlocoProximo(blocoAtual);
-        moverItem(blocoAtual, blocoDestino, item, id);
-    };
-    const pegarBlocoAnterior = bloco => {
-        const atual = bloco.getAttribute('data-prospeccao');
-        switch (atual) {
-            case 'pesquisa':
-                return false;
-            case 'apresentacao':
-                return blocoPesquisa;
-            case 'negociacao':
-                return blocoApresentacao;
-            case 'avaliacao':
-                return blocoNegociacao;
-            case 'minuta':
-                return blocoAvaliacao;
-        }
-    };
-    const pegarBlocoProximo = bloco => {
-        const atual = bloco.getAttribute('data-prospeccao');
-        switch (atual) {
-            case 'pesquisa':
-                return blocoApresentacao;
-            case 'apresentacao':
-                return blocoNegociacao;
-            case 'negociacao':
-                return blocoAvaliacao;
-            case 'avaliacao':
-                return blocoMinuta;
-            case 'minuta':
-                return false;
-        }
-    };
-
-    const moverItem = async (atual, destino, item, id) => {
-        if (false === destino || false === atual) {
-            return;
-        } else if (!(await Alerta.confirmar('Mover contrato!', 'Tem certeza que deseja mover esse contrato?', '!'))) {
-            return;
-        }
+    const atualizarStatusProspeccao = async (blocoAtual, blocoDestino, item) => {
+        const id = item.getAttribute('data-id');
+        const status = blocoDestino.getAttribute('data-prospeccao');
 
         Loading.show();
 
-        const status = destino.getAttribute('data-prospeccao');
-        const body = new FormData();
-        body.append('id', id);
-        body.append('prospeccao', status);
-
-        const resposta = await fetch(LINK + '/comercial-prospeccao/atualizar-prospeccao', {
-            method: 'POST',
-            body,
-        });
-        const json = await respostaJson(resposta, 'Erro ao mover o contrato, por favor, tente novamente.');
+        const resposta = await ajaxPost(LINK + '/comercial-prospeccao/atualizar-prospeccao', {
+            id,
+            'prospeccao' : status,
+        }, 'Mensagem de erro padrão');
 
         Loading.hide();
-        if (false === json) {
+
+        if(false === resposta) {
             return;
         }
-
-        const blocoZero = destino.querySelector('.tarefa_zero');
-        if (blocoZero) {
-            blocoZero.parentNode.removeChild(blocoZero);
-        }
-        const botaoAnterior = item.querySelector('.botao_item_anterior');
-        const botaoProximo = item.querySelector('.botao_item_proximo');
-        botaoAnterior.classList.remove('display_none');
-        botaoProximo.classList.remove('display_none');
-        if (status == 'pesquisa') {
-            botaoAnterior.classList.add('display_none');
-        } else if (status == 'minuta') {
-            botaoProximo.classList.add('display_none');
-        }
-        destino.appendChild(item);
-        adicionarBlocoZero(atual);
-        adicionarNumeroItem(atual);
-        adicionarNumeroItem(destino);
+        adicionarNumeroItem(blocoAtual);
+        adicionarNumeroItem(blocoDestino);
     };
 
     const adicionarNumeroItem = bloco => {
