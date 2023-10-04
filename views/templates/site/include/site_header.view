@@ -2,7 +2,7 @@
 
 <header id="header_principal">
     <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
-    <figure>
+    <figure class="bloco_logo_clube">
         <a href="@route(index.index)">
             <img src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
         </a>
